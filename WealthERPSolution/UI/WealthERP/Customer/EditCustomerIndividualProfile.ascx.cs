@@ -161,19 +161,22 @@ namespace WealthERP.Customer
                     }
 
                     BindDropDowns();
+                    //BinSubtypeDropdown();
 
                     //Bind Adviser Branch List
 
                     BindListBranch(customerVo.RmId, "rm");
-                    ddlCustomerSubType.SelectedValue = customerVo.TaxStatusCustomerSubTypeId.ToString();
+                //sai    ddlCustomerSubType.SelectedValue = customerVo.TaxStatusCustomerSubTypeId.ToString();
 
                     if (customerVo.Type.ToUpper().ToString() == "IND")
                     {
                         rbtnIndividual.Checked = true;
+                        BinSubtypeDropdown(1001);
                     }
                     else
                     {
                         rbtnNonIndividual.Checked = true;
+                        BinSubtypeDropdown(1002);
                     }
                     if (customerVo.Gender.ToUpper().ToString() == "M")
                     {
@@ -453,6 +456,7 @@ namespace WealthERP.Customer
         //    }
         //}
 
+        
         private void BindDropDowns()
         {
             AdvisorVo advisorVo = new AdvisorVo();
@@ -473,14 +477,14 @@ namespace WealthERP.Customer
                 ddlNationality.DataBind();
                 ddlNationality.Items.Insert(0, new ListItem("Select a Nationality", "Select a Nationality"));
 
+                //dtOccupation = commonLookupBo.GetWERPLookupMasterValueList(2000, 0);
+                //ddlCustomerSubType.DataSource = dtOccupation;
+                //ddlCustomerSubType.DataTextField = "WCMV_Name";
+                //ddlCustomerSubType.DataValueField = "WCMV_LookupId";
+                //ddlCustomerSubType.DataBind();
+                //ddlCustomerSubType.Items.Insert(0, new ListItem("--SELECT--", "0"));
 
-                dtOccupation = commonLookupBo.GetWERPLookupMasterValueList(2000, 0);
-                ddlCustomerSubType.DataSource = dtOccupation;
-                ddlCustomerSubType.DataTextField = "WCMV_Name";
-                ddlCustomerSubType.DataValueField = "WCMV_LookupId";
-                ddlCustomerSubType.DataBind();
-                ddlCustomerSubType.Items.Insert(0, new ListItem("--SELECT--", "0"));
-
+               
                 dtOccupation = commonLookupBo.GetWERPLookupMasterValueList(3000, 0); ;
                 ddlOccupation.DataSource = dtOccupation;
                 ddlOccupation.DataTextField = "WCMV_Name";
@@ -551,7 +555,7 @@ namespace WealthERP.Customer
                 //ddlCustomerSubType.DataBind();
 
 
-                ddlCustomerSubType.SelectedValue = customerVo.SubType;
+              //sai  ddlCustomerSubType.SelectedValue = customerVo.SubType;
 
             }
             catch (BaseApplicationException Ex)
@@ -974,10 +978,13 @@ namespace WealthERP.Customer
 
         protected void rbtnIndividual_CheckedChanged(object sender, EventArgs e)
         {
-            dtCustomerSubType = XMLBo.GetCustomerSubType(path, "IND");
-            ddlCustomerSubType.DataSource = dtCustomerSubType;
-            ddlCustomerSubType.DataTextField = "CustomerTypeName";
-            ddlCustomerSubType.DataValueField = "CustomerSubTypeCode";
+            DataTable dt = new DataTable();
+            //dtCustomerSubType = XMLBo.GetCustomerSubType(path, "IND");
+            dt = XMLBo.GetCustomerSubType(path, "IND");
+            //ddlCustomerSubType.DataSource = dtCustomerSubType;
+            ddlCustomerSubType.DataSource = dt;
+            ddlCustomerSubType.DataTextField = "WCMV_Name";
+            ddlCustomerSubType.DataValueField = "WCMV_LookupId";
             ddlCustomerSubType.DataBind();
             //  ddlCustomerSubType.SelectedValue = customerVo.SubType;
             if (customerVo != null)
@@ -986,13 +993,32 @@ namespace WealthERP.Customer
                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "PageLoadScript", "loadcontrol('EditCustomerIndividualProfile','none');", true);
             }
         }
-
+        
+        private void BinSubtypeDropdown(int parentId)
+        {
+            DataTable dt = new DataTable();
+            // dtOccupation = commonLookupBo.GetWERPLookupMasterValueList(2000, 1002);
+            dt = commonLookupBo.GetWERPLookupMasterValueList(2000, parentId);
+            ddlCustomerSubType.Items.Clear();
+            //  dtCustomerSubType = XMLBo.GetCustomerSubType(path, "NIND");
+            // ddlCustomerSubType.DataSource = dtCustomerSubType;
+            ddlCustomerSubType.DataSource = dt;
+            ddlCustomerSubType.DataTextField = "WCMV_Name";
+            ddlCustomerSubType.DataValueField = "WCMV_LookupId";
+            ddlCustomerSubType.DataBind();
+        }
         protected void rbtnNonIndividual_CheckedChanged(object sender, EventArgs e)
         {
-            dtCustomerSubType = XMLBo.GetCustomerSubType(path, "NIND");
-            ddlCustomerSubType.DataSource = dtCustomerSubType;
-            ddlCustomerSubType.DataTextField = "CustomerTypeName";
-            ddlCustomerSubType.DataValueField = "CustomerSubTypeCode";
+            DataTable dt = new DataTable();
+            //dtOccupation = commonLookupBo.GetWERPLookupMasterValueList(2000, 1002);
+            dt = commonLookupBo.GetWERPLookupMasterValueList(2000, 1002);
+
+           // ddlCustomerSubType.Items.Clear();
+          //  dtCustomerSubType = XMLBo.GetCustomerSubType(path, "NIND");
+            //ddlCustomerSubType.DataSource = null;
+            ddlCustomerSubType.DataSource = dt;
+            ddlCustomerSubType.DataTextField = "WCMV_Name";
+            ddlCustomerSubType.DataValueField = "WCMV_LookupId";
             ddlCustomerSubType.DataBind();
             // ddlCustomerSubType.SelectedValue = customerVo.SubType;
             if (customerVo != null)

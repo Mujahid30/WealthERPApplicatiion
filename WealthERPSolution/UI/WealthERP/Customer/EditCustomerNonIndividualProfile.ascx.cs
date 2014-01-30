@@ -23,6 +23,8 @@ namespace WealthERP.Customer
         CustomerBo customerBo = new CustomerBo();
         string path = "";
         DataTable dtCustomerSubType = new DataTable();
+        CommonLookupBo commonLookupBo = new CommonLookupBo();
+
         protected void Page_Load(object sender, EventArgs e)
         {
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
@@ -32,7 +34,7 @@ namespace WealthERP.Customer
                 SessionBo.CheckSession();
                 if (!IsPostBack)
                 {
-                    
+
                     BindDropDowns(path);
                     //Bind Adviser Branch List
                     BindListBranch(customerVo.RmId, "rm");
@@ -40,7 +42,7 @@ namespace WealthERP.Customer
                     userVo = (UserVo)Session["userVo"];
                     if (customerVo.Type.ToUpper().ToString() == "IND")
                     {
-                        
+
                         rbtnIndividual.Checked = true;
                         trSalutation.Visible = true;
                     }
@@ -49,102 +51,203 @@ namespace WealthERP.Customer
                         rbtnNonIndividual.Checked = true;
                         trSalutation.Visible = false;
                     }
+                    if (customerVo != null)
+                    {
 
-                    if (customerVo.ProfilingDate == DateTime.MinValue)
-                    {
-                        txtDateofProfiling.Text = DateTime.Today.ToShortDateString();
-                    }
-                    else
-                        txtDateofProfiling.Text = customerVo.ProfilingDate.ToShortDateString();
-                    ddlAdviserBranchList.SelectedValue = customerVo.BranchId.ToString();
-                    txtFirstName.Text = customerVo.ContactFirstName;
-                    txtMiddleName.Text = customerVo.ContactMiddleName;
-                    txtLastName.Text = customerVo.ContactLastName;
+                        if (customerVo.ProfilingDate == DateTime.MinValue)
+                        {
+                            txtDateofProfiling.Text = DateTime.Today.ToShortDateString();
+                        }
+                        else
+                            txtDateofProfiling.Text = customerVo.ProfilingDate.ToShortDateString();
+                        ddlAdviserBranchList.SelectedValue = customerVo.BranchId.ToString();
+                        if (!string.IsNullOrEmpty(customerVo.ContactFirstName))
+                        {
+                            txtFirstName.Text = customerVo.ContactFirstName;
+                        }
+                        if (!string.IsNullOrEmpty(customerVo.ContactMiddleName))
+                        {
+                            txtMiddleName.Text = customerVo.ContactMiddleName;
+                        }
+                        if (!string.IsNullOrEmpty(customerVo.ContactLastName))
+                        {
+                            txtLastName.Text = customerVo.ContactLastName;
+                        }
+                        if (!string.IsNullOrEmpty(customerVo.CompanyWebsite))
+                        {
+                            txtCompanyWebsite.Text = customerVo.CompanyWebsite.ToString();
+                        }
+                        if (!string.IsNullOrEmpty(customerVo.RegistrationPlace))
+                        {
+                            txtRegistrationPlace.Text = customerVo.RegistrationPlace.ToString();
+                        }
+                        if (!string.IsNullOrEmpty(customerVo.RegistrationNum))
+                        {
+                            txtRocRegistration.Text = customerVo.RegistrationNum.ToString();
+                        }
+                        if (customerVo.RegistrationDate == DateTime.MinValue)
+                        {
+                            txtDateofRegistration.Text = "";
+                        }
+                        else
+                            txtDateofRegistration.Text = customerVo.RegistrationDate.ToShortDateString();
 
-                    txtCompanyWebsite.Text = customerVo.CompanyWebsite.ToString();
-                    txtRegistrationPlace.Text = customerVo.RegistrationPlace.ToString();
-                    txtRocRegistration.Text = customerVo.RegistrationNum.ToString();
-                    if (customerVo.RegistrationDate == DateTime.MinValue)
-                    {
-                        txtDateofRegistration.Text = "";
+                        if (customerVo.CommencementDate == DateTime.MinValue)
+                        {
+                            txtDateofCommencement.Text = "";
+                        }
+                        else
+                            txtDateofCommencement.Text = customerVo.CommencementDate.ToShortDateString();
+                        if (!string.IsNullOrEmpty(customerVo.CompanyName))
+                        {
+                            txtCompanyName.Text = customerVo.CompanyName;
+                        }
+                        if (!string.IsNullOrEmpty(customerVo.CustCode.ToString()))
+                        {
+                            txtCustomerCode.Text = customerVo.CustCode.ToString();
+                        }
+                        if (!string.IsNullOrEmpty(customerVo.PANNum.ToString()))
+                        {
+                            txtPanNumber.Text = customerVo.PANNum.ToString();
+                        }
+                        //txtRmName.Text = customerVo.RmId.ToString();
+                        if (!string.IsNullOrEmpty(customerVo.Adr1Line1))
+                        {
+                            txtCorrAdrLine1.Text = customerVo.Adr1Line1.ToString();
+                        }
+                        if (!string.IsNullOrEmpty(customerVo.Adr1Line2))
+                        {
+                            txtCorrAdrLine2.Text = customerVo.Adr1Line2.ToString();
+                        }
+                        if (!string.IsNullOrEmpty(customerVo.Adr1Line3))
+                        {
+                            txtCorrAdrLine3.Text = customerVo.Adr1Line3.ToString();
+                        }
+                        if (!string.IsNullOrEmpty(customerVo.Adr1PinCode.ToString()))
+                        {
+                            txtCorrAdrPinCode.Text = customerVo.Adr1PinCode.ToString();
+                        }
+                        if (!string.IsNullOrEmpty(customerVo.Adr1City))
+                        {
+                            txtCorrAdrCity.Text = customerVo.Adr1City.ToString();
+                        }
+                        if (customerVo.Adr1State != "")
+                        {
+                            ddlCorrAdrState.SelectedValue = customerVo.Adr1State;
+                        }
+                        if (customerVo.DummyPAN == 1)
+                        {
+                            chkdummypan.Checked = true;
+                        }
+                        else
+                        {
+                            chkdummypan.Checked = false;
+                        }
+                        if (customerVo.IsProspect == 1)
+                        {
+                            chkprospectn.Checked = true;
+                        }
+                        else
+                        {
+                            chkprospectn.Checked = false;
+                        }
+                        if (customerVo.ViaSMS == 1)
+                        {
+                            chksmsn.Checked = true;
+                        }
+                        else
+                        {
+                            chksmsn.Checked = false;
+                        }
+                        if (customerVo.AlertViaEmail == 1)
+                        {
+                            chkmailn.Checked = true;
+                        }
+                        else
+                        {
+                            chkmailn.Checked = false;
+                        }
+                        if (!string.IsNullOrEmpty(customerVo.Adr1Country ))
+                        {
+                            ddlCorrAdrCountry.SelectedItem.Value = customerVo.Adr1Country.ToString();
+                        }
+                        if (!string.IsNullOrEmpty(customerVo.Adr2Line1 ))
+                        {
+                            txtPermAdrLine1.Text = customerVo.Adr2Line1.ToString();
+                        }
+                        if (!string.IsNullOrEmpty(customerVo.Adr2Line2 ))
+                        {
+                            txtPermAdrLine2.Text = customerVo.Adr2Line2.ToString();
+                        }
+                        if (!string.IsNullOrEmpty(customerVo.Adr2Line3 ))
+                        {
+                            txtPermAdrLine3.Text = customerVo.Adr2Line3.ToString();
+                        }
+                        if (!string.IsNullOrEmpty(customerVo.Adr2PinCode.ToString()))
+                        {
+                            txtPermAdrPinCode.Text = customerVo.Adr2PinCode.ToString();
+                        }
+                        if (!string.IsNullOrEmpty(customerVo.Adr2City ))
+                        {
+                            txtPermAdrCity.Text = customerVo.Adr2City.ToString();
+                        }
+                        if (!string.IsNullOrEmpty(customerVo.Adr2State))
+                        {
+                            if (customerVo.Adr2State.ToString() != "")
+                            {
+                                ddlPermAdrState.SelectedValue = customerVo.Adr2State;
+                            }
+                        }
+                        if (!string.IsNullOrEmpty(customerVo.Adr2Country ))
+                        {
+                            ddlPermAdrCountry.SelectedItem.Value = customerVo.Adr2Country.ToString();
+                        }
+                        if (!string.IsNullOrEmpty(customerVo.ResISDCode.ToString()))
+                        {
+                            txtPhoneNo1Isd.Text = customerVo.ResISDCode.ToString();
+                        }
+                        if (!string.IsNullOrEmpty(customerVo.ResSTDCode.ToString()))
+                        {
+                            txtPhoneNo1Std.Text = customerVo.ResSTDCode.ToString();
+                        }
+                        if (!string.IsNullOrEmpty(customerVo.ResPhoneNum.ToString()))
+                        {
+                            txtPhoneNo1.Text = customerVo.ResPhoneNum.ToString();
+                        }
+                        if (!string.IsNullOrEmpty(customerVo.OfcISDCode.ToString()))
+                        {
+                            txtPhoneNo2Isd.Text = customerVo.OfcISDCode.ToString();
+                        }
+                        if (!string.IsNullOrEmpty(customerVo.OfcSTDCode.ToString()))
+                        {
+                            txtPhoneNo2Std.Text = customerVo.OfcSTDCode.ToString();
+                        }
+                        if (!string.IsNullOrEmpty(customerVo.OfcPhoneNum.ToString()))
+                        {
+                            txtPhoneNo2.Text = customerVo.OfcPhoneNum.ToString();
+                        }
+                        if (!string.IsNullOrEmpty(customerVo.Fax.ToString()))
+                        {
+                            txtFax.Text = customerVo.Fax.ToString();
+                        }
+                        if (!string.IsNullOrEmpty(customerVo.ISDFax.ToString()))
+                        {
+                            txtFaxIsd.Text = customerVo.ISDFax.ToString();
+                        }
+                        if (!string.IsNullOrEmpty(customerVo.STDFax.ToString()))
+                        {
+                            txtFaxStd.Text = customerVo.STDFax.ToString();
+                        }
+                        //txtEmail.Text = customerVo.Email.ToString();
+                        if (!string.IsNullOrEmpty(customerVo.AltEmail))
+                        {
+                            txtAltEmail.Text = customerVo.AltEmail.ToString();
+                        }
+                        //if (customerVo.AltEmail.ToString() != "")
+                        //{
+                        //    txtAltEmail.Text = customerVo.AltEmail.ToString();
+                        //}
                     }
-                    else
-                        txtDateofRegistration.Text = customerVo.RegistrationDate.ToShortDateString();
-
-                    if (customerVo.CommencementDate == DateTime.MinValue)
-                    {
-                        txtDateofCommencement.Text = "";
-                    }
-                    else
-                        txtDateofCommencement.Text = customerVo.CommencementDate.ToShortDateString();
-                    txtCompanyName.Text = customerVo.CompanyName;
-                    txtCustomerCode.Text = customerVo.CustCode.ToString();
-                    txtPanNumber.Text = customerVo.PANNum.ToString();
-                    //txtRmName.Text = customerVo.RmId.ToString();
-                    txtCorrAdrLine1.Text = customerVo.Adr1Line1.ToString();
-                    txtCorrAdrLine2.Text = customerVo.Adr1Line2.ToString();
-                    txtCorrAdrLine3.Text = customerVo.Adr1Line3.ToString();
-                    txtCorrAdrPinCode.Text = customerVo.Adr1PinCode.ToString();
-                    txtCorrAdrCity.Text = customerVo.Adr1City.ToString();
-                    if (customerVo.Adr1State != "")
-                    {
-                        ddlCorrAdrState.SelectedValue = customerVo.Adr1State;
-                    }
-                    if (customerVo.DummyPAN == 1)
-                    {
-                        chkdummypan.Checked = true;
-                    }
-                    else
-                    {
-                        chkdummypan.Checked = false;
-                    }
-                    if (customerVo.IsProspect == 1)
-                    {
-                        chkprospectn.Checked = true;
-                    }
-                    else
-                    {
-                        chkprospectn.Checked = false;
-                    }
-                    if (customerVo.ViaSMS == 1)
-                    {
-                        chksmsn.Checked = true;
-                    }
-                    else
-                    {
-                        chksmsn.Checked = false;
-                    }
-                    if (customerVo.AlertViaEmail == 1)
-                    {
-                        chkmailn.Checked = true;
-                    }
-                    else
-                    {
-                        chkmailn.Checked = false;
-                    }
-
-                    ddlCorrAdrCountry.SelectedItem.Value = customerVo.Adr1Country.ToString();
-                    txtPermAdrLine1.Text = customerVo.Adr2Line1.ToString();
-                    txtPermAdrLine2.Text = customerVo.Adr2Line2.ToString();
-                    txtPermAdrLine3.Text = customerVo.Adr2Line3.ToString();
-                    txtPermAdrPinCode.Text = customerVo.Adr2PinCode.ToString();
-                    txtPermAdrCity.Text = customerVo.Adr2City.ToString();
-                    if (customerVo.Adr2State.ToString() != "")
-                    {
-                        ddlPermAdrState.SelectedValue = customerVo.Adr2State;
-                    }
-                    ddlPermAdrCountry.SelectedItem.Value = customerVo.Adr2Country.ToString();
-                    txtPhoneNo1Isd.Text = customerVo.ResISDCode.ToString();
-                    txtPhoneNo1Std.Text = customerVo.ResSTDCode.ToString();
-                    txtPhoneNo1.Text = customerVo.ResPhoneNum.ToString();
-                    txtPhoneNo2Isd.Text = customerVo.OfcISDCode.ToString();
-                    txtPhoneNo2Std.Text = customerVo.OfcSTDCode.ToString();
-                    txtPhoneNo2.Text = customerVo.OfcPhoneNum.ToString();
-                    txtFax.Text = customerVo.Fax.ToString();
-                    txtFaxIsd.Text = customerVo.ISDFax.ToString();
-                    txtFaxStd.Text = customerVo.STDFax.ToString();
-                    txtEmail.Text = customerVo.Email.ToString();
-                    txtAltEmail.Text = customerVo.AltEmail.ToString();
                 }
             }
             catch (BaseApplicationException Ex)
@@ -185,19 +288,36 @@ namespace WealthERP.Customer
 
             if (customerVo.Type.ToUpper().ToString() == "IND")
             {
-                dtCustomerSubType = XMLBo.GetCustomerSubType(path, "IND");
-
+               // dtCustomerSubType = XMLBo.GetCustomerSubType(path, "IND");
+               // commonLookupBo.GetWERPLookupMasterValueList(2000, 1001);
+                BinSubtypeDropdown(1001);
             }
             else
             {
-                dtCustomerSubType = XMLBo.GetCustomerSubType(path, "NIND");
-            }
-            ddlCustomerSubType.DataSource = dtCustomerSubType;
-            ddlCustomerSubType.DataTextField = "CustomerTypeName";
-            ddlCustomerSubType.DataValueField = "CustomerSubTypeCode";
-            ddlCustomerSubType.DataBind();
-            ddlCustomerSubType.SelectedValue = customerVo.SubType;
+                BinSubtypeDropdown(1002);
 
+                //commonLookupBo.GetWERPLookupMasterValueList(2000, 1002);
+                //dtCustomerSubType = XMLBo.GetCustomerSubType(path, "NIND");
+            }
+            //ddlCustomerSubType.DataSource = dtCustomerSubType;
+            //ddlCustomerSubType.DataTextField = "CustomerTypeName";
+            //ddlCustomerSubType.DataValueField = "CustomerSubTypeCode";
+            //ddlCustomerSubType.DataBind();
+            //ddlCustomerSubType.SelectedValue = customerVo.SubType;
+
+        }
+        private void BinSubtypeDropdown(int parentId)
+        {
+            DataTable dt = new DataTable();
+            // dtOccupation = commonLookupBo.GetWERPLookupMasterValueList(2000, 1002);
+            dt = commonLookupBo.GetWERPLookupMasterValueList(2000, parentId);
+            ddlCustomerSubType.Items.Clear();
+            //  dtCustomerSubType = XMLBo.GetCustomerSubType(path, "NIND");
+            // ddlCustomerSubType.DataSource = dtCustomerSubType;
+            ddlCustomerSubType.DataSource = dt;
+            ddlCustomerSubType.DataTextField = "WCMV_Name";
+            ddlCustomerSubType.DataValueField = "WCMV_LookupId";
+            ddlCustomerSubType.DataBind();
         }
         protected void btnEdit_Click(object sender, EventArgs e)
         {
@@ -206,10 +326,12 @@ namespace WealthERP.Customer
                 if (rbtnIndividual.Checked)
                 {
                     customerVo.Type = "IND";
+                  
                 }
                 else
                 {
                     customerVo.Type = "NIND";
+                 
                     customerVo.FirstName = txtCompanyName.Text;
                     customerVo.MiddleName = "";
                     customerVo.LastName = "";
@@ -447,12 +569,14 @@ namespace WealthERP.Customer
 
         protected void rbtnIndividual_CheckedChanged(object sender, EventArgs e)
         {
-            ddlCustomerSubType.DataSource = null;
-            dtCustomerSubType = XMLBo.GetCustomerSubType(path, "IND");
-            ddlCustomerSubType.DataSource = dtCustomerSubType;
-            ddlCustomerSubType.DataTextField = "CustomerTypeName";
-            ddlCustomerSubType.DataValueField = "CustomerSubTypeCode";
-            ddlCustomerSubType.DataBind();
+            BinSubtypeDropdown(1001);
+
+            //ddlCustomerSubType.DataSource = null;
+            //dtCustomerSubType = XMLBo.GetCustomerSubType(path, "IND");
+            //ddlCustomerSubType.DataSource = dtCustomerSubType;
+            //ddlCustomerSubType.DataTextField = "CustomerTypeName";
+            //ddlCustomerSubType.DataValueField = "CustomerSubTypeCode";
+            //ddlCustomerSubType.DataBind();
             if (customerVo != null)
             {
                 customerVo.Type = "IND";
@@ -463,11 +587,13 @@ namespace WealthERP.Customer
 
         protected void rbtnNonIndividual_CheckedChanged(object sender, EventArgs e)
         {
-            dtCustomerSubType = XMLBo.GetCustomerSubType(path, "NIND");
-            ddlCustomerSubType.DataSource = dtCustomerSubType;
-            ddlCustomerSubType.DataTextField = "CustomerTypeName";
-            ddlCustomerSubType.DataValueField = "CustomerSubTypeCode";
-            ddlCustomerSubType.DataBind();
+            BinSubtypeDropdown(1002);
+
+            //dtCustomerSubType = XMLBo.GetCustomerSubType(path, "NIND");
+            //ddlCustomerSubType.DataSource = dtCustomerSubType;
+            //ddlCustomerSubType.DataTextField = "CustomerTypeName";
+            //ddlCustomerSubType.DataValueField = "CustomerSubTypeCode";
+            //ddlCustomerSubType.DataBind();
             if (customerVo != null)
             {
                 Session[SessionContents.CustomerVo] = customerVo;

@@ -12,7 +12,6 @@
 </script>
 
 <script type="text/javascript">
-
     function CloseWindowsPopUp() {
         window.close();
     }
