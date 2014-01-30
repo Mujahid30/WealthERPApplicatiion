@@ -574,19 +574,19 @@ function goBack()
         <tr>
             <td style="padding-top: 20px">
                 <%--<div id="tbl" runat="server">--%>
-                    <asp:Panel ID="Panel2" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal"
+                    <asp:Panel ID="Panel2" runat="server" class="Landscape" Height="100%" Width="100%" ScrollBars="Horizontal" 
                         Visible="false">
                         <table width="100%" cellspacing="0" cellpadding="0">
                             <tr>
                                 <td>
-                                    <div id="dvTransactionsView" runat="server" style="margin: 2px; width: 640px;">
+                                    <div id="dvTransactionsView" runat="server" style="width: 640px; height:400px ">
                                         <telerik:RadGrid ID="gvMFTransactions" runat="server" GridLines="None" AutoGenerateColumns="False"
-                                            allowfiltering="true" AllowFilteringByColumn="true" PageSize="10" AllowSorting="true"
+                                            allowfiltering="true" AllowFilteringByColumn="true" PageSize="10" AllowSorting="true" fAllowAutomaticDeletes="false"
                                             OnPreRender="gvMFTransactions_PreRender" AllowPaging="True" ShowStatusBar="True"
                                             OnExcelMLExportStylesCreated="gvMFTransactions_OnExcelMLExportStylesCreated"
                                             OnExcelMLExportRowCreated="gvMFTransactions_OnExcelMLExportRowCreated" OnItemCommand="gvMFTransactions_OnItemCommand"
                                             OnItemDataBound="gvMFTransactions_ItemDataBound" OnNeedDataSource="gvMFTransactions_OnNeedDataSource"
-                                            ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowAutomaticInserts="false">
+                                            ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" Height="400px" AllowAutomaticInserts="false">
                                             <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
                                                 FileName="View Transactions Details">
                                             </ExportSettings>
@@ -1043,7 +1043,7 @@ function goBack()
         </tr>
         <tr>
             <td style="padding-top: 20px">
-                <div id="divTrail" runat="server" style="margin: 2px; width: 100%; overflow: scroll"
+                <div id="divTrail" runat="server" style="margin: 2px; width: 100%; overflow: auto"
                     visible="false">
                     <%--    <asp:Panel ID="pnlTrail" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">--%>
                     <table width="100%" cellspacing="0" cellpadding="0">
@@ -1277,6 +1277,7 @@ function goBack()
                                             <HeaderStyle Width="180px" />
                                         </MasterTableView>
                                         <ClientSettings>
+                                            <Scrolling AllowScroll="true" UseStaticHeaders="true" ScrollHeight="380px" />
                                             <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
                                             <Resizing AllowColumnResize="true" />
                                         </ClientSettings>
