@@ -1,5 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CustomerFolioMerge.ascx.cs"
-    Inherits="WealthERP.Advisor.CustomerFolioMerge" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CustomerFolioMerge.ascx.cs" Inherits="WealthERP.Advisor.CustomerFolioMerge" %>
 <%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
@@ -375,7 +374,7 @@
                         <HeaderStyle Wrap="False"></HeaderStyle>
                         <ItemStyle Wrap="False"></ItemStyle>
                     </asp:TemplateField>
-                </Columns>
+                </Columns>OnItemCommand="rgvMultiProductMIS_ItemCommand"
             </asp:GridView>
         </td>--%>
     <tr>
@@ -385,12 +384,11 @@
                     AllowPaging="True" AllowSorting="True" AutoGenerateColumns="false" ShowStatusBar="true"
                     AllowAutomaticDeletes="True" AllowAutomaticInserts="false" AllowAutomaticUpdates="false"
                     Skin="Telerik" EnableEmbeddedSkins="false" EnableHeaderContextMenu="true" EnableHeaderContextFilterMenu="true"
-                    AllowFilteringByColumn="true" OnItemCommand="rgvMultiProductMIS_ItemCommand"
-                    OnNeedDataSource="gvCustomerFolioMerge_NeedDataSource">
-                    <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="ExistMFInvestlist">
-                    </ExportSettings>
-                    <MasterTableView DataKeyNames="CustomerId,AMCCode,Count,portfilionumber" CommandItemDisplay="None"
-                        Width="90%">
+                    AllowFilteringByColumn="true" OnNeedDataSource="gvCustomerFolioMerge_NeedDataSource">
+                    <exportsettings hidestructurecolumns="false" exportonlydata="true" filename="ExistMFInvestlist">
+                    </exportsettings>
+                    <mastertableview datakeynames="CustomerId,AMCCode,Count,portfilionumber,CMFA_AccountId"
+                        commanditemdisplay="None" width="90%">
                         <Columns>
                             <telerik:GridTemplateColumn AllowFiltering="false" HeaderStyle-Width="40px">
                                 <ItemTemplate>
@@ -424,7 +422,7 @@
                                 AllowFiltering="false" SortExpression="Count" ItemStyle-HorizontalAlign="left"
                                 DataField="Count" FooterStyle-HorizontalAlign="Right">
                                 <ItemTemplate>
-                                    <asp:LinkButton ID="lnkMF" runat="server" Text='<%#Eval("Count")%>' CommandName="Redirect"></asp:LinkButton>
+                                    <asp:LinkButton ID="lnkMF" runat="server" Text='<%#Eval("Count")%>' CommandName="Redirect" OnClick="LinkButton1_Click"></asp:LinkButton>
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>
                             <%-- <telerik:GridTemplateColumn UniqueName="Count" HeaderText="Folios" Groupable="False"
@@ -527,13 +525,13 @@
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                         </Columns>
-                    </MasterTableView>
-                    <ClientSettings ReorderColumnsOnClient="True" AllowColumnsReorder="True" EnableRowHoverStyle="true">
+                    </mastertableview>
+                    <clientsettings reordercolumnsonclient="True" allowcolumnsreorder="True" enablerowhoverstyle="true">
                         <Scrolling AllowScroll="true" UseStaticHeaders="true" ScrollHeight="300px" />
                         <ClientEvents OnGridCreated="GridCreated" />
                         <Resizing AllowColumnResize="true" />
                         <Selecting AllowRowSelect="true" />
-                    </ClientSettings>
+                    </clientsettings>
                 </telerik:RadGrid>
             </div>
         </td>

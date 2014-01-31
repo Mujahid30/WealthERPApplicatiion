@@ -40,8 +40,8 @@ namespace WealthERP.OnlineOrderBackOffice
             if (!IsPostBack)
             {
                 BindTradebusinessdate();
-
-                //GetTradeBusinessDates();
+              BindCurrentPage();
+                GetTradeBusinessDates();
                 BindYearDropdown();
                 //btngo_Click();
                 //gvTradeBusinessDate.PageIndex = 8;
@@ -49,35 +49,35 @@ namespace WealthERP.OnlineOrderBackOffice
             createcalanders.Visible = false;
         }
 
-        //private void GetTradeBusinessDates()
-        //{
-        //    try
-        //    {
-        //        DataTable getTradeBusinessDateDt = new DataTable();
-        //        getTradeBusinessDateDt = OnlineOrderBackOfficeBo.//GetTradeBusinessDates().Tables[0];
-        //        gvTradeBusinessDate.DataSource = getTradeBusinessDateDt;
-        //        gvTradeBusinessDate.DataBind();
-        //        if (Cache[userVo.UserId.ToString() + "TradeBusinessDates"] != null)
-        //            Cache.Remove(userVo.UserId.ToString() + "TradeBusinessDates");
-        //        Cache.Insert(userVo.UserId.ToString() + "TradeBusinessDates", getTradeBusinessDateDt);
-        //        //gvTradeBusinessDate.Rebind();
-        //    }
-        //    catch (BaseApplicationException Ex)
-        //    {
-        //        throw Ex;
-        //    }
-        //    catch (Exception Ex)
-        //    {
-        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-        //        NameValueCollection FunctionInfo = new NameValueCollection();
-        //        FunctionInfo.Add("Method", "TradeBusinessDate.ascx.cs:CreateTradeBusinessDate()");
-        //        object[] objects = new object[1];
-        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-        //        exBase.AdditionalInformation = FunctionInfo;
-        //        ExceptionManager.Publish(exBase);
-        //        throw exBase;
-        //    }
-        //}
+        private void GetTradeBusinessDates()
+        {
+            //try
+            //{
+            //    DataTable getTradeBusinessDateDt = new DataTable();
+            //    getTradeBusinessDateDt = OnlineOrderBackOfficeBo.GetTradeBusinessDates().Tables[0];
+            //    gvTradeBusinessDate.DataSource = getTradeBusinessDateDt;
+            //    gvTradeBusinessDate.DataBind();
+            //    if (Cache[userVo.UserId.ToString() + "TradeBusinessDates"] != null)
+            //        Cache.Remove(userVo.UserId.ToString() + "TradeBusinessDates");
+            //    Cache.Insert(userVo.UserId.ToString() + "TradeBusinessDates", getTradeBusinessDateDt);
+            //    //gvTradeBusinessDate.Rebind();
+            //}
+            //catch (BaseApplicationException Ex)
+            //{
+            //    throw Ex;
+            //}
+            //catch (Exception Ex)
+            //{
+            //    BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+            //    NameValueCollection FunctionInfo = new NameValueCollection();
+            //    FunctionInfo.Add("Method", "TradeBusinessDate.ascx.cs:CreateTradeBusinessDate()");
+            //    object[] objects = new object[1];
+            //    FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+            //    exBase.AdditionalInformation = FunctionInfo;
+            //    ExceptionManager.Publish(exBase);
+            //    throw exBase;
+            //}
+        }
         protected void gvTradeBusinessDateDetails_ItemCommand(object source, GridCommandEventArgs e)
         {
             DataTable getTradeBusinessDateDt = new DataTable();
@@ -482,6 +482,10 @@ namespace WealthERP.OnlineOrderBackOffice
                     if (Cache[userVo.UserId.ToString() + "TradeBusinessDates"] != null)
                         Cache.Remove(userVo.UserId.ToString() + "TradeBusinessDates");
                     Cache.Insert(userVo.UserId.ToString() + "TradeBusinessDates", dtGetAllTradeBussiness);
+
+                    //gvTradeBusinessDate.DataSource = dtGetAllTradeBussiness;
+                    //gvTradeBusinessDate.DataBind();
+                    
                     //if (Cache[userVo.UserId.ToString() + "TradeBusinessDates"] != null)
                     //{
                     //    Cache.Remove("Tradebussiness" + adviserVo.advisorId);
@@ -504,7 +508,6 @@ namespace WealthERP.OnlineOrderBackOffice
                     //    Cache.Remove("Tradebussiness" + adviserVo.advisorId);
                     //    Cache.Insert("Tradebussiness" + adviserVo.advisorId, dtGetAllTradeBussiness);
                     //}
-                    gvTradeBusinessDate.DataSource = dtGetAllTradeBussiness;
 
 
                     //int i = 0;
@@ -527,6 +530,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     //    }
                     //}
 
+                    gvTradeBusinessDate.DataSource = dtGetAllTradeBussiness;
                     gvTradeBusinessDate.DataBind();
                     //BindTradebusinessdate();
                 }
@@ -598,19 +602,13 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             SetParameter();
             BindTradebusinessdate();
-
-
         }
         private void BindCurrentPage()
         {
-            //int pageSize = 20;
-            //var page = (DateTime.Now.DayOfYear / pageSize);  //eg row 50 means page = 10
-            //gvTradeBusinessDate.CurrentPageIndex = page;
-            //gvTradeBusinessDate.MasterTableView.Rebind();
-
-
+            int pageSize = 20;// gvTradeBusinessDate.PageSize;
+            var page = (DateTime.Now.DayOfYear/ pageSize);  //eg row 50 means page = 3
+            gvTradeBusinessDate.CurrentPageIndex = page;
+            gvTradeBusinessDate.MasterTableView.Rebind();
         }
-
-
     }
 }

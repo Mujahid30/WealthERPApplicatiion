@@ -1197,13 +1197,13 @@ namespace BoOnlineOrderManagement
                 throw Ex;
             }
         }
-        public bool UpdateSchemeSetUpDetail(MFProductAMCSchemePlanDetailsVo mfProductAMCSchemePlanDetailsVo, int SchemePlanCode)
+        public bool UpdateSchemeSetUpDetail(MFProductAMCSchemePlanDetailsVo mfProductAMCSchemePlanDetailsVo, int SchemePlanCode,int userid)
         {
             bool blResult = false;
             OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
             try
             {
-                blResult = OnlineOrderBackOfficeDao.UpdateSchemeSetUpDetail(mfProductAMCSchemePlanDetailsVo, SchemePlanCode);
+                blResult = OnlineOrderBackOfficeDao.UpdateSchemeSetUpDetail(mfProductAMCSchemePlanDetailsVo, SchemePlanCode,userid);
             }
             catch (BaseApplicationException Ex)
             {

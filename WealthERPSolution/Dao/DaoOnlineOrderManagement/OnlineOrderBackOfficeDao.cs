@@ -1124,7 +1124,7 @@ namespace DaoOnlineOrderManagement
         }
 
 
-        public bool UpdateSchemeSetUpDetail(MFProductAMCSchemePlanDetailsVo mfProductAMCSchemePlanDetailsVo, int SchemePlanCode)
+        public bool UpdateSchemeSetUpDetail(MFProductAMCSchemePlanDetailsVo mfProductAMCSchemePlanDetailsVo, int SchemePlanCode, int userid)
         {
             bool blResult = false;
             Database db;
@@ -1190,7 +1190,11 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_MaxInvestment", DbType.Double, mfProductAMCSchemePlanDetailsVo.PASPD_MaxInvestment);//40
                 db.AddInParameter(updateSchemeSetUpDetailsCmd, "@WCMV_Lookup_BankId", DbType.String, mfProductAMCSchemePlanDetailsVo.WCMV_Lookup_BankId);//41
                 //db.AddInParameter(updateSchemeSetUpDetailsCmd, "@status", DbType.String, mfProductAMCSchemePlanDetailsVo.Status);
-                db.ExecuteNonQuery(updateSchemeSetUpDetailsCmd);
+                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@ExternalCode", DbType.String, mfProductAMCSchemePlanDetailsVo.ExternalCode);
+                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@ExternalType", DbType.String, mfProductAMCSchemePlanDetailsVo.ExternalType);
+                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_CreatedBy", DbType.Int32, userid);
+                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_ModifiedBy", DbType.Int32, userid);
+              // db.ExecuteNonQuery(updateSchemeSetUpDetailsCmd);
                 if (db.ExecuteNonQuery(updateSchemeSetUpDetailsCmd) != 0)
                     blResult = true;
             }
@@ -1887,5 +1891,6 @@ namespace DaoOnlineOrderManagement
                 throw Ex;
             }
        }
+
     }
 }

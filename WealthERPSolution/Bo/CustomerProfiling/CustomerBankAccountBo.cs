@@ -193,7 +193,7 @@ namespace BoCustomerProfiling
             }
             catch (BaseApplicationException Ex)
             {
-                bResult = false;                
+                throw Ex;               
             }          
 
             return bResult;
@@ -343,6 +343,18 @@ namespace BoCustomerProfiling
 
              }
              return blResult;
+             }
+         public string  Getfolioname(int folioid)
+         {
+             CustomerBankAccountDao customerBankAccountDao = new CustomerBankAccountDao();
+             try
+             {
+                return  customerBankAccountDao.Getfolioname(folioid);
+             }
+             catch (BaseApplicationException Ex)
+             {
+                 throw Ex;
+             }
          }
-    }
+   }
 }

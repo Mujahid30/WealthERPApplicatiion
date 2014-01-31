@@ -19,35 +19,35 @@
    
 </script>
 
-    <tr>
-        <td>
-            <div class="divPageHeading">
-                <table width="100%">
-                    <tr>
-                        <td align="left">
-                            Online Scheme Setup
-                        </td>
-                        <td align="right">
-                            <asp:LinkButton runat="server" ID="lbBack" CssClass="LinkButtons" Text="Edit" Visible="false"
-                                OnClick="lbBack_OnClick"></asp:LinkButton>
-                        </td>
-                        <td>
-                            <asp:LinkButton runat="server" ID="lblBack" CssClass="LinkButtons" Text="Back" Visible="false"
-                                OnClick="lbBack1_OnClick"></asp:LinkButton>
-                        </td>
-                    </tr>
-                </table>
+<tr>
+    <td>
+        <div class="divPageHeading">
+            <table width="100%">
+                <tr>
+                    <td align="left">
+                        Online Scheme Setup
+                    </td>
+                    <td align="right">
+                        <asp:LinkButton runat="server" ID="lbBack" CssClass="LinkButtons" Text="Edit" Visible="false"
+                            OnClick="lbBack_OnClick"></asp:LinkButton>
+                    </td>
+                    <td>
+                        <asp:LinkButton runat="server" ID="lblBack" CssClass="LinkButtons" Text="Back" Visible="false"
+                            OnClick="lbBack1_OnClick"></asp:LinkButton>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </td>
+</tr>
+<table id="tblMessage" width="100%" runat="server" visible="false" style="padding-top: 20px;">
+    <tr id="trSumbitSuccess">
+        <td align="center">
+            <div id="msgRecordStatus" class="success-msg" align="center" runat="server">
             </div>
         </td>
     </tr>
-    <table id="tblMessage" width="100%" runat="server" visible="false" style="padding-top: 20px;">
-        <tr id="trSumbitSuccess">
-            <td align="center">
-                <div id="msgRecordStatus" class="success-msg" align="center" runat="server">
-                </div>
-            </td>
-        </tr>
-    </table>
+</table>
 </table>
 <div>
     <table width="100%">
@@ -223,7 +223,7 @@
         </tr>
     </table>
 </div>
-<div id="schemedetails" runat="server" visible="false">
+<div id="schemedetails" runat="server" visible="true">
     <table width="100%">
         <tr>
             <td colspan="5">
@@ -543,9 +543,9 @@
                             <br />
                             <asp:RequiredFieldValidator ID="rfvtxtInitalPamount" runat="server" ErrorMessage="Please Enter Min. New Purchase Amount"
                                 CssClass="rfvPCG" ControlToValidate="txtInitalPamount" ValidationGroup="btnsubmit"
-                                Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
+                                Display="Dynamic" InitialValue="0"></asp:RequiredFieldValidator>
                             <asp:RegularExpressionValidator ID="regfvtxtInitalPamount" ControlToValidate="txtInitalPamount"
-                                runat="server" Display="Dynamic" CssClass="cvPCG" ValidationExpression="[1-9]\d*$"
+                                runat="server" Display="Dynamic" CssClass="cvPCG" ValidationExpression="[1-9]\d*$" 
                                 ValidationGroup="btnsybmit">     
                             </asp:RegularExpressionValidator>
                             <%-- <asp:CompareValidator ID="CmptxtInitalPamount" ControlToValidate="txtInitalPamount" runat="server"
@@ -562,7 +562,7 @@
                             <br />
                             <asp:RequiredFieldValidator ID="rfvtxtIMultipleamount" runat="server" ErrorMessage="Please Enter Purchage Multiple Amount"
                                 CssClass="rfvPCG" ControlToValidate="txtIMultipleamount" ValidationGroup="btnsubmit"
-                                Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
+                                Display="Dynamic" InitialValue="0"></asp:RequiredFieldValidator>
                             <asp:RegularExpressionValidator ID="regetxtIMultipleamount" ControlToValidate="txtIMultipleamount"
                                 runat="server" Display="Dynamic" CssClass="cvPCG" ValidationExpression="[1-9]\d*$"
                                 ValidationGroup="btnsybmit">     
@@ -583,7 +583,7 @@
                             <br />
                             <asp:RequiredFieldValidator ID="rfvtxtAdditional" runat="server" ErrorMessage="Please Enter Min. Additional Purchase Amount"
                                 CssClass="rfvPCG" ControlToValidate="txtAdditional" ValidationGroup="btnsubmit"
-                                Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
+                                Display="Dynamic" InitialValue="0"></asp:RequiredFieldValidator>
                             <asp:RegularExpressionValidator ID="regfvtxtAdditional" ControlToValidate="txtAdditional"
                                 runat="server" Display="Dynamic" CssClass="cvPCG" ValidationExpression="[1-9]\d*$"
                                 ValidationGroup="SetUpSubmit" />
@@ -601,7 +601,7 @@
                             <br />
                             <asp:RequiredFieldValidator ID="rfvtxtAddMultipleamount" runat="server" ErrorMessage="Please Enter Additional Purchase Multiple Amount"
                                 CssClass="rfvPCG" ControlToValidate="txtAddMultipleamount" ValidationGroup="btnsubmit"
-                                Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
+                                Display="Dynamic" InitialValue="0"></asp:RequiredFieldValidator>
                             <asp:RegularExpressionValidator ID="regetxtAddMultipleamount" ControlToValidate="txtAddMultipleamount"
                                 runat="server" Display="Dynamic" CssClass="cvPCG" ValidationExpression="[1-9]\d*$"
                                 ValidationGroup="SetUpSubmit" />
@@ -626,7 +626,7 @@
                             <br />
                             <asp:RequiredFieldValidator ID="rfvtxtMinRedemption" runat="server" ErrorMessage="Please Enter Min Redemption Amount"
                                 CssClass="rfvPCG" ControlToValidate="txtMinRedemption" ValidationGroup="btnsubmit"
-                                Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
+                                Display="Dynamic" InitialValue="0"></asp:RequiredFieldValidator>
                             <asp:RegularExpressionValidator ID="RegtxtMinRedemption" ControlToValidate="txtMinRedemption"
                                 runat="server" Display="Dynamic" CssClass="cvPCG" ValidationExpression="[1-9]\d*$"
                                 ValidationGroup="btnsybmit">     
@@ -645,7 +645,7 @@
                             <br />
                             <asp:RequiredFieldValidator ID="rvftxtRedemptionmultiple" runat="server" ErrorMessage="Please Enter Redemption Multiple Amount"
                                 CssClass="rfvPCG" ControlToValidate="txtRedemptionmultiple" ValidationGroup="btnsubmit"
-                                Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
+                                Display="Dynamic" InitialValue="0"></asp:RequiredFieldValidator>
                             <asp:RegularExpressionValidator ID="rfvtxtRedemptionmultiple" ControlToValidate="txtRedemptionmultiple"
                                 runat="server" Display="Dynamic" CssClass="cvPCG" ValidationExpression="[1-9]\d*$"
                                 ValidationGroup="btnsybmit">     
@@ -666,7 +666,7 @@
                             <br />
                             <asp:RequiredFieldValidator ID="rfvtxtMinRedemptioUnits" runat="server" ErrorMessage="Please Enter Min Redemption Units"
                                 CssClass="rfvPCG" ControlToValidate="txtMinRedemptioUnits" ValidationGroup="btnsubmit"
-                                Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
+                                Display="Dynamic" InitialValue="0"></asp:RequiredFieldValidator>
                             <asp:RegularExpressionValidator ID="rgetxtMinRedemptioUnits" ControlToValidate="txtMinRedemptioUnits"
                                 runat="server" Display="Dynamic" CssClass="cvPCG" ValidationExpression="[1-9]\d*$"
                                 ValidationGroup="btnsybmit">     
@@ -685,7 +685,7 @@
                             <br />
                             <asp:RequiredFieldValidator ID="rfvtxtRedemptionMultiplesUnits" runat="server" ErrorMessage="Please Enter Redemption Multiples Units"
                                 CssClass="rfvPCG" ControlToValidate="txtRedemptionMultiplesUnits" ValidationGroup="btnsubmit"
-                                Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
+                                Display="Dynamic" InitialValue="0"></asp:RequiredFieldValidator>
                             <asp:RegularExpressionValidator ID="rgetxtRedemptionMultiplesUnits" ControlToValidate="txtRedemptionMultiplesUnits"
                                 runat="server" Display="Dynamic" CssClass="cvPCG" ValidationExpression="[1-9]\d*$"
                                 ValidationGroup="btnsybmit">     
@@ -711,7 +711,7 @@
                             <br />
                             <asp:RequiredFieldValidator ID="rfvtxtMinSwitchAmount" runat="server" ErrorMessage="Please Enter Min Switch Amount"
                                 CssClass="rfvPCG" ControlToValidate="txtMinSwitchAmount" ValidationGroup="btnsubmit"
-                                Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
+                                Display="Dynamic" InitialValue="0"></asp:RequiredFieldValidator>
                             <asp:RegularExpressionValidator ID="regtxtMinSwitchAmount" ControlToValidate="txtMinSwitchAmount"
                                 runat="server" Display="Dynamic" CssClass="cvPCG" ValidationExpression="[1-9]\d*$"
                                 ValidationGroup="btnsybmit">     
@@ -730,7 +730,7 @@
                             <br />
                             <asp:RequiredFieldValidator ID="rfvtxtSwitchMultipleAmount" runat="server" ErrorMessage="Please Enter Switch Multiple Amount"
                                 CssClass="rfvPCG" ControlToValidate="txtSwitchMultipleAmount" ValidationGroup="btnsubmit"
-                                Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
+                                Display="Dynamic" InitialValue="0"></asp:RequiredFieldValidator>
                             <asp:RegularExpressionValidator ID="regetxtSwitchMultipleAmount" ControlToValidate="txtSwitchMultipleAmount"
                                 runat="server" Display="Dynamic" CssClass="cvPCG" ValidationExpression="[1-9]\d*$"
                                 ValidationGroup="btnsybmit">     
@@ -750,7 +750,7 @@
                             <br />
                             <asp:RequiredFieldValidator ID="rfvtxtMinSwitchUnits" runat="server" ErrorMessage="Please Enter Min Switch Unit"
                                 CssClass="rfvPCG" ControlToValidate="txtMinSwitchUnits" ValidationGroup="btnsubmit"
-                                Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
+                                Display="Dynamic" InitialValue="0"></asp:RequiredFieldValidator>
                             <asp:RegularExpressionValidator ID="reptxtMinSwitchUnits" ControlToValidate="txtMinSwitchUnits"
                                 runat="server" Display="Dynamic" CssClass="cvPCG" ValidationExpression="[1-9]\d*$"
                                 ValidationGroup="btnsybmit">     
@@ -769,7 +769,7 @@
                             <br />
                             <asp:RequiredFieldValidator ID="rfvtxtSwitchMultipleUnits" runat="server" ErrorMessage="Please Enter Switch Multiple Unit"
                                 CssClass="rfvPCG" ControlToValidate="txtSwitchMultipleUnits" ValidationGroup="btnsubmit"
-                                Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
+                                Display="Dynamic" InitialValue="0"></asp:RequiredFieldValidator>
                             <asp:RegularExpressionValidator ID="regtxtSwitchMultipleUnits" ControlToValidate="txtSwitchMultipleUnits"
                                 runat="server" Display="Dynamic" CssClass="cvPCG" ValidationExpression="[1-9]\d*$"
                                 ValidationGroup="btnsybmit">     
@@ -845,7 +845,7 @@
 <table>
     <tr>
         <asp:Panel ID="pnlSIPDetails" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal"
-            Visible="true">
+            Visible="false">
             <table width="100%">
                 <tr>
                     <td>
@@ -913,12 +913,12 @@
                                     </telerik:GridBoundColumn>
                                 </Columns>
                                 <EditFormSettings FormTableStyle-Height="10px" EditFormType="Template" FormTableStyle-Width="1000px"
-                                    PopUpSettings-Width="530px" PopUpSettings-Height="300px">
+                                    PopUpSettings-Width="530px" PopUpSettings-Height="300px" CaptionFormatString="Systematic Details">
                                     <FormTemplate>
                                         <table width="100%" style="background-color: White">
                                             <tr id="trCustomerTypeSelection" runat="server">
                                                 <td colspan="4">
-                                                    <table width="50%">
+                                                    <table width="100%">
                                                         <tr>
                                                             <td align="right">
                                                                 <asp:Label ID="lblFrequency" runat="server" CssClass="FieldName" Text="Frequency:"></asp:Label>
@@ -936,7 +936,7 @@
                                                             <td class="rightField" align="right">
                                                                 <asp:TextBox ID="txtstartDate" runat="server" CssClass="txtField" Text='<%# Bind("PASPSD_StatingDates") %>'
                                                                     AutoPostBack="false"></asp:TextBox>
-                                                                <span id="Span8" class="spnRequiredField">*Multiple entries to be separated by(;)like-[12;24]</span>
+                                                                <span id="Span8" class="spnRequiredField">*</br>Multiple entries to be separated by(;)like-[12;24]</span>
                                                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtstartDate"
                                                                     ErrorMessage="<br />Please Enter Date" Display="Dynamic" runat="server" CssClass="rfvPCG"
                                                                     ValidationGroup="Submit"></asp:RequiredFieldValidator>
@@ -995,7 +995,7 @@
                                                             </td>
                                                         </tr>
                                                         <tr>
-                                                            <td>
+                                                            <td align="right">
                                                                 <asp:Button ID="Button1" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
                                                                     runat="server" CssClass="PCGButton" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'
                                                                     ValidationGroup="Submit"></asp:Button>

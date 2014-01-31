@@ -416,6 +416,12 @@
                                 ShowFilterIcon="false">
                                 <ItemStyle Width="55px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                             </telerik:GridBoundColumn>
+                              <telerik:GridBoundColumn DataField="CreatedOn" UniqueName="CreatedOn" HeaderText="System Add Date"
+                                SortExpression="CreatedOn" AutoPostBackOnFilter="true" AllowFiltering="true"
+                                HeaderStyle-Width="150px" FilterControlWidth="60px" CurrentFilterFunction="Contains"
+                                ShowFilterIcon="false">
+                                <ItemStyle Width="55px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
+                            </telerik:GridBoundColumn>
                         </Columns>
                     </MasterTableView>
                     <ClientSettings>

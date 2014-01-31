@@ -17,7 +17,7 @@ namespace DaoCustomerProfiling
         public int CreateCustomerBankAccount(CustomerBankAccountVo customerBankAccountVo, int customerId, int userId)
         {
             int accountId = 0;
-            bool bResult = false;
+          //  bool bResult = false;
             Database db;
             DbCommand createCustomerBankCmd;
 
@@ -728,6 +728,24 @@ namespace DaoCustomerProfiling
             }
             return blResult;
         }
+        public string Getfolioname(int folioid)
+        {
+            string portfolioname="";
+            Database db;
+            DbCommand GetfolionameCmd;
 
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetfolionameCmd = db.GetStoredProcCommand("SP_PortFoliname");
+                db.AddInParameter(GetfolionameCmd, "@AcntId", DbType.Int16, folioid);
+                db.AddOutParameter(GetfolionameCmd, "@PortFoilo", DbType.String,50);
+                if (db.ExecuteNonQuery(GetfolionameCmd) != 0)
+                    portfolioname = db.GetParameterValue(GetfolionameCmd, "PortFoilo").ToString();
+
+                return portfolioname;
+
+            }
+        }
     }
 }
+ 

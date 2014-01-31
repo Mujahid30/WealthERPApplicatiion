@@ -30,7 +30,7 @@ namespace WealthERP.CustomerPortfolio
         CustomerAccountsVo customerAccountsVo = new CustomerAccountsVo();
         CustomerAccountAssociationVo customerAccountAssociationVo = new CustomerAccountAssociationVo();
         CustomerBo customerBo = new CustomerBo();
-       ProductMFBo productMfBo = new ProductMFBo();
+        ProductMFBo productMfBo = new ProductMFBo();
         AssetBo assetBo = new AssetBo();
         UserVo userVo = new UserVo();
         CustomerVo customerVo = new CustomerVo();
@@ -80,6 +80,38 @@ namespace WealthERP.CustomerPortfolio
 
                 SessionBo.CheckSession();
                 userVo = (UserVo)Session["userVo"];
+                if (!IsPostBack)
+                {
+                   
+                    if (Request.QueryString["Folioaction"] != null)
+                    {
+                        if (Request.QueryString["Folioaction"].Trim() == "viewFolioDts")
+                        {
+                            int folioId = Convert.ToInt32(Request.QueryString["FolioId"].ToString());
+                            CustomerTransactionBo CustomerTransactionBo = new CustomerTransactionBo();
+                           CustomerBankAccountBo customerBankAccountBo =new CustomerBankAccountBo(); 
+                            Session["viewFolioDts"] = CustomerTransactionBo.GetCustomerMFFolioDetails(folioId);
+                            ViewState["FolioId"] = folioId.ToString();
+                      
+                      
+                            customerAccountsVo = (CustomerAccountsVo)Session["viewFolioDts"];
+                            
+                            ViewFolioDetails(customerAccountsVo);
+                            string folioName = customerBankAccountBo.Getfolioname(folioId);
+                            if (folioName != string.Empty)
+                            {
+                                ddlPortfolio.Items.Add(folioName);
+                                ddlPortfolio.SelectedValue = folioName;
+                            }
+                            lnkEdit.Visible = false;
+                            imgAddNominee.Visible = false;
+                            imgAddJointHolder.Visible = false;
+                            imgAddGuardian.Visible = false;
+
+                        }
+                    }
+                 
+                }
 
                 if (Session["CustomerVo"] != null)
                 {
@@ -95,17 +127,15 @@ namespace WealthERP.CustomerPortfolio
                         portfolioId = int.Parse(Request.QueryString["PortFolioIdgoal"].ToString());
                         Session[SessionContents.PortfolioId] = portfolioId;
                     }
-
                     if (!IsPostBack)
                     {
-
                         BindDropDowns(path);
                         //BindAssociateCode();
                         if (Request.QueryString["action"] != "" && Request.QueryString["action"] != null)
                         {
                             if (Request.QueryString["action"].Trim() == "Edit")
                             {
-                                
+
                                 EditFolioDetails();
                                 imgAddNominee.Visible = true;
                                 imgAddJointHolder.Visible = true;
@@ -114,13 +144,13 @@ namespace WealthERP.CustomerPortfolio
                             }
                             else if (Request.QueryString["action"].Trim() == "View")
                             {
-                               
-                                ViewFolioDetails();
+                                customerAccountsVo = (CustomerAccountsVo)Session["FolioVo"];
+                                ViewFolioDetails(customerAccountsVo);
+                                lnkEdit.Visible = true;
                                 imgAddNominee.Visible = false;
                                 imgAddJointHolder.Visible = false;
                                 imgAddGuardian.Visible = false;
                             }
-
                         }
                         else
                         {
@@ -143,9 +173,6 @@ namespace WealthERP.CustomerPortfolio
                             portfolioId = int.Parse(Request.QueryString["PortFolioId"].ToString());
                             Session[SessionContents.PortfolioId] = portfolioId;
                         }
-
-
-
                         //pra..
                         BindPortfolioDropDown();
                         ddlPortfolio.SelectedValue = portfolioId.ToString();
@@ -182,16 +209,16 @@ namespace WealthERP.CustomerPortfolio
 
         private void BindAssociateCode()
         {
-            if(!string.IsNullOrEmpty(txtAssociateCode.Text))
+            if (!string.IsNullOrEmpty(txtAssociateCode.Text))
             {
-            customerAccountsVo.AssociateCode=txtAssociateCode.Text;
+                customerAccountsVo.AssociateCode = txtAssociateCode.Text;
             }
             else
                 customerAccountsVo.AssociateCode = string.Empty;
             //if (AgentId.Rows.Count > 0)
             //{
             //    customerAccountsVo.AdviserAgentId = int.Parse(AgentId.Rows[0][1].ToString());
-               
+
             //}
             //else
             //    customerAccountsVo.AdviserAgentId = 0;
@@ -211,11 +238,15 @@ namespace WealthERP.CustomerPortfolio
             if (customerVo != null)
                 txtInvestorName.Text = customerVo.FirstName + "" + customerVo.MiddleName + "" + customerVo.LastName;
         }
-        private void ViewFolioDetails()
+        private void ViewFolioDetails(CustomerAccountsVo CAVO)
         {
+           
             BindDropDowns(path);
+         //  portfolioId = int.Parse(Session[SessionContents.PortfolioId].ToString());
+           
+
             divBankDetails.Visible = true;
-            customerAccountsVo = (CustomerAccountsVo)Session["FolioVo"];
+            customerAccountsVo = CAVO; //(CustomerAccountsVo)Session["FolioVo"];
             if (customerAccountsVo.AccountOpeningDate != DateTime.MinValue)
                 txtAccountDate.SelectedDate = customerAccountsVo.AccountOpeningDate;
 
@@ -233,15 +264,15 @@ namespace WealthERP.CustomerPortfolio
                 ddlProductAmc.SelectedValue = "0";
             }
             if (!string.IsNullOrEmpty(customerAccountsVo.BankName))
-            ddlBankList.SelectedItem.Text = customerAccountsVo.BankName.ToString();
+                ddlBankList.SelectedItem.Text = customerAccountsVo.BankName.ToString();
             txtInvestorName.Text = customerAccountsVo.Name;
             if (customerAccountsVo.IsJointHolding == 1)
                 rbtnYes.Checked = true;
             else
                 rbtnNo.Checked = true;
             if (customerAccountsVo.IsOnline == 0)
-                rbtnlIs_online.SelectedValue="0";
-               
+                rbtnlIs_online.SelectedValue = "0";
+
             else
                 rbtnlIs_online.SelectedValue = "1";
             BindModeOfHolding();
@@ -329,6 +360,7 @@ namespace WealthERP.CustomerPortfolio
             ddlModeOfOpn.Enabled = false;
             ddlALLBankList.Enabled = false;
             rdpDOB.Enabled = false;
+           
         }
 
         private void BindAssociates(CustomerAccountsVo AccountVo)
@@ -402,6 +434,7 @@ namespace WealthERP.CustomerPortfolio
 
         private void EditFolioDetails()
         {
+
             customerAccountsVo = (CustomerAccountsVo)Session["FolioVo"];
             if (customerAccountsVo.AccountOpeningDate.ToShortDateString() != "01/01/1901" && customerAccountsVo.AccountOpeningDate != null && customerAccountsVo.AccountOpeningDate != DateTime.MinValue)
                 txtAccountDate.SelectedDate = customerAccountsVo.AccountOpeningDate;
@@ -409,20 +442,21 @@ namespace WealthERP.CustomerPortfolio
                 txtAccountDate.SelectedDate = null;
             txtFolioNumber.Text = customerAccountsVo.AccountNum.ToString();
             BindAMC();
-            
+
 
             ddlProductAmc.SelectedValue = customerAccountsVo.AMCCode.ToString();
-            BindCustomerBankList();
-            if (customerAccountsVo.BankId != 0)
-            {
-                ddlBankList.SelectedValue = customerAccountsVo.BankId.ToString();
-            }
-            else
-            {
-                ddlBankList.SelectedValue = "0";
-            }
-           
-            
+            // BindCustomerBankList();
+            //if (customerAccountsVo.BankId != 0)
+            //{
+            //    ddlBankList.SelectedValue = customerAccountsVo.BankId.ToString();
+            //}
+            //else
+            //{
+            //    ddlBankList.SelectedValue = "0";
+            //}
+
+            if (!string.IsNullOrEmpty(customerAccountsVo.BankName))
+                ddlBankList.SelectedItem.Text = customerAccountsVo.BankName.ToString();
             txtInvestorName.Text = customerAccountsVo.Name;
             if (customerAccountsVo.IsJointHolding == 1)
             {
@@ -436,7 +470,8 @@ namespace WealthERP.CustomerPortfolio
                 //trJoint2Header.Visible = false;
             }
             if (customerAccountsVo.IsOnline == 0)
-            { rbtnlIs_online.SelectedValue = "0"; 
+            {
+                rbtnlIs_online.SelectedValue = "0";
             }
 
             else
@@ -476,7 +511,8 @@ namespace WealthERP.CustomerPortfolio
             txtBrokerCode.Text = customerAccountsVo.BrokerCode;
 
             BindDropDowns(path);
-            ddlAccType.SelectedValue = customerAccountsVo.AccountType;
+            if (!string.IsNullOrEmpty(customerAccountsVo.AccountType))
+                ddlAccType.SelectedValue = customerAccountsVo.AccountType;
             txtAccNo.Text = customerAccountsVo.BankAccountNum;
             if (!string.IsNullOrEmpty(customerAccountsVo.ModeOfOperation))
                 ddlModeOfOpn.Text = customerAccountsVo.ModeOfOperation;
@@ -555,8 +591,8 @@ namespace WealthERP.CustomerPortfolio
                 {
                     lnkEdit.Visible = false;
                 }
-                else
-                    lnkEdit.Visible = true;
+                //else
+                //    lnkEdit.Visible = false;
 
                 txtAccNo.Enabled = false;
                 txtAccountDate.Enabled = false;
@@ -1025,7 +1061,7 @@ namespace WealthERP.CustomerPortfolio
                         customerAccountsVo.BankAccountNum = txtAccNo.Text;
                     if (ddlModeOfOpn.SelectedIndex != -1)
                         customerAccountsVo.ModeOfOperation = ddlModeOfOpn.SelectedValue.ToString();
-              
+
                     if (!string.IsNullOrEmpty(txtBranchName.Text))
                         customerAccountsVo.BranchName = txtBranchName.Text;
                     if (!string.IsNullOrEmpty(txtBLine1.Text))
@@ -1054,8 +1090,8 @@ namespace WealthERP.CustomerPortfolio
                         customerAccountsVo.IsJointHolding = 0;
                     else
                         customerAccountsVo.IsJointHolding = 1;
-                    if (rbtnlIs_online.SelectedValue =="0")
-                        customerAccountsVo.IsOnline =0;
+                    if (rbtnlIs_online.SelectedValue == "0")
+                        customerAccountsVo.IsOnline = 0;
                     else
                         customerAccountsVo.IsOnline = 1;
                     if (ddlModeOfHolding.SelectedValue != "0")
@@ -1241,8 +1277,11 @@ namespace WealthERP.CustomerPortfolio
                     if (!string.IsNullOrEmpty(txtBrokerCode.Text))
                         newAccountVo.BrokerCode = txtBrokerCode.Text;
                     //added fields for bank details
-                    if (ddlBankList.SelectedValue != "Select Bank")
-                        newAccountVo.BankId = int.Parse(ddlBankList.SelectedValue);
+                    if (ddlBankList.SelectedValue != "")
+                    {
+                        if (ddlBankList.SelectedValue != "Select Bank")
+                            newAccountVo.BankId = int.Parse(ddlBankList.SelectedValue);
+                    }
                     if (ddlAccType.SelectedIndex != -1)
                         newAccountVo.AccountType = ddlAccType.SelectedValue.ToString();
                     if (!string.IsNullOrEmpty(txtAccNo.Text))
@@ -1294,9 +1333,9 @@ namespace WealthERP.CustomerPortfolio
                     newAccountVo.CustomerId = customerVo.CustomerId;
                     if (ddlAccType.SelectedIndex != -1)
                         customerAccountsVo.AccountType = ddlAccType.SelectedValue.ToString();
-                    if(ddlALLBankList.SelectedIndex!=-1)
-                        customerAccountsVo.MCmgcxpBankCode= ddlALLBankList.SelectedValue.ToString();
-                    
+                    if (ddlALLBankList.SelectedIndex != -1)
+                        customerAccountsVo.MCmgcxpBankCode = ddlALLBankList.SelectedValue.ToString();
+
                     //End
 
                     if (customerTransactionBo.UpdateCustomerMFFolioDetails(newAccountVo, userVo.UserId))

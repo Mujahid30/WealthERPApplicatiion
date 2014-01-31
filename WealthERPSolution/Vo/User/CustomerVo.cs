@@ -106,6 +106,7 @@ namespace VoUser
         private int m_mfKYC;
         private string m_ACC_customerCategoryName;
         private int m_CustBankAccId;
+        public DateTime Createdon { get; set; }
         public bool IsRealInvestor { get; set; }
         public int TaxStatusCustomerSubTypeId { get; set; }
 

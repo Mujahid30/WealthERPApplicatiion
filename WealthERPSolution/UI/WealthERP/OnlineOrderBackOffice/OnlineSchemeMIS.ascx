@@ -32,10 +32,10 @@
         </td>
         <td>
             <asp:DropDownList ID="ddlProduct" runat="server" CssClass="cmbField" OnSelectedIndexChanged="Onselectedindex_select"
-                AutoPostBack="false">
+                AutoPostBack="false" Enabled="false">
                 <Items>
-                    <asp:ListItem Text="Select" Value="Select" Selected="false" />
-                    <asp:ListItem Text="Mutual Funds" Value="MF" />
+                   <asp:ListItem Text="Select" Value="Select" Selected="false" />
+                    <asp:ListItem Text="Mutual Funds" Value="MF" Selected="True"/>
                     <asp:ListItem Text="Bonds" Value="BO" Enabled="false" />
                 </Items>
             </asp:DropDownList>
@@ -70,7 +70,7 @@
                     OnItemDataBound="gvonlineschememis_ItemDataBound"
                     OnNeedDataSource="gvonlineschememis_OnNeedDataSource" OnPreRender="gvonlineschememis_PreRender"--%>
             <td>
-                <div id="SchemeMIS" runat="server" style="width: 100%; padding-left: 5px;" visible="false">
+                <div id="SchemeMIS" runat="server" style="width: 100%; padding-left: 0px;" visible="false">
                     <telerik:RadGrid ID="gvonlineschememis" runat="server" AllowAutomaticDeletes="false"
                         EnableEmbeddedSkins="false" AllowFilteringByColumn="true" AutoGenerateColumns="False"
                         ShowStatusBar="false" ShowFooter="false" AllowPaging="true" AllowSorting="true"

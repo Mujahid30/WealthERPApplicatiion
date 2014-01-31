@@ -509,17 +509,32 @@ namespace WealthERP.Advisor
             //trAction.Visible = true;
 
         }
-
-        protected void rgvMultiProductMIS_ItemCommand(object source, GridCommandEventArgs e)
+        protected void LinkButton1_Click(object sender, EventArgs e)
         {
-            if (e.CommandName == "Redirect")
-            {
-                GridDataItem item = (GridDataItem)e.Item;
-                string value = ""; // item.GetDataKeyValue("CMFA_BROKERCODE").ToString();
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('CustomerMFAccountAdd','strCustomreId=" + value + " ');", true);
+          
+            CustomerTransactionBo CustomerTransactionBo=new CustomerTransactionBo();
+            LinkButton lnkOrderNo = (LinkButton)sender;
+            GridDataItem gdi;
+            gdi = (GridDataItem)lnkOrderNo.NamingContainer;
+            int selectedRow = gdi.ItemIndex + 1;
+            int folioId = int.Parse((gvCustomerFolioMerge.MasterTableView.DataKeyValues[selectedRow - 1]["CMFA_AccountId"].ToString()));
+           // Session["FolioId"] = CustomerTransactionBo.GetCustomerMFFolioDetails(folioId);
+           
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerMFAccountAdd','?Folioaction=viewFolioDts&FolioId=" + folioId + "');", true);
 
-            }
+            // ScriptManager.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerMFAccountAdd','FolioId=" + value + "');", true);
+
         }
+        //protected void rgvMultiProductMIS_ItemCommand(object source, GridCommandEventArgs e)
+        //{
+        ////    if (e.CommandName == "Redirect")
+        ////    {
+        ////        GridDataItem item = (GridDataItem)e.Item;
+        ////        string value = ""; // item.GetDataKeyValue("CMFA_BROKERCODE").ToString();
+        ////        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('CustomerMFAccountAdd','strCustomreId=" + value + " ');", true);
+
+        ////    }
+        //}
         private void SetParameters()
         {
             if (IsAgentCodeBased == 0)
@@ -801,6 +816,7 @@ namespace WealthERP.Advisor
                 dtCustomerFolio.Columns.Add("AMCName");
                 dtCustomerFolio.Columns.Add("AMCCode");
                 dtCustomerFolio.Columns.Add("Count");
+                dtCustomerFolio.Columns.Add("CMFA_AccountId");
                 dtCustomerFolio.Columns.Add("FolioName");
                 dtCustomerFolio.Columns.Add("portfilionumber");
                 dtCustomerFolio.Columns.Add("mergerstatus");
@@ -845,6 +861,7 @@ namespace WealthERP.Advisor
                         drCustomerFolio["AMCName"] = dtCustomer.Rows[i]["amcname"];
                         drCustomerFolio["AMCCode"] = dtCustomer.Rows[i]["amccode"];
                         drCustomerFolio["Count"] = dtCustomer.Rows[i]["number"];
+                        drCustomerFolio["CMFA_AccountId"] = dtCustomer.Rows[i]["CMFA_AccountId"];
                         if (!string.IsNullOrEmpty(dtCustomer.Rows[i]["FolioName"].ToString().Trim()))
                             drCustomerFolio["FolioName"] = dtCustomer.Rows[i]["FolioName"];
                         else
@@ -903,7 +920,7 @@ namespace WealthERP.Advisor
                    trAction.Visible = false;
                    Label1.Visible = false;
                    DivCustomerFolio.Visible = false;
-                   btnExportFilteredData.Visible = false;
+                   btnExportFilteredData.Visible = false;                   
                }
             }
             catch (BaseApplicationException Ex)

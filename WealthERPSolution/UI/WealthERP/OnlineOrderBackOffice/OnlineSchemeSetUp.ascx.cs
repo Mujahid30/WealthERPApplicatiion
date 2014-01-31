@@ -70,6 +70,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
                         EditSchemeDetails();
                         lbBack.Visible = true;
+                        lblBack.Visible = true;
                         ControlViewEditMode(false);
                         btnsubmit.Visible = false;
 
@@ -78,6 +79,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     {
                         ViewSchemeDetails();
                         lbBack.Visible = true;
+                        lblBack.Visible = true;
                         btnsubmit.Visible = false;
                         ControlViewEditMode(true);
 
@@ -568,6 +570,7 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             if (isViewMode)
             {
+                ddlProduct.Enabled = false;
                 txtRedemptionmultiple.Enabled = false;
                 txtScname.Enabled = false;
                 txtAMFI.Enabled = false;
@@ -613,7 +616,6 @@ namespace WealthERP.OnlineOrderBackOffice
                 txtESSchemecode.Enabled = false;
                 ddlGenerationfreq.Enabled = false;
                 ddlDFrequency.Enabled = false;
-                btnupdate.Visible = false;
                 btnsubmit.Visible = false;
                 txtScname.Visible = true;
                 lblScname.Visible = true;
@@ -627,9 +629,10 @@ namespace WealthERP.OnlineOrderBackOffice
                 ChkNRI.Enabled = false;
                 ChkBO.Enabled = false;
                 chkonline.Enabled = false;
-                lblBack.Visible = true;
                 btnBasicDSubmit.Visible = false;
                 btnBasicDupdate.Visible = false;
+                lnkEdit.Visible = true;
+               
             }
             else
             {
@@ -637,8 +640,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 chkonline.Enabled = true;
                 btnBasicDSubmit.Visible = false;
                 btnBasicDupdate.Visible = true;
-                lblBack.Visible = true;
-
+              //  lnkEdit.Visible = true;
               //  rfvtxtScname.Visible = false;
                 Label4.Visible = false;
                 ddlSchemeList.Visible = false;
@@ -648,16 +650,13 @@ namespace WealthERP.OnlineOrderBackOffice
                 txtAMFI.Enabled = false;
                 ddlAmc.Enabled = false;
                 ddlcategory.Enabled = false;
-
+                ddlProduct.Enabled = false;
                 ddlScategory.Enabled = false;
                 ddlSScategory.Enabled = false;
-
-
                 ddlRT.Enabled = false;
-                lnkEdit.Visible = true;
                 tblMessage.Visible = false;
                 lbBack.Visible = false;
-
+               // txtESSchemecode.Enabled = false;
                 //gvSIPDetails.MasterTableView.IsItemInserted = false;
                 //GridCommandItem commandItem = (GridCommandItem)gvSIPDetails.MasterTableView.GetItems(GridItemType.CommandItem)[100];
                 //commandItem.FindControl("AddNewRecordButton").Parent.Visible = false; 
@@ -785,12 +784,12 @@ namespace WealthERP.OnlineOrderBackOffice
             if (mfProductAMCSchemePlanDetailsVo.IsOnline == 1)
             {
                 chkonline.Checked = true;
-                schemedetails.Visible = true;
+                //schemedetails.Visible = true;
             }
             else
             {
                 chkonline.Checked = false;
-                schemedetails.Visible = false;
+                //schemedetails.Visible = false;
             }
 
 
@@ -1043,13 +1042,13 @@ namespace WealthERP.OnlineOrderBackOffice
             if (mfProductAMCSchemePlanDetailsVo.IsOnline != 1)
             {
                 chkonline.Checked = false;
-                schemedetails.Visible = false;
+               // schemedetails.Visible = false;
                 //chkoffline.Checked = false;
             }
             else
             {
                 chkonline.Checked = true;
-                schemedetails.Visible = true;
+              //  schemedetails.Visible = true;
                 //chkoffline.Checked = true;
             }
 
@@ -1183,65 +1182,72 @@ namespace WealthERP.OnlineOrderBackOffice
             if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.SecurityCode))
                 txtSecuritycode.Text = mfProductAMCSchemePlanDetailsVo.SecurityCode.ToString();
             txtinvestment.Text = mfProductAMCSchemePlanDetailsVo.PASPD_MaxInvestment.ToString();
-
-
+            btnupdate.Visible = true;
+            txtESSchemecode.Enabled = false;
 
         }
-        protected void Clearallcontrols()
+        protected void Clearallcontrols(bool basicsubmit)
         {
-           
-            ddlProduct.Enabled = false;
-            ChkNRI.Enabled = false;
-            ChkBO.Enabled = false;
-            txtScname.Enabled = false;
-            txtAMFI.Enabled = false;
-            ddlAmc.Enabled = false;
-            ddlcategory.Enabled = false;
-            txtFvale.Enabled = false;
-            ddlScategory.Enabled = false;
-            ddlSScategory.Enabled = false;
-            ddlSctype.Enabled = false;
-            ddlOption.Enabled = false;
-            ddlBname.Enabled = false;
-            txtBranch.Enabled = false;
-            txtACno.Enabled = false;
-            chkInfo.Enabled = false;
-            txtLIperiod.Enabled = false;
-            txtHH.Enabled = false;
-            txtMM.Enabled = false;
-            txtSS.Enabled = false;
-            txtEload.Enabled = false;
-            txtELremark.Enabled = false;
-            txtExitLoad.Enabled = false;
-            txtExitLremark.Enabled = false;
-            ChkISPurchage.Enabled = false;
-            ChkISRedeem.Enabled = false;
-            ChkISSIP.Enabled = false;
-            ChkISSTP.Enabled = false;
-            ChkISSwitch.Enabled = false;
-            ChkISSWP.Enabled = false;
-            ddlSchemeList.Enabled = false;
-            ChkISactive.Enabled = false;
-            txtInitalPamount.Enabled = false;
-            txtIMultipleamount.Enabled = false;
-            txtAdditional.Enabled = false;
-            txtAddMultipleamount.Enabled = false;
-            txtMinRedemption.Enabled = false;
-            txtMinRedemptioUnits.Enabled = false;
-            txtMinSwitchAmount.Enabled = false;
-            txtMinSwitchUnits.Enabled = false;
-            txtRedemptionMultiplesUnits.Enabled = false;
-            txtSecuritycode.Enabled = false;
-            ddlRT.Enabled = false;
-            txtinvestment.Enabled = false;
-            txtESSchemecode.Enabled = false;
-            ddlGenerationfreq.Enabled = false;
-            ddlDFrequency.Enabled = false;
-            btnsubmit.Visible = false;
-            btnupdate.Visible = true;
-            txtRedemptionmultiple.Enabled = false;
-            chkonline.Enabled = false;
+            if (basicsubmit)
+            {
+                ddlProduct.Enabled = false;
+                txtScname.Enabled = false;
+                txtAMFI.Enabled = false;
+                ddlAmc.Enabled = false;
+                ddlcategory.Enabled = false;
+                ddlScategory.Enabled = false;
+                ddlSScategory.Enabled = false;
+                chkonline.Enabled = false;
+                ChkISactive.Enabled = false;
+            }
+            else
+            {
+                ddlSctype.Enabled = false;
+                ddlOption.Enabled = false;
+                ddlBname.Enabled = false;
+                txtBranch.Enabled = false;
+                txtACno.Enabled = false;
+                chkInfo.Enabled = false;
+                txtLIperiod.Enabled = false;
+                txtHH.Enabled = false;
+                txtMM.Enabled = false;
+                txtSS.Enabled = false;
+                txtEload.Enabled = false;
+                txtFvale.Enabled = false;
+                ChkNRI.Enabled = false;
+                ChkBO.Enabled = false;
+                txtELremark.Enabled = false;
+                txtExitLoad.Enabled = false;
+                txtExitLremark.Enabled = false;
+                ChkISPurchage.Enabled = false;
+                ChkISRedeem.Enabled = false;
+                ChkISSIP.Enabled = false;
+                ChkISSTP.Enabled = false;
+                ChkISSwitch.Enabled = false;
+                ChkISSWP.Enabled = false;
+                ddlSchemeList.Enabled = false;
+                
+                txtInitalPamount.Enabled = false;
+                txtIMultipleamount.Enabled = false;
+                txtAdditional.Enabled = false;
+                txtAddMultipleamount.Enabled = false;
+                txtMinRedemption.Enabled = false;
+                txtMinRedemptioUnits.Enabled = false;
+                txtMinSwitchAmount.Enabled = false;
+                txtMinSwitchUnits.Enabled = false;
+                txtRedemptionMultiplesUnits.Enabled = false;
+                txtSecuritycode.Enabled = false;
+                ddlRT.Enabled = false;
+                txtinvestment.Enabled = false;
+                txtESSchemecode.Enabled = false;
+                ddlGenerationfreq.Enabled = false;
+                ddlDFrequency.Enabled = false;
+                btnsubmit.Visible = false;
+                btnupdate.Visible = true;
+                txtRedemptionmultiple.Enabled = false;
+                
 
+            }
         }
         protected void lbBack_OnClick(object sender, EventArgs e)
         {
@@ -1250,7 +1256,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
         protected void lnkEdit_OnClick(object sender, EventArgs e)
         {
-            lblBack.Visible = true;
+            lnkEdit.Visible = false;
             ChkNRI.Enabled = true;
             ChkBO.Enabled = true;
             txtNFOendDate.Enabled = true;
@@ -1401,14 +1407,10 @@ namespace WealthERP.OnlineOrderBackOffice
             Session["newschemeplancode"] = schemeplancode;
             lbBack.Visible = true;
             btnBasicDSubmit.Visible = false;
+            btnsubmit.Visible = true;
+            Clearallcontrols(true);
 
-            if (chkonline.Checked == true)
-            {
-                schemedetails.Visible = true;
-                btnsubmit.Visible = true;
-            }
-            else
-                schemedetails.Visible = false;
+               
         }
         protected void btnsubmit_click(object sender, EventArgs e)
         {
@@ -1420,7 +1422,7 @@ namespace WealthERP.OnlineOrderBackOffice
             if (count > 0)
             {
 
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please Enter Unique External System Scheme Code You Can Use Combination of 0-9 and a-z');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please Enter Unique External System Scheme Code. You Can Use Combination of 0-9 and a-z');", true);
                 return;
             }
 
@@ -1432,7 +1434,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     OnlineOrderBackOfficeBo.CreateOnlineSchemeSetupPlanDetails(mfProductAMCSchemePlanDetailsVo, userVo.UserId);
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Scheme Submit Successfully!!');", true);
-                    Clearallcontrols();
+                    Clearallcontrols(false);
                     lnkEdit.Visible = true;
                     btnupdate.Visible = false;
                 }
@@ -1528,19 +1530,20 @@ namespace WealthERP.OnlineOrderBackOffice
             bool bResult = OnlineOrderBackOfficeBo.Updateproductamcscheme(mfProductAMCSchemePlanDetailsVo, schemeplancode);
             lbBack.Visible = true;
             btnBasicDupdate.Visible = false;
+
             txtScname.Enabled = false;
             ChkISactive.Enabled = false;
             chkonline.Enabled = false;
-            if (chkonline.Checked == true)
-            {
-                schemedetails.Visible = true;
-                btnsubmit.Visible = true;
-            }
-            else
-            {
-                schemedetails.Visible = false;
-                btnsubmit.Visible = false;
-            }
+            //if (chkonline.Checked == true)
+            //{
+            //    schemedetails.Visible = true;
+            //    btnsubmit.Visible = true;
+            //}
+            //else
+            //{
+            //    schemedetails.Visible = false;
+            //    btnsubmit.Visible = false;
+            //}
         }
 
         protected void btnUpdate_click(object sender, EventArgs e)
@@ -1902,10 +1905,11 @@ namespace WealthERP.OnlineOrderBackOffice
                     }
                 }
 
-                bool bResult = OnlineOrderBackOfficeBo.UpdateSchemeSetUpDetail(mfProductAMCSchemePlanDetailsVo, schemeplancode);
+                bool bResult = OnlineOrderBackOfficeBo.UpdateSchemeSetUpDetail(mfProductAMCSchemePlanDetailsVo, schemeplancode,userVo.UserId);
                 message = CreateUserMessage(schemeplancode);
                 ShowMessage(message);
                 lbBack.Visible = true;
+                lnkEdit.Visible = true;
                 btnupdate.Visible = false;
                 ControlMode(false);
             }
@@ -1984,16 +1988,16 @@ namespace WealthERP.OnlineOrderBackOffice
             }
             else
             {
-                Label4.Visible = false;
-                ddlProduct.Enabled = false;
+               // Label4.Visible = false;
+                //ddlProduct.Enabled = false;
                 ChkNRI.Enabled = false;
                 ChkBO.Enabled = false;
                 txtAMFI.Enabled = false;
-                ddlAmc.Enabled = false;
-                ddlcategory.Enabled = false;
+               // ddlAmc.Enabled = false;
+               // ddlcategory.Enabled = false;
                 txtFvale.Enabled = false;
-                ddlScategory.Enabled = false;
-                ddlSScategory.Enabled = false;
+               // ddlScategory.Enabled = false;
+               // ddlSScategory.Enabled = false;
                 ddlSctype.Enabled = false;
                 ddlOption.Enabled = false;
                 ddlBname.Enabled = false;
@@ -2015,7 +2019,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 ChkISSwitch.Enabled = false;
                 ChkISSWP.Enabled = false;
                 ddlSchemeList.Enabled = false;
-                ChkISactive.Enabled = false;
+               // ChkISactive.Enabled = false;
                 txtInitalPamount.Enabled = false;
                 txtIMultipleamount.Enabled = false;
                 txtAdditional.Enabled = false;
@@ -2026,14 +2030,17 @@ namespace WealthERP.OnlineOrderBackOffice
                 txtMinSwitchUnits.Enabled = false;
                 txtRedemptionMultiplesUnits.Enabled = false;
                 txtSecuritycode.Enabled = false;
-                ddlRT.Enabled = false;
+               // ddlRT.Enabled = false;
                 txtinvestment.Enabled = false;
                 txtESSchemecode.Enabled = false;
                 ddlGenerationfreq.Enabled = false;
                 ddlDFrequency.Enabled = false;
                 btnsubmit.Visible = false;
                 btnupdate.Visible = false;
-                btnBasicDupdate.Visible = false;
+               // btnBasicDupdate.Visible = false;
+                txtSwitchMultipleUnits.Enabled = false;
+                txtSwitchMultipleAmount.Enabled = false;
+                txtRedemptionmultiple.Enabled = false;
             }
         }
         private string CreateUserMessage(int schemeplancode)

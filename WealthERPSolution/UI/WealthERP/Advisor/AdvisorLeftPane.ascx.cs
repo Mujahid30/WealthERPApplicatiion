@@ -2895,69 +2895,69 @@ namespace WealthERP.Advisor
                             Item.Visible = false;
                             //Item.Owner.Items.Remove(Item);
                         }
-                        else if (advisorVo.IsOpsEnable == 1)
-                        {
-                            switch (Item.Value)
-                            {
-                                case "Upload":
-                                    Item.Visible = false;
-                                    break;
-                                case "Daily Process":
-                                    Item.Visible = false;
-                                    break;
-                                case "MF Systematic Daily Recon":
-                                    Item.Visible = false;
-                                    break;
-                                case "MF Reversal Txn Exception Handling":
-                                    Item.Visible = false;
-                                    break;
-                                case "Reconciliation":
-                                    Item.Visible = false;
-                                    break;
-                                case "Add EQ Transactions":
-                                    Item.Visible = false;
-                                    break;
+                        //else if (advisorVo.IsOpsEnable == 1)
+                        //{
+                        //    switch (Item.Value)
+                        //    {
+                        //        case "Upload":
+                        //            Item.Visible = false;
+                        //            break;
+                        //        case "Daily Process":
+                        //            Item.Visible = false;
+                        //            break;
+                        //        case "MF Systematic Daily Recon":
+                        //            Item.Visible = false;
+                        //            break;
+                        //        case "MF Reversal Txn Exception Handling":
+                        //            Item.Visible = false;
+                        //            break;
+                        //        case "Reconciliation":
+                        //            Item.Visible = false;
+                        //            break;
+                        //        case "Add EQ Transactions":
+                        //            Item.Visible = false;
+                        //            break;
 
-                                case "Valuation":
-                                    Item.Visible = false;
-                                    break;
+                        //        case "Valuation":
+                        //            Item.Visible = false;
+                        //            break;
 
-                                case "Loan Schemes":
-                                    Item.Visible = false;
-                                    break;
-                                case "Loan Partner Commission":
-                                    Item.Visible = false;
-                                    break;
-                                case "Add Customer":
-                                    Item.Visible = false;
-                                    break;
-                                case "Add FP Prospect":
-                                    Item.Visible = false;
-                                    break;
-                                case "Manage Portfolio":
-                                    Item.Visible = false;
-                                    break;
-                                case "Manage Group Account":
-                                    Item.Visible = false;
-                                    break;
-                                case "Customer Association":
-                                    Item.Visible = false;
-                                    break;
+                        //        case "Loan Schemes":
+                        //            Item.Visible = false;
+                        //            break;
+                        //        case "Loan Partner Commission":
+                        //            Item.Visible = false;
+                        //            break;
+                        //        case "Add Customer":
+                        //            Item.Visible = false;
+                        //            break;
+                        //        case "Add FP Prospect":
+                        //            Item.Visible = false;
+                        //            break;
+                        //        case "Manage Portfolio":
+                        //            Item.Visible = false;
+                        //            break;
+                        //        case "Manage Group Account":
+                        //            Item.Visible = false;
+                        //            break;
+                        //        case "Customer Association":
+                        //            Item.Visible = false;
+                        //            break;
 
-                                case "FP Offline Form":
-                                    Item.Visible = false;
-                                    break;
-                                case "Associates":
-                                    Item.Visible = false;
-                                    break;
-                                case "Commissions":
-                                    Item.Visible = false;
-                                    break;
+                        //        case "FP Offline Form":
+                        //            Item.Visible = false;
+                        //            break;
+                        //        case "Associates":
+                        //            Item.Visible = false;
+                        //            break;
+                        //        case "Commissions":
+                        //            Item.Visible = false;
+                        //            break;
 
 
 
-                            }
-                        }
+                        //    }
+                       // }
                         //if (int.Parse(dsAdminTreeNodes.Tables[3].Rows[0]["WP_IsOtherStaffEnabled"].ToString()) == 0)
                         //{
                         //    if (Item.Value == "Staff")

@@ -3109,6 +3109,8 @@ namespace DaoAdvisorProfiling
                             customerVo.IsProspect = int.Parse(dr["C_IsProspect"].ToString());
                         if (dr["c_iskycavailable"].ToString() != "")
                             customerVo.MfKYC = int.Parse(dr["c_iskycavailable"].ToString());
+                        if (dr["C_CreatedOn"].ToString() != "")
+                            customerVo.Createdon = DateTime.Parse(dr["C_CreatedOn"].ToString());
                         if (UserRole!= "rm")
                         {
                             if (dr["BranchName"].ToString() != "")
