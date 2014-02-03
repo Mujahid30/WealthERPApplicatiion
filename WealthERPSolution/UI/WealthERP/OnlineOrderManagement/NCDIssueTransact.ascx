@@ -364,6 +364,26 @@
                                 HeaderText="Series" UniqueName="AID_IssueDetailName" SortExpression="AID_IssueDetailName">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="CatColection" HeaderStyle-Width="60px" CurrentFilterFunction="Contains"
+                                ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Categories" UniqueName="CatColection"
+                                SortExpression="CatColection">
+                                <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="CouponRateCollection" HeaderStyle-Width="160px"
+                                CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                HeaderText="Coupon Rate(%)" UniqueName="CouponRateCollection" SortExpression="CouponRateCollection">
+                                <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="YieldatMatCollection" HeaderStyle-Width="160px"
+                                CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                HeaderText="Yield at Maturity(%)" UniqueName="YieldatMatCollection" SortExpression="YieldatMatCollection">
+                                <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="BidCollection" HeaderStyle-Width="60px" CurrentFilterFunction="Contains"
+                                ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Bidding Rates"
+                                UniqueName="BidCollection" SortExpression="BidCollection" Visible="false">
+                                <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                            </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn Visible="false" DataField="AID_Sequence" HeaderStyle-Width="60px"
                                 CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
                                 HeaderText="Sequence" UniqueName="AID_Sequence" SortExpression="AID_Sequence">
@@ -406,7 +426,7 @@
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="CouponRate" HeaderStyle-Width="90px" CurrentFilterFunction="Contains"
                                 ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Coupon Rate(%)"
-                                UniqueName="CouponRate" SortExpression="CouponRate">
+                                UniqueName="CouponRate" SortExpression="CouponRate" Visible="false">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn Visible="false" DataField="AID_RenewCouponRate" HeaderStyle-Width="100px"
@@ -431,8 +451,8 @@
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
                             <telerik:GridTemplateColumn AllowFiltering="false" DataField="YieldAtMAturity" HeaderStyle-Width="100px"
-                                UniqueName="YieldAtMAturity" HeaderText="Yield at Maturity(%)">
-                               <%-- <ItemTemplate>
+                                UniqueName="YieldAtMAturity" HeaderText="Yield at Maturity(%)" Visible="false">
+                                <%-- <ItemTemplate>
                                     <asp:TextBox ID="txtYieldAtMAturity" runat="server" ForeColor="White" MaxLength="5" OnTextChanged="txtYieldAtMAturity_TextChanged"
                                         Text='<%# Bind("YieldAtMAturity")%>' Width="50px" BackColor="Gray"></asp:TextBox>
                                 </ItemTemplate>--%>
@@ -494,7 +514,7 @@
                                         Width="50px" Font-Bold="true" Text='<%# Bind("COID_AmountPayable")%>'></asp:TextBox>
                                 </ItemTemplate>
                                 <FooterTemplate>
-                                    <asp:Label runat="server" ID="lblAmount" OnTextChanged="lblAmount_TextChanged"></asp:Label>
+                                    <asp:Label runat="server" ID="lblAmount" OnTextChanged="lblAmount_TextChanged" AutoPostBack="true"></asp:Label>
                                 </FooterTemplate>
                             </telerik:GridTemplateColumn>
                             <telerik:GridTemplateColumn AllowFiltering="false" DataField="" HeaderStyle-Width="100px"
@@ -534,6 +554,9 @@
         </td>
     </tr>
 </table>
+ <div align="center">
+    <asp:Label ID="lb1AvailbleCat" runat="server" CssClass="FieldName"  ></asp:Label></div>
+<%--</div>--%>
 <table>
     <tr class="spaceUnder" id="trTermsCondition" runat="server">
         <td align="left" style="width: 15%">
@@ -605,9 +628,7 @@
         </div>
     </ContentTemplate>
 </telerik:RadWindow>
-
 <asp:HiddenField ID="txtTotAmt" runat="server" OnValueChanged="txtTotAmt_ValueChanged" />
-
 <%--<telerik:RadWindowManager runat="server" ID="RadWindowManager1">
     <Windows>
         <telerik:RadWindow ID="rw_customConfirm" Modal="true" Behaviors="Close, Move" VisibleStatusbar="false"

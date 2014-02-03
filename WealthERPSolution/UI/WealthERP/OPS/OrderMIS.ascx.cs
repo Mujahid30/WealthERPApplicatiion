@@ -1646,11 +1646,14 @@ namespace WealthERP.OPS
                 LinkButton lbtnMarkAsReject = dataItem["MarkAsReject"].Controls[0] as LinkButton;
 
                 Label OrderStep = dataItem.FindControl("lblOrderStep") as Label;
+                Label OrderStepCode = dataItem.FindControl("lblOrderStepCode") as Label;
+
+                
                 int selectedRow = dataItem.ItemIndex + 1;
 
                 if (gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CO_IsOnline"].ToString().Trim() == "1")
                 {
-                    if (OrderStep.Text.Trim().ToUpper() == "Executed".ToUpper())
+                    if ((OrderStepCode.Text.Trim() == "AL") || (OrderStepCode.Text.Trim() == "IP"))
                     {
                         lbtnMarkAsReject.Visible = true;
                     }

@@ -254,7 +254,7 @@ namespace BoOnlineOrderManagement
             }
 
         }
-        public DataSet GetActiveRange(int adviserId,int issueId)
+        public DataSet GetActiveRange(int adviserId, int issueId)
         {
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
             try
@@ -355,7 +355,7 @@ namespace BoOnlineOrderManagement
         //        throw exBase;
         //    }
         //}
-        
+
         public DataSet GetAplRanges()
         {
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
@@ -515,7 +515,7 @@ namespace BoOnlineOrderManagement
 
         }
 
-        public DataSet GetSubCategory(int issuerId, int issueId,int size)
+        public DataSet GetSubCategory(int issuerId, int issueId, int size)
         {
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
             try
@@ -870,6 +870,9 @@ namespace BoOnlineOrderManagement
             }
             return dtExtract;
         }
+
+
+        
 
         public void UpdateNcdOrderMannualMatch(int orderId, int allotmentId, ref int isAllotmented, ref int isUpdated)
         {

@@ -1888,6 +1888,7 @@ namespace DaoOnlineOrderManagement
             }
             return result;
         }
+
         public void UploadIssueData(string sqlUpdate, string sqlSel, string csvParams, string csvDataType, DataTable dtData)
         {
             try
@@ -1972,6 +1973,7 @@ namespace DaoOnlineOrderManagement
                     return SqlDbType.VarChar;
             }
         }
+
         public int CheckIssueName(string externalcode, int issueid)
         {
             Database db;
@@ -2012,6 +2014,7 @@ namespace DaoOnlineOrderManagement
             }
             return count;
         }
+
         public DataTable BankBranchName(int bankid)
         {
             DataSet dsBankBranchName;

@@ -36,7 +36,7 @@ namespace BoOnlineOrderManagement
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "OnlineBondOrderBo.cs:GetLookupDataForReceivableSetUP(int adviserId)");
-                object[] objects = new object[1];                
+                object[] objects = new object[1];
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -45,7 +45,7 @@ namespace BoOnlineOrderManagement
             return dsLookupData;
         }
 
-        public DataSet GetAdviserIssuerList(int adviserId, int issueId, int type,int custmerId)
+        public DataSet GetAdviserIssuerList(int adviserId, int issueId, int type, int custmerId)
         {
 
             try
@@ -71,8 +71,20 @@ namespace BoOnlineOrderManagement
             }
             return dsCommissionStructureRules;
         }
+        public void GetCustomerCat(int issueId, int customerId, int adviserId, double amt, ref string catName,ref int  issueDetId)
+        {
+            // bool result = false;
 
-        public DataSet GetLiveBondTransaction(int SeriesId,int customerId)
+            try
+            {
+                onlineBondDao.GetCustomerCat(issueId, customerId, adviserId, amt, ref catName,ref issueDetId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+        }
+        public DataSet GetLiveBondTransaction(int SeriesId, int customerId)
         {
 
             try
@@ -89,7 +101,7 @@ namespace BoOnlineOrderManagement
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "OnlineBondOrderBo.cs:GetLiveBondTransaction()");
-                object[] objects = new object[1];               
+                object[] objects = new object[1];
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -162,7 +174,7 @@ namespace BoOnlineOrderManagement
             }
             return dsLookupData;
         }
-        public DataSet GetIssueDetail(int IssuerId,int CustomerId)
+        public DataSet GetIssueDetail(int IssuerId, int CustomerId)
         {
             DataSet dsGetIssueDetail = new DataSet();
             try
@@ -192,7 +204,7 @@ namespace BoOnlineOrderManagement
 
             try
             {
-                dsCommissionStructureRules = onlineBondDao.GetAdviserCommissionStructureRules(adviserId,structureId);
+                dsCommissionStructureRules = onlineBondDao.GetAdviserCommissionStructureRules(adviserId, structureId);
 
             }
             catch (BaseApplicationException Ex)
@@ -217,7 +229,7 @@ namespace BoOnlineOrderManagement
         {
             IDictionary<string, string> OrderIds = new Dictionary<string, string>();
             //bool result = false;
-           //int orderIds = 0; 
+            //int orderIds = 0; 
             try
             {
                 OrderIds = onlineBondDao.UpdateOnlineBondTransact(OnlineBondOrder, adviserId, IssuerId);
@@ -241,13 +253,13 @@ namespace BoOnlineOrderManagement
             }
             return OrderIds;
         }
-        public IDictionary<string, string> UpdateTransactOrder(DataTable OnlineBondOrder,OnlineBondOrderVo OnlineBondOrderVo, int adviserId, int IssuerId, int OrderId, int seriesId)
+        public IDictionary<string, string> UpdateTransactOrder(DataTable OnlineBondOrder, OnlineBondOrderVo OnlineBondOrderVo, int adviserId, int IssuerId, int OrderId, int seriesId)
         {
             IDictionary<string, string> OrderIds = new Dictionary<string, string>();
             bool result = false;
             try
             {
-                OrderIds = onlineBondDao.UpdateTransactOrder(OnlineBondOrder,OnlineBondOrderVo, adviserId, IssuerId, OrderId,seriesId);
+                OrderIds = onlineBondDao.UpdateTransactOrder(OnlineBondOrder, OnlineBondOrderVo, adviserId, IssuerId, OrderId, seriesId);
 
             }
             catch (BaseApplicationException Ex)
@@ -328,7 +340,7 @@ namespace BoOnlineOrderManagement
             DataSet dsLookupData;
             try
             {
-                dsLookupData = OnlineBondDao.GetOrderBondSubBook(customerId,IssuerId,orderid);
+                dsLookupData = OnlineBondDao.GetOrderBondSubBook(customerId, IssuerId, orderid);
 
             }
             catch (BaseApplicationException Ex)
@@ -382,7 +394,7 @@ namespace BoOnlineOrderManagement
             OnlineBondOrderDao OnlineBondDao = new OnlineBondOrderDao();
             try
             {
-               bResult= OnlineBondDao.CancelBondsBookOrder(orderId, is_Cancel,remarks);
+                bResult = OnlineBondDao.CancelBondsBookOrder(orderId, is_Cancel, remarks);
 
             }
             catch (BaseApplicationException Ex)
@@ -408,8 +420,8 @@ namespace BoOnlineOrderManagement
         public string GetMAXTransactNO()
         {
             OnlineBondOrderDao OnlineBondDao = new OnlineBondOrderDao();
-           
-            string maxDB=string.Empty;
+
+            string maxDB = string.Empty;
             try
             {
                 maxDB = OnlineBondDao.GetMAXTransactNO();
@@ -460,7 +472,7 @@ namespace BoOnlineOrderManagement
         public DataSet GetNCDTransactOrder(int orderId, int IssuerId)
         {
             DataSet dsNCD;
-          
+
             OnlineBondOrderDao OnlineBondOrderDao = new OnlineBondOrderDao();
             try
             {
@@ -482,7 +494,7 @@ namespace BoOnlineOrderManagement
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-           return dsNCD;
+            return dsNCD;
         }
         public DataSet GetNCDAllTransactOrder(int orderId, int IssuerId)
         {
@@ -518,7 +530,7 @@ namespace BoOnlineOrderManagement
             OnlineBondOrderDao OnlineBondOrderDao = new OnlineBondOrderDao();
             try
             {
-                dtNCDHoldingOrder = OnlineBondOrderDao.GetNCDHoldingOrder(customerId,AccountId, dtFrom, dtTo);
+                dtNCDHoldingOrder = OnlineBondOrderDao.GetNCDHoldingOrder(customerId, AccountId, dtFrom, dtTo);
             }
             catch (BaseApplicationException Ex)
             {

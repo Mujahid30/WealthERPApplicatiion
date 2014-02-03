@@ -44,7 +44,7 @@ namespace WealthERP.OnlineOrderManagement
             customerVo = (CustomerVo)Session["customerVo"];
             adviserVo = (AdvisorVo)Session["advisorVo"];
             ShowAvailableLimits();
-           // lblAvailableLimits.Text = "500000";
+            lblAvailableLimits.Text = "5000000";
 
             if (!IsPostBack)
             {
@@ -247,6 +247,9 @@ namespace WealthERP.OnlineOrderManagement
         {
             int rowindex1 = ((GridDataItem)((TextBox)sender).NamingContainer).RowIndex;
             int rowindex = (rowindex1 / 2) - 1;
+            int issueId = Convert.ToInt32(Request.QueryString["IssuerId"]);
+            string catName = string.Empty;
+            int issuedetId = 0;
             TextBox txtQuantity = (TextBox)gvCommMgmt.MasterTableView.Items[rowindex]["Quantity"].FindControl("txtQuantity");
             if (!string.IsNullOrEmpty(txtQuantity.Text))
             {
@@ -281,6 +284,7 @@ namespace WealthERP.OnlineOrderManagement
                         if (cbSelectOrder.Checked == true)
                             if (!string.IsNullOrEmpty(txtsumQuantity.Text) && !string.IsNullOrEmpty(txtsumAmount.Text))
                             {
+
                                 Quantity = Quantity + Convert.ToInt32(txtsumQuantity.Text);
                                 ViewState["Qty"] = Quantity;
                                 sum = sum + Convert.ToInt32(txtsumAmount.Text);
@@ -288,12 +292,22 @@ namespace WealthERP.OnlineOrderManagement
                                 lblQty.Text = Quantity.ToString();
                                 lblSum.Text = sum.ToString();
 
+                                lb1AvailbleCat.Visible = true;
+
+                                OnlineBondBo.GetCustomerCat(issueId, customerVo.CustomerId, adviserVo.advisorId, Convert.ToDouble(lblSum.Text), ref catName, ref issuedetId);
+                                lb1AvailbleCat.Text = "  U selected for :" + catName;
+                                if (catName == string.Empty)
+                                    ShowMessage("Bid category Not Available");
                                 //txtTotAmt_ValueChanged(null, new EventArgs());
                             }
                         if (rowno < gvCommMgmt.MasterTableView.Items.Count)
+                        {
                             rowno++;
+                        }
                         else
+                        {
                             break;
+                        }
                     }
                 }
                 else
@@ -325,14 +339,10 @@ namespace WealthERP.OnlineOrderManagement
 
         protected void txtTotAmt_ValueChanged(object sender, EventArgs e)
         {
-            DataTable dt = new DataTable();
-        //    dt = (DataTable)Cache("NCDTransactList" + userVo.UserId.ToString());
-
-            dt = (DataTable)Cache["NCDTransactList" + userVo.UserId.ToString()];
-
-
-
-
+            //GridFooterItem footerItemAmount = (GridFooterItem)gvCommMgmt.MasterTableView.GetItems(GridItemType.Footer)[0];
+            //Label lblSum = (Label)footerItemAmount.FindControl("lblAmount");
+            //lb1AvailbleCat.Visible = true;
+            //lb1AvailbleCat.Text = "Available are:";
         }
         private string CreateUserMessage(int orderId, int Applicationno, bool accountDebitStatus, string aplicationNoStatus)
         {
@@ -381,6 +391,7 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void btnConfirmOrder_Click(object sender, EventArgs e)
         {
+            int issueDetId = 0;
             Button Button = (Button)sender;
             minQty = int.Parse(ViewState["minQty"].ToString());
             maxQty = int.Parse(ViewState["maxQty"].ToString());
@@ -393,6 +404,7 @@ namespace WealthERP.OnlineOrderManagement
             dt.Columns.Add("AIM_IssueId");
             dt.Columns.Add("Qty");
             dt.Columns.Add("Amount");
+            dt.Columns.Add("CatId");
             int rowNo = 0;
             int tableRow = 0;
             foreach (GridDataItem CBOrder in gvCommMgmt.MasterTableView.Items)
@@ -409,6 +421,8 @@ namespace WealthERP.OnlineOrderManagement
                     {
                         isValid = true;
                         txtQuantity.Enabled = true;
+                       
+                        string catName=string.Empty;
                         OnlineBondVo.Qty = Convert.ToInt32(txtQuantity.Text);
                         TextBox txtAmount = (TextBox)gvCommMgmt.MasterTableView.Items[rowNo]["Amount"].FindControl("txtAmount");
                         OnlineBondVo.Amount = Convert.ToDouble(txtAmount.Text);
@@ -418,6 +432,15 @@ namespace WealthERP.OnlineOrderManagement
                         dt.Rows[tableRow]["AIM_IssueId"] = OnlineBondVo.IssueId;
                         dt.Rows[tableRow]["Qty"] = OnlineBondVo.Qty;
                         dt.Rows[tableRow]["Amount"] = OnlineBondVo.Amount;
+
+                        GridFooterItem footerItemAmount = (GridFooterItem)gvCommMgmt.MasterTableView.GetItems(GridItemType.Footer)[0];
+                        Label lblSum = (Label)footerItemAmount.FindControl("lblAmount");
+                        issueDetId = OnlineBondVo.PFISD_SeriesId;
+                        OnlineBondBo.GetCustomerCat(OnlineBondVo.IssueId, customerVo.CustomerId, adviserVo.advisorId, Convert.ToDouble(lblSum.Text) , ref catName, ref issueDetId);
+
+                        dt.Rows[tableRow]["CatId"] = issueDetId;
+
+
                     }
                     tableRow++;
                 }
@@ -431,7 +454,17 @@ namespace WealthERP.OnlineOrderManagement
             {
                 Quantity = int.Parse(ViewState["Qty"].ToString());
                 sum = int.Parse(ViewState["Sum"].ToString());
-                if (Quantity < minQty)
+                
+                if (Convert.ToInt32(lblAvailableLimits.Text) == 0)
+                {
+                    ShowMessage("Order cannot be processed. Insufficient balance");
+                }
+                else if (issueDetId == 0)
+                {
+                    ShowMessage("Order Cant placed. No suitable categories are there.");
+
+                }
+                else if (Quantity < minQty)
                 {
                     foreach (GridDataItem CBOrder in gvCommMgmt.MasterTableView.Items)
                     {
@@ -474,7 +507,7 @@ namespace WealthERP.OnlineOrderManagement
                     IssuerId = int.Parse(ViewState["IssueId"].ToString());
                     double availableBalance = Convert.ToDouble(OnlineBondBo.GetUserRMSAccountBalance(customerVo.AccountId));
                     int totalOrderAmt = int.Parse(ViewState["Sum"].ToString());
-                   // availableBalance = 5000000;
+                    availableBalance = 5000000;
                     string message;
                     string aplicationNoStatus = string.Empty;
                     bool accountDebitStatus = false;

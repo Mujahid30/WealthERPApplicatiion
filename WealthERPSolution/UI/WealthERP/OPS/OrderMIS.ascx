@@ -723,6 +723,14 @@
                                         <asp:Label ID="lblOrderStep" runat="server" Text='<%#Eval("WOS_OrderStep").ToString() %>'> </asp:Label>
                                     </ItemTemplate>
                                 </telerik:GridTemplateColumn>
+                                 <telerik:GridTemplateColumn DataField="WOS_OrderStepCode" HeaderText="Status" SortExpression="WOS_OrderStepCode"
+                                    ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                    UniqueName="WOS_OrderStepCode" FooterStyle-HorizontalAlign="Left" Visible="false">
+                                    <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblOrderStepCode" runat="server" Text='<%#Eval("WOS_OrderStepCode").ToString() %>'> </asp:Label>
+                                    </ItemTemplate>
+                                </telerik:GridTemplateColumn>
                                 <telerik:GridTemplateColumn DataField="CMFOD_IsImmediate" HeaderText="Order Type">
                                     <HeaderTemplate>
                                         <asp:Label ID="lblOrderTypeHeader" runat="server" Text="Order Type"></asp:Label>
