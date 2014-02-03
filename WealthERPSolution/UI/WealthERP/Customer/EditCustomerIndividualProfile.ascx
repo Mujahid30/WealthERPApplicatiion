@@ -315,7 +315,7 @@
                                                 SortExpression="AssociateName">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="C_PANNum" HeaderText="C_PANNum" UniqueName="C_PANNum"
+                                            <telerik:GridBoundColumn DataField="C_PANNum" HeaderText="PAN" UniqueName="C_PANNum"
                                                 SortExpression="C_PANNum">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
