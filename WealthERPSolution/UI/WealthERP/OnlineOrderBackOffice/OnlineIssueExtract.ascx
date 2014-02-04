@@ -182,8 +182,8 @@
                     <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="Select Issue:"></asp:Label>
                 </td>
                 <td class="rightData">
-                    <asp:DropDownList ID="ddlIssueName" runat="server" CssClass="cmbLongField">
-                        <asp:ListItem Selected="True" Value="Select">--SELECT--</asp:ListItem>
+                    <asp:DropDownList ID="ddlIssueName" runat="server" CssClass="cmbLongField" AutoPostBack="true" OnSelectedIndexChanged="ddlIssueName_SelectedIndexChanged">
+                        <%--<asp:ListItem Selected="True" Value="Select">--SELECT--</asp:ListItem>--%>
                     </asp:DropDownList>
                     <br />
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="ddlIssueName"
@@ -219,10 +219,10 @@
                 <td class="rightData">
                     <asp:DropDownList ID="ddlExternalSource" runat="server" CssClass="cmbField" AutoPostBack="true"
                         OnSelectedIndexChanged="ddlExternalSource_SelectedIndexChanged" >
-                        <asp:ListItem Selected="True" Value="0">--SELECT--</asp:ListItem>
+                        <%--<asp:ListItem Selected="True" Value="0">--SELECT--</asp:ListItem>
                         <asp:ListItem Text="BSE" Value="BSE" />
                         <asp:ListItem Text="NSE" Value="NSE" />
-                        <asp:ListItem Text="Internal Ops" Value="IOPS" />
+                        <asp:ListItem Text="Internal Ops" Value="IOPS" />--%>
                     </asp:DropDownList>
                     <br />
                     <asp:RequiredFieldValidator ID="rfvDownload" runat="server" ErrorMessage="Please select a download"

@@ -18,6 +18,39 @@ namespace DaoOnlineOrderManagement
     public class OnlineNCDBackOfficeDao
     {
 
+        public DataSet GetExtSource(string product,int issueId)
+        {
+            DataSet dsExtSource;
+            Database db;
+            DbCommand dbCommand;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbCommand = db.GetStoredProcCommand("SPROC_BindExtSource");
+                db.AddInParameter(dbCommand, "@product", DbType.String, product);
+                db.AddInParameter(dbCommand, "@issueId", DbType.Int32, issueId);
+                dsExtSource = db.ExecuteDataSet(dbCommand);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineNCDBackOfficeDao.cs:GetExtSource()");
+                object[] objects = new object[2];
+                objects[1] = product;
+                objects[2] = issueId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsExtSource;
+        }
+
         public DataSet GetIssueDetails(int issueId, int adviserId)
         {
             DataSet dsIssueDetails;
@@ -815,7 +848,7 @@ namespace DaoOnlineOrderManagement
             return dsGetSubCategory;
         }
 
-        public DataSet GetSubCategory(int issuerId, int issueId,int size)
+        public DataSet GetSubCategory(int issuerId, int issueId, int size)
         {
             DataSet dsGetSubCategory;
             Database db;
@@ -827,7 +860,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(dbCommand, "@issuerId", DbType.Int32, issuerId);
                 db.AddInParameter(dbCommand, "@IssueId", DbType.Int32, issueId);
                 db.AddInParameter(dbCommand, "@size", DbType.Int32, size);
-                
+
                 dsGetSubCategory = db.ExecuteDataSet(dbCommand);
             }
             catch (BaseApplicationException Ex)
@@ -1306,7 +1339,7 @@ namespace DaoOnlineOrderManagement
             }
         }
 
-        public DataSet GetOnlineNcdExtractPreview(DateTime Today, int AdviserId, int FileType, int issueId)
+        public DataSet GetOnlineNcdExtractPreview(DateTime Today, int AdviserId, int FileType, int issueId, string extSource)
         {
             Database db;
             DataSet dsGetOnlineNCDExtractPreview;
@@ -1320,6 +1353,9 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(GetOnlineNCDExtractPreviewcmd, "@A_AdviserId", DbType.Int32, AdviserId);
                 db.AddInParameter(GetOnlineNCDExtractPreviewcmd, "@WIFT_Id", DbType.Int32, FileType);
                 db.AddInParameter(GetOnlineNCDExtractPreviewcmd, "@IssueId", DbType.Int32, issueId);
+                db.AddInParameter(GetOnlineNCDExtractPreviewcmd, "@ExtSource", DbType.String, extSource);
+
+                
                 dsGetOnlineNCDExtractPreview = db.ExecuteDataSet(GetOnlineNCDExtractPreviewcmd);
             }
             catch (BaseApplicationException Ex)

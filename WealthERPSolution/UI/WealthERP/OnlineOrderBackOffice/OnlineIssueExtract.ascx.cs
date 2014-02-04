@@ -70,6 +70,23 @@ namespace WealthERP.OnlineOrderBackOffice
             if (dtExtractData != null) gvOnlineIssueExtract.DataSource = dtExtractData;
         }
 
+        private void BindExtSource(string product,int issueId)
+        {
+            DataSet dsIssuer = new DataSet();
+            boNcdBackOff = new OnlineNCDBackOfficeBo();
+
+
+            dsIssuer = boNcdBackOff.GetExtSource(product, issueId);
+            if (dsIssuer.Tables[0].Rows.Count > 0)
+            {
+                ddlExternalSource.DataSource = dsIssuer;
+                ddlExternalSource.DataValueField = dsIssuer.Tables[0].Columns["XES_SourceCode"].ToString();
+                ddlExternalSource.DataTextField = dsIssuer.Tables[0].Columns["XES_SourceCode"].ToString();
+                ddlExternalSource.DataBind();
+            }
+            ddlExternalSource.Items.Insert(0, new ListItem("Select", "Select"));
+        }
+
         protected void btnIssueExtract_Click(object sender, EventArgs e)
         {
             //Page.Validate("IssueExtract");
@@ -167,7 +184,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     ddlIssueName.DataTextField = dsIssuer.Tables[0].Columns["AIM_IssueName"].ToString();
                     ddlIssueName.DataBind();
                 }
-                // ddlIssueName.Items.Insert(0, new ListItem("Select", "Select"));
+               ddlIssueName.Items.Insert(0, new ListItem("Select", "Select"));
 
             //}
             //catch (BaseApplicationException Ex)
@@ -177,6 +194,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
 
         }
+        
         private void DownloadBidFile(DataTable dtExtractData, string filename, string delimit)
         {
             if (dtExtractData == null)
@@ -249,6 +267,14 @@ namespace WealthERP.OnlineOrderBackOffice
             //}
             SetFileType(ddlExternalSource.SelectedValue);
         }
+
+        protected void ddlIssueName_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlIssueName.SelectedValue == "Select")
+                return;
+
+            BindExtSource(ddlProduct.SelectedValue, Convert.ToInt32(ddlIssueName.SelectedValue));
+      }
 
         private void GetExtractData()
         {

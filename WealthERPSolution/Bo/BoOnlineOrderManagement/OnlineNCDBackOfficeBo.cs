@@ -41,6 +41,30 @@ namespace BoOnlineOrderManagement
             }
 
         }
+         public DataSet GetExtSource(string product,int issueId)
+        {
+            onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
+            try
+            {
+                return onlineNCDBackOfficeDao.GetExtSource(product, issueId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineNCDBackOfficeBo.cs:GetIssueDetails()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+        }
 
         public DataSet GetAdviserIssueList(DateTime date, int type, string product, int adviserId)
         {
@@ -856,7 +880,7 @@ namespace BoOnlineOrderManagement
 
             if (onlineNCDBackOfficeDao == null) onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
 
-            DataTable dtExtract = onlineNCDBackOfficeDao.GetOnlineNcdExtractPreview(extractDate, adviserId, fileTypeId, issueId).Tables[0];
+            DataTable dtExtract = onlineNCDBackOfficeDao.GetOnlineNcdExtractPreview(extractDate, adviserId, fileTypeId, issueId,extSource).Tables[0];
             //No maping Has to do
             if (dtExtract == null) return null;
 
