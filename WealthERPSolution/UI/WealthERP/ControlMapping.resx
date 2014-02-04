@@ -1869,4 +1869,8 @@
     <value>OnlineOrderManagement//CustomerIPOHolding.ascx</value>
     <comment>OnlineOrderManagement//CustomerIPOHolding.ascx</comment>
   </data>
+  <data name="UserSessionManager" xml:space="preserve">
+    <value>General//UserSessionManager.ascx</value>
+    <comment>General//UserSessionManager.ascx</comment>
+  </data>
 </root>

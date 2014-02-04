@@ -2588,6 +2588,13 @@
     <Compile Include="General\UserLogout.ascx.designer.cs">
       <DependentUpon>UserLogout.ascx</DependentUpon>
     </Compile>
+    <Compile Include="General\UserSessionManager.ascx.cs">
+      <DependentUpon>UserSessionManager.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="General\UserSessionManager.ascx.designer.cs">
+      <DependentUpon>UserSessionManager.ascx</DependentUpon>
+    </Compile>
     <Compile Include="General\UserSettings.ascx.cs">
       <DependentUpon>UserSettings.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -7335,6 +7342,7 @@
     <Content Include="bin\BoCommisionManagement.dll" />
     <Content Include="bin\BoCommisionManagement.pdb" />
     <Content Include="bin\BoCommon.pdb" />
+    <Content Include="bin\BoCustomerPortfolio.dll" />
     <Content Include="bin\BoCustomerPortfolio.pdb" />
     <Content Include="bin\BoCustomerRiskProfiling.dll" />
     <Content Include="bin\BoCustomerRiskProfiling.pdb" />
@@ -7618,6 +7626,7 @@
     <Content Include="General\ImageServe.aspx" />
     <Content Include="General\InterestCalculator.ascx" />
     <Content Include="General\SetTheme.ascx" />
+    <Content Include="General\UserSessionManager.ascx" />
     <Content Include="General\UserSettings.ascx" />
     <Content Include="General\UserSettingsLeftPane.ascx" />
     <Content Include="General\ViewPensionDetails.ascx" />

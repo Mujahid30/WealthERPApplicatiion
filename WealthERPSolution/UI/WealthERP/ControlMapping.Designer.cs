@@ -3598,6 +3598,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to General//UserSessionManager.ascx.
+        /// </summary>
+        internal static string UserSessionManager {
+            get {
+                return ResourceManager.GetString("UserSessionManager", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to General//UserSettings.ascx.
         /// </summary>
         internal static string UserSettings {
