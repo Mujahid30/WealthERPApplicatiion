@@ -1839,6 +1839,20 @@ namespace BoOnlineOrderManagement
                 throw Ex;
             }
         }
+         public string  GetExtCode(int schemplancode)
+        {
+              OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
+               string extCode=string.Empty ;
+            try
+            {
+                extCode=OnlineOrderBackOfficeDao.GetExtCode(schemplancode);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return extCode;
+        }
     }
 
 }

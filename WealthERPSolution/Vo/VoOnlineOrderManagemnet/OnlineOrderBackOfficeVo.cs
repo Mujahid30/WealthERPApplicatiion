@@ -93,7 +93,7 @@ namespace VoOnlineOrderManagemnet
         public double MultipleAmount { get; set; }
         public string SystematicCode { get; set; }
         public int Bankcode { get; set; }
-
+        public string productcode { get; set; }
     }
 
     public class TradeBusinessDateVo
