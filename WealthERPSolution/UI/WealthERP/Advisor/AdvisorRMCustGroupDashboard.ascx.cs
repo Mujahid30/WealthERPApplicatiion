@@ -20,6 +20,7 @@ using WealthERP.Base;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using BoCommon;
 
+
 namespace WealthERP.Advisor
 {
     public partial class AdvisorRMCustGroupDashboard : System.Web.UI.UserControl
@@ -148,6 +149,8 @@ namespace WealthERP.Advisor
                     dtCustomerFamily.Columns.Add("CustomerId");
                     dtCustomerFamily.Columns.Add("Member Name");
                     dtCustomerFamily.Columns.Add("Relationship");
+                    dtCustomerFamily.Columns.Add("Is RealInvestor");
+
                     lblFamilyMembersNum.Text = customerFamilyList.Count.ToString();
 
 
@@ -161,6 +164,7 @@ namespace WealthERP.Advisor
                         drCustomerFamily[0] = customerFamilyVo.AssociateCustomerId;
                         drCustomerFamily[1] = customerMemberVo.FirstName.ToString() + " " + customerMemberVo.MiddleName.ToString() + " " + customerMemberVo.LastName.ToString();
                         drCustomerFamily[2] = customerFamilyVo.Relationship.ToString();
+                        drCustomerFamily[3] = customerMemberVo.IsRealInvestor.ToString();
 
                         dtCustomerFamily.Rows.Add(drCustomerFamily);
 
@@ -1027,6 +1031,57 @@ namespace WealthERP.Advisor
 
             qryString = "FromPage=ViewGeneralInsuranceDetails&InsuranceId=" + geninsuranceId + "&action=View";
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioGeneralInsuranceEntry','" + qryString + "');", true);
+        }
+
+        
+        //protected void ItemDataBound(object sender, Telerik.Web.UI.GridItemEventArgs e)
+        //{
+
+        //    //if (e.Item is GridDataItem)
+        //    {
+        //        //GridDataItem item = (GridDataItem)e.Item;
+        //        //Label lblLoginId = (Label)item.FindControl("lblLoginId");
+        //        //LinkButton lblGenerateLogin = (LinkButton)item.FindControl("lnkGenerateLogin");
+        //        LinkButton lnkCustomerName = (LinkButton)item.FindControl("lnkCustomerName");
+        //        //LinkButton lblGenerateLogin=e.Item.FindControl("lnkGenerateLogin") as LinkButton;
+        //        //LinkButton lnkResetPassword =e.Item.FindControl("lnkResetPassword") as LinkButton;
+        //        //LinkButton lnkResetPassword = (LinkButton)item.FindControl("lnkResetPassword");
+        //        //CheckBox chkBox = e.Item.FindControl("cbRecons") as CheckBox;
+        //        if (!string.IsNullOrEmpty(lblLoginId.Text.Trim()))
+        //        {
+        //            lnkCustomerName.Visible = true;
+
+        //        }
+        //        else
+        //        {
+        //            //lblLoginId.Visible = false;
+        //            //chkBox.Enabled = false;
+        //            lnkCustomerName.Visible = false;
+        //        }
+        //    }
+        //}
+
+        protected void GVSample_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            DataRowView drview = e.Row.DataItem as DataRowView;
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                //HyperLink HLdetails = e.Row.FindControl("hyprlnkdetails") as HyperLink;
+                LinkButton lnkCustomerName = e.Row.FindControl("lnkCustomerName") as LinkButton;
+               // Label lblText = e.Row.FindControl("lblText") as Label;
+                if (drview[3].ToString() == "True")
+                {
+                    lnkCustomerName.Enabled = true;
+                    //HLdetails.Text = "Click here to view";
+                    //HLdetails.NavigateUrl = String.Format("~/details.aspx?UserID={0}", drview[8].ToString());
+                }
+                else
+                {
+                    lnkCustomerName.Enabled = false;
+                    //HLdetails.Visible = false;
+                    //lblText.Text = "View Restricted";
+                }
+            }
         }
     }
 }
