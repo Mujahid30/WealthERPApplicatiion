@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="NCDIssueTransact.ascx.cs"
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="NCDIssueTransact.ascx.cs"
     Inherits="WealthERP.OnlineOrderManagement.NCDIssueTransact" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
@@ -169,7 +169,7 @@
         <div class="divOnlinePageHeading" style="float: right; width: 100%">
             <div style="float: right; padding-right: 100px;">
                 <span style="color: Black; font: arial; font-size: smaller">Available Limits:</span>
-                <asp:Label ID="lblAvailableLimits" runat="server" Text="" CssClass="FieldName"></asp:Label>
+                <asp:Label ID="lblAvailableLimits" runat="server" Text="" style="color: white" CssClass="FieldName"></asp:Label>
             </div>
         </div>
         <table id="tblMessage" width="100%" runat="server" visible="false" style="padding-top: 20px;">
