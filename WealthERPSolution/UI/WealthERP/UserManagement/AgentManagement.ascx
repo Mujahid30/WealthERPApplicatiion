@@ -106,7 +106,7 @@
                                 <telerik:GridTemplateColumn HeaderText="" AllowFiltering="false">
                                     <ItemStyle />
                                     <ItemTemplate>
-                                        <asp:LinkButton ID="lnkReset" runat="server" CssClass="cmbField" Text="Reset Password"
+                                        <asp:LinkButton ID="lnkReset" runat="server" CssClass="cmbFielde" Text="Reset Password"
                                             OnClick="lnkReset_Click">
                                         </asp:LinkButton>
                                     </ItemTemplate>
