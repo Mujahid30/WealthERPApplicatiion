@@ -131,8 +131,7 @@
             <br />
         </td>
     </tr>
-    <tr>
-    </tr>
+   
 </table>
 <%--<div class="exampleWrapper">--%>
 <%--<telerik:RadTabStrip ID="RadTabStrip2" runat="server" Skin="Telerik" MultiPageID="SetupEmailSMS"
