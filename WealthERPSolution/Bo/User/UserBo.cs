@@ -895,5 +895,34 @@ namespace BoUser
             return userVo;
 
         }
+
+        public DataTable GetUserDetails(string userIds)
+        {
+            UserDao userDao = new UserDao();
+            DataTable dtUserDetails;
+
+            try
+            {
+                dtUserDetails = userDao.GetUserDetails(userIds);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection functionInfo = new NameValueCollection();
+                functionInfo.Add("Method", "UserBo.cs:GetUserDetails(string userIds)");
+                object[] objects = new object[1];
+                objects[0] = userIds;
+                functionInfo = exBase.AddObject(functionInfo, objects);
+                exBase.AdditionalInformation = functionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return dtUserDetails;
+        }
     }
 }

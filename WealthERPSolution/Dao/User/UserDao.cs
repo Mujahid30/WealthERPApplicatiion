@@ -1526,5 +1526,44 @@ namespace DaoUser
         }
 
 
+        public DataTable GetUserDetails(string userIds)
+        {
+            Database db;
+            DbCommand getUserDetailsCmd;          
+            DataSet userDetailsDs;            
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getUserDetailsCmd = db.GetStoredProcCommand("SPROC_ONL_GetUserDetails");
+                db.AddInParameter(getUserDetailsCmd, "@UserIds", DbType.String, userIds);
+                userDetailsDs = db.ExecuteDataSet(getUserDetailsCmd);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", " GetUserDetails(string userIds)");
+
+                object[] objects = new object[1];
+                objects[0] = userIds;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return userDetailsDs.Tables[0];
+
+        }
+
+
+
     }
 }

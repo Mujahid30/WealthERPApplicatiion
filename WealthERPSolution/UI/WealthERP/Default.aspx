@@ -8,7 +8,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
-  <%-- <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" >--%>
+    <%-- <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" >--%>
     <title></title>
     <%-- <link href="CSS/ControlsStyleSheet.css" rel="stylesheet" type="text/css" />
     <link href="CSS/StyleSheet.css" rel="stylesheet" type="text/css" />--%>
@@ -175,9 +175,14 @@
                                             </td>
                                         </tr>
                                     </table>
-                                    <table runat="server" style="clear: both; z-index: 2500; text-align: right; float: right" cellpadding="1"
-                                        cellspacing="1">
+                                    <table runat="server" style="clear: both; z-index: 2500; text-align: right; float: right"
+                                        cellpadding="1" cellspacing="1">
                                         <tr>
+                                            <td id="tdUserSession" runat="server">
+                                                <asp:LinkButton ID="lnkUserSession" runat="server" Text="User Session" OnClientClick="javascript:loadcontrol('UserSessionManager','none'); return false;"
+                                                    CssClass="LinkButtons" Style="text-decoration: none"></asp:LinkButton>
+                                                &nbsp;
+                                            </td>
                                             <td id="tdSettings" style="vertical-align: baseline" runat="server">
                                                 <a id="LinkButtonUserSettings" onclick="javascript:loadcontrol('UserSettings','none'); return false;"
                                                     class="LinkButtons" style="text-decoration: none" href="#">Settings</a> &nbsp;
@@ -188,7 +193,8 @@
                                                 &nbsp;
                                             </td>
                                             <td id="tdDemo" visible="true" runat="server">
-                                                <a href="WealthERP_Help/Cust_care.htm" target="_blank" id="lnkDemo" runat="server" class="LinkButtons" style="text-decoration: none">CustCare</a> &nbsp;
+                                                <a href="WealthERP_Help/Cust_care.htm" target="_blank" id="lnkDemo" runat="server"
+                                                    class="LinkButtons" style="text-decoration: none">CustCare</a> &nbsp;
                                             </td>
                                             <td id="tdHelp" runat="server">
                                                 <a id="lnkHelp" name="lnkHelp" runat="server" href="WealthERP_Help/Index.htm" style="text-decoration: none"
@@ -291,7 +297,7 @@
                                                         <Items>
                                                             <%--<asp:MenuItem Text="Home" Value="Home" SeparatorImageUrl="~/Images/MenuSeparator.jpg">
                                                             </asp:MenuItem>--%>
-                                                            <asp:MenuItem   NavigateUrl="javascript:loadfrommenu('TransactBusinessOnlineLinks','login');"
+                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('TransactBusinessOnlineLinks','login');"
                                                                 Text="Transact/Business online" Value="Transact/Business online" SeparatorImageUrl="~/Images/MenuSeparator.jpg">
                                                             </asp:MenuItem>
                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('ViewRepository','login');" Text="Repository"
@@ -302,9 +308,9 @@
                                                                 NavigateUrl="#"></asp:MenuItem>
                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('MarketData','login');" Text="Market Data"
                                                                 Value="Price List" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
-                                                           <asp:MenuItem NavigateUrl="javascript:loadfrommenu('Calculators','login');" Text="Calculators"
+                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('Calculators','login');" Text="Calculators"
                                                                 Value="Calculators"></asp:MenuItem>
-                                                           <%-- <asp:MenuItem NavigateUrl="javascript:loadfrommenu('InterestCalculator','login');"
+                                                            <%-- <asp:MenuItem NavigateUrl="javascript:loadfrommenu('InterestCalculator','login');"
                                                                 Text="Interest Calculator" Value="Interest Calculator"></asp:MenuItem>--%>
                                                             <%--https://calculator.wealtherp.com/--%>
                                                         </Items>

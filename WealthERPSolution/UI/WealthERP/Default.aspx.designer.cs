@@ -122,6 +122,24 @@ namespace WealthERP {
         protected global::System.Web.UI.HtmlControls.HtmlImage imgIFABanner;
         
         /// <summary>
+        /// tdUserSession control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdUserSession;
+        
+        /// <summary>
+        /// lnkUserSession control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkUserSession;
+        
+        /// <summary>
         /// tdSettings control.
         /// </summary>
         /// <remarks>
