@@ -1616,9 +1616,9 @@
                                                                         AllowFiltering="true" ShowFilterIcon="false">
                                                                         <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                                                     </telerik:GridBoundColumn>
-                                                                    <telerik:GridTemplateColumn HeaderText="Coupon Rate(%)" AllowFiltering="false" HeaderStyle-Width="30px">
+                                                                    <telerik:GridTemplateColumn HeaderText="Coupon Rate (%)" AllowFiltering="false" HeaderStyle-Width="30px">
                                                                         <HeaderTemplate>
-                                                                            <asp:Label ID="lblInterest" runat="server" Text="Coupon Rate(%)"></asp:Label>
+                                                                            <asp:Label ID="lblInterest" runat="server" Text="Coupon Rate (%)"></asp:Label>
                                                                         </HeaderTemplate>
                                                                         <ItemTemplate>
                                                                             <asp:TextBox ID="txtInterestRate" runat="server" CssClass="txtField" Width="40px"></asp:TextBox>
@@ -1635,7 +1635,7 @@
                                                                     <telerik:GridTemplateColumn HeaderText="Yield At Maturity" AllowFiltering="false"
                                                                         HeaderStyle-Width="30px">
                                                                         <HeaderTemplate>
-                                                                            <asp:Label ID="lblAnnualized" runat="server" Text="Yield At Maturity(%)"></asp:Label>
+                                                                            <asp:Label ID="lblAnnualized" runat="server" Text="Yield At Maturity (%)"></asp:Label>
                                                                         </HeaderTemplate>
                                                                         <ItemTemplate>
                                                                             <asp:TextBox ID="txtAnnualizedYield" runat="server" CssClass="txtField" Width="40px"></asp:TextBox>
@@ -1645,9 +1645,9 @@
                                                                             </asp:RegularExpressionValidator>
                                                                         </ItemTemplate>
                                                                     </telerik:GridTemplateColumn>
-                                                                    <telerik:GridTemplateColumn HeaderText="Renewed Coupon Rate(%)" AllowFiltering="false">
+                                                                    <telerik:GridTemplateColumn HeaderText="Renewed Coupon Rate  (%)" AllowFiltering="false">
                                                                         <HeaderTemplate>
-                                                                            <asp:Label ID="lblRenCpnRate" runat="server" Text="Renewed Coupon Rate(%)"></asp:Label>
+                                                                            <asp:Label ID="lblRenCpnRate" runat="server" Text="Renewed Coupon Rate (%)"></asp:Label>
                                                                         </HeaderTemplate>
                                                                         <ItemTemplate>
                                                                             <asp:TextBox ID="txtRenCpnRate" runat="server" CssClass="txtField" Width="40px"></asp:TextBox>
@@ -1673,7 +1673,7 @@
                                                                     <telerik:GridTemplateColumn HeaderText="Yield At BuyBack" AllowFiltering="false"
                                                                         runat="server" UniqueName="YieldAtBuyBack">
                                                                         <HeaderTemplate>
-                                                                            <asp:Label ID="lb1YieldAtBuyBack" runat="server" Text="Yield At BuyBack(%)"></asp:Label>
+                                                                            <asp:Label ID="lb1YieldAtBuyBack" runat="server" Text="Yield At BuyBack (%)"></asp:Label>
                                                                         </HeaderTemplate>
                                                                         <ItemTemplate>
                                                                             <asp:TextBox ID="txtYieldAtBuyBack" runat="server" CssClass="txtField" Width="40px"
