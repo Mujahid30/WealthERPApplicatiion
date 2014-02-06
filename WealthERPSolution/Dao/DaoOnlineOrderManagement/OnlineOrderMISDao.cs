@@ -135,7 +135,7 @@ namespace DaoOnlineOrderManagement
             }
             return dsSIPSummaryBookMIS;
         }
-        public DataSet GetSchemeMIS(string Assettype, int Onlinetype)
+        public DataSet GetSchemeMIS(string Assettype, int Onlinetype,string Status)
         {
             DataSet dsSchemeMIS;
             Database db;
@@ -163,6 +163,16 @@ namespace DaoOnlineOrderManagement
                     db.AddInParameter(GetSchemeMISCmd, "@onlinetype", DbType.Int32, Onlinetype);
 
                 }
+                //if (Status == "All")
+                //{
+                    db.AddInParameter(GetSchemeMISCmd, "@status", DbType.String, Status);
+
+                //}
+                //else
+                //{
+                //    db.AddInParameter(GetSchemeMISCmd, "@status", DbType.String, Status);
+
+                //}
                 dsSchemeMIS = db.ExecuteDataSet(GetSchemeMISCmd);
 
             }

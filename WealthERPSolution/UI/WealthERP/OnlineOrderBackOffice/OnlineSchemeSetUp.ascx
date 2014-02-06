@@ -2,6 +2,12 @@
     Inherits="WealthERP.OnlineOrderBackOffice.OnlineSchemeSetUp" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+<style type="text/css">
+    .style1
+    {
+        width: 28%;
+    }
+</style>
 <asp:ScriptManager ID="scrptMgr" runat="server">
 </asp:ScriptManager>
 
@@ -27,11 +33,12 @@
                     <td align="left">
                         Scheme Setup
                     </td>
-                    <td align="right">
+                    <td></td>
+                    <td align="right" class="style1">
                         <asp:LinkButton runat="server" ID="lbBack" CssClass="LinkButtons" Text="Edit" Visible="false"
                             OnClick="lbBack_OnClick"></asp:LinkButton>
                     </td>
-                    <td>
+                    <td style="width: 8%;">
                         <asp:LinkButton runat="server" ID="lblBack" CssClass="LinkButtons" Text="Back" Visible="false"
                             OnClick="lbBack1_OnClick"></asp:LinkButton>
                     </td>
@@ -252,11 +259,11 @@
             </td>
             <td width="25%">
                 <asp:TextBox ID="txtESSchemecode" runat="server" CssClass="cmbFielde"> </asp:TextBox>
-                <span id="Span37" class="spnRequiredField">*</span>
+              <%--  <span id="Span37" class="spnRequiredField">*</span>
                 <br />
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ErrorMessage="Please Enter External System Scheme Code"
                     CssClass="rfvPCG" ControlToValidate="txtESSchemecode" ValidationGroup="btnsubmit"
-                    Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
+                    Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>--%>
             </td>
             <td align="right" width="25%">
                 <asp:Label ID="lblSecuritycode" runat="server" Text="Security Code:" CssClass="FieldName"></asp:Label>
@@ -532,7 +539,7 @@
                     Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
                 <asp:RegularExpressionValidator ID="regtxtELremark" ControlToValidate="txtELremark"
                     ErrorMessage="Enter Only letters" runat="server" Display="Dynamic" CssClass="cvPCG"
-                    ValidationExpression="^[a-zA-Z]*$" ValidationGroup="btnsubmit">     
+                    ValidationExpression="[a-zA-Z ]*$" ValidationGroup="btnsubmit">     
                 </asp:RegularExpressionValidator>
             </td>
         </tr>
@@ -564,7 +571,7 @@
                     Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
                 <asp:RegularExpressionValidator ID="regtxtExitLremark" ControlToValidate="txtExitLremark"
                     ErrorMessage="Enter Only letters" runat="server" Display="Dynamic" CssClass="cvPCG"
-                    ValidationExpression="[a-zA-Z]*$" ValidationGroup="btnsubmit">     
+                    ValidationExpression="[a-zA-Z ]*$" ValidationGroup="btnsubmit">     
                 </asp:RegularExpressionValidator>
             </td>
         </tr>
@@ -847,8 +854,7 @@
                 </table>
             </td>
         </tr>
-        <tr>
-        </tr>
+      
         <tr>
             <td align="right">
                 <asp:Label ID="lblNACustomerType" runat="server" Text="Not Allowed Customer Type:"
@@ -896,7 +902,7 @@
 
             <%--   <asp:Panel ID="pnlSIPDetails" runat="server" Width="68%" ScrollBars="Horizontal"
             Visible="false">--%>
-            <table width="68%">
+            <table width="100%">
                 <tr>
                     <td>
                         <telerik:RadGrid ID="gvSIPDetails" runat="server" GridLines="None" AutoGenerateColumns="False"

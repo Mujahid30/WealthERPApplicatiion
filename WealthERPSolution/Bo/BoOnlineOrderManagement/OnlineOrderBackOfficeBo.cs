@@ -1839,13 +1839,13 @@ namespace BoOnlineOrderManagement
                 throw Ex;
             }
         }
-         public string  GetExtCode(int schemplancode)
+         public string  GetExtCode(int schemplancode,int isonline)
         {
               OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
                string extCode=string.Empty ;
             try
             {
-                extCode=OnlineOrderBackOfficeDao.GetExtCode(schemplancode);
+                extCode = OnlineOrderBackOfficeDao.GetExtCode(schemplancode, isonline);
             }
             catch (BaseApplicationException Ex)
             {

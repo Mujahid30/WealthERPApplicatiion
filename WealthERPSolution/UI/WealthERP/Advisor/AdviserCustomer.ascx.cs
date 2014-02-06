@@ -560,7 +560,10 @@ namespace WealthERP.Advisor
                         {
                             drCustomer["IsMFKYC"] = "N";
                         }
-                      
+                        
+                        if (customerVo.Createdon != null)
+                       
+                            drCustomer["CreatedOn"] = customerVo.Createdon;
                         if (UserRole != "rm")
                         {
                             drCustomer["BranchName"] = customerVo.BranchName;

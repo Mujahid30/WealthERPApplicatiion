@@ -27,26 +27,26 @@
 </table>
 <table width="100%">
     <tr>
-        <td align="right">
-            <asp:Label ID="lblproduct" CssClass="FieldName" runat="server" Text="Product" valign="top"></asp:Label>
+        <td align="right" style="width: 8%;">
+            <asp:Label ID="lblproduct" CssClass="FieldName" runat="server" Text="Product:" valign="top"></asp:Label>
         </td>
-        <td>
+        <td style="width: 15%;">
             <asp:DropDownList ID="ddlProduct" runat="server" CssClass="cmbField" OnSelectedIndexChanged="Onselectedindex_select"
                 AutoPostBack="false" Enabled="false">
                 <Items>
-                   <asp:ListItem Text="Select" Value="Select" Selected="false" />
-                    <asp:ListItem Text="Mutual Funds" Value="MF" Selected="True"/>
+                    <asp:ListItem Text="Select" Value="Select" Selected="false" />
+                    <asp:ListItem Text="Mutual Funds" Value="MF" Selected="True" />
                     <asp:ListItem Text="Bonds" Value="BO" Enabled="false" />
                 </Items>
             </asp:DropDownList>
-            <asp:RequiredFieldValidator ID="rfvType" runat="server" CssClass="rfvPCG" ErrorMessage="Please Select a Product"
+            <asp:RequiredFieldValidator ID="rfvType" runat="server" CssClass="rfvPCG" ErrorMessage="</br>Please Select a Product"
                 ControlToValidate="ddlProduct" Display="Dynamic" InitialValue="Select" ValidationGroup="OnlineMis">
             </asp:RequiredFieldValidator>
         </td>
-        <td align="Right" id="llbtosee" runat="server">
-            <asp:Label ID="lblTosee" CssClass="FieldName" runat="server" Text="Do You Wish To See"></asp:Label>
+        <td align="Right" id="llbtosee" runat="server" style="width: 15%;">
+            <asp:Label ID="lblTosee" CssClass="FieldName" runat="server" Text="Do You Wish To See:"></asp:Label>
         </td>
-        <td id="tdtosee" runat="server">
+        <td id="tdtosee" runat="server" style="width: 15%;">
             <asp:DropDownList ID="ddlTosee" runat="server" CssClass="cmbField">
                 <Items>
                     <asp:ListItem Text="Both" Value="2" />
@@ -56,8 +56,21 @@
                 </Items>
             </asp:DropDownList>
         </td>
+        <td style="width: 8%;" align="right">
+            <asp:Label ID="lblstatus" CssClass="FieldName" runat="server" Text="Status:"> </asp:Label>
+        </td>
+        <td style="width: 15%;">
+            <asp:DropDownList ID="ddlststus" runat="server" CssClass="cmbField">
+                <Items>
+                <%--    <asp:ListItem Text="Both" Value="All" />--%>
+                    <asp:ListItem Text="Active" Value="Active" Selected="True" />
+                    <asp:ListItem Text="Liquidated" Value="Liquidated" />
+                    <%-- <asp:ListItem Text="Both" Value="Both"/>--%>
+                </Items>
+            </asp:DropDownList>
+        </td>
         <td align="left">
-            <asp:Button ID="btngo" runat="server" Text="Go" CssClass="PCGButton" OnClick="btngo_Click"
+            <asp:Button ID="btngo" runat="server" Text="Go" CssClass="PCGMediumButton" OnClick="btngo_Click"
                 ValidationGroup="OnlineMis" />
         </td>
     </tr>
@@ -72,7 +85,7 @@
             <td>
                 <div id="SchemeMIS" runat="server" style="width: 100%; padding-left: 0px;" visible="false">
                     <telerik:RadGrid ID="gvonlineschememis" runat="server" AllowAutomaticDeletes="false"
-                        EnableEmbeddedSkins="false" AllowFilteringByColumn="true" AutoGenerateColumns="False"
+                        PageSize="20" EnableEmbeddedSkins="false" AllowFilteringByColumn="true" AutoGenerateColumns="False"
                         ShowStatusBar="false" ShowFooter="false" AllowPaging="true" AllowSorting="true"
                         GridLines="none" AllowAutomaticInserts="false" Skin="Telerik" EnableHeaderContextMenu="true"
                         OnNeedDataSource="gvonlineschememis_OnNeedDataSource">
@@ -95,6 +108,12 @@
                                         </asp:DropDownList>
                                     </ItemTemplate>
                                 </telerik:GridTemplateColumn>
+                                <telerik:GridBoundColumn DataField="PASP_SchemePlanName" UniqueName="PASP_SchemePlanName"
+                                    HeaderText="Scheme" ShowFilterIcon="false" AutoPostBackOnFilter="true" AllowFiltering="true"
+                                    HeaderStyle-Width="290px" SortExpression="PASP_SchemePlanName" FilterControlWidth="250px"
+                                    CurrentFilterFunction="Contains">
+                                    <ItemStyle Width="290px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
+                                </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn DataField="PA_AMCName" UniqueName="PA_AMCName" HeaderText="AMC"
                                     ShowFilterIcon="false" AutoPostBackOnFilter="true" AllowFiltering="true" HeaderStyle-Width="120px"
                                     SortExpression="PA_AMCName" FilterControlWidth="50px" CurrentFilterFunction="Contains">
@@ -107,9 +126,9 @@
                                     <ItemStyle Width="150px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn DataField="PASC_AMC_ExternalType" UniqueName="PASC_AMC_ExternalType"
-                                    HeaderText="External Type" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                    AllowFiltering="true" HeaderStyle-Width="120px" SortExpression="PASC_AMC_ExternalType"
-                                    FilterControlWidth="50px" CurrentFilterFunction="Contains">
+                                    HeaderText="RTA" ShowFilterIcon="false" AutoPostBackOnFilter="true" AllowFiltering="true"
+                                    HeaderStyle-Width="120px" SortExpression="PASC_AMC_ExternalType" FilterControlWidth="50px"
+                                    CurrentFilterFunction="Contains">
                                     <ItemStyle Width="150px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn DataField="PASP_SchemePlanCode" UniqueName="PASP_SchemePlanCode"
@@ -117,12 +136,6 @@
                                     AllowFiltering="true" HeaderStyle-Width="67px" SortExpression="PASP_SchemePlanCode"
                                     FilterControlWidth="50px" CurrentFilterFunction="Contains" Visible="false">
                                     <ItemStyle Width="67px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
-                                </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn DataField="PASP_SchemePlanName" UniqueName="PASP_SchemePlanName"
-                                    HeaderText="Scheme" ShowFilterIcon="false" AutoPostBackOnFilter="true" AllowFiltering="true"
-                                    HeaderStyle-Width="290px" SortExpression="PASP_SchemePlanName" FilterControlWidth="250px"
-                                    CurrentFilterFunction="Contains">
-                                    <ItemStyle Width="290px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn DataField="PASP_IsOnline" UniqueName="PASP_IsOnline" HeaderText="IsOnline Available"
                                     SortExpression="PASP_IsOnline" AutoPostBackOnFilter="true" HeaderStyle-Width="100px"
@@ -166,3 +179,4 @@
 </asp:Panel>
 <asp:HiddenField ID="hdnAssettype" runat="server" />
 <asp:HiddenField ID="hdnIsonline" runat="server" />
+<asp:HiddenField ID="hdnStatus" runat="server" />

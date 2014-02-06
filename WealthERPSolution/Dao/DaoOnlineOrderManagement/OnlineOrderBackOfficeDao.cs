@@ -266,7 +266,7 @@ namespace DaoOnlineOrderManagement
         public List<int> CreateOnlineSchemeSetUp(MFProductAMCSchemePlanDetailsVo mfProductAMCSchemePlanDetailsVo, int userId)
         {
             List<int> SchemePlancodes = new List<int>();
-            int SchemePlancode = 0;
+      
 
             Database db;
             DbCommand createMFOnlineSchemeSetUpCmd;
@@ -543,9 +543,13 @@ namespace DaoOnlineOrderManagement
                         //{
                         //    mfProductAMCSchemePlanDetailsVo.WCMV_Lookup_BankId = int.Parse(dr["WCMV_Lookup_BankId"].ToString());
                         //}
-                        if (!string.IsNullOrEmpty(dr["PASC_AMC_ExternalCode"].ToString()))
+                        if (!string.IsNullOrEmpty(dr["onlinecode"].ToString()))
                         {
-                            mfProductAMCSchemePlanDetailsVo.ExternalCode = dr["PASC_AMC_ExternalCode"].ToString();
+                            mfProductAMCSchemePlanDetailsVo.ExternalCode = dr["onlinecode"].ToString();
+                        }
+                        if (!string.IsNullOrEmpty(dr["offlinecode"].ToString()))
+                        {
+                            mfProductAMCSchemePlanDetailsVo.productcode = dr["offlinecode"].ToString();
                         }
                         if (!string.IsNullOrEmpty(dr["PASC_AMC_ExternalType"].ToString()))
                         {
@@ -642,6 +646,47 @@ namespace DaoOnlineOrderManagement
             }
             return count;
         }
+
+        public string GetExtCode(int schemplancode, int isonline)
+        {
+            Database db;
+            DataSet ds;
+            DbCommand cmdGetExtCode;
+            string extCode=string.Empty ;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //checking year
+                cmdGetExtCode = db.GetStoredProcCommand("SPROC_GetExtCOde");
+                db.AddInParameter(cmdGetExtCode, "@SchemePlanCode", DbType.Int32, schemplancode);
+                db.AddInParameter(cmdGetExtCode, "@isonline", DbType.Int32, isonline);
+                db.AddOutParameter(cmdGetExtCode, "@PASC_AMC_ExternalCode", DbType.String, 20);
+              ds = db.ExecuteDataSet(cmdGetExtCode);
+                if (db.ExecuteNonQuery(cmdGetExtCode) != 0)
+                {
+                    extCode = db.GetParameterValue(cmdGetExtCode, "PASC_AMC_ExternalCode").ToString();
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AssociateDAO.cs:ExternalcodeCheck()");
+                object[] objects = new object[2];
+               // objects[0] = externalcode;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return extCode;
+        }
+
 
         public bool AMFIduplicateCheck(int schemeplancode, string externalcode)
         {
@@ -1736,9 +1781,15 @@ namespace DaoOnlineOrderManagement
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 UpdateproductamcschemeCmd = db.GetStoredProcCommand("SPROC_Onl_UpdateSchemeplan");
                 db.AddInParameter(UpdateproductamcschemeCmd, "@SchemePlancode", DbType.Int32, mfProductAMCSchemePlanDetailsVo.SchemePlanCode);
+                db.AddInParameter(UpdateproductamcschemeCmd, "@Amc", DbType.Int32, mfProductAMCSchemePlanDetailsVo.AMCCode);
+                db.AddInParameter(UpdateproductamcschemeCmd, "@Category", DbType.String, mfProductAMCSchemePlanDetailsVo.AssetCategoryCode);
+                db.AddInParameter(UpdateproductamcschemeCmd, "@SubCategory", DbType.String, mfProductAMCSchemePlanDetailsVo.AssetSubCategoryCode);
+                db.AddInParameter(UpdateproductamcschemeCmd, "@SubSubCategory", DbType.String, mfProductAMCSchemePlanDetailsVo.AssetSubSubCategory);
                 db.AddInParameter(UpdateproductamcschemeCmd, "@SchemeName", DbType.String, mfProductAMCSchemePlanDetailsVo.SchemePlanName);
                 db.AddInParameter(UpdateproductamcschemeCmd, "@Status", DbType.String, mfProductAMCSchemePlanDetailsVo.Status);
                 db.AddInParameter(UpdateproductamcschemeCmd, "@Isonline", DbType.String, mfProductAMCSchemePlanDetailsVo.IsOnline);
+                db.AddInParameter(UpdateproductamcschemeCmd, "@ExternalCode", DbType.String, mfProductAMCSchemePlanDetailsVo.productcode);
+                db.AddInParameter(UpdateproductamcschemeCmd, "@ExternalType", DbType.String, mfProductAMCSchemePlanDetailsVo.ExternalType);
                 db.ExecuteNonQuery(UpdateproductamcschemeCmd);
 
                 if (db.ExecuteNonQuery(UpdateproductamcschemeCmd) != 0)
@@ -1776,6 +1827,7 @@ namespace DaoOnlineOrderManagement
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 CreateOnlineSchemeSetupPlanCmd = db.GetStoredProcCommand("SPROC_CreateOnlineschemebasicdetail");
                 db.AddInParameter(CreateOnlineSchemeSetupPlanCmd, "@PA_AMCCode", DbType.Int32, mfProductAMCSchemePlanDetailsVo.AMCCode);
+               // db.AddInParameter(CreateOnlineSchemeSetupPlanCmd, "@PASP_SchemePlanCode", DbType.Int32, mfProductAMCSchemePlanDetailsVo.SchemePlanCode);
                 db.AddInParameter(CreateOnlineSchemeSetupPlanCmd, "@PASP_SchemePlanName", DbType.String, mfProductAMCSchemePlanDetailsVo.SchemePlanName);
                 db.AddInParameter(CreateOnlineSchemeSetupPlanCmd, "@PAISSC_AssetInstrumentSubSubCategoryCode", DbType.String, mfProductAMCSchemePlanDetailsVo.AssetSubSubCategory);
                 db.AddInParameter(CreateOnlineSchemeSetupPlanCmd, "@PAISC_AssetInstrumentSubCategoryCode", DbType.String, mfProductAMCSchemePlanDetailsVo.AssetSubCategoryCode);
@@ -1787,10 +1839,14 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(CreateOnlineSchemeSetupPlanCmd,"@PASP_CreatedBy",DbType.Int32,userId);
                 db.AddInParameter(CreateOnlineSchemeSetupPlanCmd,"@PASP_ModifiedBy",DbType.Int32,userId);
                 db.AddOutParameter(CreateOnlineSchemeSetupPlanCmd, "@SchemePlanCode", DbType.Int32, 0);
+                db.AddInParameter(CreateOnlineSchemeSetupPlanCmd, "@ExternalCode", DbType.String, mfProductAMCSchemePlanDetailsVo.productcode);
+                db.AddInParameter(CreateOnlineSchemeSetupPlanCmd, "@ExternalType", DbType.String, mfProductAMCSchemePlanDetailsVo.ExternalType);
                 //db.ExecuteNonQuery(CreateOnlineSchemeSetupPlanCmd);
 
               if (db.ExecuteNonQuery(CreateOnlineSchemeSetupPlanCmd) != 0)
                     schemeplancode = int.Parse(db.GetParameterValue(CreateOnlineSchemeSetupPlanCmd, "@SchemePlanCode").ToString());
+               
+
                
             }
               catch (BaseApplicationException Ex)

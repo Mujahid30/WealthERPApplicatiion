@@ -97,7 +97,7 @@
                 <table width="100%">
                     <tr id="trMappingType" runat="server">
                         <td align="right">
-                            <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="Mapping Type:"></asp:Label>
+                            <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="Select:"></asp:Label>
                         </td>
                         <td align="left">
                             <asp:DropDownList ID="ddlMappingType" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlMappingType_SelectedIndexChanged"
@@ -195,8 +195,8 @@
                 EditMode="PopUp" CommandItemDisplay="None" CommandItemSettings-ShowRefreshButton="false"
                 Width="102%" CommandItemSettings-AddNewRecordText="Scheme Mapping">
                 <Columns>
-                    <telerik:GridEditCommandColumn EditText="Update" UniqueName="editColumn" CancelText="Cancel"
-                        UpdateText="Add/Update" HeaderStyle-Width="80px">
+                    <telerik:GridEditCommandColumn EditText="Edit" UniqueName="editColumn" CancelText="Cancel"
+                        UpdateText="Update" HeaderStyle-Width="80px">
                     </telerik:GridEditCommandColumn>
                     <telerik:GridBoundColumn Visible="true" UniqueName="Type" HeaderStyle-Width="80px"
                         FilterControlWidth="50px" HeaderText="Type" DataField="Type" SortExpression="Type"
@@ -205,7 +205,8 @@
                     </telerik:GridBoundColumn>
                     <telerik:GridBoundColumn UniqueName="PASP_SchemePlanName" HeaderStyle-Width="300px"
                         HeaderText="Scheme Plan Name" DataField="PASP_SchemePlanName" SortExpression="PASP_SchemePlanName"
-                        AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                        CurrentFilterFunction="Contains" AllowFiltering="true" ShowFilterIcon="false"
+                        AutoPostBackOnFilter="true">
                         <HeaderStyle></HeaderStyle>
                     </telerik:GridBoundColumn>
                     <telerik:GridBoundColumn Visible="true" UniqueName="PASP_SchemePlanCode" HeaderStyle-Width="80px"
@@ -219,7 +220,7 @@
                         <HeaderStyle></HeaderStyle>
                     </telerik:GridBoundColumn>
                     <telerik:GridBoundColumn Visible="true" UniqueName="PASC_IsOnline" HeaderStyle-Width="130px"
-                        HeaderText="Is Online/Is Offline" DataField="PASC_IsOnline" SortExpression="PASC_IsOnline"
+                        HeaderText="Is Online" DataField="PASC_IsOnline" SortExpression="PASC_IsOnline"
                         AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                         <HeaderStyle></HeaderStyle>
                     </telerik:GridBoundColumn>
@@ -234,7 +235,7 @@
                         AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                         <HeaderStyle></HeaderStyle>
                     </telerik:GridBoundColumn>
-                    <telerik:GridBoundColumn UniqueName="PASC_AMC_ExternalType" HeaderText="External Type"
+                    <telerik:GridBoundColumn UniqueName="PASC_AMC_ExternalType" HeaderText="RTA"
                         HeaderStyle-Width="99px" DataField="PASC_AMC_ExternalType" SortExpression="PASC_AMC_ExternalType"
                         AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                         <HeaderStyle></HeaderStyle>
@@ -318,7 +319,7 @@
                                         </tr>
                                         <tr>
                                             <td id="td1" runat="server" align="right">
-                                                <asp:Label ID="Label1" Text="External Type:" CssClass="FieldName" runat="server">
+                                                <asp:Label ID="Label1" Text="RTA:" CssClass="FieldName" runat="server">
                                                 </asp:Label>
                                             </td>
                                             <td>
@@ -362,7 +363,8 @@
                             </tr>
                             <tr>
                                 <td align="right" colspan="2">
-                                    <asp:Button ID="btnUpdate" runat="server" Text="Add/Update" CssClass="PCGButton" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'>
+                                    <asp:Button ID="btnUpdate" runat="server" Text="Add/Update" CssClass="PCGButton"
+                                        CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'>
                                     </asp:Button>&nbsp;
                                     <%--<asp:Button Visible="false" ID="btnInsert" Text="Insert" runat="server" CssClass="PCGButton"
                                         CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'>
@@ -509,7 +511,7 @@
                                         </tr>
                                         <tr>
                                             <td id="td1" runat="server" align="right">
-                                                <asp:Label ID="Label1" Text="External Type:" CssClass="FieldName" runat="server">
+                                                <asp:Label ID="Label1" Text="RTA:" CssClass="FieldName" runat="server">
                                                 </asp:Label>
                                             </td>
                                             <td>
@@ -636,7 +638,7 @@
                                         </tr>
                                         <tr>
                                             <td id="td1" runat="server" align="right">
-                                                <asp:Label ID="Label1" Text="External Type:" CssClass="FieldName" runat="server">
+                                                <asp:Label ID="Label1" Text="RTA:" CssClass="FieldName" runat="server">
                                                 </asp:Label>
                                             </td>
                                             <td>
@@ -672,18 +674,18 @@
     </asp:Panel>
 </div>
 <div>
-    <asp:Panel ID="pnltempleton" Visible="false" runat="server" class="Landscape" Width="50%"
+    <asp:Panel ID="pnltempleton" Visible="false" runat="server" class="Landscape" Width="70%"
         ScrollBars="Horizontal">
         <telerik:RadGrid ID="gvTempleton" runat="server" CssClass="RadGrid" GridLines="None"
-            Width="70%" AllowPaging="True" PageSize="10" AllowSorting="True" AutoGenerateColumns="false"
+            AllowPaging="True" PageSize="10" AllowSorting="True" AutoGenerateColumns="false"
             ShowStatusBar="true" AllowAutomaticDeletes="True" AllowAutomaticInserts="false"
-            AllowAutomaticUpdates="false" Skin="Telerik" OnItemDataBound="gvTempleton_ItemDataBound"
+            Width="70%" AllowAutomaticUpdates="false" Skin="Telerik" OnItemDataBound="gvTempleton_ItemDataBound"
             OnNeedDataSource="gvTempleton_NeedDataSource" EnableEmbeddedSkins="false" OnItemCommand="gvTempleton_ItemCommand"
             EnableHeaderContextMenu="true" EnableHeaderContextFilterMenu="true" AllowFilteringByColumn="true">
             <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="ExistMFInvestlist">
             </ExportSettings>
             <MasterTableView DataKeyNames="ClassificationCode" EditMode="PopUp" CommandItemDisplay="Top"
-                CommandItemSettings-ShowRefreshButton="false" Width="70%" CommandItemSettings-AddNewRecordText="Add New Templeton Data For Mapping">
+                CommandItemSettings-ShowRefreshButton="false" Width="100%" CommandItemSettings-AddNewRecordText="Add Templeton Data For Mapping">
                 <Columns>
                     <telerik:GridEditCommandColumn EditText="Update" UniqueName="editColumn" CancelText="Cancel"
                         HeaderStyle-Width="80px" UpdateText="Update">
@@ -704,7 +706,7 @@
                         AutoPostBackOnFilter="true">
                         <HeaderStyle></HeaderStyle>
                     </telerik:GridBoundColumn>
-                    <telerik:GridBoundColumn Visible="true" UniqueName="Type" HeaderStyle-Width="100px"
+                    <telerik:GridBoundColumn Visible="false" UniqueName="Type" HeaderStyle-Width="100px"
                         HeaderText="Type" DataField="Type" SortExpression="Type" AllowFiltering="true"
                         ShowFilterIcon="false" AutoPostBackOnFilter="true">
                         <HeaderStyle></HeaderStyle>
@@ -743,7 +745,7 @@
                                         </tr>
                                         <tr>
                                             <td id="td1" runat="server" align="right">
-                                                <asp:Label ID="Label1" Text="External Type:" CssClass="FieldName" runat="server">
+                                                <asp:Label ID="Label1" Text="RTA:" CssClass="FieldName" runat="server">
                                                 </asp:Label>
                                             </td>
                                             <td>

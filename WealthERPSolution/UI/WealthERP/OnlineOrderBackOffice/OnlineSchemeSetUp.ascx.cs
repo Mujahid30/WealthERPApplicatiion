@@ -56,6 +56,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 BindFrequency();
                 Bindscheme(schemeplancode);
 
+
                 if (Request.QueryString["SchemePlanCode"] != null)
                 {
                     schemeplancode = int.Parse(Request.QueryString["SchemePlanCode"].ToString());
@@ -67,7 +68,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     if (Request.QueryString["strAction"].Trim() == "Edit")
                     {
-
+                       
                         EditSchemeDetails();
                         lbBack.Visible = true;
                         lblBack.Visible = true;
@@ -77,6 +78,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     }
                     else if (Request.QueryString["strAction"].Trim() == "View")
                     {
+                      
                         ViewSchemeDetails();
                         lbBack.Visible = true;
                         lblBack.Visible = true;
@@ -174,10 +176,10 @@ namespace WealthERP.OnlineOrderBackOffice
 
 
                     }
+
+                    ddlRT.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
+
                 }
-                ddlRT.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
-
-
             }
             catch (BaseApplicationException Ex)
             {
@@ -667,7 +669,7 @@ namespace WealthERP.OnlineOrderBackOffice
         protected void ViewSchemeDetails()
         {
             mfProductAMCSchemePlanDetailsVo = (MFProductAMCSchemePlanDetailsVo)Session["SchemeList"];
-
+          //  Bindscheme(schemeplancode);
             txtScname.Text = mfProductAMCSchemePlanDetailsVo.SchemePlanName;
             txtESSchemecode.Text = mfProductAMCSchemePlanDetailsVo.ExternalCode;
             txtProductCode.Text = mfProductAMCSchemePlanDetailsVo.productcode;
@@ -720,9 +722,16 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 ddlSchemeList.SelectedValue = "0";
             }
-            Bindscheme(int.Parse(ddlSchemeList.SelectedValue.ToString()));
-            ddlRT.SelectedValue = ddlSchemeList.SelectedValue.ToString();
-
+          //  Bindscheme(int.Parse(ddlSchemeList.SelectedValue.ToString()));
+          //  ddlRT.SelectedValue = ddlSchemeList.SelectedValue.ToString();
+            if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.ExternalType))
+            {
+                ddlRT.SelectedValue = mfProductAMCSchemePlanDetailsVo.ExternalType.ToString();
+            }
+            else
+            {
+                ddlRT.SelectedValue = "0";
+            }
             txtFvale.Text = mfProductAMCSchemePlanDetailsVo.FaceValue.ToString();
             BindSubCategory(ddlcategory.SelectedValue);
             if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.AssetSubCategoryCode))
@@ -919,8 +928,8 @@ namespace WealthERP.OnlineOrderBackOffice
             txtSwitchMultipleUnits.Text = mfProductAMCSchemePlanDetailsVo.SwitchMultiplesUnits.ToString();
             if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.SecurityCode))
                 txtSecuritycode.Text = mfProductAMCSchemePlanDetailsVo.SecurityCode.ToString();
-            if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.ExternalType))
-                ddlRT.SelectedItem.Value = mfProductAMCSchemePlanDetailsVo.ExternalType.ToString();
+            //if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.ExternalType))
+            //    ddlRT.SelectedItem.Value = mfProductAMCSchemePlanDetailsVo.ExternalType.ToString();
 
             txtinvestment.Text = mfProductAMCSchemePlanDetailsVo.PASPD_MaxInvestment.ToString();
 
@@ -932,7 +941,7 @@ namespace WealthERP.OnlineOrderBackOffice
         protected void EditSchemeDetails()
         {
             mfProductAMCSchemePlanDetailsVo = (MFProductAMCSchemePlanDetailsVo)Session["SchemeList"];
-
+           // Bindscheme(schemeplancode);
             txtScname.Text = mfProductAMCSchemePlanDetailsVo.SchemePlanName;
             txtESSchemecode.Text = mfProductAMCSchemePlanDetailsVo.ExternalCode;
             txtProductCode.Text = mfProductAMCSchemePlanDetailsVo.productcode;
@@ -981,8 +990,17 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 ddlSchemeList.SelectedValue = "0";
             }
-            Bindscheme(int.Parse(ddlSchemeList.SelectedValue.ToString()));
-            ddlRT.SelectedValue = ddlSchemeList.SelectedValue.ToString();
+            Bindscheme(0);
+            //ddlRT.SelectedValue = ddlSchemeList.SelectedValue.ToString();
+           // ddlRT.SelectedValue = ddlSchemeList.SelectedValue.ToString();
+            if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.ExternalType))
+            {
+                ddlRT.SelectedValue = mfProductAMCSchemePlanDetailsVo.ExternalType.ToString();
+            }
+            else
+            {
+                ddlRT.SelectedValue = "0";
+            }
             txtFvale.Text = mfProductAMCSchemePlanDetailsVo.FaceValue.ToString();
             BindSubCategory(ddlcategory.SelectedValue);
             if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.AssetSubCategoryCode))
@@ -1407,19 +1425,19 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 mfProductAMCSchemePlanDetailsVo.Status = "Liquidated";
             }
-          
-                if (string.IsNullOrEmpty(txtProductCode.Text) && string.IsNullOrEmpty(ddlRT.SelectedValue))
-                    return;
+
+            if (string.IsNullOrEmpty(txtProductCode.Text) && string.IsNullOrEmpty(ddlRT.SelectedValue))
+                return;
 
 
-                int count = OnlineOrderBackOfficeBo.ExternalcodeCheck(txtProductCode.Text, ddlRT.SelectedValue);
-                if (count >= 1 && txtProductCode.Text !=string.Empty)
-                {
+            int count = OnlineOrderBackOfficeBo.ExternalcodeCheck(txtProductCode.Text, ddlRT.SelectedValue);
+            if (count >= 1 && txtProductCode.Text != string.Empty)
+            {
 
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please Enter Unique Product Code. You Can Use Combination of 0-9 and a-z');", true);
-                    return;
-                }
-         
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please Enter Unique Product Code. You Can Use Combination of 0-9 and a-z');", true);
+                return;
+            }
+
             else
             {
                 OnlineOrderBackOfficeBo.CreateOnlineSchemeSetupPlan(mfProductAMCSchemePlanDetailsVo, userVo.UserId, ref  schemeplancode);
@@ -1437,9 +1455,10 @@ namespace WealthERP.OnlineOrderBackOffice
             if (string.IsNullOrEmpty(txtESSchemecode.Text) && string.IsNullOrEmpty(ddlRT.SelectedValue))
                 return;
 
-
             int count = OnlineOrderBackOfficeBo.ExternalcodeCheck(txtESSchemecode.Text, ddlRT.SelectedValue);
-            if (count > 0)
+            if (count >= 1 && txtESSchemecode.Text != string.Empty)
+            //int count = OnlineOrderBackOfficeBo.ExternalcodeCheck(txtESSchemecode.Text, ddlRT.SelectedValue);
+            //if (count > 0)
             {
 
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please Enter Unique External System Scheme Code. You Can Use Combination of 0-9 and a-z');", true);
@@ -1479,7 +1498,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 if (Request.QueryString["strAction"].Trim() == "Edit" || Request.QueryString["strAction"].Trim() == "View")
                 {
                     mfProductAMCSchemePlanDetailsVo.SchemePlanCode = int.Parse(ViewState["Schemeplancode"].ToString());
-                    Session["schemecode"] = schemeplancode;
+                    
                 }
             }
             else
@@ -1557,27 +1576,30 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 mfProductAMCSchemePlanDetailsVo.IsOnline = 0;
             }
-            
+
             if (string.IsNullOrEmpty(txtProductCode.Text) && string.IsNullOrEmpty(ddlRT.SelectedValue))
                 return;
-         //int SchemePlanCode = int.Parse(ViewState["Schemeplancode"].ToString());
-         //int SchemePlanCode = int.Parse(Session["newschemeplancode"].ToString());
-         //   string extCode = OnlineOrderBackOfficeBo.GetExtCode(SchemePlanCode);
-         //   if (txtProductCode.Text == extCode)
-         //   {
-         //       ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please Enter Unique Product Code. You Can Use Combination of 0-9 and a-z');", true);
-         //       return;
-         //   }
-          
-            
-            int count = OnlineOrderBackOfficeBo.ExternalcodeCheck(txtProductCode.Text, ddlRT.SelectedValue);
-
-            if (count > 1 && txtProductCode.Text !=string.Empty)
+            //int SchemePlanCode = int.Parse(ViewState["Schemeplancode"].ToString());
+            //int SchemePlanCode = int.Parse(Session["newschemeplancode"].ToString());
+            string extCode = OnlineOrderBackOfficeBo.GetExtCode(mfProductAMCSchemePlanDetailsVo.SchemePlanCode,0);  
+            if (txtProductCode.Text != extCode)
             {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please Enter Unique Product Code. You Can Use Combination of 0-9 and a-z');", true);
-                return;
+                int count = OnlineOrderBackOfficeBo.ExternalcodeCheck(txtProductCode.Text, ddlRT.SelectedValue);
+
+                if (count >= 1 && txtProductCode.Text != string.Empty)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please Enter Unique Product Code. You Can Use Combination of 0-9 and a-z');", true);
+                    return;
+                }
+                else if (count == 0)
+                {
+                    bool bResult = OnlineOrderBackOfficeBo.Updateproductamcscheme(mfProductAMCSchemePlanDetailsVo, schemeplancode);
+                    lbBack.Visible = true;
+                    btnBasicDupdate.Visible = false;
+                    Clearallcontrols(true);
+                }
             }
-            
+
             else
             {
                 bool bResult = OnlineOrderBackOfficeBo.Updateproductamcscheme(mfProductAMCSchemePlanDetailsVo, schemeplancode);
@@ -1599,6 +1621,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 //}
             }
         }
+
         protected void btnUpdate_click(object sender, EventArgs e)
         {
             try
@@ -1981,14 +2004,27 @@ namespace WealthERP.OnlineOrderBackOffice
                     return;
 
 
-                int count = OnlineOrderBackOfficeBo.ExternalcodeCheck(txtESSchemecode.Text, ddlRT.SelectedValue);
-                if (count > 1 && txtProductCode.Text != string.Empty)
+                string extCode = OnlineOrderBackOfficeBo.GetExtCode(mfProductAMCSchemePlanDetailsVo.SchemePlanCode,1);
+                if (txtESSchemecode.Text != extCode)
                 {
+                    int count = OnlineOrderBackOfficeBo.ExternalcodeCheck(txtESSchemecode.Text, ddlRT.SelectedValue);
 
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please Enter Unique External System Scheme Code. You Can Use Combination of 0-9 and a-z');", true);
-                    return;
+                    if (count >= 1 && txtESSchemecode.Text != string.Empty)
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please Enter Unique External System Scheme Code. You Can Use Combination of 0-9 and a-z');", true);
+                        return;
+                    }
+                    else if (count == 0)
+                    {
+                        bool bResult = OnlineOrderBackOfficeBo.UpdateSchemeSetUpDetail(mfProductAMCSchemePlanDetailsVo, schemeplancode, userVo.UserId);
+                        message = CreateUserMessage(schemeplancode);
+                        ShowMessage(message);
+                        lbBack.Visible = true;
+                        lnkEdit.Visible = true;
+                        btnupdate.Visible = false;
+                        ControlMode(false);
+                    }
                 }
-                //}
                 else
                 {
                     bool bResult = OnlineOrderBackOfficeBo.UpdateSchemeSetUpDetail(mfProductAMCSchemePlanDetailsVo, schemeplancode, userVo.UserId);
