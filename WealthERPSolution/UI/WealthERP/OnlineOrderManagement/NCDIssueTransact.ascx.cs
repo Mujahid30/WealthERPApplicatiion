@@ -44,7 +44,7 @@ namespace WealthERP.OnlineOrderManagement
             customerVo = (CustomerVo)Session["customerVo"];
             adviserVo = (AdvisorVo)Session["advisorVo"];
             ShowAvailableLimits();
-            //lblAvailableLimits.Text = "5000000";
+          //lblAvailableLimits.Text = "5000000";
 
             if (!IsPostBack)
             {
@@ -292,12 +292,14 @@ namespace WealthERP.OnlineOrderManagement
                                 lblQty.Text = Quantity.ToString();
                                 lblSum.Text = sum.ToString();
 
-                                lb1AvailbleCat.Visible = true;
+                              //  lb1AvailbleCat.Visible = true;
 
                                 OnlineBondBo.GetCustomerCat(issueId, customerVo.CustomerId, adviserVo.advisorId, Convert.ToDouble(lblSum.Text), ref catName, ref issuedetId);
-                                lb1AvailbleCat.Text = "  U selected for :" + catName;
-                                if (catName == string.Empty)
-                                    ShowMessage("Bid category Not Available");
+                                lb1AvailbleCat.Text = " You selected for : " + catName;
+                                ShowMessage(lb1AvailbleCat.Text);
+                                
+                                //if (catName == string.Empty)
+                                //    ShowMessage("Bid category Not Available");
                                 //txtTotAmt_ValueChanged(null, new EventArgs());
                             }
                         if (rowno < gvCommMgmt.MasterTableView.Items.Count)
@@ -348,6 +350,7 @@ namespace WealthERP.OnlineOrderManagement
         {
             string userMessage = string.Empty;
             string cutOffTimeType = string.Empty;
+            
             if (orderId != 0 && accountDebitStatus == true)
             {
 
@@ -358,6 +361,8 @@ namespace WealthERP.OnlineOrderManagement
                 else
                     userMessage = "Order placed successfully, Order reference no. is " + orderId.ToString() + " & Application no. " + Applicationno.ToString();
             }
+           
+
             else if (orderId == 0 & lblAvailableLimits.Text == "0")
             {
                 userMessage = "Order cannot be processed. Insufficient balance";
