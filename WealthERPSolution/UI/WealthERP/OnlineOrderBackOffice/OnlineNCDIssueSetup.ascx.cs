@@ -2461,6 +2461,8 @@ namespace WealthERP.OnlineOrderBackOffice
                 pnlchild.Visible = false;
                 buttonlink.Text = "+";
             }
+            if (ddlIssuer.SelectedValue == "Select")
+                return;
             BindSeriesCategoryGrid(Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text), seriesId, rgSeriesCategories);
         }
 
@@ -3629,6 +3631,8 @@ namespace WealthERP.OnlineOrderBackOffice
 
             }
             BindIssuerGrid();
+            BindIssuer();
+          
         }
         //rgAplication_ItemCommand
 
