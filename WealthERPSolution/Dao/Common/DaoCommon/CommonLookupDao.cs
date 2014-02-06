@@ -373,7 +373,7 @@ namespace DaoCommon
         }
 
 
-        public DataTable GetAllSIPDataForOrder(int schemdCode)
+        public DataTable GetAllSIPDataForOrder(int schemdCode,string frequencyCode)
         {
             Database db;
             DbCommand cmd;
@@ -384,6 +384,8 @@ namespace DaoCommon
                 cmd = db.GetStoredProcCommand("SP_GetAllSIPDataForOrder");
 
                 db.AddInParameter(cmd, "@PASP_SchemePlanCode", DbType.Int32, schemdCode);
+                if (frequencyCode!="0")
+                db.AddInParameter(cmd, "@FrequencyCode", DbType.String, frequencyCode);
 
                 dsGetAmcSchemeList = db.ExecuteDataSet(cmd);
             }
@@ -395,9 +397,10 @@ namespace DaoCommon
             {
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "CommonLookupDao.cs:GetProductSubCategories(string ProductCode, string CategoryCode, string SubCategoryCode)");
+                FunctionInfo.Add("Method", "CommonLookupDao.cs:GetAllSIPDataForOrder(int schemdCode,string frequencyCode)");
                 object[] objects = new object[3];
                 objects[0] = schemdCode;
+                objects[1] = frequencyCode;
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;

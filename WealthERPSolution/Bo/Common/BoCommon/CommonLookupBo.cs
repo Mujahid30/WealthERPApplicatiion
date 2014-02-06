@@ -341,12 +341,12 @@ namespace BoCommon
         }
 
 
-        public DataTable GetAllSIPDataForOrder(int schemeCode)
+        public DataTable GetAllSIPDataForOrder(int schemeCode,string frequencyCode)
         {
             DataTable dtAllSIPDataForOrder = new DataTable();
             try
             {
-                dtAllSIPDataForOrder = daoCommonLookup.GetAllSIPDataForOrder(schemeCode);
+                dtAllSIPDataForOrder = daoCommonLookup.GetAllSIPDataForOrder(schemeCode, frequencyCode);
             }
             catch (BaseApplicationException Ex)
             {
@@ -359,6 +359,7 @@ namespace BoCommon
                 FunctionInfo.Add("Method", "CommonLookupBo.cs:GetCategoryList(string ProductCode, string CategoryCode, string SubCategoryCode)");
                 object[] objParams = new object[3];
                 objParams[0] = schemeCode;
+                objParams[1] = frequencyCode;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objParams);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
