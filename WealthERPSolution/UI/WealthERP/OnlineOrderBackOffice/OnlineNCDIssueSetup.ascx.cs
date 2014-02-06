@@ -2982,6 +2982,14 @@ namespace WealthERP.OnlineOrderBackOffice
                 }
 
             }
+
+
+
+            if (e.Item is GridPagerItem)
+            {
+                GridPagerItem pager = (GridPagerItem)e.Item;
+                ((e.Item as GridPagerItem).FindControl("PageSizeComboBox") as RadComboBox).Enabled = false; 
+            } 
             //if (e.CommandName == RadGrid.DeleteCommandName)
             //{
 
