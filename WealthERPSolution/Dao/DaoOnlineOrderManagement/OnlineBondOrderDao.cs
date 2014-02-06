@@ -485,7 +485,7 @@ namespace DaoOnlineOrderManagement
             }
             return dsOrderBondsBook;
         }
-        public DataSet GetOrderBondBook(int customerId, string status, DateTime dtFrom, DateTime dtTo)
+        public DataSet GetOrderBondBook(int customerId, string status, DateTime dtFrom, DateTime dtTo, int adviserId)
         {
             DataSet dsOrderBondsBook;
             Database db;
@@ -501,6 +501,8 @@ namespace DaoOnlineOrderManagement
                     db.AddInParameter(GetOrderBondsBookcmd, "@Status", DbType.String, DBNull.Value);
                 db.AddInParameter(GetOrderBondsBookcmd, "@Fromdate", DbType.DateTime, dtFrom);
                 db.AddInParameter(GetOrderBondsBookcmd, "@ToDate", DbType.DateTime, dtTo);
+                db.AddInParameter(GetOrderBondsBookcmd, "@AdviserId", DbType.Int32, adviserId);
+
                 dsOrderBondsBook = db.ExecuteDataSet(GetOrderBondsBookcmd);
 
             }

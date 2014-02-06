@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="NCDIssueTransact.ascx.cs"
+<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="NCDIssueTransact.ascx.cs"
     Inherits="WealthERP.OnlineOrderManagement.NCDIssueTransact" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
@@ -282,12 +282,12 @@
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="AID_MinApplication" HeaderStyle-Width="110px"
                                             HeaderText="Min Amt" CurrentFilterFunction="Contains" ShowFilterIcon="false"
-                                            AutoPostBackOnFilter="true" UniqueName="AID_MinApplication" Visible="true">
+                                            AutoPostBackOnFilter="true" UniqueName="AID_MinApplication" Visible="false">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="Maxamount" HeaderStyle-Width="110px" HeaderText="Max Amt"
                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                            UniqueName="Maxamount" Visible="true">
+                                            UniqueName="Maxamount" Visible="false">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="AIM_TradingInMultipleOf" HeaderStyle-Width="110px"
@@ -555,7 +555,7 @@
     </tr>
 </table>
  <div align="center">
-    <asp:Label ID="lb1AvailbleCat" runat="server" CssClass="FieldName"  ></asp:Label></div>
+    <asp:Label ID="lb1AvailbleCat" runat="server" CssClass="FieldName"  visible="false"></asp:Label></div>
 <%--</div>--%>
 <table>
     <tr class="spaceUnder" id="trTermsCondition" runat="server">

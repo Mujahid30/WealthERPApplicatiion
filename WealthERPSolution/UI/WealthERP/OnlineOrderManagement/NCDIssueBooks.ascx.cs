@@ -93,19 +93,11 @@ namespace WealthERP.OnlineOrderManagement
                 fromDate = DateTime.Parse(txtOrderFrom.SelectedDate.ToString());
             if (txtOrderTo.SelectedDate != null)
                 toDate = DateTime.Parse(txtOrderTo.SelectedDate.ToString());
-            DataSet dsbondsBook = BoOnlineBondOrder.GetOrderBondBook(customerId, hdnOrderStatus.Value, fromDate, toDate);
+            DataSet dsbondsBook = BoOnlineBondOrder.GetOrderBondBook(customerId, hdnOrderStatus.Value, fromDate, toDate,advisorVo.advisorId);
             DataTable dtbondsBook = dsbondsBook.Tables[0];
             if (dtbondsBook.Rows.Count > 0)
             {
-                if (Cache["NCDBookList" + advisorVo.advisorId.ToString()] == null)
-                {
-                    Cache.Insert("NCDBookList" + advisorVo.advisorId.ToString(), dtbondsBook);
-                }
-                else
-                {
-                    Cache.Remove("NCDBookList" + advisorVo.advisorId.ToString());
-                    Cache.Insert("NCDBookList" + advisorVo.advisorId.ToString(), dtbondsBook);
-                }
+               
                 gvBBList.DataSource = dtbondsBook;
                 gvBBList.DataBind();
                 ibtExportSummary.Visible = true;
@@ -119,6 +111,13 @@ namespace WealthERP.OnlineOrderManagement
                 gvBBList.DataBind();
                 pnlGrid.Visible = true;
             }
+
+            if (Cache["NCDBookList" + advisorVo.advisorId.ToString()] != null)
+            {
+                Cache.Remove("NCDBookList" + advisorVo.advisorId.ToString());
+                Cache.Insert("NCDBookList" + advisorVo.advisorId.ToString(), dtbondsBook);
+            }
+            
 
         }
 

@@ -307,13 +307,13 @@ namespace BoOnlineOrderManagement
             }
             return dsLookupData;
         }
-        public DataSet GetOrderBondBook(int customerId, string status, DateTime dtFrom, DateTime dtTo)
+        public DataSet GetOrderBondBook(int customerId, string status, DateTime dtFrom, DateTime dtTo,int adviserId)
         {
             OnlineBondOrderDao OnlineBondDao = new OnlineBondOrderDao();
             DataSet dsLookupData;
             try
             {
-                dsLookupData = OnlineBondDao.GetOrderBondBook(customerId, status, dtFrom, dtTo);
+                dsLookupData = OnlineBondDao.GetOrderBondBook(customerId, status, dtFrom, dtTo, adviserId);
 
             }
             catch (BaseApplicationException Ex)

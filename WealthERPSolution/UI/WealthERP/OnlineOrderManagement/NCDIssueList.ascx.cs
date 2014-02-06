@@ -85,22 +85,12 @@ namespace WealthERP.OnlineOrderManagement
             DataTable dtIssue = dsStructureRules.Tables[0];
             if (dtIssue.Rows.Count > 0)
             {
-                if (Cache["NCDIssueList" + userVo.UserId.ToString()] == null)
-                {
-                    Cache.Insert("NCDIssueList" + userVo.UserId.ToString(), dtIssue);
-                }
-                else
-                {
-                    Cache.Remove("NCDIssueList" + userVo.UserId.ToString());
-                    Cache.Insert("NCDIssueList" + userVo.UserId.ToString(), dtIssue);
-                }
-                //ibtExportSummary.Visible = false;
+
                 gvCommMgmt.DataSource = dtIssue;
                 gvCommMgmt.DataBind();
             }
             else
             {
-                //ibtExportSummary.Visible = false;
                 gvCommMgmt.DataSource = dtIssue;
                 gvCommMgmt.DataBind();
 
@@ -108,7 +98,11 @@ namespace WealthERP.OnlineOrderManagement
 
             //FILING THE DATA FOR THE CHILD GRID
             // gvCommMgmt.MasterTableView.DetailTables[0].DataSource = dsStructureRules.Tables[1];
-
+            if (Cache["NCDIssueList" + userVo.UserId.ToString()] != null)
+            {
+                Cache.Remove("NCDIssueList" + userVo.UserId.ToString());
+                Cache.Insert("NCDIssueList" + userVo.UserId.ToString(), dtIssue);
+            }
 
 
         }
@@ -177,9 +171,9 @@ namespace WealthERP.OnlineOrderManagement
             int isPurchaseAvailblity = 0;
             if (e.Item is GridDataItem && e.Item.ItemIndex != -1)
             {
-                
+
                 LinkButton editButton = (LinkButton)e.Item.FindControl("llPurchase");
-                
+
                 if (ddlType.SelectedValue == "Curent")
                 {
                     editButton.Visible = true;
@@ -211,11 +205,11 @@ namespace WealthERP.OnlineOrderManagement
             LinkButton buttonlink = (LinkButton)sender;
             GridDataItem gdi;
             gdi = (GridDataItem)buttonlink.NamingContainer;
-          
+
             strIssuerId = int.Parse(gvCommMgmt.MasterTableView.DataKeyValues[gdi.ItemIndex]["AIM_IssueId"].ToString());
             RadGrid gvchildIssue = (RadGrid)gdi.FindControl("gvChildDetails");
             Panel pnlchild = (Panel)gdi.FindControl("pnlchild");
-            
+
             if (pnlchild.Visible == false)
             {
                 pnlchild.Visible = true;
@@ -239,7 +233,7 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void gvCommMgmt_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
-            DataTable dtIssueDetail;
+            DataTable dtIssueDetail = new DataTable();
             dtIssueDetail = (DataTable)Cache["NCDIssueList" + userVo.UserId.ToString()];
             if (dtIssueDetail != null)
             {
@@ -252,7 +246,7 @@ namespace WealthERP.OnlineOrderManagement
             RadGrid gvchildIssue = (RadGrid)sender; // Get reference to grid 
             GridDataItem nesteditem = (GridDataItem)gvchildIssue.NamingContainer;
             int strIssuerId = int.Parse(gvCommMgmt.MasterTableView.DataKeyValues[nesteditem.ItemIndex]["AIM_IssueId"].ToString()); // Get the value 
-            DataSet ds = OnlineBondBo.GetIssueDetail(strIssuerId,customerVo.CustomerId);
+            DataSet ds = OnlineBondBo.GetIssueDetail(strIssuerId, customerVo.CustomerId);
             gvchildIssue.DataSource = ds.Tables[0];
         }
         public void ibtExportSummary_OnClick(object sender, ImageClickEventArgs e)
