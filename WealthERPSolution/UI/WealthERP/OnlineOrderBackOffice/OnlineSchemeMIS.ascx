@@ -137,7 +137,7 @@
                                     FilterControlWidth="50px" CurrentFilterFunction="Contains" Visible="false">
                                     <ItemStyle Width="67px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                                 </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn DataField="PASP_IsOnline" UniqueName="PASP_IsOnline" HeaderText="IsOnline Available"
+                                <telerik:GridBoundColumn DataField="PASP_IsOnline" UniqueName="PASP_IsOnline" HeaderText="IsOnline"
                                     SortExpression="PASP_IsOnline" AutoPostBackOnFilter="true" HeaderStyle-Width="100px"
                                     FilterControlWidth="80px" CurrentFilterFunction="Contains" ShowFilterIcon="false">
                                     <ItemStyle Width="80px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />

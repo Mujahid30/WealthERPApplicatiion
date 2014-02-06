@@ -1144,8 +1144,8 @@ namespace WealthERP.OnlineOrderBackOffice
                     if (((CheckBox)gdi.FindControl("cbSeriesCat")).Checked == true)
                     {
                         count++;
-                    }
-                }
+                    }                    
+            }
                 if (count == 0)
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Select One Category.');", true);
@@ -2150,7 +2150,14 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     onlineNCDBackOfficeVo.BiddingLot = 0;
                 }
-                onlineNCDBackOfficeVo.MinApplicationSize = Convert.ToInt32(txtMinAplicSize.Text);
+                if (!string.IsNullOrEmpty(txtMinAplicSize.Text))
+                {
+                    onlineNCDBackOfficeVo.MinApplicationSize = Convert.ToInt32(txtMinAplicSize.Text);
+                }
+                else
+                {
+                    onlineNCDBackOfficeVo.MinApplicationSize = 0;
+                }
                 if (!string.IsNullOrEmpty(txtIsPrefix.Text))
                 {
                     onlineNCDBackOfficeVo.IsPrefix = Convert.ToInt32(txtIsPrefix.Text);
@@ -3440,10 +3447,12 @@ namespace WealthERP.OnlineOrderBackOffice
             trIsActiveandPutCallOption.Visible = false;
             trRatingAndModeofTrading.Visible = false;
             trModeofIssue.Visible = false;
-            trMaxQty.Visible = false;
+            trMaxQty.Visible = true;
+            txtMaxQty.Visible = false;
+            Label15.Visible = false;
             trIssueqtySize.Visible = false;
             trTradinglotBidding.Visible = false;
-
+            txtIsPrefix.Visible = true;
             //Ipo
             trIssueTypes.Visible = false;
             trBookBuildingAndCapprices.Visible = false;
@@ -3460,19 +3469,20 @@ namespace WealthERP.OnlineOrderBackOffice
                 trRatingAndModeofTrading.Visible = true;
                 trModeofIssue.Visible = true;
                 trFloorAndFixedPrices.Visible = false;
-                trMaxQty.Visible = true;
+                txtMaxQty.Visible = false;
+                 Label15.Visible = false;
                 chkIsActive.Enabled = false;
                 trExchangeCode.Visible = true;
                 tdlblCategory.Visible = true;
                 tdddlCategory.Visible = true;
-
+                txtIsPrefix.Visible = true;
             }
             else if (product == "IP")
             {
                 trIssueTypes.Visible = true;
                 tdlblCategory.Visible = false;
                 tdddlCategory.Visible = false;
-                trMaxQty.Visible = false;
+                trMaxQty.Visible = true;
                 trExchangeCode.Visible = true;
                 trTradinglotBidding.Visible = true;
                 trIssueqtySize.Visible = true;
@@ -3784,6 +3794,24 @@ namespace WealthERP.OnlineOrderBackOffice
         //{
         //    radIssuerPopUp.VisibleOnPageLoad = false;
         //}
+
+
+        protected void cbSeriesCat_changed(object sender, EventArgs e)
+        {
+          //  CheckBox cbSeriesCat = (CheckBox)sender;
+          ////  GridDataItem editedItem = (GridDataItem)cbSeriesCat.NamingContainer;
+          //  GridEditableItem editedItem = cbSeriesCat.NamingContainer as GridEditableItem;
+          // RadGrid rgSeriesCat = (RadGrid)editedItem.FindControl("rgSeriesCat");
+          //  foreach (GridDataItem gdi in rgSeriesCat.Items)
+          //  {
+          //      if (cbSeriesCat.Checked == true)
+          //      {
+          //          RequiredFieldValidator req = (RequiredFieldValidator)gdi.FindControl("RequiredFieldValidator26");
+          //          req.Visible = true;
+          //      }
+          //  }
+
+        }
 
         protected void chkOnlineEnablement_changed(object sender, EventArgs e)
         {
