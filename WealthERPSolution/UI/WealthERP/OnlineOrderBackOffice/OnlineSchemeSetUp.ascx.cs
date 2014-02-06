@@ -479,7 +479,7 @@ namespace WealthERP.OnlineOrderBackOffice
             if (ChkISSIP.Checked)
             {
                 mfProductAMCSchemePlanDetailsVo.IsSIPAvailable = 1;
-                //pnlSIPDetails.Visible = true;
+                pnlSIPDetails.Visible = true;
             }
             else
             {
@@ -2221,13 +2221,13 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 gvSIPDetails.DataSource = dtSystematicDetails;
                 gvSIPDetails.DataBind();
-                //pnlSIPDetails.Visible = true;
+                pnlSIPDetails.Visible = true;
             }
             else
             {
                 gvSIPDetails.DataSource = dtSystematicDetails;
                 gvSIPDetails.DataBind();
-                //pnlSIPDetails.Visible = true;
+                pnlSIPDetails.Visible = true;
             }
 
         }
@@ -2277,14 +2277,14 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 //trsystematic.Visible = true;
                 BindSystematicDetails();
-                // pnlSIPDetails.Visible = true;
+                pnlSIPDetails.Visible = true;
                 ChkISSTP.Enabled = false;
                 ChkISSWP.Enabled = false;
             }
             else
             {
                 //trsystematic.Visible = false;
-                // pnlSIPDetails.Visible = false;
+                pnlSIPDetails.Visible = false;
                 ChkISSTP.Enabled = true;
                 ChkISSWP.Enabled = true;
             }

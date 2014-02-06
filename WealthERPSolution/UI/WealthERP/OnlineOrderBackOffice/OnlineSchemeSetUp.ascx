@@ -24,7 +24,7 @@
     }
    
 </script>
-
+<table width="100%">
 <tr>
     <td>
         <div class="divPageHeading">
@@ -900,8 +900,8 @@
     </td>
 </tr>--%>
 
-            <%--   <asp:Panel ID="pnlSIPDetails" runat="server" Width="68%" ScrollBars="Horizontal"
-            Visible="false">--%>
+          <asp:Panel ID="pnlSIPDetails" runat="server" Width="68%" ScrollBars="Horizontal"
+            Visible="false">
             <table width="100%">
                 <tr>
                     <td>
@@ -1098,7 +1098,7 @@
                     </td>
                 </tr>
             </table>
-            <%--</asp:Panel>--%>
+           </asp:Panel>
    <table>
     <tr>
         <td align="right">
