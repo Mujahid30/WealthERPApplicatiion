@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="NCDIssueList.ascx.cs"
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="NCDIssueList.ascx.cs"
     Inherits="WealthERP.OnlineOrderManagement.NCDIssueList" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
@@ -272,12 +272,12 @@
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="AIM_MInQty" HeaderStyle-Width="120px" HeaderText="Min Qty"
                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                            DataFormatString="{0:N0}" UniqueName="AIM_MInQty" Visible="true" AllowFiltering="false">
+                                            DataFormatString="{0:N0}" UniqueName="AIM_MInQty" Visible="false" AllowFiltering="false">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="AIM_MaxQty" HeaderStyle-Width="140px" HeaderText="Max Qty"
                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                            UniqueName="AIM_MaxQty" Visible="true" DataFormatString="{0:N0}" AllowFiltering="false">
+                                            UniqueName="AIM_MaxQty" Visible="false" DataFormatString="{0:N0}" AllowFiltering="false">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="AIM_FaceValue" HeaderStyle-Width="80px" HeaderText="Face Value"
@@ -288,12 +288,12 @@
                                         <telerik:GridBoundColumn DataField="AID_MinApplication" HeaderStyle-Width="110px"
                                             DataFormatString="{0:N0}" HeaderText="Min Amt" CurrentFilterFunction="Contains"
                                             ShowFilterIcon="false" AutoPostBackOnFilter="true" UniqueName="AID_MinApplication"
-                                            Visible="true" AllowFiltering="false">
+                                            Visible="false" AllowFiltering="false">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="Maxamount" HeaderStyle-Width="110px" DataFormatString="{0:N0}"
                                             HeaderText="Max Amt" CurrentFilterFunction="Contains" ShowFilterIcon="false"
-                                            AutoPostBackOnFilter="true" UniqueName="Maxamount" Visible="true" AllowFiltering="false">
+                                            AutoPostBackOnFilter="true" UniqueName="Maxamount" Visible="false" AllowFiltering="false">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="AIM_TradingInMultipleOf" HeaderStyle-Width="110px"
@@ -325,6 +325,20 @@
                                             AllowFiltering="false">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
+                                        
+                                         <telerik:GridBoundColumn DataField="CatCollection" HeaderStyle-Width="140px" HeaderText="Min-Max Qty(Category Wise)"
+                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                            UniqueName="CatCollection"    >
+                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                        </telerik:GridBoundColumn>
+                                        
+                                         <telerik:GridBoundColumn DataField="MinMaxCatCollection" HeaderStyle-Width="140px" HeaderText="Min-Max Qty(Acrooss All Series)"
+                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                            UniqueName="MinMaxCatCollection"    >
+                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                        </telerik:GridBoundColumn>
+                                        
+                                        
                                         <telerik:GridTemplateColumn AllowFiltering="false" DataField="" HeaderStyle-Width="110px"
                                             UniqueName="Action" HeaderText="Action">
                                             <ItemTemplate>
@@ -451,12 +465,18 @@
                                                                         </telerik:GridBoundColumn>
                                                                         <telerik:GridBoundColumn DataField="AIM_MInQty" HeaderStyle-Width="140px" HeaderText="Minimum Quantity"
                                                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                                                            UniqueName="AIM_MInQty" Visible="true" DataFormatString="{0:N0}" SortExpression="AIM_MInQty">
+                                                                            UniqueName="AIM_MInQty" Visible="false" DataFormatString="{0:N0}" SortExpression="AIM_MInQty">
                                                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                                                         </telerik:GridBoundColumn>
                                                                         <telerik:GridBoundColumn DataField="AIM_MaxQty" HeaderStyle-Width="140px" HeaderText="Max Quantity"
                                                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                                                            UniqueName="AIM_MaxQty" Visible="true" DataFormatString="{0:N0}" SortExpression="AIM_MaxQty">
+                                                                            UniqueName="AIM_MaxQty" Visible="false" DataFormatString="{0:N0}" SortExpression="AIM_MaxQty">
+                                                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                                        </telerik:GridBoundColumn>
+                                                                        <telerik:GridBoundColumn DataField="AIM_TradingInMultipleOf" HeaderStyle-Width="110px"
+                                                                            HeaderText="Multiple allowed" CurrentFilterFunction="Contains" ShowFilterIcon="false"
+                                                                            AutoPostBackOnFilter="true" UniqueName="AIM_TradingInMultipleOf" Visible="true"
+                                                                            SortExpression="AIM_TradingInMultipleOf">
                                                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                                                         </telerik:GridBoundColumn>
                                                                         <telerik:GridBoundColumn DataField="AIM_TradingInMultipleOf" HeaderStyle-Width="110px"
