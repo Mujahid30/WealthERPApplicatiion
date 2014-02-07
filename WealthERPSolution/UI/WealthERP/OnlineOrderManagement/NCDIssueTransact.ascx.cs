@@ -467,7 +467,7 @@ namespace WealthERP.OnlineOrderManagement
 
 
 
-                if (Convert.ToInt32(lblAvailableLimits.Text) == 0)
+                if (Convert.ToDouble(lblAvailableLimits.Text) == 0)
                 {
                     ShowMessage("Order cannot be processed. Insufficient balance");
                 }
