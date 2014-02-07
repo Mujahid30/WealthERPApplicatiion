@@ -154,6 +154,7 @@
                             NCD Issue Transact
                         </td>
                         <td align="right">
+                            <asp:LinkButton ID="lnkback" runat="server" Text="Back" CssClass="LinkButtons" OnClick="lblBack_click"></asp:LinkButton>
                             <asp:ImageButton ID="ibtExportSummary" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                                 runat="server" AlternateText="Excel" ToolTip="Export To Excel" Height="25px"
                                 Visible="false" Width="25px"></asp:ImageButton>
@@ -169,7 +170,7 @@
         <div class="divOnlinePageHeading" style="float: right; width: 100%">
             <div style="float: right; padding-right: 100px;">
                 <span style="color: Black; font: arial; font-size: smaller">Available Limits:</span>
-                <asp:Label ID="lblAvailableLimits" runat="server" Text="" style="color: white" CssClass="FieldName"></asp:Label>
+                <asp:Label ID="lblAvailableLimits" runat="server" Text="" Style="color: white" CssClass="FieldName"></asp:Label>
             </div>
         </div>
         <table id="tblMessage" width="100%" runat="server" visible="false" style="padding-top: 20px;">
@@ -226,8 +227,8 @@
                                 PageSize="10" AllowPaging="false" AutoGenerateColumns="False" EnableEmbeddedSkins="False"
                                 GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="true" ShowStatusBar="True"
                                 Skin="Telerik" AllowFilteringByColumn="false">
-                                <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="AIM_IssueId,AIM_IssueName,IssueTimeType"
-                                    AutoGenerateColumns="false" Width="100%">
+                                <mastertableview allowmulticolumnsorting="True" allowsorting="true" datakeynames="AIM_IssueId,AIM_IssueName,IssueTimeType"
+                                    autogeneratecolumns="false" width="100%">
                                     <Columns>
                                         <%--  <telerik:GridTemplateColumn>
                                             <ItemTemplate>
@@ -328,7 +329,7 @@
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>--%>
                                     </Columns>
-                                </MasterTableView>
+                                </mastertableview>
                             </telerik:RadGrid>
                         </td>
                     </tr>
@@ -346,13 +347,13 @@
                     AllowPaging="false" AutoGenerateColumns="False" EnableEmbeddedSkins="False" GridLines="None"
                     ShowFooter="True" PagerStyle-AlwaysVisible="true" ShowStatusBar="True" Skin="Telerik"
                     AllowFilteringByColumn="false" OnItemDataBound="gvCommMgmt_ItemDataBound" OnNeedDataSource="gvCommMgmt_OnNeedDataSource">
-                    <HeaderContextMenu EnableEmbeddedSkins="False">
-                    </HeaderContextMenu>
-                    <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="LiveBondList">
-                    </ExportSettings>
-                    <PagerStyle AlwaysVisible="True" />
-                    <MasterTableView AllowMultiColumnSorting="True" AllowSorting="false" DataKeyNames="AID_IssueDetailId,AIM_IssueId,AID_DefaultInterestRate,AID_Tenure,AIM_FaceValue,AIM_TradingInMultipleOf,AIM_MInQty,AIM_MaxQty,AIM_MaxApplNo"
-                        AutoGenerateColumns="false" Width="100%" ShowFooter="true">
+                    <headercontextmenu enableembeddedskins="False">
+                    </headercontextmenu>
+                    <exportsettings hidestructurecolumns="false" exportonlydata="true" filename="LiveBondList">
+                    </exportsettings>
+                    <pagerstyle alwaysvisible="True" />
+                    <mastertableview allowmulticolumnsorting="True" allowsorting="false" datakeynames="AID_IssueDetailId,AIM_IssueId,AID_DefaultInterestRate,AID_Tenure,AIM_FaceValue,AIM_TradingInMultipleOf,AIM_MInQty,AIM_MaxQty,AIM_MaxApplNo"
+                        autogeneratecolumns="false" width="100%" showfooter="true">
                         <CommandItemSettings ExportToPdfText="Export to Pdf" />
                         <Columns>
                             <%--<telerik:GridBoundColumn visible="false" DataField="PFISM_SchemeId" HeaderStyle-Width="60px" CurrentFilterFunction="Contains"
@@ -456,6 +457,16 @@
                                 UniqueName="CatSubTypeCode" Visible="true">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
+                             <telerik:GridBoundColumn DataField="AIDCSR_RedemptionDate" HeaderStyle-Width="105px" HeaderText="Redemption Date Note"
+                                CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                UniqueName="AIDCSR_RedemptionDate" Visible="true">
+                                <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                            </telerik:GridBoundColumn>
+                             <telerik:GridBoundColumn DataField="AIDCSR_RedemptionAmount " HeaderStyle-Width="105px" HeaderText="Redemption Amount"
+                                CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                UniqueName="AIDCSR_RedemptionAmount " Visible="true">
+                                <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                            </telerik:GridBoundColumn>
                             <telerik:GridTemplateColumn AllowFiltering="false" DataField="YieldAtMAturity" HeaderStyle-Width="100px"
                                 UniqueName="YieldAtMAturity" HeaderText="Yield at Maturity(%)" Visible="false">
                                 <%-- <ItemTemplate>
@@ -542,13 +553,13 @@
                             </EditColumn>
                         </EditFormSettings>
                         <PagerStyle AlwaysVisible="True" />
-                    </MasterTableView>
-                    <ClientSettings>
+                    </mastertableview>
+                    <clientsettings>
                         <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
                         <Resizing AllowColumnResize="true" />
-                    </ClientSettings>
-                    <FilterMenu EnableEmbeddedSkins="False">
-                    </FilterMenu>
+                    </clientsettings>
+                    <filtermenu enableembeddedskins="False">
+                    </filtermenu>
                 </telerik:RadGrid>
             </td>
         </tr>
@@ -560,8 +571,8 @@
         </td>
     </tr>
 </table>
- <div align="center">
-    <asp:Label ID="lb1AvailbleCat" runat="server" CssClass="FieldName"  visible="false"></asp:Label></div>
+<div align="center">
+    <asp:Label ID="lb1AvailbleCat" runat="server" CssClass="FieldName" Visible="false"></asp:Label></div>
 <%--</div>--%>
 <table>
     <tr class="spaceUnder" id="trTermsCondition" runat="server">
@@ -614,7 +625,7 @@
 <telerik:RadWindow ID="rwTermsCondition" runat="server" VisibleOnPageLoad="false"
     Width="1000px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="Move, Resize,Close"
     Title="Terms & Conditions" EnableShadow="true" Left="580" Top="-8">
-    <ContentTemplate>
+    <contenttemplate>
         <div style="padding: 0px; width: 100%">
             <table width="100%" cellpadding="0" cellpadding="0">
                 <tr>
@@ -632,7 +643,7 @@
                 </tr>
             </table>
         </div>
-    </ContentTemplate>
+    </contenttemplate>
 </telerik:RadWindow>
 <asp:HiddenField ID="txtTotAmt" runat="server" OnValueChanged="txtTotAmt_ValueChanged" />
 <%--<telerik:RadWindowManager runat="server" ID="RadWindowManager1">

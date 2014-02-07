@@ -44,6 +44,16 @@ namespace WealthERP.OnlineOrderManagement
                     hdnOrderStatus.Value = "0";
                     BindBBGV(customerId);
                 }
+                if (Request.QueryString["strAction"] != null)
+                {
+                    DateTime todate = DateTime.Parse(Request.QueryString["todate"].ToString());
+                    DateTime fromdate = DateTime.Parse(Request.QueryString["fromdate"].ToString());
+                    string status = Request.QueryString["status"].ToString();
+                    ddlOrderStatus.SelectedValue = status;
+                    txtOrderFrom.SelectedDate = fromdate;
+                    txtOrderTo.SelectedDate = todate;
+
+                }
                 //else
                 //{
                 //    //CustId = Session["CustId"].ToString();
@@ -329,7 +339,8 @@ namespace WealthERP.OnlineOrderManagement
             if (e.CommandName == "View")
             {
                 action = "View";
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TransactionPage", "loadcontrol('NCDIssueTransact','&OrderId=" + OrderId + "&IssuerId=" + IssuerId + "&Issuername=" + Issuername + "&strAction=" + action + " ');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TransactionPage", "loadcontrol('NCDIssueTransact','&OrderId=" + OrderId + "&IssuerId=" + IssuerId + "&Issuername=" + Issuername + "&strAction=" + action +
+                    "&status=" + ddlOrderStatus.SelectedValue.ToString() + "&fromdate=" + txtOrderFrom.SelectedDate + "&todate=" + txtOrderTo.SelectedDate + " ');", true);
             }
             if (e.CommandName == "Edit")
             {

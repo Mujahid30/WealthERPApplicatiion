@@ -44,7 +44,7 @@ namespace WealthERP.OnlineOrderManagement
             customerVo = (CustomerVo)Session["customerVo"];
             adviserVo = (AdvisorVo)Session["advisorVo"];
             ShowAvailableLimits();
-            //lblAvailableLimits.Text = "5000000";
+            lblAvailableLimits.Text = "5000000";
 
             if (!IsPostBack)
             {
@@ -524,7 +524,7 @@ namespace WealthERP.OnlineOrderManagement
                     IssuerId = int.Parse(ViewState["IssueId"].ToString());
                     double availableBalance = Convert.ToDouble(OnlineBondBo.GetUserRMSAccountBalance(customerVo.AccountId));
                     int totalOrderAmt = int.Parse(ViewState["Sum"].ToString());
-                    //availableBalance = 5000000;
+                    availableBalance = 5000000;
                     string message;
                     string aplicationNoStatus = string.Empty;
                     bool accountDebitStatus = false;
@@ -737,6 +737,17 @@ namespace WealthERP.OnlineOrderManagement
         protected void lnlktoviewncdissue_Click(object sender, EventArgs e)
         {
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "NCDIssueList", "loadcontrol('NCDIssueList');", true);
+        }
+        protected void lblBack_click(object sender, EventArgs e)
+        {
+            //if (Request.QueryString["strAction"] != null)
+            //{
+            //// int OrderId = int.Parse(Request.QueryString["OrderId"].ToString());
+            // DateTime todate =DateTime.Parse( Request.QueryString["todate"].ToString());
+            // DateTime fromdate =DateTime.Parse(Request.QueryString["fromdate"].ToString());
+            // string status = Request.QueryString["status"].ToString();
+            // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "NCDIssueBook", "loadcontrol('NCDIssueBook','&status=" + status + "&fromdate=" + fromdate + "&todate=" + todate + " ');", true);
+            //}
         }
     }
 

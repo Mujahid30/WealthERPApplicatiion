@@ -423,6 +423,15 @@ namespace WealthERP.OnlineOrderBackOffice
                         txtMaxQty.Text = "";
 
                     }
+                     if (!string.IsNullOrEmpty(dr["AIM_SubBrokerCode"].ToString()))
+                    {
+                        txtSubBrokerCode.Text = dr["AIM_SubBrokerCode"].ToString();
+                    }
+                    else
+                    {
+                        txtSubBrokerCode.Text = "";
+
+                    }
                     if (!string.IsNullOrEmpty(dr["PI_IssuerId"].ToString()))
                     {
                         ddlIssuer.SelectedValue = dr["PI_IssuerId"].ToString();
@@ -863,7 +872,14 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     onlineNCDBackOfficeVo.BrokerCode = "";
                 }
-
+                if (!string.IsNullOrEmpty(txtSubBrokerCode.Text))
+                {
+                    onlineNCDBackOfficeVo.Subbrokercode = txtSubBrokerCode.Text;
+                }
+                else
+                {
+                    onlineNCDBackOfficeVo.Subbrokercode = "";
+                }
                 if (!string.IsNullOrEmpty(txtNoOfBids.Text))
                 {
                     onlineNCDBackOfficeVo.NoOfBidAllowed = Convert.ToInt32(txtNoOfBids.Text);
@@ -1922,13 +1938,16 @@ namespace WealthERP.OnlineOrderBackOffice
                                 TextBox txtYieldAtCall = ((TextBox)(gdi.FindControl("txtYieldAtCall")));
                                 TextBox txtRenCpnRate = ((TextBox)(gdi.FindControl("txtRenCpnRate")));
                                 TextBox txtYieldAtBuyBack = (TextBox)gdi.FindControl("txtYieldAtBuyBack");
-
+                                TextBox txtRedemptionDate = (TextBox)gdi.FindControl("txtRedemptionDate");
+                                TextBox txtRedemptionAmount = (TextBox)gdi.FindControl("txtRedemptionAmount");
                                 cbSeriesCat.Checked = true;
                                 txtInterestRate.Text = dr["AIDCSR_DefaultInterestRate"].ToString();
                                 txtAnnualizedYield.Text = dr["AIDCSR_AnnualizedYieldUpto"].ToString();
                                 txtYieldAtCall.Text = dr["AIDCSR_YieldAtCall"].ToString();
                                 txtRenCpnRate.Text = dr["AIDCSR_RenewCouponRate"].ToString();
                                 txtYieldAtBuyBack.Text = dr["AIDCSR_YieldAtBuyBack"].ToString();
+                                txtRedemptionDate.Text = dr["AIDCSR_RedemptionDate"].ToString();
+                                txtRedemptionAmount.Text = dr["AIDCSR_RedemptionAmount"].ToString();
                             }
                         }
                     }
@@ -2299,6 +2318,14 @@ namespace WealthERP.OnlineOrderBackOffice
                 else
                 {
                     onlineNCDBackOfficeVo.SyndicateMemberCode = "";
+                }
+                if (!string.IsNullOrEmpty(txtSubBrokerCode.Text))
+                {
+                    onlineNCDBackOfficeVo.Subbrokercode = txtSubBrokerCode.Text;
+                }
+                else
+                {
+                    onlineNCDBackOfficeVo.Subbrokercode = "";
                 }
                 if (!string.IsNullOrEmpty(txtBrokerCode.Text))
                 {

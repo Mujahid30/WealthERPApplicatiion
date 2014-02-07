@@ -737,11 +737,11 @@
                 runat="server" ControlToCompare="ddlCloseTimeHours" Display="Dynamic" ErrorMessage="<br/>Cut-Off TIme Should be Less Than Close Time"
                 Type="Integer" Operator="LessThanEqual" CssClass="cvPCG" ValidationGroup="SetUpSubmit"></asp:CompareValidator>
         </td>
-        <td class="leftLabel">
-            &nbsp;
+        <td align="right">
+            <asp:Label ID="lblSubBrokerCode" runat="server" Text="Sub Broker Code:" CssClass="FieldName"></asp:Label>
         </td>
-        <td class="rightData">
-            &nbsp;
+        <td>
+            <asp:TextBox ID="txtSubBrokerCode" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
         </td>
     </tr>
     <%-- <tr>
@@ -845,11 +845,11 @@
             </asp:RegularExpressionValidator>
         </td>
     </tr>
-    <tr runat="server" id="trMinQty" visible="false">
-        <td class="leftLabel">
+    <tr runat="server" id="trMinQty" visible="true">
+        <td class="leftLabel" visible="false">
             <asp:Label ID="lb1MinApplicationsize" runat="server" Text="Min Qty:" CssClass="FieldName"></asp:Label>
         </td>
-        <td class="rightData">
+        <td class="rightData" visible="false">
             <asp:TextBox ID="txtMinAplicSize" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
             <span id="Span23" class="spnRequiredField">*</span>
             <br />
@@ -864,9 +864,6 @@
             <asp:CompareValidator ID="CompareValidator10" ControlToValidate="txtMinAplicSize"
                 runat="server" ControlToCompare="txtMaxQty" Display="Dynamic" ErrorMessage="<br/>Min Qty be Less Than Max Qty"
                 Type="Integer" Operator="LessThan" CssClass="cvPCG" ValidationGroup="SetUpSubmit"></asp:CompareValidator>
-        </td>
-        <td colspan="2">
-            &nbsp;
         </td>
         <%--   <td class="leftLabel">
             <asp:Label ID="lb1IsPrefix" runat="server" Text="Is Prefix:" CssClass="FieldName"></asp:Label>
@@ -885,7 +882,7 @@
             <br />
             <asp:RegularExpressionValidator ID="RegularExpressionValidator10" ControlToValidate="txtMaxQty"
                 runat="server" Display="Dynamic" ErrorMessage="Please Enter Integer Value" CssClass="cvPCG"
-                ValidationExpression="[1-9]\d*$" ValidationGroup="SetUpSubmit">                     
+                ValidationExpression="[1-9]\d*$" ValidationGroup="SetUpSubmit" Visible="false">                     
             </asp:RegularExpressionValidator>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator38" runat="server" CssClass="rfvPCG"
                 ErrorMessage="Please Enter Max Qty" Display="Dynamic" ControlToValidate="txtMaxQty"
@@ -893,7 +890,7 @@
             </asp:RequiredFieldValidator>
             <asp:CompareValidator ID="CompareValidator8" ControlToValidate="txtMaxQty" runat="server"
                 ControlToCompare="txtMinAplicSize" Display="Dynamic" ErrorMessage="<br/>Max Qty be Greater Than Min Qty"
-                Type="Integer" Operator="GreaterThan" CssClass="cvPCG" ValidationGroup="SetUpSubmit"></asp:CompareValidator>
+                Type="Integer" Operator="GreaterThan" CssClass="cvPCG" ValidationGroup="SetUpSubmit" Visible="false"></asp:CompareValidator>
         </td>
         <td class="leftLabel">
             <asp:Label ID="lb1IsPrefix" runat="server" Text="Is Prefix:" CssClass="FieldName"></asp:Label>
@@ -1658,7 +1655,7 @@
                                                                             </asp:RegularExpressionValidator>
                                                                         </ItemTemplate>
                                                                     </telerik:GridTemplateColumn>
-                                                                 <%--   <telerik:GridTemplateColumn HeaderText="Coupon Rate(%)" AllowFiltering="false" HeaderStyle-Width="30px">
+                                                                    <%--   <telerik:GridTemplateColumn HeaderText="Coupon Rate(%)" AllowFiltering="false" HeaderStyle-Width="30px">
                                                                         <HeaderTemplate>
                                                                             <asp:Label ID="lblInterest" runat="server" Text="Coupon Rate(%)"></asp:Label>
                                                                         </HeaderTemplate>
@@ -1674,7 +1671,7 @@
                                                                             </asp:RequiredFieldValidator>
                                                                         </ItemTemplate>
                                                                     </telerik:GridTemplateColumn>--%>
-                                                                       <telerik:GridTemplateColumn HeaderText="Yield At Call" AllowFiltering="false" UniqueName="YieldAtCall">
+                                                                    <telerik:GridTemplateColumn HeaderText="Yield At Call" AllowFiltering="false" UniqueName="YieldAtCall">
                                                                         <HeaderTemplate>
                                                                             <asp:Label ID="lb1YieldAtCall" runat="server" Text="Yield At Call(%)"></asp:Label>
                                                                         </HeaderTemplate>
@@ -1685,9 +1682,10 @@
                                                                                 ValidationExpression="[0-9]\d*(\.\d?[0-9])?$" ValidationGroup="btnOK">   
                                                                                 
                                                                             </asp:RegularExpressionValidator>
-                                                                             </ItemTemplate>
-                                                                             </telerik:GridTemplateColumn>
-                                                                    <telerik:GridTemplateColumn HeaderText="Redemption Date Note" AllowFiltering="false" UniqueName="Redemptiondate">
+                                                                        </ItemTemplate>
+                                                                    </telerik:GridTemplateColumn>
+                                                                    <telerik:GridTemplateColumn HeaderText="Redemption Date Note" AllowFiltering="false"
+                                                                        UniqueName="Redemptiondate">
                                                                         <HeaderTemplate>
                                                                             <asp:Label ID="lblRedemptionDate" runat="server" Text="Redemption Date Note"></asp:Label>
                                                                         </HeaderTemplate>

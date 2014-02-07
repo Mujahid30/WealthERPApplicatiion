@@ -301,6 +301,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(createCmd, "@IssueSizeAmt", DbType.Decimal, onlineNCDBackOfficeVo.IssueSizeAmt);
                 db.AddInParameter(createCmd, "@issueID", DbType.Int32, onlineNCDBackOfficeVo.IssueId);
                 db.AddInParameter(createCmd, "@Tradableexchange", DbType.Int32, onlineNCDBackOfficeVo.TradableExchange);
+                db.AddInParameter(createCmd, "@Subbrokercode", DbType.String, onlineNCDBackOfficeVo.Subbrokercode);
                 if (onlineNCDBackOfficeVo.AllotmentDate != DateTime.MinValue)
                 {
                     db.AddInParameter(createCmd, "@AllotmentDate", DbType.Date, onlineNCDBackOfficeVo.AllotmentDate);
@@ -618,7 +619,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(createCmd, "@adviserId", DbType.Int32, adviserId);
                 db.AddInParameter(createCmd, "@Tradableexchane", DbType.Int32, onlineNCDBackOfficeVo.TradableExchange);
                 db.AddInParameter(createCmd, "@CutOffTime", DbType.Time, onlineNCDBackOfficeVo.CutOffTime);
-
+                db.AddInParameter(createCmd, "@Subbrokercode", DbType.String, onlineNCDBackOfficeVo.Subbrokercode);
                 if (db.ExecuteNonQuery(createCmd) != 0)
                 {
                     issueId = Convert.ToInt32(db.GetParameterValue(createCmd, "AIM_IssueId").ToString());

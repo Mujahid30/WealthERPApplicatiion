@@ -32,7 +32,7 @@ namespace VoOnlineOrderManagemnet
         public string ChequePayableTo { get; set; }
         public long MInBidAmount { get; set; }
         public long MaxBidAmount { get; set; }
-
+        public string Subbrokercode { get; set; }
 
         public int SubCatgeoryId { get; set; }
         public int LookUpId { get; set; }
