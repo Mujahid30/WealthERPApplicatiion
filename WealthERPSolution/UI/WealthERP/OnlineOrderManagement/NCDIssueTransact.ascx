@@ -371,12 +371,12 @@
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="CouponRateCollection" HeaderStyle-Width="160px"
                                 CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                HeaderText="Coupon Rate(%)" UniqueName="CouponRateCollection" SortExpression="CouponRateCollection">
+                                HeaderText="Coupon Rate (%)" UniqueName="CouponRateCollection" SortExpression="CouponRateCollection">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="YieldatMatCollection" HeaderStyle-Width="160px"
                                 CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                HeaderText="Yield at Maturity(%)" UniqueName="YieldatMatCollection" SortExpression="YieldatMatCollection">
+                                HeaderText="Yield at Maturity (%)" UniqueName="YieldatMatCollection" SortExpression="YieldatMatCollection">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="BidCollection" HeaderStyle-Width="60px" CurrentFilterFunction="Contains"
