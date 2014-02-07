@@ -237,7 +237,7 @@
                                             ShowFilterIcon="false" AutoPostBackOnFilter="true" AllowFiltering="true" HeaderText="Issue"
                                             UniqueName="AIM_IssueName" SortExpression="false">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
-                                        </telerik:GridBoundColumn>
+                                        </telerik:GridBoundColumn>  
                                         <telerik:GridBoundColumn Visible="false" DataField="AIM_IssueId" HeaderStyle-Width="60px"
                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
                                             HeaderText="Scrip ID" UniqueName="AIM_IssueId" SortExpression="AIM_IssueId">
