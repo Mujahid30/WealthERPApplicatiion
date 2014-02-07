@@ -74,7 +74,8 @@ namespace WealthERP.Customer
             txtLivingSince_CompareValidator.ValueToCompare = DateTime.Now.ToShortDateString();
             cvJobStartDate.ValueToCompare = DateTime.Now.ToShortDateString();
             //txtMarriageDate_CompareValidator.ValueToCompare = DateTime.Now.ToShortDateString();
-
+            //Session["profile"] = "ddlCustomerSubType";
+            //viewForm = Session["profile"].ToString();
             try
             {
                 SessionBo.CheckSession();
@@ -166,7 +167,6 @@ namespace WealthERP.Customer
                     //Bind Adviser Branch List
 
                     BindListBranch(customerVo.RmId, "rm");
-                //sai    ddlCustomerSubType.SelectedValue = customerVo.TaxStatusCustomerSubTypeId.ToString();
 
                     if (customerVo.Type.ToUpper().ToString() == "IND")
                     {
@@ -178,6 +178,9 @@ namespace WealthERP.Customer
                         rbtnNonIndividual.Checked = true;
                         BinSubtypeDropdown(1002);
                     }
+                    int subtypeCode = customerBo.GetCustomerSubType(customerVo.CustomerId);
+                        if(subtypeCode>0)
+                    ddlCustomerSubType.SelectedValue = subtypeCode.ToString();
                     if (customerVo.Gender.ToUpper().ToString() == "M")
                     {
                         rbtnMale.Checked = true;
@@ -186,7 +189,7 @@ namespace WealthERP.Customer
                     {
                         rbtnFemale.Checked = true;
                     }
-
+                    
                     ddlAdviserBranchList.SelectedValue = customerVo.BranchId.ToString();
                     customerRMVo = adviserStaffBo.GetAdvisorStaffDetails(customerVo.RmId);
                     if (customerRMVo.FirstName + " " + customerRMVo.MiddleName + " " + customerRMVo.LastName != null && (customerRMVo.FirstName + " " + customerRMVo.MiddleName + " " + customerRMVo.LastName).ToString() != "")
@@ -378,6 +381,7 @@ namespace WealthERP.Customer
             {
                 btnGetSlab.Enabled = false;
                 btnEdit.Visible = false;
+               
                 gvFamilyAssociate.MasterTableView.CommandItemDisplay = GridCommandItemDisplay.None;
                 gvISAAccountList.MasterTableView.CommandItemDisplay = GridCommandItemDisplay.None;
                 gvBankDetails.MasterTableView.CommandItemDisplay = GridCommandItemDisplay.None;
@@ -477,12 +481,12 @@ namespace WealthERP.Customer
                 ddlNationality.DataBind();
                 ddlNationality.Items.Insert(0, new ListItem("Select a Nationality", "Select a Nationality"));
 
-                //dtOccupation = commonLookupBo.GetWERPLookupMasterValueList(2000, 0);
-                //ddlCustomerSubType.DataSource = dtOccupation;
-                //ddlCustomerSubType.DataTextField = "WCMV_Name";
-                //ddlCustomerSubType.DataValueField = "WCMV_LookupId";
-                //ddlCustomerSubType.DataBind();
-                //ddlCustomerSubType.Items.Insert(0, new ListItem("--SELECT--", "0"));
+                dtOccupation = commonLookupBo.GetWERPLookupMasterValueList(2000, 0);
+                ddlCustomerSubType.DataSource = dtOccupation;
+                ddlCustomerSubType.DataTextField = "WCMV_Name";
+                ddlCustomerSubType.DataValueField = "WCMV_LookupId";
+                ddlCustomerSubType.DataBind();
+                ddlCustomerSubType.Items.Insert(0, new ListItem("--SELECT--", "0"));
 
                
                 dtOccupation = commonLookupBo.GetWERPLookupMasterValueList(3000, 0); ;
@@ -543,11 +547,13 @@ namespace WealthERP.Customer
                 if (customerVo.Type.ToUpper().ToString() == "IND")
                 {
                     dtCustomerSubType = XMLBo.GetCustomerSubType(path, "IND");
+                    BinSubtypeDropdown(1001);
 
                 }
                 else
                 {
                     dtCustomerSubType = XMLBo.GetCustomerSubType(path, "NIND");
+                    BinSubtypeDropdown(1002);
                 }
                 //ddlCustomerSubType.DataSource = dtCustomerSubType;
                 //ddlCustomerSubType.DataTextField = "CustomerTypeName";
@@ -555,7 +561,7 @@ namespace WealthERP.Customer
                 //ddlCustomerSubType.DataBind();
 
 
-              //sai  ddlCustomerSubType.SelectedValue = customerVo.SubType;
+              //  ddlCustomerSubType.SelectedValue = customerVo.SubType;
 
             }
             catch (BaseApplicationException Ex)
@@ -999,7 +1005,7 @@ namespace WealthERP.Customer
             DataTable dt = new DataTable();
             // dtOccupation = commonLookupBo.GetWERPLookupMasterValueList(2000, 1002);
             dt = commonLookupBo.GetWERPLookupMasterValueList(2000, parentId);
-            ddlCustomerSubType.Items.Clear();
+            //ddlCustomerSubType.Items.Clear();
             //  dtCustomerSubType = XMLBo.GetCustomerSubType(path, "NIND");
             // ddlCustomerSubType.DataSource = dtCustomerSubType;
             ddlCustomerSubType.DataSource = dt;
