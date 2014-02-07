@@ -2724,6 +2724,21 @@ namespace BoCustomerProfiling
             return dtCustomerISAAccountList;
         }
 
+        public int GetCustomerSubType( int customerId)
+        {
+
+            int subtypeId = 0;
+            CustomerDao customerDao = new CustomerDao();
+            try
+            {
+                subtypeId = customerDao.GetCustomerSubType(customerId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return subtypeId;
+        }
 
         public bool UpdateMemberRelation(int AssociationId, string relationCode, bool isrealInvestor,int iskyc)
         {

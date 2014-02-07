@@ -923,7 +923,35 @@ namespace DaoCustomerProfiling
 
         }
 
-
+        public int GetCustomerSubType(int customerId)
+        {
+            Database db;
+            DbCommand dbCommand;
+            int typeCode;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbCommand = db.GetStoredProcCommand("SP_GetCustomerSubType");
+                db.AddInParameter(dbCommand, "@CustomerId", DbType.Int32, customerId);
+                typeCode = int.Parse(db.ExecuteScalar(dbCommand).ToString());
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineNCDBackOfficeDao.cs:GetCustomerSubType()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return typeCode;
+        }
         /// <summary>
         /// Gets you Firstname middlename lastname emailid password detals for a particular Customer from Usertable if you pass Customer Id as its Parameter
         /// </summary>
