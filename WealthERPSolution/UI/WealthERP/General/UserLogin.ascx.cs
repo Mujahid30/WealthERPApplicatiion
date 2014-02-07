@@ -205,11 +205,14 @@ namespace WealthERP.General
             string currentUserIP = string.Empty;
             bool isIPAuthenticated = false;
             bool isPassWordMathed = false;
-            if (txtLoginId.Text == "ESI64786")
-            {
-                ValidateUserLogin(txtLoginId.Text.Trim());
-            }
-            else if (!CheckSuperAdmin())
+            bool isUserAlreadyLogedIn = false;
+
+            //if (txtLoginId.Text == "ESI64786")
+            //{
+            //    ValidateUserLogin(txtLoginId.Text.Trim());
+            //}
+            //else 
+            if (!CheckSuperAdmin())
             {
                 if (txtLoginId.Text == "" || txtPassword.Text == "")
                 {
@@ -272,12 +275,18 @@ namespace WealthERP.General
                             if (hashUserAuthenticationDetails["PWD"].ToString() == "True")
                                 isPassWordMathed = true;
                         }
+
+                        if (isPassWordMathed)
+                            isUserAlreadyLogedIn = ValidateSingleSessionPerUser(userVo.UserId.ToString());
+                        
                     }
 
-                    bool isUserAlreadyLogedIn = ValidateSingleSessionPerUser(userVo.UserId.ToString());
+                   
 
                     if ((isPassWordMathed && isIPAuthenticated && isUserAlreadyLogedIn) || (isPassWordMathed && advisorVo.IsIPEnable == 0 && isUserAlreadyLogedIn))  // Validating the User Using the Username and Password
                     {
+                        
+
                         Session["id"] = "";
                         lblIllegal.Visible = true;
 
