@@ -685,7 +685,8 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(createCmd, "@RenCpnRate", DbType.Double, onlineNCDBackOfficeVo.RenCpnRate);
                 db.AddInParameter(createCmd, "@YieldAtCall", DbType.Double, onlineNCDBackOfficeVo.YieldAtCall);
                 db.AddInParameter(createCmd, "@YieldAtBuyBack", DbType.Double, onlineNCDBackOfficeVo.YieldAtBuyBack);
-
+                db.AddInParameter(createCmd, "@RedemptionDate", DbType.String, onlineNCDBackOfficeVo.RedemptionDate);
+                db.AddInParameter(createCmd, "@redemptionAmount", DbType.Double, onlineNCDBackOfficeVo.RedemptionAmount);
 
                 if (db.ExecuteNonQuery(createCmd) != 0)
                     bResult = true;
@@ -1130,7 +1131,8 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(createCmd, "@RenCpnRate", DbType.Double, onlineNCDBackOfficeVo.RenCpnRate);
                 db.AddInParameter(createCmd, "@YieldAtCall", DbType.Double, onlineNCDBackOfficeVo.YieldAtCall);
                 db.AddInParameter(createCmd, "@YieldAtBuyBack", DbType.Double, onlineNCDBackOfficeVo.YieldAtBuyBack);
-
+                db.AddInParameter(createCmd, "@RedemptionDate", DbType.String, onlineNCDBackOfficeVo.RedemptionDate);
+                db.AddInParameter(createCmd, "@redemptionAmount", DbType.Double, onlineNCDBackOfficeVo.RedemptionAmount);
 
                 if (db.ExecuteNonQuery(createCmd) != 0)
                     bResult = true;

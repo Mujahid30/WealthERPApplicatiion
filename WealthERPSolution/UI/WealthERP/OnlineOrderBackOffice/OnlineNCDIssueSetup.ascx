@@ -1674,9 +1674,22 @@
                                                                             </asp:RequiredFieldValidator>
                                                                         </ItemTemplate>
                                                                     </telerik:GridTemplateColumn>--%>
-                                                                    <telerik:GridTemplateColumn HeaderText="Redemption Date" AllowFiltering="false" UniqueName="Redemptiondate">
+                                                                       <telerik:GridTemplateColumn HeaderText="Yield At Call" AllowFiltering="false" UniqueName="YieldAtCall">
                                                                         <HeaderTemplate>
-                                                                            <asp:Label ID="lblRedemptionDate" runat="server" Text="Redemption Date"></asp:Label>
+                                                                            <asp:Label ID="lb1YieldAtCall" runat="server" Text="Yield At Call(%)"></asp:Label>
+                                                                        </HeaderTemplate>
+                                                                        <ItemTemplate>
+                                                                            <asp:TextBox ID="txtYieldAtCall" runat="server" CssClass="txtField" Width="40px"></asp:TextBox>
+                                                                            <asp:RegularExpressionValidator ID="rgYieldAtCall" ControlToValidate="txtYieldAtCall"
+                                                                                runat="server" Display="Dynamic" ErrorMessage="Please Enter +(ve) Digits" CssClass="cvPCG"
+                                                                                ValidationExpression="[0-9]\d*(\.\d?[0-9])?$" ValidationGroup="btnOK">   
+                                                                                
+                                                                            </asp:RegularExpressionValidator>
+                                                                             </ItemTemplate>
+                                                                             </telerik:GridTemplateColumn>
+                                                                    <telerik:GridTemplateColumn HeaderText="Redemption Date Note" AllowFiltering="false" UniqueName="Redemptiondate">
+                                                                        <HeaderTemplate>
+                                                                            <asp:Label ID="lblRedemptionDate" runat="server" Text="Redemption Date Note"></asp:Label>
                                                                         </HeaderTemplate>
                                                                         <ItemTemplate>
                                                                             <asp:TextBox ID="txtRedemptionDate" runat="server" CssClass="txtField" Width="90px"></asp:TextBox>
@@ -1687,10 +1700,10 @@
                                                                             </asp:RegularExpressionValidator>
                                                                         </ItemTemplate>
                                                                     </telerik:GridTemplateColumn>
-                                                                    <telerik:GridTemplateColumn HeaderText="Redemption Amount" AllowFiltering="false"
+                                                                    <telerik:GridTemplateColumn HeaderText="Redemption Amount(Per Bond)" AllowFiltering="false"
                                                                         HeaderStyle-Width="30px">
                                                                         <HeaderTemplate>
-                                                                            <asp:Label ID="lblRedemptionAmount" runat="server" Text="Redemption Amount"></asp:Label>
+                                                                            <asp:Label ID="lblRedemptionAmount" runat="server" Text="Redemption Amount(Per Bond)"></asp:Label>
                                                                         </HeaderTemplate>
                                                                         <ItemTemplate>
                                                                             <asp:TextBox ID="txtRedemptionAmount" runat="server" CssClass="txtField" Width="40px"></asp:TextBox>

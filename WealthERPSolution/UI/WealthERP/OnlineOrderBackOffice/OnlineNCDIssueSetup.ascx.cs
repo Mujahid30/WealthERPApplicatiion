@@ -1197,7 +1197,8 @@ namespace WealthERP.OnlineOrderBackOffice
                         TextBox txtRenCpnRate = (TextBox)gdi.FindControl("txtRenCpnRate");
                         TextBox txtYieldAtCall = (TextBox)gdi.FindControl("txtYieldAtCall");
                         TextBox txtYieldAtBuyBack = (TextBox)gdi.FindControl("txtYieldAtBuyBack");
-
+                        TextBox txtRedemptionDate = (TextBox)gdi.FindControl("txtRedemptionDate");
+                        TextBox txtRedemptionAmount = (TextBox)gdi.FindControl("txtRedemptionAmount");
 
                         if (string.IsNullOrEmpty(txtInterestRate.Text))
                         {
@@ -1217,12 +1218,21 @@ namespace WealthERP.OnlineOrderBackOffice
                         {
                             txtYieldAtCall.Text = 0.ToString();
                         }
+                     
                         if (string.IsNullOrEmpty(txtYieldAtBuyBack.Text))
                         {
                             txtYieldAtBuyBack.Text = 0.ToString();
                         }
+                        if (string.IsNullOrEmpty(txtRedemptionDate.Text))
+                        {
+                            txtRedemptionDate.Text = 0.ToString();
+                        }
+                        if (string.IsNullOrEmpty(txtRedemptionAmount.Text))
+                        {
+                            txtRedemptionAmount.Text = 0.ToString();
+                        }
 
-                        CreateUpdateDeleteSeriesCategories(seriesId, categoryId, Convert.ToDouble(txtInterestRate.Text), Convert.ToDouble(txtAnnualizedYield.Text), Convert.ToDouble(txtRenCpnRate.Text), Convert.ToDouble(txtYieldAtCall.Text), Convert.ToDouble(txtYieldAtBuyBack.Text), "Insert");
+                        CreateUpdateDeleteSeriesCategories(seriesId, categoryId, Convert.ToDouble(txtInterestRate.Text), Convert.ToDouble(txtAnnualizedYield.Text), Convert.ToDouble(txtRenCpnRate.Text), Convert.ToDouble(txtYieldAtCall.Text), Convert.ToDouble(txtYieldAtBuyBack.Text),txtRedemptionDate.Text,Convert.ToDouble(txtRedemptionAmount.Text), "Insert");
                     }
                 }
                 BindSeriesGrid(Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text));
@@ -1269,7 +1279,8 @@ namespace WealthERP.OnlineOrderBackOffice
                         TextBox txtRenCpnRate = (TextBox)gdi.FindControl("txtRenCpnRate");
                         TextBox txtYieldAtCall = (TextBox)gdi.FindControl("txtYieldAtCall");
                         TextBox txtYieldAtBuyBack = (TextBox)gdi.FindControl("txtYieldAtBuyBack");
-
+                        TextBox txtRedemptionDate = (TextBox)gdi.FindControl("txtRedemptionDate");
+                        TextBox txtRedemptionAmount = (TextBox)gdi.FindControl("txtRedemptionAmount");
                         if (string.IsNullOrEmpty(txtInterestRate.Text))
                         {
                             txtInterestRate.Text = 0.ToString();
@@ -1292,7 +1303,16 @@ namespace WealthERP.OnlineOrderBackOffice
                         {
                             txtYieldAtBuyBack.Text = 0.ToString();
                         }
-                        CreateUpdateDeleteSeriesCategories(seriesId, categoryId, Convert.ToDouble(txtInterestRate.Text), Convert.ToDouble(txtAnnualizedYield.Text), Convert.ToDouble(txtRenCpnRate.Text), Convert.ToDouble(txtYieldAtCall.Text), Convert.ToDouble(txtYieldAtBuyBack.Text), "Update");
+                      
+                        if (string.IsNullOrEmpty(txtRedemptionDate.Text))
+                        {
+                            txtRedemptionDate.Text = 0.ToString();
+                        }
+                        if (string.IsNullOrEmpty(txtRedemptionAmount.Text))
+                        {
+                            txtRedemptionAmount.Text = 0.ToString();
+                        }
+                        CreateUpdateDeleteSeriesCategories(seriesId, categoryId, Convert.ToDouble(txtInterestRate.Text), Convert.ToDouble(txtAnnualizedYield.Text), Convert.ToDouble(txtRenCpnRate.Text), Convert.ToDouble(txtYieldAtCall.Text), Convert.ToDouble(txtYieldAtBuyBack.Text),txtRedemptionDate.Text,Convert.ToDouble(txtRedemptionAmount.Text), "Update");
                     }
                 }
                 BindSeriesGrid(Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text));
@@ -2398,7 +2418,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
         }
 
-        private void CreateUpdateDeleteSeriesCategories(int seriesId, int catgeoryId, double defaultInterestRate, double annualizedYieldUpto, double renCpnRate, double yieldAtCall, double yieldAtBuyBack, string commandType)
+        private void CreateUpdateDeleteSeriesCategories(int seriesId, int catgeoryId, double defaultInterestRate, double annualizedYieldUpto, double renCpnRate, double yieldAtCall, double yieldAtBuyBack,string redemptiondate,double redemptionAmount, string commandType)
         {
             bool result;
             try
@@ -2413,6 +2433,8 @@ namespace WealthERP.OnlineOrderBackOffice
                     onlineNCDBackOfficeVo.RenCpnRate = renCpnRate;
                     onlineNCDBackOfficeVo.YieldAtCall = yieldAtCall;
                     onlineNCDBackOfficeVo.YieldAtBuyBack = yieldAtBuyBack;
+                    onlineNCDBackOfficeVo.RedemptionDate=redemptiondate;
+                    onlineNCDBackOfficeVo.RedemptionAmount=redemptionAmount;
                     result = onlineNCDBackOfficeBo.CreateSeriesCategory(onlineNCDBackOfficeVo, userVo.UserId);
                 }
                 else if (commandType == "Update")
@@ -2425,7 +2447,8 @@ namespace WealthERP.OnlineOrderBackOffice
                     onlineNCDBackOfficeVo.RenCpnRate = renCpnRate;
                     onlineNCDBackOfficeVo.YieldAtCall = yieldAtCall;
                     onlineNCDBackOfficeVo.YieldAtBuyBack = yieldAtBuyBack;
-
+                    onlineNCDBackOfficeVo.RedemptionDate=redemptiondate;
+                    onlineNCDBackOfficeVo.RedemptionAmount=redemptionAmount;
                     result = onlineNCDBackOfficeBo.UpdateSeriesCategory(onlineNCDBackOfficeVo, userVo.UserId);
                 }
 

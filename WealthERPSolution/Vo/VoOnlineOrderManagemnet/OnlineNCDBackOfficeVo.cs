@@ -24,7 +24,8 @@ namespace VoOnlineOrderManagemnet
         public string LockinPeriod { get; set; }
         public double DiscountPrice { get; set; }
         public int IsDiscountAllowed { get; set; }
-
+        public string RedemptionDate {get;set;}
+        public double RedemptionAmount { get; set; }
         public int CatgeoryId { get; set; }
         public string CatgeoryName { get; set; }
         public string CatgeoryDescription { get; set; }
