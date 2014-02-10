@@ -303,8 +303,8 @@
             <asp:Label ID="lblCategory" runat="server" Text="Category:" CssClass="FieldName"></asp:Label>
         </td>
         <td align="rightData" id="tdddlCategory" runat="server">
-            <asp:DropDownList ID="ddlCategory" runat="server" CssClass="cmbField" AutoPostBack="true"
-                Width="205px">
+            <asp:DropDownList ID="ddlCategory" runat="server" CssClass="cmbLongField" AutoPostBack="true"
+                Width="300px">
                 <%-- <asp:ListItem Value="Select">Select</asp:ListItem>
                 <asp:ListItem Value="NCD">NCD</asp:ListItem>
                 <asp:ListItem Value="IB">Infrastructure bonds</asp:ListItem>--%>
@@ -332,8 +332,8 @@
             <asp:Label ID="lb1Issuer" runat="server" Text="Issuer:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightData">
-            <asp:DropDownList ID="ddlIssuer" runat="server" CssClass="cmbField" AutoPostBack="true"
-                Width="205px">
+            <asp:DropDownList ID="ddlIssuer" runat="server" CssClass="cmbLongField" AutoPostBack="true"
+                Width="300px">
             </asp:DropDownList>
             <span id="Span10" class="spnRequiredField">*</span>
             <asp:ImageButton ID="imgIssuer" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
