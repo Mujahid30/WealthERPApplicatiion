@@ -927,12 +927,15 @@ namespace DaoCustomerProfiling
         {
             Database db;
             DbCommand dbCommand;
-            int typeCode;
+            int typeCode=0;
             try
             {
+
+
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 dbCommand = db.GetStoredProcCommand("SP_GetCustomerSubType");
                 db.AddInParameter(dbCommand, "@CustomerId", DbType.Int32, customerId);
+                if(db.ExecuteScalar(dbCommand) !=null)              
                 typeCode = int.Parse(db.ExecuteScalar(dbCommand).ToString());
             }
             catch (BaseApplicationException Ex)
