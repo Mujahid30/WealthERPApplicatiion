@@ -44,7 +44,7 @@ namespace WealthERP.OnlineOrderManagement
             customerVo = (CustomerVo)Session["customerVo"];
             adviserVo = (AdvisorVo)Session["advisorVo"];
             ShowAvailableLimits();
-            lblAvailableLimits.Text = "5000000";
+          lblAvailableLimits.Text = "4000";
 
             if (!IsPostBack)
             {
@@ -63,6 +63,7 @@ namespace WealthERP.OnlineOrderManagement
                     ddIssuerList.Visible = false;
                     btnConfirm.Visible = false;
                     tdsubmit.Visible = false;
+                    lnkback.Visible = true;
                     trTermsCondition.Visible = false;
                     //tdsubmit.Visible = false;
                 }
@@ -79,6 +80,7 @@ namespace WealthERP.OnlineOrderManagement
                     //int IssueIdN = Convert.ToInt32(IssueId);
                     ddIssuerList.Visible = false;
                     btnConfirm.Visible = false;
+                   
                     BindStructureRuleGrid(IssuerId);
                     BindStructureRuleGrid();
                 }
@@ -524,7 +526,7 @@ namespace WealthERP.OnlineOrderManagement
                     IssuerId = int.Parse(ViewState["IssueId"].ToString());
                     double availableBalance = Convert.ToDouble(OnlineBondBo.GetUserRMSAccountBalance(customerVo.AccountId));
                     int totalOrderAmt = int.Parse(ViewState["Sum"].ToString());
-                    availableBalance = 5000000;
+                    availableBalance = 4000;
                     string message;
                     string aplicationNoStatus = string.Empty;
                     bool accountDebitStatus = false;
@@ -740,14 +742,15 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void lblBack_click(object sender, EventArgs e)
         {
-            //if (Request.QueryString["strAction"] != null)
-            //{
-            //// int OrderId = int.Parse(Request.QueryString["OrderId"].ToString());
-            // DateTime todate =DateTime.Parse( Request.QueryString["todate"].ToString());
-            // DateTime fromdate =DateTime.Parse(Request.QueryString["fromdate"].ToString());
-            // string status = Request.QueryString["status"].ToString();
-            // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "NCDIssueBook", "loadcontrol('NCDIssueBook','&status=" + status + "&fromdate=" + fromdate + "&todate=" + todate + " ');", true);
-            //}
+            if (Request.QueryString["strAction"] != null)
+            {
+                // int OrderId = int.Parse(Request.QueryString["OrderId"].ToString());
+                string action = Request.QueryString["strAction"].ToString();
+                DateTime todate = DateTime.Parse(Request.QueryString["todate"].ToString());
+                DateTime fromdate = DateTime.Parse(Request.QueryString["fromdate"].ToString());
+                string status = Request.QueryString["status"].ToString();
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "NCDIssueBooks", "loadcontrol('NCDIssueBooks','&strAction=" + action + "&status=" + status + "&fromdate=" + fromdate + "&todate=" + todate + " ');", true);
+            }
         }
     }
 

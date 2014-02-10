@@ -44,15 +44,20 @@ namespace WealthERP.OnlineOrderManagement
                     hdnOrderStatus.Value = "0";
                     BindBBGV(customerId);
                 }
-                if (Request.QueryString["strAction"] != null)
+                DateTime todate;
+                DateTime fromdate;
+                if (Request.QueryString["strAction"] != "" && Request.QueryString["strAction"] != null)
                 {
-                    DateTime todate = DateTime.Parse(Request.QueryString["todate"].ToString());
-                    DateTime fromdate = DateTime.Parse(Request.QueryString["fromdate"].ToString());
+                    string action = Request.QueryString["strAction"].ToString();
+                    todate = DateTime.Parse(Request.QueryString["todate"].ToString());
+                    fromdate = DateTime.Parse(Request.QueryString["fromdate"].ToString());
                     string status = Request.QueryString["status"].ToString();
-                    ddlOrderStatus.SelectedValue = status;
+                    hdnOrderStatus.Value = status;
+                   // ddlOrderStatus.SelectedValue = status;
                     txtOrderFrom.SelectedDate = fromdate;
                     txtOrderTo.SelectedDate = todate;
-
+                   // SetParameter();
+                    BindBBGV(customerVo.CustomerId);
                 }
                 //else
                 //{

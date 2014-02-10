@@ -1481,14 +1481,14 @@ namespace WealthERP.OnlineOrderBackOffice
         }
         protected void oncheckedOnlin_OnCheckedChanged(object sender, EventArgs e)
         {
-            //if (chkonline.Checked)
-            //{
-            //    schemedetails.Visible = true;
-            //}
-            //else
-            //{
-            //    schemedetails.Visible = false;
-            //}
+            if (chkonline.Checked)
+            {
+                txtESSchemecode.Enabled = true;
+            }
+            else
+            {
+                txtESSchemecode.Enabled = false;
+            }
         }
         protected void btnBasicDupdate_click(object sender, EventArgs e)
         {

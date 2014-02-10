@@ -154,7 +154,7 @@
                             NCD Issue Transact
                         </td>
                         <td align="right">
-                            <asp:LinkButton ID="lnkback" runat="server" Text="Back" CssClass="LinkButtons" OnClick="lblBack_click"></asp:LinkButton>
+                            <asp:LinkButton ID="lnkback" runat="server" Text="Back" CssClass="LinkButtons" OnClick="lblBack_click" Visible="false"></asp:LinkButton>
                             <asp:ImageButton ID="ibtExportSummary" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                                 runat="server" AlternateText="Excel" ToolTip="Export To Excel" Height="25px"
                                 Visible="false" Width="25px"></asp:ImageButton>
@@ -462,7 +462,7 @@
                                 UniqueName="AIDCSR_RedemptionDate" Visible="true">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
-                             <telerik:GridBoundColumn DataField="AIDCSR_RedemptionAmount " HeaderStyle-Width="105px" HeaderText="Redemption Amount"
+                             <telerik:GridBoundColumn DataField="AIDCSR_RedemptionAmount " HeaderStyle-Width="105px" HeaderText="Redemption Amount(Per Bond)"
                                 CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
                                 UniqueName="AIDCSR_RedemptionAmount " Visible="true">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
