@@ -161,7 +161,7 @@
                 </td>
             </tr>
             <tr>
-                <td class="leftLabel">
+                <td class="leftLabel" style="width:10%">
                     <asp:Label ID="lblproduct" runat="server" CssClass="FieldName" Text="Select Product:"></asp:Label>
                 </td>
                 <td class="rightData">
@@ -178,11 +178,11 @@
                         ErrorMessage="Please select a product" ControlToValidate="ddlProduct" Display="Dynamic"
                         InitialValue="0" ValidationGroup="FileType">Please select a product</asp:RequiredFieldValidator>
                 </td>
-                <td class="leftLabel">
+                <td class="leftLabel" style="width:10%">
                     <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="Select Issue:"></asp:Label>
                 </td>
                 <td class="rightData">
-                    <asp:DropDownList ID="ddlIssueName" runat="server" CssClass="cmbLongField" AutoPostBack="true" OnSelectedIndexChanged="ddlIssueName_SelectedIndexChanged">
+                    <asp:DropDownList ID="ddlIssueName" runat="server"  Width="300px" CssClass="cmbLongField" AutoPostBack="true" OnSelectedIndexChanged="ddlIssueName_SelectedIndexChanged">
                         <%--<asp:ListItem Selected="True" Value="Select">--SELECT--</asp:ListItem>--%>
                     </asp:DropDownList>
                     <br />
@@ -191,7 +191,7 @@
                         InitialValue="Select" ValidationGroup="OnlineIssueUpload">
                     </asp:RequiredFieldValidator>
                 </td>
-                <td colspan="3">
+                <td class="rightData" colspan="3">
                     <asp:Button ID="btnIssueExtract" runat="server" CssClass="PCGLongButton" Text="NCD Extract"
                         OnClick="btnIssueExtract_Click" />
                 </td>
