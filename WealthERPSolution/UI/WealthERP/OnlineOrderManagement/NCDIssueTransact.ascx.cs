@@ -44,7 +44,7 @@ namespace WealthERP.OnlineOrderManagement
             customerVo = (CustomerVo)Session["customerVo"];
             adviserVo = (AdvisorVo)Session["advisorVo"];
             ShowAvailableLimits();
-          //lblAvailableLimits.Text = "4000";
+         // lblAvailableLimits.Text = "4000";
 
             if (!IsPostBack)
             {
@@ -377,6 +377,11 @@ namespace WealthERP.OnlineOrderManagement
                 userMessage = "Please Contact sbi team to fill Aplications";
 
             }
+            else if( orderId != 0 && accountDebitStatus == false)
+            {
+                userMessage = "NO Rms Response";
+
+            }
             else if (orderId == 0)
             {
                 userMessage = "Order cannot be processed. Issue Got Closed";
@@ -461,7 +466,9 @@ namespace WealthERP.OnlineOrderManagement
                 else
                     break;
             }
-
+            GridFooterItem ftItemAmount = (GridFooterItem)gvCommMgmt.MasterTableView.GetItems(GridItemType.Footer)[0];
+            Label lbltotAmt = (Label)ftItemAmount.FindControl("lblAmount");
+           
             if (isValid)
             {
                 Quantity = int.Parse(ViewState["Qty"].ToString());
@@ -472,6 +479,9 @@ namespace WealthERP.OnlineOrderManagement
                 if (Convert.ToDouble(lblAvailableLimits.Text) == 0)
                 {
                     ShowMessage("Order cannot be processed. Insufficient balance");
+                    tdsubmit.Visible = false;
+                    lnlBack.Visible = true;
+
                 }
                 else if (issueDetId == 0)
                 {
@@ -481,6 +491,13 @@ namespace WealthERP.OnlineOrderManagement
                         if (category == string.Empty)
                             ShowMessage("Order Cant placed. No suitable categories are there.");
                     }
+
+                }
+                else if (Convert.ToDouble(lbltotAmt.Text) >= Convert.ToDouble(lblAvailableLimits.Text))
+                {
+                    ShowMessage("Order cannot be processed. Insufficient balance");
+                    tdsubmit.Visible = false;
+                    lnlBack.Visible = true;
 
                 }
                 else if (Quantity < minQty)
@@ -526,7 +543,7 @@ namespace WealthERP.OnlineOrderManagement
                     IssuerId = int.Parse(ViewState["IssueId"].ToString());
                     double availableBalance = Convert.ToDouble(OnlineBondBo.GetUserRMSAccountBalance(customerVo.AccountId));
                     int totalOrderAmt = int.Parse(ViewState["Sum"].ToString());
-                   // availableBalance = 4000;
+                // availableBalance = 4000;
                     string message;
                     string aplicationNoStatus = string.Empty;
                     bool accountDebitStatus = false;
@@ -534,6 +551,7 @@ namespace WealthERP.OnlineOrderManagement
                     int orderId = 0;
                     if (availableBalance >= totalOrderAmt)
                     {
+                        
                         orderIds = OnlineBondBo.onlineBOndtransact(dt, adviserVo.advisorId, IssuerId);
                         orderId = int.Parse(orderIds["Order_Id"].ToString()); ;
                         Applicationno = int.Parse(orderIds["application"].ToString());
@@ -623,7 +641,8 @@ namespace WealthERP.OnlineOrderManagement
         {
             if (!string.IsNullOrEmpty(customerVo.AccountId))
             {
-                lblAvailableLimits.Text = OnlineBondBo.GetUserRMSAccountBalance(customerVo.AccountId).ToString();
+                
+                lblAvailableLimits.Text = OnlineBondBo.GetUserRMSAccountBalance(customerVo.AccountId).ToString();            
             }
         }
         protected void gvCommMgmt_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
