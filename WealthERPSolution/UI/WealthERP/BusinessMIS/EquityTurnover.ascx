@@ -337,7 +337,7 @@
 <table width="100%">
             <tr>
                 <td>
-                    <asp:Label ID="LabelMainNote" runat="server" Font-Size="Small" CssClass="cmbField" 
+                    <asp:Label ID="LabelMainNote" runat="server" Font-Size="Small" CssClass="cmbFielde" 
                     Text="Note: 1.You can group/ungroup or hide/unhide fields by a right click on the grid label and then making the selection."></asp:Label>
                 </td>
             </tr>
