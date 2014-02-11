@@ -819,7 +819,7 @@ namespace DaoOnlineOrderManagement
             }
             return dsgetActiveRange;
         }
-        public DataSet GetAllInvestorTypes(int issuerId, int issueId)
+        public DataSet GetAllInvestorTypes(int issuerId, int issueId, int categoryId)
         {
             DataSet dsGetSubCategory;
             Database db;
@@ -830,6 +830,8 @@ namespace DaoOnlineOrderManagement
                 dbCommand = db.GetStoredProcCommand("SPROC_GetAllInvestorTypes");
                 db.AddInParameter(dbCommand, "@issuerId", DbType.Int32, issuerId);
                 db.AddInParameter(dbCommand, "@IssueId", DbType.Int32, issueId);
+                db.AddInParameter(dbCommand, "@CatId", DbType.Int32, categoryId);
+
                 dsGetSubCategory = db.ExecuteDataSet(dbCommand);
             }
             catch (BaseApplicationException Ex)
@@ -861,7 +863,9 @@ namespace DaoOnlineOrderManagement
                 dbCommand = db.GetStoredProcCommand("SPROC_GetInvestorTypes");
                 db.AddInParameter(dbCommand, "@issuerId", DbType.Int32, issuerId);
                 db.AddInParameter(dbCommand, "@IssueId", DbType.Int32, issueId);
-                db.AddInParameter(dbCommand, "@size", DbType.Int32, size);
+                db.AddInParameter(dbCommand, "@CatId", DbType.Int32, size);
+
+                //db.AddInParameter(dbCommand, "@size", DbType.Int32, size);
 
                 dsGetSubCategory = db.ExecuteDataSet(dbCommand);
             }
@@ -1044,12 +1048,15 @@ namespace DaoOnlineOrderManagement
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                createCmd = db.GetStoredProcCommand("[SPROC_UpdateCategoryDetails]");
+                createCmd = db.GetStoredProcCommand("SPROC_UpdateCategoryDetails");
                 db.AddInParameter(createCmd, "@InvestorCatgeoryId ", DbType.Int32, onlineNCDBackOfficeVo.CatgeoryId);
                 db.AddInParameter(createCmd, "@InvestorId", DbType.Int32, onlineNCDBackOfficeVo.LookUpId);
                 db.AddInParameter(createCmd, "@InvestorSubTypeCode", DbType.String, onlineNCDBackOfficeVo.SubCatgeoryTypeCode);
                 db.AddInParameter(createCmd, "@MinInvestmentAmount", DbType.Double, onlineNCDBackOfficeVo.MinInvestmentAmount);
                 db.AddInParameter(createCmd, "@MaxInvestmentAmount", DbType.Double, onlineNCDBackOfficeVo.MaxInvestmentAmount);
+                db.AddInParameter(createCmd, "@SubCategoryId", DbType.Double, onlineNCDBackOfficeVo.SubCatgeoryId);
+
+                
 
                 if (db.ExecuteNonQuery(createCmd) != 0)
                     bResult = true;
