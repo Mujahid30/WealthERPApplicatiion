@@ -514,12 +514,12 @@ namespace BoOnlineOrderManagement
             }
         }
 
-        public DataSet GetAllInvestorTypes(int issuerId, int issueId)
+        public DataSet GetAllInvestorTypes(int issuerId, int issueId, int categoryId)
         {
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
             try
             {
-                return onlineNCDBackOfficeDao.GetAllInvestorTypes(issuerId, issueId);
+                return onlineNCDBackOfficeDao.GetAllInvestorTypes(issuerId, issueId, categoryId);
             }
             catch (BaseApplicationException Ex)
             {

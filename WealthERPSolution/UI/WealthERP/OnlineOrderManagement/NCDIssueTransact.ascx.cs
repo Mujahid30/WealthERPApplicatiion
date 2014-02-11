@@ -539,11 +539,11 @@ namespace WealthERP.OnlineOrderManagement
                 }
                 else
                 {
+                   // placing order 
                     IDictionary<string, string> orderIds = new Dictionary<string, string>();
                     IssuerId = int.Parse(ViewState["IssueId"].ToString());
                     double availableBalance = Convert.ToDouble(OnlineBondBo.GetUserRMSAccountBalance(customerVo.AccountId));
                     int totalOrderAmt = int.Parse(ViewState["Sum"].ToString());
-                // availableBalance = 4000;
                     string message;
                     string aplicationNoStatus = string.Empty;
                     bool accountDebitStatus = false;
