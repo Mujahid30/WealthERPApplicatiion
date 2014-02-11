@@ -44,7 +44,7 @@ namespace WealthERP.OnlineOrderManagement
             customerVo = (CustomerVo)Session["customerVo"];
             adviserVo = (AdvisorVo)Session["advisorVo"];
             ShowAvailableLimits();
-          lblAvailableLimits.Text = "4000";
+          //lblAvailableLimits.Text = "4000";
 
             if (!IsPostBack)
             {
@@ -526,7 +526,7 @@ namespace WealthERP.OnlineOrderManagement
                     IssuerId = int.Parse(ViewState["IssueId"].ToString());
                     double availableBalance = Convert.ToDouble(OnlineBondBo.GetUserRMSAccountBalance(customerVo.AccountId));
                     int totalOrderAmt = int.Parse(ViewState["Sum"].ToString());
-                    availableBalance = 4000;
+                   // availableBalance = 4000;
                     string message;
                     string aplicationNoStatus = string.Empty;
                     bool accountDebitStatus = false;
