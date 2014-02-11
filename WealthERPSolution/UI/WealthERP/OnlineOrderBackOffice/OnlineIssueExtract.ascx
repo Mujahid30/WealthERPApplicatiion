@@ -161,7 +161,7 @@
                 </td>
             </tr>
             <tr>
-                <td class="leftLabel" style="width:10%">
+                <td class="leftLabel" style="width: 15.5%">
                     <asp:Label ID="lblproduct" runat="server" CssClass="FieldName" Text="Select Product:"></asp:Label>
                 </td>
                 <td class="rightData">
@@ -178,11 +178,12 @@
                         ErrorMessage="Please select a product" ControlToValidate="ddlProduct" Display="Dynamic"
                         InitialValue="0" ValidationGroup="FileType">Please select a product</asp:RequiredFieldValidator>
                 </td>
-                <td class="leftLabel" style="width:10%">
+                <td class="leftLabel" style="width:15%">
                     <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="Select Issue:"></asp:Label>
                 </td>
                 <td class="rightData">
-                    <asp:DropDownList ID="ddlIssueName" runat="server"  Width="300px" CssClass="cmbLongField" AutoPostBack="true" OnSelectedIndexChanged="ddlIssueName_SelectedIndexChanged">
+                    <asp:DropDownList ID="ddlIssueName" runat="server" Width="450px" CssClass="cmbLongField"
+                        AutoPostBack="true" OnSelectedIndexChanged="ddlIssueName_SelectedIndexChanged">
                         <%--<asp:ListItem Selected="True" Value="Select">--SELECT--</asp:ListItem>--%>
                     </asp:DropDownList>
                     <br />
@@ -196,11 +197,10 @@
                         OnClick="btnIssueExtract_Click" />
                 </td>
             </tr>
-             
         </table>
-      <%--  ValidationGroup="IssueExtract" --%>
-      <%--ValidationGroup="FileType"--%>
-        <table width="100%" >
+        <%--  ValidationGroup="IssueExtract" --%>
+        <%--ValidationGroup="FileType"--%>
+        <table width="100%">
             <tr>
                 <td class="tdSectionHeading" colspan="6">
                     <div class="divSectionHeading" style="vertical-align: text-bottom">
@@ -213,12 +213,12 @@
                 </td>
             </tr>
             <tr>
-                <td class="leftLabel" style="width:10%";>
+                <td class="leftLabel" style="width:10%">
                     <asp:Label ID="lblDWNData" runat="server" CssClass="FieldName" Text="Download Data:"></asp:Label>
                 </td>
                 <td class="rightData">
                     <asp:DropDownList ID="ddlExternalSource" runat="server" CssClass="cmbLongField" AutoPostBack="true"
-                        OnSelectedIndexChanged="ddlExternalSource_SelectedIndexChanged" >
+                        OnSelectedIndexChanged="ddlExternalSource_SelectedIndexChanged">
                         <%--<asp:ListItem Selected="True" Value="0">--SELECT--</asp:ListItem>
                         <asp:ListItem Text="BSE" Value="BSE" />
                         <asp:ListItem Text="NSE" Value="NSE" />
@@ -229,7 +229,7 @@
                         ControlToValidate="ddlExternalSource" CssClass="rfvPCG" Display="Dynamic" InitialValue="0"
                         ValidationGroup="IssueExtract">Please select a download</asp:RequiredFieldValidator>
                 </td>
-                <td class="leftLabel" style="width:5%";>
+                <td class="leftLabel" style="width:9%">
                     <asp:Label ID="lblFileType" runat="server" CssClass="FieldName" Text="File Type:"></asp:Label>
                 </td>
                 <td class="rightData">
@@ -241,7 +241,7 @@
                         ControlToValidate="ddlFileType" CssClass="rfvPCG" Display="Dynamic" InitialValue="0"
                         ValidationGroup="IssueExtract">Please select a file type</asp:RequiredFieldValidator>
                 </td>
-                <td class="leftLabel" style="width:5%";>
+                <td class="leftLabel" style="width:12%">
                     <asp:Label ID="Label3" runat="server" CssClass="FieldName" Text="Date:"></asp:Label>
                 </td>
                 <td class="rightData">
@@ -258,11 +258,10 @@
                         Display="Dynamic" ControlToValidate="rdpDownloadDate" Text="Please select a valid date"
                         CssClass="rfvPCG" ValidationGroup="IssueExtract">Please select a valid date</asp:RequiredFieldValidator>
                 </td>
-               <%-- <td class="leftLabel" colspan="2">&nbsp;</td>--%>
-               
+                <%-- <td class="leftLabel" colspan="2">&nbsp;</td>--%>
             </tr>
             <tr>
-               <%-- <td>
+                <%-- <td>
                     &nbsp;
                 </td>
                 <td>
