@@ -74,7 +74,7 @@ namespace WealthERP.OnlineOrderBackOffice
                         lblBack.Visible = true;
                         ControlViewEditMode(false);
                         btnsubmit.Visible = false;
-
+                        txtESSchemecode.Enabled = true;
                     }
                     else if (Request.QueryString["strAction"].Trim() == "View")
                     {
@@ -380,7 +380,7 @@ namespace WealthERP.OnlineOrderBackOffice
         protected void SaveSchemeDetails()
         {
             mfProductAMCSchemePlanDetailsVo.SchemePlanCode = int.Parse(Session["newschemeplancode"].ToString());
-            mfProductAMCSchemePlanDetailsVo.Product = ddlProduct.SelectedValue;
+          //  mfProductAMCSchemePlanDetailsVo.Product = ddlProduct.SelectedValue;
             if (ChkNRI.Checked)
             {
                 mfProductAMCSchemePlanDetailsVo.CustomerSubTypeCode = "NRI";
@@ -391,9 +391,11 @@ namespace WealthERP.OnlineOrderBackOffice
                 mfProductAMCSchemePlanDetailsVo.CustomerSubTypeCode = "NIND";
 
             }
-
-            mfProductAMCSchemePlanDetailsVo.ExternalCode = txtESSchemecode.Text.ToString();
-
+            if (!string.IsNullOrEmpty(txtESSchemecode.Text))
+            {
+                mfProductAMCSchemePlanDetailsVo.ExternalCode = txtESSchemecode.Text.ToString();
+            }
+           
             if (!string.IsNullOrEmpty(txtFvale.Text))
             {
                 mfProductAMCSchemePlanDetailsVo.FaceValue = Convert.ToDouble(txtFvale.Text);
@@ -1464,19 +1466,19 @@ namespace WealthERP.OnlineOrderBackOffice
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please Enter Unique External System Scheme Code. You Can Use Combination of 0-9 and a-z');", true);
                 return;
             }
-
-            if (count == 0)
+            else
+            //if (count == 0)
             {
                 SaveSchemeDetails();
 
-                if (AMFIValidation(txtAMFI.Text))
-                {
+                //if (AMFIValidation(txtAMFI.Text))
+                //{
                     OnlineOrderBackOfficeBo.CreateOnlineSchemeSetupPlanDetails(mfProductAMCSchemePlanDetailsVo, userVo.UserId);
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Scheme Submit Successfully!!');", true);
                     Clearallcontrols(false);
                     lnkEdit.Visible = true;
                     btnupdate.Visible = false;
-                }
+                //}
             }
         }
         protected void oncheckedOnlin_OnCheckedChanged(object sender, EventArgs e)
@@ -1683,10 +1685,10 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     mfProductAMCSchemePlanDetailsVo.ExternalCode = txtESSchemecode.Text;
                 }
-                else
-                {
-                    txtESSchemecode.Text = "0";
-                }
+                ////else
+                ////{
+                ////    txtESSchemecode.Text = "0";
+                ////}
                 if (ddlBname.SelectedIndex != 0)
                 {
                     mfProductAMCSchemePlanDetailsVo.WCMV_Lookup_BankId = int.Parse(ddlBname.SelectedValue.ToString());
