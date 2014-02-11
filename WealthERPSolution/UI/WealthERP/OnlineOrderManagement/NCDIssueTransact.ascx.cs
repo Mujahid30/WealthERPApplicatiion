@@ -44,7 +44,7 @@ namespace WealthERP.OnlineOrderManagement
             customerVo = (CustomerVo)Session["customerVo"];
             adviserVo = (AdvisorVo)Session["advisorVo"];
             ShowAvailableLimits();
-         // lblAvailableLimits.Text = "4000";
+       // lblAvailableLimits.Text = "4000";
 
             if (!IsPostBack)
             {
@@ -479,7 +479,7 @@ namespace WealthERP.OnlineOrderManagement
                 if (Convert.ToDouble(lblAvailableLimits.Text) == 0)
                 {
                     ShowMessage("Order cannot be processed. Insufficient balance");
-                    tdsubmit.Visible = false;
+                  //  tdsubmit.Visible = false;
                     lnlBack.Visible = true;
 
                 }
@@ -496,8 +496,8 @@ namespace WealthERP.OnlineOrderManagement
                 else if (Convert.ToDouble(lbltotAmt.Text) >= Convert.ToDouble(lblAvailableLimits.Text))
                 {
                     ShowMessage("Order cannot be processed. Insufficient balance");
-                    tdsubmit.Visible = false;
-                    lnlBack.Visible = true;
+                  //  tdsubmit.Visible = false;
+                   // lnlBack.Visible = true;
 
                 }
                 else if (Quantity < minQty)
@@ -544,6 +544,7 @@ namespace WealthERP.OnlineOrderManagement
                     IssuerId = int.Parse(ViewState["IssueId"].ToString());
                     double availableBalance = Convert.ToDouble(OnlineBondBo.GetUserRMSAccountBalance(customerVo.AccountId));
                     int totalOrderAmt = int.Parse(ViewState["Sum"].ToString());
+                // availableBalance = 4000;
                     string message;
                     string aplicationNoStatus = string.Empty;
                     bool accountDebitStatus = false;
