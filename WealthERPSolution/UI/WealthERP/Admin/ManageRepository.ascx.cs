@@ -66,7 +66,7 @@ namespace WealthERP.Admin
 
                 // Clear Session
                 Session[SessionContents.RepositoryVo] = null;
-               
+
             }
 
             if (Session[SessionContents.RepositoryVo] != null)
@@ -260,7 +260,7 @@ namespace WealthERP.Admin
             repoVo = new RepositoryVo();
             bool blResult = false;
             bool blZeroBalance = false;
-            
+
             bool blFileSizeExceeded = false;
             repoVo = (RepositoryVo)Session[SessionContents.RepositoryVo];
 
@@ -435,7 +435,7 @@ namespace WealthERP.Admin
             repoBo = new RepositoryBo();
             try
             {
-                blResult = (strAction.Equals(Constants.Add.ToString())) ? repoBo.AddRepositoryItem(repoVo,issueId) : repoBo.UpdateRepositoryItem(repoVo);
+                blResult = (strAction.Equals(Constants.Add.ToString())) ? repoBo.AddRepositoryItem(repoVo, issueId) : repoBo.UpdateRepositoryItem(repoVo);
             }
             catch (BaseApplicationException Ex)
             {
@@ -744,6 +744,22 @@ namespace WealthERP.Admin
             }
             return flRemainingBal;
         }
-
+        protected void lnkButton_Click(object sender, EventArgs e)
+        {
+            int IssueId ;
+            if (Request.QueryString["IssueId"] != null)
+            {
+                if (Request.QueryString["IssueId"] == string.Empty )
+                {
+                    IssueId = 0;
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineNCDIssueSetup", "loadcontrol('OnlineNCDIssueSetup');", true);
+                }
+                else
+                {
+                    IssueId = int.Parse(Request.QueryString["IssueId"].ToString());
+                }
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineNCDIssueSetup", "loadcontrol('OnlineNCDIssueSetup','ProspectUsaction=viewFromProspect&issueId=" + IssueId + "');", true);
+            }
+        }
     }
 }
