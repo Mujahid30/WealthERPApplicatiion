@@ -77,10 +77,6 @@ namespace WealthERP.OnlineOrderBackOffice
                 VisblityAndEnablityOfScreen("View");
             }
 
-            else if (Request.QueryString["ProspectUsaction"] != null)
-            {
-                VisblityAndEnablityOfScreen("View");
-            }
             else
             {
                 VisblityAndEnablityOfScreen("New");
@@ -294,11 +290,11 @@ namespace WealthERP.OnlineOrderBackOffice
                     }
                     if (!string.IsNullOrEmpty(dr["AIM_TradeableAtExchange"].ToString()))
                     {
-                        chkTradebleExchange.Checked = false;
+                        chkTradebleExchange.Checked = true;
                     }
                     else
                     {
-                        chkTradebleExchange.Checked = true;
+                        chkTradebleExchange.Checked = false;
                     }
                     if (!string.IsNullOrEmpty(dr["AIM_PutCallOption"].ToString()))
                     {
@@ -616,7 +612,7 @@ namespace WealthERP.OnlineOrderBackOffice
             txtSubBrokerCode.Enabled = value;
 
 
-            txtTradingInMultipleOf.Enabled = value;
+            //txtTradingInMultipleOf.Enabled = value;
             //ddlListedInExchange.Enabled = value;
 
             ddlBankName.Enabled = value;
@@ -2156,7 +2152,7 @@ namespace WealthERP.OnlineOrderBackOffice
             //}
             //else
             //{
-               // rfvtxtBSECode.Enabled = false;
+                //rfvtxtBSECode.Enabled = false;
                // rfvtxtNSECode.Enabled = false;
                 int result = UpdateIssue();
                 //VisblityAndEnablityOfScreen("AfterUpdate");
@@ -2179,20 +2175,6 @@ namespace WealthERP.OnlineOrderBackOffice
 
                     VisblityAndEnablityOfScreen("LnkEdit");
             }
-
-
-            if (Request.QueryString["viewFromProspect"] != null)
-            {
-                type = Request.QueryString["type"].ToString();
-                if (type == "Closed")
-                {
-                    VisblityAndEnablityOfScreen("LnkEdit");
-                }
-
-                else
-                    VisblityAndEnablityOfScreen("LnkEdit");
-            }
-
         }
 
         protected void lnlBack_Click(object sender, EventArgs e)
