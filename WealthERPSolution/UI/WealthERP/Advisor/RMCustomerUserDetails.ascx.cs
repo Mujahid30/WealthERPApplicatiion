@@ -457,7 +457,7 @@ namespace WealthERP.Advisor
                 {
                     if (string.IsNullOrEmpty(statusMessage))
                     {
-                        statusMessage = "No email Id specified for slected User";
+                        statusMessage = "No email Id specified for selected User";
                         tblMessage.Visible = true;
                         ErrorMessage.Visible = true;
                         ErrorMessage.InnerText = statusMessage;
