@@ -117,7 +117,7 @@
             <asp:Label ID="lb1Issue" runat="server" Text="Issue:" CssClass="FieldName"></asp:Label>
             <%--  </td>
         <td class="rightLabelData">--%>
-            <asp:DropDownList ID="ddlIssue" runat="server" CssClass="cmbField" AutoPostBack="true">
+            <asp:DropDownList ID="ddlIssue" runat="server" CssClass="cmbField" AutoPostBack="true" Width="70%">
             </asp:DropDownList>
             <span id="Span10" class="spnRequiredField">*</span>
             <br />
