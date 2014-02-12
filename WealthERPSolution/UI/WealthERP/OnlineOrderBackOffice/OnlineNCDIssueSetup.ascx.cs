@@ -44,6 +44,16 @@ namespace WealthERP.OnlineOrderBackOffice
                 DefaultBindings();
 
             }
+            if (Request.QueryString["IssueId"] != "" && Request.QueryString["IssueId"] != null)
+            {
+                //  string action = Request.QueryString["strAction"].ToString();
+                int IssueId = int.Parse(Request.QueryString["IssueId"].ToString());
+                //IssueId=int.Parse(txtIssueId.Text.ToString());
+                ViewIssueList(IssueId, advisorVo.advisorId);
+                VisblityAndEnablityOfScreen("View");
+            }
+
+            
 
         }
         private void DefaultBindings()
@@ -66,6 +76,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 ViewIssueList(issueNo, advisorVo.advisorId);
                 VisblityAndEnablityOfScreen("View");
             }
+
             else
             {
                 VisblityAndEnablityOfScreen("New");
@@ -266,8 +277,9 @@ namespace WealthERP.OnlineOrderBackOffice
                     }
 
                     // ddlListedInExchange.SelectedValue = "";
-                    ddlBankName.Text = "";
-                    ddlBankBranch.Text = "";
+
+                    //ddlBankName.Text = "";
+                    //ddlBankBranch.Text = "";
                     if (!string.IsNullOrEmpty(dr["AIM_IsActive"].ToString()))
                     {
                         chkIsActive.Checked = bool.Parse(dr["AIM_IsActive"].ToString());
@@ -595,7 +607,9 @@ namespace WealthERP.OnlineOrderBackOffice
 
             txtTradingLot.Enabled = value;
             txtBiddingLot.Enabled = value;
-
+            txtBSECode.Enabled = value;
+            txtNSECode.Enabled = value;
+            txtSubBrokerCode.Enabled = value;
 
 
             //txtTradingInMultipleOf.Enabled = value;
@@ -2068,7 +2082,19 @@ namespace WealthERP.OnlineOrderBackOffice
 
         protected void btnSetUpSubmit_Click(object sender, EventArgs e)
         {
-
+        //    if (txtNSECode.Text == "" && txtBSECode.Text == "")
+        //    {
+        //        Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "CheckTextBoxes()", true);
+        //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please Fill Atlist One Code NSE or BSE');", true);
+        //        return;
+        //    }
+            //if (txtNSECode.Text != null && txtBSECode.Text != null)
+            //{
+            //     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('You Can Enter Only One Code NSE or BSE');", true);
+            //     return;
+            //}
+            //if(txtNSECode.Text != null || txtBSECode.Text != null)
+            //{
             if (!string.IsNullOrEmpty(txtIssueId.Text))
             {
                 if (chkIsActive.Checked == true)
@@ -2084,8 +2110,8 @@ namespace WealthERP.OnlineOrderBackOffice
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Online Enablement done successfully.');", true);
 
                     }
-
                 }
+              
             }
 
             if (string.IsNullOrEmpty(txtIssueId.Text))
@@ -2506,6 +2532,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
                 if (!string.IsNullOrEmpty(txtNSECode.Text))
                 {
+
                     onlineNCDBackOfficeVo.IsListedinNSE = 1;
                     onlineNCDBackOfficeVo.NSECode = txtNSECode.Text;
                 }
@@ -2525,7 +2552,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
                 }
 
-
+                //NseBsetextvalidation();
                 issueId = onlineNCDBackOfficeBo.CreateIssue(onlineNCDBackOfficeVo, advisorVo.advisorId);
                 if (issueId > 0)
                 {
@@ -2551,7 +2578,17 @@ namespace WealthERP.OnlineOrderBackOffice
             }
             return issueId;
         }
-
+        public void NseBsetextvalidation()
+        {
+            //if (txtBSECode.Text == null || txtNSECode.Text == null)
+            //{
+               
+            //}
+            //else
+            //{
+            //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please Fill Atlist One Code NSE or BSE');", true);  
+            //}
+        }
         private void BankName()
         {
 
@@ -3978,20 +4015,21 @@ namespace WealthERP.OnlineOrderBackOffice
         //}
 
 
+
         protected void cbSeriesCat_changed(object sender, EventArgs e)
         {
-            //  CheckBox cbSeriesCat = (CheckBox)sender;
-            ////  GridDataItem editedItem = (GridDataItem)cbSeriesCat.NamingContainer;
-            //  GridEditableItem editedItem = cbSeriesCat.NamingContainer as GridEditableItem;
-            // RadGrid rgSeriesCat = (RadGrid)editedItem.FindControl("rgSeriesCat");
-            //  foreach (GridDataItem gdi in rgSeriesCat.Items)
-            //  {
-            //      if (cbSeriesCat.Checked == true)
-            //      {
-            //          RequiredFieldValidator req = (RequiredFieldValidator)gdi.FindControl("RequiredFieldValidator26");
-            //          req.Visible = true;
-            //      }
-            //  }
+          //  CheckBox cbSeriesCat = (CheckBox)sender;
+          ////  GridDataItem editedItem = (GridDataItem)cbSeriesCat.NamingContainer;
+          //  GridEditableItem editedItem = cbSeriesCat.NamingContainer as GridEditableItem;
+          // RadGrid rgSeriesCat = (RadGrid)editedItem.FindControl("rgSeriesCat");
+          //  foreach (GridDataItem gdi in rgSeriesCat.Items)
+          //  {
+          //      if (cbSeriesCat.Checked == true)
+          //      {
+          //          RequiredFieldValidator req = (RequiredFieldValidator)gdi.FindControl("RequiredFieldValidator26");
+          //          req.Visible = true;
+          //      }
+          //  }
 
         }
 

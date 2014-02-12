@@ -1487,10 +1487,6 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvtxtBSECode;
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvtxtNSECode;
-
-
-        
         
         /// <summary>
         /// lb1BankName control.

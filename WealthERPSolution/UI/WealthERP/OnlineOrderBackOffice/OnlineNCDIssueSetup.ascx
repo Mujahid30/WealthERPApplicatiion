@@ -19,6 +19,40 @@
     } 
 </script>
 
+<script type="text/javascript" language="javascript">
+        function CheckTextBoxes()
+        {
+            var txtbox1 = document.getElementById('<%=txtNSECode.ClientID %>');
+            var txtbox2 = document.getElementById('<%=txtBSECode.ClientID %>');
+            if (txtbox1.value == "" && txtbox2.value == "") {
+                alert('Please Fill One Of The Fields NSE or BSE Code.');
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+
+</script>
+<script type="text/javascript">
+    var crnt = 0;
+    function PreventClicks() {
+
+        if (typeof (Page_ClientValidate('SetUpSubmit')) == 'function') {
+            Page_ClientValidate();
+        }
+
+        if (Page_IsValid) {
+            if (++crnt > 1) {
+                return false;
+            }
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+</script>
 <style type="text/css">
     .table
     {
@@ -937,26 +971,16 @@
         </td>
         <td class="rightData">
             <asp:TextBox ID="txtNSECode" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
-            <br />
-            <asp:RequiredFieldValidator ID="rfvtxtNSECode" runat="server" CssClass="rfvPCG" ErrorMessage="Please Enter Either BSE or NSE Code"
-                Display="Dynamic" ControlToValidate="txtNSECode" InitialValue="" ValidationGroup="SetUpSubmit"
-                Enabled="false">
-            </asp:RequiredFieldValidator>
         </td>
         <td class="leftLabel">
             <asp:Label ID="lb1Code" runat="server" Text="BSE Code:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightData">
             <asp:TextBox ID="txtBSECode" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
-            <%--<span id="Span32" class="spnRequiredField">*</span>--%>
+            <span id="Span32" class="spnRequiredField">*</span>
             <br />
-            <%-- <asp:RequiredFieldValidator ID="RequiredFieldValidator31" ControlToValidate="txtAgentCode"
-                ErrorMessage="Please enter a AgentCode" Display="Dynamic" runat="server" ValidationGroup="btnSubmit"
-                CssClass="rfvPCG">
-            </asp:RequiredFieldValidator>--%>
-            <asp:RequiredFieldValidator ID="rfvtxtBSECode" runat="server" CssClass="rfvPCG" ErrorMessage="Please Enter Either BSE or NSE Code"
-                Display="Dynamic" ControlToValidate="txtBSECode" ValidationGroup="SetUpSubmit"
-                Enabled="false">
+            <asp:RequiredFieldValidator ID="rfvtxtBSECode" runat="server" CssClass="rfvPCG" ErrorMessage="Please Enter BSE Code"
+                Display="Dynamic" ControlToValidate="txtBSECode" InitialValue="" ValidationGroup="SetUpSubmit">
             </asp:RequiredFieldValidator>
         </td>
     </tr>
@@ -1076,11 +1100,11 @@
         </td>
         <td class="leftLabel">
             <asp:Button ID="btnSetUpSubmit" runat="server" Text="Submit" CssClass="PCGButton"
-                ValidationGroup="SetUpSubmit" OnClick="btnSetUpSubmit_Click" Visible="false" />
+                ValidationGroup="SetUpSubmit" OnClick="btnSetUpSubmit_Click" Visible="false" OnClientClick="if(CheckTextBoxes() == false) return false;CheckTextBoxes();"/>
             <%-- </td>
         <td class="rightData">--%>
             <asp:Button ID="btnUpdate" runat="server" Text="Update" CssClass="PCGButton" ValidationGroup="SetUpSubmit"
-                OnClick="btnUpdate_Click" />
+                OnClick="btnUpdate_Click" OnClientClick="if(CheckTextBoxes() == false) return false;CheckTextBoxes();"/>
             <asp:Button ID="btnProspect" runat="server" Text="Prospect" CssClass="PCGButton"
                 OnClick="btnProspect_Click" />
             <%-- ValidationGroup="SetUpSubmit"--%>
@@ -1118,7 +1142,7 @@
                                 OnItemCommand="rgEligibleInvestorCategories_ItemCommand" OnItemDataBound="rgEligibleInvestorCategories_ItemDataBound" >
                                 <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="AIM_IssueId,AIIC_InvestorCatgeoryId"
                                     AutoGenerateColumns="false" Width="100%" EditMode="PopUp" CommandItemSettings-AddNewRecordText="Create InvestorCategory"
-                                    CommandItemDisplay="Top" >
+                                    CommandItemDisplay="Top" AutoPostBack="True">
                                     <Columns>
                                         <telerik:GridTemplateColumn AllowFiltering="false">
                                             <ItemTemplate>
@@ -1448,6 +1472,10 @@
                                 <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="AID_IssueDetailId"
                                     AutoGenerateColumns="false" Width="100%" EditMode="PopUp" CommandItemSettings-AddNewRecordText="Create New Series"
                                     CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false">
+                                    <%--   <CommandItemTemplate>
+                                        <asp:LinkButton ID="LinkButton3" runat="server" Text="raj" CommandName='<%# rgSeries.MasterTableView.IsItemInserted %>'>
+                                     Add this Customer</asp:LinkButton>
+                                    </CommandItemTemplate>--%>
                                     <Columns>
                                         <telerik:GridTemplateColumn AllowFiltering="false">
                                             <ItemTemplate>
@@ -1654,7 +1682,7 @@
                                                                                 runat="server" Display="Dynamic" ErrorMessage="Please Enter Digits" CssClass="cvPCG"
                                                                                 ValidationExpression="[0-9]\d*(\.\d?[0-9])?$" ValidationGroup="btnOK">     
                                                                             </asp:RegularExpressionValidator>
-                                                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator26" runat="server" CssClass="rfvPCG"
+                                                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator27" runat="server" CssClass="rfvPCG"
                                                                                 ErrorMessage="Please Enter value" Display="Dynamic" ControlToValidate="txtInterestRate"
                                                                                 ValidationGroup="btnOK" InitialValue="" Visible="false">
                                                                             </asp:RequiredFieldValidator>
