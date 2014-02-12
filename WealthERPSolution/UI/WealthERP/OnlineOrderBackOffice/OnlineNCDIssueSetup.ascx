@@ -338,7 +338,7 @@
         </td>
         <td align="rightData" id="tdddlCategory" runat="server">
             <asp:DropDownList ID="ddlCategory" runat="server" CssClass="cmbLongField" AutoPostBack="true"
-                Width="500px">
+                Width="600px">
                 <%-- <asp:ListItem Value="Select">Select</asp:ListItem>
                 <asp:ListItem Value="NCD">NCD</asp:ListItem>
                 <asp:ListItem Value="IB">Infrastructure bonds</asp:ListItem>--%>
