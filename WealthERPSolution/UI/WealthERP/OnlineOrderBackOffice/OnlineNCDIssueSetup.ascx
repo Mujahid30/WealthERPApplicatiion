@@ -367,7 +367,7 @@
         </td>
         <td class="rightData">
             <asp:DropDownList ID="ddlIssuer" runat="server" CssClass="cmbLongField" AutoPostBack="true"
-                Width="500px">
+                Width="300px">
             </asp:DropDownList>
             <span id="Span10" class="spnRequiredField">*</span>
             <asp:ImageButton ID="imgIssuer" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
