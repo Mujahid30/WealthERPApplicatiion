@@ -940,7 +940,7 @@
         </td>
         <td class="rightData">
             <asp:TextBox ID="txtTradingInMultipleOf" runat="server" CssClass="txtField" Width="200px"
-                Text="1" Enabled="false"></asp:TextBox>
+                Text="1" Enabled="true"></asp:TextBox>
             <span id="Span15" class="spnRequiredField">*</span>
             <br />
             <asp:RequiredFieldValidator ID="RequiredFieldValidator27" runat="server" CssClass="rfvPCG"
@@ -977,11 +977,11 @@
         </td>
         <td class="rightData">
             <asp:TextBox ID="txtBSECode" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
-            <span id="Span32" class="spnRequiredField">*</span>
+          <%--  <span id="Span32" class="spnRequiredField">*</span>
             <br />
             <asp:RequiredFieldValidator ID="rfvtxtBSECode" runat="server" CssClass="rfvPCG" ErrorMessage="Please Enter BSE Code"
                 Display="Dynamic" ControlToValidate="txtBSECode" InitialValue="" ValidationGroup="SetUpSubmit">
-            </asp:RequiredFieldValidator>
+            </asp:RequiredFieldValidator>--%>
         </td>
     </tr>
     <tr>

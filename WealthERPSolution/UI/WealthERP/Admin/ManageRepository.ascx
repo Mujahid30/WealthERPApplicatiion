@@ -3,6 +3,7 @@
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
 <telerik:RadScriptManager ID="RadScriptManager1" runat="server">
 </telerik:RadScriptManager>
+<table width="100%"><tr><td><asp:LinkButton ID="lnkButton" runat="server" Text="Back" CssClass="LinkButtons" OnClick="lnkButton_Click"></asp:LinkButton></td></tr></table>
 <telerik:RadTabStrip ID="RadTabStrip1" runat="server" EnableTheming="True" Skin="Telerik"
     EnableEmbeddedSkins="False" MultiPageID="rmpManageRepository" SelectedIndex="0">
     <Tabs>
