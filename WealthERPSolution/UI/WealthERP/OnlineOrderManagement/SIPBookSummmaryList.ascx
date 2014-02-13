@@ -288,6 +288,7 @@
                                 HeaderStyle-Width="80px" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
+                            
                             <telerik:GridBoundColumn DataField="TotalAmount" AllowFiltering="false" HeaderText="Total Amount"
                                 UniqueName="TotalAmount" SortExpression="TotalAmount" ShowFilterIcon="false"
                                 HeaderStyle-Width="80px" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
@@ -324,6 +325,11 @@
                             <telerik:GridEditCommandColumn Visible="true" HeaderStyle-Width="60px" UniqueName="editColumn"
                                 EditText="Cancel" CancelText="Cancel" UpdateText="OK">
                             </telerik:GridEditCommandColumn>
+                            <telerik:GridBoundColumn DataField="CMFSS_InstallmentOther" AllowFiltering="false" HeaderText="Sip Other"
+                                UniqueName="CMFSS_InstallmentOther" SortExpression="CMFSS_InstallmentOther" ShowFilterIcon="false"
+                                HeaderStyle-Width="80px" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
                             <%--  <telerik:GridTemplateColumn UniqueName="Action" ItemStyle-Width="60px" AllowFiltering="false" HeaderText="Action"
                                 Visible="true">
                                 <ItemTemplate>
