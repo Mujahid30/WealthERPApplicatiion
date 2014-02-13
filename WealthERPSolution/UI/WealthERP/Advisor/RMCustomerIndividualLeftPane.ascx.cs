@@ -464,7 +464,7 @@ namespace WealthERP.Advisor
 
                     if (advisorVo.advisorId == Convert.ToInt32(ConfigurationSettings.AppSettings["ONLINE_ADVISER"]))
                     {
-                        if (!ConfigurationSettings.AppSettings["NCD_TREE_NODE"].ToString().Contains(advisorVo.advisorId.ToString()))
+                        if (ConfigurationSettings.AppSettings["NCD_TREE_NODE"].ToString().Contains(advisorVo.advisorId.ToString()))
                         {
                             RPBOnlineOrder.FindItemByValue("NCDMFOrder").Visible = false;
                             RPBOnlineOrder.FindItemByValue("IPOOrder").Visible = false;
