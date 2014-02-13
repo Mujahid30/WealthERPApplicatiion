@@ -315,7 +315,7 @@
         </div>
     </ContentTemplate>
 </telerik:RadWindow>
-<table width="80%" runat="server" id="tbIssue">
+<table width="100%" runat="server" id="tbIssue">
     <tr>
         <td class="leftLabel">
             <asp:Label ID="lb1Product" runat="server" Text="Product:" CssClass="FieldName"></asp:Label>
