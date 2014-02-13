@@ -195,7 +195,16 @@ namespace WealthERP.OnlineOrderBackOffice
 
                 dvSIPOrderDetails = new DataView(dtOrderDetails, "CMFSS_SystematicSetupId=" + drSIP["CMFSS_SystematicSetupId"].ToString(), "CMFSS_SystematicSetupId", DataViewRowState.CurrentRows);
 
-                sipDueCount = (Convert.ToInt16(drSIP["CMFSS_TotalInstallment"].ToString()) - dvSIPOrderDetails.ToTable().Rows.Count);
+                if (int.Parse(drSIP["CMFSS_IsSourceAA"].ToString()) == 1)
+                {
+                    sipDueCount = (Convert.ToInt16(drSIP["CMFSS_TotalInstallment"].ToString())
+                                - (Convert.ToInt16(drSIP["CMFSS_InstallmentAccepted"].ToString()) + dvSIPOrderDetails.ToTable().Rows.Count));
+                }
+                else
+                {
+                    sipDueCount = (Convert.ToInt16(drSIP["CMFSS_TotalInstallment"].ToString()) - dvSIPOrderDetails.ToTable().Rows.Count);
+                }
+
 
                 foreach (DataRow drOrder in dvSIPOrderDetails.ToTable().Rows)
                 {
@@ -250,7 +259,14 @@ namespace WealthERP.OnlineOrderBackOffice
                 drSIPOrderBook["CMFSS_Remark"] = drSIP["CMFSS_Remark"];
                 drSIPOrderBook["SIPDueCount"] = sipDueCount;
                 drSIPOrderBook["InProcessCount"] = inProcessCount;
-                drSIPOrderBook["AcceptCount"] = acceptCount;
+                if (int.Parse(drSIP["CMFSS_IsSourceAA"].ToString()) == 1)
+                {
+                    drSIPOrderBook["AcceptCount"] = int.Parse(drSIP["CMFSS_InstallmentAccepted"].ToString()) + acceptCount;
+                }
+                else
+                {
+                    drSIPOrderBook["AcceptCount"] = acceptCount;
+                }
                 drSIPOrderBook["SystemRejectCount"] = systemRejectCount;
                 drSIPOrderBook["RejectedCount"] = rejectedCount;
 
@@ -287,7 +303,9 @@ namespace WealthERP.OnlineOrderBackOffice
             dtSIPOrderBook.Columns.Add("AcceptCount");
             dtSIPOrderBook.Columns.Add("SystemRejectCount");
             dtSIPOrderBook.Columns.Add("RejectedCount");
-
+            dtSIPOrderBook.Columns.Add("CMFSS_InstallmentOther");
+            dtSIPOrderBook.Columns.Add("CMFSS_IsSourceAA");
+            dtSIPOrderBook.Columns.Add("CMFSS_InstallmentAccepted");
             return dtSIPOrderBook;
 
         }
