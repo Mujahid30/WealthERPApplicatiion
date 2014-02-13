@@ -23,6 +23,10 @@
         width: 20%;
         text-align: left;
     }
+    .txtField
+    {
+        margin-left: 0px;
+    }
 </style>
 <table width="100%">
     <tr>
@@ -113,13 +117,15 @@
                 CssClass="rfvPCG" ControlToValidate="ddlProduct" ValidationGroup="btnGo" Display="Dynamic"
                 InitialValue="Select"></asp:RequiredFieldValidator>
         </td>
-        <td class="leftLabel" colspan="2">
+        <td class="rightLabelData">
             <asp:Label ID="lb1Issue" runat="server" Text="Issue:" CssClass="FieldName"></asp:Label>
-            <%--  </td>
+         </td>  <%--  </td>
         <td class="rightLabelData">--%>
-            <asp:DropDownList ID="ddlIssue" runat="server" CssClass="cmbField" AutoPostBack="true" Width="70%">
+        <td>
+            <asp:DropDownList ID="ddlIssue" runat="server" CssClass="cmbLongField" AutoPostBack="true" Width="190%">
             </asp:DropDownList>
-            <span id="Span10" class="spnRequiredField">*</span>
+           <%-- <span id="Span10" class="spnRequiredField">*</span>--%>
+          <span id="Span10" class="spnRequiredField" >*</span>
             <br />
             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Please Select Issue"
                 CssClass="rfvPCG" ControlToValidate="ddlIssue" ValidationGroup="btnGo" Display="Dynamic"
