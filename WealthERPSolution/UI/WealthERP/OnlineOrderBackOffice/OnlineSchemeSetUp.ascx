@@ -524,10 +524,10 @@
                     <asp:RequiredFieldValidator ID="rfvtxtEload" runat="server" ErrorMessage="Please Enter Entry Load"
                         CssClass="rfvPCG" ControlToValidate="txtEload" ValidationGroup="btnsubmit" Display="Dynamic"
                         InitialValue=""></asp:RequiredFieldValidator>
-                    <asp:RegularExpressionValidator ID="regtxtEload" ControlToValidate="txtEload" runat="server"
+                    <%--<asp:RegularExpressionValidator ID="regtxtEload" ControlToValidate="txtEload" runat="server"
                         ErrorMessage="Enter Only Number" Display="Dynamic" CssClass="cvPCG" ValidationExpression="[1-9]\d*(\.\d?[0-9])?$"
                         ValidationGroup="btnsubmit">     
-                    </asp:RegularExpressionValidator>
+                    </asp:RegularExpressionValidator>--%>
                 </td>
                 <td align="right">
                     <asp:Label ID="lblELremark" runat="server" Text="Entry Load Remark:" CssClass="FieldName"></asp:Label>
@@ -556,10 +556,10 @@
                     <asp:RequiredFieldValidator ID="rfvtxtExitLoad" runat="server" ErrorMessage="Please Enter Exit Load"
                         CssClass="rfvPCG" ControlToValidate="txtExitLoad" ValidationGroup="btnsubmit"
                         Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
-                    <asp:RegularExpressionValidator ID="regtxtExitLoad" ControlToValidate="txtExitLoad"
+                    <%--<asp:RegularExpressionValidator ID="regtxtExitLoad" ControlToValidate="txtExitLoad"
                         ErrorMessage="Enter Only Number" runat="server" Display="Dynamic" CssClass="cvPCG"
                         ValidationExpression="[1-9]\d*(\.\d?[0-9])?$" ValidationGroup="btnsubmit">     
-                    </asp:RegularExpressionValidator>
+                    </asp:RegularExpressionValidator>--%>
                 </td>
                 <td align="right">
                     <asp:Label ID="lblExitLremark" runat="server" Text="Exit Load Remark:" CssClass="FieldName"></asp:Label>

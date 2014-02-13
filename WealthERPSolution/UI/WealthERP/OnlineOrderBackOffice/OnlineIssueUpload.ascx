@@ -7,6 +7,29 @@
 
 <asp:ScriptManager ID="scrptMgr" runat="server">
 </asp:ScriptManager>
+
+<script type="text/javascript">
+
+    function ValidatefileUpload() {
+        var UploadDoc = document.getElementById('<%= FileUpload.ClientID  %>');
+        var myfile = UploadDoc.value;
+        var format = new Array();
+        var Extension = myfile.substring(myfile.lastIndexOf('.') + 1);
+        if (Extension == "csv") {
+            return true;
+        }
+        else {
+            if (UploadDoc.value == '')
+                alert('Please browse document to upload.');
+            else
+                alert('Please upload only .csv file.');
+
+            return false;
+        }
+    }
+
+</script>
+
 <style type="text/css">
     .table
     {
@@ -124,7 +147,7 @@
         <td align="center">
             <div id="msgRecordStatus" class="success-msg" align="center" runat="server">
             </div>
-            <%--<asp:LinkButton ID="lnkClick" runat="server" Text="Click here to start new upload"
+            <%--    <asp:LinkButton ID="lnkClick" runat="server" Text="Click here to start new upload"
                 Font-Size="Small" Font-Underline="false" class="textfield" OnClick="lnkClick_Click" Visible="false"></asp:LinkButton>--%>
         </td>
     </tr>
@@ -146,7 +169,8 @@
             <asp:Label ID="lblProduct" runat="server" CssClass="FieldName" Text="Select Product:"></asp:Label>
         </td>
         <td class="rightData">
-            <asp:DropDownList ID="ddlProduct" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlProduct_SelectedIndexChanged" AutoPostBack="true" >
+            <asp:DropDownList ID="ddlProduct" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlProduct_SelectedIndexChanged"
+                AutoPostBack="true">
                 <asp:ListItem Selected="True" Value="0">--SELECT--</asp:ListItem>
                 <asp:ListItem Text="NCD/Bond" Value="FI" />
                 <asp:ListItem Text="IPO" Value="IP" />
@@ -166,7 +190,7 @@
                 <asp:ListItem Selected="True" Value="0">--SELECT--</asp:ListItem>
                 <asp:ListItem Text="BSE" Value="BSE" />
                 <asp:ListItem Text="NSE" Value="NSE" />
-                  <asp:ListItem Text="Internal Ops" Value="IOPS" />
+                <asp:ListItem Text="Internal Ops" Value="IOPS" />
             </asp:DropDownList>
             <br />
             <asp:RequiredFieldValidator ID="rfvSource" runat="server" ErrorMessage="Please select Source Data"
@@ -177,7 +201,7 @@
             <asp:Label ID="lblFileType" runat="server" CssClass="FieldName" Text="File Type:"></asp:Label>
         </td>
         <td class="rightData">
-            <asp:DropDownList ID="ddlFileType" runat="server" CssClass="cmbField" AutoPostBack="true" >
+            <asp:DropDownList ID="ddlFileType" runat="server" CssClass="cmbField" AutoPostBack="true">
                 <asp:ListItem Selected="True" Value="0">--SELECT--</asp:ListItem>
             </asp:DropDownList>
             <br />
@@ -191,14 +215,13 @@
             <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="Select Issue:"></asp:Label>
         </td>
         <td class="rightData">
-            <asp:DropDownList ID="ddlIssueName" runat="server" CssClass="cmbField" > 
+            <asp:DropDownList ID="ddlIssueName" runat="server" CssClass="cmbField">
                 <asp:ListItem Selected="True" Value="Select">--SELECT--</asp:ListItem>
-                           
             </asp:DropDownList>
             <br />
             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="ddlIssueName"
-                CssClass="rfvPCG" Display="Dynamic" ErrorMessage="Please select a IssueName" InitialValue="Select"
-                ValidationGroup="OnlineIssueUpload">
+                CssClass="rfvPCG" Display="Dynamic" ErrorMessage="Please select a IssueName"
+                InitialValue="Select" ValidationGroup="OnlineIssueUpload">
             </asp:RequiredFieldValidator>
         </td>
         <td volspan="2">
@@ -224,7 +247,7 @@
         </td>
         <td class="rightData">
             <asp:Button ID="btnFileUpload" CssClass="PCGLongButton" Text="Upload File" runat="server"
-                OnClick="btnFileUpload_Click" ValidationGroup="OnlineIssueUpload" />
+                OnClick="btnFileUpload_Click" ValidationGroup="OnlineIssueUpload" OnClientClick="if(ValidatefileUpload() == false) return false;ValidatefileUpload();" />
         </td>
         <td>
             &nbsp;

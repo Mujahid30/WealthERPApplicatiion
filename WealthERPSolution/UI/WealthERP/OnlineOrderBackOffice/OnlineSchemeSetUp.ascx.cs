@@ -992,7 +992,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 ddlSchemeList.SelectedValue = "0";
             }
-            Bindscheme(0);
+            //Bindscheme(0);
             //ddlRT.SelectedValue = ddlSchemeList.SelectedValue.ToString();
            // ddlRT.SelectedValue = ddlSchemeList.SelectedValue.ToString();
             if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.ExternalType))
