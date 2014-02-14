@@ -600,9 +600,9 @@
             <asp:DropDownList ID="ddlModeofIssue" runat="server" CssClass="cmbField" AutoPostBack="true"
                 Width="205px">
                 <asp:ListItem Value="Select">Select</asp:ListItem>
-                <asp:ListItem Value="Dematerialized">Dematerialized</asp:ListItem>
-                <asp:ListItem Value="Physical">Physical</asp:ListItem>
-                <asp:ListItem Value="Both">Both</asp:ListItem>
+                <asp:ListItem Value="Online">Online</asp:ListItem>
+                <asp:ListItem Value="Offline">Offline</asp:ListItem>
+         <%--       <asp:ListItem Value="Both">Both</asp:ListItem>--%>
             </asp:DropDownList>
             <span id="Span9" class="spnRequiredField">*</span>
             <br />
@@ -626,9 +626,9 @@
             <asp:DropDownList ID="ddlModeOfTrading" runat="server" CssClass="cmbField" AutoPostBack="true"
                 Width="205px">
                 <asp:ListItem Value="Select">Select</asp:ListItem>
-                <asp:ListItem Value="Dematerialized">Dematerialized</asp:ListItem>
-                <asp:ListItem Value="Physical">Physical</asp:ListItem>
-                <asp:ListItem Value="Both">Both</asp:ListItem>
+                <asp:ListItem Value="Online">Online</asp:ListItem>
+                <asp:ListItem Value="Offline">Offline</asp:ListItem>
+                <%--<asp:ListItem Value="Both">Both</asp:ListItem>--%>
             </asp:DropDownList>
             <span id="Span11" class="spnRequiredField">*</span>
             <br />
@@ -989,6 +989,7 @@
             <asp:Label ID="lb1BankName" runat="server" Text="Bank Name:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightData">
+        <asp:TextBox ID="txtBankName" runat="server" CssClass="txtField" Width="200px" Visible="false"></asp:TextBox>
             <asp:DropDownList ID="ddlBankName" runat="server" CssClass="cmbField" AutoPostBack="true"
                 Width="205px">
             </asp:DropDownList>
@@ -997,8 +998,9 @@
             <asp:Label ID="lb1BankBranch" runat="server" Text="Bank Branch:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightData">
+        <asp:TextBox ID="txtBankBranch" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
             <asp:DropDownList ID="ddlBankBranch" runat="server" CssClass="cmbField" AutoPostBack="true"
-                Width="205px">
+                Width="205px" Visible="false">
             </asp:DropDownList>
         </td>
     </tr>

@@ -53,7 +53,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 VisblityAndEnablityOfScreen("View");
             }
 
-            
+
 
         }
         private void DefaultBindings()
@@ -325,7 +325,22 @@ namespace WealthERP.OnlineOrderBackOffice
                     {
                         txtMinAplicSize.Text = "";
                     }
-
+                    if (!string.IsNullOrEmpty(dr["AIM_BankName"].ToString()))
+                    {
+                        ddlBankName.SelectedValue = dr["AIM_BankName"].ToString();
+                    }
+                    else
+                    {
+                        ddlBankName.SelectedValue = "";
+                    }
+                    if (!string.IsNullOrEmpty(dr["AIM_BankBranch"].ToString()))
+                    {
+                        txtBankBranch.Text = dr["AIM_BankBranch"].ToString();
+                    }
+                    else
+                    {
+                        txtBankBranch.Text = "";
+                    }
                     if (!string.IsNullOrEmpty(dr["AIM_TradingInMultipleOf"].ToString()))
                     {
                         txtTradingInMultipleOf.Text = dr["AIM_TradingInMultipleOf"].ToString();
@@ -1476,7 +1491,7 @@ namespace WealthERP.OnlineOrderBackOffice
                         {
                             txtMaxInvestmentAmount.Text = 0.ToString();
                         }
-                        CreateUpdateDeleteCategoryDetails(categoryId,0, lookupId, txtSubCategoryCode.Text, Convert.ToInt32(txtMinInvestmentAmount.Text), Convert.ToInt32(txtMaxInvestmentAmount.Text), "Insert");
+                        CreateUpdateDeleteCategoryDetails(categoryId, 0, lookupId, txtSubCategoryCode.Text, Convert.ToInt32(txtMinInvestmentAmount.Text), Convert.ToInt32(txtMaxInvestmentAmount.Text), "Insert");
                     }
                 }
                 BindEligibleInvestorsGrid(Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text));
@@ -1551,12 +1566,12 @@ namespace WealthERP.OnlineOrderBackOffice
                         {
                             txtMaxInvestmentAmount.Text = 0.ToString();
                         }
-                        if(txtSubCategoryId.Text==string.Empty)
+                        if (txtSubCategoryId.Text == string.Empty)
                             CreateUpdateDeleteCategoryDetails(categoryId, 0, lookupId, txtSubCategoryCode.Text, Convert.ToInt32(txtMinInvestmentAmount.Text), Convert.ToInt32(txtMaxInvestmentAmount.Text), "Insert");
-                                                
-                        else if(Convert.ToInt32(txtSubCategoryId.Text) >0)
-                        CreateUpdateDeleteCategoryDetails(categoryId,Convert.ToInt32(txtSubCategoryId.Text), lookupId, txtSubCategoryCode.Text, Convert.ToInt32(txtMinInvestmentAmount.Text), Convert.ToInt32(txtMaxInvestmentAmount.Text), "Update");
-                         
+
+                        else if (Convert.ToInt32(txtSubCategoryId.Text) > 0)
+                            CreateUpdateDeleteCategoryDetails(categoryId, Convert.ToInt32(txtSubCategoryId.Text), lookupId, txtSubCategoryCode.Text, Convert.ToInt32(txtMinInvestmentAmount.Text), Convert.ToInt32(txtMaxInvestmentAmount.Text), "Update");
+
 
 
                     }
@@ -1570,7 +1585,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
             }
             else if (e.CommandName == "btnAddMore")
-            {            
+            {
                 if (e.Item is GridEditableItem)
                 {
                     GridEditableItem item = (GridEditableItem)e.Item;
@@ -1582,7 +1597,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     rgEligibleInvestorCategories.MasterTableView.IsItemInserted = false;
                     rgEligibleInvestorCategories.Rebind();
                 }
-               
+
             }
         }
 
@@ -1748,7 +1763,7 @@ namespace WealthERP.OnlineOrderBackOffice
             }
         }
 
-        private void CreateUpdateDeleteCategoryDetails(int catgeoryId, int subCatId,int lookUpId, string subTypeCode, int minInvestmentAmount, int maxInvestmentAmount, string CommandType)
+        private void CreateUpdateDeleteCategoryDetails(int catgeoryId, int subCatId, int lookUpId, string subTypeCode, int minInvestmentAmount, int maxInvestmentAmount, string CommandType)
         {
             bool result = false;
             try
@@ -2082,12 +2097,12 @@ namespace WealthERP.OnlineOrderBackOffice
 
         protected void btnSetUpSubmit_Click(object sender, EventArgs e)
         {
-        //    if (txtNSECode.Text == "" && txtBSECode.Text == "")
-        //    {
-        //        Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "CheckTextBoxes()", true);
-        //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please Fill Atlist One Code NSE or BSE');", true);
-        //        return;
-        //    }
+            //    if (txtNSECode.Text == "" && txtBSECode.Text == "")
+            //    {
+            //        Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "CheckTextBoxes()", true);
+            //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please Fill Atlist One Code NSE or BSE');", true);
+            //        return;
+            //    }
             //if (txtNSECode.Text != null && txtBSECode.Text != null)
             //{
             //     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('You Can Enter Only One Code NSE or BSE');", true);
@@ -2111,7 +2126,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
                     }
                 }
-              
+
             }
 
             if (string.IsNullOrEmpty(txtIssueId.Text))
@@ -2123,41 +2138,23 @@ namespace WealthERP.OnlineOrderBackOffice
                 //}
                 //else
                 //{
-                    txtIssueId.Text = CreateIssue().ToString();
-                    SeriesAndCategoriesGridsVisiblity(Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text));
-                    VisblityAndEnablityOfScreen("Submited");
-                    btnSetUpSubmit.Enabled = true;
-               // }
+                txtIssueId.Text = CreateIssue().ToString();
+                SeriesAndCategoriesGridsVisiblity(Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text));
+                VisblityAndEnablityOfScreen("Submited");
+                btnSetUpSubmit.Enabled = true;
+                // }
             }
 
-
-
         }
-
-
         protected void btnProspect_Click(object sender, EventArgs e)
         {
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ManageRepository", "loadcontrol('ManageRepository','NCDProspect=NCDProspect&issueId=" + txtIssueId.Text + "');", true);
 
         }
-
-
-
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
-            //if (txtBSECode.Text == string.Empty && txtNSECode.Text == string.Empty)
-            //{
-            //    rfvtxtBSECode.Enabled = true;
-            //    rfvtxtNSECode.Enabled = true;
-            //}
-            //else
-            //{
-                //rfvtxtBSECode.Enabled = false;
-               // rfvtxtNSECode.Enabled = false;
-                int result = UpdateIssue();
-                //VisblityAndEnablityOfScreen("AfterUpdate");
-                SeriesAndCategoriesGridsVisiblity(Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text));
-           // }
+            int result = UpdateIssue();
+            SeriesAndCategoriesGridsVisiblity(Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text));
         }
 
         protected void lnkBtnEdit_Click(object sender, EventArgs e)
@@ -2365,9 +2362,9 @@ namespace WealthERP.OnlineOrderBackOffice
                     onlineNCDBackOfficeVo.BankName = "";
                 }
 
-                if (!string.IsNullOrEmpty(ddlBankBranch.SelectedValue))
+                if (!string.IsNullOrEmpty(txtBankBranch.Text))
                 {
-                    onlineNCDBackOfficeVo.BankBranch = ddlBankBranch.SelectedValue;
+                    onlineNCDBackOfficeVo.BankBranch = txtBankBranch.Text;
                 }
                 else
                 {
@@ -2582,7 +2579,7 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             //if (txtBSECode.Text == null || txtNSECode.Text == null)
             //{
-               
+
             //}
             //else
             //{
@@ -3369,38 +3366,38 @@ namespace WealthERP.OnlineOrderBackOffice
                         {
                             return;
                         }
-                      
 
- 
+
+
 
                     }
                     //for (int i = 0; i <= dtCategory.Rows.Count - 1; i++)
                     //{
                     int i = 0;
-                        foreach (DataRow dr in dtCategory.Rows)
-                        {
-                            
+                    foreach (DataRow dr in dtCategory.Rows)
+                    {
 
-                           // GridDataItem gdi = rgSubCategories.Items[i];
-                            DropDownList ddlSubCategory = (DropDownList)rgSubCategories.Items[i].FindControl("ddlSubCategory");
-                            BindSubCateDDL(ddlSubCategory);
-                          //lookupId.ToString();
-                            TextBox txtSubCategoryId = ((TextBox)(rgSubCategories.Items[i].FindControl("txtSubCategoryId")));
-                            TextBox txtSubCategoryCode = ((TextBox)(rgSubCategories.Items[i].FindControl("txtSubCategoryCode")));
-                            TextBox txtMinInvestmentAmount = ((TextBox)(rgSubCategories.Items[i].FindControl("txtMinInvestmentAmount")));
-                            TextBox txtMaxInvestmentAmount = ((TextBox)(rgSubCategories.Items[i].FindControl("txtMaxInvestmentAmount")));
-                            CheckBox cbSubCategories = (CheckBox)rgSubCategories.Items[i].FindControl("cbSubCategories");
-                            cbSubCategories.Checked = true;
 
-                            if(dr["WCMV_LookupId"].ToString() !=string.Empty)
+                        // GridDataItem gdi = rgSubCategories.Items[i];
+                        DropDownList ddlSubCategory = (DropDownList)rgSubCategories.Items[i].FindControl("ddlSubCategory");
+                        BindSubCateDDL(ddlSubCategory);
+                        //lookupId.ToString();
+                        TextBox txtSubCategoryId = ((TextBox)(rgSubCategories.Items[i].FindControl("txtSubCategoryId")));
+                        TextBox txtSubCategoryCode = ((TextBox)(rgSubCategories.Items[i].FindControl("txtSubCategoryCode")));
+                        TextBox txtMinInvestmentAmount = ((TextBox)(rgSubCategories.Items[i].FindControl("txtMinInvestmentAmount")));
+                        TextBox txtMaxInvestmentAmount = ((TextBox)(rgSubCategories.Items[i].FindControl("txtMaxInvestmentAmount")));
+                        CheckBox cbSubCategories = (CheckBox)rgSubCategories.Items[i].FindControl("cbSubCategories");
+                        cbSubCategories.Checked = true;
+
+                        if (dr["WCMV_LookupId"].ToString() != string.Empty)
                             ddlSubCategory.SelectedValue = dr["WCMV_LookupId"].ToString();
-                            txtSubCategoryCode.Text = dr["AIICST_InvestorSubTypeCode"].ToString();
-                            txtMinInvestmentAmount.Text = dr["AIICST_MinInvestmentAmount"].ToString();
-                            txtMaxInvestmentAmount.Text = dr["AIICST_MaxInvestmentAmount"].ToString();
-                            txtSubCategoryId.Text = dr["AIICST_Id"].ToString();
-                            i = i + 1;
-                        }
-                     
+                        txtSubCategoryCode.Text = dr["AIICST_InvestorSubTypeCode"].ToString();
+                        txtMinInvestmentAmount.Text = dr["AIICST_MinInvestmentAmount"].ToString();
+                        txtMaxInvestmentAmount.Text = dr["AIICST_MaxInvestmentAmount"].ToString();
+                        txtSubCategoryId.Text = dr["AIICST_Id"].ToString();
+                        i = i + 1;
+                    }
+
                 }
             }
 
@@ -4018,18 +4015,18 @@ namespace WealthERP.OnlineOrderBackOffice
 
         protected void cbSeriesCat_changed(object sender, EventArgs e)
         {
-          //  CheckBox cbSeriesCat = (CheckBox)sender;
-          ////  GridDataItem editedItem = (GridDataItem)cbSeriesCat.NamingContainer;
-          //  GridEditableItem editedItem = cbSeriesCat.NamingContainer as GridEditableItem;
-          // RadGrid rgSeriesCat = (RadGrid)editedItem.FindControl("rgSeriesCat");
-          //  foreach (GridDataItem gdi in rgSeriesCat.Items)
-          //  {
-          //      if (cbSeriesCat.Checked == true)
-          //      {
-          //          RequiredFieldValidator req = (RequiredFieldValidator)gdi.FindControl("RequiredFieldValidator26");
-          //          req.Visible = true;
-          //      }
-          //  }
+            //  CheckBox cbSeriesCat = (CheckBox)sender;
+            ////  GridDataItem editedItem = (GridDataItem)cbSeriesCat.NamingContainer;
+            //  GridEditableItem editedItem = cbSeriesCat.NamingContainer as GridEditableItem;
+            // RadGrid rgSeriesCat = (RadGrid)editedItem.FindControl("rgSeriesCat");
+            //  foreach (GridDataItem gdi in rgSeriesCat.Items)
+            //  {
+            //      if (cbSeriesCat.Checked == true)
+            //      {
+            //          RequiredFieldValidator req = (RequiredFieldValidator)gdi.FindControl("RequiredFieldValidator26");
+            //          req.Visible = true;
+            //      }
+            //  }
 
         }
 
