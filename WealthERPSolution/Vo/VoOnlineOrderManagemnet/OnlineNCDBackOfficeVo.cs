@@ -27,6 +27,7 @@ namespace VoOnlineOrderManagemnet
         public string RedemptionDate {get;set;}
         public double RedemptionAmount { get; set; }
         public int CatgeoryId { get; set; }
+        public int SubCatgeoryId { get; set; }
         public string CatgeoryName { get; set; }
         public string CatgeoryDescription { get; set; }
         public string ChequePayableTo { get; set; }
@@ -34,7 +35,7 @@ namespace VoOnlineOrderManagemnet
         public long MaxBidAmount { get; set; }
         public string Subbrokercode { get; set; }
 
-        public int SubCatgeoryId { get; set; }
+        
         public int LookUpId { get; set; }
         public string SubCatgeoryTypeCode { get; set; }
         public double MinInvestmentAmount { get; set; }

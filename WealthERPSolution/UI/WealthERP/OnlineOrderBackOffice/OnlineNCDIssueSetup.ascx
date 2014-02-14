@@ -977,9 +977,9 @@
         </td>
         <td class="rightData">
             <asp:TextBox ID="txtBSECode" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
-          <%--  <span id="Span32" class="spnRequiredField">*</span>
+            <%--<span id="Span32" class="spnRequiredField">*</span>
             <br />
-            <asp:RequiredFieldValidator ID="rfvtxtBSECode" runat="server" CssClass="rfvPCG" ErrorMessage="Please Enter BSE Code"
+          <asp:RequiredFieldValidator ID="rfvtxtBSECode" runat="server" CssClass="rfvPCG" ErrorMessage="Please Enter BSE Code"
                 Display="Dynamic" ControlToValidate="txtBSECode" InitialValue="" ValidationGroup="SetUpSubmit">
             </asp:RequiredFieldValidator>--%>
         </td>
@@ -1141,10 +1141,10 @@
                                 enableloadondemand="True" PageSize="5" AutoGenerateColumns="False" EnableEmbeddedSkins="False"
                                 GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="true" AllowPaging="false"
                                 ShowStatusBar="True" Skin="Telerik" AllowFilteringByColumn="true" OnNeedDataSource="rgEligibleInvestorCategories_OnNeedDataSource"
-                                OnItemCommand="rgEligibleInvestorCategories_ItemCommand" OnItemDataBound="rgEligibleInvestorCategories_ItemDataBound" >
+                                OnItemCommand="rgEligibleInvestorCategories_ItemCommand" OnItemDataBound="rgEligibleInvestorCategories_ItemDataBound">
                                 <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="AIM_IssueId,AIIC_InvestorCatgeoryId"
                                     AutoGenerateColumns="false" Width="100%" EditMode="PopUp" CommandItemSettings-AddNewRecordText="Create InvestorCategory"
-                                    CommandItemDisplay="Top" AutoPostBack="True">
+                                    CommandItemDisplay="Top" >
                                     <Columns>
                                         <telerik:GridTemplateColumn AllowFiltering="false">
                                             <ItemTemplate>
@@ -1177,6 +1177,11 @@
                                             HeaderText="Max Bid Amount" UniqueName="AIIC_MaxBidAmount" SortExpression="AIIC_MaxBidAmount">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
+                                       <%-- <telerik:GridButtonColumn UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete?"
+                                            ConfirmDialogType="RadWindow" ConfirmTitle="Delete" ButtonType="LinkButton" CommandName="Delete"
+                                            Text="Delete">
+                                            <ItemStyle HorizontalAlign="Center" CssClass="MyImageButton" />
+                                        </telerik:GridButtonColumn>--%>
                                         <telerik:GridTemplateColumn AllowFiltering="false">
                                             <ItemTemplate>
                                                 <tr>
@@ -1223,7 +1228,7 @@
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>
                                     </Columns>
-                                    <EditFormSettings EditFormType="Template" PopUpSettings-Height="600px" PopUpSettings-Width="725px">
+                                    <EditFormSettings EditFormType="Template" PopUpSettings-Height="600px" PopUpSettings-Width="695px">
                                         <FormTemplate>
                                             <table width="75%" cellspacing="2" cellpadding="2">
                                                 <tr>
@@ -1353,13 +1358,14 @@
                                                                 DataKeyNames="AIIC_InvestorCatgeoryId">--%>
                                                         <telerik:RadGrid ID="rgSubCategories" runat="server" AllowSorting="True" enableloadondemand="True"
                                                             PageSize="10" AllowPaging="True" AutoGenerateColumns="False" EnableEmbeddedSkins="False"
-                                                            GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="false" ShowStatusBar="True" width="80%"
-                                                            Skin="Telerik" AllowFilteringByColumn="true" OnNeedDataSource="rgSubCategories_OnNeedDataSource" EnableViewState="true">
+                                                            GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="false" ShowStatusBar="True"
+                                                            Width="80%" Skin="Telerik" AllowFilteringByColumn="true" OnNeedDataSource="rgSubCategories_OnNeedDataSource"
+                                                            EnableViewState="true" OnItemDataBound="rgSubCategories_ItemDataBound"  OnItemCommand="rgSubCategories_ItemCommand" >
                                                             <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" AutoGenerateColumns="false"
                                                                 DataKeyNames="WCMV_LookupId">
                                                                 <Columns>
                                                                     <telerik:GridTemplateColumn HeaderText="Select" ShowFilterIcon="false" AllowFiltering="false"
-                                                                        runat="server">
+                                                                        runat="server" UniqueName="chkBxSelect" Visible="false">
                                                                         <HeaderTemplate>
                                                                             <asp:Label ID="lblchkBxSelect" runat="server" Text="Select"></asp:Label>
                                                                         </HeaderTemplate>
@@ -1368,17 +1374,17 @@
                                                                                 OnCheckedChanged="cbSubCategories_changed" />
                                                                         </ItemTemplate>
                                                                     </telerik:GridTemplateColumn>
-                                                                    <telerik:GridTemplateColumn HeaderText="Sub Category Id" ShowFilterIcon="false" DataField="AIICST_Id" UniqueName="AIICST_Id" visible="false"
-                                                                        AllowFiltering="false">
+                                                                    <telerik:GridTemplateColumn HeaderText="Sub Category Id" ShowFilterIcon="false" DataField="AIICST_Id"
+                                                                        UniqueName="txtSubCategoryId" Visible="false" AllowFiltering="false"  >
                                                                         <HeaderTemplate>
                                                                             <%--<asp:Label ID="lblSubCategoryCode" runat="server" Text="Sub Category Code"></asp:Label>--%>
                                                                         </HeaderTemplate>
                                                                         <ItemTemplate>
-                                                                            <asp:TextBox ID="txtSubCategoryId" runat="server" CssClass="txtField" Width="10px" ></asp:TextBox>
+                                                                            <asp:TextBox ID="txtSubCategoryId" runat="server" CssClass="txtField" Width="10px"></asp:TextBox>
                                                                         </ItemTemplate>
                                                                     </telerik:GridTemplateColumn>
-                                                                     <telerik:GridTemplateColumn HeaderText="Sub Category Code" ShowFilterIcon="false"
-                                                                        AllowFiltering="false">
+                                                                    <telerik:GridTemplateColumn HeaderText="Sub Category Code" ShowFilterIcon="false"
+                                                                        AllowFiltering="false" UniqueName="SubCategoryCode">
                                                                         <HeaderTemplate>
                                                                             <asp:Label ID="lblSubCategoryCode" runat="server" Text="Sub Category Code"></asp:Label>
                                                                         </HeaderTemplate>
@@ -1387,10 +1393,11 @@
                                                                         </ItemTemplate>
                                                                     </telerik:GridTemplateColumn>
                                                                     <telerik:GridTemplateColumn HeaderText="Sub Category" ShowFilterIcon="false" AllowFiltering="false"
-                                                                        runat="server">
+                                                                        runat="server" UniqueName="CustSubCategory">
                                                                         <ItemTemplate>
                                                                             <asp:DropDownList ID="ddlSubCategory" runat="server" CssClass="cmbField" AutoPostBack="true"
-                                                                                Width="205px" OnSelectedIndexChanged="ddlSubCategory_Selectedindexchanged"></asp:DropDownList>
+                                                                                Width="205px" OnSelectedIndexChanged="ddlSubCategory_Selectedindexchanged">
+                                                                            </asp:DropDownList>
                                                                         </ItemTemplate>
                                                                     </telerik:GridTemplateColumn>
                                                                     <%-- <telerik:GridBoundColumn DataField="WCMV_Name" HeaderStyle-Width="200px" CurrentFilterFunction="Contains"
@@ -1403,17 +1410,16 @@
                                                                         SortExpression="WCMV_LookupId" Visible="false">
                                                                         <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                                                     </telerik:GridBoundColumn>
-                                                                   
                                                                     <telerik:GridTemplateColumn HeaderText="Min Investment Amount" ShowFilterIcon="false"
-                                                                        AllowFiltering="false">
+                                                                        AllowFiltering="false"  UniqueName="MinInvestmentAmt">
                                                                         <HeaderTemplate>
-                                                                            <asp:Label ID="lblMinInvestmentAmount" runat="server" Text="MinInvestmentAmount"></asp:Label>
+                                                                            <asp:Label ID="lblMinInvestmentAmount" runat="server" Text="Min Investment Amount"></asp:Label>
                                                                         </HeaderTemplate>
                                                                         <ItemTemplate>
                                                                             <asp:TextBox ID="txtMinInvestmentAmount" runat="server" CssClass="txtField"></asp:TextBox>
                                                                         </ItemTemplate>
                                                                     </telerik:GridTemplateColumn>
-                                                                    <telerik:GridTemplateColumn HeaderText="Max Investment Amount" ShowFilterIcon="false"
+                                                                    <telerik:GridTemplateColumn HeaderText="Max Investment Amount" ShowFilterIcon="false" UniqueName="MaxInvestmentAmt"
                                                                         AllowFiltering="false">
                                                                         <HeaderTemplate>
                                                                             <asp:Label ID="lblMaxInvestmentAmount" runat="server" Text="Max Investment Amount"></asp:Label>
@@ -1422,6 +1428,26 @@
                                                                             <asp:TextBox ID="txtMaxInvestmentAmount" runat="server" CssClass="txtField"></asp:TextBox>
                                                                         </ItemTemplate>
                                                                     </telerik:GridTemplateColumn>
+                                                                    
+                                                                    
+                                                                    
+                                                                    <telerik:GridTemplateColumn HeaderText="Select" ShowFilterIcon="false" AllowFiltering="false"
+                                                                        runat="server"  Visible="false" >
+                                                                        <HeaderTemplate>
+                                                                            <asp:Label ID="lblchkBxSelect" runat="server" Text="Remove"></asp:Label>
+                                                                        </HeaderTemplate>
+                                                                        <ItemTemplate>
+                                                                            <asp:CheckBox ID="cbRemoveSubCategories" runat="server" Checked="false" AutoPostBack="True"
+                                                                                OnCheckedChanged="cbRemoveSubCategories_changed" />
+                                                                        </ItemTemplate>
+                                                                    </telerik:GridTemplateColumn>
+                                                                    
+                                                                    
+                                                                    <telerik:GridButtonColumn UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete?"
+                                                                        ConfirmDialogType="RadWindow" ConfirmTitle="Delete" ButtonType="LinkButton" CommandName="Delete"
+                                                                        Text="Delete" Visible="false">
+                                                                        <ItemStyle HorizontalAlign="Center" CssClass="MyImageButton" />
+                                                                    </telerik:GridButtonColumn>
                                                                 </Columns>
                                                             </MasterTableView>
                                                         </telerik:RadGrid>
@@ -1429,13 +1455,16 @@
                                                 </tr>
                                                 <tr>
                                                     <td class="leftLabel">
-                                                    <asp:Button ID="btnAddMore" Text="Add More" runat="server" CssClass="PCGButton" CommandName="btnAddMore"
-                                                            CausesValidation="True" ValidationGroup="btnOK" OnClick="btnAddMore_Click" Visible="false" />
-                                                        <asp:Button ID="btnOK" Text="OK" runat="server" CssClass="PCGButton" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'
+                                                        <asp:Button ID="btnAddMore" Text="Add More" runat="server" CssClass="PCGButton" CommandName="btnAddMore"
+                                                            CausesValidation="True" ValidationGroup="btnOK" OnClick="btnAddMore_Click"  />
+                                                        <asp:Button ID="btnOK" Text="Submit" runat="server" CssClass="PCGButton" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'
                                                             CausesValidation="True" ValidationGroup="btnOK" />
                                                     </td>
                                                     <td class="rightData">
-                                                        <asp:Button ID="btnCancel" Text="Cancel" runat="server" CausesValidation="False"
+                                                     <asp:Button ID="btnRemove" Text="Remove" runat="server" CausesValidation="False"  
+                                                            CssClass="PCGButton" OnClick="btnRemove_Click"  Visible="false"></asp:Button>
+                                                            
+                                                        <asp:Button ID="btnCancel" Text="Cancel" runat="server" CausesValidation="False" Visible="False"
                                                             CssClass="PCGButton" CommandName="Cancel"></asp:Button>
                                                     </td>
                                                     <td class="leftLabel" colspan="2">
@@ -1506,6 +1535,11 @@
                                             AllowFiltering="true">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
+                                      <%--  <telerik:GridButtonColumn UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete?"
+                                            ConfirmDialogType="RadWindow" ConfirmTitle="Delete" ButtonType="LinkButton" CommandName="Delete"
+                                            Text="Delete">
+                                            <ItemStyle HorizontalAlign="Center" CssClass="MyImageButton" />
+                                        </telerik:GridButtonColumn>--%>
                                         <telerik:GridTemplateColumn AllowFiltering="false">
                                             <ItemTemplate>
                                                 <tr>
@@ -1701,6 +1735,10 @@
                                                                                 runat="server" Display="Dynamic" ErrorMessage="Please Enter Digits" CssClass="cvPCG"
                                                                                 ValidationExpression="[0-9]\d*(\.\d?[0-9])?$" ValidationGroup="btnOK">     
                                                                             </asp:RegularExpressionValidator>
+                                                                           <%-- <asp:RequiredFieldValidator ID="rgAnaualizedYield" runat="server" CssClass="rfvPCG"
+                                                                                ErrorMessage="Please Enter value" Display="Dynamic" ControlToValidate="txtAnnualizedYield"
+                                                                                ValidationGroup="btnOK" InitialValue="" >
+                                                                            </asp:RequiredFieldValidator>--%>
                                                                         </ItemTemplate>
                                                                     </telerik:GridTemplateColumn>
                                                                     <telerik:GridTemplateColumn HeaderText="Renewed Coupon Rate  (%)" AllowFiltering="false">
@@ -1751,11 +1789,11 @@
                                                                         </HeaderTemplate>
                                                                         <ItemTemplate>
                                                                             <asp:TextBox ID="txtRedemptionDate" runat="server" CssClass="txtField" Width="90px"></asp:TextBox>
-                                                                            <asp:RegularExpressionValidator ID="rgRedemptionDate" ControlToValidate="txtRedemptionDate"
+                                                                         <%--   <asp:RegularExpressionValidator ID="rgRedemptionDate" ControlToValidate="txtRedemptionDate"
                                                                                 runat="server" Display="Dynamic" ErrorMessage="Please Enter letter" CssClass="cvPCG"
                                                                                 ValidationExpression="[a-zA-Z ]*$" ValidationGroup="btnOK">   
                                                                                  
-                                                                            </asp:RegularExpressionValidator>
+                                                                            </asp:RegularExpressionValidator>--%>
                                                                         </ItemTemplate>
                                                                     </telerik:GridTemplateColumn>
                                                                     <telerik:GridTemplateColumn HeaderText="Redemption Amount(Per Bond)" AllowFiltering="false"
@@ -1765,10 +1803,10 @@
                                                                         </HeaderTemplate>
                                                                         <ItemTemplate>
                                                                             <asp:TextBox ID="txtRedemptionAmount" runat="server" CssClass="txtField" Width="40px"></asp:TextBox>
-                                                                            <asp:RegularExpressionValidator ID="rgRedemptionAmount" ControlToValidate="txtRedemptionAmount"
+                                                                            <%--<asp:RegularExpressionValidator ID="rgRedemptionAmount" ControlToValidate="txtRedemptionAmount"
                                                                                 runat="server" Display="Dynamic" ErrorMessage="Please Enter Digits" CssClass="cvPCG"
                                                                                 ValidationExpression="[0-9]\d*(\.\d?[0-9])?$" ValidationGroup="btnOK">     
-                                                                            </asp:RegularExpressionValidator>
+                                                                            </asp:RegularExpressionValidator>--%>
                                                                         </ItemTemplate>
                                                                     </telerik:GridTemplateColumn>
                                                                     <telerik:GridTemplateColumn HeaderText="Yield At BuyBack" AllowFiltering="false"

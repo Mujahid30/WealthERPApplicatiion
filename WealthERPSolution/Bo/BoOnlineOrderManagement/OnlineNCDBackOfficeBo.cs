@@ -563,7 +563,30 @@ namespace BoOnlineOrderManagement
             }
 
         }
+        public DataSet GetSubCategory1(int issuerId, int issueId, int size)
+        {
+            onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
+            try
+            {
+                return onlineNCDBackOfficeDao.GetSubCategory(issuerId, issueId, size);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineNCDBackOfficeBo.cs:GetSubCategory()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
 
+        }
         public DataSet GetCategory(int issuerId, int issueId)
         {
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
@@ -626,6 +649,21 @@ namespace BoOnlineOrderManagement
             }
 
         }
+
+        public string GetEligibleIssueDelete( int catSubTypeId, int catId, int seriesId, int IssueId)
+        {
+            try
+            {
+                onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
+                return onlineNCDBackOfficeDao.GetEligibleIssueDelete(catSubTypeId, catId, seriesId, IssueId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+        }
+
 
         public bool CreateSubTypePerCategory(VoOnlineOrderManagemnet.OnlineNCDBackOfficeVo onlineNCDBackOfficeVo, int userID)
         {

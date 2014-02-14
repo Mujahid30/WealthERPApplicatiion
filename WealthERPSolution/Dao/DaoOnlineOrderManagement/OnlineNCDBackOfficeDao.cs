@@ -112,6 +112,42 @@ namespace DaoOnlineOrderManagement
             }
             return stepCode;
         }
+        public string GetEligibleIssueDelete(int catSubTypeId, int catId, int seriesId, int IssueId)
+        {
+            Database db;
+            DbCommand dbCommand;
+            string isEligible="";
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbCommand = db.GetStoredProcCommand("SPROC_GetEligibleIssueDelete");
+                db.AddInParameter(dbCommand, "@CatSubTypeId", DbType.Int32, catSubTypeId);
+                db.AddInParameter(dbCommand, "@CatId", DbType.Int32, catId);
+                db.AddInParameter(dbCommand, "@SeriesId", DbType.Int32, seriesId);
+                db.AddInParameter(dbCommand, "@IssueId", DbType.Int32, IssueId);                           
+                db.AddOutParameter(dbCommand, "@IsAvailble", DbType.String, 100);
+                if (db.ExecuteScalar(dbCommand) == null)
+                    isEligible = string.Empty;
+                else
+                    isEligible = db.ExecuteScalar(dbCommand).ToString();
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineNCDBackOfficeDao.cs:GetExtractStepCode()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return isEligible;
+        }
 
         public int GetSeriesSequence(int issueId, int adviserId)
         {
@@ -887,6 +923,40 @@ namespace DaoOnlineOrderManagement
             return dsGetSubCategory;
         }
 
+        public DataSet GetSubCategory1(int issuerId, int issueId, int size)
+        {
+            DataSet dsGetSubCategory;
+            Database db;
+            DbCommand dbCommand;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbCommand = db.GetStoredProcCommand("SPROC_GetInvestorTypes1");
+                db.AddInParameter(dbCommand, "@issuerId", DbType.Int32, issuerId);
+                db.AddInParameter(dbCommand, "@IssueId", DbType.Int32, issueId);
+                db.AddInParameter(dbCommand, "@CatId", DbType.Int32, size);
+
+                //db.AddInParameter(dbCommand, "@size", DbType.Int32, size);
+
+                dsGetSubCategory = db.ExecuteDataSet(dbCommand);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineNCDBackOfficeDao.cs:GetSubCategory()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetSubCategory;
+        }
         public DataSet GetEligibleInvestorsCategory(int issuerId, int issueId)
         {
             DataSet dsGetEligibleInvestorsCategory;
