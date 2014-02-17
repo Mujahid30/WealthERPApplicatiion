@@ -507,6 +507,40 @@ namespace DaoOnlineOrderManagement
                 throw Ex;
             }
         }
+
+        public int GetValidateFrom(int fromRange, int adviserId, int issueId, int formRangeId, ref string status)
+        {
+
+            Database db;
+            DbCommand createCmd;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                createCmd = db.GetStoredProcCommand("SPROC_GetValidateFrom");
+                db.AddInParameter(createCmd, "@FromRange", DbType.String, fromRange);
+                db.AddInParameter(createCmd, "@AdviserId", DbType.Int32, adviserId);
+                db.AddInParameter(createCmd, "@issueId", DbType.String, issueId);
+                db.AddInParameter(createCmd, "@formRangeId", DbType.String, formRangeId);
+                db.AddOutParameter(createCmd, "@status", DbType.String, 500);
+
+                if (db.ExecuteNonQuery(createCmd) != 0)
+                {
+                    status = db.GetParameterValue(createCmd, "status").ToString();
+                    return 1;
+                }
+                else
+                {
+                    return 0;
+
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+        }
+
         public int CreateUpdateDeleteAplicationNos(int fromRange, int toRange, int adviserId, int issueId, int formRangeId, string commandType, ref string status)
         {
 
@@ -516,14 +550,14 @@ namespace DaoOnlineOrderManagement
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                createCmd = db.GetStoredProcCommand("SPROC_CreateUpdateDeletetAplicationNos");
+                createCmd = db.GetStoredProcCommand("SPROC_CreateUpdateDeletetAplicationNos_PV");
                 db.AddInParameter(createCmd, "@FromRange", DbType.String, fromRange);
                 db.AddInParameter(createCmd, "@ToRange", DbType.String, toRange);
                 db.AddInParameter(createCmd, "@AdviserId", DbType.Int32, adviserId);
                 db.AddInParameter(createCmd, "@issueId", DbType.String, issueId);
                 db.AddInParameter(createCmd, "@formRangeId", DbType.String, formRangeId);
                 db.AddInParameter(createCmd, "@commandType", DbType.String, commandType);
-                db.AddOutParameter(createCmd, "@status", DbType.String, 50);
+                db.AddOutParameter(createCmd, "@status", DbType.String, 500);
 
 
                 if (db.ExecuteNonQuery(createCmd) != 0)
@@ -1386,6 +1420,7 @@ namespace DaoOnlineOrderManagement
             DataSet dt = new DataSet();
             try
             {
+                
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmd = db.GetStoredProcCommand("SPROC_ONL_NCDOrderExtract");
                 db.AddInParameter(cmd, "@A_AdviserId", DbType.Int32, AdviserId);

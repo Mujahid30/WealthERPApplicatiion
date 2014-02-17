@@ -41,7 +41,7 @@ namespace BoOnlineOrderManagement
             }
 
         }
-         public DataSet GetExtSource(string product,int issueId)
+        public DataSet GetExtSource(string product, int issueId)
         {
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
             try
@@ -183,6 +183,36 @@ namespace BoOnlineOrderManagement
                 throw exBase;
             }
         }
+
+
+
+        public int GetValidateFrom(int fromRange, int adviserId, int issueId, int formRangeId, ref string status)
+        {
+
+            onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
+            try
+            {
+                return onlineNCDBackOfficeDao.GetValidateFrom(fromRange, adviserId, issueId, formRangeId, ref  status);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineNCDBackOfficeBo.cs:CreateUpdateDeleteIssuer()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+        }
+
+
         public int CreateUpdateDeleteAplicationNos(int fromRange, int toRange, int adviserId, int issueId, int formRangeId, string commandType, ref string status)
         {
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
@@ -650,7 +680,7 @@ namespace BoOnlineOrderManagement
 
         }
 
-        public string GetEligibleIssueDelete( int catSubTypeId, int catId, int seriesId, int IssueId)
+        public string GetEligibleIssueDelete(int catSubTypeId, int catId, int seriesId, int IssueId)
         {
             try
             {
@@ -918,7 +948,7 @@ namespace BoOnlineOrderManagement
 
             if (onlineNCDBackOfficeDao == null) onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
 
-            DataTable dtExtract = onlineNCDBackOfficeDao.GetOnlineNcdExtractPreview(extractDate, adviserId, fileTypeId, issueId,extSource).Tables[0];
+            DataTable dtExtract = onlineNCDBackOfficeDao.GetOnlineNcdExtractPreview(extractDate, adviserId, fileTypeId, issueId, extSource).Tables[0];
             //No maping Has to do
             if (dtExtract == null) return null;
 
@@ -934,7 +964,7 @@ namespace BoOnlineOrderManagement
         }
 
 
-        
+
 
         public void UpdateNcdOrderMannualMatch(int orderId, int allotmentId, ref int isAllotmented, ref int isUpdated)
         {

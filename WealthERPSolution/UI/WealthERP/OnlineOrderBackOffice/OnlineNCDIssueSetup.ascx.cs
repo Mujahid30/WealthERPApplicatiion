@@ -3963,6 +3963,13 @@ namespace WealthERP.OnlineOrderBackOffice
         private void CreateUpdateDeleteAplication(int fromRange, int toRange, int adviserId, int issueId, int formRangeId, string commandType)
         {
             string status = string.Empty;
+         int i=onlineNCDBackOfficeBo.GetValidateFrom(fromRange, adviserId, issueId, formRangeId, ref status);
+         if (status == "Not_Validated")
+         {
+             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Pls Use From Range Greater Than Previous Active To Range.');", true);
+             return;
+         }
+
             int i = onlineNCDBackOfficeBo.CreateUpdateDeleteAplicationNos(fromRange, toRange, adviserId, issueId, formRangeId, commandType, ref status);
             if (i > 0)
             {
@@ -3975,6 +3982,8 @@ namespace WealthERP.OnlineOrderBackOffice
 
                 else if (commandType == "UPDATE" & status == "DontUpdate")
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Cant Update.');", true);
+                else if (commandType == "UPDATE" & status=="To Range Updated")
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('from Range You cant Update.To Range Updated Successfully.');", true);
                 else if (commandType == "UPDATE")
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Updated Successfully.');", true);
                 else if (commandType == "DELETE" & status == "Filled")
