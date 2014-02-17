@@ -527,6 +527,7 @@ namespace WealthERP.Advisor
                 if (menu == "Edit")
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('EditBranchDetails','none');", true);
+                    
                 }
                 if (menu == "View")
                 {
@@ -558,7 +559,59 @@ namespace WealthERP.Advisor
                 throw exBase;
             }
         }
+        protected void ddlMenuzcd_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string menu;
+            try
+            {
+                DropDownList ddlzcd = (DropDownList)sender;
+                //GridViewRow gvr = (GridViewRow)MyDropDownList.NamingContainer;
+                GridDataItem item = (GridDataItem)ddlzcd.NamingContainer;
+                int selectedRow = item.RowIndex;
+                int branchId = int.Parse(gvZoneClusterdetails.MasterTableView.DataKeyValues[item.ItemIndex]["AB_BranchId"].ToString());
+                //int.Parse(gvCustomerList.MasterTableView.DataKeyValues[item.ItemIndex]["CustomerId"].ToString());
+                advisorBranchVo = advisorBranchBo.GetBranch(branchId);
+                Session["advisorBranchVo"] = advisorBranchVo;
 
+                menu = ddlzcd.SelectedItem.Value.ToString();
+                Session["FromAdvisorView"] = "FromAdvView";
+                if (menu == "Edit")
+                {
+                    //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('EditBranchDetails','none');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "EditBranchDetails", "loadcontrol('EditBranchDetails','?RmId=" + advisorBranchVo.BranchId + "&action=" + menu + "');", true);
+                }
+                if (menu == "View")
+                {
+                    //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewBranchDetails','none');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "EditBranchDetails", "loadcontrol('EditBranchDetails','?RmId=" + advisorBranchVo.BranchId + "&action=" + menu + "');", true);
+                    
+                }
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "ViewRM.ascx:ddlMenuzcd_SelectedIndexChanged()");
+
+
+                object[] objects = new object[3];
+                objects[0] = advisorBranchBo;
+                objects[1] = advisorBranchVo;
+                objects[2] = branchId;
+
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }  
+        }
         protected void gvZoneClusterdetails_NeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
             DataSet dtGvZoneClusterdetails = new DataSet();

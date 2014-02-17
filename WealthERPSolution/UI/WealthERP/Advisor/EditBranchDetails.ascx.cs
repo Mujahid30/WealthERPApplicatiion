@@ -88,6 +88,50 @@ namespace WealthERP.Advisor
                 }
                 if (Request.QueryString["AgentCode"] != null)
                     txtAgentCode.Text = Request.QueryString["AgentCode"].ToString();
+
+                if (Request.QueryString["action"] != "" && Request.QueryString["action"] != null)
+                {
+                    if (Request.QueryString["action"].Trim() == "View")
+                    {
+
+                        txtBranchCode.Enabled = false;
+                        BtnBranchCode.Enabled = false;
+                        txtBranchName.Enabled = false;
+                        ddlZOneCluster.Enabled = false;
+                        ddlSelectedZC.Enabled = false;
+                        txtLine1.Enabled = false;
+                        txtLine2.Enabled = false;
+                        txtLine3.Enabled = false;
+                        txtCity.Enabled = false;
+                        txtPinCode.Enabled = false;
+                        ddlState.Enabled = false;
+                        ddlCountry.Enabled = false;
+                        ddlRmlist.Enabled = false;
+                        txtIsdPhone1.Enabled = false;
+                        txtStdPhone1.Enabled = false;
+                        txtPhone1.Enabled = false;
+                        txtIsdPhone2.Enabled = false;
+                        txtStdPhone2.Enabled = false;
+                        txtPhone2.Enabled = false;
+                        txtIsdFax.Enabled = false;
+                        txtStdFax.Enabled = false;
+                        txtFax.Enabled = false;
+                        txtEmail.Enabled = false;
+                        btnSaveChanges.Visible = false;
+                        btnDelete.Visible = false;
+                        lnkEdit.Visible = true;
+                    }
+                    //else if (Request.QueryString["strAction"].Trim() == "Edit")
+                    //{
+
+                    //    ViewSchemeDetails();
+                    //    lbBack.Visible = true;
+                    //    lblBack.Visible = true;
+                    //    btnsubmit.Visible = false;
+                    //    ControlViewEditMode(true);
+
+                    //}
+                }
             }
                 
             catch (BaseApplicationException Ex)
@@ -123,7 +167,7 @@ namespace WealthERP.Advisor
             else
             {
                 trZoneCluster.Visible = true;
-                lb1Zc.Text = ddlZOneCluster.SelectedValue.ToString() + "s";
+                lb1Zc.Text = ddlZOneCluster.SelectedValue.ToString() + "s" +" " +":";
             }
             dt = advisorBranchBo.GetZoneClusterAssociation(advisorVo.advisorId);
             DataView dv = new DataView(dt);
@@ -1261,6 +1305,49 @@ namespace WealthERP.Advisor
                 if (codecs[i].MimeType == mimeType)
                     return codecs[i];
             return null;
+        }
+
+        protected void lnkEdit_Click(object sender, EventArgs e)
+        {
+            BtnBranchCode.Enabled = true;
+            txtBranchCode.Enabled = true;
+            //BtnBranchCode.enabled = false;
+            txtBranchName.Enabled = true;
+            ddlZOneCluster.Enabled = true;
+            ddlSelectedZC.Enabled = true;
+            txtLine1.Enabled = true;
+            txtLine2.Enabled = true;
+            txtLine3.Enabled = true;
+            txtCity.Enabled = true;
+            txtPinCode.Enabled = true;
+            ddlState.Enabled = true;
+            ddlCountry.Enabled = true;
+            ddlRmlist.Enabled = true;
+            txtIsdPhone1.Enabled = true;
+            txtStdPhone1.Enabled = true;
+            txtPhone1.Enabled = true;
+            txtIsdPhone2.Enabled = true;
+            txtStdPhone2.Enabled = true;
+            txtPhone2.Enabled = true;
+            txtIsdFax.Enabled = true;
+            txtStdFax.Enabled = true;
+            txtFax.Enabled = true;
+            txtEmail.Enabled = true;
+            btnSaveChanges.Visible = true;
+            btnDelete.Visible = true;//string menu;
+           //string strAction;
+            //string type;
+            //string status;
+            //if (Request.QueryString["strAction"] != null)
+            //{
+            //    schemeplancode = int.Parse(Request.QueryString["schemeplancode"].ToString());
+            //    strAction = Request.QueryString["strAction"].ToString();
+            //    product = Request.QueryString["product"].ToString();
+            //    type = Request.QueryString["type"].ToString();
+            //    status = Request.QueryString["status"].ToString();
+            //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineSchemeMIS", "loadcontrol('OnlineSchemeMIS','?SchemePlanCode=" + schemeplancode + "&strAction=" + strAction + "&product=" + product + "&type=" + type + "&status=" + status + "');", true);
+            //}
+            //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "EditBranchDetails", "loadcontrol('EditBranchDetails','?RmId=" + advisorBranchVo.BranchId + "&action=" + menu + "');", true);
         }
          
     }

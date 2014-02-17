@@ -33,27 +33,46 @@
 <table class="TableBackground" style="width:100%">
     <tr>
         <td colspan="2">
-            <asp:Label ID="Label2" runat="server" CssClass="HeaderTextBig" Text="Edit Branch Details"></asp:Label>
-            <hr />
+            <%--<asp:Label ID="Label2" runat="server" CssClass="HeaderTextBig" Text="Edit Branch Details"></asp:Label>
+            <hr />--%>
+                <div class="divPageHeading">
+                <table width="100%">
+                    <tr>
+                        <td align="left">
+                            Edit Branch Details
+                        </td>
+                        <td>
+                        </td>
+                        <td align="right" class="style1">
+                            <asp:LinkButton runat="server" ID="lnkEdit" CssClass="LinkButtons" Text="Edit" Visible="false"
+                            OnClick="lnkEdit_Click"></asp:LinkButton>
+                        </td>
+                        <td style="width: 8%;">
+                            <asp:LinkButton runat="server" ID="lnkBtnBack" CssClass="LinkButtons" Text="Back" Visible="true"
+                                OnClick="lnkBtnBack_Click"></asp:LinkButton>
+                        </td>
+                    </tr>
+                </table>
+            </div>
         </td>
     </tr>
-    <tr>
+   <%-- <tr>
         <td colspan="2" class="tdRequiredText">
             <label id="lbl" class="lblRequiredText">
                 Note: Fields marked with ' * ' are compulsory</label>
         </td>
-    </tr>
+    </tr>--%>
     <tr>
         <td colspan="2">
             &nbsp;
-        </td>
+        </td> 
     </tr>
-    <tr>
-        <td>
-            <asp:LinkButton runat="server" ID="lnkBtnBack" CssClass="LinkButtons" Text="Back"
+  <%--  <tr align="right">
+        <td align="right">
+            <asp:LinkButton runat="server" ID="lnkBtnBack" CssClass="LinkButtons" Text="Back"  
                 OnClick="lnkBtnBack_Click"></asp:LinkButton>
         </td>
-    </tr>
+    </tr>--%>
     <tr>
         <td colspan="2">
             &nbsp;
@@ -79,14 +98,14 @@
     </tr>
     <tr>
      <td class="leftField">
-       <asp:Label ID="lb1AgentCode" runat="server" CssClass="FieldName" Text="Agent Code"></asp:Label>
+       <asp:Label ID="lb1AgentCode" runat="server" CssClass="FieldName" Text="Agent Code :"></asp:Label>
         </td> 
     <td colspan="3" class="rightField">
       <asp:TextBox ID="txtAgentCode" runat="server" CssClass="txtField"></asp:TextBox> </td>
     </tr>
    <tr id="trAddBranchCode"  runat="server">
        <td class="leftField">
-       <asp:Label ID="lb1BranchCode" runat="server" CssClass="FieldName" Text="Edit Branch code"></asp:Label>
+       <asp:Label ID="lb1BranchCode" runat="server" CssClass="FieldName" Text="Edit Branch code :"></asp:Label>
         </td> 
     <td colspan="3" class="rightField">
      <asp:Button ID="BtnBranchCode" runat="server"  Text="EditBranchCode" CssClass="PCGMediumButton" onClick="BtnBranchCode_Click" />
@@ -145,17 +164,23 @@
     </tr>
     <tr id="trZoneCluster" runat="server">
          <td class="leftField" width="25%">
-        <asp:Label ID="lb1Zc" runat="server" CssClass="FieldName" Text="Zone :"></asp:Label>
+        <asp:Label ID="lb1Zc" runat="server" CssClass="FieldName" Text="Zone:"></asp:Label>
             </td> 
         <td class="rightfield" width="25%">
             <asp:DropDownList ID="ddlSelectedZC" runat="server" CssClass="cmbField"
                   AutoPostBack="true"></asp:DropDownList> </td> 
-     
     </tr>
-    <tr>
+<%--    <tr>
         <td colspan="2">
             <asp:Label ID="Label5" runat="server" CssClass="HeaderTextSmall" Text="Branch Address"></asp:Label>
             <hr />
+        </td>
+    </tr>--%>
+      <tr id="tr3" runat="server" visible="true">
+        <td colspan="6" style="vertical-align: text-bottom; padding-top: 6px; padding-bottom: 6px">
+            <div class="divSectionHeading" style="vertical-align: text-bottom">
+               Branch Address
+            </div>
         </td>
     </tr>
     <tr>
