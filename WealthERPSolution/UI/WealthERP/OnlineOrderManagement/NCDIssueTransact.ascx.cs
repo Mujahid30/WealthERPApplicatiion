@@ -493,7 +493,7 @@ namespace WealthERP.OnlineOrderManagement
                     }
 
                 }
-                else if (Convert.ToDouble(lbltotAmt.Text) >= Convert.ToDouble(lblAvailableLimits.Text))
+                else if (Convert.ToDouble(lbltotAmt.Text) > Convert.ToDouble(lblAvailableLimits.Text))
                 {
                     ShowMessage("Order cannot be processed. Insufficient balance");
                   //  tdsubmit.Visible = false;
