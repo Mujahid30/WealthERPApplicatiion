@@ -179,14 +179,14 @@ namespace WealthERP.OnlineOrderManagement
                 int sipDueCount = 0, inProcessCount = 0, acceptCount = 0, systemRejectCount = 0, rejectedCount = 0;
 
                 dvSIPOrderDetails = new DataView(dtOrderDetails, "CMFSS_SystematicSetupId=" + drSIP["CMFSS_SystematicSetupId"].ToString(), "CMFSS_SystematicSetupId", DataViewRowState.CurrentRows);
-                if(int.Parse(drSIP["CMFSS_IsSourceAA"].ToString()) == 1)
+                if (int.Parse(drSIP["CMFSS_IsSourceAA"].ToString()) == 1)
                 {
                     sipDueCount = (Convert.ToInt16(drSIP["CMFSS_TotalInstallment"].ToString())
-                                - (Convert.ToInt16(drSIP["CMFSS_InstallmentAccepted"].ToString()) + dvSIPOrderDetails.ToTable().Rows.Count));
+                          - ((Convert.ToInt16(drSIP["CMFSS_CurrentInstallmentNumber"].ToString())) - 1)) - dvSIPOrderDetails.ToTable().Rows.Count;
                 }
                 else
                 {
-                sipDueCount = (Convert.ToInt16(drSIP["CMFSS_TotalInstallment"].ToString()) - dvSIPOrderDetails.ToTable().Rows.Count);
+                    sipDueCount = (Convert.ToInt16(drSIP["CMFSS_TotalInstallment"].ToString()) - dvSIPOrderDetails.ToTable().Rows.Count);
                 }
                 //int.Parse(drSIP["CMFSS_InstallmentAccepted"].ToString())
                 foreach (DataRow drOrder in dvSIPOrderDetails.ToTable().Rows)
@@ -239,6 +239,7 @@ namespace WealthERP.OnlineOrderManagement
                 drSIPOrderBook["CMFSS_Remark"] = drSIP["CMFSS_Remark"];
                 drSIPOrderBook["SIPDueCount"] = sipDueCount;
                 drSIPOrderBook["InProcessCount"] = inProcessCount;
+                drSIPOrderBook["CMFSS_InstallmentOther"] = drSIP["CMFSS_InstallmentOther"];
                 if (int.Parse(drSIP["CMFSS_IsSourceAA"].ToString()) == 1)
                 {
                     drSIPOrderBook["AcceptCount"] = int.Parse(drSIP["CMFSS_InstallmentAccepted"].ToString()) + acceptCount;
