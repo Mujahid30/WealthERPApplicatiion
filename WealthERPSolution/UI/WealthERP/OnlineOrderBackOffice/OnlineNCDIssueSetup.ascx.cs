@@ -1740,13 +1740,21 @@ namespace WealthERP.OnlineOrderBackOffice
 
             }
             else if (e.CommandName == "btnAddMore")
-            {            
-                if (e.Item is GridEditableItem)
+            {
+                DataTable dtRecords = new DataTable();
+                RadGrid rgSubCategories = (RadGrid)e.Item.FindControl("rgSubCategories");
+
+
+               foreach (GridColumn col in rgSubCategories.Columns)
                 {
                     DataColumn colString = new DataColumn(col.UniqueName);
                     dtRecords.Columns.Add(colString);
 
                 }
+                //    DataColumn colString = new DataColumn(col.UniqueName);
+                //    dtRecords.Columns.Add(colString);
+
+                //}
                 foreach (GridDataItem row in rgSubCategories.Items) // loops through each rows in RadGrid
                 {
                     //  row.SetVisibleChildren(true);
@@ -1791,6 +1799,8 @@ namespace WealthERP.OnlineOrderBackOffice
                 dtRecords.Rows.Add();
                 dtRecords.AcceptChanges();
 
+                rgSubCategories.DataSource = dtRecords;
+                rgSubCategories.DataBind();
 
                 if (Cache[userVo.UserId.ToString() + "SubCat"] != null)
                 {
