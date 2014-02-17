@@ -198,7 +198,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 if (int.Parse(drSIP["CMFSS_IsSourceAA"].ToString()) == 1)
                 {
                     sipDueCount = (Convert.ToInt16(drSIP["CMFSS_TotalInstallment"].ToString())
-                                - (Convert.ToInt16(drSIP["CMFSS_InstallmentAccepted"].ToString()) + dvSIPOrderDetails.ToTable().Rows.Count));
+                          - ((Convert.ToInt16(drSIP["CMFSS_CurrentInstallmentNumber"].ToString())) - 1)) - dvSIPOrderDetails.ToTable().Rows.Count;
                 }
                 else
                 {
@@ -259,6 +259,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 drSIPOrderBook["CMFSS_Remark"] = drSIP["CMFSS_Remark"];
                 drSIPOrderBook["SIPDueCount"] = sipDueCount;
                 drSIPOrderBook["InProcessCount"] = inProcessCount;
+                drSIPOrderBook["CMFSS_InstallmentOther"] = drSIP["CMFSS_InstallmentOther"];
                 if (int.Parse(drSIP["CMFSS_IsSourceAA"].ToString()) == 1)
                 {
                     drSIPOrderBook["AcceptCount"] = int.Parse(drSIP["CMFSS_InstallmentAccepted"].ToString()) + acceptCount;
