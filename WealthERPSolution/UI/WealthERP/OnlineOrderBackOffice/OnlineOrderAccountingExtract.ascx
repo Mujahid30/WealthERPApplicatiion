@@ -45,8 +45,8 @@
         <td align="right" style="vertical-align: top;">
             <asp:Label ID="lblAmc" runat="server" Text="Extract Type:" CssClass="FieldName"></asp:Label>
         </td>
-        <td colspan="4">
-            <asp:DropDownList ID="ddlExtractType" runat="server" CssClass="cmbExtraLongField"
+        <td colspan="2" >
+            <asp:DropDownList ID="ddlExtractType" runat="server" CssClass="cmbExtraLongField" 
                 OnSelectedIndexChanged="ddlExtractType_Selectedindexchanged" AutoPostBack="true">
                 <asp:ListItem Selected="True" Value="0">--SELECT--</asp:ListItem>
             </asp:DropDownList>
@@ -78,7 +78,7 @@
                 ControlToValidate="txtExtractDate"></asp:RequiredFieldValidator>
             <asp:CompareValidator ID="CompareValidator2" ControlToValidate="txtExtractDate" runat="server"
                 ControlToCompare="txtToDate" Display="Dynamic" ErrorMessage="<br/>From Date be Less Than To date"
-                Type="Date" Operator="LessThanEqual" CssClass="cvPCG" ValidationGroup="vgBtnSubmitTemp"></asp:CompareValidator>
+                Type="Date" Operator="GreaterThanEqual" CssClass="cvPCG" ValidationGroup="vgBtnSubmitTemp"></asp:CompareValidator>
         </td>
         <td id="tdToDate" runat="server" >
             <asp:Label ID="lb1ToDate" runat="server" Text="To Date:" CssClass="FieldName"></asp:Label>

@@ -20,20 +20,20 @@
 </script>
 
 <script type="text/javascript" language="javascript">
-        function CheckTextBoxes()
-        {
-            var txtbox1 = document.getElementById('<%=txtNSECode.ClientID %>');
-            var txtbox2 = document.getElementById('<%=txtBSECode.ClientID %>');
-            if (txtbox1.value == "" && txtbox2.value == "") {
-                alert('Please Fill One Of The Fields NSE or BSE Code.');
-                return false;
-            }
-            else {
-                return true;
-            }
+    function CheckTextBoxes() {
+        var txtbox1 = document.getElementById('<%=txtNSECode.ClientID %>');
+        var txtbox2 = document.getElementById('<%=txtBSECode.ClientID %>');
+        if (txtbox1.value == "" && txtbox2.value == "") {
+            alert('Please Fill One Of The Fields NSE or BSE Code.');
+            return false;
         }
+        else {
+            return true;
+        }
+    }
 
 </script>
+
 <script type="text/javascript">
     var crnt = 0;
     function PreventClicks() {
@@ -53,6 +53,7 @@
         }
     }
 </script>
+
 <style type="text/css">
     .table
     {
@@ -157,13 +158,16 @@
                                                 <td class="leftField" style="width: 10%">
                                                     <asp:Label ID="lb1FromRange" runat="server" Text="From: " CssClass="FieldName"></asp:Label>
                                                 </td>
-                                                <td class="rightField" style="width: 25%">
-                                                    <asp:TextBox ID="txtFrom" runat="server" CssClass="txtField"></asp:TextBox><br />
-                                                    <span id="spnNewFolioValidation">*</span>
+                                                <td class="rightField" style="width: 25%" colspan="2">
+                                                    <asp:TextBox ID="txtFrom" runat="server" CssClass="txtField"></asp:TextBox>
+                                                    <span id="spnFrom" class="spnRequiredField">*</span>
                                                     <asp:RegularExpressionValidator ID="regFrom" ControlToValidate="txtFrom" runat="server"
                                                         Display="Dynamic" ErrorMessage="<br/>Please Enter Integer Value" CssClass="cvPCG"
                                                         ValidationExpression="[1-9]\d*$" ValidationGroup="rgApllOk">     
                                                     </asp:RegularExpressionValidator>
+                                                    <asp:CompareValidator ID="cmpFrom" ControlToValidate="txtFrom" runat="server"
+                                                            ControlToCompare="txtTo" Display="Dynamic" ErrorMessage="<br/>From  Should Be less Than To"
+                                                            Type="integer" Operator="LessThan"></asp:CompareValidator>
                                                     <%--   <asp:RequiredFieldValidator ID="rfvName" ControlToValidate="txtFrom" ErrorMessage="Please enter From Range"
                                                         ValidationGroup="rgApllOk" Display="Dynamic" runat="server" CssClass="rfvPCG">
                                                     </asp:RequiredFieldValidator>--%>
@@ -173,9 +177,9 @@
                                                 <td class="leftField" style="width: 10%">
                                                     <asp:Label ID="Label22" runat="server" Text="To: " CssClass="FieldName"></asp:Label>
                                                 </td>
-                                                <td class="rightField" style="width: 25%">
-                                                    <asp:TextBox ID="txtTo" runat="server" CssClass="txtField"></asp:TextBox><br />
-                                                    <span id="Span37">*</span>
+                                                <td class="rightField" style="width: 25%" colspan="2">
+                                                    <asp:TextBox ID="txtTo" runat="server" CssClass="txtField"></asp:TextBox>
+                                                    <span id="Span37" class="spnRequiredField">*</span>
                                                     <asp:RegularExpressionValidator ID="regTo" ControlToValidate="txtTo" runat="server"
                                                         Display="Dynamic" ErrorMessage="<br/>Please Enter Integer Value" CssClass="cvPCG"
                                                         ValidationExpression="[1-9]\d*$" ValidationGroup="rgApllOk">     
@@ -602,7 +606,7 @@
                 <asp:ListItem Value="Select">Select</asp:ListItem>
                 <asp:ListItem Value="Online">Online</asp:ListItem>
                 <asp:ListItem Value="Offline">Offline</asp:ListItem>
-         <%--       <asp:ListItem Value="Both">Both</asp:ListItem>--%>
+                <%--       <asp:ListItem Value="Both">Both</asp:ListItem>--%>
             </asp:DropDownList>
             <span id="Span9" class="spnRequiredField">*</span>
             <br />
@@ -989,7 +993,7 @@
             <asp:Label ID="lb1BankName" runat="server" Text="Bank Name:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightData">
-        <asp:TextBox ID="txtBankName" runat="server" CssClass="txtField" Width="200px" Visible="false"></asp:TextBox>
+            <asp:TextBox ID="txtBankName" runat="server" CssClass="txtField" Width="200px" Visible="false"></asp:TextBox>
             <asp:DropDownList ID="ddlBankName" runat="server" CssClass="cmbField" AutoPostBack="true"
                 Width="205px">
             </asp:DropDownList>
@@ -998,7 +1002,7 @@
             <asp:Label ID="lb1BankBranch" runat="server" Text="Bank Branch:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightData">
-        <asp:TextBox ID="txtBankBranch" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
+            <asp:TextBox ID="txtBankBranch" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
             <asp:DropDownList ID="ddlBankBranch" runat="server" CssClass="cmbField" AutoPostBack="true"
                 Width="205px" Visible="false">
             </asp:DropDownList>
@@ -1102,11 +1106,12 @@
         </td>
         <td class="leftLabel">
             <asp:Button ID="btnSetUpSubmit" runat="server" Text="Submit" CssClass="PCGButton"
-                ValidationGroup="SetUpSubmit" OnClick="btnSetUpSubmit_Click" Visible="false" OnClientClick="if(CheckTextBoxes() == false) return false;CheckTextBoxes();"/>
+                ValidationGroup="SetUpSubmit" OnClick="btnSetUpSubmit_Click" Visible="false"
+                OnClientClick="if(CheckTextBoxes() == false) return false;CheckTextBoxes();" />
             <%-- </td>
         <td class="rightData">--%>
             <asp:Button ID="btnUpdate" runat="server" Text="Update" CssClass="PCGButton" ValidationGroup="SetUpSubmit"
-                OnClick="btnUpdate_Click" OnClientClick="if(CheckTextBoxes() == false) return false;CheckTextBoxes();"/>
+                OnClick="btnUpdate_Click" OnClientClick="if(CheckTextBoxes() == false) return false;CheckTextBoxes();" />
             <asp:Button ID="btnProspect" runat="server" Text="Prospect" CssClass="PCGButton"
                 OnClick="btnProspect_Click" />
             <%-- ValidationGroup="SetUpSubmit"--%>
@@ -1144,7 +1149,7 @@
                                 OnItemCommand="rgEligibleInvestorCategories_ItemCommand" OnItemDataBound="rgEligibleInvestorCategories_ItemDataBound">
                                 <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="AIM_IssueId,AIIC_InvestorCatgeoryId"
                                     AutoGenerateColumns="false" Width="100%" EditMode="PopUp" CommandItemSettings-AddNewRecordText="Create InvestorCategory"
-                                    CommandItemDisplay="Top" >
+                                    CommandItemDisplay="Top">
                                     <Columns>
                                         <telerik:GridTemplateColumn AllowFiltering="false">
                                             <ItemTemplate>
@@ -1177,7 +1182,7 @@
                                             HeaderText="Max Bid Amount" UniqueName="AIIC_MaxBidAmount" SortExpression="AIIC_MaxBidAmount">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
-                                       <%-- <telerik:GridButtonColumn UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete?"
+                                        <%-- <telerik:GridButtonColumn UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete?"
                                             ConfirmDialogType="RadWindow" ConfirmTitle="Delete" ButtonType="LinkButton" CommandName="Delete"
                                             Text="Delete">
                                             <ItemStyle HorizontalAlign="Center" CssClass="MyImageButton" />
@@ -1315,6 +1320,9 @@
                                                         <asp:RegularExpressionValidator ID="RegularExpressionValidator16" ControlToValidate="txtMaxBidAmount"
                                                             runat="server" Display="Dynamic" ErrorMessage="Please Enter Digits" CssClass="cvPCG"
                                                             ValidationExpression="[0-9]\d*(\.\d?[0-9])?$" ValidationGroup="btnOK">   </asp:RegularExpressionValidator>
+                                                        <asp:CompareValidator ID="cmp" ControlToValidate="txtMaxBidAmount" runat="server"
+                                                            ControlToCompare="txtMinBidAmount" Display="Dynamic" ErrorMessage="<br/>MaxbidAmount  Should Be Greater Than Minbid"
+                                                            Type="integer" Operator="GreaterThan"></asp:CompareValidator>
                                                     </td>
                                                 </tr>
                                                 <tr id="trDiscountType" runat="server">
@@ -1360,7 +1368,7 @@
                                                             PageSize="10" AllowPaging="True" AutoGenerateColumns="False" EnableEmbeddedSkins="False"
                                                             GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="false" ShowStatusBar="True"
                                                             Width="80%" Skin="Telerik" AllowFilteringByColumn="true" OnNeedDataSource="rgSubCategories_OnNeedDataSource"
-                                                            EnableViewState="true" OnItemDataBound="rgSubCategories_ItemDataBound"  OnItemCommand="rgSubCategories_ItemCommand" >
+                                                            EnableViewState="true" OnItemDataBound="rgSubCategories_ItemDataBound" OnItemCommand="rgSubCategories_ItemCommand">
                                                             <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" AutoGenerateColumns="false"
                                                                 DataKeyNames="WCMV_LookupId">
                                                                 <Columns>
@@ -1375,7 +1383,7 @@
                                                                         </ItemTemplate>
                                                                     </telerik:GridTemplateColumn>
                                                                     <telerik:GridTemplateColumn HeaderText="Sub Category Id" ShowFilterIcon="false" DataField="AIICST_Id"
-                                                                        UniqueName="txtSubCategoryId" Visible="false" AllowFiltering="false"  >
+                                                                        UniqueName="txtSubCategoryId" Visible="false" AllowFiltering="false">
                                                                         <HeaderTemplate>
                                                                             <%--<asp:Label ID="lblSubCategoryCode" runat="server" Text="Sub Category Code"></asp:Label>--%>
                                                                         </HeaderTemplate>
@@ -1411,28 +1419,34 @@
                                                                         <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                                                     </telerik:GridBoundColumn>
                                                                     <telerik:GridTemplateColumn HeaderText="Min Investment Amount" ShowFilterIcon="false"
-                                                                        AllowFiltering="false"  UniqueName="MinInvestmentAmt">
+                                                                        AllowFiltering="false" UniqueName="MinInvestmentAmt">
                                                                         <HeaderTemplate>
                                                                             <asp:Label ID="lblMinInvestmentAmount" runat="server" Text="Min Investment Amount"></asp:Label>
                                                                         </HeaderTemplate>
                                                                         <ItemTemplate>
                                                                             <asp:TextBox ID="txtMinInvestmentAmount" runat="server" CssClass="txtField"></asp:TextBox>
+                                                                            <span id="Spanamount" class="spnRequiredField">*</span>
+                                                                            <asp:CompareValidator ID="cmp" ControlToValidate="txtMinInvestmentAmount" runat="server"
+                                                                                ControlToCompare="txtMaxInvestmentAmount" Display="Dynamic" ErrorMessage="<br/>MinInvestmentAmt  Should Be less Than MaxInvestmentAmt "
+                                                                                Type="integer" Operator="LessThan"></asp:CompareValidator>
+                                                                            <%--<asp:CompareValidator ID="cmpMinInvestmentAmt" Display="Dynamic" runat="server" Type="Integer"
+                                                                                ControlToCompare="txtMinInvestmentAmount" Operator="LessThan" ControlToValidate="txtMaxInvestmentAmount"
+                                                                                ErrorMessage="MinInvestmentAmount should be lessthan MaxInvestmentAmt"></asp:CompareValidator>--%>
                                                                         </ItemTemplate>
                                                                     </telerik:GridTemplateColumn>
-                                                                    <telerik:GridTemplateColumn HeaderText="Max Investment Amount" ShowFilterIcon="false" UniqueName="MaxInvestmentAmt"
-                                                                        AllowFiltering="false">
+                                                                    <telerik:GridTemplateColumn HeaderText="Max Investment Amount" ShowFilterIcon="false"
+                                                                        UniqueName="MaxInvestmentAmt" AllowFiltering="false">
                                                                         <HeaderTemplate>
                                                                             <asp:Label ID="lblMaxInvestmentAmount" runat="server" Text="Max Investment Amount"></asp:Label>
                                                                         </HeaderTemplate>
                                                                         <ItemTemplate>
                                                                             <asp:TextBox ID="txtMaxInvestmentAmount" runat="server" CssClass="txtField"></asp:TextBox>
+                                                                            <%--<asp:CompareValidator ID="cmptxtMaxInvestmentAmount" Display="Dynamic" runat="server" Type="Integer" ControlToCompare="txtMaxInvestmentAmount" 
+                                                                            Operator="GreaterThan" ControlToValidate="txtMinInvestmentAmount" ErrorMessage="MinInvestmentAmount should be lessthan MaxInvestmentAmt"></asp:CompareValidator>--%>
                                                                         </ItemTemplate>
                                                                     </telerik:GridTemplateColumn>
-                                                                    
-                                                                    
-                                                                    
                                                                     <telerik:GridTemplateColumn HeaderText="Select" ShowFilterIcon="false" AllowFiltering="false"
-                                                                        runat="server"  Visible="false" >
+                                                                        runat="server" Visible="false">
                                                                         <HeaderTemplate>
                                                                             <asp:Label ID="lblchkBxSelect" runat="server" Text="Remove"></asp:Label>
                                                                         </HeaderTemplate>
@@ -1441,8 +1455,6 @@
                                                                                 OnCheckedChanged="cbRemoveSubCategories_changed" />
                                                                         </ItemTemplate>
                                                                     </telerik:GridTemplateColumn>
-                                                                    
-                                                                    
                                                                     <telerik:GridButtonColumn UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete?"
                                                                         ConfirmDialogType="RadWindow" ConfirmTitle="Delete" ButtonType="LinkButton" CommandName="Delete"
                                                                         Text="Delete" Visible="false">
@@ -1456,16 +1468,15 @@
                                                 <tr>
                                                     <td class="leftLabel">
                                                         <asp:Button ID="btnAddMore" Text="Add More" runat="server" CssClass="PCGButton" CommandName="btnAddMore"
-                                                            CausesValidation="True" ValidationGroup="btnOK" OnClick="btnAddMore_Click"  />
+                                                            CausesValidation="True" ValidationGroup="btnOK" OnClick="btnAddMore_Click" />
                                                         <asp:Button ID="btnOK" Text="Submit" runat="server" CssClass="PCGButton" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'
                                                             CausesValidation="True" ValidationGroup="btnOK" />
                                                     </td>
                                                     <td class="rightData">
-                                                     <asp:Button ID="btnRemove" Text="Remove" runat="server" CausesValidation="False"  
-                                                            CssClass="PCGButton" OnClick="btnRemove_Click"  Visible="false"></asp:Button>
-                                                            
-                                                        <asp:Button ID="btnCancel" Text="Cancel" runat="server" CausesValidation="False" Visible="False"
-                                                            CssClass="PCGButton" CommandName="Cancel"></asp:Button>
+                                                        <asp:Button ID="btnRemove" Text="Remove" runat="server" CausesValidation="False"
+                                                            CssClass="PCGButton" OnClick="btnRemove_Click" Visible="false"></asp:Button>
+                                                        <asp:Button ID="btnCancel" Text="Cancel" runat="server" CausesValidation="False"
+                                                            Visible="False" CssClass="PCGButton" CommandName="Cancel"></asp:Button>
                                                     </td>
                                                     <td class="leftLabel" colspan="2">
                                                         &nbsp;
@@ -1535,7 +1546,7 @@
                                             AllowFiltering="true">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
-                                      <%--  <telerik:GridButtonColumn UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete?"
+                                        <%--  <telerik:GridButtonColumn UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete?"
                                             ConfirmDialogType="RadWindow" ConfirmTitle="Delete" ButtonType="LinkButton" CommandName="Delete"
                                             Text="Delete">
                                             <ItemStyle HorizontalAlign="Center" CssClass="MyImageButton" />
@@ -1735,7 +1746,7 @@
                                                                                 runat="server" Display="Dynamic" ErrorMessage="Please Enter Digits" CssClass="cvPCG"
                                                                                 ValidationExpression="[0-9]\d*(\.\d?[0-9])?$" ValidationGroup="btnOK">     
                                                                             </asp:RegularExpressionValidator>
-                                                                           <%-- <asp:RequiredFieldValidator ID="rgAnaualizedYield" runat="server" CssClass="rfvPCG"
+                                                                            <%-- <asp:RequiredFieldValidator ID="rgAnaualizedYield" runat="server" CssClass="rfvPCG"
                                                                                 ErrorMessage="Please Enter value" Display="Dynamic" ControlToValidate="txtAnnualizedYield"
                                                                                 ValidationGroup="btnOK" InitialValue="" >
                                                                             </asp:RequiredFieldValidator>--%>
@@ -1789,7 +1800,7 @@
                                                                         </HeaderTemplate>
                                                                         <ItemTemplate>
                                                                             <asp:TextBox ID="txtRedemptionDate" runat="server" CssClass="txtField" Width="90px"></asp:TextBox>
-                                                                         <%--   <asp:RegularExpressionValidator ID="rgRedemptionDate" ControlToValidate="txtRedemptionDate"
+                                                                            <%--   <asp:RegularExpressionValidator ID="rgRedemptionDate" ControlToValidate="txtRedemptionDate"
                                                                                 runat="server" Display="Dynamic" ErrorMessage="Please Enter letter" CssClass="cvPCG"
                                                                                 ValidationExpression="[a-zA-Z ]*$" ValidationGroup="btnOK">   
                                                                                  
