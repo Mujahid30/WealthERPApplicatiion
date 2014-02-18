@@ -3970,7 +3970,7 @@ namespace WealthERP.OnlineOrderBackOffice
              return;
          }
 
-            int i = onlineNCDBackOfficeBo.CreateUpdateDeleteAplicationNos(fromRange, toRange, adviserId, issueId, formRangeId, commandType, ref status);
+            i = onlineNCDBackOfficeBo.CreateUpdateDeleteAplicationNos(fromRange, toRange, adviserId, issueId, formRangeId, commandType, ref status);
             if (i > 0)
             {
                 if (commandType == "INSERT" & status == "Refill")

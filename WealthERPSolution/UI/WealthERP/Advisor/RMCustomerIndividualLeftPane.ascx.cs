@@ -469,7 +469,23 @@ namespace WealthERP.Advisor
                             RPBOnlineOrder.FindItemByValue("NCDMFOrder").Visible = false;
                             RPBOnlineOrder.FindItemByValue("IPOOrder").Visible = false;
                             RPBOnlineOrder.FindItemByValue("MF_Online_Landing_Page").Visible = false;
-                        } 
+                            RadPanelBar1.FindItemByValue("Insurance").Visible = false;
+                            RPBOnlineOrder.FindItemByValue("Transact").Visible = false;
+                            RadPanelBar1.FindItemByValue("Alerts").Visible = false;
+                            RadPanelBar1.FindItemByValue("Report").Visible = false;
+                            RadPanelBar1.FindItemByValue("Liabilities").Visible = false;
+                            RadPanelBar1.FindItemByValue("Customer Dashboard").Visible = false;
+                            RadPanelBar1.FindItemByValue("Group Dashboard").Visible = false;
+                            RadPanelBar1.FindItemByValue("Financial Planning").Visible = false;
+                            RadPanelBar1.FindItemByValue("Equity").Visible = false;
+                            RadPanelBar1.FindItemByValue("Fixed Income").Visible = false;
+                            RadPanelBar1.FindItemByValue("Govt Savings").Visible = false;
+                            RadPanelBar1.FindItemByValue("Property").Visible = false;
+                            RadPanelBar1.FindItemByValue("Pension and Gratuities").Visible = false;
+                            RadPanelBar1.FindItemByValue("Personal Assets").Visible = false;
+                            RadPanelBar1.FindItemByValue("Gold Assets").Visible = false;
+                            RadPanelBar1.FindItemByValue("Collectibles").Visible = false;
+                        }
                     }
 
                 }
@@ -1165,7 +1181,17 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "Portfolio Dashboard")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "PortfolioDashboard", "loadcontrol('PortfolioDashboard','none');", true);
+                    if (advisorVo.advisorId == Convert.ToInt32(ConfigurationSettings.AppSettings["ONLINE_ADVISER"]))
+                    {
+                        if (ConfigurationSettings.AppSettings["NCD_TREE_NODE"].ToString().Contains(advisorVo.advisorId.ToString())) ;
+                        {
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "PortfolioDashboard", "loadcontrol('PortfolioDashboard','none');", false);
+                        }
+                    }
+                    else
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "PortfolioDashboard", "loadcontrol('PortfolioDashboard','none');", true);
+                    }
                 }
                 else if (e.Item.Value == "Equity")
                 {
