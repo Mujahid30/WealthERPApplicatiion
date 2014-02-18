@@ -550,7 +550,7 @@ namespace DaoOnlineOrderManagement
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                createCmd = db.GetStoredProcCommand("SPROC_CreateUpdateDeletetAplicationNos_PV");
+                createCmd = db.GetStoredProcCommand("SPROC_CreateUpdateDeletetAplicationNos");
                 db.AddInParameter(createCmd, "@FromRange", DbType.String, fromRange);
                 db.AddInParameter(createCmd, "@ToRange", DbType.String, toRange);
                 db.AddInParameter(createCmd, "@AdviserId", DbType.Int32, adviserId);
