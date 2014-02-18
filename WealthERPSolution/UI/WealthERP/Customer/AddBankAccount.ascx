@@ -111,7 +111,7 @@
                 &nbsp;
             </td>
         </tr>
-        <tr>
+       <%-- <tr>
             <td class="leftField">
                 <asp:Label ID="lblBankCity" runat="server" Text="Bank City:" CssClass="FieldName"></asp:Label>
             </td>
@@ -127,9 +127,8 @@
             <td colspan="2">
                 &nbsp;
             </td>
-        </tr>
-        
-        <tr>
+        </tr>--%>
+        <%--<tr>
             <td class="leftField">
                 <asp:Label ID="lblBranchName" runat="server" Text="Branch Name:" CssClass="FieldName"></asp:Label>
             </td>
@@ -146,7 +145,7 @@
                 &nbsp;
             </td>
         </tr>
-        <tr id="trJoingHolding" runat="server">
+--%>        <tr id="trJoingHolding" runat="server">
             <td class="leftField">
                 <asp:Label ID="Label6" runat="server" CssClass="FieldName" Text="Joint Holding:"></asp:Label>
             </td>
@@ -196,11 +195,10 @@
         </tr>
         <tr>
             <td class="leftField">
-                <asp:Label ID="lbl_Ismain" runat="server" CssClass="FieldName" Text="IsMainBranch:"></asp:Label>
+                <asp:Label ID="lbl_Ismain" runat="server" CssClass="FieldName" Text="Is Main Bank:"></asp:Label>
             </td>
             <td>
-                <asp:CheckBox ID="chk_Ismain" runat="server" /> 
-               
+                <asp:CheckBox ID="chk_Ismain" runat="server" />
             </td>
         </tr>
         <tr id="trjointholder" runat="server" visible="false">
@@ -299,14 +297,41 @@
         </tr>
         <tr>
             <td class="leftField">
+                <asp:Label ID="lblBranchName" runat="server" Text="Branch Name:" CssClass="FieldName"></asp:Label>
+            </td>
+            <td class="rightField">
+                <asp:TextBox ID="txtBranchName" runat="server" CssClass="txtField" Style="width: 225px;"
+                    Text='<%# Bind("CB_BranchName") %>'></asp:TextBox>
+                <span id="spBranchName" class="spnRequiredField">*</span>
+                <asp:RequiredFieldValidator ID="rfvBranchName" ControlToValidate="txtBranchName"
+                    ValidationGroup="btnSubmit" ErrorMessage="<br />Please enter a Branch Name" Display="Dynamic"
+                    runat="server" CssClass="rfvPCG">
+                </asp:RequiredFieldValidator>
+            </td>
+            <td colspan="2">
+                &nbsp;
+            </td>
+        </tr>
+
+        <tr>
+            <td class="leftField">
                 <asp:Label ID="lblAdrLine1" runat="server" Text="Line1(House No/Building):" CssClass="FieldName"></asp:Label>
             </td>
             <td class="rightField">
                 <asp:TextBox ID="txtBankAdrLine1" runat="server" CssClass="txtField" Style="width: 250px;"
                     Text='<%# Bind("CB_BranchAdrLine1") %>'></asp:TextBox>
             </td>
-            <td colspan="2">
-                &nbsp;
+             <td class="leftField">
+                <asp:Label ID="lblBankCity" runat="server" Text="Bank City:" CssClass="FieldName"></asp:Label>
+            </td>
+            <td class="rightField">
+                <asp:TextBox ID="txtBankCity" runat="server" CssClass="txtField" Style="width: 225px;"
+                    Text='<%# Bind("CB_BankCity") %>'></asp:TextBox>
+                <span id="Span5" class="spnRequiredField">*</span>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtBankCity"
+                    ValidationGroup="btnSubmit" ErrorMessage="<br />Please Enter Bank City " Display="Dynamic"
+                    runat="server" CssClass="rfvPCG">
+                </asp:RequiredFieldValidator>
             </td>
         </tr>
         <tr>
@@ -318,17 +343,16 @@
                     Text='<%# Bind("CB_BranchAdrLine2") %>'></asp:TextBox>
             </td>
             <%--<td colspan="2">--%>
-                            <td class="leftField">
+            <td class="leftField">
                 <asp:Label ID="lblNEFTCode" runat="server" Text="NEFT Code:" CssClass="FieldName"></asp:Label>
             </td>
             <td class="rightField">
                 <asp:TextBox ID="txtNEFTCode" runat="server" CssClass="txtField" MaxLength="11" Text='<%# Bind("CB_NEFT") %>'></asp:TextBox>
-            
-            <asp:CompareValidator ID="CompareValidator5" runat="server" 
-                    CssClass="rfvPCG" Type="String" ControlToValidate="txtNEFTCode" ValidationGroup="btnSubmit"
-                    Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
-                    </td>
-           <%--</td>--%>
+                <asp:CompareValidator ID="CompareValidator5" runat="server" CssClass="rfvPCG" Type="String"
+                    ControlToValidate="txtNEFTCode" ValidationGroup="btnSubmit" Operator="DataTypeCheck"
+                    Display="Dynamic"></asp:CompareValidator>
+            </td>
+            <%--</td>--%>
         </tr>
         <tr>
             <td class="leftField">
@@ -338,27 +362,25 @@
                 <asp:TextBox ID="txtBankAdrLine3" runat="server" CssClass="txtField" Style="width: 250px;"
                     Text='<%# Bind("CB_BranchAdrLine3") %>'></asp:TextBox>
             </td>
-                  
-           
-<%--            <td colspan="2">
+            <%--            <td colspan="2">
                 &nbsp;
             </td>--%>
-                                        <td class="leftField">
+            <td class="leftField">
                 <asp:Label ID="lblRTGSCode" runat="server" Text="RTGS Code:" CssClass="FieldName"></asp:Label>
             </td>
             <td class="rightField">
                 <asp:TextBox ID="txtRTGSCode" runat="server" CssClass="txtField" MaxLength="11" Text='<%# Bind("CB_RTGS") %>'></asp:TextBox>
-            <asp:CompareValidator ID="CompareValidator6" runat="server" 
-                    CssClass="rfvPCG" Type="String" ControlToValidate="txtRTGSCode" ValidationGroup="btnSubmit"
-                    Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
+                <asp:CompareValidator ID="CompareValidator6" runat="server" CssClass="rfvPCG" Type="String"
+                    ControlToValidate="txtRTGSCode" ValidationGroup="btnSubmit" Operator="DataTypeCheck"
+                    Display="Dynamic"></asp:CompareValidator>
             </td>
         </tr>
-        <tr>
+        <%--<tr>
             <td class="leftField">
                 <asp:Label ID="lblCity" runat="server" CssClass="FieldName" Text="City:"></asp:Label>
             </td>
             <td class="rightField">
-                <%-- <asp:TextBox ID="txtBankAdrCity" runat="server" CssClass="txtField" Text='<%# Bind("CB_BranchAdrCity") %>'></asp:TextBox>--%>
+                <%-- <asp:TextBox ID="txtBankAdrCity" runat="server" CssClass="txtField" Text='<%# Bind("CB_BranchAdrCity") %>'></asp:TextBox>
                 <asp:DropDownList ID="ddlBankAdrCity" runat="server" CssClass="txtField" Width="150px">
                 </asp:DropDownList>
             </td>
@@ -369,7 +391,7 @@
                 <asp:DropDownList ID="ddlBankAdrState" runat="server" CssClass="txtField" Width="150px">
                 </asp:DropDownList>
             </td>
-        </tr>
+        </tr>--%>
         <tr>
             <td class="leftField">
                 <asp:Label ID="lblPinCode" runat="server" Text="Pin Code:" CssClass="FieldName"></asp:Label>
@@ -381,13 +403,13 @@
                     CssClass="rfvPCG" Type="Integer" ControlToValidate="txtBankAdrPinCode" ValidationGroup="btnSubmit"
                     Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
             </td>
-            <td class="leftField">
+           <%-- <td class="leftField">
                 <asp:Label ID="Label25" runat="server" Text="Country:" CssClass="FieldName"></asp:Label>
             </td>
             <td class="rightField">
                 <asp:DropDownList ID="ddlBankAdrCountry" runat="server" CssClass="cmbField">
                 </asp:DropDownList>
-            </td>
+            </td>--%>
         </tr>
         <tr>
             <td class="leftField">

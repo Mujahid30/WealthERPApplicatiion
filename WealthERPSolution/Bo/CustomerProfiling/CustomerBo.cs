@@ -319,7 +319,7 @@ namespace BoCustomerProfiling
 
         public int ChkAssociateCode(int adviserid, string agentcode)
         {
-            int CountRecord=0;
+            int CountRecord = 0;
 
             CustomerDao customerDao = new CustomerDao();
             try
@@ -339,7 +339,7 @@ namespace BoCustomerProfiling
                 FunctionInfo.Add("Method", "CustomerBo.cs:ChkAssociateCode()");
 
                 object[] objects = new object[2];
-               
+
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
@@ -2724,29 +2724,14 @@ namespace BoCustomerProfiling
             return dtCustomerISAAccountList;
         }
 
-        public int GetCustomerSubType( int customerId)
-        {
 
-            int subtypeId = 0;
-            CustomerDao customerDao = new CustomerDao();
-            try
-            {
-                subtypeId = customerDao.GetCustomerSubType(customerId);
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            return subtypeId;
-        }
-
-        public bool UpdateMemberRelation(int AssociationId, string relationCode, bool isrealInvestor,int iskyc)
+        public bool UpdateMemberRelation(int AssociationId, string relationCode, bool isrealInvestor, int iskyc)
         {
             CustomerDao customerDao = new CustomerDao();
             bool isEdited = false;
             try
             {
-                isEdited = customerDao.UpdateMemberRelation(AssociationId, relationCode,isrealInvestor,iskyc);
+                isEdited = customerDao.UpdateMemberRelation(AssociationId, relationCode, isrealInvestor, iskyc);
             }
             catch (BaseApplicationException Ex)
             {
@@ -3262,7 +3247,7 @@ namespace BoCustomerProfiling
             CustomerDao customerDao = new CustomerDao();
             try
             {
-                isInserted = customerDao.InsertTempletonDataTranslateMappingDetalis(TransactionType,TransactionClassificationCode);
+                isInserted = customerDao.InsertTempletonDataTranslateMappingDetalis(TransactionType, TransactionClassificationCode);
             }
             catch (BaseApplicationException Ex)
             {
@@ -3314,9 +3299,9 @@ namespace BoCustomerProfiling
             }
             return dsCustomerProfileSetupLookupData;
         }
-        public int ToCheckSchemeisonline(int schemeplanecode,int Isonline,string sourcecode)
+        public int ToCheckSchemeisonline(int schemeplanecode, int Isonline, string sourcecode)
         {
-            CustomerDao CustomerDao=new CustomerDao();
+            CustomerDao CustomerDao = new CustomerDao();
             int count;
             try
             {
