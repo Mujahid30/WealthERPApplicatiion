@@ -1873,4 +1873,16 @@
     <value>General//UserSessionManager.ascx</value>
     <comment>General//UserSessionManager.ascx</comment>
   </data>
+  <data name="AddAdviserStaff" xml:space="preserve">
+    <value>Advisor//AddAdviserStaff.ascx</value>
+    <comment>Advisor//AddAdviserStaff.ascx</comment>
+  </data>
+  <data name="AdviserDepartmentRoleSetup" xml:space="preserve">
+    <value>AdvsierPreferenceSettings//AdviserDepartmentRoleSetup.ascx</value>
+    <comment>AdvsierPreferenceSettings//AdviserDepartmentRoleSetup.ascx</comment>
+  </data>
+  <data name="AdviserRoleToTreeNodeMapping" xml:space="preserve">
+    <value>AdvsierPreferenceSettings//AdviserRoleToTreeNodeMapping.ascx</value>
+    <comment>AdvsierPreferenceSettings//AdviserRoleToTreeNodeMapping.ascx</comment>
+  </data>
 </root>
