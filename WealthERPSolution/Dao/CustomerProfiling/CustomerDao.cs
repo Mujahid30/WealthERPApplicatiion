@@ -422,10 +422,10 @@ namespace DaoCustomerProfiling
                     customerVo.Adr1Line3 = dr["C_Adr1Line3"].ToString();
                    if (!string.IsNullOrEmpty(dr["C_Adr1PinCode"].ToString()))
                     customerVo.Adr1PinCode = int.Parse(dr["C_Adr1PinCode"].ToString());
-                   if (!string.IsNullOrEmpty(dr["C_Adr1City"].ToString()))
-                    customerVo.Adr1City = dr["C_Adr1City"].ToString();
-                    if (!string.IsNullOrEmpty(dr["C_Adr1State"].ToString()))
-                      customerVo.Adr1State = dr["C_Adr1State"].ToString();
+                   if (!string.IsNullOrEmpty(dr["C_WCMV_City_Id"].ToString()))
+                       customerVo.Adr1City = dr["C_WCMV_City_Id"].ToString();
+                   if (!string.IsNullOrEmpty(dr["C_WCMV_State_Id"].ToString()))
+                       customerVo.Adr1State = dr["C_WCMV_State_Id"].ToString();
                     if (!string.IsNullOrEmpty(dr["C_Adr1Country"].ToString()))
                     customerVo.Adr1Country = dr["C_Adr1Country"].ToString();
                     if (!string.IsNullOrEmpty(dr["C_Adr2Line1"].ToString()))
@@ -1909,6 +1909,7 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(createCustomerCmd, "@C_AlertViaSMS", DbType.Int16, customerVo.ViaSMS);
                 db.AddInParameter(createCustomerCmd, "@CPS_GuardPan", DbType.String, customerVo.GuardPANNum);
 
+                db.AddInParameter(createCustomerCmd, "@C_MfKYC", DbType.String, customerVo.MfKYC);
                 db.AddInParameter(createCustomerCmd, "@C_IsRealInvestor", DbType.Boolean, customerVo.IsRealInvestor?1:0);
                 db.AddInParameter(createCustomerCmd, "@C_WCMV_TaxStatus_Id", DbType.Int16, customerVo.TaxStatusCustomerSubTypeId);
 

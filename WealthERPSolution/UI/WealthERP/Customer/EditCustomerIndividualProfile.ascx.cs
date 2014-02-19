@@ -276,9 +276,14 @@ namespace WealthERP.Customer
                     txtCorrAdrLine3.Text = customerVo.Adr1Line3;
                     txtCorrAdrPinCode.Text = customerVo.Adr1PinCode.ToString();
 
-                    ddlCorrAdrCity.SelectedValue = customerVo.CorrespondenceCityId.ToString();
-                    ddlCorrAdrState.SelectedValue = customerVo.CorrespondenceStateId.ToString();
-
+                    if (customerVo.Adr1City != null)
+                        ddlCorrAdrCity.SelectedValue = customerVo.Adr1City.ToString();
+                    else
+                        ddlCorrAdrCity.SelectedValue = "--Select---";
+                    if (customerVo.Adr1State!=null)
+                        ddlCorrAdrState.SelectedValue = customerVo.Adr1State.ToString();
+                    else
+                        ddlCorrAdrState.SelectedValue = "--Select---";
                     txtCorrAdrCountry.Text = customerVo.Adr1Country;
                     txtPermAdrLine1.Text = customerVo.Adr2Line1;
                     txtPermAdrLine2.Text = customerVo.Adr2Line2;
@@ -2278,7 +2283,6 @@ namespace WealthERP.Customer
         }
 
         protected void gvFamilyAssociate_ItemCommand(object source, GridCommandEventArgs e)
-        
         {
             int associateCustomerId;
             CustomerBo customerBo = new CustomerBo();
@@ -2299,7 +2303,6 @@ namespace WealthERP.Customer
                 CheckBox chkIsrealInvestorMem = (CheckBox)e.Item.FindControl("chkIsinvestmem");
                 CheckBox chkycinside = (CheckBox)e.Item.FindControl("chKInsideKyc");
                 CheckBox chkycinside1 = (CheckBox)e.Item.FindControl("chKInsideKyc1");
-                
                 if (chkIsrealInvestorMem.Checked)
                     isrealInvestor = true;
                 if (chkycinside.Checked)
@@ -2336,7 +2339,6 @@ namespace WealthERP.Customer
                 }
                 else
                 {
-
                     isUpdated = customerBo.UpdateMemberRelation(AssociationId, relationCode, isrealInvestor,iskyc);
                 }
             }
