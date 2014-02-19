@@ -466,11 +466,14 @@ namespace WealthERP.Advisor
                     {
                         if (ConfigurationSettings.AppSettings["NCD_TREE_NODE"].ToString().Contains(advisorVo.advisorId.ToString()))
                         {
-                            RPBOnlineOrder.FindItemByValue("NCDMFOrder").Visible = false;
+                            //RPBOnlineOrder.FindItemByValue("NCDMFOrder").Visible = false;
                             RPBOnlineOrder.FindItemByValue("IPOOrder").Visible = false;
                             RPBOnlineOrder.FindItemByValue("MF_Online_Landing_Page").Visible = false;
                             RadPanelBar1.FindItemByValue("Insurance").Visible = false;
-                            RPBOnlineOrder.FindItemByValue("Transact").Visible = false;
+                            if (Session[SessionContents.CurrentUserRole].ToString() == "Ops")
+                            {
+                                RPBOnlineOrder.FindItemByValue("Transact").Visible = false; ;
+                            }
                             RadPanelBar1.FindItemByValue("Alerts").Visible = false;
                             RadPanelBar1.FindItemByValue("Report").Visible = false;
                             RadPanelBar1.FindItemByValue("Liabilities").Visible = false;

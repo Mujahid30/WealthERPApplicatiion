@@ -234,7 +234,7 @@ namespace WealthERP.Advisor
                     RadPanelBar5.Visible = false;
                 if (advisorVo.advisorId == Convert.ToInt32(ConfigurationSettings.AppSettings["ONLINE_ADVISER"]))
                 {
-                    if (!ConfigurationSettings.AppSettings["NCD_TREE_NODE"].ToString().Contains(advisorVo.advisorId.ToString()))
+                    if (ConfigurationSettings.AppSettings["NCD_TREE_NODE"].ToString().Contains(advisorVo.advisorId.ToString()))
                        RadPanelBar5.Visible = false;
                 }
 
