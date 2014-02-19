@@ -374,7 +374,8 @@ namespace WealthERP.OnlineOrderManagement
 
             else if (aplicationNoStatus == "Refill")
             {
-                userMessage = "Please Contact sbi team to fill Aplications";
+                userMessage = "Order cannot be placed , Application oversubscribed. Please contact your relationship manager or contact call centre";
+              //  userMessage = "Please Contact sbi team to fill Aplications";
 
             }
             else if( orderId != 0 && accountDebitStatus == false)

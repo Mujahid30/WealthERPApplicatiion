@@ -1441,15 +1441,15 @@ namespace WealthERP.OnlineOrderBackOffice
                         //dtRecords.Columns.Add(colString);
 
                     }
-                  //  gvRow.Controls.RemoveAt(rowindex);
+                    //  gvRow.Controls.RemoveAt(rowindex);
                     //int controlCnt = gvRow.items.Count;
                     //for (int i = 0; i <= controlCnt; i++)
                     //{
-                   // gvRow.Controls.Remove(gvRow.Controls[rowindex-1]);
-                   // gvRow.Controls.RemoveAt(rowindex);
-                       // gvRow.Controls.RemoveAt(2);
-                      
-                   // }
+                    // gvRow.Controls.Remove(gvRow.Controls[rowindex-1]);
+                    // gvRow.Controls.RemoveAt(rowindex);
+                    // gvRow.Controls.RemoveAt(2);
+
+                    // }
 
 
                 }
@@ -1717,10 +1717,10 @@ namespace WealthERP.OnlineOrderBackOffice
                         }
                         if (txtSubCategoryId.Text == string.Empty)
                             CreateUpdateDeleteCategoryDetails(categoryId, 0, lookupId, txtSubCategoryCode.Text, Convert.ToInt32(txtMinInvestmentAmount.Text), Convert.ToInt32(txtMaxInvestmentAmount.Text), "Insert");
-                                                
-                        else if(Convert.ToInt32(txtSubCategoryId.Text) >0)
-                        CreateUpdateDeleteCategoryDetails(categoryId,Convert.ToInt32(txtSubCategoryId.Text), lookupId, txtSubCategoryCode.Text, Convert.ToInt32(txtMinInvestmentAmount.Text), Convert.ToInt32(txtMaxInvestmentAmount.Text), "Update");
-                         
+
+                        else if (Convert.ToInt32(txtSubCategoryId.Text) > 0)
+                            CreateUpdateDeleteCategoryDetails(categoryId, Convert.ToInt32(txtSubCategoryId.Text), lookupId, txtSubCategoryCode.Text, Convert.ToInt32(txtMinInvestmentAmount.Text), Convert.ToInt32(txtMaxInvestmentAmount.Text), "Update");
+
 
                         else if (Convert.ToInt32(txtSubCategoryId.Text) > 0)
                             CreateUpdateDeleteCategoryDetails(categoryId, Convert.ToInt32(txtSubCategoryId.Text), lookupId, txtSubCategoryCode.Text, Convert.ToInt32(txtMinInvestmentAmount.Text), Convert.ToInt32(txtMaxInvestmentAmount.Text), "Update");
@@ -1745,7 +1745,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 RadGrid rgSubCategories = (RadGrid)e.Item.FindControl("rgSubCategories");
 
 
-               foreach (GridColumn col in rgSubCategories.Columns)
+                foreach (GridColumn col in rgSubCategories.Columns)
                 {
                     DataColumn colString = new DataColumn(col.UniqueName);
                     dtRecords.Columns.Add(colString);
@@ -1799,8 +1799,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 dtRecords.Rows.Add();
                 dtRecords.AcceptChanges();
 
-                rgSubCategories.DataSource = dtRecords;
-                rgSubCategories.DataBind();
+               
 
                 if (Cache[userVo.UserId.ToString() + "SubCat"] != null)
                 {
@@ -1812,7 +1811,10 @@ namespace WealthERP.OnlineOrderBackOffice
                     Cache.Insert(userVo.UserId.ToString() + "SubCat", dtRecords);
 
                 }
-               
+
+                rgSubCategories.DataSource = dtRecords;
+                rgSubCategories.DataBind();
+
             }
         }
 
@@ -2320,12 +2322,12 @@ namespace WealthERP.OnlineOrderBackOffice
 
         protected void btnSetUpSubmit_Click(object sender, EventArgs e)
         {
-        //    if (txtNSECode.Text == "" && txtBSECode.Text == "")
-        //    {
-        //        Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "CheckTextBoxes()", true);
-        //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please Fill Atlist One Code NSE or BSE');", true);
-        //        return;
-        //    }
+            //    if (txtNSECode.Text == "" && txtBSECode.Text == "")
+            //    {
+            //        Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "CheckTextBoxes()", true);
+            //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please Fill Atlist One Code NSE or BSE');", true);
+            //        return;
+            //    }
             //if (txtNSECode.Text != null && txtBSECode.Text != null)
             //{
             //     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('You Can Enter Only One Code NSE or BSE');", true);
@@ -2348,7 +2350,7 @@ namespace WealthERP.OnlineOrderBackOffice
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Online Enablement done successfully.');", true);
                     }
                 }
-              
+
             }
 
             if (string.IsNullOrEmpty(txtIssueId.Text))
@@ -2360,11 +2362,11 @@ namespace WealthERP.OnlineOrderBackOffice
                 //}
                 //else
                 //{
-                    txtIssueId.Text = CreateIssue().ToString();
-                    SeriesAndCategoriesGridsVisiblity(Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text));
-                    VisblityAndEnablityOfScreen("Submited");
-                    btnSetUpSubmit.Enabled = true;
-               // }
+                txtIssueId.Text = CreateIssue().ToString();
+                SeriesAndCategoriesGridsVisiblity(Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text));
+                VisblityAndEnablityOfScreen("Submited");
+                btnSetUpSubmit.Enabled = true;
+                // }
             }
 
 
@@ -3129,7 +3131,7 @@ namespace WealthERP.OnlineOrderBackOffice
                         if (dtAplRanges.Rows.Count > 0)
                         {
                             newDtAplRanges = (from DataRow dr in dtAplRanges.Rows
-                                              where dr["AIFR_IsActive"].ToString() == 1.ToString()
+                                              where dr["AIFR_IsActive"].ToString() == 1.ToString() || dr["AIFR_IsActive"].ToString() == 0.ToString()
                                               select dr).CopyToDataTable();
 
                             foreach (DataRow dr in newDtAplRanges.Rows)
@@ -3598,16 +3600,16 @@ namespace WealthERP.OnlineOrderBackOffice
                     foreach (DataRow dr in dtCategory.Rows)
                     {
 
-                           // GridDataItem gdi = rgSubCategories.Items[i];
-                            DropDownList ddlSubCategory = (DropDownList)rgSubCategories.Items[i].FindControl("ddlSubCategory");
-                            BindSubCateDDL(ddlSubCategory);
-                          //lookupId.ToString();
-                            TextBox txtSubCategoryId = ((TextBox)(rgSubCategories.Items[i].FindControl("txtSubCategoryId")));
-                            TextBox txtSubCategoryCode = ((TextBox)(rgSubCategories.Items[i].FindControl("txtSubCategoryCode")));
-                            TextBox txtMinInvestmentAmount = ((TextBox)(rgSubCategories.Items[i].FindControl("txtMinInvestmentAmount")));
-                            TextBox txtMaxInvestmentAmount = ((TextBox)(rgSubCategories.Items[i].FindControl("txtMaxInvestmentAmount")));
-                            CheckBox cbSubCategories = (CheckBox)rgSubCategories.Items[i].FindControl("cbSubCategories");
-                            cbSubCategories.Checked = true;
+                        // GridDataItem gdi = rgSubCategories.Items[i];
+                        DropDownList ddlSubCategory = (DropDownList)rgSubCategories.Items[i].FindControl("ddlSubCategory");
+                        BindSubCateDDL(ddlSubCategory);
+                        //lookupId.ToString();
+                        TextBox txtSubCategoryId = ((TextBox)(rgSubCategories.Items[i].FindControl("txtSubCategoryId")));
+                        TextBox txtSubCategoryCode = ((TextBox)(rgSubCategories.Items[i].FindControl("txtSubCategoryCode")));
+                        TextBox txtMinInvestmentAmount = ((TextBox)(rgSubCategories.Items[i].FindControl("txtMinInvestmentAmount")));
+                        TextBox txtMaxInvestmentAmount = ((TextBox)(rgSubCategories.Items[i].FindControl("txtMaxInvestmentAmount")));
+                        CheckBox cbSubCategories = (CheckBox)rgSubCategories.Items[i].FindControl("cbSubCategories");
+                        cbSubCategories.Checked = true;
 
                         if (dr["WCMV_LookupId"].ToString() != string.Empty)
                             ddlSubCategory.SelectedValue = dr["WCMV_LookupId"].ToString();
@@ -3963,12 +3965,17 @@ namespace WealthERP.OnlineOrderBackOffice
         private void CreateUpdateDeleteAplication(int fromRange, int toRange, int adviserId, int issueId, int formRangeId, string commandType)
         {
             string status = string.Empty;
-         int i=onlineNCDBackOfficeBo.GetValidateFrom(fromRange, adviserId, issueId, formRangeId, ref status);
-         if (status == "Not_Validated")
-         {
-             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Pls Use From Range Greater Than Previous Active To Range.');", true);
-             return;
-         }
+            int i = onlineNCDBackOfficeBo.GetValidateFrom(fromRange, adviserId, issueId, formRangeId, ref status);
+            if (status == "Not_Validated")
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Pls Use From Range Greater Than Previous Active To Range.');", true);
+                return;
+            }
+            else if (status == "Dont Fill")
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('You Cannot Create New Range.');", true);
+                return;
+            }
 
             i = onlineNCDBackOfficeBo.CreateUpdateDeleteAplicationNos(fromRange, toRange, adviserId, issueId, formRangeId, commandType, ref status);
             if (i > 0)
@@ -3982,7 +3989,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
                 else if (commandType == "UPDATE" & status == "DontUpdate")
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Cant Update.');", true);
-                else if (commandType == "UPDATE" & status=="To Range Updated")
+                else if (commandType == "UPDATE" & status == "To Range Updated")
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('from Range You cant Update.To Range Updated Successfully.');", true);
                 else if (commandType == "UPDATE")
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Updated Successfully.');", true);
