@@ -192,11 +192,11 @@ namespace WealthERP.Customer
                     if (customerRMVo.FirstName + " " + customerRMVo.MiddleName + " " + customerRMVo.LastName != null && (customerRMVo.FirstName + " " + customerRMVo.MiddleName + " " + customerRMVo.LastName).ToString() != "")
                         lblRM.Text = customerRMVo.FirstName + " " + customerRMVo.MiddleName + " " + customerRMVo.LastName;
                     else
-                        lblRM.Text = "";
+                        lblRM.Text = ""; 
                     if (customerVo.MaritalStatus != null)
                         ddlMaritalStatus.SelectedValue = customerVo.MaritalStatus.ToString();
                     if (ddlMaritalStatus.SelectedValue == "MA")
-                        txtMarriageDate.Enabled = true;
+                        txtMarriageDate.Enabled = true; 
                     else
                         txtMarriageDate.Enabled = false;
 
