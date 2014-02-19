@@ -479,12 +479,12 @@
                                                                             SortExpression="AIM_TradingInMultipleOf">
                                                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                                                         </telerik:GridBoundColumn>
-                                                                        <telerik:GridBoundColumn DataField="AIM_TradingInMultipleOf" HeaderStyle-Width="110px"
+                                                                        <%--<telerik:GridBoundColumn DataField="AIM_TradingInMultipleOf" HeaderStyle-Width="110px"
                                                                             HeaderText="Multiple allowed" CurrentFilterFunction="Contains" ShowFilterIcon="false"
                                                                             AutoPostBackOnFilter="true" UniqueName="AIM_TradingInMultipleOf" Visible="true"
                                                                             SortExpression="AIM_TradingInMultipleOf">
                                                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
-                                                                        </telerik:GridBoundColumn>
+                                                                        </telerik:GridBoundColumn>--%>
                                                                     </Columns>
                                                                 </MasterTableView>
                                                             </telerik:RadGrid>
