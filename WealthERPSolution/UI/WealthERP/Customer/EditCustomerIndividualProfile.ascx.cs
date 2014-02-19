@@ -66,7 +66,7 @@ namespace WealthERP.Customer
         string relCode = string.Empty;
         string viewForm = string.Empty;
         int requestNo = 0;
-        
+
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -74,8 +74,7 @@ namespace WealthERP.Customer
             txtLivingSince_CompareValidator.ValueToCompare = DateTime.Now.ToShortDateString();
             cvJobStartDate.ValueToCompare = DateTime.Now.ToShortDateString();
             //txtMarriageDate_CompareValidator.ValueToCompare = DateTime.Now.ToShortDateString();
-            //Session["profile"] = "ddlCustomerSubType";
-            //viewForm = Session["profile"].ToString();
+
             try
             {
                 SessionBo.CheckSession();
@@ -117,7 +116,7 @@ namespace WealthERP.Customer
                     {
                         viewForm = Session["action"].ToString();
                         SetControlstate(viewForm);
-                       
+
                     }
                 }
                 if (!IsPostBack)
@@ -130,12 +129,12 @@ namespace WealthERP.Customer
                         else if (viewForm == "View")
                             SetControlstate("View");
                     }
-                    
+
                     BindCustomerISAAccountGrid();
                     //trNewISAAccountSection.Visible = false;
                     lblPanDuplicate.Visible = false;
-                   
-                        //"None";
+
+                    //"None";
                     if (customerVo.SubType != "NRI")
                     {
                         txtRBIRefDate.Visible = false;
@@ -167,6 +166,7 @@ namespace WealthERP.Customer
                     //Bind Adviser Branch List
 
                     BindListBranch(customerVo.RmId, "rm");
+                    //sai    ddlCustomerSubType.SelectedValue = customerVo.TaxStatusCustomerSubTypeId.ToString();
 
                     if (customerVo.Type.ToUpper().ToString() == "IND")
                     {
@@ -178,9 +178,6 @@ namespace WealthERP.Customer
                         rbtnNonIndividual.Checked = true;
                         BinSubtypeDropdown(1002);
                     }
-                    int subtypeCode = customerBo.GetCustomerSubType(customerVo.CustomerId);
-                        if(subtypeCode>0)
-                    ddlCustomerSubType.SelectedValue = subtypeCode.ToString();
                     if (customerVo.Gender.ToUpper().ToString() == "M")
                     {
                         rbtnMale.Checked = true;
@@ -189,7 +186,7 @@ namespace WealthERP.Customer
                     {
                         rbtnFemale.Checked = true;
                     }
-                    
+
                     ddlAdviserBranchList.SelectedValue = customerVo.BranchId.ToString();
                     customerRMVo = adviserStaffBo.GetAdvisorStaffDetails(customerVo.RmId);
                     if (customerRMVo.FirstName + " " + customerRMVo.MiddleName + " " + customerRMVo.LastName != null && (customerRMVo.FirstName + " " + customerRMVo.MiddleName + " " + customerRMVo.LastName).ToString() != "")
@@ -209,7 +206,7 @@ namespace WealthERP.Customer
                         txtMarriageDate.SelectedDate = customerVo.MarriageDate;
                     if (customerVo.Nationality != null)
                         ddlNationality.SelectedValue = customerVo.Nationality.ToString();
-                    if (customerVo.OccupationId!=0)
+                    if (customerVo.OccupationId != 0)
                         ddlOccupation.SelectedValue = customerVo.OccupationId.ToString();
                     if (customerVo.Qualification != null)
                         ddlQualification.SelectedValue = customerVo.Qualification.ToString();
@@ -350,10 +347,10 @@ namespace WealthERP.Customer
                     else
                         chkKYC.Checked = false;
 
-             RadTabStripCustomerProfile.TabIndex = 0;
-            //RadTabStripFPGoalDetails.SelectedTab.Enabled = true;
-            CustomerProfileDetails.SelectedIndex = 0;
-            RadTabStripCustomerProfile.Tabs[0].Selected = true;
+                    RadTabStripCustomerProfile.TabIndex = 0;
+                    //RadTabStripFPGoalDetails.SelectedTab.Enabled = true;
+                    CustomerProfileDetails.SelectedIndex = 0;
+                    RadTabStripCustomerProfile.Tabs[0].Selected = true;
 
                 }
 
@@ -386,11 +383,10 @@ namespace WealthERP.Customer
             {
                 btnGetSlab.Enabled = false;
                 btnEdit.Visible = false;
-               
                 gvFamilyAssociate.MasterTableView.CommandItemDisplay = GridCommandItemDisplay.None;
                 gvISAAccountList.MasterTableView.CommandItemDisplay = GridCommandItemDisplay.None;
                 gvBankDetails.MasterTableView.CommandItemDisplay = GridCommandItemDisplay.None;
-                
+
             }
             else if (action == "Edit")
             {
@@ -465,11 +461,11 @@ namespace WealthERP.Customer
         //    }
         //}
 
-        
+
         private void BindDropDowns()
         {
             AdvisorVo advisorVo = new AdvisorVo();
-            
+
             try
             {
                 dtMaritalStatus = XMLBo.GetMaritalStatus(path);
@@ -486,14 +482,14 @@ namespace WealthERP.Customer
                 ddlNationality.DataBind();
                 ddlNationality.Items.Insert(0, new ListItem("Select a Nationality", "Select a Nationality"));
 
-                dtOccupation = commonLookupBo.GetWERPLookupMasterValueList(2000, 0);
-                ddlCustomerSubType.DataSource = dtOccupation;
-                ddlCustomerSubType.DataTextField = "WCMV_Name";
-                ddlCustomerSubType.DataValueField = "WCMV_LookupId";
-                ddlCustomerSubType.DataBind();
-                ddlCustomerSubType.Items.Insert(0, new ListItem("--SELECT--", "0"));
+                //dtOccupation = commonLookupBo.GetWERPLookupMasterValueList(2000, 0);
+                //ddlCustomerSubType.DataSource = dtOccupation;
+                //ddlCustomerSubType.DataTextField = "WCMV_Name";
+                //ddlCustomerSubType.DataValueField = "WCMV_LookupId";
+                //ddlCustomerSubType.DataBind();
+                //ddlCustomerSubType.Items.Insert(0, new ListItem("--SELECT--", "0"));
 
-               
+
                 dtOccupation = commonLookupBo.GetWERPLookupMasterValueList(3000, 0); ;
                 ddlOccupation.DataSource = dtOccupation;
                 ddlOccupation.DataTextField = "WCMV_Name";
@@ -528,7 +524,7 @@ namespace WealthERP.Customer
                 ddlOfcAdrState.DataBind();
                 ddlOfcAdrState.Items.Insert(0, new ListItem("--SELECT--", "0"));
 
-                dtCity=commonLookupBo.GetWERPLookupMasterValueList(8000, 0);
+                dtCity = commonLookupBo.GetWERPLookupMasterValueList(8000, 0);
 
                 ddlOfcAdrCity.DataSource = dtCity;
                 ddlOfcAdrCity.DataTextField = "WCMV_Name";
@@ -552,13 +548,11 @@ namespace WealthERP.Customer
                 if (customerVo.Type.ToUpper().ToString() == "IND")
                 {
                     dtCustomerSubType = XMLBo.GetCustomerSubType(path, "IND");
-                    BinSubtypeDropdown(1001);
 
                 }
                 else
                 {
                     dtCustomerSubType = XMLBo.GetCustomerSubType(path, "NIND");
-                    BinSubtypeDropdown(1002);
                 }
                 //ddlCustomerSubType.DataSource = dtCustomerSubType;
                 //ddlCustomerSubType.DataTextField = "CustomerTypeName";
@@ -566,7 +560,7 @@ namespace WealthERP.Customer
                 //ddlCustomerSubType.DataBind();
 
 
-              //  ddlCustomerSubType.SelectedValue = customerVo.SubType;
+                //sai  ddlCustomerSubType.SelectedValue = customerVo.SubType;
 
             }
             catch (BaseApplicationException Ex)
@@ -638,7 +632,7 @@ namespace WealthERP.Customer
 
 
                     //customerVo.SubType = ddlCustomerSubType.SelectedItem.Value.ToString();
-                    customerVo.TaxStatusCustomerSubTypeId =Int16.Parse(ddlCustomerSubType.SelectedItem.Value.ToString());
+                    customerVo.TaxStatusCustomerSubTypeId = Int16.Parse(ddlCustomerSubType.SelectedItem.Value.ToString());
                     customerVo.IsRealInvestor = chkRealInvestor.Checked;
 
                     if (customerVo.SubType == "MNR")
@@ -655,7 +649,7 @@ namespace WealthERP.Customer
                     if (txtProfilingDate.SelectedDate == null)
                         customerVo.ProfilingDate = DateTime.MinValue;
                     else
-                        customerVo.ProfilingDate =Convert.ToDateTime(txtProfilingDate.SelectedDate);
+                        customerVo.ProfilingDate = Convert.ToDateTime(txtProfilingDate.SelectedDate);
                     customerVo.PANNum = txtPanNumber.Text;
 
                     customerVo.CustCode = txtCustomerCode.Text.Trim();
@@ -670,11 +664,11 @@ namespace WealthERP.Customer
                     else
                         customerVo.Adr1PinCode = int.Parse(txtCorrAdrPinCode.Text);
                     //customerVo.Adr1City = txtCorrAdrCity.Text;
-                    customerVo.CorrespondenceCityId =int.Parse(ddlCorrAdrCity.SelectedValue);
+                    customerVo.CorrespondenceCityId = int.Parse(ddlCorrAdrCity.SelectedValue);
                     //if (ddlCorrAdrState.SelectedIndex == 0)
                     //    customerVo.Adr1State = "";
                     //else
-                        customerVo.CorrespondenceStateId = int.Parse(ddlCorrAdrState.SelectedValue.ToString());
+                    customerVo.CorrespondenceStateId = int.Parse(ddlCorrAdrState.SelectedValue.ToString());
 
                     customerVo.Adr1Country = txtCorrAdrCountry.Text.ToString();
                     customerVo.Adr2Line1 = txtPermAdrLine1.Text.ToString();
@@ -689,7 +683,7 @@ namespace WealthERP.Customer
                     //if (ddlPermAdrState.SelectedIndex == 0)
                     //    customerVo.Adr2State = "";
                     //else
-                       customerVo.PermanentStateId =int.Parse(ddlPermAdrState.SelectedValue.ToString());
+                    customerVo.PermanentStateId = int.Parse(ddlPermAdrState.SelectedValue.ToString());
 
                     customerVo.Adr2Country = txtPermAdrCountry.Text.ToString();
                     customerVo.OfcAdrLine1 = txtOfcAdrLine1.Text.ToString();
@@ -705,7 +699,7 @@ namespace WealthERP.Customer
                     //if (ddlOfcAdrState.SelectedIndex == 0)
                     //    customerVo.OfcAdrState = "";
                     //else
-                     customerVo.OfficeStateId =int.Parse(ddlOfcAdrState.SelectedValue.ToString());
+                    customerVo.OfficeStateId = int.Parse(ddlOfcAdrState.SelectedValue.ToString());
 
                     customerVo.OfcAdrCountry = txtOfcAdrCountry.Text.ToString();
 
@@ -817,7 +811,7 @@ namespace WealthERP.Customer
                     //if (ddlOccupation.SelectedIndex == 0)
                     //    customerVo.Occupation = null;
                     //else
-                        customerVo.OccupationId = int.Parse(ddlOccupation.SelectedItem.Value.ToString());
+                    customerVo.OccupationId = int.Parse(ddlOccupation.SelectedItem.Value.ToString());
 
                     if (chkdummypan.Checked)
                     {
@@ -917,7 +911,7 @@ namespace WealthERP.Customer
                         customerVo = customerBo.GetCustomer(customerVo.CustomerId);
                         Session["CustomerVo"] = customerVo;
                         Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Profile updated Succesfully');", true);
-                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), "CloseThePopUp", " CloseWindowsPopUp();", true); 
+                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), "CloseThePopUp", " CloseWindowsPopUp();", true);
                         if (customerVo.Type.ToUpper().ToString() == "IND")
                         {
                             //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('ViewCustomerIndividualProfile','none');", true);
@@ -959,10 +953,10 @@ namespace WealthERP.Customer
                 if (customerBo.PANNumberDuplicateCheck(adviserId, txtPanNumber.Text.ToString(), customerVo.CustomerId))
                 {
                     result = false;
-                    lblPanDuplicate.Visible = true;                   
+                    lblPanDuplicate.Visible = true;
                 }
                 else
-                {                  
+                {
                     lblPanDuplicate.Visible = false;
                 }
             }
@@ -1004,13 +998,13 @@ namespace WealthERP.Customer
                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "PageLoadScript", "loadcontrol('EditCustomerIndividualProfile','none');", true);
             }
         }
-        
+
         private void BinSubtypeDropdown(int parentId)
         {
             DataTable dt = new DataTable();
             // dtOccupation = commonLookupBo.GetWERPLookupMasterValueList(2000, 1002);
             dt = commonLookupBo.GetWERPLookupMasterValueList(2000, parentId);
-            //ddlCustomerSubType.Items.Clear();
+            ddlCustomerSubType.Items.Clear();
             //  dtCustomerSubType = XMLBo.GetCustomerSubType(path, "NIND");
             // ddlCustomerSubType.DataSource = dtCustomerSubType;
             ddlCustomerSubType.DataSource = dt;
@@ -1024,8 +1018,8 @@ namespace WealthERP.Customer
             //dtOccupation = commonLookupBo.GetWERPLookupMasterValueList(2000, 1002);
             dt = commonLookupBo.GetWERPLookupMasterValueList(2000, 1002);
 
-           // ddlCustomerSubType.Items.Clear();
-          //  dtCustomerSubType = XMLBo.GetCustomerSubType(path, "NIND");
+            // ddlCustomerSubType.Items.Clear();
+            //  dtCustomerSubType = XMLBo.GetCustomerSubType(path, "NIND");
             //ddlCustomerSubType.DataSource = null;
             ddlCustomerSubType.DataSource = dt;
             ddlCustomerSubType.DataTextField = "WCMV_Name";
@@ -1253,8 +1247,8 @@ namespace WealthERP.Customer
                 trNewCustHeader.Visible = true;
                 trNewCustomer.Visible = true;
                 chkbisRealInvestor.Visible = true;
-                chkKy1.Visible =true;
-                
+                chkKy1.Visible = true;
+
 
             }
         }
@@ -1309,23 +1303,23 @@ namespace WealthERP.Customer
 
         protected void txtCustomerId_ValueChanged(object sender, EventArgs e)
         {
-            
+
             if (txtCustomerId.Value != string.Empty)
             {
-                    //TextBox txtpan = (TextBox)item.FindControl("txtPan");
-                    DataTable dt = customerBo.GetCustomerPanAddress(int.Parse(txtCustomerId.Value));
-                    DataRow dr = dt.Rows[0];
-        
-                    hdnPannum.Value = dr["C_PANNum"].ToString();
-                 ScriptManager.RegisterStartupScript(Page, Page.GetType(), "CustomerSearchPannumfbgf", "DisplayPanId('" + hdnPannum.Value + "');", true);
-                    
-               }
-                                   
-                
-               
-                
+                //TextBox txtpan = (TextBox)item.FindControl("txtPan");
+                DataTable dt = customerBo.GetCustomerPanAddress(int.Parse(txtCustomerId.Value));
+                DataRow dr = dt.Rows[0];
 
-            
+                hdnPannum.Value = dr["C_PANNum"].ToString();
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), "CustomerSearchPannumfbgf", "DisplayPanId('" + hdnPannum.Value + "');", true);
+
+            }
+
+
+
+
+
+
         }
 
         //protected void btnSubmit_Click(object sender, EventArgs e)
@@ -1403,7 +1397,7 @@ namespace WealthERP.Customer
         //}
 
         #region unused
-        
+
         //protected void btnImgAddCustomer_Click(object sender, ImageClickEventArgs e)
         //{
 
@@ -1437,7 +1431,7 @@ namespace WealthERP.Customer
                 {
                     gvISAAccountList.MasterTableView.CommandItemDisplay = GridCommandItemDisplay.None;
 
-                    
+
                 }
                 else
                 {
@@ -1587,7 +1581,7 @@ namespace WealthERP.Customer
 
 
                 GridEditableItem editedItem = Button.NamingContainer as GridEditableItem;
-              
+
 
                 RadioButton rbtnYes = editedItem.FindControl("rbtnYes") as RadioButton;
                 RadioButton rbtnNo = editedItem.FindControl("rbtnNo") as RadioButton;
@@ -1600,7 +1594,7 @@ namespace WealthERP.Customer
                 //BindCustomerISAAccountGrid();
                 btnGenerateISA.Visible = false;
                 rbtnNo.Checked = true;
-               
+
                 if (rbtnYes.Checked)
                     customerISAAccountsVo.IsJointHolding = true;
                 else
@@ -1611,7 +1605,7 @@ namespace WealthERP.Customer
                     customerISAAccountsVo.IsOperatedByPOA = true;
                 else
                     customerISAAccountsVo.IsOperatedByPOA = false;
-                int accountId=Convert.ToInt32(Session["IsaAccountId"]);
+                int accountId = Convert.ToInt32(Session["IsaAccountId"]);
                 customerISAAccountsVo.ISAAccountId = accountId;
 
                 IsISAUpdated = customerAccountBo.UpdateCustomerISAAccount(customerISAAccountsVo);
@@ -1635,7 +1629,7 @@ namespace WealthERP.Customer
 
 
                 }
-                if(associationIdsNominee!="")
+                if (associationIdsNominee != "")
                     customerAccountBo.UpdateISAAccountAssociation(customerISAAccountsVo, associationIdsNominee);
 
                 foreach (GridViewRow gvr in gvNominees.Rows)
@@ -1650,7 +1644,7 @@ namespace WealthERP.Customer
                     }
                 }
 
-                if(associationIdsForJH!="")
+                if (associationIdsForJH != "")
                     customerAccountBo.UpdateISAAccountAssociation(customerISAAccountsVo, associationIdsForJH);
 
                 JointHolderHeading.Visible = false;
@@ -1660,7 +1654,7 @@ namespace WealthERP.Customer
                 btnGenerateISA.Visible = false;
                 rbtnNo.Checked = true;
                 editedItem.OwnerTableView.ClearEditItems();
-                editedItem.OwnerTableView.OwnerGrid.Rebind(); 
+                editedItem.OwnerTableView.OwnerGrid.Rebind();
             }
 
             catch (BaseApplicationException Ex)
@@ -1695,7 +1689,7 @@ namespace WealthERP.Customer
                 Button Button = (Button)sender;
 
                 GridEditableItem editedItem = Button.NamingContainer as GridEditableItem;
-                editedItem.OwnerTableView.IsItemInserted = false;  
+                editedItem.OwnerTableView.IsItemInserted = false;
                 RadioButton rbtnYes = editedItem.FindControl("rbtnYes") as RadioButton;
                 RadioButton rbtnNo = editedItem.FindControl("rbtnNo") as RadioButton;
                 RadioButton rbtnPOAYes = editedItem.FindControl("rbtnPOAYes") as RadioButton;
@@ -1722,8 +1716,8 @@ namespace WealthERP.Customer
                 GridView gvJointHoldersList = editedItem.FindControl("gvJointHoldersList") as GridView;
                 GridView gvNominees = editedItem.FindControl("gvNominees") as GridView;
                 //Check ISA Account Combination 
-                
-                customerISAAccountsVo.ISAAccountId = customerAccountBo.CreateCustomerISAAccount(customerISAAccountsVo, customerVo.CustomerId, userVo.UserId,int.Parse(hdnRequestId.Value));
+
+                customerISAAccountsVo.ISAAccountId = customerAccountBo.CreateCustomerISAAccount(customerISAAccountsVo, customerVo.CustomerId, userVo.UserId, int.Parse(hdnRequestId.Value));
 
                 foreach (GridViewRow gvr in gvJointHoldersList.Rows)
                 {
@@ -1811,77 +1805,77 @@ namespace WealthERP.Customer
                 dtCustomerBankAccountList = customerBankAccountBo.GetCustomerIndividualBankDetails(customerVo.CustomerId).Tables[0];
                 //if (customerBankAccountList.Count != 0)
                 //{
-                    //DataTable dtCustomerBankAccounts = new DataTable();
-                    //dtCustomerBankAccounts.Columns.Add("CB_CustBankAccId");
-                    //dtCustomerBankAccounts.Columns.Add("CB_BankName");
-                    //dtCustomerBankAccounts.Columns.Add("CB_BranchName");
-                    //dtCustomerBankAccounts.Columns.Add("XBAT_BankAccountTypeCode");
-                    //dtCustomerBankAccounts.Columns.Add("XMOH_ModeOfHoldingCode");
-                    //dtCustomerBankAccounts.Columns.Add("CB_AccountNum");
+                //DataTable dtCustomerBankAccounts = new DataTable();
+                //dtCustomerBankAccounts.Columns.Add("CB_CustBankAccId");
+                //dtCustomerBankAccounts.Columns.Add("CB_BankName");
+                //dtCustomerBankAccounts.Columns.Add("CB_BranchName");
+                //dtCustomerBankAccounts.Columns.Add("XBAT_BankAccountTypeCode");
+                //dtCustomerBankAccounts.Columns.Add("XMOH_ModeOfHoldingCode");
+                //dtCustomerBankAccounts.Columns.Add("CB_AccountNum");
 
 
-                    //dtCustomerBankAccounts.Columns.Add("CB_BranchAdrLine1");
-                    //dtCustomerBankAccounts.Columns.Add("CB_BranchAdrLine2");
-                    //dtCustomerBankAccounts.Columns.Add("CB_BranchAdrLine3");
-                    //dtCustomerBankAccounts.Columns.Add("CB_BranchAdrPinCode");
-                    //dtCustomerBankAccounts.Columns.Add("CB_BranchAdrCity");
-                    //dtCustomerBankAccounts.Columns.Add("CB_BranchAdrState");
-                    //dtCustomerBankAccounts.Columns.Add("CB_BranchAdrCountry");
-                    //dtCustomerBankAccounts.Columns.Add("CB_MICR");
-                    //dtCustomerBankAccounts.Columns.Add("CB_IFSC");
+                //dtCustomerBankAccounts.Columns.Add("CB_BranchAdrLine1");
+                //dtCustomerBankAccounts.Columns.Add("CB_BranchAdrLine2");
+                //dtCustomerBankAccounts.Columns.Add("CB_BranchAdrLine3");
+                //dtCustomerBankAccounts.Columns.Add("CB_BranchAdrPinCode");
+                //dtCustomerBankAccounts.Columns.Add("CB_BranchAdrCity");
+                //dtCustomerBankAccounts.Columns.Add("CB_BranchAdrState");
+                //dtCustomerBankAccounts.Columns.Add("CB_BranchAdrCountry");
+                //dtCustomerBankAccounts.Columns.Add("CB_MICR");
+                //dtCustomerBankAccounts.Columns.Add("CB_IFSC");
 
-                    //dtCustomerBankAccounts.Columns.Add("BankAccountTypeCode");
-                    //dtCustomerBankAccounts.Columns.Add("ModeOfHoldingCode");
+                //dtCustomerBankAccounts.Columns.Add("BankAccountTypeCode");
+                //dtCustomerBankAccounts.Columns.Add("ModeOfHoldingCode");
 
-                    //DataRow drCustomerBankAccount;
-                    //for (int i = 0; i < customerBankAccountList.Count; i++)
-                    //{
-                    //    drCustomerBankAccount = dtCustomerBankAccounts.NewRow();
-                    //    customerBankAccountVo = new CustomerBankAccountVo();
-                    //    customerBankAccountVo = customerBankAccountList[i];
-                    //    drCustomerBankAccount[0] = customerBankAccountVo.CustBankAccId.ToString();
-                    //    drCustomerBankAccount[1] = customerBankAccountVo.WERPBMBankName.ToString();
-                    //    drCustomerBankAccount[2] = customerBankAccountVo.BranchName.ToString();
-                    //    drCustomerBankAccount[3] = customerBankAccountVo.AccountType.ToString();
-                    //    drCustomerBankAccount[4] = customerBankAccountVo.ModeOfOperation.ToString();
-                    //    drCustomerBankAccount[5] = customerBankAccountVo.BankAccountNum.ToString();
+                //DataRow drCustomerBankAccount;
+                //for (int i = 0; i < customerBankAccountList.Count; i++)
+                //{
+                //    drCustomerBankAccount = dtCustomerBankAccounts.NewRow();
+                //    customerBankAccountVo = new CustomerBankAccountVo();
+                //    customerBankAccountVo = customerBankAccountList[i];
+                //    drCustomerBankAccount[0] = customerBankAccountVo.CustBankAccId.ToString();
+                //    drCustomerBankAccount[1] = customerBankAccountVo.WERPBMBankName.ToString();
+                //    drCustomerBankAccount[2] = customerBankAccountVo.BranchName.ToString();
+                //    drCustomerBankAccount[3] = customerBankAccountVo.AccountType.ToString();
+                //    drCustomerBankAccount[4] = customerBankAccountVo.ModeOfOperation.ToString();
+                //    drCustomerBankAccount[5] = customerBankAccountVo.BankAccountNum.ToString();
 
-                    //    if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrLine1))
-                    //        drCustomerBankAccount[6] = customerBankAccountVo.BranchAdrLine1.ToString();
-                    //    if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrLine2))
-                    //        drCustomerBankAccount[7] = customerBankAccountVo.BranchAdrLine2.ToString();
-                    //    if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrLine3))
-                    //        drCustomerBankAccount[8] = customerBankAccountVo.BranchAdrLine3.ToString();
-                    //    if (customerBankAccountVo.BranchAdrPinCode != 0)
-                    //        drCustomerBankAccount["CB_BranchAdrPinCode"] = customerBankAccountVo.BranchAdrPinCode.ToString();
-                    //    if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrCity))
-                    //        drCustomerBankAccount[10] = customerBankAccountVo.BranchAdrCity.ToString();
+                //    if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrLine1))
+                //        drCustomerBankAccount[6] = customerBankAccountVo.BranchAdrLine1.ToString();
+                //    if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrLine2))
+                //        drCustomerBankAccount[7] = customerBankAccountVo.BranchAdrLine2.ToString();
+                //    if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrLine3))
+                //        drCustomerBankAccount[8] = customerBankAccountVo.BranchAdrLine3.ToString();
+                //    if (customerBankAccountVo.BranchAdrPinCode != 0)
+                //        drCustomerBankAccount["CB_BranchAdrPinCode"] = customerBankAccountVo.BranchAdrPinCode.ToString();
+                //    if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrCity))
+                //        drCustomerBankAccount[10] = customerBankAccountVo.BranchAdrCity.ToString();
 
-                    //    if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrState))
-                    //        drCustomerBankAccount[11] = customerBankAccountVo.BranchAdrState.ToString();
-                    //    if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrCountry))
-                    //        drCustomerBankAccount[12] = customerBankAccountVo.BranchAdrCountry.ToString();
-                    //    if (customerBankAccountVo.MICR != 0)
-                    //        drCustomerBankAccount["CB_MICR"] = customerBankAccountVo.MICR.ToString();
-                    //    if (!string.IsNullOrEmpty(customerBankAccountVo.IFSC))
-                    //        drCustomerBankAccount[14] = customerBankAccountVo.IFSC.ToString();
-                    //    drCustomerBankAccount[15] = customerBankAccountVo.AccountTypeCode.ToString();
-                    //    drCustomerBankAccount[16] = customerBankAccountVo.ModeOfOperationCode.ToString();
-                    //    dtCustomerBankAccounts.Rows.Add(drCustomerBankAccount);
-                    //}
+                //    if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrState))
+                //        drCustomerBankAccount[11] = customerBankAccountVo.BranchAdrState.ToString();
+                //    if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrCountry))
+                //        drCustomerBankAccount[12] = customerBankAccountVo.BranchAdrCountry.ToString();
+                //    if (customerBankAccountVo.MICR != 0)
+                //        drCustomerBankAccount["CB_MICR"] = customerBankAccountVo.MICR.ToString();
+                //    if (!string.IsNullOrEmpty(customerBankAccountVo.IFSC))
+                //        drCustomerBankAccount[14] = customerBankAccountVo.IFSC.ToString();
+                //    drCustomerBankAccount[15] = customerBankAccountVo.AccountTypeCode.ToString();
+                //    drCustomerBankAccount[16] = customerBankAccountVo.ModeOfOperationCode.ToString();
+                //    dtCustomerBankAccounts.Rows.Add(drCustomerBankAccount);
+                //}
 
-                    if (Cache["gvDetailsForBank" + userVo.UserId + customerVo.CustomerId] == null)
-                    {
-                        Cache.Insert("gvDetailsForBank" + userVo.UserId + customerVo.CustomerId, dtCustomerBankAccountList);
-                    }
-                    else
-                    {
-                        Cache.Remove("gvDetailsForBank" + userVo.UserId + customerVo.CustomerId);
-                        Cache.Insert("gvDetailsForBank" + userVo.UserId + customerVo.CustomerId, dtCustomerBankAccountList);
-                    }
-                    gvBankDetails.DataSource = dtCustomerBankAccountList;
-                    gvBankDetails.DataBind();
-                    gvBankDetails.Visible = true;
+                if (Cache["gvDetailsForBank" + userVo.UserId + customerVo.CustomerId] == null)
+                {
+                    Cache.Insert("gvDetailsForBank" + userVo.UserId + customerVo.CustomerId, dtCustomerBankAccountList);
+                }
+                else
+                {
+                    Cache.Remove("gvDetailsForBank" + userVo.UserId + customerVo.CustomerId);
+                    Cache.Insert("gvDetailsForBank" + userVo.UserId + customerVo.CustomerId, dtCustomerBankAccountList);
+                }
+                gvBankDetails.DataSource = dtCustomerBankAccountList;
+                gvBankDetails.DataBind();
+                gvBankDetails.Visible = true;
                 //}
                 //else
                 //{
@@ -2021,7 +2015,7 @@ namespace WealthERP.Customer
                 customerBankAccountVo.BranchAdrLine1 = txtBankAdrLine1.Text.ToString();
                 customerBankAccountVo.BranchAdrLine2 = txtBankAdrLine2.Text.ToString();
                 customerBankAccountVo.BranchAdrLine3 = txtBankAdrLine3.Text.ToString();
-               
+
                 if (txtBankAdrPinCode.Text.ToString() != "")
                     customerBankAccountVo.BranchAdrPinCode = int.Parse(txtBankAdrPinCode.Text.ToString());
                 customerBankAccountVo.BranchAdrCity = txtBankAdrCity.Text.ToString();
@@ -2029,7 +2023,7 @@ namespace WealthERP.Customer
                     customerBankAccountVo.BranchAdrState = ddlBankAdrState.SelectedValue.ToString();
                 customerBankAccountVo.BranchAdrCountry = "India";
                 //if (txtMicr.Text.ToString() != "")
-                   // customerBankAccountVo.MICR =txtMicr.Text.ToString();
+                // customerBankAccountVo.MICR =txtMicr.Text.ToString();
                 customerBankAccountVo.IFSC = txtIfsc.Text.ToString();
                 customerBankAccountVo.Balance = 0;
                 //customerBankAccountVo.Balance = long.Parse(txtBalance.Text.ToString());
@@ -2070,13 +2064,13 @@ namespace WealthERP.Customer
             }
             if (e.CommandName == "Edit")
             {
-                bankId = int.Parse(gvBankDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CB_CustBankAccId"].ToString());               
+                bankId = int.Parse(gvBankDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CB_CustBankAccId"].ToString());
                 //customerBankAccountVo = customerBankAccountBo.GetCusomerIndBankAccount(bankId);
                 //Session["customerBankAccountVo"+customerVo.CustomerId] = customerBankAccountVo;
                 //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AddBankAccount", "loadcontrol('PopUp.aspx','?action=" + "View" + "&bankId=" + bankId + "');", true);
 
                 Response.Write("<script type='text/javascript'>detailedresults= window.open('PopUp.aspx?PageId=AddBankAccount&bankId=" + bankId + "&action=" + "View" + "', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no');</script>");
-             // return;
+                // return;
             }
             BindBankDetails(customerId);
         }
@@ -2104,7 +2098,7 @@ namespace WealthERP.Customer
                     ddlMemberBranch.Enabled = false;
                     trCustomerTypeSelection.Visible = false;
                 }
-               
+
 
 
             }
@@ -2160,12 +2154,12 @@ namespace WealthERP.Customer
             }
             if (e.Item is GridDataItem)
             {
-                    GridDataItem dataItem = e.Item as GridDataItem;
-                    LinkButton buttonEdit = dataItem["editColumn"].Controls[0] as LinkButton;
-                    if (viewForm == "View")
-                        buttonEdit.Visible = false;
-                    else if (viewForm == "Edit")
-                        buttonEdit.Visible = true;
+                GridDataItem dataItem = e.Item as GridDataItem;
+                LinkButton buttonEdit = dataItem["editColumn"].Controls[0] as LinkButton;
+                if (viewForm == "View")
+                    buttonEdit.Visible = false;
+                else if (viewForm == "Edit")
+                    buttonEdit.Visible = true;
             }
             string strRelationshipCode = string.Empty;
             if (e.Item is GridEditFormItem && e.Item.IsInEditMode && e.Item.ItemIndex != -1)
@@ -2177,7 +2171,7 @@ namespace WealthERP.Customer
                 int iskyc = int.Parse(gvFamilyAssociate.MasterTableView.DataKeyValues[e.Item.ItemIndex]["C_IsKYCAvailable"].ToString());
                 bool irealInvestor = bool.Parse(gvFamilyAssociate.MasterTableView.DataKeyValues[e.Item.ItemIndex]["C_IsRealInvestor"].ToString());
                 CheckBox chkycinside = (CheckBox)e.Item.FindControl("chKInsideKyc");
-                 CheckBox chkbisRealInvestor = (CheckBox)e.Item.FindControl("chkIsinvestmem");
+                CheckBox chkbisRealInvestor = (CheckBox)e.Item.FindControl("chkIsinvestmem");
                 if (iskyc == 1)
                     chkycinside.Checked = true;
                 if (irealInvestor)
@@ -2286,16 +2280,16 @@ namespace WealthERP.Customer
         {
             int associateCustomerId;
             CustomerBo customerBo = new CustomerBo();
-            TextBox txtNewMemPan = (TextBox)e.Item.FindControl("txtNewPan"); 
-           if (e.CommandName == RadGrid.UpdateCommandName)
+            TextBox txtNewMemPan = (TextBox)e.Item.FindControl("txtNewPan");
+            if (e.CommandName == RadGrid.UpdateCommandName)
             {
-               
+
                 bool isUpdated = false;
-                bool isrealInvestor=false;
-                int iskyc =0;
+                bool isrealInvestor = false;
+                int iskyc = 0;
                 string relationCode = string.Empty;
                 GridEditableItem gridEditableItem = (GridEditableItem)e.Item;
-                gridEditableItem.OwnerTableView.IsItemInserted = false; 
+                gridEditableItem.OwnerTableView.IsItemInserted = false;
                 int AssociationId = int.Parse(gvFamilyAssociate.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CA_AssociationId"].ToString());
                 int cutomerid = int.Parse(gvFamilyAssociate.MasterTableView.DataKeyValues[e.Item.ItemIndex]["C_AssociateCustomerId"].ToString());
                 Button Button3 = (Button)e.Item.FindControl("Button3");
@@ -2303,10 +2297,11 @@ namespace WealthERP.Customer
                 CheckBox chkIsrealInvestorMem = (CheckBox)e.Item.FindControl("chkIsinvestmem");
                 CheckBox chkycinside = (CheckBox)e.Item.FindControl("chKInsideKyc");
                 CheckBox chkycinside1 = (CheckBox)e.Item.FindControl("chKInsideKyc1");
+                
                 if (chkIsrealInvestorMem.Checked)
                     isrealInvestor = true;
                 if (chkycinside.Checked)
-                    iskyc=1;
+                    iskyc = 1;
                 if (Button3.Visible == true)
                 {
                     TextBox txtMember = (TextBox)e.Item.FindControl("txtMember");
@@ -2318,7 +2313,7 @@ namespace WealthERP.Customer
                     //lblGetPan.Visible = false;
                     relationCode = ddlRelation.SelectedValue;
                     chkycinside.Visible = false;
-                   
+
 
                 }
                 else if (Button1.Visible == true)
@@ -2339,6 +2334,7 @@ namespace WealthERP.Customer
                 }
                 else
                 {
+
                     isUpdated = customerBo.UpdateMemberRelation(AssociationId, relationCode, isrealInvestor,iskyc);
                 }
             }
@@ -2354,40 +2350,40 @@ namespace WealthERP.Customer
                 Button Button1 = (Button)e.Item.FindControl("Button1");
 
                 gridEditableItem.OwnerTableView.IsItemInserted = false;
-                
+
                 if (Button1.Visible == true)
                 {
-                   
-                        customerNewVo.RmId = customerVo.RmId;
-                        customerNewVo.BranchId = customerVo.BranchId;
-                        customerNewVo.Type = "IND";
-                        TextBox txtNewMemName = (TextBox)e.Item.FindControl("txtNewName");
-                        //TextBox txtNewMemPan = (TextBox)e.Item.FindControl("txtNewPan");
-                        CheckBox chkIsrealInvestorMem = (CheckBox)e.Item.FindControl("isRealInvestormem");
-                        CheckBox chkycinside = (CheckBox)e.Item.FindControl("chKInsideKyc1");
-                        CheckBox chkycinside1 = (CheckBox)e.Item.FindControl("chKInsideKyc");
-                        DropDownList ddlNewMemRel = (DropDownList)e.Item.FindControl("ddlNewRelationship");
-                        customerNewVo.FirstName = txtNewMemName.Text;
-                        customerNewVo.PANNum = txtNewMemPan.Text;
-                        chkycinside1.Visible = false;
-                        if (chkIsrealInvestorMem.Checked)
-                        {
-                            customerNewVo.IsRealInvestor = true;
-                        }
-                        else
-                        {
-                            customerNewVo.IsRealInvestor = false;
-                        }
-                        if (chkycinside.Checked)
-                        {
-                            customerNewVo.MfKYC = 1; 
-                        }
-                        else
-                        {
-                            customerNewVo.MfKYC = 0;
-                        }
-                        if (!customerBo.PANNumberDuplicateChild(advisorVo.advisorId, customerNewVo.PANNum))
-                        {
+
+                    customerNewVo.RmId = customerVo.RmId;
+                    customerNewVo.BranchId = customerVo.BranchId;
+                    customerNewVo.Type = "IND";
+                    TextBox txtNewMemName = (TextBox)e.Item.FindControl("txtNewName");
+                    //TextBox txtNewMemPan = (TextBox)e.Item.FindControl("txtNewPan");
+                    CheckBox chkIsrealInvestorMem = (CheckBox)e.Item.FindControl("isRealInvestormem");
+                    CheckBox chkycinside = (CheckBox)e.Item.FindControl("chKInsideKyc1");
+                    CheckBox chkycinside1 = (CheckBox)e.Item.FindControl("chKInsideKyc");
+                    DropDownList ddlNewMemRel = (DropDownList)e.Item.FindControl("ddlNewRelationship");
+                    customerNewVo.FirstName = txtNewMemName.Text;
+                    customerNewVo.PANNum = txtNewMemPan.Text;
+                    chkycinside1.Visible = false;
+                    if (chkIsrealInvestorMem.Checked)
+                    {
+                        customerNewVo.IsRealInvestor = true;
+                    }
+                    else
+                    {
+                        customerNewVo.IsRealInvestor = false;
+                    }
+                    if (chkycinside.Checked)
+                    {
+                        customerNewVo.MfKYC = 1;
+                    }
+                    else
+                    {
+                        customerNewVo.MfKYC = 0;
+                    }
+                    if (!customerBo.PANNumberDuplicateChild(advisorVo.advisorId, customerNewVo.PANNum))
+                    {
                         customerVo.ProfilingDate = DateTime.Today;
                         tempUserVo.FirstName = txtNewMemName.Text;
                         tempUserVo.Email = txtEmail.Text;
@@ -2406,13 +2402,13 @@ namespace WealthERP.Customer
                             familyVo.Relationship = ddlNewMemRel.SelectedItem.Value;
                             familyBo.CreateCustomerFamily(familyVo, customerVo.CustomerId, userVo.UserId);
                         }
-                       
+
                     }
                     else
                     {
-                    
+
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('PAN Number Already Exists.');", true);
-                      
+
                     }
 
                 }
@@ -2428,7 +2424,7 @@ namespace WealthERP.Customer
                     if (ddlRelation.SelectedIndex != 0)
                         relCode = ddlRelation.SelectedItem.Value;
                     customerFamilyBo.CustomerAssociateUpdate(customerId, associateId, relCode, userVo.UserId);
-                   // BindFamilyAssociationList(customerId);
+                    // BindFamilyAssociationList(customerId);
                 }
 
             }
@@ -2521,7 +2517,7 @@ namespace WealthERP.Customer
             string strBankAdrState;
             string strModeOfOperation;
             string strAccountType;
-           
+
             if (e.Item is GridEditFormItem && e.Item.IsInEditMode && e.Item.ItemIndex != -1)
             {
                 bankId = int.Parse(gvBankDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CB_CustBankAccId"].ToString());
@@ -2529,7 +2525,7 @@ namespace WealthERP.Customer
                 strModeOfOperation = gvBankDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ModeOfHoldingCode"].ToString();
                 strAccountType = gvBankDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["BankAccountTypeCode"].ToString();
                 strSelectedbank = gvBankDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CB_BankName"].ToString();
-                
+
 
                 GridEditFormItem editedItem = (GridEditFormItem)e.Item;
 
@@ -2586,7 +2582,7 @@ namespace WealthERP.Customer
 
         #region ISA Details Functionality Start
 
-        #region unused     
+        #region unused
         protected void gvISAAccountList_ItemCommand(object source, GridCommandEventArgs e)
         {
             int ISAAccounts = 0;
