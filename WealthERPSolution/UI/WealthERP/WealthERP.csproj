@@ -40,6 +40,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\AjaxControlToolkit.dll</HintPath>
     </Reference>
+    <Reference Include="BoAdviserPreference, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="BOAssociates, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\BOAssociates\bin\Debug\BOAssociates.dll</HintPath>
@@ -104,6 +105,7 @@
     <Reference Include="System.Web.Mobile" />
     <Reference Include="Telerik.Web.Design, Version=2010.2.826.20, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL" />
     <Reference Include="Telerik.Web.UI, Version=2010.2.826.20, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL" />
+    <Reference Include="VoAdviserPreference, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="VoAdvisorProfiling, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="VoAlerts, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="VOAssociates, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
