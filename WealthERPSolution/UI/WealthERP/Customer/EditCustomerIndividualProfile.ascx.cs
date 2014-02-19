@@ -194,6 +194,7 @@ namespace WealthERP.Customer
                     else
                         lblRM.Text = ""; 
                     if (customerVo.MaritalStatus != null)
+
                         ddlMaritalStatus.SelectedValue = customerVo.MaritalStatus.ToString();
                     if (ddlMaritalStatus.SelectedValue == "MA")
                         txtMarriageDate.Enabled = true; 
