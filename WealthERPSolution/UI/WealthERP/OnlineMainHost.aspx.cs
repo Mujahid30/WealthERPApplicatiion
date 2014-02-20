@@ -228,7 +228,7 @@ namespace WealthERP
             if (string.IsNullOrEmpty(isWerp))
                 userVo = userBo.GetUserAccountDetails(userAccountId, Convert.ToInt32(strOnlineAdviser));
             else
-                userVo = userBo.GetUserAccountDetails(userAccountId, 0);
+                userVo = userBo.GetUserAccountDetails(userAccountId, advisorVo.advisorId);
 
             if (!string.IsNullOrEmpty(isWerp))
             {
