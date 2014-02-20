@@ -1657,15 +1657,15 @@ namespace BoOnlineOrderManagement
 
         private string GetClientPrivilege(Dictionary<string, string> kycStatus)
         {
-            string privilege = "None";
+            string privilege = "Partial";
 
             var kycNo = kycStatus.Where(pair => pair.Key.StartsWith("JOINT") && pair.Value == "0");
             var kycYes = kycStatus.Where(pair => pair.Key.StartsWith("JOINT") && pair.Value == "1");
             if (kycStatus.Count == kycYes.Count())
                 privilege = "Full";
-            else if (kycNo.Count() > 1)
-                privilege = "Partial";
-
+            else if (kycStatus.Count==kycNo.Count())
+                privilege = "None";
+            
             return privilege;
 
         }

@@ -91,7 +91,7 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(createCustomerCmd, "@C_OfcISDCode", DbType.Int32, customerVo.OfcISDCode);
                 db.AddInParameter(createCustomerCmd, "@C_OfcSTDCode", DbType.Int32, customerVo.OfcSTDCode);
                 db.AddInParameter(createCustomerCmd, "@C_OfcPhoneNum", DbType.Int32, customerVo.OfcPhoneNum);
-                db.AddInParameter(createCustomerCmd, "@@C_MfKYC", DbType.Int32, customerVo.MfKYC);
+                db.AddInParameter(createCustomerCmd, "@C_MfKYC", DbType.Int32, customerVo.MfKYC);
                 db.AddInParameter(createCustomerCmd, "@C_Email", DbType.String, customerVo.Email);
                 db.AddInParameter(createCustomerCmd, "@C_AltEmail", DbType.String, customerVo.AltEmail);
                 db.AddInParameter(createCustomerCmd, "@C_Mobile1", DbType.Int64, customerVo.Mobile1);
@@ -1177,7 +1177,7 @@ namespace DaoCustomerProfiling
                     db.AddInParameter(editCustomerCmd, "@C_ClassCode", DbType.Int32, customerVo.CustomerClassificationID);
                 db.AddInParameter(editCustomerCmd, "@C_ProspectAddDate", DbType.DateTime, customerVo.ProspectAddDate);
                 db.AddInParameter(editCustomerCmd, "@C_TaxSlab", DbType.Int32, customerVo.TaxSlab);
-                db.AddInParameter(editCustomerCmd, "@C_MfKYC", DbType.String, customerVo.MfKYC);
+                db.AddInParameter(editCustomerCmd, "@C_MfKYC", DbType.Int32, customerVo.MfKYC);
                 db.AddInParameter(editCustomerCmd, "@C_IsRealInvestor", DbType.Boolean, customerVo.IsRealInvestor ? 1 : 0);
                 db.AddInParameter(editCustomerCmd, "@C_WCMV_TaxStatus_Id", DbType.Int32, customerVo.TaxStatusCustomerSubTypeId);
 
@@ -1909,7 +1909,7 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(createCustomerCmd, "@C_AlertViaSMS", DbType.Int16, customerVo.ViaSMS);
                 db.AddInParameter(createCustomerCmd, "@CPS_GuardPan", DbType.String, customerVo.GuardPANNum);
 
-                db.AddInParameter(createCustomerCmd, "@C_MfKYC", DbType.String, customerVo.MfKYC);
+                db.AddInParameter(createCustomerCmd, "@C_MfKYC", DbType.Int32, customerVo.MfKYC);
                 db.AddInParameter(createCustomerCmd, "@C_IsRealInvestor", DbType.Boolean, customerVo.IsRealInvestor?1:0);
                 db.AddInParameter(createCustomerCmd, "@C_WCMV_TaxStatus_Id", DbType.Int16, customerVo.TaxStatusCustomerSubTypeId);
 
