@@ -1027,6 +1027,7 @@ namespace DaoAdvisorProfiling
             DbCommand getCustomerListCmd;
             DataSet getCustomerDs;
 
+
             genDictParent = new Dictionary<string, string>();
             genDictRM = new Dictionary<string, string>();
             genDictReassignRM = new Dictionary<string, string>();
@@ -2789,14 +2790,14 @@ namespace DaoAdvisorProfiling
 
                 if (CommandName == "Delete")
                 {
-                   
+
                     modifiedBy = int.Parse(db.GetParameterValue(InsertZoneClusterDetailsCmd, "deleted").ToString());
                     if (modifiedBy == 0)
                         inserted = false;
                 }
-              
-              
-               
+
+
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -2845,7 +2846,7 @@ namespace DaoAdvisorProfiling
                 db.ExecuteNonQuery(deleteAdviserCustomerCategoryCmd);
                 affectedRows = int.Parse(db.GetParameterValue(deleteAdviserCustomerCategoryCmd, "affectedRows").ToString());
 
-                if(affectedRows == 1)
+                if (affectedRows == 1)
                     bResult = true;
 
             }
@@ -2987,10 +2988,12 @@ namespace DaoAdvisorProfiling
                 getCustomerListCmd.CommandTimeout = 60 * 60;
                 dsCustList = db.ExecuteDataSet(getCustomerListCmd);
             }
-            catch (BaseApplicationException Ex) {
+            catch (BaseApplicationException Ex)
+            {
                 throw Ex;
             }
-            catch (Exception Ex) {
+            catch (Exception Ex)
+            {
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
 
@@ -3019,7 +3022,7 @@ namespace DaoAdvisorProfiling
         /// <param name="genDictRM"></param>
         /// <param name="genDictReassignRM"></param>
         /// <returns>will return the list of the customers from the data base accroding to the parameters assigned</returns>
-        public List<CustomerVo> GetStaffUserCustomerList(int adviserId, int rmId,int AgentId, string UserRole, int branchHeadId, string agentCode, out Dictionary<string, string> genDictParent, out Dictionary<string, string> genDictRM, out Dictionary<string, string> genDictReassignRM)
+        public List<CustomerVo> GetStaffUserCustomerList(int adviserId, int rmId, int AgentId, string UserRole, int branchHeadId, string agentCode, out Dictionary<string, string> genDictParent, out Dictionary<string, string> genDictRM, out Dictionary<string, string> genDictReassignRM)
         {
             List<CustomerVo> customerList = null;
             CustomerVo customerVo;
@@ -3029,7 +3032,7 @@ namespace DaoAdvisorProfiling
             genDictParent = new Dictionary<string, string>();
             genDictRM = new Dictionary<string, string>();
             genDictReassignRM = new Dictionary<string, string>();
-         try
+            try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getCustomerListCmd = db.GetStoredProcCommand("SPROC_GetStaffUserCustomerList");
@@ -3038,19 +3041,19 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(getCustomerListCmd, "@AR_RMId", DbType.Int32, rmId);
                 db.AddInParameter(getCustomerListCmd, "@AAC_AdviserAgentId", DbType.Int32, AgentId);
                 db.AddInParameter(getCustomerListCmd, "@branchHeadId", DbType.Int32, branchHeadId);
-                if (UserRole == "associates") { db.AddInParameter(getCustomerListCmd, "@agentCode", DbType.String, agentCode); }       
+                if (UserRole == "associates") { db.AddInParameter(getCustomerListCmd, "@agentCode", DbType.String, agentCode); }
                 getCustomerListCmd.CommandTimeout = 60 * 60;
                 getCustomerDs = db.ExecuteDataSet(getCustomerListCmd);
-              
-               
+
+
                 if (getCustomerDs.Tables[0].Rows.Count > 0)
-                {                                                  
-                    customerList = new List<CustomerVo>();                 
+                {
+                    customerList = new List<CustomerVo>();
                     foreach (DataRow dr in getCustomerDs.Tables[0].Rows)
                     {
                         customerVo = new CustomerVo();
                         customerVo.CustomerId = int.Parse(dr["C_CustomerId"].ToString());
-                        customerVo.ParentId =   int.Parse(dr["ParentId"].ToString());
+                        customerVo.ParentId = int.Parse(dr["ParentId"].ToString());
                         if (dr["ADUL_ProcessId"].ToString() == null || dr["ADUL_ProcessId"].ToString() == "")
                         {
                             customerVo.ProcessId = 0;
@@ -3061,7 +3064,7 @@ namespace DaoAdvisorProfiling
                         }
                         if (dr["ACC_customerCategoryName"].ToString() == null || dr["ACC_customerCategoryName"].ToString() == "")
                         {
-                            customerVo.ACC_CustomerCategoryName ="N/A";
+                            customerVo.ACC_CustomerCategoryName = "N/A";
                         }
                         else
                         {
@@ -3087,7 +3090,10 @@ namespace DaoAdvisorProfiling
                         customerVo.ResPhoneNum = Convert.ToInt32(dr["C_ResPhoneNum"].ToString());
                         customerVo.Email = dr["C_Email"].ToString();
                         customerVo.RmId = int.Parse(dr["AR_RMId"].ToString());
-                        customerVo.Adr1City = dr["C_Adr1City"].ToString();
+                        if (dr["WCMV_Name"].ToString() != string.Empty)
+                            customerVo.Adr1City = dr["WCMV_Name"].ToString();
+                        if (dr["C_WCMV_State_Id"].ToString() != string.Empty)
+                            customerVo.Adr1State = dr["C_WCMV_State_Id"].ToString();
                         customerVo.Adr1Line1 = dr["C_Adr1Line1"].ToString();
                         customerVo.Adr1Line2 = dr["C_Adr1Line2"].ToString();
                         customerVo.Adr1Line3 = dr["C_Adr1Line3"].ToString();
@@ -3100,7 +3106,7 @@ namespace DaoAdvisorProfiling
                         customerVo.Type = dr["XCT_CustomerTypeCode"].ToString();
                         if (dr["C_Mobile1"].ToString() != "")
                             customerVo.Mobile1 = long.Parse(dr["C_Mobile1"].ToString());
-                        if (UserRole!= "rm")
+                        if (UserRole != "rm")
                         {
                             if (dr["RMName"].ToString() != "")
                                 customerVo.AssignedRM = dr["RMName"].ToString();
@@ -3111,11 +3117,15 @@ namespace DaoAdvisorProfiling
                             customerVo.MfKYC = int.Parse(dr["c_iskycavailable"].ToString());
                         if (dr["C_CreatedOn"].ToString() != "")
                             customerVo.Createdon = DateTime.Parse(dr["C_CreatedOn"].ToString());
-                        if (UserRole!= "rm")
+                        if (UserRole != "rm")
                         {
                             if (dr["BranchName"].ToString() != "")
                                 customerVo.BranchName = dr["BranchName"].ToString();
                         }
+                        if (dr["c_iskycavailable"].ToString() != "")
+                            customerVo.MfKYC = int.Parse(dr["c_iskycavailable"].ToString());
+                        if (!string.IsNullOrEmpty(dr["C_IsRealInvestor"].ToString()))
+                            customerVo.IsRealInvestor = bool.Parse(dr["C_IsRealInvestor"].ToString()) ? true : false;
 
 
                         customerList.Add(customerVo);
@@ -3123,7 +3133,7 @@ namespace DaoAdvisorProfiling
                 }
                 else
                     customerList = null;
-                if (UserRole == "advisor" || UserRole == "bm" || UserRole=="associates")
+                if (UserRole == "advisor" || UserRole == "bm" || UserRole == "associates")
                 {
                     //if (getCustomerDs.Tables[1].Rows.Count > 0)
                     //{
@@ -3146,16 +3156,16 @@ namespace DaoAdvisorProfiling
                             }
                         }
                     }
-                     if (getCustomerDs.Tables[3].Rows.Count > 0)
+                    if (getCustomerDs.Tables[3].Rows.Count > 0)
                     {
-                    foreach (DataRow dr in getCustomerDs.Tables[3].Rows)
-                    {
-                        genDictReassignRM.Add(dr["RMId"].ToString(), dr["RMName"].ToString());
+                        foreach (DataRow dr in getCustomerDs.Tables[3].Rows)
+                        {
+                            genDictReassignRM.Add(dr["RMId"].ToString(), dr["RMName"].ToString());
+                        }
                     }
                 }
-                }
-               // if (UserRole == "advisor")
-               // {
+                // if (UserRole == "advisor")
+                // {
                 //    if (getCustomerDs.Tables[2].Rows.Count > 0)
                 //    {
                 //        foreach (DataRow dr in getCustomerDs.Tables[2].Rows)
@@ -3228,7 +3238,7 @@ namespace DaoAdvisorProfiling
             catch (BaseApplicationException Ex)
             {
                 throw Ex;
-                
+
             }
             catch (Exception Ex)
             {
@@ -3244,14 +3254,14 @@ namespace DaoAdvisorProfiling
                 objects[3] = genDictReassignRM;
                 objects[4] = rmId;
                 objects[5] = UserRole;
-                objects[6] = branchHeadId; 
-                objects[7] =  agentCode;
+                objects[6] = branchHeadId;
+                objects[7] = agentCode;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-          return customerList;
+            return customerList;
         }
         public AdvisorVo GetAssociateAdviserUser(int userId)
         {
