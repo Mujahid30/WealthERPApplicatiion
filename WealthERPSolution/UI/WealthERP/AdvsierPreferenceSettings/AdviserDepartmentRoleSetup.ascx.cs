@@ -19,11 +19,15 @@ using System.Data;
 using BoOnlineOrderManagement;
 using Telerik.Web.UI;
 using System.Text;
+using VoUser;
+using BoCommon;
+
+using BoAdvisorProfiling;
 namespace WealthERP.AdvsierPreferenceSettings
 {
     public partial class AdviserDepartmentRoleSetup : System.Web.UI.UserControl
     {
-        OnlineOrderBackOfficeBo onlineOrderBackOfficeBo = new OnlineOrderBackOfficeBo();
+        AdviserPreferenceBo advisorPreferenceBo = new AdviserPreferenceBo();
         UserBo userBo;
         UserVo userVo;
         AdvisorVo adviserVo = new AdvisorVo();
@@ -41,7 +45,7 @@ namespace WealthERP.AdvsierPreferenceSettings
             {
                 DataSet dsBindUserRole = new DataSet();
                 DataTable dtBindUserRole = new DataTable();
-                dtBindUserRole = onlineOrderBackOfficeBo.GetUserRole(adviserVo.advisorId).Tables[0];
+                dtBindUserRole = advisorPreferenceBo.GetUserRole(adviserVo.advisorId).Tables[0];
                 if (dtBindUserRole.Rows.Count > 0)
                 {
                     if (Cache["UserList" + adviserVo.advisorId] == null)
@@ -86,7 +90,7 @@ namespace WealthERP.AdvsierPreferenceSettings
                 GridEditFormInsertItem item = (GridEditFormInsertItem)e.Item;
                 GridEditFormItem gefi = (GridEditFormItem)e.Item;
                 DropDownList ddlLevel = (DropDownList)gefi.FindControl("ddlLevel");
-                DataSet dsddlLevel = onlineOrderBackOfficeBo.GetDepartment(adviserVo.advisorId);
+                DataSet dsddlLevel = advisorPreferenceBo.GetDepartment(adviserVo.advisorId);
                 DataTable dtddlLevel;
                 dtddlLevel = dsddlLevel.Tables[0];
                 ddlLevel.DataSource = dtddlLevel;
@@ -101,7 +105,7 @@ namespace WealthERP.AdvsierPreferenceSettings
                 GridEditFormItem editedItem = (GridEditFormItem)e.Item;
                 GridEditFormItem gefi = (GridEditFormItem)e.Item;
                 DropDownList ddlLevel = (DropDownList)gefi.FindControl("ddlLevel");
-                DataSet dsddlLevel = onlineOrderBackOfficeBo.GetDepartment(adviserVo.advisorId);
+                DataSet dsddlLevel = advisorPreferenceBo.GetDepartment(adviserVo.advisorId);
                 DataTable dtddlLevel;
                 dtddlLevel = dsddlLevel.Tables[0];
                 ddlLevel.DataSource = dtddlLevel;
@@ -153,7 +157,7 @@ namespace WealthERP.AdvsierPreferenceSettings
                 //    }
                 //}
 
-                onlineOrderBackOfficeBo.CreateUserRole(int.Parse(ddlLevel.SelectedValue), txtRoleName.Text, txtNote.Text, adviserVo.advisorId, userVo.UserId, StrUserLeve.TrimEnd(','));
+                advisorPreferenceBo.CreateUserRole(int.Parse(ddlLevel.SelectedValue), txtRoleName.Text, txtNote.Text, adviserVo.advisorId, userVo.UserId, StrUserLeve.TrimEnd(','));
             }
             if (e.CommandName == RadGrid.UpdateCommandName)
             {
@@ -162,13 +166,13 @@ namespace WealthERP.AdvsierPreferenceSettings
                 TextBox txtRoleName = (TextBox)e.Item.FindControl("txtRoleName");
                 TextBox txtNote = (TextBox)e.Item.FindControl("txtNote");
                 int rollid = int.Parse(gvAdviserList.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AR_RoleId"].ToString());
-                onlineOrderBackOfficeBo.UpdateUserrole(rollid, int.Parse(ddlLevel.SelectedValue), txtRoleName.Text, txtNote.Text, userVo.UserId);
+                advisorPreferenceBo.UpdateUserrole(rollid, int.Parse(ddlLevel.SelectedValue), txtRoleName.Text, txtNote.Text, userVo.UserId);
             }
             if (e.CommandName == RadGrid.DeleteCommandName)
             {
                 GridDataItem dataItem = (GridDataItem)e.Item;
                 int rollid = int.Parse(gvAdviserList.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AR_RoleId"].ToString());
-                onlineOrderBackOfficeBo.DeleteUserRole(rollid);
+                advisorPreferenceBo.DeleteUserRole(rollid);
             }
             if (e.CommandName == RadGrid.RebindGridCommandName)
             {
@@ -190,7 +194,7 @@ namespace WealthERP.AdvsierPreferenceSettings
         {
 
             DataTable dtUserList = new DataTable();
-            dtUserList = onlineOrderBackOfficeBo.GetUserRoleDepartmentWise(DepartmentId);
+            dtUserList = advisorPreferenceBo.GetUserRoleDepartmentWise(DepartmentId);
             rlbUserlist.DataSource = dtUserList;
             rlbUserlist.DataValueField = dtUserList.Columns["UR_RoleId"].ToString();
             rlbUserlist.DataTextField = dtUserList.Columns["UR_RoleName"].ToString();
