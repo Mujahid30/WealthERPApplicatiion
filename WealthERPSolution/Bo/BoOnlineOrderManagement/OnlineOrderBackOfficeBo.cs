@@ -1197,13 +1197,13 @@ namespace BoOnlineOrderManagement
                 throw Ex;
             }
         }
-        public bool UpdateSchemeSetUpDetail(MFProductAMCSchemePlanDetailsVo mfProductAMCSchemePlanDetailsVo, int SchemePlanCode,int userid)
+        public bool UpdateSchemeSetUpDetail(MFProductAMCSchemePlanDetailsVo mfProductAMCSchemePlanDetailsVo, int SchemePlanCode, int userid)
         {
             bool blResult = false;
             OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
             try
             {
-                blResult = OnlineOrderBackOfficeDao.UpdateSchemeSetUpDetail(mfProductAMCSchemePlanDetailsVo, SchemePlanCode,userid);
+                blResult = OnlineOrderBackOfficeDao.UpdateSchemeSetUpDetail(mfProductAMCSchemePlanDetailsVo, SchemePlanCode, userid);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1839,10 +1839,10 @@ namespace BoOnlineOrderManagement
                 throw Ex;
             }
         }
-         public string  GetExtCode(int schemplancode,int isonline)
+        public string GetExtCode(int schemplancode, int isonline)
         {
-              OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
-               string extCode=string.Empty ;
+            OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
+            string extCode = string.Empty;
             try
             {
                 extCode = OnlineOrderBackOfficeDao.GetExtCode(schemplancode, isonline);
@@ -1852,6 +1852,111 @@ namespace BoOnlineOrderManagement
                 throw Ex;
             }
             return extCode;
+        }
+        public DataSet GetUserRole(int adviserid)
+        {
+            DataSet dsGetUserRole;
+            OnlineOrderBackOfficeDao daoOnlineOrderBackOffice = new OnlineOrderBackOfficeDao();
+            dsGetUserRole = daoOnlineOrderBackOffice.GetUserRole(adviserid);
+            return dsGetUserRole;
+        }
+        public DataSet GetDepartment(int AdviserId)
+        {
+
+            DataSet dsGetUserRole;
+            OnlineOrderBackOfficeDao daoOnlineOrderBackOffice = new OnlineOrderBackOfficeDao();
+            dsGetUserRole = daoOnlineOrderBackOffice.GetDepartment(AdviserId);
+            return dsGetUserRole;
+        }
+        public bool CreateUserRole(int UserRole, string RoleName, string Purpose, int AdviserId, int UserId, string StrUserLeve)
+        {
+            OnlineOrderBackOfficeDao daoOnlineOrderBackOffice = new OnlineOrderBackOfficeDao();
+            bool bResult = false;
+            try
+            {
+                bResult = daoOnlineOrderBackOffice.CreateUserRole(UserRole, RoleName, Purpose, AdviserId, UserId, StrUserLeve);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return bResult;
+        }
+        public bool UpdateUserrole(int rollid, int userrole, string rolename, string purpose, int userid)
+        {
+            bool blResult = false;
+            OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
+            try
+            {
+                blResult = OnlineOrderBackOfficeDao.UpdateUserrole(rollid, userrole, rolename, purpose, userid);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:UpdateUserrole()");
+                object[] objects = new object[3];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return blResult;
+        }
+        public bool DeleteUserRole(int rollid)
+        {
+            bool blResult = false;
+            OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
+            try
+            {
+                //return OnlineOrderBackOfficeDao.deleteTradeBusinessDate(tradeBusinessDateVo);
+                blResult = OnlineOrderBackOfficeDao.DeleteUserRole(rollid);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return blResult;
+        }
+        //public DataSet GetUserRoleDepartmentWise(int departmentid)
+        //{
+        //    DataSet dsGetUserRoleDepartmentWise;
+        //    OnlineOrderBackOfficeDao daoOnlineOrderBackOffice = new OnlineOrderBackOfficeDao();
+        //    dsGetUserRoleDepartmentWise = daoOnlineOrderBackOffice.GetUserRoleDepartmentWise(departmentid);
+        //    return dsGetUserRoleDepartmentWise;
+        //}
+        public DataTable GetUserRoleDepartmentWise(int departmentid)
+        {
+            OnlineOrderBackOfficeDao daoOnlineOrderBackOffice = new OnlineOrderBackOfficeDao();
+            DataTable dtGetUserRoleDepartmentWise;
+
+            try
+            {
+                dtGetUserRoleDepartmentWise = daoOnlineOrderBackOffice.GetUserRoleDepartmentWise(departmentid);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommonLookupBo.cs:GetUserRoleDepartmentWise(int departmentid)");
+                object[] objects = new object[1];
+                objects[0] = departmentid;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtGetUserRoleDepartmentWise;
         }
     }
 
