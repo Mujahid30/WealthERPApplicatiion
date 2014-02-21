@@ -280,7 +280,7 @@
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
                                         
-                                         <telerik:GridBoundColumn DataField="MinMaxCatCollection" HeaderStyle-Width="140px" HeaderText="Min-Max Qty(Accross All Series)"
+                                         <telerik:GridBoundColumn DataField="MinMaxCatCollection" HeaderStyle-Width="140px" HeaderText="Min-Max Qty(Across All Series)"
                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
                                             UniqueName="MinMaxCatCollection"    >
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
