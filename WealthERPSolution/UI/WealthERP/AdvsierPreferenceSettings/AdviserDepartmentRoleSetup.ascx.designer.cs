@@ -14,5 +14,6 @@ namespace WealthERP.AdvsierPreferenceSettings {
     public partial class AdviserDepartmentRoleSetup {
 
         protected global::Telerik.Web.UI.RadGrid gvAdviserList;
+        protected global::System.Web.UI.WebControls.CheckBoxList rlbUserlist;
     }
 }

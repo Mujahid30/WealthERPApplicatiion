@@ -129,23 +129,63 @@ namespace WealthERP.AdvsierPreferenceSettings
                 DropDownList ddlLevel = (DropDownList)e.Item.FindControl("ddlLevel");
                 TextBox txtRoleName = (TextBox)e.Item.FindControl("txtRoleName");
                 TextBox txtNote = (TextBox)e.Item.FindControl("txtNote");
-                RadListBox rlbUserlist = (RadListBox)e.Item.FindControl("rlbUserlist");
-                foreach (RadListBoxItem item1 in rlbUserlist.Items)
-                {
+                CheckBoxList rlbUserlist = (CheckBoxList)e.Item.FindControl("rlbUserlist");
 
-                    if (((RadListBox)gridEditableItem.FindControl("rlbUserlist")).CheckBoxes == true)
-                    {
-                        if (rlbUserlist.CheckedItems.Count >= 0)
-                            //for (int i = 0; i < rlbUserlist.CheckedItems.Count; i++)
-                            //{
-                            StrUserLeve += item1.Value + ",";
+                int i = 0;
 
-                    }
-                    // StrUserLeve = StrUserLeve.Remove(StrUserLeve.Trim().Length - 1);
+
+
+                if (rlbUserlist.Items[i].Selected)
+ 	{
+        StrUserLeve = rlbUserlist.Items[i].Value;
+         
+ 	}
+
+
+               //for (int idx1 = 0; idx1 < rlbUserlist.Items.Count; idx1++)
+
+               //    if(rlbUserlist.CheckedItems.Count>1)
+            
+
+              //  RadListBox rlbUserlist =ById<RadListBox>("rlbUserlist");
+           //     RadListBox RadListBox1 = (RadListBox)e.Item.FindControl("rlbUserlist");
+
+                 
+           //     StringBuilder sb = new StringBuilder();
+           //     IList<RadListBoxItem> collection = RadListBox1.CheckedItems;
+           // foreach (RadListBoxItem item in collection)
+           // {
+           //     sb.Append(item.Value + "<br />");
+           // }
+ 
+           //string a = sb.ToString();
+
+
+
+
+
+
+
+                //if (rlbUserlist.CheckBoxes)
+                //{
+                //    foreach (RadListBoxItem item1 in rlbUserlist.Items)
+                //    {
+                //        //if (((RadListBox)gridEditableItem.FindControl("rlbUserlist")).CheckedItems.Count > 0)
+                //        //if (item1.Checked==true)
+                //        //if (((RadListBox)gridEditableItem.FindControl("rlbUserlist")).CheckBoxes == true)
+                //        //{
+                //        if (item1.Checked == true)
+
+                //            //for (int i = 0; i < rlbUserlist.CheckedItems.Count; i++)
+                //            //{
+                //            StrUserLeve += item1.Value + ",";
+
+                        //}
+                        // StrUserLeve = StrUserLeve.Remove(StrUserLeve.Trim().Length - 1);
+                        //}
+
                     //}
-
-
-                }
+                
                 //foreach (RadListBoxItem item1 in rlbUserlist.Items)
                 //{+ rlbUserlist.CheckedItems[i].Text
                 //    if (((RadListBox)gridEditableItem.FindControl("rlbUserlist")).CheckBoxes == true)
@@ -182,15 +222,29 @@ namespace WealthERP.AdvsierPreferenceSettings
             BindUserRole();
         }
 
+        protected void CheckBoxList1_SelectedIndexChnaged(object sender, System.EventArgs e)
+        {
+            
+            foreach (ListItem li in rlbUserlist.Items)
+            {
+                if (li.Selected == true)
+                {
+                    Response.Write(li.Text);
+
+                }
+            }
+             
+        }  
+
         protected void ddlLevel_OnSelectedIndexChanged(object sender, EventArgs e)
         {
             DropDownList ddlLevel = (DropDownList)sender;
 
             GridEditFormInsertItem gdi = (GridEditFormInsertItem)(ddlLevel).NamingContainer;
-            RadListBox rlbUserlist = (RadListBox)gdi.FindControl("rlbUserlist");
+            CheckBoxList rlbUserlist = (CheckBoxList)gdi.FindControl("rlbUserlist");
             BindList(int.Parse(ddlLevel.SelectedItem.Value), rlbUserlist);
         }
-        private void BindList(int DepartmentId, RadListBox rlbUserlist)
+        private void BindList(int DepartmentId, CheckBoxList rlbUserlist)
         {
 
             DataTable dtUserList = new DataTable();

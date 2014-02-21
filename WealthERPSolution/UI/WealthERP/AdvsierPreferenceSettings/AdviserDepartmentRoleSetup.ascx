@@ -5,6 +5,11 @@
         <asp:ServiceReference Path="AutoComplete.asmx" />
     </Services>
 </asp:ScriptManager>
+
+<script runat="server">  
+   
+</script>
+
 <div class="divPageHeading">
     <table width="100%">
         <tr>
@@ -44,10 +49,10 @@
                             ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Role" UniqueName="AR_Role"
                             SortExpression="AR_Role" AllowFiltering="true" Visible="true">
                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
-                            <itemtemplate>
-                                    <asp:LinkButton ID="lnkRole" runat="server" CommandName="Select" Text='<%# Eval("AR_Role").ToString() %>'>
-                                    </asp:LinkButton>
-                                </itemtemplate>
+                            <ItemTemplate>
+                                <asp:LinkButton ID="lnkRole" runat="server" CommandName="Select" Text='<%# Eval("AR_Role").ToString() %>'>
+                                </asp:LinkButton>
+                            </ItemTemplate>
                         </telerik:GridTemplateColumn>
                         <telerik:GridBoundColumn DataField="AR_RolePurpose" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
                             ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Note" UniqueName="AR_RolePurpose"
@@ -99,9 +104,31 @@
                                         <asp:Label ID="lbluserassociate" runat="server" Text="User Associated:" CssClass="FieldName"></asp:Label>
                                     </td>
                                     <td>
-                                        <telerik:RadListBox ID="rlbUserlist" runat="server" CssClass="txtField" Width="150px"
+                                       <%-- <asp:CheckBox ID="chkAdmin" runat="server" CssClass="cmbFielde" Text="Is Buy Back"
+                                            AutoPostBack="true"></asp:CheckBox>--%>
+                                        <asp:CheckBoxList ID="rlbUserlist" runat="server" RepeatDirection="Horizontal" RepeatLayout="Flow"
+                                            CssClass="cmbFielde" Width="100%" OnSelectedIndexChanged="CheckBoxList1_SelectedIndexChnaged" AutoPostBack="false">
+                                        </asp:CheckBoxList>
+                                        <%--  <telerik:RadListBox ID="rlbUserlist" runat="server" CssClass="txtField" Width="150px"
+                                            Height="100px" CheckBoxes="true">--%>
+                                <%--        </telerik:RadListBox>
+                                        <telerik:RadListBox ID="RadListBox1" runat="server" CssClass="txtField" Width="150px"
                                             Height="100px" CheckBoxes="true">
-                                        </telerik:RadListBox>
+                                            <Items>
+                                                <telerik:RadListBoxItem Text="Arts"></telerik:RadListBoxItem>
+                                                <telerik:RadListBoxItem Text="Biographies"></telerik:RadListBoxItem>
+                                                <telerik:RadListBoxItem Text="Children's Books"></telerik:RadListBoxItem>
+                                                <telerik:RadListBoxItem Text="Computers § Internet"></telerik:RadListBoxItem>
+                                                <telerik:RadListBoxItem Text="Cooking"></telerik:RadListBoxItem>
+                                                <telerik:RadListBoxItem Text="History"></telerik:RadListBoxItem>
+                                                <telerik:RadListBoxItem Text="Fiction"></telerik:RadListBoxItem>
+                                                <telerik:RadListBoxItem Text="Mystery"></telerik:RadListBoxItem>
+                                                <telerik:RadListBoxItem Text="Nonfiction"></telerik:RadListBoxItem>
+                                                <telerik:RadListBoxItem Text="Romance"></telerik:RadListBoxItem>
+                                                <telerik:RadListBoxItem Text="Science Fiction "></telerik:RadListBoxItem>
+                                                <telerik:RadListBoxItem Text="Travel"></telerik:RadListBoxItem>
+                                            </Items>
+                                        </telerik:RadListBox>--%>
                                     </td>
                                     <%-- <td><asp:CheckBoxList ID="chklUserAssociates" runat="server"></asp:CheckBoxList></td>--%>
                                 </tr>
@@ -145,6 +172,13 @@
                     </EditFormSettings>
                 </MasterTableView>
             </telerik:RadGrid>
+        </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>
+            <asp:Label ID="Label1" runat="server" Text="Department:" CssClass="FieldName"></asp:Label>
         </td>
     </tr>
 </table>
