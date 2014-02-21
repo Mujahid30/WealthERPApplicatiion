@@ -421,7 +421,7 @@
                         Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
                     <asp:RegularExpressionValidator ID="regtxtLIperiod" ControlToValidate="txtLIperiod"
                         runat="server" ErrorMessage="Enter Only Number" Display="Dynamic" CssClass="cvPCG"
-                        ValidationExpression="[1-9]\d*$" ValidationGroup="btnsubmit">     
+                        ValidationExpression="[0-9]\d*$" ValidationGroup="btnsubmit">     
                     </asp:RegularExpressionValidator>
                 </td>
                 <td align="right">
