@@ -1947,6 +1947,227 @@ namespace DaoOnlineOrderManagement
                 throw Ex;
             }
        }
+        public DataSet GetUserRole(int adviserid)
+        {
+            Database db;
+            DataSet dsGetUserRole;
+            DbCommand GetUserRolecmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetUserRolecmd = db.GetStoredProcCommand("SPROC_GetUserRole");
+                db.AddInParameter(GetUserRolecmd, "@AdviserId", DbType.Int32, adviserid);
+                dsGetUserRole = db.ExecuteDataSet(GetUserRolecmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:GetUserRole()");
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetUserRole;
+        }
+        public DataSet GetDepartment(int AdviserId)
+        {
+            Database db;
+            DataSet dsGetUserRole;
+            DbCommand GetUserRolecmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetUserRolecmd = db.GetStoredProcCommand("SPROC_GetAdviserDepartment");
+                db.AddInParameter(GetUserRolecmd, "@adviserId", DbType.Int32, AdviserId);
+                dsGetUserRole = db.ExecuteDataSet(GetUserRolecmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:GetFrequency()");
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetUserRole;
+        }
+        public bool CreateUserRole(int UserRole, string RoleName, string Purpose, int AdviserId, int UserId, string StrUserLeve)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand CreateUserRoleCmd;
+            int count = 0;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                CreateUserRoleCmd = db.GetStoredProcCommand("SPROC_CreateAdviserUserRole");
+                db.AddInParameter(CreateUserRoleCmd, "@A_AdviserId", DbType.Int32, AdviserId);
+                db.AddInParameter(CreateUserRoleCmd, "@AD_DepartmentId", DbType.Int32, UserRole);
+                db.AddInParameter(CreateUserRoleCmd, "@AR_Role", DbType.String, RoleName);
+                db.AddInParameter(CreateUserRoleCmd, "@AR_RolePurpose", DbType.String, Purpose);
+                db.AddInParameter(CreateUserRoleCmd, "@CreatedBy", DbType.Int32, UserId);
+                db.AddInParameter(CreateUserRoleCmd, "@ModifiedBy", DbType.Int32, UserId);
+                db.AddInParameter(CreateUserRoleCmd, "@UserlevelId", DbType.String, StrUserLeve);
+                if (db.ExecuteNonQuery(CreateUserRoleCmd) != 0)
+                    bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
 
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:CreateUserRole()");
+
+                object[] objects = new object[2];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+                
+            }
+            return bResult;
+        }
+        public bool UpdateUserrole(int rollid,int userrole, string rolename, string purpose, int userid)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand UpdateUserroleCmd;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                UpdateUserroleCmd = db.GetStoredProcCommand("SPROC_UpdateAdviserUserRole");
+                db.AddInParameter(UpdateUserroleCmd, "@Rolid", DbType.Int32, rollid);
+                db.AddInParameter(UpdateUserroleCmd, "@DepartmentId", DbType.Int32, userrole);
+                db.AddInParameter(UpdateUserroleCmd, "@Role", DbType.String, rolename);
+                db.AddInParameter(UpdateUserroleCmd, "@purpose", DbType.String, purpose);
+                db.AddInParameter(UpdateUserroleCmd, "@CreatedBy", DbType.Int32, userid);
+                db.AddInParameter(UpdateUserroleCmd, "@ModifiedBy", DbType.Int32, userid);
+                if (db.ExecuteNonQuery(UpdateUserroleCmd) != 0)
+                    bResult = true;
+            }
+
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:UpdateUserrole()");
+                object[] objects = new object[3];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return bResult;
+        }
+        public bool DeleteUserRole(int rollid)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand createtradeBusinessDateCmd;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                createtradeBusinessDateCmd = db.GetStoredProcCommand("SPROC_ToDeleteUser");
+                db.AddInParameter(createtradeBusinessDateCmd, "@RollId", DbType.Int32, rollid);
+               
+                if (db.ExecuteNonQuery(createtradeBusinessDateCmd) != 0)
+                    bResult = true;
+            }
+
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:deleteTradeBusinessDate()");
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return bResult;
+
+        }
+        //public DataSet GetUserRoleDepartmentWise(int departmentid)
+        //{
+        //    Database db;
+        //    DataSet dsGetUserRoleDepartmentWise;
+        //    DbCommand GetUserRoleDepartmentWisecmd;
+        //    try
+        //    {
+        //        db = DatabaseFactory.CreateDatabase("wealtherp");
+        //        GetUserRoleDepartmentWisecmd = db.GetStoredProcCommand("SPROC_ToGetAllUserRole");
+        //        db.AddInParameter(GetUserRoleDepartmentWisecmd, "@Departmentid", DbType.Int32, departmentid);
+        //        dsGetUserRoleDepartmentWise = db.ExecuteDataSet(GetUserRoleDepartmentWisecmd);
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
+        //        FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:GetFrequency()");
+        //        exBase.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(exBase);
+        //        throw exBase;
+        //    }
+        //    return dsGetUserRoleDepartmentWise;
+        //}
+        public DataTable GetUserRoleDepartmentWise(int departmentid)
+        {
+            Database db;
+            DbCommand cmdGetUserRoleDepartmentWise;
+            DataSet dsGetUserRoleDepartmentWise = null;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetUserRoleDepartmentWise = db.GetStoredProcCommand("SPROC_GetDepartmentLevels");
+                db.AddInParameter(cmdGetUserRoleDepartmentWise, "@DepartmentId", DbType.Int32, departmentid);
+                dsGetUserRoleDepartmentWise = db.ExecuteDataSet(cmdGetUserRoleDepartmentWise);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommonLookupDao.cs:GetUserRoleDepartmentWise(int departmentid)");
+                object[] objects = new object[1];
+                objects[0] = departmentid;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetUserRoleDepartmentWise.Tables[0];
+        }
     }
 }
