@@ -206,36 +206,63 @@ namespace BoAdvisorProfiling
               }
               return dsGetAdviserRoles;
           }
-          public int CreateOrUpdateTreeNodeMapping(DataTable dtTreeNodes, string commandType, int userId)
+
+          public DataSet GetRoleLevelTreeNodes(int roleId, int levelId)
+          {
+              AdvisorPreferenceDao advisorPreferenceDao = new AdvisorPreferenceDao();
+              DataSet dsGetAdviserRoles = new DataSet();
+
+              try
+              {
+                  dsGetAdviserRoles = advisorPreferenceDao.GetRoleLevelTreeNodes(roleId, levelId);
+              }
+              catch (BaseApplicationException Ex)
+              {
+                  throw Ex;
+              }
+              catch (Exception Ex)
+              {
+                  BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                  NameValueCollection FunctionInfo = new NameValueCollection();
+                  FunctionInfo.Add("Method", "AdvisorPreferenceBo.cs:GetRoleLevelTreeNodes()");
+                  object[] objects = new object[0];
+                  FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                  exBase.AdditionalInformation = FunctionInfo;
+                  ExceptionManager.Publish(exBase);
+                  throw exBase;
+              }
+              return dsGetAdviserRoles;
+          }
+          public int CreateOrUpdateTreeNodeMapping(DataTable dtTreeNodes, string commandType, int userId,int levelId)
           {
               try
               {
                   AdvisorPreferenceDao advisorPreferenceDao = new AdvisorPreferenceDao();
-                  return advisorPreferenceDao.CreateOrUpdateTreeNodeMapping(dtTreeNodes, commandType,userId);
+                  return advisorPreferenceDao.CreateOrUpdateTreeNodeMapping(dtTreeNodes, commandType, userId, levelId);
               }
               catch (BaseApplicationException Ex)
               {
                   throw Ex;
               }
           }
-          public int CreateOrUpdateTreeSubNodeMapping(DataTable dtSubTreeNodes, string commandType, int userId)
+          public int CreateOrUpdateTreeSubNodeMapping(DataTable dtSubTreeNodes, string commandType, int userId, int levelId)
           {
               try
               {
                   AdvisorPreferenceDao advisorPreferenceDao = new AdvisorPreferenceDao();
-                  return advisorPreferenceDao.CreateOrUpdateTreeSubNodeMapping(dtSubTreeNodes,commandType, userId);
+                  return advisorPreferenceDao.CreateOrUpdateTreeSubNodeMapping(dtSubTreeNodes, commandType, userId, levelId);
               }
               catch (BaseApplicationException Ex)
               {
                   throw Ex;
               }
           }
-          public int CreateOrUpdateTreeSubSubNodeMapping(DataTable dtSubSubTreeNodes, string commandType, int userId)
+          public int CreateOrUpdateTreeSubSubNodeMapping(DataTable dtSubSubTreeNodes, string commandType, int userId, int levelId)
           {
               try
               {
                   AdvisorPreferenceDao advisorPreferenceDao = new AdvisorPreferenceDao();
-                  return advisorPreferenceDao.CreateOrUpdateTreeSubSubNodeMapping(dtSubSubTreeNodes, commandType, userId);
+                  return advisorPreferenceDao.CreateOrUpdateTreeSubSubNodeMapping(dtSubSubTreeNodes, commandType, userId, levelId);
               }
               catch (BaseApplicationException Ex)
               {

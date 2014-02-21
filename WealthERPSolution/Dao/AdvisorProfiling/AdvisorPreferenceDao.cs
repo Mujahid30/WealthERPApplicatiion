@@ -210,7 +210,7 @@ namespace DaoAdvisorProfiling
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 dbCommand = db.GetStoredProcCommand("SPROC_GetAdviserRoles");
-                db.AddInParameter(dbCommand, "@advisorId", DbType.String, advisorId);
+                db.AddInParameter(dbCommand, "@advisorId", DbType.Int32, advisorId);
                 dsGetAdviserRoles = db.ExecuteDataSet(dbCommand);
             }
             catch (BaseApplicationException Ex)
@@ -221,7 +221,29 @@ namespace DaoAdvisorProfiling
             return dsGetAdviserRoles;
         }
 
-        public int CreateOrUpdateTreeNodeMapping(DataTable dtTreeNodes, string commandType, int userId)
+        public DataSet GetRoleLevelTreeNodes(int roleId,int levelId)
+        {
+            DataSet dsGetNodes;
+            Database db;
+            DbCommand dbCommand;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbCommand = db.GetStoredProcCommand("SPROC_GetRoleLevelTreeNodes");
+                db.AddInParameter(dbCommand, "@RoleId", DbType.Int32, roleId);
+                db.AddInParameter(dbCommand, "@LevelId", DbType.Int32, levelId);
+
+                dsGetNodes = db.ExecuteDataSet(dbCommand);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+            return dsGetNodes;
+        }
+
+        public int CreateOrUpdateTreeNodeMapping(DataTable dtTreeNodes, string commandType, int userId,int levelId)
         {
             int i = 0;
             try
@@ -241,6 +263,7 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(cmdtreeNode, "@xmlTreeNode", DbType.Xml, sb);
                 db.AddInParameter(cmdtreeNode, "@CommandType", DbType.String, commandType);
                 db.AddInParameter(cmdtreeNode, "@userId", DbType.Int32, userId);
+                db.AddInParameter(cmdtreeNode, "@levelId", DbType.Int32, userId);                
                 i = db.ExecuteNonQuery(cmdtreeNode);
 
             }
@@ -252,7 +275,7 @@ namespace DaoAdvisorProfiling
             return i;
         }
 
-        public int CreateOrUpdateTreeSubNodeMapping(DataTable dtSubTreeNodes, string commandType, int userId)
+        public int CreateOrUpdateTreeSubNodeMapping(DataTable dtSubTreeNodes, string commandType, int userId, int levelId)
         {
             int i = 0;
             try
@@ -272,6 +295,8 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(cmdtreeNode, "@xmlSubTreeNode", DbType.Xml, sb);
                 db.AddInParameter(cmdtreeNode, "@CommandType", DbType.String, commandType);
                 db.AddInParameter(cmdtreeNode, "@userId", DbType.Int32, userId);
+                db.AddInParameter(cmdtreeNode, "@levelId", DbType.Int32, userId);                
+
                 i = db.ExecuteNonQuery(cmdtreeNode);
 
             }
@@ -283,7 +308,7 @@ namespace DaoAdvisorProfiling
             return i;
         }
 
-        public int CreateOrUpdateTreeSubSubNodeMapping(DataTable dtSubSubTreeNodes, string commandType, int userId)
+        public int CreateOrUpdateTreeSubSubNodeMapping(DataTable dtSubSubTreeNodes, string commandType, int userId, int levelId)
         {
             int i = 0;
             try
@@ -303,6 +328,8 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(cmdtreeNode, "@xmlSubSubTreeNode", DbType.Xml, sb);
                 db.AddInParameter(cmdtreeNode, "@CommandType", DbType.String, commandType);
                 db.AddInParameter(cmdtreeNode, "@userId", DbType.Int32, userId);
+                db.AddInParameter(cmdtreeNode, "@levelId", DbType.Int32, userId);                
+
                 i = db.ExecuteNonQuery(cmdtreeNode);
 
             }
@@ -344,7 +371,7 @@ namespace DaoAdvisorProfiling
                 sbSubTreeNodes = dsSubTN.GetXml().ToString();
 
                 dtTN = dtTreeNodes.Copy();
-                dsTN.Tables.Add(dtSubTN);
+                dsTN.Tables.Add(dtTN);
                 String sbTreeNodes;
                 sbTreeNodes = dsTN.GetXml().ToString();
 
