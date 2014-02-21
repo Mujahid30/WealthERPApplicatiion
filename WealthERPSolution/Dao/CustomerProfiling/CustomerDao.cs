@@ -1181,8 +1181,8 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(editCustomerCmd, "@C_IsRealInvestor", DbType.Boolean, customerVo.IsRealInvestor ? 1 : 0);
                 db.AddInParameter(editCustomerCmd, "@C_WCMV_TaxStatus_Id", DbType.Int32, customerVo.TaxStatusCustomerSubTypeId);
 
-                db.AddInParameter(editCustomerCmd, "@C_WCMV_CorrAdrCity_Id", DbType.Int32, customerVo.CorrespondenceCityId);
-                db.AddInParameter(editCustomerCmd, "@C_WCMV_CorrAdrState_Id", DbType.Int32, customerVo.CorrespondenceStateId);
+                db.AddInParameter(editCustomerCmd, "@C_WCMV_City_Id", DbType.Int32, customerVo.CorrespondenceCityId);
+                db.AddInParameter(editCustomerCmd, "@C_WCMV_State_Id", DbType.Int32, customerVo.CorrespondenceStateId);
 
                 db.AddInParameter(editCustomerCmd, "@C_WCMV_PermaAdrCity_Id", DbType.Int32, customerVo.PermanentCityId);
                 db.AddInParameter(editCustomerCmd, "@C_WCMV_PermaAdrState_Id", DbType.Int32, customerVo.PermanentStateId);
