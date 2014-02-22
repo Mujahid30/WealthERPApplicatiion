@@ -1048,14 +1048,14 @@ namespace WealthERP.Customer
                 txtRTGSCode.Enabled = false;
                 txtNEFTCode.Enabled = false;
                 //txtBankAdrCity.Enabled = false;
-                ddlBankAdrCity.Enabled = false;
-                ddlBankAdrState.Enabled = false;
+               // ddlBankAdrCity.Enabled = false;
+               // ddlBankAdrState.Enabled = false;
                 RadioButton1.Enabled = false;
                 rbtnYes.Enabled = false;
                 txtMicr.Enabled = false;
                 txtIfsc.Enabled = false;
                 txtBankCity.Enabled = false;
-                ddlBankAdrCountry.Enabled = false;
+                //ddlBankAdrCountry.Enabled = false;
                 chk_Ismain.Enabled = false;
             }
             else
