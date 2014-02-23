@@ -2360,6 +2360,7 @@ namespace WealthERP.OnlineOrderBackOffice
             //schemecode = int.Parse(Session["newschemeplancode"].ToString());
             if (e.CommandName == RadGrid.PerformInsertCommandName)
             {
+
                 GridEditableItem gridEditableItem = (GridEditableItem)e.Item;
                 DropDownList ddlFrquency = (DropDownList)e.Item.FindControl("ddlFrquency");
                 TextBox txtstartDate = (TextBox)e.Item.FindControl("txtstartDate");
