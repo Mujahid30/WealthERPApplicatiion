@@ -1744,7 +1744,8 @@ namespace WealthERP.OnlineOrderBackOffice
                 DataTable dtRecords = new DataTable();
                 RadGrid rgSubCategories = (RadGrid)e.Item.FindControl("rgSubCategories");
 
-
+                if((e.Item is GridEditFormInsertItem ) || (e.Item is GridEditFormItem))
+                {
                 foreach (GridColumn col in rgSubCategories.Columns)
                 {
                     DataColumn colString = new DataColumn(col.UniqueName);
@@ -1815,6 +1816,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 rgSubCategories.DataSource = dtRecords;
                 rgSubCategories.DataBind();
 
+            }
             }
         }
 
