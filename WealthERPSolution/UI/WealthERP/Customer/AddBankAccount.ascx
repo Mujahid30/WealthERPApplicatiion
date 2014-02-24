@@ -68,7 +68,7 @@
                 <asp:Label ID="lblAccountType" runat="server" CssClass="FieldName" Text="Account Type:"></asp:Label>
             </td>
             <td class="rightField">
-                <asp:DropDownList ID="ddlAccountType" runat="server" CssClass="cmbField">
+                <asp:DropDownList ID="ddlAccountType" runat="server" CssClass="cmbLongField" Width="300px">
                 </asp:DropDownList>
                 <span id="Span1" class="spnRequiredField">*</span>
                 <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="ddlAccountType"
@@ -100,7 +100,7 @@
                 <asp:Label ID="lblBankName" runat="server" Text="Bank Name:" CssClass="FieldName"></asp:Label>
             </td>
             <td class="rightField">
-                <asp:DropDownList ID="ddlBankName" CssClass="cmbField" runat="server">
+                <asp:DropDownList ID="ddlBankName" CssClass="cmbLongField" Width="300px"  runat="server">
                 </asp:DropDownList>
                 <span id="Span3" class="spnRequiredField">*</span>
                 <asp:CompareValidator ID="CompareValidator3" runat="server" ControlToValidate="ddlBankName"
