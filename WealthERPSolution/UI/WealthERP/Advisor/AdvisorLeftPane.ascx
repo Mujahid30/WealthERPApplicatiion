@@ -89,6 +89,14 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Alert Configuration" Value="Alert Configuration">
                                             </telerik:RadPanelItem>
+                                             <telerik:RadPanelItem runat="server" Text="Privileges" Value="Privileges">
+                                             <Items>
+                                            <telerik:RadPanelItem runat="server" Text="User Role" Value="User_Role">
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="User Role privileges" Value="User_Role_privileges">
+                                            </telerik:RadPanelItem>
+                                        </Items>
+                                              </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
                                     <%--<telerik:RadPanelItem runat="server" Text="Product Group setup" Value="Product Group setup">
@@ -136,6 +144,7 @@
                                                     </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>
+                                             
                                             <telerik:RadPanelItem runat="server" Text="Sub Broker Code" Value="Sub_Broker_Code">
                                                 <Items>
                                                     <telerik:RadPanelItem runat="server" Text="Add Sub Broker Code" Value="AddAgentCode">
