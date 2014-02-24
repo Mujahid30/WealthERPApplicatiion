@@ -1195,7 +1195,7 @@
                                                     </td>
                                                     <td colspan="3%">
                                                         <asp:Panel ID="pnlCategoriesDetailschild" runat="server" Style="display: inline"
-                                                            CssClass="Landscape" ScrollBars="Horizontal" Visible="false">
+                                                            CssClass="Landscape" ScrollBars="Horizontal" Visible="true">
                                                             <telerik:RadGrid ID="rgCategoriesDetails" runat="server" AutoGenerateColumns="False"
                                                                 enableloadondemand="True" PageSize="5" EnableEmbeddedSkins="False" GridLines="None"
                                                                 ShowFooter="True" PagerStyle-AlwaysVisible="false" ShowStatusBar="True" Skin="Telerik"

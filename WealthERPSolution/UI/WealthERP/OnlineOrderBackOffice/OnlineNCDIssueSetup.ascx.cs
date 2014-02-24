@@ -1005,6 +1005,10 @@ namespace WealthERP.OnlineOrderBackOffice
                 if (issueId > 0)
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Issue Updated successfully.');", true);
+                    VisblityAndEnablityOfScreen("AfterUpdate");
+                    btnSetUpSubmit.Visible = false;
+                    lnkBtnEdit.Visible = true;
+                    lnlBack.Visible = true;
                 }
 
             }
@@ -2383,6 +2387,7 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             int result = UpdateIssue();
             SeriesAndCategoriesGridsVisiblity(Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text));
+           
         }
 
         protected void lnkBtnEdit_Click(object sender, EventArgs e)
@@ -2399,6 +2404,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 else
 
                     VisblityAndEnablityOfScreen("LnkEdit");
+                lnkBtnEdit.Visible = false;
             }
         }
 
