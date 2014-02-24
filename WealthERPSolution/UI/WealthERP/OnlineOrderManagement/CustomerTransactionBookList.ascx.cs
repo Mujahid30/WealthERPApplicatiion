@@ -50,7 +50,7 @@ namespace WealthERP.OnlineOrderManagement
             BindOrderStatus();
             BindAmc();
             BindLink();
-            Session["PreviousPage"] = "yes";
+           // Session["PreviousPage"] = "yes";
 
             // lbBack.Attributes.Add("onClick", "javascript:history.back(); return false;");
             if (!Page.IsPostBack)

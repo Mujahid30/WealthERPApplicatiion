@@ -166,7 +166,7 @@ namespace WealthERP.Customer
                     //Bind Adviser Branch List
 
                     BindListBranch(customerVo.RmId, "rm");
-                    //sai    ddlCustomerSubType.SelectedValue = customerVo.TaxStatusCustomerSubTypeId.ToString();
+                    ddlCustomerSubType.SelectedValue = customerVo.TaxStatusCustomerSubTypeId.ToString();
 
                     if (customerVo.Type.ToUpper().ToString() == "IND")
                     {

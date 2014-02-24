@@ -548,7 +548,8 @@ namespace WealthERP.Customer
                         customerVo.LastName = txtLastName.Text.ToString();
 
                         customerVo.TaxStatusCustomerSubTypeId = Int16.Parse(ddlCustomerSubType.SelectedValue.ToString());
-                        customerVo.AccountId = txtClientCode.Text.Trim();
+                       // customerVo.AccountId = txtClientCode.Text.Trim();
+                        customerVo.CustCode = txtClientCode.Text.Trim();
                         customerVo.IsRealInvestor = chkRealInvestor.Checked;
 
                         if (ddlSalutation.SelectedIndex == 0)
@@ -568,9 +569,9 @@ namespace WealthERP.Customer
                         customerVo.Type = "NIND";
 
                         customerVo.TaxStatusCustomerSubTypeId = Int16.Parse(ddlCustomerSubType.SelectedValue.ToString());
-                        customerVo.AccountId = txtClientCode.Text.Trim();
+                    //    customerVo.AccountId = txtClientCode.Text.Trim();
                         customerVo.IsRealInvestor = chkRealInvestor.Checked;
-
+                        customerVo.CustCode = txtClientCode.Text.Trim();
                         customerVo.CompanyName = txtCompanyName.Text.ToString();
                         customerVo.FirstName = txtCompanyName.Text.ToString();
                         customerVo.LastName = txtFirstName.Text.ToString();
@@ -591,6 +592,12 @@ namespace WealthERP.Customer
                         customerVo.DummyPAN = 1;
                     else
                         customerVo.DummyPAN = 0;
+                    if (!string.IsNullOrEmpty(txtMobileNumber.Text.ToString()))
+                    {
+                        customerVo.Mobile1 = Convert.ToInt64(txtMobileNumber.Text.ToString());
+                    }
+                    else
+                        customerVo.Mobile1 = 0;
                     customerVo.ProfilingDate = DateTime.Today;
                     customerVo.RBIApprovalDate = DateTime.MinValue;
                     customerVo.CommencementDate = DateTime.MinValue;

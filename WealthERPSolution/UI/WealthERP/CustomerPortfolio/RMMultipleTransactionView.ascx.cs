@@ -851,12 +851,16 @@ namespace WealthERP.CustomerPortfolio
                     }
                 }
             }
+            else if (Request.QueryString["RMMultipleTransactionView"] != null)
+            {
+
+            }
             else
             {
                 BindLastTradeDate();
 
                 // this session to fil gvMFTransactions grid while clicking on back button->ViewMfTRansaction
-                if (Session["gvMFTransactions"] != null)
+                if (Session["gvMFTransactions"] != null & lnkBackHolding.Visible==true)
                 {
                     Panel2.Visible = true;
                     Panel1.Visible = true;
