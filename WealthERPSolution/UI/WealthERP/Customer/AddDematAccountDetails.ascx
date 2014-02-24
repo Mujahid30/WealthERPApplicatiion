@@ -139,10 +139,10 @@
     <table>
     <tr>
         <td align="right">
-            <asp:Label ID="lblDpName" runat="server" Text="DP Name" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="lblDpName" runat="server" Text="DP Name:" CssClass="FieldName"></asp:Label>
         </td>
         <td>
-            <asp:TextBox ID="txtDpName" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtDpName" runat="server" CssClass="txtField" Width="300px"></asp:TextBox>
             <span id="Span1" class="spnRequiredField">*</span>
         </td>
         <td>
@@ -150,7 +150,7 @@
                 ErrorMessage="Name Required" CssClass="cvPCG"></asp:RequiredFieldValidator>
         </td>
         <td align="right">
-            &nbsp;<asp:Label ID="lblDPId" runat="server" Text="DP Id" CssClass="FieldName"></asp:Label>
+            &nbsp;<asp:Label ID="lblDPId" runat="server" Text="DP Id:" CssClass="FieldName"></asp:Label>
         </td>
         <td>
             <asp:TextBox ID="txtDPId" runat="server" CssClass="txtField"></asp:TextBox>
@@ -163,7 +163,7 @@
     </tr>
     <tr>
         <td align="right">
-            <asp:Label ID="lblDpClientId" runat="server" Text="Beneficiary Acct No" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="lblDpClientId" runat="server" Text="Beneficiary Acct No:" CssClass="FieldName"></asp:Label>
         </td>
         <td>
             <asp:TextBox ID="txtDpClientId" runat="server" CssClass="txtField"></asp:TextBox>
@@ -174,7 +174,7 @@
                 ErrorMessage="Client Id Required" CssClass="cvPCG"></asp:RequiredFieldValidator>
         </td>
         <td align="right">
-            &nbsp;<asp:Label ID="lblAccountOpeningDate" runat="server" Text="Account Opening Date"
+            &nbsp;<asp:Label ID="lblAccountOpeningDate" runat="server" Text="Account Opening Date:"
                 CssClass="FieldName"></asp:Label>
         </td>
         <td>
@@ -208,7 +208,7 @@
     </tr>
     <tr>
         <td align="right">
-            <asp:Label ID="lblIsHeldJointly" runat="server" Text="Is Held Jointly" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="lblIsHeldJointly" runat="server" Text="Is Held Jointly:" CssClass="FieldName"></asp:Label>
         </td>
         <td>
             <asp:Panel ID="Panel1" runat="server" Width="127px">
@@ -224,7 +224,7 @@
             &nbsp;
         </td>
         <td align="right">
-            &nbsp;<asp:Label ID="lblDepositoryName" runat="server" Text="Depository Name"
+            &nbsp;<asp:Label ID="lblDepositoryName" runat="server" Text="Depository Name:"
                 CssClass="FieldName"></asp:Label>
         </td>
         <td>
@@ -236,7 +236,7 @@
     </tr>
     <tr>
         <td align="right">
-            &nbsp;<asp:Label ID="lblModeOfHolding" runat="server" Text="Mode Of Holding" CssClass="FieldName"></asp:Label>
+            &nbsp;<asp:Label ID="lblModeOfHolding" runat="server" Text="Mode Of Holding:" CssClass="FieldName"></asp:Label>
         </td>
         <td>
             <asp:DropDownList ID="ddlModeOfHolding" runat="server" AutoPostBack="True" OnPreRender="ddlModeOfHolding_PreRender"
@@ -269,7 +269,7 @@
     
     <td colspan="10">
             <div class="divSectionHeading" style="vertical-align: text-bottom">
-            &nbsp;<asp:Label ID="lblPickJointHolder" runat="server" Text="Pick Joint Holder" CssClass="FieldName"></asp:Label>
+            &nbsp;<asp:Label ID="lblPickJointHolder" runat="server" Text="Pick Joint Holder:" CssClass="FieldName"></asp:Label>
         
                         
              </div>
