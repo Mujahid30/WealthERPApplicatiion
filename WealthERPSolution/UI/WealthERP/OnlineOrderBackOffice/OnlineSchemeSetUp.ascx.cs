@@ -1449,7 +1449,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 btnBasicDSubmit.Visible = false;
                 btnsubmit.Visible = true;
                 Clearallcontrols(true);
-            }
+          //  }
 
         }
         protected void btnsubmit_click(object sender, EventArgs e)
