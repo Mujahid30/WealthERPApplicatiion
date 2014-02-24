@@ -1078,7 +1078,7 @@ namespace WealthERP.Customer
                 rbtnYes.Enabled = true;
                 txtMicr.Enabled = true;
                 txtIfsc.Enabled = true;
-          //sr  txtBankCity.Enabled = true;
+                txtBankCity.Enabled = true;
          //sr     ddlBankAdrCity.Enabled = true;
          //sr     ddlBankAdrCountry.Enabled = true;
                 chk_Ismain.Enabled = true;
