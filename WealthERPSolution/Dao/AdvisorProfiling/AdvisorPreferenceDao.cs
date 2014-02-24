@@ -614,10 +614,35 @@ namespace DaoAdvisorProfiling
             }
             return dsGetUserRoleDepartmentWise.Tables[0];
         }
-
-
-
-
-
+        public DataSet GetAdviserRoledepartmentwise(int roleid)
+        {
+            DataSet dsGetAdviserRoledepartmentwise;
+            Database db;
+            DbCommand GetAdviserRoledepartmentwisecmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetAdviserRoledepartmentwisecmd = db.GetStoredProcCommand("SPROC_GetdepartmentRole");
+                //db.AddInParameter(GetAdviserRoledepartmentwisecmd, "@DepartmentId", DbType.String, departmentid);
+                db.AddInParameter(GetAdviserRoledepartmentwisecmd, "@AR_Roleid", DbType.String, roleid);
+                dsGetAdviserRoledepartmentwise = db.ExecuteDataSet(GetAdviserRoledepartmentwisecmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineNCDBackOfficeDao.cs:GetSeriesInvestorTypeRule()");
+                object[] objects = new object[1];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetAdviserRoledepartmentwise;
+        }
     }
 }

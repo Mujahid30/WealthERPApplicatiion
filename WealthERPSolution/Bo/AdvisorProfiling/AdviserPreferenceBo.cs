@@ -387,6 +387,30 @@ namespace BoAdvisorProfiling
             }
             return dtGetUserRoleDepartmentWise;
         }
+        public DataSet GetAdviserRoledepartmentwise(int roleid)
+        {
+            AdvisorPreferenceDao advisorPreferenceDao = new AdvisorPreferenceDao();
+           
+            try
+            {
+                return advisorPreferenceDao.GetAdviserRoledepartmentwise(roleid);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineNCDBackOfficeBo.cs:GetAdviserRoledepartmentwise()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
     }
 
 

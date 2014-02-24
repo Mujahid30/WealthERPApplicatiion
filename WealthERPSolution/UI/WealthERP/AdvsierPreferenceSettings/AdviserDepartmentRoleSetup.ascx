@@ -80,10 +80,10 @@
                             <ItemStyle HorizontalAlign="Center" CssClass="MyImageButton" />
                         </telerik:GridButtonColumn>
                     </Columns>
-                    <EditFormSettings EditFormType="Template" PopUpSettings-Height="270px" PopUpSettings-Width="330px"
+                    <EditFormSettings EditFormType="Template" PopUpSettings-Height="490px" PopUpSettings-Width="265px"
                         CaptionFormatString="Add User">
                         <FormTemplate>
-                            <table width="80%">
+                            <table width="100%">
                                 <tr>
                                     <td align="right">
                                         <asp:Label ID="lbllevel" runat="server" Text="Department:" CssClass="FieldName"></asp:Label>
@@ -100,14 +100,19 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="3">
+                                <td colspan="2">
+                                        <asp:Label ID="lbluserassociate" runat="server" Text="User Associated:" CssClass="FieldName"></asp:Label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
                                         <telerik:RadGrid ID="rgRoles" runat="server" AllowSorting="True" enableloadondemand="True"
-                                            PageSize="10" AllowPaging="True" AutoGenerateColumns="False" EnableEmbeddedSkins="False"
+                                            PageSize="5" AllowPaging="True" AutoGenerateColumns="False" EnableEmbeddedSkins="False"
                                             GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="false" ShowStatusBar="True"
-                                            Width="80%" Skin="Telerik" AllowFilteringByColumn="true" OnNeedDataSource="rgRoles_OnNeedDataSource"
+                                            Width="100%" Skin="Telerik" AllowFilteringByColumn="true" OnNeedDataSource="rgRoles_OnNeedDataSource"
                                             EnableViewState="true">
                                             <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" AutoGenerateColumns="false"
-                                                DataKeyNames="UR_RoleId">
+                                                DataKeyNames="UR_RoleId" Width="100%">
                                                 <Columns>
                                                     <telerik:GridTemplateColumn HeaderText="Select" ShowFilterIcon="false" AllowFiltering="false"
                                                         runat="server" UniqueName="chkBxSelect" Visible="true">
@@ -122,7 +127,7 @@
                                                     
                                                      <telerik:GridBoundColumn DataField="UR_RoleId" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
                                                         ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Role Name" UniqueName="UR_RoleId"
-                                                        SortExpression="UR_RoleId" AllowFiltering="true">
+                                                        SortExpression="UR_RoleId" AllowFiltering="true" Visible="false">
                                                         <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                                     </telerik:GridBoundColumn>
                                                     
@@ -146,9 +151,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td align="right">
-                                        <asp:Label ID="lbluserassociate" runat="server" Text="User Associated:" CssClass="FieldName"></asp:Label>
-                                    </td>
+                                    
                                     <td>
                                         <%-- <asp:CheckBox ID="chkAdmin" runat="server" CssClass="cmbFielde" Text="Is Buy Back"
                                             AutoPostBack="true"></asp:CheckBox>--%>
@@ -225,7 +228,7 @@
 <table>
     <tr>
         <td>
-            <asp:Label ID="Label1" runat="server" Text="Department:" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="Label1" runat="server" Text="Department:" CssClass="FieldName" Visible="false"></asp:Label>
         </td>
     </tr>
 </table>

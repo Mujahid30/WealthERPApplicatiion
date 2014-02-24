@@ -102,20 +102,35 @@ namespace WealthERP.AdvsierPreferenceSettings
             }
             if (e.Item is GridEditFormItem && e.Item.IsInEditMode && e.Item.ItemIndex != -1)
             {
+                int roleId = Convert.ToInt32(gvAdviserList.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AR_RoleId"].ToString());
                 GridEditFormItem editedItem = (GridEditFormItem)e.Item;
-                GridEditFormItem gefi = (GridEditFormItem)e.Item;
-                DropDownList ddlLevel = (DropDownList)gefi.FindControl("ddlLevel");
-                DataSet dsddlLevel = advisorPreferenceBo.GetDepartment(adviserVo.advisorId);
-                DataTable dtddlLevel;
-                dtddlLevel = dsddlLevel.Tables[0];
-                ddlLevel.DataSource = dtddlLevel;
-                ddlLevel.DataValueField = dtddlLevel.Columns["AD_DepartmentId"].ToString();
+                DropDownList ddlLevel = (DropDownList)editedItem.FindControl("ddlLevel");
+                TextBox txtRoleName=(TextBox) editedItem.FindControl("txtRoleName");
+                 TextBox txtNote=(TextBox) editedItem.FindControl("txtNote");
+                RadGrid rgRoles=(RadGrid)editedItem.FindControl("rgRoles");
+                BindPopUpcontrols(roleId,   ddlLevel,  txtRoleName,txtNote, rgRoles);
+                FillAdviserrole(roleId, txtRoleName, txtNote, rgRoles);
 
-                ddlLevel.DataTextField = dtddlLevel.Columns["AD_DepartmentName"].ToString();
-                ddlLevel.DataBind();
+                //TextBox txtIssueName = (TextBox)e.Item.FindControl("txtIssueName");
+                //txtIssueName.Text = txtName.Text;
+                //TextBox txtCategoryName = (TextBox)e.Item.FindControl("txtCategoryName");
 
-                if (ddlLevel.Items.Count > 0)
-                    ddlLevel.SelectedValue = gvAdviserList.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AD_DepartmentId"].ToString();
+
+
+                //GridEditFormItem editedItem = (GridEditFormItem)e.Item;
+                //GridEditFormItem gefi = (GridEditFormItem)e.Item;
+                //DropDownList ddlLevel = (DropDownList)gefi.FindControl("ddlLevel");
+                //DataSet dsddlLevel = advisorPreferenceBo.GetDepartment(adviserVo.advisorId);
+                //DataTable dtddlLevel;
+                //dtddlLevel = dsddlLevel.Tables[0];
+                //ddlLevel.DataSource = dtddlLevel;
+                //ddlLevel.DataValueField = dtddlLevel.Columns["AD_DepartmentId"].ToString();
+
+                //ddlLevel.DataTextField = dtddlLevel.Columns["AD_DepartmentName"].ToString();
+                //ddlLevel.DataBind();
+
+                //if (ddlLevel.Items.Count > 0)
+                //    ddlLevel.SelectedValue = gvAdviserList.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AD_DepartmentId"].ToString();
 
             }
         }
@@ -130,18 +145,12 @@ namespace WealthERP.AdvsierPreferenceSettings
                 TextBox txtRoleName = (TextBox)e.Item.FindControl("txtRoleName");
                 TextBox txtNote = (TextBox)e.Item.FindControl("txtNote");
               //  CheckBoxList rlbUserlist = (CheckBoxList)e.Item.FindControl("rlbUserlist");
-
-                int i = 0;
-
-
                 RadGrid rgLevels = (RadGrid)gridEditableItem.FindControl("rgRoles");
-
-
                 foreach (GridDataItem gdi in rgLevels.Items)
                 {
                     if (((CheckBox)gdi.FindControl("cbRoles")).Checked == true)
                     {
-                        StrUserLeve += gdi["UR_RoleId"].Text;   
+                        StrUserLeve += gdi["UR_RoleId"].Text+',';   
 
                     }
                 }
@@ -171,6 +180,56 @@ namespace WealthERP.AdvsierPreferenceSettings
             }
 
             BindUserRole();
+        }
+
+
+        private void BindPopUpcontrols(int roleId, DropDownList ddlLevel, TextBox textRoleName,TextBox txtNote,RadGrid rgRoles)
+        {
+
+
+
+
+
+        }
+        private void FillAdviserrole(int roleId, TextBox textRoleName, TextBox txtNote, RadGrid rgRoles)
+        {
+             DataTable dtuserlist = new DataTable();
+                dtuserlist = advisorPreferenceBo.GetAdviserRoledepartmentwise(roleId).Tables[0];
+
+                if (dtuserlist.Rows.Count > 0)
+                {
+                    foreach (DataRow dr in dtuserlist.Rows)
+                    {
+                        textRoleName.Text = dr["AID_IssueDetailName"].ToString();
+                        txtNote.Text = dr["AID_Tenure"].ToString();
+                        //  ddlLevel.SelectedValue = dr["AID_InterestType"].ToString();
+
+
+                        //if (!string.IsNullOrEmpty(dr["AIIC_InvestorCatgeoryId"].ToString()))
+                        //{
+                        //    seriesCategoryId = Convert.ToInt32(dr["AIIC_InvestorCatgeoryId"].ToString());
+                        //}
+                        //else
+                        //{
+                        //    return;
+                    }
+                }
+                //foreach (GridDataItem gdi in rgRoles.Items)
+                //{
+                //    int grdcategoryId = Convert.ToInt32(gdi["AIIC_InvestorCatgeoryId"].Text);
+                //    if (seriesCategoryId == grdcategoryId)
+                //    {
+                //        CheckBox cbSeriesCat = (CheckBox)gdi.FindControl("cbSeriesCat");
+                //        cbSeriesCat.Checked = true;
+                //        txtInterestRate.Text = dr["AIDCSR_DefaultInterestRate"].ToString();
+                //        txtAnnualizedYield.Text = dr["AIDCSR_AnnualizedYieldUpto"].ToString();
+                //        txtYieldAtCall.Text = dr["AIDCSR_YieldAtCall"].ToString();
+                //        txtRenCpnRate.Text = dr["AIDCSR_RenewCouponRate"].ToString();
+                //        txtYieldAtBuyBack.Text = dr["AIDCSR_YieldAtBuyBack"].ToString();
+                //        txtRedemptionDate.Text = dr["AIDCSR_RedemptionDate"].ToString();
+                //        txtRedemptionAmount.Text = dr["AIDCSR_RedemptionAmount"].ToString();
+                //    }
+                //}
         }
 
         protected void CheckBoxList1_SelectedIndexChnaged(object sender, System.EventArgs e)
