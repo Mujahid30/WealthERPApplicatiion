@@ -129,73 +129,24 @@ namespace WealthERP.AdvsierPreferenceSettings
                 DropDownList ddlLevel = (DropDownList)e.Item.FindControl("ddlLevel");
                 TextBox txtRoleName = (TextBox)e.Item.FindControl("txtRoleName");
                 TextBox txtNote = (TextBox)e.Item.FindControl("txtNote");
-                CheckBoxList rlbUserlist = (CheckBoxList)e.Item.FindControl("rlbUserlist");
+              //  CheckBoxList rlbUserlist = (CheckBoxList)e.Item.FindControl("rlbUserlist");
 
                 int i = 0;
 
 
-
-                if (rlbUserlist.Items[i].Selected)
- 	{
-        StrUserLeve = rlbUserlist.Items[i].Value;
-         
- 	}
+                RadGrid rgLevels = (RadGrid)gridEditableItem.FindControl("rgRoles");
 
 
-               //for (int idx1 = 0; idx1 < rlbUserlist.Items.Count; idx1++)
+                foreach (GridDataItem gdi in rgLevels.Items)
+                {
+                    if (((CheckBox)gdi.FindControl("cbRoles")).Checked == true)
+                    {
+                        StrUserLeve += gdi["UR_RoleId"].Text;   
 
-               //    if(rlbUserlist.CheckedItems.Count>1)
-            
+                    }
+                }
 
-              //  RadListBox rlbUserlist =ById<RadListBox>("rlbUserlist");
-           //     RadListBox RadListBox1 = (RadListBox)e.Item.FindControl("rlbUserlist");
-
-                 
-           //     StringBuilder sb = new StringBuilder();
-           //     IList<RadListBoxItem> collection = RadListBox1.CheckedItems;
-           // foreach (RadListBoxItem item in collection)
-           // {
-           //     sb.Append(item.Value + "<br />");
-           // }
- 
-           //string a = sb.ToString();
-
-
-
-
-
-
-
-                //if (rlbUserlist.CheckBoxes)
-                //{
-                //    foreach (RadListBoxItem item1 in rlbUserlist.Items)
-                //    {
-                //        //if (((RadListBox)gridEditableItem.FindControl("rlbUserlist")).CheckedItems.Count > 0)
-                //        //if (item1.Checked==true)
-                //        //if (((RadListBox)gridEditableItem.FindControl("rlbUserlist")).CheckBoxes == true)
-                //        //{
-                //        if (item1.Checked == true)
-
-                //            //for (int i = 0; i < rlbUserlist.CheckedItems.Count; i++)
-                //            //{
-                //            StrUserLeve += item1.Value + ",";
-
-                        //}
-                        // StrUserLeve = StrUserLeve.Remove(StrUserLeve.Trim().Length - 1);
-                        //}
-
-                    //}
-                
-                //foreach (RadListBoxItem item1 in rlbUserlist.Items)
-                //{+ rlbUserlist.CheckedItems[i].Text
-                //    if (((RadListBox)gridEditableItem.FindControl("rlbUserlist")).CheckBoxes == true)
-                //    {
-
-                //        strrlbUserlist.Append(item1.Value);
-                //        strrlbUserlist.Append(",");
-
-                //    }
-                //}
+              
 
                 advisorPreferenceBo.CreateUserRole(int.Parse(ddlLevel.SelectedValue), txtRoleName.Text, txtNote.Text, adviserVo.advisorId, userVo.UserId, StrUserLeve.TrimEnd(','));
             }
@@ -238,11 +189,43 @@ namespace WealthERP.AdvsierPreferenceSettings
 
         protected void ddlLevel_OnSelectedIndexChanged(object sender, EventArgs e)
         {
+            int cnt = 0;
             DropDownList ddlLevel = (DropDownList)sender;
 
             GridEditFormInsertItem gdi = (GridEditFormInsertItem)(ddlLevel).NamingContainer;
-            CheckBoxList rlbUserlist = (CheckBoxList)gdi.FindControl("rlbUserlist");
-            BindList(int.Parse(ddlLevel.SelectedItem.Value), rlbUserlist);
+            RadGrid rgRoles = (RadGrid)gdi.FindControl("rgRoles");
+
+
+            DataTable dtUserList = new DataTable();
+            dtUserList = advisorPreferenceBo.GetUserRoleDepartmentWise(Convert.ToInt32(ddlLevel.SelectedValue));
+
+            foreach (GridDataItem gdii in rgRoles.Items)
+               {
+                   if (((CheckBox)gdii.FindControl("cbRoles")).Checked == true)
+                   {
+
+                       cnt = cnt + 1;
+                   }
+               }
+             if (cnt == 0)
+             {
+                 rgRoles.DataSource = dtUserList;
+                 rgRoles.DataBind();
+
+                 if (Cache[userVo.UserId.ToString() + "RgRoles"] != null)
+                 {
+                     Cache.Remove(userVo.UserId.ToString() + "RgRoles");
+                     Cache.Insert(userVo.UserId.ToString() + "RgRoles", dtUserList);
+                 }
+                 else
+                 {
+                     Cache.Insert(userVo.UserId.ToString() + "RgRoles", dtUserList);
+
+                 }
+             }
+
+           
+           // BindList(int.Parse(ddlLevel.SelectedItem.Value), rlbUserlist);
         }
         private void BindList(int DepartmentId, CheckBoxList rlbUserlist)
         {
@@ -263,5 +246,20 @@ namespace WealthERP.AdvsierPreferenceSettings
                 gvAdviserList.DataSource = dtBindUserRole;
             }
         }
+
+
+        protected void rgRoles_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        {
+            DataTable dtBindUserRole = new DataTable();
+            RadGrid rgRoles = (RadGrid)(sender);
+           
+
+            dtBindUserRole = (DataTable)Cache[userVo.UserId.ToString() + "RgRoles"];
+            if (dtBindUserRole != null)
+            {
+                rgRoles.DataSource = dtBindUserRole;
+            }
+        }
+
     }
 }

@@ -100,18 +100,65 @@
                                     </td>
                                 </tr>
                                 <tr>
+                                    <td colspan="3">
+                                        <telerik:RadGrid ID="rgRoles" runat="server" AllowSorting="True" enableloadondemand="True"
+                                            PageSize="10" AllowPaging="True" AutoGenerateColumns="False" EnableEmbeddedSkins="False"
+                                            GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="false" ShowStatusBar="True"
+                                            Width="80%" Skin="Telerik" AllowFilteringByColumn="true" OnNeedDataSource="rgRoles_OnNeedDataSource"
+                                            EnableViewState="true">
+                                            <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" AutoGenerateColumns="false"
+                                                DataKeyNames="UR_RoleId">
+                                                <Columns>
+                                                    <telerik:GridTemplateColumn HeaderText="Select" ShowFilterIcon="false" AllowFiltering="false"
+                                                        runat="server" UniqueName="chkBxSelect" Visible="true">
+                                                        <HeaderTemplate>
+                                                            <asp:Label ID="lblchkBxSelect" runat="server" Text="Select"></asp:Label>
+                                                        </HeaderTemplate>
+                                                        <ItemTemplate>
+                                                            <asp:CheckBox ID="cbRoles" runat="server" Checked="false" AutoPostBack="True" />
+                                                        </ItemTemplate>
+                                                    </telerik:GridTemplateColumn>
+                                                    
+                                                    
+                                                     <telerik:GridBoundColumn DataField="UR_RoleId" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
+                                                        ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Role Name" UniqueName="UR_RoleId"
+                                                        SortExpression="UR_RoleId" AllowFiltering="true">
+                                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                    </telerik:GridBoundColumn>
+                                                    
+                                                    
+                                                    
+                                                    <telerik:GridBoundColumn DataField="UR_RoleName" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
+                                                        ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Role Name" UniqueName="UR_RoleName"
+                                                        SortExpression="UR_RoleName" AllowFiltering="true">
+                                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                    </telerik:GridBoundColumn>
+                                                    <%-- <telerik:GridTemplateColumn HeaderText="Role Name" ShowFilterIcon="false"
+                                                                        AllowFiltering="false" UniqueName="UR_RoleName">
+                                                                        
+                                                                        <ItemTemplate>
+                                                                            <asp:TextBox ID="txtRoleName" runat="server" CssClass="txtField" Width="55px"></asp:TextBox>
+                                                                        </ItemTemplate>
+                                                                    </telerik:GridTemplateColumn>--%>
+                                                </Columns>
+                                            </MasterTableView>
+                                        </telerik:RadGrid>
+                                    </td>
+                                </tr>
+                                <tr>
                                     <td align="right">
                                         <asp:Label ID="lbluserassociate" runat="server" Text="User Associated:" CssClass="FieldName"></asp:Label>
                                     </td>
                                     <td>
-                                       <%-- <asp:CheckBox ID="chkAdmin" runat="server" CssClass="cmbFielde" Text="Is Buy Back"
+                                        <%-- <asp:CheckBox ID="chkAdmin" runat="server" CssClass="cmbFielde" Text="Is Buy Back"
                                             AutoPostBack="true"></asp:CheckBox>--%>
                                         <asp:CheckBoxList ID="rlbUserlist" runat="server" RepeatDirection="Horizontal" RepeatLayout="Flow"
-                                            CssClass="cmbFielde" Width="100%" OnSelectedIndexChanged="CheckBoxList1_SelectedIndexChnaged" AutoPostBack="false">
+                                            CssClass="cmbFielde" Width="100%" OnSelectedIndexChanged="CheckBoxList1_SelectedIndexChnaged"
+                                            AutoPostBack="false">
                                         </asp:CheckBoxList>
                                         <%--  <telerik:RadListBox ID="rlbUserlist" runat="server" CssClass="txtField" Width="150px"
                                             Height="100px" CheckBoxes="true">--%>
-                                <%--        </telerik:RadListBox>
+                                        <%--        </telerik:RadListBox>
                                         <telerik:RadListBox ID="RadListBox1" runat="server" CssClass="txtField" Width="150px"
                                             Height="100px" CheckBoxes="true">
                                             <Items>
