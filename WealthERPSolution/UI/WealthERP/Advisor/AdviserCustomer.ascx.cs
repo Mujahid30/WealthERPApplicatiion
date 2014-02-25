@@ -178,7 +178,7 @@ namespace WealthERP.Advisor
                 {
                     rmId = int.Parse(dsAdviserRmDetails.Tables[0].Rows[0]["ar_rmid"].ToString());
                 }
-                DivCustomerList.Visible = true;
+               DivCustomerList.Visible = true;
                 BindCustomerGrid();
                 gvCustomerList.Columns[0].Visible = false;
                 gvCustomerList.Visible = true;
@@ -199,7 +199,7 @@ namespace WealthERP.Advisor
         /// <returns> Return Column on UserRole condition</returns>
 
         public DataTable CreateCustomeListTable(string UserRole)
-        {
+       {
             DataTable dtCustomer = new DataTable();
             dtCustomer.Columns.Add("CustomerId");
             dtCustomer.Columns.Add("ParentId");
@@ -227,7 +227,6 @@ namespace WealthERP.Advisor
             dtCustomer.Columns.Add("IsFPClient");
             dtCustomer.Columns.Add("IsMFKYC");
             dtCustomer.Columns.Add("CreatedOn");
-            dtCustomer.Columns.Add("C_IsRealInvestor");
             if (UserRole != "rm")
             {
                 dtCustomer.Columns.Add("BranchName");
@@ -264,7 +263,7 @@ namespace WealthERP.Advisor
             RMVo customerRMVo = new RMVo();
             try
             {
-                customerList = adviserBo.GetStaffUserCustomerList(adviserId, rmId, AgentId, UserRole, branchHeadId, AgentCode, out genDictParent, out genDictRM, out genDictReassignRM);
+                customerList = adviserBo.GetStaffUserCustomerList(adviserId, rmId,AgentId, UserRole, branchHeadId, AgentCode, out genDictParent, out genDictRM, out genDictReassignRM);
                 if (customerList == null)
                 {
                     DivCustomerList.Visible = false;
@@ -374,12 +373,10 @@ namespace WealthERP.Advisor
                             drCustomer["IsMFKYC"] = "N";
                         }
                         if (customerVo.Createdon != null)
-
+                       
                             drCustomer["CreatedOn"] = customerVo.Createdon;
-                        if (customerVo.IsRealInvestor)
-                            drCustomer["C_IsRealInvestor"] = "YES";
-                        else
-                            drCustomer["C_IsRealInvestor"] = "NO";
+                        
+                       
 
                         if (UserRole != "rm")
                         {
@@ -454,7 +451,7 @@ namespace WealthERP.Advisor
                     if (customer.ToLower().Trim() == "find customer" || customer.ToLower().Trim() == "")
                         customer = string.Empty;
                 }
-                customerList = adviserBo.GetStaffUserCustomerList(adviserVo.advisorId, rmId, AgentId, UserRole, branchHeadId, AgentCode, out genDictParent, out genDictRM, out genDictReassignRM);
+                customerList = adviserBo.GetStaffUserCustomerList(adviserVo.advisorId, rmId,AgentId, UserRole, branchHeadId, AgentCode, out genDictParent, out genDictRM, out genDictReassignRM);
 
                 if (customerList == null)
                 {
@@ -563,9 +560,9 @@ namespace WealthERP.Advisor
                         {
                             drCustomer["IsMFKYC"] = "N";
                         }
-
+                        
                         if (customerVo.Createdon != null)
-
+                       
                             drCustomer["CreatedOn"] = customerVo.Createdon;
                         if (UserRole != "rm")
                         {
@@ -576,15 +573,11 @@ namespace WealthERP.Advisor
                             drCustomer["custcode"] = customerVo.CustCode.ToString();
                         }
                         else
-                            drCustomer["custcode"] = "";
-                        if (customerVo.IsRealInvestor)
-                            drCustomer["C_IsRealInvestor"] = "YES";
-                        else
-                            drCustomer["C_IsRealInvestor"] = "NO";
+                           drCustomer["custcode"] = "";
                         dtCustomerList.Rows.Add(drCustomer);
 
                     }
-
+                     
                     if (Cache["CustomerList+UserRole" + adviserVo.advisorId + UserRole] == null)
                     {
                         Cache.Insert("CustomerList+UserRole" + adviserVo.advisorId + UserRole, dtCustomerList);
@@ -635,8 +628,7 @@ namespace WealthERP.Advisor
 
         protected void gvCustomerList_ItemDataBound(object sender, GridItemEventArgs e)
         {
-            if (e.Item is GridFilteringItem && e.Item.ItemIndex == -1)
-            {
+            if (e.Item is GridFilteringItem && e.Item.ItemIndex == -1) {
                 GridFilteringItem filterItem = (GridFilteringItem)e.Item;
                 RadComboBox RadComboRM = (RadComboBox)filterItem.FindControl("RadComboRM");
 
@@ -648,7 +640,7 @@ namespace WealthERP.Advisor
             }
 
             if (userVo.UserType == "Advisor") { return; }
-           // gvCustomerList.MasterTableView.GetColumn("Action").Visible = false;
+            gvCustomerList.MasterTableView.GetColumn("Action").Visible = false;
         }
 
         protected void gvCustomerList_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
@@ -659,7 +651,6 @@ namespace WealthERP.Advisor
             string statustype = string.Empty;
             string parentType = string.Empty;
             string rmType = string.Empty;
-            string IsInvestor = string.Empty;
             DataTable dtCustomer = new DataTable();
             dtCustomer = (DataTable)Cache["CustomerList+UserRole" + adviserVo.advisorId + UserRole];
 
@@ -670,9 +661,6 @@ namespace WealthERP.Advisor
                     statustype = ViewState["IsActive"].ToString();
                 if (ViewState["IsProspect"] != null)
                     prospectType = ViewState["IsProspect"].ToString();
-                if (ViewState["C_IsRealInvestor"] != null)
-                    IsInvestor = ViewState["C_IsRealInvestor"].ToString();
-
                 #region dependency code of group filter and other filter but not use
                 //if (ViewState["ParentId"] != null)
                 //    parentType = ViewState["ParentId"].ToString();
@@ -682,10 +670,9 @@ namespace WealthERP.Advisor
 
                 if (UserRole != "rm")
                 {
-                    // for status
-                    if ((!string.IsNullOrEmpty(statustype)) && (string.IsNullOrEmpty(prospectType)) && (string.IsNullOrEmpty(rmType))&&(string.IsNullOrEmpty(IsInvestor)))
+                    if ((!string.IsNullOrEmpty(statustype)) && (string.IsNullOrEmpty(prospectType)) && (string.IsNullOrEmpty(rmType)))
                     {
-                        dvcustomerList = new DataView(dtCustomer, "IsActive = '" + statustype + "'", "CustomerId,ACC_CustomerCategoryName,Cust_Comp_Name,ParentId,PANNumber,BranchName,RMId,Area,Pincode,City,ADUL_ProcessId,IsProspect,C_IsRealInvestor", DataViewRowState.CurrentRows);
+                        dvcustomerList = new DataView(dtCustomer, "IsActive = '" + statustype + "'", "CustomerId,ACC_CustomerCategoryName,Cust_Comp_Name,ParentId,PANNumber,BranchName,RMId,Area,Pincode,City,ADUL_ProcessId,IsProspect", DataViewRowState.CurrentRows);
                         gvCustomerList.DataSource = dvcustomerList.ToTable();
                         //if (dvcustomerList.Count > 10)
                         //    pnlCustomerList.Style.Add("Height", "410px");
@@ -693,86 +680,15 @@ namespace WealthERP.Advisor
                         //    pnlCustomerList.Style.Remove("Height");
 
                     }
-                    // for investor
-                    else if (!(string.IsNullOrEmpty(IsInvestor)) && (string.IsNullOrEmpty(prospectType)) && (string.IsNullOrEmpty(rmType)) && (string.IsNullOrEmpty(statustype)))
+                    else if ((string.IsNullOrEmpty(statustype)) && (!string.IsNullOrEmpty(prospectType)) && (string.IsNullOrEmpty(rmType)))
                     {
-                        dvcustomerList = new DataView(dtCustomer, "C_IsRealInvestor = '" + IsInvestor + "'", "CustomerId,ACC_CustomerCategoryName,Cust_Comp_Name,ParentId,PANNumber,BranchName,RMId,Area,Pincode,City,ADUL_ProcessId,IsActive", DataViewRowState.CurrentRows);
+                        dvcustomerList = new DataView(dtCustomer, "IsProspect = '" + prospectType + "'", "CustomerId,ACC_CustomerCategoryName,Cust_Comp_Name,ParentId,PANNumber,BranchName,RMId,Area,Pincode,City,ADUL_ProcessId,IsActive", DataViewRowState.CurrentRows);
                         gvCustomerList.DataSource = dvcustomerList.ToTable();
                         //if (dvcustomerList.Count > 10)
                         //    pnlCustomerList.Style.Add("Height", "410px");
                         //else
                         //    pnlCustomerList.Style.Remove("Height");
 
-                    }
-                    // for Rm
-                    else if ((string.IsNullOrEmpty(statustype)) && (string.IsNullOrEmpty(prospectType)) && (!string.IsNullOrEmpty(rmType)) && (string.IsNullOrEmpty(IsInvestor)))
-                    {
-                        dvcustomerList = new DataView(dtCustomer, "RMId = '" + rmType + "'", "CustomerId,ACC_CustomerCategoryName,Cust_Comp_Name,ParentId,PANNumber,BranchName,Area,Pincode,City,ADUL_ProcessId,IsProspect,IsActive,C_IsRealInvestor", DataViewRowState.CurrentRows);
-                        gvCustomerList.DataSource = dvcustomerList.ToTable();
-
-                        //if (dvcustomerList.Count > 10)
-                        //    pnlCustomerList.Style.Add("Height", "410px");
-                        //else
-                        //    pnlCustomerList.Style.Remove("Height");
-
-
-                    }
-                    // for prospect
-                    else if ((string.IsNullOrEmpty(statustype)) && (!string.IsNullOrEmpty(prospectType)) && (string.IsNullOrEmpty(IsInvestor)) && (string.IsNullOrEmpty(rmType)))
-                    {
-                        dvcustomerList = new DataView(dtCustomer, "IsProspect = '" + prospectType + "'", "CustomerId,ACC_CustomerCategoryName,Cust_Comp_Name,ParentId,PANNumber,Area,Pincode,City,ADUL_ProcessId,IsActive,C_IsRealInvestor", DataViewRowState.CurrentRows);
-                        gvCustomerList.DataSource = dvcustomerList.ToTable();
-                        //if (dvcustomerList.Count > 10)
-                        //    pnlCustomerList.Style.Add("Height", "410px");
-                        //else
-                        //    pnlCustomerList.Style.Remove("Height");
-
-                    }
-                        //for status n prospect
-                    else if ((!string.IsNullOrEmpty(statustype)) && (!string.IsNullOrEmpty(prospectType)) && (string.IsNullOrEmpty(rmType)) && (string.IsNullOrEmpty(IsInvestor)))
-                    {
-                        dvcustomerList = new DataView(dtCustomer, "IsProspect = '" + prospectType + "'and IsActive= '" + statustype + "'", "CustomerId,ACC_CustomerCategoryName,Cust_Comp_Name,ParentId,PANNumber,BranchName,RMId,Area,Pincode,City,ADUL_ProcessId,C_IsRealInvestor", DataViewRowState.CurrentRows);
-                        gvCustomerList.DataSource = dvcustomerList.ToTable();
-                    }
-                        // for status n rm 
-                    else if ((!string.IsNullOrEmpty(statustype)) && (string.IsNullOrEmpty(prospectType)) && (!string.IsNullOrEmpty(rmType)) && (string.IsNullOrEmpty(IsInvestor)))
-                    {
-                        dvcustomerList = new DataView(dtCustomer, "IsActive= '" + statustype + "'and RMId = '" + rmType + "'", "CustomerId,ACC_CustomerCategoryName,Cust_Comp_Name,ParentId,PANNumber,BranchName,Area,Pincode,City,ADUL_ProcessId,C_IsRealInvestor", DataViewRowState.CurrentRows);
-                        gvCustomerList.DataSource = dvcustomerList.ToTable();
-                    }
-
-                        // for prospect n rm
-                    else if ((string.IsNullOrEmpty(statustype)) && (!string.IsNullOrEmpty(prospectType)) && (!string.IsNullOrEmpty(rmType)) && (string.IsNullOrEmpty(IsInvestor)))
-                    {
-                        dvcustomerList = new DataView(dtCustomer, "IsProspect = '" + prospectType + "'and RMId = '" + rmType + "'", "CustomerId,ACC_CustomerCategoryName,Cust_Comp_Name,ParentId,PANNumber,BranchName,Area,Pincode,City,ADUL_ProcessId,IsActive,C_IsRealInvestor", DataViewRowState.CurrentRows);
-                        gvCustomerList.DataSource = dvcustomerList.ToTable();
-
-                    }
-                    // for prospect n isinvestor
-                    else if ((string.IsNullOrEmpty(statustype)) && (!string.IsNullOrEmpty(prospectType)) && (string.IsNullOrEmpty(rmType)) && (!string.IsNullOrEmpty(IsInvestor)))
-                    {
-                        dvcustomerList = new DataView(dtCustomer, "IsProspect = '" + prospectType + "' and C_IsRealInvestor = '" + IsInvestor + "'", "CustomerId,ACC_CustomerCategoryName,Cust_Comp_Name,ParentId,PANNumber,BranchName,Area,Pincode,City,ADUL_ProcessId,IsActive", DataViewRowState.CurrentRows);
-                        gvCustomerList.DataSource = dvcustomerList.ToTable();
-
-                    }
-                    // for active n isinvestor
-                    else if ((!string.IsNullOrEmpty(statustype)) && (string.IsNullOrEmpty(prospectType)) && (string.IsNullOrEmpty(rmType)) && (!string.IsNullOrEmpty(IsInvestor)))
-                    {
-                        dvcustomerList = new DataView(dtCustomer, "IsActive = '" + statustype + "'and C_IsRealInvestor = '" + IsInvestor + "'", "CustomerId,ACC_CustomerCategoryName,Cust_Comp_Name,ParentId,PANNumber,BranchName,Area,Pincode,City,ADUL_ProcessId,IsActive", DataViewRowState.CurrentRows);
-                        gvCustomerList.DataSource = dvcustomerList.ToTable();
-
-                    }
-                    // for status ,prospect and rm 
-                    else if ((!string.IsNullOrEmpty(statustype)) && (!string.IsNullOrEmpty(prospectType)) && (!string.IsNullOrEmpty(rmType)) && (string.IsNullOrEmpty(IsInvestor)))
-                    {
-                        dvcustomerList = new DataView(dtCustomer, "IsActive= '" + statustype + "' and IsProspect = '" + prospectType + "'and RMId = '" + rmType + "'", "CustomerId,ACC_CustomerCategoryName,Cust_Comp_Name,ParentId,PANNumber,BranchName,Area,Pincode,City,ADUL_ProcessId,C_IsRealInvestor", DataViewRowState.CurrentRows);
-                        gvCustomerList.DataSource = dvcustomerList.ToTable();
-                    }
-                    //for all four 
-                    else if ((!string.IsNullOrEmpty(statustype)) && (!string.IsNullOrEmpty(IsInvestor)) && (!string.IsNullOrEmpty(rmType)) && (!string.IsNullOrEmpty(prospectType)))
-                    {
-                        dvcustomerList = new DataView(dtCustomer, "IsActive= '" + statustype + "' and C_IsRealInvestor = '" + IsInvestor + "'and RMId = '" + rmType + "'", "CustomerId,ACC_CustomerCategoryName,Cust_Comp_Name,ParentId,PANNumber,BranchName,Area,Pincode,City,ADUL_ProcessId", DataViewRowState.CurrentRows);
-                        gvCustomerList.DataSource = dvcustomerList.ToTable();
                     }
                     #region dependency code of group filter and other filter but not use
                     //else if ((string.IsNullOrEmpty(statustype)) && (string.IsNullOrEmpty(prospectType)) && (!string.IsNullOrEmpty(parentType)) && (string.IsNullOrEmpty(rmType)))
@@ -781,8 +697,23 @@ namespace WealthERP.Advisor
                     //    gvCustomerList.DataSource = dvcustomerList.ToTable();
                     //}
                     #endregion
-                    
-                    
+                    else if ((string.IsNullOrEmpty(statustype)) && (string.IsNullOrEmpty(prospectType)) && (!string.IsNullOrEmpty(rmType)))
+                    {
+                        dvcustomerList = new DataView(dtCustomer, "RMId = '" + rmType + "'", "CustomerId,ACC_CustomerCategoryName,Cust_Comp_Name,ParentId,PANNumber,BranchName,Area,Pincode,City,ADUL_ProcessId,IsProspect,IsActive", DataViewRowState.CurrentRows);
+                        gvCustomerList.DataSource = dvcustomerList.ToTable();
+
+                        //if (dvcustomerList.Count > 10)
+                        //    pnlCustomerList.Style.Add("Height", "410px");
+                        //else
+                        //    pnlCustomerList.Style.Remove("Height");
+
+
+                    }
+                    else if ((!string.IsNullOrEmpty(statustype)) && (!string.IsNullOrEmpty(prospectType)) && (string.IsNullOrEmpty(rmType)))
+                    {
+                        dvcustomerList = new DataView(dtCustomer, "IsProspect = '" + prospectType + "'and IsActive= '" + statustype + "'", "CustomerId,ACC_CustomerCategoryName,Cust_Comp_Name,ParentId,PANNumber,BranchName,RMId,Area,Pincode,City,ADUL_ProcessId", DataViewRowState.CurrentRows);
+                        gvCustomerList.DataSource = dvcustomerList.ToTable();
+                    }
                     #region dependency code of group filter and other filter but not use
                     //else if ((string.IsNullOrEmpty(statustype)) && (!string.IsNullOrEmpty(prospectType)) && (!string.IsNullOrEmpty(parentType)) && (string.IsNullOrEmpty(rmType)))
                     //{
@@ -810,7 +741,11 @@ namespace WealthERP.Advisor
                     //    gvCustomerList.DataSource = dvcustomerList.ToTable();
                     //}
                     #endregion
-                    
+                    else if ((!string.IsNullOrEmpty(statustype)) && (string.IsNullOrEmpty(prospectType)) && (!string.IsNullOrEmpty(rmType)))
+                    {
+                        dvcustomerList = new DataView(dtCustomer, "IsActive= '" + statustype + "'and RMId = '" + rmType + "'", "CustomerId,ACC_CustomerCategoryName,Cust_Comp_Name,ParentId,PANNumber,BranchName,Area,Pincode,City,ADUL_ProcessId", DataViewRowState.CurrentRows);
+                        gvCustomerList.DataSource = dvcustomerList.ToTable();
+                    }
                     #region dependency code of group filter and other filter but not use
                     //else if ((!string.IsNullOrEmpty(statustype)) && (string.IsNullOrEmpty(prospectType)) && (!string.IsNullOrEmpty(parentType)) && (!string.IsNullOrEmpty(rmType)))
                     //{
@@ -818,28 +753,15 @@ namespace WealthERP.Advisor
                     //    gvCustomerList.DataSource = dvcustomerList.ToTable();
                     //}
                     #endregion
-                    
-                    else if ((!string.IsNullOrEmpty(statustype)) && (!string.IsNullOrEmpty(prospectType)) && (!string.IsNullOrEmpty(rmType)) && (string.IsNullOrEmpty(IsInvestor)))
+                    else if ((string.IsNullOrEmpty(statustype)) && (!string.IsNullOrEmpty(prospectType)) && (!string.IsNullOrEmpty(rmType)))
                     {
-                        dvcustomerList = new DataView(dtCustomer, "IsActive= '" + statustype + "' and IsProspect = '" + prospectType + "'and RMId = '" + rmType + "'", "CustomerId,ACC_CustomerCategoryName,Cust_Comp_Name,ParentId,PANNumber,BranchName,Area,Pincode,City,ADUL_ProcessId,C_IsRealInvestor", DataViewRowState.CurrentRows);
+                        dvcustomerList = new DataView(dtCustomer, "IsProspect = '" + prospectType + "'and RMId = '" + rmType + "'", "CustomerId,ACC_CustomerCategoryName,Cust_Comp_Name,ParentId,PANNumber,BranchName,Area,Pincode,City,ADUL_ProcessId,IsActive", DataViewRowState.CurrentRows);
                         gvCustomerList.DataSource = dvcustomerList.ToTable();
+
                     }
-                    // for status ,investor,pro
-                    else if ((!string.IsNullOrEmpty(statustype))&& (string.IsNullOrEmpty(prospectType)) && (!string.IsNullOrEmpty(IsInvestor)) && (string.IsNullOrEmpty(rmType)))
+                    else if ((!string.IsNullOrEmpty(statustype)) && (!string.IsNullOrEmpty(prospectType)) && (!string.IsNullOrEmpty(rmType)))
                     {
-                        dvcustomerList = new DataView(dtCustomer, "IsActive= '" + statustype + "' and C_IsRealInvestor = '" + IsInvestor + "'", "CustomerId,ACC_CustomerCategoryName,Cust_Comp_Name,ParentId,PANNumber,BranchName,Area,Pincode,City,ADUL_ProcessId", DataViewRowState.CurrentRows);
-                        gvCustomerList.DataSource = dvcustomerList.ToTable();
-                    }
-                     // for prospect investor n status
-                    else if ((!string.IsNullOrEmpty(statustype)) && (!string.IsNullOrEmpty(prospectType)) && (!string.IsNullOrEmpty(IsInvestor)) && (string.IsNullOrEmpty(rmType)))
-                    {
-                        dvcustomerList = new DataView(dtCustomer, "IsActive= '" + statustype + "' and C_IsRealInvestor = '" + IsInvestor + "' and IsProspect = '" + prospectType + "'", "CustomerId,ACC_CustomerCategoryName,Cust_Comp_Name,ParentId,PANNumber,BranchName,Area,Pincode,City,ADUL_ProcessId", DataViewRowState.CurrentRows);
-                        gvCustomerList.DataSource = dvcustomerList.ToTable();
-                    }
-                        //for rm, investor,status
-                    else if ((!string.IsNullOrEmpty(statustype)) && (string.IsNullOrEmpty(prospectType)) && (!string.IsNullOrEmpty(rmType)) && (!string.IsNullOrEmpty(IsInvestor)))
-                    {
-                        dvcustomerList = new DataView(dtCustomer, "IsActive= '" + statustype + "' and C_IsRealInvestor = '" + IsInvestor + "'and RMId = '" + rmType + "'", "CustomerId,ACC_CustomerCategoryName,Cust_Comp_Name,ParentId,PANNumber,BranchName,Area,Pincode,City,ADUL_ProcessId", DataViewRowState.CurrentRows);
+                        dvcustomerList = new DataView(dtCustomer, "IsActive= '" + statustype + "' and IsProspect = '" + prospectType + "'and RMId = '" + rmType + "'", "CustomerId,ACC_CustomerCategoryName,Cust_Comp_Name,ParentId,PANNumber,BranchName,Area,Pincode,City,ADUL_ProcessId", DataViewRowState.CurrentRows);
                         gvCustomerList.DataSource = dvcustomerList.ToTable();
                     }
                     else
@@ -992,26 +914,6 @@ namespace WealthERP.Advisor
                 gvCustomerList.MasterTableView.Rebind();
             }
         }
-
-        protected void isInvestor_SelectedIndexChanged(object sender, Telerik.Web.UI.RadComboBoxSelectedIndexChangedEventArgs e)
-        {
-            RadComboBox dropdown = sender as RadComboBox;
-            ViewState["C_IsRealInvestor"] = dropdown.SelectedValue.ToString();
-            if (ViewState["C_IsRealInvestor"] != "")
-            {
-                GridColumn column = gvCustomerList.MasterTableView.GetColumnSafe("C_IsRealInvestor");
-                column.CurrentFilterFunction = GridKnownFunction.EqualTo;
-                gvCustomerList.CurrentPageIndex = 0;
-                gvCustomerList.MasterTableView.Rebind();
-            }
-            else
-            {
-                GridColumn column = gvCustomerList.MasterTableView.GetColumnSafe("C_IsRealInvestor");
-                column.CurrentFilterFunction = GridKnownFunction.EqualTo;
-                gvCustomerList.CurrentPageIndex = 0;
-                gvCustomerList.MasterTableView.Rebind();
-            }
-        }
         protected void Status_SelectedIndexChanged(object sender, Telerik.Web.UI.RadComboBoxSelectedIndexChangedEventArgs e)
         {
             RadComboBox dropdown = sender as RadComboBox;
@@ -1073,7 +975,7 @@ namespace WealthERP.Advisor
             {
                 RefreshCombos();
             }
-
+            
 
         }
 
@@ -1135,14 +1037,7 @@ namespace WealthERP.Advisor
                 Combo.SelectedValue = ViewState["IsActive"].ToString();
             }
         }
-        protected void isInvestor_Prerender(object sender, EventArgs e)
-        {
-            RadComboBox Combo = sender as RadComboBox;
-            if (ViewState["C_IsRealInvestor"] != null)
-            {
-                Combo.SelectedValue = ViewState["C_IsRealInvestor"].ToString();
-            }
-        }
+
         protected void ddlAction_OnSelectedIndexChanged(object sender, EventArgs e)
         {
             int userId = 0;
@@ -1179,6 +1074,7 @@ namespace WealthERP.Advisor
                     else
                     {
                         //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "RMCustomerIndi", "loadlinks('RMCustomerIndividualLeftPane','login');", true);
+
                     }
 
                 }
@@ -1440,10 +1336,9 @@ namespace WealthERP.Advisor
             }
         }
 
-        string cleanCustomerName(string str)
-        {
-            string custName = str.Trim();
-            return Regex.Replace(custName, @"([\s]+)", " ");
+        string cleanCustomerName(string str) {
+            string custName = str.Trim();            
+            return Regex.Replace(custName, @"([\s]+)", " "); 
         }
     }
 
