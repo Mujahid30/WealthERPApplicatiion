@@ -116,7 +116,7 @@
         ele.style.height = 410
     }
 </script>--%>
-<style id="Style1" type="text/css" runat="server">
+<style type="text/css" runat="server">
     .rgDataDiv
     {
         height: auto;
@@ -170,7 +170,7 @@
         </td>
     </tr>
 </table>
-<table id="Table1" width="100%" cellspacing="0" cellpadding="0" runat="server">
+<table width="100%" cellspacing="0" cellpadding="0" runat="server">
     <tr>
         <td align="center">
             <div class="failure-msg" id="ErrorMessage" runat="server" visible="false" align="center">
@@ -409,35 +409,6 @@
                                 HeaderStyle-Width="60px" FilterControlWidth="30px" CurrentFilterFunction="Contains"
                                 ShowFilterIcon="false">
                                 <ItemStyle Width="55px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
-                            </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="C_IsRealInvestor" UniqueName="C_IsRealInvestor" HeaderText="Is Real Investor"
-                                SortExpression="C_IsRealInvestor" AutoPostBackOnFilter="true" AllowFiltering="true"
-                                HeaderStyle-Width="105px" FilterControlWidth="30px" CurrentFilterFunction="Contains"
-                                ShowFilterIcon="false">
-                            <ItemStyle Width="105px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
-                            <FilterTemplate>
-                                    <telerik:RadComboBox ID="isInvestor" AutoPostBack="true" AllowFiltering="true" CssClass="cmbField"
-                                        Width="60px" IsFilteringEnabled="true" AppendDataBoundItems="true" OnPreRender="isInvestor_Prerender"
-                                        EnableViewState="true" OnSelectedIndexChanged="isInvestor_SelectedIndexChanged" SelectedValue='<%# ((GridItem)Container).OwnerTableView.GetColumn("C_IsRealInvestor").CurrentFilterValue %>'
-                                        runat="server">
-                                        <Items>
-                                            <telerik:RadComboBoxItem Text="ALL" Value="" Selected="false"></telerik:RadComboBoxItem>
-                                            <telerik:RadComboBoxItem Text="YES" Value="yes" Selected="true" ></telerik:RadComboBoxItem>
-                                            <telerik:RadComboBoxItem Text="NO" Value="no" Selected="false"></telerik:RadComboBoxItem>
-                                            
-                                        </Items>
-                                    </telerik:RadComboBox>
-                                    <telerik:RadScriptBlock ID="RadScriptBlock5" runat="server">
-
-                                        <script type="text/javascript">
-                                            function isInvestorIndexChanged(sender, args) {
-                                                var tableView = $find("<%#((GridItem)Container).OwnerTableView.ClientID %>");
-                                                tableView.filter("C_IsRealInvestor", args.get_item().get_value(), "EqualTo");
-                                            }
-                                        </script>
-
-                                    </telerik:RadScriptBlock>
-                                </FilterTemplate>
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="ADUL_ProcessId" UniqueName="ADUL_ProcessId" HeaderText="Process Id"
                                 SortExpression="ADUL_ProcessId" AutoPostBackOnFilter="true" AllowFiltering="true"
