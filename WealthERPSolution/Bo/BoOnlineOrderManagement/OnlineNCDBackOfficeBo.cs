@@ -1349,5 +1349,19 @@ namespace BoOnlineOrderManagement
             }
             return dtBankBranchName;
         }
+        public int NSEandBSEcodeCheck(int adviserid,string nsecode, string bsecode)
+        {
+            int result = 0;
+            OnlineNCDBackOfficeDao daoOnlNcdBackOff = new OnlineNCDBackOfficeDao();
+            try
+            {
+                result = daoOnlNcdBackOff.NSEandBSEcodeCheck(adviserid, nsecode, bsecode);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return result;
+        }
     }
 }

@@ -2186,6 +2186,45 @@ namespace DaoOnlineOrderManagement
             }
             return dt;
         }
+        public int NSEandBSEcodeCheck(int adviserid, string nsecode,string bsecode)
+        {
+            Database db;
+            DataSet ds;
+            DbCommand cmdNSEandBSEcodeCheck;
+            int count = 0;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //checking year
+                cmdNSEandBSEcodeCheck = db.GetStoredProcCommand("SPROC_CheckingNSEandBSEcode");
+                db.AddInParameter(cmdNSEandBSEcodeCheck, "@AdviserId", DbType.String, adviserid);
+                db.AddInParameter(cmdNSEandBSEcodeCheck, "@NseCode", DbType.String, nsecode);
+                db.AddInParameter(cmdNSEandBSEcodeCheck, "@BseCode", DbType.String, bsecode);
+                db.AddOutParameter(cmdNSEandBSEcodeCheck, "@count", DbType.Int32, 0);
 
+                ds = db.ExecuteDataSet(cmdNSEandBSEcodeCheck);
+                if (db.ExecuteNonQuery(cmdNSEandBSEcodeCheck) != 0)
+                {
+                    count = Convert.ToInt32(db.GetParameterValue(cmdNSEandBSEcodeCheck, "count").ToString());
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AssociateDAO.cs:ExternalcodeCheck()");
+                object[] objects = new object[2];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return count;
+        }
     }
 }
