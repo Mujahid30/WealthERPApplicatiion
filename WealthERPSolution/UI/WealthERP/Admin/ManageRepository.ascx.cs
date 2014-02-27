@@ -23,6 +23,7 @@ namespace WealthERP.Admin
     public partial class ManageRepository : System.Web.UI.UserControl
     {
         AdvisorVo advisorVo = new AdvisorVo();
+        UserVo userVo = new UserVo();
         RepositoryVo repoVo;
         RepositoryBo repoBo;
         DataSet ds;
@@ -48,7 +49,7 @@ namespace WealthERP.Admin
         {
             SessionBo.CheckSession();
             advisorVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
-
+            userVo = (UserVo)Session[SessionContents.UserVo];
             // Get the Repository Path in solution
             strRepositoryPath = ConfigurationManager.AppSettings["RepositoryPath"].ToString();
 
@@ -79,6 +80,8 @@ namespace WealthERP.Admin
         {
             repoBo = new RepositoryBo();
             ds = new DataSet();
+            int CatId=0;
+           CatId= creatingProspectus();
             ds = repoBo.GetRepositoryCategory(advisorVo.advisorId);
 
             if (ds.Tables[0].Rows.Count > 0)
@@ -88,10 +91,27 @@ namespace WealthERP.Admin
                 ddlRCategory.DataTextField = strRepositoryCategoryTextField;
                 ddlRCategory.DataValueField = strRepositoryCategoryValueField;
                 ddlRCategory.DataBind();
-                ddlRCategory.Items.Insert(0, new ListItem(strSelectCategory, strSelectCategory));
-            }
-        }
+                ddlRCategory.Items.Insert(0, new ListItem("Select", "Select"));
 
+            }
+            if (CatId > 0)
+            {
+                ddlRCategory.SelectedValue = "PR";
+                ddlRCategory.Enabled = false;
+            }
+                   
+
+        }
+        private int  creatingProspectus()
+        {
+            int CatId = 0;
+            if (Request.QueryString["NCDProspect"] != null)
+            {
+                CatId = repoBo.GetNcdProspectUsCat(advisorVo.advisorId, 0, userVo.UserId);
+               
+            }
+            return CatId;
+        }
         protected void ddlUploadDataType_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlUploadDataType.SelectedValue.Equals(Constants.F.ToString()))
@@ -746,10 +766,10 @@ namespace WealthERP.Admin
         }
         protected void lnkButton_Click(object sender, EventArgs e)
         {
-            int IssueId ;
+            int IssueId;
             if (Request.QueryString["IssueId"] != null)
             {
-                if (Request.QueryString["IssueId"] == string.Empty )
+                if (Request.QueryString["IssueId"] == string.Empty)
                 {
                     IssueId = 0;
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineNCDIssueSetup", "loadcontrol('OnlineNCDIssueSetup');", true);

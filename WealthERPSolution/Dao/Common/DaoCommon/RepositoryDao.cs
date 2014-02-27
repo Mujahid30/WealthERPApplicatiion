@@ -77,7 +77,43 @@ namespace DaoCommon
             }
             return ds;
         }
-
+        public int  GetNcdProspectUsCat(int advisorId, int RoleId, int UserId )
+        {
+            Database db;
+            DbCommand cmdAddRepository;
+            bool blResult = false;
+            int CatId = 0;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdAddRepository = db.GetStoredProcCommand("SPROC_GetNcdProspectUsCat");
+                db.AddInParameter(cmdAddRepository, "@AdviserId", DbType.Int32, advisorId);
+                db.AddInParameter(cmdAddRepository, "@UserId", DbType.String, UserId);
+                db.AddOutParameter(cmdAddRepository, "@CatID", DbType.Int32, CatId);
+                db.ExecuteDataSet(cmdAddRepository);
+                 
+                    CatId = Convert.ToInt32(db.GetParameterValue(cmdAddRepository, "CatID").ToString());
+ 
+               
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "RepositoryDao.cs:AddRepositoryItem(RepositoryVo repoVo)");
+                object[] objects = new object[1];
+                objects[0] = CatId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return CatId;
+        }
         public bool AddRepositoryItem(RepositoryVo repoVo,int issueId)
         {
             Database db;

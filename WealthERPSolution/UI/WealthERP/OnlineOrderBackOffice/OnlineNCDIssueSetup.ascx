@@ -1357,13 +1357,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td colspan="3">
-                                                        <%-- <telerik:RadGrid ID="rgSeriesCat" runat="server" AllowSorting="True" enableloadondemand="True"
-                                                            PageSize="5" AllowPaging="false" AutoGenerateColumns="false" EnableEmbeddedSkins="False"
-                                                            GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="true" ShowStatusBar="True"
-                                                            OnItemDataBound="rgSeriesCat_ItemDataBound" Skin="Telerik" AllowFilteringByColumn="true"
-                                                            OnNeedDataSource="rgSeriesCat_OnNeedDataSource">
-                                                            <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" AutoGenerateColumns="false"
-                                                                DataKeyNames="AIIC_InvestorCatgeoryId">--%>
+                                                       
                                                         <telerik:RadGrid ID="rgSubCategories" runat="server" AllowSorting="True" enableloadondemand="True"
                                                             PageSize="10" AllowPaging="True" AutoGenerateColumns="False" EnableEmbeddedSkins="False"
                                                             GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="false" ShowStatusBar="True"

@@ -69,6 +69,21 @@ namespace BoCommon
             return ds;
         }
 
+        public int GetNcdProspectUsCat(int advisorId, int RoleId, int UserId)
+        {
+            RepositoryDao repoDao = new RepositoryDao();
+          
+             
+            try
+            {
+                return repoDao.GetNcdProspectUsCat(advisorId, RoleId, UserId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+        }
+
         public bool AddRepositoryItem(RepositoryVo repoVo,int issueId)
         {
             RepositoryDao repoDao = new RepositoryDao();
