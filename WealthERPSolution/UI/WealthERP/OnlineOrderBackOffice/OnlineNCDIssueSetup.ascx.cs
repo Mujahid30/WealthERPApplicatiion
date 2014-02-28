@@ -583,6 +583,9 @@ namespace WealthERP.OnlineOrderBackOffice
 
         private void EnablityOfScreen(bool value, bool boolGridsEnablity, bool boolGridsVisblity, bool boolBtnsVisblity)
         {
+            txtBankBranch.Enabled = value;
+            txtAllotmentDate.Enabled = value;
+            txtTradingInMultipleOf.Enabled = value;
 
             ddlProduct.Enabled = value;
             ddlCategory.Enabled = value;
@@ -641,7 +644,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
             chkIsActive.Enabled = value;
             chkNomineeReQuired.Enabled = value;
-
+            chkTradebleExchange.Enabled = value;
             //pnlSeries.Enabled = boolGridsEnablity;
             //pnlCategory.Enabled = boolGridsEnablity;
             rgSeries.Enabled = boolGridsEnablity;
@@ -677,7 +680,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
         private int UpdateIssue()
         {
-            int issueId;
+            int issueId=0;
             try
             {
                 onlineNCDBackOfficeVo = new OnlineNCDBackOfficeVo();
@@ -704,8 +707,8 @@ namespace WealthERP.OnlineOrderBackOffice
                 onlineNCDBackOfficeVo.IssueName = txtName.Text;
                 onlineNCDBackOfficeVo.IssuerId = Convert.ToInt32(ddlIssuer.SelectedValue);
 
-                onlineNCDBackOfficeVo.FromRange = Convert.ToInt32(txtFormRange.Text);
-                onlineNCDBackOfficeVo.ToRange = Convert.ToInt32(txtToRange.Text);
+                onlineNCDBackOfficeVo.FromRange =Convert.ToInt64(txtFormRange.Text);
+                onlineNCDBackOfficeVo.ToRange = Convert.ToInt64(txtToRange.Text);
 
                 if (!string.IsNullOrEmpty(txtInitialCqNo.Text))
                 {
@@ -1000,17 +1003,19 @@ namespace WealthERP.OnlineOrderBackOffice
 
                 }
                 onlineNCDBackOfficeVo.IssueId = Convert.ToInt32(txtIssueId.Text);
-
-                issueId = onlineNCDBackOfficeBo.UpdateIssue(onlineNCDBackOfficeVo);
-                if (issueId > 0)
+                if (NSCEBSCEcode())
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Issue Updated successfully.');", true);
-                    VisblityAndEnablityOfScreen("AfterUpdate");
-                    btnSetUpSubmit.Visible = false;
-                    lnkBtnEdit.Visible = true;
-                    lnlBack.Visible = true;
+                    issueId = onlineNCDBackOfficeBo.UpdateIssue(onlineNCDBackOfficeVo);
+                    if (issueId > 0)
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Issue Updated successfully.');", true);
+                        VisblityAndEnablityOfScreen("AfterUpdate");
+                        btnSetUpSubmit.Visible = false;
+                        lnkBtnEdit.Visible = true;
+                        lnlBack.Visible = true;
+                       
+                    }
                 }
-
             }
 
             catch (BaseApplicationException Ex)
@@ -1901,88 +1906,89 @@ namespace WealthERP.OnlineOrderBackOffice
             else if (e.CommandName == RadGrid.DeleteCommandName)
             {
                 int categoryId = Convert.ToInt32(rgEligibleInvestorCategories.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIIC_InvestorCatgeoryId"].ToString());
-               // int result = CreateUpdateDeleteCategory(0, categoryId, "", "", "", 0, 0, "", 0, "Delete");
+                // int result = CreateUpdateDeleteCategory(0, categoryId, "", "", "", 0, 0, "", 0, "Delete");
 
 
             }
             else if (e.CommandName == "btnAddMore")
             {
-                //DataTable dtRecords = new DataTable();
-                //RadGrid rgSubCategories = (RadGrid)e.Item.FindControl("rgSubCategories");
+                DataTable dtRecords = new DataTable();
+                RadGrid rgSubCategories = (RadGrid)e.Item.FindControl("rgSubCategories");
 
-                if((e.Item is GridEditFormInsertItem ) || (e.Item is GridEditFormItem))
+                if ((e.Item is GridEditFormInsertItem) || (e.Item is GridEditFormItem))
                 {
-                foreach (GridColumn col in rgSubCategories.Columns)
-                {
-                    DataColumn colString = new DataColumn(col.UniqueName);
-                    dtRecords.Columns.Add(colString);
-
-                }
-                //    DataColumn colString = new DataColumn(col.UniqueName);
-                //    dtRecords.Columns.Add(colString);
-
-                //}
-                foreach (GridDataItem row in rgSubCategories.Items) // loops through each rows in RadGrid
-                {
-                    //  row.SetVisibleChildren(true);
-                    TextBox txtSubCategoryCode = null;
-                    DropDownList ddlSubCategory = null;
-                    TextBox txtMinInvestmentAmount = null;
-                    TextBox txtMaxInvestmentAmount = null;
-
-                    DataRow dr = dtRecords.NewRow();
-                    foreach (GridColumn col in rgSubCategories.Columns) //loops through each column in RadGrid
+                    foreach (GridColumn col in rgSubCategories.Columns)
                     {
-                        txtSubCategoryCode = (TextBox)(row[col.UniqueName].FindControl("txtSubCategoryCode"));
-                        ddlSubCategory = (DropDownList)(row[col.UniqueName].FindControl("ddlSubCategory"));
-                        txtMinInvestmentAmount = (TextBox)(row[col.UniqueName].FindControl("txtMinInvestmentAmount"));
-                        txtMaxInvestmentAmount = (TextBox)(row[col.UniqueName].FindControl("txtMaxInvestmentAmount"));
+                        DataColumn colString = new DataColumn(col.UniqueName);
+                        dtRecords.Columns.Add(colString);
 
-                        if (col.UniqueName == "SubCategoryCode")
+                    }
+                    //    DataColumn colString = new DataColumn(col.UniqueName);
+                    //    dtRecords.Columns.Add(colString);
+
+                    //}
+                    foreach (GridDataItem row in rgSubCategories.Items) // loops through each rows in RadGrid
+                    {
+                        //  row.SetVisibleChildren(true);
+                        TextBox txtSubCategoryCode = null;
+                        DropDownList ddlSubCategory = null;
+                        TextBox txtMinInvestmentAmount = null;
+                        TextBox txtMaxInvestmentAmount = null;
+
+                        DataRow dr = dtRecords.NewRow();
+                        foreach (GridColumn col in rgSubCategories.Columns) //loops through each column in RadGrid
                         {
-                            dr[col.UniqueName] = txtSubCategoryCode.Text;
+                            txtSubCategoryCode = (TextBox)(row[col.UniqueName].FindControl("txtSubCategoryCode"));
+                            ddlSubCategory = (DropDownList)(row[col.UniqueName].FindControl("ddlSubCategory"));
+                            txtMinInvestmentAmount = (TextBox)(row[col.UniqueName].FindControl("txtMinInvestmentAmount"));
+                            txtMaxInvestmentAmount = (TextBox)(row[col.UniqueName].FindControl("txtMaxInvestmentAmount"));
+
+                            if (col.UniqueName == "SubCategoryCode")
+                            {
+                                dr[col.UniqueName] = txtSubCategoryCode.Text;
+                            }
+                            else if (col.UniqueName == "CustSubCategory")
+                            {
+                                dr[col.UniqueName] = ddlSubCategory.Text;
+                            }
+                            else if (col.UniqueName == "MinInvestmentAmt")
+                            {
+                                dr[col.UniqueName] = txtMinInvestmentAmount.Text;
+                            }
+                            else if (col.UniqueName == "MaxInvestmentAmt")
+                            {
+                                dr[col.UniqueName] = txtMaxInvestmentAmount.Text;
+                            }
+
                         }
-                        else if (col.UniqueName == "CustSubCategory")
+                        if (txtSubCategoryCode != null && ddlSubCategory != null && txtMinInvestmentAmount != null && txtMaxInvestmentAmount != null)
                         {
-                            dr[col.UniqueName] = ddlSubCategory.Text;
-                        }
-                        else if (col.UniqueName == "MinInvestmentAmt")
-                        {
-                            dr[col.UniqueName] = txtMinInvestmentAmount.Text;
-                        }
-                        else if (col.UniqueName == "MaxInvestmentAmt")
-                        {
-                            dr[col.UniqueName] = txtMaxInvestmentAmount.Text;
+                            if (txtSubCategoryCode.Text != string.Empty && ddlSubCategory.SelectedValue != "Select")
+                                dtRecords.Rows.Add(dr);
                         }
 
                     }
-                    if (txtSubCategoryCode != null && ddlSubCategory != null && txtMinInvestmentAmount != null && txtMaxInvestmentAmount != null)
+                    dtRecords.Rows.Add();
+                    dtRecords.AcceptChanges();
+
+
+                    if (Cache[userVo.UserId.ToString() + "SubCat"] != null)
                     {
-                        if (txtSubCategoryCode.Text != string.Empty && ddlSubCategory.SelectedValue != "Select")
-                            dtRecords.Rows.Add(dr);
+                        Cache.Remove(userVo.UserId.ToString() + "SubCat");
+                        Cache.Insert(userVo.UserId.ToString() + "SubCat", dtRecords);
+                    }
+                    else
+                    {
+                        Cache.Insert(userVo.UserId.ToString() + "SubCat", dtRecords);
+
                     }
 
-                }
-                dtRecords.Rows.Add();
-                dtRecords.AcceptChanges();
-
-
-                if (Cache[userVo.UserId.ToString() + "SubCat"] != null)
-                {
-                    Cache.Remove(userVo.UserId.ToString() + "SubCat");
-                    Cache.Insert(userVo.UserId.ToString() + "SubCat", dtRecords);
-                }
-                else
-                {
-                    Cache.Insert(userVo.UserId.ToString() + "SubCat", dtRecords);
-
-                }
-
-                rgSubCategories.DataSource = dtRecords;
-                rgSubCategories.DataBind();
+                    rgSubCategories.DataSource = dtRecords;
+                    rgSubCategories.DataBind();
 
                 }
             }
+        }
         
 
         //protected void rgSubCategories_UpdateCommand(object source, GridCommandEventArgs e)
@@ -2625,8 +2631,8 @@ namespace WealthERP.OnlineOrderBackOffice
                 onlineNCDBackOfficeVo.IssueName = txtName.Text;
                 onlineNCDBackOfficeVo.IssuerId = Convert.ToInt32(ddlIssuer.SelectedValue);
 
-                onlineNCDBackOfficeVo.FromRange = Convert.ToInt32(txtFormRange.Text);
-                onlineNCDBackOfficeVo.ToRange = Convert.ToInt32(txtToRange.Text);
+                onlineNCDBackOfficeVo.FromRange = Convert.ToInt64(txtFormRange.Text);
+                onlineNCDBackOfficeVo.ToRange = Convert.ToInt64(txtToRange.Text);
 
                 if (!string.IsNullOrEmpty(txtInitialCqNo.Text))
                 {
@@ -2941,13 +2947,14 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     onlineNCDBackOfficeVo.BSECode = "";
                 }
-                
+                if(NSCEBSCEcode())
+                {
                     issueId = onlineNCDBackOfficeBo.CreateIssue(onlineNCDBackOfficeVo, advisorVo.advisorId);
                     if (issueId > 0)
                     {
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Issue added successfully.');", true);
 
-                     
+                    }
                 }
             }
     
@@ -2973,6 +2980,11 @@ namespace WealthERP.OnlineOrderBackOffice
             bool isBool = true ;
             int isBseExist=0;
             int isNseExist = 0;
+            int issuCheck;
+            if (string.IsNullOrEmpty(txtIssueId.Text))
+                issuCheck = 0;
+            else
+                issuCheck = Convert.ToInt32(txtIssueId.Text);
 
             if (string.IsNullOrEmpty(txtNSECode.Text) && string.IsNullOrEmpty(txtBSECode.Text))
                   isBool=false;
@@ -2982,7 +2994,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please Enter Different NSE or BSE Code.');", true);
                 isBool=false;
             }
-             onlineNCDBackOfficeBo.NSEandBSEcodeCheck(advisorVo.advisorId, txtNSECode.Text, txtBSECode.Text,ref  isBseExist ,ref  isNseExist );
+            onlineNCDBackOfficeBo.NSEandBSEcodeCheck(issuCheck, advisorVo.advisorId, txtNSECode.Text, txtBSECode.Text, ref  isBseExist, ref  isNseExist);
              if (isBseExist > 0 && txtBSECode.Text != string.Empty)
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('BSE Code Exist.');", true);

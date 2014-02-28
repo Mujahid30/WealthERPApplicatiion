@@ -315,8 +315,8 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(createCmd, "@AIM_BankBranch", DbType.String, onlineNCDBackOfficeVo.BankBranch);
                 db.AddInParameter(createCmd, "@AIM_PutCallOption", DbType.String, onlineNCDBackOfficeVo.PutCallOption);
                 db.AddOutParameter(createCmd, "@AIM_IssueId", DbType.Int32, 0);
-                db.AddInParameter(createCmd, "@FromRange", DbType.Int32, onlineNCDBackOfficeVo.FromRange);
-                db.AddInParameter(createCmd, "@ToRange", DbType.Int32, onlineNCDBackOfficeVo.ToRange);
+                db.AddInParameter(createCmd, "@FromRange", DbType.Int64, onlineNCDBackOfficeVo.FromRange);
+                db.AddInParameter(createCmd, "@ToRange", DbType.Int64, onlineNCDBackOfficeVo.ToRange);
                 db.AddInParameter(createCmd, "@IsActive", DbType.Int32, onlineNCDBackOfficeVo.IsActive);
                 db.AddInParameter(createCmd, "@IsNominationRequired", DbType.Int32, onlineNCDBackOfficeVo.IsNominationRequired);
 
@@ -662,8 +662,8 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(createCmd, "@AIM_BankBranch", DbType.String, onlineNCDBackOfficeVo.BankBranch);
                 db.AddInParameter(createCmd, "@AIM_PutCallOption", DbType.String, onlineNCDBackOfficeVo.PutCallOption);
                 db.AddOutParameter(createCmd, "@AIM_IssueId", DbType.Int32, 0);
-                db.AddInParameter(createCmd, "@FromRange", DbType.Int32, onlineNCDBackOfficeVo.FromRange);
-                db.AddInParameter(createCmd, "@ToRange", DbType.Int32, onlineNCDBackOfficeVo.ToRange);
+                db.AddInParameter(createCmd, "@FromRange", DbType.Int64, onlineNCDBackOfficeVo.FromRange);
+                db.AddInParameter(createCmd, "@ToRange", DbType.Int64, onlineNCDBackOfficeVo.ToRange);
                 db.AddInParameter(createCmd, "@IsActive", DbType.Int32, onlineNCDBackOfficeVo.IsActive);
                 db.AddInParameter(createCmd, "@IsNominationRequired", DbType.Int32, onlineNCDBackOfficeVo.IsNominationRequired);
 
@@ -2186,7 +2186,7 @@ namespace DaoOnlineOrderManagement
             }
             return dt;
         }
-        public void  NSEandBSEcodeCheck(int adviserid, string nsecode, string bsecode, ref int isBseExist, ref int isNseExist)
+        public void  NSEandBSEcodeCheck(int issueid,int adviserid, string nsecode, string bsecode, ref int isBseExist, ref int isNseExist)
         {
             Database db;
             DataSet ds;
@@ -2198,6 +2198,7 @@ namespace DaoOnlineOrderManagement
 
                 cmdNSEandBSEcodeCheck = db.GetStoredProcCommand("SPROC_CheckingNSEandBSEcode");
                 db.AddInParameter(cmdNSEandBSEcodeCheck, "@AdviserId", DbType.String, adviserid);
+                db.AddInParameter(cmdNSEandBSEcodeCheck, "@IssueId", DbType.String, issueid);
                 db.AddInParameter(cmdNSEandBSEcodeCheck, "@NseCode", DbType.String, nsecode);
                 db.AddInParameter(cmdNSEandBSEcodeCheck, "@BseCode", DbType.String, bsecode);
                 db.AddOutParameter(cmdNSEandBSEcodeCheck, "@isBseExist", DbType.Int32, 10);

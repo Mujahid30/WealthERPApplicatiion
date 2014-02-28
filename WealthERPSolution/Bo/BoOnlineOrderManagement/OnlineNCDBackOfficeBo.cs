@@ -1349,13 +1349,13 @@ namespace BoOnlineOrderManagement
             }
             return dtBankBranchName;
         }
-        public void  NSEandBSEcodeCheck(int adviserid,string nsecode, string bsecode,ref int isBseExist, ref int isNseExist)
+        public void  NSEandBSEcodeCheck(int issueid,int adviserid,string nsecode, string bsecode,ref int isBseExist, ref int isNseExist)
         {
             
             OnlineNCDBackOfficeDao daoOnlNcdBackOff = new OnlineNCDBackOfficeDao();
             try
             {
-                daoOnlNcdBackOff.NSEandBSEcodeCheck(adviserid, nsecode, bsecode, ref isBseExist, ref isNseExist);
+                daoOnlNcdBackOff.NSEandBSEcodeCheck(issueid,adviserid, nsecode, bsecode, ref isBseExist, ref isNseExist);
             }
             catch (BaseApplicationException Ex)
             {

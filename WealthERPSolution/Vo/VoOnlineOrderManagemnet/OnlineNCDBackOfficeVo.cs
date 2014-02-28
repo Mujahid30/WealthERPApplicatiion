@@ -70,8 +70,8 @@ namespace VoOnlineOrderManagemnet
         public string PutCallOption { get; set; }
         public string IssueName { get; set; }
         public string Rating { get; set; }
-        public int FromRange { get; set; }
-        public int ToRange { get; set; }
+        public double FromRange { get; set; }
+        public double ToRange { get; set; }
 
         public int IsActive { get; set; }
         public int IsNominationRequired { get; set; }
