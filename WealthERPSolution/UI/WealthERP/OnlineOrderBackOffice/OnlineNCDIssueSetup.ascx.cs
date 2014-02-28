@@ -1912,84 +1912,84 @@ namespace WealthERP.OnlineOrderBackOffice
             }
             else if (e.CommandName == "btnAddMore")
             {
-                DataTable dtRecords = new DataTable();
-                RadGrid rgSubCategories = (RadGrid)e.Item.FindControl("rgSubCategories");
+                //    DataTable dtRecords = new DataTable();
+                //    RadGrid rgSubCategories = (RadGrid)e.Item.FindControl("rgSubCategories");
 
-                if ((e.Item is GridEditFormInsertItem) || (e.Item is GridEditFormItem))
-                {
-                    foreach (GridColumn col in rgSubCategories.Columns)
-                    {
-                        DataColumn colString = new DataColumn(col.UniqueName);
-                        dtRecords.Columns.Add(colString);
+                //    if ((e.Item is GridEditFormInsertItem) || (e.Item is GridEditFormItem))
+                //    {
+                //        foreach (GridColumn col in rgSubCategories.Columns)
+                //        {
+                //            DataColumn colString = new DataColumn(col.UniqueName);
+                //            dtRecords.Columns.Add(colString);
 
-                    }
-                    //    DataColumn colString = new DataColumn(col.UniqueName);
-                    //    dtRecords.Columns.Add(colString);
+                //        }
+                //        //    DataColumn colString = new DataColumn(col.UniqueName);
+                //        //    dtRecords.Columns.Add(colString);
 
-                    //}
-                    foreach (GridDataItem row in rgSubCategories.Items) // loops through each rows in RadGrid
-                    {
-                        //  row.SetVisibleChildren(true);
-                        TextBox txtSubCategoryCode = null;
-                        DropDownList ddlSubCategory = null;
-                        TextBox txtMinInvestmentAmount = null;
-                        TextBox txtMaxInvestmentAmount = null;
+                //        //}
+                //        foreach (GridDataItem row in rgSubCategories.Items) // loops through each rows in RadGrid
+                //        {
+                //            //  row.SetVisibleChildren(true);
+                //            TextBox txtSubCategoryCode = null;
+                //            DropDownList ddlSubCategory = null;
+                //            TextBox txtMinInvestmentAmount = null;
+                //            TextBox txtMaxInvestmentAmount = null;
 
-                        DataRow dr = dtRecords.NewRow();
-                        foreach (GridColumn col in rgSubCategories.Columns) //loops through each column in RadGrid
-                        {
-                            txtSubCategoryCode = (TextBox)(row[col.UniqueName].FindControl("txtSubCategoryCode"));
-                            ddlSubCategory = (DropDownList)(row[col.UniqueName].FindControl("ddlSubCategory"));
-                            txtMinInvestmentAmount = (TextBox)(row[col.UniqueName].FindControl("txtMinInvestmentAmount"));
-                            txtMaxInvestmentAmount = (TextBox)(row[col.UniqueName].FindControl("txtMaxInvestmentAmount"));
+                //            DataRow dr = dtRecords.NewRow();
+                //            foreach (GridColumn col in rgSubCategories.Columns) //loops through each column in RadGrid
+                //            {
+                //                txtSubCategoryCode = (TextBox)(row[col.UniqueName].FindControl("txtSubCategoryCode"));
+                //                ddlSubCategory = (DropDownList)(row[col.UniqueName].FindControl("ddlSubCategory"));
+                //                txtMinInvestmentAmount = (TextBox)(row[col.UniqueName].FindControl("txtMinInvestmentAmount"));
+                //                txtMaxInvestmentAmount = (TextBox)(row[col.UniqueName].FindControl("txtMaxInvestmentAmount"));
 
-                            if (col.UniqueName == "SubCategoryCode")
-                            {
-                                dr[col.UniqueName] = txtSubCategoryCode.Text;
-                            }
-                            else if (col.UniqueName == "CustSubCategory")
-                            {
-                                dr[col.UniqueName] = ddlSubCategory.Text;
-                            }
-                            else if (col.UniqueName == "MinInvestmentAmt")
-                            {
-                                dr[col.UniqueName] = txtMinInvestmentAmount.Text;
-                            }
-                            else if (col.UniqueName == "MaxInvestmentAmt")
-                            {
-                                dr[col.UniqueName] = txtMaxInvestmentAmount.Text;
-                            }
+                //                if (col.UniqueName == "SubCategoryCode")
+                //                {
+                //                    dr[col.UniqueName] = txtSubCategoryCode.Text;
+                //                }
+                //                else if (col.UniqueName == "CustSubCategory")
+                //                {
+                //                    dr[col.UniqueName] = ddlSubCategory.Text;
+                //                }
+                //                else if (col.UniqueName == "MinInvestmentAmt")
+                //                {
+                //                    dr[col.UniqueName] = txtMinInvestmentAmount.Text;
+                //                }
+                //                else if (col.UniqueName == "MaxInvestmentAmt")
+                //                {
+                //                    dr[col.UniqueName] = txtMaxInvestmentAmount.Text;
+                //                }
 
-                        }
-                        if (txtSubCategoryCode != null && ddlSubCategory != null && txtMinInvestmentAmount != null && txtMaxInvestmentAmount != null)
-                        {
-                            if (txtSubCategoryCode.Text != string.Empty && ddlSubCategory.SelectedValue != "Select")
-                                dtRecords.Rows.Add(dr);
-                        }
+                //            }
+                //            if (txtSubCategoryCode != null && ddlSubCategory != null && txtMinInvestmentAmount != null && txtMaxInvestmentAmount != null)
+                //            {
+                //                if (txtSubCategoryCode.Text != string.Empty && ddlSubCategory.SelectedValue != "Select")
+                //                    dtRecords.Rows.Add(dr);
+                //            }
 
-                    }
-                    dtRecords.Rows.Add();
-                    dtRecords.AcceptChanges();
+                //        }
+                //        dtRecords.Rows.Add();
+                //        dtRecords.AcceptChanges();
 
 
-                    if (Cache[userVo.UserId.ToString() + "SubCat"] != null)
-                    {
-                        Cache.Remove(userVo.UserId.ToString() + "SubCat");
-                        Cache.Insert(userVo.UserId.ToString() + "SubCat", dtRecords);
-                    }
-                    else
-                    {
-                        Cache.Insert(userVo.UserId.ToString() + "SubCat", dtRecords);
+                //        if (Cache[userVo.UserId.ToString() + "SubCat"] != null)
+                //        {
+                //            Cache.Remove(userVo.UserId.ToString() + "SubCat");
+                //            Cache.Insert(userVo.UserId.ToString() + "SubCat", dtRecords);
+                //        }
+                //        else
+                //        {
+                //            Cache.Insert(userVo.UserId.ToString() + "SubCat", dtRecords);
 
-                    }
+                //        }
 
-                    rgSubCategories.DataSource = dtRecords;
-                    rgSubCategories.DataBind();
+                //        rgSubCategories.DataSource = dtRecords;
+                //        rgSubCategories.DataBind();
 
-                }
+                //    }
+                //}
             }
         }
-        
 
         //protected void rgSubCategories_UpdateCommand(object source, GridCommandEventArgs e)
         //{
