@@ -18,7 +18,7 @@ namespace DaoOnlineOrderManagement
     public class OnlineNCDBackOfficeDao
     {
 
-        public DataSet GetExtSource(string product,int issueId)
+        public DataSet GetExtSource(string product, int issueId)
         {
             DataSet dsExtSource;
             Database db;
@@ -116,7 +116,7 @@ namespace DaoOnlineOrderManagement
         {
             Database db;
             DbCommand dbCommand;
-            string isEligible="";
+            string isEligible = "";
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
@@ -124,7 +124,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(dbCommand, "@CatSubTypeId", DbType.Int32, catSubTypeId);
                 db.AddInParameter(dbCommand, "@CatId", DbType.Int32, catId);
                 db.AddInParameter(dbCommand, "@SeriesId", DbType.Int32, seriesId);
-                db.AddInParameter(dbCommand, "@IssueId", DbType.Int32, IssueId);                           
+                db.AddInParameter(dbCommand, "@IssueId", DbType.Int32, IssueId);
                 db.AddOutParameter(dbCommand, "@IsAvailble", DbType.String, 100);
                 if (db.ExecuteScalar(dbCommand) == null)
                     isEligible = string.Empty;
@@ -308,7 +308,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(createCmd, "@TradingLot", DbType.Int32, onlineNCDBackOfficeVo.TradingLot);
                 db.AddInParameter(createCmd, "@BiddingLot", DbType.Int32, onlineNCDBackOfficeVo.BiddingLot);
                 db.AddInParameter(createCmd, "@AIM_MinApplicationSize", DbType.Int32, onlineNCDBackOfficeVo.MinApplicationSize);
-                db.AddInParameter(createCmd, "@IsPrefix", DbType.String, onlineNCDBackOfficeVo.IsPrefix);
+                db.AddInParameter(createCmd, "@IsPrefix", DbType.Int32, onlineNCDBackOfficeVo.IsPrefix);
                 db.AddInParameter(createCmd, "@AIM_TradingInMultipleOf", DbType.Int32, onlineNCDBackOfficeVo.TradingInMultipleOf);
                 //db.AddInParameter(createCmd, "@AIM_ListedInExchange", DbType.String, onlineNCDBackOfficeVo.ListedInExchange);
                 db.AddInParameter(createCmd, "@AIM_BankName", DbType.String, onlineNCDBackOfficeVo.BankName);
@@ -655,7 +655,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(createCmd, "@TradingLot", DbType.Int32, onlineNCDBackOfficeVo.TradingLot);
                 db.AddInParameter(createCmd, "@BiddingLot", DbType.Int32, onlineNCDBackOfficeVo.BiddingLot);
                 db.AddInParameter(createCmd, "@AIM_MinApplicationSize", DbType.Int32, onlineNCDBackOfficeVo.MinApplicationSize);
-                db.AddInParameter(createCmd, "@IsPrefix", DbType.String, onlineNCDBackOfficeVo.IsPrefix);
+                db.AddInParameter(createCmd, "@IsPrefix", DbType.Int32, onlineNCDBackOfficeVo.IsPrefix);
                 db.AddInParameter(createCmd, "@AIM_TradingInMultipleOf", DbType.Int32, onlineNCDBackOfficeVo.TradingInMultipleOf);
                 //db.AddInParameter(createCmd, "@AIM_ListedInExchange", DbType.String, onlineNCDBackOfficeVo.ListedInExchange);
                 db.AddInParameter(createCmd, "@AIM_BankName", DbType.String, onlineNCDBackOfficeVo.BankName);
@@ -1160,7 +1160,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(createCmd, "@MaxInvestmentAmount", DbType.Double, onlineNCDBackOfficeVo.MaxInvestmentAmount);
                 db.AddInParameter(createCmd, "@SubCategoryId", DbType.Double, onlineNCDBackOfficeVo.SubCatgeoryId);
 
-                
+
 
                 if (db.ExecuteNonQuery(createCmd) != 0)
                     bResult = true;
@@ -1420,7 +1420,7 @@ namespace DaoOnlineOrderManagement
             DataSet dt = new DataSet();
             try
             {
-                
+
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmd = db.GetStoredProcCommand("SPROC_ONL_NCDOrderExtract");
                 db.AddInParameter(cmd, "@A_AdviserId", DbType.Int32, AdviserId);
@@ -1470,7 +1470,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(GetOnlineNCDExtractPreviewcmd, "@IssueId", DbType.Int32, issueId);
                 db.AddInParameter(GetOnlineNCDExtractPreviewcmd, "@ExtSource", DbType.String, extSource);
 
-                
+
                 dsGetOnlineNCDExtractPreview = db.ExecuteDataSet(GetOnlineNCDExtractPreviewcmd);
             }
             catch (BaseApplicationException Ex)
@@ -2186,27 +2186,29 @@ namespace DaoOnlineOrderManagement
             }
             return dt;
         }
-        public int NSEandBSEcodeCheck(int adviserid, string nsecode,string bsecode)
+        public void  NSEandBSEcodeCheck(int adviserid, string nsecode, string bsecode, ref int isBseExist, ref int isNseExist)
         {
             Database db;
             DataSet ds;
             DbCommand cmdNSEandBSEcodeCheck;
-            int count = 0;
+         
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                //checking year
+
                 cmdNSEandBSEcodeCheck = db.GetStoredProcCommand("SPROC_CheckingNSEandBSEcode");
                 db.AddInParameter(cmdNSEandBSEcodeCheck, "@AdviserId", DbType.String, adviserid);
                 db.AddInParameter(cmdNSEandBSEcodeCheck, "@NseCode", DbType.String, nsecode);
                 db.AddInParameter(cmdNSEandBSEcodeCheck, "@BseCode", DbType.String, bsecode);
-                db.AddOutParameter(cmdNSEandBSEcodeCheck, "@count", DbType.Int32, 0);
+                db.AddOutParameter(cmdNSEandBSEcodeCheck, "@isBseExist", DbType.Int32, 10);
+                db.AddOutParameter(cmdNSEandBSEcodeCheck, "@isNseExist", DbType.Int32, 10);
 
                 ds = db.ExecuteDataSet(cmdNSEandBSEcodeCheck);
-                if (db.ExecuteNonQuery(cmdNSEandBSEcodeCheck) != 0)
-                {
-                    count = Convert.ToInt32(db.GetParameterValue(cmdNSEandBSEcodeCheck, "count").ToString());
-                }
+
+                isBseExist = Convert.ToInt32(db.GetParameterValue(cmdNSEandBSEcodeCheck, "isBseExist").ToString());
+                isNseExist = Convert.ToInt32(db.GetParameterValue(cmdNSEandBSEcodeCheck, "isNseExist").ToString());
+
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -2224,7 +2226,7 @@ namespace DaoOnlineOrderManagement
                 throw exBase;
 
             }
-            return count;
+            
         }
     }
 }

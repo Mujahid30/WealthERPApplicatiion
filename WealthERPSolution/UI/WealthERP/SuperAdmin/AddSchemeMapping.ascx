@@ -96,16 +96,58 @@
             <td>
                 <table width="100%">
                     <tr id="trMappingType" runat="server">
-                        <td align="right">
+                        <td align="right" width="10%">
                             <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="Select:"></asp:Label>
                         </td>
-                        <td align="left">
+                        <td align="left" width="10%">
                             <asp:DropDownList ID="ddlMappingType" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlMappingType_SelectedIndexChanged"
                                 AutoPostBack="true">
                                 <asp:ListItem Text="Select">Select</asp:ListItem>
                                 <asp:ListItem Text="Scheme Mapping" Value="0">Scheme Mapping</asp:ListItem>
                                 <asp:ListItem Text="Data Translation Mapping" Value="1">Data Translation Mapping</asp:ListItem>
                             </asp:DropDownList>
+                        </td>
+                        <td id="tdmapped" runat="server" visible="false" align="right" width="10%">
+                            <asp:Label ID="lblMType" runat="server" Text="Type:" CssClass="FieldName"></asp:Label>
+                        </td>
+                        <td id="tduMaped" runat="server" visible="false" width="10%">
+                            <asp:DropDownList ID="ddlMAapped" runat="server" CssClass="cmbField">
+                                <%--<asp:ListItem Text="Select">Select</asp:ListItem>--%>
+                                <asp:ListItem Text="Mapped" Value="1">Mapped</asp:ListItem>
+                                <asp:ListItem Text="UnMapped" Value="2">UnMapped</asp:ListItem>
+                            </asp:DropDownList>
+                        </td>
+                         <td>
+                        </td>
+                         <td align="left">
+                            <asp:Button ID="btnGo" runat="server" OnClick="btnGo_Click" Text="Go" CssClass="PCGButton"
+                                ValidationGroup="btnGo" />
+                        </td>
+                        </tr>
+                         <tr id="trExternalsource" runat="server" visible="false">
+                        <td align="right">
+                            <asp:Label ID="lblExternalType" runat="server" Text="External Source:" CssClass="FieldName"></asp:Label>
+                        </td>
+                        <td align="left">
+                            <asp:DropDownList ID="ddlExternalSource" runat="server" CssClass="cmbField" AutoPostBack="false">
+                                <asp:ListItem Text="Select" Value="Select">Select</asp:ListItem>
+                                <asp:ListItem Text="CAMS" Value="CAMS"></asp:ListItem>
+                                <%-- <asp:ListItem Text="Deutsche" Value="Deutsche">
+                                </asp:ListItem>--%>
+                                <asp:ListItem Text="Templeton" Value="Templeton">
+                                </asp:ListItem>
+                                <asp:ListItem Text="KARVY" Value="KARVY">
+                                </asp:ListItem>
+                                <asp:ListItem Text="Sundaram" Value="Sundaram">
+                                </asp:ListItem>
+                            </asp:DropDownList>
+                        </td>
+                    
+                       
+                       
+                        <td>
+                        </td>
+                        <td>
                         </td>
                     </tr>
                     <tr id="trShemeMapping" runat="server" visible="false">
@@ -151,31 +193,8 @@
                             </asp:DropDownList>
                         </td>
                     </tr>
-                    <tr id="trExternalsource" runat="server" visible="false">
-                        <td align="right">
-                            <asp:Label ID="lblExternalType" runat="server" Text="External Source:" CssClass="FieldName"></asp:Label>
-                        </td>
-                        <td align="left">
-                            <asp:DropDownList ID="ddlExternalSource" runat="server" CssClass="cmbField" AutoPostBack="false">
-                                <asp:ListItem Text="Select" Value="Select">Select</asp:ListItem>
-                                <asp:ListItem Text="CAMS" Value="CAMS"></asp:ListItem>
-                                <%-- <asp:ListItem Text="Deutsche" Value="Deutsche">
-                                </asp:ListItem>--%>
-                                <asp:ListItem Text="Templeton" Value="Templeton">
-                                </asp:ListItem>
-                                <asp:ListItem Text="KARVY" Value="KARVY">
-                                </asp:ListItem>
-                                <asp:ListItem Text="Sundaram" Value="Sundaram">
-                                </asp:ListItem>
-                            </asp:DropDownList>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="right">
-                            <asp:Button ID="btnGo" runat="server" OnClick="btnGo_Click" Text="Go" CssClass="PCGButton"
-                                ValidationGroup="btnGo" />
-                        </td>
-                    </tr>
+                   
+                    
                 </table>
             </td>
         </tr>
@@ -191,12 +210,12 @@
             AllowFilteringByColumn="true">
             <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="ExistMFInvestlist">
             </ExportSettings>
-            <MasterTableView DataKeyNames="PASP_SchemePlanCode,PASC_AMC_ExternalType,PASC_AMC_ExternalCode,PASP_SchemePlanName"
+            <MasterTableView DataKeyNames="PASP_SchemePlanCode,PASC_AMC_ExternalType,PASC_AMC_ExternalCode,PASP_SchemePlanName,PASC_IsOnline"
                 EditMode="PopUp" CommandItemDisplay="None" CommandItemSettings-ShowRefreshButton="false"
                 Width="102%" CommandItemSettings-AddNewRecordText="Scheme Mapping">
                 <Columns>
                     <telerik:GridEditCommandColumn EditText="Edit" UniqueName="editColumn" CancelText="Cancel"
-                        UpdateText="Update" HeaderStyle-Width="80px">
+                        UpdateText="Edit" HeaderStyle-Width="80px">
                     </telerik:GridEditCommandColumn>
                     <telerik:GridBoundColumn Visible="true" UniqueName="Type" HeaderStyle-Width="80px"
                         FilterControlWidth="50px" HeaderText="Type" DataField="Type" SortExpression="Type"
@@ -235,9 +254,9 @@
                         AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                         <HeaderStyle></HeaderStyle>
                     </telerik:GridBoundColumn>
-                    <telerik:GridBoundColumn UniqueName="PASC_AMC_ExternalType" HeaderText="RTA"
-                        HeaderStyle-Width="99px" DataField="PASC_AMC_ExternalType" SortExpression="PASC_AMC_ExternalType"
-                        AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                    <telerik:GridBoundColumn UniqueName="PASC_AMC_ExternalType" HeaderText="RTA" HeaderStyle-Width="99px"
+                        DataField="PASC_AMC_ExternalType" SortExpression="PASC_AMC_ExternalType" AllowFiltering="true"
+                        ShowFilterIcon="false" AutoPostBackOnFilter="true">
                         <HeaderStyle></HeaderStyle>
                     </telerik:GridBoundColumn>
                     <%--  <telerik:GridTemplateColumn DataField="PASC_AMC_ExternalType" UniqueName="ShipCity"
@@ -326,7 +345,7 @@
                                                 <%--                                                <asp:TextBox ID="txtExternalTypeForEditForm" Text='<%# Bind("PASC_AMC_ExternalType") %>' runat="server"></asp:TextBox>
 --%>
                                                 <asp:DropDownList CssClass="cmbField" runat="server" ID="ddlExternalType" AutoPostBack="true"
-                                                    Enabled="false">
+                                                    Enabled="true">
                                                     <asp:ListItem Text="Select" Value="Select">
                                                     </asp:ListItem>
                                                     <asp:ListItem Text="CAMS" Value="CAMS">
@@ -404,11 +423,11 @@
             <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="ExistMFInvestlist">
             </ExportSettings>
             <MasterTableView DataKeyNames="ClassificationCode" EditMode="PopUp" CommandItemDisplay="Top"
-                CommandItemSettings-ShowRefreshButton="false" Width="90%" CommandItemSettings-AddNewRecordText="Add New Karvy Data For Mapping">
+                CommandItemSettings-ShowRefreshButton="false" Width="90%" CommandItemSettings-AddNewRecordText="New Karvy Data For Mapping">
                 <%-- CommandItemSettings-AddNewRecordText="Add New Scheme For Mapping"--%>
                 <Columns>
-                    <telerik:GridEditCommandColumn EditText="Update" UniqueName="editColumn" CancelText="Cancel"
-                        HeaderStyle-Width="80px" UpdateText="Update">
+                    <telerik:GridEditCommandColumn EditText="Edit" UniqueName="editColumn" CancelText="Cancel"
+                        HeaderStyle-Width="80px" UpdateText="Edit">
                     </telerik:GridEditCommandColumn>
                     <telerik:GridBoundColumn UniqueName="WKDTM_TransactionHead" HeaderStyle-Width="150px"
                         HeaderText="Source Head" DataField="WKDTM_TransactionHead" SortExpression="WKDTM_TransactionHead"
@@ -416,7 +435,7 @@
                         <HeaderStyle></HeaderStyle>
                     </telerik:GridBoundColumn>
                     <telerik:GridBoundColumn UniqueName="Transaction_Type" HeaderStyle-Width="150px"
-                        HeaderText="Source" DataField="Transaction_Type" SortExpression="Transaction_Type"
+                        HeaderText="source code" DataField="Transaction_Type" SortExpression="Transaction_Type"
                         AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                         <HeaderStyle></HeaderStyle>
                     </telerik:GridBoundColumn>
@@ -431,12 +450,12 @@
                         <HeaderStyle></HeaderStyle>
                     </telerik:GridBoundColumn>
                     <telerik:GridBoundColumn Visible="true" UniqueName="ClassificationCode" HeaderStyle-Width="150px"
-                        HeaderText="Classification Code" DataField="ClassificationCode" SortExpression="ClassificationCode"
+                        HeaderText="System Translation Code" DataField="ClassificationCode" SortExpression="ClassificationCode"
                         AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                         <HeaderStyle></HeaderStyle>
                     </telerik:GridBoundColumn>
                     <telerik:GridBoundColumn Visible="true" UniqueName="WMTT_TransactionClassificationName"
-                        HeaderStyle-Width="150px" HeaderText="Destination Description" DataField="WMTT_TransactionClassificationName"
+                        HeaderStyle-Width="150px" HeaderText="System Translation Description" DataField="WMTT_TransactionClassificationName"
                         SortExpression="WMTT_TransactionClassificationName" AllowFiltering="true" ShowFilterIcon="false"
                         AutoPostBackOnFilter="true">
                         <HeaderStyle></HeaderStyle>
@@ -447,13 +466,14 @@
                         <HeaderStyle></HeaderStyle>
                     </telerik:GridBoundColumn>
                 </Columns>
-                <EditFormSettings EditFormType="Template" FormTableStyle-Width="600px">
+                <EditFormSettings EditFormType="Template" FormTableStyle-Width="600px" CaptionFormatString="Data Translator Mapping">
                     <FormTemplate>
                         <table id="Table2" cellspacing="2" cellpadding="1" border="0" rules="none" style="border-collapse: collapse;
                             background: white;">
                             <tr class="EditFormHeader">
                                 <td colspan="2" style="font-size: small">
-                                    <asp:Label ID="EditFormHeader" runat="server" CssClass="HeaderTextSmall" Text="Data Translator Mapping"></asp:Label>
+                                    <asp:Label ID="EditFormHeader" runat="server" CssClass="HeaderTextSmall" Text="Data Translator Mapping"
+                                        Visible="false"></asp:Label>
                                 </td>
                             </tr>
                             <tr>
@@ -511,7 +531,8 @@
                                         </tr>
                                         <tr>
                                             <td id="td1" runat="server" align="right">
-                                                <asp:Label ID="Label1" Text="RTA:" CssClass="FieldName" runat="server">
+                                                <asp:Label ID="Label1" Text="System Translation Description:" CssClass="FieldName"
+                                                    runat="server">
                                                 </asp:Label>
                                             </td>
                                             <td>
@@ -558,13 +579,13 @@
             <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="ExistMFInvestlist">
             </ExportSettings>
             <MasterTableView DataKeyNames="ClassificationCode" EditMode="PopUp" CommandItemDisplay="Top"
-                CommandItemSettings-ShowRefreshButton="false" Width="75%" CommandItemSettings-AddNewRecordText="Add New Cams Data For Mapping">
+                CommandItemSettings-ShowRefreshButton="false" Width="75%" CommandItemSettings-AddNewRecordText="New Cams Data For Mapping">
                 <Columns>
-                    <telerik:GridEditCommandColumn EditText="Update" UniqueName="editColumn" CancelText="Cancel"
-                        HeaderStyle-Width="80px" UpdateText="Update">
+                    <telerik:GridEditCommandColumn EditText="Edit" UniqueName="editColumn" CancelText="Cancel"
+                        HeaderStyle-Width="80px" UpdateText="Edit">
                     </telerik:GridEditCommandColumn>
                     <telerik:GridBoundColumn UniqueName="Transaction_Type" HeaderStyle-Width="150px"
-                        HeaderText="Source" DataField="Transaction_Type" SortExpression="Transaction_Type"
+                        HeaderText="Source Code" DataField="Transaction_Type" SortExpression="Transaction_Type"
                         AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                         <HeaderStyle></HeaderStyle>
                     </telerik:GridBoundColumn>
@@ -574,12 +595,12 @@
                         <HeaderStyle></HeaderStyle>
                     </telerik:GridBoundColumn>
                     <telerik:GridBoundColumn Visible="true" UniqueName="ClassificationCode" HeaderStyle-Width="150px"
-                        HeaderText="Classification Code" DataField="ClassificationCode" SortExpression="ClassificationCode"
+                        HeaderText="System Translation Code" DataField="ClassificationCode" SortExpression="ClassificationCode"
                         AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                         <HeaderStyle></HeaderStyle>
                     </telerik:GridBoundColumn>
                     <telerik:GridBoundColumn Visible="true" UniqueName="WMTT_TransactionClassificationName"
-                        HeaderStyle-Width="150px" HeaderText="Destination Description" DataField="WMTT_TransactionClassificationName"
+                        HeaderStyle-Width="150px" HeaderText="System Translation Description" DataField="WMTT_TransactionClassificationName"
                         SortExpression="WMTT_TransactionClassificationName" AllowFiltering="true" ShowFilterIcon="false"
                         AutoPostBackOnFilter="true">
                         <HeaderStyle></HeaderStyle>
@@ -590,13 +611,14 @@
                         <HeaderStyle></HeaderStyle>
                     </telerik:GridBoundColumn>
                 </Columns>
-                <EditFormSettings EditFormType="Template" FormTableStyle-Width="600px">
+                <EditFormSettings EditFormType="Template" FormTableStyle-Width="600px" CaptionFormatString="Data Translator Mapping">
                     <FormTemplate>
                         <table id="Table2" cellspacing="2" cellpadding="1" border="0" rules="none" style="border-collapse: collapse;
                             background: white;">
                             <tr class="EditFormHeader">
                                 <td colspan="2" style="font-size: small">
-                                    <asp:Label ID="EditFormHeader" runat="server" CssClass="HeaderTextSmall" Text="Data Translator Mapping"></asp:Label>
+                                    <asp:Label ID="EditFormHeader" runat="server" CssClass="HeaderTextSmall" Text="Data Translator Mapping"
+                                        Visible="false"></asp:Label>
                                 </td>
                             </tr>
                             <tr>
@@ -638,7 +660,7 @@
                                         </tr>
                                         <tr>
                                             <td id="td1" runat="server" align="right">
-                                                <asp:Label ID="Label1" Text="RTA:" CssClass="FieldName" runat="server">
+                                                <asp:Label ID="Label1" Text="Destination Descriotion:" CssClass="FieldName" runat="server">
                                                 </asp:Label>
                                             </td>
                                             <td>
@@ -685,23 +707,23 @@
             <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="ExistMFInvestlist">
             </ExportSettings>
             <MasterTableView DataKeyNames="ClassificationCode" EditMode="PopUp" CommandItemDisplay="Top"
-                CommandItemSettings-ShowRefreshButton="false" Width="100%" CommandItemSettings-AddNewRecordText="Add Templeton Data For Mapping">
+                CommandItemSettings-ShowRefreshButton="false" Width="100%" CommandItemSettings-AddNewRecordText="New Templeton Data For Mapping">
                 <Columns>
-                    <telerik:GridEditCommandColumn EditText="Update" UniqueName="editColumn" CancelText="Cancel"
-                        HeaderStyle-Width="80px" UpdateText="Update">
+                    <telerik:GridEditCommandColumn EditText="Edit" UniqueName="editColumn" CancelText="Cancel"
+                        HeaderStyle-Width="80px" UpdateText="Edit">
                     </telerik:GridEditCommandColumn>
                     <telerik:GridBoundColumn UniqueName="Transaction_Type" HeaderStyle-Width="100px"
-                        HeaderText="Source" DataField="Transaction_Type" SortExpression="Transaction_Type"
+                        HeaderText="source code" DataField="Transaction_Type" SortExpression="Transaction_Type"
                         AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                         <HeaderStyle></HeaderStyle>
                     </telerik:GridBoundColumn>
                     <telerik:GridBoundColumn Visible="true" UniqueName="ClassificationCode" HeaderStyle-Width="80px"
-                        HeaderText="Classification Code" DataField="ClassificationCode" SortExpression="ClassificationCode"
+                        HeaderText="System Translation Code" DataField="ClassificationCode" SortExpression="ClassificationCode"
                         AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                         <HeaderStyle></HeaderStyle>
                     </telerik:GridBoundColumn>
                     <telerik:GridBoundColumn Visible="true" UniqueName="WMTT_TransactionClassificationName"
-                        HeaderStyle-Width="100px" HeaderText="Destination Description" DataField="WMTT_TransactionClassificationName"
+                        HeaderStyle-Width="100px" HeaderText="System Translation Description" DataField="WMTT_TransactionClassificationName"
                         SortExpression="WMTT_TransactionClassificationName" AllowFiltering="true" ShowFilterIcon="false"
                         AutoPostBackOnFilter="true">
                         <HeaderStyle></HeaderStyle>
@@ -712,18 +734,19 @@
                         <HeaderStyle></HeaderStyle>
                     </telerik:GridBoundColumn>
                     <%--   <telerik:GridBoundColumn Visible="true" UniqueName="ClassificationCode" HeaderStyle-Width="200px"
-                        HeaderText="Classification Code" DataField="ClassificationCode" SortExpression="ClassificationCode"
+                        HeaderText="System Translation Code" DataField="ClassificationCode" SortExpression="ClassificationCode"
                         AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                         <HeaderStyle></HeaderStyle>
                     </telerik:GridBoundColumn>  --%>
                 </Columns>
-                <EditFormSettings EditFormType="Template" FormTableStyle-Width="600px">
+                <EditFormSettings EditFormType="Template" FormTableStyle-Width="600px" CaptionFormatString="Data Translator Mapping">
                     <FormTemplate>
                         <table id="Table2" cellspacing="2" cellpadding="1" border="0" rules="none" style="border-collapse: collapse;
                             background: white;">
                             <tr class="EditFormHeader">
                                 <td colspan="2" style="font-size: small">
-                                    <asp:Label ID="EditFormHeader" runat="server" CssClass="HeaderTextSmall" Text="Data Translator Mapping"></asp:Label>
+                                    <asp:Label ID="EditFormHeader" runat="server" CssClass="HeaderTextSmall" Text="Data Translator Mapping"
+                                        Visible="false"></asp:Label>
                                 </td>
                             </tr>
                             <tr>
@@ -744,8 +767,9 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td id="td1" runat="server" align="right">
-                                                <asp:Label ID="Label1" Text="RTA:" CssClass="FieldName" runat="server">
+                                            <td id="td1" runat="server">
+                                                <asp:Label ID="Label1" Text="System Translation Description:" CssClass="FieldName"
+                                                    runat="server">
                                                 </asp:Label>
                                             </td>
                                             <td>
@@ -791,3 +815,4 @@
     <asp:HiddenField ID="hdnAMC" runat="server" />
     <asp:HiddenField ID="hdnType" runat="server" />
     <asp:HiddenField ID="hdnExternalSource" runat="server" />
+    <asp:HiddenField ID="hdnmtype" runat="server" />

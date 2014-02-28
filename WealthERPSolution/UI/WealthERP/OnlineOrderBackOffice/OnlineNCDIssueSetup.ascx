@@ -165,9 +165,9 @@
                                                         Display="Dynamic" ErrorMessage="<br/>Please Enter Integer Value" CssClass="cvPCG"
                                                         ValidationExpression="[1-9]\d*$" ValidationGroup="rgApllOk">     
                                                     </asp:RegularExpressionValidator>
-                                                    <asp:CompareValidator ID="cmpFrom" ControlToValidate="txtFrom" runat="server"
-                                                            ControlToCompare="txtTo" Display="Dynamic" ErrorMessage="<br/>From  Should Be less Than To"
-                                                            Type="integer" Operator="LessThan"></asp:CompareValidator>
+                                                    <asp:CompareValidator ID="cmpFrom" ControlToValidate="txtFrom" runat="server" ControlToCompare="txtTo"
+                                                        Display="Dynamic" ErrorMessage="<br/>From  Should Be less Than To" Type="integer"
+                                                        Operator="LessThan"></asp:CompareValidator>
                                                     <%--   <asp:RequiredFieldValidator ID="rfvName" ControlToValidate="txtFrom" ErrorMessage="Please enter From Range"
                                                         ValidationGroup="rgApllOk" Display="Dynamic" runat="server" CssClass="rfvPCG">
                                                     </asp:RequiredFieldValidator>--%>
@@ -389,15 +389,18 @@
                 CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightData">
-            <asp:TextBox ID="txtFormRange" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
+            <asp:TextBox ID="txtFormRange" runat="server" CssClass="txtField" Width="200px" MaxLength="10"></asp:TextBox>
             <span id="Span13" class="spnRequiredField">*</span>
             <br />
+            <%-- <asp:RangeValidator ID="regtxtFormRange" runat="server" Type="Integer" MinimumValue="7"
+                        CssClass="rfvPCG" MaximumValue="9" ControlToValidate="txtFormRange" ErrorMessage="you can not enter less than 8 or greate than 10 digit"
+                        ValidationGroup="SetUpSubmit"></asp:RangeValidator>--%>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator8" runat="server" ErrorMessage="Please Enter FromRange"
                 CssClass="rfvPCG" ControlToValidate="txtFormRange" ValidationGroup="SetUpSubmit"
                 Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator11" ControlToValidate="txtFormRange"
-                runat="server" Display="Dynamic" ErrorMessage="<br/>Please Enter Integer Value"
-                CssClass="cvPCG" ValidationExpression="[1-9]\d*$" ValidationGroup="SetUpSubmit">     
+                runat="server" Display="Dynamic" ErrorMessage="<br/>Enter Numeric Value Between 8-10 Digit"
+                CssClass="cvPCG" ValidationExpression="[0-9]{8,10}$" ValidationGroup="SetUpSubmit">     
             </asp:RegularExpressionValidator>
             <asp:CompareValidator ID="CompareValidator2" ControlToValidate="txtFormRange" runat="server"
                 ControlToCompare="txtToRange" Display="Dynamic" ErrorMessage="<br/>From Range Less Than To Range"
@@ -407,7 +410,7 @@
             <asp:Label ID="lb1ToRange" runat="server" Text="Form No-Ending Series No:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightData">
-            <asp:TextBox ID="txtToRange" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
+            <asp:TextBox ID="txtToRange" runat="server" CssClass="txtField" Width="200px" MaxLength="10"></asp:TextBox>
             <span id="Span14" class="spnRequiredField">*</span>
             <asp:ImageButton ID="ImageActivRange" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
                 AlternateText="Add" runat="server" ToolTip="Click here to Add Active Range" OnClick="btnImageActivRange_Click"
@@ -417,11 +420,14 @@
                 CssClass="rfvPCG" ControlToValidate="txtToRange" ValidationGroup="SetUpSubmit"
                 Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator12" ControlToValidate="txtToRange"
-                runat="server" Display="Dynamic" ErrorMessage="<br/>Please Enter Integer Value"
-                CssClass="cvPCG" ValidationExpression="[1-9]\d*$" ValidationGroup="SetUpSubmit" />
+                runat="server" Display="Dynamic" ErrorMessage="<br/>Enter Numeric Value Between 8-10 Digit"
+                CssClass="cvPCG" ValidationExpression="[0-9]{8,10}$" ValidationGroup="SetUpSubmit" />
             <asp:CompareValidator ID="CompareValidator3" ControlToValidate="txtToRange" runat="server"
                 ControlToCompare="txtFormRange" Display="Dynamic" ErrorMessage="<br/>To Range Greater Than From Range"
                 Type="Integer" Operator="GreaterThan" CssClass="cvPCG" ValidationGroup="SetUpSubmit"></asp:CompareValidator>
+            <%-- <asp:RangeValidator ID="RantxtToRange" runat="server" Type="Integer" MinimumValue="7"
+                        CssClass="rfvPCG" MaximumValue="9" ControlToValidate="txtToRange" ErrorMessage="you can not enter less than 8 or greate than 10 digit"
+                        ValidationGroup="SetUpSubmit"></asp:RangeValidator>--%>
         </td>
     </tr>
     <tr id="trIssueTypes" runat="server">

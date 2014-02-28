@@ -77,13 +77,16 @@ namespace WealthERP.SuperAdmin
                 pnlCamsKarvy.Visible = false;
                 pnlCams.Visible = false;
                 pnltempleton.Visible = false;
-
+                tdmapped.Visible = true;
+                tduMaped.Visible = true;
             }
             else
             {
                 trShemeMapping.Visible = false;
                 trExternalsource.Visible = true;
                 pnlgvScheme.Visible = false;
+                tdmapped.Visible = false;
+                tduMaped.Visible = false;
             }
         }
         private void BindAMC()
@@ -186,7 +189,7 @@ namespace WealthERP.SuperAdmin
             //SetParameter();
             dsSchemePlanDetails = new DataSet();
             customerBo = new CustomerBo();
-            dsSchemePlanDetails = customerBo.GetSchemeMapDetails(hdnExternalSource.Value, 0, hdnCategory.Value, hdnType.Value);
+            dsSchemePlanDetails = customerBo.GetSchemeMapDetails(hdnExternalSource.Value, 0, hdnCategory.Value, hdnType.Value,int.Parse(ddlMAapped.SelectedValue.ToString()));
             if (dsSchemePlanDetails.Tables[0].Rows.Count > 0)
             {
                 btnExportFilteredData.Visible = true;
@@ -278,7 +281,7 @@ namespace WealthERP.SuperAdmin
                 
             }
 
-            if (ddlMappingType.SelectedValue.ToString() == "0")
+            if (ddlMappingType.SelectedValue.ToString() == "0" && ddlMAapped.SelectedValue !=null)
             {
                 BindSchemePlanDetails();
                 pnlgvScheme.Visible = true;
@@ -346,12 +349,13 @@ namespace WealthERP.SuperAdmin
                 Isonline =Convert.ToInt32(ddlIsonline.Text.ToString());
                 editedDate = DateTime.Now;
                 int count = customerBo.ToCheckSchemeisonline(strSchemePlanCode, Isonline, strExternalCode);
-                if (count > 1)
+                if (count > 0)
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('this scheme is allready onlline!!');", true);
+                    return;
                 }
-                isUpdated = false;
-                    //customerBo.EditProductAMCSchemeMapping(strSchemePlanCode, strExternalCodeToBeEdited, strExternalCode, Isonline, strExternalType, createdDate, editedDate, deletedDate, userVo.UserId);
+                //isUpdated = false;
+                isUpdated=customerBo.EditProductAMCSchemeMapping(strSchemePlanCode, strExternalCodeToBeEdited, strExternalCode, Isonline, strExternalType, createdDate, editedDate, deletedDate, userVo.UserId);
 
             }
             if (e.CommandName == RadGrid.DeleteCommandName)
@@ -694,13 +698,18 @@ namespace WealthERP.SuperAdmin
             {
                 string strExtType = gvSchemeDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["PASC_AMC_ExternalType"].ToString();
                 strExternalCodeToBeEdited = gvSchemeDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["PASC_AMC_ExternalCode"].ToString();
-
+                string IsOnline=gvSchemeDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["PASC_IsOnline"].ToString();
                 if (Session["extCodeTobeEdited"] != null)
                     Session["extCodeTobeEdited"] = null;
                 Session["extCodeTobeEdited"] = strExternalCodeToBeEdited;
                 GridEditFormItem editedItem = (GridEditFormItem)e.Item;
                 DropDownList dropDownList = (DropDownList)editedItem.FindControl("ddlExternalType");
                 dropDownList.SelectedValue = strExtType;
+                DropDownList ddlONline = (DropDownList)editedItem.FindControl("ddlONline");
+                if(IsOnline=="NO")
+                 ddlONline.SelectedValue = 0.ToString();
+                else
+                    ddlONline.SelectedValue = 1.ToString();
             }
         }
 

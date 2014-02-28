@@ -779,14 +779,14 @@ namespace WealthERP.OnlineOrderBackOffice
                 onlineNCDBackOfficeVo.BiddingLot = Convert.ToDecimal(txtBiddingLot.Text);
 
                 onlineNCDBackOfficeVo.MinApplicationSize = Convert.ToInt32(txtMinAplicSize.Text);
-                //if (!string.IsNullOrEmpty(txtIsPrefix.Text))
-                //{
-                //    onlineNCDBackOfficeVo.IsPrefix = Convert.ToInt32(txtIsPrefix.Text);
-                //}
-                //else
-                //{
-                //    onlineNCDBackOfficeVo.IsPrefix = 0;
-                //}
+                if (!string.IsNullOrEmpty(txtIsPrefix.Text))
+                {
+                    onlineNCDBackOfficeVo.IsPrefix = Convert.ToInt32(txtIsPrefix.Text);
+                }
+                else
+                {
+                    onlineNCDBackOfficeVo.IsPrefix = 0;
+                }
 
                 onlineNCDBackOfficeVo.TradingInMultipleOf = Convert.ToInt32(txtTradingInMultipleOf.Text);
 
@@ -1910,84 +1910,78 @@ namespace WealthERP.OnlineOrderBackOffice
                 //DataTable dtRecords = new DataTable();
                 //RadGrid rgSubCategories = (RadGrid)e.Item.FindControl("rgSubCategories");
 
-                //if (e.Item is GridDataItem)
-                //{
-                //    GridDataItem grddataItem = (GridDataItem)e.Item;
-                //}
+                if((e.Item is GridEditFormInsertItem ) || (e.Item is GridEditFormItem))
+                {
+                foreach (GridColumn col in rgSubCategories.Columns)
+                {
+                    DataColumn colString = new DataColumn(col.UniqueName);
+                    dtRecords.Columns.Add(colString);
 
-                //if((e.Item is GridEditFormInsertItem ) || (e.Item is GridEditFormItem))
-                //{
-                //foreach (GridColumn col in rgSubCategories.Columns)
-                //{
+                }
                 //    DataColumn colString = new DataColumn(col.UniqueName);
                 //    dtRecords.Columns.Add(colString);
 
                 //}
-                ////    DataColumn colString = new DataColumn(col.UniqueName);
-                ////    dtRecords.Columns.Add(colString);
+                foreach (GridDataItem row in rgSubCategories.Items) // loops through each rows in RadGrid
+                {
+                    //  row.SetVisibleChildren(true);
+                    TextBox txtSubCategoryCode = null;
+                    DropDownList ddlSubCategory = null;
+                    TextBox txtMinInvestmentAmount = null;
+                    TextBox txtMaxInvestmentAmount = null;
 
-                ////}
-                //foreach (GridDataItem row in rgSubCategories.Items) // loops through each rows in RadGrid
-                //{
-                //    //  row.SetVisibleChildren(true);
-                //    TextBox txtSubCategoryCode = null;
-                //    DropDownList ddlSubCategory = null;
-                //    TextBox txtMinInvestmentAmount = null;
-                //    TextBox txtMaxInvestmentAmount = null;
+                    DataRow dr = dtRecords.NewRow();
+                    foreach (GridColumn col in rgSubCategories.Columns) //loops through each column in RadGrid
+                    {
+                        txtSubCategoryCode = (TextBox)(row[col.UniqueName].FindControl("txtSubCategoryCode"));
+                        ddlSubCategory = (DropDownList)(row[col.UniqueName].FindControl("ddlSubCategory"));
+                        txtMinInvestmentAmount = (TextBox)(row[col.UniqueName].FindControl("txtMinInvestmentAmount"));
+                        txtMaxInvestmentAmount = (TextBox)(row[col.UniqueName].FindControl("txtMaxInvestmentAmount"));
 
-                //    DataRow dr = dtRecords.NewRow();
-                //    foreach (GridColumn col in rgSubCategories.Columns) //loops through each column in RadGrid
-                //    {
-                //        txtSubCategoryCode = (TextBox)(row[col.UniqueName].FindControl("txtSubCategoryCode"));
-                //        ddlSubCategory = (DropDownList)(row[col.UniqueName].FindControl("ddlSubCategory"));
-                //        txtMinInvestmentAmount = (TextBox)(row[col.UniqueName].FindControl("txtMinInvestmentAmount"));
-                //        txtMaxInvestmentAmount = (TextBox)(row[col.UniqueName].FindControl("txtMaxInvestmentAmount"));
+                        if (col.UniqueName == "SubCategoryCode")
+                        {
+                            dr[col.UniqueName] = txtSubCategoryCode.Text;
+                        }
+                        else if (col.UniqueName == "CustSubCategory")
+                        {
+                            dr[col.UniqueName] = ddlSubCategory.Text;
+                        }
+                        else if (col.UniqueName == "MinInvestmentAmt")
+                        {
+                            dr[col.UniqueName] = txtMinInvestmentAmount.Text;
+                        }
+                        else if (col.UniqueName == "MaxInvestmentAmt")
+                        {
+                            dr[col.UniqueName] = txtMaxInvestmentAmount.Text;
+                        }
 
-                //        if (col.UniqueName == "SubCategoryCode")
-                //        {
-                //            dr[col.UniqueName] = txtSubCategoryCode.Text;
-                //        }
-                //        else if (col.UniqueName == "CustSubCategory")
-                //        {
-                //            dr[col.UniqueName] = ddlSubCategory.Text;
-                //        }
-                //        else if (col.UniqueName == "MinInvestmentAmt")
-                //        {
-                //            dr[col.UniqueName] = txtMinInvestmentAmount.Text;
-                //        }
-                //        else if (col.UniqueName == "MaxInvestmentAmt")
-                //        {
-                //            dr[col.UniqueName] = txtMaxInvestmentAmount.Text;
-                //        }
+                    }
+                    if (txtSubCategoryCode != null && ddlSubCategory != null && txtMinInvestmentAmount != null && txtMaxInvestmentAmount != null)
+                    {
+                        if (txtSubCategoryCode.Text != string.Empty && ddlSubCategory.SelectedValue != "Select")
+                            dtRecords.Rows.Add(dr);
+                    }
 
-                //    }
-                //    if (txtSubCategoryCode != null && ddlSubCategory != null && txtMinInvestmentAmount != null && txtMaxInvestmentAmount != null)
-                //    {
-                //        if (txtSubCategoryCode.Text != string.Empty && ddlSubCategory.SelectedValue != "Select")
-                //            dtRecords.Rows.Add(dr);
-                //    }
+                }
+                dtRecords.Rows.Add();
+                dtRecords.AcceptChanges();
 
-                //}
-                //dtRecords.Rows.Add();
-                //dtRecords.AcceptChanges();
 
-               
+                if (Cache[userVo.UserId.ToString() + "SubCat"] != null)
+                {
+                    Cache.Remove(userVo.UserId.ToString() + "SubCat");
+                    Cache.Insert(userVo.UserId.ToString() + "SubCat", dtRecords);
+                }
+                else
+                {
+                    Cache.Insert(userVo.UserId.ToString() + "SubCat", dtRecords);
 
-                //if (Cache[userVo.UserId.ToString() + "SubCat"] != null)
-                //{
-                //    Cache.Remove(userVo.UserId.ToString() + "SubCat");
-                //    Cache.Insert(userVo.UserId.ToString() + "SubCat", dtRecords);
-                //}
-                //else
-                //{
-                //    Cache.Insert(userVo.UserId.ToString() + "SubCat", dtRecords);
+                }
 
-                //}
+                rgSubCategories.DataSource = dtRecords;
+                rgSubCategories.DataBind();
 
-                //rgSubCategories.DataSource = dtRecords;
-                //rgSubCategories.DataBind();
-
-            }
+                }
             }
         
 
@@ -2495,6 +2489,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
         protected void btnSetUpSubmit_Click(object sender, EventArgs e)
         {
+
             //    if (txtNSECode.Text == "" && txtBSECode.Text == "")
             //    {
             //        Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "CheckTextBoxes()", true);
@@ -2535,14 +2530,17 @@ namespace WealthERP.OnlineOrderBackOffice
                 //}
                 //else
                 //{
-                txtIssueId.Text = CreateIssue().ToString();
-                SeriesAndCategoriesGridsVisiblity(Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text));
-                VisblityAndEnablityOfScreen("Submited");
-                btnSetUpSubmit.Enabled = true;
-                // }
+                if (NSCEBSCEcode())
+                {
+                    txtIssueId.Text = CreateIssue().ToString();
+                    //if (Convert.ToInt32(txtIssueId.Text)>0)
+                    //{               
+                    SeriesAndCategoriesGridsVisiblity(Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text));
+                    VisblityAndEnablityOfScreen("Submited");
+                    btnSetUpSubmit.Enabled = true;
+                }
+
             }
-
-
 
         }
         protected void btnProspect_Click(object sender, EventArgs e)
@@ -2554,7 +2552,7 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             int result = UpdateIssue();
             SeriesAndCategoriesGridsVisiblity(Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text));
-           
+
         }
 
         protected void lnkBtnEdit_Click(object sender, EventArgs e)
@@ -2599,7 +2597,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
         private int CreateIssue()
         {
-            int issueId;
+            int issueId=0;
             try
             {
                 onlineNCDBackOfficeVo = new OnlineNCDBackOfficeVo();
@@ -2942,18 +2940,17 @@ namespace WealthERP.OnlineOrderBackOffice
                 else
                 {
                     onlineNCDBackOfficeVo.BSECode = "";
-
                 }
+                
+                    issueId = onlineNCDBackOfficeBo.CreateIssue(onlineNCDBackOfficeVo, advisorVo.advisorId);
+                    if (issueId > 0)
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Issue added successfully.');", true);
 
-                //NseBsetextvalidation();
-                issueId = onlineNCDBackOfficeBo.CreateIssue(onlineNCDBackOfficeVo, advisorVo.advisorId);
-                if (issueId > 0)
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Issue added successfully.');", true);
-
+                     
                 }
-
             }
+    
             catch (BaseApplicationException Ex)
             {
                 throw Ex;
@@ -2970,6 +2967,33 @@ namespace WealthERP.OnlineOrderBackOffice
                 throw exBase;
             }
             return issueId;
+        }
+        public bool NSCEBSCEcode()
+        {
+            bool isBool = true ;
+            int isBseExist=0;
+            int isNseExist = 0;
+
+            if (string.IsNullOrEmpty(txtNSECode.Text) && string.IsNullOrEmpty(txtBSECode.Text))
+                  isBool=false;
+
+            if (txtNSECode.Text == txtBSECode.Text)
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please Enter Different NSE or BSE Code.');", true);
+                isBool=false;
+            }
+             onlineNCDBackOfficeBo.NSEandBSEcodeCheck(advisorVo.advisorId, txtNSECode.Text, txtBSECode.Text,ref  isBseExist ,ref  isNseExist );
+             if (isBseExist > 0 && txtBSECode.Text != string.Empty)
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('BSE Code Exist.');", true);
+                  isBool=false;
+            }
+             else if (isNseExist > 0 && txtNSECode.Text != string.Empty)
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('NSE Code Exist.');", true);
+                  isBool=false;
+                            }
+            return isBool;
         }
         public void NseBsetextvalidation()
         {

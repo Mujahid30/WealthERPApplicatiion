@@ -150,13 +150,13 @@ namespace BoCustomerProfiling
             }
             return dsGetSchemeDetails;
         }
-        public DataSet GetSchemeMapDetails(string ExternalType, int AmcCode, string Category, string Type)
+        public DataSet GetSchemeMapDetails(string ExternalType, int AmcCode, string Category, string Type,int mtype)
         {
             DataSet dsGetSchemeDetails = new DataSet();
             CustomerDao customerDao = new CustomerDao();
             try
             {
-                dsGetSchemeDetails = customerDao.GetSchemeMapDetails(ExternalType, AmcCode, Category, Type);
+                dsGetSchemeDetails = customerDao.GetSchemeMapDetails(ExternalType, AmcCode, Category, Type,mtype);
             }
             catch (BaseApplicationException Ex)
             {

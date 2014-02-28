@@ -257,7 +257,7 @@ namespace DaoCustomerProfiling
             return getschemePlanCodeDs;
         }
 
-        public DataSet GetSchemeMapDetails(string ExternalType, int AmcCode, string Category, string Type)
+        public DataSet GetSchemeMapDetails(string ExternalType, int AmcCode, string Category, string Type,int mtype)
         {
             CustomerVo customerVo = null;
             Database db;
@@ -272,7 +272,7 @@ namespace DaoCustomerProfiling
                 //db.AddInParameter(getschemePlanCodeCmd, "@ExternalType", DbType.String, ExternalType);
                 //db.AddInParameter(getschemePlanCodeCmd, "@AmcCode", DbType.Int32, AmcCode);
                 //db.AddInParameter(getschemePlanCodeCmd, "@Category", DbType.String, Category);
-                //db.AddInParameter(getschemePlanCodeCmd, "@Type", DbType.String, Type);
+                db.AddInParameter(getschemePlanCodeCmd, "@Type", DbType.Int32, mtype);
                 getschemePlanCodeDs = db.ExecuteDataSet(getschemePlanCodeCmd);
             }
             catch (BaseApplicationException Ex)
@@ -5991,15 +5991,15 @@ namespace DaoCustomerProfiling
                 cmdToCheckSchemeisonline = db.GetStoredProcCommand("SPROC_ToValidateIsonline");
                 db.AddInParameter(cmdToCheckSchemeisonline, "@schemeplancode", DbType.Int32,schemeplanecode);
                 db.AddInParameter(cmdToCheckSchemeisonline, "@Isonline", DbType.Int32, Isonline);
-                db.AddInParameter(cmdToCheckSchemeisonline, "@sourcecode", DbType.String, sourcecode);
-                //db.AddInParameter(cmdToCheckSchemeisonline, "@count", DbType.Int32, 0);
-                count = Convert.ToInt32(db.ExecuteScalar(cmdToCheckSchemeisonline).ToString());
+                //db.AddInParameter(cmdToCheckSchemeisonline, "@sourcecode", DbType.String, sourcecode);
+                db.AddOutParameter(cmdToCheckSchemeisonline, "@count", DbType.Int32, 0);
+                //count = Convert.ToInt32(db.ExecuteScalar(cmdToCheckSchemeisonline).ToString());
 
                 //ds = db.ExecuteDataSet(cmdToCheckSchemeisonline);
-                //if (db.ExecuteNonQuery(cmdToCheckSchemeisonline) != 0)
-                //{
-                //    count = Convert.ToInt32(db.GetParameterValue(cmdToCheckSchemeisonline, "count").ToString());
-                //}
+                if (db.ExecuteNonQuery(cmdToCheckSchemeisonline) != 0)
+                {
+                    count = Convert.ToInt32(db.GetParameterValue(cmdToCheckSchemeisonline, "count").ToString());
+                }
             }
             catch (BaseApplicationException Ex)
             {
