@@ -44,7 +44,8 @@ namespace WealthERP.OnlineOrderManagement
             customerVo = (CustomerVo)Session["customerVo"];
             adviserVo = (AdvisorVo)Session["advisorVo"];
             ShowAvailableLimits();
-       // lblAvailableLimits.Text = "4000";
+            BindKYCDetailDDl();
+      //lblAvailableLimits.Text = "4000";
 
             if (!IsPostBack)
             {
@@ -209,8 +210,11 @@ namespace WealthERP.OnlineOrderManagement
 
             foreach (DataRow dr in dsNomineeAndJointHolders.Tables[0].Rows)
             {
-                strbJointHolder.Append(dr["AMFE_JointNomineeName"].ToString() + ",");
-                strbNominee.Append(dr["AMFE_JointNomineeName"].ToString() + ",");
+                strbJointHolder.Append(dr["JointHolderName"].ToString() + ",");
+                strbNominee.Append(dr["JointHolderName"].ToString() + ",");
+            
+                //strbJointHolder.Append(dr["AMFE_JointNomineeName"].ToString() + ",");
+                //strbNominee.Append(dr["AMFE_JointNomineeName"].ToString() + ",");
             }
             lblNomineeTwo.Text = strbNominee.ToString().TrimEnd(',');
             lblHolderTwo.Text = strbJointHolder.ToString().TrimEnd(',');
@@ -298,7 +302,7 @@ namespace WealthERP.OnlineOrderManagement
 
                                 OnlineBondBo.GetCustomerCat(issueId, customerVo.CustomerId, adviserVo.advisorId, Convert.ToDouble(lblSum.Text), ref catName, ref issuedetId);
                                 ViewState["CustCat"] = catName;
-                                lb1AvailbleCat.Text = " You selected for : " + catName;
+                                lb1AvailbleCat.Text = " You have applied this issue under category : " + catName;
                                 ShowMessage(lb1AvailbleCat.Text);
 
                                 //if (catName == string.Empty)
@@ -545,7 +549,7 @@ namespace WealthERP.OnlineOrderManagement
                     IssuerId = int.Parse(ViewState["IssueId"].ToString());
                     double availableBalance = Convert.ToDouble(OnlineBondBo.GetUserRMSAccountBalance(customerVo.AccountId));
                     int totalOrderAmt = int.Parse(ViewState["Sum"].ToString());
-                // availableBalance = 4000;
+         //  availableBalance = 4000;
                     string message;
                     string aplicationNoStatus = string.Empty;
                     bool accountDebitStatus = false;
