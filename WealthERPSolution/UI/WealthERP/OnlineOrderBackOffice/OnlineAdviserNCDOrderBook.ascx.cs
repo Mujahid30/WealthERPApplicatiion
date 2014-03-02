@@ -75,7 +75,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 fromDate = DateTime.Parse(txtOrderFrom.SelectedDate.ToString());
             if (txtOrderTo.SelectedDate != null)
                 toDate = DateTime.Parse(txtOrderTo.SelectedDate.ToString());
-            DataTable dtNCDOrder;
+            DataTable dtNCDOrder=new DataTable();
             dtNCDOrder = onlineNCDBackOfficeBo.GetAdviserNCDOrderBook(advisorVo.advisorId, hdnOrderStatus.Value, fromDate, toDate);
             if (dtNCDOrder.Rows.Count >= 0)
             {
@@ -114,8 +114,14 @@ namespace WealthERP.OnlineOrderBackOffice
                 LinkButton buttonEdit = editItem["MarkAsReject"].Controls[0] as LinkButton;
                 Int32 orderId = Convert.ToInt32(gvNCDOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_OrderId"].ToString());
 
-
+             //double AmountPayable=  gvNCDOrderBook.MasterTableView.GetColumn("BBAmounttoinvest").t;
+                string AcntId = gvNCDOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["C_CustCode"].ToString();
+                double AmountPayable = Convert.ToDouble(gvNCDOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["BBAmounttoinvest"].ToString());
+                
+               
+                
                 lbResult = BoOnlineBondOrder.cancelBondsBookOrder(orderId, 2, txtRemark.Text);
+               BoOnlineBondOrder.DebitRMSUserAccountBalance(AcntId, AmountPayable, 0);
                 if (lbResult == true)
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Order Cancelled Successfully');", true);

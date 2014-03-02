@@ -92,6 +92,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 if (boComBackOff == null) boComBackOff = new OnlineCommonBackOfficeBo();
 
                 dtUploadFile = boComBackOff.ReadCsvFile(savePath);
+
                 if(File.Exists(savePath)) File.Delete(savePath);
             }
             else {

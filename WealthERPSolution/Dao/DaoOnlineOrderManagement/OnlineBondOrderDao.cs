@@ -389,6 +389,9 @@ namespace DaoOnlineOrderManagement
             }
             return OrderIds;
         }
+
+         
+
         public IDictionary<string, string> UpdateTransactOrder(DataTable BondORder, OnlineBondOrderVo OnlineBondOrderVo, int adviserId, int IssuerId, int OrderId, int seriesId)
         {
             IDictionary<string, string> OrderIds = new Dictionary<string, string>();

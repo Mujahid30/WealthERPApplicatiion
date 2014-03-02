@@ -778,7 +778,7 @@ namespace WealthERP.Admin
                 {
                     IssueId = int.Parse(Request.QueryString["IssueId"].ToString());
                 }
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineNCDIssueSetup", "loadcontrol('OnlineNCDIssueSetup','ProspectUsaction=viewFromProspect&issueId=" + IssueId + "');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineNCDIssueSetup", "loadcontrol('OnlineNCDIssueSetup','ProspectUsaction=viewFromProspect&product=FI&issueNo=" + IssueId + "');", true);
             }
         }
     }

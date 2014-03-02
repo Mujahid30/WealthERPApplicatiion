@@ -35,7 +35,7 @@ namespace WealthERP.OnlineOrderManagement
             {
                 fromDate = DateTime.Now.AddMonths(-1);
                 txtOrderFrom.SelectedDate = fromDate.Date;
-                Cache.Remove("NCDBookList" + advisorVo.advisorId.ToString());
+                
                 txtOrderTo.SelectedDate = DateTime.Now;
                 BindOrderStatus();
                 if (Request.QueryString["customerId"] != null)
@@ -126,12 +126,15 @@ namespace WealthERP.OnlineOrderManagement
                 gvBBList.DataBind();
                 pnlGrid.Visible = true;
             }
+            if (Cache[userVo.UserId.ToString() + "NCDBookList"] != null)
+                Cache.Remove(userVo.UserId.ToString() + "NCDBookList");
+            Cache.Insert(userVo.UserId.ToString() + "NCDBookList", dtbondsBook);
 
-            if (Cache["NCDBookList" + advisorVo.advisorId.ToString()] != null)
-            {
-                Cache.Remove("NCDBookList" + advisorVo.advisorId.ToString());
-                Cache.Insert("NCDBookList" + advisorVo.advisorId.ToString(), dtbondsBook);
-            }
+            //if (Cache["NCDBookList" + advisorVo.advisorId.ToString()] != null)
+            //{
+            //    Cache.Remove("NCDBookList" + advisorVo.advisorId.ToString());
+            //    Cache.Insert("NCDBookList" + advisorVo.advisorId.ToString(), dtbondsBook);
+            //}
             
 
         }
@@ -235,8 +238,8 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void gvBBList_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
-            DataTable dtIssueDetail;
-            dtIssueDetail = (DataTable)Cache["NCDBookList" + advisorVo.advisorId.ToString()];
+            DataTable dtIssueDetail=new DataTable ();
+            dtIssueDetail = (DataTable)Cache[userVo.UserId.ToString() + "NCDBookList"];
             if (dtIssueDetail != null)
             {
                 gvBBList.DataSource = dtIssueDetail;
@@ -314,9 +317,10 @@ namespace WealthERP.OnlineOrderManagement
                 strRemark = txtRemark.Text;
                 LinkButton buttonEdit = editItem["MarkAsReject"].Controls[0] as LinkButton;
                 Int32 orderId = Convert.ToInt32(gvBBList.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_OrderId"].ToString());
-
+                double AmountPayable = Convert.ToDouble(gvBBList.MasterTableView.DataKeyValues[e.Item.ItemIndex]["BBAmounttoinvest"].ToString());
 
                 lbResult = BoOnlineBondOrder.cancelBondsBookOrder(orderId, 2, txtRemark.Text);
+                BoOnlineBondOrder.DebitRMSUserAccountBalance(customerVo.AccountId, AmountPayable, 0);
                 if (lbResult == true)
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Order Cancelled Successfully');", true);

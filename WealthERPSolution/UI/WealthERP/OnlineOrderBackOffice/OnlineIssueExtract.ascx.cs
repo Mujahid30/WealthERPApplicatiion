@@ -146,7 +146,7 @@ namespace WealthERP.OnlineOrderBackOffice
             GetExtractData();
 
             DataTable dtExtractData = (DataTable)Cache["IssueExtract" + userVo.UserId];
-            string filename = ddlExternalSource.SelectedValue + ddlProduct.SelectedItem.Text + DateTime.Now.ToString("ddMMyy") + ".csv";
+            string filename = boNcdBackOff.GetFileName(ddlExternalSource.SelectedValue, Convert.ToInt32(ddlFileType.SelectedValue)) + ".csv";
             string delimit = ",";
            // ControlExtractMode(false);
             DownloadBidFile(dtExtractData, filename, delimit);
@@ -280,6 +280,7 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             DataTable dtExtractData = boNcdBackOff.GetOnlineNcdExtractPreview(rdpDownloadDate.SelectedDate.Value, adviserVo.advisorId, int.Parse(ddlFileType.SelectedValue), ddlExternalSource.SelectedValue,int.Parse(ddlIssueName.SelectedValue));
 
+            
             if (Cache["IssueExtract" + userVo.UserId] != null) Cache.Remove("IssueExtract" + userVo.UserId);
             if (dtExtractData.Rows.Count > 0) Cache.Insert("IssueExtract" + userVo.UserId, dtExtractData);
         }
