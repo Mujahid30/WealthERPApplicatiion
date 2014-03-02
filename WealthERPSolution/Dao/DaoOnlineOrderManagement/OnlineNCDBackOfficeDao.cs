@@ -811,7 +811,7 @@ namespace DaoOnlineOrderManagement
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                dbCommand = db.GetStoredProcCommand("SPROC_GetNcdCategory1");
+                dbCommand = db.GetStoredProcCommand("SPROC_GetNcdCategory");
                 db.AddInParameter(dbCommand, "@Type", DbType.String, type);
                 db.AddInParameter(dbCommand, "@catCode", DbType.String, catCode);
 
