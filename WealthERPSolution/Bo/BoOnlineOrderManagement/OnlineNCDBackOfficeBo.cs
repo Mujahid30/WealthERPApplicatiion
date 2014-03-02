@@ -259,12 +259,12 @@ namespace BoOnlineOrderManagement
                 throw exBase;
             }
         }
-        public DataSet BindNcdCategory()
+        public DataSet BindNcdCategory(string type,string catCode)
         {
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
             try
             {
-                return onlineNCDBackOfficeDao.BindNcdCategory();
+                return onlineNCDBackOfficeDao.BindNcdCategory(type, catCode);
             }
             catch (BaseApplicationException Ex)
             {
@@ -964,7 +964,32 @@ namespace BoOnlineOrderManagement
         }
 
 
+        public string GetFileName(string extSource, int  fileTypeId)
+        {
 
+           string dt= DateTime.Now.ToString("ddMMyy");
+           string result=string.Empty;
+           onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
+           string extractStepCode = onlineNCDBackOfficeDao.GetExtractStepCode(fileTypeId);
+           if (extractStepCode == "EI")
+           {
+               result = extSource + "OrderBookExtr" + dt;
+           }
+           if (extractStepCode == "EC")
+           {
+               result = extSource + "ChqExtr" + dt;
+           }
+           else if (extractStepCode == "EB")
+           {
+               result = extSource + "BidExtr" + dt;
+
+           }
+           else if (extractStepCode == "EP")
+           {
+               result = extSource + "CheqPrintFile" + dt;
+           }
+           return result;
+        }
 
         public void UpdateNcdOrderMannualMatch(int orderId, int allotmentId, ref int isAllotmented, ref int isUpdated)
         {

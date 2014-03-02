@@ -176,6 +176,7 @@
                             <telerik:GridTemplateColumn HeaderText="Select">
                                 <HeaderTemplate>
                                     <asp:Label ID="lblchkBxSelect" runat="server" Text="Select"></asp:Label>
+                                     <asp:CheckBox ID="cbOrderSelect" runat="server" Checked="false" OnCheckedChanged="cbOrderSelect_changed" AutoPostBack="true" />
                                 </HeaderTemplate>
                                 <ItemTemplate>
                                     <asp:CheckBox ID="cbAutoMatch" runat="server" Checked="false" />

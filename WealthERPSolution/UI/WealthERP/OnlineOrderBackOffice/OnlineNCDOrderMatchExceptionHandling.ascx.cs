@@ -60,6 +60,37 @@ namespace WealthERP.OnlineOrderBackOffice
             btnNcdIpoExport.Visible = true;
             BindOrdersGrid(Convert.ToInt32(ddlIssue.SelectedValue), categoryCode, ddlOrderStatus.SelectedValue, Convert.ToDateTime(txtFromDate.SelectedDate), Convert.ToDateTime(txtToDate.SelectedDate));
         }
+
+
+        protected void cbOrderSelect_changed(object sender, EventArgs e)
+        {
+
+            //foreach (CheckBox cb in gvOrders.Items)
+
+            //foreach (GridDataItem gdi in gvOrders.Items)
+            //{
+            //    if (((CheckBox)gdi.FindControl("cbOrderSelect")).Checked == true)
+            //    {
+
+            //    }
+            //}
+
+
+            //{
+            //foreach (GridDataItem gdi in gvOrders.Items)
+            //{
+            //    CheckBox cb =(CheckBox) gdi.FindControl("cbOrderSelect");
+            //    if (cb.Checked == true)
+            //    {
+
+
+            //    }
+            //}
+
+
+
+        }
+
         protected void btnNcdIpoExport_Click(object sender, ImageClickEventArgs e)
         {
             gvOrders.ExportSettings.OpenInNewWindow = true;

@@ -341,8 +341,8 @@
             <asp:Label ID="lblCategory" runat="server" Text="Category:" CssClass="FieldName"></asp:Label>
         </td>
         <td align="rightData" id="tdddlCategory" runat="server">
-            <asp:DropDownList ID="ddlCategory" runat="server" CssClass="cmbLongField" AutoPostBack="true"
-                Width="500px">
+            <asp:DropDownList ID="ddlSubInstrCategory" runat="server" CssClass="cmbLongField" AutoPostBack="true"
+                Width="500px" OnSelectedIndexChanged="ddlSubInstrCategory_Selectedindexchanged">
                 <%-- <asp:ListItem Value="Select">Select</asp:ListItem>
                 <asp:ListItem Value="NCD">NCD</asp:ListItem>
                 <asp:ListItem Value="IB">Infrastructure bonds</asp:ListItem>--%>
@@ -352,6 +352,10 @@
             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Please Select Category"
                 CssClass="rfvPCG" ControlToValidate="ddlProduct" ValidationGroup="SetUpSubmit"
                 Display="Dynamic" InitialValue="Select"></asp:RequiredFieldValidator>
+                
+                 <asp:DropDownList ID="ddlInstrCat" runat="server" CssClass="cmbLongField" 
+                Width="500px" Visible="false">                
+            </asp:DropDownList>
         </td>
     </tr>
     <tr>
@@ -1157,6 +1161,7 @@
                                     AutoGenerateColumns="false" Width="100%" EditMode="PopUp" CommandItemSettings-AddNewRecordText="Create InvestorCategory"
                                     CommandItemDisplay="Top">
                                     <Columns>
+                                    
                                         <telerik:GridTemplateColumn AllowFiltering="false">
                                             <ItemTemplate>
                                                 <asp:LinkButton ID="lbDetails" runat="server" CommandName="ExpandCollapse" Font-Underline="False"
@@ -1201,7 +1206,7 @@
                                                     </td>
                                                     <td colspan="3%">
                                                         <asp:Panel ID="pnlCategoriesDetailschild" runat="server" Style="display: inline"
-                                                            CssClass="Landscape" ScrollBars="Horizontal" Visible="true">
+                                                            CssClass="Landscape" ScrollBars="Horizontal" Visible="false">
                                                             <telerik:RadGrid ID="rgCategoriesDetails" runat="server" AutoGenerateColumns="False"
                                                                 enableloadondemand="True" PageSize="5" EnableEmbeddedSkins="False" GridLines="None"
                                                                 ShowFooter="True" PagerStyle-AlwaysVisible="false" ShowStatusBar="True" Skin="Telerik"

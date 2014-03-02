@@ -41,19 +41,20 @@ namespace WealthERP.OnlineOrderBackOffice
 
             if (!IsPostBack)
             {
-                DefaultBindings();
                 if (Cache[userVo.UserId.ToString() + "SubCat"] != null)
                     Cache.Remove(userVo.UserId.ToString() + "SubCat");
+                DefaultBindings();
+               
 
             }
-            if (Request.QueryString["IssueId"] != "" && Request.QueryString["IssueId"] != null)
-            {
-                //  string action = Request.QueryString["strAction"].ToString();
-                int IssueId = int.Parse(Request.QueryString["IssueId"].ToString());
-                //IssueId=int.Parse(txtIssueId.Text.ToString());
-                ViewIssueList(IssueId, advisorVo.advisorId);
-                VisblityAndEnablityOfScreen("View");
-            }
+            //if (Request.QueryString["IssueId"] != "" && Request.QueryString["IssueId"] != null)
+            //{
+            //    string product = Request.QueryString["product"].ToString();
+            //    int IssueId = int.Parse(Request.QueryString["IssueId"].ToString());
+            //    //IssueId=int.Parse(txtIssueId.Text.ToString());
+            //    ViewIssueList(IssueId, advisorVo.advisorId, product);
+            //    VisblityAndEnablityOfScreen("View");
+            //}
 
 
 
@@ -72,10 +73,13 @@ namespace WealthERP.OnlineOrderBackOffice
             BindBankName();
             BindBranch();
             EnablityOfControlsonProductAndIssueTypeSelection("Select");
-            if (Request.QueryString["action"] != null)
+            if (Request.QueryString["action"] != null || Request.QueryString["ProspectUsaction"] != null)
             {
                 int issueNo = Convert.ToInt32(Request.QueryString["issueNo"].ToString());
-                ViewIssueList(issueNo, advisorVo.advisorId);
+                string product = Request.QueryString["product"].ToString();
+                //if (product == null)
+                //    product = "NCD";
+                ViewIssueList(issueNo, advisorVo.advisorId, product);
                 VisblityAndEnablityOfScreen("View");
             }
 
@@ -142,7 +146,7 @@ namespace WealthERP.OnlineOrderBackOffice
             //    ViewState["Selected"] = selectedItems;
         }
 
-        private void ViewIssueList(int issueNo, int adviserId)
+        private void ViewIssueList(int issueNo, int adviserId,string product)
         {
             try
             {
@@ -153,7 +157,16 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     txtIssueId.Text = issueNo.ToString();
 
-                    if (!string.IsNullOrEmpty(dr["PAIC_AssetInstrumentCategoryCode"].ToString()))
+
+                    if (product == "NCD")
+                    {
+                        ddlSubInstrCategory.SelectedValue = dr["PAISC_AssetInstrumentSubCategoryCode"].ToString();
+                        BindInstCate(ddlSubInstrCategory.SelectedValue);
+                        ddlInstrCat.SelectedValue = dr["PAIC_AssetInstrumentCategoryCode"].ToString();
+                        ddlProduct.SelectedValue = "NCD";
+                       // ddlInstrCat.SelectedValue=
+                    }
+                    else if (product == "IPO")
                     {
                         if (dr["PAIC_AssetInstrumentCategoryCode"].ToString() == "FIIP")
                         {
@@ -169,28 +182,47 @@ namespace WealthERP.OnlineOrderBackOffice
                                 ddlIssueType.SelectedValue = "FixedPrice";
                             }
                         }
-                        else
-                        {
-                            if (dr["PAIC_AssetInstrumentCategoryCode"].ToString() == "FISD")
-                            {
-                                ddlCategory.SelectedValue = "FISD";
-                                ddlProduct.SelectedValue = "NCD";
-                            }
-                            else if (dr["PAIC_AssetInstrumentCategoryCode"].ToString() == "FIIB")
-                            {
-                                ddlCategory.SelectedValue = "FIIB";
-                                ddlProduct.SelectedValue = "NCD";
-
-                            }
-                            ddlIssueType.SelectedValue = "Select";
-                        }
                     }
+ 
+
+                    //if (!string.IsNullOrEmpty(dr["PAIC_AssetInstrumentCategoryCode"].ToString()))
+                    //{
+                    //    if (dr["PAIC_AssetInstrumentCategoryCode"].ToString() == "FIIP")
+                    //    {
+                    //        ddlProduct.SelectedValue = "IP";
+                    //        if (!string.IsNullOrEmpty(dr["AIM_CapPrice"].ToString()))
+                    //        {
+                    //            ddlIssueType.SelectedValue = "BookBuilding";
+                    //            txtCapPrice.Text = dr["AIM_CapPrice"].ToString();
+                    //        }
+                    //        else
+                    //        {
+                    //            txtCapPrice.Text = "";
+                    //            ddlIssueType.SelectedValue = "FixedPrice";
+                    //        }
+                    //    }
+                    //    else
+                    //    {
+                    //        if (dr["PAIC_AssetInstrumentCategoryCode"].ToString() == "FISD")
+                    //        {
+                    //            ddlSubInstrCategory.SelectedValue = "FISD";
+                    //            ddlProduct.SelectedValue = "NCD";
+                    //        }
+                    //        else if (dr["PAIC_AssetInstrumentCategoryCode"].ToString() == "FIIB")
+                    //        {
+                    //            ddlSubInstrCategory.SelectedValue = "FIIB";
+                    //            ddlProduct.SelectedValue = "NCD";
+
+                    //        }
+                    //        ddlIssueType.SelectedValue = "Select";
+                    //    }
+                    //}
 
                     //ddlProduct.SelectedValue =dr["PAIC_AssetInstrumentCategoryCode"].ToString();
                     EnablityOfControlsonProductAndIssueTypeSelection(ddlProduct.SelectedValue);
                     EnablityOfControlsonIssueTypeSelection(ddlIssueType.SelectedValue);
 
-                    // ddlCategory.SelectedValue = "NCD";
+                    // ddlSubInstrCategory.SelectedValue = "NCD";
                     txtName.Text = dr["AIM_IssueName"].ToString();
                     ddlIssuer.SelectedValue = dr["PI_issuerId"].ToString();
                     txtFormRange.Text = dr["AIFR_From"].ToString();
@@ -588,7 +620,7 @@ namespace WealthERP.OnlineOrderBackOffice
             txtTradingInMultipleOf.Enabled = value;
 
             ddlProduct.Enabled = value;
-            ddlCategory.Enabled = value;
+            ddlSubInstrCategory.Enabled = value;
 
             txtName.Enabled = value;
             ddlIssuer.Enabled = value;
@@ -692,16 +724,16 @@ namespace WealthERP.OnlineOrderBackOffice
                 }
                 else
                 {
-                    if (ddlCategory.SelectedValue == "FISD")
-                    {
-                        onlineNCDBackOfficeVo.AssetInstrumentCategoryCode = "FISD";
-                        onlineNCDBackOfficeVo.AssetInstrumentSubCategoryCode = "FINCD";
-                    }
-                    else if (ddlCategory.SelectedValue == "FIIB")
-                    {
-                        onlineNCDBackOfficeVo.AssetInstrumentCategoryCode = "FIIB";
-                        onlineNCDBackOfficeVo.AssetInstrumentSubCategoryCode = "FIIB";
-                    }
+                    //if (ddlSubInstrCategory.SelectedValue == "FISD")
+                    //{
+                    onlineNCDBackOfficeVo.AssetInstrumentCategoryCode = ddlInstrCat.SelectedValue;
+                    onlineNCDBackOfficeVo.AssetInstrumentSubCategoryCode = ddlSubInstrCategory.SelectedValue;
+                    //}
+                    //else if (ddlSubInstrCategory.SelectedValue == "FIIB")
+                    //{
+                    //    onlineNCDBackOfficeVo.AssetInstrumentCategoryCode = "FIIB";
+                    //    onlineNCDBackOfficeVo.AssetInstrumentSubCategoryCode = "FIIB";
+                    //}
                 }
 
                 onlineNCDBackOfficeVo.IssueName = txtName.Text;
@@ -2597,8 +2629,9 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             pnlSeries.Visible = true;
             pnlCategory.Visible = true;
-            BindSeriesGrid(issuerId, issueId);
+            
             BindEligibleInvestorsGrid(issuerId, issueId);
+            BindSeriesGrid(issuerId, issueId);
         }
 
         private int CreateIssue()
@@ -2615,16 +2648,16 @@ namespace WealthERP.OnlineOrderBackOffice
                 }
                 else
                 {
-                    if (ddlCategory.SelectedValue == "FISD")
-                    {
-                        onlineNCDBackOfficeVo.AssetInstrumentCategoryCode = "FISD";
-                        onlineNCDBackOfficeVo.AssetInstrumentSubCategoryCode = "FINCD";
-                    }
-                    else if (ddlCategory.SelectedValue == "FIIB")
-                    {
-                        onlineNCDBackOfficeVo.AssetInstrumentCategoryCode = "FIIB";
-                        onlineNCDBackOfficeVo.AssetInstrumentSubCategoryCode = "FIIB";
-                    }
+                    //if (ddlSubInstrCategory.SelectedValue == "FISD")
+                    //{
+                        onlineNCDBackOfficeVo.AssetInstrumentCategoryCode = ddlInstrCat.SelectedValue;
+                        onlineNCDBackOfficeVo.AssetInstrumentSubCategoryCode = ddlSubInstrCategory.SelectedValue;
+                    //}
+                    //else if (ddlSubInstrCategory.SelectedValue == "FIIB")
+                    //{
+                    //    onlineNCDBackOfficeVo.AssetInstrumentCategoryCode = "FIIB";
+                    //    onlineNCDBackOfficeVo.AssetInstrumentSubCategoryCode = "FIIB";
+                    //}
 
                 }
 
@@ -3917,18 +3950,38 @@ namespace WealthERP.OnlineOrderBackOffice
         private void BindNcdCategory()
         {
             DataTable dtCategory = new DataTable();
-            dtCategory = onlineNCDBackOfficeBo.BindNcdCategory().Tables[0];
+            dtCategory = onlineNCDBackOfficeBo.BindNcdCategory("SubInstrumentCat","").Tables[0];
             if (dtCategory.Rows.Count > 0)
             {
-                ddlCategory.DataSource = dtCategory;
-                ddlCategory.DataValueField = dtCategory.Columns["PAIC_AssetInstrumentCategoryCode"].ToString();
-                ddlCategory.DataTextField = dtCategory.Columns["PAIC_AssetInstrumentCategoryName"].ToString();
-                ddlCategory.DataBind();
+                ddlSubInstrCategory.DataSource = dtCategory;
+                ddlSubInstrCategory.DataValueField = dtCategory.Columns["PAISC_AssetInstrumentSubCategoryCode"].ToString();
+                ddlSubInstrCategory.DataTextField = dtCategory.Columns["PAISC_AssetInstrumentSubCategoryName"].ToString();
+                ddlSubInstrCategory.DataBind();
             }
-            ddlCategory.Items.Insert(0, new ListItem("Select", "Select"));
+            ddlSubInstrCategory.Items.Insert(0, new ListItem("Select", "Select"));
 
         }
-
+        protected void ddlSubInstrCategory_Selectedindexchanged(object sender, EventArgs e)
+        {
+            if (ddlSubInstrCategory.SelectedValue == "Select")
+            {
+                return;
+            }
+            BindInstCate(ddlSubInstrCategory.SelectedValue);
+        }
+        private void BindInstCate(string subInstCat)
+        {
+            DataTable dtCategory = new DataTable();
+            dtCategory = onlineNCDBackOfficeBo.BindNcdCategory("InstrumentCat", subInstCat).Tables[0];
+            if (dtCategory.Rows.Count > 0)
+            {
+                ddlInstrCat.DataSource = dtCategory;
+                ddlInstrCat.DataValueField = dtCategory.Columns["PAIC_AssetInstrumentCategoryCode"].ToString();
+                ddlInstrCat.DataTextField = dtCategory.Columns["PAIC_AssetInstrumentCategoryName"].ToString();
+                ddlInstrCat.DataBind();
+            }
+        }
+        
         private void BindFrequency(DropDownList ddlFrequency)
         {
             DataTable dtFrequency = new DataTable();
@@ -4058,6 +4111,9 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             EnablityOfControlsonIssueTypeSelection(ddlIssueType.SelectedValue);
         }
+
+
+      
 
         private void EnablityOfControlsonIssueTypeSelection(string issueType)
         {

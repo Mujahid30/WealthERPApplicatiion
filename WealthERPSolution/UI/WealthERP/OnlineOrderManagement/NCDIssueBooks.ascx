@@ -216,7 +216,7 @@
                                 OnUpdateCommand="gvBBList_UpdateCommand" OnItemDataBound="gvBBList_OnItemDataCommand"
                                 OnItemCommand="gvBBList_OnItemCommand">
                                 <%--OnNeedDataSource="gvBBList_OnNeedDataSource"--%>
-                                <MasterTableView DataKeyNames="CO_OrderId,AIM_IssueId,Scrip,WTS_TransactionStatusCode,WOS_OrderStepCode"
+                                <MasterTableView DataKeyNames="CO_OrderId,AIM_IssueId,Scrip,WTS_TransactionStatusCode,WOS_OrderStepCode,BBAmounttoinvest"
                                     Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" AllowFilteringByColumn="true"
                                     EditMode="PopUp" CommandItemDisplay="None">
                                     <Columns>
@@ -310,7 +310,7 @@
                                         </telerik:GridEditCommandColumn>
                                         
                                         <telerik:GridTemplateColumn AllowFiltering="false" HeaderStyle-Width="100px" UniqueName="Action"
-                                            HeaderText="Action">
+                                            HeaderText="View">
                                             <ItemTemplate>
                                                 <asp:ImageButton ID="imgView" runat="server" CommandName="View" ImageUrl="~/Images/View.jpg"
                                                     ToolTip="View" />&nbsp;

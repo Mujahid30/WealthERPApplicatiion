@@ -173,7 +173,10 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlCategory;
+        protected global::System.Web.UI.WebControls.DropDownList ddlSubInstrCategory;
+        protected global::System.Web.UI.WebControls.DropDownList ddlInstrCat;
+
+        
         
         /// <summary>
         /// RequiredFieldValidator1 control.

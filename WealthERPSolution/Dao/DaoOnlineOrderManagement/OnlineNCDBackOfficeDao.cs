@@ -803,7 +803,7 @@ namespace DaoOnlineOrderManagement
             return dsGetSeriesCategories;
         }
 
-        public DataSet BindNcdCategory()
+        public DataSet BindNcdCategory(string type, string catCode)
         {
             DataSet dsGetSeriesCategories;
             Database db;
@@ -811,7 +811,10 @@ namespace DaoOnlineOrderManagement
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                dbCommand = db.GetStoredProcCommand("SPROC_GetNcdCategory");
+                dbCommand = db.GetStoredProcCommand("SPROC_GetNcdCategory1");
+                db.AddInParameter(dbCommand, "@Type", DbType.String, type);
+                db.AddInParameter(dbCommand, "@catCode", DbType.String, catCode);
+
                 dsGetSeriesCategories = db.ExecuteDataSet(dbCommand);
             }
             catch (BaseApplicationException Ex)
@@ -1938,18 +1941,22 @@ namespace DaoOnlineOrderManagement
         public int UploadAllotmentIssueData(DataTable dtData, int issueId)
         {
             int result;
+            DataTable dt;
             try
             {
 
                 string conString = ConfigurationManager.ConnectionStrings["wealtherp"].ConnectionString;
                 SqlConnection sqlCon = new SqlConnection(conString);
                 sqlCon.Open();
-                SqlCommand cmdProc = new SqlCommand("SPROC_UploadAllotmentIssueData", sqlCon);
+                SqlCommand cmdProc = new SqlCommand("SPROC_UploadAllotmentIssueData1", sqlCon);
                 cmdProc.CommandType = CommandType.StoredProcedure;
                 cmdProc.Parameters.AddWithValue("@Details", dtData);
                 cmdProc.Parameters.AddWithValue("@issueId", issueId);
 
                 result = cmdProc.ExecuteNonQuery();
+
+               
+                //dt = dsGetIssuerid.Tables[0];
             }
             catch (BaseApplicationException Ex)
             {
