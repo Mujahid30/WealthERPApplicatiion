@@ -1948,7 +1948,7 @@ namespace DaoOnlineOrderManagement
                 string conString = ConfigurationManager.ConnectionStrings["wealtherp"].ConnectionString;
                 SqlConnection sqlCon = new SqlConnection(conString);
                 sqlCon.Open();
-                SqlCommand cmdProc = new SqlCommand("SPROC_UploadAllotmentIssueData1", sqlCon);
+                SqlCommand cmdProc = new SqlCommand("SPROC_UploadAllotmentIssueData", sqlCon);
                 cmdProc.CommandType = CommandType.StoredProcedure;
                 cmdProc.Parameters.AddWithValue("@Details", dtData);
                 cmdProc.Parameters.AddWithValue("@issueId", issueId);
