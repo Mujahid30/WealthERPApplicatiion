@@ -1474,7 +1474,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     DropDownList ddlSubCategory = null;
                     TextBox txtMinInvestmentAmount = null;
                     TextBox txtMaxInvestmentAmount = null;
-
+                    TextBox txtSubCategoryId = null;
                     DataRow dr = dtRecords.NewRow();
                     foreach (GridColumn col in rgSubCategories.Columns) //loops through each column in RadGrid
                     {
@@ -1482,7 +1482,7 @@ namespace WealthERP.OnlineOrderBackOffice
                         ddlSubCategory = (DropDownList)(row[col.UniqueName].FindControl("ddlSubCategory"));
                         txtMinInvestmentAmount = (TextBox)(row[col.UniqueName].FindControl("txtMinInvestmentAmount"));
                         txtMaxInvestmentAmount = (TextBox)(row[col.UniqueName].FindControl("txtMaxInvestmentAmount"));
-
+                          txtSubCategoryId = (TextBox)(row[col.UniqueName].FindControl("txtSubCategoryId"));
                         if (col.UniqueName == "SubCategoryCode")
                         {
                             dr[col.UniqueName] = txtSubCategoryCode.Text;
@@ -1499,6 +1499,11 @@ namespace WealthERP.OnlineOrderBackOffice
                         {
                             dr[col.UniqueName] = txtMaxInvestmentAmount.Text;
                         }
+                        else if (col.UniqueName == "txtSubCategoryId")
+                        {
+                            dr[col.UniqueName] = txtSubCategoryId.Text;
+                        }
+                           // 
 
                     }
                     if (txtSubCategoryCode != null && ddlSubCategory != null && txtMinInvestmentAmount != null && txtMaxInvestmentAmount != null)
@@ -1560,6 +1565,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     DropDownList ddlSubCategory = null;
                     TextBox txtMinInvestmentAmount = null;
                     TextBox txtMaxInvestmentAmount = null;
+                    TextBox txtSubCategoryId = null;
 
                     DataRow dr = dtRecords.NewRow();
                     foreach (GridColumn col in rgSubCategories.Columns) //loops through each column in RadGrid
@@ -1568,6 +1574,7 @@ namespace WealthERP.OnlineOrderBackOffice
                         ddlSubCategory = (DropDownList)(row[col.UniqueName].FindControl("ddlSubCategory"));
                         txtMinInvestmentAmount = (TextBox)(row[col.UniqueName].FindControl("txtMinInvestmentAmount"));
                         txtMaxInvestmentAmount = (TextBox)(row[col.UniqueName].FindControl("txtMaxInvestmentAmount"));
+                        txtSubCategoryId = (TextBox)(row[col.UniqueName].FindControl("txtSubCategoryId"));
 
                         if (col.UniqueName == "SubCategoryCode")
                         {
@@ -1584,6 +1591,10 @@ namespace WealthERP.OnlineOrderBackOffice
                         else if (col.UniqueName == "MaxInvestmentAmt")
                         {
                             dr[col.UniqueName] = txtMaxInvestmentAmount.Text;
+                        }
+                        else if (col.UniqueName == "SubCategoryId")
+                        {
+                            dr[col.UniqueName] = txtSubCategoryId.Text;
                         }
 
                     }
@@ -1780,21 +1791,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 DropDownList ddlDiscountType = (DropDownList)e.Item.FindControl("ddlDiscountType");
                 TextBox txtDiscountValue = (TextBox)e.Item.FindControl("txtDiscountValue");
                 RadGrid rgSubCategories = (RadGrid)e.Item.FindControl("rgSubCategories");
-                Button btnAddMore = (Button)e.Item.FindControl("btnAddMore");
-                btnAddMore.Visible = true;
-                //foreach (GridDataItem gdi in rgSubCategories.Items)
-                //{
-                //    if (((CheckBox)gdi.FindControl("cbSubCategories")).Checked == true)
-                //    {
-                //        count++;
-                //    }
-                //}
-
-                //if (count == 0)
-                //{
-                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Select One Category.');", true);
-                //    e.Canceled = false;
-                //}
+               
 
                 if (string.IsNullOrEmpty(txtMinBidAmount.Text))
                 {
@@ -1831,6 +1828,10 @@ namespace WealthERP.OnlineOrderBackOffice
                         TextBox txtSubCategoryCode = ((TextBox)(gdi.FindControl("txtSubCategoryCode")));
                         TextBox txtMinInvestmentAmount = ((TextBox)(gdi.FindControl("txtMinInvestmentAmount")));
                         TextBox txtMaxInvestmentAmount = ((TextBox)(gdi.FindControl("txtMaxInvestmentAmount")));
+                         TextBox txtSubCategoryId = ((TextBox)(gdi.FindControl("txtSubCategoryId")));
+                         
+                          
+
                         if (string.IsNullOrEmpty(txtMinInvestmentAmount.Text))
                         {
                             txtMinInvestmentAmount.Text = 0.ToString();
@@ -1840,24 +1841,13 @@ namespace WealthERP.OnlineOrderBackOffice
                         {
                             txtMaxInvestmentAmount.Text = 0.ToString();
                         }
+                      //  
+                      if( txtSubCategoryId.Text  ==string.Empty)
                         CreateUpdateDeleteCategoryDetails(categoryId, 0, lookupId, txtSubCategoryCode.Text, Convert.ToInt32(txtMinInvestmentAmount.Text), Convert.ToInt32(txtMaxInvestmentAmount.Text), "Insert");
                     }
                 }
                 BindEligibleInvestorsGrid(Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text));
-                //e.Canceled = true;
-
-                //if (e.Item is GridEditableItem)
-                //{
-                //    GridEditableItem item = (GridEditableItem)e.Item;
-
-                //    e.Canceled = true;
-                //    foreach (GridDataItem ditems in rgEligibleInvestorCategories.MasterTableView.Items)
-                //    {
-                //        ditems.Edit = true;
-                //    }
-                //    rgEligibleInvestorCategories.MasterTableView.IsItemInserted = false;
-                //    rgEligibleInvestorCategories.Rebind();
-                //}
+                
             }
             else if (e.CommandName == RadGrid.UpdateCommandName)
             {
@@ -1925,13 +1915,11 @@ namespace WealthERP.OnlineOrderBackOffice
                             CreateUpdateDeleteCategoryDetails(categoryId, Convert.ToInt32(txtSubCategoryId.Text), lookupId, txtSubCategoryCode.Text, Convert.ToInt32(txtMinInvestmentAmount.Text), Convert.ToInt32(txtMaxInvestmentAmount.Text), "Update");
 
 
-                        else if (Convert.ToInt32(txtSubCategoryId.Text) > 0)
-                            CreateUpdateDeleteCategoryDetails(categoryId, Convert.ToInt32(txtSubCategoryId.Text), lookupId, txtSubCategoryCode.Text, Convert.ToInt32(txtMinInvestmentAmount.Text), Convert.ToInt32(txtMaxInvestmentAmount.Text), "Update");
-
+                       
                     }
                 }
 
-                BindEligibleInvestorsGrid(Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text));
+             BindEligibleInvestorsGrid(Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text));
 
 
             }
@@ -1942,85 +1930,8 @@ namespace WealthERP.OnlineOrderBackOffice
 
 
             }
-            else if (e.CommandName == "btnAddMore")
-            {
-                //    DataTable dtRecords = new DataTable();
-                //    RadGrid rgSubCategories = (RadGrid)e.Item.FindControl("rgSubCategories");
-
-                //    if ((e.Item is GridEditFormInsertItem) || (e.Item is GridEditFormItem))
-                //    {
-                //        foreach (GridColumn col in rgSubCategories.Columns)
-                //        {
-                //            DataColumn colString = new DataColumn(col.UniqueName);
-                //            dtRecords.Columns.Add(colString);
-
-                //        }
-                //        //    DataColumn colString = new DataColumn(col.UniqueName);
-                //        //    dtRecords.Columns.Add(colString);
-
-                //        //}
-                //        foreach (GridDataItem row in rgSubCategories.Items) // loops through each rows in RadGrid
-                //        {
-                //            //  row.SetVisibleChildren(true);
-                //            TextBox txtSubCategoryCode = null;
-                //            DropDownList ddlSubCategory = null;
-                //            TextBox txtMinInvestmentAmount = null;
-                //            TextBox txtMaxInvestmentAmount = null;
-
-                //            DataRow dr = dtRecords.NewRow();
-                //            foreach (GridColumn col in rgSubCategories.Columns) //loops through each column in RadGrid
-                //            {
-                //                txtSubCategoryCode = (TextBox)(row[col.UniqueName].FindControl("txtSubCategoryCode"));
-                //                ddlSubCategory = (DropDownList)(row[col.UniqueName].FindControl("ddlSubCategory"));
-                //                txtMinInvestmentAmount = (TextBox)(row[col.UniqueName].FindControl("txtMinInvestmentAmount"));
-                //                txtMaxInvestmentAmount = (TextBox)(row[col.UniqueName].FindControl("txtMaxInvestmentAmount"));
-
-                //                if (col.UniqueName == "SubCategoryCode")
-                //                {
-                //                    dr[col.UniqueName] = txtSubCategoryCode.Text;
-                //                }
-                //                else if (col.UniqueName == "CustSubCategory")
-                //                {
-                //                    dr[col.UniqueName] = ddlSubCategory.Text;
-                //                }
-                //                else if (col.UniqueName == "MinInvestmentAmt")
-                //                {
-                //                    dr[col.UniqueName] = txtMinInvestmentAmount.Text;
-                //                }
-                //                else if (col.UniqueName == "MaxInvestmentAmt")
-                //                {
-                //                    dr[col.UniqueName] = txtMaxInvestmentAmount.Text;
-                //                }
-
-                //            }
-                //            if (txtSubCategoryCode != null && ddlSubCategory != null && txtMinInvestmentAmount != null && txtMaxInvestmentAmount != null)
-                //            {
-                //                if (txtSubCategoryCode.Text != string.Empty && ddlSubCategory.SelectedValue != "Select")
-                //                    dtRecords.Rows.Add(dr);
-                //            }
-
-                //        }
-                //        dtRecords.Rows.Add();
-                //        dtRecords.AcceptChanges();
-
-
-                //        if (Cache[userVo.UserId.ToString() + "SubCat"] != null)
-                //        {
-                //            Cache.Remove(userVo.UserId.ToString() + "SubCat");
-                //            Cache.Insert(userVo.UserId.ToString() + "SubCat", dtRecords);
-                //        }
-                //        else
-                //        {
-                //            Cache.Insert(userVo.UserId.ToString() + "SubCat", dtRecords);
-
-                //        }
-
-                //        rgSubCategories.DataSource = dtRecords;
-                //        rgSubCategories.DataBind();
-
-                //    }
-                //}
-            }
+           
+           
         }
 
         //protected void rgSubCategories_UpdateCommand(object source, GridCommandEventArgs e)
@@ -2346,7 +2257,18 @@ namespace WealthERP.OnlineOrderBackOffice
                                 TextBox txtMinInvestmentAmt = (TextBox)(row[col.UniqueName].FindControl("txtMaxInvestmentAmount"));
                                 txtMinInvestmentAmt.Text = dr["MaxInvestmentAmt"].ToString();
                             }
+                            else if (col.UniqueName == "MaxInvestmentAmt")
+                            {
+                                TextBox txtMinInvestmentAmt = (TextBox)(row[col.UniqueName].FindControl("txtMaxInvestmentAmount"));
+                                txtMinInvestmentAmt.Text = dr["MaxInvestmentAmt"].ToString();
+                            }
+                            else if (col.UniqueName == "SubCategoryId")
+                            {
+                                TextBox txtSubCategoryId = (TextBox)(row[col.UniqueName].FindControl("txtSubCategoryId"));
+                                txtSubCategoryId.Text = dr["SubCategoryId"].ToString();
+                            }
 
+                            
                         }
                         i = i + 1;
 
@@ -3584,7 +3506,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 foreach (GridDataItem gdi in rgSubCategory.Items)
                 {
                     DropDownList ddlSubCategory = (DropDownList)gdi.FindControl("ddlSubCategory");
-                    if( ddlSubCategory.SelectedValue!="Select")
+                    if( ddlSubCategory.SelectedValue=="Select")
                     BindSubCateDDL(ddlSubCategory);
                 }
 

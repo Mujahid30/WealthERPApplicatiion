@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="NCDIssueTransact.ascx.cs"
+<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="NCDIssueTransact.ascx.cs"
     Inherits="WealthERP.OnlineOrderManagement.NCDIssueTransact" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
@@ -366,7 +366,7 @@
                     <exportsettings hidestructurecolumns="false" exportonlydata="true" filename="LiveBondList">
                     </exportsettings>
                     <pagerstyle alwaysvisible="True" />
-                    <mastertableview allowmulticolumnsorting="True" allowsorting="false" datakeynames="AID_IssueDetailId,AIM_IssueId,AID_DefaultInterestRate,AID_Tenure,AIM_FaceValue,AIM_TradingInMultipleOf,AIM_MInQty,AIM_MaxQty,AIM_MaxApplNo"
+                    <mastertableview allowmulticolumnsorting="True" allowsorting="false" datakeynames="AID_IssueDetailId,AIM_IssueId,AID_DefaultInterestRate,AID_Tenure,AIM_FaceValue,AIM_TradingInMultipleOf,AIM_MInQty,AIM_MaxQty,AIM_MaxApplNo,AIDCSR_Id"
                         autogeneratecolumns="false" width="100%" showfooter="true">
                         <CommandItemSettings ExportToPdfText="Export to Pdf" />
                         <Columns>

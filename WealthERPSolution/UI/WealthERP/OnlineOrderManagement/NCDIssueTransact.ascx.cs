@@ -410,6 +410,7 @@ namespace WealthERP.OnlineOrderManagement
         protected void btnConfirmOrder_Click(object sender, EventArgs e)
         {
             int issueDetId = 0;
+            int catId = 0;
             //string Custcategory="";
             // if (ViewState["CustCat"] != null)                     
             // Custcategory = (string)ViewState["CustCat"];
@@ -431,12 +432,48 @@ namespace WealthERP.OnlineOrderManagement
             int tableRow = 0;
             foreach (GridDataItem CBOrder in gvCommMgmt.MasterTableView.Items)
             {
+
                 TextBox txtQuantity = (TextBox)gvCommMgmt.MasterTableView.Items[rowNo]["Quantity"].FindControl("txtQuantity");
+                //if (rowNo < gvCommMgmt.MasterTableView.Items.Count)
+                //{
+                //    rowNo = rowNo + 1;
+                //}
+                //else
+                //{
+                //    break;
+                //}
+                if (txtQuantity.Text == "0" || txtQuantity.Text==string.Empty )
+                {
+                    if (rowNo < gvCommMgmt.MasterTableView.Items.Count)
+                    {
+                        rowNo = rowNo + 1;
+                    }
+                    continue;
+                }
+                else
+                {
+                    if (rowNo < gvCommMgmt.MasterTableView.Items.Count)
+                    {
+
+                        if (dt.Rows.Count >= 1)
+                        {
+                            rowNo = rowNo + 1;
+                            tableRow++;
+                        }
+                    }
+                    else
+                    {
+                        break;
+                    }
+                   
+                }
+
                 OnlineBondVo.CustomerId = customerVo.CustomerId;
                 OnlineBondVo.BankAccid = 1002321521;
-                OnlineBondVo.PFISD_SeriesId = int.Parse(gvCommMgmt.MasterTableView.DataKeyValues[rowNo]["AID_IssueDetailId"].ToString());
+                OnlineBondVo.PFISD_SeriesId = int.Parse(gvCommMgmt.MasterTableView.DataKeyValues[rowNo]["AID_IssueDetailId"].ToString());             
                 OnlineBondVo.IssueId = Convert.ToInt32(gvCommMgmt.MasterTableView.DataKeyValues[rowNo]["AIM_IssueId"].ToString());
                 CheckBox Check = (CheckBox)gvCommMgmt.MasterTableView.Items[rowNo]["Check"].FindControl("cbOrderCheck");
+                catId = int.Parse(gvCommMgmt.MasterTableView.DataKeyValues[rowNo]["AIDCSR_Id"].ToString());
                 if (Check.Checked == true)
                 {
                     if (!string.IsNullOrEmpty(txtQuantity.Text))
@@ -457,20 +494,24 @@ namespace WealthERP.OnlineOrderManagement
 
                         GridFooterItem footerItemAmount = (GridFooterItem)gvCommMgmt.MasterTableView.GetItems(GridItemType.Footer)[0];
                         Label lblSum = (Label)footerItemAmount.FindControl("lblAmount");
-                        issueDetId = OnlineBondVo.PFISD_SeriesId;
+                       
+                    
                         OnlineBondBo.GetCustomerCat(OnlineBondVo.IssueId, customerVo.CustomerId, adviserVo.advisorId, Convert.ToDouble(lblSum.Text), ref catName, ref issueDetId);
 
-                        dt.Rows[tableRow]["CatId"] = issueDetId;
+                        dt.Rows[tableRow]["CatId"] = catId;
 
 
                     }
-                    tableRow++;
+                    
                 }
                 if (rowNo < gvCommMgmt.MasterTableView.Items.Count)
-                    rowNo++;
+                {
+                   // rowNo++;
+                }
                 else
                     break;
             }
+             
             GridFooterItem ftItemAmount = (GridFooterItem)gvCommMgmt.MasterTableView.GetItems(GridItemType.Footer)[0];
             Label lbltotAmt = (Label)ftItemAmount.FindControl("lblAmount");
            
@@ -488,14 +529,13 @@ namespace WealthERP.OnlineOrderManagement
                     lnlBack.Visible = true;
 
                 }
-                else if (issueDetId == 0)
+                else if (ViewState["CustCat"] == null)
                 {
-                    if (ViewState["CustCat"] != null)
-                    {
+                     
                         string category = (string)ViewState["CustCat"];
                         if (category == string.Empty)
                             ShowMessage("Order Cant placed. No suitable categories are there.");
-                    }
+                     
 
                 }
                 else if (Convert.ToDouble(lbltotAmt.Text) > Convert.ToDouble(lblAvailableLimits.Text))

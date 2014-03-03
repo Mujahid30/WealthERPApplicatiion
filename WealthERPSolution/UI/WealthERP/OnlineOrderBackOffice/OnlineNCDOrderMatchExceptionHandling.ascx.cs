@@ -64,28 +64,12 @@ namespace WealthERP.OnlineOrderBackOffice
 
         protected void cbOrderSelect_changed(object sender, EventArgs e)
         {
-
-            //foreach (CheckBox cb in gvOrders.Items)
-
-            //foreach (GridDataItem gdi in gvOrders.Items)
-            //{
-            //    if (((CheckBox)gdi.FindControl("cbOrderSelect")).Checked == true)
-            //    {
-
-            //    }
-            //}
-
-
-            //{
-            //foreach (GridDataItem gdi in gvOrders.Items)
-            //{
-            //    CheckBox cb =(CheckBox) gdi.FindControl("cbOrderSelect");
-            //    if (cb.Checked == true)
-            //    {
-
-
-            //    }
-            //}
+            CheckBox cb = (CheckBox)sender;
+            foreach (GridDataItem item in gvOrders.Items)
+            {
+                CheckBox chkI = item.FindControl("cbAutoMatch") as CheckBox;
+                chkI.Checked = cb.Checked;
+            }
 
 
 

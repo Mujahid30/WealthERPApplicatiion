@@ -1387,13 +1387,23 @@
                                                                                 OnCheckedChanged="cbSubCategories_changed" />
                                                                         </ItemTemplate>
                                                                     </telerik:GridTemplateColumn>
-                                                                    <telerik:GridTemplateColumn HeaderText="Sub Category Id" ShowFilterIcon="false" DataField="AIICST_Id"
+                                                                   <%-- DataField="AIICST_Id"--%>
+                                                                    <%--<telerik:GridTemplateColumn HeaderText="Sub Category Id" ShowFilterIcon="false" 
                                                                         UniqueName="txtSubCategoryId" Visible="false" AllowFiltering="false">
                                                                         <HeaderTemplate>
-                                                                            <%--<asp:Label ID="lblSubCategoryCode" runat="server" Text="Sub Category Code"></asp:Label>--%>
+                                                                             
                                                                         </HeaderTemplate>
                                                                         <ItemTemplate>
                                                                             <asp:TextBox ID="txtSubCategoryId" runat="server" CssClass="txtField" Width="10px"></asp:TextBox>
+                                                                        </ItemTemplate>
+                                                                    </telerik:GridTemplateColumn>--%>
+                                                                     <telerik:GridTemplateColumn HeaderText="Sub Category id" ShowFilterIcon="false"
+                                                                        AllowFiltering="false" UniqueName="SubCategoryId" Visible="false">
+                                                                        <HeaderTemplate>
+                                                                            <asp:Label ID="lblSubCategoryId" runat="server" Text="Sub Category id"></asp:Label>
+                                                                        </HeaderTemplate>
+                                                                        <ItemTemplate>
+                                                                            <asp:TextBox ID="txtSubCategoryId" runat="server" CssClass="txtField" Width="55px"></asp:TextBox>
                                                                         </ItemTemplate>
                                                                     </telerik:GridTemplateColumn>
                                                                     <telerik:GridTemplateColumn HeaderText="Sub Category Code" ShowFilterIcon="false"
