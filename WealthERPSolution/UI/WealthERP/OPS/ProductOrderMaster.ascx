@@ -208,7 +208,7 @@
     </tr>
     </table>
     
-<table>
+<table width="100%">
     <tr id="trCustSect" runat="server">
         <td colspan="5">
             <div class="divSectionHeading" style="vertical-align: text-bottom">

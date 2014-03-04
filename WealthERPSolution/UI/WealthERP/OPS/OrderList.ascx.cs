@@ -1208,7 +1208,7 @@ namespace WealthERP.OPS
 
                     if (!string.IsNullOrEmpty(dr["AAC_AgentCode"].ToString()))
                     {
-                        mforderVo.AgentCode = dr["AAC_AgentCode"].ToString();
+                        orderVo.AgentCode = dr["AAC_AgentCode"].ToString();
                     }
 
                     if (!string.IsNullOrEmpty(dr["CMFOD_FutureTriggerCondition"].ToString()))

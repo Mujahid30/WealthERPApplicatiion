@@ -100,7 +100,7 @@ namespace WealthERP.OPS
             if (!IsPostBack)
             {
                 FICategory();
-                orderNumber = fiorderBo.GetOrderNumber();
+               // orderNumber = fiorderBo.GetOrderNumber();
                 orderNumber = orderNumber + 1;
                 lblGetOrderNo.Text = orderNumber.ToString();
 

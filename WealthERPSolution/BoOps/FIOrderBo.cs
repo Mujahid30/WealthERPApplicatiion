@@ -37,30 +37,30 @@ namespace BoOps
             }
             
         }
-        public int GetOrderNumber()
-        {
-            int orderNumber = 0;
-            try
-            {
-                orderNumber = fiOrderDao.GetOrderNumber();
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "FiOrderBo.cs:GetOrderNumber()");
-                object[] objects = new object[0];
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
-            return orderNumber;
-        }
+        //public int GetOrderNumber()
+        //{
+        //    int orderNumber = 0;
+        //    try
+        //    {
+        //        orderNumber = fiOrderDao.GetOrderNumber();
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
+        //        FunctionInfo.Add("Method", "FiOrderBo.cs:GetOrderNumber()");
+        //        object[] objects = new object[0];
+        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+        //        exBase.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(exBase);
+        //        throw exBase;
+        //    }
+        //    return orderNumber;
+        //}
         public bool UpdateFITransaction(int gvOrderId, String  gvSchemeCode, int gvaccountId, string gvTrxType, int gvPortfolioId, double gvAmount, DateTime gvOrderDate)
         {
             bool Result = false;

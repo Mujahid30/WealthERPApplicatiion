@@ -229,7 +229,7 @@ namespace WealthERP.OPS
                 ShowHideFields(1);
                 ShowTransactionType(0);
 
-
+                BindBank();
                 // dsScheme = operationBo.GetSchemeForOrderEntry(amcCode, categoryCode, Sflag, int.Parse(txtCustomerId.Value));
 
 
@@ -278,15 +278,15 @@ namespace WealthERP.OPS
                         //cvOrderDate.ValueToCompare = DateTime.Now.ToShortDateString();
                         //cvFutureDate1.ValueToCompare = DateTime.Now.ToShortDateString();
                     }
-                    if (mforderVo.OrderStatusCode.ToUpper() == "RJ".ToUpper())
-                    {
-                        lnkBtnEdit.Visible = false;
-                    }
-                    else
-                    {
-                        lnkBtnEdit.Visible = true;
+                    //if (mforderVo.OrderStatusCode.ToUpper() == "RJ".ToUpper())
+                    //{
+                    //    lnkBtnEdit.Visible = false;
+                    //}
+                    //else
+                    //{
+                    //    lnkBtnEdit.Visible = true;
 
-                    }
+                    //}
                 }
                 else
                 {
@@ -315,6 +315,18 @@ namespace WealthERP.OPS
         //{
         //    throw new NotImplementedException();
         //}
+        public void BindBankName()
+        {
+            //CommonLookupBo commonLookupBo = new CommonLookupBo();
+            //ddlBankName.Items.Clear();
+            //DataTable dtBankName = new DataTable();
+            //dtBankName = commonLookupBo.GetWERPLookupMasterValueList(7000, 0); ;
+            //ddlBankName.DataSource = dtBankName;
+            //ddlBankName.DataValueField = dtBankName.Columns["WCMV_LookupId"].ToString();
+            //ddlBankName.DataTextField = dtBankName.Columns["WCMV_Name"].ToString();
+            //ddlBankName.DataBind();
+            //ddlBankName.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
+        }
         private void bindSearchScheme()
         {
             try
@@ -575,13 +587,15 @@ namespace WealthERP.OPS
             // window.open('PopUp.aspx?AddMFCustLinkId=mf&pageID=CustomerType&', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')
             // ScriptManager.RegisterStartupScript(Page, typeof(Page), "OpenWindow", "window.open('PopUp.aspx?PageId=AddBankAccount', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no');", true);
             customerVo = (CustomerVo)Session["customerVo"];
-            BindBank(customerVo.CustomerId);
+            //BindBank(customerVo.CustomerId);
+            BindBank();
         }
 
         protected void imgBtnRefereshBank_OnClick(object sender, EventArgs e)
         {
             customerVo = (CustomerVo)Session["customerVo"];
-            BindBank(customerVo.CustomerId);
+            //BindBank(customerVo.CustomerId);
+            BindBank();
         }
         private void SetControls(string action, MFOrderVo mforderVo, OrderVo orderVo)
         {
@@ -907,7 +921,7 @@ namespace WealthERP.OPS
                         //else
                         //    txtFolioNumber.Text= "";
                     }
-                    txtReceivedDate.Enabled = false;
+                      txtReceivedDate.Enabled = false;
                     if (orderVo.ApplicationReceivedDate != DateTime.MinValue)
                     {
                         txtReceivedDate.SelectedDate = orderVo.ApplicationReceivedDate;
@@ -989,8 +1003,8 @@ namespace WealthERP.OPS
                         txtPaymentInstDate.SelectedDate = orderVo.PaymentDate;
                     else
                         txtPaymentInstDate.SelectedDate = null;
-                    BindBank(orderVo.CustomerId);
-
+                    //BindBank(orderVo.CustomerId);
+                    BindBank();
                     ListItem liBank = ddlBankName.Items.FindByValue(orderVo.CustBankAccId.ToString());
                     if (liBank != null)
                     {
@@ -1118,10 +1132,10 @@ namespace WealthERP.OPS
                     txtOrderDate.SelectedDate = orderVo.OrderDate;
                     lblGetOrderNo.Text = mforderVo.OrderNumber.ToString();
                     hdnType.Value = mforderVo.TransactionCode;
-                    if (orderVo.AgentId != 0)
+                    if (orderVo.CustomerId != 0)
                     //ddlAssociate.SelectedValue = orderVo.AgentId.ToString();
                     {
-                        AgentId = customerBo.GetAgentId(advisorVo.advisorId, int.Parse(orderVo.AgentId.ToString()));
+                        AgentId = customerBo.GetAgentId(advisorVo.advisorId, int.Parse(orderVo.CustomerId.ToString()));
                         if (AgentId.Rows.Count > 0)
                         {
                             txtAssociateSearch.Text = AgentId.Rows[0][2].ToString();
@@ -1410,7 +1424,8 @@ namespace WealthERP.OPS
                         txtPaymentInstDate.SelectedDate = orderVo.PaymentDate;
                     else
                         txtPaymentInstDate.SelectedDate = null;
-                    BindBank(orderVo.CustomerId);
+                    //BindBank(orderVo.CustomerId);
+                    BindBank();
                     ListItem li = ddlBankName.Items.FindByValue(orderVo.CustBankAccId.ToString());
                     if (li != null)
                     {
@@ -1482,6 +1497,7 @@ namespace WealthERP.OPS
                     {
                         txtFolioNumber.Enabled = false;
                         imgFolioAdd.Enabled = false;
+                    
                     }
 
                 }
@@ -1831,7 +1847,7 @@ namespace WealthERP.OPS
             DataTable ISAList;
             if (!string.IsNullOrEmpty(txtCustomerId.Value))
             {
-                ISAList = customerBo.GetISaList(customerId);
+                ISAList = customerBo.GetISaList(customerVo.CustomerId);
                 DataTable ISANewList = new DataTable();
                 int i;
 
@@ -1931,7 +1947,8 @@ namespace WealthERP.OPS
         protected void HiddenField1_ValueChanged1(object sender, EventArgs e)
         {
             customerVo = (CustomerVo)Session["customerVo"];
-            BindBank(customerVo.CustomerId);
+        //    BindBank(customerVo.CustomerId);
+            BindBank();
         }
 
 
@@ -1956,7 +1973,8 @@ namespace WealthERP.OPS
                     lblgetcust.Text = customerVo.FirstName + ' ' + customerVo.MiddleName + ' ' + customerVo.LastName;
 
                 //= rmVo.FirstName + ' ' + rmVo.MiddleName + ' ' + rmVo.LastName;
-                BindBank(customerId);
+                //BindBank(customerId);
+                BindBank();
                 BindPortfolioDropdown(customerId);
                 ddltransType.SelectedIndex = 0;
                 BindISAList();
@@ -1993,21 +2011,30 @@ namespace WealthERP.OPS
             }
         }
 
-        private void BindBank(int customerId)
+        private void BindBank()
         {
-            DataSet dsBankName = mfOrderBo.GetCustomerBank(customerId);
-
+            CommonLookupBo commonLookupBo = new CommonLookupBo();
             ddlBankName.Items.Clear();
-            ddlBankName.DataSource = null;
+            DataTable dtBankName = new DataTable();
+            dtBankName = commonLookupBo.GetWERPLookupMasterValueList(7000, 0); ;
+            ddlBankName.DataSource = dtBankName;
+            ddlBankName.DataValueField = dtBankName.Columns["WCMV_LookupId"].ToString();
+            ddlBankName.DataTextField = dtBankName.Columns["WCMV_Name"].ToString();
+            ddlBankName.DataBind();
+            ddlBankName.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
+            //DataSet dsBankName = mfOrderBo.GetCustomerBank(customerId);
 
-            if (dsBankName.Tables[0].Rows.Count > 0)
-            {
-                ddlBankName.DataSource = dsBankName;
-                ddlBankName.DataValueField = dsBankName.Tables[0].Columns["CB_CustBankAccId"].ToString();
-                ddlBankName.DataTextField = dsBankName.Tables[0].Columns["WERPBM_BankName"].ToString();
-                ddlBankName.DataBind();
-                ddlBankName.Items.Insert(0, new ListItem("Select", "Select"));
-            }
+            //ddlBankName.Items.Clear();int customerId
+            //ddlBankName.DataSource = null;
+
+            //if (dsBankName.Tables[0].Rows.Count > 0)
+            //{
+            //    ddlBankName.DataSource = dsBankName;
+            //    ddlBankName.DataValueField = dsBankName.Tables[0].Columns["CB_CustBankAccId"].ToString();
+            //    ddlBankName.DataTextField = dsBankName.Tables[0].Columns["WERPBM_BankName"].ToString();
+            //    ddlBankName.DataBind();
+            //    ddlBankName.Items.Insert(0, new ListItem("Select", "Select"));
+            //}
             //else
             //{
             //    //ddlBankName.Items.Clear();
@@ -3006,6 +3033,12 @@ namespace WealthERP.OPS
             mforderVo.RMName = lblGetRM.Text;
             mforderVo.PanNo = lblgetPan.Text;
             mforderVo.TransactionCode = ddltransType.SelectedValue;
+            if (!string.IsNullOrEmpty(txtOrderDate.SelectedDate.ToString().Trim()))
+            {
+                orderVo.OrderDate = Convert.ToDateTime(txtOrderDate.SelectedDate);
+            }
+            else
+                orderVo.OrderDate = DateTime.MinValue;
             if (!string.IsNullOrEmpty(txtReceivedDate.SelectedDate.ToString().Trim()))
             {
                 orderVo.ApplicationReceivedDate = DateTime.Parse(txtReceivedDate.SelectedDate.ToString());
@@ -3029,7 +3062,7 @@ namespace WealthERP.OPS
             else
                 mforderVo.accountid = 0;
             mforderVo.FolioNumber = txtFolioNumber.Text;
-            orderVo.OrderDate = Convert.ToDateTime(txtOrderDate.SelectedDate);
+            
             mforderVo.OrderNumber = int.Parse(lblGetOrderNo.Text);
             //orderVo.OrderStatusCode = ddlOrderStatus.SelectedValue;
             //orderVo.ReasonCode = ddlOrderPendingReason.SelectedValue;

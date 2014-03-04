@@ -135,41 +135,41 @@ namespace DaoOps
 
             return dsCustomerAssociates;
         }
-        public int GetOrderNumber()
-        {
-            DataSet dsOrderNumber;
-            DataTable dtOrderNumber;
-            int orderNumber = 0;
-            Database db;
-            DbCommand getSchemeSwitchcmd;
-            try
-            {
-                db = DatabaseFactory.CreateDatabase("wealtherp");
-                getSchemeSwitchcmd = db.GetStoredProcCommand("Sp_FIOrderNO");
-                dsOrderNumber = db.ExecuteDataSet(getSchemeSwitchcmd);
-                dtOrderNumber = dsOrderNumber.Tables[0];
-                if (dtOrderNumber.Rows.Count > 0)
-                    orderNumber = int.Parse(dtOrderNumber.Rows[0]["CFIOD_DetailsId"].ToString());
-                else
-                    orderNumber = 999;
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw (Ex);
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "OperationDao.cs:GetOrderNumber()");
-                object[] objects = new object[0];
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
-            return orderNumber;
-        }
+        //public int GetOrderNumber()
+        //{
+        //    DataSet dsOrderNumber;
+        //    DataTable dtOrderNumber;
+        //    int orderNumber = 0;
+        //    Database db;
+        //    DbCommand getSchemeSwitchcmd;
+        //    try
+        //    {
+        //        db = DatabaseFactory.CreateDatabase("wealtherp");
+        //        getSchemeSwitchcmd = db.GetStoredProcCommand("Sp_FIOrderNO");
+        //        dsOrderNumber = db.ExecuteDataSet(getSchemeSwitchcmd);
+        //        dtOrderNumber = dsOrderNumber.Tables[0];
+        //        if (dtOrderNumber.Rows.Count > 0)
+        //            orderNumber = int.Parse(dtOrderNumber.Rows[0]["CFIOD_DetailsId"].ToString());
+        //        else
+        //            orderNumber = 999;
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw (Ex);
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
+        //        FunctionInfo.Add("Method", "OperationDao.cs:GetOrderNumber()");
+        //        object[] objects = new object[0];
+        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+        //        exBase.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(exBase);
+        //        throw exBase;
+        //    }
+        //    return orderNumber;
+        //}
 
 
         public DataSet GetFIModeOfHolding()
