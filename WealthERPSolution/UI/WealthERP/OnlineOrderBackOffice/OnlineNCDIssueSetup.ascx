@@ -159,12 +159,15 @@
                                                     <asp:Label ID="lb1FromRange" runat="server" Text="From: " CssClass="FieldName"></asp:Label>
                                                 </td>
                                                 <td class="rightField" style="width: 25%" colspan="2">
-                                                    <asp:TextBox ID="txtFrom" runat="server" CssClass="txtField"></asp:TextBox>
+                                                    <asp:TextBox ID="txtFrom" runat="server" CssClass="txtField" MaxLength="10"></asp:TextBox>
                                                     <span id="spnFrom" class="spnRequiredField">*</span>
-                                                    <asp:RegularExpressionValidator ID="regFrom" ControlToValidate="txtFrom" runat="server"
+                                                    <%--<asp:RegularExpressionValidator ID="regFrom" ControlToValidate="txtFrom" runat="server"
                                                         Display="Dynamic" ErrorMessage="<br/>Please Enter Integer Value" CssClass="cvPCG"
                                                         ValidationExpression="[1-9]\d*$" ValidationGroup="rgApllOk">     
-                                                    </asp:RegularExpressionValidator>
+                                                    </asp:RegularExpressionValidator>--%>
+                                                    <asp:RegularExpressionValidator ID="regFrom" ControlToValidate="txtFrom"
+                                                        runat="server" Display="Dynamic" ErrorMessage="<br/>Enter Numeric Value Between 8-10 Digit"
+                                                        CssClass="cvPCG" ValidationExpression="[0-9]{8,10}$" ValidationGroup="rgApllOk" />
                                                     <asp:CompareValidator ID="cmpFrom" ControlToValidate="txtFrom" runat="server" ControlToCompare="txtTo"
                                                         Display="Dynamic" ErrorMessage="<br/>From  Should Be less Than To" Type="integer"
                                                         Operator="LessThan"></asp:CompareValidator>
@@ -178,12 +181,15 @@
                                                     <asp:Label ID="Label22" runat="server" Text="To: " CssClass="FieldName"></asp:Label>
                                                 </td>
                                                 <td class="rightField" style="width: 25%" colspan="2">
-                                                    <asp:TextBox ID="txtTo" runat="server" CssClass="txtField"></asp:TextBox>
+                                                    <asp:TextBox ID="txtTo" runat="server" CssClass="txtField" MaxLength="10"></asp:TextBox>
                                                     <span id="Span37" class="spnRequiredField">*</span>
-                                                    <asp:RegularExpressionValidator ID="regTo" ControlToValidate="txtTo" runat="server"
+                                                   <%-- <asp:RegularExpressionValidator ID="regTo" ControlToValidate="txtTo" runat="server"
                                                         Display="Dynamic" ErrorMessage="<br/>Please Enter Integer Value" CssClass="cvPCG"
                                                         ValidationExpression="[1-9]\d*$" ValidationGroup="rgApllOk">     
-                                                    </asp:RegularExpressionValidator>
+                                                    </asp:RegularExpressionValidator>--%>
+                                                    <asp:RegularExpressionValidator ID="regTo" ControlToValidate="txtTo"
+                                                        runat="server" Display="Dynamic" ErrorMessage="<br/>Enter Numeric Value Between 8-10 Digit"
+                                                        CssClass="cvPCG" ValidationExpression="[0-9]{8,10}$" ValidationGroup="rgApllOk" />
                                                     <%--  <asp:RequiredFieldValidator ID="RequiredFieldValidator31" ControlToValidate="txtTo" ErrorMessage="Please enter To Range"
                                                         ValidationGroup="rgApllOk" Display="Dynamic" runat="server" CssClass="rfvPCG">
                                                     </asp:RequiredFieldValidator>--%>
@@ -341,8 +347,8 @@
             <asp:Label ID="lblCategory" runat="server" Text="Category:" CssClass="FieldName"></asp:Label>
         </td>
         <td align="rightData" id="tdddlCategory" runat="server">
-            <asp:DropDownList ID="ddlSubInstrCategory" runat="server" CssClass="cmbLongField" AutoPostBack="true"
-                Width="500px" OnSelectedIndexChanged="ddlSubInstrCategory_Selectedindexchanged">
+            <asp:DropDownList ID="ddlSubInstrCategory" runat="server" CssClass="cmbLongField"
+                AutoPostBack="true" Width="500px" OnSelectedIndexChanged="ddlSubInstrCategory_Selectedindexchanged">
                 <%-- <asp:ListItem Value="Select">Select</asp:ListItem>
                 <asp:ListItem Value="NCD">NCD</asp:ListItem>
                 <asp:ListItem Value="IB">Infrastructure bonds</asp:ListItem>--%>
@@ -352,9 +358,8 @@
             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Please Select Category"
                 CssClass="rfvPCG" ControlToValidate="ddlProduct" ValidationGroup="SetUpSubmit"
                 Display="Dynamic" InitialValue="Select"></asp:RequiredFieldValidator>
-                
-                 <asp:DropDownList ID="ddlInstrCat" runat="server" CssClass="cmbLongField" 
-                Width="500px" Visible="false">                
+            <asp:DropDownList ID="ddlInstrCat" runat="server" CssClass="cmbLongField" Width="500px"
+                Visible="false">
             </asp:DropDownList>
         </td>
     </tr>
@@ -1161,7 +1166,6 @@
                                     AutoGenerateColumns="false" Width="100%" EditMode="PopUp" CommandItemSettings-AddNewRecordText="Create InvestorCategory"
                                     CommandItemDisplay="Top">
                                     <Columns>
-                                    
                                         <telerik:GridTemplateColumn AllowFiltering="false">
                                             <ItemTemplate>
                                                 <asp:LinkButton ID="lbDetails" runat="server" CommandName="ExpandCollapse" Font-Underline="False"
@@ -1368,7 +1372,6 @@
                                                 </tr>
                                                 <tr>
                                                     <td colspan="3">
-                                                       
                                                         <telerik:RadGrid ID="rgSubCategories" runat="server" AllowSorting="True" enableloadondemand="True"
                                                             PageSize="10" AllowPaging="True" AutoGenerateColumns="False" EnableEmbeddedSkins="False"
                                                             GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="false" ShowStatusBar="True"
@@ -1444,6 +1447,9 @@
                                                                             <asp:CompareValidator ID="cmp" ControlToValidate="txtMinInvestmentAmount" runat="server"
                                                                                 ControlToCompare="txtMaxInvestmentAmount" Display="Dynamic" ErrorMessage="<br/>MinInvestmentAmt  Should Be less Than MaxInvestmentAmt "
                                                                                 Type="integer" Operator="LessThan"></asp:CompareValidator>
+                                                                            <asp:RegularExpressionValidator ID="RegularExpressionValidatormin" ControlToValidate="txtMinInvestmentAmount"
+                                                                                runat="server" Display="Dynamic" ErrorMessage="Please Enter Digits" CssClass="cvPCG"
+                                                                                ValidationExpression="[0-9]\d*(\.\d?[0-9])?$" ValidationGroup="btnOK">   </asp:RegularExpressionValidator>
                                                                             <%--<asp:CompareValidator ID="cmpMinInvestmentAmt" Display="Dynamic" runat="server" Type="Integer"
                                                                                 ControlToCompare="txtMinInvestmentAmount" Operator="LessThan" ControlToValidate="txtMaxInvestmentAmount"
                                                                                 ErrorMessage="MinInvestmentAmount should be lessthan MaxInvestmentAmt"></asp:CompareValidator>--%>
@@ -1458,6 +1464,9 @@
                                                                             <asp:TextBox ID="txtMaxInvestmentAmount" runat="server" CssClass="txtField"></asp:TextBox>
                                                                             <%--<asp:CompareValidator ID="cmptxtMaxInvestmentAmount" Display="Dynamic" runat="server" Type="Integer" ControlToCompare="txtMaxInvestmentAmount" 
                                                                             Operator="GreaterThan" ControlToValidate="txtMinInvestmentAmount" ErrorMessage="MinInvestmentAmount should be lessthan MaxInvestmentAmt"></asp:CompareValidator>--%>
+                                                                            <asp:RegularExpressionValidator ID="RegularExpressionValidatormaa" ControlToValidate="txtMaxInvestmentAmount"
+                                                                                runat="server" Display="Dynamic" ErrorMessage="Please Enter Digits" CssClass="cvPCG"
+                                                                                ValidationExpression="[0-9]\d*(\.\d?[0-9])?$" ValidationGroup="btnOK">   </asp:RegularExpressionValidator>
                                                                         </ItemTemplate>
                                                                     </telerik:GridTemplateColumn>
                                                                     <telerik:GridTemplateColumn HeaderText="Select" ShowFilterIcon="false" AllowFiltering="false"
