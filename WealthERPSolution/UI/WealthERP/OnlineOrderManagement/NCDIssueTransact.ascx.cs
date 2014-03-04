@@ -450,23 +450,23 @@ namespace WealthERP.OnlineOrderManagement
                     }
                     continue;
                 }
-                else
-                {
-                    if (rowNo < gvCommMgmt.MasterTableView.Items.Count)
-                    {
+                //else
+                //{
+                //    if (rowNo < gvCommMgmt.MasterTableView.Items.Count)
+                //    {
 
-                        if (dt.Rows.Count >= 1)
-                        {
-                            rowNo = rowNo + 1;
-                            tableRow++;
-                        }
-                    }
-                    else
-                    {
-                        break;
-                    }
+                //        if (dt.Rows.Count >= 1)
+                //        {
+                //            rowNo = rowNo + 1;
+                //            tableRow++;
+                //        }
+                //    }
+                //    else
+                //    {
+                //        break;
+                //    }
                    
-                }
+                //}
 
                 OnlineBondVo.CustomerId = customerVo.CustomerId;
                 OnlineBondVo.BankAccid = 1002321521;
@@ -506,7 +506,11 @@ namespace WealthERP.OnlineOrderManagement
                 }
                 if (rowNo < gvCommMgmt.MasterTableView.Items.Count)
                 {
-                   // rowNo++;
+                    if (dt.Rows.Count >= 1)
+                    {
+                        rowNo = rowNo + 1;
+                        tableRow++;
+                    }
                 }
                 else
                     break;
@@ -524,7 +528,7 @@ namespace WealthERP.OnlineOrderManagement
 
                 if (Convert.ToDouble(lblAvailableLimits.Text) == 0)
                 {
-                    ShowMessage("Order cannot be processed. Insufficient balance");
+                    ShowMessage("Order cannot be processed due to insufficient balance");
                   //  tdsubmit.Visible = false;
                     lnlBack.Visible = true;
 

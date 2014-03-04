@@ -230,6 +230,18 @@
                                                         HeaderText="Scrip" UniqueName="Scrip">
                                                         <itemstyle width="" horizontalalign="left" wrap="false" verticalalign="Top" />
                                                     </telerik:GridBoundColumn>
+                                                    <telerik:GridBoundColumn DataField="BHQtyinholdings" AllowFiltering="false" HeaderText="Qty in holdings"
+                                                        UniqueName="BHQtyinholdings">
+                                                        <itemstyle width="" horizontalalign="left" wrap="false" verticalalign="Top" />
+                                                    </telerik:GridBoundColumn>
+                                                     <telerik:GridBoundColumn DataField="BHValueofholdings" AllowFiltering="false" HeaderText="Value of holdings"
+                                                        UniqueName="BHValueofholdings">
+                                                        <itemstyle width="" horizontalalign="left" wrap="false" verticalalign="Top" />
+                                                    </telerik:GridBoundColumn>
+                                                    <telerik:GridBoundColumn DataField="BHCurrentRatings" AllowFiltering="false" HeaderText="Current Ratings( agency ½)"
+                                                        UniqueName="BHCurrentRatings" Visible="false" >
+                                                        <itemstyle width="" horizontalalign="left" wrap="false" verticalalign="Top" />
+                                                    </telerik:GridBoundColumn>
                                                     <telerik:GridBoundColumn DataField="AIA_AllotmentDate" SortExpression="AIA_AllotmentDate"
                                                         AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
                                                         AllowFiltering="false" HeaderText="Allotment Date" UniqueName="AIA_AllotmentDate">
@@ -279,18 +291,8 @@
                                                         HeaderText="Tenure (months)" UniqueName="BBTenure">
                                                         <itemstyle width="" horizontalalign="left" wrap="false" verticalalign="Top" />
                                                     </telerik:GridBoundColumn>
-                                                    <telerik:GridBoundColumn DataField="BHQtyinholdings" AllowFiltering="false" HeaderText="Qty in holdings"
-                                                        UniqueName="BHQtyinholdings">
-                                                        <itemstyle width="" horizontalalign="left" wrap="false" verticalalign="Top" />
-                                                    </telerik:GridBoundColumn>
-                                                    <telerik:GridBoundColumn DataField="BHValueofholdings" AllowFiltering="false" HeaderText="Value of holdings"
-                                                        UniqueName="BHValueofholdings">
-                                                        <itemstyle width="" horizontalalign="left" wrap="false" verticalalign="Top" />
-                                                    </telerik:GridBoundColumn>
-                                                    <telerik:GridBoundColumn DataField="BHCurrentRatings" AllowFiltering="false" HeaderText="Current Ratings( agency ½)"
-                                                        UniqueName="BHCurrentRatings" Visible="false" >
-                                                        <itemstyle width="" horizontalalign="left" wrap="false" verticalalign="Top" />
-                                                    </telerik:GridBoundColumn>
+                                                    
+                                                   
                                                     <telerik:GridTemplateColumn AllowFiltering="false" DataField="" HeaderStyle-Width="100px"  
                                                         UniqueName="Action" HeaderText="Action" Visible="false">
                                                         <ItemTemplate>

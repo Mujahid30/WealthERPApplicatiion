@@ -823,6 +823,21 @@ namespace BoOnlineOrderManagement
 
         }
 
+        public int IsValidBidRange(int issueId, double minBidAmt, double MaxBidAmt)
+        {
+            try
+            {
+                onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
+                return onlineNCDBackOfficeDao.IsValidBidRange(issueId, minBidAmt, MaxBidAmt);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+        }
+
+
         public bool UpdateCategoryDetails(VoOnlineOrderManagemnet.OnlineNCDBackOfficeVo onlineNCDBackOfficeVo, int userID)
         {
             try

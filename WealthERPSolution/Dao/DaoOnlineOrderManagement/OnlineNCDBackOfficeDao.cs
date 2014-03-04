@@ -112,6 +112,46 @@ namespace DaoOnlineOrderManagement
             }
             return stepCode;
         }
+
+
+        public int IsValidBidRange(int issueId,double minBidAmt,double MaxBidAmt)
+        {
+            Database db;
+            DbCommand dbCommand;
+            int  isExist=0;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbCommand = db.GetStoredProcCommand("SPROC_IsValidBidRange");
+                db.AddInParameter(dbCommand, "@IssueId", DbType.Int32, issueId);
+                db.AddInParameter(dbCommand, "@MinBidAmt", DbType.Decimal, minBidAmt);
+                db.AddInParameter(dbCommand, "@MaxBidAmt", DbType.Decimal, MaxBidAmt);
+                db.AddOutParameter(dbCommand, "@isExist", DbType.Int32, 10);
+                if (db.ExecuteScalar(dbCommand) == null )
+                    isExist = 0;
+                else
+                    isExist = 1;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineNCDBackOfficeDao.cs:GetExtractStepCode()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return isExist;
+        }
+
+
+
         public string GetEligibleIssueDelete(int catSubTypeId, int catId, int seriesId, int IssueId)
         {
             Database db;

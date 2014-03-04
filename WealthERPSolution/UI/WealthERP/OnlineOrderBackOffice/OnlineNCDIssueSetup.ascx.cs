@@ -1815,7 +1815,19 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     txtDiscountValue.Text = 0.ToString();
                 }
+               int isExist= onlineNCDBackOfficeBo.IsValidBidRange(Convert.ToInt32(txtIssueId.Text), Convert.ToDouble(txtMinBidAmount.Text), Convert.ToDouble(txtMaxBidAmount.Text));
+               if (isExist > 0)
+               {
+                   ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('This Bid Range Exist');", true);
+                   e.Canceled = true;
+                   return;
+               }
 
+
+
+
+
+                
                 categoryId = CreateUpdateDeleteCategory(Convert.ToInt32(txtIssueId.Text), 0, txtCategoryName.Text, txtCategoryDescription.Text, txtChequePayableTo.Text, Convert.ToInt64(txtMinBidAmount.Text), Convert.ToInt64(txtMaxBidAmount.Text), discountType, Convert.ToDecimal(txtDiscountValue.Text), "Insert");
 
                 foreach (GridDataItem gdi in rgSubCategories.Items)
