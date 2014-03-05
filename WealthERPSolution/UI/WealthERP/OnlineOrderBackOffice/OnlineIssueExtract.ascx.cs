@@ -13,12 +13,14 @@ using System.Globalization;
 using System.Collections.Specialized;
 using Telerik.Web.UI;
 using System.IO;
+ 
 
 namespace WealthERP.OnlineOrderBackOffice
 {
     public partial class OnlineIssueExtract : System.Web.UI.UserControl
     {
         OnlineNCDBackOfficeBo boNcdBackOff = new OnlineNCDBackOfficeBo();
+       // OnlineOrderBackOfficeBo onlineOrderBackOfficeBo = new OnlineOrderBackOfficeBo();
         UserVo userVo = new UserVo();
         AdvisorVo adviserVo = new AdvisorVo();
 
@@ -197,6 +199,8 @@ namespace WealthERP.OnlineOrderBackOffice
         
         private void DownloadBidFile(DataTable dtExtractData, string filename, string delimit)
         {
+         
+
             if (dtExtractData == null)
             {
                 ShowMessage("No data available");
@@ -217,8 +221,12 @@ namespace WealthERP.OnlineOrderBackOffice
 
             string Columns = string.Empty;
             
-            foreach (DataColumn column in dtExtractData.Columns) Columns += column.ColumnName + delimit;
-            
+            foreach (DataColumn column in dtExtractData.Columns) 
+                Columns += column.ColumnName + delimit;
+
+            string extractStepCode = boNcdBackOff.GetExtractStepCode(Convert.ToInt32(ddlFileType.SelectedValue));
+
+            if (extractStepCode !="EB")
             sWriter.WriteLine(Columns.Remove(Columns.Length - 1, 1));
 
             DataColumn[] arrCols = new DataColumn[dtExtractData.Columns.Count];
@@ -244,7 +252,7 @@ namespace WealthERP.OnlineOrderBackOffice
             }
             Response.ContentType = "text/plain";
 
-            Response.AddHeader("content-disposition", "attachment;filename=" + string.Format(filename, string.Format("{0:ddMMyyyy}", DateTime.Today)));
+        Response.AddHeader("content-disposition", "attachment;filename=" + string.Format(filename, string.Format("{0:ddMMyyyy}", DateTime.Today)));
             Response.Clear();
 
             using (StreamWriter writer = new StreamWriter(Response.OutputStream, System.Text.Encoding.UTF8))
