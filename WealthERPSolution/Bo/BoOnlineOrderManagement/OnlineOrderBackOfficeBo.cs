@@ -591,7 +591,6 @@ namespace BoOnlineOrderManagement
             return statusFlag;
 
         }
-
         private DataTable PrepareFinalRTAOrderExtract(DataSet dsMfOrderExtract, ref DataTable dtFinalRTAOrderList)
         {
             try
@@ -613,24 +612,78 @@ namespace BoOnlineOrderManagement
                     drFinalRTAExtract = dtRTAOrderExtract.NewRow();
                     //string[] finaltableScheme = new string[dtFinalRTAOrderList.Columns.Count];
                     //finaltableScheme = dtFinalRTAOrderList.Columns;
-                    //DataView dvJointHolder = new DataView(dtCustomerJointNomineeDetails, "C_CustomerId=" + drProfileOrder["C_CustomerId"].ToString() + "AND CEDAA_AssociationType='JH'", "C_CustomerId", DataViewRowState.CurrentRows);
+                    DataView dvJointHolder = new DataView(dtCustomerJointNomineeDetails, "C_CustomerId=" + drProfileOrder["C_CustomerId"].ToString() + "AND AMFE_UserTrxnNo=" + drProfileOrder["CO_OrderId"].ToString() + "AND CEDAA_AssociationType='" + "JH'", "C_CustomerId", DataViewRowState.CurrentRows);
+                    DataView dvNominee = new DataView(dtCustomerJointNomineeDetails, "C_CustomerId=" + drProfileOrder["C_CustomerId"].ToString() + "AND AMFE_UserTrxnNo=" + drProfileOrder["CO_OrderId"].ToString() + "AND CEDAA_AssociationType='" + "N'", "C_CustomerId", DataViewRowState.CurrentRows);
                     //DataView dvNominee = new DataView(dtCustomerJointNomineeDetails, "C_CustomerId=" + drProfileOrder["C_CustomerId"].ToString() + "AND CEDAA_AssociationType='N'", "C_CustomerId", DataViewRowState.CurrentRows);
-                    DataView dvCustomerBankDetails = new DataView(dtCustomerBankDeatils, "C_CustomerId=" + drProfileOrder["C_CustomerId"].ToString(), "C_CustomerId", DataViewRowState.CurrentRows);
+                    DataView dvCustomerBankDetails = new DataView(dtCustomerBankDeatils, "C_CustomerId=" + drProfileOrder["C_CustomerId"].ToString() + "AND AMFE_UserTrxnNo=" + drProfileOrder["CO_OrderId"].ToString(), "C_CustomerId", DataViewRowState.CurrentRows);
                     //DataRow[] drJointNominee = dtCustomerJointNomineeDetails.Select("C_CustomerId=" + drProfileOrder["C_CustomerId"].ToString());
-                    int joint = 1;
-                    int nominee = 1;
-                    int jointPan = 1;
-                    int jointPanIsValid = 1;
+
+                    string AMFE_JointName1 = string.Empty, AMFE_JointName2 = string.Empty, AMFE_JointHolderRelation = string.Empty,
+                           AMFE_JointDateofBirth = string.Empty, AMFE_JointGaurdianName = string.Empty, AMFE_JointHolder1Pan = string.Empty,
+                           AMFE_JointHolder2Pan = string.Empty, AMFE_JH1PanValid = "N", AMFE_JH2PanValid = "N", AMFE_NomineeName = string.Empty,
+                           AMFE_Nom2Name = string.Empty, AMFE_Nom2_Relationship = string.Empty, AMFE_NomineeRelation = string.Empty,
+                           AMFE_NomineeDateofBirth = string.Empty, AMFE_NomineeGaurdianName = string.Empty, AMFE_NominationNotOpted = "N", AMFE_Dp_Id = string.Empty;
+
+                    if (dvJointHolder.ToTable().Rows.Count > 0)
+                    {
+                        int joint1 = 1;
+                        foreach (DataRow drJoint in dvJointHolder.ToTable().Rows)
+                        {
+                            if (joint1 == 1)
+                            {
+                                AMFE_JointName1 = drJoint["AMFE_JointNomineeName"].ToString();
+                                AMFE_JointHolderRelation = drJoint["AMFE_JointNomineeRelation"].ToString();
+                                AMFE_JointDateofBirth = drJoint["AMFE_JointNomineeDateofBirth"].ToString();
+                                AMFE_JointGaurdianName = drJoint["AMFE_JointNomineeGaurdianName"].ToString();
+                                if (!string.IsNullOrEmpty(drJoint["AMFE_JointNomineePan"].ToString()))
+                                {
+                                    AMFE_JointHolder1Pan = drJoint["AMFE_JointNomineePan"].ToString();
+                                    AMFE_JH1PanValid = "Y";
+                                }
+                                AMFE_Dp_Id = drJoint["AMFE_Dp_Id"].ToString();
+
+                                joint1 += 1;
+                            }
+                            else if (joint1 == 2)
+                            {
+                                AMFE_JointName2 = drJoint["AMFE_JointNomineeName"].ToString();
+                                if (!string.IsNullOrEmpty(drJoint["AMFE_JointNomineePan"].ToString()))
+                                {
+                                    AMFE_JointHolder2Pan = drJoint["AMFE_JointNomineePan"].ToString();
+                                    AMFE_JH2PanValid = "Y";
+                                }
+                                if (string.IsNullOrEmpty(AMFE_Dp_Id))
+                                    AMFE_Dp_Id = drJoint["AMFE_Dp_Id"].ToString();
+                            }
+                        }
+                    }
+
+                    if (dvNominee.ToTable().Rows.Count > 0)
+                    {
+                        int nominee1 = 1;
+                        foreach (DataRow drNominee in dvNominee.ToTable().Rows)
+                        {
+                            if (nominee1 == 1)
+                            {
+                                AMFE_NomineeName = drNominee["AMFE_JointNomineeName"].ToString();
+                                AMFE_NomineeRelation = drNominee["AMFE_JointNomineeRelation"].ToString();
+                                AMFE_NomineeDateofBirth = drNominee["AMFE_JointNomineeDateofBirth"].ToString();
+                                AMFE_NomineeGaurdianName = drNominee["AMFE_JointNomineeGaurdianName"].ToString();
+                                AMFE_NominationNotOpted = "Y";
+                                nominee1 += 1;
+                            }
+                            else if (nominee1 == 2)
+                            {
+                                AMFE_Nom2Name = drNominee["AMFE_JointNomineeName"].ToString();
+                                AMFE_Nom2_Relationship = drNominee["AMFE_JointNomineeRelation"].ToString();
+                            }
+
+                        }
+                    }
 
 
                     foreach (DataColumn dcc in dtRTAOrderExtract.Columns)
                     {
-                        //if (dcc.ToString() == "AMFE_JH1PanValid" || dcc.ToString() == "AMFE_AltFolioNumber")
-                        //{
-
-                        //}
-
-                        //var abccolumns = (dvCustomerBankDetails.ToTable()).Columns.Cast<DataColumn>().Where(c => c.ColumnName.StartsWith(dcc.ToString()));
                         if (drProfileOrder.Table.Columns.Contains(dcc.ToString()))
                         {
                             if (dcc.ToString() == "AMFE_TransactionTime")
@@ -655,184 +708,74 @@ namespace BoOnlineOrderManagement
                         }
                         else
                         {
-
-                            if (dtCustomerJointNomineeDetails.Rows.Count > 0)
+                            switch (dcc.ToString())
                             {
-
-                                foreach (DataRow drJointNominee in dtCustomerJointNomineeDetails.Rows)
-                                {
-                                    switch (dcc.ToString())
-                                    {
-                                        case "AMFE_JointName1":
-                                            if (drJointNominee["CEDAA_AssociationType"].ToString() == "JH" && joint == 1)
-                                            {
-                                                drFinalRTAExtract[dcc.ToString()] = drJointNominee["AMFE_JointNomineeName"];
-                                                joint = joint + 1;
-                                            }
-                                            break;
-                                        case "AMFE_JointName2":
-                                            if (joint == 2 && drJointNominee["CEDAA_AssociationType"].ToString() == "JH")
-                                            {
-                                                drFinalRTAExtract[dcc.ToString()] = drJointNominee["AMFE_JointNomineeName"];
-                                                joint = joint + 1;
-                                            }
-                                            break;
-                                        case "AMFE_JointHolderRelation":
-                                            if (drJointNominee["CEDAA_AssociationType"].ToString() == "JH")
-                                            {
-                                                drFinalRTAExtract[dcc.ToString()] = drJointNominee["AMFE_JointNomineeRelation"];
-
-                                            }
-                                            break;
-                                        case "AMFE_JointDateofBirth":
-                                            if (drJointNominee["CEDAA_AssociationType"].ToString() == "JH")
-                                            {
-                                                drFinalRTAExtract[dcc.ToString()] = drJointNominee["AMFE_JointNomineeDateofBirth"];
-
-                                            }
-                                            break;
-                                        case "AMFE_JointGaurdianName":
-                                            if (drJointNominee["CEDAA_AssociationType"].ToString() == "JH")
-                                            {
-                                                drFinalRTAExtract[dcc.ToString()] = drJointNominee["AMFE_JointNomineeGaurdianName"];
-
-                                            }
-                                            break;
-                                        case "AMFE_JointHolder1Pan":
-                                            if (jointPan == 1 && drJointNominee["CEDAA_AssociationType"].ToString() == "JH")
-                                            {
-                                                drFinalRTAExtract[dcc.ToString()] = drJointNominee["AMFE_JointNomineePan"];
-                                                jointPan = jointPan + 1;
-                                            }
-                                            break;
-                                        case "AMFE_JointHolder2Pan":
-                                            if (jointPan == 2 && drJointNominee["CEDAA_AssociationType"].ToString() == "JH")
-                                            {
-                                                drFinalRTAExtract[dcc.ToString()] = drJointNominee["AMFE_JointNomineePan"];
-                                                jointPan = jointPan + 1;
-                                            }
-                                            break;
-
-                                        case "AMFE_JH1PanValid":
-                                            if (jointPanIsValid == 1 && drJointNominee["CEDAA_AssociationType"].ToString() == "JH")
-                                            {
-                                                jointPanIsValid = jointPanIsValid + 1;
-
-                                                if (!string.IsNullOrEmpty(drJointNominee["AMFE_JointNomineePan"].ToString()))
-                                                {
-                                                    drFinalRTAExtract[dcc.ToString()] = 'Y';
-                                                }
-                                                else
-                                                {
-                                                    drFinalRTAExtract[dcc.ToString()] = 'N';
-                                                }
-                                            }
-                                            else
-                                            {
-                                                drFinalRTAExtract[dcc.ToString()] = 'N';
-                                            }
-                                            break;
-
-                                        case "AMFE_JH2PanValid":
-                                            if (jointPanIsValid == 2 && drJointNominee["CEDAA_AssociationType"].ToString() == "JH")
-                                            {
-                                                jointPanIsValid = jointPanIsValid + 1;
-
-                                                if (!string.IsNullOrEmpty(drJointNominee["AMFE_JointNomineePan"].ToString()))
-                                                {
-                                                    drFinalRTAExtract[dcc.ToString()] = 'Y';
-                                                }
-                                                else
-                                                {
-                                                    drFinalRTAExtract[dcc.ToString()] = 'N';
-                                                }
-                                            }
-                                            else
-                                            {
-                                                drFinalRTAExtract[dcc.ToString()] = 'N';
-                                            }
-                                            break;
+                                case "AMFE_JointName1":
+                                    drFinalRTAExtract[dcc.ToString()] = AMFE_JointName1;
+                                    break;
+                                case "AMFE_JointName2":
+                                    drFinalRTAExtract[dcc.ToString()] = AMFE_JointName2;
+                                    break;
+                                case "AMFE_JointHolderRelation":
+                                    drFinalRTAExtract[dcc.ToString()] = AMFE_JointHolderRelation;
+                                    break;
+                                case "AMFE_JointDateofBirth":
+                                    if (!string.IsNullOrEmpty(AMFE_JointDateofBirth))
+                                        drFinalRTAExtract[dcc.ToString()] = AMFE_JointDateofBirth;
+                                    else
+                                        drFinalRTAExtract[dcc.ToString()] = DBNull.Value;
+                                    break;
+                                case "AMFE_JointGaurdianName":
+                                    drFinalRTAExtract[dcc.ToString()] = AMFE_JointGaurdianName;
+                                    break;
+                                case "AMFE_JointHolder1Pan":
+                                    drFinalRTAExtract[dcc.ToString()] = AMFE_JointHolder1Pan;
+                                    break;
+                                case "AMFE_JointHolder2Pan":
+                                    drFinalRTAExtract[dcc.ToString()] = AMFE_JointHolder2Pan;
+                                    break;
+                                case "AMFE_JH1PanValid":
+                                    drFinalRTAExtract[dcc.ToString()] = AMFE_JH1PanValid;
+                                    break;
+                                case "AMFE_JH2PanValid":
+                                    drFinalRTAExtract[dcc.ToString()] = AMFE_JH2PanValid;
+                                    break;
 
 
+                                case "AMFE_NomineeName":
+                                    drFinalRTAExtract[dcc.ToString()] = AMFE_NomineeName;
+                                    break;
+                                case "AMFE_Nom2Name":
+                                    drFinalRTAExtract[dcc.ToString()] = AMFE_Nom2Name;
+                                    break;
+                                case "AMFE_Nom2_Relationship":
+                                    drFinalRTAExtract[dcc.ToString()] = AMFE_Nom2_Relationship;
+                                    break;
+                                case "AMFE_NomineeRelation":
+                                    drFinalRTAExtract[dcc.ToString()] = AMFE_NomineeRelation;
+                                    break;
+                                case "AMFE_NomineeDateofBirth":
+                                    if (!string.IsNullOrEmpty(AMFE_NomineeDateofBirth))
+                                        drFinalRTAExtract[dcc.ToString()] = AMFE_NomineeDateofBirth;
+                                    else
+                                        drFinalRTAExtract[dcc.ToString()] = DBNull.Value;
 
-
-
-
-                                        case "AMFE_NomineeName1":
-                                            if (nominee == 1 && drJointNominee["CEDAA_AssociationType"].ToString() == "N")
-                                            {
-                                                drFinalRTAExtract[dcc.ToString()] = drJointNominee["AMFE_JointNomineeName"];
-                                                nominee = nominee + 1;
-                                            }
-                                            break;
-                                        case "AMFE_NomineeName2":
-                                            if (nominee == 2 && drJointNominee["CEDAA_AssociationType"].ToString() == "N")
-                                            {
-                                                drFinalRTAExtract[dcc.ToString()] = drJointNominee["AMFE_JointNomineeName"];
-                                                nominee = nominee + 1;
-                                            }
-                                            break;
-                                        case "AMFE_NomineeRelation":
-                                            if (drJointNominee["CEDAA_AssociationType"].ToString() == "N")
-                                            {
-                                                drFinalRTAExtract[dcc.ToString()] = drJointNominee["AMFE_JointNomineeRelation"];
-
-                                            }
-                                            break;
-                                        case "AMFE_NomineeDateofBirth":
-                                            if (drJointNominee["CEDAA_AssociationType"].ToString() == "N")
-                                            {
-                                                drFinalRTAExtract[dcc.ToString()] = drJointNominee["AMFE_JointNomineeDateofBirth"];
-
-                                            }
-                                            break;
-                                        case "AMFE_NomineeGaurdianName":
-                                            if (drJointNominee["CEDAA_AssociationType"].ToString() == "N")
-                                            {
-                                                drFinalRTAExtract[dcc.ToString()] = drJointNominee["AMFE_JointNomineeGaurdianName"];
-
-                                            }
-                                            break;
-
-                                        case "AMFE_NominationNotOpted":
-                                            if (nominee > 0)
-                                                drFinalRTAExtract[dcc.ToString()] = "N";
-                                            else
-                                                drFinalRTAExtract[dcc.ToString()] = "Y";
-                                            break;
-
-                                        case "AMFE_Dp_Id":
-                                            drFinalRTAExtract[dcc.ToString()] = drJointNominee["AMFE_Dp_Id"];
-                                            break;
-
-                                        default:
-                                            drFinalRTAExtract[dcc.ToString()] = DBNull.Value;
-                                            break;
-                                    }
-
-                                }
-                            }
-                            else
-                            {
-                                switch (dcc.ToString())
-                                {
-                                    case "AMFE_JH1PanValid":
-                                        drFinalRTAExtract[dcc.ToString()] = 'N';
-                                        break;
-                                    case "AMFE_JH2PanValid":
-                                        drFinalRTAExtract[dcc.ToString()] = 'N';
-                                        break;
-                                    case "AMFE_NominationNotOpted":
-                                        drFinalRTAExtract[dcc.ToString()] = 'N';
-                                        break;
-                                }
-
+                                    break;
+                                case "AMFE_NomineeGaurdianName":
+                                    drFinalRTAExtract[dcc.ToString()] = AMFE_NomineeGaurdianName;
+                                    break;
+                                case "AMFE_NominationNotOpted":
+                                    drFinalRTAExtract[dcc.ToString()] = AMFE_NominationNotOpted;
+                                    break;
+                                case "AMFE_Dp_Id":
+                                    drFinalRTAExtract[dcc.ToString()] = AMFE_Dp_Id;
+                                    break;
+                                default:
+                                    drFinalRTAExtract[dcc.ToString()] = DBNull.Value;
+                                    break;
                             }
 
                         }
-
-
-
                     }
 
                     dtRTAOrderExtract.Rows.Add(drFinalRTAExtract);
