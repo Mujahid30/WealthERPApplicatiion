@@ -179,14 +179,34 @@
         </td>
     </tr>
 </table>
+<table>
+    <tr>
+    <td></td>
+        <td align="right">
+            <asp:Label ID="lblIskyc" runat="server" Text="Is KYC Avaliable:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td>
+            <asp:DropDownList ID="ddlIskyc" runat="server" CssClass="cmbField">
+                <asp:ListItem Text="Select" Value="Select" Selected="true" />
+                <asp:ListItem Text="Yes" Value="1" />
+                 <asp:ListItem Text="No" Value="0" />
+            </asp:DropDownList>
+             <asp:RequiredFieldValidator ID="rfvddlcategory" runat="server" ErrorMessage="</br>Please Select IsKYC"
+                        CssClass="rfvPCG" ControlToValidate="ddlIskyc" ValidationGroup="btnGo"
+                        Display="Dynamic" InitialValue="Select"></asp:RequiredFieldValidator>
+        </td>
+        <td>
+        <asp:Button ID="btngo" runat="server" CssClass="PCGButton" OnClick="click_Go" Text="Go" ValidationGroup="btnGo"/>
+        </td>
+    </tr>
+</table>
 <%--<div style="width: 100%;">--%>
 <%-- <asp:Panel ID="pnlCustomerList" runat="server" class="Landscape" ScrollBars="Both"
         Visible="false" Width="100%">--%>
 <table width="100%" cellspacing="0" cellpadding="1">
     <tr>
-        <td>
-            <div id="DivCustomerList" runat="server" style="width: 49%; padding-left: 5px;"
-                visible="false">
+        <td id="tdcustomerlist" runat="server" visible="false">
+            <div id="DivCustomerList" runat="server" style="width: 49%; padding-left: 5px;" visible="false">
                 <telerik:RadGrid ID="gvCustomerList" runat="server" fAllowAutomaticDeletes="false"
                     EnableEmbeddedSkins="false" AllowFilteringByColumn="true" AutoGenerateColumns="False"
                     ShowStatusBar="false" ShowFooter="false" AllowPaging="true" AllowSorting="true"
@@ -404,10 +424,9 @@
                                     </telerik:RadScriptBlock>
                                 </FilterTemplate>
                             </telerik:GridBoundColumn>
-                             <telerik:GridBoundColumn DataField="IsMFKYC" UniqueName="IsMFKYC" HeaderText="Is MFKYC"
-                                SortExpression="IsMFKYC" AutoPostBackOnFilter="true" AllowFiltering="true"
-                                HeaderStyle-Width="60px" FilterControlWidth="30px" CurrentFilterFunction="Contains"
-                                ShowFilterIcon="false">
+                            <telerik:GridBoundColumn DataField="IsMFKYC" UniqueName="IsMFKYC" HeaderText="Is MFKYC"
+                                SortExpression="IsMFKYC" AutoPostBackOnFilter="true" AllowFiltering="true" HeaderStyle-Width="60px"
+                                FilterControlWidth="30px" CurrentFilterFunction="Contains" ShowFilterIcon="false">
                                 <ItemStyle Width="55px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="ADUL_ProcessId" UniqueName="ADUL_ProcessId" HeaderText="Process Id"
@@ -416,7 +435,7 @@
                                 ShowFilterIcon="false">
                                 <ItemStyle Width="55px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                             </telerik:GridBoundColumn>
-                              <telerik:GridBoundColumn DataField="CreatedOn" UniqueName="CreatedOn" HeaderText="System Add Date"
+                            <telerik:GridBoundColumn DataField="CreatedOn" UniqueName="CreatedOn" HeaderText="System Add Date"
                                 SortExpression="CreatedOn" AutoPostBackOnFilter="true" AllowFiltering="true"
                                 HeaderStyle-Width="150px" FilterControlWidth="60px" CurrentFilterFunction="Contains"
                                 ShowFilterIcon="false">

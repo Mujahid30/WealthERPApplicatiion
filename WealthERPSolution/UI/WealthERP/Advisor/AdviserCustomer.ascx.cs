@@ -133,16 +133,16 @@ namespace WealthERP.Advisor
                     {
                         if (Session["Customer"].ToString() == "Customer")
                         {
-                            BindCustomerGrid();
+                            //BindCustomerGrid();
                         }
                         else
                         {
-                            BindGrid();
+                            //BindGrid();
                         }
                     }
                     else
                     {
-                        BindGrid();
+                        //BindGrid();
                     }
                 }
                 if (userVo.UserType == "SuperAdmin")
@@ -155,6 +155,13 @@ namespace WealthERP.Advisor
         /// <summary>
         /// This function use to bind Adviser in superadmin
         /// </summary>
+        /// 
+        protected void click_Go(object sender, EventArgs e)
+        {
+                BindCustomerGrid();
+                BindGrid();
+                tdcustomerlist.Visible = true;
+        }
         protected void BindAdviserDropDownList()
         {
             DataTable dtAdviserList = new DataTable();
@@ -263,7 +270,7 @@ namespace WealthERP.Advisor
             RMVo customerRMVo = new RMVo();
             try
             {
-                customerList = adviserBo.GetStaffUserCustomerList(adviserId, rmId,AgentId, UserRole, branchHeadId, AgentCode, out genDictParent, out genDictRM, out genDictReassignRM);
+                customerList = adviserBo.GetStaffUserCustomerList(adviserId, rmId,AgentId, UserRole, branchHeadId, AgentCode,int.Parse(ddlIskyc.SelectedValue), out genDictParent, out genDictRM, out genDictReassignRM);
                 if (customerList == null)
                 {
                     DivCustomerList.Visible = false;
@@ -451,7 +458,7 @@ namespace WealthERP.Advisor
                     if (customer.ToLower().Trim() == "find customer" || customer.ToLower().Trim() == "")
                         customer = string.Empty;
                 }
-                customerList = adviserBo.GetStaffUserCustomerList(adviserVo.advisorId, rmId,AgentId, UserRole, branchHeadId, AgentCode, out genDictParent, out genDictRM, out genDictReassignRM);
+                customerList = adviserBo.GetStaffUserCustomerList(adviserVo.advisorId, rmId,AgentId, UserRole, branchHeadId, AgentCode,int.Parse(ddlIskyc.SelectedValue), out genDictParent, out genDictRM, out genDictReassignRM);
 
                 if (customerList == null)
                 {

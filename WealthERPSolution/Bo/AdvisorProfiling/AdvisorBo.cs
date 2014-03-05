@@ -1849,7 +1849,7 @@ namespace BoAdvisorProfiling
         /// <param name="genDictRM"></param>
         /// <param name="genDictReassignRM"></param>
         /// <returns>will return the list of the customers from the data base accroding to the parameters assigned</returns>
-        public List<CustomerVo> GetStaffUserCustomerList(int adviserId, int rmId, int AgentId, string UserRole, int branchHeadId, string agentCode, out Dictionary<string, string> genDictParent, out Dictionary<string, string> genDictRM, out Dictionary<string, string> genDictReassignRM)
+        public List<CustomerVo> GetStaffUserCustomerList(int adviserId, int rmId, int AgentId, string UserRole, int branchHeadId, string agentCode,int isKyc, out Dictionary<string, string> genDictParent, out Dictionary<string, string> genDictRM, out Dictionary<string, string> genDictReassignRM)
         {
             List<CustomerVo> customerList = null;
             AdvisorDao advisorDao = new AdvisorDao();
@@ -1859,7 +1859,7 @@ namespace BoAdvisorProfiling
             genDictReassignRM = new Dictionary<string, string>();
             try
             {
-                customerList = advisorDao.GetStaffUserCustomerList(adviserId, rmId, AgentId, UserRole, branchHeadId, agentCode, out genDictParent, out genDictRM, out genDictReassignRM);
+                customerList = advisorDao.GetStaffUserCustomerList(adviserId, rmId, AgentId, UserRole, branchHeadId, agentCode,isKyc, out genDictParent, out genDictRM, out genDictReassignRM);
             }
             catch (BaseApplicationException Ex)
             {
