@@ -978,6 +978,10 @@ namespace BoOnlineOrderManagement
             return dtExtract;
         }
 
+        public string  GetExtractStepCode(int fileTypeId)
+        {
+          return   onlineNCDBackOfficeDao.GetExtractStepCode(fileTypeId);
+        }
 
         public string GetFileName(string extSource, int  fileTypeId)
         {
@@ -985,7 +989,7 @@ namespace BoOnlineOrderManagement
            string dt= DateTime.Now.ToString("ddMMyy");
            string result=string.Empty;
            onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
-           string extractStepCode = onlineNCDBackOfficeDao.GetExtractStepCode(fileTypeId);
+           string extractStepCode = GetExtractStepCode(fileTypeId);
            if (extractStepCode == "EI")
            {
                result = extSource + "OrderBookExtr" + dt;
