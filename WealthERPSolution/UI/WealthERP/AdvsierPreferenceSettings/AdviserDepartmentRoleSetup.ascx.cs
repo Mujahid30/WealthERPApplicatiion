@@ -109,7 +109,7 @@ namespace WealthERP.AdvsierPreferenceSettings
                  TextBox txtNote=(TextBox) editedItem.FindControl("txtNote");
                 RadGrid rgRoles=(RadGrid)editedItem.FindControl("rgRoles");
                 BindPopUpcontrols(roleId,   ddlLevel,  txtRoleName,txtNote, rgRoles);
-                FillAdviserrole(roleId, txtRoleName, txtNote, rgRoles);
+                FillAdviserrole(roleId,ddlLevel, txtRoleName, txtNote, rgRoles);
 
                 //TextBox txtIssueName = (TextBox)e.Item.FindControl("txtIssueName");
                 //txtIssueName.Text = txtName.Text;
@@ -185,14 +185,18 @@ namespace WealthERP.AdvsierPreferenceSettings
 
         private void BindPopUpcontrols(int roleId, DropDownList ddlLevel, TextBox textRoleName,TextBox txtNote,RadGrid rgRoles)
         {
-
+            //DataTable dtuserassociate = new DataTable();
+            //dtuserassociate = onlineNCDBackOfficeBo.GetAllInvestorTypes(issuerId, issueId, categoryId).Tables[0];
+            //rgSubCategory.DataSource = dtSubCategory;
+            //rgSubCategory.DataBind();
 
 
 
 
         }
-        private void FillAdviserrole(int roleId, TextBox textRoleName, TextBox txtNote, RadGrid rgRoles)
+        private void FillAdviserrole(int roleId,  DropDownList ddlLevel,TextBox textRoleName, TextBox txtNote, RadGrid rgRoles)
         {
+            int levelid=0;
              DataTable dtuserlist = new DataTable();
                 dtuserlist = advisorPreferenceBo.GetAdviserRoledepartmentwise(roleId).Tables[0];
 
@@ -200,35 +204,35 @@ namespace WealthERP.AdvsierPreferenceSettings
                 {
                     foreach (DataRow dr in dtuserlist.Rows)
                     {
-                        textRoleName.Text = dr["AID_IssueDetailName"].ToString();
-                        txtNote.Text = dr["AID_Tenure"].ToString();
-                        //  ddlLevel.SelectedValue = dr["AID_InterestType"].ToString();
+                        ddlLevel.SelectedValue = dr["AD_DepartmentName"].ToString();
+                        textRoleName.Text = dr["AR_Role"].ToString();
+                        txtNote.Text = dr["AR_RolePurpose"].ToString();
+                          //ddlLevel.SelectedValue = dr["AD_DepartmentId"].ToString();
 
 
-                        //if (!string.IsNullOrEmpty(dr["AIIC_InvestorCatgeoryId"].ToString()))
-                        //{
-                        //    seriesCategoryId = Convert.ToInt32(dr["AIIC_InvestorCatgeoryId"].ToString());
-                        //}
-                        //else
-                        //{
-                        //    return;
+                        if (!string.IsNullOrEmpty(dr["AD_DepartmentId"].ToString()))
+                        {
+                            levelid = Convert.ToInt32(dr["AD_DepartmentId"].ToString());
+                        }
+                        else
+                        {
+                            return;
                     }
                 }
-                //foreach (GridDataItem gdi in rgRoles.Items)
-                //{
-                //    int grdcategoryId = Convert.ToInt32(gdi["AIIC_InvestorCatgeoryId"].Text);
-                //    if (seriesCategoryId == grdcategoryId)
-                //    {
-                //        CheckBox cbSeriesCat = (CheckBox)gdi.FindControl("cbSeriesCat");
-                //        cbSeriesCat.Checked = true;
-                //        txtInterestRate.Text = dr["AIDCSR_DefaultInterestRate"].ToString();
-                //        txtAnnualizedYield.Text = dr["AIDCSR_AnnualizedYieldUpto"].ToString();
-                //        txtYieldAtCall.Text = dr["AIDCSR_YieldAtCall"].ToString();
-                //        txtRenCpnRate.Text = dr["AIDCSR_RenewCouponRate"].ToString();
-                //        txtYieldAtBuyBack.Text = dr["AIDCSR_YieldAtBuyBack"].ToString();
-                //        txtRedemptionDate.Text = dr["AIDCSR_RedemptionDate"].ToString();
-                //        txtRedemptionAmount.Text = dr["AIDCSR_RedemptionAmount"].ToString();
-                //    }
+                foreach (GridDataItem gdi in rgRoles.Items)
+                {
+                    //int levelid2 = Convert.ToInt32(gdi["AD_DepartmentId"].Text);
+                    //if (levelid == levelid2)
+                    //{
+                       // RadGrid rgRoles = (RadGrid)gdi.FindControl("rgRoles");
+                        CheckBox cbRoles = (CheckBox)gdi.FindControl("cbRoles");
+                        //foreach (CheckBoxList li in rgRoles.Items)
+                        //{
+                        //    //li.SelectedValu;
+                        //}
+                    cbRoles.Checked=true;
+                    }
+                }
                 //}
         }
 
