@@ -127,8 +127,12 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(dbCommand, "@MinBidAmt", DbType.Decimal, minBidAmt);
                 db.AddInParameter(dbCommand, "@MaxBidAmt", DbType.Decimal, MaxBidAmt);
                 db.AddOutParameter(dbCommand, "@isExist", DbType.Int32, 10);
-                if (db.ExecuteScalar(dbCommand) == null )
+                if (db.ExecuteScalar(dbCommand) == null)
                     isExist = 0;
+                else if (Convert.ToInt32(db.ExecuteScalar(dbCommand).ToString()) == 0)
+                {
+                    isExist = 0;
+                }
                 else
                     isExist = 1;
             }
@@ -2275,6 +2279,71 @@ namespace DaoOnlineOrderManagement
 
             }
             
+        }
+        public bool Deleteinvestmentcategory(int investorid)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand DeleteinvestmentcategoryCmd;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                DeleteinvestmentcategoryCmd = db.GetStoredProcCommand("SPROC_DeleteInvestorCategory");
+                db.AddInParameter(DeleteinvestmentcategoryCmd, "@Adviserinvetmentsubtypeid", DbType.Int32, investorid);
+
+                if (db.ExecuteNonQuery(DeleteinvestmentcategoryCmd) != 0)
+                    bResult = true;
+            }
+
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AssociateDAO.cs:deleteTradeBusinessDate()");
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return bResult;
+
+        }
+        public bool DeleteIssueinvestor(int investorcategoryid)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand DeleteIssueinvestorCmd;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                DeleteIssueinvestorCmd = db.GetStoredProcCommand("SPROC_Deleteadviseinvestor");
+                db.AddInParameter(DeleteIssueinvestorCmd, "@AIICcode", DbType.Int32, investorcategoryid);
+
+                if (db.ExecuteNonQuery(DeleteIssueinvestorCmd) != 0)
+                    bResult = true;
+            }
+
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AssociateDAO.cs:DeleteIssueinvestor(int investorcategoryid)");
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return bResult;
+
         }
     }
 }
