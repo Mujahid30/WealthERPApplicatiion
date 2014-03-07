@@ -1,11 +1,48 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AdviserCustomer.ascx.cs"
     Inherits="WealthERP.Advisor.AdviserCustomer" %>
-<%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
+<%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
+<%@ Register TagPrefix="telerik" Namespace="Telerik.Charting" Assembly="Telerik.Web.UI" %>
 <asp:ScriptManager ID="scrptMgr" runat="server">
 </asp:ScriptManager>
 <telerik:RadStyleSheetManager ID="RdStylesheet" runat="server">
 </telerik:RadStyleSheetManager>
+
+<script type="text/javascript" language="javascript">
+    function GetCustomerId(source, eventArgs) {
+        isItemSelected = true;
+        //         document.getElementById("lblgetPan").innerHTML = "";
+        document.getElementById("<%= txtCustomerId.ClientID %>").value = eventArgs.get_value();
+
+        return false;
+    }
+
+    function ShowIsa() {
+
+        var hdn = document.getElementById("<%=hdnIsSubscripted.ClientID%>").value;
+    }
+</script>
+
+<script type="text/javascript">
+
+    var isItemSelected = false;
+
+    //Handler for textbox blur event
+    function checkItemSelected(txtPanNumber) {
+        var returnValue = true;
+        if (!isItemSelected) {
+            if (txtPanNumber.value != "") {
+                txtPanNumber.focus();
+                alert("Please select Pan Number from the Pan list only");
+                txtPanNumber.value = "";
+                returnValue = false;
+            }
+        }
+        return returnValue;
+    }
+    
+</script>
 
 <script language="javascript" type="text/javascript">
     function GridCreated(sender, args) {
@@ -106,6 +143,17 @@
     }
 </script>
 
+<%--<script type="text/javascript" language="javascript">
+
+    function GetCustomerId(source, eventArgs) {
+        isItemSelected = true;
+        //         document.getElementById("lblgetPan").innerHTML = "";
+        document.getElementById("<%= txtCustomerId.ClientID %>").value = eventArgs.get_value();
+
+        return false;
+    }
+     
+</script>--%>
 <%--<script language="javascript" type="text/javascript">
     var ht = document.getElementById('pnlCustomerList').offsetHeight;
     var ele = document.getElementById('pnlCustomerList')
@@ -181,22 +229,87 @@
 </table>
 <table>
     <tr>
-    <td></td>
+        <td>
+        </td>
         <td align="right">
-            <asp:Label ID="lblIskyc" runat="server" Text="Is KYC Avaliable:" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="lblIskyc" runat="server" Text="Select:" CssClass="FieldName"></asp:Label>
         </td>
         <td>
-            <asp:DropDownList ID="ddlIskyc" runat="server" CssClass="cmbField">
+            <%--<asp:DropDownList ID="ddlIskyc" runat="server" CssClass="cmbField">
                 <asp:ListItem Text="Select" Value="Select" Selected="true" />
                 <asp:ListItem Text="Yes" Value="1" />
                  <asp:ListItem Text="No" Value="0" />
+            </asp:DropDownList>--%>
+            <asp:DropDownList ID="ddlCOption" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlCOption_SelectedIndexChanged" AutoPostBack="true">
+                <asp:ListItem Text="Select" Value="Select" Selected="true" />
+                <asp:ListItem Text="Name" Value="Name" />
+                <asp:ListItem Text="PAN No" Value="Panno" />
+                <asp:ListItem Text="Client Code" Value="Clientcode" />
+                <asp:ListItem Text="Kyc" Value="1" />
+                <asp:ListItem Text="All MF Investor" Value="1" />
+                <asp:ListItem Text="Real Investor" Value="1" />
+                <asp:ListItem Text="All" Value="0"></asp:ListItem>
             </asp:DropDownList>
-             <asp:RequiredFieldValidator ID="rfvddlcategory" runat="server" ErrorMessage="</br>Please Select IsKYC"
+            <%--  <asp:RequiredFieldValidator ID="ddlCOption" runat="server" ErrorMessage="</br>Please Select IsKYC"
                         CssClass="rfvPCG" ControlToValidate="ddlIskyc" ValidationGroup="btnGo"
-                        Display="Dynamic" InitialValue="Select"></asp:RequiredFieldValidator>
+                        Display="Dynamic" InitialValue="Select"></asp:RequiredFieldValidator>--%>
+        </td>
+        <td align="left" id="tdtxtPansearch" runat="server" visible="false">
+            <asp:TextBox ID="txtPansearch" runat="server" CssClass="txtField" AutoComplete="Off"
+                AutoPostBack="True" onclientClick="ShowIsa()" onblur="return checkItemSelected(this)"
+                TabIndex="2">
+            </asp:TextBox><span id="Span1" class="spnRequiredField"></span>
+            <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" TargetControlID="txtPansearch"
+                WatermarkText="Enter few chars of Pan" runat="server" EnableViewState="false">
+            </cc1:TextBoxWatermarkExtender>
+            <ajaxToolkit:AutoCompleteExtender ID="txtPansearch_autoCompleteExtender" runat="server"
+                TargetControlID="txtPansearch" ServiceMethod="GetAdviserCustomerPan" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
+                MinimumPrefixLength="1" EnableCaching="False" CompletionSetCount="1" CompletionInterval="0"
+                CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
+                CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
+                UseContextKey="True" OnClientItemSelected="GetCustomerId" DelimiterCharacters=""
+                Enabled="True" />
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtPansearch"
+                ErrorMessage="<br />Please Enter Pan number" Display="Dynamic" runat="server"
+                CssClass="rfvPCG" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
+        </td>
+        <td align="left" id="tdtxtClientCode" runat="server" visible="false">
+            <asp:TextBox ID="txtClientCode" runat="server" CssClass="txtField" AutoComplete="Off"
+                AutoPostBack="True" onclientClick="ShowIsa()"></asp:TextBox>
+            <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" TargetControlID="txtClientCode"
+                WatermarkText="Enter few chars of Client Code" runat="server" EnableViewState="false">
+            </cc1:TextBoxWatermarkExtender>
+            <ajaxToolkit:AutoCompleteExtender ID="txtClientCode_autoCompleteExtender" runat="server"
+                TargetControlID="txtClientCode" ServiceMethod="GetCustCode" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
+                MinimumPrefixLength="1" EnableCaching="False" CompletionSetCount="5" CompletionInterval="100"
+                CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
+                CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
+                UseContextKey="True" OnClientItemSelected="GetCustomerId" DelimiterCharacters=""
+                Enabled="True" />
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtClientCode"
+                ErrorMessage="<br />Please Enter Client Code" Display="Dynamic" runat="server"
+                CssClass="rfvPCG" ValidationGroup="Submit"></asp:RequiredFieldValidator>
+        </td>
+        <td align="left" id="tdtxtCustomerName" runat="server" visible="false">
+            <asp:TextBox ID="txtCustomerName" runat="server" CssClass="txtField" AutoComplete="Off"
+                AutoPostBack="True" onclientClick="ShowIsa()">  </asp:TextBox>
+            <cc1:TextBoxWatermarkExtender ID="txtCustomerName_water" TargetControlID="txtCustomerName"
+                WatermarkText="Enter few chars of Customer" runat="server" EnableViewState="false">
+            </cc1:TextBoxWatermarkExtender>
+            <ajaxToolkit:AutoCompleteExtender ID="txtCustomerName_autoCompleteExtender" runat="server"
+                TargetControlID="txtCustomerName" ServiceMethod="GetCustomerName" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
+                MinimumPrefixLength="1" EnableCaching="False" CompletionSetCount="5" CompletionInterval="100"
+                CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
+                CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
+                UseContextKey="True" OnClientItemSelected="GetCustomerId" DelimiterCharacters=""
+                Enabled="True" />
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtCustomerName"
+                ErrorMessage="<br />Please Enter Customer Name" Display="Dynamic" runat="server"
+                CssClass="rfvPCG" ValidationGroup="Submit"></asp:RequiredFieldValidator>
         </td>
         <td>
-        <asp:Button ID="btngo" runat="server" CssClass="PCGButton" OnClick="click_Go" Text="Go" ValidationGroup="btnGo"/>
+            <asp:Button ID="btngo" runat="server" CssClass="PCGButton" OnClick="click_Go" Text="Go"
+                ValidationGroup="btnGo" />
         </td>
     </tr>
 </table>
@@ -213,10 +326,10 @@
                     GridLines="none" AllowAutomaticInserts="false" OnItemCreated="gvCustomerList_ItemCreated"
                     OnItemDataBound="gvCustomerList_ItemDataBound" Skin="Telerik" EnableHeaderContextMenu="true"
                     OnNeedDataSource="gvCustomerList_OnNeedDataSource" OnPreRender="gvCustomerList_PreRender">
-                    <ExportSettings HideStructureColumns="true">
-                    </ExportSettings>
-                    <MasterTableView DataKeyNames="CustomerId,UserId,RMId" Width="99%" AllowMultiColumnSorting="True"
-                        AutoGenerateColumns="false">
+                    <exportsettings hidestructurecolumns="true">
+                    </exportsettings>
+                    <mastertableview datakeynames="CustomerId,UserId,RMId" width="99%" allowmulticolumnsorting="True"
+                        autogeneratecolumns="false">
                         <Columns>
                             <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="Action" DataField="Action"
                                 HeaderStyle-Width="140px">
@@ -442,13 +555,13 @@
                                 <ItemStyle Width="55px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                             </telerik:GridBoundColumn>
                         </Columns>
-                    </MasterTableView>
-                    <ClientSettings>
+                    </mastertableview>
+                    <clientsettings>
                         <Scrolling AllowScroll="true" UseStaticHeaders="true" ScrollHeight="380px" />
                         <ClientEvents OnGridCreated="GridCreated" />
                         <Resizing AllowColumnResize="true" />
                         <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
-                    </ClientSettings>
+                    </clientsettings>
                 </telerik:RadGrid>
             </div>
             <%--</div>--%>
@@ -938,3 +1051,7 @@
 <asp:HiddenField ID="hdnIsProspect" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnMsgValue" runat="server" />
 <asp:HiddenField ID="hdnassociationcount" runat="server" />--%>
+<%--<asp:HiddenField ID="txtCustomerId" runat="server" OnValueChanged="txtCustomerId_ValueChanged1" />--%>
+<asp:HiddenField ID="txtCustomerId" runat="server" OnValueChanged="hdnCustomerId_ValueChanged" />
+<asp:HiddenField ID="hdnCustomerId" runat="server" />
+<asp:HiddenField ID="hdnIsSubscripted" runat="server" />

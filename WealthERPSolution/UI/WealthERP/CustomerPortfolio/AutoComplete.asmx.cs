@@ -360,6 +360,38 @@ namespace WealthERP.CustomerPortfolio
         /// <param name="count"></param>
         /// <param name="contextKey"></param>
         /// <returns></returns>
+        /// 
+        [WebMethod]
+        public string[] GetCustCode(string prefixText, int count, string contextKey)
+        {
+            CustomerBo customerBo = new CustomerBo();
+            DataTable dtCustomercode = new DataTable();
+            int i = 0;
+            List<string> names = new List<string>();
+
+            dtCustomercode = customerBo.GetCustCode(prefixText, int.Parse(contextKey));
+            //string[] customerNameList = new string[dtCustomerName.Rows.Count];
+
+            foreach (DataRow dr in dtCustomercode.Rows)
+            {
+
+                string item = AjaxControlToolkit.AutoCompleteExtender.CreateAutoCompleteItem(dr["C_CustCode"].ToString(), dr["C_CustomerId"].ToString());
+                names.Add(item);
+
+                //customerNameList[i] = dr["C_FirstName"].ToString() + "|" + dr["C_PANNum"].ToString();
+                //i++;
+            }
+            return names.ToArray();
+        }
+        /// <summary>
+        /// Get Advisor Individual Customer code
+        /// </summary>
+        /// <param name="prefixText"></param>
+        /// <param name="count"></param>
+        /// <param name="contextKey"></param>
+        /// <returns></returns>
+        /// 
+
         [WebMethod]
         public string[] GetAdviserCustomerName(string prefixText, int count, string contextKey)
       {

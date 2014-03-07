@@ -67,6 +67,37 @@ namespace WealthERP.Advisor
             rmVo = (RMVo)Session["rmVo"];
             adviserVo = (AdvisorVo)Session["advisorVo"];
             associatesVo = (AssociatesVO)Session["associatesVo"];
+            if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
+            {
+                txtCustomerName_autoCompleteExtender.ContextKey = adviserVo.advisorId.ToString();
+                txtCustomerName_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
+                txtPansearch_autoCompleteExtender.ContextKey = adviserVo.advisorId.ToString();
+                txtPansearch_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerPan";
+                txtClientCode_autoCompleteExtender.ContextKey = adviserVo.advisorId.ToString();
+                txtClientCode_autoCompleteExtender.ServiceMethod = "GetCustCode";
+
+            }
+            else if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
+            {
+                txtCustomerName_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                txtCustomerName_autoCompleteExtender.ServiceMethod = "GetBMIndividualCustomerNames";
+
+            }
+            else if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
+            {
+                txtCustomerName_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                txtCustomerName_autoCompleteExtender.ServiceMethod = "GetMemberCustomerName";
+            }
+            else if (Session[SessionContents.CurrentUserRole].ToString() == "Associates")
+            {
+                txtCustomerName_autoCompleteExtender.ContextKey = adviserVo.advisorId.ToString();
+                txtCustomerName_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
+                txtPansearch_autoCompleteExtender.ContextKey = adviserVo.advisorId.ToString();
+                txtPansearch_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerPan";
+                txtClientCode_autoCompleteExtender.ContextKey = adviserVo.advisorId.ToString();
+                txtClientCode_autoCompleteExtender.ServiceMethod = "GetCustCode";
+
+            }
             if (userVo.UserType == "SuperAdmin")
             {
                 UserRole = "advisor";
@@ -156,6 +187,37 @@ namespace WealthERP.Advisor
         /// This function use to bind Adviser in superadmin
         /// </summary>
         /// 
+      
+        protected void ddlCOption_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlCOption.SelectedValue == "Name")
+            {
+                tdtxtCustomerName.Visible = true;
+                tdtxtClientCode.Visible = false;
+                tdtxtPansearch.Visible = false;
+            }
+            if (ddlCOption.SelectedValue == "Panno")
+            {
+                tdtxtPansearch.Visible = true;
+                tdtxtCustomerName.Visible = false;
+                tdtxtClientCode.Visible = false;
+            }
+            if (ddlCOption.SelectedValue == "Clientcode")
+            {
+                tdtxtClientCode.Visible = true;
+                tdtxtPansearch.Visible = false;
+                tdtxtCustomerName.Visible = false;
+            }
+        }
+        protected void hdnCustomerId_ValueChanged(object sender, EventArgs e)
+        {
+            int customerId;
+            if (!string.IsNullOrEmpty(hdnCustomerId.Value.ToString().Trim()))
+            {
+                customerId = int.Parse(hdnCustomerId.Value);
+            }
+        }
+
         protected void click_Go(object sender, EventArgs e)
         {
                 BindCustomerGrid();
@@ -270,7 +332,7 @@ namespace WealthERP.Advisor
             RMVo customerRMVo = new RMVo();
             try
             {
-                customerList = adviserBo.GetStaffUserCustomerList(adviserId, rmId,AgentId, UserRole, branchHeadId, AgentCode,int.Parse(ddlIskyc.SelectedValue), out genDictParent, out genDictRM, out genDictReassignRM);
+                customerList = adviserBo.GetStaffUserCustomerList(adviserId, rmId,AgentId, UserRole, branchHeadId, AgentCode,int.Parse(ddlCOption.SelectedValue), out genDictParent, out genDictRM, out genDictReassignRM);
                 if (customerList == null)
                 {
                     DivCustomerList.Visible = false;
@@ -458,7 +520,7 @@ namespace WealthERP.Advisor
                     if (customer.ToLower().Trim() == "find customer" || customer.ToLower().Trim() == "")
                         customer = string.Empty;
                 }
-                customerList = adviserBo.GetStaffUserCustomerList(adviserVo.advisorId, rmId,AgentId, UserRole, branchHeadId, AgentCode,int.Parse(ddlIskyc.SelectedValue), out genDictParent, out genDictRM, out genDictReassignRM);
+                customerList = adviserBo.GetStaffUserCustomerList(adviserVo.advisorId, rmId,AgentId, UserRole, branchHeadId, AgentCode,int.Parse(ddlCOption.SelectedValue), out genDictParent, out genDictRM, out genDictReassignRM);
 
                 if (customerList == null)
                 {
