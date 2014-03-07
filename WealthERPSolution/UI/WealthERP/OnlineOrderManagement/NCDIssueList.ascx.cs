@@ -134,8 +134,14 @@ namespace WealthERP.OnlineOrderManagement
             int minQty = int.Parse(gvCommMgmt.MasterTableView.DataKeyValues[rowindex]["AIM_MInQty"].ToString());
             int maxQty = int.Parse(gvCommMgmt.MasterTableView.DataKeyValues[rowindex]["AIM_MaxQty"].ToString());
             string Issuename = gvCommMgmt.MasterTableView.DataKeyValues[rowindex]["AIM_IssueName"].ToString();
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TransactionPage", "loadcontrol('NCDIssueTransact','&IssuerId=" + IssuerId + "&Issuename=" + Issuename + "&minQty=" + minQty + "&maxQty=" + maxQty + "');", true);
-
+            if (Session["PageDefaultSetting"] != null)
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('NCDIssueTransact','&IssuerId=" + IssuerId + "&Issuename=" + Issuename + "&minQty=" + minQty + "&maxQty=" + maxQty + "');", true);
+            }
+            else
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TransactionPage", "loadcontrol('NCDIssueTransact','&IssuerId=" + IssuerId + "&Issuename=" + Issuename + "&minQty=" + minQty + "&maxQty=" + maxQty + "');", true);
+            }
         }
         protected void btnEquityBond_Click(object sender, EventArgs e)
         {

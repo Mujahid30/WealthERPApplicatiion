@@ -230,6 +230,13 @@
                                                         HeaderText="Scrip" UniqueName="Scrip">
                                                         <itemstyle width="" horizontalalign="left" wrap="false" verticalalign="Top" />
                                                     </telerik:GridBoundColumn>
+                                                    
+                                                     <telerik:GridBoundColumn DataField="SeriesName" SortExpression="SeriesName" AutoPostBackOnFilter="true"
+                                                        CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="false"
+                                                        HeaderText="SeriesName" UniqueName="SeriesName">
+                                                        <itemstyle width="" horizontalalign="left" wrap="false" verticalalign="Top" />
+                                                    </telerik:GridBoundColumn>
+                                                    
                                                     <telerik:GridBoundColumn DataField="BHQtyinholdings" AllowFiltering="false" HeaderText="Qty in holdings"
                                                         UniqueName="BHQtyinholdings">
                                                         <itemstyle width="" horizontalalign="left" wrap="false" verticalalign="Top" />

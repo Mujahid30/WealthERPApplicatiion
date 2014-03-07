@@ -382,7 +382,7 @@ namespace WealthERP.OnlineOrderManagement
               //  userMessage = "Please Contact sbi team to fill Aplications";
 
             }
-            else if( orderId != 0 && accountDebitStatus == false)
+            else if(accountDebitStatus == false)
             {
                 userMessage = "NO Rms Response";
 
@@ -601,23 +601,26 @@ namespace WealthERP.OnlineOrderManagement
                     int orderId = 0;
                     if (availableBalance >= totalOrderAmt)
                     {
-                        
-                        orderIds = OnlineBondBo.onlineBOndtransact(dt, adviserVo.advisorId, IssuerId);
-                        orderId = int.Parse(orderIds["Order_Id"].ToString()); ;
-                        Applicationno = int.Parse(orderIds["application"].ToString());
-                        aplicationNoStatus = orderIds["aplicationNoStatus"].ToString();
-
-                        ViewState["OrderId"] = orderId;
-                        ViewState["application"] = Applicationno;
-
-                        btnConfirmOrder.Enabled = false;
-                        Label3.Visible = false;
-
-                        if (orderId != 0 && !string.IsNullOrEmpty(customerVo.AccountId))
+                        accountDebitStatus = OnlineBondBo.DebitRMSUserAccountBalance(customerVo.AccountId, -totalOrderAmt, orderId);
+                        if (accountDebitStatus == true)
                         {
-                            accountDebitStatus = OnlineBondBo.DebitRMSUserAccountBalance(customerVo.AccountId, -totalOrderAmt, orderId);
-                            ShowAvailableLimits();
+                            orderIds = OnlineBondBo.onlineBOndtransact(dt, adviserVo.advisorId, IssuerId);
+                            orderId = int.Parse(orderIds["Order_Id"].ToString()); ;
+                            Applicationno = int.Parse(orderIds["application"].ToString());
+                            aplicationNoStatus = orderIds["aplicationNoStatus"].ToString();
 
+                            ViewState["OrderId"] = orderId;
+                            ViewState["application"] = Applicationno;
+
+                            btnConfirmOrder.Enabled = false;
+                            Label3.Visible = false;
+
+                            if (orderId == 0 && !string.IsNullOrEmpty(customerVo.AccountId))
+                            {
+                                accountDebitStatus = OnlineBondBo.DebitRMSUserAccountBalance(customerVo.AccountId, totalOrderAmt, orderId);
+                                ShowAvailableLimits();
+
+                            }
                         }
 
                     }
