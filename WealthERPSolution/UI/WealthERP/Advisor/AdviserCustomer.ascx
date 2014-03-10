@@ -245,14 +245,14 @@
                 <asp:ListItem Text="Name" Value="Name" />
                 <asp:ListItem Text="PAN No" Value="Panno" />
                 <asp:ListItem Text="Client Code" Value="Clientcode" />
-                <asp:ListItem Text="Kyc" Value="1" />
-                <asp:ListItem Text="All MF Investor" Value="1" />
-                <asp:ListItem Text="Real Investor" Value="1" />
-                <asp:ListItem Text="All" Value="0"></asp:ListItem>
+                <asp:ListItem Text="Kyc" Value="kyc" />
+                <%--<asp:ListItem Text="All MF Investor" Value="allmfinvestor"  />--%>
+                <asp:ListItem Text="Real Investor" Value="realinvestor" />
+                <%--<asp:ListItem Text="All" Value="all"></asp:ListItem>--%>
             </asp:DropDownList>
-            <%--  <asp:RequiredFieldValidator ID="ddlCOption" runat="server" ErrorMessage="</br>Please Select IsKYC"
-                        CssClass="rfvPCG" ControlToValidate="ddlIskyc" ValidationGroup="btnGo"
-                        Display="Dynamic" InitialValue="Select"></asp:RequiredFieldValidator>--%>
+              <asp:RequiredFieldValidator ID="rFVddlCOption" runat="server" ErrorMessage="</br>Please Select Filter"
+                        CssClass="rfvPCG" ControlToValidate="ddlCOption" ValidationGroup="btnGo"
+                        Display="Dynamic" InitialValue="Select"></asp:RequiredFieldValidator>
         </td>
         <td align="left" id="tdtxtPansearch" runat="server" visible="false">
             <asp:TextBox ID="txtPansearch" runat="server" CssClass="txtField" AutoComplete="Off"

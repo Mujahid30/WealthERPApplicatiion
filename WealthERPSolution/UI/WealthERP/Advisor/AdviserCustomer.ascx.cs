@@ -75,7 +75,7 @@ namespace WealthERP.Advisor
                 txtPansearch_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerPan";
                 txtClientCode_autoCompleteExtender.ContextKey = adviserVo.advisorId.ToString();
                 txtClientCode_autoCompleteExtender.ServiceMethod = "GetCustCode";
-
+                
             }
             else if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
             {
@@ -190,39 +190,59 @@ namespace WealthERP.Advisor
       
         protected void ddlCOption_SelectedIndexChanged(object sender, EventArgs e)
         {
+            tdcustomerlist.Visible = false;
             if (ddlCOption.SelectedValue == "Name")
             {
                 tdtxtCustomerName.Visible = true;
                 tdtxtClientCode.Visible = false;
                 tdtxtPansearch.Visible = false;
             }
-            if (ddlCOption.SelectedValue == "Panno")
+            else if (ddlCOption.SelectedValue == "Panno")
             {
                 tdtxtPansearch.Visible = true;
                 tdtxtCustomerName.Visible = false;
                 tdtxtClientCode.Visible = false;
             }
-            if (ddlCOption.SelectedValue == "Clientcode")
+            else if (ddlCOption.SelectedValue == "Clientcode")
             {
                 tdtxtClientCode.Visible = true;
                 tdtxtPansearch.Visible = false;
                 tdtxtCustomerName.Visible = false;
             }
+            else
+            {
+                tdtxtClientCode.Visible = false;
+                tdtxtPansearch.Visible = false;
+                tdtxtCustomerName.Visible = false;
+
+            }
         }
         protected void hdnCustomerId_ValueChanged(object sender, EventArgs e)
         {
-            int customerId;
-            if (!string.IsNullOrEmpty(hdnCustomerId.Value.ToString().Trim()))
-            {
-                customerId = int.Parse(hdnCustomerId.Value);
-            }
+            //int customerId;
+            //if (!string.IsNullOrEmpty(hdnCustomerId.Value.ToString().Trim()))
+            //{
+            //    customerId = int.Parse(hdnCustomerId.Value);
+            //}
         }
 
         protected void click_Go(object sender, EventArgs e)
         {
+                
                 BindCustomerGrid();
                 BindGrid();
                 tdcustomerlist.Visible = true;
+        }
+        private string GetSelectedFilterValue()
+        {
+            string FilterOn;
+            if (ddlCOption.SelectedValue == "Name" || ddlCOption.SelectedValue == "Panno" || ddlCOption.SelectedValue == "Clientcode")
+                FilterOn = "customer";
+            else
+                FilterOn = ddlCOption.SelectedValue;
+            
+
+            return FilterOn;
         }
         protected void BindAdviserDropDownList()
         {
@@ -332,7 +352,8 @@ namespace WealthERP.Advisor
             RMVo customerRMVo = new RMVo();
             try
             {
-                customerList = adviserBo.GetStaffUserCustomerList(adviserId, rmId,AgentId, UserRole, branchHeadId, AgentCode,int.Parse(ddlCOption.SelectedValue), out genDictParent, out genDictRM, out genDictReassignRM);
+               
+                customerList = adviserBo.GetStaffUserCustomerList(adviserId, rmId, AgentId, UserRole, branchHeadId, AgentCode,GetSelectedFilterValue(),(!string.IsNullOrEmpty(txtCustomerId.Value))? int.Parse(txtCustomerId.Value):0, out genDictParent, out genDictRM, out genDictReassignRM);
                 if (customerList == null)
                 {
                     DivCustomerList.Visible = false;
@@ -520,7 +541,8 @@ namespace WealthERP.Advisor
                     if (customer.ToLower().Trim() == "find customer" || customer.ToLower().Trim() == "")
                         customer = string.Empty;
                 }
-                customerList = adviserBo.GetStaffUserCustomerList(adviserVo.advisorId, rmId,AgentId, UserRole, branchHeadId, AgentCode,int.Parse(ddlCOption.SelectedValue), out genDictParent, out genDictRM, out genDictReassignRM);
+
+                customerList = adviserBo.GetStaffUserCustomerList(adviserVo.advisorId, rmId, AgentId, UserRole, branchHeadId, AgentCode, GetSelectedFilterValue(), (!string.IsNullOrEmpty(txtCustomerId.Value)) ? int.Parse(txtCustomerId.Value) : 0, out genDictParent, out genDictRM, out genDictReassignRM);
 
                 if (customerList == null)
                 {

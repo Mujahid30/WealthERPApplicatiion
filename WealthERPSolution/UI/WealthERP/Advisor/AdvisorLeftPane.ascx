@@ -1567,7 +1567,7 @@
         <table>
             <tr>
                 <td>
-                    <div style="vertical-align: middle;">
+                    <div style="vertical-align: middle; display:none" >
                         <asp:TextBox runat="server" ID="txtFindRM" Style="width: 110px;" onkeypress="return JSdoPostback(event,'ctrl_AdvisorLeftPane_btnSearchRM');" />
                         <cc1:TextBoxWatermarkExtender ID="txtFindRM_TextBoxWatermarkExtender" runat="server"
                             TargetControlID="txtFindRM" WatermarkText="Find Staff">
@@ -1578,7 +1578,7 @@
             </tr>
             <tr>
                 <td>
-                    <div style="display: inline">
+                    <div style="display:none">
                         <asp:TextBox runat="server" ID="txtFindBranch" Style="width: 110px" onkeypress="return JSdoPostback(event,'ctrl_AdvisorLeftPane_btnSearchBranch');" />
                         <cc1:TextBoxWatermarkExtender ID="txtFindBranch_TextBoxWatermarkExtender" runat="server"
                             TargetControlID="txtFindBranch" WatermarkText="Find Branch">
@@ -1589,7 +1589,7 @@
             </tr>
             <tr>
                 <td>
-                    <div style="display: inline">
+                    <div style="display:none">
                         <asp:TextBox runat="server" ID="txtFindAdviserCustomer" Style="width: 110px" onkeypress="return JSdoPostback(event,'ctrl_AdvisorLeftPane_btnSearchAdviserCustomer');" />
                         <cc1:TextBoxWatermarkExtender ID="txtFindAdviserCustomer_TextBoxWatermarkExtender"
                             runat="server" TargetControlID="txtFindAdviserCustomer" WatermarkText="Find Customer">
@@ -1601,7 +1601,7 @@
             </tr>
             <tr>
                 <td>
-                    <div style="display: inline">
+                    <div style="display:none">
                         <asp:TextBox runat="server" ID="txtFindRMCustomer" Style="width: 110px" onkeypress="return JSdoPostback(event,'ctrl_AdvisorLeftPane_btnSearchRMCustomer');" />
                         <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="txtFindRMCustomer"
                             WatermarkText="Find Customer">
