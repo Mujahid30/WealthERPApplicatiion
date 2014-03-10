@@ -340,7 +340,7 @@
                         <ExportSettings HideStructureColumns="true">
                         </ExportSettings>
                         <MasterTableView Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="true"
-                            HeaderStyle-Width="120px" PageSize="20">
+                            HeaderStyle-Width="120px" PageSize="10">
                         </MasterTableView>
                         <ClientSettings>
                             <Resizing AllowColumnResize="true" />

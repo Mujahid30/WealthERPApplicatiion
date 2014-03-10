@@ -109,12 +109,12 @@ namespace BoOnlineOrderManagement
             }
             return dsCommissionStructureRules;
         }
-        public DataSet GetLiveBondTransactionList()
+        public DataSet GetLiveBondTransactionList(int Adviserid)
         {
 
             try
             {
-                dsCommissionStructureRules = onlineBondDao.GetLiveBondTransactionList();
+                dsCommissionStructureRules = onlineBondDao.GetLiveBondTransactionList(Adviserid);
 
             }
             catch (BaseApplicationException Ex)

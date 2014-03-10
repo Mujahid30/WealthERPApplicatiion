@@ -71,7 +71,7 @@ namespace BoOnlineOrderManagement
         {
             string[] allLines = File.ReadAllLines(FilePath);
 
-            string[] headers = allLines[0].Split(',');
+            string[] headers = allLines[0].Split('|');
 
             DataTable dtUploadFile = new DataTable("Upload");
 
@@ -79,7 +79,7 @@ namespace BoOnlineOrderManagement
 
             for (int i = 1; i < allLines.Length; i++)
             {
-                string[] row = allLines[i].Split(',');
+                string[] row = allLines[i].Split('|');
                 dtUploadFile.Rows.Add(row);
             }
 

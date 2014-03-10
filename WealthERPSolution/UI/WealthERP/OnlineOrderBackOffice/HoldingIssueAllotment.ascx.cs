@@ -134,7 +134,7 @@ namespace WealthERP.OnlineOrderBackOffice
         protected void BindDropDownListIssuer()
         {
             OnlineBondOrderBo OnlineBondBo = new OnlineBondOrderBo();
-            DataSet dsStructureRules = OnlineBondBo.GetLiveBondTransactionList();
+            DataSet dsStructureRules = OnlineBondBo.GetLiveBondTransactionList(advisorVo.advisorId);
             ddlIssuer.DataTextField = dsStructureRules.Tables[0].Columns["PFIIM_IssuerId"].ToString();
             ddlIssuer.DataValueField = dsStructureRules.Tables[0].Columns["AIM_IssueId"].ToString();
             if (dsStructureRules.Tables[0].Rows.Count > 0)

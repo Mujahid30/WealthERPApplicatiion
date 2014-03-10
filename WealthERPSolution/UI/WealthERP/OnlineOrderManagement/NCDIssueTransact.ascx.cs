@@ -197,7 +197,7 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void BindDropDownListIssuer()
         {
-            DataSet dsStructureRules = OnlineBondBo.GetLiveBondTransactionList();
+            DataSet dsStructureRules = OnlineBondBo.GetLiveBondTransactionList(adviserVo.advisorId);
             ddIssuerList.DataTextField = dsStructureRules.Tables[0].Columns["PFIIM_IssuerId"].ToString();
             ddIssuerList.DataValueField = dsStructureRules.Tables[0].Columns["AIM_IssueId"].ToString();
             ddIssuerList.DataSource = dsStructureRules.Tables[0];

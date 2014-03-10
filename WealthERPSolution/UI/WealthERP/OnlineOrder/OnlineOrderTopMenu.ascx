@@ -114,7 +114,7 @@
                                 TabIndex="0" PageViewID="RPVNCDIssueList" Selected="True">
                             </telerik:RadTab>
                             <telerik:RadTab runat="server" Text="NCD ISSUE TRANSACT" Value="RTSNCDOrderMenuTransactIssueTransact"
-                                TabIndex="1" PageViewID="RPVNCDIssueTransact">
+                                TabIndex="1" PageViewID="RPVNCDIssueTransact" Visible="false">
                             </telerik:RadTab>
                         </Tabs>
                     </telerik:RadTabStrip>

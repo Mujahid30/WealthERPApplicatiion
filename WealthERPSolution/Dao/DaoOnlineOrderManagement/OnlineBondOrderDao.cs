@@ -206,7 +206,7 @@ namespace DaoOnlineOrderManagement
             return ds;
         }
 
-        public DataSet GetLiveBondTransactionList()
+        public DataSet GetLiveBondTransactionList(int Adviserid)
         {
             Database db;
             DbCommand cmdGetCommissionStructureRules;
@@ -216,6 +216,7 @@ namespace DaoOnlineOrderManagement
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmdGetCommissionStructureRules = db.GetStoredProcCommand("SPROC_ONL_GetLiveBondTransactionList");
+                db.AddInParameter(cmdGetCommissionStructureRules, "@AdviserId", DbType.Int32, Adviserid);
                 ds = db.ExecuteDataSet(cmdGetCommissionStructureRules);
             }
             catch (BaseApplicationException Ex)
