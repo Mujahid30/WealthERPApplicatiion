@@ -538,7 +538,7 @@ namespace WealthERP.OnlineOrderManagement
                      
                         string category = (string)ViewState["CustCat"];
                         if (category == string.Empty)
-                            ShowMessage("Order Cant placed. No suitable categories are there.");
+                            ShowMessage("Please enter no of bonds within the range permissible.");
                      
 
                 }

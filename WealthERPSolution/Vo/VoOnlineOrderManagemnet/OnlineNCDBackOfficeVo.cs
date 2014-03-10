@@ -34,7 +34,7 @@ namespace VoOnlineOrderManagemnet
         public long MInBidAmount { get; set; }
         public long MaxBidAmount { get; set; }
         public string Subbrokercode { get; set; }
-
+        public int LockInPeriodapplicable { get; set; }
         
         public int LookUpId { get; set; }
         public string SubCatgeoryTypeCode { get; set; }
@@ -107,7 +107,8 @@ namespace VoOnlineOrderManagemnet
 
         public DateTime AllotmentDate { get; set; }
         public int TradableExchange { get; set; }
-
+        public int RedemptionApplicable { get; set; }
+        public int LockInApplicable { get; set; }
     }
 
     public class OnlineIssueHeader

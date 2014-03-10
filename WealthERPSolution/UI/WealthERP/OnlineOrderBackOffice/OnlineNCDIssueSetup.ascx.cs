@@ -1141,7 +1141,7 @@ namespace WealthERP.OnlineOrderBackOffice
         //    }
         //}
 
-        private int CreateUpdateDeleteSeries(int issueId, int seriesId, string seriesName, int isBuyBackAvailable, int tenure, string interestFrequency,
+        private int CreateUpdateDeleteSeries(int issueId, int seriesId, string seriesName, int isBuyBackAvailable,int redemptionApplicable,int lockInApplicable ,int tenure, string interestFrequency,
          string interestType, int SeriesSequence, string CommandType)
         {
             int result = 0;
@@ -1156,6 +1156,8 @@ namespace WealthERP.OnlineOrderBackOffice
                 onlineNCDBackOfficeVo.InterestFrequency = interestFrequency;
                 onlineNCDBackOfficeVo.InterestType = interestType;
                 onlineNCDBackOfficeVo.SeriesSequence = SeriesSequence;
+                onlineNCDBackOfficeVo.RedemptionApplicable = redemptionApplicable;
+                onlineNCDBackOfficeVo.LockInApplicable = lockInApplicable;
                 result = onlineNCDBackOfficeBo.CreateSeries(onlineNCDBackOfficeVo, userVo.UserId);
             }
             else if (CommandType == "Update")
@@ -1168,6 +1170,8 @@ namespace WealthERP.OnlineOrderBackOffice
                 onlineNCDBackOfficeVo.InterestFrequency = interestFrequency;
                 onlineNCDBackOfficeVo.InterestType = interestType;
                 onlineNCDBackOfficeVo.SeriesSequence = SeriesSequence;
+                onlineNCDBackOfficeVo.RedemptionApplicable = redemptionApplicable;
+                onlineNCDBackOfficeVo.LockInApplicable = lockInApplicable;
                 result = onlineNCDBackOfficeBo.UpdateSeries(onlineNCDBackOfficeVo, userVo.UserId);
 
             }
@@ -1237,7 +1241,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
             if (e.CommandName == RadGrid.PerformInsertCommandName)
             {
-                int availblity;
+                int availblity,redemptionavaliable,lockinperiodavaliable;
                 TextBox txtSereiesName = (TextBox)e.Item.FindControl("txtSereiesName");
                 TextBox txtTenure = (TextBox)e.Item.FindControl("txtTenure");
                 DropDownList ddlTenure = (DropDownList)e.Item.FindControl("ddlTenure");
@@ -1246,6 +1250,8 @@ namespace WealthERP.OnlineOrderBackOffice
                 DropDownList ddlInterestType = (DropDownList)e.Item.FindControl("ddlInterestType");
                 TextBox txtSequence = (TextBox)e.Item.FindControl("txtSequence");
                 RadGrid rgSeriesCat = (RadGrid)e.Item.FindControl("rgSeriesCat");
+                 CheckBox chkredemptiondate = (CheckBox)e.Item.FindControl("chkredemptiondate");
+                 CheckBox chkLockinperiod = (CheckBox)e.Item.FindControl("chkLockinperiod");
 
                 foreach (GridDataItem gdi in rgSeriesCat.Items)
                 {
@@ -1267,6 +1273,22 @@ namespace WealthERP.OnlineOrderBackOffice
                 else
                 {
                     availblity = 0;
+                }
+                   if (chkredemptiondate.Checked == true)
+                {
+                    redemptionavaliable = 1;
+                }
+                else
+                {
+                    redemptionavaliable = 0;
+                }
+                 if (chkLockinperiod.Checked == true)
+                {
+                    lockinperiodavaliable = 1;
+                }
+                else
+                {
+                    lockinperiodavaliable = 0;
                 }
                 if (string.IsNullOrEmpty(txtTenure.Text))
                 {
@@ -1290,7 +1312,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 }
 
 
-                int seriesId = CreateUpdateDeleteSeries(Convert.ToInt32(txtIssueId.Text), 0, txtSereiesName.Text, availblity, Convert.ToInt32(txtTenure.Text), ddltInterestFrequency.SelectedValue, ddlInterestType.SelectedValue, Convert.ToInt32(txtSequence.Text), "Insert");
+                int seriesId = CreateUpdateDeleteSeries(Convert.ToInt32(txtIssueId.Text), 0, txtSereiesName.Text, availblity,redemptionavaliable,lockinperiodavaliable, Convert.ToInt32(txtTenure.Text), ddltInterestFrequency.SelectedValue, ddlInterestType.SelectedValue, Convert.ToInt32(txtSequence.Text), "Insert");
 
                 foreach (GridDataItem gdi in rgSeriesCat.Items)
                 {
@@ -1304,7 +1326,7 @@ namespace WealthERP.OnlineOrderBackOffice
                         TextBox txtYieldAtBuyBack = (TextBox)gdi.FindControl("txtYieldAtBuyBack");
                         TextBox txtRedemptionDate = (TextBox)gdi.FindControl("txtRedemptionDate");
                         TextBox txtRedemptionAmount = (TextBox)gdi.FindControl("txtRedemptionAmount");
-
+                        TextBox txtLockInPeriod = (TextBox)gdi.FindControl("txtLockInPeriod");
                         if (string.IsNullOrEmpty(txtInterestRate.Text))
                         {
                             txtInterestRate.Text = 0.ToString();
@@ -1336,8 +1358,12 @@ namespace WealthERP.OnlineOrderBackOffice
                         {
                             txtRedemptionAmount.Text = 0.ToString();
                         }
-
-                        CreateUpdateDeleteSeriesCategories(seriesId, categoryId, Convert.ToDouble(txtInterestRate.Text), Convert.ToDouble(txtAnnualizedYield.Text), Convert.ToDouble(txtRenCpnRate.Text), Convert.ToDouble(txtYieldAtCall.Text), Convert.ToDouble(txtYieldAtBuyBack.Text), txtRedemptionDate.Text, Convert.ToDouble(txtRedemptionAmount.Text), "Insert");
+                        if (string.IsNullOrEmpty(txtLockInPeriod.Text))
+                        {
+                            txtLockInPeriod.Text = 0.ToString();
+                        }
+                        CreateUpdateDeleteSeriesCategories(seriesId, categoryId, Convert.ToDouble(txtInterestRate.Text), Convert.ToDouble(txtAnnualizedYield.Text), Convert.ToDouble(txtRenCpnRate.Text), 
+                            Convert.ToDouble(txtYieldAtCall.Text), Convert.ToDouble(txtYieldAtBuyBack.Text), txtRedemptionDate.Text, Convert.ToDouble(txtRedemptionAmount.Text),int.Parse(txtLockInPeriod.Text), "Insert");
                     }
                 }
                 BindSeriesGrid(Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text));
@@ -1345,7 +1371,7 @@ namespace WealthERP.OnlineOrderBackOffice
             }
             else if (e.CommandName == RadGrid.UpdateCommandName)
             {
-                int availblity;
+                int availblity,redemptionavaliable,lockinperiodavaliable;
                 TextBox txtSereiesName = (TextBox)e.Item.FindControl("txtSereiesName");
                 TextBox txtTenure = (TextBox)e.Item.FindControl("txtTenure");
                 DropDownList ddlTenure = (DropDownList)e.Item.FindControl("ddlTenure");
@@ -1353,7 +1379,8 @@ namespace WealthERP.OnlineOrderBackOffice
                 CheckBox chkBuyAvailability = (CheckBox)e.Item.FindControl("chkBuyAvailability");
                 DropDownList ddlInterestType = (DropDownList)e.Item.FindControl("ddlInterestType");
                 TextBox txtSequence = (TextBox)e.Item.FindControl("txtSequence");
-
+                 CheckBox chkredemptiondate = (CheckBox)e.Item.FindControl("chkredemptiondate");
+                 CheckBox chkLockinperiod = (CheckBox)e.Item.FindControl("chkLockinperiod");
 
                 if (chkBuyAvailability.Checked == true)
                 {
@@ -1362,6 +1389,22 @@ namespace WealthERP.OnlineOrderBackOffice
                 else
                 {
                     availblity = 0;
+                }
+                 if (chkredemptiondate.Checked == true)
+                {
+                    redemptionavaliable = 1;
+                }
+                else
+                {
+                    redemptionavaliable = 0;
+                }
+                 if (chkLockinperiod.Checked == true)
+                {
+                    lockinperiodavaliable = 1;
+                }
+                else
+                {
+                    lockinperiodavaliable = 0;
                 }
                 if (string.IsNullOrEmpty(txtTenure.Text))
                 {
@@ -1372,7 +1415,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     txtSequence.Text = 0.ToString();
                 }
                 int seriesId = Convert.ToInt32(rgSeries.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AID_IssueDetailId"].ToString());
-                int InsseriesId = CreateUpdateDeleteSeries(Convert.ToInt32(txtIssueId.Text), seriesId, txtSereiesName.Text, availblity, Convert.ToInt32(txtTenure.Text), ddlInterestFrequency.SelectedValue, ddlInterestType.SelectedValue, Convert.ToInt32(txtSequence.Text), "Update");
+                int InsseriesId = CreateUpdateDeleteSeries(Convert.ToInt32(txtIssueId.Text), seriesId, txtSereiesName.Text, availblity,redemptionavaliable,lockinperiodavaliable, Convert.ToInt32(txtTenure.Text), ddlInterestFrequency.SelectedValue, ddlInterestType.SelectedValue, Convert.ToInt32(txtSequence.Text), "Update");
                 RadGrid rgSeriesCat = (RadGrid)e.Item.FindControl("rgSeriesCat");
                 foreach (GridDataItem gdi in rgSeriesCat.Items)
                 {
@@ -1386,6 +1429,7 @@ namespace WealthERP.OnlineOrderBackOffice
                         TextBox txtYieldAtBuyBack = (TextBox)gdi.FindControl("txtYieldAtBuyBack");
                         TextBox txtRedemptionDate = (TextBox)gdi.FindControl("txtRedemptionDate");
                         TextBox txtRedemptionAmount = (TextBox)gdi.FindControl("txtRedemptionAmount");
+                        TextBox txtLockInPeriod = (TextBox)gdi.FindControl("txtLockInPeriod");
                         if (string.IsNullOrEmpty(txtInterestRate.Text))
                         {
                             txtInterestRate.Text = 0.ToString();
@@ -1417,7 +1461,11 @@ namespace WealthERP.OnlineOrderBackOffice
                         {
                             txtRedemptionAmount.Text = 0.ToString();
                         }
-                        CreateUpdateDeleteSeriesCategories(seriesId, categoryId, Convert.ToDouble(txtInterestRate.Text), Convert.ToDouble(txtAnnualizedYield.Text), Convert.ToDouble(txtRenCpnRate.Text), Convert.ToDouble(txtYieldAtCall.Text), Convert.ToDouble(txtYieldAtBuyBack.Text), txtRedemptionDate.Text, Convert.ToDouble(txtRedemptionAmount.Text), "Update");
+                           if (string.IsNullOrEmpty(txtLockInPeriod.Text))
+                        {
+                            txtLockInPeriod.Text = 0.ToString();
+                        }
+                        CreateUpdateDeleteSeriesCategories(seriesId, categoryId, Convert.ToDouble(txtInterestRate.Text), Convert.ToDouble(txtAnnualizedYield.Text), Convert.ToDouble(txtRenCpnRate.Text), Convert.ToDouble(txtYieldAtCall.Text), Convert.ToDouble(txtYieldAtBuyBack.Text), txtRedemptionDate.Text, Convert.ToDouble(txtRedemptionAmount.Text),int.Parse(txtLockInPeriod.Text), "Update");
                     }
                 }
                 BindSeriesGrid(Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text));
@@ -1938,7 +1986,7 @@ namespace WealthERP.OnlineOrderBackOffice
             else if (e.CommandName == RadGrid.DeleteCommandName)
             {
                 int categoryId = Convert.ToInt32(rgEligibleInvestorCategories.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIIC_InvestorCatgeoryId"].ToString());
-                // int result = CreateUpdateDeleteCategory(0, categoryId, "", "", "", 0, 0, "", 0, "Delete");
+                int result = CreateUpdateDeleteCategory(0, categoryId, "", "", "", 0, 0, "", 0, "Delete");
 
 
             }
@@ -2049,11 +2097,13 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     onlineNCDBackOfficeVo = new OnlineNCDBackOfficeVo();
                     onlineNCDBackOfficeVo.IssueId = issueId;
+                    onlineNCDBackOfficeVo.CatgeoryId = categoryId;
                     onlineNCDBackOfficeVo.CatgeoryName = investorCatgeoryName;
                     onlineNCDBackOfficeVo.CatgeoryDescription = investorCatgeoryDescription;
                     onlineNCDBackOfficeVo.ChequePayableTo = chequePayableTo;
                     onlineNCDBackOfficeVo.MInBidAmount = Convert.ToInt64(mInBidAmount.ToString());
                     onlineNCDBackOfficeVo.MaxBidAmount = Convert.ToInt64(maxBidAmount.ToString());
+                    onlineNCDBackOfficeBo.DeleteIssueinvestor(categoryId);
 
                 }
                 return result;
@@ -2342,6 +2392,8 @@ namespace WealthERP.OnlineOrderBackOffice
                     TextBox txtTenure = (TextBox)e.Item.FindControl("txtTenure");
                     DropDownList ddlInterestFrequency = (DropDownList)e.Item.FindControl("ddlInterestFrequency");
                     CheckBox chkBuyAvailability = (CheckBox)e.Item.FindControl("chkBuyAvailability");
+                    CheckBox chkredemptiondate = (CheckBox)e.Item.FindControl("chkredemptiondate");
+                    CheckBox chkLockinperiod = (CheckBox)e.Item.FindControl("chkLockinperiod");
                     TextBox txtSequence = (TextBox)e.Item.FindControl("txtSequence");
                     DropDownList ddlInterestType = (DropDownList)e.Item.FindControl("ddlInterestType");
 
@@ -2360,7 +2412,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     }
                     BindFrequency(ddlInterestFrequency);
                     BindCategory(rgSeriesCat, Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text));
-                    FillSeriesPopupControlsForUpdate(seriesId, txtSereiesName, txtTenure, ddlInterestFrequency, chkBuyAvailability, txtSequence, ddlInterestType, rgSeriesCat);
+                    FillSeriesPopupControlsForUpdate(seriesId, txtSereiesName, txtTenure, ddlInterestFrequency, chkBuyAvailability, chkredemptiondate,chkLockinperiod, txtSequence, ddlInterestType, rgSeriesCat);
                 }
 
 
@@ -2385,7 +2437,7 @@ namespace WealthERP.OnlineOrderBackOffice
         }
 
         private void FillSeriesPopupControlsForUpdate(int seriesId, TextBox txtSereiesName, TextBox txtTenure,
-                         DropDownList ddlInterestFrequency, CheckBox chkBuyAvailability, TextBox txtSequence, DropDownList ddlInterestType, RadGrid rgSeriesCat)
+                         DropDownList ddlInterestFrequency, CheckBox chkBuyAvailability, CheckBox chkredemptiondate, CheckBox chkLockinperiod, TextBox txtSequence, DropDownList ddlInterestType, RadGrid rgSeriesCat)
         {
             int seriesCategoryId = 0;
             try
@@ -2397,14 +2449,15 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     foreach (DataRow dr in dtCategory.Rows)
                     {
+
                         txtSereiesName.Text = dr["AID_IssueDetailName"].ToString();
                         txtTenure.Text = dr["AID_Tenure"].ToString();
                         ddlInterestFrequency.SelectedValue = dr["WCMV_LookupId"].ToString();
                         chkBuyAvailability.Checked = Convert.ToBoolean(dr["AID_BuyBackFacility"].ToString());
+                        chkredemptiondate.Checked = Convert.ToBoolean(dr["AID_RedemptionApplicable"].ToString());
+                        chkLockinperiod.Checked = Convert.ToBoolean(dr["AID_LockinPeriodApplicable"].ToString());
                         txtSequence.Text = dr["AID_Sequence"].ToString();
                         ddlInterestType.SelectedValue = dr["AID_InterestType"].ToString();
-
-
                         if (!string.IsNullOrEmpty(dr["AIIC_InvestorCatgeoryId"].ToString()))
                         {
                             seriesCategoryId = Convert.ToInt32(dr["AIIC_InvestorCatgeoryId"].ToString());
@@ -2413,8 +2466,19 @@ namespace WealthERP.OnlineOrderBackOffice
                         {
                             return;
                         }
+                        foreach (GridDataItem gdi in rgSeriesCat.Items)
+                        {
+                            TextBox txtYieldAtBuyBack = (TextBox)gdi.FindControl("txtYieldAtBuyBack");
+                            TextBox txtRedemptionDate = (TextBox)gdi.FindControl("txtRedemptionDate");
+                            TextBox txtRedemptionAmount = (TextBox)gdi.FindControl("txtRedemptionAmount");
+                            TextBox txtLockInPeriod = (TextBox)gdi.FindControl("txtLockInPeriod");
 
+                            txtYieldAtBuyBack.Visible =  chkBuyAvailability.Checked;
+                            txtRedemptionDate.Visible = chkredemptiondate.Checked;
+                            txtRedemptionAmount.Visible = chkredemptiondate.Checked;
+                            txtLockInPeriod.Visible = chkLockinperiod.Checked;
 
+                        }
                         foreach (GridDataItem gdi in rgSeriesCat.Items)
                         {
                             int grdcategoryId = Convert.ToInt32(gdi["AIIC_InvestorCatgeoryId"].Text);
@@ -2428,16 +2492,34 @@ namespace WealthERP.OnlineOrderBackOffice
                                 TextBox txtYieldAtBuyBack = (TextBox)gdi.FindControl("txtYieldAtBuyBack");
                                 TextBox txtRedemptionDate = (TextBox)gdi.FindControl("txtRedemptionDate");
                                 TextBox txtRedemptionAmount = (TextBox)gdi.FindControl("txtRedemptionAmount");
+                                TextBox txtLockInPeriod = (TextBox)gdi.FindControl("txtLockInPeriod");
                                 cbSeriesCat.Checked = true;
                                 txtInterestRate.Text = dr["AIDCSR_DefaultInterestRate"].ToString();
                                 txtAnnualizedYield.Text = dr["AIDCSR_AnnualizedYieldUpto"].ToString();
                                 txtYieldAtCall.Text = dr["AIDCSR_YieldAtCall"].ToString();
                                 txtRenCpnRate.Text = dr["AIDCSR_RenewCouponRate"].ToString();
                                 txtYieldAtBuyBack.Text = dr["AIDCSR_YieldAtBuyBack"].ToString();
+                                //if (chkBuyAvailability.Checked == true)
+                                //{
+                                //    txtRedemptionDate.Visible = true;
+                                //    txtRedemptionAmount.Visible = true;
+                                //}
+                                //if (chkLockinperiod.Checked == true)
+                                //{
+                                //    txtLockInPeriod.Visible = true;
+                                //}
+                                //if (chkBuyAvailability.Checked == true)
+                                //{
+                                //    txtYieldAtBuyBack.Visible = true;
+                                //}
                                 txtRedemptionDate.Text = dr["AIDCSR_RedemptionDate"].ToString();
                                 txtRedemptionAmount.Text = dr["AIDCSR_RedemptionAmount"].ToString();
+                                txtLockInPeriod.Text = dr["AIDCSR_LockInPeriod"].ToString();
                             }
                         }
+
+                       
+
                     }
                 }
             }
@@ -2458,6 +2540,7 @@ namespace WealthERP.OnlineOrderBackOffice
             }
 
         }
+     
 
         protected void btnSetUpSubmit_Click(object sender, EventArgs e)
         {
@@ -2990,7 +3073,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
         }
 
-        private void CreateUpdateDeleteSeriesCategories(int seriesId, int catgeoryId, double defaultInterestRate, double annualizedYieldUpto, double renCpnRate, double yieldAtCall, double yieldAtBuyBack, string redemptiondate, double redemptionAmount, string commandType)
+        private void CreateUpdateDeleteSeriesCategories(int seriesId, int catgeoryId, double defaultInterestRate, double annualizedYieldUpto, double renCpnRate, double yieldAtCall, double yieldAtBuyBack, string redemptiondate, double redemptionAmount,int txtLockInPeriod,  string commandType)
         {
             bool result;
             try
@@ -3007,6 +3090,8 @@ namespace WealthERP.OnlineOrderBackOffice
                     onlineNCDBackOfficeVo.YieldAtBuyBack = yieldAtBuyBack;
                     onlineNCDBackOfficeVo.RedemptionDate = redemptiondate;
                     onlineNCDBackOfficeVo.RedemptionAmount = redemptionAmount;
+                    onlineNCDBackOfficeVo.LockInPeriodapplicable = txtLockInPeriod;
+                    
                     result = onlineNCDBackOfficeBo.CreateSeriesCategory(onlineNCDBackOfficeVo, userVo.UserId);
                 }
                 else if (commandType == "Update")
@@ -3021,6 +3106,8 @@ namespace WealthERP.OnlineOrderBackOffice
                     onlineNCDBackOfficeVo.YieldAtBuyBack = yieldAtBuyBack;
                     onlineNCDBackOfficeVo.RedemptionDate = redemptiondate;
                     onlineNCDBackOfficeVo.RedemptionAmount = redemptionAmount;
+                    onlineNCDBackOfficeVo.LockInPeriodapplicable = txtLockInPeriod;
+                   
                     result = onlineNCDBackOfficeBo.UpdateSeriesCategory(onlineNCDBackOfficeVo, userVo.UserId);
                 }
 
@@ -4333,8 +4420,20 @@ namespace WealthERP.OnlineOrderBackOffice
             }
 
         }
-
-
+        protected void rgCategoriesDetails_ItemCommand(object sender, GridCommandEventArgs  e)
+        {
+            if (e.CommandName == RadGrid.DeleteCommandName)
+            {
+                RadGrid rgCategoriesDetails = (RadGrid)sender;
+                int Investorsubcategoryid = int.Parse(rgCategoriesDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIICST_Id"].ToString());
+                onlineNCDBackOfficeBo.Deleteinvestmentcategory(Investorsubcategoryid);
+            }
+            //if (e.CommandName == RadGrid.RebindGridCommandName)
+            //{
+            //    rgCategoriesDetails.Rebind();
+            //}
+            //BindCategoriesDetailsGrid(int categoryId, RadGrid rgCategoriesDetails)
+        }
         protected void btnIssuerPopUp_Click(object sender, ImageClickEventArgs e)
         {
             radIssuerPopUp.VisibleOnPageLoad = true;
@@ -4535,6 +4634,63 @@ namespace WealthERP.OnlineOrderBackOffice
 
 
         }
+        protected void chkRedemptiondate_changed(object sender, EventArgs e)
+        {
+            CheckBox chkredemptiondate = (CheckBox)sender;
+            GridEditableItem editedItem = chkredemptiondate.NamingContainer as GridEditableItem;
+            RadGrid rgSeriesCat = (RadGrid)editedItem.FindControl("rgSeriesCat");
+            foreach (GridDataItem gdi in rgSeriesCat.Items)
+            {
+                if (chkredemptiondate.Checked == true)
+                {
+                    TextBox txtRedemptionDate = (TextBox)gdi.FindControl("txtRedemptionDate");
+                    TextBox txtRedemptionAmount = (TextBox)gdi.FindControl("txtRedemptionAmount");
+                    txtRedemptionDate.Visible = true;
+                    txtRedemptionAmount.Visible = true;
+                }
+                else
+                {
+                    if (chkredemptiondate.Checked == false)
+                    {
+                        TextBox txtRedemptionDate = (TextBox)gdi.FindControl("txtRedemptionDate");
+                        TextBox txtRedemptionAmount = (TextBox)gdi.FindControl("txtRedemptionAmount");
+
+                        //if (txtRedemptionDate != null && txtRedemptionAmount !=null)
+                            txtRedemptionDate.Visible = false;
+                        txtRedemptionAmount.Visible = false;
+                    }
+                }
+
+            }
+        }
+        protected void chkLockinperiod_changed(object sender, EventArgs e)
+        {
+            CheckBox chkLockinperiod = (CheckBox)sender;
+            GridEditableItem editedItem = chkLockinperiod.NamingContainer as GridEditableItem;
+            RadGrid rgSeriesCat = (RadGrid)editedItem.FindControl("rgSeriesCat");
+            foreach (GridDataItem gdi in rgSeriesCat.Items)
+            {
+                if (chkLockinperiod.Checked == true)
+                {
+                    TextBox txtLockInPeriod = (TextBox)gdi.FindControl("txtLockInPeriod");
+
+                    txtLockInPeriod.Visible = true;
+                }
+                else
+                {
+                    if (chkLockinperiod.Checked == false)
+                    {
+                        TextBox txtLockInPeriod = (TextBox)gdi.FindControl("txtLockInPeriod");
+                       
+                        if (txtLockInPeriod != null )
+                            txtLockInPeriod.Visible = false;
+                      
+                    }
+                }
+
+            }
+        }
+
 
         protected void chkBuyAvailability_changed(object sender, EventArgs e)
         {

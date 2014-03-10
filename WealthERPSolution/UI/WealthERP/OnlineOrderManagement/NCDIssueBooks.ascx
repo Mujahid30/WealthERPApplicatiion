@@ -306,9 +306,8 @@
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>--%>
                                         <telerik:GridEditCommandColumn Visible="true" HeaderStyle-Width="60px" UniqueName="MarkAsReject"
-                                            EditText="Cancel" CancelText="Cancel" UpdateText="OK" HeaderText="Cancel" >
+                                            EditText="Cancel" CancelText="Cancel" UpdateText="OK" HeaderText="Cancel">
                                         </telerik:GridEditCommandColumn>
-                                        
                                         <telerik:GridTemplateColumn AllowFiltering="false" HeaderStyle-Width="100px" UniqueName="Action"
                                             HeaderText="View">
                                             <ItemTemplate>
@@ -342,7 +341,12 @@
                                                                     <Columns>
                                                                         <telerik:GridBoundColumn DataField="AID_Sequence" HeaderStyle-Width="60px" CurrentFilterFunction="Contains"
                                                                             ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Series" UniqueName="AID_Sequence"
-                                                                            SortExpression="AID_Sequence">
+                                                                            SortExpression="AID_Sequence" Visible="false">
+                                                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                                        </telerik:GridBoundColumn>
+                                                                        <telerik:GridBoundColumn DataField="AID_IssueDetailName" HeaderStyle-Width="60px"
+                                                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                                                            HeaderText="Series" UniqueName="AID_IssueDetailName" SortExpression="AID_IssueDetailName">
                                                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                                                         </telerik:GridBoundColumn>
                                                                         <telerik:GridBoundColumn Visible="false" DataField="AID_IssueDetailId" HeaderStyle-Width="60px"
@@ -386,9 +390,9 @@
                                                                             UniqueName="BBYieldatbuyback" HeaderStyle-Width="77px" SortExpression="BBYieldatbuyback">
                                                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                                         </telerik:GridBoundColumn>
-                                                                        <telerik:GridBoundColumn DataField="BBTenure" AllowFiltering="false" HeaderText="Lockin Period"
-                                                                            UniqueName="BBTenure" HeaderStyle-Width="77px" DataFormatString="{0:N0}"
-                                                                            SortExpression="BBTenure">
+                                                                        <telerik:GridBoundColumn DataField="BBLockinPeriod" AllowFiltering="false" HeaderText="Lockin Period"
+                                                                            UniqueName="BBLockinPeriod" HeaderStyle-Width="77px" DataFormatString="{0:N0}"
+                                                                            SortExpression="BBLockinPeriod">
                                                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                                         </telerik:GridBoundColumn>
                                                                         <telerik:GridBoundColumn DataField="BBCallOption" AllowFiltering="false" HeaderText="Call Option"
@@ -454,7 +458,7 @@
                                                         &nbsp;
                                                     </td>
                                                 </tr>
-                                              <%--  <td colspan="2">
+                                                <%--  <td colspan="2">
                                                     &nbsp;
                                                 </td>--%>
                                                 <tr>
@@ -466,7 +470,7 @@
                                                             ValidationGroup="btnSubmit">
                                                             <%-- OnClientClick='<%# (Container is GridEditFormInsertItem) ?  " javascript:return ShowPopup();": "" %>'--%>
                                                         </asp:Button>
-                                                    <%--</td>
+                                                        <%--</td>
                                                     <td  >--%>
                                                         <asp:Button ID="Button2" Text="Cancel" runat="server" CausesValidation="False" CssClass="PCGButton"
                                                             CommandName="Cancel"></asp:Button>

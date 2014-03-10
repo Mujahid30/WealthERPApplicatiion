@@ -768,6 +768,8 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(createCmd, "@InterestFrequency", DbType.String, onlineNCDBackOfficeVo.InterestFrequency);
                 db.AddInParameter(createCmd, "@InterestType", DbType.String, onlineNCDBackOfficeVo.InterestType);
                 db.AddInParameter(createCmd, "@ModeOfTenure", DbType.String, onlineNCDBackOfficeVo.ModeOfTenure);
+                db.AddInParameter(createCmd, "@RedemptionApplicable", DbType.Int32, onlineNCDBackOfficeVo.RedemptionApplicable);
+                db.AddInParameter(createCmd, "@LockinApplicable", DbType.Int32, onlineNCDBackOfficeVo.LockInApplicable);
                 if (db.ExecuteNonQuery(createCmd) != 0)
                 {
                     seriesId = Convert.ToInt32(db.GetParameterValue(createCmd, "SeriesId").ToString());
@@ -802,7 +804,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(createCmd, "@YieldAtBuyBack", DbType.Double, onlineNCDBackOfficeVo.YieldAtBuyBack);
                 db.AddInParameter(createCmd, "@RedemptionDate", DbType.String, onlineNCDBackOfficeVo.RedemptionDate);
                 db.AddInParameter(createCmd, "@redemptionAmount", DbType.Double, onlineNCDBackOfficeVo.RedemptionAmount);
-
+                db.AddInParameter(createCmd, "@lockinperiod", DbType.Int32, onlineNCDBackOfficeVo.LockInPeriodapplicable);
                 if (db.ExecuteNonQuery(createCmd) != 0)
                     bResult = true;
             }
@@ -1265,6 +1267,8 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(updateCmd, "@InterestFrequency", DbType.String, onlineNCDBackOfficeVo.InterestFrequency);
                 db.AddInParameter(updateCmd, "@InterestType", DbType.String, onlineNCDBackOfficeVo.InterestType);
                 db.AddInParameter(updateCmd, "@ModeOfTenure", DbType.String, onlineNCDBackOfficeVo.ModeOfTenure);
+                db.AddInParameter(updateCmd, "@RedemptionApplicable", DbType.Int32, onlineNCDBackOfficeVo.RedemptionApplicable);
+                db.AddInParameter(updateCmd, "@LockinApplicable", DbType.Int32, onlineNCDBackOfficeVo.LockInApplicable);
                 seriesId = db.ExecuteNonQuery(updateCmd);
             }
             catch (BaseApplicationException Ex)
@@ -1292,7 +1296,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(createCmd, "@YieldAtBuyBack", DbType.Double, onlineNCDBackOfficeVo.YieldAtBuyBack);
                 db.AddInParameter(createCmd, "@RedemptionDate", DbType.String, onlineNCDBackOfficeVo.RedemptionDate);
                 db.AddInParameter(createCmd, "@redemptionAmount", DbType.Double, onlineNCDBackOfficeVo.RedemptionAmount);
-
+                db.AddInParameter(createCmd, "@lockinperiod", DbType.Int32, onlineNCDBackOfficeVo.LockInPeriodapplicable);
                 if (db.ExecuteNonQuery(createCmd) != 0)
                     bResult = true;
             }

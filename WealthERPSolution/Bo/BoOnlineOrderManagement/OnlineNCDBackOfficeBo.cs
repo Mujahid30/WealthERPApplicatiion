@@ -1407,5 +1407,35 @@ namespace BoOnlineOrderManagement
             }
             
         }
+        public bool Deleteinvestmentcategory(int investorid)
+        {
+            bool blResult = false;
+            OnlineNCDBackOfficeDao daoOnlNcdBackOff = new OnlineNCDBackOfficeDao();
+            try
+            {
+                //return OnlineOrderBackOfficeDao.deleteTradeBusinessDate(tradeBusinessDateVo);
+                blResult = daoOnlNcdBackOff.Deleteinvestmentcategory(investorid);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return blResult;
+        }
+        public bool DeleteIssueinvestor(int investorcategoryid)
+        {
+            bool blResult = false;
+            OnlineNCDBackOfficeDao daoOnlNcdBackOff = new OnlineNCDBackOfficeDao();
+            try
+            {
+                //return OnlineOrderBackOfficeDao.deleteTradeBusinessDate(tradeBusinessDateVo);
+                blResult = daoOnlNcdBackOff.DeleteIssueinvestor(investorcategoryid);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return blResult;
+        }
     }
 }

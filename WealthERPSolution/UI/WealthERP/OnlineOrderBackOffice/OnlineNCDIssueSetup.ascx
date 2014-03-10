@@ -165,8 +165,8 @@
                                                         Display="Dynamic" ErrorMessage="<br/>Please Enter Integer Value" CssClass="cvPCG"
                                                         ValidationExpression="[1-9]\d*$" ValidationGroup="rgApllOk">     
                                                     </asp:RegularExpressionValidator>--%>
-                                                    <asp:RegularExpressionValidator ID="regFrom" ControlToValidate="txtFrom"
-                                                        runat="server" Display="Dynamic" ErrorMessage="<br/>Enter Numeric Value Between 8-10 Digit"
+                                                    <asp:RegularExpressionValidator ID="regFrom" ControlToValidate="txtFrom" runat="server"
+                                                        Display="Dynamic" ErrorMessage="<br/>Enter Numeric Value Between 8-10 Digit"
                                                         CssClass="cvPCG" ValidationExpression="[0-9]{8,10}$" ValidationGroup="rgApllOk" />
                                                     <asp:CompareValidator ID="cmpFrom" ControlToValidate="txtFrom" runat="server" ControlToCompare="txtTo"
                                                         Display="Dynamic" ErrorMessage="<br/>From  Should Be less Than To" Type="integer"
@@ -183,12 +183,12 @@
                                                 <td class="rightField" style="width: 25%" colspan="2">
                                                     <asp:TextBox ID="txtTo" runat="server" CssClass="txtField" MaxLength="10"></asp:TextBox>
                                                     <span id="Span37" class="spnRequiredField">*</span>
-                                                   <%-- <asp:RegularExpressionValidator ID="regTo" ControlToValidate="txtTo" runat="server"
+                                                    <%-- <asp:RegularExpressionValidator ID="regTo" ControlToValidate="txtTo" runat="server"
                                                         Display="Dynamic" ErrorMessage="<br/>Please Enter Integer Value" CssClass="cvPCG"
                                                         ValidationExpression="[1-9]\d*$" ValidationGroup="rgApllOk">     
                                                     </asp:RegularExpressionValidator>--%>
-                                                    <asp:RegularExpressionValidator ID="regTo" ControlToValidate="txtTo"
-                                                        runat="server" Display="Dynamic" ErrorMessage="<br/>Enter Numeric Value Between 8-10 Digit"
+                                                    <asp:RegularExpressionValidator ID="regTo" ControlToValidate="txtTo" runat="server"
+                                                        Display="Dynamic" ErrorMessage="<br/>Enter Numeric Value Between 8-10 Digit"
                                                         CssClass="cvPCG" ValidationExpression="[0-9]{8,10}$" ValidationGroup="rgApllOk" />
                                                     <%--  <asp:RequiredFieldValidator ID="RequiredFieldValidator31" ControlToValidate="txtTo" ErrorMessage="Please enter To Range"
                                                         ValidationGroup="rgApllOk" Display="Dynamic" runat="server" CssClass="rfvPCG">
@@ -1197,11 +1197,11 @@
                                             HeaderText="Max Bid Amount" UniqueName="AIIC_MaxBidAmount" SortExpression="AIIC_MaxBidAmount">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
-                                        <%-- <telerik:GridButtonColumn UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete?"
+                                        <telerik:GridButtonColumn UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete?"
                                             ConfirmDialogType="RadWindow" ConfirmTitle="Delete" ButtonType="LinkButton" CommandName="Delete"
-                                            Text="Delete">
+                                            Text="Delete" Visible="false">
                                             <ItemStyle HorizontalAlign="Center" CssClass="MyImageButton" />
-                                        </telerik:GridButtonColumn>--%>
+                                        </telerik:GridButtonColumn>
                                         <telerik:GridTemplateColumn AllowFiltering="false">
                                             <ItemTemplate>
                                                 <tr>
@@ -1215,8 +1215,8 @@
                                                                 enableloadondemand="True" PageSize="5" EnableEmbeddedSkins="False" GridLines="None"
                                                                 ShowFooter="True" PagerStyle-AlwaysVisible="false" ShowStatusBar="True" Skin="Telerik"
                                                                 AllowFilteringByColumn="true" OnNeedDataSource="rgCategoriesDetails_OnNeedDataSource"
-                                                                AllowPaging="false">
-                                                                <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="AIIC_InvestorCatgeoryId"
+                                                                OnItemCommand="rgCategoriesDetails_ItemCommand" AllowPaging="false">
+                                                                <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="AIIC_InvestorCatgeoryId,AIICST_Id"
                                                                     AutoGenerateColumns="false">
                                                                     <Columns>
                                                                         <telerik:GridBoundColumn DataField="WCMV_Name" HeaderStyle-Width="30px" UniqueName="WCMV_Name"
@@ -1239,6 +1239,11 @@
                                                                             AutoPostBackOnFilter="true" UniqueName="AIIC_MaxInvestmentAmount" Visible="true">
                                                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="20px" Wrap="false" />
                                                                         </telerik:GridBoundColumn>
+                                                                        <telerik:GridButtonColumn UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete"
+                                                                            ConfirmDialogType="RadWindow" ConfirmTitle="Delete" ButtonType="LinkButton" CommandName="Delete"
+                                                                            Text="Delete" HeaderStyle-Width="100px" Visible="false">
+                                                                            <ItemStyle HorizontalAlign="Center" CssClass="MyImageButton" />
+                                                                        </telerik:GridButtonColumn>
                                                                     </Columns>
                                                                 </MasterTableView>
                                                             </telerik:RadGrid>
@@ -1390,7 +1395,7 @@
                                                                                 OnCheckedChanged="cbSubCategories_changed" />
                                                                         </ItemTemplate>
                                                                     </telerik:GridTemplateColumn>
-                                                                   <%-- DataField="AIICST_Id"--%>
+                                                                    <%-- DataField="AIICST_Id"--%>
                                                                     <%--<telerik:GridTemplateColumn HeaderText="Sub Category Id" ShowFilterIcon="false" 
                                                                         UniqueName="txtSubCategoryId" Visible="false" AllowFiltering="false">
                                                                         <HeaderTemplate>
@@ -1400,8 +1405,8 @@
                                                                             <asp:TextBox ID="txtSubCategoryId" runat="server" CssClass="txtField" Width="10px"></asp:TextBox>
                                                                         </ItemTemplate>
                                                                     </telerik:GridTemplateColumn>--%>
-                                                                     <telerik:GridTemplateColumn HeaderText="Sub Category id" ShowFilterIcon="false"
-                                                                        AllowFiltering="false" UniqueName="SubCategoryId" Visible="false">
+                                                                    <telerik:GridTemplateColumn HeaderText="Sub Category id" ShowFilterIcon="false" AllowFiltering="false"
+                                                                        UniqueName="SubCategoryId" Visible="false">
                                                                         <HeaderTemplate>
                                                                             <asp:Label ID="lblSubCategoryId" runat="server" Text="Sub Category id"></asp:Label>
                                                                         </HeaderTemplate>
@@ -1621,7 +1626,7 @@
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>
                                     </Columns>
-                                    <EditFormSettings EditFormType="Template" PopUpSettings-Height="350px" PopUpSettings-Width="745px">
+                                    <EditFormSettings EditFormType="Template" PopUpSettings-Height="350px" PopUpSettings-Width="800px">
                                         <FormTemplate>
                                             <table width="80%">
                                                 <tr>
@@ -1709,9 +1714,13 @@
                                                             ValidationGroup="btnOK" InitialValue="Select">
                                                         </asp:RequiredFieldValidator>
                                                     </td>
-                                                    <td width="35%" align="left">
+                                                    <td width="50%" align="left">
                                                         <asp:CheckBox ID="chkBuyAvailability" runat="server" CssClass="cmbFielde" Text="Is Buy Back"
                                                             OnCheckedChanged="chkBuyAvailability_changed" AutoPostBack="true"></asp:CheckBox>
+                                                        <asp:CheckBox ID="chkredemptiondate" runat="server" CssClass="cmbFielde" Text="Redemption Applicable"
+                                                            AutoPostBack="true" OnCheckedChanged="chkRedemptiondate_changed"/></asp:CheckBox>
+                                                        <asp:CheckBox ID="chkLockinperiod" runat="server" CssClass="cmbFielde" Text="Lock In Period"
+                                                            AutoPostBack="true" OnCheckedChanged="chkLockinperiod_changed"/></asp:CheckBox>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -1823,7 +1832,7 @@
                                                                             <asp:Label ID="lblRedemptionDate" runat="server" Text="Redemption Date Note"></asp:Label>
                                                                         </HeaderTemplate>
                                                                         <ItemTemplate>
-                                                                            <asp:TextBox ID="txtRedemptionDate" runat="server" CssClass="txtField" Width="90px"></asp:TextBox>
+                                                                            <asp:TextBox ID="txtRedemptionDate" runat="server" CssClass="txtField" Width="90px" Visible="false"></asp:TextBox>
                                                                             <%--   <asp:RegularExpressionValidator ID="rgRedemptionDate" ControlToValidate="txtRedemptionDate"
                                                                                 runat="server" Display="Dynamic" ErrorMessage="Please Enter letter" CssClass="cvPCG"
                                                                                 ValidationExpression="[a-zA-Z ]*$" ValidationGroup="btnOK">   
@@ -1837,7 +1846,7 @@
                                                                             <asp:Label ID="lblRedemptionAmount" runat="server" Text="Redemption Amount(Per Bond)"></asp:Label>
                                                                         </HeaderTemplate>
                                                                         <ItemTemplate>
-                                                                            <asp:TextBox ID="txtRedemptionAmount" runat="server" CssClass="txtField" Width="40px"></asp:TextBox>
+                                                                            <asp:TextBox ID="txtRedemptionAmount" runat="server" CssClass="txtField" Width="50px" Visible="false"></asp:TextBox>
                                                                             <%--<asp:RegularExpressionValidator ID="rgRedemptionAmount" ControlToValidate="txtRedemptionAmount"
                                                                                 runat="server" Display="Dynamic" ErrorMessage="Please Enter Digits" CssClass="cvPCG"
                                                                                 ValidationExpression="[0-9]\d*(\.\d?[0-9])?$" ValidationGroup="btnOK">     
@@ -1856,6 +1865,19 @@
                                                                                 runat="server" Display="Dynamic" ErrorMessage="Please Enter +(ve) Digits" CssClass="cvPCG"
                                                                                 ValidationExpression="[0-9]\d*(\.\d?[0-9])?$" ValidationGroup="btnOK">     
                                                                             </asp:RegularExpressionValidator>
+                                                                        </ItemTemplate>
+                                                                    </telerik:GridTemplateColumn>
+                                                                    <telerik:GridTemplateColumn HeaderText="Lock In Period" AllowFiltering="false" HeaderStyle-Width="40px">
+                                                                        <HeaderTemplate>
+                                                                            <asp:Label ID="lb1Lockinperiod" runat="server" Text="Lock In Period"></asp:Label>
+                                                                        </HeaderTemplate>
+                                                                        <ItemTemplate>
+                                                                            <asp:TextBox ID="txtLockInPeriod" runat="server" CssClass="txtField" Width="40px"
+                                                                                AutoPostBack="true" Visible="false"></asp:TextBox>
+                                                                            <%--<asp:RegularExpressionValidator ID="reqtxtLockInPeriod" ControlToValidate="txtLockInPeriod"
+                                                                                runat="server" Display="Dynamic" ErrorMessage="Please Enter +(ve) Digits" CssClass="cvPCG"
+                                                                                ValidationExpression="[0-9]\d*(\.\d?[0-9])?$" ValidationGroup="btnOK">     
+                                                                            </asp:RegularExpressionValidator>--%>
                                                                         </ItemTemplate>
                                                                     </telerik:GridTemplateColumn>
                                                                 </Columns>
