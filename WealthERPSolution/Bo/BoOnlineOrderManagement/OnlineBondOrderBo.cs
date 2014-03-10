@@ -71,13 +71,13 @@ namespace BoOnlineOrderManagement
             }
             return dsCommissionStructureRules;
         }
-        public void GetCustomerCat(int issueId, int customerId, int adviserId, double amt, ref string catName,ref int  issueDetId)
+        public void GetCustomerCat(int issueId, int customerId, int adviserId, double amt, ref string catName,ref int  issueDetId,ref int categoryId)
         {
             // bool result = false;
 
             try
             {
-                onlineBondDao.GetCustomerCat(issueId, customerId, adviserId, amt, ref catName,ref issueDetId);
+                onlineBondDao.GetCustomerCat(issueId, customerId, adviserId, amt, ref catName, ref issueDetId, ref categoryId);
             }
             catch (BaseApplicationException Ex)
             {

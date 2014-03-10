@@ -78,7 +78,7 @@ namespace DaoOnlineOrderManagement
             }
             return cutOffTime;
         }
-        public void GetCustomerCat(int issueId, int customerId, int adviserId, double amt, ref string catName, ref int issueDetId)
+        public void GetCustomerCat(int issueId, int customerId, int adviserId, double amt, ref string catName, ref int issueDetId,ref int categoryId)
         {
             Database db;
             DbCommand dbCommand;
@@ -94,12 +94,15 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(dbCommand, "@amt", DbType.Double, amt);
                 db.AddOutParameter(dbCommand, "@catName", DbType.String, 500);
                 db.AddOutParameter(dbCommand, "@OrdDetID", DbType.Int32, 0);
+                db.AddOutParameter(dbCommand, "@categoryId", DbType.Int32, 0);
                 db.AddInParameter(dbCommand, "@issueDetId", DbType.Int32, issueDetId);
 
                 ds = db.ExecuteDataSet(dbCommand);
 
                 catName = db.GetParameterValue(dbCommand, "catName").ToString();
                 issueDetId = Convert.ToInt32(db.GetParameterValue(dbCommand, "OrdDetID").ToString());
+                categoryId = Convert.ToInt32(db.GetParameterValue(dbCommand, "categoryId").ToString());
+                
                 //catName = db.ExecuteScalar(dbCommand).ToString();
             }
             catch (BaseApplicationException Ex)

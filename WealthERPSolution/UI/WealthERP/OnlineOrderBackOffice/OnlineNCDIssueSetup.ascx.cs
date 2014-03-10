@@ -534,7 +534,7 @@ namespace WealthERP.OnlineOrderBackOffice
             ddlBankName.DataValueField = dtBankName.Columns["WCMV_LookupId"].ToString();
             ddlBankName.DataTextField = dtBankName.Columns["WCMV_Name"].ToString();
             ddlBankName.DataBind();
-            ddlBankName.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
+            ddlBankName.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "0"));
         }
 
         public void BindSubCateDDL(DropDownList ddlSubCat)
@@ -2454,7 +2454,9 @@ namespace WealthERP.OnlineOrderBackOffice
                         txtTenure.Text = dr["AID_Tenure"].ToString();
                         ddlInterestFrequency.SelectedValue = dr["WCMV_LookupId"].ToString();
                         chkBuyAvailability.Checked = Convert.ToBoolean(dr["AID_BuyBackFacility"].ToString());
-                        chkredemptiondate.Checked = Convert.ToBoolean(dr["AID_RedemptionApplicable"].ToString());
+                        if (dr["AID_RedemptionApplicable"].ToString()!=string.Empty )
+                        chkredemptiondate.Checked = Convert.ToBoolean(dr["AID_RedemptionApplicable"]);
+                        if (dr["AID_LockinPeriodApplicable"].ToString() != string.Empty)
                         chkLockinperiod.Checked = Convert.ToBoolean(dr["AID_LockinPeriodApplicable"].ToString());
                         txtSequence.Text = dr["AID_Sequence"].ToString();
                         ddlInterestType.SelectedValue = dr["AID_InterestType"].ToString();
@@ -3955,18 +3957,18 @@ namespace WealthERP.OnlineOrderBackOffice
             }
         }
 
-        private void BindBankNames()
-        {
-            DataTable dtBankNames = new DataTable();
-            dtBankNames = commonLookupBo.GetWERPLookupMasterValueList(7000, 0);
-            if (dtBankNames.Rows.Count > 0)
-            {
-                ddlBankName.DataSource = dtBankNames;
-                ddlBankName.DataValueField = dtBankNames.Columns["WCMV_LookupId"].ToString();
-                ddlBankName.DataTextField = dtBankNames.Columns["WCMV_Name"].ToString();
-                ddlBankName.DataBind();
-            }
-        }
+        //private void BindBankNames()
+        //{
+        //    DataTable dtBankNames = new DataTable();
+        //    dtBankNames = commonLookupBo.GetWERPLookupMasterValueList(7000, 0);
+        //    if (dtBankNames.Rows.Count > 0)
+        //    {
+        //        ddlBankName.DataSource = dtBankNames;
+        //        ddlBankName.DataValueField = dtBankNames.Columns["WCMV_LookupId"].ToString();
+        //        ddlBankName.DataTextField = dtBankNames.Columns["WCMV_Name"].ToString();
+        //        ddlBankName.DataBind();
+        //    }
+        //}
 
         private void BindNcdCategory()
         {
@@ -4115,7 +4117,14 @@ namespace WealthERP.OnlineOrderBackOffice
 
         protected void ddlSubCategory_Selectedindexchanged(object sender, EventArgs e)
         {
-            //DropDownList ddlSubCat = (DropDownList)sender;
+             //DropDownList ddlSubCat = (DropDownList)sender;
+             //int lookupid =Convert.ToInt32( ddlSubCat.SelectedValue);
+             //int rowindex1 = ((GridDataItem)((DropDownList)sender).NamingContainer).RowIndex;
+             //int rowindex = (rowindex1 / 2) - 1;
+
+
+
+            // GridDataItem item = (GridDataItem)ddlSubCat.NamingContainer;
             //BindSubCateDDL(ddlSubCat);
 
         }

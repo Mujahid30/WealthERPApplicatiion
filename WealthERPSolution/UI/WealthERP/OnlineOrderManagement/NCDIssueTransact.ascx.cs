@@ -35,6 +35,7 @@ namespace WealthERP.OnlineOrderManagement
         int seriesId = 0;
         int minQty = 0;
         int maxQty = 0;
+        int EligblecatId = 0;
         //int selectedRowIndex;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -255,6 +256,7 @@ namespace WealthERP.OnlineOrderManagement
             int rowindex = (rowindex1 / 2) - 1;
             int issueId = Convert.ToInt32(Request.QueryString["IssuerId"]);
             string catName = string.Empty;
+            int catId = 0;
             int issuedetId = 0;
             TextBox txtQuantity = (TextBox)gvCommMgmt.MasterTableView.Items[rowindex]["Quantity"].FindControl("txtQuantity");
             if (!string.IsNullOrEmpty(txtQuantity.Text))
@@ -300,7 +302,7 @@ namespace WealthERP.OnlineOrderManagement
 
                                 //  lb1AvailbleCat.Visible = true;
 
-                                OnlineBondBo.GetCustomerCat(issueId, customerVo.CustomerId, adviserVo.advisorId, Convert.ToDouble(lblSum.Text), ref catName, ref issuedetId);
+                                OnlineBondBo.GetCustomerCat(issueId, customerVo.CustomerId, adviserVo.advisorId, Convert.ToDouble(lblSum.Text), ref catName, ref issuedetId, ref catId);
                                 ViewState["CustCat"] = catName;
                                 lb1AvailbleCat.Text = " You have applied this issue under category : " + catName;
                                 ShowMessage(lb1AvailbleCat.Text);
@@ -428,6 +430,7 @@ namespace WealthERP.OnlineOrderManagement
             dt.Columns.Add("Qty");
             dt.Columns.Add("Amount");
             dt.Columns.Add("CatId");
+            dt.Columns.Add("AcceptableCatId");
             int rowNo = 0;
             int tableRow = 0;
             foreach (GridDataItem CBOrder in gvCommMgmt.MasterTableView.Items)
@@ -494,12 +497,12 @@ namespace WealthERP.OnlineOrderManagement
 
                         GridFooterItem footerItemAmount = (GridFooterItem)gvCommMgmt.MasterTableView.GetItems(GridItemType.Footer)[0];
                         Label lblSum = (Label)footerItemAmount.FindControl("lblAmount");
-                       
-                    
-                        OnlineBondBo.GetCustomerCat(OnlineBondVo.IssueId, customerVo.CustomerId, adviserVo.advisorId, Convert.ToDouble(lblSum.Text), ref catName, ref issueDetId);
+
+
+                        OnlineBondBo.GetCustomerCat(OnlineBondVo.IssueId, customerVo.CustomerId, adviserVo.advisorId, Convert.ToDouble(lblSum.Text), ref catName, ref issueDetId, ref EligblecatId);
 
                         dt.Rows[tableRow]["CatId"] = catId;
-
+                        dt.Rows[tableRow]["AcceptableCatId"] = EligblecatId;
 
                     }
                     

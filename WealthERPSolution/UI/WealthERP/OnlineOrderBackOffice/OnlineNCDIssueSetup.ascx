@@ -1717,7 +1717,7 @@
                                                     <td width="50%" align="left">
                                                         <asp:CheckBox ID="chkBuyAvailability" runat="server" CssClass="cmbFielde" Text="Is Buy Back"
                                                             OnCheckedChanged="chkBuyAvailability_changed" AutoPostBack="true"></asp:CheckBox>
-                                                        <asp:CheckBox ID="chkredemptiondate" runat="server" CssClass="cmbFielde" Text="Redemption Applicable"
+                                                             <asp:CheckBox ID="chkredemptiondate" runat="server" CssClass="cmbFielde" Text="Redemption Applicable"
                                                             AutoPostBack="true" OnCheckedChanged="chkRedemptiondate_changed"/></asp:CheckBox>
                                                         <asp:CheckBox ID="chkLockinperiod" runat="server" CssClass="cmbFielde" Text="Lock In Period"
                                                             AutoPostBack="true" OnCheckedChanged="chkLockinperiod_changed"/></asp:CheckBox>
