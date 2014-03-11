@@ -571,7 +571,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     hdnyear.Value = "0";
                 }
 
-                if (Ddlholiday.SelectedIndex == 0 || Ddlholiday.SelectedIndex == 1 || Ddlholiday.SelectedIndex == 3)
+                if (Ddlholiday.SelectedIndex == 0 || Ddlholiday.SelectedIndex == 1 ||Ddlholiday.SelectedIndex==2|| Ddlholiday.SelectedIndex == 3)
                 {
                     hdnholiday.Value = Ddlholiday.SelectedValue;
                     ViewState["holiday"] = hdnholiday.Value;
@@ -600,15 +600,24 @@ namespace WealthERP.OnlineOrderBackOffice
         }
         protected void btngo_Click(object sender, EventArgs e)
         {
+            
             SetParameter();
             BindTradebusinessdate();
+            BindCurrentPage();
         }
         private void BindCurrentPage()
         {
             int pageSize = 20;// gvTradeBusinessDate.PageSize;
             var page = (DateTime.Now.DayOfYear/ pageSize);  //eg row 50 means page = 3
             gvTradeBusinessDate.CurrentPageIndex = page;
+
+            GridSortExpression expression = new GridSortExpression();
+            expression.FieldName = "WTBD_DayName";
+            expression.SortOrder = GridSortOrder.Ascending;
+            gvTradeBusinessDate.MasterTableView.SortExpressions.AddSortExpression(expression);
+
             gvTradeBusinessDate.MasterTableView.Rebind();
+
         }
     }
 }
