@@ -1029,10 +1029,13 @@ namespace BoOnlineOrderManagement
             }
             else if (extractStepCode == "UB")
             {
-                 
-                ch = '|';               
+
+                ch = '|';
             }
-            
+            else if(  extractStepCode == "UA")
+            {
+                ch = ','; 
+            }
             string[] allLines = File.ReadAllLines(FilePath);
            
             string[] headers = allLines[0].Split(ch);
