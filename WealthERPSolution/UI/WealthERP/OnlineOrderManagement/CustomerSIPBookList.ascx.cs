@@ -58,6 +58,18 @@ namespace WealthERP.OnlineOrderManagement
             {
                 int systematicId = int.Parse(Request.QueryString["systematicId"].ToString());
                 ViewState["systematicId"] = int.Parse(systematicId.ToString());
+                string OrderStatus = string.Empty;
+
+                if (Request.QueryString["OrderStatus"] != null)
+                {
+                    OrderStatus = Request.QueryString["OrderStatus"].ToString();
+                    ViewState["OrderStatus"] = OrderStatus;
+                }
+                else
+                {
+                    ViewState["OrderStatus"] =null;
+                }
+                
                 string fromdate = "01-01-1990";
                 txtFrom.SelectedDate = DateTime.Parse(fromdate);                
                 hdnAmc.Value = "0";
@@ -149,7 +161,14 @@ namespace WealthERP.OnlineOrderManagement
             //if (txtTo.SelectedDate != null)
             //    toDate = DateTime.Parse(txtTo.SelectedDate.ToString());
             systematicId = Convert.ToInt32(ViewState["systematicId"]);
-            dsSIPBookMIS = OnlineMFOrderBo.GetSIPBookMIS(customerId, int.Parse(hdnAmc.Value),hdnOrderStatus.Value,systematicId, fromDate, toDate);
+            if (ViewState["OrderStatus"] != null)
+            {
+                dsSIPBookMIS = OnlineMFOrderBo.GetSIPBookMIS(customerId, int.Parse(hdnAmc.Value), ViewState["OrderStatus"].ToString(), systematicId, fromDate, toDate);
+            }
+            else
+            {
+                dsSIPBookMIS = OnlineMFOrderBo.GetSIPBookMIS(customerId, int.Parse(hdnAmc.Value), hdnOrderStatus.Value, systematicId, fromDate, toDate);
+            }
             dtSIPBookMIS = dsSIPBookMIS.Tables[0];
             if (dtSIPBookMIS.Rows.Count > 0)
             {
