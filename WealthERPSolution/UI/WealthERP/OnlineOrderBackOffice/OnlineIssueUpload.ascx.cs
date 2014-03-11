@@ -82,16 +82,16 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             String savePath = Server.MapPath("UploadFiles/");
             DataTable dtUploadFile;
-
+            OnlineNCDBackOfficeBo onlineNCDBackOfficeBo = new OnlineNCDBackOfficeBo();
             if (FileUpload.HasFile) {
                 String fileName = FileUpload.FileName;
                 savePath += advisorVo.advisorId.ToString() + userVo.UserId.ToString() + fileName;
                 FileUpload.SaveAs(savePath);
 
                 ShowMessage(fileName + "Uploaded");
-                if (boComBackOff == null) boComBackOff = new OnlineCommonBackOfficeBo();
+                if (onlineNCDBackOfficeBo == null) onlineNCDBackOfficeBo = new OnlineNCDBackOfficeBo();
 
-                dtUploadFile = boComBackOff.ReadCsvFile(savePath);
+                dtUploadFile = onlineNCDBackOfficeBo.ReadCsvFile(savePath,Convert.ToInt32(ddlFileType.SelectedValue));
 
                 if(File.Exists(savePath)) File.Delete(savePath);
             }
@@ -233,6 +233,20 @@ namespace WealthERP.OnlineOrderBackOffice
         protected void gvOnlineIssueUpload_ItemDataBound(object sender, GridItemEventArgs e)
         {
              
+        }
+
+        private void AddHeaders(DataTable dtData)
+        {
+            //int nRows = 0;
+            //boNcdBackOff = new OnlineNCDBackOfficeBo();
+            //List<OnlineIssueHeader> updHeaders = boNcdBackOff.GetHeaderDetails(int.Parse(ddlFileType.SelectedValue), ddlSource.SelectedValue);
+            //DataRow dr=dtData.Rows[0];
+            //foreach (OnlineIssueHeader header in updHeaders)
+            //{
+            //    dtData.Rows.InsertAt(dr, 0);
+            //}
+
+
         }
         private DataTable CheckHeaders(DataTable dtUploadData)
         {

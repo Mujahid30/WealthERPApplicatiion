@@ -141,18 +141,35 @@ namespace WealthERP.OnlineOrderBackOffice
             gvOnlineIssueExtract.MasterTableView.ExportToExcel();
         }
 
+        private void ExportInExcel(string filename )
+        {
+
+            gvOnlineIssueExtract.ExportSettings.OpenInNewWindow = true;
+            gvOnlineIssueExtract.ExportSettings.ExportOnlyData = true;
+            gvOnlineIssueExtract.ExportSettings.IgnorePaging = true;
+            gvOnlineIssueExtract.ExportSettings.FileName = filename;
+            gvOnlineIssueExtract.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            gvOnlineIssueExtract.MasterTableView.ExportToExcel();
+
+
+        }
         protected void btnDownload_Click(object sender, EventArgs e)
 
         {
-           
+            string filename = "";            
+            string delimit = "";
+            string format="";
             GetExtractData();
 
             DataTable dtExtractData = (DataTable)Cache["IssueExtract" + userVo.UserId];
             string filename = boNcdBackOff.GetFileName(ddlExternalSource.SelectedValue, Convert.ToInt32(ddlFileType.SelectedValue)) + ".csv";
-            string delimit = ",";
+            string delimit = "|";
            // ControlExtractMode(false);
             DownloadBidFile(dtExtractData, filename, delimit);
+          
+          
         }
+
 
         private void SetFileType(string externalSource)
         {
@@ -195,9 +212,9 @@ namespace WealthERP.OnlineOrderBackOffice
 
         }
         
-        private void DownloadBidFile(DataTable dtExtractData, string filename, string delimit)
+        private void DownloadBidFile(DataTable dtExtractData, string filename, string delimit,string extractStepCode)
         {
-         
+
 
             if (dtExtractData == null)
             {
@@ -222,8 +239,7 @@ namespace WealthERP.OnlineOrderBackOffice
             foreach (DataColumn column in dtExtractData.Columns) 
                 Columns += column.ColumnName + delimit;
 
-            string extractStepCode = boNcdBackOff.GetExtractStepCode(Convert.ToInt32(ddlFileType.SelectedValue));
-
+            // Headers  For different types
             if (extractStepCode !="EB")
             sWriter.WriteLine(Columns.Remove(Columns.Length - 1, 1));
 
@@ -242,7 +258,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     }
                     else
                     {
-                        row += item.ToString() + delimit;
+                        row += item.ToString().Trim() + delimit;
                     }
                     i++;
                 }

@@ -10,6 +10,7 @@ using DaoOnlineOrderManagement;
 using VoOnlineOrderManagemnet;
 using System.Text.RegularExpressions;
 using System.Web;
+using System.IO;
 
 namespace BoOnlineOrderManagement
 {
@@ -983,31 +984,71 @@ namespace BoOnlineOrderManagement
           return   onlineNCDBackOfficeDao.GetExtractStepCode(fileTypeId);
         }
 
-        public string GetFileName(string extSource, int  fileTypeId)
+        public void  GetFileName(string extSource, int  fileTypeId,ref string  filename,ref string  delimeter,ref string  format)
         {
 
            string dt= DateTime.Now.ToString("ddMMyy");
-           string result=string.Empty;
+            
            onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
            string extractStepCode = GetExtractStepCode(fileTypeId);
            if (extractStepCode == "EI")
            {
-               result = extSource + "OrderBookExtr" + dt;
+               filename = extSource + "OrderBookExtr" + dt;
+               delimeter="";
+               format = ".xls";
+               
            }
            if (extractStepCode == "EC")
            {
-               result = extSource + "ChqExtr" + dt;
+               filename = extSource + "ChqExtr" + dt;
+               delimeter = ",";
+               format=".csv";
            }
            else if (extractStepCode == "EB")
            {
-               result = extSource + "BidExtr" + dt;
-
+               filename = extSource + "BidExtr" + dt;
+               delimeter = "|";
+               format = ".txt";
            }
            else if (extractStepCode == "EP")
            {
-               result = extSource + "CheqPrintFile" + dt;
+               filename = extSource + "CheqPrintFile" + dt;
+               delimeter = "";
+               format = ".xls";
            }
-           return result;
+             
+        }
+        public DataTable ReadCsvFile(string FilePath,  int  fileTypeId)
+        {
+            onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
+            string extractStepCode = GetExtractStepCode(fileTypeId);
+            char ch=' ' ;
+            if (extractStepCode == "UC")
+            {
+                  ch = ',';                
+            }
+            else if (extractStepCode == "UB")
+            {
+                 
+                ch = '|';               
+            }
+            
+            string[] allLines = File.ReadAllLines(FilePath);
+           
+            string[] headers = allLines[0].Split(ch);
+
+            DataTable dtUploadFile = new DataTable("Upload");
+
+            foreach (string header in headers) 
+                dtUploadFile.Columns.Add(header);
+
+            for (int i = 1; i < allLines.Length; i++)
+            {
+                string[] row = allLines[i].Split(ch);
+                dtUploadFile.Rows.Add(row);
+            }
+
+            return dtUploadFile;
         }
 
         public void UpdateNcdOrderMannualMatch(int orderId, int allotmentId, ref int isAllotmented, ref int isUpdated)

@@ -70,8 +70,8 @@ namespace BoOnlineOrderManagement
         public DataTable ReadCsvFile(string FilePath)
         {
             string[] allLines = File.ReadAllLines(FilePath);
-            
-            string[] headers = allLines[0].Split(',');
+
+            string[] headers = allLines[0].Split('|');
 
             DataTable dtUploadFile = new DataTable("Upload");
 
