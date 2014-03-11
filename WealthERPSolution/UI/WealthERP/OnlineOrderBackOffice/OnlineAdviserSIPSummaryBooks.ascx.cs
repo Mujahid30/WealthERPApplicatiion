@@ -83,7 +83,6 @@ namespace WealthERP.OnlineOrderBackOffice
             //    ddlAMCCode.DataTextField = dtAmc.Columns["PA_AMCName"].ToString();
             //    ddlAMCCode.DataBind();
             //    //BindFolioNumber(int.Parse(ddlAmc.SelectedValue));
-
             //}
             ddlAMCCode.Items.Insert(0, new ListItem("All", "0"));
         }
@@ -191,7 +190,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 drSIPOrderBook = dtFinalSIPOrderBook.NewRow();
 
-                int sipDueCount = 0, inProcessCount = 0, acceptCount = 0, systemRejectCount = 0, rejectedCount = 0;
+                int sipDueCount = 0, inProcessCount = 0,executedcount=0, acceptCount = 0, systemRejectCount = 0, rejectedCount = 0 ;
 
                 dvSIPOrderDetails = new DataView(dtOrderDetails, "CMFSS_SystematicSetupId=" + drSIP["CMFSS_SystematicSetupId"].ToString(), "CMFSS_SystematicSetupId", DataViewRowState.CurrentRows);
 
@@ -199,6 +198,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     sipDueCount = (Convert.ToInt16(drSIP["CMFSS_TotalInstallment"].ToString())
                           - ((Convert.ToInt16(drSIP["CMFSS_CurrentInstallmentNumber"].ToString())) - 1)) - dvSIPOrderDetails.ToTable().Rows.Count;
+                
                 }
                 else
                 {
@@ -214,7 +214,7 @@ namespace WealthERP.OnlineOrderBackOffice
                             inProcessCount = inProcessCount + 1;
                             break;
                         case "IP":
-                            inProcessCount = inProcessCount + 1;
+                            executedcount = executedcount + 1;
                             break;
                         case "RJ":
                             rejectedCount = rejectedCount + 1;
@@ -258,6 +258,15 @@ namespace WealthERP.OnlineOrderBackOffice
                 drSIPOrderBook["CMFSS_IsCanceled"] = drSIP["CMFSS_IsCanceled"];
                 drSIPOrderBook["CMFSS_Remark"] = drSIP["CMFSS_Remark"];
                 drSIPOrderBook["SIPDueCount"] = sipDueCount;
+                //if (int.Parse(drSIP["CMFSS_IsSourceAA"].ToString()) == 1)
+                //{
+                //    inProcessCount = (Convert.ToInt16(drSIP["CMFSS_TotalInstallment"].ToString())
+                //          - ((Convert.ToInt16(drSIP["CMFSS_InstallmentOther"].ToString())) - 1)) - dvSIPOrderDetails.ToTable().Rows.Count;
+                //}
+                //else
+                //{
+                //    inProcessCount = (Convert.ToInt16(drSIP["CMFSS_TotalInstallment"].ToString()) - dvSIPOrderDetails.ToTable().Rows.Count);
+                //}
                 drSIPOrderBook["InProcessCount"] = inProcessCount;
                 drSIPOrderBook["CMFSS_InstallmentOther"] = drSIP["CMFSS_InstallmentOther"];
                 if (int.Parse(drSIP["CMFSS_IsSourceAA"].ToString()) == 1)
@@ -270,6 +279,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 }
                 drSIPOrderBook["SystemRejectCount"] = systemRejectCount;
                 drSIPOrderBook["RejectedCount"] = rejectedCount;
+                drSIPOrderBook["ExecutedCount"] = executedcount ;
 
                 dtFinalSIPOrderBook.Rows.Add(drSIPOrderBook);
             }
@@ -307,6 +317,8 @@ namespace WealthERP.OnlineOrderBackOffice
             dtSIPOrderBook.Columns.Add("CMFSS_InstallmentOther");
             dtSIPOrderBook.Columns.Add("CMFSS_IsSourceAA");
             dtSIPOrderBook.Columns.Add("CMFSS_InstallmentAccepted");
+            dtSIPOrderBook.Columns.Add("ExecutedCount");
+
             return dtSIPOrderBook;
 
         }
@@ -389,10 +401,30 @@ namespace WealthERP.OnlineOrderBackOffice
 
                                 int selectedRow = gvr.ItemIndex + 1;
                                 int systematicId = int.Parse(gvr.GetDataKeyValue("CMFSS_SystematicSetupId").ToString());
+                                //int accept = int.Parse(gvr.GetDataKeyValue("AcceptCount").ToString());
                                 if (e.CommandName == "Select")
                                 {
                                     Response.Redirect("ControlHost.aspx?pageid=OnlineAdviserCustomerSIPOrderBook&systematicId=" + systematicId + "", false);
+
                                 }
+                                else if (e.CommandName == "Accepted")
+                                {
+                                    Response.Redirect("ControlHost.aspx?pageid=OnlineAdviserCustomerSIPOrderBook&systematicId=" + systematicId + "&OrderStatus=PR", false);
+                                }
+                                else if (e.CommandName == "In Process")
+                                {
+                                    Response.Redirect("ControlHost.aspx?pageid=OnlineAdviserCustomerSIPOrderBook&systematicId=" + systematicId + "&OrderStatus=AL", false);
+                                }
+                                else if (e.CommandName == "Rejected")
+                                {
+                                    Response.Redirect("ControlHost.aspx?pageid=OnlineAdviserCustomerSIPOrderBook&systematicId=" + systematicId + "&OrderStatus=RJ", false);
+
+                                }
+                                else if (e.CommandName == "Executed")
+                                {
+                                    Response.Redirect("ControlHost.aspx?pageid=OnlineAdviserCustomerSIPOrderBook&systematicId=" + systematicId + "&OrderStatus=IP", false);
+
+                                }   
                             }
                         }
                     }
@@ -409,18 +441,21 @@ namespace WealthERP.OnlineOrderBackOffice
                 strRemark = txtRemark.Text;
                 LinkButton buttonEdit = editItem["editColumn"].Controls[0] as LinkButton;
                 Int32 systematicId = Convert.ToInt32(gvSIPSummaryBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CMFSS_SystematicSetupId"].ToString());
+                //sr
+                //Int32 accept = Convert.ToInt32(gvSIPSummaryBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AcceptCount"].ToString());
                 OnlineMFOrderBo.UpdateCnacleRegisterSIP(systematicId, 1, strRemark, userVo.UserId);
                 BindSIPSummaryBook();
                 buttonEdit.Enabled = false;
 
             }
         }
+
         protected void gvSIPSummaryBookMIS_OnItemDataBound(object sender, GridItemEventArgs e)
         {
             if (e.Item is GridDataItem)
             {
                 GridDataItem dataItem = (GridDataItem)e.Item;
-                string Iscancel =Convert.ToString(gvSIPSummaryBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CMFSS_IsCanceled"]);
+                string Iscancel = Convert.ToString(gvSIPSummaryBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CMFSS_IsCanceled"]);
                 LinkButton buttonEdit = dataItem["editColumn"].Controls[0] as LinkButton;
                 if (Iscancel == "Cancelled")
                 {
@@ -429,8 +464,5 @@ namespace WealthERP.OnlineOrderBackOffice
 
             }
         }
-
-
-
     }
 }
