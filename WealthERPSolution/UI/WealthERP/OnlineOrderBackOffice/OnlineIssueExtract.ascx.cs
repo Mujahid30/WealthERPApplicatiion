@@ -162,11 +162,19 @@ namespace WealthERP.OnlineOrderBackOffice
             GetExtractData();
 
             DataTable dtExtractData = (DataTable)Cache["IssueExtract" + userVo.UserId];
-            string filename = boNcdBackOff.GetFileName(ddlExternalSource.SelectedValue, Convert.ToInt32(ddlFileType.SelectedValue)) + ".csv";
-            string delimit = "|";
-           // ControlExtractMode(false);
-            DownloadBidFile(dtExtractData, filename, delimit);
-          
+            string extractStepCode = boNcdBackOff.GetExtractStepCode(Convert.ToInt32(ddlFileType.SelectedValue));
+            
+            boNcdBackOff.GetFileName(ddlExternalSource.SelectedValue, Convert.ToInt32(ddlFileType.SelectedValue), ref filename, ref delimit,ref format )  ;
+
+            if (format == ".xls")
+            {
+                ExportInExcel(filename);
+            }
+            else
+            {
+                filename = filename + format;
+                DownloadBidFile(dtExtractData, filename, delimit, extractStepCode);
+            }
           
         }
 
