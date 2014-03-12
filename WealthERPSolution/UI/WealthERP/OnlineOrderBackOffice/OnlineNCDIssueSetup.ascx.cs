@@ -843,15 +843,23 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     onlineNCDBackOfficeVo.BankName = "";
                 }
-
-                if (!string.IsNullOrEmpty(ddlBankBranch.SelectedValue))
+                if (!string.IsNullOrEmpty(txtBankBranch.Text))
                 {
-                    onlineNCDBackOfficeVo.BankBranch = ddlBankBranch.SelectedValue;
+                    onlineNCDBackOfficeVo.BankBranch = txtBankBranch.Text;
                 }
                 else
                 {
                     onlineNCDBackOfficeVo.BankBranch = "";
                 }
+
+                //if (!string.IsNullOrEmpty(ddlBankBranch.SelectedValue))
+                //{
+                //    onlineNCDBackOfficeVo.BankBranch = ddlBankBranch.SelectedValue;
+                //}
+                //else
+                //{
+                //    onlineNCDBackOfficeVo.BankBranch = "";
+                //}
 
                 if (chkIsActive.Checked == true)
                 {
@@ -2602,8 +2610,15 @@ namespace WealthERP.OnlineOrderBackOffice
         }
         protected void btnProspect_Click(object sender, EventArgs e)
         {
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ManageRepository", "loadcontrol('ManageRepository','NCDProspect=NCDProspect&issueId=" + txtIssueId.Text + "');", true);
+            if (txtIssueId.Text != string.Empty)
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ManageRepository", "loadcontrol('ManageRepository','NCDProspect=NCDProspect&issueId=" + txtIssueId.Text + "');", true);
+            }
+            else
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Add Issue.');", true);
 
+            }
         }
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
@@ -2813,6 +2828,8 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     onlineNCDBackOfficeVo.BankName = "";
                 }
+
+
 
                 if (!string.IsNullOrEmpty(txtBankBranch.Text))
                 {
