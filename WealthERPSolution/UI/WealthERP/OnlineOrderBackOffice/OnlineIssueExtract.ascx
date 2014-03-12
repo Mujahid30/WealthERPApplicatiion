@@ -329,18 +329,18 @@
             </tr>
         </table>
         <asp:Panel ID="pnlOnlneIssueExtract" runat="server" Width="100%" ScrollBars="Horizontal"
-            Visible="false">
+            Visible="false"  >
             <tr>
                 <td>
                     <telerik:RadGrid ID="gvOnlineIssueExtract" runat="server" AutoGenerateColumns="true"
                         AllowPaging="true" AllowSorting="true" Skin="Telerik" EnableHeaderContextMenu="true"
                         OnNeedDataSource="gvOnlineIssueExtract_OnNeedDataSource" GridLines="Both" EnableEmbeddedSkins="false"
                         ShowFooter="true" PagerStyle-AlwaysVisible="true" EnableViewState="true" ShowStatusBar="true"
-                        AllowFilteringByColumn="true">
+                        AllowFilteringByColumn="true"  PageSize="5">
                         <ExportSettings HideStructureColumns="true">
                         </ExportSettings>
                         <MasterTableView Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="true"
-                            HeaderStyle-Width="120px" PageSize="10">
+                            HeaderStyle-Width="120px" >
                         </MasterTableView>
                         <ClientSettings>
                             <Resizing AllowColumnResize="true" />

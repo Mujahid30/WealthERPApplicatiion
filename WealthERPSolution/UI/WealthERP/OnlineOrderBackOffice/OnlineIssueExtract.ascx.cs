@@ -248,7 +248,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 Columns += column.ColumnName + delimit;
 
             // Headers  For different types
-            if (extractStepCode !="EB")
+          if (extractStepCode !="EB")
             sWriter.WriteLine(Columns.Remove(Columns.Length - 1, 1));
 
             DataColumn[] arrCols = new DataColumn[dtExtractData.Columns.Count];
