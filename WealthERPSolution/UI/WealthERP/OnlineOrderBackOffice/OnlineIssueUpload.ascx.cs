@@ -301,6 +301,7 @@ namespace WealthERP.OnlineOrderBackOffice
         }
         protected void btnUploadData_Click(object sender, EventArgs e)
         {
+            string isIssueAvailable = "";
             ControlUploadMode(true);
             int nRows=0;
             if (Cache["UPLOAD" + userVo.UserId] == null) {
@@ -313,8 +314,15 @@ namespace WealthERP.OnlineOrderBackOffice
 
             if (boNcdBackOff == null) boNcdBackOff = new OnlineNCDBackOfficeBo();
             dtUploadData = CheckHeaders(dtUploadData);
-            nRows = boNcdBackOff.UploadCheckOrderFile(dtUploadData,int.Parse(ddlFileType.SelectedValue),  int.Parse(ddlIssueName.SelectedValue));
-           ShowMessage("data uploaded");
+            nRows = boNcdBackOff.UploadCheckOrderFile(dtUploadData, int.Parse(ddlFileType.SelectedValue), int.Parse(ddlIssueName.SelectedValue), ref isIssueAvailable);
+            if (isIssueAvailable == "NotEligble")
+            {
+                ShowMessage("Uploaded file Issue and Selected issue Does not match ");
+            }
+            else
+            {
+                ShowMessage("data uploaded");
+            }
         
            btnUploadData.Enabled = false;
         }

@@ -114,11 +114,11 @@ namespace DaoOnlineOrderManagement
         }
 
 
-        public int IsValidBidRange(int issueId,double minBidAmt,double MaxBidAmt)
+        public int IsValidBidRange(int issueId, double minBidAmt, double MaxBidAmt)
         {
             Database db;
             DbCommand dbCommand;
-            int  isExist=0;
+            int isExist = 0;
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
@@ -2003,7 +2003,7 @@ namespace DaoOnlineOrderManagement
 
                 result = cmdProc.ExecuteNonQuery();
 
-               
+
                 //dt = dsGetIssuerid.Tables[0];
             }
             catch (BaseApplicationException Ex)
@@ -2241,12 +2241,12 @@ namespace DaoOnlineOrderManagement
             }
             return dt;
         }
-        public void  NSEandBSEcodeCheck(int issueid,int adviserid, string nsecode, string bsecode, ref int isBseExist, ref int isNseExist)
+        public void NSEandBSEcodeCheck(int issueid, int adviserid, string nsecode, string bsecode, ref int isBseExist, ref int isNseExist)
         {
             Database db;
             DataSet ds;
             DbCommand cmdNSEandBSEcodeCheck;
-         
+
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
@@ -2282,7 +2282,7 @@ namespace DaoOnlineOrderManagement
                 throw exBase;
 
             }
-            
+
         }
         public bool Deleteinvestmentcategory(int investorid)
         {
@@ -2386,6 +2386,5 @@ namespace DaoOnlineOrderManagement
             }
             return issueid;
         }
-       
     }
 }

@@ -49,7 +49,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 BindAmc();
                 BindOrderStatus();
-                fromDate = DateTime.Now.AddMonths(-1);
+                fromDate = DateTime.Now;
                 txtFrom.SelectedDate = fromDate.Date;
                 txtTo.SelectedDate = DateTime.Now;
 

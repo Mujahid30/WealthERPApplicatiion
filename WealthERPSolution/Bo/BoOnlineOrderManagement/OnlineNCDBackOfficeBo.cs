@@ -1385,12 +1385,12 @@ namespace BoOnlineOrderManagement
             return result;
         }
      
-        public int UploadCheckOrderFile(DataTable dtCheckOrder, int fileTypeId, int issueId)
+        public int UploadCheckOrderFile(DataTable dtCheckOrder, int fileTypeId, int issueId,ref string isEligbleIssue)
         {
 
             int nRows = 0;
             OnlineNCDBackOfficeDao daoOnlNcdBackOff = new OnlineNCDBackOfficeDao();
-
+            isEligbleIssue = "";
 
             try
             {
@@ -1402,13 +1402,20 @@ namespace BoOnlineOrderManagement
                 }
                 else if (extractStepCode == "UC")
                 {
-                    int orderId=int.Parse(dtCheckOrder.Rows[0][0].ToString());
+                    int orderId = int.Parse(dtCheckOrder.Rows[0][0].ToString());
                     int orderIssueId = daoOnlNcdBackOff.Getissueid(orderId);
-                    if(orderIssueId==issueId)
-                    nRows = daoOnlNcdBackOff.UploadChequeIssueData(dtCheckOrder, issueId);
+                    if (orderIssueId != issueId)
+                    {
+                        nRows = daoOnlNcdBackOff.UploadChequeIssueData(dtCheckOrder, issueId);
+                    }
+                    else
+                    {
+                        isEligbleIssue = "NotEligble";
+                    }
                 }
                 else if (extractStepCode == "UB")
-                {
+                {                 
+
                     if (dtCheckOrder.Columns.Contains("Error Text"))
                         dtCheckOrder.Columns.RemoveAt(3);
                     nRows = daoOnlNcdBackOff.UploadBidSuccessData(dtCheckOrder, issueId);

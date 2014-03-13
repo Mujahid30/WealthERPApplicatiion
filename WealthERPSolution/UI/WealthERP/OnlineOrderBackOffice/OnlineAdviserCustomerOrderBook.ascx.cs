@@ -48,7 +48,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 BindAmc();
                 BindOrderStatus();
                 Cache.Remove("OrderList" + advisorVo.advisorId);               
-                fromDate = DateTime.Now.AddMonths(-1);
+                fromDate = DateTime.Now;
                 txtOrderFrom.SelectedDate = fromDate.Date;
                 txtOrderTo.SelectedDate = DateTime.Now;
                 

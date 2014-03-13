@@ -211,14 +211,14 @@ namespace WealthERP.OnlineOrderManagement
 
             foreach (DataRow dr in dsNomineeAndJointHolders.Tables[0].Rows)
             {
-                strbJointHolder.Append(dr["JointHolderName"].ToString() + ",");
-                strbNominee.Append(dr["JointHolderName"].ToString() + ",");
+                //strbJointHolder.Append(dr["CustomerName"].ToString() + ",");
+                strbNominee.Append(dr["AMFE_JointNomineeName"].ToString() + ",");
             
                 //strbJointHolder.Append(dr["AMFE_JointNomineeName"].ToString() + ",");
                 //strbNominee.Append(dr["AMFE_JointNomineeName"].ToString() + ",");
             }
             lblNomineeTwo.Text = strbNominee.ToString().TrimEnd(',');
-            lblHolderTwo.Text = strbJointHolder.ToString().TrimEnd(',');
+            lblHolderTwo.Text = customerVo.FirstName +' '+ customerVo.LastName;
         }
         protected void lnkTermsCondition_Click(object sender, EventArgs e)
         {

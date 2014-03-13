@@ -154,7 +154,8 @@
                             NCD Issue Transact
                         </td>
                         <td align="right">
-                            <asp:LinkButton ID="lnkback" runat="server" Text="Back" CssClass="LinkButtons" OnClick="lblBack_click" Visible="false"></asp:LinkButton>
+                            <asp:LinkButton ID="lnkback" runat="server" Text="Back" CssClass="LinkButtons" OnClick="lblBack_click"
+                                Visible="false"></asp:LinkButton>
                             <asp:ImageButton ID="ibtExportSummary" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                                 runat="server" AlternateText="Excel" ToolTip="Export To Excel" Height="25px"
                                 Visible="false" Width="25px"></asp:ImageButton>
@@ -191,30 +192,36 @@
     </tr>
     <tr id="trJointNom" runat="server" align="center">
         <td>
-            <asp:Label ID="lblHolderDetails" runat="server" Text="Joint Holders Name:" CssClass="FieldName"></asp:Label>
-            <%-- </td>--%>
-            <%--<td align="left">--%>
-            <asp:Label ID="lblHolderTwo" runat="server" CssClass="FieldName"></asp:Label>
-        </td>
-    </tr>
-    <tr id="trcustcode" runat="server" align="center">
-        <td>
-            <asp:Label ID="lblNominee" runat="server" Text="Nominee Name:" CssClass="FieldName"></asp:Label>
-            <%-- </td>
+            <table width="30%" class="SchemeInfoTable">
+                <tr class="SchemeInfoTable">
+                    <td>
+                        <asp:Label ID="lblHolderDetails" runat="server" Text="Customer Name:" CssClass="FieldName"></asp:Label>
+                        <%-- </td>--%>
+                        <%--<td align="left">--%>
+                        <asp:Label ID="lblHolderTwo" runat="server" CssClass="FieldName"></asp:Label>
+                    </td>
+                </tr>
+                <tr id="trcustcode" runat="server">
+                    <td>
+                        <asp:Label ID="lblNominee" runat="server" Text="Nominee Name:" CssClass="FieldName"></asp:Label>
+                        <%-- </td>
         <td align="left">--%>
-            <asp:Label ID="lblNomineeTwo" runat="server" CssClass="FieldName"></asp:Label>
-        </td>
-    </tr>
-    <tr align="center">
-        <td>
-            <asp:Label ID="lblIssuer" runat="server" Text=":" CssClass="FieldName"></asp:Label>
-            <asp:DropDownList ID="ddIssuerList" runat="server" CssClass="cmbField" AutoPostBack="false">
-            </asp:DropDownList>
-        </td>
-        <td align="left">
-            <asp:Button ID="btnConfirm" runat="server" Text="Go" OnClick="btnConfirm_Click" CssClass="PCGButton" />
-        </td>
-    </tr>
+                        <asp:Label ID="lblNomineeTwo" runat="server" CssClass="FieldName"></asp:Label>
+                    </td>
+                </tr>
+                <tr><td><asp:Label ID="lblIssuer" runat="server" Text=":" CssClass="FieldName"></asp:Label></td></tr>
+            </table>
+</td> </tr>
+<tr align="center">
+    <td>
+        
+        <asp:DropDownList ID="ddIssuerList" runat="server" CssClass="cmbField" AutoPostBack="false">
+        </asp:DropDownList>
+    </td>
+    <td align="left">
+        <asp:Button ID="btnConfirm" runat="server" Text="Go" OnClick="btnConfirm_Click" CssClass="PCGButton" />
+    </td>
+</tr>
 </table>
 <asp:Panel ID="pnlIssuList" runat="server" CssClass="Landscape" Width="100%">
     <table id="tblCommissionStructureRule" runat="server" width="100%">
@@ -227,8 +234,8 @@
                                 PageSize="10" AllowPaging="false" AutoGenerateColumns="False" EnableEmbeddedSkins="False"
                                 GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="true" ShowStatusBar="True"
                                 Skin="Telerik" AllowFilteringByColumn="false">
-                                <mastertableview allowmulticolumnsorting="True" allowsorting="true" datakeynames="AIM_IssueId,AIM_IssueName,IssueTimeType"
-                                    autogeneratecolumns="false" width="100%">
+                                <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="AIM_IssueId,AIM_IssueName,IssueTimeType"
+                                    AutoGenerateColumns="false" Width="100%">
                                     <Columns>
                                         <%--  <telerik:GridTemplateColumn>
                                             <ItemTemplate>
@@ -272,20 +279,16 @@
                                             UniqueName="AIM_Rating" Visible="true">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
-                                        
-                                        
                                         <telerik:GridBoundColumn DataField="CatCollection" HeaderStyle-Width="140px" HeaderText="Min-Max Qty(Category Wise)"
                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                            UniqueName="CatCollection"    >
+                                            UniqueName="CatCollection">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
-                                        
-                                         <telerik:GridBoundColumn DataField="MinMaxCatCollection" HeaderStyle-Width="140px" HeaderText="Min-Max Qty(Across All Series)"
-                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                            UniqueName="MinMaxCatCollection"    >
+                                        <telerik:GridBoundColumn DataField="MinMaxCatCollection" HeaderStyle-Width="140px"
+                                            HeaderText="Min-Max Qty(Across All Series)" CurrentFilterFunction="Contains"
+                                            ShowFilterIcon="false" AutoPostBackOnFilter="true" UniqueName="MinMaxCatCollection">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
-                                        
                                         <telerik:GridBoundColumn DataField="AIM_MInQty" HeaderStyle-Width="120px" HeaderText="Min. Qty (accross all series)"
                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
                                             DataFormatString="{0:N0}" UniqueName="AIM_MInQty" Visible="false">
@@ -293,7 +296,7 @@
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="AIM_MaxQty" HeaderStyle-Width="140px" HeaderText="Max Qty"
                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                            UniqueName="AIM_MaxQty"  DataFormatString="{0:N0}" Visible="false">
+                                            UniqueName="AIM_MaxQty" DataFormatString="{0:N0}" Visible="false">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="AIM_FaceValue" HeaderStyle-Width="80px" HeaderText="Face Value"
@@ -343,7 +346,7 @@
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>--%>
                                     </Columns>
-                                </mastertableview>
+                                </MasterTableView>
                             </telerik:RadGrid>
                         </td>
                     </tr>
@@ -361,13 +364,13 @@
                     AllowPaging="false" AutoGenerateColumns="False" EnableEmbeddedSkins="False" GridLines="None"
                     ShowFooter="True" PagerStyle-AlwaysVisible="true" ShowStatusBar="True" Skin="Telerik"
                     AllowFilteringByColumn="false" OnItemDataBound="gvCommMgmt_ItemDataBound" OnNeedDataSource="gvCommMgmt_OnNeedDataSource">
-                    <headercontextmenu enableembeddedskins="False">
-                    </headercontextmenu>
-                    <exportsettings hidestructurecolumns="false" exportonlydata="true" filename="LiveBondList">
-                    </exportsettings>
-                    <pagerstyle alwaysvisible="True" />
-                    <mastertableview allowmulticolumnsorting="True" allowsorting="false" datakeynames="AID_IssueDetailId,AIM_IssueId,AID_DefaultInterestRate,AID_Tenure,AIM_FaceValue,AIM_TradingInMultipleOf,AIM_MInQty,AIM_MaxQty,AIM_MaxApplNo,AIDCSR_Id"
-                        autogeneratecolumns="false" width="100%" showfooter="true">
+                    <HeaderContextMenu EnableEmbeddedSkins="False">
+                    </HeaderContextMenu>
+                    <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="LiveBondList">
+                    </ExportSettings>
+                    <PagerStyle AlwaysVisible="True" />
+                    <MasterTableView AllowMultiColumnSorting="True" AllowSorting="false" DataKeyNames="AID_IssueDetailId,AIM_IssueId,AID_DefaultInterestRate,AID_Tenure,AIM_FaceValue,AIM_TradingInMultipleOf,AIM_MInQty,AIM_MaxQty,AIM_MaxApplNo,AIDCSR_Id"
+                        AutoGenerateColumns="false" Width="100%" ShowFooter="true">
                         <CommandItemSettings ExportToPdfText="Export to Pdf" />
                         <Columns>
                             <%--<telerik:GridBoundColumn visible="false" DataField="PFISM_SchemeId" HeaderStyle-Width="60px" CurrentFilterFunction="Contains"
@@ -471,14 +474,14 @@
                                 UniqueName="CatSubTypeCode" Visible="true">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
-                             <telerik:GridBoundColumn DataField="AIDCSR_RedemptionDate" HeaderStyle-Width="105px" HeaderText="Redemption Date Note"
-                                CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                UniqueName="AIDCSR_RedemptionDate" Visible="true">
+                            <telerik:GridBoundColumn DataField="AIDCSR_RedemptionDate" HeaderStyle-Width="105px"
+                                HeaderText="Redemption Date Note" CurrentFilterFunction="Contains" ShowFilterIcon="false"
+                                AutoPostBackOnFilter="true" UniqueName="AIDCSR_RedemptionDate" Visible="true">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
-                             <telerik:GridBoundColumn DataField="AIDCSR_RedemptionAmount " HeaderStyle-Width="105px" HeaderText="Redemption Amount(Per Bond)"
-                                CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                UniqueName="AIDCSR_RedemptionAmount " Visible="true">
+                            <telerik:GridBoundColumn DataField="AIDCSR_RedemptionAmount " HeaderStyle-Width="105px"
+                                HeaderText="Redemption Amount(Per Bond)" CurrentFilterFunction="Contains" ShowFilterIcon="false"
+                                AutoPostBackOnFilter="true" UniqueName="AIDCSR_RedemptionAmount " Visible="true">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
                             <telerik:GridTemplateColumn AllowFiltering="false" DataField="YieldAtMAturity" HeaderStyle-Width="100px"
@@ -567,13 +570,13 @@
                             </EditColumn>
                         </EditFormSettings>
                         <PagerStyle AlwaysVisible="True" />
-                    </mastertableview>
-                    <clientsettings>
+                    </MasterTableView>
+                    <ClientSettings>
                         <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
                         <Resizing AllowColumnResize="true" />
-                    </clientsettings>
-                    <filtermenu enableembeddedskins="False">
-                    </filtermenu>
+                    </ClientSettings>
+                    <FilterMenu EnableEmbeddedSkins="False">
+                    </FilterMenu>
                 </telerik:RadGrid>
             </td>
         </tr>
@@ -639,7 +642,7 @@
 <telerik:RadWindow ID="rwTermsCondition" runat="server" VisibleOnPageLoad="false"
     Width="1000px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="Move, Resize,Close"
     Title="Terms & Conditions" EnableShadow="true" Left="580" Top="-8">
-    <contenttemplate>
+    <ContentTemplate>
         <div style="padding: 0px; width: 100%">
             <table width="100%" cellpadding="0" cellpadding="0">
                 <tr>
@@ -657,7 +660,7 @@
                 </tr>
             </table>
         </div>
-    </contenttemplate>
+    </ContentTemplate>
 </telerik:RadWindow>
 <asp:HiddenField ID="txtTotAmt" runat="server" OnValueChanged="txtTotAmt_ValueChanged" />
 <%--<telerik:RadWindowManager runat="server" ID="RadWindowManager1">

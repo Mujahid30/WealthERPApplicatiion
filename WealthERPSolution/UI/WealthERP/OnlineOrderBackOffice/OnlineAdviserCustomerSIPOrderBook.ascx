@@ -58,11 +58,11 @@
                     <span id="Span1" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="rfvtxtTransactionDate" ControlToValidate="txtFrom"
                         ErrorMessage="<br />Please select a From Date" CssClass="cvPCG" Display="Dynamic"
-                        runat="server" InitialValue="">
+                        runat="server" InitialValue="" ValidationGroup="btnViewSIP">
                     </asp:RequiredFieldValidator>
                     <asp:CompareValidator ID="CompareValidator9" runat="server" ErrorMessage="<br />The date format should be dd/mm/yyyy"
                         Type="Date" ControlToValidate="txtFrom" CssClass="cvPCG" Operator="DataTypeCheck"
-                        Display="Dynamic"></asp:CompareValidator>
+                        Display="Dynamic" ValidationGroup="btnViewSIP"></asp:CompareValidator>
                 </div>
             </td>
             <td id="tdlblToDate" runat="server">
@@ -82,11 +82,11 @@
                     <span id="Span2" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtTo"
                         ErrorMessage="<br />Please select a To Date" CssClass="cvPCG" Display="Dynamic"
-                        runat="server" InitialValue="">
+                        runat="server" InitialValue="" ValidationGroup="btnViewSIP">
                     </asp:RequiredFieldValidator>
                     <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="<br />The date format should be dd/mm/yyyy"
                         Type="Date" ControlToValidate="txtTo" CssClass="cvPCG" Operator="DataTypeCheck"
-                        Display="Dynamic"></asp:CompareValidator>
+                        Display="Dynamic" ValidationGroup="btnViewSIP"></asp:CompareValidator>
                 </div>
                 <asp:CompareValidator ID="CompareValidator14" runat="server" ControlToValidate="txtTo"
                     ErrorMessage="<br/> To Date should be greater than From Date" Type="Date" Operator="GreaterThanEqual"
