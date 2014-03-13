@@ -44,7 +44,8 @@ namespace WealthERP.OnlineOrderBackOffice
                 if (Cache[userVo.UserId.ToString() + "SubCat"] != null)
                     Cache.Remove(userVo.UserId.ToString() + "SubCat");
                 DefaultBindings();
-               
+
+                txtOpenDate.SelectedDate = DateTime.Now;
 
             }
             //if (Request.QueryString["IssueId"] != "" && Request.QueryString["IssueId"] != null)
@@ -2731,7 +2732,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 }
                 onlineNCDBackOfficeVo.ModeOfTrading = ddlModeOfTrading.SelectedValue;
 
-                onlineNCDBackOfficeVo.OpenDate = DateTime.Now;
+                onlineNCDBackOfficeVo.OpenDate = txtOpenDate.SelectedDate.Value;
                 onlineNCDBackOfficeVo.CloseDate = txtCloseDate.SelectedDate.Value;
 
                 if (ddlOpenTimeMinutes.SelectedValue == "MM")

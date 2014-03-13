@@ -369,6 +369,8 @@ namespace WealthERP.OnlineOrderManagement
                     userMessage = "Order placed successfully, Order reference no is " + orderId.ToString() + ", Order will process next business day";
                 else
                     userMessage = "Order placed successfully, Order reference no. is " + orderId.ToString() + " & Application no. " + Applicationno.ToString();
+
+                ShowAvailableLimits();
             }
 
 
