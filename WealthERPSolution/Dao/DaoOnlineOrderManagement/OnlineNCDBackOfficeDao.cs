@@ -2349,5 +2349,43 @@ namespace DaoOnlineOrderManagement
             return bResult;
 
         }
+        public int Getissueid(int orderid)
+        {
+            Database db;
+            DataSet ds;
+            DbCommand cmdGetissueid;
+            int issueid = 0;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //checking year
+                cmdGetissueid = db.GetStoredProcCommand("SPROC_CheckUploadData");
+                db.AddInParameter(cmdGetissueid, "@OrderId", DbType.Int32, orderid);
+                db.AddOutParameter(cmdGetissueid, "@issueid", DbType.Int32, 0);
+
+                ds = db.ExecuteDataSet(cmdGetissueid);
+                if (db.ExecuteNonQuery(cmdGetissueid) != 0)
+                {
+                    issueid = Convert.ToInt32(db.GetParameterValue(cmdGetissueid, "issueid").ToString());
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AssociateDAO.cs:CodeduplicateChack()");
+                object[] objects = new object[2];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return issueid;
+        }
+       
     }
 }

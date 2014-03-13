@@ -1370,7 +1370,21 @@ namespace BoOnlineOrderManagement
         //{
         //    if(
         //}
-
+        public int Getissueid(int orderid)
+        {
+            int result = 0;
+            OnlineNCDBackOfficeDao daoOnlNcdBackOff = new OnlineNCDBackOfficeDao();
+            try
+            {
+                result = daoOnlNcdBackOff.Getissueid(orderid);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return result;
+        }
+     
         public int UploadCheckOrderFile(DataTable dtCheckOrder, int fileTypeId, int issueId)
         {
 
@@ -1388,6 +1402,9 @@ namespace BoOnlineOrderManagement
                 }
                 else if (extractStepCode == "UC")
                 {
+                    int orderId=int.Parse(dtCheckOrder.Rows[0][0].ToString());
+                    int orderIssueId = daoOnlNcdBackOff.Getissueid(orderId);
+                    if(orderIssueId==issueId)
                     nRows = daoOnlNcdBackOff.UploadChequeIssueData(dtCheckOrder, issueId);
                 }
                 else if (extractStepCode == "UB")
