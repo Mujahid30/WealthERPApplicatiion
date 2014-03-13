@@ -112,22 +112,32 @@ namespace WealthERP.OnlineOrderBackOffice
                 TextBox txtRemark = (TextBox)e.Item.FindControl("txtRemark");
                 strRemark = txtRemark.Text;
                 LinkButton buttonEdit = editItem["MarkAsReject"].Controls[0] as LinkButton;
+             //   Label extractStepCode = editItem["WES_Code"].Controls[1] as Label;
                 Int32 orderId = Convert.ToInt32(gvNCDOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_OrderId"].ToString());
-
-             //double AmountPayable=  gvNCDOrderBook.MasterTableView.GetColumn("BBAmounttoinvest").t;
-                string AcntId = gvNCDOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["C_CustCode"].ToString();
-                double AmountPayable = Convert.ToDouble(gvNCDOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["BBAmounttoinvest"].ToString());
-                
-               
-                
-                lbResult = BoOnlineBondOrder.cancelBondsBookOrder(orderId, 2, txtRemark.Text);
-               BoOnlineBondOrder.DebitRMSUserAccountBalance(AcntId, AmountPayable, 0);
-                if (lbResult == true)
+                string extractionStepCode = gvNCDOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WES_Code"].ToString();
+                if (extractionStepCode == string.Empty)
                 {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Order Cancelled Successfully');", true);
-                }
-                BindAdviserNCCOrderBook();
+                    string AcntId = gvNCDOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["C_CustCode"].ToString();
+                    double AmountPayable = Convert.ToDouble(gvNCDOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["BBAmounttoinvest"].ToString());
 
+
+
+                    lbResult = BoOnlineBondOrder.cancelBondsBookOrder(orderId, 2, txtRemark.Text);
+                    BoOnlineBondOrder.DebitRMSUserAccountBalance(AcntId, AmountPayable, 0);
+                    if (lbResult == true)
+                    {
+                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Order Cancelled Successfully');", true);
+                    }
+                    BindAdviserNCCOrderBook();
+
+                }
+                else
+                {
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Order Cant be Cancelled as it is Extracted.');", true);
+
+                }
+                
+                
                 //IsMarked = mforderBo.MarkAsReject(orderId, txtRemark.Text);
                 //BindMISGridView();
 
@@ -145,9 +155,11 @@ namespace WealthERP.OnlineOrderBackOffice
                 GridDataItem dataItem = e.Item as GridDataItem;
                 LinkButton lbtnMarkAsReject = dataItem["MarkAsReject"].Controls[0] as LinkButton;
                 string OrderStepCode = gvNCDOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WOS_OrderStepCode"].ToString();
+              //  string extractionStepCode = gvNCDOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WES_COde"].ToString();
                 if (OrderStepCode.Trim() == "AL")
-                {
-                    lbtnMarkAsReject.Visible = true;
+                {                   
+                        lbtnMarkAsReject.Visible = true;
+                   
                 }
                 else
                 {

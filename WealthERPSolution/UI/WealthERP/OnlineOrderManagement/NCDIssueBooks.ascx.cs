@@ -317,16 +317,25 @@ namespace WealthERP.OnlineOrderManagement
                 strRemark = txtRemark.Text;
                 LinkButton buttonEdit = editItem["MarkAsReject"].Controls[0] as LinkButton;
                 Int32 orderId = Convert.ToInt32(gvBBList.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_OrderId"].ToString());
-                double AmountPayable = Convert.ToDouble(gvBBList.MasterTableView.DataKeyValues[e.Item.ItemIndex]["BBAmounttoinvest"].ToString());
-
-                lbResult = BoOnlineBondOrder.cancelBondsBookOrder(orderId, 2, txtRemark.Text);
-                BoOnlineBondOrder.DebitRMSUserAccountBalance(customerVo.AccountId, AmountPayable, 0);
-                if (lbResult == true)
+                //string extractionStepCode = gvBBList.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WES_COde"].ToString();
+                string extractionStepCode = gvBBList.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WES_Code"].ToString();
+                if (extractionStepCode == string.Empty)
                 {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Order Cancelled Successfully');", true);
-                }
-                BindBBGV(customerVo.CustomerId);
+                    double AmountPayable = Convert.ToDouble(gvBBList.MasterTableView.DataKeyValues[e.Item.ItemIndex]["BBAmounttoinvest"].ToString());
 
+                    lbResult = BoOnlineBondOrder.cancelBondsBookOrder(orderId, 2, txtRemark.Text);
+                    BoOnlineBondOrder.DebitRMSUserAccountBalance(customerVo.AccountId, AmountPayable, 0);
+                    if (lbResult == true)
+                    {
+                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Order Cancelled Successfully');", true);
+                    }
+                    BindBBGV(customerVo.CustomerId);
+                }
+                else
+                {
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Order Cant be Cancelled as it is Extracted.');", true);
+
+                }
                 //IsMarked = mforderBo.MarkAsReject(orderId, txtRemark.Text);
                 //BindMISGridView();
 
