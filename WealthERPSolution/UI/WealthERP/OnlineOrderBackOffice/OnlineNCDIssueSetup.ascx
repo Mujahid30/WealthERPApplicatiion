@@ -952,8 +952,8 @@
         <td class="rightData">
             <asp:TextBox ID="txtIsPrefix" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
              <asp:RegularExpressionValidator ID="RegularExpressionValidator17" ControlToValidate="txtIsPrefix"
-                runat="server" Display="Dynamic" ErrorMessage="Please Enter Integer Value" CssClass="cvPCG"
-                ValidationExpression="[1-9]\d*$" ValidationGroup="SetUpSubmit" Visible="false">                     
+                runat="server" Display="Dynamic" ErrorMessage="<br/>Please Enter Integer Value" CssClass="cvPCG"
+                ValidationExpression="[0-9]\d*$" ValidationGroup="SetUpSubmit">                     
             </asp:RegularExpressionValidator>
         </td>
     </tr>
