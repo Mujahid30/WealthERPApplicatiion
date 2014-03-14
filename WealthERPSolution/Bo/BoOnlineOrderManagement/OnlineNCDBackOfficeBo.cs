@@ -1404,7 +1404,7 @@ namespace BoOnlineOrderManagement
                 {
                     int orderId = int.Parse(dtCheckOrder.Rows[0][0].ToString());
                     int orderIssueId = daoOnlNcdBackOff.Getissueid(orderId);
-                    if (orderIssueId != issueId)
+                    if (orderIssueId == issueId)
                     {
                         nRows = daoOnlNcdBackOff.UploadChequeIssueData(dtCheckOrder, issueId);
                     }
