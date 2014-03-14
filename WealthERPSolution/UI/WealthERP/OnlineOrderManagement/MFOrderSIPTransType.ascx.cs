@@ -567,7 +567,7 @@ namespace WealthERP.OnlineOrderManagement
 
                     if (!string.IsNullOrEmpty(dr["CutOffTime"].ToString())) lblCutOffTimeDisplay.Text = dr["CutOffTime"].ToString();
 
-                    if (!string.IsNullOrEmpty(dr["divFrequency"].ToString())) lblFrequency.Text = dr["divFrequency"].ToString();
+                    //if (!string.IsNullOrEmpty(dr["divFrequency"].ToString())) lblFrequency.Text = dr["divFrequency"].ToString();
                 }
             }
         }
