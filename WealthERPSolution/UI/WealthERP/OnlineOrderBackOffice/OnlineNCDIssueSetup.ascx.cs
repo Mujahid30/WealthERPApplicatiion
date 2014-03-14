@@ -1889,7 +1889,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
                 foreach (GridDataItem gdi in rgSubCategories.Items)
                 {
-                    if (((TextBox)gdi.FindControl("txtSubCategoryCode")).Text != string.Empty)
+                    if (((TextBox)gdi.FindControl("txtSubCategoryCode")).Text != string.Empty && ((DropDownList)gdi.FindControl("ddlSubCategory")).SelectedValue != "Select")
                     {
                         //int lookupId = Convert.ToInt32(gdi["WCMV_LookupId"].Text);
                         DropDownList ddlSubCategory = (DropDownList)gdi.FindControl("ddlSubCategory");
@@ -1959,7 +1959,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 foreach (GridDataItem gdi in rgSubCategories.Items)
                 {
                     //if (((CheckBox)gdi.FindControl("cbSubCategories")).Checked == true)
-                    if (((TextBox)gdi.FindControl("txtSubCategoryCode")).Text != string.Empty)
+                    if (((TextBox)gdi.FindControl("txtSubCategoryCode")).Text != string.Empty && ((DropDownList)gdi.FindControl("ddlSubCategory")).SelectedValue !="Select")
                     {
                         //TextBox txtSubCategoryId = ((TextBox)(gdi.FindControl("txtSubCategoryId")));
                         TextBox txtSubCategoryCode = ((TextBox)(gdi.FindControl("txtSubCategoryCode")));
@@ -4135,15 +4135,82 @@ namespace WealthERP.OnlineOrderBackOffice
 
         protected void ddlSubCategory_Selectedindexchanged(object sender, EventArgs e)
         {
-             //DropDownList ddlSubCat = (DropDownList)sender;
-             //int lookupid =Convert.ToInt32( ddlSubCat.SelectedValue);
-             //int rowindex1 = ((GridDataItem)((DropDownList)sender).NamingContainer).RowIndex;
-             //int rowindex = (rowindex1 / 2) - 1;
+             int lookupid =0;
+             int gdlookupid = 0;
+            DropDownList ddlSubCat = (DropDownList)sender;
+            if (ddlSubCat.SelectedValue == "Select")
+                lookupid = 0;
+            else
+                lookupid = Convert.ToInt32(ddlSubCat.SelectedValue);
+           
+            int rowindex1 = ((GridDataItem)((DropDownList)sender).NamingContainer).RowIndex;
+            int rowindex = (rowindex1 / 2) - 1;
 
 
 
-            // GridDataItem item = (GridDataItem)ddlSubCat.NamingContainer;
-            //BindSubCateDDL(ddlSubCat);
+            GridTableView rg = (GridTableView)((GridDataItem)((DropDownList)sender).NamingContainer).NamingContainer;
+            RadGrid rg1 = (RadGrid)rg.OwnerGrid;
+
+
+            for (int i = 0; i < rg1.Items.Count; i++)
+            {
+                if (i == rowindex)
+                {
+                    continue;
+                }
+                else
+                {
+                    DropDownList ddlSubCategory = (DropDownList)rg1.Items[i].FindControl("ddlSubCategory");
+                    if (ddlSubCategory.SelectedValue == "Select")
+                        gdlookupid = 0;
+                    else
+                        gdlookupid = Convert.ToInt32(ddlSubCategory.SelectedValue);
+                    if (gdlookupid == lookupid)
+                    {
+                        ((DropDownList)rg1.Items[rowindex].FindControl("ddlSubCategory")).SelectedValue = "Select";
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Sub category exist.');", true);
+                    }
+                }
+
+            }
+
+
+
+
+
+
+            //if (rg1.Items.Count == 1)
+            //    return ;
+
+            //foreach (GridDataItem gdi in rg1.Items)
+            //{
+
+            //    //for (int i = 0; i <= rg1.Items.Count; i++)
+            //    //{
+
+            //    //}
+            //   DropDownList ddlSubCategory = (DropDownList)gdi.FindControl("ddlSubCategory");
+            //    if(ddlSubCategory.SelectedValue=="Select")
+            //        gdlookupid=0;
+            //    else
+            //        gdlookupid=Convert.ToInt32(ddlSubCategory.SelectedValue);
+            //    if (gdlookupid == lookupid)
+            //    {
+            //        ddlSubCategory.SelectedValue = "Select";
+            //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Sub category exist.');", true);
+            //    }
+
+            //}
+           //  RadGrid rg = ((DropDownList)sender).Controls[0] as RadGrid  ;
+     //GridEditableItem editedItem = ddlSubCat.NamingContainer as GridEditableItem;
+         //   RadGrid rg =(RadGrid) rg.FindControl("rgSubCategories");
+
+     //  RadGrid rgSeriesCat = (RadGrid)editedItem.FindControl("rgSeriesCat");
+
+            //GridEditableItem item = (GridEditableItem)ddlSubCat.NamingContainer;
+            // RadGrid rg = (RadGrid)ddlSubCat.Parent;
+                //(item.FindControl("rgSubCategories"));
+       // BindSubCateDDL(ddlSubCat);
 
         }
         protected void ddlProduct_Selectedindexchanged(object sender, EventArgs e)
