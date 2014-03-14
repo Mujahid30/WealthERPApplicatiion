@@ -201,7 +201,7 @@
             <asp:Label ID="lblFileType" runat="server" CssClass="FieldName" Text="File Type:"></asp:Label>
         </td>
         <td class="rightData">
-            <asp:DropDownList ID="ddlFileType" runat="server" CssClass="cmbField" AutoPostBack="true">
+            <asp:DropDownList ID="ddlFileType" runat="server" CssClass="cmbField" AutoPostBack="true" OnSelectedIndexChanged="OnSelectedIndexChanged_ddlFileType">
                 <asp:ListItem Selected="True" Value="0">--SELECT--</asp:ListItem>
             </asp:DropDownList>
             <br />
@@ -224,7 +224,8 @@
                 InitialValue="Select" ValidationGroup="OnlineIssueUpload">
             </asp:RequiredFieldValidator>
         </td>
-        <td volspan="2">
+        <td>
+       
         </td>
     </tr>
     <tr id="trStep2" runat="server">
@@ -249,15 +250,10 @@
             <asp:Button ID="btnFileUpload" CssClass="PCGLongButton" Text="Upload File" runat="server"
                 OnClick="btnFileUpload_Click" ValidationGroup="OnlineIssueUpload" OnClientClick="if(ValidatefileUpload() == false) return false;ValidatefileUpload();" />
         </td>
-        <td>
-            &nbsp;
+        <td colspan="3">
+             <asp:Label ID="lblmsg" runat="server" CssClass="rfvPCG"></asp:Label>
         </td>
-        <td>
-            &nbsp;
-        </td>
-        <td>
-            &nbsp;
-        </td>
+       
     </tr>
 </table>
 <table width="100%">

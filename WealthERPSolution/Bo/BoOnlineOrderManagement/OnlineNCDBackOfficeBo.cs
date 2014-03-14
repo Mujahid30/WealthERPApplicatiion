@@ -1384,11 +1384,25 @@ namespace BoOnlineOrderManagement
             }
             return result;
         }
-     
-        public int UploadCheckOrderFile(DataTable dtCheckOrder, int fileTypeId, int issueId,ref string isEligbleIssue)
+        public int GetScriptId(string scriptid, int adviserid)
+        {
+            int result = 0;
+            OnlineNCDBackOfficeDao daoOnlNcdBackOff = new OnlineNCDBackOfficeDao();
+            try
+            {
+                result = daoOnlNcdBackOff.GetScriptId(scriptid, adviserid);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return result;
+        }
+        public int UploadCheckOrderFile(DataTable dtCheckOrder, int fileTypeId, int issueId,ref string isEligbleIssue,int adviserid)
         {
 
             int nRows = 0;
+            
             OnlineNCDBackOfficeDao daoOnlNcdBackOff = new OnlineNCDBackOfficeDao();
             isEligbleIssue = "";
 
@@ -1414,12 +1428,20 @@ namespace BoOnlineOrderManagement
                     }
                 }
                 else if (extractStepCode == "UB")
-                {                 
+                {
 
-                    if (dtCheckOrder.Columns.Contains("Error Text"))
-                        dtCheckOrder.Columns.RemoveAt(3);
-                    nRows = daoOnlNcdBackOff.UploadBidSuccessData(dtCheckOrder, issueId);
-
+                    //string scriptId = dtCheckOrder.Rows[0][0].ToString();
+                    //int scriptissueid = daoOnlNcdBackOff.GetScriptId(scriptId, adviserid);
+                    //if (scriptissueid == issueId)
+                    //{
+                        if (dtCheckOrder.Columns.Contains("Error Text"))
+                            dtCheckOrder.Columns.RemoveAt(3);
+                        nRows = daoOnlNcdBackOff.UploadBidSuccessData(dtCheckOrder, issueId);
+                    //}
+                    //else
+                    //{
+                    //    isEligbleIssue = "NotEligble";
+                    //}
                 }
 
             }
@@ -1504,6 +1526,48 @@ namespace BoOnlineOrderManagement
                 throw Ex;
             }
             return blResult;
+        }
+        public bool DeleteSubcategory(int issuesubtyperuleid)
+        {
+            bool blResult = false;
+            OnlineNCDBackOfficeDao daoOnlNcdBackOff = new OnlineNCDBackOfficeDao();
+            try
+            {
+                //return OnlineOrderBackOfficeDao.deleteTradeBusinessDate(tradeBusinessDateVo);
+                blResult = daoOnlNcdBackOff.DeleteSubcategory(issuesubtyperuleid);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return blResult;
+        }
+        public void DeleteAvaliable(int adviserid, int InvestorCatgeoryId, int AIICST_Id, int AIDCSR_Id, int IssueDetailId, int issueId)
+        {
+            OnlineNCDBackOfficeDao daoOnlNcdBackOff = new OnlineNCDBackOfficeDao();
+            try
+            {
+                daoOnlNcdBackOff.DeleteAvaliable(adviserid, InvestorCatgeoryId, AIICST_Id, AIDCSR_Id, IssueDetailId, issueId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            
+        }
+        public int CheckAccountisActive(int adviserid, int customerid)
+        {
+            int result = 0;
+            OnlineNCDBackOfficeDao daoOnlNcdBackOff = new OnlineNCDBackOfficeDao();
+            try
+            {
+                result = daoOnlNcdBackOff.CheckAccountisActive(adviserid, customerid);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return result;
         }
     }
 }

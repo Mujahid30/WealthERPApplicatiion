@@ -951,6 +951,10 @@
         </td>
         <td class="rightData">
             <asp:TextBox ID="txtIsPrefix" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
+             <asp:RegularExpressionValidator ID="RegularExpressionValidator17" ControlToValidate="txtIsPrefix"
+                runat="server" Display="Dynamic" ErrorMessage="Please Enter Integer Value" CssClass="cvPCG"
+                ValidationExpression="[1-9]\d*$" ValidationGroup="SetUpSubmit" Visible="false">                     
+            </asp:RegularExpressionValidator>
         </td>
     </tr>
     <tr>
@@ -1213,7 +1217,7 @@
                                                             CssClass="Landscape" ScrollBars="Horizontal" Visible="false">
                                                             <telerik:RadGrid ID="rgCategoriesDetails" runat="server" AutoGenerateColumns="False"
                                                                 enableloadondemand="True" PageSize="5" EnableEmbeddedSkins="False" GridLines="None"
-                                                                ShowFooter="True" PagerStyle-AlwaysVisible="false" ShowStatusBar="True" Skin="Telerik"
+                                                                ShowFooter="True" PagerStyle-AlwaysVisible="true" ShowStatusBar="True" Skin="Telerik"
                                                                 AllowFilteringByColumn="true" OnNeedDataSource="rgCategoriesDetails_OnNeedDataSource"
                                                                 OnItemCommand="rgCategoriesDetails_ItemCommand" AllowPaging="false">
                                                                 <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="AIIC_InvestorCatgeoryId,AIICST_Id"
@@ -1239,9 +1243,9 @@
                                                                             AutoPostBackOnFilter="true" UniqueName="AIIC_MaxInvestmentAmount" Visible="true">
                                                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="20px" Wrap="false" />
                                                                         </telerik:GridBoundColumn>
-                                                                        <telerik:GridButtonColumn UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete"
+                                                                         <telerik:GridButtonColumn UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete?"
                                                                             ConfirmDialogType="RadWindow" ConfirmTitle="Delete" ButtonType="LinkButton" CommandName="Delete"
-                                                                            Text="Delete" HeaderStyle-Width="100px" Visible="false">
+                                                                            Text="Delete" Visible="false">
                                                                             <ItemStyle HorizontalAlign="Center" CssClass="MyImageButton" />
                                                                         </telerik:GridButtonColumn>
                                                                     </Columns>
@@ -1593,8 +1597,8 @@
                                                                 enableloadondemand="True" PageSize="5" EnableEmbeddedSkins="False" GridLines="None"
                                                                 ShowFooter="True" PagerStyle-AlwaysVisible="true" ShowStatusBar="True" Skin="Telerik"
                                                                 AllowFilteringByColumn="true" OnNeedDataSource="rgSeriesCategories_OnNeedDataSource"
-                                                                AllowPaging="false">
-                                                                <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="AID_IssueDetailId"
+                                                                OnItemCommand="rgSeriesCategories_OnItemCommand" AllowPaging="false">
+                                                                <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="AID_IssueDetailId,AIDCSR_Id"
                                                                     AutoGenerateColumns="false">
                                                                     <Columns>
                                                                         <telerik:GridBoundColumn DataField="AIIC_InvestorCatgeoryName" HeaderStyle-Width="30px"
@@ -1612,6 +1616,11 @@
                                                                             HeaderText="Annualized YieldUpto" UniqueName="AIDCSR_AnnualizedYieldUpto" SortExpression="AIDCSR_AnnualizedYieldUpto">
                                                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="20px" Wrap="false" />
                                                                         </telerik:GridBoundColumn>
+                                                                        <telerik:GridButtonColumn UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete?"
+                                                                            ConfirmDialogType="RadWindow" ConfirmTitle="Delete" ButtonType="LinkButton" CommandName="Delete"
+                                                                            Text="Delete" Visible="false">
+                                                                            <ItemStyle HorizontalAlign="Center" CssClass="MyImageButton" />
+                                                                        </telerik:GridButtonColumn>
                                                                         <%-- <telerik:GridBoundColumn DataField="AIDCSR_DefaultInterestRate" HeaderStyle-Width="30px"
                                                                             HeaderText="Interest Frequency" CurrentFilterFunction="Contains" ShowFilterIcon="false"
                                                                             AutoPostBackOnFilter="true" UniqueName="AIDCSR_InterestFrequency" Visible="true">
@@ -1717,10 +1726,10 @@
                                                     <td width="50%" align="left">
                                                         <asp:CheckBox ID="chkBuyAvailability" runat="server" CssClass="cmbFielde" Text="Is Buy Back"
                                                             OnCheckedChanged="chkBuyAvailability_changed" AutoPostBack="true"></asp:CheckBox>
-                                                             <asp:CheckBox ID="chkredemptiondate" runat="server" CssClass="cmbFielde" Text="Redemption Applicable"
-                                                            AutoPostBack="true" OnCheckedChanged="chkRedemptiondate_changed"/></asp:CheckBox>
+                                                        <asp:CheckBox ID="chkredemptiondate" runat="server" CssClass="cmbFielde" Text="Redemption Applicable"
+                                                            AutoPostBack="true" OnCheckedChanged="chkRedemptiondate_changed" /></asp:CheckBox>
                                                         <asp:CheckBox ID="chkLockinperiod" runat="server" CssClass="cmbFielde" Text="Lock In Period"
-                                                            AutoPostBack="true" OnCheckedChanged="chkLockinperiod_changed"/></asp:CheckBox>
+                                                            AutoPostBack="true" OnCheckedChanged="chkLockinperiod_changed" /></asp:CheckBox>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -1832,7 +1841,8 @@
                                                                             <asp:Label ID="lblRedemptionDate" runat="server" Text="Redemption Date Note"></asp:Label>
                                                                         </HeaderTemplate>
                                                                         <ItemTemplate>
-                                                                            <asp:TextBox ID="txtRedemptionDate" runat="server" CssClass="txtField" Width="90px" Visible="false"></asp:TextBox>
+                                                                            <asp:TextBox ID="txtRedemptionDate" runat="server" CssClass="txtField" Width="90px"
+                                                                                Visible="false"></asp:TextBox>
                                                                             <%--   <asp:RegularExpressionValidator ID="rgRedemptionDate" ControlToValidate="txtRedemptionDate"
                                                                                 runat="server" Display="Dynamic" ErrorMessage="Please Enter letter" CssClass="cvPCG"
                                                                                 ValidationExpression="[a-zA-Z ]*$" ValidationGroup="btnOK">   
@@ -1846,7 +1856,8 @@
                                                                             <asp:Label ID="lblRedemptionAmount" runat="server" Text="Redemption Amount(Per Bond)"></asp:Label>
                                                                         </HeaderTemplate>
                                                                         <ItemTemplate>
-                                                                            <asp:TextBox ID="txtRedemptionAmount" runat="server" CssClass="txtField" Width="50px" Visible="false"></asp:TextBox>
+                                                                            <asp:TextBox ID="txtRedemptionAmount" runat="server" CssClass="txtField" Width="50px"
+                                                                                Visible="false"></asp:TextBox>
                                                                             <%--<asp:RegularExpressionValidator ID="rgRedemptionAmount" ControlToValidate="txtRedemptionAmount"
                                                                                 runat="server" Display="Dynamic" ErrorMessage="Please Enter Digits" CssClass="cvPCG"
                                                                                 ValidationExpression="[0-9]\d*(\.\d?[0-9])?$" ValidationGroup="btnOK">     
@@ -1873,7 +1884,7 @@
                                                                         </HeaderTemplate>
                                                                         <ItemTemplate>
                                                                             <asp:TextBox ID="txtLockInPeriod" runat="server" CssClass="txtField" Width="40px"
-                                                                                AutoPostBack="true" Visible="false"></asp:TextBox>
+                                                                                AutoPostBack="false" Visible="false"></asp:TextBox>
                                                                             <%--<asp:RegularExpressionValidator ID="reqtxtLockInPeriod" ControlToValidate="txtLockInPeriod"
                                                                                 runat="server" Display="Dynamic" ErrorMessage="Please Enter +(ve) Digits" CssClass="cvPCG"
                                                                                 ValidationExpression="[0-9]\d*(\.\d?[0-9])?$" ValidationGroup="btnOK">     

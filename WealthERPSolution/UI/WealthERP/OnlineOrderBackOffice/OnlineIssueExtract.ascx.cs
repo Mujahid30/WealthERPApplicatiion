@@ -38,7 +38,21 @@ namespace WealthERP.OnlineOrderBackOffice
                 SetDownloadDate();
             }
         }
-
+        protected void OnSelectedIndexChanged_ddlFileType(object sender, EventArgs e)
+        {
+            if (ddlFileType.SelectedValue == "1")
+            {
+                lblMsg.Text = " .txt format, pipe delimited, headers not required";
+            }
+            if (ddlFileType.SelectedValue == "16")
+            {
+                lblMsg.Text = " .CSV (MS-DOS) format, comma delimited, headers required";
+            }
+            if (ddlFileType.SelectedValue == "11" || ddlFileType.SelectedValue == "5")
+            {
+                lblMsg.Text = ".xls format, headers required";
+            }
+        }
         protected void BindIssueExtract()
         {
             pnlOnlneIssueExtract.Visible = false;

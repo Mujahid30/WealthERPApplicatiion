@@ -71,7 +71,21 @@ namespace WealthERP.OnlineOrderBackOffice
 
         }
 
-     
+        protected void OnSelectedIndexChanged_ddlFileType(object sender, EventArgs e)
+        {
+            if (ddlFileType.SelectedValue =="18")
+            {
+                lblmsg.Text = ".txt format, pipe delimited, headers required";
+            }
+            if (ddlFileType.SelectedValue == "12" || ddlFileType.SelectedValue == "10")
+            {
+                lblmsg.Text = " .CSV (MS-DOS) format, comma delimited, hearders required";
+            }
+            //if (ddlFileType.SelectedValue == "10")
+            //{
+            //    lblmsg.Text = ".CSV (MS-DOS) format,comma delimited, headers required";
+            //}
+        }
 
         protected void Readcsvfile()
         {
@@ -314,7 +328,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
             if (boNcdBackOff == null) boNcdBackOff = new OnlineNCDBackOfficeBo();
             dtUploadData = CheckHeaders(dtUploadData);
-            nRows = boNcdBackOff.UploadCheckOrderFile(dtUploadData, int.Parse(ddlFileType.SelectedValue), int.Parse(ddlIssueName.SelectedValue), ref isIssueAvailable);
+            nRows = boNcdBackOff.UploadCheckOrderFile(dtUploadData, int.Parse(ddlFileType.SelectedValue), int.Parse(ddlIssueName.SelectedValue), ref isIssueAvailable,advisorVo.advisorId);
             if (isIssueAvailable == "NotEligble")
             {
                 ShowMessage("Uploaded file Issue and Selected issue Does not match ");

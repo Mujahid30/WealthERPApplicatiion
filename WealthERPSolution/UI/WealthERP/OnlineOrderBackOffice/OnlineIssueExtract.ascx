@@ -233,7 +233,7 @@
                     <asp:Label ID="lblFileType" runat="server" CssClass="FieldName" Text="File Type:"></asp:Label>
                 </td>
                 <td class="rightData">
-                    <asp:DropDownList ID="ddlFileType" runat="server" CssClass="cmbLongField">
+                    <asp:DropDownList ID="ddlFileType" runat="server" CssClass="cmbLongField" OnSelectedIndexChanged="OnSelectedIndexChanged_ddlFileType" AutoPostBack="true">
                         <asp:ListItem Selected="True" Value="0">--SELECT--</asp:ListItem>
                     </asp:DropDownList>
                     <br />
@@ -295,9 +295,6 @@
                 </td>
             </tr>
             <tr>
-                <td>
-                    &nbsp;
-                </td>
                 <%-- <td class="leftLabel">
                     <telerik:RadDatePicker ID="rdpDownloadDate" CssClass="txtField" runat="server" AutoPostBack="false"
                         Skin="Telerik" EnableEmbeddedSkins="false">
@@ -312,20 +309,18 @@
                         Display="Dynamic" ControlToValidate="rdpDownloadDate" Text="Please select a valid date"
                         CssClass="rfvPCG" ValidationGroup="IssueExtract">Please select a valid date</asp:RequiredFieldValidator>
                 </td>--%>
-                <td class="rightData">
+                <td width="15%" align="right">
                     <asp:Button ID="btnPreview" runat="server" Text="Preview Data" ValidationGroup="IssueExtract"
                         CssClass="PCGLongButton" OnClick="btnPreview_Click" />
                 </td>
-                <td class="rightData">
+                <td  width="10%">
                     <asp:Button ID="btnDownload" runat="server" Text="Download File" ValidationGroup="IssueExtract"
                         CssClass="PCGLongButton" OnClick="btnDownload_Click" />
                 </td>
-                <td>
-                    &nbsp;
+                <td align="left">
+                   <asp:Label ID="lblMsg" runat="server" CssClass="rfvPCG"></asp:Label>
                 </td>
-                <td>
-                    &nbsp;
-                </td>
+                
             </tr>
         </table>
         <asp:Panel ID="pnlOnlneIssueExtract" runat="server" Width="100%" ScrollBars="Horizontal"

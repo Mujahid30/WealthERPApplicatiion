@@ -126,6 +126,9 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void llPurchase_Click(object sender, EventArgs e)
         {
+            int accountactivate = onlineNCDBackOfficeBo.CheckAccountisActive(advisorVo.advisorId, customerVo.CustomerId);
+                if(accountactivate!=0)
+                {
             int rowindex1 = ((GridDataItem)((LinkButton)sender).NamingContainer).RowIndex;
             int rowindex = (rowindex1 / 2) - 1;
             LinkButton lbButton = (LinkButton)sender;
@@ -142,6 +145,11 @@ namespace WealthERP.OnlineOrderManagement
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TransactionPage", "loadcontrol('NCDIssueTransact','&IssuerId=" + IssuerId + "&Issuename=" + Issuename + "&minQty=" + minQty + "&maxQty=" + maxQty + "');", true);
             }
+                }
+                else
+                {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Your Transaction request cannot be processed. For Further Details please speak to Call Centre Team !!');", true);
+                }
         }
         protected void btnEquityBond_Click(object sender, EventArgs e)
         {

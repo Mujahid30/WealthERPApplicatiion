@@ -2386,5 +2386,152 @@ namespace DaoOnlineOrderManagement
             }
             return issueid;
         }
+        public int GetScriptId(string scriptid, int adviserid)
+        {
+            Database db;
+            DataSet ds;
+            DbCommand cmdGetScriptId;
+            int issueid = 0;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+
+                cmdGetScriptId = db.GetStoredProcCommand("SPROC_TocheckBidUpload");
+                db.AddInParameter(cmdGetScriptId, "@Scriptid", DbType.String, scriptid);
+                db.AddInParameter(cmdGetScriptId, "@adviserid", DbType.Int32, adviserid);
+                db.AddOutParameter(cmdGetScriptId, "@issueid", DbType.Int32, 0);
+
+                ds = db.ExecuteDataSet(cmdGetScriptId);
+                if (db.ExecuteNonQuery(cmdGetScriptId) != 0)
+                {
+                    issueid = Convert.ToInt32(db.GetParameterValue(cmdGetScriptId, "issueid").ToString());
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AssociateDAO.cs:ExternalcodeCheck()");
+                object[] objects = new object[2];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return issueid;
+        }
+        public bool DeleteSubcategory(int issuesubtyperuleid)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand DeleteSubcategoryCmd;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                DeleteSubcategoryCmd = db.GetStoredProcCommand("SPROC_DeleteSubcategory");
+                db.AddInParameter(DeleteSubcategoryCmd, "@AIDCSR_Id", DbType.Int32, issuesubtyperuleid);
+
+                if (db.ExecuteNonQuery(DeleteSubcategoryCmd) != 0)
+                    bResult = true;
+            }
+
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AssociateDAO.cs:deleteTradeBusinessDate()");
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return bResult;
+
+        }
+        public void DeleteAvaliable(int adviserid, int InvestorCatgeoryId, int AIICST_Id, int AIDCSR_Id, int IssueDetailId, int issueId)
+        {
+            Database db;
+            DataSet ds;
+            DbCommand cmdDeleteAvaliable;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+
+                cmdDeleteAvaliable = db.GetStoredProcCommand("SPROC_IsIssuedeleteAvailable");
+                db.AddInParameter(cmdDeleteAvaliable, "@AIICST_Id", DbType.Int32, AIICST_Id);
+                db.AddInParameter(cmdDeleteAvaliable, "@InvestorCatgeoryId", DbType.Int32, InvestorCatgeoryId);
+                db.AddInParameter(cmdDeleteAvaliable, "@AIDCSR_Id", DbType.Int32, AIDCSR_Id);
+                db.AddInParameter(cmdDeleteAvaliable, "@IssueDetailId", DbType.Int32, IssueDetailId);
+                db.AddOutParameter(cmdDeleteAvaliable, "@issueId", DbType.Int32, issueId);
+                db.AddOutParameter(cmdDeleteAvaliable, "@advisorId", DbType.Int32, adviserid);
+                ds = db.ExecuteDataSet(cmdDeleteAvaliable);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AssociateDAO.cs:ExternalcodeCheck()");
+                object[] objects = new object[2];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+
+        }
+        public int CheckAccountisActive(int adviserid, int customerid)
+        {
+            Database db;
+            DataSet ds;
+            DbCommand cmdCheckAccountisActive;
+            int isExist = 0;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdCheckAccountisActive = db.GetStoredProcCommand("SPROC_IsCustomerDematAcount");
+                db.AddInParameter(cmdCheckAccountisActive, "@advisorId", DbType.Int32, adviserid);
+                db.AddInParameter(cmdCheckAccountisActive, "@customerId", DbType.Int32, customerid);
+                db.AddOutParameter(cmdCheckAccountisActive, "@isExist", DbType.Int32, 0);
+
+                ds = db.ExecuteDataSet(cmdCheckAccountisActive);
+                if (db.ExecuteNonQuery(cmdCheckAccountisActive) != 0)
+                {
+                    isExist = Convert.ToInt32(db.GetParameterValue(cmdCheckAccountisActive, "isExist").ToString());
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AssociateDAO.cs:ExternalcodeCheck()");
+                object[] objects = new object[2];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return isExist;
+        }
     }
 }
