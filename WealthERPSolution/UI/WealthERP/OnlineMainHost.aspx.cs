@@ -51,6 +51,7 @@ namespace WealthERP
 
         protected void Page_Init(object sender, EventArgs e)
         {
+
             if (IsPostBack)
             {
                 OnlineUserSessionBo.CheckSession();
@@ -130,8 +131,7 @@ namespace WealthERP
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            bool isValidUser = false;
-
+            bool isValidUser = false;             
             if (!IsPostBack)
             {
                
@@ -228,7 +228,10 @@ namespace WealthERP
             if (string.IsNullOrEmpty(isWerp))
                 userVo = userBo.GetUserAccountDetails(userAccountId, Convert.ToInt32(strOnlineAdviser));
             else
+            {
+                advisorVo = (AdvisorVo)Session["advisorVo"];
                 userVo = userBo.GetUserAccountDetails(userAccountId, advisorVo.advisorId);
+            }
 
             if (!string.IsNullOrEmpty(isWerp))
             {
