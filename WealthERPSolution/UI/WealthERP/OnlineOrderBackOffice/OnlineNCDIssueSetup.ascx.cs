@@ -1316,10 +1316,16 @@ namespace WealthERP.OnlineOrderBackOffice
                 if (count > 0)
                 {
 
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Issue Name Already Exist');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Series Name Already Exist');", true);
                     e.Canceled = true;
                 }
-
+                int isSeqExist = onlineNCDBackOfficeBo.ChekSeriesSequence(Convert.ToInt32(txtSequence.Text),   Convert.ToInt32(txtIssueId.Text),advisorVo.advisorId,0);
+                if (isSeqExist > 0)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Sequence Exist');", true);
+                    e.Canceled = true;
+                    return;
+                }
 
                 int seriesId = CreateUpdateDeleteSeries(Convert.ToInt32(txtIssueId.Text), 0, txtSereiesName.Text, availblity, redemptionavaliable, lockinperiodavaliable, Convert.ToInt32(txtTenure.Text), ddltInterestFrequency.SelectedValue, ddlInterestType.SelectedValue, Convert.ToInt32(txtSequence.Text), "Insert");
 
@@ -1391,6 +1397,8 @@ namespace WealthERP.OnlineOrderBackOffice
                 CheckBox chkredemptiondate = (CheckBox)e.Item.FindControl("chkredemptiondate");
                 CheckBox chkLockinperiod = (CheckBox)e.Item.FindControl("chkLockinperiod");
 
+               
+
                 if (chkBuyAvailability.Checked == true)
                 {
                     availblity = 1;
@@ -1419,11 +1427,19 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     txtTenure.Text = 0.ToString();
                 }
-                if (string.IsNullOrEmpty(txtSequence.Text))
-                {
-                    txtSequence.Text = 0.ToString();
-                }
+                //if (string.IsNullOrEmpty(txtSequence.Text))
+                //{
+                //    txtSequence.Text = 0.ToString();
+                //}
                 int seriesId = Convert.ToInt32(rgSeries.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AID_IssueDetailId"].ToString());
+
+                int isSeqExist = onlineNCDBackOfficeBo.ChekSeriesSequence(Convert.ToInt32(txtSequence.Text), Convert.ToInt32(txtIssueId.Text), advisorVo.advisorId, seriesId);
+                if (isSeqExist > 0)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Sequence Exist');", true);
+                    e.Canceled = true;
+                    return;
+                }
                 int InsseriesId = CreateUpdateDeleteSeries(Convert.ToInt32(txtIssueId.Text), seriesId, txtSereiesName.Text, availblity, redemptionavaliable, lockinperiodavaliable, Convert.ToInt32(txtTenure.Text), ddlInterestFrequency.SelectedValue, ddlInterestType.SelectedValue, Convert.ToInt32(txtSequence.Text), "Update");
                 RadGrid rgSeriesCat = (RadGrid)e.Item.FindControl("rgSeriesCat");
                 foreach (GridDataItem gdi in rgSeriesCat.Items)
@@ -2389,8 +2405,8 @@ namespace WealthERP.OnlineOrderBackOffice
                         }
 
                     }
-                    int SeqNo = onlineNCDBackOfficeBo.GetSeriesSequence(Convert.ToInt32(txtIssueId.Text), advisorVo.advisorId);
-                    txtSequence.Text = SeqNo.ToString();
+                    //int SeqNo = onlineNCDBackOfficeBo.GetSeriesSequence(Convert.ToInt32(txtIssueId.Text), advisorVo.advisorId);
+                    //txtSequence.Text = SeqNo.ToString();
                     BindFrequency(ddlInterestFrequency);
 
                 }
@@ -2405,6 +2421,8 @@ namespace WealthERP.OnlineOrderBackOffice
                     CheckBox chkredemptiondate = (CheckBox)e.Item.FindControl("chkredemptiondate");
                     CheckBox chkLockinperiod = (CheckBox)e.Item.FindControl("chkLockinperiod");
                     TextBox txtSequence = (TextBox)e.Item.FindControl("txtSequence");
+                   
+
                     DropDownList ddlInterestType = (DropDownList)e.Item.FindControl("ddlInterestType");
 
                     RadGrid rgSeriesCat = (RadGrid)editform.FindControl("rgSeriesCat");

@@ -1424,7 +1424,7 @@
                                                                             <asp:Label ID="lblSubCategoryCode" runat="server" Text="Sub Category Code"></asp:Label>
                                                                         </HeaderTemplate>
                                                                         <ItemTemplate>
-                                                                            <asp:TextBox ID="txtSubCategoryCode" runat="server" CssClass="txtField" Width="55px"></asp:TextBox>
+                                                                            <asp:TextBox ID="txtSubCategoryCode" runat="server" CssClass="txtField" Width="55px"  ></asp:TextBox>
                                                                         </ItemTemplate>
                                                                     </telerik:GridTemplateColumn>
                                                                     <telerik:GridTemplateColumn HeaderText="Sub Category" ShowFilterIcon="false" AllowFiltering="false"
@@ -1568,6 +1568,14 @@
                                             AllowFiltering="true">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
+                                        
+                                         <telerik:GridBoundColumn DataField="AID_Sequence" HeaderStyle-Width="100px"
+                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                            HeaderText="Series Name" UniqueName="AID_Sequence" SortExpression="AID_Sequence"
+                                            AllowFiltering="true">
+                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                        </telerik:GridBoundColumn>
+                                        
                                         <telerik:GridBoundColumn DataField="AID_Tenure" HeaderStyle-Width="100px" CurrentFilterFunction="Contains"
                                             ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Tenure" UniqueName="AID_Tenure"
                                             SortExpression="AID_Tenure" AllowFiltering="true">
@@ -1699,8 +1707,14 @@
                                                         <asp:Label ID="Label5" runat="server" Text="Sequence:" CssClass="FieldName"></asp:Label>
                                                         <%--  </td>
                                                     <td class="rightData" >--%>
-                                                        <asp:TextBox ID="txtSequence" runat="server" CssClass="txtField" Enabled="false"
+                                                        <asp:TextBox ID="txtSequence" runat="server" CssClass="txtField" Enabled="true"
                                                             Width="80px"></asp:TextBox>
+                                                            <span id="Span32" class="spnRequiredField">*</span>
+                                                        <br />
+                                                             <asp:RequiredFieldValidator ID="reqSequence" runat="server" CssClass="rfvPCG"
+                                                            ErrorMessage="Please Enter Interest Type" Display="Dynamic" ControlToValidate="txtSequence"
+                                                            ValidationGroup="btnOK" InitialValue="">
+                                                        </asp:RequiredFieldValidator>
                                                     </td>
                                                     <td>
                                                         &nbsp;

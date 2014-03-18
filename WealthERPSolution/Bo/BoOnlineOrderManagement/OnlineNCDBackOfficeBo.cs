@@ -138,12 +138,12 @@ namespace BoOnlineOrderManagement
                 throw exBase;
             }
         }
-        public int ChekSeriesSequence(int seqNo, int issueId, int adviserId)
+        public int ChekSeriesSequence(int seqNo, int issueId, int adviserId, int seriesId)
         {
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
             try
             {
-                return onlineNCDBackOfficeDao.ChekSeriesSequence(seqNo, issueId, adviserId);
+                return onlineNCDBackOfficeDao.ChekSeriesSequence(seqNo, issueId, adviserId, seriesId);
             }
             catch (BaseApplicationException Ex)
             {

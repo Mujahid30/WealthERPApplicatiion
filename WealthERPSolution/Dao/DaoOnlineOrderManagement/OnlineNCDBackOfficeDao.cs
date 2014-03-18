@@ -231,24 +231,23 @@ namespace DaoOnlineOrderManagement
             }
             return DupseqNo;
         }
-        public int ChekSeriesSequence(int seqNo, int issueId, int adviserId)
+        public int ChekSeriesSequence(int seqNo, int issueId, int adviserId, int seriesId)
         {
             Database db;
             DbCommand dbCommand;
-            int DupseqNo = 0;
+            int IsseqNoExist = 0;
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 dbCommand = db.GetStoredProcCommand("SPROC_ChekSeriesSequence");
                 db.AddInParameter(dbCommand, "@SequenceNo", DbType.Int32, seqNo);
                 db.AddInParameter(dbCommand, "@AdviserId", DbType.Int32, adviserId);
-                db.AddInParameter(dbCommand, "@IssueId", DbType.Int32, adviserId);
+                db.AddInParameter(dbCommand, "@IssueId", DbType.Int32, issueId);
+                db.AddInParameter(dbCommand, "@seriesId", DbType.Int32, seriesId);
 
-                DupseqNo = Convert.ToInt32(db.ExecuteScalar(dbCommand).ToString());
-                //if (db.ExecuteNonQuery(dbCommand) != 0)
-                //{
-                //    seqNo = Convert.ToInt32(db.GetParameterValue(dbCommand, "CO_OrderId").ToString());
-                //}
+                if(db.ExecuteScalar(dbCommand)!=null)
+                    IsseqNoExist = Convert.ToInt32(db.ExecuteScalar(dbCommand).ToString());
+                
 
             }
             catch (BaseApplicationException Ex)
@@ -268,7 +267,7 @@ namespace DaoOnlineOrderManagement
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-            return DupseqNo;
+            return IsseqNoExist;
         }
         public DataSet GetAdviserIssueList(DateTime date, int type, string product, int adviserId)
         {
