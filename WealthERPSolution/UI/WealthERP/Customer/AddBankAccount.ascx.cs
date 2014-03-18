@@ -187,7 +187,7 @@ namespace WealthERP.Customer
             //ddlModeofOperation.SelectedValue = "SI";
             ddlModeofOperation.Items.Insert(0, new ListItem("--SELECT--", "0"));
         }
-        //public void BindState()
+//sr     //public void BindState()
         //{
         //    DataTable dtBankState;
         //    dtBankState = commonLookupBo.GetWERPLookupMasterValueList(9000, 0);
@@ -198,8 +198,7 @@ namespace WealthERP.Customer
         //    ddlBankAdrState.Items.Insert(0, new ListItem("--SELECT--", "0"));
 
         //}
-
-        //public void BindCountry()
+//sr        //public void BindCountry()
         //{
         //      DataTable dtBankCountry;
         //    dtBankCountry = commonLookupBo.GetWERPLookupMasterValueList(13000, 0);
@@ -212,7 +211,7 @@ namespace WealthERP.Customer
         //}
 
 
-        //public void BindCity()
+//sr        //public void BindCity()
         //{
         //    DataTable dtBankCity;
         //    dtBankCity = commonLookupBo.GetWERPLookupMasterValueList(8000, 0);
@@ -531,7 +530,7 @@ namespace WealthERP.Customer
             //if (ddlBankAdrCountry.SelectedIndex != 0)
             //    customerBankAccountVo.BranchAddCountryId = int.Parse(ddlBankAdrCountry.SelectedValue.ToString());
 
-            customerBankAccountVo.IFSC = txtMicr.Text.ToString();
+            customerBankAccountVo.MICR = txtMicr.Text.ToString();
             customerBankAccountVo.IFSC = txtIfsc.Text.ToString();
             //if (txtMicr.Text.ToString() != "")
             //    customerBankAccountVo.MICR = int.Parse(txtMicr.Text.ToString());
@@ -930,9 +929,15 @@ namespace WealthERP.Customer
             //}
             //else
             //    ddlBankAdrState.SelectedValue = "Select";
-
+            if (!string.IsNullOrEmpty(customerBankAccountVo.MICR.ToString()))
+            {
             txtMicr.Text = customerBankAccountVo.MICR.ToString();
-            txtIfsc.Text = customerBankAccountVo.IFSC;
+            }
+            else
+            {
+             txtMicr.Text="";
+            }
+                txtIfsc.Text = customerBankAccountVo.IFSC;
 
             DataSet ds = new DataSet();
             ds = dsCustomerAssociates = customerAccountBo.GetCustomerAssociatedRelForCashAndSavings(customerBankAccountVo.CustBankAccId, strVisibility);
