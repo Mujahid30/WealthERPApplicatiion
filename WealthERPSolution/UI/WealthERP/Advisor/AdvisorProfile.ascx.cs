@@ -57,19 +57,21 @@ namespace WealthERP.Advisor
 
                 //if (advisorVo.Website ==null || advisorVo.Website == strin )
                 //{
-                //    lblwsite.Text = "";
+                //    lblwsite.Text = ""; if (!String.IsNullOrEmpty(advisorVo.Website) && advisorVo.Website.Substring(0, 7) != "http://")
+                //lblwsite.NavigateUrl = "http://" + advisorVo.Website.ToString();
                 //}
                 //else
                 if (advisorVo.Website != null)
                 {
                     lblwsite.Text = advisorVo.Website.ToString();
-                    if (!String.IsNullOrEmpty(advisorVo.Website) && advisorVo.Website.Substring(0, 7) != "http://")
-                        lblwsite.NavigateUrl = "http://" + advisorVo.Website.ToString();
-                    else
-                        lblwsite.NavigateUrl = advisorVo.Website.ToString();
+                    
                 }
+                if (!String.IsNullOrEmpty(advisorVo.Website))
+                    lblwsite.NavigateUrl = "http://" + advisorVo.Website.ToString();
+                else
+                    lblwsite.NavigateUrl = advisorVo.Website.ToString();
                 if(advisorVo.MobileNumber!=0)
-                    lblMobile.Text = advisorVo.MobileNumber.ToString();
+                    lblMobile.Text = advisorVo.MobileNumber.ToString(); 
 
                 lblOrgName.Text = advisorVo.OrganizationName.ToString();
 

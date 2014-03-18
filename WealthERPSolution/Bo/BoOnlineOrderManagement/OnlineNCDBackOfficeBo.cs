@@ -1430,18 +1430,18 @@ namespace BoOnlineOrderManagement
                 else if (extractStepCode == "UB")
                 {
 
-                    //string scriptId = dtCheckOrder.Rows[0][0].ToString();
-                    //int scriptissueid = daoOnlNcdBackOff.GetScriptId(scriptId, adviserid);
-                    //if (scriptissueid == issueId)
-                    //{
+                    string scriptId = dtCheckOrder.Rows[0][0].ToString();
+                    int scriptissueid = daoOnlNcdBackOff.GetScriptId(scriptId, adviserid);
+                    if (scriptissueid == issueId)
+                    {
                         if (dtCheckOrder.Columns.Contains("Error Text"))
                             dtCheckOrder.Columns.RemoveAt(3);
                         nRows = daoOnlNcdBackOff.UploadBidSuccessData(dtCheckOrder, issueId);
-                    //}
-                    //else
-                    //{
-                    //    isEligbleIssue = "NotEligble";
-                    //}
+                    }
+                    else
+                    {
+                        isEligbleIssue = "NotEligble";
+                    }
                 }
 
             }

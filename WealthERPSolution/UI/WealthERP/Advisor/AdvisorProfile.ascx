@@ -74,7 +74,7 @@
             <asp:Label ID="lblLine1" runat="server" CssClass="FieldName" Text="Line1 (House No/ Building) :"></asp:Label>
         </td>
         <td class="rightField">
-            <asp:Label ID="lblLine_1" runat="server" Text="" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="lblLine_1" runat="server" Text="" CssClass="Field"></asp:Label>
         </td>
         <td>
         </td>

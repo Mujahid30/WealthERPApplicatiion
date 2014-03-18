@@ -2399,12 +2399,11 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(cmdGetScriptId, "@Scriptid", DbType.String, scriptid);
                 db.AddInParameter(cmdGetScriptId, "@adviserid", DbType.Int32, adviserid);
                 db.AddOutParameter(cmdGetScriptId, "@issueid", DbType.Int32, 0);
+                
+                if(db.ExecuteScalar(cmdGetScriptId) !=null)
+                issueid = Convert.ToInt32(db.ExecuteScalar(cmdGetScriptId).ToString());
 
-                ds = db.ExecuteDataSet(cmdGetScriptId);
-                if (db.ExecuteNonQuery(cmdGetScriptId) != 0)
-                {
-                    issueid = Convert.ToInt32(db.GetParameterValue(cmdGetScriptId, "issueid").ToString());
-                }
+              
             }
             catch (BaseApplicationException Ex)
             {
