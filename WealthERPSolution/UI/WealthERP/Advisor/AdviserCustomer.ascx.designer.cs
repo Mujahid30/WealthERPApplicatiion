@@ -345,5 +345,25 @@ namespace WealthERP.Advisor {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnIsSubscripted;
+        protected global::System.Web.UI.WebControls.HiddenField hdnIsMFKYC;
+        protected global::System.Web.UI.WebControls.HiddenField hdnIsActive;
+        protected global::System.Web.UI.WebControls.HiddenField hdnIsProspect;
+        protected global::System.Web.UI.WebControls.HiddenField hdnCategory;
+        protected global::System.Web.UI.WebControls.HiddenField hdnSystemId;
+        protected global::System.Web.UI.WebControls.HiddenField hdnClientId;
+        protected global::System.Web.UI.WebControls.HiddenField hdnName;
+        protected global::System.Web.UI.WebControls.HiddenField hdnGroup;
+        protected global::System.Web.UI.WebControls.HiddenField hdnPAN;
+        protected global::System.Web.UI.WebControls.HiddenField hdnBranch;
+        protected global::System.Web.UI.WebControls.HiddenField hdnArea;
+        protected global::System.Web.UI.WebControls.HiddenField hdnCity;
+        protected global::System.Web.UI.WebControls.HiddenField hdnProcessId;
+        protected global::System.Web.UI.WebControls.HiddenField hdnSystemAddDate;
+        protected global::System.Web.UI.WebControls.HiddenField hdncustomerCategoryFilter;
+        protected global::System.Web.UI.WebControls.HiddenField hdncustomerFilter;
+        protected global::System.Web.UI.WebControls.HiddenField hdnPincode;
+        protected global::System.Web.UI.WebControls.HiddenField hdnParentFilter;
+
+       
     }
 }

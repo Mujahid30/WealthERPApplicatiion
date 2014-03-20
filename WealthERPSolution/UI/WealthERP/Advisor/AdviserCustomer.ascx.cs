@@ -44,6 +44,7 @@ namespace WealthERP.Advisor
         static Dictionary<string, string> genDictParent;
         static Dictionary<string, string> genDictRM;
         static Dictionary<string, string> genDictReassignRM;
+        int RowCount = 0;
         SuperAdminOpsBo superAdminOpsBo = new SuperAdminOpsBo();
         CustomerPortfolioVo customerPortfolioVo = new CustomerPortfolioVo();
         PortfolioBo portfolioBo = new PortfolioBo();
@@ -190,7 +191,7 @@ namespace WealthERP.Advisor
       
         protected void ddlCOption_SelectedIndexChanged(object sender, EventArgs e)
         {
-            tdcustomerlist.Visible = false;
+            clearControls();
             if (ddlCOption.SelectedValue == "Name")
             {
                 tdtxtCustomerName.Visible = true;
@@ -230,16 +231,24 @@ namespace WealthERP.Advisor
         {
                 
                 BindCustomerGrid();
-                BindGrid();
+               // BindGrid();
                 tdcustomerlist.Visible = true;
+                //txtCustomerId.Value = string.Empty;
         }
         private string GetSelectedFilterValue()
         {
+            
             string FilterOn;
             if (ddlCOption.SelectedValue == "Name" || ddlCOption.SelectedValue == "Panno" || ddlCOption.SelectedValue == "Clientcode")
+            {
                 FilterOn = "customer";
+
+            }
             else
+            {
                 FilterOn = ddlCOption.SelectedValue;
+                txtCustomerId.Value = string.Empty;
+            }
             
 
             return FilterOn;
@@ -348,180 +357,19 @@ namespace WealthERP.Advisor
         protected void BindCustomerGrid()
         {
             AdvisorBo adviserBo = new AdvisorBo();
-            List<CustomerVo> customerList = new List<CustomerVo>();
+            //List<CustomerVo> customerList = new List<CustomerVo>();
+            DataTable dtcustomerList = new DataTable();
             RMVo customerRMVo = new RMVo();
-            try
-            {
-               
-                customerList = adviserBo.GetStaffUserCustomerList(adviserId, rmId, AgentId, UserRole, branchHeadId, AgentCode,GetSelectedFilterValue(),(!string.IsNullOrEmpty(txtCustomerId.Value))? int.Parse(txtCustomerId.Value):0, out genDictParent, out genDictRM, out genDictReassignRM);
-                if (customerList == null)
-                {
-                    DivCustomerList.Visible = false;
-                    gvCustomerList.Visible = false;
-                    imgexportButton.Visible = false;
-                    //  pnlCustomerList.Visible = false;
-                    ErrorMessage.Visible = true;
-
-                }
-                else
-                {
-                    DataTable dtCustomerList = CreateCustomeListTable(UserRole);
-                    HideCustomerGridColumn(UserRole);
-                    DataRow drCustomer;
-                    for (int i = 0; i < customerList.Count; i++)
-                    {
-                        drCustomer = dtCustomerList.NewRow();
-                        customerVo = new CustomerVo();
-                        customerVo = customerList[i];
-                        drCustomer["CustomerId"] = customerVo.CustomerId.ToString();
-                        drCustomer["ParentId"] = customerVo.ParentId.ToString();
-                        if (customerVo.ProcessId == 0)
-                        {
-                            drCustomer["ADUL_ProcessId"] = "N/A";
-                        }
-                        else
-                            drCustomer["ADUL_ProcessId"] = customerVo.ProcessId.ToString();
-                        if (customerVo.ACC_CustomerCategoryName == null)
-                        {
-                            drCustomer["ACC_CustomerCategoryName"] = "N/A";
-                        }
-                        else
-                            drCustomer["ACC_CustomerCategoryName"] = customerVo.ACC_CustomerCategoryName.ToString();
-                        drCustomer["UserId"] = customerVo.UserId.ToString();
-                        drCustomer["RMId"] = customerVo.RmId.ToString();
-                        if (customerVo.ParentCustomer != null)
-                        {
-                            drCustomer["Group"] = customerVo.ParentCustomer.ToString();
-                        }
-                        drCustomer["Cust_Comp_Name"] = cleanCustomerName(customerVo.FirstName.ToString() + " " + customerVo.MiddleName.ToString() + " " + customerVo.LastName.ToString());
-                        if (customerVo.PANNum != null)
-                            drCustomer["PANNumber"] = customerVo.PANNum.ToString();
-                        else
-                            drCustomer["PANNumber"] = "";
-                        drCustomer["MobileNumber"] = customerVo.Mobile1.ToString();
-                        drCustomer["PhoneNumber"] = customerVo.ResISDCode.ToString() + "-" + customerVo.ResSTDCode.ToString() + "-" + customerVo.ResPhoneNum.ToString();
-                        drCustomer["Email"] = customerVo.Email.ToString();
-                        if (customerVo.Adr1Line1 == null)
-                            customerVo.Adr1Line1 = "";
-                        if (customerVo.Adr1Line2 == null)
-                            customerVo.Adr1Line2 = "";
-                        if (customerVo.Adr1Line3 == null)
-                            customerVo.Adr1Line3 = "";
-                        if (customerVo.Adr1City == null)
-                            customerVo.Adr1City = "";
-                        if (customerVo.Adr1Line1.ToString() == "" && customerVo.Adr1Line2.ToString() == "")
-                            drCustomer["Address"] = "-";
-                        else if (customerVo.Adr1Line1.ToString() == "" && customerVo.Adr1Line2.ToString() != "")
-                            drCustomer["Address"] = customerVo.Adr1Line2.ToString();
-                        else if (customerVo.Adr1Line1.ToString() != "" && customerVo.Adr1Line2.ToString() == "")
-                            drCustomer["Address"] = customerVo.Adr1Line1.ToString();
-                        else
-                            drCustomer["Address"] = customerVo.Adr1Line1.ToString() + "," + customerVo.Adr1Line2.ToString();
-                        drCustomer["Area"] = customerVo.Adr1Line3.ToString();
-                        drCustomer["City"] = customerVo.Adr1City.ToString();
-                        drCustomer["Pincode"] = customerVo.Adr1PinCode.ToString();
-                        if (UserRole != "rm")
-                        {
-                            if (customerVo.AssignedRM != null)
-                                drCustomer["AssignedRM"] = customerVo.AssignedRM.ToString();
-                            else
-                                drCustomer["AssignedRM"] = "";
-                        }
-
-                        if (customerVo.IsActive == 1)
-                        {
-                            drCustomer["IsActive"] = "Active";
-                        }
-                        else
-                        {
-                            drCustomer["IsActive"] = "In Active";
-
-                        }
-                        if (customerVo.IsProspect == 1)
-                        {
-                            drCustomer["IsProspect"] = "Yes";
-                        }
-                        else
-                        {
-                            drCustomer["IsProspect"] = "No";
-                        }
-                        if (customerVo.IsFPClient == 1)
-                        {
-                            drCustomer["IsFPClient"] = "Yes";
-                        }
-                        else
-                        {
-                            drCustomer["IsFPClient"] = "No";
-                        }
-
-                        if (customerVo.MfKYC == 1)
-                        {
-                            drCustomer["IsMFKYC"] = "Y";
-                        }
-                        else
-                        {
-                            drCustomer["IsMFKYC"] = "N";
-                        }
-                        if (customerVo.Createdon != null)
-                       
-                            drCustomer["CreatedOn"] = customerVo.Createdon;
-                        
-                       
-
-                        if (UserRole != "rm")
-                        {
-                            drCustomer["BranchName"] = customerVo.BranchName;
-                        }
-                        if (customerVo.CustCode != null)
-                            drCustomer["custcode"] = customerVo.CustCode.ToString();
-                        else
-                            drCustomer["custcode"] = "";
-                        dtCustomerList.Rows.Add(drCustomer);
-
-                    }
-                    if (Cache["CustomerList+UserRole" + adviserVo.advisorId + UserRole] == null)
-                    {
-                        Cache.Insert("CustomerList+UserRole" + adviserVo.advisorId + UserRole, dtCustomerList);
-                    }
-                    else
-                    {
-                        Cache.Remove("CustomerList+UserRole" + adviserVo.advisorId + UserRole);
-                        Cache.Insert("CustomerList+UserRole" + adviserVo.advisorId + UserRole, dtCustomerList);
-                    }
-                    gvCustomerList.DataSource = dtCustomerList;
-                    if (advisorPrefernceVo != null)
-                    {
-                        gvCustomerList.PageSize = advisorPrefernceVo.GridPageSize;
-                    }
-                    else
-                    { gvCustomerList.PageSize = 40; }
-                    gvCustomerList.DataBind();
-                    DivCustomerList.Visible = true;
-                    gvCustomerList.Visible = true;
-                    // pnlCustomerList.Visible = true;
-                    imgexportButton.Visible = true;
-                    ErrorMessage.Visible = false;
-                }
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "AdviserCustomer.ascx.cs:BindCustomerGrid()");
-                object[] objects = new object[4];
-                objects[0] = user;
-                objects[1] = rmId;
-                objects[2] = customerVo;
-                objects[3] = customerList;
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
+            dtcustomerList = BindOnDemamd(adviserId, rmId, AgentId, UserRole, branchHeadId, AgentCode, GetSelectedFilterValue(), (!string.IsNullOrEmpty(txtCustomerId.Value)) ? int.Parse(txtCustomerId.Value) : 0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, gvCustomerList.PageSize, gvCustomerList.CurrentPageIndex + 1, out genDictParent, out genDictRM, out genDictReassignRM, out RowCount);
+            gvCustomerList.DataSource = dtcustomerList;
+            gvCustomerList.VirtualItemCount = RowCount;
+            gvCustomerList.DataBind();
+            DivCustomerList.Visible = true;
+            gvCustomerList.Visible = true;
+            // pnlCustomerList.Visible = true;
+            imgexportButton.Visible = true;
+            ErrorMessage.Visible = false;
+            
         }
 
         /// <summary>
@@ -542,7 +390,7 @@ namespace WealthERP.Advisor
                         customer = string.Empty;
                 }
 
-                customerList = adviserBo.GetStaffUserCustomerList(adviserVo.advisorId, rmId, AgentId, UserRole, branchHeadId, AgentCode, GetSelectedFilterValue(), (!string.IsNullOrEmpty(txtCustomerId.Value)) ? int.Parse(txtCustomerId.Value) : 0, out genDictParent, out genDictRM, out genDictReassignRM);
+                //customerList = adviserBo.GetStaffUserCustomerList(adviserVo.advisorId, rmId, AgentId, UserRole, branchHeadId, AgentCode, GetSelectedFilterValue(), (!string.IsNullOrEmpty(txtCustomerId.Value)) ? int.Parse(txtCustomerId.Value) : 0, out genDictParent, out genDictRM, out genDictReassignRM);
 
                 if (customerList == null)
                 {
@@ -720,14 +568,14 @@ namespace WealthERP.Advisor
         protected void gvCustomerList_ItemDataBound(object sender, GridItemEventArgs e)
         {
             if (e.Item is GridFilteringItem && e.Item.ItemIndex == -1) {
-                GridFilteringItem filterItem = (GridFilteringItem)e.Item;
-                RadComboBox RadComboRM = (RadComboBox)filterItem.FindControl("RadComboRM");
+                //GridFilteringItem filterItem = (GridFilteringItem)e.Item;
+                //RadComboBox RadComboRM = (RadComboBox)filterItem.FindControl("RadComboRM");
 
-                DataView view = new DataView();
-                RadComboRM.DataSource = genDictRM;
-                RadComboRM.DataTextField = "Value";
-                RadComboRM.DataValueField = "Key";
-                RadComboRM.DataBind();
+                //DataView view = new DataView();
+                //RadComboRM.DataSource = genDictRM;
+                //RadComboRM.DataTextField = "Value";
+                //RadComboRM.DataValueField = "Key";
+                //RadComboRM.DataBind();
             }
 
             if (userVo.UserType == "Advisor") { return; }
@@ -736,197 +584,42 @@ namespace WealthERP.Advisor
 
         protected void gvCustomerList_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
-
-            DataView dvcustomerList = new DataView();
+            
+            AdvisorBo adviserBo = new AdvisorBo();
+            List<CustomerVo> customerList = new List<CustomerVo>();
+            RMVo customerRMVo = new RMVo();
+            DataTable dtcustomerList = new DataTable();
             string prospectType = string.Empty;
             string statustype = string.Empty;
-            string parentType = string.Empty;
             string rmType = string.Empty;
-            DataTable dtCustomer = new DataTable();
-            dtCustomer = (DataTable)Cache["CustomerList+UserRole" + adviserVo.advisorId + UserRole];
-
-            if (dtCustomer != null)
+            try
             {
-
-                if (ViewState["IsActive"] != null)
-                    statustype = ViewState["IsActive"].ToString();
-                if (ViewState["IsProspect"] != null)
-                    prospectType = ViewState["IsProspect"].ToString();
-                #region dependency code of group filter and other filter but not use
-                //if (ViewState["ParentId"] != null)
-                //    parentType = ViewState["ParentId"].ToString();
-                #endregion
-                if (ViewState["RMId"] != null)
-                    rmType = ViewState["RMId"].ToString();
-
-                if (UserRole != "rm")
-                {
-                    if ((!string.IsNullOrEmpty(statustype)) && (string.IsNullOrEmpty(prospectType)) && (string.IsNullOrEmpty(rmType)))
-                    {
-                        dvcustomerList = new DataView(dtCustomer, "IsActive = '" + statustype + "'", "CustomerId,ACC_CustomerCategoryName,Cust_Comp_Name,ParentId,PANNumber,BranchName,RMId,Area,Pincode,City,ADUL_ProcessId,IsProspect", DataViewRowState.CurrentRows);
-                        gvCustomerList.DataSource = dvcustomerList.ToTable();
-                        //if (dvcustomerList.Count > 10)
-                        //    pnlCustomerList.Style.Add("Height", "410px");
-                        //else
-                        //    pnlCustomerList.Style.Remove("Height");
-
-                    }
-                    else if ((string.IsNullOrEmpty(statustype)) && (!string.IsNullOrEmpty(prospectType)) && (string.IsNullOrEmpty(rmType)))
-                    {
-                        dvcustomerList = new DataView(dtCustomer, "IsProspect = '" + prospectType + "'", "CustomerId,ACC_CustomerCategoryName,Cust_Comp_Name,ParentId,PANNumber,BranchName,RMId,Area,Pincode,City,ADUL_ProcessId,IsActive", DataViewRowState.CurrentRows);
-                        gvCustomerList.DataSource = dvcustomerList.ToTable();
-                        //if (dvcustomerList.Count > 10)
-                        //    pnlCustomerList.Style.Add("Height", "410px");
-                        //else
-                        //    pnlCustomerList.Style.Remove("Height");
-
-                    }
-                    #region dependency code of group filter and other filter but not use
-                    //else if ((string.IsNullOrEmpty(statustype)) && (string.IsNullOrEmpty(prospectType)) && (!string.IsNullOrEmpty(parentType)) && (string.IsNullOrEmpty(rmType)))
-                    //{
-                    //    dvcustomerList = new DataView(dtCustomer, "ParentId = '" + parentType + "'", "CustomerId,Cust_Comp_Name,PANNumber,BranchName,RMId,Area,Pincode,City,ADUL_ProcessId,IsProspect,IsActive", DataViewRowState.CurrentRows);
-                    //    gvCustomerList.DataSource = dvcustomerList.ToTable();
-                    //}
-                    #endregion
-                    else if ((string.IsNullOrEmpty(statustype)) && (string.IsNullOrEmpty(prospectType)) && (!string.IsNullOrEmpty(rmType)))
-                    {
-                        dvcustomerList = new DataView(dtCustomer, "RMId = '" + rmType + "'", "CustomerId,ACC_CustomerCategoryName,Cust_Comp_Name,ParentId,PANNumber,BranchName,Area,Pincode,City,ADUL_ProcessId,IsProspect,IsActive", DataViewRowState.CurrentRows);
-                        gvCustomerList.DataSource = dvcustomerList.ToTable();
-
-                        //if (dvcustomerList.Count > 10)
-                        //    pnlCustomerList.Style.Add("Height", "410px");
-                        //else
-                        //    pnlCustomerList.Style.Remove("Height");
-
-
-                    }
-                    else if ((!string.IsNullOrEmpty(statustype)) && (!string.IsNullOrEmpty(prospectType)) && (string.IsNullOrEmpty(rmType)))
-                    {
-                        dvcustomerList = new DataView(dtCustomer, "IsProspect = '" + prospectType + "'and IsActive= '" + statustype + "'", "CustomerId,ACC_CustomerCategoryName,Cust_Comp_Name,ParentId,PANNumber,BranchName,RMId,Area,Pincode,City,ADUL_ProcessId", DataViewRowState.CurrentRows);
-                        gvCustomerList.DataSource = dvcustomerList.ToTable();
-                    }
-                    #region dependency code of group filter and other filter but not use
-                    //else if ((string.IsNullOrEmpty(statustype)) && (!string.IsNullOrEmpty(prospectType)) && (!string.IsNullOrEmpty(parentType)) && (string.IsNullOrEmpty(rmType)))
-                    //{
-                    //    dvcustomerList = new DataView(dtCustomer, "IsProspect = '" + prospectType + "'and ParentId= '" + parentType + "'", "CustomerId,Cust_Comp_Name,ParentId,PANNumber,BranchName,RMId,Area,Pincode,City,ADUL_ProcessId,IsActive", DataViewRowState.CurrentRows);
-                    //    gvCustomerList.DataSource = dvcustomerList.ToTable();
-                    //}
-                    //else if ((!string.IsNullOrEmpty(statustype)) && (string.IsNullOrEmpty(prospectType)) && (!string.IsNullOrEmpty(parentType)) && (string.IsNullOrEmpty(rmType)))
-                    //{
-                    //    dvcustomerList = new DataView(dtCustomer, "IsActive = '" + statustype + "'and ParentId= '" + parentType + "'", "CustomerId,Cust_Comp_Name,ParentId,PANNumber,BranchName,RMId,Area,Pincode,City,ADUL_ProcessId,IsProspect", DataViewRowState.CurrentRows);
-                    //    gvCustomerList.DataSource = dvcustomerList.ToTable();
-                    //}
-                    //else if ((string.IsNullOrEmpty(statustype)) && (string.IsNullOrEmpty(prospectType)) && (!string.IsNullOrEmpty(parentType)) && (!string.IsNullOrEmpty(rmType)))
-                    //{
-                    //    dvcustomerList = new DataView(dtCustomer, "ParentId = '" + parentType + "'and RMId= '" + rmType + "'", "CustomerId,Cust_Comp_Name,PANNumber,BranchName,Area,Pincode,City,ADUL_ProcessId,IsProspect,IsActive", DataViewRowState.CurrentRows);
-                    //    gvCustomerList.DataSource = dvcustomerList.ToTable();
-                    //}
-                    //else if ((!string.IsNullOrEmpty(statustype)) && (!string.IsNullOrEmpty(prospectType)) && (!string.IsNullOrEmpty(parentType)) && (string.IsNullOrEmpty(rmType)))
-                    //{
-                    //    dvcustomerList = new DataView(dtCustomer, "IsProspect = '" + prospectType + "'and IsActive= '" + statustype + "'", "CustomerId,Cust_Comp_Name,ParentId,PANNumber,BranchName,RMId,Area,Pincode,City,ADUL_ProcessId", DataViewRowState.CurrentRows);
-                    //    gvCustomerList.DataSource = dvcustomerList.ToTable();
-                    //}
-                    //else if ((!string.IsNullOrEmpty(statustype)) && (!string.IsNullOrEmpty(prospectType)) && (!string.IsNullOrEmpty(parentType)) && (string.IsNullOrEmpty(rmType)))
-                    //{
-                    //    dvcustomerList = new DataView(dtCustomer, "IsProspect = '" + prospectType + "'and IsActive= '" + statustype + "'and ParentId = '" + parentType + "'", "CustomerId,Cust_Comp_Name,PANNumber,BranchName,RMId,Area,Pincode,City,ADUL_ProcessId", DataViewRowState.CurrentRows);
-                    //    gvCustomerList.DataSource = dvcustomerList.ToTable();
-                    //}
-                    #endregion
-                    else if ((!string.IsNullOrEmpty(statustype)) && (string.IsNullOrEmpty(prospectType)) && (!string.IsNullOrEmpty(rmType)))
-                    {
-                        dvcustomerList = new DataView(dtCustomer, "IsActive= '" + statustype + "'and RMId = '" + rmType + "'", "CustomerId,ACC_CustomerCategoryName,Cust_Comp_Name,ParentId,PANNumber,BranchName,Area,Pincode,City,ADUL_ProcessId", DataViewRowState.CurrentRows);
-                        gvCustomerList.DataSource = dvcustomerList.ToTable();
-                    }
-                    #region dependency code of group filter and other filter but not use
-                    //else if ((!string.IsNullOrEmpty(statustype)) && (string.IsNullOrEmpty(prospectType)) && (!string.IsNullOrEmpty(parentType)) && (!string.IsNullOrEmpty(rmType)))
-                    //{
-                    //    dvcustomerList = new DataView(dtCustomer, "RMId = '" + rmType + "'and IsActive= '" + statustype + "'and ParentId = '" + parentType + "'", "CustomerId,Cust_Comp_Name,PANNumber,BranchName,Area,Pincode,City,ADUL_ProcessId,IsProspect", DataViewRowState.CurrentRows);
-                    //    gvCustomerList.DataSource = dvcustomerList.ToTable();
-                    //}
-                    #endregion
-                    else if ((string.IsNullOrEmpty(statustype)) && (!string.IsNullOrEmpty(prospectType)) && (!string.IsNullOrEmpty(rmType)))
-                    {
-                        dvcustomerList = new DataView(dtCustomer, "IsProspect = '" + prospectType + "'and RMId = '" + rmType + "'", "CustomerId,ACC_CustomerCategoryName,Cust_Comp_Name,ParentId,PANNumber,BranchName,Area,Pincode,City,ADUL_ProcessId,IsActive", DataViewRowState.CurrentRows);
-                        gvCustomerList.DataSource = dvcustomerList.ToTable();
-
-                    }
-                    else if ((!string.IsNullOrEmpty(statustype)) && (!string.IsNullOrEmpty(prospectType)) && (!string.IsNullOrEmpty(rmType)))
-                    {
-                        dvcustomerList = new DataView(dtCustomer, "IsActive= '" + statustype + "' and IsProspect = '" + prospectType + "'and RMId = '" + rmType + "'", "CustomerId,ACC_CustomerCategoryName,Cust_Comp_Name,ParentId,PANNumber,BranchName,Area,Pincode,City,ADUL_ProcessId", DataViewRowState.CurrentRows);
-                        gvCustomerList.DataSource = dvcustomerList.ToTable();
-                    }
-                    else
-                    {
-                        gvCustomerList.DataSource = dtCustomer;
-                        //if (dtCustomer.Rows.Count> 10)
-                        //pnlCustomerList.Style.Add("Height", "410px");                             
-                        //else
-                        //pnlCustomerList.Style.Remove("Height");
-
-                    }
-                }
-                else
-                {
-                    if ((!string.IsNullOrEmpty(statustype)) && (string.IsNullOrEmpty(prospectType)))
-                    {
-                        dvcustomerList = new DataView(dtCustomer, "IsActive = '" + statustype + "'", "CustomerId,ACC_CustomerCategoryName,Cust_Comp_Name,ParentId,PANNumber,Area,Pincode,City,ADUL_ProcessId,IsProspect", DataViewRowState.CurrentRows);
-                        gvCustomerList.DataSource = dvcustomerList.ToTable();
-                        //if (dvcustomerList.Count > 10)
-                        //    pnlCustomerList.Style.Add("Height", "410px");
-                        //else
-                        //    pnlCustomerList.Style.Remove("Height");
-
-                    }
-                    else if ((string.IsNullOrEmpty(statustype)) && (!string.IsNullOrEmpty(prospectType)))
-                    {
-                        dvcustomerList = new DataView(dtCustomer, "IsProspect = '" + prospectType + "'", "CustomerId,ACC_CustomerCategoryName,Cust_Comp_Name,ParentId,PANNumber,Area,Pincode,City,ADUL_ProcessId,IsActive", DataViewRowState.CurrentRows);
-                        gvCustomerList.DataSource = dvcustomerList.ToTable();
-                        //if (dvcustomerList.Count > 10)
-                        //    pnlCustomerList.Style.Add("Height", "410px");
-                        //else
-                        //    pnlCustomerList.Style.Remove("Height");
-
-                    }
-                    #region dependency code of group filter and other filter but not use
-                    //else if ((string.IsNullOrEmpty(statustype)) && (string.IsNullOrEmpty(prospectType)) && (!string.IsNullOrEmpty(parentType)))
-                    //{
-                    //    dvcustomerList = new DataView(dtCustomer, "ParentId = '" + parentType + "'", "CustomerId,Cust_Comp_Name,PANNumber,Area,Pincode,City,ADUL_ProcessId,IsProspect,IsActive", DataViewRowState.CurrentRows);
-                    //    gvCustomerList.DataSource = dvcustomerList.ToTable();
-                    //}
-                    #endregion
-                    else if ((!string.IsNullOrEmpty(statustype)) && (!string.IsNullOrEmpty(prospectType)))
-                    {
-                        dvcustomerList = new DataView(dtCustomer, "IsProspect = '" + prospectType + "'and IsActive= '" + statustype + "'", "CustomerId,ACC_CustomerCategoryName,Cust_Comp_Name,ParentId,PANNumber,Area,Pincode,City,ADUL_ProcessId", DataViewRowState.CurrentRows);
-                        gvCustomerList.DataSource = dvcustomerList.ToTable();
-                    }
-                    #region dependency code of group filter and other filter but not use
-                    //else if ((string.IsNullOrEmpty(statustype)) && (!string.IsNullOrEmpty(prospectType)) && (!string.IsNullOrEmpty(parentType)))
-                    //{
-                    //    dvcustomerList = new DataView(dtCustomer, "IsProspect = '" + prospectType + "'and ParentId= '" + parentType + "'", "CustomerId,Cust_Comp_Name,PANNumber,Area,Pincode,City,ADUL_ProcessId,IsActive", DataViewRowState.CurrentRows);
-                    //    gvCustomerList.DataSource = dvcustomerList.ToTable();
-                    //}
-                    //else if ((!string.IsNullOrEmpty(statustype)) && (string.IsNullOrEmpty(prospectType)) && (!string.IsNullOrEmpty(parentType)))
-                    //{
-                    //    dvcustomerList = new DataView(dtCustomer, "IsActive = '" + statustype + "'and ParentId= '" + parentType + "'", "CustomerId,Cust_Comp_Name,PANNumber,Area,Pincode,City,ADUL_ProcessId,IsProspect", DataViewRowState.CurrentRows);
-                    //    gvCustomerList.DataSource = dvcustomerList.ToTable();
-                    //}
-                    //else if ((!string.IsNullOrEmpty(statustype)) && (!string.IsNullOrEmpty(prospectType)) && (!string.IsNullOrEmpty(parentType)))
-                    //{
-                    //    dvcustomerList = new DataView(dtCustomer, "IsActive= '" + statustype + "' and IsProspect = '" + prospectType + "'and ParentId = '" + parentType + "'", "CustomerId,Cust_Comp_Name,PANNumber,Area,Pincode,City,ADUL_ProcessId", DataViewRowState.CurrentRows);
-                    //    gvCustomerList.DataSource = dvcustomerList.ToTable();
-                    //}
-                    #endregion
-                    else
-                    {
-                        gvCustomerList.DataSource = dtCustomer;
-                        //if (dtCustomer.Rows.Count > 10)
-                        //    pnlCustomerList.Style.Add("Height", "410px");
-                        //else
-                        //    pnlCustomerList.Style.Remove("Height");
-
-                    }
-                }
+                GetGridFilters();
+                dtcustomerList = BindOnDemamd(adviserId, rmId, AgentId, UserRole, branchHeadId, AgentCode, GetSelectedFilterValue(), (!string.IsNullOrEmpty(txtCustomerId.Value)) ? int.Parse(txtCustomerId.Value) : 0, hdncustomerCategoryFilter.Value, hdnSystemId.Value, hdnClientId.Value, hdnName.Value, hdnGroup.Value, hdnPAN.Value, hdnBranch.Value, rmType, hdnArea.Value, hdnCity.Value, hdnPincode.Value, hdnIsProspect.Value, hdnIsActive.Value, hdnIsMFKYC.Value, hdnProcessId.Value, gvCustomerList.PageSize, gvCustomerList.CurrentPageIndex + 1, out genDictParent, out genDictRM, out genDictReassignRM, out RowCount);
+                gvCustomerList.DataSource = dtcustomerList;
             }
+            
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdviserCustomer.ascx.cs:BindCustomerGrid()");
+                object[] objects = new object[4];
+                objects[0] = user;
+                objects[1] = rmId;
+                objects[2] = customerVo;
+                objects[3] = customerList;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+           
 
         }
         /// <summary>
@@ -1028,12 +721,13 @@ namespace WealthERP.Advisor
         {
             //if (e.Item is GridFilteringItem)
             //{
-            //    GridFilteringItem fItem = (GridFilteringItem)e.Item;
-            //    foreach (GridColumn col in gvCustomerList.MasterTableView.Columns)
-            //    {
+            ////    GridFilteringItem fItem = (GridFilteringItem)e.Item;
+            ////    foreach (GridColumn col in gvCustomerList.MasterTableView.Columns)
+            ////    {
 
-            //        (fItem[col.UniqueName].Controls[0] as TextBox).Attributes.Add("onkeyup", "semicolon(this, event)");
-            //    }
+            ////        (fItem[col.UniqueName].Controls[0] as TextBox).Attributes.Add("onkeyup", "semicolon(this, event)");
+            ////    }
+           
             //}
         }
         protected void gvCustomerList_PreRender(object sender, EventArgs e)
@@ -1431,9 +1125,271 @@ namespace WealthERP.Advisor
             string custName = str.Trim();            
             return Regex.Replace(custName, @"([\s]+)", " "); 
         }
+
+
+        protected void gvCustomerList_ItemCommand(object sender, GridCommandEventArgs e)
+        {
+            if (e.CommandName == RadGrid.FilterCommandName)
+            {
+   
+                GridFilteringItem item = gvCustomerList.MasterTableView.GetItems(GridItemType.FilteringItem)[0] as GridFilteringItem;
+                gvCustomerList.CurrentPageIndex = 0;
+                hdnSystemId.Value = (item["CustomerId"].Controls[0] as TextBox).Text;
+                hdnClientId.Value = (item["custcode"].Controls[0] as TextBox).Text;
+                hdnName.Value = (item["Cust_Comp_Name"].Controls[0] as TextBox).Text;
+                hdnGroup.Value = (item["ParentId"].Controls[0] as TextBox).Text;
+                hdnPAN.Value = (item["PANNumber"].Controls[0] as TextBox).Text;
+                //hdnBranch.Value = (item["BranchName"].Controls[0] as TextBox).Text;
+                hdnArea.Value = (item["Area"].Controls[0] as TextBox).Text;
+                hdnCity.Value = (item["City"].Controls[0] as TextBox).Text;
+                hdnIsMFKYC.Value = (item["IsMFKYC"].Controls[0] as TextBox).Text;
+                hdnProcessId.Value = (item["ADUL_ProcessId"].Controls[0] as TextBox).Text;
+                hdnSystemAddDate.Value = (item["CreatedOn"].Controls[0] as TextBox).Text;
+                
+
+            }
+
+        }
+        protected void GetGridFilters()
+        {
+            
+            //if (ViewState["IsProspect"] != null)
+            //{
+            //    if (ViewState["IsProspect"].ToString() == "Yes")
+            //    {
+            //        hdnIsProspect.Value = "1";
+            //    }
+            //    else if (ViewState["IsProspect"].ToString() == "No")
+            //    {
+            //        hdnIsProspect.Value = "0";
+            //    }
+            //    else
+            //    {
+            //        hdnIsProspect.Value = "";
+            //    }
+               
+
+
+            //}
+
+            //if (ViewState["IsActive"] !=null)
+            //{
+            //    if (ViewState["IsActive"].ToString()=="Active")
+            //    {
+            //            hdnIsActive.Value = "1";
+            //    }
+            //    else if (ViewState["IsActive"].ToString() == "In Active")
+            //    {
+
+            //        hdnIsActive.Value = "0";
+            //    }
+            //    else
+            //    {
+            //        hdnIsActive.Value = "";
+            //    }
+            //}
+            if (hdnIsMFKYC.Value != null)
+            {
+                if (hdnIsMFKYC.Value.ToLower() == "y")
+                {
+                    hdnIsMFKYC.Value = "1";
+                }
+                else if (hdnIsMFKYC.Value.ToLower() == "n")
+                {
+                    hdnIsMFKYC.Value = "0";
+                }
+                
+            }
+
+            
+          
+
+        }
+        protected DataTable BindOnDemamd(int adviserId, int rmId, int AgentId, string UserRole, int branchHeadId, string agentCode, string filterOn, int customerId, string customerCategoryFilter, string customerFilter, string custcodeFilter, string nameFilter, string parentFilter, string panFilter, string BranchFilter, string Rmfilter, string areaFilter, string cityFilter, string pincodeFilter, string IsProspectFilter, string isActiveFilter, string iskycavailableFilter, string processFilter, int pageSize, int pageindex, out Dictionary<string, string> genDictParent, out Dictionary<string, string> genDictRM, out Dictionary<string, string> genDictReassignRM, out int RowCount)
+        { 
+            AdvisorBo adviserBo = new AdvisorBo();
+            List<CustomerVo> customerList = new List<CustomerVo>();
+            DataTable dtCustomerList = new DataTable();
+            RMVo customerRMVo = new RMVo();
+            try
+            {
+               
+                customerList = adviserBo.GetStaffUserCustomerList(adviserId, rmId, AgentId, UserRole, branchHeadId, AgentCode,filterOn,customerId,customerCategoryFilter,customerFilter,custcodeFilter,nameFilter,parentFilter,panFilter,BranchFilter,Rmfilter,areaFilter,cityFilter,pincodeFilter,IsProspectFilter,isActiveFilter,iskycavailableFilter,processFilter,gvCustomerList.PageSize,gvCustomerList.CurrentPageIndex+1, out genDictParent, out genDictRM, out genDictReassignRM, out RowCount);
+                if (customerList == null)
+                {
+                    DivCustomerList.Visible = false;
+                    gvCustomerList.Visible = false;
+                    imgexportButton.Visible = false;
+                    //  pnlCustomerList.Visible = false;
+                   // ErrorMessage.Visible = true;
+
+                }
+                else
+                {
+                    dtCustomerList = CreateCustomeListTable(UserRole);
+                    HideCustomerGridColumn(UserRole);
+                    DataRow drCustomer;
+                    for (int i = 0; i < customerList.Count; i++)
+                    {
+                        drCustomer = dtCustomerList.NewRow();
+                        customerVo = new CustomerVo();
+                        customerVo = customerList[i];
+                        drCustomer["CustomerId"] = customerVo.CustomerId.ToString();
+                        drCustomer["ParentId"] = customerVo.ParentId.ToString();
+                        if (customerVo.ProcessId == 0)
+                        {
+                            drCustomer["ADUL_ProcessId"] = "N/A";
+                        }
+                        else
+                            drCustomer["ADUL_ProcessId"] = customerVo.ProcessId.ToString();
+                        if (customerVo.ACC_CustomerCategoryName == null)
+                        {
+                            drCustomer["ACC_CustomerCategoryName"] = "N/A";
+                        }
+                        else
+                            drCustomer["ACC_CustomerCategoryName"] = customerVo.ACC_CustomerCategoryName.ToString();
+                        drCustomer["UserId"] = customerVo.UserId.ToString();
+                        drCustomer["RMId"] = customerVo.RmId.ToString();
+                        if (customerVo.ParentCustomer != null)
+                        {
+                            drCustomer["Group"] = customerVo.ParentCustomer.ToString();
+                        }
+                        drCustomer["Cust_Comp_Name"] = cleanCustomerName(customerVo.FirstName.ToString() + " " + customerVo.MiddleName.ToString() + " " + customerVo.LastName.ToString());
+                        if (customerVo.PANNum != null)
+                            drCustomer["PANNumber"] = customerVo.PANNum.ToString();
+                        else
+                            drCustomer["PANNumber"] = "";
+                        drCustomer["MobileNumber"] = customerVo.Mobile1.ToString();
+                        drCustomer["PhoneNumber"] = customerVo.ResISDCode.ToString() + "-" + customerVo.ResSTDCode.ToString() + "-" + customerVo.ResPhoneNum.ToString();
+                        drCustomer["Email"] = customerVo.Email.ToString();
+                        if (customerVo.Adr1Line1 == null)
+                            customerVo.Adr1Line1 = "";
+                        if (customerVo.Adr1Line2 == null)
+                            customerVo.Adr1Line2 = "";
+                        if (customerVo.Adr1Line3 == null)
+                            customerVo.Adr1Line3 = "";
+                        if (customerVo.Adr1City == null)
+                            customerVo.Adr1City = "";
+                        if (customerVo.Adr1Line1.ToString() == "" && customerVo.Adr1Line2.ToString() == "")
+                            drCustomer["Address"] = "-";
+                        else if (customerVo.Adr1Line1.ToString() == "" && customerVo.Adr1Line2.ToString() != "")
+                            drCustomer["Address"] = customerVo.Adr1Line2.ToString();
+                        else if (customerVo.Adr1Line1.ToString() != "" && customerVo.Adr1Line2.ToString() == "")
+                            drCustomer["Address"] = customerVo.Adr1Line1.ToString();
+                        else
+                            drCustomer["Address"] = customerVo.Adr1Line1.ToString() + "," + customerVo.Adr1Line2.ToString();
+                        drCustomer["Area"] = customerVo.Adr1Line3.ToString();
+                        drCustomer["City"] = customerVo.Adr1City.ToString();
+                        drCustomer["Pincode"] = customerVo.Adr1PinCode.ToString();
+                        if (UserRole != "rm")
+                        {
+                            if (customerVo.AssignedRM != null)
+                                drCustomer["AssignedRM"] = customerVo.AssignedRM.ToString();
+                            else
+                                drCustomer["AssignedRM"] = "";
+                        }
+
+                        if (customerVo.IsActive == 1)
+                        {
+                            drCustomer["IsActive"] = "Active";
+                        }
+                        else
+                        {
+                            drCustomer["IsActive"] = "In Active";
+
+                        }
+                        if (customerVo.IsProspect == 1)
+                        {
+                            drCustomer["IsProspect"] = "Yes";
+                        }
+                        else
+                        {
+                            drCustomer["IsProspect"] = "No";
+                        }
+                        if (customerVo.IsFPClient == 1)
+                        {
+                            drCustomer["IsFPClient"] = "Yes";
+                        }
+                        else
+                        {
+                            drCustomer["IsFPClient"] = "No";
+                        }
+
+                        if (customerVo.MfKYC == 1)
+                        {
+                            drCustomer["IsMFKYC"] = "Y";
+                        }
+                        else
+                        {
+                            drCustomer["IsMFKYC"] = "N";
+                        }
+                        if (customerVo.Createdon != null)
+                       
+                            drCustomer["CreatedOn"] = customerVo.Createdon;
+                        
+                       
+
+                        if (UserRole != "rm")
+                        {
+                            drCustomer["BranchName"] = customerVo.BranchName;
+                        }
+                        if (customerVo.CustCode != null)
+                            drCustomer["custcode"] = customerVo.CustCode.ToString();
+                        else
+                            drCustomer["custcode"] = "";
+                        dtCustomerList.Rows.Add(drCustomer);
+
+                    }
+                    
+                   
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdviserCustomer.ascx.cs:BindCustomerGrid()");
+                object[] objects = new object[4];
+                objects[0] = user;
+                objects[1] = rmId;
+                objects[2] = customerVo;
+                objects[3] = customerList;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtCustomerList;
+        }
+
+        protected void clearControls()
+        {
+            tdcustomerlist.Visible = false;
+            gvCustomerList.DataSource = null;
+            gvCustomerList.CurrentPageIndex = 0;
+            txtClientCode.Text = "";
+            txtCustomerName.Text = "";
+            txtPansearch.Text = "";
+           
+
+
+        }
+
+        /// <summary>
+        /// Binding Customer List when find customer
+        /// </summary>
+
+        
+        }
+
+
     }
 
-}
+
 
 
 

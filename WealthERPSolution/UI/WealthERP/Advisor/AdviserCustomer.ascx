@@ -227,6 +227,8 @@
         </td>
     </tr>
 </table>
+<asp:UpdatePanel ID="pnlFilter" runat="server">
+<ContentTemplate>
 <table>
     <tr>
         <td>
@@ -235,6 +237,7 @@
             <asp:Label ID="lblIskyc" runat="server" Text="Select:" CssClass="FieldName"></asp:Label>
         </td>
         <td>
+        
             <%--<asp:DropDownList ID="ddlIskyc" runat="server" CssClass="cmbField">
                 <asp:ListItem Text="Select" Value="Select" Selected="true" />
                 <asp:ListItem Text="Yes" Value="1" />
@@ -243,12 +246,12 @@
             <asp:DropDownList ID="ddlCOption" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlCOption_SelectedIndexChanged" AutoPostBack="true">
                 <asp:ListItem Text="Select" Value="Select" Selected="true" />
                 <asp:ListItem Text="Name" Value="Name" />
-                <asp:ListItem Text="PAN No" Value="Panno" />
+                <asp:ListItem Text="PAN" Value="Panno" />
                 <asp:ListItem Text="Client Code" Value="Clientcode" />
-                <asp:ListItem Text="Kyc" Value="kyc" />
+                <asp:ListItem Text="KYC" Value="kyc" />
                 <%--<asp:ListItem Text="All MF Investor" Value="allmfinvestor"  />--%>
                 <asp:ListItem Text="Real Investor" Value="realinvestor" />
-                <%--<asp:ListItem Text="All" Value="all"></asp:ListItem>--%>
+                <asp:ListItem Text="All" Value="all"></asp:ListItem>
             </asp:DropDownList>
               <asp:RequiredFieldValidator ID="rFVddlCOption" runat="server" ErrorMessage="</br>Please Select Filter"
                         CssClass="rfvPCG" ControlToValidate="ddlCOption" ValidationGroup="btnGo"
@@ -257,10 +260,10 @@
         <td align="left" id="tdtxtPansearch" runat="server" visible="false">
             <asp:TextBox ID="txtPansearch" runat="server" CssClass="txtField" AutoComplete="Off"
                 AutoPostBack="True" onclientClick="ShowIsa()" onblur="return checkItemSelected(this)"
-                TabIndex="2">
+                TabIndex="2" Width="250px">
             </asp:TextBox><span id="Span1" class="spnRequiredField"></span>
             <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" TargetControlID="txtPansearch"
-                WatermarkText="Enter few chars of Pan" runat="server" EnableViewState="false">
+                WatermarkText="Enter few characters of Pan No" runat="server" EnableViewState="false">
             </cc1:TextBoxWatermarkExtender>
             <ajaxToolkit:AutoCompleteExtender ID="txtPansearch_autoCompleteExtender" runat="server"
                 TargetControlID="txtPansearch" ServiceMethod="GetAdviserCustomerPan" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
@@ -271,13 +274,13 @@
                 Enabled="True" />
             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtPansearch"
                 ErrorMessage="<br />Please Enter Pan number" Display="Dynamic" runat="server"
-                CssClass="rfvPCG" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
+                CssClass="rfvPCG" ValidationGroup="btnGo"></asp:RequiredFieldValidator>
         </td>
         <td align="left" id="tdtxtClientCode" runat="server" visible="false">
             <asp:TextBox ID="txtClientCode" runat="server" CssClass="txtField" AutoComplete="Off"
-                AutoPostBack="True" onclientClick="ShowIsa()"></asp:TextBox>
+                AutoPostBack="True" onclientClick="ShowIsa()" Width="250px" ></asp:TextBox>
             <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" TargetControlID="txtClientCode"
-                WatermarkText="Enter few chars of Client Code" runat="server" EnableViewState="false">
+                WatermarkText="Enter few characters of Client Code" runat="server" EnableViewState="false">
             </cc1:TextBoxWatermarkExtender>
             <ajaxToolkit:AutoCompleteExtender ID="txtClientCode_autoCompleteExtender" runat="server"
                 TargetControlID="txtClientCode" ServiceMethod="GetCustCode" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
@@ -288,13 +291,13 @@
                 Enabled="True" />
             <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtClientCode"
                 ErrorMessage="<br />Please Enter Client Code" Display="Dynamic" runat="server"
-                CssClass="rfvPCG" ValidationGroup="Submit"></asp:RequiredFieldValidator>
+                CssClass="rfvPCG" ValidationGroup="btnGo"></asp:RequiredFieldValidator>
         </td>
         <td align="left" id="tdtxtCustomerName" runat="server" visible="false">
             <asp:TextBox ID="txtCustomerName" runat="server" CssClass="txtField" AutoComplete="Off"
-                AutoPostBack="True" onclientClick="ShowIsa()">  </asp:TextBox>
+                AutoPostBack="True" onclientClick="ShowIsa()" Width="250px">  </asp:TextBox>
             <cc1:TextBoxWatermarkExtender ID="txtCustomerName_water" TargetControlID="txtCustomerName"
-                WatermarkText="Enter few chars of Customer" runat="server" EnableViewState="false">
+                WatermarkText="Enter few characters of Customer Name" runat="server" EnableViewState="false">
             </cc1:TextBoxWatermarkExtender>
             <ajaxToolkit:AutoCompleteExtender ID="txtCustomerName_autoCompleteExtender" runat="server"
                 TargetControlID="txtCustomerName" ServiceMethod="GetCustomerName" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
@@ -305,14 +308,20 @@
                 Enabled="True" />
             <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtCustomerName"
                 ErrorMessage="<br />Please Enter Customer Name" Display="Dynamic" runat="server"
-                CssClass="rfvPCG" ValidationGroup="Submit"></asp:RequiredFieldValidator>
+                CssClass="rfvPCG" ValidationGroup="btnGo"></asp:RequiredFieldValidator>
         </td>
         <td>
-            <asp:Button ID="btngo" runat="server" CssClass="PCGButton" OnClick="click_Go" Text="Go"
-                ValidationGroup="btnGo" />
+           <asp:Button ID="btngo" runat="server" CssClass="PCGButton" OnClick="click_Go" Text="Go"
+                ValidationGroup="btnGo" /> 
         </td>
+       
     </tr>
 </table>
+</ContentTemplate>
+<Triggers>
+<asp:PostBackTrigger ControlID="btnGo" />
+</Triggers>
+</asp:UpdatePanel>
 <%--<div style="width: 100%;">--%>
 <%-- <asp:Panel ID="pnlCustomerList" runat="server" class="Landscape" ScrollBars="Both"
         Visible="false" Width="100%">--%>
@@ -325,7 +334,7 @@
                     ShowStatusBar="false" ShowFooter="false" AllowPaging="true" AllowSorting="true"
                     GridLines="none" AllowAutomaticInserts="false" OnItemCreated="gvCustomerList_ItemCreated"
                     OnItemDataBound="gvCustomerList_ItemDataBound" Skin="Telerik" EnableHeaderContextMenu="true"
-                    OnNeedDataSource="gvCustomerList_OnNeedDataSource" OnPreRender="gvCustomerList_PreRender">
+                    OnNeedDataSource="gvCustomerList_OnNeedDataSource" OnPreRender="gvCustomerList_PreRender" OnItemCommand="gvCustomerList_ItemCommand" AllowCustomPaging="true">
                     <exportsettings hidestructurecolumns="true">
                     </exportsettings>
                     <mastertableview datakeynames="CustomerId,UserId,RMId" width="99%" allowmulticolumnsorting="True"
@@ -416,12 +425,12 @@
                                 AllowFiltering="true" HeaderStyle-Width="100px" FilterControlWidth="80px" CurrentFilterFunction="Contains">
                                 <ItemStyle Width="100px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="BranchName" UniqueName="BranchName" HeaderText="Branch"
+                            <%--<telerik:GridBoundColumn DataField="BranchName" UniqueName="BranchName" HeaderText="Branch"
                                 AutoPostBackOnFilter="true" SortExpression="BranchName" ShowFilterIcon="false"
                                 AllowFiltering="true" HeaderStyle-Width="100px" FilterControlWidth="80px" CurrentFilterFunction="Contains">
                                 <ItemStyle Width="100px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
-                            </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="AssignedRM" UniqueName="RMId" HeaderText="RM"
+                            </telerik:GridBoundColumn>--%>
+                            <%--<telerik:GridBoundColumn DataField="AssignedRM" UniqueName="RMId" HeaderText="RM"
                                 AutoPostBackOnFilter="true" SortExpression="AssignedRM" ShowFilterIcon="false"
                                 AllowFiltering="true" HeaderStyle-Width="140px">
                                 <ItemStyle Width="140px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
@@ -448,7 +457,7 @@
 
                                     </telerik:RadScriptBlock>
                                 </FilterTemplate>
-                            </telerik:GridBoundColumn>
+                            </telerik:GridBoundColumn>--%>
                             <telerik:GridBoundColumn DataField="MobileNumber" UniqueName="MobileNumber" HeaderText="Mobile"
                                 SortExpression="MobileNumber" AllowFiltering="false" HeaderStyle-Width="80px"
                                 FilterControlWidth="60px" CurrentFilterFunction="Contains" ShowFilterIcon="false">
@@ -484,7 +493,7 @@
                                 HeaderStyle-Width="90px" FilterControlWidth="70px" CurrentFilterFunction="Contains">
                                 <ItemStyle Width="90px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="IsProspect" UniqueName="IsProspect" HeaderText="Is Prospect"
+                            <%--<telerik:GridBoundColumn DataField="IsProspect" UniqueName="IsProspect" HeaderText="Is Prospect"
                                 ShowFilterIcon="false" AllowFiltering="true" AutoPostBackOnFilter="true" HeaderStyle-Width="79px">
                                 <ItemStyle Width="79px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                                 <FilterTemplate>
@@ -536,7 +545,7 @@
 
                                     </telerik:RadScriptBlock>
                                 </FilterTemplate>
-                            </telerik:GridBoundColumn>
+                            </telerik:GridBoundColumn>--%>
                             <telerik:GridBoundColumn DataField="IsMFKYC" UniqueName="IsMFKYC" HeaderText="Is MFKYC"
                                 SortExpression="IsMFKYC" AutoPostBackOnFilter="true" AllowFiltering="true" HeaderStyle-Width="60px"
                                 FilterControlWidth="30px" CurrentFilterFunction="Contains" ShowFilterIcon="false">
@@ -1055,3 +1064,22 @@
 <asp:HiddenField ID="txtCustomerId" runat="server" OnValueChanged="hdnCustomerId_ValueChanged" />
 <asp:HiddenField ID="hdnCustomerId" runat="server" />
 <asp:HiddenField ID="hdnIsSubscripted" runat="server" />
+<asp:HiddenField ID="hdnIsMFKYC" runat="server" />
+<asp:HiddenField ID="hdnIsActive" runat="server" />
+<asp:HiddenField ID="hdnIsProspect" runat="server" />
+<asp:HiddenField ID="hdnCategory" runat="server" />
+<asp:HiddenField ID="hdnSystemId" runat="server" />
+<asp:HiddenField ID="hdnClientId" runat="server" />
+<asp:HiddenField ID="hdnName" runat="server" />
+<asp:HiddenField ID="hdnGroup" runat="server" />
+<asp:HiddenField ID="hdnPAN" runat="server" />
+<asp:HiddenField ID="hdnBranch" runat="server" />
+<asp:HiddenField ID="hdnArea" runat="server" />
+<asp:HiddenField ID="hdnCity" runat="server" />
+<asp:HiddenField ID="hdnProcessId" runat="server" />
+<asp:HiddenField ID="hdnSystemAddDate" runat="server" />
+<asp:HiddenField ID="hdncustomerCategoryFilter" runat="server" />
+<asp:HiddenField ID="hdnPincode" runat="server" />
+
+
+
