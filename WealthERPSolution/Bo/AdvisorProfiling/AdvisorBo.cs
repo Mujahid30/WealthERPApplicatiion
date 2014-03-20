@@ -1849,7 +1849,7 @@ namespace BoAdvisorProfiling
         /// <param name="genDictRM"></param>
         /// <param name="genDictReassignRM"></param>
         /// <returns>will return the list of the customers from the data base accroding to the parameters assigned</returns>
-        public List<CustomerVo> GetStaffUserCustomerList(int adviserId, int rmId, int AgentId, string UserRole, int branchHeadId, string agentCode,string filterOn,int customerId, out Dictionary<string, string> genDictParent, out Dictionary<string, string> genDictRM, out Dictionary<string, string> genDictReassignRM)
+        public List<CustomerVo> GetStaffUserCustomerList(int adviserId, int rmId, int AgentId, string UserRole, int branchHeadId, string agentCode, string filterOn, int customerId, string customerCategoryFilter, string customerFilter, string custcodeFilter, string nameFilter, string parentFilter, string panFilter, string BranchFilter, string Rmfilter, string areaFilter, string cityFilter, string pincodeFilter, string IsProspectFilter, string isActiveFilter, string iskycavailableFilter, string processFilter, int pageSize, int pageindex, out Dictionary<string, string> genDictParent, out Dictionary<string, string> genDictRM, out Dictionary<string, string> genDictReassignRM, out int RowCount)
         {
             List<CustomerVo> customerList = null;
             AdvisorDao advisorDao = new AdvisorDao();
@@ -1857,9 +1857,10 @@ namespace BoAdvisorProfiling
             genDictParent = new Dictionary<string, string>();
             genDictRM = new Dictionary<string, string>();
             genDictReassignRM = new Dictionary<string, string>();
+            
             try
             {
-                customerList = advisorDao.GetStaffUserCustomerList(adviserId, rmId, AgentId, UserRole, branchHeadId, agentCode,filterOn, customerId, out genDictParent, out genDictRM, out genDictReassignRM);
+                customerList = advisorDao.GetStaffUserCustomerList(adviserId, rmId, AgentId, UserRole, branchHeadId, agentCode,filterOn, customerId,customerCategoryFilter,customerFilter,custcodeFilter,nameFilter,parentFilter,panFilter, BranchFilter, Rmfilter,areaFilter,cityFilter,pincodeFilter,IsProspectFilter,isActiveFilter,iskycavailableFilter,processFilter,pageSize,pageindex, out genDictParent, out genDictRM, out genDictReassignRM, out RowCount);
             }
             catch (BaseApplicationException Ex)
             {
