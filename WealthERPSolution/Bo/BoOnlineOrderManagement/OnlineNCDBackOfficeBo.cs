@@ -1398,7 +1398,7 @@ namespace BoOnlineOrderManagement
             }
             return result;
         }
-        public int UploadCheckOrderFile(DataTable dtCheckOrder, int fileTypeId, int issueId,ref string isEligbleIssue,int adviserid)
+        public int UploadCheckOrderFile(DataTable dtCheckOrder, int fileTypeId, int issueId,ref string isEligbleIssue,int adviserid,string source)
         {
 
             int nRows = 0;
@@ -1434,9 +1434,12 @@ namespace BoOnlineOrderManagement
                     int scriptissueid = daoOnlNcdBackOff.GetScriptId(scriptId, adviserid);
                     if (scriptissueid == issueId)
                     {
+
+
                         if (dtCheckOrder.Columns.Contains("Error Text"))
                             dtCheckOrder.Columns.RemoveAt(3);
-                        nRows = daoOnlNcdBackOff.UploadBidSuccessData(dtCheckOrder, issueId);
+
+                        nRows = daoOnlNcdBackOff.UploadBidSuccessData(BSEExchangeDataChange(dtCheckOrder,source), issueId);
                     }
                     else
                     {
@@ -1459,6 +1462,24 @@ namespace BoOnlineOrderManagement
             }
             return nRows;
         }
+
+        private DataTable BSEExchangeDataChange(DataTable dt,string source)
+        {
+            DataTable dtCopy = new DataTable();
+            if (source == "BSE")
+            {
+                foreach (DataRow dr in dt.Rows)
+                {
+                    dr["AIOE_ScriptId"] = dr["AIOE_ScriptId"].ToString() +  '-' +dr["COID_SeriesQuantity"].ToString();
+                }
+
+                if (dt.Columns.Contains("COID_SeriesQuantity"))
+                    dt.Columns.RemoveAt(2);
+                dt.AcceptChanges();
+            }
+                        return dt;
+        }
+
         public int CheckIssueName(string Issuename, int issueid)
         {
             int result = 0;
