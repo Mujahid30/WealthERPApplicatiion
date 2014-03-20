@@ -366,7 +366,7 @@ namespace WealthERP.Advisor
             gvCustomerList.DataBind();
             DivCustomerList.Visible = true;
             gvCustomerList.Visible = true;
-            // pnlCustomerList.Visible = true;
+             //pnlCustomerList.Visible = true;
             imgexportButton.Visible = true;
             ErrorMessage.Visible = false;
             
@@ -579,7 +579,7 @@ namespace WealthERP.Advisor
             }
 
             if (userVo.UserType == "Advisor") { return; }
-            gvCustomerList.MasterTableView.GetColumn("Action").Visible = false;
+            //gvCustomerList.MasterTableView.GetColumn("Action").Visible = false;
         }
 
         protected void gvCustomerList_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)

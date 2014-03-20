@@ -227,8 +227,7 @@
         </td>
     </tr>
 </table>
-<asp:UpdatePanel ID="pnlFilter" runat="server">
-<ContentTemplate>
+
 <table>
     <tr>
         <td>
@@ -259,7 +258,7 @@
         </td>
         <td align="left" id="tdtxtPansearch" runat="server" visible="false">
             <asp:TextBox ID="txtPansearch" runat="server" CssClass="txtField" AutoComplete="Off"
-                AutoPostBack="True" onclientClick="ShowIsa()" onblur="return checkItemSelected(this)"
+                AutoPostBack="True" onclientClick="ShowIsa()" 
                 TabIndex="2" Width="250px">
             </asp:TextBox><span id="Span1" class="spnRequiredField"></span>
             <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" TargetControlID="txtPansearch"
@@ -317,11 +316,6 @@
        
     </tr>
 </table>
-</ContentTemplate>
-<Triggers>
-<asp:PostBackTrigger ControlID="btnGo" />
-</Triggers>
-</asp:UpdatePanel>
 <%--<div style="width: 100%;">--%>
 <%-- <asp:Panel ID="pnlCustomerList" runat="server" class="Landscape" ScrollBars="Both"
         Visible="false" Width="100%">--%>
