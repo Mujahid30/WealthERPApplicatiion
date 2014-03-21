@@ -316,13 +316,13 @@
        
     </tr>
 </table>
-<%--<div style="width: 100%;">--%>
-<%-- <asp:Panel ID="pnlCustomerList" runat="server" class="Landscape" ScrollBars="Both"
-        Visible="false" Width="100%">--%>
+<div style="width: 100%;">
+<asp:Panel ID="pnlCustomerList" runat="server" class="Landscape" ScrollBars="Both"
+        Visible="false" Width="100%">
 <table width="100%" cellspacing="0" cellpadding="1">
     <tr>
         <td id="tdcustomerlist" runat="server" visible="false">
-            <div id="DivCustomerList" runat="server" style="width: 49%; padding-left: 5px;" visible="false">
+            <div id="DivCustomerList" runat="server" style="width:100%; padding-left: 5px;" visible="false">
                 <telerik:RadGrid ID="gvCustomerList" runat="server" fAllowAutomaticDeletes="false"
                     EnableEmbeddedSkins="false" AllowFilteringByColumn="true" AutoGenerateColumns="False"
                     ShowStatusBar="false" ShowFooter="false" AllowPaging="true" AllowSorting="true"
@@ -572,8 +572,8 @@
     </tr>
 </table>
 <%--</div>--%>
-<%-- </asp:Panel>--%>
-<%--</div>--%>
+</asp:Panel>
+</div>
 <asp:Button ID="hiddenassociation" runat="server" OnClick="hiddenassociation_Click"
     BorderStyle="None" BackColor="Transparent" />
 <asp:HiddenField ID="hdnMsgValue" runat="server" />

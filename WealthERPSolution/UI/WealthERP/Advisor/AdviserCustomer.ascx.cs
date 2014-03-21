@@ -220,20 +220,20 @@ namespace WealthERP.Advisor
         }
         protected void hdnCustomerId_ValueChanged(object sender, EventArgs e)
         {
-            //int customerId;
-            //if (!string.IsNullOrEmpty(hdnCustomerId.Value.ToString().Trim()))
+
+            //if (string.IsNullOrEmpty(txtCustomerId.Value.ToString().Trim()))
             //{
-            //    customerId = int.Parse(hdnCustomerId.Value);
+            //    txtCustomerId.Value = "0";
             //}
+           
         }
 
         protected void click_Go(object sender, EventArgs e)
         {
-                
+                gvCustomerList.DataSource = null;
                 BindCustomerGrid();
-               // BindGrid();
                 tdcustomerlist.Visible = true;
-                //txtCustomerId.Value = string.Empty;
+                txtCustomerId.Value = string.Empty;
         }
         private string GetSelectedFilterValue()
         {
@@ -356,6 +356,7 @@ namespace WealthERP.Advisor
 
         protected void BindCustomerGrid()
         {
+          
             AdvisorBo adviserBo = new AdvisorBo();
             //List<CustomerVo> customerList = new List<CustomerVo>();
             DataTable dtcustomerList = new DataTable();
@@ -366,7 +367,7 @@ namespace WealthERP.Advisor
             gvCustomerList.DataBind();
             DivCustomerList.Visible = true;
             gvCustomerList.Visible = true;
-             //pnlCustomerList.Visible = true;
+            pnlCustomerList.Visible = true;
             imgexportButton.Visible = true;
             ErrorMessage.Visible = false;
             
@@ -577,6 +578,12 @@ namespace WealthERP.Advisor
                 //RadComboRM.DataValueField = "Key";
                 //RadComboRM.DataBind();
             }
+            //if (e.Item is GridPagerItem)
+            //{
+            //    GridPagerItem pager = (GridPagerItem)e.Item;
+            //    RadComboBox PageSizeComboBox = (RadComboBox)pager.FindControl("PageSizeComboBox");
+            //    PageSizeComboBox.Visible = false;
+            //} 
 
             if (userVo.UserType == "Advisor") { return; }
             //gvCustomerList.MasterTableView.GetColumn("Action").Visible = false;
@@ -597,6 +604,9 @@ namespace WealthERP.Advisor
                 GetGridFilters();
                 dtcustomerList = BindOnDemamd(adviserId, rmId, AgentId, UserRole, branchHeadId, AgentCode, GetSelectedFilterValue(), (!string.IsNullOrEmpty(txtCustomerId.Value)) ? int.Parse(txtCustomerId.Value) : 0, hdncustomerCategoryFilter.Value, hdnSystemId.Value, hdnClientId.Value, hdnName.Value, hdnGroup.Value, hdnPAN.Value, hdnBranch.Value, rmType, hdnArea.Value, hdnCity.Value, hdnPincode.Value, hdnIsProspect.Value, hdnIsActive.Value, hdnIsMFKYC.Value, hdnProcessId.Value, gvCustomerList.PageSize, gvCustomerList.CurrentPageIndex + 1, out genDictParent, out genDictRM, out genDictReassignRM, out RowCount);
                 gvCustomerList.DataSource = dtcustomerList;
+                gvCustomerList.VirtualItemCount = RowCount;
+                
+               
             }
             
             catch (BaseApplicationException Ex)
@@ -630,7 +640,7 @@ namespace WealthERP.Advisor
         public void btnExportData_OnClick(object sender, ImageClickEventArgs e)
         {
             gvCustomerList.ExportSettings.OpenInNewWindow = true;
-            gvCustomerList.ExportSettings.IgnorePaging = true;
+            gvCustomerList.ExportSettings.IgnorePaging =false;
             gvCustomerList.ExportSettings.HideStructureColumns = true;
             gvCustomerList.ExportSettings.ExportOnlyData = true;
             gvCustomerList.ExportSettings.FileName = "Customer List";
@@ -1134,6 +1144,7 @@ namespace WealthERP.Advisor
    
                 GridFilteringItem item = gvCustomerList.MasterTableView.GetItems(GridItemType.FilteringItem)[0] as GridFilteringItem;
                 gvCustomerList.CurrentPageIndex = 0;
+                hdncustomerCategoryFilter.Value = (item["ACC_CustomerCategoryName"].Controls[0] as TextBox).Text;
                 hdnSystemId.Value = (item["CustomerId"].Controls[0] as TextBox).Text;
                 hdnClientId.Value = (item["custcode"].Controls[0] as TextBox).Text;
                 hdnName.Value = (item["Cust_Comp_Name"].Controls[0] as TextBox).Text;
@@ -1215,17 +1226,9 @@ namespace WealthERP.Advisor
             {
                
                 customerList = adviserBo.GetStaffUserCustomerList(adviserId, rmId, AgentId, UserRole, branchHeadId, AgentCode,filterOn,customerId,customerCategoryFilter,customerFilter,custcodeFilter,nameFilter,parentFilter,panFilter,BranchFilter,Rmfilter,areaFilter,cityFilter,pincodeFilter,IsProspectFilter,isActiveFilter,iskycavailableFilter,processFilter,gvCustomerList.PageSize,gvCustomerList.CurrentPageIndex+1, out genDictParent, out genDictRM, out genDictReassignRM, out RowCount);
-                if (customerList == null)
+                if (customerList != null)
                 {
-                    DivCustomerList.Visible = false;
-                    gvCustomerList.Visible = false;
-                    imgexportButton.Visible = false;
-                    //  pnlCustomerList.Visible = false;
-                   // ErrorMessage.Visible = true;
 
-                }
-                else
-                {
                     dtCustomerList = CreateCustomeListTable(UserRole);
                     HideCustomerGridColumn(UserRole);
                     DataRow drCustomer;
@@ -1324,10 +1327,10 @@ namespace WealthERP.Advisor
                             drCustomer["IsMFKYC"] = "N";
                         }
                         if (customerVo.Createdon != null)
-                       
+
                             drCustomer["CreatedOn"] = customerVo.Createdon;
-                        
-                       
+
+
 
                         if (UserRole != "rm")
                         {
@@ -1340,9 +1343,9 @@ namespace WealthERP.Advisor
                         dtCustomerList.Rows.Add(drCustomer);
 
                     }
-                    
-                   
                 }
+                   
+                
             }
             catch (BaseApplicationException Ex)
             {
@@ -1369,11 +1372,13 @@ namespace WealthERP.Advisor
         protected void clearControls()
         {
             tdcustomerlist.Visible = false;
+            pnlCustomerList.Visible = false;
             gvCustomerList.DataSource = null;
             gvCustomerList.CurrentPageIndex = 0;
             txtClientCode.Text = "";
             txtCustomerName.Text = "";
             txtPansearch.Text = "";
+            txtCustomerId.Value = string.Empty;
            
 
 
