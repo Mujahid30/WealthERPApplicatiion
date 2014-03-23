@@ -1089,7 +1089,7 @@ function hideMsg() {
 
 
 
-$(function() {
+$(document).ready(function() {
     var moveLeft = 0;
     var moveDown = 0;
     $('a.popper').hover(function(e) {
@@ -1134,6 +1134,7 @@ $(function() {
     });
 
 });
+
 
 function isNumberKey(evt) {
     var charCode = (evt.which) ? evt.which : event.keyCode
