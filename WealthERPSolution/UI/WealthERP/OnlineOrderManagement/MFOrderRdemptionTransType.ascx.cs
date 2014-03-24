@@ -175,11 +175,11 @@ namespace WealthERP.OnlineOrderManagement
         protected void CalculateCurrentholding(DataSet dscurrent, out double units, out double amt, string nav)
         {
             DataTable dt = new DataTable();
-            double holdingUnits=0;         
-            double valuatedUnits=0;          
+            double holdingUnits = 0;
+            double valuatedUnits = 0;
             double finalUnits;
             double finalAmt;
-            double immatureUnits=0;
+            double immatureUnits = 0;
             double Nav = double.Parse(nav);
             if (dscurrent.Tables[1].Rows.Count > 0)
             {
@@ -192,19 +192,19 @@ namespace WealthERP.OnlineOrderManagement
                     if (!string.IsNullOrEmpty((dscurrent.Tables[1].Rows[0][0]).ToString()))
                     {
                         holdingUnits = double.Parse((dscurrent.Tables[1].Rows[0][0]).ToString());
-                    }                    
+                    }
 
                     if (!string.IsNullOrEmpty(dscurrent.Tables[2].Rows[1][0].ToString()))
                     {
                         valuatedUnits = double.Parse(dscurrent.Tables[2].Rows[1][0].ToString());
                     }
-                    
+
 
                     if (!string.IsNullOrEmpty(dscurrent.Tables[3].Rows[0][0].ToString()))
                         immatureUnits = double.Parse(dscurrent.Tables[3].Rows[0][0].ToString());
 
                     finalUnits = holdingUnits - (valuatedUnits + immatureUnits);
-                    
+
                     finalAmt = finalUnits * Nav;
 
                 }
@@ -285,26 +285,40 @@ namespace WealthERP.OnlineOrderManagement
                 lblNavDisplay.Text = dsNav.Tables[0].Rows[0][1] + " " + "As On " + " " + date;
             }
             CalculateCurrentholding(ds, out finalunits, out finalamt, dsNav.Tables[0].Rows[0][1].ToString());
-            lblUnitsheldDisplay.Text = Math.Round(finalunits,2).ToString();
-            lblCurrentValueDisplay.Text = Math.Round(finalamt,2).ToString();
+            lblUnitsheldDisplay.Text = Math.Round(finalunits, 2).ToString();
+            lblCurrentValueDisplay.Text = Math.Round(finalamt, 2).ToString();
             if ((double.Parse(lblUnitsheldDisplay.Text) <= 0) && (subcategory == "MFEQTP"))
             {
-                DisableControls();
+                SetControlsState(false);
             }
-            else {
-                lblMsg.Visible = false;
+            else
+            {
+                SetControlsState(true);
 
             }
         }
-        public void DisableControls()
+        public void SetControlsState(bool isEnable)
         {
-            ddlRedeem.Enabled = false;
-            txtRedeemTypeValue.Enabled = false;
-            chkTermsCondition.Enabled = false;
-            lnkTermsCondition.Enabled = false;
-            btnSubmit.Enabled = false;
-            lblMsg.Visible = true;
-                     
+            if (isEnable)
+            {
+                ddlRedeem.Enabled = true;
+                txtRedeemTypeValue.Enabled = true;
+                chkTermsCondition.Enabled = true;
+                lnkTermsCondition.Enabled = true;
+                btnSubmit.Enabled = true;
+                lblMsg.Visible = false;
+
+            }
+            else
+            {
+                ddlRedeem.Enabled = false;
+                txtRedeemTypeValue.Enabled = false;
+                chkTermsCondition.Enabled = false;
+                lnkTermsCondition.Enabled = false;
+                btnSubmit.Enabled = false;
+                lblMsg.Visible = true;
+            }
+
         }
         protected void BindAmcForDrillDown()
         {
@@ -342,7 +356,7 @@ namespace WealthERP.OnlineOrderManagement
         {
             lbltime.Visible = true;
             //lblDividendType.Visible = true;
-            
+
 
             lblDivType.Visible = true;
             lblCurrentValueDisplay.Visible = true;
