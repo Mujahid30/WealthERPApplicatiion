@@ -49,8 +49,14 @@ namespace WealthERP.Advisor
                 
                 lblName.Text = customerVo.FirstName.ToString() + " " + customerVo.MiddleName.ToString() + " " + customerVo.LastName.ToString();
                 lblPhone.Text = customerVo.ResISDCode.ToString() + " - " + customerVo.ResSTDCode.ToString() + " - " + customerVo.ResPhoneNum.ToString();
-                lblEmail.Text = customerVo.Email.ToString();
-
+                if (!string.IsNullOrEmpty(customerVo.Email))
+                {
+                    lblEmail.Text = customerVo.Email.ToString();
+                }
+                else
+                {
+                    lblEmail.Text = "";
+                }
                 sbAddress.Append(customerVo.Adr1Line1);
                 sbAddress.Append("<br />");
                 sbAddress.Append(customerVo.Adr1Line2);

@@ -166,8 +166,7 @@ namespace WealthERP.Customer
                     //Bind Adviser Branch List
 
                     BindListBranch(customerVo.RmId, "rm");
-                    ddlCustomerSubType.SelectedValue = customerVo.TaxStatusCustomerSubTypeId.ToString();
-
+                  
                     if (customerVo.Type.ToUpper().ToString() == "IND")
                     {
                         rbtnIndividual.Checked = true;
@@ -178,6 +177,11 @@ namespace WealthERP.Customer
                         rbtnNonIndividual.Checked = true;
                         BinSubtypeDropdown(1002);
                     }
+                    if (!string.IsNullOrEmpty(ddlCustomerSubType.SelectedValue))
+                    {
+                        ddlCustomerSubType.SelectedValue = customerVo.TaxStatusCustomerSubTypeId.ToString();
+                    }
+                   
                     if (customerVo.Gender.ToUpper().ToString() == "M")
                     {
                         rbtnMale.Checked = true;

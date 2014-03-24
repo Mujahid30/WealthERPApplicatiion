@@ -216,10 +216,14 @@ namespace WealthERP.Advisor
                         {
                             lblNameValue.Text = customerVo.FirstName.ToString() + " " + customerVo.LastName.ToString();
                         }
-
-                        lblEmailIdValue.Text = customerVo.Email.ToString();
-
-
+                        if (!string.IsNullOrEmpty(customerVo.Email))
+                        {
+                            lblEmailIdValue.Text = customerVo.Email.ToString();
+                        }
+                        else
+                        {
+                            lblEmailIdValue.Text = "";
+                        }
                     }
 
                     //if (Middle != "")
