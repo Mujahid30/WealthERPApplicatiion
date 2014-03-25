@@ -18,14 +18,14 @@ namespace AmpsysJobDaemon
     {
         private static string _AccordFTPServer = ConfigurationSettings.AppSettings["AccordFTPServer"];
         private static string _AccordFTPUsername = Encryption.Decrypt(ConfigurationSettings.AppSettings["AccordFTPUsername"]);
-        private static string _AccordFTPPassword = Encryption.Decrypt(ConfigurationSettings.AppSettings["AccordFTPPassword"]);
+        private static string _AccordFTPPassword = "Pr1$0212";
 
         public override JobStatus Start(JobParams JP, out string ErrorMsg)
         {
             ErrorMsg = "";
 
             string AccordImportDate = ConfigurationManager.AppSettings["AccordImportDate"];
-            DateTime ImportDate = DateTime.Now;
+            DateTime ImportDate = DateTime.Now.AddDays(-1);
 
             if (AccordImportDate != "#RUNDATE#")
                 ImportDate = DateTime.Parse(AccordImportDate);

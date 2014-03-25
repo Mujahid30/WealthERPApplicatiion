@@ -86,7 +86,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\UI\WealthERP\bin\Microsoft.Practices.EnterpriseLibrary.Data.SqlCe.dll</HintPath>
     </Reference>
-    <Reference Include="NLog, Version=1.0.0.505, Culture=neutral, PublicKeyToken=5120e14c03d0593c" />
+    <Reference Include="NLog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core">
@@ -111,10 +111,14 @@
     </Reference>
     <Reference Include="WERP_COMMON, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <ExecutableExtension>.exe</ExecutableExtension>
+      <HintPath>..\NAV\WERP_COMMON\obj\Debug\WERP_COMMON.exe</HintPath>
     </Reference>
-    <Reference Include="WERP_NAVLIB, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="WERP_NAVLIB, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\NAV\WERP_NAVLIB\obj\Debug\WERP_NAVLIB.dll</HintPath>
+    </Reference>
     <Reference Include="WERP_NAV_UPLOAD, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <ExecutableExtension>.exe</ExecutableExtension>
+      <HintPath>..\NAV\WERP_NAV_UPLOAD\obj\Debug\WERP_NAV_UPLOAD.exe</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

@@ -12,24 +12,24 @@ namespace AmpsysJobDaemon
     {
         static void Main(string[] args)
         {
-            //JobAccordProductMaster JAPM = new JobAccordProductMaster();
-            //DateTime ImportDate = DateTime.Parse(ConfigurationManager.AppSettings["AccordImportDate"]);
+            JobAccordProductMaster JAPM = new JobAccordProductMaster();
+            DateTime ImportDate = DateTime.Now.AddDays(-1);
 
-            //JAPM.ProcessAccordProductMasterData(ImportDate);
-            //return;
+            JAPM.ProcessAccordProductMasterData(ImportDate);
+            return;
 
-            Utils.Trace("Starting Daemon...");
-            Process aProcess = Process.GetCurrentProcess();
-            string aProcName = aProcess.ProcessName;
+            //Utils.Trace("Starting Daemon...");
+            //Process aProcess = Process.GetCurrentProcess();
+            //string aProcName = aProcess.ProcessName;
 
-            if (Process.GetProcessesByName(aProcName).Length > 1)
-            {
-                Utils.Trace("Exiting Daemon, another instance is running.");
-                return;
-            }
+            //if (Process.GetProcessesByName(aProcName).Length > 1)
+            //{
+            //    Utils.Trace("Exiting Daemon, another instance is running.");
+            //    return;
+            //}
 
-            StartJobProcessor();
-            StartPartProcessor();
+            //StartJobProcessor();
+            //StartPartProcessor();
 
             Console.ReadLine();
         }
