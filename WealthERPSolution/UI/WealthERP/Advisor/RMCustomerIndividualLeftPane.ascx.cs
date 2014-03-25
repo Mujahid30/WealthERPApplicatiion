@@ -470,7 +470,7 @@ namespace WealthERP.Advisor
                     {
                         if (ConfigurationSettings.AppSettings["NCD_TREE_NODE"].ToString().Contains(advisorVo.advisorId.ToString()))
                         {
-                            //RPBOnlineOrder.FindItemByValue("NCDMFOrder").Visible = false;
+                            RPBOnlineOrder.FindItemByValue("NCDMFOrder").Visible = false;
                             RPBOnlineOrder.FindItemByValue("IPOOrder").Visible = false;
                             RPBOnlineOrder.FindItemByValue("MF_Online_Landing_Page").Visible = false;
                             RadPanelBar1.FindItemByValue("Insurance").Visible = false;
