@@ -15,14 +15,14 @@
         var myfile = UploadDoc.value;
         var format = new Array();
         var Extension = myfile.substring(myfile.lastIndexOf('.') + 1);
-        if (Extension == "csv" || Extension == "txt") {
+        if (Extension == "csv" || Extension == "txt" || Extension == "TXT") {
             return true;
         }
         else {
             if (UploadDoc.value == '')
                 alert('Please browse document to upload.');
             else
-                alert('Please upload only .csv file.');
+                alert('Invalid File Format File.');
 
             return false;
         }
