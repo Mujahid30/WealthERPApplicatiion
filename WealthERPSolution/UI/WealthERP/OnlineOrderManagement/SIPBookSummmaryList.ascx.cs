@@ -176,7 +176,7 @@ namespace WealthERP.OnlineOrderManagement
             {
                 drSIPOrderBook = dtFinalSIPOrderBook.NewRow();
 
-                int sipDueCount = 0, inProcessCount = 0, acceptCount = 0, systemRejectCount = 0, rejectedCount = 0;
+                int sipDueCount = 0, inProcessCount = 0, acceptCount = 0, systemRejectCount = 0, rejectedCount = 0, executedCount=0;
 
                 dvSIPOrderDetails = new DataView(dtOrderDetails, "CMFSS_SystematicSetupId=" + drSIP["CMFSS_SystematicSetupId"].ToString(), "CMFSS_SystematicSetupId", DataViewRowState.CurrentRows);
                 if (int.Parse(drSIP["CMFSS_IsSourceAA"].ToString()) == 1)
@@ -250,7 +250,7 @@ namespace WealthERP.OnlineOrderManagement
                 }
                 drSIPOrderBook["SystemRejectCount"] = systemRejectCount;
                 drSIPOrderBook["RejectedCount"] = rejectedCount;
-
+                drSIPOrderBook["ExecutedCount"] = executedCount;
                 dtFinalSIPOrderBook.Rows.Add(drSIPOrderBook);
             }
 
@@ -285,7 +285,7 @@ namespace WealthERP.OnlineOrderManagement
             dtSIPOrderBook.Columns.Add("CMFSS_InstallmentOther");
             dtSIPOrderBook.Columns.Add("CMFSS_IsSourceAA");
             dtSIPOrderBook.Columns.Add("CMFSS_InstallmentAccepted");
-            
+            dtSIPOrderBook.Columns.Add("ExecutedCount");
             return dtSIPOrderBook;
 
         }

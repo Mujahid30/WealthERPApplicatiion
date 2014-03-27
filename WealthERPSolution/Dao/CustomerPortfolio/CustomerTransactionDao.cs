@@ -4695,9 +4695,15 @@ namespace DaoCustomerPortfolio
                         mfTransactionVo.TransactionDate = DateTime.Parse(dr["CMFT_TransactionDate"].ToString());
                         mfTransactionVo.NAV = float.Parse(dr["CMFT_NAV"].ToString());
                         mfTransactionVo.Price = float.Parse(dr["CMFT_Price"].ToString());
-                        mfTransactionVo.Amount = float.Parse(dr["CMFT_Amount"].ToString());
+                        if (dr["CMFT_Amount"].ToString() != null && dr["CMFT_Amount"].ToString() != string.Empty)
+                        {
+                            mfTransactionVo.Amount = float.Parse(dr["CMFT_Amount"].ToString());
+                        }
                         mfTransactionVo.Units = float.Parse(dr["CMFT_Units"].ToString());
-                        mfTransactionVo.STT = float.Parse(dr["CMFT_STT"].ToString());
+                        if (dr["CMFT_STT"].ToString() != null && dr["CMFT_STT"].ToString() != string.Empty)
+                        {
+                            mfTransactionVo.STT = float.Parse(dr["CMFT_STT"].ToString());
+                        }
                         mfTransactionVo.Source = dr["XES_SourceCode"].ToString();
                         mfTransactionVo.SwitchSourceTrxId = int.Parse(dr["CMFT_SwitchSourceTrxId"].ToString());
                         mfTransactionVo.TransactionClassificationCode = dr["WMTT_TransactionClassificationCode"].ToString();
