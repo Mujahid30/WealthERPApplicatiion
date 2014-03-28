@@ -280,7 +280,7 @@
                     <td colspan="2">
                     </td>
                 </tr>
-                <tr class="spaceUnder" id="trDivtype">
+                <tr class="spaceUnder" id="trDivtype" runat="server" visible="false">
                     <td>
                     </td>
                     <td align="right" style="vertical-align: top;">

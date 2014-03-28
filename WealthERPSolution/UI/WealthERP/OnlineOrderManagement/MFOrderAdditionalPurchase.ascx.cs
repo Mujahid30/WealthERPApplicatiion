@@ -68,6 +68,7 @@ namespace WealthERP.OnlineOrderManagement
                         schemeCode = int.Parse(Request.QueryString["SchemeCode"].ToString());
                         commonLookupBo.GetSchemeAMCCategory(schemeCode, out amcCode, out category);
                         SetSelectedDisplay(accountId, schemeCode, amcCode, category);
+                        SetControlDetails();
                     }
                 }
                 else
@@ -255,23 +256,16 @@ namespace WealthERP.OnlineOrderManagement
             lblUnitsheldDisplay.Visible = true;
             if (lblDividendType.Text == "Growth")
             {
-                //lblDividendFrequency.Visible = false;
-                //lbldftext.Visible = false;
+
                 trDivfeq.Visible = false;
-                //lblDivType.Visible = false;
-                //ddlDivType.Visible = false;
+                trDivtype.Visible = false;
                 trDividendType.Visible = false;
                 RequiredFieldValidator4.Enabled = false;
 
             }
             else
             {
-                //lblDividendFrequency.Visible = true;
-                //lbldftext.Visible = true;
-                //trDivfeq.Visible = true;
-
-                //lblDivType.Visible = true;
-                //ddlDivType.Visible = true;
+                trDivtype.Visible = true;
                 trDividendType.Visible = true;
                 RequiredFieldValidator4.Enabled = true;
 
