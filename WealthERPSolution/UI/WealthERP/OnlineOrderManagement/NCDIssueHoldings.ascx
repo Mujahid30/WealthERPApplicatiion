@@ -199,7 +199,7 @@
                                 <td>
                                     <telerik:RadGrid ID="gvBHList" runat="server" GridLines="None" AutoGenerateColumns="False"
                                         PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
-                                        Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
+                                        Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="true"
                                         AllowAutomaticInserts="false" OnNeedDataSource="gvBHList_OnNeedDataSource" OnItemCommand="gvBHList_OnItemCommand"
                                         OnItemDataBound="gvBHList_OnItemDataBound">
                                         <ExportSettings FileName="Details" HideStructureColumns="true" ExportOnlyData="true">
@@ -225,21 +225,21 @@
                                                     AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false">
                                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                 </telerik:GridBoundColumn>
-                                                <telerik:GridTemplateColumn ShowFilterIcon="false" AllowFiltering="false" CurrentFilterFunction="Contains">
+                                                <telerik:GridTemplateColumn ShowFilterIcon="false" AllowFiltering="false" CurrentFilterFunction="Contains" HeaderStyle-Width="20px">
                                                     <ItemTemplate>
                                                         <asp:LinkButton ID="lbDetails" runat="server" CommandName="ExpandCollapse" Font-Underline="False"
                                                             Font-Bold="true" UniqueName="Detailslink" OnClick="btnExpandAll_Click" Font-Size="Medium">+</asp:LinkButton>
                                                     </ItemTemplate>
                                                 </telerik:GridTemplateColumn>
-                                                <telerik:GridBoundColumn DataField="AIM_IssueName" SortExpression="AIM_IssueName" AutoPostBackOnFilter="true"
+                                                <telerik:GridBoundColumn DataField="AIM_IssueName" SortExpression="AIM_IssueName" AutoPostBackOnFilter="true" HeaderStyle-Width="200px"
                                                     CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="false"
                                                     HeaderText="Issue Name" UniqueName="AIM_IssueName">
                                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                 </telerik:GridBoundColumn>
-                                             <telerik:GridBoundColumn DataField="AllotedQty" SortExpression="AllotedQty" AutoPostBackOnFilter="true"
+                                             <telerik:GridBoundColumn DataField="AllotedQty" SortExpression="AllotedQty" AutoPostBackOnFilter="true" HeaderStyle-Width="200px"
                                                     CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="false"
                                                     HeaderText="Alloted Quantity" UniqueName="AllotedQty">
-                                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                                 </telerik:GridBoundColumn>
                                                <%-- %> <telerik:GridBoundColumn DataField="BHQtyinholdings" AllowFiltering="false" HeaderText="Qty in holdings"
                                                     UniqueName="BHQtyinholdings">
@@ -263,10 +263,10 @@
                                                     AllowFiltering="false" HeaderText="Face Value" UniqueName="BBFACEVALUE">
                                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                 </telerik:GridBoundColumn>--%>
-                                                 <telerik:GridBoundColumn DataField="OrderedQty" SortExpression="OrderedQty" AutoPostBackOnFilter="true"
+                                                 <telerik:GridBoundColumn DataField="OrderedQty" SortExpression="OrderedQty" AutoPostBackOnFilter="true" HeaderStyle-Width="200px"
                                                     CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="false"
                                                     HeaderText="Order Quantity" UniqueName="OrderedQty">
-                                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="true" VerticalAlign="Top" />
+                                                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="true" VerticalAlign="Top" />
                                                 </telerik:GridBoundColumn>
                                                <%-- <telerik:GridBoundColumn Visible="false" DataField="BHInteresttype" SortExpression="BHInteresttype"
                                                     AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
@@ -285,9 +285,9 @@
                                                     UniqueName="BHYieldtillMaturity" Visible="false">
                                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                 </telerik:GridBoundColumn>--%>
-                                                <telerik:GridBoundColumn DataField="HoldingQuantity" AllowFiltering="false" HeaderText="Holding Quantity"
+                                                <telerik:GridBoundColumn DataField="HoldingQuantity" AllowFiltering="false" HeaderText="Holding Quantity" HeaderStyle-Width="200px"
                                                     UniqueName="HoldingQuantity">
-                                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                                 </telerik:GridBoundColumn>
                                                 <%-- <telerik:GridBoundColumn DataField="BHBuybackfacility" AllowFiltering="false" HeaderText="Buyback facility"
                                                     UniqueName="BHBuybackfacility">
@@ -302,7 +302,7 @@
                                                     HeaderText="Tenure (months)" UniqueName="BBTenure">
                                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                 </telerik:GridBoundColumn>--%>
-                                                <telerik:GridTemplateColumn AllowFiltering="false" DataField="" HeaderStyle-Width="100px"
+                                               <%-- <telerik:GridTemplateColumn AllowFiltering="false" DataField="" HeaderStyle-Width="100px"
                                                     UniqueName="Action" HeaderText="Action" Visible="false">
                                                     <ItemTemplate>
                                                         <asp:ImageButton ID="imgBuy" runat="server" CommandName="Buy" Enabled="false" ImageUrl="~/Images/Buy-Button.png"
@@ -310,8 +310,8 @@
                                                         <asp:ImageButton ID="imgSell" runat="server" CommandName="Sell" Visible="false" ImageUrl="~/Images/Sell-Button.png"
                                                             ToolTip="SELL" />&nbsp;
                                                     </ItemTemplate>
-                                                </telerik:GridTemplateColumn>
-                                                <telerik:GridTemplateColumn ShowFilterIcon="false" AllowFiltering="false">
+                                                </telerik:GridTemplateColumn>--%>
+                                                <telerik:GridTemplateColumn ShowFilterIcon="false" AllowFiltering="false" HeaderStyle-Width="2px">
                                                     <ItemTemplate>
                                                         <tr>
                                                             <td colspan="100%">
@@ -338,36 +338,36 @@
                                                                                     HeaderText="SeriesName" UniqueName="SeriesName">
                                                                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                                                 </telerik:GridBoundColumn>
-                                                                                <telerik:GridBoundColumn DataField="COID_MaturityDate" SortExpression="COID_MaturityDate"
+                                                                                <telerik:GridBoundColumn DataField="MaturityDate" SortExpression="MaturityDate"
                                                                                     AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
-                                                                                    AllowFiltering="false" HeaderText="Maturity date" UniqueName="COID_MaturityDate">
+                                                                                    AllowFiltering="false" HeaderText="Maturity date" UniqueName="MaturityDate">
                                                                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                                                 </telerik:GridBoundColumn>
-                                                                                <telerik:GridBoundColumn DataField="BBCouponrate" SortExpression="BBCouponrate" AutoPostBackOnFilter="true"
+                                                                                <telerik:GridBoundColumn DataField="Couponrate" SortExpression="Couponrate" AutoPostBackOnFilter="true"
                                                                                     CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="false"
-                                                                                    HeaderText="Coupon Rate(%)" UniqueName="BBCouponrate">
-                                                                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="true" VerticalAlign="Top" />
+                                                                                    HeaderText="Coupon Rate(%)" UniqueName="Couponrate">
+                                                                                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="true" VerticalAlign="Top" />
                                                                                 </telerik:GridBoundColumn>
-                                                                                <telerik:GridBoundColumn DataField="BBRenewedcouponrate" AllowFiltering="false" HeaderText="Renewed Coupon Rate(%)"
-                                                                                    UniqueName="BBRenewedcouponrate" SortExpression="BBRenewedcouponrate">
+                                                                                <telerik:GridBoundColumn DataField="Renewedcouponrate" AllowFiltering="false" HeaderText="Renewed Coupon Rate(%)"
+                                                                                    UniqueName="Renewedcouponrate" SortExpression="Renewedcouponrate">
+                                                                                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                                                                </telerik:GridBoundColumn>
+                                                                                <telerik:GridBoundColumn DataField="CallOption" AllowFiltering="false" HeaderText="Yield To Call(%)"
+                                                                                    UniqueName="CallOption">
+                                                                                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                                                                </telerik:GridBoundColumn>
+                                                                                <telerik:GridBoundColumn DataField="YieldtillMaturity" AllowFiltering="false" HeaderText="Yield Till Maturity(%)"
+                                                                                    UniqueName="YieldtillMaturity">
+                                                                                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                                                                </telerik:GridBoundColumn>
+                                                                                <telerik:GridBoundColumn DataField="Buybackfacility" AllowFiltering="false" HeaderText="Buyback facility"
+                                                                                    UniqueName="Buybackfacility">
                                                                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                                                 </telerik:GridBoundColumn>
-                                                                                <telerik:GridBoundColumn DataField="BHYieldtillcall" AllowFiltering="false" HeaderText="Yield To Call(%)"
-                                                                                    UniqueName="BHYieldtillcall">
-                                                                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                                                                </telerik:GridBoundColumn>
-                                                                                <telerik:GridBoundColumn DataField="BHYieldtillMaturity" AllowFiltering="false" HeaderText="Yield Till Maturity(%)"
-                                                                                    UniqueName="BHYieldtillMaturity">
-                                                                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                                                                </telerik:GridBoundColumn>
-                                                                                <telerik:GridBoundColumn DataField="BHBuybackfacility" AllowFiltering="false" HeaderText="Buyback facility"
-                                                                                    UniqueName="BHBuybackfacility">
-                                                                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                                                                </telerik:GridBoundColumn>
-                                                                                <telerik:GridBoundColumn DataField="BBTenure" SortExpression="BBTenure" AutoPostBackOnFilter="true"
+                                                                                <telerik:GridBoundColumn DataField="AID_Tenure" SortExpression="AID_Tenure" AutoPostBackOnFilter="true"
                                                                                     CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="false"
-                                                                                    HeaderText="Tenure (months)" UniqueName="BBTenure">
-                                                                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                                                                    HeaderText="Tenure (months)" UniqueName="AID_Tenure">
+                                                                                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                                                                 </telerik:GridBoundColumn>
                                                                             </Columns>
                                                                         </MasterTableView>
