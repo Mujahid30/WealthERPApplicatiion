@@ -3032,89 +3032,113 @@ namespace DaoAdvisorProfiling
             genDictParent = new Dictionary<string, string>();
             genDictRM = new Dictionary<string, string>();
             genDictReassignRM = new Dictionary<string, string>();
+            RowCount = 0;
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                getCustomerListCmd = db.GetStoredProcCommand("SPROC_GetStaffUserCustomerList");
-                if (customerCategoryFilter!=string.Empty)
-                    db.AddInParameter(getCustomerListCmd, "@customerCategoryFilter", DbType.String, customerCategoryFilter);
-                else
-                    db.AddInParameter(getCustomerListCmd, "@customerCategoryFilter", DbType.String, DBNull.Value);
-                if (customerFilter!="")
-                    db.AddInParameter(getCustomerListCmd, "@customerFilter", DbType.String, customerFilter);
-                else
-                    db.AddInParameter(getCustomerListCmd, "@customerFilter", DbType.String,DBNull.Value);
-                if (custcodeFilter!="")
-                    db.AddInParameter(getCustomerListCmd, "@custcodeFilter", DbType.String, custcodeFilter);
-                else
-                    db.AddInParameter(getCustomerListCmd, "@custcodeFilter", DbType.String, DBNull.Value);
-                if(nameFilter!="")
-                    db.AddInParameter(getCustomerListCmd, "@nameFilter", DbType.String, nameFilter);
-                else
-                    db.AddInParameter(getCustomerListCmd, "@nameFilter", DbType.String, DBNull.Value);
-                if (parentFilter!="")
-                    db.AddInParameter(getCustomerListCmd, "@parentFilter", DbType.String, parentFilter);
-                else
-                    db.AddInParameter(getCustomerListCmd, "@parentFilter", DbType.String, DBNull.Value);
-                if (panFilter!="")
-                    db.AddInParameter(getCustomerListCmd, "@panFilter", DbType.String, panFilter);
-                else
-                    db.AddInParameter(getCustomerListCmd, "@panFilter", DbType.String, DBNull.Value);
-                if (BranchFilter!="")
-                    db.AddInParameter(getCustomerListCmd, "@BranchFilter", DbType.String, BranchFilter);
-                else
-                    db.AddInParameter(getCustomerListCmd, "@BranchFilter", DbType.String, DBNull.Value);
-                if(Rmfilter!="")
-                    db.AddInParameter(getCustomerListCmd, "@Rmfilter", DbType.String,Rmfilter);
-                else
-                    db.AddInParameter(getCustomerListCmd, "@Rmfilter", DbType.String, DBNull.Value);
-                if (areaFilter!="")
-                    db.AddInParameter(getCustomerListCmd, "@areaFilter", DbType.String, areaFilter);
-                else
-                    db.AddInParameter(getCustomerListCmd, "@areaFilter", DbType.String, DBNull.Value);
-                if (cityFilter!="")
-                    db.AddInParameter(getCustomerListCmd, "@cityFilter", DbType.String, cityFilter);
-                else
-                    db.AddInParameter(getCustomerListCmd, "@cityFilter", DbType.String, DBNull.Value);
-                if(pincodeFilter!="")
-                    db.AddInParameter(getCustomerListCmd, "@pincodeFilter", DbType.String, pincodeFilter);
-                else
-                     db.AddInParameter(getCustomerListCmd, "@pincodeFilter", DbType.String, DBNull.Value);
-                if (IsProspectFilter != "")
-                    db.AddInParameter(getCustomerListCmd, "@IsProspectFilter", DbType.String, IsProspectFilter);
-                else
-                    db.AddInParameter(getCustomerListCmd, "@IsProspectFilter", DbType.String,DBNull.Value);
-                if(isActiveFilter!="")
-                    db.AddInParameter(getCustomerListCmd, "@isActiveFilter", DbType.String, isActiveFilter);
-                else
-                     db.AddInParameter(getCustomerListCmd, "@isActiveFilter", DbType.String,DBNull.Value);
-                if (iskycavailableFilter!="")
-                    db.AddInParameter(getCustomerListCmd, "@iskycavailableFilter", DbType.String,iskycavailableFilter);
-                else
-                    db.AddInParameter(getCustomerListCmd, "@iskycavailableFilter", DbType.String, DBNull.Value);
-                if (processFilter!="")
-                     db.AddInParameter(getCustomerListCmd, "@processFilter", DbType.String, processFilter);
-                else
-                    db.AddInParameter(getCustomerListCmd, "@processFilter", DbType.String,DBNull.Value);
-                db.AddInParameter(getCustomerListCmd, "@A_AdviserId", DbType.Int32, adviserId);
-                db.AddInParameter(getCustomerListCmd, "@UserRole", DbType.String, UserRole);
-                db.AddInParameter(getCustomerListCmd, "@AR_RMId", DbType.Int32, rmId);
-                db.AddInParameter(getCustomerListCmd, "@AAC_AdviserAgentId", DbType.Int32, AgentId);
-                db.AddInParameter(getCustomerListCmd, "@branchHeadId", DbType.Int32, branchHeadId);
-                if(customerId!=0)
-                    db.AddInParameter(getCustomerListCmd, "@customerId", DbType.Int32, customerId);
-                else
-                    db.AddInParameter(getCustomerListCmd, "@customerId", DbType.Int32,DBNull.Value);
-                db.AddInParameter(getCustomerListCmd, "@filterOn", DbType.String, filterOn);
-                if (UserRole == "associates") { db.AddInParameter(getCustomerListCmd, "@agentCode", DbType.String, agentCode); }
-                db.AddInParameter(getCustomerListCmd, "@pageSize", DbType.Int32, pageSize);
-                db.AddInParameter(getCustomerListCmd, "@pageindex", DbType.Int32, pageindex);
-                db.AddOutParameter(getCustomerListCmd, "@RowCount", DbType.Int32, 5000);
-                getCustomerListCmd.CommandTimeout = 60 * 60;
-                getCustomerDs = db.ExecuteDataSet(getCustomerListCmd);
-                //if (db.ExecuteNonQuery(getCustomerListCmd) != 0)
-                    RowCount = Int32.Parse(db.GetParameterValue(getCustomerListCmd, "RowCount").ToString());
+                if (filterOn == "customer")
+                {
+                    getCustomerListCmd = db.GetStoredProcCommand("SPROC_ONL_GetStaffCustomerDetails");
+                    db.AddInParameter(getCustomerListCmd, "@A_AdviserId", DbType.Int32, adviserId);
+                    db.AddInParameter(getCustomerListCmd, "@UserRole", DbType.String, UserRole);
+                    db.AddInParameter(getCustomerListCmd, "@AR_RMId", DbType.Int32, rmId);
+                    db.AddInParameter(getCustomerListCmd, "@AAC_AdviserAgentId", DbType.Int32, AgentId);
+                    db.AddInParameter(getCustomerListCmd, "@branchHeadId", DbType.Int32, branchHeadId);
+                    if (customerId != 0)
+                        db.AddInParameter(getCustomerListCmd, "@customerId", DbType.Int32, customerId);
+                    else
+                        db.AddInParameter(getCustomerListCmd, "@customerId", DbType.Int32, DBNull.Value);
+                    if (UserRole == "associates") { db.AddInParameter(getCustomerListCmd, "@agentCode", DbType.String, agentCode); }
 
+                }
+                else
+                {
+
+                    getCustomerListCmd = db.GetStoredProcCommand("SPROC_GetStaffUserCustomerList");
+                    if (customerCategoryFilter != string.Empty)
+                        db.AddInParameter(getCustomerListCmd, "@customerCategoryFilter", DbType.String, customerCategoryFilter);
+                    else
+                        db.AddInParameter(getCustomerListCmd, "@customerCategoryFilter", DbType.String, DBNull.Value);
+                    if (customerFilter != "")
+                        db.AddInParameter(getCustomerListCmd, "@customerFilter", DbType.String, customerFilter);
+                    else
+                        db.AddInParameter(getCustomerListCmd, "@customerFilter", DbType.String, DBNull.Value);
+                    if (custcodeFilter != "")
+                        db.AddInParameter(getCustomerListCmd, "@custcodeFilter", DbType.String, custcodeFilter);
+                    else
+                        db.AddInParameter(getCustomerListCmd, "@custcodeFilter", DbType.String, DBNull.Value);
+                    if (nameFilter != "")
+                        db.AddInParameter(getCustomerListCmd, "@nameFilter", DbType.String, nameFilter);
+                    else
+                        db.AddInParameter(getCustomerListCmd, "@nameFilter", DbType.String, DBNull.Value);
+                    if (parentFilter != "")
+                        db.AddInParameter(getCustomerListCmd, "@parentFilter", DbType.String, parentFilter);
+                    else
+                        db.AddInParameter(getCustomerListCmd, "@parentFilter", DbType.String, DBNull.Value);
+                    if (panFilter != "")
+                        db.AddInParameter(getCustomerListCmd, "@panFilter", DbType.String, panFilter);
+                    else
+                        db.AddInParameter(getCustomerListCmd, "@panFilter", DbType.String, DBNull.Value);
+                    if (BranchFilter != "")
+                        db.AddInParameter(getCustomerListCmd, "@BranchFilter", DbType.String, BranchFilter);
+                    else
+                        db.AddInParameter(getCustomerListCmd, "@BranchFilter", DbType.String, DBNull.Value);
+                    if (Rmfilter != "")
+                        db.AddInParameter(getCustomerListCmd, "@Rmfilter", DbType.String, Rmfilter);
+                    else
+                        db.AddInParameter(getCustomerListCmd, "@Rmfilter", DbType.String, DBNull.Value);
+                    if (areaFilter != "")
+                        db.AddInParameter(getCustomerListCmd, "@areaFilter", DbType.String, areaFilter);
+                    else
+                        db.AddInParameter(getCustomerListCmd, "@areaFilter", DbType.String, DBNull.Value);
+                    if (cityFilter != "")
+                        db.AddInParameter(getCustomerListCmd, "@cityFilter", DbType.String, cityFilter);
+                    else
+                        db.AddInParameter(getCustomerListCmd, "@cityFilter", DbType.String, DBNull.Value);
+                    if (pincodeFilter != "")
+                        db.AddInParameter(getCustomerListCmd, "@pincodeFilter", DbType.String, pincodeFilter);
+                    else
+                        db.AddInParameter(getCustomerListCmd, "@pincodeFilter", DbType.String, DBNull.Value);
+                    if (IsProspectFilter != "")
+                        db.AddInParameter(getCustomerListCmd, "@IsProspectFilter", DbType.String, IsProspectFilter);
+                    else
+                        db.AddInParameter(getCustomerListCmd, "@IsProspectFilter", DbType.String, DBNull.Value);
+                    if (isActiveFilter != "")
+                        db.AddInParameter(getCustomerListCmd, "@isActiveFilter", DbType.String, isActiveFilter);
+                    else
+                        db.AddInParameter(getCustomerListCmd, "@isActiveFilter", DbType.String, DBNull.Value);
+                    if (iskycavailableFilter != "")
+                        db.AddInParameter(getCustomerListCmd, "@iskycavailableFilter", DbType.String, iskycavailableFilter);
+                    else
+                        db.AddInParameter(getCustomerListCmd, "@iskycavailableFilter", DbType.String, DBNull.Value);
+                    if (processFilter != "")
+                        db.AddInParameter(getCustomerListCmd, "@processFilter", DbType.String, processFilter);
+                    else
+                        db.AddInParameter(getCustomerListCmd, "@processFilter", DbType.String, DBNull.Value);
+                    db.AddInParameter(getCustomerListCmd, "@A_AdviserId", DbType.Int32, adviserId);
+                    db.AddInParameter(getCustomerListCmd, "@UserRole", DbType.String, UserRole);
+                    db.AddInParameter(getCustomerListCmd, "@AR_RMId", DbType.Int32, rmId);
+                    db.AddInParameter(getCustomerListCmd, "@AAC_AdviserAgentId", DbType.Int32, AgentId);
+                    db.AddInParameter(getCustomerListCmd, "@branchHeadId", DbType.Int32, branchHeadId);
+                    if (customerId != 0)
+                        db.AddInParameter(getCustomerListCmd, "@customerId", DbType.Int32, customerId);
+                    else
+                        db.AddInParameter(getCustomerListCmd, "@customerId", DbType.Int32, DBNull.Value);
+                    db.AddInParameter(getCustomerListCmd, "@filterOn", DbType.String, filterOn);
+                    if (UserRole == "associates") { db.AddInParameter(getCustomerListCmd, "@agentCode", DbType.String, agentCode); }
+                    db.AddInParameter(getCustomerListCmd, "@pageSize", DbType.Int32, pageSize);
+                    db.AddInParameter(getCustomerListCmd, "@pageindex", DbType.Int32, pageindex);
+                    db.AddOutParameter(getCustomerListCmd, "@RowCount", DbType.Int32, 5000);
+                    getCustomerListCmd.CommandTimeout = 60 * 60;
+                    if (db.ExecuteNonQuery(getCustomerListCmd) != 0)
+                         RowCount = Int32.Parse(db.GetParameterValue(getCustomerListCmd, "RowCount").ToString());
+
+                   
+                }
+               
+               
+                getCustomerDs = db.ExecuteDataSet(getCustomerListCmd);
+                   
                 if (getCustomerDs.Tables[0].Rows.Count > 0)
                 {
                     customerList = new List<CustomerVo>();
