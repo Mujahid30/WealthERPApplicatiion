@@ -523,14 +523,14 @@ namespace BoOnlineOrderManagement
             }
             return dsNCD;
         }
-        public DataTable GetNCDHoldingOrder(int customerId, int AccountId, DateTime dtFrom, DateTime dtTo)
+        public DataTable GetNCDHoldingOrder(int customerId, int AdviserId)
         {
             DataTable dtNCDHoldingOrder;
 
             OnlineBondOrderDao OnlineBondOrderDao = new OnlineBondOrderDao();
             try
             {
-                dtNCDHoldingOrder = OnlineBondOrderDao.GetNCDHoldingOrder(customerId, AccountId, dtFrom, dtTo);
+                dtNCDHoldingOrder = OnlineBondOrderDao.GetNCDHoldingOrder(customerId, AdviserId);
             }
             catch (BaseApplicationException Ex)
             {
@@ -549,6 +549,33 @@ namespace BoOnlineOrderManagement
                 throw exBase;
             }
             return dtNCDHoldingOrder;
+        }
+        public DataTable GetNCDHoldingSeriesOrder(int customerId, int AdviserId, int IssueId)
+        {
+            DataTable dtGetNCDHoldingSeriesOrder;
+
+            OnlineBondOrderDao OnlineBondOrderDao = new OnlineBondOrderDao();
+            try
+            {
+                dtGetNCDHoldingSeriesOrder = OnlineBondOrderDao.GetNCDHoldingSeriesOrder(customerId, AdviserId, IssueId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineBondOrderBo.cs:GetNCDHoldingOrder()");
+                object[] objects = new object[1];
+                objects[0] = customerId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtGetNCDHoldingSeriesOrder;
         }
     }
 }

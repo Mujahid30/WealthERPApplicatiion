@@ -778,7 +778,7 @@ namespace DaoOnlineOrderManagement
             return GetNCDTransactOrderDs;
 
         }
-        public DataTable GetNCDHoldingOrder(int customerId, int AccountId, DateTime dtFrom, DateTime dtTo)
+        public DataTable GetNCDHoldingOrder(int customerId, int AdviserId)
         {
             DataSet dsNCDHoldingOrder;
             DataTable dtNCDHoldingOrder;
@@ -787,11 +787,12 @@ namespace DaoOnlineOrderManagement
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                GetNCDHoldingOrdercmd = db.GetStoredProcCommand("SPROC_ONL_GetNCDHolding");
-                db.AddInParameter(GetNCDHoldingOrdercmd, "@CustomerId", DbType.Int32, customerId);
-                db.AddInParameter(GetNCDHoldingOrdercmd, "@AccountId", DbType.Int32, customerId);
-                db.AddInParameter(GetNCDHoldingOrdercmd, "@fromdate", DbType.DateTime, dtFrom);
-                db.AddInParameter(GetNCDHoldingOrdercmd, "@todate", DbType.DateTime, dtTo);
+                //GetNCDHoldingOrdercmd = db.GetStoredProcCommand("SPROC_ONL_GetNCDHolding");
+                GetNCDHoldingOrdercmd = db.GetStoredProcCommand("SPROC_Onl_GetIssueWiseHolding");
+                db.AddInParameter(GetNCDHoldingOrdercmd, "@customerId", DbType.Int32, customerId);
+                db.AddInParameter(GetNCDHoldingOrdercmd, "@adviserId", DbType.Int32, AdviserId);
+                //db.AddInParameter(GetNCDHoldingOrdercmd, "@fromdate", DbType.DateTime, dtFrom);
+                //db.AddInParameter(GetNCDHoldingOrdercmd, "@todate", DbType.DateTime, dtTo);
                 dsNCDHoldingOrder = db.ExecuteDataSet(GetNCDHoldingOrdercmd);
                 dtNCDHoldingOrder = dsNCDHoldingOrder.Tables[0];
             }
@@ -812,6 +813,40 @@ namespace DaoOnlineOrderManagement
                 throw exBase;
             }
             return dtNCDHoldingOrder;
+        }
+        public DataTable GetNCDHoldingSeriesOrder(int customerId, int AdviserId, int IssueId)
+        {
+            DataSet dsGetNCDHoldingSeriesOrder;
+            DataTable dtGetNCDHoldingSeriesOrder;
+            Database db;
+            DbCommand GetNCDHoldingSeriesOrdercmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetNCDHoldingSeriesOrdercmd = db.GetStoredProcCommand("SPROC_ONL_GetIssueSeriesWiseNCDHolding");
+                db.AddInParameter(GetNCDHoldingSeriesOrdercmd, "@CustomerId", DbType.Int32, customerId);
+                db.AddInParameter(GetNCDHoldingSeriesOrdercmd, "@AdviserId", DbType.Int32, AdviserId);
+                db.AddInParameter(GetNCDHoldingSeriesOrdercmd, "@IssueId", DbType.Int32, IssueId); 
+                dsGetNCDHoldingSeriesOrder = db.ExecuteDataSet(GetNCDHoldingSeriesOrdercmd);
+                dtGetNCDHoldingSeriesOrder = dsGetNCDHoldingSeriesOrder.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineBondOrderDao.cs:GetNCDHoldingOrder()");
+                object[] objects = new object[1];
+                objects[0] = customerId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtGetNCDHoldingSeriesOrder;
         }
     }
 }

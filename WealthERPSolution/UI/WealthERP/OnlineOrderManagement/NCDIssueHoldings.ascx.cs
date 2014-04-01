@@ -19,11 +19,14 @@ namespace WealthERP.OnlineOrderManagement
         BoOnlineOrderManagement.OnlineBondOrderBo BoOnlineBondOrder = new BoOnlineOrderManagement.OnlineBondOrderBo();
         DateTime fromDate;
         DateTime toDate;
+        AdvisorVo adviserVo = new AdvisorVo();
+
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
             userVo = (UserVo)Session[SessionContents.UserVo];
             customerVo = (CustomerVo)Session["customerVo"];
+            adviserVo = (AdvisorVo)Session["advisorVo"];
             if (!IsPostBack)
             {
                 fromDate = DateTime.Now.AddMonths(-1);
@@ -65,7 +68,9 @@ namespace WealthERP.OnlineOrderManagement
             if (txtOrderTo.SelectedDate != null)
                 toDate = DateTime.Parse(txtOrderTo.SelectedDate.ToString());
             DataTable dtNCDHoldingOrder;
-            dtNCDHoldingOrder = BoOnlineBondOrder.GetNCDHoldingOrder(customerVo.CustomerId, 0, fromDate, toDate);
+            //dtNCDHoldingOrder = BoOnlineBondOrder.GetNCDHoldingOrder(customerVo.CustomerId, 0, fromDate, toDate);
+            dtNCDHoldingOrder = BoOnlineBondOrder.GetNCDHoldingOrder(customerVo.CustomerId, adviserVo.advisorId);
+
             if (dtNCDHoldingOrder.Rows.Count >= 0)
             {
                 if (Cache["NCDHoldingList" + userVo.UserId.ToString()] == null)
@@ -111,6 +116,52 @@ namespace WealthERP.OnlineOrderManagement
             {
                 gvBHList.DataSource = dtNCDHoldingOrder;
             }
+        }
+        protected void btnExpandAll_Click(object sender, EventArgs e)
+        {
+            //DataTable dtIssueDetail;
+            int strIssuerId = 0;
+            LinkButton buttonlink = (LinkButton)sender;
+            GridDataItem gdi;
+            gdi = (GridDataItem)buttonlink.NamingContainer;
+
+            strIssuerId = int.Parse(gvBHList.MasterTableView.DataKeyValues[gdi.ItemIndex]["AIM_IssueId"].ToString());
+            RadGrid gvchildIssue = (RadGrid)gdi.FindControl("gvChildDetails");
+            Panel pnlchild = (Panel)gdi.FindControl("pnlchild");
+
+            if (pnlchild.Visible == false)
+            {
+                pnlchild.Visible = true;
+                buttonlink.Text = "-";
+            }
+            else if (pnlchild.Visible == true)
+            {
+                pnlchild.Visible = false;
+                buttonlink.Text = "+";
+            }
+            if (txtOrderFrom.SelectedDate != null)
+                fromDate = DateTime.Parse(txtOrderFrom.SelectedDate.ToString());
+            if (txtOrderTo.SelectedDate != null)
+                toDate = DateTime.Parse(txtOrderTo.SelectedDate.ToString());
+            DataTable dtIssueDetail;
+            dtIssueDetail = BoOnlineBondOrder.GetNCDHoldingSeriesOrder(customerVo.CustomerId, adviserVo.advisorId, strIssuerId);
+            //dtIssueDetail = dtNCDHoldingOrder.Tables[0];
+            gvchildIssue.DataSource = dtIssueDetail;
+            gvchildIssue.DataBind();
+        }
+        protected void gvChildDetails_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        {
+            RadGrid gvchildIssue = (RadGrid)sender; // Get reference to grid 
+            GridDataItem nesteditem = (GridDataItem)gvchildIssue.NamingContainer;
+            int strIssuerId = int.Parse(gvBHList.MasterTableView.DataKeyValues[nesteditem.ItemIndex]["AIM_IssueId"].ToString()); // Get the value 
+            if (txtOrderFrom.SelectedDate != null)
+                fromDate = DateTime.Parse(txtOrderFrom.SelectedDate.ToString());
+            if (txtOrderTo.SelectedDate != null)
+                toDate = DateTime.Parse(txtOrderTo.SelectedDate.ToString());
+            DataTable dtIssueDetail;
+            dtIssueDetail = BoOnlineBondOrder.GetNCDHoldingSeriesOrder(customerVo.CustomerId, adviserVo.advisorId, strIssuerId);
+            //dtIssueDetail = dtNCDHoldingOrder.Tables[0];
+            gvchildIssue.DataSource = dtIssueDetail;
         }
         protected void ibtExportSummary_OnClick(object sender, ImageClickEventArgs e)
         {
