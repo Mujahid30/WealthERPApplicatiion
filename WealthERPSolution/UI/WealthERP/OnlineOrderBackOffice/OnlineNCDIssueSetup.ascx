@@ -1571,7 +1571,7 @@
                                         
                                          <telerik:GridBoundColumn DataField="AID_Sequence" HeaderStyle-Width="100px"
                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                            HeaderText="Series Name" UniqueName="AID_Sequence" SortExpression="AID_Sequence"
+                                            HeaderText="Sequence No" UniqueName="AID_Sequence" SortExpression="AID_Sequence"
                                             AllowFiltering="true">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
