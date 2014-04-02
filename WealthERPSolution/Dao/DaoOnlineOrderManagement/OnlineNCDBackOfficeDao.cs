@@ -2227,7 +2227,7 @@ namespace DaoOnlineOrderManagement
             }
         }
 
-        public int CheckIssueName(string externalcode, int issueid)
+        public int CheckIssueSeriesName(string externalcode, int issueid)
         {
             Database db;
             DataSet ds;

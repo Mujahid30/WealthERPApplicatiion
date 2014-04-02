@@ -1509,13 +1509,13 @@ namespace BoOnlineOrderManagement
                         return dt;
         }
 
-        public int CheckIssueName(string Issuename, int issueid)
+        public int CheckIssueSeriesName(string Issuename, int issueid)
         {
             int result = 0;
             OnlineNCDBackOfficeDao daoOnlNcdBackOff = new OnlineNCDBackOfficeDao();
             try
             {
-                result = daoOnlNcdBackOff.CheckIssueName(Issuename, issueid);
+                result = daoOnlNcdBackOff.CheckIssueSeriesName(Issuename, issueid);
             }
             catch (BaseApplicationException Ex)
             {

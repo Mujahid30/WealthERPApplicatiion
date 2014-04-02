@@ -1312,7 +1312,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 //    return;
 
 
-                count = onlineNCDBackOfficeBo.CheckIssueName(txtSereiesName.Text, Convert.ToInt32(txtIssueId.Text));
+                count = onlineNCDBackOfficeBo.CheckIssueSeriesName(txtSereiesName.Text, Convert.ToInt32(txtIssueId.Text));
                 if (count > 0)
                 {
 
