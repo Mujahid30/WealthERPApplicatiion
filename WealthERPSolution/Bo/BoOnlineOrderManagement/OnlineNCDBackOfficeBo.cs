@@ -990,12 +990,23 @@ namespace BoOnlineOrderManagement
                 throw (Ex);
             }
         }
-
-        public void  IsIssueAlloted(int issueId,ref int isAlloted)
+        public void IsIssueAlloted(int issueId, ref int isAlloted)
         {
             try
             {
-                return onlineNCDBackOfficeDao.IsIssueAlloted(issueId, isAlloted);
+                onlineNCDBackOfficeDao.IsIssueAlloted(issueId, ref isAlloted);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+        }
+
+        public void IsSameSubTypeCatAttchedtoSeries(string cat, int issueId, ref string result)
+        {
+            try
+            {
+                onlineNCDBackOfficeDao.IsSameSubTypeCatAttchedtoSeries(cat,issueId, ref result);
             }
             catch (BaseApplicationException Ex)
             {

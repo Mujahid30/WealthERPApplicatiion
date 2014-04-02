@@ -147,6 +147,44 @@ namespace DaoOnlineOrderManagement
             
         }
 
+        public void IsSameSubTypeCatAttchedtoSeries(string cat,int issueId,ref string result )
+        {
+            Database db;
+            DbCommand dbCommand;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbCommand = db.GetStoredProcCommand("SPROC_IsSameSubTypeCatAttchedtoSeries");
+                db.AddInParameter(dbCommand, "@cat", DbType.String, cat);
+
+                
+                db.AddInParameter(dbCommand, "@issueId", DbType.Int32, issueId);
+                db.AddOutParameter(dbCommand, "@result", DbType.String, 100);
+
+                if (db.ExecuteNonQuery(dbCommand) != 0)
+                {
+                    result =  db.GetParameterValue(dbCommand, "@result").ToString() ;
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineNCDBackOfficeDao.cs:IsSameSubTypeCatAttchedtoSeries()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+        }
+
         public int IsValidBidRange(int issueId, double minBidAmt, double MaxBidAmt)
         {
             Database db;

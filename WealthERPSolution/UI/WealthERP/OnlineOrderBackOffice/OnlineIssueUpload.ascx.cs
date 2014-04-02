@@ -317,7 +317,7 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             string isIssueAvailable = "";
             string result="";
-            int isIssueAlloted=0;
+            int isAlloted=0;
             ControlUploadMode(true);
             int nRows=0;
             if (Cache["UPLOAD" + userVo.UserId] == null) {
@@ -327,8 +327,8 @@ namespace WealthERP.OnlineOrderBackOffice
                 return;
             }
 
-            boNcdBackOff.IsIssueAlloted(int.Parse(ddlIssueName.SelectedValue), ref   isIssueAlloted) ;
-            if (isIssueAlloted == 0)
+            boNcdBackOff.IsIssueAlloted(int.Parse(ddlIssueName.SelectedValue), ref   isAlloted);
+            if (isAlloted == 0)
             {
                 ShowMessage("Pls Fill Alootment Date");
             }
