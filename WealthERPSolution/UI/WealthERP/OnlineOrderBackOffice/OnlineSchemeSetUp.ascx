@@ -213,6 +213,8 @@
                 </td>
                 <td>
                     <asp:CheckBox ID="ChkISactive" runat="server" Text="Yes" CssClass="FieldName" />
+                    <asp:LinkButton ID="lnkMargeScheme" runat="server" Text="Merge Scheme" OnClick="lnkMargeScheme_Click"
+                        CssClass="LinkButtons" Visible="false"></asp:LinkButton>
                     <%--ID="imgBtnAddBank" ImageUrl="~/Images/user_add.png" runat="server"
                 ToolTip="Click here to Add Bank" OnClientClick="return openpopupAddBank()" Height="15px"
                 Width="15px"></asp:ImageButton>--%>
@@ -539,7 +541,7 @@
                     <asp:RequiredFieldValidator ID="rfvtxtELremark" runat="server" ErrorMessage="Please Enter Load Remark"
                         CssClass="rfvPCG" ControlToValidate="txtELremark" ValidationGroup="btnsubmit"
                         Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
-                   <%-- <asp:RegularExpressionValidator ID="regtxtELremark" ControlToValidate="txtELremark"
+                    <%-- <asp:RegularExpressionValidator ID="regtxtELremark" ControlToValidate="txtELremark"
                         ErrorMessage="Enter Only letters" runat="server" Display="Dynamic" CssClass="cvPCG"
                         ValidationExpression="[a-zA-Z ]*$" ValidationGroup="btnsubmit">     
                     </asp:RegularExpressionValidator>--%>
@@ -571,7 +573,7 @@
                     <asp:RequiredFieldValidator ID="rfvtxtExitLremark" runat="server" ErrorMessage="Please Enter Exit Load Remark"
                         CssClass="rfvPCG" ControlToValidate="txtExitLremark" ValidationGroup="btnsubmit"
                         Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
-                  <%--  <asp:RegularExpressionValidator ID="regtxtExitLremark" ControlToValidate="txtExitLremark"
+                    <%--  <asp:RegularExpressionValidator ID="regtxtExitLremark" ControlToValidate="txtExitLremark"
                         ErrorMessage="Enter Only letters" runat="server" Display="Dynamic" CssClass="cvPCG"
                         ValidationExpression="[a-zA-Z ]*$" ValidationGroup="btnsubmit">     
                     </asp:RegularExpressionValidator>--%>
@@ -1112,6 +1114,78 @@
             </td>
         </tr>
     </table>
+    <telerik:RadWindow ID="radwindowPopup" runat="server" VisibleOnPageLoad="false" Height="200px"
+        Width="600px" Modal="true" BackColor="#4B4726" VisibleStatusbar="false" Behaviors="None"
+        Title="Merge Scheme" Left="200" Top="200" Expanded="true">
+        <ContentTemplate>
+            <table>
+                <tr>
+                    <td>
+                        <asp:LinkButton ID="lnkMargeEdit" runat="server" CssClass="FieldName"></asp:LinkButton>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <asp:Label ID="lblMargescheme" runat="server" Text="Merge To Scheme:" CssClass="FieldName"></asp:Label>
+                    </td>
+                    <td>
+                        <asp:DropDownList ID="ddlMargeScheme" runat="server" CssClass="cmbField" Width="450px">
+                        </asp:DropDownList>
+                        <span id="Span37" class="spnRequiredField">*</span>
+                        <br />
+                        <asp:RequiredFieldValidator ID="ReqmergeScheme" runat="server" ErrorMessage="Select Scheme To Merge"
+                            CssClass="rfvPCG" ControlToValidate="ddlMargeScheme" ValidationGroup="btnsubmit1"
+                            Display="Dynamic" InitialValue="Select"></asp:RequiredFieldValidator>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <asp:Label ID="lblMargedate" runat="server" Text="Merge Date:" CssClass="FieldName"></asp:Label>
+                    </td>
+                    <td>
+                        <telerik:RadDatePicker ID="txtSchemeMargeDate" CssClass="txtField" runat="server"
+                            Culture="English (United States)" AutoPostBack="false" Skin="Telerik" EnableEmbeddedSkins="false"
+                            ShowAnimation-Type="Fade" MinDate="1900-01-01" TabIndex="5">
+                            <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
+                                Skin="Telerik" EnableEmbeddedSkins="false">
+                            </Calendar>
+                            <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                            <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                            </DateInput>
+                        </telerik:RadDatePicker>
+                        <span id="Span39" class="spnRequiredField">*</span>
+                        <br />
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ErrorMessage="Select Merge Date"
+                            CssClass="rfvPCG" ControlToValidate="txtSchemeMargeDate" ValidationGroup="btnsubmit1"
+                            Display="Dynamic" InitialValue="Select"></asp:RequiredFieldValidator>
+                    </td>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <asp:Label ID="lblStatus" runat="server" Text="Ststus:" CssClass="FieldName"></asp:Label>
+                    </td>
+                    <td>
+                    <asp:Label ID="lblPStatus" runat="server" CssClass="FieldName"></asp:Label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <asp:Button ID="btnMSSubmit" runat="server" Text="Submit" CssClass="PCGLongButton"
+                            OnClick="btnMSSubmit_Click" ValidationGroup="btnsubmit1" />
+                    </td>
+                    <td>
+                        <asp:Button ID="btnMSUpdate" runat="server" Text="Update" CssClass="PCGButton" Visible="false"
+                            OnClick="btnMSUpdate_Click" ValidationGroup="btnsubmit1" />
+                        <asp:Button ID="btnCancel" runat="server" Text="Cancel" OnClick="btnCancel_Click"
+                            CssClass="PCGButton" />
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+            </table>
+        </ContentTemplate>
+    </telerik:RadWindow>
     <asp:HiddenField ID="hdnSchemePlanCode" runat="server" />
     <asp:HiddenField ID="hdnCategory" runat="server" />
     <asp:HiddenField ID="hdnAMC" runat="server" />

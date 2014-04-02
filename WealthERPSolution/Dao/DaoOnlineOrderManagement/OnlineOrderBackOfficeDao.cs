@@ -2169,5 +2169,103 @@ namespace DaoOnlineOrderManagement
             }
             return dsGetUserRoleDepartmentWise.Tables[0];
         }
+        public DataTable GetSchemeForMarge(int AmcCode,int Schemeplanecode)
+        {
+            Database db;
+            DbCommand cmdGetSchemeForMarge;
+            DataTable dtGetSchemeForMarge;
+            DataSet dsGetSchemeForMarge = null;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+
+                //To retreive data from the table 
+                cmdGetSchemeForMarge = db.GetStoredProcCommand("SPROC_GetSchemeName");
+                db.AddInParameter(cmdGetSchemeForMarge, "@AMCCode", DbType.Int32, AmcCode);
+                db.AddInParameter(cmdGetSchemeForMarge, "@SchemePlanCode", DbType.Int32, Schemeplanecode);
+                dsGetSchemeForMarge = db.ExecuteDataSet(cmdGetSchemeForMarge);
+                dtGetSchemeForMarge = dsGetSchemeForMarge.Tables[0];
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetSchemeForMarge;
+        }
+        public bool UpdateMargeScheme(int SchemePlaneCode,int MargeScheme, DateTime Date,int UserId)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand UpdateMargeSchemeCmd;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                UpdateMargeSchemeCmd = db.GetStoredProcCommand("SPROC_UpdateMargeScheme");
+                db.AddInParameter(UpdateMargeSchemeCmd, "@SchemePlanCode", DbType.Int32, SchemePlaneCode);
+                db.AddInParameter(UpdateMargeSchemeCmd, "@MargeSchemeCode", DbType.Int32, MargeScheme);
+                db.AddInParameter(UpdateMargeSchemeCmd, "@MargeDate", DbType.Date, Date);
+                db.AddInParameter(UpdateMargeSchemeCmd, "@Modifiedby", DbType.Int32, UserId);
+                if (db.ExecuteNonQuery(UpdateMargeSchemeCmd) != 0)
+                    bResult = true;
+            }
+
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:UpdateUserrole()");
+                object[] objects = new object[3];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return bResult;
+        }
+        public int BussinessDateCheck(DateTime Date)
+        {
+            Database db;
+            DataSet ds;
+            DbCommand cmdBussinessDateCheck;
+            int count = 0;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //checking year
+                cmdBussinessDateCheck = db.GetStoredProcCommand("SPROC_ToCheckBussinessDate");
+                db.AddInParameter(cmdBussinessDateCheck, "@Date", DbType.Date, Date);
+                db.AddOutParameter(cmdBussinessDateCheck, "@count", DbType.Int32, 0);
+                if (db.ExecuteScalar(cmdBussinessDateCheck) != null)
+                    count = Convert.ToInt32(db.ExecuteScalar(cmdBussinessDateCheck).ToString());
+                //ds = db.ExecuteDataSet(cmdBussinessDateCheck);
+                //if (db.ExecuteNonQuery(cmdBussinessDateCheck) != 0)
+                //{
+                //    count = Convert.ToInt32(db.GetParameterValue(cmdBussinessDateCheck, "count").ToString());
+                //}
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AssociateDAO.cs:CodeduplicateChack()");
+                object[] objects = new object[2];
+                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return count;
+        }
     }
 }

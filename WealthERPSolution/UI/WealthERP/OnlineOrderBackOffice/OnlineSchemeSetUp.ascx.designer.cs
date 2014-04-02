@@ -21,7 +21,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.ScriptManager scrptMgr;
-        
+        protected global::Telerik.Web.UI.RadWindow radwindowPopup;
         /// <summary>
         /// lbBack control.
         /// </summary>
@@ -30,7 +30,8 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lbBack;
-        
+        protected global::System.Web.UI.WebControls.LinkButton lblPStatus;
+        protected global::System.Web.UI.WebControls.LinkButton lblStatus;
         /// <summary>
         /// lblBack control.
         /// </summary>
@@ -39,6 +40,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lblBack;
+        protected global::System.Web.UI.WebControls.LinkButton lnkMargeScheme;
         
         /// <summary>
         /// tblMessage control.
@@ -84,7 +86,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlProduct;
-        
+        protected global::System.Web.UI.WebControls.DropDownList ddlMargeScheme;
         /// <summary>
         /// rfvddlProduct control.
         /// </summary>
@@ -624,7 +626,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadDatePicker txtNFOStartDate;
-        
+        protected global::Telerik.Web.UI.RadDatePicker txtSchemeMargeDate;
         /// <summary>
         /// lblNfoEnddate control.
         /// </summary>

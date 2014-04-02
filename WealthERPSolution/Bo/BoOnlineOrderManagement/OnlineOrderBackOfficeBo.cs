@@ -1606,9 +1606,9 @@ namespace BoOnlineOrderManagement
             var kycYes = kycStatus.Where(pair => pair.Key.StartsWith("JOINT") && pair.Value == "1");
             if (kycStatus.Count == kycYes.Count())
                 privilege = "Full";
-            else if (kycStatus.Count==kycNo.Count())
+            else if (kycStatus.Count == kycNo.Count())
                 privilege = "None";
-            
+
             return privilege;
 
         }
@@ -1900,6 +1900,48 @@ namespace BoOnlineOrderManagement
                 throw exBase;
             }
             return dtGetUserRoleDepartmentWise;
+        }
+        public DataTable GetSchemeForMarge(int AmcCode, int Schemeplanecode)
+        {
+            DataTable dtGetSchemeForMarge = new DataTable();
+            OnlineOrderBackOfficeDao daoOnlineOrderBackOffice = new OnlineOrderBackOfficeDao();
+            try
+            {
+                dtGetSchemeForMarge = daoOnlineOrderBackOffice.GetSchemeForMarge(AmcCode, Schemeplanecode);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetSchemeForMarge;
+        }
+        public bool UpdateMargeScheme(int SchemePlaneCode, int MargeScheme, DateTime Date, int UserId)
+        {
+            bool blResult = false;
+            OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
+            try
+            {
+                blResult = OnlineOrderBackOfficeDao.UpdateMargeScheme(SchemePlaneCode, MargeScheme, Date, UserId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return blResult;
+        }
+        public int BussinessDateCheck(DateTime Date)
+        {
+            int result = 0;
+            OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
+            try
+            {
+                result = OnlineOrderBackOfficeDao.BussinessDateCheck(Date);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return result;
         }
     }
 
