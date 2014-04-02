@@ -1240,7 +1240,7 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             int count = 0;
             int categoryGridcount = rgEligibleInvestorCategories.Items.Count;
-
+            string attachedCatId = string.Empty;
             if (categoryGridcount == 0)
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please Fill Categories.');", true);
@@ -1266,6 +1266,8 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     if (((CheckBox)gdi.FindControl("cbSeriesCat")).Checked == true)
                     {
+                        int categoryId = Convert.ToInt32(gdi["AIIC_InvestorCatgeoryId"].Text);
+                        attachedCatId += categoryId + ",";
                         count++;
                     }
                 }
@@ -1274,7 +1276,13 @@ namespace WealthERP.OnlineOrderBackOffice
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Select One Category.');", true);
                     return;
                 }
-
+                onlineNCDBackOfficeBo.IsSameSubTypeCatAttchedtoSeries(attachedCatId, Convert.ToInt32(txtIssueId.Text), ref attachedCatId);
+                if (attachedCatId == String.Empty )
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert( '" + attachedCatId + "');", true);
+                    e.Canceled = true;
+                    return;
+                }
                 if (chkBuyAvailability.Checked == true)
                 {
                     availblity = 1;
@@ -1313,6 +1321,8 @@ namespace WealthERP.OnlineOrderBackOffice
 
 
                 count = onlineNCDBackOfficeBo.CheckIssueSeriesName(txtSereiesName.Text, Convert.ToInt32(txtIssueId.Text));
+
+               
                 if (count > 0)
                 {
 
@@ -1326,6 +1336,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     e.Canceled = true;
                     return;
                 }
+                
 
                 int seriesId = CreateUpdateDeleteSeries(Convert.ToInt32(txtIssueId.Text), 0, txtSereiesName.Text, availblity, redemptionavaliable, lockinperiodavaliable, Convert.ToInt32(txtTenure.Text), ddltInterestFrequency.SelectedValue, ddlInterestType.SelectedValue, Convert.ToInt32(txtSequence.Text), "Insert");
 
