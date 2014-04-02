@@ -316,6 +316,8 @@ namespace WealthERP.OnlineOrderBackOffice
         protected void btnUploadData_Click(object sender, EventArgs e)
         {
             string isIssueAvailable = "";
+            string result="";
+            int isIssueAlloted=0;
             ControlUploadMode(true);
             int nRows=0;
             if (Cache["UPLOAD" + userVo.UserId] == null) {
@@ -324,21 +326,37 @@ namespace WealthERP.OnlineOrderBackOffice
                 btnUploadData.Enabled = false;
                 return;
             }
-            DataTable dtUploadData = (DataTable)Cache["UPLOAD" + userVo.UserId];
 
-            if (boNcdBackOff == null) boNcdBackOff = new OnlineNCDBackOfficeBo();
-            dtUploadData = CheckHeaders(dtUploadData);
-            nRows = boNcdBackOff.UploadCheckOrderFile(dtUploadData, int.Parse(ddlFileType.SelectedValue), int.Parse(ddlIssueName.SelectedValue), ref isIssueAvailable,advisorVo.advisorId,ddlSource.SelectedValue);
-            if (isIssueAvailable == "NotEligble")
+            boNcdBackOff.IsIssueAlloted(int.Parse(ddlIssueName.SelectedValue), ref   isIssueAlloted) ;
+            if (isIssueAlloted == 0)
             {
-                ShowMessage("Uploaded file Issue and Selected issue Does not match ");
+                ShowMessage("Pls Fill Alootment Date");
             }
             else
             {
-                ShowMessage("data uploaded");
+
+                DataTable dtUploadData = (DataTable)Cache["UPLOAD" + userVo.UserId];
+
+                if (boNcdBackOff == null) boNcdBackOff = new OnlineNCDBackOfficeBo();
+                dtUploadData = CheckHeaders(dtUploadData);
+
+                nRows = boNcdBackOff.UploadCheckOrderFile(dtUploadData, int.Parse(ddlFileType.SelectedValue), int.Parse(ddlIssueName.SelectedValue), ref isIssueAvailable, advisorVo.advisorId, ddlSource.SelectedValue, ref   result);
+                if (isIssueAvailable == "NotEligble")
+                {
+                    ShowMessage("Uploaded file Issue and Selected issue Does not match ");
+                }
+                else if (result != string.Empty)
+                {
+                    ShowMessage(result);
+                }
+                else
+                {
+                    ShowMessage("data uploaded");
+
+                }
+
+                btnUploadData.Enabled = false;
             }
-        
-           btnUploadData.Enabled = false;
         }
         private void ControlUploadMode(bool uploadMode)
         {

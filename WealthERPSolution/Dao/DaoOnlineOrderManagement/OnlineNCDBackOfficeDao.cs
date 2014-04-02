@@ -112,7 +112,40 @@ namespace DaoOnlineOrderManagement
             }
             return stepCode;
         }
+        public void   IsIssueAlloted(int issueId, ref int isAllotmented)
+        {
+            Database db;
+            DbCommand dbCommand;
+            
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbCommand = db.GetStoredProcCommand("SPROC_CheckIssueAllomentDate");
+                db.AddInParameter(dbCommand, "@issueId", DbType.Int32, issueId);
+                db.AddOutParameter(dbCommand, "@IsAlloted", DbType.Int16, 0);
 
+                if (db.ExecuteNonQuery(dbCommand) != 0)
+                {                    
+                    isAllotmented = int.Parse(db.GetParameterValue(dbCommand, "@IsAlloted").ToString());
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineNCDBackOfficeDao.cs:IsIssueAlloted()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            
+        }
 
         public int IsValidBidRange(int issueId, double minBidAmt, double MaxBidAmt)
         {
@@ -1985,9 +2018,9 @@ namespace DaoOnlineOrderManagement
             return dt;
         }
 
-        public int UploadAllotmentIssueData(DataTable dtData, int issueId)
+        public int UploadAllotmentIssueData(DataTable dtData, int issueId, ref string isValidated)
         {
-            int result;
+            int result=0;
             DataTable dt;
             try
             {
@@ -1995,13 +2028,28 @@ namespace DaoOnlineOrderManagement
                 string conString = ConfigurationManager.ConnectionStrings["wealtherp"].ConnectionString;
                 SqlConnection sqlCon = new SqlConnection(conString);
                 sqlCon.Open();
-                SqlCommand cmdProc = new SqlCommand("SPROC_UploadAllotmentIssueData", sqlCon);
+                SqlCommand cmdProc = new SqlCommand("SPROC_ValidateUploadIssueAllotmentDetails", sqlCon);
                 cmdProc.CommandType = CommandType.StoredProcedure;
                 cmdProc.Parameters.AddWithValue("@Details", dtData);
                 cmdProc.Parameters.AddWithValue("@issueId", issueId);
+                cmdProc.Parameters.AddWithValue("@result", string.Empty);
+                 
+                isValidated = cmdProc.ExecuteScalar().ToString();
+              if (isValidated == string.Empty)
+              {
+                  SqlCommand cmdProcAllot = new SqlCommand("SPROC_UploadIssueAllotmentDetails", sqlCon);
+                  cmdProcAllot.CommandType = CommandType.StoredProcedure;
+                  cmdProcAllot.Parameters.AddWithValue("@Details", dtData);
+                  cmdProcAllot.Parameters.AddWithValue("@issueId", issueId);
+                  //cmdProcAllot.Parameters.AddWithValue("@result", string.Empty);
 
-                result = cmdProc.ExecuteNonQuery();
+                  result = cmdProcAllot.ExecuteNonQuery();
 
+              }
+              else
+              {
+                  result = 0;
+              }
 
                 //dt = dsGetIssuerid.Tables[0];
             }

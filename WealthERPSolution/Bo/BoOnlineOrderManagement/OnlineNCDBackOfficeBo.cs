@@ -981,8 +981,28 @@ namespace BoOnlineOrderManagement
 
         public string  GetExtractStepCode(int fileTypeId)
         {
-          return   onlineNCDBackOfficeDao.GetExtractStepCode(fileTypeId);
+            try
+            {
+                return onlineNCDBackOfficeDao.GetExtractStepCode(fileTypeId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
         }
+
+        public void  IsIssueAlloted(int issueId,ref int isAlloted)
+        {
+            try
+            {
+                return onlineNCDBackOfficeDao.IsIssueAlloted(issueId, isAlloted);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+        }
+
 
         public void  GetFileName(string extSource, int  fileTypeId,ref string  filename,ref string  delimeter,ref string  format)
         {
@@ -1042,8 +1062,17 @@ namespace BoOnlineOrderManagement
 
             DataTable dtUploadFile = new DataTable("Upload");
 
-            foreach (string header in headers) 
-                dtUploadFile.Columns.Add(header);
+            foreach (string header in headers)
+            {
+                if (dtUploadFile.Columns.Contains(header))
+                {
+                    dtUploadFile.Columns.Add(header+dtUploadFile.Columns.Count);
+                }
+                else
+                {
+                    dtUploadFile.Columns.Add(header);
+                }
+            }
 
             for (int i = 1; i < allLines.Length; i++)
             {
@@ -1398,7 +1427,7 @@ namespace BoOnlineOrderManagement
             }
             return result;
         }
-        public int UploadCheckOrderFile(DataTable dtCheckOrder, int fileTypeId, int issueId,ref string isEligbleIssue,int adviserid,string source)
+        public int UploadCheckOrderFile(DataTable dtCheckOrder, int fileTypeId, int issueId,ref string isEligbleIssue,int adviserid,string source,ref string result)
         {
 
             int nRows = 0;
@@ -1412,7 +1441,7 @@ namespace BoOnlineOrderManagement
                 if (extractStepCode == "UA")
                 {
 
-                    nRows = daoOnlNcdBackOff.UploadAllotmentIssueData(dtCheckOrder, issueId);
+                    nRows = daoOnlNcdBackOff.UploadAllotmentIssueData(dtCheckOrder, issueId,ref   result);
                 }
                 else if (extractStepCode == "UC")
                 {

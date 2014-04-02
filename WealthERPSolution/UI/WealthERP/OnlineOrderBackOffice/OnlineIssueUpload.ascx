@@ -15,7 +15,7 @@
         var myfile = UploadDoc.value;
         var format = new Array();
         var Extension = myfile.substring(myfile.lastIndexOf('.') + 1);
-        if (Extension == "csv" || Extension == "txt" || Extension == "TXT") {
+        if (Extension == "csv" || Extension == "txt" || Extension == "TXT"  ) {
             return true;
         }
         else {

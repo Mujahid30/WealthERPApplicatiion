@@ -237,9 +237,9 @@
                                 UniqueName="CEDA_DPId" FooterStyle-HorizontalAlign="Left" DataFormatString="{0:n}">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="COID_Quantity" HeaderText="Qty" SortExpression="COID_Quantity"
+                            <telerik:GridBoundColumn DataField="OrderdQuantity" HeaderText="Qty" SortExpression="OrderdQuantity"
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
-                                UniqueName="COID_Quantity" FooterStyle-HorizontalAlign="Left">
+                                UniqueName="OrderdQuantity" FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="AIM_FaceValue" HeaderText="Face value" SortExpression="AIM_FaceValue"
@@ -257,22 +257,22 @@
                                 UniqueName="COID_Price" FooterStyle-HorizontalAlign="Left" Visible="false">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="AIA_AllotmentDate" HeaderText="Allotment Date"
-                                SortExpression="AIA_AllotmentDate" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                AutoPostBackOnFilter="true" UniqueName="AIA_AllotmentDate" FooterStyle-HorizontalAlign="Left"
+                            <telerik:GridBoundColumn DataField="AIM_AllotmentDate" HeaderText="Allotment Date"
+                                SortExpression="AIM_AllotmentDate" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                AutoPostBackOnFilter="true" UniqueName="AIM_AllotmentDate" FooterStyle-HorizontalAlign="Left"
                                 DataFormatString="{0:d}">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="AIA_Quantity" HeaderText="Alloted Qty" SortExpression="AIA_Quantity"
+                            <telerik:GridBoundColumn DataField="AllotmentQty" HeaderText="Alloted Qty" SortExpression="AllotmentQty"
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
-                                UniqueName="AIA_Quantity" FooterStyle-HorizontalAlign="Left">
+                                UniqueName="AllotmentQty" FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn Visible="false" DataField="AIA_Price" HeaderText="Alloted Price"
+                            <%--<telerik:GridBoundColumn Visible="false" DataField="AIA_Price" HeaderText="Alloted Price"
                                 SortExpression="AIA_Price" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                 AutoPostBackOnFilter="true" UniqueName="AIA_Price" FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>
+                            </telerik:GridBoundColumn>--%>
                             <telerik:GridBoundColumn DataField="AllotmentAmt" HeaderText="Alloted Amt" SortExpression="AllotmentAmt"
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
                                 UniqueName="AllotmentAmt" FooterStyle-HorizontalAlign="Left">
