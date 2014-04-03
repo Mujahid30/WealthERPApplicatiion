@@ -983,6 +983,7 @@ namespace BoOnlineOrderManagement
         {
             try
             {
+                if (onlineNCDBackOfficeDao == null) onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
                 return onlineNCDBackOfficeDao.GetExtractStepCode(fileTypeId);
             }
             catch (BaseApplicationException Ex)
@@ -990,11 +991,12 @@ namespace BoOnlineOrderManagement
                 throw (Ex);
             }
         }
-        public void IsIssueAlloted(int issueId, ref int isAlloted)
+        public void IsIssueAlloted(int issueId, ref string  result)
         {
             try
             {
-                onlineNCDBackOfficeDao.IsIssueAlloted(issueId, ref isAlloted);
+                if (onlineNCDBackOfficeDao == null) onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
+                onlineNCDBackOfficeDao.IsIssueAlloted(issueId, ref result);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1006,6 +1008,7 @@ namespace BoOnlineOrderManagement
         {
             try
             {
+                if (onlineNCDBackOfficeDao == null) onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
                 onlineNCDBackOfficeDao.IsSameSubTypeCatAttchedtoSeries(cat,issueId, ref result);
             }
             catch (BaseApplicationException Ex)
@@ -1438,7 +1441,7 @@ namespace BoOnlineOrderManagement
             }
             return result;
         }
-        public int UploadCheckOrderFile(DataTable dtCheckOrder, int fileTypeId, int issueId,ref string isEligbleIssue,int adviserid,string source,ref string result)
+        public int UploadCheckOrderFile(DataTable dtCheckOrder, int fileTypeId, int issueId, ref string isEligbleIssue, int adviserid, string source, ref string result)
         {
 
             int nRows = 0;
@@ -1451,8 +1454,14 @@ namespace BoOnlineOrderManagement
                 string extractStepCode = daoOnlNcdBackOff.GetExtractStepCode(fileTypeId);
                 if (extractStepCode == "UA")
                 {
-
+                    daoOnlNcdBackOff.IsIssueAlloted(issueId, ref   result);
+                    if(result!=string.Empty )
                     nRows = daoOnlNcdBackOff.UploadAllotmentIssueData(dtCheckOrder, issueId,ref   result);
+                    else
+                    {
+                        result = "Pls Fill Allotment Date";
+                    }
+                    
                 }
                 else if (extractStepCode == "UC")
                 {

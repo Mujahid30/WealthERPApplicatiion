@@ -315,6 +315,7 @@ namespace WealthERP.OnlineOrderBackOffice
         }
         protected void btnUploadData_Click(object sender, EventArgs e)
         {
+            if (boNcdBackOff == null) boNcdBackOff = new OnlineNCDBackOfficeBo();
             string isIssueAvailable = "";
             string result="";
             int isAlloted=0;
@@ -325,21 +326,12 @@ namespace WealthERP.OnlineOrderBackOffice
                 
                 btnUploadData.Enabled = false;
                 return;
-            }
-
-            boNcdBackOff.IsIssueAlloted(int.Parse(ddlIssueName.SelectedValue), ref   isAlloted);
-            if (isAlloted == 0)
-            {
-                ShowMessage("Pls Fill Alootment Date");
-            }
+            }                           
+          
             else
             {
-
-                DataTable dtUploadData = (DataTable)Cache["UPLOAD" + userVo.UserId];
-
-                if (boNcdBackOff == null) boNcdBackOff = new OnlineNCDBackOfficeBo();
+                DataTable dtUploadData = (DataTable)Cache["UPLOAD" + userVo.UserId];               
                 dtUploadData = CheckHeaders(dtUploadData);
-
                 nRows = boNcdBackOff.UploadCheckOrderFile(dtUploadData, int.Parse(ddlFileType.SelectedValue), int.Parse(ddlIssueName.SelectedValue), ref isIssueAvailable, advisorVo.advisorId, ddlSource.SelectedValue, ref   result);
                 if (isIssueAvailable == "NotEligble")
                 {

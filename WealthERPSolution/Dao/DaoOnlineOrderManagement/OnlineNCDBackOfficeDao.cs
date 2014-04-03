@@ -112,21 +112,20 @@ namespace DaoOnlineOrderManagement
             }
             return stepCode;
         }
-        public void   IsIssueAlloted(int issueId, ref int isAllotmented)
+        public void   IsIssueAlloted(int issueId, ref string result)
         {
             Database db;
             DbCommand dbCommand;
-            
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 dbCommand = db.GetStoredProcCommand("SPROC_CheckIssueAllomentDate");
                 db.AddInParameter(dbCommand, "@issueId", DbType.Int32, issueId);
                 db.AddOutParameter(dbCommand, "@IsAlloted", DbType.Int16, 0);
-
-                if (db.ExecuteNonQuery(dbCommand) != 0)
+                db.ExecuteNonQuery(dbCommand);
+                if ( db.GetParameterValue(dbCommand, "@IsAlloted").ToString()!=string.Empty)
                 {                    
-                    isAllotmented = int.Parse(db.GetParameterValue(dbCommand, "@IsAlloted").ToString());
+                    result =  db.GetParameterValue(dbCommand, "@IsAlloted").ToString() ;                     
                 }
             }
             catch (BaseApplicationException Ex)
