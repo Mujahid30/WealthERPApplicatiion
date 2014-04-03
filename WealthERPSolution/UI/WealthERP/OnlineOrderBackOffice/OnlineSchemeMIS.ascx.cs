@@ -85,7 +85,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     hdnIsonline.Value = "0";
                 }
-                if (ddlststus.SelectedIndex == 0 || ddlststus.SelectedIndex == 1)
+                if (ddlststus.SelectedIndex == 0 || ddlststus.SelectedIndex == 1 || ddlststus.SelectedIndex == 2)
                 {
                     hdnStatus.Value = ddlststus.SelectedValue;
                     ViewState["Status"] = hdnIsonline.Value;

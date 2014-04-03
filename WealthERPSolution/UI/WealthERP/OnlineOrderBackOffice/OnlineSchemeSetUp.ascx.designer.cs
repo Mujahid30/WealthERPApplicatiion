@@ -21,7 +21,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.ScriptManager scrptMgr;
-        protected global::Telerik.Web.UI.RadWindow radwindowPopup;
+        
         /// <summary>
         /// lbBack control.
         /// </summary>
@@ -30,8 +30,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lbBack;
-        protected global::System.Web.UI.WebControls.LinkButton lblPStatus;
-        protected global::System.Web.UI.WebControls.LinkButton lblStatus;
+        
         /// <summary>
         /// lblBack control.
         /// </summary>
@@ -40,7 +39,6 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lblBack;
-        protected global::System.Web.UI.WebControls.LinkButton lnkMargeScheme;
         
         /// <summary>
         /// tblMessage control.
@@ -59,7 +57,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trSumbitSuccess;
-        protected global::System.Web.UI.WebControls.Panel pnlSIPDetails;
+        
         /// <summary>
         /// msgRecordStatus control.
         /// </summary>
@@ -86,7 +84,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlProduct;
-        protected global::System.Web.UI.WebControls.DropDownList ddlMargeScheme;
+        
         /// <summary>
         /// rfvddlProduct control.
         /// </summary>
@@ -295,6 +293,33 @@ namespace WealthERP.OnlineOrderBackOffice {
         protected global::System.Web.UI.WebControls.TextBox txtProductCode;
         
         /// <summary>
+        /// Label9 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label9;
+        
+        /// <summary>
+        /// ddlNFoStatus control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlNFoStatus;
+        
+        /// <summary>
+        /// ReqddlNFoStatus control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator ReqddlNFoStatus;
+        
+        /// <summary>
         /// lblToadd control.
         /// </summary>
         /// <remarks>
@@ -313,31 +338,58 @@ namespace WealthERP.OnlineOrderBackOffice {
         protected global::System.Web.UI.WebControls.CheckBox chkonline;
         
         /// <summary>
-        /// LbllISactive control.
+        /// lnkMargeScheme control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LbllISactive;
+        protected global::System.Web.UI.WebControls.LinkButton lnkMargeScheme;
         
         /// <summary>
-        /// ChkISactive control.
+        /// lblNfostartdate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox ChkISactive;
+        protected global::System.Web.UI.WebControls.Label lblNfostartdate;
         
         /// <summary>
-        /// LinkButton1 control.
+        /// txtNFOStartDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkButton1;
+        protected global::Telerik.Web.UI.RadDatePicker txtNFOStartDate;
+        
+        /// <summary>
+        /// lblNfoEnddate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblNfoEnddate;
+        
+        /// <summary>
+        /// txtNFOendDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadDatePicker txtNFOendDate;
+        
+        /// <summary>
+        /// CompareValidator14 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator CompareValidator14;
         
         /// <summary>
         /// Label4 control.
@@ -608,51 +660,6 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chkInfo;
-        
-        /// <summary>
-        /// lblNfostartdate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblNfostartdate;
-        
-        /// <summary>
-        /// txtNFOStartDate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadDatePicker txtNFOStartDate;
-        protected global::Telerik.Web.UI.RadDatePicker txtSchemeMargeDate;
-        /// <summary>
-        /// lblNfoEnddate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblNfoEnddate;
-        
-        /// <summary>
-        /// txtNFOendDate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadDatePicker txtNFOendDate;
-        
-        /// <summary>
-        /// CompareValidator14 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CompareValidator CompareValidator14;
         
         /// <summary>
         /// lblLIperiod control.
@@ -952,15 +959,6 @@ namespace WealthERP.OnlineOrderBackOffice {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvtxtEload;
         
         /// <summary>
-        /// regtxtEload control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator regtxtEload;
-        
-        /// <summary>
         /// lblELremark control.
         /// </summary>
         /// <remarks>
@@ -986,15 +984,6 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvtxtELremark;
-        
-        /// <summary>
-        /// regtxtELremark control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator regtxtELremark;
         
         /// <summary>
         /// lblExitLoad control.
@@ -1024,15 +1013,6 @@ namespace WealthERP.OnlineOrderBackOffice {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvtxtExitLoad;
         
         /// <summary>
-        /// regtxtExitLoad control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator regtxtExitLoad;
-        
-        /// <summary>
         /// lblExitLremark control.
         /// </summary>
         /// <remarks>
@@ -1058,15 +1038,6 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvtxtExitLremark;
-        
-        /// <summary>
-        /// regtxtExitLremark control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator regtxtExitLremark;
         
         /// <summary>
         /// LalISPurchage control.
@@ -1283,7 +1254,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trMINRedemPtion;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trNFODate;
         /// <summary>
         /// lblMinRedemption control.
         /// </summary>
@@ -1636,6 +1607,15 @@ namespace WealthERP.OnlineOrderBackOffice {
         protected global::System.Web.UI.WebControls.CheckBox ChkISSTP;
         
         /// <summary>
+        /// pnlSIPDetails control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlSIPDetails;
+        
+        /// <summary>
         /// gvSIPDetails control.
         /// </summary>
         /// <remarks>
@@ -1661,6 +1641,123 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnupdate;
+        
+        /// <summary>
+        /// radwindowPopup control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadWindow radwindowPopup;
+        
+        /// <summary>
+        /// lnkMargeEdit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkMargeEdit;
+        
+        /// <summary>
+        /// lblMargescheme control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMargescheme;
+        
+        /// <summary>
+        /// ddlMargeScheme control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlMargeScheme;
+        
+        /// <summary>
+        /// ReqmergeScheme control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator ReqmergeScheme;
+        
+        /// <summary>
+        /// lblMargedate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMargedate;
+        
+        /// <summary>
+        /// txtSchemeMargeDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadDatePicker txtSchemeMargeDate;
+        
+        /// <summary>
+        /// RequiredFieldValidator6 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator6;
+        
+        /// <summary>
+        /// lblStatus control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblStatus;
+        
+        /// <summary>
+        /// lblPStatus control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPStatus;
+        
+        /// <summary>
+        /// btnMSSubmit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnMSSubmit;
+        
+        /// <summary>
+        /// btnMSUpdate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnMSUpdate;
+        
+        /// <summary>
+        /// btnCancel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnCancel;
         
         /// <summary>
         /// hdnSchemePlanCode control.

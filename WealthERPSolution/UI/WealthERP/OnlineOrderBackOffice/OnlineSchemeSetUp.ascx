@@ -197,6 +197,35 @@
                 <%--<td><asp:TextBox ID="txtAddNewScheme" runat="server"></asp:TextBox></td>--%>
             </tr>
             <tr>
+                <%--  <td align="right">
+                    <asp:Label ID="LbllISactive" runat="server" Text="Is Active:" CssClass="FieldName"></asp:Label>
+                </td>
+                <td>
+                    <%--<asp:CheckBox ID="ChkISactive" runat="server" Text="Yes" CssClass="FieldName" />--%>
+                <%--ID="imgBtnAddBank" ImageUrl="~/Images/user_add.png" runat="server"
+                ToolTip="Click here to Add Bank" OnClientClick="return openpopupAddBank()" Height="15px"
+                Width="15px"></asp:ImageButton>--%>
+                <%--  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                    <asp:LinkButton runat="server" ID="LinkButton1" CssClass="LinkButtons" Text="Scheme Mapping"
+                        OnClientClick="return openpopupSchemeSetUp()" Visible="false"></asp:LinkButton>
+                </td>--%>
+                <td align="right">
+                    <asp:Label ID="Label9" runat="server" Text="Status:" CssClass="FieldName"></asp:Label>
+                </td>
+                <td>
+                    <asp:DropDownList ID="ddlNFoStatus" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlNFoStatus_OnSelectedIndexChanged">
+                    <asp:ListItem Text="Select" Value="Select" Selected="true"/>
+                        <asp:ListItem Text="IsNFO" Value="IsNFO">
+                        </asp:ListItem>
+                        <asp:ListItem Text="Active" Value="Active">
+                        </asp:ListItem>
+                    </asp:DropDownList>
+                     <span id="Span40" class="spnRequiredField">*</span>
+                    <br />
+                      <asp:RequiredFieldValidator ID="ReqddlNFoStatus" runat="server" ErrorMessage="Please Select Status"
+                        CssClass="rfvPCG" ControlToValidate="ddlNFoStatus" ValidationGroup="btnbasicsubmit"
+                        Display="Dynamic" InitialValue="Select"></asp:RequiredFieldValidator>
+                </td>
                 <td align="right">
                     <asp:Label ID="lblToadd" runat="server" Text="Do You Wish To Add:" CssClass="FieldName"></asp:Label>
                 </td>
@@ -206,21 +235,62 @@
                         CssClass="FieldName" OnCheckedChanged="oncheckedOnlin_OnCheckedChanged" />
                     <%-- CssClass="FieldName" OnCheckedChanged="oncheckedOnlin_OnCheckedChanged" Checked="false"/>--%>
                     &nbsp;
+                      <asp:LinkButton ID="lnkMargeScheme" runat="server" Text="Merge Scheme" OnClick="lnkMargeScheme_Click"
+                        CssClass="LinkButtons" Visible="true"></asp:LinkButton>
                     <%-- <asp:CheckBox ID="chkoffline" runat="server" Text="Offline Scheme" CssClass="FieldName" Checked="false"/>--%>
                 </td>
-                <td align="right">
-                    <asp:Label ID="LbllISactive" runat="server" Text="Is Active:" CssClass="FieldName"></asp:Label>
+            </tr>
+            <tr>
+                <td>
                 </td>
                 <td>
-                    <asp:CheckBox ID="ChkISactive" runat="server" Text="Yes" CssClass="FieldName" />
-                    <asp:LinkButton ID="lnkMargeScheme" runat="server" Text="Merge Scheme" OnClick="lnkMargeScheme_Click"
-                        CssClass="LinkButtons" Visible="false"></asp:LinkButton>
-                    <%--ID="imgBtnAddBank" ImageUrl="~/Images/user_add.png" runat="server"
-                ToolTip="Click here to Add Bank" OnClientClick="return openpopupAddBank()" Height="15px"
-                Width="15px"></asp:ImageButton>--%>
-                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                    <asp:LinkButton runat="server" ID="LinkButton1" CssClass="LinkButtons" Text="Scheme Mapping"
-                        OnClientClick="return openpopupSchemeSetUp()" Visible="false"></asp:LinkButton>
+                  
+                </td>
+            </tr>
+            <tr id="trNFODate" runat="server" visible="false">
+                <td align="right">
+                    <asp:Label ID="lblNfostartdate" runat="server" Text="NFO Start Date:" CssClass="FieldName"></asp:Label>
+                </td>
+                <td>
+                    <telerik:RadDatePicker ID="txtNFOStartDate" CssClass="txtField" runat="server" Culture="English (United States)"
+                        AutoPostBack="false" Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade"
+                        MinDate="1900-01-01" TabIndex="5">
+                        <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
+                            Skin="Telerik" EnableEmbeddedSkins="false">
+                        </Calendar>
+                        <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                        <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                        </DateInput>
+                    </telerik:RadDatePicker>
+                    <%--<span id="Span7" class="spnRequiredField">*</span>
+            <asp:RequiredFieldValidator ID="appRecidRequiredFieldValidator" ControlToValidate="txtNFOStartDate"
+                CssClass="rfvPCG" ErrorMessage="<br />Please select NFO Date" Display="Dynamic"
+                runat="server" InitialValue="" ValidationGroup="btnsubmit"></asp:RequiredFieldValidator>--%>
+                </td>
+                <td align="right">
+                    <asp:Label ID="lblNfoEnddate" runat="server" Text="NFO End Date:" CssClass="FieldName"></asp:Label>
+                </td>
+                <td>
+                    <telerik:RadDatePicker ID="txtNFOendDate" CssClass="txtField" runat="server" Culture="English (United States)"
+                        AutoPostBack="false" Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade"
+                        MinDate="1900-01-01" TabIndex="5">
+                        <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
+                            Skin="Telerik" EnableEmbeddedSkins="false">
+                        </Calendar>
+                        <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                        <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                        </DateInput>
+                    </telerik:RadDatePicker>
+                    <%--<span id="Span1" class="spnRequiredField">*</span>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtNFOStartDate"
+                CssClass="rfvPCG" ErrorMessage="<br />Please select NFO End Date" Display="Dynamic"
+                runat="server" InitialValue="" ValidationGroup="btnsubmit"></asp:RequiredFieldValidator>--%>
+                
+                <asp:CompareValidator ID="CompareValidator14" runat="server" ControlToValidate="txtNFOendDate"
+                    ErrorMessage="<br/> To Date should be greater than From Date" Type="Date" Operator="GreaterThanEqual"
+                    ControlToCompare="txtNFOStartDate" CssClass="cvPCG" ValidationGroup="btnsubmit"
+                    Display="Dynamic">
+                </asp:CompareValidator>
                 </td>
             </tr>
             <tr>
@@ -359,56 +429,11 @@
                         InitialValue=""></asp:RequiredFieldValidator>
                 </td>
                 <td align="right">
-                    <asp:Label ID="LalISnfo" runat="server" Text="Is NFO:" CssClass="FieldName"></asp:Label>
+                    <asp:Label ID="LalISnfo" runat="server" Text="Is NFO:" CssClass="FieldName" Visible="false"></asp:Label>
                 </td>
                 <td>
-                    <asp:CheckBox ID="chkInfo" runat="server" Text="Yes" CssClass="FieldName" />
+                    <asp:CheckBox ID="chkInfo" runat="server" Text="Yes" CssClass="FieldName" Visible="false"/>
                 </td>
-            </tr>
-            <tr>
-                <td align="right">
-                    <asp:Label ID="lblNfostartdate" runat="server" Text="NFO Start Date:" CssClass="FieldName"></asp:Label>
-                </td>
-                <td>
-                    <telerik:RadDatePicker ID="txtNFOStartDate" CssClass="txtField" runat="server" Culture="English (United States)"
-                        AutoPostBack="false" Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade"
-                        MinDate="1900-01-01" TabIndex="5">
-                        <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
-                            Skin="Telerik" EnableEmbeddedSkins="false">
-                        </Calendar>
-                        <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                        <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
-                        </DateInput>
-                    </telerik:RadDatePicker>
-                    <%--<span id="Span7" class="spnRequiredField">*</span>
-            <asp:RequiredFieldValidator ID="appRecidRequiredFieldValidator" ControlToValidate="txtNFOStartDate"
-                CssClass="rfvPCG" ErrorMessage="<br />Please select NFO Date" Display="Dynamic"
-                runat="server" InitialValue="" ValidationGroup="btnsubmit"></asp:RequiredFieldValidator>--%>
-                </td>
-                <td align="right">
-                    <asp:Label ID="lblNfoEnddate" runat="server" Text="NFO End Date:" CssClass="FieldName"></asp:Label>
-                </td>
-                <td>
-                    <telerik:RadDatePicker ID="txtNFOendDate" CssClass="txtField" runat="server" Culture="English (United States)"
-                        AutoPostBack="false" Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade"
-                        MinDate="1900-01-01" TabIndex="5">
-                        <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
-                            Skin="Telerik" EnableEmbeddedSkins="false">
-                        </Calendar>
-                        <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                        <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
-                        </DateInput>
-                    </telerik:RadDatePicker>
-                    <%--<span id="Span1" class="spnRequiredField">*</span>
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtNFOStartDate"
-                CssClass="rfvPCG" ErrorMessage="<br />Please select NFO End Date" Display="Dynamic"
-                runat="server" InitialValue="" ValidationGroup="btnsubmit"></asp:RequiredFieldValidator>--%>
-                </td>
-                <asp:CompareValidator ID="CompareValidator14" runat="server" ControlToValidate="txtNFOendDate"
-                    ErrorMessage="<br/> To Date should be greater than From Date" Type="Date" Operator="GreaterThanEqual"
-                    ControlToCompare="txtNFOStartDate" CssClass="cvPCG" ValidationGroup="btnsubmit"
-                    Display="Dynamic">
-                </asp:CompareValidator>
             </tr>
             <tr>
                 <td align="right">
@@ -1125,7 +1150,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>
+                    <td align="right">
                         <asp:Label ID="lblMargescheme" runat="server" Text="Merge To Scheme:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
@@ -1139,7 +1164,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>
+                    <td align="right">
                         <asp:Label ID="lblMargedate" runat="server" Text="Merge Date:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
@@ -1162,15 +1187,15 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>
+                    <td align="right">
                         <asp:Label ID="lblStatus" runat="server" Text="Ststus:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
-                    <asp:Label ID="lblPStatus" runat="server" CssClass="FieldName"></asp:Label>
+                        <asp:Label ID="lblPStatus" runat="server" CssClass="FieldName"></asp:Label>
                     </td>
                 </tr>
                 <tr>
-                    <td>
+                    <td align="right">
                         <asp:Button ID="btnMSSubmit" runat="server" Text="Submit" CssClass="PCGLongButton"
                             OnClick="btnMSSubmit_Click" ValidationGroup="btnsubmit1" />
                     </td>

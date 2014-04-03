@@ -1915,13 +1915,13 @@ namespace BoOnlineOrderManagement
             }
             return dtGetSchemeForMarge;
         }
-        public bool UpdateMargeScheme(int SchemePlaneCode, int MargeScheme, DateTime Date, int UserId)
+        public bool CreateMargeScheme(int SchemePlaneCode, int MargeScheme, DateTime Date, int UserId)
         {
             bool blResult = false;
             OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
             try
             {
-                blResult = OnlineOrderBackOfficeDao.UpdateMargeScheme(SchemePlaneCode, MargeScheme, Date, UserId);
+                blResult = OnlineOrderBackOfficeDao.CreateMargeScheme(SchemePlaneCode, MargeScheme, Date, UserId);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1942,6 +1942,35 @@ namespace BoOnlineOrderManagement
                 throw Ex;
             }
             return result;
+        }
+         public String SchemeStatus(int schemeplanecode)
+         {
+             string status="";
+             OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
+             try
+             {
+                 status = OnlineOrderBackOfficeDao.SchemeStatus(schemeplanecode);
+             }
+             catch (BaseApplicationException Ex)
+             {
+                 throw Ex;
+             }
+             return status;
+        }
+         public DataTable GetMergeScheme(int Schemeplanecode)
+        {
+
+            DataTable dtGetMergeScheme = new DataTable();
+            OnlineOrderBackOfficeDao daoOnlineOrderBackOffice = new OnlineOrderBackOfficeDao();
+            try
+            {
+                dtGetMergeScheme = daoOnlineOrderBackOffice.GetMergeScheme(Schemeplanecode);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetMergeScheme;
         }
     }
 

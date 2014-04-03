@@ -65,7 +65,7 @@
                 <%--    <asp:ListItem Text="Both" Value="All" />--%>
                     <asp:ListItem Text="Active" Value="Active" Selected="True" />
                     <asp:ListItem Text="Liquidated" Value="Liquidated" />
-                    <%-- <asp:ListItem Text="Both" Value="Both"/>--%>
+                     <asp:ListItem Text="Merge" Value="Merge"/>
                 </Items>
             </asp:DropDownList>
         </td>

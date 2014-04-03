@@ -2193,21 +2193,21 @@ namespace DaoOnlineOrderManagement
             }
             return dtGetSchemeForMarge;
         }
-        public bool UpdateMargeScheme(int SchemePlaneCode,int MargeScheme, DateTime Date,int UserId)
+        public bool CreateMargeScheme(int SchemePlaneCode, int MargeScheme, DateTime Date, int UserId)
         {
             bool bResult = false;
             Database db;
-            DbCommand UpdateMargeSchemeCmd;
+            DbCommand CreateMargeSchemeCmd;
 
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                UpdateMargeSchemeCmd = db.GetStoredProcCommand("SPROC_UpdateMargeScheme");
-                db.AddInParameter(UpdateMargeSchemeCmd, "@SchemePlanCode", DbType.Int32, SchemePlaneCode);
-                db.AddInParameter(UpdateMargeSchemeCmd, "@MargeSchemeCode", DbType.Int32, MargeScheme);
-                db.AddInParameter(UpdateMargeSchemeCmd, "@MargeDate", DbType.Date, Date);
-                db.AddInParameter(UpdateMargeSchemeCmd, "@Modifiedby", DbType.Int32, UserId);
-                if (db.ExecuteNonQuery(UpdateMargeSchemeCmd) != 0)
+                CreateMargeSchemeCmd = db.GetStoredProcCommand("SPROC_CreateMargeScheme");
+                db.AddInParameter(CreateMargeSchemeCmd, "@SchemePlanCode", DbType.Int32, SchemePlaneCode);
+                db.AddInParameter(CreateMargeSchemeCmd, "@MargeSchemeCode", DbType.Int32, MargeScheme);
+                db.AddInParameter(CreateMargeSchemeCmd, "@MargeDate", DbType.Date, Date);
+                db.AddInParameter(CreateMargeSchemeCmd, "@Modifiedby", DbType.Int32, UserId);
+                if (db.ExecuteNonQuery(CreateMargeSchemeCmd) != 0)
                     bResult = true;
             }
 
@@ -2266,6 +2266,67 @@ namespace DaoOnlineOrderManagement
                 throw exBase;
             }
             return count;
+        }
+        public String SchemeStatus(int schemeplanecode)
+        {
+            Database db;
+            DataSet ds;
+            DbCommand cmdSchemeStatus;
+          string status ="";
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //checking year
+                cmdSchemeStatus = db.GetStoredProcCommand("SPROC_GETStatus");
+                db.AddInParameter(cmdSchemeStatus, "@Schemeplancode", DbType.Int32, schemeplanecode);
+                db.AddInParameter(cmdSchemeStatus, "@Status", DbType.String, 10);
+                if (db.ExecuteScalar(cmdSchemeStatus) != null)
+                    status = db.ExecuteScalar(cmdSchemeStatus).ToString();
+                //ds = db.ExecuteDataSet(cmdBussinessDateCheck);
+                //if (db.ExecuteNonQuery(cmdBussinessDateCheck) != 0)
+                //{
+                //    count = Convert.ToInt32(db.GetParameterValue(cmdBussinessDateCheck, "count").ToString());
+                //}
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AssociateDAO.cs:CodeduplicateChack()");
+                object[] objects = new object[2];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return status;
+        }
+        public DataTable GetMergeScheme(int Schemeplanecode)
+        {
+            Database db;
+            DbCommand cmdGetMergeScheme;
+            DataTable dtGetMergeScheme;
+            DataSet dsGetMergeScheme = null;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+
+                //To retreive data from the table 
+                cmdGetMergeScheme = db.GetStoredProcCommand("SPROC_GETMergeScheme");
+                db.AddInParameter(cmdGetMergeScheme, "@SchemePlanCode", DbType.Int32, Schemeplanecode);
+                dsGetMergeScheme = db.ExecuteDataSet(cmdGetMergeScheme);
+                dtGetMergeScheme = dsGetMergeScheme.Tables[0];
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetMergeScheme;
         }
     }
 }
