@@ -555,7 +555,8 @@ namespace DaoOnlineOrderManagement
                         {
                             mfProductAMCSchemePlanDetailsVo.ExternalType = dr["PASC_AMC_ExternalType"].ToString();
                         }
-
+                        if (dr["PASP_MargeToScheme"].ToString() != null && dr["PASP_MargeToScheme"].ToString() != string.Empty)
+                            mfProductAMCSchemePlanDetailsVo.Mergecode = int.Parse(dr["PASP_MargeToScheme"].ToString());
                     }
                 }
 

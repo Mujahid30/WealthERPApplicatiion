@@ -241,7 +241,7 @@
                     <%-- CssClass="FieldName" OnCheckedChanged="oncheckedOnlin_OnCheckedChanged" Checked="false"/>--%>
                     &nbsp;
                     <asp:LinkButton ID="lnkMargeScheme" runat="server" Text="Merge Scheme" OnClick="lnkMargeScheme_Click"
-                        CssClass="LinkButtons" Visible="true"></asp:LinkButton>
+                        CssClass="LinkButtons" Visible="false"></asp:LinkButton>
                     <%-- <asp:CheckBox ID="chkoffline" runat="server" Text="Offline Scheme" CssClass="FieldName" Checked="false"/>--%>
                 </td>
             </tr>
@@ -1142,14 +1142,15 @@
             </td>
         </tr>
     </table>
-    <telerik:RadWindow ID="radwindowPopup" runat="server" VisibleOnPageLoad="false" Height="200px"
+    <telerik:RadWindow ID="radwindowPopup" runat="server" VisibleOnPageLoad="false" Height="180px"
         Width="600px" Modal="true" BackColor="#4B4726" VisibleStatusbar="false" Behaviors="None"
         Title="Merge Scheme" Left="200" Top="200" Expanded="true">
         <ContentTemplate>
             <table>
                 <tr>
                     <td colspan="2" align="right">
-                        <asp:LinkButton ID="lnkMargeEdit" runat="server" CssClass="FieldName" OnClick="lnkMargeEdit_Click" Text="Edit"></asp:LinkButton>
+                        <asp:LinkButton ID="lnkMargeEdit" runat="server" CssClass="FieldName" OnClick="lnkMargeEdit_Click"
+                            Text="Edit" Visible="false"></asp:LinkButton>
                     </td>
                 </tr>
                 <tr>
@@ -1207,9 +1208,19 @@
                             OnClick="btnMSUpdate_Click" ValidationGroup="btnsubmit1" />
                         <asp:Button ID="btnCancel" runat="server" Text="Cancel" OnClick="btnCancel_Click"
                             CssClass="PCGButton" />
-                        <asp:Button ID="btnReset" runat="server" Text="Reset" OnClick="btnReset_Click" CssClass="PCGButton" />
+                        <asp:Button ID="btnReset" runat="server" Text="Reset" OnClick="btnReset_Click" CssClass="PCGButton" Visible="false"/>
                     </td>
                     <td>
+                    </td>
+                </tr>
+                <tr>
+                <td></td></tr>
+                <tr>
+                    <td align="right">
+                    <asp:Label ID="lblNote" runat="server" CssClass="FieldName" Text="Note:"></asp:Label>
+                    </td>
+                    <td colspan="3">
+                    <asp:Label ID="lblMergeNote" runat="server" Text="From This Screen You Can Merge Your Scheme" CssClass="FieldName"></asp:Label>
                     </td>
                 </tr>
             </table>
