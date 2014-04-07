@@ -85,6 +85,14 @@ namespace WealthERP.OnlineOrderBackOffice
                         lnkMargeScheme.Visible = true;
                         ddlNFoStatus.Items[3].Enabled = true;
                         ddlNFoStatus.Items[4].Enabled = true;
+                        ddlNFoStatus.Enabled = false;
+                        if (ddlMargeScheme.SelectedValue != "Select")
+                        {
+                            ddlMargeScheme.Enabled = false;
+                            txtSchemeMargeDate.Enabled = false;
+                            btnMSSubmit.Visible = false;
+                            btnReset.Visible = false;
+                        }
                     }
                 }
 
@@ -2713,7 +2721,14 @@ namespace WealthERP.OnlineOrderBackOffice
                     schemeplancode1 = mfProductAMCSchemePlanDetailsVo.SchemePlanCode;
                 }
             }
-            OnlineOrderBackOfficeBo.CreateMargeScheme(schemeplancode1, int.Parse(ddlMargeScheme.SelectedValue), Convert.ToDateTime(txtSchemeMargeDate.SelectedDate), userVo.UserId);
+            OnlineOrderBackOfficeBo.CreateMargeScheme(schemeplancode1,int.Parse(""), DateTime.MaxValue, userVo.UserId);
+        }
+        protected void lnkMargeEdit_Click(object sender, EventArgs e)
+        {
+            ddlMargeScheme.Enabled = true;
+            txtSchemeMargeDate.Enabled = true;
+            btnMSSubmit.Visible = true;
+            btnReset.Visible = true;
         }
     }
 }

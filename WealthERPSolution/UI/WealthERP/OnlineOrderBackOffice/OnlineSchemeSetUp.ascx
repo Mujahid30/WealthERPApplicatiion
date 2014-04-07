@@ -1148,8 +1148,8 @@
         <ContentTemplate>
             <table>
                 <tr>
-                    <td>
-                        <asp:LinkButton ID="lnkMargeEdit" runat="server" CssClass="FieldName"></asp:LinkButton>
+                    <td colspan="2" align="right">
+                        <asp:LinkButton ID="lnkMargeEdit" runat="server" CssClass="FieldName" OnClick="lnkMargeEdit_Click" Text="Edit"></asp:LinkButton>
                     </td>
                 </tr>
                 <tr>

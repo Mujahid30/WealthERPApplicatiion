@@ -426,7 +426,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnBasicDupdate;
-        
+        protected global::System.Web.UI.WebControls.Button btnReset;
         /// <summary>
         /// schemedetails control.
         /// </summary>
