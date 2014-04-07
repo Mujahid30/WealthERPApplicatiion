@@ -168,8 +168,8 @@
                     <asp:Label ID="lblRT" runat="server" Text="R&T:" CssClass="FieldName"> </asp:Label>
                 </td>
                 <td>
-                    <asp:DropDownList ID="ddlRT" runat="server" CssClass="cmbField" AutoPostBack="true">
-                        <asp:ListItem Text="Select" Value="Select" Selected="true" />
+                    <asp:DropDownList ID="ddlRT" runat="server" CssClass="cmbField" AutoPostBack="false">
+                        <asp:ListItem Text="Select" Value="Select" Selected="False" />
                         <%--<asp:ListItem Text="Select" Value="Select" Selected="true"/>--%>
                         <%-- <asp:ListItem Text="Select" Value="Select" Selected="true" />
                <asp:ListItem Text="CAMS" Value="CAMS"></asp:ListItem>
@@ -213,16 +213,21 @@
                     <asp:Label ID="Label9" runat="server" Text="Status:" CssClass="FieldName"></asp:Label>
                 </td>
                 <td>
-                    <asp:DropDownList ID="ddlNFoStatus" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlNFoStatus_OnSelectedIndexChanged">
-                    <asp:ListItem Text="Select" Value="Select" Selected="true"/>
+                    <asp:DropDownList ID="ddlNFoStatus" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlNFoStatus_OnSelectedIndexChanged"
+                        AutoPostBack="true">
+                        <asp:ListItem Text="Select" Value="Select" Selected="true" />
                         <asp:ListItem Text="IsNFO" Value="IsNFO">
                         </asp:ListItem>
                         <asp:ListItem Text="Active" Value="Active">
                         </asp:ListItem>
+                        <asp:ListItem Text="Liquidated" Value="Liquidated" Enabled="false">
+                        </asp:ListItem>
+                        <asp:ListItem Text="Merged" Value="Merged" Enabled="false">
+                        </asp:ListItem>
                     </asp:DropDownList>
-                     <span id="Span40" class="spnRequiredField">*</span>
+                    <span id="Span40" class="spnRequiredField">*</span>
                     <br />
-                      <asp:RequiredFieldValidator ID="ReqddlNFoStatus" runat="server" ErrorMessage="Please Select Status"
+                    <asp:RequiredFieldValidator ID="ReqddlNFoStatus" runat="server" ErrorMessage="Please Select Status"
                         CssClass="rfvPCG" ControlToValidate="ddlNFoStatus" ValidationGroup="btnbasicsubmit"
                         Display="Dynamic" InitialValue="Select"></asp:RequiredFieldValidator>
                 </td>
@@ -235,7 +240,7 @@
                         CssClass="FieldName" OnCheckedChanged="oncheckedOnlin_OnCheckedChanged" />
                     <%-- CssClass="FieldName" OnCheckedChanged="oncheckedOnlin_OnCheckedChanged" Checked="false"/>--%>
                     &nbsp;
-                      <asp:LinkButton ID="lnkMargeScheme" runat="server" Text="Merge Scheme" OnClick="lnkMargeScheme_Click"
+                    <asp:LinkButton ID="lnkMargeScheme" runat="server" Text="Merge Scheme" OnClick="lnkMargeScheme_Click"
                         CssClass="LinkButtons" Visible="true"></asp:LinkButton>
                     <%-- <asp:CheckBox ID="chkoffline" runat="server" Text="Offline Scheme" CssClass="FieldName" Checked="false"/>--%>
                 </td>
@@ -244,7 +249,6 @@
                 <td>
                 </td>
                 <td>
-                  
                 </td>
             </tr>
             <tr id="trNFODate" runat="server" visible="false">
@@ -285,12 +289,11 @@
             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtNFOStartDate"
                 CssClass="rfvPCG" ErrorMessage="<br />Please select NFO End Date" Display="Dynamic"
                 runat="server" InitialValue="" ValidationGroup="btnsubmit"></asp:RequiredFieldValidator>--%>
-                
-                <asp:CompareValidator ID="CompareValidator14" runat="server" ControlToValidate="txtNFOendDate"
-                    ErrorMessage="<br/> To Date should be greater than From Date" Type="Date" Operator="GreaterThanEqual"
-                    ControlToCompare="txtNFOStartDate" CssClass="cvPCG" ValidationGroup="btnsubmit"
-                    Display="Dynamic">
-                </asp:CompareValidator>
+                    <asp:CompareValidator ID="CompareValidator14" runat="server" ControlToValidate="txtNFOendDate"
+                        ErrorMessage="<br/> NFO END Date should be greater than From Date" Type="Date"
+                        Operator="GreaterThanEqual" ControlToCompare="txtNFOStartDate" CssClass="cvPCG"
+                        ValidationGroup="btnsubmit" Display="Dynamic">
+                    </asp:CompareValidator>
                 </td>
             </tr>
             <tr>
@@ -432,7 +435,7 @@
                     <asp:Label ID="LalISnfo" runat="server" Text="Is NFO:" CssClass="FieldName" Visible="false"></asp:Label>
                 </td>
                 <td>
-                    <asp:CheckBox ID="chkInfo" runat="server" Text="Yes" CssClass="FieldName" Visible="false"/>
+                    <asp:CheckBox ID="chkInfo" runat="server" Text="Yes" CssClass="FieldName" Visible="false" />
                 </td>
             </tr>
             <tr>
@@ -1188,7 +1191,7 @@
                 </tr>
                 <tr>
                     <td align="right">
-                        <asp:Label ID="lblStatus" runat="server" Text="Ststus:" CssClass="FieldName"></asp:Label>
+                        <asp:Label ID="lblStatus" runat="server" Text="Status:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
                         <asp:Label ID="lblPStatus" runat="server" CssClass="FieldName"></asp:Label>
@@ -1204,6 +1207,7 @@
                             OnClick="btnMSUpdate_Click" ValidationGroup="btnsubmit1" />
                         <asp:Button ID="btnCancel" runat="server" Text="Cancel" OnClick="btnCancel_Click"
                             CssClass="PCGButton" />
+                        <asp:Button ID="btnReset" runat="server" Text="Reset" OnClick="btnReset_Click" CssClass="PCGButton" />
                     </td>
                     <td>
                     </td>

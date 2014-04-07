@@ -62,10 +62,11 @@
         <td style="width: 15%;">
             <asp:DropDownList ID="ddlststus" runat="server" CssClass="cmbField">
                 <Items>
-                <%--    <asp:ListItem Text="Both" Value="All" />--%>
+                    <%--    <asp:ListItem Text="Both" Value="All" />--%>
                     <asp:ListItem Text="Active" Value="Active" Selected="True" />
                     <asp:ListItem Text="Liquidated" Value="Liquidated" />
-                     <asp:ListItem Text="Merge" Value="Merge"/>
+                    <asp:ListItem Text="Merged" Value="Merged" />
+                    <asp:ListItem Text="IsNFO" Value="IsNFO" />
                 </Items>
             </asp:DropDownList>
         </td>

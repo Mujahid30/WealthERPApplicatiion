@@ -53,7 +53,7 @@ namespace DaoOnlineOrderManagement
 
 
 
-        public DataSet GetExtractTypeDataForFileCreation(DateTime orderDate, int AdviserId, int extractType,DateTime fromDate, DateTime toDate,string status)
+        public DataSet GetExtractTypeDataForFileCreation(DateTime orderDate, int AdviserId, int extractType, DateTime fromDate, DateTime toDate, string status)
         {
             DataSet dsExtractType;
             Database db;
@@ -266,7 +266,7 @@ namespace DaoOnlineOrderManagement
         public List<int> CreateOnlineSchemeSetUp(MFProductAMCSchemePlanDetailsVo mfProductAMCSchemePlanDetailsVo, int userId)
         {
             List<int> SchemePlancodes = new List<int>();
-      
+
 
             Database db;
             DbCommand createMFOnlineSchemeSetUpCmd;
@@ -348,9 +348,9 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASP_ModifiedBy", DbType.Int32, userId);
                 db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_CreatedBy", DbType.Int32, userId);
                 db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_ModifiedBy", DbType.Int32, userId);
-               // db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@WERPBM_BankCode", DbType.Int32, mfProductAMCSchemePlanDetailsVo.Bankcode);
+                // db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@WERPBM_BankCode", DbType.Int32, mfProductAMCSchemePlanDetailsVo.Bankcode);
                 // db.AddOutParameter(createMFOnlineSchemeSetUpCmd, "@PASP_SchemePlanCode", DbType.Int32, 10000);
-               
+
                 //db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@XF_DividendFrequency", DbType.String, mfProductAMCSchemePlanDetailsVo.DividendFrequency);
                 db.ExecuteNonQuery(createMFOnlineSchemeSetUpCmd);
                 //{
@@ -417,8 +417,8 @@ namespace DaoOnlineOrderManagement
                             mfProductAMCSchemePlanDetailsVo.DividendFrequency = dr["XF_DividendFrequency"].ToString();
                         mfProductAMCSchemePlanDetailsVo.BankName = dr["PASPD_BankName"].ToString();
                         if (dr["WCMV_Lookup_BankId"].ToString() != string.Empty && dr["WCMV_Lookup_BankId"].ToString() != null)
-                            mfProductAMCSchemePlanDetailsVo.WCMV_Lookup_BankId = int.Parse(dr["WCMV_Lookup_BankId"].ToString());    
-                        
+                            mfProductAMCSchemePlanDetailsVo.WCMV_Lookup_BankId = int.Parse(dr["WCMV_Lookup_BankId"].ToString());
+
                         mfProductAMCSchemePlanDetailsVo.AccountNumber = dr["PASPD_AccountNumber"].ToString();
                         mfProductAMCSchemePlanDetailsVo.Branch = dr["PASPD_Branch"].ToString();
                         if (dr["PASPD_IsNFO"].ToString() == "True")
@@ -429,12 +429,12 @@ namespace DaoOnlineOrderManagement
                         {
                             mfProductAMCSchemePlanDetailsVo.IsNFO = 0;
                         }
-                        if ( dr["PASPD_NFOStartDate"].ToString() != string.Empty)
+                        if (dr["PASP_NFOStartDate"].ToString() != string.Empty)
 
-                            mfProductAMCSchemePlanDetailsVo.NFOStartDate = DateTime.Parse(dr["PASPD_NFOStartDate"].ToString());
-                        if (dr["PASPD_NFOEndDate"].ToString() != string.Empty)
+                            mfProductAMCSchemePlanDetailsVo.NFOStartDate = DateTime.Parse(dr["PASP_NFOStartDate"].ToString());
+                        if (dr["PASP_NFOEndDate"].ToString() != string.Empty)
 
-                            mfProductAMCSchemePlanDetailsVo.NFOEndDate = DateTime.Parse(dr["PASPD_NFOEndDate"].ToString());
+                            mfProductAMCSchemePlanDetailsVo.NFOEndDate = DateTime.Parse(dr["PASP_NFOEndDate"].ToString());
                         if (dr["PASPD_LockInPeriod"].ToString() != null && dr["PASPD_LockInPeriod"].ToString() != string.Empty)
                             mfProductAMCSchemePlanDetailsVo.LockInPeriod = int.Parse(dr["PASPD_LockInPeriod"].ToString());
                         if (dr["PASPD_CutOffTime"].ToString() != null && dr["PASPD_CutOffTime"].ToString() != string.Empty)
@@ -652,7 +652,7 @@ namespace DaoOnlineOrderManagement
             Database db;
             DataSet ds;
             DbCommand cmdGetExtCode;
-            string extCode=string.Empty ;
+            string extCode = string.Empty;
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
@@ -661,7 +661,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(cmdGetExtCode, "@SchemePlanCode", DbType.Int32, schemplancode);
                 db.AddInParameter(cmdGetExtCode, "@isonline", DbType.Int32, isonline);
                 db.AddOutParameter(cmdGetExtCode, "@PASC_AMC_ExternalCode", DbType.String, 20);
-              ds = db.ExecuteDataSet(cmdGetExtCode);
+                ds = db.ExecuteDataSet(cmdGetExtCode);
                 if (db.ExecuteNonQuery(cmdGetExtCode) != 0)
                 {
                     extCode = db.GetParameterValue(cmdGetExtCode, "PASC_AMC_ExternalCode").ToString();
@@ -677,7 +677,7 @@ namespace DaoOnlineOrderManagement
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "AssociateDAO.cs:ExternalcodeCheck()");
                 object[] objects = new object[2];
-               // objects[0] = externalcode;
+                // objects[0] = externalcode;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -1187,23 +1187,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_BankName", DbType.String, mfProductAMCSchemePlanDetailsVo.BankName);//6
                 db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_AccountNumber", DbType.String, mfProductAMCSchemePlanDetailsVo.AccountNumber); //7
                 db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_Branch", DbType.String, mfProductAMCSchemePlanDetailsVo.Branch);//8
-                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_IsNFO", DbType.Int32, mfProductAMCSchemePlanDetailsVo.IsNFO);//9
-                if (mfProductAMCSchemePlanDetailsVo.NFOStartDate != DateTime.MinValue) //10
-                {
-                    db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_NFOStartDate", DbType.DateTime, mfProductAMCSchemePlanDetailsVo.NFOStartDate);
-                }
-                else
-                {
-                    db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_NFOStartDate", DbType.DateTime, DBNull.Value);
-                }
-                if (mfProductAMCSchemePlanDetailsVo.NFOEndDate != DateTime.MinValue)//11
-                {
-                    db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_NFOEndDate", DbType.DateTime, mfProductAMCSchemePlanDetailsVo.NFOEndDate);
-                }
-                else
-                {
-                    db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_NFOEndDate", DbType.DateTime, DBNull.Value);
-                }
+                //db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_IsNFO", DbType.Int32, mfProductAMCSchemePlanDetailsVo.IsNFO);//9
                 db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_LockInPeriod", DbType.Int32, mfProductAMCSchemePlanDetailsVo.LockInPeriod); //12
                 db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_CutOffTime", DbType.String, mfProductAMCSchemePlanDetailsVo.CutOffTime.ToString()); //13
                 db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_EntryLoadPercentage", DbType.Double, mfProductAMCSchemePlanDetailsVo.EntryLoadPercentag);//14
@@ -1239,7 +1223,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(updateSchemeSetUpDetailsCmd, "@ExternalType", DbType.String, mfProductAMCSchemePlanDetailsVo.ExternalType);
                 db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_CreatedBy", DbType.Int32, userid);
                 db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_ModifiedBy", DbType.Int32, userid);
-              // db.ExecuteNonQuery(updateSchemeSetUpDetailsCmd);
+                // db.ExecuteNonQuery(updateSchemeSetUpDetailsCmd);
                 if (db.ExecuteNonQuery(updateSchemeSetUpDetailsCmd) != 0)
                     blResult = true;
             }
@@ -1480,7 +1464,7 @@ namespace DaoOnlineOrderManagement
             return bResult;
         }
 
-        public bool updateTradeBusinessDate(int Tradebusinessid,string txt,DateTime date)
+        public bool updateTradeBusinessDate(int Tradebusinessid, string txt, DateTime date)
         {
             int affectedRecords = 0;
             bool bResult = false;
@@ -1492,7 +1476,7 @@ namespace DaoOnlineOrderManagement
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 createtradeBusinessDateCmd = db.GetStoredProcCommand("SPROC_updateTradeBusinessDate");
                 db.AddInParameter(createtradeBusinessDateCmd, "@WTBD_TradeId", DbType.Int32, Tradebusinessid);
-                db.AddInParameter(createtradeBusinessDateCmd, "@WTBD_Date", DbType.DateTime,date);
+                db.AddInParameter(createtradeBusinessDateCmd, "@WTBD_Date", DbType.DateTime, date);
                 //db.AddInParameter(createtradeBusinessDateCmd, "@WTBD_ExecutionDate", DbType.DateTime, TradeBusinessExecutionDate);
                 db.AddInParameter(createtradeBusinessDateCmd, "@WTBD_HolidayName", DbType.String, txt);
                 db.AddOutParameter(createtradeBusinessDateCmd, "@IsSuccess", DbType.Int16, 0);
@@ -1692,7 +1676,7 @@ namespace DaoOnlineOrderManagement
             }
             return dsGetOnlineNCDExtractPreview;
         }
-        public DataSet GetAllTradeBussiness(int year,int holiday)
+        public DataSet GetAllTradeBussiness(int year, int holiday)
         {
             DataSet dsGetAllTradeBussiness;
             Database db;
@@ -1702,7 +1686,7 @@ namespace DaoOnlineOrderManagement
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 GetAllTradeBussinessCmd = db.GetStoredProcCommand("SPROC_GetAllTradeBussinessDay");
                 db.AddInParameter(GetAllTradeBussinessCmd, "@year", DbType.Int32, year);
-                if (holiday ==2)
+                if (holiday == 2)
                 {
                     db.AddInParameter(GetAllTradeBussinessCmd, "@holiday", DbType.Int32, holiday);
 
@@ -1732,12 +1716,12 @@ namespace DaoOnlineOrderManagement
             }
             return dsGetAllTradeBussiness;
         }
-        public int  YearCheck(int year)
+        public int YearCheck(int year)
         {
             Database db;
             DataSet ds;
             DbCommand cmdYearCheck;
-           int count = 0;
+            int count = 0;
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
@@ -1768,14 +1752,13 @@ namespace DaoOnlineOrderManagement
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-            return count ;
+            return count;
         }
         public bool Updateproductamcscheme(MFProductAMCSchemePlanDetailsVo mfProductAMCSchemePlanDetailsVo, int SchemePlanCode)
         {
             bool blResult = false;
             Database db;
             DbCommand UpdateproductamcschemeCmd;
-
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
@@ -1790,6 +1773,22 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(UpdateproductamcschemeCmd, "@Isonline", DbType.String, mfProductAMCSchemePlanDetailsVo.IsOnline);
                 db.AddInParameter(UpdateproductamcschemeCmd, "@ExternalCode", DbType.String, mfProductAMCSchemePlanDetailsVo.productcode);
                 db.AddInParameter(UpdateproductamcschemeCmd, "@ExternalType", DbType.String, mfProductAMCSchemePlanDetailsVo.ExternalType);
+                if (mfProductAMCSchemePlanDetailsVo.NFOStartDate != DateTime.MinValue)
+                {
+                    db.AddInParameter(UpdateproductamcschemeCmd, "@PASP_NFOStartDate", DbType.DateTime, mfProductAMCSchemePlanDetailsVo.NFOStartDate);
+                }
+                else
+                {
+                    db.AddInParameter(UpdateproductamcschemeCmd, "@PASP_NFOStartDate", DbType.DateTime, DBNull.Value);
+                }
+                if (mfProductAMCSchemePlanDetailsVo.NFOEndDate != DateTime.MinValue)
+                {
+                    db.AddInParameter(UpdateproductamcschemeCmd, "@PASP_NFOEndDate", DbType.DateTime, mfProductAMCSchemePlanDetailsVo.NFOEndDate);
+                }
+                else
+                {
+                    db.AddInParameter(UpdateproductamcschemeCmd, "@PASP_NFOEndDate", DbType.DateTime, DBNull.Value);
+                }
                 db.ExecuteNonQuery(UpdateproductamcschemeCmd);
 
                 if (db.ExecuteNonQuery(UpdateproductamcschemeCmd) != 0)
@@ -1818,16 +1817,16 @@ namespace DaoOnlineOrderManagement
         public void CreateOnlineSchemeSetupPlan(MFProductAMCSchemePlanDetailsVo mfProductAMCSchemePlanDetailsVo, int userId, ref int schemeplancode)
         {
             //int schemeplancode = 0;
-            
-         
+
+
             Database db;
             DbCommand CreateOnlineSchemeSetupPlanCmd;
-              try
+            try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 CreateOnlineSchemeSetupPlanCmd = db.GetStoredProcCommand("SPROC_CreateOnlineschemebasicdetail");
                 db.AddInParameter(CreateOnlineSchemeSetupPlanCmd, "@PA_AMCCode", DbType.Int32, mfProductAMCSchemePlanDetailsVo.AMCCode);
-               // db.AddInParameter(CreateOnlineSchemeSetupPlanCmd, "@PASP_SchemePlanCode", DbType.Int32, mfProductAMCSchemePlanDetailsVo.SchemePlanCode);
+                // db.AddInParameter(CreateOnlineSchemeSetupPlanCmd, "@PASP_SchemePlanCode", DbType.Int32, mfProductAMCSchemePlanDetailsVo.SchemePlanCode);
                 db.AddInParameter(CreateOnlineSchemeSetupPlanCmd, "@PASP_SchemePlanName", DbType.String, mfProductAMCSchemePlanDetailsVo.SchemePlanName);
                 db.AddInParameter(CreateOnlineSchemeSetupPlanCmd, "@PAISSC_AssetInstrumentSubSubCategoryCode", DbType.String, mfProductAMCSchemePlanDetailsVo.AssetSubSubCategory);
                 db.AddInParameter(CreateOnlineSchemeSetupPlanCmd, "@PAISC_AssetInstrumentSubCategoryCode", DbType.String, mfProductAMCSchemePlanDetailsVo.AssetSubCategoryCode);
@@ -1836,44 +1835,57 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(CreateOnlineSchemeSetupPlanCmd, "@PASP_Status", DbType.String, mfProductAMCSchemePlanDetailsVo.Status);
                 db.AddInParameter(CreateOnlineSchemeSetupPlanCmd, "@PASP_IsOnline", DbType.Int32, mfProductAMCSchemePlanDetailsVo.IsOnline);
                 db.AddInParameter(CreateOnlineSchemeSetupPlanCmd, "@PASP_IsDirect", DbType.Int32, mfProductAMCSchemePlanDetailsVo.IsDirect);
-                db.AddInParameter(CreateOnlineSchemeSetupPlanCmd,"@PASP_CreatedBy",DbType.Int32,userId);
-                db.AddInParameter(CreateOnlineSchemeSetupPlanCmd,"@PASP_ModifiedBy",DbType.Int32,userId);
+                db.AddInParameter(CreateOnlineSchemeSetupPlanCmd, "@PASP_CreatedBy", DbType.Int32, userId);
+                db.AddInParameter(CreateOnlineSchemeSetupPlanCmd, "@PASP_ModifiedBy", DbType.Int32, userId);
                 db.AddOutParameter(CreateOnlineSchemeSetupPlanCmd, "@SchemePlanCode", DbType.Int32, 0);
                 db.AddInParameter(CreateOnlineSchemeSetupPlanCmd, "@ExternalCode", DbType.String, mfProductAMCSchemePlanDetailsVo.productcode);
                 db.AddInParameter(CreateOnlineSchemeSetupPlanCmd, "@ExternalType", DbType.String, mfProductAMCSchemePlanDetailsVo.ExternalType);
+                if (mfProductAMCSchemePlanDetailsVo.NFOStartDate != DateTime.MinValue) //10
+                {
+                    db.AddInParameter(CreateOnlineSchemeSetupPlanCmd, "@PASP_NFOStartDate", DbType.DateTime, mfProductAMCSchemePlanDetailsVo.NFOStartDate);
+                }
+                else
+                {
+                    db.AddInParameter(CreateOnlineSchemeSetupPlanCmd, "@PASP_NFOStartDate", DbType.DateTime, DBNull.Value);
+                }
+                if (mfProductAMCSchemePlanDetailsVo.NFOEndDate != DateTime.MinValue)//11
+                {
+                    db.AddInParameter(CreateOnlineSchemeSetupPlanCmd, "@PASP_NFOEndDate", DbType.DateTime, mfProductAMCSchemePlanDetailsVo.NFOEndDate);
+                }
+                else
+                {
+                    db.AddInParameter(CreateOnlineSchemeSetupPlanCmd, "@PASP_NFOEndDate", DbType.DateTime, DBNull.Value);
+                }
                 //db.ExecuteNonQuery(CreateOnlineSchemeSetupPlanCmd);
 
-              if (db.ExecuteNonQuery(CreateOnlineSchemeSetupPlanCmd) != 0)
+                if (db.ExecuteNonQuery(CreateOnlineSchemeSetupPlanCmd) != 0)
                     schemeplancode = int.Parse(db.GetParameterValue(CreateOnlineSchemeSetupPlanCmd, "@SchemePlanCode").ToString());
-               
-
-               
             }
-              catch (BaseApplicationException Ex)
-              {
-                  throw Ex;
-              }
-              catch (Exception Ex)
-              {
-                  BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                  NameValueCollection FunctionInfo = new NameValueCollection();
-                  FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:UpdateSchemeSetUpDetail()");
-                  object[] objects = new object[3];
-                  objects[0] = mfProductAMCSchemePlanDetailsVo;
-                  objects[1] = userId;
-                  FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                  exBase.AdditionalInformation = FunctionInfo;
-                  ExceptionManager.Publish(exBase);
-                  throw exBase;
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:UpdateSchemeSetUpDetail()");
+                object[] objects = new object[3];
+                objects[0] = mfProductAMCSchemePlanDetailsVo;
+                objects[1] = userId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
 
-              }
-              
+            }
+
         }
         public void CreateOnlineSchemeSetupPlanDetails(MFProductAMCSchemePlanDetailsVo mfProductAMCSchemePlanDetailsVo, int userId)
         {
             //int schemeplancode = 0;
-            
-         
+
+
             Database db;
             DbCommand CreateOnlineSchemeSetupPlanDetailsCmd;
             try
@@ -1891,23 +1903,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@PASPD_AccountNumber", DbType.String, mfProductAMCSchemePlanDetailsVo.AccountNumber);
                 db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@PASPD_Branch", DbType.String, mfProductAMCSchemePlanDetailsVo.Branch);
                 //db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@WCMV_Lookup_BankId", DbType.Int32, mfProductAMCSchemePlanDetailsVo.WCMV_Lookup_BankId);
-                db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@PASPD_IsNFO", DbType.Int32, mfProductAMCSchemePlanDetailsVo.IsNFO);
-                if (mfProductAMCSchemePlanDetailsVo.NFOStartDate != DateTime.MinValue)
-                {
-                    db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@PASPD_NFOStartDate", DbType.DateTime, mfProductAMCSchemePlanDetailsVo.NFOStartDate);
-                }
-                else
-                {
-                    db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@PASPD_NFOStartDate", DbType.DateTime, DBNull.Value);
-                }
-                if (mfProductAMCSchemePlanDetailsVo.NFOEndDate != DateTime.MinValue)
-                {
-                    db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@PASPD_NFOEndDate", DbType.DateTime, mfProductAMCSchemePlanDetailsVo.NFOEndDate);
-                }
-                else
-                {
-                    db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@PASPD_NFOEndDate", DbType.DateTime, DBNull.Value);
-                }
+                //db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@PASPD_IsNFO", DbType.Int32, mfProductAMCSchemePlanDetailsVo.IsNFO);
                 db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@PASPD_LockInPeriod", DbType.Int32, mfProductAMCSchemePlanDetailsVo.LockInPeriod);
                 db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@PASPD_CutOffTime", DbType.String, mfProductAMCSchemePlanDetailsVo.CutOffTime.ToString());
                 db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@PASPD_EntryLoadPercentage", DbType.Double, mfProductAMCSchemePlanDetailsVo.EntryLoadPercentag);
@@ -1946,7 +1942,7 @@ namespace DaoOnlineOrderManagement
             {
                 throw Ex;
             }
-       }
+        }
         public DataSet GetUserRole(int adviserid)
         {
             Database db;
@@ -2037,11 +2033,11 @@ namespace DaoOnlineOrderManagement
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
                 throw exBase;
-                
+
             }
             return bResult;
         }
-        public bool UpdateUserrole(int rollid,int userrole, string rolename, string purpose, int userid)
+        public bool UpdateUserrole(int rollid, int userrole, string rolename, string purpose, int userid)
         {
             bool bResult = false;
             Database db;
@@ -2090,7 +2086,7 @@ namespace DaoOnlineOrderManagement
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 createtradeBusinessDateCmd = db.GetStoredProcCommand("SPROC_ToDeleteUser");
                 db.AddInParameter(createtradeBusinessDateCmd, "@RollId", DbType.Int32, rollid);
-               
+
                 if (db.ExecuteNonQuery(createtradeBusinessDateCmd) != 0)
                     bResult = true;
             }
@@ -2169,7 +2165,7 @@ namespace DaoOnlineOrderManagement
             }
             return dsGetUserRoleDepartmentWise.Tables[0];
         }
-        public DataTable GetSchemeForMarge(int AmcCode,int Schemeplanecode)
+        public DataTable GetSchemeForMarge(int AmcCode, int Schemeplanecode)
         {
             Database db;
             DbCommand cmdGetSchemeForMarge;
@@ -2260,7 +2256,7 @@ namespace DaoOnlineOrderManagement
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "AssociateDAO.cs:CodeduplicateChack()");
                 object[] objects = new object[2];
-                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
                 throw exBase;
@@ -2272,7 +2268,7 @@ namespace DaoOnlineOrderManagement
             Database db;
             DataSet ds;
             DbCommand cmdSchemeStatus;
-          string status ="";
+            string status = "";
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
