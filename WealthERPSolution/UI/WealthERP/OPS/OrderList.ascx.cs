@@ -860,6 +860,7 @@ namespace WealthERP.OPS
                 throw exBase;
             }
         }
+
         protected void ddlMenu_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
@@ -873,48 +874,11 @@ namespace WealthERP.OPS
                 string orderId = gvOrderList.MasterTableView.DataKeyValues[selectedRow - 1]["CO_OrderId"].ToString();
                 string customerId = gvOrderList.MasterTableView.DataKeyValues[selectedRow - 1]["C_CustomerId"].ToString();
                 string assetGroupCode = gvOrderList.MasterTableView.DataKeyValues[selectedRow - 1]["PAG_AssetGroupCode"].ToString();
-                //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "LifeInsuranceOrderEntry", "loadcontrol('LifeInsuranceOrderEntry','?strOrderId=" + orderId + "&strCustomerId=" + customerId + " ');", true);
 
-                // Set the VO into the Session
-                //insuranceVo = insuranceBo.GetInsuranceAssetLI(insuranceId, out dtAssociationId);
-                //Session["dtAssociationId"] = dtAssociationId;
-                //Session["insuranceVo"] = insuranceVo;
-                //Session["customerAccountVo"] = customerAccountsBo.GetCustomerInsuranceAccount(insuranceVo.AccountId);
-
-                if (ddlAction.SelectedItem.Value.ToString() == "Edit")
-                {
-                    action = "Edit";
-                    if (assetGroupCode == "IN")
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "LifeInsuranceOrderEntry", "loadcontrol('LifeInsuranceOrderEntry','?strOrderId=" + orderId + "&strCustomerId=" + customerId + "&strAction=" + action + " ');", true);
-                    else if (assetGroupCode == "MF")
-                    {
-                        int mfOrderId = int.Parse(orderId);
-                        GetMFOrderDetails(mfOrderId);
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MFOrderEntry", "loadcontrol('MFOrderEntry','action=Edit');", true);
-                    }
-                    //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioInsuranceEntry','action=edit');", true);
-                }
-                if (ddlAction.SelectedItem.Value.ToString() == "View")
-                {
-                    action = "View";
-                    if (assetGroupCode == "FI")
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ProductOrderMaster", "loadcontrol('ProductOrderMaster','action=View');", true);
-
-                    else if (assetGroupCode == "IN")
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "LifeInsuranceOrderEntry", "loadcontrol('LifeInsuranceOrderEntry','?strOrderId=" + orderId + "&strCustomerId=" + customerId + "&strAction=" + action + " ');", true);
-                    else if (assetGroupCode == "MF")
-                    {
-                        int mfOrderId = int.Parse(orderId);
-                        GetMFOrderDetails(mfOrderId);
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MFOrderEntry", "loadcontrol('MFOrderEntry','action=View');", true);
-                    }
-                    //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioInsuranceEntry','action=view');", true);
-                }
-                if (ddlAction.SelectedItem.Value.ToString() == "Delete")
-                {
-                    Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showmessage();", true);
-                }
-                FillHashtable();
+                
+                    if (assetGroupCode == "MF")
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MFOrderEntry", "loadcontrol('MFOrderEntry','action=" + ddlAction.SelectedItem.Value.ToString() + "&orderId=" + orderId + "');", true);
+                                   
             }
             catch (BaseApplicationException Ex)
             {
@@ -933,6 +897,81 @@ namespace WealthERP.OPS
                 throw exBase;
             }
         }
+
+
+        //protected void ddlMenu_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    try
+        //    {
+        //        btnConunt = 1;
+        //        RadComboBox ddlAction = (RadComboBox)sender;
+        //        GridDataItem gvr = (GridDataItem)ddlAction.NamingContainer;
+        //        int selectedRow = gvr.ItemIndex + 1;
+
+        //        string action = "";
+        //        string orderId = gvOrderList.MasterTableView.DataKeyValues[selectedRow - 1]["CO_OrderId"].ToString();
+        //        string customerId = gvOrderList.MasterTableView.DataKeyValues[selectedRow - 1]["C_CustomerId"].ToString();
+        //        string assetGroupCode = gvOrderList.MasterTableView.DataKeyValues[selectedRow - 1]["PAG_AssetGroupCode"].ToString();
+        //        //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "LifeInsuranceOrderEntry", "loadcontrol('LifeInsuranceOrderEntry','?strOrderId=" + orderId + "&strCustomerId=" + customerId + " ');", true);
+
+        //        // Set the VO into the Session
+        //        //insuranceVo = insuranceBo.GetInsuranceAssetLI(insuranceId, out dtAssociationId);
+        //        //Session["dtAssociationId"] = dtAssociationId;
+        //        //Session["insuranceVo"] = insuranceVo;
+        //        //Session["customerAccountVo"] = customerAccountsBo.GetCustomerInsuranceAccount(insuranceVo.AccountId);
+
+        //        if (ddlAction.SelectedItem.Value.ToString() == "Edit")
+        //        {
+        //            action = "Edit";
+        //            if (assetGroupCode == "IN")
+        //                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "LifeInsuranceOrderEntry", "loadcontrol('LifeInsuranceOrderEntry','?strOrderId=" + orderId + "&strCustomerId=" + customerId + "&strAction=" + action + " ');", true);
+        //            else if (assetGroupCode == "MF")
+        //            {
+        //                int mfOrderId = int.Parse(orderId);
+        //                GetMFOrderDetails(mfOrderId);
+        //                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MFOrderEntry", "loadcontrol('MFOrderEntry','action=Edit');", true);
+        //            }
+        //            //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioInsuranceEntry','action=edit');", true);
+        //        }
+        //        if (ddlAction.SelectedItem.Value.ToString() == "View")
+        //        {
+        //            action = "View";
+        //            if (assetGroupCode == "FI")
+        //                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ProductOrderMaster", "loadcontrol('ProductOrderMaster','action=View');", true);
+
+        //            else if (assetGroupCode == "IN")
+        //                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "LifeInsuranceOrderEntry", "loadcontrol('LifeInsuranceOrderEntry','?strOrderId=" + orderId + "&strCustomerId=" + customerId + "&strAction=" + action + " ');", true);
+        //            else if (assetGroupCode == "MF")
+        //            {
+        //                int mfOrderId = int.Parse(orderId);
+        //                GetMFOrderDetails(mfOrderId);
+        //                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MFOrderEntry", "loadcontrol('MFOrderEntry','action=View');", true);
+        //            }
+        //            //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioInsuranceEntry','action=view');", true);
+        //        }
+        //        if (ddlAction.SelectedItem.Value.ToString() == "Delete")
+        //        {
+        //            Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showmessage();", true);
+        //        }
+        //        FillHashtable();
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
+        //        FunctionInfo.Add("Method", "ViewInsuranceDetails.ascx:ddlMenu_SelectedIndexChanged()");
+        //        object[] objects = new object[1];
+        //        //objects[0] = insuranceVo;
+        //        FunctionInfo = exBase.AddObject(FunctionInfo, null);/*, objects*/
+        //        exBase.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(exBase);
+        //        throw exBase;
+        //    }
+        //}
         private void GetFIOrderDetails(int orderId)
         {
             DataSet dsGetFIOrderDetails = fiorderBo.GetCustomerFIOrderDetails(orderId);

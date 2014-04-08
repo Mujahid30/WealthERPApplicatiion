@@ -284,13 +284,20 @@
         </td>
     </tr>
     <tr>
+    <%-- <td colspan="2">
+           <asp:DropDownList ID="DropDownList1" Style="vertical-align: middle" runat="server"
+                CssClass="cmbField" AutoPostBack="true" OnSelectedIndexChanged="ddlOrderType_SelectedIndexChanged">
+               <asp:ListItem Value="MF" Text="Mutual Fund"></asp:ListItem>
+                <asp:ListItem Value="SetTheme" Text="SetTheme"  ></asp:ListItem>
+               
+                 
+            </asp:DropDownList>
+        </td>--%>
         <td colspan="2" align="left">
             <asp:Button ID="btnGo" runat="server" Text="GO" CssClass="PCGButton" ValidationGroup="MFSubmit"
                 OnClick="btnGo_Click" />
         </td>
-        <td colspan="2">
-            &nbsp;&nbsp;&nbsp;&nbsp;
-        </td>
+       
         <td colspan="2" align="left">
         </td>
     </tr>
@@ -342,14 +349,22 @@
                                     </telerik:RadComboBox>
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>
-                            <%--<telerik:GridButtonColumn ButtonType="LinkButton" CommandName="Redirect" UniqueName="CO_OrderId"
+                           <%-- <telerik:GridButtonColumn ButtonType="LinkButton" CommandName="Redirect" UniqueName="CO_OrderId"
                                 HeaderText="Order No." DataTextField="CO_OrderId" FooterStyle-HorizontalAlign="Right">
                                 <ItemStyle HorizontalAlign="Right" />
                             </telerik:GridButtonColumn>--%>
+                            
+                              <telerik:GridBoundColumn DataField="CO_OrderId" AllowFiltering="true" HeaderText="Order No."
+                                UniqueName="CO_OrderId" SortExpression="CO_OrderId" ShowFilterIcon="false"
+                                CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="85px"
+                                FilterControlWidth="50px"  >
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            
                             <telerik:GridBoundColumn DataField="CMFOD_OrderNumber" AllowFiltering="true" HeaderText="Order No."
                                 UniqueName="CMFOD_OrderNumber" SortExpression="CMFOD_OrderNumber" ShowFilterIcon="false"
                                 CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="85px"
-                                FilterControlWidth="50px">
+                                FilterControlWidth="50px" Visible="false">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="CO_OrderDate" DataFormatString="{0:dd/MM/yyyy}"
