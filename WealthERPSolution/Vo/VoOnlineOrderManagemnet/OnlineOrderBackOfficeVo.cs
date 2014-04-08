@@ -94,6 +94,7 @@ namespace VoOnlineOrderManagemnet
         public string SystematicCode { get; set; }
         public int Bankcode { get; set; }
         public string productcode { get; set; }
+        public int Mergecode { get; set; }
     }
 
     public class TradeBusinessDateVo
