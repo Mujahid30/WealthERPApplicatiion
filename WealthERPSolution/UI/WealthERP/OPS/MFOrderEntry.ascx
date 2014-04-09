@@ -1620,6 +1620,8 @@
 <asp:HiddenField ID="hdnAplicationNo" runat="server" OnValueChanged="txtAgentId_ValueChanged1" />
 <asp:HiddenField ID="hidValidCheck" runat="server" EnableViewState="true" />
 <asp:HiddenField ID="HiddenField1" runat="server" OnValueChanged="HiddenField1_ValueChanged1" />
+ 
+<asp:HiddenField ID="hidAmt" runat="server"   />
 
 <%--<table width="100%" class="TableBackground">
 <tr>

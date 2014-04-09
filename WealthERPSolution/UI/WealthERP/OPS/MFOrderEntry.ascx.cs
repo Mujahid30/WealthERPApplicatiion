@@ -315,6 +315,7 @@ namespace WealthERP.OPS
         {
             int agentId = 0;
             string agentCode = "";
+
             DataSet dsGetMFOrderDetails = mfOrderBo.GetCustomerMFOrderDetails(orderId);
             if (dsGetMFOrderDetails.Tables[0].Rows.Count > 0)
             {
@@ -356,14 +357,13 @@ namespace WealthERP.OPS
                         ddlsearch.SelectedValue = "1";
                     }
                     txtCustomerId.Value = dr["C_CustomerId"].ToString();
-                    //mforderVo.CustomerId = int.Parse(dr["C_CustomerId"].ToString());
                     txtCustomerName.Text = dr["Customer_Name"].ToString();
 
                     lblGetRM.Text = dr["RM_Name"].ToString();
                     lblGetBranch.Text = dr["AB_BranchName"].ToString();
                     lblgetPan.Text = dr["C_PANNum"].ToString();
 
-
+                    
 
                     if (!string.IsNullOrEmpty(dr["PA_AMCCode"].ToString().Trim()))
                         ddlAMCList.SelectedValue = dr["PA_AMCCode"].ToString();
@@ -378,10 +378,8 @@ namespace WealthERP.OPS
 
 
                     lblGetOrderNo.Text = orderId.ToString();
-                    //if (!string.IsNullOrEmpty(dr["CMFOD_Amount"].ToString().Trim()))
-                    //    mforderVo.Amount = double.Parse(dr["CMFOD_Amount"].ToString());
-                    //else
-                    //    mforderVo.Amount = 0;
+                     txtSchemeCode.Value=dr["PASP_SchemePlanCode"].ToString();
+ 
 
                     if (int.Parse(dr["CMFA_accountid"].ToString()) != 0)
                         hidFolioNumber.Value = dr["CMFA_accountid"].ToString();
@@ -391,14 +389,7 @@ namespace WealthERP.OPS
                     ddltransType.SelectedValue = dr["WMTT_TransactionClassificationCode"].ToString();
                     txtOrderDate.SelectedDate = DateTime.Parse(dr["CO_OrderDate"].ToString());
 
-
-                    //if (mforderVo.IsImmediate == 1)
-                    //    rbtnImmediate.Checked = true;
-                    //else
-                    //{
-                    //    rbtnFuture.Checked = true;// dr["CMFOD_IsImmediate"].ToString());
-                    //    trfutureDate.Visible = true;
-                    //}
+                   
 
                     txtApplicationNumber.Text = dr["CO_ApplicationNumber"].ToString();
 
@@ -423,15 +414,7 @@ namespace WealthERP.OPS
                     else
                         txtPaymentInstDate.SelectedDate = txtLivingSince.MinDate;// DateTime.MinValue;
 
-                    //if (!string.IsNullOrEmpty(dr["AAC_AdviserAgentId"].ToString()))
-                    //{
-                    //    orderVo.AgentId = Convert.ToInt32(dr["AAC_AdviserAgentId"].ToString());
-                    //}
-
-                    //if (!string.IsNullOrEmpty(dr["AAC_AgentCode"].ToString()))
-                    //{
-                    //    orderVo.AgentCode = dr["AAC_AgentCode"].ToString();
-                    //}
+                   
 
                     if (!string.IsNullOrEmpty(dr["CMFOD_FutureTriggerCondition"].ToString()))
                         txtFutureTrigger.Text = dr["CMFOD_FutureTriggerCondition"].ToString();
@@ -441,47 +424,18 @@ namespace WealthERP.OPS
                         txtFutureDate.SelectedDate = DateTime.Parse(dr["CMFOD_FutureExecutionDate"].ToString());
                     else
                         txtFutureDate.SelectedDate = txtLivingSince.MinDate;//DateTime.MinValue;
-                    //if (!string.IsNullOrEmpty(dr["PASP_SchemePlanSwitch"].ToString()))
-                    //    mforderVo.SchemePlanSwitch = int.Parse(dr["PASP_SchemePlanSwitch"].ToString());
-                    //else
-                    //    mforderVo.SchemePlanSwitch = 0;
+                   
 
                     if (!string.IsNullOrEmpty(dr["CB_CustBankAccId"].ToString()))
                         ddlBankName.SelectedValue = dr["CB_CustBankAccId"].ToString();
                     else
                         orderVo.CustBankAccId = 0;
-                    //if (!string.IsNullOrEmpty(dr["CMFOD_BankName"].ToString()))
-                    //    mforderVo.BankName = dr["CMFOD_BankName"].ToString();
-                    //else
-                    //    mforderVo.BankName = "";
+                   
                     if (!string.IsNullOrEmpty(dr["CMFOD_BranchName"].ToString()))
                         txtBranchName.Text = dr["CMFOD_BranchName"].ToString();
                     else
                         txtBranchName.Text = "";
-                    //if (!string.IsNullOrEmpty(dr["CMFOD_AddrLine1"].ToString()))
-                    //    mforderVo.AddrLine1 = dr["CMFOD_AddrLine1"].ToString();
-                    //else
-                    //    mforderVo.AddrLine1 = "";
-                    //if (!string.IsNullOrEmpty(dr["CMFOD_AddrLine2"].ToString()))
-                    //    mforderVo.AddrLine2 = dr["CMFOD_AddrLine2"].ToString();
-                    //else
-                    //    mforderVo.AddrLine2 = "";
-                    //if (!string.IsNullOrEmpty(dr["CMFOD_AddrLine3"].ToString()))
-                    //    mforderVo.AddrLine3 = dr["CMFOD_AddrLine3"].ToString();
-                    //else
-                    //    mforderVo.AddrLine3 = "";
-                    //if (!string.IsNullOrEmpty(dr["CMFOD_City"].ToString()))
-                    //    mforderVo.City = dr["CMFOD_City"].ToString();
-                    //else
-                    //    mforderVo.City = "";
-                    //if (!string.IsNullOrEmpty(dr["CMFOD_State"].ToString()))
-                    //    mforderVo.State = dr["CMFOD_State"].ToString();
-                    //else
-                    //    mforderVo.State = "";
-                    //if (!string.IsNullOrEmpty(dr["CMFOD_Country"].ToString()))
-                    //    mforderVo.Country = dr["CMFOD_Country"].ToString();
-                    //else
-                    //    mforderVo.Country = "";
+                   
                     if (!string.IsNullOrEmpty(dr["CMFOD_PinCode"].ToString()))
                         txtCorrAdrPinCode.Text = dr["CMFOD_PinCode"].ToString();
                     else
@@ -508,26 +462,7 @@ namespace WealthERP.OPS
                         txtendDateSIP.SelectedDate = DateTime.Parse(dr["CMFOD_EndDate"].ToString());
                     else
                         txtendDateSIP.SelectedDate = txtendDateSIP.MinDate; // DateTime.MinValue;
-                    //}
-                    //else
-                    //{
-
-                    //    if (!string.IsNullOrEmpty(dr["XF_FrequencyCode"].ToString()))
-                    //        ddlFrequencySTP.SelectedValue = dr["XF_FrequencyCode"].ToString();
-                    //    else
-                    //        ddlFrequencySTP.SelectedValue = "";
-
-                    //    if (!string.IsNullOrEmpty(dr["CMFOD_StartDate"].ToString()))
-                    //        txtstartDateSTP.SelectedDate = DateTime.Parse(dr["CMFOD_StartDate"].ToString());
-                    //    else
-                    //        txtstartDateSTP.SelectedDate = txtstartDateSTP.MinDate;// DateTime.MinValue;
-
-                    //    if (!string.IsNullOrEmpty(dr["CMFOD_EndDate"].ToString()))
-                    //        txtendDateSTP.SelectedDate = DateTime.Parse(dr["CMFOD_EndDate"].ToString());
-                    //    else
-                    //        txtendDateSTP.SelectedDate = txtendDateSIP.MinDate; // DateTime.MinValue;
-
-                    //}
+                    
                     txtAmount.Text = dr["CMFOD_Amount"].ToString();
                     if (!string.IsNullOrEmpty(dr["CMFOD_Units"].ToString()))
                     {
@@ -537,8 +472,8 @@ namespace WealthERP.OPS
                     else
                     {
                         txtNewAmount.Text = dr["CMFOD_Amount"].ToString();
-                        //  txtNewAmount.Text = "0";
                     }
+                    hidAmt.Value = dr["CMFOD_Amount"].ToString();
                     if (!string.IsNullOrEmpty(dr["PASP_SchemePlanSwitch"].ToString()))
                     {
                         BindSchemeSwitch();
@@ -548,40 +483,7 @@ namespace WealthERP.OPS
                     txtPeriod.Text = dr["CMFSS_Tenure"].ToString();
                     txtSystematicdates.Text = dr["CMFSS_SystematicDate"].ToString();
                     ddlPeriodSelection.SelectedValue = dr["CMFSS_TenureCycle"].ToString();
-                    //txtRegistrationDate.Text = dr["CMFSS_RegistrationDate"].ToString();
-                    //txtCeaseDate.Text = dr["CMFSS_CEASEDATE"].ToString();
-
-                    //if (!string.IsNullOrEmpty(dr["XF_FrequencyCode"].ToString()))
-                    //    mforderVo.FrequencyCode = dr["XF_FrequencyCode"].ToString();
-                    //else
-                    //    mforderVo.FrequencyCode = "";
-                    //if (!string.IsNullOrEmpty(dr["CMFOD_StartDate"].ToString()))
-                    //    mforderVo.StartDate = DateTime.Parse(dr["CMFOD_StartDate"].ToString());
-                    //else
-                    //    mforderVo.StartDate = DateTime.MinValue;
-                    //if (!string.IsNullOrEmpty(dr["CMFOD_EndDate"].ToString()))
-                    //    mforderVo.EndDate = DateTime.Parse(dr["CMFOD_EndDate"].ToString());
-                    //else
-                    //    mforderVo.EndDate = DateTime.MinValue;
-
-                    //if (!string.IsNullOrEmpty(dr["CMFOD_Units"].ToString()))
-                    //    mforderVo.Units = double.Parse(dr["CMFOD_Units"].ToString());
-                    //else
-                    //    mforderVo.Units = 0;
-
-
-
-                    //txtAmount.Text = dr["CMFOD_Amount"].ToString();
-                    //BindOrderStepsGrid(orderId);
-
-                    //if (mforderVo.StartDate != DateTime.MinValue)
-                    //    txtstartDateSIP.SelectedDate = mforderVo.StartDate;
-                    //else
-                    //    txtstartDateSIP.SelectedDate = null;
-                    //if (mforderVo.EndDate != DateTime.MinValue)
-                    //    txtendDateSIP.SelectedDate = mforderVo.EndDate;
-                    //else
-                    //    txtendDateSIP.SelectedDate = null;
+                     
                 }
             }
         }
@@ -3332,12 +3234,16 @@ namespace WealthERP.OPS
                     if (lblStatusCode.Text == "OMIP")
                     {
                         editButton.Text = "Mark as Pending";
-                        //result = mfOrderBo.MFOrderAutoMatch(orderVo.OrderId, mforderVo.SchemePlanCode, mforderVo.accountid, mforderVo.TransactionCode, orderVo.CustomerId, mforderVo.Amount, orderVo.OrderDate);
-                        //if (result == true)
-                        //{
-                        //    editButton.Text = "";
-                        //    lblOrderStatusReason.Text = "";
-                        //}
+                      //  hidAmt
+
+                      //  result = mfOrderBo.MFOrderAutoMatch(orderVo.OrderId, mforderVo.SchemePlanCode, mforderVo.accountid, mforderVo.TransactionCode, orderVo.CustomerId, mforderVo.Amount, orderVo.OrderDate);
+                        result = mfOrderBo.MFOrderAutoMatch(Convert.ToInt32(lblGetOrderNo.Text), Convert.ToInt32(txtSchemeCode.Value), Convert.ToInt32(hidFolioNumber.Value), ddltransType.SelectedValue, Convert.ToInt32(txtCustomerId.Value), Convert.ToDouble(hidAmt.Value), Convert.ToDateTime(txtOrderDate.SelectedDate));
+                       
+                        if (result == true)
+                        {
+                            editButton.Text = "";
+                            lblOrderStatusReason.Text = "";
+                        }
 
                     }
 
@@ -3786,10 +3692,15 @@ namespace WealthERP.OPS
                 }
 
             }
-            if (ddlPaymentMode.SelectedIndex != 0)
-                orderVo.PaymentMode = ddlPaymentMode.SelectedValue;
+            if (txtAmount.Text != "0" & txtAmount.Text != string.Empty)
+                hidAmt.Value = txtAmount.Text;
             else
-                orderVo.PaymentMode = "ES";
+                hidAmt.Value = txtNewAmount.Text;
+
+                if (ddlPaymentMode.SelectedIndex != 0)
+                    orderVo.PaymentMode = ddlPaymentMode.SelectedValue;
+                else
+                    orderVo.PaymentMode = "ES";
 
             if (!string.IsNullOrEmpty(txtPaymentNumber.Text.ToString().Trim()))
                 orderVo.ChequeNumber = txtPaymentNumber.Text;
@@ -4321,6 +4232,10 @@ namespace WealthERP.OPS
             }
             else
                 orderVo.CustBankAccId = 0;
+            if (txtAmount.Text != "0" & txtAmount.Text != string.Empty)
+                hidAmt.Value = txtAmount.Text;
+            else
+                hidAmt.Value = txtNewAmount.Text;
             if (!string.IsNullOrEmpty(ddlBankName.SelectedValue))
             {
                 if (ddlBankName.SelectedValue != "Select")
