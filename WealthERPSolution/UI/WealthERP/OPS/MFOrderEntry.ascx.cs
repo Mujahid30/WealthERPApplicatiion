@@ -78,9 +78,7 @@ namespace WealthERP.OPS
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
-
-
+            
             SessionBo.CheckSession();
 
             associatesVo = (AssociatesVO)Session["associatesVo"];
@@ -288,10 +286,10 @@ namespace WealthERP.OPS
             }
             else
             {
+                ControlsEnblity("New");
                 ShowPaymentSectionBasedOnTransactionType("", "");
                 ButtonsEnablement("New");
-                ControlsEnblity("New");
-
+               
             }
         }
 
@@ -413,7 +411,7 @@ namespace WealthERP.OPS
                     ddlPortfolio.SelectedValue = dr["CP_portfolioId"].ToString();
 
                     ddlPaymentMode.SelectedValue = dr["XPM_PaymentModeCode"].ToString();
-                    ddlPaymentMode_SelectedIndexChanged(this, null);
+                    PaymentMode(ddlPaymentMode.SelectedValue);
 
 
                     if (!string.IsNullOrEmpty(dr["CO_ChequeNumber"].ToString()))
@@ -884,7 +882,7 @@ namespace WealthERP.OPS
                     txtFutureDate.SelectedDate = null;
                     txtFutureTrigger.Text = "";
                     txtAmount.Text = "";
-                    ddlPaymentMode_SelectedIndexChanged(this, null);
+                    PaymentMode(ddlPaymentMode.SelectedValue);
                     txtPaymentNumber.Text = "";
                     txtPaymentInstDate.SelectedDate = null;
                     ddlBankName.SelectedIndex = 0;
@@ -2472,7 +2470,7 @@ namespace WealthERP.OPS
             pnl_BUY_ABY_SIP_PaymentSection.Visible = false;
             pnl_SIP_PaymentSection.Visible = false;
             pnl_SEL_PaymentSection.Visible = false;
-
+            Tr1.Visible = true;
             //if (mode == "View")
             //{
             //    enablement = false;
@@ -2487,7 +2485,9 @@ namespace WealthERP.OPS
 
                 // pnl_BUY_ABY_SIP_PaymentSection.Enabled = enablement;
                 pnl_BUY_ABY_SIP_PaymentSection.Visible = true;
-
+                if(transType == "BUY")
+                Tr1.Visible = false;
+                
             }
             else if (transType == "Sel")
             {
@@ -2810,8 +2810,8 @@ namespace WealthERP.OPS
                 BindPortfolioDropdown(customerId);
                 ddltransType.SelectedIndex = 0;
                 BindISAList();
-                btnreport.Visible = true;
-                btnpdfReport.Visible = true;
+                //btnreport.Visible = true;
+                //btnpdfReport.Visible = true;
 
                 ClearAllFields();
 
@@ -3053,6 +3053,8 @@ namespace WealthERP.OPS
         protected void ddltransType_SelectedIndexChanged(object sender, EventArgs e)
         {
             ShowPaymentSectionBasedOnTransactionType(ddltransType.SelectedValue, "");
+            PaymentMode(ddlPaymentMode.SelectedValue);
+            
             //lblAMC.Visible = true; ddlAMCList.Visible = true;
             //lblCategory.Visible = true; ddlCategory.Visible = true;
             //lblSearchScheme.Visible = true; ddlAmcSchemeList.Visible = true;
@@ -3199,7 +3201,7 @@ namespace WealthERP.OPS
             //{
             //    trGetAmount.Visible = true;
             //}
-            ddlPaymentMode_SelectedIndexChanged(this, null);
+           
             // Sipvisblity(hdnType.Value, "");
 
         }
@@ -3530,6 +3532,11 @@ namespace WealthERP.OPS
             }
         }
         protected void ddlPaymentMode_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            PaymentMode(ddlPaymentMode.SelectedValue);
+        }
+
+        private void PaymentMode(string type)
         {
             if (ddlPaymentMode.SelectedValue == "CQ")
             {
