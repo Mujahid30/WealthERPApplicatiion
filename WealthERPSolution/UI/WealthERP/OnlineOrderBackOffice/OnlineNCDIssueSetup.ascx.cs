@@ -1277,7 +1277,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     return;
                 }
                 onlineNCDBackOfficeBo.IsSameSubTypeCatAttchedtoSeries(attachedCatId, Convert.ToInt32(txtIssueId.Text), ref attachedCatId);
-                if (attachedCatId == String.Empty )
+                if (attachedCatId != String.Empty )
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert( '" + attachedCatId + "');", true);
                     e.Canceled = true;
@@ -1867,6 +1867,7 @@ namespace WealthERP.OnlineOrderBackOffice
             if (e.CommandName == RadGrid.PerformInsertCommandName)
             {
                 int categoryId;
+                 
                 TextBox txtCategoryName = (TextBox)e.Item.FindControl("txtCategoryName");
                 TextBox txtCategoryDescription = (TextBox)e.Item.FindControl("txtCategoryDescription");
                 TextBox txtChequePayableTo = (TextBox)e.Item.FindControl("txtChequePayableTo");
@@ -1906,12 +1907,21 @@ namespace WealthERP.OnlineOrderBackOffice
                     e.Canceled = true;
                     return;
                 }
+                foreach (GridDataItem gdi in rgSubCategories.Items)
+                {
+                    if (((TextBox)gdi.FindControl("txtSubCategoryCode")).Text != string.Empty && ((DropDownList)gdi.FindControl("ddlSubCategory")).SelectedValue != "Select")
+                    {
+                        count++;
+                    }
 
-
-
-
-
-
+                }
+                if (count == 0)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Pls Add one Subcategory');", true);
+                    e.Canceled = true;
+                    return;
+                }
+ 
                 categoryId = CreateUpdateDeleteCategory(Convert.ToInt32(txtIssueId.Text), 0, txtCategoryName.Text, txtCategoryDescription.Text, txtChequePayableTo.Text, Convert.ToInt64(txtMinBidAmount.Text), Convert.ToInt64(txtMaxBidAmount.Text), discountType, Convert.ToDecimal(txtDiscountValue.Text), "Insert");
 
                 foreach (GridDataItem gdi in rgSubCategories.Items)
