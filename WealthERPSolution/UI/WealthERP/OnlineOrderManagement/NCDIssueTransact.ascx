@@ -181,6 +181,12 @@
                     </div>
                 </td>
             </tr>
+            <tr id="trinsufficentmessage" runat="server" visible="false">
+                <td align="center">
+                    <asp:Label ID="lblinsufficent" runat="server" ForeColor="Red" Text="Order cannot be processed due to insufficient balance"></asp:Label>
+                
+                </td>
+            </tr>
         </table>
     </ContentTemplate>
 </asp:UpdatePanel>
@@ -209,19 +215,23 @@
                         <asp:Label ID="lblNomineeTwo" runat="server" CssClass="FieldName"></asp:Label>
                     </td>
                 </tr>
-                <tr><td><asp:Label ID="lblIssuer" runat="server" Text=":" CssClass="FieldName"></asp:Label></td></tr>
+                <tr>
+                    <td>
+                        <asp:Label ID="lblIssuer" runat="server" Text=":" CssClass="FieldName"></asp:Label>
+                    </td>
+                </tr>
             </table>
-</td> </tr>
-<tr align="center">
-    <td>
-        
-        <asp:DropDownList ID="ddIssuerList" runat="server" CssClass="cmbField" AutoPostBack="false">
-        </asp:DropDownList>
-    </td>
-    <td align="left">
-        <asp:Button ID="btnConfirm" runat="server" Text="Go" OnClick="btnConfirm_Click" CssClass="PCGButton" />
-    </td>
-</tr>
+        </td>
+    </tr>
+    <tr align="center">
+        <td>
+            <asp:DropDownList ID="ddIssuerList" runat="server" CssClass="cmbField" AutoPostBack="false">
+            </asp:DropDownList>
+        </td>
+        <td align="left">
+            <asp:Button ID="btnConfirm" runat="server" Text="Go" OnClick="btnConfirm_Click" CssClass="PCGButton" />
+        </td>
+    </tr>
 </table>
 <asp:Panel ID="pnlIssuList" runat="server" CssClass="Landscape" Width="100%">
     <table id="tblCommissionStructureRule" runat="server" width="100%">
@@ -482,6 +492,11 @@
                             <telerik:GridBoundColumn DataField="AIDCSR_RedemptionAmount " HeaderStyle-Width="105px"
                                 HeaderText="Redemption Amount(Per Bond)" CurrentFilterFunction="Contains" ShowFilterIcon="false"
                                 AutoPostBackOnFilter="true" UniqueName="AIDCSR_RedemptionAmount " Visible="true">
+                                <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                            </telerik:GridBoundColumn>
+                               <telerik:GridBoundColumn DataField="LockinPeriodCollection " HeaderStyle-Width="105px"
+                                HeaderText="Lock In Period" CurrentFilterFunction="Contains" ShowFilterIcon="false"
+                                AutoPostBackOnFilter="true" UniqueName="LockinPeriodCollection " Visible="true">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
                             <telerik:GridTemplateColumn AllowFiltering="false" DataField="YieldAtMAturity" HeaderStyle-Width="100px"

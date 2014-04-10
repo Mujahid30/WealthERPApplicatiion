@@ -16,7 +16,7 @@ using Telerik.Web.UI;
 using System.Text;
 using System.Data;
 using System.Text.RegularExpressions;
-
+using System.Drawing;
 
 namespace WealthERP.OnlineOrderManagement
 {
@@ -47,7 +47,7 @@ namespace WealthERP.OnlineOrderManagement
             ShowAvailableLimits();
             BindKYCDetailDDl();
     //lblAvailableLimits.Text = "4000";
-
+           
             if (!IsPostBack)
             {
                 Session["sum"] = null;
@@ -251,7 +251,7 @@ namespace WealthERP.OnlineOrderManagement
 
         }
         protected void txtQuantity_TextChanged(object sender, EventArgs e)
-        {
+         {
             int rowindex1 = ((GridDataItem)((TextBox)sender).NamingContainer).RowIndex;
             int rowindex = (rowindex1 / 2) - 1;
             int issueId = Convert.ToInt32(Request.QueryString["IssuerId"]);
@@ -533,10 +533,16 @@ namespace WealthERP.OnlineOrderManagement
 
                 if (Convert.ToDouble(lblAvailableLimits.Text) == 0)
                 {
-                    ShowMessage("Order cannot be processed due to insufficient balance");
-                  //  tdsubmit.Visible = false;
-                    lnlBack.Visible = true;
-
+                    trinsufficentmessage.Visible = true;
+                    //lblinsufficent.Text = "Order cannot be processed due to insufficient balance";
+                    //lblinsufficent.ForeColor = Color.Red;
+                    //Color co = new Color();
+                    msgRecordStatus.Visible = false;
+                    //ShowMessage(lblinsufficent.Text);
+                  ////  tdsubmit.Visible = false;
+                  //  lnlBack.Visible = true;
+                  //  Font testFont = new Font(fontName, 16.0f, FontStyle.Regular,
+                  //GraphicsUnit.Pixel);
                 }
                 else if (ViewState["CustCat"] == null)
                 {

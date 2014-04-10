@@ -2693,12 +2693,13 @@ namespace WealthERP.OnlineOrderBackOffice
             }
             status = OnlineOrderBackOfficeBo.SchemeStatus(schemeplancode1);
             lblPStatus.Text = status;
-            if (status == "Merge")
+            if (status == "Merged")
             {
                 ddlMargeScheme.Enabled = false;
                 txtSchemeMargeDate.Enabled = false;
                 btnMSSubmit.Visible = false;
                 btnReset.Visible = false;
+                lnkMargeEdit.Visible = false;
             }
 
         }

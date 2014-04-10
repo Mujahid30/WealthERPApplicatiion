@@ -5,7 +5,6 @@
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 <asp:ScriptManager ID="scrptMgr" runat="server">
 </asp:ScriptManager>
-
 <table width="100%">
     <tr>
         <td>
@@ -45,8 +44,8 @@
         <td align="right" style="vertical-align: top;">
             <asp:Label ID="lblAmc" runat="server" Text="Extract Type:" CssClass="FieldName"></asp:Label>
         </td>
-        <td colspan="2" >
-            <asp:DropDownList ID="ddlExtractType" runat="server" CssClass="cmbExtraLongField" 
+        <td colspan="2">
+            <asp:DropDownList ID="ddlExtractType" runat="server" CssClass="cmbExtraLongField"
                 OnSelectedIndexChanged="ddlExtractType_Selectedindexchanged" AutoPostBack="true">
                 <asp:ListItem Selected="True" Value="0">--SELECT--</asp:ListItem>
             </asp:DropDownList>
@@ -64,9 +63,9 @@
         <td>
             <telerik:RadDatePicker ID="txtFromDate" CssClass="txtField" runat="server" Culture="English (United States)"
                 Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01"
-                TabIndex="17" Width="200px" AutoPostBack="true" >
+                Width="200px" AutoPostBack="false">
                 <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
-                    Skin="Telerik" EnableEmbeddedSkins="false" AutoPostBack="true">
+                    Skin="Telerik" EnableEmbeddedSkins="false">
                 </Calendar>
                 <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
                 <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
@@ -80,12 +79,13 @@
                 ControlToCompare="txtToDate" Display="Dynamic" ErrorMessage="<br/>From Date be greater Than To date"
                 Type="Date" Operator="LessThanEqual" CssClass="cvPCG" ValidationGroup="vgBtnSubmitTemp"></asp:CompareValidator>
         </td>
-        <td id="tdToDate" runat="server" >
+        <td id="tdToDate" runat="server">
             <asp:Label ID="lb1ToDate" runat="server" Text="To Date:" CssClass="FieldName"></asp:Label>
             <telerik:RadDatePicker ID="txtToDate" CssClass="txtField" runat="server" Culture="English (United States)"
-                Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" Calendar-AutoPostBack="true" MinDate="1900-01-01" AutoPostBack="true" >
+                Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01"
+                AutoPostBack="false">
                 <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
-                    Skin="Telerik" EnableEmbeddedSkins="false" AutoPostBack="true">
+                    Skin="Telerik" EnableEmbeddedSkins="false">
                 </Calendar>
                 <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
                 <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
@@ -126,7 +126,7 @@
             <asp:CompareValidator ID="CompareValidator4" ControlToValidate="txtExtractDate" runat="server"
                 ControlToCompare="txtToDate" Display="Dynamic" ErrorMessage="<br/>From Date be Less Than To date"
                 Type="Date" Operator="LessThanEqual" CssClass="cvPCG" ValidationGroup="vgBtnSubmitTemp"></asp:CompareValidator>
-       </td>
+        </td>
         <%--  <td id="tdToDate" runat="server" visible="false">
             <asp:Label ID="lb1ToDate" runat="server" Text="To Date:" CssClass="FieldName"></asp:Label>
             <telerik:RadDatePicker ID="txtToDate" CssClass="txtField" runat="server" Culture="English (United States)"

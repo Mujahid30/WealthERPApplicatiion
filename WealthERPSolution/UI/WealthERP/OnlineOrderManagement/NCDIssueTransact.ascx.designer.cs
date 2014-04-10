@@ -66,7 +66,7 @@ namespace WealthERP.OnlineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trSumbitSuccess;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trinsufficentmessage;
         /// <summary>
         /// msgRecordStatus control.
         /// </summary>
@@ -85,7 +85,7 @@ namespace WealthERP.OnlineOrderManagement {
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblMSG;
         protected global::System.Web.UI.WebControls.Label lb1AvailbleCat;
-
+        protected global::System.Web.UI.WebControls.Label lblinsufficent;
 
         
         

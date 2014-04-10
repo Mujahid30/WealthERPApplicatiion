@@ -236,6 +236,11 @@
                                                     HeaderText="Issue Name" UniqueName="AIM_IssueName">
                                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                 </telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn DataField="AIM_AllotmentDate" SortExpression="AIM_AllotmentDate" AutoPostBackOnFilter="true" HeaderStyle-Width="200px"
+                                                    CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="false"
+                                                    HeaderText="Allotment Date" UniqueName="AIM_AllotmentDate">
+                                                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                                </telerik:GridBoundColumn>
                                              <telerik:GridBoundColumn DataField="AllotedQty" SortExpression="AllotedQty" AutoPostBackOnFilter="true" HeaderStyle-Width="200px"
                                                     CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="false"
                                                     HeaderText="Alloted Quantity" UniqueName="AllotedQty">
@@ -336,38 +341,38 @@
                                                                                 <telerik:GridBoundColumn DataField="SeriesName" SortExpression="SeriesName" AutoPostBackOnFilter="true"
                                                                                     CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="false"
                                                                                     HeaderText="SeriesName" UniqueName="SeriesName">
-                                                                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                                                                    <ItemStyle Width="100px" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                                                 </telerik:GridBoundColumn>
                                                                                 <telerik:GridBoundColumn DataField="MaturityDate" SortExpression="MaturityDate"
                                                                                     AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
                                                                                     AllowFiltering="false" HeaderText="Maturity date" UniqueName="MaturityDate">
-                                                                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                                                                    <ItemStyle Width="100px" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                                                                 </telerik:GridBoundColumn>
                                                                                 <telerik:GridBoundColumn DataField="Couponrate" SortExpression="Couponrate" AutoPostBackOnFilter="true"
                                                                                     CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="false"
                                                                                     HeaderText="Coupon Rate(%)" UniqueName="Couponrate">
-                                                                                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="true" VerticalAlign="Top" />
+                                                                                    <ItemStyle Width="100px" HorizontalAlign="Right" Wrap="true" VerticalAlign="Top" />
                                                                                 </telerik:GridBoundColumn>
                                                                                 <telerik:GridBoundColumn DataField="Renewedcouponrate" AllowFiltering="false" HeaderText="Renewed Coupon Rate(%)"
                                                                                     UniqueName="Renewedcouponrate" SortExpression="Renewedcouponrate">
-                                                                                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                                                                    <ItemStyle Width="100px" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                                                                 </telerik:GridBoundColumn>
                                                                                 <telerik:GridBoundColumn DataField="CallOption" AllowFiltering="false" HeaderText="Yield To Call(%)"
                                                                                     UniqueName="CallOption">
-                                                                                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                                                                    <ItemStyle Width="100px" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
                                                                                 </telerik:GridBoundColumn>
                                                                                 <telerik:GridBoundColumn DataField="YieldtillMaturity" AllowFiltering="false" HeaderText="Yield Till Maturity(%)"
                                                                                     UniqueName="YieldtillMaturity">
-                                                                                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                                                                    <ItemStyle Width="100px" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                                                                 </telerik:GridBoundColumn>
                                                                                 <telerik:GridBoundColumn DataField="Buybackfacility" AllowFiltering="false" HeaderText="Buyback facility"
                                                                                     UniqueName="Buybackfacility">
-                                                                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                                                                    <ItemStyle Width="100px" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
                                                                                 </telerik:GridBoundColumn>
                                                                                 <telerik:GridBoundColumn DataField="AID_Tenure" SortExpression="AID_Tenure" AutoPostBackOnFilter="true"
                                                                                     CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="false"
                                                                                     HeaderText="Tenure (months)" UniqueName="AID_Tenure">
-                                                                                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                                                                    <ItemStyle Width="100px" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                                                                 </telerik:GridBoundColumn>
                                                                             </Columns>
                                                                         </MasterTableView>
