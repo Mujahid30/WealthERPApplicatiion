@@ -422,13 +422,13 @@ namespace BoCommon
             return dtSchemeList;
         }
 
-        public DataTable GetAmcSchemeList(int Amccode, string Category, int Customerid)
+        public DataTable GetAmcSchemeList(int Amccode, string Category, int Customerid, char txnType)
         {
             DataTable dtSchemeList = new DataTable();
             try
             {
                 string CategoryCode = string.IsNullOrEmpty(Category) ? null : Category.Trim();
-                dtSchemeList = daoCommonLookup.GetAmcSchemeList(Amccode, CategoryCode, Customerid);
+                dtSchemeList = daoCommonLookup.GetAmcSchemeList(Amccode, CategoryCode, Customerid, txnType);
             }
             catch (BaseApplicationException Ex)
             {

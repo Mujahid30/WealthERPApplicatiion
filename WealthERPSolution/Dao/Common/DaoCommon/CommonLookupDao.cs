@@ -445,7 +445,7 @@ namespace DaoCommon
             return dsGetAmcSchemeList.Tables[0];
         }
 
-        public DataTable GetAmcSchemeList(int AmcCode, string Category, int customerid)
+        public DataTable GetAmcSchemeList(int AmcCode, string Category, int customerid, char txnType)
         {
             Database db;
             DbCommand cmd;
@@ -466,6 +466,8 @@ namespace DaoCommon
                     db.AddInParameter(cmd, "@customerid", DbType.Int32, customerid);
                 else
                     db.AddInParameter(cmd, "@customerid", DbType.Int32, DBNull.Value);
+
+                db.AddInParameter(cmd, "@TxnType", DbType.String, txnType);
                 dsGetAmcSchemeList = db.ExecuteDataSet(cmd);
             }
             catch (BaseApplicationException Ex)

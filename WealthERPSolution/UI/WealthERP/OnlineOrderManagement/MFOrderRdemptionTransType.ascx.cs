@@ -407,7 +407,7 @@ namespace WealthERP.OnlineOrderManagement
         {
             ddlScheme.Items.Clear();
             DataTable dtScheme = new DataTable();
-            dtScheme = commonLookupBo.GetAmcSchemeList(amccode, category, customerid);
+            dtScheme = commonLookupBo.GetAmcSchemeList(amccode, category, customerid,'R');
             if (dtScheme.Rows.Count > 0)
             {
                 ddlScheme.DataSource = dtScheme;
