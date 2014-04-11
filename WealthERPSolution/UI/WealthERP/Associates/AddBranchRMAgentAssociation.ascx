@@ -13,7 +13,7 @@
                 <table cellspacing="0" width="100%">
                     <tr>
                         <td align="left">
-                            Add SubBroker Code
+                            Add Agent Code
                         </td>
                     </tr>
                 </table>

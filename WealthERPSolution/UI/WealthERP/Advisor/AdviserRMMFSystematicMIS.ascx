@@ -110,9 +110,17 @@
                             <asp:ListItem Text="UnManaged" Value="0">UnManaged</asp:ListItem>
                         </asp:DropDownList>--%>
                     <%--  </td>--%>
-                    <td>
+                    <td align="right">
+                        <asp:Label ID="lblStatus" runat="server" Text="Status:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
+                        <asp:DropDownList ID="ddlStatus" runat="server" CssClass="cmbField">
+                            <Items>
+                                <asp:ListItem Text="Offline" Value="0" />
+                                <asp:ListItem Text="Online" Value="1" />
+                                <asp:ListItem Text="Both" Value="2"/>
+                            </Items>
+                        </asp:DropDownList>
                     </td>
                     <td>
                     </td>
@@ -286,9 +294,7 @@
         </td>
     </tr>
 </table>
-</td>
- </tr> 
- </table>
+</td> </tr> </table>
 <%--<asp:Panel ID="Pnlsystematic" runat="server" class="Landscape" ScrollBars="Horizontal"
     Visible="false">--%>
 <table style="width: 100%" cellspacing="0" cellpadding="1">
@@ -302,7 +308,7 @@
             </td>
         </tr>
     </table>--%>
-            <div style="width:77.2%;">
+            <div style="width: 77.2%;">
                 <telerik:RadGrid ID="gvSystematicMIS" AllowSorting="true" runat="server" AllowAutomaticInserts="false"
                     EnableLoadOnDemand="True" AllowFilteringByColumn="true" AllowPaging="True" AutoGenerateColumns="False"
                     EnableEmbeddedSkins="false" GridLines="none" ShowFooter="true" PagerStyle-AlwaysVisible="true"
@@ -337,7 +343,8 @@
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="SubbrokerCode" HeaderText="SubBroker Code" ShowFilterIcon="false"
-                                HeaderStyle-Width="80px" AutoPostBackOnFilter="true" UniqueName="SubbrokerCode" SortExpression="SubbrokerCode">
+                                HeaderStyle-Width="80px" AutoPostBackOnFilter="true" UniqueName="SubbrokerCode"
+                                SortExpression="SubbrokerCode">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
                             <%-- <telerik:GridBoundColumn DataField="CustomerName" HeaderText="Customer" ShowFilterIcon="false"
@@ -383,7 +390,7 @@
                                     </telerik:RadDatePicker>
                                 </FilterTemplate>
                             </telerik:GridDateTimeColumn>
-                            <telerik:GridDateTimeColumn DataField="CeaseDate" DataFormatString="{0:d}" HeaderStyle-Width="91px"
+                            <telerik:GridDateTimeColumn DataField="CeaseDate" DataFormatString="{0:dd/MM/yyyy}" HeaderStyle-Width="91px"
                                 ShowFilterIcon="false" AllowFiltering="false" AutoPostBackOnFilter="true" HeaderText="Stopped Date"
                                 UniqueName="CeaseDate" SortExpression="CeaseDate">
                                 <ItemStyle HorizontalAlign="Center" VerticalAlign="Top" Wrap="false" />
@@ -409,6 +416,10 @@
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="REMARKS" HeaderText="Remarks" ShowFilterIcon="false"
                                 AutoPostBackOnFilter="true" UniqueName="REMARKS">
+                                <ItemStyle HorizontalAlign="Left" VerticalAlign="Top" Width="" Wrap="false" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="CMFA_IsOnline" HeaderText="IsOnline" ShowFilterIcon="false"
+                                AutoPostBackOnFilter="true" UniqueName="CMFA_IsOnline">
                                 <ItemStyle HorizontalAlign="Left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
                         </Columns>
@@ -584,3 +595,4 @@
 <asp:HiddenField ID="hdnFromDate" runat="server" />
 <asp:HiddenField ID="hdnIndividualOrGroup" runat="server" />
 <asp:HiddenField ID="hdnAgentCode" runat="server" />
+<asp:HiddenField ID="hdnStatus" runat="server" />

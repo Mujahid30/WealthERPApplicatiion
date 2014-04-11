@@ -101,7 +101,7 @@
                         </td>
                         <td align="left" width="10%">
                             <asp:DropDownList ID="ddlMappingType" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlMappingType_SelectedIndexChanged"
-                                AutoPostBack="true">
+                                AutoPostBack="true" Width="200px">
                                 <asp:ListItem Text="Select">Select</asp:ListItem>
                                 <asp:ListItem Text="Scheme Mapping" Value="0">Scheme Mapping</asp:ListItem>
                                 <asp:ListItem Text="Data Translation Mapping" Value="1">Data Translation Mapping</asp:ListItem>
@@ -129,7 +129,7 @@
                             <asp:Label ID="lblExternalType" runat="server" Text="External Source:" CssClass="FieldName"></asp:Label>
                         </td>
                         <td align="left">
-                            <asp:DropDownList ID="ddlExternalSource" runat="server" CssClass="cmbField" AutoPostBack="false">
+                            <asp:DropDownList ID="ddlExternalSource" runat="server" CssClass="cmbField" AutoPostBack="false" Width="200px">
                                 <asp:ListItem Text="Select" Value="Select">Select</asp:ListItem>
                                 <asp:ListItem Text="CAMS" Value="CAMS"></asp:ListItem>
                                 <%-- <asp:ListItem Text="Deutsche" Value="Deutsche">
@@ -219,7 +219,7 @@
                     </telerik:GridEditCommandColumn>
                     <telerik:GridBoundColumn Visible="true" UniqueName="Type" HeaderStyle-Width="80px"
                         FilterControlWidth="50px" HeaderText="Type" DataField="Type" SortExpression="Type"
-                        AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                        AllowFiltering="false" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                         <HeaderStyle></HeaderStyle>
                     </telerik:GridBoundColumn>
                     <telerik:GridBoundColumn UniqueName="PASP_SchemePlanName" HeaderStyle-Width="300px"

@@ -75,6 +75,7 @@ namespace WealthERP.Advisor {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlBranch;
+        protected global::System.Web.UI.WebControls.DropDownList ddlStatus;
         
         /// <summary>
         /// lblRM control.
@@ -111,7 +112,7 @@ namespace WealthERP.Advisor {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblGrpOrInd;
-        
+        protected global::System.Web.UI.WebControls.Label lblStatus;
         /// <summary>
         /// tdSelectCusto control.
         /// </summary>
@@ -390,7 +391,7 @@ namespace WealthERP.Advisor {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnCustomerId;
-        
+        protected global::System.Web.UI.WebControls.HiddenField hdnStatus;
         /// <summary>
         /// hdnRecordCount control.
         /// </summary>

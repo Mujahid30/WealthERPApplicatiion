@@ -22,7 +22,7 @@
                 <table cellspacing="0" cellpadding="2" width="100%">
                     <tr>
                         <td align="left">
-                            Associate Customer List
+                            Associate Customer List(Offline)
                         </td>
                         <td align="right">
                             <asp:ImageButton ID="imgExportButton" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
