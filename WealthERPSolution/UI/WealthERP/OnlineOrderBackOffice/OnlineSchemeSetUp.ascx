@@ -186,7 +186,7 @@
                     <br />
                     <asp:RequiredFieldValidator ID="rfvddlRT" runat="server" ErrorMessage="Please Select R&T"
                         CssClass="rfvPCG" ControlToValidate="ddlRT" ValidationGroup="btnbasicsubmit"
-                        Display="Dynamic" InitialValue="Select"></asp:RequiredFieldValidator>
+                        Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
                 </td>
                 <td align="right">
                     <asp:Label ID="lblProductCode" runat="server" Text="Product Code:" CssClass="FieldName"></asp:Label>

@@ -1510,6 +1510,7 @@ namespace WealthERP.OnlineOrderBackOffice
             //{
 
             if (txtNFOendDate.SelectedDate == null)
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Select Bussiness Date For NFO End!!');", true);
                 return;
             int count = OnlineOrderBackOfficeBo.BussinessDateCheck(Convert.ToDateTime(txtNFOendDate.SelectedDate));
             if (count == 0)
@@ -1696,16 +1697,19 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 mfProductAMCSchemePlanDetailsVo.NFOEndDate = DateTime.Parse(txtNFOendDate.SelectedDate.ToString());
             }
-            if (txtNFOendDate.SelectedDate == null)
+            if (txtNFOendDate.SelectedDate == null && ddlNFoStatus.SelectedValue=="IsNFO")
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Select Bussiness Date For NFO!!');", true);
                 return;
             }
-            int count = OnlineOrderBackOfficeBo.BussinessDateCheck(Convert.ToDateTime(txtNFOendDate.SelectedDate));
-            if (count == 0)
+            if (txtNFOendDate.SelectedDate != null)
             {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Select Bussiness Date For NFO End!!');", true);
-            }
+                int count = OnlineOrderBackOfficeBo.BussinessDateCheck(Convert.ToDateTime(txtNFOendDate.SelectedDate));
+                if (count == 0)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Select Bussiness Date For NFO End!!');", true);
+                }
+            
             else
             {
                 bool bResult = OnlineOrderBackOfficeBo.Updateproductamcscheme(mfProductAMCSchemePlanDetailsVo, schemeplancode);
@@ -1728,7 +1732,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 //}
             }
         }
-
+        }
         protected void btnUpdate_click(object sender, EventArgs e)
         {
             try
