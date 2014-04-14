@@ -1208,7 +1208,7 @@
                             OnClick="btnMSUpdate_Click" ValidationGroup="btnsubmit1" />
                         <asp:Button ID="btnCancel" runat="server" Text="Cancel" OnClick="btnCancel_Click"
                             CssClass="PCGButton" />
-                        <asp:Button ID="btnReset" runat="server" Text="Reset" OnClick="btnReset_Click" CssClass="PCGButton"
+                        <asp:Button ID="btnReset" runat="server" Text="UnMerge" OnClick="btnReset_Click" CssClass="PCGButton"
                             Visible="false" />
                     </td>
                     <td>

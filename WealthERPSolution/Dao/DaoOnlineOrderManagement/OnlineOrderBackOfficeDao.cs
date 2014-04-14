@@ -2166,7 +2166,7 @@ namespace DaoOnlineOrderManagement
             }
             return dsGetUserRoleDepartmentWise.Tables[0];
         }
-        public DataTable GetSchemeForMarge(int AmcCode, int Schemeplanecode)
+        public DataTable GetSchemeForMarge(int AmcCode, int Schemeplanecode,string Type)
         {
             Database db;
             DbCommand cmdGetSchemeForMarge;
@@ -2180,6 +2180,7 @@ namespace DaoOnlineOrderManagement
                 cmdGetSchemeForMarge = db.GetStoredProcCommand("SPROC_GetSchemeName");
                 db.AddInParameter(cmdGetSchemeForMarge, "@AMCCode", DbType.Int32, AmcCode);
                 db.AddInParameter(cmdGetSchemeForMarge, "@SchemePlanCode", DbType.Int32, Schemeplanecode);
+                db.AddInParameter(cmdGetSchemeForMarge, "@Type", DbType.String, Type);
                 dsGetSchemeForMarge = db.ExecuteDataSet(cmdGetSchemeForMarge);
                 dtGetSchemeForMarge = dsGetSchemeForMarge.Tables[0];
 
@@ -2324,6 +2325,44 @@ namespace DaoOnlineOrderManagement
                 throw Ex;
             }
             return dtGetMergeScheme;
+        }
+        public String DividentType(int schemeplanecode)
+        {
+            Database db;
+            DataSet ds;
+            DbCommand cmdDividentType;
+            string Type = "";
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //checking year
+                cmdDividentType = db.GetStoredProcCommand("SPROC_GET_Type");
+                db.AddInParameter(cmdDividentType, "@Schemeplancode", DbType.Int32, schemeplanecode);
+                db.AddOutParameter(cmdDividentType, "@Type", DbType.String, 10);
+                if (db.ExecuteScalar(cmdDividentType) != null)
+                    Type = db.ExecuteScalar(cmdDividentType).ToString();
+                //ds = db.ExecuteDataSet(cmdBussinessDateCheck);
+                //if (db.ExecuteNonQuery(cmdBussinessDateCheck) != 0)
+                //{
+                //    count = Convert.ToInt32(db.GetParameterValue(cmdBussinessDateCheck, "count").ToString());
+                //}
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AssociateDAO.cs:CodeduplicateChack()");
+                object[] objects = new object[2];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return Type;
         }
     }
 }

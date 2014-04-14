@@ -134,6 +134,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 DataTable dtschememis = new DataTable();
                 dsSchemeMIs = OnlineOrderMISBo.GetSchemeMIS(hdnAssettype.Value, int.Parse(ddlTosee.SelectedItem.Value), hdnStatus.Value);
                 dtschememis = dsSchemeMIs.Tables[0];
+
                 if (dtschememis.Rows.Count > 0)
                 {
                     if (Cache["SchemeMIS" + userVo.UserId] == null)
@@ -168,6 +169,37 @@ namespace WealthERP.OnlineOrderBackOffice
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "OnlineSchemeMIS.ascx.cs:SetParameter()");
+                object[] objects = new object[4];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
+        protected void gvonlineschememis_OnItemDataBound(object sender, GridItemEventArgs e)
+        {
+            try
+            {
+                if (e.Item is GridDataItem)
+                {
+                    GridDataItem dataItem = (GridDataItem)e.Item;
+                    DropDownList ddlAction = (DropDownList)dataItem.FindControl("ddlAction");
+                    string Status = Convert.ToString(gvonlineschememis.MasterTableView.DataKeyValues[e.Item.ItemIndex]["PASP_Status"].ToString());
+                    if (Status == "Merged")
+                    {
+                        ddlAction.Items[2].Enabled = false;
+                    }
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineSchemeMIS.ascx.cs:gvonlineschememis_OnItemDataBound()");
                 object[] objects = new object[4];
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;

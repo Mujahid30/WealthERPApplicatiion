@@ -89,10 +89,10 @@
                         PageSize="20" EnableEmbeddedSkins="false" AllowFilteringByColumn="true" AutoGenerateColumns="False"
                         ShowStatusBar="false" ShowFooter="false" AllowPaging="true" AllowSorting="true"
                         GridLines="none" AllowAutomaticInserts="false" Skin="Telerik" EnableHeaderContextMenu="true"
-                        OnNeedDataSource="gvonlineschememis_OnNeedDataSource">
+                        OnNeedDataSource="gvonlineschememis_OnNeedDataSource" OnItemDataBound="gvonlineschememis_OnItemDataBound"> 
                         <ExportSettings HideStructureColumns="true">
                         </ExportSettings>
-                        <MasterTableView DataKeyNames="PASP_SchemePlanCode" Width="100%" AllowMultiColumnSorting="True"
+                        <MasterTableView DataKeyNames="PASP_SchemePlanCode,PASP_Status" Width="100%" AllowMultiColumnSorting="True"
                             AutoGenerateColumns="false">
                             <Columns>
                                 <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="Action" DataField="Action"

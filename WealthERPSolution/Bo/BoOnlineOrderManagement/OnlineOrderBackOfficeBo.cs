@@ -1901,13 +1901,13 @@ namespace BoOnlineOrderManagement
             }
             return dtGetUserRoleDepartmentWise;
         }
-        public DataTable GetSchemeForMarge(int AmcCode, int Schemeplanecode)
+        public DataTable GetSchemeForMarge(int AmcCode, int Schemeplanecode,string Type)
         {
             DataTable dtGetSchemeForMarge = new DataTable();
             OnlineOrderBackOfficeDao daoOnlineOrderBackOffice = new OnlineOrderBackOfficeDao();
             try
             {
-                dtGetSchemeForMarge = daoOnlineOrderBackOffice.GetSchemeForMarge(AmcCode, Schemeplanecode);
+                dtGetSchemeForMarge = daoOnlineOrderBackOffice.GetSchemeForMarge(AmcCode, Schemeplanecode, Type);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1972,6 +1972,21 @@ namespace BoOnlineOrderManagement
             }
             return dtGetMergeScheme;
         }
+         public String DividentType(int schemeplanecode)
+         {
+             string Type = "";
+             OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
+             try
+             {
+                 Type = OnlineOrderBackOfficeDao.DividentType(schemeplanecode);
+             }
+             catch (BaseApplicationException Ex)
+             {
+                 throw Ex;
+             }
+             return Type;
+
+         }
     }
 
 }
