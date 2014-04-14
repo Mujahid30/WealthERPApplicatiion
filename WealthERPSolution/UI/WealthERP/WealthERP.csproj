@@ -2705,6 +2705,13 @@
     <Compile Include="OnlineOrderBackOffice\ManageLookups.ascx.designer.cs">
       <DependentUpon>ManageLookups.ascx</DependentUpon>
     </Compile>
+    <Compile Include="OnlineOrderBackOffice\MFAccountValuation.ascx.cs">
+      <DependentUpon>MFAccountValuation.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OnlineOrderBackOffice\MFAccountValuation.ascx.designer.cs">
+      <DependentUpon>MFAccountValuation.ascx</DependentUpon>
+    </Compile>
     <Compile Include="OnlineOrderBackOffice\OnlineAdviserCustomerIPOOrderBook.ascx.cs">
       <DependentUpon>OnlineAdviserCustomerIPOOrderBook.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -7833,6 +7840,7 @@
     <Content Include="OnlineOrderBackOffice\ExternalFieldMapping.ascx" />
     <Content Include="OnlineOrderBackOffice\HoldingIssueAllotment.ascx" />
     <Content Include="OnlineOrderBackOffice\ManageLookups.ascx" />
+    <Content Include="OnlineOrderBackOffice\MFAccountValuation.ascx" />
     <Content Include="OnlineOrderBackOffice\OnlineAdviserCustomerIPOOrderBook.ascx" />
     <Content Include="OnlineOrderBackOffice\OnlineAdviserCustomerOrderBook.ascx" />
     <Content Include="OnlineOrderBackOffice\OnlineAdviserCustomerSIPOrderBook.ascx" />
