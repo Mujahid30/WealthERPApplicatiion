@@ -10,8 +10,8 @@
 <DTS:Property DTS:Name="PackagePriorityClass">0</DTS:Property>
 <DTS:Property DTS:Name="VersionMajor">1</DTS:Property>
 <DTS:Property DTS:Name="VersionMinor">0</DTS:Property>
-<DTS:Property DTS:Name="VersionBuild">147</DTS:Property>
-<DTS:Property DTS:Name="VersionGUID">{E50F37C6-1F1D-44C3-AC9F-3D493F38DB5B}</DTS:Property>
+<DTS:Property DTS:Name="VersionBuild">128</DTS:Property>
+<DTS:Property DTS:Name="VersionGUID">{5CDB4BD3-951C-4395-8763-1F2CEB335774}</DTS:Property>
 <DTS:Property DTS:Name="EnableConfig">-1</DTS:Property>
 <DTS:Property DTS:Name="CheckpointFileName"></DTS:Property>
 <DTS:Property DTS:Name="SaveCheckpoints">0</DTS:Property>
@@ -51,7 +51,7 @@
 <DTS:Property DTS:Name="Namespace">User</DTS:Property>
 <DTS:Property DTS:Name="ReadOnly">0</DTS:Property>
 <DTS:Property DTS:Name="RaiseChangedEvent">0</DTS:Property>
-<DTS:Property DTS:Name="IncludeInDebugDump">6789</DTS:Property><DTS:VariableValue DTS:DataType="3">4628</DTS:VariableValue>
+<DTS:Property DTS:Name="IncludeInDebugDump">6789</DTS:Property><DTS:VariableValue DTS:DataType="3">2340</DTS:VariableValue>
 <DTS:Property DTS:Name="ObjectName">varCheckProcessId</DTS:Property>
 <DTS:Property DTS:Name="DTSID">{B1883252-3AAE-48EA-8264-EF09C191A326}</DTS:Property>
 <DTS:Property DTS:Name="Description"></DTS:Property>
@@ -73,7 +73,7 @@
 <DTS:Property DTS:Name="Namespace">User</DTS:Property>
 <DTS:Property DTS:Name="ReadOnly">0</DTS:Property>
 <DTS:Property DTS:Name="RaiseChangedEvent">0</DTS:Property>
-<DTS:Property DTS:Name="IncludeInDebugDump">6789</DTS:Property><DTS:VariableValue DTS:DataType="3">4628</DTS:VariableValue>
+<DTS:Property DTS:Name="IncludeInDebugDump">6789</DTS:Property><DTS:VariableValue DTS:DataType="3">2340</DTS:VariableValue>
 <DTS:Property DTS:Name="ObjectName">varProcessId</DTS:Property>
 <DTS:Property DTS:Name="DTSID">{3A456492-5744-46F6-9573-48B6102F9B5B}</DTS:Property>
 <DTS:Property DTS:Name="Description"></DTS:Property>
@@ -84,7 +84,7 @@
 <DTS:Property DTS:Name="Namespace">User</DTS:Property>
 <DTS:Property DTS:Name="ReadOnly">0</DTS:Property>
 <DTS:Property DTS:Name="RaiseChangedEvent">0</DTS:Property>
-<DTS:Property DTS:Name="IncludeInDebugDump">6789</DTS:Property><DTS:VariableValue DTS:DataType="3">4628</DTS:VariableValue>
+<DTS:Property DTS:Name="IncludeInDebugDump">6789</DTS:Property><DTS:VariableValue DTS:DataType="3">2340</DTS:VariableValue>
 <DTS:Property DTS:Name="ObjectName">varSourceProcessId</DTS:Property>
 <DTS:Property DTS:Name="DTSID">{8BFF58AA-FBFF-4A1F-92F6-5EB3BD95FC83}</DTS:Property>
 <DTS:Property DTS:Name="Description"></DTS:Property>
@@ -228,7 +228,7 @@
 <outputColumn id="209" name="Copy of CMCXTI_UserCode" description="" lineageId="209" precision="0" scale="0" length="25" dataType="str" codePage="1252" sortKeyPosition="0" comparisonFlags="0" specialFlags="0" errorOrTruncationOperation="Conversion" errorRowDisposition="IgnoreFailure" truncationRowDisposition="IgnoreFailure" externalMetadataColumnId="0" mappedColumnId="0"><properties>
 <property id="210" name="SourceInputColumnLineageID" dataType="System.Int32" state="default" isArray="false" description="Specifies the input column used as the source of data for the conversion." typeConverter="" UITypeEditor="" containsID="true" expressionType="None">906</property>
 <property id="211" name="FastParse" dataType="System.Boolean" state="default" isArray="false" description="Indicates whether the column uses the faster, locale-neutral parsing routines." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">false</property></properties></outputColumn>
-<outputColumn id="212" name="Copy of CMCXTI_UserTransactionNum" description="" lineageId="212" precision="0" scale="0" length="100" dataType="str" codePage="1252" sortKeyPosition="0" comparisonFlags="0" specialFlags="0" errorOrTruncationOperation="Conversion" errorRowDisposition="IgnoreFailure" truncationRowDisposition="IgnoreFailure" externalMetadataColumnId="0" mappedColumnId="0"><properties>
+<outputColumn id="212" name="Copy of CMCXTI_UserTransactionNum" description="" lineageId="212" precision="0" scale="0" length="50" dataType="str" codePage="1252" sortKeyPosition="0" comparisonFlags="0" specialFlags="0" errorOrTruncationOperation="Conversion" errorRowDisposition="IgnoreFailure" truncationRowDisposition="IgnoreFailure" externalMetadataColumnId="0" mappedColumnId="0"><properties>
 <property id="213" name="SourceInputColumnLineageID" dataType="System.Int32" state="default" isArray="false" description="Specifies the input column used as the source of data for the conversion." typeConverter="" UITypeEditor="" containsID="true" expressionType="None">909</property>
 <property id="214" name="FastParse" dataType="System.Boolean" state="default" isArray="false" description="Indicates whether the column uses the faster, locale-neutral parsing routines." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">false</property></properties></outputColumn>
 <outputColumn id="215" name="Copy of CMCXTI_ValueDate" description="" lineageId="215" precision="0" scale="0" length="0" dataType="date" codePage="0" sortKeyPosition="0" comparisonFlags="0" specialFlags="0" errorOrTruncationOperation="Conversion" errorRowDisposition="IgnoreFailure" truncationRowDisposition="IgnoreFailure" externalMetadataColumnId="0" mappedColumnId="0"><properties>
@@ -657,7 +657,7 @@ WHERE        (CMCXTI_IsRejected = 0) AND (ADUL_ProcessId = ?)</property>
 <externalMetadataColumn id="1032" name="CMCXTS_PAN" description="" precision="0" scale="0" length="20" dataType="str" codePage="1252" mappedColumnId="0"/>
 <externalMetadataColumn id="1036" name="CMFCXTS_Area" description="" precision="0" scale="0" length="100" dataType="str" codePage="1252" mappedColumnId="0"/>
 <externalMetadataColumn id="1056" name="CMFCXTS_EUIN" description="" precision="0" scale="0" length="100" dataType="str" codePage="1252" mappedColumnId="0"/>
-<externalMetadataColumn id="1899" name="CMCXTS_UserTransactionNumOther" description="" precision="0" scale="0" length="150" dataType="str" codePage="1252" mappedColumnId="0"/></externalMetadataColumns></input>
+<externalMetadataColumn id="1058" name="CMCXTS_UserTransactionNumOther" description="" precision="0" scale="0" length="150" dataType="str" codePage="1252" mappedColumnId="0"/></externalMetadataColumns></input>
 </inputs>
 <outputs>
 <output id="714" name="OLE DB Destination Error Output" description="" exclusionGroup="1" synchronousInputId="713" deleteOutputOnPathDetached="false" hasSideEffects="false" dangling="false" isErrorOut="true" isSorted="false" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed"><outputColumns>
@@ -665,371 +665,10 @@ WHERE        (CMCXTI_IsRejected = 0) AND (ADUL_ProcessId = ?)</property>
 <outputColumn id="716" name="ErrorColumn" description="" lineageId="716" precision="0" scale="0" length="0" dataType="i4" codePage="0" sortKeyPosition="0" comparisonFlags="0" specialFlags="2" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="0" mappedColumnId="0"/></outputColumns><externalMetadataColumns isUsed="False"/></output>
 </outputs>
 </component>
-<component id="1058" name="Conditional Split" componentClassID="{3AE878C6-0D6C-4F48-8128-40E00E9C1B7D}" description="Evaluates and directs rows in a dataset." localeId="-1" usesDispositions="true" validateExternalMetadata="True" version="0" pipelineVersion="0" contactInfo="Conditional Split;Microsoft Corporation; Microsoft SqlServer v10; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0">
-<inputs>
-<input id="1059" name="Conditional Split Input" description="Input to the Conditional Split Transformation" hasSideEffects="false" dangling="false" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed"><inputColumns>
-<inputColumn id="1078" name="" description="" lineageId="909" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="0" mappedColumnId="0"/>
-</inputColumns><externalMetadataColumns isUsed="False"/></input>
-</inputs>
-<outputs>
-<output id="1118" name="UserTranxNo" description="Output 1 of the Conditional Split Transformation" exclusionGroup="1" synchronousInputId="1059" deleteOutputOnPathDetached="false" hasSideEffects="false" dangling="false" isErrorOut="false" isSorted="false" errorOrTruncationOperation="Computation" errorRowDisposition="FailComponent" truncationRowDisposition="FailComponent"><properties>
-<property id="1119" name="Expression" dataType="System.String" state="default" isArray="false" description="Specifies the expression. This expression version uses lineage identifiers instead of column names." typeConverter="" UITypeEditor="" containsID="true" expressionType="None">(DT_NUMERIC,18,0)#909 &lt; 2147483647</property>
-<property id="1120" name="FriendlyExpression" dataType="System.String" state="default" isArray="false" description="Specifies the friendly version of the expression. This expression version uses column names." typeConverter="" UITypeEditor="" containsID="true" expressionType="Notify">(DT_NUMERIC,18,0)CMCXTI_UserTransactionNum &lt; 2147483647</property>
-<property id="1121" name="EvaluationOrder" dataType="System.Int32" state="default" isArray="false" description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">0</property></properties><externalMetadataColumns isUsed="False"/></output>
-<output id="1122" name="UserTranxNo_Other" description="Output 2 of the Conditional Split Transformation" exclusionGroup="1" synchronousInputId="1059" deleteOutputOnPathDetached="false" hasSideEffects="false" dangling="false" isErrorOut="false" isSorted="false" errorOrTruncationOperation="Computation" errorRowDisposition="FailComponent" truncationRowDisposition="FailComponent"><properties>
-<property id="1123" name="Expression" dataType="System.String" state="default" isArray="false" description="Specifies the expression. This expression version uses lineage identifiers instead of column names." typeConverter="" UITypeEditor="" containsID="true" expressionType="None">(DT_NUMERIC,18,0)#909 &gt; 2147483647</property>
-<property id="1124" name="FriendlyExpression" dataType="System.String" state="default" isArray="false" description="Specifies the friendly version of the expression. This expression version uses column names." typeConverter="" UITypeEditor="" containsID="true" expressionType="Notify">(DT_NUMERIC,18,0)CMCXTI_UserTransactionNum &gt; 2147483647</property>
-<property id="1125" name="EvaluationOrder" dataType="System.Int32" state="default" isArray="false" description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">1</property></properties><externalMetadataColumns isUsed="False"/></output>
-<output id="1060" name="Conditional Split Default Output" description="Default Output of the Conditional Split Transformation" exclusionGroup="1" synchronousInputId="1059" deleteOutputOnPathDetached="false" hasSideEffects="false" dangling="false" isErrorOut="false" isSorted="false" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed"><properties>
-<property id="1061" name="IsDefaultOut" dataType="System.Boolean" state="default" isArray="false" description="" typeConverter="" UITypeEditor="" containsID="false" expressionType="None">true</property></properties><externalMetadataColumns isUsed="False"/></output>
-<output id="1062" name="Conditional Split Error Output" description="Error Output of the Conditional Split Transformation" exclusionGroup="1" synchronousInputId="1059" deleteOutputOnPathDetached="false" hasSideEffects="false" dangling="false" isErrorOut="true" isSorted="false" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed"><outputColumns>
-<outputColumn id="1063" name="ErrorCode" description="" lineageId="1063" precision="0" scale="0" length="0" dataType="i4" codePage="0" sortKeyPosition="0" comparisonFlags="0" specialFlags="1" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="0" mappedColumnId="0"/>
-<outputColumn id="1064" name="ErrorColumn" description="" lineageId="1064" precision="0" scale="0" length="0" dataType="i4" codePage="0" sortKeyPosition="0" comparisonFlags="0" specialFlags="2" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="0" mappedColumnId="0"/></outputColumns><externalMetadataColumns isUsed="False"/></output>
-</outputs>
-</component>
-<component id="1229" name="Data Conversion 1" componentClassID="{BD06A22E-BC69-4AF7-A69B-C44C2EF684BB}" description="Data Conversion" localeId="-1" usesDispositions="true" validateExternalMetadata="True" version="0" pipelineVersion="0" contactInfo="Data Conversion;Microsoft Corporation; Microsoft SqlServer v10; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0">
-<inputs>
-<input id="1230" name="Data Conversion Input" description="" hasSideEffects="false" dangling="false" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed"><inputColumns>
-<inputColumn id="1443" name="" description="" lineageId="544" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="0" mappedColumnId="0"/>
-<inputColumn id="1444" name="" description="" lineageId="547" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="0" mappedColumnId="0"/>
-<inputColumn id="1445" name="" description="" lineageId="879" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="0" mappedColumnId="0"/>
-<inputColumn id="1446" name="" description="" lineageId="882" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="0" mappedColumnId="0"/>
-<inputColumn id="1447" name="" description="" lineageId="885" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="0" mappedColumnId="0"/>
-<inputColumn id="1448" name="" description="" lineageId="888" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="0" mappedColumnId="0"/>
-<inputColumn id="1449" name="" description="" lineageId="891" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="0" mappedColumnId="0"/>
-<inputColumn id="1450" name="" description="" lineageId="894" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="0" mappedColumnId="0"/>
-<inputColumn id="1451" name="" description="" lineageId="897" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="0" mappedColumnId="0"/>
-<inputColumn id="1452" name="" description="" lineageId="900" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="0" mappedColumnId="0"/>
-<inputColumn id="1453" name="" description="" lineageId="903" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="0" mappedColumnId="0"/>
-<inputColumn id="1454" name="" description="" lineageId="906" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="0" mappedColumnId="0"/>
-<inputColumn id="1455" name="" description="" lineageId="909" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="0" mappedColumnId="0"/>
-<inputColumn id="1456" name="" description="" lineageId="912" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="0" mappedColumnId="0"/>
-<inputColumn id="1457" name="" description="" lineageId="915" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="0" mappedColumnId="0"/>
-<inputColumn id="1458" name="" description="" lineageId="918" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="0" mappedColumnId="0"/>
-<inputColumn id="1459" name="" description="" lineageId="921" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="0" mappedColumnId="0"/>
-<inputColumn id="1460" name="" description="" lineageId="924" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="0" mappedColumnId="0"/>
-<inputColumn id="1461" name="" description="" lineageId="927" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="0" mappedColumnId="0"/>
-<inputColumn id="1462" name="" description="" lineageId="930" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="0" mappedColumnId="0"/>
-<inputColumn id="1463" name="" description="" lineageId="933" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="0" mappedColumnId="0"/>
-<inputColumn id="1464" name="" description="" lineageId="936" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="0" mappedColumnId="0"/>
-<inputColumn id="1465" name="" description="" lineageId="939" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="0" mappedColumnId="0"/>
-<inputColumn id="1466" name="" description="" lineageId="942" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="0" mappedColumnId="0"/>
-<inputColumn id="1467" name="" description="" lineageId="945" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="0" mappedColumnId="0"/>
-<inputColumn id="1468" name="" description="" lineageId="948" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="0" mappedColumnId="0"/>
-<inputColumn id="1469" name="" description="" lineageId="951" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="0" mappedColumnId="0"/>
-<inputColumn id="1470" name="" description="" lineageId="954" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="0" mappedColumnId="0"/>
-<inputColumn id="1471" name="" description="" lineageId="957" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="0" mappedColumnId="0"/>
-<inputColumn id="1472" name="" description="" lineageId="960" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="0" mappedColumnId="0"/>
-<inputColumn id="1473" name="" description="" lineageId="963" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="0" mappedColumnId="0"/>
-<inputColumn id="1474" name="" description="" lineageId="966" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="0" mappedColumnId="0"/>
-<inputColumn id="1475" name="" description="" lineageId="969" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="0" mappedColumnId="0"/>
-<inputColumn id="1476" name="" description="" lineageId="972" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="0" mappedColumnId="0"/>
-<inputColumn id="1477" name="" description="" lineageId="975" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="0" mappedColumnId="0"/>
-<inputColumn id="1478" name="" description="" lineageId="978" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="0" mappedColumnId="0"/>
-<inputColumn id="1479" name="" description="" lineageId="981" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="0" mappedColumnId="0"/>
-<inputColumn id="1480" name="" description="" lineageId="984" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="0" mappedColumnId="0"/>
-<inputColumn id="1481" name="" description="" lineageId="987" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="0" mappedColumnId="0"/>
-<inputColumn id="1482" name="" description="" lineageId="990" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="0" mappedColumnId="0"/>
-<inputColumn id="1483" name="" description="" lineageId="993" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="0" mappedColumnId="0"/>
-<inputColumn id="1484" name="" description="" lineageId="996" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="0" mappedColumnId="0"/>
-<inputColumn id="1485" name="" description="" lineageId="999" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="0" mappedColumnId="0"/>
-<inputColumn id="1486" name="" description="" lineageId="1002" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="0" mappedColumnId="0"/>
-<inputColumn id="1487" name="" description="" lineageId="1005" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="0" mappedColumnId="0"/>
-<inputColumn id="1488" name="" description="" lineageId="1008" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="0" mappedColumnId="0"/>
-<inputColumn id="1489" name="" description="" lineageId="1011" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="0" mappedColumnId="0"/>
-<inputColumn id="1490" name="" description="" lineageId="1034" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="0" mappedColumnId="0"/>
-<inputColumn id="1491" name="" description="" lineageId="1038" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="0" mappedColumnId="0"/>
-</inputColumns><externalMetadataColumns isUsed="False"/></input>
-</inputs>
-<outputs>
-<output id="1231" name="Data Conversion Output" description="" exclusionGroup="1" synchronousInputId="1230" deleteOutputOnPathDetached="false" hasSideEffects="false" dangling="false" isErrorOut="false" isSorted="false" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed"><outputColumns>
-<outputColumn id="1287" name="Copy of ADUL_ProcessId" description="" lineageId="1287" precision="10" scale="0" length="0" dataType="numeric" codePage="0" sortKeyPosition="0" comparisonFlags="0" specialFlags="0" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" truncationRowDisposition="FailComponent" externalMetadataColumnId="0" mappedColumnId="0"><properties>
-<property id="1288" name="SourceInputColumnLineageID" dataType="System.Int32" state="default" isArray="false" description="Specifies the input column used as the source of data for the conversion." typeConverter="" UITypeEditor="" containsID="true" expressionType="None">544</property>
-<property id="1289" name="FastParse" dataType="System.Boolean" state="default" isArray="false" description="Indicates whether the column uses the faster, locale-neutral parsing routines." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">false</property></properties></outputColumn>
-<outputColumn id="1290" name="Copy of A_AdviserId" description="" lineageId="1290" precision="10" scale="0" length="0" dataType="numeric" codePage="0" sortKeyPosition="0" comparisonFlags="0" specialFlags="0" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" truncationRowDisposition="FailComponent" externalMetadataColumnId="0" mappedColumnId="0"><properties>
-<property id="1291" name="SourceInputColumnLineageID" dataType="System.Int32" state="default" isArray="false" description="Specifies the input column used as the source of data for the conversion." typeConverter="" UITypeEditor="" containsID="true" expressionType="None">547</property>
-<property id="1292" name="FastParse" dataType="System.Boolean" state="default" isArray="false" description="Indicates whether the column uses the faster, locale-neutral parsing routines." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">false</property></properties></outputColumn>
-<outputColumn id="1293" name="Copy of CMCXTI_AMCCode" description="" lineageId="1293" precision="0" scale="0" length="10" dataType="str" codePage="1252" sortKeyPosition="0" comparisonFlags="0" specialFlags="0" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" truncationRowDisposition="FailComponent" externalMetadataColumnId="0" mappedColumnId="0"><properties>
-<property id="1294" name="SourceInputColumnLineageID" dataType="System.Int32" state="default" isArray="false" description="Specifies the input column used as the source of data for the conversion." typeConverter="" UITypeEditor="" containsID="true" expressionType="None">879</property>
-<property id="1295" name="FastParse" dataType="System.Boolean" state="default" isArray="false" description="Indicates whether the column uses the faster, locale-neutral parsing routines." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">false</property></properties></outputColumn>
-<outputColumn id="1296" name="Copy of CMCXTI_FolioNum" description="" lineageId="1296" precision="0" scale="0" length="50" dataType="str" codePage="1252" sortKeyPosition="0" comparisonFlags="0" specialFlags="0" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" truncationRowDisposition="FailComponent" externalMetadataColumnId="0" mappedColumnId="0"><properties>
-<property id="1297" name="SourceInputColumnLineageID" dataType="System.Int32" state="default" isArray="false" description="Specifies the input column used as the source of data for the conversion." typeConverter="" UITypeEditor="" containsID="true" expressionType="None">882</property>
-<property id="1298" name="FastParse" dataType="System.Boolean" state="default" isArray="false" description="Indicates whether the column uses the faster, locale-neutral parsing routines." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">false</property></properties></outputColumn>
-<outputColumn id="1299" name="Copy of CMCXTI_ProductCode" description="" lineageId="1299" precision="0" scale="0" length="50" dataType="str" codePage="1252" sortKeyPosition="0" comparisonFlags="0" specialFlags="0" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" truncationRowDisposition="FailComponent" externalMetadataColumnId="0" mappedColumnId="0"><properties>
-<property id="1300" name="SourceInputColumnLineageID" dataType="System.Int32" state="default" isArray="false" description="Specifies the input column used as the source of data for the conversion." typeConverter="" UITypeEditor="" containsID="true" expressionType="None">885</property>
-<property id="1301" name="FastParse" dataType="System.Boolean" state="default" isArray="false" description="Indicates whether the column uses the faster, locale-neutral parsing routines." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">false</property></properties></outputColumn>
-<outputColumn id="1302" name="Copy of CMCXTI_Scheme" description="" lineageId="1302" precision="0" scale="0" length="150" dataType="str" codePage="1252" sortKeyPosition="0" comparisonFlags="0" specialFlags="0" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" truncationRowDisposition="FailComponent" externalMetadataColumnId="0" mappedColumnId="0"><properties>
-<property id="1303" name="SourceInputColumnLineageID" dataType="System.Int32" state="default" isArray="false" description="Specifies the input column used as the source of data for the conversion." typeConverter="" UITypeEditor="" containsID="true" expressionType="None">888</property>
-<property id="1304" name="FastParse" dataType="System.Boolean" state="default" isArray="false" description="Indicates whether the column uses the faster, locale-neutral parsing routines." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">false</property></properties></outputColumn>
-<outputColumn id="1305" name="Copy of CMCXTI_InvestorName" description="" lineageId="1305" precision="0" scale="0" length="75" dataType="str" codePage="1252" sortKeyPosition="0" comparisonFlags="0" specialFlags="0" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" truncationRowDisposition="FailComponent" externalMetadataColumnId="0" mappedColumnId="0"><properties>
-<property id="1306" name="SourceInputColumnLineageID" dataType="System.Int32" state="default" isArray="false" description="Specifies the input column used as the source of data for the conversion." typeConverter="" UITypeEditor="" containsID="true" expressionType="None">891</property>
-<property id="1307" name="FastParse" dataType="System.Boolean" state="default" isArray="false" description="Indicates whether the column uses the faster, locale-neutral parsing routines." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">false</property></properties></outputColumn>
-<outputColumn id="1308" name="Copy of CMCXTI_TransactionType" description="" lineageId="1308" precision="0" scale="0" length="10" dataType="str" codePage="1252" sortKeyPosition="0" comparisonFlags="0" specialFlags="0" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" truncationRowDisposition="FailComponent" externalMetadataColumnId="0" mappedColumnId="0"><properties>
-<property id="1309" name="SourceInputColumnLineageID" dataType="System.Int32" state="default" isArray="false" description="Specifies the input column used as the source of data for the conversion." typeConverter="" UITypeEditor="" containsID="true" expressionType="None">894</property>
-<property id="1310" name="FastParse" dataType="System.Boolean" state="default" isArray="false" description="Indicates whether the column uses the faster, locale-neutral parsing routines." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">false</property></properties></outputColumn>
-<outputColumn id="1311" name="Copy of CMCXTI_TransactionNum" description="" lineageId="1311" precision="0" scale="0" length="25" dataType="str" codePage="1252" sortKeyPosition="0" comparisonFlags="0" specialFlags="0" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" truncationRowDisposition="FailComponent" externalMetadataColumnId="0" mappedColumnId="0"><properties>
-<property id="1312" name="SourceInputColumnLineageID" dataType="System.Int32" state="default" isArray="false" description="Specifies the input column used as the source of data for the conversion." typeConverter="" UITypeEditor="" containsID="true" expressionType="None">897</property>
-<property id="1313" name="FastParse" dataType="System.Boolean" state="default" isArray="false" description="Indicates whether the column uses the faster, locale-neutral parsing routines." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">false</property></properties></outputColumn>
-<outputColumn id="1314" name="Copy of CMCXTI_TransactionMode" description="" lineageId="1314" precision="0" scale="0" length="5" dataType="str" codePage="1252" sortKeyPosition="0" comparisonFlags="0" specialFlags="0" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" truncationRowDisposition="FailComponent" externalMetadataColumnId="0" mappedColumnId="0"><properties>
-<property id="1315" name="SourceInputColumnLineageID" dataType="System.Int32" state="default" isArray="false" description="Specifies the input column used as the source of data for the conversion." typeConverter="" UITypeEditor="" containsID="true" expressionType="None">900</property>
-<property id="1316" name="FastParse" dataType="System.Boolean" state="default" isArray="false" description="Indicates whether the column uses the faster, locale-neutral parsing routines." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">false</property></properties></outputColumn>
-<outputColumn id="1317" name="Copy of CMCXTI_TransactionStatus" description="" lineageId="1317" precision="0" scale="0" length="50" dataType="str" codePage="1252" sortKeyPosition="0" comparisonFlags="0" specialFlags="0" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" truncationRowDisposition="FailComponent" externalMetadataColumnId="0" mappedColumnId="0"><properties>
-<property id="1318" name="SourceInputColumnLineageID" dataType="System.Int32" state="default" isArray="false" description="Specifies the input column used as the source of data for the conversion." typeConverter="" UITypeEditor="" containsID="true" expressionType="None">903</property>
-<property id="1319" name="FastParse" dataType="System.Boolean" state="default" isArray="false" description="Indicates whether the column uses the faster, locale-neutral parsing routines." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">false</property></properties></outputColumn>
-<outputColumn id="1320" name="Copy of CMCXTI_UserCode" description="" lineageId="1320" precision="0" scale="0" length="25" dataType="str" codePage="1252" sortKeyPosition="0" comparisonFlags="0" specialFlags="0" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" truncationRowDisposition="FailComponent" externalMetadataColumnId="0" mappedColumnId="0"><properties>
-<property id="1321" name="SourceInputColumnLineageID" dataType="System.Int32" state="default" isArray="false" description="Specifies the input column used as the source of data for the conversion." typeConverter="" UITypeEditor="" containsID="true" expressionType="None">906</property>
-<property id="1322" name="FastParse" dataType="System.Boolean" state="default" isArray="false" description="Indicates whether the column uses the faster, locale-neutral parsing routines." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">false</property></properties></outputColumn>
-<outputColumn id="1323" name="Copy of CMCXTI_UserTransactionNum" description="" lineageId="1323" precision="0" scale="0" length="150" dataType="str" codePage="1252" sortKeyPosition="0" comparisonFlags="0" specialFlags="0" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" truncationRowDisposition="FailComponent" externalMetadataColumnId="0" mappedColumnId="0"><properties>
-<property id="1324" name="SourceInputColumnLineageID" dataType="System.Int32" state="default" isArray="false" description="Specifies the input column used as the source of data for the conversion." typeConverter="" UITypeEditor="" containsID="true" expressionType="None">909</property>
-<property id="1325" name="FastParse" dataType="System.Boolean" state="default" isArray="false" description="Indicates whether the column uses the faster, locale-neutral parsing routines." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">false</property></properties></outputColumn>
-<outputColumn id="1326" name="Copy of CMCXTI_ValueDate" description="" lineageId="1326" precision="0" scale="0" length="0" dataType="date" codePage="0" sortKeyPosition="0" comparisonFlags="0" specialFlags="0" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" truncationRowDisposition="FailComponent" externalMetadataColumnId="0" mappedColumnId="0"><properties>
-<property id="1327" name="SourceInputColumnLineageID" dataType="System.Int32" state="default" isArray="false" description="Specifies the input column used as the source of data for the conversion." typeConverter="" UITypeEditor="" containsID="true" expressionType="None">912</property>
-<property id="1328" name="FastParse" dataType="System.Boolean" state="default" isArray="false" description="Indicates whether the column uses the faster, locale-neutral parsing routines." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">false</property></properties></outputColumn>
-<outputColumn id="1329" name="Copy of CMCXTI_PostDate" description="" lineageId="1329" precision="0" scale="0" length="0" dataType="date" codePage="0" sortKeyPosition="0" comparisonFlags="0" specialFlags="0" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" truncationRowDisposition="FailComponent" externalMetadataColumnId="0" mappedColumnId="0"><properties>
-<property id="1330" name="SourceInputColumnLineageID" dataType="System.Int32" state="default" isArray="false" description="Specifies the input column used as the source of data for the conversion." typeConverter="" UITypeEditor="" containsID="true" expressionType="None">915</property>
-<property id="1331" name="FastParse" dataType="System.Boolean" state="default" isArray="false" description="Indicates whether the column uses the faster, locale-neutral parsing routines." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">false</property></properties></outputColumn>
-<outputColumn id="1332" name="Copy of CMCXTI_Price" description="" lineageId="1332" precision="18" scale="0" length="0" dataType="numeric" codePage="0" sortKeyPosition="0" comparisonFlags="0" specialFlags="0" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" truncationRowDisposition="FailComponent" externalMetadataColumnId="0" mappedColumnId="0"><properties>
-<property id="1333" name="SourceInputColumnLineageID" dataType="System.Int32" state="default" isArray="false" description="Specifies the input column used as the source of data for the conversion." typeConverter="" UITypeEditor="" containsID="true" expressionType="None">918</property>
-<property id="1334" name="FastParse" dataType="System.Boolean" state="default" isArray="false" description="Indicates whether the column uses the faster, locale-neutral parsing routines." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">false</property></properties></outputColumn>
-<outputColumn id="1335" name="Copy of CMCXTI_Units" description="" lineageId="1335" precision="18" scale="0" length="0" dataType="numeric" codePage="0" sortKeyPosition="0" comparisonFlags="0" specialFlags="0" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" truncationRowDisposition="FailComponent" externalMetadataColumnId="0" mappedColumnId="0"><properties>
-<property id="1336" name="SourceInputColumnLineageID" dataType="System.Int32" state="default" isArray="false" description="Specifies the input column used as the source of data for the conversion." typeConverter="" UITypeEditor="" containsID="true" expressionType="None">921</property>
-<property id="1337" name="FastParse" dataType="System.Boolean" state="default" isArray="false" description="Indicates whether the column uses the faster, locale-neutral parsing routines." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">false</property></properties></outputColumn>
-<outputColumn id="1338" name="Copy of CMCXTI_Amount" description="" lineageId="1338" precision="18" scale="0" length="0" dataType="numeric" codePage="0" sortKeyPosition="0" comparisonFlags="0" specialFlags="0" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" truncationRowDisposition="FailComponent" externalMetadataColumnId="0" mappedColumnId="0"><properties>
-<property id="1339" name="SourceInputColumnLineageID" dataType="System.Int32" state="default" isArray="false" description="Specifies the input column used as the source of data for the conversion." typeConverter="" UITypeEditor="" containsID="true" expressionType="None">924</property>
-<property id="1340" name="FastParse" dataType="System.Boolean" state="default" isArray="false" description="Indicates whether the column uses the faster, locale-neutral parsing routines." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">false</property></properties></outputColumn>
-<outputColumn id="1341" name="Copy of CMCXTI_BrokerCode" description="" lineageId="1341" precision="0" scale="0" length="25" dataType="str" codePage="1252" sortKeyPosition="0" comparisonFlags="0" specialFlags="0" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" truncationRowDisposition="FailComponent" externalMetadataColumnId="0" mappedColumnId="0"><properties>
-<property id="1342" name="SourceInputColumnLineageID" dataType="System.Int32" state="default" isArray="false" description="Specifies the input column used as the source of data for the conversion." typeConverter="" UITypeEditor="" containsID="true" expressionType="None">927</property>
-<property id="1343" name="FastParse" dataType="System.Boolean" state="default" isArray="false" description="Indicates whether the column uses the faster, locale-neutral parsing routines." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">false</property></properties></outputColumn>
-<outputColumn id="1344" name="Copy of CMCXTI_SubBrokerCode" description="" lineageId="1344" precision="0" scale="0" length="25" dataType="str" codePage="1252" sortKeyPosition="0" comparisonFlags="0" specialFlags="0" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" truncationRowDisposition="FailComponent" externalMetadataColumnId="0" mappedColumnId="0"><properties>
-<property id="1345" name="SourceInputColumnLineageID" dataType="System.Int32" state="default" isArray="false" description="Specifies the input column used as the source of data for the conversion." typeConverter="" UITypeEditor="" containsID="true" expressionType="None">930</property>
-<property id="1346" name="FastParse" dataType="System.Boolean" state="default" isArray="false" description="Indicates whether the column uses the faster, locale-neutral parsing routines." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">false</property></properties></outputColumn>
-<outputColumn id="1347" name="Copy of CMCXTI_BrokeragePercentage" description="" lineageId="1347" precision="25" scale="0" length="0" dataType="numeric" codePage="0" sortKeyPosition="0" comparisonFlags="0" specialFlags="0" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" truncationRowDisposition="FailComponent" externalMetadataColumnId="0" mappedColumnId="0"><properties>
-<property id="1348" name="SourceInputColumnLineageID" dataType="System.Int32" state="default" isArray="false" description="Specifies the input column used as the source of data for the conversion." typeConverter="" UITypeEditor="" containsID="true" expressionType="None">933</property>
-<property id="1349" name="FastParse" dataType="System.Boolean" state="default" isArray="false" description="Indicates whether the column uses the faster, locale-neutral parsing routines." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">false</property></properties></outputColumn>
-<outputColumn id="1350" name="Copy of CMCXTI_BrokerageAmount" description="" lineageId="1350" precision="25" scale="0" length="0" dataType="numeric" codePage="0" sortKeyPosition="0" comparisonFlags="0" specialFlags="0" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" truncationRowDisposition="FailComponent" externalMetadataColumnId="0" mappedColumnId="0"><properties>
-<property id="1351" name="SourceInputColumnLineageID" dataType="System.Int32" state="default" isArray="false" description="Specifies the input column used as the source of data for the conversion." typeConverter="" UITypeEditor="" containsID="true" expressionType="None">936</property>
-<property id="1352" name="FastParse" dataType="System.Boolean" state="default" isArray="false" description="Indicates whether the column uses the faster, locale-neutral parsing routines." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">false</property></properties></outputColumn>
-<outputColumn id="1353" name="Copy of CMCXTI_Dummy1" description="" lineageId="1353" precision="0" scale="0" length="50" dataType="str" codePage="1252" sortKeyPosition="0" comparisonFlags="0" specialFlags="0" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" truncationRowDisposition="FailComponent" externalMetadataColumnId="0" mappedColumnId="0"><properties>
-<property id="1354" name="SourceInputColumnLineageID" dataType="System.Int32" state="default" isArray="false" description="Specifies the input column used as the source of data for the conversion." typeConverter="" UITypeEditor="" containsID="true" expressionType="None">939</property>
-<property id="1355" name="FastParse" dataType="System.Boolean" state="default" isArray="false" description="Indicates whether the column uses the faster, locale-neutral parsing routines." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">false</property></properties></outputColumn>
-<outputColumn id="1356" name="Copy of CMCXTI_FeedDate" description="" lineageId="1356" precision="0" scale="0" length="0" dataType="date" codePage="0" sortKeyPosition="0" comparisonFlags="0" specialFlags="0" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" truncationRowDisposition="FailComponent" externalMetadataColumnId="0" mappedColumnId="0"><properties>
-<property id="1357" name="SourceInputColumnLineageID" dataType="System.Int32" state="default" isArray="false" description="Specifies the input column used as the source of data for the conversion." typeConverter="" UITypeEditor="" containsID="true" expressionType="None">942</property>
-<property id="1358" name="FastParse" dataType="System.Boolean" state="default" isArray="false" description="Indicates whether the column uses the faster, locale-neutral parsing routines." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">false</property></properties></outputColumn>
-<outputColumn id="1359" name="Copy of CMCXTI_Dummy2" description="" lineageId="1359" precision="0" scale="0" length="50" dataType="str" codePage="1252" sortKeyPosition="0" comparisonFlags="0" specialFlags="0" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" truncationRowDisposition="FailComponent" externalMetadataColumnId="0" mappedColumnId="0"><properties>
-<property id="1360" name="SourceInputColumnLineageID" dataType="System.Int32" state="default" isArray="false" description="Specifies the input column used as the source of data for the conversion." typeConverter="" UITypeEditor="" containsID="true" expressionType="None">945</property>
-<property id="1361" name="FastParse" dataType="System.Boolean" state="default" isArray="false" description="Indicates whether the column uses the faster, locale-neutral parsing routines." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">false</property></properties></outputColumn>
-<outputColumn id="1362" name="Copy of CMCXTI_Dummy3" description="" lineageId="1362" precision="0" scale="0" length="25" dataType="str" codePage="1252" sortKeyPosition="0" comparisonFlags="0" specialFlags="0" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" truncationRowDisposition="FailComponent" externalMetadataColumnId="0" mappedColumnId="0"><properties>
-<property id="1363" name="SourceInputColumnLineageID" dataType="System.Int32" state="default" isArray="false" description="Specifies the input column used as the source of data for the conversion." typeConverter="" UITypeEditor="" containsID="true" expressionType="None">948</property>
-<property id="1364" name="FastParse" dataType="System.Boolean" state="default" isArray="false" description="Indicates whether the column uses the faster, locale-neutral parsing routines." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">false</property></properties></outputColumn>
-<outputColumn id="1365" name="Copy of CMCXTI_ApplicationNum" description="" lineageId="1365" precision="0" scale="0" length="25" dataType="str" codePage="1252" sortKeyPosition="0" comparisonFlags="0" specialFlags="0" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" truncationRowDisposition="FailComponent" externalMetadataColumnId="0" mappedColumnId="0"><properties>
-<property id="1366" name="SourceInputColumnLineageID" dataType="System.Int32" state="default" isArray="false" description="Specifies the input column used as the source of data for the conversion." typeConverter="" UITypeEditor="" containsID="true" expressionType="None">951</property>
-<property id="1367" name="FastParse" dataType="System.Boolean" state="default" isArray="false" description="Indicates whether the column uses the faster, locale-neutral parsing routines." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">false</property></properties></outputColumn>
-<outputColumn id="1368" name="Copy of CMCXTI_TransactionNature" description="" lineageId="1368" precision="0" scale="0" length="25" dataType="str" codePage="1252" sortKeyPosition="0" comparisonFlags="0" specialFlags="0" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" truncationRowDisposition="FailComponent" externalMetadataColumnId="0" mappedColumnId="0"><properties>
-<property id="1369" name="SourceInputColumnLineageID" dataType="System.Int32" state="default" isArray="false" description="Specifies the input column used as the source of data for the conversion." typeConverter="" UITypeEditor="" containsID="true" expressionType="None">954</property>
-<property id="1370" name="FastParse" dataType="System.Boolean" state="default" isArray="false" description="Indicates whether the column uses the faster, locale-neutral parsing routines." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">false</property></properties></outputColumn>
-<outputColumn id="1371" name="Copy of CMCXTI_TaxStatus" description="" lineageId="1371" precision="0" scale="0" length="25" dataType="str" codePage="1252" sortKeyPosition="0" comparisonFlags="0" specialFlags="0" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" truncationRowDisposition="FailComponent" externalMetadataColumnId="0" mappedColumnId="0"><properties>
-<property id="1372" name="SourceInputColumnLineageID" dataType="System.Int32" state="default" isArray="false" description="Specifies the input column used as the source of data for the conversion." typeConverter="" UITypeEditor="" containsID="true" expressionType="None">957</property>
-<property id="1373" name="FastParse" dataType="System.Boolean" state="default" isArray="false" description="Indicates whether the column uses the faster, locale-neutral parsing routines." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">false</property></properties></outputColumn>
-<outputColumn id="1374" name="Copy of CMCXTI_AlternateBroker" description="" lineageId="1374" precision="0" scale="0" length="50" dataType="str" codePage="1252" sortKeyPosition="0" comparisonFlags="0" specialFlags="0" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" truncationRowDisposition="FailComponent" externalMetadataColumnId="0" mappedColumnId="0"><properties>
-<property id="1375" name="SourceInputColumnLineageID" dataType="System.Int32" state="default" isArray="false" description="Specifies the input column used as the source of data for the conversion." typeConverter="" UITypeEditor="" containsID="true" expressionType="None">960</property>
-<property id="1376" name="FastParse" dataType="System.Boolean" state="default" isArray="false" description="Indicates whether the column uses the faster, locale-neutral parsing routines." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">false</property></properties></outputColumn>
-<outputColumn id="1377" name="Copy of CMCXTI_AlternateFolio" description="" lineageId="1377" precision="0" scale="0" length="16" dataType="str" codePage="1252" sortKeyPosition="0" comparisonFlags="0" specialFlags="0" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" truncationRowDisposition="FailComponent" externalMetadataColumnId="0" mappedColumnId="0"><properties>
-<property id="1378" name="SourceInputColumnLineageID" dataType="System.Int32" state="default" isArray="false" description="Specifies the input column used as the source of data for the conversion." typeConverter="" UITypeEditor="" containsID="true" expressionType="None">963</property>
-<property id="1379" name="FastParse" dataType="System.Boolean" state="default" isArray="false" description="Indicates whether the column uses the faster, locale-neutral parsing routines." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">false</property></properties></outputColumn>
-<outputColumn id="1380" name="Copy of CMCXTI_ReinvestmentFlag" description="" lineageId="1380" precision="0" scale="0" length="1" dataType="str" codePage="1252" sortKeyPosition="0" comparisonFlags="0" specialFlags="0" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" truncationRowDisposition="FailComponent" externalMetadataColumnId="0" mappedColumnId="0"><properties>
-<property id="1381" name="SourceInputColumnLineageID" dataType="System.Int32" state="default" isArray="false" description="Specifies the input column used as the source of data for the conversion." typeConverter="" UITypeEditor="" containsID="true" expressionType="None">966</property>
-<property id="1382" name="FastParse" dataType="System.Boolean" state="default" isArray="false" description="Indicates whether the column uses the faster, locale-neutral parsing routines." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">false</property></properties></outputColumn>
-<outputColumn id="1383" name="Copy of CMCXTI_OldFolio" description="" lineageId="1383" precision="0" scale="0" length="16" dataType="str" codePage="1252" sortKeyPosition="0" comparisonFlags="0" specialFlags="0" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" truncationRowDisposition="FailComponent" externalMetadataColumnId="0" mappedColumnId="0"><properties>
-<property id="1384" name="SourceInputColumnLineageID" dataType="System.Int32" state="default" isArray="false" description="Specifies the input column used as the source of data for the conversion." typeConverter="" UITypeEditor="" containsID="true" expressionType="None">969</property>
-<property id="1385" name="FastParse" dataType="System.Boolean" state="default" isArray="false" description="Indicates whether the column uses the faster, locale-neutral parsing routines." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">false</property></properties></outputColumn>
-<outputColumn id="1386" name="Copy of CMCXTI_SequenceNum" description="" lineageId="1386" precision="0" scale="0" length="16" dataType="str" codePage="1252" sortKeyPosition="0" comparisonFlags="0" specialFlags="0" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" truncationRowDisposition="FailComponent" externalMetadataColumnId="0" mappedColumnId="0"><properties>
-<property id="1387" name="SourceInputColumnLineageID" dataType="System.Int32" state="default" isArray="false" description="Specifies the input column used as the source of data for the conversion." typeConverter="" UITypeEditor="" containsID="true" expressionType="None">972</property>
-<property id="1388" name="FastParse" dataType="System.Boolean" state="default" isArray="false" description="Indicates whether the column uses the faster, locale-neutral parsing routines." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">false</property></properties></outputColumn>
-<outputColumn id="1389" name="Copy of CMCXTI_MultipleBroker" description="" lineageId="1389" precision="0" scale="0" length="16" dataType="str" codePage="1252" sortKeyPosition="0" comparisonFlags="0" specialFlags="0" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" truncationRowDisposition="FailComponent" externalMetadataColumnId="0" mappedColumnId="0"><properties>
-<property id="1390" name="SourceInputColumnLineageID" dataType="System.Int32" state="default" isArray="false" description="Specifies the input column used as the source of data for the conversion." typeConverter="" UITypeEditor="" containsID="true" expressionType="None">975</property>
-<property id="1391" name="FastParse" dataType="System.Boolean" state="default" isArray="false" description="Indicates whether the column uses the faster, locale-neutral parsing routines." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">false</property></properties></outputColumn>
-<outputColumn id="1392" name="Copy of CMCXTI_Tax" description="" lineageId="1392" precision="25" scale="12" length="0" dataType="numeric" codePage="0" sortKeyPosition="0" comparisonFlags="0" specialFlags="0" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" truncationRowDisposition="FailComponent" externalMetadataColumnId="0" mappedColumnId="0"><properties>
-<property id="1393" name="SourceInputColumnLineageID" dataType="System.Int32" state="default" isArray="false" description="Specifies the input column used as the source of data for the conversion." typeConverter="" UITypeEditor="" containsID="true" expressionType="None">978</property>
-<property id="1394" name="FastParse" dataType="System.Boolean" state="default" isArray="false" description="Indicates whether the column uses the faster, locale-neutral parsing routines." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">false</property></properties></outputColumn>
-<outputColumn id="1395" name="Copy of CMCXTI_STT" description="" lineageId="1395" precision="18" scale="5" length="0" dataType="numeric" codePage="0" sortKeyPosition="0" comparisonFlags="0" specialFlags="0" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" truncationRowDisposition="FailComponent" externalMetadataColumnId="0" mappedColumnId="0"><properties>
-<property id="1396" name="SourceInputColumnLineageID" dataType="System.Int32" state="default" isArray="false" description="Specifies the input column used as the source of data for the conversion." typeConverter="" UITypeEditor="" containsID="true" expressionType="None">981</property>
-<property id="1397" name="FastParse" dataType="System.Boolean" state="default" isArray="false" description="Indicates whether the column uses the faster, locale-neutral parsing routines." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">false</property></properties></outputColumn>
-<outputColumn id="1398" name="Copy of CMCXTI_SchemeType" description="" lineageId="1398" precision="0" scale="0" length="50" dataType="str" codePage="1252" sortKeyPosition="0" comparisonFlags="0" specialFlags="0" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" truncationRowDisposition="FailComponent" externalMetadataColumnId="0" mappedColumnId="0"><properties>
-<property id="1399" name="SourceInputColumnLineageID" dataType="System.Int32" state="default" isArray="false" description="Specifies the input column used as the source of data for the conversion." typeConverter="" UITypeEditor="" containsID="true" expressionType="None">984</property>
-<property id="1400" name="FastParse" dataType="System.Boolean" state="default" isArray="false" description="Indicates whether the column uses the faster, locale-neutral parsing routines." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">false</property></properties></outputColumn>
-<outputColumn id="1401" name="Copy of CMCXTI_EntryLoad" description="" lineageId="1401" precision="25" scale="12" length="0" dataType="numeric" codePage="0" sortKeyPosition="0" comparisonFlags="0" specialFlags="0" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" truncationRowDisposition="FailComponent" externalMetadataColumnId="0" mappedColumnId="0"><properties>
-<property id="1402" name="SourceInputColumnLineageID" dataType="System.Int32" state="default" isArray="false" description="Specifies the input column used as the source of data for the conversion." typeConverter="" UITypeEditor="" containsID="true" expressionType="None">987</property>
-<property id="1403" name="FastParse" dataType="System.Boolean" state="default" isArray="false" description="Indicates whether the column uses the faster, locale-neutral parsing routines." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">false</property></properties></outputColumn>
-<outputColumn id="1404" name="Copy of CMCXTI_ScanRefNum" description="" lineageId="1404" precision="0" scale="0" length="50" dataType="str" codePage="1252" sortKeyPosition="0" comparisonFlags="0" specialFlags="0" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" truncationRowDisposition="FailComponent" externalMetadataColumnId="0" mappedColumnId="0"><properties>
-<property id="1405" name="SourceInputColumnLineageID" dataType="System.Int32" state="default" isArray="false" description="Specifies the input column used as the source of data for the conversion." typeConverter="" UITypeEditor="" containsID="true" expressionType="None">990</property>
-<property id="1406" name="FastParse" dataType="System.Boolean" state="default" isArray="false" description="Indicates whether the column uses the faster, locale-neutral parsing routines." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">false</property></properties></outputColumn>
-<outputColumn id="1407" name="Copy of CMCXTI_InvestorIIN" description="" lineageId="1407" precision="0" scale="0" length="50" dataType="str" codePage="1252" sortKeyPosition="0" comparisonFlags="0" specialFlags="0" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" truncationRowDisposition="FailComponent" externalMetadataColumnId="0" mappedColumnId="0"><properties>
-<property id="1408" name="SourceInputColumnLineageID" dataType="System.Int32" state="default" isArray="false" description="Specifies the input column used as the source of data for the conversion." typeConverter="" UITypeEditor="" containsID="true" expressionType="None">993</property>
-<property id="1409" name="FastParse" dataType="System.Boolean" state="default" isArray="false" description="Indicates whether the column uses the faster, locale-neutral parsing routines." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">false</property></properties></outputColumn>
-<outputColumn id="1410" name="Copy of CMCXTI_TaxStatus1" description="" lineageId="1410" precision="0" scale="0" length="50" dataType="str" codePage="1252" sortKeyPosition="0" comparisonFlags="0" specialFlags="0" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" truncationRowDisposition="FailComponent" externalMetadataColumnId="0" mappedColumnId="0"><properties>
-<property id="1411" name="SourceInputColumnLineageID" dataType="System.Int32" state="default" isArray="false" description="Specifies the input column used as the source of data for the conversion." typeConverter="" UITypeEditor="" containsID="true" expressionType="None">996</property>
-<property id="1412" name="FastParse" dataType="System.Boolean" state="default" isArray="false" description="Indicates whether the column uses the faster, locale-neutral parsing routines." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">false</property></properties></outputColumn>
-<outputColumn id="1413" name="Copy of CMCXTI_StatusCode" description="" lineageId="1413" precision="0" scale="0" length="50" dataType="str" codePage="1252" sortKeyPosition="0" comparisonFlags="0" specialFlags="0" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" truncationRowDisposition="FailComponent" externalMetadataColumnId="0" mappedColumnId="0"><properties>
-<property id="1414" name="SourceInputColumnLineageID" dataType="System.Int32" state="default" isArray="false" description="Specifies the input column used as the source of data for the conversion." typeConverter="" UITypeEditor="" containsID="true" expressionType="None">999</property>
-<property id="1415" name="FastParse" dataType="System.Boolean" state="default" isArray="false" description="Indicates whether the column uses the faster, locale-neutral parsing routines." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">false</property></properties></outputColumn>
-<outputColumn id="1416" name="Copy of CMCXTI_CreatedBy" description="" lineageId="1416" precision="10" scale="0" length="0" dataType="numeric" codePage="0" sortKeyPosition="0" comparisonFlags="0" specialFlags="0" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" truncationRowDisposition="FailComponent" externalMetadataColumnId="0" mappedColumnId="0"><properties>
-<property id="1417" name="SourceInputColumnLineageID" dataType="System.Int32" state="default" isArray="false" description="Specifies the input column used as the source of data for the conversion." typeConverter="" UITypeEditor="" containsID="true" expressionType="None">1002</property>
-<property id="1418" name="FastParse" dataType="System.Boolean" state="default" isArray="false" description="Indicates whether the column uses the faster, locale-neutral parsing routines." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">false</property></properties></outputColumn>
-<outputColumn id="1419" name="Copy of CMCXTI_CreatedOn" description="" lineageId="1419" precision="0" scale="0" length="0" dataType="date" codePage="0" sortKeyPosition="0" comparisonFlags="0" specialFlags="0" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" truncationRowDisposition="FailComponent" externalMetadataColumnId="0" mappedColumnId="0"><properties>
-<property id="1420" name="SourceInputColumnLineageID" dataType="System.Int32" state="default" isArray="false" description="Specifies the input column used as the source of data for the conversion." typeConverter="" UITypeEditor="" containsID="true" expressionType="None">1005</property>
-<property id="1421" name="FastParse" dataType="System.Boolean" state="default" isArray="false" description="Indicates whether the column uses the faster, locale-neutral parsing routines." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">false</property></properties></outputColumn>
-<outputColumn id="1422" name="Copy of CMCXTI_ModifiedBy" description="" lineageId="1422" precision="10" scale="0" length="0" dataType="numeric" codePage="0" sortKeyPosition="0" comparisonFlags="0" specialFlags="0" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" truncationRowDisposition="FailComponent" externalMetadataColumnId="0" mappedColumnId="0"><properties>
-<property id="1423" name="SourceInputColumnLineageID" dataType="System.Int32" state="default" isArray="false" description="Specifies the input column used as the source of data for the conversion." typeConverter="" UITypeEditor="" containsID="true" expressionType="None">1008</property>
-<property id="1424" name="FastParse" dataType="System.Boolean" state="default" isArray="false" description="Indicates whether the column uses the faster, locale-neutral parsing routines." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">false</property></properties></outputColumn>
-<outputColumn id="1425" name="Copy of CMCXTI_ModifiedOn" description="" lineageId="1425" precision="0" scale="0" length="0" dataType="date" codePage="0" sortKeyPosition="0" comparisonFlags="0" specialFlags="0" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" truncationRowDisposition="FailComponent" externalMetadataColumnId="0" mappedColumnId="0"><properties>
-<property id="1426" name="SourceInputColumnLineageID" dataType="System.Int32" state="default" isArray="false" description="Specifies the input column used as the source of data for the conversion." typeConverter="" UITypeEditor="" containsID="true" expressionType="None">1011</property>
-<property id="1427" name="FastParse" dataType="System.Boolean" state="default" isArray="false" description="Indicates whether the column uses the faster, locale-neutral parsing routines." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">false</property></properties></outputColumn>
-<outputColumn id="1434" name="Copy of CMCXTI_PAN" description="" lineageId="1434" precision="0" scale="0" length="20" dataType="str" codePage="1252" sortKeyPosition="0" comparisonFlags="0" specialFlags="0" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" truncationRowDisposition="FailComponent" externalMetadataColumnId="0" mappedColumnId="0"><properties>
-<property id="1435" name="SourceInputColumnLineageID" dataType="System.Int32" state="default" isArray="false" description="Specifies the input column used as the source of data for the conversion." typeConverter="" UITypeEditor="" containsID="true" expressionType="None">1034</property>
-<property id="1436" name="FastParse" dataType="System.Boolean" state="default" isArray="false" description="Indicates whether the column uses the faster, locale-neutral parsing routines." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">false</property></properties></outputColumn>
-<outputColumn id="1437" name="Copy of CMFCXTI_Area" description="" lineageId="1437" precision="0" scale="0" length="100" dataType="str" codePage="1252" sortKeyPosition="0" comparisonFlags="0" specialFlags="0" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" truncationRowDisposition="FailComponent" externalMetadataColumnId="0" mappedColumnId="0"><properties>
-<property id="1438" name="SourceInputColumnLineageID" dataType="System.Int32" state="default" isArray="false" description="Specifies the input column used as the source of data for the conversion." typeConverter="" UITypeEditor="" containsID="true" expressionType="None">1038</property>
-<property id="1439" name="FastParse" dataType="System.Boolean" state="default" isArray="false" description="Indicates whether the column uses the faster, locale-neutral parsing routines." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">false</property></properties></outputColumn></outputColumns><externalMetadataColumns isUsed="False"/></output>
-<output id="1232" name="Data Conversion Error Output" description="" exclusionGroup="1" synchronousInputId="1230" deleteOutputOnPathDetached="false" hasSideEffects="false" dangling="false" isErrorOut="true" isSorted="false" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed"><outputColumns>
-<outputColumn id="1233" name="ErrorCode" description="" lineageId="1233" precision="0" scale="0" length="0" dataType="i4" codePage="0" sortKeyPosition="0" comparisonFlags="0" specialFlags="1" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="0" mappedColumnId="0"/>
-<outputColumn id="1234" name="ErrorColumn" description="" lineageId="1234" precision="0" scale="0" length="0" dataType="i4" codePage="0" sortKeyPosition="0" comparisonFlags="0" specialFlags="2" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="0" mappedColumnId="0"/></outputColumns><externalMetadataColumns isUsed="False"/></output>
-</outputs>
-</component>
-<component id="1492" name="OLE DB Destination 1" componentClassID="{5A0B62E8-D91D-49F5-94A5-7BE58DE508F0}" description="OLE DB Destination" localeId="-1" usesDispositions="true" validateExternalMetadata="True" version="4" pipelineVersion="0" contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SqlServer v10; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4">
-<properties>
-<property id="1493" name="CommandTimeout" dataType="System.Int32" state="default" isArray="false" description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">0</property>
-<property id="1494" name="OpenRowset" dataType="System.String" state="default" isArray="false" description="Specifies the name of the database object used to open a rowset." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">[dbo].[CustomerMFCAMSXtrnlTransactionStaging]</property>
-<property id="1495" name="OpenRowsetVariable" dataType="System.String" state="default" isArray="false" description="Specifies the variable that contains the name of the database object used to open a rowset." typeConverter="" UITypeEditor="" containsID="false" expressionType="None"></property>
-<property id="1496" name="SqlCommand" dataType="System.String" state="default" isArray="false" description="The SQL command to be executed." typeConverter="" UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" containsID="false" expressionType="None"></property>
-<property id="1497" name="DefaultCodePage" dataType="System.Int32" state="default" isArray="false" description="Specifies the column code page to use when code page information is unavailable from the data source." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">1252</property>
-<property id="1498" name="AlwaysUseDefaultCodePage" dataType="System.Boolean" state="default" isArray="false" description="Forces the use of the DefaultCodePage property value when describing character data." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">false</property>
-<property id="1499" name="AccessMode" dataType="System.Int32" state="default" isArray="false" description="Specifies the mode used to access the database." typeConverter="AccessMode" UITypeEditor="" containsID="false" expressionType="None">3</property>
-<property id="1501" name="FastLoadKeepIdentity" dataType="System.Boolean" state="default" isArray="false" description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">false</property>
-<property id="1502" name="FastLoadKeepNulls" dataType="System.Boolean" state="default" isArray="false" description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">false</property>
-<property id="1503" name="FastLoadOptions" dataType="System.String" state="default" isArray="false" description="Specifies options to be used with fast load.  Applies only if fast load is turned on." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">TABLOCK,CHECK_CONSTRAINTS</property>
-<property id="1504" name="FastLoadMaxInsertCommitSize" dataType="System.Int32" state="default" isArray="false" description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on." typeConverter="" UITypeEditor="" containsID="false" expressionType="None">2147483647</property></properties>
-<connections>
-<connection id="1500" name="OleDbConnection" description="The OLE DB runtime connection used to access the database." connectionManagerID="{09DF7450-AA0F-4B26-9C79-EB0396C54B5E}"/></connections>
-<inputs>
-<input id="1505" name="OLE DB Destination Input" description="" hasSideEffects="true" dangling="false" errorOrTruncationOperation="Insert" errorRowDisposition="FailComponent" truncationRowDisposition="NotUsed"><inputColumns>
-<inputColumn id="1610" name="" description="" lineageId="1014" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="1558" mappedColumnId="0"/>
-<inputColumn id="1620" name="" description="" lineageId="1287" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="1512" mappedColumnId="0"/>
-<inputColumn id="1629" name="" description="" lineageId="1017" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="1513" mappedColumnId="0"/>
-<inputColumn id="1634" name="" description="" lineageId="1293" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="1514" mappedColumnId="0"/>
-<inputColumn id="1636" name="" description="" lineageId="1296" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="1515" mappedColumnId="0"/>
-<inputColumn id="1637" name="" description="" lineageId="1299" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="1516" mappedColumnId="0"/>
-<inputColumn id="1638" name="" description="" lineageId="1302" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="1517" mappedColumnId="0"/>
-<inputColumn id="1639" name="" description="" lineageId="1305" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="1518" mappedColumnId="0"/>
-<inputColumn id="1640" name="" description="" lineageId="1308" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="1519" mappedColumnId="0"/>
-<inputColumn id="1641" name="" description="" lineageId="1311" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="1520" mappedColumnId="0"/>
-<inputColumn id="1642" name="" description="" lineageId="1314" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="1521" mappedColumnId="0"/>
-<inputColumn id="1643" name="" description="" lineageId="1317" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="1522" mappedColumnId="0"/>
-<inputColumn id="1644" name="" description="" lineageId="1320" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="1523" mappedColumnId="0"/>
-<inputColumn id="1646" name="" description="" lineageId="1326" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="1525" mappedColumnId="0"/>
-<inputColumn id="1647" name="" description="" lineageId="1329" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="1526" mappedColumnId="0"/>
-<inputColumn id="1648" name="" description="" lineageId="1332" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="1527" mappedColumnId="0"/>
-<inputColumn id="1649" name="" description="" lineageId="1335" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="1528" mappedColumnId="0"/>
-<inputColumn id="1650" name="" description="" lineageId="1338" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="1529" mappedColumnId="0"/>
-<inputColumn id="1651" name="" description="" lineageId="1341" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="1530" mappedColumnId="0"/>
-<inputColumn id="1652" name="" description="" lineageId="1344" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="1531" mappedColumnId="0"/>
-<inputColumn id="1653" name="" description="" lineageId="1347" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="1532" mappedColumnId="0"/>
-<inputColumn id="1654" name="" description="" lineageId="1350" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="1533" mappedColumnId="0"/>
-<inputColumn id="1655" name="" description="" lineageId="1353" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="1534" mappedColumnId="0"/>
-<inputColumn id="1656" name="" description="" lineageId="1356" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="1535" mappedColumnId="0"/>
-<inputColumn id="1657" name="" description="" lineageId="1359" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="1536" mappedColumnId="0"/>
-<inputColumn id="1658" name="" description="" lineageId="1362" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="1537" mappedColumnId="0"/>
-<inputColumn id="1659" name="" description="" lineageId="1365" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="1538" mappedColumnId="0"/>
-<inputColumn id="1660" name="" description="" lineageId="1368" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="1539" mappedColumnId="0"/>
-<inputColumn id="1661" name="" description="" lineageId="1371" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="1540" mappedColumnId="0"/>
-<inputColumn id="1662" name="" description="" lineageId="1374" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="1541" mappedColumnId="0"/>
-<inputColumn id="1663" name="" description="" lineageId="1377" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="1542" mappedColumnId="0"/>
-<inputColumn id="1664" name="" description="" lineageId="1380" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="1543" mappedColumnId="0"/>
-<inputColumn id="1665" name="" description="" lineageId="1383" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="1544" mappedColumnId="0"/>
-<inputColumn id="1666" name="" description="" lineageId="1386" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="1545" mappedColumnId="0"/>
-<inputColumn id="1667" name="" description="" lineageId="1389" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="1546" mappedColumnId="0"/>
-<inputColumn id="1668" name="" description="" lineageId="1392" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="1547" mappedColumnId="0"/>
-<inputColumn id="1669" name="" description="" lineageId="1395" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="1548" mappedColumnId="0"/>
-<inputColumn id="1670" name="" description="" lineageId="1398" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="1549" mappedColumnId="0"/>
-<inputColumn id="1671" name="" description="" lineageId="1401" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="1550" mappedColumnId="0"/>
-<inputColumn id="1672" name="" description="" lineageId="1404" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="1551" mappedColumnId="0"/>
-<inputColumn id="1673" name="" description="" lineageId="1407" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="1552" mappedColumnId="0"/>
-<inputColumn id="1674" name="" description="" lineageId="1410" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="1553" mappedColumnId="0"/>
-<inputColumn id="1675" name="" description="" lineageId="1416" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="1554" mappedColumnId="0"/>
-<inputColumn id="1676" name="" description="" lineageId="1419" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="1555" mappedColumnId="0"/>
-<inputColumn id="1677" name="" description="" lineageId="1422" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="1556" mappedColumnId="0"/>
-<inputColumn id="1678" name="" description="" lineageId="1425" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="1557" mappedColumnId="0"/>
-<inputColumn id="1679" name="" description="" lineageId="1434" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="1559" mappedColumnId="0"/>
-<inputColumn id="1680" name="" description="" lineageId="1437" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="1560" mappedColumnId="0"/>
-<inputColumn id="1745" name="" description="" lineageId="1323" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="1739" mappedColumnId="0"/>
-<inputColumn id="2321" name="" description="" lineageId="1290" usageType="readOnly" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="1511" mappedColumnId="0"/>
-</inputColumns><externalMetadataColumns isUsed="True">
-<externalMetadataColumn id="1510" name="CMCXTS_Id" description="" precision="0" scale="0" length="0" dataType="i4" codePage="0" mappedColumnId="0"/>
-<externalMetadataColumn id="1511" name="A_AdviserId" description="" precision="0" scale="0" length="0" dataType="i4" codePage="0" mappedColumnId="0"/>
-<externalMetadataColumn id="1512" name="ADUL_ProcessId" description="" precision="0" scale="0" length="0" dataType="i4" codePage="0" mappedColumnId="0"/>
-<externalMetadataColumn id="1513" name="WRR_RejectReasonCode" description="" precision="0" scale="0" length="0" dataType="i4" codePage="0" mappedColumnId="0"/>
-<externalMetadataColumn id="1514" name="CMCXTS_AMCCode" description="" precision="0" scale="0" length="10" dataType="str" codePage="1252" mappedColumnId="0"/>
-<externalMetadataColumn id="1515" name="CMCXTS_FolioNum" description="" precision="0" scale="0" length="50" dataType="str" codePage="1252" mappedColumnId="0"/>
-<externalMetadataColumn id="1516" name="CMCXTS_ProductCode" description="" precision="0" scale="0" length="50" dataType="str" codePage="1252" mappedColumnId="0"/>
-<externalMetadataColumn id="1517" name="CMCXTS_Scheme" description="" precision="0" scale="0" length="150" dataType="str" codePage="1252" mappedColumnId="0"/>
-<externalMetadataColumn id="1518" name="CMCXTS_InvestorName" description="" precision="0" scale="0" length="75" dataType="str" codePage="1252" mappedColumnId="0"/>
-<externalMetadataColumn id="1519" name="CMCXTS_TransactionType" description="" precision="0" scale="0" length="10" dataType="str" codePage="1252" mappedColumnId="0"/>
-<externalMetadataColumn id="1520" name="CMCXTS_TransactionNum" description="" precision="0" scale="0" length="25" dataType="str" codePage="1252" mappedColumnId="0"/>
-<externalMetadataColumn id="1521" name="CMCXTS_TransactionMode" description="" precision="0" scale="0" length="5" dataType="str" codePage="1252" mappedColumnId="0"/>
-<externalMetadataColumn id="1522" name="CMCXTS_TransactionStatus" description="" precision="0" scale="0" length="50" dataType="str" codePage="1252" mappedColumnId="0"/>
-<externalMetadataColumn id="1523" name="CMCXTS_UserCode" description="" precision="0" scale="0" length="25" dataType="str" codePage="1252" mappedColumnId="0"/>
-<externalMetadataColumn id="1524" name="CMCXTS_UserTransactionNum" description="" precision="0" scale="0" length="50" dataType="str" codePage="1252" mappedColumnId="0"/>
-<externalMetadataColumn id="1525" name="CMCXTS_ValueDate" description="" precision="0" scale="0" length="0" dataType="dbTimeStamp" codePage="0" mappedColumnId="0"/>
-<externalMetadataColumn id="1526" name="CMCXTS_PostDate" description="" precision="0" scale="0" length="0" dataType="dbTimeStamp" codePage="0" mappedColumnId="0"/>
-<externalMetadataColumn id="1527" name="CMCXTS_Price" description="" precision="18" scale="5" length="0" dataType="numeric" codePage="0" mappedColumnId="0"/>
-<externalMetadataColumn id="1528" name="CMCXTS_Units" description="" precision="18" scale="5" length="0" dataType="numeric" codePage="0" mappedColumnId="0"/>
-<externalMetadataColumn id="1529" name="CMCXTS_Amount" description="" precision="18" scale="5" length="0" dataType="numeric" codePage="0" mappedColumnId="0"/>
-<externalMetadataColumn id="1530" name="CMCXTS_BrokerCode" description="" precision="0" scale="0" length="50" dataType="str" codePage="1252" mappedColumnId="0"/>
-<externalMetadataColumn id="1531" name="CMCXTS_SubBrokerCode" description="" precision="0" scale="0" length="50" dataType="str" codePage="1252" mappedColumnId="0"/>
-<externalMetadataColumn id="1532" name="CMCXTS_BrokeragePercentage" description="" precision="25" scale="12" length="0" dataType="numeric" codePage="0" mappedColumnId="0"/>
-<externalMetadataColumn id="1533" name="CMCXTS_BrokerageAmount" description="" precision="25" scale="12" length="0" dataType="numeric" codePage="0" mappedColumnId="0"/>
-<externalMetadataColumn id="1534" name="CMCXTS_Dummy1" description="" precision="0" scale="0" length="50" dataType="str" codePage="1252" mappedColumnId="0"/>
-<externalMetadataColumn id="1535" name="CMCXTS_FeedDate" description="" precision="0" scale="0" length="0" dataType="dbTimeStamp" codePage="0" mappedColumnId="0"/>
-<externalMetadataColumn id="1536" name="CMCXTS_Dummy2" description="" precision="0" scale="0" length="50" dataType="str" codePage="1252" mappedColumnId="0"/>
-<externalMetadataColumn id="1537" name="CMCXTS_Dummy3" description="" precision="0" scale="0" length="50" dataType="str" codePage="1252" mappedColumnId="0"/>
-<externalMetadataColumn id="1538" name="CMCXTS_ApplicationNum" description="" precision="0" scale="0" length="25" dataType="str" codePage="1252" mappedColumnId="0"/>
-<externalMetadataColumn id="1539" name="CMCXTS_TransactionNature" description="" precision="0" scale="0" length="25" dataType="str" codePage="1252" mappedColumnId="0"/>
-<externalMetadataColumn id="1540" name="CMCXTS_TaxStatus" description="" precision="0" scale="0" length="25" dataType="str" codePage="1252" mappedColumnId="0"/>
-<externalMetadataColumn id="1541" name="CMCXTS_AlternateBroker" description="" precision="0" scale="0" length="50" dataType="str" codePage="1252" mappedColumnId="0"/>
-<externalMetadataColumn id="1542" name="CMCXTS_AlternateFolio" description="" precision="0" scale="0" length="16" dataType="str" codePage="1252" mappedColumnId="0"/>
-<externalMetadataColumn id="1543" name="CMCXTS_ReinvestmentFlag" description="" precision="0" scale="0" length="1" dataType="str" codePage="1252" mappedColumnId="0"/>
-<externalMetadataColumn id="1544" name="CMCXTS_OldFolio" description="" precision="0" scale="0" length="20" dataType="str" codePage="1252" mappedColumnId="0"/>
-<externalMetadataColumn id="1545" name="CMCXTS_SequenceNum" description="" precision="0" scale="0" length="16" dataType="str" codePage="1252" mappedColumnId="0"/>
-<externalMetadataColumn id="1546" name="CMCXTS_MultipleBroker" description="" precision="0" scale="0" length="16" dataType="str" codePage="1252" mappedColumnId="0"/>
-<externalMetadataColumn id="1547" name="CMCXTS_Tax" description="" precision="25" scale="12" length="0" dataType="numeric" codePage="0" mappedColumnId="0"/>
-<externalMetadataColumn id="1548" name="CMCXTS_STT" description="" precision="18" scale="5" length="0" dataType="numeric" codePage="0" mappedColumnId="0"/>
-<externalMetadataColumn id="1549" name="CMCXTS_SchemeType" description="" precision="0" scale="0" length="50" dataType="str" codePage="1252" mappedColumnId="0"/>
-<externalMetadataColumn id="1550" name="CMCXTS_EntryLoad" description="" precision="25" scale="12" length="0" dataType="numeric" codePage="0" mappedColumnId="0"/>
-<externalMetadataColumn id="1551" name="CMCXTS_ScanRefNum" description="" precision="0" scale="0" length="50" dataType="str" codePage="1252" mappedColumnId="0"/>
-<externalMetadataColumn id="1552" name="CMCXTS_InvestorIIN" description="" precision="0" scale="0" length="50" dataType="str" codePage="1252" mappedColumnId="0"/>
-<externalMetadataColumn id="1553" name="CMCXTS_TaxStatus1" description="" precision="0" scale="0" length="50" dataType="str" codePage="1252" mappedColumnId="0"/>
-<externalMetadataColumn id="1554" name="CMCXTS_CreatedBy" description="" precision="0" scale="0" length="0" dataType="i4" codePage="0" mappedColumnId="0"/>
-<externalMetadataColumn id="1555" name="CMCXTS_CreatedOn" description="" precision="0" scale="0" length="0" dataType="dbTimeStamp" codePage="0" mappedColumnId="0"/>
-<externalMetadataColumn id="1556" name="CMCXTS_ModifiedBy" description="" precision="0" scale="0" length="0" dataType="i4" codePage="0" mappedColumnId="0"/>
-<externalMetadataColumn id="1557" name="CMCXTS_ModifiedOn" description="" precision="0" scale="0" length="0" dataType="dbTimeStamp" codePage="0" mappedColumnId="0"/>
-<externalMetadataColumn id="1558" name="CMCXTS_IsRejected" description="" precision="0" scale="0" length="0" dataType="ui1" codePage="0" mappedColumnId="0"/>
-<externalMetadataColumn id="1559" name="CMCXTS_PAN" description="" precision="0" scale="0" length="20" dataType="str" codePage="1252" mappedColumnId="0"/>
-<externalMetadataColumn id="1560" name="CMFCXTS_Area" description="" precision="0" scale="0" length="100" dataType="str" codePage="1252" mappedColumnId="0"/>
-<externalMetadataColumn id="1561" name="CMFCXTS_EUIN" description="" precision="0" scale="0" length="100" dataType="str" codePage="1252" mappedColumnId="0"/>
-<externalMetadataColumn id="1739" name="CMCXTS_UserTransactionNumOther" description="" precision="0" scale="0" length="150" dataType="str" codePage="1252" mappedColumnId="0"/></externalMetadataColumns></input>
-</inputs>
-<outputs>
-<output id="1506" name="OLE DB Destination Error Output" description="" exclusionGroup="1" synchronousInputId="1505" deleteOutputOnPathDetached="false" hasSideEffects="false" dangling="false" isErrorOut="true" isSorted="false" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed"><outputColumns>
-<outputColumn id="1507" name="ErrorCode" description="" lineageId="1507" precision="0" scale="0" length="0" dataType="i4" codePage="0" sortKeyPosition="0" comparisonFlags="0" specialFlags="1" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="0" mappedColumnId="0"/>
-<outputColumn id="1508" name="ErrorColumn" description="" lineageId="1508" precision="0" scale="0" length="0" dataType="i4" codePage="0" sortKeyPosition="0" comparisonFlags="0" specialFlags="2" errorOrTruncationOperation="" errorRowDisposition="NotUsed" truncationRowDisposition="NotUsed" externalMetadataColumnId="0" mappedColumnId="0"/></outputColumns><externalMetadataColumns isUsed="False"/></output>
-</outputs>
-</component>
 </components>
 <paths>
+<path id="684" name="OLE DB Source Output" description="" startId="535" endId="17"/>
 <path id="717" name="Data Conversion Output" description="" startId="18" endId="713"/>
-<path id="1065" name="OLE DB Source Output" description="" startId="535" endId="1059"/>
-<path id="1177" name="UserTranxNo" description="" startId="1118" endId="17"/>
-<path id="1286" name="UserTranxNo_Other" description="" startId="1122" endId="1230"/>
-<path id="1509" name="Data Conversion Output" description="" startId="1231" endId="1505"/>
 </paths></pipeline></DTS:ObjectData></DTS:Executable>
 <DTS:Executable DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" DTS:ThreadHint="0">
 <DTS:Property DTS:Name="ExecutionLocation">0</DTS:Property>
@@ -1124,7 +763,7 @@ WHERE        (CMCXTI_IsRejected = 0) AND (ADUL_ProcessId = ?)</property>
   &lt;layoutmanager&gt;
     &lt;ddsxmlobj /&gt;
   &lt;/layoutmanager&gt;
-  &lt;ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.2" tooltip="Truncation may occur due to inserting data from data flow column &amp;quot;Copy of CMCXTI_UserTransactionNum&amp;quot;..." left="-14137" top="1750" logicalid="8" controlid="1" masterid="0" hint1="0" hint2="0" width="3598" height="1164" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;
+  &lt;ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.2" tooltip="SSIS Error Code DTS_E_OLEDBERROR.  An OLE DB error has occurred. Error code: 0x80004005. An OLE DB r..." left="-14137" top="1750" logicalid="8" controlid="1" masterid="0" hint1="0" hint2="0" width="3598" height="1164" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;
     &lt;control&gt;
       &lt;ddsxmlobjectstreaminitwrapper binary="000800000e0e00008c040000" /&gt;
     &lt;/control&gt;
@@ -1235,214 +874,137 @@ WHERE        (CMCXTI_IsRejected = 0) AND (ADUL_ProcessId = ?)</property>
 &lt;/dds&gt;&lt;/dwd:Layout&gt;&lt;dwd:PersistedViewPortLeft&gt;-15164&lt;/dwd:PersistedViewPortLeft&gt;&lt;dwd:PersistedViewPortTop&gt;-1758&lt;/dwd:PersistedViewPortTop&gt;&lt;/dwd:DtsControlFlowDiagram&gt;&lt;/Package&gt;</DTS:Property>
 <DTS:Property DTS:Name="Namespace">dts-designer-1.0</DTS:Property>
 <DTS:Property DTS:Name="ObjectName">{0CD2A487-08F6-40D4-A90F-ABC9F52A58D5}</DTS:Property>
-<DTS:Property DTS:Name="DTSID">{7427AA16-5006-4CA4-B26E-8AE2F7734DE4}</DTS:Property>
+<DTS:Property DTS:Name="DTSID">{141C610F-7EC9-4A74-BCA5-F0A240ED4F98}</DTS:Property>
 <DTS:Property DTS:Name="Description"></DTS:Property>
 <DTS:Property DTS:Name="CreationName"></DTS:Property></DTS:PackageVariable>
 <DTS:PackageVariable>
 <DTS:Property DTS:Name="PackageVariableValue" DTS:DataType="8">&lt;PrecedenceConstraint xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0"&gt;&lt;dwd:EvalOp&gt;Constraint&lt;/dwd:EvalOp&gt;&lt;/PrecedenceConstraint&gt;</DTS:Property>
 <DTS:Property DTS:Name="Namespace">dts-designer-1.0</DTS:Property>
 <DTS:Property DTS:Name="ObjectName">{7420782B-7D75-4DC6-8B94-D18276375670}</DTS:Property>
-<DTS:Property DTS:Name="DTSID">{E1D6735D-8E87-48F1-972B-21A076757CFB}</DTS:Property>
+<DTS:Property DTS:Name="DTSID">{B35E5ADA-A0D5-4C34-B5CC-61F8FD59B97B}</DTS:Property>
 <DTS:Property DTS:Name="Description"></DTS:Property>
 <DTS:Property DTS:Name="CreationName"></DTS:Property></DTS:PackageVariable>
 <DTS:PackageVariable>
 <DTS:Property DTS:Name="PackageVariableValue" DTS:DataType="8">&lt;TaskHost xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0"&gt;&lt;dwd:DtsDataFlowDiagram&gt;&lt;dwd:Layout&gt;&lt;dds&gt;
-  &lt;diagram fontclsid="{0BE35203-8F91-11CE-9DE3-00AA004BB851}" mouseiconclsid="{0BE35204-8F91-11CE-9DE3-00AA004BB851}" defaultlayout="Microsoft.DataWarehouse.Layout.GraphLayout100" defaultlineroute="Microsoft.DataWarehouse.Layout.GraphLayout100" version="7" nextobject="33" scale="100" pagebreakanchorx="0" pagebreakanchory="0" pagebreaksizex="0" pagebreaksizey="0" scrollleft="0" scrolltop="-3554" gridx="150" gridy="150" marginx="1000" marginy="1000" zoom="100" x="34660" y="11086" backcolor="15334399" defaultpersistence="2" PrintPageNumbersMode="3" PrintMarginTop="0" PrintMarginBottom="635" PrintMarginLeft="0" PrintMarginRight="0" marqueeselectionmode="1" mousepointer="0" snaptogrid="0" autotypeannotation="1" showscrollbars="1" viewpagebreaks="0" donotforceconnectorsbehindshapes="0" backpictureclsid="{00000000-0000-0000-0000-000000000000}"&gt;
+  &lt;diagram fontclsid="{0BE35203-8F91-11CE-9DE3-00AA004BB851}" mouseiconclsid="{0BE35204-8F91-11CE-9DE3-00AA004BB851}" defaultlayout="Microsoft.DataWarehouse.Layout.GraphLayout100" defaultlineroute="Microsoft.DataWarehouse.Layout.GraphLayout100" version="7" nextobject="14" scale="100" pagebreakanchorx="0" pagebreakanchory="0" pagebreaksizex="0" pagebreaksizey="0" scrollleft="0" scrolltop="-262" gridx="150" gridy="150" marginx="1000" marginy="1000" zoom="100" x="34660" y="11086" backcolor="15334399" defaultpersistence="2" PrintPageNumbersMode="3" PrintMarginTop="0" PrintMarginBottom="635" PrintMarginLeft="0" PrintMarginRight="0" marqueeselectionmode="1" mousepointer="0" snaptogrid="0" autotypeannotation="1" showscrollbars="0" viewpagebreaks="0" donotforceconnectorsbehindshapes="0" backpictureclsid="{00000000-0000-0000-0000-000000000000}"&gt;
     &lt;font&gt;
       &lt;ddsxmlobjectstreamwrapper binary="01010000900180380100065461686f6d61" /&gt;
     &lt;/font&gt;
-    &lt;mouseicon&gt;&lt;ddsxmlobjectstreamwrapper binary="6c74000000000000" /&gt;
+    &lt;mouseicon&gt;
+      &lt;ddsxmlobjectstreamwrapper binary="6c74000000000000" /&gt;
     &lt;/mouseicon&gt;
   &lt;/diagram&gt;
-  &lt;layoutmanager&gt;&lt;ddsxmlobj /&gt;
+  &lt;layoutmanager&gt;
+    &lt;ddsxmlobj /&gt;
   &lt;/layoutmanager&gt;
-  &lt;ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.2" tooltip="Data Conversion" left="411" top="1416" logicalid="14" controlid="1" masterid="0" hint1="0" hint2="0" width="3598" height="1164" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobjectstreaminitwrapper binary="000800000e0e00008c040000" /&gt;
+  &lt;ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.2" tooltip="Data Conversion" left="2209" top="3003" logicalid="6" controlid="1" masterid="0" hint1="0" hint2="0" width="3598" height="1164" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;
+    &lt;control&gt;
+      &lt;ddsxmlobjectstreaminitwrapper binary="000800000e0e00008c040000" /&gt;
     &lt;/control&gt;
-    &lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="{7d07a344-909b-4653-9d6f-e13f81369358}/components/16" vartype="8" /&gt;
+    &lt;layoutobject&gt;
+      &lt;ddsxmlobj&gt;
+        &lt;property name="LogicalObject" value="{7d07a344-909b-4653-9d6f-e13f81369358}/components/16" vartype="8" /&gt;
         &lt;property name="ShowConnectorSource" value="0" vartype="2" /&gt;
       &lt;/ddsxmlobj&gt;
     &lt;/layoutobject&gt;
     &lt;shape groupshapeid="0" groupnode="0" /&gt;
   &lt;/ddscontrol&gt;
-  &lt;ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.2" tooltip="OLE DB Source" left="953" top="-4210" logicalid="15" controlid="2" masterid="0" hint1="0" hint2="0" width="3598" height="1164" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobjectstreaminitwrapper binary="000800000e0e00008c040000" /&gt;
+  &lt;ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.2" tooltip="SSIS Error Code DTS_E_OLEDBERROR.  An OLE DB error has occurred. Error code: 0x80004005. An OLE DB r..." left="2618" top="738" logicalid="7" controlid="2" masterid="0" hint1="0" hint2="0" width="3598" height="1164" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;
+    &lt;control&gt;
+      &lt;ddsxmlobjectstreaminitwrapper binary="000800000e0e00008c040000" /&gt;
     &lt;/control&gt;
-    &lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="{7d07a344-909b-4653-9d6f-e13f81369358}/components/525" vartype="8" /&gt;
+    &lt;layoutobject&gt;
+      &lt;ddsxmlobj&gt;
+        &lt;property name="LogicalObject" value="{7d07a344-909b-4653-9d6f-e13f81369358}/components/525" vartype="8" /&gt;
         &lt;property name="ShowConnectorSource" value="0" vartype="2" /&gt;
       &lt;/ddsxmlobj&gt;
     &lt;/layoutobject&gt;
     &lt;shape groupshapeid="0" groupnode="0" /&gt;
   &lt;/ddscontrol&gt;
-  &lt;ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.2" tooltip="Truncation may occur due to inserting data from data flow column &amp;quot;Copy of CMCXTI_UserTransactionNum&amp;quot;..." left="0" top="5527" logicalid="16" controlid="3" masterid="0" hint1="0" hint2="0" width="3598" height="1164" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobjectstreaminitwrapper binary="000800000e0e00008c040000" /&gt;
-    &lt;/control&gt;
-    &lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="{7d07a344-909b-4653-9d6f-e13f81369358}/components/700" vartype="8" /&gt;
-        &lt;property name="ShowConnectorSource" value="0" vartype="2" /&gt;
-      &lt;/ddsxmlobj&gt;
-    &lt;/layoutobject&gt;
-    &lt;shape groupshapeid="0" groupnode="0" /&gt;
-  &lt;/ddscontrol&gt;
-  &lt;ddscontrol controlprogid="MSDDS.Polyline" left="1400" top="2181" logicalid="17" controlid="4" masterid="0" hint1="0" hint2="0" width="1210" height="3846" noresize="0" nomove="0" nodefaultattachpoints="1" autodrag="0" usedefaultiddshape="0" selectable="1" showselectionhandles="0" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobj&gt;&lt;polyline endtypedst="3" endtypesrc="1" usercolor="32768" linestyle="0" linerender="1" customendtypedstid="0" customendtypesrcid="0" adornsvisible="1" /&gt;
+  &lt;ddscontrol controlprogid="MSDDS.Polyline" left="3609" top="1503" logicalid="8" controlid="3" masterid="0" hint1="0" hint2="0" width="1208" height="2000" noresize="0" nomove="0" nodefaultattachpoints="1" autodrag="0" usedefaultiddshape="0" selectable="1" showselectionhandles="0" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;
+    &lt;control&gt;
+      &lt;ddsxmlobj&gt;
+        &lt;polyline endtypedst="3" endtypesrc="1" usercolor="32768" linestyle="0" linerender="1" customendtypedstid="0" customendtypesrcid="0" adornsvisible="1" /&gt;
       &lt;/ddsxmlobj&gt;
     &lt;/control&gt;
-    &lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="{7d07a344-909b-4653-9d6f-e13f81369358}/paths/717" vartype="8" /&gt;
+    &lt;layoutobject&gt;
+      &lt;ddsxmlobj&gt;
+        &lt;property name="LogicalObject" value="{7d07a344-909b-4653-9d6f-e13f81369358}/paths/684" vartype="8" /&gt;
         &lt;property name="Virtual" value="0" vartype="11" /&gt;
         &lt;property name="VisibleAP" value="0" vartype="3" /&gt;
       &lt;/ddsxmlobj&gt;
     &lt;/layoutobject&gt;
-    &lt;connector lineroutestyle="Microsoft.DataWarehouse.Layout.GraphLayout100" sourceid="1" destid="3" sourceattachpoint="7" destattachpoint="6" segmenteditmode="0" bendpointeditmode="0" bendpointvisibility="2" relatedid="0" virtual="0"&gt;&lt;point x="2210" y="2580" /&gt;
-      &lt;point x="2210" y="4053" /&gt;
-      &lt;point x="1799" y="4053" /&gt;
-      &lt;point x="1799" y="5527" /&gt;
+    &lt;connector lineroutestyle="Microsoft.DataWarehouse.Layout.GraphLayout100" sourceid="2" destid="1" sourceattachpoint="7" destattachpoint="6" segmenteditmode="0" bendpointeditmode="0" bendpointvisibility="2" relatedid="0" virtual="0"&gt;
+      &lt;point x="4417" y="1902" /&gt;
+      &lt;point x="4417" y="2452" /&gt;
+      &lt;point x="4008" y="2452" /&gt;
+      &lt;point x="4008" y="3003" /&gt;
     &lt;/connector&gt;
   &lt;/ddscontrol&gt;
-  &lt;ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.2" tooltip="Evaluates and directs rows in a dataset." left="1563" top="-1400" logicalid="18" controlid="5" masterid="0" hint1="0" hint2="0" width="3598" height="1164" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobjectstreaminitwrapper binary="000800000e0e00008c040000" /&gt;
+  &lt;ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.2" tooltip="SSIS Error Code DTS_E_OLEDBERROR.  An OLE DB error has occurred. Error code: 0x80004005. An OLE DB r..." left="2221" top="5527" logicalid="9" controlid="4" masterid="0" hint1="0" hint2="0" width="3598" height="1164" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;
+    &lt;control&gt;
+      &lt;ddsxmlobjectstreaminitwrapper binary="000800000e0e00008c040000" /&gt;
     &lt;/control&gt;
-    &lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="{7d07a344-909b-4653-9d6f-e13f81369358}/components/1058" vartype="8" /&gt;
+    &lt;layoutobject&gt;
+      &lt;ddsxmlobj&gt;
+        &lt;property name="LogicalObject" value="{7d07a344-909b-4653-9d6f-e13f81369358}/components/700" vartype="8" /&gt;
         &lt;property name="ShowConnectorSource" value="0" vartype="2" /&gt;
       &lt;/ddsxmlobj&gt;
     &lt;/layoutobject&gt;
     &lt;shape groupshapeid="0" groupnode="0" /&gt;
   &lt;/ddscontrol&gt;
-  &lt;ddscontrol controlprogid="MSDDS.Polyline" left="2353" top="-3445" logicalid="19" controlid="6" masterid="0" hint1="0" hint2="0" width="1409" height="2545" noresize="0" nomove="0" nodefaultattachpoints="1" autodrag="0" usedefaultiddshape="0" selectable="1" showselectionhandles="0" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobj&gt;&lt;polyline endtypedst="3" endtypesrc="1" usercolor="32768" linestyle="0" linerender="1" customendtypedstid="0" customendtypesrcid="0" adornsvisible="1" /&gt;
+  &lt;ddscontrol controlprogid="MSDDS.Polyline" left="3609" top="3768" logicalid="10" controlid="5" masterid="0" hint1="0" hint2="0" width="811" height="2259" noresize="0" nomove="0" nodefaultattachpoints="1" autodrag="0" usedefaultiddshape="0" selectable="1" showselectionhandles="0" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;
+    &lt;control&gt;
+      &lt;ddsxmlobj&gt;
+        &lt;polyline endtypedst="3" endtypesrc="1" usercolor="32768" linestyle="0" linerender="1" customendtypedstid="0" customendtypesrcid="0" adornsvisible="1" /&gt;
       &lt;/ddsxmlobj&gt;
     &lt;/control&gt;
-    &lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="{7d07a344-909b-4653-9d6f-e13f81369358}/paths/1065" vartype="8" /&gt;
+    &lt;layoutobject&gt;
+      &lt;ddsxmlobj&gt;
+        &lt;property name="LogicalObject" value="{7d07a344-909b-4653-9d6f-e13f81369358}/paths/717" vartype="8" /&gt;
         &lt;property name="Virtual" value="0" vartype="11" /&gt;
         &lt;property name="VisibleAP" value="0" vartype="3" /&gt;
       &lt;/ddsxmlobj&gt;
     &lt;/layoutobject&gt;
-    &lt;connector lineroutestyle="Microsoft.DataWarehouse.Layout.GraphLayout100" sourceid="2" destid="5" sourceattachpoint="7" destattachpoint="6" segmenteditmode="0" bendpointeditmode="0" bendpointvisibility="2" relatedid="0" virtual="0"&gt;&lt;point x="2752" y="-3046" /&gt;
-      &lt;point x="2752" y="-2223" /&gt;
-      &lt;point x="3362" y="-2223" /&gt;
-      &lt;point x="3362" y="-1400" /&gt;
+    &lt;connector lineroutestyle="Microsoft.DataWarehouse.Layout.GraphLayout100" sourceid="1" destid="4" sourceattachpoint="7" destattachpoint="6" segmenteditmode="0" bendpointeditmode="0" bendpointvisibility="2" relatedid="0" virtual="0"&gt;
+      &lt;point x="4008" y="4167" /&gt;
+      &lt;point x="4008" y="4847" /&gt;
+      &lt;point x="4020" y="4847" /&gt;
+      &lt;point x="4020" y="5527" /&gt;
     &lt;/connector&gt;
   &lt;/ddscontrol&gt;
-  &lt;ddscontrol controlprogid="MSDDS.Polyline" left="1811" top="-635" logicalid="20" controlid="7" masterid="0" hint1="0" hint2="0" width="1951" height="2551" noresize="0" nomove="0" nodefaultattachpoints="1" autodrag="0" usedefaultiddshape="0" selectable="1" showselectionhandles="0" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobj&gt;&lt;polyline endtypedst="3" endtypesrc="1" usercolor="32768" linestyle="0" linerender="1" customendtypedstid="0" customendtypesrcid="0" adornsvisible="1"&gt;&lt;adornment percentpos="29.4579172610556" controlid="16" width="1817" height="344" side="0" behavior="2" himetric="826" distfromline="175" startobj="0" x="1370" y="71" visible="1" allowoverlap="1" usepercent="1" /&gt;
-        &lt;/polyline&gt;
-      &lt;/ddsxmlobj&gt;
-    &lt;/control&gt;
-    &lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="{7d07a344-909b-4653-9d6f-e13f81369358}/paths/1177" vartype="8" /&gt;
-        &lt;property name="Virtual" value="0" vartype="11" /&gt;
-        &lt;property name="VisibleAP" value="0" vartype="3" /&gt;
-      &lt;/ddsxmlobj&gt;
-    &lt;/layoutobject&gt;
-    &lt;connector lineroutestyle="Microsoft.DataWarehouse.Layout.GraphLayout100" sourceid="5" destid="1" sourceattachpoint="7" destattachpoint="6" segmenteditmode="0" bendpointeditmode="0" bendpointvisibility="2" relatedid="0" virtual="0"&gt;&lt;point x="3362" y="-236" /&gt;
-      &lt;point x="3362" y="590" /&gt;
-      &lt;point x="2210" y="590" /&gt;
-      &lt;point x="2210" y="1416" /&gt;
-    &lt;/connector&gt;
-  &lt;/ddscontrol&gt;
-  &lt;ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.2" tooltip="Data Conversion" left="5002" top="1509" logicalid="21" controlid="8" masterid="0" hint1="0" hint2="0" width="3598" height="1164" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobjectstreaminitwrapper binary="000800000e0e00008c040000" /&gt;
-    &lt;/control&gt;
-    &lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="{7d07a344-909b-4653-9d6f-e13f81369358}/components/1229" vartype="8" /&gt;
-        &lt;property name="ShowConnectorSource" value="0" vartype="2" /&gt;
-      &lt;/ddsxmlobj&gt;
-    &lt;/layoutobject&gt;
-    &lt;shape groupshapeid="0" groupnode="0" /&gt;
-  &lt;/ddscontrol&gt;
-  &lt;ddscontrol controlprogid="MSDDS.Polyline" left="3513" top="-635" logicalid="22" controlid="9" masterid="0" hint1="0" hint2="0" width="3688" height="2644" noresize="0" nomove="0" nodefaultattachpoints="1" autodrag="0" usedefaultiddshape="0" selectable="1" showselectionhandles="0" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobj&gt;&lt;polyline endtypedst="3" endtypesrc="1" usercolor="32768" linestyle="0" linerender="1" customendtypedstid="0" customendtypesrcid="0" adornsvisible="1"&gt;&lt;adornment percentpos="77.0608545533017" controlid="15" width="2796" height="344" side="0" behavior="2" himetric="3571" distfromline="175" startobj="0" x="3640" y="811" visible="1" allowoverlap="1" usepercent="1" /&gt;
-        &lt;/polyline&gt;
-      &lt;/ddsxmlobj&gt;
-    &lt;/control&gt;
-    &lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="{7d07a344-909b-4653-9d6f-e13f81369358}/paths/1286" vartype="8" /&gt;
-        &lt;property name="Virtual" value="0" vartype="11" /&gt;
-        &lt;property name="VisibleAP" value="0" vartype="3" /&gt;
-      &lt;/ddsxmlobj&gt;
-    &lt;/layoutobject&gt;
-    &lt;connector lineroutestyle="Microsoft.DataWarehouse.Layout.GraphLayout100" sourceid="5" destid="8" sourceattachpoint="9" destattachpoint="6" segmenteditmode="0" bendpointeditmode="0" bendpointvisibility="2" relatedid="0" virtual="0"&gt;&lt;point x="3912" y="-236" /&gt;
-      &lt;point x="3912" y="636" /&gt;
-      &lt;point x="6801" y="636" /&gt;
-      &lt;point x="6801" y="1509" /&gt;
-    &lt;/connector&gt;
-  &lt;/ddscontrol&gt;
-  &lt;ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.2" tooltip="OLE DB Destination" left="5743" top="4657" logicalid="23" controlid="10" masterid="0" hint1="0" hint2="0" width="3598" height="1164" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobjectstreaminitwrapper binary="000800000e0e00008c040000" /&gt;
-    &lt;/control&gt;
-    &lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="{7d07a344-909b-4653-9d6f-e13f81369358}/components/1492" vartype="8" /&gt;
-        &lt;property name="ShowConnectorSource" value="0" vartype="2" /&gt;
-      &lt;/ddsxmlobj&gt;
-    &lt;/layoutobject&gt;
-    &lt;shape groupshapeid="0" groupnode="0" /&gt;
-  &lt;/ddscontrol&gt;
-  &lt;ddscontrol controlprogid="MSDDS.Polyline" left="6402" top="2274" logicalid="24" controlid="11" masterid="0" hint1="0" hint2="0" width="1540" height="2883" noresize="0" nomove="0" nodefaultattachpoints="1" autodrag="0" usedefaultiddshape="0" selectable="1" showselectionhandles="0" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobj&gt;&lt;polyline endtypedst="3" endtypesrc="1" usercolor="32768" linestyle="0" linerender="1" customendtypedstid="0" customendtypesrcid="0" adornsvisible="1" /&gt;
-      &lt;/ddsxmlobj&gt;
-    &lt;/control&gt;
-    &lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="LogicalObject" value="{7d07a344-909b-4653-9d6f-e13f81369358}/paths/1509" vartype="8" /&gt;
-        &lt;property name="Virtual" value="0" vartype="11" /&gt;
-        &lt;property name="VisibleAP" value="0" vartype="3" /&gt;
-      &lt;/ddsxmlobj&gt;
-    &lt;/layoutobject&gt;
-    &lt;connector lineroutestyle="Microsoft.DataWarehouse.Layout.GraphLayout100" sourceid="8" destid="10" sourceattachpoint="7" destattachpoint="6" segmenteditmode="0" bendpointeditmode="0" bendpointvisibility="2" relatedid="0" virtual="0"&gt;&lt;point x="6801" y="2673" /&gt;
-      &lt;point x="6801" y="3665" /&gt;
-      &lt;point x="7542" y="3665" /&gt;
-      &lt;point x="7542" y="4657" /&gt;
-    &lt;/connector&gt;
-  &lt;/ddscontrol&gt;
-  &lt;ddscontrol controlprogid="MSDDS.Text" left="3640" top="811" logicalid="28" controlid="15" masterid="9" hint1="0" hint2="0" width="2796" height="344" noresize="1" nomove="0" nodefaultattachpoints="1" autodrag="1" usedefaultiddshape="1" selectable="0" showselectionhandles="0" allownudging="1" isannotation="0" dontautolayout="1" groupcollapsed="0" tabstop="0" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobjectstreaminitwrapper binary="00020000ec0a000058010000030000000000050000800800008001000000350001000000900144420100065461686f6d61110055007300650072005400720061006e0078004e006f005f004f00740068006500720000000000" /&gt;
-    &lt;/control&gt;
-    &lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="AnnotationAdornment" value="-1" vartype="11" /&gt;
-      &lt;/ddsxmlobj&gt;
-    &lt;/layoutobject&gt;
-    &lt;shape groupshapeid="0" groupnode="0" /&gt;
-  &lt;/ddscontrol&gt;
-  &lt;ddscontrol controlprogid="MSDDS.Text" left="1370" top="71" logicalid="29" controlid="16" masterid="7" hint1="0" hint2="0" width="1817" height="344" noresize="1" nomove="0" nodefaultattachpoints="1" autodrag="1" usedefaultiddshape="1" selectable="0" showselectionhandles="0" allownudging="1" isannotation="0" dontautolayout="1" groupcollapsed="0" tabstop="0" visible="1" snaptogrid="0"&gt;&lt;control&gt;&lt;ddsxmlobjectstreaminitwrapper binary="000200001907000058010000030000000000050000800800008001000000350001000000900144420100065461686f6d610b0055007300650072005400720061006e0078004e006f0000000000" /&gt;
-    &lt;/control&gt;
-    &lt;layoutobject&gt;&lt;ddsxmlobj&gt;&lt;property name="AnnotationAdornment" value="-1" vartype="11" /&gt;
-      &lt;/ddsxmlobj&gt;
-    &lt;/layoutobject&gt;
-    &lt;shape groupshapeid="0" groupnode="0" /&gt;
-  &lt;/ddscontrol&gt;
-&lt;/dds&gt;&lt;/dwd:Layout&gt;&lt;dwd:PersistedViewPortTop&gt;-3554&lt;/dwd:PersistedViewPortTop&gt;&lt;/dwd:DtsDataFlowDiagram&gt;&lt;dwd:DtsComponentDesignerPropertiesList&gt;&lt;dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:key xsi:type="xsd:string"&gt;1492	DataSourceViewID&lt;/dwd:key&gt;&lt;/dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:key xsi:type="xsd:string"&gt;525	TableInfoObjectType&lt;/dwd:key&gt;&lt;dwd:value xsi:type="xsd:string"&gt;Table&lt;/dwd:value&gt;&lt;/dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:key xsi:type="xsd:string"&gt;1	TableInfoObjectType&lt;/dwd:key&gt;&lt;dwd:value xsi:type="xsd:string"&gt;Table&lt;/dwd:value&gt;&lt;/dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:key xsi:type="xsd:string"&gt;22	DataSourceViewID&lt;/dwd:key&gt;&lt;/dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:key xsi:type="xsd:string"&gt;1	DataSourceViewID&lt;/dwd:key&gt;&lt;/dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:key xsi:type="xsd:string"&gt;1492	TableInfoObjectType&lt;/dwd:key&gt;&lt;dwd:value xsi:type="xsd:string"&gt;Table&lt;/dwd:value&gt;&lt;/dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:key xsi:type="xsd:string"&gt;525	DataSourceViewID&lt;/dwd:key&gt;&lt;/dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:key xsi:type="xsd:string"&gt;700	DataSourceViewID&lt;/dwd:key&gt;&lt;/dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:key xsi:type="xsd:string"&gt;22	TableInfoObjectType&lt;/dwd:key&gt;&lt;dwd:value xsi:type="xsd:string"&gt;Table&lt;/dwd:value&gt;&lt;/dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:key xsi:type="xsd:string"&gt;700	TableInfoObjectType&lt;/dwd:key&gt;&lt;dwd:value xsi:type="xsd:string"&gt;Table&lt;/dwd:value&gt;&lt;/dwd:DtsComponentDesignTimeProperty&gt;&lt;/dwd:DtsComponentDesignerPropertiesList&gt;&lt;/TaskHost&gt;</DTS:Property>
+&lt;/dds&gt;&lt;/dwd:Layout&gt;&lt;dwd:PersistedViewPortTop&gt;-262&lt;/dwd:PersistedViewPortTop&gt;&lt;/dwd:DtsDataFlowDiagram&gt;&lt;dwd:DtsComponentDesignerPropertiesList&gt;&lt;dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:key xsi:type="xsd:string"&gt;1	TableInfoObjectType&lt;/dwd:key&gt;&lt;dwd:value xsi:type="xsd:string"&gt;Table&lt;/dwd:value&gt;&lt;/dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:key xsi:type="xsd:string"&gt;22	DataSourceViewID&lt;/dwd:key&gt;&lt;/dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:key xsi:type="xsd:string"&gt;700	TableInfoObjectType&lt;/dwd:key&gt;&lt;dwd:value xsi:type="xsd:string"&gt;Table&lt;/dwd:value&gt;&lt;/dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:key xsi:type="xsd:string"&gt;1	DataSourceViewID&lt;/dwd:key&gt;&lt;/dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:key xsi:type="xsd:string"&gt;525	DataSourceViewID&lt;/dwd:key&gt;&lt;/dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:key xsi:type="xsd:string"&gt;700	DataSourceViewID&lt;/dwd:key&gt;&lt;/dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:key xsi:type="xsd:string"&gt;22	TableInfoObjectType&lt;/dwd:key&gt;&lt;dwd:value xsi:type="xsd:string"&gt;Table&lt;/dwd:value&gt;&lt;/dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:DtsComponentDesignTimeProperty&gt;&lt;dwd:key xsi:type="xsd:string"&gt;525	TableInfoObjectType&lt;/dwd:key&gt;&lt;dwd:value xsi:type="xsd:string"&gt;Table&lt;/dwd:value&gt;&lt;/dwd:DtsComponentDesignTimeProperty&gt;&lt;/dwd:DtsComponentDesignerPropertiesList&gt;&lt;/TaskHost&gt;</DTS:Property>
 <DTS:Property DTS:Name="Namespace">dts-designer-1.0</DTS:Property>
 <DTS:Property DTS:Name="ObjectName">{7d07a344-909b-4653-9d6f-e13f81369358}</DTS:Property>
-<DTS:Property DTS:Name="DTSID">{9AA68BDB-7548-404E-8AF4-09AA57CBEAC8}</DTS:Property>
+<DTS:Property DTS:Name="DTSID">{CBA15A0C-DCA8-4E7D-98C5-B3B51BA77AC2}</DTS:Property>
 <DTS:Property DTS:Name="Description"></DTS:Property>
 <DTS:Property DTS:Name="CreationName"></DTS:Property></DTS:PackageVariable>
 <DTS:PackageVariable>
-<DTS:Property DTS:Name="PackageVariableValue" DTS:DataType="8">&lt;PipelinePath xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0"&gt;&lt;dwd:SourceName&gt;OLE DB Source Output&lt;/dwd:SourceName&gt;&lt;dwd:DestinationName&gt;Conditional Split Input&lt;/dwd:DestinationName&gt;&lt;/PipelinePath&gt;</DTS:Property>
+<DTS:Property DTS:Name="PackageVariableValue" DTS:DataType="8">&lt;PipelinePath xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0"&gt;&lt;dwd:SourceName&gt;OLE DB Source Output&lt;/dwd:SourceName&gt;&lt;dwd:DestinationName&gt;Data Conversion Input&lt;/dwd:DestinationName&gt;&lt;/PipelinePath&gt;</DTS:Property>
 <DTS:Property DTS:Name="Namespace">dts-designer-1.0</DTS:Property>
-<DTS:Property DTS:Name="ObjectName">{7d07a344-909b-4653-9d6f-e13f81369358}-1065</DTS:Property>
-<DTS:Property DTS:Name="DTSID">{B49BD10D-4428-48A5-B53E-FBFAFFA0F801}</DTS:Property>
-<DTS:Property DTS:Name="Description"></DTS:Property>
-<DTS:Property DTS:Name="CreationName"></DTS:Property></DTS:PackageVariable>
-<DTS:PackageVariable>
-<DTS:Property DTS:Name="PackageVariableValue" DTS:DataType="8">&lt;PipelinePath xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0"&gt;&lt;dwd:SourceName&gt;UserTranxNo&lt;/dwd:SourceName&gt;&lt;dwd:DestinationName&gt;Data Conversion Input&lt;/dwd:DestinationName&gt;&lt;/PipelinePath&gt;</DTS:Property>
-<DTS:Property DTS:Name="Namespace">dts-designer-1.0</DTS:Property>
-<DTS:Property DTS:Name="ObjectName">{7d07a344-909b-4653-9d6f-e13f81369358}-1177</DTS:Property>
-<DTS:Property DTS:Name="DTSID">{3746B1EE-1A2A-4E03-B890-21AA02E9FBB1}</DTS:Property>
-<DTS:Property DTS:Name="Description"></DTS:Property>
-<DTS:Property DTS:Name="CreationName"></DTS:Property></DTS:PackageVariable>
-<DTS:PackageVariable>
-<DTS:Property DTS:Name="PackageVariableValue" DTS:DataType="8">&lt;PipelinePath xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0"&gt;&lt;dwd:SourceName&gt;UserTranxNo_Other&lt;/dwd:SourceName&gt;&lt;dwd:DestinationName&gt;Data Conversion Input&lt;/dwd:DestinationName&gt;&lt;/PipelinePath&gt;</DTS:Property>
-<DTS:Property DTS:Name="Namespace">dts-designer-1.0</DTS:Property>
-<DTS:Property DTS:Name="ObjectName">{7d07a344-909b-4653-9d6f-e13f81369358}-1286</DTS:Property>
-<DTS:Property DTS:Name="DTSID">{A3695B37-6394-4041-8826-E6C98F521C5B}</DTS:Property>
-<DTS:Property DTS:Name="Description"></DTS:Property>
-<DTS:Property DTS:Name="CreationName"></DTS:Property></DTS:PackageVariable>
-<DTS:PackageVariable>
-<DTS:Property DTS:Name="PackageVariableValue" DTS:DataType="8">&lt;PipelinePath xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0"&gt;&lt;dwd:SourceName&gt;Data Conversion Output&lt;/dwd:SourceName&gt;&lt;dwd:DestinationName&gt;OLE DB Destination Input&lt;/dwd:DestinationName&gt;&lt;/PipelinePath&gt;</DTS:Property>
-<DTS:Property DTS:Name="Namespace">dts-designer-1.0</DTS:Property>
-<DTS:Property DTS:Name="ObjectName">{7d07a344-909b-4653-9d6f-e13f81369358}-1509</DTS:Property>
-<DTS:Property DTS:Name="DTSID">{45C867A5-1EFF-4997-B67C-1B30BC099A52}</DTS:Property>
+<DTS:Property DTS:Name="ObjectName">{7d07a344-909b-4653-9d6f-e13f81369358}-684</DTS:Property>
+<DTS:Property DTS:Name="DTSID">{68A5C37D-A952-418D-B2CF-51C06B69CDB9}</DTS:Property>
 <DTS:Property DTS:Name="Description"></DTS:Property>
 <DTS:Property DTS:Name="CreationName"></DTS:Property></DTS:PackageVariable>
 <DTS:PackageVariable>
 <DTS:Property DTS:Name="PackageVariableValue" DTS:DataType="8">&lt;PipelinePath xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0"&gt;&lt;dwd:SourceName&gt;Data Conversion Output&lt;/dwd:SourceName&gt;&lt;dwd:DestinationName&gt;OLE DB Destination Input&lt;/dwd:DestinationName&gt;&lt;/PipelinePath&gt;</DTS:Property>
 <DTS:Property DTS:Name="Namespace">dts-designer-1.0</DTS:Property>
 <DTS:Property DTS:Name="ObjectName">{7d07a344-909b-4653-9d6f-e13f81369358}-717</DTS:Property>
-<DTS:Property DTS:Name="DTSID">{29AE3186-4974-432B-A5E7-538AD170AAAB}</DTS:Property>
+<DTS:Property DTS:Name="DTSID">{24FCD875-9801-4DAB-98CE-50255E5ABC9E}</DTS:Property>
 <DTS:Property DTS:Name="Description"></DTS:Property>
 <DTS:Property DTS:Name="CreationName"></DTS:Property></DTS:PackageVariable>
 <DTS:PackageVariable>
 <DTS:Property DTS:Name="PackageVariableValue" DTS:DataType="8">&lt;PrecedenceConstraint xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0"&gt;&lt;dwd:EvalOp&gt;Constraint&lt;/dwd:EvalOp&gt;&lt;/PrecedenceConstraint&gt;</DTS:Property>
 <DTS:Property DTS:Name="Namespace">dts-designer-1.0</DTS:Property>
 <DTS:Property DTS:Name="ObjectName">{A764E108-2B00-40A7-8AE3-91EB6F5DB692}</DTS:Property>
-<DTS:Property DTS:Name="DTSID">{3B040D72-CF9C-41C4-89DF-F08DC92D2E6E}</DTS:Property>
+<DTS:Property DTS:Name="DTSID">{D2DD1BF1-F816-4BA5-9DD2-9BC2ED3032EF}</DTS:Property>
 <DTS:Property DTS:Name="Description"></DTS:Property>
 <DTS:Property DTS:Name="CreationName"></DTS:Property></DTS:PackageVariable>
 <DTS:PackageVariable>
 <DTS:Property DTS:Name="PackageVariableValue" DTS:DataType="8">&lt;PrecedenceConstraint xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0"&gt;&lt;dwd:EvalOp&gt;Constraint&lt;/dwd:EvalOp&gt;&lt;/PrecedenceConstraint&gt;</DTS:Property>
 <DTS:Property DTS:Name="Namespace">dts-designer-1.0</DTS:Property>
 <DTS:Property DTS:Name="ObjectName">{A7AEFCF4-010C-481E-9122-B70822ADCFDD}</DTS:Property>
-<DTS:Property DTS:Name="DTSID">{749BDBB3-EE6E-4803-97DB-7DAF70F9DB83}</DTS:Property>
+<DTS:Property DTS:Name="DTSID">{51A72593-3AF2-4F52-9CF6-C576827B5719}</DTS:Property>
 <DTS:Property DTS:Name="Description"></DTS:Property>
 <DTS:Property DTS:Name="CreationName"></DTS:Property></DTS:PackageVariable>
 <DTS:PackageVariable>
@@ -1458,7 +1020,7 @@ WHERE        (CMCXTI_IsRejected = 0) AND (ADUL_ProcessId = ?)</property>
   &lt;layoutmanager&gt;
     &lt;ddsxmlobj /&gt;
   &lt;/layoutmanager&gt;
-  &lt;ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.2" tooltip="Truncation may occur due to inserting data from data flow column &amp;quot;Copy of CMCXTI_UserTransactionNum&amp;quot;..." left="-14137" top="1750" logicalid="8" controlid="1" masterid="0" hint1="0" hint2="0" width="3598" height="1164" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;
+  &lt;ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.2" tooltip="SSIS Error Code DTS_E_OLEDBERROR.  An OLE DB error has occurred. Error code: 0x80004005. An OLE DB r..." left="-14137" top="1750" logicalid="8" controlid="1" masterid="0" hint1="0" hint2="0" width="3598" height="1164" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0"&gt;
     &lt;control&gt;
       &lt;ddsxmlobjectstreaminitwrapper binary="000800000e0e00008c040000" /&gt;
     &lt;/control&gt;
@@ -1569,6 +1131,6 @@ WHERE        (CMCXTI_IsRejected = 0) AND (ADUL_ProcessId = ?)</property>
 &lt;/dds&gt;&lt;/dwd:Layout&gt;&lt;dwd:PersistedViewPortLeft&gt;-15164&lt;/dwd:PersistedViewPortLeft&gt;&lt;dwd:PersistedViewPortTop&gt;-1758&lt;/dwd:PersistedViewPortTop&gt;&lt;/dwd:DtsControlFlowDiagram&gt;&lt;/Package&gt;</DTS:Property>
 <DTS:Property DTS:Name="Namespace">dts-designer-1.0</DTS:Property>
 <DTS:Property DTS:Name="ObjectName">package-diagram</DTS:Property>
-<DTS:Property DTS:Name="DTSID">{5A2394E4-5A8E-4C95-9891-0EEEF2642D4C}</DTS:Property>
+<DTS:Property DTS:Name="DTSID">{62CC7B51-8076-40E2-A0F6-FB61BC894974}</DTS:Property>
 <DTS:Property DTS:Name="Description"></DTS:Property>
 <DTS:Property DTS:Name="CreationName"></DTS:Property></DTS:PackageVariable></DTS:Executable>
