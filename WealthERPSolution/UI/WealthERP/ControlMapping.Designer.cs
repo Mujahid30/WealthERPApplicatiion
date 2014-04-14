@@ -2185,6 +2185,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OnlineOrderBackOffice//MFAccountValuation.ascx.
+        /// </summary>
+        internal static string MFAccountValuation {
+            get {
+                return ResourceManager.GetString("MFAccountValuation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to BusinessMIS//MFDashBoard.ascx.
         /// </summary>
         internal static string MFDashBoard {

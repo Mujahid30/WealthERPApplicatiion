@@ -1885,4 +1885,8 @@
     <value>AdvsierPreferenceSettings//AdviserRoleToTreeNodeMapping.ascx</value>
     <comment>AdvsierPreferenceSettings//AdviserRoleToTreeNodeMapping.ascx</comment>
   </data>
+  <data name="MFAccountValuation" xml:space="preserve">
+    <value>OnlineOrderBackOffice//MFAccountValuation.ascx</value>
+    <comment>OnlineOrderBackOffice//MFAccountValuation.ascx</comment>
+  </data>
 </root>
