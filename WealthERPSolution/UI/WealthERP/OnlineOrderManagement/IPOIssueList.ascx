@@ -19,6 +19,50 @@
                 </td>
             </tr>
         </table>
+        <table width="100%">
+            <tr>
+                <td>
+                    <div class="divPageHeading">
+                        <table cellspacing="0" cellpadding="3" width="100%">
+                            <tr>
+                                <td align="left">
+                                    IPO Issue List
+                                </td>
+                                <td align="right">
+                                   <%-- <asp:ImageButton ID="btnNcdIssueList" runat="server" ImageUrl="~/Images/Export_Excel.png"
+                                        AlternateText="Excel" ToolTip="Export To Excel" Visible="true" OnClientClick="setFormat('excel')"
+                                        Height="25px" Width="25px" OnClick="btnNcdIssueList_Click"></asp:ImageButton>--%>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <table width="60%" runat="server" id="tbNcdIssueList">
+            <tr>
+                <td class="leftLabel">
+                    <asp:Label ID="lb1Type" runat="server" Text="Type:" CssClass="FieldName"></asp:Label>
+                </td>
+                <td class="rightData">
+                    <asp:DropDownList ID="ddlType" runat="server" CssClass="cmbField" AutoPostBack="true">
+                        <asp:ListItem Value="Select">Select</asp:ListItem>
+                        <asp:ListItem Value="Curent">Current Issues</asp:ListItem>
+                        <asp:ListItem Value="Closed" Enabled="false">Closed Issues</asp:ListItem>
+                        <asp:ListItem Value="Future">Future Issues</asp:ListItem>
+                    </asp:DropDownList>
+                    <span id="Span4" class="spnRequiredField">*</span>
+                    <br />
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Please Select Type"
+                        CssClass="rfvPCG" ControlToValidate="ddlType" ValidationGroup="btnGo" Display="Dynamic"
+                        InitialValue="Select"></asp:RequiredFieldValidator>
+                </td>
+                <td class="rightData">
+                    <asp:Button ID="btnGo" runat="server" Text="Go" CssClass="PCGButton" ValidationGroup="btnGo"
+                        OnClick="btnGo_Click" />
+                </td>
+            </tr>
+        </table>
         <div class="divControlContiner" id="divControlContainer" runat="server">
             <table width="100%">
                 <tr>
@@ -73,17 +117,14 @@
                                         ShowFilterIcon="false" UniqueName="AIM_FloorPrice" Visible="true">
                                         <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                     </telerik:GridBoundColumn>
-                                    
-                                     <telerik:GridBoundColumn DataField="AIM_CapPrice" HeaderStyle-Width="200px" HeaderText="Max Bid Price"
+                                    <telerik:GridBoundColumn DataField="AIM_CapPrice" HeaderStyle-Width="200px" HeaderText="Max Bid Price"
                                         ShowFilterIcon="false" UniqueName="AIM_CapPrice" Visible="true">
                                         <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                     </telerik:GridBoundColumn>
-                                    
-                                    <telerik:GridBoundColumn DataField="AIM_FixedPrice" HeaderStyle-Width="200px" HeaderText="Max Bid Price" Visible="false"
-                                        ShowFilterIcon="false" UniqueName="AIM_FixedPrice">
+                                    <telerik:GridBoundColumn DataField="AIM_FixedPrice" HeaderStyle-Width="200px" HeaderText="Max Bid Price"
+                                        Visible="false" ShowFilterIcon="false" UniqueName="AIM_FixedPrice">
                                         <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                     </telerik:GridBoundColumn>
-                                   
                                     <telerik:GridBoundColumn DataField="AIM_OpenDate" HeaderStyle-Width="200px" HeaderText="Open Date"
                                         ShowFilterIcon="false" UniqueName="AIM_OpenDate" Visible="true">
                                         <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />

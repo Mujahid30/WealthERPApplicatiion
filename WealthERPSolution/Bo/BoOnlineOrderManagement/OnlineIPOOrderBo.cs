@@ -14,14 +14,14 @@ namespace BoOnlineOrderManagement
 {
     public class OnlineIPOOrderBo : OnlineOrderBo
     {
-        public DataTable GetIPOIssueList(int adviserId, int issueId)
+        public DataTable GetIPOIssueList(int adviserId, int issueId, int type)
         {
             DataTable dtIPOIssueList;
             OnlineIPOOrderDao onlineIPOOrderDao = new OnlineIPOOrderDao();
 
             try
             {
-                dtIPOIssueList = onlineIPOOrderDao.GetIPOIssueList(adviserId, issueId);
+                dtIPOIssueList = onlineIPOOrderDao.GetIPOIssueList(adviserId, issueId,type);
 
             }
             catch (BaseApplicationException Ex)

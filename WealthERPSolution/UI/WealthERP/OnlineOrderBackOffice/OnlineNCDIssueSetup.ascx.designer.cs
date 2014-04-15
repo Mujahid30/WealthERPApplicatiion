@@ -471,6 +471,10 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdLbFloorPrice;
+
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlb1MinQty;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdltxtMinQty;
+
         
         /// <summary>
         /// Label11 control.

@@ -34,11 +34,34 @@ namespace WealthERP.OnlineOrderManagement
             customerVo = (CustomerVo)Session["customerVo"];
             if (!Page.IsPostBack)
             {
-                BindIPOIssueList();
+                ddlType.SelectedValue = "Curent";
+                BindIPOIssueList(GetType(ddlType.SelectedValue));
             }
 
         }
+        protected void btnGo_Click(object sender, EventArgs e)
+        {
+            int type = GetType(ddlType.SelectedValue);
+            BindIPOIssueList( type);
+        }
 
+         private int GetType(string ddlSelection)
+        {
+            int type = 0;
+            if (ddlSelection == "Curent")
+            {
+                type = 1;
+            }
+            else if (ddlSelection == "Closed")
+            {
+                type = 2;
+            }
+            else
+            {
+                type = 3;
+            }
+            return type;
+        }
         protected void RadGridIPOIssueList_OnItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
         {
             int issueId = 0;
@@ -59,9 +82,9 @@ namespace WealthERP.OnlineOrderManagement
             }
         }
 
-        private void BindIPOIssueList()
+        private void BindIPOIssueList(int type )
         {
-            DataTable dtOnlineIPOIssueList = onlineIPOOrderBo.GetIPOIssueList(advisorVo.advisorId,0);
+            DataTable dtOnlineIPOIssueList = onlineIPOOrderBo.GetIPOIssueList(advisorVo.advisorId, 0, type);
 
             if (dtOnlineIPOIssueList.Rows.Count > 0)
             {

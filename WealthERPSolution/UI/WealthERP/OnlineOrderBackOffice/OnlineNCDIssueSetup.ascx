@@ -899,10 +899,10 @@
         </td>
     </tr>
     <tr runat="server" id="trMinQty" visible="true">
-        <td class="leftLabel" visible="false">
+        <td class="leftLabel" visible="false" id="tdlb1MinQty">
             <asp:Label ID="lb1MinApplicationsize" runat="server" Text="Min Qty:" CssClass="FieldName"></asp:Label>
         </td>
-        <td class="rightData" visible="false">
+        <td class="rightData" visible="false" id="tdltxtMinQty">
             <asp:TextBox ID="txtMinAplicSize" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
             <span id="Span23" class="spnRequiredField">*</span>
             <br />

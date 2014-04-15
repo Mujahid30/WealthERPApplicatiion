@@ -17,7 +17,7 @@ namespace DaoOnlineOrderManagement
 {
     public class OnlineIPOOrderDao : OnlineOrderDao
     {
-        public DataTable GetIPOIssueList(int adviserId, int issueId)
+        public DataTable GetIPOIssueList(int adviserId, int issueId,int type)
         {
             DataTable dtIPOIssueList;
             Database db;
@@ -29,6 +29,8 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(GetIPOIssueListCmd, "@AdviserId", DbType.Int32, adviserId);
                 if (issueId != 0)
                     db.AddInParameter(GetIPOIssueListCmd, "@IssueId", DbType.Int32, issueId);
+                db.AddInParameter(GetIPOIssueListCmd, "@type", DbType.Int32, type);
+
                 dtIPOIssueList = db.ExecuteDataSet(GetIPOIssueListCmd).Tables[0];
 
             }

@@ -41,5 +41,7 @@ namespace WealthERP.OnlineOrderManagement {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divControlContainer;
 
         protected global::Telerik.Web.UI.RadGrid RadGridIPOIssueList;
+        protected global::System.Web.UI.WebControls.DropDownList ddlType;
+        
     }
 }

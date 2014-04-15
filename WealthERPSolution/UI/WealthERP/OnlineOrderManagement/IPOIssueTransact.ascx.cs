@@ -53,7 +53,7 @@ namespace WealthERP.OnlineOrderManagement
 
         private void BindIPOIssueList(string issueId)
         {
-            dtOnlineIPOIssueList = onlineIPOOrderBo.GetIPOIssueList(advisorVo.advisorId, Convert.ToInt32(issueId));
+            dtOnlineIPOIssueList = onlineIPOOrderBo.GetIPOIssueList(advisorVo.advisorId, Convert.ToInt32(issueId),1);
 
             if (dtOnlineIPOIssueList.Rows.Count > 0)
             {
