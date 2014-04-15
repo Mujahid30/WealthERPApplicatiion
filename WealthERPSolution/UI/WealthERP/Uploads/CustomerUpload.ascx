@@ -255,15 +255,15 @@
         </td>
         <td class="rightField">
             <asp:DropDownList ID="ddlUploadType" runat="server" OnSelectedIndexChanged="ddlUploadType_SelectedIndexChanged"
-                AutoPostBack="true" CssClass="cmbField">
+                AutoPostBack="true" CssClass="cmbLongField">
                 <asp:ListItem Value="0">Select an Extract Type</asp:ListItem>
                 <%-- <asp:ListItem Value="MFF">MF Folio Only</asp:ListItem>--%>
                 <asp:ListItem Value="PMFF">Profile & MF Folio</asp:ListItem>
                 <asp:ListItem Value="MFT">MF Transaction</asp:ListItem>
                 <%--    <asp:ListItem Value="MFF">MF Folio Only</asp:ListItem> --%>
-                <asp:ListItem Value="EQTA">Equity Trade Account Only</asp:ListItem>
+                <asp:ListItem Value="EQTA" Enabled="false">Equity Trade Account Only</asp:ListItem>
                 <%-- <asp:ListItem Value="EQDA">Equity Demat Account Only</asp:ListItem>--%>
-                <asp:ListItem Value="EQT">Equity Transaction</asp:ListItem>
+                <asp:ListItem Value="EQT" Enabled="false">Equity Transaction</asp:ListItem>
                 <asp:ListItem Value="MFSS">Systematic</asp:ListItem>
                 <asp:ListItem Value="TRAIL">Trail Commission</asp:ListItem>
                 <asp:ListItem Value="Link">Fixed Income</asp:ListItem>
@@ -301,7 +301,7 @@
             <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="External Source:"></asp:Label>
         </td>
         <td class="rightField">
-            <asp:DropDownList ID="ddlListCompany" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlListCompany_SelectedIndexChanged"
+            <asp:DropDownList ID="ddlListCompany" runat="server" CssClass="cmbLongField" OnSelectedIndexChanged="ddlListCompany_SelectedIndexChanged"
                 AutoPostBack="true">
             </asp:DropDownList>
             <img src="../Images/help.png" class="ScreenTip2" style="height: 15px; width: 15px;" />

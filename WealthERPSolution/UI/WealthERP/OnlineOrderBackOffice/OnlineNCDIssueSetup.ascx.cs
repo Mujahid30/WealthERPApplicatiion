@@ -38,6 +38,7 @@ namespace WealthERP.OnlineOrderBackOffice
             userVo = (UserVo)Session[SessionContents.UserVo];
             advisorVo = (AdvisorVo)Session["advisorVo"];
             int adviserId = advisorVo.advisorId;
+            txtOpenDate.SelectedDate = DateTime.Now;
 
             if (!IsPostBack)
             {
@@ -45,7 +46,6 @@ namespace WealthERP.OnlineOrderBackOffice
                     Cache.Remove(userVo.UserId.ToString() + "SubCat");
                 DefaultBindings();
 
-                txtOpenDate.SelectedDate = DateTime.Now;
 
             }
             //if (Request.QueryString["IssueId"] != "" && Request.QueryString["IssueId"] != null)

@@ -9,7 +9,7 @@
                 <table cellspacing="0" width="100%">
                     <tr>
                         <td align="left">
-                            View Code Master
+                            View Agent Code
                         </td>
                         <td align="right" style="padding-bottom: 2px;">
                         </td>
