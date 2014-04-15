@@ -78,12 +78,12 @@ namespace DaoOnlineOrderManagement
             }
             return cutOffTime;
         }
-        public void GetCustomerCat(int issueId, int customerId, int adviserId, double amt, ref string catName, ref int issueDetId,ref int categoryId)
+        public void GetCustomerCat(int issueId, int customerId, int adviserId, double amt, ref string catName, ref int issueDetId, ref int categoryId, ref string Description)
         {
             Database db;
             DbCommand dbCommand;
             DataSet ds = null;
-
+           
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
@@ -95,10 +95,11 @@ namespace DaoOnlineOrderManagement
                 db.AddOutParameter(dbCommand, "@catName", DbType.String, 500);
                 db.AddOutParameter(dbCommand, "@OrdDetID", DbType.Int32, 0);
                 db.AddOutParameter(dbCommand, "@categoryId", DbType.Int32, 0);
+                db.AddOutParameter(dbCommand, "@description", DbType.String, 500);
                 db.AddInParameter(dbCommand, "@issueDetId", DbType.Int32, issueDetId);
 
                 ds = db.ExecuteDataSet(dbCommand);
-
+                Description = db.GetParameterValue(dbCommand, "description").ToString();
                 catName = db.GetParameterValue(dbCommand, "catName").ToString();
                 issueDetId = Convert.ToInt32(db.GetParameterValue(dbCommand, "OrdDetID").ToString());
                 categoryId = Convert.ToInt32(db.GetParameterValue(dbCommand, "categoryId").ToString());

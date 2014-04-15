@@ -35,7 +35,7 @@ namespace WealthERP.OnlineOrderManagement
             {
                 fromDate = DateTime.Now.AddMonths(-1);
                 txtOrderFrom.SelectedDate = fromDate.Date;
-                
+
                 txtOrderTo.SelectedDate = DateTime.Now;
                 BindOrderStatus();
                 if (Request.QueryString["customerId"] != null)
@@ -53,10 +53,10 @@ namespace WealthERP.OnlineOrderManagement
                     fromdate = DateTime.Parse(Request.QueryString["fromdate"].ToString());
                     string status = Request.QueryString["status"].ToString();
                     hdnOrderStatus.Value = status;
-                   // ddlOrderStatus.SelectedValue = status;
+                    // ddlOrderStatus.SelectedValue = status;
                     txtOrderFrom.SelectedDate = fromdate;
                     txtOrderTo.SelectedDate = todate;
-                   // SetParameter();
+                    // SetParameter();
                     BindBBGV(customerVo.CustomerId);
                 }
                 //else
@@ -108,11 +108,11 @@ namespace WealthERP.OnlineOrderManagement
                 fromDate = DateTime.Parse(txtOrderFrom.SelectedDate.ToString());
             if (txtOrderTo.SelectedDate != null)
                 toDate = DateTime.Parse(txtOrderTo.SelectedDate.ToString());
-            DataSet dsbondsBook = BoOnlineBondOrder.GetOrderBondBook(customerId, hdnOrderStatus.Value, fromDate, toDate,advisorVo.advisorId);
+            DataSet dsbondsBook = BoOnlineBondOrder.GetOrderBondBook(customerId, hdnOrderStatus.Value, fromDate, toDate, advisorVo.advisorId);
             DataTable dtbondsBook = dsbondsBook.Tables[0];
             if (dtbondsBook.Rows.Count > 0)
             {
-               
+
                 gvBBList.DataSource = dtbondsBook;
                 gvBBList.DataBind();
                 ibtExportSummary.Visible = true;
@@ -135,7 +135,7 @@ namespace WealthERP.OnlineOrderManagement
             //    Cache.Remove("NCDBookList" + advisorVo.advisorId.ToString());
             //    Cache.Insert("NCDBookList" + advisorVo.advisorId.ToString(), dtbondsBook);
             //}
-            
+
 
         }
 
@@ -238,7 +238,7 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void gvBBList_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
-            DataTable dtIssueDetail=new DataTable ();
+            DataTable dtIssueDetail = new DataTable();
             dtIssueDetail = (DataTable)Cache[userVo.UserId.ToString() + "NCDBookList"];
             if (dtIssueDetail != null)
             {
@@ -357,8 +357,16 @@ namespace WealthERP.OnlineOrderManagement
             if (e.CommandName == "View")
             {
                 action = "View";
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TransactionPage", "loadcontrol('NCDIssueTransact','&OrderId=" + OrderId + "&IssuerId=" + IssuerId + "&Issuername=" + Issuername + "&strAction=" + action +
-                    "&status=" + ddlOrderStatus.SelectedValue.ToString() + "&fromdate=" + txtOrderFrom.SelectedDate + "&todate=" + txtOrderTo.SelectedDate + " ');", true);
+                if (Session["PageDefaultSetting"] != null)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('NCDIssueTransact','&OrderId=" + OrderId + "&IssuerId=" + IssuerId + "&Issuername=" + Issuername + "&strAction=" + action +
+                        "&status=" + ddlOrderStatus.SelectedValue.ToString() + "&fromdate=" + txtOrderFrom.SelectedDate + "&todate=" + txtOrderTo.SelectedDate + " ');", true);
+                }
+                else
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TransactionPage", "loadcontrol('NCDIssueTransact','&OrderId=" + OrderId + "&IssuerId=" + IssuerId + "&Issuername=" + Issuername + "&strAction=" + action +
+                        "&status=" + ddlOrderStatus.SelectedValue.ToString() + "&fromdate=" + txtOrderFrom.SelectedDate + "&todate=" + txtOrderTo.SelectedDate + " ');", true);
+                }
             }
             if (e.CommandName == "Edit")
             {
@@ -393,7 +401,7 @@ namespace WealthERP.OnlineOrderManagement
                     lbtnMarkAsReject.Visible = false;
                 }
             }
-            
+
         }
         public void ibtExport_OnClick(object sender, ImageClickEventArgs e)
         {

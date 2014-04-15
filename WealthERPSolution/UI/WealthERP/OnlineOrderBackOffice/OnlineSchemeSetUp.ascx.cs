@@ -89,14 +89,15 @@ namespace WealthERP.OnlineOrderBackOffice
                         ddlNFoStatus.Enabled = false;
                         lnkMargeEdit.Visible = true;
                         lnkMargeScheme.Visible = true;
-
-                        if (ddlMargeScheme.SelectedValue != "Select")
-                        {
                             ddlMargeScheme.Enabled = false;
                             txtSchemeMargeDate.Enabled = false;
                             btnMSSubmit.Visible = false;
                             btnReset.Visible = false;
-                        }
+                            if (ddlNFoStatus.SelectedValue == "Merged")
+                            {
+                                lbBack.Visible = false;
+                                lnkEdit.Visible = false;
+                            }
                     }
                 }
 
@@ -1037,9 +1038,10 @@ namespace WealthERP.OnlineOrderBackOffice
             //Bindscheme(0);
             //ddlRT.SelectedValue = ddlSchemeList.SelectedValue.ToString();
             // ddlRT.SelectedValue = ddlSchemeList.SelectedValue.ToString();
+            
             if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.ExternalType))
             {
-                ddlRT.SelectedValue = mfProductAMCSchemePlanDetailsVo.ExternalType.ToString().ToUpper();
+                ddlRT.SelectedItem.Text = mfProductAMCSchemePlanDetailsVo.ExternalType.ToString().ToUpper();
             }
             else
             {
@@ -1806,11 +1808,9 @@ namespace WealthERP.OnlineOrderBackOffice
                 //{
                 //    ddlSScategory.SelectedValue = "Select";
                 //}
-                if (!string.IsNullOrEmpty(ddlRT.SelectedValue))
+                if (!string.IsNullOrEmpty(ddlRT.SelectedItem.ToString()))
                 {
-                    //ddlSctype.Enabled = true;
-                    mfProductAMCSchemePlanDetailsVo.ExternalType = ddlRT.SelectedValue.ToString();
-                    //ddlSctype.Enabled = false;
+                    mfProductAMCSchemePlanDetailsVo.ExternalType = ddlRT.SelectedItem.ToString();
                 }
                 else
                 {
@@ -2670,7 +2670,7 @@ namespace WealthERP.OnlineOrderBackOffice
         protected void lnkMargeScheme_Click(object sender, EventArgs e)
         {
             radwindowPopup.VisibleOnPageLoad = true;
-            BindSchemeForMarge();
+           
             GetmergedScheme();
             SchemeStatus();
         }
@@ -2750,7 +2750,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     schemeplancode1 = mfProductAMCSchemePlanDetailsVo.SchemePlanCode;
                 }
             }
-
+            BindSchemeForMarge();
             DataTable dt = new DataTable();
 
             dt = OnlineOrderBackOfficeBo.GetMergeScheme(schemeplancode1);

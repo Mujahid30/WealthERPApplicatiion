@@ -60,7 +60,7 @@
             <asp:Label ID="lblstatus" CssClass="FieldName" runat="server" Text="Status:"> </asp:Label>
         </td>
         <td style="width: 15%;">
-            <asp:DropDownList ID="ddlststus" runat="server" CssClass="cmbField">
+            <asp:DropDownList ID="ddlststus" runat="server" CssClass="cmbField" AutoPostBack="true">
                 <Items>
                     <%--    <asp:ListItem Text="Both" Value="All" />--%>
                     <asp:ListItem Text="Active" Value="Active" Selected="True" />

@@ -30,37 +30,31 @@ namespace WealthERP.OnlineOrderBackOffice
 
             //if (controlName != "ctrl_OnlineSchemeMIS$btngo")
             //{ }
-
+            int SchemePlanCode;
+            string strAction;
             if (!IsPostBack)
             {
                 SessionBo.CheckSession();
                 userVo = (UserVo)Session["userVo"];
                 adviserVo = (AdvisorVo)Session["advisorVo"];
+                if (Request.QueryString["strAction"] != null)
+                {
+                    SchemePlanCode = int.Parse(Request.QueryString["schemeplancode"].ToString());
+                    strAction = Request.QueryString["strAction"].ToString();
+                    string product = Request.QueryString["product"].ToString();
+                    string status = Request.QueryString["status"].ToString();
+                    int type = Convert.ToInt32(Request.QueryString["type"].ToString());
+                    hdnAssettype.Value = product;
+                    ddlTosee.SelectedValue = type.ToString();
+                    ddlProduct.SelectedValue = product;
+                    hdnStatus.Value = status;
+                    ddlststus.SelectedValue = status;
 
-            }
-            int SchemePlanCode;
-            string strAction;
-            if (Request.QueryString["strAction"] != null)
-            {
-                SchemePlanCode = int.Parse(Request.QueryString["schemeplancode"].ToString());
-                strAction = Request.QueryString["strAction"].ToString();
-                string product = Request.QueryString["product"].ToString();
-                string status = Request.QueryString["status"].ToString();
-                int type = Convert.ToInt32(Request.QueryString["type"].ToString());
-                hdnAssettype.Value = product;
-                ddlTosee.SelectedValue = type.ToString();
-                ddlProduct.SelectedValue = product;
-                hdnStatus.Value = status;
-                ddlststus.SelectedValue = status;
-
-                BindSchemeMIS();
-                //ddlAction.SelectedValue = strAction;
+                    BindSchemeMIS();
+                    //ddlAction.SelectedValue = strAction;
+                }
             }
         }
-
-
-
-
         protected void SetParameter()
         {
             try
@@ -189,6 +183,11 @@ namespace WealthERP.OnlineOrderBackOffice
                     {
                         ddlAction.Items[2].Enabled = false;
                     }
+                    else
+                    {
+                        ddlAction.Items[2].Enabled = true;
+
+                    }
                 }
             }
             catch (BaseApplicationException Ex)
@@ -260,7 +259,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Is InActive Scheme !!');", true);
                 //}
             }
-            if (ddlAction.SelectedItem.Value.ToString() == "Edit")
+            if (ddlAction.SelectedValue.ToString() == "Edit")
             {
                 if (ddlProduct.SelectedItem.Value.ToString() == "MF")
                 {
