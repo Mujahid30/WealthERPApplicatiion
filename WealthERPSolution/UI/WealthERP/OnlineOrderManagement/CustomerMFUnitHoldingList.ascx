@@ -35,34 +35,35 @@
         <table cellspacing="0" cellpadding="3" style="width: 105%">
             <tr>
                 <td align="right" style="width: 5%">
-                    &nbsp;</td>
+                    &nbsp;
+                </td>
             </tr>
         </table>
     </div>
 </div>
-<div style="padding-top:4px">
-<table style="width: 100%" class="TableBackground" style="padding-top: 4px" >
+<div style="padding-top: 4px">
+    <table style="width: 100%" class="TableBackground" style="padding-top: 4px">
         <tr>
-        <td class="leftField" style="width: 10%">
-            <asp:Label ID="lblPortfolio" runat="server" CssClass="FieldName" Text="Account:"></asp:Label>
-        </td>
-        <td class="rightField" style="width: 15%">
-            <asp:DropDownList ID="ddlPortfolio" runat="server" CssClass="cmbField">
-            </asp:DropDownList>
-        </td>
-        <td class="rightField" style="width: 10%">
-            <asp:Button ID="btnUnitHolding" runat="server" Text="GO" CssClass="PCGButton" OnClick="btnUnitHolding_Click" />
-        </td>
-        <td class="style1">
-            <asp:Label ID="lblPickDate" Text="" runat="server" CssClass="FieldName" Visible="false"> </asp:Label>
-        </td>
-        <td style="margin-left: 80px" align="right">
-                    <asp:ImageButton Visible="true" ID="btnExport" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
-                        runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
-                        OnClientClick="setFormat('excel')" Height="25px" Width="29px" ></asp:ImageButton>
-                </td>
-    </tr>
-</table>
+            <td class="leftField" style="width: 10%">
+                <asp:Label ID="lblPortfolio" runat="server" CssClass="FieldName" Text="Account:"></asp:Label>
+            </td>
+            <td class="rightField" style="width: 15%">
+                <asp:DropDownList ID="ddlPortfolio" runat="server" CssClass="cmbField">
+                </asp:DropDownList>
+            </td>
+            <td class="rightField" style="width: 10%">
+                <asp:Button ID="btnUnitHolding" runat="server" Text="GO" CssClass="PCGButton" OnClick="btnUnitHolding_Click" />
+            </td>
+            <td class="style1">
+                <asp:Label ID="lblPickDate" Text="" runat="server" CssClass="FieldName" Visible="false"> </asp:Label>
+            </td>
+            <td style="margin-left: 80px" align="right">
+                <asp:ImageButton Visible="true" ID="btnExport" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                    runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
+                    OnClientClick="setFormat('excel')" Height="25px" Width="29px"></asp:ImageButton>
+            </td>
+        </tr>
+    </table>
 </div>
 <table style="width: 100%" class="TableBackground">
     <tr id="trNoRecords" runat="server" visible="false">
@@ -152,7 +153,7 @@
                             </telerik:GridDateTimeColumn>
                             <telerik:GridTemplateColumn HeaderStyle-Width="80px" UniqueName="PurchasedUnits"
                                 HeaderText="Units" DataField="PurchasedUnits" AllowFiltering="false" FooterAggregateFormatString="{0:N3}"
-                                FooterStyle-HorizontalAlign="Right"  >
+                                FooterStyle-HorizontalAlign="Right">
                                 <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
                                 <ItemTemplate>
                                     <asp:LinkButton ID="lnkprAmcB" runat="server" CommandName="SelectTransaction" Text='<%# String.Format("{0:N3}", DataBinder.Eval(Container.DataItem, "PurchasedUnits")) %>'>
@@ -205,7 +206,7 @@
                             </telerik:GridTemplateColumn>--%>
                             <telerik:GridBoundColumn HeaderStyle-Width="80px" UniqueName="UnitsSold" HeaderText="Units Sold"
                                 DataField="UnitsSold" FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N2}"
-                                 AllowFiltering="false">
+                                AllowFiltering="false">
                                 <ItemStyle HorizontalAlign="Right" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn HeaderStyle-Width="80px" UniqueName="RedeemedAmount" HeaderText="Sold Value"
@@ -256,6 +257,10 @@
                                 ItemStyle-Wrap="false">
                                 <ItemTemplate>
                                     <asp:Label ID="lblSIPSchemeFlag" runat="server" CssClass="cmbField" Text='<%# Eval("IsSchemeSIPType") %>'>
+                                    </asp:Label>
+                                    <asp:Label ID="lblIsPurcheseFlag" runat="server" CssClass="cmbField" Text='<%# Eval("IsSchemePurchege")%>'>
+                                    </asp:Label>
+                                    <asp:Label ID="lblISRedeemFlag" runat="server" CssClass="cmbField" Text='<%# Eval("IsSchemeRedeem") %>'>
                                     </asp:Label>
                                     <asp:ImageButton ID="imgBuy" runat="server" CommandName="Buy" ImageUrl="~/Images/Buy-Button.png"
                                         ToolTip="BUY" />&nbsp;

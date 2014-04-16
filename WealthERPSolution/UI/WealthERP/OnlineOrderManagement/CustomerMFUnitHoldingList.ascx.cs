@@ -18,7 +18,7 @@ using BoOnlineOrderManagement;
 using VoOnlineOrderManagemnet;
 using System.Globalization;
 using VoCustomerPortfolio;
-
+using System.Drawing;
 namespace WealthERP.OnlineOrderManagement
 {
     public partial class CustomerMFUnitHoldingList : System.Web.UI.UserControl
@@ -144,6 +144,8 @@ namespace WealthERP.OnlineOrderManagement
             dtMFUnitHolding.Columns.Add("CMFNP_ValuationDate");
             dtMFUnitHolding.Columns.Add("RealizesdGain");
             dtMFUnitHolding.Columns.Add("IsSchemeSIPType");
+            dtMFUnitHolding.Columns.Add("IsSchemePurchege");
+            dtMFUnitHolding.Columns.Add("IsSchemeRedeem");
 
             return dtMFUnitHolding;
         }
@@ -283,6 +285,8 @@ namespace WealthERP.OnlineOrderManagement
                         drMFUnitHoplding["RealizesdGain"] = "0";
 
                     drMFUnitHoplding["IsSchemeSIPType"] = mfPortfolioVo.IsSchemeSIPType;
+                    drMFUnitHoplding["IsSchemePurchege"] = mfPortfolioVo.IsSchemePurchege;
+                    drMFUnitHoplding["IsSchemeRedeem"] = mfPortfolioVo.IsSchemeRedeem;
                     dtMFUnitHoplding.Rows.Add(drMFUnitHoplding);
                 }
                 if (dtMFUnitHoplding.Rows.Count > 0)
@@ -373,7 +377,7 @@ namespace WealthERP.OnlineOrderManagement
                     if (e.CommandName.ToString() != "Page")
                     {
                         if (e.CommandName.ToString() != "ChangePageSize")
-                        {
+                        { 
                             GridDataItem gvr = (GridDataItem)e.Item;
                             int selectedRow = gvr.ItemIndex + 1;
                             int folio = int.Parse(gvr.GetDataKeyValue("AccountId").ToString());
@@ -451,19 +455,31 @@ namespace WealthERP.OnlineOrderManagement
         {
             if (e.Item is GridDataItem)
             {
-                Label lblSIPSchemeFlag = new Label();
-                ImageButton imgSIP = new ImageButton();
-                lblSIPSchemeFlag = (Label)e.Item.FindControl("lblSIPSchemeFlag");
+                Label lblISRedeemFlag = (Label)e.Item.FindControl("lblISRedeemFlag");
 
+                Label lblSIPSchemeFlag = (Label)e.Item.FindControl("lblSIPSchemeFlag");
+                Label lblIsPurcheseFlag = (Label)e.Item.FindControl("lblIsPurcheseFlag");
                 if (lblSIPSchemeFlag.Text.Trim().ToLower() == "false")
                 {
-                    imgSIP = (ImageButton)e.Item.FindControl("imgSip");
-                    imgSIP.Visible = false;
-
+                    ImageButton imgSIP = (ImageButton)e.Item.FindControl("imgSip");
+                    imgSIP.Visible=false;
+                   
                 }
+                if (lblIsPurcheseFlag.Text.Trim().ToLower() == "false")
+                {
+                    ImageButton imgBuy = (ImageButton)e.Item.FindControl("imgBuy");
+                    imgBuy.Visible = false;
+                   
+                }
+                if (lblISRedeemFlag.Text.Trim().ToLower() == "false")
+                {
+                    ImageButton imgSell = (ImageButton)e.Item.FindControl("imgSell");
+                    imgSell.Visible = false;
+                  
+                }
+                lblISRedeemFlag.Visible = false;
+                lblIsPurcheseFlag.Visible = false;
                 lblSIPSchemeFlag.Visible = false;
-
-
             }
 
         }

@@ -63,6 +63,8 @@ namespace VoCustomerPortfolio
         public int WeightageDays { get; set; }
         public string AmcName { get; set; }
         public bool IsSchemeSIPType { get; set; }
+        public bool IsSchemePurchege { get; set; }
+        public bool IsSchemeRedeem { get; set; }
         
     }
 }
