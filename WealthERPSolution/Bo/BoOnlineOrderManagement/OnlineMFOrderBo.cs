@@ -249,6 +249,9 @@ namespace BoOnlineOrderManagement
 
 
                 DateTime dateCurr = DateTime.Now;
+                if (DateTime.Now.TimeOfDay > System.TimeSpan.Parse("12:59:00"))
+                    dateCurr=DateTime.Now.AddDays(1);
+
                 while (dateCurr <= DateTime.Now.AddMonths(3))
                 {
                     int res = lstSipDates.Find(delegate(int date)
