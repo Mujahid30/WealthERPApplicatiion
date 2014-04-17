@@ -601,5 +601,47 @@ namespace DaoOnlineOrderManagement
             return dtGetMFSchemeDetailsForLanding;
         }
 
+        public DataSet GetCustomerSchemeFolioHoldings(int customerId, int schemeId, out string schemeDividendOption)
+        {
+            DataSet dsCustomerSchemeFolioHoldings;
+            Database db;
+            DbCommand GetCustomerSchemeFolioHoldingsCmd;
+          
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetCustomerSchemeFolioHoldingsCmd = db.GetStoredProcCommand("SPROC_ONL_GetCustomerSchemeFolioHoldings");
+                db.AddInParameter(GetCustomerSchemeFolioHoldingsCmd, "@CustomerId", DbType.Int32, customerId);
+                db.AddInParameter(GetCustomerSchemeFolioHoldingsCmd, "@SchemeId", DbType.Int32, schemeId);
+                db.AddOutParameter(GetCustomerSchemeFolioHoldingsCmd, "@DividendType", DbType.String, 1000);
+                dsCustomerSchemeFolioHoldings = db.ExecuteDataSet(GetCustomerSchemeFolioHoldingsCmd);
+
+                if (db.GetParameterValue(GetCustomerSchemeFolioHoldingsCmd, "@DividendType").ToString() != string.Empty)
+                {
+                    schemeDividendOption = db.GetParameterValue(GetCustomerSchemeFolioHoldingsCmd, "@DividendType").ToString();
+                }
+                else
+                    schemeDividendOption = string.Empty;
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OperationDao.cs:GetCustomerSchemeFolioHoldings(int customerId, int schemeId)");
+                object[] objects = new object[10];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsCustomerSchemeFolioHoldings;
+        }
+
+
     }
 }

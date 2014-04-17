@@ -37,10 +37,8 @@ namespace WealthERP.OnlineOrderManagement
         DataSet dsCustomerAssociates = new DataSet();
         DataTable dtCustomerAssociatesRaw = new DataTable();
         DataTable dtCustomerAssociates = new DataTable();
-        DataRow drCustomerAssociates;
-        int accountId;
         int OrderId;
-        DataSet ds;
+
         string clientMFAccessCode = string.Empty;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -68,7 +66,7 @@ namespace WealthERP.OnlineOrderManagement
                         schemeCode = int.Parse(Request.QueryString["SchemeCode"].ToString());
                         commonLookupBo.GetSchemeAMCCategory(schemeCode, out amcCode, out category);
                         SetSelectedDisplay(accountId, schemeCode, amcCode, category);
-                        SetControlDetails();
+                        SetControlVisisbility();
                     }
                 }
                 else
@@ -101,7 +99,7 @@ namespace WealthERP.OnlineOrderManagement
             ddlAmc.SelectedValue = Amccode.ToString();
             ddlCategory.SelectedValue = Category;
             SchemeBind(Amccode, Category, 0);
-            BindFolioNumber(Amccode);
+            //BindFolioNumber(Amccode);
             ddlFolio.SelectedValue = Accountid.ToString();
             ddlScheme.SelectedValue = SchemeCode.ToString();
 
@@ -109,7 +107,8 @@ namespace WealthERP.OnlineOrderManagement
             ddlCategory.Enabled = false;
             ddlFolio.Enabled = false;
             ddlScheme.Enabled = false;
-            GetControlDetails(SchemeCode, Accountid.ToString());
+            //GetControlDetails(SchemeCode, Accountid.ToString());
+            SetControlDetails(SchemeCode);
 
 
         }
@@ -145,7 +144,7 @@ namespace WealthERP.OnlineOrderManagement
                 ddlAmc.DataBind();
                 ddlAmc.Items.Insert(0, new ListItem("Select", "0"));
 
-                BindFolioNumber(int.Parse(ddlAmc.SelectedValue));
+                //BindFolioNumber(int.Parse(ddlAmc.SelectedValue));
             }
             else
             {
@@ -158,7 +157,7 @@ namespace WealthERP.OnlineOrderManagement
         {
             CategoryBind();
             SchemeBind(int.Parse(ddlAmc.SelectedValue), null, customerVo.CustomerId);
-            BindFolioNumber(int.Parse(ddlAmc.SelectedValue));
+            //BindFolioNumber(int.Parse(ddlAmc.SelectedValue));
         }
 
         public void ddlCategory_OnSelectedIndexChanged(object sender, EventArgs e)
@@ -177,21 +176,21 @@ namespace WealthERP.OnlineOrderManagement
             if (ddlScheme.SelectedIndex != -1)
             {
                 // ResetControlDetails(sender,e);
-                GetControlDetails(int.Parse(ddlScheme.SelectedValue), ddlFolio.SelectedValue.ToString());
-                SetControlDetails();
+                SetControlDetails(int.Parse(ddlScheme.SelectedValue));
+                SetControlVisisbility();
             }
         }
 
 
-        protected void GetControlDetails(int scheme, string folio)
+        protected void SetControlDetails(int schemeId)
         {
             DataSet ds = new DataSet();
-
-            ds = onlineMforderBo.GetControlDetails(scheme, folio);
+            string schemeDividendOption;
+            ds = onlineMforderBo.GetCustomerSchemeFolioHoldings(customerVo.CustomerId, schemeId, out schemeDividendOption);
             DataTable dt = ds.Tables[0];
+            //SCHEME DETAILS SET--1
             if (dt.Rows.Count > -1)
             {
-
                 foreach (DataRow dr in dt.Rows)
                 {
                     if (!string.IsNullOrEmpty(dr["PSLV_LookupValue"].ToString()))
@@ -221,16 +220,11 @@ namespace WealthERP.OnlineOrderManagement
                     }
                 }
             }
-            DataSet dsNav = new DataSet();
-
-            dsNav = commonLookupBo.GetLatestNav(scheme);
-
-
-            if (dsNav.Tables[0].Rows.Count > 0)
+            if (lblDividendType.Text == "Dividend" & !string.IsNullOrEmpty(schemeDividendOption))
             {
-                string date = Convert.ToDateTime(dsNav.Tables[0].Rows[0][0]).ToString("dd-MMM-yyyy");
-                lblNavDisplay.Text = dsNav.Tables[0].Rows[0][1] + " " + "As On " + " " + date;
+                ddlDivType.SelectedValue = schemeDividendOption;
             }
+            //HOLDINGS SET ---2
             if (ds.Tables[1].Rows.Count > 0)
             {
                 DataTable dtUnit = ds.Tables[1];
@@ -243,10 +237,22 @@ namespace WealthERP.OnlineOrderManagement
                 }
             }
 
+            //NAV SET----3
+
+            if (ds.Tables[2].Rows.Count > 0)
+            {
+                string date = Convert.ToDateTime(ds.Tables[2].Rows[0][0]).ToString("dd-MMM-yyyy");
+                lblNavDisplay.Text = ds.Tables[2].Rows[0][1] + " " + "As On " + " " + date;
+            }
+
+            //FOLIO SET--4
+            DataTable dtCustomerMFAccount = ds.Tables[3];
+            if (dtCustomerMFAccount.Rows.Count > 0)
+                BindFolioNumber(dtCustomerMFAccount);
 
 
         }
-        protected void SetControlDetails()
+        protected void SetControlVisisbility()
         {
             lbltime.Visible = true;
             //lblDividendType.Visible = true;
@@ -268,6 +274,7 @@ namespace WealthERP.OnlineOrderManagement
                 trDivtype.Visible = true;
                 trDividendType.Visible = true;
                 RequiredFieldValidator4.Enabled = true;
+                ddlDivType.Enabled = false;
 
 
             }
@@ -293,7 +300,7 @@ namespace WealthERP.OnlineOrderManagement
         {
             ddlScheme.Items.Clear();
             DataTable dtScheme = new DataTable();
-            dtScheme = commonLookupBo.GetAmcSchemeList(amccode, category, customerid,'P');
+            dtScheme = commonLookupBo.GetAmcSchemeList(amccode, category, customerid, 'P');
             if (dtScheme.Rows.Count > 0)
             {
                 ddlScheme.DataSource = dtScheme;
@@ -463,22 +470,19 @@ namespace WealthERP.OnlineOrderManagement
         {
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "wsedrftgyhjukloghjnnnghj", " showMsg('" + msg + "','S');", true);
         }
-        private void BindFolioNumber(int amcCode)
+        private void BindFolioNumber(DataTable dtMFAccountNo)
         {
-            DataTable dtScheme = new DataTable();
-            DataTable dtgetfolioNo;
             try
             {
-                dtgetfolioNo = commonLookupBo.GetFolioNumberForSIP(Convert.ToInt32(ddlAmc.SelectedValue), customerVo.CustomerId);
 
-                if (dtgetfolioNo.Rows.Count > 0)
+                if (dtMFAccountNo.Rows.Count > 0)
                 {
-                    ddlFolio.DataSource = dtgetfolioNo;
-                    ddlFolio.DataTextField = dtgetfolioNo.Columns["CMFA_FolioNum"].ToString();
-                    ddlFolio.DataValueField = dtgetfolioNo.Columns["CMFA_AccountId"].ToString();
+                    ddlFolio.DataSource = dtMFAccountNo;
+                    ddlFolio.DataTextField = dtMFAccountNo.Columns["CMFA_FolioNum"].ToString();
+                    ddlFolio.DataValueField = dtMFAccountNo.Columns["CMFA_AccountId"].ToString();
                     ddlFolio.DataBind();
                 }
-
+                ddlFolio.Enabled = false;
             }
             catch (BaseApplicationException Ex)
             {
