@@ -376,7 +376,7 @@ namespace WealthERP.OnlineOrderManagement
                                     }
                                     else
                                     {
-                                        Response.Redirect("ControlHost.aspx?pageid=CustomerSIPBookList&systematicId=" + systematicId + "", false);
+                                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvvvvvv", "loadcontrol('CustomerSIPBookList','?systematicId=" + systematicId + "');", true);
                                     }
                                 }
                             }

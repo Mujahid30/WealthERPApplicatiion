@@ -304,7 +304,7 @@
                                 CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="COS_Reason" AllowFiltering="false" HeaderText="Reason"
+                            <telerik:GridBoundColumn DataField="COS_Reason" AllowFiltering="false" HeaderText="Reject Remark"
                                 HeaderStyle-Width="100px" UniqueName="COS_Reason" SortExpression="COS_Reason" ShowFilterIcon="false"
                                 CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
