@@ -963,11 +963,11 @@ namespace BoOnlineOrderManagement
             KeyValuePair<string, string>[] headers = GetHeaderMapping(fileTypeId, extSource);
 
             if (onlineNCDBackOfficeDao == null) onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
-
+             
             DataTable dtExtract = onlineNCDBackOfficeDao.GetOnlineNcdExtractPreview(extractDate, adviserId, fileTypeId, issueId, extSource).Tables[0];
-            //No maping Has to do
-            if (dtExtract == null) return null;
-
+            
+            if (dtExtract == null ) return null;
+            if (dtExtract.Rows.Count == 0) return null;
             if (headers != null)
             {
                 foreach (KeyValuePair<string, string> header in headers)
@@ -979,6 +979,7 @@ namespace BoOnlineOrderManagement
             return dtExtract;
         }
 
+        
         public string  GetExtractStepCode(int fileTypeId)
         {
             try
@@ -1441,7 +1442,7 @@ namespace BoOnlineOrderManagement
             }
             return result;
         }
-        public int UploadCheckOrderFile(DataTable dtCheckOrder, int fileTypeId, int issueId, ref string isEligbleIssue, int adviserid, string source, ref string result)
+        public int UploadCheckOrderFile(DataTable dtCheckOrder, int fileTypeId, int issueId, ref string isEligbleIssue, int adviserid, string source, ref string result, string product)
         {
 
             int nRows = 0;
@@ -1469,7 +1470,18 @@ namespace BoOnlineOrderManagement
                     int orderIssueId = daoOnlNcdBackOff.Getissueid(orderId);
                     if (orderIssueId == issueId)
                     {
-                        nRows = daoOnlNcdBackOff.UploadChequeIssueData(dtCheckOrder, issueId);
+                           if (product == "FI")
+                        {
+                            nRows = daoOnlNcdBackOff.UploadChequeIssueData(dtCheckOrder, issueId);
+                           
+
+                        }
+                           else if (product == "IP")
+                           {
+                               nRows = daoOnlNcdBackOff.UploadIPOChequeIssueData(dtCheckOrder, issueId);
+
+                           }
+
                     }
                     else
                     {
@@ -1487,8 +1499,11 @@ namespace BoOnlineOrderManagement
 
                         if (dtCheckOrder.Columns.Contains("Error Text"))
                             dtCheckOrder.Columns.RemoveAt(3);
-
+                        if(product=="FI")
+                        {
                         nRows = daoOnlNcdBackOff.UploadBidSuccessData(BSEExchangeDataChange(dtCheckOrder,source), issueId);
+                        }
+                       
                     }
                     else
                     {

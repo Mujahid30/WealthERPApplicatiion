@@ -13,14 +13,14 @@ using System.Globalization;
 using System.Collections.Specialized;
 using Telerik.Web.UI;
 using System.IO;
- 
+
 
 namespace WealthERP.OnlineOrderBackOffice
 {
     public partial class OnlineIssueExtract : System.Web.UI.UserControl
     {
         OnlineNCDBackOfficeBo boNcdBackOff = new OnlineNCDBackOfficeBo();
-       // OnlineOrderBackOfficeBo onlineOrderBackOfficeBo = new OnlineOrderBackOfficeBo();
+        // OnlineOrderBackOfficeBo onlineOrderBackOfficeBo = new OnlineOrderBackOfficeBo();
         UserVo userVo = new UserVo();
         AdvisorVo adviserVo = new AdvisorVo();
 
@@ -29,7 +29,7 @@ namespace WealthERP.OnlineOrderBackOffice
             SessionBo.CheckSession();
             userVo = (UserVo)Session["userVo"];
             adviserVo = (AdvisorVo)Session["advisorVo"];
-            
+
             //if (Cache["IssueExtract" + userVo.UserId] != null) Cache.Remove("IssueExtract" + userVo.UserId);
 
             if (!IsPostBack)
@@ -60,7 +60,7 @@ namespace WealthERP.OnlineOrderBackOffice
             GetExtractData();
 
             DataTable dtExtractData = (DataTable)Cache["IssueExtract" + userVo.UserId];
-            
+
             gvOnlineIssueExtract.DataSource = dtExtractData;
             gvOnlineIssueExtract.DataBind();
 
@@ -74,7 +74,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 ShowMessage("No data available");
                 return;
             }
-            
+
             pnlOnlneIssueExtract.Visible = true;
         }
 
@@ -86,7 +86,7 @@ namespace WealthERP.OnlineOrderBackOffice
             if (dtExtractData != null) gvOnlineIssueExtract.DataSource = dtExtractData;
         }
 
-        private void BindExtSource(string product,int issueId)
+        private void BindExtSource(string product, int issueId)
         {
             DataSet dsIssuer = new DataSet();
             boNcdBackOff = new OnlineNCDBackOfficeBo();
@@ -115,10 +115,10 @@ namespace WealthERP.OnlineOrderBackOffice
             SetFileType(ddlExternalSource.SelectedValue);
 
             boNcdBackOff.GenerateOnlineNcdExtract(adviserVo.advisorId, userVo.UserId, ddlExternalSource.SelectedValue, ddlProduct.SelectedValue, Convert.ToInt32(ddlIssueName.SelectedValue), ref isextracted);
-            if(isextracted==0)
+            if (isextracted == 0)
                 ShowMessage("Extraction Done Only On Business Days");
             else
-            ShowMessage("Extraction Done For "+ddlIssueName.SelectedItem.Text);
+                ShowMessage("Extraction Done For " + ddlIssueName.SelectedItem.Text);
             //lnkClick.Visible = true;
         }
 
@@ -155,7 +155,7 @@ namespace WealthERP.OnlineOrderBackOffice
             gvOnlineIssueExtract.MasterTableView.ExportToExcel();
         }
 
-        private void ExportInExcel(string filename )
+        private void ExportInExcel(string filename)
         {
 
             gvOnlineIssueExtract.ExportSettings.OpenInNewWindow = true;
@@ -168,17 +168,16 @@ namespace WealthERP.OnlineOrderBackOffice
 
         }
         protected void btnDownload_Click(object sender, EventArgs e)
-
         {
-            string filename = "";            
+            string filename = "";
             string delimit = "";
-            string format="";
+            string format = "";
             GetExtractData();
 
             DataTable dtExtractData = (DataTable)Cache["IssueExtract" + userVo.UserId];
             string extractStepCode = boNcdBackOff.GetExtractStepCode(Convert.ToInt32(ddlFileType.SelectedValue));
-            
-            boNcdBackOff.GetFileName(ddlExternalSource.SelectedValue, Convert.ToInt32(ddlFileType.SelectedValue), ref filename, ref delimit,ref format )  ;
+
+            boNcdBackOff.GetFileName(ddlExternalSource.SelectedValue, Convert.ToInt32(ddlFileType.SelectedValue), ref filename, ref delimit, ref format);
 
             if (format == ".xls")
             {
@@ -189,7 +188,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 filename = filename + format;
                 DownloadBidFile(dtExtractData, filename, delimit, extractStepCode);
             }
-          
+
         }
 
 
@@ -211,19 +210,19 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             //try
             //{
-                DataSet dsIssuer = new DataSet();
-                boNcdBackOff = new OnlineNCDBackOfficeBo();
+            DataSet dsIssuer = new DataSet();
+            boNcdBackOff = new OnlineNCDBackOfficeBo();
 
 
-                dsIssuer = boNcdBackOff.GetUploadIssue(product, adviserVo.advisorId);
-                if (dsIssuer.Tables[0].Rows.Count > 0)
-                {
-                    ddlIssueName.DataSource = dsIssuer;
-                    ddlIssueName.DataValueField = dsIssuer.Tables[0].Columns["AIM_IssueId"].ToString();
-                    ddlIssueName.DataTextField = dsIssuer.Tables[0].Columns["AIM_IssueName"].ToString();
-                    ddlIssueName.DataBind();
-                }
-               ddlIssueName.Items.Insert(0, new ListItem("Select", "Select"));
+            dsIssuer = boNcdBackOff.GetUploadIssue(product, adviserVo.advisorId);
+            if (dsIssuer.Tables[0].Rows.Count > 0)
+            {
+                ddlIssueName.DataSource = dsIssuer;
+                ddlIssueName.DataValueField = dsIssuer.Tables[0].Columns["AIM_IssueId"].ToString();
+                ddlIssueName.DataTextField = dsIssuer.Tables[0].Columns["AIM_IssueName"].ToString();
+                ddlIssueName.DataBind();
+            }
+            ddlIssueName.Items.Insert(0, new ListItem("Select", "Select"));
 
             //}
             //catch (BaseApplicationException Ex)
@@ -233,23 +232,23 @@ namespace WealthERP.OnlineOrderBackOffice
 
 
         }
-        
-        private void DownloadBidFile(DataTable dtExtractData, string filename, string delimit,string extractStepCode)
+
+        private void DownloadBidFile(DataTable dtExtractData, string filename, string delimit, string extractStepCode)
         {
 
 
             if (dtExtractData == null)
             {
                 ShowMessage("No data available");
-                 return;
-                 
+                return;
+
             }
             if (dtExtractData.Rows.Count <= 0)
             {
                 ShowMessage("No data available");
                 return;
-              
-            
+
+
             }
 
             string dateFormat = "dd-mm-yyyy";
@@ -257,13 +256,13 @@ namespace WealthERP.OnlineOrderBackOffice
             StringWriter sWriter = new StringWriter();
 
             string Columns = string.Empty;
-            
-            foreach (DataColumn column in dtExtractData.Columns) 
+
+            foreach (DataColumn column in dtExtractData.Columns)
                 Columns += column.ColumnName + delimit;
 
             // Headers  For different types
-          if (extractStepCode !="EB")
-            sWriter.WriteLine(Columns.Remove(Columns.Length - 1, 1));
+            if (extractStepCode != "EB")
+                sWriter.WriteLine(Columns.Remove(Columns.Length - 1, 1));
 
             DataColumn[] arrCols = new DataColumn[dtExtractData.Columns.Count];
             dtExtractData.Columns.CopyTo(arrCols, 0);
@@ -288,7 +287,7 @@ namespace WealthERP.OnlineOrderBackOffice
             }
             Response.ContentType = "text/plain";
 
-        Response.AddHeader("content-disposition", "attachment;filename=" + string.Format(filename, string.Format("{0:ddMMyyyy}", DateTime.Today)));
+            Response.AddHeader("content-disposition", "attachment;filename=" + string.Format(filename, string.Format("{0:ddMMyyyy}", DateTime.Today)));
             Response.Clear();
 
             using (StreamWriter writer = new StreamWriter(Response.OutputStream, System.Text.Encoding.UTF8))
@@ -296,7 +295,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 writer.Write(sWriter.ToString());
             }
             Response.End();
-            
+
             sWriter.Flush();
             sWriter.Close();
         }
@@ -318,13 +317,15 @@ namespace WealthERP.OnlineOrderBackOffice
                 return;
 
             BindExtSource(ddlProduct.SelectedValue, Convert.ToInt32(ddlIssueName.SelectedValue));
-      }
+        }
 
         private void GetExtractData()
         {
-            DataTable dtExtractData = boNcdBackOff.GetOnlineNcdExtractPreview(rdpDownloadDate.SelectedDate.Value, adviserVo.advisorId, int.Parse(ddlFileType.SelectedValue), ddlExternalSource.SelectedValue,int.Parse(ddlIssueName.SelectedValue));
+            DataTable dtExtractData = new DataTable();
+           
+                dtExtractData = boNcdBackOff.GetOnlineNcdExtractPreview(rdpDownloadDate.SelectedDate.Value, adviserVo.advisorId, int.Parse(ddlFileType.SelectedValue), ddlExternalSource.SelectedValue, int.Parse(ddlIssueName.SelectedValue));
 
-            
+                if (dtExtractData == null) return;
             if (Cache["IssueExtract" + userVo.UserId] != null) Cache.Remove("IssueExtract" + userVo.UserId);
             if (dtExtractData.Rows.Count > 0) Cache.Insert("IssueExtract" + userVo.UserId, dtExtractData);
         }
@@ -338,7 +339,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 ShowMessage("Please check all required fields");
                 return;
             }
-           // SetFileType();
+            // SetFileType();
             BindIssue(ddlProduct.SelectedValue);
         }
         //protected void lnkClick_Click(object sender, EventArgs e)

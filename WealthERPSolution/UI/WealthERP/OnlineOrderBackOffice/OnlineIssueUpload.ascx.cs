@@ -332,7 +332,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 DataTable dtUploadData = (DataTable)Cache["UPLOAD" + userVo.UserId];               
                 dtUploadData = CheckHeaders(dtUploadData);
-                nRows = boNcdBackOff.UploadCheckOrderFile(dtUploadData, int.Parse(ddlFileType.SelectedValue), int.Parse(ddlIssueName.SelectedValue), ref isIssueAvailable, advisorVo.advisorId, ddlSource.SelectedValue, ref   result);
+                nRows = boNcdBackOff.UploadCheckOrderFile(dtUploadData, int.Parse(ddlFileType.SelectedValue), int.Parse(ddlIssueName.SelectedValue), ref isIssueAvailable, advisorVo.advisorId, ddlSource.SelectedValue, ref   result,ddlProduct.SelectedValue);
                 if (isIssueAvailable == "NotEligble")
                 {
                     ShowMessage("Uploaded file Issue and Selected issue Does not match ");
