@@ -637,6 +637,34 @@ namespace BoCommon
             return isBusinessDate;
 
         }
+        public DataSet GetDepartment(int adviserId)
+        {
+            DataSet dsGetUserRole;
+            try
+            {
+               
+                dsGetUserRole = daoCommonLookup.GetDepartment(adviserId);
+                
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommonLookupBo.cs:CheckForBusinessDate(DateTime date)");
+                object[] objParams = new object[1];
+                
+                FunctionInfo = exBase.AddObject(FunctionInfo, objParams);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetUserRole;
+
+        }
 
 
 

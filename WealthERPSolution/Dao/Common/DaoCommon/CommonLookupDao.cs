@@ -703,5 +703,33 @@ namespace DaoCommon
             return isBusinessDate;
 
         }
+        public DataSet GetDepartment(int adviserId)
+        {
+            Database db;
+            DataSet dsGetUserRole;
+            DbCommand GetUserRolecmd;
+           
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetUserRolecmd = db.GetStoredProcCommand("SPROC_GetAdviserDepartment");
+                db.AddInParameter(GetUserRolecmd, "@adviserId", DbType.Int64, adviserId);
+                dsGetUserRole = db.ExecuteDataSet(GetUserRolecmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:GetFrequency()");
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetUserRole;
+        }
     }
 }
