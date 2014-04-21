@@ -160,9 +160,6 @@ namespace WealthERP.AdvsierPreferenceSettings
 
                     }
                 }
-
-              
-
                 advisorPreferenceBo.CreateUserRole(int.Parse(ddlLevel.SelectedValue), txtRoleName.Text, txtNote.Text, adviserVo.advisorId, userVo.UserId, StrUserLeve.TrimEnd(','));
             }
             if (e.CommandName == RadGrid.UpdateCommandName)
@@ -172,7 +169,16 @@ namespace WealthERP.AdvsierPreferenceSettings
                 TextBox txtRoleName = (TextBox)e.Item.FindControl("txtRoleName");
                 TextBox txtNote = (TextBox)e.Item.FindControl("txtNote");
                 int rollid = int.Parse(gvAdviserList.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AR_RoleId"].ToString());
-                advisorPreferenceBo.UpdateUserrole(rollid, int.Parse(ddlLevel.SelectedValue), txtRoleName.Text, txtNote.Text, userVo.UserId);
+                RadGrid rgLevels = (RadGrid)gridEditableItem.FindControl("rgRoles");
+                foreach (GridDataItem gdi in rgLevels.Items)
+                {
+                    if (((CheckBox)gdi.FindControl("cbRoles")).Checked == true)
+                    {
+                        StrUserLeve += gdi["UR_RoleId"].Text + ',';
+
+                    }
+                }
+                //advisorPreferenceBo.UpdateUserrole(rollid, int.Parse(ddlLevel.SelectedValue), txtRoleName.Text, txtNote.Text, userVo.UserId, StrUserLeve.TrimEnd(','));
             }
             if (e.CommandName == RadGrid.DeleteCommandName)
             {
@@ -184,7 +190,13 @@ namespace WealthERP.AdvsierPreferenceSettings
             {
                 gvAdviserList.Rebind();
             }
+            if (e.CommandName == RadGrid.SelectCommandName)
+            {
+                GridDataItem dataItem = (GridDataItem)e.Item;
+                int roleId = int.Parse(gvAdviserList.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AR_RoleId"].ToString());
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvvvvvv", "loadcontrol('AdviserRoleToTreeNodeMapping','?RoleId=" + roleId + "');", true);
 
+            }
             BindUserRole();
         }
 
@@ -192,10 +204,7 @@ namespace WealthERP.AdvsierPreferenceSettings
         private void BindPopUpcontrols(int roleId, DropDownList ddlLevel, TextBox textRoleName,TextBox txtNote,RadGrid rgRoles)
         {
             //DataTable dtuserassociate = new DataTable();
-            //dtuserassociate = onlineNCDBackOfficeBo.GetAllInvestorTypes(issuerId, issueId, categoryId).Tables[0];
-            //rgSubCategory.DataSource = dtSubCategory;
-            //rgSubCategory.DataBind();
-
+            
 
 
 
@@ -213,8 +222,7 @@ namespace WealthERP.AdvsierPreferenceSettings
                 {
                     foreach (DataRow dr in dtuserlist.Rows)
                     {
-
-                        ddlLevel.SelectedValue = dr["AD_DepartmentId"].ToString();
+                        ddlLevel.SelectedValue = dr["AD_DepartmentName"].ToString();
                         textRoleName.Text = dr["AR_Role"].ToString();
                         txtNote.Text = dr["AR_RolePurpose"].ToString();
 
@@ -329,6 +337,12 @@ namespace WealthERP.AdvsierPreferenceSettings
                 rgRoles.DataSource = dtBindUserRole;
             }
         }
+        //protected void lnkRole_OnClick(object sender, EventArgs e)
+        //{
+        //    GridDataItem dataItem = (GridDataItem)e.Item;
+        //    int rollid = int.Parse(gvAdviserList.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AR_RoleId"].ToString());
+        //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvvvvvv", "loadcontrol('AdviserRoleToTreeNodeMapping');", true);
 
-    }
+        //}
+       }
 }

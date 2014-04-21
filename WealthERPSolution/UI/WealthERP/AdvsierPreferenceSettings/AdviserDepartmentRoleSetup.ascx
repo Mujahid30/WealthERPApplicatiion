@@ -76,7 +76,7 @@
                         </telerik:GridBoundColumn>
                         <telerik:GridButtonColumn UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete this User?"
                             ConfirmDialogType="RadWindow" ConfirmTitle="Delete" ButtonType="LinkButton" CommandName="Delete"
-                            Text="Delete" HeaderStyle-Width="100px">
+                            Text="Delete" HeaderStyle-Width="100px" Visible="false">
                             <ItemStyle HorizontalAlign="Center" CssClass="MyImageButton" />
                         </telerik:GridButtonColumn>
                     </Columns>

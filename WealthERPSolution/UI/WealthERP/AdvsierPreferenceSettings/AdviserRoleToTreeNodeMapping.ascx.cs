@@ -36,6 +36,7 @@ namespace WealthERP.AdvsierPreferenceSettings
             if (Request.QueryString["roleId"] != null)
             {
                 int roleId = int.Parse(Request.QueryString["roleId"].ToString());
+                ddlRole.SelectedValue = roleId.ToString();
                 ViewRoleLink(roleId);
                 ContRolModes("View");
             }
@@ -44,6 +45,7 @@ namespace WealthERP.AdvsierPreferenceSettings
         private void ViewRoleLink(int roleId)
         {
             ddlRole.SelectedValue = roleId.ToString();
+            GetActualRoles(roleId);
             BtnGo();
         }
         protected void lnkBtnEdit_Click(object sender, EventArgs e)
@@ -456,8 +458,8 @@ namespace WealthERP.AdvsierPreferenceSettings
             if (ddlLevel.SelectedValue == "Select")
                 return;
             ContRolModes("New");
-            BindTreeNodesBasedOnRoles(Convert.ToInt32(ddlLevel.SelectedValue));
-            GetCheckedTreeNodes(Convert.ToInt32(ddlRole.SelectedValue), Convert.ToInt32(ddlLevel.SelectedValue));
+                BindTreeNodesBasedOnRoles(Convert.ToInt32(ddlLevel.SelectedValue));
+                GetCheckedTreeNodes(Convert.ToInt32(ddlRole.SelectedValue), Convert.ToInt32(ddlLevel.SelectedValue));
         }
 
         private void MapingBetweenExistandAvailable()
