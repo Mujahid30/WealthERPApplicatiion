@@ -283,6 +283,39 @@ namespace BoAdvisorProfiling
             }
             return rmIds;
         }
+        public int CreateAdviserStaff(UserVo userVo, RMVo rmVo, int userId, bool isOpsIsChecked, bool isPurelyResearchLogin,string roleIds)
+        {
+            int StaffId;
+            AdvisorStaffDao advisorStaffDao = new AdvisorStaffDao();
+            try
+            {
+               StaffId= advisorStaffDao.CreateAdviserStaff(userVo,rmVo,userId,isOpsIsChecked,isPurelyResearchLogin,roleIds);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdvisorStaffBo.cs:CreateCompleteRM()");
+
+
+                object[] objects = new object[3];
+                
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return StaffId;
+            
+
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -452,6 +485,40 @@ namespace BoAdvisorProfiling
         /// </summary>
         /// <param name="advisorId"></param>
         /// <returns></returns>
+        /// 
+        public RMVo GetAdvisorStaffProfile(int rmId)
+        {
+            RMVo rmVo = new RMVo();
+            AdvisorStaffDao advisorStaffDao = new AdvisorStaffDao();
+            try
+            {
+                rmVo = advisorStaffDao.GetAdvisorStaffProfile(rmId);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdvisorStaffBo.cs:GetAdvisorStaffDetails()");
+
+
+                object[] objects = new object[1];
+                objects[0] = rmId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return rmVo;
+        }
+
         public List<RMVo> GetRMList(int advisorId)
         {
             List<RMVo> rmList = null;
@@ -895,6 +962,38 @@ namespace BoAdvisorProfiling
         /// <param name="sortOrder"></param>
         /// <param name="Count"></param>
         /// <returns></returns>
+        public bool UpdateAdviserStaffProfile(RMVo rmVo)
+        {
+            bool bResult = false;
+            AdvisorStaffDao advisorStaffDao = new AdvisorStaffDao();
+            try
+            {
+                bResult = advisorStaffDao.UpdateAdviserStaffProfile(rmVo);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdvisorStaffBo.cs:updateStaff()");
+
+
+                object[] objects = new object[3];
+                objects[0] = rmVo;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return bResult;
+        }
         public DataSet GetBMStaff(int rmId, int currentPage, string sortOrder, out int Count)
         {
             DataSet dsRMList;
@@ -1400,6 +1499,7 @@ namespace BoAdvisorProfiling
             return dtAdviserTeamList;
 
         }
+       
 
         public DataTable GetAdviserTeamTitleList(int teamId, int adviserId)
         {
@@ -1538,6 +1638,34 @@ namespace BoAdvisorProfiling
             }
             return bResult;
         
+        }
+        public DataTable GetUserRoleDepartmentWise(int departmentid,int advserId)
+        {
+            //AdviserPrivilegeConfigDao AdviserPrivilegeConfigDao = new AdviserPrivilegeConfigDao();
+            AdvisorStaffDao advisorStaffDao = new AdvisorStaffDao();
+            DataTable dtGetUserRoleDepartmentWise;
+
+            try
+            {
+                dtGetUserRoleDepartmentWise = advisorStaffDao.GetUserRoleDepartmentWise(departmentid,advserId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommonLookupBo.cs:GetUserRoleDepartmentWise(int departmentid)");
+                object[] objects = new object[1];
+                objects[0] = departmentid;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtGetUserRoleDepartmentWise;
         }
     }
 
