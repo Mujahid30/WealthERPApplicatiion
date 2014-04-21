@@ -67,7 +67,7 @@ namespace WealthERP.AdvsierPreferenceSettings
                 DataTable dtRoles = new DataTable();
                 advisorPreferenceBo = new AdviserPreferenceBo();
                 dtRoles = advisorPreferenceBo.GetActualRoles(roleId, advisorVo.advisorId).Tables[0];
-
+                ddlLevel.Items.Clear();
                 if (dtRoles.Rows.Count > 0)
                 {
                     ddlLevel.DataSource = dtRoles;
@@ -76,6 +76,7 @@ namespace WealthERP.AdvsierPreferenceSettings
                     ddlLevel.DataBind();
                 }
                 ddlLevel.Items.Insert(0, new ListItem("Select", "Select"));              
+
             }
             catch (BaseApplicationException Ex)
             {

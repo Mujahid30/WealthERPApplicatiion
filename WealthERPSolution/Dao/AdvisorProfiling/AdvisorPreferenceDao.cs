@@ -263,7 +263,7 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(cmdtreeNode, "@xmlTreeNode", DbType.Xml, sb);
                 db.AddInParameter(cmdtreeNode, "@CommandType", DbType.String, commandType);
                 db.AddInParameter(cmdtreeNode, "@userId", DbType.Int32, userId);
-                db.AddInParameter(cmdtreeNode, "@levelId", DbType.Int32, userId);                
+                db.AddInParameter(cmdtreeNode, "@levelId", DbType.Int32, levelId);                
                 i = db.ExecuteNonQuery(cmdtreeNode);
 
             }
@@ -295,7 +295,7 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(cmdtreeNode, "@xmlSubTreeNode", DbType.Xml, sb);
                 db.AddInParameter(cmdtreeNode, "@CommandType", DbType.String, commandType);
                 db.AddInParameter(cmdtreeNode, "@userId", DbType.Int32, userId);
-                db.AddInParameter(cmdtreeNode, "@levelId", DbType.Int32, userId);                
+                db.AddInParameter(cmdtreeNode, "@levelId", DbType.Int32, levelId);                
 
                 i = db.ExecuteNonQuery(cmdtreeNode);
 

@@ -90,15 +90,7 @@ namespace WealthERP.AdvsierPreferenceSettings
                 GridEditFormInsertItem item = (GridEditFormInsertItem)e.Item;
                 GridEditFormItem gefi = (GridEditFormItem)e.Item;
                 DropDownList ddlLevel = (DropDownList)gefi.FindControl("ddlLevel");
-                DataSet dsddlLevel = advisorPreferenceBo.GetDepartment(adviserVo.advisorId);
-                DataTable dtddlLevel;
-                dtddlLevel = dsddlLevel.Tables[0];
-                ddlLevel.DataSource = dtddlLevel;
-                ddlLevel.DataValueField = dtddlLevel.Columns["AD_DepartmentId"].ToString();
-
-                ddlLevel.DataTextField = dtddlLevel.Columns["AD_DepartmentName"].ToString();
-                ddlLevel.DataBind();
-                ddlLevel.Items.Insert(0, new ListItem("Select", "Select"));
+                BindDepartmentddl(ddlLevel);
             }
             if (e.Item is GridEditFormItem && e.Item.IsInEditMode && e.Item.ItemIndex != -1)
             {
@@ -134,6 +126,20 @@ namespace WealthERP.AdvsierPreferenceSettings
 
             }
         }
+
+
+        private void BindDepartmentddl(DropDownList ddlDepartMent)
+        {
+            DataSet dsddlDepartMent = advisorPreferenceBo.GetDepartment(adviserVo.advisorId);
+            DataTable dtddlDepartMent;
+            dtddlDepartMent = dsddlDepartMent.Tables[0];
+            ddlDepartMent.DataSource = dtddlDepartMent;
+            ddlDepartMent.DataValueField = dtddlDepartMent.Columns["AD_DepartmentId"].ToString();
+            ddlDepartMent.DataTextField = dtddlDepartMent.Columns["AD_DepartmentName"].ToString();
+            ddlDepartMent.DataBind();
+            ddlDepartMent.Items.Insert(0, new ListItem("Select", "Select"));
+        }
+
         protected void gvAdviserList_OnItemCommand(object source, GridCommandEventArgs e)
         {
             // StringBuilder strrlbUserlist = new StringBuilder();
@@ -198,42 +204,42 @@ namespace WealthERP.AdvsierPreferenceSettings
         {
             int levelid=0;
              DataTable dtuserlist = new DataTable();
-                dtuserlist = advisorPreferenceBo.GetAdviserRoledepartmentwise(roleId).Tables[0];
+             DataTable dtBindUserRole = new DataTable();
+             
 
+                dtuserlist = advisorPreferenceBo.GetAdviserRoledepartmentwise(roleId).Tables[0];
+                BindDepartmentddl(ddlLevel);
                 if (dtuserlist.Rows.Count > 0)
                 {
                     foreach (DataRow dr in dtuserlist.Rows)
                     {
-                        ddlLevel.SelectedValue = dr["AD_DepartmentName"].ToString();
+
+                        ddlLevel.SelectedValue = dr["AD_DepartmentId"].ToString();
                         textRoleName.Text = dr["AR_Role"].ToString();
                         txtNote.Text = dr["AR_RolePurpose"].ToString();
-                          //ddlLevel.SelectedValue = dr["AD_DepartmentId"].ToString();
 
-
-                        if (!string.IsNullOrEmpty(dr["AD_DepartmentId"].ToString()))
+                        if (rgRoles.Items.Count == 0)
                         {
-                            levelid = Convert.ToInt32(dr["AD_DepartmentId"].ToString());
+                            dtBindUserRole = advisorPreferenceBo.GetUserRoleDepartmentWise(Convert.ToInt32(ddlLevel.SelectedValue));
+                            rgRoles.DataSource = dtBindUserRole;
+                            rgRoles.DataBind();
                         }
-                        else
+
+                        foreach (GridDataItem gdi in rgRoles.Items)
                         {
-                            return;
+                            int levelid2 = Convert.ToInt32(gdi["UR_RoleId"].Text);
+                            if (levelid2 == Convert.ToInt32(dr["UR_RoleId"].ToString()))
+                            {
+                                CheckBox cbRoles = (CheckBox)gdi.FindControl("cbRoles");
+                                cbRoles.Checked = true;
+
+                            }
+
+
+                        }
                     }
                 }
-                foreach (GridDataItem gdi in rgRoles.Items)
-                {
-                    //int levelid2 = Convert.ToInt32(gdi["AD_DepartmentId"].Text);
-                    //if (levelid == levelid2)
-                    //{
-                       // RadGrid rgRoles = (RadGrid)gdi.FindControl("rgRoles");
-                        CheckBox cbRoles = (CheckBox)gdi.FindControl("cbRoles");
-                        //foreach (CheckBoxList li in rgRoles.Items)
-                        //{
-                        //    //li.SelectedValu;
-                        //}
-                    cbRoles.Checked=true;
-                    }
-                }
-                //}
+             
         }
 
         protected void CheckBoxList1_SelectedIndexChnaged(object sender, System.EventArgs e)
