@@ -24,7 +24,6 @@ namespace WealthERP.Advisor
         AdvisorStaffBo advisorStaffBo = new AdvisorStaffBo();
         AdviserSubscriptionBo adviserSubscriptionBo = new AdviserSubscriptionBo();
         AdvisorVo advisorVo;
-        DataSet dsTreeNodes;
         DataSet dsSubscriptionDetails;
         DataTable dtPlanDetails;
         RMVo rmVo = new RMVo();
@@ -38,6 +37,7 @@ namespace WealthERP.Advisor
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            DataSet dsAdviserTreeNodes;
             SessionBo.CheckSession();
             Session["BranchAdd"] = "forRM";
             userVo = (UserVo)Session["userVo"];
@@ -52,364 +52,110 @@ namespace WealthERP.Advisor
 
                 if (Cache["AdminLeftTreeNode" + advisorVo.advisorId.ToString()] == null)
                 {
-                    dsTreeNodes = GetTreeNodesBasedOnUserRoles("Admin");
-                    Cache.Insert("AdminLeftTreeNode" + advisorVo.advisorId.ToString(), dsTreeNodes, null, DateTime.Now.AddMinutes(4 * 60), TimeSpan.Zero);
+                    dsAdviserTreeNodes = GetAdviserRoleTreeNodes(advisorVo.advisorId);
+                    Cache.Insert("AdminLeftTreeNode" + advisorVo.advisorId.ToString(), dsAdviserTreeNodes, null, DateTime.Now.AddMinutes(4 * 60), TimeSpan.Zero);
                 }
                 else
                 {
-                    dsTreeNodes = (DataSet)Cache["AdminLeftTreeNode" + advisorVo.advisorId.ToString()];
+                    dsAdviserTreeNodes = (DataSet)Cache["AdminLeftTreeNode" + advisorVo.advisorId.ToString()];
 
                 }
                 DataSet dsFilteredData = new DataSet();
-                string userRole = "";
-                //Code to display and hide the searches based on the roles
-                //Code to display and hide the searches based on the roles
                 
+                //Code to display and hide the searches based on the roles
+                //Code to display and hide the searches based on the roles
+                SetUserSearchBox();
+                ShowUserRoleBasedPannel();
+                DataSet dsUserTreeNode=new DataSet();
+                dsUserTreeNode = FilterUserTreeNodeData(dsAdviserTreeNodes);
 
-                if (userVo.RoleList.Contains("Admin"))
-                {
-                    if (advisorVo.IsOpsEnable != 1)
-                    {
-                        txtFindRMCustomer.Visible = false;
-                        btnSearchRMCustomer.Visible = false;
-                    }
-                    else
-                    {
-                        txtFindAdviserCustomer.Visible = false;
-                        btnSearchAdviserCustomer.Visible = false;
-                    }
-                }
-                else if (userVo.RoleList.Contains("RM"))
-                {
-                    txtFindRM.Visible = false;
-                    btnSearchRM.Visible = false;
-                    txtFindBranch.Visible = false;
-                    btnSearchBranch.Visible = false;
-                    txtFindAdviserCustomer.Visible = false;
-                    btnSearchAdviserCustomer.Visible = false;
-                }
-                else if (userVo.RoleList.Contains("BM"))
-                {
-                    txtFindRM.Visible = false;
-                    btnSearchRM.Visible = false;
-                    txtFindBranch.Visible = false;
-                    btnSearchBranch.Visible = false;
-                    txtFindAdviserCustomer.Visible = false;
-                    btnSearchAdviserCustomer.Visible = false;
-                    txtFindRMCustomer.Visible = false;
-                    btnSearchRMCustomer.Visible = false;
-                }
-                else if (userVo.RoleList.Contains("Ops"))
-                {
-                    txtFindRMCustomer.Visible = false;
-                    txtFindBranch.Visible = false;
-                    txtFindRM.Visible = false;
-                    btnSearchRM.Visible = false;
-                    btnSearchBranch.Visible = false;
-                    btnSearchRMCustomer.Visible = false;
-                }
-                else if (userVo.RoleList.Contains("Research"))
-                {
-                    txtFindRM.Visible = false;
-                    btnSearchRM.Visible = false;
-                    txtFindBranch.Visible = false;
-                    btnSearchBranch.Visible = false;
-                    txtFindAdviserCustomer.Visible = false;
-                    btnSearchAdviserCustomer.Visible = false;
-                    txtFindRMCustomer.Visible = false;
-                    btnSearchRMCustomer.Visible = false;
-                }
-                else if (userVo.RoleList.Contains("Associates"))
-                {
-                    txtFindRMCustomer.Visible = false;
-                    txtFindBranch.Visible = false;
-                    txtFindRM.Visible = false;
-                    btnSearchRM.Visible = false;
-                    btnSearchBranch.Visible = false;
-                    btnSearchRMCustomer.Visible = false;
-                }
+                SetUserTreeNode(dsUserTreeNode);
+                SetAllTreeNodeDefaultExpandSelection();
+            
 
-                //Code to display the left tree based on the Roles
-                if (!userVo.RoleList.Contains("Admin"))
-                    RadPanelBar1.Visible = false;
-                if (!userVo.RoleList.Contains("RM"))
-                    RadPanelBar2.Visible = false;
-                if (!userVo.RoleList.Contains("BM"))
-                    RadPanelBar3.Visible = false;
-                if (!userVo.RoleList.Contains("Ops"))
-                    RadPanelBar4.Visible = false;
-                if (!userVo.RoleList.Contains("Research"))
-                    RadPanelBar5.Visible = false;
-                if (!userVo.RoleList.Contains("Associates"))
-                    RadPanelBar6.Visible = false;
-
-                if (userVo.RoleList.Contains("Admin"))
-                {
-                    userRole = "Admin";
-                    dsFilteredData = FilterUserTreeNode(userRole, dsTreeNodes);
-                    SetAdminTreeNodesForRoles(dsFilteredData, "Admin");
-
-                }
-                if (userVo.RoleList.Contains("RM"))
-                {
-                    userRole = "RM";
-                    dsFilteredData = FilterUserTreeNode(userRole, dsTreeNodes);
-                    SetAdminTreeNodesForRoles(dsFilteredData, "RM");
-                }
-                if (userVo.RoleList.Contains("BM"))
-                {
-                    userRole = "BM";
-                    dsFilteredData = FilterUserTreeNode(userRole, dsTreeNodes);
-                    SetAdminTreeNodesForRoles(dsFilteredData, "BM");
-                }
-                if (userVo.RoleList.Contains("Ops"))
-                {
-                    userRole = "Ops";
-                    dsFilteredData = FilterUserTreeNode(userRole, dsTreeNodes);
-                    SetAdminTreeNodesForRoles(dsFilteredData, "Ops");
-                }
-                if (userVo.RoleList.Contains("Research"))
-                {
-                    userRole = "Research";
-                    dsFilteredData = FilterUserTreeNode(userRole, dsTreeNodes);
-                    SetAdminTreeNodesForRoles(dsFilteredData, "Research");
-                }
-                if (userVo.RoleList.Contains("Associates"))
-                {
-                    userRole = "Associates";
-                    dsFilteredData = FilterUserTreeNode(userRole, dsTreeNodes);
-                    SetAdminTreeNodesForRoles(dsFilteredData, "Associates");
-                }
-                dsSubscriptionDetails = FilterUserTreeNodeSubscription(dsTreeNodes);
-
-                dsTreeNodes = FilterUserTreeNodePlan(dsTreeNodes);
-                SetAdminTreeNodesForPlans(dsTreeNodes);
+                //dsSubscriptionDetails = FilterUserTreeNodeSubscription(dsTreeNodes);
+                //dsTreeNodes = FilterUserTreeNodePlan(dsTreeNodes);
+                //SetAdminTreeNodesForPlans(dsTreeNodes);
 
                 if (advisorVo.MultiBranch != 1)
                 {
                     RadPanelBar1.FindItemByValue("Branch/Association").Visible = false;
                 }
-                if (dsSubscriptionDetails.Tables[0].Rows.Count > 0)
-                {
-                    if (dsSubscriptionDetails.Tables[0].Rows[0]["AS_NoOfStaffWebLogins"] != null)
-                        noOfStaffWebLogins = int.Parse(dsSubscriptionDetails.Tables[0].Rows[0]["AS_NoOfStaffWebLogins"].ToString());
-                    if (noOfStaffWebLogins <= 1)
-                    {
-                        RadPanelBar1.FindItemByValue("Staff").Visible = false;
-                        RadPanelBar3.FindItemByValue("Staff").Visible = false;
-                    }
-                    //else
-                    //{
-                    //    RadPanelBar1.FindItemByValue("Staff").Visible = true;
-                    //    RadPanelBar3.FindItemByValue("Staff").Visible = true;
-                    //}
-                }
-                dtPlanDetails = dsTreeNodes.Tables[3];
-                if (!userVo.RoleList.Contains("Admin"))
-                {
-                    RadPanelBar1.Visible = false;
-                }
-                else
-                {
-                    if (int.Parse(dtPlanDetails.Rows[0]["WP_IsMultiBranchPlan"].ToString()) == 1)
-                        RadPanelBar3.Visible = true;
-                    else
-                        RadPanelBar3.Visible = false;
-                    if (int.Parse(dtPlanDetails.Rows[0]["WP_IsOtherStaffEnabled"].ToString()) == 1)
-                        RadPanelBar2.Visible = true;
-                    else
-                        RadPanelBar2.Visible = false;
-                    if (int.Parse(dtPlanDetails.Rows[0]["WP_PlanId"].ToString()) != 1)
-                        RadPanelBar5.Visible = true;
-                    else
-                        RadPanelBar5.Visible = false;
-                }
-                if (!userVo.RoleList.Contains("RM"))
-                    RadPanelBar2.Visible = false;
-                if (!userVo.RoleList.Contains("BM"))
-                    RadPanelBar3.Visible = false;
-                if (!userVo.RoleList.Contains("Ops"))
-                    RadPanelBar4.Visible = false;
-                if (!userVo.RoleList.Contains("Research"))
-                    RadPanelBar5.Visible = false;
-                if (advisorVo.advisorId == Convert.ToInt32(ConfigurationSettings.AppSettings["ONLINE_ADVISER"]))
-                {
-                    if (ConfigurationSettings.AppSettings["NCD_TREE_NODE"].ToString().Contains(advisorVo.advisorId.ToString()))
-                       RadPanelBar5.Visible = false;
-                }
-
-                //Code to expand the home node based on the User Roles
-                if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
-                {
-                    if (!userVo.RoleList.Contains("Ops"))
-                    {
-                        RadPanelBar1.FindItemByValue("Admin").Expanded = true;
-                        if (Session["IsCustomerGrid"] == null)
-                            RadPanelBar1.FindItemByValue("Admin Home").Selected = true;
-                        else
-                            RadPanelBar1.FindItemByValue("Customer").Selected = true;
-                    }
-                    else
-                    {
-                        RadPanelBar4.FindItemByValue("Ops").Expanded = true;
-                        RadPanelBar4.FindItemByValue("Customer").Selected = true;
-                    }
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('AdvisorLeftPane');", true);
-                }
-                else if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
-                {
-                    RadPanelBar3.FindItemByValue("BM").Expanded = true;
-
-                    if (Session["IsCustomerGrid"] == null)
-                        RadPanelBar3.FindItemByValue("BM Home").Selected = true;
-                    else
-                        RadPanelBar3.FindItemByValue("Customer").Selected = true;
-
-                    //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('AdvisorLeftPane');", true);
-                }
-                else if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
-                {
-                    RadPanelBar2.FindItemByValue("RM").Expanded = true;
-
-                    if (Session["IsCustomerGrid"] == null)
-                        RadPanelBar2.FindItemByValue("RM Home").Selected = true;
-                    else
-                        RadPanelBar2.FindItemByValue("Customer").Selected = true;
-
-                    //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('AdvisorLeftPane');", true);
-                }
-                else if (userVo.RoleList.Contains("Ops"))
-                {
-                    RadPanelBar4.FindItemByValue("Ops").Expanded = true;
-                    RadPanelBar4.FindItemByValue("Customer").Selected = true;
-                }
-                else if (userVo.RoleList.Contains("Research"))
-                {
-                    RadPanelBar5.FindItemByValue("Reference_Data").Expanded = true;
-                    RadPanelBar5.FindItemByValue("Reference_Data").Selected = true;
-                }
-                else if (Session[SessionContents.CurrentUserRole].ToString() == "Associates")
-                {
-                    RadPanelBar6.FindItemByValue("Associates").Expanded = true;
-
-                }
-
-
-                //
-                // Code to display inbox/message links based on main role
-                // 
-                if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin")
-                {
-                    /* Compose, Inbox, Outbox Visible only in admin pane */
-                    RadPanelBar2.FindItemByValue("Message").Visible = false; // RM Bar
-                    RadPanelBar3.FindItemByValue("Message").Visible = false; // BM Bar
-                    RadPanelBar5.FindItemByValue("Message").Visible = false; // Research Bar
-                }
-                else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "bm")
-                {
-                    /* Compose, Inbox, Outbox Visible only in bm pane */
-                    RadPanelBar2.FindItemByValue("Message").Visible = false; // RM Bar
-                    RadPanelBar5.FindItemByValue("Message").Visible = false; // Research Bar
-                }
-                else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "rm")
-                {
-                    /* Inbox Visible only in rm pane */
-                    RadPanelBar5.FindItemByValue("Message").Visible = false; // Research Bar
-                }
-                else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "research")
-                {
-                    /* Inbox Visible only in research pane */
-
-                }
-                //else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
+                //if (dsSubscriptionDetails.Tables[0].Rows.Count > 0)
                 //{
-                //    /* None visible as of now */
+                //    if (dsSubscriptionDetails.Tables[0].Rows[0]["AS_NoOfStaffWebLogins"] != null)
+                //        noOfStaffWebLogins = int.Parse(dsSubscriptionDetails.Tables[0].Rows[0]["AS_NoOfStaffWebLogins"].ToString());
+                //    if (noOfStaffWebLogins <= 1)
+                //    {
+                //        RadPanelBar1.FindItemByValue("Staff").Visible = false;
+                //        RadPanelBar3.FindItemByValue("Staff").Visible = false;
+                //    }
+                //    //else
+                //    //{
+                //    //    RadPanelBar1.FindItemByValue("Staff").Visible = true;
+                //    //    RadPanelBar3.FindItemByValue("Staff").Visible = true;
+                //    //}
+                //}
+                //dtPlanDetails = dsTreeNodes.Tables[3];
+                //if (!userVo.RoleList.Contains("Admin"))
+                //{
+                //    RadPanelBar1.Visible = false;
                 //}
                 //else
                 //{
-                //    /* None visible for customer as of now */
+                //    if (int.Parse(dtPlanDetails.Rows[0]["WP_IsMultiBranchPlan"].ToString()) == 1)
+                //        RadPanelBar3.Visible = true;
+                //    else
+                //        RadPanelBar3.Visible = false;
+                //    if (int.Parse(dtPlanDetails.Rows[0]["WP_IsOtherStaffEnabled"].ToString()) == 1)
+                //        RadPanelBar2.Visible = true;
+                //    else
+                //        RadPanelBar2.Visible = false;
+                //    if (int.Parse(dtPlanDetails.Rows[0]["WP_PlanId"].ToString()) != 1)
+                //        RadPanelBar5.Visible = true;
+                //    else
+                //        RadPanelBar5.Visible = false;
                 //}
-
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('AdvisorLeftPane');", true);
-                if (Session["NodeType"] == "CustomerUpload")
-                {
-
-                    RadPanelBar1.FindItemByValue("File_Upload").Expanded = true;
-                    RadPanelBar1.FindItemByValue("Start_Upload").Expanded = true;
-                    RadPanelBar1.FindItemByValue("Start_Upload").Selected = true;
-                    //RadPanelBar1.FindItemByValue("Operations").Expanded = true;
-                    //RadPanelBar1.FindItemByValue("Upload").Expanded = true;
-                    //RadPanelBar1.FindItemByValue("Upload").Selected = true;
-                }
-                else if (Session["NodeType"] == "AdviserCustomer")
-                {
-                    //if (advisorVo.IsOpsEnable == 1)
-                    //{
-                    //    RadPanelBar1.FindItemByValue("Admin").Expanded = false;
-                    //    RadPanelBar2.FindItemByValue("RM").Expanded = true;
-                    //    RadPanelBar2.FindItemByValue("Customer").Expanded = true;
-                    //    RadPanelBar2.FindItemByValue("Customer").Selected = true;
-                    //}
-                    //{
-                    //    RadPanelBar1.FindItemByValue("Customer").Expanded = true;
-                    //    RadPanelBar1.FindItemByValue("Customer").Selected = true;
-                    //}
-
-                    RadPanelBar1.FindItemByValue("Customer").Expanded = true;
-                    RadPanelBar1.FindItemByValue("CustomerList").Selected = true;
-                }
-                else if (Session["NodeType"] == "MFOrderEntry")
-                {
-                    RadPanelBar1.FindItemByValue("Order_Management").Expanded = true;
-                    RadPanelBar1.FindItemByValue("OrderEntry").Expanded = true;
-                    RadPanelBar1.FindItemByValue("OrderEntry").Selected = true;
+                //if (!userVo.RoleList.Contains("RM"))
+                //    RadPanelBar2.Visible = false;
+                //if (!userVo.RoleList.Contains("BM"))
+                //    RadPanelBar3.Visible = false;
+                //if (!userVo.RoleList.Contains("Ops"))
+                //    RadPanelBar4.Visible = false;
+                //if (!userVo.RoleList.Contains("Research"))
+                //    RadPanelBar5.Visible = false;
 
 
-                }
-                else if (Session["NodeType"] == "MFDashBoard")
-                {
-                    RadPanelBar1.FindItemByValue("Business MIS").Expanded = true;
-                    RadPanelBar1.FindItemByValue("MFDashBoard").Expanded = true;
-                    RadPanelBar1.FindItemByValue("MFDashBoard").Selected = true;
-
-                }
-
-                else if (Session["NodeType"] == "MessageInbox")
-                {
-                    RadPanelBar1.FindItemByValue("Message").Expanded = true;
-                    RadPanelBar1.FindItemByValue("Inbox").Expanded = true;
-                    RadPanelBar1.FindItemByValue("Inbox").Selected = true;
-
-
-
-                }
-
-                else if (Session["NodeType"] == "AddProspectList")
-                {
-                    RadPanelBar1.FindItemByValue("Admin").Expanded = false;
-                    RadPanelBar2.FindItemByValue("RM").Expanded = true;
-                    RadPanelBar2.FindItemByValue("Customer").Expanded = true;
-
-                    RadPanelBar2.FindItemByValue("Add FP Prospect").Expanded = true;
-                    RadPanelBar2.FindItemByValue("Add FP Prospect").Selected = true;
-
-
-                }
-
-                else if (Session["NodeType"] == "CustomerReportsDashBoard")
-                {
-                    RadPanelBar1.FindItemByValue("Customer").Expanded = true;
-                    RadPanelBar1.FindItemByValue("Customer_Report").Expanded = true;
-                    RadPanelBar1.FindItemByValue("Customer_Report").Selected = true;
-
-
-
-                }
-                //if (!String.IsNullOrEmpty(Session["NodeType"].ToString()))
+                ////
+                //// Code to display inbox/message links based on main role
+                //// 
+                //if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin")
                 //{
-
-                //    Session.Remove("NodeType");
+                //    /* Compose, Inbox, Outbox Visible only in admin pane */
+                //    RadPanelBar2.FindItemByValue("Message").Visible = false; // RM Bar
+                //    RadPanelBar3.FindItemByValue("Message").Visible = false; // BM Bar
+                //    RadPanelBar5.FindItemByValue("Message").Visible = false; // Research Bar
                 //}
+                //else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "bm")
+                //{
+                //    /* Compose, Inbox, Outbox Visible only in bm pane */
+                //    RadPanelBar2.FindItemByValue("Message").Visible = false; // RM Bar
+                //    RadPanelBar5.FindItemByValue("Message").Visible = false; // Research Bar
+                //}
+                //else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "rm")
+                //{
+                //    /* Inbox Visible only in rm pane */
+                //    RadPanelBar5.FindItemByValue("Message").Visible = false; // Research Bar
+                //}
+                //else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "research")
+                //{
+                //    /* Inbox Visible only in research pane */
+
+                //}
+
+
+                //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('AdvisorLeftPane');", true);
+
 
                 if (Session["NodeType"] != null)
                 {
@@ -418,10 +164,279 @@ namespace WealthERP.Advisor
                 }
             }
 
-            if (advisorVo.A_AgentCodeBased == 1)
+            //if (advisorVo.A_AgentCodeBased == 1)
+            //{
+            //    RadPanelBar2.Visible = false;
+            //    RadPanelBar3.Visible = false;
+            //}
+
+        }
+
+        private DataSet FilterUserTreeNodeData(DataSet dsAdviserTreeNodes)
+        {
+            DataSet dsUserTreeNode = new DataSet();
+            DataTable dtUserTreeNode = dsAdviserTreeNodes.Tables[0].Clone();
+            DataTable dtUserTreeSubNode = dsAdviserTreeNodes.Tables[1].Clone();
+            DataTable dtUserTreeSubSubsNode = dsAdviserTreeNodes.Tables[2].Clone();
+            Dictionary<Int16, string> userAdviserRole = (Dictionary<Int16, string>)userVo.AdviserRole;
+            
+            foreach (int role in userAdviserRole.Keys)
             {
+                dsAdviserTreeNodes.Tables[0].DefaultView.RowFilter = "AR_RoleId=" + role.ToString();
+                dtUserTreeNode.Merge(dsAdviserTreeNodes.Tables[0].DefaultView.ToTable(), false, MissingSchemaAction.Ignore);
+
+                dsAdviserTreeNodes.Tables[1].DefaultView.RowFilter = "AR_RoleId=" + role.ToString();
+                dtUserTreeSubNode.Merge(dsAdviserTreeNodes.Tables[1].DefaultView.ToTable(), false, MissingSchemaAction.Ignore);
+
+                dsAdviserTreeNodes.Tables[2].DefaultView.RowFilter = "AR_RoleId=" + role.ToString();
+                dtUserTreeSubSubsNode.Merge(dsAdviserTreeNodes.Tables[2].DefaultView.ToTable(), false, MissingSchemaAction.Ignore);        
+            }
+            dsUserTreeNode.Tables.Clear();
+            dsUserTreeNode.Tables.Add(dtUserTreeNode.Copy().DefaultView.ToTable(true, "WTN_TreeNodeId", "WTN_TreeNode", "WTN_TreeNodeText", "WTN_IsApplicableForMultiBranch", "WTN_IsApplicableForMultiStaff", "UR_RoleId", "UR_RoleName"));
+            dsUserTreeNode.Tables.Add(dtUserTreeSubNode.Copy().DefaultView.ToTable(true, "WTSN_TreeSubNodeId", "WTSN_TreeSubNode", "WTSN_TreeSubNodeText", "WTSN_IsApplicableForMultiBranch", "WTSN_IsApplicableForMultiStaff", "UR_RoleId", "UR_RoleName"));
+            dsUserTreeNode.Tables.Add(dtUserTreeSubSubsNode.Copy().DefaultView.ToTable(true, "WTSSN_TreeSubSubNodeId", "WTSSN_TreeSubSubNode", "WTSSN_TreeSubSubNodeText", "WTSSN_IsApplicableForMultiBranch", "WTSSN_IsApplicableForMultiStaff", "UR_RoleId", "UR_RoleName"));
+
+            return dsUserTreeNode;
+        }
+
+        private void SetUserTreeNode(DataSet dsTreeNodes)
+        {
+            string userRole;
+            DataSet dsFilteredData;
+            if (userVo.RoleList.Contains("Admin"))
+            {
+                userRole = "Admin";
+                dsFilteredData = FilterUserTreeNode(userRole, dsTreeNodes);
+                SetAdminTreeNodesForRoles(dsFilteredData, "Admin");
+
+            }
+            if (userVo.RoleList.Contains("RM"))
+            {
+                userRole = "RM";
+                dsFilteredData = FilterUserTreeNode(userRole, dsTreeNodes);
+                SetAdminTreeNodesForRoles(dsFilteredData, "RM");
+            }
+            if (userVo.RoleList.Contains("BM"))
+            {
+                userRole = "BM";
+                dsFilteredData = FilterUserTreeNode(userRole, dsTreeNodes);
+                SetAdminTreeNodesForRoles(dsFilteredData, "BM");
+            }
+            if (userVo.RoleList.Contains("Ops"))
+            {
+                userRole = "Ops";
+                dsFilteredData = FilterUserTreeNode(userRole, dsTreeNodes);
+                SetAdminTreeNodesForRoles(dsFilteredData, "Ops");
+            }
+            if (userVo.RoleList.Contains("Research"))
+            {
+                userRole = "Research";
+                dsFilteredData = FilterUserTreeNode(userRole, dsTreeNodes);
+                SetAdminTreeNodesForRoles(dsFilteredData, "Research");
+            }
+            if (userVo.RoleList.Contains("Associates"))
+            {
+                userRole = "Associates";
+                dsFilteredData = FilterUserTreeNode(userRole, dsTreeNodes);
+                SetAdminTreeNodesForRoles(dsFilteredData, "Associates");
+            }
+
+        }
+
+        private void SetAllTreeNodeDefaultExpandSelection()
+        {
+            //Code to expand the home node based on the User Roles
+            if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
+            {
+                if (!userVo.RoleList.Contains("Ops"))
+                {
+                    RadPanelBar1.FindItemByValue("Admin").Expanded = true;
+                    if (Session["IsCustomerGrid"] == null)
+                        RadPanelBar1.FindItemByValue("Admin Home").Selected = true;
+                    else
+                        RadPanelBar1.FindItemByValue("Customer").Selected = true;
+                }
+                else
+                {
+                    RadPanelBar4.FindItemByValue("Ops").Expanded = true;
+                    RadPanelBar4.FindItemByValue("Customer").Selected = true;
+                }
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('AdvisorLeftPane');", true);
+            }
+            else if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
+            {
+                RadPanelBar3.FindItemByValue("BM").Expanded = true;
+
+                if (Session["IsCustomerGrid"] == null)
+                    RadPanelBar3.FindItemByValue("BM Home").Selected = true;
+                else
+                    RadPanelBar3.FindItemByValue("Customer").Selected = true;
+
+                //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('AdvisorLeftPane');", true);
+            }
+            else if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
+            {
+                RadPanelBar2.FindItemByValue("RM").Expanded = true;
+
+                if (Session["IsCustomerGrid"] == null)
+                    RadPanelBar2.FindItemByValue("RM Home").Selected = true;
+                else
+                    RadPanelBar2.FindItemByValue("Customer").Selected = true;
+
+                //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('AdvisorLeftPane');", true);
+            }
+            else if (userVo.RoleList.Contains("Ops"))
+            {
+                RadPanelBar4.FindItemByValue("Ops").Expanded = true;
+                RadPanelBar4.FindItemByValue("Customer").Selected = true;
+            }
+            else if (userVo.RoleList.Contains("Research"))
+            {
+                RadPanelBar5.FindItemByValue("Reference_Data").Expanded = true;
+                RadPanelBar5.FindItemByValue("Reference_Data").Selected = true;
+            }
+            else if (Session[SessionContents.CurrentUserRole].ToString() == "Associates")
+            {
+                RadPanelBar6.FindItemByValue("Associates").Expanded = true;
+
+            }
+
+            if (Session["NodeType"] == "CustomerUpload")
+            {
+                RadPanelBar1.FindItemByValue("File_Upload").Expanded = true;
+                RadPanelBar1.FindItemByValue("Start_Upload").Expanded = true;
+                RadPanelBar1.FindItemByValue("Start_Upload").Selected = true;
+            }
+            else if (Session["NodeType"] == "AdviserCustomer")
+            {
+
+                RadPanelBar1.FindItemByValue("Customer").Expanded = true;
+                RadPanelBar1.FindItemByValue("CustomerList").Selected = true;
+            }
+            else if (Session["NodeType"] == "MFOrderEntry")
+            {
+                RadPanelBar1.FindItemByValue("Order_Management").Expanded = true;
+                RadPanelBar1.FindItemByValue("OrderEntry").Expanded = true;
+                RadPanelBar1.FindItemByValue("OrderEntry").Selected = true;
+
+            }
+            else if (Session["NodeType"] == "MFDashBoard")
+            {
+                RadPanelBar1.FindItemByValue("Business MIS").Expanded = true;
+                RadPanelBar1.FindItemByValue("MFDashBoard").Expanded = true;
+                RadPanelBar1.FindItemByValue("MFDashBoard").Selected = true;
+
+            }
+
+            else if (Session["NodeType"] == "MessageInbox")
+            {
+                RadPanelBar1.FindItemByValue("Message").Expanded = true;
+                RadPanelBar1.FindItemByValue("Inbox").Expanded = true;
+                RadPanelBar1.FindItemByValue("Inbox").Selected = true;
+
+            }
+
+            else if (Session["NodeType"] == "AddProspectList")
+            {
+                RadPanelBar1.FindItemByValue("Admin").Expanded = false;
+                RadPanelBar2.FindItemByValue("RM").Expanded = true;
+                RadPanelBar2.FindItemByValue("Customer").Expanded = true;
+
+                RadPanelBar2.FindItemByValue("Add FP Prospect").Expanded = true;
+                RadPanelBar2.FindItemByValue("Add FP Prospect").Selected = true;
+
+            }
+
+            else if (Session["NodeType"] == "CustomerReportsDashBoard")
+            {
+                RadPanelBar1.FindItemByValue("Customer").Expanded = true;
+                RadPanelBar1.FindItemByValue("Customer_Report").Expanded = true;
+                RadPanelBar1.FindItemByValue("Customer_Report").Selected = true;
+
+            }
+        }
+
+        private void ShowUserRoleBasedPannel()
+        {
+            //Code to display the left tree based on the Roles
+            if (!userVo.RoleList.Contains("Admin"))
+                RadPanelBar1.Visible = false;
+            if (!userVo.RoleList.Contains("RM"))
                 RadPanelBar2.Visible = false;
+            if (!userVo.RoleList.Contains("BM"))
                 RadPanelBar3.Visible = false;
+            if (!userVo.RoleList.Contains("Ops"))
+                RadPanelBar4.Visible = false;
+            if (!userVo.RoleList.Contains("Research"))
+                RadPanelBar5.Visible = false;
+            if (!userVo.RoleList.Contains("Associates"))
+                RadPanelBar6.Visible = false;
+
+        }
+
+        private void SetUserSearchBox()
+        {
+            if (userVo.RoleList.Contains("Admin"))
+            {
+                if (advisorVo.IsOpsEnable != 1)
+                {
+                    txtFindRMCustomer.Visible = false;
+                    btnSearchRMCustomer.Visible = false;
+                }
+                else
+                {
+                    txtFindAdviserCustomer.Visible = false;
+                    btnSearchAdviserCustomer.Visible = false;
+                }
+            }
+            else if (userVo.RoleList.Contains("RM"))
+            {
+                txtFindRM.Visible = false;
+                btnSearchRM.Visible = false;
+                txtFindBranch.Visible = false;
+                btnSearchBranch.Visible = false;
+                txtFindAdviserCustomer.Visible = false;
+                btnSearchAdviserCustomer.Visible = false;
+            }
+            else if (userVo.RoleList.Contains("BM"))
+            {
+                txtFindRM.Visible = false;
+                btnSearchRM.Visible = false;
+                txtFindBranch.Visible = false;
+                btnSearchBranch.Visible = false;
+                txtFindAdviserCustomer.Visible = false;
+                btnSearchAdviserCustomer.Visible = false;
+                txtFindRMCustomer.Visible = false;
+                btnSearchRMCustomer.Visible = false;
+            }
+            else if (userVo.RoleList.Contains("Ops"))
+            {
+                txtFindRMCustomer.Visible = false;
+                txtFindBranch.Visible = false;
+                txtFindRM.Visible = false;
+                btnSearchRM.Visible = false;
+                btnSearchBranch.Visible = false;
+                btnSearchRMCustomer.Visible = false;
+            }
+            else if (userVo.RoleList.Contains("Research"))
+            {
+                txtFindRM.Visible = false;
+                btnSearchRM.Visible = false;
+                txtFindBranch.Visible = false;
+                btnSearchBranch.Visible = false;
+                txtFindAdviserCustomer.Visible = false;
+                btnSearchAdviserCustomer.Visible = false;
+                txtFindRMCustomer.Visible = false;
+                btnSearchRMCustomer.Visible = false;
+            }
+            else if (userVo.RoleList.Contains("Associates"))
+            {
+                txtFindRMCustomer.Visible = false;
+                txtFindBranch.Visible = false;
+                txtFindRM.Visible = false;
+                btnSearchRM.Visible = false;
+                btnSearchBranch.Visible = false;
+                btnSearchRMCustomer.Visible = false;
             }
         }
 
@@ -435,19 +450,19 @@ namespace WealthERP.Advisor
             if (dsTreeNode.Tables[0].Rows.Count > 0)
             {
                 dsTreeNode.Tables[0].DefaultView.RowFilter = "UR_RoleName='" + userRole + "'";
-                dtTreeNode = dsTreeNodes.Tables[0].DefaultView.ToTable();
+                dtTreeNode = dsTreeNode.Tables[0].DefaultView.ToTable();
             }
 
             if (dsTreeNode.Tables[1].Rows.Count > 0)
             {
                 dsTreeNode.Tables[1].DefaultView.RowFilter = "UR_RoleName='" + userRole + "'";
-                dtTreeSubNode = dsTreeNodes.Tables[1].DefaultView.ToTable();
+                dtTreeSubNode = dsTreeNode.Tables[1].DefaultView.ToTable();
             }
 
             if (dsTreeNode.Tables[2].Rows.Count > 0)
             {
                 dsTreeNode.Tables[2].DefaultView.RowFilter = "UR_RoleName='" + userRole + "'";
-                dtTreeSubSubNode = dsTreeNodes.Tables[2].DefaultView.ToTable();
+                dtTreeSubSubNode = dsTreeNode.Tables[2].DefaultView.ToTable();
             }
             dsTreeFilterNode.Tables.Add(dtTreeNode);
             dsTreeFilterNode.Tables.Add(dtTreeSubNode);
@@ -455,6 +470,7 @@ namespace WealthERP.Advisor
 
             return dsTreeFilterNode;
         }
+
         protected DataSet FilterUserTreeNodePlan(DataSet dsTreeNode)
         {
             DataSet dsTreeFilterNodePlan = new DataSet();
@@ -569,14 +585,6 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "Set Theme")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('SetTheme','login');", true);
-                }
-                else if (e.Item.Value == "User_Role")
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserDepartmentRoleSetup','login');", true);
-                }
-                else if (e.Item.Value == "User_Role_privileges")
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserRoleToTreeNodeMapping','login');", true);
                 }
                 else if (e.Item.Value == "Setup_customer_category")
                 {
@@ -851,10 +859,6 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerUpload','login');", true);
                 }
-                else if (e.Item.Value == "MF_Upload_Offline")
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerUpload','login');", true);
-                }
                 else if (e.Item.Value == "Uploads_Exception")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('UploadDashBoard','login');", true);
@@ -1093,7 +1097,7 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "NCD_Extract")
                 {
-                   Session["UserType"] = "adviser";
+                    Session["UserType"] = "adviser";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineIssueExtract','login');", true);
                 }
                 else if (e.Item.Value == "File_Extraction")
@@ -1150,7 +1154,7 @@ namespace WealthERP.Advisor
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineNCDOrderMatchExceptionHandling','login');", true);
 
                 }
-                
+
                 else if (e.Item.Value == "IPO_Order_Book")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineAdviserCustomerIPOOrderBook','login');", true);
@@ -1161,7 +1165,7 @@ namespace WealthERP.Advisor
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineIssueUpload','login');", true);
 
                 }
-                
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -1844,7 +1848,7 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "ProductOrderMaster")
                 {
-                   // Session["UserType"] = "adviser";
+                    // Session["UserType"] = "adviser";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ProductOrderMaster','login');", true);
                 }
                 else if (e.Item.Value == "Customer_Report")
@@ -2054,7 +2058,7 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RejectedSystematicTransactionStaging','login');", true);
                 }
-                    else if (e.Item.Value == "MFT")
+                else if (e.Item.Value == "MFT")
                 {
                     Session["UserType"] = "adviser";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('TransactionDashBoard','login');", true);
@@ -2204,8 +2208,8 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewSchemeStructureAssociation','none');", true);
                 }
-               
-                 else if (e.Item.Value == "Receivable_Scheme_Structure_Association")
+
+                else if (e.Item.Value == "Receivable_Scheme_Structure_Association")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('SchemeStructureRuleAssociation','none');", true);
                 }
@@ -2330,12 +2334,22 @@ namespace WealthERP.Advisor
             return dsTreeNodes;
         }
 
+        private DataSet GetAdviserRoleTreeNodes(int adviserId)
+        {
+            AdvisorBo advisorBo = new AdvisorBo();
+            DataSet dsTreeNodes;
+            dsTreeNodes = advisorBo.GetAdviserRoleTreeNodes(adviserId);
+            return dsTreeNodes;
+        }
+
 
         private void SetAdminTreeNodesForRoles(DataSet dsAdminTreeNodes, string userRole)
+        
         {
             int flag = 0;
             DataView tempView;
             DataRow dr;
+            
             if (userRole == "Admin")
             {
                 //foreach (DataRow dr in dsAdminTreeNodes.Tables[0].Rows)
@@ -2403,7 +2417,7 @@ namespace WealthERP.Advisor
                 tempView = new DataView(dsAdminTreeNodes.Tables[2]);
                 tempView.Sort = "WTSSN_TreeSubSubNode";
                 //Setting Primary key for the datatable inorder to find a value based on the key
-                dsAdminTreeNodes.Tables[2].PrimaryKey = new DataColumn[] {dsAdminTreeNodes.Tables[2].Columns["WTSSN_TreeSubSubNode"] };
+                dsAdminTreeNodes.Tables[2].PrimaryKey = new DataColumn[] { dsAdminTreeNodes.Tables[2].Columns["WTSSN_TreeSubSubNode"] };
                 foreach (RadPanelItem Item in RadPanelBar1.GetAllItems())
                 {
 
@@ -2969,7 +2983,7 @@ namespace WealthERP.Advisor
 
 
                         //    }
-                       // }
+                        // }
                         //if (int.Parse(dsAdminTreeNodes.Tables[3].Rows[0]["WP_IsOtherStaffEnabled"].ToString()) == 0)
                         //{
                         //    if (Item.Value == "Staff")
@@ -3620,8 +3634,8 @@ namespace WealthERP.Advisor
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-            
+
         }
-       
+
     }
 }

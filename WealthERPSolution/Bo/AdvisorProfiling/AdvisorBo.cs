@@ -1636,7 +1636,7 @@ namespace BoAdvisorProfiling
         /// <param name="modifiedDate">modified date of the zone/cluster</param>
         /// <param name="CommandName">operation filtered by commandname if edit delete or add</param>
         /// <returns>rows true or false</returns>
-        public bool ZoneClusterDetailsAddEditDelete(int adviserId, int rmId, int ZoneClusterId,int ZoneId, string Description, string name, string type, int createdBy, int modifiedBy, DateTime createdDate, DateTime modifiedDate, string CommandName)
+        public bool ZoneClusterDetailsAddEditDelete(int adviserId, int rmId, int ZoneClusterId, int ZoneId, string Description, string name, string type, int createdBy, int modifiedBy, DateTime createdDate, DateTime modifiedDate, string CommandName)
         {
             AdvisorDao adviserDao = new AdvisorDao();
             bool inserted = false;
@@ -1900,7 +1900,8 @@ namespace BoAdvisorProfiling
         /// <param name="genDictRM"></param>
         /// <param name="genDictReassignRM"></param>
         /// <returns>will return the list of the customers from the data base accroding to the parameters assigned</returns>
-        public DataSet GetAssociateCustomerList(int adviserId, string UserRole, string agentCode) {
+        public DataSet GetAssociateCustomerList(int adviserId, string UserRole, string agentCode)
+        {
             DataSet dsCustList = null;
             AdvisorDao advisorDao = new AdvisorDao();
 
@@ -1955,8 +1956,36 @@ namespace BoAdvisorProfiling
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
                 throw exBase;
-           }
+            }
             return advisorVo;
+        }
+
+        public DataSet GetAdviserRoleTreeNodes(int adviserId)
+        {
+            AdvisorDao advisorDao = new AdvisorDao();
+            DataSet dsAdviserTreeNodes;
+
+            try
+            {
+                dsAdviserTreeNodes = advisorDao.GetAdviserRoleTreeNodes(adviserId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "GetAdviserRoleTreeNodes(int adviserId)");
+                object[] objects = new object[1];
+                objects[0] = adviserId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsAdviserTreeNodes;
         }
     }
 }

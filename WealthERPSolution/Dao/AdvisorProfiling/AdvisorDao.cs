@@ -3536,6 +3536,39 @@ namespace DaoAdvisorProfiling
             return advisorVo;
         }
 
+
+        public DataSet GetAdviserRoleTreeNodes(int adviserId)
+        {
+            Database db;
+            DbCommand GetAdviserTreeNodes;
+            DataSet dsAdviserTreeNodes;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetAdviserTreeNodes = db.GetStoredProcCommand("SPROC_GetAdviserRolesTreeNodeData");
+                db.AddInParameter(GetAdviserTreeNodes, "@AdviserId", DbType.Int32, adviserId);
+                dsAdviserTreeNodes = db.ExecuteDataSet(GetAdviserTreeNodes);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "GetAdviserRoleTreeNodes(int adviserId)");
+                object[] objects = new object[1];
+                objects[0] = adviserId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsAdviserTreeNodes;
+        }
+
     }
 }
 

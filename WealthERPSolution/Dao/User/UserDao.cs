@@ -86,6 +86,7 @@ namespace DaoUser
             DbCommand getUserCmd;
             DataSet getUserDs;
             DataRow dr;
+            Dictionary <Int16,string> adviserRole=new Dictionary<Int16,string>();
 
             try
             {
@@ -120,7 +121,20 @@ namespace DaoUser
                         userVo.PasswordSaltValue = dr["U_PwdSaltValue"].ToString().Trim();
                 }
 
+                if (getUserDs.Tables[1].Rows.Count > 0)
+                {
+                    foreach(DataRow drRole in getUserDs.Tables[1].Rows)
+                    {
+                        adviserRole.Add(Convert.ToInt16(drRole["AR_RoleId"].ToString()), drRole["AR_Role"].ToString());
+                    }
+                }
+
+                if(adviserRole!=null)
+                userVo.AdviserRole=adviserRole;
+
             }
+
+                
 
 
 
@@ -656,24 +670,23 @@ namespace DaoUser
         public List<string> GetUserRoles(int userId)
         {
             List<string> roleList = new List<string>();
-            string role;
             Database db;
             DbCommand getUserRolesCmd;
             DataSet getUserRolesDs;
-            string query = null;
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                query = "select UR_RoleName from UserRole where UR_RoleId in (select UR_RoleId from UserRoleAssociation where U_UserId=" + userId.ToString() + ")";
-                getUserRolesCmd = db.GetSqlStringCommand(query);
-                db.AddInParameter(getUserRolesCmd, "@U_UserId", DbType.Int32, userId);
+                //query = "select UR_RoleName from UserRole where UR_RoleId in (select UR_RoleId from UserRoleAssociation where U_UserId=" + userId.ToString() + ")";
+                //getUserRolesCmd = db.GetSqlStringCommand(query);
+                //db.AddInParameter(getUserRolesCmd, "@U_UserId", DbType.Int32, userId);             
+                getUserRolesCmd = db.GetStoredProcCommand("SPROC_GetUserRoleList");
+                db.AddInParameter(getUserRolesCmd, "@UserId", DbType.Int32, userId);
                 getUserRolesDs = db.ExecuteDataSet(getUserRolesCmd);
                 if (getUserRolesDs.Tables[0].Rows.Count > 0)
                 {
                     foreach (DataRow dr in getUserRolesDs.Tables[0].Rows)
                     {
-                        role = dr["UR_RoleName"].ToString();
-                        roleList.Add(role);
+                        roleList.Add(dr["UR_RoleName"].ToString());
                     }
                 }
             }
@@ -1529,8 +1542,8 @@ namespace DaoUser
         public DataTable GetUserDetails(string userIds)
         {
             Database db;
-            DbCommand getUserDetailsCmd;          
-            DataSet userDetailsDs;            
+            DbCommand getUserDetailsCmd;
+            DataSet userDetailsDs;
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
