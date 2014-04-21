@@ -218,6 +218,7 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(createRMCmd, "@AAC_AdviserAgentI", DbType.Int32, rmVo.AdviserAgentId);
                 db.AddInParameter(createRMCmd, "@AssociatesId", DbType.Int32,0);
                 db.AddInParameter(createRMCmd, "@staffbranch", DbType.String, rmVo.StaffBranchAssociation);
+               
 
                 if (isOpsIsChecked == true)
                     db.AddInParameter(createRMCmd, "@IsOpsOrRMStaff", DbType.Int16, 1);
@@ -285,6 +286,106 @@ namespace DaoAdvisorProfiling
 
             }
             return rmIds;
+        }
+
+
+        public int CreateAdviserStaff(UserVo userVo, RMVo rmVo, int userId, bool isOpsIsChecked, bool isPurelyResearchLogin,string roleIds)
+        {
+            int StaffId=0;
+            bool bResult = false;
+            Database db;
+            DbCommand createRMCmd;
+            string type = "RM";
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                createRMCmd = db.GetStoredProcCommand("SPROC_CreateAdviserStaff");
+                db.AddInParameter(createRMCmd, "@roleIds", DbType.String,roleIds);
+                db.AddInParameter(createRMCmd, "@U_Password", DbType.String, userVo.Password);
+                db.AddInParameter(createRMCmd, "@U_PasswordSaltValue", DbType.String, userVo.PasswordSaltValue);
+                db.AddInParameter(createRMCmd, "@U_FirstName", DbType.String, userVo.FirstName);
+                db.AddInParameter(createRMCmd, "@U_MiddleName", DbType.String, userVo.MiddleName);
+                db.AddInParameter(createRMCmd, "@U_LastName", DbType.String, userVo.LastName);
+                db.AddInParameter(createRMCmd, "@U_Email", DbType.String, userVo.Email);
+                db.AddInParameter(createRMCmd, "@U_UserType", DbType.String, userVo.UserType);
+                // db.AddInParameter(createRMCmd, "@U_LoginId", DbType.String, userVo.LoginId);
+                db.AddInParameter(createRMCmd, "@A_AdviserId", DbType.Int32, rmVo.AdviserId);
+                db.AddInParameter(createRMCmd, "@AR_FirstName", DbType.String, rmVo.FirstName);
+                db.AddInParameter(createRMCmd, "@AR_MiddleName", DbType.String, rmVo.MiddleName);
+                db.AddInParameter(createRMCmd, "@AR_LastName", DbType.String, rmVo.LastName);
+                db.AddInParameter(createRMCmd, "@AR_StaffCode", DbType.String, rmVo.StaffCode);
+                db.AddInParameter(createRMCmd, "@AR_OfficePhoneDirectISD", DbType.Int32, rmVo.OfficePhoneDirectIsd);
+                db.AddInParameter(createRMCmd, "@AR_OfficePhoneDirectSTD", DbType.Int32, rmVo.OfficePhoneDirectStd);
+                db.AddInParameter(createRMCmd, "@AR_OfficePhoneDirect", DbType.Int32, rmVo.OfficePhoneDirectNumber);
+                db.AddInParameter(createRMCmd, "@AR_OfficePhoneExtISD", DbType.Int32, rmVo.OfficePhoneExtIsd);
+                db.AddInParameter(createRMCmd, "@AR_OfficePhoneExtSTD", DbType.Int32, rmVo.OfficePhoneExtStd);
+                db.AddInParameter(createRMCmd, "@AR_OfficePhoneExt", DbType.Int32, rmVo.OfficePhoneExtNumber);
+                db.AddInParameter(createRMCmd, "@AR_ResPhoneISD", DbType.Int32, rmVo.ResPhoneIsd);
+                db.AddInParameter(createRMCmd, "@AR_ResPhoneSTD", DbType.Int32, rmVo.ResPhoneStd);
+                db.AddInParameter(createRMCmd, "@AR_ResPhone", DbType.Int32, rmVo.ResPhoneNumber);
+                db.AddInParameter(createRMCmd, "@AR_Mobile", DbType.Int64, rmVo.Mobile);
+                db.AddInParameter(createRMCmd, "@AR_FaxISD", DbType.Int32, rmVo.FaxIsd);
+                db.AddInParameter(createRMCmd, "@AR_FaxSTD", DbType.Int32, rmVo.FaxStd);
+                db.AddInParameter(createRMCmd, "@AR_Fax", DbType.Int32, rmVo.Fax);
+                db.AddInParameter(createRMCmd, "@AR_Email", DbType.String, rmVo.Email);
+                db.AddInParameter(createRMCmd, "@AR_JobFunction", DbType.String, rmVo.RMRole);
+                db.AddInParameter(createRMCmd, "@AR_IsExternalStaff", DbType.Int16, rmVo.IsExternal);
+                db.AddInParameter(createRMCmd, "@AR_CTC", DbType.Double, rmVo.CTC);
+                db.AddInParameter(createRMCmd, "@U_CreatedBy", DbType.Int32, userId);
+                db.AddInParameter(createRMCmd, "@U_ModifiedBy", DbType.Int32, userId);
+                db.AddInParameter(createRMCmd, "@AR_EUIN", DbType.String, rmVo.EUIN);
+                db.AddInParameter(createRMCmd, "@AAC_AgentCode", DbType.String, rmVo.AAC_AgentCode);
+                db.AddInParameter(createRMCmd, "@AAC_AdviserAgentI", DbType.Int32, rmVo.AdviserAgentId);
+                db.AddInParameter(createRMCmd, "@AssociatesId", DbType.Int32, 0);
+                db.AddInParameter(createRMCmd, "@staffbranch", DbType.String, rmVo.StaffBranchAssociation);
+                if (isOpsIsChecked == true)
+                    db.AddInParameter(createRMCmd, "@IsOpsOrRMStaff", DbType.Int16, 1);
+                else
+                    db.AddInParameter(createRMCmd, "@IsOpsOrRMStaff", DbType.Int16, 0);
+
+                if (isPurelyResearchLogin == true)
+                    db.AddInParameter(createRMCmd, "@IsPurelyResearchStaff", DbType.Int16, 1);
+                else
+                    db.AddInParameter(createRMCmd, "@IsPurelyResearchStaff", DbType.Int16, 0);
+
+                if (rmVo.BranchId != 0)
+                    db.AddInParameter(createRMCmd, "@BranchId", DbType.Int32, rmVo.BranchId);
+                if (rmVo.HierarchyRoleId != 0)
+                    db.AddInParameter(createRMCmd, "@HierarchyRoleId", DbType.Int32, rmVo.HierarchyRoleId);
+                if (rmVo.ReportingManagerId != 0)
+                    db.AddInParameter(createRMCmd, "@ReportingManagerId", DbType.Int32, rmVo.ReportingManagerId);
+                if (rmVo.IsAssociateUser)
+                    db.AddInParameter(createRMCmd, "@IsAssociateUser", DbType.Int16, 1);
+
+                db.AddOutParameter(createRMCmd, "@AR_RMId", DbType.Int32, 1000000);
+                db.AddOutParameter(createRMCmd, "@U_UserId", DbType.Int32, 1000000);
+                if (db.ExecuteNonQuery(createRMCmd) != 0)
+                    StaffId = int.Parse(db.GetParameterValue(createRMCmd, "AR_RMId").ToString());
+                    
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdvisorStaffDao.cs:CreateRMUser()");
+
+
+                object[] objects = new object[3];
+                objects[0] = roleIds;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return StaffId;
+         
         }
 
         public bool CreateRMBranch(int rmId, int branchId, int userId)
@@ -931,6 +1032,163 @@ namespace DaoAdvisorProfiling
             return rmVo;
         }
 
+
+        public RMVo GetAdvisorStaffProfile(int rmId)
+        {
+            RMVo rmVo = new RMVo();
+            AdvisorStaffDao advisorStaffDao = new AdvisorStaffDao();
+            Database db;
+            DbCommand getAdvisorStaffCmd;
+            DataSet getAdvisorStaffDs;
+            // DataTable table;
+            DataRow dr;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getAdvisorStaffCmd = db.GetStoredProcCommand("SPROC_GetAdviserStaffProfile");
+                db.AddInParameter(getAdvisorStaffCmd, "@AR_RMId", DbType.Int32, rmId);
+                getAdvisorStaffDs = db.ExecuteDataSet(getAdvisorStaffCmd);
+
+                if (getAdvisorStaffDs.Tables[0].Rows.Count > 0)
+                {
+                    // table = getAdvisorStaffDs.Tables["AdviserRM"];
+                    dr = getAdvisorStaffDs.Tables[0].Rows[0];
+                    rmVo.UserId = int.Parse((dr["U_UserId"].ToString()));
+                    rmVo.RMId = int.Parse(dr["AR_RMId"].ToString());
+                    rmVo.FirstName = dr["AR_FirstName"].ToString();
+                    if (dr["AR_MiddleName"] != DBNull.Value)
+                        rmVo.MiddleName = dr["AR_MiddleName"].ToString();
+                    else
+                        rmVo.MiddleName = string.Empty;
+                    if (dr["AR_LastName"] != DBNull.Value)
+                        rmVo.LastName = dr["AR_LastName"].ToString();
+                    else
+                        rmVo.LastName = string.Empty;
+                    if (dr["AR_StaffCode"] != DBNull.Value)
+                        rmVo.StaffCode = dr["AR_StaffCode"].ToString();
+                    else
+                        rmVo.StaffCode = string.Empty;
+                    if (dr["AR_OfficePhoneDirect"] != DBNull.Value)
+                        rmVo.OfficePhoneDirectNumber = int.Parse(dr["AR_OfficePhoneDirect"].ToString());
+                    if (dr["AR_OfficePhoneDirectISD"] != DBNull.Value)
+                        rmVo.OfficePhoneDirectIsd = int.Parse(dr["AR_OfficePhoneDirectISD"].ToString());
+                    if (dr["AR_OfficePhoneDirectSTD"] != DBNull.Value)
+                        rmVo.OfficePhoneDirectStd = int.Parse(dr["AR_OfficePhoneDirectSTD"].ToString());
+                    if (dr["AR_OfficePhoneExt"] != DBNull.Value)
+                        rmVo.OfficePhoneExtNumber = int.Parse(dr["AR_OfficePhoneExt"].ToString());
+                    if (dr["AR_OfficePhoneExtISD"] != DBNull.Value)
+                        rmVo.OfficePhoneExtIsd = int.Parse(dr["AR_OfficePhoneExtISD"].ToString());
+                    if (dr["AR_OfficePhoneExtSTD"] != DBNull.Value)
+                        rmVo.OfficePhoneExtStd = int.Parse(dr["AR_OfficePhoneExtSTD"].ToString());
+                    if (dr["AR_ResPhoneISD"] != DBNull.Value)
+                        rmVo.ResPhoneIsd = int.Parse(dr["AR_ResPhoneISD"].ToString());
+                    if (dr["AR_ResPhoneSTD"] != DBNull.Value)
+                        rmVo.ResPhoneStd = int.Parse(dr["AR_ResPhoneSTD"].ToString());
+                    if (dr["AR_ResPhone"] != DBNull.Value)
+                        rmVo.ResPhoneNumber = int.Parse(dr["AR_ResPhone"].ToString());
+                    if (dr["AR_Fax"] != DBNull.Value)
+                        rmVo.Fax = int.Parse(dr["AR_Fax"].ToString());
+                    if (dr["AR_FaxISD"] != DBNull.Value)
+                        rmVo.FaxIsd = int.Parse(dr["AR_FaxISD"].ToString());
+                    if (dr["AR_FaxSTD"] != DBNull.Value)
+                        rmVo.FaxStd = int.Parse(dr["AR_FaxSTD"].ToString());
+                    if (dr["AR_Mobile"] != DBNull.Value)
+                        rmVo.Mobile = Convert.ToInt64(dr["AR_Mobile"].ToString());
+                    if (dr["AR_Email"] != DBNull.Value)
+                        rmVo.Email = dr["AR_Email"].ToString();
+                    else
+                        rmVo.Email = string.Empty;
+                    if (dr["AR_JobFunction"] != DBNull.Value)
+                        rmVo.RMRole = dr["AR_JobFunction"].ToString();
+                    else
+                        rmVo.RMRole = string.Empty;
+
+                    if (dr["RoleList"] != DBNull.Value)
+                        rmVo.RMRoleList = dr["RoleList"].ToString();
+                    else
+                        rmVo.RMRoleList = string.Empty;
+
+                    if (!string.IsNullOrEmpty(dr["BranchList"].ToString().Trim()))
+                        rmVo.BranchList = dr["BranchList"].ToString();
+                    else
+                        rmVo.BranchList = string.Empty;
+
+                    if (dr["AR_IsExternalStaff"] != DBNull.Value && dr["AR_IsExternalStaff"].ToString() != "")
+                        rmVo.IsExternal = Int16.Parse(dr["AR_IsExternalStaff"].ToString());
+                    else
+                        rmVo.IsExternal = 1;
+
+                    if (dr["AR_CTC"].ToString() != "")
+                        rmVo.CTC = Double.Parse(dr["AR_CTC"].ToString());
+                    else
+                        rmVo.CTC = 0;
+
+                    if (dr["A_AdviserId"] != DBNull.Value)
+                        rmVo.AdviserId = int.Parse(dr["A_AdviserId"].ToString());
+                    else
+                        rmVo.AdviserId = 0;
+
+                    if (!string.IsNullOrEmpty(dr["AB_StaffBranchId"].ToString()))
+                        rmVo.BranchId = Convert.ToInt32(dr["AB_StaffBranchId"].ToString());
+
+                    if (!string.IsNullOrEmpty(dr["AH_ReportingRoleId"].ToString()))
+                        rmVo.HierarchyRoleId = Convert.ToInt32(dr["AH_ReportingRoleId"].ToString());
+
+                    if (!string.IsNullOrEmpty(dr["AR_ReportingManagerId"].ToString()))
+                        rmVo.ReportingManagerId = Convert.ToInt32(dr["AR_ReportingManagerId"].ToString());
+
+                    if (!string.IsNullOrEmpty(dr["AH_HierarchyTitleId"].ToString()))
+                        rmVo.HierarchyTitleId = Convert.ToInt16(dr["AH_HierarchyTitleId"].ToString());
+
+                    if (!string.IsNullOrEmpty(dr["AH_TeamId"].ToString()))
+                        rmVo.HierarchyTeamId = Convert.ToInt16(dr["AH_TeamId"].ToString());
+
+                    if (!string.IsNullOrEmpty(dr["AAC_AgentCode"].ToString()))
+                        rmVo.AAC_AgentCode = dr["AAC_AgentCode"].ToString();
+                    if (!string.IsNullOrEmpty(dr["AR_EUIN"].ToString()))
+                        rmVo.EUIN = dr["AR_EUIN"].ToString();
+                    if (!string.IsNullOrEmpty(dr["DepartmentId"].ToString()))
+                        rmVo.departmentId = int.Parse(dr["DepartmentId"].ToString());
+                    if (!string.IsNullOrEmpty(dr["DepartentRoles"].ToString()))
+                        rmVo.roleIds = dr["DepartentRoles"].ToString();
+
+                }
+                foreach (DataRow rdr in getAdvisorStaffDs.Tables[0].Rows)
+                {
+                    if (!string.IsNullOrEmpty(rdr["StaffBranchAssociation"].ToString()))
+                    {
+                        rmVo.StaffBranchAssociation = rmVo.StaffBranchAssociation + rdr["StaffBranchAssociation"].ToString() + ',';
+
+                    }
+                }
+
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdvisorStaffDao.cs:GetAdvisorStaffDetails()");
+
+                object[] objects = new object[1];
+                objects[0] = rmId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return rmVo;
+        }
+
+
         public bool UpdateStaff(RMVo rmVo)
         {
             bool bResult = false;
@@ -979,6 +1237,81 @@ namespace DaoAdvisorProfiling
                     db.AddInParameter(updateAdvisorStaffCmd, "@staffbranch", DbType.String,null);
                 if (db.ExecuteNonQuery(updateAdvisorStaffCmd) != 0)
                    
+                    bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdvisorStaffDao.cs:UpdateStaff()");
+
+                object[] objects = new object[3];
+                objects[0] = rmVo;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return bResult;
+        }
+
+
+        public bool UpdateAdviserStaffProfile(RMVo rmVo)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand updateAdvisorStaffCmd;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                updateAdvisorStaffCmd = db.GetStoredProcCommand("SP_UpdateAdviserStaffProfile");
+                db.AddInParameter(updateAdvisorStaffCmd, "@AR_RMId", DbType.Int32, rmVo.RMId);
+                db.AddInParameter(updateAdvisorStaffCmd, "@AR_FirstName", DbType.String, rmVo.FirstName);
+                db.AddInParameter(updateAdvisorStaffCmd, "@AR_MiddleName", DbType.String, rmVo.MiddleName);
+                db.AddInParameter(updateAdvisorStaffCmd, "@AR_LastName", DbType.String, rmVo.LastName);
+                db.AddInParameter(updateAdvisorStaffCmd, "@AR_StaffCode", DbType.String, rmVo.StaffCode);
+                db.AddInParameter(updateAdvisorStaffCmd, "@AR_OfficePhoneDirectISD", DbType.Int32, rmVo.OfficePhoneDirectIsd);
+                db.AddInParameter(updateAdvisorStaffCmd, "@AR_OfficePhoneDirectSTD", DbType.Int32, rmVo.OfficePhoneDirectStd);
+                db.AddInParameter(updateAdvisorStaffCmd, "@AR_OfficePhoneDirect", DbType.Int32, rmVo.OfficePhoneDirectNumber);
+                db.AddInParameter(updateAdvisorStaffCmd, "@AR_OfficePhoneExtISD", DbType.Int32, rmVo.OfficePhoneExtIsd);
+                db.AddInParameter(updateAdvisorStaffCmd, "@AR_OfficePhoneExtSTD", DbType.Int32, rmVo.OfficePhoneExtStd);
+                db.AddInParameter(updateAdvisorStaffCmd, "@AR_OfficePhoneExt", DbType.Int32, rmVo.OfficePhoneExtNumber);
+                db.AddInParameter(updateAdvisorStaffCmd, "@AR_ResPhoneISD", DbType.Int32, rmVo.ResPhoneIsd);
+                db.AddInParameter(updateAdvisorStaffCmd, "@AR_ResPhoneSTD", DbType.Int32, rmVo.ResPhoneStd);
+                db.AddInParameter(updateAdvisorStaffCmd, "@AR_ResPhone", DbType.Int32, rmVo.ResPhoneNumber);
+                db.AddInParameter(updateAdvisorStaffCmd, "@AR_Mobile", DbType.Int64, rmVo.Mobile);
+                db.AddInParameter(updateAdvisorStaffCmd, "@AR_Fax", DbType.String, rmVo.Fax);
+                db.AddInParameter(updateAdvisorStaffCmd, "@AR_FaxISD", DbType.String, rmVo.FaxIsd);
+                db.AddInParameter(updateAdvisorStaffCmd, "@AR_FaxSTD", DbType.String, rmVo.FaxStd);
+                db.AddInParameter(updateAdvisorStaffCmd, "@AR_Email", DbType.String, rmVo.Email);
+                db.AddInParameter(updateAdvisorStaffCmd, "@AR_CTC", DbType.String, rmVo.CTC);
+                db.AddInParameter(updateAdvisorStaffCmd, "@AR_IsExternalStaff", DbType.String, rmVo.IsExternal);
+                db.AddInParameter(updateAdvisorStaffCmd, "@AAC_AdviserAgentId", DbType.String, "");
+                db.AddInParameter(updateAdvisorStaffCmd, "@AAC_UserType", DbType.String, rmVo.RMRole);
+                db.AddInParameter(updateAdvisorStaffCmd, "@AAC_AgentCode", DbType.String, rmVo.AAC_AgentCode);
+                db.AddInParameter(updateAdvisorStaffCmd, "@AR_EUIN", DbType.String, rmVo.EUIN);
+
+                if (rmVo.BranchId != 0)
+                    db.AddInParameter(updateAdvisorStaffCmd, "@AB_StaffBranchId", DbType.Int32, rmVo.BranchId);
+                if (rmVo.HierarchyRoleId != 0)
+                    db.AddInParameter(updateAdvisorStaffCmd, "@AH_HierarchyId", DbType.Int32, rmVo.HierarchyRoleId);
+                if (rmVo.ReportingManagerId != 0)
+                    db.AddInParameter(updateAdvisorStaffCmd, "@AR_ReportingManagerId", DbType.Int32, rmVo.ReportingManagerId);
+                if (!string.IsNullOrEmpty(rmVo.StaffBranchAssociation))
+                    db.AddInParameter(updateAdvisorStaffCmd, "@staffbranch", DbType.String, rmVo.StaffBranchAssociation);
+                else
+                    db.AddInParameter(updateAdvisorStaffCmd, "@staffbranch", DbType.String, null);
+                if (!string.IsNullOrEmpty(rmVo.roleIds))
+                    db.AddInParameter(updateAdvisorStaffCmd, "@roleIds", DbType.String, rmVo.roleIds);
+                if (db.ExecuteNonQuery(updateAdvisorStaffCmd) != 0)
+
                     bResult = true;
             }
             catch (BaseApplicationException Ex)
@@ -2767,6 +3100,38 @@ namespace DaoAdvisorProfiling
 
             }
             return bResult;
+        }
+        public DataTable GetUserRoleDepartmentWise(int departmentid,int adviserId)
+        {
+            Database db;
+            DbCommand cmdGetUserRoleDepartmentWise;
+            DataSet dsGetUserRoleDepartmentWise = null;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetUserRoleDepartmentWise = db.GetStoredProcCommand("SPROC_GetDepartmentRoles");
+                db.AddInParameter(cmdGetUserRoleDepartmentWise, "@departmentId", DbType.Int32, departmentid);
+                db.AddInParameter(cmdGetUserRoleDepartmentWise, "@adviserId", DbType.Int32, adviserId);
+                dsGetUserRoleDepartmentWise = db.ExecuteDataSet(cmdGetUserRoleDepartmentWise);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommonLookupDao.cs:GetUserRoleDepartmentWise(int departmentid)");
+                object[] objects = new object[1];
+                objects[0] = departmentid;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetUserRoleDepartmentWise.Tables[0];
         }
     }
 }
