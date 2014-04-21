@@ -486,7 +486,7 @@ namespace DaoAdvisorProfiling
             }
             return bResult;
         }
-        public bool UpdateUserrole(int rollid, int userrole, string rolename, string purpose, int userid)
+        public bool UpdateUserrole(int rollid, int userrole, string rolename, string purpose, int userid, string StrUserLeve)
         {
             bool bResult = false;
             Database db;
@@ -500,8 +500,8 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(UpdateUserroleCmd, "@DepartmentId", DbType.Int32, userrole);
                 db.AddInParameter(UpdateUserroleCmd, "@Role", DbType.String, rolename);
                 db.AddInParameter(UpdateUserroleCmd, "@purpose", DbType.String, purpose);
-                db.AddInParameter(UpdateUserroleCmd, "@CreatedBy", DbType.Int32, userid);
                 db.AddInParameter(UpdateUserroleCmd, "@ModifiedBy", DbType.Int32, userid);
+                db.AddInParameter(UpdateUserroleCmd, "@UserlevelId", DbType.String, StrUserLeve);
                 if (db.ExecuteNonQuery(UpdateUserroleCmd) != 0)
                     bResult = true;
             }

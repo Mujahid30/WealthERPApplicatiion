@@ -15,5 +15,6 @@ namespace WealthERP.AdvsierPreferenceSettings {
 
         protected global::Telerik.Web.UI.RadGrid gvAdviserList;
         protected global::System.Web.UI.WebControls.CheckBoxList rlbUserlist;
+        protected global::System.Web.UI.WebControls.DropDownList ddlDepartMent;
     }
 }

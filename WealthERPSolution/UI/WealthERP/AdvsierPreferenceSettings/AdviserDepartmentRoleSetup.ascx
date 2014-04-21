@@ -89,13 +89,13 @@
                                         <asp:Label ID="lbllevel" runat="server" Text="Department:" CssClass="FieldName"></asp:Label>
                                     </td>
                                     <td>
-                                        <asp:DropDownList ID="ddlLevel" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlLevel_OnSelectedIndexChanged"
+                                        <asp:DropDownList ID="ddlDepartMent" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlDepartMent_OnSelectedIndexChanged"
                                             AutoPostBack="true">
                                         </asp:DropDownList>
                                         <span id="Span3" class="spnRequiredField">*</span>
                                         <br />
                                         <asp:RequiredFieldValidator ID="ReqddlLevel" runat="server" CssClass="rfvPCG" ErrorMessage="Please Enter Level"
-                                            Display="Dynamic" ControlToValidate="ddlLevel" ValidationGroup="btnOK" InitialValue="Select">
+                                            Display="Dynamic" ControlToValidate="ddlDepartMent" ValidationGroup="btnOK" InitialValue="Select">
                                         </asp:RequiredFieldValidator>
                                     </td>
                                 </tr>

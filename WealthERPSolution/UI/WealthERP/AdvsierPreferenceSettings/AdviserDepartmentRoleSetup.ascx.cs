@@ -89,19 +89,19 @@ namespace WealthERP.AdvsierPreferenceSettings
             {
                 GridEditFormInsertItem item = (GridEditFormInsertItem)e.Item;
                 GridEditFormItem gefi = (GridEditFormItem)e.Item;
-                DropDownList ddlLevel = (DropDownList)gefi.FindControl("ddlLevel");
-                BindDepartmentddl(ddlLevel);
+                DropDownList ddlDepartMent = (DropDownList)gefi.FindControl("ddlDepartMent");
+                BindDepartmentddl(ddlDepartMent);
             }
             if (e.Item is GridEditFormItem && e.Item.IsInEditMode && e.Item.ItemIndex != -1)
             {
                 int roleId = Convert.ToInt32(gvAdviserList.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AR_RoleId"].ToString());
                 GridEditFormItem editedItem = (GridEditFormItem)e.Item;
-                DropDownList ddlLevel = (DropDownList)editedItem.FindControl("ddlLevel");
+                DropDownList ddlDepartMent = (DropDownList)editedItem.FindControl("ddlDepartMent");
                 TextBox txtRoleName=(TextBox) editedItem.FindControl("txtRoleName");
                  TextBox txtNote=(TextBox) editedItem.FindControl("txtNote");
                 RadGrid rgRoles=(RadGrid)editedItem.FindControl("rgRoles");
-                BindPopUpcontrols(roleId,   ddlLevel,  txtRoleName,txtNote, rgRoles);
-                FillAdviserrole(roleId,ddlLevel, txtRoleName, txtNote, rgRoles);
+                BindPopUpcontrols(roleId, ddlDepartMent, txtRoleName, txtNote, rgRoles);
+                FillAdviserrole(roleId, ddlDepartMent, txtRoleName, txtNote, rgRoles);
 
                 //TextBox txtIssueName = (TextBox)e.Item.FindControl("txtIssueName");
                 //txtIssueName.Text = txtName.Text;
@@ -111,18 +111,18 @@ namespace WealthERP.AdvsierPreferenceSettings
 
                 //GridEditFormItem editedItem = (GridEditFormItem)e.Item;
                 //GridEditFormItem gefi = (GridEditFormItem)e.Item;
-                //DropDownList ddlLevel = (DropDownList)gefi.FindControl("ddlLevel");
-                //DataSet dsddlLevel = advisorPreferenceBo.GetDepartment(adviserVo.advisorId);
-                //DataTable dtddlLevel;
-                //dtddlLevel = dsddlLevel.Tables[0];
-                //ddlLevel.DataSource = dtddlLevel;
-                //ddlLevel.DataValueField = dtddlLevel.Columns["AD_DepartmentId"].ToString();
+                //DropDownList ddlDepartMent = (DropDownList)gefi.FindControl("ddlDepartMent");
+                //DataSet dsddlDepartMent = advisorPreferenceBo.GetDepartment(adviserVo.advisorId);
+                //DataTable dtddlDepartMent;
+                //dtddlDepartMent = dsddlDepartMent.Tables[0];
+                //ddlDepartMent.DataSource = dtddlDepartMent;
+                //ddlDepartMent.DataValueField = dtddlDepartMent.Columns["AD_DepartmentId"].ToString();
 
-                //ddlLevel.DataTextField = dtddlLevel.Columns["AD_DepartmentName"].ToString();
-                //ddlLevel.DataBind();
+                //ddlDepartMent.DataTextField = dtddlDepartMent.Columns["AD_DepartmentName"].ToString();
+                //ddlDepartMent.DataBind();
 
-                //if (ddlLevel.Items.Count > 0)
-                //    ddlLevel.SelectedValue = gvAdviserList.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AD_DepartmentId"].ToString();
+                //if (ddlDepartMent.Items.Count > 0)
+                //    ddlDepartMent.SelectedValue = gvAdviserList.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AD_DepartmentId"].ToString();
 
             }
         }
@@ -147,7 +147,7 @@ namespace WealthERP.AdvsierPreferenceSettings
             if (e.CommandName == RadGrid.PerformInsertCommandName)
             {
                 GridEditableItem gridEditableItem = (GridEditableItem)e.Item;
-                DropDownList ddlLevel = (DropDownList)e.Item.FindControl("ddlLevel");
+                DropDownList ddlDepartMent = (DropDownList)e.Item.FindControl("ddlDepartMent");
                 TextBox txtRoleName = (TextBox)e.Item.FindControl("txtRoleName");
                 TextBox txtNote = (TextBox)e.Item.FindControl("txtNote");
               //  CheckBoxList rlbUserlist = (CheckBoxList)e.Item.FindControl("rlbUserlist");
@@ -160,12 +160,12 @@ namespace WealthERP.AdvsierPreferenceSettings
 
                     }
                 }
-                advisorPreferenceBo.CreateUserRole(int.Parse(ddlLevel.SelectedValue), txtRoleName.Text, txtNote.Text, adviserVo.advisorId, userVo.UserId, StrUserLeve.TrimEnd(','));
+                advisorPreferenceBo.CreateUserRole(int.Parse(ddlDepartMent.SelectedValue), txtRoleName.Text, txtNote.Text, adviserVo.advisorId, userVo.UserId, StrUserLeve.TrimEnd(','));
             }
             if (e.CommandName == RadGrid.UpdateCommandName)
             {
                 GridEditableItem gridEditableItem = (GridEditableItem)e.Item;
-                DropDownList ddlLevel = (DropDownList)e.Item.FindControl("ddlLevel");
+                DropDownList ddlDepartMent = (DropDownList)e.Item.FindControl("ddlDepartMent");
                 TextBox txtRoleName = (TextBox)e.Item.FindControl("txtRoleName");
                 TextBox txtNote = (TextBox)e.Item.FindControl("txtNote");
                 int rollid = int.Parse(gvAdviserList.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AR_RoleId"].ToString());
@@ -178,7 +178,7 @@ namespace WealthERP.AdvsierPreferenceSettings
 
                     }
                 }
-                //advisorPreferenceBo.UpdateUserrole(rollid, int.Parse(ddlLevel.SelectedValue), txtRoleName.Text, txtNote.Text, userVo.UserId, StrUserLeve.TrimEnd(','));
+                advisorPreferenceBo.UpdateUserrole(rollid, int.Parse(ddlDepartMent.SelectedValue), txtRoleName.Text, txtNote.Text, userVo.UserId, StrUserLeve.TrimEnd(','));
             }
             if (e.CommandName == RadGrid.DeleteCommandName)
             {
@@ -201,7 +201,7 @@ namespace WealthERP.AdvsierPreferenceSettings
         }
 
 
-        private void BindPopUpcontrols(int roleId, DropDownList ddlLevel, TextBox textRoleName,TextBox txtNote,RadGrid rgRoles)
+        private void BindPopUpcontrols(int roleId, DropDownList ddlDepartMent, TextBox textRoleName,TextBox txtNote,RadGrid rgRoles)
         {
             //DataTable dtuserassociate = new DataTable();
             
@@ -209,26 +209,24 @@ namespace WealthERP.AdvsierPreferenceSettings
 
 
         }
-        private void FillAdviserrole(int roleId,  DropDownList ddlLevel,TextBox textRoleName, TextBox txtNote, RadGrid rgRoles)
+        private void FillAdviserrole(int roleId,  DropDownList ddlDepartMent,TextBox textRoleName, TextBox txtNote, RadGrid rgRoles)
         {
             int levelid=0;
              DataTable dtuserlist = new DataTable();
              DataTable dtBindUserRole = new DataTable();
-             
-
                 dtuserlist = advisorPreferenceBo.GetAdviserRoledepartmentwise(roleId).Tables[0];
-                BindDepartmentddl(ddlLevel);
+                BindDepartmentddl(ddlDepartMent);
                 if (dtuserlist.Rows.Count > 0)
                 {
                     foreach (DataRow dr in dtuserlist.Rows)
                     {
-                        ddlLevel.SelectedValue = dr["AD_DepartmentName"].ToString();
+                        ddlDepartMent.SelectedValue = dr["AD_DepartmentId"].ToString();
                         textRoleName.Text = dr["AR_Role"].ToString();
                         txtNote.Text = dr["AR_RolePurpose"].ToString();
 
                         if (rgRoles.Items.Count == 0)
                         {
-                            dtBindUserRole = advisorPreferenceBo.GetUserRoleDepartmentWise(Convert.ToInt32(ddlLevel.SelectedValue));
+                            dtBindUserRole = advisorPreferenceBo.GetUserRoleDepartmentWise(Convert.ToInt32(ddlDepartMent.SelectedValue));
                             rgRoles.DataSource = dtBindUserRole;
                             rgRoles.DataBind();
                         }
@@ -264,17 +262,17 @@ namespace WealthERP.AdvsierPreferenceSettings
              
         }  
 
-        protected void ddlLevel_OnSelectedIndexChanged(object sender, EventArgs e)
+        protected void ddlDepartMent_OnSelectedIndexChanged(object sender, EventArgs e)
         {
             int cnt = 0;
-            DropDownList ddlLevel = (DropDownList)sender;
+            DropDownList ddlDepartMent = (DropDownList)sender;
 
-            GridEditFormInsertItem gdi = (GridEditFormInsertItem)(ddlLevel).NamingContainer;
+            GridEditFormInsertItem gdi = (GridEditFormInsertItem)(ddlDepartMent).NamingContainer;
             RadGrid rgRoles = (RadGrid)gdi.FindControl("rgRoles");
 
 
             DataTable dtUserList = new DataTable();
-            dtUserList = advisorPreferenceBo.GetUserRoleDepartmentWise(Convert.ToInt32(ddlLevel.SelectedValue));
+            dtUserList = advisorPreferenceBo.GetUserRoleDepartmentWise(Convert.ToInt32(ddlDepartMent.SelectedValue));
 
             foreach (GridDataItem gdii in rgRoles.Items)
                {
@@ -302,7 +300,7 @@ namespace WealthERP.AdvsierPreferenceSettings
              }
 
            
-           // BindList(int.Parse(ddlLevel.SelectedItem.Value), rlbUserlist);
+           // BindList(int.Parse(ddlDepartMent.SelectedItem.Value), rlbUserlist);
         }
         private void BindList(int DepartmentId, CheckBoxList rlbUserlist)
         {

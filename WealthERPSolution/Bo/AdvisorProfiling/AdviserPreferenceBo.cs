@@ -312,13 +312,13 @@ namespace BoAdvisorProfiling
             }
             return bResult;
         }
-        public bool UpdateUserrole(int rollid, int userrole, string rolename, string purpose, int userid)
+        public bool UpdateUserrole(int rollid, int userrole, string rolename, string purpose, int userid, string StrUserLeve)
         {
             bool blResult = false;
            AdvisorPreferenceDao advisorPreferenceDao = new AdvisorPreferenceDao();
             try
             {
-                blResult = advisorPreferenceDao.UpdateUserrole(rollid, userrole, rolename, purpose, userid);
+                blResult = advisorPreferenceDao.UpdateUserrole(rollid, userrole, rolename, purpose, userid,StrUserLeve);
             }
             catch (BaseApplicationException Ex)
             {
