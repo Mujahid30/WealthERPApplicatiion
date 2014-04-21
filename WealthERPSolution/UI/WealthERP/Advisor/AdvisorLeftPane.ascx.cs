@@ -586,6 +586,14 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('SetTheme','login');", true);
                 }
+                else if (e.Item.Value == "User_Role")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserDepartmentRoleSetup','login');", true);
+                }
+                else if (e.Item.Value == "User_Role_privileges")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserRoleToTreeNodeMapping','login');", true);
+                }
                 else if (e.Item.Value == "Setup_customer_category")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerCategorySetup','login');", true);
@@ -856,6 +864,10 @@ namespace WealthERP.Advisor
                 }
 
                 else if (e.Item.Value == "Start_Upload")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerUpload','login');", true);
+                }
+                else if (e.Item.Value == "MF_Upload_Offline")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerUpload','login');", true);
                 }
