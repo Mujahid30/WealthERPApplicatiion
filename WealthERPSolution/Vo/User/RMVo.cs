@@ -187,6 +187,11 @@ namespace VoUser
 
         public Double CTC { get; set; }
 
+        public int departmentId { get; set; }
+
+        public string roleIds { get; set; }
+
+
         #endregion Properties
     }
 }
