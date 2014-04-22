@@ -32,20 +32,29 @@ namespace WealthERP.AdvsierPreferenceSettings
             if (!IsPostBack)
             {
                 BindRolename();
+                if (Request.QueryString["roleId"] != null)
+                {
+                    int roleId = int.Parse(Request.QueryString["roleId"].ToString());
+                    //int levelId = int.Parse(Request.QueryString["levelId"].ToString());
+                    ddlRole.SelectedValue = roleId.ToString();
+                    GetActualRoles(roleId);
+                    //ViewRoleLink(roleId, levelId);
+                    ContRolModes("View");
+                }
+                else
+                {
+                    ContRolModes("New");
+
+                }
             }
-            if (Request.QueryString["roleId"] != null)
-            {
-                int roleId = int.Parse(Request.QueryString["roleId"].ToString());
-                ddlRole.SelectedValue = roleId.ToString();
-                ViewRoleLink(roleId);
-                ContRolModes("View");
-            }
+           
         }
 
-        private void ViewRoleLink(int roleId)
+        private void ViewRoleLink(int roleId, int levelId)
         {
             ddlRole.SelectedValue = roleId.ToString();
-            GetActualRoles(roleId);
+            ddlLevel.SelectedValue = levelId.ToString();
+          //  GetActualRoles(roleId);
             BtnGo();
         }
         protected void lnkBtnEdit_Click(object sender, EventArgs e)
@@ -59,8 +68,8 @@ namespace WealthERP.AdvsierPreferenceSettings
         }
         protected void ddlRole_Selectedindexchanged(object sender, EventArgs e)
         {
-            GetActualRoles(Convert.ToInt32(ddlRole.SelectedValue));     
-
+            GetActualRoles(Convert.ToInt32(ddlRole.SelectedValue));
+            visblityOfControls(false);
         }
         private void GetActualRoles(int roleId)
         {
@@ -122,6 +131,8 @@ namespace WealthERP.AdvsierPreferenceSettings
         private void EnablityOfControls(bool value)
         {
             ddlRole.Enabled = value;
+            ddlLevel.Enabled = value;
+            //BtnGo.Enabled = value;
             PnlAdmin.Enabled = value;
             PnlRM.Enabled = value;
             PnlBM.Enabled = value;
@@ -457,7 +468,7 @@ namespace WealthERP.AdvsierPreferenceSettings
                 return;
             if (ddlLevel.SelectedValue == "Select")
                 return;
-            ContRolModes("New");
+              
                 BindTreeNodesBasedOnRoles(Convert.ToInt32(ddlLevel.SelectedValue));
                 GetCheckedTreeNodes(Convert.ToInt32(ddlRole.SelectedValue), Convert.ToInt32(ddlLevel.SelectedValue));
         }
@@ -473,14 +484,29 @@ namespace WealthERP.AdvsierPreferenceSettings
             DataTable dtTree = new DataTable();
             advisorPreferenceBo = new AdviserPreferenceBo();
             dtTree = advisorPreferenceBo.GetRoleLevelTreeNodes(roleId, levelId).Tables[0];
-            if (dtTree == null )
-                return;
-            if (dtTree.Rows.Count < 0)
+          
+            if (dtTree == null)
             {
+                 RadTreeView rtv = GetLevelTree(levelId);
+                 foreach (RadTreeNode RTVTreeNodes in rtv.Nodes)
+                 {
+                     RTVTreeNodes.Checked = false;
+                 }
                 return;
             }
+            else  if (dtTree.Rows.Count <= 0)
+            {
+                RadTreeView rtv = GetLevelTree(levelId);
+                foreach (RadTreeNode RTVTreeNodes in rtv.Nodes)
+                {
+                    RTVTreeNodes.Checked = false;
+                }
+                return;
+            }
+
+
             foreach (DataRow dr in dtTree.Rows)
-            {            
+            {           
 
                  RadTreeView rtv = GetLevelTree(levelId);
                  foreach (RadTreeNode RTVTreeNodes in rtv.Nodes)
