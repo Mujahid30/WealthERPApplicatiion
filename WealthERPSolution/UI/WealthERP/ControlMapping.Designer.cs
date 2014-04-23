@@ -2257,6 +2257,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OffLineOrderManagement//MFOrderBuyTransTypeOffline.ascx.
+        /// </summary>
+        internal static string MFOrderBuyTransTypeOffline {
+            get {
+                return ResourceManager.GetString("MFOrderBuyTransTypeOffline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to OPS//MFOrderEntry.ascx.
         /// </summary>
         internal static string MFOrderEntry {

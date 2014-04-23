@@ -1893,4 +1893,8 @@
     <value>OnlineOrderBackOffice//OnlineOrderNCDIPOAccountingExtract.ascx</value>
     <comment>OnlineOrderBackOffice//OnlineOrderNCDIPOAccountingExtract.ascx</comment>
   </data>
+  <data name="MFOrderBuyTransTypeOffline" xml:space="preserve">
+    <value>OffLineOrderManagement//MFOrderBuyTransTypeOffline.ascx</value>
+    <comment>OffLineOrderManagement//MFOrderBuyTransTypeOffline.ascx</comment>
+  </data>
 </root>
