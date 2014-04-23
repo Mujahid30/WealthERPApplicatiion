@@ -652,7 +652,7 @@ namespace WealthERP.Advisor
                     if (advisorVo.A_AgentCodeBased == 0)
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddRM','login');", true);
                     else
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddStaff','login');", true);
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddAdviserStaff','login');", true);
                 }
                 else if (e.Item.Value == "Branch/Association")
                 {
