@@ -449,7 +449,7 @@ namespace WealthERP.AdvsierPreferenceSettings
                 {
                     dtSubSubTreeNodes.Rows.Add();
                     dtSubSubTreeNodes.Rows[dtSubSubTreeNodes.Rows.Count - 1]["AR_RoleId"] = Convert.ToInt32(ddlRole.SelectedValue);
-                    dtSubSubTreeNodes.Rows[dtSubTreeNodes.Rows.Count - 1]["WTN_TreeNodeId"] = (RTVSubSubTreeNodes.ParentNode).ParentNode.Value;
+                    dtSubSubTreeNodes.Rows[dtSubSubTreeNodes.Rows.Count - 1]["WTN_TreeNodeId"] = (RTVSubSubTreeNodes.ParentNode).ParentNode.Value;
                     dtSubSubTreeNodes.Rows[dtSubSubTreeNodes.Rows.Count - 1]["WTSN_SubTreeNodeId"] = RTVSubSubTreeNodes.ParentNode.Value;
                     dtSubSubTreeNodes.Rows[dtSubSubTreeNodes.Rows.Count - 1]["WTSSN_SubSubTreeNodeId"] = RTVSubSubTreeNodes.Value;
                 }
