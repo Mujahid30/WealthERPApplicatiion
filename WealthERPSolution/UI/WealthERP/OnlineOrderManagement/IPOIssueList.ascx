@@ -63,6 +63,7 @@
                 </td>
             </tr>
         </table>
+        <asp:Panel ID="pnlSchemeMIS" runat="server" ScrollBars="Horizontal" Width="100%">
         <div class="divControlContiner" id="divControlContainer" runat="server">
             <table width="100%">
                 <tr>
@@ -147,6 +148,7 @@
                 </tr>
             </table>
         </div>
+        </asp:Panel>
     </ContentTemplate>
     <Triggers>
     </Triggers>

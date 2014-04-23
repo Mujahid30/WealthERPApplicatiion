@@ -345,7 +345,8 @@ namespace WealthERP.OnlineOrderManagement
                 if (orderId != 0 && !string.IsNullOrEmpty(customerVo.AccountId))
                 {
                     accountDebitStatus = onlineIPOOrderBo.DebitRMSUserAccountBalance(customerVo.AccountId, -totalBidAmount, orderId);
-
+                     availableBalance = (double)onlineIPOOrderBo.GetUserRMSAccountBalance(customerVo.AccountId);
+                     lblAvailableLimits.Text= Convert.ToInt64(availableBalance).ToString();
                 }
 
                 userMessage = CreateUserMessage(orderId, accountDebitStatus, false);
