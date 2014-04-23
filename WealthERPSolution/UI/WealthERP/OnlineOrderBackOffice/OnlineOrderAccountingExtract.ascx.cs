@@ -146,7 +146,8 @@ namespace WealthERP.OnlineOrderBackOffice
 
         protected void lnkNCDIPO_Click(object sender, EventArgs e)
         {
-            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadOrder", "loadcontrol('MFOrderBuyTransTypeOffline','login');", true);
+            //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadOrder", "loadcontrol('MFOrderBuyTransTypeOffline','login');", true);
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFOrderBuyTransTypeOffline','login');", true);
         }
 
         private string GetFilename(int fileId)

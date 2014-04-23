@@ -198,7 +198,7 @@
         <td>
         </td>
         <td>
-        <asp:LinkButton ID="lnkNCDIPO" runat=server Text="NCD/IPO" OnClick="lnkNCDIPO_Click" ></asp:LinkButton>
+        <asp:LinkButton ID="lnkNCDIPO" runat=server Text="NCD/IPO" CssClass="FieldName" OnClick="lnkNCDIPO_Click" ></asp:LinkButton>
         </td>
     </tr>
 </table>
