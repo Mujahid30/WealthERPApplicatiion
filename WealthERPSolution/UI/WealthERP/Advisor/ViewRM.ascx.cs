@@ -570,14 +570,14 @@ namespace WealthERP.Advisor
                 if (menu == "Edit")
                 {
                     //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('EditRMDetails','?Menu=" + menu + "');", true);
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AddStaff", "loadcontrol('AddStaff','?RmId=" + rmVo.RMId + "&action=" + menu + "');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AddAdviserStaff", "loadcontrol('AddAdviserStaff','?RmId=" + rmVo.RMId + "&action=" + menu + "');", true);
                 }
                 if (menu == "View")
                 {
                     Session["FromAdvisorView"] = "FromAdvView";
 
                     //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('EditRMDetails','?Menu="+ menu + "');", true);
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AddStaff", "loadcontrol('AddStaff','?RmId=" + rmVo.RMId + "&action=" + menu + "');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AddAdviserStaff", "loadcontrol('AddAdviserStaff','?RmId=" + rmVo.RMId + "&action=" + menu + "');", true);
 
                 }
                 //if (menu == "RM Dashboard")
