@@ -2803,6 +2803,13 @@
     <Compile Include="OnlineOrderBackOffice\OnlineOrderAccountingExtract.ascx.designer.cs">
       <DependentUpon>OnlineOrderAccountingExtract.ascx</DependentUpon>
     </Compile>
+    <Compile Include="OnlineOrderBackOffice\OnlineOrderNCDIPOAccountingExtract.ascx.cs">
+      <DependentUpon>OnlineOrderNCDIPOAccountingExtract.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OnlineOrderBackOffice\OnlineOrderNCDIPOAccountingExtract.ascx.designer.cs">
+      <DependentUpon>OnlineOrderNCDIPOAccountingExtract.ascx</DependentUpon>
+    </Compile>
     <Compile Include="OnlineOrderBackOffice\OnlineSchemeMIS.ascx.cs">
       <DependentUpon>OnlineSchemeMIS.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -7854,6 +7861,7 @@
     <Content Include="OnlineOrderBackOffice\OnlineNCDIssueSetup.ascx" />
     <Content Include="OnlineOrderBackOffice\OnlineNCDOrderMatchExceptionHandling.ascx" />
     <Content Include="OnlineOrderBackOffice\OnlineOrderAccountingExtract.ascx" />
+    <Content Include="OnlineOrderBackOffice\OnlineOrderNCDIPOAccountingExtract.ascx" />
     <Content Include="OnlineOrderBackOffice\OnlineSchemeMIS.ascx" />
     <Content Include="OnlineOrderBackOffice\OnlineSchemeSetUp.ascx" />
     <Content Include="OnlineOrderBackOffice\TradeBusinessDate.ascx" />

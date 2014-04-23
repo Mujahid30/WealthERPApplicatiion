@@ -2590,6 +2590,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OnlineOrderBackOffice//OnlineOrderNCDIPOAccountingExtract.ascx.
+        /// </summary>
+        internal static string OnlineOrderNCDIPOAccountingExtract {
+            get {
+                return ResourceManager.GetString("OnlineOrderNCDIPOAccountingExtract", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to OnlineOrder//OnlineOrderTopMenu.ascx.
         /// </summary>
         internal static string OnlineOrderTopMenu {

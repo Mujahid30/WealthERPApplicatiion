@@ -1889,4 +1889,8 @@
     <value>OnlineOrderBackOffice//MFAccountValuation.ascx</value>
     <comment>OnlineOrderBackOffice//MFAccountValuation.ascx</comment>
   </data>
+  <data name="OnlineOrderNCDIPOAccountingExtract" xml:space="preserve">
+    <value>OnlineOrderBackOffice//OnlineOrderNCDIPOAccountingExtract.ascx</value>
+    <comment>OnlineOrderBackOffice//OnlineOrderNCDIPOAccountingExtract.ascx</comment>
+  </data>
 </root>
