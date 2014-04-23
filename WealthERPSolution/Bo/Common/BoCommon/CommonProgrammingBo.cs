@@ -56,7 +56,12 @@ namespace BoCommon
                 filename = "SSL104" + DD + MM + ".txt";
                 delimeter = ",";
             }
-
+           //NCD PAYFILE FOR IIFCL BOND_09.12
+            else if (FileID == 46)
+            {
+                filename = "NCD PAYFILE FOR" + "_"+ DD + '.'+ MM + ".txt";
+                delimeter = "\t";
+            }
             return filename + "~" + delimeter;
         }
     }
