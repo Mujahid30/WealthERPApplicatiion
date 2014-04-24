@@ -320,9 +320,9 @@
                                     </telerik:RadPanelItem>
                                 </Items>
                             </telerik:RadPanelItem>
-                            <telerik:RadPanelItem runat="server" Text="Message" Value="Message">
+                            <telerik:RadPanelItem runat="server" Text="Message" Value="Message_Customer">
                                 <Items>
-                                    <telerik:RadPanelItem runat="server" Text="Inbox" Value="Inbox">
+                                    <telerik:RadPanelItem runat="server" Text="Inbox" Value="Inbox_Customer">
                                     </telerik:RadPanelItem>
                                 </Items>
                             </telerik:RadPanelItem>

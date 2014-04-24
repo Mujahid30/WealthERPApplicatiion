@@ -446,15 +446,18 @@ namespace WealthERP.Advisor
             DataTable dtTreeNode = new DataTable();
             DataTable dtTreeSubNode = new DataTable();
             DataTable dtTreeSubSubNode = new DataTable();
+            dtTreeNode = dsTreeNode.Tables[0].Clone();
+            dtTreeSubNode = dsTreeNode.Tables[1].Clone();
+            dtTreeSubSubNode = dsTreeNode.Tables[2].Clone();
 
             if (dsTreeNode.Tables[0].Rows.Count > 0)
-            {
+            {                
                 dsTreeNode.Tables[0].DefaultView.RowFilter = "UR_RoleName='" + userRole + "'";
                 dtTreeNode = dsTreeNode.Tables[0].DefaultView.ToTable();
             }
 
             if (dsTreeNode.Tables[1].Rows.Count > 0)
-            {
+            {               
                 dsTreeNode.Tables[1].DefaultView.RowFilter = "UR_RoleName='" + userRole + "'";
                 dtTreeSubNode = dsTreeNode.Tables[1].DefaultView.ToTable();
             }

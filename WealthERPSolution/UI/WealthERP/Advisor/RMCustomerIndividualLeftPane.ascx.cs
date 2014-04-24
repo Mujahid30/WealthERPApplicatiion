@@ -1387,7 +1387,7 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerEQAlerts", "loadcontrol('CustomerEQAlerts','none');", true);
                 }
-                else if (e.Item.Value.ToLower() == "inbox")
+                else if (e.Item.Value.ToLower() == "Inbox_Customer")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MessageInbox','login');", true);
                 }
