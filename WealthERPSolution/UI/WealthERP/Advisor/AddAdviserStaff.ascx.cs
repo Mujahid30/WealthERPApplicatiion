@@ -701,16 +701,20 @@ namespace WealthERP.Advisor
             BindTeamTitleDropList(rmStaffVo.HierarchyTeamId);
             BindTitleApplicableLevelAndChannel(rmStaffVo.HierarchyTitleId);
             BindReportingManager(rmStaffVo.HierarchyRoleId);
+           
             ddlDepart.SelectedValue = rmStaffVo.departmentId.ToString();
-            BindAdviserrole(rmStaffVo.departmentId);
-            string [] RoleIds=rmStaffVo.roleIds.Split(',');
-            for (int i = 0; i < RoleIds.Length; i++)
+            if (rmStaffVo.departmentId != 0)
             {
-                foreach (RadListBoxItem li in chkbldepart.Items)
+                BindAdviserrole(rmStaffVo.departmentId);
+                string[] RoleIds = rmStaffVo.roleIds.Split(',');
+                for (int i = 0; i < RoleIds.Length; i++)
                 {
-                    if (RoleIds[i] == li.Value.ToString())
+                    foreach (RadListBoxItem li in chkbldepart.Items)
                     {
-                        li.Checked = true;
+                        if (RoleIds[i] == li.Value.ToString())
+                        {
+                            li.Checked = true;
+                        }
                     }
                 }
             }
