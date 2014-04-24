@@ -482,6 +482,10 @@
             <asp:RequiredFieldValidator ID="RequiredFieldValidator36" runat="server" ErrorMessage="Please Enter Cap Price"
                 CssClass="rfvPCG" ControlToValidate="txtCapPrice" ValidationGroup="SetUpSubmit"
                 Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
+                <asp:CompareValidator ID="CompareValidator7" ControlToValidate="txtCapPrice" ControlToCompare="txtFloorPrice"
+                runat="server" Display="Dynamic" ErrorMessage="Cap price greater than floor price" Type="Integer"
+                Operator="GreaterThan" CssClass="cvPCG"></asp:CompareValidator>
+                
         </td>
     </tr>
     <tr id="trFloorAndFixedPrices" runat="server">
@@ -499,9 +503,9 @@
             <%-- <asp:RangeValidator ID="RangeValidator5" Display="Dynamic" ValidationGroup="SetUpSubmit"
                 runat="server" ErrorMessage="Date of Floor Price between 1 to 999999999" ControlToValidate="txtFloorPrice"
                 MaximumValue="999999999" MinimumValue="1" Type="Integer" CssClass="cvPCG"></asp:RangeValidator>   --%>
-            <%--  <asp:CompareValidator ID="CompareValidator4" ControlToValidate="txtFloorPrice"
-                runat="server" Display="Dynamic" ErrorMessage="Pls Enter Integer Type" Type="Integer"
-                Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>--%>
+          <asp:CompareValidator ID="ComptxtFloorPrice" ControlToValidate="txtFloorPrice" ControlToCompare="txtCapPrice"
+                runat="server" Display="Dynamic" ErrorMessage="Floor price less than cap price" Type="Integer"
+                Operator="LessThan" CssClass="cvPCG"></asp:CompareValidator>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator5" ControlToValidate="txtFloorPrice"
                 runat="server" Display="Dynamic" ErrorMessage="Please Enter Numeric Value" CssClass="cvPCG"
                 ValidationExpression="[1-9]\d*$" ValidationGroup="SetUpSubmit">     
