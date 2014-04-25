@@ -2364,5 +2364,62 @@ namespace DaoOnlineOrderManagement
             }
             return Type;
         }
+        public DataSet GetAdviserCustomersAllMFAccounts(int IsValued)
+        {
+            Database db;
+            DataSet dsAdviserCustomersAllMFAccounts;
+            DbCommand AdviserCustomersAllMFAccountsCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                AdviserCustomersAllMFAccountsCmd = db.GetStoredProcCommand("SPROC_Onl_GetAdviserCustomersAllMFAccount");
+                db.AddInParameter(AdviserCustomersAllMFAccountsCmd, "@IsValued", DbType.Int32, IsValued);
+                dsAdviserCustomersAllMFAccounts = db.ExecuteDataSet(AdviserCustomersAllMFAccountsCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:GetAdviserCustomersAllMFAccounts()");
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsAdviserCustomersAllMFAccounts;
+        }
+        public void UpdateAdviserCustomersAllMFAccounts(string gvMFAId)
+        {
+            Database db;
+
+            DbCommand UpdateAdviserCustomersAllMFAccountsCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                UpdateAdviserCustomersAllMFAccountsCmd = db.GetStoredProcCommand("SPROC_Onl_UpdateAdviserCustomersAllMFAccountValuation");
+                db.AddInParameter(UpdateAdviserCustomersAllMFAccountsCmd,"@MFAIdString", DbType.String, gvMFAId);
+                db.ExecuteNonQuery(UpdateAdviserCustomersAllMFAccountsCmd);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:UpdateAdviserCustomersAllMFAccounts(string gvMFAId)");
+                object[] objects = new object[1];
+                objects[0] = gvMFAId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
     }
 }

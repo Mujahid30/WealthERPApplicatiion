@@ -1987,6 +1987,55 @@ namespace BoOnlineOrderManagement
              return Type;
 
          }
+         public DataSet GetAdviserCustomersAllMFAccounts(int IsValued)
+         {
+             DataSet dsAdviserCustomersAllMFAccounts;
+             OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
+
+             try
+             {
+                 dsAdviserCustomersAllMFAccounts = OnlineOrderBackOfficeDao.GetAdviserCustomersAllMFAccounts(IsValued);
+             }
+             catch (BaseApplicationException Ex)
+             {
+                 throw Ex;
+             }
+             catch (Exception Ex)
+             {
+                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                 NameValueCollection FunctionInfo = new NameValueCollection();
+                 FunctionInfo.Add("Method", "OnlineOrderBackOfficeBo.cs:GetAdviserCustomersAllMFAccounts()");
+                 exBase.AdditionalInformation = FunctionInfo;
+                 ExceptionManager.Publish(exBase);
+                 throw exBase;
+             }
+
+             return dsAdviserCustomersAllMFAccounts;
+         }
+         public void UpdateAdviserCustomersAllMFAccounts(string gvMFAId)
+         {
+             OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
+             try
+             {
+                 OnlineOrderBackOfficeDao.UpdateAdviserCustomersAllMFAccounts(gvMFAId);
+             }
+             catch (BaseApplicationException Ex)
+             {
+                 throw Ex;
+             }
+             catch (Exception Ex)
+             {
+                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                 NameValueCollection FunctionInfo = new NameValueCollection();
+                 FunctionInfo.Add("Method", "OnlineOrderBackOfficeBo.cs:UpdateAdviserCustomersAllMFAccounts()");
+                
+                 exBase.AdditionalInformation = FunctionInfo;
+                 ExceptionManager.Publish(exBase);
+                 throw exBase;
+             }
+
+         }
+
     }
 
 }
