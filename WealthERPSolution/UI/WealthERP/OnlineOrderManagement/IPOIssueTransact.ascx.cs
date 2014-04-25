@@ -55,28 +55,31 @@ namespace WealthERP.OnlineOrderManagement
         {
             dtOnlineIPOIssueList = onlineIPOOrderBo.GetIPOIssueList(advisorVo.advisorId, Convert.ToInt32(issueId), 1);
 
-            if (dtOnlineIPOIssueList.Rows.Count > 0)
-            {
-                if (Cache["IPOIssueList" + userVo.UserId.ToString()] == null)
-                {
-                    Cache.Insert("IPOIssueList" + userVo.UserId.ToString(), dtOnlineIPOIssueList);
-                }
-                else
-                {
-                    Cache.Remove("IPOIssueList" + userVo.UserId.ToString());
-                    Cache.Insert("IPOIssueList" + userVo.UserId.ToString(), dtOnlineIPOIssueList);
-                }
-                //ibtExportSummary.Visible = false;
-                RadGridIPOIssueList.DataSource = dtOnlineIPOIssueList;
-                RadGridIPOIssueList.DataBind();
-            }
-            else
-            {
-                //ibtExportSummary.Visible = false;
-                RadGridIPOIssueList.DataSource = dtOnlineIPOIssueList;
-                RadGridIPOIssueList.DataBind();
+            RadGridIPOIssueList.DataSource = dtOnlineIPOIssueList;
+            RadGridIPOIssueList.DataBind();
 
-            }
+            //if (dtOnlineIPOIssueList.Rows.Count > 0)
+            //{
+            //    if (Cache["IPOIssueList" + userVo.UserId.ToString()] == null)
+            //    {
+            //        Cache.Insert("IPOIssueList" + userVo.UserId.ToString(), dtOnlineIPOIssueList);
+            //    }
+            //    else
+            //    {
+            //        Cache.Remove("IPOIssueList" + userVo.UserId.ToString());
+            //        Cache.Insert("IPOIssueList" + userVo.UserId.ToString(), dtOnlineIPOIssueList);
+            //    }
+            //    //ibtExportSummary.Visible = false;
+            //    RadGridIPOIssueList.DataSource = dtOnlineIPOIssueList;
+            //    RadGridIPOIssueList.DataBind();
+            //}
+            //else
+            //{
+            //    //ibtExportSummary.Visible = false;
+            //    RadGridIPOIssueList.DataSource = dtOnlineIPOIssueList;
+            //    RadGridIPOIssueList.DataBind();
+
+            //}
         }
 
         private void BindIPOBidGrid(int noOfBid)
@@ -138,9 +141,9 @@ namespace WealthERP.OnlineOrderManagement
 
 
             double capPrice = Convert.ToDouble(RadGridIPOIssueList.MasterTableView.Items[0]["AIM_CapPrice"].Text.Trim());
-            string ipoPriceDiscountType = RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIM_IPOPriceDiscountType"].ToString();
-            if (!string.IsNullOrEmpty(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIM_IPOPriceDiscountValue"].ToString()))
-                ipoPriceDiscountValue = Convert.ToDouble(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIM_IPOPriceDiscountValue"].ToString());
+            string ipoPriceDiscountType = RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIIC_PriceDiscountType"].ToString();
+            if (!string.IsNullOrEmpty(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIIC_PriceDiscountValue"].ToString()))
+                ipoPriceDiscountValue = Convert.ToDouble(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIIC_PriceDiscountValue"].ToString());
 
             double bidAmountPayable = 0;
             if (chkCutOff.Checked)
@@ -163,12 +166,12 @@ namespace WealthERP.OnlineOrderManagement
                     {
                         case "AM":
                             {
-                                bidAmountPayable = bidAmount - ipoPriceDiscountValue;
+                                bidAmountPayable = (Convert.ToDouble(txtBidPrice.Text.Trim()) - ipoPriceDiscountValue) * (Convert.ToInt32(txtBidQuantity.Text.Trim()));
                                 break;
                             }
                         case "PE":
                             {
-                                bidAmountPayable = (bidAmount - ((ipoPriceDiscountValue * 100) / bidAmount));
+                                bidAmountPayable = (Convert.ToDouble(txtBidPrice.Text.Trim()) - ((ipoPriceDiscountValue / 100) * Convert.ToDouble(txtBidPrice.Text.Trim()))) * (Convert.ToInt32(txtBidQuantity.Text.Trim()));
                                 break;
                             }
                     }

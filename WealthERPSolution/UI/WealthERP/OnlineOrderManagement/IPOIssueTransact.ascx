@@ -95,7 +95,7 @@
                             PageSize="10" AllowPaging="false" AutoGenerateColumns="False" EnableEmbeddedSkins="False"
                             GridLines="None" ShowFooter="false" PagerStyle-AlwaysVisible="false" ShowStatusBar="True"
                             Skin="Telerik" AllowFilteringByColumn="false">
-                            <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="AIM_IssueId,AIM_IPOPriceDiscountType,AIM_IPOPriceDiscountValue"
+                            <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="AIM_IssueId,AIIC_PriceDiscountType,AIIC_PriceDiscountValue"
                                 AutoGenerateColumns="false" Width="100%" PagerStyle-AlwaysVisible="false">
                                 <Columns>
                                     <telerik:GridBoundColumn DataField="AIM_IssueName" HeaderStyle-Width="200px" CurrentFilterFunction="Contains"
@@ -157,6 +157,14 @@
                                     </telerik:GridBoundColumn>
                                     <telerik:GridBoundColumn DataField="AIM_CloseDate" HeaderStyle-Width="200px" HeaderText="Open Date"
                                         ShowFilterIcon="false" UniqueName="AIM_CloseDate" Visible="true">
+                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                    </telerik:GridBoundColumn>
+                                     <telerik:GridBoundColumn DataField="DiscountType" HeaderStyle-Width="200px" HeaderText="Discount Type"
+                                        ShowFilterIcon="false" UniqueName="DiscountType" Visible="true">
+                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                    </telerik:GridBoundColumn>
+                                     <telerik:GridBoundColumn DataField="DiscountValue" HeaderStyle-Width="200px" HeaderText="Discount Value/Bid Qnt"
+                                        ShowFilterIcon="false" UniqueName="DiscountValue" Visible="true" DataFormatString="{0:0.00}">
                                         <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                     </telerik:GridBoundColumn>
                                     
@@ -279,7 +287,7 @@
                     </td>
                 </tr>
                 <tr class="spaceUnder" id="trTermsCondition" runat="server">
-                    <td align="left" style="width: 15%">
+                    <td align="left" style="width: 30%">
                         <asp:CheckBox ID="chkTermsCondition" runat="server" Font-Bold="True" Font-Names="Shruti"
                             Enabled="false" Checked="false" ForeColor="#145765" Text="" ToolTip="Click 'Terms & Conditions' to proceed further"
                             CausesValidation="true" />
@@ -287,7 +295,7 @@
                             runat="server" CssClass="txtField" OnClick="lnkTermsCondition_Click" ToolTip="Click here to accept terms & conditions"></asp:LinkButton>
                         <span id="Span9" class="spnRequiredField">*</span>
                     </td>
-                    <td colspan="3" style="width: 85%" align="left">
+                    <td colspan="3" style="width: 70%" align="left">
                         <asp:CustomValidator ID="CustomValidator1" runat="server" ErrorMessage="Please read terms & conditions"
                             ClientValidationFunction="ValidateTermsConditions" EnableClientScript="true"
                             OnServerValidate="TermsConditionCheckBox" Display="Dynamic" ValidationGroup="btnConfirmOrder"
