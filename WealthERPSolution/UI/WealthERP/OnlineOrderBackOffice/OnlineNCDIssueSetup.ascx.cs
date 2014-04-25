@@ -1013,7 +1013,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 }
 
 
-                if (!string.IsNullOrEmpty(txtIssueSizeQty.Text))
+                if (!string.IsNullOrEmpty(txtIssueSizeQty.Text))            
                 {
                     onlineNCDBackOfficeVo.IssueSizeQty = Convert.ToInt32(txtIssueSizeQty.Text);
                 }
@@ -3822,7 +3822,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     TextBox txtIssueName = (TextBox)editform.FindControl("txtIssueName");
                     txtIssueName.Text = txtName.Text;
                     e.Item.OwnerTableView.EnableViewState = true;
-                    if (ddlProduct.SelectedValue == "IPO")
+                    if (ddlProduct.SelectedValue == "IP")
                     {
                         System.Web.UI.HtmlControls.HtmlTableRow trDiscountType = (System.Web.UI.HtmlControls.HtmlTableRow)editform.FindControl("trDiscountType");
                         System.Web.UI.HtmlControls.HtmlTableRow trDiscountValue = (System.Web.UI.HtmlControls.HtmlTableRow)editform.FindControl("trDiscountValue");
@@ -3872,7 +3872,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     Button btnAddMore = (Button)e.Item.FindControl("btnAddMore");
                     btnAddMore.Visible = true;
 
-                    if (ddlProduct.SelectedValue == "IPO")
+                    if (ddlProduct.SelectedValue == "IP")
                     {
                         System.Web.UI.HtmlControls.HtmlTableRow trDiscountType = (System.Web.UI.HtmlControls.HtmlTableRow)e.Item.FindControl("trDiscountType");
                         System.Web.UI.HtmlControls.HtmlTableRow trDiscountValue = (System.Web.UI.HtmlControls.HtmlTableRow)e.Item.FindControl("trDiscountValue");

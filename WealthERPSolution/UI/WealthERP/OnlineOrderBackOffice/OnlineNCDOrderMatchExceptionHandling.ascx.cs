@@ -316,15 +316,15 @@ namespace WealthERP.OnlineOrderBackOffice
                 DataTable dtOrdersMatch = new DataTable();
                 pnlGrid.Visible = true;
 
-                if (ddlProduct.SelectedValue == "IP")
-                {
-                    categoryCode = "FIIP";
-                }
-                else
-                {
-                    categoryCode = "FISD";
-                }
-                dtOrdersMatch = onlineNCDBackOfficeBo.GetAdviserOrders(IssueId, categoryCode, Status, FromDate, ToDate, advisorVo.advisorId).Tables[0];
+                //if (ddlProduct.SelectedValue == "IP")
+                //{
+                //    categoryCode = "FIIP";
+                //}
+                //else
+                //{
+                //    categoryCode = "FISD";
+                //}
+                dtOrdersMatch = onlineNCDBackOfficeBo.GetAdviserOrders(IssueId, ddlProduct.SelectedValue, Status, FromDate, ToDate, advisorVo.advisorId).Tables[0];
                 gvOrders.DataSource = dtOrdersMatch;
                 gvOrders.DataBind();
                 if (Cache[userVo.UserId.ToString() + "OrdersMatch"] != null)

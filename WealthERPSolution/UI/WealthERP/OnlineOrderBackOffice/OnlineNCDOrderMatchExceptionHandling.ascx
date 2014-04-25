@@ -108,7 +108,7 @@
         <td>
             <asp:DropDownList ID="ddlProduct" runat="server" CssClass="cmbField" AutoPostBack="true">
                 <asp:ListItem Value="Select">Select</asp:ListItem>
-                <asp:ListItem Value="NCD">NCD</asp:ListItem>
+                <asp:ListItem Value="FI">NCD</asp:ListItem>
                 <asp:ListItem Value="IP">IPO</asp:ListItem>
             </asp:DropDownList>
             <span id="Span2" class="spnRequiredField">*</span>

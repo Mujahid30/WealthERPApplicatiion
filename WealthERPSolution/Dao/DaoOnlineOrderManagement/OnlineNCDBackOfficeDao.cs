@@ -2059,7 +2059,7 @@ namespace DaoOnlineOrderManagement
             return dt;
         }
 
-        public int UploadAllotmentIssueData(DataTable dtData, int issueId, ref string isValidated)
+        public int UploadAllotmentIssueData(DataTable dtData, int issueId, ref string isValidated,string product)
         {
             int result=0;
             DataTable dt;

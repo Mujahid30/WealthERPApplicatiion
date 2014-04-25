@@ -55,9 +55,9 @@
                                 DataFormatString="{0:dd/MM/yyyy HH:mm:ss}" HeaderStyle-Width="100px">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="AIA_Quantity" SortExpression="AIA_Quantity" AutoPostBackOnFilter="true"
+                            <telerik:GridBoundColumn DataField="AllotedQty" SortExpression="AllotedQty" AutoPostBackOnFilter="true"
                                 CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="false"
-                                HeaderText="Quantity" UniqueName="AIA_Quantity" HeaderStyle-Width="100px">
+                                HeaderText="Quantity" UniqueName="AllotedQty" HeaderStyle-Width="100px">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="AIA_Price" SortExpression="AIA_Price" AutoPostBackOnFilter="true"
@@ -67,7 +67,7 @@
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn Visible="true" DataField="Amount" SortExpression="Amount"
                                 AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
-                                AllowFiltering="false" HeaderText="Purchase Value" UniqueName="Amount" HeaderStyle-Width="100px">
+                                AllowFiltering="false" HeaderText="Alloted Value" UniqueName="Amount" HeaderStyle-Width="100px">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridTemplateColumn AllowFiltering="false" DataField="" HeaderStyle-Width="100px"
