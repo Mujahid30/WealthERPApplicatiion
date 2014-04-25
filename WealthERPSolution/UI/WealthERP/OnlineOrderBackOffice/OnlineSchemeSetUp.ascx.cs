@@ -2670,7 +2670,7 @@ namespace WealthERP.OnlineOrderBackOffice
         protected void lnkMargeScheme_Click(object sender, EventArgs e)
         {
             radwindowPopup.VisibleOnPageLoad = true;
-           
+            GetBussinessDate();
             GetmergedScheme();
             SchemeStatus();
         }
@@ -2689,7 +2689,8 @@ namespace WealthERP.OnlineOrderBackOffice
                     schemeplancode1 = mfProductAMCSchemePlanDetailsVo.SchemePlanCode;
                 }
             }
-            if (txtSchemeMargeDate.SelectedDate == null)
+            if (txtSchemeMargeDate.SelectedDate == null || txtSchemeMargeDate.SelectedDate <=DateTime.Now )
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please select future date');", true);
                 return;
             int count = OnlineOrderBackOfficeBo.BussinessDateCheck(Convert.ToDateTime(txtSchemeMargeDate.SelectedDate));
             if (count == 0)
@@ -2705,6 +2706,12 @@ namespace WealthERP.OnlineOrderBackOffice
                 radwindowPopup.VisibleOnPageLoad = false;
             }
         }
+        protected void GetBussinessDate()
+        {
+            //DateTime Time = Convert.ToDateTime(DateTime.Now.TimeOfDay);
+
+        }
+
         protected void btnMSUpdate_Click(object sender, EventArgs e)
         {
             //OnlineOrderBackOfficeBo.CreateMargeScheme(schemeplancode, int.Parse(ddlMargeScheme.SelectedValue), Convert.ToDateTime(txtSchemeMargeDate.SelectedDate), userVo.UserId);
