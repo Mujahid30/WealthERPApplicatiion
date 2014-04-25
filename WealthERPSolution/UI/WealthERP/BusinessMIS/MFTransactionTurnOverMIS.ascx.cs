@@ -82,12 +82,20 @@ namespace WealthERP.BusinessMIS
 
         protected void lnkBtnProduct_Click(object sender, EventArgs e)
         {
-            SetParameters();
-            BindProductGrid();
-            lblMFMISType.Text = "PRODUCT";
-            trPnlProduct.Visible = true;
-            trPnlOrganization.Visible = false;
-            trMember.Visible = false;
+            
+            if (ddlFilter.SelectedValue == "S")
+            {
+                lblErrorFilter.Visible = true;
+            }
+            else
+            {
+                SetParameters();
+                BindProductGrid();
+                lblMFMISType.Text = "PRODUCT";
+                trPnlProduct.Visible = true;
+                trPnlOrganization.Visible = false;
+                trMember.Visible = false;
+            }
         }
         protected void imgProduct_Click(object sender, ImageClickEventArgs e)
         {
@@ -125,7 +133,7 @@ namespace WealthERP.BusinessMIS
             int SchemeCode = 0;
             int SchemeCodeOld = 0;
             DataSet dsGetProductDetailFromMFOrder = new DataSet();
-            dsGetProductDetailFromMFOrder = associatesBo.GetProductDetailsFromMFTransaction(hdnsubBrokerCode.Value, userType, int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnToDate.Value), int.Parse(hdnAll.Value));
+            dsGetProductDetailFromMFOrder = associatesBo.GetProductDetailsFromMFTransaction(hdnsubBrokerCode.Value, userType, int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnToDate.Value), int.Parse(hdnAll.Value), int.Parse(ddlFilter.SelectedValue));
 
             DataTable dtGetProductDetailFromMFOrder = new DataTable();
             dtGetProductDetailFromMFOrder.Columns.Add("AMC");
@@ -133,6 +141,7 @@ namespace WealthERP.BusinessMIS
             dtGetProductDetailFromMFOrder.Columns.Add("Scheme");
             dtGetProductDetailFromMFOrder.Columns.Add("Category");
             dtGetProductDetailFromMFOrder.Columns.Add("SubCategory");
+            dtGetProductDetailFromMFOrder.Columns.Add("IsOnline");
             dtGetProductDetailFromMFOrder.Columns.Add("BUYCount", typeof(double));
             dtGetProductDetailFromMFOrder.Columns.Add("BUYAmount", typeof(double));
             dtGetProductDetailFromMFOrder.Columns.Add("SELCount", typeof(double));
@@ -267,6 +276,7 @@ namespace WealthERP.BusinessMIS
 
                             drGetProductDetailFromMFOrder["Category"] = drAMCTransaction["PAIC_AssetInstrumentCategoryName"].ToString();
                             drGetProductDetailFromMFOrder["SubCategory"] = drAMCTransaction["PAISC_AssetInstrumentSubCategoryName"].ToString();
+                            drGetProductDetailFromMFOrder["IsOnline"] = drAMCTransaction["IsOnline"].ToString();
                             if (drTransactionSchemeWise.Count() > 0)
                             {
                                 foreach (DataRow dr in drTransactionSchemeWise)
@@ -544,6 +554,7 @@ namespace WealthERP.BusinessMIS
                     }//**
 
                 }//***
+                
                 gvProduct.DataSource = dtGetProductDetailFromMFOrder;
                 gvProduct.DataBind();
                 pnlProduct.Visible = true;
@@ -1221,12 +1232,20 @@ namespace WealthERP.BusinessMIS
 
         protected void lnkBtnSubBrokerCustomer_Click(object sender, EventArgs e)
         {
-            SetParameters();
-            BindMember();
-            lblMFMISType.Text = "CUSTOMER/FOLIO";
-            trPnlProduct.Visible = false;
-            trPnlOrganization.Visible = false;
-            trMember.Visible = true;
+            
+            if (ddlFilter.SelectedValue == "S")
+            {
+                lblErrorFilter.Visible = true;
+            }
+            else
+            {
+                SetParameters();
+                BindMember();
+                lblMFMISType.Text = "CUSTOMER/FOLIO";
+                trPnlProduct.Visible = false;
+                trPnlOrganization.Visible = false;
+                trMember.Visible = true;
+            }
         }
 
         private void BindMember()
@@ -1234,7 +1253,7 @@ namespace WealthERP.BusinessMIS
             int accountId = 0;
             int accountIdOld = 0;
             DataSet dsGetMemberDetailFromMFTrnx = new DataSet();
-            dsGetMemberDetailFromMFTrnx = associatesBo.GetMemberDetailFromTransaction(hdnsubBrokerCode.Value, userType, int.Parse(hdnadviserId.Value),int.Parse(hdnbranchHeadId.Value), DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnToDate.Value));
+            dsGetMemberDetailFromMFTrnx = associatesBo.GetMemberDetailFromTransaction(hdnsubBrokerCode.Value, userType, int.Parse(hdnadviserId.Value), int.Parse(hdnbranchHeadId.Value), DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnToDate.Value), int.Parse(ddlFilter.SelectedValue));
 
             DataTable dtGetMemberDetailFromMFTrnx = new DataTable();
             dtGetMemberDetailFromMFTrnx.Columns.Add("AccountId");
@@ -1242,6 +1261,7 @@ namespace WealthERP.BusinessMIS
             dtGetMemberDetailFromMFTrnx.Columns.Add("SubBrokerCode");
             dtGetMemberDetailFromMFTrnx.Columns.Add("AssociatesName");
             dtGetMemberDetailFromMFTrnx.Columns.Add("Folio");
+            dtGetMemberDetailFromMFTrnx.Columns.Add("IsOnline");
             dtGetMemberDetailFromMFTrnx.Columns.Add("ChannelName");
             dtGetMemberDetailFromMFTrnx.Columns.Add("Titles");
             dtGetMemberDetailFromMFTrnx.Columns.Add("ClusterManager");
@@ -1303,7 +1323,12 @@ namespace WealthERP.BusinessMIS
             //--------------------Default Value ------------------
 
             #region Data Table Default value
-
+            dtGetMemberDetailFromMFTrnx.Columns["SELCount"].DefaultValue = 0;
+            dtGetMemberDetailFromMFTrnx.Columns["SELAmount"].DefaultValue = 0;
+            dtGetMemberDetailFromMFTrnx.Columns["BUYCount"].DefaultValue = 0;
+            dtGetMemberDetailFromMFTrnx.Columns["BUYAmount"].DefaultValue = 0;
+            
+            
             dtGetMemberDetailFromMFTrnx.Columns["GrossRedemption"].DefaultValue = 0;
             dtGetMemberDetailFromMFTrnx.Columns["GrossInvestment"].DefaultValue = 0;
             dtGetMemberDetailFromMFTrnx.Columns["Net"].DefaultValue = 0;
@@ -1386,8 +1411,8 @@ namespace WealthERP.BusinessMIS
                             drGetOrganizationDetailFromTrnx["AreaManager"] = drOrgOrderTransaction["AreaManager"].ToString();
                             drGetOrganizationDetailFromTrnx["ZonalManagerName"] = drOrgOrderTransaction["ZonalManagerName"].ToString();
                             drGetOrganizationDetailFromTrnx["DeputyHead"] = drOrgOrderTransaction["DeputyHead"].ToString();
-
                             drGetOrganizationDetailFromTrnx["Folio"] = drOrgOrderTransaction["CMFA_FolioNum"].ToString();
+                            drGetOrganizationDetailFromTrnx["IsOnline"] = drOrgOrderTransaction["IsOnline"].ToString();
                             if (drOrderOrgWise.Count() > 0)
                             {
                                 foreach (DataRow dr in drOrderOrgWise)

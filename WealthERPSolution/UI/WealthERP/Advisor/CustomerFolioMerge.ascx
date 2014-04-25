@@ -148,6 +148,25 @@
     </tr>
 </table>
 <table width="70%">
+    <tr id="trSelect" runat="server" visible="false">
+        <td style="width: 100px">
+        </td>
+        <td style="width: 120px" align="right">
+            <asp:Label ID="lblSelect" runat="server" Text="Select:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td style="width: 300px">
+            <asp:DropDownList ID="ddlSelect" runat="server" CssClass="cmbLongField" AutoPostBack="true"
+                OnSelectedIndexChanged="ddlSelect_SelectedIndexChanged">
+                <asp:ListItem Value="S">Select</asp:ListItem>
+                <asp:ListItem Value="1">Online Only</asp:ListItem>
+                <asp:ListItem Value="0">Offline Only</asp:ListItem>
+                <asp:ListItem Value="2">All</asp:ListItem>
+            </asp:DropDownList>
+        </td>
+        <td style="width: 200px">
+            
+        </td>
+    </tr>
     <tr id="trAction" runat="server" visible="false">
         <td style="width: 100px">
         </td>
@@ -453,6 +472,12 @@
                                 ShowFilterIcon="false" AutoPostBackOnFilter="true">
                                 <HeaderStyle></HeaderStyle>
                             </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn UniqueName="IsOnline" HeaderText="Is Online" DataField="IsOnline"
+                                HeaderStyle-Width="100px" SortExpression="IsOnline" AllowFiltering="true"
+                                ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                                <HeaderStyle></HeaderStyle>
+                            </telerik:GridBoundColumn>
+                            
                             <%-- <telerik:GridBoundColumn UniqueName="CMFA_BROKERCODE" HeaderText="BrokerCode"
                                 DataField="CMFA_BROKERCODE" HeaderStyle-Width="50px" SortExpression="CMFA_BROKERCODE"
                                 AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">

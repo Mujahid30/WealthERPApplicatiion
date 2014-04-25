@@ -117,6 +117,19 @@
         </td>
     </tr>
     <tr>
+        <td>
+            <asp:Label ID="lblFilter" runat="server" Text="Filter:" CssClass="FieldName"></asp:Label>
+            <asp:DropDownList ID="ddlFilter" runat="server" CssClass="cmbLongField" AutoPostBack="true">
+                <asp:ListItem Value="S">Select</asp:ListItem>
+                <asp:ListItem Value="0">Offline Only</asp:ListItem>
+                <asp:ListItem Value="1">Online Only</asp:ListItem>
+                <asp:ListItem Value="2">All</asp:ListItem>
+            </asp:DropDownList>*
+            <asp:Label ID="lblErrorFilter" Text="Please Select a Filter" CssClass="rfvPCG" Visible="false"
+                runat="server"></asp:Label>
+        </td>
+    </tr>
+    <tr>
         <td colspan="4">
         </td>
     </tr>
@@ -198,6 +211,8 @@
                                     CurrentFilterFunction="Contains" DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
                                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
+                                
+                                
                                 <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Gross Investment"
                                     HeaderText="Gross Invest" DataField="GrossInvestment" HeaderStyle-HorizontalAlign="Right"
                                     UniqueName="GrossInvestment" SortExpression="GrossInvestment" AutoPostBackOnFilter="true"
@@ -210,6 +225,13 @@
                                     UniqueName="GrossRedemption" SortExpression="GrossRedemption" AutoPostBackOnFilter="true"
                                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                     DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Is Online"
+                                    HeaderText="Is Online" DataField="IsOnline" HeaderStyle-HorizontalAlign="Right"
+                                    UniqueName="IsOnline" SortExpression="IsOnline" AutoPostBackOnFilter="true"
+                                    AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                    DataFormatString="{0:N0}"  FooterStyle-HorizontalAlign="Right">
                                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Purchase Transaction"
@@ -999,7 +1021,6 @@
                                     FooterText="Grand Total:">
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                             
                                 <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Net Investment"
                                     HeaderText="Net Invest" DataField="Net" HeaderStyle-HorizontalAlign="Right" UniqueName="Net"
                                     SortExpression="Net" AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false"
@@ -1020,6 +1041,14 @@
                                     DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
                                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Is Online"
+                                    HeaderText="Is Online" DataField="IsOnline" HeaderStyle-HorizontalAlign="Right"
+                                    UniqueName="IsOnline" SortExpression="IsOnline" AutoPostBackOnFilter="true"
+                                    AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                    DataFormatString="{0:N0}"  FooterStyle-HorizontalAlign="Right">
+                                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
+                                
                                 <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Purchase Transaction"
                                     HeaderText="Purchase Cnt" DataField="BUYCount" HeaderStyle-HorizontalAlign="Right"
                                     UniqueName="BUYCount" SortExpression="BUYCount" AutoPostBackOnFilter="true" AllowFiltering="false"

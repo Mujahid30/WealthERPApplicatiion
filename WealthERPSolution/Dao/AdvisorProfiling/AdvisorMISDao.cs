@@ -2511,7 +2511,7 @@ namespace DaoAdvisorProfiling
         /// <param name="Todate"></param>
         /// <param name="AgentId"></param>
         /// <returns></returns>
-        public DataSet GetOrganizationDetailFromMFOrder(string agentcode, string userType, int AdviserId, int rmId, int branchId, int branchHeadId, int all, DateTime FromDate, DateTime Todate, int AgentId)
+        public DataSet GetOrganizationDetailFromMFOrder(string agentcode, string userType, int AdviserId, int rmId, int branchId, int branchHeadId, int all, DateTime FromDate, DateTime Todate, int AgentId,int IsOnline)
         {
             Database db;
             DbCommand GetSchemeTransactionDeatailsCmd;
@@ -2527,6 +2527,7 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(GetSchemeTransactionDeatailsCmd, "@branchHeadId", DbType.Int32, branchHeadId);
                 db.AddInParameter(GetSchemeTransactionDeatailsCmd, "@BranchId", DbType.Int32, branchId);
                 db.AddInParameter(GetSchemeTransactionDeatailsCmd, "@all", DbType.Int32, all);
+                db.AddInParameter(GetSchemeTransactionDeatailsCmd, "@IsOnline", DbType.Int32, IsOnline);
                 if (FromDate != DateTime.MinValue)
                     db.AddInParameter(GetSchemeTransactionDeatailsCmd, "@FromDate", DbType.DateTime, FromDate);
                 else
@@ -2565,7 +2566,7 @@ namespace DaoAdvisorProfiling
             return dsSchemeTransactionDeatails;
         }
 
-        public DataSet GetMemberDetailFromMFOrder(string agentcode, string userType, int AdviserId, int rmId, int branchId, int branchHeadId, int all, DateTime FromDate, DateTime Todate, int AgentId)
+        public DataSet GetMemberDetailFromMFOrder(string agentcode, string userType, int AdviserId, int rmId, int branchId, int branchHeadId, int all, DateTime FromDate, DateTime Todate, int AgentId,int IsOnline)
         {
             Database db;
             DbCommand GetMemberTransactionDeatailsCmd;
@@ -2581,6 +2582,7 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(GetMemberTransactionDeatailsCmd, "@branchHeadId", DbType.Int32, branchHeadId);
                 db.AddInParameter(GetMemberTransactionDeatailsCmd, "@BranchId", DbType.Int32, branchId);
                 db.AddInParameter(GetMemberTransactionDeatailsCmd, "@all", DbType.Int32, all);
+                db.AddInParameter(GetMemberTransactionDeatailsCmd, "@IsOnline", DbType.Int32, IsOnline);
                 if (FromDate != DateTime.MinValue)
                     db.AddInParameter(GetMemberTransactionDeatailsCmd, "@FromDate", DbType.DateTime, FromDate);
                 else

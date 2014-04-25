@@ -2286,7 +2286,7 @@ namespace DaoAdvisorProfiling
         }
 
 
-        public DataSet GetAdviserCustomerFolioMerge(int adviserId,int AgentId, int rmId, int branchId, int branchHeadId, int All,string userType,int IsAgentCodeBased,string AgentCode)
+        public DataSet GetAdviserCustomerFolioMerge(int adviserId,int AgentId, int rmId, int branchId, int branchHeadId, int All,string userType,int IsAgentCodeBased,string AgentCode,int IsOnline)
         {
 
             Database db;
@@ -2321,6 +2321,7 @@ namespace DaoAdvisorProfiling
             db.AddInParameter(getCustomerListCmd, "@A_AgentCodeBased", DbType.Int32, IsAgentCodeBased);
             db.AddInParameter(getCustomerListCmd, "@UserType", DbType.String, userType);
             db.AddInParameter(getCustomerListCmd, "@AgentCode", DbType.String, AgentCode);
+            db.AddInParameter(getCustomerListCmd, "@IsOnline", DbType.Int32, IsOnline);
             if (All != 0)
                 db.AddInParameter(getCustomerListCmd, "@all", DbType.Int32, All);
             else

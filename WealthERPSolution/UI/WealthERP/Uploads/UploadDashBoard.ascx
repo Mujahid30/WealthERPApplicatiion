@@ -83,14 +83,14 @@
     <tr>
     <td colspan="3"></td>
     </tr>
-    <tr>
+    <%--<tr>
         <td colspan="3">
             <div class="divSectionHeading" style="vertical-align: text-bottom">
                 EQ Exceptions
             </div>
         </td>
-    </tr>
-    <tr>
+    </tr>--%>
+    <%--<tr>
         <td style="width: 20%;">
         </td>
         <td style="width: 60%;" align="center">
@@ -114,7 +114,7 @@
                                 </asp:LinkButton>
                                 </div>
                             </td>
-                          <%--  <td id="td3EQ" runat="server" align="center">
+                                <td id="td3EQ" runat="server" align="center">
                                 <asp:LinkButton ID="lnkEQTreeNode3" CssClass="HeaderTextBig" Text='<%# Eval("TreeNodeText3").ToString() %>'
                                     runat="server" CommandName="Tree_EQ_Row3" CommandArgument='<%# Eval("TreeNode3").ToString() %>'>  
                                 </asp:LinkButton>
@@ -123,7 +123,7 @@
                                 <asp:LinkButton ID="lnkEQTreeNode4" CssClass="HeaderTextBig" Text='<%# Eval("TreeNodeText4").ToString() %>'
                                     runat="server" CommandName="Tree_EQ_Row4" CommandArgument='<%# Eval("TreeNode4").ToString() %>'>  
                                 </asp:LinkButton>
-                            </td>--%>
+                            </td>
                         </tr>
                     </table>
                 </ItemTemplate>
@@ -135,7 +135,7 @@
         </td>
     </tr>
      <tr>
-        <td colspan="3">
+    --%>    <td colspan="3">
             <div class="divSectionHeading" style="vertical-align: text-bottom">
                 FI Exceptions
             </div>

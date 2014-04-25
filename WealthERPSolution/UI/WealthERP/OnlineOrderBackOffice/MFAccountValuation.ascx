@@ -21,13 +21,13 @@ $(window).bind('load',function(){
     function ConfirmValuation() {
           var bool = window.confirm('Are you sure you want to Change Valuation ?');
         if (bool) {
-            document.getElementById("ctrl_Valuation_hdnMsgValue").value = 1;
-            document.getElementById("ctrl_Valuation_hiddenUpdate").click();
+            document.getElementById("ctrl_MFAccountValuation_hdnMsgValue").value = 1;
+            document.getElementById("ctrl_MFAccountValuation_hiddenUpdate").click();
             return false;
         }
         else {
-            document.getElementById("ctrl_Valuation_hdnMsgValue").value = 0;
-            document.getElementById("ctrl_Valuation_hiddenUpdate").click();
+            document.getElementById("ctrl_MFAccountValuation_hdnMsgValue").value = 0;
+            document.getElementById("ctrl_MFAccountValuation_hiddenUpdate").click();
             return true;
         }
     }
@@ -66,16 +66,15 @@ $(window).bind('load',function(){
                 <asp:ListItem Value="2">Processed</asp:ListItem>
             </asp:DropDownList>
         </td>
-        <td></td>
-        <tr><td></td>
-        <td style="width:30px">
+        <td>
             <asp:Button ID="btnGo" runat="server" CssClass="PCGButton" Text="Go" OnClick="btnGo_Click"/>
         </td>
-        <td></td>
-        </tr>
+        
 </tr>
+</table>
+<table width="100%">
     <tr id="trPnlValuation" runat="server">
-    <td style="width:30px"></td>
+    
         <td>
         <telerik:RadGrid  ID="gvMFAccounts" runat="server"  AutoGenerateColumns="false"
                     PageSize="10"  AllowSorting="true" AllowPaging="True" 
@@ -93,6 +92,10 @@ $(window).bind('load',function(){
                         </ItemTemplate>
                         <ItemStyle Width="20px" />
                         </telerik:GridTemplateColumn>
+                            <telerik:GridBoundColumn DataField="C_CustCode" SortExpression="C_CustCode" UniqueName="C_CustCode" AllowFiltering= "true" HeaderText="Customer Code"
+                                ShowFilterIcon="false"  AutoPostBackOnFilter="true">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
                              <telerik:GridBoundColumn DataField="Name" SortExpression="Name" UniqueName="Name" AllowFiltering= "true" HeaderText="Customer Name"
                                 ShowFilterIcon="false"  AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
@@ -105,11 +108,11 @@ $(window).bind('load',function(){
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="MFAIV_IsValued" SortExpression="MFAIV_IsValued" UniqueName="MFAIV_IsValued" AllowFiltering="true" HeaderText="Validation Status"
+                            <telerik:GridBoundColumn DataField="MFAIV_IsValued" SortExpression="MFAIV_IsValued" UniqueName="MFAIV_IsValued" AllowFiltering="true" HeaderText="Valuation Status"
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                             <telerik:GridBoundColumn DataField="ValuationDate" SortExpression="ValuationDate" UniqueName="ValuationDate" AllowFiltering="true"  HeaderText="Valuation Date"
+                             <telerik:GridBoundColumn DataField="ValuationDate" SortExpression="ValuationDate" UniqueName="ValuationDate" AllowFiltering="true"  HeaderText="Last Valuation ON"
                                  ShowFilterIcon="false"  CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" >
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
@@ -122,8 +125,8 @@ $(window).bind('load',function(){
         <td style="width:60px"></td>
     </tr>
     <tr id="trReProcess" runat="server">
-        <td style="width:30px">
-            <asp:Button ID="btnUpdate" runat="server" Text="ReProcess" CssClass="PCGButton" Visible="false" OnClick="btnUpdate_Click" Width="70px" />
+        <td style="width:90px; ">
+            <asp:Button ID="btnUpdate" runat="server" Text="ReProcess" CssClass="PCGButton" Visible="false" OnClick="btnUpdate_Click" Width="80px" />
             <asp:HiddenField ID="hdnMsgValue" runat="server" />
             <asp:Button ID="hiddenUpdate" runat="server" OnClick="hiddenUpdate_Click" Text=""
                 BorderStyle="None" BackColor="Transparent" />

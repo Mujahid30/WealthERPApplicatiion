@@ -2012,12 +2012,12 @@ namespace BoOnlineOrderManagement
 
              return dsAdviserCustomersAllMFAccounts;
          }
-         public void UpdateAdviserCustomersAllMFAccounts(string gvMFAId)
+         public void UpdateAdviserCustomersAllMFAccounts(string gvMFAId, int ModifiedBy)
          {
              OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
              try
              {
-                 OnlineOrderBackOfficeDao.UpdateAdviserCustomersAllMFAccounts(gvMFAId);
+                 OnlineOrderBackOfficeDao.UpdateAdviserCustomersAllMFAccounts(gvMFAId, ModifiedBy);
              }
              catch (BaseApplicationException Ex)
              {

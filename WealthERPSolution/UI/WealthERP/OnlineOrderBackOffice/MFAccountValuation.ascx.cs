@@ -21,38 +21,40 @@ namespace WealthERP.OnlineOrderBackOffice
     {
         UserBo userBo;
         UserVo userVo;
+        int UserId;
         OnlineOrderBackOfficeBo OnlineOrderBackOfficeBo = new OnlineOrderBackOfficeBo();
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
             userBo = new UserBo();
             userVo = (UserVo)Session[SessionContents.UserVo];
+            UserId = userVo.UserId;
             if (!IsPostBack)
             {
                 trPnlValuation.Visible = false;
                 trReProcess.Visible = false;
             }
         }
-        private void DataBind()
+        private void ValuationGridBind( int IsValued)
         {
             
             DataSet dsGetValuation = new DataSet();
             try
             {
-                dsGetValuation = OnlineOrderBackOfficeBo.GetAdviserCustomersAllMFAccounts(Convert.ToInt32(ddlSelect.SelectedValue));
+                dsGetValuation = OnlineOrderBackOfficeBo.GetAdviserCustomersAllMFAccounts(IsValued);
                 //if (dsGetValuation.Tables[0].Rows.Count > 0)
                 //{
                               
                     gvMFAccounts.DataSource = dsGetValuation;
                     gvMFAccounts.DataBind();
-                    if (Cache["MFAccounts"] == null)
+                    if (Cache["MFAccounts" + userVo.UserId] == null)
                     {
-                        Cache.Insert("MFAccounts", dsGetValuation);
+                        Cache.Insert("MFAccounts" + userVo.UserId, dsGetValuation);
                     }
                     else
                     {
-                        Cache.Remove("MFAccounts");
-                        Cache.Insert("MFAccounts", dsGetValuation);
+                        Cache.Remove("MFAccounts" + userVo.UserId);
+                        Cache.Insert("MFAccounts" + userVo.UserId, dsGetValuation);
                     }
                    
                 //}
@@ -65,7 +67,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "MFAccountValuation.ascx.cs:DataBind()");
+                FunctionInfo.Add("Method", "MFAccountValuation.ascx.cs:ValuationGridBind()");
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
                 throw exBase;
@@ -85,13 +87,14 @@ namespace WealthERP.OnlineOrderBackOffice
             }
             else if (ddlSelect.SelectedValue == "0" || ddlSelect.SelectedValue == "1")
             {
-                DataBind();
+                ValuationGridBind(Convert.ToInt32(ddlSelect.SelectedValue));
                 trPnlValuation.Visible = true;
                 gvMFAccounts.MasterTableView.GetColumn("chkBoxColumn").Display = false;
             }
+
             else
             {
-                DataBind();
+                ValuationGridBind(Convert.ToInt32(ddlSelect.SelectedValue));
                 trPnlValuation.Visible = true;
                 trReProcess.Visible = true;
                 gvMFAccounts.MasterTableView.GetColumn("chkBoxColumn").Display = true;
@@ -169,10 +172,10 @@ namespace WealthERP.OnlineOrderBackOffice
 
         private void UpdateValuation()
         {
-
+            int Processed = 2;
             string gvMFAId = GetSelectedMFAIdString();
-            OnlineOrderBackOfficeBo.UpdateAdviserCustomersAllMFAccounts(gvMFAId);
-            DataBind();
+            OnlineOrderBackOfficeBo.UpdateAdviserCustomersAllMFAccounts(gvMFAId, UserId);
+            ValuationGridBind(Processed);
         }
     }
 }

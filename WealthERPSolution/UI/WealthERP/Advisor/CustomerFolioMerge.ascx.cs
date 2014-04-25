@@ -219,11 +219,11 @@ namespace WealthERP.Advisor
                 {
                     if (userType == "advisor" || userType == "rm")
                     {
-                        BindCustomer();
+                        //BindCustomer("All");
                         BindBranchDropDown();
                         BindRMDropDown();
-                        trAction.Visible = true;
-                        Label1.Visible = true;
+                        trSelect.Visible = true;
+                        //Label1.Visible = true;
                         trBranchRM.Visible = false;
                         tdGoBtn.Visible = false;
                         if (userType == "rm")
@@ -248,13 +248,13 @@ namespace WealthERP.Advisor
                 {
                     trBranchRM.Visible = false;
                     ddlRM.Visible=false;
-                    trAction.Visible = true;
-                    Label1.Visible = true;
+                    trSelect.Visible = true;
+                   // Label1.Visible = true;
                     ddlBranch.Visible = false;
                     tdGoBtn.Visible = false;
                     //btnGo.Visible = false;
                     BindSubBrokerAgentCode(AgentCode);
-                    BindCustomer();
+                    //BindCustomer("All");
                     //BindBranchDropDown();
                     //BindRMDropDown();
                     //ddlRM.SelectedValue = rmVo.RMId.ToString();
@@ -486,7 +486,7 @@ namespace WealthERP.Advisor
                 {
                     BindCustomer();
                     trAction.Visible = true;
-                    Label1.Visible = true;
+                    //Label1.Visible = true;
                 }
             }
             else if (IsAgentCodeBased == 1)
@@ -802,7 +802,7 @@ namespace WealthERP.Advisor
                 //    hdnCurrentPage.Value = "";
                 //}
 
-                dsCustomerFolio = adviserBranchBo.GetAdviserCustomerFolioMerge(int.Parse(hdnadviserId.Value),int.Parse(hdnAgentId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), int.Parse(hdnAll.Value),userType,IsAgentCodeBased,hdnAgentCode.Value);
+                dsCustomerFolio = adviserBranchBo.GetAdviserCustomerFolioMerge(int.Parse(hdnadviserId.Value), int.Parse(hdnAgentId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), int.Parse(hdnAll.Value), userType, IsAgentCodeBased, hdnAgentCode.Value, int.Parse(ddlSelect.SelectedValue));
 
                 //if (hdnFolioFilter.Value != "")
                 //    dsCustomerFolio = adviserBranchBo.FilterFolioNumber(adviserVo.advisorId, mypager.CurrentPage, hdnFolioFilter.Value.ToString(), out count);
@@ -817,6 +817,7 @@ namespace WealthERP.Advisor
                 dtCustomerFolio.Columns.Add("AMCCode");
                 dtCustomerFolio.Columns.Add("Count");
                 dtCustomerFolio.Columns.Add("CMFA_AccountId");
+                dtCustomerFolio.Columns.Add("IsOnline");
                 dtCustomerFolio.Columns.Add("FolioName");
                 dtCustomerFolio.Columns.Add("portfilionumber");
                 dtCustomerFolio.Columns.Add("mergerstatus");
@@ -862,6 +863,7 @@ namespace WealthERP.Advisor
                         drCustomerFolio["AMCCode"] = dtCustomer.Rows[i]["amccode"];
                         drCustomerFolio["Count"] = dtCustomer.Rows[i]["number"];
                         drCustomerFolio["CMFA_AccountId"] = dtCustomer.Rows[i]["CMFA_AccountId"];
+                        drCustomerFolio["IsOnline"] = dtCustomer.Rows[i]["IsOnline"];
                         if (!string.IsNullOrEmpty(dtCustomer.Rows[i]["FolioName"].ToString().Trim()))
                             drCustomerFolio["FolioName"] = dtCustomer.Rows[i]["FolioName"];
                         else
@@ -885,8 +887,8 @@ namespace WealthERP.Advisor
                             drCustomerFolio["DeuptyHead"] = dtCustomer.Rows[i]["DeputyHead"];
                         }
                         dtCustomerFolio.Rows.Add(drCustomerFolio);
-                    }                 
-                        if (Cache["gvCustomerFolioMerge" + adviserVo.advisorId] == null)
+                    }
+                       if (Cache["gvCustomerFolioMerge" + adviserVo.advisorId] == null)
                     {
                         Cache.Insert("gvCustomerFolioMerge" + adviserVo.advisorId, dtCustomerFolio);
                     }
@@ -1451,6 +1453,15 @@ namespace WealthERP.Advisor
                 trBtnSubmit.Visible = true;
                 lblerror.Visible = false;
             }
+            else if (flag == 4)
+            {
+                trAction.Visible = false;
+            }
+            else if (flag == 5)
+            {
+                trAction.Visible = true;
+                Label1.Visible = true;
+            }
         }
 
         protected void gvCustomerFolioMerge_NeedDataSource(object source, GridNeedDataSourceEventArgs e)
@@ -1475,7 +1486,29 @@ namespace WealthERP.Advisor
             gvCustomerFolioMerge.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
             gvCustomerFolioMerge.MasterTableView.ExportToExcel();
         }
-
+        protected void ddlSelect_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlSelect.SelectedValue == "S")
+            {
+                showHideControls(4);
+            }
+            else if (ddlSelect.SelectedValue == "0")
+            {
+                BindCustomer();
+                showHideControls(5);
+            }
+            else if (ddlSelect.SelectedValue == "1")
+            {
+                BindCustomer();
+                showHideControls(4);
+            }
+            else if (ddlSelect.SelectedValue == "2")
+            {
+                BindCustomer();
+                showHideControls(4);
+            }
+        }
+        
         protected void ddlMovePortfolio_SelectedIndexChanged(object sender, EventArgs e)
         {
             hdnCustomerId.Value = "0";

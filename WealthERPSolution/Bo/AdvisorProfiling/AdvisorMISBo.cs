@@ -1724,13 +1724,13 @@ namespace BoAdvisorProfiling
         /// <param name="ToDate"></param>
         /// <param name="agentId"></param>
         /// <returns></returns>
-        public DataSet GetOrganizationDetailFromMFOrder(string Agentcode, string userType, int adviserId, int rmId, int branchId, int branchHeadId, int all, DateTime fromDate, DateTime ToDate, int agentId)
+        public DataSet GetOrganizationDetailFromMFOrder(string Agentcode, string userType, int adviserId, int rmId, int branchId, int branchHeadId, int all, DateTime fromDate, DateTime ToDate, int agentId,int IsOnline)
         {
             AdvisorMISDao MISDao = new AdvisorMISDao();
             DataSet dsGetOrgDetailFromMFOrder;
             try
             {
-                dsGetOrgDetailFromMFOrder = MISDao.GetOrganizationDetailFromMFOrder(Agentcode, userType, adviserId, rmId, branchId, branchHeadId, all, fromDate, ToDate, agentId);
+                dsGetOrgDetailFromMFOrder = MISDao.GetOrganizationDetailFromMFOrder(Agentcode, userType, adviserId, rmId, branchId, branchHeadId, all, fromDate, ToDate, agentId,IsOnline);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1755,13 +1755,13 @@ namespace BoAdvisorProfiling
             return dsGetOrgDetailFromMFOrder;
         }
 
-        public DataSet GetMemberDetailFromMFOrder(string Agentcode, string userType, int adviserId, int rmId, int branchId, int branchHeadId, int all, DateTime fromDate, DateTime ToDate, int agentId)
+        public DataSet GetMemberDetailFromMFOrder(string Agentcode, string userType, int adviserId, int rmId, int branchId, int branchHeadId, int all, DateTime fromDate, DateTime ToDate, int agentId,int IsOnline)
         {
             AdvisorMISDao MISDao = new AdvisorMISDao();
             DataSet dsGetMemberDetailFromMFOrder;
             try
             {
-                dsGetMemberDetailFromMFOrder = MISDao.GetMemberDetailFromMFOrder(Agentcode, userType, adviserId, rmId, branchId, branchHeadId, all, fromDate, ToDate, agentId);
+                dsGetMemberDetailFromMFOrder = MISDao.GetMemberDetailFromMFOrder(Agentcode, userType, adviserId, rmId, branchId, branchHeadId, all, fromDate, ToDate, agentId,IsOnline);
             }
             catch (BaseApplicationException Ex)
             {

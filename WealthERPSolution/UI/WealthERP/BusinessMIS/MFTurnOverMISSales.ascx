@@ -92,6 +92,19 @@
             </div>
         </td>
     </tr>
+    <tr>
+        <td>
+            <asp:Label ID="lblFilter" runat="server" Text="Filter:" CssClass="FieldName"></asp:Label>
+            <asp:DropDownList ID="ddlFilter" runat="server" CssClass="cmbLongField" AutoPostBack="true">
+                <asp:ListItem Value="S">Select</asp:ListItem>
+                <asp:ListItem Value="0">Offline Only</asp:ListItem>
+                <asp:ListItem Value="1">Online Only</asp:ListItem>
+                <asp:ListItem Value="2">All</asp:ListItem>
+            </asp:DropDownList>*
+            <asp:Label ID="lblErrorFilter" Text="Please Select a Filter" CssClass="rfvPCG" Visible="false"
+                runat="server"></asp:Label>
+        </td>
+    </tr>
     <tr id="trGoButton" runat="server">
         <%--         <td id="tdGoBtn" runat="server" colspan="7">
           <asp:Button ID="btnGo" runat="server" CssClass="PCGButton" Text="Go" OnClick="btnGo_Click"
@@ -109,6 +122,8 @@
                 runat="server" OnClick="lnkBtnProduct_Click" ValidationGroup="vgBtnGo"></asp:LinkButton>
         </td>
     </tr>
+    
+    
     <tr>
         <td>
             <div id="dvSectionHeading" runat="server" class="divSectionHeading" style="vertical-align: middle;
@@ -346,6 +361,14 @@
                                     DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
                                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Is Online"
+                                    HeaderText="Is Online" DataField="IsOnline" HeaderStyle-HorizontalAlign="Right"
+                                    UniqueName="IsOnline" SortExpression="IsOnline" AutoPostBackOnFilter="true"
+                                    AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                    DataFormatString="{0:N0}"  FooterStyle-HorizontalAlign="Right">
+                                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
+                                
                                 <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Purchase Transaction"
                                     HeaderText="Purchase Cnt" DataField="BUYCount" HeaderStyle-HorizontalAlign="Right"
                                     UniqueName="BUYCount" SortExpression="BUYCount" AutoPostBackOnFilter="true" AllowFiltering="false"
@@ -550,6 +573,14 @@
                                     DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
                                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Is Online"
+                                    HeaderText="Is Online" DataField="IsOnline" HeaderStyle-HorizontalAlign="Right"
+                                    UniqueName="IsOnline" SortExpression="IsOnline" AutoPostBackOnFilter="true"
+                                    AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                    DataFormatString="{0:N0}"  FooterStyle-HorizontalAlign="Right">
+                                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
+                                
                                 <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Purchase Transaction"
                                     HeaderText="Purchase Cnt" DataField="BUYCount" HeaderStyle-HorizontalAlign="Right"
                                     UniqueName="BUYCount" SortExpression="BUYCount" AutoPostBackOnFilter="true" AllowFiltering="false"

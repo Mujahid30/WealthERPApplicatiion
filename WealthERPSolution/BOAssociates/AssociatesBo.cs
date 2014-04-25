@@ -582,12 +582,12 @@ namespace BOAssociates
             }
             return dtBranchSubBrokerCodeList;
         }
-        public DataSet GetProductDetailsFromMFTransaction(string agentcode, string userType, int AdviserId, int rmId, int branchId, int branchHeadId, DateTime FromDate, DateTime Todate,int All)
+        public DataSet GetProductDetailsFromMFTransaction(string agentcode, string userType, int AdviserId, int rmId, int branchId, int branchHeadId, DateTime FromDate, DateTime Todate,int All,int IsOnline)
         {
             DataSet dsGetProductDetailFromMFOrder;
             try
             {
-                dsGetProductDetailFromMFOrder = associatesDao.GetProductDetailsFromMFTransaction(agentcode, userType, AdviserId, rmId, branchId, branchHeadId, FromDate, Todate,All);
+                dsGetProductDetailFromMFOrder = associatesDao.GetProductDetailsFromMFTransaction(agentcode, userType, AdviserId, rmId, branchId, branchHeadId, FromDate, Todate,All,IsOnline);
             }
             catch (BaseApplicationException Ex)
             {
@@ -640,12 +640,12 @@ namespace BOAssociates
             }
             return dsGetOrganizationFromMFOrder;
         }
-        public DataSet GetMemberDetailFromTransaction(string agentcode, string userType, int AdviserId,int branchHeadId, DateTime FromDate, DateTime Todate)
+        public DataSet GetMemberDetailFromTransaction(string agentcode, string userType, int AdviserId,int branchHeadId, DateTime FromDate, DateTime Todate,int IsOnline)
         {
             DataSet dsGetMemberDetailFromTransaction;
             try
             {
-                dsGetMemberDetailFromTransaction = associatesDao.GetMemberDetailFromTransaction(agentcode, userType, AdviserId, branchHeadId, FromDate, Todate);
+                dsGetMemberDetailFromTransaction = associatesDao.GetMemberDetailFromTransaction(agentcode, userType, AdviserId, branchHeadId, FromDate, Todate,IsOnline);
             }
             catch (BaseApplicationException Ex)
             {

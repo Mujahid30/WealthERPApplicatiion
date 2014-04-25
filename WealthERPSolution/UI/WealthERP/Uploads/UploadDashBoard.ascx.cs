@@ -189,76 +189,76 @@ namespace WealthERP.Uploads
 
             //----------------EQ __----------------------------
 
-                drEQXmlTreeSubSubNode = dtEQSubtreeNodes.Select("TreeSubNodeCode=" + treeSubNodeId.ToString());
+                //drEQXmlTreeSubSubNode = dtEQSubtreeNodes.Select("TreeSubNodeCode=" + treeSubNodeId.ToString());
 
-                count = 0;
+                //count = 0;
             
-                DataRow drEqUploadTreeNode = dtEQTreeNodes.NewRow();
-                foreach (DataRow drSubSubNode in drEQXmlTreeSubSubNode)
-                {
-                    drEQXmlRoleToTreeSubSubNode = dtRoleAssociationTreeNode.Select("TreeSubSubNodeCode=" + drSubSubNode["TreeSubSubNodeCode"].ToString());
-                    roleCount = 0;
-                    if (drEQXmlRoleToTreeSubSubNode.Count() > 0)
-                    {
-                        foreach (DataRow drUserRole in drEQXmlRoleToTreeSubSubNode)
-                        {
-                            if (int.Parse(drUserRole["UserRoleId"].ToString()) == roleId)
-                            {
-                                roleCount++;
-                                break;
-                            }
-                        }
-                    }
-                    if (roleCount > 0)
-                    {
-                        if (count == 0)
-                        {
+                //DataRow drEqUploadTreeNode = dtEQTreeNodes.NewRow();
+                //foreach (DataRow drSubSubNode in drEQXmlTreeSubSubNode)
+                //{
+                //    drEQXmlRoleToTreeSubSubNode = dtRoleAssociationTreeNode.Select("TreeSubSubNodeCode=" + drSubSubNode["TreeSubSubNodeCode"].ToString());
+                //    roleCount = 0;
+                //    if (drEQXmlRoleToTreeSubSubNode.Count() > 0)
+                //    {
+                //        foreach (DataRow drUserRole in drEQXmlRoleToTreeSubSubNode)
+                //        {
+                //            if (int.Parse(drUserRole["UserRoleId"].ToString()) == roleId)
+                //            {
+                //                roleCount++;
+                //                break;
+                //            }
+                //        }
+                //    }
+                //    if (roleCount > 0)
+                //    {
+                //        if (count == 0)
+                //        {
 
-                            count++;
-                            drEqUploadTreeNode["TreeNode1"] = drSubSubNode["TreeSubSubNodeCode"].ToString();
-                            drEqUploadTreeNode["TreeNodeText1"] = drSubSubNode["TreeSubSubNodeText"].ToString();
-                            drEqUploadTreeNode["Path1"] = drSubSubNode["Path"].ToString();
-                            dtEQTreeNodes.Rows.Add(drEqUploadTreeNode);
+                //            count++;
+                //            drEqUploadTreeNode["TreeNode1"] = drSubSubNode["TreeSubSubNodeCode"].ToString();
+                //            drEqUploadTreeNode["TreeNodeText1"] = drSubSubNode["TreeSubSubNodeText"].ToString();
+                //            drEqUploadTreeNode["Path1"] = drSubSubNode["Path"].ToString();
+                //            dtEQTreeNodes.Rows.Add(drEqUploadTreeNode);
 
-                        }
-                        else if (count == 1)
-                        {
-                            count++;
-                            drEqUploadTreeNode["TreeNode2"] = drSubSubNode["TreeSubSubNodeCode"].ToString();
-                            drEqUploadTreeNode["TreeNodeText2"] = drSubSubNode["TreeSubSubNodeText"].ToString();
-                            drEqUploadTreeNode["Path2"] = drSubSubNode["Path"].ToString();
-                            count = 0;
-                            drEqUploadTreeNode = dtEQTreeNodes.NewRow();
-                        }
-                        //else if (count == 2)
-                        //{
-                        //    count++;
-                        //    drEqUploadTreeNode["TreeNode3"] = drSubSubNode["TreeSubSubNodeCode"].ToString();
-                        //    drEqUploadTreeNode["TreeNodeText3"] = drSubSubNode["TreeSubSubNodeText"].ToString();
-                        //    drEqUploadTreeNode["Path3"] = drSubSubNode["Path"].ToString();
+                //        }
+                //        else if (count == 1)
+                //        {
+                //            count++;
+                //            drEqUploadTreeNode["TreeNode2"] = drSubSubNode["TreeSubSubNodeCode"].ToString();
+                //            drEqUploadTreeNode["TreeNodeText2"] = drSubSubNode["TreeSubSubNodeText"].ToString();
+                //            drEqUploadTreeNode["Path2"] = drSubSubNode["Path"].ToString();
+                //            count = 0;
+                //            drEqUploadTreeNode = dtEQTreeNodes.NewRow();
+                //        }
+                //        //else if (count == 2)
+                //        //{
+                //        //    count++;
+                //        //    drEqUploadTreeNode["TreeNode3"] = drSubSubNode["TreeSubSubNodeCode"].ToString();
+                //        //    drEqUploadTreeNode["TreeNodeText3"] = drSubSubNode["TreeSubSubNodeText"].ToString();
+                //        //    drEqUploadTreeNode["Path3"] = drSubSubNode["Path"].ToString();
 
-                        //}
-                        //else if (count == 3)
-                        //{
-                        //    count++;
-                        //    drEqUploadTreeNode["TreeNode4"] = drSubSubNode["TreeSubSubNodeCode"].ToString();
-                        //    drEqUploadTreeNode["TreeNodeText4"] = drSubSubNode["TreeSubSubNodeText"].ToString();
-                        //    drEqUploadTreeNode["Path4"] = drSubSubNode["Path"].ToString();
-                        //    count = 0;
-                        //    drEqUploadTreeNode = dtEQTreeNodes.NewRow();
-                        //}
-                    }
-                    else
-                    {
-                        //break;
-                    }
+                //        //}
+                //        //else if (count == 3)
+                //        //{
+                //        //    count++;
+                //        //    drEqUploadTreeNode["TreeNode4"] = drSubSubNode["TreeSubSubNodeCode"].ToString();
+                //        //    drEqUploadTreeNode["TreeNodeText4"] = drSubSubNode["TreeSubSubNodeText"].ToString();
+                //        //    drEqUploadTreeNode["Path4"] = drSubSubNode["Path"].ToString();
+                //        //    count = 0;
+                //        //    drEqUploadTreeNode = dtEQTreeNodes.NewRow();
+                //        //}
+                //    }
+                //    else
+                //    {
+                //        //break;
+                //    }
 
 
-                }
+                //}
 
-                rptTreenodeEQ.DataSource = dtEQTreeNodes;
+                //rptTreenodeEQ.DataSource = dtEQTreeNodes;
 
-                rptTreenodeEQ.DataBind();
+                //rptTreenodeEQ.DataBind();
           
 
 

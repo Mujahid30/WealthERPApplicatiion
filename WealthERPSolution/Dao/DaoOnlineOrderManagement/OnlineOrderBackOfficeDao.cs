@@ -2391,7 +2391,7 @@ namespace DaoOnlineOrderManagement
             }
             return dsAdviserCustomersAllMFAccounts;
         }
-        public void UpdateAdviserCustomersAllMFAccounts(string gvMFAId)
+        public void UpdateAdviserCustomersAllMFAccounts(string gvMFAId, int ModifiedBy)
         {
             Database db;
 
@@ -2401,6 +2401,7 @@ namespace DaoOnlineOrderManagement
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 UpdateAdviserCustomersAllMFAccountsCmd = db.GetStoredProcCommand("SPROC_Onl_UpdateAdviserCustomersAllMFAccountValuation");
                 db.AddInParameter(UpdateAdviserCustomersAllMFAccountsCmd,"@MFAIdString", DbType.String, gvMFAId);
+                db.AddInParameter(UpdateAdviserCustomersAllMFAccountsCmd, "@ModifiedBy", DbType.Int32, ModifiedBy);
                 db.ExecuteNonQuery(UpdateAdviserCustomersAllMFAccountsCmd);
 
             }
