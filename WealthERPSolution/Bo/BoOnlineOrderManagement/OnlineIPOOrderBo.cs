@@ -43,13 +43,13 @@ namespace BoOnlineOrderManagement
             return dtIPOIssueList;
         }
 
-        public int CreateIPOBidOrderDetails(int adviserId, int userId, DataTable dtIPOBidList, OnlineIPOOrderVo onlineIPOOrderVo)
+        public int CreateIPOBidOrderDetails(int adviserId, int userId, DataTable dtIPOBidList, OnlineIPOOrderVo onlineIPOOrderVo, ref string applicationNo, ref string apllicationNoStatus)
         {
             int orderId = 0;
             OnlineIPOOrderDao onlineIPOOrderDao = new OnlineIPOOrderDao();
             try
             {
-                orderId = onlineIPOOrderDao.CreateIPOBidOrderDetails(adviserId, userId, dtIPOBidList, onlineIPOOrderVo);
+                orderId = onlineIPOOrderDao.CreateIPOBidOrderDetails(adviserId, userId, dtIPOBidList, onlineIPOOrderVo,   ref applicationNo, ref apllicationNoStatus);
 
             }
             catch (BaseApplicationException Ex)

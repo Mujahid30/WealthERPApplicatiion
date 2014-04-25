@@ -68,6 +68,13 @@ namespace WealthERP.OnlineOrderManagement
 
             if (e.CommandName == "Buy")
             {
+                //int rowindex1 = ((GridDataItem)((LinkButton)sender).NamingContainer).RowIndex;
+                //int rowindex = (rowindex1 / 2) - 1;
+                //LinkButton lbButton = (LinkButton)sender;
+                //GridDataItem item = (GridDataItem)lbButton.NamingContainer;
+                //int IssuerId = int.Parse(gvCommMgmt.MasterTableView.DataKeyValues[rowindex]["AIM_IssueId"].ToString());
+               // categoryId = Convert.ToInt32(rgEligibleInvestorCategories.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIIC_InvestorCatgeoryId"].ToString());
+
                 issueId = Convert.ToInt32(RadGridIPOIssueList.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIM_IssueId"].ToString());
                 if (Session["PageDefaultSetting"] != null)
                 {

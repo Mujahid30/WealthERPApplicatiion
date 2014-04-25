@@ -86,6 +86,9 @@ namespace DaoOnlineOrderManagement
            
             try
             {
+   
+  
+
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 dbCommand = db.GetStoredProcCommand("SP_GetCustomerCat");
                 db.AddInParameter(dbCommand, "@issueId", DbType.Int32, issueId);

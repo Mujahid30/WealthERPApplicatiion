@@ -53,7 +53,7 @@ namespace DaoOnlineOrderManagement
             return dtIPOIssueList;
         }
 
-        public int CreateIPOBidOrderDetails(int adviserId, int userId, DataTable dtIPOBidList, OnlineIPOOrderVo onlineIPOOrderVo)
+        public int CreateIPOBidOrderDetails(int adviserId, int userId, DataTable dtIPOBidList, OnlineIPOOrderVo onlineIPOOrderVo,ref string applicationNo,ref string apllicationNoStatus)
         {
             int orderId=0;
             Database db;
@@ -77,12 +77,18 @@ namespace DaoOnlineOrderManagement
 
                 db.AddInParameter(CreateIPOBidOrderCmd, "@XMLIPOBids", DbType.Xml,dsIssueBidList.GetXml().ToString());
                 db.AddOutParameter(CreateIPOBidOrderCmd, "@OrderId", DbType.Int32, 1000000);
+                db.AddOutParameter(CreateIPOBidOrderCmd, "@ApplicationNo", DbType.String, 1000000);
+                db.AddOutParameter(CreateIPOBidOrderCmd, "@AplicationNoStatus", DbType.String, 1000000);
 
+             
                 if (db.ExecuteNonQuery(CreateIPOBidOrderCmd) != 0)
                 {
-                    orderId = Convert.ToInt32(db.GetParameterValue(CreateIPOBidOrderCmd, "OrderId").ToString());
+                     orderId = Convert.ToInt32(db.GetParameterValue(CreateIPOBidOrderCmd, "OrderId").ToString());
+                    applicationNo= db.GetParameterValue(CreateIPOBidOrderCmd, "@ApplicationNo").ToString() ;
+                    apllicationNoStatus=  db.GetParameterValue(CreateIPOBidOrderCmd, "@AplicationNoStatus").ToString();                   
 
                 }
+
             }
             catch (BaseApplicationException Ex)
             {

@@ -260,7 +260,7 @@ namespace BoOnlineOrderManagement
                 throw exBase;
             }
         }
-        public DataSet BindNcdCategory(string type,string catCode)
+        public DataSet BindNcdCategory(string type, string catCode)
         {
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
             try
@@ -963,10 +963,10 @@ namespace BoOnlineOrderManagement
             KeyValuePair<string, string>[] headers = GetHeaderMapping(fileTypeId, extSource);
 
             if (onlineNCDBackOfficeDao == null) onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
-             
+
             DataTable dtExtract = onlineNCDBackOfficeDao.GetOnlineNcdExtractPreview(extractDate, adviserId, fileTypeId, issueId, extSource).Tables[0];
-            
-            if (dtExtract == null ) return null;
+
+            if (dtExtract == null) return null;
             if (dtExtract.Rows.Count == 0) return null;
             if (headers != null)
             {
@@ -979,8 +979,8 @@ namespace BoOnlineOrderManagement
             return dtExtract;
         }
 
-        
-        public string  GetExtractStepCode(int fileTypeId)
+
+        public string GetExtractStepCode(int fileTypeId)
         {
             try
             {
@@ -992,7 +992,7 @@ namespace BoOnlineOrderManagement
                 throw (Ex);
             }
         }
-        public void IsIssueAlloted(int issueId, ref string  result)
+        public void IsIssueAlloted(int issueId, ref string result)
         {
             try
             {
@@ -1010,7 +1010,7 @@ namespace BoOnlineOrderManagement
             try
             {
                 if (onlineNCDBackOfficeDao == null) onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
-                onlineNCDBackOfficeDao.IsSameSubTypeCatAttchedtoSeries(cat,issueId, ref result);
+                onlineNCDBackOfficeDao.IsSameSubTypeCatAttchedtoSeries(cat, issueId, ref result);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1019,60 +1019,60 @@ namespace BoOnlineOrderManagement
         }
 
 
-        public void  GetFileName(string extSource, int  fileTypeId,ref string  filename,ref string  delimeter,ref string  format)
+        public void GetFileName(string extSource, int fileTypeId, ref string filename, ref string delimeter, ref string format)
         {
 
-           string dt= DateTime.Now.ToString("ddMMyy");
-            
-           onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
-           string extractStepCode = GetExtractStepCode(fileTypeId);
-           if (extractStepCode == "EI")
-           {
-               filename = extSource + "OrderBookExtr" + dt;
-               delimeter="";
-               format = ".xls";
-               
-           }
-           if (extractStepCode == "EC")
-           {
-               filename = extSource + "ChqExtr" + dt;
-               delimeter = ",";
-               format=".csv";
-           }
-           else if (extractStepCode == "EB")
-           {
-               filename = extSource + "BidExtr" + dt;
-               delimeter = "|";
-               format = ".txt";
-           }
-           else if (extractStepCode == "EP")
-           {
-               filename = extSource + "CheqPrintFile" + dt;
-               delimeter = "";
-               format = ".xls";
-           }
-             
+            string dt = DateTime.Now.ToString("ddMMyy");
+
+            onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
+            string extractStepCode = GetExtractStepCode(fileTypeId);
+            if (extractStepCode == "EI")
+            {
+                filename = extSource + "OrderBookExtr" + dt;
+                delimeter = "";
+                format = ".xls";
+
+            }
+            if (extractStepCode == "EC")
+            {
+                filename = extSource + "ChqExtr" + dt;
+                delimeter = ",";
+                format = ".csv";
+            }
+            else if (extractStepCode == "EB")
+            {
+                filename = extSource + "BidExtr" + dt;
+                delimeter = "|";
+                format = ".txt";
+            }
+            else if (extractStepCode == "EP")
+            {
+                filename = extSource + "CheqPrintFile" + dt;
+                delimeter = "";
+                format = ".xls";
+            }
+
         }
-        public DataTable ReadCsvFile(string FilePath,  int  fileTypeId)
+        public DataTable ReadCsvFile(string FilePath, int fileTypeId)
         {
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
             string extractStepCode = GetExtractStepCode(fileTypeId);
-            char ch=' ' ;
+            char ch = ' ';
             if (extractStepCode == "UC")
             {
-                  ch = ',';                
+                ch = ',';
             }
             else if (extractStepCode == "UB")
             {
 
                 ch = '|';
             }
-            else if(  extractStepCode == "UA")
+            else if (extractStepCode == "UA")
             {
-                ch = ','; 
+                ch = ',';
             }
             string[] allLines = File.ReadAllLines(FilePath);
-           
+
             string[] headers = allLines[0].Split(ch);
 
             DataTable dtUploadFile = new DataTable("Upload");
@@ -1081,7 +1081,7 @@ namespace BoOnlineOrderManagement
             {
                 if (dtUploadFile.Columns.Contains(header))
                 {
-                    dtUploadFile.Columns.Add(header+dtUploadFile.Columns.Count);
+                    dtUploadFile.Columns.Add(header + dtUploadFile.Columns.Count);
                 }
                 else
                 {
@@ -1428,13 +1428,13 @@ namespace BoOnlineOrderManagement
             }
             return result;
         }
-        public int GetScriptId(string scriptid, int adviserid)
+        public int GetScriptId(string scriptid, int adviserid,string product)
         {
             int result = 0;
             OnlineNCDBackOfficeDao daoOnlNcdBackOff = new OnlineNCDBackOfficeDao();
             try
             {
-                result = daoOnlNcdBackOff.GetScriptId(scriptid, adviserid);
+                result = daoOnlNcdBackOff.GetScriptId(scriptid, adviserid, product);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1446,7 +1446,7 @@ namespace BoOnlineOrderManagement
         {
 
             int nRows = 0;
-            
+
             OnlineNCDBackOfficeDao daoOnlNcdBackOff = new OnlineNCDBackOfficeDao();
             isEligbleIssue = "";
 
@@ -1456,13 +1456,13 @@ namespace BoOnlineOrderManagement
                 if (extractStepCode == "UA")
                 {
                     daoOnlNcdBackOff.IsIssueAlloted(issueId, ref   result);
-                    if(result!=string.Empty )
-                    nRows = daoOnlNcdBackOff.UploadAllotmentIssueData(dtCheckOrder, issueId,ref   result);
+                    if (result != string.Empty)
+                        nRows = daoOnlNcdBackOff.UploadAllotmentIssueData(dtCheckOrder, issueId, ref   result);
                     else
                     {
                         result = "Pls Fill Allotment Date";
                     }
-                    
+
                 }
                 else if (extractStepCode == "UC")
                 {
@@ -1470,17 +1470,15 @@ namespace BoOnlineOrderManagement
                     int orderIssueId = daoOnlNcdBackOff.Getissueid(orderId);
                     if (orderIssueId == issueId)
                     {
-                           if (product == "FI")
+                        if (product == "FI")
                         {
                             nRows = daoOnlNcdBackOff.UploadChequeIssueData(dtCheckOrder, issueId);
-                           
 
                         }
-                           else if (product == "IP")
-                           {
-                               nRows = daoOnlNcdBackOff.UploadIPOChequeIssueData(dtCheckOrder, issueId);
-
-                           }
+                        else if (product == "IP")
+                        {
+                            nRows = daoOnlNcdBackOff.UploadIPOChequeIssueData(dtCheckOrder, issueId);
+                        }
 
                     }
                     else
@@ -1492,18 +1490,22 @@ namespace BoOnlineOrderManagement
                 {
 
                     string scriptId = dtCheckOrder.Rows[0][0].ToString();
-                    int scriptissueid = daoOnlNcdBackOff.GetScriptId(scriptId, adviserid);
+                    int scriptissueid = daoOnlNcdBackOff.GetScriptId(scriptId, adviserid, product);
                     if (scriptissueid == issueId)
                     {
 
 
                         if (dtCheckOrder.Columns.Contains("Error Text"))
                             dtCheckOrder.Columns.RemoveAt(3);
-                        if(product=="FI")
+                        if (product == "FI")
                         {
-                        nRows = daoOnlNcdBackOff.UploadBidSuccessData(BSEExchangeDataChange(dtCheckOrder,source), issueId);
+                            nRows = daoOnlNcdBackOff.UploadBidSuccessData(BSEExchangeDataChange(dtCheckOrder, source), issueId);
                         }
-                       
+                        else if (product == "IP")
+                        {
+                            nRows = daoOnlNcdBackOff.IPOUploadBidSuccessData(dtCheckOrder, issueId);
+                        }
+
                     }
                     else
                     {
@@ -1527,21 +1529,21 @@ namespace BoOnlineOrderManagement
             return nRows;
         }
 
-        private DataTable BSEExchangeDataChange(DataTable dt,string source)
+        private DataTable BSEExchangeDataChange(DataTable dt, string source)
         {
             DataTable dtCopy = new DataTable();
             if (source == "BSE")
             {
                 foreach (DataRow dr in dt.Rows)
                 {
-                    dr["AIOE_ScriptId"] = dr["AIOE_ScriptId"].ToString() +  '-' +dr["COID_SeriesQuantity"].ToString();
+                    dr["AIOE_ScriptId"] = dr["AIOE_ScriptId"].ToString() + '-' + dr["COID_SeriesQuantity"].ToString();
                 }
 
                 if (dt.Columns.Contains("COID_SeriesQuantity"))
                     dt.Columns.RemoveAt(2);
                 dt.AcceptChanges();
             }
-                        return dt;
+            return dt;
         }
 
         public int CheckIssueSeriesName(string Issuename, int issueid)
@@ -1568,19 +1570,19 @@ namespace BoOnlineOrderManagement
             }
             return dtBankBranchName;
         }
-        public void  NSEandBSEcodeCheck(int issueid,int adviserid,string nsecode, string bsecode,ref int isBseExist, ref int isNseExist)
+        public void NSEandBSEcodeCheck(int issueid, int adviserid, string nsecode, string bsecode, ref int isBseExist, ref int isNseExist)
         {
-            
+
             OnlineNCDBackOfficeDao daoOnlNcdBackOff = new OnlineNCDBackOfficeDao();
             try
             {
-                daoOnlNcdBackOff.NSEandBSEcodeCheck(issueid,adviserid, nsecode, bsecode, ref isBseExist, ref isNseExist);
+                daoOnlNcdBackOff.NSEandBSEcodeCheck(issueid, adviserid, nsecode, bsecode, ref isBseExist, ref isNseExist);
             }
             catch (BaseApplicationException Ex)
             {
                 throw Ex;
             }
-            
+
         }
         public bool Deleteinvestmentcategory(int investorid)
         {
@@ -1638,7 +1640,7 @@ namespace BoOnlineOrderManagement
             {
                 throw Ex;
             }
-            
+
         }
         public int CheckAccountisActive(int adviserid, int customerid)
         {

@@ -53,7 +53,7 @@ namespace WealthERP.OnlineOrderManagement
 
         private void BindIPOIssueList(string issueId)
         {
-            dtOnlineIPOIssueList = onlineIPOOrderBo.GetIPOIssueList(advisorVo.advisorId, Convert.ToInt32(issueId),1);
+            dtOnlineIPOIssueList = onlineIPOOrderBo.GetIPOIssueList(advisorVo.advisorId, Convert.ToInt32(issueId), 1);
 
             if (dtOnlineIPOIssueList.Rows.Count > 0)
             {
@@ -123,7 +123,7 @@ namespace WealthERP.OnlineOrderManagement
             int currentRowindex = (((GridDataItem)((CheckBox)sender).NamingContainer).RowIndex / 2) - 1;
             ReseIssueBidValues(currentRowindex);
             //CheckBox chkCutOff = (CheckBox)RadGridIPOBid.MasterTableView.Items[currentRowindex]["CheckCutOff"].FindControl("cbCutOffCheck");
-            
+
         }
 
         protected void ReseIssueBidValues(int row)
@@ -135,8 +135,8 @@ namespace WealthERP.OnlineOrderManagement
             TextBox txtBidPrice = (TextBox)RadGridIPOBid.MasterTableView.Items[row]["BidPrice"].FindControl("txtBidPrice");
             TextBox txtBidAmount = (TextBox)RadGridIPOBid.MasterTableView.Items[row]["BidAmount"].FindControl("txtBidAmount");
             TextBox txtBidAmountPayable = (TextBox)RadGridIPOBid.MasterTableView.Items[row]["BidAmountPayable"].FindControl("txtBidAmountPayable");
-           
-             
+
+
             double capPrice = Convert.ToDouble(RadGridIPOIssueList.MasterTableView.Items[0]["AIM_CapPrice"].Text.Trim());
             string ipoPriceDiscountType = RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIM_IPOPriceDiscountType"].ToString();
             if (!string.IsNullOrEmpty(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIM_IPOPriceDiscountValue"].ToString()))
@@ -174,7 +174,7 @@ namespace WealthERP.OnlineOrderManagement
                     }
                 }
 
-                txtBidAmountPayable.Text = Math.Round(bidAmountPayable,2).ToString();
+                txtBidAmountPayable.Text = Math.Round(bidAmountPayable, 2).ToString();
 
             }
 
@@ -182,7 +182,7 @@ namespace WealthERP.OnlineOrderManagement
                 EnableDisableBids(true, 3);
             else
                 EnableDisableBids(false, 3);
-                       
+
         }
 
         protected void EnableDisableBids(bool isChecked, int noOfBid)
@@ -198,7 +198,7 @@ namespace WealthERP.OnlineOrderManagement
 
                 TextBox txtBidAmount = (TextBox)item.FindControl("txtBidAmount");
                 TextBox txtBidAmountPayable = (TextBox)item.FindControl("txtBidAmountPayable");
-               
+
                 if (isChecked)
                 {
                     if (chkCutOff.Checked)
@@ -276,6 +276,9 @@ namespace WealthERP.OnlineOrderManagement
             bool accountDebitStatus = false;
             int orderId = 0;
             double totalBidAmount = 0;
+            string applicationNo = String.Empty;
+            string apllicationNoStatus = String.Empty;
+
             double availableBalance = (double)onlineIPOOrderBo.GetUserRMSAccountBalance(customerVo.AccountId);
 
             int issueId = Convert.ToInt32(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIM_IssueId"].ToString());
@@ -341,19 +344,19 @@ namespace WealthERP.OnlineOrderManagement
             }
             if (availableBalance >= totalBidAmount)
             {
-                orderId = onlineIPOOrderBo.CreateIPOBidOrderDetails(advisorVo.advisorId, userVo.UserId, dtIPOBidTransactionDettails, onlineIPOOrderVo);
+                orderId = onlineIPOOrderBo.CreateIPOBidOrderDetails(advisorVo.advisorId, userVo.UserId, dtIPOBidTransactionDettails, onlineIPOOrderVo, ref applicationNo, ref   apllicationNoStatus);
                 if (orderId != 0 && !string.IsNullOrEmpty(customerVo.AccountId))
                 {
                     accountDebitStatus = onlineIPOOrderBo.DebitRMSUserAccountBalance(customerVo.AccountId, -totalBidAmount, orderId);
-                     availableBalance = (double)onlineIPOOrderBo.GetUserRMSAccountBalance(customerVo.AccountId);
-                     lblAvailableLimits.Text= Convert.ToInt64(availableBalance).ToString();
+                    availableBalance = (double)onlineIPOOrderBo.GetUserRMSAccountBalance(customerVo.AccountId);
+                    lblAvailableLimits.Text = Convert.ToInt64(availableBalance).ToString();
                 }
 
-                userMessage = CreateUserMessage(orderId, accountDebitStatus, false);
+                userMessage = CreateUserMessage(orderId, accountDebitStatus, false, applicationNo, apllicationNoStatus);
             }
             else
             {
-                userMessage = CreateUserMessage(orderId, false, false);
+                userMessage = CreateUserMessage(orderId, false, false, applicationNo, apllicationNoStatus);
             }
 
             ShowMessage(userMessage);
@@ -367,7 +370,7 @@ namespace WealthERP.OnlineOrderManagement
 
         }
 
-        private string CreateUserMessage(int orderId, bool accountDebitStatus, bool isCutOffTimeOver)
+        private string CreateUserMessage(int orderId, bool accountDebitStatus, bool isCutOffTimeOver, string applicationno, string aplicationNoStatus)
         {
             string userMessage = string.Empty;
             if (orderId != 0 && accountDebitStatus == true)
@@ -375,8 +378,23 @@ namespace WealthERP.OnlineOrderManagement
                 if (isCutOffTimeOver)
                     userMessage = "Order placed successfully, Order reference no is " + orderId.ToString() + ", Order will process next business day.";
                 else
-                    userMessage = "Order placed successfully, Order reference no is " + orderId.ToString();
+                    userMessage = "Order placed successfully, Order reference no is " + orderId.ToString() + " & Application no. " + applicationno ;
             }
+            else if (orderId == 0 & lblAvailableLimits.Text == "0")
+            {
+                userMessage = "Order cannot be processed. Insufficient balance";
+            }
+
+            else if (aplicationNoStatus == "Refill")
+            {
+                userMessage = "Order cannot be placed , Application oversubscribed. Please contact your relationship manager or contact call centre";
+
+            }
+            else if (accountDebitStatus == false)
+            {
+                userMessage = "NO Rms Response";
+            }
+             
             else if (orderId == 0)
             {
                 userMessage = "Please allocate the adequate amount to place the order successfully.";
