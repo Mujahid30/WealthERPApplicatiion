@@ -46,16 +46,41 @@ namespace WealthERP.OffLineOrderManagement
                 // fromdate = DateTime.Now.AddDays(-1);
                 txtFromDate.SelectedDate = DateTime.Now.AddDays(-1);
                 txtToDate.SelectedDate = DateTime.Now;
-                BindddlExtractType();
+                //BindddlExtractType();
                // txtExtractDate.SelectedDate = DateTime.Now;
                 //BindOrderStatus();
             }
         }
+        protected void ddlSelPrdctSelectedIndexChanged(object sender, EventArgs e)
+        {
+            DataSet dsProductIssuer = new DataSet();
+            BindddlExtractType(ddlSelPrdct.SelectedValue);
+        }
+        protected void ddlExtractType_OnselectedIndexchanged(object sender, EventArgs e)
+        {
+            ddlPrdtstatus.SelectedValue = "-1";
+            ddlPrcdt.SelectedValue = "0";
+            ddlPrdtstatus_SelectedIndexChanged(sender, e);
+        }
+        protected void ddlPrdtstatus_SelectedIndexChanged(object sender, EventArgs e)
+        {
+         DataSet dsProductIssuer = new DataSet();
+         dsProductIssuer = onlineNCDBackOfficebo.GetProductIssuerList(int.Parse(ddlPrdtstatus.SelectedValue), ddlSelPrdct.SelectedValue.ToString());
+         if (dsProductIssuer != null && dsProductIssuer.Tables[0].Rows.Count > 0)
+            {
+                ddlPrcdt.DataSource = dsProductIssuer;
+                ddlPrcdt.DataValueField = dsProductIssuer.Tables[0].Columns["AIM_IssueId"].ToString();
+                ddlPrcdt.DataTextField = dsProductIssuer.Tables[0].Columns["AIM_IssueName"].ToString();
+                ddlPrcdt.DataBind();
+            }
+         ddlPrcdt.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--SELECT--", "0"));
+         ddlPrcdt.SelectedIndex = 0;
+        }
 
-        protected void BindddlExtractType()
+        protected void BindddlExtractType(string Product)
         {
             dsextractType = new DataSet();
-            dsextractType = onlineNCDBackOfficebo.GetNCDIPOAccountingExtractType();
+            dsextractType = onlineNCDBackOfficebo.GetNCDIPOAccountingExtractType(Product);
             if (dsextractType != null && dsextractType.Tables[0].Rows.Count > 0)
             {
                 ddlExtractType.DataSource = dsextractType;
@@ -71,7 +96,7 @@ namespace WealthERP.OffLineOrderManagement
             DateTime fromdate;
             DateTime todate;
             DataSet dsBackOfficeAccountingExtract = new DataSet();
-            dsExtractTypeDataForFileCreation = onlineNCDBackOfficebo.GetNCDIPOExtractTypeDataForFileCreation(orderDate, advisorVo.advisorId, Convert.ToInt32(ddlExtractType.SelectedValue), Convert.ToDateTime(txtFromDate.SelectedDate), Convert.ToDateTime(txtToDate.SelectedDate));
+            dsExtractTypeDataForFileCreation = onlineNCDBackOfficebo.GetNCDIPOExtractTypeDataForFileCreation(orderDate, advisorVo.advisorId, Convert.ToInt32(ddlExtractType.SelectedValue), Convert.ToDateTime(txtFromDate.SelectedDate), Convert.ToDateTime(txtToDate.SelectedDate),int.Parse(ddlPrcdt.SelectedValue),ddlSelPrdct.SelectedValue);
             if (dsExtractTypeDataForFileCreation.Tables.Count <= 0)
             {
                 ShowMessage("No Data Available");
@@ -116,14 +141,13 @@ namespace WealthERP.OffLineOrderManagement
 
                 string Columns = string.Empty;
 
-                if (FileID == 46)
-                {
+               
                     foreach (DataColumn column in dsExtractTypeDataForFileCreation.Tables[0].Columns)
                     {
                         Columns += column.ColumnName + delimeter;
                     }
                     str.WriteLine(Columns.Remove(Columns.Length - 1, 1));
-                }
+               
 
 
                 foreach (DataRow datarow in dsExtractTypeDataForFileCreation.Tables[0].Rows)
@@ -144,6 +168,7 @@ namespace WealthERP.OffLineOrderManagement
 
 
                 Response.AppendHeader("Content-Disposition", "attachment;filename=" + filename);
+                Response.Clear();
                 string aaa = Server.MapPath("~/UploadFiles/" + filename);
                 Response.TransmitFile(Server.MapPath("~/UploadFiles/" + filename));
                 HttpContext.Current.ApplicationInstance.CompleteRequest();

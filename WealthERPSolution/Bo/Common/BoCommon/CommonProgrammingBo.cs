@@ -62,6 +62,21 @@ namespace BoCommon
                 filename = "NCD PAYFILE FOR" + "_"+ DD + '.'+ MM + ".txt";
                 delimeter = "\t";
             }
+            else if (FileID == 47)
+            {
+                filename = "eNCD"  + DD+MM+YYYY+'-'+ ".txt";
+                delimeter = "|";
+            }
+            else if (FileID == 48)
+            {
+                filename = "IPO PAYFILE FOR" + "_" + DD + '.' + MM + ".txt";
+                delimeter = "\t";
+            }
+            else if (FileID == 49)
+            {
+                filename = "eNCD" + DD + MM + YYYY + '-' + ".txt";
+                delimeter = "|";
+            }
             return filename + "~" + delimeter;
         }
     }

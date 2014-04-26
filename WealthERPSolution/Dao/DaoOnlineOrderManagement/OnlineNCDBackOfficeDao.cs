@@ -2692,7 +2692,7 @@ namespace DaoOnlineOrderManagement
             }
             return isExist;
         }
-        public DataSet GetNCDIPOAccountingExtractType()
+        public DataSet GetNCDIPOAccountingExtractType(string Product)
         {
             DataSet dsExtractType;
             Database db;
@@ -2701,7 +2701,7 @@ namespace DaoOnlineOrderManagement
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 GetGetMfOrderExtractCmd = db.GetStoredProcCommand("SPROC_ONL_GetNCDIPOAccountingExtractType");
-
+                db.AddInParameter(GetGetMfOrderExtractCmd, "@Product", DbType.String, Product);
                 dsExtractType = db.ExecuteDataSet(GetGetMfOrderExtractCmd);
 
             }
@@ -2722,7 +2722,7 @@ namespace DaoOnlineOrderManagement
             }
             return dsExtractType;
         }
-        public DataSet GetNCDIPOExtractTypeDataForFileCreation(DateTime orderDate, int AdviserId, int extractType, DateTime fromDate, DateTime toDate)
+        public DataSet GetNCDIPOExtractTypeDataForFileCreation(DateTime orderDate, int AdviserId, int extractType, DateTime fromDate, DateTime toDate, int IssuerID,string Product)
         {
             DataSet dsExtractType;
             Database db;
@@ -2737,6 +2737,9 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(GetGetMfOrderExtractCmd, "@extractType", DbType.Int32, extractType);
                 db.AddInParameter(GetGetMfOrderExtractCmd, "@fromDate", DbType.DateTime, fromDate);
                 db.AddInParameter(GetGetMfOrderExtractCmd, "@toDate", DbType.DateTime, toDate);
+                db.AddInParameter(GetGetMfOrderExtractCmd, "@ProductIssuerID", DbType.Int32, IssuerID);
+                db.AddInParameter(GetGetMfOrderExtractCmd, "@Product", DbType.String, Product);
+
                  dsExtractType = db.ExecuteDataSet(GetGetMfOrderExtractCmd);
 
             }
@@ -2757,5 +2760,37 @@ namespace DaoOnlineOrderManagement
             }
             return dsExtractType;
         }
+        public DataSet GetProductIssuerList(int Isactive, string Product) 
+        {
+            DataSet dsProductIssuer;
+            Database db;
+            DbCommand GetProductIssuerListCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetProductIssuerListCmd = db.GetStoredProcCommand("SPROC_GetProductIssuerList");
+                db.AddInParameter(GetProductIssuerListCmd, "@Isactive", DbType.Int32, Isactive);
+                db.AddInParameter(GetProductIssuerListCmd, "@Product", DbType.String, Product);
+                dsProductIssuer = db.ExecuteDataSet(GetProductIssuerListCmd);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OperationDao.cs:GetMfOrderExtract()");
+                object[] objects = new object[10];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsProductIssuer;
+        }
+
     }
 }

@@ -11,7 +11,7 @@
                 <table cellspacing="0" cellpadding="3" width="100%">
                     <tr>
                         <td align="left">
-                            NCD\IPO Accounting Extract
+                            NCD/IPO Accounting Extract
                         </td>
                     </tr>
                 </table>
@@ -37,6 +37,24 @@
     </tr>
 </table>
 <table>
+ <tr class="spaceUnder">
+        <td>
+        </td>
+        <td align="right" style="vertical-align: top;">
+            <asp:Label ID="Label4" runat="server" Text="Select Product:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td colspan="2">
+            <asp:DropDownList ID="ddlSelPrdct" runat="server" CssClass="cmbExtraLongField" OnSelectedIndexChanged="ddlSelPrdctSelectedIndexChanged"
+                 AutoPostBack="true">
+                <asp:ListItem Selected="True" Value="0">--SELECT--</asp:ListItem>
+                 <asp:ListItem  Value="FI">--NCD--</asp:ListItem>
+                  <asp:ListItem  Value="IP">--IPO--</asp:ListItem>
+            </asp:DropDownList>
+            <span id="Span3" class="spnRequiredField">*</span>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" CssClass="rfvPCG" ErrorMessage="Please Select an ExtractType"
+                Display="Dynamic" ControlToValidate="ddlSelPrdct" InitialValue="0" ValidationGroup="vgBtnSubmitTemp">Please Select a Product</asp:RequiredFieldValidator>
+        </td>
+    </tr>
     <tr class="spaceUnder">
         <td>
         </td>
@@ -44,13 +62,47 @@
             <asp:Label ID="lblAmc" runat="server" Text="Extract Type:" CssClass="FieldName"></asp:Label>
         </td>
         <td colspan="2">
-            <asp:DropDownList ID="ddlExtractType" runat="server" CssClass="cmbExtraLongField"
+            <asp:DropDownList ID="ddlExtractType" runat="server" CssClass="cmbExtraLongField" OnSelectedIndexChanged="ddlExtractType_OnselectedIndexchanged"
                  AutoPostBack="true">
                 <asp:ListItem Selected="True" Value="0">--SELECT--</asp:ListItem>
             </asp:DropDownList>
             <span id="Span7" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="rfvAmc" runat="server" CssClass="rfvPCG" ErrorMessage="Please Select an ExtractType"
-                Display="Dynamic" ControlToValidate="ddlExtractType" InitialValue="0" ValidationGroup="btnSubmit">Please Select an ExtractType</asp:RequiredFieldValidator>
+                Display="Dynamic" ControlToValidate="ddlExtractType" InitialValue="0" ValidationGroup="vgBtnSubmitTemp">Please Select an ExtractType</asp:RequiredFieldValidator>
+        </td>
+    </tr>
+    <tr class="spaceUnder">
+        <td>
+        </td>
+        <td align="right" style="vertical-align: top;">
+            <asp:Label ID="Label2" runat="server" Text="Product status:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td colspan="2">
+            <asp:DropDownList ID="ddlPrdtstatus" runat="server" CssClass="cmbExtraLongField" OnSelectedIndexChanged="ddlPrdtstatus_SelectedIndexChanged"
+                 AutoPostBack="true">
+                <asp:ListItem Selected="True" Value="-1">--SELECT--</asp:ListItem>
+                  <asp:ListItem Value="0">--Closed--</asp:ListItem>
+                  <asp:ListItem  Value="1">--Open--</asp:ListItem>
+            </asp:DropDownList>
+            <span id="Span1" class="spnRequiredField">*</span>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" CssClass="rfvPCG" ErrorMessage="Please Select an ExtractType"
+                Display="Dynamic" ControlToValidate="ddlPrdtstatus" InitialValue="-1" ValidationGroup="vgBtnSubmitTemp">Please Select Product Status</asp:RequiredFieldValidator>
+        </td>
+    </tr>
+    <tr class="spaceUnder">
+        <td>
+        </td>
+        <td align="right" style="vertical-align: top;">
+            <asp:Label ID="Label3" runat="server" Text="Issue Name:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td colspan="2">
+            <asp:DropDownList ID="ddlPrcdt" runat="server" CssClass="cmbExtraLongField"
+                 AutoPostBack="true">
+                <asp:ListItem Selected="True" Value="0">--SELECT--</asp:ListItem>
+            </asp:DropDownList>
+            <span id="Span2" class="spnRequiredField">*</span>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" CssClass="rfvPCG" ErrorMessage="Please Select an ExtractType"
+                Display="Dynamic" ControlToValidate="ddlPrcdt" InitialValue="0" ValidationGroup="vgBtnSubmitTemp">Please Select a Product</asp:RequiredFieldValidator>
         </td>
     </tr>
     <tr id="trFromToDate" runat="server" visible="True">
@@ -155,7 +207,7 @@
         <td>
         </td>
         <td>
-            <asp:Button ID="btnExtract" runat="server" Text="Extract" CssClass="PCGButton" OnClick="btnExtract_Click" />
+            <asp:Button ID="btnExtract" runat="server" Text="Extract" ValidationGroup="vgBtnSubmitTemp" CssClass="PCGButton" OnClick="btnExtract_Click" />
         </td>
         <td>
         </td>
