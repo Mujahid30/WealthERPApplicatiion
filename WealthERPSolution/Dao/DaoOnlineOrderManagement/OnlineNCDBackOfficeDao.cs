@@ -2082,6 +2082,8 @@ namespace DaoOnlineOrderManagement
                   cmdProcAllot.CommandType = CommandType.StoredProcedure;
                   cmdProcAllot.Parameters.AddWithValue("@Details", dtData);
                   cmdProcAllot.Parameters.AddWithValue("@issueId", issueId);
+                  cmdProcAllot.Parameters.AddWithValue("@product", product);
+
                   //cmdProcAllot.Parameters.AddWithValue("@result", string.Empty);
 
                   result = cmdProcAllot.ExecuteNonQuery();
