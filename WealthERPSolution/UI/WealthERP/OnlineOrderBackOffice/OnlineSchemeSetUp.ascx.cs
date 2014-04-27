@@ -2689,9 +2689,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     schemeplancode1 = mfProductAMCSchemePlanDetailsVo.SchemePlanCode;
                 }
             }
-            if (txtSchemeMargeDate.SelectedDate == null || txtSchemeMargeDate.SelectedDate <=DateTime.Now )
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please select future date');", true);
-                return;
+            
             int count = OnlineOrderBackOfficeBo.BussinessDateCheck(Convert.ToDateTime(txtSchemeMargeDate.SelectedDate));
             if (count == 0)
             {
@@ -2708,8 +2706,22 @@ namespace WealthERP.OnlineOrderBackOffice
         }
         protected void GetBussinessDate()
         {
-            //DateTime Time = Convert.ToDateTime(DateTime.Now.TimeOfDay);
-
+            
+            string comparetime = "13:00";
+            DateTime Time = DateTime.Now;
+            string time1 = Time.ToShortTimeString();
+            int Fromcomparetime = int.Parse(comparetime.Split(':')[0]);
+            int TOcpmaretime=int.Parse(time1.Split(':')[0]);
+            if (Fromcomparetime < TOcpmaretime)
+            {
+                txtSchemeMargeDate.SelectedDate = DateTime.Now.AddDays(2);
+                txtSchemeMargeDate.MinDate = Convert.ToDateTime(txtSchemeMargeDate.SelectedDate);
+            }
+            else
+            {
+                txtSchemeMargeDate.SelectedDate = DateTime.Now.AddDays(1);
+                txtSchemeMargeDate.MinDate = Convert.ToDateTime(txtSchemeMargeDate.SelectedDate);
+            }
         }
 
         protected void btnMSUpdate_Click(object sender, EventArgs e)
@@ -2757,6 +2769,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     schemeplancode1 = mfProductAMCSchemePlanDetailsVo.SchemePlanCode;
                 }
             }
+           
             BindSchemeForMarge();
             DataTable dt = new DataTable();
 
@@ -2772,12 +2785,13 @@ namespace WealthERP.OnlineOrderBackOffice
                
                 if (dr["PASP_MargeDate"].ToString() != "")
                 {
-                    txtSchemeMargeDate.SelectedDate = Convert.ToDateTime(dr["PASP_MargeDate"].ToString());
+                    if (txtSchemeMargeDate.SelectedDate != Convert.ToDateTime(dr["PASP_MargeDate"].ToString()))
+                    {
+                        txtSchemeMargeDate.MinDate = Convert.ToDateTime(dr["PASP_MargeDate"].ToString());
+                        txtSchemeMargeDate.SelectedDate = txtSchemeMargeDate.MinDate;
+                    }
                 }
-                else
-                {
-                    txtSchemeMargeDate.SelectedDate = DateTime.Now;
-                }
+               
             }
 
         }
