@@ -2702,6 +2702,8 @@ namespace WealthERP.OnlineOrderBackOffice
                 btnReset.Visible = true;
                 lnkMargeScheme.Text = "Merged Scheme";
                 radwindowPopup.VisibleOnPageLoad = false;
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Scheme Merged Successfully');", true);
+
             }
         }
         protected void GetBussinessDate()
@@ -2808,8 +2810,8 @@ namespace WealthERP.OnlineOrderBackOffice
             }
             OnlineOrderBackOfficeBo.CreateMargeScheme(schemeplancode1,0, DateTime.MaxValue, userVo.UserId);
             BindSchemeForMarge();
-            txtSchemeMargeDate.SelectedDate = DateTime.Now;
             lnkMargeScheme.Text = "Merge Scheme";
+            btnMSSubmit.Visible = true;
         }
         protected void lnkMargeEdit_Click(object sender, EventArgs e)
         {
