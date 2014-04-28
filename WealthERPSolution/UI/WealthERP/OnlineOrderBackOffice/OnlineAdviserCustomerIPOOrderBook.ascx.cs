@@ -155,7 +155,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 string Iscancel = Convert.ToString(gvIPOOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WOS_OrderStep"]);
                 //LinkButton MarkAsReject = (LinkButton)dataItem.FindControl("MarkAsReject");
                 LinkButton buttonEdit = dataItem["MarkAsReject"].Controls[0] as LinkButton;
-                if (Iscancel == "CANCELLED" || Iscancel == "EXECUTED" || Iscancel == "ORDERED")
+                if (Iscancel == "CANCELLED" || Iscancel == "EXECUTED" || Iscancel == "ORDERED" || Iscancel == "ACCEPTED")
                 {
                     buttonEdit.Enabled = false;
                 }
