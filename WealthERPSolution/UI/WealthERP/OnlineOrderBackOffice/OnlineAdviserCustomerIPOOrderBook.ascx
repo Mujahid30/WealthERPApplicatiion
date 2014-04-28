@@ -110,7 +110,7 @@
                                 GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="true" ShowStatusBar="True"
                                 OnItemDataBound="gvIPOOrderBook_OnItemDataCommand" Skin="Telerik" AllowFilteringByColumn="false"
                                 OnNeedDataSource="gvIPOOrderBook_OnNeedDataSource" OnItemCommand="gvIPOOrderBook_OnItemCommand">
-                                <MasterTableView DataKeyNames="CO_OrderId,AIM_IssueId,AIM_IssueName" Width="100%"
+                                <MasterTableView DataKeyNames="CO_OrderId,AIM_IssueId,AIM_IssueName,Amount,WES_Code,C_CustCode,WOS_OrderStep" Width="100%"
                                     AllowMultiColumnSorting="True" AutoGenerateColumns="false" AllowFilteringByColumn="true">
                                     <Columns>
                                         <telerik:GridTemplateColumn AllowFiltering="false">
@@ -168,13 +168,16 @@
                                             AutoPostBackOnFilter="true">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>--%>
-                                        <telerik:GridTemplateColumn AllowFiltering="false" HeaderStyle-Width="100px" UniqueName="Action"
+                                        <telerik:GridEditCommandColumn Visible="true" HeaderStyle-Width="60px" UniqueName="MarkAsReject"
+                                            EditText="Cancel" CancelText="Cancel" UpdateText="OK" HeaderText="Cancel">
+                                        </telerik:GridEditCommandColumn>
+                                        <%--<telerik:GridTemplateColumn AllowFiltering="false" HeaderStyle-Width="100px" UniqueName="Action"
                                             HeaderText="Action">
                                             <ItemTemplate>
-                                                <asp:ImageButton ID="imgCancel" runat="server" CommandName="Cancel" ImageUrl="~/Images/Cancel.jpg"
+                                              <%--  <asp:ImageButton ID="imgCancel" runat="server" CommandName="Update" ImageUrl="~/Images/Cancel.jpg"
                                                     ToolTip="Cancel" Enabled="false" />&nbsp;
                                             </ItemTemplate>
-                                        </telerik:GridTemplateColumn>
+                                        </telerik:GridTemplateColumn>--%>
                                         <telerik:GridTemplateColumn AllowFiltering="false">
                                             <ItemTemplate>
                                                 <tr>
@@ -216,6 +219,60 @@
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>
                                     </Columns>
+                                        <EditFormSettings FormTableStyle-Height="40%" EditFormType="Template" FormMainTableStyle-Width="300px">
+                                        <FormTemplate>
+                                            <table style="background-color: White;" border="0">
+                                                <tr>
+                                                    <td colspan="4">
+                                                        <div class="divSectionHeading" style="vertical-align: text-bottom">
+                                                            Order canceling Request
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="leftField">
+                                                        <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="Request No.:"></asp:Label>
+                                                    </td>
+                                                    <td class="rightField">
+                                                        <asp:TextBox ID="txtRejOrderId" runat="server" CssClass="txtField" Style="width: 250px;"
+                                                            Text='<%# Bind("CO_OrderId") %>' ReadOnly="true"></asp:TextBox>
+                                                    </td>
+                                                    <td colspan="2">
+                                                        &nbsp;
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="leftField">
+                                                        <asp:Label ID="Label20" runat="server" Text="Remark:" CssClass="FieldName"></asp:Label>
+                                                    </td>
+                                                    <td class="rightField">
+                                                        <asp:TextBox ID="txtRemark" runat="server" CssClass="txtField" Style="width: 250px;"></asp:TextBox>
+                                                    </td>
+                                                    <td colspan="2">
+                                                        &nbsp;
+                                                    </td>
+                                                </tr>
+                                              <%--  <td colspan="2">
+                                                    &nbsp;
+                                                </td>--%>
+                                                <tr>
+                                                    <td>
+                                                        &nbsp;
+                                                    </td>
+                                                    <td align="left">
+                                                        <asp:Button ID="Button1" Text="OK" runat="server" CssClass="PCGButton" CommandName="Update"
+                                                            ValidationGroup="btnSubmit">
+                                                            <%-- OnClientClick='<%# (Container is GridEditFormInsertItem) ?  " javascript:return ShowPopup();": "" %>'--%>
+                                                        </asp:Button>
+                                                    <%--</td>
+                                                    <td  >--%>
+                                                        <asp:Button ID="Button2" Text="Cancel" runat="server" CausesValidation="False" CssClass="PCGButton"
+                                                            CommandName="Cancel"></asp:Button>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </FormTemplate>
+                                    </EditFormSettings>
                                 </MasterTableView>
                             </telerik:RadGrid>
                         </td>

@@ -11,11 +11,11 @@
                 <telerik:RadGrid ID="RadGridIssueIPOBook" runat="server" GridLines="None" AutoGenerateColumns="False"
                     PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                     Skin="Telerik" EnableEmbeddedSkins="false" Width="102%" ClientSettings-AllowColumnsReorder="true"
-                    AllowAutomaticInserts="false">
-                    <%--  OnNeedDataSource="gvOrderList_OnNeedDataSource" OnItemDataBound="gvOrderList_ItemDataBound"--%>
+                    AllowAutomaticInserts="false" OnNeedDataSource="RadGridIssueIPOBook_OnNeedDataSource"
+                    OnItemDataBound="RadGridIssueIPOBook_OnItemDataBound" OnItemCommand="RadGridIssueIPOBook_OnItemCommand">
                     <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="IPOIssueList">
                     </ExportSettings>
-                    <MasterTableView DataKeyNames="CO_OrderId,C_CustomerId,PAG_AssetGroupCode,CO_OrderDate"
+                    <MasterTableView DataKeyNames="CO_OrderId,C_CustomerId,PAG_AssetGroupCode,CO_OrderDate,WOS_OrderStep,WES_Code,C_CustCode,Amounttoinvest"
                         AllowFilteringByColumn="true" Width="102%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
                         CommandItemDisplay="None">
                         <CommandItemSettings ShowExportToWordButton="false" ShowExportToExcelButton="false"
@@ -104,6 +104,60 @@
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>--%>
                         </Columns>
+                           <EditFormSettings FormTableStyle-Height="40%" EditFormType="Template" FormMainTableStyle-Width="300px">
+                                        <FormTemplate>
+                                            <table style="background-color: White;" border="0">
+                                                <tr>
+                                                    <td colspan="4">
+                                                        <div class="divSectionHeading" style="vertical-align: text-bottom">
+                                                            Order canceling Request
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="leftField">
+                                                        <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="Request No.:"></asp:Label>
+                                                    </td>
+                                                    <td class="rightField">
+                                                        <asp:TextBox ID="txtRejOrderId" runat="server" CssClass="txtField" Style="width: 250px;"
+                                                            Text='<%# Bind("CO_OrderId") %>' ReadOnly="true"></asp:TextBox>
+                                                    </td>
+                                                    <td colspan="2">
+                                                        &nbsp;
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="leftField">
+                                                        <asp:Label ID="Label20" runat="server" Text="Remark:" CssClass="FieldName"></asp:Label>
+                                                    </td>
+                                                    <td class="rightField">
+                                                        <asp:TextBox ID="txtRemark" runat="server" CssClass="txtField" Style="width: 250px;"></asp:TextBox>
+                                                    </td>
+                                                    <td colspan="2">
+                                                        &nbsp;
+                                                    </td>
+                                                </tr>
+                                              <%--  <td colspan="2">
+                                                    &nbsp;
+                                                </td>--%>
+                                                <tr>
+                                                    <td>
+                                                        &nbsp;
+                                                    </td>
+                                                    <td align="left">
+                                                        <asp:Button ID="Button1" Text="OK" runat="server" CssClass="PCGButton" CommandName="Update"
+                                                            ValidationGroup="btnSubmit">
+                                                            <%-- OnClientClick='<%# (Container is GridEditFormInsertItem) ?  " javascript:return ShowPopup();": "" %>'--%>
+                                                        </asp:Button>
+                                                    <%--</td>
+                                                    <td  >--%>
+                                                        <asp:Button ID="Button2" Text="Cancel" runat="server" CausesValidation="False" CssClass="PCGButton"
+                                                            CommandName="Cancel"></asp:Button>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </FormTemplate>
+                                    </EditFormSettings>
                     </MasterTableView>
                     <ClientSettings>
                         <Resizing AllowColumnResize="true" />
