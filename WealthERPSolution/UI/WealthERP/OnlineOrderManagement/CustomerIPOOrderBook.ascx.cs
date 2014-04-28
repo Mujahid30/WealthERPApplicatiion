@@ -28,7 +28,8 @@ namespace WealthERP.OnlineOrderManagement
         AdvisorVo advisorVo;
         CustomerVo customerVo;
         UserVo userVo;
-
+        DateTime fromDate;
+        DateTime toDate;
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -36,17 +37,62 @@ namespace WealthERP.OnlineOrderManagement
             userVo = (UserVo)Session[SessionContents.UserVo];
             advisorVo = (AdvisorVo)Session["advisorVo"];
             customerVo = (CustomerVo)Session["customerVo"];
-            if (!Page.IsPostBack)
+            if (!IsPostBack)
             {
-                BindCustomerIssueIPOBook();
+                fromDate = DateTime.Now.AddMonths(-1);
+                txtOrderFrom.SelectedDate = fromDate.Date;
+                txtOrderTo.SelectedDate = DateTime.Now;
+                BindOrderStatus();
             }
-
         }
+        private void SetParameter()
+        {
+            if (ddlOrderStatus.SelectedIndex != 0)
+            {
+                hdnOrderStatus.Value = ddlOrderStatus.SelectedValue;
+                ViewState["OrderstatusDropDown"] = hdnOrderStatus.Value;
+            }
+            else
+            {
+                hdnOrderStatus.Value = "0";
+            }
+        }
+        /// <summary>
+        /// Get Bind Orderstatus
+        /// </summary>
+        private void BindOrderStatus()
+        {
+            OnlineMFOrderBo OnlineMFOrderBo = new OnlineMFOrderBo();
+            ddlOrderStatus.Items.Clear();
+            DataSet dsOrderStatus;
+            DataTable dtOrderStatus;
+            dsOrderStatus = OnlineMFOrderBo.GetOrderStatus();
+            dtOrderStatus = dsOrderStatus.Tables[0];
+            if (dtOrderStatus.Rows.Count > 0)
+            {
+                ddlOrderStatus.DataSource = dtOrderStatus;
+                ddlOrderStatus.DataTextField = dtOrderStatus.Columns["WOS_OrderStep"].ToString();
+                ddlOrderStatus.DataValueField = dtOrderStatus.Columns["WOS_OrderStepCode"].ToString();
+                ddlOrderStatus.DataBind();
+            }
+            ddlOrderStatus.Items.Insert(0, new ListItem("All", "0"));
+        }
+        protected void btnViewOrder_Click(object sender, EventArgs e)
+        {
+            SetParameter();
+            BindCustomerIssueIPOBook();
+        }
+
+
 
         private void BindCustomerIssueIPOBook()
         {
 
-            DataTable dtCustomerIssueIPOBook = onlineIPOOrderBo.GetCustomerIPOIssueBook(customerVo.CustomerId);
+            if (txtOrderFrom.SelectedDate != null)
+                fromDate = DateTime.Parse(txtOrderFrom.SelectedDate.ToString());
+            if (txtOrderTo.SelectedDate != null)
+                toDate = DateTime.Parse(txtOrderTo.SelectedDate.ToString());
+            DataTable dtCustomerIssueIPOBook = onlineIPOOrderBo.GetCustomerIPOIssueBook(customerVo.CustomerId, hdnOrderStatus.Value, fromDate, toDate);
 
             if (dtCustomerIssueIPOBook.Rows.Count > 0)
             {
@@ -62,15 +108,18 @@ namespace WealthERP.OnlineOrderManagement
                 //ibtExportSummary.Visible = false;
                 RadGridIssueIPOBook.DataSource = dtCustomerIssueIPOBook;
                 RadGridIssueIPOBook.DataBind();
+                pnlIPOBook.Visible = true;
+                ibtExportSummary.Visible = true;
             }
             else
             {
                 //ibtExportSummary.Visible = false;
                 RadGridIssueIPOBook.DataSource = dtCustomerIssueIPOBook;
                 RadGridIssueIPOBook.DataBind();
+                pnlIPOBook.Visible = true;
 
             }
- 
+
         }
         protected void RadGridIssueIPOBook_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
@@ -96,7 +145,40 @@ namespace WealthERP.OnlineOrderManagement
                 }
             }
         }
+        protected void btnExpandAll_Click(object sender, EventArgs e)
+        {
+            int strIssuerId = 0;
+            LinkButton buttonlink = (LinkButton)sender;
+            GridDataItem gdi;
+            gdi = (GridDataItem)buttonlink.NamingContainer;
+            strIssuerId = int.Parse(RadGridIssueIPOBook.MasterTableView.DataKeyValues[gdi.ItemIndex]["AIM_IssueId"].ToString());
+            int orderId = int.Parse(RadGridIssueIPOBook.MasterTableView.DataKeyValues[gdi.ItemIndex]["CO_OrderId"].ToString());
+            RadGrid gvIPODetails = (RadGrid)gdi.FindControl("gvIPODetails");
+            Panel PnlChild = (Panel)gdi.FindControl("pnlchild");
+            if (PnlChild.Visible == false)
+            {
+                PnlChild.Visible = true;
+                buttonlink.Text = "-";
+            }
+            else if (PnlChild.Visible == true)
+            {
+                PnlChild.Visible = false;
+                buttonlink.Text = "+";
+            }
+            DataTable dtIPOOrderBook = onlineIPOOrderBo.GetCustomerIPOIssueSubBook(customerVo.CustomerId, strIssuerId, orderId);
+            gvIPODetails.DataSource = dtIPOOrderBook;
+            gvIPODetails.DataBind();
+        }
+        protected void gvIPOOrderBook_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        {
+            DataTable dtIPOOrderBook;
+            dtIPOOrderBook = (DataTable)Cache["CustomerIPOIssueBook" + userVo.UserId.ToString()];
+            if (dtIPOOrderBook != null)
+            {
+                RadGridIssueIPOBook.DataSource = dtIPOOrderBook;
+            }
 
+        }
         protected void RadGridIssueIPOBook_OnItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
         {
             bool lbResult = false;
@@ -140,6 +222,18 @@ namespace WealthERP.OnlineOrderManagement
 
                 }
             }
+        }
+        public void ibtExport_OnClick(object sender, ImageClickEventArgs e)
+        {
+            RadGridIssueIPOBook.MasterTableView.HierarchyLoadMode = GridChildLoadMode.ServerBind;
+            RadGridIssueIPOBook.ExportSettings.OpenInNewWindow = true;
+            RadGridIssueIPOBook.ExportSettings.IgnorePaging = true;
+            RadGridIssueIPOBook.ExportSettings.HideStructureColumns = true;
+            RadGridIssueIPOBook.ExportSettings.ExportOnlyData = true;
+            RadGridIssueIPOBook.ExportSettings.FileName = "IPO Order Book";
+            RadGridIssueIPOBook.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            RadGridIssueIPOBook.MasterTableView.ExportToExcel();
+
         }
     }
 }

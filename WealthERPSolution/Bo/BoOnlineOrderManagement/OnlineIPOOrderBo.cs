@@ -72,7 +72,7 @@ namespace BoOnlineOrderManagement
             return orderId;
         }
 
-        public DataTable GetCustomerIPOIssueBook(int customerId)
+        public DataTable GetCustomerIPOIssueBook(int customerId,string status,DateTime fromdate,DateTime todate)
         {
 
             DataTable dtCustomerIPOIssueBook;
@@ -80,7 +80,7 @@ namespace BoOnlineOrderManagement
 
             try
             {
-                dtCustomerIPOIssueBook = onlineIPOOrderDao.GetCustomerIPOIssueBook(customerId);
+                dtCustomerIPOIssueBook = onlineIPOOrderDao.GetCustomerIPOIssueBook(customerId,status, fromdate, todate);
 
             }
             catch (BaseApplicationException Ex)
@@ -128,6 +128,35 @@ namespace BoOnlineOrderManagement
                 throw exBase;
             }
             return dtIPOHolding;
+        }
+        public DataTable GetCustomerIPOIssueSubBook(int customerId, int strIssuerId, int orderId)
+        {
+
+            DataTable dtCustomerIPOIssueChildBook;
+            OnlineIPOOrderDao onlineIPOOrderDao = new OnlineIPOOrderDao();
+
+            try
+            {
+                dtCustomerIPOIssueChildBook = onlineIPOOrderDao.GetCustomerIPOIssueSubBook(customerId, strIssuerId, orderId);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "BoOnlineOrderManagement.cs:GetCustomerIPOIssueBook(int customerId)");
+                object[] objects = new object[1];
+                objects[0] = customerId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtCustomerIPOIssueChildBook;
         }
     }
 }

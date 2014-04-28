@@ -8,11 +8,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WealthERP.OnlineOrderManagement {
-    
-    
-    public partial class CustomerIPOOrderBook {
-        
+namespace WealthERP.OnlineOrderManagement
+{
+
+
+    public partial class CustomerIPOOrderBook
+    {
+
         /// <summary>
         /// scriptmanager control.
         /// </summary>
@@ -21,7 +23,11 @@ namespace WealthERP.OnlineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.ScriptManager scriptmanager;
-
+        protected global::System.Web.UI.WebControls.HiddenField hdnOrderStatus;
+        protected global::System.Web.UI.WebControls.DropDownList ddlOrderStatus;
+        protected global::Telerik.Web.UI.RadDatePicker txtOrderFrom;
+        protected global::Telerik.Web.UI.RadDatePicker txtOrderTo;
+        protected global::System.Web.UI.WebControls.ImageButton ibtExportSummary;
         /// <summary>
         /// pnlIPOBook control.
         /// </summary>

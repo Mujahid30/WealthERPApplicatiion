@@ -110,7 +110,7 @@ namespace DaoOnlineOrderManagement
 
         }
 
-        public DataTable GetCustomerIPOIssueBook(int customerId)
+        public DataTable GetCustomerIPOIssueBook(int customerId,string status,DateTime fromdate,DateTime todate)
         {
             DataTable dtCustomerIPOIssueBook;
             Database db;
@@ -119,7 +119,10 @@ namespace DaoOnlineOrderManagement
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 GetCustomerIPOIssueListCmd = db.GetStoredProcCommand("SPROC_ONL_GetCustomerIPOIssueOrderBooks");
-                db.AddInParameter(GetCustomerIPOIssueListCmd, "@CustomerId", DbType.Int32, customerId);                
+                db.AddInParameter(GetCustomerIPOIssueListCmd, "@CustomerId", DbType.Int32, customerId);
+                db.AddInParameter(GetCustomerIPOIssueListCmd, "@Status", DbType.String, status);
+                db.AddInParameter(GetCustomerIPOIssueListCmd, "@Fromdate", DbType.DateTime, fromdate);
+                db.AddInParameter(GetCustomerIPOIssueListCmd, "@ToDate", DbType.DateTime, todate);
                 dtCustomerIPOIssueBook = db.ExecuteDataSet(GetCustomerIPOIssueListCmd).Tables[0];
 
             }
@@ -172,6 +175,38 @@ namespace DaoOnlineOrderManagement
             }
             return dtIPOHolding;
         }
+        public DataTable GetCustomerIPOIssueSubBook(int customerId, int strIssuerId, int orderId)
+        {
+            DataTable dtCustomerIPOIssueSubdBook;
+            Database db;
+            DbCommand GetCustomerIPOIssueSubListCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetCustomerIPOIssueSubListCmd = db.GetStoredProcCommand("SPROC_ONL_GetCustomerIPOIssueSubOrderBooks");
+                db.AddInParameter(GetCustomerIPOIssueSubListCmd, "@CustomerId", DbType.Int32, customerId);
+                db.AddInParameter(GetCustomerIPOIssueSubListCmd, "@IssueId", DbType.Int32, strIssuerId);
+                db.AddInParameter(GetCustomerIPOIssueSubListCmd, "@orderId", DbType.Int32, orderId);
+                dtCustomerIPOIssueSubdBook = db.ExecuteDataSet(GetCustomerIPOIssueSubListCmd).Tables[0];
 
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "DaoOnlineOrderManagement.cs: GetCustomerIPOIssueBook(int customerId)");
+                object[] objects = new object[1];
+                objects[0] = customerId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtCustomerIPOIssueSubdBook;
+        }
     }
 }

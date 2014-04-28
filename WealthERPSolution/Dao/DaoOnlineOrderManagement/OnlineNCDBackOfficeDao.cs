@@ -1226,6 +1226,8 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(createCmd, "@ChequePayableTo", DbType.String, onlineNCDBackOfficeVo.ChequePayableTo);
                 db.AddInParameter(createCmd, "@MInBidAmount", DbType.Double, onlineNCDBackOfficeVo.MInBidAmount);
                 db.AddInParameter(createCmd, "@MaxBidAmount", DbType.Double, onlineNCDBackOfficeVo.MaxBidAmount);
+                db.AddInParameter(createCmd, "@PriceDiscountValue", DbType.Double, onlineNCDBackOfficeVo.DiscountValue);
+                db.AddInParameter(createCmd, "@DiscuountType", DbType.String, onlineNCDBackOfficeVo.DiscuountType);
                 categoryId = db.ExecuteNonQuery(createCmd);
             }
             catch (BaseApplicationException Ex)

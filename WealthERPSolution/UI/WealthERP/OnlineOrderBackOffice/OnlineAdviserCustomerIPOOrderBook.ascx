@@ -97,7 +97,7 @@
         </tr>
     </table>
 </div>
-<asp:Panel ID="pnlGrid" runat="server" CssClass="Landscape" Width="80%" ScrollBars="Horizontal"
+<asp:Panel ID="pnlGrid" runat="server" CssClass="Landscape" Width="99%" ScrollBars="Horizontal"
     Visible="false">
     <table id="tblCommissionStructureRule" runat="server">
         <tr>
@@ -119,11 +119,27 @@
                                                     Font-Bold="true" UniqueName="Detailslink" OnClick="btnExpandAll_Click" Font-Size="Medium">+</asp:LinkButton>
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>
+                                          <telerik:GridBoundColumn DataField="CustomerName" SortExpression="CustomerName"
+                                            AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
+                                            AllowFiltering="true" HeaderStyle-Width="160px" HeaderText="Customer Name" UniqueName="CustomerName">
+                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                          <telerik:GridBoundColumn DataField="C_PANNum" SortExpression="C_PANNum"
+                                            AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
+                                            AllowFiltering="true" HeaderStyle-Width="160px" HeaderText="PAN" UniqueName="C_PANNum">
+                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn DataField="C_CustCode" SortExpression="C_CustCode"
+                                            AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
+                                            AllowFiltering="true" HeaderStyle-Width="160px" HeaderText="Client Id" UniqueName="C_CustCode">
+                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="AIM_IssueName" SortExpression="AIM_IssueName"
                                             AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
                                             AllowFiltering="true" HeaderStyle-Width="160px" HeaderText="Scrip Name" UniqueName="AIM_IssueName">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
+                                      
                                         <telerik:GridBoundColumn Visible="false" DataField="AIM_IssueId" HeaderStyle-Width="60px"
                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
                                             HeaderText="Scrip ID" UniqueName="AIM_IssueId" SortExpression="AIM_IssueId">
@@ -142,6 +158,18 @@
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="CO_ApplicationNumber" AllowFiltering="true" HeaderText="Application No."
                                             UniqueName="CO_ApplicationNumber" SortExpression="CO_ApplicationNumber" ShowFilterIcon="false"
+                                            CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="80px"
+                                            FilterControlWidth="60px">
+                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn DataField="AIM_OpenDate" AllowFiltering="true" HeaderText="Start Date"
+                                            UniqueName="AIM_OpenDate" SortExpression="AIM_OpenDate" ShowFilterIcon="false"
+                                            CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="80px"
+                                            FilterControlWidth="60px">
+                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn DataField="AIM_CloseDate" AllowFiltering="true" HeaderText="End Date"
+                                            UniqueName="AIM_CloseDate" SortExpression="AIM_CloseDate" ShowFilterIcon="false"
                                             CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="80px"
                                             FilterControlWidth="60px">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
@@ -208,6 +236,10 @@
                                                                         </telerik:GridBoundColumn>
                                                                         <telerik:GridBoundColumn DataField="COID_AmountPayable" AllowFiltering="false" SortExpression="COID_AmountPayable"
                                                                             HeaderText="Amount Invested" UniqueName="COID_AmountPayable" HeaderStyle-Width="65px">
+                                                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                                                        </telerik:GridBoundColumn>
+                                                                        <telerik:GridBoundColumn DataField="PriceDiscountType" AllowFiltering="false" SortExpression="PriceDiscountType"
+                                                                            HeaderText="Discount Type" UniqueName="PriceDiscountType" HeaderStyle-Width="65px">
                                                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                                         </telerik:GridBoundColumn>
                                                                     </Columns>
