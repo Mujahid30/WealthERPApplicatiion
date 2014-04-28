@@ -108,12 +108,6 @@ namespace WealthERP
                 {
                     if (string.IsNullOrEmpty(productType))
                         productType = "MF";
-                    if (!Page.IsPostBack)
-                    {
-                        SetProductTypeMenu(productType.ToUpper());
-                        SetDefaultPageSetting(productType.ToUpper());
-
-                    }
                     lblWelcomeUser.Text = "Account: " + userAccountId;
                 }
                 else
@@ -131,10 +125,10 @@ namespace WealthERP
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            bool isValidUser = false;             
+            bool isValidUser = false;
             if (!IsPostBack)
             {
-               
+                //userAccountId = "ESMW0009999";
 
                 if (!string.IsNullOrEmpty(userAccountId))
                 {
@@ -143,10 +137,14 @@ namespace WealthERP
 
                 if (isValidUser)
                 {
+
+                    SetProductTypeMenu(productType.ToUpper());
+                    SetDefaultPageSetting(productType.ToUpper());
                     Page.ClientScript.RegisterStartupScript(this.GetType(), "pageloadscriptabcd", "LoadTopPanelDefault('OnlineOrderTopMenu');", true);
                 }
                 else
                 {
+                    SetDefaultPageSetting("NA");
                     Page.ClientScript.RegisterStartupScript(this.GetType(), "pageloadscriptabcdnnn", "LoadTopPanelDefault('OnlineOrderDummyTopMenu');", true);
                 }
 
