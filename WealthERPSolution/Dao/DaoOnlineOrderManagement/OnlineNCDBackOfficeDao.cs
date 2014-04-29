@@ -155,9 +155,7 @@ namespace DaoOnlineOrderManagement
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 dbCommand = db.GetStoredProcCommand("SPROC_IsSameSubTypeCatAttchedtoSeries");
-                db.AddInParameter(dbCommand, "@cat", DbType.String, cat);
-
-                
+                db.AddInParameter(dbCommand, "@cat", DbType.String, cat);                
                 db.AddInParameter(dbCommand, "@issueId", DbType.Int32, issueId);
                 db.AddOutParameter(dbCommand, "@result", DbType.String, 100);
 
@@ -1249,8 +1247,8 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(createCmd, "@InvestorCatgeoryId ", DbType.Int32, onlineNCDBackOfficeVo.CatgeoryId);
                 db.AddInParameter(createCmd, "@InvestorId", DbType.Int32, onlineNCDBackOfficeVo.LookUpId);
                 db.AddInParameter(createCmd, "@InvestorSubTypeCode", DbType.String, onlineNCDBackOfficeVo.SubCatgeoryTypeCode);
-                db.AddInParameter(createCmd, "@MinInvestmentAmount", DbType.Int32, onlineNCDBackOfficeVo.MinInvestmentAmount);
-                db.AddInParameter(createCmd, "@MaxInvestmentAmount", DbType.Int32, onlineNCDBackOfficeVo.MaxInvestmentAmount);
+                db.AddInParameter(createCmd, "@MinInvestmentAmount", DbType.Double, onlineNCDBackOfficeVo.MinInvestmentAmount);
+                db.AddInParameter(createCmd, "@MaxInvestmentAmount", DbType.Double, onlineNCDBackOfficeVo.MaxInvestmentAmount);
 
                 if (db.ExecuteNonQuery(createCmd) != 0)
                     bResult = true;
