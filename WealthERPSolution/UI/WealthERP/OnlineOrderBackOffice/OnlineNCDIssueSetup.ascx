@@ -1350,7 +1350,7 @@
                                                             ValidationExpression="[0-9]\d*(\.\d?[0-9])?$" ValidationGroup="btnOK">   </asp:RegularExpressionValidator>
                                                         <asp:CompareValidator ID="cmp" ControlToValidate="txtMaxBidAmount" runat="server"
                                                             ControlToCompare="txtMinBidAmount" Display="Dynamic" ErrorMessage="<br/>MaxbidAmount  Should Be Greater Than Minbid"
-                                                            Type="integer" Operator="GreaterThan"></asp:CompareValidator>
+                                                            Type="Double" Operator="GreaterThan"></asp:CompareValidator>
                                                     </td>
                                                 </tr>
                                                 <tr id="trDiscountType" runat="server">

@@ -91,7 +91,7 @@ namespace WealthERP.OnlineOrderManagement
 
         private void BindIPOIssueList(int type )
         {
-            DataTable dtOnlineIPOIssueList = onlineIPOOrderBo.GetIPOIssueList(advisorVo.advisorId, 0, type);
+            DataTable dtOnlineIPOIssueList = onlineIPOOrderBo.GetIPOIssueList(advisorVo.advisorId, 0, type, customerVo.CustomerId);
 
             if (dtOnlineIPOIssueList.Rows.Count > 0)
             {
