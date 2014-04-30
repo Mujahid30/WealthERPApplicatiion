@@ -17,6 +17,31 @@
         text-indent: -999em;
     }
 </style>
+<script type="text/javascript">
+
+    function OnClientNodeChecked(sender, args) {
+        var node = args.get_node();
+
+        for (var i = 0; i < node.get_allNodes().length; i++) {
+            var childNode = node.get_allNodes()[i];
+            if (node.get_checked()) {
+                childNode.set_checked(true);
+            }
+            else {
+                childNode.set_checked(false);
+            }
+        }
+    }
+
+</script>
+
+<script type="text/javascript">
+    function OnClientNodeChecked1(sender, args) {
+        if (args.get_node()._hasChildren() == true)
+            alert("Child Node :" + args.get_node()._getChildElements().length);
+    }
+</script>
+
 <table width="100%">
     <tr>
         <td>
@@ -85,7 +110,7 @@
                 Display="Dynamic" InitialValue="Select"></asp:RequiredFieldValidator>
         </td>
         <td>
-            <asp:Button ID="btnGo" runat="server" Text="Go" CssClass="PCGButton" ValidationGroup="btnMapingSubmit"
+            <asp:Button ID="BtnGo" runat="server" Text="Go" CssClass="PCGButton" ValidationGroup="btnMapingSubmit"
                 OnClick="btnGo_Click" />
         </td>
     </tr>
@@ -105,46 +130,47 @@
    OnNodeCheck="RTVResearch_NodeCheck"
    OnNodeCheck="RTVSuperAdmin_NodeCheck"
    OnNodeCheck="RTVAssociates_NodeCheck"  OnClick="btnAdminRemoveNodes_Click" --%>
+  
 <table align="center">
     <tr>
         <td>
-            <asp:Panel runat="server" ID="PnlAdmin" Style="float: left; position: relative" Visible="false">
+             <asp:Panel runat="server" ID="PnlAdmin" Style="float: left; position: relative" Visible="false" Width="300px">
                 <asp:Label ID="lb1Admin" runat="server" Text="Admin:" CssClass="FieldName" Visible="false"></asp:Label>
                 <telerik:RadTreeView ID="RTVAdmin" runat="server" CheckBoxes="True" Height="280px"
-                    TriStateCheckBoxes="true" CheckChildNodes="true">
+                    TriStateCheckBoxes="true" CheckChildNodes="true" MultipleSelect="true" >
                 </telerik:RadTreeView>
                 <div>
                 &nbsp;&nbsp;
                 &nbsp;&nbsp;</div>
-                <asp:Button ID="btnAdminRemoveNodes" runat="server" Text="Remove Admin Nodes" CssClass="PCGButton"
+                <asp:Button ID="btnAdminRemoveNodes" runat="server" Text="Remove Admin Nodes" CssClass="PCGButton" Visible="false"
                     OnClick="btnAdminRemoveNodes_Click" />
             </asp:Panel>
             <%-- </td>
         <td>--%>
-            <asp:Panel runat="server" ID="PnlRM" Style="float: left; position: relative" Visible="false">
+            <asp:Panel runat="server" ID="PnlRM" Style="float: left; position: relative" Visible="false"  Width="300px">
                 <asp:Label ID="lb1RM" runat="server" Text="RM:" CssClass="FieldName" Visible="false"></asp:Label>
                 <telerik:RadTreeView ID="RTVRM" runat="server" CheckBoxes="True" Height="280px" Width="300px"
-                    TriStateCheckBoxes="true" CheckChildNodes="true">
+                    TriStateCheckBoxes="true" CheckChildNodes="true" >
                 </telerik:RadTreeView>
                  <div>
                 &nbsp;&nbsp;
                 &nbsp;&nbsp;</div>
-                <asp:Button ID="btnRMRemoveNodes" runat="server" Text="Remove RM Nodes" CssClass="PCGMediumButton"
+                <asp:Button ID="btnRMRemoveNodes" runat="server" Text="Remove RM Nodes" CssClass="PCGMediumButton" Visible="false"
                     OnClick="btnRMRemoveNodes_Click" Width="120px" />
             </asp:Panel>
-            <asp:Panel runat="server" ID="PnlBM" Style="float: left; position: relative" Visible="false">
+            <asp:Panel runat="server" ID="PnlBM" Style="float: left; position: relative" Visible="false"  Width="300px">
                 <asp:Label ID="lb1BM" runat="server" Text="BM:" CssClass="FieldName" Visible="false"></asp:Label>
                 <telerik:RadTreeView ID="RTVBM" runat="server" CheckBoxes="True" Height="280px" TriStateCheckBoxes="true"
-                    CheckChildNodes="true">
+                    CheckChildNodes="true"  Width="300px">
                 </telerik:RadTreeView>
                   <div>
                 &nbsp;&nbsp;
                 &nbsp;&nbsp;</div>
                 <asp:Button ID="btnBMRemoveNodes" runat="server" Text="Remove BM Nodes" CssClass="PCGMediumButton"
-                    OnClick="btnBMRemoveNodes_Click" width="120px"/>
+                    OnClick="btnBMRemoveNodes_Click" width="120px" Visible="false"/>
             </asp:Panel>
             <asp:Panel runat="server" ID="PnlCustomer" Style="float: left; position: relative"
-                Visible="false">
+                Visible="false"  Width="300px">
                 <asp:Label ID="lb1Customer" runat="server" Text="Customer:" CssClass="FieldName"
                     Visible="false"></asp:Label>
                 <telerik:RadTreeView ID="RTVCustomer" runat="server" CheckBoxes="True" Height="280px"
@@ -154,9 +180,9 @@
                 &nbsp;&nbsp;
                 &nbsp;&nbsp;</div>
                 <asp:Button ID="btnCustomerRemoveNodes" runat="server" Text="Remove Customer Nodes"
-                    CssClass="PCGMediumButton" OnClick="btnCustomerRemoveNodes_Click" Width="120px" />
+                    CssClass="PCGMediumButton" OnClick="btnCustomerRemoveNodes_Click" Width="120px" Visible="false" />
             </asp:Panel>
-            <asp:Panel runat="server" ID="PnlOps" Style="float: left; position: relative" Visible="false">
+            <asp:Panel runat="server" ID="PnlOps" Style="float: left; position: relative" Visible="false"  Width="300px">
                 <asp:Label ID="lb1Ops" runat="server" Text="Ops:" CssClass="FieldName" Visible="false"></asp:Label>
                 <telerik:RadTreeView ID="RTVOps" runat="server" CheckBoxes="True" Height="280px"
                     TriStateCheckBoxes="true" CheckChildNodes="true">
@@ -168,7 +194,7 @@
                     OnClick="btnOpsRemoveNodes_Click" />
             </asp:Panel>
             <asp:Panel runat="server" ID="PnlResearch" Style="float: left; position: relative"
-                Visible="false">
+                Visible="false"  Width="300px">
                 <asp:Label ID="lb1Research" runat="server" Text="Research:" CssClass="FieldName"></asp:Label>
                 <telerik:RadTreeView ID="RTVResearch" runat="server" CheckBoxes="True" Height="280px"
                     TriStateCheckBoxes="true" CheckChildNodes="true">
@@ -180,7 +206,7 @@
                     CssClass="PCGMediumButton" OnClick="btnResearchRemoveNodes_Click" width="150px"/>
             </asp:Panel>
             <asp:Panel runat="server" ID="PnlSuperAdmin" Style="float: left; position: relative"
-                Visible="false">
+                Visible="false"  Width="300px">
                 <asp:Label ID="lb1SuperAdmin" runat="server" Text="SuperAdmin:" CssClass="FieldName"></asp:Label>
                 <telerik:RadTreeView ID="RTVSuperAdmin" runat="server" CheckBoxes="True" Height="280px"
                     TriStateCheckBoxes="true" CheckChildNodes="true">
@@ -192,7 +218,7 @@
                     CssClass="PCGMediumButton" OnClick="btnSuperAdminRemoveNodes_Click" width="150px"/>
             </asp:Panel>
             <asp:Panel runat="server" ID="PnlAssociates" Style="float: left; position: relative"
-                Visible="false">
+                Visible="false"  Width="300px" >
                 <asp:Label ID="lb1Associates" runat="server" Text="Associates:" CssClass="FieldName"></asp:Label>
                 <telerik:RadTreeView ID="RTVAssociates" runat="server" CheckBoxes="True" Height="280px"
                     TriStateCheckBoxes="true" CheckChildNodes="true">

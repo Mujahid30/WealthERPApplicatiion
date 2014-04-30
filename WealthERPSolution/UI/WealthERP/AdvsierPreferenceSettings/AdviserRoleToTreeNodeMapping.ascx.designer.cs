@@ -107,7 +107,7 @@ namespace WealthERP.AdvsierPreferenceSettings {
         protected global::System.Web.UI.WebControls.Panel PnlAssociates;
 
         protected global::System.Web.UI.HtmlControls.HtmlTable tbRole;
-
+        protected global::System.Web.UI.WebControls.Button BtnGo;
         protected global::System.Web.UI.WebControls.Button btnAdminRemoveNodes;
         protected global::System.Web.UI.WebControls.Button btnRMRemoveNodes;
         protected global::System.Web.UI.WebControls.Button btnBMRemoveNodes;

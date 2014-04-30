@@ -39,7 +39,7 @@ namespace WealthERP.AdvsierPreferenceSettings
                     ddlRole.SelectedValue = roleId.ToString();
                     GetActualRoles(roleId);
                     //ViewRoleLink(roleId, levelId);
-                    ContRolModes("View");
+                    ContRolModes("New");
                 }
                 else
                 {
@@ -55,11 +55,12 @@ namespace WealthERP.AdvsierPreferenceSettings
             ddlRole.SelectedValue = roleId.ToString();
             ddlLevel.SelectedValue = levelId.ToString();
           //  GetActualRoles(roleId);
-            BtnGo();
+            BtnGoClicked();
         }
         protected void lnkBtnEdit_Click(object sender, EventArgs e)
         {
             ContRolModes("LnkEdit");
+            tblMessage.Visible = false;
         }
         protected void lnlBack_Click(object sender, EventArgs e)
         {
@@ -68,8 +69,11 @@ namespace WealthERP.AdvsierPreferenceSettings
         }
         protected void ddlRole_Selectedindexchanged(object sender, EventArgs e)
         {
-            GetActualRoles(Convert.ToInt32(ddlRole.SelectedValue));
-            visblityOfControls(false);
+            if (ddlRole.SelectedValue != "Select")
+            {
+                GetActualRoles(Convert.ToInt32(ddlRole.SelectedValue));
+                visblityOfControls(false);
+            }
         }
         private void GetActualRoles(int roleId)
         {
@@ -100,7 +104,7 @@ namespace WealthERP.AdvsierPreferenceSettings
             if (mode == "New")
             {
                 visblityOfControls(false);
-                EnablityOfButtons(true, false, false);
+                EnablityOfButtons(false, false, false);
             }
             else if (mode == "View")
             {
@@ -109,7 +113,9 @@ namespace WealthERP.AdvsierPreferenceSettings
             }
             else if (mode == "Edit")
             {
+                
                 EnablityOfControls(true);
+               
 
             }
             else if (mode == "Update")
@@ -120,9 +126,14 @@ namespace WealthERP.AdvsierPreferenceSettings
             else if (mode == "Submitted")
             {
                 EnablityOfControls(false);
-                EnablityOfButtons(false, false, true);
+                EnablityOfButtons(false, false, false);
             }
             else if (mode == "LnkEdit")
+            {
+                EnablityOfControls(true);
+                EnablityOfButtons(false, true, false);
+            }
+            else if (mode == "GO")
             {
                 EnablityOfControls(true);
                 EnablityOfButtons(false, true, false);
@@ -132,7 +143,7 @@ namespace WealthERP.AdvsierPreferenceSettings
         {
             ddlRole.Enabled = value;
             ddlLevel.Enabled = value;
-            //BtnGo.Enabled = value;
+            BtnGo.Enabled = value;
             PnlAdmin.Enabled = value;
             PnlRM.Enabled = value;
             PnlBM.Enabled = value;
@@ -141,7 +152,34 @@ namespace WealthERP.AdvsierPreferenceSettings
             PnlResearch.Enabled = value;
             PnlSuperAdmin.Enabled = value;
             PnlAssociates.Enabled = value;
-
+            BtnGo.Enabled = value;
+            btnAdminRemoveNodes.Visible = false;
+            btnRMRemoveNodes.Visible = false;
+            btnBMRemoveNodes.Visible = false;
+            btnCustomerRemoveNodes.Visible = false;
+            btnAssociatesRemoveNodes.Visible = false;
+            btnSuperAdminRemoveNodes.Visible = false;
+            btnOpsRemoveNodes.Visible = false;
+            btnResearchRemoveNodes.Visible = false;
+            switch (ddlLevel.SelectedValue)
+            {
+                case "1000": btnAdminRemoveNodes.Visible = true;
+                    break;
+                case "1001": btnRMRemoveNodes.Visible = true;
+                    break;
+                case "1002": btnBMRemoveNodes.Visible = true;
+                    break;
+                case "1003": btnCustomerRemoveNodes.Visible = true;
+                    break;
+                case "1004": btnOpsRemoveNodes.Visible = true;
+                    break;
+                case "1005": btnResearchRemoveNodes.Visible = true;
+                    break;
+                case "1006": btnSuperAdminRemoveNodes.Visible = true;
+                    break;
+                case "1009": btnAssociatesRemoveNodes.Visible = true;
+                    break;
+            }
         }
         private void visblityOfControls(bool value)
         {
@@ -154,6 +192,10 @@ namespace WealthERP.AdvsierPreferenceSettings
             PnlResearch.Visible = value;
             PnlSuperAdmin.Visible = value;
             PnlAssociates.Visible = value;
+            btnMapingSubmit.Visible = value;
+            btnUpdate.Visible = value;
+            lnkBtnEdit.Visible = value;
+            
 
         }
         private void EnablityOfButtons(bool value, bool value1, bool value2)
@@ -165,61 +207,69 @@ namespace WealthERP.AdvsierPreferenceSettings
 
         private void GetTreeView(int levelId, ref RadTreeNode RadNode)
         {
-
+            
             if (levelId == 1000)
             {
                 RTVAdmin.Nodes.Add(RadNode);
                 PnlAdmin.Visible = true;
+                
+               
             }
             else if (levelId == 1001)
             {
+               
                 RTVRM.Nodes.Add(RadNode);
                 PnlRM.Visible = true;
+               
 
             }
             else if (levelId == 1002)
             {
                 RTVBM.Nodes.Add(RadNode);
                 PnlBM.Visible = true;
-
+               
             }
             else if (levelId == 1003)
             {
                 RTVCustomer.Nodes.Add(RadNode);
                 PnlCustomer.Visible = true;
+               
 
             }
             else if (levelId == 1004)
             {
+               
                 RTVOps.Nodes.Add(RadNode);
                 PnlOps.Visible = true;
-
+               
             }
             else if (levelId == 1005)
             {
                 RTVResearch.Nodes.Add(RadNode);
                 PnlResearch.Visible = true;
-
+               
 
             }
             else if (levelId == 1006)
             {
                 RTVSuperAdmin.Nodes.Add(RadNode);
                 PnlSuperAdmin.Visible = true;
-
+                
 
             }
             else if (levelId == 1009)
             {
                 RTVAssociates.Nodes.Add(RadNode);
                 PnlAssociates.Visible = true;
+           
 
             }
         }
 
         protected void btnGo_Click(object sender, EventArgs e)
         {
-            BtnGo();
+            BtnGoClicked();
+            ContRolModes("GO");
         }
 
 
@@ -462,15 +512,63 @@ namespace WealthERP.AdvsierPreferenceSettings
 
         }
 
-        private void BtnGo()
+        private void BtnGoClicked()
         {
             if (ddlRole.SelectedValue == "Select")
                 return;
             if (ddlLevel.SelectedValue == "Select")
                 return;
-              
+            clearRadtreeview();
                 BindTreeNodesBasedOnRoles(Convert.ToInt32(ddlLevel.SelectedValue));
                 GetCheckedTreeNodes(Convert.ToInt32(ddlRole.SelectedValue), Convert.ToInt32(ddlLevel.SelectedValue));
+                
+        }
+        private void clearRadtreeview()
+        {
+            PnlRM.Visible = false;
+            PnlRM.Visible = false;
+            PnlBM.Visible = false;
+            PnlCustomer.Visible = false;
+            PnlOps.Visible = false;
+            PnlResearch.Visible = false;
+            PnlSuperAdmin.Visible = false;
+            PnlAssociates.Visible = false;
+            PnlAdmin.Visible = false;
+            btnAdminRemoveNodes.Visible = false;
+            btnRMRemoveNodes.Visible = false;
+            btnBMRemoveNodes.Visible = false;
+            btnCustomerRemoveNodes.Visible = false;
+            btnAssociatesRemoveNodes.Visible = false;
+            btnSuperAdminRemoveNodes.Visible = false;
+            btnOpsRemoveNodes.Visible = false;
+            btnResearchRemoveNodes.Visible = false;
+            switch (ddlLevel.SelectedValue)
+            {
+                case "1000": RTVAdmin.Nodes.Clear();
+                    btnAdminRemoveNodes.Visible = true;
+                    break;
+                case "1001":RTVRM.Nodes.Clear();
+                    btnRMRemoveNodes.Visible = true;
+                    break;
+                case "1002": RTVBM.Nodes.Clear();
+                    btnBMRemoveNodes.Visible = true;
+                    break;
+                case "1003": RTVCustomer.Nodes.Clear();
+                    btnCustomerRemoveNodes.Visible = true;
+                    break;
+                case "1004": RTVOps.Nodes.Clear();
+                    btnOpsRemoveNodes.Visible = true;
+                    break;
+                case "1005": RTVResearch.Nodes.Clear();
+                    btnResearchRemoveNodes.Visible = true;
+                    break;
+                case "1006": RTVSuperAdmin.Nodes.Clear();
+                    btnSuperAdminRemoveNodes.Visible = true;
+                    break;
+                case "1009": RTVAssociates.Nodes.Clear();
+                    btnAssociatesRemoveNodes.Visible = true;
+                    break;
+            }
         }
 
         private void MapingBetweenExistandAvailable()
@@ -481,13 +579,15 @@ namespace WealthERP.AdvsierPreferenceSettings
 
         private void GetCheckedTreeNodes(int roleId,int levelId)
         {
+
             DataTable dtTree = new DataTable();
             advisorPreferenceBo = new AdviserPreferenceBo();
             dtTree = advisorPreferenceBo.GetRoleLevelTreeNodes(roleId, levelId).Tables[0];
+            RadTreeView rtv = GetLevelTree(levelId);
           
             if (dtTree == null)
             {
-                 RadTreeView rtv = GetLevelTree(levelId);
+                 //RadTreeView rtv = GetLevelTree(levelId);
                  foreach (RadTreeNode RTVTreeNodes in rtv.Nodes)
                  {
                      RTVTreeNodes.Checked = false;
@@ -496,7 +596,7 @@ namespace WealthERP.AdvsierPreferenceSettings
             }
             else  if (dtTree.Rows.Count <= 0)
             {
-                RadTreeView rtv = GetLevelTree(levelId);
+                //RadTreeView rtv = GetLevelTree(levelId);
                 foreach (RadTreeNode RTVTreeNodes in rtv.Nodes)
                 {
                     RTVTreeNodes.Checked = false;
@@ -504,30 +604,94 @@ namespace WealthERP.AdvsierPreferenceSettings
                 return;
             }
 
+            //RadTreeView rtv = GetLevelTree(levelId);
 
             foreach (DataRow dr in dtTree.Rows)
-            {           
-
-                 RadTreeView rtv = GetLevelTree(levelId);
+            {
+                
                  foreach (RadTreeNode RTVTreeNodes in rtv.Nodes)
                 {
-
-                    if (RTVTreeNodes.Value ==  dr["treeNodeId"].ToString())
-                    {
-                        RTVTreeNodes.Checked = true;
-                    }
-                    else if (RTVTreeNodes.Value == dr["SubTreeNodeId"].ToString())
-                    {
-                        RTVTreeNodes.Checked = true;
-
-                    }
-                    else if (RTVTreeNodes.Value == dr["SubSubTreeNodeId"].ToString())
-                    {
-                        RTVTreeNodes.Checked = true;
-                    }
                      
-                }
+                    //if (RTVTreeNodes.Value == dr["treeNodeId"].ToString())
+                    //{
+                    //    RTVTreeNodes.Checked = true;
+                        
+                    //}
+                    if (RTVTreeNodes.Nodes.Count != 0)
+                    {
+                        foreach (RadTreeNode RTVTreeChildNodes in RTVTreeNodes.Nodes)
+                        {
+                            if (RTVTreeChildNodes.Nodes.Count != 0)
+                            {
+                                foreach (RadTreeNode RTVTreeChildNodesChild in RTVTreeChildNodes.Nodes)
+                                {
+                                    if (RTVTreeChildNodesChild.Value == dr["SubSubTreeNodeId"].ToString())
+                                    {
+                                        RTVTreeChildNodesChild.Checked = true;
+                                    }
+                                }
+                            }
+                            else if (RTVTreeChildNodes.Value == dr["SubTreeNodeId"].ToString())
+                            {
+                                RTVTreeChildNodes.Checked = true;
 
+                            }
+                        }
+                    }
+                    else if (RTVTreeNodes.Value == dr["treeNodeId"].ToString())
+                    {
+                        RTVTreeNodes.Checked = true;
+                    }
+                    //else if (RTVTreeNodes.Value == dr["SubSubTreeNodeId"].ToString())
+                    //{
+                    //    RTVTreeNodes.Checked = true;
+                    //}
+
+                    //if ((RTVTreeNodes.Level == 0) && (RTVTreeNodes.Value == dr["treeNodeId"].ToString()))
+                    //{
+
+                    //    RTVTreeNodes.Checkable=true;
+                    //}
+                    // if (RTVTreeNodes.Level == 1)
+                    //{
+                    //    if (RTVTreeNodes.Value =="34")
+                    //    {
+                    //        RTVTreeNodes.Checked = true;
+
+                    //    }
+                    //    else
+                    //    {
+                    //        RTVTreeNodes.Checked = false;
+                    //    }
+
+                    //}
+                    ////else if ((RTVTreeNodes.Level == 2) && RTVTreeNodes.Value == dr["SubSubTreeNodeId"].ToString())
+                    ////{
+                    ////    RTVTreeNodes.Checkable = true;
+
+                    ////}
+                 
+
+                 }
+                 
+                     
+                 
+                 //foreach (RadTreeNode RTVTreeNodes in rtv.Nodes)
+                 //{
+                 //    if (RTVTreeNodes.Level == 2 && RTVTreeNodes.Value == dr["SubTreeNodeId"].ToString())
+                 //    {
+
+                 //        RTVTreeNodes.Checked = true;
+                 //    }
+                 //}
+                 //foreach (RadTreeNode RTVTreeNodes in rtv.Nodes)
+                 //{
+                 //    if (RTVTreeNodes.Level == 3 && RTVTreeNodes.Value == dr["SubSubTreeNodeId"].ToString())
+                 //    {
+
+                 //        RTVTreeNodes.Checked = true;
+                 //    }
+                 //}
             }
         }
 
@@ -578,17 +742,30 @@ namespace WealthERP.AdvsierPreferenceSettings
         {
             if (CheckAnyOneNodeSelected() == true)
             {
-                CreateOrUpdateMaping(RTVAdmin, "Insert");
-                CreateOrUpdateMaping(RTVRM, "Insert");
-                CreateOrUpdateMaping(RTVBM, "Insert");
-                CreateOrUpdateMaping(RTVCustomer, "Insert");
-                CreateOrUpdateMaping(RTVOps, "Insert");
-                CreateOrUpdateMaping(RTVResearch, "Insert");
-                CreateOrUpdateMaping(RTVSuperAdmin, "Insert");
-                CreateOrUpdateMaping(RTVAssociates, "Insert");
+                switch(ddlLevel.SelectedValue)
+                    
+                {
+                    case "1000": CreateOrUpdateMaping(RTVAdmin, "Insert");
+                        break;
+                    case "1001":CreateOrUpdateMaping(RTVRM, "Insert");
+                        break;
+                    case "1002": CreateOrUpdateMaping(RTVBM, "Insert");
+                        break;
+                    case "1003":CreateOrUpdateMaping(RTVCustomer, "Insert");
+                        break;
+                    case "1004":CreateOrUpdateMaping(RTVOps, "Insert");
+                        break;
+                    case "1005":CreateOrUpdateMaping(RTVResearch, "Insert");
+                        break;
+                    case "1006": CreateOrUpdateMaping(RTVSuperAdmin, "Insert");
+                        break;
+                    case "1009":CreateOrUpdateMaping(RTVAssociates, "Insert");
+                        break;
+            }
                 ContRolModes("Submitted");
                 string message = "Submitted SuccessFully.";
                 ShowMessage(message);
+                Cache.Remove("AdminLeftTreeNode" + advisorVo.advisorId.ToString());
             }
             else
             {
@@ -648,17 +825,30 @@ namespace WealthERP.AdvsierPreferenceSettings
         {
             if (CheckAnyOneNodeSelected() == true)
             {
-                CreateOrUpdateMaping(RTVAdmin, "Update");
-                CreateOrUpdateMaping(RTVRM, "Update");
-                CreateOrUpdateMaping(RTVBM, "Update");
-                CreateOrUpdateMaping(RTVCustomer, "Update");
-                CreateOrUpdateMaping(RTVOps, "Update");
-                CreateOrUpdateMaping(RTVResearch, "Update");
-                CreateOrUpdateMaping(RTVSuperAdmin, "Update");
-                CreateOrUpdateMaping(RTVAssociates, "Update");
+                switch (ddlLevel.SelectedValue)
+                {
+                    case "1000": CreateOrUpdateMaping(RTVAdmin, "Update");
+                        break;
+                    case "1001":CreateOrUpdateMaping(RTVRM, "Update");
+                        break;
+                    case "1002": CreateOrUpdateMaping(RTVBM, "Update");
+                        break;
+                    case "1003" :CreateOrUpdateMaping(RTVCustomer, "Update");
+                        break;
+                    case "1004": CreateOrUpdateMaping(RTVOps, "Update");
+                        break;
+                    case "1005":CreateOrUpdateMaping(RTVResearch, "Update");
+                        break;
+
+                    case "1006":CreateOrUpdateMaping(RTVSuperAdmin, "Update");
+                        break;
+                    case "1009":CreateOrUpdateMaping(RTVAssociates, "Update");
+                        break;
+                }
                 ContRolModes("Update");
                 string message = "Update SuccessFully.";
                 ShowMessage(message);
+                Cache.Remove("AdminLeftTreeNode" + advisorVo.advisorId.ToString());
             }
             else
             {
