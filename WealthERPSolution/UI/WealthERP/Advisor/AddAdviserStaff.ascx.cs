@@ -317,7 +317,12 @@ namespace WealthERP.Advisor
         }
         protected void ddlDepart_SelectedIndexChanged(object sender, EventArgs e)
         {
-            BindAdviserrole(int.Parse(ddlDepart.SelectedValue));  
+            PnlDepartRole.Visible = false;
+            if (ddlDepart.SelectedValue.ToString()!="0")
+            {
+                BindAdviserrole(int.Parse(ddlDepart.SelectedValue));
+                PnlDepartRole.Visible = true;
+            }
         }
         private void BindAdviserrole(int departmentId)
         {
