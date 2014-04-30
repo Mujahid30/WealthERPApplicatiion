@@ -97,14 +97,6 @@
             </tr>
             <tr>
                 <td align="right">
-                    <asp:Label ID="lblAcode" runat="server" Text="AMFI Code:" CssClass="FieldName" Visible="false"></asp:Label>
-                </td>
-                <td>
-                    <asp:TextBox ID="txtAMFI" runat="server" CssClass="cmbFielde" Visible="false"></asp:TextBox>
-                </td>
-            </tr>
-            <tr>
-                <td align="right">
                     <asp:Label ID="lblcategory" runat="server" Text="Category:" CssClass="FieldName"> </asp:Label>
                 </td>
                 <td>
@@ -189,12 +181,17 @@
                         Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
                 </td>
                 <td align="right">
-                    <asp:Label ID="lblProductCode" runat="server" Text="Product Code:" CssClass="FieldName"></asp:Label>
+                    <asp:Label ID="lblToadd" runat="server" Text="Do You Wish To Add:" CssClass="FieldName"></asp:Label>
                 </td>
                 <td>
-                    <asp:TextBox ID="txtProductCode" runat="server" CssClass="cmbFielde" Width="294"></asp:TextBox>
-                </td>
-                <%--<td><asp:TextBox ID="txtAddNewScheme" runat="server"></asp:TextBox></td>--%>
+                    &nbsp;
+                    <asp:CheckBox ID="chkonline" AutoPostBack="true" runat="server" Text="Online  Details"
+                        CssClass="FieldName" OnCheckedChanged="oncheckedOnlin_OnCheckedChanged" />
+                    <asp:Label ID="lblProductCode" runat="server" Text="Product Code:" CssClass="FieldName"
+                        Visible="false"></asp:Label>
+                    <asp:TextBox ID="txtProductCode" runat="server" CssClass="cmbFielde" Width="294"
+                        Visible="false"></asp:TextBox>
+                    <%--  <td><asp:TextBox ID="txtAddNewScheme" runat="server"></asp:TextBox></td>--%>
             </tr>
             <tr>
                 <%--  <td align="right">
@@ -231,24 +228,12 @@
                         CssClass="rfvPCG" ControlToValidate="ddlNFoStatus" ValidationGroup="btnbasicsubmit"
                         Display="Dynamic" InitialValue="Select"></asp:RequiredFieldValidator>
                 </td>
-                <td align="right">
-                    <asp:Label ID="lblToadd" runat="server" Text="Do You Wish To Add:" CssClass="FieldName"></asp:Label>
-                </td>
+                <%-- CssClass="FieldName" OnCheckedChanged="oncheckedOnlin_OnCheckedChanged" Checked="false"/>--%>
+                &nbsp;
                 <td>
-                    &nbsp;
-                    <asp:CheckBox ID="chkonline" AutoPostBack="true" runat="server" Text="Online  Details"
-                        CssClass="FieldName" OnCheckedChanged="oncheckedOnlin_OnCheckedChanged" />
-                    <%-- CssClass="FieldName" OnCheckedChanged="oncheckedOnlin_OnCheckedChanged" Checked="false"/>--%>
-                    &nbsp;
                     <asp:LinkButton ID="lnkMargeScheme" runat="server" Text="Merge Scheme" OnClick="lnkMargeScheme_Click"
                         CssClass="LinkButtons" Visible="false"></asp:LinkButton>
                     <%-- <asp:CheckBox ID="chkoffline" runat="server" Text="Offline Scheme" CssClass="FieldName" Checked="false"/>--%>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                </td>
-                <td>
                 </td>
             </tr>
             <tr id="trNFODate" runat="server" visible="false">
@@ -294,6 +279,18 @@
                         Operator="GreaterThanEqual" ControlToCompare="txtNFOStartDate" CssClass="cvPCG"
                         ValidationGroup="btnsubmit" Display="Dynamic">
                     </asp:CompareValidator>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">
+                    <asp:Label ID="lblAcode" runat="server" Text="AMFI Code:" CssClass="FieldName" Visible="true"></asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtAMFI" runat="server" CssClass="cmbFielde" Visible="true"></asp:TextBox>
+                </td>
+                <td align="right">
+                    <asp:LinkButton ID="lnkProductcode" runat="server" Text="Add Productcode" CssClass="LinkButtons"
+                        OnClick="lnkProductcode_OnClick"></asp:LinkButton>
                 </td>
             </tr>
             <tr>
@@ -1208,8 +1205,8 @@
                             OnClick="btnMSUpdate_Click" ValidationGroup="btnsubmit1" />
                         <asp:Button ID="btnCancel" runat="server" Text="Cancel" OnClick="btnCancel_Click"
                             CssClass="PCGButton" />
-                        <asp:Button ID="btnReset" runat="server" Text="UnMerge" OnClick="btnReset_Click" CssClass="PCGButton"
-                            Visible="false" />
+                        <asp:Button ID="btnReset" runat="server" Text="UnMerge" OnClick="btnReset_Click"
+                            CssClass="PCGButton" Visible="false" />
                     </td>
                     <td>
                     </td>
@@ -1225,6 +1222,69 @@
                     <td colspan="3">
                         <asp:Label ID="lblMergeNote" runat="server" Text="The merged scheme will be avaliable for transaction only till 1 PM </br> one business day prior to the stipulated merger date"
                             CssClass="FieldName"></asp:Label>
+                    </td>
+                </tr>
+            </table>
+        </ContentTemplate>
+    </telerik:RadWindow>
+    <telerik:RadWindow ID="radproductcode" runat="server" VisibleOnPageLoad="false" Height="300px"
+        Width="300px" Modal="true" BackColor="#4B4726" VisibleStatusbar="false" Behaviors="None"
+        Title="Add Productcode" Left="200" Top="200" Expanded="true" Visible="true">
+        <ContentTemplate>
+            <table>
+                <tr>
+                    <td align="center">
+                        <telerik:RadGrid ID="gvproductcode" runat="server" AllowSorting="True" enableloadondemand="True"
+                            PageSize="5" AllowPaging="True" AutoGenerateColumns="False" EnableEmbeddedSkins="False"
+                            GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="false" ShowStatusBar="True"
+                            Width="100%" Skin="Telerik" AllowFilteringByColumn="true" EnableViewState="true"
+                            OnNeedDataSource="gvproductcode_OnNeedDataSource" OnItemCommand="gvproductcode_OnItemCommand">
+                            <MasterTableView DataKeyNames="PASM_Id" AllowFilteringByColumn="true" Width="100%"
+                                AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="Top" 
+                                EditMode="PopUp">
+                                <CommandItemSettings ShowExportToWordButton="false" ShowExportToExcelButton="false"
+                                    AddNewRecordText="Add New Productcode" ShowExportToCsvButton="false" ShowAddNewRecordButton="true"
+                                    ShowRefreshButton="false" />
+                                <Columns>
+                                    <telerik:GridEditCommandColumn EditText="Edit" UniqueName="editColumn" CancelText="Cancel"
+                                        UpdateText="Update" HeaderStyle-Width="80px">
+                                    </telerik:GridEditCommandColumn>
+                                    <telerik:GridBoundColumn DataField="PASC_AMC_ExternalCode" HeaderStyle-Width="50px"
+                                        CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                        HeaderText="Product Code" UniqueName="PASC_AMC_ExternalCode" SortExpression="PASC_AMC_ExternalCode"
+                                        AllowFiltering="true">
+                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                    </telerik:GridBoundColumn>
+                                </Columns>
+                                <EditFormSettings FormTableStyle-Height="100px" EditFormType="Template" FormTableStyle-Width="100px"
+                                    PopUpSettings-Width="300px" PopUpSettings-Height="100px" CaptionFormatString="Add product Code">
+                                    <FormTemplate>
+                                        <table width="100%">
+                                            <tr id="trCustomerTypeSelection" runat="server">
+                                                <td>
+                                                    <table width="100%">
+                                                        <tr>
+                                                            <td align="right">
+                                                                <asp:Label ID="lblgProductcode" runat="server" CssClass="FieldName" Text="Productcode:"></asp:Label>
+                                                            </td>
+                                                            <td>
+                                                                <asp:TextBox ID="txtgproductcode" runat="server" CssClass="FieldName"></asp:TextBox>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </FormTemplate>
+                                </EditFormSettings>
+                            </MasterTableView>
+                        </telerik:RadGrid>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <asp:Button ID="btncancelproductcode" runat="server" CssClass="PCGButton" Text="Cancel"
+                            OnClick="btncancelproductcode_OnClick" />
                     </td>
                 </tr>
             </table>

@@ -191,8 +191,8 @@ namespace WealthERP.OnlineOrderBackOffice
                 //        ddlRT.Items.Clear();
                 ddlRT.DataSource = dtRandT;
 
-                ddlRT.DataValueField = dtRandT.Columns["PASC_AMC_ExternalType"].ToString();
-                ddlRT.DataTextField = dtRandT.Columns["PASC_AMC_ExternalType"].ToString();
+                ddlRT.DataValueField = dtRandT.Columns["XES_SourceCode"].ToString();
+                ddlRT.DataTextField = dtRandT.Columns["XES_SourceName"].ToString();
                 ddlRT.DataBind();
 
 
@@ -2820,6 +2820,71 @@ namespace WealthERP.OnlineOrderBackOffice
             btnMSSubmit.Visible = true;
             btnReset.Visible = true;
             lnkMargeEdit.Visible = false;
+        }
+        protected void lnkProductcode_OnClick(object sender, EventArgs e)
+        {
+            radproductcode.VisibleOnPageLoad = true;
+            BindProductcode();
+        }
+        protected void BindProductcode()
+        {
+            DataSet dsBindProductcode;
+            DataTable dtBindProductcode;
+            if (Request.QueryString["strAction"] != "" && Request.QueryString["strAction"] != null)
+            {
+                if (Request.QueryString["strAction"].Trim() == "Edit" || Request.QueryString["strAction"].Trim() == "View")
+                {
+                    schemeplancode = int.Parse(ViewState["Schemeplancode"].ToString());
+                }
+            }
+            else
+            {
+                schemeplancode = int.Parse(Session["newschemeplancode"].ToString());
+            }
+
+            dsBindProductcode = OnlineOrderBackOfficeBo.Getproductcode(schemeplancode);
+            dtBindProductcode = dsBindProductcode.Tables[0];
+            if (dtBindProductcode.Rows.Count > 0)
+            {
+                if (Cache["Productcodelist" + advisorVo.advisorId] == null)
+                {
+                    Cache.Insert("Productcodelist" + advisorVo.advisorId, dtBindProductcode);
+                }
+                else
+                {
+                    Cache.Remove("Productcodelist" + advisorVo.advisorId);
+                    Cache.Insert("Productcodelist" + advisorVo.advisorId, dtBindProductcode);
+                }
+                gvproductcode.DataSource = dtBindProductcode;
+                gvproductcode.DataBind();
+               
+            }
+            else
+            {
+                gvproductcode.DataSource = dtBindProductcode;
+                gvproductcode.DataBind();
+             
+            }
+
+        }
+        protected void gvproductcode_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        {
+            DataTable dtBindProductcode = new DataTable();
+            RadGrid rgRoles = (RadGrid)(sender);
+
+
+            dtBindProductcode = (DataTable)Cache[advisorVo.advisorId.ToString() + "Productcodelist"];
+            if (dtBindProductcode != null)
+            {
+                rgRoles.DataSource = dtBindProductcode;
+            }
+        }
+        protected void gvproductcode_OnItemCommand(object source, GridCommandEventArgs e)
+        {
+        }
+        protected void btncancelproductcode_OnClick(object sender, EventArgs e)
+        {
+            radproductcode.VisibleOnPageLoad = false;
         }
     }
 }
