@@ -22,13 +22,17 @@ namespace WealthERP.OnlineOrderBackOffice
         UserBo userBo;
         UserVo userVo;
         int UserId;
+        int advisorId = 0;
+        AdvisorVo advisorVo = new AdvisorVo();
         OnlineOrderBackOfficeBo OnlineOrderBackOfficeBo = new OnlineOrderBackOfficeBo();
         protected void Page_Load(object sender, EventArgs e)
         {
+            advisorVo = (AdvisorVo)Session["advisorVo"];
             SessionBo.CheckSession();
             userBo = new UserBo();
             userVo = (UserVo)Session[SessionContents.UserVo];
             UserId = userVo.UserId;
+            advisorId = advisorVo.advisorId;
             if (!IsPostBack)
             {
                 trPnlValuation.Visible = false;
@@ -41,7 +45,7 @@ namespace WealthERP.OnlineOrderBackOffice
             DataSet dsGetValuation = new DataSet();
             try
             {
-                dsGetValuation = OnlineOrderBackOfficeBo.GetAdviserCustomersAllMFAccounts(IsValued);
+                dsGetValuation = OnlineOrderBackOfficeBo.GetAdviserCustomersAllMFAccounts(IsValued, advisorId);
                 //if (dsGetValuation.Tables[0].Rows.Count > 0)
                 //{
                               
@@ -76,7 +80,7 @@ namespace WealthERP.OnlineOrderBackOffice
         protected void gvMFAccounts_NeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
             DataSet dsGetValuation = new DataSet();
-            dsGetValuation = (DataSet)Cache["MFAccounts"];
+            dsGetValuation = (DataSet)Cache["MFAccounts" + userVo.UserId];
             this.gvMFAccounts.DataSource = dsGetValuation;
         }
         protected void btnGo_Click(object sender, EventArgs e)
@@ -89,6 +93,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 ValuationGridBind(Convert.ToInt32(ddlSelect.SelectedValue));
                 trPnlValuation.Visible = true;
+                trReProcess.Visible = false;
                 gvMFAccounts.MasterTableView.GetColumn("chkBoxColumn").Display = false;
             }
 
@@ -105,23 +110,22 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             try
             {
-                int i = 0;
+                int i=0;
                 foreach (GridDataItem dataItem in gvMFAccounts.MasterTableView.Items)
                 {
                     if ((dataItem.FindControl("chkItem") as CheckBox).Checked)
                     {
                         i = i + 1;
                     }
-                    if (i == 0)
-                    {
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select to Update');", true);
-                    }
-                    else
-                    {
-                        Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "ConfirmValuation();", true);
-                        //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Message", "ConfirmValuation();", true);
-                    }
-
+                }
+                if (i == 0)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select item for ReProcess!');", true);
+                }
+                else
+                {
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "ConfirmValuation();", true);
+                    //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Message", "ConfirmValuation();", true);
                 }
                     
             }

@@ -59,7 +59,7 @@ $(window).bind('load',function(){
             <asp:Label ID="lblFilter" runat="server" Text="Select:" CssClass="FieldName"></asp:Label>
         </td>
         <td style="width:60px">
-            <asp:DropDownList ID="ddlSelect" runat="server" CssClass="cmbLongField" AutoPostBack="true">
+            <asp:DropDownList ID="ddlSelect" runat="server" CssClass="cmbLongField">
                 <asp:ListItem Value="S">Select</asp:ListItem>
                 <asp:ListItem Value="0">PreProcessing</asp:ListItem>
                 <asp:ListItem Value="1">InProcess</asp:ListItem>
@@ -112,7 +112,7 @@ $(window).bind('load',function(){
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                             <telerik:GridBoundColumn DataField="ValuationDate" SortExpression="ValuationDate" UniqueName="ValuationDate" AllowFiltering="true"  HeaderText="Last Valuation ON"
+                             <telerik:GridBoundColumn DataField="ValuationDate" SortExpression="ValuationDate" UniqueName="ValuationDate" AllowFiltering="true"  HeaderText="Last Valuation On"
                                  ShowFilterIcon="false"  CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" >
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>

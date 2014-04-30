@@ -2364,7 +2364,7 @@ namespace DaoOnlineOrderManagement
             }
             return Type;
         }
-        public DataSet GetAdviserCustomersAllMFAccounts(int IsValued)
+        public DataSet GetAdviserCustomersAllMFAccounts(int IsValued, int advisorId)
         {
             Database db;
             DataSet dsAdviserCustomersAllMFAccounts;
@@ -2374,6 +2374,7 @@ namespace DaoOnlineOrderManagement
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 AdviserCustomersAllMFAccountsCmd = db.GetStoredProcCommand("SPROC_Onl_GetAdviserCustomersAllMFAccount");
                 db.AddInParameter(AdviserCustomersAllMFAccountsCmd, "@IsValued", DbType.Int32, IsValued);
+                db.AddInParameter(AdviserCustomersAllMFAccountsCmd, "@AdvisorId", DbType.Int32, advisorId);
                 dsAdviserCustomersAllMFAccounts = db.ExecuteDataSet(AdviserCustomersAllMFAccountsCmd);
             }
             catch (BaseApplicationException Ex)

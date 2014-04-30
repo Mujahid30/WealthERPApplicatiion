@@ -1987,14 +1987,14 @@ namespace BoOnlineOrderManagement
              return Type;
 
          }
-         public DataSet GetAdviserCustomersAllMFAccounts(int IsValued)
+         public DataSet GetAdviserCustomersAllMFAccounts(int IsValued, int advisorId)
          {
              DataSet dsAdviserCustomersAllMFAccounts;
              OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
 
              try
              {
-                 dsAdviserCustomersAllMFAccounts = OnlineOrderBackOfficeDao.GetAdviserCustomersAllMFAccounts(IsValued);
+                 dsAdviserCustomersAllMFAccounts = OnlineOrderBackOfficeDao.GetAdviserCustomersAllMFAccounts(IsValued, advisorId);
              }
              catch (BaseApplicationException Ex)
              {
