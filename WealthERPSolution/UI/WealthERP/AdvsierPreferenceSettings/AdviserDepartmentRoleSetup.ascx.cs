@@ -160,7 +160,14 @@ namespace WealthERP.AdvsierPreferenceSettings
 
                     }
                 }
-                advisorPreferenceBo.CreateUserRole(int.Parse(ddlDepartMent.SelectedValue), txtRoleName.Text, txtNote.Text, adviserVo.advisorId, userVo.UserId, StrUserLeve.TrimEnd(','));
+                if (StrUserLeve != "")
+                {
+                    advisorPreferenceBo.CreateUserRole(int.Parse(ddlDepartMent.SelectedValue), txtRoleName.Text, txtNote.Text, adviserVo.advisorId, userVo.UserId, StrUserLeve.TrimEnd(','));
+                }
+                else
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please select associated user');", true);
+                }
             }
             if (e.CommandName == RadGrid.UpdateCommandName)
             {

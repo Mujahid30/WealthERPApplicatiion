@@ -41,8 +41,13 @@
                             UpdateText="Update" HeaderStyle-Width="80px">
                         </telerik:GridEditCommandColumn>
                         <telerik:GridBoundColumn DataField="AD_DepartmentName" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
-                            ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Level" UniqueName="AD_DepartmentName"
+                            ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Department" UniqueName="AD_DepartmentName"
                             SortExpression="AD_DepartmentName" AllowFiltering="true" Visible="true">
+                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                        </telerik:GridBoundColumn>
+                         <telerik:GridBoundColumn DataField="Rolename" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
+                            ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Level" UniqueName="Rolename"
+                            SortExpression="Rolename" AllowFiltering="true" Visible="true">
                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                         </telerik:GridBoundColumn>
                         <telerik:GridTemplateColumn DataField="AR_Role" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
@@ -80,7 +85,7 @@
                             <ItemStyle HorizontalAlign="Center" CssClass="MyImageButton" />
                         </telerik:GridButtonColumn>
                     </Columns>
-                    <EditFormSettings EditFormType="Template" PopUpSettings-Height="490px" PopUpSettings-Width="265px"
+                    <EditFormSettings EditFormType="Template" PopUpSettings-Height="490px" PopUpSettings-Width="350px"
                         CaptionFormatString="Add User">
                         <FormTemplate>
                             <table width="100%">
@@ -120,7 +125,7 @@
                                                             <asp:Label ID="lblchkBxSelect" runat="server" Text="Select"></asp:Label>
                                                         </HeaderTemplate>
                                                         <ItemTemplate>
-                                                            <asp:CheckBox ID="cbRoles" runat="server" Checked="false" AutoPostBack="True" />
+                                                            <asp:CheckBox ID="cbRoles" runat="server" Checked="false" AutoPostBack="false" />
                                                         </ItemTemplate>
                                                     </telerik:GridTemplateColumn>
                                                     
@@ -159,26 +164,7 @@
                                             CssClass="cmbFielde" Width="100%" OnSelectedIndexChanged="CheckBoxList1_SelectedIndexChnaged"
                                             AutoPostBack="false">
                                         </asp:CheckBoxList>
-                                        <%--  <telerik:RadListBox ID="rlbUserlist" runat="server" CssClass="txtField" Width="150px"
-                                            Height="100px" CheckBoxes="true">--%>
-                                        <%--        </telerik:RadListBox>
-                                        <telerik:RadListBox ID="RadListBox1" runat="server" CssClass="txtField" Width="150px"
-                                            Height="100px" CheckBoxes="true">
-                                            <Items>
-                                                <telerik:RadListBoxItem Text="Arts"></telerik:RadListBoxItem>
-                                                <telerik:RadListBoxItem Text="Biographies"></telerik:RadListBoxItem>
-                                                <telerik:RadListBoxItem Text="Children's Books"></telerik:RadListBoxItem>
-                                                <telerik:RadListBoxItem Text="Computers § Internet"></telerik:RadListBoxItem>
-                                                <telerik:RadListBoxItem Text="Cooking"></telerik:RadListBoxItem>
-                                                <telerik:RadListBoxItem Text="History"></telerik:RadListBoxItem>
-                                                <telerik:RadListBoxItem Text="Fiction"></telerik:RadListBoxItem>
-                                                <telerik:RadListBoxItem Text="Mystery"></telerik:RadListBoxItem>
-                                                <telerik:RadListBoxItem Text="Nonfiction"></telerik:RadListBoxItem>
-                                                <telerik:RadListBoxItem Text="Romance"></telerik:RadListBoxItem>
-                                                <telerik:RadListBoxItem Text="Science Fiction "></telerik:RadListBoxItem>
-                                                <telerik:RadListBoxItem Text="Travel"></telerik:RadListBoxItem>
-                                            </Items>
-                                        </telerik:RadListBox>--%>
+                                       
                                     </td>
                                     <%-- <td><asp:CheckBoxList ID="chklUserAssociates" runat="server"></asp:CheckBoxList></td>--%>
                                 </tr>

@@ -312,7 +312,7 @@
             <asp:Label ID="lblAMC" runat="server" Text="AMC: " CssClass="FieldName"></asp:Label>
         </td>
         <td>
-            <asp:DropDownList ID="ddlAMC" runat="server" CssClass="cmbField">
+            <asp:DropDownList ID="ddlAMC" runat="server" CssClass="cmbField" Width="300px">
             </asp:DropDownList>
         </td>
         <td align="right">
