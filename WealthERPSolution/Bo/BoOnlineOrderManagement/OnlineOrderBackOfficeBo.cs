@@ -1938,6 +1938,36 @@ namespace BoOnlineOrderManagement
              dsGetproductcode = daoOnlineOrderBackOffice.Getproductcode(schemeplancode);
              return dsGetproductcode;
          }
+         public bool Createproductcode(int Schemeplancode, string Productcode, string Externaltype, string XESSourcecode, int Userid)
+        {
+             OnlineOrderBackOfficeDao daoOnlineOrderBackOffice = new OnlineOrderBackOfficeDao();
+           
+            bool bResult = false;
+            try
+            {
+                bResult = daoOnlineOrderBackOffice.Createproductcode(Schemeplancode, Productcode, Externaltype, XESSourcecode, Userid);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return bResult;
+        }
+         public bool UpdateProductcode(int Productamcdetailid, string Productcode, int userid)
+        {
+            bool blResult = false;
+            OnlineOrderBackOfficeDao daoOnlineOrderBackOffice = new OnlineOrderBackOfficeDao();
+            try
+            {
+                blResult = daoOnlineOrderBackOffice.UpdateProductcode(Productamcdetailid, Productcode,userid);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return blResult;
+        }
     }
 
 }

@@ -292,6 +292,9 @@
                     <asp:LinkButton ID="lnkProductcode" runat="server" Text="Add Productcode" CssClass="LinkButtons"
                         OnClick="lnkProductcode_OnClick"></asp:LinkButton>
                 </td>
+                <td>
+                    <asp:Label ID="lblAllproductcode" runat="server" CssClass="FieldName" ToolTip="Product Code"></asp:Label>
+                </td>
             </tr>
             <tr>
                 <td align="right">
@@ -1238,9 +1241,10 @@
                             PageSize="5" AllowPaging="True" AutoGenerateColumns="False" EnableEmbeddedSkins="False"
                             GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="false" ShowStatusBar="True"
                             Width="100%" Skin="Telerik" AllowFilteringByColumn="true" EnableViewState="true"
-                            OnNeedDataSource="gvproductcode_OnNeedDataSource" OnItemCommand="gvproductcode_OnItemCommand">
-                            <MasterTableView DataKeyNames="PASM_Id" AllowFilteringByColumn="true" Width="100%"
-                                AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="Top" 
+                            OnNeedDataSource="gvproductcode_OnNeedDataSource" OnItemCommand="gvproductcode_OnItemCommand"
+                            >
+                            <MasterTableView DataKeyNames="PASM_Id,PASC_AMC_ExternalCode" AllowFilteringByColumn="true"
+                                Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="Top"
                                 EditMode="PopUp">
                                 <CommandItemSettings ShowExportToWordButton="false" ShowExportToExcelButton="false"
                                     AddNewRecordText="Add New Productcode" ShowExportToCsvButton="false" ShowAddNewRecordButton="true"
@@ -1268,8 +1272,20 @@
                                                                 <asp:Label ID="lblgProductcode" runat="server" CssClass="FieldName" Text="Productcode:"></asp:Label>
                                                             </td>
                                                             <td>
-                                                                <asp:TextBox ID="txtgproductcode" runat="server" CssClass="FieldName"></asp:TextBox>
+                                                                <asp:TextBox ID="txtgproductcode" runat="server" CssClass="cmbFielde" ValidationGroup="pductcodesubmit"
+                                                                    Text='<%# Bind("PASC_AMC_ExternalCode") %>'></asp:TextBox>
                                                             </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <asp:Button ID="btnProductcode" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
+                                                                    runat="server" CssClass="PCGButton" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'
+                                                                    ValidationGroup="pductcodesubmit"></asp:Button>
+                                                            </td>
+                                                            <%-- <td>
+                                                                <asp:Button ID="btnProductcode" runat="server" CssClass="PCGButton" Text="Submit"
+                                                                    OnClick="btnProductcode_OnClick" />
+                                                            </td>--%>
                                                         </tr>
                                                     </table>
                                                 </td>

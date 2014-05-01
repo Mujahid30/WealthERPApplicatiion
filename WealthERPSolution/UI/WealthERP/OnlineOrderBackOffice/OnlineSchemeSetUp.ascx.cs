@@ -43,7 +43,7 @@ namespace WealthERP.OnlineOrderBackOffice
         int systematicdetailsid = 0;
         int newscheme = 1;
         int newschemeplanecode;
-
+        
         protected void Page_Load(object sender, EventArgs e)
         {
             userVo = (UserVo)Session["userVo"];
@@ -55,6 +55,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 BindBankName();
                 BindFrequency();
                 Bindscheme(schemeplancode);
+               
                 if (Request.QueryString["SchemePlanCode"] != null)
                 {
                     schemeplancode = int.Parse(Request.QueryString["SchemePlanCode"].ToString());
@@ -102,7 +103,9 @@ namespace WealthERP.OnlineOrderBackOffice
                 }
 
             }
+            BindProductcode();
         }
+       
         protected void ddlNFoStatus_OnSelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlNFoStatus.SelectedValue == "IsNFO")
@@ -753,7 +756,14 @@ namespace WealthERP.OnlineOrderBackOffice
             //  ddlRT.SelectedValue = ddlSchemeList.SelectedValue.ToString();
             if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.ExternalType))
             {
+                
                 ddlRT.SelectedItem.Text = mfProductAMCSchemePlanDetailsVo.ExternalType.ToString().ToUpper();
+                ddlRT.SelectedIndex = ddlRT.Items.IndexOf(ddlRT.Items.FindByText(mfProductAMCSchemePlanDetailsVo.ExternalType.ToString().ToUpper()));
+                //foreach (ListItem listItem in ddlRT.Items)
+                //{
+                //    listItem.Selected = listItem.Value.Contains(mfProductAMCSchemePlanDetailsVo.ExternalType.ToString().ToUpper());
+                //}
+
             }
             else
             {
@@ -882,6 +892,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     txtSS.Text = result[ctr];
                 }
             }
+            lblAllproductcode.Text = mfProductAMCSchemePlanDetailsVo.Allproductcode;
             if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.EntryLoadPercentag.ToString()))
             {
                 txtEload.Text = mfProductAMCSchemePlanDetailsVo.EntryLoadPercentag.ToString();
@@ -986,6 +997,8 @@ namespace WealthERP.OnlineOrderBackOffice
             txtScname.Text = mfProductAMCSchemePlanDetailsVo.SchemePlanName;
             txtESSchemecode.Text = mfProductAMCSchemePlanDetailsVo.ExternalCode;
             txtProductCode.Text = mfProductAMCSchemePlanDetailsVo.productcode;
+            lblAllproductcode.Text = mfProductAMCSchemePlanDetailsVo.Allproductcode;
+
             if (mfProductAMCSchemePlanDetailsVo.Mergecode !=0)
             {
                 lnkMargeScheme.Text = "Merged Scheme";
@@ -2477,22 +2490,11 @@ namespace WealthERP.OnlineOrderBackOffice
             }
             else
             {
-                //mfProductAMCSchemePlanDetailsVo = new MFProductAMCSchemePlanDetailsVo();
+             
 
                 schemecode = int.Parse(Session["newschemeplancode"].ToString());//
             }
-            //if (ViewState["Schemeplancode"] != null)
-            //{
-            //    schemecode = Convert.ToInt32(ViewState["Schemeplancode"].ToString());
-            //}
-            //else
-            //{
-            //    if (ViewState["Schemecode"] != null)
-            //        schemecode = int.Parse(ViewState["Schemecode"].ToString());
-            //    else
-            //        schemecode = int.Parse(ddlSchemeList.SelectedValue.ToString());
-            //}
-            //schemecode = int.Parse(Session["newschemeplancode"].ToString());
+           
             if (e.CommandName == RadGrid.PerformInsertCommandName)
             {
 
@@ -2881,8 +2883,42 @@ namespace WealthERP.OnlineOrderBackOffice
         }
         protected void gvproductcode_OnItemCommand(object source, GridCommandEventArgs e)
         {
+            if (Request.QueryString["strAction"] != "" && Request.QueryString["strAction"] != null)
+            {
+                if (Request.QueryString["strAction"].Trim() == "Edit" || Request.QueryString["strAction"].Trim() == "View")
+                {
+                    schemeplancode = int.Parse(ViewState["Schemeplancode"].ToString());
+                }
+            }
+            else
+            {
+                schemeplancode = int.Parse(Session["newschemeplancode"].ToString());
+            }
+              if (e.CommandName == RadGrid.PerformInsertCommandName)
+            {
+                bool iscreate = false;
+                GridEditableItem gridEditableItem = (GridEditableItem)e.Item;
+                TextBox txtgproductcode = (TextBox)e.Item.FindControl("txtgproductcode");
+                iscreate = OnlineOrderBackOfficeBo.Createproductcode(schemeplancode, txtgproductcode.Text, ddlRT.SelectedItem.Text, mfProductAMCSchemePlanDetailsVo.SourceCode, userVo.UserId);
+
+            }
+            if (e.CommandName == RadGrid.UpdateCommandName)
+            {
+                bool isUpdated = false;
+                GridEditableItem gridEditableItem = (GridEditableItem)e.Item;
+                TextBox txtgproductcode = (TextBox)e.Item.FindControl("txtgproductcode");
+                int productmappingcode = int.Parse(gvproductcode.MasterTableView.DataKeyValues[e.Item.ItemIndex]["PASM_Id"].ToString());
+                isUpdated = OnlineOrderBackOfficeBo.UpdateProductcode(productmappingcode, txtgproductcode.Text,userVo.UserId);
+            }
+
+            if (e.CommandName == RadGrid.RebindGridCommandName)
+            {
+                gvproductcode.Rebind();
+            }
+
+            BindProductcode();
         }
-        protected void btncancelproductcode_OnClick(object sender, EventArgs e)
+       protected void btncancelproductcode_OnClick(object sender, EventArgs e)
         {
             radproductcode.VisibleOnPageLoad = false;
         }

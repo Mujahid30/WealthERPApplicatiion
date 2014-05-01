@@ -525,7 +525,7 @@ namespace DaoOnlineOrderManagement
                             mfProductAMCSchemePlanDetailsVo.GenerationFrequency = dr["XF_FileGenerationFrequency"].ToString();
                         if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.SourceCode))
                         {
-                            mfProductAMCSchemePlanDetailsVo.SourceCode = dr["XES_SourceCode"].ToString();
+                            mfProductAMCSchemePlanDetailsVo.SourceCode = dr["XMLSourceCode"].ToString();
                         }
                         //db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@XES_SourceCode", DbType.String, DBNull.Value);
                         mfProductAMCSchemePlanDetailsVo.CustomerSubTypeCode = dr["XCST_CustomerSubTypeCode"].ToString();
@@ -550,6 +550,10 @@ namespace DaoOnlineOrderManagement
                         if (!string.IsNullOrEmpty(dr["offlinecode"].ToString()))
                         {
                             mfProductAMCSchemePlanDetailsVo.productcode = dr["offlinecode"].ToString();
+                        }
+                        if (!string.IsNullOrEmpty(dr["productcode"].ToString()))
+                        {
+                            mfProductAMCSchemePlanDetailsVo.Allproductcode = dr["productcode"].ToString();
                         }
                         if (!string.IsNullOrEmpty(dr["PASC_AMC_ExternalType"].ToString()))
                         {
@@ -2228,6 +2232,79 @@ namespace DaoOnlineOrderManagement
                 throw exBase;
             }
             return dsGetproductcode;
+        }
+        public bool Createproductcode(int Schemeplancode, string Productcode, string Externaltype, string XESSourcecode, int Userid)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand CreateproductcodeCmd;
+             try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                CreateproductcodeCmd = db.GetStoredProcCommand("SPROC_InsertProductCode");
+                db.AddInParameter(CreateproductcodeCmd, "@Schemeplancode", DbType.Int32, Schemeplancode);
+                db.AddInParameter(CreateproductcodeCmd, "@Productcode", DbType.String, Productcode);
+                db.AddInParameter(CreateproductcodeCmd, "@ExternalType", DbType.String, Externaltype);
+                db.AddInParameter(CreateproductcodeCmd, "@XESSoursecode", DbType.String, XESSourcecode);
+                db.AddInParameter(CreateproductcodeCmd, "@Createdby", DbType.Int32, Userid);
+                db.AddInParameter(CreateproductcodeCmd, "@Modifiedby", DbType.Int32, Userid);
+                if (db.ExecuteNonQuery(CreateproductcodeCmd) != 0)
+                    bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:CreateproductcodeCmd()");
+
+                object[] objects = new object[2];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return bResult;
+        }
+        public bool UpdateProductcode(int Productamcdetailid, string Productcode,int userid)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand UpdateProductcodedCmd;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                UpdateProductcodedCmd = db.GetStoredProcCommand("SPROC_UpdateAdviserUserRole");
+                db.AddInParameter(UpdateProductcodedCmd, "@Productamcdetailid", DbType.Int32, Productamcdetailid);
+                db.AddInParameter(UpdateProductcodedCmd, "@Productcode", DbType.String, Productcode);
+                db.AddInParameter(UpdateProductcodedCmd, "@Productamcdetailid", DbType.Int32, userid);
+                if (db.ExecuteNonQuery(UpdateProductcodedCmd) != 0)
+                    bResult = true;
+            }
+
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:UpdateUserrole()");
+                object[] objects = new object[3];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return bResult;
         }
     }
 }
