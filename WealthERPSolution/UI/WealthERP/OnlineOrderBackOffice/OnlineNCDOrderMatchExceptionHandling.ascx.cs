@@ -42,7 +42,6 @@ namespace WealthERP.OnlineOrderBackOffice
             int adviserId = advisorVo.advisorId;
             if (!IsPostBack)
             {
-                BindIssuerIssue();
                 BindOrderStatus();
             }
         }
@@ -372,20 +371,28 @@ namespace WealthERP.OnlineOrderBackOffice
 
         }
 
-        private void BindIssuer(DropDownList ddlIssuer)
+        protected void ddlProduct_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(ddlProduct.SelectedValue !="Select")
+
+            BindIssuerIssue();
+
+        }
+
+        private void BindIssue(DropDownList ddlIssue, string product)
         {
             try
             {
                 DataSet dsIssuer = new DataSet();
-                dsIssuer = onlineNCDBackOfficeBo.GetIssuerIssue(advisorVo.advisorId);
+                dsIssuer = onlineNCDBackOfficeBo.GetIssuerIssue(advisorVo.advisorId, product);
                 if (dsIssuer.Tables[0].Rows.Count > 0)
                 {
-                    ddlIssuer.DataSource = dsIssuer;
-                    ddlIssuer.DataValueField = dsIssuer.Tables[0].Columns["AIM_IssueId"].ToString();
-                    ddlIssuer.DataTextField = dsIssuer.Tables[0].Columns["AIM_IssueName"].ToString();
-                    ddlIssuer.DataBind();
+                    ddlIssue.DataSource = dsIssuer;
+                    ddlIssue.DataValueField = dsIssuer.Tables[0].Columns["AIM_IssueId"].ToString();
+                    ddlIssue.DataTextField = dsIssuer.Tables[0].Columns["AIM_IssueName"].ToString();
+                    ddlIssue.DataBind();
                 }
-                ddlIssuer.Items.Insert(0, new ListItem("Select", "Select"));
+                ddlIssue.Items.Insert(0, new ListItem("Select", "Select"));
 
             }
             catch (BaseApplicationException Ex)
@@ -409,12 +416,12 @@ namespace WealthERP.OnlineOrderBackOffice
             //    dsIssuer = onlineNCDBackOfficeBo.GetIssuer();
             //    if (dsIssuer.Tables[0].Rows.Count > 0)
             //    {
-            //        ddlIssuerr.DataSource = dsIssuer;
-            //        ddlIssuerr.DataValueField = dsIssuer.Tables[0].Columns["PI_issuerId"].ToString();
-            //        ddlIssuerr.DataTextField = dsIssuer.Tables[0].Columns["PI_IssuerName"].ToString();
-            //        ddlIssuerr.DataBind();
+            //        ddlIssuer.DataSource = dsIssuer;
+            //        ddlIssuer.DataValueField = dsIssuer.Tables[0].Columns["PI_issuerId"].ToString();
+            //        ddlIssuer.DataTextField = dsIssuer.Tables[0].Columns["PI_IssuerName"].ToString();
+            //        ddlIssuer.DataBind();
             //    }
-            //    ddlIssuerr.Items.Insert(0, new ListItem("Select", "Select"));
+            //    ddlIssuer.Items.Insert(0, new ListItem("Select", "Select"));
 
             //}
             //catch (BaseApplicationException Ex)
@@ -440,7 +447,7 @@ namespace WealthERP.OnlineOrderBackOffice
             try
             {
                 DataSet dsIssuer = new DataSet();
-                dsIssuer = onlineNCDBackOfficeBo.GetIssuerIssue(advisorVo.advisorId);
+                dsIssuer = onlineNCDBackOfficeBo.GetIssuerIssue(advisorVo.advisorId, ddlProduct.SelectedValue);
                 if (dsIssuer.Tables[0].Rows.Count > 0)
                 {
                     ddlIssue.DataSource = dsIssuer;

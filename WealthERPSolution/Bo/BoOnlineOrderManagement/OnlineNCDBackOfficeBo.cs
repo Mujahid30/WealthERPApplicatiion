@@ -760,12 +760,12 @@ namespace BoOnlineOrderManagement
 
         }
 
-        public DataSet GetIssuerIssue(int issuerId)
+        public DataSet GetIssuerIssue(int advisorId,string product)
         {
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
             try
             {
-                return onlineNCDBackOfficeDao.GetIssuerIssue(issuerId);
+                return onlineNCDBackOfficeDao.GetIssuerIssue(advisorId, product);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1456,7 +1456,7 @@ namespace BoOnlineOrderManagement
                 if (extractStepCode == "UA")
                 {
                     daoOnlNcdBackOff.IsIssueAlloted(issueId, ref   result);
-                    if (result != string.Empty)
+                    if (result != string.Empty && result !="0")
                         nRows = daoOnlNcdBackOff.UploadAllotmentIssueData(dtCheckOrder, issueId, ref   result, product);
                     else
                     {

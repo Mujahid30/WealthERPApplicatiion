@@ -440,6 +440,14 @@ namespace WealthERP.OnlineOrderManagement
         protected void rbConfirm_OK_Click(object sender, EventArgs e)
         {
             CreateIPOOrder();
+            COntrolsVisblity(true);
+        }
+
+        private void COntrolsVisblity(bool visble)
+        {
+            btnConfirmOrder.Visible = !visble;
+
+
         }
 
         protected void RadGridIPOBid_ItemDataBound(object sender, GridItemEventArgs e)

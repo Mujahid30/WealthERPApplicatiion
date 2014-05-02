@@ -106,7 +106,7 @@
             <asp:Label ID="Label2" runat="server" Text="Product:" CssClass="FieldName"></asp:Label>
         </td>
         <td>
-            <asp:DropDownList ID="ddlProduct" runat="server" CssClass="cmbField" AutoPostBack="true">
+            <asp:DropDownList ID="ddlProduct" runat="server" CssClass="cmbField" AutoPostBack="true" OnSelectedIndexChanged="ddlProduct_SelectedIndexChanged">
                 <asp:ListItem Value="Select">Select</asp:ListItem>
                 <asp:ListItem Value="FI">NCD</asp:ListItem>
                 <asp:ListItem Value="IP">IPO</asp:ListItem>

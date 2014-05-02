@@ -89,6 +89,52 @@ namespace WealthERP.OnlineOrderManagement
             }
         }
 
+        protected void RadGridIPOIssueList_ItemDataBound(object sender, GridItemEventArgs e)
+        {
+            int isPurchaseAvailblity = 0;
+            OnlineNCDBackOfficeBo onlineNCDBackOfficeBo = new OnlineNCDBackOfficeBo();
+            if (e.Item is GridDataItem && e.Item.ItemIndex != -1)
+            {
+
+                ImageButton imgBuy = (ImageButton)e.Item.FindControl("imgBuy");
+
+                if (ddlType.SelectedValue == "Curent")
+                {
+                    imgBuy.Visible = true;
+                    int IssueId = int.Parse(RadGridIPOIssueList.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIM_IssueId"].ToString());
+
+                    onlineNCDBackOfficeBo.GetOrdersEligblity(IssueId, ref isPurchaseAvailblity);
+                    if (isPurchaseAvailblity == 1)
+                    {
+                        imgBuy.Enabled = true;
+                    }
+                    else
+                    {
+                        imgBuy.Enabled = false;
+                    }
+                }
+                else
+                {
+                    imgBuy.Visible = false;
+                }
+            }
+
+
+        }
+
+        protected void gvCommMgmt_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        {
+            DataTable dtIssueDetail = new DataTable();
+            dtIssueDetail = (DataTable)Cache["IPOIssueList" + userVo.UserId.ToString()];
+            if (dtIssueDetail != null)
+            {
+                RadGridIPOIssueList.DataSource = dtIssueDetail;
+            }
+
+        }
+
+
+
         private void BindIPOIssueList(int type )
         {
             DataTable dtOnlineIPOIssueList = onlineIPOOrderBo.GetIPOIssueList(advisorVo.advisorId, 0, type, customerVo.CustomerId);

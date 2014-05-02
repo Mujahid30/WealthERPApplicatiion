@@ -83,6 +83,7 @@ namespace DaoOnlineOrderManagement
             }
             return dsIssueDetails;
         }
+      
         public string GetExtractStepCode(int fileId)
         {
             Database db;
@@ -112,6 +113,7 @@ namespace DaoOnlineOrderManagement
             }
             return stepCode;
         }
+      
         public void   IsIssueAlloted(int issueId, ref string result)
         {
             Database db;
@@ -299,6 +301,7 @@ namespace DaoOnlineOrderManagement
             }
             return DupseqNo;
         }
+       
         public int ChekSeriesSequence(int seqNo, int issueId, int adviserId, int seriesId)
         {
             Database db;
@@ -337,6 +340,7 @@ namespace DaoOnlineOrderManagement
             }
             return IsseqNoExist;
         }
+      
         public DataSet GetAdviserIssueList(DateTime date, int type, string product, int adviserId)
         {
             DataSet dsIssueDetails;
@@ -370,6 +374,7 @@ namespace DaoOnlineOrderManagement
             }
             return dsIssueDetails;
         }
+       
         public bool UpdateOnlineEnablement(int issueId)
         {
             bool result = false;
@@ -391,6 +396,7 @@ namespace DaoOnlineOrderManagement
             }
             return result;
         }
+     
         public int UpdateIssue(OnlineNCDBackOfficeVo onlineNCDBackOfficeVo)
         {
             int issueId;
@@ -449,6 +455,14 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(createCmd, "@issueID", DbType.Int32, onlineNCDBackOfficeVo.IssueId);
                 db.AddInParameter(createCmd, "@Tradableexchange", DbType.Int32, onlineNCDBackOfficeVo.TradableExchange);
                 db.AddInParameter(createCmd, "@Subbrokercode", DbType.String, onlineNCDBackOfficeVo.Subbrokercode);
+                db.AddInParameter(createCmd, "@RegistrarAddress", DbType.String, onlineNCDBackOfficeVo.RegistrarAddress);
+                db.AddInParameter(createCmd, "@RegistrarTelNo", DbType.String, onlineNCDBackOfficeVo.RegistrarTelNo);
+                db.AddInParameter(createCmd, "@RegistrarFaxNo", DbType.String, onlineNCDBackOfficeVo.RegistrarFaxNo);
+                db.AddInParameter(createCmd, "@RegistrarGrievenceEmail", DbType.String, onlineNCDBackOfficeVo.RegistrarGrievenceEmail);
+                db.AddInParameter(createCmd, "@RegistrarWebsite", DbType.String, onlineNCDBackOfficeVo.RegistrarWebsite);
+                db.AddInParameter(createCmd, "@ISINNumber", DbType.String, onlineNCDBackOfficeVo.ISINNumber);
+                db.AddInParameter(createCmd, "@RegistrarContactPerson", DbType.String, onlineNCDBackOfficeVo.RegistrarContactPerson);
+
                 if (onlineNCDBackOfficeVo.AllotmentDate != DateTime.MinValue)
                 {
                     db.AddInParameter(createCmd, "@AllotmentDate", DbType.Date, onlineNCDBackOfficeVo.AllotmentDate);
@@ -559,6 +573,7 @@ namespace DaoOnlineOrderManagement
             }
             return dsGetIssuer;
         }
+     
         public DataSet GetSyndicateMaster()
         {
             DataSet dsGetSeriesCategories;
@@ -587,6 +602,7 @@ namespace DaoOnlineOrderManagement
             }
             return dsGetSeriesCategories;
         }
+     
         public int CreateUpdateDeleteIssuer(int issuerId, string issuerCode, string issuerName, string commandType)
         {
             int issueId;
@@ -689,6 +705,7 @@ namespace DaoOnlineOrderManagement
                 throw Ex;
             }
         }
+      
         public int CreateUpdateDeleteSyndicateMaster(int syndicateId, string syndicateCode, string syndicateName, string commandType)
         {
             int issueId;
@@ -801,6 +818,18 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(createCmd, "@Tradableexchane", DbType.Int32, onlineNCDBackOfficeVo.TradableExchange);
                 db.AddInParameter(createCmd, "@CutOffTime", DbType.Time, onlineNCDBackOfficeVo.CutOffTime);
                 db.AddInParameter(createCmd, "@Subbrokercode", DbType.String, onlineNCDBackOfficeVo.Subbrokercode);
+
+                db.AddInParameter(createCmd, "@RegistrarAddress", DbType.String, onlineNCDBackOfficeVo.RegistrarAddress);
+                db.AddInParameter(createCmd, "@RegistrarTelNo", DbType.String, onlineNCDBackOfficeVo.RegistrarTelNo);
+                db.AddInParameter(createCmd, "@RegistrarFaxNo", DbType.String, onlineNCDBackOfficeVo.RegistrarFaxNo);
+                db.AddInParameter(createCmd, "@RegistrarGrievenceEmail", DbType.String, onlineNCDBackOfficeVo.RegistrarGrievenceEmail);
+                db.AddInParameter(createCmd, "@RegistrarWebsite", DbType.String, onlineNCDBackOfficeVo.RegistrarWebsite);
+                db.AddInParameter(createCmd, "@ISINNumber", DbType.String, onlineNCDBackOfficeVo.ISINNumber);
+                db.AddInParameter(createCmd, "@RegistrarContactPerson", DbType.String, onlineNCDBackOfficeVo.RegistrarContactPerson);
+                db.AddInParameter(createCmd, "@SBIRegistationNo", DbType.String, onlineNCDBackOfficeVo.SBIRegistationNo);
+
+
+ 
                 if (db.ExecuteNonQuery(createCmd) != 0)
                 {
                     issueId = Convert.ToInt32(db.GetParameterValue(createCmd, "AIM_IssueId").ToString());
@@ -837,6 +866,8 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(createCmd, "@ModeOfTenure", DbType.String, onlineNCDBackOfficeVo.ModeOfTenure);
                 db.AddInParameter(createCmd, "@RedemptionApplicable", DbType.Int32, onlineNCDBackOfficeVo.RedemptionApplicable);
                 db.AddInParameter(createCmd, "@LockinApplicable", DbType.Int32, onlineNCDBackOfficeVo.LockInApplicable);
+                db.AddInParameter(createCmd, "@TenureUnits", DbType.String, onlineNCDBackOfficeVo.TenureUnits);
+
                 if (db.ExecuteNonQuery(createCmd) != 0)
                 {
                     seriesId = Convert.ToInt32(db.GetParameterValue(createCmd, "SeriesId").ToString());
@@ -947,6 +978,7 @@ namespace DaoOnlineOrderManagement
             }
             return dsGetSeriesCategories;
         }
+       
         public DataSet BindRta()
         {
             DataSet dsGetSeriesCategories;
@@ -975,6 +1007,7 @@ namespace DaoOnlineOrderManagement
             }
             return dsGetSeriesCategories;
         }
+      
         public DataSet GetActiveRange(int adviserId, int issueId)
         {
             DataSet dsgetActiveRange;
@@ -1005,6 +1038,7 @@ namespace DaoOnlineOrderManagement
             }
             return dsgetActiveRange;
         }
+     
         public DataSet GetAllInvestorTypes(int issuerId, int issueId, int categoryId)
         {
             DataSet dsGetSubCategory;
@@ -1338,6 +1372,8 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(updateCmd, "@ModeOfTenure", DbType.String, onlineNCDBackOfficeVo.ModeOfTenure);
                 db.AddInParameter(updateCmd, "@RedemptionApplicable", DbType.Int32, onlineNCDBackOfficeVo.RedemptionApplicable);
                 db.AddInParameter(updateCmd, "@LockinApplicable", DbType.Int32, onlineNCDBackOfficeVo.LockInApplicable);
+                db.AddInParameter(updateCmd, "@TenureUnits", DbType.String, onlineNCDBackOfficeVo.TenureUnits);
+
                 seriesId = db.ExecuteNonQuery(updateCmd);
             }
             catch (BaseApplicationException Ex)
@@ -1439,7 +1475,7 @@ namespace DaoOnlineOrderManagement
             return dsGetSubCategory;
         }
 
-        public DataSet GetIssuerIssue(int issuerId)
+        public DataSet GetIssuerIssue(int advisorId, string product)
         {
             DataSet dsGetIssuerIssue;
             Database db;
@@ -1448,7 +1484,9 @@ namespace DaoOnlineOrderManagement
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 dbCommand = db.GetStoredProcCommand("SPROC_GetIssuerIssues");
-                db.AddInParameter(dbCommand, "@adviserId", DbType.Int32, issuerId);
+                db.AddInParameter(dbCommand, "@adviserId", DbType.Int32, advisorId);
+                db.AddInParameter(dbCommand, "@product", DbType.String, product);
+
                 dsGetIssuerIssue = db.ExecuteDataSet(dbCommand);
             }
             catch (BaseApplicationException Ex)
@@ -1461,7 +1499,7 @@ namespace DaoOnlineOrderManagement
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "OnlineNCDBackOfficeDao.cs:GetIssuerIssue()");
                 object[] objects = new object[1];
-                objects[1] = issuerId;
+                objects[1] = advisorId;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -1469,6 +1507,7 @@ namespace DaoOnlineOrderManagement
             }
             return dsGetIssuerIssue;
         }
+      
         public DataSet GetUploadIssue(string product, int adviserId)
         {
             DataSet dsGetIssuerIssue;
@@ -1502,6 +1541,7 @@ namespace DaoOnlineOrderManagement
             }
             return dsGetIssuerIssue;
         }
+      
         public DataSet GetSubTypePerCategoryDetails(int investorCatgeoryId)
         {
             DataSet dsGetSubCategory;
@@ -1655,6 +1695,7 @@ namespace DaoOnlineOrderManagement
             }
             return dtNCDOrder;
         }
+       
         public DataTable GetAdviserNCDOrderSubBook(int adviserId, int IssuerId, int orderid)
         {
             DataSet dsNCDOrderBook;
@@ -1761,6 +1802,7 @@ namespace DaoOnlineOrderManagement
             }
             return dtHeaders;
         }
+       
         public void GetOrdersEligblity(int issueId, ref int isPurchaseAvailable)
         {
             Database db;
@@ -1800,6 +1842,7 @@ namespace DaoOnlineOrderManagement
             //else
             //    return status = false;
         }
+      
         public void UpdateNcdOrderMannualMatch(int orderId, int allotmentId, ref int isAllotmented, ref int isUpdated)
         {
             Database db;
@@ -1920,6 +1963,7 @@ namespace DaoOnlineOrderManagement
             }
             return ds;
         }
+      
         public DataSet GetAdviserOrders(int IssueId, string Product, string Status, DateTime FromDate, DateTime ToDate, int adviserid)
         {
             DataSet dsOrders;
@@ -1956,6 +2000,7 @@ namespace DaoOnlineOrderManagement
             }
             return dsOrders;
         }
+      
         public DataSet GetAdviserissueallotmentList(int adviserId, int issureid, string type, DateTime fromdate, DateTime todate)
         {
 
@@ -1996,6 +2041,7 @@ namespace DaoOnlineOrderManagement
             }
             return dsGetAdviserissueallotmentList;
         }
+       
         public DataTable GetIssuerid(int adviserid)
         {
             DataSet dsGetIssuerid;
@@ -2028,6 +2074,7 @@ namespace DaoOnlineOrderManagement
             }
             return dt;
         }
+        
         public DataTable GetFrequency()
         {
             DataSet dsGetIssuerid;
@@ -2402,6 +2449,7 @@ namespace DaoOnlineOrderManagement
             }
             return dt;
         }
+
         public void NSEandBSEcodeCheck(int issueid, int adviserid, string nsecode, string bsecode, ref int isBseExist, ref int isNseExist)
         {
             Database db;
@@ -2445,6 +2493,7 @@ namespace DaoOnlineOrderManagement
             }
 
         }
+
         public bool Deleteinvestmentcategory(int investorid)
         {
             bool bResult = false;
@@ -2478,6 +2527,7 @@ namespace DaoOnlineOrderManagement
             return bResult;
 
         }
+
         public bool DeleteIssueinvestor(int investorcategoryid)
         {
             bool bResult = false;
@@ -2510,6 +2560,7 @@ namespace DaoOnlineOrderManagement
             return bResult;
 
         }
+
         public int Getissueid(int orderid)
         {
             Database db;
@@ -2547,6 +2598,7 @@ namespace DaoOnlineOrderManagement
             }
             return issueid;
         }
+
         public int GetScriptId(string scriptid, int adviserid, string product)
         {
             Database db;
@@ -2586,6 +2638,7 @@ namespace DaoOnlineOrderManagement
             }
             return issueid;
         }
+
         public bool DeleteSubcategory(int issuesubtyperuleid)
         {
             bool bResult = false;
@@ -2619,6 +2672,7 @@ namespace DaoOnlineOrderManagement
             return bResult;
 
         }
+
         public void DeleteAvaliable(int adviserid, int InvestorCatgeoryId, int AIICST_Id, int AIDCSR_Id, int IssueDetailId, int issueId)
         {
             Database db;
@@ -2656,6 +2710,7 @@ namespace DaoOnlineOrderManagement
             }
 
         }
+
         public int CheckAccountisActive(int adviserid, int customerid)
         {
             Database db;
@@ -2694,6 +2749,7 @@ namespace DaoOnlineOrderManagement
             }
             return isExist;
         }
+
         public DataSet GetNCDIPOAccountingExtractType(string Product)
         {
             DataSet dsExtractType;
@@ -2724,6 +2780,7 @@ namespace DaoOnlineOrderManagement
             }
             return dsExtractType;
         }
+
         public DataSet GetNCDIPOExtractTypeDataForFileCreation(DateTime orderDate, int AdviserId, int extractType, DateTime fromDate, DateTime toDate, int IssuerID,string Product)
         {
             DataSet dsExtractType;
@@ -2762,6 +2819,7 @@ namespace DaoOnlineOrderManagement
             }
             return dsExtractType;
         }
+       
         public DataSet GetProductIssuerList(int Isactive, string Product) 
         {
             DataSet dsProductIssuer;

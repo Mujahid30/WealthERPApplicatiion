@@ -99,6 +99,18 @@ namespace VoOnlineOrderManagemnet
         public string DiscuountType { get; set; }
         public decimal DiscountValue { get; set; }
 
+        public string RegistrarAddress { get; set; }
+        public string RegistrarTelNo { get; set; }
+        public string RegistrarFaxNo { get; set; }
+        public string RegistrarGrievenceEmail { get; set; }
+        public string RegistrarWebsite { get; set; }
+        public string RegistrarContactPerson { get; set; }
+        public string SBIRegistationNo  { get; set; }
+        public string ISINNumber  { get; set; }
+
+        public string TenureUnits { get; set; }
+      
+
         public int MaxQty { get; set; }
 
         public int IssueSizeQty { get; set; }

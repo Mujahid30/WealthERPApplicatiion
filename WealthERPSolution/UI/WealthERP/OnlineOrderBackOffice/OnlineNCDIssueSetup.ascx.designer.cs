@@ -148,6 +148,10 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblCategory;
         
+
+ protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlb1ModeofTrading;
+ protected global::System.Web.UI.HtmlControls.HtmlTableCell tdtxtModeofTrading;
+
         /// <summary>
         /// lblCategory control.
         /// </summary>
@@ -327,6 +331,26 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton ImageActivRange;
+        protected global::System.Web.UI.WebControls.Label lb1RegistrarAddress;
+        protected global::System.Web.UI.WebControls.Label lb1RegistrarTelNO;
+        protected global::System.Web.UI.WebControls.Label lb1RegistrarFaxNo;
+        protected global::System.Web.UI.WebControls.Label lb1InvestorGrievenceEmail;
+        protected global::System.Web.UI.WebControls.Label lb1Website;
+        protected global::System.Web.UI.WebControls.Label lb1ContactPerson;
+        protected global::System.Web.UI.WebControls.Label lb1SBIRegistationNo;
+        protected global::System.Web.UI.WebControls.Label lb1ISINNo;
+
+
+
+        protected global::System.Web.UI.WebControls.TextBox txtRegistrarAddress;
+        protected global::System.Web.UI.WebControls.TextBox txtRegistrarTelNO;
+        protected global::System.Web.UI.WebControls.TextBox txtRegistrarFaxNo;
+        protected global::System.Web.UI.WebControls.TextBox txtInvestorGrievenceEmail;
+        protected global::System.Web.UI.WebControls.TextBox txtWebsite;
+        protected global::System.Web.UI.WebControls.TextBox txtISINNo;
+        protected global::System.Web.UI.WebControls.TextBox txtContactPerson;
+        protected global::System.Web.UI.WebControls.TextBox txtSBIRegistationNo;
+
         
         /// <summary>
         /// RequiredFieldValidator9 control.
@@ -400,6 +424,8 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdBookBuilding;
         
+ protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlb1SBIRegistationNo;
+ protected global::System.Web.UI.HtmlControls.HtmlTableCell tdtxtSBIRegistationNo;
         /// <summary>
         /// Label7 control.
         /// </summary>
@@ -1673,6 +1699,12 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trIsActiveandPutCallOption;
         
+         protected global::System.Web.UI.HtmlControls.HtmlTableRow trRegistrarAddressAndTelNo;
+ protected global::System.Web.UI.HtmlControls.HtmlTableRow trRegistrarFaxNoAndInvestorGrievenceEmail;
+ 
+ protected global::System.Web.UI.HtmlControls.HtmlTableRow trWebsiteAndContactPerson;
+ protected global::System.Web.UI.HtmlControls.HtmlTableRow trSBIRegistationNoAndISINNumber;
+
         /// <summary>
         /// chkIsActive control.
         /// </summary>
@@ -1681,6 +1713,8 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chkIsActive;
+        protected global::System.Web.UI.WebControls.CheckBox chkIsPrefix;
+        
         
         /// <summary>
         /// chkPutCallOption control.

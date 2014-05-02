@@ -45,8 +45,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 if (Cache[userVo.UserId.ToString() + "SubCat"] != null)
                     Cache.Remove(userVo.UserId.ToString() + "SubCat");
                 DefaultBindings();
-
-
+                IsPrefixEnablement(false);
             }
             //if (Request.QueryString["IssueId"] != "" && Request.QueryString["IssueId"] != null)
             //{
@@ -500,6 +499,77 @@ namespace WealthERP.OnlineOrderBackOffice
                     {
                         ddlIssuer.SelectedValue = "Select";
                     }
+
+
+
+
+
+                    if (!string.IsNullOrEmpty(dr["AIM_RegistrarAddress"].ToString()))
+                    {
+                        txtRegistrarAddress.Text = dr["AIM_RegistrarAddress"].ToString();
+                    }
+                    else
+                    {
+                        txtRegistrarAddress.Text = "";
+                    }
+
+
+                    if (!string.IsNullOrEmpty(dr["AIM_RegistrarTelNo"].ToString()))
+                    {
+                        txtRegistrarTelNO.Text = dr["AIM_RegistrarTelNo"].ToString();
+                    }
+                    else
+                    {
+                        txtRegistrarTelNO.Text = "";
+                    }
+
+
+                    if (!string.IsNullOrEmpty(dr["AIM_RegistrarFaxNo"].ToString()))
+                    {
+                        txtRegistrarFaxNo.Text = dr["AIM_RegistrarFaxNo"].ToString();
+                    }
+                    else
+                    {
+                        txtRegistrarFaxNo.Text = "";
+                    }
+
+
+                    if (!string.IsNullOrEmpty(dr["AIM_RegistrarGrievenceEmail"].ToString()))
+                    {
+                        txtInvestorGrievenceEmail.Text = dr["AIM_RegistrarGrievenceEmail"].ToString();
+                    }
+                    else
+                    {
+                        txtInvestorGrievenceEmail.Text = "";
+                    }
+
+                    if (!string.IsNullOrEmpty(dr["AIM_RegistrarWebsite"].ToString()))
+                    {
+                        txtWebsite.Text = dr["AIM_RegistrarWebsite"].ToString();
+                    }
+                    else
+                    {
+                        txtWebsite.Text = "";
+                    }
+                    if (!string.IsNullOrEmpty(dr["AIM_ISINNumber"].ToString()))
+                    {
+                        txtISINNo.Text = dr["AIM_ISINNumber"].ToString();
+                    }
+                    else
+                    {
+                        txtISINNo.Text = "";
+                    }
+
+                    if (!string.IsNullOrEmpty(dr["AIM_RegistrarContactPerson"].ToString()))
+                    {
+                        txtContactPerson.Text = dr["AIM_RegistrarContactPerson"].ToString();
+                    }
+                    else
+                    {
+                        txtContactPerson.Text = "";
+                    }
+
+
 
                     if (ddlIssuer.SelectedValue == "Select")
                         return;
@@ -1052,6 +1122,87 @@ namespace WealthERP.OnlineOrderBackOffice
                     onlineNCDBackOfficeVo.BSECode = "";
 
                 }
+                if (!string.IsNullOrEmpty(txtRegistrarAddress.Text))
+                {
+
+                    onlineNCDBackOfficeVo.RegistrarAddress = txtRegistrarAddress.Text;
+                }
+                else
+                {
+                    onlineNCDBackOfficeVo.RegistrarAddress = "";
+                }
+
+                if (!string.IsNullOrEmpty(txtRegistrarTelNO.Text))
+                {
+
+                    onlineNCDBackOfficeVo.RegistrarTelNo = txtRegistrarTelNO.Text;
+                }
+                else
+                {
+                    onlineNCDBackOfficeVo.RegistrarTelNo = "";
+                }
+
+                if (!string.IsNullOrEmpty(txtRegistrarFaxNo.Text))
+                {
+
+                    onlineNCDBackOfficeVo.RegistrarFaxNo = txtRegistrarFaxNo.Text;
+                }
+                else
+                {
+                    onlineNCDBackOfficeVo.RegistrarFaxNo = "";
+                }
+
+                if (!string.IsNullOrEmpty(txtInvestorGrievenceEmail.Text))
+                {
+
+                    onlineNCDBackOfficeVo.RegistrarGrievenceEmail = txtInvestorGrievenceEmail.Text;
+                }
+                else
+                {
+                    onlineNCDBackOfficeVo.RegistrarGrievenceEmail = "";
+                }
+
+                if (!string.IsNullOrEmpty(txtWebsite.Text))
+                {
+
+                    onlineNCDBackOfficeVo.RegistrarWebsite = txtWebsite.Text;
+                }
+                else
+                {
+                    onlineNCDBackOfficeVo.RegistrarWebsite = "";
+                }
+
+                if (!string.IsNullOrEmpty(txtISINNo.Text))
+                {
+
+                    onlineNCDBackOfficeVo.ISINNumber = txtISINNo.Text;
+                }
+                else
+                {
+                    onlineNCDBackOfficeVo.ISINNumber = "";
+                }
+
+                if (!string.IsNullOrEmpty(txtContactPerson.Text))
+                {
+
+                    onlineNCDBackOfficeVo.RegistrarContactPerson = txtContactPerson.Text;
+                }
+                else
+                {
+                    onlineNCDBackOfficeVo.RegistrarContactPerson = "";
+                }
+
+                if (!string.IsNullOrEmpty(txtSBIRegistationNo.Text))
+                {
+
+                    onlineNCDBackOfficeVo.SBIRegistationNo = txtSBIRegistationNo.Text;
+                }
+                else
+                {
+                    onlineNCDBackOfficeVo.SBIRegistationNo = "";
+                }
+
+                
                 onlineNCDBackOfficeVo.IssueId = Convert.ToInt32(txtIssueId.Text);
                 if (NSCEBSCEcode())
                 {
@@ -1160,7 +1311,7 @@ namespace WealthERP.OnlineOrderBackOffice
         //}
 
         private int CreateUpdateDeleteSeries(int issueId, int seriesId, string seriesName, int isBuyBackAvailable, int redemptionApplicable, int lockInApplicable, int tenure, string interestFrequency,
-         string interestType, int SeriesSequence, string CommandType)
+         string interestType, int SeriesSequence, string tenureUnits,string CommandType)
         {
             int result = 0;
 
@@ -1176,6 +1327,8 @@ namespace WealthERP.OnlineOrderBackOffice
                 onlineNCDBackOfficeVo.SeriesSequence = SeriesSequence;
                 onlineNCDBackOfficeVo.RedemptionApplicable = redemptionApplicable;
                 onlineNCDBackOfficeVo.LockInApplicable = lockInApplicable;
+                onlineNCDBackOfficeVo.TenureUnits = tenureUnits;
+
                 result = onlineNCDBackOfficeBo.CreateSeries(onlineNCDBackOfficeVo, userVo.UserId);
             }
             else if (CommandType == "Update")
@@ -1190,6 +1343,8 @@ namespace WealthERP.OnlineOrderBackOffice
                 onlineNCDBackOfficeVo.SeriesSequence = SeriesSequence;
                 onlineNCDBackOfficeVo.RedemptionApplicable = redemptionApplicable;
                 onlineNCDBackOfficeVo.LockInApplicable = lockInApplicable;
+                onlineNCDBackOfficeVo.TenureUnits = tenureUnits;
+
                 result = onlineNCDBackOfficeBo.UpdateSeries(onlineNCDBackOfficeVo, userVo.UserId);
 
             }
@@ -1270,7 +1425,9 @@ namespace WealthERP.OnlineOrderBackOffice
                 RadGrid rgSeriesCat = (RadGrid)e.Item.FindControl("rgSeriesCat");
                 CheckBox chkredemptiondate = (CheckBox)e.Item.FindControl("chkredemptiondate");
                 CheckBox chkLockinperiod = (CheckBox)e.Item.FindControl("chkLockinperiod");
+                DropDownList ddlTenureUnits = (DropDownList)e.Item.FindControl("ddlTenureUnits");
 
+                
 
                 count = onlineNCDBackOfficeBo.CheckIssueSeriesName(txtSereiesName.Text, Convert.ToInt32(txtIssueId.Text));
                 if (count > 0)
@@ -1353,7 +1510,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
 
 
-                int seriesId = CreateUpdateDeleteSeries(Convert.ToInt32(txtIssueId.Text), 0, txtSereiesName.Text, availblity, redemptionavaliable, lockinperiodavaliable, Convert.ToInt32(txtTenure.Text), ddltInterestFrequency.SelectedValue, ddlInterestType.SelectedValue, Convert.ToInt32(txtSequence.Text), "Insert");
+                int seriesId = CreateUpdateDeleteSeries(Convert.ToInt32(txtIssueId.Text), 0, txtSereiesName.Text, availblity, redemptionavaliable, lockinperiodavaliable, Convert.ToInt32(txtTenure.Text), ddltInterestFrequency.SelectedValue, ddlInterestType.SelectedValue, Convert.ToInt32(txtSequence.Text),ddlTenureUnits.SelectedValue, "Insert");
 
                 foreach (GridDataItem gdi in rgSeriesCat.Items)
                 {
@@ -1368,6 +1525,7 @@ namespace WealthERP.OnlineOrderBackOffice
                         TextBox txtRedemptionDate = (TextBox)gdi.FindControl("txtRedemptionDate");
                         TextBox txtRedemptionAmount = (TextBox)gdi.FindControl("txtRedemptionAmount");
                         TextBox txtLockInPeriod = (TextBox)gdi.FindControl("txtLockInPeriod");
+
                         if (string.IsNullOrEmpty(txtInterestRate.Text))
                         {
                             txtInterestRate.Text = 0.ToString();
@@ -1403,6 +1561,8 @@ namespace WealthERP.OnlineOrderBackOffice
                         {
                             txtLockInPeriod.Text = 0.ToString();
                         }
+
+                         
                         CreateUpdateDeleteSeriesCategories(seriesId, categoryId, Convert.ToDouble(txtInterestRate.Text), Convert.ToDouble(txtAnnualizedYield.Text), Convert.ToDouble(txtRenCpnRate.Text),
                             Convert.ToDouble(txtYieldAtCall.Text), Convert.ToDouble(txtYieldAtBuyBack.Text), txtRedemptionDate.Text, Convert.ToDouble(txtRedemptionAmount.Text), int.Parse(txtLockInPeriod.Text), "Insert");
                     }
@@ -1423,6 +1583,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 CheckBox chkredemptiondate = (CheckBox)e.Item.FindControl("chkredemptiondate");
                 CheckBox chkLockinperiod = (CheckBox)e.Item.FindControl("chkLockinperiod");
                 RadGrid rgSeriesCat = (RadGrid)e.Item.FindControl("rgSeriesCat");
+                DropDownList ddlTenureUnits = (DropDownList)e.Item.FindControl("ddlTenureUnits");
 
                 int seriesId = Convert.ToInt32(rgSeries.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AID_IssueDetailId"].ToString());
 
@@ -1490,7 +1651,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 //    txtSequence.Text = 0.ToString();
                 //}
 
-                int InsseriesId = CreateUpdateDeleteSeries(Convert.ToInt32(txtIssueId.Text), seriesId, txtSereiesName.Text, availblity, redemptionavaliable, lockinperiodavaliable, Convert.ToInt32(txtTenure.Text), ddlInterestFrequency.SelectedValue, ddlInterestType.SelectedValue, Convert.ToInt32(txtSequence.Text), "Update");
+                int InsseriesId = CreateUpdateDeleteSeries(Convert.ToInt32(txtIssueId.Text), seriesId, txtSereiesName.Text, availblity, redemptionavaliable, lockinperiodavaliable, Convert.ToInt32(txtTenure.Text), ddlInterestFrequency.SelectedValue, ddlInterestType.SelectedValue, Convert.ToInt32(txtSequence.Text), ddlTenureUnits.SelectedValue, "Update");
                 foreach (GridDataItem gdi in rgSeriesCat.Items)
                 {
                     if (((CheckBox)gdi.FindControl("cbSeriesCat")).Checked == true)
@@ -2480,6 +2641,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     CheckBox chkredemptiondate = (CheckBox)e.Item.FindControl("chkredemptiondate");
                     CheckBox chkLockinperiod = (CheckBox)e.Item.FindControl("chkLockinperiod");
                     TextBox txtSequence = (TextBox)e.Item.FindControl("txtSequence");
+                    DropDownList ddlTenureUnits = (DropDownList)e.Item.FindControl("ddlTenureUnits");
 
 
                     DropDownList ddlInterestType = (DropDownList)e.Item.FindControl("ddlInterestType");
@@ -2499,7 +2661,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     }
                     BindFrequency(ddlInterestFrequency);
                     BindCategory(rgSeriesCat, Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text));
-                    FillSeriesPopupControlsForUpdate(seriesId, txtSereiesName, txtTenure, ddlInterestFrequency, chkBuyAvailability, chkredemptiondate, chkLockinperiod, txtSequence, ddlInterestType, rgSeriesCat);
+                    FillSeriesPopupControlsForUpdate(seriesId, txtSereiesName, txtTenure, ddlInterestFrequency, chkBuyAvailability, chkredemptiondate, chkLockinperiod, txtSequence, ddlInterestType,  ddlTenureUnits, rgSeriesCat);
                 }
 
 
@@ -2524,7 +2686,7 @@ namespace WealthERP.OnlineOrderBackOffice
         }
 
         private void FillSeriesPopupControlsForUpdate(int seriesId, TextBox txtSereiesName, TextBox txtTenure,
-                         DropDownList ddlInterestFrequency, CheckBox chkBuyAvailability, CheckBox chkredemptiondate, CheckBox chkLockinperiod, TextBox txtSequence, DropDownList ddlInterestType, RadGrid rgSeriesCat)
+                         DropDownList ddlInterestFrequency, CheckBox chkBuyAvailability, CheckBox chkredemptiondate, CheckBox chkLockinperiod, TextBox txtSequence, DropDownList ddlInterestType,DropDownList ddlTenureCycle, RadGrid rgSeriesCat)
         {
             int seriesCategoryId = 0;
             try
@@ -2545,6 +2707,9 @@ namespace WealthERP.OnlineOrderBackOffice
                             chkredemptiondate.Checked = Convert.ToBoolean(dr["AID_RedemptionApplicable"]);
                         if (dr["AID_LockinPeriodApplicable"].ToString() != string.Empty)
                             chkLockinperiod.Checked = Convert.ToBoolean(dr["AID_LockinPeriodApplicable"].ToString());
+
+                        if (dr["AID_TenureCycle"].ToString() != string.Empty)
+                            ddlTenureCycle.SelectedValue =  dr["AID_TenureCycle"].ToString() ;
                         txtSequence.Text = dr["AID_Sequence"].ToString();
                         ddlInterestType.SelectedValue = dr["AID_InterestType"].ToString();
                         if (!string.IsNullOrEmpty(dr["AIIC_InvestorCatgeoryId"].ToString()))
@@ -2771,17 +2936,8 @@ namespace WealthERP.OnlineOrderBackOffice
                 }
                 else
                 {
-                    //if (ddlSubInstrCategory.SelectedValue == "FISD")
-                    //{
                     onlineNCDBackOfficeVo.AssetInstrumentCategoryCode = ddlInstrCat.SelectedValue;
                     onlineNCDBackOfficeVo.AssetInstrumentSubCategoryCode = ddlSubInstrCategory.SelectedValue;
-                    //}
-                    //else if (ddlSubInstrCategory.SelectedValue == "FIIB")
-                    //{
-                    //    onlineNCDBackOfficeVo.AssetInstrumentCategoryCode = "FIIB";
-                    //    onlineNCDBackOfficeVo.AssetInstrumentSubCategoryCode = "FIIB";
-                    //}
-
                 }
 
                 onlineNCDBackOfficeVo.IssueName = txtName.Text;
@@ -2872,6 +3028,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     onlineNCDBackOfficeVo.TradingLot = 0;
                 }
+
                 if (!string.IsNullOrEmpty(txtBiddingLot.Text))
                 {
                     onlineNCDBackOfficeVo.BiddingLot = Convert.ToDecimal(txtBiddingLot.Text);
@@ -2898,15 +3055,6 @@ namespace WealthERP.OnlineOrderBackOffice
                 }
 
                 onlineNCDBackOfficeVo.TradingInMultipleOf = Convert.ToInt32(txtTradingInMultipleOf.Text);
-
-                //if (!string.IsNullOrEmpty(ddlListedInExchange.SelectedValue))
-                //{
-                //    onlineNCDBackOfficeVo.ListedInExchange = ddlListedInExchange.SelectedValue;
-                //}
-                //else
-                //{
-                //    onlineNCDBackOfficeVo.ListedInExchange = "";
-                //}
 
 
                 if (!string.IsNullOrEmpty(ddlBankName.SelectedValue))
@@ -3117,6 +3265,98 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     onlineNCDBackOfficeVo.BSECode = "";
                 }
+
+                if (!string.IsNullOrEmpty(txtBSECode.Text))
+                {
+                    onlineNCDBackOfficeVo.IsListedinBSE = 1;
+                    onlineNCDBackOfficeVo.BSECode = txtBSECode.Text;
+                }
+                else
+                {
+                    onlineNCDBackOfficeVo.BSECode = "";
+                }
+
+                if (!string.IsNullOrEmpty(txtRegistrarAddress.Text))
+                {
+
+                    onlineNCDBackOfficeVo.RegistrarAddress = txtRegistrarAddress.Text;
+                }
+                else
+                {
+                    onlineNCDBackOfficeVo.RegistrarAddress = "";
+                }
+
+                if (!string.IsNullOrEmpty(txtRegistrarTelNO.Text))
+                {
+
+                    onlineNCDBackOfficeVo.RegistrarTelNo = txtRegistrarTelNO.Text;
+                }
+                else
+                {
+                    onlineNCDBackOfficeVo.RegistrarTelNo = "";
+                }
+
+                if (!string.IsNullOrEmpty(txtRegistrarFaxNo.Text))
+                {
+
+                    onlineNCDBackOfficeVo.RegistrarFaxNo = txtRegistrarFaxNo.Text;
+                }
+                else
+                {
+                    onlineNCDBackOfficeVo.RegistrarFaxNo = "";
+                }
+
+                if (!string.IsNullOrEmpty(txtInvestorGrievenceEmail.Text))
+                {
+
+                    onlineNCDBackOfficeVo.RegistrarGrievenceEmail = txtRegistrarFaxNo.Text;
+                }
+                else
+                {
+                    onlineNCDBackOfficeVo.RegistrarGrievenceEmail = "";
+                }
+
+                if (!string.IsNullOrEmpty(txtWebsite.Text))
+                {
+
+                    onlineNCDBackOfficeVo.RegistrarWebsite = txtWebsite.Text;
+                }
+                else
+                {
+                    onlineNCDBackOfficeVo.RegistrarWebsite = "";
+                }
+
+                if (!string.IsNullOrEmpty(txtISINNo.Text))
+                {
+
+                    onlineNCDBackOfficeVo.ISINNumber = txtISINNo.Text;
+                }
+                else
+                {
+                    onlineNCDBackOfficeVo.ISINNumber = "";
+                }
+
+                if (!string.IsNullOrEmpty(txtContactPerson.Text))
+                {
+
+                    onlineNCDBackOfficeVo.RegistrarContactPerson = txtWebsite.Text;
+                }
+                else
+                {
+                    onlineNCDBackOfficeVo.RegistrarContactPerson = "";
+                }
+
+                if (!string.IsNullOrEmpty(txtSBIRegistationNo.Text))
+                {
+
+                    onlineNCDBackOfficeVo.SBIRegistationNo = txtSBIRegistationNo.Text;
+                }
+                else
+                {
+                    onlineNCDBackOfficeVo.SBIRegistationNo = "";
+                }
+
+
                 if (NSCEBSCEcode())
                 {
                     issueId = onlineNCDBackOfficeBo.CreateIssue(onlineNCDBackOfficeVo, advisorVo.advisorId);
@@ -4379,13 +4619,10 @@ namespace WealthERP.OnlineOrderBackOffice
 
             //Ncd
             trNomineeReQuired.Visible = false;
-            trRatingAndModeofTrading.Visible = false;
             trModeofIssue.Visible = false;
             trMaxQty.Visible = true;
-
             txtMaxQty.Visible = false;
             Label15.Visible = false;
-
             trIssueqtySize.Visible = false;
             trTradinglotBidding.Visible = false;
             txtIsPrefix.Visible = true;
@@ -4395,9 +4632,17 @@ namespace WealthERP.OnlineOrderBackOffice
             trSyndicateAndMemberCodes.Visible = false;
             trRegistrarAndNoofBidsAlloweds.Visible = false;
             trIsActiveandPutCallOption.Visible = true;
+
+            trRegistrarAddressAndTelNo.Visible = false;
+            trRegistrarFaxNoAndInvestorGrievenceEmail.Visible = false;
+            trWebsiteAndContactPerson.Visible = false;
+         
             //both
             //trFloorAndFixedPrices.Visible = true;
             trExchangeCode.Visible = false;
+            trRatingAndModeofTrading.Visible = true;
+            trSBIRegistationNoAndISINNumber.Visible = true;
+            
 
             if (product == "NCD")
             {
@@ -4413,6 +4658,13 @@ namespace WealthERP.OnlineOrderBackOffice
                 tdlblCategory.Visible = true;
                 tdddlCategory.Visible = true;
                 txtIsPrefix.Visible = true;
+                tdlb1MinQty.Visible = false;
+                tdltxtMinQty.Visible = false;
+                tdlb1ModeofTrading.Visible = true;
+                tdtxtModeofTrading.Visible = true;
+                tdlb1SBIRegistationNo.Visible = false ;
+                tdtxtSBIRegistationNo.Visible = false;
+                lb1Rating.Text = "Rating:";
             }
             else if (product == "IP")
             {
@@ -4427,8 +4679,17 @@ namespace WealthERP.OnlineOrderBackOffice
                 trIssueqtySize.Visible = true;
                 tdlb1MinQty.Visible = true;
                 tdltxtMinQty.Visible = true;
+                trRegistrarAddressAndTelNo.Visible = true;
+                trRegistrarFaxNoAndInvestorGrievenceEmail.Visible = true;
+                trWebsiteAndContactPerson.Visible = true;
+                trSBIRegistationNoAndISINNumber.Visible = true;
                 //chkIsActive.Visible = true;
                 //chkIsActive.Enabled = false;
+                tdlb1ModeofTrading.Visible = false;
+                tdtxtModeofTrading.Visible = false;
+                tdlb1SBIRegistationNo.Visible = true;
+                tdtxtSBIRegistationNo.Visible = true;
+                lb1Rating.Text = "Grading:";
             }
         }
 
@@ -4811,6 +5072,16 @@ namespace WealthERP.OnlineOrderBackOffice
                 chkIsActive.Checked = false;
             }
 
+        }
+        protected void chkIsPrefix_changed(object sender, EventArgs e)
+        {
+            IsPrefixEnablement(chkIsPrefix.Checked);
+        }
+
+        private void IsPrefixEnablement(bool isPrefix)
+        {
+            chkIsPrefix.Checked = isPrefix;
+            txtIsPrefix.Visible = isPrefix;
         }
 
         protected void cbRemoveSubCategories_changed(object sender, EventArgs e)

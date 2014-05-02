@@ -71,7 +71,7 @@
                         <telerik:RadGrid ID="RadGridIPOIssueList" runat="server" AllowSorting="True" enableloadondemand="True"
                             PageSize="10" AllowPaging="True" AutoGenerateColumns="False" EnableEmbeddedSkins="False"
                             GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="true" ShowStatusBar="True"
-                            Skin="Telerik" AllowFilteringByColumn="false" OnItemCommand="RadGridIPOIssueList_OnItemCommand">
+                            Skin="Telerik" AllowFilteringByColumn="false" OnItemCommand="RadGridIPOIssueList_OnItemCommand" OnItemDataBound="RadGridIPOIssueList_ItemDataBound">
                             <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="AIM_IssueId"
                                 AutoGenerateColumns="false" Width="100%">
                                 <Columns>
@@ -130,7 +130,7 @@
                                         ShowFilterIcon="false" UniqueName="AIM_OpenDate" Visible="true">
                                         <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                     </telerik:GridBoundColumn>
-                                    <telerik:GridBoundColumn DataField="AIM_CloseDate" HeaderStyle-Width="200px" HeaderText="Open Date"
+                                    <telerik:GridBoundColumn DataField="AIM_CloseDate" HeaderStyle-Width="200px" HeaderText="Close Date"
                                         ShowFilterIcon="false" UniqueName="AIM_CloseDate" Visible="true">
                                         <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                     </telerik:GridBoundColumn>
@@ -138,7 +138,7 @@
                                         ItemStyle-Wrap="false">
                                         <ItemTemplate>
                                             <asp:ImageButton ID="imgBuy" runat="server" CommandName="Buy" ImageUrl="~/Images/Buy-Button.png"
-                                                ToolTip="BUY IPO" />
+                                                ToolTip="BUY IPO"  />
                                         </ItemTemplate>
                                     </telerik:GridTemplateColumn>
                                 </Columns>
