@@ -96,6 +96,7 @@ namespace VoOnlineOrderManagemnet
         public string productcode { get; set; }
         public int Mergecode { get; set; }
         public string Allproductcode { get; set; }
+        public string AMFIcode { get; set; }
 
     }
 

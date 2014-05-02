@@ -518,13 +518,13 @@ namespace BoOnlineOrderManagement
             }
             return dsSchemeSetUpFromOverAllCategoryList;
         }
-        public int ExternalcodeCheck(string externalcode, string externaltype)
+        public int ExternalcodeCheck(string externalcode)
         {
             int result = 0;
             OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
             try
             {
-                result = OnlineOrderBackOfficeDao.ExternalcodeCheck(externalcode, externaltype);
+                result = OnlineOrderBackOfficeDao.ExternalcodeCheck(externalcode);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1968,6 +1968,21 @@ namespace BoOnlineOrderManagement
             }
             return blResult;
         }
+         public String ExternalCode(string Externaltype)
+         {
+             string Type = "";
+             OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
+             try
+             {
+                 Type = OnlineOrderBackOfficeDao.ExternalCode(Externaltype);
+             }
+             catch (BaseApplicationException Ex)
+             {
+                 throw Ex;
+             }
+             return Type;
+
+         }
     }
 
 }

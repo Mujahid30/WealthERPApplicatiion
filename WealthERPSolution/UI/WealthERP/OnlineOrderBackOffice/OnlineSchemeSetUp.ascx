@@ -229,12 +229,14 @@
                         Display="Dynamic" InitialValue="Select"></asp:RequiredFieldValidator>
                 </td>
                 <%-- CssClass="FieldName" OnCheckedChanged="oncheckedOnlin_OnCheckedChanged" Checked="false"/>--%>
-                &nbsp;
-                <td>
-                    <asp:LinkButton ID="lnkMargeScheme" runat="server" Text="Merge Scheme" OnClick="lnkMargeScheme_Click"
-                        CssClass="LinkButtons" Visible="false"></asp:LinkButton>
-                    <%-- <asp:CheckBox ID="chkoffline" runat="server" Text="Offline Scheme" CssClass="FieldName" Checked="false"/>--%>
+               <td align="right">
+                <asp:Label ID="lblAllproductcode" runat="server" CssClass="FieldName" Text="Product Code:" Visible="false"></asp:Label>
                 </td>
+                <td>
+                    <asp:LinkButton ID="lnkProductcode" runat="server" Text="Add Productcode" CssClass="LinkButtons"
+                        OnClick="lnkProductcode_OnClick" Visible="false"></asp:LinkButton>
+                </td>
+               
             </tr>
             <tr id="trNFODate" runat="server" visible="false">
                 <td align="right">
@@ -288,13 +290,14 @@
                 <td>
                     <asp:TextBox ID="txtAMFI" runat="server" CssClass="cmbFielde" Visible="true"></asp:TextBox>
                 </td>
-                <td align="right">
-                    <asp:LinkButton ID="lnkProductcode" runat="server" Text="Add Productcode" CssClass="LinkButtons"
-                        OnClick="lnkProductcode_OnClick"></asp:LinkButton>
-                </td>
+                <td></td>
                 <td>
-                    <asp:Label ID="lblAllproductcode" runat="server" CssClass="FieldName" ToolTip="Product Code"></asp:Label>
+                    <asp:LinkButton ID="lnkMargeScheme" runat="server" Text="Merge Scheme" OnClick="lnkMargeScheme_Click"
+                        CssClass="LinkButtons" Visible="false"></asp:LinkButton>
+                    <%-- <asp:CheckBox ID="chkoffline" runat="server" Text="Offline Scheme" CssClass="FieldName" Checked="false"/>--%>
                 </td>
+                    
+                
             </tr>
             <tr>
                 <td align="right">
@@ -318,7 +321,7 @@
             </tr>
         </table>
     </div>
-    <div id="schemedetails" runat="server" visible="true">
+    <div id="schemedetails" runat="server" visible="false">
         <table width="100%">
             <tr>
                 <td colspan="5">
@@ -335,7 +338,7 @@
                         CssClass="FieldName"></asp:Label>
                 </td>
                 <td width="25%">
-                    <asp:TextBox ID="txtESSchemecode" runat="server" CssClass="cmbFielde" Enabled="false"> </asp:TextBox>
+                    <asp:TextBox ID="txtESSchemecode" runat="server" CssClass="cmbFielde" Enabled="true"> </asp:TextBox>
                     <%--  <span id="Span37" class="spnRequiredField">*</span>
                 <br />
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ErrorMessage="Please Enter External System Scheme Code"
@@ -347,11 +350,11 @@
                 </td>
                 <td>
                     <asp:TextBox ID="txtSecuritycode" runat="server" CssClass="cmbFielde" Style="margin-left: 0px"></asp:TextBox>
-                    <span id="Span24" class="spnRequiredField">*</span>
+                   <%-- <span id="Span24" class="spnRequiredField">*</span>
                     <br />
                     <asp:RequiredFieldValidator ID="rfvtxtSecuritycode" runat="server" ErrorMessage="Please Enter Security Code"
                         CssClass="rfvPCG" ControlToValidate="txtSecuritycode" ValidationGroup="btnsubmit"
-                        Display="Dynamic"></asp:RequiredFieldValidator>
+                        Display="Dynamic"></asp:RequiredFieldValidator>--%>
                 </td>
             </tr>
             <tr>
@@ -1230,7 +1233,7 @@
             </table>
         </ContentTemplate>
     </telerik:RadWindow>
-    <telerik:RadWindow ID="radproductcode" runat="server" VisibleOnPageLoad="false" Height="300px"
+    <telerik:RadWindow ID="radproductcode" runat="server" VisibleOnPageLoad="false" Height="380px"
         Width="300px" Modal="true" BackColor="#4B4726" VisibleStatusbar="false" Behaviors="None"
         Title="Add Productcode" Left="200" Top="200" Expanded="true" Visible="true">
         <ContentTemplate>
@@ -1244,7 +1247,7 @@
                             OnNeedDataSource="gvproductcode_OnNeedDataSource" OnItemCommand="gvproductcode_OnItemCommand"
                             >
                             <MasterTableView DataKeyNames="PASM_Id,PASC_AMC_ExternalCode" AllowFilteringByColumn="true"
-                                Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="Top"
+                                Width="120%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="Top"
                                 EditMode="PopUp">
                                 <CommandItemSettings ShowExportToWordButton="false" ShowExportToExcelButton="false"
                                     AddNewRecordText="Add New Productcode" ShowExportToCsvButton="false" ShowAddNewRecordButton="true"
