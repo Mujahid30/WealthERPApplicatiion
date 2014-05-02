@@ -11,7 +11,7 @@ namespace WealthERP.OnlineOrderManagement
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "wsedrftgyhjukloghjnnnghj", " showMsg('Owing to heavy  load, our systems are experiencing a technical problem that is preventing you from transacting in mutual funds. Kindly call our contact center or send us a mail to contact@sbicapsec.com ','I');", true);
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "wsedrftgyhjukloghjnnnghj", " showMsg('Owing to heavy  load, our systems are experiencing a technical problem that is preventing you from transacting in mutual funds. Kindly contact our call center or send us a mail to contact@sbicapsec.com ','I');", true);
         }
     }
 }
