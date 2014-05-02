@@ -2100,14 +2100,14 @@ namespace BoCustomerPortfolio
             return ds;
         }
 
-        public List<MFTransactionVo> GetCustomerTransactionsBook(int AdviserID, int CustomerId, DateTime From, DateTime To, int Manage, int AmcCode, int AccountId, int SchemePlanCode)
+        public List<MFTransactionVo> GetCustomerTransactionsBookSIP(int AdviserID, int customerId, int SystematicId, int IsSourceAA, int AccountId, int SchemePlanCode)
         {
             CustomerTransactionDao customerTransactionDao = new CustomerTransactionDao();
             List<MFTransactionVo> mfTransactionsBookList = new List<MFTransactionVo>();
             try
             {
 
-                mfTransactionsBookList = customerTransactionDao.GetCustomerTransactionsBook(AdviserID, CustomerId, From, To, Manage, AmcCode,AccountId,SchemePlanCode);
+                mfTransactionsBookList = customerTransactionDao.GetCustomerTransactionsBookSIP( AdviserID,customerId,SystematicId,IsSourceAA,AccountId,SchemePlanCode);
 
             }
             catch (BaseApplicationException Ex)
@@ -2119,7 +2119,43 @@ namespace BoCustomerPortfolio
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "CustomerPortfolioDao.cs:GetRMCustomerMFTransactions()");
-                object[] objects = new object[3];               
+                object[] objects = new object[3];
+                objects[0] = customerId;
+                objects[1] = SystematicId;
+                objects[2] = AccountId;
+                //objects[5] = CurrentPage;
+                //objects[6] = CustomerName;
+                //objects[7] = Scheme;
+                //objects[8] = PasssedFolioValue; 
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return mfTransactionsBookList;
+
+        }
+        public List<MFTransactionVo> GetCustomerTransactionsBook(int AdviserID, int CustomerId, DateTime From, DateTime To, int Manage, int AmcCode, int AccountId, int SchemePlanCode)
+        {
+            CustomerTransactionDao customerTransactionDao = new CustomerTransactionDao();
+            List<MFTransactionVo> mfTransactionsBookList = new List<MFTransactionVo>();
+            try
+            {
+
+                mfTransactionsBookList = customerTransactionDao.GetCustomerTransactionsBook(AdviserID, CustomerId, From, To, Manage, AmcCode, AccountId, SchemePlanCode);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerPortfolioDao.cs:GetRMCustomerMFTransactions()");
+                object[] objects = new object[3];
                 objects[0] = From;
                 objects[1] = To;
                 objects[2] = Manage;
