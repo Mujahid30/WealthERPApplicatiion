@@ -756,14 +756,15 @@ namespace WealthERP.OnlineOrderBackOffice
             //  ddlRT.SelectedValue = ddlSchemeList.SelectedValue.ToString();
             if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.ExternalType))
             {
-                
-                ddlRT.SelectedItem.Text = mfProductAMCSchemePlanDetailsVo.ExternalType.ToString().ToUpper();
-                ddlRT.SelectedIndex = ddlRT.Items.IndexOf(ddlRT.Items.FindByText(mfProductAMCSchemePlanDetailsVo.ExternalType.ToString().ToUpper()));
-                //foreach (ListItem listItem in ddlRT.Items)
-                //{
-                //    listItem.Selected = listItem.Value.Contains(mfProductAMCSchemePlanDetailsVo.ExternalType.ToString().ToUpper());
-                //}
+                Bindscheme(0);
 
+                //ddlRT.DataValueField = mfProductAMCSchemePlanDetailsVo.ExternalType.ToString().ToUpper();
+                ddlRT.DataTextField = mfProductAMCSchemePlanDetailsVo.ExternalType.ToString().ToUpper();
+                
+
+                ddlRT.SelectedItem.Text = mfProductAMCSchemePlanDetailsVo.ExternalType.ToString().ToUpper();
+                //ddlRT.SelectedIndex = ddlRT.Items.IndexOf(ddlRT.Items.FindByText(mfProductAMCSchemePlanDetailsVo.ExternalType.ToString().ToUpper()));
+                
             }
             else
             {
@@ -2899,7 +2900,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 bool iscreate = false;
                 GridEditableItem gridEditableItem = (GridEditableItem)e.Item;
                 TextBox txtgproductcode = (TextBox)e.Item.FindControl("txtgproductcode");
-                iscreate = OnlineOrderBackOfficeBo.Createproductcode(schemeplancode, txtgproductcode.Text, ddlRT.SelectedItem.Text, mfProductAMCSchemePlanDetailsVo.SourceCode, userVo.UserId);
+                iscreate = OnlineOrderBackOfficeBo.Createproductcode(schemeplancode, txtgproductcode.Text, ddlRT.SelectedItem.Text, ddlRT.SelectedItem.Value, userVo.UserId);
 
             }
             if (e.CommandName == RadGrid.UpdateCommandName)
