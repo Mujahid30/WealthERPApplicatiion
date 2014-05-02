@@ -37,6 +37,9 @@ namespace WealthERP.OnlineOrderManagement
         DateTime fromDate;
         DateTime toDate;
         int AccountId = 0;
+        int IsSourceAA = 0;
+        int systematicId = 0;
+        int schemeplanCode = 0;
         static double totalAmount = 0;
         static double totalUnits = 0;
         DataTable dtMFTransactions = new DataTable();
@@ -55,10 +58,28 @@ namespace WealthERP.OnlineOrderManagement
             // lbBack.Attributes.Add("onClick", "javascript:history.back(); return false;");
             if (!Page.IsPostBack)
             {
-                fromDate = DateTime.Now.AddMonths(-1);
-                txtFrom.SelectedDate = fromDate.Date;
-                txtTo.SelectedDate = DateTime.Now;
+                if (Request.QueryString["systematicId"] != null && Request.QueryString["AccountId"] != null && Request.QueryString["schemeplanCode"] != null && Request.QueryString["IsSourceAA"] != null)
+                {
+                    systematicId = int.Parse(Request.QueryString["systematicId"].ToString());
+                    AccountId = int.Parse(Request.QueryString["AccountId"].ToString());
+                    schemeplanCode = int.Parse(Request.QueryString["schemeplanCode"].ToString());
+                    IsSourceAA = int.Parse(Request.QueryString["IsSourceAA"].ToString());
+                    BindGrid();
+                    divConditional.Visible = false;
+
+                }
+                else
+                {
+                    fromDate = DateTime.Now.AddMonths(-1);
+                    txtFrom.SelectedDate = fromDate.Date;
+                    txtTo.SelectedDate = DateTime.Now;
+                }
+
             }
+        }
+        private void BindCustomerTranscationGrid(int systematicId,int AccountId,int schemeplanCode)
+        {
+
         }
         private void BindLastTradeDate()
         {
@@ -192,30 +213,36 @@ namespace WealthERP.OnlineOrderManagement
         }
         private void BindGrid()
         {
-
-            if (Request.QueryString["strPortfolio"] != null)
+            if (Request.QueryString["systematicId"] != null && Request.QueryString["AccountId"] != null && Request.QueryString["schemeplanCode"] != null)
             {
-                string portfolio = Request.QueryString["strPortfolio"].ToString();
-                if (portfolio != "MyPortfolio")
-                {
-                    ddlPortfolioGroup.SelectedItem.Value = "0";
-                    ddlPortfolioGroup.SelectedItem.Text = "UnManaged";
-                }
-                else
-                {
-                    ddlPortfolioGroup.SelectedItem.Value = "1";
-                    ddlPortfolioGroup.SelectedItem.Text = "Managed";
-                }
-
+                mfTransactionList = customerTransactionBo.GetCustomerTransactionsBookSIP(advisorVo.advisorId, customerId,systematicId,IsSourceAA,AccountId,schemeplanCode);
             }
+            else
+            {
+                if (Request.QueryString["strPortfolio"] != null)
+                {
+                    string portfolio = Request.QueryString["strPortfolio"].ToString();
+                    if (portfolio != "MyPortfolio")
+                    {
+                        ddlPortfolioGroup.SelectedItem.Value = "0";
+                        ddlPortfolioGroup.SelectedItem.Text = "UnManaged";
+                    }
+                    else
+                    {
+                        ddlPortfolioGroup.SelectedItem.Value = "1";
+                        ddlPortfolioGroup.SelectedItem.Text = "Managed";
+                    }
 
-            DataSet ds = new DataSet();
-            if (txtFrom.SelectedDate != null)
-                fromDate = DateTime.Parse(txtFrom.SelectedDate.ToString());
-            if (txtTo.SelectedDate != null)
-                toDate = DateTime.Parse(txtTo.SelectedDate.ToString());
-            schemePlanCode = Convert.ToInt32(ViewState["SchemePlanCode"]);
-            mfTransactionList = customerTransactionBo.GetCustomerTransactionsBook(advisorVo.advisorId, customerId, fromDate, toDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), int.Parse(hdnAmc.Value), AccountId, schemePlanCode);
+                }
+
+                DataSet ds = new DataSet();
+                if (txtFrom.SelectedDate != null)
+                    fromDate = DateTime.Parse(txtFrom.SelectedDate.ToString());
+                if (txtTo.SelectedDate != null)
+                    toDate = DateTime.Parse(txtTo.SelectedDate.ToString());
+                schemePlanCode = Convert.ToInt32(ViewState["SchemePlanCode"]);
+                mfTransactionList = customerTransactionBo.GetCustomerTransactionsBook(advisorVo.advisorId, customerId, fromDate, toDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), int.Parse(hdnAmc.Value), AccountId, schemePlanCode);
+            }
             if (mfTransactionList.Count != 0)
             {
                 
@@ -265,19 +292,15 @@ namespace WealthERP.OnlineOrderManagement
                     drMFTransaction[4] = mfTransactionVo.TransactionType.ToString();
                     drMFTransaction[5] = mfTransactionVo.TransactionDate.ToShortDateString().ToString();
                     drMFTransaction[6] = decimal.Parse(mfTransactionVo.Price.ToString()).ToString("n4", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-
                     drMFTransaction[7] = mfTransactionVo.Units.ToString("f4");
                     totalUnits = totalUnits + mfTransactionVo.Units;
                     drMFTransaction[8] = decimal.Parse(mfTransactionVo.Amount.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-
                     totalAmount = totalAmount + mfTransactionVo.Amount;
                     drMFTransaction[9] = decimal.Parse(mfTransactionVo.STT.ToString()).ToString("n4", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-
                     drMFTransaction[10] = mfTransactionVo.PortfolioName.ToString();
                     drMFTransaction[11] = mfTransactionVo.TransactionStatus.ToString();
                     drMFTransaction[12] = mfTransactionVo.Category;
                     drMFTransaction[13] = mfTransactionVo.AMCName;
-
                     if (mfTransactionVo.ProcessId == 0)
                         drMFTransaction[14] = "N/A";
                     else

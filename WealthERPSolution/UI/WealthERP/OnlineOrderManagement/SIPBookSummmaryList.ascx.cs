@@ -251,6 +251,9 @@ namespace WealthERP.OnlineOrderManagement
                 drSIPOrderBook["SystemRejectCount"] = systemRejectCount;
                 drSIPOrderBook["RejectedCount"] = rejectedCount;
                 drSIPOrderBook["ExecutedCount"] = executedCount;
+                drSIPOrderBook["CMFA_AccountId"] = drSIP["CMFA_AccountId"];
+                drSIPOrderBook["PASP_SchemePlanCode"] = drSIP["PASP_SchemePlanCode"];
+                drSIPOrderBook["CMFSS_IsSourceAA"] = drSIP["CMFSS_IsSourceAA"];
                 dtFinalSIPOrderBook.Rows.Add(drSIPOrderBook);
             }
 
@@ -286,6 +289,8 @@ namespace WealthERP.OnlineOrderManagement
             dtSIPOrderBook.Columns.Add("CMFSS_IsSourceAA");
             dtSIPOrderBook.Columns.Add("CMFSS_InstallmentAccepted");
             dtSIPOrderBook.Columns.Add("ExecutedCount");
+            dtSIPOrderBook.Columns.Add("CMFA_AccountId");
+            dtSIPOrderBook.Columns.Add("PASP_SchemePlanCode");
             return dtSIPOrderBook;
 
         }
@@ -368,16 +373,21 @@ namespace WealthERP.OnlineOrderManagement
                                 // GridDataItem gvr = (GridDataItem)e.Item;
                                 int selectedRow = gvr.ItemIndex + 1;
                                 int systematicId = int.Parse(gvr.GetDataKeyValue("CMFSS_SystematicSetupId").ToString());
-                                if (e.CommandName == "Select")
+                                int AccountId = int.Parse(gvr.GetDataKeyValue("CMFA_AccountId").ToString());
+                                int schemeplanCode = int.Parse(gvr.GetDataKeyValue("PASP_SchemePlanCode").ToString());
+                                int IsSourceAA = int.Parse(gvr.GetDataKeyValue("CMFSS_IsSourceAA").ToString());
+                                if (e.CommandName == "Accepted")
                                 {
-                                    if (Session["PageDefaultSetting"] != null)
-                                    {
-                                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('CustomerSIPBookList','?systematicId=" + systematicId + "');", true);
-                                    }
-                                    else
-                                    {
-                                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvvvvvv", "loadcontrol('CustomerSIPBookList','?systematicId=" + systematicId + "');", true);
-                                    }
+                                    //if (Session["PageDefaultSetting"] != null)
+                                    //{
+                                    //   ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('CustomerTransactionBookList','?systematicId=" + systematicId + "');", true);
+
+                                    //}
+                                    //else
+                                    //{
+                                    //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvvvvvv", "loadcontrol('CustomerTransactionBookList');", true);
+                                    //}
+                                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvvvvvv", "loadcontrol('CustomerTransactionBookList','?systematicId=" + systematicId + "&AccountId="+ AccountId + "&schemeplanCode="+schemeplanCode+"&IsSourceAA="+IsSourceAA+"');", true);
                                 }
                             }
                         }
