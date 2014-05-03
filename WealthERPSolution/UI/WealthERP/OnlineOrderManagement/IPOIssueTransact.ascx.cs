@@ -281,6 +281,7 @@ namespace WealthERP.OnlineOrderManagement
             double totalBidAmount = 0;
             string applicationNo = String.Empty;
             string apllicationNoStatus = String.Empty;
+            double maxPaybleBidAmount = 0;
 
             double availableBalance = (double)onlineIPOOrderBo.GetUserRMSAccountBalance(customerVo.AccountId);
 
@@ -345,12 +346,19 @@ namespace WealthERP.OnlineOrderManagement
                 else
                     break;
             }
-            if (availableBalance >= totalBidAmount)
+
+            foreach (GridFooterItem footeritem in RadGridIPOBid.MasterTableView.GetItems(GridItemType.Footer))
+            {
+                Label lblBidHighestValue = (Label)footeritem["BidAmountPayable"].FindControl("lblFinalBidAmountPayable");
+                maxPaybleBidAmount=Convert.ToDouble(lblBidHighestValue.Text.Trim());
+            }
+
+            if (availableBalance >= maxPaybleBidAmount)
             {
                 orderId = onlineIPOOrderBo.CreateIPOBidOrderDetails(advisorVo.advisorId, userVo.UserId, dtIPOBidTransactionDettails, onlineIPOOrderVo, ref applicationNo, ref   apllicationNoStatus);
                 if (orderId != 0 && !string.IsNullOrEmpty(customerVo.AccountId))
                 {
-                    accountDebitStatus = onlineIPOOrderBo.DebitRMSUserAccountBalance(customerVo.AccountId, -totalBidAmount, orderId);
+                    accountDebitStatus = onlineIPOOrderBo.DebitRMSUserAccountBalance(customerVo.AccountId, -maxPaybleBidAmount, orderId);
                     availableBalance = (double)onlineIPOOrderBo.GetUserRMSAccountBalance(customerVo.AccountId);
                     lblAvailableLimits.Text = Convert.ToInt64(availableBalance).ToString();
                 }
