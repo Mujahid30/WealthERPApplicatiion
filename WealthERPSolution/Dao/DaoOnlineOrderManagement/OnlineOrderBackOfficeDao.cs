@@ -2192,7 +2192,7 @@ namespace DaoOnlineOrderManagement
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                UpdateAdviserCustomersAllMFAccountsCmd = db.GetStoredProcCommand("SPROC_Onl_UpdateAdviserCustomersAllMFAccountValuation");
+                UpdateAdviserCustomersAllMFAccountsCmd = db.GetStoredProcCommand("SPROC_Onl_MarkMFAccountReValuation");
                 db.AddInParameter(UpdateAdviserCustomersAllMFAccountsCmd,"@MFAIdString", DbType.String, gvMFAId);
                 db.AddInParameter(UpdateAdviserCustomersAllMFAccountsCmd, "@ModifiedBy", DbType.Int32, ModifiedBy);
                 db.ExecuteNonQuery(UpdateAdviserCustomersAllMFAccountsCmd);
