@@ -485,6 +485,10 @@
             <asp:CompareValidator ID="CompareValidator7" ControlToValidate="txtCapPrice" ControlToCompare="txtFloorPrice"
                 runat="server" Display="Dynamic" ErrorMessage="Cap price greater than floor price"
                 Type="Integer" Operator="GreaterThan" CssClass="cvPCG"></asp:CompareValidator>
+                   <asp:RegularExpressionValidator ID="regtxtCapPrice" ControlToValidate="txtCapPrice"
+                                    ErrorMessage="Enter Only Number" runat="server" Display="Dynamic" CssClass="cvPCG"
+                                    ValidationExpression="[1-9]\d*$" ValidationGroup="SetUpSubmit">     
+                                </asp:RegularExpressionValidator>
         </td>
     </tr>
     <tr id="trFloorAndFixedPrices" runat="server">
@@ -562,8 +566,8 @@
             <asp:TextBox ID="txtNoOfBids" runat="server" CssClass="txtField" Width="200px" Text="3"></asp:TextBox>
             <br />
             <asp:RegularExpressionValidator ID="RegularExpressionValidator18" ControlToValidate="txtNoOfBids"
-                runat="server" Display="Dynamic" ErrorMessage="Please Enter Integer Type" CssClass="cvPCG"
-                ValidationExpression="[0-9]\d*$" ValidationGroup="SetUpSubmit">     
+                runat="server" Display="Dynamic" ErrorMessage="Please Enter Numeric Value" CssClass="cvPCG"  ValidationExpression="[1-9]\d*$"
+                ValidationGroup="SetUpSubmit">     
             </asp:RegularExpressionValidator>
         </td>
     </tr>
@@ -752,7 +756,7 @@
                 InitialValue="" ValidationGroup="SetUpSubmit">
             </asp:RequiredFieldValidator>
             <asp:CompareValidator ID="CompareValidator4" ControlToValidate="txtOpenDate" runat="server"
-                ControlToCompare="txtCloseDate" Display="Dynamic" ErrorMessage="<br/>From Date be Less Than To Range"
+                ControlToCompare="txtCloseDate" Display="Dynamic" ErrorMessage="<br/>Please enter open date less than the close date entered"
                 Type="Date" Operator="LessThanEqual" CssClass="cvPCG" ValidationGroup="SetUpSubmit"></asp:CompareValidator>
         </td>
         <td class="leftLabel">
@@ -776,7 +780,7 @@
                 InitialValue="" ValidationGroup="SetUpSubmit">
             </asp:RequiredFieldValidator>
             <asp:CompareValidator ID="CompareValidator5" ControlToValidate="txtCloseDate" runat="server"
-                ControlToCompare="txtOpenDate" Display="Dynamic" ErrorMessage="<br/>From Date be Less Than To Range"
+                ControlToCompare="txtOpenDate" Display="Dynamic" ErrorMessage="<br/>Please enter close date greater than the open date entered"
                 Type="Date" Operator="GreaterThanEqual" CssClass="cvPCG" ValidationGroup="SetUpSubmit"></asp:CompareValidator>
         </td>
     </tr>
@@ -932,7 +936,7 @@
                 InitialValue="" ValidationGroup="SetUpSubmit">
             </asp:RequiredFieldValidator>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator4" ControlToValidate="txtIssueSizeAmt"
-                runat="server" Display="Dynamic" ErrorMessage="Please Enter Integer Type" CssClass="cvPCG"
+                runat="server" Display="Dynamic" ErrorMessage="Please Enter Numeric Value" CssClass="cvPCG"
                 ValidationExpression="[0-9]\d*$" ValidationGroup="SetUpSubmit">     
             </asp:RegularExpressionValidator>
         </td>
@@ -946,7 +950,7 @@
             <span id="Span22" class="spnRequiredField">*</span>
             <br />
             <asp:RegularExpressionValidator ID="RegularExpressionValidator8" ControlToValidate="txtTradingLot"
-                runat="server" Display="Dynamic" ErrorMessage="Please Enter Integer Value" CssClass="cvPCG"
+                runat="server" Display="Dynamic" ErrorMessage="Please Enter Numeric Value" CssClass="cvPCG"
                 ValidationExpression="[1-9]\d*$" ValidationGroup="SetUpSubmit">                     
             </asp:RegularExpressionValidator>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator19" runat="server" CssClass="rfvPCG"
@@ -966,7 +970,7 @@
                 InitialValue="" ValidationGroup="SetUpSubmit">
             </asp:RequiredFieldValidator>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator9" ControlToValidate="txtBiddingLot"
-                runat="server" Display="Dynamic" ErrorMessage="Please Enter Integer Value" CssClass="cvPCG"
+                runat="server" Display="Dynamic" ErrorMessage="Please Enter Numeric Value" CssClass="cvPCG"
                 ValidationExpression="[1-9]\d*$" ValidationGroup="SetUpSubmit">                     
             </asp:RegularExpressionValidator>
         </td>
@@ -984,7 +988,7 @@
                 InitialValue="" ValidationGroup="SetUpSubmit">
             </asp:RequiredFieldValidator>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator7" ControlToValidate="txtMinAplicSize"
-                runat="server" Display="Dynamic" ErrorMessage="Please Enter Integer Value" CssClass="cvPCG"
+                runat="server" Display="Dynamic" ErrorMessage="Please Enter Numeric Value" CssClass="cvPCG"
                 ValidationExpression="[1-9]\d*$" ValidationGroup="txtMinAplicSize">     
             </asp:RegularExpressionValidator>
             <asp:CompareValidator ID="CompareValidator10" ControlToValidate="txtMinAplicSize"
@@ -1007,7 +1011,7 @@
             <span id="Span30" class="spnRequiredField" visible="false"></span>
             <br />
             <asp:RegularExpressionValidator ID="RegularExpressionValidator10" ControlToValidate="txtMaxQty"
-                runat="server" Display="Dynamic" ErrorMessage="Please Enter Integer Value" CssClass="cvPCG"
+                runat="server" Display="Dynamic" ErrorMessage="Please Enter Numeric Value" CssClass="cvPCG"
                 ValidationExpression="[1-9]\d*$" ValidationGroup="SetUpSubmit" Visible="false">                     
             </asp:RegularExpressionValidator>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator38" runat="server" CssClass="rfvPCG"
@@ -1027,7 +1031,7 @@
                 AutoPostBack="true"></asp:CheckBox>
             <asp:TextBox ID="txtIsPrefix" runat="server" CssClass="txtField" Width="170px"></asp:TextBox>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator17" ControlToValidate="txtIsPrefix"
-                runat="server" Display="Dynamic" ErrorMessage="<br/>Please Enter Integer Value"
+                runat="server" Display="Dynamic" ErrorMessage="<br/>Please Enter Numeric Value"
                 CssClass="cvPCG" ValidationExpression="[0-9]\d*$" ValidationGroup="SetUpSubmit">                     
             </asp:RegularExpressionValidator>
         </td>
@@ -1241,7 +1245,7 @@
                                 GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="true" AllowPaging="false"
                                 ShowStatusBar="True" Skin="Telerik" AllowFilteringByColumn="true" OnNeedDataSource="rgEligibleInvestorCategories_OnNeedDataSource"
                                 OnItemCommand="rgEligibleInvestorCategories_ItemCommand" OnItemDataBound="rgEligibleInvestorCategories_ItemDataBound">
-                                <mastertableview allowmulticolumnsorting="True" allowsorting="true" datakeynames="AIM_IssueId,AIIC_InvestorCatgeoryId"
+                                <mastertableview allowmulticolumnsorting="True" allowsorting="true" DataKeyNames="AIM_IssueId,AIIC_InvestorCatgeoryId"
                                     autogeneratecolumns="false" width="100%" editmode="PopUp" commanditemsettings-addnewrecordtext="Create InvestorCategory"
                                     commanditemdisplay="Top">
                                     <Columns>
@@ -1852,11 +1856,12 @@
                                                                                 OnCheckedChanged="cbSeriesCat_changed" />
                                                                         </ItemTemplate>
                                                                     </telerik:GridTemplateColumn>
-                                                                    <telerik:GridBoundColumn DataField="AIIC_InvestorCatgeoryId" HeaderStyle-Width="10px"
-                                                                        Visible="false" ShowFilterIcon="false" CurrentFilterFunction="Contains" HeaderText="Category ID"
-                                                                        SortExpression="AIIC_InvestorCatgeoryId"      >
-                                                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                               <telerik:GridBoundColumn DataField="AIIC_InvestorCatgeoryId" HeaderStyle-Width="10px"
+                                                                         ShowFilterIcon="false" CurrentFilterFunction="Contains" HeaderText="Category ID"
+                                                                        SortExpression="AIIC_InvestorCatgeoryId" Visible="false">
+                                                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false"/>
                                                                     </telerik:GridBoundColumn>
+                                                                    
                                                                     <telerik:GridBoundColumn DataField="AIIC_InvestorCatgeoryName" HeaderStyle-Width="60px"
                                                                         CurrentFilterFunction="Contains" HeaderText="Category Name" SortExpression="AIIC_InvestorCatgeoryName"
                                                                         AllowFiltering="true" ShowFilterIcon="false">

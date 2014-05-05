@@ -21,6 +21,7 @@ namespace WealthERP.OnlineOrderManagement
 {
     public partial class NCDIssueList : System.Web.UI.UserControl
     {
+        OnlineIPOOrderBo onlineIPOOrderBo = new OnlineIPOOrderBo();
         OnlineBondOrderBo OnlineBondBo = new OnlineBondOrderBo();
         OnlineNCDBackOfficeBo onlineNCDBackOfficeBo = new OnlineNCDBackOfficeBo();
         AdvisorVo advisorVo = new AdvisorVo();
@@ -43,7 +44,16 @@ namespace WealthERP.OnlineOrderManagement
                 ddlType.SelectedValue = "Curent";
                 BindStructureRuleGrid(GetType(ddlType.SelectedValue));
                 BindDropDownListIssuer();
+                ShowAvailableLimits();
             }
+        }
+        private void ShowAvailableLimits()
+        {
+            if (!string.IsNullOrEmpty(customerVo.AccountId))
+            {
+                lblAvailableLimits.Text = onlineIPOOrderBo.GetUserRMSAccountBalance(customerVo.AccountId).ToString();
+            }
+
         }
         protected void btnGo_Click(object sender, EventArgs e)
         {

@@ -471,6 +471,15 @@ namespace DaoOnlineOrderManagement
                 {
                     db.AddInParameter(createCmd, "@AllotmentDate", DbType.Date, DBNull.Value);
                 }
+                  if (onlineNCDBackOfficeVo.IssueRevis != DateTime.MinValue)
+                {
+                    db.AddInParameter(createCmd, "@RevisionDate", DbType.Date, onlineNCDBackOfficeVo.IssueRevis);
+                }
+                else
+                {
+                    db.AddInParameter(createCmd, "@RevisionDate", DbType.Date, DBNull.Value);
+                }
+                
                 db.AddInParameter(createCmd, "@CutOffTime", DbType.Time, onlineNCDBackOfficeVo.CutOffTime);
 
                 issueId = db.ExecuteNonQuery(createCmd);

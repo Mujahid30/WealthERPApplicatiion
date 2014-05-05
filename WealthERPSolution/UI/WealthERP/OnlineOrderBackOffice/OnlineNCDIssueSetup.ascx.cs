@@ -670,6 +670,8 @@ namespace WealthERP.OnlineOrderBackOffice
                     if (type == "Closed")
                     {
                         EnablityOfScreen(false, false, false, true);
+                        txtAllotmentDate.Enabled = true;
+                        txtRevisionDates.Enabled = true;
                     }
                     else
                         EnablityOfScreen(true, true, true, true);
@@ -686,7 +688,7 @@ namespace WealthERP.OnlineOrderBackOffice
         private void EnablityOfScreen(bool value, bool boolGridsEnablity, bool boolGridsVisblity, bool boolBtnsVisblity)
         {
             txtBankBranch.Enabled = value;
-            txtAllotmentDate.Enabled = value;
+           
             txtTradingInMultipleOf.Enabled = value;
 
             ddlProduct.Enabled = value;
@@ -719,7 +721,7 @@ namespace WealthERP.OnlineOrderBackOffice
             ddlCloseTimeMinutes.Enabled = value;
             ddlCloseTimeSeconds.Enabled = value;
             txtRevisionDates.Enabled = value;
-
+            txtAllotmentDate.Enabled = value;
 
 
             ddlCutOffTimeHours.Enabled = value;
@@ -2736,6 +2738,9 @@ namespace WealthERP.OnlineOrderBackOffice
                         foreach (GridDataItem gdi in rgSeriesCat.Items)
                         {
                             int grdcategoryId = Convert.ToInt32(gdi["AIIC_InvestorCatgeoryId"].Text);
+                            rgSeriesCat.MasterTableView.GetColumn("AIIC_InvestorCatgeoryId").Visible = false;
+                        
+
                             if (seriesCategoryId == grdcategoryId)
                             {
                                 CheckBox cbSeriesCat = (CheckBox)gdi.FindControl("cbSeriesCat");
@@ -2880,6 +2885,8 @@ namespace WealthERP.OnlineOrderBackOffice
                 if (type == "Closed")
                 {
                     VisblityAndEnablityOfScreen("LnkEdit");
+                    txtAllotmentDate.Enabled = true;
+                    txtRevisionDates.Enabled = true;
                 }
 
                 else

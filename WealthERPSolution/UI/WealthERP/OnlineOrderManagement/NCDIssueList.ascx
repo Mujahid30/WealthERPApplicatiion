@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="NCDIssueList.ascx.cs"
+<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="NCDIssueList.ascx.cs"
     Inherits="WealthERP.OnlineOrderManagement.NCDIssueList" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
@@ -126,6 +126,18 @@
         padding-right: 5px;
     }
 </style>
+  <table class="tblMessage" cellpadding="0" cellspacing="0">
+            <tr>
+                <td>
+                    <div class="divOnlinePageHeading">
+                        <div class="divClientAccountBalance">
+                            <asp:Label ID="Label1" runat="server" Text="Available Limits:" CssClass="BalanceLabel" Visible="true"> </asp:Label>
+                            <asp:Label ID="lblAvailableLimits" runat="server" Text="" CssClass="BalanceAmount" Visible="true"></asp:Label>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
 <table width="100%">
     <tr>
         <td>

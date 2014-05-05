@@ -12,8 +12,8 @@
                 <td>
                     <div class="divOnlinePageHeading">
                         <div class="divClientAccountBalance">
-                            <asp:Label ID="Label1" runat="server" Text="Available Limits:" CssClass="BalanceLabel" Visible="false"> </asp:Label>
-                            <asp:Label ID="lblAvailableLimits" runat="server" Text="" CssClass="BalanceAmount" Visible="false"></asp:Label>
+                            <asp:Label ID="Label1" runat="server" Text="Available Limits:" CssClass="BalanceLabel" Visible="true"> </asp:Label>
+                            <asp:Label ID="lblAvailableLimits" runat="server" Text="" CssClass="BalanceAmount" Visible="true"></asp:Label>
                         </div>
                     </div>
                 </td>

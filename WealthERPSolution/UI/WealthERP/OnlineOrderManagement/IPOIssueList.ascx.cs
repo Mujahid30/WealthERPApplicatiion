@@ -21,7 +21,7 @@ namespace WealthERP.OnlineOrderManagement
 {
     public partial class IPOIssueList : System.Web.UI.UserControl
     {
-        OnlineIPOOrderBo onlineIPOOrderBo=new OnlineIPOOrderBo();
+        OnlineIPOOrderBo onlineIPOOrderBo = new OnlineIPOOrderBo();
         AdvisorVo advisorVo;
         CustomerVo customerVo;
         UserVo userVo;
@@ -36,16 +36,25 @@ namespace WealthERP.OnlineOrderManagement
             {
                 ddlType.SelectedValue = "Curent";
                 BindIPOIssueList(GetType(ddlType.SelectedValue));
+                ShowAvailableLimits();
+            }
+
+        }
+        private void ShowAvailableLimits()
+        {
+            if (!string.IsNullOrEmpty(customerVo.AccountId))
+            {
+                lblAvailableLimits.Text = onlineIPOOrderBo.GetUserRMSAccountBalance(customerVo.AccountId).ToString();
             }
 
         }
         protected void btnGo_Click(object sender, EventArgs e)
         {
             int type = GetType(ddlType.SelectedValue);
-            BindIPOIssueList( type);
+            BindIPOIssueList(type);
         }
 
-         private int GetType(string ddlSelection)
+        private int GetType(string ddlSelection)
         {
             int type = 0;
             if (ddlSelection == "Curent")
@@ -73,7 +82,7 @@ namespace WealthERP.OnlineOrderManagement
                 //LinkButton lbButton = (LinkButton)sender;
                 //GridDataItem item = (GridDataItem)lbButton.NamingContainer;
                 //int IssuerId = int.Parse(gvCommMgmt.MasterTableView.DataKeyValues[rowindex]["AIM_IssueId"].ToString());
-               // categoryId = Convert.ToInt32(rgEligibleInvestorCategories.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIIC_InvestorCatgeoryId"].ToString());
+                // categoryId = Convert.ToInt32(rgEligibleInvestorCategories.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIIC_InvestorCatgeoryId"].ToString());
 
                 issueId = Convert.ToInt32(RadGridIPOIssueList.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIM_IssueId"].ToString());
                 if (Session["PageDefaultSetting"] != null)
@@ -135,7 +144,7 @@ namespace WealthERP.OnlineOrderManagement
 
 
 
-        private void BindIPOIssueList(int type )
+        private void BindIPOIssueList(int type)
         {
             DataTable dtOnlineIPOIssueList = onlineIPOOrderBo.GetIPOIssueList(advisorVo.advisorId, 0, type, customerVo.CustomerId);
 
