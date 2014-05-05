@@ -1120,6 +1120,11 @@ namespace WealthERP.Advisor
                     Session["UserType"] = "adviser";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineOrderAccountingExtract','login');", true);
                 }
+                else if (e.Item.Value == "NCD_Extract")
+                {
+                    Session["UserType"] = "adviser";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineOrderNCDIPOAccountingExtract','login');", true);
+                }
                 else if (e.Item.Value == "MF_Online_SIP_Ord_Book")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineAdviserCustomerSIPOrderBook','login');", true);
@@ -2269,6 +2274,11 @@ namespace WealthERP.Advisor
                 {
                     Session["UserType"] = "adviser";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineIssueExtract','login');", true);
+                }
+                else if (e.Item.Value == "NCD/IPO Accounting")
+                {
+                    Session["UserType"] = "adviser";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineOrderNCDIPOAccountingExtract','login');", true);
                 }
 
                 else if (e.Item.Value == "File_Generation")
