@@ -159,15 +159,14 @@
                                         ShowFilterIcon="false" UniqueName="AIM_CloseDate" Visible="true">
                                         <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                     </telerik:GridBoundColumn>
-                                     <telerik:GridBoundColumn DataField="DiscountType" HeaderStyle-Width="200px" HeaderText="Discount Type"
+                                    <telerik:GridBoundColumn DataField="DiscountType" HeaderStyle-Width="200px" HeaderText="Discount Type"
                                         ShowFilterIcon="false" UniqueName="DiscountType" Visible="true">
                                         <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                     </telerik:GridBoundColumn>
-                                     <telerik:GridBoundColumn DataField="DiscountValue" HeaderStyle-Width="200px" HeaderText="Discount Value/Bid Qnt"
+                                    <telerik:GridBoundColumn DataField="DiscountValue" HeaderStyle-Width="200px" HeaderText="Discount Value/Bid Qnt"
                                         ShowFilterIcon="false" UniqueName="DiscountValue" Visible="true" DataFormatString="{0:0.00}">
                                         <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                     </telerik:GridBoundColumn>
-                                    
                                 </Columns>
                             </MasterTableView>
                         </telerik:RadGrid>
@@ -205,7 +204,8 @@
                                         Visible="true" UniqueName="CheckCutOff" HeaderText="Cut-Off" ItemStyle-HorizontalAlign="Center"
                                         HeaderStyle-HorizontalAlign="Center">
                                         <ItemTemplate>
-                                            <asp:CheckBox ID="cbCutOffCheck" runat="server" AutoPostBack="true" OnCheckedChanged="CutOffCheckBox_Changed" />
+                                            <asp:CheckBox ID="cbCutOffCheck" runat="server" Visible='<%# (Convert.ToInt32(Eval("IssueBidNo")) == 1)? true: false %>'
+                                                AutoPostBack="true" OnCheckedChanged="CutOffCheckBox_Changed" />
                                             <a href="#" class="popper" data-popbox="divCutOffCheck">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
                                             <div id="divCutOffCheck" class="popbox">
                                                 <h2>
@@ -233,7 +233,7 @@
                                                 Display="Dynamic" />
                                             <asp:RegularExpressionValidator ID="revtxtBidQuantity" ControlToValidate="txtBidQuantity"
                                                 runat="server" ErrorMessage="Please enter a valid bid quantity" Text="*" Display="Dynamic"
-                                                ValidationExpression="[0-9]*" CssClass="rfvPCG" ValidationGroup="btnConfirmOrder"></asp:RegularExpressionValidator>
+                                                ValidationExpression="[0-9]*" CssClass="rfvPCG" ValidationGroup="btnConfirmOrder"></asp:RegularExpressionValidator>                                            
                                         </ItemTemplate>
                                     </telerik:GridTemplateColumn>
                                     <telerik:GridTemplateColumn AllowFiltering="false" DataField="" HeaderStyle-Width="100px"
@@ -241,7 +241,7 @@
                                         ItemStyle-HorizontalAlign="Center" HeaderStyle-HorizontalAlign="Center" FooterStyle-HorizontalAlign="Center">
                                         <ItemTemplate>
                                             <asp:TextBox ID="txtBidPrice" runat="server" CssClass="txtField" Text='<%# Bind("BidPrice")%>'
-                                                AutoPostBack="true"  OnTextChanged="BidQuantityPrice_TextChanged" onkeypress="return isNumberKey(event)"> </asp:TextBox>
+                                                AutoPostBack="true" OnTextChanged="BidQuantityPrice_TextChanged" onkeypress="return isNumberKey(event)"> </asp:TextBox>
                                             <a href="#" class="popper" data-popbox="divBidPrice">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
                                             <div id="divBidPrice" class="popbox">
                                                 <h2>
@@ -257,6 +257,7 @@
                                             <asp:RegularExpressionValidator ID="revtxtBidPrice" ControlToValidate="txtBidPrice"
                                                 runat="server" ErrorMessage="Please enter a valid bid price" Text="*" Display="Dynamic"
                                                 ValidationExpression="^\d+(\.\d{1,2})?$" CssClass="rfvPCG" ValidationGroup="btnConfirmOrder"></asp:RegularExpressionValidator>
+                                           
                                         </ItemTemplate>
                                         <FooterTemplate>
                                             <asp:Label runat="server" ID="lblBidHighestValue" Text="Highest Bid Value"></asp:Label>
@@ -268,9 +269,12 @@
                                         <ItemTemplate>
                                             <asp:TextBox ID="txtBidAmountPayable" runat="server" ReadOnly="true" CssClass="txtDisableField"
                                                 Text='<%# Bind("BidAmountPayable")%>'></asp:TextBox>
+                                        
                                         </ItemTemplate>
                                         <FooterTemplate>
-                                            <asp:Label runat="server" ID="lblFinalBidAmountPayable" Text=""></asp:Label>
+                                            <asp:Label runat="server" ID="lblFinalBidAmountPayable" Text="0"></asp:Label>
+                                            <asp:TextBox ID="txtFinalBidValue" runat="server" CssClass="txtField" Text="0" Visible="false">
+                                            </asp:TextBox>
                                         </FooterTemplate>
                                     </telerik:GridTemplateColumn>
                                     <telerik:GridTemplateColumn AllowFiltering="false" DataField="" HeaderStyle-Width="100px"
