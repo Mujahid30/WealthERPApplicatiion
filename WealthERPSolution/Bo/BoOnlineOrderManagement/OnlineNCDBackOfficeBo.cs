@@ -1735,5 +1735,32 @@ namespace BoOnlineOrderManagement
             }
             return dsProductIssuer;
         }
-    }
+
+        public string GetNCDIPOProductIssuer(int IssueId)
+        {
+            string  dsProductIssuer;
+            OnlineNCDBackOfficeDao onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
+
+            try
+            {
+                dsProductIssuer = onlineNCDBackOfficeDao.GetNCDIPOProductIssuer(IssueId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OperationDao.cs:GetMfOrderExtract()");
+                object[] objects = new object[10];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsProductIssuer;
+        }
+     }
 }

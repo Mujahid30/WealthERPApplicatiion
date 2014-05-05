@@ -2,7 +2,7 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
-<asp:ScriptManager ID="scrptMgr" runat="server">
+<%--<asp:ScriptManager ID="scrptMgr" runat="server">
 </asp:ScriptManager>
 <table width="100%">
     <tr>
@@ -149,10 +149,10 @@
            <%-- <asp:CompareValidator ID="CompareValidator1" ControlToValidate="txtToDate" runat="server"
                 ControlToCompare="txtExtractDate" Display="Dynamic" ErrorMessage="<br/>To Date be greater Than From Date"
                 Type="Date" Operator="GreaterThanEqual" CssClass="cvPCG" ValidationGroup="vgBtnSubmitTemp"></asp:CompareValidator>--%>
-        </td>
+      <%--  </td>
         <td colspan="2">
         </td>
-    </tr>
+    </tr>--%>
     <%--<tr id="trExtractDate" runat="server" visible="false">
         <td>
         </td>
@@ -200,7 +200,7 @@
         </td>
         <td>
         </td>
-    </tr>--%>
+    </tr>
     <tr>
         <td>
         </td>
@@ -216,4 +216,4 @@
         <td>
         </td>
     </tr>
-    </table>
+    </table>--%>

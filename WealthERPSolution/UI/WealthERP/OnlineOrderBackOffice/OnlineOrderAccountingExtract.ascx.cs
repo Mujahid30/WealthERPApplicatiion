@@ -144,11 +144,11 @@ namespace WealthERP.OnlineOrderBackOffice
             return strRandomNo;
         }
 
-        protected void lnkNCDIPO_Click(object sender, EventArgs e)
-        {
-            //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadOrder", "loadcontrol('MFOrderBuyTransTypeOffline','login');", true);
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFOrderBuyTransTypeOffline','login');", true);
-        }
+        //protected void lnkNCDIPO_Click(object sender, EventArgs e)
+        //{
+        //    //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadOrder", "loadcontrol('MFOrderBuyTransTypeOffline','login');", true);
+        //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineOrderNCDIPOAccountingExtract','login');", true);
+        //}
 
         private string GetFilename(int fileId)
         {
@@ -176,7 +176,7 @@ namespace WealthERP.OnlineOrderBackOffice
             commonProgrammingBo = new CommonProgrammingBo();
             string strFileNameAndDelimeter = string.Empty;
 
-            strFileNameAndDelimeter = commonProgrammingBo.SetFileNameAndDelimeter(Convert.ToInt32(ddlExtractType.SelectedValue), Convert.ToDateTime(txtExtractDate.SelectedDate));
+            strFileNameAndDelimeter = commonProgrammingBo.SetFileNameAndDelimeter(Convert.ToInt32(ddlExtractType.SelectedValue), Convert.ToDateTime(txtExtractDate.SelectedDate),null);
             SetFileNameAndDelimeter(strFileNameAndDelimeter);
             //SetFileNameAndDelimeter(Convert.ToInt32(ddlExtractType.SelectedValue));
             File.WriteAllText(Path.Combine(ExtractPath, filename), ", System.Text.Encoding.Default");

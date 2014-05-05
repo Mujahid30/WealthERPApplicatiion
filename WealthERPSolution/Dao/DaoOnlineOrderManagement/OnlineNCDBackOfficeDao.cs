@@ -2852,5 +2852,35 @@ namespace DaoOnlineOrderManagement
             return dsProductIssuer;
         }
 
+        public string  GetNCDIPOProductIssuer(int IssueId)
+        {
+            DataSet dsProductIssuer;
+            Database db;
+            DbCommand GetProductIssuerListCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetProductIssuerListCmd = db.GetStoredProcCommand("SPROC_GetNCDIPOProductIssuer");
+                db.AddInParameter(GetProductIssuerListCmd, "@IssueId", DbType.Int32, IssueId);
+                 dsProductIssuer = db.ExecuteDataSet(GetProductIssuerListCmd);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OperationDao.cs:GetMfOrderExtract()");
+                object[] objects = new object[10];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsProductIssuer.Tables[0].Rows[0][0].ToString();
+        }
     }
 }

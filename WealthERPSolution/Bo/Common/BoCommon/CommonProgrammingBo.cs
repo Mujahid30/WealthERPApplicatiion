@@ -17,7 +17,7 @@ namespace BoCommon
         }
 
 
-        public string SetFileNameAndDelimeter(int FileID, DateTime dtExtractDate)
+        public string SetFileNameAndDelimeter(int FileID, DateTime dtExtractDate, string ProductIssueCOde)
         {
             string strExtractDate = Convert.ToDateTime(dtExtractDate).ToShortDateString();
             string[] strSplitExtractDate = strExtractDate.Split('/');
@@ -59,22 +59,22 @@ namespace BoCommon
            //NCD PAYFILE FOR IIFCL BOND_09.12
             else if (FileID == 46)
             {
-                filename = "NCD PAYFILE FOR" + "_"+ DD + '.'+ MM + ".txt";
+                filename = "NCD PAYFILE FOR" + ' ' + ProductIssueCOde+' '+ "BOND" + "_" + DD + '.' + MM + ".txt";
                 delimeter = "\t";
             }
             else if (FileID == 47)
             {
-                filename = "eNCD"  + DD+MM+YYYY+'-'+ ".txt";
+                filename = "eNCD" + DD + MM + YYYY + '-' + ProductIssueCOde + ".txt";
                 delimeter = "|";
             }
             else if (FileID == 48)
             {
-                filename = "IPO PAYFILE FOR" + "_" + DD + '.' + MM + ".txt";
+                filename = "IPO PAYFILE FOR" + ' ' + ProductIssueCOde + ' ' + "BOND" + "_" + DD + '.' + MM + ".txt";
                 delimeter = "\t";
             }
             else if (FileID == 49)
             {
-                filename = "eNCD" + DD + MM + YYYY + '-' + ".txt";
+                filename = "eNCD" + DD + MM + YYYY + '-' + ProductIssueCOde + ".txt";
                 delimeter = "|";
             }
             return filename + "~" + delimeter;
