@@ -1120,7 +1120,7 @@ namespace WealthERP.Advisor
                     Session["UserType"] = "adviser";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineOrderAccountingExtract','login');", true);
                 }
-                else if (e.Item.Value == "NCD_Extract")
+                else if (e.Item.Value == "NCD/IPO Accounting")
                 {
                     Session["UserType"] = "adviser";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineOrderNCDIPOAccountingExtract','login');", true);
