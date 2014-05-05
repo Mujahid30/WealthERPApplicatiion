@@ -2893,6 +2893,9 @@ namespace WealthERP.OnlineOrderBackOffice
             }
             else
             {
+                if (Session["newschemeplancode"] == null)
+                    return;
+
                 schemeplancode = int.Parse(Session["newschemeplancode"].ToString());
             }
 
