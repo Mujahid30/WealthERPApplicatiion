@@ -912,6 +912,8 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(createCmd, "@RedemptionDate", DbType.String, onlineNCDBackOfficeVo.RedemptionDate);
                 db.AddInParameter(createCmd, "@redemptionAmount", DbType.Double, onlineNCDBackOfficeVo.RedemptionAmount);
                 db.AddInParameter(createCmd, "@lockinperiod", DbType.Int32, onlineNCDBackOfficeVo.LockInPeriodapplicable);
+                db.AddInParameter(createCmd, "@issueId", DbType.Int32, onlineNCDBackOfficeVo.IssueId);
+
                 if (db.ExecuteNonQuery(createCmd) != 0)
                     bResult = true;
             }
@@ -1411,6 +1413,8 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(createCmd, "@RedemptionDate", DbType.String, onlineNCDBackOfficeVo.RedemptionDate);
                 db.AddInParameter(createCmd, "@redemptionAmount", DbType.Double, onlineNCDBackOfficeVo.RedemptionAmount);
                 db.AddInParameter(createCmd, "@lockinperiod", DbType.Int32, onlineNCDBackOfficeVo.LockInPeriodapplicable);
+                db.AddInParameter(createCmd, "@issueId", DbType.Int32, onlineNCDBackOfficeVo.IssueId);
+
                 if (db.ExecuteNonQuery(createCmd) != 0)
                     bResult = true;
             }

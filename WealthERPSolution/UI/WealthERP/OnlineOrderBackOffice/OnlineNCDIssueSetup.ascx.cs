@@ -3406,11 +3406,11 @@ namespace WealthERP.OnlineOrderBackOffice
             if (string.IsNullOrEmpty(txtNSECode.Text) && string.IsNullOrEmpty(txtBSECode.Text))
                 isBool = false;
 
-            if (txtNSECode.Text == txtBSECode.Text)
-            {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please Enter Different NSE or BSE Code.');", true);
-                isBool = false;
-            }
+            //if (txtNSECode.Text == txtBSECode.Text)
+            //{
+            //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please Enter Different NSE or BSE Code.');", true);
+            //    isBool = false;
+            //}
             onlineNCDBackOfficeBo.NSEandBSEcodeCheck(issuCheck, advisorVo.advisorId, txtNSECode.Text, txtBSECode.Text, ref  isBseExist, ref  isNseExist);
             if (isBseExist > 0 && txtBSECode.Text != string.Empty)
             {
@@ -3458,7 +3458,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     onlineNCDBackOfficeVo.RedemptionDate = redemptiondate;
                     onlineNCDBackOfficeVo.RedemptionAmount = redemptionAmount;
                     onlineNCDBackOfficeVo.LockInPeriodapplicable = txtLockInPeriod;
-
+                    onlineNCDBackOfficeVo.IssueId=Convert.ToInt32(txtIssueId.Text );
                     result = onlineNCDBackOfficeBo.CreateSeriesCategory(onlineNCDBackOfficeVo, userVo.UserId);
                 }
                 else if (commandType == "Update")
@@ -3474,7 +3474,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     onlineNCDBackOfficeVo.RedemptionDate = redemptiondate;
                     onlineNCDBackOfficeVo.RedemptionAmount = redemptionAmount;
                     onlineNCDBackOfficeVo.LockInPeriodapplicable = txtLockInPeriod;
-
+                    onlineNCDBackOfficeVo.IssueId = Convert.ToInt32(txtIssueId.Text);
                     result = onlineNCDBackOfficeBo.UpdateSeriesCategory(onlineNCDBackOfficeVo, userVo.UserId);
                 }
 
