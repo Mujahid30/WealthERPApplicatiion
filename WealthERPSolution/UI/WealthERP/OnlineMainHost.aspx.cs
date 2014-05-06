@@ -52,72 +52,53 @@ namespace WealthERP
         protected void Page_Init(object sender, EventArgs e)
         {
 
-            if (IsPostBack)
+            if (Page.Request.Headers["x-Account-ID"] != null && Page.Request.Headers["x-Account-ID"] != "")
             {
-                OnlineUserSessionBo.CheckSession();
+                userAccountId = Page.Request.Headers["x-Account-ID"].ToString();
+                if (Page.Request.Headers["x-SBI-PType"] != null && Page.Request.Headers["x-SBI-PType"] != "")
+                {
+                    productType = Page.Request.Headers["x-SBI-PType"];
+                    lblTest.Text = productType;
+                }
+            }
+            else if (Request.QueryString["x-Account-ID"] != null && Request.QueryString["x-Account-ID"] != "")
+            {
+                userAccountId = Request.QueryString["x-Account-ID"].ToString();
+
+                if (Request.QueryString["x-SBI-PType"] != null && Request.QueryString["x-SBI-PType"] != "")
+                {
+                    productType = Request.QueryString["x-SBI-PType"];
+                    lblTest.Text = productType;
+                }
+            }
+            if (Request.QueryString["WERP"] != null)
+                isWerp = Request.QueryString["WERP"];
+            //Testing User
+
+            //if (string.IsNullOrEmpty(userAccountId))
+            //    userAccountId = "ESI206315";
+            //if (productType != "MF")
+            //    productType = "MF";
+
+            if (!string.IsNullOrEmpty(userAccountId))
+            {
+                if (string.IsNullOrEmpty(productType))
+                    productType = "MF";
+                if (!Page.IsPostBack)
+                {
+                    SetProductTypeMenu(productType.ToUpper());
+                    SetDefaultPageSetting(productType.ToUpper());
+
+                }
+                lblWelcomeUser.Text = "Account: " + userAccountId;
             }
             else
             {
-
-                if (Page.Request.Headers["x-Account-ID"] != null && Page.Request.Headers["x-Account-ID"] != "")
-                {
-                    userAccountId = Page.Request.Headers["x-Account-ID"].ToString();
-                    if (Page.Request.Headers["x-SBI-PType"] != null && Page.Request.Headers["x-SBI-PType"] != "")
-                    {
-                        productType = Page.Request.Headers["x-SBI-PType"];
-                        lblTest.Text = productType;
-                    }
-                }
-                else if (Request.QueryString["x-Account-ID"] != null && Request.QueryString["x-Account-ID"] != "")
-                {
-                    userAccountId = Request.QueryString["x-Account-ID"].ToString();
-
-                    if (Request.QueryString["x-SBI-PType"] != null && Request.QueryString["x-SBI-PType"] != "")
-                    {
-                        productType = Request.QueryString["x-SBI-PType"];
-                        lblTest.Text = productType;
-                    }
-                }
-                if (Request.QueryString["WERP"] != null)
-                    isWerp = Request.QueryString["WERP"];
-                //Testing User
-
-                //if (string.IsNullOrEmpty(userAccountId))
-                //    userAccountId = "A800003";
-                //if (productType != "MF")
-                //    productType = "MF";
-
-                //if (!Page.IsPostBack)
-                //{
-                //    if (Session["Loaded"] != null && Convert.ToBoolean(Session["Loaded"]) == true)
-                //    {
-                //        Session["Loaded"] = false;
-                //    }
-                //    else
-                //    {
-                //        Session["Loaded"] = true;
-                //        //Register a javascript to set the parent
-
-                //        Page.ClientScript.RegisterStartupScript(this.GetType(),
-                //            "pageloadscript", "window.parent.location.href = 'OnlineMainHost.aspx'", true);
-                //    }
-                //}
-
-
-                if (!string.IsNullOrEmpty(userAccountId))
-                {
-                    if (string.IsNullOrEmpty(productType))
-                        productType = "MF";
-                    lblWelcomeUser.Text = "Account: " + userAccountId;
-                }
-                else
-                {
-                    productType = "NP";
-                    //Not Authorize to see the page
-                    SetDefaultPageSetting("NA");
-                }
-
+                productType = "NP";
+                //Not Authorize to see the page
+                SetDefaultPageSetting("NA");
             }
+
 
         }
 
@@ -126,10 +107,9 @@ namespace WealthERP
         protected void Page_Load(object sender, EventArgs e)
         {
             bool isValidUser = false;
+
             if (!IsPostBack)
             {
-                //userAccountId = "ESMW0009999";
-
                 if (!string.IsNullOrEmpty(userAccountId))
                 {
                     isValidUser = ValidateUserLogin(userAccountId, isWerp);
@@ -137,14 +117,10 @@ namespace WealthERP
 
                 if (isValidUser)
                 {
-
-                    SetProductTypeMenu(productType.ToUpper());
-                    SetDefaultPageSetting(productType.ToUpper());
                     Page.ClientScript.RegisterStartupScript(this.GetType(), "pageloadscriptabcd", "LoadTopPanelDefault('OnlineOrderTopMenu');", true);
                 }
                 else
                 {
-                    SetDefaultPageSetting("NA");
                     Page.ClientScript.RegisterStartupScript(this.GetType(), "pageloadscriptabcdnnn", "LoadTopPanelDefault('OnlineOrderDummyTopMenu');", true);
                 }
 
@@ -226,10 +202,7 @@ namespace WealthERP
             if (string.IsNullOrEmpty(isWerp))
                 userVo = userBo.GetUserAccountDetails(userAccountId, Convert.ToInt32(strOnlineAdviser));
             else
-            {
-                advisorVo = (AdvisorVo)Session["advisorVo"];
-                userVo = userBo.GetUserAccountDetails(userAccountId, advisorVo.advisorId);
-            }
+                userVo = userBo.GetUserAccountDetails(userAccountId, 0);
 
             if (!string.IsNullOrEmpty(isWerp))
             {
@@ -297,7 +270,6 @@ namespace WealthERP
             {
                 UserPreference = new HttpCookie("UserPreference");
                 UserPreference.Values["UserTheme"] = "SBIOnLine";
-                UserPreference.Values["OnlineUser"] = "Yes";
                 hidUserLogOutPageUrl.Value = logoutPageURL;
                 hidUserLogInPageUrl.Value = loginPageURL;
 

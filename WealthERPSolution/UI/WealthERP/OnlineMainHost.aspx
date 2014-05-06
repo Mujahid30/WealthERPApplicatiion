@@ -239,13 +239,13 @@
     <div>
         <asp:ScriptManager ID="ScriptManager" runat="server" EnablePageMethods="true" />
         <div class="div-with-header">
-            <div style="float: right; width: 10%; padding-top: 8px; padding-right: 28%;">
+            <div style="float: right; padding-top: 8px;">
                 <asp:LinkButton ID="lnkLogOut" runat="server" Text="" CssClass="div-log-out" Style="text-decoration: none"
                     OnClick="lnkLogOut_Click"></asp:LinkButton>
             </div>
-            <div style="float: right; width: 15%; padding-top: 10px; padding-right: 3%;">
+            <div style="float: right; width: 36%; padding-top: 10px;">
                 <asp:Label ID="lblWelcomeUser" runat="server" Text="" CssClass="user-name"></asp:Label>
-                <asp:Label ID="lblTest" runat="server" Text="" CssClass="user-name" Visible="false"></asp:Label>
+                <asp:Label ID="lblTest" runat="server" Text="" CssClass="user-name"></asp:Label>
             </div>
         </div>
         <div class="div-container">
