@@ -1763,7 +1763,7 @@ namespace DaoOnlineOrderManagement
             }
             return count;
         }
-        public bool Updateproductamcscheme(MFProductAMCSchemePlanDetailsVo mfProductAMCSchemePlanDetailsVo, int SchemePlanCode)
+        public bool Updateproductamcscheme(MFProductAMCSchemePlanDetailsVo mfProductAMCSchemePlanDetailsVo, int SchemePlanCode,int userid)
         {
             bool blResult = false;
             Database db;
@@ -1798,7 +1798,9 @@ namespace DaoOnlineOrderManagement
                 {
                     db.AddInParameter(UpdateproductamcschemeCmd, "@PASP_NFOEndDate", DbType.DateTime, DBNull.Value);
                 }
-                //db.AddInParameter(UpdateproductamcschemeCmd, "@XESExternal", DbType.String, mfProductAMCSchemePlanDetailsVo.SourceCode);
+                db.AddInParameter(UpdateproductamcschemeCmd, "@PASP_CreatedBy", DbType.Int32, userid);
+                db.AddInParameter(UpdateproductamcschemeCmd, "@PASP_ModifiedBy", DbType.Int32, userid);
+                db.AddInParameter(UpdateproductamcschemeCmd, "@XESExternal", DbType.String, mfProductAMCSchemePlanDetailsVo.SourceCode);
 
                 db.ExecuteNonQuery(UpdateproductamcschemeCmd);
                 if (db.ExecuteNonQuery(UpdateproductamcschemeCmd) != 0)
@@ -2338,6 +2340,37 @@ namespace DaoOnlineOrderManagement
                 throw Ex;
             }
             return Type;
+        }
+        public int GetSchemecode(int schemeplancode)
+        {
+            int schemecode = 0;
+            Database db;
+            DbCommand GetSchemecodecmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetSchemecodecmd = db.GetStoredProcCommand("SPROC_Getschemedetails");
+                db.AddInParameter(GetSchemecodecmd, "@schemeplancode", DbType.Int32, schemeplancode);
+                db.AddOutParameter(GetSchemecodecmd, "@schemecode", DbType.Int32, 10);
+                if (db.ExecuteScalar(GetSchemecodecmd).ToString() != string.Empty)
+                    schemecode = Convert.ToInt32(db.ExecuteScalar(GetSchemecodecmd).ToString());
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AssociateDAO.cs:CodeduplicateChack()");
+                object[] objects = new object[2];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return schemecode;
         }
     }
 }

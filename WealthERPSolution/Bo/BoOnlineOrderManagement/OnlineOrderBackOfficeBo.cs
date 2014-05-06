@@ -1729,13 +1729,13 @@ namespace BoOnlineOrderManagement
             }
             return result;
         }
-        public bool Updateproductamcscheme(MFProductAMCSchemePlanDetailsVo mfProductAMCSchemePlanDetailsVo, int SchemePlanCode)
+        public bool Updateproductamcscheme(MFProductAMCSchemePlanDetailsVo mfProductAMCSchemePlanDetailsVo, int SchemePlanCode,int userid)
         {
             bool blResult = false;
             OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
             try
             {
-                blResult = OnlineOrderBackOfficeDao.Updateproductamcscheme(mfProductAMCSchemePlanDetailsVo, SchemePlanCode);
+                blResult = OnlineOrderBackOfficeDao.Updateproductamcscheme(mfProductAMCSchemePlanDetailsVo, SchemePlanCode, userid);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1982,6 +1982,13 @@ namespace BoOnlineOrderManagement
              }
              return Type;
 
+         }
+         public int GetSchemecode(int schemeplancode)
+         {
+             int schemecode = 0;
+             OnlineOrderBackOfficeDao daoOnlineOrderBackOffice = new OnlineOrderBackOfficeDao();
+             schemecode = daoOnlineOrderBackOffice.GetSchemecode(schemeplancode);
+             return schemecode;
          }
     }
 

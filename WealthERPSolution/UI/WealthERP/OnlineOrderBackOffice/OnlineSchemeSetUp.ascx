@@ -391,7 +391,7 @@
                         InitialValue="Select"></asp:RequiredFieldValidator>
                     <asp:DropDownList ID="ddlDFrequency" runat="server" CssClass="cmbField" AutoPostBack="false"
                         Visible="false">
-                        <asp:ListItem Text="Select" Value="Select" Selected="true" />
+                        <asp:ListItem Text="Select" Value="Select" Selected="False" />
                         <asp:ListItem Text="Dividend Reinvestment" Value="DVR" />
                         <asp:ListItem Text="Dividend Payout" Value="DVP" />
                     </asp:DropDownList>
