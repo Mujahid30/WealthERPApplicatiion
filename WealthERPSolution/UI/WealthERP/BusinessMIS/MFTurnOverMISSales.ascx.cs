@@ -126,6 +126,7 @@ namespace WealthERP.BusinessMIS
             }
             else
             {
+                lblErrorFilter.Visible = false;
                 SetParameters();
                 BindMember();
                 lblMFMISType.Text = "CUSTOMER/FOLIO";
@@ -356,6 +357,7 @@ namespace WealthERP.BusinessMIS
             }
             else
             {
+                lblErrorFilter.Visible = false;
                 SetParameters();
                 BindOrganizationGrid();
                 lblMFMISType.Text = "ORGANIZATION";

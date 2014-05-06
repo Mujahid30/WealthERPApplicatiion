@@ -119,14 +119,15 @@
     <tr>
         <td>
             <asp:Label ID="lblFilter" runat="server" Text="Filter:" CssClass="FieldName"></asp:Label>
-            <asp:DropDownList ID="ddlFilter" runat="server" CssClass="cmbLongField" AutoPostBack="true">
+            <asp:DropDownList ID="ddlFilter" runat="server" CssClass="cmbField" >
                 <asp:ListItem Value="S">Select</asp:ListItem>
                 <asp:ListItem Value="0">Offline Only</asp:ListItem>
                 <asp:ListItem Value="1">Online Only</asp:ListItem>
                 <asp:ListItem Value="2">All</asp:ListItem>
-            </asp:DropDownList>*
+            </asp:DropDownList>
+            <span id="Span2" class="spnRequiredField">*</span>
             <asp:Label ID="lblErrorFilter" Text="Please Select a Filter" CssClass="rfvPCG" Visible="false"
-                runat="server"></asp:Label>
+                runat="server" style="color:Red"></asp:Label>
         </td>
     </tr>
     <tr>

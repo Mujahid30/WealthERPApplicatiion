@@ -89,6 +89,7 @@ namespace WealthERP.BusinessMIS
             }
             else
             {
+                lblErrorFilter.Visible = false;
                 SetParameters();
                 BindProductGrid();
                 lblMFMISType.Text = "PRODUCT";
@@ -1239,6 +1240,7 @@ namespace WealthERP.BusinessMIS
             }
             else
             {
+                lblErrorFilter.Visible = false;
                 SetParameters();
                 BindMember();
                 lblMFMISType.Text = "CUSTOMER/FOLIO";
