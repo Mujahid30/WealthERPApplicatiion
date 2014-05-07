@@ -976,6 +976,16 @@ namespace BoOnlineOrderManagement
                 }
                 dtExtract.AcceptChanges();
             }
+
+            if (extSource == "BSE")
+            {
+                DataRow newBlankRow  = dtExtract.NewRow();
+                dtExtract.Rows.InsertAt(newBlankRow, 0);
+                dtExtract.AcceptChanges();
+
+            }
+
+
             return dtExtract;
         }
 
