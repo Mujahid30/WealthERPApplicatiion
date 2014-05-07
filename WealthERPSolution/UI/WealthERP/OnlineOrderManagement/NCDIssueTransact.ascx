@@ -184,7 +184,6 @@
             <tr id="trinsufficentmessage" runat="server" visible="false">
                 <td align="center">
                     <asp:Label ID="lblinsufficent" runat="server" ForeColor="Red" Text="Order cannot be processed due to insufficient balance"></asp:Label>
-                
                 </td>
             </tr>
         </table>
@@ -198,7 +197,7 @@
     </tr>
     <tr id="trJointNom" runat="server" align="center">
         <td>
-            <table width="30%" class="SchemeInfoTable">
+            <table width="80%" class="SchemeInfoTable">
                 <tr class="SchemeInfoTable">
                     <td>
                         <asp:Label ID="lblHolderDetails" runat="server" Text="Customer Name:" CssClass="FieldName"></asp:Label>
@@ -206,16 +205,12 @@
                         <%--<td align="left">--%>
                         <asp:Label ID="lblHolderTwo" runat="server" CssClass="FieldName"></asp:Label>
                     </td>
-                </tr>
-                <tr id="trcustcode" runat="server">
                     <td>
                         <asp:Label ID="lblNominee" runat="server" Text="Nominee Name:" CssClass="FieldName"></asp:Label>
                         <%-- </td>
         <td align="left">--%>
                         <asp:Label ID="lblNomineeTwo" runat="server" CssClass="FieldName"></asp:Label>
                     </td>
-                </tr>
-                <tr>
                     <td>
                         <asp:Label ID="lblIssuer" runat="server" Text=":" CssClass="FieldName"></asp:Label>
                     </td>
@@ -242,7 +237,7 @@
                         <td>
                             <telerik:RadGrid ID="gvIssueList" runat="server" AllowSorting="True" enableloadondemand="True"
                                 PageSize="10" AllowPaging="false" AutoGenerateColumns="False" EnableEmbeddedSkins="False"
-                                GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="true" ShowStatusBar="True"
+                                GridLines="None" ShowFooter="false" PagerStyle-AlwaysVisible="true" ShowStatusBar="True"
                                 Skin="Telerik" AllowFilteringByColumn="false">
                                 <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="AIM_IssueId,AIM_IssueName,IssueTimeType"
                                     AutoGenerateColumns="false" Width="100%">
@@ -367,7 +362,7 @@
 </asp:Panel>
 <asp:Panel ID="pnlNCDTransactact" runat="server" ScrollBars="Horizontal" Width="100%"
     Visible="false">
-    <table>
+    <table width="100%">
         <tr>
             <td>
                 <telerik:RadGrid ID="gvCommMgmt" AllowSorting="false" runat="server" EnableLoadOnDemand="True"
@@ -494,7 +489,7 @@
                                 AutoPostBackOnFilter="true" UniqueName="AIDCSR_RedemptionAmount " Visible="true">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
-                               <telerik:GridBoundColumn DataField="LockinPeriodCollection " HeaderStyle-Width="105px"
+                            <telerik:GridBoundColumn DataField="LockinPeriodCollection " HeaderStyle-Width="105px"
                                 HeaderText="Lock In Period" CurrentFilterFunction="Contains" ShowFilterIcon="false"
                                 AutoPostBackOnFilter="true" UniqueName="LockinPeriodCollection " Visible="true">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />

@@ -239,13 +239,13 @@
     <div>
         <asp:ScriptManager ID="ScriptManager" runat="server" EnablePageMethods="true" />
         <div class="div-with-header">
-            <div style="float: right; padding-top: 8px;">
+            <div style="float: right; width: 10%; padding-top: 8px; padding-right: 28%;">
                 <asp:LinkButton ID="lnkLogOut" runat="server" Text="" CssClass="div-log-out" Style="text-decoration: none"
                     OnClick="lnkLogOut_Click"></asp:LinkButton>
             </div>
-            <div style="float: right; width: 36%; padding-top: 10px;">
+            <div style="float: right; width: 15%; padding-top: 10px; padding-right: 3%;">
                 <asp:Label ID="lblWelcomeUser" runat="server" Text="" CssClass="user-name"></asp:Label>
-                <asp:Label ID="lblTest" runat="server" Text="" CssClass="user-name"></asp:Label>
+                <asp:Label ID="lblTest" runat="server" Text="" CssClass="user-name" Visible="false"></asp:Label>
             </div>
         </div>
         <div class="div-container">
@@ -306,7 +306,7 @@
             </div>
             <div class="bottom-content-frame">
                 <iframe name="bottomframe" class="bottomframe" id="bottomframe" onload="javascript:calcIFrameHeight('bottomframe');"
-                    src="OnlineBottomHost.aspx" scrolling="no" height="600px"></iframe>
+                    src="OnlineBottomHost.aspx" scrolling="no" height="900px"></iframe>
             </div>
         </div>
     </div>
