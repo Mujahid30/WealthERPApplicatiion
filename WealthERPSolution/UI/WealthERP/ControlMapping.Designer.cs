@@ -2464,11 +2464,29 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OnlineOrderBackOffice\OnlineAdviserCustomerIPOHoldings.ascx.
+        /// </summary>
+        internal static string OnlineAdviserCustomerIPOHoldings {
+            get {
+                return ResourceManager.GetString("OnlineAdviserCustomerIPOHoldings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to OnlineOrderBackOffice//OnlineAdviserCustomerIPOOrderBook.ascx.
         /// </summary>
         internal static string OnlineAdviserCustomerIPOOrderBook {
             get {
                 return ResourceManager.GetString("OnlineAdviserCustomerIPOOrderBook", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OnlineOrderBackOffice\OnlineAdviserCustomerNCDHoldings.ascx.
+        /// </summary>
+        internal static string OnlineAdviserCustomerNCDHoldings {
+            get {
+                return ResourceManager.GetString("OnlineAdviserCustomerNCDHoldings", resourceCulture);
             }
         }
         

@@ -1897,4 +1897,12 @@
     <value>OffLineOrderManagement//MFOrderBuyTransTypeOffline.ascx</value>
     <comment>OffLineOrderManagement//MFOrderBuyTransTypeOffline.ascx</comment>
   </data>
+  <data name="OnlineAdviserCustomerIPOHoldings" xml:space="preserve">
+    <value>OnlineOrderBackOffice\OnlineAdviserCustomerIPOHoldings.ascx</value>
+    <comment>OnlineOrderBackOffice\OnlineAdviserCustomerIPOHoldings.ascx</comment>
+  </data>
+  <data name="OnlineAdviserCustomerNCDHoldings" xml:space="preserve">
+    <value>OnlineOrderBackOffice\OnlineAdviserCustomerNCDHoldings.ascx</value>
+    <comment>OnlineOrderBackOffice\OnlineAdviserCustomerNCDHoldings.ascx</comment>
+  </data>
 </root>
