@@ -226,10 +226,10 @@
                                                 <h2>
                                                     BID-QUANTITY!</h2>
                                                 <p>
-                                                    1)Please enter value between MinQantity and MaxQantity.</p>
+                                                    1)Please enter value between MinQuantity and MaxQuantity.</p>
                                             </div>
                                             <asp:RangeValidator ID="rvQuantity" runat="server" ControlToValidate="txtBidQuantity"
-                                                ValidationGroup="btnConfirmOrder" Type="Integer" CssClass="rfvPCG" Text="*" ErrorMessage="BidQuantity should be between MinQantity and MaxQantity"
+                                                ValidationGroup="btnConfirmOrder" Type="Integer" CssClass="rfvPCG" Text="*" ErrorMessage="BidQuantity should be between MinQuantity and MaxQuantity"
                                                 Display="Dynamic" />
                                             <asp:RegularExpressionValidator ID="revtxtBidQuantity" ControlToValidate="txtBidQuantity"
                                                 runat="server" ErrorMessage="Please enter a valid bid quantity" Text="*" Display="Dynamic"

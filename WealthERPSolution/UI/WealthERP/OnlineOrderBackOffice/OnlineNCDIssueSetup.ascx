@@ -1070,13 +1070,13 @@
             <asp:Label ID="Label19" runat="server" Text="NSE Code:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightData">
-            <asp:TextBox ID="txtNSECode" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
+            <asp:TextBox ID="txtNSECode" runat="server" CssClass="txtField" Width="200px" OnTextChanged="txtNSECode_OnTextChanged" AutoPostBack="true"></asp:TextBox>
         </td>
         <td class="leftLabel">
             <asp:Label ID="lb1Code" runat="server" Text="BSE Code:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightData">
-            <asp:TextBox ID="txtBSECode" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
+            <asp:TextBox ID="txtBSECode" runat="server" CssClass="txtField" Width="200px" OnTextChanged="txtBSECode_OnTextChanged" AutoPostBack="true"></asp:TextBox>
             <%--<span id="Span32" class="spnRequiredField">*</span>
             <br />
           <asp:RequiredFieldValidator ID="rfvtxtBSECode" runat="server" CssClass="rfvPCG" ErrorMessage="Please Enter BSE Code"

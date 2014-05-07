@@ -89,6 +89,20 @@ namespace WealthERP.OnlineOrderBackOffice
 
             }
         }
+        protected void txtBSECode_OnTextChanged(object sender, EventArgs e)
+        {
+            //if (txtBSECode.Text != string.Empty)
+            //{
+            //    txtNSECode.Text = txtBSECode.Text;
+            //}
+        }
+        protected void txtNSECode_OnTextChanged(object sender, EventArgs e)
+        {
+            if (txtNSECode.Text != string.Empty)
+            {
+                txtBSECode.Text = txtNSECode.Text;
+            }
+        }
         protected void rgSubCategories_PageIndexChanged(object source, Telerik.Web.UI.GridPageChangedEventArgs e)
         {
 
