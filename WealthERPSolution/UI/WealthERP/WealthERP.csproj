@@ -2712,12 +2712,26 @@
     <Compile Include="OnlineOrderBackOffice\MFAccountValuation.ascx.designer.cs">
       <DependentUpon>MFAccountValuation.ascx</DependentUpon>
     </Compile>
+    <Compile Include="OnlineOrderBackOffice\OnlineAdviserCustomerIPOHoldings.ascx.cs">
+      <DependentUpon>OnlineAdviserCustomerIPOHoldings.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OnlineOrderBackOffice\OnlineAdviserCustomerIPOHoldings.ascx.designer.cs">
+      <DependentUpon>OnlineAdviserCustomerIPOHoldings.ascx</DependentUpon>
+    </Compile>
     <Compile Include="OnlineOrderBackOffice\OnlineAdviserCustomerIPOOrderBook.ascx.cs">
       <DependentUpon>OnlineAdviserCustomerIPOOrderBook.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="OnlineOrderBackOffice\OnlineAdviserCustomerIPOOrderBook.ascx.designer.cs">
       <DependentUpon>OnlineAdviserCustomerIPOOrderBook.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="OnlineOrderBackOffice\OnlineAdviserCustomerNCDHoldings.ascx.cs">
+      <DependentUpon>OnlineAdviserCustomerNCDHoldings.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OnlineOrderBackOffice\OnlineAdviserCustomerNCDHoldings.ascx.designer.cs">
+      <DependentUpon>OnlineAdviserCustomerNCDHoldings.ascx</DependentUpon>
     </Compile>
     <Compile Include="OnlineOrderBackOffice\OnlineAdviserCustomerOrderBook.ascx.cs">
       <DependentUpon>OnlineAdviserCustomerOrderBook.ascx</DependentUpon>
@@ -7848,7 +7862,9 @@
     <Content Include="OnlineOrderBackOffice\HoldingIssueAllotment.ascx" />
     <Content Include="OnlineOrderBackOffice\ManageLookups.ascx" />
     <Content Include="OnlineOrderBackOffice\MFAccountValuation.ascx" />
+    <Content Include="OnlineOrderBackOffice\OnlineAdviserCustomerIPOHoldings.ascx" />
     <Content Include="OnlineOrderBackOffice\OnlineAdviserCustomerIPOOrderBook.ascx" />
+    <Content Include="OnlineOrderBackOffice\OnlineAdviserCustomerNCDHoldings.ascx" />
     <Content Include="OnlineOrderBackOffice\OnlineAdviserCustomerOrderBook.ascx" />
     <Content Include="OnlineOrderBackOffice\OnlineAdviserCustomerSIPOrderBook.ascx" />
     <Content Include="OnlineOrderBackOffice\OnlineAdviserNCDOrderBook.ascx" />
