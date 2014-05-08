@@ -979,9 +979,21 @@ namespace BoOnlineOrderManagement
 
             if (extSource == "BSE")
             {
-                DataRow newBlankRow  = dtExtract.NewRow();
-                dtExtract.Rows.InsertAt(newBlankRow, 0);
-                dtExtract.AcceptChanges();
+                DataTable dtExtractClone = dtExtract.Copy();
+                DataRow newBlankRow;
+                newBlankRow = dtExtract.NewRow();
+                newBlankRow = dtExtractClone.Rows[0];
+                
+                dtExtract.Rows.Add(newBlankRow.ItemArray);
+
+                int maxIndex = dtExtract.Rows.Count;
+
+                DataRow selectedRow = dtExtract.Rows[maxIndex-1];
+                DataRow newRow = dtExtract.NewRow();
+                newRow.ItemArray = selectedRow.ItemArray; // copy data
+                dtExtract.Rows.Remove(selectedRow);
+                dtExtract.Rows.InsertAt(newRow, 0);
+                
 
             }
 
