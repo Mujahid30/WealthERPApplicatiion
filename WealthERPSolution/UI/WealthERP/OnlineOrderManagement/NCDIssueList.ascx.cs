@@ -141,7 +141,8 @@ namespace WealthERP.OnlineOrderManagement
         protected void imgBuy_Click(object sender, ImageClickEventArgs e  )
         {
             int accountactivate = onlineNCDBackOfficeBo.CheckAccountisActive(advisorVo.advisorId, customerVo.CustomerId);
-                if(accountactivate!=0)
+            int BankaccountActive=onlineNCDBackOfficeBo.CheckBankisActive(customerVo.CustomerId);
+            if (accountactivate != 0 && BankaccountActive !=0)
                 {
             int rowindex1 = ((GridDataItem)((ImageButton)sender).NamingContainer).RowIndex;
             int rowindex = (rowindex1 / 2) - 1;

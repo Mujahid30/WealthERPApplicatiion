@@ -1784,5 +1784,47 @@ namespace BoOnlineOrderManagement
             }
             return dsProductIssuer;
         }
+        public DataTable GetIssueName(int Adviserid,string product)
+        {
+            DataTable dtGetIssueNamee = new DataTable();
+            OnlineNCDBackOfficeDao onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
+            try
+            {
+                dtGetIssueNamee = onlineNCDBackOfficeDao.GetIssueName(Adviserid, product);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetIssueNamee;
+        }
+        public DataSet GetNCDHoldings(int AIMIssueId,int AdviserId)
+        {
+            DataSet dsGetNCDHoldings;
+            OnlineNCDBackOfficeDao onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
+            dsGetNCDHoldings = onlineNCDBackOfficeDao.GetNCDHoldings(AIMIssueId, AdviserId);
+            return dsGetNCDHoldings;
+        }
+        public DataSet GetNCDSubHoldings(int AdviserId, int IssueId)
+        {
+            DataSet dsGetNCDSubHoldings;
+            OnlineNCDBackOfficeDao onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
+            dsGetNCDSubHoldings = onlineNCDBackOfficeDao.GetNCDSubHoldings(AdviserId, IssueId);
+            return dsGetNCDSubHoldings;
+        }
+        public int CheckBankisActive(int CustomerId)
+        {
+            int result = 0;
+            OnlineNCDBackOfficeDao daoOnlNcdBackOff = new OnlineNCDBackOfficeDao();
+            try
+            {
+                result = daoOnlNcdBackOff.CheckBankisActive(CustomerId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return result;
+        }
      }
 }

@@ -2896,5 +2896,122 @@ namespace DaoOnlineOrderManagement
             }
             return dsProductIssuer.Tables[0].Rows[0][0].ToString();
         }
+        public DataTable GetIssueName(int Adviserid, string product)
+        {
+            Database db;
+            DbCommand cmdGetIssueName;
+            DataTable dtGetIssueName;
+            DataSet dsGetIssueName = null;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+
+                //To retreive data from the table 
+                cmdGetIssueName = db.GetStoredProcCommand("SPROC_GetADviserNCDIssueName");
+                db.AddInParameter(cmdGetIssueName, "@AdviserId", DbType.Int32, Adviserid);
+                db.AddInParameter(cmdGetIssueName, "@product", DbType.String,product);
+                dsGetIssueName = db.ExecuteDataSet(cmdGetIssueName);
+                dtGetIssueName = dsGetIssueName.Tables[0];
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetIssueName;
+        }
+        public DataSet GetNCDHoldings(int AIMIssueId,int AdviserId)
+        {
+            Database db;
+            DataSet dsGetNCDHoldings;
+            DbCommand GetNCDHoldingscmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetNCDHoldingscmd = db.GetStoredProcCommand("SPROC_GetAdviserIssueHoldings");
+                db.AddInParameter(GetNCDHoldingscmd, "@AIMissue", DbType.Int32, AIMIssueId);
+                db.AddInParameter(GetNCDHoldingscmd, "@AdviserId", DbType.Int32, AdviserId);
+                dsGetNCDHoldings = db.ExecuteDataSet(GetNCDHoldingscmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:Getproductcode()");
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetNCDHoldings;
+        }
+        public DataSet GetNCDSubHoldings(int AdviserId, int IssueId)
+        {
+            Database db;
+            DataSet dsGetNCDSubHoldings;
+            DbCommand GetNCDSubHoldingscmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetNCDSubHoldingscmd = db.GetStoredProcCommand("SPROC_GetAdviserIssueSeriesWiseNCDHolding");
+                db.AddInParameter(GetNCDSubHoldingscmd, "@AdviserId", DbType.Int32, AdviserId);
+                db.AddInParameter(GetNCDSubHoldingscmd, "@IssueId", DbType.Int32, IssueId);
+                dsGetNCDSubHoldings = db.ExecuteDataSet(GetNCDSubHoldingscmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:Getproductcode()");
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetNCDSubHoldings;
+        }
+        public int CheckBankisActive(int CustomerId)
+        {
+            Database db;
+            DataSet ds;
+            DbCommand cmdCheckBankisActive;
+            int isExist = 0;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdCheckBankisActive = db.GetStoredProcCommand("SPROC_BankISAvailable");
+                db.AddInParameter(cmdCheckBankisActive, "@customerId", DbType.Int32, CustomerId);
+                db.AddOutParameter(cmdCheckBankisActive, "@isExist", DbType.Int32, 0);
+
+                ds = db.ExecuteDataSet(cmdCheckBankisActive);
+                if (db.ExecuteNonQuery(cmdCheckBankisActive) != 0)
+                {
+                    isExist = Convert.ToInt32(db.GetParameterValue(cmdCheckBankisActive, "isExist").ToString());
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AssociateDAO.cs:ExternalcodeCheck()");
+                object[] objects = new object[2];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return isExist;
+        }
     }
 }
