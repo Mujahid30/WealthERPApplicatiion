@@ -126,18 +126,20 @@
         padding-right: 5px;
     }
 </style>
-  <table class="tblMessage" cellpadding="0" cellspacing="0">
-            <tr>
-                <td>
-                    <div class="divOnlinePageHeading">
-                        <div class="divClientAccountBalance">
-                            <asp:Label ID="Label1" runat="server" Text="Available Limits:" CssClass="BalanceLabel" Visible="true"> </asp:Label>
-                            <asp:Label ID="lblAvailableLimits" runat="server" Text="" CssClass="BalanceAmount" Visible="true"></asp:Label>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-        </table>
+<table class="tblMessage" cellpadding="0" cellspacing="0">
+    <tr>
+        <td>
+            <div class="divOnlinePageHeading">
+                <div class="divClientAccountBalance">
+                    <asp:Label ID="Label1" runat="server" Text="Available Limits:" CssClass="BalanceLabel"
+                        Visible="true"> </asp:Label>
+                    <asp:Label ID="lblAvailableLimits" runat="server" Text="" CssClass="BalanceAmount"
+                        Visible="true"></asp:Label>
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>
 <table width="100%">
     <tr>
         <td>
@@ -147,11 +149,10 @@
                         <td align="left">
                             NCD Issue List
                         </td>
-                         <td align="right">
-                        <asp:ImageButton ID="btnNcdIssueList" runat="server" ImageUrl="~/Images/Export_Excel.png"
+                        <td align="right">
+                            <asp:ImageButton ID="btnNcdIssueList" runat="server" ImageUrl="~/Images/Export_Excel.png"
                                 AlternateText="Excel" ToolTip="Export To Excel" Visible="true" OnClientClick="setFormat('excel')"
                                 Height="25px" Width="25px" OnClick="btnNcdIssueList_Click"></asp:ImageButton>
-                        
                         </td>
                     </tr>
                 </table>
@@ -168,7 +169,7 @@
             <asp:DropDownList ID="ddlType" runat="server" CssClass="cmbField" AutoPostBack="true">
                 <asp:ListItem Value="Select">Select</asp:ListItem>
                 <asp:ListItem Value="Curent">Current Issues</asp:ListItem>
-                <asp:ListItem Value="Closed" Enabled="false">Closed Issues</asp:ListItem>
+                <asp:ListItem Value="Closed"  >Closed Issues</asp:ListItem>
                 <asp:ListItem Value="Future">Future Issues</asp:ListItem>
             </asp:DropDownList>
             <span id="Span4" class="spnRequiredField">*</span>
@@ -249,7 +250,7 @@
                                             ShowFilterIcon="false" AutoPostBackOnFilter="true" AllowFiltering="true" HeaderText="Issue"
                                             UniqueName="AIM_IssueName" SortExpression="false">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
-                                        </telerik:GridBoundColumn>  
+                                        </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn Visible="false" DataField="AIM_IssueId" HeaderStyle-Width="60px"
                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
                                             HeaderText="Scrip ID" UniqueName="AIM_IssueId" SortExpression="AIM_IssueId">
@@ -337,29 +338,38 @@
                                             AllowFiltering="false">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
-                                        
-                                         <telerik:GridBoundColumn DataField="CatCollection" HeaderStyle-Width="140px" HeaderText="Min-Max Qty(Category Wise)"
+                                        <telerik:GridBoundColumn DataField="CatCollection" HeaderStyle-Width="140px" HeaderText="Min-Max Qty(Category Wise)"
                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                            UniqueName="CatCollection"    >
+                                            UniqueName="CatCollection">
+                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn DataField="MinMaxCatCollection" HeaderStyle-Width="140px"
+                                            HeaderText="Min-Max Qty(Across All Series)" CurrentFilterFunction="Contains"
+                                            ShowFilterIcon="false" AutoPostBackOnFilter="true" UniqueName="MinMaxCatCollection">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
                                         
-                                         <telerik:GridBoundColumn DataField="MinMaxCatCollection" HeaderStyle-Width="140px" HeaderText="Min-Max Qty(Across All Series)"
-                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                            UniqueName="MinMaxCatCollection"    >
-                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
-                                        </telerik:GridBoundColumn>
-                                        
-                                        
-                                        <telerik:GridTemplateColumn AllowFiltering="false" DataField="" HeaderStyle-Width="110px"
-                                            UniqueName="Action" HeaderText="Action">
+                                       <%--   <telerik:GridTemplateColumn AllowFiltering="false" DataField="" HeaderStyle-Width="110px"
+                                            UniqueName="Action" HeaderText="Action" Visible="false">
                                             <ItemTemplate>
-                                                <asp:LinkButton ID="llPurchase" runat="server" OnClick="llPurchase_Click" Text="Purchase"></asp:LinkButton>
+                                                <asp:LinkButton ID="llPurchase" runat="server"   Text="Closed" BackColor="Red"></asp:LinkButton>
+                                            </ItemTemplate>
+                                        </telerik:GridTemplateColumn>--%>
+                                        
+                                        <telerik:GridTemplateColumn ItemStyle-Width="140px" AllowFiltering="false" HeaderText="Action"
+                                            ItemStyle-Wrap="false">
+                                            <ItemTemplate>
+                                                <asp:ImageButton ID="imgBuy" runat="server"   ImageUrl="~/Images/Buy-Button.png"
+                                                    ToolTip="BUY NCD" OnClick="imgBuy_Click"/>
+                                                <asp:LinkButton ID="llPurchase" runat="server"   Text="Closed"   Visible="false"></asp:LinkButton>
+                                                    
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>
+                                        
                                         <telerik:GridButtonColumn CommandName="download_file" Text="View Prospectus" UniqueName="Download"
                                             HeaderText="Download">
                                         </telerik:GridButtonColumn>
+                                        
                                         <telerik:GridTemplateColumn ShowFilterIcon="false" AllowFiltering="false">
                                             <ItemTemplate>
                                                 <tr>

@@ -52,6 +52,8 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 lblMsg.Text = ".xls format, headers required";
             }
+            pnlOnlneIssueExtract.Visible = false;
+
         }
         protected void BindIssueExtract()
         {

@@ -1645,6 +1645,7 @@ namespace DaoOnlineOrderManagement
 
 
                 dsGetOnlineNCDExtractPreview = db.ExecuteDataSet(GetOnlineNCDExtractPreviewcmd);
+
             }
             catch (BaseApplicationException Ex)
             {

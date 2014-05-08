@@ -134,14 +134,18 @@ namespace WealthERP.OnlineOrderManagement
             //ddlListOfBonds.DataSource = dsStructureRules.Tables[0];
             //ddlListOfBonds.DataBind(); 
         }
-        protected void llPurchase_Click(object sender, EventArgs e)
+
+        
+        //protected void llPurchase_Click(object sender, EventArgs e)
+        //{
+        protected void imgBuy_Click(object sender, ImageClickEventArgs e  )
         {
             int accountactivate = onlineNCDBackOfficeBo.CheckAccountisActive(advisorVo.advisorId, customerVo.CustomerId);
                 if(accountactivate!=0)
                 {
-            int rowindex1 = ((GridDataItem)((LinkButton)sender).NamingContainer).RowIndex;
+            int rowindex1 = ((GridDataItem)((ImageButton)sender).NamingContainer).RowIndex;
             int rowindex = (rowindex1 / 2) - 1;
-            LinkButton lbButton = (LinkButton)sender;
+            ImageButton lbButton = (ImageButton)sender;
             GridDataItem item = (GridDataItem)lbButton.NamingContainer;
             int IssuerId = int.Parse(gvCommMgmt.MasterTableView.DataKeyValues[rowindex]["AIM_IssueId"].ToString());
             int minQty = int.Parse(gvCommMgmt.MasterTableView.DataKeyValues[rowindex]["AIM_MInQty"].ToString());
@@ -192,30 +196,44 @@ namespace WealthERP.OnlineOrderManagement
 
         protected void gvCommMgmt_ItemDataBound(object sender, GridItemEventArgs e)
         {
-            int isPurchaseAvailblity = 0;
+          //  int isPurchaseAvailblity = 0;
             if (e.Item is GridDataItem && e.Item.ItemIndex != -1)
             {
 
-                LinkButton editButton = (LinkButton)e.Item.FindControl("llPurchase");
+                ImageButton editButton = (ImageButton)e.Item.FindControl("imgBuy");
+                LinkButton llPurchase = (LinkButton)e.Item.FindControl("llPurchase");
 
+                //llPurchase
                 if (ddlType.SelectedValue == "Curent")
                 {
-                    editButton.Visible = true;
+                  //  editButton.Visible = true;
                     int IssueId = int.Parse(gvCommMgmt.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIM_IssueId"].ToString());
+                    llPurchase.Visible = false;
+                    editButton.Visible = true;
 
-                    onlineNCDBackOfficeBo.GetOrdersEligblity(IssueId, ref isPurchaseAvailblity);
-                    if (isPurchaseAvailblity == 1)
-                    {
-                        editButton.Enabled = true;
-                    }
-                    else
-                    {
-                        editButton.Enabled = false;
-                    }
+                    //onlineNCDBackOfficeBo.GetOrdersEligblity(IssueId, ref isPurchaseAvailblity);
+                    //if (isPurchaseAvailblity == 1)
+                    //{
+                    //    editButton.Visible = true;
+                    //}
+                    //else
+                    //{
+                    //    editButton.Visible = false;
+                    //}
                 }
                 else
                 {
                     editButton.Visible = false;
+                    llPurchase.Visible = true;
+                    if (ddlType.SelectedValue == "Curent")
+                    {
+                        llPurchase.Text = "Closed";
+                    }
+                    else
+                    {
+                        llPurchase.Text = "Not Opened";
+                    }
+                    
                 }
             }
 
