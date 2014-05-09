@@ -1185,6 +1185,16 @@ namespace WealthERP.Advisor
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineIssueUpload','login');", true);
 
                 }
+                else if (e.Item.Value == "NCD_Holdings")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineAdviserCustomerNCDHoldings','login');", true);
+
+                }
+                else if (e.Item.Value == "IPO_Holdings")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineAdviserCustomerIPOHoldings','login');", true);
+
+                }
 
             }
             catch (BaseApplicationException Ex)

@@ -216,6 +216,10 @@
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="IPO Order Book" Value="IPO_Order_Book">
                                                     </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="NCD Holdings" Value="NCD_Holdings">
+                                                    </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="IPO Holdings" Value="IPO_Holdings">
+                                                    </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>
                                         </Items>
@@ -950,7 +954,7 @@
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Reconciliation" Value="Reconciliation">
                                         <Items>
-                                           <telerik:RadPanelItem runat="server" Text="MFOrder Recon" Value="OrderMIS">
+                                            <telerik:RadPanelItem runat="server" Text="MFOrder Recon" Value="OrderMIS">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="NCD and IPO Order Match" Value="NcdIpoRecon">
                                             </telerik:RadPanelItem>
@@ -1013,13 +1017,15 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="NCD/IPO" Value="NCD_Extract">
                                             </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="NCD/IPO Accounting" Value="NCD/IPO Accounting">
+                                            </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="File Upload" Value="File_Upload">
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text="MF Upload" Value="Start_Upload">
                                             </telerik:RadPanelItem>
-                                             <telerik:RadPanelItem runat="server" Text="MF Upload Offline" Value="MF_Upload_Offline">
+                                            <telerik:RadPanelItem runat="server" Text="MF Upload Offline" Value="MF_Upload_Offline">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Uploads History" Value="Uploads History">
                                             </telerik:RadPanelItem>
