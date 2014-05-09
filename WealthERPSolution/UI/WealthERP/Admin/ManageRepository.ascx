@@ -148,7 +148,12 @@
                         </tr>
                     </table>
                 </td>
+                
             </tr>
+            <tr>
+            <td>
+            <asp:Label ID="lblNote" runat="server" CssClass="FieldName" Text="Note:- Please keep file name unique.</br>    Earlier file with same name will be overridden"></asp:Label>
+            </td></tr>
         </table>
     </telerik:RadPageView>
     <telerik:RadPageView ID="RadPageView1" runat="server">
