@@ -179,7 +179,7 @@ namespace WealthERP.OnlineOrderBackOffice
             DataTable dtExtractData = (DataTable)Cache["IssueExtract" + userVo.UserId];
             string extractStepCode = boNcdBackOff.GetExtractStepCode(Convert.ToInt32(ddlFileType.SelectedValue));
 
-            boNcdBackOff.GetFileName(ddlExternalSource.SelectedValue, Convert.ToInt32(ddlFileType.SelectedValue), ref filename, ref delimit, ref format);
+            boNcdBackOff.GetFileName(ddlExternalSource.SelectedValue, Convert.ToInt32(ddlFileType.SelectedValue), ref filename, ref delimit, ref format,ddlIssueName.SelectedItem.Text);
 
             if (format == ".xls")
             {

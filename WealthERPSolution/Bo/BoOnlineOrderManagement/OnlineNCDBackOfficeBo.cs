@@ -760,7 +760,7 @@ namespace BoOnlineOrderManagement
 
         }
 
-        public DataSet GetIssuerIssue(int advisorId,string product)
+        public DataSet GetIssuerIssue(int advisorId, string product)
         {
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
             try
@@ -983,17 +983,17 @@ namespace BoOnlineOrderManagement
                 DataRow newBlankRow;
                 newBlankRow = dtExtract.NewRow();
                 newBlankRow = dtExtractClone.Rows[0];
-                
+
                 dtExtract.Rows.Add(newBlankRow.ItemArray);
 
                 int maxIndex = dtExtract.Rows.Count;
 
-                DataRow selectedRow = dtExtract.Rows[maxIndex-1];
+                DataRow selectedRow = dtExtract.Rows[maxIndex - 1];
                 DataRow newRow = dtExtract.NewRow();
                 newRow.ItemArray = selectedRow.ItemArray; // copy data
                 dtExtract.Rows.Remove(selectedRow);
                 dtExtract.Rows.InsertAt(newRow, 0);
-                
+
 
             }
 
@@ -1041,7 +1041,7 @@ namespace BoOnlineOrderManagement
         }
 
 
-        public void GetFileName(string extSource, int fileTypeId, ref string filename, ref string delimeter, ref string format)
+        public void GetFileName(string extSource, int fileTypeId, ref string filename, ref string delimeter, ref string format, string issueName)
         {
 
             string dt = DateTime.Now.ToString("ddMMyy");
@@ -1050,26 +1050,26 @@ namespace BoOnlineOrderManagement
             string extractStepCode = GetExtractStepCode(fileTypeId);
             if (extractStepCode == "EI")
             {
-                filename = extSource + "OrderBookExtr" + dt;
+                filename = extSource + "OrderBookExtr_" +issueName+"_" +dt;
                 delimeter = "";
                 format = ".xls";
 
             }
             if (extractStepCode == "EC")
             {
-                filename = extSource + "ChqExtr" + dt;
+                filename = extSource + "ChqExtr_" +issueName+"_" +dt;
                 delimeter = ",";
                 format = ".csv";
             }
             else if (extractStepCode == "EB")
             {
-                filename = extSource + "BidExtr" + dt;
+                filename = extSource + "BidExtr_" +issueName+"_" +dt;
                 delimeter = "|";
                 format = ".txt";
             }
             else if (extractStepCode == "EP")
             {
-                filename = extSource + "CheqPrintFile" + dt;
+                filename = extSource + "CheqPrintFile_" +issueName+"_"+ dt;
                 delimeter = "";
                 format = ".xls";
             }
@@ -1450,7 +1450,7 @@ namespace BoOnlineOrderManagement
             }
             return result;
         }
-        public int GetScriptId(string scriptid, int adviserid,string product)
+        public int GetScriptId(string scriptid, int adviserid, string product)
         {
             int result = 0;
             OnlineNCDBackOfficeDao daoOnlNcdBackOff = new OnlineNCDBackOfficeDao();
@@ -1478,7 +1478,7 @@ namespace BoOnlineOrderManagement
                 if (extractStepCode == "UA")
                 {
                     daoOnlNcdBackOff.IsIssueAlloted(issueId, ref   result);
-                    if (result != string.Empty && result !="0")
+                    if (result != string.Empty && result != "0")
                         nRows = daoOnlNcdBackOff.UploadAllotmentIssueData(dtCheckOrder, issueId, ref   result, product);
                     else
                     {
@@ -1704,7 +1704,7 @@ namespace BoOnlineOrderManagement
             }
             return dsExtractType;
         }
-        public DataSet GetNCDIPOExtractTypeDataForFileCreation(DateTime orderDate, int AdviserId, int extractType, DateTime fromDate, DateTime toDate,int IssuerID,string Product)
+        public DataSet GetNCDIPOExtractTypeDataForFileCreation(DateTime orderDate, int AdviserId, int extractType, DateTime fromDate, DateTime toDate, int IssuerID, string Product)
         {
             DataSet dsExtractType;
             OnlineNCDBackOfficeDao onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
@@ -1731,7 +1731,7 @@ namespace BoOnlineOrderManagement
             return dsExtractType;
         }
 
-        public DataSet GetProductIssuerList(int Isactive,string Product)
+        public DataSet GetProductIssuerList(int Isactive, string Product)
         {
             DataSet dsProductIssuer;
             OnlineNCDBackOfficeDao onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
@@ -1760,7 +1760,7 @@ namespace BoOnlineOrderManagement
 
         public string GetNCDIPOProductIssuer(int IssueId)
         {
-            string  dsProductIssuer;
+            string dsProductIssuer;
             OnlineNCDBackOfficeDao onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
 
             try
@@ -1784,7 +1784,7 @@ namespace BoOnlineOrderManagement
             }
             return dsProductIssuer;
         }
-        public DataTable GetIssueName(int Adviserid,string product)
+        public DataTable GetIssueName(int Adviserid, string product)
         {
             DataTable dtGetIssueNamee = new DataTable();
             OnlineNCDBackOfficeDao onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
@@ -1798,7 +1798,7 @@ namespace BoOnlineOrderManagement
             }
             return dtGetIssueNamee;
         }
-        public DataSet GetNCDHoldings(int AIMIssueId,int AdviserId)
+        public DataSet GetNCDHoldings(int AIMIssueId, int AdviserId)
         {
             DataSet dsGetNCDHoldings;
             OnlineNCDBackOfficeDao onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
@@ -1826,5 +1826,5 @@ namespace BoOnlineOrderManagement
             }
             return result;
         }
-     }
+    }
 }
