@@ -378,16 +378,15 @@ namespace WealthERP.OnlineOrderManagement
                                 int IsSourceAA = int.Parse(gvr.GetDataKeyValue("CMFSS_IsSourceAA").ToString());
                                 if (e.CommandName == "Accepted")
                                 {
-                                    //if (Session["PageDefaultSetting"] != null)
-                                    //{
-                                    //   ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('CustomerTransactionBookList','?systematicId=" + systematicId + "');", true);
-
-                                    //}
-                                    //else
-                                    //{
-                                    //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvvvvvv", "loadcontrol('CustomerTransactionBookList');", true);
-                                    //}
-                                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvvvvvv", "loadcontrol('CustomerTransactionBookList','?systematicId=" + systematicId + "&AccountId="+ AccountId + "&schemeplanCode="+schemeplanCode+"&IsSourceAA="+IsSourceAA+"');", true);
+                                    if (Session["PageDefaultSetting"] != null)
+                                    {
+                                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('CustomerTransactionBookList','?systematicId=" + systematicId + "&AccountId=" + AccountId + "&schemeplanCode=" + schemeplanCode + "&IsSourceAA=" + IsSourceAA + "');", true);
+                                    }
+                                    else
+                                    {
+                                        Response.Redirect("ControlHost.aspx?pageid=CustomerTransactionBookList&systematicId=" + systematicId + "&AccountId=" + AccountId + "&schemeplanCode=" + schemeplanCode + "&IsSourceAA=" + IsSourceAA +"", false);
+                                    }
+                                    
                                 }
                             }
                         }
