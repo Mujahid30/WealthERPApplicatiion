@@ -359,6 +359,22 @@ namespace WealthERP
             //Response.Redirect("http://sspr.sbicapstestlab.com/AGLogout");
         }
 
+        protected void lnkHomeMF_Click(object sender, EventArgs e)
+        {
+            ncdArrow.Visible = false;
+            mfArrow.Visible = true;
+            ProductMenuItemChange("MF", "Transact");
+        }
+
+        protected void lnkNcdOrder_Click(object sender, EventArgs e)
+        {
+            ncdArrow.Visible = true;
+            mfArrow.Visible = false;
+            ProductMenuItemChange("NCD", "Transact");
+
+        }
+
+
         protected void lnkMFOrderMenuTransact_Click(object sender, EventArgs e)
         {
             ProductMenuItemChange("MF", "Transact");
@@ -404,6 +420,8 @@ namespace WealthERP
 
         protected void ProductMenuItemChange(string ProductType, string menuType)
         {
+            if (ProductType == "MF")
+                mfArrow.Visible = true;
             switch (ProductType)
             {
                 case "MF":
