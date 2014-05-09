@@ -91,7 +91,7 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void BindStructureRuleGrid(int type)
         {
-            DataSet dsStructureRules = OnlineBondBo.GetAdviserIssuerList(adviserId, 0, type, customerVo.CustomerId);
+            DataSet dsStructureRules = OnlineBondBo.GetAdviserIssuerList(adviserId, 0, type, customerVo.CustomerId, Session["PageDefaultSetting"] == null ? 1 : 0);
             DataTable dtIssue = dsStructureRules.Tables[0];
             if (dtIssue.Rows.Count > 0)
             {

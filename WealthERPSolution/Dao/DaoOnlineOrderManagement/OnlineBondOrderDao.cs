@@ -127,7 +127,7 @@ namespace DaoOnlineOrderManagement
             // return stepCode;
         }
 
-        public DataSet GetAdviserIssuerList(int adviserId, int issueId, int type, int customerId)
+        public DataSet GetAdviserIssuerList(int adviserId, int issueId, int type, int customerId,int isAdminRequest)
         {
             Database db;
             DbCommand cmdGetCommissionStructureRules;
@@ -146,6 +146,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(cmdGetCommissionStructureRules, "@type", DbType.Int32, type);
 
                 db.AddInParameter(cmdGetCommissionStructureRules, "@customerId", DbType.Int32, customerId);
+                db.AddInParameter(cmdGetCommissionStructureRules, "@IsAdminRequest", DbType.Int16, isAdminRequest);
 
 
                 //db.AddInParameter(cmdGetCommissionStructureRules, "@IssuerId", DbType.String, IssuerId);
