@@ -1584,6 +1584,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     }
                 }
                 BindSeriesGrid(Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text));
+                onlineNCDBackOfficeBo.AttchingSameSubtypeCattoSeries(Convert.ToInt32(txtIssueId.Text));
 
             }
             else if (e.CommandName == RadGrid.UpdateCommandName)
@@ -1720,6 +1721,8 @@ namespace WealthERP.OnlineOrderBackOffice
                     }
                 }
                 BindSeriesGrid(Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text));
+                onlineNCDBackOfficeBo.AttchingSameSubtypeCattoSeries(Convert.ToInt32(txtIssueId.Text));
+
             }
             else if (e.CommandName == RadGrid.DeleteCommandName)
             {

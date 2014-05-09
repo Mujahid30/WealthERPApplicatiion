@@ -486,7 +486,8 @@ namespace WealthERP.Admin
             fileExtension = file.GetExtension();
             string strRenameFilename = file.GetName();
             strRenameFilename = strRenameFilename.Replace(' ', '_');
-            string newFileName = advisorVo.advisorId + "_" + strGuid + "_" + strRenameFilename;
+            //string newFileName = advisorVo.advisorId + "_" + strGuid + "_" + strRenameFilename;
+            string newFileName = strRenameFilename;
             // Save adviser repository file in the path
             file.SaveAs(strPath + "\\" + newFileName);
             return newFileName;

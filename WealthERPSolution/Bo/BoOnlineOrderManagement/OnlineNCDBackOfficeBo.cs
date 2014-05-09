@@ -863,6 +863,24 @@ namespace BoOnlineOrderManagement
                 throw Ex;
             }
         }
+
+        public void AttchingSameSubtypeCattoSeries(int issueId)
+        {
+            try
+            {
+                onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
+                onlineNCDBackOfficeDao.AttchingSameSubtypeCattoSeries(issueId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+        }
+
+
+
+
+
         public void GenerateOnlineNcdExtract(int AdviserId, int UserId, string ExternalSource, string ProductAsset, int issueId, ref int isExtracted)
         {
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();

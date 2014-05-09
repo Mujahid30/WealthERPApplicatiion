@@ -184,6 +184,32 @@ namespace DaoOnlineOrderManagement
 
         }
 
+
+        public void AttchingSameSubtypeCattoSeries(int issueId)
+        {
+            Database db;
+            DbCommand dbCommand;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbCommand = db.GetStoredProcCommand("SPROC_AttchingSameSubtypeCattoSeries");
+                db.AddInParameter(dbCommand, "@issueId", DbType.Int32, issueId);
+
+                db.ExecuteNonQuery(dbCommand);
+                 
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+             
+
+        }
+
+
+
+
         public int IsValidBidRange(int issueId, double minBidAmt, double MaxBidAmt)
         {
             Database db;
