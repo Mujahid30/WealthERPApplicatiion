@@ -227,8 +227,8 @@
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>--%>
                                         
-                                         <telerik:GridEditCommandColumn Visible="true" HeaderStyle-Width="60px" UniqueName="MarkAsReject"
-                                            EditText="Cancel" CancelText="Cancel" UpdateText="OK" HeaderText="Cancel" >
+                                         <telerik:GridEditCommandColumn  HeaderStyle-Width="60px" UniqueName="MarkAsReject"
+                                            EditText="Cancel" CancelText="Cancel" UpdateText="OK" HeaderText="Cancel" Visible="false">
                                         </telerik:GridEditCommandColumn>
                                         
                                         <telerik:GridTemplateColumn AllowFiltering="false">
