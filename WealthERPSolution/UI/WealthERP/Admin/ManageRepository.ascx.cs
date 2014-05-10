@@ -199,7 +199,7 @@ namespace WealthERP.Admin
                         // If space is there to upload file
                         if (fStorageBalance >= fileSize)
                         {
-                            if (fileSize <= 2)   // If upload file size is less than 2 MB then upload
+                            if (fileSize <= 10)   // If upload file size is less than 10 MB then upload
                             {
                                 // Check if directory for advisor exists, and if not then create a new directoty
                                 if (!Directory.Exists(strRepositoryPath))
