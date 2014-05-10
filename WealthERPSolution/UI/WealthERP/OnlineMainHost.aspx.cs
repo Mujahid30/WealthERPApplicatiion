@@ -160,10 +160,14 @@ namespace WealthERP
                 case "MF":
                     divMFMenu.Visible = true;
                     lblOnlieProductType.Text = "Mutual Fund Order";
+                    divNCDMenu.Visible = false;
+                    divIPOMenu.Visible = false;
                     break;
                 case "NCD":
                     divNCDMenu.Visible = true;
                     lblOnlieProductType.Text = "NCD Order";
+                    divMFMenu.Visible = false;
+                    divIPOMenu.Visible = false;
                     break;
                 case "IPO":
                     divIPOMenu.Visible = true;
@@ -363,14 +367,18 @@ namespace WealthERP
         {
             ncdArrow.Visible = false;
             mfArrow.Visible = true;
+            SetProductTypeMenu("MF");
             ProductMenuItemChange("MF", "Transact");
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "pageloadscriptabcd", "LoadTopPanelDefault('OnlineOrderTopMenu');", true);
         }
 
         protected void lnkNcdOrder_Click(object sender, EventArgs e)
         {
             ncdArrow.Visible = true;
             mfArrow.Visible = false;
+            SetProductTypeMenu("NCD");
             ProductMenuItemChange("NCD", "Transact");
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "pageloadscriptabcd", "LoadTopPanelDefault('OnlineOrderTopMenu');", true);
 
         }
 
