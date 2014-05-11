@@ -136,9 +136,18 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void BindStructureRuleGrid()
         {
+            DataTable dtIssue = new DataTable();
+                        
             //1--- For Curent Issues
-            DataSet dsStructureRules = OnlineBondBo.GetAdviserIssuerList(adviserVo.advisorId, IssuerId, 1, customerVo.CustomerId, Session["PageDefaultSetting"]==null?1:0);
-            DataTable dtIssue = dsStructureRules.Tables[0];
+              if (Cache["NCDIssueList" + userVo.UserId.ToString()] != null)
+              {
+                  DataTable dtIssueList=(DataTable)Cache["NCDIssueList" + userVo.UserId.ToString()];
+                  dtIssueList.DefaultView.RowFilter = "AIM_IssueId=" + IssuerId.ToString();
+                  dtIssue = dtIssueList.DefaultView.ToTable();
+              }
+              else
+                  dtIssue = OnlineBondBo.GetAdviserIssuerList(adviserVo.advisorId, IssuerId, 1, customerVo.CustomerId, Session["PageDefaultSetting"] == null ? 1 : 0).Tables[0];
+    
             if (dtIssue.Rows.Count > 0)
             {
                 if (Cache["NCDIssueList" + userVo.UserId.ToString()] == null)
