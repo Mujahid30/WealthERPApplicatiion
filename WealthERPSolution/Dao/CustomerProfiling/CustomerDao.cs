@@ -800,6 +800,8 @@ namespace DaoCustomerProfiling
                         customerVo.CustomerClassificationID = int.Parse(dr["ACC_CustomerCategoryCode"].ToString());
                     if (!string.IsNullOrEmpty(dr["U_AccountId"].ToString()))
                         customerVo.AccountId = dr["U_AccountId"].ToString();
+                    if (!string.IsNullOrEmpty(dr["C_WCMV_TaxStatus_Id"].ToString()))
+                        customerVo.TaxStatusCustomerSubTypeId = int.Parse(dr["C_WCMV_TaxStatus_Id"].ToString());
 
                 }
             }
