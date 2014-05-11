@@ -146,7 +146,7 @@ namespace WealthERP.OnlineOrderManagement
                   dtIssue = dtIssueList.DefaultView.ToTable();
               }
               else
-                  dtIssue = OnlineBondBo.GetAdviserIssuerList(adviserVo.advisorId, IssuerId, 1, customerVo.CustomerId, Session["PageDefaultSetting"] == null ? 1 : 0).Tables[0];
+                  dtIssue = OnlineBondBo.GetAdviserIssuerList(adviserVo.advisorId, IssuerId, 1, customerVo.CustomerId, Session["PageDefaultSetting"] == null ? 1 : 0, customerVo.TaxStatusCustomerSubTypeId).Tables[0];
     
             if (dtIssue.Rows.Count > 0)
             {
@@ -175,7 +175,7 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void BindStructureRuleGrid(int IssuerId)
         {
-            DataSet dsStructureRules = OnlineBondBo.GetLiveBondTransaction(IssuerId, customerVo.CustomerId);
+            DataSet dsStructureRules = OnlineBondBo.GetLiveBondTransaction(IssuerId, customerVo.CustomerId, customerVo.TaxStatusCustomerSubTypeId);
             DataTable dtTransact = dsStructureRules.Tables[0];
             if (dtTransact.Rows.Count > 0)
             {

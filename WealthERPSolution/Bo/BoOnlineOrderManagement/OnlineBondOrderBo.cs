@@ -45,12 +45,12 @@ namespace BoOnlineOrderManagement
             return dsLookupData;
         }
 
-        public DataSet GetAdviserIssuerList(int adviserId, int issueId, int type, int custmerId, int isAdminRequest)
+        public DataSet GetAdviserIssuerList(int adviserId, int issueId, int type, int custmerId, int isAdminRequest,int customerSubtype)
         {
 
             try
             {
-                dsCommissionStructureRules = onlineBondDao.GetAdviserIssuerList(adviserId, issueId, type, custmerId,isAdminRequest);
+                dsCommissionStructureRules = onlineBondDao.GetAdviserIssuerList(adviserId, issueId, type, custmerId, isAdminRequest, customerSubtype);
 
             }
             catch (BaseApplicationException Ex)
@@ -84,12 +84,12 @@ namespace BoOnlineOrderManagement
                 throw (Ex);
             }
         }
-        public DataSet GetLiveBondTransaction(int SeriesId, int customerId)
+        public DataSet GetLiveBondTransaction(int SeriesId, int customerId,int customerSubType)
         {
 
             try
             {
-                dsCommissionStructureRules = onlineBondDao.GetLiveBondTransaction(SeriesId, customerId);
+                dsCommissionStructureRules = onlineBondDao.GetLiveBondTransaction(SeriesId, customerId, customerSubType);
 
             }
             catch (BaseApplicationException Ex)

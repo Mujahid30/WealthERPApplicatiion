@@ -127,7 +127,7 @@ namespace DaoOnlineOrderManagement
             // return stepCode;
         }
 
-        public DataSet GetAdviserIssuerList(int adviserId, int issueId, int type, int customerId,int isAdminRequest)
+        public DataSet GetAdviserIssuerList(int adviserId, int issueId, int type, int customerId, int isAdminRequest, int CustomerSubType)
         {
             Database db;
             DbCommand cmdGetCommissionStructureRules;
@@ -145,8 +145,13 @@ namespace DaoOnlineOrderManagement
 
                 db.AddInParameter(cmdGetCommissionStructureRules, "@type", DbType.Int32, type);
 
+
+             //  db.AddInParameter(cmdGetCommissionStructureRules, "@type", DbType.Int32, type);
+
                 db.AddInParameter(cmdGetCommissionStructureRules, "@customerId", DbType.Int32, customerId);
-                db.AddInParameter(cmdGetCommissionStructureRules, "@IsAdminRequest", DbType.Int16, isAdminRequest);
+                db.AddInParameter(cmdGetCommissionStructureRules, "@CustomerSubType", DbType.Int32, 2017);
+
+              db.AddInParameter(cmdGetCommissionStructureRules, "@IsAdminRequest", DbType.Int16, isAdminRequest);
 
 
                 //db.AddInParameter(cmdGetCommissionStructureRules, "@IssuerId", DbType.String, IssuerId);
@@ -171,7 +176,7 @@ namespace DaoOnlineOrderManagement
             }
             return ds;
         }
-        public DataSet GetLiveBondTransaction(int SeriesId, int customerId)
+        public DataSet GetLiveBondTransaction(int SeriesId, int customerId, int CustomerSubType)
         {
             Database db;
             DbCommand cmdGetCommissionStructureRules;
@@ -184,6 +189,7 @@ namespace DaoOnlineOrderManagement
 
                 db.AddInParameter(cmdGetCommissionStructureRules, "@IssueId", DbType.Int32, SeriesId);
                 db.AddInParameter(cmdGetCommissionStructureRules, "@CustomerId", DbType.Int32, customerId);
+                db.AddInParameter(cmdGetCommissionStructureRules, "@customerSubType", DbType.Int32, CustomerSubType);
 
                 //if (orderId!=0)
                 //    db.AddInParameter(cmdGetCommissionStructureRules, "@orderId", DbType.Int32, orderId);

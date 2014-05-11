@@ -1063,31 +1063,37 @@ namespace BoOnlineOrderManagement
         {
 
             string dt = DateTime.Now.ToString("ddMMyy");
+            string strIssue = string.Empty ;
+            if (issueName.Length > 15)
+                strIssue = issueName.Substring(0, 4);
+            else
+                strIssue = issueName;
+
 
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
             string extractStepCode = GetExtractStepCode(fileTypeId);
             if (extractStepCode == "EI")
             {
-                filename = extSource + "OrderBookExtr_" +issueName+"_" +dt;
+                filename = extSource + "OrderBookExtr_" + strIssue + "_" + dt;
                 delimeter = "";
                 format = ".xls";
 
             }
             if (extractStepCode == "EC")
             {
-                filename = extSource + "ChqExtr_" +issueName+"_" +dt;
+                filename = extSource + "ChqExtr_" + strIssue + "_" + dt;
                 delimeter = ",";
                 format = ".csv";
             }
             else if (extractStepCode == "EB")
             {
-                filename = extSource + "BidExtr_" +issueName+"_" +dt;
+                filename = extSource + "BidExtr_" + strIssue + "_" + dt;
                 delimeter = "|";
                 format = ".txt";
             }
             else if (extractStepCode == "EP")
             {
-                filename = extSource + "CheqPrintFile_" +issueName+"_"+ dt;
+                filename = extSource + "CheqPrintFile_" + strIssue + "_" + dt;
                 delimeter = "";
                 format = ".xls";
             }
