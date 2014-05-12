@@ -145,20 +145,20 @@
             <asp:TextBox ID="txtDpName" runat="server" CssClass="txtField" Width="300px"></asp:TextBox>
             <span id="Span1" class="spnRequiredField">*</span>
         </td>
-        <td>
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtDpName"
-                ErrorMessage="Name Required" CssClass="cvPCG"></asp:RequiredFieldValidator>
+       <td>
+            <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtDpName"
+                ErrorMessage="Name Required" CssClass="cvPCG"></asp:RequiredFieldValidator>--%>
         </td>
         <td align="right">
             &nbsp;<asp:Label ID="lblDPId" runat="server" Text="DP Id:" CssClass="FieldName"></asp:Label>
         </td>
         <td>
             <asp:TextBox ID="txtDPId" runat="server" CssClass="txtField"></asp:TextBox>
-            <%--<span id="Span3" class="spnRequiredField">*</span>--%>
+           <%-- <span id="Span3" class="spnRequiredField">*</span>--%>
         </td>
         <%--<td>
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="Required Dp Id"
-                ControlToValidate="txtDpId" CssClass="cvPCG"></asp:RequiredFieldValidator>
+            <asp:RequiredFieldValidator ID="RFVDpId" runat="server" ErrorMessage="Required Dp Id"
+                ControlToValidate="txtDpId" CssClass="cvPCG" ValidationGroup="btnsubmit"></asp:RequiredFieldValidator>
         </td>--%>
     </tr>
     <tr>
@@ -228,10 +228,17 @@
                 CssClass="FieldName"></asp:Label>
         </td>
         <td>
-            <asp:TextBox ID="txtDepositoryName" runat="server" CssClass="txtField" MaxLength="25"></asp:TextBox>
+            <%--<asp:TextBox ID="txtDepositoryName" runat="server" CssClass="txtField" MaxLength="25"></asp:TextBox>--%>
             <%--<span id="Span4" class="spnRequiredField">*  </td>--%>
              <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ErrorMessage="Beneficiary Account Number Required"
                 ControlToValidate="txtBeneficiaryAcctNbr" CssClass="cvPCG"></asp:RequiredFieldValidator>--%>
+                <asp:DropDownList ID="ddlDepositoryName" runat="server" CssClass="cmbField" AutoPostBack="true" OnSelectedIndexChanged="ddlDepositoryName_SelectedIndexChanged" ></asp:DropDownList>
+                 <br />
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="ddlDepositoryName"
+                CssClass="rfvPCG" Display="Dynamic" ErrorMessage="Please select Depository Name"
+                InitialValue="Select" ValidationGroup="btnsubmit">
+            </asp:RequiredFieldValidator>
+                
         </td>
     </tr>
     <tr>
@@ -409,7 +416,7 @@
                 <tr>
                     <td>
                         <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="btnSubmit_Click"
-                            CssClass="PCGButton" OnClientClick="GetSelectedBranches()" />
+                            CssClass="PCGButton" OnClientClick="GetSelectedBranches()"  ValidationGroup="btnsubmit"/>
                     </td>
                 </tr>
             </table>

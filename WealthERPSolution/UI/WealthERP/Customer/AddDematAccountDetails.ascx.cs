@@ -38,22 +38,22 @@ namespace WealthERP.Customer
         protected void Page_Load(object sender, EventArgs e)
         {
             rmvo =(RMVo) Session["rmvo"];
-            
-            
+
+            BindDepositoryType();
             customerportfoliovo = (CustomerPortfolioVo)Session["customerPortfolioVo"];
             
                 if (Session["DematDetailsView"].ToString() == "View")
                 {
                     lblTitle.Text = "View Demat Account";
                     # region View Section
-                    txtDepositoryName.Enabled = false;
+                    ddlDepositoryName.Enabled = false;
                     rbtnYes.Enabled = false;
                     rbtnNo.Enabled = false;
                     txtDpClientId.Enabled = false;
                     txtDPId.Enabled = false;
                     txtDpName.Enabled = false;
                     ddlModeOfHolding.Enabled = false;
-                    txtDepositoryName.Enabled = false;
+                    ddlDepositoryName.Enabled = false;
                     gvPickJointHolder.Enabled = false;
                     gvPickNominee.Enabled = false;
                     lstAvailableTrades.Enabled = false;
@@ -73,14 +73,14 @@ namespace WealthERP.Customer
                 else if (Session["DematDetailsView"].ToString() == "Edit")
                 {
                     lblTitle.Text = "Edit Demat Account";
-                    txtDepositoryName.Enabled = true;
+                    ddlDepositoryName.Enabled = true;
                     txtDpClientId.Enabled = true;
-                    txtDPId.Enabled = true;
+                    
                     txtDpName.Enabled = true;
                     rbtnYes.Enabled = true;
                     rbtnNo.Enabled = true;
                     ddlModeOfHolding.Enabled = true;
-                    txtDepositoryName.Enabled = true;
+                    ddlDepositoryName.Enabled = true;
                     gvPickJointHolder.Enabled = true;
                     gvPickNominee.Enabled = true;
                     lstAvailableTrades.Enabled = true;
@@ -150,6 +150,7 @@ namespace WealthERP.Customer
                         }
                         //==========================================================
                         BindListBox();
+                       
 
                     }
                     catch (BaseApplicationException ex)
@@ -175,6 +176,7 @@ namespace WealthERP.Customer
         }
         protected void ViewEditMode()
         {
+           
             DateTime accountopeningdate;
             int listItemCount = 0;
             customervo = (CustomerVo)Session["CustomerVo"];
@@ -192,8 +194,21 @@ namespace WealthERP.Customer
             ddlModeOfHolding.DataValueField = "XMOH_ModeOfHoldingCode";
             ddlModeOfHolding.DataBind();
             //=========================================================
-
-            txtDepositoryName.Text = dsDematDetails.Tables[0].Rows[0]["DepositoryName"].ToString();
+            if (!string.IsNullOrEmpty(dsDematDetails.Tables[0].Rows[0]["DepositoryName"].ToString()))
+            {
+                ddlDepositoryName.SelectedValue = dsDematDetails.Tables[0].Rows[0]["DepositoryName"].ToString();
+                if (Session["DematDetailsView"].ToString() == "Edit")
+                {
+                    if (ddlDepositoryName.SelectedItem.Text == "NSDL")
+                    {
+                        txtDPId.Enabled = true;
+                    }
+                    else if (ddlDepositoryName.SelectedItem.Text == "CDSL")
+                    {
+                        txtDPId.Enabled = false;
+                    }
+                }
+            }
             if (dsDematDetails.Tables[0].Rows[0]["IsActive"].ToString() == "1")
             {
                 chk_isactive.Checked = true;
@@ -314,6 +329,20 @@ namespace WealthERP.Customer
                     
             
         }
+        protected void BindDepositoryType()
+        {
+            DataTable DsDepositoryNames = new DataTable();
+            DsDepositoryNames=bodemataccount.GetDepositoryName();
+            ddlDepositoryName.DataSource = DsDepositoryNames;
+            if (DsDepositoryNames.Rows.Count > 0)
+            {
+                ddlDepositoryName.DataTextField = "WCMV_Code";
+                ddlDepositoryName.DataValueField = "WCMV_LookupId";
+                ddlDepositoryName.DataBind();
+            }
+            ddlDepositoryName.Items.Insert(0, new ListItem("Select", "Select"));
+               
+        }
         protected void ddlModeOfHolding_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlModeOfHolding.SelectedIndex != 8)
@@ -373,7 +402,7 @@ namespace WealthERP.Customer
                         demataccountvo.DpclientId = txtDpClientId.Text;
                         demataccountvo.DpId = txtDPId.Text;
                         demataccountvo.DpName = txtDpName.Text;
-                        demataccountvo.DepositoryName = txtDepositoryName.Text;
+                        demataccountvo.DepositoryName = ddlDepositoryName.SelectedValue;
                         if (rbtnYes.Checked == true)
                             demataccountvo.IsHeldJointly = 1;
                         else
@@ -439,7 +468,7 @@ namespace WealthERP.Customer
                         demataccountvo.DpclientId = txtDpClientId.Text;
                         demataccountvo.DpId = txtDPId.Text;
                         demataccountvo.DpName = txtDpName.Text;
-                        demataccountvo.DepositoryName = txtDepositoryName.Text;
+                        demataccountvo.DepositoryName = ddlDepositoryName.SelectedValue;
                         if (rbtnYes.Checked == true)
                             demataccountvo.IsHeldJointly = 1;
                         else
@@ -511,6 +540,22 @@ namespace WealthERP.Customer
         {
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('DematAccountDetails','none');", true);
         }
+        protected void ddlDepositoryName_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if ((Session["DematDetailsView"].ToString() != "Add"))
+            {
+                if (ddlDepositoryName.SelectedItem.Text == "NSDL")
+                {
+                    txtDPId.Enabled = true;
+                }
+                else if (ddlDepositoryName.SelectedItem.Text == "CDSL")
+                {
+                    txtDPId.Enabled = false;
+                }
+            }
+        }
+             
+        
        
     }
 }
