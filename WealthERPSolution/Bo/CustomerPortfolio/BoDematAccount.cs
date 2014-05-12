@@ -65,6 +65,10 @@ namespace BoCustomerPortfolio
         {
             return demataccountdao.GetDematAccountDetails(demataccountId);
         }
+        public DataTable GetDepositoryName()
+        {
+            return demataccountdao.GetDepositoryNames();
+        }
         public void UpdateDematDetails(int customerId, int portfolioId, int dematId, DematAccountVo demataccountvo, RMVo rmvo, ArrayList associationIdJH, ArrayList associationIdN, ArrayList lstassociatedtradeaccount)
         {
             demataccountdao.UpdateDematDetails(customerId, portfolioId,dematId,demataccountvo, rmvo, associationIdJH, associationIdN, lstassociatedtradeaccount);
