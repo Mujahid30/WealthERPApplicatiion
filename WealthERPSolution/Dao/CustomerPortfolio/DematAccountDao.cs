@@ -456,7 +456,6 @@ namespace DaoCustomerPortfolio
             DataSet datasetJointHoldersAndNominees = null;
             Database db;
             DbCommand dbJointHoldersAndNominees;
-
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
@@ -597,6 +596,42 @@ namespace DaoCustomerPortfolio
         //}
 
 # endregion
+        //Add For Getting the depository Type
+        public DataTable GetDepositoryNames()
+        {
+            DataSet dsDepositoryNames = null;
+            Database db;
+            DbCommand dbDepositoryNames;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbDepositoryNames = db.GetStoredProcCommand("SPROC_ONL_GetDepositoryType ");
+                db.AddInParameter(dbDepositoryNames, "@WCM_Id", DbType.Int32, 15000);
+                dsDepositoryNames = db.ExecuteDataSet(dbDepositoryNames);
+            }
+            catch (BaseApplicationException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(ex.Message, ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdvisorDao.cs:GetAdviserCustomerListDataSet()");
+
+                object[] objects = new object[1];
+               
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsDepositoryNames.Tables[0];
+
+
+
+        }
         public void UpdateDematDetails(int customerId, int portfolioId,int dematId, DematAccountVo demataccountvo, RMVo rmvo, ArrayList associationIdJH, ArrayList associationIdN, ArrayList lstassociatedtradeaccount)
         {
             //DataSet dsDematDetails = null;
