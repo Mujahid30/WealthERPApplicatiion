@@ -71,6 +71,7 @@ namespace VoCustomerPortfolio
         private string m_UserType;
         private string m_DeuptyHead;
         private string m_ClusterMgr;
+        private DateTime m_ELSSMaturityDate;
         #endregion Fields
 
         #region Properties
@@ -393,6 +394,12 @@ namespace VoCustomerPortfolio
           {
               get { return m_ClusterMgr; }
               set { m_ClusterMgr = value; }
+
+          }
+          public DateTime ELSSMaturityDate
+          {
+              get { return m_ELSSMaturityDate; }
+              set { m_ELSSMaturityDate = value; }
 
           }
         

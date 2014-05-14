@@ -331,6 +331,12 @@
                                                             </telerik:RadScriptBlock>
                                                         </FilterTemplate>--%>
                                 </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="ELSSMaturityDate" DataFormatString="{0:dd/MM/yyyy}"
+                                    AllowFiltering="true" HeaderText="Maturity Date" UniqueName="ELSSMaturityDate"
+                                    SortExpression="ELSSMaturityDate" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                    AutoPostBackOnFilter="true" HeaderStyle-Width="80px" FilterControlWidth="60px">
+                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
                                  <telerik:GridBoundColumn DataField="CO_OrderDate" DataFormatString="{0:dd/MM/yyyy hh:mm:ss}"
                                     AllowFiltering="true" HeaderText="Request Date/Time" UniqueName="CO_OrderDate"
                                     SortExpression="CO_OrderDate" ShowFilterIcon="false" CurrentFilterFunction="Contains"

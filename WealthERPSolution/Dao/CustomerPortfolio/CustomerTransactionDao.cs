@@ -4735,6 +4735,14 @@ namespace DaoCustomerPortfolio
                         {
                             mfTransactionVo.OrdDate = DateTime.MinValue;
                         }
+                       if (dr["CMFT_ELSSMaturityDate"].ToString() != null && dr["CMFT_ELSSMaturityDate"].ToString() != string.Empty)
+                       {
+                           mfTransactionVo.ELSSMaturityDate = DateTime.Parse(dr["CMFT_ELSSMaturityDate"].ToString());
+                       }
+                       else
+                       {
+                           mfTransactionVo.ELSSMaturityDate = DateTime.MinValue;
+                       }
                         mfTransactionVo.CreatedOn = DateTime.Parse(dr["CMFT_CreatedOn"].ToString());                       
                         if (dr["CMFT_EUIN"].ToString() != null && dr["CMFT_EUIN"].ToString() != string.Empty)
                         {
@@ -4941,7 +4949,16 @@ namespace DaoCustomerPortfolio
                         {
                             mfTransactionVo.OrdDate = DateTime.MinValue;
                         }
+                        if (dr["CMFT_ELSSMaturityDate"].ToString() != null && dr["CMFT_ELSSMaturityDate"].ToString() != string.Empty)
+                        {
+                            mfTransactionVo.ELSSMaturityDate = DateTime.Parse(dr["CMFT_ELSSMaturityDate"].ToString());
+                        }
+                        else
+                        {
+                            mfTransactionVo.ELSSMaturityDate = DateTime.MinValue;
+                        }
                         mfTransactionVo.CreatedOn = DateTime.Parse(dr["CMFT_CreatedOn"].ToString());
+                       
                         if (dr["CMFT_EUIN"].ToString() != null && dr["CMFT_EUIN"].ToString() != string.Empty)
                         {
                             mfTransactionVo.EUIN = dr["CMFT_EUIN"].ToString();
