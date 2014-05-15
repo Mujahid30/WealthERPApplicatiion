@@ -62,5 +62,12 @@ namespace BoOnlineOrderManagement
             }
             return dtIPOOrderBook;
         }
+        public DataTable GetIPOHoldings(int AdviserId, int AIMIssueId, int PageSize, int CurrentPage, string CustomerNamefilter, out int RowCount)
+        {
+            DataTable dtGetIPOHoldings;
+            OnlineIPOBackOfficeDao OnlineIPOBackOfficeDao = new OnlineIPOBackOfficeDao();
+            dtGetIPOHoldings = OnlineIPOBackOfficeDao.GetIPOHoldings(AdviserId, AIMIssueId, PageSize, CurrentPage, CustomerNamefilter, out RowCount);
+            return dtGetIPOHoldings;
+        }
     }
 }

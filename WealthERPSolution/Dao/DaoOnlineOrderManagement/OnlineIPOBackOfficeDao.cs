@@ -86,6 +86,47 @@ namespace DaoOnlineOrderManagement
             }
             return dtIPOOrderBook;
         }
-
+        public DataTable GetIPOHoldings(int AdviserId, int AIMIssueId, int PageSize, int CurrentPage, string CustomerNamefilter, out int RowCount)
+        {
+            DataTable dtGetIPOHoldings;
+            Database db;
+            DataSet dsGetIPOHoldings;
+            DbCommand GetIPOHoldingscmd;
+            RowCount = 0;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetIPOHoldingscmd = db.GetStoredProcCommand("SPROC_GetAdviserIPOHoldings");
+                db.AddInParameter(GetIPOHoldingscmd, "@AdviserId", DbType.Int32, AdviserId);
+                db.AddInParameter(GetIPOHoldingscmd, "@AIMissue", DbType.Int32, AIMIssueId);
+                db.AddInParameter(GetIPOHoldingscmd, "@CurrentPage", DbType.Int32, CurrentPage);
+                db.AddInParameter(GetIPOHoldingscmd, "@CustomerNameFilter", DbType.String, CustomerNamefilter);
+                db.AddInParameter(GetIPOHoldingscmd, "@PageSize", DbType.Int32, PageSize);
+                db.AddOutParameter(GetIPOHoldingscmd, "@RowCount", DbType.Int32, 0);
+                dsGetIPOHoldings = db.ExecuteDataSet(GetIPOHoldingscmd);
+                dtGetIPOHoldings = dsGetIPOHoldings.Tables[0];
+                if (db.ExecuteNonQuery(GetIPOHoldingscmd) != 0)
+                {
+                    if (db.GetParameterValue(GetIPOHoldingscmd, "RowCount").ToString() != "")
+                    {
+                        RowCount = Convert.ToInt32(db.GetParameterValue(GetIPOHoldingscmd, "RowCount").ToString());
+                    }
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:Getproductcode()");
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtGetIPOHoldings;
+        }
     }
 }

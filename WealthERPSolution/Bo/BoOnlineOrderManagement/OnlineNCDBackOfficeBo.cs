@@ -1822,12 +1822,12 @@ namespace BoOnlineOrderManagement
             }
             return dtGetIssueNamee;
         }
-        public DataSet GetNCDHoldings(int AIMIssueId, int AdviserId)
+        public DataTable GetNCDHoldings(int AdviserId, int AIMIssueId, int PageSize, int CurrentPage, string CustomerNamefilter, out int RowCount)
         {
-            DataSet dsGetNCDHoldings;
+            DataTable dtGetNCDHoldings;
             OnlineNCDBackOfficeDao onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
-            dsGetNCDHoldings = onlineNCDBackOfficeDao.GetNCDHoldings(AIMIssueId, AdviserId);
-            return dsGetNCDHoldings;
+            dtGetNCDHoldings = onlineNCDBackOfficeDao.GetNCDHoldings(AdviserId, AIMIssueId, PageSize, CurrentPage, CustomerNamefilter, out RowCount);
+            return dtGetNCDHoldings;
         }
         public DataSet GetNCDSubHoldings(int AdviserId, int IssueId)
         {

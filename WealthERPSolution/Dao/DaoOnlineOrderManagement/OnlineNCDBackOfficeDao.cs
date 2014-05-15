@@ -2946,18 +2946,35 @@ namespace DaoOnlineOrderManagement
             }
             return dtGetIssueName;
         }
-        public DataSet GetNCDHoldings(int AIMIssueId,int AdviserId)
+        public DataTable GetNCDHoldings(int AdviserId, int AIMIssueId, int PageSize, int CurrentPage, string CustomerNamefilter, out int RowCount)
         {
+            DataTable dtGetNCDHoldings;
             Database db;
             DataSet dsGetNCDHoldings;
             DbCommand GetNCDHoldingscmd;
+             RowCount = 0;
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 GetNCDHoldingscmd = db.GetStoredProcCommand("SPROC_GetAdviserIssueHoldings");
-                db.AddInParameter(GetNCDHoldingscmd, "@AIMissue", DbType.Int32, AIMIssueId);
                 db.AddInParameter(GetNCDHoldingscmd, "@AdviserId", DbType.Int32, AdviserId);
+                db.AddInParameter(GetNCDHoldingscmd, "@AIMissue", DbType.Int32, AIMIssueId);
+                db.AddInParameter(GetNCDHoldingscmd, "@CurrentPage", DbType.Int32, CurrentPage);
+                db.AddInParameter(GetNCDHoldingscmd, "@CustomerNameFilter", DbType.String, CustomerNamefilter);
+                db.AddInParameter(GetNCDHoldingscmd, "@PageSize", DbType.Int32, PageSize);
+                db.AddOutParameter(GetNCDHoldingscmd, "@RowCount", DbType.Int32, 0);
+
+                //dsGetNCDHoldings = db.ExecuteDataSet(GetNCDHoldingscmd);
+                //dtGetNCDHoldings = dsGetNCDHoldings.Tables[0];
                 dsGetNCDHoldings = db.ExecuteDataSet(GetNCDHoldingscmd);
+                dtGetNCDHoldings = dsGetNCDHoldings.Tables[0];
+                if (db.ExecuteNonQuery(GetNCDHoldingscmd) != 0)
+                {
+                    if (db.GetParameterValue(GetNCDHoldingscmd, "RowCount").ToString() != "")
+                    {
+                        RowCount = Convert.ToInt32(db.GetParameterValue(GetNCDHoldingscmd, "RowCount").ToString());
+                    }
+                }
             }
             catch (BaseApplicationException Ex)
             {
@@ -2972,7 +2989,7 @@ namespace DaoOnlineOrderManagement
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-            return dsGetNCDHoldings;
+            return dtGetNCDHoldings;
         }
         public DataSet GetNCDSubHoldings(int AdviserId, int IssueId)
         {
