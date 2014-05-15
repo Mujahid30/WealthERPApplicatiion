@@ -2947,7 +2947,7 @@ namespace DaoOnlineOrderManagement
             return dtGetIssueName;
         }
         public DataTable GetNCDHoldings(int AdviserId, int AIMIssueId, int PageSize, int CurrentPage, string CustomerNamefilter, out int RowCount)
-        {
+        { 
             DataTable dtGetNCDHoldings;
             Database db;
             DataSet dsGetNCDHoldings;
