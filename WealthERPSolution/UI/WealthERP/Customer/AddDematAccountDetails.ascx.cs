@@ -337,7 +337,7 @@ namespace WealthERP.Customer
             if (DsDepositoryNames.Rows.Count > 0)
             {
                 ddlDepositoryName.DataTextField = "WCMV_Code";
-                ddlDepositoryName.DataValueField = "WCMV_LookupId";
+                ddlDepositoryName.DataValueField = "WCMV_Code";
                 ddlDepositoryName.DataBind();
             }
             ddlDepositoryName.Items.Insert(0, new ListItem("Select", "Select"));
