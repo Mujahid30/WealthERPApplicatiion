@@ -11,6 +11,7 @@ using VoOnlineOrderManagemnet;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.IO;
+using System.IO.Compression;
 
 namespace BoOnlineOrderManagement
 {
@@ -976,6 +977,8 @@ namespace BoOnlineOrderManagement
             return kvpHeaders;
         }
 
+
+
         public DataTable GetOnlineNcdExtractPreview(DateTime extractDate, int adviserId, int fileTypeId, string extSource, int issueId)
         {
             KeyValuePair<string, string>[] headers = GetHeaderMapping(fileTypeId, extSource);
@@ -984,40 +987,47 @@ namespace BoOnlineOrderManagement
 
             DataTable dtExtract = onlineNCDBackOfficeDao.GetOnlineNcdExtractPreview(extractDate, adviserId, fileTypeId, issueId, extSource).Tables[0];
 
-            if (dtExtract == null) return null;
-            if (dtExtract.Rows.Count == 0) return null;
-            if (headers != null)
+            if (dtExtract != null)
             {
-                foreach (KeyValuePair<string, string> header in headers)
+                if (dtExtract.Rows.Count != 0)
                 {
-                    dtExtract.Columns[header.Key].ColumnName = header.Value;
+
+                    if (headers != null)
+                    {
+                        foreach (KeyValuePair<string, string> header in headers)
+                        {
+                            dtExtract.Columns[header.Key].ColumnName = header.Value;
+                        }
+                        dtExtract.AcceptChanges();
+                    }
+
+                    if (extSource == "BSE")
+                    {
+                        DataTable dtExtractClone = dtExtract.Copy();
+                        DataRow newBlankRow;
+                        newBlankRow = dtExtract.NewRow();
+                        newBlankRow = dtExtractClone.Rows[0];
+
+                        dtExtract.Rows.Add(newBlankRow.ItemArray);
+
+                        int maxIndex = dtExtract.Rows.Count;
+
+                        DataRow selectedRow = dtExtract.Rows[maxIndex - 1];
+                        DataRow newRow = dtExtract.NewRow();
+                        newRow.ItemArray = selectedRow.ItemArray; // copy data
+                        dtExtract.Rows.Remove(selectedRow);
+                        dtExtract.Rows.InsertAt(newRow, 0);
+
+
+                    }
                 }
-                dtExtract.AcceptChanges();
-            }
-
-            if (extSource == "BSE")
-            {
-                DataTable dtExtractClone = dtExtract.Copy();
-                DataRow newBlankRow;
-                newBlankRow = dtExtract.NewRow();
-                newBlankRow = dtExtractClone.Rows[0];
-
-                dtExtract.Rows.Add(newBlankRow.ItemArray);
-
-                int maxIndex = dtExtract.Rows.Count;
-
-                DataRow selectedRow = dtExtract.Rows[maxIndex - 1];
-                DataRow newRow = dtExtract.NewRow();
-                newRow.ItemArray = selectedRow.ItemArray; // copy data
-                dtExtract.Rows.Remove(selectedRow);
-                dtExtract.Rows.InsertAt(newRow, 0);
-
-
             }
 
 
             return dtExtract;
         }
+
+
 
 
         public string GetExtractStepCode(int fileTypeId)
@@ -1063,7 +1073,7 @@ namespace BoOnlineOrderManagement
         {
 
             string dt = DateTime.Now.ToString("ddMMyy");
-            string strIssue = string.Empty ;
+            string strIssue = string.Empty;
             if (issueName.Length > 15)
                 strIssue = issueName.Substring(0, 4);
             else
@@ -1096,9 +1106,63 @@ namespace BoOnlineOrderManagement
                 filename = extSource + "CheqPrintFile_" + strIssue + "_" + dt;
                 delimeter = "";
                 format = ".xls";
-            }
 
+
+            }
+            else if (extractStepCode == "EAP")
+            {
+
+                GetAcntingExtractFileName(ref filename, ref delimeter, ref format,   strIssue, fileTypeId);
+            }
+            else if (extractStepCode == "EAJV")
+            {
+
+                GetAcntingExtractFileName(ref filename, ref delimeter, ref format,   strIssue, fileTypeId);
+            }
         }
+
+        //GetAcntingExtractFileName
+
+        public void GetAcntingExtractFileName(ref string filename, ref string delimeter, ref string format,  string strIssue, int fileTypeId)
+        {
+            string strExtractDate = Convert.ToDateTime(DateTime.Now).ToShortDateString();
+            string[] strSplitExtractDate = strExtractDate.Split('/');
+
+            string DD = strSplitExtractDate[0].ToString();
+            string MM = strSplitExtractDate[1].ToString();
+            string YYYY = strSplitExtractDate[2].ToString();
+
+            onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
+
+            if (fileTypeId == 32)
+            {
+                filename = "NCD PAYFILE FOR" + ' ' + strIssue + ' ' + "BOND" + "_" + DD + '.' + MM;
+                delimeter = "/t";
+                format = ".txt";
+            }
+            else if (fileTypeId == 33)
+            {
+                filename = "eNCD" + DD + MM + YYYY + '-' + strIssue ;           
+                delimeter = "|";
+                format = ".txt";
+            }
+            if (fileTypeId == 34)
+            {
+                filename = "IPO PAYFILE FOR" + ' ' + strIssue + ' ' + "BOND" + "_" + DD + '.' + MM;
+                delimeter = "/t";
+                format = ".txt";
+            }
+            else if (fileTypeId == 35)
+            {
+                filename = "eIPO" + DD + MM + YYYY + '-' + strIssue;
+                delimeter = "|";
+                format = ".txt";
+            }
+            
+        }
+
+
+
         public DataTable ReadCsvFile(string FilePath, int fileTypeId)
         {
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
@@ -1225,6 +1289,41 @@ namespace BoOnlineOrderManagement
             }
 
         }
+
+
+
+        public DataSet GetNcdIpoAcntingExtract(DateTime Today, int adviserId, int issueId, string Product, string extractType)
+        {
+            onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
+            try
+            {
+                return onlineNCDBackOfficeDao.GetNcdIpoAcntingExtract(Today, adviserId, issueId, Product, extractType);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineNCDBackOfficeBo.cs:GetCategoryDetails()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+        }
+
+
+
+
+
+
+
+
         public DataSet GetUploadIssue(string product, int adviserId)
         {
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
