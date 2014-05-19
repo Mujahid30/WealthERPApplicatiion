@@ -303,10 +303,15 @@ namespace WealthERP.OnlineOrderManagement
             string applicationNo = String.Empty;
             string apllicationNoStatus = String.Empty;
             double maxPaybleBidAmount = 0;
+            DateTime cutOff = DateTime.Now;
+            bool isCutOffTimeOver = false;
+
 
             double availableBalance = (double)onlineIPOOrderBo.GetUserRMSAccountBalance(customerVo.AccountId);
 
             int issueId = Convert.ToInt32(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIM_IssueId"].ToString());
+            if (!string.IsNullOrEmpty(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIM_CutOffTime"].ToString()))
+                cutOff = Convert.ToDateTime(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIM_CutOffTime"].ToString());
             DataTable dtIPOBidTransactionDettails = new DataTable();
             dtIPOBidTransactionDettails.Columns.Add("IssueBidNo", typeof(Int16));
             dtIPOBidTransactionDettails.Columns.Add("IsCutOffApplicable", typeof(Int16));
@@ -373,6 +378,8 @@ namespace WealthERP.OnlineOrderManagement
                 Label lblBidHighestValue = (Label)footeritem["BidAmountPayable"].FindControl("lblFinalBidAmountPayable");
                 maxPaybleBidAmount = Convert.ToDouble(lblBidHighestValue.Text.Trim());
             }
+            if (DateTime.Now.TimeOfDay > cutOff.TimeOfDay && cutOff.TimeOfDay < System.TimeSpan.Parse("23:59:59"))
+                isCutOffTimeOver = true;
 
             if (availableBalance >= maxPaybleBidAmount)
             {
@@ -384,11 +391,11 @@ namespace WealthERP.OnlineOrderManagement
                     lblAvailableLimits.Text = Convert.ToInt64(availableBalance).ToString();
                 }
 
-                userMessage = CreateUserMessage(orderId, accountDebitStatus, false, applicationNo, apllicationNoStatus);
+                userMessage = CreateUserMessage(orderId, accountDebitStatus, isCutOffTimeOver, applicationNo, apllicationNoStatus);
             }
             else
             {
-                userMessage = CreateUserMessage(orderId, false, false, applicationNo, apllicationNoStatus);
+                userMessage = CreateUserMessage(orderId, false, isCutOffTimeOver, applicationNo, apllicationNoStatus);
             }
 
             ShowMessage(userMessage);
@@ -408,7 +415,7 @@ namespace WealthERP.OnlineOrderManagement
             if (orderId != 0 && accountDebitStatus == true)
             {
                 if (isCutOffTimeOver)
-                    userMessage = "Order placed successfully, Order reference no is " + orderId.ToString() + ", Order will process next business day.";
+                    userMessage ="Order placed successfully, Order reference no is " + orderId.ToString() + " & Application no. " + applicationno  + ", Order will process next business day.";
                 else
                     userMessage = "Order placed successfully, Order reference no is " + orderId.ToString() + " & Application no. " + applicationno;
             }
