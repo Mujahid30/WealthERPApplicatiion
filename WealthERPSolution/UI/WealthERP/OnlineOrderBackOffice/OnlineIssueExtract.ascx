@@ -193,7 +193,7 @@
                     </asp:RequiredFieldValidator>
                 </td>
                 <td class="rightData" colspan="3">
-                    <asp:Button ID="btnIssueExtract" runat="server" CssClass="PCGLongButton" Text="NCD Extract"
+                    <asp:Button ID="btnIssueExtract" runat="server" CssClass="PCGLongButton" Text="Extract"
                         OnClick="btnIssueExtract_Click" />
                 </td>
             </tr>
