@@ -2747,6 +2747,13 @@
     <Compile Include="OnlineOrderBackOffice\OnlineAdviserCustomerSIPOrderBook.ascx.designer.cs">
       <DependentUpon>OnlineAdviserCustomerSIPOrderBook.ascx</DependentUpon>
     </Compile>
+    <Compile Include="OnlineOrderBackOffice\OnlineAdviserCustomerTransctionBook.ascx.cs">
+      <DependentUpon>OnlineAdviserCustomerTransctionBook.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OnlineOrderBackOffice\OnlineAdviserCustomerTransctionBook.ascx.designer.cs">
+      <DependentUpon>OnlineAdviserCustomerTransctionBook.ascx</DependentUpon>
+    </Compile>
     <Compile Include="OnlineOrderBackOffice\OnlineAdviserNCDOrderBook.ascx.cs">
       <DependentUpon>OnlineAdviserNCDOrderBook.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -7468,6 +7475,7 @@
     <Content Include="bin\VoCommon.pdb" />
     <Content Include="bin\VoHostConfig.dll" />
     <Content Include="bin\VoHostConfig.pdb" />
+    <Content Include="bin\VoOnlineOrderManagemnet.dll" />
     <Content Include="bin\VoOnlineOrderManagemnet.pdb" />
     <Content Include="bin\VoOps.dll" />
     <Content Include="bin\VoOps.pdb" />
@@ -7867,6 +7875,7 @@
     <Content Include="OnlineOrderBackOffice\OnlineAdviserCustomerNCDHoldings.ascx" />
     <Content Include="OnlineOrderBackOffice\OnlineAdviserCustomerOrderBook.ascx" />
     <Content Include="OnlineOrderBackOffice\OnlineAdviserCustomerSIPOrderBook.ascx" />
+    <Content Include="OnlineOrderBackOffice\OnlineAdviserCustomerTransctionBook.ascx" />
     <Content Include="OnlineOrderBackOffice\OnlineAdviserNCDOrderBook.ascx" />
     <Content Include="OnlineOrderBackOffice\OnlineAdviserSIPSummaryBooks.ascx" />
     <Content Include="OnlineOrderBackOffice\OnlineClientAccess.ascx" />

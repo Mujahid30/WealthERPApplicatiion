@@ -1905,4 +1905,8 @@
     <value>OnlineOrderBackOffice\OnlineAdviserCustomerNCDHoldings.ascx</value>
     <comment>OnlineOrderBackOffice\OnlineAdviserCustomerNCDHoldings.ascx</comment>
   </data>
+  <data name="OnlineAdviserCustomerTransctionBook" xml:space="preserve">
+    <value>OnlineOrderBackOffice//OnlineAdviserCustomerTransctionBook.ascx</value>
+    <comment>OnlineOrderBackOffice//OnlineAdviserCustomerTransctionBook.ascx</comment>
+  </data>
 </root>
