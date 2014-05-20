@@ -1920,47 +1920,47 @@ namespace BoOnlineOrderManagement
             }
             return dsProductIssuer;
         }
-        //public DataTable GetIssueName(int Adviserid, string product)
-        //{
-        //    DataTable dtGetIssueNamee = new DataTable();
-        //    OnlineNCDBackOfficeDao onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
-        //    try
-        //    {
-        //        dtGetIssueNamee = onlineNCDBackOfficeDao.GetIssueName(Adviserid, product);
-        //    }
-        //    catch (BaseApplicationException Ex)
-        //    {
-        //        throw Ex;
-        //    }
-        //    return dtGetIssueNamee;
-        //}
-        //public DataTable GetNCDHoldings(int AdviserId, int AIMIssueId, int PageSize, int CurrentPage, string CustomerNamefilter, out int RowCount)
-        //{
-        //    DataTable dtGetNCDHoldings;
-        //    OnlineNCDBackOfficeDao onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
-        //    dtGetNCDHoldings = onlineNCDBackOfficeDao.GetNCDHoldings(AdviserId, AIMIssueId, PageSize, CurrentPage, CustomerNamefilter, out RowCount);
-        //    return dtGetNCDHoldings;
-        //}
-        //public DataSet GetNCDSubHoldings(int AdviserId, int IssueId)
-        //{
-        //    DataSet dsGetNCDSubHoldings;
-        //    OnlineNCDBackOfficeDao onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
-        //    dsGetNCDSubHoldings = onlineNCDBackOfficeDao.GetNCDSubHoldings(AdviserId, IssueId);
-        //    return dsGetNCDSubHoldings;
-        //}
-        //public int CheckBankisActive(int CustomerId)
-        //{
-        //    int result = 0;
-        //    OnlineNCDBackOfficeDao daoOnlNcdBackOff = new OnlineNCDBackOfficeDao();
-        //    try
-        //    {
-        //        result = daoOnlNcdBackOff.CheckBankisActive(CustomerId);
-        //    }
-        //    catch (BaseApplicationException Ex)
-        //    {
-        //        throw Ex;
-        //    }
-        //    return result;
-        //}
+        public DataTable GetIssueName(int Adviserid, string product)
+        {
+            DataTable dtGetIssueNamee = new DataTable();
+            OnlineNCDBackOfficeDao onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
+            try
+            {
+                dtGetIssueNamee = onlineNCDBackOfficeDao.GetIssueName(Adviserid, product);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetIssueNamee;
+        }
+        public DataTable GetNCDHoldings(int AdviserId, int AIMIssueId, int PageSize, int CurrentPage, string CustomerNamefilter, out int RowCount)
+        {
+            DataTable dtGetNCDHoldings;
+            OnlineNCDBackOfficeDao onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
+            dtGetNCDHoldings = onlineNCDBackOfficeDao.GetNCDHoldings(AdviserId, AIMIssueId, PageSize, CurrentPage, CustomerNamefilter, out RowCount);
+            return dtGetNCDHoldings;
+        }
+        public DataSet GetNCDSubHoldings(int AdviserId, int IssueId)
+        {
+            DataSet dsGetNCDSubHoldings;
+            OnlineNCDBackOfficeDao onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
+            dsGetNCDSubHoldings = onlineNCDBackOfficeDao.GetNCDSubHoldings(AdviserId, IssueId);
+            return dsGetNCDSubHoldings;
+        }
+        public int CheckBankisActive(int CustomerId)
+        {
+            int result = 0;
+            OnlineNCDBackOfficeDao daoOnlNcdBackOff = new OnlineNCDBackOfficeDao();
+            try
+            {
+                result = daoOnlNcdBackOff.CheckBankisActive(CustomerId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return result;
+        }
     }
 }

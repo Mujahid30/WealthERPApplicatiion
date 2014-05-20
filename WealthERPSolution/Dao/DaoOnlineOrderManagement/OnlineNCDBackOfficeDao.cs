@@ -2959,5 +2959,141 @@ namespace DaoOnlineOrderManagement
             }
             return dsProductIssuer.Tables[0].Rows[0][0].ToString();
         }
+            public DataTable GetIssueName(int Adviserid, string product)
+        {
+            Database db;
+            DbCommand cmdGetIssueName;
+            DataTable dtGetIssueName;
+            DataSet dsGetIssueName = null;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+
+                //To retreive data from the table 
+                cmdGetIssueName = db.GetStoredProcCommand("SPROC_GetADviserNCDIssueName");
+                db.AddInParameter(cmdGetIssueName, "@AdviserId", DbType.Int32, Adviserid);
+                db.AddInParameter(cmdGetIssueName, "@product", DbType.String, product);
+                dsGetIssueName = db.ExecuteDataSet(cmdGetIssueName);
+                dtGetIssueName = dsGetIssueName.Tables[0];
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetIssueName;
+        }
+        public DataTable GetNCDHoldings(int AdviserId, int AIMIssueId, int PageSize, int CurrentPage, string CustomerNamefilter, out int RowCount)
+        { 
+            DataTable dtGetNCDHoldings;
+            Database db;
+            DataSet dsGetNCDHoldings;
+            DbCommand GetNCDHoldingscmd;
+       RowCount = 0;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetNCDHoldingscmd = db.GetStoredProcCommand("SPROC_GetAdviserIssueHoldings");
+                db.AddInParameter(GetNCDHoldingscmd, "@AdviserId", DbType.Int32, AdviserId);
+                db.AddInParameter(GetNCDHoldingscmd, "@AIMissue", DbType.Int32, AIMIssueId);
+                db.AddInParameter(GetNCDHoldingscmd, "@CurrentPage", DbType.Int32, CurrentPage);
+                db.AddInParameter(GetNCDHoldingscmd, "@CustomerNameFilter", DbType.String, CustomerNamefilter);
+                db.AddInParameter(GetNCDHoldingscmd, "@PageSize", DbType.Int32, PageSize);
+                db.AddOutParameter(GetNCDHoldingscmd, "@RowCount", DbType.Int32, 0);
+
+                //dsGetNCDHoldings = db.ExecuteDataSet(GetNCDHoldingscmd);
+                //dtGetNCDHoldings = dsGetNCDHoldings.Tables[0];
+                dsGetNCDHoldings = db.ExecuteDataSet(GetNCDHoldingscmd);
+                dtGetNCDHoldings = dsGetNCDHoldings.Tables[0];
+                if (db.ExecuteNonQuery(GetNCDHoldingscmd) != 0)
+                {
+                    if (db.GetParameterValue(GetNCDHoldingscmd, "RowCount").ToString() != "")
+                    {
+                        RowCount = Convert.ToInt32(db.GetParameterValue(GetNCDHoldingscmd, "RowCount").ToString());
+                    }
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:Getproductcode()");
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtGetNCDHoldings;
+        }
+        public DataSet GetNCDSubHoldings(int AdviserId, int IssueId)
+        {
+            Database db;
+            DataSet dsGetNCDSubHoldings;
+            DbCommand GetNCDSubHoldingscmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetNCDSubHoldingscmd = db.GetStoredProcCommand("SPROC_GetAdviserIssueSeriesWiseNCDHolding");
+                db.AddInParameter(GetNCDSubHoldingscmd, "@AdviserId", DbType.Int32, AdviserId);
+                db.AddInParameter(GetNCDSubHoldingscmd, "@IssueId", DbType.Int32, IssueId);
+                dsGetNCDSubHoldings = db.ExecuteDataSet(GetNCDSubHoldingscmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:Getproductcode()");
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetNCDSubHoldings;
+        }
+        public int CheckBankisActive(int CustomerId)
+        {
+            Database db;
+            DataSet ds;
+            DbCommand cmdCheckBankisActive;
+            int isExist = 0;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdCheckBankisActive = db.GetStoredProcCommand("SPROC_BankISAvailable");
+                db.AddInParameter(cmdCheckBankisActive, "@customerId", DbType.Int32, CustomerId);
+                db.AddOutParameter(cmdCheckBankisActive, "@isExist", DbType.Int32, 0);
+
+                ds = db.ExecuteDataSet(cmdCheckBankisActive);
+                if (db.ExecuteNonQuery(cmdCheckBankisActive) != 0)
+                {
+                    isExist = Convert.ToInt32(db.GetParameterValue(cmdCheckBankisActive, "isExist").ToString());
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AssociateDAO.cs:ExternalcodeCheck()");
+                object[] objects = new object[2];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return isExist;
+        }
     }
 }
+
+
