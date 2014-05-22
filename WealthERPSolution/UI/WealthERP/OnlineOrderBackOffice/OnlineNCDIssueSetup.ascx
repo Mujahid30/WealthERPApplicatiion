@@ -595,7 +595,7 @@
             <%--<asp:TextBox ID="txtRegistrar" runat="server" CssClass="txtField"></asp:TextBox>--%>
         </td>
         <td id="tdlb1InvestorGrievenceEmail" runat="server" class="leftLabel">
-            <asp:Label ID="lb1InvestorGrievenceEmail" runat="server" Text="Investor GrievenceEmail:"
+            <asp:Label ID="lb1InvestorGrievenceEmail" runat="server" Text="Investor Grievance-Email:"
                 CssClass="FieldName"></asp:Label>
         </td>
         <td id="tdtxtInvestorGrievenceEmail" runat="server" class="rightData">

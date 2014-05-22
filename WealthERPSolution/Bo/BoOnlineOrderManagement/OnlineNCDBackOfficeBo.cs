@@ -981,20 +981,20 @@ namespace BoOnlineOrderManagement
 
         public DataTable GetOnlineNcdExtractPreview(DateTime extractDate, int adviserId, int fileTypeId, string extSource, int issueId)
         {
-            
+
             KeyValuePair<string, string>[] headers = GetHeaderMapping(fileTypeId, extSource);
 
             int AID_SeriesCount = 0;
             if (onlineNCDBackOfficeDao == null) onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
 
             DataTable dtExtract = onlineNCDBackOfficeDao.GetOnlineNcdExtractPreview(extractDate, adviserId, fileTypeId, issueId, extSource, out AID_SeriesCount).Tables[0];
-            
+
             if (fileTypeId == 5)
             {
-         
-                int desiredSize=(AID_SeriesCount * 2) + 15;
 
-                while ((dtExtract.Columns.Count - 17)>=desiredSize)
+                int desiredSize = (AID_SeriesCount * 2) + 15;
+
+                while ((dtExtract.Columns.Count - 17) >= desiredSize)
                 {
                     dtExtract.Columns.RemoveAt(desiredSize);
                 }
@@ -1030,19 +1030,11 @@ namespace BoOnlineOrderManagement
                         newRow.ItemArray = selectedRow.ItemArray; // copy data
                         dtExtract.Rows.Remove(selectedRow);
                         dtExtract.Rows.InsertAt(newRow, 0);
-
-
                     }
                 }
             }
-
-            dtExtract.AcceptChanges();
             return dtExtract;
         }
-
-
-
-
         public string GetExtractStepCode(int fileTypeId)
         {
             try
@@ -1480,7 +1472,6 @@ namespace BoOnlineOrderManagement
                             if (!regex.IsMatch(colVal))
                             {
                                 ErrorList.Add("Error at: " + colNam + "(" + rowNum + ", " + (j + 3) + ")");
-
                             }
                         }
                     }

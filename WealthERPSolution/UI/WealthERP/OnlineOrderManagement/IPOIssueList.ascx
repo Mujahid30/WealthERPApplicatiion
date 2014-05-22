@@ -114,14 +114,15 @@
                                         ShowFilterIcon="false" UniqueName="AIM_MaxQty" Visible="true">
                                         <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                     </telerik:GridBoundColumn>
+                                     <telerik:GridBoundColumn DataField="AIM_CapPrice" HeaderStyle-Width="200px" HeaderText="Max Bid Price"
+                                        ShowFilterIcon="false" UniqueName="AIM_CapPrice" Visible="true">
+                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                    </telerik:GridBoundColumn>
                                     <telerik:GridBoundColumn DataField="AIM_FloorPrice" HeaderStyle-Width="200px" HeaderText="Min Bid Price"
                                         ShowFilterIcon="false" UniqueName="AIM_FloorPrice" Visible="true">
                                         <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                     </telerik:GridBoundColumn>
-                                    <telerik:GridBoundColumn DataField="AIM_CapPrice" HeaderStyle-Width="200px" HeaderText="Max Bid Price"
-                                        ShowFilterIcon="false" UniqueName="AIM_CapPrice" Visible="true">
-                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
-                                    </telerik:GridBoundColumn>
+                                   
                                     <telerik:GridBoundColumn DataField="AIM_FixedPrice" HeaderStyle-Width="200px" HeaderText="Max Bid Price"
                                         Visible="false" ShowFilterIcon="false" UniqueName="AIM_FixedPrice">
                                         <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
@@ -138,7 +139,7 @@
                                         ShowFilterIcon="false" UniqueName="DiscountType" Visible="true">
                                         <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                     </telerik:GridBoundColumn>
-                                    <telerik:GridBoundColumn DataField="DiscountValue" HeaderStyle-Width="200px" HeaderText="Discount Value/Bid Qnt"
+                                    <telerik:GridBoundColumn DataField="DiscountValue" HeaderStyle-Width="250px" HeaderText="Discount Value/Bid Quantity"
                                         ShowFilterIcon="false" UniqueName="DiscountValue" Visible="true" DataFormatString="{0:0.00}">
                                         <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                     </telerik:GridBoundColumn>

@@ -194,6 +194,125 @@ namespace DaoOnlineOrderManagement
             return dsSchemeMIS;
         }
 
-        
+
+        //public DataSet GetAdviserCustomerTransaction(int adviserId, int AmcCode, DateTime dtFrom, DateTime dtTo)
+        //{
+        //    DataSet dsGetAdviserCustomerTransaction;
+        //    Database db;
+        //    DbCommand GetGetAdviserCustomerTransaction;
+        //    try
+        //    {
+        //        db = DatabaseFactory.CreateDatabase("wealtherp");
+        //        GetGetAdviserCustomerTransaction = db.GetStoredProcCommand("SPROC_GetAdviserTransactionList");
+        //        db.AddInParameter(GetGetAdviserCustomerTransaction, "@A_AdviserId", DbType.Int32, adviserId);
+        //        if (AmcCode != 0)
+        //            db.AddInParameter(GetGetAdviserCustomerTransaction, "@AMC", DbType.Int32, AmcCode);
+        //        else
+        //            db.AddInParameter(GetGetAdviserCustomerTransaction, "@AMC", DbType.Int32, 0);
+        //        db.AddInParameter(GetGetAdviserCustomerTransaction, "@Fromdate", DbType.DateTime, dtFrom);
+        //        db.AddInParameter(GetGetAdviserCustomerTransaction, "@ToDate", DbType.DateTime, dtTo);
+        //        dsGetAdviserCustomerTransaction = db.ExecuteDataSet(GetGetAdviserCustomerTransaction);
+
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
+        //        FunctionInfo.Add("Method", "OperationDao.cs:GetSIPBookMIS()");
+        //        object[] objects = new object[10];
+        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+        //        exBase.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(exBase);
+        //        throw exBase;
+        //    }
+        //    return dsGetAdviserCustomerTransaction;
+        //}
+        public DataTable GetAdviserCustomerTransaction(int adviserId, int AmcCode, DateTime dtFrom, DateTime dtTo, int PageSize, int CurrentPage, string CustomerNamefilter,string custCode,string panNo,string folioNo,string schemeName,string type,string dividentType,string fundName,int orderNo, out int RowCount)
+        {
+            DataTable dtGetAdviserCustomerTransaction;
+            Database db;
+            DataSet dsGetAdviserCustomerTransaction;
+            DbCommand GetGetAdviserCustomerTransaction;
+            RowCount = 0;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetGetAdviserCustomerTransaction = db.GetStoredProcCommand("SPROC_GetAdviserTransactionList");
+                db.AddInParameter(GetGetAdviserCustomerTransaction, "@A_AdviserId", DbType.Int32, adviserId);
+                if (AmcCode != 0)
+                    db.AddInParameter(GetGetAdviserCustomerTransaction, "@AMC", DbType.Int32, AmcCode);
+                else
+                    db.AddInParameter(GetGetAdviserCustomerTransaction, "@AMC", DbType.Int32, 0);
+                db.AddInParameter(GetGetAdviserCustomerTransaction, "@Fromdate", DbType.DateTime, dtFrom);
+                db.AddInParameter(GetGetAdviserCustomerTransaction, "@ToDate", DbType.DateTime, dtTo);
+                if(custCode !="")
+                db.AddInParameter(GetGetAdviserCustomerTransaction, "@CustCode", DbType.String, custCode);
+                else
+                    db.AddInParameter(GetGetAdviserCustomerTransaction, "@CustCode", DbType.String, DBNull.Value);
+                if(panNo !="")
+                db.AddInParameter(GetGetAdviserCustomerTransaction, "@Panno", DbType.String, panNo);
+                else
+                    db.AddInParameter(GetGetAdviserCustomerTransaction, "@Panno", DbType.String, DBNull.Value);
+                if(folioNo !="")
+                db.AddInParameter(GetGetAdviserCustomerTransaction, "@FolioNo", DbType.String, folioNo);
+                else
+                    db.AddInParameter(GetGetAdviserCustomerTransaction, "@FolioNo", DbType.String, DBNull.Value);
+                if(schemeName !="")
+                db.AddInParameter(GetGetAdviserCustomerTransaction, "@SchemeName", DbType.String, schemeName);
+                else
+                    db.AddInParameter(GetGetAdviserCustomerTransaction, "@SchemeName", DbType.String, DBNull.Value);
+                if (type != "")
+                    db.AddInParameter(GetGetAdviserCustomerTransaction, "@Type", DbType.String, type);
+                else
+                    db.AddInParameter(GetGetAdviserCustomerTransaction, "@Type", DbType.String, DBNull.Value);
+                if (dividentType != "")
+                    db.AddInParameter(GetGetAdviserCustomerTransaction, "@DividentType", DbType.String, dividentType);
+                else
+                    db.AddInParameter(GetGetAdviserCustomerTransaction, "@DividentType", DbType.String, DBNull.Value);
+                if (fundName != "")
+                    db.AddInParameter(GetGetAdviserCustomerTransaction, "@FundName", DbType.String, fundName);
+                else
+                    db.AddInParameter(GetGetAdviserCustomerTransaction, "@FundName", DbType.String, DBNull.Value);
+                //if (orderNo != 0)
+                //    db.AddInParameter(GetGetAdviserCustomerTransaction, "@OrderNo", DbType.Int32, orderNo);
+                //else
+                //    db.AddInParameter(GetGetAdviserCustomerTransaction, "@OrderNo", DbType.Int32, DBNull.Value);
+                if(CustomerNamefilter !="")
+                db.AddInParameter(GetGetAdviserCustomerTransaction, "@CustomerNameFilter", DbType.String, CustomerNamefilter);
+                else
+                    db.AddInParameter(GetGetAdviserCustomerTransaction, "@CustomerNameFilter", DbType.String, DBNull.Value);
+                db.AddInParameter(GetGetAdviserCustomerTransaction, "@CurrentPage", DbType.Int32, CurrentPage);
+                db.AddInParameter(GetGetAdviserCustomerTransaction, "@PageSize", DbType.Int32, PageSize);
+                db.AddOutParameter(GetGetAdviserCustomerTransaction, "@RowCount", DbType.Int32, 0);
+                GetGetAdviserCustomerTransaction.CommandTimeout = 60 * 60;
+                dsGetAdviserCustomerTransaction = db.ExecuteDataSet(GetGetAdviserCustomerTransaction);
+                dtGetAdviserCustomerTransaction = dsGetAdviserCustomerTransaction.Tables[0];
+                if (db.ExecuteNonQuery(GetGetAdviserCustomerTransaction) != 0)
+                {
+                    if (db.GetParameterValue(GetGetAdviserCustomerTransaction, "RowCount").ToString() != "")
+                    {
+                        RowCount = Convert.ToInt32(db.GetParameterValue(GetGetAdviserCustomerTransaction, "RowCount").ToString());
+                    }
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:Getproductcode()");
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtGetAdviserCustomerTransaction;
+        }
     }
 }

@@ -1734,6 +1734,9 @@ namespace DaoOnlineOrderManagement
             return dsGetOnlineNCDExtractPreview;
         }
 
+ 
+
+
         public DataTable GetAdviserNCDOrderBook(int adviserId, string status, DateTime dtFrom, DateTime dtTo)
         {
             Database db;

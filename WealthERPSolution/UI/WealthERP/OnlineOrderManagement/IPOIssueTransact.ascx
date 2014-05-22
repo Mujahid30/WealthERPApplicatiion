@@ -207,13 +207,13 @@
                                             <ItemTemplate>
                                                 <asp:CheckBox ID="cbCutOffCheck" runat="server" Visible='<%# (Convert.ToInt32(Eval("IssueBidNo")) == 1)? true: false %>'
                                                     AutoPostBack="true" OnCheckedChanged="CutOffCheckBox_Changed" />
-                                                <a href="#" class="popper" data-popbox="divCutOffCheck">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                                               <%-- <a href="#" class="popper" data-popbox="divCutOffCheck">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
                                                 <div id="divCutOffCheck" class="popbox">
                                                     <h2>
                                                         CUT-OFF!</h2>
                                                     <p>
                                                         1)If this box is checked then price filed will auto fill with Max Bid Price.</p>
-                                                </div>
+                                                </div>--%>
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>
                                         <telerik:GridTemplateColumn AllowFiltering="false" DataField="" HeaderStyle-Width="100px"
@@ -222,13 +222,13 @@
                                             <ItemTemplate>
                                                 <asp:TextBox ID="txtBidQuantity" runat="server" Text='<%# Bind("BidQty")%>' CssClass="txtField"
                                                     OnTextChanged="BidQuantityPrice_TextChanged" AutoPostBack="true" onkeypress="return isNumberKey(event)"> </asp:TextBox>
-                                                <a href="#" class="popper" data-popbox="divBidQuantity">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                                               <%-- <a href="#" class="popper" data-popbox="divBidQuantity">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
                                                 <div id="divBidQuantity" class="popbox">
                                                     <h2>
                                                         BID-QUANTITY!</h2>
                                                     <p>
                                                         1)Please enter value between MinQuantity and MaxQuantity.</p>
-                                                </div>
+                                                </div>--%>
                                                 <asp:RangeValidator ID="rvQuantity" runat="server" ControlToValidate="txtBidQuantity"
                                                     ValidationGroup="btnConfirmOrder" Type="Integer" CssClass="rfvPCG" Text="*" ErrorMessage="BidQuantity should be between MinQuantity and MaxQuantity"
                                                     Display="Dynamic" />
@@ -243,7 +243,7 @@
                                             <ItemTemplate>
                                                 <asp:TextBox ID="txtBidPrice" runat="server" CssClass="txtField" Text='<%# Bind("BidPrice")%>'
                                                     AutoPostBack="true" OnTextChanged="BidQuantityPrice_TextChanged" onkeypress="return isNumberKey(event)"> </asp:TextBox>
-                                                <a href="#" class="popper" data-popbox="divBidPrice">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                                             <%--   <a href="#" class="popper" data-popbox="divBidPrice">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
                                                 <div id="divBidPrice" class="popbox">
                                                     <h2>
                                                         BID-PRICE!</h2>
@@ -251,7 +251,7 @@
                                                         1)Please enter value between Min Bid Price and Min Max Price.
                                                         <br />
                                                         2)In case of cutoff cheked Max Bid price will be use for same field</p>
-                                                </div>
+                                                </div>--%>
                                                 <asp:RangeValidator ID="rvBidPrice" runat="server" ControlToValidate="txtBidPrice"
                                                     ValidationGroup="btnConfirmOrder" Type="Double" CssClass="rfvPCG" Text="*" ErrorMessage="BidPrice should be between Min Bid Price and Min Max Price"
                                                     Display="Dynamic" />
@@ -312,8 +312,12 @@
                             <asp:Button ID="btnConfirmOrder" runat="server" Text="Confirm Order" OnClick="btnConfirmOrder_Click"
                                 CssClass="PCGMediumButton" ValidationGroup="btnConfirmOrder" />
                         </td>
-                        <td colspan="3" style="width: 90%">
+                        <td>
+                            <asp:LinkButton runat="server" ID="lnlBack" CssClass="LinkButtons" Text="Click here to view the issue list"
+                                Visible="false" OnClick="lnlktoviewIPOissue_Click"></asp:LinkButton>
                         </td>
+                        <%--<td colspan="2" style="width: 90%">
+                        </td>--%>
                     </tr>
                 </table>
             </div>
@@ -327,7 +331,7 @@
                         <tr>
                             <td align="left">
                                 <%--  <a href="../ReferenceFiles/MF-Terms-Condition.html">../ReferenceFiles/MF-Terms-Condition.html</a>--%>
-                                <iframe src="../ReferenceFiles/MF-Terms-Condition.html" name="iframeTermsCondition"
+                                <iframe src="../ReferenceFiles/IPO-Terms-Condition.htm" name="iframeTermsCondition"
                                     style="width: 100%"></iframe>
                             </td>
                         </tr>

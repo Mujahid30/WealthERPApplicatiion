@@ -220,7 +220,7 @@
                                                                     AutoGenerateColumns="false" Width="100%">
                                                                     <Columns>
                                                                         <telerik:GridBoundColumn DataField="COID_IssueBidNo" HeaderStyle-Width="60px" CurrentFilterFunction="Contains"
-                                                                            ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Bid Issue" UniqueName="COID_IssueBidNo"
+                                                                            ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Bid Option" UniqueName="COID_IssueBidNo"
                                                                             SortExpression="COID_IssueBidNo">
                                                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                                                         </telerik:GridBoundColumn>

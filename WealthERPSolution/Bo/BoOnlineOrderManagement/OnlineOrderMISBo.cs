@@ -100,32 +100,39 @@ namespace BoOnlineOrderManagement
             }
             return dsSIPSummaryBookMIS;
         }
-         public DataSet GetSchemeMIS(string Assettype, int Onlinetype,string Status)
+        public DataSet GetSchemeMIS(string Assettype, int Onlinetype, string Status)
         {
-             DataSet dsSchemeMIS;
-             OnlineOrderMISDao onlineOrderMISDao = new OnlineOrderMISDao();
+            DataSet dsSchemeMIS;
+            OnlineOrderMISDao onlineOrderMISDao = new OnlineOrderMISDao();
 
-             try
-             {
+            try
+            {
 
-                 dsSchemeMIS = onlineOrderMISDao.GetSchemeMIS(Assettype, Onlinetype, Status);
-             }
-             catch (BaseApplicationException Ex)
-             {
-                 throw Ex;
-             }
-             catch (Exception Ex)
-             {
-                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                 NameValueCollection FunctionInfo = new NameValueCollection();
-                 FunctionInfo.Add("Method", "OnlineOrderMISBo.cs:GetMfOrderExtract()");
-                 object[] objects = new object[10];
-                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                 exBase.AdditionalInformation = FunctionInfo;
-                 ExceptionManager.Publish(exBase);
-                 throw exBase;
-             }
-             return dsSchemeMIS;
+                dsSchemeMIS = onlineOrderMISDao.GetSchemeMIS(Assettype, Onlinetype, Status);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderMISBo.cs:GetMfOrderExtract()");
+                object[] objects = new object[10];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsSchemeMIS;
+        }
+        public DataTable GetAdviserCustomerTransaction(int adviserId, int AmcCode, DateTime dtFrom, DateTime dtTo, int PageSize, int CurrentPage, string CustomerNamefilter, string custCode, string panNo, string folioNo, string schemeName, string type, string dividentType, string fundName, int orderNo, out int RowCount)
+        {
+            DataTable dtGetAdviserCustomerTransaction;
+            OnlineOrderMISDao OnlineOrderMISDao = new OnlineOrderMISDao();
+            dtGetAdviserCustomerTransaction = OnlineOrderMISDao.GetAdviserCustomerTransaction(adviserId, AmcCode, dtFrom, dtTo, PageSize, CurrentPage, CustomerNamefilter,custCode,panNo,folioNo,schemeName,type,dividentType,fundName,orderNo, out RowCount);
+            return dtGetAdviserCustomerTransaction;
         }
     }
 }

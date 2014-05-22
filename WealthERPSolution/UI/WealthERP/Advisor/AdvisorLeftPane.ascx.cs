@@ -1140,6 +1140,12 @@ namespace WealthERP.Advisor
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineOrderBackOffice','login');", true);
 
                 }
+                else if (e.Item.Value == "MF_Transaction_Books")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineAdviserCustomerTransctionBook','login');", true);
+
+                }
+                
                 else if (e.Item.Value == "Scheme_Setup")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineSchemeSetUp','login');", true);

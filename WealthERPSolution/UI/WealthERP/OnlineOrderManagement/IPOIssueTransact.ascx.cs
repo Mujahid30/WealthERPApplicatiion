@@ -300,6 +300,7 @@ namespace WealthERP.OnlineOrderManagement
             bool accountDebitStatus = false;
             int orderId = 0;
             double totalBidAmount = 0;
+            double totalBidAmountPayable = 0;
             string applicationNo = String.Empty;
             string apllicationNoStatus = String.Empty;
             double maxPaybleBidAmount = 0;
@@ -318,6 +319,7 @@ namespace WealthERP.OnlineOrderManagement
             dtIPOBidTransactionDettails.Columns.Add("IPOIssueBidQuantity", typeof(Int16), null);
             dtIPOBidTransactionDettails.Columns.Add("IPOIssueBidPrice", typeof(decimal), null);
             dtIPOBidTransactionDettails.Columns.Add("IPOIssueBidAmount", typeof(decimal), null);
+            dtIPOBidTransactionDettails.Columns.Add("IPOIssueBidAmountPayable", typeof(decimal), null);
             dtIPOBidTransactionDettails.Columns.Add("TransactionStatusCode", typeof(Int16));
             DataRow drIPOBid;
 
@@ -338,7 +340,7 @@ namespace WealthERP.OnlineOrderManagement
                 TextBox txtBidQuantity = (TextBox)RadGridIPOBid.MasterTableView.Items[radgridRowNo]["BidQuantity"].FindControl("txtBidQuantity");
                 TextBox txtBidPrice = (TextBox)RadGridIPOBid.MasterTableView.Items[radgridRowNo]["BidPrice"].FindControl("txtBidPrice");
                 TextBox txtBidAmount = (TextBox)RadGridIPOBid.MasterTableView.Items[radgridRowNo]["BidAmount"].FindControl("txtBidAmount");
-
+                TextBox txtBidAmountPayable = (TextBox)RadGridIPOBid.MasterTableView.Items[radgridRowNo]["BidAmountPayable"].FindControl("txtBidAmountPayable");
                 drIPOBid["IssueBidNo"] = RadGridIPOBid.MasterTableView.DataKeyValues[radgridRowNo]["IssueBidNo"].ToString();
                 drIPOBid["IsCutOffApplicable"] = chkCutOff.Checked ? true : false;
 
@@ -359,6 +361,15 @@ namespace WealthERP.OnlineOrderManagement
                 }
                 else
                     drIPOBid["IPOIssueBidAmount"] = DBNull.Value;
+
+                if (!string.IsNullOrEmpty(txtBidAmountPayable.Text.Trim()))
+                {
+                    drIPOBid["IPOIssueBidAmountPayable"] = txtBidAmountPayable.Text.Trim();
+                    totalBidAmountPayable += Convert.ToDouble(txtBidAmountPayable.Text.Trim());
+                }
+                else
+                    drIPOBid["IPOIssueBidAmountPayable"] = DBNull.Value;
+
 
                 if (!string.IsNullOrEmpty(txtBidAmount.Text.Trim()))
                     drIPOBid["TransactionStatusCode"] = 1;
@@ -482,6 +493,7 @@ namespace WealthERP.OnlineOrderManagement
         private void ControlsVisblity(bool visble)
         {
             btnConfirmOrder.Visible = false;
+            lnlBack.Visible = true;
         }
 
         private bool ValidateIPOBids(out string msg)
@@ -553,7 +565,17 @@ namespace WealthERP.OnlineOrderManagement
             //    cmpMaxBidAmount.ValueToCompare = 0.ToString();
             //}
         }
-
+        protected void lnlktoviewIPOissue_Click(object sender, EventArgs e)
+        {
+            if (Session["PageDefaultSetting"] != null)
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('IPOIssueList');", true);
+            }
+            else
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "IPOIssueList", "loadcontrol('IPOIssueList');", true);
+            }
+        }
 
     }
 }

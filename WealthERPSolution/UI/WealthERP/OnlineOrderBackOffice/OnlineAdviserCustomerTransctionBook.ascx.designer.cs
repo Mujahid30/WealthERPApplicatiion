@@ -14,5 +14,19 @@ namespace WealthERP.OnlineOrderBackOffice
 
     public partial class OnlineAdviserCustomerTransctionBook
     {
+        protected global::System.Web.UI.WebControls.DropDownList ddlAmc;
+        protected global::Telerik.Web.UI.RadDatePicker txtTo;
+        protected global::Telerik.Web.UI.RadDatePicker txtFrom;
+        protected global::Telerik.Web.UI.RadGrid gvTransationBookMIS;
+        protected global::System.Web.UI.WebControls.HiddenField hdncustomername;
+        protected global::System.Web.UI.WebControls.HiddenField hdnfoliono;
+        protected global::System.Web.UI.WebControls.HiddenField hdnschemename;
+        protected global::System.Web.UI.WebControls.HiddenField hdncustcode;
+        protected global::System.Web.UI.WebControls.HiddenField hdnpanno;
+        protected global::System.Web.UI.WebControls.HiddenField hdnamcname;
+        protected global::System.Web.UI.WebControls.HiddenField hdntype;
+        protected global::System.Web.UI.WebControls.HiddenField hdndividenttype;
+        protected global::System.Web.UI.WebControls.HiddenField hdnOrderno;
+        protected global::System.Web.UI.WebControls.Panel pnlTransactionBook;
     }
 }
