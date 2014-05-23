@@ -2233,7 +2233,7 @@ namespace WealthERP.OnlineOrderBackOffice
                             txtMaxInvestmentAmount.Text = 0.ToString();
                         }
                         if (txtSubCategoryId.Text == string.Empty)
-                            CreateUpdateDeleteCategoryDetails(categoryId, 0, lookupId, txtSubCategoryCode.Text, Convert.ToInt32(txtMinInvestmentAmount.Text), Convert.ToInt32(txtMaxInvestmentAmount.Text), "Insert");
+                            CreateUpdateDeleteCategoryDetails(categoryId, 0, lookupId, txtSubCategoryCode.Text, Convert.ToInt64(txtMinInvestmentAmount.Text), Convert.ToInt64(txtMaxInvestmentAmount.Text), "Insert");
 
                         else if (Convert.ToInt32(txtSubCategoryId.Text) > 0)
                             CreateUpdateDeleteCategoryDetails(categoryId, Convert.ToInt32(txtSubCategoryId.Text), lookupId, txtSubCategoryCode.Text, Convert.ToInt64(txtMinInvestmentAmount.Text), Convert.ToInt64(txtMaxInvestmentAmount.Text), "Update");
