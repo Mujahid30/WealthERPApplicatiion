@@ -1027,10 +1027,12 @@ namespace BoOnlineOrderManagement
                 foreach (string col in columnsToDelete)
                 {
                     dtExtract.Columns.Remove(col);
+                    dtExtract.AcceptChanges();
+
                 }
                
                 
-                dtExtract.AcceptChanges();
+                
             }
             if (dtExtract != null)
             {
@@ -1041,9 +1043,9 @@ namespace BoOnlineOrderManagement
                     {
                         foreach (KeyValuePair<string, string> header in headers)
                         {
-                            foreach (DataColumn column in dtExtract.Columns)
+                            if (dtExtract.Columns.Contains(header.Key))
                             {
-                                if (column.ColumnName.Contains(header.Key))
+                                if (dtExtract.Columns[header.Key].ToString() == header.Key)
                                 {
                                     dtExtract.Columns[header.Key].ColumnName = header.Value;
                                 }
