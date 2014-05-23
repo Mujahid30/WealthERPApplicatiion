@@ -1000,6 +1000,38 @@ namespace BoOnlineOrderManagement
                 }
                 dtExtract.AcceptChanges();
             }
+            if (fileTypeId == 11)
+            {
+               
+                int seriesDelete=AID_SeriesCount + 1;
+                int buyDelete =  AID_SeriesCount + 1;
+                List<string> columnsToDelete = new List<string>();
+                foreach (DataColumn column in dtExtract.Columns)
+                {
+
+                    if (column.ColumnName.Contains("SeriesQuantity" + seriesDelete.ToString("D2")))
+                    {
+                        columnsToDelete.Add("AIOE_BSE_BOND_SeriesQuantity" + seriesDelete.ToString("D2"));
+                        columnsToDelete.Add("AIOE_BSE_BOND_SeriesAmountPayable" + seriesDelete.ToString("D2"));
+                        seriesDelete = seriesDelete + 1;
+
+                    }
+                    if (column.ColumnName.Contains("BuyBackFacity" + buyDelete.ToString("D2")))
+                    {
+                        columnsToDelete.Add("AIOE_BSE_BOND_SeriesSequence" + buyDelete.ToString("D2"));
+                        columnsToDelete.Add("AIOE_BSE_BOND_SeriesBuyBackFacity" + buyDelete.ToString("D2"));
+                        buyDelete = buyDelete + 1;
+                    }
+                   
+                }
+                foreach (string col in columnsToDelete)
+                {
+                    dtExtract.Columns.Remove(col);
+                }
+               
+                
+                dtExtract.AcceptChanges();
+            }
             if (dtExtract != null)
             {
                 if (dtExtract.Rows.Count != 0)
@@ -1009,7 +1041,13 @@ namespace BoOnlineOrderManagement
                     {
                         foreach (KeyValuePair<string, string> header in headers)
                         {
-                            dtExtract.Columns[header.Key].ColumnName = header.Value;
+                            foreach (DataColumn column in dtExtract.Columns)
+                            {
+                                if (column.ColumnName.Contains(header.Key))
+                                {
+                                    dtExtract.Columns[header.Key].ColumnName = header.Value;
+                                }
+                            }
                         }
                         dtExtract.AcceptChanges();
                     }
