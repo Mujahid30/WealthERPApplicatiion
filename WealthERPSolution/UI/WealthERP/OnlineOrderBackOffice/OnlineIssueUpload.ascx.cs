@@ -244,9 +244,18 @@ namespace WealthERP.OnlineOrderBackOffice
             pnlOnlneIssueUpload.Visible = true;
         }
 
-        protected void gvOnlineIssueUpload_ItemDataBound(object sender, GridItemEventArgs e)
+        protected void gvOnlineIssueUpload_ItemDataBound(object sender, Telerik.Web.UI.GridItemEventArgs e)
         {
-             
+            if (e.Item is Telerik.Web.UI.GridDataItem)
+            {
+
+                GridDataItem dataBoundItem = e.Item as GridDataItem;
+                if (dataBoundItem["Remarks"].Text.ToString().Contains("Error"))
+                {
+                    dataBoundItem["Remarks"].BackColor = System.Drawing.Color.Red;
+                    dataBoundItem["Remarks"].Font.Bold = true;
+                }
+            }
         }
 
         private void AddHeaders(DataTable dtData)
@@ -259,6 +268,7 @@ namespace WealthERP.OnlineOrderBackOffice
             //{
             //    dtData.Rows.InsertAt(dr, 0);
             //}
+
 
 
         }

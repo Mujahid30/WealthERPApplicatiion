@@ -275,7 +275,7 @@
         AllowPaging="true" AllowSorting="true" Skin="Telerik" EnableHeaderContextMenu="true"
         OnNeedDataSource="gvOnlineIssueUpload_OnNeedDataSource" OnItemDataBound="gvOnlineIssueUpload_ItemDataBound"
         GridLines="Both" EnableEmbeddedSkins="false" ShowFooter="true" PagerStyle-AlwaysVisible="true"
-        EnableViewState="true" ShowStatusBar="true" AllowFilteringByColumn="true">
+        EnableViewState="true" ShowStatusBar="true" AllowFilteringByColumn="true" >
         <ExportSettings HideStructureColumns="true">
         </ExportSettings>
         <MasterTableView Width="90%" AllowMultiColumnSorting="True" DataKeyNames="SN" AutoGenerateColumns="true"
