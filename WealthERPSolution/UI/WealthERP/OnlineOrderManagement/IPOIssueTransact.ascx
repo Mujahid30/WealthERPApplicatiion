@@ -138,13 +138,13 @@
                                             ShowFilterIcon="false" UniqueName="AIM_MaxQty" Visible="true">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="AIM_FloorPrice" HeaderStyle-Width="200px" HeaderText="Min Bid Price"
-                                            ShowFilterIcon="false" UniqueName="AIM_FloorPrice" Visible="true" DataType="System.Decimal"
+                                        <telerik:GridBoundColumn DataField="AIM_CapPrice" HeaderStyle-Width="200px" HeaderText="Max Bid Price"
+                                            ShowFilterIcon="false" UniqueName="AIM_CapPrice" Visible="true" DataType="System.Decimal"
                                             DataFormatString="{0:0.00}">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="AIM_CapPrice" HeaderStyle-Width="200px" HeaderText="Max Bid Price"
-                                            ShowFilterIcon="false" UniqueName="AIM_CapPrice" Visible="true" DataType="System.Decimal"
+                                        <telerik:GridBoundColumn DataField="AIM_FloorPrice" HeaderStyle-Width="200px" HeaderText="Min Bid Price"
+                                            ShowFilterIcon="false" UniqueName="AIM_FloorPrice" Visible="true" DataType="System.Decimal"
                                             DataFormatString="{0:0.00}">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
@@ -207,7 +207,7 @@
                                             <ItemTemplate>
                                                 <asp:CheckBox ID="cbCutOffCheck" runat="server" Visible='<%# (Convert.ToInt32(Eval("IssueBidNo")) == 1)? true: false %>'
                                                     AutoPostBack="true" OnCheckedChanged="CutOffCheckBox_Changed" />
-                                               <%-- <a href="#" class="popper" data-popbox="divCutOffCheck">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                                                <%-- <a href="#" class="popper" data-popbox="divCutOffCheck">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
                                                 <div id="divCutOffCheck" class="popbox">
                                                     <h2>
                                                         CUT-OFF!</h2>
@@ -222,7 +222,7 @@
                                             <ItemTemplate>
                                                 <asp:TextBox ID="txtBidQuantity" runat="server" Text='<%# Bind("BidQty")%>' CssClass="txtField"
                                                     OnTextChanged="BidQuantityPrice_TextChanged" AutoPostBack="true" onkeypress="return isNumberKey(event)"> </asp:TextBox>
-                                               <%-- <a href="#" class="popper" data-popbox="divBidQuantity">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                                                <%-- <a href="#" class="popper" data-popbox="divBidQuantity">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
                                                 <div id="divBidQuantity" class="popbox">
                                                     <h2>
                                                         BID-QUANTITY!</h2>
@@ -243,7 +243,7 @@
                                             <ItemTemplate>
                                                 <asp:TextBox ID="txtBidPrice" runat="server" CssClass="txtField" Text='<%# Bind("BidPrice")%>'
                                                     AutoPostBack="true" OnTextChanged="BidQuantityPrice_TextChanged" onkeypress="return isNumberKey(event)"> </asp:TextBox>
-                                             <%--   <a href="#" class="popper" data-popbox="divBidPrice">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                                                <%--   <a href="#" class="popper" data-popbox="divBidPrice">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
                                                 <div id="divBidPrice" class="popbox">
                                                     <h2>
                                                         BID-PRICE!</h2>

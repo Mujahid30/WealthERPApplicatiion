@@ -150,10 +150,15 @@
                                             HeaderStyle-Width="77px" DataFormatString="{0:dd/MM/yyyy HH:mm:ss}">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="Amounttoinvest" AllowFiltering="true" HeaderText="Amount to invest"
+                                        <telerik:GridBoundColumn DataField="Amounttoinvest" AllowFiltering="true" HeaderText="Amount Invested"
                                             UniqueName="Amounttoinvest" SortExpression="Amounttoinvest" ShowFilterIcon="false"
                                             CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="80px"
                                             FilterControlWidth="60px">
+                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn DataField="AmountBid" AllowFiltering="true" HeaderText="Bid Amount"
+                                            UniqueName="AmountBid" SortExpression="AmountBid" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                            AutoPostBackOnFilter="true" HeaderStyle-Width="80px" FilterControlWidth="60px">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="WOS_OrderStep" AllowFiltering="true" HeaderText="Status"
@@ -228,6 +233,11 @@
                                                                         </telerik:GridBoundColumn>
                                                                         <telerik:GridBoundColumn DataField="COID_AmountPayable" AllowFiltering="false" SortExpression="COID_AmountPayable"
                                                                             HeaderText="Amount Invested" UniqueName="COID_AmountPayable" HeaderStyle-Width="65px">
+                                                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                                                        </telerik:GridBoundColumn>
+                                                                        <telerik:GridBoundColumn DataField="COID_AmountBidPayable" AllowFiltering="true" HeaderText="Bid Amount"
+                                                                            UniqueName="COID_AmountBidPayable" SortExpression="COID_AmountBidPayable" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                                                            AutoPostBackOnFilter="true" HeaderStyle-Width="80px" FilterControlWidth="60px">
                                                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                                         </telerik:GridBoundColumn>
                                                                         <telerik:GridBoundColumn DataField="PriceDiscountType" AllowFiltering="false" SortExpression="PriceDiscountType"
