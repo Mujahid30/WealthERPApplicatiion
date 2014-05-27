@@ -1182,7 +1182,7 @@ namespace BoOnlineOrderManagement
             if (fileTypeId == 32)
             {
                 filename = "NCD PAYFILE FOR" + ' ' + strIssue + ' ' + "BOND" + "_" + DD + '.' + MM;
-                delimeter = "/t";
+                delimeter = "\t";
                 format = ".txt";
             }
             else if (fileTypeId == 33)
@@ -1194,7 +1194,7 @@ namespace BoOnlineOrderManagement
             if (fileTypeId == 34)
             {
                 filename = "IPO PAYFILE FOR" + ' ' + strIssue + ' ' + "BOND" + "_" + DD + '.' + MM;
-                delimeter = "/t";
+                delimeter = "\t";
                 format = ".txt";
             }
             else if (fileTypeId == 35)
@@ -1361,13 +1361,6 @@ namespace BoOnlineOrderManagement
             }
 
         }
-
-
-
-
-
-
-
 
         public DataSet GetUploadIssue(string product, int adviserId)
         {
