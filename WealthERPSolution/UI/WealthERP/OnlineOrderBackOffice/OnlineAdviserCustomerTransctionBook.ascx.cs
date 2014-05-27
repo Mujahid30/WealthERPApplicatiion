@@ -132,7 +132,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 hdnamcname.Value = (item["PA_AMCName"].Controls[0] as TextBox).Text;
                 hdndividenttype.Value = (item["CMFOD_DividendOption"].Controls[0] as TextBox).Text;
                 hdntype.Value = (item["WMTT_TransactionClassificationName"].Controls[0] as TextBox).Text;
-                hdnOrderno.Value = (item["Co_OrderId"].Controls[0] as TextBox).Text;
+                //hdnOrderno.Value = (item["Co_OrderId"].Controls[0] as TextBox).Text;
             }
         }
         protected void gvTransationBookMIS_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)

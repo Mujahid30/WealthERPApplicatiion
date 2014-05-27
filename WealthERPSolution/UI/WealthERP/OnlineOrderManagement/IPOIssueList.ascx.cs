@@ -22,6 +22,8 @@ namespace WealthERP.OnlineOrderManagement
     public partial class IPOIssueList : System.Web.UI.UserControl
     {
         OnlineIPOOrderBo onlineIPOOrderBo = new OnlineIPOOrderBo();
+        OnlineNCDBackOfficeBo onlineNCDBackOfficeBo = new OnlineNCDBackOfficeBo();
+
         AdvisorVo advisorVo;
         CustomerVo customerVo;
         UserVo userVo;
@@ -77,24 +79,33 @@ namespace WealthERP.OnlineOrderManagement
 
             if (e.CommandName == "Buy")
             {
-                //int rowindex1 = ((GridDataItem)((LinkButton)sender).NamingContainer).RowIndex;
-                //int rowindex = (rowindex1 / 2) - 1;
-                //LinkButton lbButton = (LinkButton)sender;
-                //GridDataItem item = (GridDataItem)lbButton.NamingContainer;
-                //int IssuerId = int.Parse(gvCommMgmt.MasterTableView.DataKeyValues[rowindex]["AIM_IssueId"].ToString());
-                // categoryId = Convert.ToInt32(rgEligibleInvestorCategories.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIIC_InvestorCatgeoryId"].ToString());
-
-                issueId = Convert.ToInt32(RadGridIPOIssueList.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIM_IssueId"].ToString());
-                if (Session["PageDefaultSetting"] != null)
+                int accountactivate = onlineNCDBackOfficeBo.CheckAccountisActive(advisorVo.advisorId, customerVo.CustomerId);
+                int BankaccountActive = onlineNCDBackOfficeBo.CheckBankisActive(customerVo.CustomerId);
+                if (accountactivate != 0 && BankaccountActive != 0)
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('IPOIssueTransact','&issueId=" + issueId + "')", true);
+                    //int rowindex1 = ((GridDataItem)((LinkButton)sender).NamingContainer).RowIndex;
+                    //int rowindex = (rowindex1 / 2) - 1;
+                    //LinkButton lbButton = (LinkButton)sender;
+                    //GridDataItem item = (GridDataItem)lbButton.NamingContainer;
+                    //int IssuerId = int.Parse(gvCommMgmt.MasterTableView.DataKeyValues[rowindex]["AIM_IssueId"].ToString());
+                    // categoryId = Convert.ToInt32(rgEligibleInvestorCategories.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIIC_InvestorCatgeoryId"].ToString());
+
+                    issueId = Convert.ToInt32(RadGridIPOIssueList.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIM_IssueId"].ToString());
+                    if (Session["PageDefaultSetting"] != null)
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('IPOIssueTransact','&issueId=" + issueId + "')", true);
+                    }
+                    else
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "loadcontrol('IPOIssueTransact','&issueId=" + issueId + "')", true);
+                        //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('IPOIssueTransact','&issueId=" + issueId + "')", true);
+                    }
+
                 }
                 else
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "loadcontrol('IPOIssueTransact','&issueId=" + issueId + "')", true);
-                    //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('IPOIssueTransact','&issueId=" + issueId + "')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Your Transaction request cannot be processed. For Further Details please speak to Call Centre Team !!');", true);
                 }
-
             }
         }
 
