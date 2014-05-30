@@ -2454,16 +2454,7 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             DataSet dsSystematicDetails;
             DataTable dtSystematicDetails;
-            //int SchemePlanCode;
-            //if (ViewState["Schemeplancode"] != null)
-            //{
-            //    schemeplancode = int.Parse(ddlSchemeList.SelectedValue.ToString());
-            //}
-            //else
-            //{
-            //    if (ViewState["Schemecode"] != null)
-            //        schemeplancode = int.Parse(ViewState["Schemecode"].ToString());
-            //}
+           
             if (Request.QueryString["strAction"] != "" && Request.QueryString["strAction"] != null)
             {
                 if (Request.QueryString["strAction"].Trim() == "Edit" || Request.QueryString["strAction"].Trim() == "View")
@@ -2829,13 +2820,15 @@ namespace WealthERP.OnlineOrderBackOffice
             int TOcpmaretime = int.Parse(time1.Split(':')[0]);
             if (Fromcomparetime < TOcpmaretime)
             {
-                txtSchemeMargeDate.SelectedDate = DateTime.Now.AddDays(2);
-                txtSchemeMargeDate.MinDate = Convert.ToDateTime(txtSchemeMargeDate.SelectedDate);
+                txtSchemeMargeDate.MinDate = DateTime.Now.AddDays(2);
+                //txtSchemeMargeDate.SelectedDate = txtSchemeMargeDate.MinDate;
+                //txtSchemeMargeDate.SelectedDate = DateTime.Now.AddDays(2);
+                //txtSchemeMargeDate.MinDate = Convert.ToDateTime(txtSchemeMargeDate.SelectedDate);
             }
             else
             {
                 txtSchemeMargeDate.SelectedDate = DateTime.Now.AddDays(1);
-                txtSchemeMargeDate.MinDate = Convert.ToDateTime(txtSchemeMargeDate.SelectedDate);
+                //txtSchemeMargeDate.MinDate = Convert.ToDateTime(txtSchemeMargeDate.SelectedDate);
             }
         }
 
@@ -2925,6 +2918,8 @@ namespace WealthERP.OnlineOrderBackOffice
             BindSchemeForMarge();
             lnkMargeScheme.Text = "Merge Scheme";
             btnMSSubmit.Visible = true;
+            GetBussinessDate();
+            
         }
         protected void lnkMargeEdit_Click(object sender, EventArgs e)
         {

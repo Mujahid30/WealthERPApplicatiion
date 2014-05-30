@@ -277,10 +277,13 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     drSIPOrderBook["AcceptCount"] = acceptCount;
                 }
+                drSIPOrderBook["PASP_SchemePlanCode"] = drSIP["PASP_SchemePlanCode"];
+                drSIPOrderBook["CMFA_AccountId"] = drSIP["CMFA_AccountId"];
                 drSIPOrderBook["SystemRejectCount"] = systemRejectCount;
                 drSIPOrderBook["RejectedCount"] = rejectedCount;
                 drSIPOrderBook["ExecutedCount"] = executedcount ;
-
+                drSIPOrderBook["CMFSS_IsSourceAA"] = drSIP["CMFSS_IsSourceAA"];
+                drSIPOrderBook["C_CustomerId"] = drSIP["C_CustomerId"];
                 dtFinalSIPOrderBook.Rows.Add(drSIPOrderBook);
             }
 
@@ -318,7 +321,9 @@ namespace WealthERP.OnlineOrderBackOffice
             dtSIPOrderBook.Columns.Add("CMFSS_IsSourceAA");
             dtSIPOrderBook.Columns.Add("CMFSS_InstallmentAccepted");
             dtSIPOrderBook.Columns.Add("ExecutedCount");
-
+            dtSIPOrderBook.Columns.Add("PASP_SchemePlanCode");
+            dtSIPOrderBook.Columns.Add("CMFA_AccountId");
+            dtSIPOrderBook.Columns.Add("C_CustomerId");
             return dtSIPOrderBook;
 
         }
@@ -402,29 +407,33 @@ namespace WealthERP.OnlineOrderBackOffice
                                 int selectedRow = gvr.ItemIndex + 1;
                                 int systematicId = int.Parse(gvr.GetDataKeyValue("CMFSS_SystematicSetupId").ToString());
                                 //int accept = int.Parse(gvr.GetDataKeyValue("AcceptCount").ToString());
-                                if (e.CommandName == "Select")
-                                {
-                                    Response.Redirect("ControlHost.aspx?pageid=OnlineAdviserCustomerSIPOrderBook&systematicId=" + systematicId + "", false);
+                                //if (e.CommandName == "Select")
+                                //{
+                                //    Response.Redirect("ControlHost.aspx?pageid=OnlineAdviserCustomerTransactionBook&systematicId=" + systematicId + "", false);
 
-                                }
-                                else if (e.CommandName == "Accepted")
+                                //}
+                                int AccountId = int.Parse(gvr.GetDataKeyValue("CMFA_AccountId").ToString());
+                                int schemeplanCode = int.Parse(gvr.GetDataKeyValue("PASP_SchemePlanCode").ToString());
+                                int IsSourceAA = int.Parse(gvr.GetDataKeyValue("CMFSS_IsSourceAA").ToString());
+                                int customerId = int.Parse(gvr.GetDataKeyValue("C_CustomerId").ToString());
+                                 if (e.CommandName == "Accepted")
                                 {
-                                    Response.Redirect("ControlHost.aspx?pageid=OnlineAdviserCustomerSIPOrderBook&systematicId=" + systematicId + "&OrderStatus=PR", false);
+                                    Response.Redirect("ControlHost.aspx?pageid=OnlineAdviserCustomerTransctionBook&systematicId=" + systematicId + "&AccountId=" + AccountId + "&schemeplanCode=" + schemeplanCode + "&IsSourceAA=" + IsSourceAA + "&customerId=" + customerId + "", false);
                                 }
-                                else if (e.CommandName == "In Process")
-                                {
-                                    Response.Redirect("ControlHost.aspx?pageid=OnlineAdviserCustomerSIPOrderBook&systematicId=" + systematicId + "&OrderStatus=AL", false);
-                                }
-                                else if (e.CommandName == "Rejected")
-                                {
-                                    Response.Redirect("ControlHost.aspx?pageid=OnlineAdviserCustomerSIPOrderBook&systematicId=" + systematicId + "&OrderStatus=RJ", false);
+                                //else if (e.CommandName == "In Process")
+                                //{
+                                //    Response.Redirect("ControlHost.aspx?pageid=OnlineAdviserCustomerTransactionBook&systematicId=" + systematicId + "&OrderStatus=AL", false);"&OrderStatus=PR", false);
+                                //}
+                                //else if (e.CommandName == "Rejected")
+                                //{
+                                //    Response.Redirect("ControlHost.aspx?pageid=OnlineAdviserCustomerTransactionBook&systematicId=" + systematicId + "&OrderStatus=RJ", false);
 
-                                }
-                                else if (e.CommandName == "Executed")
-                                {
-                                    Response.Redirect("ControlHost.aspx?pageid=OnlineAdviserCustomerSIPOrderBook&systematicId=" + systematicId + "&OrderStatus=IP", false);
+                                //}
+                                //else if (e.CommandName == "Executed")
+                                //{
+                                //    Response.Redirect("ControlHost.aspx?pageid=OnlineAdviserCustomerTransactionBook&systematicId=" + systematicId + "&OrderStatus=IP", false);
 
-                                }   
+                                //}   
                             }
                         }
                     }

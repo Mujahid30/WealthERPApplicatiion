@@ -213,7 +213,7 @@
                     <asp:DropDownList ID="ddlNFoStatus" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlNFoStatus_OnSelectedIndexChanged"
                         AutoPostBack="true">
                         <asp:ListItem Text="Select" Value="Select" Selected="true" />
-                        <asp:ListItem Text="IsNFO" Value="IsNFO">
+                        <asp:ListItem Text="NFO" Value="NFO">
                         </asp:ListItem>
                         <asp:ListItem Text="Active" Value="Active">
                         </asp:ListItem>

@@ -13,28 +13,59 @@ using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections.Specialized;
 using Telerik.Web.UI;
 using System.Web.UI.HtmlControls;
+using BoCustomerPortfolio;
+using VoCustomerPortfolio;
 namespace WealthERP.OnlineOrderBackOffice
 {
     public partial class OnlineAdviserCustomerTransctionBook : System.Web.UI.UserControl
     {
         AdvisorVo advisorVo;
         CustomerVo customerVO = new CustomerVo();
+        CustomerTransactionBo customerTransactionBo = new CustomerTransactionBo();
         OnlineOrderMISBo OnlineOrderMISBo = new OnlineOrderMISBo();
         UserVo userVo = new UserVo();
         PriceBo priceBo = new PriceBo();
+        List<MFTransactionVo> mfTransactionList = null;
+        VoCustomerPortfolio.MFTransactionVo mfTransactionVo = new VoCustomerPortfolio.MFTransactionVo();
         DateTime fromDate;
         DateTime toDate;
         int rowCount = 0;
+        int AccountId = 0;
+        int IsSourceAA = 0;
+        int systematicId = 0;
+        int schemeplanCode = 0;
+        int customerId = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
             OnlineUserSessionBo.CheckSession();
             advisorVo = (AdvisorVo)Session["advisorVo"];
             customerVO = (CustomerVo)Session["customerVo"];
             userVo = (UserVo)Session["userVo"];
+
+            BindAMC();
             fromDate = DateTime.Now.AddMonths(-1);
             txtFrom.SelectedDate = fromDate.Date;
             txtTo.SelectedDate = DateTime.Now;
-            BindAMC();
+            if (!Page.IsPostBack)
+            {
+                if (Request.QueryString["systematicId"] != null && Request.QueryString["AccountId"] != null && Request.QueryString["schemeplanCode"] != null && Request.QueryString["IsSourceAA"] != null && Request.QueryString["customerId"] != null)
+                {
+                    systematicId = int.Parse(Request.QueryString["systematicId"].ToString());
+                    AccountId = int.Parse(Request.QueryString["AccountId"].ToString());
+                    schemeplanCode = int.Parse(Request.QueryString["schemeplanCode"].ToString());
+                    IsSourceAA = int.Parse(Request.QueryString["IsSourceAA"].ToString());
+                    customerId = int.Parse(Request.QueryString["customerId"].ToString());
+                    BindTransactionGrid();
+                    //divConditional.Visible = false;
+
+                }
+            }
+            else
+            {
+                fromDate = DateTime.Now.AddMonths(-1);
+                txtFrom.SelectedDate = fromDate.Date;
+                txtTo.SelectedDate = DateTime.Now;
+            }
 
         }
         private void BindAMC()
@@ -75,17 +106,27 @@ namespace WealthERP.OnlineOrderBackOffice
         }
         protected void BindTransactionGrid()
         {
+
             DataTable dtBindTransactionGrid;
             if (txtFrom.SelectedDate != null)
                 fromDate = DateTime.Parse(txtFrom.SelectedDate.ToString());
             if (txtTo.SelectedDate != null)
                 toDate = DateTime.Parse(txtTo.SelectedDate.ToString());
-            dtBindTransactionGrid = BindTransaction(advisorVo.advisorId, int.Parse(ddlAmc.SelectedValue), fromDate, toDate, gvTransationBookMIS.PageSize, gvTransationBookMIS.CurrentPageIndex + 1, null, null, null, null, null, null, null, null, 0, out rowCount);
-            gvTransationBookMIS.DataSource = dtBindTransactionGrid;
-            gvTransationBookMIS.VirtualItemCount = rowCount;
-            gvTransationBookMIS.DataBind();
-            pnlTransactionBook.Visible = true;
-
+            if (Request.QueryString["systematicId"] != null && Request.QueryString["AccountId"] != null && Request.QueryString["schemeplanCode"] != null)
+            {
+                dtBindTransactionGrid = OnlineOrderMISBo.GetAdviserCustomerTransactionsBookSIP(advisorVo.advisorId, customerId, systematicId, IsSourceAA, AccountId, schemeplanCode);
+                gvTransationBookMIS.DataSource = dtBindTransactionGrid;
+                gvTransationBookMIS.DataBind();
+                pnlTransactionBook.Visible = true;
+            }
+            else
+            {
+                dtBindTransactionGrid = BindTransaction(advisorVo.advisorId, int.Parse(ddlAmc.SelectedValue), fromDate, toDate, gvTransationBookMIS.PageSize, gvTransationBookMIS.CurrentPageIndex + 1, null, null, null, null, null, null, null, null, 0, out rowCount);
+                gvTransationBookMIS.DataSource = dtBindTransactionGrid;
+                gvTransationBookMIS.VirtualItemCount = rowCount;
+                gvTransationBookMIS.DataBind();
+                pnlTransactionBook.Visible = true;
+            }
         }
         protected DataTable BindTransaction(int adviserId, int AmcCode, DateTime fromDate, DateTime toDate, int pageSize, int currentPage, string customerNamefilter, string custCode, string panNo, string folioNo, string schemeName, string type, string dividentType, string fundName, int orderNo, out int rowCount)
         {

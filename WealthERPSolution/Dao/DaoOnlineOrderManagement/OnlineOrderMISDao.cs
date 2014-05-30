@@ -276,5 +276,62 @@ namespace DaoOnlineOrderManagement
             }
             return dtGetAdviserCustomerTransaction;
         }
+        public DataTable GetAdviserCustomerTransactionsBookSIP(int AdviserID, int customerId, int SystematicId, int IsSourceAA, int AccountId, int SchemePlanCode)
+        {
+            DataTable dtGetAdviserCustomerTransactionsBookSIP;
+            Database db;
+            DataSet dsGetAdviserCustomerTransactionsBookSIP;
+            DbCommand GetAdviserCustomerTransactionsBookSIPcmd;
+             try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetAdviserCustomerTransactionsBookSIPcmd = db.GetStoredProcCommand("SPROC_ONL_GetAdviserCustomerMFSIPTransactionsBook");
+                if (AdviserID != 0)
+                {
+                    db.AddInParameter(GetAdviserCustomerTransactionsBookSIPcmd, "@AdviserID", DbType.Int32, AdviserID);
+                }
+                else
+                {
+                    db.AddInParameter(GetAdviserCustomerTransactionsBookSIPcmd, "@AdviserID", DbType.Int32, DBNull.Value);
+                }
+                if (customerId != 0)
+                {
+                    db.AddInParameter(GetAdviserCustomerTransactionsBookSIPcmd, "@CustomerId", DbType.Int32, customerId);
+                }
+                else
+                {
+                    db.AddInParameter(GetAdviserCustomerTransactionsBookSIPcmd, "@CustomerId", DbType.Int32, DBNull.Value);
+                }
+                db.AddInParameter(GetAdviserCustomerTransactionsBookSIPcmd, "@AccountId", DbType.Int32, @AccountId);
+                db.AddInParameter(GetAdviserCustomerTransactionsBookSIPcmd, "@SchemePlanCode", DbType.Int32, @SchemePlanCode);
+                db.AddInParameter(GetAdviserCustomerTransactionsBookSIPcmd, "@IsSourceAA", DbType.Int32, IsSourceAA);
+
+                if (SchemePlanCode != 0)
+                {
+                    db.AddInParameter(GetAdviserCustomerTransactionsBookSIPcmd, "@SystemeticId", DbType.Int32, SystematicId);
+                }
+                else
+                {
+                    db.AddInParameter(GetAdviserCustomerTransactionsBookSIPcmd, "@SystemeticId", DbType.Int32, DBNull.Value);
+                }
+                GetAdviserCustomerTransactionsBookSIPcmd.CommandTimeout = 60 * 60;
+                dsGetAdviserCustomerTransactionsBookSIP = db.ExecuteDataSet(GetAdviserCustomerTransactionsBookSIPcmd);
+                 dtGetAdviserCustomerTransactionsBookSIP=dsGetAdviserCustomerTransactionsBookSIP.Tables[0];
+        }
+             catch (BaseApplicationException Ex)
+             {
+                 throw Ex;
+             }
+             catch (Exception Ex)
+             {
+                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                 NameValueCollection FunctionInfo = new NameValueCollection();
+                 FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:Getproductcode()");
+                 exBase.AdditionalInformation = FunctionInfo;
+                 ExceptionManager.Publish(exBase);
+                 throw exBase;
+             }
+             return dtGetAdviserCustomerTransactionsBookSIP;
+        }
     }
 }

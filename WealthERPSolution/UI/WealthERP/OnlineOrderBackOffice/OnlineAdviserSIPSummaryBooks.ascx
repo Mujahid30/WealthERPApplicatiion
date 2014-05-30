@@ -113,12 +113,14 @@
                 <telerik:RadGrid ID="gvSIPSummaryBookMIS" runat="server" GridLines="None" AutoGenerateColumns="False"
                     PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                     Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="true" Width="102%"
-                    AllowAutomaticInserts="false" OnNeedDataSource="gvSIPSummaryBookMIS_OnNeedDataSource" OnItemDataBound="gvSIPSummaryBookMIS_OnItemDataBound"
-                    OnUpdateCommand="gvSIPSummaryBookMIS_UpdateCommand" OnItemCommand="gvSIPSummaryBookMIS_OnItemCommand">
+                    AllowAutomaticInserts="false" OnNeedDataSource="gvSIPSummaryBookMIS_OnNeedDataSource"
+                    OnItemDataBound="gvSIPSummaryBookMIS_OnItemDataBound" OnUpdateCommand="gvSIPSummaryBookMIS_UpdateCommand"
+                    OnItemCommand="gvSIPSummaryBookMIS_OnItemCommand">
                     <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="OrderMIS">
                     </ExportSettings>
-                    <MasterTableView DataKeyNames="CMFSS_SystematicSetupId,CMFSS_IsCanceled,AcceptCount,InProcessCount,RejectedCount" Width="102%" AllowMultiColumnSorting="True"
-                        AutoGenerateColumns="false" CommandItemDisplay="None" EditMode="PopUp">
+                    <MasterTableView DataKeyNames="CMFSS_SystematicSetupId,CMFSS_IsCanceled,AcceptCount,InProcessCount,RejectedCount,CMFA_AccountId,PASP_SchemePlanCode,CMFSS_IsSourceAA,C_CustomerId"
+                        Width="102%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None"
+                        EditMode="PopUp">
                         <CommandItemSettings ShowExportToWordButton="false" ShowExportToExcelButton="false"
                             ShowExportToCsvButton="false" ShowAddNewRecordButton="false" ShowRefreshButton="false" />
                         <Columns>
@@ -130,7 +132,8 @@
                             </telerik:GridBoundColumn>
                             <telerik:GridTemplateColumn AllowFiltering="false" DataField="CMFSS_SystematicSetupId"
                                 AutoPostBackOnFilter="true" HeaderText="Request No." ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                SortExpression="CMFSS_SystematicSetupId" FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="90px">
+                                SortExpression="CMFSS_SystematicSetupId" FooterStyle-HorizontalAlign="Right"
+                                HeaderStyle-Width="90px">
                                 <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
                                 <ItemTemplate>
                                     <asp:LinkButton ID="lnkprAmcB" runat="server" CommandName="Select" Text='<%# Eval("CMFSS_SystematicSetupId").ToString() %>'>
@@ -144,15 +147,14 @@
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>--%>
                             <telerik:GridBoundColumn DataField="C_FirstName" HeaderText="Customer Name" AllowFiltering="true"
-                                HeaderStyle-Wrap="false" SortExpression="C_FirstName" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                AutoPostBackOnFilter="true" HeaderStyle-Width="100px" UniqueName="C_FirstName"
-                                FooterStyle-HorizontalAlign="Left">
+                                HeaderStyle-Wrap="false" SortExpression="C_FirstName" ShowFilterIcon="false"
+                                CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="100px"
+                                UniqueName="C_FirstName" FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="C_PANNum" HeaderText="PAN No" AllowFiltering="true"
                                 HeaderStyle-Wrap="false" SortExpression="C_PANNum" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                AutoPostBackOnFilter="true" HeaderStyle-Width="100px" UniqueName="C_PANNum"
-                                FooterStyle-HorizontalAlign="Left">
+                                AutoPostBackOnFilter="true" HeaderStyle-Width="100px" UniqueName="C_PANNum" FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="PA_AMCName" HeaderText="Fund Name" AllowFiltering="true"
@@ -161,7 +163,6 @@
                                 FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            
                             <telerik:GridBoundColumn DataField="CMFA_FolioNum" AllowFiltering="true" HeaderText="Folio"
                                 UniqueName="CMFA_FolioNum" SortExpression="CMFA_FolioNum" ShowFilterIcon="false"
                                 CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="80px"
@@ -258,14 +259,14 @@
                                 AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                           <%-- <telerik:GridBoundColumn DataField="AcceptCount" AllowFiltering="false" HeaderText="Accepted"
+                            <%-- <telerik:GridBoundColumn DataField="AcceptCount" AllowFiltering="false" HeaderText="Accepted"
                                 UniqueName="AcceptCount" SortExpression="AcceptCount" ShowFilterIcon="false"
                                 HeaderStyle-Width="80px" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>--%>
-                            <telerik:GridTemplateColumn AllowFiltering="false" DataField="AcceptCount"
-                                AutoPostBackOnFilter="true" HeaderText="Accepted" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                SortExpression="AcceptCount" FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="90px" >
+                            <telerik:GridTemplateColumn AllowFiltering="false" DataField="AcceptCount" AutoPostBackOnFilter="true"
+                                HeaderText="Accepted" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                SortExpression="AcceptCount" FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="90px">
                                 <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
                                 <ItemTemplate>
                                     <asp:LinkButton ID="lnkpraccept" runat="server" CommandName="Accepted" Text='<%# Eval("AcceptCount").ToString() %>'>
@@ -277,13 +278,13 @@
                                 HeaderStyle-Width="80px" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                           <%-- <telerik:GridBoundColumn DataField="InProcessCount" AllowFiltering="false" HeaderText="In Process"
+                            <%-- <telerik:GridBoundColumn DataField="InProcessCount" AllowFiltering="false" HeaderText="In Process"
                                 UniqueName="InProcessCount" SortExpression="InProcessCount" ShowFilterIcon="false"
                                 HeaderStyle-Width="80px" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>--%>
-                           <telerik:GridTemplateColumn AllowFiltering="false" DataField="InProcessCount"
-                                AutoPostBackOnFilter="true" HeaderText="In Process" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                            <telerik:GridTemplateColumn AllowFiltering="false" DataField="InProcessCount" AutoPostBackOnFilter="true"
+                                HeaderText="In Process" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                 SortExpression="InProcessCount" FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="90px">
                                 <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
                                 <ItemTemplate>
@@ -291,13 +292,13 @@
                                     </asp:LinkButton>
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>
-                         <%--   <telerik:GridBoundColumn DataField="RejectedCount" AllowFiltering="false" HeaderText="Rejected"
+                            <%--   <telerik:GridBoundColumn DataField="RejectedCount" AllowFiltering="false" HeaderText="Rejected"
                                 UniqueName="RejectedCount" SortExpression="RejectedCount" ShowFilterIcon="false"
                                 HeaderStyle-Width="80px" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>--%>
-                           <telerik:GridTemplateColumn AllowFiltering="false" DataField="RejectedCount"
-                                AutoPostBackOnFilter="true" HeaderText="Rejected" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                            <telerik:GridTemplateColumn AllowFiltering="false" DataField="RejectedCount" AutoPostBackOnFilter="true"
+                                HeaderText="Rejected" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                 SortExpression="RejectedCount" FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="90px">
                                 <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
                                 <ItemTemplate>
@@ -305,23 +306,24 @@
                                     </asp:LinkButton>
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>
-                            <telerik:GridTemplateColumn AllowFiltering="false" DataField="ExecutedCount"
-                                AutoPostBackOnFilter="true" HeaderText="Executed" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                            <telerik:GridTemplateColumn AllowFiltering="false" DataField="ExecutedCount" AutoPostBackOnFilter="true"
+                                HeaderText="Executed" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                 SortExpression="ExecutedCount" FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="90px">
                                 <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
                                 <ItemTemplate>
                                     <asp:LinkButton ID="lnkprexecuted" runat="server" CommandName="Executed" Text='<%# Eval("ExecutedCount").ToString() %>'>
                                     </asp:LinkButton>
                                 </ItemTemplate>
-                            </telerik:GridTemplateColumn>  
+                            </telerik:GridTemplateColumn>
                             <telerik:GridBoundColumn DataField="SystemRejectCount" AllowFiltering="false" HeaderText="System Rejected"
                                 UniqueName="SystemRejectCount" SortExpression="SystemRejectCount" ShowFilterIcon="false"
                                 HeaderStyle-Width="80px" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="CMFSS_InstallmentOther" AllowFiltering="false" HeaderText="Other"
-                                UniqueName="CMFSS_InstallmentOther" SortExpression="CMFSS_InstallmentOther" ShowFilterIcon="false"
-                                HeaderStyle-Width="80px" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
+                            <telerik:GridBoundColumn DataField="CMFSS_InstallmentOther" AllowFiltering="false"
+                                HeaderText="Other" UniqueName="CMFSS_InstallmentOther" SortExpression="CMFSS_InstallmentOther"
+                                ShowFilterIcon="false" HeaderStyle-Width="80px" CurrentFilterFunction="Contains"
+                                AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="TotalAmount" AllowFiltering="false" HeaderText="Total Amount"
@@ -403,9 +405,9 @@
                                         &nbsp;
                                     </td>
                                     <tr>
-                                    <td> 
-                                        &nbsp;
-                                    </td>
+                                        <td>
+                                            &nbsp;
+                                        </td>
                                         <td align="left">
                                             <asp:Button ID="Button1" Text="OK" runat="server" CssClass="PCGButton" CommandName="Update"
                                                 ValidationGroup="btnSubmit">
