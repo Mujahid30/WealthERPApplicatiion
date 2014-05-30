@@ -277,18 +277,20 @@ namespace WealthERP.OnlineOrderManagement
             string errorMsg = string.Empty;
             bool isBidsVallid = false;
             isBidsVallid = ValidateIPOBids(out errorMsg);
-            if (isBidsVallid)
+            if (!isBidsVallid)
             {
-                confirmMessage.Text = "I/We here by confirm that this is an execution-only transaction without any iteraction or advice by the employee/relationship manager/sales person of the above distributor or notwithstanding the advice of in-appropriateness, if any, provided by the employee/relationship manager/sales person of the distributor and the distributor has not chargedany advisory fees on this transaction";
-                string script = "function f(){radopen(null, 'rw_customConfirm'); Sys.Application.remove_load(f);}Sys.Application.add_load(f);";
-                ScriptManager.RegisterStartupScript(Page, Page.GetType(), "customConfirmOpener", script, true);
+
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('" + errorMsg + "');", true);
+                return;
             }
             else
             {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('" + errorMsg + "');", true);
-                return;
+                CreateIPOOrder();
+                ControlsVisblity(true);
 
             }
+            
+           
 
 
 
@@ -486,8 +488,7 @@ namespace WealthERP.OnlineOrderManagement
 
         protected void rbConfirm_OK_Click(object sender, EventArgs e)
         {
-            CreateIPOOrder();
-            ControlsVisblity(true);
+            
         }
 
         private void ControlsVisblity(bool visble)
