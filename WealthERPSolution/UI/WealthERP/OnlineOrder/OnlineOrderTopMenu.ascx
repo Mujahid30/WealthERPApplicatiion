@@ -25,7 +25,7 @@
                                 PageViewID="RPVSIP">
                             </telerik:RadTab>
                             <telerik:RadTab runat="server" Text="NFO" Value="RTSMFOrderMenuTransactNFO" TabIndex="4"
-                                PageViewID="RPVNFO" Visible="false">
+                                PageViewID="RPVNFO">
                             </telerik:RadTab>
                             <telerik:RadTab runat="server" Text="FMP" Value="RTSMFOrderMenuTransactFMP" TabIndex="5"
                                 PageViewID="RPVFMP" Visible="false">
