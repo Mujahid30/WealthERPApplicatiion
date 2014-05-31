@@ -341,7 +341,7 @@ namespace BoCommon
         }
 
 
-        public DataTable GetAllSIPDataForOrder(int schemeCode,string frequencyCode)
+        public DataTable GetAllSIPDataForOrder(int schemeCode, string frequencyCode)
         {
             DataTable dtAllSIPDataForOrder = new DataTable();
             try
@@ -642,9 +642,9 @@ namespace BoCommon
             DataSet dsGetUserRole;
             try
             {
-               
+
                 dsGetUserRole = daoCommonLookup.GetDepartment(adviserId);
-                
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -656,7 +656,7 @@ namespace BoCommon
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "CommonLookupBo.cs:CheckForBusinessDate(DateTime date)");
                 object[] objParams = new object[1];
-                
+
                 FunctionInfo = exBase.AddObject(FunctionInfo, objParams);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -665,8 +665,62 @@ namespace BoCommon
             return dsGetUserRole;
 
         }
+        public DataTable GetOnlineMFNFOSchemeList()
+        {
 
+            DataTable dtNFOSchemeList;
+            try
+            {
 
+                dtNFOSchemeList = daoCommonLookup.GetOnlineMFNFOSchemeList();
 
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommonLookupBo.cs:GetOnlineMFNFOSchemeList()");
+                object[] objParams = new object[1];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objParams);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtNFOSchemeList;
+        }
+
+        public DataTable GetMFSchemeAMCCategory(int schemeId)
+        {
+
+            DataTable dtSchemeAMCCategory;
+            try
+            {
+
+                dtSchemeAMCCategory = daoCommonLookup.GetMFSchemeAMCCategory(schemeId);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommonLookupBo.cs:GetMFSchemeAMCCategory(int schemeId)");
+                object[] objParams = new object[1];
+                objParams[0] = schemeId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objParams);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtSchemeAMCCategory;
+        }
     }
 }

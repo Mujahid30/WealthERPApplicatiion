@@ -731,5 +731,64 @@ namespace DaoCommon
             }
             return dsGetUserRole;
         }
+
+        public DataTable GetOnlineMFNFOSchemeList()
+        {
+            Database db;
+            DataTable dtNFOSchemeList;
+            DbCommand getNFOSchemeListcmd;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getNFOSchemeListcmd = db.GetStoredProcCommand("SPROC_ONL_GetMF_NFO_Schemes");
+                dtNFOSchemeList = db.ExecuteDataSet(getNFOSchemeListcmd).Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommonLookupDao.cs:GetOnlineMFNFOSchemeList()");
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtNFOSchemeList;
+        }
+
+        public DataTable GetMFSchemeAMCCategory(int schemeId)
+        {
+            Database db;
+            DataTable dtSchemeAMCCategory;
+            DbCommand getSchemeAMCCategorycmd;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getSchemeAMCCategorycmd = db.GetStoredProcCommand("SPROC_ONL_GetMFSchemeAMCCategory");
+                db.AddInParameter(getSchemeAMCCategorycmd, "@SchemePlanCode", DbType.Int64, schemeId);
+                dtSchemeAMCCategory = db.ExecuteDataSet(getSchemeAMCCategorycmd).Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommonLookupDao.cs:GetMFSchemeAMCCategory(int schemeId)");
+                object[] objParams = new object[1];
+                objParams[0] = schemeId;
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtSchemeAMCCategory;
+        }
     }
 }
