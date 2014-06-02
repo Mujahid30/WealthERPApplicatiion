@@ -1330,6 +1330,7 @@ namespace BoOnlineOrderManagement
 
             OrderTypeList.Add(new KeyValuePair<string, string>("OTH", "Normal"));
             OrderTypeList.Add(new KeyValuePair<string, string>("SIP", "SIP"));
+            OrderTypeList.Add(new KeyValuePair<string, string>("NFO", "NFO"));
 
             return OrderTypeList.ToArray();
         }
