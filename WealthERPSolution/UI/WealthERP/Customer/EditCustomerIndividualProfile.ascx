@@ -122,7 +122,7 @@
                 OnSelectedIndexChanged="ddlCustomerSubType_SelectedIndexChanged">
             </asp:DropDownList>
             <span id="Span2" class="spnRequiredField">*</span>
-            <asp:CheckBox ID="chkRealInvestor" runat="server" CssClass="txtField" Text="IsRealInvestor"
+            <asp:CheckBox ID="chkRealInvestor" runat="server" CssClass="txtField" Text="Investor"
                 AutoPostBack="false" />
             <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="ddlCustomerSubType"
                 ErrorMessage="Please select a Customer Sub-Type" Operator="NotEqual" ValueToCompare="Select a Sub-Type"

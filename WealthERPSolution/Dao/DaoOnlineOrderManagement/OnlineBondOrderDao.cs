@@ -149,7 +149,7 @@ namespace DaoOnlineOrderManagement
              //  db.AddInParameter(cmdGetCommissionStructureRules, "@type", DbType.Int32, type);
 
                 db.AddInParameter(cmdGetCommissionStructureRules, "@customerId", DbType.Int32, customerId);
-                db.AddInParameter(cmdGetCommissionStructureRules, "@CustomerSubType", DbType.Int32, 2017);
+                db.AddInParameter(cmdGetCommissionStructureRules, "@CustomerSubType", DbType.Int32, CustomerSubType);
 
               db.AddInParameter(cmdGetCommissionStructureRules, "@IsAdminRequest", DbType.Int16, isAdminRequest);
 

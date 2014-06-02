@@ -354,7 +354,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadDatePicker txtNFOStartDate;
-        
+        protected global::Telerik.Web.UI.RadDatePicker txtSchemeStartDate;
         /// <summary>
         /// lblNfoEnddate control.
         /// </summary>

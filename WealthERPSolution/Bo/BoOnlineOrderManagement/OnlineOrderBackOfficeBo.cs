@@ -1883,6 +1883,21 @@ namespace BoOnlineOrderManagement
              return Type;
 
          }
+         public String GetProductAddedCode(int schemeplanecode)
+        {
+            string Productcode = "";
+            OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
+            try
+            {
+                Productcode = OnlineOrderBackOfficeDao.GetProductAddedCode(schemeplanecode);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return Productcode;
+
+        }
          public DataSet GetAdviserCustomersAllMFAccounts(int IsValued, int advisorId)
          {
              DataSet dsAdviserCustomersAllMFAccounts;

@@ -66,7 +66,7 @@
                     <asp:ListItem Text="Active" Value="Active" Selected="True" />
                     <asp:ListItem Text="Liquidated" Value="Liquidated" />
                     <asp:ListItem Text="Merged" Value="Merged" />
-                    <asp:ListItem Text="IsNFO" Value="IsNFO" />
+                    <asp:ListItem Text="NFO" Value="NFO" />
                 </Items>
             </asp:DropDownList>
         </td>

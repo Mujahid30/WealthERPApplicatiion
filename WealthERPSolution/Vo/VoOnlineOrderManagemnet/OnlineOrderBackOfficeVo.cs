@@ -97,7 +97,7 @@ namespace VoOnlineOrderManagemnet
         public int Mergecode { get; set; }
         public string Allproductcode { get; set; }
         public string AMFIcode { get; set; }
-
+        public DateTime SchemeStartDate { get; set; }
     }
 
     public class TradeBusinessDateVo
