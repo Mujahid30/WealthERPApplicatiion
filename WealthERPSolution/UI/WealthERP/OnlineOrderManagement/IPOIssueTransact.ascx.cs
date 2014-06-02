@@ -114,22 +114,29 @@ namespace WealthERP.OnlineOrderManagement
 
         }
 
-        protected void BidQuantityPrice_TextChanged(object sender, EventArgs e)
+        protected void BidQuantity_TextChanged(object sender, EventArgs e)
         {
             int currentRowidex = (((GridDataItem)((TextBox)sender).NamingContainer).RowIndex / 2) - 1;
-            ReseIssueBidValues(currentRowidex);
+            ReseIssueBidValues(currentRowidex, false);
+
+        }
+
+        protected void BidPrice_TextChanged(object sender, EventArgs e)
+        {
+            int currentRowidex = (((GridDataItem)((TextBox)sender).NamingContainer).RowIndex / 2) - 1;
+            ReseIssueBidValues(currentRowidex, true);
 
         }
 
         protected void CutOffCheckBox_Changed(object sender, EventArgs e)
         {
             int currentRowindex = (((GridDataItem)((CheckBox)sender).NamingContainer).RowIndex / 2) - 1;
-            ReseIssueBidValues(currentRowindex);
+            ReseIssueBidValues(currentRowindex, false);
             //CheckBox chkCutOff = (CheckBox)RadGridIPOBid.MasterTableView.Items[currentRowindex]["CheckCutOff"].FindControl("cbCutOffCheck");
 
         }
 
-        protected void ReseIssueBidValues(int row)
+        protected void ReseIssueBidValues(int row, bool isBidPriceChange)
         {
             double bidAmount = 0;
             double ipoPriceDiscountValue = 0;
@@ -188,17 +195,20 @@ namespace WealthERP.OnlineOrderManagement
             }
 
             if (chkCutOff.Checked)
-                EnableDisableBids(true, 3);
+                EnableDisableBids(true, 3, row, isBidPriceChange);
             else
-                EnableDisableBids(false, 3);
+                EnableDisableBids(false, 3, row, isBidPriceChange);
 
         }
 
-        protected void EnableDisableBids(bool isChecked, int noOfBid)
+        protected void EnableDisableBids(bool isChecked, int noOfBid, int rowNum, bool isBidPriceChange)
         {
             double[] bidMaxPayableAmount = new double[noOfBid];
             int count = 0;
             double finalBidPayableAmount = 0;
+            List<string> iPOBids = new List<string>();
+            string bidDuplicateChk = string.Empty;
+
             foreach (GridDataItem item in RadGridIPOBid.MasterTableView.Items)
             {
                 CheckBox chkCutOff = (CheckBox)item.FindControl("cbCutOffCheck");
@@ -207,7 +217,35 @@ namespace WealthERP.OnlineOrderManagement
 
                 TextBox txtBidAmount = (TextBox)item.FindControl("txtBidAmount");
                 TextBox txtBidAmountPayable = (TextBox)item.FindControl("txtBidAmountPayable");
-
+                if (!string.IsNullOrEmpty(txtBidQuantity.Text.Trim()) && !string.IsNullOrEmpty(txtBidPrice.Text.Trim()))
+                {
+                    bidDuplicateChk = txtBidQuantity.Text.Trim() + "-" + txtBidPrice.Text.Trim();
+                    if (!iPOBids.Contains(bidDuplicateChk))
+                    {
+                        iPOBids.Add(bidDuplicateChk);
+                    }
+                    else
+                    {
+                        TextBox txtBidQuantity1 = (TextBox)RadGridIPOBid.MasterTableView.Items[rowNum]["BidQuantity"].FindControl("txtBidQuantity");
+                        TextBox txtBidPrice1 = (TextBox)RadGridIPOBid.MasterTableView.Items[rowNum]["BidPrice"].FindControl("txtBidPrice");
+                        TextBox txtBidAmount1 = (TextBox)RadGridIPOBid.MasterTableView.Items[rowNum]["BidAmount"].FindControl("txtBidAmount");
+                        TextBox txtBidAmountPayable1 = (TextBox)RadGridIPOBid.MasterTableView.Items[rowNum]["BidAmountPayable"].FindControl("txtBidAmountPayable");
+                        if (isBidPriceChange)
+                        {
+                            txtBidPrice1.Text = string.Empty;
+                            txtBidPrice1.Focus();
+                        }
+                        else
+                        {
+                            txtBidQuantity1.Text = string.Empty;
+                            txtBidQuantity1.Focus();
+                        }
+                        txtBidAmount1.Text ="0";
+                        txtBidAmountPayable1.Text = "0";
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Duplcate bids found.Each bid should have unique combination of price and quantity!');", true);
+                        //return;
+                    }
+                }
 
                 if (isChecked)
                 {
@@ -249,9 +287,11 @@ namespace WealthERP.OnlineOrderManagement
                     txtBidPrice.CssClass = "txtField";
 
                 }
-
-                bidMaxPayableAmount[count] = Convert.ToDouble(txtBidAmountPayable.Text);
-                count = count + 1;
+                if (!string.IsNullOrEmpty(txtBidAmountPayable.Text.Trim()))
+                {
+                    bidMaxPayableAmount[count] = Convert.ToDouble(txtBidAmountPayable.Text);
+                    count = count + 1;
+                }
 
             }
 
@@ -428,7 +468,7 @@ namespace WealthERP.OnlineOrderManagement
             if (orderId != 0 && accountDebitStatus == true)
             {
                 if (isCutOffTimeOver)
-                    userMessage ="Order placed successfully, Order reference no is " + orderId.ToString() + " & Application no. " + applicationno  + ", Order will process next business day.";
+                    userMessage = "Order placed successfully, Order reference no is " + orderId.ToString() + " & Application no. " + applicationno + ", Order will process next business day.";
                 else
                     userMessage = "Order placed successfully, Order reference no is " + orderId.ToString() + " & Application no. " + applicationno;
             }
@@ -501,6 +541,7 @@ namespace WealthERP.OnlineOrderManagement
         {
             bool isBidValid = true;
             msg = string.Empty;
+            int validBidSum = 0;
             foreach (GridDataItem item in RadGridIPOBid.MasterTableView.Items)
             {
                 double bidAmountPayble = 0;
@@ -511,9 +552,13 @@ namespace WealthERP.OnlineOrderManagement
                 TextBox txtBidAmount = (TextBox)item.FindControl("txtBidAmount");
                 TextBox txtBidAmountPayable = (TextBox)item.FindControl("txtBidAmountPayable");
                 double.TryParse(txtBidAmountPayable.Text, out bidAmountPayble);
+
+                if (bidAmountPayble>0)
+                 validBidSum += int.Parse(item.GetDataKeyValue("IssueBidNo").ToString());
+
                 if (bidAmountPayble <= 0 && int.Parse(item.GetDataKeyValue("IssueBidNo").ToString()) == 1)
                 {
-                    msg = "Please complete the Bid Option" + item.GetDataKeyValue("IssueBidNo").ToString() + " first";
+                    msg = "Bid found missing.Please enter the bids in sequence starting from the top!";
                     isBidValid = false;
                     return isBidValid;
                 }
@@ -524,6 +569,12 @@ namespace WealthERP.OnlineOrderManagement
                     return isBidValid;
                 }
 
+            }
+            if (validBidSum == 4)
+            {
+                msg = "Bid found missing.Please enter the bids in sequence starting from the top!";
+                isBidValid = false;
+                return isBidValid;
             }
 
             return isBidValid;

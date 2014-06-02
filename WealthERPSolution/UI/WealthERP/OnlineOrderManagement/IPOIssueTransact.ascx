@@ -221,14 +221,14 @@
                                             ItemStyle-HorizontalAlign="Center" HeaderStyle-HorizontalAlign="Center">
                                             <ItemTemplate>
                                                 <asp:TextBox ID="txtBidQuantity" runat="server" Text='<%# Bind("BidQty")%>' CssClass="txtField"
-                                                    OnTextChanged="BidQuantityPrice_TextChanged" AutoPostBack="true" onkeypress="return isNumberKey(event)"> </asp:TextBox>
-                                                <%-- <a href="#" class="popper" data-popbox="divBidQuantity">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                                                    OnTextChanged="BidQuantity_TextChanged" AutoPostBack="true" onkeypress="return isNumberKey(event)"> </asp:TextBox>
+                                                <a href="#" class="popper" data-popbox="divBidQuantity" style="display:none">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
                                                 <div id="divBidQuantity" class="popbox">
                                                     <h2>
                                                         BID-QUANTITY!</h2>
                                                     <p>
                                                         1)Please enter value between MinQuantity and MaxQuantity.</p>
-                                                </div>--%>
+                                                </div>
                                                 <asp:RangeValidator ID="rvQuantity" runat="server" ControlToValidate="txtBidQuantity"
                                                     ValidationGroup="btnConfirmOrder" Type="Integer" CssClass="rfvPCG" Text="*" ErrorMessage="BidQuantity should be between MinQuantity and MaxQuantity"
                                                     Display="Dynamic" />
@@ -242,8 +242,8 @@
                                             ItemStyle-HorizontalAlign="Center" HeaderStyle-HorizontalAlign="Center" FooterStyle-HorizontalAlign="Center">
                                             <ItemTemplate>
                                                 <asp:TextBox ID="txtBidPrice" runat="server" CssClass="txtField" Text='<%# Bind("BidPrice")%>'
-                                                    AutoPostBack="true" OnTextChanged="BidQuantityPrice_TextChanged" onkeypress="return isNumberKey(event)"> </asp:TextBox>
-                                                <%--   <a href="#" class="popper" data-popbox="divBidPrice">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                                                    AutoPostBack="true" OnTextChanged="BidPrice_TextChanged" onkeypress="return isNumberKey(event)"> </asp:TextBox>
+                                                <a href="#" class="popper" data-popbox="divBidPrice" style="display:none">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
                                                 <div id="divBidPrice" class="popbox">
                                                     <h2>
                                                         BID-PRICE!</h2>
@@ -251,7 +251,7 @@
                                                         1)Please enter value between Min Bid Price and Min Max Price.
                                                         <br />
                                                         2)In case of cutoff cheked Max Bid price will be use for same field</p>
-                                                </div>--%>
+                                                </div>
                                                 <asp:RangeValidator ID="rvBidPrice" runat="server" ControlToValidate="txtBidPrice"
                                                     ValidationGroup="btnConfirmOrder" Type="Double" CssClass="rfvPCG" Text="*" ErrorMessage="BidPrice should be between Min Bid Price and Min Max Price"
                                                     Display="Dynamic" />
