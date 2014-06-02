@@ -243,6 +243,7 @@
                 <asp:ListItem Value="ALL">All</asp:ListItem>
                 <asp:ListItem Value="OTH">Normal Orders</asp:ListItem>
                 <asp:ListItem Value="SIP">SIP Orders</asp:ListItem>
+                <asp:ListItem Value="NFO">NFO Orders</asp:ListItem>
             </asp:DropDownList>
             <asp:RequiredFieldValidator ID="rfvExtractType" runat="server" CssClass="rfvPCG"
                 Display="Dynamic" ErrorMessage="Please select an Extract Type" ValidationGroup="PreviewData"
