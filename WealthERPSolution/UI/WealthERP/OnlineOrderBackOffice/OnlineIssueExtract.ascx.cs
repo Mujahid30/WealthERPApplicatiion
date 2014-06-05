@@ -21,6 +21,7 @@ namespace WealthERP.OnlineOrderBackOffice
     {
         OnlineNCDBackOfficeBo boNcdBackOff = new OnlineNCDBackOfficeBo();
         // OnlineOrderBackOfficeBo onlineOrderBackOfficeBo = new OnlineOrderBackOfficeBo();
+        CommonLookupBo boCommon = new CommonLookupBo();
         UserVo userVo = new UserVo();
         AdvisorVo adviserVo = new AdvisorVo();
 
@@ -36,6 +37,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 if (Cache["IssueExtract" + userVo.UserId] != null) Cache.Remove("IssueExtract" + userVo.UserId);
                 SetDownloadDate();
+                CheckForBusinessDate();
             }
         }
         protected void OnSelectedIndexChanged_ddlFileType(object sender, EventArgs e)
@@ -343,6 +345,15 @@ namespace WealthERP.OnlineOrderBackOffice
             }
             // SetFileType();
             BindIssue(ddlProduct.SelectedValue);
+        }
+        private void CheckForBusinessDate()
+        {
+            bool isBusinessDate = boCommon.CheckForBusinessDate(DateTime.Now);
+            if (!isBusinessDate)
+            {
+                btnIssueExtract.Enabled = false;
+                btnIssueExtract.ToolTip = "Today is not a valid business date";
+            }
         }
         //protected void lnkClick_Click(object sender, EventArgs e)
         //{

@@ -70,8 +70,10 @@ namespace WealthERP.Reports
 
             dtReportTreeNode.Columns.Add("TreeNodeText2", typeof(String));
 
-
-
+            if (advisorVo.advisorId == Convert.ToInt32(ConfigurationSettings.AppSettings["ONLINE_ADVISER"]))
+            {
+               
+            }
             //For upload 2009 is Tree Node Id in Sub Table in XML...
             int treeSubNodeId = 2010;
             drXmlTreeSubSubNode = dsTreeNodes.Tables[2].Select("TreeSubNodeCode=" + treeSubNodeId.ToString());
@@ -173,35 +175,45 @@ namespace WealthERP.Reports
         }
         protected void rptReportTree_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
-            //if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
-            //{
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
 
-            //    ImageButton col1 = e.Item.FindControl("imgbtnReport2") as ImageButton;
-            //    ImageButton col0 = e.Item.FindControl("imgbtnReport1") as ImageButton;
-            //    ImageButton col2 = e.Item.FindControl("imgbtnReport3") as ImageButton;
-            //    ImageButton col3 = e.Item.FindControl("imgbtnReport4") as ImageButton;
-            //    if (col1.ImageUrl == "")
-            //    {
-            //        var a = e.Item.FindControl("td2");
-            //        a.Visible = false;
-            //    }
-            //    if (col0.ImageUrl == "")
-            //    {
-            //        var a = e.Item.FindControl("td1");
-            //        a.Visible = false;
-            //    }
-            //    if (col2.ImageUrl == "")
-            //    {
-            //        var a = e.Item.FindControl("td3");
-            //        a.Visible = false;
-            //    }
-            //    if (col3.ImageUrl == "")
-            //    {
-            //        var a = e.Item.FindControl("td4");
-            //        a.Visible = false;
-            //    }
+                LinkButton col1 = e.Item.FindControl("lnkReportTreeNode1") as LinkButton;
+                LinkButton col0 = e.Item.FindControl("lnkReportTreeNode2") as LinkButton;
+                if (col1.Text == "Equity Report")
+                {
+                   
+                }
+                LinkButton col1E = e.Item.FindControl("lnkReportTreeNode1") as LinkButton;
+                //ImageButton col0 = e.Item.FindControl("imgbtnReport1") as ImageButton;
+                ImageButton col2 = e.Item.FindControl("imgbtnReport3") as ImageButton;
+                ImageButton col3 = e.Item.FindControl("imgbtnReport4") as ImageButton;
+                if (advisorVo.advisorId == Convert.ToInt32(ConfigurationSettings.AppSettings["ONLINE_ADVISER"]))
+                {
+                    if (col1 != null)
+                    {
 
-            //}
+                        var a = e.Item.FindControl("td2");
+                        a.Visible = false;
+                    }
+                    if (col1E.Text == "Equity Report")
+                    {
+                        var a = e.Item.FindControl("td1");
+                        a.Visible = false;
+                    }
+                }
+                //if (col2.ImageUrl == "")
+                //{
+                //    var a = e.Item.FindControl("td3");
+                //    a.Visible = false;
+                //}
+                //if (col3.ImageUrl == "")
+                //{
+                //    var a = e.Item.FindControl("td4");
+                //    a.Visible = false;
+                //}
+
+            }
         }
     }
 }
