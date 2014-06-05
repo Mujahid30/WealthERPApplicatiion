@@ -165,8 +165,9 @@ namespace WealthERP.OnlineOrderBackOffice
             gvOnlineIssueExtract.ExportSettings.OpenInNewWindow = true;
             gvOnlineIssueExtract.ExportSettings.ExportOnlyData = true;
             gvOnlineIssueExtract.ExportSettings.IgnorePaging = true;
+            gvOnlineIssueExtract.ExportSettings.HideStructureColumns = true;
             gvOnlineIssueExtract.ExportSettings.FileName = filename;
-            gvOnlineIssueExtract.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            gvOnlineIssueExtract.ExportSettings.Excel.Format    =Telerik.Web.UI.GridExcelExportFormat.ExcelML;
             gvOnlineIssueExtract.MasterTableView.ExportToExcel();
 
 
@@ -176,11 +177,11 @@ namespace WealthERP.OnlineOrderBackOffice
             string filename = "";
             string delimit = "";
             string format = "";
-            GetExtractData();
+            
 
             DataTable dtExtractData = (DataTable)Cache["IssueExtract" + userVo.UserId];
             string extractStepCode = boNcdBackOff.GetExtractStepCode(Convert.ToInt32(ddlFileType.SelectedValue));
-
+            
             boNcdBackOff.GetFileName(ddlExternalSource.SelectedValue, Convert.ToInt32(ddlFileType.SelectedValue), ref filename, ref delimit, ref format,ddlIssueName.SelectedItem.Text);
 
             if (format == ".xls")
@@ -193,7 +194,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 DownloadBidFile(dtExtractData, filename, delimit, extractStepCode);
             }
 
-        }
+         }
 
 
         private void SetFileType(string externalSource)
