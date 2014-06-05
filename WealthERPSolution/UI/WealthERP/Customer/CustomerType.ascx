@@ -135,7 +135,7 @@
             <asp:DropDownList ID="ddlCustomerSubType" runat="server" CssClass="cmbField">
             </asp:DropDownList>
             <span id="Span1" class="spnRequiredField">*</span> &nbsp;
-            <asp:CheckBox ID="chkRealInvestor" runat="server" CssClass="txtField" Text="IsRealInvestor"
+            <asp:CheckBox ID="chkRealInvestor" runat="server" CssClass="txtField" Text="Investor"
                 AutoPostBack="false"  Checked="true" onclick="javascript:ShowSubmitAndSave();" />
             <br />
             <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="ddlCustomerSubType"

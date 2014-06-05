@@ -1642,7 +1642,7 @@ namespace BoOnlineOrderManagement
                         nRows = daoOnlNcdBackOff.UploadAllotmentIssueData(dtCheckOrder, issueId, ref   result, product);
                     else
                     {
-                        result = "Pls Fill Allotment Date";
+                        result = "Please Fill Allotment Date";
                     }
 
                 }

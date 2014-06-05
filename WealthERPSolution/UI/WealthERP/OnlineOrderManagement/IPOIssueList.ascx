@@ -48,7 +48,7 @@
                     <asp:DropDownList ID="ddlType" runat="server" CssClass="cmbField" AutoPostBack="true">
                         <asp:ListItem Value="Select">Select</asp:ListItem>
                         <asp:ListItem Value="Curent">Current Issues</asp:ListItem>
-                        <asp:ListItem Value="Closed" Enabled="false">Closed Issues</asp:ListItem>
+                        <asp:ListItem Value="Closed">Closed Issues</asp:ListItem>
                         <asp:ListItem Value="Future">Future Issues</asp:ListItem>
                     </asp:DropDownList>
                     <span id="Span4" class="spnRequiredField">*</span>

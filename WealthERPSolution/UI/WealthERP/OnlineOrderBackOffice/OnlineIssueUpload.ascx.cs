@@ -255,6 +255,11 @@ namespace WealthERP.OnlineOrderBackOffice
                     dataBoundItem["Remarks"].BackColor = System.Drawing.Color.Red;
                     dataBoundItem["Remarks"].Font.Bold = true;
                 }
+                else
+                {
+                    dataBoundItem["Remarks"].Text = "Verified";
+                }
+
             }
         }
 

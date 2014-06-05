@@ -370,7 +370,7 @@
                     CssClass="rfvPCG" ControlToValidate="txtESSchemecode" ValidationGroup="btnsubmit"
                     Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>--%>
                 </td>
-                <td align="right" width="25%">
+                <td align="right" width="10%">
                     <asp:Label ID="lblSecuritycode" runat="server" Text="Security Code:" CssClass="FieldName"></asp:Label>
                 </td>
                 <td>
@@ -669,7 +669,7 @@
                                     CssClass="FieldName">
                                 </asp:Label>
                             </td>
-                            <td style="width: 25%;">
+                            <td style="width: 15%;">
                                 <asp:TextBox ID="txtInitalPamount" runat="server" CssClass="cmbFielde"></asp:TextBox>
                                 <span id="Span6" class="spnRequiredField">*</span>
                                 <br />
@@ -684,7 +684,7 @@
                 ControlToCompare="txtAdditional" Display="Dynamic" ErrorMessage="<br/>From Range Less Than To Range"
                 Type="Integer" Operator="LessThan" CssClass="cvPCG" ValidationGroup="btnsubmit"></asp:CompareValidator>--%>
                             </td>
-                            <td align="right" style="width: 25%;">
+                            <td align="right" style="width: 20%;">
                                 <asp:Label ID="lblIMultipleamount" runat="server" Text="New Purchase Multiple Amount:"
                                     CssClass="FieldName"></asp:Label>
                             </td>
@@ -709,7 +709,7 @@
                                 <asp:Label ID="lblAdditionalPamount" runat="server" Text="Min. Additional Purchase Amount:"
                                     CssClass="FieldName"></asp:Label>
                             </td>
-                            <td style="width: 24.5%;">
+                            <td style="width: 15%;">
                                 <asp:TextBox ID="txtAdditional" runat="server" CssClass="cmbFielde"></asp:TextBox>
                                 <span id="Span7" class="spnRequiredField">*</span>
                                 <br />
@@ -723,7 +723,7 @@
                 ControlToCompare="txtIMultipleamount" Display="Dynamic" ErrorMessage="<br/>To Range Greater Than From Range"
                 Type="Integer" Operator="GreaterThan" CssClass="cvPCG" ValidationGroup="btnsubmit"></asp:CompareValidator>--%>
                             </td>
-                            <td align="right">
+                            <td align="right" style="width: 20%;">
                                 <asp:Label ID="lblAddMultipleamount" runat="server" Text="Additional Purchase Multiple Amount:"
                                     CssClass="FieldName"></asp:Label>
                             </td>
@@ -749,14 +749,14 @@
                 <td colspan="4">
                     <table width="100%">
                         <tr>
-                            <td align="right" style="width: 20%;">
+                            <td align="right" style="width: 25%;">
                                 <asp:Label ID="lblMinRedemption" runat="server" Text="Min Redemption Amount:" CssClass="FieldName"></asp:Label>
                             </td>
-                            <td style="width: 24%;">
+                            <td style="width: 15%;">
                                 <asp:TextBox ID="txtMinRedemption" runat="server" CssClass="cmbFielde"></asp:TextBox>
                                 <span id="Span17" class="spnRequiredField">*</span>
-                                <br />
-                                <asp:RequiredFieldValidator ID="rfvtxtMinRedemption" runat="server" ErrorMessage="Please Enter Min Redemption Amount"
+                               
+                                <asp:RequiredFieldValidator ID="rfvtxtMinRedemption" runat="server" ErrorMessage="<br />Please Enter Min Redemption Amount"
                                     CssClass="rfvPCG" ControlToValidate="txtMinRedemption" ValidationGroup="btnsubmit"
                                     Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
                                 <asp:RegularExpressionValidator ID="RegtxtMinRedemption" ControlToValidate="txtMinRedemption"
@@ -767,11 +767,11 @@
                 ControlToCompare="txtRedemptionmultiple" Display="Dynamic" ErrorMessage="<br/>Please Enter less than redemption multiple amount"
                 Type="Integer" Operator="LessThan" CssClass="cvPCG" ValidationGroup="btnsubmit"></asp:CompareValidator>--%>
                             </td>
-                            <td align="right" style="width: 25%;">
+                            <td align="right" style="width: 20%;">
                                 <asp:Label ID="lblRedemptionmultiple" runat="server" Text="Redemption Multiple Amount:"
                                     CssClass="FieldName"></asp:Label>
                             </td>
-                            <td style="width: 26.5%;">
+                            <td>
                                 <asp:TextBox ID="txtRedemptionmultiple" runat="server" CssClass="cmbFielde"></asp:TextBox>
                                 <span id="Span18" class="spnRequiredField">*</span>
                                 <br />
@@ -792,7 +792,7 @@
                                 <asp:Label ID="lblMinRedemptionUnits" runat="server" Text="Min Redemption Units:"
                                     CssClass="FieldName"></asp:Label>
                             </td>
-                            <td style="width: 25%;">
+                            <td style="width: 15%;">
                                 <asp:TextBox ID="txtMinRedemptioUnits" runat="server" CssClass="cmbFielde"></asp:TextBox>
                                 <span id="Span19" class="spnRequiredField">*</span>
                                 <br />
@@ -807,11 +807,11 @@
                 ControlToCompare="txtRedemptionMultiplesUnits" Display="Dynamic" ErrorMessage="<br/>Please Enter less than redemption multiple units"
                 Type="Integer" Operator="LessThan" CssClass="cvPCG" ValidationGroup="btnsubmit"></asp:CompareValidator>--%>
                             </td>
-                            <td align="right" style="width: 24.5%;">
+                            <td align="right" style="width: 20%;">
                                 <asp:Label ID="lblRedemptionMultiplesUnits" runat="server" Text="Redemption Multiples Units:"
                                     CssClass="FieldName"></asp:Label>
                             </td>
-                            <td style="width: 26.5%;">
+                            <td>
                                 <asp:TextBox ID="txtRedemptionMultiplesUnits" runat="server" CssClass="cmbFielde"></asp:TextBox>
                                 <span id="Span20" class="spnRequiredField">*</span>
                                 <br />
@@ -837,7 +837,7 @@
                             <td align="right" style="width: 24%;">
                                 <asp:Label ID="lblMinSwitchAmount" runat="server" Text="Min Switch Amount:" CssClass="FieldName"></asp:Label>
                             </td>
-                            <td style="width: 24%;">
+                            <td style="width: 15%;">
                                 <asp:TextBox ID="txtMinSwitchAmount" runat="server" CssClass="cmbFielde"></asp:TextBox>
                                 <span id="Span21" class="spnRequiredField">*</span>
                                 <br />
@@ -852,11 +852,11 @@
                 ControlToCompare="txtSwitchMultipleAmount" Display="Dynamic" ErrorMessage="<br/>Please Enter less than switch multiple amount"
                 Type="Integer" Operator="LessThan" CssClass="cvPCG" ValidationGroup="btnsubmit"></asp:CompareValidator>--%>
                             </td>
-                            <td style="width: 25%;" align="right">
+                            <td style="width: 20%;" align="right">
                                 <asp:Label ID="lblSwitchMultipleAmount" runat="server" Text="Switch Multiple Amount:"
                                     CssClass="FieldName"></asp:Label>
                             </td>
-                            <td style="width: 26.5%;">
+                            <td>
                                 <asp:TextBox ID="txtSwitchMultipleAmount" runat="server" CssClass="cmbFielde"></asp:TextBox>
                                 <span id="Span22" class="spnRequiredField">*</span>
                                 <br />
@@ -876,7 +876,7 @@
                             <td align="right" style="width: 25%;">
                                 <asp:Label ID="lblMinSwitchUnits" runat="server" Text="Min Switch Units:" CssClass="FieldName"></asp:Label>
                             </td>
-                            <td style="width: 25%;">
+                            <td style="width: 15%;">
                                 <asp:TextBox ID="txtMinSwitchUnits" runat="server" CssClass="cmbFielde"></asp:TextBox>
                                 <span id="Span34" class="spnRequiredField">*</span>
                                 <br />
@@ -891,11 +891,11 @@
                 ControlToCompare="txtSwitchMultipleUnits" Display="Dynamic" ErrorMessage="<br/>Please Enter less than min switch units"
                 Type="Integer" Operator="LessThan" CssClass="cvPCG" ValidationGroup="btnsubmit"></asp:CompareValidator>--%>
                             </td>
-                            <td align="right" style="width: 24.5%;">
+                            <td align="right" style="width: 20%;">
                                 <asp:Label ID="lblSwitchMultipleUnits" runat="server" Text="Switch Multiples Units:"
                                     CssClass="FieldName"></asp:Label>
                             </td>
-                            <td style="width: 26.5%;">
+                            <td>
                                 <asp:TextBox ID="txtSwitchMultipleUnits" runat="server" CssClass="cmbFielde"></asp:TextBox>
                                 <span id="Span35" class="spnRequiredField">*</span>
                                 <br />
@@ -1171,7 +1171,7 @@
         </tr>
     </table>
     <telerik:RadWindow ID="radwindowPopup" runat="server" VisibleOnPageLoad="false" Height="200px"
-        Width="600px" Modal="true" BackColor="#4B4726" VisibleStatusbar="false" Behaviors="None"
+        Width="600px" Modal="true" BackColor="#4B4726" VisibleStatusbar="false" Behaviors="Close,Move"
         Title="Merge Scheme" Left="200" Top="200" Expanded="true">
         <ContentTemplate>
             <table>
@@ -1235,7 +1235,7 @@
                         <asp:Button ID="btnMSUpdate" runat="server" Text="Update" CssClass="PCGButton" Visible="false"
                             OnClick="btnMSUpdate_Click" ValidationGroup="btnsubmit1" />
                         <asp:Button ID="btnCancel" runat="server" Text="Cancel" OnClick="btnCancel_Click"
-                            CssClass="PCGButton" />
+                            CssClass="PCGButton" Visible="false"/>
                         <asp:Button ID="btnReset" runat="server" Text="UnMerge" OnClick="btnReset_Click"
                             CssClass="PCGButton" Visible="false" />
                     </td>
