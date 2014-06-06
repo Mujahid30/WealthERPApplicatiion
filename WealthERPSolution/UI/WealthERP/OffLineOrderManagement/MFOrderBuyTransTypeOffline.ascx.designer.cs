@@ -51,6 +51,41 @@ namespace WealthERP.OffLineOrderManagement
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label1;
 
+
+        /// <summary>
+        /// lblNfoStartDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblNfoStartDate;
+        /// <summary>
+        /// NFOStartDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label NFOStartDate;
+        /// <summary>
+        /// lblNFOEndDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblNFOEndDate;
+        /// <summary>
+        /// NFOEndDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label NFOEndDate;
+
+
         /// <summary>
         /// lblAvailableLimits control.
         /// </summary>

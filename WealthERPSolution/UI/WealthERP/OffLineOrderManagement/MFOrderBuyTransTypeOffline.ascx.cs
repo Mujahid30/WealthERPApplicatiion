@@ -153,13 +153,23 @@ namespace WealthERP.OffLineOrderManagement
                     {
                         lnkFactSheet.PostBackUrl = dr["url"].ToString();
                     }
+
+                    if (!string.IsNullOrEmpty(dr["PASP_NFOStartDate"].ToString()))
+                    {
+                        NFOStartDate.Text = dr["PASP_NFOStartDate"].ToString();
+                    }
+                    if (!string.IsNullOrEmpty(dr["PASP_NFOEndDate"].ToString()))
+                    {
+                        NFOEndDate.Text = dr["PASP_NFOEndDate"].ToString();
+                    }
+
                 }
-                DataSet dsNav = commonLookupBo.GetLatestNav(int.Parse(ddlScheme.SelectedValue));
-                if (dsNav.Tables[0].Rows.Count > 0)
-                {
-                    string date = Convert.ToDateTime(dsNav.Tables[0].Rows[0][0]).ToString("dd-MMM-yyyy");
-                    lblNavDisplay.Text = dsNav.Tables[0].Rows[0][1] + " " + "As On " + " " + date;
-                }
+                //DataSet dsNav = commonLookupBo.GetLatestNav(int.Parse(ddlScheme.SelectedValue));
+                //if (dsNav.Tables[0].Rows.Count > 0)
+                //{
+                //    string date = Convert.ToDateTime(dsNav.Tables[0].Rows[0][0]).ToString("dd-MMM-yyyy");
+                //    lblNavDisplay.Text = dsNav.Tables[0].Rows[0][1] + " " + "As On " + " " + date;
+                //}
             }
             if (dtSchemeAmcCategory.Rows.Count > 0)
             {
@@ -174,6 +184,7 @@ namespace WealthERP.OffLineOrderManagement
             DataTable dtCustomerFolioList;
             try
             {
+                ddlFolio.Items.Clear();
                 dtCustomerFolioList = commonLookupBo.GetFolioNumberForSIP(amcCode, customerVo.CustomerId);
                 if (dtCustomerFolioList.Rows.Count > 0)
                 {

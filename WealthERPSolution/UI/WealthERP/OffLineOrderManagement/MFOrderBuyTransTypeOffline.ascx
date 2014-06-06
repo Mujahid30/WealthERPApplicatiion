@@ -1,7 +1,9 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="MFOrderBuyTransTypeOffline.ascx.cs" Inherits="WealthERP.OffLineOrderManagement.MFOrderBuyTransTypeOffline" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="MFOrderBuyTransTypeOffline.ascx.cs"
+    Inherits="WealthERP.OffLineOrderManagement.MFOrderBuyTransTypeOffline" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
+
 <script src="../Scripts/jquery.js" type="text/javascript"></script>
 
 <script src="../Scripts/jquery-1.2.6.js" type="text/javascript"></script>
@@ -91,8 +93,7 @@
         </table>
         <div style="float: left; width: 100%" id="divControlContainer" runat="server">
             <table id="tbpurchase" width="100%">
-            
-             <tr class="spaceUnder">
+                <tr class="spaceUnder">
                     <td>
                     </td>
                     <td align="right" style="vertical-align: top;">
@@ -110,7 +111,6 @@
                     <td colspan="2">
                     </td>
                 </tr>
-            
                 <tr class="spaceUnder">
                     <td>
                     </td>
@@ -118,8 +118,7 @@
                         <asp:Label ID="lblAmc" runat="server" Text="AMC:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
-                       <asp:Label ID="lblNFOSchemeAMC" runat="server" Text="" CssClass="readOnlyField"></asp:Label>                    
-                      
+                        <asp:Label ID="lblNFOSchemeAMC" runat="server" Text="" CssClass="readOnlyField"></asp:Label>
                     </td>
                     <td colspan="2">
                     </td>
@@ -136,7 +135,6 @@
                     <td colspan="2">
                     </td>
                 </tr>
-                
                 <tr class="spaceUnder">
                     <td colspan="2">
                     </td>
@@ -144,16 +142,31 @@
                         <table width="75%" class="SchemeInfoTable">
                             <tr class="SchemeInfoTable">
                                 <td align="left" style="vertical-align: top;">
-                                    <asp:Label ID="lblNav" runat="server" Text=" Last Recorded NAV (Rs):" CssClass="FieldName"></asp:Label>
+                                    <asp:Label ID="lblNfoStartDate" runat="server" Text="NFO Start Date:" CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td>
-                                    <asp:Label ID="lblNavDisplay" runat="server" CssClass="readOnlyField"></asp:Label>
+                                    <asp:Label ID="NFOStartDate" runat="server" CssClass="readOnlyField"></asp:Label>
                                 </td>
+                                <td align="left" style="vertical-align: top;">
+                                    <asp:Label ID="lblNFOEndDate" runat="server" Text="NFO End Date:" CssClass="FieldName"></asp:Label>
+                                </td>
+                                <td>
+                                    <asp:Label ID="NFOEndDate" runat="server" CssClass="readOnlyField"></asp:Label>
+                                </td>
+                            </tr>
+                            <tr class="SchemeInfoTable">
                                 <td align="left" style="vertical-align: top;">
                                     <asp:Label ID="lblMin" runat="server" Text="Minimum Initial Amount:" CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td>
                                     <asp:Label ID="lblMintxt" runat="server" CssClass="readOnlyField"></asp:Label>
+                                </td>
+                                <td align="left" style="vertical-align: top;">
+                                    <asp:Label ID="lblMultiple" runat="server" Text="Subsequent Amount:</br>(In Multiples Of)"
+                                        CssClass="FieldName"></asp:Label>
+                                </td>
+                                <td>
+                                    <asp:Label ID="lblMulti" runat="server" CssClass="readOnlyField"></asp:Label>
                                 </td>
                             </tr>
                             <tr>
@@ -163,18 +176,10 @@
                                 <td>
                                     <asp:Label ID="lbltime" runat="server" Text="" CssClass="readOnlyField"></asp:Label>
                                 </td>
-                                <td align="left" style="vertical-align: top;">
-                                    <asp:Label ID="lblMultiple" runat="server" Text="Subsequent Amount:</br>(In Multiples Of)" CssClass="FieldName"></asp:Label>
-                                </td>
-                                <td>
-                                    <asp:Label ID="lblMulti" runat="server" CssClass="readOnlyField"></asp:Label>
-                                </td>
-                                
                             </tr>
                         </table>
                     </td>
                 </tr>
-                
                 <tr class="spaceUnder">
                     <td>
                     </td>
@@ -182,7 +187,7 @@
                         <asp:Label ID="lblFolioNumber" runat="server" Text="Folio Number:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
-                        <asp:DropDownList ID="ddlFolio" CssClass="cmbField" runat="server" AutoPostBack="false">                          
+                        <asp:DropDownList ID="ddlFolio" CssClass="cmbField" runat="server" AutoPostBack="false">
                         </asp:DropDownList>
                         <span id="Span1" class="spnRequiredField">*</span>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Please Select a Folio"
