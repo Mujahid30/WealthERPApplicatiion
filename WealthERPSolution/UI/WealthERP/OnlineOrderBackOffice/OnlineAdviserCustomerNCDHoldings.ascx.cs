@@ -38,7 +38,7 @@ namespace WealthERP.OnlineOrderBackOffice
             ddlIssueName.DataValueField = dtGetIssueName.Columns["AIM_IssueId"].ToString();
             ddlIssueName.DataTextField = dtGetIssueName.Columns["AIM_IssueName"].ToString();
             ddlIssueName.DataBind();
-            ddlIssueName.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
+            ddlIssueName.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "0"));
         }
         protected void btnGo_OnClick(object sender, EventArgs e)
         {

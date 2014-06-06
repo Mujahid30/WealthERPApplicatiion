@@ -33,7 +33,19 @@ namespace WealthERP.OnlineOrderBackOffice
                 txtOrderFrom.SelectedDate = fromDate.Date;
                 txtOrderTo.SelectedDate = DateTime.Now;
                 BindOrderStatus();
+                BindIssueName();
             }
+        }
+        protected void BindIssueName()
+        {
+            DataTable dtGetIssueName = new DataTable();
+
+            dtGetIssueName = onlineNCDBackOfficeBo.GetIssueName(advisorVo.advisorId, "IP");
+            ddlIssueName.DataSource = dtGetIssueName;
+            ddlIssueName.DataValueField = dtGetIssueName.Columns["AIM_IssueId"].ToString();
+            ddlIssueName.DataTextField = dtGetIssueName.Columns["AIM_IssueName"].ToString();
+            ddlIssueName.DataBind();
+            ddlIssueName.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "0"));
         }
         private void SetParameter()
         {
@@ -78,7 +90,7 @@ namespace WealthERP.OnlineOrderBackOffice
             if (txtOrderTo.SelectedDate != null)
                 toDate = DateTime.Parse(txtOrderTo.SelectedDate.ToString());
             DataTable dtIPOOrder;
-            dtIPOOrder = OnlineIPOBackOfficeBo.GetAdviserIPOOrderBook(advisorVo.advisorId, hdnOrderStatus.Value, fromDate, toDate);
+            dtIPOOrder = OnlineIPOBackOfficeBo.GetAdviserIPOOrderBook(advisorVo.advisorId,Convert.ToInt32(ddlIssueName.SelectedValue.ToString()), hdnOrderStatus.Value, fromDate, toDate);
             if (dtIPOOrder.Rows.Count >= 0)
             {
                 if (Cache["IPOBookList" + userVo.UserId.ToString()] == null)

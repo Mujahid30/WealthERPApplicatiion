@@ -497,10 +497,9 @@ namespace WealthERP.OnlineOrderBackOffice
                 mfProductAMCSchemePlanDetailsVo.EntryLoadPercentag = Convert.ToDouble(txtEload.Text);
             }
             mfProductAMCSchemePlanDetailsVo.EntryLoadRemark = txtELremark.Text;
-
+            if (!string.IsNullOrEmpty(txtExitLoad.Text))
             {
-                if (!string.IsNullOrEmpty(txtExitLoad.Text))
-                    mfProductAMCSchemePlanDetailsVo.ExitLoadPercentage = Convert.ToDouble(txtExitLoad.Text);
+                mfProductAMCSchemePlanDetailsVo.ExitLoadPercentage = Convert.ToDouble(txtExitLoad.Text);
             }
             mfProductAMCSchemePlanDetailsVo.ExitLoadRemark = txtExitLremark.Text;
             if (ChkISPurchage.Checked)
@@ -1256,6 +1255,10 @@ namespace WealthERP.OnlineOrderBackOffice
                     txtSS.Text = result[ctr];
                 }
             }
+            if (mfProductAMCSchemePlanDetailsVo.SchemeStartDate != DateTime.MinValue)
+            {
+                txtSchemeStartDate.SelectedDate = mfProductAMCSchemePlanDetailsVo.SchemeStartDate;
+            }
             txtEload.Text = mfProductAMCSchemePlanDetailsVo.EntryLoadPercentag.ToString();
             if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.EntryLoadRemark))
                 txtELremark.Text = mfProductAMCSchemePlanDetailsVo.EntryLoadRemark.ToString();
@@ -1422,8 +1425,8 @@ namespace WealthERP.OnlineOrderBackOffice
             lnkEdit.Visible = false;
             ChkNRI.Enabled = true;
             ChkBO.Enabled = true;
-            txtNFOendDate.Enabled = true;
-            txtNFOStartDate.Enabled = true;
+            //txtNFOendDate.Enabled = true;
+            //txtNFOStartDate.Enabled = true;
             txtSwitchMultipleUnits.Enabled = true;
             txtSwitchMultipleAmount.Enabled = true;
             txtRedemptionmultiple.Enabled = true;

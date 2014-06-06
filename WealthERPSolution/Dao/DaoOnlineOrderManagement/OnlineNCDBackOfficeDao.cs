@@ -1740,6 +1740,9 @@ namespace DaoOnlineOrderManagement
             return dsGetOnlineNCDExtractPreview;
         }
 
+ 
+
+
         public DataTable GetAdviserNCDOrderBook(int adviserId, string status, DateTime dtFrom, DateTime dtTo)
         {
             Microsoft.Practices.EnterpriseLibrary.Data.Database db;
@@ -1755,6 +1758,7 @@ namespace DaoOnlineOrderManagement
                     db.AddInParameter(cmd, "@Status", DbType.String, status);
                 else
                     db.AddInParameter(cmd, "@Status", DbType.String, DBNull.Value);
+                db.AddInParameter(cmd, "@AIMissue", DbType.Int32,issueNo);
                 db.AddInParameter(cmd, "@Fromdate", DbType.DateTime, dtFrom);
                 db.AddInParameter(cmd, "@ToDate", DbType.DateTime, dtTo);
                 dsNCDOrder = db.ExecuteDataSet(cmd);
@@ -2713,7 +2717,7 @@ namespace DaoOnlineOrderManagement
 
                 ds = db.ExecuteDataSet(cmdGetissueid);
                 if (db.ExecuteNonQuery(cmdGetissueid) != 0)
-                {
+                {  
                     issueid = Convert.ToInt32(db.GetParameterValue(cmdGetissueid, "issueid").ToString());
                 }
             }

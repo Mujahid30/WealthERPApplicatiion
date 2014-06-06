@@ -31,7 +31,19 @@ namespace WealthERP.OnlineOrderBackOffice
                 txtOrderFrom.SelectedDate = fromDate.Date;
                 txtOrderTo.SelectedDate = DateTime.Now;
                 BindOrderStatus();
+                BindIssueName();
             }
+        }
+        protected void BindIssueName()
+        {
+            DataTable dtGetIssueName = new DataTable();
+
+            dtGetIssueName = onlineNCDBackOfficeBo.GetIssueName(advisorVo.advisorId, "FI");
+            ddlIssueName.DataSource = dtGetIssueName;
+            ddlIssueName.DataValueField = dtGetIssueName.Columns["AIM_IssueId"].ToString();
+            ddlIssueName.DataTextField = dtGetIssueName.Columns["AIM_IssueName"].ToString();
+            ddlIssueName.DataBind();
+            ddlIssueName.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "0"));
         }
         private void SetParameter()
         {
@@ -76,7 +88,7 @@ namespace WealthERP.OnlineOrderBackOffice
             if (txtOrderTo.SelectedDate != null)
                 toDate = DateTime.Parse(txtOrderTo.SelectedDate.ToString());
             DataTable dtNCDOrder=new DataTable();
-            dtNCDOrder = onlineNCDBackOfficeBo.GetAdviserNCDOrderBook(advisorVo.advisorId, hdnOrderStatus.Value, fromDate, toDate);
+            dtNCDOrder = onlineNCDBackOfficeBo.GetAdviserNCDOrderBook(advisorVo.advisorId,Convert.ToInt32(ddlIssueName.SelectedValue.ToString()), hdnOrderStatus.Value, fromDate, toDate);
             if (dtNCDOrder.Rows.Count >= 0)
             {
                 if (Cache["NCDBookList" + userVo.UserId.ToString()] == null)

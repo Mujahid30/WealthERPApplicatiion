@@ -582,10 +582,10 @@
                     <asp:RequiredFieldValidator ID="rfvtxtEload" runat="server" ErrorMessage="Please Enter Entry Load"
                         CssClass="rfvPCG" ControlToValidate="txtEload" ValidationGroup="btnsubmit" Display="Dynamic"
                         InitialValue=""></asp:RequiredFieldValidator>
-                    <%--<asp:RegularExpressionValidator ID="regtxtEload" ControlToValidate="txtEload" runat="server"
-                        ErrorMessage="Enter Only Number" Display="Dynamic" CssClass="cvPCG" ValidationExpression="[1-9]\d*(\.\d?[0-9])?$"
+                    <asp:RegularExpressionValidator ID="regtxtEload" ControlToValidate="txtEload" runat="server"
+                        ErrorMessage="Enter Only Number" Display="Dynamic" CssClass="cvPCG" ValidationExpression="[0-9]\d*(\.\d?[0-9])?$"
                         ValidationGroup="btnsubmit">     
-                    </asp:RegularExpressionValidator>--%>
+                    </asp:RegularExpressionValidator>
                 </td>
                 <td align="right">
                     <asp:Label ID="lblELremark" runat="server" Text="Entry Load Remark:" CssClass="FieldName"></asp:Label>
@@ -612,12 +612,12 @@
                     <span id="Span16" class="spnRequiredField">*</span>
                     <br />
                     <asp:RequiredFieldValidator ID="rfvtxtExitLoad" runat="server" ErrorMessage="Please Enter Exit Load"
-                        CssClass="rfvPCG" ControlToValidate="txtExitLoad" ValidationGroup="btnsubmit"
+                        CssClass="rfvPCG" ControlToValidate="txtExitLoad" ValidationGroup="btnsubmit"  
                         Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
-                    <%--<asp:RegularExpressionValidator ID="regtxtExitLoad" ControlToValidate="txtExitLoad"
+                   <asp:RegularExpressionValidator ID="regtxtExitLoad" ControlToValidate="txtExitLoad"
                         ErrorMessage="Enter Only Number" runat="server" Display="Dynamic" CssClass="cvPCG"
-                        ValidationExpression="[1-9]\d*(\.\d?[0-9])?$" ValidationGroup="btnsubmit">     
-                    </asp:RegularExpressionValidator>--%>
+                        ValidationExpression="[0-9]\d*(\.\d?[0-9])?$" ValidationGroup="btnsubmit">     
+                    </asp:RegularExpressionValidator>
                 </td>
                 <td align="right">
                     <asp:Label ID="lblExitLremark" runat="server" Text="Exit Load Remark:" CssClass="FieldName"></asp:Label>
@@ -678,7 +678,7 @@
                                     Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
                                 <asp:RegularExpressionValidator ID="regfvtxtInitalPamount" ControlToValidate="txtInitalPamount"
                                     ErrorMessage="Enter Only Number" runat="server" Display="Dynamic" CssClass="cvPCG"
-                                    ValidationExpression="[1-9]\d*$" ValidationGroup="btnsubmit">     
+                                    ValidationExpression="^[0-9]*[1-9]\d*$" ValidationGroup="btnsubmit">     
                                 </asp:RegularExpressionValidator>
                                 <%-- <asp:CompareValidator ID="CmptxtInitalPamount" ControlToValidate="txtInitalPamount" runat="server"
                 ControlToCompare="txtAdditional" Display="Dynamic" ErrorMessage="<br/>From Range Less Than To Range"

@@ -893,13 +893,13 @@ namespace BoOnlineOrderManagement
             onlineNCDBackOfficeDao.GenereateNcdExtract(AdviserId, UserId, ExternalSource, ProductAsset, issueId, ref isExtracted);
         }
 
-        public DataTable GetAdviserNCDOrderBook(int adviserId, string status, DateTime dtFrom, DateTime dtTo)
+        public DataTable GetAdviserNCDOrderBook(int adviserId,int issueNo, string status, DateTime dtFrom, DateTime dtTo)
         {
             DataTable dtNCDOrder;
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
             try
             {
-                dtNCDOrder = onlineNCDBackOfficeDao.GetAdviserNCDOrderBook(adviserId, status, dtFrom, dtTo);
+                dtNCDOrder = onlineNCDBackOfficeDao.GetAdviserNCDOrderBook(adviserId,issueNo, status, dtFrom, dtTo);
             }
             catch (BaseApplicationException Ex)
             {

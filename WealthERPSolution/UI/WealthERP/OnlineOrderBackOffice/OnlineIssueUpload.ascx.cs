@@ -281,6 +281,27 @@ namespace WealthERP.OnlineOrderBackOffice
         protected void gvOnlineIssueUpload_ItemDataBound(object sender, GridItemEventArgs e)
         {
 
+                GridDataItem dataBoundItem = e.Item as GridDataItem;
+                if (dataBoundItem["Remarks"].Text.ToString().Contains("Error"))
+                {
+                    dataBoundItem["Remarks"].BackColor = System.Drawing.Color.Red;
+                    dataBoundItem["Remarks"].Font.Bold = true;
+                 
+                    string str = dataBoundItem["Remarks"].Text.ToString();
+                    if (dataBoundItem["Remarks"].Text.ToString() == str)
+                    {
+                        dataBoundItem["Cheque Date(DD/MM/YYYY)"].BackColor = System.Drawing.Color.Red;
+                        dataBoundItem["Remarks"].Font.Bold = true;
+                    }
+                    else
+                        dataBoundItem[str.Substring(9, str.IndexOf('(') - 9)].BackColor = System.Drawing.Color.Red;
+                        dataBoundItem["Remarks"].Font.Bold = true;
+                }
+                else
+                {
+                    dataBoundItem["Remarks"].Text = "Verified";
+                }
+            }
         }
 
         private void AddHeaders(DataTable dtData)

@@ -39,5 +39,6 @@ namespace WealthERP.OnlineOrderBackOffice {
         protected global::Telerik.Web.UI.RadDatePicker txtOrderTo;
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdTxtToDate;
         protected global::Telerik.Web.UI.RadDatePicker txtOrderFrom;
+        protected global::System.Web.UI.WebControls.DropDownList ddlIssueName;
     }
 }
