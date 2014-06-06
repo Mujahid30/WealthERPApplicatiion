@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Data;
-using Microsoft.Practices.EnterpriseLibrary.Data;
 using System.Collections.Specialized;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using DaoOnlineOrderManagement;
@@ -11,7 +10,13 @@ using VoOnlineOrderManagemnet;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.IO;
+using System.Data.SqlClient;
 using System.IO.Compression;
+using Microsoft.SqlServer.Management.Smo;
+using Microsoft.SqlServer.Server;
+using Microsoft.SqlServer.Management.Common;
+using Microsoft.SqlServer;
+
 
 namespace BoOnlineOrderManagement
 {
@@ -939,7 +944,7 @@ namespace BoOnlineOrderManagement
             return dtNCDOrderBook;
         }
 
-        public DataTable GetFileTypeList(int FileTypeId, string ExternalSource,char FileSubType, string ProductCode)
+        public DataTable GetFileTypeList(int FileTypeId, string ExternalSource, char FileSubType, string ProductCode)
         {
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
 
@@ -1000,40 +1005,6 @@ namespace BoOnlineOrderManagement
                 }
                 dtExtract.AcceptChanges();
             }
-            if (fileTypeId == 11)
-            {
-               
-                int seriesDelete=AID_SeriesCount + 1;
-                int buyDelete =  AID_SeriesCount + 1;
-                List<string> columnsToDelete = new List<string>();
-                foreach (DataColumn column in dtExtract.Columns)
-                {
-
-                    if (column.ColumnName.Contains("SeriesQuantity" + seriesDelete.ToString("D2")))
-                    {
-                        columnsToDelete.Add("AIOE_BSE_BOND_SeriesQuantity" + seriesDelete.ToString("D2"));
-                        columnsToDelete.Add("AIOE_BSE_BOND_SeriesAmountPayable" + seriesDelete.ToString("D2"));
-                        seriesDelete = seriesDelete + 1;
-
-                    }
-                    if (column.ColumnName.Contains("BuyBackFacity" + buyDelete.ToString("D2")))
-                    {
-                        columnsToDelete.Add("AIOE_BSE_BOND_SeriesSequence" + buyDelete.ToString("D2"));
-                        columnsToDelete.Add("AIOE_BSE_BOND_SeriesBuyBackFacity" + buyDelete.ToString("D2"));
-                        buyDelete = buyDelete + 1;
-                    }
-                   
-                }
-                foreach (string col in columnsToDelete)
-                {
-                    dtExtract.Columns.Remove(col);
-                    dtExtract.AcceptChanges();
-
-                }
-               
-                
-                
-            }
             if (dtExtract != null)
             {
                 if (dtExtract.Rows.Count != 0)
@@ -1043,13 +1014,7 @@ namespace BoOnlineOrderManagement
                     {
                         foreach (KeyValuePair<string, string> header in headers)
                         {
-                            if (dtExtract.Columns.Contains(header.Key))
-                            {
-                                if (dtExtract.Columns[header.Key].ToString() == header.Key)
-                                {
-                                    dtExtract.Columns[header.Key].ColumnName = header.Value;
-                                }
-                            }
+                            dtExtract.Columns[header.Key].ColumnName = header.Value;
                         }
                         dtExtract.AcceptChanges();
                     }
@@ -1070,11 +1035,19 @@ namespace BoOnlineOrderManagement
                         newRow.ItemArray = selectedRow.ItemArray; // copy data
                         dtExtract.Rows.Remove(selectedRow);
                         dtExtract.Rows.InsertAt(newRow, 0);
+
+
                     }
                 }
             }
+
+            dtExtract.AcceptChanges();
             return dtExtract;
         }
+
+
+
+
         public string GetExtractStepCode(int fileTypeId)
         {
             try
@@ -1157,18 +1130,18 @@ namespace BoOnlineOrderManagement
             else if (extractStepCode == "EAP")
             {
 
-                GetAcntingExtractFileName(ref filename, ref delimeter, ref format,   strIssue, fileTypeId);
+                GetAcntingExtractFileName(ref filename, ref delimeter, ref format, strIssue, fileTypeId);
             }
             else if (extractStepCode == "EAJV")
             {
 
-                GetAcntingExtractFileName(ref filename, ref delimeter, ref format,   strIssue, fileTypeId);
+                GetAcntingExtractFileName(ref filename, ref delimeter, ref format, strIssue, fileTypeId);
             }
         }
 
         //GetAcntingExtractFileName
 
-        public void GetAcntingExtractFileName(ref string filename, ref string delimeter, ref string format,  string strIssue, int fileTypeId)
+        public void GetAcntingExtractFileName(ref string filename, ref string delimeter, ref string format, string strIssue, int fileTypeId)
         {
             string strExtractDate = Convert.ToDateTime(DateTime.Now).ToShortDateString();
             string[] strSplitExtractDate = strExtractDate.Split('/');
@@ -1182,19 +1155,19 @@ namespace BoOnlineOrderManagement
             if (fileTypeId == 32)
             {
                 filename = "NCD PAYFILE FOR" + ' ' + strIssue + ' ' + "BOND" + "_" + DD + '.' + MM;
-                delimeter = "\t";
+                delimeter = "/t";
                 format = ".txt";
             }
             else if (fileTypeId == 33)
             {
-                filename = "eNCD" + DD + MM + YYYY + '-' + strIssue ;           
+                filename = "eNCD" + DD + MM + YYYY + '-' + strIssue;
                 delimeter = "|";
                 format = ".txt";
             }
             if (fileTypeId == 34)
             {
                 filename = "IPO PAYFILE FOR" + ' ' + strIssue + ' ' + "BOND" + "_" + DD + '.' + MM;
-                delimeter = "\t";
+                delimeter = "/t";
                 format = ".txt";
             }
             else if (fileTypeId == 35)
@@ -1203,7 +1176,7 @@ namespace BoOnlineOrderManagement
                 delimeter = "|";
                 format = ".txt";
             }
-            
+
         }
 
 
@@ -1362,6 +1335,13 @@ namespace BoOnlineOrderManagement
 
         }
 
+
+
+
+
+
+
+
         public DataSet GetUploadIssue(string product, int adviserId)
         {
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
@@ -1505,6 +1485,7 @@ namespace BoOnlineOrderManagement
                             if (!regex.IsMatch(colVal))
                             {
                                 ErrorList.Add("Error at: " + colNam + "(" + rowNum + ", " + (j + 3) + ")");
+
                             }
                         }
                     }
@@ -1639,10 +1620,10 @@ namespace BoOnlineOrderManagement
                 {
                     daoOnlNcdBackOff.IsIssueAlloted(issueId, ref   result);
                     if (result != string.Empty && result != "0")
-                        nRows = daoOnlNcdBackOff.UploadAllotmentIssueData(dtCheckOrder, issueId, ref   result, product);
+                        nRows = daoOnlNcdBackOff.UploadAllotmentIssueDataDynamic(dtCheckOrder, issueId, ref   result, product);
                     else
                     {
-                        result = "Please Fill Allotment Date";
+                        result = "Pls Fill Allotment Date";
                     }
 
                 }
@@ -1985,6 +1966,34 @@ namespace BoOnlineOrderManagement
                 throw Ex;
             }
             return result;
+        }
+        public DataTable GetNCDAllotmentFileType(string FileType)
+        {
+            DataTable dtGetNCDAllotmentFile;
+
+            OnlineNCDBackOfficeDao onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
+            try
+            {
+                dtGetNCDAllotmentFile = onlineNCDBackOfficeDao.GetNCDAllotmentFileType(FileType);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetNCDAllotmentFile;
+        }
+        public void UploadData(DataTable dtUploadFile)
+        {
+            OnlineNCDBackOfficeDao onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
+            try
+            {
+                onlineNCDBackOfficeDao.UploadData(dtUploadFile);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
         }
     }
 }

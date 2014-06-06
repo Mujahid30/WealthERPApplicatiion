@@ -10,6 +10,11 @@ using System.Collections.Specialized;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using VoOnlineOrderManagemnet;
 using System.Configuration;
+using Microsoft.SqlServer.Management.Smo;
+using Microsoft.SqlServer.Server;
+using Microsoft.SqlServer.Management.Common;
+using Microsoft.SqlServer;
+
 
 
 
@@ -21,7 +26,7 @@ namespace DaoOnlineOrderManagement
         public DataSet GetExtSource(string product, int issueId)
         {
             DataSet dsExtSource;
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand dbCommand;
             try
             {
@@ -54,7 +59,7 @@ namespace DaoOnlineOrderManagement
         public DataSet GetIssueDetails(int issueId, int adviserId)
         {
             DataSet dsIssueDetails;
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand dbCommand;
             try
             {
@@ -86,7 +91,7 @@ namespace DaoOnlineOrderManagement
 
         public string GetExtractStepCode(int fileId)
         {
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand dbCommand;
             string stepCode;
             try
@@ -116,7 +121,7 @@ namespace DaoOnlineOrderManagement
 
         public void IsIssueAlloted(int issueId, ref string result)
         {
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand dbCommand;
             try
             {
@@ -129,6 +134,7 @@ namespace DaoOnlineOrderManagement
                 {
                     result = db.GetParameterValue(dbCommand, "@IsAlloted").ToString();
                 }
+                
             }
             catch (BaseApplicationException Ex)
             {
@@ -150,7 +156,7 @@ namespace DaoOnlineOrderManagement
 
         public void IsSameSubTypeCatAttchedtoSeries(string cat, int issueId, ref string result)
         {
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand dbCommand;
 
             try
@@ -187,7 +193,7 @@ namespace DaoOnlineOrderManagement
 
         public void AttchingSameSubtypeCattoSeries(int issueId)
         {
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand dbCommand;
 
             try
@@ -212,7 +218,7 @@ namespace DaoOnlineOrderManagement
 
         public int IsValidBidRange(int issueId, double minBidAmt, double MaxBidAmt)
         {
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand dbCommand;
             int isExist = 0;
             try
@@ -254,7 +260,7 @@ namespace DaoOnlineOrderManagement
 
         public string GetEligibleIssueDelete(int catSubTypeId, int catId, int seriesId, int IssueId)
         {
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand dbCommand;
             string isEligible = "";
             try
@@ -291,7 +297,7 @@ namespace DaoOnlineOrderManagement
 
         public int GetSeriesSequence(int issueId, int adviserId)
         {
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand dbCommand;
             int DupseqNo = 0;
             try
@@ -330,7 +336,7 @@ namespace DaoOnlineOrderManagement
 
         public int ChekSeriesSequence(int seqNo, int issueId, int adviserId, int seriesId)
         {
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand dbCommand;
             int IsseqNoExist = 0;
             try
@@ -370,7 +376,7 @@ namespace DaoOnlineOrderManagement
         public DataSet GetAdviserIssueList(DateTime date, int type, string product, int adviserId)
         {
             DataSet dsIssueDetails;
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand dbCommand;
             try
             {
@@ -404,7 +410,7 @@ namespace DaoOnlineOrderManagement
         public bool UpdateOnlineEnablement(int issueId)
         {
             bool result = false;
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand createCmd;
 
             try
@@ -426,7 +432,7 @@ namespace DaoOnlineOrderManagement
         public int UpdateIssue(OnlineNCDBackOfficeVo onlineNCDBackOfficeVo)
         {
             int issueId;
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand createCmd;
 
             try
@@ -520,7 +526,7 @@ namespace DaoOnlineOrderManagement
         public DataSet GetSeriesCategories(int issuerId, int issueId, int seriesId)
         {
             DataSet dsGetSeriesCategories;
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand dbCommand;
             try
             {
@@ -554,7 +560,7 @@ namespace DaoOnlineOrderManagement
         public DataSet GetAplRanges()
         {
             DataSet dsGetAplRanges;
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand dbCommand;
             try
             {
@@ -583,7 +589,7 @@ namespace DaoOnlineOrderManagement
         public DataSet GetIssuer()
         {
             DataSet dsGetIssuer;
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand dbCommand;
             try
             {
@@ -612,7 +618,7 @@ namespace DaoOnlineOrderManagement
         public DataSet GetSyndicateMaster()
         {
             DataSet dsGetSeriesCategories;
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand dbCommand;
             try
             {
@@ -641,7 +647,7 @@ namespace DaoOnlineOrderManagement
         public int CreateUpdateDeleteIssuer(int issuerId, string issuerCode, string issuerName, string commandType)
         {
             int issueId;
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand createCmd;
 
             try
@@ -673,7 +679,7 @@ namespace DaoOnlineOrderManagement
         public int GetValidateFrom(int fromRange, int adviserId, int issueId, int formRangeId, ref string status)
         {
 
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand createCmd;
 
             try
@@ -706,7 +712,7 @@ namespace DaoOnlineOrderManagement
         public int CreateUpdateDeleteAplicationNos(int fromRange, int toRange, int adviserId, int issueId, int formRangeId, string commandType, ref string status)
         {
 
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand createCmd;
 
             try
@@ -744,7 +750,7 @@ namespace DaoOnlineOrderManagement
         public int CreateUpdateDeleteSyndicateMaster(int syndicateId, string syndicateCode, string syndicateName, string commandType)
         {
             int issueId;
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand createCmd;
 
             try
@@ -776,7 +782,7 @@ namespace DaoOnlineOrderManagement
         public int CreateIssue(OnlineNCDBackOfficeVo onlineNCDBackOfficeVo, int adviserId)
         {
             int issueId;
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand createCmd;
 
             try
@@ -884,7 +890,7 @@ namespace DaoOnlineOrderManagement
         public int CreateSeries(OnlineNCDBackOfficeVo onlineNCDBackOfficeVo, int userID)
         {
             int seriesId;
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand createCmd;
             try
             {
@@ -922,7 +928,7 @@ namespace DaoOnlineOrderManagement
         public bool CreateSeriesCategory(OnlineNCDBackOfficeVo onlineNCDBackOfficeVo, int userID)
         {
             bool bResult = false;
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand createCmd;
             try
             {
@@ -954,7 +960,7 @@ namespace DaoOnlineOrderManagement
         public DataSet GetSeries(int issuerId, int issueId)
         {
             DataSet dsGetSeriesCategories;
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand dbCommand;
             try
             {
@@ -987,7 +993,7 @@ namespace DaoOnlineOrderManagement
         public DataSet BindNcdCategory(string type, string catCode)
         {
             DataSet dsGetSeriesCategories;
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand dbCommand;
             try
             {
@@ -1019,7 +1025,7 @@ namespace DaoOnlineOrderManagement
         public DataSet BindRta()
         {
             DataSet dsGetSeriesCategories;
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand dbCommand;
             try
             {
@@ -1048,7 +1054,7 @@ namespace DaoOnlineOrderManagement
         public DataSet GetActiveRange(int adviserId, int issueId)
         {
             DataSet dsgetActiveRange;
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand dbCommand;
             try
             {
@@ -1079,7 +1085,7 @@ namespace DaoOnlineOrderManagement
         public DataSet GetAllInvestorTypes(int issuerId, int issueId, int categoryId)
         {
             DataSet dsGetSubCategory;
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand dbCommand;
             try
             {
@@ -1112,7 +1118,7 @@ namespace DaoOnlineOrderManagement
         public DataSet GetSubCategory(int issuerId, int issueId, int size)
         {
             DataSet dsGetSubCategory;
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand dbCommand;
             try
             {
@@ -1147,7 +1153,7 @@ namespace DaoOnlineOrderManagement
         public DataSet GetSubCategory1(int issuerId, int issueId, int size)
         {
             DataSet dsGetSubCategory;
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand dbCommand;
             try
             {
@@ -1181,7 +1187,7 @@ namespace DaoOnlineOrderManagement
         public DataSet GetEligibleInvestorsCategory(int issuerId, int issueId)
         {
             DataSet dsGetEligibleInvestorsCategory;
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand dbCommand;
             try
             {
@@ -1213,7 +1219,7 @@ namespace DaoOnlineOrderManagement
         public int CreateCategory(OnlineNCDBackOfficeVo onlineNCDBackOfficeVo, int userID)
         {
             int categoryId;
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand createCmd;
             try
             {
@@ -1249,7 +1255,7 @@ namespace DaoOnlineOrderManagement
         public DataSet GetCategory(int issuerId, int issueId)
         {
             DataSet dsGetSubCategory;
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand dbCommand;
             try
             {
@@ -1282,7 +1288,7 @@ namespace DaoOnlineOrderManagement
         public int UpdateCategory(OnlineNCDBackOfficeVo onlineNCDBackOfficeVo, int userID)
         {
             int categoryId = 0;
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand createCmd;
             try
             {
@@ -1309,7 +1315,7 @@ namespace DaoOnlineOrderManagement
         public bool CreateSubTypePerCategory(OnlineNCDBackOfficeVo onlineNCDBackOfficeVo, int userID)
         {
             bool bResult = false;
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand createCmd;
             try
             {
@@ -1335,7 +1341,7 @@ namespace DaoOnlineOrderManagement
         public bool UpdateCategoryDetails(OnlineNCDBackOfficeVo onlineNCDBackOfficeVo, int userID)
         {
             bool bResult = false;
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand createCmd;
 
             try
@@ -1392,7 +1398,7 @@ namespace DaoOnlineOrderManagement
         public int UpdateSeries(OnlineNCDBackOfficeVo onlineNCDBackOfficeVo, int userID)
         {
             int seriesId;
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand updateCmd;
             try
             {
@@ -1423,7 +1429,7 @@ namespace DaoOnlineOrderManagement
         public bool UpdateSeriesCategory(OnlineNCDBackOfficeVo onlineNCDBackOfficeVo, int userID)
         {
             bool bResult = false;
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand createCmd;
             try
             {
@@ -1455,7 +1461,7 @@ namespace DaoOnlineOrderManagement
         public DataSet GetSeriesInvestorTypeRule(int seriesId)
         {
             DataSet dsGetSubCategory;
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand dbCommand;
             try
             {
@@ -1486,7 +1492,7 @@ namespace DaoOnlineOrderManagement
         public DataSet GetCategoryDetails(int CatgeoryId)
         {
             DataSet dsGetSubCategory;
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand dbCommand;
             try
             {
@@ -1517,7 +1523,7 @@ namespace DaoOnlineOrderManagement
         public DataSet GetIssuerIssue(int advisorId, string product)
         {
             DataSet dsGetIssuerIssue;
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand dbCommand;
             try
             {
@@ -1550,7 +1556,7 @@ namespace DaoOnlineOrderManagement
         public DataSet GetUploadIssue(string product, int adviserId)
         {
             DataSet dsGetIssuerIssue;
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand dbCommand;
             try
             {
@@ -1584,7 +1590,7 @@ namespace DaoOnlineOrderManagement
         public DataSet GetSubTypePerCategoryDetails(int investorCatgeoryId)
         {
             DataSet dsGetSubCategory;
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand dbCommand;
             try
             {
@@ -1614,7 +1620,7 @@ namespace DaoOnlineOrderManagement
 
         public void GenereateNcdExtract(int AdviserId, int UserId, string SourceCode, string ProductAsset, int issueId, ref int isExtracted)
         {
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand cmd;
             DataSet dt = new DataSet();
             try
@@ -1655,10 +1661,10 @@ namespace DaoOnlineOrderManagement
 
         public DataSet GetOnlineNcdExtractPreview(DateTime Today, int AdviserId, int FileType, int issueId, string extSource, out int AID_SeriesCount)
         {
-            Database db; 
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DataSet dsGetOnlineNCDExtractPreview;
             DbCommand GetOnlineNCDExtractPreviewcmd;
-            AID_SeriesCount=0;
+            AID_SeriesCount = 0;
 
             try
             {
@@ -1673,12 +1679,12 @@ namespace DaoOnlineOrderManagement
 
                 if (db.ExecuteNonQuery(GetOnlineNCDExtractPreviewcmd) != 0)
                 {
-                    if (db.GetParameterValue(GetOnlineNCDExtractPreviewcmd, "AID_SeriesCount").ToString()!=string.Empty)
+                    if (db.GetParameterValue(GetOnlineNCDExtractPreviewcmd, "AID_SeriesCount").ToString() != string.Empty)
                     {
                         AID_SeriesCount = Int32.Parse(db.GetParameterValue(GetOnlineNCDExtractPreviewcmd, "AID_SeriesCount").ToString());
-                        
+
                     }
-                   
+
                 }
                 dsGetOnlineNCDExtractPreview = db.ExecuteDataSet(GetOnlineNCDExtractPreviewcmd);
             }
@@ -1708,7 +1714,7 @@ namespace DaoOnlineOrderManagement
 
         public DataSet GetNcdIpoAcntingExtract(DateTime Today, int adviserId, int issueId, string Product, string extractType)
         {
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DataSet dsGetOnlineNCDExtractPreview;
             DbCommand GetOnlineNCDExtractPreviewcmd;
 
@@ -1734,12 +1740,9 @@ namespace DaoOnlineOrderManagement
             return dsGetOnlineNCDExtractPreview;
         }
 
- 
-
-
         public DataTable GetAdviserNCDOrderBook(int adviserId, string status, DateTime dtFrom, DateTime dtTo)
         {
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DataSet dsNCDOrder;
             DataTable dtNCDOrder;
             DbCommand cmd;
@@ -1780,7 +1783,7 @@ namespace DaoOnlineOrderManagement
         {
             DataSet dsNCDOrderBook;
             DataTable dtNCDOrderBook;
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand GetNCDOrderBookcmd;
             try
             {
@@ -1814,7 +1817,7 @@ namespace DaoOnlineOrderManagement
 
         public DataTable GetFileTypeList(int FileTypeId, string ExternalSource, char FileSubType, string ProductCode)
         {
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand cmd;
             DataTable dtFileType;
             try
@@ -1851,7 +1854,7 @@ namespace DaoOnlineOrderManagement
 
         public DataTable GetHeaderMapping(int fileTypeId, string ExternalSource)
         {
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand cmd;
             DataTable dtHeaders;
             try
@@ -1885,7 +1888,7 @@ namespace DaoOnlineOrderManagement
 
         public void GetOrdersEligblity(int issueId, ref int isPurchaseAvailable)
         {
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand dbCommand;
 
             //bool status = false;
@@ -1925,7 +1928,7 @@ namespace DaoOnlineOrderManagement
 
         public void UpdateNcdOrderMannualMatch(int orderId, int allotmentId, ref int isAllotmented, ref int isUpdated)
         {
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand updateCmd;
             //bool status = false;
             //int affectedRecords = 0;
@@ -1968,7 +1971,7 @@ namespace DaoOnlineOrderManagement
 
         public void UpdateNcdAutoMatch(int orderId, int applictionNo, string dpId, ref int isAllotmented, ref int isUpdated)
         {
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand updateCmd;
             //  bool status = false;
             //int affectedRecords = 0;
@@ -2014,7 +2017,7 @@ namespace DaoOnlineOrderManagement
 
         public DataSet GetUnmatchedAllotments(int adviserId, int issueId)
         {
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DataSet ds;
             DbCommand GetCmd;
 
@@ -2047,7 +2050,7 @@ namespace DaoOnlineOrderManagement
         public DataSet GetAdviserOrders(int IssueId, string Product, string Status, DateTime FromDate, DateTime ToDate, int adviserid)
         {
             DataSet dsOrders;
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand dbCommand;
             try
             {
@@ -2084,7 +2087,7 @@ namespace DaoOnlineOrderManagement
         public DataSet GetAdviserissueallotmentList(int adviserId, int issureid, string type, DateTime fromdate, DateTime todate)
         {
 
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DataSet dsGetAdviserissueallotmentList;
             DbCommand GetAdviserissueallotmentListcmd;
             try
@@ -2126,7 +2129,7 @@ namespace DaoOnlineOrderManagement
         {
             DataSet dsGetIssuerid;
             DataTable dt;
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand GetIssueridCmd;
             try
             {
@@ -2159,7 +2162,7 @@ namespace DaoOnlineOrderManagement
         {
             DataSet dsGetIssuerid;
             DataTable dt;
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand GetIssueridCmd;
             try
             {
@@ -2203,17 +2206,70 @@ namespace DaoOnlineOrderManagement
                 cmdProc.Parameters.AddWithValue("@result", string.Empty);
 
                 isValidated = cmdProc.ExecuteScalar().ToString();
-              if (isValidated == string.Empty)
-              {
-                  SqlCommand cmdProcAllot = new SqlCommand("SPROC_UploadIssueAllotmentDetails", sqlCon);
-                  cmdProcAllot.CommandType = CommandType.StoredProcedure;
-                  cmdProcAllot.Parameters.AddWithValue("@Details", dtData);
-                  cmdProcAllot.Parameters.AddWithValue("@issueId", issueId);
-                  cmdProcAllot.Parameters.AddWithValue("@product", product);
+                if (isValidated == string.Empty)
+                {
+                    SqlCommand cmdProcAllot = new SqlCommand("SPROC_UploadIssueAllotmentDetails", sqlCon);
+                    cmdProcAllot.CommandType = CommandType.StoredProcedure;
+                    cmdProcAllot.Parameters.AddWithValue("@Details", dtData);
+                    cmdProcAllot.Parameters.AddWithValue("@issueId", issueId);
+                    cmdProcAllot.Parameters.AddWithValue("@product", product);
 
-                  //cmdProcAllot.Parameters.AddWithValue("@result", string.Empty);
+                    //cmdProcAllot.Parameters.AddWithValue("@result", string.Empty);
 
-                  result = cmdProcAllot.ExecuteNonQuery();
+                    result = cmdProcAllot.ExecuteNonQuery();
+
+                }
+                else
+                {
+                    result = 0;
+                }
+
+                //dt = dsGetIssuerid.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:UploadAllotmentIssueData()");
+                object[] objects = new object[1];
+                //objects[0] = adviserid;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return result;
+        }
+        public int UploadAllotmentIssueDataDynamic(DataTable dtData, int issueId, ref string isValidated, string product)
+        {
+            int result = 0;
+            DataTable dt;
+            try
+            {
+
+                string conString = ConfigurationManager.ConnectionStrings["wealtherp"].ConnectionString;
+                SqlConnection sqlCon = new SqlConnection(conString);
+                sqlCon.Open();
+                SqlCommand cmdProc = new SqlCommand("SPROC_ValidateUploadIssueAllotmentDetails_Dynamic", sqlCon);
+                cmdProc.CommandType = CommandType.StoredProcedure;
+                cmdProc.Parameters.AddWithValue("@issueId", issueId);
+                cmdProc.Parameters.AddWithValue("@result", string.Empty);
+
+                isValidated = cmdProc.ExecuteScalar().ToString();
+                if (isValidated == string.Empty)
+                {
+                    SqlCommand cmdProcAllot = new SqlCommand("SPROC_UploadIssueAllotmentDetails_Dynamic", sqlCon);
+                    cmdProcAllot.CommandType = CommandType.StoredProcedure;
+                    cmdProcAllot.Parameters.AddWithValue("@issueId", issueId);
+                    cmdProcAllot.Parameters.AddWithValue("@product", product);
+
+                    //cmdProcAllot.Parameters.AddWithValue("@result", string.Empty);
+
+                    result = cmdProcAllot.ExecuteNonQuery();
 
                 }
                 else
@@ -2470,7 +2526,7 @@ namespace DaoOnlineOrderManagement
 
         public int CheckIssueSeriesName(string externalcode, int issueid)
         {
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DataSet ds;
             DbCommand cmdCheckIssueName;
             int count = 0;
@@ -2512,7 +2568,7 @@ namespace DaoOnlineOrderManagement
         public DataTable BankBranchName(int bankid)
         {
             DataSet dsBankBranchName;
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DataTable dt;
             DbCommand CmdBankBranchName;
             try
@@ -2532,7 +2588,7 @@ namespace DaoOnlineOrderManagement
 
         public void NSEandBSEcodeCheck(int issueid, int adviserid, string nsecode, string bsecode, ref int isBseExist, ref int isNseExist)
         {
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DataSet ds;
             DbCommand cmdNSEandBSEcodeCheck;
 
@@ -2577,7 +2633,7 @@ namespace DaoOnlineOrderManagement
         public bool Deleteinvestmentcategory(int investorid)
         {
             bool bResult = false;
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand DeleteinvestmentcategoryCmd;
 
             try
@@ -2611,7 +2667,7 @@ namespace DaoOnlineOrderManagement
         public bool DeleteIssueinvestor(int investorcategoryid)
         {
             bool bResult = false;
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand DeleteIssueinvestorCmd;
 
             try
@@ -2643,7 +2699,7 @@ namespace DaoOnlineOrderManagement
 
         public int Getissueid(int orderid)
         {
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DataSet ds;
             DbCommand cmdGetissueid;
             int issueid = 0;
@@ -2681,7 +2737,7 @@ namespace DaoOnlineOrderManagement
 
         public int GetScriptId(string scriptid, int adviserid, string product)
         {
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DataSet ds;
             DbCommand cmdGetScriptId;
             int issueid = 0;
@@ -2722,7 +2778,7 @@ namespace DaoOnlineOrderManagement
         public bool DeleteSubcategory(int issuesubtyperuleid)
         {
             bool bResult = false;
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand DeleteSubcategoryCmd;
 
             try
@@ -2755,7 +2811,7 @@ namespace DaoOnlineOrderManagement
 
         public void DeleteAvaliable(int adviserid, int InvestorCatgeoryId, int AIICST_Id, int AIDCSR_Id, int IssueDetailId, int issueId)
         {
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DataSet ds;
             DbCommand cmdDeleteAvaliable;
 
@@ -2793,7 +2849,7 @@ namespace DaoOnlineOrderManagement
 
         public int CheckAccountisActive(int adviserid, int customerid)
         {
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DataSet ds;
             DbCommand cmdCheckAccountisActive;
             int isExist = 0;
@@ -2833,7 +2889,7 @@ namespace DaoOnlineOrderManagement
         public DataSet GetNCDIPOAccountingExtractType(string Product)
         {
             DataSet dsExtractType;
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand GetGetMfOrderExtractCmd;
             try
             {
@@ -2864,7 +2920,7 @@ namespace DaoOnlineOrderManagement
         public DataSet GetNCDIPOExtractTypeDataForFileCreation(DateTime orderDate, int AdviserId, int extractType, DateTime fromDate, DateTime toDate, int IssuerID, string Product)
         {
             DataSet dsExtractType;
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand GetGetMfOrderExtractCmd;
             try
             {
@@ -2903,7 +2959,7 @@ namespace DaoOnlineOrderManagement
         public DataSet GetProductIssuerList(int Isactive, string Product)
         {
             DataSet dsProductIssuer;
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand GetProductIssuerListCmd;
             try
             {
@@ -2935,7 +2991,7 @@ namespace DaoOnlineOrderManagement
         public string GetNCDIPOProductIssuer(int IssueId)
         {
             DataSet dsProductIssuer;
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand GetProductIssuerListCmd;
             try
             {
@@ -2962,9 +3018,9 @@ namespace DaoOnlineOrderManagement
             }
             return dsProductIssuer.Tables[0].Rows[0][0].ToString();
         }
-            public DataTable GetIssueName(int Adviserid, string product)
+        public DataTable GetIssueName(int Adviserid, string product)
         {
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand cmdGetIssueName;
             DataTable dtGetIssueName;
             DataSet dsGetIssueName = null;
@@ -2987,12 +3043,12 @@ namespace DaoOnlineOrderManagement
             return dtGetIssueName;
         }
         public DataTable GetNCDHoldings(int AdviserId, int AIMIssueId, int PageSize, int CurrentPage, string CustomerNamefilter, out int RowCount)
-        { 
+        {
             DataTable dtGetNCDHoldings;
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DataSet dsGetNCDHoldings;
             DbCommand GetNCDHoldingscmd;
-       RowCount = 0;
+            RowCount = 0;
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
@@ -3033,7 +3089,7 @@ namespace DaoOnlineOrderManagement
         }
         public DataSet GetNCDSubHoldings(int AdviserId, int IssueId)
         {
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DataSet dsGetNCDSubHoldings;
             DbCommand GetNCDSubHoldingscmd;
             try
@@ -3061,7 +3117,7 @@ namespace DaoOnlineOrderManagement
         }
         public int CheckBankisActive(int CustomerId)
         {
-            Database db;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DataSet ds;
             DbCommand cmdCheckBankisActive;
             int isExist = 0;
@@ -3096,6 +3152,119 @@ namespace DaoOnlineOrderManagement
             }
             return isExist;
         }
+        public DataTable GetNCDAllotmentFileType(string FileType)
+        {
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DataSet dsGetNCDAllotment;
+            DbCommand cmdGetNCDAllotment;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetNCDAllotment = db.GetStoredProcCommand("SPROC_ONL_GetNCDAllotmentFileType");
+                db.AddInParameter(cmdGetNCDAllotment, "@TypeofRegister", DbType.String, FileType);
+                dsGetNCDAllotment = db.ExecuteDataSet(cmdGetNCDAllotment);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AssociateDAO.cs:ExternalcodeCheck()");
+                object[] objects = new object[2];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dsGetNCDAllotment.Tables[0];
+        }
+
+        public void UploadData(DataTable uploadData)
+        {
+            string conString = ConfigurationManager.ConnectionStrings["wealtherp"].ConnectionString;
+            string[] DdName = conString.Split(';');
+            DdName[1] = DdName[1].Substring(DdName[1].IndexOf('W'), DdName[1].Length - DdName[1].IndexOf('W'));
+            SqlConnection Connection = new SqlConnection(conString);
+            //SMO Server object setup with SQLConnection.
+            Server server = new Server(new ServerConnection(Connection));
+            //Create a new SMO Database giving server object and database name
+            //Microsoft.SqlServer.Management.Smo.Database db = new Microsoft.SqlServer.Management.Smo.Database("WealthERP_SBI_STG");
+            Microsoft.SqlServer.Management.Smo.Database db = server.Databases[DdName[1]];
+            //db.Create();
+            //Set Database to the newly created database
+            db = server.Databases[DdName[1]];
+            //Create a new SMO table
+            Table UploadLogTable = new Table(db, "UploadLogTable");
+            Column tempC = new Column();
+            //Add the column names and types from the datatable into the new table
+            //Using the columns name and type property
+            foreach (DataColumn dc in uploadData.Columns)
+            {
+                //Create columns from datatable column schema
+                tempC = new Column(UploadLogTable, dc.ColumnName);
+                tempC.DataType = GetDataType(dc.DataType.ToString());
+
+                UploadLogTable.Columns.Add(tempC);
+            }
+            //Create the Destination Table
+            UploadLogTable.Create();
+            createtableDatabse(uploadData);
+        }
+        public DataType GetDataType(string dataType)
+        {
+            DataType DTTemp = null;
+
+            switch (dataType)
+            {
+                case ("System.Decimal"):
+                    DTTemp = DataType.Decimal(2, 18);
+                    break;
+                case ("System.String"):
+                    DTTemp = DataType.VarChar(50);
+                    break;
+                case ("System.Int32"):
+                    DTTemp = DataType.Int;
+                    break;
+            }
+            return DTTemp;
+        }
+        public void createtableDatabse(DataTable uploaddata)
+        {
+            string conString = ConfigurationManager.ConnectionStrings["wealtherp"].ConnectionString;
+
+            //Open a connection with destination database;
+            using (SqlConnection connection =
+                   new SqlConnection(conString))
+            {
+                connection.Open();
+
+                //Open bulkcopy connection.
+                using (SqlBulkCopy bulkcopy = new SqlBulkCopy(connection))
+                {
+                    //Set destination table name
+                    //to table previously created.
+                    bulkcopy.DestinationTableName = "dbo.UploadLogTable";
+
+                    try
+                    {
+                        bulkcopy.WriteToServer(uploaddata);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+
+                    connection.Close();
+                }
+            }
+        }
+
     }
 }
 

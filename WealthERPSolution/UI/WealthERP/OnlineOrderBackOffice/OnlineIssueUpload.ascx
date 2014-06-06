@@ -15,7 +15,7 @@
         var myfile = UploadDoc.value;
         var format = new Array();
         var Extension = myfile.substring(myfile.lastIndexOf('.') + 1);
-        if (Extension == "csv" || Extension == "txt" || Extension == "TXT"  ) {
+        if (Extension == "csv" || Extension == "txt" || Extension == "TXT") {
             return true;
         }
         else {
@@ -224,9 +224,33 @@
                 InitialValue="Select" ValidationGroup="OnlineIssueUpload">
             </asp:RequiredFieldValidator>
         </td>
-        <td>
-       
+        <td class="leftLabel">
+       <asp:Label ID="lblAllotementType" runat="server" Text="Allotment Type :" CssClass="FieldName" Visible="false"></asp:Label>
         </td>
+        <td class="rightData">
+         <asp:DropDownList ID="ddlAlltmntTyp"  runat="server" CssClass="cmbField" AutoPostBack="true" OnSelectedIndexChanged="ddlAlltmntTyp_OnSelectedIndexChanged" Visible="false">
+          <asp:ListItem  Selected="True" Value="Select">--SELECT--</asp:ListItem>
+          <asp:ListItem  Value="WSR" Text="Advance"></asp:ListItem>
+          <asp:ListItem Value="R1" Text="Basic"></asp:ListItem>
+         </asp:DropDownList>
+          <br />
+            <asp:RequiredFieldValidator ID="RFVddlAlltmnt" runat="server" ControlToValidate="ddlAlltmntTyp"
+                CssClass="rfvPCG" Display="Dynamic" ErrorMessage="Please select Allotment Type"
+                InitialValue="Select" ValidationGroup="OnlineIssueUpload" Enabled="false">
+            </asp:RequiredFieldValidator>
+        </td >
+        <td class="leftLabel">
+        <asp:Label ID="lblRgsttype" runat="server" Text="Register Type:" CssClass="FieldName" Visible="false"></asp:Label>
+        </td>
+       <td>
+       <asp:DropDownList ID="ddlRgsttype" runat="server" AutoPostBack="true" CssClass="cmbField" Visible="false">
+       </asp:DropDownList>
+       <br />
+            <asp:RequiredFieldValidator ID="RFVRgsttype" runat="server" ControlToValidate="ddlRgsttype"
+                CssClass="rfvPCG" Display="Dynamic" ErrorMessage="Please select Type of Register"
+                InitialValue="Select" ValidationGroup="OnlineIssueUpload" Enabled="false">
+            </asp:RequiredFieldValidator>
+       </td>
     </tr>
     <tr id="trStep2" runat="server">
         <td class="tdSectionHeading" colspan="6">
@@ -275,7 +299,7 @@
         AllowPaging="true" AllowSorting="true" Skin="Telerik" EnableHeaderContextMenu="true"
         OnNeedDataSource="gvOnlineIssueUpload_OnNeedDataSource" OnItemDataBound="gvOnlineIssueUpload_ItemDataBound"
         GridLines="Both" EnableEmbeddedSkins="false" ShowFooter="true" PagerStyle-AlwaysVisible="true"
-        EnableViewState="true" ShowStatusBar="true" AllowFilteringByColumn="true" >
+        EnableViewState="true" ShowStatusBar="true" AllowFilteringByColumn="true">
         <ExportSettings HideStructureColumns="true">
         </ExportSettings>
         <MasterTableView Width="90%" AllowMultiColumnSorting="True" DataKeyNames="SN" AutoGenerateColumns="true"
