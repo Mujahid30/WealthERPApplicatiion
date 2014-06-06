@@ -1743,7 +1743,7 @@ namespace DaoOnlineOrderManagement
  
 
 
-        public DataTable GetAdviserNCDOrderBook(int adviserId, string status, DateTime dtFrom, DateTime dtTo)
+        public DataTable GetAdviserNCDOrderBook(int adviserId,int issueNo, string status, DateTime dtFrom, DateTime dtTo)
         {
             Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DataSet dsNCDOrder;
