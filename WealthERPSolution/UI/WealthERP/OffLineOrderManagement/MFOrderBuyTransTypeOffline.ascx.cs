@@ -156,11 +156,11 @@ namespace WealthERP.OffLineOrderManagement
 
                     if (!string.IsNullOrEmpty(dr["PASP_NFOStartDate"].ToString()))
                     {
-                        NFOStartDate.Text = dr["PASP_NFOStartDate"].ToString();
+                        NFOStartDate.Text = Convert.ToDateTime(dr["PASP_NFOStartDate"].ToString()).ToShortDateString().ToString();
                     }
                     if (!string.IsNullOrEmpty(dr["PASP_NFOEndDate"].ToString()))
                     {
-                        NFOEndDate.Text = dr["PASP_NFOEndDate"].ToString();
+                        NFOEndDate.Text = Convert.ToDateTime(dr["PASP_NFOEndDate"].ToString()).ToShortDateString().ToString();
                     }
 
                 }
