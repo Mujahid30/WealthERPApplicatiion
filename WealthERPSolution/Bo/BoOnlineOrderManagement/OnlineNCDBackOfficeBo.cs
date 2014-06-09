@@ -1438,11 +1438,12 @@ namespace BoOnlineOrderManagement
                 header.RegularExpression = row["WEEHM_RegularExpression"].ToString();
                 header.ColumnName = row["WEIH_ColumnName"].ToString();
                 header.IsUploadRelated = bool.Parse(row["WEIH_IsUploadRelated"].ToString());
+                header.ColumnExists = false;
                 fileHeaderList.Add(header);
             }
             return fileHeaderList.OrderBy(o => o.HeaderSequence).ToList();
         }
-
+        
         private string HtmError(string csvError)
         {
             string[] strErrList = csvError.Split('|');
@@ -1461,6 +1462,7 @@ namespace BoOnlineOrderManagement
 
             return sbError.ToString();
         }
+        
 
         public string GetErrorsForRow(List<OnlineIssueHeader> Headers, DataRow row, int rowNum)
         {
@@ -1472,10 +1474,11 @@ namespace BoOnlineOrderManagement
 
                 for (int j = 0; j < row.Table.Columns.Count - 1; j++)
                 {
-                    if (row.Table.Columns[j].ToString().Trim() == Header.HeaderName.Trim())
+                    if (row.Table.Columns[j].ToString().Trim().ToLower() == Header.HeaderName.Trim().ToLower())
                     {
                         // int colInx = row.Table.Columns[Header.HeaderName].Ordinal;
                         //int colInx = Header.HeaderSequence;
+                        Header.ColumnExists = true;
                         string colRegex = Header.RegularExpression;
                         string colVal = row[j].ToString();
                         string colNam = Header.HeaderName;
@@ -1512,7 +1515,7 @@ namespace BoOnlineOrderManagement
             return true;
         }
 
-        public DataTable ValidateUploadData(DataTable dtRawData, int fileTypeId, string extSource)
+        public DataTable ValidateUploadData(DataTable dtRawData, int fileTypeId, string extSource,ref StringBuilder ColumnNameErrors)
         {
             DataColumn serialNo = new DataColumn("SN", System.Type.GetType("System.Int32"));
             DataColumn errorCol = new DataColumn("Remarks", System.Type.GetType("System.String"), "");
@@ -1541,8 +1544,17 @@ namespace BoOnlineOrderManagement
             dtRawData.Columns["Remarks"].SetOrdinal(1);
             dtRawData.AcceptChanges();
 
-
-
+            ColumnNameErrors.Append("Column Name MisMatch");
+            ColumnNameErrors.AppendLine();
+           
+            foreach (OnlineIssueHeader header in Headers)
+            {
+                if (header.ColumnExists == false) 
+                { 
+                    ColumnNameErrors.Append("Actual Name:  " + header.HeaderName);
+                    ColumnNameErrors.Append("\n");
+                }
+            }
 
 
 
