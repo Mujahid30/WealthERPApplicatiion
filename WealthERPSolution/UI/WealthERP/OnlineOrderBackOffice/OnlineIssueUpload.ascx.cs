@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.IO;
 using System.Data;
+using System.Text;
 using BoOnlineOrderManagement;
 using VoUser;
 using WealthERP.Base;
@@ -26,6 +27,7 @@ namespace WealthERP.OnlineOrderBackOffice
         OnlineNCDBackOfficeBo boNcdBackOff;
         AdvisorVo advisorVo;
         UserVo userVo;
+        StringBuilder columnNameError = new StringBuilder();
 
 
         protected void Page_Load(object sender, EventArgs e)
@@ -75,11 +77,17 @@ namespace WealthERP.OnlineOrderBackOffice
 
         protected void OnSelectedIndexChanged_ddlFileType(object sender, EventArgs e)
         {
+            lblAllotementType.Visible = false;
+            ddlAlltmntTyp.Visible = false;
+            lblRgsttype.Visible = false;
+            ddlRgsttype.Visible = false;
+            RFVRgsttype.Enabled = false;
+            RFVddlAlltmnt.Enabled = false;
             if (ddlFileType.SelectedValue == "18")
             {
                 lblmsg.Text = ".txt format, pipe delimited, headers required";
             }
-            if (ddlFileType.SelectedValue == "12" || ddlFileType.SelectedValue == "10" || ddlFileType.SelectedValue == "13" || ddlFileType.SelectedValue == "14" || ddlFileType.SelectedValue == "15")
+            else if (ddlFileType.SelectedValue == "12" || ddlFileType.SelectedValue == "13" || ddlFileType.SelectedValue == "14" || ddlFileType.SelectedValue == "15")
             {
                 lblmsg.Text = " .CSV (MS-DOS) format, comma delimited, hearders required";
                 lblAllotementType.Visible = true;
@@ -89,15 +97,16 @@ namespace WealthERP.OnlineOrderBackOffice
                 RFVRgsttype.Enabled = true;
                 //RFVddlAlltmnt.Enabled = true;
             }
-            else
+            else if (ddlFileType.SelectedValue == "10")
             {
                 lblAllotementType.Visible = false;
                 ddlAlltmntTyp.Visible = false;
                 lblRgsttype.Visible = false;
                 ddlRgsttype.Visible = false;
                 RFVRgsttype.Enabled = false;
-                //RFVddlAlltmnt.Enabled = false;
+                RFVddlAlltmnt.Enabled = false;
             }
+            
         }
 
         protected void Readcsvfile()
@@ -107,6 +116,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
         protected void btnFileUpload_Click(object sender, EventArgs e)
         {
+           
             String savePath = Server.MapPath("UploadFiles/");
             DataTable dtUploadFile;
             DataTable dtValidatedData;
@@ -158,11 +168,11 @@ namespace WealthERP.OnlineOrderBackOffice
             if (boNcdBackOff == null) boNcdBackOff = new OnlineNCDBackOfficeBo();
             if (ddlFileType.SelectedValue == "12" || ddlFileType.SelectedValue == "13" || ddlFileType.SelectedValue == "14" || ddlFileType.SelectedValue == "15" )
             {
-                dtValidatedData = boNcdBackOff.ValidateUploadData(dtUploadFile, int.Parse(ddlRgsttype.SelectedValue), ddlAlltmntTyp.SelectedValue);
+                dtValidatedData = boNcdBackOff.ValidateUploadData(dtUploadFile, int.Parse(ddlRgsttype.SelectedValue), ddlAlltmntTyp.SelectedValue,ref columnNameError);
             }
             else
             {
-                dtValidatedData = boNcdBackOff.ValidateUploadData(dtUploadFile, int.Parse(ddlFileType.SelectedValue), ddlSource.SelectedValue);
+                dtValidatedData = boNcdBackOff.ValidateUploadData(dtUploadFile, int.Parse(ddlFileType.SelectedValue), ddlSource.SelectedValue,ref columnNameError);
             }
             BindGrid(dtValidatedData);
             ToggleUpload(dtValidatedData);
@@ -171,7 +181,7 @@ namespace WealthERP.OnlineOrderBackOffice
         private void ToggleUpload(DataTable dtUpload)
         {
             bool bUpload = true;
-
+            
             btnUploadData.Enabled = false;
             foreach (DataRow row in dtUpload.Rows)
             {
@@ -180,17 +190,30 @@ namespace WealthERP.OnlineOrderBackOffice
                 ShowMessage("Please check the data in the file & re-upload");
                 break;
             }
+            
+
+            if (columnNameError.ToString().Contains("Actual Name:"))
+            {
+                ShowMessage(columnNameError.ToString()); 
+                bUpload = false;
+            }
             if (bUpload)
             {
                 btnUploadData.Enabled = true;
                 ShowMessage("File data has been uploaded, click Upload Data button to upload");
             }
+
         }
 
         private void ShowMessage(string msg)
         {
             tblMessage.Visible = true;
             msgRecordStatus.InnerText = msg;
+            //--S(success)
+            //--F(failure)
+            //--W(warning)
+            //--I(information)
+            //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "wsedrftgyhjukloghjnnnghj", " showMsg('" + msg + "','F');", true);
             ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "mykey", "hide();", true);
         }
 
@@ -281,23 +304,21 @@ namespace WealthERP.OnlineOrderBackOffice
         protected void gvOnlineIssueUpload_ItemDataBound(object sender, GridItemEventArgs e)
         {
 
-            GridDataItem dataBoundItem = e.Item as GridDataItem;
-            if (dataBoundItem != null)
-            {
+                GridDataItem dataBoundItem = e.Item as GridDataItem;
                 if (dataBoundItem["Remarks"].Text.ToString().Contains("Error"))
                 {
                     dataBoundItem["Remarks"].BackColor = System.Drawing.Color.Red;
                     dataBoundItem["Remarks"].Font.Bold = true;
-
+                 
                     string str = dataBoundItem["Remarks"].Text.ToString();
-                    if (dataBoundItem["Remarks"].Text.ToString().Contains("Cheque Date(DD/MM/YYYY)"))
+                    if (dataBoundItem["Remarks"].Text.ToString() == str)
                     {
                         dataBoundItem["Cheque Date(DD/MM/YYYY)"].BackColor = System.Drawing.Color.Red;
                         dataBoundItem["Remarks"].Font.Bold = true;
                     }
                     else
                         dataBoundItem[str.Substring(9, str.IndexOf('(') - 9)].BackColor = System.Drawing.Color.Red;
-                    dataBoundItem["Remarks"].Font.Bold = true;
+                        dataBoundItem["Remarks"].Font.Bold = true;
                 }
                 else
                 {

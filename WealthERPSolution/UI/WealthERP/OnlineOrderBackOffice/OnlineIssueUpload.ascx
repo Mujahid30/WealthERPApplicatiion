@@ -234,10 +234,10 @@
           <asp:ListItem Value="R1" Text="Basic"></asp:ListItem>
          </asp:DropDownList>
           <br />
-          <%--  <asp:RequiredFieldValidator ID="RFVddlAlltmnt" runat="server" ControlToValidate="ddlAlltmntTyp"
+            <asp:RequiredFieldValidator ID="RFVddlAlltmnt" runat="server" ControlToValidate="ddlAlltmntTyp"
                 CssClass="rfvPCG" Display="Dynamic" ErrorMessage="Please select Allotment Type"
                 InitialValue="Select" ValidationGroup="OnlineIssueUpload" Enabled="false">
-            </asp:RequiredFieldValidator>--%>
+            </asp:RequiredFieldValidator>
         </td >
         <td class="leftLabel">
         <asp:Label ID="lblRgsttype" runat="server" Text="Register Type:" CssClass="FieldName" Visible="false"></asp:Label>
