@@ -240,7 +240,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
         private void DownloadBidFile(DataTable dtExtractData, string filename, string delimit, string extractStepCode)
         {
-
+    
 
             if (dtExtractData == null)
             {
@@ -258,7 +258,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
             string dateFormat = "dd-mm-yyyy";
 
-            StringWriter sWriter = new StringWriter();
+            StreamWriter str = new StreamWriter(Server.MapPath("UploadFiles/" + filename), false, System.Text.Encoding.Default);
 
             string Columns = string.Empty;
 
@@ -267,7 +267,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
             // Headers  For different types
             if (extractStepCode != "EB")
-                sWriter.WriteLine(Columns.Remove(Columns.Length - 1, 1));
+                str.WriteLine(Columns.Remove(Columns.Length - 1, 1));
 
             DataColumn[] arrCols = new DataColumn[dtExtractData.Columns.Count];
             dtExtractData.Columns.CopyTo(arrCols, 0);
@@ -288,21 +288,27 @@ namespace WealthERP.OnlineOrderBackOffice
                     }
                     i++;
                 }
-                sWriter.WriteLine(row.Remove(row.Length - 1, 1));
+                str.WriteLine(row.Remove(row.Length - 1, 1));
             }
-            Response.ContentType = "text/plain";
+            str.Flush();
+            str.Close();
 
-            Response.AddHeader("content-disposition", "attachment;filename=" + string.Format(filename, string.Format("{0:ddMMyyyy}", DateTime.Today)));
-            Response.Clear();
+           
+            string[] text = File.ReadAllLines(Server.MapPath("UploadFiles/" + filename)).Where(s => s.Trim() != string.Empty).ToArray();
+            File.Delete(Server.MapPath("UploadFiles/" + filename));
+            File.WriteAllLines(Server.MapPath("UploadFiles/" + filename), text);
+            
+            #region download notepad or text file.
+            Response.ContentType = "application/octet-stream";
 
-            using (StreamWriter writer = new StreamWriter(Response.OutputStream, System.Text.Encoding.UTF8))
-            {
-                writer.Write(sWriter.ToString());
-            }
+
+
+            Response.AppendHeader("Content-Disposition", "attachment;filename=" + filename);
+            string aaa = Server.MapPath("~/UploadFiles/" + filename);
+            Response.TransmitFile(Server.MapPath("~/UploadFiles/" + filename));
+            HttpContext.Current.ApplicationInstance.CompleteRequest();
             Response.End();
-
-            sWriter.Flush();
-            sWriter.Close();
+            #endregion
         }
 
         protected void ddlExternalSource_SelectedIndexChanged(object sender, EventArgs e)
