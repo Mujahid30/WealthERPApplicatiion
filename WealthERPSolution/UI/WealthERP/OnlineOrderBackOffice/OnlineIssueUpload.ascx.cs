@@ -304,29 +304,31 @@ namespace WealthERP.OnlineOrderBackOffice
         protected void gvOnlineIssueUpload_ItemDataBound(object sender, GridItemEventArgs e)
         {
 
-                GridDataItem dataBoundItem = e.Item as GridDataItem;
+            GridDataItem dataBoundItem = e.Item as GridDataItem;
+            if (dataBoundItem != null)
+            {
                 if (dataBoundItem["Remarks"].Text.ToString().Contains("Error"))
                 {
                     dataBoundItem["Remarks"].BackColor = System.Drawing.Color.Red;
                     dataBoundItem["Remarks"].Font.Bold = true;
-                 
+
                     string str = dataBoundItem["Remarks"].Text.ToString();
-                    if (dataBoundItem["Remarks"].Text.ToString() == str)
+                    if (dataBoundItem["Remarks"].Text.ToString() == "Cheque Date(DD/MM/YYYY)")
                     {
                         dataBoundItem["Cheque Date(DD/MM/YYYY)"].BackColor = System.Drawing.Color.Red;
                         dataBoundItem["Remarks"].Font.Bold = true;
                     }
                     else
                         dataBoundItem[str.Substring(9, str.IndexOf('(') - 9)].BackColor = System.Drawing.Color.Red;
-                        dataBoundItem["Remarks"].Font.Bold = true;
+                    dataBoundItem["Remarks"].Font.Bold = true;
                 }
                 else
                 {
                     dataBoundItem["Remarks"].Text = "Verified";
                 }
             }
-        }
 
+        }
         private void AddHeaders(DataTable dtData)
         {
             //int nRows = 0;
