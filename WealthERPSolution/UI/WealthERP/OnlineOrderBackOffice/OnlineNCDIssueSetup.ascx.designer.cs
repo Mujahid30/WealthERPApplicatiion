@@ -102,7 +102,8 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnIssuerPopClose;
-        
+        protected global::System.Web.UI.WebControls.CheckBox chkMultipleApplicationAllowed;
+        protected global::System.Web.UI.WebControls.CheckBox chkMultipleApplicationNotAllowed;
         /// <summary>
         /// tbIssue control.
         /// </summary>
@@ -149,9 +150,9 @@ namespace WealthERP.OnlineOrderBackOffice {
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblCategory;
         
 
- protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlb1ModeofTrading;
- protected global::System.Web.UI.HtmlControls.HtmlTableCell tdtxtModeofTrading;
-
+         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlb1ModeofTrading;
+         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdtxtModeofTrading;
+         protected global::System.Web.UI.HtmlControls.HtmlTableRow trMultipleApplicationAllowed;
         /// <summary>
         /// lblCategory control.
         /// </summary>

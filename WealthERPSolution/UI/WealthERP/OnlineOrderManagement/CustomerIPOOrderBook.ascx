@@ -31,6 +31,11 @@
                 <asp:DropDownList CssClass="cmbField" ID="ddlOrderStatus" runat="server" AutoPostBack="false">
                 </asp:DropDownList>
             </td>
+            <td>
+                <asp:Label runat="server" class="FieldName" Text="Issue Name:" ID="lblIssueName"></asp:Label>
+             <asp:DropDownList CssClass="cmbField" ID="ddlIssueName" runat="server" AutoPostBack="false">
+                </asp:DropDownList>
+            </td>
             <td id="tdlblFromDate" runat="server" align="right">
                 <asp:Label class="FieldName" ID="lblFromTran" Text="From :" runat="server" />
             </td>

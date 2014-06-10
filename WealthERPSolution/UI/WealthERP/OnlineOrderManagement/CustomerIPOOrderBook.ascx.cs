@@ -43,6 +43,7 @@ namespace WealthERP.OnlineOrderManagement
                 txtOrderFrom.SelectedDate = fromDate.Date;
                 txtOrderTo.SelectedDate = DateTime.Now;
                 BindOrderStatus();
+                BindIssueName();
             }
         }
         private void SetParameter()
@@ -60,6 +61,17 @@ namespace WealthERP.OnlineOrderManagement
         /// <summary>
         /// Get Bind Orderstatus
         /// </summary>
+        /// 
+        protected void BindIssueName()
+        {
+            DataTable dt;
+            dt = BoOnlineBondOrder.GetCustomerIssueName(customerVo.CustomerId, "IP");
+            ddlIssueName.DataSource = dt;
+            ddlIssueName.DataValueField = dt.Columns["AIM_IssueId"].ToString();
+            ddlIssueName.DataTextField = dt.Columns["AIM_IssueName"].ToString();
+            ddlIssueName.DataBind();
+            ddlIssueName.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "0"));
+        }
         private void BindOrderStatus()
         {
             OnlineMFOrderBo OnlineMFOrderBo = new OnlineMFOrderBo();
@@ -92,7 +104,7 @@ namespace WealthERP.OnlineOrderManagement
                 fromDate = DateTime.Parse(txtOrderFrom.SelectedDate.ToString());
             if (txtOrderTo.SelectedDate != null)
                 toDate = DateTime.Parse(txtOrderTo.SelectedDate.ToString());
-            DataTable dtCustomerIssueIPOBook = onlineIPOOrderBo.GetCustomerIPOIssueBook(customerVo.CustomerId, hdnOrderStatus.Value, fromDate, toDate);
+            DataTable dtCustomerIssueIPOBook = onlineIPOOrderBo.GetCustomerIPOIssueBook(customerVo.CustomerId,Convert.ToInt32(ddlIssueName.SelectedValue.ToString()), hdnOrderStatus.Value, fromDate, toDate);
 
             if (dtCustomerIssueIPOBook.Rows.Count > 0)
             {

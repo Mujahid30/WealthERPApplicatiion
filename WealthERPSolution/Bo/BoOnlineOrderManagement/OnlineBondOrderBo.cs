@@ -307,13 +307,13 @@ namespace BoOnlineOrderManagement
             }
             return dsLookupData;
         }
-        public DataSet GetOrderBondBook(int customerId, string status, DateTime dtFrom, DateTime dtTo,int adviserId)
+        public DataSet GetOrderBondBook(int customerId,int issueId, string status, DateTime dtFrom, DateTime dtTo,int adviserId)
         {
             OnlineBondOrderDao OnlineBondDao = new OnlineBondOrderDao();
             DataSet dsLookupData;
             try
             {
-                dsLookupData = OnlineBondDao.GetOrderBondBook(customerId, status, dtFrom, dtTo, adviserId);
+                dsLookupData = OnlineBondDao.GetOrderBondBook(customerId,issueId, status, dtFrom, dtTo, adviserId);
 
             }
             catch (BaseApplicationException Ex)
@@ -576,6 +576,13 @@ namespace BoOnlineOrderManagement
                 throw exBase;
             }
             return dtGetNCDHoldingSeriesOrder;
+        }
+        public DataTable GetCustomerIssueName(int CustomerId, string Product)
+        {
+            DataTable dtGetCustomerIssueName;
+            OnlineBondOrderDao OnlineBondOrderDao = new OnlineBondOrderDao();
+            dtGetCustomerIssueName = OnlineBondOrderDao.GetCustomerIssueName(CustomerId, Product);
+            return dtGetCustomerIssueName;
         }
     }
 }

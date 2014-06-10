@@ -121,6 +121,8 @@ namespace VoOnlineOrderManagemnet
         public int TradableExchange { get; set; }
         public int RedemptionApplicable { get; set; }
         public int LockInApplicable { get; set; }
+        public int MultipleApplicationAllowed { get; set; }
+        public int MultipleApplicationNotAllowed { get; set; }
     }
 
     public class OnlineIssueHeader
@@ -132,5 +134,6 @@ namespace VoOnlineOrderManagemnet
         public string RegularExpression { get; set; }
         public string ColumnName { get; set; }
         public bool IsUploadRelated { get; set; }
+        public bool ColumnExists { get; set; }
     }
 }

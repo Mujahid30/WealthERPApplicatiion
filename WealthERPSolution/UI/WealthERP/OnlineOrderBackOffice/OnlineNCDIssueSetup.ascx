@@ -34,6 +34,18 @@
 
 </script>
 
+<script type="text/javascript" language="javascript">
+    function CheckBoxes(sender, args) {
+        if (document.getElementById("<%=chkMultipleApplicationAllowed.ClientID %>").checked == false && document.getElementById("<%=chkMultipleApplicationNotAllowed.ClientID %>").checked == false) {
+            args.IsValid = false;
+        }
+        else {
+            args.IsValid = true;
+        }
+    }
+
+</script>
+
 <script type="text/javascript">
     var crnt = 0;
     function PreventClicks() {
@@ -226,10 +238,9 @@
         </div>
     </ContentTemplate>
 </telerik:RadWindow>
-
 <telerik:RadWindow ID="radIssuerPopUp" runat="server" VisibleOnPageLoad="false" Height="30%"
-    Width="400px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="None"
-    Title="Add New Issuer">
+    Width="400px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="Resize, Close, Move"
+    Title="Add New Issuer" RestrictionZoneID="radWindowZone">
     <ContentTemplate>
         <div style="padding: 20px">
             <table width="100%">
@@ -326,7 +337,6 @@
         </div>
     </ContentTemplate>
 </telerik:RadWindow>
-
 <table width="100%" runat="server" id="tbIssue">
     <tr>
         <td class="leftLabel">
@@ -1070,13 +1080,15 @@
             <asp:Label ID="Label19" runat="server" Text="NSE Code:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightData">
-            <asp:TextBox ID="txtNSECode" runat="server" CssClass="txtField" Width="200px" OnTextChanged="txtNSECode_OnTextChanged" AutoPostBack="true"></asp:TextBox>
+            <asp:TextBox ID="txtNSECode" runat="server" CssClass="txtField" Width="200px" OnTextChanged="txtNSECode_OnTextChanged"
+                AutoPostBack="true"></asp:TextBox>
         </td>
         <td class="leftLabel">
             <asp:Label ID="lb1Code" runat="server" Text="BSE Code:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightData">
-            <asp:TextBox ID="txtBSECode" runat="server" CssClass="txtField" Width="200px" OnTextChanged="txtBSECode_OnTextChanged" AutoPostBack="true"></asp:TextBox>
+            <asp:TextBox ID="txtBSECode" runat="server" CssClass="txtField" Width="200px" OnTextChanged="txtBSECode_OnTextChanged"
+                AutoPostBack="true"></asp:TextBox>
             <%--<span id="Span32" class="spnRequiredField">*</span>
             <br />
           <asp:RequiredFieldValidator ID="rfvtxtBSECode" runat="server" CssClass="rfvPCG" ErrorMessage="Please Enter BSE Code"
@@ -1143,6 +1155,30 @@
             <asp:CompareValidator ID="cmp" ControlToValidate="txtAllotmentDate" runat="server"
                 ControlToCompare="txtCloseDate" Display="Dynamic" ErrorMessage="<br/>Allotment Date Should Be Greater Than Close Date"
                 Type="Date" Operator="GreaterThan" CssClass="cvPCG" ValidationGroup="SetUpSubmit"></asp:CompareValidator>
+        </td>
+    </tr>
+    <tr id="trMultipleApplicationAllowed" runat="server">
+        <td>
+        </td>
+        <td>
+            <asp:CheckBox ID="chkMultipleApplicationAllowed" runat="server" CssClass="txtField"
+                Text="Multiple applications allowed" OnCheckedChanged="chkMultipleApplicationAllowed_OnCheckedChanged" AutoPostBack="true">
+            </asp:CheckBox>
+            <asp:CustomValidator ID="CustomValidator1" runat="server" ErrorMessage="Please check Multiple applications allowed"
+                ClientValidationFunction="CheckBoxes" EnableClientScript="true" Display="Dynamic"
+                ValidationGroup="SetUpSubmit" CssClass="rfvPCG">
+            </asp:CustomValidator>
+        </td>
+        <td>
+        </td>
+        <td>
+            <asp:CheckBox ID="chkMultipleApplicationNotAllowed" runat="server" CssClass="txtField"
+                Text="Multiple applications not allowed" OnCheckedChanged="chkMultipleApplicationNotAllowed_OnCheckedChanged" AutoPostBack="true">
+            </asp:CheckBox>
+            <asp:CustomValidator ID="CustomValidator2" runat="server" ErrorMessage="<br>Please check Multiple applications not allowed"
+                ClientValidationFunction="CheckBoxes" EnableClientScript="true" Display="Dynamic"
+                ValidationGroup="SetUpSubmit" CssClass="rfvPCG">
+            </asp:CustomValidator>
         </td>
     </tr>
     <tr id="trIsActiveandPutCallOption" runat="server">
@@ -1228,7 +1264,6 @@
         </td>
     </tr>
 </table>
-
 <asp:Panel ID="pnlCategory" runat="server" CssClass="Landscape" Width="100%">
     <table id="Table1" runat="server" width="80%">
         <tr>
@@ -1422,7 +1457,7 @@
                                                         <asp:RegularExpressionValidator ID="RegularExpressionValidator16" ControlToValidate="txtMaxBidAmount"
                                                             runat="server" Display="Dynamic" ErrorMessage="Please Enter Digits" CssClass="cvPCG"
                                                             ValidationExpression="[0-9]\d*$" ValidationGroup="btnOK"> 
-                                                              </asp:RegularExpressionValidator>
+                                                        </asp:RegularExpressionValidator>
                                                         <asp:CompareValidator ID="cmp" ControlToValidate="txtMaxBidAmount" runat="server"
                                                             ControlToCompare="txtMinBidAmount" Display="Dynamic" ErrorMessage="<br/>MaxbidAmount  Should Be Greater Than Minbid"
                                                             Type="Double" Operator="GreaterThan"></asp:CompareValidator>
@@ -1608,7 +1643,6 @@
         </tr>
     </table>
 </asp:Panel>
-
 <asp:Panel ID="pnlSeries" runat="server" Width="100%">
     <table id="tblSeries" runat="server" width="80%">
         <tr>

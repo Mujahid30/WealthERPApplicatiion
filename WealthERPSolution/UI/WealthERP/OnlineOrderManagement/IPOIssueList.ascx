@@ -41,10 +41,10 @@
         </table>
         <table width="60%" runat="server" id="tbNcdIssueList">
             <tr>
-                <td class="leftLabel">
+                <td align="right">
                     <asp:Label ID="lb1Type" runat="server" Text="Type:" CssClass="FieldName"></asp:Label>
                 </td>
-                <td class="rightData">
+                <td align="right" style="width:20%;">
                     <asp:DropDownList ID="ddlType" runat="server" CssClass="cmbField" AutoPostBack="true">
                         <asp:ListItem Value="Select">Select</asp:ListItem>
                         <asp:ListItem Value="Curent">Current Issues</asp:ListItem>
@@ -57,7 +57,7 @@
                         CssClass="rfvPCG" ControlToValidate="ddlType" ValidationGroup="btnGo" Display="Dynamic"
                         InitialValue="Select"></asp:RequiredFieldValidator>
                 </td>
-                <td class="rightData">
+                <td >
                     <asp:Button ID="btnGo" runat="server" Text="Go" CssClass="PCGButton" ValidationGroup="btnGo"
                         OnClick="btnGo_Click" />
                 </td>

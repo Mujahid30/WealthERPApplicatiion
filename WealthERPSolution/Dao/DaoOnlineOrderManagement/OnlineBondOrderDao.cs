@@ -503,7 +503,7 @@ namespace DaoOnlineOrderManagement
             }
             return dsOrderBondsBook;
         }
-        public DataSet GetOrderBondBook(int customerId, string status, DateTime dtFrom, DateTime dtTo, int adviserId)
+        public DataSet GetOrderBondBook(int customerId,int issueId, string status, DateTime dtFrom, DateTime dtTo, int adviserId)
         {
             DataSet dsOrderBondsBook;
             Database db;
@@ -513,6 +513,7 @@ namespace DaoOnlineOrderManagement
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 GetOrderBondsBookcmd = db.GetStoredProcCommand("SPROC_ONL_GetBondOrderBook");
                 db.AddInParameter(GetOrderBondsBookcmd, "@customerId", DbType.Int32, customerId);
+                db.AddInParameter(GetOrderBondsBookcmd, "@AIMissue", DbType.Int32, issueId);
                 if (status != "0")
                     db.AddInParameter(GetOrderBondsBookcmd, "@Status", DbType.String, status);
                 else
@@ -858,6 +859,28 @@ namespace DaoOnlineOrderManagement
                 throw exBase;
             }
             return dtGetNCDHoldingSeriesOrder;
+        }
+        public DataTable GetCustomerIssueName(int CustomerId, string Product)
+        {
+            DbCommand cmdGetCustomerIssueName;
+            DataTable dtGetCustomerIssueName;
+            DataSet dsGetCustomerIssueName = null;
+            Database db;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetCustomerIssueName = db.GetStoredProcCommand("SPROC_GetCustomerNCDIPOIssueName");
+                db.AddInParameter(cmdGetCustomerIssueName, "@CustomerId", DbType.Int32, CustomerId);
+                db.AddInParameter(cmdGetCustomerIssueName, "@Product", DbType.String, Product);
+                dsGetCustomerIssueName = db.ExecuteDataSet(cmdGetCustomerIssueName);
+                dtGetCustomerIssueName = dsGetCustomerIssueName.Tables[0];
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetCustomerIssueName;
         }
     }
 }

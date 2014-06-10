@@ -38,6 +38,7 @@ namespace WealthERP.OnlineOrderManagement
 
                 txtOrderTo.SelectedDate = DateTime.Now;
                 BindOrderStatus();
+                BindIssueName();
                 if (Request.QueryString["customerId"] != null)
                 {
                     customerId = int.Parse(Request.QueryString["customerId"].ToString());
@@ -66,6 +67,17 @@ namespace WealthERP.OnlineOrderManagement
                 //}
             }
         }
+        protected void BindIssueName()
+        {
+            DataTable dt;
+            dt = BoOnlineBondOrder.GetCustomerIssueName(customerVo.CustomerId, "FI");
+            ddlIssueName.DataSource=dt;
+            ddlIssueName.DataValueField=dt.Columns["AIM_IssueId"].ToString();
+            ddlIssueName.DataTextField=dt.Columns["AIM_IssueName"].ToString();
+            ddlIssueName.DataBind();
+            ddlIssueName.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "0"));
+        }
+
         private void SetParameter()
         {
             if (ddlOrderStatus.SelectedIndex != 0)
@@ -108,7 +120,7 @@ namespace WealthERP.OnlineOrderManagement
                 fromDate = DateTime.Parse(txtOrderFrom.SelectedDate.ToString());
             if (txtOrderTo.SelectedDate != null)
                 toDate = DateTime.Parse(txtOrderTo.SelectedDate.ToString());
-            DataSet dsbondsBook = BoOnlineBondOrder.GetOrderBondBook(customerId, hdnOrderStatus.Value, fromDate, toDate, advisorVo.advisorId);
+            DataSet dsbondsBook = BoOnlineBondOrder.GetOrderBondBook(customerId, Convert.ToInt32(ddlIssueName.SelectedValue.ToString()), hdnOrderStatus.Value, fromDate, toDate, advisorVo.advisorId);
             DataTable dtbondsBook = dsbondsBook.Tables[0];
             if (dtbondsBook.Rows.Count > 0)
             {

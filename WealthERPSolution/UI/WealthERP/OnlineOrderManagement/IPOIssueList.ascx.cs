@@ -75,10 +75,16 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void RadGridIPOIssueList_OnItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
         {
-            int issueId = 0;
+            int issueId = Convert.ToInt32(RadGridIPOIssueList.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIM_IssueId"].ToString());
 
             if (e.CommandName == "Buy")
             {
+                int Multipleallowed = onlineNCDBackOfficeBo.CustomerMultipleOrder(customerVo.CustomerId, issueId);
+                if (Multipleallowed==1)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Multiple Applications is not allowed for this issue!!');", true);
+                    return ;
+                }
                 int accountactivate = onlineNCDBackOfficeBo.CheckAccountisActive(advisorVo.advisorId, customerVo.CustomerId);
                 int BankaccountActive = onlineNCDBackOfficeBo.CheckBankisActive(customerVo.CustomerId);
                 if (accountactivate != 0 && BankaccountActive != 0)
@@ -90,7 +96,7 @@ namespace WealthERP.OnlineOrderManagement
                     //int IssuerId = int.Parse(gvCommMgmt.MasterTableView.DataKeyValues[rowindex]["AIM_IssueId"].ToString());
                     // categoryId = Convert.ToInt32(rgEligibleInvestorCategories.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIIC_InvestorCatgeoryId"].ToString());
 
-                    issueId = Convert.ToInt32(RadGridIPOIssueList.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIM_IssueId"].ToString());
+                  
                     if (Session["PageDefaultSetting"] != null)
                     {
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('IPOIssueTransact','&issueId=" + issueId + "')", true);

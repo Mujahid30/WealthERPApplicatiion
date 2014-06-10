@@ -28,6 +28,8 @@ namespace WealthERP.OnlineOrderManagement
         protected global::Telerik.Web.UI.RadDatePicker txtOrderFrom;
         protected global::Telerik.Web.UI.RadDatePicker txtOrderTo;
         protected global::System.Web.UI.WebControls.ImageButton ibtExportSummary;
+        protected global::System.Web.UI.WebControls.Label lblIssueName;
+        protected global::System.Web.UI.WebControls.DropDownList ddlIssueName;
         /// <summary>
         /// pnlIPOBook control.
         /// </summary>

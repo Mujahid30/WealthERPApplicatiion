@@ -513,7 +513,8 @@ namespace DaoOnlineOrderManagement
                 }
 
                 db.AddInParameter(createCmd, "@CutOffTime", DbType.Time, onlineNCDBackOfficeVo.CutOffTime);
-
+                db.AddInParameter(createCmd, "@MultipleApplicationAllowed", DbType.Int32, onlineNCDBackOfficeVo.MultipleApplicationAllowed);
+                
                 issueId = db.ExecuteNonQuery(createCmd);
             }
             catch (BaseApplicationException Ex)
@@ -868,7 +869,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(createCmd, "@ISINNumber", DbType.String, onlineNCDBackOfficeVo.ISINNumber);
                 db.AddInParameter(createCmd, "@RegistrarContactPerson", DbType.String, onlineNCDBackOfficeVo.RegistrarContactPerson);
                 db.AddInParameter(createCmd, "@SBIRegistationNo", DbType.String, onlineNCDBackOfficeVo.SBIRegistationNo);
-
+                db.AddInParameter(createCmd, "@MultipleApplicationAllowed", DbType.Int32, onlineNCDBackOfficeVo.MultipleApplicationAllowed);
 
 
                 if (db.ExecuteNonQuery(createCmd) != 0)
@@ -3268,7 +3269,46 @@ namespace DaoOnlineOrderManagement
                 }
             }
         }
+        public int CustomerMultipleOrder(int CustomerId,int AIMissueId)
+        {
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DataSet ds;
+            DbCommand cmdCheckBankisActive;
+            int Count = 0;
+            try
+            {
+                
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdCheckBankisActive = db.GetStoredProcCommand("SPROC_GetIssueIsMultipalApplicable");
+                db.AddInParameter(cmdCheckBankisActive, "@customerId", DbType.Int32, CustomerId);
+                db.AddInParameter(cmdCheckBankisActive, "@AIMissueId", DbType.Int32, AIMissueId);
 
+                db.AddOutParameter(cmdCheckBankisActive, "@Count", DbType.Int32, 0);
+
+                ds = db.ExecuteDataSet(cmdCheckBankisActive);
+                if (db.ExecuteNonQuery(cmdCheckBankisActive) != 0)
+                {
+                    Count = Convert.ToInt32(db.GetParameterValue(cmdCheckBankisActive, "Count").ToString());
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AssociateDAO.cs:ExternalcodeCheck()");
+                object[] objects = new object[2];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return Count;
+        }
     }
 }
 

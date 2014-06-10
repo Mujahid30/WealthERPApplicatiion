@@ -2007,5 +2007,19 @@ namespace BoOnlineOrderManagement
                 throw Ex;
             }
         }
+        public int CustomerMultipleOrder(int CustomerId, int AIMissueId)
+        {
+            int result = 0;
+            OnlineNCDBackOfficeDao daoOnlNcdBackOff = new OnlineNCDBackOfficeDao();
+            try
+            {
+                result = daoOnlNcdBackOff.CustomerMultipleOrder(CustomerId, AIMissueId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return result;
+        }
     }
 }

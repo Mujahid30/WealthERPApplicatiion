@@ -111,7 +111,7 @@ namespace DaoOnlineOrderManagement
 
         }
 
-        public DataTable GetCustomerIPOIssueBook(int customerId,string status,DateTime fromdate,DateTime todate)
+        public DataTable GetCustomerIPOIssueBook(int customerId,int issueId,string status,DateTime fromdate,DateTime todate)
         {
             DataTable dtCustomerIPOIssueBook;
             Database db;
@@ -121,6 +121,7 @@ namespace DaoOnlineOrderManagement
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 GetCustomerIPOIssueListCmd = db.GetStoredProcCommand("SPROC_ONL_GetCustomerIPOIssueOrderBooks");
                 db.AddInParameter(GetCustomerIPOIssueListCmd, "@CustomerId", DbType.Int32, customerId);
+                db.AddInParameter(GetCustomerIPOIssueListCmd, "@AIMissue", DbType.Int32, issueId);
                 db.AddInParameter(GetCustomerIPOIssueListCmd, "@Status", DbType.String, status);
                 db.AddInParameter(GetCustomerIPOIssueListCmd, "@Fromdate", DbType.DateTime, fromdate);
                 db.AddInParameter(GetCustomerIPOIssueListCmd, "@ToDate", DbType.DateTime, todate);
