@@ -240,75 +240,85 @@ namespace WealthERP.OnlineOrderBackOffice
 
         private void DownloadBidFile(DataTable dtExtractData, string filename, string delimit, string extractStepCode)
         {
-    
-
-            if (dtExtractData == null)
+            try
             {
-                ShowMessage("No data available");
-                return;
 
-            }
-            if (dtExtractData.Rows.Count <= 0)
-            {
-                ShowMessage("No data available");
-                return;
-
-
-            }
-
-            string dateFormat = "dd-mm-yyyy";
-
-            StreamWriter str = new StreamWriter(Server.MapPath("UploadFiles/" + filename), false, System.Text.Encoding.Default);
-
-            string Columns = string.Empty;
-
-            foreach (DataColumn column in dtExtractData.Columns)
-                Columns += column.ColumnName + delimit;
-
-            // Headers  For different types
-            if (extractStepCode != "EB")
-                str.WriteLine(Columns.Remove(Columns.Length - 1, 1));
-
-            DataColumn[] arrCols = new DataColumn[dtExtractData.Columns.Count];
-            dtExtractData.Columns.CopyTo(arrCols, 0);
-            foreach (DataRow datarow in dtExtractData.Rows)
-            {
-                string row = string.Empty;
-                int i = 0;
-                foreach (object item in datarow.ItemArray)
+                if (dtExtractData == null)
                 {
-                    if (arrCols[i].DataType.FullName == "System.DateTime")
-                    {
-                        string strDate = string.IsNullOrEmpty(item.ToString()) ? "" : DateTime.Parse(item.ToString()).ToString(dateFormat);
-                        row += strDate + delimit;
-                    }
-                    else
-                    {
-                        row += item.ToString().Trim() + delimit;
-                    }
-                    i++;
+                    ShowMessage("No data available");
+                    return;
+
                 }
-                str.WriteLine(row.Remove(row.Length - 1, 1));
+                if (dtExtractData.Rows.Count <= 0)
+                {
+                    ShowMessage("No data available");
+                    return;
+                }
+
+                string dateFormat = "dd-mm-yyyy";
+
+                StreamWriter str = new StreamWriter(Server.MapPath(@"~/UploadFiles/" + filename), false, System.Text.Encoding.Default);
+
+                string Columns = string.Empty;
+
+                foreach (DataColumn column in dtExtractData.Columns)
+                    Columns += column.ColumnName + delimit;
+
+                // Headers  For different types
+                if (extractStepCode != "EB")
+                    str.WriteLine(Columns.Remove(Columns.Length - 1, 1));
+
+                DataColumn[] arrCols = new DataColumn[dtExtractData.Columns.Count];
+                dtExtractData.Columns.CopyTo(arrCols, 0);
+                foreach (DataRow datarow in dtExtractData.Rows)
+                {
+                    string row = string.Empty;
+                    int i = 0;
+                    foreach (object item in datarow.ItemArray)
+                    {
+                        if (arrCols[i].DataType.FullName == "System.DateTime")
+                        {
+                            string strDate = string.IsNullOrEmpty(item.ToString()) ? "" : DateTime.Parse(item.ToString()).ToString(dateFormat);
+                            row += strDate + delimit;
+                        }
+                        else
+                        {
+                            row += item.ToString().Trim() + delimit;
+                        }
+                        i++;
+                    }
+                    str.WriteLine(row.Remove(row.Length - 1, 1));
+                }
+                str.Flush();
+                str.Close();
+                string myFileData;
+                // File in
+                myFileData = File.ReadAllText(Server.MapPath("~/UploadFiles/" + filename));
+                // Remove last CR/LF
+                // 1) Check that the file has CR/LF at the end
+                if (myFileData.EndsWith(Environment.NewLine))
+                {
+                    //2) Remove CR/LF from the end and write back to file (new file)
+                    //File.WriteAllText(@"D:\test_backup.csv", myFileData.TrimEnd(null)); // Removes ALL white spaces from the end!
+                    File.WriteAllText(Server.MapPath("~/UploadFiles/" + filename), myFileData.TrimEnd(Environment.NewLine.ToCharArray())); // Removes ALL CR/LF from the end!
+                }
+                #region download notepad or text file.
+                Response.ContentType = "application/octet-stream";
+                Response.AppendHeader("Content-Disposition", "attachment;filename=" + filename);
+                string aaa = Server.MapPath("~/UploadFiles/" + filename);
+                Response.TransmitFile(Server.MapPath("~/UploadFiles/" + filename));
+                HttpContext.Current.ApplicationInstance.CompleteRequest();
+                Response.End();
+                #endregion
             }
-            str.Flush();
-            str.Close();
+            catch (Exception e)
+            {
 
-           
-            string[] text = File.ReadAllLines(Server.MapPath("UploadFiles/" + filename)).Where(s => s.Trim() != string.Empty).ToArray();
-            File.Delete(Server.MapPath("UploadFiles/" + filename));
-            File.WriteAllLines(Server.MapPath("UploadFiles/" + filename), text);
-            
-            #region download notepad or text file.
-            Response.ContentType = "application/octet-stream";
-
-
-
-            Response.AppendHeader("Content-Disposition", "attachment;filename=" + filename);
-            string aaa = Server.MapPath("~/UploadFiles/" + filename);
-            Response.TransmitFile(Server.MapPath("~/UploadFiles/" + filename));
-            HttpContext.Current.ApplicationInstance.CompleteRequest();
-            Response.End();
-            #endregion
+            }
+            finally
+            {
+                System.IO.File.Delete(Server.MapPath("~/UploadFiles/" + filename));
+            }
         }
 
         protected void ddlExternalSource_SelectedIndexChanged(object sender, EventArgs e)
