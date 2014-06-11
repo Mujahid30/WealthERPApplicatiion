@@ -313,14 +313,16 @@ namespace WealthERP.OnlineOrderBackOffice
                     dataBoundItem["Remarks"].Font.Bold = true;
 
                     string str = dataBoundItem["Remarks"].Text.ToString();
-                    if (dataBoundItem["Remarks"].Text.ToString() == "Cheque Date(DD/MM/YYYY)")
+                    if (dataBoundItem["Remarks"].Text.ToString().Contains("Cheque Date(DD/MM/YYYY)"))
                     {
                         dataBoundItem["Cheque Date(DD/MM/YYYY)"].BackColor = System.Drawing.Color.Red;
                         dataBoundItem["Remarks"].Font.Bold = true;
                     }
                     else
+                    {
                         dataBoundItem[str.Substring(9, str.IndexOf('(') - 9)].BackColor = System.Drawing.Color.Red;
-                    dataBoundItem["Remarks"].Font.Bold = true;
+                        dataBoundItem["Remarks"].Font.Bold = true;
+                    }
                 }
                 else
                 {
