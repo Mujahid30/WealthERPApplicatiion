@@ -801,7 +801,7 @@
                 Width="200px">
             </telerik:RadTimePicker>--%>
             <asp:DropDownList ID="ddlOpenTimeHours" runat="server" CssClass="cmbField" AutoPostBack="true"
-                Width="60px" />
+                Width="70px" />
             <asp:DropDownList ID="ddlOpenTimeMinutes" runat="server" CssClass="cmbField" AutoPostBack="true"
                 Width="60px" />
             <asp:DropDownList ID="ddlOpenTimeSeconds" runat="server" CssClass="cmbField" AutoPostBack="true"
@@ -830,7 +830,7 @@
         </td>
         <td class="rightData">
             <asp:DropDownList ID="ddlCloseTimeHours" runat="server" CssClass="cmbField" AutoPostBack="true"
-                Width="60px" />
+                Width="70px" />
             <asp:DropDownList ID="ddlCloseTimeMinutes" runat="server" CssClass="cmbField" AutoPostBack="true"
                 Width="60px" />
             <asp:DropDownList ID="ddlCloseTimeSeconds" runat="server" CssClass="cmbField" AutoPostBack="true"
@@ -860,7 +860,7 @@
         </td>
         <td class="rightData">
             <asp:DropDownList ID="ddlCutOffTimeHours" runat="server" CssClass="cmbField" AutoPostBack="true"
-                Width="60px" />
+                Width="70px" />
             <asp:DropDownList ID="ddlCutOffTimeMinutes" runat="server" CssClass="cmbField" AutoPostBack="true"
                 Width="60px" />
             <asp:DropDownList ID="ddlCutOffTimeSeconds" runat="server" CssClass="cmbField" AutoPostBack="true"
