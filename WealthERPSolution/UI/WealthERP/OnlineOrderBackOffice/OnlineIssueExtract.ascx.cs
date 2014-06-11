@@ -303,7 +303,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     File.WriteAllText(Server.MapPath("~/UploadFiles/" + filename), myFileData.TrimEnd(Environment.NewLine.ToCharArray())); // Removes ALL CR/LF from the end!
                 }
                 #region download notepad or text file.
-                Response.ContentType = "application/octet-stream";
+                Response.ContentType = "Text/Plain";
                 Response.AppendHeader("Content-Disposition", "attachment;filename=" + filename);
                 string aaa = Server.MapPath("~/UploadFiles/" + filename);
                 Response.TransmitFile(Server.MapPath("~/UploadFiles/" + filename));
@@ -315,10 +315,10 @@ namespace WealthERP.OnlineOrderBackOffice
             {
 
             }
-            finally
-            {
-                System.IO.File.Delete(Server.MapPath("~/UploadFiles/" + filename));
-            }
+            //finally
+            //{
+            //    System.IO.File.Delete(Server.MapPath("~/UploadFiles/" + filename));
+            //}
         }
 
         protected void ddlExternalSource_SelectedIndexChanged(object sender, EventArgs e)
