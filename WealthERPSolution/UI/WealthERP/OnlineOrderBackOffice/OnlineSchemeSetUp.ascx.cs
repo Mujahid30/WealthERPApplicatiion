@@ -78,7 +78,8 @@ namespace WealthERP.OnlineOrderBackOffice
                         txtESSchemecode.Enabled = true;
                         lnkMargeScheme.Visible = true;
                         ddlNFoStatus.Items[3].Enabled = true;
-                        ddlNFoStatus.Items[4].Enabled = true;
+                        //ddlNFoStatus.Items[4].Enabled = true;
+                        //ddlNFoStatus.Items[5].Enabled = true;
                         lnkMargeScheme.Visible = true;
                         lblAllproductcode.Visible = true;
                         lnkProductcode.Visible = true;
@@ -94,7 +95,8 @@ namespace WealthERP.OnlineOrderBackOffice
                         ControlViewEditMode(true);
                         lnkMargeScheme.Visible = true;
                         ddlNFoStatus.Items[3].Enabled = true;
-                        ddlNFoStatus.Items[4].Enabled = true;
+                        //ddlNFoStatus.Items[4].Enabled = true;
+                        //ddlNFoStatus.Items[5].Enabled = true;
                         ddlNFoStatus.Enabled = false;
                         lnkMargeEdit.Visible = true;
                         lnkMargeScheme.Visible = true;
@@ -429,7 +431,6 @@ namespace WealthERP.OnlineOrderBackOffice
             if (ChkBO.Checked)
             {
                 mfProductAMCSchemePlanDetailsVo.CustomerSubTypeCode = "NIND";
-
             }
             if (!string.IsNullOrEmpty(txtESSchemecode.Text))
             {
@@ -686,7 +687,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 //ChkISactive.Enabled = true;
                 chkonline.Enabled = true;
                 ddlNFoStatus.Items[3].Enabled = true;
-                ddlNFoStatus.Items[4].Enabled = true;
+                //ddlNFoStatus.Items[4].Enabled = true;
                 btnBasicDSubmit.Visible = false;
                 btnBasicDupdate.Visible = true;
                 //  lnkEdit.Visible = true;
@@ -913,6 +914,14 @@ namespace WealthERP.OnlineOrderBackOffice
                 if (ddlNFoStatus.SelectedValue == "NFO")
                 {
                     trNFODate.Visible = true;
+                }
+                if (ddlNFoStatus.SelectedValue == "CloseNFO")
+                {
+                    ddlNFoStatus.Items[5].Enabled = true;
+                }
+                if (ddlNFoStatus.SelectedValue == "Merged")
+                {
+                    ddlNFoStatus.Items[4].Enabled = true;
                 }
             }
             else
@@ -1217,6 +1226,14 @@ namespace WealthERP.OnlineOrderBackOffice
                 if (ddlNFoStatus.SelectedValue == "NFO")
                 {
                     trNFODate.Visible = true;
+                }
+                if (ddlNFoStatus.SelectedValue == "CloseNFO")
+                {
+                    ddlNFoStatus.Items[5].Enabled = true;
+                }
+                if (ddlNFoStatus.SelectedValue == "Merged")
+                {
+                    ddlNFoStatus.Items[4].Enabled = true;
                 }
             }
             else

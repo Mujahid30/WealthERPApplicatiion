@@ -80,7 +80,7 @@ namespace WealthERP.OnlineOrderManagement
             if (e.CommandName == "Buy")
             {
                 int Multipleallowed = onlineNCDBackOfficeBo.CustomerMultipleOrder(customerVo.CustomerId, issueId);
-                if (Multipleallowed==1)
+                if (Multipleallowed == 1 || Multipleallowed >1)
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Multiple Applications is not allowed for this issue!!');", true);
                     return ;
