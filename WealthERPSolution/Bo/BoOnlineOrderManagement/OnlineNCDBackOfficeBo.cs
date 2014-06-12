@@ -1244,25 +1244,54 @@ namespace BoOnlineOrderManagement
             string[] headers = allLines[0].Split(ch);
 
             DataTable dtUploadFile = new DataTable("Upload");
+            string columnName = "";
+           
 
-            foreach (string header in headers)
+            if (fileTypeId == 17 || fileTypeId == 18 || fileTypeId == 19 || fileTypeId == 25)
             {
-                if (dtUploadFile.Columns.Contains(header))
+                int i = 1;
+                foreach (string header in headers)
                 {
-                    dtUploadFile.Columns.Add(header + dtUploadFile.Columns.Count);
+                    columnName= "column" + i;
+                    if (dtUploadFile.Columns.Contains(columnName))
+                    {
+                        dtUploadFile.Columns.Add(columnName + dtUploadFile.Columns.Count);
+                    }
+                    else
+                    {
+                        dtUploadFile.Columns.Add(columnName);
+                    }
+                   
+                    i++;
                 }
-                else
+                for (i = 0; i < allLines.Length; i++)
                 {
-                    dtUploadFile.Columns.Add(header);
+                    string[] row = allLines[i].Split(ch);
+                    dtUploadFile.Rows.Add(row);
                 }
             }
-
-            for (int i = 1; i < allLines.Length; i++)
+            else
             {
-                string[] row = allLines[i].Split(ch);
-                dtUploadFile.Rows.Add(row);
-            }
+                foreach (string header in headers)
+                {
+                    if (dtUploadFile.Columns.Contains(header))
+                    {
+                        dtUploadFile.Columns.Add(header + dtUploadFile.Columns.Count);
+                    }
+                    else
+                    {
+                        dtUploadFile.Columns.Add(header);
+                    }
+                }
 
+                for (int i = 1; i < allLines.Length; i++)
+                {
+                    string[] row = allLines[i].Split(ch);
+                    dtUploadFile.Rows.Add(row);
+                }
+
+            }
+            
             return dtUploadFile;
         }
 
