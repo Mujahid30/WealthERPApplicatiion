@@ -638,7 +638,8 @@ namespace BoOnlineOrderManagement
                                 if (!string.IsNullOrEmpty(drJoint["AMFE_JointNomineePan"].ToString()))
                                 {
                                     AMFE_JointHolder1Pan = drJoint["AMFE_JointNomineePan"].ToString();
-                                    AMFE_JH1PanValid = "Y";
+                                    if (drJoint["AMFE_JointNomineeKYC"].ToString() == "1")
+                                        AMFE_JH1PanValid = "Y";
                                 }
                                 AMFE_Dp_Id = drJoint["AMFE_Dp_Id"].ToString();
 
@@ -650,7 +651,8 @@ namespace BoOnlineOrderManagement
                                 if (!string.IsNullOrEmpty(drJoint["AMFE_JointNomineePan"].ToString()))
                                 {
                                     AMFE_JointHolder2Pan = drJoint["AMFE_JointNomineePan"].ToString();
-                                    AMFE_JH2PanValid = "Y";
+                                    if (drJoint["AMFE_JointNomineeKYC"].ToString() == "1")
+                                        AMFE_JH2PanValid = "Y";
                                 }
                                 if (string.IsNullOrEmpty(AMFE_Dp_Id))
                                     AMFE_Dp_Id = drJoint["AMFE_Dp_Id"].ToString();
@@ -684,8 +686,14 @@ namespace BoOnlineOrderManagement
 
                     foreach (DataColumn dcc in dtRTAOrderExtract.Columns)
                     {
+                        if (dcc.ToString() == "AMFE_JH1PanValid")
+                        {
+
+                        }
+
                         if (drProfileOrder.Table.Columns.Contains(dcc.ToString()))
                         {
+
                             if (dcc.ToString() == "AMFE_TransactionTime")
                             {
                                 drFinalRTAExtract[dcc.ToString()] = TimeSpan.Parse(drProfileOrder[dcc.ToString()].ToString());
@@ -1730,7 +1738,7 @@ namespace BoOnlineOrderManagement
             }
             return result;
         }
-        public bool Updateproductamcscheme(MFProductAMCSchemePlanDetailsVo mfProductAMCSchemePlanDetailsVo, int SchemePlanCode,int userid)
+        public bool Updateproductamcscheme(MFProductAMCSchemePlanDetailsVo mfProductAMCSchemePlanDetailsVo, int SchemePlanCode, int userid)
         {
             bool blResult = false;
             OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
@@ -1797,8 +1805,8 @@ namespace BoOnlineOrderManagement
             }
             return extCode;
         }
-     
-        public DataTable GetSchemeForMarge(int AmcCode, int Schemeplanecode,string Type)
+
+        public DataTable GetSchemeForMarge(int AmcCode, int Schemeplanecode, string Type)
         {
             DataTable dtGetSchemeForMarge = new DataTable();
             OnlineOrderBackOfficeDao daoOnlineOrderBackOffice = new OnlineOrderBackOfficeDao();
@@ -1840,21 +1848,21 @@ namespace BoOnlineOrderManagement
             }
             return result;
         }
-         public String SchemeStatus(int schemeplanecode)
-         {
-             string status="";
-             OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
-             try
-             {
-                 status = OnlineOrderBackOfficeDao.SchemeStatus(schemeplanecode);
-             }
-             catch (BaseApplicationException Ex)
-             {
-                 throw Ex;
-             }
-             return status;
+        public String SchemeStatus(int schemeplanecode)
+        {
+            string status = "";
+            OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
+            try
+            {
+                status = OnlineOrderBackOfficeDao.SchemeStatus(schemeplanecode);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return status;
         }
-         public DataTable GetMergeScheme(int Schemeplanecode)
+        public DataTable GetMergeScheme(int Schemeplanecode)
         {
 
             DataTable dtGetMergeScheme = new DataTable();
@@ -1869,22 +1877,22 @@ namespace BoOnlineOrderManagement
             }
             return dtGetMergeScheme;
         }
-         public String DividentType(int schemeplanecode)
-         {
-             string Type = "";
-             OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
-             try
-             {
-                 Type = OnlineOrderBackOfficeDao.DividentType(schemeplanecode);
-             }
-             catch (BaseApplicationException Ex)
-             {
-                 throw Ex;
-             }
-             return Type;
+        public String DividentType(int schemeplanecode)
+        {
+            string Type = "";
+            OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
+            try
+            {
+                Type = OnlineOrderBackOfficeDao.DividentType(schemeplanecode);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return Type;
 
-         }
-         public String GetProductAddedCode(int schemeplanecode)
+        }
+        public String GetProductAddedCode(int schemeplanecode)
         {
             string Productcode = "";
             OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
@@ -1899,65 +1907,65 @@ namespace BoOnlineOrderManagement
             return Productcode;
 
         }
-         public DataSet GetAdviserCustomersAllMFAccounts(int IsValued, int advisorId)
-         {
-             DataSet dsAdviserCustomersAllMFAccounts;
-             OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
-
-             try
-             {
-                 dsAdviserCustomersAllMFAccounts = OnlineOrderBackOfficeDao.GetAdviserCustomersAllMFAccounts(IsValued, advisorId);
-             }
-             catch (BaseApplicationException Ex)
-             {
-                 throw Ex;
-             }
-             catch (Exception Ex)
-             {
-                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                 NameValueCollection FunctionInfo = new NameValueCollection();
-                 FunctionInfo.Add("Method", "OnlineOrderBackOfficeBo.cs:GetAdviserCustomersAllMFAccounts()");
-                 exBase.AdditionalInformation = FunctionInfo;
-                 ExceptionManager.Publish(exBase);
-                 throw exBase;
-             }
-
-             return dsAdviserCustomersAllMFAccounts;
-         }
-         public void UpdateAdviserCustomersAllMFAccounts(string gvMFAId, int ModifiedBy)
-         {
-             OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
-             try
-             {
-                 OnlineOrderBackOfficeDao.UpdateAdviserCustomersAllMFAccounts(gvMFAId, ModifiedBy);
-             }
-             catch (BaseApplicationException Ex)
-             {
-                 throw Ex;
-             }
-             catch (Exception Ex)
-             {
-                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                 NameValueCollection FunctionInfo = new NameValueCollection();
-                 FunctionInfo.Add("Method", "OnlineOrderBackOfficeBo.cs:UpdateAdviserCustomersAllMFAccounts()");
-                
-                 exBase.AdditionalInformation = FunctionInfo;
-                 ExceptionManager.Publish(exBase);
-                 throw exBase;
-             }
-
-         }
-         public DataSet Getproductcode(int schemeplancode)
-         {
-             DataSet dsGetproductcode;
-             OnlineOrderBackOfficeDao daoOnlineOrderBackOffice = new OnlineOrderBackOfficeDao();
-             dsGetproductcode = daoOnlineOrderBackOffice.Getproductcode(schemeplancode);
-             return dsGetproductcode;
-         }
-         public bool Createproductcode(int Schemeplancode, string Productcode, string Externaltype, string XESSourcecode, int Userid)
+        public DataSet GetAdviserCustomersAllMFAccounts(int IsValued, int advisorId)
         {
-             OnlineOrderBackOfficeDao daoOnlineOrderBackOffice = new OnlineOrderBackOfficeDao();
-           
+            DataSet dsAdviserCustomersAllMFAccounts;
+            OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
+
+            try
+            {
+                dsAdviserCustomersAllMFAccounts = OnlineOrderBackOfficeDao.GetAdviserCustomersAllMFAccounts(IsValued, advisorId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeBo.cs:GetAdviserCustomersAllMFAccounts()");
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return dsAdviserCustomersAllMFAccounts;
+        }
+        public void UpdateAdviserCustomersAllMFAccounts(string gvMFAId, int ModifiedBy)
+        {
+            OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
+            try
+            {
+                OnlineOrderBackOfficeDao.UpdateAdviserCustomersAllMFAccounts(gvMFAId, ModifiedBy);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeBo.cs:UpdateAdviserCustomersAllMFAccounts()");
+
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+        }
+        public DataSet Getproductcode(int schemeplancode)
+        {
+            DataSet dsGetproductcode;
+            OnlineOrderBackOfficeDao daoOnlineOrderBackOffice = new OnlineOrderBackOfficeDao();
+            dsGetproductcode = daoOnlineOrderBackOffice.Getproductcode(schemeplancode);
+            return dsGetproductcode;
+        }
+        public bool Createproductcode(int Schemeplancode, string Productcode, string Externaltype, string XESSourcecode, int Userid)
+        {
+            OnlineOrderBackOfficeDao daoOnlineOrderBackOffice = new OnlineOrderBackOfficeDao();
+
             bool bResult = false;
             try
             {
@@ -1970,13 +1978,13 @@ namespace BoOnlineOrderManagement
             }
             return bResult;
         }
-         public bool UpdateProductcode(int Productamcdetailid, string Productcode, int userid)
+        public bool UpdateProductcode(int Productamcdetailid, string Productcode, int userid)
         {
             bool blResult = false;
             OnlineOrderBackOfficeDao daoOnlineOrderBackOffice = new OnlineOrderBackOfficeDao();
             try
             {
-                blResult = daoOnlineOrderBackOffice.UpdateProductcode(Productamcdetailid, Productcode,userid);
+                blResult = daoOnlineOrderBackOffice.UpdateProductcode(Productamcdetailid, Productcode, userid);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1984,28 +1992,28 @@ namespace BoOnlineOrderManagement
             }
             return blResult;
         }
-         public String ExternalCode(string Externaltype)
-         {
-             string Type = "";
-             OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
-             try
-             {
-                 Type = OnlineOrderBackOfficeDao.ExternalCode(Externaltype);
-             }
-             catch (BaseApplicationException Ex)
-             {
-                 throw Ex;
-             }
-             return Type;
+        public String ExternalCode(string Externaltype)
+        {
+            string Type = "";
+            OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
+            try
+            {
+                Type = OnlineOrderBackOfficeDao.ExternalCode(Externaltype);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return Type;
 
-         }
-         public int GetSchemecode(int schemeplancode)
-         {
-             int schemecode = 0;
-             OnlineOrderBackOfficeDao daoOnlineOrderBackOffice = new OnlineOrderBackOfficeDao();
-             schemecode = daoOnlineOrderBackOffice.GetSchemecode(schemeplancode);
-             return schemecode;
-         }
+        }
+        public int GetSchemecode(int schemeplancode)
+        {
+            int schemecode = 0;
+            OnlineOrderBackOfficeDao daoOnlineOrderBackOffice = new OnlineOrderBackOfficeDao();
+            schemecode = daoOnlineOrderBackOffice.GetSchemecode(schemeplancode);
+            return schemecode;
+        }
     }
 
 }
