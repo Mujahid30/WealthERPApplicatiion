@@ -61,6 +61,22 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void gvIPOHolding_OnItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
         {
+            if (e.Item is GridDataItem)
+            {
+                GridDataItem gvr = (GridDataItem)e.Item;
+                int AIMissueId = int.Parse(gvr.GetDataKeyValue("AIM_IssueId").ToString());
+                int orderId = int.Parse(gvr.GetDataKeyValue("CO_OrderId").ToString());
+                DateTime fromDate = Convert.ToDateTime(gvr.GetDataKeyValue("CO_OrderDate").ToString());
+                DateTime toDate = Convert.ToDateTime(gvr.GetDataKeyValue("AIA_AllotmentDate").ToString());
+
+                if (e.CommandName == "Select")
+                {
+                   // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerIPOOrderBook", "loadcontrol('CustomerIPOOrderBook','action=viewCustomerIpoOrderBookt&issueNo=" + AIMissueId + "&orderId=" + orderId + "&fromDate=" + fromDate + "&toDate=" + toDate + "');", true);
+
+                    Response.Redirect("ControlHost.aspx?pageid=CustomerIPOOrderBook&AIMissueId=" + AIMissueId + "&orderId=" + orderId + "&fromDate=" + fromDate + "&toDate=" + toDate + "", false);
+
+                }
+            }
         }
         public void gvIPOHolding_OnItemDataBound(object sender, GridItemEventArgs e)
         {

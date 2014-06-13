@@ -568,6 +568,9 @@ namespace DaoOnlineOrderManagement
                         if (dr["PASP_SchemeOpenDate"].ToString() != string.Empty)
 
                             mfProductAMCSchemePlanDetailsVo.SchemeStartDate = DateTime.Parse(dr["PASP_SchemeOpenDate"].ToString());
+                        if (dr["PASP_MaturityDate"].ToString() != string.Empty)
+
+                            mfProductAMCSchemePlanDetailsVo.MaturityDate = DateTime.Parse(dr["PASP_MaturityDate"].ToString());
                     }
                 }
 
@@ -1812,6 +1815,14 @@ namespace DaoOnlineOrderManagement
                 {
                     db.AddInParameter(UpdateproductamcschemeCmd, "@SchemeOpenDate", DbType.DateTime, DBNull.Value);
                 }
+                if (mfProductAMCSchemePlanDetailsVo.MaturityDate != DateTime.MinValue) //10
+                {
+                    db.AddInParameter(UpdateproductamcschemeCmd, "@MaturityDate", DbType.DateTime, mfProductAMCSchemePlanDetailsVo.MaturityDate);
+                }
+                else
+                {
+                    db.AddInParameter(UpdateproductamcschemeCmd, "@MaturityDate", DbType.DateTime, DBNull.Value);
+                }
                 db.ExecuteNonQuery(UpdateproductamcschemeCmd);
                 if (db.ExecuteNonQuery(UpdateproductamcschemeCmd) != 0)
                     blResult = true;
@@ -1888,6 +1899,14 @@ namespace DaoOnlineOrderManagement
                 else
                 {
                     db.AddInParameter(CreateOnlineSchemeSetupPlanCmd, "@SchemeOpenDate", DbType.DateTime, DBNull.Value);
+                }
+                if (mfProductAMCSchemePlanDetailsVo.MaturityDate != DateTime.MinValue) //10
+                {
+                    db.AddInParameter(CreateOnlineSchemeSetupPlanCmd, "@MaturityDate", DbType.DateTime, mfProductAMCSchemePlanDetailsVo.MaturityDate);
+                }
+                else
+                {
+                    db.AddInParameter(CreateOnlineSchemeSetupPlanCmd, "@MaturityDate", DbType.DateTime, DBNull.Value);
                 }
                 if (db.ExecuteNonQuery(CreateOnlineSchemeSetupPlanCmd) != 0)
                     schemeplancode = int.Parse(db.GetParameterValue(CreateOnlineSchemeSetupPlanCmd, "@SchemePlanCode").ToString());

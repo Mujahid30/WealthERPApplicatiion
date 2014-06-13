@@ -72,7 +72,7 @@ namespace BoOnlineOrderManagement
             return orderId;
         }
 
-        public DataTable GetCustomerIPOIssueBook(int customerId,int issueId,string status,DateTime fromdate,DateTime todate)
+        public DataTable GetCustomerIPOIssueBook(int customerId,int issueId,string status,DateTime fromdate,DateTime todate,int orderId)
         {
 
             DataTable dtCustomerIPOIssueBook;
@@ -80,7 +80,7 @@ namespace BoOnlineOrderManagement
 
             try
             {
-                dtCustomerIPOIssueBook = onlineIPOOrderDao.GetCustomerIPOIssueBook(customerId, issueId,status, fromdate, todate);
+                dtCustomerIPOIssueBook = onlineIPOOrderDao.GetCustomerIPOIssueBook(customerId, issueId, status, fromdate, todate, orderId);
 
             }
             catch (BaseApplicationException Ex)

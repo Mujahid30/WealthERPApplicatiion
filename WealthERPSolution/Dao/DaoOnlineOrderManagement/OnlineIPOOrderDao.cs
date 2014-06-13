@@ -111,7 +111,7 @@ namespace DaoOnlineOrderManagement
 
         }
 
-        public DataTable GetCustomerIPOIssueBook(int customerId,int issueId,string status,DateTime fromdate,DateTime todate)
+        public DataTable GetCustomerIPOIssueBook(int customerId, int issueId, string status, DateTime fromdate, DateTime todate, int orderId)
         {
             DataTable dtCustomerIPOIssueBook;
             Database db;
@@ -125,6 +125,10 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(GetCustomerIPOIssueListCmd, "@Status", DbType.String, status);
                 db.AddInParameter(GetCustomerIPOIssueListCmd, "@Fromdate", DbType.DateTime, fromdate);
                 db.AddInParameter(GetCustomerIPOIssueListCmd, "@ToDate", DbType.DateTime, todate);
+                if (orderId != 0)
+                {
+                    db.AddInParameter(GetCustomerIPOIssueListCmd, "@OrderId", DbType.Int32, orderId);
+                }
                 dtCustomerIPOIssueBook = db.ExecuteDataSet(GetCustomerIPOIssueListCmd).Tables[0];
 
             }

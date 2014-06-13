@@ -8,11 +8,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WealthERP.Customer {
-    
-    
-    public partial class ViewBankDetails {
-        
+namespace WealthERP.Customer
+{
+
+
+    public partial class ViewBankDetails
+    {
+
         /// <summary>
         /// scrptMgr control.
         /// </summary>
@@ -21,7 +23,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.ScriptManager scrptMgr;
-        
+
         /// <summary>
         /// imgBtnrgHoldings control.
         /// </summary>
@@ -30,7 +32,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton imgBtnrgHoldings;
-        
+
         /// <summary>
         /// trMessage control.
         /// </summary>
@@ -39,7 +41,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trMessage;
-        
+
         /// <summary>
         /// lblMessage control.
         /// </summary>
@@ -48,7 +50,13 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblMessage;
-        
+        protected global::System.Web.UI.WebControls.DropDownList ddlOptionSearch;
+        protected global::System.Web.UI.WebControls.TextBox txtcustomerName;
+        protected global::System.Web.UI.WebControls.TextBox txtCustCode;
+        protected global::System.Web.UI.WebControls.RadioButton rbtnIndividual;
+        protected global::System.Web.UI.WebControls.RadioButton rdtnOnline;
+        protected global::System.Web.UI.WebControls.RadioButton rbtnOffline;
+
         /// <summary>
         /// gvBankDetails control.
         /// </summary>
@@ -57,7 +65,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid gvBankDetails;
-        
+
         /// <summary>
         /// DivAction control.
         /// </summary>
@@ -66,7 +74,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivAction;
-        
+
         /// <summary>
         /// btnDelete control.
         /// </summary>
@@ -75,7 +83,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnDelete;
-        
+
         /// <summary>
         /// trCSTransactionCaption control.
         /// </summary>
@@ -84,7 +92,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trCSTransactionCaption;
-        
+
         /// <summary>
         /// trAccountDetail control.
         /// </summary>
@@ -93,7 +101,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trAccountDetail;
-        
+
         /// <summary>
         /// ddlAccountDetails control.
         /// </summary>
@@ -102,7 +110,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlAccountDetails;
-        
+
         /// <summary>
         /// trHoldingAndTrnx control.
         /// </summary>
@@ -111,7 +119,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trHoldingAndTrnx;
-        
+
         /// <summary>
         /// Label6 control.
         /// </summary>
@@ -120,7 +128,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label6;
-        
+
         /// <summary>
         /// rbtnholding control.
         /// </summary>
@@ -129,7 +137,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RadioButton rbtnholding;
-        
+
         /// <summary>
         /// rbtntransaction control.
         /// </summary>
@@ -138,7 +146,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RadioButton rbtntransaction;
-        
+
         /// <summary>
         /// trholdingamount control.
         /// </summary>
@@ -147,7 +155,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trholdingamount;
-        
+
         /// <summary>
         /// lblamount control.
         /// </summary>
@@ -156,7 +164,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblamount;
-        
+
         /// <summary>
         /// txtholdingAmt control.
         /// </summary>
@@ -165,7 +173,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtholdingAmt;
-        
+
         /// <summary>
         /// btnSubmit control.
         /// </summary>
@@ -174,7 +182,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSubmit;
-        
+
         /// <summary>
         /// DivTransaction control.
         /// </summary>
@@ -183,7 +191,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivTransaction;
-        
+
         /// <summary>
         /// gvCashSavingTransaction control.
         /// </summary>
@@ -192,7 +200,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid gvCashSavingTransaction;
-        
+
         /// <summary>
         /// hidValidCheck control.
         /// </summary>

@@ -20,20 +20,35 @@ namespace WealthERP.OnlineOrderBackOffice
         AdvisorVo advisorVo;       
         DateTime fromDate;
         DateTime toDate;
+        int AIMissueId = 0;
+        int orderId = 0; 
         BoOnlineOrderManagement.OnlineBondOrderBo BoOnlineBondOrder = new BoOnlineOrderManagement.OnlineBondOrderBo();
         OnlineNCDBackOfficeBo onlineNCDBackOfficeBo = new OnlineNCDBackOfficeBo();
         OnlineIPOBackOfficeBo OnlineIPOBackOfficeBo = new OnlineIPOBackOfficeBo();
         protected void Page_Load(object sender, EventArgs e)
         {
-            userVo = (UserVo)Session[SessionContents.UserVo];           
+            userVo = (UserVo)Session[SessionContents.UserVo];
             advisorVo = (AdvisorVo)Session["advisorVo"];
+            fromDate = DateTime.Now.AddMonths(-1);
+            txtOrderFrom.SelectedDate = fromDate.Date;
+            txtOrderTo.SelectedDate = DateTime.Now;
+            BindOrderStatus();
+            BindIssueName();
             if (!IsPostBack)
             {
-                fromDate = DateTime.Now.AddMonths(-1);
-                txtOrderFrom.SelectedDate = fromDate.Date;
-                txtOrderTo.SelectedDate = DateTime.Now;
-                BindOrderStatus();
-                BindIssueName();
+                if (Request.QueryString["AIMissueId"] != null && Request.QueryString["orderId"] != null && Request.QueryString["fromDate"] != null && Request.QueryString["toDate"] != null)
+                {
+                    AIMissueId = int.Parse(Request.QueryString["AIMissueId"].ToString());
+                    orderId = int.Parse(Request.QueryString["orderId"].ToString());
+                    fromDate = Convert.ToDateTime(Request.QueryString["fromDate"].ToString());
+                    toDate = Convert.ToDateTime(Request.QueryString["toDate"].ToString());
+                    txtOrderFrom.SelectedDate = fromDate;
+                    txtOrderTo.SelectedDate = toDate;
+                    ddlOrderStatus.SelectedValue = "PR";
+                    ddlIssueName.SelectedValue = AIMissueId.ToString();
+                    //hdnOrderStatus.Value = "PR";
+                    BindAdviserNCCOrderBook();
+                }
             }
         }
         protected void BindIssueName()
@@ -90,7 +105,7 @@ namespace WealthERP.OnlineOrderBackOffice
             if (txtOrderTo.SelectedDate != null)
                 toDate = DateTime.Parse(txtOrderTo.SelectedDate.ToString());
             DataTable dtIPOOrder;
-            dtIPOOrder = OnlineIPOBackOfficeBo.GetAdviserIPOOrderBook(advisorVo.advisorId,Convert.ToInt32(ddlIssueName.SelectedValue.ToString()), hdnOrderStatus.Value, fromDate, toDate);
+            dtIPOOrder = OnlineIPOBackOfficeBo.GetAdviserIPOOrderBook(advisorVo.advisorId,Convert.ToInt32(ddlIssueName.SelectedValue.ToString()), ddlOrderStatus.SelectedValue, fromDate, toDate,orderId);
             if (dtIPOOrder.Rows.Count >= 0)
             {
                 if (Cache["IPOBookList" + userVo.UserId.ToString()] == null)

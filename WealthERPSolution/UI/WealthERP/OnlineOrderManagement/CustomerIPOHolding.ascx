@@ -37,14 +37,14 @@
                     OnItemCommand="gvIPOHolding_OnItemCommand" OnItemDataBound="gvIPOHolding_OnItemDataBound">
                     <ExportSettings FileName="Details" HideStructureColumns="true" ExportOnlyData="true">
                     </ExportSettings>
-                    <MasterTableView DataKeyNames="AIM_IssueId,AIM_IssueName" Width="100%" AllowMultiColumnSorting="True"
-                        AutoGenerateColumns="false" CommandItemDisplay="None">
+                    <MasterTableView DataKeyNames="AIM_IssueId,AIM_IssueName,CO_ApplicationNumber,CO_OrderDate,AIA_AllotmentDate,CO_OrderId"
+                        Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
                         <Columns>
                             <telerik:GridBoundColumn Visible="false" DataField="AIM_IssueId" SortExpression="AIM_IssueId"
                                 AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                             <telerik:GridBoundColumn DataField="AIA_AllotmentDate" SortExpression="AIA_AllotmentDate"
+                            <telerik:GridBoundColumn DataField="AIA_AllotmentDate" SortExpression="AIA_AllotmentDate"
                                 AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
                                 AllowFiltering="false" HeaderText="Date of allotment" UniqueName="AIA_AllotmentDate"
                                 DataFormatString="{0:dd/MM/yyyy HH:mm:ss}" HeaderStyle-Width="50px">
@@ -55,24 +55,31 @@
                                 AllowFiltering="false" HeaderText="Scrip" UniqueName="AIM_IssueName" HeaderStyle-Width="100px">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="CO_OrderId" SortExpression="CO_OrderId"
-                                AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
-                                AllowFiltering="false" HeaderText="Order No" UniqueName="CO_OrderId" HeaderStyle-Width="40px">
+                            <telerik:GridBoundColumn DataField="CO_OrderId" SortExpression="CO_OrderId" AutoPostBackOnFilter="true"
+                                CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="false"
+                                HeaderText="Order No" UniqueName="CO_OrderId" HeaderStyle-Width="40px">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                             <telerik:GridBoundColumn DataField="CO_ApplicationNumber" SortExpression="CO_ApplicationNumber"
+                            <telerik:GridTemplateColumn DataField="CO_ApplicationNumber" SortExpression="CO_ApplicationNumber"
                                 AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
-                                AllowFiltering="false" HeaderText="Application Number" UniqueName="CO_ApplicationNumber" HeaderStyle-Width="60px">
+                                AllowFiltering="false" HeaderText="Application Number" UniqueName="CO_ApplicationNumber"
+                                HeaderStyle-Width="60px">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="OpenDateTime" SortExpression="OpenDateTime"
-                                AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
-                                AllowFiltering="false" HeaderText="Issue OPen Date" UniqueName="OpenDateTime" HeaderStyle-Width="60px">
+                                <ItemTemplate>
+                                    <asp:LinkButton ID="lnkApplicationNo" runat="server" CommandName="Select" Text='<%# Eval("CO_ApplicationNumber").ToString() %>'>
+                                    </asp:LinkButton>
+                                </ItemTemplate>
+                            </telerik:GridTemplateColumn>
+                            <telerik:GridBoundColumn DataField="OpenDateTime" SortExpression="OpenDateTime" AutoPostBackOnFilter="true"
+                                DataFormatString="{0:dd/MM/yyyy HH:mm:ss}" CurrentFilterFunction="Contains" ShowFilterIcon="false"
+                                AllowFiltering="false" HeaderText="Issue Open Date" UniqueName="OpenDateTime"
+                                HeaderStyle-Width="60px">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="CloseDateTime" SortExpression="CloseDateTime"
-                                AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
-                                AllowFiltering="false" HeaderText="Issue Close Date" UniqueName="CloseDateTime" HeaderStyle-Width="60px">
+                                DataFormatString="{0:dd/MM/yyyy HH:mm:ss}" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"
+                                ShowFilterIcon="false" AllowFiltering="false" HeaderText="Issue Close Date" UniqueName="CloseDateTime"
+                                HeaderStyle-Width="60px">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="AllotedQty" SortExpression="AllotedQty" AutoPostBackOnFilter="true"
@@ -103,7 +110,7 @@
                     </MasterTableView>
                     <ClientSettings>
                         <Resizing AllowColumnResize="true" />
-                    </ClientSettings> 
+                    </ClientSettings>
                 </telerik:RadGrid>
             </td>
         </tr>

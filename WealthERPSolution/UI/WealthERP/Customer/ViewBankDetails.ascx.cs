@@ -333,8 +333,8 @@ namespace WealthERP.Customer
                 DropDownList ddlBankName = (DropDownList)gefi.FindControl("ddlBankName");
                 dtBankName = customerBankAccountBo.GetALLBankName();
                 ddlBankName.DataSource = dtBankName;
-                ddlBankName.DataValueField = dtBankName.Columns["WERPBM_BankCode"].ToString();
-                ddlBankName.DataTextField = dtBankName.Columns["WERPBM_BankName"].ToString();
+                ddlBankName.DataValueField = dtBankName.Columns["WCMV_BankName"].ToString();
+                ddlBankName.DataTextField = dtBankName.Columns["WCMV_LookupId_BankId"].ToString();
                 ddlBankName.DataBind();
                 ddlBankName.Items.Insert(0, new ListItem("Select", "Select"));
 
@@ -425,7 +425,7 @@ namespace WealthERP.Customer
                 strBankAdrState = gvBankDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CB_BranchAdrState"].ToString();
                 strModeOfOperation = gvBankDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["XMOH_ModeOfHoldingCode"].ToString();
                 strAccountType = gvBankDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["PAIC_AssetInstrumentCategoryCode"].ToString();
-                strBankName = gvBankDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WERPBM_BankCode"].ToString();
+                strBankName = gvBankDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WCMV_LookupId_BankId"].ToString();
 
                 GridEditFormItem editedItem = (GridEditFormItem)e.Item;
                 DataTable dtAccType = new DataTable();
@@ -452,8 +452,8 @@ namespace WealthERP.Customer
                 DropDownList ddlBankName = (DropDownList)editedItem.FindControl("ddlBankName");
                 dtBankName = customerBankAccountBo.GetALLBankName();
                 ddlBankName.DataSource = dtBankName;
-                ddlBankName.DataValueField = dtBankName.Columns["WERPBM_BankCode"].ToString();
-                ddlBankName.DataTextField = dtBankName.Columns["WERPBM_BankName"].ToString();
+                ddlBankName.DataValueField = dtBankName.Columns["WCMV_LookupId_BankId"].ToString();
+                ddlBankName.DataTextField = dtBankName.Columns["WCMV_BankName"].ToString();
                 ddlBankName.DataBind();
                 ddlBankName.SelectedValue = strBankName;
 
@@ -770,7 +770,7 @@ namespace WealthERP.Customer
                 bankId = int.Parse(gvBankDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CB_CustBankAccId"].ToString());             
                 string accountNum = (gvBankDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CB_AccountNum"].ToString());
                 double amount = double.Parse(gvBankDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CB_HoldingAmount"].ToString());
-                string bankname = (gvBankDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WERPBDTM_BankName"].ToString());
+                string bankname = (gvBankDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WCMV_BankName"].ToString());
                 string name = "Editbalance";
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AddBankDetails", "loadcontrol('AddBankDetails','?name=" + name + "&accountNum=" + accountNum + "&amount=" + amount + "&bankname=" + bankname + "&bankId=" + bankId + "');", true);
 

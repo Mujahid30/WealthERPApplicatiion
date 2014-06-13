@@ -179,7 +179,7 @@
                     HeaderText="CB_CustBankAccId" DataField="CB_CustBankAccId" SortExpression="CB_CustBankAccId"
                     AllowFiltering="false" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn UniqueName="WERPBDTM_BankName" HeaderStyle-Width="90px"
+                <telerik:GridBoundColumn UniqueName="WCMV_BankName" HeaderStyle-Width="90px"
                     HeaderText="Bank" DataField="WCMV_BankName" SortExpression="WCMV_BankName"
                     AllowFiltering="false" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                 </telerik:GridBoundColumn>
@@ -187,7 +187,7 @@
                     DataField="CB_AccountNum" SortExpression="CB_AccountNum" AllowFiltering="false"
                     ShowFilterIcon="false" AutoPostBackOnFilter="true">
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn UniqueName="PAIC_AssetInstrumentCategoryName" HeaderStyle-Width="80px"
+                <telerik:GridBoundColumn UniqueName="WCMV_BankAccountType" HeaderStyle-Width="80px"
                     HeaderText="Account Type" DataField="WCMV_BankAccountType" SortExpression="WCMV_BankAccountType"
                     AllowFiltering="false" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                 </telerik:GridBoundColumn>

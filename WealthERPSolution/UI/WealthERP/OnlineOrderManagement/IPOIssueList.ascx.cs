@@ -82,7 +82,7 @@ namespace WealthERP.OnlineOrderManagement
                 int Multipleallowed = onlineNCDBackOfficeBo.CustomerMultipleOrder(customerVo.CustomerId, issueId);
                 if (Multipleallowed == 1 || Multipleallowed >1)
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Multiple Applications is not allowed for this issue!!');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('You have already invested in selected issue, Please check the order book for the status .</br>Multiple Investment is not allowed in same issue!!');", true);
                     return ;
                 }
                 int accountactivate = onlineNCDBackOfficeBo.CheckAccountisActive(advisorVo.advisorId, customerVo.CustomerId);

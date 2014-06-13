@@ -90,9 +90,27 @@ namespace WealthERP.OnlineOrderBackOffice
             //    gvIPOIssueHoldings.DataSource = dtBindIPOIssueHoldings;
             //}
         }
-        protected void btnExpandAll_Click(object sender, EventArgs e)
-        {
+        //protected void btnExpandAll_Click(object sender, EventArgs e)
+        //{
 
+        //}
+        protected void gvIPOIssueHoldings_OnItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
+        {
+            if (e.Item is GridDataItem)
+            {
+                GridDataItem gvr = (GridDataItem)e.Item;
+                int AIMissueId = int.Parse(gvr.GetDataKeyValue("AIM_IssueId").ToString());
+                int orderId = int.Parse(gvr.GetDataKeyValue("CO_OrderId").ToString());
+                DateTime fromDate = Convert.ToDateTime(gvr.GetDataKeyValue("AIM_OpenDate").ToString());
+                DateTime toDate = Convert.ToDateTime(gvr.GetDataKeyValue("AIA_AllotmentDate").ToString());
+
+                if (e.CommandName == "Select")
+                {
+
+                    Response.Redirect("ControlHost.aspx?pageid=OnlineAdviserCustomerIPOOrderBook&AIMissueId=" + AIMissueId + "&orderId=" + orderId + "&fromDate=" + fromDate + "&toDate=" + toDate + "", false);
+
+                }
+            }
         }
     }
 }

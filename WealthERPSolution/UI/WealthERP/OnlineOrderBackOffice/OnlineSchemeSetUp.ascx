@@ -286,11 +286,35 @@
                 </td>
             </tr>
             <tr>
-            <td align="right">
+                <td align="right">
                     <asp:Label ID="lblSchemeStartDate" runat="server" Text="Scheme Re-Start Date:" CssClass="FieldName"></asp:Label>
                 </td>
                 <td>
-                    <telerik:RadDatePicker ID="txtSchemeStartDate" CssClass="txtField" runat="server" Culture="English (United States)"
+                    <telerik:RadDatePicker ID="txtSchemeStartDate" CssClass="txtField" runat="server"
+                        Culture="English (United States)" AutoPostBack="false" Skin="Telerik" EnableEmbeddedSkins="false"
+                        ShowAnimation-Type="Fade" MinDate="1900-01-01" TabIndex="5">
+                        <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
+                            Skin="Telerik" EnableEmbeddedSkins="false">
+                        </Calendar>
+                        <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                        <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                        </DateInput>
+                    </telerik:RadDatePicker>
+                    <%-- <span id="Span24" class="spnRequiredField">*</span>
+                    <asp:RequiredFieldValidator ID="reqSchemeStartDate" ControlToValidate="txtSchemeStartDate"
+                        CssClass="rfvPCG" ErrorMessage="<br />Please select scheme start date" Display="Dynamic"
+                        runat="server" InitialValue="" ValidationGroup="btnsubmit"></asp:RequiredFieldValidator--%>
+                    <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="txtSchemeStartDate"
+                        ErrorMessage="<br/> NFO Scheme Start Date should be greater than from NFO end date"
+                        Type="Date" Operator="GreaterThan" ControlToCompare="txtNFOendDate" CssClass="cvPCG"
+                        ValidationGroup="btnsubmit" Display="Dynamic">
+                    </asp:CompareValidator>
+                </td>
+                <td align="right">
+                    <asp:Label ID="lblMaturityDate" runat="server" Text="Maturity Date:" CssClass="FieldName"></asp:Label>
+                </td>
+                <td>
+                    <telerik:RadDatePicker ID="txtMaturityDate" CssClass="txtField" runat="server" Culture="English (United States)"
                         AutoPostBack="false" Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade"
                         MinDate="1900-01-01" TabIndex="5">
                         <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
@@ -300,15 +324,6 @@
                         <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
                         </DateInput>
                     </telerik:RadDatePicker>
-                   <%-- <span id="Span24" class="spnRequiredField">*</span>
-                    <asp:RequiredFieldValidator ID="reqSchemeStartDate" ControlToValidate="txtSchemeStartDate"
-                        CssClass="rfvPCG" ErrorMessage="<br />Please select scheme start date" Display="Dynamic"
-                        runat="server" InitialValue="" ValidationGroup="btnsubmit"></asp:RequiredFieldValidator--%>
-                    <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="txtSchemeStartDate"
-                        ErrorMessage="<br/> NFO Scheme Start Date should be greater than from NFO end date" Type="Date"
-                        Operator="GreaterThan" ControlToCompare="txtNFOendDate" CssClass="cvPCG"
-                        ValidationGroup="btnsubmit" Display="Dynamic">
-                    </asp:CompareValidator>
                 </td>
             </tr>
             <tr>
@@ -474,7 +489,7 @@
                 </td>
                 <td>
                     <asp:TextBox ID="txtLIperiod" runat="server" CssClass="cmbFielde"></asp:TextBox>
-                   <%-- <span id="Span23" class="spnRequiredField">*</span>
+                    <%-- <span id="Span23" class="spnRequiredField">*</span>
                     <br />
                     <asp:RequiredFieldValidator ID="rfvtxtLIperiod" runat="server" ErrorMessage="Please Enter Lock in period"
                         CssClass="rfvPCG" ControlToValidate="txtLIperiod" ValidationGroup="btnsubmit"
@@ -551,7 +566,7 @@
                     <asp:DropDownList ID="ddlGenerationfreq" runat="server" CssClass="cmbField" AutoPostBack="false">
                         <asp:ListItem Text="Select" Value="Select" Selected="false" />
                     </asp:DropDownList>
-                   <%-- <span id="Span36" class="spnRequiredField">*</span>
+                    <%-- <span id="Span36" class="spnRequiredField">*</span>
                     <br />
                     <asp:RequiredFieldValidator ID="rfvddlGenerationfreq" runat="server" ErrorMessage="Please select file generation freq."
                         CssClass="rfvPCG" ControlToValidate="ddlGenerationfreq" ValidationGroup="btnsubmit"
@@ -562,7 +577,7 @@
                 </td>
                 <td>
                     <asp:TextBox ID="txtFvale" runat="server" CssClass="cmbFielde"></asp:TextBox>
-                   <%-- <span id="Span12" class="spnRequiredField">*</span>
+                    <%-- <span id="Span12" class="spnRequiredField">*</span>
                     <br />
                     <asp:RequiredFieldValidator ID="rfvtxtFvale" runat="server" ErrorMessage="Please Enter Face value"
                         CssClass="rfvPCG" ControlToValidate="txtFvale" ValidationGroup="btnsubmit" Display="Dynamic"
@@ -614,9 +629,9 @@
                     <span id="Span16" class="spnRequiredField">*</span>
                     <br />
                     <asp:RequiredFieldValidator ID="rfvtxtExitLoad" runat="server" ErrorMessage="Please Enter Exit Load"
-                        CssClass="rfvPCG" ControlToValidate="txtExitLoad" ValidationGroup="btnsubmit"  
+                        CssClass="rfvPCG" ControlToValidate="txtExitLoad" ValidationGroup="btnsubmit"
                         Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
-                   <asp:RegularExpressionValidator ID="regtxtExitLoad" ControlToValidate="txtExitLoad"
+                    <asp:RegularExpressionValidator ID="regtxtExitLoad" ControlToValidate="txtExitLoad"
                         ErrorMessage="Enter Only Number" runat="server" Display="Dynamic" CssClass="cvPCG"
                         ValidationExpression="[0-9]\d*(\.\d?[0-9])?$" ValidationGroup="btnsubmit">     
                     </asp:RegularExpressionValidator>
@@ -757,7 +772,6 @@
                             <td style="width: 15%;">
                                 <asp:TextBox ID="txtMinRedemption" runat="server" CssClass="cmbFielde"></asp:TextBox>
                                 <span id="Span17" class="spnRequiredField">*</span>
-                               
                                 <asp:RequiredFieldValidator ID="rfvtxtMinRedemption" runat="server" ErrorMessage="<br />Please Enter Min Redemption Amount"
                                     CssClass="rfvPCG" ControlToValidate="txtMinRedemption" ValidationGroup="btnsubmit"
                                     Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
@@ -1174,7 +1188,7 @@
     </table>
     <telerik:RadWindow ID="radwindowPopup" runat="server" VisibleOnPageLoad="false" Height="200px"
         Width="600px" Modal="true" BackColor="#4B4726" VisibleStatusbar="false" Behaviors="Close,Move"
-        Title="Merge Scheme" Left="200" Top="200" Expanded="true">
+        Title="Merge Scheme" Left="200" Top="200" Expanded="true" Visible="true">
         <ContentTemplate>
             <table>
                 <tr>
@@ -1237,7 +1251,7 @@
                         <asp:Button ID="btnMSUpdate" runat="server" Text="Update" CssClass="PCGButton" Visible="false"
                             OnClick="btnMSUpdate_Click" ValidationGroup="btnsubmit1" />
                         <asp:Button ID="btnCancel" runat="server" Text="Cancel" OnClick="btnCancel_Click"
-                            CssClass="PCGButton" Visible="false"/>
+                            CssClass="PCGButton" Visible="false" />
                         <asp:Button ID="btnReset" runat="server" Text="UnMerge" OnClick="btnReset_Click"
                             CssClass="PCGButton" Visible="false" />
                     </td>
@@ -1262,7 +1276,7 @@
     </telerik:RadWindow>
     <telerik:RadWindow ID="radproductcode" runat="server" VisibleOnPageLoad="false" Height="380px"
         Width="300px" Modal="true" BackColor="#4B4726" VisibleStatusbar="false" Behaviors="None"
-        Title="Add Productcode" Left="200" Top="200" Expanded="true" Visible="true">
+        Title="Add Productcode" Left="20" Top="20" Expanded="true" Visible="true">
         <ContentTemplate>
             <table>
                 <tr>

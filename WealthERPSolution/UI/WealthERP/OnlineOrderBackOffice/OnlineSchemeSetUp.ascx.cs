@@ -85,6 +85,7 @@ namespace WealthERP.OnlineOrderBackOffice
                         lnkProductcode.Visible = true;
                         txtNFOStartDate.Enabled = false;
                         txtNFOendDate.Enabled = false;
+                        ddlMargeScheme.Enabled = true;
                     }
                     else if (Request.QueryString["strAction"].Trim() == "View")
                     {
@@ -106,6 +107,7 @@ namespace WealthERP.OnlineOrderBackOffice
                         btnReset.Visible = false;
                         lblAllproductcode.Visible = true;
                         lnkProductcode.Visible = true;
+                        
                         if (ddlNFoStatus.SelectedValue == "Merged")
                         {
                             lbBack.Visible = false;
@@ -616,6 +618,7 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             if (isViewMode)
             {
+                txtMaturityDate.Enabled = false;
                 txtSchemeStartDate.Enabled = false;
                 ddlProduct.Enabled = false;
                 txtRedemptionmultiple.Enabled = false;
@@ -711,6 +714,8 @@ namespace WealthERP.OnlineOrderBackOffice
                 txtNFOendDate.Enabled = false;
                 txtNFOStartDate.Enabled = false;
                 txtSchemeStartDate.Enabled = true;
+                txtMaturityDate.Enabled = true;
+                radwindowPopup.VisibleOnPageLoad = false;
                 //if (txtNFOendDate.SelectedDate >= DateTime.Now)
                 //{
                 //    txtNFOendDate.Enabled = true;
@@ -943,6 +948,10 @@ namespace WealthERP.OnlineOrderBackOffice
             if (mfProductAMCSchemePlanDetailsVo.SchemeStartDate != DateTime.MinValue)
             {
                 txtSchemeStartDate.SelectedDate = mfProductAMCSchemePlanDetailsVo.SchemeStartDate;
+            }
+            if (mfProductAMCSchemePlanDetailsVo.MaturityDate != DateTime.MinValue)
+            {
+                txtMaturityDate.SelectedDate = mfProductAMCSchemePlanDetailsVo.MaturityDate;
             }
             txtLIperiod.Text = mfProductAMCSchemePlanDetailsVo.LockInPeriod.ToString();
             string Time = (txtHH.Text + ':' + txtMM.Text + ':' + txtSS.Text);
@@ -1276,6 +1285,10 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 txtSchemeStartDate.SelectedDate = mfProductAMCSchemePlanDetailsVo.SchemeStartDate;
             }
+              if (mfProductAMCSchemePlanDetailsVo.MaturityDate != DateTime.MinValue)
+            {
+                txtMaturityDate.SelectedDate = mfProductAMCSchemePlanDetailsVo.MaturityDate;
+            }
             txtEload.Text = mfProductAMCSchemePlanDetailsVo.EntryLoadPercentag.ToString();
             if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.EntryLoadRemark))
                 txtELremark.Text = mfProductAMCSchemePlanDetailsVo.EntryLoadRemark.ToString();
@@ -1382,6 +1395,8 @@ namespace WealthERP.OnlineOrderBackOffice
                 ddlNFoStatus.Enabled = false;
                 txtNFOStartDate.Enabled = false;
                 txtNFOendDate.Enabled = false;
+                txtMaturityDate.Enabled = false;
+                txtSchemeStartDate.Enabled = false;
             }
             else
             {
@@ -1583,7 +1598,10 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 mfProductAMCSchemePlanDetailsVo.SchemeStartDate = DateTime.Parse(txtSchemeStartDate.SelectedDate.ToString());
             }
-
+            if (txtMaturityDate.SelectedDate.ToString() != null && txtMaturityDate.SelectedDate.ToString() != string.Empty)
+            {
+                mfProductAMCSchemePlanDetailsVo.MaturityDate = DateTime.Parse(txtMaturityDate.SelectedDate.ToString());
+            }
             mfProductAMCSchemePlanDetailsVo.SchemePlanName = txtScname.Text;
             mfProductAMCSchemePlanDetailsVo.AssetCategoryCode = ddlcategory.SelectedValue;
             mfProductAMCSchemePlanDetailsVo.AssetSubCategoryCode = ddlScategory.SelectedValue;
@@ -1662,7 +1680,7 @@ namespace WealthERP.OnlineOrderBackOffice
                         btnsubmit.Visible = true;
                     }
                     lblAllproductcode.Visible = true;
-                    lnkProductcode.Visible = true;
+                    //lnkProductcode.Visible = true;
                     Clearallcontrols(true);
 
                     //}
@@ -1681,7 +1699,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     btnsubmit.Visible = true;
                 }
                 lblAllproductcode.Visible = true;
-                lnkProductcode.Visible = true;
+                //lnkProductcode.Visible = true;
                 Clearallcontrols(true);
                 //}
             }
@@ -1885,6 +1903,10 @@ namespace WealthERP.OnlineOrderBackOffice
             if (txtSchemeStartDate.SelectedDate.ToString() != null && txtSchemeStartDate.SelectedDate.ToString() != string.Empty)
             {
                 mfProductAMCSchemePlanDetailsVo.SchemeStartDate = DateTime.Parse(txtSchemeStartDate.SelectedDate.ToString());
+            }
+            if (txtMaturityDate.SelectedDate.ToString() != null && txtMaturityDate.SelectedDate.ToString() != string.Empty)
+            {
+                mfProductAMCSchemePlanDetailsVo.MaturityDate = DateTime.Parse(txtMaturityDate.SelectedDate.ToString());
             }
             if (txtSchemeStartDate.SelectedDate != null)
             {
@@ -2841,6 +2863,7 @@ namespace WealthERP.OnlineOrderBackOffice
         }
         protected void lnkMargeScheme_Click(object sender, EventArgs e)
         {
+            radproductcode.VisibleOnPageLoad = false;
             radwindowPopup.VisibleOnPageLoad = true;
             GetBussinessDate();
             GetmergedScheme();
@@ -2930,6 +2953,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 btnReset.Visible = false;
                 lnkMargeEdit.Visible = false;
             }
+            ddlMargeScheme.Enabled = true;
 
         }
         public void GetmergedScheme()
@@ -2999,6 +3023,7 @@ namespace WealthERP.OnlineOrderBackOffice
         }
         protected void lnkProductcode_OnClick(object sender, EventArgs e)
         {
+            radwindowPopup.VisibleOnPageLoad = false;
             radproductcode.VisibleOnPageLoad = true;
             BindProductcode();
         }

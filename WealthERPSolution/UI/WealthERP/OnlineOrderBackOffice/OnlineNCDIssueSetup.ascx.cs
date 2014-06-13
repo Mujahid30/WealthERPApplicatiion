@@ -4527,12 +4527,12 @@ namespace WealthERP.OnlineOrderBackOffice
             ddlCutOffTimeMinutes.Items.Insert(0, new ListItem("Minutes", "MM"));
             ddlCutOffTimeSeconds.Items.Insert(0, new ListItem("Seconds", "SS"));
 
-            ddlOpenTimeMinutes.SelectedValue = "00";
-            ddlCloseTimeMinutes.SelectedValue = "00";
-            ddlOpenTimeSeconds.SelectedValue = "00";
-            ddlCloseTimeSeconds.SelectedValue = "00";
-            ddlCutOffTimeMinutes.SelectedValue = "00";
-            ddlCutOffTimeSeconds.SelectedValue = "00";
+            //ddlOpenTimeMinutes.SelectedValue = "00";
+            //ddlCloseTimeMinutes.SelectedValue = "00";
+            //ddlOpenTimeSeconds.SelectedValue = "00";
+            //ddlCloseTimeSeconds.SelectedValue = "00";
+            //ddlCutOffTimeMinutes.SelectedValue = "00";
+            //ddlCutOffTimeSeconds.SelectedValue = "00";
 
         }
 
