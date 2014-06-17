@@ -1059,7 +1059,7 @@ namespace BoOnlineOrderManagement
                         dtExtract.AcceptChanges();
                     }
 
-                    if (extSource == "BSE")
+                    if (extSource == "BSE" && fileTypeId==1)
                     {
                         DataTable dtExtractClone = dtExtract.Copy();
                         DataRow newBlankRow;
