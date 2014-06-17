@@ -542,9 +542,20 @@ namespace WealthERP.OnlineOrderManagement
             bool isBidValid = true;
             msg = string.Empty;
             int validBidSum = 0;
+            int issueQtyMultiple = 0;
+            int issueMinQty = 0;
+            int issueMaxQty = 0;
+            int bidId = 1;
+            if (!string.IsNullOrEmpty(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIM_TradingInMultipleOf"].ToString()))
+                issueQtyMultiple = Convert.ToInt16(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIM_TradingInMultipleOf"].ToString());
+            if (!string.IsNullOrEmpty(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIM_MInQty"].ToString()))
+                issueMinQty = Convert.ToInt32(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIM_MInQty"].ToString());
+            if (!string.IsNullOrEmpty(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIM_MaxQty"].ToString()))
+                issueMaxQty = Convert.ToInt32(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIM_MaxQty"].ToString());
             foreach (GridDataItem item in RadGridIPOBid.MasterTableView.Items)
             {
                 double bidAmountPayble = 0;
+                int ValidBidMutiple;
                 //CheckBox chkCutOff = (CheckBox)item.FindControl("cbCutOffCheck");
                 TextBox txtBidQuantity = (TextBox)item.FindControl("txtBidQuantity");
                 TextBox txtBidPrice = (TextBox)item.FindControl("txtBidPrice");
@@ -552,7 +563,17 @@ namespace WealthERP.OnlineOrderManagement
                 TextBox txtBidAmount = (TextBox)item.FindControl("txtBidAmount");
                 TextBox txtBidAmountPayable = (TextBox)item.FindControl("txtBidAmountPayable");
                 double.TryParse(txtBidAmountPayable.Text, out bidAmountPayble);
-
+                if (!string.IsNullOrEmpty(txtBidQuantity.Text))
+                {
+                    //Bid Quantity Multiple Validation
+                    ValidBidMutiple = Convert.ToInt16(txtBidQuantity.Text) % issueQtyMultiple;
+                    if (ValidBidMutiple != 0 && Convert.ToInt16(txtBidQuantity.Text) != issueMinQty && Convert.ToInt16(txtBidQuantity.Text) != issueMaxQty)
+                    {
+                        msg = "Please enter Quantity in multiples permissibile for this issue";
+                        isBidValid = false;
+                        return isBidValid;
+                    }
+                }
                 if (bidAmountPayble>0)
                  validBidSum += int.Parse(item.GetDataKeyValue("IssueBidNo").ToString());
 
@@ -568,6 +589,7 @@ namespace WealthERP.OnlineOrderManagement
                     isBidValid = false;
                     return isBidValid;
                 }
+                bidId++;
 
             }
             if (validBidSum == 4)
