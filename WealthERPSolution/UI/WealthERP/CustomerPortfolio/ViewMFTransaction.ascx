@@ -306,7 +306,7 @@
                 Text="Delete Transaction" CssClass="PCGLongButton" CausesValidation="True" 
                 onclick="btnDelete_Click" />
         </td>
-       <td>                <asp:Button ID="btnCancel" runat="server"  Visible="false"
+       <td>                <asp:Button ID="btnCancel" runat="server"  Visible="true"
                 Text="Cancel Transaction" CssClass="PCGLongButton" CausesValidation="True"
                 onclick="btnCancel_Click" OnClientClick="javascript: return confirm('Are you sure you want to cancel the Transaction?')"/>
        </td>        

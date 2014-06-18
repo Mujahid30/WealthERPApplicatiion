@@ -13,9 +13,9 @@
                             Transaction Book
                         </td>
                         <td align="right" style="width: 10px">
-                            <%--<asp:ImageButton Visible="false" ID="btnExport" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                            <asp:ImageButton Visible="false" ID="btnExport" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                                 runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
-                                OnClientClick="setFormat('excel')" Height="20px" Width="25px"></asp:ImageButton>--%>
+                                OnClientClick="setFormat('excel')" Height="20px" Width="25px"></asp:ImageButton>
                         </td>
                     </tr>
                 </table>

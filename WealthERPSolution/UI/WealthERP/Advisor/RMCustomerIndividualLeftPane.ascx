@@ -121,6 +121,9 @@
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text="Add Demat Account" Value="Add Demat Account">
                                             </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="View Demat Account" Value="View_Demate_Account">
+                                            </telerik:RadPanelItem>
+                                            
                                         </Items>
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Proof" Value="Proof">

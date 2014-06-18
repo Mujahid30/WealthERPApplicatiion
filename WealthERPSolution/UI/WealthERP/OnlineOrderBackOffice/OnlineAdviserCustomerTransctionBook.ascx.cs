@@ -25,6 +25,7 @@ namespace WealthERP.OnlineOrderBackOffice
         OnlineOrderMISBo OnlineOrderMISBo = new OnlineOrderMISBo();
         UserVo userVo = new UserVo();
         PriceBo priceBo = new PriceBo();
+        OnlineMFOrderBo OnlineMFOrderBo = new OnlineMFOrderBo();
         List<MFTransactionVo> mfTransactionList = null;
         VoCustomerPortfolio.MFTransactionVo mfTransactionVo = new VoCustomerPortfolio.MFTransactionVo();
         DateTime fromDate;
@@ -70,19 +71,37 @@ namespace WealthERP.OnlineOrderBackOffice
         }
         private void BindAMC()
         {
-            ddlAmc.Items.Clear();
+            //ddlAmc.Items.Clear();
+            //try
+            //{
+            //    PriceBo priceBo = new PriceBo();
+            //    DataTable dtGetAMCList = new DataTable();
+            //    {
+            //        dtGetAMCList = priceBo.GetMutualFundList();
+            //        ddlAmc.DataSource = dtGetAMCList;
+            //        ddlAmc.DataTextField = dtGetAMCList.Columns["PA_AMCName"].ToString();
+            //        ddlAmc.DataValueField = dtGetAMCList.Columns["PA_AMCCode"].ToString();
+            //        ddlAmc.DataBind();
+            //    }
+            //    ddlAmc.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "0"));
+            //}
             try
             {
-                PriceBo priceBo = new PriceBo();
-                DataTable dtGetAMCList = new DataTable();
+                ddlAmc.Items.Clear();
+                DataSet ds = new DataSet();
+                DataTable dtAmc = new DataTable();
+                ds = OnlineMFOrderBo.GetTransAllAmcDetails(customerId);
+                dtAmc = ds.Tables[0];
+                if (dtAmc.Rows.Count > 0)
                 {
-                    dtGetAMCList = priceBo.GetMutualFundList();
-                    ddlAmc.DataSource = dtGetAMCList;
-                    ddlAmc.DataTextField = dtGetAMCList.Columns["PA_AMCName"].ToString();
-                    ddlAmc.DataValueField = dtGetAMCList.Columns["PA_AMCCode"].ToString();
+                    ddlAmc.DataSource = dtAmc;
+                    ddlAmc.DataValueField = dtAmc.Columns["PA_AMCCode"].ToString();
+                    ddlAmc.DataTextField = dtAmc.Columns["PA_AMCName"].ToString();
                     ddlAmc.DataBind();
+                    //BindFolioNumber(int.Parse(ddlAmc.SelectedValue));
+
                 }
-                ddlAmc.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "0"));
+                ddlAmc.Items.Insert(0, new ListItem("All", "0"));
             }
             catch (BaseApplicationException Ex)
             {
@@ -103,6 +122,7 @@ namespace WealthERP.OnlineOrderBackOffice
         protected void btnViewTransaction_Click(object sender, EventArgs e)
         {
             BindTransactionGrid();
+            btnExport.Visible = true;
         }
         protected void BindTransactionGrid()
         {
@@ -183,6 +203,16 @@ namespace WealthERP.OnlineOrderBackOffice
             gvTransationBookMIS.DataSource = dtBindTransactionGrid;
             gvTransationBookMIS.VirtualItemCount = rowCount;
 
+        }
+        protected void btnExportFilteredData_OnClick(object sender, EventArgs e)
+        {
+            gvTransationBookMIS.ExportSettings.OpenInNewWindow = true;
+            gvTransationBookMIS.ExportSettings.IgnorePaging = true;
+            gvTransationBookMIS.ExportSettings.HideStructureColumns = true;
+            gvTransationBookMIS.ExportSettings.ExportOnlyData = true;
+            gvTransationBookMIS.ExportSettings.FileName = "Transaction Book Details";
+            gvTransationBookMIS.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            gvTransationBookMIS.MasterTableView.ExportToExcel();
         }
     }
 }

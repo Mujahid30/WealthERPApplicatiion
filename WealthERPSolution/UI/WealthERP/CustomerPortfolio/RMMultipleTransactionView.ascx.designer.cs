@@ -29,8 +29,15 @@ namespace WealthERP.CustomerPortfolio {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
+        /// 
         protected global::System.Web.UI.UpdatePanel UpdatePanel1;
-        
+        protected global::System.Web.UI.WebControls.DropDownList ddlOptionSearch;
+        protected global::System.Web.UI.WebControls.TextBox txtcustomerName;
+        protected global::System.Web.UI.WebControls.TextBox txtCustCode;
+        protected global::System.Web.UI.WebControls.RadioButton rbtnIndividual;
+        protected global::System.Web.UI.WebControls.RadioButton rdtnOnline;
+        protected global::System.Web.UI.WebControls.RadioButton rbtnOffline;
+
         /// <summary>
         /// radwindowForManualMerge control.
         /// </summary>
@@ -57,7 +64,10 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid gvManualMerge;
-        
+        protected global::AjaxControlToolkit.AutoCompleteExtender txtClientCode_autoCompleteExtender;
+        protected global::AjaxControlToolkit.AutoCompleteExtender txtCustomerName_autoCompleteExtender;
+        protected global::AjaxControlToolkit.TextBoxWatermarkExtender txtCustomerName_water;
+        protected global::AjaxControlToolkit.TextBoxWatermarkExtender TextBoxWatermarkExtender2;
         /// <summary>
         /// Button1 control.
         /// </summary>
@@ -111,7 +121,7 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label2;
-        
+        protected global::System.Web.UI.WebControls.Label lblCustomerSearch;
         /// <summary>
         /// rbtnPickDate control.
         /// </summary>
@@ -651,7 +661,7 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnAgentCode;
-        
+        protected global::System.Web.UI.WebControls.HiddenField txtcustomerId;
         /// <summary>
         /// hdnSubBrokerCode control.
         /// </summary>

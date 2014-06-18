@@ -176,6 +176,37 @@ namespace BoProductMaster
             }
             return dsProductAmc;
         }
+        public DataSet GetProductAmcList()
+        {
+            ProductMFDao productMFDao = new ProductMFDao();
+            DataSet dsProductAmcList;
+            try
+            {
+                dsProductAmcList = productMFDao.GetProductAmcList();
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "ProductMFBo.cs:GetProductAmc()");
+
+
+                object[] objects = new object[0];
+
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dsProductAmcList;
+        }
         public DataSet GetBrokerCodeForLOB()
         {
             ProductMFDao productMFDao = new ProductMFDao();

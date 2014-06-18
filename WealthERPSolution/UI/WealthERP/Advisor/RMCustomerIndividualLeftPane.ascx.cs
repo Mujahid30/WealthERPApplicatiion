@@ -1088,7 +1088,7 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AddBankDetails", "loadcontrol('AddBankDetails','name=viewTransaction');", true);
                 }
-                else if (e.Item.Value == "Demat Account Details")
+                else if (e.Item.Value == "View_Demate_Account")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "DematAccountDetails", "loadcontrol('DematAccountDetails','none');", true);
                 }

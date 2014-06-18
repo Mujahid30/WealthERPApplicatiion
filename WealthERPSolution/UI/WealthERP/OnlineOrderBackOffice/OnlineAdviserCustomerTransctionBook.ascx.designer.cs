@@ -28,5 +28,6 @@ namespace WealthERP.OnlineOrderBackOffice
         protected global::System.Web.UI.WebControls.HiddenField hdndividenttype;
         protected global::System.Web.UI.WebControls.HiddenField hdnOrderno;
         protected global::System.Web.UI.WebControls.Panel pnlTransactionBook;
+        protected global::System.Web.UI.WebControls.ImageButton btnExport;
     }
 }

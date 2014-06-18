@@ -4378,9 +4378,9 @@ namespace WealthERP.OnlineOrderBackOffice
                 ddlCutOffTimeHours.DataBind();
 
             }
-            ddlOpenTimeHours.Items.Insert(0, new ListItem("Hours", "HH"));
-            ddlCloseTimeHours.Items.Insert(0, new ListItem("Hours", "HH"));
-            ddlCutOffTimeHours.Items.Insert(0, new ListItem("Hours", "HH"));
+            ddlOpenTimeHours.Items.Insert(0, new ListItem("HH", "HH"));
+            ddlCloseTimeHours.Items.Insert(0, new ListItem("HH", "HH"));
+            ddlCutOffTimeHours.Items.Insert(0, new ListItem("HH", "HH"));
 
         }
 
@@ -4520,12 +4520,12 @@ namespace WealthERP.OnlineOrderBackOffice
 
 
             }
-            ddlOpenTimeMinutes.Items.Insert(0, new ListItem("Minutes", "MM"));
-            ddlCloseTimeMinutes.Items.Insert(0, new ListItem("Minutes", "MM"));
-            ddlOpenTimeSeconds.Items.Insert(0, new ListItem("Seconds", "SS"));
-            ddlCloseTimeSeconds.Items.Insert(0, new ListItem("Seconds", "SS"));
-            ddlCutOffTimeMinutes.Items.Insert(0, new ListItem("Minutes", "MM"));
-            ddlCutOffTimeSeconds.Items.Insert(0, new ListItem("Seconds", "SS"));
+            ddlOpenTimeMinutes.Items.Insert(0, new ListItem("MM", "MM"));
+            ddlCloseTimeMinutes.Items.Insert(0, new ListItem("MM", "MM"));
+            ddlOpenTimeSeconds.Items.Insert(0, new ListItem("SS", "SS"));
+            ddlCloseTimeSeconds.Items.Insert(0, new ListItem("SS", "SS"));
+            ddlCutOffTimeMinutes.Items.Insert(0, new ListItem("MM", "MM"));
+            ddlCutOffTimeSeconds.Items.Insert(0, new ListItem("SS", "SS"));
 
             //ddlOpenTimeMinutes.SelectedValue = "00";
             //ddlCloseTimeMinutes.SelectedValue = "00";

@@ -62,6 +62,7 @@ namespace WealthERP.CustomerPortfolio
             }
 
             if (userVo.UserType == "Advisor") lnkEdit.Visible = false;
+            if (userVo.UserType == "Advisor") btnCancel.Visible = true;
         }
 
         private void LoadViewFields()
@@ -227,8 +228,10 @@ namespace WealthERP.CustomerPortfolio
                     mfTransactionVo.STT = float.Parse(txtSTT.Text.ToString());
 
                 bool bResult = customerTransactionBo.UpdateMFTransaction(mfTransactionVo, userVo.UserId);
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMMultipleTransactionView','none');", true);
-                Session["MFEditValue"] = "View";
+                //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMMultipleTransactionView','none');", true);
+                btnSubmit.Visible = false;
+                SetFields(0);
+               Session["MFEditValue"] = "View";
             }
             catch (BaseApplicationException Ex)
             {
@@ -368,7 +371,10 @@ namespace WealthERP.CustomerPortfolio
                 btnSubmit.Visible = true;
                     btnDelete.Enabled = true;
                     txtSubBrokerCode.Enabled = true;
-             
+                    txtTransactionDate.Enabled = true;
+                    txtAmount.Enabled = true;
+                    txtPrice.Enabled = true;
+                    txtUnits.Enabled = true;
                 //else if (btnCancel.Visible == true)
                 //{
                 //    btnCancel.Enabled = true;

@@ -801,11 +801,11 @@
                 Width="200px">
             </telerik:RadTimePicker>--%>
             <asp:DropDownList ID="ddlOpenTimeHours" runat="server" CssClass="cmbField" AutoPostBack="true"
-                Width="67px" />
+                Width="60px" />
             <asp:DropDownList ID="ddlOpenTimeMinutes" runat="server" CssClass="cmbField" AutoPostBack="true"
-                Width="80px" />
+                Width="60px" />
             <asp:DropDownList ID="ddlOpenTimeSeconds" runat="server" CssClass="cmbField" AutoPostBack="true"
-                Width="83px" />
+                Width="60px" />
             <%-- <asp:TextBox ID="txtOpenTimes" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>--%>
             <span id="Span20" class="spnRequiredField">*</span>
             <br />
@@ -813,7 +813,7 @@
                 ErrorMessage="Please Enter Time" Display="Dynamic" ControlToValidate="ddlOpenTimeHours"
                 InitialValue="HH" ValidationGroup="SetUpSubmit">
             </asp:RequiredFieldValidator>
-             <asp:RequiredFieldValidator ID="RequiredFieldValidator32" runat="server" CssClass="rfvPCG"
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator32" runat="server" CssClass="rfvPCG"
                 ErrorMessage="Please Enter Minutes" Display="Dynamic" ControlToValidate="ddlOpenTimeMinutes"
                 InitialValue="MM" ValidationGroup="SetUpSubmit">
             </asp:RequiredFieldValidator>
@@ -838,14 +838,14 @@
         </td>
         <td class="rightData">
             <asp:DropDownList ID="ddlCloseTimeHours" runat="server" CssClass="cmbField" AutoPostBack="true"
-                Width="67px" />
+                Width="60px" />
             <asp:DropDownList ID="ddlCloseTimeMinutes" runat="server" CssClass="cmbField" AutoPostBack="true"
-                Width="80px" />
+                Width="60px" />
             <asp:DropDownList ID="ddlCloseTimeSeconds" runat="server" CssClass="cmbField" AutoPostBack="true"
-                Width="83px" />
+                Width="60px" />
             <span id="Span35" class="spnRequiredField">*</span>
             <br />
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator30" runat="server" CssClass="rfvPCG"
+        <asp:RequiredFieldValidator ID="RequiredFieldValidator30" runat="server" CssClass="rfvPCG"
                 ErrorMessage="Please Enter  Time" Display="Dynamic" ControlToValidate="ddlCloseTimeHours"
                 InitialValue="HH" ValidationGroup="SetUpSubmit">
             </asp:RequiredFieldValidator>
@@ -876,18 +876,18 @@
         </td>
         <td class="rightData">
             <asp:DropDownList ID="ddlCutOffTimeHours" runat="server" CssClass="cmbField" AutoPostBack="true"
-                Width="67px" />
+                Width="60px" />
             <asp:DropDownList ID="ddlCutOffTimeMinutes" runat="server" CssClass="cmbField" AutoPostBack="true"
-                Width="80px" />
+                Width="60px" />
             <asp:DropDownList ID="ddlCutOffTimeSeconds" runat="server" CssClass="cmbField" AutoPostBack="true"
-                Width="83px" />
+                Width="60px" />
             <span id="Span36" class="spnRequiredField">*</span>
             <br />
             <asp:RequiredFieldValidator ID="RequiredFieldValidator18" runat="server" CssClass="rfvPCG"
                 ErrorMessage="Please Enter Time" Display="Dynamic" ControlToValidate="ddlCutOffTimeHours"
                 InitialValue="HH" ValidationGroup="SetUpSubmit">
             </asp:RequiredFieldValidator>
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator45" runat="server" CssClass="rfvPCG"
+          <asp:RequiredFieldValidator ID="RequiredFieldValidator45" runat="server" CssClass="rfvPCG"
                 ErrorMessage="Please Enter Minutes" Display="Dynamic" ControlToValidate="ddlCutOffTimeMinutes"
                 InitialValue="MM" ValidationGroup="SetUpSubmit">
             </asp:RequiredFieldValidator>
