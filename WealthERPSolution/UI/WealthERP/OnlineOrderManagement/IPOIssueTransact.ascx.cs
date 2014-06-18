@@ -358,7 +358,7 @@ namespace WealthERP.OnlineOrderManagement
             DataTable dtIPOBidTransactionDettails = new DataTable();
             dtIPOBidTransactionDettails.Columns.Add("IssueBidNo", typeof(Int16));
             dtIPOBidTransactionDettails.Columns.Add("IsCutOffApplicable", typeof(Int16));
-            dtIPOBidTransactionDettails.Columns.Add("IPOIssueBidQuantity", typeof(Int16), null);
+            dtIPOBidTransactionDettails.Columns.Add("IPOIssueBidQuantity", typeof(Int64), null);
             dtIPOBidTransactionDettails.Columns.Add("IPOIssueBidPrice", typeof(decimal), null);
             dtIPOBidTransactionDettails.Columns.Add("IPOIssueBidAmount", typeof(decimal), null);
             dtIPOBidTransactionDettails.Columns.Add("IPOIssueBidAmountPayable", typeof(decimal), null);
@@ -555,7 +555,7 @@ namespace WealthERP.OnlineOrderManagement
             foreach (GridDataItem item in RadGridIPOBid.MasterTableView.Items)
             {
                 double bidAmountPayble = 0;
-                int ValidBidMutiple;
+               
                 //CheckBox chkCutOff = (CheckBox)item.FindControl("cbCutOffCheck");
                 TextBox txtBidQuantity = (TextBox)item.FindControl("txtBidQuantity");
                 TextBox txtBidPrice = (TextBox)item.FindControl("txtBidPrice");
@@ -566,8 +566,8 @@ namespace WealthERP.OnlineOrderManagement
                 if (!string.IsNullOrEmpty(txtBidQuantity.Text))
                 {
                     //Bid Quantity Multiple Validation
-                    ValidBidMutiple = Convert.ToInt16(txtBidQuantity.Text) % issueQtyMultiple;
-                    if (ValidBidMutiple != 0 && Convert.ToInt16(txtBidQuantity.Text) != issueMinQty && Convert.ToInt16(txtBidQuantity.Text) != issueMaxQty)
+                   
+                    if ((Convert.ToInt64(txtBidQuantity.Text)-issueMinQty) % issueQtyMultiple != 0 && Convert.ToInt64(txtBidQuantity.Text) != issueMinQty && Convert.ToInt64(txtBidQuantity.Text) != issueMaxQty)
                     {
                         msg = "Please enter Quantity in multiples permissibile for this issue";
                         isBidValid = false;
