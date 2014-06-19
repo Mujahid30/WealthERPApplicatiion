@@ -2014,6 +2014,13 @@ namespace BoOnlineOrderManagement
             schemecode = daoOnlineOrderBackOffice.GetSchemecode(schemeplancode);
             return schemecode;
         }
+        public DataTable GetSchemeLookupType(string dividentType)
+        {
+            DataTable dtGetSchemeLookupType;
+            OnlineOrderBackOfficeDao daoOnlineOrderBackOffice = new OnlineOrderBackOfficeDao();
+            dtGetSchemeLookupType = daoOnlineOrderBackOffice.GetSchemeLookupType(dividentType);
+            return dtGetSchemeLookupType;
+        }
     }
 
 }

@@ -421,22 +421,28 @@
                         Visible="false"> </asp:Label>
                 </td>
                 <td>
-                    <asp:DropDownList ID="ddlOption" runat="server" CssClass="cmbField" AutoPostBack="false">
-                        <asp:ListItem Text="Select" Value="Select" Selected="false" />
+                    <asp:DropDownList ID="ddlOption" runat="server" CssClass="cmbField" AutoPostBack="true"
+                        OnSelectedIndexChanged="ddlOption_OnSelectedIndexChanged">
+                        <%--<asp:ListItem Text="Select" Value="Select" Selected="false" />
                         <asp:ListItem Text="Dividend" Value="DV" />
-                        <asp:ListItem Text="Growth" Value="GR" />
+                        <asp:ListItem Text="Growth" Value="GR" />--%>
                     </asp:DropDownList>
                     <span id="Span33" class="spnRequiredField">*</span>
+                   
+                    <asp:DropDownList ID="ddlDFrequency" runat="server" CssClass="cmbField" AutoPostBack="false"
+                        Visible="false">
+                        <%--        <asp:ListItem Text="Select" Value="Select" Selected="False" />
+                            <asp:ListItem Text="Dividend Reinvestment" Value="DVR" />
+                            <asp:ListItem Text="Dividend Payout" Value="DVP" />--%>
+                    </asp:DropDownList>
+                   <asp:Label ID="lblddlDFrequency" runat="server" Text="*" CssClass="spnRequiredField" Visible="false"></asp:Label>
                     <br />
                     <asp:RequiredFieldValidator ID="rfvddlOption" runat="server" ErrorMessage="Please Select any option"
                         CssClass="rfvPCG" ControlToValidate="ddlOption" ValidationGroup="btnsubmit" Display="Dynamic"
                         InitialValue="Select"></asp:RequiredFieldValidator>
-                    <asp:DropDownList ID="ddlDFrequency" runat="server" CssClass="cmbField" AutoPostBack="false"
-                        Visible="false">
-                        <asp:ListItem Text="Select" Value="Select" Selected="False" />
-                        <asp:ListItem Text="Dividend Reinvestment" Value="DVR" />
-                        <asp:ListItem Text="Dividend Payout" Value="DVP" />
-                    </asp:DropDownList>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ErrorMessage="Please Select any Frequency"
+                        CssClass="rfvPCG" ControlToValidate="ddlDFrequency" ValidationGroup="btnsubmit"
+                        Display="Dynamic" InitialValue="Select"></asp:RequiredFieldValidator>
                 </td>
             </tr>
             <tr>
@@ -675,6 +681,11 @@
                 <td>
                     <asp:CheckBox ID="ChkISSwitch" runat="server" Text="Yes" CssClass="FieldName" OnCheckedChanged="oncheckedSwtchAvaliable_OnCheckedChanged"
                         AutoPostBack="true" />
+                </td>
+                <td align="right">
+                    <asp:Label ID="lblchkOnlineEnablement" runat="server" Text="OnlineEnablement:" CssClass="FieldName"></asp:Label>
+              </td>  <td>
+                <asp:CheckBox ID="chkOnlineEnablement" runat="server" Text="Yes" CssClass="FieldName"/>
                 </td>
             </tr>
             <tr id="trIPAmount" runat="server" visible="false">

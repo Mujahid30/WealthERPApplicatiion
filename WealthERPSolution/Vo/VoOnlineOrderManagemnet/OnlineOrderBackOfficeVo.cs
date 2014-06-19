@@ -99,6 +99,7 @@ namespace VoOnlineOrderManagemnet
         public string AMFIcode { get; set; }
         public DateTime SchemeStartDate { get; set; }
         public DateTime MaturityDate { get; set; }
+        public int IsOnlineEnablement { get; set; }
     }
 
     public class TradeBusinessDateVo

@@ -758,7 +758,7 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "Add EQ Transactions")
                 {
                     Session["UserType"] = "rm";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMMultipleEqTransactionsEntry','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFManualSingleTran','login');", true);
 
                 }
                 else if (e.Item.Value == "Multi_Product_MIS")

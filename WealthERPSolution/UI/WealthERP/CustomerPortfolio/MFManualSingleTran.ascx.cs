@@ -56,30 +56,38 @@ namespace WealthERP.CustomerPortfolio
         AssetBo assetBo = new AssetBo();
         CommonProgrammingBo commonMethods = new CommonProgrammingBo();
         Dictionary<int, int> genDictPortfolioDetails = new Dictionary<int, int>();
+        int customerId=0;
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            try
-            {
+            //try
+            //{
                 CompareValidator2.ValueToCompare = DateTime.Now.ToShortDateString(); 
                 SessionBo.CheckSession();
                 this.Page.Culture = "en-GB";
-                customerVo = (CustomerVo)Session["CustomerVo"];
+                if (Session["CustomerVo"] != null)
+                {
+                    customerVo = (CustomerVo)Session["CustomerVo"];
+                    customerId = customerVo.CustomerId;
+                }
+               
                 userVo = (UserVo)Session["userVo"];
                 advisorVo = (AdvisorVo)Session["advisorVo"];
-                portfolioId = int.Parse(Session[SessionContents.PortfolioId].ToString());
+               // portfolioId = int.Parse(Session[SessionContents.PortfolioId].ToString());
                
                 Label19.Text = "Purchase Price :";
                 if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
                 {
+                    txtCustomerName_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                    txtCustomerName_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
+                    txtClientCode_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                    txtClientCode_autoCompleteExtender.ServiceMethod = "GetCustCode";
                     //AutoCompleteExtender2.ContextKey = advisorVo.advisorId.ToString();
                     //AutoCompleteExtender2.ServiceMethod = "GetAgentCodeAssociateDetails";
-                } 
-                
+                }
                 if (!IsPostBack)
                 {
                    
-                    BindPortfolioDropDown();
                     BindAMC();
                     BindCategory();
                     BindScheme();
@@ -109,27 +117,27 @@ namespace WealthERP.CustomerPortfolio
                 }
                 //cvPortfolio.ValueToCompare = "MyPortfolio";
 
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
+            //}
+            //catch (BaseApplicationException Ex)
+            //{
+            //    throw Ex;
+            //}
 
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "MFManualSingleTran.ascx:Page_Load()");
-                object[] objects = new object[3];
-                objects[0] = userVo;
-                objects[1] = customerVo;
-                objects[2] = portfolioId;
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
+            //catch (Exception Ex)
+            //{
+            //    BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+            //    NameValueCollection FunctionInfo = new NameValueCollection();
+            //    FunctionInfo.Add("Method", "MFManualSingleTran.ascx:Page_Load()");
+            //    object[] objects = new object[3];
+            //    objects[0] = userVo;
+            //    objects[1] = customerVo;
+            //    objects[2] = portfolioId;
+            //    FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+            //    exBase.AdditionalInformation = FunctionInfo;
+            //    ExceptionManager.Publish(exBase);
+            //    throw exBase;
 
-            }
+            //}
         }
 
         private void BindScheme()
@@ -240,9 +248,11 @@ namespace WealthERP.CustomerPortfolio
         {
             DataSet dsgetfolioNo= new DataSet();
             DataTable dtgetfolioNo;
+            if (ddlPortfolio.SelectedValue != "") portfolioId = int.Parse(ddlPortfolio.SelectedValue);
+             
             try
             {
-                if (flag != 0)
+                if (flag !=0)
                 {
                     if (ddlAMC.SelectedIndex != 0)
                     {
@@ -254,15 +264,16 @@ namespace WealthERP.CustomerPortfolio
                 {
                     dsgetfolioNo = productMfBo.GetFolioNumber(portfolioId, amcCode, 0);
                 }
-                if (dsgetfolioNo.Tables.Count > 0)
-                {
-                    dtgetfolioNo = dsgetfolioNo.Tables[0];
-                    ddlFolioNum.DataSource = dtgetfolioNo;
-                    ddlFolioNum.DataTextField =dtgetfolioNo.Columns["CMFA_FolioNum"].ToString();
-                    ddlFolioNum.DataValueField = dtgetfolioNo.Columns["CMFA_AccountId"].ToString();
-                    ddlFolioNum.DataBind();
-                    ddlFolioNum.Items.Insert(0, new ListItem("Select", "0"));
-                }
+                    if (dsgetfolioNo.Tables.Count > 0)
+                    {
+                        dtgetfolioNo = dsgetfolioNo.Tables[0];
+                        ddlFolioNum.DataSource = dtgetfolioNo;
+                        ddlFolioNum.DataTextField = dtgetfolioNo.Columns["CMFA_FolioNum"].ToString();
+                        ddlFolioNum.DataValueField = dtgetfolioNo.Columns["CMFA_AccountId"].ToString();
+                        ddlFolioNum.DataBind();
+                        ddlFolioNum.Items.Insert(0, new ListItem("Select", "0"));
+                    }
+               
                 
             }
             catch (BaseApplicationException Ex)
@@ -286,25 +297,25 @@ namespace WealthERP.CustomerPortfolio
         }
         private void BindPortfolioDropDown()
         {
-            DataSet ds = portfolioBo.GetCustomerPortfolio(customerVo.CustomerId);
+            DataSet ds = portfolioBo.GetCustomerPortfolio(customerId);
             ddlPortfolio.DataSource = ds;
             ddlPortfolio.DataValueField = ds.Tables[0].Columns["CP_PortfolioId"].ToString();
             ddlPortfolio.DataTextField = ds.Tables[0].Columns["CP_PortfolioName"].ToString();
             ddlPortfolio.DataBind();
             //ddlPortfolio.Items.Insert(0, "Select the Portfolio");
 
-            ddlPortfolio.SelectedValue = portfolioId.ToString();
+            //ddlPortfolio.SelectedValue = portfolioId.ToString();
 
-            foreach (DataRow dr in ds.Tables[0].Rows)
-            {
-                genDictPortfolioDetails.Add(int.Parse(dr["CP_PortfolioId"].ToString()), int.Parse(dr["CP_IsMainPortfolio"].ToString()));
-            }
+            //foreach (DataRow dr in ds.Tables[0].Rows)
+            //{
+            //    genDictPortfolioDetails.Add(int.Parse(dr["CP_PortfolioId"].ToString()), int.Parse(dr["CP_IsMainPortfolio"].ToString()));
+            //}
 
-            var keyValuePair = genDictPortfolioDetails.FirstOrDefault(x => x.Key == portfolioId);
-  
-            hdnIsMainPortfolio.Value = keyValuePair.Value.ToString();
-            Session["genDictPortfolioDetails"] = genDictPortfolioDetails;
-            hdnIsCustomerLogin.Value = userVo.UserType;
+            //var keyValuePair = genDictPortfolioDetails.FirstOrDefault(x => x.Key == portfolioId);
+
+            //hdnIsMainPortfolio.Value = keyValuePair.Value.ToString();
+            //Session["genDictPortfolioDetails"] = genDictPortfolioDetails;
+            //hdnIsCustomerLogin.Value = userVo.UserType;
 
         }
 
@@ -314,14 +325,14 @@ namespace WealthERP.CustomerPortfolio
             Session[SessionContents.PortfolioId] = portfolioId;
             BindFolioNumber(0);
 
-            if (Session["genDictPortfolioDetails"] != null)
-            {
-                genDictPortfolioDetails = (Dictionary<int, int>)Session["genDictPortfolioDetails"];
-            }
-            var keyValuePair = genDictPortfolioDetails.FirstOrDefault(x => x.Key == portfolioId);
-            //int value = keyValuePair.Value;           
-            hdnIsMainPortfolio.Value = keyValuePair.Value.ToString();
-            hdnIsCustomerLogin.Value = userVo.UserType;
+            //if (Session["genDictPortfolioDetails"] != null)
+            //{
+            //    genDictPortfolioDetails = (Dictionary<int, int>)Session["genDictPortfolioDetails"];
+            //}
+            //var keyValuePair = genDictPortfolioDetails.FirstOrDefault(x => x.Key == portfolioId);
+            ////int value = keyValuePair.Value;           
+            //hdnIsMainPortfolio.Value = keyValuePair.Value.ToString();
+            //hdnIsCustomerLogin.Value = userVo.UserType;
 
 
         }
@@ -543,8 +554,8 @@ namespace WealthERP.CustomerPortfolio
                 //if (txtSearchScheme.Text != "" && lblScheme.Text == txtSearchScheme.Text)
                 //if(ddlScheme.SelectedIndex !=0 && lblScheme.Text == ddlScheme.SelectedItem.Text)
                 //{
-                    mfTransactionVo.CustomerId = customerVo.CustomerId;
-                    //mfTransactionVo.AccountId = "acc1";
+                     customerId = int.Parse(hdntxtcustomerId.Value);
+                    mfTransactionVo.CustomerId = customerId;
                     mfTransactionVo.AccountId = int.Parse(ddlFolioNum.SelectedItem.Value.ToString());
                     mfTransactionVo.AMCCode = int.Parse(ddlAMC.SelectedValue.ToString());
                     mfTransactionVo.CategoryCode = ddlCategory.SelectedValue;
@@ -570,7 +581,7 @@ namespace WealthERP.CustomerPortfolio
                         mfTransactionVo.TransactionClassificationCode = "BUY";
                         mfTransactionVo.BuySell = "B";
 
-                        if (customerTransactionBo.AddMFTransaction(mfTransactionVo, customerVo.UserId) != 0)
+                        if (customerTransactionBo.AddMFTransaction(mfTransactionVo, userVo.UserId) != 0)
                         {
                             customerPortfolioBo.UpdateAdviserDailyEODLogRevaluateForTransaction(advisorVo.advisorId, "MF", mfTransactionVo.TransactionDate);
                         }
@@ -1180,6 +1191,28 @@ namespace WealthERP.CustomerPortfolio
         protected void ddlSchemeType_SelectedIndexChanged(object sender, EventArgs e)
         {
             BindScheme();
+        }
+
+        protected void txtcustomerName_TextChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(hdntxtcustomerId.Value.ToString()))
+                customerId = int.Parse(hdntxtcustomerId.Value);
+            BindPortfolioDropDown();
+
+        }
+
+        protected void ddlSearchOption_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlSearchOption.SelectedValue == "Name")
+            {
+                txtcustomerName.Visible = true;
+                txtCustCode.Visible = false;
+            }
+            else
+            {
+                txtcustomerName.Visible = false;
+                txtCustCode.Visible = true;
+            }
         }
 
     }

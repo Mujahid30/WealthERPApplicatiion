@@ -413,8 +413,8 @@ namespace DaoOnlineOrderManagement
                             mfProductAMCSchemePlanDetailsVo.FaceValue = Convert.ToDouble(dr["PASPD_FaceValue"].ToString());
                         mfProductAMCSchemePlanDetailsVo.SchemeType = dr["PSLV_LookupValueCodeForSchemeType"].ToString();
                         mfProductAMCSchemePlanDetailsVo.SchemeOption = dr["PSLV_LookupValueCodeForSchemeOption"].ToString();
-                        if (dr["XF_DividendFrequency"].ToString() != null) //&& dr["XF_DividendFrequency"].ToString() != string.Empty)
-                            mfProductAMCSchemePlanDetailsVo.DividendFrequency = dr["XF_DividendFrequency"].ToString();
+                        if (dr["PSLV_DividentType"].ToString() != null) //&& dr["XF_DividendFrequency"].ToString() != string.Empty)
+                            mfProductAMCSchemePlanDetailsVo.DividendFrequency = dr["PSLV_DividentType"].ToString();
                         mfProductAMCSchemePlanDetailsVo.BankName = dr["PASPD_BankName"].ToString();
                         if (dr["WCMV_Lookup_BankId"].ToString() != string.Empty && dr["WCMV_Lookup_BankId"].ToString() != null)
                             mfProductAMCSchemePlanDetailsVo.WCMV_Lookup_BankId = int.Parse(dr["WCMV_Lookup_BankId"].ToString());
@@ -571,6 +571,14 @@ namespace DaoOnlineOrderManagement
                         if (dr["PASP_MaturityDate"].ToString() != string.Empty)
 
                             mfProductAMCSchemePlanDetailsVo.MaturityDate = DateTime.Parse(dr["PASP_MaturityDate"].ToString());
+                        if (dr["PASPD_IsOnlineEnablement"].ToString() == "True")
+                        {
+                            mfProductAMCSchemePlanDetailsVo.IsOnlineEnablement = 1;
+                        }
+                        else
+                        {
+                            mfProductAMCSchemePlanDetailsVo.IsOnlineEnablement = 0;
+                        }
                     }
                 }
 
@@ -1197,7 +1205,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_FaceValue", DbType.Double, mfProductAMCSchemePlanDetailsVo.FaceValue); //2
                 db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PSLV_LookupValueCodeForSchemeType", DbType.String, mfProductAMCSchemePlanDetailsVo.SchemeType); //3
                 db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PSLV_LookupValueCodeForSchemeOption", DbType.String, mfProductAMCSchemePlanDetailsVo.SchemeOption);//4
-                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@XF_DividendFrequency", DbType.String, mfProductAMCSchemePlanDetailsVo.DividendFrequency);//5
+                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@DividentType", DbType.String, mfProductAMCSchemePlanDetailsVo.DividendFrequency);//5
                 //db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_BankName", DbType.String, mfProductAMCSchemePlanDetailsVo.BankName);//6
                 db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_AccountNumber", DbType.String, mfProductAMCSchemePlanDetailsVo.AccountNumber); //7
                 db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_Branch", DbType.String, mfProductAMCSchemePlanDetailsVo.Branch);//8
@@ -1238,6 +1246,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_CreatedBy", DbType.Int32, userid);
                 db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_ModifiedBy", DbType.Int32, userid);
                 db.AddInParameter(updateSchemeSetUpDetailsCmd, "@XESExternal", DbType.String, mfProductAMCSchemePlanDetailsVo.SourceCode);
+                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_IsOnlineEnablement", DbType.String, mfProductAMCSchemePlanDetailsVo.IsOnlineEnablement);
                 // db.ExecuteNonQuery(updateSchemeSetUpDetailsCmd);
                 if (db.ExecuteNonQuery(updateSchemeSetUpDetailsCmd) != 0)
                     blResult = true;
@@ -1949,7 +1958,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@PASPD_FaceValue", DbType.Double, mfProductAMCSchemePlanDetailsVo.FaceValue);
                 db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@PSLV_LookupValueCodeForSchemeType", DbType.String, mfProductAMCSchemePlanDetailsVo.SchemeType);
                 db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@PSLV_LookupValueCodeForSchemeOption", DbType.String, mfProductAMCSchemePlanDetailsVo.SchemeOption);
-                db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@XF_DividendFrequency", DbType.String, mfProductAMCSchemePlanDetailsVo.DividendFrequency);
+                db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@DividentType", DbType.String, mfProductAMCSchemePlanDetailsVo.DividendFrequency);
                 //db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@PASPD_BankName", DbType.String, mfProductAMCSchemePlanDetailsVo.BankName);
                 db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@PASPD_AccountNumber", DbType.String, mfProductAMCSchemePlanDetailsVo.AccountNumber);
                 db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@PASPD_Branch", DbType.String, mfProductAMCSchemePlanDetailsVo.Branch);
@@ -1988,6 +1997,8 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@PASPD_CreatedBy", DbType.Int32, userId);
                 db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@PASPD_ModifiedBy", DbType.Int32, userId);
                 db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@XESExternal", DbType.String, mfProductAMCSchemePlanDetailsVo.SourceCode);
+                db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@PASPD_IsOnlineEnablement", DbType.String, mfProductAMCSchemePlanDetailsVo.IsOnlineEnablement);
+
                 db.ExecuteNonQuery(CreateOnlineSchemeSetupPlanDetailsCmd);
             }
             catch (BaseApplicationException Ex)
@@ -2446,6 +2457,28 @@ namespace DaoOnlineOrderManagement
                 throw exBase;
             }
             return schemecode;
+        }
+        public DataTable GetSchemeLookupType(string dividentType)
+        {
+            Database db;
+            DbCommand cmdGetSchemeLookupType;
+            DataTable dtGetSchemeLookupType;
+            DataSet dsGetSchemeLookupType = null;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+
+                //To retreive data from the table 
+                cmdGetSchemeLookupType = db.GetStoredProcCommand("SPROC_GetSchemeLookupValue");
+                db.AddInParameter(cmdGetSchemeLookupType, "@DividentType", DbType.String, dividentType);
+                dsGetSchemeLookupType = db.ExecuteDataSet(cmdGetSchemeLookupType);
+                dtGetSchemeLookupType = dsGetSchemeLookupType.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetSchemeLookupType;
         }
     }
 }

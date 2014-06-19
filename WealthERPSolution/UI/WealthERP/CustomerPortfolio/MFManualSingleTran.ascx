@@ -10,6 +10,17 @@
 </body>
 </html>
 
+<script type="text/javascript" language="javascript">
+    function GetCustomerId(source, eventArgs) {
+        isItemSelected = true;
+        //         document.getElementById("lblgetPan").innerHTML = "";
+        document.getElementById("<%= hdntxtcustomerId.ClientID %>").value = eventArgs.get_value();
+
+        return false;
+    }
+    
+</script>
+
 <script type="text/javascript">
     function checkDate(sender, args) {
 
@@ -168,6 +179,49 @@
             </tr>
         </table>
         <table style="width: 100%;" class="TableBackground">
+            <tr>
+                <td class="leftField" style="width: 20%;">
+                    <asp:Label ID="lblCustomerName" runat="server" Text="Search Customer Name:" CssClass="FieldName"></asp:Label>
+                </td>
+                <td class="rightField" style="width: 80%;" colspan="4">
+                    <asp:DropDownList ID="ddlSearchOption" runat="server" CssClass="cmbField" AutoPostBack="true"
+                        OnSelectedIndexChanged="ddlSearchOption_SelectedIndexChanged">
+                        <asp:ListItem Text="Select" Value="Select" Selected="true" />
+                        <asp:ListItem Text="Name" Value="Name" />
+                        <%--   <asp:ListItem Text="PAN" Value="Panno" />--%>
+                        <asp:ListItem Text="Client Code" Value="Clientcode" />
+                    </asp:DropDownList>
+                </td>
+            </tr>
+            <tr>
+            <td class="leftField" style="width: 20%;"></td>
+                <td class="rightField" style="width: 80%;" colspan="4">
+                    <asp:TextBox ID="txtcustomerName" runat="server" CssClass="txtField" AutoPostBack="true"
+                        Visible="false" OnTextChanged="txtcustomerName_TextChanged"></asp:TextBox>
+                    <cc1:TextBoxWatermarkExtender ID="txtCustomerName_water" TargetControlID="txtcustomerName"
+                        WatermarkText="Enter Three Characters of Customer" runat="server" EnableViewState="false">
+                    </cc1:TextBoxWatermarkExtender>
+                    <ajaxToolkit:AutoCompleteExtender ID="txtCustomerName_autoCompleteExtender" runat="server"
+                        TargetControlID="txtcustomerName" ServiceMethod="GetCustomerName" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
+                        MinimumPrefixLength="1" EnableCaching="False" CompletionSetCount="5" CompletionInterval="100"
+                        CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
+                        CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
+                        UseContextKey="True" OnClientItemSelected="GetCustomerId" DelimiterCharacters=""
+                        Enabled="True" />
+                    <asp:TextBox ID="txtCustCode" runat="server" CssClass="txtField" AutoPostBack="true"
+                        Visible="false"></asp:TextBox>
+                    <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" TargetControlID="txtCustCode"
+                        WatermarkText="Enter few characters of Client Code" runat="server" EnableViewState="false">
+                    </cc1:TextBoxWatermarkExtender>
+                    <ajaxToolkit:AutoCompleteExtender ID="txtClientCode_autoCompleteExtender" runat="server"
+                        TargetControlID="txtCustCode" ServiceMethod="GetCustCode" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
+                        MinimumPrefixLength="1" EnableCaching="False" CompletionSetCount="5" CompletionInterval="100"
+                        CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
+                        CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
+                        UseContextKey="True" OnClientItemSelected="GetCustomerId" DelimiterCharacters=""
+                        Enabled="True" />
+                </td>
+            </tr>
             <tr>
                 <td class="leftField" style="width: 20%;">
                     <asp:Label ID="lblPortfolio" runat="server" CssClass="FieldName" Text="Select the Portfolio :"></asp:Label>
@@ -330,7 +384,7 @@
                         <asp:DropDownList ID="ddlFolioNum" runat="server" CssClass="cmbField" AutoPostBack="true"
                             OnSelectedIndexChanged="ddlFolioNum_SelectedIndexChanged">
                         </asp:DropDownList>
-                        <span id="Span3" class="spnRequiredField">*</span>
+                        <%-- <span id="Span3" class="spnRequiredField">*</span>
                         <br />
                         <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="<br />Please select a folio number"
                             ValidationGroup="MFSubmit" ControlToValidate="ddlFolioNum" Operator="NotEqual"
@@ -338,7 +392,7 @@
                         <asp:RequiredFieldValidator ID="reqddlFolio" runat="server" CssClass="rfvPCG" ErrorMessage="Please select a folio number"
                             Text="Please select a folio number" Display="Dynamic" ValidationGroup="MFSubmit"
                             ControlToValidate="ddlFolioNum" InitialValue="0">
-                        </asp:RequiredFieldValidator>
+                        </asp:RequiredFieldValidator>--%>
                     </td>
                     <td class="style2">
                     </td>
@@ -346,7 +400,7 @@
                     </td>
                     <td>
                         <asp:Button ID="btnNewFolioAdd" runat="server" Text="Add New Folio Number" CssClass="PCGLongButton"
-                            OnClick="btnNewFolioAdd_Click" Height="26px" Width="167px" />
+                            OnClick="btnNewFolioAdd_Click" Height="26px" Width="167px" Visible="false" />
                     </td>
                 </tr>
                 <tr>
@@ -629,17 +683,16 @@
                         <asp:Label ID="Label2" runat="server" Text="Area:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td class="rightField" id="td4" runat="server">
-                        <asp:TextBox ID="txtArea" runat="server" CssClass="txtField" AutoPostBack="true"></asp:TextBox>                  
+                        <asp:TextBox ID="txtArea" runat="server" CssClass="txtField" AutoPostBack="true"></asp:TextBox>
                     </td>
                 </tr>
                 <tr>
-                 <td class="leftField" id="td5" runat="server">
-                    <asp:Label ID="Label5" runat="server" Text="EUIN:" CssClass="FieldName"></asp:Label>
-                </td>
-                <td class="rightField" id="td6" runat="server">
-                    <asp:TextBox ID="txtEUIN" runat="server" CssClass="txtField" 
-                        AutoPostBack="true"></asp:TextBox>                    
-                </td>
+                    <td class="leftField" id="td5" runat="server">
+                        <asp:Label ID="Label5" runat="server" Text="EUIN:" CssClass="FieldName"></asp:Label>
+                    </td>
+                    <td class="rightField" id="td6" runat="server">
+                        <asp:TextBox ID="txtEUIN" runat="server" CssClass="txtField" AutoPostBack="true"></asp:TextBox>
+                    </td>
                 </tr>
                 <tr>
                     <td colspan="2">
@@ -664,3 +717,4 @@
         </td>
     </tr>
 </table>
+<asp:HiddenField ID="hdntxtcustomerId" runat="server" />
