@@ -247,11 +247,7 @@
                         <asp:Label ID="lblDivType" runat="server" Text="Dividend Type:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
-                        <asp:DropDownList ID="ddlDivType" runat="server" CssClass="cmbField" Style="width: 250px;"
-                            OnSelectedIndexChanged="ddlDivType_OnSelectedIndexChanged">
-                            <asp:ListItem Text="Select" Value="0"></asp:ListItem>
-                            <asp:ListItem Text="Dividend Reinvestment" Value="DVR"></asp:ListItem>
-                            <asp:ListItem Text="Dividend Payout" Value="DVP"></asp:ListItem>
+                        <asp:DropDownList ID="ddlDivType" runat="server" CssClass="cmbField" Style="width: 250px;">                           
                         </asp:DropDownList>
                         <span id="Span4" class="spnRequiredField">*</span>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" CssClass="rfvPCG"

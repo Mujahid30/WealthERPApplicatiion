@@ -790,5 +790,36 @@ namespace DaoCommon
             }
             return dtSchemeAMCCategory;
         }
+
+        public DataTable GetMFSchemeDividentType(int schemeId)
+        {
+            Database db;
+            DataTable dtSchemeDividentType;
+            DbCommand getSchemeDividentTypecmd;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getSchemeDividentTypecmd = db.GetStoredProcCommand("SPROC_ONL_GetMFSchemeDividentType");
+                db.AddInParameter(getSchemeDividentTypecmd, "@SchemePlanCode", DbType.Int64, schemeId);
+                dtSchemeDividentType = db.ExecuteDataSet(getSchemeDividentTypecmd).Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommonLookupDao.cs:GetMFSchemeDividentType(int schemeId)");
+                object[] objParams = new object[1];
+                objParams[0] = schemeId;
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtSchemeDividentType;
+        }
     }
 }

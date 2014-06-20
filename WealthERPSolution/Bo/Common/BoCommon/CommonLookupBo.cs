@@ -722,5 +722,32 @@ namespace BoCommon
             }
             return dtSchemeAMCCategory;
         }
+
+        public DataTable GetMFSchemeDividentType(int schemeId)
+        {           
+            DataTable dtSchemeDividentType;          
+
+            try
+            {
+                dtSchemeDividentType = daoCommonLookup.GetMFSchemeDividentType(schemeId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommonLookupBo.cs:GetMFSchemeDividentType(int schemeId)");
+                object[] objParams = new object[1];
+                objParams[0] = schemeId;
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtSchemeDividentType;
+        }
+
     }
 }
