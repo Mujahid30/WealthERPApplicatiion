@@ -1123,7 +1123,7 @@ namespace WealthERP.FP
                     customerVo.IsProspect = 1;
                 }
                 
-                customerBo.UpdateCustomer(customerVo);
+                customerBo.UpdateCustomer(customerVo,userVo.UserId);
                 Session["Customer"] = "Customer";
                 Session[SessionContents.CustomerVo] = customerVo;
                 Session["customerVo"] = customerVo;
@@ -1196,7 +1196,7 @@ namespace WealthERP.FP
                 customerVo.IsProspect = 1;
             }
             customerVo.ViaSMS = 1;
-            customerBo.UpdateCustomer(customerVo);
+            customerBo.UpdateCustomer(customerVo,userVo.UserId);
             Session["Customer"] = "Customer";
             if (drChildCustomer["C_CustomerId"].ToString() != "")
             {

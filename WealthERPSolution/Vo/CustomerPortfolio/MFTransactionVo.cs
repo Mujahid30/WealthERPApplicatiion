@@ -83,6 +83,7 @@ namespace VoCustomerPortfolio
         public string TrxnNo { get; set; }
         public string UserTransactionNo { get; set; }
         public DateTime OrdDate { get; set; }
+        public int userTransactionNo { get; set; }
         public string PortfolioName
         {
             get { return m_PortfolioName; }

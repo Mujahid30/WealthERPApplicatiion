@@ -100,7 +100,7 @@ namespace WealthERP.Customer
             }
             customerVo.AdviseNote = txtComments.Text.ToString();
             customerVo.CustomerClassificationID = int.Parse(ddlClassification.SelectedValue.ToString());
-            if (customerBo.UpdateCustomer(customerVo))
+            if (customerBo.UpdateCustomer(customerVo,userVo.UserId))
             {
                 customerVo = customerBo.GetCustomer(customerVo.CustomerId);
                 Session["CustomerVo"] = customerVo;

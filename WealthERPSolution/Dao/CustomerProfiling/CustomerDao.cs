@@ -1022,7 +1022,7 @@ namespace DaoCustomerProfiling
         /// </summary>
         /// <param name="customerVo"></param>
         /// <returns></returns>
-        public bool UpdateCustomer(CustomerVo customerVo)
+        public bool UpdateCustomer(CustomerVo customerVo,int userId)
         {
             bool bResult = false;
             Database db;
@@ -1193,7 +1193,7 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(editCustomerCmd, "@C_WCMV_OfficeAdrState_Id", DbType.Int32, customerVo.OfficeStateId);
 
                 db.AddInParameter(editCustomerCmd, "@C_WCMV_Occupation_Id", DbType.Int32, customerVo.OccupationId);
-              
+                db.AddInParameter(editCustomerCmd, "@C_ModifiedBy", DbType.Int32, userId);
 
                 if (db.ExecuteNonQuery(editCustomerCmd) != 0)
                     bResult = true;

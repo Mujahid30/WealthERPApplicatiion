@@ -353,7 +353,7 @@ namespace DaoProductMaster
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                getProductAmcCmd = db.GetStoredProcCommand("SP_GetProductAmc");
+                getProductAmcCmd = db.GetStoredProcCommand("SP_GetProductAmcList"); //SP_GetProductAmc
                 dsGetProductAmc = db.ExecuteDataSet(getProductAmcCmd);
             }
             catch (BaseApplicationException Ex)

@@ -104,6 +104,7 @@ namespace WealthERP.CustomerPortfolio
                 lblcategoryName.Text = mfTransactionVo.Category;
                 lblScheme.Text = mfTransactionVo.SchemePlan.ToString();
                 lblTransactionType.Text = mfTransactionVo.TransactionType.ToString();
+                lblTransactionNoV.Text = mfTransactionVo.userTransactionNo.ToString();
                 lblFolioNumber.Text = mfTransactionVo.Folio.ToString();
                 txtTransactionDate.Text = mfTransactionVo.TransactionDate.ToShortDateString().ToString();
                 txtSubBrokerCode.Text = mfTransactionVo.AgentCode.ToString();

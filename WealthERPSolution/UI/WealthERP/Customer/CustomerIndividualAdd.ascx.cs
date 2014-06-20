@@ -337,7 +337,7 @@ namespace WealthERP.Customer
                         List<int> customerIds = new List<int>();
                         customerIds = (List<int>)Session["CustomerIds"];
                         customerVo.CustomerId = customerIds[1];
-                        customerBo.UpdateCustomer(customerVo);
+                        customerBo.UpdateCustomer(customerVo,userVo.UserId);
                         Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AdviserCustomer','none');", true);
                     }
                 }
@@ -471,7 +471,7 @@ namespace WealthERP.Customer
                         List<int> customerIds = new List<int>();
                         customerIds = (List<int>)Session["CustomerIds"];
                         customerVo.CustomerId = customerIds[1];
-                        customerBo.UpdateCustomer(customerVo);
+                        customerBo.UpdateCustomer(customerVo,userVo.UserId);
                     }
                     Session["Check"] = "CustomerAdd";
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AddBankDetails','none');", true);

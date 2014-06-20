@@ -155,7 +155,7 @@ namespace WealthERP.Customer
                 customerVo.RBIApprovalDate = DateTime.Parse(txtRBIRefDate.Text.ToString());
                 customerVo.MaritalStatus = txtMaritalStatus.Text.ToString();
 
-                customerBo.UpdateCustomer(customerVo);
+                customerBo.UpdateCustomer(customerVo,userVo.UserId);
 
                 txtFirstName.Text = customerVo.FirstName.ToString();
                 txtMiddleName.Text = customerVo.MiddleName.ToString();

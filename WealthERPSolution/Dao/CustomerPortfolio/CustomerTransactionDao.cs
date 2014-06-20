@@ -1955,6 +1955,9 @@ namespace DaoCustomerPortfolio
                     mfTransactionVo.CategoryCode = dr["PAIC_AssetInstrumentCategoryCode"].ToString();
                     mfTransactionVo.Category = dr["PAIC_AssetInstrumentCategoryName"].ToString();
                     mfTransactionVo.OriginalTransactionNumber = dr["CMFT_OriginalTransactionNumber"].ToString();
+                    if (dr["CMFT_UserTransactionNo"].ToString() != "")
+                    mfTransactionVo.userTransactionNo = int.Parse(dr["CMFT_UserTransactionNo"].ToString());
+
                 }
             }
             catch (BaseApplicationException Ex)

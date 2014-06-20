@@ -265,7 +265,7 @@ namespace WealthERP.Customer
                             //int customerId = customerIds[1];
                             customerIds = (List<int>)Session["CustomerIds"];
                             customerVo.CustomerId = customerIds[1];
-                            customerBo.UpdateCustomer(customerVo);
+                            customerBo.UpdateCustomer(customerVo,userVo.UserId);
                             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AdviserCustomer','none');", true);
                             // Session.Remove("CustomerIds");
                         }
@@ -521,7 +521,7 @@ namespace WealthERP.Customer
                     customerVo.Qualification = null;
                     customerVo.MarriageDate = DateTime.Parse("1990-01-01 00:00:00.000");
                     //customerBo.CreateCustomer(customerVo, customerVo.RmId,userVo.UserId,0);
-                    customerBo.UpdateCustomer(customerVo);
+                    customerBo.UpdateCustomer(customerVo,userVo.UserId);
 
                     Session["Check"] = "CustomerAdd";
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AddBankDetails','none');", true);

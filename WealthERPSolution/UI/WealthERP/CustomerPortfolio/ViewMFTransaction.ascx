@@ -144,6 +144,14 @@
             <asp:Label ID="lblFolioNumber" runat="server" Text="Label" CssClass="Field"></asp:Label>
         </td>
     </tr>
+   <tr>
+   </tr>
+    <td class="leftField">
+    <asp:Label ID="lblUserTransactionNo" runat="server" CssClass="FieldName" Text="UserTransaction No:"></asp:Label>   
+    </td>
+    <td class="rightField" colspan="3">
+            <asp:Label ID="lblTransactionNoV" runat="server"  CssClass="Field"></asp:Label>
+        </td>
     <tr>
       <td class="leftField" style="width: 20%">
             <asp:Label ID="lblAssociateSearch" runat="server" CssClass="FieldName" Text="SubBroker Code:"></asp:Label>

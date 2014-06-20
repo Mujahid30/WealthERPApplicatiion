@@ -533,7 +533,7 @@ namespace WealthERP.Customer
                 customerVo.Qualification = null;
 
 
-                if (customerBo.UpdateCustomer(customerVo))
+                if (customerBo.UpdateCustomer(customerVo,userVo.UserId))
                 {
                     customerVo = customerBo.GetCustomer(customerVo.CustomerId);
                     Session["CustomerVo"] = customerVo;

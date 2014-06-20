@@ -465,14 +465,14 @@ namespace BoCustomerProfiling
         /// </summary>
         /// <param name="customerVo"></param>
         /// <returns></returns>
-        public bool UpdateCustomer(CustomerVo customerVo)
+        public bool UpdateCustomer(CustomerVo customerVo,int userId)
         {
             bool bResult = false;
             CustomerDao customerDao = new CustomerDao();
 
             try
             {
-                bResult = customerDao.UpdateCustomer(customerVo);
+                bResult = customerDao.UpdateCustomer(customerVo, userId);
 
             }
             catch (BaseApplicationException Ex)
