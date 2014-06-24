@@ -15,7 +15,7 @@
         isItemSelected = true;
         //         document.getElementById("lblgetPan").innerHTML = "";
         document.getElementById("<%= hdntxtcustomerId.ClientID %>").value = eventArgs.get_value();
-
+        //  alert(document.getElementById("<%= hdntxtcustomerId.ClientID %>").value);
         return false;
     }
     
@@ -181,7 +181,7 @@
         <table style="width: 100%;" class="TableBackground">
             <tr>
                 <td class="leftField" style="width: 20%;">
-                    <asp:Label ID="lblCustomerName" runat="server" Text="Search Customer Name:" CssClass="FieldName"></asp:Label>
+                    <asp:Label ID="lblCustomerName" runat="server" Text="Search For:" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightField" style="width: 80%;" colspan="4">
                     <asp:DropDownList ID="ddlSearchOption" runat="server" CssClass="cmbField" AutoPostBack="true"
@@ -194,7 +194,8 @@
                 </td>
             </tr>
             <tr>
-            <td class="leftField" style="width: 20%;"></td>
+                <td class="leftField" style="width: 20%;">
+                </td>
                 <td class="rightField" style="width: 80%;" colspan="4">
                     <asp:TextBox ID="txtcustomerName" runat="server" CssClass="txtField" AutoPostBack="true"
                         Visible="false" OnTextChanged="txtcustomerName_TextChanged"></asp:TextBox>
@@ -209,7 +210,7 @@
                         UseContextKey="True" OnClientItemSelected="GetCustomerId" DelimiterCharacters=""
                         Enabled="True" />
                     <asp:TextBox ID="txtCustCode" runat="server" CssClass="txtField" AutoPostBack="true"
-                        Visible="false"></asp:TextBox>
+                        Visible="false" OnTextChanged="txtCustCode_TextChanged"></asp:TextBox>
                     <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" TargetControlID="txtCustCode"
                         WatermarkText="Enter few characters of Client Code" runat="server" EnableViewState="false">
                     </cc1:TextBoxWatermarkExtender>
@@ -220,6 +221,13 @@
                         CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
                         UseContextKey="True" OnClientItemSelected="GetCustomerId" DelimiterCharacters=""
                         Enabled="True" />
+                 <asp:Label ID="lblcustandcustomer" runat="server" Text="*" CssClass="spnRequiredField" Visible="false"></asp:Label>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtcustomerName"
+                        ErrorMessage="<br />Please Enter Customer Name" Display="Dynamic" runat="server"
+                        Enabled="false" CssClass="rfvPCG" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtCustCode"
+                        ErrorMessage="<br />Please Enter Cust Code" Display="Dynamic" runat="server"
+                        Enabled="false" CssClass="rfvPCG" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
                 </td>
             </tr>
             <tr>
@@ -287,12 +295,46 @@
                 </td>
                 <td class="rightField">
                     <asp:DropDownList ID="ddlAMC" runat="server" CssClass="cmbField" AutoPostBack="true"
-                        OnSelectedIndexChanged="ddlAMC_SelectedIndexChanged">
+                        OnSelectedIndexChanged="ddlAMC_SelectedIndexChanged" Width="300px">
                     </asp:DropDownList>
                     <span id="Span7" class="spnRequiredField">* </span>
                     <asp:CompareValidator ID="cmpamc" runat="server" ErrorMessage="<br />Please select an AMC Name"
                         ValidationGroup="MFSubmit" ControlToValidate="ddlAMC" Operator="NotEqual" CssClass="rfvPCG"
                         ValueToCompare="Select" Display="Dynamic"></asp:CompareValidator>
+                </td>
+                <td>
+                </td>
+                <td>
+                </td>
+            </tr>
+            <tr style="width: 100%">
+                <td class="leftField" valign="top">
+                    <asp:Label ID="lblSchemeSearch" runat="server" Text="Scheme Search :" CssClass="FieldName"></asp:Label>
+                </td>
+                <td class="rightField" colspan="4">
+                    <asp:DropDownList ID="ddlScheme" runat="server" CssClass="cmbField" AutoPostBack="true"
+                        OnSelectedIndexChanged="ddlScheme_SelectedIndexChanged" Width="400px">
+                    </asp:DropDownList>
+                    <span id="Span6" class="spnRequiredField">*
+                        <asp:CompareValidator ID="cmpScheme" runat="server" ErrorMessage="<br />Please select a Scheme Name"
+                            ValidationGroup="MFSubmit" ControlToValidate="ddlScheme" Operator="NotEqual"
+                            CssClass="rfvPCG" ValueToCompare="Select" Display="Dynamic"></asp:CompareValidator>
+                    </span>
+                    <%-- <asp:HiddenField ID="txtSchemeCode" runat="server" OnValueChanged="txtSchemeCode_ValueChanged" />--%>
+                    <%--<asp:TextBox ID="txtSearchScheme" runat="server" CssClass="txtSchemeName"  AutoComplete="Off"
+                                        AutoPostBack="true"></asp:TextBox><cc1:TextBoxWatermarkExtender ID="txtSearchScheme_TextBoxWatermarkExtender"
+                                            runat="server" TargetControlID="txtSearchScheme" WatermarkText="Type the Scheme Name">
+                                        </cc1:TextBoxWatermarkExtender>
+                                    <ajaxToolkit:AutoCompleteExtender ID="txtSearchScheme_autoCompleteExtender" runat="server"
+                                        TargetControlID="txtSearchScheme" ServiceMethod="GetSchemeList" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
+                                        MinimumPrefixLength="1" EnableCaching="false" CompletionSetCount="5" CompletionInterval="100"
+                                        CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
+                                        CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
+                                        UseContextKey="true" OnClientItemSelected="GetSchemeCode" />--%>
+                    <%--<span id="Span6" class="spnRequiredField">*<br />
+                                    </span>--%>
+                </td>
+                <td>
                 </td>
                 <td>
                 </td>
@@ -331,40 +373,6 @@
                     </asp:DropDownList>
                 </td>
             </tr>
-            <tr style="width: 100%">
-                <td class="leftField" valign="top">
-                    <asp:Label ID="lblSchemeSearch" runat="server" Text="Scheme Search :" CssClass="FieldName"></asp:Label>
-                </td>
-                <td class="rightField" colspan="4">
-                    <asp:DropDownList ID="ddlScheme" runat="server" CssClass="cmbField" AutoPostBack="true"
-                        OnSelectedIndexChanged="ddlScheme_SelectedIndexChanged">
-                    </asp:DropDownList>
-                    <span id="Span6" class="spnRequiredField">*
-                        <asp:CompareValidator ID="cmpScheme" runat="server" ErrorMessage="<br />Please select a Scheme Name"
-                            ValidationGroup="MFSubmit" ControlToValidate="ddlScheme" Operator="NotEqual"
-                            CssClass="rfvPCG" ValueToCompare="Select" Display="Dynamic"></asp:CompareValidator>
-                    </span>
-                    <%-- <asp:HiddenField ID="txtSchemeCode" runat="server" OnValueChanged="txtSchemeCode_ValueChanged" />--%>
-                    <%--<asp:TextBox ID="txtSearchScheme" runat="server" CssClass="txtSchemeName"  AutoComplete="Off"
-                                        AutoPostBack="true"></asp:TextBox><cc1:TextBoxWatermarkExtender ID="txtSearchScheme_TextBoxWatermarkExtender"
-                                            runat="server" TargetControlID="txtSearchScheme" WatermarkText="Type the Scheme Name">
-                                        </cc1:TextBoxWatermarkExtender>
-                                    <ajaxToolkit:AutoCompleteExtender ID="txtSearchScheme_autoCompleteExtender" runat="server"
-                                        TargetControlID="txtSearchScheme" ServiceMethod="GetSchemeList" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
-                                        MinimumPrefixLength="1" EnableCaching="false" CompletionSetCount="5" CompletionInterval="100"
-                                        CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
-                                        CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
-                                        UseContextKey="true" OnClientItemSelected="GetSchemeCode" />--%>
-                    <%--<span id="Span6" class="spnRequiredField">*<br />
-                                    </span>--%>
-                </td>
-                <td>
-                </td>
-                <td>
-                </td>
-                <td>
-                </td>
-            </tr>
             <tr>
                 <%--<td><span style='font-size: 8px; font-weight: normal' class='FieldName'>Enter
                                         few characters of Scheme Name.</span><br/>
@@ -384,7 +392,7 @@
                         <asp:DropDownList ID="ddlFolioNum" runat="server" CssClass="cmbField" AutoPostBack="true"
                             OnSelectedIndexChanged="ddlFolioNum_SelectedIndexChanged">
                         </asp:DropDownList>
-                        <%-- <span id="Span3" class="spnRequiredField">*</span>
+                        <span id="Span3" class="spnRequiredField">*</span>
                         <br />
                         <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="<br />Please select a folio number"
                             ValidationGroup="MFSubmit" ControlToValidate="ddlFolioNum" Operator="NotEqual"
@@ -392,7 +400,7 @@
                         <asp:RequiredFieldValidator ID="reqddlFolio" runat="server" CssClass="rfvPCG" ErrorMessage="Please select a folio number"
                             Text="Please select a folio number" Display="Dynamic" ValidationGroup="MFSubmit"
                             ControlToValidate="ddlFolioNum" InitialValue="0">
-                        </asp:RequiredFieldValidator>--%>
+                        </asp:RequiredFieldValidator>
                     </td>
                     <td class="style2">
                     </td>
@@ -411,21 +419,25 @@
                         <asp:DropDownList ID="ddlTransactionType" runat="server" CssClass="cmbField" AutoPostBack="true"
                             OnSelectedIndexChanged="ddlTransactionType_SelectedIndexChanged">
                             <asp:ListItem>Select</asp:ListItem>
-                            <asp:ListItem>Sell</asp:ListItem>
                             <asp:ListItem>Buy</asp:ListItem>
-                            <asp:ListItem>Bonus</asp:ListItem>
-                            <asp:ListItem>Dividend Reinvestment</asp:ListItem>
+                            <asp:ListItem>Sell</asp:ListItem>
+                            <asp:ListItem Enabled="false">Bonus</asp:ListItem>
+                            <asp:ListItem Enabled="false">Dividend Reinvestment</asp:ListItem>
                             <asp:ListItem>SIP</asp:ListItem>
-                            <asp:ListItem>SWP</asp:ListItem>
-                            <asp:ListItem>STP</asp:ListItem>
-                            <asp:ListItem>Dividend Payout</asp:ListItem>
-                            <asp:ListItem>Switch</asp:ListItem>
-                            <asp:ListItem>Holdings</asp:ListItem>
+                            <asp:ListItem Enabled="false">SWP</asp:ListItem>
+                            <asp:ListItem Enabled="false">STP</asp:ListItem>
+                            <asp:ListItem Enabled="false">Dividend Payout</asp:ListItem>
+                            <asp:ListItem Enabled="false">Switch</asp:ListItem>
+                            <asp:ListItem Enabled="false">Holdings</asp:ListItem>
                         </asp:DropDownList>
                         <span id="Span2" class="spnRequiredField">*</span>
                         <asp:CompareValidator ID="CompareValidator9" runat="server" ErrorMessage="<br />Please select a transaction type"
                             ValidationGroup="MFSubmit" ControlToValidate="ddlTransactionType" Operator="NotEqual"
                             CssClass="rfvPCG" ValueToCompare="lblScheme" Display="Dynamic"></asp:CompareValidator>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" CssClass="rfvPCG"
+                            ErrorMessage="Please select a transaction type" Display="Dynamic" ValidationGroup="MFSubmit"
+                            ControlToValidate="ddlTransactionType" InitialValue="Select">
+                        </asp:RequiredFieldValidator>
                     </td>
                     <td>
                     </td>

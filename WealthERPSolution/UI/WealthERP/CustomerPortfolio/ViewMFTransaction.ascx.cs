@@ -62,7 +62,7 @@ namespace WealthERP.CustomerPortfolio
             }
 
             if (userVo.UserType == "Advisor") lnkEdit.Visible = false;
-            if (userVo.UserType == "Advisor") btnCancel.Visible = true;
+            //if (userVo.UserType == "Advisor") btnCancel.Visible = true;
         }
 
         private void LoadViewFields()
@@ -138,14 +138,14 @@ namespace WealthERP.CustomerPortfolio
                 ShowHideCommandButton(isMainPortfolio, mfTransactionVo.IsSourceManual == 1 ? true : false, Session[SessionContents.CurrentUserRole].ToString() == "Customer" ? true : false, mfTransactionVo.TransactionStatusCode == 1 ? true : false);
 
 
-                //if (mfTransactionVo.TransactionStatusCode == 1)
-                //{
-                //    btnCancel.Visible = true;
-                //}
-                //else
-                //{
-                //    btnCancel.Visible = false;
-                //}
+                if (mfTransactionVo.TransactionStatusCode == 2 || mfTransactionVo.TransactionStatusCode==3)
+                {
+                    btnCancel.Visible = false;
+                }
+                else
+                {
+                    btnCancel.Visible = true;
+                }
 
                 //if (Session[SessionContents.CurrentUserRole].ToString() == "Customer")
                 //{

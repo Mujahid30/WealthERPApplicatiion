@@ -86,6 +86,7 @@ namespace WealthERP.OnlineOrderBackOffice
                         txtNFOStartDate.Enabled = false;
                         txtNFOendDate.Enabled = false;
                         ddlMargeScheme.Enabled = true;
+                        
                     }
                     else if (Request.QueryString["strAction"].Trim() == "View")
                     {
@@ -913,11 +914,11 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     BindSchemeLoockUpType();
                     ddlDFrequency.Visible = true;
-                  
+                    lblddlDFrequency.Visible = true;
                 }
                 else
                 {
-                    ddlDFrequency.Visible = true;
+                    ddlDFrequency.Visible = false;
                 }
             }
             else
@@ -1251,11 +1252,11 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     BindSchemeLoockUpType();
                     ddlDFrequency.Visible = true;
-
+                    lblddlDFrequency.Visible = true;
                 }
                 else
                 {
-                    ddlDFrequency.Visible = true;
+                    ddlDFrequency.Visible = false;
                 }
             }
             else
@@ -1768,7 +1769,7 @@ namespace WealthERP.OnlineOrderBackOffice
                         btnsubmit.Visible = true;
                     }
                     lblAllproductcode.Visible = true;
-                    //lnkProductcode.Visible = true;
+                    lnkProductcode.Visible = true;
                     Clearallcontrols(true);
 
                     //}
@@ -1787,7 +1788,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     btnsubmit.Visible = true;
                 }
                 lblAllproductcode.Visible = true;
-                //lnkProductcode.Visible = true;
+                lnkProductcode.Visible = true;
                 Clearallcontrols(true);
                 //}
             }
@@ -1936,7 +1937,11 @@ namespace WealthERP.OnlineOrderBackOffice
                 }
                 else
                 {
-                    btnsubmit.Visible = true;
+                    if(ddlOption.SelectedValue!="Select")
+                      btnsubmit.Visible = false;
+                    else
+                        btnsubmit.Visible = true; ;
+
                 }
             }
             else

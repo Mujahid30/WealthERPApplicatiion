@@ -50,7 +50,7 @@ namespace WealthERP.CustomerPortfolio
         //string categoryName;
         int transactionId;
         CustomerPortfolioVo customerPortfolioVo = new CustomerPortfolioVo();
-        static int portfolioId;
+        int portfolioId=0;
         CustomerPortfolioBo customerPortfolioBo = new CustomerPortfolioBo();
         PortfolioBo portfolioBo = new PortfolioBo();
         AssetBo assetBo = new AssetBo();
@@ -87,11 +87,11 @@ namespace WealthERP.CustomerPortfolio
                 }
                 if (!IsPostBack)
                 {
-                   
-                    BindAMC();
-                    BindCategory();
-                    BindScheme();
-                    BindFolioNumber(0);
+                    BindAllDropdown();
+                    //BindAMC();
+                    //BindCategory();
+                    //BindScheme();
+                    //BindFolioNumber(0);
                     tdSchemeNameLabel.Visible = false;
                     tdSchemeNameValue.Visible = false;
                     tdSchemeToLabel.Visible = false;
@@ -139,7 +139,13 @@ namespace WealthERP.CustomerPortfolio
 
             //}
         }
-
+        protected void BindAllDropdown()
+        {
+            BindAMC();
+            BindCategory();
+            BindScheme();
+            BindFolioNumber(0);
+        }
         private void BindScheme()
         {
             try
@@ -302,6 +308,8 @@ namespace WealthERP.CustomerPortfolio
             ddlPortfolio.DataValueField = ds.Tables[0].Columns["CP_PortfolioId"].ToString();
             ddlPortfolio.DataTextField = ds.Tables[0].Columns["CP_PortfolioName"].ToString();
             ddlPortfolio.DataBind();
+            customerId = 0;
+            //ddlAMC.Items.Clear();
             //ddlPortfolio.Items.Insert(0, "Select the Portfolio");
 
             //ddlPortfolio.SelectedValue = portfolioId.ToString();
@@ -844,8 +852,11 @@ namespace WealthERP.CustomerPortfolio
         TxtsubBrokerCode.Text = "";
         ddlPortfolio.SelectedIndex = 0;
         lblSchemeName.Visible = false;
-
-
+        txtcustomerName.Text = "";
+        txtCustCode.Text = "";
+        ddlSearchOption.SelectedValue = "Select";
+        //RequiredFieldValidator3.Enabled = false;
+        //RequiredFieldValidator2.Enabled = false;
         tdSchemeNameLabel.Visible = false;
         tdSchemeNameValue.Visible = false;
         tdSchemeToLabel.Visible = false;
@@ -1196,8 +1207,11 @@ namespace WealthERP.CustomerPortfolio
         protected void txtcustomerName_TextChanged(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(hdntxtcustomerId.Value.ToString()))
+            {
                 customerId = int.Parse(hdntxtcustomerId.Value);
-            BindPortfolioDropDown();
+                BindPortfolioDropDown();
+                BindAllDropdown();
+            }
 
         }
 
@@ -1207,12 +1221,29 @@ namespace WealthERP.CustomerPortfolio
             {
                 txtcustomerName.Visible = true;
                 txtCustCode.Visible = false;
+               RequiredFieldValidator2.Enabled = true;
+               lblcustandcustomer.Visible = true;
             }
             else
             {
                 txtcustomerName.Visible = false;
                 txtCustCode.Visible = true;
+              RequiredFieldValidator3.Enabled = true;
+              lblcustandcustomer.Visible = true;
+                
+
             }
+        }
+
+        protected void txtCustCode_TextChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(hdntxtcustomerId.Value.ToString()))
+            {
+                customerId = int.Parse(hdntxtcustomerId.Value);
+                BindPortfolioDropDown();
+                BindAllDropdown();
+            }
+
         }
 
     }
