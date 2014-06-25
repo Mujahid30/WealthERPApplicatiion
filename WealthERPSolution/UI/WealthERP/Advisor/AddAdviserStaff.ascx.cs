@@ -84,6 +84,7 @@ namespace WealthERP.Advisor
                 if (!string.IsNullOrEmpty(hidRMid.Value.ToString()) && !string.IsNullOrEmpty(action))
                 {
                     ShowRMDetails(Convert.ToInt32(hidRMid.Value));
+                    PnlDepartRole.Visible = true;
                     if (action == "View")
                     {
                         ControlViewEditMode(true);

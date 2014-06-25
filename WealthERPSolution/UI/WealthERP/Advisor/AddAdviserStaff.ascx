@@ -344,10 +344,10 @@
     </tr>
     <tr>
     
-    <td class="leftLabel" style="overflow:scroll; padding-bottom: 25px">
+    <td class="leftLabel">
    <asp:Label ID="Label1" runat="server" Text=" Department Roles :" CssClass="FieldName"></asp:Label></td>
     <td class="rightData" colspan="5">
-    <asp:Panel ID="PnlDepartRole" runat="server" ScrollBars="Horizontal" Width="800px" Visible="false" >
+    <asp:Panel ID="PnlDepartRole" runat="server" ScrollBars="Horizontal" Width="800px" Visible="false">
     <telerik:RadListBox ID="chkbldepart" runat="server" CheckBoxes="true" AutoPostBack="true">
       </telerik:RadListBox>
       <span id="Span12" class="spnRequiredField">*</span>

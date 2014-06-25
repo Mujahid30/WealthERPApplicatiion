@@ -279,6 +279,9 @@ namespace WealthERP.AdvsierPreferenceSettings
             if (CheckNodeGotSelected(RTVAdmin) == true)
             {
                 RemoveTreeNodes(RTVAdmin);
+                string message = "Removed SuccessFully.";
+                ShowMessage(message);
+                Cache.Remove("AdminLeftTreeNode" + advisorVo.advisorId.ToString());
             }
             else
             {
@@ -306,6 +309,7 @@ namespace WealthERP.AdvsierPreferenceSettings
                 RemoveTreeNodes(RTVRM);
                 string message = "Removed SuccessFully.";
                 ShowMessage(message);
+                Cache.Remove("AdminLeftTreeNode" + advisorVo.advisorId.ToString());
             }
             else
             {
@@ -320,6 +324,7 @@ namespace WealthERP.AdvsierPreferenceSettings
                 RemoveTreeNodes(RTVBM);
                 string message = "Removed SuccessFully.";
                 ShowMessage(message);
+                Cache.Remove("AdminLeftTreeNode" + advisorVo.advisorId.ToString());
             }
             else
             {
@@ -334,6 +339,7 @@ namespace WealthERP.AdvsierPreferenceSettings
                 RemoveTreeNodes(RTVCustomer);
                 string message = "Removed SuccessFully.";
                 ShowMessage(message);
+                Cache.Remove("AdminLeftTreeNode" + advisorVo.advisorId.ToString());
             }
             else
             {
@@ -348,6 +354,7 @@ namespace WealthERP.AdvsierPreferenceSettings
                 RemoveTreeNodes(RTVOps);
                 string message = "Removed SuccessFully.";
                 ShowMessage(message);
+                Cache.Remove("AdminLeftTreeNode" + advisorVo.advisorId.ToString());
             }
             else
             {
@@ -362,6 +369,7 @@ namespace WealthERP.AdvsierPreferenceSettings
                 RemoveTreeNodes(RTVResearch);
                 string message = "Removed SuccessFully.";
                 ShowMessage(message);
+                Cache.Remove("AdminLeftTreeNode" + advisorVo.advisorId.ToString());
             }
             else
             {
@@ -376,6 +384,7 @@ namespace WealthERP.AdvsierPreferenceSettings
                 RemoveTreeNodes(RTVSuperAdmin);
                 string message = "Removed SuccessFully.";
                 ShowMessage(message);
+                Cache.Remove("AdminLeftTreeNode" + advisorVo.advisorId.ToString());
             }
             else
             {
@@ -390,6 +399,7 @@ namespace WealthERP.AdvsierPreferenceSettings
                 RemoveTreeNodes(RTVAssociates);
                 string message = "Removed SuccessFully.";
                 ShowMessage(message);
+                Cache.Remove("AdminLeftTreeNode" + advisorVo.advisorId.ToString());
 
             }
             else
