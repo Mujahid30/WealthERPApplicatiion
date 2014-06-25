@@ -134,7 +134,7 @@
                     OnUpdateCommand="gvSIPSummaryBookMIS_UpdateCommand">
                     <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="OrderMIS">
                     </ExportSettings>
-                    <MasterTableView DataKeyNames="CMFSS_SystematicSetupId,CMFSS_IsCanceled,AcceptCount,InProcessCount,RejectedCount,ExecutedCount,CMFA_AccountId,PASP_SchemePlanCode,CMFSS_IsSourceAA" 
+                    <MasterTableView DataKeyNames="CMFSS_SystematicSetupId,CMFSS_IsCanceled,AcceptCount,InProcessCount,RejectedCount,ExecutedCount,CMFA_AccountId,PASP_SchemePlanCode,CMFSS_IsSourceAA,CMFSS_TotalInstallment,CMFSS_CurrentInstallmentNumber,CMFSS_EndDate" 
                     Width="102%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None" EditMode="PopUp">
                         <CommandItemSettings ShowExportToWordButton="false" ShowExportToExcelButton="false"
                             ShowExportToCsvButton="false" ShowAddNewRecordButton="false" ShowRefreshButton="false" />
@@ -259,6 +259,12 @@
                             <telerik:GridBoundColumn DataField="CMFSS_TotalInstallment" AllowFiltering="false"
                                 HeaderText="Total Installment" UniqueName="CMFSS_TotalInstallment" SortExpression="CMFSS_TotalInstallment"
                                 ShowFilterIcon="false" HeaderStyle-Width="80px" CurrentFilterFunction="Contains"
+                                AutoPostBackOnFilter="true">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                             <telerik:GridBoundColumn DataField="CMFSS_CurrentInstallmentNumber" AllowFiltering="false"
+                                HeaderText="Current Installment" UniqueName="CMFSS_CurrentInstallmentNumber" SortExpression="CMFSS_TotalInstallment"
+                                ShowFilterIcon="false" HeaderStyle-Width="80px" Visible="false" CurrentFilterFunction="Contains"
                                 AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>

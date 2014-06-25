@@ -28,6 +28,7 @@ namespace VoOnlineOrderManagemnet
         public string Folio { set; get; }
         public Double UnitsHeld { set; get; }
         public int TotalInstallments { set; get; }
+        public int CurrentInstallments { set; get; }
         public int MinDues { set; get; }
         public int MaxDues { set; get; }
         public bool IsAllUnits { set; get; }

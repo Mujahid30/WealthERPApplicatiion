@@ -176,7 +176,7 @@ namespace WealthERP.OnlineOrderManagement
             {
                 drSIPOrderBook = dtFinalSIPOrderBook.NewRow();
 
-                int sipDueCount = 0, inProcessCount = 0, acceptCount = 0, systemRejectCount = 0, rejectedCount = 0, executedCount=0;
+                int sipDueCount = 0, inProcessCount = 0, acceptCount = 0, systemRejectCount = 0, rejectedCount = 0, executedCount = 0;
 
                 dvSIPOrderDetails = new DataView(dtOrderDetails, "CMFSS_SystematicSetupId=" + drSIP["CMFSS_SystematicSetupId"].ToString(), "CMFSS_SystematicSetupId", DataViewRowState.CurrentRows);
                 if (int.Parse(drSIP["CMFSS_IsSourceAA"].ToString()) == 1)
@@ -233,6 +233,7 @@ namespace WealthERP.OnlineOrderManagement
                     drSIPOrderBook["CMFSS_NextSIPDueDate"] = "";
                 }
                 drSIPOrderBook["CMFSS_TotalInstallment"] = drSIP["CMFSS_TotalInstallment"];
+                drSIPOrderBook["CMFSS_CurrentInstallmentNumber"] = drSIP["CMFSS_CurrentInstallmentNumber"];
                 drSIPOrderBook["CMFA_FolioNum"] = drSIP["CMFA_FolioNum"];
                 drSIPOrderBook["Channel"] = drSIP["Channel"];
                 drSIPOrderBook["CMFSS_IsCanceled"] = drSIP["CMFSS_IsCanceled"];
@@ -276,6 +277,7 @@ namespace WealthERP.OnlineOrderManagement
             dtSIPOrderBook.Columns.Add("CMFSS_EndDate", typeof(DateTime));
             dtSIPOrderBook.Columns.Add("CMFSS_NextSIPDueDate");
             dtSIPOrderBook.Columns.Add("CMFSS_TotalInstallment");
+            dtSIPOrderBook.Columns.Add("CMFSS_CurrentInstallmentNumber");
             dtSIPOrderBook.Columns.Add("CMFA_FolioNum");
             dtSIPOrderBook.Columns.Add("Channel");
             dtSIPOrderBook.Columns.Add("CMFSS_IsCanceled");
@@ -384,9 +386,9 @@ namespace WealthERP.OnlineOrderManagement
                                     }
                                     else
                                     {
-                                        Response.Redirect("ControlHost.aspx?pageid=CustomerTransactionBookList&systematicId=" + systematicId + "&AccountId=" + AccountId + "&schemeplanCode=" + schemeplanCode + "&IsSourceAA=" + IsSourceAA +"", false);
+                                        Response.Redirect("ControlHost.aspx?pageid=CustomerTransactionBookList&systematicId=" + systematicId + "&AccountId=" + AccountId + "&schemeplanCode=" + schemeplanCode + "&IsSourceAA=" + IsSourceAA + "", false);
                                     }
-                                    
+
                                 }
                             }
                         }
@@ -414,19 +416,31 @@ namespace WealthERP.OnlineOrderManagement
         {
             if (e.Item is GridDataItem)
             {
-                GridDataItem dataItem = (GridDataItem)e.Item;               
-                string Iscancel = Convert.ToString(gvSIPSummaryBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CMFSS_IsCanceled"]);
-                LinkButton buttonEdit = dataItem["editColumn"].Controls[0] as LinkButton;
-                if (Iscancel == "Cancelled")
+                GridDataItem dataItem = (GridDataItem)e.Item;
+                string isCancel = Convert.ToString(gvSIPSummaryBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CMFSS_IsCanceled"]);
+                int totalInstallment = Convert.ToInt32(gvSIPSummaryBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CMFSS_TotalInstallment"].ToString());
+                int currentInstallmentNumber = Convert.ToInt32(gvSIPSummaryBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CMFSS_CurrentInstallmentNumber"].ToString());
+                DateTime endDate = Convert.ToDateTime(gvSIPSummaryBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CMFSS_EndDate"].ToString());
+                LinkButton buttonCancel = dataItem["editColumn"].Controls[0] as LinkButton;
+                DateTime currentTime = DateTime.Now;
+                DateTime fixedTime = Convert.ToDateTime("08:35:00 AM");
+                int compare = DateTime.Compare(currentTime, fixedTime);
+                if (isCancel == "Cancelled" || totalInstallment == currentInstallmentNumber || endDate < DateTime.Now)
                 {
-                    buttonEdit.Enabled = false;
+
+                    buttonCancel.Enabled = false;
                 }
-
+                if (endDate == DateTime.Now)
+                {
+                    if (compare >= 0)
+                    {
+                        buttonCancel.Enabled = false;
+                    }
+                }
             }
-        }
 
+        }
     }
 }
-
 
 
