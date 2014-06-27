@@ -361,6 +361,7 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void gvSIPSummaryBookMIS_OnItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
         {
+            string orderStatus = string.Empty;
             if (e.Item is GridDataItem)
             {
                 GridDataItem gvr = (GridDataItem)e.Item;
@@ -392,13 +393,25 @@ namespace WealthERP.OnlineOrderManagement
                                 }
                                  if (e.CommandName == "InProcess" |e.CommandName == "Rejected"|e.CommandName == "Executed")
                                 {
+                                    if (e.CommandName == "InProcess")
+                                    {
+                                        orderStatus = "AL";
+                                    }
+                                    else if (e.CommandName == "Rejected")
+                                    {
+                                        orderStatus = "RJ";
+                                    }
+                                    else if (e.CommandName == "Executed")
+                                    {
+                                        orderStatus = "IP";
+                                    }
                                     if (Session["PageDefaultSetting"] != null)
                                     {
-                                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('CustomerSIPBookList','?systematicId=" + systematicId + "');", true);
+                                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('CustomerSIPBookList','?systematicId=" + systematicId + "&OrderStatus=" + orderStatus + "');", true);
                                     }
                                     else
                                     {
-                                        Response.Redirect("ControlHost.aspx?pageid=CustomerSIPBookList&systematicId=" + systematicId + "", false);
+                                        Response.Redirect("ControlHost.aspx?pageid=CustomerSIPBookList&systematicId=" + systematicId + "&OrderStatus=" + orderStatus + "", false);
                                     }
 
                                 }                               
