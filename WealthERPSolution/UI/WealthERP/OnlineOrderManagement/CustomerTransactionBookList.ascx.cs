@@ -327,7 +327,7 @@ namespace WealthERP.OnlineOrderManagement
                     }
                     if (!string.IsNullOrEmpty(mfTransactionVo.ELSSMaturityDate.ToString()) && (mfTransactionVo.ELSSMaturityDate) != DateTime.MinValue)
                     {
-                        drMFTransaction["ELSSMaturityDate"] = mfTransactionVo.OrdDate;
+                        drMFTransaction["ELSSMaturityDate"] = mfTransactionVo.ELSSMaturityDate;
                     }
                     else
                     {
