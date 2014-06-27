@@ -390,11 +390,42 @@ namespace WealthERP.OnlineOrderManagement
                                     }
 
                                 }
+                                 if (e.CommandName == "InProcess" |e.CommandName == "Rejected"|e.CommandName == "Executed")
+                                {
+                                    if (Session["PageDefaultSetting"] != null)
+                                    {
+                                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('CustomerSIPBookList','?systematicId=" + systematicId + "');", true);
+                                    }
+                                    else
+                                    {
+                                        Response.Redirect("ControlHost.aspx?pageid=CustomerSIPBookList&systematicId=" + systematicId + "", false);
+                                    }
+
+                                }                               
                             }
                         }
                     }
                 }
             }
+        }
+        protected void lnkprAmcB_Click(object sender, EventArgs e)
+        {
+            LinkButton lnkOrderNo = (LinkButton)sender;
+           GridDataItem gdi;
+            gdi = (GridDataItem)lnkOrderNo.NamingContainer;
+           int selectedRow = gdi.ItemIndex + 1;
+           int systematicId = int.Parse((gvSIPSummaryBookMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CMFSS_SystematicSetupId"].ToString()));
+           if (Session["PageDefaultSetting"] != null)
+           {
+               ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('CustomerSIPBookList','?systematicId=" + systematicId + "');", true);
+           }
+           else
+           {
+               Response.Redirect("ControlHost.aspx?pageid=CustomerSIPBookList&systematicId=" + systematicId + "", false);
+           }
+         //  ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerSIPBookList", "loadcontrol('CustomerSIPBookList');", true);
+          // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerSIPBookList", "loadcontrol('CustomerSIPBookList','action=viewIsssueList&issueNo=" + issueNo + "&type=" + ddlType.SelectedValue + "&date=" + DateTime.Now + "&product=" + ddlProduct.SelectedValue + "');", true);
+       
         }
         protected void gvSIPSummaryBookMIS_UpdateCommand(object source, GridCommandEventArgs e)
         {

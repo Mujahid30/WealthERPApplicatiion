@@ -150,7 +150,7 @@
                                 SortExpression="CMFSS_SystematicSetupId" FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="80px">
                                 <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
                                 <ItemTemplate>
-                                    <asp:LinkButton ID="lnkprAmcB" runat="server" CommandName="Select" Text='<%# Eval("CMFSS_SystematicSetupId").ToString() %>'>
+                                    <asp:LinkButton ID="lnkprAmcB" runat="server" OnClick="lnkprAmcB_Click" CommandName="Select" Text='<%# Eval("CMFSS_SystematicSetupId").ToString() %>'>
                                     </asp:LinkButton>
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>
@@ -297,7 +297,7 @@
                                 SortExpression="InProcessCount" FooterStyle-HorizontalAlign="Right"  HeaderStyle-Width="80px" >
                                 <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
                                 <ItemTemplate>
-                                    <asp:LinkButton ID="lnkprprcess" runat="server" CommandName="In Process" Text='<%# Eval("InProcessCount").ToString() %>'>
+                                    <asp:LinkButton ID="lnkprprcess" runat="server" CommandName="InProcess" Text='<%# Eval("InProcessCount").ToString() %>'>
                                     </asp:LinkButton>
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn> 
