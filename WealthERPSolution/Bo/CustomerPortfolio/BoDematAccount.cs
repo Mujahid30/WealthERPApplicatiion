@@ -17,7 +17,7 @@ namespace BoCustomerPortfolio
     public class BoDematAccount
     {
         DematAccountDao demataccountdao = new DematAccountDao();
-         
+
         public DataSet GetCustomerAccociation(CustomerVo customervo)
         {
             return demataccountdao.GetCustomerAccociation(customervo);
@@ -34,7 +34,7 @@ namespace BoCustomerPortfolio
         {
             return demataccountdao.GetXmlModeOfHolding();
         }
-        public void AddDematDetails(int customerId,int portfolioId, DematAccountVo demataccountvo, RMVo rmvo,ArrayList associationIdJH,ArrayList associationIdN,ArrayList lstassociatedtradeaccount)
+        public void AddDematDetails(int customerId, int portfolioId, DematAccountVo demataccountvo, RMVo rmvo, ArrayList associationIdJH, ArrayList associationIdN, ArrayList lstassociatedtradeaccount)
         {
             demataccountdao.AddDematDetails(customerId, portfolioId, demataccountvo, rmvo, associationIdJH, associationIdN, lstassociatedtradeaccount);
         }
@@ -47,9 +47,9 @@ namespace BoCustomerPortfolio
         //    demataccountdao.AddTradeAccountForDemat(accountId);
         //}
         // We are getting details for Viewing Demat details in Grid which is in DematAccountDetails.ascx
-        public DataSet GetDematDetails(int customerId,int dematId)
+        public DataSet GetDematDetails(int customerId, int dematId)
         {
-            return demataccountdao.GetDematDetails(customerId,dematId);
+            return demataccountdao.GetDematDetails(customerId, dematId);
         }
         public DataSet GetJointHoldersAndNominees(int demataccountId)
         {
@@ -71,7 +71,7 @@ namespace BoCustomerPortfolio
         }
         public void UpdateDematDetails(int customerId, int portfolioId, int dematId, DematAccountVo demataccountvo, RMVo rmvo, ArrayList associationIdJH, ArrayList associationIdN, ArrayList lstassociatedtradeaccount)
         {
-            demataccountdao.UpdateDematDetails(customerId, portfolioId,dematId,demataccountvo, rmvo, associationIdJH, associationIdN, lstassociatedtradeaccount);
+            demataccountdao.UpdateDematDetails(customerId, portfolioId, dematId, demataccountvo, rmvo, associationIdJH, associationIdN, lstassociatedtradeaccount);
         }
         //public void UpdateAssociationTypesForDemat(int associationId, string associationtype)
         //{
@@ -81,5 +81,122 @@ namespace BoCustomerPortfolio
         //{
         //    demataccountdao.UpdateTradeAccountForDemat(accountId);
         //}
+        public bool UpdateCustomerDematAccountAssociates(int associationId, int dematAccountId, string associateType, string name, string panNum, string sex, DateTime dob, int isKYC, string relationshipCode, int modifiedBy)
+        {
+            bool blResult = false;
+            try
+            {
+
+                demataccountdao.UpdateCustomerDematAccountAssociates(associationId, dematAccountId, associateType, name, panNum, sex, dob, isKYC, relationshipCode, modifiedBy);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerTransactionDao.cs:UpdateCustomerMFFolioDetails()");
+                object[] objects = new object[2];
+                objects[0] = associationId;
+                objects[1] = dematAccountId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return blResult;
+        }
+        public DataSet GetCustomerDematAccountAssociates(int dematAccountId)
+        {
+            DataSet datasetDematAssociates = null;
+            try
+            {
+                demataccountdao.GetCustomerDematAccountAssociates(dematAccountId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerTransactionBo.cs:GetCustomerDematAccountAssociates()");
+
+
+                object[] objects = new object[1];
+                objects[0] = dematAccountId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return datasetDematAssociates;
+
+        }
+        public bool DeleteCustomerDematAccountAssociates(int associationId)
+        {
+
+            bool bResult = false;
+            try
+            {
+                bResult = demataccountdao.DeleteCustomerDematAccountAssociates(associationId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerTransactionBo.cs:DeleteCustomerDematAccountAssociates()");
+
+                object[] objects = new object[1];
+                objects[0] = associationId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return bResult;
+        }
+        public void AddCustomerDematAccountAssociates(int associationId, int dematAccountId, string associateType, string name, string panNum, string sex, DateTime dob, int isKYC, string relationshipCode, int createdBy)
+        {
+            try
+            {
+                demataccountdao.AddCustomerDematAccountAssociates(associationId, dematAccountId, associateType, name, panNum, sex, dob, isKYC, relationshipCode, createdBy);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerTransactionBo.cs:DeleteCustomerDematAccountAssociates()");
+
+                object[] objects = new object[1];
+                objects[0] = associationId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+
+        }
+
     }
 }

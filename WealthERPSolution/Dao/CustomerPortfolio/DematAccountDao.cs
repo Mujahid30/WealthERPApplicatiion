@@ -257,6 +257,8 @@ namespace DaoCustomerPortfolio
                 throw exBase;
             }
         }
+        
+        
         # region Dont need
         //public void AddAssociationTypesForDemat(int associationId, string associationtype)
         //{
@@ -485,6 +487,46 @@ namespace DaoCustomerPortfolio
 
 
         }
+        //DematAccountAssociates//
+        public DataSet GetCustomerDematAccountAssociates(int dematAccountId)
+        {
+            DataSet datasetDematAssociates = null;
+
+            Database db;
+            DbCommand dbDematAssociates;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbDematAssociates = db.GetStoredProcCommand("SP_GetCustomerDematAccountAssociates");
+                db.AddInParameter(dbDematAssociates, "@CEDA_DematAccountId", DbType.Int32, dematAccountId);
+
+                datasetDematAssociates = db.ExecuteDataSet(dbDematAssociates);
+
+            }
+            catch (BaseApplicationException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(ex.Message, ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdvisorDao.cs:GetCustomerDematAccountAssociates()");
+
+                object[] objects = new object[1];
+                objects[0] = dematAccountId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return datasetDematAssociates;
+
+
+        }
+
         # region Dont need
         //public void UpdateDematDetails(int customerId,int portfolioId, DematAccountVo demataccountvo, RMVo rmvo)
         //{
@@ -629,8 +671,123 @@ namespace DaoCustomerPortfolio
             }
             return dsDepositoryNames.Tables[0];
 
+        }
+        public bool UpdateCustomerDematAccountAssociates(int associationId, int dematAccountId, string associateType, string name, string panNum, string sex, DateTime dob, int isKYC, string relationshipCode, int modifiedBy)
+        {
+            bool blResult = false;
+            Database db;
+            DbCommand dbDematAccountAssociates;     
+           
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbDematAccountAssociates = db.GetStoredProcCommand("SP_UpdateCustomerDematAccountAssociates");
 
+                db.AddInParameter(dbDematAccountAssociates, "@CDAA_Id", DbType.Int32, associationId);
+                db.AddInParameter(dbDematAccountAssociates, "@CEDA_DematAccountId", DbType.Int32, dematAccountId);
+                db.AddInParameter(dbDematAccountAssociates, "@CDAA_AssociateType", DbType.String, associateType);
+                db.AddInParameter(dbDematAccountAssociates, "@CDAA_Name", DbType.String, name);
+                db.AddInParameter(dbDematAccountAssociates, "@CDAA_PanNum", DbType.String, panNum);
+                db.AddInParameter(dbDematAccountAssociates, "@CDAA_Sex", DbType.String, sex);
+                db.AddInParameter(dbDematAccountAssociates, "@CDAA_DOB", DbType.Date, dob);
+                db.AddInParameter(dbDematAccountAssociates, "@CDAA_IsKYC", DbType.Binary, isKYC);
+                db.AddInParameter(dbDematAccountAssociates, "@XR_RelationshipCode", DbType.String, relationshipCode);
+                db.AddInParameter(dbDematAccountAssociates, "@CDAA_ModifiedBy", DbType.String, modifiedBy);
+            }
+            catch (BaseApplicationException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(ex.Message, ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
 
+                FunctionInfo.Add("Method", "AdvisorDao.cs:UpdateCustomerDematAccountAssociates()");
+
+                object[] objects = new object[2];
+                objects[0] = associationId;
+                objects[0] = dematAccountId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return blResult;
+        }
+        public bool DeleteCustomerDematAccountAssociates(int associationId)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand dbDematAccountAssociates;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbDematAccountAssociates = db.GetStoredProcCommand("SP_DeleteCustomerDematAccountAssociates");
+                db.AddInParameter(dbDematAccountAssociates, "@CDAA_Id", DbType.Int32, associationId);
+                db.ExecuteNonQuery(dbDematAccountAssociates);
+                bResult = true;
+            }
+            catch (BaseApplicationException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(ex.Message, ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdvisorDao.cs:DeleteCustomerDematAccountAssociates()");
+
+                object[] objects = new object[1];
+                objects[0] = associationId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return bResult;
+ 
+        }
+        public void AddCustomerDematAccountAssociates(int associationId, int dematAccountId, string associateType, string name, string panNum, string sex, DateTime dob, int isKYC, string relationshipCode, int createdBy)
+        {
+            Database db;
+            DbCommand dbDematAccountAssociates;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbDematAccountAssociates = db.GetStoredProcCommand("SP_InsertCustomerDematAccountAssociates");
+
+                db.AddInParameter(dbDematAccountAssociates, "@CDAA_Id", DbType.Int32, associationId);
+                db.AddInParameter(dbDematAccountAssociates, "@CEDA_DematAccountId", DbType.String, dematAccountId);
+                db.AddInParameter(dbDematAccountAssociates, "@CDAA_AssociateType", DbType.String, associateType);
+                db.AddInParameter(dbDematAccountAssociates, "@CDAA_Name", DbType.String, name);
+                db.AddInParameter(dbDematAccountAssociates, "@CDAA_PanNum", DbType.String, panNum);
+                db.AddInParameter(dbDematAccountAssociates, "@CDAA_Sex", DbType.String, sex);
+                db.AddInParameter(dbDematAccountAssociates, "@CDAA_DOB", DbType.Date, dob);
+                db.AddInParameter(dbDematAccountAssociates, "@CDAA_IsKYC", DbType.Binary, isKYC);
+                db.AddInParameter(dbDematAccountAssociates, "@XR_RelationshipCode", DbType.String, relationshipCode);
+                db.AddInParameter(dbDematAccountAssociates, "@CDAA_CreatedBy", DbType.String, createdBy);
+            }
+            catch (BaseApplicationException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(ex.Message, ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdvisorDao.cs:AddCustomerDematAccountAssociates()");
+
+                object[] objects = new object[2];
+                objects[0] = associationId;
+                objects[0] = dematAccountId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
         }
         public void UpdateDematDetails(int customerId, int portfolioId,int dematId, DematAccountVo demataccountvo, RMVo rmvo, ArrayList associationIdJH, ArrayList associationIdN, ArrayList lstassociatedtradeaccount)
         {
