@@ -689,10 +689,13 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(dbDematAccountAssociates, "@CDAA_Name", DbType.String, name);
                 db.AddInParameter(dbDematAccountAssociates, "@CDAA_PanNum", DbType.String, panNum);
                 db.AddInParameter(dbDematAccountAssociates, "@CDAA_Sex", DbType.String, sex);
-                db.AddInParameter(dbDematAccountAssociates, "@CDAA_DOB", DbType.Date, dob);
-                db.AddInParameter(dbDematAccountAssociates, "@CDAA_IsKYC", DbType.Binary, isKYC);
+                db.AddInParameter(dbDematAccountAssociates, "@CDAA_DOB", DbType.DateTime, dob);
+                db.AddInParameter(dbDematAccountAssociates, "@CDAA_IsKYC", DbType.Int32, isKYC);
                 db.AddInParameter(dbDematAccountAssociates, "@XR_RelationshipCode", DbType.String, relationshipCode);
-                db.AddInParameter(dbDematAccountAssociates, "@CDAA_ModifiedBy", DbType.String, modifiedBy);
+                db.AddInParameter(dbDematAccountAssociates, "@CDAA_ModifiedBy", DbType.Int32, modifiedBy);
+              if( db.ExecuteNonQuery(dbDematAccountAssociates)!=0)
+                  blResult = true;
+
             }
             catch (BaseApplicationException ex)
             {
@@ -725,8 +728,8 @@ namespace DaoCustomerPortfolio
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 dbDematAccountAssociates = db.GetStoredProcCommand("SP_DeleteCustomerDematAccountAssociates");
                 db.AddInParameter(dbDematAccountAssociates, "@CDAA_Id", DbType.Int32, associationId);
-                db.ExecuteNonQuery(dbDematAccountAssociates);
-                bResult = true;
+                if(db.ExecuteNonQuery(dbDematAccountAssociates)!=0)
+                  bResult = true;
             }
             catch (BaseApplicationException ex)
             {
@@ -758,16 +761,17 @@ namespace DaoCustomerPortfolio
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 dbDematAccountAssociates = db.GetStoredProcCommand("SP_InsertCustomerDematAccountAssociates");
 
-                db.AddInParameter(dbDematAccountAssociates, "@CDAA_Id", DbType.Int32, associationId);
+                //db.AddInParameter(dbDematAccountAssociates, "@CDAA_Id", DbType.Int32, associationId);
                 db.AddInParameter(dbDematAccountAssociates, "@CEDA_DematAccountId", DbType.String, dematAccountId);
                 db.AddInParameter(dbDematAccountAssociates, "@CDAA_AssociateType", DbType.String, associateType);
                 db.AddInParameter(dbDematAccountAssociates, "@CDAA_Name", DbType.String, name);
                 db.AddInParameter(dbDematAccountAssociates, "@CDAA_PanNum", DbType.String, panNum);
                 db.AddInParameter(dbDematAccountAssociates, "@CDAA_Sex", DbType.String, sex);
                 db.AddInParameter(dbDematAccountAssociates, "@CDAA_DOB", DbType.Date, dob);
-                db.AddInParameter(dbDematAccountAssociates, "@CDAA_IsKYC", DbType.Binary, isKYC);
+                db.AddInParameter(dbDematAccountAssociates, "@CDAA_IsKYC", DbType.Int32, isKYC);
                 db.AddInParameter(dbDematAccountAssociates, "@XR_RelationshipCode", DbType.String, relationshipCode);
                 db.AddInParameter(dbDematAccountAssociates, "@CDAA_CreatedBy", DbType.String, createdBy);
+                db.ExecuteNonQuery(dbDematAccountAssociates);
             }
             catch (BaseApplicationException ex)
             {

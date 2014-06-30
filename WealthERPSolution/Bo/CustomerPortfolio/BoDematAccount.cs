@@ -112,10 +112,10 @@ namespace BoCustomerPortfolio
         }
         public DataSet GetCustomerDematAccountAssociates(int dematAccountId)
         {
-            DataSet datasetDematAssociates = null;
+            DataSet datasetDematAssociates = new DataSet();
             try
             {
-                demataccountdao.GetCustomerDematAccountAssociates(dematAccountId);
+                datasetDematAssociates=demataccountdao.GetCustomerDematAccountAssociates(dematAccountId);
             }
             catch (BaseApplicationException Ex)
             {
