@@ -243,7 +243,8 @@ namespace BoOnlineOrderManagement
             DataTable dtOrderExtract = new DataTable();
             try
             {
-                List<RTAExtractHeadeInfoVo> headerMap = GetRtaColumnDetails(RtaIdentifier);
+
+                List<RTAExtractHeadeInfoVo> headerMap = GetRtaColumnDetails((OrderType == "AMCBANK" || OrderType == "SIPBOOK") ? OrderType : RtaIdentifier);
                 DataSet dsOrderExtract = GetMfOrderExtract(ExecutionDate, AdviserId, OrderType, RtaIdentifier, AmcCode);
                 dtOrderExtract = new DataTable("OrderExtract");
                 foreach (RTAExtractHeadeInfoVo header in headerMap)
@@ -312,6 +313,7 @@ namespace BoOnlineOrderManagement
         {
             #region CustomFileName
             var random = new Random(System.DateTime.Now.Millisecond);
+            string filename=string.Empty;
             OnlineOrderBackOfficeDao daoOnlineOrderBackOffice = new OnlineOrderBackOfficeDao();
 
             string strAMCCodeRTName = daoOnlineOrderBackOffice.GetstrAMCCodeRTName(AmcName);
@@ -323,13 +325,16 @@ namespace BoOnlineOrderManagement
 
             rowCount = rowCount.PadLeft((7 - totalLength), '0');
 
-            string filename = strAMCCodeRTName + rowCount + "0001" + DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + randomNumber;
+            if (ExtractType != "AMCBANK")
+                filename = strAMCCodeRTName + rowCount + "0001" + DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + randomNumber;
+            else
+                filename = strAMCCodeRTName + "_" + "Bank" + "_" + DateTime.Now.Day.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Year.ToString() + randomNumber;
             #endregion
 
             return filename;
         }
 
-        public string CreatDbfFile(DataTable OrderExtract, string RnTType, string workDir)
+        public string CreatDbfFile(DataTable OrderExtract, string RnTType, string workDir,string type)
         {
             string seedFileName = "";
             switch (RnTType)
@@ -346,9 +351,23 @@ namespace BoOnlineOrderManagement
                 case "SU":
                     seedFileName = "sund";
                     break;
+               
                 default:
                     return null;
             }
+
+            switch (type)
+            {
+                case "AMCBANK":
+                    seedFileName = "amcbank";
+                    break;
+                case "SIPBOOK":
+                    seedFileName = "sipbook";
+                    break;
+                 
+            }
+           
+
             string dbfFile = "ORDEREXT.DBF";
             string csvColList = GetCsvColumnList(OrderExtract.Columns);
 
@@ -1339,6 +1358,10 @@ namespace BoOnlineOrderManagement
             OrderTypeList.Add(new KeyValuePair<string, string>("OTH", "Normal"));
             OrderTypeList.Add(new KeyValuePair<string, string>("SIP", "SIP"));
             OrderTypeList.Add(new KeyValuePair<string, string>("NFO", "NFO"));
+            OrderTypeList.Add(new KeyValuePair<string, string>("AMCBANK", "AMCBANK"));
+            OrderTypeList.Add(new KeyValuePair<string, string>("SIPBOOK", "SIPBOOK"));
+
+
 
             return OrderTypeList.ToArray();
         }
@@ -1424,6 +1447,7 @@ namespace BoOnlineOrderManagement
                     {
                         DataTable orderExtractForRta = GetOrderExtractForRta(DateTime.Now.Date, adviserId, OrderType.Key, rta.Key, int.Parse(amc.Key));
 
+                        
                         if (orderExtractForRta.Rows.Count <= 0) continue;
 
                         if (Directory.Exists(extractPath + @"\" + adviserId.ToString() + @"\" + dailyDirName + @"\" + rta.Value + @"\" + amc.Value + @"\" + OrderType.Value) == false)
@@ -1435,10 +1459,10 @@ namespace BoOnlineOrderManagement
                         if (rta.Key.Equals("CA"))
                         {
                             CreateTxtFile(orderExtractForRta, downloadFileName, rta.Key, extractPath + @"\" + adviserId.ToString() + @"\" + dailyDirName + @"\" + rta.Value + @"\" + amc.Value + @"\" + OrderType.Value + @"\");
-                            continue;
+                           
                         }
 
-                        string localFilePath = CreatDbfFile(orderExtractForRta, rta.Key, refFilePath);
+                        string localFilePath = CreatDbfFile(orderExtractForRta, rta.Key, refFilePath, OrderType.Key);
                         File.Copy(localFilePath, extractPath + @"\" + adviserId.ToString() + @"\" + dailyDirName + @"\" + rta.Value + @"\" + amc.Value + @"\" + OrderType.Value + @"\" + downloadFileName + ".DBF");
                         System.Threading.Thread.Sleep(1000);
                     }

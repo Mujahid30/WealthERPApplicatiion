@@ -73,7 +73,7 @@ namespace WealthERP.OnlineOrderBackOffice
             switch (ddlFileFormat.SelectedValue)
             {
                 case "dbf":
-                    string localFilePath = boOnlineOrderBackOffice.CreatDbfFile(orderExtractForRta, ddlRnT.SelectedValue, Server.MapPath("~/ReferenceFiles/RTAExtractSampleFiles/"));
+                    string localFilePath = boOnlineOrderBackOffice.CreatDbfFile(orderExtractForRta, ddlRnT.SelectedValue, Server.MapPath("~/ReferenceFiles/RTAExtractSampleFiles/"),string.Empty);
                     DownloadDbfFile(localFilePath, downloadFileName + ".DBF");
                     break;
                 case "txt":
