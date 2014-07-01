@@ -180,7 +180,7 @@
                 &nbsp;&nbsp;
                 &nbsp;&nbsp;</div>
                 <asp:Button ID="btnCustomerRemoveNodes" runat="server" Text="Remove Customer Nodes"
-                    CssClass="PCGMediumButton" OnClick="btnCustomerRemoveNodes_Click" Width="120px" Visible="false" />
+                    CssClass="PCGMediumButton" OnClick="btnCustomerRemoveNodes_Click"  Visible="false" />
             </asp:Panel>
             <asp:Panel runat="server" ID="PnlOps" Style="float: left; position: relative" Visible="false"  Width="300px">
                 <asp:Label ID="lb1Ops" runat="server" Text="Ops:" CssClass="FieldName" Visible="false"></asp:Label>

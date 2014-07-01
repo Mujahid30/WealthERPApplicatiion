@@ -355,6 +355,7 @@ namespace WealthERP.General
                                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "loadingatthelogin", "parent.loadCB();", true);
 
                                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "adviserpaneleftttt", "loadlinks('AdvisorLeftPane','login');", true);
+                                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Reg23itlpoeewsderw", "loadcontrol('IFAAdminMainDashboard','login');", true);
 
                                     if (count == 4)
                                     {

@@ -324,7 +324,8 @@ namespace WealthERP.Customer
                     txtEmail.Text = customerVo.Email;
                     txtAltEmail.Text = customerVo.AltEmail;
                     txtRBIRefNo.Text = customerVo.RBIRefNum;
-
+                    if (!string.IsNullOrEmpty(customerVo.FatherHusbandName))
+                        txtFatherHusband.Text = customerVo.FatherHusbandName;
                     txtSlab.Text = customerVo.TaxSlab.ToString();
 
                     if (customerVo.RBIApprovalDate == DateTime.MinValue)
@@ -812,7 +813,10 @@ namespace WealthERP.Customer
 
                     customerVo.Email = txtEmail.Text.ToString();
                     customerVo.AltEmail = txtAltEmail.Text.ToString();
-
+                    if(!string.IsNullOrEmpty(txtFatherHusband.Text))
+                    {
+                        customerVo.FatherHusbandName=txtFatherHusband.Text;
+                    }
                     //if (ddlOccupation.SelectedIndex == 0)
                     //    customerVo.Occupation = null;
                     //else

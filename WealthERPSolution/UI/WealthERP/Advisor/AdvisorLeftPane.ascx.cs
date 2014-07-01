@@ -252,14 +252,19 @@ namespace WealthERP.Advisor
                 {
                     RadPanelBar1.FindItemByValue("Admin").Expanded = true;
                     if (Session["IsCustomerGrid"] == null)
+                    {
                         RadPanelBar1.FindItemByValue("Admin Home").Selected = true;
+                        //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('IFAAdminMainDashboard','login');", true);
+                    }
                     else
                         RadPanelBar1.FindItemByValue("Customer").Selected = true;
                 }
                 else
                 {
+                    //RadPanelBar1.FindItemByValue("Admin Home").Visible = false;
                     RadPanelBar4.FindItemByValue("Ops").Expanded = true;
                     RadPanelBar4.FindItemByValue("Customer").Selected = true;
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserCustomer','login');", true);
                 }
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('AdvisorLeftPane');", true);
             }

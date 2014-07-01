@@ -398,11 +398,25 @@ namespace WealthERP.Advisor
                         treeType = "BM";
                     else
                         treeType = "Admin";
+                    //if (Session["customerVo"] != null)
+                    //    Session.Remove("customerVo");
 
+                    //if (Cache["AdminLeftTreeNode" + advisorVo.advisorId.ToString()] == null)
+                    //{
+                    //    dsTreeNodes = GetAdviserRoleTreeNodes(advisorVo.advisorId);
+                    //    Cache.Insert("AdminLeftTreeNode" + advisorVo.advisorId.ToString(), dsTreeNodes, null, DateTime.Now.AddMinutes(4 * 60), TimeSpan.Zero);
+                    //}
+                    //else
+                    //{
+                    //    dsTreeNodes = (DataSet)Cache["AdminLeftTreeNode" + advisorVo.advisorId.ToString()];
+
+                    //}
                     dsTreeNodes = GetTreeNodesBasedOnUserRoles(treeType, "Customer");
-                    if (dsTreeNodes.Tables[0].Rows.Count > 0)
-                        SetAdminTreeNodesForRoles(dsTreeNodes, "Customer");
-
+                    DataSet dt = FilterUserTreeNodeData(dsTreeNodes);
+                    SetUserTreeNode(dt);
+                    if (dt.Tables[0].Rows.Count > 0)
+                        SetAdminTreeNodesForRoles(dt, "Customer");
+           
                     //Code to unhide the tree nodes based on Plans
                     dsTreeNodes = GetTreeNodesBasedOnPlans(advisorVo.advisorId, "Customer", treeType);
                     //if (dsTreeNodes.Tables[0].Rows.Count > 0)
@@ -468,30 +482,30 @@ namespace WealthERP.Advisor
 
                     if (advisorVo.advisorId == Convert.ToInt32(ConfigurationSettings.AppSettings["ONLINE_ADVISER"]))
                     {
-                        if (ConfigurationSettings.AppSettings["NCD_TREE_NODE"].ToString().Contains(advisorVo.advisorId.ToString()))
-                        {
-                            RPBOnlineOrder.FindItemByValue("IPOOrder").Visible = false;
-                            RPBOnlineOrder.FindItemByValue("MF_Online_Landing_Page").Visible = false;
-                            RadPanelBar1.FindItemByValue("Insurance").Visible = false;
-                            if (Session[SessionContents.CurrentUserRole].ToString() == "Ops")
-                            {
-                                RPBOnlineOrder.FindItemByValue("Transact").Visible = false; ;
-                            }
-                            RadPanelBar1.FindItemByValue("Alerts").Visible = false;
-                            RadPanelBar1.FindItemByValue("Report").Visible = false;
-                            RadPanelBar1.FindItemByValue("Liabilities").Visible = false;
-                            RadPanelBar1.FindItemByValue("Customer Dashboard").Visible = false;
-                            RadPanelBar1.FindItemByValue("Group Dashboard").Visible = false;
-                            RadPanelBar1.FindItemByValue("Financial Planning").Visible = false;
-                            RadPanelBar1.FindItemByValue("Equity").Visible = false;
-                            RadPanelBar1.FindItemByValue("Fixed Income").Visible = false;
-                            RadPanelBar1.FindItemByValue("Govt Savings").Visible = false;
-                            RadPanelBar1.FindItemByValue("Property").Visible = false;
-                            RadPanelBar1.FindItemByValue("Pension and Gratuities").Visible = false;
-                            RadPanelBar1.FindItemByValue("Personal Assets").Visible = false;
-                            RadPanelBar1.FindItemByValue("Gold Assets").Visible = false;
-                            RadPanelBar1.FindItemByValue("Collectibles").Visible = false;
-                        }
+                        //if (ConfigurationSettings.AppSettings["NCD_TREE_NODE"].ToString().Contains(advisorVo.advisorId.ToString()))
+                        //{
+                        //    RPBOnlineOrder.FindItemByValue("IPOOrder").Visible = false;
+                        //    RPBOnlineOrder.FindItemByValue("MF_Online_Landing_Page").Visible = false;
+                        //    RadPanelBar1.FindItemByValue("Insurance").Visible = false;
+                        //    if (Session[SessionContents.CurrentUserRole].ToString() == "Ops")
+                        //    {
+                        //        RPBOnlineOrder.FindItemByValue("Transact").Visible = false; ;
+                        //    }
+                        //    RadPanelBar1.FindItemByValue("Alerts").Visible = false;
+                        //    RadPanelBar1.FindItemByValue("Report").Visible = false;
+                        //    RadPanelBar1.FindItemByValue("Liabilities").Visible = false;
+                        //    RadPanelBar1.FindItemByValue("Customer Dashboard").Visible = false;
+                        //    RadPanelBar1.FindItemByValue("Group Dashboard").Visible = false;
+                        //    RadPanelBar1.FindItemByValue("Financial Planning").Visible = false;
+                        //    RadPanelBar1.FindItemByValue("Equity").Visible = false;
+                        //    RadPanelBar1.FindItemByValue("Fixed Income").Visible = false;
+                        //    RadPanelBar1.FindItemByValue("Govt Savings").Visible = false;
+                        //    RadPanelBar1.FindItemByValue("Property").Visible = false;
+                        //    RadPanelBar1.FindItemByValue("Pension and Gratuities").Visible = false;
+                        //    RadPanelBar1.FindItemByValue("Personal Assets").Visible = false;
+                        //    RadPanelBar1.FindItemByValue("Gold Assets").Visible = false;
+                        //    RadPanelBar1.FindItemByValue("Collectibles").Visible = false;
+                        //}
                     }
 
                 }
@@ -524,6 +538,13 @@ namespace WealthERP.Advisor
 
         }
 
+        private DataSet GetAdviserRoleTreeNodes(int adviserId)
+        {
+            AdvisorBo advisorBo = new AdvisorBo();
+            DataSet dsTreeNodes;
+            dsTreeNodes = advisorBo.GetAdviserRoleTreeNodes(adviserId);
+            return dsTreeNodes;
+        }
 
         //protected void Page_PreRender(object sender, EventArgs e)
         //{
@@ -1390,10 +1411,87 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MessageInbox','login');", true);
                 }
-
+                else if (e.Item.Value == "MF_Online_Landing_Page")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MFOnlineUserLandingPage", "loadcontrol('MFOnlineUserLandingPage','none');", true);
+                }
+             
                 else if (e.Item.Value == "MF_Order")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFOrderManagement','login');", true);
+                }
+                else if (e.Item.Value == "NewPurchase")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerFIAlerts", "loadcontrol('MFOrderPurchaseTransType','none');", true);
+                }
+                else if (e.Item.Value == "AdditionalPurchase")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerFIAlerts", "loadcontrol('MFOrderAdditionalPurchase','none');", true);
+                }
+                else if (e.Item.Value == "Redeem")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerFIAlerts", "loadcontrol('MFOrderRdemptionTransType','none');", true);
+                }
+                else if (e.Item.Value == "SIP")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerFIAlerts", "loadcontrol('MFOrderSIPTransType','none');", true);
+                }
+                else if (e.Item.Value == "NFO")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerFIAlerts", "loadcontrol('MFOrderBuyTransTypeOffline','none');", true);
+                }
+                else if (e.Item.Value == "OrderBook")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerFIAlerts", "loadcontrol('CustomerMFOrderBookList','none');", true);
+                }
+                else if (e.Item.Value == "TransactionBook")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerFIAlerts", "loadcontrol('CustomerTransactionBookList','none');", true);
+                }
+                else if (e.Item.Value == "SIPBook")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "SIPBookSummmaryList", "loadcontrol('SIPBookSummmaryList','none');", true);
+                    // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerFIAlerts", "loadcontrol('CustomerSIPBookList','none');", true);
+                }
+                else if (e.Item.Value == "UnitHoldings")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerFIAlerts", "loadcontrol('CustomerMFUnitHoldingList','none');", true);
+                }
+                else if (e.Item.Value == "NCDIssueList")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "NCDIssueList", "loadcontrol('NCDIssueList','none');", true);
+                }
+                else if (e.Item.Value == "NCDIssueTransact")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "NCDIssueTransact", "loadcontrol('NCDIssueTransact','none');", true);
+                }
+                else if (e.Item.Value == "NCDOrderBook")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "NCDIssueBooks", "loadcontrol('NCDIssueBooks','none');", true);
+                }
+                else if (e.Item.Value == "NCDHolding")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "NCDIssueHoldings", "loadcontrol('NCDIssueHoldings','none');", true);
+                }
+                else if (e.Item.Value == "SIPSumBook")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "SIPBookSummmaryList", "loadcontrol('SIPBookSummmaryList','none');", true);
+                }
+                else if (e.Item.Value == "MF_Online_Landing_Page")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MFOnlineUserLandingPage", "loadcontrol('MFOnlineUserLandingPage','none');", true);
+                }
+                else if (e.Item.Value == "IPOIssueList")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "NCDIssueHoldings", "loadcontrol('IPOIssueList','none');", true);
+                }
+                else if (e.Item.Value == "IPOIssueBook")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "NCDIssueHoldings", "loadcontrol('CustomerIPOOrderBook','none');", true);
+                }
+                else if (e.Item.Value == "IPOHolding")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerIPOHolding", "loadcontrol('CustomerIPOHolding','none');", true);
                 }
                 else if (e.Item.Value == "Bond_Order")
                 {
@@ -1427,18 +1525,132 @@ namespace WealthERP.Advisor
             dsTreeNodes = advisorBo.GetTreeNodesBasedOnUserRoles(userRole, treeType, advisorVo.advisorId);
             return dsTreeNodes;
         }
+        private DataSet FilterUserTreeNodeData(DataSet dsTreeNodes)
+        {
+            DataSet dsUserTreeNode = new DataSet();
+            DataTable dtUserTreeNode = dsTreeNodes.Tables[0].Clone();
+            DataTable dtUserTreeSubNode = dsTreeNodes.Tables[1].Clone();
+            DataTable dtUserTreeSubSubsNode = dsTreeNodes.Tables[2].Clone();
+            Dictionary<Int16, string> userAdviserRole = (Dictionary<Int16, string>)userVo.AdviserRole;
 
+            foreach (int role in userAdviserRole.Keys)
+            {
+                dsTreeNodes.Tables[0].DefaultView.RowFilter = "AR_RoleId=" + role.ToString();
+                dtUserTreeNode.Merge(dsTreeNodes.Tables[0].DefaultView.ToTable(), false, MissingSchemaAction.Ignore);
+
+                dsTreeNodes.Tables[1].DefaultView.RowFilter = "AR_RoleId=" + role.ToString();
+                dtUserTreeSubNode.Merge(dsTreeNodes.Tables[1].DefaultView.ToTable(), false, MissingSchemaAction.Ignore);
+
+                dsTreeNodes.Tables[2].DefaultView.RowFilter = "AR_RoleId=" + role.ToString();
+                dtUserTreeSubSubsNode.Merge(dsTreeNodes.Tables[2].DefaultView.ToTable(), false, MissingSchemaAction.Ignore);
+            }
+            dsUserTreeNode.Tables.Clear();
+            dsUserTreeNode.Tables.Add(dtUserTreeNode.Copy().DefaultView.ToTable(true, "WTN_TreeNodeId", "WTN_TreeNode", "WTN_TreeNodeText", "WTN_IsApplicableForMultiBranch", "WTN_IsApplicableForMultiStaff", "UR_RoleId", "UR_RoleName"));
+            dsUserTreeNode.Tables.Add(dtUserTreeSubNode.Copy().DefaultView.ToTable(true, "WTSN_TreeSubNodeId", "WTSN_TreeSubNode", "WTSN_TreeSubNodeText", "WTSN_IsApplicableForMultiBranch", "WTSN_IsApplicableForMultiStaff", "UR_RoleId", "UR_RoleName"));
+            dsUserTreeNode.Tables.Add(dtUserTreeSubSubsNode.Copy().DefaultView.ToTable(true, "WTSSN_TreeSubSubNodeId", "WTSSN_TreeSubSubNode", "WTSSN_TreeSubSubNodeText", "WTSSN_IsApplicableForMultiBranch", "WTSSN_IsApplicableForMultiStaff", "UR_RoleId", "UR_RoleName"));
+
+            return dsUserTreeNode;
+        }
+        private void SetUserTreeNode(DataSet dsTreeNodes)
+        {
+            string userRole;
+            DataSet dsFilteredData;
+            //DataView tempView = new DataView(dsTreeNodes.Tables[1]);
+            //tempView.Sort = "WTSN_TreeSubNode";
+
+
+            //dsFilteredData = FilterUserTreeNode(userVo.RoleList[0], dsTreeNodes);
+
+            if (userVo.RoleList.Contains("Admin"))
+            {
+                userRole = "Admin";
+                dsFilteredData = FilterUserTreeNode(userRole, dsTreeNodes);
+                SetAdminTreeNodesForRoles(dsFilteredData, "Admin");
+
+            }
+            if (userVo.RoleList.Contains("RM"))
+            {
+                userRole = "RM";
+                dsFilteredData = FilterUserTreeNode(userRole, dsTreeNodes);
+                SetAdminTreeNodesForRoles(dsFilteredData, "RM");
+            }
+            if (userVo.RoleList.Contains("BM"))
+            {
+                userRole = "BM";
+                dsFilteredData = FilterUserTreeNode(userRole, dsTreeNodes);
+                SetAdminTreeNodesForRoles(dsFilteredData, "BM");
+            }
+            if (userVo.RoleList.Contains("Ops"))
+            {
+                userRole = "Ops";
+                dsFilteredData = FilterUserTreeNode(userRole, dsTreeNodes);
+                SetAdminTreeNodesForRoles(dsFilteredData, "Ops");
+            }
+            if (userVo.RoleList.Contains("Research"))
+            {
+                userRole = "Research";
+                dsFilteredData = FilterUserTreeNode(userRole, dsTreeNodes);
+                SetAdminTreeNodesForRoles(dsFilteredData, "Research");
+            }
+            if (userVo.RoleList.Contains("Associates"))
+            {
+                userRole = "Associates";
+                dsFilteredData = FilterUserTreeNode(userRole, dsTreeNodes);
+                SetAdminTreeNodesForRoles(dsFilteredData, "Associates");
+            }
+             
+
+        }
+        protected DataSet FilterUserTreeNode(string userRole, DataSet dsTreeNode)
+        {
+            DataSet dsTreeFilterNode = new DataSet();
+            DataTable dtTreeNode = new DataTable();
+            DataTable dtTreeSubNode = new DataTable();
+            DataTable dtTreeSubSubNode = new DataTable();
+            dtTreeNode = dsTreeNode.Tables[0].Clone();
+            dtTreeSubNode = dsTreeNode.Tables[1].Clone();
+            dtTreeSubSubNode = dsTreeNode.Tables[2].Clone();
+           userRole = "Customer";
+            if (dsTreeNode.Tables[0].Rows.Count > 0)
+            {
+                dsTreeNode.Tables[0].DefaultView.RowFilter = "UR_RoleName='" + userRole + "'";
+                dtTreeNode = dsTreeNode.Tables[0].DefaultView.ToTable();
+            }
+
+            if (dsTreeNode.Tables[1].Rows.Count > 0)
+            {
+                dsTreeNode.Tables[1].DefaultView.RowFilter = "UR_RoleName='" + userRole + "'";
+                dtTreeSubNode = dsTreeNode.Tables[1].DefaultView.ToTable();
+            }
+
+            if (dsTreeNode.Tables[2].Rows.Count > 0)
+            {
+                dsTreeNode.Tables[2].DefaultView.RowFilter = "UR_RoleName='" + userRole + "'";
+                dtTreeSubSubNode = dsTreeNode.Tables[2].DefaultView.ToTable();
+            }
+            dsTreeFilterNode.Tables.Add(dtTreeNode);
+            dsTreeFilterNode.Tables.Add(dtTreeSubNode);
+            dsTreeFilterNode.Tables.Add(dtTreeSubSubNode);
+
+            return dsTreeFilterNode;
+        }
+    
         private void SetAdminTreeNodesForRoles(DataSet dsAdminTreeNodes, string userRole)
         {
+          
             int flag = 0;
             DataView tempView;
             DataRow dr;
+            string dr1;
+            // Filter on user level
+            dsAdminTreeNodes = FilterUserTreeNode(userVo.RoleList[0], dsAdminTreeNodes);
+            userRole = "Customer";
             if (userRole == "Customer")
             {
                 tempView = new DataView(dsAdminTreeNodes.Tables[0]);
                 tempView.Sort = "WTN_TreeNode";
                 //Setting Primary key for the datatable inorder to find a value based on the key
-                dsAdminTreeNodes.Tables[0].PrimaryKey = new DataColumn[] { dsAdminTreeNodes.Tables[0].Columns["WTN_TreeNode"] };
+                dsAdminTreeNodes.Tables[0].PrimaryKey = new DataColumn[] { dsAdminTreeNodes.Tables[0].Columns["WTN_TreeNodeId"] };
 
                 foreach (RadPanelItem Item in RadPanelBar1.GetAllItems())
                 {
@@ -1451,16 +1663,24 @@ namespace WealthERP.Advisor
                         }
                         else
                         {
-                            dr = dsAdminTreeNodes.Tables[0].Rows.Find(Item.Value);
-                            Item.Text = dr[2].ToString();
-                            if (dr[2].ToString().ToLower() == "message")
-                            {
-                                //Item.Text += " <img id='img1' src='/Images/new.gif'/>";
-                            }
-                            if (Item.Value == "CusQuickLinks" || Item.Text == "CusHome")
-                            {
-                                //Item.Text += " <img id='img1' src='/Images/new.gif'/>";
-                            }
+                            //dr = dsAdminTreeNodes.Tables[0].Rows.Find(Item.Value);
+                            //Item.Text = dr[2].ToString();
+
+                            ////dr1 = dsAdminTreeNodes.Tables[0].Rows.Find("Alerts").ToString();
+
+                            //if (dsAdminTreeNodes.Tables[0].Rows.Contains(Item.Value))
+                            //{
+                               
+                            //}
+                            ////Item.Text = dr[2].ToString();
+                            ////if (dr[2].ToString().ToLower() == "message")
+                            ////{
+                            ////    //Item.Text += " <img id='img1' src='/Images/new.gif'/>";
+                            ////}
+                            //if (Item.Value == "CusQuickLinks" || Item.Text == "CusHome")
+                            //{
+                            //    //Item.Text += " <img id='img1' src='/Images/new.gif'/>";
+                            //}
                         }
                     }
                 }
@@ -1600,103 +1820,103 @@ namespace WealthERP.Advisor
         }
 
 
-        protected void RPBOnlineOrder_ItemClick(object sender, RadPanelBarEventArgs e)
-        {
-            RadPanelItem ItemClicked = e.Item;
+        //protected void RPBOnlineOrder_ItemClick(object sender, RadPanelBarEventArgs e)
+        //{
+        //    RadPanelItem ItemClicked = e.Item;
 
 
-            try
-            {
-                if (e.Item.Value == "NewPurchase")
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerFIAlerts", "loadcontrol('MFOrderPurchaseTransType','none');", true);
-                }
-                else if (e.Item.Value == "AdditionalPurchase")
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerFIAlerts", "loadcontrol('MFOrderAdditionalPurchase','none');", true);
-                }
-                else if (e.Item.Value == "Redeem")
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerFIAlerts", "loadcontrol('MFOrderRdemptionTransType','none');", true);
-                }
-                else if (e.Item.Value == "SIP")
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerFIAlerts", "loadcontrol('MFOrderSIPTransType','none');", true);
-                }
-                else if (e.Item.Value == "NFO")
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerFIAlerts", "loadcontrol('MFOrderBuyTransTypeOffline','none');", true);
-                }
-                else if (e.Item.Value == "OrderBook")
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerFIAlerts", "loadcontrol('CustomerMFOrderBookList','none');", true);
-                }
-                else if (e.Item.Value == "TransactionBook")
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerFIAlerts", "loadcontrol('CustomerTransactionBookList','none');", true);
-                }
-                else if (e.Item.Value == "SIPBook")
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "SIPBookSummmaryList", "loadcontrol('SIPBookSummmaryList','none');", true);
-                    // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerFIAlerts", "loadcontrol('CustomerSIPBookList','none');", true);
-                }
-                else if (e.Item.Value == "UnitHoldings")
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerFIAlerts", "loadcontrol('CustomerMFUnitHoldingList','none');", true);
-                }
-                else if (e.Item.Value == "NCDIssueList")
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "NCDIssueList", "loadcontrol('NCDIssueList','none');", true);
-                }
-                else if (e.Item.Value == "NCDIssueTransact")
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "NCDIssueTransact", "loadcontrol('NCDIssueTransact','none');", true);
-                }
-                else if (e.Item.Value == "NCDOrderBook")
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "NCDIssueBooks", "loadcontrol('NCDIssueBooks','none');", true);
-                }
-                else if (e.Item.Value == "NCDHolding")
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "NCDIssueHoldings", "loadcontrol('NCDIssueHoldings','none');", true);
-                }
-                else if (e.Item.Value == "SIPSumBook")
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "SIPBookSummmaryList", "loadcontrol('SIPBookSummmaryList','none');", true);
-                }
-                else if (e.Item.Value == "MF_Online_Landing_Page")
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MFOnlineUserLandingPage", "loadcontrol('MFOnlineUserLandingPage','none');", true);
-                }
-                else if (e.Item.Value == "IPOIssueList")
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "NCDIssueHoldings", "loadcontrol('IPOIssueList','none');", true);
-                }
-                else if (e.Item.Value == "IPOIssueBook")
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "NCDIssueHoldings", "loadcontrol('CustomerIPOOrderBook','none');", true);
-                }
-                else if (e.Item.Value == "IPOHolding")
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerIPOHolding", "loadcontrol('CustomerIPOHolding','none');", true);
-                }
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
+        //    try
+        //    {
+                //if (e.Item.Value == "NewPurchase")
+                //{
+                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerFIAlerts", "loadcontrol('MFOrderPurchaseTransType','none');", true);
+                //}
+                //else if (e.Item.Value == "AdditionalPurchase")
+                //{
+                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerFIAlerts", "loadcontrol('MFOrderAdditionalPurchase','none');", true);
+                //}
+                //else if (e.Item.Value == "Redeem")
+                //{
+                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerFIAlerts", "loadcontrol('MFOrderRdemptionTransType','none');", true);
+                //}
+                //else if (e.Item.Value == "SIP")
+                //{
+                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerFIAlerts", "loadcontrol('MFOrderSIPTransType','none');", true);
+                //}
+                //else if (e.Item.Value == "NFO")
+                //{
+                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerFIAlerts", "loadcontrol('MFOrderBuyTransTypeOffline','none');", true);
+                //}
+                //else if (e.Item.Value == "OrderBook")
+                //{
+                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerFIAlerts", "loadcontrol('CustomerMFOrderBookList','none');", true);
+                //}
+                //else if (e.Item.Value == "TransactionBook")
+                //{
+                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerFIAlerts", "loadcontrol('CustomerTransactionBookList','none');", true);
+                //}
+                //else if (e.Item.Value == "SIPBook")
+                //{
+                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "SIPBookSummmaryList", "loadcontrol('SIPBookSummmaryList','none');", true);
+                //    // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerFIAlerts", "loadcontrol('CustomerSIPBookList','none');", true);
+                //}
+                //else if (e.Item.Value == "UnitHoldings")
+                //{
+                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerFIAlerts", "loadcontrol('CustomerMFUnitHoldingList','none');", true);
+                //}
+                //else if (e.Item.Value == "NCDIssueList")
+                //{
+                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "NCDIssueList", "loadcontrol('NCDIssueList','none');", true);
+                //}
+                //else if (e.Item.Value == "NCDIssueTransact")
+                //{
+                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "NCDIssueTransact", "loadcontrol('NCDIssueTransact','none');", true);
+                //}
+                //else if (e.Item.Value == "NCDOrderBook")
+                //{
+                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "NCDIssueBooks", "loadcontrol('NCDIssueBooks','none');", true);
+                //}
+                //else if (e.Item.Value == "NCDHolding")
+                //{
+                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "NCDIssueHoldings", "loadcontrol('NCDIssueHoldings','none');", true);
+                //}
+                //else if (e.Item.Value == "SIPSumBook")
+                //{
+                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "SIPBookSummmaryList", "loadcontrol('SIPBookSummmaryList','none');", true);
+                //}
+                //else if (e.Item.Value == "MF_Online_Landing_Page")
+                //{
+                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MFOnlineUserLandingPage", "loadcontrol('MFOnlineUserLandingPage','none');", true);
+                //}
+                //else if (e.Item.Value == "IPOIssueList")
+                //{
+                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "NCDIssueHoldings", "loadcontrol('IPOIssueList','none');", true);
+                //}
+                //else if (e.Item.Value == "IPOIssueBook")
+                //{
+                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "NCDIssueHoldings", "loadcontrol('CustomerIPOOrderBook','none');", true);
+                //}
+                //else if (e.Item.Value == "IPOHolding")
+                //{
+                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerIPOHolding", "loadcontrol('CustomerIPOHolding','none');", true);
+                //}
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    catch (Exception Ex)
+        //    {
 
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "RMCustomerIndividualLeftPane.ascx.cs:RadPanelBar1_ItemClick()");
-                object[] objects = new object[0];
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
-        }
+        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
+        //        FunctionInfo.Add("Method", "RMCustomerIndividualLeftPane.ascx.cs:RadPanelBar1_ItemClick()");
+        //        object[] objects = new object[0];
+        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+        //        exBase.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(exBase);
+        //        throw exBase;
+        //    }
+        //}
     }
 }

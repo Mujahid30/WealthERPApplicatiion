@@ -118,8 +118,8 @@ namespace VoUser
         public int CorrespondenceStateId { get; set; }
         public int PermanentStateId { get; set; }
        
-        public int OccupationId { get; set; } 
-
+        public int OccupationId { get; set; }
+        public string FatherHusbandName { get; set; }
         public int CustomerCategoryCode
         {
             get { return m_CustomerCategoryCode; }

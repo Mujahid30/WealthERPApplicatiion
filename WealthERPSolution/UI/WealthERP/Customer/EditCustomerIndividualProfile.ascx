@@ -94,7 +94,6 @@
         <td class="leftField">
             <asp:Label ID="lblBranchName" runat="server" CssClass="FieldName" Text="Branch Name:"></asp:Label>
         </td>
-        
         <td>
             <asp:DropDownList ID="ddlAdviserBranchList" runat="server" CssClass="cmbField">
             </asp:DropDownList>
@@ -228,29 +227,35 @@
             <asp:TextBox ID="txtGuardianLastName" runat="server" CssClass="txtField" Style="width: 30%"></asp:TextBox>
         </td>
     </tr>
-    <tr>
+    <%--<tr>
         <td class="leftField">
             <%--<asp:Label ID="lblMfKYC" runat="server" CssClass="FieldName" Text="MF KYC:"></asp:Label>--%>
-        </td>
+    <%-- </td>
         <td class="rightField">
-            <%--<asp:RadioButton ID="rbtnkycYes" runat="server" CssClass="txtField" Text="Yes" GroupName="rbtnKYC" />
-            <asp:RadioButton ID="rbtnKycNo" runat="server" CssClass="txtField" Text="No" Checked="true" GroupName="rbtnKYC" />--%>
+            <asp:RadioButton ID="rbtnkycYes" runat="server" CssClass="txtField" Text="Yes" GroupName="rbtnKYC" />
+            <asp:RadioButton ID="rbtnKycNo" runat="server" CssClass="txtField" Text="No" Checked="true" GroupName="rbtnKYC" />
         </td>
-    </tr>
+    </tr>--%>
     <tr id="trForResidence" runat="server">
-        <td class="leftField">
-            <asp:Label ID="lblSlabForOther" runat="server" CssClass="FieldName" Text="Tax slab applicable(%):"></asp:Label>
+    
+        <td align="right">
+            <asp:Label ID="lblFatherHusband" runat="server" Text="Father/Husband Name:" CssClass="FieldName"></asp:Label>
         </td>
-        <td class="rightField">
-            <asp:TextBox ID="txtSlab" runat="server" CssClass="txtField"></asp:TextBox>
+        <td>
+            <asp:TextBox ID="txtFatherHusband" runat="server" CssClass="txtField" Width="300px"></asp:TextBox>
+       <%-- </td>
+        <td  style="width: 30%;">--%>
+                &nbsp;&nbsp;
+            <asp:Label ID="lblSlabForOther" runat="server" CssClass="FieldName" Text="Tax slab applicable(%):"></asp:Label>
+       <%-- </td>
+        <td>--%>
+            <asp:TextBox ID="txtSlab" runat="server" CssClass="txtField" Width="157px"></asp:TextBox>
             <asp:CompareValidator ID="cmpareSlabForOther" ControlToValidate="txtSlab" runat="server"
                 Display="Dynamic" ErrorMessage="<br /> Please enter a numeric value for Tax slab."
                 Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
-            &nbsp;&nbsp;
+                &nbsp;&nbsp;
             <asp:Button ID="btnGetSlab" runat="server" Text="Get the slab" CssClass="PCGMediumButton"
                 OnClick="btnGetSlab_Click" />
-        </td>
-        <td>
         </td>
     </tr>
 </table>
@@ -389,10 +394,9 @@
                                                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtMember"
                                                                             ErrorMessage="<br />Please Enter Customer Name" Display="Dynamic" runat="server"
                                                                             CssClass="rfvPCG" ValidationGroup="Submit"></asp:RequiredFieldValidator>
-                                                                    
                                                                     </td>
                                                                     <td>
-                                                                    <asp:CheckBox ID="chKInsideKyc" runat="server" Text=" IS KYC" />
+                                                                        <asp:CheckBox ID="chKInsideKyc" runat="server" Text=" IS KYC" />
                                                                     </td>
                                                                 </tr>
                                                                 <tr runat="server">
@@ -400,19 +404,18 @@
                                                                         <asp:Label ID="lblPan" runat="server" CssClass="FieldName" Text="PAN:"></asp:Label>
                                                                     </td>
                                                                     <td class="rightField" runat="server">
-                                                                       <asp:Label ID="lblGetPan" runat="server" Text='<%# Bind("C_PANNum") %>' CssClass="FieldName"></asp:Label> 
-                                                                       
+                                                                        <asp:Label ID="lblGetPan" runat="server" Text='<%# Bind("C_PANNum") %>' CssClass="FieldName"></asp:Label>
                                                                         <asp:TextBox ID="txtPan" runat="server" Text='<%# Bind("C_PANNum") %>' CssClass="txtField"></asp:TextBox>
-                                                                        <%--<span id="Span10" class="spnRequiredField">*</span>--%><asp:Label ID="lblspan" runat="server" CssClass="spnRequiredField">*</asp:Label>
+                                                                        <%--<span id="Span10" class="spnRequiredField">*</span>--%><asp:Label ID="lblspan"
+                                                                            runat="server" CssClass="spnRequiredField">*</asp:Label>
                                                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="txtPan"
                                                                             ErrorMessage="<br />Please Enter PAN Number" Display="Dynamic" runat="server"
                                                                             CssClass="rfvPCG" ValidationGroup="Submit"></asp:RequiredFieldValidator>
                                                                     </td>
                                                                     <td>
-                                                                     <asp:CheckBox ID="chkIsinvestmem" Text="IS Real Investor" runat="server" />
+                                                                        <asp:CheckBox ID="chkIsinvestmem" Text="IS Real Investor" runat="server" />
                                                                     </td>
                                                                 </tr>
-                                                                        
                                                                 <tr>
                                                                     <td class="leftField" align="right">
                                                                         <asp:Label ID="lblRelation" runat="server" CssClass="FieldName" Text="RelationShip:"></asp:Label>
@@ -421,7 +424,8 @@
                                                                         <asp:DropDownList ID="ddlRelation" runat="server" CssClass="cmbField">
                                                                         </asp:DropDownList>
                                                                         <span id="Span7" class="spnRequiredField">*</span>
-                                                                        <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="ddlRelation"    CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select Relation"
+                                                                        <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="ddlRelation"
+                                                                            CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select Relation"
                                                                             Operator="NotEqual" ValidationGroup="Submit" ValueToCompare="Select"></asp:CompareValidator>
                                                                     </td>
                                                                 </tr>
@@ -463,9 +467,9 @@
                                                                             CssClass="rfvPCG" ValidationGroup="Submit"></asp:RequiredFieldValidator>
                                                                     </td>
                                                                     <td>
-                                                                     <asp:CheckBox ID="chKInsideKyc1" runat="server" Text="IS KYC" />
+                                                                        <asp:CheckBox ID="chKInsideKyc1" runat="server" Text="IS KYC" />
                                                                     </td>
-                                                                </tr>       
+                                                                </tr>
                                                                 <tr>
                                                                     <td class="leftField" align="right">
                                                                         <asp:Label ID="lblNewPan" runat="server" CssClass="FieldName" Text="PAN:"></asp:Label>
@@ -473,13 +477,14 @@
                                                                     <td class="rightField">
                                                                         <asp:TextBox ID="txtNewPan" runat="server" Text='<%# Bind("C_PANNum") %>' CssClass="txtField"></asp:TextBox>
                                                                         <span id="Span6" class="spnRequiredField">*</span>
-                                                                         <asp:Label ID="Label10" runat="server" CssClass="Error" Text="PAN Number already exists" Visible="false"></asp:Label>
+                                                                        <asp:Label ID="Label10" runat="server" CssClass="Error" Text="PAN Number already exists"
+                                                                            Visible="false"></asp:Label>
                                                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtNewPan"
                                                                             ErrorMessage="<br />Please Enter PAN Number" Display="Dynamic" runat="server"
                                                                             CssClass="rfvPCG" ValidationGroup="Submit"></asp:RequiredFieldValidator>
                                                                     </td>
                                                                     <td>
-                                                                    <asp:CheckBox ID="isRealInvestormem" runat="server" Text="ISRealInvestor" />
+                                                                        <asp:CheckBox ID="isRealInvestormem" runat="server" Text="ISRealInvestor" />
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
@@ -793,7 +798,7 @@
                 OnNeedDataSource="gvBankDetails_NeedDataSource">
                 <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="ExistMFInvestlist">
                 </ExportSettings>
-               <MasterTableView DataKeyNames="CB_CustBankAccId,CB_AccountNum,WCMV_BankName,CB_HoldingAmount,XMOH_ModeOfHoldingCode,WCMV_LookupId_AccType,WCMV_Lookup_BranchAddStateId,WCMV_LookupId_BankId"
+                <MasterTableView DataKeyNames="CB_CustBankAccId,CB_AccountNum,WCMV_BankName,CB_HoldingAmount,XMOH_ModeOfHoldingCode,WCMV_LookupId_AccType,WCMV_Lookup_BranchAddStateId,WCMV_LookupId_BankId"
                     CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="true" CommandItemSettings-AddNewRecordText="Add New Bank Details">
                     <EditFormSettings EditFormType="Template" FormTableStyle-BorderStyle="None">
                         <FormTemplate>
@@ -805,8 +810,8 @@
                             <HeaderStyle Width="100px" />
                         </telerik:GridButtonColumn>
                         <telerik:GridBoundColumn UniqueName="WCMV_BankName" HeaderStyle-Width="100px" HeaderText="Bank Name"
-                            DataField="WCMV_BankName" SortExpression="WCMV_BankName" AllowFiltering="true" ShowFilterIcon="false"
-                            AutoPostBackOnFilter="true">
+                            DataField="WCMV_BankName" SortExpression="WCMV_BankName" AllowFiltering="true"
+                            ShowFilterIcon="false" AutoPostBackOnFilter="true">
                             <HeaderStyle></HeaderStyle>
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn UniqueName="CB_BranchName" HeaderStyle-Width="100px" HeaderText="Branch Name"

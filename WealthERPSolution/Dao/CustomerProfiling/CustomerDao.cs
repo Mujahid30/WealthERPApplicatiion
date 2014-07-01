@@ -554,7 +554,8 @@ namespace DaoCustomerProfiling
 
                     if (!string.IsNullOrEmpty(dr["C_CustCode"].ToString()))
                         customerVo.AccountId = dr["C_CustCode"].ToString();
-
+                    if (!string.IsNullOrEmpty(dr["C_FatherHusbandName"].ToString()))
+                        customerVo.FatherHusbandName = dr["C_FatherHusbandName"].ToString();
                     if (!string.IsNullOrEmpty(dr["C_IsRealInvestor"].ToString()))
                         customerVo.IsRealInvestor = bool.Parse(dr["C_IsRealInvestor"].ToString()) ? true : false;
                     if (!string.IsNullOrEmpty(dr["C_WCMV_TaxStatus_Id"].ToString()))
@@ -1194,6 +1195,7 @@ namespace DaoCustomerProfiling
 
                 db.AddInParameter(editCustomerCmd, "@C_WCMV_Occupation_Id", DbType.Int32, customerVo.OccupationId);
                 db.AddInParameter(editCustomerCmd, "@C_ModifiedBy", DbType.Int32, userId);
+                db.AddInParameter(editCustomerCmd, "@C_FatherHusbandName", DbType.String, customerVo.FatherHusbandName);
 
                 if (db.ExecuteNonQuery(editCustomerCmd) != 0)
                     bResult = true;

@@ -1707,10 +1707,10 @@ namespace DaoAdvisorProfiling
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                GetAdviserTreeNodes = db.GetStoredProcCommand("SP_GetTreeNodesBasedOnUserRoles");
-                db.AddInParameter(GetAdviserTreeNodes, "@userrole", DbType.String, userRole);
-                db.AddInParameter(GetAdviserTreeNodes, "@treetype", DbType.String, treeType);
-                db.AddInParameter(GetAdviserTreeNodes, "@adviserId", DbType.Int32, adviserId);
+                GetAdviserTreeNodes = db.GetStoredProcCommand("SPROC_GetAdviserRolesTreeNodeData");//SP_GetTreeNodesBasedOnUserRoles//SPROC_GetAdviserRolesTreeNodeData
+                //db.AddInParameter(GetAdviserTreeNodes, "@userrole", DbType.String, userRole);
+                //db.AddInParameter(GetAdviserTreeNodes, "@treetype", DbType.String, treeType);
+                db.AddInParameter(GetAdviserTreeNodes, "@AdviserId", DbType.Int32, adviserId);
 
                 dsAdviserTreeNodes = db.ExecuteDataSet(GetAdviserTreeNodes);
             }
