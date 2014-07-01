@@ -89,8 +89,8 @@ namespace WealthERP.General
                 }
                 else
                 {
-                    Page.Theme = "Maroon";
-                    Session["Theme"] = "Maroon";
+                    Page.Theme = "SBIOnLine";
+                    Session["Theme"] = "SBIOnLine";
                     Session["refreshTheme"] = true;
 
                 }
@@ -817,7 +817,7 @@ namespace WealthERP.General
                         }
                         else
                         {
-                            Session["Theme"] = "Maroon";
+                            Session["Theme"] = "SBIOnLine";
                             Session["refreshTheme"] = true;
                             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "loadingatthelogin", "parent.loadCB();", true);
                             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Reg23itlpoeewsderwjhh", "loadcontrol('AccountDeactive','login');", true);
@@ -1496,7 +1496,7 @@ namespace WealthERP.General
             }
             else
             {
-                Session["Theme"] = "Maroon";
+                Session["Theme"] = "SBIOnLine";
                 Session["refreshTheme"] = true;
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "loadingatthelogin", "parent.loadCB();", true);
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Reg23itlpoeewsderwjhh", "loadcontrol('CustomerFPAnalyticsDynamic','login');", true);
