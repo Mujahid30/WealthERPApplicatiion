@@ -169,7 +169,9 @@ namespace WealthERP.OnlineOrderManagement
             dtFinalSIPOrderBook = CreateSIPBookDataTable();
             DataTable dtSIPDetails = dsSIPOrderDetails.Tables[0];
             DataTable dtOrderDetails = dsSIPOrderDetails.Tables[1];
+            DataTable dtAAAcceptedCount = dsSIPOrderDetails.Tables[2];
             DataView dvSIPOrderDetails;
+            DataView dvAAAcceptedCount;
             DataRow drSIPOrderBook;
 
             foreach (DataRow drSIP in dtSIPDetails.Rows)
@@ -182,13 +184,15 @@ namespace WealthERP.OnlineOrderManagement
                 if (int.Parse(drSIP["CMFSS_IsSourceAA"].ToString()) == 1)
                 {
                     sipDueCount = (Convert.ToInt16(drSIP["CMFSS_TotalInstallment"].ToString())
-                          - ((Convert.ToInt16(drSIP["CMFSS_CurrentInstallmentNumber"].ToString())) - 1)) - dvSIPOrderDetails.ToTable().Rows.Count;
+                          - ((Convert.ToInt16(drSIP["CMFSS_CurrentInstallmentNumber"].ToString())) - 1));
+                    // - dvSIPOrderDetails.ToTable().Rows.Count
                 }
                 else
                 {
                     sipDueCount = (Convert.ToInt16(drSIP["CMFSS_TotalInstallment"].ToString()) - dvSIPOrderDetails.ToTable().Rows.Count);
                 }
                 //int.Parse(drSIP["CMFSS_InstallmentAccepted"].ToString())
+                dvAAAcceptedCount = new DataView(dtAAAcceptedCount, "CMFSS_SystematicSetupId=" + drSIP["CMFSS_SystematicSetupId"].ToString(), "CMFSS_SystematicSetupId", DataViewRowState.CurrentRows);
                 foreach (DataRow drOrder in dvSIPOrderDetails.ToTable().Rows)
                 {
                     switch (drOrder["WOS_OrderStepCode"].ToString().TrimEnd())
@@ -243,7 +247,11 @@ namespace WealthERP.OnlineOrderManagement
                 drSIPOrderBook["CMFSS_InstallmentOther"] = drSIP["CMFSS_InstallmentOther"];
                 if (int.Parse(drSIP["CMFSS_IsSourceAA"].ToString()) == 1)
                 {
-                    drSIPOrderBook["AcceptCount"] = int.Parse(drSIP["CMFSS_InstallmentAccepted"].ToString()) + acceptCount;
+                    foreach (DataRow drAAAcceptedCount in dvAAAcceptedCount.ToTable().Rows)
+                    {
+                        if (int.Parse(drSIP["CMFSS_SystematicSetupId"].ToString()) == int.Parse(drAAAcceptedCount["CMFSS_SystematicSetupId"].ToString()))
+                            drSIPOrderBook["AcceptCount"] = int.Parse(drSIP["CMFSS_InstallmentAccepted"].ToString()) + int.Parse(drAAAcceptedCount["Occurence"].ToString());
+                    }
                 }
                 else
                 {

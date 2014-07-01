@@ -43,6 +43,7 @@ namespace WealthERP.OnlineOrderManagement
         static double totalAmount = 0;
         static double totalUnits = 0;
         DataTable dtMFTransactions = new DataTable();
+        int amount = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
             OnlineUserSessionBo.CheckSession();
@@ -58,12 +59,13 @@ namespace WealthERP.OnlineOrderManagement
             // lbBack.Attributes.Add("onClick", "javascript:history.back(); return false;");
             if (!Page.IsPostBack)
             {
-                if (Request.QueryString["systematicId"] != null && Request.QueryString["AccountId"] != null && Request.QueryString["schemeplanCode"] != null && Request.QueryString["IsSourceAA"] != null)
+                if (Request.QueryString["systematicId"] != null && Request.QueryString["AccountId"] != null && Request.QueryString["schemeplanCode"] != null && Request.QueryString["IsSourceAA"] != null && Request.QueryString["Amount"] != null)
                 {
                     systematicId = int.Parse(Request.QueryString["systematicId"].ToString());
                     AccountId = int.Parse(Request.QueryString["AccountId"].ToString());
                     schemeplanCode = int.Parse(Request.QueryString["schemeplanCode"].ToString());
                     IsSourceAA = int.Parse(Request.QueryString["IsSourceAA"].ToString());
+                    amount = int.Parse(Request.QueryString["Amount"].ToString());
                     BindGrid();
                     divConditional.Visible = false;
 
@@ -213,9 +215,9 @@ namespace WealthERP.OnlineOrderManagement
         }
         private void BindGrid()
         {
-            if (Request.QueryString["systematicId"] != null && Request.QueryString["AccountId"] != null && Request.QueryString["schemeplanCode"] != null)
+            if (Request.QueryString["systematicId"] != null && Request.QueryString["AccountId"] != null && Request.QueryString["schemeplanCode"] != null && Request.QueryString["amount"] != null)
             {
-                mfTransactionList = customerTransactionBo.GetCustomerTransactionsBookSIP(advisorVo.advisorId, customerId,systematicId,IsSourceAA,AccountId,schemeplanCode);
+                mfTransactionList = customerTransactionBo.GetCustomerTransactionsBookSIP(advisorVo.advisorId, customerId,systematicId,IsSourceAA,AccountId,schemeplanCode,amount);
             }
             else
             {
