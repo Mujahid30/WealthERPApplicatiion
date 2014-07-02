@@ -102,7 +102,8 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblAmc;
-        
+        protected global::System.Web.UI.WebControls.Label lblSchemeplancode;
+        protected global::System.Web.UI.WebControls.Label lblschemeplanecodetext;
         /// <summary>
         /// ddlAmc control.
         /// </summary>

@@ -86,6 +86,8 @@ namespace WealthERP.OnlineOrderBackOffice
                         txtNFOStartDate.Enabled = false;
                         txtNFOendDate.Enabled = false;
                         ddlMargeScheme.Enabled = true;
+                        lblSchemeplancode.Visible = true;
+                        lblschemeplanecodetext.Visible = true;
                         
                     }
                     else if (Request.QueryString["strAction"].Trim() == "View")
@@ -109,6 +111,8 @@ namespace WealthERP.OnlineOrderBackOffice
                         lblAllproductcode.Visible = true;
                         lnkProductcode.Visible = true;
                         chkOnlineEnablement.Enabled = false;
+                        lblSchemeplancode.Visible = true;
+                        lblschemeplanecodetext.Visible = true;
                         if (ddlNFoStatus.SelectedValue == "Merged")
                         {
                             lbBack.Visible = false;
@@ -780,6 +784,7 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             mfProductAMCSchemePlanDetailsVo = (MFProductAMCSchemePlanDetailsVo)Session["SchemeList"];
             //  Bindscheme(schemeplancode);
+            lblschemeplanecodetext.Text = mfProductAMCSchemePlanDetailsVo.SchemePlanCode.ToString();
             txtScname.Text = mfProductAMCSchemePlanDetailsVo.SchemePlanName;
             txtESSchemecode.Text = mfProductAMCSchemePlanDetailsVo.ExternalCode;
             txtProductCode.Text = mfProductAMCSchemePlanDetailsVo.productcode;
@@ -1144,6 +1149,7 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             mfProductAMCSchemePlanDetailsVo = (MFProductAMCSchemePlanDetailsVo)Session["SchemeList"];
             // Bindscheme(schemeplancode);
+            lblschemeplanecodetext.Text = mfProductAMCSchemePlanDetailsVo.SchemePlanCode.ToString();
             txtScname.Text = mfProductAMCSchemePlanDetailsVo.SchemePlanName;
             txtESSchemecode.Text = mfProductAMCSchemePlanDetailsVo.ExternalCode;
             txtProductCode.Text = mfProductAMCSchemePlanDetailsVo.productcode;

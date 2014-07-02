@@ -110,6 +110,12 @@
                                         </asp:DropDownList>
                                     </ItemTemplate>
                                 </telerik:GridTemplateColumn>
+                                  <telerik:GridBoundColumn DataField="PASP_SchemePlanCode" UniqueName="PASP_SchemePlanCode"
+                                    HeaderText="Scheme Plan Code" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                    AllowFiltering="true" HeaderStyle-Width="130px" SortExpression="PASP_SchemePlanCode"
+                                    FilterControlWidth="100px" CurrentFilterFunction="Contains" Visible="true">
+                                    <ItemStyle Width="100px" HorizontalAlign="Center" Wrap="false" VerticalAlign="top" />
+                                </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn DataField="PASP_SchemePlanName" UniqueName="PASP_SchemePlanName"
                                     HeaderText="Scheme" ShowFilterIcon="false" AutoPostBackOnFilter="true" AllowFiltering="true"
                                     HeaderStyle-Width="290px" SortExpression="PASP_SchemePlanName" FilterControlWidth="250px"
@@ -133,12 +139,7 @@
                                     CurrentFilterFunction="Contains">
                                     <ItemStyle Width="150px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                                 </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn DataField="PASP_SchemePlanCode" UniqueName="PASP_SchemePlanCode"
-                                    HeaderText="PASP_SchemePlanCode" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                    AllowFiltering="true" HeaderStyle-Width="67px" SortExpression="PASP_SchemePlanCode"
-                                    FilterControlWidth="50px" CurrentFilterFunction="Contains" Visible="false">
-                                    <ItemStyle Width="67px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
-                                </telerik:GridBoundColumn>
+                              
                                 <telerik:GridBoundColumn DataField="PASP_IsOnline" UniqueName="PASP_IsOnline" HeaderText="IsOnline"
                                     SortExpression="PASP_IsOnline" AutoPostBackOnFilter="true" HeaderStyle-Width="100px"
                                     FilterControlWidth="80px" CurrentFilterFunction="Contains" ShowFilterIcon="false">

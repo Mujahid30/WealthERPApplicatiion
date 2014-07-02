@@ -333,9 +333,12 @@
                 <td>
                     <asp:TextBox ID="txtAMFI" runat="server" CssClass="cmbFielde" Visible="true"></asp:TextBox>
                 </td>
-                <td>
+                <td align="right" style="width:10%;">
+                    <asp:Label ID="lblSchemeplancode" runat="server" Text="Scheme Plan Code:" CssClass="FieldName" Visible="false"></asp:Label>
                 </td>
                 <td>
+                    <asp:Label ID="lblschemeplanecodetext" runat="server" CssClass="FieldName" Visible="false"></asp:Label>
+                &nbsp;&nbsp;
                     <asp:LinkButton ID="lnkMargeScheme" runat="server" Text="Merge Scheme" OnClick="lnkMargeScheme_Click"
                         CssClass="LinkButtons" Visible="false"></asp:LinkButton>
                     <%-- <asp:CheckBox ID="chkoffline" runat="server" Text="Offline Scheme" CssClass="FieldName" Checked="false"/>--%>
@@ -428,14 +431,14 @@
                         <asp:ListItem Text="Growth" Value="GR" />--%>
                     </asp:DropDownList>
                     <span id="Span33" class="spnRequiredField">*</span>
-                   
                     <asp:DropDownList ID="ddlDFrequency" runat="server" CssClass="cmbField" AutoPostBack="false"
                         Visible="false">
                         <%--        <asp:ListItem Text="Select" Value="Select" Selected="False" />
                             <asp:ListItem Text="Dividend Reinvestment" Value="DVR" />
                             <asp:ListItem Text="Dividend Payout" Value="DVP" />--%>
                     </asp:DropDownList>
-                   <asp:Label ID="lblddlDFrequency" runat="server" Text="*" CssClass="spnRequiredField" Visible="false"></asp:Label>
+                    <asp:Label ID="lblddlDFrequency" runat="server" Text="*" CssClass="spnRequiredField"
+                        Visible="false"></asp:Label>
                     <br />
                     <asp:RequiredFieldValidator ID="rfvddlOption" runat="server" ErrorMessage="Please Select any option"
                         CssClass="rfvPCG" ControlToValidate="ddlOption" ValidationGroup="btnsubmit" Display="Dynamic"
@@ -684,8 +687,9 @@
                 </td>
                 <td align="right">
                     <asp:Label ID="lblchkOnlineEnablement" runat="server" Text="OnlineEnablement:" CssClass="FieldName"></asp:Label>
-              </td>  <td>
-                <asp:CheckBox ID="chkOnlineEnablement" runat="server" Text="Yes" CssClass="FieldName"/>
+                </td>
+                <td>
+                    <asp:CheckBox ID="chkOnlineEnablement" runat="server" Text="Yes" CssClass="FieldName" />
                 </td>
             </tr>
             <tr id="trIPAmount" runat="server" visible="false">

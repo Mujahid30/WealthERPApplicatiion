@@ -898,7 +898,9 @@
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="SIP Online Order Book" Value="MF_Online_SIP_Ord_Book">
                                                     </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" Text="SIP Online Book" Value="SIP_Book">
+                                                     <telerik:RadPanelItem runat="server" Text="SIP Online Book" Value="SIP_Book">
+                                                    </telerik:RadPanelItem>
+                                                     <telerik:RadPanelItem runat="server" Text="MF Transaction Book" Value="MF_Transaction_Books">
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="NCD Order Book" Value="NCD_Order_Book">
                                                     </telerik:RadPanelItem>

@@ -2349,6 +2349,11 @@ namespace WealthERP.Advisor
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineAdviserCustomerIPOOrderBook','login');", true);
 
                 }
+                else if (e.Item.Value == "MF_Transaction_Books")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineAdviserCustomerTransctionBook','login');", true);
+
+                }
 
             }
             catch (BaseApplicationException Ex)
