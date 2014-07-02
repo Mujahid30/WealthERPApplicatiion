@@ -308,7 +308,6 @@ namespace DaoOnlineOrderManagement
                     db.AddInParameter(createMFOrderTrackingCmd, "@CMFSS_EndDate", DbType.DateTime, onlineMFOrderVo.EndDate);
 
                 db.AddInParameter(createMFOrderTrackingCmd, "@CMFSS_TotalInstallment", DbType.Int32, onlineMFOrderVo.TotalInstallments);
-                db.AddInParameter(createMFOrderTrackingCmd, "@CurrentInstallemnetNo", DbType.Int32, onlineMFOrderVo.CurrentInstallments);
                 db.AddInParameter(createMFOrderTrackingCmd, "@CMFSS_SystematicDate", DbType.Int32, onlineMFOrderVo.SystematicDate);
                 db.AddInParameter(createMFOrderTrackingCmd, "@CMFSS_Amount", DbType.Double, onlineMFOrderVo.Amount);
                 db.AddInParameter(createMFOrderTrackingCmd, "@XES_SourceCode", DbType.String, onlineMFOrderVo.SourceCode);
