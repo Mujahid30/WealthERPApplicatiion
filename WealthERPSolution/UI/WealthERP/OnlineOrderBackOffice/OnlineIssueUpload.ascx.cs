@@ -95,7 +95,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 lblRgsttype.Visible = true;
                 ddlRgsttype.Visible = true;
                 RFVRgsttype.Enabled = true;
-                //RFVddlAlltmnt.Enabled = true;
+                RFVddlAlltmnt.Enabled = true;
             }
             else if (ddlFileType.SelectedValue == "10")
             {
