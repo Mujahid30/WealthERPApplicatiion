@@ -250,7 +250,8 @@ namespace WealthERP.OnlineOrderManagement
                     foreach (DataRow drAAAcceptedCount in dvAAAcceptedCount.ToTable().Rows)
                     {
                         if (int.Parse(drSIP["CMFSS_SystematicSetupId"].ToString()) == int.Parse(drAAAcceptedCount["CMFSS_SystematicSetupId"].ToString()))
-                            drSIPOrderBook["AcceptCount"] = int.Parse(drSIP["CMFSS_InstallmentAccepted"].ToString()) + int.Parse(drAAAcceptedCount["Occurence"].ToString());
+                            drSIPOrderBook["AcceptCount"] = int.Parse(drAAAcceptedCount["Occurence"].ToString());
+                        //int.Parse(drSIP["CMFSS_InstallmentAccepted"].ToString()) +
                     }
                 }
                 else
