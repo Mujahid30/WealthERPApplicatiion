@@ -190,7 +190,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 drSIPOrderBook = dtFinalSIPOrderBook.NewRow();
 
-                int sipDueCount = 0, inProcessCount = 0,executedcount=0, acceptCount = 0, systemRejectCount = 0, rejectedCount = 0 ;
+                int sipDueCount = 0, inProcessCount = 0, executedcount = 0, acceptCount = 0, systemRejectCount = 0, rejectedCount = 0;
 
                 dvSIPOrderDetails = new DataView(dtOrderDetails, "CMFSS_SystematicSetupId=" + drSIP["CMFSS_SystematicSetupId"].ToString(), "CMFSS_SystematicSetupId", DataViewRowState.CurrentRows);
 
@@ -198,7 +198,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     sipDueCount = (Convert.ToInt16(drSIP["CMFSS_TotalInstallment"].ToString())
                           - ((Convert.ToInt16(drSIP["CMFSS_CurrentInstallmentNumber"].ToString())) - 1)) - dvSIPOrderDetails.ToTable().Rows.Count;
-                
+
                 }
                 else
                 {
@@ -281,7 +281,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 drSIPOrderBook["CMFA_AccountId"] = drSIP["CMFA_AccountId"];
                 drSIPOrderBook["SystemRejectCount"] = systemRejectCount;
                 drSIPOrderBook["RejectedCount"] = rejectedCount;
-                drSIPOrderBook["ExecutedCount"] = executedcount ;
+                drSIPOrderBook["ExecutedCount"] = executedcount;
                 drSIPOrderBook["CMFSS_IsSourceAA"] = drSIP["CMFSS_IsSourceAA"];
                 drSIPOrderBook["C_CustomerId"] = drSIP["C_CustomerId"];
                 dtFinalSIPOrderBook.Rows.Add(drSIPOrderBook);
@@ -416,24 +416,42 @@ namespace WealthERP.OnlineOrderBackOffice
                                 int schemeplanCode = int.Parse(gvr.GetDataKeyValue("PASP_SchemePlanCode").ToString());
                                 int IsSourceAA = int.Parse(gvr.GetDataKeyValue("CMFSS_IsSourceAA").ToString());
                                 int customerId = int.Parse(gvr.GetDataKeyValue("C_CustomerId").ToString());
-                                 if (e.CommandName == "Accepted")
+                                // if (e.CommandName == "Accepted")
+                                //{
+                                //    Response.Redirect("ControlHost.aspx?pageid=OnlineAdviserCustomerTransctionBook&systematicId=" + systematicId + "&AccountId=" + AccountId + "&schemeplanCode=" + schemeplanCode + "&IsSourceAA=" + IsSourceAA + "&customerId=" + customerId + "", false);
+                                //}
+                                if (e.CommandName == "Accepted")
                                 {
-                                    Response.Redirect("ControlHost.aspx?pageid=OnlineAdviserCustomerTransctionBook&systematicId=" + systematicId + "&AccountId=" + AccountId + "&schemeplanCode=" + schemeplanCode + "&IsSourceAA=" + IsSourceAA + "&customerId=" + customerId + "", false);
+                                    Response.Redirect("ControlHost.aspx?pageid=OnlineAdviserCustomerSIPOrderBook&systematicId=" + systematicId + "&OrderStatus=PR", false);
                                 }
-                                //else if (e.CommandName == "In Process")
-                                //{
-                                //    Response.Redirect("ControlHost.aspx?pageid=OnlineAdviserCustomerTransactionBook&systematicId=" + systematicId + "&OrderStatus=AL", false);"&OrderStatus=PR", false);
-                                //}
-                                //else if (e.CommandName == "Rejected")
-                                //{
-                                //    Response.Redirect("ControlHost.aspx?pageid=OnlineAdviserCustomerTransactionBook&systematicId=" + systematicId + "&OrderStatus=RJ", false);
+                                else if (e.CommandName == "In Process")
+                                {
+                                    Response.Redirect("ControlHost.aspx?pageid=OnlineAdviserCustomerSIPOrderBook&systematicId=" + systematicId + "&OrderStatus=AL", false);
+                                }
+                                else if (e.CommandName == "Rejected")
+                                {
+                                    Response.Redirect("ControlHost.aspx?pageid=OnlineAdviserCustomerSIPOrderBook&systematicId=" + systematicId + "&OrderStatus=RJ", false);
 
-                                //}
-                                //else if (e.CommandName == "Executed")
-                                //{
-                                //    Response.Redirect("ControlHost.aspx?pageid=OnlineAdviserCustomerTransactionBook&systematicId=" + systematicId + "&OrderStatus=IP", false);
+                                }
+                                else if (e.CommandName == "Executed")
+                                {
+                                    Response.Redirect("ControlHost.aspx?pageid=OnlineAdviserCustomerSIPOrderBook&systematicId=" + systematicId + "&OrderStatus=IP", false);
 
-                                //}   
+                                    //else if (e.CommandName == "In Process")
+                                    //{
+                                    //    Response.Redirect("ControlHost.aspx?pageid=OnlineAdviserCustomerTransactionBook&systematicId=" + systematicId + "&OrderStatus=AL", false);"&OrderStatus=PR", false);
+                                    //}
+                                    //else if (e.CommandName == "Rejected")
+                                    //{
+                                    //    Response.Redirect("ControlHost.aspx?pageid=OnlineAdviserCustomerTransactionBook&systematicId=" + systematicId + "&OrderStatus=RJ", false);
+
+                                    //}
+                                    //else if (e.CommandName == "Executed")
+                                    //{
+                                    //    Response.Redirect("ControlHost.aspx?pageid=OnlineAdviserCustomerTransactionBook&systematicId=" + systematicId + "&OrderStatus=IP", false);
+
+                                    //}  
+                                }
                             }
                         }
                     }
