@@ -1335,7 +1335,7 @@ namespace DaoOnlineOrderManagement
             return dsSystematicDetails;
         }
 
-        public bool CreateSystematicDetails(MFProductAMCSchemePlanDetailsVo mfProductAMCSchemePlanDetailsVo, int schemeplancode)
+        public bool CreateSystematicDetails(MFProductAMCSchemePlanDetailsVo mfProductAMCSchemePlanDetailsVo, int schemeplancode,int userId)
         {
             bool bResult = false;
             Database db;
@@ -1352,6 +1352,8 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(CreateSystematicDetailsCmd, "@PASPSD_MaxDues", DbType.Int32, mfProductAMCSchemePlanDetailsVo.MaxDues);
                 db.AddInParameter(CreateSystematicDetailsCmd, "@PASPSD_MinAmount", DbType.Double, mfProductAMCSchemePlanDetailsVo.MinAmount);
                 db.AddInParameter(CreateSystematicDetailsCmd, "@PASPSD_MultipleAmount", DbType.Double, mfProductAMCSchemePlanDetailsVo.MultipleAmount);
+                db.AddInParameter(CreateSystematicDetailsCmd, "@PASPSD_ModifiedBy", DbType.Int32, userId);
+                db.AddInParameter(CreateSystematicDetailsCmd, "@PASPSD_CreatedBy", DbType.Double, userId);
                 if (db.ExecuteNonQuery(CreateSystematicDetailsCmd) != 0)
                     bResult = true;
             }
@@ -1378,7 +1380,7 @@ namespace DaoOnlineOrderManagement
             }
             return bResult;
         }
-        public bool EditSystematicDetails(MFProductAMCSchemePlanDetailsVo mfProductAMCSchemePlanDetailsVo, int schemeplancode, int systematicdetailsid)
+        public bool EditSystematicDetails(MFProductAMCSchemePlanDetailsVo mfProductAMCSchemePlanDetailsVo, int schemeplancode, int systematicdetailsid,int userId)
         {
             bool blResult = false;
             Database db;
@@ -1396,6 +1398,8 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(EditSystematicDetailscmd, "@PASPSD_MaxDues", DbType.Int32, mfProductAMCSchemePlanDetailsVo.MaxDues);
                 db.AddInParameter(EditSystematicDetailscmd, "@PASPSD_MinAmount", DbType.Double, mfProductAMCSchemePlanDetailsVo.MinAmount);
                 db.AddInParameter(EditSystematicDetailscmd, "@PASPSD_MultipleAmount", DbType.Double, mfProductAMCSchemePlanDetailsVo.MultipleAmount);
+                db.AddInParameter(EditSystematicDetailscmd, "@PASPSD_ModifiedBy", DbType.Int32, userId);
+
                 db.ExecuteNonQuery(EditSystematicDetailscmd);
                 if (db.ExecuteNonQuery(EditSystematicDetailscmd) != 0)
                     blResult = true;

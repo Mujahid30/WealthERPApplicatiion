@@ -180,6 +180,7 @@ namespace WealthERP.OnlineOrderBackOffice
             string dividentType = ddlOption.SelectedValue;
             if (dividentType != "")
             {
+                ddlDFrequency.Items.Clear();
                 dt = OnlineOrderBackOfficeBo.GetSchemeLookupType(dividentType);
                 ddlDFrequency.DataSource = dt;
                 ddlDFrequency.DataTextField = dt.Columns["PSLV_LookupValue"].ToString();
@@ -897,15 +898,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 ddlSctype.SelectedValue = "0";
             }
-            if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.DividendFrequency))
-            {
-
-                ddlDFrequency.SelectedValue = mfProductAMCSchemePlanDetailsVo.DividendFrequency.ToString();
-            }
-            else
-            {
-                ddlDFrequency.SelectedValue = "0";
-            }
+           
             if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.SchemeOption))
             {
                 ddlOption.SelectedValue = mfProductAMCSchemePlanDetailsVo.SchemeOption.ToString();
@@ -915,6 +908,11 @@ namespace WealthERP.OnlineOrderBackOffice
                     BindSchemeLoockUpType();
                     ddlDFrequency.Visible = true;
                     lblddlDFrequency.Visible = true;
+                    if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.DividendFrequency))
+                    {
+                        ddlDFrequency.SelectedValue = mfProductAMCSchemePlanDetailsVo.DividendFrequency.ToString();
+                    }
+                    
                 }
                 else
                 {
@@ -1066,6 +1064,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 ChkISSIP.Checked = true;
                 gvSIPDetails.Visible = true;
+                pnlSIPDetails.Visible = true;
                 BindSystematicDetails();
             }
             else
@@ -1084,6 +1083,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 ChkISSwitch.Checked = true;
                 trSwitchPavailable.Visible = true;
+
             }
             else
             {
@@ -1158,14 +1158,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 lnkMargeScheme.Text = "Merged Scheme";
             }
-            if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.DividendFrequency))
-            {
-                ddlDFrequency.SelectedValue = mfProductAMCSchemePlanDetailsVo.DividendFrequency.ToString();
-            }
-            else
-            {
-                ddlDFrequency.SelectedValue = "0";
-            }
+           
             if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.GenerationFrequency))
             {
                 ddlGenerationfreq.SelectedValue = mfProductAMCSchemePlanDetailsVo.GenerationFrequency.ToString();
@@ -1253,6 +1246,10 @@ namespace WealthERP.OnlineOrderBackOffice
                     BindSchemeLoockUpType();
                     ddlDFrequency.Visible = true;
                     lblddlDFrequency.Visible = true;
+                    if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.DividendFrequency))
+                    {
+                        ddlDFrequency.SelectedValue = mfProductAMCSchemePlanDetailsVo.DividendFrequency.ToString();
+                    }
                 }
                 else
                 {
@@ -2826,7 +2823,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 mfProductAMCSchemePlanDetailsVo.MaxDues = int.Parse(txtMaxDues.Text.ToString());
                 mfProductAMCSchemePlanDetailsVo.MinAmount = Convert.ToDouble(txtMinAmount.Text.ToString());
                 mfProductAMCSchemePlanDetailsVo.MultipleAmount = Convert.ToDouble(txtMultipleAmount.Text.ToString());
-                OnlineOrderBackOfficeBo.CreateSystematicDetails(mfProductAMCSchemePlanDetailsVo, schemecode);
+                OnlineOrderBackOfficeBo.CreateSystematicDetails(mfProductAMCSchemePlanDetailsVo, schemecode,userVo.UserId);
 
             }
             if (e.CommandName == RadGrid.UpdateCommandName)
@@ -2862,7 +2859,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 mfProductAMCSchemePlanDetailsVo.MinAmount = Convert.ToDouble(txtMinAmount.Text.ToString());
                 mfProductAMCSchemePlanDetailsVo.MultipleAmount = Convert.ToDouble(txtMultipleAmount.Text.ToString());
                 //OnlineOrderBackOfficeBo.EditSystematicDetails(mfProductAMCSchemePlanDetailsVo, schemecode,systematicdetailsid);
-                isUpdated = OnlineOrderBackOfficeBo.EditSystematicDetails(mfProductAMCSchemePlanDetailsVo, schemeplanecode, detailsid);
+                isUpdated = OnlineOrderBackOfficeBo.EditSystematicDetails(mfProductAMCSchemePlanDetailsVo, schemeplanecode, detailsid,userVo.UserId);
             }
 
             if (e.CommandName == RadGrid.RebindGridCommandName)

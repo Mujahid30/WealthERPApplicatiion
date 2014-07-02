@@ -1224,14 +1224,14 @@ namespace BoOnlineOrderManagement
             dsSystematicDetails = daoOnlineOrderBackOffice.GetSystematicDetails(schemeplancode);
             return dsSystematicDetails;
         }
-        public bool EditSystematicDetails(MFProductAMCSchemePlanDetailsVo mfProductAMCSchemePlanDetailsVo, int schemeplancode, int systematicdetailsid)
+        public bool EditSystematicDetails(MFProductAMCSchemePlanDetailsVo mfProductAMCSchemePlanDetailsVo, int schemeplancode, int systematicdetailsid,int userId)
         {
             bool blResult = false;
 
             OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
             try
             {
-                blResult = OnlineOrderBackOfficeDao.EditSystematicDetails(mfProductAMCSchemePlanDetailsVo, schemeplancode, systematicdetailsid);
+                blResult = OnlineOrderBackOfficeDao.EditSystematicDetails(mfProductAMCSchemePlanDetailsVo, schemeplancode, systematicdetailsid,userId);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1255,13 +1255,13 @@ namespace BoOnlineOrderManagement
             }
             return blResult;
         }
-        public bool CreateSystematicDetails(MFProductAMCSchemePlanDetailsVo mfProductAMCSchemePlanDetailsVo, int schemeplancode)
+        public bool CreateSystematicDetails(MFProductAMCSchemePlanDetailsVo mfProductAMCSchemePlanDetailsVo, int schemeplancode,int userId)
         {
             OnlineOrderBackOfficeDao daoOnlineOrderBackOffice = new OnlineOrderBackOfficeDao();
             bool bResult = false;
             try
             {
-                bResult = daoOnlineOrderBackOffice.CreateSystematicDetails(mfProductAMCSchemePlanDetailsVo, schemeplancode);
+                bResult = daoOnlineOrderBackOffice.CreateSystematicDetails(mfProductAMCSchemePlanDetailsVo, schemeplancode,userId);
 
             }
             catch (BaseApplicationException Ex)
