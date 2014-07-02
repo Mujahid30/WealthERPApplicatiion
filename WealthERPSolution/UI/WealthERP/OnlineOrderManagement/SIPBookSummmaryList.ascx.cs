@@ -387,15 +387,16 @@ namespace WealthERP.OnlineOrderManagement
                                 int AccountId = int.Parse(gvr.GetDataKeyValue("CMFA_AccountId").ToString());
                                 int schemeplanCode = int.Parse(gvr.GetDataKeyValue("PASP_SchemePlanCode").ToString());
                                 int IsSourceAA = int.Parse(gvr.GetDataKeyValue("CMFSS_IsSourceAA").ToString());
+                                int Amount = int.Parse(gvr.GetDataKeyValue("CMFSS_Amount").ToString());
                                 if (e.CommandName == "Accepted")
                                 {
                                     if (Session["PageDefaultSetting"] != null)
                                     {
-                                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('CustomerTransactionBookList','?systematicId=" + systematicId + "&AccountId=" + AccountId + "&schemeplanCode=" + schemeplanCode + "&IsSourceAA=" + IsSourceAA + "');", true);
+                                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('CustomerTransactionBookList','?systematicId=" + systematicId + "&AccountId=" + AccountId + "&schemeplanCode=" + schemeplanCode + "&IsSourceAA=" + IsSourceAA + "&Amount=" + Amount + "');", true);
                                     }
                                     else
                                     {
-                                        Response.Redirect("ControlHost.aspx?pageid=CustomerTransactionBookList&systematicId=" + systematicId + "&AccountId=" + AccountId + "&schemeplanCode=" + schemeplanCode + "&IsSourceAA=" + IsSourceAA + "", false);
+                                        Response.Redirect("ControlHost.aspx?pageid=CustomerTransactionBookList&systematicId=" + systematicId + "&AccountId=" + AccountId + "&schemeplanCode=" + schemeplanCode + "&IsSourceAA=" + IsSourceAA + "&Amount=" + Amount + "", false);
                                     }
 
                                 }
