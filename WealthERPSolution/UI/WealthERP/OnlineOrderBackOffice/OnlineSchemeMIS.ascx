@@ -114,7 +114,7 @@
                                     HeaderText="Scheme Plan Code" ShowFilterIcon="false" AutoPostBackOnFilter="true"
                                     AllowFiltering="true" HeaderStyle-Width="130px" SortExpression="PASP_SchemePlanCode"
                                     FilterControlWidth="100px" CurrentFilterFunction="Contains" Visible="true">
-                                    <ItemStyle Width="100px" HorizontalAlign="Center" Wrap="false" VerticalAlign="top" />
+                                    <ItemStyle Width="100px" HorizontalAlign="Left" Wrap="false" VerticalAlign="top" />
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn DataField="PASP_SchemePlanName" UniqueName="PASP_SchemePlanName"
                                     HeaderText="Scheme" ShowFilterIcon="false" AutoPostBackOnFilter="true" AllowFiltering="true"

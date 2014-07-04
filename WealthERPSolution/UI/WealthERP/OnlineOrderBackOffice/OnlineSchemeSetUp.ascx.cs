@@ -977,23 +977,25 @@ namespace WealthERP.OnlineOrderBackOffice
             }
             if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.Status))
             {
-                ddlNFoStatus.SelectedValue = mfProductAMCSchemePlanDetailsVo.Status.ToString();
-                if (ddlNFoStatus.SelectedValue == "NFO")
+                ddlNFoStatus.SelectedItem.Text = mfProductAMCSchemePlanDetailsVo.Status.ToString();
+                if (ddlNFoStatus.SelectedItem.Text == "NFO")
                 {
                     trNFODate.Visible = true;
                 }
-                if (ddlNFoStatus.SelectedValue == "CloseNFO")
+                if (ddlNFoStatus.SelectedItem.Text == "CLOSENFO")
                 {
                     ddlNFoStatus.Items[5].Enabled = true;
                 }
-                if (ddlNFoStatus.SelectedValue == "Merged")
+                if (ddlNFoStatus.SelectedItem.Text == "Merged")
                 {
                     ddlNFoStatus.Items[4].Enabled = true;
+                    lbBack.Enabled = false;
+                    lnkEdit.Enabled = false;
                 }
             }
             else
             {
-                ddlNFoStatus.SelectedValue = "0";
+                ddlNFoStatus.SelectedValue = "Select";
             }
             if (mfProductAMCSchemePlanDetailsVo.NFOStartDate != DateTime.MinValue)
             {
@@ -1313,23 +1315,23 @@ namespace WealthERP.OnlineOrderBackOffice
 
             if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.Status))
             {
-                ddlNFoStatus.SelectedValue = mfProductAMCSchemePlanDetailsVo.Status.ToString();
+                ddlNFoStatus.SelectedItem.Text = mfProductAMCSchemePlanDetailsVo.Status.ToString();
                 if (ddlNFoStatus.SelectedValue == "NFO")
                 {
                     trNFODate.Visible = true;
                 }
-                if (ddlNFoStatus.SelectedValue == "CloseNFO")
+                if (ddlNFoStatus.SelectedItem.Text == "CLOSENFO")
                 {
                     ddlNFoStatus.Items[5].Enabled = true;
                 }
-                if (ddlNFoStatus.SelectedValue == "Merged")
+                if (ddlNFoStatus.SelectedItem.Text == "Merged")
                 {
                     ddlNFoStatus.Items[4].Enabled = true;
                 }
             }
             else
             {
-                ddlNFoStatus.SelectedValue = "0";
+                ddlNFoStatus.SelectedItem.Text = "Select";
             }
             if (mfProductAMCSchemePlanDetailsVo.NFOStartDate != DateTime.MinValue)
             {
