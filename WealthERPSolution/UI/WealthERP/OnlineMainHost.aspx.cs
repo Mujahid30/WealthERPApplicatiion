@@ -160,14 +160,10 @@ namespace WealthERP
                 case "MF":
                     divMFMenu.Visible = true;
                     lblOnlieProductType.Text = "Mutual Fund Order";
-                    divNCDMenu.Visible = false;
-                    divIPOMenu.Visible = false;
                     break;
                 case "NCD":
                     divNCDMenu.Visible = true;
                     lblOnlieProductType.Text = "NCD Order";
-                    divMFMenu.Visible = false;
-                    divIPOMenu.Visible = false;
                     break;
                 case "IPO":
                     divIPOMenu.Visible = true;
@@ -363,26 +359,6 @@ namespace WealthERP
             //Response.Redirect("http://sspr.sbicapstestlab.com/AGLogout");
         }
 
-        protected void lnkHomeMF_Click(object sender, EventArgs e)
-        {
-            ncdArrow.Visible = false;
-            mfArrow.Visible = true;
-            SetProductTypeMenu("MF");
-            ProductMenuItemChange("MF", "Transact");
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "pageloadscriptabcd", "LoadTopPanelDefault('OnlineOrderTopMenu');", true);
-        }
-
-        protected void lnkNcdOrder_Click(object sender, EventArgs e)
-        {
-            ncdArrow.Visible = true;
-            mfArrow.Visible = false;
-            SetProductTypeMenu("NCD");
-            ProductMenuItemChange("NCD", "Transact");
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "pageloadscriptabcd", "LoadTopPanelDefault('OnlineOrderTopMenu');", true);
-
-        }
-
-
         protected void lnkMFOrderMenuTransact_Click(object sender, EventArgs e)
         {
             ProductMenuItemChange("MF", "Transact");
@@ -428,8 +404,6 @@ namespace WealthERP
 
         protected void ProductMenuItemChange(string ProductType, string menuType)
         {
-            if (ProductType == "MF")
-                mfArrow.Visible = true;
             switch (ProductType)
             {
                 case "MF":

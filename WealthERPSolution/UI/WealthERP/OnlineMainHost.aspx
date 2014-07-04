@@ -249,22 +249,8 @@
             </div>
         </div>
         <div class="div-container">
-            <div class="product-header" >
-                <div style="float: left">
-                    <asp:LinkButton ID="lnkHomeMF" runat="server" Text="MF Order" CssClass="product-header-text"
-                        OnClick="lnkHomeMF_Click"></asp:LinkButton>
-                    <asp:Image ID="mfArrow" runat="server" ImageUrl="~/Images/arrow-down-outline.png"
-                        Visible="true" />
-                    <asp:Label ID="lblOnlieProductType" runat="server" Text="" CssClass="product-header-text"
-                        Visible="false"></asp:Label>
-                </div>
-                &nbsp;&nbsp;  &nbsp;&nbsp;
-                <div style="float: left">
-                    <asp:LinkButton ID="lnkNcdOrder" runat="server" Text="NCD Order" CssClass="product-header-text"
-                        OnClick="lnkNcdOrder_Click"></asp:LinkButton>
-                    <asp:Image ID="ncdArrow" runat="server" ImageUrl="~/Images/arrow-down-outline.png"
-                        Visible="false" />
-                </div>
+            <div class="product-header">
+                <asp:Label ID="lblOnlieProductType" runat="server" Text="" CssClass="product-header-text"></asp:Label>
             </div>
             <div class="prduct-main-menu" id="divMFMenu" runat="server" visible="false">
                 <ul class="blue">

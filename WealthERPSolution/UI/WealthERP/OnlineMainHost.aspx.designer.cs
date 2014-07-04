@@ -77,24 +77,6 @@ namespace WealthERP {
         protected global::System.Web.UI.WebControls.Label lblTest;
         
         /// <summary>
-        /// lnkHomeMF control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkHomeMF;
-        
-        /// <summary>
-        /// mfArrow control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image mfArrow;
-        
-        /// <summary>
         /// lblOnlieProductType control.
         /// </summary>
         /// <remarks>
@@ -102,24 +84,6 @@ namespace WealthERP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblOnlieProductType;
-        
-        /// <summary>
-        /// lnkNcdOrder control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkNcdOrder;
-        
-        /// <summary>
-        /// ncdArrow control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image ncdArrow;
         
         /// <summary>
         /// divMFMenu control.
