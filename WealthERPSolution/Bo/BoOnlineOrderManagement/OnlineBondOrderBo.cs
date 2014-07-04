@@ -550,14 +550,14 @@ namespace BoOnlineOrderManagement
             }
             return dtNCDHoldingOrder;
         }
-        public DataTable GetNCDHoldingSeriesOrder(int customerId, int AdviserId, int IssueId)
+        public DataTable GetNCDHoldingSeriesOrder(int customerId, int AdviserId, int IssueId, int orderId)
         {
             DataTable dtGetNCDHoldingSeriesOrder;
 
             OnlineBondOrderDao OnlineBondOrderDao = new OnlineBondOrderDao();
             try
             {
-                dtGetNCDHoldingSeriesOrder = OnlineBondOrderDao.GetNCDHoldingSeriesOrder(customerId, AdviserId, IssueId);
+                dtGetNCDHoldingSeriesOrder = OnlineBondOrderDao.GetNCDHoldingSeriesOrder(customerId, AdviserId, IssueId, orderId);
             }
             catch (BaseApplicationException Ex)
             {

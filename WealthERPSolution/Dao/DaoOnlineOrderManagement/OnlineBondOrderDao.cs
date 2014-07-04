@@ -826,7 +826,7 @@ namespace DaoOnlineOrderManagement
             }
             return dtNCDHoldingOrder;
         }
-        public DataTable GetNCDHoldingSeriesOrder(int customerId, int AdviserId, int IssueId)
+        public DataTable GetNCDHoldingSeriesOrder(int customerId, int AdviserId, int IssueId, int orderId)
         {
             DataSet dsGetNCDHoldingSeriesOrder;
             DataTable dtGetNCDHoldingSeriesOrder;
@@ -838,7 +838,8 @@ namespace DaoOnlineOrderManagement
                 GetNCDHoldingSeriesOrdercmd = db.GetStoredProcCommand("SPROC_ONL_GetIssueSeriesWiseNCDHolding");
                 db.AddInParameter(GetNCDHoldingSeriesOrdercmd, "@CustomerId", DbType.Int32, customerId);
                 db.AddInParameter(GetNCDHoldingSeriesOrdercmd, "@AdviserId", DbType.Int32, AdviserId);
-                db.AddInParameter(GetNCDHoldingSeriesOrdercmd, "@IssueId", DbType.Int32, IssueId); 
+                db.AddInParameter(GetNCDHoldingSeriesOrdercmd, "@IssueId", DbType.Int32, IssueId);
+                db.AddInParameter(GetNCDHoldingSeriesOrdercmd, "@orderId", DbType.Int32, orderId); 
                 dsGetNCDHoldingSeriesOrder = db.ExecuteDataSet(GetNCDHoldingSeriesOrdercmd);
                 dtGetNCDHoldingSeriesOrder = dsGetNCDHoldingSeriesOrder.Tables[0];
             }

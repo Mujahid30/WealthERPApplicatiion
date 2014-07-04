@@ -121,11 +121,14 @@ namespace WealthERP.OnlineOrderManagement
         {
             //DataTable dtIssueDetail;
             int strIssuerId = 0;
+            int orderId = 0;
             LinkButton buttonlink = (LinkButton)sender;
             GridDataItem gdi;
             gdi = (GridDataItem)buttonlink.NamingContainer;
 
             strIssuerId = int.Parse(gvBHList.MasterTableView.DataKeyValues[gdi.ItemIndex]["AIM_IssueId"].ToString());
+            orderId = int.Parse(gvBHList.MasterTableView.DataKeyValues[gdi.ItemIndex]["CO_OrderId"].ToString());
+        
             RadGrid gvchildIssue = (RadGrid)gdi.FindControl("gvChildDetails");
             Panel pnlchild = (Panel)gdi.FindControl("pnlchild");
 
@@ -144,7 +147,8 @@ namespace WealthERP.OnlineOrderManagement
             if (txtOrderTo.SelectedDate != null)
                 toDate = DateTime.Parse(txtOrderTo.SelectedDate.ToString());
             DataTable dtIssueDetail;
-            dtIssueDetail = BoOnlineBondOrder.GetNCDHoldingSeriesOrder(customerVo.CustomerId, adviserVo.advisorId, strIssuerId);
+
+            dtIssueDetail = BoOnlineBondOrder.GetNCDHoldingSeriesOrder(customerVo.CustomerId, adviserVo.advisorId, strIssuerId, orderId);
             //dtIssueDetail = dtNCDHoldingOrder.Tables[0];
             gvchildIssue.DataSource = dtIssueDetail;
             gvchildIssue.DataBind();
@@ -154,12 +158,13 @@ namespace WealthERP.OnlineOrderManagement
             RadGrid gvchildIssue = (RadGrid)sender; // Get reference to grid 
             GridDataItem nesteditem = (GridDataItem)gvchildIssue.NamingContainer;
             int strIssuerId = int.Parse(gvBHList.MasterTableView.DataKeyValues[nesteditem.ItemIndex]["AIM_IssueId"].ToString()); // Get the value 
+            int orderId = int.Parse(gvBHList.MasterTableView.DataKeyValues[nesteditem.ItemIndex]["CO_OrderId"].ToString());
             if (txtOrderFrom.SelectedDate != null)
                 fromDate = DateTime.Parse(txtOrderFrom.SelectedDate.ToString());
             if (txtOrderTo.SelectedDate != null)
                 toDate = DateTime.Parse(txtOrderTo.SelectedDate.ToString());
             DataTable dtIssueDetail;
-            dtIssueDetail = BoOnlineBondOrder.GetNCDHoldingSeriesOrder(customerVo.CustomerId, adviserVo.advisorId, strIssuerId);
+            dtIssueDetail = BoOnlineBondOrder.GetNCDHoldingSeriesOrder(customerVo.CustomerId, adviserVo.advisorId, strIssuerId, orderId);
             //dtIssueDetail = dtNCDHoldingOrder.Tables[0];
             gvchildIssue.DataSource = dtIssueDetail;
         }

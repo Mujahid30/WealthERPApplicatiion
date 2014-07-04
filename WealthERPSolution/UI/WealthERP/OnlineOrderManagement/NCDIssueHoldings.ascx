@@ -204,7 +204,7 @@
                                         OnItemDataBound="gvBHList_OnItemDataBound">
                                         <ExportSettings FileName="Details" HideStructureColumns="true" ExportOnlyData="true">
                                         </ExportSettings>
-                                        <MasterTableView DataKeyNames="AIM_IssueId" Width="100%" AllowMultiColumnSorting="True"
+                                        <MasterTableView DataKeyNames="AIM_IssueId,CO_OrderId" Width="100%" AllowMultiColumnSorting="True"
                                             AutoGenerateColumns="false" CommandItemDisplay="None">
                                             <Columns>
                                                 <telerik:GridTemplateColumn ItemStyle-Width="80Px" AllowFiltering="false" Visible="false"
