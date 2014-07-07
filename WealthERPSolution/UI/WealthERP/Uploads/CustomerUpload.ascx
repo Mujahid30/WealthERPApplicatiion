@@ -199,7 +199,8 @@
                 Uploading successfully Completed
             </div>
             <asp:LinkButton ID="lnkClick" runat="server" Text="Click here to start new upload"
-                Font-Size="Small" Font-Underline="false" class="textfield" OnClick="lnkClick_Click" Visible="false"></asp:LinkButton>
+                Font-Size="Small" Font-Underline="false" class="textfield" OnClick="lnkClick_Click"
+                Visible="false"></asp:LinkButton>
         </td>
     </tr>
 </table>
@@ -268,6 +269,7 @@
                 <asp:ListItem Value="TRAIL">Trail Commission</asp:ListItem>
                 <asp:ListItem Value="Link">Fixed Income</asp:ListItem>
                 <asp:ListItem Value="P">Profile Only</asp:ListItem>
+                <asp:ListItem Value="CML">CML Upload Only</asp:ListItem>
             </asp:DropDownList>
             <img src="../Images/help.png" class="ScreenTip1" style="height: 15px; width: 15px;" />
             <div id="div1" style="display: none;">
@@ -296,7 +298,7 @@
             </asp:CompareValidator>
         </td>
     </tr>
-    <tr>
+    <tr id="trExternalSOurce" runat="server">
         <td class="leftField">
             <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="External Source:"></asp:Label>
         </td>
@@ -409,7 +411,7 @@
                 Operator="DataTypeCheck" ErrorMessage="Not acceptable format" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
         </td>
     </tr>--%>
-    <tr>
+    <tr id="trUpload" runat="server">
         <td class="leftField">
             <asp:Label ID="Label3" runat="server" CssClass="FieldName" Text="Browse:"></asp:Label>
         </td>

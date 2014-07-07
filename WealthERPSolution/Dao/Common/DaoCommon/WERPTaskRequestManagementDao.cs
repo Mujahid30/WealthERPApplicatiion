@@ -24,7 +24,7 @@ namespace DaoCommon
         /// <param name="subreportype"></param>
         /// <param name="fromDate"></param>
         /// <returns></returns>
-        public void CreateTaskRequest(int taskId, int userId, out int taskRequestId)
+        public void CreateTaskRequest(int taskId, int userId, out int taskRequestId,string filePath)
         {
             Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand cmdCreateTaskRequest;
@@ -36,6 +36,8 @@ namespace DaoCommon
                 db.AddInParameter(cmdCreateTaskRequest, "@TaskId", DbType.Int32, taskId);
                 db.AddInParameter(cmdCreateTaskRequest, "@UserId", DbType.Int32, userId);
                 db.AddOutParameter(cmdCreateTaskRequest, "@OutRequestId", DbType.Int32, 1000000);
+                db.AddInParameter(cmdCreateTaskRequest, "@FilePath", DbType.String, filePath);
+
                 db.ExecuteNonQuery(cmdCreateTaskRequest);
 
                 Object objRequestId = db.GetParameterValue(cmdCreateTaskRequest, "@OutRequestId");
