@@ -2104,6 +2104,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Widgets//LoginWidgets.ascx.
+        /// </summary>
+        internal static string LoginWidgets {
+            get {
+                return ResourceManager.GetString("LoginWidgets", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to OnlineOrderBackOffice//ManageLookups.ascx.
         /// </summary>
         internal static string ManageLookups {

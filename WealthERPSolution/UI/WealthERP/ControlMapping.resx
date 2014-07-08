@@ -1909,4 +1909,8 @@
     <value>OnlineOrderBackOffice//OnlineAdviserCustomerTransctionBook.ascx</value>
     <comment>OnlineOrderBackOffice//OnlineAdviserCustomerTransctionBook.ascx</comment>
   </data>
+  <data name="LoginWidgets" xml:space="preserve">
+    <value>Widgets//LoginWidgets.ascx</value>
+    <comment>Widgets//LoginWidgets.ascx</comment>
+  </data>
 </root>
