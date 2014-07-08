@@ -2669,6 +2669,7 @@
     </Compile>
     <Compile Include="OffLineOrderManagement\MFOrderBuyTransTypeOffline.ascx.cs">
       <DependentUpon>MFOrderBuyTransTypeOffline.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="OffLineOrderManagement\MFOrderBuyTransTypeOffline.ascx.designer.cs">
       <DependentUpon>MFOrderBuyTransTypeOffline.ascx</DependentUpon>
@@ -4097,6 +4098,13 @@
     </Compile>
     <Compile Include="UserManagement\BMRMLeftpane.ascx.designer.cs">
       <DependentUpon>BMRMLeftpane.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Widgets\LoginWidgets.ascx.cs">
+      <DependentUpon>LoginWidgets.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Widgets\LoginWidgets.ascx.designer.cs">
+      <DependentUpon>LoginWidgets.ascx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -7412,6 +7420,7 @@
     <Content Include="bin\BoAdvisorProfiling.pdb" />
     <Content Include="bin\BoCommisionManagement.dll" />
     <Content Include="bin\BoCommisionManagement.pdb" />
+    <Content Include="bin\BoCommon.dll" />
     <Content Include="bin\BoCommon.pdb" />
     <Content Include="bin\BoCustomerPortfolio.dll" />
     <Content Include="bin\BoCustomerPortfolio.pdb" />
@@ -8074,6 +8083,7 @@
     <Content Include="Uploads\WERPFolioDetails.ascx" />
     <Content Include="Uploads\WerpFolioDetailsMapping.aspx" />
     <Content Include="UserManagement\AgentManagement.ascx" />
+    <Content Include="Widgets\LoginWidgets.ascx" />
     <Content Include="YUI\build\animation\animation-debug.js" />
     <Content Include="YUI\build\animation\animation-min.js" />
     <Content Include="YUI\build\animation\animation.js" />
