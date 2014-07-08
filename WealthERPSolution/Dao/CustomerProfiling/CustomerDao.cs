@@ -399,8 +399,8 @@ namespace DaoCustomerProfiling
                     {
                         customerVo.LastName = string.Empty;
                     }
-                    if (!string.IsNullOrEmpty(dr["AB_BranchName"].ToString()))
-                        customerVo.Gender = dr["AB_BranchName"].ToString();
+                    if (!string.IsNullOrEmpty(dr["C_Gender"].ToString()))
+                        customerVo.Gender = dr["C_Gender"].ToString();
                     if (!string.IsNullOrEmpty(dr["AB_BranchName"].ToString()))
                         customerVo.BranchName = dr["AB_BranchName"].ToString();
                     if (!string.IsNullOrEmpty(dr["C_DOB"].ToString()))
