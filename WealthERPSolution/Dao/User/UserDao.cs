@@ -129,7 +129,7 @@ namespace DaoUser
                     }
                 }
 
-                if(adviserRole!=null)
+                if(adviserRole.Count!=0)
                 userVo.AdviserRole=adviserRole;
 
             }

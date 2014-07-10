@@ -61,7 +61,7 @@ namespace WealthERP.OnlineOrderManagement
                 }
                 else
                 {
-                    ShowMessage(onlineMforderBo.GetOnlineOrderUserMessage(clientMFAccessCode));
+                    ShowMessage(onlineMforderBo.GetOnlineOrderUserMessage(clientMFAccessCode),'I');
                     PurchaseOrderControlsEnable(false);
                     divControlContainer.Visible = false;
                     divClientAccountBalance.Visible = false;
@@ -388,17 +388,18 @@ namespace WealthERP.OnlineOrderManagement
                 }
 
             }
-
-            message = CreateUserMessage(OrderId, accountDebitStatus, retVal == 1 ? true : false);
+            char msgType;
+            message = CreateUserMessage(OrderId, accountDebitStatus, retVal == 1 ? true : false, out msgType);
             PurchaseOrderControlsEnable(false);
-            ShowMessage(message);
+            ShowMessage(message, msgType);
 
         }
 
 
-        private string CreateUserMessage(int orderId, bool accountDebitStatus, bool isCutOffTimeOver)
+        private string CreateUserMessage(int orderId, bool accountDebitStatus, bool isCutOffTimeOver,out char msgType)
         {
             string userMessage = string.Empty;
+            msgType = 'S';
             if (orderId != 0 && accountDebitStatus == true)
             {
                 if (isCutOffTimeOver)
@@ -409,19 +410,25 @@ namespace WealthERP.OnlineOrderManagement
             else if (orderId != 0 && accountDebitStatus == false)
             {
                 userMessage = "Order placed successfully,Order will not process due to insufficient balance, Order reference no is " + orderId.ToString();
+                msgType = 'F';
             }
             else if (orderId == 0)
             {
                 userMessage = "Order cannot be processed. Insufficient balance";
+                msgType = 'F';
             }
 
             return userMessage;
 
         }
 
-        private void ShowMessage(string msg)
+        private void ShowMessage(string msg, char type)
         {
-            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "wsedrftgyhjukloghjnnnghj", " showMsg('" + msg + "','S');", true);
+            //--S(success)
+            //--F(failure)
+            //--W(warning)
+            //--I(information)
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "wsedrftgyhjukloghjnnnghj", " showMsg('" + msg + "','" + type.ToString() + "');", true);
         }
 
         protected void ddlDivType_OnSelectedIndexChanged(object sender, EventArgs e)

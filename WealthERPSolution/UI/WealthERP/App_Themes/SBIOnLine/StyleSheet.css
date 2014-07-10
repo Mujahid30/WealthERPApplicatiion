@@ -857,7 +857,8 @@ ul.tabbernav li.tabberactive a:hover
 .failure-msg
 {
     border: solid #C49292 1px;
-    color: white;
+    color: Red;  
+    font-weight:bold;  
     background: #68bfe1 url('/../Images/warning.png') no-repeat;
 }
 .warning-msg

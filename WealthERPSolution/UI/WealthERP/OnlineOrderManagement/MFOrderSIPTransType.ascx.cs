@@ -119,7 +119,7 @@ namespace WealthERP.OnlineOrderManagement
                 }
                 else
                 {
-                    ShowMessage(boOnlineOrder.GetOnlineOrderUserMessage(clientMFAccessCode));
+                    ShowMessage(boOnlineOrder.GetOnlineOrderUserMessage(clientMFAccessCode),'I');
                     FreezeControls();
                     divControlContainer.Visible = false;
                     divClientAccountBalance.Visible = false;
@@ -441,9 +441,9 @@ namespace WealthERP.OnlineOrderManagement
                         ShowAvailableLimits();
                     }
                 }
-
-                message = CreateUserMessage(OrderId, sipId, accountDebitStatus, retVal == 1 ? true : false);
-                ShowMessage(message);
+                char msgType;
+                message = CreateUserMessage(OrderId, sipId, accountDebitStatus, retVal == 1 ? true : false, out msgType);
+                ShowMessage(message, msgType);
             }
             else
             {
@@ -468,40 +468,46 @@ namespace WealthERP.OnlineOrderManagement
 
         }
 
-        private string CreateUserMessage(int orderId, int sipId, bool accountDebitStatus, bool isCutOffTimeOver)
+        private string CreateUserMessage(int orderId, int sipId, bool accountDebitStatus, bool isCutOffTimeOver, out char msgType)
         {
             string userMessage = string.Empty;
+            msgType = 'S';
             if (orderId != 0 && accountDebitStatus == true)
             {
                 if (isCutOffTimeOver)
                     userMessage = "Order placed successfully, Order reference no is " + orderId.ToString() + ", Order will process next business day";
                 else
                     userMessage = "Order placed successfully, Order reference no is " + orderId.ToString();
+
+                msgType = 'S';
             }
             else if (orderId != 0 && accountDebitStatus == false)
             {
                 userMessage = "Order placed successfully,Order will not process due to insufficient balance, Order reference no is " + orderId.ToString();
+                msgType = 'F';
             }
             else if (orderId == 0 && sipId != 0)
             {
                 userMessage = "SIP Requested successfully, SIP reference no is " + sipId.ToString();
+                msgType = 'S';
             }
             else if (orderId == 0 && sipId == 0)
             {
                 userMessage = "Order cannot be processed. Insufficient balance";
+                msgType = 'F';
 
             }
             return userMessage;
 
         }
 
-        private void ShowMessage(string msg)
+        private void ShowMessage(string msg, char type)
         {
             //--S(success)
             //--F(failure)
             //--W(warning)
             //--I(information)
-            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "wsedrftgyhjukloghjnnnghj", " showMsg('" + msg + "','S');", true);
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "wsedrftgyhjukloghjnnnghj", " showMsg('" + msg + "','" + type.ToString() + "');", true);
         }
 
         protected void ddlScheme_SelectedIndexChanged(object sender, EventArgs e)
