@@ -46,6 +46,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            SessionBo.CheckSession();
             userVo = (UserVo)Session["userVo"];
             advisorVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
             //if (ViewState["newproductcode"] != null)
@@ -977,16 +978,16 @@ namespace WealthERP.OnlineOrderBackOffice
             }
             if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.Status))
             {
-                ddlNFoStatus.SelectedItem.Text = mfProductAMCSchemePlanDetailsVo.Status.ToString();
-                if (ddlNFoStatus.SelectedItem.Text == "NFO")
+                ddlNFoStatus.SelectedValue = mfProductAMCSchemePlanDetailsVo.Status.ToString();
+                if (ddlNFoStatus.SelectedValue == "NFO")
                 {
                     trNFODate.Visible = true;
                 }
-                if (ddlNFoStatus.SelectedItem.Text == "CLOSENFO")
+                if (ddlNFoStatus.SelectedValue == "CloseNFO")
                 {
                     ddlNFoStatus.Items[5].Enabled = true;
                 }
-                if (ddlNFoStatus.SelectedItem.Text == "Merged")
+                if (ddlNFoStatus.SelectedValue == "Merged")
                 {
                     ddlNFoStatus.Items[4].Enabled = true;
                     lbBack.Enabled = false;
@@ -1315,16 +1316,16 @@ namespace WealthERP.OnlineOrderBackOffice
 
             if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.Status))
             {
-                ddlNFoStatus.SelectedItem.Text = mfProductAMCSchemePlanDetailsVo.Status.ToString();
+                ddlNFoStatus.SelectedValue = mfProductAMCSchemePlanDetailsVo.Status.ToString();
                 if (ddlNFoStatus.SelectedValue == "NFO")
                 {
                     trNFODate.Visible = true;
                 }
-                if (ddlNFoStatus.SelectedItem.Text == "CLOSENFO")
+                if (ddlNFoStatus.SelectedValue == "CloseNFO")
                 {
                     ddlNFoStatus.Items[5].Enabled = true;
                 }
-                if (ddlNFoStatus.SelectedItem.Text == "Merged")
+                if (ddlNFoStatus.SelectedValue == "Merged")
                 {
                     ddlNFoStatus.Items[4].Enabled = true;
                 }

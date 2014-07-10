@@ -54,10 +54,11 @@ namespace WealthERP.OnlineOrderManagement
                         orderId = int.Parse(Request.QueryString["orderId"].ToString());
                         fromDate = Convert.ToDateTime(Request.QueryString["fromDate"].ToString());
                         toDate = Convert.ToDateTime(Request.QueryString["toDate"].ToString());
-                        txtOrderFrom.SelectedDate = fromDate;
-                        txtOrderTo.SelectedDate = toDate;
-                        ddlOrderStatus.SelectedValue ="PR";
-                        ddlIssueName.SelectedValue=AIMissueId.ToString();
+                        trIPOorderbook.Visible = false;
+                        //txtOrderFrom.SelectedDate = fromDate;
+                        //txtOrderTo.SelectedDate = toDate;
+                        //ddlOrderStatus.SelectedValue ="PR";
+                        //ddlIssueName.SelectedValue=AIMissueId.ToString();
                         //hdnOrderStatus.Value = "PR";
                         BindCustomerIssueIPOBook();
                         //ddlOrderStatus.Enabled = false;

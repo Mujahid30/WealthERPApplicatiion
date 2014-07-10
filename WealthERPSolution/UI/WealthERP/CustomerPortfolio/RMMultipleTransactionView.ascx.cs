@@ -180,6 +180,7 @@ namespace WealthERP.CustomerPortfolio
 
                     BindAMC();
                     BindCategory();
+                    Bindscheme();
                     Cache.Remove("ViewTrailCommissionDetails" + advisorVo.advisorId);
                     trGroupHead.Visible = false;
                     hdnProcessIdSearch.Value = "0";
@@ -743,8 +744,33 @@ namespace WealthERP.CustomerPortfolio
                 throw exBase;
             }
         }
+        protected void ddlAMC_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            Bindscheme();
+        }
+        private void Bindscheme()
+        {
+            DataTable dt;
+            if (ddlAMC.SelectedValue =="0")
+            {
+                    dt = productMFBo.GetSchemePlanName(int.Parse(ddlAMC.SelectedValue));
+                    ddlSchemeList.DataSource = dt;
+                    ddlSchemeList.DataValueField = "PASP_SchemePlanCode";
+                    ddlSchemeList.DataTextField = "PASP_SchemePlanName";
+                    ddlSchemeList.DataBind();
+                    ddlSchemeList.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "0"));
+            }
+            else
+            {
+                    dt = productMFBo.GetSchemePlanName(int.Parse(ddlAMC.SelectedValue));
+                    ddlSchemeList.DataSource = dt;
+                    ddlSchemeList.DataValueField = "PASP_SchemePlanCode";
+                    ddlSchemeList.DataTextField = "PASP_SchemePlanName";
+                    ddlSchemeList.DataBind();
+                    ddlSchemeList.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "0"));
 
-
+            }
+        }
         private void BindGroupHead()
         {
 
@@ -1081,7 +1107,15 @@ namespace WealthERP.CustomerPortfolio
             }
             }
             //schemePlanCode = 0;
-            schemePlanCode = Convert.ToInt32(ViewState["SchemePlanCode"]);
+            if (!string.IsNullOrEmpty(ddlSchemeList.SelectedValue))
+            {
+                schemePlanCode = int.Parse(ddlSchemeList.SelectedValue);
+            }
+            else
+            {
+                ddlSchemeList.SelectedValue = "0";
+            }
+            //schemePlanCode = Convert.ToInt32(ViewState["SchemePlanCode"]);
             //int categorycode = Convert.ToInt32(ViewState["CategoryCode"]);
             if (column == "SelectAmt")
             {
@@ -1318,7 +1352,16 @@ namespace WealthERP.CustomerPortfolio
                   }
               }
               //schemePlanCode = 0;
-              schemePlanCode = Convert.ToInt32(ViewState["SchemePlanCode"]);
+              if (!string.IsNullOrEmpty(ddlSchemeList.SelectedValue))
+              {
+                  //schemePlanCode = Convert.ToInt32(ViewState["SchemePlanCode"]);
+                  schemePlanCode = int.Parse(ddlSchemeList.SelectedValue);
+
+              }
+              else
+              {
+                  ddlSchemeList.SelectedValue ="0";
+              }
             if (!string.IsNullOrEmpty(txtParentCustomerId.Value.ToString().Trim()))
                 customerId = int.Parse(txtParentCustomerId.Value);
             try

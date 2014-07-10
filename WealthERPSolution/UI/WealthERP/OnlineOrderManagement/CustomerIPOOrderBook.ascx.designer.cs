@@ -31,6 +31,7 @@ namespace WealthERP.OnlineOrderManagement
         protected global::System.Web.UI.WebControls.Label lblIssueName;
         protected global::System.Web.UI.WebControls.DropDownList ddlIssueName;
         protected global::System.Web.UI.WebControls.Button btnViewOrder;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trIPOorderbook;
         /// <summary>
         /// pnlIPOBook control.
         /// </summary>

@@ -7,6 +7,7 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <asp:ScriptManager ID="scptMgr" runat="server" AsyncPostBackTimeout="600">
 </asp:ScriptManager>
+
 <script type="text/javascript" language="javascript">
     function GetCustomerId(source, eventArgs) {
         isItemSelected = true;
@@ -21,6 +22,7 @@
         var hdn = document.getElementById("<%=hdnIsSubscripted.ClientID%>").value;
     }
 </script>
+
 <script type="text/javascript" language="javascript">
     function CheckOne(obj) {
         var grid = obj.parentNode.parentNode.parentNode;
@@ -396,11 +398,12 @@
                                 <asp:RadioButton ID="rbtnPickPeriod" AutoPostBack="true" OnCheckedChanged="rbtnDate_CheckedChanged"
                                     runat="server" GroupName="Date" />
                                 <asp:Label ID="lblPickPeriod" runat="server" Text="Period" CssClass="Field"></asp:Label>
-                            </td>
-                            <td align="right">
+                            <%--</td>
+                            <td align="right">--%>
+                             &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                                 <asp:Label ID="lblCustomerGroup" runat="server" CssClass="FieldName" Text="Customer:"></asp:Label>
-                            </td>
-                            <td align="left" colspan="2">
+                           <%-- </td>
+                            <td align="left" colspan="3">--%>
                                 <asp:RadioButton ID="rbtnAll" AutoPostBack="true" Checked="true" runat="server" GroupName="GroupAll"
                                     Text="All" CssClass="cmbFielde" OnCheckedChanged="rbtnAll_CheckedChanged" />
                                 &nbsp;
@@ -494,8 +497,8 @@
                                     <%--   <asp:ListItem Text="PAN" Value="Panno" />--%>
                                     <asp:ListItem Text="Client Code" Value="Clientcode" />
                                 </asp:DropDownList>
-                            </td>
-                            <td align="left">
+                          <%--  </td>
+                            <td align="left">--%>
                                 <asp:TextBox ID="txtcustomerName" runat="server" CssClass="txtField" AutoPostBack="true"
                                     Visible="false"></asp:TextBox>
                                 <cc1:TextBoxWatermarkExtender ID="txtCustomerName_water" TargetControlID="txtcustomerName"
@@ -508,7 +511,7 @@
                                     CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
                                     UseContextKey="True" OnClientItemSelected="GetCustomerId" DelimiterCharacters=""
                                     Enabled="True" />
-                             <%--   <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtcustomerName"
+                                <%--   <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtcustomerName"
                                     ErrorMessage="<br />Please Enter Customer Name" Display="Dynamic" runat="server"
                                     CssClass="rfvPCG" ValidationGroup="btnGo"></asp:RequiredFieldValidator>--%>
                                 <asp:TextBox ID="txtCustCode" runat="server" CssClass="txtField" AutoPostBack="true"
@@ -519,11 +522,11 @@
                                 <ajaxToolkit:AutoCompleteExtender ID="txtClientCode_autoCompleteExtender" runat="server"
                                     TargetControlID="txtCustCode" ServiceMethod="GetCustCode" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
                                     MinimumPrefixLength="1" EnableCaching="False" CompletionSetCount="5" CompletionInterval="100"
-                                        CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
+                                    CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
                                     CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
                                     UseContextKey="True" OnClientItemSelected="GetCustomerId" DelimiterCharacters=""
                                     Enabled="True" />
-                               <%-- <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="txtCustCode"
+                                <%-- <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="txtCustCode"
                                     ErrorMessage="<br />Please Enter Client Code" Display="Dynamic" runat="server"
                                     CssClass="rfvPCG" ValidationGroup="btnGo"></asp:RequiredFieldValidator>--%>
                             </td>
@@ -548,22 +551,6 @@
                                     <asp:ListItem Text="TrailCommissionView" Value="TCV">Trail Commission View</asp:ListItem>
                                 </asp:DropDownList>
                             </td>
-                            <td align="right" width="10%">
-                                <asp:Label ID="lblAMC" runat="server" Text="AMC:" CssClass="FieldName"></asp:Label>
-                            </td>
-                            <td align="left" width="10%">
-                                <asp:DropDownList ID="ddlAMC" runat="server" CssClass="cmbField" AutoPostBack="false">
-                                    <%--<asp:ListItem Text="All" Value="0">All</asp:ListItem>--%>
-                                </asp:DropDownList>
-                            </td>
-                            <td align="right" width="10%">
-                                <asp:Label ID="lblCategory" runat="server" Text="Category:" CssClass="FieldName"></asp:Label>
-                            </td>
-                            <td align="left" width="10%">
-                                <asp:DropDownList ID="ddlCategory" runat="server" CssClass="cmbField" AutoPostBack="false">
-                                    <%--<asp:ListItem Text="All" Value="0">All</asp:ListItem>--%>
-                                </asp:DropDownList>
-                            </td>
                             <tr id="trZCCS" runat="server" visible="false">
                                 <td align="right">
                                     <asp:Label ID="lblBrokerCode" runat="server" Text="Sub Broker Code:" CssClass="FieldName"></asp:Label>
@@ -571,6 +558,30 @@
                                 <td align="left">
                                     <asp:DropDownList ID="ddlBrokerCode" runat="server" CssClass="cmbField">
                                         <%--  <asp:ListItem Text="SubBroker Code" Value="0" Selected="true"></asp:ListItem>--%>
+                                    </asp:DropDownList>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right" width="10%">
+                                    <asp:Label ID="lblAMC" runat="server" Text="AMC:" CssClass="FieldName"></asp:Label>
+                                </td>
+                                <td align="left" >
+                                    <asp:DropDownList ID="ddlAMC" runat="server" CssClass="cmbField" AutoPostBack="true"
+                                        OnSelectedIndexChanged="ddlAMC_OnSelectedIndexChanged" Width="300px">
+                                        <%--<asp:ListItem Text="All" Value="0">All</asp:ListItem>--%>
+                                    </asp:DropDownList>
+                                </td>
+                                <td align="right" width="10%">
+                                    <asp:Label ID="lblCategory" runat="server" Text="Category:" CssClass="FieldName"
+                                        Visible="false"></asp:Label>
+                                    <asp:Label ID="lblSchemeList" runat="server" Text="Scheme:" CssClass="FieldName"></asp:Label>
+                                </td>
+                                <td align="left">
+                                    <asp:DropDownList ID="ddlSchemeList" runat="server" CssClass="cmbField" AutoPostBack="true" Width="500px">
+                                    </asp:DropDownList>
+                                    <asp:DropDownList ID="ddlCategory" runat="server" CssClass="cmbField" AutoPostBack="false"
+                                        Visible="false">
+                                        <%--<asp:ListItem Text="All" Value="0">All</asp:ListItem>--%>
                                     </asp:DropDownList>
                                 </td>
                             </tr>

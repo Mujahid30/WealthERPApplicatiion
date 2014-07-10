@@ -734,6 +734,45 @@ namespace DaoProductMaster
             }
             return category;
         }
+        public DataTable GetSchemePlanName(int AMCCode)
+        {
 
+            Database db;
+            DbCommand GetSchemePlanNameCmd;
+            DataSet dsGetSchemePlanName;
+            DataTable dtGetSchemePlanName;
+
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetSchemePlanNameCmd = db.GetStoredProcCommand("SPROC_AMCSchemeList");
+                db.AddInParameter(GetSchemePlanNameCmd, "@AMCCode", DbType.Int32, AMCCode);
+                dsGetSchemePlanName = db.ExecuteDataSet(GetSchemePlanNameCmd);
+                dtGetSchemePlanName = dsGetSchemePlanName.Tables[0];
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "ProductMFDao.cs:GetSchemePlanName(int AMCCode)");
+
+
+                object[] objects = new object[0];
+                objects[0] = AMCCode;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtGetSchemePlanName;
+        }
     }
 }

@@ -817,11 +817,13 @@ namespace WealthERP.Customer
                 {
                     i = i + 1;
                 }
+                
             }
             if (i == 0)
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select record to delete!');", true);
             }
+
             else
             {
                 CustomerBankDelete();

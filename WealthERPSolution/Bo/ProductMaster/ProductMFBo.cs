@@ -528,7 +528,13 @@ namespace BoProductMaster
             }
             return category;
         }
-      
-    
+
+        public DataTable GetSchemePlanName(int AMCCode)
+        {
+            DataTable dtGetSchemePlanName;
+            ProductMFDao productMFDao = new ProductMFDao();
+            dtGetSchemePlanName = productMFDao.GetSchemePlanName(AMCCode);
+            return dtGetSchemePlanName;
+        }
     }
 }

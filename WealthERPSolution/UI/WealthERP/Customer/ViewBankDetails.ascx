@@ -64,7 +64,15 @@
         });
     }
 </script>
-
+<script type="text/javascript" language="javascript">
+    function conformation() {
+            var answer = confirm("Are you sure you want to delete?");
+            if (answer)
+                return true;
+            else
+                return false;
+    }
+    </script>
 <script type="text/javascript">
     function ShowPopup() {
         //        alert(transactionId);
@@ -635,7 +643,7 @@
         <tr>
             <td class="SubmitCell">
                 <asp:Button ID="btnDelete" runat="server" CssClass="PCGLongButton" Text="Delete Records"
-                    OnClick="btnDelete_Click" />
+                    OnClick="btnDelete_Click" OnClientClick="if(conformation() == false) return false;conformation();"/>
             </td>
         </tr>
     </table>

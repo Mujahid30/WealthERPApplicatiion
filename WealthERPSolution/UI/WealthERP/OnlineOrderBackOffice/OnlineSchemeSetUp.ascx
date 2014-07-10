@@ -221,7 +221,7 @@
                         </asp:ListItem>
                         <asp:ListItem Text="Merged" Value="Merged" Enabled="false">
                         </asp:ListItem>
-                        <asp:ListItem Text="Close NFO" Value="CLOSENFO" Enabled="false">
+                        <asp:ListItem Text="Close NFO" Value="CloseNFO" Enabled="false">
                         </asp:ListItem>
                     </asp:DropDownList>
                     <span id="Span40" class="spnRequiredField">*</span>

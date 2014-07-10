@@ -1443,7 +1443,7 @@ namespace WealthERP.CustomerPortfolio
                         if (!string.IsNullOrEmpty(txtBrokerCode.Text))
                             newAccountVo.BrokerCode = txtBrokerCode.Text;
                         //added fields for bank details
-                        if (ddlBankList.SelectedValue != "Select Bank")
+                        if (!string.IsNullOrEmpty(ddlBankList.SelectedValue))
                             newAccountVo.BankId = int.Parse(ddlBankList.SelectedValue);
                         if (ddlAccType.SelectedIndex != -1)
                             newAccountVo.AccountType = ddlAccType.SelectedValue.ToString();
