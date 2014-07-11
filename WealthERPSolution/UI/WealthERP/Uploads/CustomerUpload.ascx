@@ -259,12 +259,12 @@
                 AutoPostBack="true" CssClass="cmbLongField">
                 <asp:ListItem Value="0">Select an Extract Type</asp:ListItem>
                 <%-- <asp:ListItem Value="MFF">MF Folio Only</asp:ListItem>--%>
-                <asp:ListItem Value="PMFF">Profile & MF Folio</asp:ListItem>
+               <%-- <asp:ListItem Value="PMFF">Profile & MF Folio</asp:ListItem>--%>
                 <asp:ListItem Value="MFT">MF Transaction</asp:ListItem>
                 <%--    <asp:ListItem Value="MFF">MF Folio Only</asp:ListItem> --%>
-                <asp:ListItem Value="EQTA" Enabled="false">Equity Trade Account Only</asp:ListItem>
+               <%-- <asp:ListItem Value="EQTA" Enabled="false">Equity Trade Account Only</asp:ListItem>--%>
                 <%-- <asp:ListItem Value="EQDA">Equity Demat Account Only</asp:ListItem>--%>
-                <asp:ListItem Value="EQT" Enabled="false">Equity Transaction</asp:ListItem>
+               <%-- <asp:ListItem Value="EQT" Enabled="false">Equity Transaction</asp:ListItem>
                 <asp:ListItem Value="MFSS">Systematic</asp:ListItem>
                 <asp:ListItem Value="TRAIL">Trail Commission</asp:ListItem>
                 <asp:ListItem Value="Link">Fixed Income</asp:ListItem>
@@ -323,8 +323,8 @@
                 Display="Dynamic" runat="server" CssClass="rfvPCG">
             </asp:RequiredFieldValidator>
         </td>
-        <td align="right">
-            <asp:LinkButton ID="lnkbtnpup" runat="server" Font-Size="X-Small" CausesValidation="False"
+        <td align="right" >
+            <asp:LinkButton  ID="lnkbtnpup" runat="server" Font-Size="X-Small" CausesValidation="False"
                 OnClientClick="return setRadioButtonForFileFormat();" OnClick="lnkbtnpup_Click1">click here to download standard file formats</asp:LinkButton>
             <cc1:ModalPopupExtender ID="ModalPopupExtender1" runat="server" PopupControlID="Panel1"
                 TargetControlID="lnkbtnpup" DynamicServicePath="" BackgroundCssClass="modalBackground"

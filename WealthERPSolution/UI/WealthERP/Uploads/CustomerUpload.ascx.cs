@@ -100,7 +100,7 @@ namespace WealthERP.Uploads
             lnkbtnpup.Visible = true;
             ModalPopupExtender1.Hide();
             //lblErrorFileType.Visible = false;
-
+            lnkbtnpup.Visible = false;
             Message_lbl.Visible = false;
 
             lblFileType.Visible = false;
@@ -250,9 +250,9 @@ namespace WealthERP.Uploads
             genDictMF.Add("CAMS", "CA");
             genDictMF.Add("Karvy", "KA");
             genDictMF.Add("Templeton", "TN");
-            genDictMF.Add("Deutsche", "DT");
+            //genDictMF.Add("Deutsche", "DT");
             genDictMF.Add("Sundaram", "SU");
-            genDictMF.Add("Standard", "WPT");
+            //genDictMF.Add("Standard", "WPT");
             return genDictMF;
         }
 
@@ -5027,11 +5027,11 @@ namespace WealthERP.Uploads
             }
             else if (ddlUploadType == "MFT" && ddlCompanyType == "CA")
             {
-                msg = "WBR-2";
+                msg = "WBR-2 or Reverse Feed";
             }
             else if (ddlUploadType == "MFT" && ddlCompanyType == "KA")
             {
-                msg = "MFSD-221 Combo";
+                msg = "MFSD-221 Combo or Reverse Feed";
             }
             else if ((ddlUploadType == "MFT" && ddlCompanyType == "TN"))
             {
@@ -5056,7 +5056,7 @@ namespace WealthERP.Uploads
             }
             else if ((ddlUploadType == "MFT" && ddlCompanyType == "SU"))
             {
-                msg = "ER-02 or ER-17";
+                msg = "ER-02 or ER-17 or Reverse Feed";
             }
             else if ((ddlUploadType == "PMFF" && ddlCompanyType == "SU"))
             {
@@ -8595,7 +8595,11 @@ namespace WealthERP.Uploads
                 badData = true;
             }
             else
+            {
                 badData = false;
+                divInputErrorList.Visible = false;
+            }
+
 
         }
 

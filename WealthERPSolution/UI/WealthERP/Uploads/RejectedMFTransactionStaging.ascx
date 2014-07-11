@@ -192,6 +192,7 @@
         document.getElementById('<%= btnReprocess.ClientID %>').click();
     }
 </script>
+
 <table width="100%">
     <tr>
         <td>
@@ -339,6 +340,26 @@
                                     </telerik:RadScriptBlock>
                                 </FilterTemplate>
                             </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="ExternalFileName" AllowFiltering="true" HeaderText="File Name"
+                                UniqueName="ExternalFileName" SortExpression="ExternalFileName" AutoPostBackOnFilter="true"
+                                ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="SourceType" AllowFiltering="true" HeaderText="Source Type"
+                                UniqueName="SourceType" SortExpression="SourceType" AutoPostBackOnFilter="true"
+                                ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="TransactionType" AllowFiltering="true" HeaderText="TransactionType"
+                                UniqueName="TransactionType" SortExpression="TransactionType" AutoPostBackOnFilter="true"
+                                ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="ProcessId" AllowFiltering="true" HeaderText="ProcessId"
+                                UniqueName="ProcessId" SortExpression="ProcessId" AutoPostBackOnFilter="true"
+                                ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                <ItemStyle Width="8px" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="InvestorName" HeaderText="InvestorName" HeaderStyle-Width="194px"
                                 UniqueName="InvestorName" SortExpression="InvestorName" AutoPostBackOnFilter="true"
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains">
@@ -358,11 +379,6 @@
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>--%>
-                            <telerik:GridBoundColumn DataField="ProcessId" AllowFiltering="true" HeaderText="ProcessId"
-                                UniqueName="ProcessId" SortExpression="ProcessId" AutoPostBackOnFilter="true"
-                                ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                                <ItemStyle Width="8px" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="FolioNumber" AllowFiltering="true" HeaderText="FolioNumber"
                                 UniqueName="FolioNumber" SortExpression="FolioNumber" AutoPostBackOnFilter="true"
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains">
@@ -384,11 +400,6 @@
                             </telerik:GridTemplateColumn>
                             <telerik:GridBoundColumn DataField="SchemeName" AllowFiltering="true" HeaderText="Scheme Name"
                                 UniqueName="SchemeName" SortExpression="SchemeName" AutoPostBackOnFilter="true"
-                                ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="TransactionType" AllowFiltering="true" HeaderText="TransactionType"
-                                UniqueName="TransactionType" SortExpression="TransactionType" AutoPostBackOnFilter="true"
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
@@ -414,15 +425,9 @@
                                 HeaderText="Amount" UniqueName="Amount" Aggregate="Sum" DataFormatString="{0:N2}">
                                 <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="ExternalFileName" AllowFiltering="true" HeaderText="File Name"
-                                UniqueName="ExternalFileName" SortExpression="ExternalFileName" AutoPostBackOnFilter="true"
-                                ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="SourceType" AllowFiltering="true" HeaderText="Source Type"
-                                UniqueName="SourceType" SortExpression="SourceType" AutoPostBackOnFilter="true"
-                                ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                             <telerik:GridBoundColumn FooterStyle-HorizontalAlign="Right" DataField="UserTransactionNo" AllowFiltering="false"
+                                HeaderText="UserTransactionNo" UniqueName="UserTransactionNo">
+                                <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                         </Columns>
                     </MasterTableView>
@@ -446,9 +451,11 @@
                 OnClick="btnDelete_Click" />
             <asp:Button ID="btnProbableDuplicateInsert" runat="server" CssClass="PCGLongLongButton"
                 Text="Insert Probable Duplicate Records" OnClick="btnProbableInsert_Click" OnClientClick="return ShowPopupProbableInsert_Delete()" />
-            <asp:Button ID="btnProbableDuplicateDelete" runat="server" CssClass="PCGLongLongButton"
-                Text="Delete Probable Duplicate Records" OnClick="btnProbableDelete_Click" Visible="false"
-                OnClientClick="return ShowPopupProbableInsert_Delete()" />
+            <asp:Button ID="btnSchemeMapping" runat="server" CssClass="PCGLongLongButton"
+                Text="Scheme/Scrip Code Mapping" OnClick="btnSchemeMapping_Click" />
+              
+            <asp:Button ID="btnDataTranslationMapping" runat="server" CssClass="PCGLongLongButton" Text="Data Translation Mapping"
+                OnClick="btnDataTranslationMapping_Click"  />
         </td>
     </tr>
     <tr id="trMessage" runat="server" visible="false">

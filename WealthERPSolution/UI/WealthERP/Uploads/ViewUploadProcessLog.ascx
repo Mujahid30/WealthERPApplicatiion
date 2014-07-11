@@ -60,6 +60,7 @@
         }
     }
 </script>
+
 <table width="100%">
     <tr>
         <td>
@@ -69,12 +70,12 @@
                         <td align="left">
                             Upload History
                         </td>
-                       <td align="right" style="width: 10px">
+                        <td align="right" style="width: 10px">
                             <asp:ImageButton ID="imgBtnrgHoldings" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                                 runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
                                 OnClientClick="setFormat('excel')" Height="22px" Width="25px"></asp:ImageButton>
                         </td>
-                         <td align="right" style="width: 10px">
+                        <td align="right" style="width: 10px">
                             <img src="../Images/helpImage.png" height="20px" width="20px" style="float: right;"
                                 class="flip" />
                         </td>
@@ -153,28 +154,32 @@
 </table>--%>
 <asp:Panel ID="Panel2" runat="server" class="Landscape" Width="100%">
     <table width="100%" cellspacing="0" cellpadding="4">
-    <tr id="trAdviserSelection" runat="server">
-     <td align="right" style="width: 20%">
-            <asp:Label ID="lblAdviser" CssClass="FieldName" runat="server" Text="Please Select Adviser:"></asp:Label>
-        </td>
-       <td id="tdDdlAdviser" runat="server" align="left">
-     <asp:DropDownList ID="ddlAdviser" runat="server" CssClass="cmbField" AutoPostBack="true" OnSelectedIndexChanged="ddlAdviser_OnSelectedIndexChanged" ></asp:DropDownList>
-     </td>
-    </tr>
-   <tr>
-    <td colspan="2"></td>
-    </tr>
-       <tr>
-     <td colspan="2"></td>
-    </tr>
+        <tr id="trAdviserSelection" runat="server">
+            <td align="right" style="width: 20%">
+                <asp:Label ID="lblAdviser" CssClass="FieldName" runat="server" Text="Please Select Adviser:"></asp:Label>
+            </td>
+            <td id="tdDdlAdviser" runat="server" align="left">
+                <asp:DropDownList ID="ddlAdviser" runat="server" CssClass="cmbField" AutoPostBack="true"
+                    OnSelectedIndexChanged="ddlAdviser_OnSelectedIndexChanged">
+                </asp:DropDownList>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+            </td>
+        </tr>
         <tr id="trGridView" runat="server">
-        
             <td colspan="2">
                 <telerik:RadGrid ID="gvProcessLog" runat="server" GridLines="None" AutoGenerateColumns="False"
                     PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                     Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
-                    AllowAutomaticInserts="false" ExportSettings-FileName="UPLOAD HISTORY DETAILS" OnPreRender="gvProcessLog_PreRender"
-                    OnItemDataBound="gvProcessLog_ItemDataBound" OnNeedDataSource="gvProcessLog_OnNeedDataSource">
+                    AllowAutomaticInserts="false" ExportSettings-FileName="UPLOAD HISTORY DETAILS"
+                    OnPreRender="gvProcessLog_PreRender" OnItemDataBound="gvProcessLog_ItemDataBound"
+                    OnNeedDataSource="gvProcessLog_OnNeedDataSource">
                     <ExportSettings HideStructureColumns="true">
                     </ExportSettings>
                     <MasterTableView DataKeyNames="ADUL_ProcessId,WUXFT_XMLFileTypeId,XUET_ExtractTypeCode,XUET_ExtractType,ADUL_StartTime,WUXFT_XMLFileName"
@@ -183,8 +188,8 @@
                             <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="action" DataField="action">
                                 <ItemTemplate>
                                     <telerik:RadComboBox ID="ddlAction" OnSelectedIndexChanged="ddlAction_OnSelectedIndexChange"
-                                        CssClass="cmbField" runat="server" EnableEmbeddedSkins="false" Skin="Telerik"  
-                                         Width="120px" AutoPostBack="true"  AllowCustomText="false" EnableLoadOnDemand="false" >
+                                        CssClass="cmbField" runat="server" EnableEmbeddedSkins="false" Skin="Telerik"
+                                        Width="120px" AutoPostBack="true" AllowCustomText="false" EnableLoadOnDemand="false">
                                         <Items>
                                             <telerik:RadComboBoxItem ImageUrl="~/Images/Select.png" Text="Select" Value="Select"
                                                 Selected="true"></telerik:RadComboBoxItem>
@@ -198,6 +203,41 @@
                                     </telerik:RadComboBox>
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>
+                            <telerik:GridBoundColumn DataField="WUXFT_XMLFileName" HeaderText="File Type" UniqueName="WUXFT_XMLFileName"
+                                SortExpression="WUXFT_XMLFileName" AutoPostBackOnFilter="true" ShowFilterIcon="false">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="ADUL_FileName" HeaderText="Actual FileName" UniqueName="ADUL_FileName"
+                                SortExpression="ADUL_FileName" AutoPostBackOnFilter="true" ShowFilterIcon="false">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="XUET_ExtractType" HeaderText="Extract Type" UniqueName="XUET_ExtractType"
+                                SortExpression="XUET_ExtractType" AutoPostBackOnFilter="true" ShowFilterIcon="false">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                <FilterTemplate>
+                                    <telerik:RadComboBox ID="RadComboBoxET" Width="180px" CssClass="cmbField" AllowFiltering="true"
+                                        AutoPostBack="true" OnSelectedIndexChanged="RadComboBoxET_SelectedIndexChanged"
+                                        IsFilteringEnabled="true" AppendDataBoundItems="true" AutoPostBackOnFilter="false"
+                                        OnPreRender="rcbContinents1_PreRender" EnableViewState="true" SelectedValue='<%# ((GridItem)Container).OwnerTableView.GetColumn("XUET_ExtractType").CurrentFilterValue %>'
+                                        runat="server">
+                                        <%--OnPreRender="rcbContinents_PreRender"--%>
+                                        <Items>
+                                            <telerik:RadComboBoxItem Text="All" Value="" Selected="true"></telerik:RadComboBoxItem>
+                                        </Items>
+                                    </telerik:RadComboBox>
+                                    <telerik:RadScriptBlock ID="RadScriptBlock1" runat="server">
+
+                                        <script type="text/javascript">
+                                            function ExtractTypeNameIndexChanged(sender, args) {
+                                                var tableView = $find("<%#((GridItem)Container).OwnerTableView.ClientID %>");
+                                                //////                                                    sender.value = args.get_item().get_value();
+                                                tableView.filter("XUET_ExtractType", args.get_item().get_value(), "EqualTo");
+                                            } 
+                                        </script>
+
+                                    </telerik:RadScriptBlock>
+                                </FilterTemplate>
+                            </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn HeaderText="Status" DataField="Status" UniqueName="Status"
                                 SortExpression="Status" AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false"
                                 CurrentFilterFunction="Contains">
@@ -210,38 +250,6 @@
                             <telerik:GridBoundColumn DataField="ADUL_ProcessId" HeaderText="Process Id" UniqueName="ADUL_ProcessId"
                                 AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="ADUL_FileName" HeaderText="Actual FileName" UniqueName="ADUL_FileName"
-                                SortExpression="ADUL_FileName" AutoPostBackOnFilter="true" ShowFilterIcon="false">
-                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="WUXFT_XMLFileName" HeaderText="File Type" UniqueName="WUXFT_XMLFileName"
-                                SortExpression="WUXFT_XMLFileName" AutoPostBackOnFilter="true" ShowFilterIcon="false">
-                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="XUET_ExtractType" HeaderText="Extract Type" UniqueName="XUET_ExtractType"
-                                SortExpression="XUET_ExtractType" AutoPostBackOnFilter="true" ShowFilterIcon="false">
-                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                 <FilterTemplate>
-                                    <telerik:RadComboBox ID="RadComboBoxET" Width="180px" CssClass="cmbField" AllowFiltering="true" AutoPostBack="true"  OnSelectedIndexChanged="RadComboBoxET_SelectedIndexChanged"                                                           
-                                            IsFilteringEnabled="true" AppendDataBoundItems="true" AutoPostBackOnFilter="false" OnPreRender="rcbContinents1_PreRender" EnableViewState="true"
-                                          SelectedValue='<%# ((GridItem)Container).OwnerTableView.GetColumn("XUET_ExtractType").CurrentFilterValue %>' runat="server" >
-                                           <%--OnPreRender="rcbContinents_PreRender"--%>
-                                    <Items>
-                                    <telerik:RadComboBoxItem Text="All" Value="" Selected="true">
-                                    </telerik:RadComboBoxItem>
-                                    </Items>                                                          
-                                       </telerik:RadComboBox>
-                                        <telerik:RadScriptBlock ID="RadScriptBlock1" runat="server">
-                                            <script type="text/javascript">
-                                                function ExtractTypeNameIndexChanged(sender, args) {
-                                                    var tableView = $find("<%#((GridItem)Container).OwnerTableView.ClientID %>");
-//////                                                    sender.value = args.get_item().get_value();
-                                                    tableView.filter("XUET_ExtractType", args.get_item().get_value(), "EqualTo");
-                                      } 
-                                     </script>
-                                    </telerik:RadScriptBlock>                                                                  
-                                 </FilterTemplate>           
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="ADUL_XMLFileName" HeaderText="XML FileName" UniqueName="ADUL_XMLFileName"
                                 SortExpression="ADUL_XMLFileName" AutoPostBackOnFilter="true" ShowFilterIcon="false">
@@ -296,13 +304,16 @@
                                     <asp:Label ID="lblFiletypeId" runat="server" Text='<%#Eval("WUXFT_XMLFileTypeId")%>'></asp:Label>
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>
+                             <telerik:GridBoundColumn AllowFiltering="false" DataField="ADUL_IsOnline"
+                                HeaderText="IsOnline" UniqueName="ADUL_IsOnline">
+                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
                         </Columns>
                     </MasterTableView>
                     <ClientSettings>
                         <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
                     </ClientSettings>
                 </telerik:RadGrid>
-               
             </td>
         </tr>
     </table>

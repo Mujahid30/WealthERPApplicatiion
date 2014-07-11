@@ -48,6 +48,7 @@ namespace WealthERP.Uploads
             btnReprocess.Attributes.Add("onclick", "setTimeout(\"UpdateImg('Image1','/Images/Wait.gif');\",50);");
             ProcessId = 0;
             configPath = Server.MapPath(ConfigurationManager.AppSettings["SSISConfigPath"].ToString());
+            btnMapFolios.Visible = false;
 
             if (Request.QueryString["processId"] != null)
                 ProcessId = Int32.Parse(Request.QueryString["processId"].ToString());
@@ -587,6 +588,16 @@ namespace WealthERP.Uploads
             }
 
             BindEquityTransactionGrid(ProcessId);
+        }
+        protected void btnSchemeMapping_Click(object sender, EventArgs e)
+        {
+            
+            Response.Redirect("ControlHost.aspx?pageid=OnlineSchemeMIS", false);
+        }
+        protected void btnDataTranslationMapping_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("ControlHost.aspx?pageid=AddSchemeMapping", false);
+
         }
 
         protected void gvWERPTrans_PreRender(object sender, EventArgs e)
