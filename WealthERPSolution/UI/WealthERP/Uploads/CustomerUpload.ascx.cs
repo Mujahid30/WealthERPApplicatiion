@@ -53,7 +53,7 @@ namespace WealthERP.Uploads
         UploadProcessLogVo processlogVo = new UploadProcessLogVo();
         RMVo rmVo = new RMVo();
         SuperAdminOpsBo superAdminOpsBo = new SuperAdminOpsBo();
-        WERPTaskRequestManagementBo werpTaskRequestManagementBo = new WERPTaskRequestManagementBo(); 
+
         string ValidationProgress = "";
         CamsUploadsBo camsUploadsBo = new CamsUploadsBo();
         KarvyUploadsBo karvyUploadsBo = new KarvyUploadsBo();
@@ -100,7 +100,7 @@ namespace WealthERP.Uploads
             lnkbtnpup.Visible = true;
             ModalPopupExtender1.Hide();
             //lblErrorFileType.Visible = false;
-            lnkbtnpup.Visible = false;
+
             Message_lbl.Visible = false;
 
             lblFileType.Visible = false;
@@ -250,9 +250,9 @@ namespace WealthERP.Uploads
             genDictMF.Add("CAMS", "CA");
             genDictMF.Add("Karvy", "KA");
             genDictMF.Add("Templeton", "TN");
-            //genDictMF.Add("Deutsche", "DT");
+            genDictMF.Add("Deutsche", "DT");
             genDictMF.Add("Sundaram", "SU");
-            //genDictMF.Add("Standard", "WPT");
+            genDictMF.Add("Standard", "WPT");
             return genDictMF;
         }
 
@@ -397,33 +397,7 @@ namespace WealthERP.Uploads
         {
             //System.Threading.Thread.Sleep(5000);
             //Create XML for the file
-            if (Page.IsValid & ddlUploadType.SelectedValue == "CML")
-            {
-                int ReqId = 0;
-                msgUploadComplete.Visible = true;
-
-                string uploadFilePath = ConfigurationManager.AppSettings["ADVISOR_UPLOAD_PATH"].ToString() +"\\"+adviserVo.advisorId.ToString()+ "\\" + FileUpload.FileName.ToString();
-               
-             //   packagePath = Server.MapPath("\\UploadPackages\\Integration Services Project1\\Integration Services Project1\\Package9.dtsx");
-                werpTaskRequestManagementBo.CreateTaskRequest(3, userVo.UserId, out ReqId,uploadFilePath);
-                if (  ReqId > 0)
-                {
-                    msgUploadComplete.InnerText = "Request Id-" + ReqId.ToString() + "-Generated SuccessFully";
-                }
-                else
-                {
-                    msgUploadComplete.InnerText = "Not able to create Request,Try again";
-                }
-
-                //packagePath = Server.MapPath("\\UploadPackages\\Integration Services Project1\\Integration Services Project1\\Package8.dtsx");
-                //bool isSuccess = camsUploadsBo.CreatingCMLJobRequest(packagePath, configPath, out ReqId);
-                //if (isSuccess == true)
-                //{
-                //    msgUploadComplete.InnerText = "Request Id" + ReqId.ToString() + "-pv SuccessFully";
-                //}
-                //CMLConfigPath
-            }
-            if (Page.IsValid & ddlUploadType.SelectedValue != "CML")
+            if (Page.IsValid)
             {
                 #region Uploading Content
                 string pathxml = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
@@ -4375,8 +4349,8 @@ namespace WealthERP.Uploads
                                         bool camsTranStagingResult = false;
                                         bool camsTranInputResult = false;
 
-                                        string AccountId = string.Empty;
-                                        object recordSetObject = new object();
+                                        string AccountId=string.Empty;
+                                        object recordSetObject=new object();
 
                                         configPath = Server.MapPath("\\UploadPackages\\FINEW\\FINEW\\FINEW\\FIConfig.dtsConfig");
 
@@ -4747,11 +4721,6 @@ namespace WealthERP.Uploads
                 ddlListCompany.Items.Insert(0, new ListItem("Select Source Type", "Select Source Type"));
 
             }
-            else if (ddlUploadType.SelectedValue == "CML")
-            {
-               // trUpload.Visible = false;
-                trExternalSOurce.Visible = false;
-            }
             else
             {
                 ddlListCompany.Items.Clear();
@@ -5027,11 +4996,11 @@ namespace WealthERP.Uploads
             }
             else if (ddlUploadType == "MFT" && ddlCompanyType == "CA")
             {
-                msg = "WBR-2 or Reverse Feed";
+                msg = "WBR-2";
             }
             else if (ddlUploadType == "MFT" && ddlCompanyType == "KA")
             {
-                msg = "MFSD-221 Combo or Reverse Feed";
+                msg = "MFSD-221 Combo";
             }
             else if ((ddlUploadType == "MFT" && ddlCompanyType == "TN"))
             {
@@ -5056,7 +5025,7 @@ namespace WealthERP.Uploads
             }
             else if ((ddlUploadType == "MFT" && ddlCompanyType == "SU"))
             {
-                msg = "ER-02 or ER-17 or Reverse Feed";
+                msg = "ER-02 or ER-17";
             }
             else if ((ddlUploadType == "PMFF" && ddlCompanyType == "SU"))
             {
@@ -5110,10 +5079,6 @@ namespace WealthERP.Uploads
                     msg = "TR BSE";
                     lnkbtnpup.Visible = true;
                 }
-            }
-            else if (ddlUploadType == "CML")
-            {
-                msg = "Uploaded SuccessFully";
             }
             return msg;
         }
@@ -8595,11 +8560,7 @@ namespace WealthERP.Uploads
                 badData = true;
             }
             else
-            {
                 badData = false;
-                divInputErrorList.Visible = false;
-            }
-
 
         }
 
@@ -8687,7 +8648,7 @@ namespace WealthERP.Uploads
         protected void btnDownloadSIPPainFile_Click(object sender, EventArgs e)
         {
 
-
+            
         }
 
         protected void btnCancel_Click(object sender, EventArgs e)
