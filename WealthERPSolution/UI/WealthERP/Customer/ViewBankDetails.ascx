@@ -643,7 +643,7 @@
         <tr>
             <td class="SubmitCell">
                 <asp:Button ID="btnDelete" runat="server" CssClass="PCGLongButton" Text="Delete Records"
-                    OnClick="btnDelete_Click" OnClientClick="conformation();"/>
+                    OnClick="btnDelete_Click" OnClientClick="if(conformation() == false) return false;conformation();"/>
             </td>
         </tr>
     </table>
