@@ -999,7 +999,7 @@ namespace BoOnlineOrderManagement
 
                 int desiredSize = (AID_SeriesCount * 2) + 15;
 
-                while ((dtExtract.Columns.Count - 15) >= desiredSize)
+                while ((dtExtract.Columns.Count - 19) >= desiredSize)
                 {
                     dtExtract.Columns.RemoveAt(desiredSize);
                 }
