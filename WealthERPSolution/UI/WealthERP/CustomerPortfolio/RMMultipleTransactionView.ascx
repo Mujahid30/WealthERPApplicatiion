@@ -381,7 +381,8 @@
                 <td>
                     <table>
                         <tr id="trRangeNcustomer" runat="server">
-                            <td align="center" colspan="2">
+                        <td></td>
+                            <td align="left">
                                 <asp:RadioButton ID="rdtnOnline" runat="server" Text="Online" CssClass="Field" GroupName="status"
                                     Checked="true" />
                                 <asp:RadioButton ID="rbtnOffline" runat="server" Text="Offline" CssClass="Field"
@@ -635,11 +636,11 @@
             <td style="padding-top: 20px">
                 <%--<div id="tbl" runat="server">--%>
                 <asp:Panel ID="Panel2" runat="server" class="Landscape" Height="100%" Width="100%"
-                    ScrollBars="Horizontal" Visible="false">
-                    <table width="100%" cellspacing="0" cellpadding="0">
+                    ScrollBars="Both" Visible="false">
+                    <table width="100%">
                         <tr>
                             <td>
-                                <div id="dvTransactionsView" runat="server" style="width: 640px; height: 400px">
+                                <div id="dvTransactionsView" runat="server" style="width: 640px; height:300px">
                                     <telerik:RadGrid ID="gvMFTransactions" runat="server" GridLines="None" AutoGenerateColumns="False"
                                         allowfiltering="true" AllowFilteringByColumn="true" PageSize="10" AllowSorting="true"
                                         fAllowAutomaticDeletes="false" OnPreRender="gvMFTransactions_PreRender" AllowPaging="True"
@@ -881,6 +882,7 @@
                 <%-- </div>--%>
             </td>
         </tr>
+        
         <table id="tbspace" runat="server" cellpadding="5">
             <tr>
                 <td>

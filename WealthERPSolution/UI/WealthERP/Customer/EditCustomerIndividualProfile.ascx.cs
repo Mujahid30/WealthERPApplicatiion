@@ -181,16 +181,17 @@ namespace WealthERP.Customer
                     {
                         ddlCustomerSubType.SelectedValue = customerVo.TaxStatusCustomerSubTypeId.ToString();
                     }
-                   
-                    if (customerVo.Gender.ToUpper().ToString() == "M")
+                    if (customerVo.Gender != null)
                     {
-                        rbtnMale.Checked = true;
+                        if (customerVo.Gender.ToUpper().ToString() == "M")
+                        {
+                            rbtnMale.Checked = true;
+                        }
+                        else if (customerVo.Gender.ToUpper().ToString() == "F")
+                        {
+                            rbtnFemale.Checked = true;
+                        }
                     }
-                    else if (customerVo.Gender.ToUpper().ToString() == "F")
-                    {
-                        rbtnFemale.Checked = true;
-                    }
-
                     ddlAdviserBranchList.SelectedValue = customerVo.BranchId.ToString();
                     customerRMVo = adviserStaffBo.GetAdvisorStaffDetails(customerVo.RmId);
                     if (customerRMVo.FirstName + " " + customerRMVo.MiddleName + " " + customerRMVo.LastName != null && (customerRMVo.FirstName + " " + customerRMVo.MiddleName + " " + customerRMVo.LastName).ToString() != "")

@@ -655,7 +655,8 @@
                         PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" OnItemDataBound="gvCustomerOrderMIS_ItemDataBound"
                         OnNeedDataSource="gvCustomerOrderMIS_OnNeedDataSource" ShowFooter="true" Skin="Telerik"
                         EnableEmbeddedSkins="false" AllowFilteringByColumn="true" AllowAutomaticInserts="false"
-                        ExportSettings-FileName="MF Order Recon" OnUpdateCommand="gvCustomerOrderMIS_UpdateCommand" Width="120%" Height="400px">
+                        ExportSettings-FileName="MF Order Recon" OnUpdateCommand="gvCustomerOrderMIS_UpdateCommand"
+                        Width="120%" Height="400px">
                         <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
                             FileName="MF Order Recon" Excel-Format="ExcelML">
                         </ExportSettings>
@@ -894,7 +895,8 @@
                         <ClientSettings>
                             <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
                         </ClientSettings>
-                    </telerik:RadGrid></div>
+                    </telerik:RadGrid>
+                </div>
             </td>
             <td>
                 &nbsp;&nbsp;
@@ -1069,16 +1071,21 @@
         </tr>
         <tr>
             <td>
+            </td>
+        </tr>
+    </table>
+    
+</asp:Panel>
+<table>
+        <tr>
+            <td>
                 <asp:Button ID="btnSync" runat="server" Text="Auto Match" CssClass="PCGMediumButton"
                     OnClick="btnSync_Click" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:Button ID="btnMannualMatch" runat="server" Text="Manual Match" CssClass="PCGMediumButton"
                     OnClick="btnMannualMatch_Click" />
             </td>
-            <td>
-            </td>
         </tr>
     </table>
-</asp:Panel>
 <table width="50%">
     <tr>
         <%--    <td> 

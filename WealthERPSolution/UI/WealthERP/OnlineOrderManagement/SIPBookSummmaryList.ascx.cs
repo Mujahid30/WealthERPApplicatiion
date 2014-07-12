@@ -176,8 +176,7 @@ namespace WealthERP.OnlineOrderManagement
 
             foreach (DataRow drSIP in dtSIPDetails.Rows)
             {
-                if (drSIP["CMFSS_SystematicSetupId"].ToString() == "1327")
-                {
+               
                     drSIPOrderBook = dtFinalSIPOrderBook.NewRow();
 
                     int sipDueCount = 0, inProcessCount = 0, acceptCount = 0, systemRejectCount = 0, rejectedCount = 0, executedCount = 0;
@@ -267,7 +266,7 @@ namespace WealthERP.OnlineOrderManagement
                     drSIPOrderBook["PASP_SchemePlanCode"] = drSIP["PASP_SchemePlanCode"];
                     drSIPOrderBook["CMFSS_IsSourceAA"] = drSIP["CMFSS_IsSourceAA"];
                     dtFinalSIPOrderBook.Rows.Add(drSIPOrderBook);
-                }
+           
             }
                 return dtFinalSIPOrderBook;
            
