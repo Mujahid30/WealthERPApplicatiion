@@ -98,10 +98,10 @@ namespace DaoOnlineOrderManagement
             DataSet dsGetMfOrderExtract;
             Database db;
             DbCommand cmd;
-            if (AmcCode == 19 && TransactionType == "AMCBANK")
-            {
+            //if (AmcCode == 19 && TransactionType == "AMCBANK")
+            //{
  
-            }
+            //}
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");

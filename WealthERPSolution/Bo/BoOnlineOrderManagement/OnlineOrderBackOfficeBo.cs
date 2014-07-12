@@ -1369,6 +1369,7 @@ namespace BoOnlineOrderManagement
         private void CreateTxtFile(DataTable dtOrderExtract, string filename, string rtaType, string filePath)
         {
             string dateFormat = "MM/dd/yyyy";
+                      
 
             switch (rtaType)
             {
@@ -1445,6 +1446,10 @@ namespace BoOnlineOrderManagement
                 {
                     foreach (KeyValuePair<string, string> OrderType in OrderTypeList)
                     {
+                        //if (rta.Key.Equals("CA") && OrderType.Key.Equals("AMCBANK"))
+                        // {
+
+                        // }
                         DataTable orderExtractForRta = GetOrderExtractForRta(DateTime.Now.Date, adviserId, OrderType.Key, rta.Key, int.Parse(amc.Key));
 
                         
