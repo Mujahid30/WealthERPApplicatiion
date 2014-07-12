@@ -166,8 +166,8 @@ namespace WealthERP.Customer
                     //Bind Adviser Branch List
 
                     BindListBranch(customerVo.RmId, "rm");
-                  
-                    if (customerVo.Type.ToUpper().ToString() == "IND")
+
+                    if (customerVo.Type==null || customerVo.Type.ToUpper().ToString() == "IND")
                     {
                         rbtnIndividual.Checked = true;
                         BinSubtypeDropdown(1001);
@@ -552,7 +552,7 @@ namespace WealthERP.Customer
                 ddlPermAdrCity.Items.Insert(0, new ListItem("--SELECT--", "0"));
 
 
-                if (customerVo.Type.ToUpper().ToString() == "IND")
+                if ( customerVo.Type==null|| customerVo.Type.ToUpper().ToString() == "IND")
                 {
                     dtCustomerSubType = XMLBo.GetCustomerSubType(path, "IND");
 

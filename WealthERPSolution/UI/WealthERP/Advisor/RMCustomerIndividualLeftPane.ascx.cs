@@ -1030,7 +1030,7 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "View Profile")
                 {
-                    if (customerVo.Type.ToUpper().ToString() == "IND" || customerVo.Type == null)
+                    if (customerVo.Type == null || customerVo.Type.ToUpper().ToString() == "IND")
                     {
                         if (customerVo.IsProspect == 1)
                         {
@@ -1070,7 +1070,7 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "Edit Profile")
                 {
-                    if (customerVo.Type.ToUpper().ToString() == "IND" || customerVo.Type == null)
+                    if (customerVo.Type == null || customerVo.Type.ToUpper().ToString() == "IND" )
                     {
                         if (customerVo.IsProspect == 1)
                         {
