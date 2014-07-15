@@ -24,7 +24,7 @@ namespace DaoCommon
         /// <param name="subreportype"></param>
         /// <param name="fromDate"></param>
         /// <returns></returns>
-        public void CreateTaskRequest(int taskId, int userId, out int taskRequestId,string filePath)
+        public void CreateTaskRequest(int taskId, int userId, out int taskRequestId, string filePath, int adviserId, int rmId, int branchId, string uploadType)
         {
             Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand cmdCreateTaskRequest;
@@ -35,8 +35,15 @@ namespace DaoCommon
                 cmdCreateTaskRequest = db.GetStoredProcCommand("SPROC_CreateTaskRequest");
                 db.AddInParameter(cmdCreateTaskRequest, "@TaskId", DbType.Int32, taskId);
                 db.AddInParameter(cmdCreateTaskRequest, "@UserId", DbType.Int32, userId);
+                db.AddInParameter(cmdCreateTaskRequest, "@DependentRequestId", DbType.Int32, 0);
+                db.AddInParameter(cmdCreateTaskRequest, "@ParentRequestId", DbType.Int32, 0);
                 db.AddOutParameter(cmdCreateTaskRequest, "@OutRequestId", DbType.Int32, 1000000);
                 db.AddInParameter(cmdCreateTaskRequest, "@FilePath", DbType.String, filePath);
+                db.AddInParameter(cmdCreateTaskRequest, "@AdvisorId", DbType.Int32, adviserId);
+                db.AddInParameter(cmdCreateTaskRequest, "@RmId", DbType.Int32, rmId);
+                db.AddInParameter(cmdCreateTaskRequest, "@Branchid", DbType.Int32, branchId);
+                db.AddInParameter(cmdCreateTaskRequest, "@UploadType", DbType.String, uploadType);
+
 
                 db.ExecuteNonQuery(cmdCreateTaskRequest);
 
@@ -65,6 +72,46 @@ namespace DaoCommon
                 throw exBase;
             }
 
+        }
+
+        public DataSet GetAdviserWiseRM(int adviserId)
+        {
+            Database db;
+            DbCommand cmdGetRequestList;
+            DataSet dsRM = null;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetRequestList = db.GetStoredProcCommand("SPROC_GetRm");
+                db.AddInParameter(cmdGetRequestList, "@AdviserId", DbType.Int32, adviserId);
+                dsRM = db.ExecuteDataSet(cmdGetRequestList);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsRM;
+        }
+
+        public DataSet GetAdviserWiseBranch(int adviserId)
+        {
+            Database db;
+            DbCommand cmdGetRequestList;
+            DataSet dsBranch = null;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetRequestList = db.GetStoredProcCommand("SPROC_GetBranch");
+                db.AddInParameter(cmdGetRequestList, "@AdviserId", DbType.Int32, adviserId);
+                dsBranch = db.ExecuteDataSet(cmdGetRequestList);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsBranch;
         }
 
         /// <summary>

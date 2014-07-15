@@ -66,7 +66,7 @@ namespace WealthERP.Uploads
         UploadCommonBo uploadsCommonBo = new UploadCommonBo();
         UploadValidationBo uploadsvalidationBo = new UploadValidationBo();
         UserBo userBo = new UserBo();
-
+        WERPTaskRequestManagementBo werpTaskRequestManagementBo = new WERPTaskRequestManagementBo();
         Random id = new Random();
         DataSet getNewFoliosDs = new DataSet();
         DataTable getNewFoliosDt = new DataTable();
@@ -220,7 +220,7 @@ namespace WealthERP.Uploads
         private static Dictionary<string, string> GetProfileGenericDictionary()
         {
             Dictionary<string, string> genDictProfile = new Dictionary<string, string>();
-            genDictProfile.Add("Standard", "WP");
+            genDictProfile.Add("Asset AnyWhere", "AA");
 
             return genDictProfile;
         }
@@ -393,11 +393,48 @@ namespace WealthERP.Uploads
             return genDictMFSystematic;
         }
 
+        private string SaveFileIntoServer(FileUpload file, string strPath)
+        {
+            if (!Directory.Exists(strPath))
+            {
+                Directory.CreateDirectory(strPath);
+            }
+            string strGuid = Guid.NewGuid().ToString();
+            strPath = strPath.Replace(' ', '_');
+            string newFileName = adviserVo.advisorId + "_" + strGuid + "_" + file.FileName.ToString();
+            //string newFileName = strPath;
+            // Save adviser repository file in the path
+            file.SaveAs(strPath + "\\" + newFileName);
+            return newFileName;
+        }
+
         protected void btn_Upload_Click(object sender, EventArgs e)
         {
             //System.Threading.Thread.Sleep(5000);
             //Create XML for the file
-            if (Page.IsValid)
+            if (Page.IsValid & ddlUploadType.SelectedValue == "P")
+            {
+                int ReqId = 0;
+                msgUploadComplete.Visible = true;
+
+                string uploadFilePath = ConfigurationManager.AppSettings["ADVISOR_UPLOAD_PATH"].ToString() + "\\" + adviserVo.advisorId.ToString() + "\\"  ;
+
+
+
+                string newFileName = SaveFileIntoServer(FileUpload,   uploadFilePath);
+                newFileName = uploadFilePath + newFileName;
+                //   packagePath = Server.MapPath("\\UploadPackages\\Integration Services Project1\\Integration Services Project1\\Package9.dtsx");
+                werpTaskRequestManagementBo.CreateTaskRequest(3, userVo.UserId, out ReqId, newFileName, adviserVo.advisorId, Convert.ToInt32(ddlRM.SelectedValue), Convert.ToInt32(ddlListBranch.SelectedValue), ddlListCompany.SelectedValue);
+                if (ReqId > 0)
+                {
+                    msgUploadComplete.InnerText = "Request Id-" + ReqId.ToString() + "-Generated SuccessFully";
+                }
+                else
+                {
+                    msgUploadComplete.InnerText = "Not able to create Request,Try again";
+                }
+            }
+            if (Page.IsValid & ddlUploadType.SelectedValue != "P")
             {
                 #region Uploading Content
                 string pathxml = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
@@ -4349,8 +4386,8 @@ namespace WealthERP.Uploads
                                         bool camsTranStagingResult = false;
                                         bool camsTranInputResult = false;
 
-                                        string AccountId=string.Empty;
-                                        object recordSetObject=new object();
+                                        string AccountId = string.Empty;
+                                        object recordSetObject = new object();
 
                                         configPath = Server.MapPath("\\UploadPackages\\FINEW\\FINEW\\FINEW\\FIConfig.dtsConfig");
 
@@ -4541,6 +4578,11 @@ namespace WealthERP.Uploads
                 ddlListCompany.DataBind();
                 ddlListCompany.Items.Insert(0, new ListItem("Select Source Type", "Select Source Type"));
 
+                ddlRM.DataSource = werpTaskRequestManagementBo.GetAdviserWiseRM(adviserVo.advisorId);
+                ddlRM.DataValueField = "AR_RMId";
+                ddlRM.DataTextField = "AR_RMName";
+                ddlRM.DataBind();
+                ddlRM.Items.Insert(0, new ListItem("Select", "Select Rm"));
                 //Fill Extension types for Selected Asset
                 //ddlListExtensionType.DataSource = GetMFExtensions();
                 //ddlListExtensionType.DataTextField = "Key";
@@ -8648,7 +8690,7 @@ namespace WealthERP.Uploads
         protected void btnDownloadSIPPainFile_Click(object sender, EventArgs e)
         {
 
-            
+
         }
 
         protected void btnCancel_Click(object sender, EventArgs e)

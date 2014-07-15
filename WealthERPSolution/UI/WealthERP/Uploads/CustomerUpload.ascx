@@ -282,6 +282,21 @@
             </asp:RequiredFieldValidator>
         </td>
     </tr>
+    
+     <tr id="trRM" runat="server"  >
+        <td class="leftField">
+            <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="Pick a RM:"></asp:Label>
+        </td>
+        <td class="rightField">
+            <asp:DropDownList ID="ddlRM" runat="server" CssClass="cmbField" AutoPostBack="true">
+            </asp:DropDownList>
+            <span id="Span1" class="spnRequiredField">*</span>
+            <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="ddlRM"
+                ErrorMessage="Please select a Branch" Operator="NotEqual" ValueToCompare="Select a RM"
+                Display="Dynamic" CssClass="cvPCG">
+            </asp:CompareValidator>
+        </td>
+    </tr>
     <tr id="trListBranch" runat="server" visible="false">
         <td class="leftField">
             <asp:Label ID="lblBranch" runat="server" CssClass="FieldName" Text="Pick a Branch:"></asp:Label>

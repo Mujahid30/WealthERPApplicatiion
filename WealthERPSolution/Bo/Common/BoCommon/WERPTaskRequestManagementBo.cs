@@ -21,13 +21,13 @@ namespace BoCommon
         /// <param name="subreportype"></param>
         /// <param name="fromDate"></param>
         /// <returns></returns>
-        public void CreateTaskRequest(int taskId, int userId, out int taskRequestId,string filePath)
+        public void CreateTaskRequest(int taskId, int userId, out int taskRequestId, string filePath, int adviserId, int rmId, int branchId, string uploadType)
         {
             WERPTaskRequestManagementDao requestManagementDao = new WERPTaskRequestManagementDao();
 
             try
             {
-                requestManagementDao.CreateTaskRequest(taskId, userId, out taskRequestId, filePath); 
+                requestManagementDao.CreateTaskRequest(taskId, userId, out taskRequestId, filePath, adviserId, rmId, branchId, uploadType);
 
             }
             catch (BaseApplicationException ex)
@@ -50,6 +50,35 @@ namespace BoCommon
 
         }
 
+        public DataSet GetAdviserWiseRM(int adviserId)
+        {
+            DataSet dsRm = new DataSet();
+            WERPTaskRequestManagementDao requestManagementDao = new WERPTaskRequestManagementDao();
+            try
+            {
+                dsRm = requestManagementDao.GetAdviserWiseRM(adviserId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsRm;
+        }
+
+        public DataSet GetAdviserWiseBranch(int adviserId)
+        {
+            DataSet dsBranch = new DataSet();
+            WERPTaskRequestManagementDao requestManagementDao = new WERPTaskRequestManagementDao();
+            try
+            {
+                dsBranch = requestManagementDao.GetAdviserWiseBranch(adviserId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsBranch;
+        }
         /// <summary>
         /// Create Bulk Report request to Queue
         /// </summary>
