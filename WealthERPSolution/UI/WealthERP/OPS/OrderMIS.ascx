@@ -835,6 +835,7 @@
                                 </telerik:GridTemplateColumn>--%>
                                 <telerik:GridEditCommandColumn Visible="true" HeaderStyle-Width="100px" UniqueName="MarkAsReject"
                                     EditText="Mark As Reject" CancelText="Cancel" UpdateText="OK">
+                                    <ItemStyle Width="150px" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridEditCommandColumn>
                             </Columns>
                             <EditFormSettings FormTableStyle-Height="40%" EditFormType="Template" FormMainTableStyle-Width="300px">

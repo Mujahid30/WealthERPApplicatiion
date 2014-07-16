@@ -507,7 +507,7 @@ namespace WealthERP.OnlineOrderBackOffice
             }
             else
             {
-                ddlBname.SelectedValue = "0";
+                ddlDFrequency.SelectedValue = "Select";
             }
             //mfProductAMCSchemePlanDetailsVo.DividendFrequency = ddlDFrequency.SelectedValue;
             mfProductAMCSchemePlanDetailsVo.GenerationFrequency = ddlGenerationfreq.SelectedValue;
@@ -908,7 +908,7 @@ namespace WealthERP.OnlineOrderBackOffice
             if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.SchemeOption))
             {
                 ddlOption.SelectedValue = mfProductAMCSchemePlanDetailsVo.SchemeOption.ToString();
-             
+
                 if (ddlOption.SelectedValue == "DV")
                 {
                     BindSchemeLoockUpType();
@@ -918,11 +918,10 @@ namespace WealthERP.OnlineOrderBackOffice
                     {
                         ddlDFrequency.SelectedValue = mfProductAMCSchemePlanDetailsVo.DividendFrequency.ToString();
                     }
-                    
-                }
-                else
-                {
-                    ddlDFrequency.Visible = false;
+                    else
+                    {
+                        ddlDFrequency.Visible = false;
+                    }
                 }
             }
             else
@@ -1259,10 +1258,11 @@ namespace WealthERP.OnlineOrderBackOffice
                     {
                         ddlDFrequency.SelectedValue = mfProductAMCSchemePlanDetailsVo.DividendFrequency.ToString();
                     }
-                }
-                else
-                {
-                    ddlDFrequency.Visible = false;
+
+                    else
+                    {
+                        ddlDFrequency.Visible = false;
+                    }
                 }
             }
             else

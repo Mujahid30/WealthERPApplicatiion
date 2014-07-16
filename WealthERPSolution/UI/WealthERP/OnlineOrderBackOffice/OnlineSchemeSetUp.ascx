@@ -1091,8 +1091,9 @@
                                                                 ValidationGroup="Submit"></asp:RequiredFieldValidator>
                                                             <asp:RegularExpressionValidator ID="reqtxtstartDate" ControlToValidate="txtstartDate"
                                                                 ErrorMessage=" </br>Enter Only Number" runat="server" Display="Dynamic" CssClass="cvPCG"
-                                                                ValidationExpression="^([0-9]{0,2})+(;[0-9]{0,2})*$" ValidationGroup="Submit">     
+                                                                ValidationExpression="^\d+(;\d+)*$" ValidationGroup="Submit">     
                                                             </asp:RegularExpressionValidator>
+                                                           <%-- ^([0-9]{0,2})+(;[0-9]{0,2})*$--%> 
                                                         </td>
                                                     </tr>
                                                     <tr>
