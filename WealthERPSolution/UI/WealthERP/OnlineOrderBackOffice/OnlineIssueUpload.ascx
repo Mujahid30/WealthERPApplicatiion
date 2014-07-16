@@ -4,6 +4,22 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 
 <script src="../Scripts/JScript.js" type="text/javascript"></script>
+<script src="../Scripts/jquery.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery-1.2.6.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery-1.4.2.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery-1.3.1.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jQuery.bubbletip-1.0.6.js" type="text/javascript"></script>
+
+<script src="../Scripts/JScript.js" type="text/javascript"></script>
+
 
 <asp:ScriptManager ID="scrptMgr" runat="server">
 </asp:ScriptManager>
@@ -145,10 +161,15 @@
 <table id="tblMessage" width="100%" runat="server" visible="false">
     <tr id="trSumbitSuccess">
         <td align="center">
-            <div id="msgRecordStatus" class="success-msg" align="center" runat="server">
+          <div id="msgRecordStatus" class="success-msg" align="center" runat="server">
+            
             </div>
             <%--    <asp:LinkButton ID="lnkClick" runat="server" Text="Click here to start new upload"
                 Font-Size="Small" Font-Underline="false" class="textfield" OnClick="lnkClick_Click" Visible="false"></asp:LinkButton>--%>
+                 <%--<div id="divValidationError" runat="server" class="failure-msg" align="center" visible="true">
+                        <asp:ValidationSummary ID="vsSummary" runat="server" Visible="true" ValidationGroup="btnSubmit"
+                            ShowSummary="true" DisplayMode="BulletList" />
+                    </div>--%>
         </td>
     </tr>
 </table>
@@ -312,6 +333,23 @@
         <FilterMenu EnableEmbeddedSkins="false">
         </FilterMenu>
     </telerik:RadGrid>
+    <telerik:RadGrid ID="gvAllotmentUploadData" runat="server" AutoGenerateColumns="true"
+        AllowPaging="true" AllowSorting="true" Skin="Telerik" EnableHeaderContextMenu="true"
+        GridLines="Both" EnableEmbeddedSkins="false" ShowFooter="true" PagerStyle-AlwaysVisible="true"
+        EnableViewState="true" ShowStatusBar="true" AllowFilteringByColumn="true" Visible="false"
+        OnNeedDataSource="gvAllotmentUploadData_OnNeedDataSource" OnItemDataBound="gvAllotmentUploadData_ItemDataBound">
+        <ExportSettings HideStructureColumns="true">
+        </ExportSettings>
+        <MasterTableView Width="90%" AllowMultiColumnSorting="True"  AutoGenerateColumns="true"
+            HeaderStyle-Width="120px" PageSize="20">
+        </MasterTableView>
+        <ClientSettings>
+            <Resizing AllowColumnResize="true" />
+            <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+        </ClientSettings>
+        <FilterMenu EnableEmbeddedSkins="false">
+        </FilterMenu>
+    </telerik:RadGrid>
 </asp:Panel>
 <table width="100%">
     <tr>
@@ -336,6 +374,7 @@
         </td>
     </tr>
 </table>
+<asp:HiddenField ID="hdnsavePath" runat="server"  />
 <%--    </ContentTemplate>
     <Triggers>
         <asp:PostBackTrigger ControlID="FileUpload" />

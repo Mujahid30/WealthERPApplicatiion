@@ -22,6 +22,7 @@ namespace DaoOnlineOrderManagement
 {
     public class OnlineNCDBackOfficeDao
     {
+        string allotmentDataTable;
 
         public DataSet GetExtSource(string product, int issueId)
         {
@@ -128,6 +129,7 @@ namespace DaoOnlineOrderManagement
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 dbCommand = db.GetStoredProcCommand("SPROC_CheckIssueAllomentDate");
                 db.AddInParameter(dbCommand, "@issueId", DbType.Int32, issueId);
+                db.AddInParameter(dbCommand, "@tableName", DbType.String, allotmentDataTable);
                 db.AddOutParameter(dbCommand, "@IsAlloted", DbType.Int16, 0);
                 db.ExecuteNonQuery(dbCommand);
                 if (db.GetParameterValue(dbCommand, "@IsAlloted").ToString() != string.Empty)
@@ -2249,38 +2251,43 @@ namespace DaoOnlineOrderManagement
             }
             return result;
         }
-        public int UploadAllotmentIssueDataDynamic(DataTable dtData, int issueId, ref string isValidated, string product)
+        public DataTable UploadAllotmentIssueDataDynamic(DataTable dtData, int issueId, ref string isValidated, string product,string filePath,int userId)
         {
             int result = 0;
-            DataTable dt;
+            UploadData(dtData);
+            DataTable dtAllotmentUploadData = new DataTable();
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DbCommand cmdAllotmentUpload;
+           
+           
             try
             {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdAllotmentUpload = db.GetStoredProcCommand("SPROC_ValidateUploadIssueAllotmentDetails_Dynamic");
+                db.AddInParameter(cmdAllotmentUpload, "@issueId",DbType.Int32, issueId);
+                db.AddInParameter(cmdAllotmentUpload, "@tableName", DbType.String, allotmentDataTable);
+                db.AddInParameter(cmdAllotmentUpload, "@filePath", DbType.String, filePath);
+                db.AddInParameter(cmdAllotmentUpload, "@createdBy", DbType.Int32, userId);
+                db.AddInParameter(cmdAllotmentUpload, "@product", DbType.String, product);
+                dtAllotmentUploadData=db.ExecuteDataSet(cmdAllotmentUpload).Tables[0];
+                
+                //isValidated = cmdProc.ExecuteScalar().ToString();
+                //if (isValidated == string.Empty)
+                //{
+                //    SqlCommand cmdProcAllot = new SqlCommand("SPROC_UploadIssueAllotmentDetails_Dynamic", sqlCon);
+                //    cmdProcAllot.CommandType = CommandType.StoredProcedure;
+                //    cmdProcAllot.Parameters.AddWithValue("@issueId", issueId);
+                //    cmdProcAllot.Parameters.AddWithValue("@product", product);
 
-                string conString = ConfigurationManager.ConnectionStrings["wealtherp"].ConnectionString;
-                SqlConnection sqlCon = new SqlConnection(conString);
-                sqlCon.Open();
-                SqlCommand cmdProc = new SqlCommand("SPROC_ValidateUploadIssueAllotmentDetails_Dynamic", sqlCon);
-                cmdProc.CommandType = CommandType.StoredProcedure;
-                cmdProc.Parameters.AddWithValue("@issueId", issueId);
-                cmdProc.Parameters.AddWithValue("@result", string.Empty);
+                //    //cmdProcAllot.Parameters.AddWithValue("@result", string.Empty);
 
-                isValidated = cmdProc.ExecuteScalar().ToString();
-                if (isValidated == string.Empty)
-                {
-                    SqlCommand cmdProcAllot = new SqlCommand("SPROC_UploadIssueAllotmentDetails_Dynamic", sqlCon);
-                    cmdProcAllot.CommandType = CommandType.StoredProcedure;
-                    cmdProcAllot.Parameters.AddWithValue("@issueId", issueId);
-                    cmdProcAllot.Parameters.AddWithValue("@product", product);
+                //    result = cmdProcAllot.ExecuteNonQuery();
 
-                    //cmdProcAllot.Parameters.AddWithValue("@result", string.Empty);
-
-                    result = cmdProcAllot.ExecuteNonQuery();
-
-                }
-                else
-                {
-                    result = 0;
-                }
+                //}
+                //else
+                //{
+                //    result = 0;
+                //}
 
                 //dt = dsGetIssuerid.Tables[0];
             }
@@ -2300,7 +2307,8 @@ namespace DaoOnlineOrderManagement
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-            return result;
+            return dtAllotmentUploadData;
+             
         }
 
         public int UploadBidSuccessData(DataTable dtData, int issueId)
@@ -2353,6 +2361,7 @@ namespace DaoOnlineOrderManagement
                 cmdProc.Parameters.AddWithValue("@issueId", issueId);
 
                 result = cmdProc.ExecuteNonQuery();
+               
             }
             catch (BaseApplicationException Ex)
             {
@@ -3192,6 +3201,7 @@ namespace DaoOnlineOrderManagement
 
         public void UploadData(DataTable uploadData)
         {
+            allotmentDataTable = GenerateTableName();
             string conString = ConfigurationManager.ConnectionStrings["wealtherp"].ConnectionString;
             string[] DdName = conString.Split(';');
             DdName[1] = DdName[1].Substring(DdName[1].IndexOf('W'), DdName[1].Length - DdName[1].IndexOf('W'));
@@ -3205,7 +3215,7 @@ namespace DaoOnlineOrderManagement
             //Set Database to the newly created database
             db = server.Databases[DdName[1]];
             //Create a new SMO table
-            Table UploadLogTable = new Table(db, "UploadLogTable");
+            Table UploadLogTable = new Table(db, allotmentDataTable);
             Column tempC = new Column();
             //Add the column names and types from the datatable into the new table
             //Using the columns name and type property
@@ -3239,8 +3249,21 @@ namespace DaoOnlineOrderManagement
             }
             return DTTemp;
         }
+        public string GenerateTableName()
+        {
+            string strPwdchar = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            string strPwd = "";
+            Random rnd = new Random();
+            for (int i = 0; i <= 7; i++)
+            {
+                int iRandom = rnd.Next(0, strPwdchar.Length - 1);
+                strPwd += strPwdchar.Substring(iRandom, 1);
+            }
+            return strPwd;
+        }
         public void createtableDatabse(DataTable uploaddata)
         {
+           
             string conString = ConfigurationManager.ConnectionStrings["wealtherp"].ConnectionString;
 
             //Open a connection with destination database;
@@ -3254,7 +3277,7 @@ namespace DaoOnlineOrderManagement
                 {
                     //Set destination table name
                     //to table previously created.
-                    bulkcopy.DestinationTableName = "dbo.UploadLogTable";
+                    bulkcopy.DestinationTableName = allotmentDataTable;
 
                     try
                     {

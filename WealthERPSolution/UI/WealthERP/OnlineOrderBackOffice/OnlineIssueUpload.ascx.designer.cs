@@ -259,7 +259,7 @@ namespace WealthERP.OnlineOrderBackOffice
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid gvOnlineIssueUpload;
-
+        protected global::Telerik.Web.UI.RadGrid gvAllotmentUploadData;
         /// <summary>
         /// lblUploadData control.
         /// </summary>
@@ -285,5 +285,7 @@ namespace WealthERP.OnlineOrderBackOffice
         protected global::System.Web.UI.WebControls.Label lblRgsttype;
 
         protected global::System.Web.UI.WebControls.Label lblAllotementType;
+
+        protected global::System.Web.UI.WebControls.HiddenField hdnsavePath;
     }
 }

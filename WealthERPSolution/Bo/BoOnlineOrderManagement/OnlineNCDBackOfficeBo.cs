@@ -950,6 +950,7 @@ namespace BoOnlineOrderManagement
 
             return onlineNCDBackOfficeDao.GetFileTypeList(FileTypeId, ExternalSource, FileSubType, ProductCode);
         }
+       
 
         private KeyValuePair<string, string>[] GetHeaderMapping(int fileTypeId, string extSource)
         {
@@ -981,7 +982,36 @@ namespace BoOnlineOrderManagement
             }
             return kvpHeaders;
         }
+        public DataTable GetOnlineAllotment(int fileTypeId,string extSource,DataTable dtUpload)
+        {
+            KeyValuePair<string, string>[] headers = GetHeaderMapping(fileTypeId, extSource);
+            if (dtUpload.Rows.Count != 0)
+            {
 
+                if (headers != null)
+                {
+                    foreach (KeyValuePair<string, string> header in headers)
+                    {
+                        if (dtUpload.Columns.Contains(header.Key))
+                        {
+                            if (dtUpload.Columns[header.Key].ToString() == header.Key)
+                            {
+                                dtUpload.Columns[header.Key].ColumnName = header.Value;
+                            }
+                        }
+                    }
+                    dtUpload.AcceptChanges();
+                }
+                
+                if (dtUpload.Columns.Contains("Status"))
+                {
+                    dtUpload.Columns.Remove(dtUpload.Columns["Status"]);
+
+                }
+                dtUpload.AcceptChanges();
+            }
+            return dtUpload;
+        }
 
 
         public DataTable GetOnlineNcdExtractPreview(DateTime extractDate, int adviserId, int fileTypeId, string extSource, int issueId)
@@ -1588,7 +1618,13 @@ namespace BoOnlineOrderManagement
         {
             DataColumn serialNo = new DataColumn("SN", System.Type.GetType("System.Int32"));
             DataColumn errorCol = new DataColumn("Remarks", System.Type.GetType("System.String"), "");
-
+            if (fileTypeId == 27 || fileTypeId == 28 || fileTypeId == 29 || fileTypeId == 30)
+            {
+                DataColumn Status = new DataColumn("Status", System.Type.GetType("System.String"), "");
+                DataColumn processId = new DataColumn("Process Id", System.Type.GetType("System.Int32"));
+                dtRawData.Columns.Add(Status);
+                dtRawData.Columns.Add(processId);
+            }
             dtRawData.Columns.Add(serialNo);
             dtRawData.Columns.Add(errorCol);
             dtRawData.AcceptChanges();
@@ -1686,7 +1722,42 @@ namespace BoOnlineOrderManagement
             }
             return result;
         }
-        public int UploadCheckOrderFile(DataTable dtCheckOrder, int fileTypeId, int issueId, ref string isEligbleIssue, int adviserid, string source, ref string result, string product)
+        public DataTable UploadAllotmentFile(DataTable dtCheckOrder, int fileTypeId, int issueId, ref string isEligbleIssue, int adviserid, string source, ref string result, string product, string filePath, int userId)
+        {
+            DataTable dtUploadAllotment = new DataTable();
+            try
+            {
+                OnlineNCDBackOfficeDao daoOnlNcdBackOff = new OnlineNCDBackOfficeDao();
+                isEligbleIssue = "";
+                string extractStepCode = daoOnlNcdBackOff.GetExtractStepCode(fileTypeId);
+                
+                    daoOnlNcdBackOff.IsIssueAlloted(issueId, ref   result);
+                    if (result != string.Empty && result != "0")
+                        dtUploadAllotment = daoOnlNcdBackOff.UploadAllotmentIssueDataDynamic(dtCheckOrder, issueId, ref  result, product, filePath, userId);
+                    else
+                    {
+                        result = "Pls Fill Allotment Date";
+                    }
+
+                
+
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeBo.cs:UploadAllotmentFile()");
+                object[] objects = new object[1];
+                objects[0] = dtCheckOrder;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtUploadAllotment;
+
+        }
+        public int UploadCheckOrderFile(DataTable dtCheckOrder, int fileTypeId, int issueId, ref string isEligbleIssue, int adviserid, string source, ref string result, string product,string filePath,int userId)
         {
 
             int nRows = 0;
@@ -1697,18 +1768,19 @@ namespace BoOnlineOrderManagement
             try
             {
                 string extractStepCode = daoOnlNcdBackOff.GetExtractStepCode(fileTypeId);
-                if (extractStepCode == "UA")
-                {
-                    daoOnlNcdBackOff.IsIssueAlloted(issueId, ref   result);
-                    if (result != string.Empty && result != "0")
-                        nRows = daoOnlNcdBackOff.UploadAllotmentIssueDataDynamic(dtCheckOrder, issueId, ref   result, product);
-                    else
-                    {
-                        result = "Pls Fill Allotment Date";
-                    }
+                //if (extractStepCode == "UA")
+                //{
+                //    daoOnlNcdBackOff.IsIssueAlloted(issueId, ref   result);
+                //    if (result != string.Empty && result != "0")
+                //        nRows = daoOnlNcdBackOff.UploadAllotmentIssueDataDynamic(dtCheckOrder, issueId, ref   result, product,filePath,userId);
+                //    else
+                //    {
+                //        result = "Pls Fill Allotment Date";
+                //    }
 
-                }
-                else if (extractStepCode == "UC")
+                //}
+                //else
+                    if (extractStepCode == "UC")
                 {
                     int orderId = int.Parse(dtCheckOrder.Rows[0][0].ToString());
                     int orderIssueId = daoOnlNcdBackOff.Getissueid(orderId);
