@@ -2923,12 +2923,14 @@ namespace WealthERP.OnlineOrderBackOffice
             string strAction;
             string type;
             string status;
+          //  string filterValue;
             if (Request.QueryString["strAction"] != null)
             {
                 schemeplancode = int.Parse(Request.QueryString["schemeplancode"].ToString());
                 strAction = Request.QueryString["strAction"].ToString();
                 product = Request.QueryString["product"].ToString();
                 type = Request.QueryString["type"].ToString();
+              //  filterValue = Request.QueryString["filterValue"].ToString();
                 status = Request.QueryString["status"].ToString();
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineSchemeMIS", "loadcontrol('OnlineSchemeMIS','?SchemePlanCode=" + schemeplancode + "&strAction=" + strAction + "&product=" + product + "&type=" + type + "&status=" + status + "');", true);
             }

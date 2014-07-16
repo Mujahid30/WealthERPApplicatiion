@@ -1076,13 +1076,13 @@
     </table>
     
 </asp:Panel>
-<table>
+<table visible="false">
         <tr>
             <td>
                 <asp:Button ID="btnSync" runat="server" Text="Auto Match" CssClass="PCGMediumButton"
-                    OnClick="btnSync_Click" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    OnClick="btnSync_Click" Visible="false"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:Button ID="btnMannualMatch" runat="server" Text="Manual Match" CssClass="PCGMediumButton"
-                    OnClick="btnMannualMatch_Click" />
+                    OnClick="btnMannualMatch_Click" Visible="false"/>
             </td>
         </tr>
     </table>

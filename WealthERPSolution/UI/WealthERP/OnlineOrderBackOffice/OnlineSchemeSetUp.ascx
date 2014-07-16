@@ -212,7 +212,7 @@
                 <td>
                     <asp:DropDownList ID="ddlNFoStatus" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlNFoStatus_OnSelectedIndexChanged"
                         AutoPostBack="true">
-                        <asp:ListItem Text="Select" Value="Select" Selected="true" />
+                        <asp:ListItem Text="Select" Value="Select" />
                         <asp:ListItem Text="NFO" Value="NFO">
                         </asp:ListItem>
                         <asp:ListItem Text="Active" Value="Active">
@@ -333,12 +333,13 @@
                 <td>
                     <asp:TextBox ID="txtAMFI" runat="server" CssClass="cmbFielde" Visible="true"></asp:TextBox>
                 </td>
-                <td align="right" style="width:10%;">
-                    <asp:Label ID="lblSchemeplancode" runat="server" Text="Scheme Plan Code:" CssClass="FieldName" Visible="false"></asp:Label>
+                <td align="right" style="width: 10%;">
+                    <asp:Label ID="lblSchemeplancode" runat="server" Text="Scheme Plan Code:" CssClass="FieldName"
+                        Visible="false"></asp:Label>
                 </td>
                 <td>
                     <asp:Label ID="lblschemeplanecodetext" runat="server" CssClass="FieldName" Visible="false"></asp:Label>
-                &nbsp;&nbsp;
+                    &nbsp;&nbsp;
                     <asp:LinkButton ID="lnkMargeScheme" runat="server" Text="Merge Scheme" OnClick="lnkMargeScheme_Click"
                         CssClass="LinkButtons" Visible="false"></asp:LinkButton>
                     <%-- <asp:CheckBox ID="chkoffline" runat="server" Text="Offline Scheme" CssClass="FieldName" Checked="false"/>--%>
@@ -1090,7 +1091,7 @@
                                                                 ValidationGroup="Submit"></asp:RequiredFieldValidator>
                                                             <asp:RegularExpressionValidator ID="reqtxtstartDate" ControlToValidate="txtstartDate"
                                                                 ErrorMessage=" </br>Enter Only Number" runat="server" Display="Dynamic" CssClass="cvPCG"
-                                                                ValidationExpression="[1-9]\d*(\;\d?[1-9])*$" ValidationGroup="Submit">     
+                                                                ValidationExpression="^([0-9]{0,2})+(;[0-9]{0,2})*$" ValidationGroup="Submit">     
                                                             </asp:RegularExpressionValidator>
                                                         </td>
                                                     </tr>

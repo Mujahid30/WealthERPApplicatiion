@@ -385,8 +385,8 @@ namespace WealthERP.OPS
                 //this.GetPageCount();
                 if (ddlMISOrderStatus.SelectedValue == "OMIP")
                 {
-                    btnSync.Visible = true;
-                    btnMannualMatch.Visible = true;
+                    btnSync.Visible = false;
+                    btnMannualMatch.Visible = false;
                 }
                 else
                 {
@@ -455,8 +455,8 @@ namespace WealthERP.OPS
                 //this.GetPageCount();
                 if (ddlMISOrderStatus.SelectedValue.Trim() == "IP")
                 {
-                    btnSync.Visible = true;
-                    btnMannualMatch.Visible = true;
+                    btnSync.Visible = false;
+                    btnMannualMatch.Visible = false;
                 }
                 else
                 {
@@ -1338,8 +1338,8 @@ namespace WealthERP.OPS
         {
             if (ddlMISOrderStatus.SelectedValue == "0")
             {
-                btnMannualMatch.Visible = true;
-                btnSync.Visible = true;
+                btnMannualMatch.Visible = false;
+                btnSync.Visible = false;
             }
         }
 
@@ -2067,8 +2067,8 @@ namespace WealthERP.OPS
             gvCustomerOrderMIS.Visible = true;
             if (ddlMISOrderStatus.SelectedValue == "IP")
             {
-                btnSync.Visible = true;
-                btnMannualMatch.Visible = true;
+                btnSync.Visible = false;
+                btnMannualMatch.Visible = false;
             }
             else
             {
