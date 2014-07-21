@@ -73,32 +73,12 @@
 </script>
 
 <script runat="server">
-    protected void RadioButton_CheckChanged(object sender, EventArgs e)
-    {
-        if (rbtnYes.Checked)
-        {
-            ddlModeOfHolding.SelectedIndex = 7;
-            gvPickJointHolder.Visible = true;
-            lblPickJointHolder.Visible = true;
-            //hrPickJointHolder.Visible = true;
-            ddlModeOfHolding.Enabled = true;
-
-        }
-        else
-        {
-            ddlModeOfHolding.SelectedIndex = 8;
-            ddlModeOfHolding.Enabled = false;
-            gvPickJointHolder.Visible = false;            
-            lblPickJointHolder.Visible = false;
-            //hrPickJointHolder.Visible = false;
-        }
-    }
+  
     protected void rbtnNo_Load(object sender, EventArgs e)
     {
         if (rbtnNo.Checked)
         {
             ddlModeOfHolding.Enabled = false;
-            
         }
     }
    
@@ -216,8 +196,8 @@
                     CssClass="txtField" AutoPostBack="True" 
                     OnCheckedChanged="RadioButton_CheckChanged" />
                 <asp:RadioButton ID="rbtnNo" runat="server" Text="No" GroupName="IsHeldJointly" CssClass="txtField"
-                    AutoPostBack="True" OnCheckedChanged="RadioButton_CheckChanged" OnLoad="rbtnNo_Load"
-                    Checked="True" />
+                    AutoPostBack="True" OnCheckedChanged="rbtnNo_CheckChanged" OnLoad="rbtnNo_Load" Checked="true"
+                    />
             </asp:Panel>
         </td>
         <td>

@@ -30,113 +30,112 @@ namespace WealthERP.Customer
         DataSet dsCustomerAssociation;
         DataSet dsModeOfHolding;
         RMVo rmvo = new RMVo();
-        
+
         //Used when performing Viewing Action
         DataSet dsAvailableTrades;
         DataSet dsDematDetails;
         DataSet dsJointHoldersAndNominees;
         protected void Page_Load(object sender, EventArgs e)
         {
-            rmvo =(RMVo) Session["rmvo"];
+            rmvo = (RMVo)Session["rmvo"];
 
             BindDepositoryType();
             customerportfoliovo = (CustomerPortfolioVo)Session["customerPortfolioVo"];
-            
-                if (Session["DematDetailsView"].ToString() == "View")
-                {
-                    lblTitle.Text = "View Demat Account";
-                    # region View Section
-                    ddlDepositoryName.Enabled = false;
-                    rbtnYes.Enabled = false;
-                    rbtnNo.Enabled = false;
-                    txtDpClientId.Enabled = false;
-                    txtDPId.Enabled = false;
-                    txtDpName.Enabled = false;
-                    ddlModeOfHolding.Enabled = false;
-                    ddlDepositoryName.Enabled = false;
-                    gvPickJointHolder.Enabled = false;
-                    gvPickNominee.Enabled = false;
-                    lstAvailableTrades.Enabled = false;
-                    lstAssocaitedTrades.Enabled = false;
-                    addBranch.Disabled = true;
-                    deleteBranch.Disabled = true;
-                    txtAccountOpeningDate.Enabled = false;
-                    btnSubmit.Visible = false;
-                    lbtnBackButton.Visible = true;
-                    chk_isactive.Enabled = false;
-                    ViewEditMode(); 
-                    
-                    # endregion
-                }
+
+            if (Session["DematDetailsView"].ToString() == "View")
+            {
+                lblTitle.Text = "View Demat Account";
+                # region View Section
+                ddlDepositoryName.Enabled = false;
+                rbtnYes.Enabled = false;
+                rbtnNo.Enabled = false;
+                txtDpClientId.Enabled = false;
+                txtDPId.Enabled = false;
+                txtDpName.Enabled = false;
+                ddlModeOfHolding.Enabled = false;
+                ddlDepositoryName.Enabled = false;
+                gvPickJointHolder.Enabled = false;
+                gvPickNominee.Enabled = false;
+                lstAvailableTrades.Enabled = false;
+                lstAssocaitedTrades.Enabled = false;
+                addBranch.Disabled = true;
+                deleteBranch.Disabled = true;
+                txtAccountOpeningDate.Enabled = false;
+                btnSubmit.Visible = false;
+                lbtnBackButton.Visible = true;
+                chk_isactive.Enabled = false;
+                ViewEditMode();
+
+                # endregion
+            }
 
 
-                else if (Session["DematDetailsView"].ToString() == "Edit")
-                {
-                    lblTitle.Text = "Edit Demat Account";
-                    ddlDepositoryName.Enabled = true;
-                    txtDpClientId.Enabled = true;
-                    
-                    txtDpName.Enabled = true;
-                    rbtnYes.Enabled = true;
-                    rbtnNo.Enabled = true;
-                    ddlModeOfHolding.Enabled = true;
-                    ddlDepositoryName.Enabled = true;
-                    gvPickJointHolder.Enabled = true;
-                    gvPickNominee.Enabled = true;
-                    lstAvailableTrades.Enabled = true;
-                    lstAssocaitedTrades.Enabled = true;
-                    addBranch.Disabled = false;
-                    deleteBranch.Disabled = false;
-                    txtAccountOpeningDate.Enabled = true;
-                    btnSubmit.Visible = true;
-                    lbtnBackButton.Visible = false;
-                    chk_isactive.Enabled = true;
-                    ViewEditMode();
-                   
-                }
-                else if (Session["DematDetailsView"].ToString() == "Add")
-                {
+            else if (Session["DematDetailsView"].ToString() == "Edit")
+            {
+                lblTitle.Text = "Edit Demat Account";
+                ddlDepositoryName.Enabled = true;
+                txtDpClientId.Enabled = true;
 
-                    lblTitle.Text = "Add Demat Account";
-                    
-                    customervo = (CustomerVo)Session["CustomerVo"];
-                    try
+                txtDpName.Enabled = true;
+                rbtnYes.Enabled = true;
+                rbtnNo.Enabled = true;
+                ddlModeOfHolding.Enabled = true;
+                ddlDepositoryName.Enabled = true;
+                gvPickJointHolder.Enabled = true;
+                gvPickNominee.Enabled = true;
+                lstAvailableTrades.Enabled = true;
+                lstAssocaitedTrades.Enabled = true;
+                addBranch.Disabled = false;
+                deleteBranch.Disabled = false;
+                txtAccountOpeningDate.Enabled = true;
+                btnSubmit.Visible = true;
+                lbtnBackButton.Visible = false;
+                chk_isactive.Enabled = true;
+                ViewEditMode();
+
+            }
+            else if (Session["DematDetailsView"].ToString() == "Add")
+            {
+
+                lblTitle.Text = "Add Demat Account";
+
+                customervo = (CustomerVo)Session["CustomerVo"];
+                try
+                {
+                    dsModeOfHolding = new DataSet();
+                    dtCustomerAccociation = new DataTable();
+                    dsCustomerAssociation = new DataSet();
+                    dsModeOfHolding = bodemataccount.GetXmlModeOfHolding();
+                    dsCustomerAssociation = bodemataccount.GetCustomerAccociation(customervo);
+                    //Mode of Holding Combobox populating
+                    ddlModeOfHolding.DataSource = dsModeOfHolding;
+                    ddlModeOfHolding.DataTextField = "XMOH_ModeOfHolding";
+                    ddlModeOfHolding.DataValueField = "XMOH_ModeOfHoldingCode";
+                    ddlModeOfHolding.DataBind();
+                    ddlModeOfHolding.SelectedIndex = 8;
+                    //This for IsJointlyHeld and Drop down loading based on that
+                    //====================================
+                    gvPickJointHolder.Visible = false;
+                    lblPickJointHolder.Visible = false;
+                    //hrPickJointHolder.Visible = false;
+                    //====================================
+                    //Pick nominee Grid Populating
+                    //==========================================================
+                    if (dsCustomerAssociation.Tables[0].Rows.Count == 0)
                     {
-                        dsModeOfHolding = new DataSet();
-                        dtCustomerAccociation = new DataTable();
-                        dsCustomerAssociation = new DataSet();
-                        dsModeOfHolding = bodemataccount.GetXmlModeOfHolding();
-                        dsCustomerAssociation = bodemataccount.GetCustomerAccociation(customervo);
-                        //Mode of Holding Combobox populating
-                        ddlModeOfHolding.DataSource = dsModeOfHolding;
-                        ddlModeOfHolding.DataTextField = "XMOH_ModeOfHolding";
-                        ddlModeOfHolding.DataValueField = "XMOH_ModeOfHoldingCode";
-                        ddlModeOfHolding.DataBind();
-                        ddlModeOfHolding.SelectedIndex = 8;
-                        //This for IsJointlyHeld and Drop down loading based on that
-                        //====================================
-                        
-                        
-                        gvPickJointHolder.Visible = false;
-                        lblPickJointHolder.Visible = false;
-                        //hrPickJointHolder.Visible = false;
-                        //====================================
-                        //Pick nominee Grid Populating
-                        //==========================================================
-                        if (dsCustomerAssociation.Tables[0].Rows.Count == 0)
-                        {
-                            lblPickNominee.Text = "You have no associates";                            
+                        lblPickNominee.Text = "You have no associates";
 
-                        }
-                        else
-                        {
-                            lblPickNominee.Text = "Pick JointHolder";
-                            gvPickNominee.DataSource = dsCustomerAssociation.Tables[0];
-                            gvPickNominee.DataBind();
-                        }
-                        //==========================================================
-                        //Pick Joint Holder Grid Populating
-                        //==========================================================
+                    }
+                    else
+                    {
+                        lblPickNominee.Text = "Pick Nominee";
+                        gvPickNominee.DataSource = dsCustomerAssociation.Tables[0];
+                        gvPickNominee.DataBind();
+                    }
+                    //==========================================================
+                    //Pick Joint Holder Grid Populating
+                    //==========================================================
+                   
                         if (dsCustomerAssociation.Tables[0].Rows.Count == 0)
                         {
                             lblPickJointHolder.Text = "You have no associates";
@@ -144,39 +143,41 @@ namespace WealthERP.Customer
                         }
                         else
                         {
-                            lblPickJointHolder.Text = "Pick Nominee";
+                            lblPickJointHolder.Text = "Pick JointHolder";
                             gvPickJointHolder.DataSource = dsCustomerAssociation;
                             gvPickJointHolder.DataBind();
+                           // gvPickJointHolder.Visible = true;
                         }
-                        //==========================================================
-                        BindListBox();
-                       
+                    
+                    //==========================================================
+                    BindListBox();
 
-                    }
-                    catch (BaseApplicationException ex)
-                    {
-                        BaseApplicationException exBase = new BaseApplicationException(ex.Message, ex);
-                        NameValueCollection FunctionInfo = new NameValueCollection();
-                        FunctionInfo.Add("Method", "RMBranchAssocistion.ascx:setBranchList()");
-                        object[] objects = new object[3];
-                        //objects[0] = ;
-                        //objects[1] = ;
-                        //objects[2] = 
-                        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                        exBase.AdditionalInformation = FunctionInfo;
-                        ExceptionManager.Publish(exBase);
-                        throw exBase;
-                    }
-                    catch (Exception ex)
-                    {
-                        throw ex;
-                    }
-                }     
-            
+
+                }
+                catch (BaseApplicationException ex)
+                {
+                    BaseApplicationException exBase = new BaseApplicationException(ex.Message, ex);
+                    NameValueCollection FunctionInfo = new NameValueCollection();
+                    FunctionInfo.Add("Method", "RMBranchAssocistion.ascx:setBranchList()");
+                    object[] objects = new object[3];
+                    //objects[0] = ;
+                    //objects[1] = ;
+                    //objects[2] = 
+                    FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                    exBase.AdditionalInformation = FunctionInfo;
+                    ExceptionManager.Publish(exBase);
+                    throw exBase;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+
         }
         protected void ViewEditMode()
         {
-           
+
             DateTime accountopeningdate;
             int listItemCount = 0;
             customervo = (CustomerVo)Session["CustomerVo"];
@@ -222,14 +223,18 @@ namespace WealthERP.Customer
             if (dsDematDetails.Tables[0].Rows[0]["IsHeldJointly"].ToString() == "1")
             {
                 rbtnYes.Checked = true;
+                gvPickJointHolder.Visible = true;
+                lblPickJointHolder.Visible = true;
                 rbtnNo.Checked = false;
             }
             else
             {
                 rbtnNo.Checked = true;
-                rbtnYes.Checked = false ;
+                rbtnYes.Checked = false;
+                gvPickJointHolder.Visible = false;
+                lblPickJointHolder.Visible = false;
             }
-            foreach(ListItem liModeOfHolding in ddlModeOfHolding.Items)
+            foreach (ListItem liModeOfHolding in ddlModeOfHolding.Items)
             {
                 if (liModeOfHolding.Value == dsDematDetails.Tables[0].Rows[0]["ModeOfHolding"].ToString())
                 {
@@ -238,19 +243,19 @@ namespace WealthERP.Customer
                 listItemCount++;
             }
             ddlModeOfHolding.SelectedIndex = listItemCount;
-            if (!string.IsNullOrEmpty (dsDematDetails.Tables[0].Rows[0]["AccountOpeningDate"].ToString()))
+            if (!string.IsNullOrEmpty(dsDematDetails.Tables[0].Rows[0]["AccountOpeningDate"].ToString()))
             {
                 accountopeningdate = (DateTime)dsDematDetails.Tables[0].Rows[0]["AccountOpeningDate"];
                 txtAccountOpeningDate.Text = accountopeningdate.ToShortDateString();
-                
+
             }
             else
             {
                 txtAccountOpeningDate.Text = " ";
-               
+
             }
-          
-            
+
+
 
             //Filling Associated Trades
             lstAssocaitedTrades.DataSource = dsDematDetails.Tables[1];
@@ -324,15 +329,15 @@ namespace WealthERP.Customer
                 }
 
             }
-        
-                
-                    
-            
+
+
+
+
         }
         protected void BindDepositoryType()
         {
             DataTable DsDepositoryNames = new DataTable();
-            DsDepositoryNames=bodemataccount.GetDepositoryName();
+            DsDepositoryNames = bodemataccount.GetDepositoryName();
             ddlDepositoryName.DataSource = DsDepositoryNames;
             if (DsDepositoryNames.Rows.Count > 0)
             {
@@ -341,24 +346,24 @@ namespace WealthERP.Customer
                 ddlDepositoryName.DataBind();
             }
             ddlDepositoryName.Items.Insert(0, new ListItem("Select", "Select"));
-               
+
         }
         protected void ddlModeOfHolding_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (ddlModeOfHolding.SelectedIndex != 8)
+            if (ddlModeOfHolding.SelectedIndex != 4)
             {
                 //hrPickJointHolder.Visible = true;
                 gvPickJointHolder.Visible = true;
                 lblPickJointHolder.Visible = true;
-               
+
             }
             else
             {
                 gvPickJointHolder.Visible = false;
                 lblPickJointHolder.Visible = false;
                 //hrPickJointHolder.Visible = false;
-                
-                
+                ddlModeOfHolding.SelectedIndex = 8;
+
             }
         }
         public void BindListBox()
@@ -372,16 +377,16 @@ namespace WealthERP.Customer
 
         }
         protected void btnSubmit_Click(object sender, EventArgs e)
-        {           
-            int portfolioid=0;
+        {
+            int portfolioid = 0;
             customervo = (CustomerVo)Session["CustomerVo"];
-             int customerId = customervo.CustomerId;
+            int customerId = customervo.CustomerId;
 
-             customerportfoliovo = (CustomerPortfolioVo)Session["customerPortfolioVo"];
+            customerportfoliovo = (CustomerPortfolioVo)Session["customerPortfolioVo"];
             if (customerportfoliovo.PortfolioId.ToString() != "")
             {
                 portfolioid = (int)customerportfoliovo.PortfolioId;
-            }            
+            }
             //string associationIdJH = null;
             //string associationIdN = null;
             string accountopeningdate = txtAccountOpeningDate.Text;
@@ -389,7 +394,7 @@ namespace WealthERP.Customer
             ArrayList associationIdJH = new ArrayList();
             ArrayList associationIdN = new ArrayList();
             ArrayList lstassociatedtradeaccount = new ArrayList();
-            
+
             if (Page.IsValid)
             {
                 try
@@ -397,8 +402,8 @@ namespace WealthERP.Customer
                     if (Session["DematDetailsView"].ToString() == "Add")
                     {
                         if (!string.IsNullOrEmpty(accountopeningdate.Trim()))
-                        demataccountvo.AccountOpeningDate = DateTime.Parse(accountopeningdate);
-                    //    demataccountvo.BeneficiaryAccountNbr = txtBeneficiaryAcctNbr.Text;
+                            demataccountvo.AccountOpeningDate = DateTime.Parse(accountopeningdate);
+                        //    demataccountvo.BeneficiaryAccountNbr = txtBeneficiaryAcctNbr.Text;
                         demataccountvo.DpclientId = txtDpClientId.Text;
                         demataccountvo.DpId = txtDPId.Text;
                         demataccountvo.DpName = txtDpName.Text;
@@ -434,7 +439,7 @@ namespace WealthERP.Customer
                             }
                         }
                         string[] associatedtradeitems = hdnSelectedBranches.Value.Split(',');
-                        if (associatedtradeitems.Length!= 0)
+                        if (associatedtradeitems.Length != 0)
                         {
                             foreach (string associatedtradeitem in associatedtradeitems)
                             {
@@ -447,7 +452,7 @@ namespace WealthERP.Customer
                         }
 
 
-                        
+
                         bodemataccount.AddDematDetails(customerId, portfolioid, demataccountvo, rmvo, associationIdJH, associationIdN, lstassociatedtradeaccount);
 
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('DematAccountDetails','none');", true);
@@ -457,14 +462,14 @@ namespace WealthERP.Customer
                         if (!string.IsNullOrEmpty(accountopeningdate.ToString().Trim()))
                         {
                             demataccountvo.AccountOpeningDate = DateTime.Parse(accountopeningdate);
-                            
+
                         }
                         else
                         {
                             demataccountvo.AccountOpeningDate = DateTime.MinValue;
-                            
+
                         }
-                      //  demataccountvo.BeneficiaryAccountNbr = txtBeneficiaryAcctNbr.Text;
+                        //  demataccountvo.BeneficiaryAccountNbr = txtBeneficiaryAcctNbr.Text;
                         demataccountvo.DpclientId = txtDpClientId.Text;
                         demataccountvo.DpId = txtDPId.Text;
                         demataccountvo.DpName = txtDpName.Text;
@@ -513,7 +518,7 @@ namespace WealthERP.Customer
                             }
                         }
 
-                        bodemataccount.UpdateDematDetails(customerId, portfolioid,demataccountid,demataccountvo, rmvo, associationIdJH, associationIdN, lstassociatedtradeaccount);                        
+                        bodemataccount.UpdateDematDetails(customerId, portfolioid, demataccountid, demataccountvo, rmvo, associationIdJH, associationIdN, lstassociatedtradeaccount);
                         ViewEditMode();
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('DematAccountDetails','none');", true);
                     }
@@ -523,11 +528,10 @@ namespace WealthERP.Customer
                     throw ex;
                 }
             }
-        }      
+        }
 
         protected void ddlModeOfHolding_PreRender(object sender, EventArgs e)
         {
-
         }
 
         protected void lbtnBackButton_Click(object sender, EventArgs e)
@@ -554,8 +558,41 @@ namespace WealthERP.Customer
                 }
             }
         }
-             
-        
-       
+        protected void rbtnNo_CheckChanged(object sender, EventArgs e)
+        {
+            ddlModeOfHolding.SelectedIndex = 8;
+            ddlModeOfHolding.Enabled = false;
+            gvPickJointHolder.Visible = false;
+            lblPickJointHolder.Visible = false;
+            lblPickNominee.Visible = true;
+            gvPickNominee.Visible = true;
+        }
+        protected void RadioButton_CheckChanged(object sender, EventArgs e)
+        {
+            if (rbtnYes.Checked && !(rbtnNo.Checked))
+            {
+                ddlModeOfHolding.SelectedIndex = 4;
+                gvPickJointHolder.Visible = true;
+                lblPickJointHolder.Visible = true;
+                //hrPickJointHolder.Visible = true;
+                ddlModeOfHolding.Enabled = true;
+                lblPickNominee.Visible = true;
+                gvPickNominee.Visible = true;
+            }
+            //else
+            //{
+            //    ddlModeOfHolding.SelectedIndex = 8;
+            //    ddlModeOfHolding.Enabled = false;
+            //    gvPickJointHolder.Visible = false;            
+            //    lblPickJointHolder.Visible = false;
+            //    lblPickNominee.Visible = true;
+            //    gvPickNominee.Visible = true;
+            //    //hrPickJointHolder.Visible = false;
+            //}
+          
+        }
+
+
+
     }
 }

@@ -117,7 +117,19 @@
                                     FilterControlWidth="80px" CurrentFilterFunction="Contains" Visible="true">
                                     <ItemStyle Width="80px" HorizontalAlign="Left" Wrap="false" VerticalAlign="top" />
                                 </telerik:GridBoundColumn>
-                                  <telerik:GridBoundColumn DataField="AMFIcode" UniqueName="AMFIcode"
+                                  <telerik:GridBoundColumn DataField="SchemCode" UniqueName="SchemCode"
+                                    HeaderText="Scheme Code" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                    AllowFiltering="true" HeaderStyle-Width="80px" SortExpression="SchemCode"
+                                    FilterControlWidth="80px" CurrentFilterFunction="Contains" Visible="true">
+                                    <ItemStyle Width="80px" HorizontalAlign="Left" Wrap="false" VerticalAlign="top" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="productcode" UniqueName="productcode"
+                                    HeaderText="Product Code" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                    AllowFiltering="true" HeaderStyle-Width="80px" SortExpression="productcode"
+                                    FilterControlWidth="80px" CurrentFilterFunction="Contains" Visible="true">
+                                    <ItemStyle Width="80px" HorizontalAlign="Left" Wrap="false" VerticalAlign="top" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="AMFIcode" UniqueName="AMFIcode"
                                     HeaderText="AMFI Code" ShowFilterIcon="false" AutoPostBackOnFilter="true"
                                     AllowFiltering="true" HeaderStyle-Width="80px" SortExpression="AMFIcode"
                                     FilterControlWidth="80px" CurrentFilterFunction="Contains" Visible="true">

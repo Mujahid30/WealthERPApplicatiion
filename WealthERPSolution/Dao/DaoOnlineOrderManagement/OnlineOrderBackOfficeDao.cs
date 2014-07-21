@@ -1250,7 +1250,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_CreatedBy", DbType.Int32, userid);
                 db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_ModifiedBy", DbType.Int32, userid);
                 db.AddInParameter(updateSchemeSetUpDetailsCmd, "@XESExternal", DbType.String, mfProductAMCSchemePlanDetailsVo.SourceCode);
-                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_IsOnlineEnablement", DbType.String, mfProductAMCSchemePlanDetailsVo.IsOnlineEnablement);
+                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_IsOnlineEnablement", DbType.Boolean, Convert.ToBoolean(mfProductAMCSchemePlanDetailsVo.IsOnlineEnablement));
                 // db.ExecuteNonQuery(updateSchemeSetUpDetailsCmd);
                 if (db.ExecuteNonQuery(updateSchemeSetUpDetailsCmd) != 0)
                     blResult = true;

@@ -583,6 +583,7 @@ namespace WealthERP.Advisor
            
             String RoleIds=GetDepartmentRoleIds();
             RoleIds = RoleIds.Remove(RoleIds.Length - 1);
+            string theme = userVo.theme;
            
             if (ValidateStaffReportingManager())
             {
@@ -591,7 +592,7 @@ namespace WealthERP.Advisor
                 if (Validation(txtAgentCode.Text) && EmailValidation(txtEmail.Text))
                 {
                     //rmIds = advisorStaffBo.CreateCompleteRM(rmUserVo, rmStaffVo, userVo.UserId, ddlTitleList.SelectedItem.Text.Trim().ToUpper() == "OPS" ? true : false, false);
-                    hidRMid.Value=Convert.ToString(advisorStaffBo.CreateAdviserStaff(rmUserVo, rmStaffVo, userVo.UserId, ddlTitleList.SelectedItem.Text.Trim().ToUpper() == "OPS" ? true : false, false, RoleIds));
+                    hidRMid.Value = Convert.ToString(advisorStaffBo.CreateAdviserStaff(rmUserVo, rmStaffVo, userVo.UserId, ddlTitleList.SelectedItem.Text.Trim().ToUpper() == "OPS" ? true : false, false, RoleIds, theme));
                     ControlViewEditMode(true);
                     divMsgSuccess.InnerText = " Staff Added Sucessfully";
                     trSuccessMsg.Visible = true;

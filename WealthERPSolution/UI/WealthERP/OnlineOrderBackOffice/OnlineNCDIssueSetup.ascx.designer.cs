@@ -104,6 +104,9 @@ namespace WealthERP.OnlineOrderBackOffice {
         protected global::System.Web.UI.WebControls.Button btnIssuerPopClose;
         protected global::System.Web.UI.WebControls.CheckBox chkMultipleApplicationAllowed;
         protected global::System.Web.UI.WebControls.CheckBox chkMultipleApplicationNotAllowed;
+        protected global::System.Web.UI.WebControls.CheckBox chkIsCancelNotAllowed;
+        protected global::System.Web.UI.WebControls.CheckBox chkIScancelAllowed;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trIsCancelAllowed;
         /// <summary>
         /// tbIssue control.
         /// </summary>

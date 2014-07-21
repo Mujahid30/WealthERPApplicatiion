@@ -516,7 +516,7 @@ namespace DaoOnlineOrderManagement
 
                 db.AddInParameter(createCmd, "@CutOffTime", DbType.Time, onlineNCDBackOfficeVo.CutOffTime);
                 db.AddInParameter(createCmd, "@MultipleApplicationAllowed", DbType.Int32, onlineNCDBackOfficeVo.MultipleApplicationAllowed);
-                
+                db.AddInParameter(createCmd, "@IsCancelAllowed", DbType.Int32, onlineNCDBackOfficeVo.IsCancelAllowed);
                 issueId = db.ExecuteNonQuery(createCmd);
             }
             catch (BaseApplicationException Ex)
@@ -872,7 +872,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(createCmd, "@RegistrarContactPerson", DbType.String, onlineNCDBackOfficeVo.RegistrarContactPerson);
                 db.AddInParameter(createCmd, "@SBIRegistationNo", DbType.String, onlineNCDBackOfficeVo.SBIRegistationNo);
                 db.AddInParameter(createCmd, "@MultipleApplicationAllowed", DbType.Int32, onlineNCDBackOfficeVo.MultipleApplicationAllowed);
-
+                db.AddInParameter(createCmd, "@IsCancelAllowed", DbType.Int32, onlineNCDBackOfficeVo.IsCancelAllowed);
 
                 if (db.ExecuteNonQuery(createCmd) != 0)
                 {

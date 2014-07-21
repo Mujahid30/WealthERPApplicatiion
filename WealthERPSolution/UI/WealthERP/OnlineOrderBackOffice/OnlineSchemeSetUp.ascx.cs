@@ -191,7 +191,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 ddlDFrequency.DataTextField = dt.Columns["PSLV_LookupValue"].ToString();
                 ddlDFrequency.DataValueField = dt.Columns["PSLV_LookupValueCode"].ToString();
                 ddlDFrequency.DataBind();
-                ddlDFrequency.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
+                ddlDFrequency.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "0"));
             }
             else
             {
@@ -200,7 +200,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 ddlOption.DataTextField = dt.Columns["PSLV_LookupValue"].ToString();
                 ddlOption.DataValueField = dt.Columns["PSLV_LookupValueCode"].ToString();
                 ddlOption.DataBind();
-                ddlOption.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
+                ddlOption.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "0"));
             }
         }
         private void BindAMC()
@@ -496,7 +496,7 @@ namespace WealthERP.OnlineOrderBackOffice
             }
             else
             {
-                ddlBname.SelectedValue = "Select";
+                ddlBname.SelectedValue = "0";
             }
 
             mfProductAMCSchemePlanDetailsVo.Branch = txtBranch.Text;
@@ -507,7 +507,7 @@ namespace WealthERP.OnlineOrderBackOffice
             }
             else
             {
-                ddlDFrequency.SelectedValue = "Select";
+                ddlDFrequency.SelectedValue = "0";
             }
             //mfProductAMCSchemePlanDetailsVo.DividendFrequency = ddlDFrequency.SelectedValue;
             mfProductAMCSchemePlanDetailsVo.GenerationFrequency = ddlGenerationfreq.SelectedValue;
@@ -768,6 +768,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 txtSchemeStartDate.Enabled = true;
                 txtMaturityDate.Enabled = true;
                 radwindowPopup.VisibleOnPageLoad = false;
+                ChkISSIP.Enabled = true;
                 //if (txtNFOendDate.SelectedDate >= DateTime.Now)
                 //{
                 //    txtNFOendDate.Enabled = true;
@@ -920,7 +921,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     }
                     else
                     {
-                        ddlDFrequency.Visible = false;
+                        ddlDFrequency.Visible = true;
                     }
                 }
             }
@@ -1261,7 +1262,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
                     else
                     {
-                        ddlDFrequency.Visible = false;
+                        ddlDFrequency.Visible = true;
                     }
                 }
             }
@@ -1821,7 +1822,9 @@ namespace WealthERP.OnlineOrderBackOffice
             //if (AMFIValidation(txtAMFI.Text))
             //{
             OnlineOrderBackOfficeBo.CreateOnlineSchemeSetupPlanDetails(mfProductAMCSchemePlanDetailsVo, userVo.UserId);
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Scheme Submit Successfully!!');", true);
+           // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Scheme Submit Successfully!!');", true);
+            string msg = "Scheme Submit Successfully!!";
+            ShowMessage(msg);
             Clearallcontrols(false);
             lnkEdit.Visible = true;
             btnupdate.Visible = false;
@@ -1943,7 +1946,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 }
                 else
                 {
-                    if(ddlOption.SelectedValue!="Select")
+                    if(ddlOption.SelectedValue!="0")
                       btnsubmit.Visible = false;
                     else
                         btnsubmit.Visible = true; ;
@@ -2676,6 +2679,15 @@ namespace WealthERP.OnlineOrderBackOffice
             dtSystematicDetails = dsSystematicDetails.Tables[0];
             if (dtSystematicDetails.Rows.Count > 0)
             {
+                if (Cache["SIPDetails" + userVo.UserId] == null)
+                {
+                    Cache.Insert("SIPDetails" + userVo.UserId, dtSystematicDetails);
+                }
+                else
+                {
+                    Cache.Remove("SIPDetails" + userVo.UserId);
+                    Cache.Insert("SIPDetails" + userVo.UserId, dtSystematicDetails);
+                }
                 gvSIPDetails.DataSource = dtSystematicDetails;
                 gvSIPDetails.DataBind();
                 pnlSIPDetails.Visible = true;
@@ -2787,102 +2799,111 @@ namespace WealthERP.OnlineOrderBackOffice
         }
         protected void gvSIPDetails_OnItemCommand(object source, GridCommandEventArgs e)
         {
-            int schemecode = 0;
-            if (Request.QueryString["strAction"] != "" && Request.QueryString["strAction"] != null)
+            if ((e.CommandName == "Update" && Page.IsValid == true) || (e.CommandName == "PerformInsert" && Page.IsValid == true) || e.CommandName == "Edit" || e.CommandName == "Insert" || e.CommandName == "InitInsert")
             {
-                if (Request.QueryString["strAction"].Trim() == "Edit" || Request.QueryString["strAction"].Trim() == "View")
+                int schemecode = 0;
+                if (Request.QueryString["strAction"] != "" && Request.QueryString["strAction"] != null)
                 {
-                    schemecode = int.Parse(ViewState["Schemeplancode"].ToString());
+                    if (Request.QueryString["strAction"].Trim() == "Edit" || Request.QueryString["strAction"].Trim() == "View")
+                    {
+                        schemecode = int.Parse(ViewState["Schemeplancode"].ToString());
+                    }
                 }
+                else
+                {
+
+
+                    schemecode = int.Parse(Session["newschemeplancode"].ToString());//
+                }
+
+                if (e.CommandName == RadGrid.PerformInsertCommandName)
+                {
+
+                    GridEditableItem gridEditableItem = (GridEditableItem)e.Item;
+                    DropDownList ddlFrquency = (DropDownList)e.Item.FindControl("ddlFrquency");
+                    TextBox txtstartDate = (TextBox)e.Item.FindControl("txtstartDate");
+                    TextBox txtMinDues = (TextBox)e.Item.FindControl("txtMinDues");
+                    TextBox txtMaxDues = (TextBox)e.Item.FindControl("txtMaxDues");
+                    TextBox txtMinAmount = (TextBox)e.Item.FindControl("txtMinAmount");
+                    TextBox txtMultipleAmount = (TextBox)e.Item.FindControl("txtMultipleAmount");
+                    TextBox txtSydetails = (TextBox)e.Item.FindControl("txtSydetails");
+                    MFProductAMCSchemePlanDetailsVo mfProductAMCSchemePlanDetailsVo = new MFProductAMCSchemePlanDetailsVo();
+                    if (ChkISSIP.Checked)
+                    {
+                        mfProductAMCSchemePlanDetailsVo.SystematicCode = "SIP";
+                    }
+                    if (ChkISSTP.Checked)
+                    {
+                        mfProductAMCSchemePlanDetailsVo.SystematicCode = "STP";
+                    }
+                    if (ChkISSWP.Checked)
+                    {
+                        mfProductAMCSchemePlanDetailsVo.SystematicCode = "SWP";
+                    }
+                    mfProductAMCSchemePlanDetailsVo.Frequency = ddlFrquency.SelectedValue.ToString();
+                    mfProductAMCSchemePlanDetailsVo.StartDate = txtstartDate.Text.ToString();
+                    mfProductAMCSchemePlanDetailsVo.MinDues = int.Parse(txtMinDues.Text.ToString());
+                    mfProductAMCSchemePlanDetailsVo.MaxDues = int.Parse(txtMaxDues.Text.ToString());
+                    mfProductAMCSchemePlanDetailsVo.MinAmount = Convert.ToDouble(txtMinAmount.Text.ToString());
+                    mfProductAMCSchemePlanDetailsVo.MultipleAmount = Convert.ToDouble(txtMultipleAmount.Text.ToString());
+                    OnlineOrderBackOfficeBo.CreateSystematicDetails(mfProductAMCSchemePlanDetailsVo, schemecode, userVo.UserId);
+
+                }
+                if (e.CommandName == RadGrid.UpdateCommandName)
+                {
+                    bool isUpdated = false;
+                    GridEditableItem gridEditableItem = (GridEditableItem)e.Item;
+                    DropDownList ddlFrquency = (DropDownList)e.Item.FindControl("ddlFrquency");
+                    TextBox txtstartDate = (TextBox)e.Item.FindControl("txtstartDate");
+                    TextBox txtMinDues = (TextBox)e.Item.FindControl("txtMinDues");
+                    TextBox txtMaxDues = (TextBox)e.Item.FindControl("txtMaxDues");
+                    TextBox txtMinAmount = (TextBox)e.Item.FindControl("txtMinAmount");
+                    TextBox txtMultipleAmount = (TextBox)e.Item.FindControl("txtMultipleAmount");
+                    int schemeplanecode = int.Parse(gvSIPDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["PASP_SchemePlanCode"].ToString());
+                    int detailsid = int.Parse(gvSIPDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["PASPSD_SystematicDetailsId"].ToString());
+
+                    MFProductAMCSchemePlanDetailsVo mfProductAMCSchemePlanDetailsVo = new MFProductAMCSchemePlanDetailsVo();
+                    if (ChkISSIP.Checked)
+                    {
+                        mfProductAMCSchemePlanDetailsVo.SystematicCode = "SIP";
+                    }
+                    if (ChkISSTP.Checked)
+                    {
+                        mfProductAMCSchemePlanDetailsVo.SystematicCode = "STP";
+                    }
+                    if (ChkISSWP.Checked)
+                    {
+                        mfProductAMCSchemePlanDetailsVo.SystematicCode = "SWP";
+                    }
+                    mfProductAMCSchemePlanDetailsVo.Frequency = ddlFrquency.SelectedValue.ToString();
+                    mfProductAMCSchemePlanDetailsVo.StartDate = txtstartDate.Text.ToString();
+                    mfProductAMCSchemePlanDetailsVo.MinDues = int.Parse(txtMinDues.Text.ToString());
+                    mfProductAMCSchemePlanDetailsVo.MaxDues = int.Parse(txtMaxDues.Text.ToString());
+                    mfProductAMCSchemePlanDetailsVo.MinAmount = Convert.ToDouble(txtMinAmount.Text.ToString());
+                    mfProductAMCSchemePlanDetailsVo.MultipleAmount = Convert.ToDouble(txtMultipleAmount.Text.ToString());
+                    //OnlineOrderBackOfficeBo.EditSystematicDetails(mfProductAMCSchemePlanDetailsVo, schemecode,systematicdetailsid);
+                    isUpdated = OnlineOrderBackOfficeBo.EditSystematicDetails(mfProductAMCSchemePlanDetailsVo, schemeplanecode, detailsid, userVo.UserId);
+                }
+
+                if (e.CommandName == RadGrid.RebindGridCommandName)
+                {
+                    gvSIPDetails.Rebind();
+                }
+                BindSystematicDetails();
             }
-            else
-            {
-
-
-                schemecode = int.Parse(Session["newschemeplancode"].ToString());//
-            }
-
-            if (e.CommandName == RadGrid.PerformInsertCommandName)
-            {
-
-                GridEditableItem gridEditableItem = (GridEditableItem)e.Item;
-                DropDownList ddlFrquency = (DropDownList)e.Item.FindControl("ddlFrquency");
-                TextBox txtstartDate = (TextBox)e.Item.FindControl("txtstartDate");
-                TextBox txtMinDues = (TextBox)e.Item.FindControl("txtMinDues");
-                TextBox txtMaxDues = (TextBox)e.Item.FindControl("txtMaxDues");
-                TextBox txtMinAmount = (TextBox)e.Item.FindControl("txtMinAmount");
-                TextBox txtMultipleAmount = (TextBox)e.Item.FindControl("txtMultipleAmount");
-                TextBox txtSydetails = (TextBox)e.Item.FindControl("txtSydetails");
-                MFProductAMCSchemePlanDetailsVo mfProductAMCSchemePlanDetailsVo = new MFProductAMCSchemePlanDetailsVo();
-                if (ChkISSIP.Checked)
-                {
-                    mfProductAMCSchemePlanDetailsVo.SystematicCode = "SIP";
-                }
-                if (ChkISSTP.Checked)
-                {
-                    mfProductAMCSchemePlanDetailsVo.SystematicCode = "STP";
-                }
-                if (ChkISSWP.Checked)
-                {
-                    mfProductAMCSchemePlanDetailsVo.SystematicCode = "SWP";
-                }
-                mfProductAMCSchemePlanDetailsVo.Frequency = ddlFrquency.SelectedValue.ToString();
-                mfProductAMCSchemePlanDetailsVo.StartDate = txtstartDate.Text.ToString();
-                mfProductAMCSchemePlanDetailsVo.MinDues = int.Parse(txtMinDues.Text.ToString());
-                mfProductAMCSchemePlanDetailsVo.MaxDues = int.Parse(txtMaxDues.Text.ToString());
-                mfProductAMCSchemePlanDetailsVo.MinAmount = Convert.ToDouble(txtMinAmount.Text.ToString());
-                mfProductAMCSchemePlanDetailsVo.MultipleAmount = Convert.ToDouble(txtMultipleAmount.Text.ToString());
-                OnlineOrderBackOfficeBo.CreateSystematicDetails(mfProductAMCSchemePlanDetailsVo, schemecode,userVo.UserId);
-
-            }
-            if (e.CommandName == RadGrid.UpdateCommandName)
-            {
-                bool isUpdated = false;
-                GridEditableItem gridEditableItem = (GridEditableItem)e.Item;
-                DropDownList ddlFrquency = (DropDownList)e.Item.FindControl("ddlFrquency");
-                TextBox txtstartDate = (TextBox)e.Item.FindControl("txtstartDate");
-                TextBox txtMinDues = (TextBox)e.Item.FindControl("txtMinDues");
-                TextBox txtMaxDues = (TextBox)e.Item.FindControl("txtMaxDues");
-                TextBox txtMinAmount = (TextBox)e.Item.FindControl("txtMinAmount");
-                TextBox txtMultipleAmount = (TextBox)e.Item.FindControl("txtMultipleAmount");
-                int schemeplanecode = int.Parse(gvSIPDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["PASP_SchemePlanCode"].ToString());
-                int detailsid = int.Parse(gvSIPDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["PASPSD_SystematicDetailsId"].ToString());
-
-                MFProductAMCSchemePlanDetailsVo mfProductAMCSchemePlanDetailsVo = new MFProductAMCSchemePlanDetailsVo();
-                if (ChkISSIP.Checked)
-                {
-                    mfProductAMCSchemePlanDetailsVo.SystematicCode = "SIP";
-                }
-                if (ChkISSTP.Checked)
-                {
-                    mfProductAMCSchemePlanDetailsVo.SystematicCode = "STP";
-                }
-                if (ChkISSWP.Checked)
-                {
-                    mfProductAMCSchemePlanDetailsVo.SystematicCode = "SWP";
-                }
-                mfProductAMCSchemePlanDetailsVo.Frequency = ddlFrquency.SelectedValue.ToString();
-                mfProductAMCSchemePlanDetailsVo.StartDate = txtstartDate.Text.ToString();
-                mfProductAMCSchemePlanDetailsVo.MinDues = int.Parse(txtMinDues.Text.ToString());
-                mfProductAMCSchemePlanDetailsVo.MaxDues = int.Parse(txtMaxDues.Text.ToString());
-                mfProductAMCSchemePlanDetailsVo.MinAmount = Convert.ToDouble(txtMinAmount.Text.ToString());
-                mfProductAMCSchemePlanDetailsVo.MultipleAmount = Convert.ToDouble(txtMultipleAmount.Text.ToString());
-                //OnlineOrderBackOfficeBo.EditSystematicDetails(mfProductAMCSchemePlanDetailsVo, schemecode,systematicdetailsid);
-                isUpdated = OnlineOrderBackOfficeBo.EditSystematicDetails(mfProductAMCSchemePlanDetailsVo, schemeplanecode, detailsid,userVo.UserId);
-            }
-
-            if (e.CommandName == RadGrid.RebindGridCommandName)
-            {
-                gvSIPDetails.Rebind();
-            }
-
-            BindSystematicDetails();
         }
         protected void gvSIPDetails_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
+            DataTable dtSystematicDetails = new DataTable();
+            dtSystematicDetails = (DataTable)Cache["SIPDetails" + userVo.UserId];
+            if (dtSystematicDetails != null)
+            {
+                gvSIPDetails.DataSource = dtSystematicDetails;
+            }
         }
         protected void gvSIPDetails_OnItemDataBound(object sender, GridItemEventArgs e)
         {
+            radwindowPopup.VisibleOnPageLoad = false;
             if (e.Item is GridEditFormInsertItem && e.Item.OwnerTableView.IsItemInserted)
             {
                 GridEditFormInsertItem item = (GridEditFormInsertItem)e.Item;
@@ -3015,7 +3036,6 @@ namespace WealthERP.OnlineOrderBackOffice
                 lnkMargeScheme.Text = "Merged Scheme";
                 radwindowPopup.VisibleOnPageLoad = false;
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Scheme Merged Successfully');", true);
-
             }
         }
         protected void GetBussinessDate()
@@ -3026,7 +3046,7 @@ namespace WealthERP.OnlineOrderBackOffice
             string time1 = Time.ToShortTimeString();
             int Fromcomparetime = int.Parse(comparetime.Split(':')[0]);
             int TOcpmaretime = int.Parse(time1.Split(':')[0]);
-            if (Fromcomparetime < TOcpmaretime)
+            if (Fromcomparetime <= TOcpmaretime)
             {
                 //txtSchemeMargeDate.MinDate = DateTime.Now.AddDays(2);
                 txtSchemeMargeDate.SelectedDate = DateTime.Now.AddDays(2); //txtSchemeMargeDate.MinDate;
@@ -3264,6 +3284,21 @@ namespace WealthERP.OnlineOrderBackOffice
             productcode = OnlineOrderBackOfficeBo.GetProductAddedCode(schemeplancode);
             //ViewState["newproductcode"] = productcode;
             lnkProductcode.Text = productcode;
+        }
+        protected void txtstartDate_OnServerValidate(object source, ServerValidateEventArgs args)
+        {
+               // args.IsValid = false;
+
+
+                string[] strsplit = args.Value.Split(';');
+
+                for (int i = 0; i < strsplit.Length; i++)
+                {
+                    if (int.Parse(strsplit[i]) >= 32)
+                    {
+                        args.IsValid = false;
+                    }
+                }
         }
     }
 }

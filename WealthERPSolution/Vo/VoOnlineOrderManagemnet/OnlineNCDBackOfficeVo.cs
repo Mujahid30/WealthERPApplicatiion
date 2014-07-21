@@ -123,6 +123,7 @@ namespace VoOnlineOrderManagemnet
         public int LockInApplicable { get; set; }
         public int MultipleApplicationAllowed { get; set; }
         public int MultipleApplicationNotAllowed { get; set; }
+        public int IsCancelAllowed { get; set; }
     }
 
     public class OnlineIssueHeader

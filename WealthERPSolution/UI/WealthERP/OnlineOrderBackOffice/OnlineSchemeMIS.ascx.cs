@@ -44,12 +44,13 @@ namespace WealthERP.OnlineOrderBackOffice
                     string product = Request.QueryString["product"].ToString();
                     string status = Request.QueryString["status"].ToString();
                     int type = Convert.ToInt32(Request.QueryString["type"].ToString());
+                   // string filterValue = Request.QueryString["filterValue"].ToString();
                     hdnAssettype.Value = product;
                     ddlTosee.SelectedValue = type.ToString();
                     ddlProduct.SelectedValue = product;
                     hdnStatus.Value = status;
                     ddlststus.SelectedValue = status;
-
+                  //  gvonlineschememis.MasterTableView.GetColumn("PASP_SchemePlanName").CurrentFilterValue = filterValue;
                     BindSchemeMIS();
                     //ddlAction.SelectedValue = strAction;
                 }
@@ -244,6 +245,7 @@ namespace WealthERP.OnlineOrderBackOffice
             string action = "";
             SchemePlanCode = int.Parse(gvonlineschememis.MasterTableView.DataKeyValues[gvr.ItemIndex]["PASP_SchemePlanCode"].ToString());
             // string Status = (gvonlineschememis.MasterTableView.DataKeyValues[gvr.ItemIndex]["PASP_Status"].ToString());
+           // string filterValue = gvonlineschememis.MasterTableView.GetColumn("PASP_SchemePlanName").CurrentFilterValue;
             Session["SchemeList"] = OnlineOrderBackOfficeBo.GetOnlineSchemeSetUp(SchemePlanCode);
             //product= ddlProduct.SelectedValue;
             //type = ddlTosee.SelectedValue;

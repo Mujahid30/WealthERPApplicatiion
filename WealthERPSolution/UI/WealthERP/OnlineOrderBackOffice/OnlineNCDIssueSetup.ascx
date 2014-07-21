@@ -45,7 +45,17 @@
     }
 
 </script>
+<script type="text/javascript" language="javascript">
+    function ChkIscancelallowedornot(sender, args) {
+        if (document.getElementById("<%=chkIScancelAllowed.ClientID %>").checked == false && document.getElementById("<%=chkIsCancelNotAllowed.ClientID %>").checked == false) {
+            args.IsValid = false;
+        }
+        else {
+            args.IsValid = true;
+        }
+    }
 
+</script>
 <script type="text/javascript">
     var crnt = 0;
     function PreventClicks() {
@@ -1188,7 +1198,7 @@
             <asp:CheckBox ID="chkMultipleApplicationAllowed" runat="server" CssClass="txtField"
                 Text="Multiple applications allowed" OnCheckedChanged="chkMultipleApplicationAllowed_OnCheckedChanged" AutoPostBack="true">
             </asp:CheckBox>
-            <asp:CustomValidator ID="CustomValidator1" runat="server" ErrorMessage="Please check Multiple applications allowed"
+            <asp:CustomValidator ID="CustomValidator1" runat="server" ErrorMessage="Please check multiple applications allowed"
                 ClientValidationFunction="CheckBoxes" EnableClientScript="true" Display="Dynamic"
                 ValidationGroup="SetUpSubmit" CssClass="rfvPCG">
             </asp:CustomValidator>
@@ -1199,8 +1209,32 @@
             <asp:CheckBox ID="chkMultipleApplicationNotAllowed" runat="server" CssClass="txtField"
                 Text="Multiple applications not allowed" OnCheckedChanged="chkMultipleApplicationNotAllowed_OnCheckedChanged" AutoPostBack="true">
             </asp:CheckBox>
-            <asp:CustomValidator ID="CustomValidator2" runat="server" ErrorMessage="<br>Please check Multiple applications not allowed"
+            <asp:CustomValidator ID="CustomValidator2" runat="server" ErrorMessage="<br>Please check multiple applications not allowed"
                 ClientValidationFunction="CheckBoxes" EnableClientScript="true" Display="Dynamic"
+                ValidationGroup="SetUpSubmit" CssClass="rfvPCG">
+            </asp:CustomValidator>
+        </td>
+    </tr>
+     <tr id="trIsCancelAllowed" runat="server">
+        <td>
+        </td>
+        <td>
+            <asp:CheckBox ID="chkIScancelAllowed" runat="server" CssClass="txtField"
+                Text="Cancellation allowed" OnCheckedChanged="chkIScancelAllowed_OnCheckedChanged" AutoPostBack="true">
+            </asp:CheckBox>
+            <asp:CustomValidator ID="custIScancelAllowed" runat="server" ErrorMessage="<br>Please check cancellation allowed"
+                ClientValidationFunction="ChkIscancelallowedornot" EnableClientScript="true" Display="Dynamic"
+                ValidationGroup="SetUpSubmit" CssClass="rfvPCG">
+            </asp:CustomValidator>
+        </td>
+        <td>
+        </td>
+        <td>
+            <asp:CheckBox ID="chkIsCancelNotAllowed" runat="server" CssClass="txtField"
+                Text="Cancellation is not allowed" OnCheckedChanged="IsCancelNotAllowed_OnCheckedChanged" AutoPostBack="true">
+            </asp:CheckBox>
+            <asp:CustomValidator ID="custIScancelnotAllowed" runat="server" ErrorMessage="<br>Please check cancellation is not allowed"
+                ClientValidationFunction="ChkIscancelallowedornot" EnableClientScript="true" Display="Dynamic"
                 ValidationGroup="SetUpSubmit" CssClass="rfvPCG">
             </asp:CustomValidator>
         </td>

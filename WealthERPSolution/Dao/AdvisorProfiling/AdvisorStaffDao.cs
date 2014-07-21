@@ -289,7 +289,7 @@ namespace DaoAdvisorProfiling
         }
 
 
-        public int CreateAdviserStaff(UserVo userVo, RMVo rmVo, int userId, bool isOpsIsChecked, bool isPurelyResearchLogin,string roleIds)
+        public int CreateAdviserStaff(UserVo userVo, RMVo rmVo, int userId, bool isOpsIsChecked, bool isPurelyResearchLogin,string roleIds,string theme)
         {
             int StaffId=0;
             bool bResult = false;
@@ -309,6 +309,8 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(createRMCmd, "@U_LastName", DbType.String, userVo.LastName);
                 db.AddInParameter(createRMCmd, "@U_Email", DbType.String, userVo.Email);
                 db.AddInParameter(createRMCmd, "@U_UserType", DbType.String, userVo.UserType);
+                db.AddInParameter(createRMCmd, "@U_Theme", DbType.String, theme);
+
                 // db.AddInParameter(createRMCmd, "@U_LoginId", DbType.String, userVo.LoginId);
                 db.AddInParameter(createRMCmd, "@A_AdviserId", DbType.Int32, rmVo.AdviserId);
                 db.AddInParameter(createRMCmd, "@AR_FirstName", DbType.String, rmVo.FirstName);

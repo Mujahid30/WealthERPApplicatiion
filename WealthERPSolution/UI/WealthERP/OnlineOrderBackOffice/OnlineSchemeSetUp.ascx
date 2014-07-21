@@ -25,6 +25,15 @@
    
 </script>
 
+<script type="text/javascript" language="javascript">
+    function DateValue() {
+
+        document.getElementById('ctrl_OnlineSchemeSetUp_gvSIPDetails_ctl00_ctl05_txtstartDate').innerHTML = 'hello';
+        alert(masterTable);
+    }
+
+</script>
+
 <table width="100%">
     <tr>
         <td>
@@ -49,7 +58,8 @@
             </div>
         </td>
     </tr>
-    <table id="tblMessage" width="100%" runat="server" visible="false" style="padding-top: 20px;">
+    </table>
+    <table id="tblMessage" width="100%" runat="server" visible="false" style="padding-top: 0px;">
         <tr id="trSumbitSuccess">
             <td align="center">
                 <div id="msgRecordStatus" class="success-msg" align="center" runat="server">
@@ -334,7 +344,7 @@
                     <asp:TextBox ID="txtAMFI" runat="server" CssClass="cmbFielde" Visible="true"></asp:TextBox>
                 </td>
                 <td align="right" style="width: 10%;">
-                    <asp:Label ID="lblSchemeplancode" runat="server" Text="Scheme Plan Code:" CssClass="FieldName"
+                    <asp:Label ID="lblSchemeplancode" runat="server" Text="System Code:" CssClass="FieldName"
                         Visible="false"></asp:Label>
                 </td>
                 <td>
@@ -1089,11 +1099,15 @@
                                                             <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtstartDate"
                                                                 ErrorMessage="<br />Please Enter Date" Display="Dynamic" runat="server" CssClass="rfvPCG"
                                                                 ValidationGroup="Submit"></asp:RequiredFieldValidator>
-                                                            <asp:RegularExpressionValidator ID="reqtxtstartDate" ControlToValidate="txtstartDate"
+                                                              <asp:RegularExpressionValidator ID="reqtxtstartDate" ControlToValidate="txtstartDate"
                                                                 ErrorMessage=" </br>Enter Only Number" runat="server" Display="Dynamic" CssClass="cvPCG"
                                                                 ValidationExpression="^\d+(;\d+)*$" ValidationGroup="Submit">     
                                                             </asp:RegularExpressionValidator>
-                                                           <%-- ^([0-9]{0,2})+(;[0-9]{0,2})*$--%> 
+                                                            <%-- ^([0-9]{0,2})+(;[0-9]{0,2})*$--%>
+                                                            <asp:CustomValidator ID="Custtxtstartdate" runat="server" ErrorMessage="</br>Start date should not be greater than 31st"
+                                                                ControlToValidate="txtstartDate" EnableClientScript="true" Display="Dynamic"
+                                                                OnServerValidate="txtstartDate_OnServerValidate" ValidationGroup="Submit" CssClass="rfvPCG">
+                                                            </asp:CustomValidator>
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -1168,7 +1182,7 @@
                                                         <td align="right">
                                                             <asp:Button ID="Button1" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
                                                                 runat="server" CssClass="PCGButton" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'
-                                                                ValidationGroup="Submit"></asp:Button>
+                                                                ValidationGroup="Submit" ></asp:Button>
                                                         </td>
                                                         <td>
                                                             <asp:Button ID="Button2" Text="Cancel" runat="server" CausesValidation="False" CssClass="PCGButton"

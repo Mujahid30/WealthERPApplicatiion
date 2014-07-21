@@ -117,6 +117,26 @@ namespace WealthERP.OnlineOrderBackOffice
                 chkMultipleApplicationNotAllowed.Enabled = true;
 
         }
+        protected void chkIScancelAllowed_OnCheckedChanged(object sender, EventArgs e)
+        {
+            if (chkIScancelAllowed.Checked == true)
+            {
+                chkIsCancelNotAllowed.Enabled = false;
+                chkIsCancelNotAllowed.Checked = false;
+            }
+            else
+                chkIsCancelNotAllowed.Enabled = true;
+        }
+        protected void IsCancelNotAllowed_OnCheckedChanged(object sender, EventArgs e)
+        {
+            if (chkIsCancelNotAllowed.Checked == true)
+            {
+                chkIScancelAllowed.Enabled = false;
+                chkIScancelAllowed.Checked = false;
+            }
+            else
+                chkIScancelAllowed.Enabled = true;
+        }
         protected void txtNSECode_OnTextChanged(object sender, EventArgs e)
         {
             if (txtNSECode.Text != string.Empty)
@@ -371,6 +391,14 @@ namespace WealthERP.OnlineOrderBackOffice
                     else
                     {
                         chkMultipleApplicationNotAllowed.Checked = true;
+                    }
+                    if (dr["AIM_IsCancelAllowed"].ToString() == "True")
+                    {
+                        chkIScancelAllowed.Checked = true;
+                    }
+                    else
+                    {
+                        chkIsCancelNotAllowed.Checked = true;
                     }
                     if (!string.IsNullOrEmpty(dr["AIM_PutCallOption"].ToString()))
                     {
@@ -779,7 +807,8 @@ namespace WealthERP.OnlineOrderBackOffice
             txtSubBrokerCode.Enabled = value;
             chkMultipleApplicationAllowed.Enabled = value;
             chkMultipleApplicationNotAllowed.Enabled = value;
-
+            chkIScancelAllowed.Enabled = value;
+            chkIsCancelNotAllowed.Enabled = value;
             //txtTradingInMultipleOf.Enabled = value;
             //ddlListedInExchange.Enabled = value;
 
@@ -994,7 +1023,16 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     onlineNCDBackOfficeVo.MultipleApplicationAllowed = 0;
                 }
+                if (chkIScancelAllowed.Checked == true)
+                {
+                    onlineNCDBackOfficeVo.IsCancelAllowed = 1;
+                }
 
+                if (chkIsCancelNotAllowed.Checked == true)
+                {
+                    onlineNCDBackOfficeVo.IsCancelAllowed = 0;
+                }
+                
                 if (chkPutCallOption.Checked == true)
                 {
                     onlineNCDBackOfficeVo.PutCallOption = "Y";
@@ -3428,7 +3466,15 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     onlineNCDBackOfficeVo.MultipleApplicationAllowed = 0;
                 }
+                if (chkIScancelAllowed.Checked == true)
+                {
+                    onlineNCDBackOfficeVo.IsCancelAllowed = 1;
+                }
 
+                if (chkIsCancelNotAllowed.Checked == true)
+                {
+                    onlineNCDBackOfficeVo.IsCancelAllowed = 0;
+                }
                 if (NSCEBSCEcode())
                 {
                     issueId = onlineNCDBackOfficeBo.CreateIssue(onlineNCDBackOfficeVo, advisorVo.advisorId);
