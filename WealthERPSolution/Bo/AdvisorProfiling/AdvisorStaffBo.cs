@@ -283,13 +283,13 @@ namespace BoAdvisorProfiling
             }
             return rmIds;
         }
-        public int CreateAdviserStaff(UserVo userVo, RMVo rmVo, int userId, bool isOpsIsChecked, bool isPurelyResearchLogin,string roleIds)
+        public int CreateAdviserStaff(UserVo userVo, RMVo rmVo, int userId, bool isOpsIsChecked, bool isPurelyResearchLogin,string roleIds,string theme)
         {
             int StaffId;
             AdvisorStaffDao advisorStaffDao = new AdvisorStaffDao();
             try
             {
-               StaffId= advisorStaffDao.CreateAdviserStaff(userVo,rmVo,userId,isOpsIsChecked,isPurelyResearchLogin,roleIds);
+               StaffId= advisorStaffDao.CreateAdviserStaff(userVo,rmVo,userId,isOpsIsChecked,isPurelyResearchLogin,roleIds,theme);
             }
             catch (BaseApplicationException Ex)
             {
