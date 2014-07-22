@@ -1571,7 +1571,8 @@ namespace BoOnlineOrderManagement
             foreach (DataRow dr in dtClientSelfDetails.Rows)
             {
                 kycStatus = new Dictionary<string, string>();
-                DataRow[] drClientDematJointList = dtClientDematJointHolderDetails.Select("C_CustomerId=" + dr["C_CustomerId"].ToString(), "CAS_AssociationId");
+                //DataRow[] drClientDematJointList = dtClientDematJointHolderDetails.Select("C_CustomerId=" + dr["C_CustomerId"].ToString(), "CAS_AssociationId");
+                DataRow[] drClientDematJointList = dtClientDematJointHolderDetails.Select("C_CustomerId=" + dr["C_CustomerId"].ToString());
                 DataRow drFinalClientKYC = dtFinalClientKYCList.NewRow();
                 drFinalClientKYC["CustomerId"] = dr["C_CustomerId"];
                 drFinalClientKYC["ClientAccountCode"] = dr["C_CustCode"];
@@ -1579,7 +1580,7 @@ namespace BoOnlineOrderManagement
                 drFinalClientKYC["PAN"] = dr["C_PANNum"];
                 drFinalClientKYC["KYCStatus"] = dr["C_IsKYCAvailable"];
                 if (drClientDematJointList.Count() > 0)
-                    drFinalClientKYC["Holding"] = drClientDematJointList[0][8].ToString();
+                    drFinalClientKYC["Holding"] = drClientDematJointList[0][7].ToString();
                 else
                     drFinalClientKYC["Holding"] = dr["Holding"];
                 kycStatus.Add("JOINT1", dr["C_IsKYCAvailable"].ToString() == "Y" ? "1" : "0");

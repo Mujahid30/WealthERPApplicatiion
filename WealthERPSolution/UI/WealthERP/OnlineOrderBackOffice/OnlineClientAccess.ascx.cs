@@ -33,7 +33,6 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             try
             {
-                DataSet dsAdviserClientKYCStatusList = new DataSet();
                 DataTable dtAdviserClientKYCStatusList = new DataTable();
                 dtAdviserClientKYCStatusList = onlineOrderBackOfficeBo.GetAdviserClientKYCStatusList(adviserVo.advisorId);
                 if (dtAdviserClientKYCStatusList.Rows.Count > 0)
