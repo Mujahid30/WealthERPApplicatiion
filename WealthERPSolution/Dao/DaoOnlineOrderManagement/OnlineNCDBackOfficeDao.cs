@@ -388,7 +388,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(dbCommand, "@type", DbType.Int32, type);
                 db.AddInParameter(dbCommand, "@product", DbType.String, product);
                 db.AddInParameter(dbCommand, "@adviserId", DbType.String, adviserId);
-
+                dbCommand.CommandTimeout = 60 * 60;
                 dsIssueDetails = db.ExecuteDataSet(dbCommand);
             }
             catch (BaseApplicationException Ex)
@@ -3166,7 +3166,7 @@ namespace DaoOnlineOrderManagement
             }
             return isExist;
         }
-        public DataTable GetNCDAllotmentFileType(string FileType)
+        public DataTable GetNCDAllotmentFileType(string fileType,string productType)
         {
             Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DataSet dsGetNCDAllotment;
@@ -3176,7 +3176,8 @@ namespace DaoOnlineOrderManagement
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmdGetNCDAllotment = db.GetStoredProcCommand("SPROC_ONL_GetNCDAllotmentFileType");
-                db.AddInParameter(cmdGetNCDAllotment, "@TypeofRegister", DbType.String, FileType);
+                db.AddInParameter(cmdGetNCDAllotment, "@typeofRegister", DbType.String, fileType);
+                db.AddInParameter(cmdGetNCDAllotment, "@productType", DbType.String, productType);
                 dsGetNCDAllotment = db.ExecuteDataSet(cmdGetNCDAllotment);
 
             }

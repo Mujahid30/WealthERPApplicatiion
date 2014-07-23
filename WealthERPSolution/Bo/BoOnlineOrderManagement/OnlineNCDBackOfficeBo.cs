@@ -1621,7 +1621,7 @@ namespace BoOnlineOrderManagement
             if (fileTypeId == 27 || fileTypeId == 28 || fileTypeId == 29 || fileTypeId == 30)
             {
                 DataColumn Status = new DataColumn("Status", System.Type.GetType("System.String"), "");
-                DataColumn processId = new DataColumn("Process Id", System.Type.GetType("System.Int32"));
+                DataColumn processId = new DataColumn("ProcessId", System.Type.GetType("System.Int32"));
                 dtRawData.Columns.Add(Status);
                 dtRawData.Columns.Add(processId);
             }
@@ -1660,7 +1660,6 @@ namespace BoOnlineOrderManagement
                     ColumnNameErrors.Append("\n");
                 }
             }
-
 
 
 
@@ -2120,14 +2119,14 @@ namespace BoOnlineOrderManagement
             }
             return result;
         }
-        public DataTable GetNCDAllotmentFileType(string FileType)
+        public DataTable GetNCDAllotmentFileType(string fileType,string productType)
         {
             DataTable dtGetNCDAllotmentFile;
 
             OnlineNCDBackOfficeDao onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
             try
             {
-                dtGetNCDAllotmentFile = onlineNCDBackOfficeDao.GetNCDAllotmentFileType(FileType);
+                dtGetNCDAllotmentFile = onlineNCDBackOfficeDao.GetNCDAllotmentFileType(fileType, productType);
             }
             catch (BaseApplicationException Ex)
             {
