@@ -120,6 +120,8 @@ namespace VoUser
        
         public int OccupationId { get; set; }
         public string FatherHusbandName { get; set; }
+        public DateTime Modifiefon { get; set; }
+        public int Modifiedby { get; set; }
         public int CustomerCategoryCode
         {
             get { return m_CustomerCategoryCode; }

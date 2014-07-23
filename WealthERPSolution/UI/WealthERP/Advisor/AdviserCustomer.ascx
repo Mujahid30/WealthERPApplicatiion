@@ -366,12 +366,6 @@
                                         </telerik:RadComboBox>--%>
                                         </ItemTemplate>
                                     </telerik:GridTemplateColumn>
-                                    <telerik:GridBoundColumn DataField="ACC_CustomerCategoryName" UniqueName="ACC_CustomerCategoryName"
-                                        HeaderText="Category" ShowFilterIcon="false" AutoPostBackOnFilter="true" AllowFiltering="true"
-                                        HeaderStyle-Width="67px" SortExpression="ACC_CustomerCategoryName" FilterControlWidth="50px"
-                                        CurrentFilterFunction="Contains">
-                                        <ItemStyle Width="67px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
-                                    </telerik:GridBoundColumn>
                                     <telerik:GridBoundColumn DataField="custcode" UniqueName="custcode" HeaderText="Client Id"
                                         ShowFilterIcon="false" AutoPostBackOnFilter="true" AllowFiltering="true" HeaderStyle-Width="67px"
                                         SortExpression="custcode" FilterControlWidth="50px" CurrentFilterFunction="Contains">
@@ -561,10 +555,28 @@
                                         ShowFilterIcon="false">
                                         <ItemStyle Width="55px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                                     </telerik:GridBoundColumn>
+                                    <telerik:GridBoundColumn DataField="C_ModifiedBy" UniqueName="C_ModifiedBy" HeaderText="Modified On"
+                                        SortExpression="C_ModifiedBy" AutoPostBackOnFilter="true" AllowFiltering="true"
+                                        HeaderStyle-Width="150px" FilterControlWidth="60px" CurrentFilterFunction="Contains"
+                                        ShowFilterIcon="false">
+                                        <ItemStyle Width="55px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
+                                    </telerik:GridBoundColumn>
+                                    <telerik:GridBoundColumn DataField="C_ModifiedOn" UniqueName="C_ModifiedOn" HeaderText="Modified Date"
+                                        SortExpression="C_ModifiedOn" AutoPostBackOnFilter="true" AllowFiltering="true"
+                                        HeaderStyle-Width="150px" FilterControlWidth="60px" CurrentFilterFunction="Contains"
+                                        ShowFilterIcon="false">
+                                        <ItemStyle Width="55px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
+                                    </telerik:GridBoundColumn>
+                                    <telerik:GridBoundColumn DataField="ACC_CustomerCategoryName" UniqueName="ACC_CustomerCategoryName"
+                                        HeaderText="Category" ShowFilterIcon="false" AutoPostBackOnFilter="true" AllowFiltering="true"
+                                        HeaderStyle-Width="67px" SortExpression="ACC_CustomerCategoryName" FilterControlWidth="50px"
+                                        CurrentFilterFunction="Contains">
+                                        <ItemStyle Width="67px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
+                                    </telerik:GridBoundColumn>
                                 </Columns>
                             </MasterTableView>
                             <ClientSettings>
-                                <Scrolling AllowScroll="true" UseStaticHeaders="true" ScrollHeight="380px" />
+                                <Scrolling AllowScroll="true" UseStaticHeaders="false" ScrollHeight="380px" />
                                 <ClientEvents OnGridCreated="GridCreated" />
                                 <Resizing AllowColumnResize="true" />
                                 <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />

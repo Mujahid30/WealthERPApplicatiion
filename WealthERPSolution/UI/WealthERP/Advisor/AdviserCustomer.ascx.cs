@@ -325,6 +325,8 @@ namespace WealthERP.Advisor
             dtCustomer.Columns.Add("IsFPClient");
             dtCustomer.Columns.Add("IsMFKYC");
             dtCustomer.Columns.Add("CreatedOn");
+            dtCustomer.Columns.Add("C_ModifiedOn");
+            dtCustomer.Columns.Add("C_ModifiedBy");
             if (UserRole != "rm")
             {
                 dtCustomer.Columns.Add("BranchName");
@@ -1327,9 +1329,11 @@ namespace WealthERP.Advisor
                             drCustomer["IsMFKYC"] = "N";
                         }
                         if (customerVo.Createdon != null)
-
                             drCustomer["CreatedOn"] = customerVo.Createdon;
-
+                        if (customerVo.Modifiefon != null)
+                            drCustomer["C_ModifiedOn"] = customerVo.Modifiefon;
+                        if(drCustomer["C_ModifiedBy"]!=null)
+                        drCustomer["C_ModifiedBy"] = customerVo.UserId.ToString();
 
 
                         if (UserRole != "rm")
