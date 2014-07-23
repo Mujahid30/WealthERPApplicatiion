@@ -140,12 +140,12 @@
                                     </asp:LinkButton>
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>
-                            <%-- <telerik:GridBoundColumn DataField="CMFSS_SystematicSetupId" AllowFiltering="true"
-                                HeaderText="Transaction No." UniqueName="CMFSS_SystematicSetupId" SortExpression="CMFSS_SystematicSetupId"
+                             <telerik:GridBoundColumn DataField="U_UMId" AllowFiltering="true"
+                                HeaderText="User Id" UniqueName="U_UMId" SortExpression="U_UMId"
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
                                 HeaderStyle-Width="75px" FilterControlWidth="50px">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>--%>
+                            </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="C_FirstName" HeaderText="Customer Name" AllowFiltering="true"
                                 HeaderStyle-Wrap="false" SortExpression="C_FirstName" ShowFilterIcon="false"
                                 CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="100px"

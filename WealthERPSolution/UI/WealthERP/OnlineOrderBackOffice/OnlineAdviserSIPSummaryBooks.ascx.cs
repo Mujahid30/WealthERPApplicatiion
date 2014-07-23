@@ -284,6 +284,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 drSIPOrderBook["ExecutedCount"] = executedcount;
                 drSIPOrderBook["CMFSS_IsSourceAA"] = drSIP["CMFSS_IsSourceAA"];
                 drSIPOrderBook["C_CustomerId"] = drSIP["C_CustomerId"];
+                drSIPOrderBook["U_UMId"] = drSIP["U_UMId"];
                 dtFinalSIPOrderBook.Rows.Add(drSIPOrderBook);
             }
 
@@ -324,6 +325,7 @@ namespace WealthERP.OnlineOrderBackOffice
             dtSIPOrderBook.Columns.Add("PASP_SchemePlanCode");
             dtSIPOrderBook.Columns.Add("CMFA_AccountId");
             dtSIPOrderBook.Columns.Add("C_CustomerId");
+            dtSIPOrderBook.Columns.Add("U_UMId");
             return dtSIPOrderBook;
 
         }
