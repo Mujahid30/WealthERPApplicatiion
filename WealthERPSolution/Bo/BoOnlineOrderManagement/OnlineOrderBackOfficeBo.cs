@@ -313,7 +313,7 @@ namespace BoOnlineOrderManagement
         {
             #region CustomFileName
             var random = new Random(System.DateTime.Now.Millisecond);
-            string filename=string.Empty;
+            string filename = string.Empty;
             OnlineOrderBackOfficeDao daoOnlineOrderBackOffice = new OnlineOrderBackOfficeDao();
 
             string strAMCCodeRTName = daoOnlineOrderBackOffice.GetstrAMCCodeRTName(AmcName);
@@ -334,7 +334,7 @@ namespace BoOnlineOrderManagement
             return filename;
         }
 
-        public string CreatDbfFile(DataTable OrderExtract, string RnTType, string workDir,string type)
+        public string CreatDbfFile(DataTable OrderExtract, string RnTType, string workDir, string type)
         {
             string seedFileName = "";
             switch (RnTType)
@@ -351,7 +351,7 @@ namespace BoOnlineOrderManagement
                 case "SU":
                     seedFileName = "sund";
                     break;
-               
+
                 default:
                     return null;
             }
@@ -364,9 +364,9 @@ namespace BoOnlineOrderManagement
                 case "SIPBOOK":
                     seedFileName = "sipbook";
                     break;
-                 
+
             }
-           
+
 
             string dbfFile = "ORDEREXT.DBF";
             string csvColList = GetCsvColumnList(OrderExtract.Columns);
@@ -643,6 +643,8 @@ namespace BoOnlineOrderManagement
                            AMFE_Nom2Name = string.Empty, AMFE_Nom2_Relationship = string.Empty, AMFE_NomineeRelation = string.Empty,
                            AMFE_NomineeDateofBirth = string.Empty, AMFE_NomineeGaurdianName = string.Empty, AMFE_NominationNotOpted = "N", AMFE_Dp_Id = string.Empty;
 
+                    #region   Old Joint Holder Logic
+                    /*
                     if (dvJointHolder.ToTable().Rows.Count > 0)
                     {
                         int joint1 = 1;
@@ -678,7 +680,9 @@ namespace BoOnlineOrderManagement
                             }
                         }
                     }
-
+                     
+                   
+                    
                     if (dvNominee.ToTable().Rows.Count > 0)
                     {
                         int nominee1 = 1;
@@ -699,6 +703,69 @@ namespace BoOnlineOrderManagement
                                 AMFE_Nom2_Relationship = drNominee["AMFE_JointNomineeRelation"].ToString();
                             }
 
+                        }
+                    }
+                     * 
+  */
+
+                    #endregion
+
+                    if (dvJointHolder.ToTable().Rows.Count > 0)
+                    {
+                        foreach (DataRow drJoint in dvJointHolder.ToTable().Rows)
+                        {
+                            switch (drJoint["CDAA_AssociateTypeNo"].ToString())
+                            {
+                                case "1":
+                                    AMFE_JointName1 = drJoint["AMFE_JointNomineeName"].ToString();
+                                    AMFE_JointHolderRelation = drJoint["AMFE_JointNomineeRelation"].ToString();
+                                    AMFE_JointDateofBirth = drJoint["AMFE_JointNomineeDateofBirth"].ToString();
+                                    AMFE_JointGaurdianName = drJoint["AMFE_JointNomineeGaurdianName"].ToString();
+                                    if (!string.IsNullOrEmpty(drJoint["AMFE_JointNomineePan"].ToString()))
+                                    {
+                                        AMFE_JointHolder1Pan = drJoint["AMFE_JointNomineePan"].ToString();
+                                        if (drJoint["AMFE_JointNomineeKYC"].ToString() == "1")
+                                            AMFE_JH1PanValid = "Y";
+                                    }
+                                    AMFE_Dp_Id = drJoint["AMFE_Dp_Id"].ToString();
+                                    break;
+                                case "2":
+                                    AMFE_JointName2 = drJoint["AMFE_JointNomineeName"].ToString();
+                                    if (!string.IsNullOrEmpty(drJoint["AMFE_JointNomineePan"].ToString()))
+                                    {
+                                        AMFE_JointHolder2Pan = drJoint["AMFE_JointNomineePan"].ToString();
+                                        if (drJoint["AMFE_JointNomineeKYC"].ToString() == "1")
+                                            AMFE_JH2PanValid = "Y";
+                                    }
+                                    if (string.IsNullOrEmpty(AMFE_Dp_Id))
+                                        AMFE_Dp_Id = drJoint["AMFE_Dp_Id"].ToString();
+                                    break;
+                            }
+                            
+                        }
+
+                    }
+
+                    if (dvNominee.ToTable().Rows.Count > 0)
+                    {                        
+                        foreach (DataRow drNominee in dvNominee.ToTable().Rows)
+                        {
+                            switch (drNominee["CDAA_AssociateTypeNo"].ToString())
+                            {
+                                case "1":
+                                    AMFE_NomineeName = drNominee["AMFE_JointNomineeName"].ToString();
+                                    AMFE_NomineeRelation = drNominee["AMFE_JointNomineeRelation"].ToString();
+                                    AMFE_NomineeDateofBirth = drNominee["AMFE_JointNomineeDateofBirth"].ToString();
+                                    AMFE_NomineeGaurdianName = drNominee["AMFE_JointNomineeGaurdianName"].ToString();
+                                    AMFE_NominationNotOpted = "Y";
+                                    break;
+                                case "2":
+                                    AMFE_Nom2Name = drNominee["AMFE_JointNomineeName"].ToString();
+                                    AMFE_Nom2_Relationship = drNominee["AMFE_JointNomineeRelation"].ToString();
+                                    break;
+
+                            }
+                            
                         }
                     }
 
@@ -1224,14 +1291,14 @@ namespace BoOnlineOrderManagement
             dsSystematicDetails = daoOnlineOrderBackOffice.GetSystematicDetails(schemeplancode);
             return dsSystematicDetails;
         }
-        public bool EditSystematicDetails(MFProductAMCSchemePlanDetailsVo mfProductAMCSchemePlanDetailsVo, int schemeplancode, int systematicdetailsid,int userId)
+        public bool EditSystematicDetails(MFProductAMCSchemePlanDetailsVo mfProductAMCSchemePlanDetailsVo, int schemeplancode, int systematicdetailsid, int userId)
         {
             bool blResult = false;
 
             OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
             try
             {
-                blResult = OnlineOrderBackOfficeDao.EditSystematicDetails(mfProductAMCSchemePlanDetailsVo, schemeplancode, systematicdetailsid,userId);
+                blResult = OnlineOrderBackOfficeDao.EditSystematicDetails(mfProductAMCSchemePlanDetailsVo, schemeplancode, systematicdetailsid, userId);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1255,13 +1322,13 @@ namespace BoOnlineOrderManagement
             }
             return blResult;
         }
-        public bool CreateSystematicDetails(MFProductAMCSchemePlanDetailsVo mfProductAMCSchemePlanDetailsVo, int schemeplancode,int userId)
+        public bool CreateSystematicDetails(MFProductAMCSchemePlanDetailsVo mfProductAMCSchemePlanDetailsVo, int schemeplancode, int userId)
         {
             OnlineOrderBackOfficeDao daoOnlineOrderBackOffice = new OnlineOrderBackOfficeDao();
             bool bResult = false;
             try
             {
-                bResult = daoOnlineOrderBackOffice.CreateSystematicDetails(mfProductAMCSchemePlanDetailsVo, schemeplancode,userId);
+                bResult = daoOnlineOrderBackOffice.CreateSystematicDetails(mfProductAMCSchemePlanDetailsVo, schemeplancode, userId);
 
             }
             catch (BaseApplicationException Ex)
@@ -1369,7 +1436,7 @@ namespace BoOnlineOrderManagement
         private void CreateTxtFile(DataTable dtOrderExtract, string filename, string rtaType, string filePath)
         {
             string dateFormat = "MM/dd/yyyy";
-                      
+
 
             switch (rtaType)
             {
@@ -1452,7 +1519,7 @@ namespace BoOnlineOrderManagement
                         // }
                         DataTable orderExtractForRta = GetOrderExtractForRta(DateTime.Now.Date, adviserId, OrderType.Key, rta.Key, int.Parse(amc.Key));
 
-                        
+
                         if (orderExtractForRta.Rows.Count <= 0) continue;
 
                         if (Directory.Exists(extractPath + @"\" + adviserId.ToString() + @"\" + dailyDirName + @"\" + rta.Value + @"\" + amc.Value + @"\" + OrderType.Value) == false)
@@ -1464,7 +1531,7 @@ namespace BoOnlineOrderManagement
                         if (rta.Key.Equals("CA"))
                         {
                             CreateTxtFile(orderExtractForRta, downloadFileName, rta.Key, extractPath + @"\" + adviserId.ToString() + @"\" + dailyDirName + @"\" + rta.Value + @"\" + amc.Value + @"\" + OrderType.Value + @"\");
-                           
+
                         }
 
                         string localFilePath = CreatDbfFile(orderExtractForRta, rta.Key, refFilePath, OrderType.Key);
