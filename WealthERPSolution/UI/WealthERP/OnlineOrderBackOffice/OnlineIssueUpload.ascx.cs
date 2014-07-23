@@ -498,14 +498,14 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             if (ddlAlltmntTyp.SelectedValue != "select")
             {
-                BindAllotmentFileType(ddlAlltmntTyp.SelectedValue);
+                BindAllotmentFileType(ddlAlltmntTyp.SelectedValue,ddlProduct.SelectedValue);
             }
         }
-        protected void BindAllotmentFileType(string FileType)
+        protected void BindAllotmentFileType(string fileType,string productType)
         {
             OnlineNCDBackOfficeBo OnlineNCDBackOfficeBo = new OnlineNCDBackOfficeBo();
             DataTable dtAllotmentFileType;
-            dtAllotmentFileType = OnlineNCDBackOfficeBo.GetNCDAllotmentFileType(FileType);
+            dtAllotmentFileType = OnlineNCDBackOfficeBo.GetNCDAllotmentFileType(fileType,productType);
             dtAllotmentFileType.Columns.Add("RegisterType", typeof(string), "PAG_AssetGroupName +' '+ XES_SourceName");
             if (dtAllotmentFileType.Rows.Count > 0)
             {
