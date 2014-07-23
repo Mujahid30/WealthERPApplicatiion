@@ -31,6 +31,7 @@ namespace DaoCommon
 
             try
             {
+
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmdCreateTaskRequest = db.GetStoredProcCommand("SPROC_CreateTaskRequest");
                 db.AddInParameter(cmdCreateTaskRequest, "@TaskId", DbType.Int32, taskId);
@@ -40,8 +41,15 @@ namespace DaoCommon
                 db.AddOutParameter(cmdCreateTaskRequest, "@OutRequestId", DbType.Int32, 1000000);
                 db.AddInParameter(cmdCreateTaskRequest, "@FilePath", DbType.String, filePath);
                 db.AddInParameter(cmdCreateTaskRequest, "@AdvisorId", DbType.Int32, adviserId);
-                db.AddInParameter(cmdCreateTaskRequest, "@RmId", DbType.Int32, rmId);
-                db.AddInParameter(cmdCreateTaskRequest, "@Branchid", DbType.Int32, branchId);
+                if (rmId==0)
+                    db.AddInParameter(cmdCreateTaskRequest, "@RmId", DbType.Int32,DBNull.Value);
+                else
+                    db.AddInParameter(cmdCreateTaskRequest, "@RmId", DbType.Int32, rmId);
+                if(branchId==0)
+                    db.AddInParameter(cmdCreateTaskRequest, "@Branchid", DbType.Int32, DBNull.Value);
+                else
+                    db.AddInParameter(cmdCreateTaskRequest, "@Branchid", DbType.Int32, branchId);
+
                 db.AddInParameter(cmdCreateTaskRequest, "@UploadType", DbType.String, uploadType);
 
 

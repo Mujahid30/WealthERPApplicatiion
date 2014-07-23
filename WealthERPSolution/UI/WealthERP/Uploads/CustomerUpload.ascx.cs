@@ -412,7 +412,29 @@ namespace WealthERP.Uploads
         {
             //System.Threading.Thread.Sleep(5000);
             //Create XML for the file
-            if (Page.IsValid & ddlUploadType.SelectedValue == "P")
+            if (Page.IsValid & ddlUploadType.SelectedValue == "CM")
+            {
+                int ReqId = 0;
+                msgUploadComplete.Visible = true;
+
+                string uploadFilePath = ConfigurationManager.AppSettings["ADVISOR_UPLOAD_PATH"].ToString() + "\\" + adviserVo.advisorId.ToString() + "\\";
+
+
+
+                string newFileName = SaveFileIntoServer(FileUpload, uploadFilePath);
+                newFileName = uploadFilePath + newFileName;
+                //   packagePath = Server.MapPath("\\UploadPackages\\Integration Services Project1\\Integration Services Project1\\Package9.dtsx");
+                werpTaskRequestManagementBo.CreateTaskRequest(4, userVo.UserId, out ReqId, newFileName, adviserVo.advisorId, 0, 0, ddlListCompany.SelectedValue);
+                if (ReqId > 0)
+                {
+                    msgUploadComplete.InnerText = "Request Id-" + ReqId.ToString() + "-Generated SuccessFully";
+                }
+                else
+                {
+                    msgUploadComplete.InnerText = "Not able to create Request,Try again";
+                }
+            }
+           else if (Page.IsValid & ddlUploadType.SelectedValue == "P")
             {
                 int ReqId = 0;
                 msgUploadComplete.Visible = true;
@@ -434,7 +456,7 @@ namespace WealthERP.Uploads
                     msgUploadComplete.InnerText = "Not able to create Request,Try again";
                 }
             }
-            if (Page.IsValid & ddlUploadType.SelectedValue != "P")
+            if (Page.IsValid & ddlUploadType.SelectedValue != "P" & ddlUploadType.SelectedValue != "CM")
             {
                 #region Uploading Content
                 string pathxml = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
@@ -4558,6 +4580,18 @@ namespace WealthERP.Uploads
             {
                 trListBranch.Visible = false;
             }
+            if (ddlUploadType.SelectedValue == "CM")
+            {
+                //trListBranch.Visible = true;
+                trRM.Visible = false;
+
+            }
+            else
+            {
+                trRM.Visible = true;
+            }
+            
+           
             //MF FOLIO UPLOADS DROPDOWN POPULATE -VISHAL 
             if (ddlUploadType.SelectedValue == Contants.ExtractTypeMFFolio)
             {   // MF FOLIO  Only
@@ -4566,6 +4600,7 @@ namespace WealthERP.Uploads
                 ddlListCompany.DataValueField = "Value";
                 ddlListCompany.DataBind();
                 ddlListCompany.Items.Insert(0, new ListItem("Select Source Type", "Select Source Type"));
+
 
             }
             if (ddlUploadType.SelectedValue == Contants.ExtractTypeProfile)
@@ -4767,6 +4802,18 @@ namespace WealthERP.Uploads
             {
                 ddlListCompany.Items.Clear();
                 //ddlListExtensionType.Items.Clear();
+            }
+            if (ddlUploadType.SelectedValue == Contants.ExtractTypeModification)
+            {   // Profile Only
+
+                //fill External Type dropdownbox
+                ddlListCompany.DataSource = GetMFFolioGenericDictionary();
+                ddlListCompany.DataTextField = "Key";
+                ddlListCompany.DataValueField = "Value";
+                ddlListCompany.DataBind();
+                ddlListCompany.Items.Insert(0, new ListItem("Select Source Type", "Select Source Type"));
+
+
             }
         }
 

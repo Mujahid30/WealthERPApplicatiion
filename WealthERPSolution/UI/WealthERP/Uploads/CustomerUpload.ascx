@@ -267,7 +267,8 @@
                 <asp:ListItem Value="MFSS">Systematic</asp:ListItem>
                 <asp:ListItem Value="TRAIL">Trail Commission</asp:ListItem>
                 <asp:ListItem Value="Link">Fixed Income</asp:ListItem>
-                <asp:ListItem Value="P">Profile Only</asp:ListItem>
+                <asp:ListItem Value="P">Profile Incremental</asp:ListItem>
+                <asp:ListItem Value="CM">Client Modification</asp:ListItem>
             </asp:DropDownList>
             <img src="../Images/help.png" class="ScreenTip1" style="height: 15px; width: 15px;" />
             <div id="div1" style="display: none;">

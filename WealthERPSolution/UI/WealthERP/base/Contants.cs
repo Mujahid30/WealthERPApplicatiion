@@ -29,6 +29,8 @@ namespace WealthERP.Base
         public const string ExtractTypeMFSystematic = "MFSS";
         public const string ExtractTypeMFFolio = "MFFO";
         public const string ExtractTypeFIHoldings = "Link";
+        public const string ExtractTypeModification = "CM";
+
 
 
         // External File Types
