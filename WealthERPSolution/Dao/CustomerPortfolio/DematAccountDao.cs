@@ -156,9 +156,9 @@ namespace DaoCustomerPortfolio
             }
             return dsTradeAccount;
         }
-        public void AddDematDetails(int customerId, int portfolioId, DematAccountVo demataccountvo, RMVo rmvo, ArrayList associationIdJH, ArrayList associationIdN, ArrayList lstassociatedtradeaccount)
+        public bool AddDematDetails(int customerId, int portfolioId, DematAccountVo demataccountvo, RMVo rmvo)
         {
-            //DataSet dsDematDetails = null;
+            bool result = false;
             Database db;
             DbCommand dbDematDetails;
             DbCommand dbAssociationTypes=null;
@@ -181,60 +181,63 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(dbDematDetails,"@CEDA_AccountOpeningDate",DbType.DateTime,demataccountvo.AccountOpeningDate);
                 else
                     db.AddInParameter(dbDematDetails, "@CEDA_AccountOpeningDate", DbType.DateTime, DBNull.Value);
-                db.AddInParameter(dbDematDetails,"@CEDA_BeneficiaryAccountNum",DbType.String,demataccountvo.BeneficiaryAccountNbr);
+                //db.AddInParameter(dbDematDetails,"@CEDA_BeneficiaryAccountNum",DbType.String,demataccountvo.BeneficiaryAccountNbr);
                 db.AddInParameter(dbDematDetails,"@CEDA_CreatedBy",DbType.Int32,rmvo.RMId);
                 db.AddInParameter(dbDematDetails,"@CEDA_ModifiedBy",DbType.Int32,rmvo.RMId);
                 db.AddInParameter(dbDematDetails,"@C_CustomerId",DbType.Int32,customerId);
-                db.AddOutParameter(dbDematDetails,"@CEDA_DematAccountId",DbType.Int32,10000);
-                db.ExecuteNonQuery(dbDematDetails);
-                dematAccountId = int.Parse(db.GetParameterValue(dbDematDetails, "@CEDA_DematAccountId").ToString());
-                
-                
-                IEnumerator enumassociationIdJH = associationIdJH.GetEnumerator();
-                while (enumassociationIdJH.MoveNext())
+                //db.AddOutParameter(dbDematDetails,"@CEDA_DematAccountId",DbType.Int32,10000);
+                if ((db.ExecuteNonQuery(dbDematDetails))!=0)
                 {
-                   
-                    Object obj = enumassociationIdJH.Current;
-                    dbAssociationTypes = db.GetStoredProcCommand("SP_AddAssociationTypesForDemat");
-                    db.AddInParameter(dbAssociationTypes, "@CEDA_DematAccountId", DbType.Int32, dematAccountId);
-                    db.AddInParameter(dbAssociationTypes, "@CAS_AssociationId", DbType.Int32, int.Parse(obj.ToString()));                    
-                    db.AddInParameter(dbAssociationTypes, "@CEDAA_AssociationType", DbType.String, "JH");
-                    db.AddInParameter(dbAssociationTypes, "@CEDAA_CreatedBy", DbType.String, rmvo.RMId);
-                    db.AddInParameter(dbAssociationTypes, "@CEDAA_ModifiedBy", DbType.String, rmvo.RMId);
-                    db.ExecuteNonQuery(dbAssociationTypes);
+                    result = true;
                 }
+                //dematAccountId = int.Parse(db.GetParameterValue(dbDematDetails, "@CEDA_DematAccountId").ToString());
+                
+                
+                //IEnumerator enumassociationIdJH = associationIdJH.GetEnumerator();
+                //while (enumassociationIdJH.MoveNext())
+                //{
+                   
+                //    Object obj = enumassociationIdJH.Current;
+                //    dbAssociationTypes = db.GetStoredProcCommand("SP_AddAssociationTypesForDemat");
+                //    db.AddInParameter(dbAssociationTypes, "@CEDA_DematAccountId", DbType.Int32, dematAccountId);
+                //    db.AddInParameter(dbAssociationTypes, "@CAS_AssociationId", DbType.Int32, int.Parse(obj.ToString()));                    
+                //    db.AddInParameter(dbAssociationTypes, "@CEDAA_AssociationType", DbType.String, "JH");
+                //    db.AddInParameter(dbAssociationTypes, "@CEDAA_CreatedBy", DbType.String, rmvo.RMId);
+                //    db.AddInParameter(dbAssociationTypes, "@CEDAA_ModifiedBy", DbType.String, rmvo.RMId);
+                //    db.ExecuteNonQuery(dbAssociationTypes);
+                //}
 
                 
-                IEnumerator enumassociationIdN = associationIdN.GetEnumerator();
+                //IEnumerator enumassociationIdN = associationIdN.GetEnumerator();
 
-                while (enumassociationIdN.MoveNext())
-                    {
-                        dbAssociationTypes = db.GetStoredProcCommand("SP_AddAssociationTypesForDemat");
-                        Object obj = enumassociationIdN.Current;
-                        db.AddInParameter(dbAssociationTypes, "@CEDA_DematAccountId", DbType.Int32, dematAccountId);
-                        db.AddInParameter(dbAssociationTypes, "@CAS_AssociationId", DbType.Int32, int.Parse(obj.ToString()));                        
-                        db.AddInParameter(dbAssociationTypes, "@CEDAA_AssociationType", DbType.String, "N");
-                        db.AddInParameter(dbAssociationTypes, "@CEDAA_CreatedBy", DbType.String, rmvo.RMId);
-                        db.AddInParameter(dbAssociationTypes, "@CEDAA_ModifiedBy", DbType.String, rmvo.RMId);
-                        db.ExecuteNonQuery(dbAssociationTypes);
-                    }
+                //while (enumassociationIdN.MoveNext())
+                //    {
+                //        dbAssociationTypes = db.GetStoredProcCommand("SP_AddAssociationTypesForDemat");
+                //        Object obj = enumassociationIdN.Current;
+                //        db.AddInParameter(dbAssociationTypes, "@CEDA_DematAccountId", DbType.Int32, dematAccountId);
+                //        db.AddInParameter(dbAssociationTypes, "@CAS_AssociationId", DbType.Int32, int.Parse(obj.ToString()));                        
+                //        db.AddInParameter(dbAssociationTypes, "@CEDAA_AssociationType", DbType.String, "N");
+                //        db.AddInParameter(dbAssociationTypes, "@CEDAA_CreatedBy", DbType.String, rmvo.RMId);
+                //        db.AddInParameter(dbAssociationTypes, "@CEDAA_ModifiedBy", DbType.String, rmvo.RMId);
+                //        db.ExecuteNonQuery(dbAssociationTypes);
+                //    }
                 
 
 
                
-                IEnumerator enumlstassociatedtradeaccount = lstassociatedtradeaccount.GetEnumerator();
-                while (enumlstassociatedtradeaccount.MoveNext())
-                {
-                    dbTradeAccount = db.GetStoredProcCommand("SP_AddTradeAccountForDemat");
+                //IEnumerator enumlstassociatedtradeaccount = lstassociatedtradeaccount.GetEnumerator();
+                //while (enumlstassociatedtradeaccount.MoveNext())
+                //{
+                //    dbTradeAccount = db.GetStoredProcCommand("SP_AddTradeAccountForDemat");
                 
-                    Object obj = enumlstassociatedtradeaccount.Current;
-                    db.AddInParameter(dbTradeAccount, "@CEDA_DematAccountId", DbType.Int32, dematAccountId);
-                    db.AddInParameter(dbTradeAccount, "@CETA_AccountId", DbType.Int32, int.Parse(obj.ToString()));
-                    db.AddInParameter(dbTradeAccount, "@CETDAA_IsDefault", DbType.Int16, 1);
-                    db.AddInParameter(dbTradeAccount, "@CEDA_CreatedBy", DbType.Int32, rmvo.RMId);
-                    db.AddInParameter(dbTradeAccount, "@CEDA_ModifiedBy", DbType.Int32, rmvo.RMId);
-                    db.ExecuteNonQuery(dbTradeAccount);
-                }
+                //    Object obj = enumlstassociatedtradeaccount.Current;
+                //    db.AddInParameter(dbTradeAccount, "@CEDA_DematAccountId", DbType.Int32, dematAccountId);
+                //    db.AddInParameter(dbTradeAccount, "@CETA_AccountId", DbType.Int32, int.Parse(obj.ToString()));
+                //    db.AddInParameter(dbTradeAccount, "@CETDAA_IsDefault", DbType.Int16, 1);
+                //    db.AddInParameter(dbTradeAccount, "@CEDA_CreatedBy", DbType.Int32, rmvo.RMId);
+                //    db.AddInParameter(dbTradeAccount, "@CEDA_ModifiedBy", DbType.Int32, rmvo.RMId);
+                //    db.ExecuteNonQuery(dbTradeAccount);
+                //}
 
             }
             catch (BaseApplicationException ex)
@@ -256,6 +259,7 @@ namespace DaoCustomerPortfolio
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
+            return result;
         }
         
         
@@ -793,13 +797,12 @@ namespace DaoCustomerPortfolio
                 throw exBase;
             }
         }
-        public void UpdateDematDetails(int customerId, int portfolioId,int dematId, DematAccountVo demataccountvo, RMVo rmvo, ArrayList associationIdJH, ArrayList associationIdN, ArrayList lstassociatedtradeaccount)
+        public void UpdateDematDetails(int customerId, int portfolioId,int dematId, DematAccountVo demataccountvo, RMVo rmvo)
         {
             //DataSet dsDematDetails = null;
             Database db;
             DbCommand dbDematDetails;
-            DbCommand dbAssociationTypes = null;
-            DbCommand dbTradeAccount = null;
+            
             DbCommand dbDeleteAssociates = null;
             int dematAccountId = dematId;
             try
@@ -832,59 +835,59 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(dbDeleteAssociates, "@DematAccountId", DbType.Int32, dematAccountId);
                 db.ExecuteNonQuery(dbDeleteAssociates);
 
-                if (associationIdJH.Count != 0)
-                {
-                    IEnumerator enumassociationIdJH = associationIdJH.GetEnumerator();
-                    while (enumassociationIdJH.MoveNext())
-                    {
+                //if (associationIdJH.Count != 0)
+                //{
+                //    IEnumerator enumassociationIdJH = associationIdJH.GetEnumerator();
+                //    while (enumassociationIdJH.MoveNext())
+                //    {
 
-                        Object obj = enumassociationIdJH.Current;
-                        dbAssociationTypes = db.GetStoredProcCommand("SP_AddAssociationTypesForDemat");
-                        db.AddInParameter(dbAssociationTypes, "@CEDA_DematAccountId", DbType.Int32, dematAccountId);
-                        db.AddInParameter(dbAssociationTypes, "@CAS_AssociationId", DbType.Int32, int.Parse(obj.ToString()));
-                        db.AddInParameter(dbAssociationTypes, "@CEDAA_AssociationType", DbType.String, "JH");
-                        db.AddInParameter(dbAssociationTypes, "@CEDAA_CreatedBy", DbType.String, rmvo.RMId);
-                        db.AddInParameter(dbAssociationTypes, "@CEDAA_ModifiedBy", DbType.String, rmvo.RMId);
-                        db.ExecuteNonQuery(dbAssociationTypes);
-                    }
-                }
+                //        Object obj = enumassociationIdJH.Current;
+                //        dbAssociationTypes = db.GetStoredProcCommand("SP_AddAssociationTypesForDemat");
+                //        db.AddInParameter(dbAssociationTypes, "@CEDA_DematAccountId", DbType.Int32, dematAccountId);
+                //        db.AddInParameter(dbAssociationTypes, "@CAS_AssociationId", DbType.Int32, int.Parse(obj.ToString()));
+                //        db.AddInParameter(dbAssociationTypes, "@CEDAA_AssociationType", DbType.String, "JH");
+                //        db.AddInParameter(dbAssociationTypes, "@CEDAA_CreatedBy", DbType.String, rmvo.RMId);
+                //        db.AddInParameter(dbAssociationTypes, "@CEDAA_ModifiedBy", DbType.String, rmvo.RMId);
+                //        db.ExecuteNonQuery(dbAssociationTypes);
+                //    }
+                //}
 
-                if (associationIdN.Count != 0)
-                {
+                //if (associationIdN.Count != 0)
+                //{
 
-                    IEnumerator enumassociationIdN = associationIdN.GetEnumerator();
+                //    IEnumerator enumassociationIdN = associationIdN.GetEnumerator();
 
-                    while (enumassociationIdN.MoveNext())
-                    {
-                        dbAssociationTypes = db.GetStoredProcCommand("SP_AddAssociationTypesForDemat");
-                        Object obj = enumassociationIdN.Current;
-                        db.AddInParameter(dbAssociationTypes, "@CEDA_DematAccountId", DbType.Int32, dematAccountId);
-                        db.AddInParameter(dbAssociationTypes, "@CAS_AssociationId", DbType.Int32, int.Parse(obj.ToString()));
-                        db.AddInParameter(dbAssociationTypes, "@CEDAA_AssociationType", DbType.String, "N");
-                        db.AddInParameter(dbAssociationTypes, "@CEDAA_CreatedBy", DbType.String, rmvo.RMId);
-                        db.AddInParameter(dbAssociationTypes, "@CEDAA_ModifiedBy", DbType.String, rmvo.RMId);
-                        db.ExecuteNonQuery(dbAssociationTypes);
-                    }
+                //    while (enumassociationIdN.MoveNext())
+                //    {
+                //        dbAssociationTypes = db.GetStoredProcCommand("SP_AddAssociationTypesForDemat");
+                //        Object obj = enumassociationIdN.Current;
+                //        db.AddInParameter(dbAssociationTypes, "@CEDA_DematAccountId", DbType.Int32, dematAccountId);
+                //        db.AddInParameter(dbAssociationTypes, "@CAS_AssociationId", DbType.Int32, int.Parse(obj.ToString()));
+                //        db.AddInParameter(dbAssociationTypes, "@CEDAA_AssociationType", DbType.String, "N");
+                //        db.AddInParameter(dbAssociationTypes, "@CEDAA_CreatedBy", DbType.String, rmvo.RMId);
+                //        db.AddInParameter(dbAssociationTypes, "@CEDAA_ModifiedBy", DbType.String, rmvo.RMId);
+                //        db.ExecuteNonQuery(dbAssociationTypes);
+                //    }
 
 
-                }
-                if (lstassociatedtradeaccount.Count != 0)
-                {
+                //}
+                //if (lstassociatedtradeaccount.Count != 0)
+                //{
 
-                    IEnumerator enumlstassociatedtradeaccount = lstassociatedtradeaccount.GetEnumerator();
-                    while (enumlstassociatedtradeaccount.MoveNext())
-                    {
-                        dbTradeAccount = db.GetStoredProcCommand("SP_AddTradeAccountForDemat");
+                //    IEnumerator enumlstassociatedtradeaccount = lstassociatedtradeaccount.GetEnumerator();
+                //    while (enumlstassociatedtradeaccount.MoveNext())
+                //    {
+                //        dbTradeAccount = db.GetStoredProcCommand("SP_AddTradeAccountForDemat");
 
-                        Object obj = enumlstassociatedtradeaccount.Current;
-                        db.AddInParameter(dbTradeAccount, "@CEDA_DematAccountId", DbType.Int32, dematAccountId);
-                        db.AddInParameter(dbTradeAccount, "@CETA_AccountId", DbType.Int32, int.Parse(obj.ToString()));
-                        db.AddInParameter(dbTradeAccount, "@CETDAA_IsDefault", DbType.Int16, 1);
-                        db.AddInParameter(dbTradeAccount, "@CEDA_CreatedBy", DbType.Int32, rmvo.RMId);
-                        db.AddInParameter(dbTradeAccount, "@CEDA_ModifiedBy", DbType.Int32, rmvo.RMId);
-                        db.ExecuteNonQuery(dbTradeAccount);
-                    }
-                }
+                //        Object obj = enumlstassociatedtradeaccount.Current;
+                //        db.AddInParameter(dbTradeAccount, "@CEDA_DematAccountId", DbType.Int32, dematAccountId);
+                //        db.AddInParameter(dbTradeAccount, "@CETA_AccountId", DbType.Int32, int.Parse(obj.ToString()));
+                //        db.AddInParameter(dbTradeAccount, "@CETDAA_IsDefault", DbType.Int16, 1);
+                //        db.AddInParameter(dbTradeAccount, "@CEDA_CreatedBy", DbType.Int32, rmvo.RMId);
+                //        db.AddInParameter(dbTradeAccount, "@CEDA_ModifiedBy", DbType.Int32, rmvo.RMId);
+                //        db.ExecuteNonQuery(dbTradeAccount);
+                //    }
+                //}
             }
             catch (BaseApplicationException ex)
             {

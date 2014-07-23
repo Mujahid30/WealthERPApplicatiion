@@ -6,71 +6,7 @@
         <asp:ServiceReference Path="~/CustomerPortfolio/AutoComplete.asmx" />
     </Services>
 </asp:ScriptManager>
-<script language="javascript" type="text/javascript">
-    function addbranches() {
 
-        ///var isSuccess = false;
-        var Source = document.getElementById("<%= lstAvailableTrades.ClientID %>");
-        var Target = document.getElementById("<%= lstAssocaitedTrades.ClientID %>");
-
-        if ((Source != null) && (Target != null) && Source.selectedIndex >= 0) {
-            var newOption = new Option();
-            newOption.text = Source.options[Source.selectedIndex].text;
-            newOption.value = Source.options[Source.selectedIndex].value;
-            Target.options[Target.length] = newOption;
-            Source.remove(Source.selectedIndex);
-
-        }
-
-
-        return false;
-
-    }
-
-
-    function deletebranches() {
-        var Source = document.getElementById("<%= lstAssocaitedTrades.ClientID %>");
-        var Target = document.getElementById("<%= lstAvailableTrades.ClientID %>");
-
-        if ((Source != null) && (Target != null) && Source.selectedIndex >= 0) {
-
-            var newOption = new Option();
-            newOption.text = Source.options[Source.selectedIndex].text;
-            newOption.value = Source.options[Source.selectedIndex].value;
-            Target.options[Target.length] = newOption;
-            Source.remove(Source.selectedIndex);
-        }
-        return false;
-    }
-
-    function checkDate(sender, args) {
-
-        var selectedDate = new Date();
-        selectedDate = sender._selectedDate;
-
-        var todayDate = new Date();
-        var msg = "";
-
-        if (selectedDate > todayDate) {
-            sender._selectedDate = todayDate;
-            sender._textbox.set_Value(sender._selectedDate.format(sender._format));
-            alert("Warning! - Date Cannot be in the future");
-        }
-    }
-    function GetSelectedBranches() {
-        var Target = document.getElementById("<%= lstAssocaitedTrades.ClientID %>");
-        var selectedBranches = document.getElementById("<%= hdnSelectedBranches.ClientID %>");
-        for (var i = 0; i < Target.length; i++) {
-            selectedBranches.value += Target.options[i].value + ",";
-        }
-
-        var ddlmodeofholdingTarget = document.getElementById("<%= ddlModeOfHolding.ClientID %>");
-        var ddlModeOfHoldingSelectedMode = document.getElementById("<%= hdnSelectedModeOfHolding.ClientID %>");
-        ddlModeOfHoldingSelectedMode.value = ddlmodeofholdingTarget.options[ddlmodeofholdingTarget.selectedIndex].value;
-    }
-    
-    
-</script>
 
 <script runat="server">
   
@@ -159,14 +95,16 @@
         </td>
         <td>
             <!-- calAccountOpeningDate -->
-            <asp:TextBox ID="txtAccountOpeningDate"  CssClass="txtField" runat="server"></asp:TextBox>
-            <ajaxToolKit:CalendarExtender runat="server" Format="dd/MM/yyyy" TargetControlID="txtAccountOpeningDate"
-                ID="calExeAccountOpeningDate" Enabled="true" OnClientDateSelectionChanged="checkDate">
-            </ajaxToolKit:CalendarExtender>
-            <ajaxToolKit:TextBoxWatermarkExtender TargetControlID="txtAccountOpeningDate" WatermarkText="dd/mm/yyyy"
-                runat="server" ID="wmtxtAccountOpeningDate">
-            </ajaxToolKit:TextBoxWatermarkExtender>
-            <%--<span id="Span7" class="spnRequiredField">*</span>--%>
+         
+            <telerik:RadDatePicker ID="txtAccountOpeningDate" CssClass="txtTo" runat="server" Culture="English (United States)"
+                            Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                            <calendar id="Calendar1" runat="server" userowheadersasselectors="False" usecolumnheadersasselectors="False"
+                                viewselectortext="x" skin="Telerik" enableembeddedskins="false">
+                            </calendar>
+                            <datepopupbutton imageurl="" hoverimageurl=""></datepopupbutton>
+                            <dateinput id="DateInput1" runat="server" displaydateformat="d/M/yyyy" dateformat="d/M/yyyy">
+                            </dateinput>
+                        </telerik:RadDatePicker>
         </td>
         <td>
             
@@ -247,73 +185,11 @@
             &nbsp;
         </td>
     </tr>
-<%--    <tr>
-        <td colspan="6">
-            <hr id="hrPickJointHolder" runat="server" />
-        </td>
-    </tr>--%>
-    <tr>
-    
-    <td colspan="10">
-            <div class="divSectionHeading" style="vertical-align: text-bottom">
-            &nbsp;<asp:Label ID="lblPickJointHolder" runat="server" Text="Pick Joint Holder:" CssClass="FieldName"></asp:Label>
-        
-                        
-             </div>
-        </td>
-        
-        <td>
-            &nbsp;
-        </td>
-        <td>
-            &nbsp;
-        </td>
-    </tr>
-<%--    <tr id="trNomineeCaption" runat="server" visible="true">
-                <td colspan="6" style="vertical-align: text-bottom; padding-top: 6px; padding-bottom: 6px">
-                    <div class="divSectionHeading" style="vertical-align: text-bottom">
-                        Pick Joint Holder
-                    </div>
-                </td>
-            </tr>--%>
-    <tr>
-        <td colspan="2">
-            <asp:GridView ID="gvPickJointHolder" runat="server" DataKeyNames="CA_AssociationId"
-                AutoGenerateColumns="False" CssClass="GridViewStyle">
-                <RowStyle CssClass="RowStyle" />
-                <Columns>
-                    <asp:TemplateField HeaderText="Select">
-                        <ItemTemplate>
-                            <asp:CheckBox ID="PJHCheckBox" runat="server" />
-                        </ItemTemplate>
-                        <EditItemTemplate>
-                            <asp:CheckBox ID="PJHCheckBox" runat="server" />
-                        </EditItemTemplate>
-                    </asp:TemplateField>
-                    <asp:BoundField HeaderText="Name" DataField="AssociateName" />
-                    <asp:BoundField HeaderText="Relationship" DataField="XR_Relationship" />
-                </Columns>
-                <FooterStyle CssClass="FooterStyle" />
-                <SelectedRowStyle CssClass="SelectedRowStyle" />
-                <HeaderStyle CssClass="HeaderStyle" />
-                <EditRowStyle CssClass="EditRowStyle" />
-                <AlternatingRowStyle CssClass="AltRowStyle" />
-            </asp:GridView>
-        </td>
-    </tr>
-    &nbsp;
-<%--    <tr>
-        <%--<td colspan="6">
-            <hr />
-        </td>--%>
-   
-    <td>
-    <%--<table width="100%">--%>
-    <tr>
+
+  <tr id="trAssociatePanel" runat="server" visible="false">
         <td colspan="10">
         <div class="divSectionHeading" style="vertical-align: text-bottom">
-            &nbsp;<asp:Label ID="lblPickNominee" runat="server" Text="Pick Nominee"
-                CssClass="FieldName"></asp:Label>
+            Nominee JointHolder Details
         </div>
         </td>
         <td>
@@ -323,31 +199,192 @@
             &nbsp;
         </td>
     </tr>
-    <%--</table>--%>
-    </td>
+
+  
+   
+
+   
     <tr>
         <td colspan="2">
-            <asp:GridView ID="gvPickNominee" runat="server" DataKeyNames="CA_AssociationId" AutoGenerateColumns="False"
-                CssClass="GridViewStyle">
-                <RowStyle CssClass="RowStyle" />
-                <Columns>
-                    <asp:TemplateField HeaderText="Select">
-                        <ItemTemplate>
-                            <asp:CheckBox ID="PNCheckBox" runat="server" />
-                        </ItemTemplate>
-                        <EditItemTemplate>
-                            <asp:CheckBox ID="PNCheckBox" runat="server" />
-                        </EditItemTemplate>
-                    </asp:TemplateField>
-                    <asp:BoundField HeaderText="Name" DataField="AssociateName" />
-                    <asp:BoundField HeaderText="Relationship" DataField="XR_Relationship" />
-                </Columns>
-                <FooterStyle CssClass="FooterStyle" />
-                <SelectedRowStyle CssClass="SelectedRowStyle" />
-                <HeaderStyle CssClass="HeaderStyle" />
-                <EditRowStyle CssClass="EditRowStyle" />
-                <AlternatingRowStyle CssClass="AltRowStyle" />
-            </asp:GridView>
+           
+            
+            
+            <telerik:RadGrid ID="gvAssociate" runat="server" CssClass="RadGrid" GridLines="Both" Visible="false"
+                Width="90%" AllowPaging="True" PageSize="20" AllowSorting="True" AutoGenerateColumns="false"
+                ShowStatusBar="true" AllowAutomaticDeletes="True" Skin="Telerik" OnItemDataBound="gvFamilyAssociate_ItemDataBound"
+                OnItemCommand="gvFamilyAssociate_ItemCommand" OnNeedDataSource="gvFamilyAssociate_NeedDataSource" >
+                <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true" 
+                    FileName="Family Associates" Excel-Format="ExcelML">
+                </ExportSettings>
+                <%--<MasterTableView Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
+                                        CommandItemDisplay="None">--%>
+                <MasterTableView DataKeyNames="CDAA_Id,CEDA_DematAccountId,CDAA_Name,CDAA_PanNum,Sex,CDAA_DOB,RelationshipName,AssociateType,CDAA_IsKYC,SexShortName,CDAA_AssociateType,XR_RelationshipCode"
+                    Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" EditMode="EditForms"
+                    CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false" CommandItemSettings-AddNewRecordText="Add Family Associates">
+                    <Columns>
+                        <telerik:GridEditCommandColumn Visible="true" HeaderStyle-Width="50px" EditText="View/Edit"
+                            UniqueName="editColumn" CancelText="Cancel" UpdateText="Update">
+                        </telerik:GridEditCommandColumn>
+                        <telerik:GridBoundColumn DataField="CDAA_Name" HeaderText="Member name" UniqueName="AssociateName"
+                            SortExpression="AssociateName">
+                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                         <telerik:GridBoundColumn DataField="AssociateType" HeaderText="Associate Type" UniqueName="AssociateType"
+                            SortExpression="AssociateType">
+                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn DataField="CDAA_PanNum" HeaderText="PAN Number" UniqueName="CDAA_PanNum"
+                            SortExpression="CDAA_PanNum">
+                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn DataField="Sex" HeaderText="Gender" UniqueName="Sex"
+                            SortExpression="Sex">
+                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn DataField="CDAA_DOB" HeaderText="Date Of Birth" UniqueName="CDAA_DOB"
+                            SortExpression="CDAA_DOB">
+                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn DataField="RelationshipName" HeaderText="Relationship" AllowFiltering="false"
+                            UniqueName="RelationshipName" SortExpression="RelationshipName">
+                            <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridButtonColumn UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete this Association?"
+                            ConfirmDialogType="RadWindow" ConfirmTitle="Delete" ButtonType="LinkButton" CommandName="Delete"
+                            Text="Delete">
+                            <ItemStyle HorizontalAlign="Center" CssClass="MyImageButton" />
+                        </telerik:GridButtonColumn>
+                    </Columns>
+                    <EditFormSettings FormTableStyle-Height="10px" EditFormType="Template" FormTableStyle-Width="1000px">
+                        <FormTemplate>
+                            <table width="100%" style="background-color: White">
+                              
+                                
+                                <tr id="trNewCustHeader" runat="server">
+                                    <td colspan="4">
+                                        <div class="divSectionHeading" style="vertical-align: text-bottom">
+                                            Add Customer Associate
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr id="trNewCustomer" runat="server">
+                                    <td colspan="4">
+                                        <table width="50%">
+                                            <tr>
+                                                <td class="leftField" align="right">
+                                                    <asp:Label ID="lblNewName" runat="server" CssClass="FieldName" Text="Member Name:"></asp:Label>
+                                                </td>
+                                                <td class="rightField">
+                                                    <asp:TextBox ID="txtNewName" runat="server" Text='<%# Bind("CDAA_Name") %>' CssClass="txtField"></asp:TextBox>
+                                                    <span id="spnTransType" class="spnRequiredField">*</span>
+                                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtNewName"
+                                                        ErrorMessage="<br />Please Enter Associate Name" Display="Dynamic" runat="server"
+                                                        CssClass="rfvPCG" ValidationGroup="Submit"></asp:RequiredFieldValidator>
+                                                </td>
+                                                <td>
+                                                    <asp:CheckBox ID="chkKYC" runat="server" Text="IS KYC" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="leftField" align="right">
+                                                    <asp:Label ID="lblNewPan" runat="server" CssClass="FieldName" Text="PAN:"></asp:Label>
+                                                </td>
+                                                <td class="rightField">
+                                                    <asp:TextBox ID="txtNewPan" runat="server" Text='<%# Bind("CDAA_PanNum") %>' CssClass="txtField"></asp:TextBox>
+                                                    <span id="Span6" class="spnRequiredField">*</span>
+                                                 
+                                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtNewPan"
+                                                        ErrorMessage="<br />Please Enter PAN Number" Display="Dynamic" runat="server"
+                                                        CssClass="rfvPCG" ValidationGroup="Submit"></asp:RequiredFieldValidator>
+                                                </td>
+                                                <td>
+                                                    <%--<asp:CheckBox ID="isRealInvestormem" runat="server" Text="ISRealInvestor" />--%>
+                                                </td>
+                                            </tr>
+                                             <tr>
+                                                <td class="leftField" align="right">
+                                                    <asp:Label ID="lblgender" runat="server" CssClass="FieldName" Text="Gender:"></asp:Label>
+                                                </td>
+                                                <td class="rightField">
+                                                   <asp:DropDownList ID="ddlGender" runat="server" CssClass="cmbField">
+                                                    <asp:ListItem Value ="M">Male</asp:ListItem>
+                                                    <asp:ListItem Value ="F">FeMale</asp:ListItem>
+                                                    </asp:DropDownList>
+                                                </td>
+                                              
+                                            </tr>
+                                             <tr>
+                                                <td class="leftField" align="right">
+                                                    <asp:Label ID="lblDOB" runat="server" CssClass="FieldName" Text="Date Of Birth:"></asp:Label>
+                                                </td>
+                                                 <td class="rightField">
+                                                     <asp:TextBox ID="txtDOB" CssClass="txtField" runat="server"></asp:TextBox>
+                                                     <ajaxToolKit:CalendarExtender runat="server" Format="dd/MM/yyyy" TargetControlID="txtDOB"
+                                                         ID="calExeAccountOpeningDate" Enabled="true" OnClientDateSelectionChanged="checkDate">
+                                                     </ajaxToolKit:CalendarExtender>
+                                                     <ajaxToolKit:TextBoxWatermarkExtender TargetControlID="txtDOB" WatermarkText="dd/mm/yyyy"
+                                                         runat="server" ID="wmtxtAccountOpeningDate">
+                                                     </ajaxToolKit:TextBoxWatermarkExtender>
+                                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator5" ControlToValidate="txtDOB" 
+                                                        ErrorMessage="<br />Please Enter Date of Birth" Display="Dynamic" runat="server" InitialValue="Select"
+                                                        CssClass="rfvPCG" ValidationGroup="Submit"></asp:RequiredFieldValidator>
+                                                     
+                                                 </td>
+                                              
+                                            </tr>
+                                            <tr>
+                                                <td class="leftField" align="right">
+                                                    <asp:Label ID="lblAssociate" runat="server" CssClass="FieldName" Text="Associate Type :"></asp:Label>
+                                                </td>
+                                                <td class="rightField">
+                                                    <asp:DropDownList ID="ddlAssociate" runat="server" CssClass="cmbField">
+                                                    <asp:ListItem Value ="JH1">JointHolder-1</asp:ListItem>
+                                                    <asp:ListItem Value ="JH2">JointHolder-2</asp:ListItem>
+                                                    <asp:ListItem Value ="N1">Nominee-1</asp:ListItem>
+                                                    <asp:ListItem Value ="N2">Nominee-2</asp:ListItem>
+                                                    </asp:DropDownList>
+                                                    <span id="Span3" class="spnRequiredField">*</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="leftField" align="right">
+                                                    <asp:Label ID="lblNewRelationShip" runat="server" CssClass="FieldName" Text="RelationShip :"></asp:Label>
+                                                </td>
+                                                <td class="rightField">
+                                                    <asp:DropDownList ID="ddlNewRelationship" runat="server" CssClass="cmbField">
+                                                    </asp:DropDownList>
+                                                    <span id="Span5" class="spnRequiredField">*</span>
+                                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="ddlNewRelationship" 
+                                                        ErrorMessage="<br />Please a relationship" Display="Dynamic" runat="server" InitialValue="Select"
+                                                        CssClass="rfvPCG" ValidationGroup="Submit"></asp:RequiredFieldValidator>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                </td>
+                                                <td>
+                                                    <asp:Button ID="Button1" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
+                                                        runat="server" CssClass="PCGButton" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'
+                                                        ValidationGroup="Submit"></asp:Button>
+                                                </td>
+                                                <td>
+                                                    <asp:Button ID="Button2" Text="Cancel" runat="server" CausesValidation="False" CssClass="PCGButton"
+                                                        CommandName="Cancel"></asp:Button>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </FormTemplate>
+                    </EditFormSettings>
+                </MasterTableView>
+                <ClientSettings>
+                    <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+                </ClientSettings>
+            </telerik:RadGrid>
+            
+            
         </td>
     </tr>
 <%--    <tr>
@@ -355,7 +392,7 @@
             <hr />
         </td>
     </tr>--%>
-    <tr>
+ <%--   <tr>
         <td colspan="2">
             <table border="0">
                 <tr>
@@ -373,7 +410,18 @@
                         <asp:ListBox ID="lstAvailableTrades" runat="server" Height="139px" Width="107px">
                         </asp:ListBox>
                     </td>
+                    
                     <td>
+                        <asp:ListBox ID="lstAssocaitedTrades" runat="server" Height="134px" Width="114px">
+                        </asp:ListBox>
+                    </td>
+                </tr>
+               
+            </table>
+        </td>
+    </tr>--%>
+  
+ <%-- <td>
                         <table border="1">
                             <tr>
                                 <td>
@@ -387,21 +435,14 @@
                                 </td>
                             </tr>
                         </table>
-                    </td>
-                    <td>
-                        <asp:ListBox ID="lstAssocaitedTrades" runat="server" Height="134px" Width="114px">
-                        </asp:ListBox>
-                    </td>
-                </tr>
-                <tr>
+                    </td>--%>
+  
+   <tr>
                     <td>
                         <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="btnSubmit_Click"
                             CssClass="PCGButton" OnClientClick="GetSelectedBranches()"  ValidationGroup="btnsubmit"/>
                     </td>
                 </tr>
-            </table>
-        </td>
-    </tr>
     <tr>
         <td>
             <asp:HiddenField ID="hdnSelectedBranches" runat="server" />

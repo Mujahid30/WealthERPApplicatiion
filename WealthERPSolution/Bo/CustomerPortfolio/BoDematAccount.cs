@@ -34,9 +34,11 @@ namespace BoCustomerPortfolio
         {
             return demataccountdao.GetXmlModeOfHolding();
         }
-        public void AddDematDetails(int customerId, int portfolioId, DematAccountVo demataccountvo, RMVo rmvo, ArrayList associationIdJH, ArrayList associationIdN, ArrayList lstassociatedtradeaccount)
+        public bool AddDematDetails(int customerId, int portfolioId, DematAccountVo demataccountvo, RMVo rmvo)
         {
-            demataccountdao.AddDematDetails(customerId, portfolioId, demataccountvo, rmvo, associationIdJH, associationIdN, lstassociatedtradeaccount);
+            bool result = false;
+            result=demataccountdao.AddDematDetails(customerId, portfolioId, demataccountvo, rmvo);
+            return result;
         }
         //public void AddAssociationTypesForDemat(int associationId,string associationtype)
         //{
@@ -69,9 +71,9 @@ namespace BoCustomerPortfolio
         {
             return demataccountdao.GetDepositoryNames();
         }
-        public void UpdateDematDetails(int customerId, int portfolioId, int dematId, DematAccountVo demataccountvo, RMVo rmvo, ArrayList associationIdJH, ArrayList associationIdN, ArrayList lstassociatedtradeaccount)
+        public void UpdateDematDetails(int customerId, int portfolioId, int dematId, DematAccountVo demataccountvo, RMVo rmvo)
         {
-            demataccountdao.UpdateDematDetails(customerId, portfolioId, dematId, demataccountvo, rmvo, associationIdJH, associationIdN, lstassociatedtradeaccount);
+            demataccountdao.UpdateDematDetails(customerId, portfolioId, dematId, demataccountvo, rmvo);
         }
         //public void UpdateAssociationTypesForDemat(int associationId, string associationtype)
         //{
