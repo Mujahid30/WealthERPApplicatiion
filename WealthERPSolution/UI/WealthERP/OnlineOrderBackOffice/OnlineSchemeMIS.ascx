@@ -112,7 +112,7 @@
                                     </ItemTemplate>
                                 </telerik:GridTemplateColumn>
                                   <telerik:GridBoundColumn DataField="PASP_SchemePlanCode" UniqueName="PASP_SchemePlanCode"
-                                    HeaderText="Scheme Plan Code" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                    HeaderText="System Code" ShowFilterIcon="false" AutoPostBackOnFilter="true"
                                     AllowFiltering="true" HeaderStyle-Width="80px" SortExpression="PASP_SchemePlanCode"
                                     FilterControlWidth="80px" CurrentFilterFunction="Contains" Visible="true">
                                     <ItemStyle Width="80px" HorizontalAlign="Left" Wrap="false" VerticalAlign="top" />

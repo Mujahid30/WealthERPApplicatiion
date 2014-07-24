@@ -31,6 +31,20 @@
         document.getElementById('ctrl_OnlineSchemeSetUp_gvSIPDetails_ctl00_ctl05_txtstartDate').innerHTML = 'hello';
         alert(masterTable);
     }
+    function CheckOnline() {
+        if (document.getElementById('<%=chkonline.ClientID%>').checked == false) {
+            var con = confirm("Are you sure about the change?\n if you uncheck scheme will be offline.!!");
+
+            if (con == true) {
+                document.getElementById('<%=chkonline.ClientID%>').checked = false;
+                return true;
+            }
+            if (con == false) {
+                document.getElementById('<%=chkonline.ClientID%>').checked = true;
+                return false;
+            }
+        }
+    }
 
 </script>
 
@@ -196,7 +210,7 @@
                 <td>
                     &nbsp;
                     <asp:CheckBox ID="chkonline" AutoPostBack="true" runat="server" Text="Online  Details"
-                        CssClass="FieldName" OnCheckedChanged="oncheckedOnlin_OnCheckedChanged" />
+                        CssClass="FieldName" OnCheckedChanged="oncheckedOnlin_OnCheckedChanged" onClick="CheckOnline();"/>
                     <asp:Label ID="lblProductCode" runat="server" Text="Product Code:" CssClass="FieldName"
                         Visible="false"></asp:Label>
                     <asp:TextBox ID="txtProductCode" runat="server" CssClass="cmbFielde" Width="294"

@@ -683,6 +683,9 @@ namespace DaoAdvisorProfiling
                             rmVo.FaxStd = int.Parse(dr["AR_FaxSTD"].ToString());
                         if (dr["AR_Mobile"].ToString() != "" && dr["AR_Mobile"] != null)
                             rmVo.Mobile = Convert.ToInt64(dr["AR_Mobile"].ToString());
+                        if (dr["RoleList"].ToString() != "" && dr["RoleList"] != null)
+                            rmVo.userRole = dr["RoleList"].ToString();
+                        
                         rmVo.Email = dr["AR_Email"].ToString();
                         rmVo.RMRole = dr["AR_JobFunction"].ToString();
                         //rmVo.MainBranch = dr["MainBranch"].ToString();

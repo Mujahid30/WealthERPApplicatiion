@@ -42,7 +42,7 @@ namespace VoUser
         public Int16 HierarchyTeamId { get; set; }
         public bool IsAssociateUser { get; set; }
         public String StaffBranchAssociation { get; set; }
-
+        public string userRole { get; set; }
         #endregion Fields
 
         #region Properties

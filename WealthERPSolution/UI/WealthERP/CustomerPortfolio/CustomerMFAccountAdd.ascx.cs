@@ -267,7 +267,10 @@ namespace WealthERP.CustomerPortfolio
                 ddlBankList.SelectedItem.Text = customerAccountsVo.BankName.ToString();
             txtInvestorName.Text = customerAccountsVo.Name;
             if (customerAccountsVo.IsJointHolding == 1)
+            {
                 rbtnYes.Checked = true;
+                ddlModeOfHolding.Enabled = true;
+            }
             else
                 rbtnNo.Checked = true;
             if (customerAccountsVo.IsOnline == 0)
@@ -468,6 +471,7 @@ namespace WealthERP.CustomerPortfolio
             {
                 rbtnNo.Checked = true;
                 //trJoint2Header.Visible = false;
+                ddlModeOfHolding.Enabled = false;
             }
             if (customerAccountsVo.IsOnline == 0)
             {
@@ -486,10 +490,10 @@ namespace WealthERP.CustomerPortfolio
             }
             else
                 ddlModeOfHolding.SelectedIndex = 0;
-            if (rbtnNo.Checked == true)
-                ddlModeOfHolding.Enabled = false;
-            else
-                ddlModeOfHolding.Enabled = true;
+            //if (rbtnNo.Checked == true)
+            //    ddlModeOfHolding.Enabled = false;
+            //else
+            //    ddlModeOfHolding.Enabled = true;
 
             txtAssociateCode.Text = customerAccountsVo.AssociateCode;
             txtPAddress1.Text = customerAccountsVo.CAddress1;

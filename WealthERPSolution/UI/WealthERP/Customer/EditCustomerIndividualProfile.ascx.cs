@@ -1238,6 +1238,8 @@ namespace WealthERP.Customer
             CheckBox chkbisRealInvestor = editedItem.FindControl("chkIsinvestmem") as CheckBox;
             CheckBox chkKy = editedItem.FindControl("chKInsideKyc") as CheckBox;
             CheckBox chkKy1 = editedItem.FindControl("chKInsideKyc1") as CheckBox;
+            Label Label18 = editedItem.FindControl("Label18") as Label;
+            RadDatePicker RadDatePicker1 = editedItem.FindControl("RadDatePicker1") as RadDatePicker;
 
 
             if (rbtnExisting.Checked == true)
@@ -1248,7 +1250,8 @@ namespace WealthERP.Customer
                 trNewCustomer.Visible = false;
                 chkbisRealInvestor.Visible = false;
                 chkKy.Visible = false;
-
+                Label18.Visible = false;
+                RadDatePicker1.Visible = false;
             }
             else if (rbtnNew.Checked == true)
             {
@@ -2094,8 +2097,9 @@ namespace WealthERP.Customer
                 DropDownList ddlMemberBranch = (DropDownList)editedItem.FindControl("ddlMemberBranch");
                 HtmlTableRow trCustomerTypeSelection = (HtmlTableRow)editedItem.FindControl("trCustomerTypeSelection");
                 TextBox txtMember = editedItem.FindControl("txtMember") as TextBox;
-
-
+                RadDatePicker RadDatePicker1 = editedItem.FindControl("RadDatePicker1") as RadDatePicker;
+                Label Label18 = editedItem.FindControl("Label18") as Label;
+                
                 if (e.Item.RowIndex == -1)
                 {
                     txtMember.Enabled = true;
@@ -2107,6 +2111,8 @@ namespace WealthERP.Customer
                     txtMember.Enabled = false;
                     ddlMemberBranch.Enabled = false;
                     trCustomerTypeSelection.Visible = false;
+                    RadDatePicker1.Visible = true;
+                    Label18.Visible = true;
                 }
 
 
@@ -2180,6 +2186,7 @@ namespace WealthERP.Customer
                 int branchId = int.Parse(gvFamilyAssociate.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AB_BranchId"].ToString());
                 int iskyc = int.Parse(gvFamilyAssociate.MasterTableView.DataKeyValues[e.Item.ItemIndex]["C_IsKYCAvailable"].ToString());
                 bool irealInvestor = bool.Parse(gvFamilyAssociate.MasterTableView.DataKeyValues[e.Item.ItemIndex]["C_IsRealInvestor"].ToString());
+
                 CheckBox chkycinside = (CheckBox)e.Item.FindControl("chKInsideKyc");
                 CheckBox chkbisRealInvestor = (CheckBox)e.Item.FindControl("chkIsinvestmem");
                 if (iskyc == 1)
@@ -2193,6 +2200,7 @@ namespace WealthERP.Customer
                 Label lblGetPan = (Label)editedItem.FindControl("lblGetPan");
                 TextBox txtNewMemPan = (TextBox)e.Item.FindControl("txtNewPan");
                 TextBox txtPan = (TextBox)editedItem.FindControl("txtPan");
+
                 lblGetPan.Visible = false;
                 txtNewMemPan.Text = panNum;
                 txtPan.Text = panNum;
@@ -2297,6 +2305,7 @@ namespace WealthERP.Customer
                 bool isUpdated = false;
                 bool isrealInvestor = false;
                 int iskyc = 0;
+                DateTime CusrtomerDOBDate;
                 string relationCode = string.Empty;
                 GridEditableItem gridEditableItem = (GridEditableItem)e.Item;
                 gridEditableItem.OwnerTableView.IsItemInserted = false;
@@ -2307,7 +2316,7 @@ namespace WealthERP.Customer
                 CheckBox chkIsrealInvestorMem = (CheckBox)e.Item.FindControl("chkIsinvestmem");
                 CheckBox chkycinside = (CheckBox)e.Item.FindControl("chKInsideKyc");
                 CheckBox chkycinside1 = (CheckBox)e.Item.FindControl("chKInsideKyc1");
-                
+                RadDatePicker RadDatePicker1 = e.Item.FindControl("RadDatePicker1") as RadDatePicker;
                 if (chkIsrealInvestorMem.Checked)
                     isrealInvestor = true;
                 if (chkycinside.Checked)
@@ -2323,7 +2332,7 @@ namespace WealthERP.Customer
                     //lblGetPan.Visible = false;
                     relationCode = ddlRelation.SelectedValue;
                     chkycinside.Visible = false;
-
+                    CusrtomerDOBDate = Convert.ToDateTime(RadDatePicker1.SelectedDate);
 
                 }
                 else if (Button1.Visible == true)
@@ -2336,6 +2345,7 @@ namespace WealthERP.Customer
                     chkIsrealInvestorMem.Visible = false;
                     chkycinside.Visible = false;
                     relationCode = ddlNewRelationship.SelectedValue;
+                    CusrtomerDOBDate = Convert.ToDateTime(RadDatePicker1.SelectedDate);
                 }
                 TextBox txtPan1 = (TextBox)e.Item.FindControl("txtPan");
                 if (CheckPanDuplicate(txtPan1.Text.ToString(), cutomerid))
@@ -2345,7 +2355,8 @@ namespace WealthERP.Customer
                 else
                 {
 
-                    isUpdated = customerBo.UpdateMemberRelation(AssociationId, relationCode, isrealInvestor,iskyc);
+                    isUpdated = customerBo.UpdateMemberRelation(AssociationId, relationCode, isrealInvestor, iskyc, Convert.ToDateTime(RadDatePicker1.SelectedDate));
+
                 }
             }
             if (e.CommandName == RadGrid.PerformInsertCommandName)
@@ -2373,8 +2384,10 @@ namespace WealthERP.Customer
                     CheckBox chkycinside = (CheckBox)e.Item.FindControl("chKInsideKyc1");
                     CheckBox chkycinside1 = (CheckBox)e.Item.FindControl("chKInsideKyc");
                     DropDownList ddlNewMemRel = (DropDownList)e.Item.FindControl("ddlNewRelationship");
+                    RadDatePicker txtCustomerDOB = (RadDatePicker)e.Item.FindControl("txtCustomerDOB");
                     customerNewVo.FirstName = txtNewMemName.Text;
                     customerNewVo.PANNum = txtNewMemPan.Text;
+                    customerNewVo.Dob = Convert.ToDateTime(txtCustomerDOB.SelectedDate);
                     chkycinside1.Visible = false;
                     if (chkIsrealInvestorMem.Checked)
                     {
@@ -3064,5 +3077,12 @@ namespace WealthERP.Customer
         //{
         //    hdnTaxSlabValue.Value = ddlTaxSlab.SelectedValue;
         //}
+        protected void chkRealInvestor_OnCheckedChanged(object sender, EventArgs e)
+        {
+            //if (chkRealInvestor.Checked == false)
+            //{
+            //   // RegisterStartupScript(typeof(Page), "SymbolError", "<script type='text/javascript'>alert('Please Select Hiring Manager !');</script>");            
+            //}
+        }
     }
 }

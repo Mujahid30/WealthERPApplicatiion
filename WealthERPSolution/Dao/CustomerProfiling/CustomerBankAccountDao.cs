@@ -52,7 +52,7 @@ namespace DaoCustomerProfiling
                  if (!string.IsNullOrEmpty(customerBankAccountVo.RTGSCode.ToString()))
                      db.AddInParameter(createCustomerBankCmd, "@CB_RTGS", DbType.String, customerBankAccountVo.RTGSCode);
                  else
-                     db.AddInParameter(createCustomerBankCmd, "@CB_RTGS", DbType.String, 0);
+                     db.AddInParameter(createCustomerBankCmd, "@CB_RTGS", DbType.String, DBNull.Value);
                  if (!string.IsNullOrEmpty(customerBankAccountVo.NeftCode.ToString()))
                      db.AddInParameter(createCustomerBankCmd, "@CB_NEFT", DbType.String, customerBankAccountVo.NeftCode);
                  else

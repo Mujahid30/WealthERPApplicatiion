@@ -1764,6 +1764,7 @@ namespace DaoCustomerPortfolio
         {
             DataSet dsCustomerAssociates = null;
             DbCommand getCustomerAssociatesCmd;
+            DataTable dtCustomerAssociates;
             Database db;
             try
             {
@@ -1771,6 +1772,19 @@ namespace DaoCustomerPortfolio
                 getCustomerAssociatesCmd = db.GetStoredProcCommand("SP_GetCustomerAssociatesRel");
                 db.AddInParameter(getCustomerAssociatesCmd, "@C_CustomerId", DbType.Int32, customerId);
                 dsCustomerAssociates = db.ExecuteDataSet(getCustomerAssociatesCmd);
+                if (dsCustomerAssociates.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow dr in dsCustomerAssociates.Tables[0].Rows)
+                    {
+
+                        //customerAccountVo.PortfolioId = int.Parse(dr["CP_PortfolioId"].ToString());
+                        if (dr["C_DOB"].ToString() == null)
+                        {
+                            dr["C_DOB"] = DateTime.MinValue.ToString();
+                        }
+                       
+                    }
+                }
             }
             catch (BaseApplicationException Ex)
             {
