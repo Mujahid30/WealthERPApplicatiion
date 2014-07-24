@@ -20,22 +20,21 @@
    
 </script>
 
-<table class="TableBackground" style="width: 100%;">
-     <tr valign="top">
-                <td colspan="6" width="100%">
-                    <div class="divPageHeading" style="vertical-align:top">
-                        <table cellspacing="0" cellpadding="3" width="100%" style="vertical-align:top">
-                            <tr id="lblLifeInsurance" runat="server">
-                                <td align="left" style="vertical-align:top">
+<table  width=" 100%">
+     <tr >
+                <td colspan="4" >
+                    <div class="divPageHeading">
+                        <table cellspacing="0" cellpadding="3" width="100%">
+                            <tr id="lblLifeInsurance" runat="server" style="width: 100%">
+                                <td align="left">
                                     <asp:Label ID="lblTitle" runat="server" CssClass="HeaderTextBig"></asp:Label>
                                 </td>
                                 
-                                <td align="right" style="padding-bottom:2px;">
+                                <td align="right">
                                       
                                     <asp:LinkButton ID="lbtnBackButton" runat="server" OnClick="lbtnBackButton_Click"
                                       Visible="False" CssClass="LinkButtons">Edit</asp:LinkButton>
-                                </td>
-                                 <td style="padding-bottom:2px;">
+                               &nbsp; &nbsp;
                                       
                                     <asp:LinkButton ID="lbtnBack2Button" runat="server" OnClick="lbtnBack2Button_Click"
                                       Visible="true" CssClass="LinkButtons">Back</asp:LinkButton>
@@ -45,55 +44,42 @@
                     </div>
                 </td>
             </tr>
-<%--    <tr>
-        <td>
-            <asp:LinkButton ID="lbtnBackButton" runat="server" OnClick="lbtnBackButton_Click"
-                Visible="False" CssClass="LinkButtons">Edit</asp:LinkButton>
-        </td>
-    </tr>--%>
+
     </table>
-    <table>
+    <table class="TableBackground" width="100%">
     <tr>
-        <td align="right">
+        <td class="leftField" style="width:150px;">
             <asp:Label ID="lblDpName" runat="server" Text="DP Name:" CssClass="FieldName"></asp:Label>
         </td>
-        <td>
-            <asp:TextBox ID="txtDpName" runat="server" CssClass="txtField" Width="300px"></asp:TextBox>
+        <td class="rightField">
+            <asp:TextBox ID="txtDpName" runat="server" CssClass="txtField" Width="250px"></asp:TextBox>
             <span id="Span1" class="spnRequiredField">*</span>
         </td>
-       <td>
-            <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtDpName"
-                ErrorMessage="Name Required" CssClass="cvPCG"></asp:RequiredFieldValidator>--%>
-        </td>
-        <td align="right">
+         <td class="leftField" style="width:150px;">
             &nbsp;<asp:Label ID="lblDPId" runat="server" Text="DP Id:" CssClass="FieldName"></asp:Label>
         </td>
-        <td>
+        <td class="rightField">
             <asp:TextBox ID="txtDPId" runat="server" CssClass="txtField"></asp:TextBox>
-           <%-- <span id="Span3" class="spnRequiredField">*</span>--%>
+          
         </td>
-        <%--<td>
-            <asp:RequiredFieldValidator ID="RFVDpId" runat="server" ErrorMessage="Required Dp Id"
-                ControlToValidate="txtDpId" CssClass="cvPCG" ValidationGroup="btnsubmit"></asp:RequiredFieldValidator>
-        </td>--%>
+        
     </tr>
     <tr>
-        <td align="right">
+        <td class="leftField">
             <asp:Label ID="lblDpClientId" runat="server" Text="Beneficiary Acct No:" CssClass="FieldName"></asp:Label>
         </td>
-        <td>
+        <td class="rightField">
             <asp:TextBox ID="txtDpClientId" runat="server" CssClass="txtField"></asp:TextBox>
             <span id="Span2" class="spnRequiredField">*</span>
-        </td>
-        <td>
+        
             <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtDpClientId"
-                ErrorMessage="Client Id Required" CssClass="cvPCG"></asp:RequiredFieldValidator>
+                ErrorMessage="Client Id Required" CssClass="cvPCG" Display="Dynamic"></asp:RequiredFieldValidator>
         </td>
-        <td align="right">
+        <td class="leftField">
             &nbsp;<asp:Label ID="lblAccountOpeningDate" runat="server" Text="Account Opening Date:"
                 CssClass="FieldName"></asp:Label>
         </td>
-        <td>
+        <td class="rightField">
             <!-- calAccountOpeningDate -->
          
             <telerik:RadDatePicker ID="txtAccountOpeningDate" CssClass="txtTo" runat="server" Culture="English (United States)"
@@ -105,53 +91,38 @@
                             <dateinput id="DateInput1" runat="server" displaydateformat="d/M/yyyy" dateformat="d/M/yyyy">
                             </dateinput>
                         </telerik:RadDatePicker>
-        </td>
-        <td>
+        
             
             
        
-        <%--<asp:CompareValidator id="cmpCompareValidatorToDate" 
-                        ControlToValidate="txtAccountOpeningDate" Operator="LessThanEqual" Type="Date" CssClass="cvPCG"
-                        runat="server" ErrorMessage="Date Can't be in future" Display="Dynamic" ></asp:CompareValidator>
-                        --%>
-                         <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="txtAccountOpeningDate"
+                                <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="txtAccountOpeningDate"
                     Type="Date" Operator="DataTypeCheck" ErrorMessage="Please Enter a Valid Date" Display="Dynamic" CssClass="cvPCG"/>
-   <%--
-    
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" 
-                ControlToValidate="txtAccountOpeningDate" 
-                ErrorMessage="Account Opening Date Required" CssClass="cvPCG"></asp:RequiredFieldValidator>--%>
+  
             
         </td>
     </tr>
     <tr>
-        <td align="right">
+        <td class="leftField">
             <asp:Label ID="lblIsHeldJointly" runat="server" Text="Is Held Jointly:" CssClass="FieldName"></asp:Label>
         </td>
-        <td>
-            <asp:Panel ID="Panel1" runat="server" Width="127px">
+        <td class="rightField">
+           
                 <asp:RadioButton ID="rbtnYes" runat="server" Text="Yes" GroupName="IsHeldJointly"
                     CssClass="txtField" AutoPostBack="True" 
                     OnCheckedChanged="RadioButton_CheckChanged" />
                 <asp:RadioButton ID="rbtnNo" runat="server" Text="No" GroupName="IsHeldJointly" CssClass="txtField"
                     AutoPostBack="True" OnCheckedChanged="rbtnNo_CheckChanged" OnLoad="rbtnNo_Load" Checked="true"
                     />
-            </asp:Panel>
+           
         </td>
-        <td>
-            &nbsp;
-        </td>
-        <td align="right">
+        
+        <td class="leftField">
             &nbsp;<asp:Label ID="lblDepositoryName" runat="server" Text="Depository Name:"
                 CssClass="FieldName"></asp:Label>
         </td>
-        <td>
-            <%--<asp:TextBox ID="txtDepositoryName" runat="server" CssClass="txtField" MaxLength="25"></asp:TextBox>--%>
-            <%--<span id="Span4" class="spnRequiredField">*  </td>--%>
-             <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ErrorMessage="Beneficiary Account Number Required"
-                ControlToValidate="txtBeneficiaryAcctNbr" CssClass="cvPCG"></asp:RequiredFieldValidator>--%>
-                <asp:DropDownList ID="ddlDepositoryName" runat="server" CssClass="cmbField" AutoPostBack="true" OnSelectedIndexChanged="ddlDepositoryName_SelectedIndexChanged" ></asp:DropDownList>
-                 <br />
+        <td class="rightField">
+              <asp:DropDownList ID="ddlDepositoryName" runat="server" CssClass="cmbField" AutoPostBack="true" OnSelectedIndexChanged="ddlDepositoryName_SelectedIndexChanged" ></asp:DropDownList>
+              <br />
             <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="ddlDepositoryName"
                 CssClass="rfvPCG" Display="Dynamic" ErrorMessage="Please select Depository Name"
                 InitialValue="Select" ValidationGroup="btnsubmit">
@@ -160,20 +131,22 @@
         </td>
     </tr>
     <tr>
-        <td align="right">
+        <td class="leftField">
             &nbsp;<asp:Label ID="lblModeOfHolding" runat="server" Text="Mode Of Holding:" CssClass="FieldName"></asp:Label>
         </td>
-        <td>
-            <asp:DropDownList ID="ddlModeOfHolding" runat="server" AutoPostBack="True" OnPreRender="ddlModeOfHolding_PreRender"
+        <td class="rightField">
+            <asp:DropDownList ID="ddlModeOfHolding" runat="server" AutoPostBack="True" 
                 OnSelectedIndexChanged="ddlModeOfHolding_SelectedIndexChanged" CssClass="cmbField">
             </asp:DropDownList>
         </td>
-        <td>
-            &nbsp;
+        <td class="leftField">
+           
+        </td>
+         <td>
+           
         </td>
     </tr>
-    &nbsp;
-     <%--</tr>--%>
+    
     <tr>
         <td align="right">
             &nbsp;<asp:Label ID="lblisactive" runat="server" Text="Is Active" CssClass="FieldName"></asp:Label>
@@ -181,23 +154,27 @@
         <td>
            <asp:CheckBox ID="chk_isactive" runat="server" CssClass="cmbFielde" /> 
         </td>
-        <td>
-            &nbsp;
-        </td>
+        
     </tr>
+       <tr>
+   <td class="leftField">
+   </td>
+                    <td class="rightField">
+                        <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="btnSubmit_Click"
+                            CssClass="PCGButton" OnClientClick="GetSelectedBranches()"  ValidationGroup="btnsubmit"/>
+                    </td>
+    </tr>
+    </table>
+    <table width="100%" class="TableBackground">
 
-  <tr id="trAssociatePanel" runat="server" visible="false">
-        <td colspan="10">
+       <tr id="trAssociatePanel" runat="server" visible="false">
+        <td >
         <div class="divSectionHeading" style="vertical-align: text-bottom">
             Nominee JointHolder Details
         </div>
         </td>
-        <td>
-            &nbsp;
-        </td>
-        <td>
-            &nbsp;
-        </td>
+        <td></td>
+       
     </tr>
 
   
@@ -205,7 +182,7 @@
 
    
     <tr>
-        <td colspan="2">
+        <td >
            
             
             
@@ -242,7 +219,7 @@
                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="CDAA_DOB" HeaderText="Date Of Birth" UniqueName="CDAA_DOB"
-                            SortExpression="CDAA_DOB">
+                            SortExpression="CDAA_DOB" DataFormatString="{0:d}">
                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="RelationshipName" HeaderText="Relationship" AllowFiltering="false"
@@ -270,6 +247,20 @@
                                 <tr id="trNewCustomer" runat="server">
                                     <td colspan="4">
                                         <table width="50%">
+                                         <tr>
+                                                <td class="leftField" align="right">
+                                                    <asp:Label ID="lblAssociate" runat="server" CssClass="FieldName" Text="Associate Type :"></asp:Label>
+                                                </td>
+                                                <td class="rightField">
+                                                    <asp:DropDownList ID="ddlAssociate" runat="server" CssClass="cmbField">
+                                                    <asp:ListItem Value ="JH1">JointHolder-1</asp:ListItem>
+                                                    <asp:ListItem Value ="JH2">JointHolder-2</asp:ListItem>
+                                                    <asp:ListItem Value ="N1">Nominee-1</asp:ListItem>
+                                                    <asp:ListItem Value ="N2">Nominee-2</asp:ListItem>
+                                                    </asp:DropDownList>
+                                                    <span id="Span3" class="spnRequiredField">*</span>
+                                                </td>
+                                            </tr>
                                             <tr>
                                                 <td class="leftField" align="right">
                                                     <asp:Label ID="lblNewName" runat="server" CssClass="FieldName" Text="Member Name:"></asp:Label>
@@ -318,34 +309,25 @@
                                                     <asp:Label ID="lblDOB" runat="server" CssClass="FieldName" Text="Date Of Birth:"></asp:Label>
                                                 </td>
                                                  <td class="rightField">
-                                                     <asp:TextBox ID="txtDOB" CssClass="txtField" runat="server"></asp:TextBox>
-                                                     <ajaxToolKit:CalendarExtender runat="server" Format="dd/MM/yyyy" TargetControlID="txtDOB"
-                                                         ID="calExeAccountOpeningDate" Enabled="true" OnClientDateSelectionChanged="checkDate">
-                                                     </ajaxToolKit:CalendarExtender>
-                                                     <ajaxToolKit:TextBoxWatermarkExtender TargetControlID="txtDOB" WatermarkText="dd/mm/yyyy"
-                                                         runat="server" ID="wmtxtAccountOpeningDate">
-                                                     </ajaxToolKit:TextBoxWatermarkExtender>
-                                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator5" ControlToValidate="txtDOB" 
-                                                        ErrorMessage="<br />Please Enter Date of Birth" Display="Dynamic" runat="server" InitialValue="Select"
-                                                        CssClass="rfvPCG" ValidationGroup="Submit"></asp:RequiredFieldValidator>
+                                               
                                                      
+                                                     
+                                                     <telerik:RadDatePicker ID="txtDOB" CssClass="txtTo" runat="server" Culture="English (United States)"
+                                                         Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                                                         <Calendar ID="Calendar1" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
+                                                             ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
+                                                         </Calendar>
+                                                         <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                                                         <DateInput ID="DateInput1" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                                                         </DateInput>
+                                                     </telerik:RadDatePicker>
+                                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator5" ControlToValidate="txtDOB"
+                                                         ErrorMessage="<br />Please Enter Date of Birth" Display="Dynamic" runat="server"
+                                                         InitialValue="Select" CssClass="rfvPCG" ValidationGroup="Submit"></asp:RequiredFieldValidator>
                                                  </td>
                                               
                                             </tr>
-                                            <tr>
-                                                <td class="leftField" align="right">
-                                                    <asp:Label ID="lblAssociate" runat="server" CssClass="FieldName" Text="Associate Type :"></asp:Label>
-                                                </td>
-                                                <td class="rightField">
-                                                    <asp:DropDownList ID="ddlAssociate" runat="server" CssClass="cmbField">
-                                                    <asp:ListItem Value ="JH1">JointHolder-1</asp:ListItem>
-                                                    <asp:ListItem Value ="JH2">JointHolder-2</asp:ListItem>
-                                                    <asp:ListItem Value ="N1">Nominee-1</asp:ListItem>
-                                                    <asp:ListItem Value ="N2">Nominee-2</asp:ListItem>
-                                                    </asp:DropDownList>
-                                                    <span id="Span3" class="spnRequiredField">*</span>
-                                                </td>
-                                            </tr>
+                                           
                                             <tr>
                                                 <td class="leftField" align="right">
                                                     <asp:Label ID="lblNewRelationShip" runat="server" CssClass="FieldName" Text="RelationShip :"></asp:Label>
@@ -363,7 +345,7 @@
                                                 <td>
                                                 </td>
                                                 <td>
-                                                    <asp:Button ID="Button1" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
+                                                    <asp:Button ID="Button1" Text='<%# (Container is GridEditFormInsertItem) ? "Submit" : "Update" %>'
                                                         runat="server" CssClass="PCGButton" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'
                                                         ValidationGroup="Submit"></asp:Button>
                                                 </td>
@@ -386,63 +368,12 @@
             
             
         </td>
+        <td>
+        </td>
     </tr>
-<%--    <tr>
-        <td colspan="6">
-            <hr />
-        </td>
-    </tr>--%>
- <%--   <tr>
-        <td colspan="2">
-            <table border="0">
-                <tr>
-                    <td colspan="1">
-                        <asp:Label ID="lblAvailableTrade" runat="server" Text="Available Trade" CssClass="FieldName"></asp:Label>
-                    </td>
-                    <td>
-                    </td>
-                    <td colspan="1">
-                        <asp:Label ID="lblAssociatedTrade" runat="server" Text="Associated Trade" CssClass="FieldName"></asp:Label>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <asp:ListBox ID="lstAvailableTrades" runat="server" Height="139px" Width="107px">
-                        </asp:ListBox>
-                    </td>
-                    
-                    <td>
-                        <asp:ListBox ID="lstAssocaitedTrades" runat="server" Height="134px" Width="114px">
-                        </asp:ListBox>
-                    </td>
-                </tr>
-               
-            </table>
-        </td>
-    </tr>--%>
+
   
- <%-- <td>
-                        <table border="1">
-                            <tr>
-                                <td>
-                                    <input type="button" id="addBranch" runat="server" value=">>" onclick="addbranches();return false;" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <input type="button" id="deleteBranch" runat="server" value="<<" onclick="deletebranches();return false;"
-                                        style="height: 26px" />
-                                </td>
-                            </tr>
-                        </table>
-                    </td>--%>
-  
-   <tr>
-                    <td>
-                        <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="btnSubmit_Click"
-                            CssClass="PCGButton" OnClientClick="GetSelectedBranches()"  ValidationGroup="btnsubmit"/>
-                    </td>
-                </tr>
+
     <tr>
         <td>
             <asp:HiddenField ID="hdnSelectedBranches" runat="server" />
