@@ -807,6 +807,12 @@ namespace WealthERP.Uploads
         {
             string newScheme = string.Empty;
             string PanNum = string.Empty;
+            string TransactionType = string.Empty;
+            string FolioNumber = string.Empty;
+            double Price = 0;
+            double Units = 0;
+            double Amount = 0;
+            int UserTransactionNo = 0;
             int CMFTSId = 0;
             bool blResult = false;
             rejectedRecordsBo = new RejectedRecordsBo();
@@ -829,6 +835,56 @@ namespace WealthERP.Uploads
                 {
                     PanNum = ((TextBox)footerRow.FindControl("txtPanFooter")).Text;
                 }
+                if (((TextBox)footerRow.FindControl("txtTransactionFooter")).Text.Trim() == "")
+                {
+                    TransactionType = ((TextBox)dr.FindControl("txtTransaction")).Text;
+                }
+                else
+                {
+                    TransactionType = ((TextBox)footerRow.FindControl("txtTransactionFooter")).Text;
+                }
+                if (((TextBox)footerRow.FindControl("txtFolioNumberFooter")).Text.Trim() == "")
+                {
+                    FolioNumber = ((TextBox)dr.FindControl("txtFolioNumber")).Text;
+                }
+                else
+                {
+                    FolioNumber = ((TextBox)footerRow.FindControl("txtFolioNumberFooter")).Text;
+                }
+
+                if (((TextBox)footerRow.FindControl("txtPriceFooter")).Text.Trim() =="")
+                {
+                    Price = Convert.ToDouble(((TextBox)dr.FindControl("txtPrice")).Text);
+                }
+                else
+                {
+                    Price = Convert.ToDouble(((TextBox)footerRow.FindControl("txtPriceFooter")).Text);
+                }
+                if (((TextBox)footerRow.FindControl("txtUnitsFooter")).Text.Trim() == "")
+                {
+                    Units = Convert.ToDouble(((TextBox)dr.FindControl("txtUnits")).Text);
+                }
+                else
+                {
+                    Units = Convert.ToDouble(((TextBox)footerRow.FindControl("txtUnitsFooter")).Text);
+                }
+                if (((TextBox)footerRow.FindControl("txtAmountFooter")).Text.Trim() == "")
+                {
+                    Amount = Convert.ToDouble(((TextBox)dr.FindControl("txtAmount")).Text);
+                }
+                else
+                {
+                    Amount = Convert.ToDouble(((TextBox)footerRow.FindControl("txtAmountFooter")).Text);
+                }
+                if (((TextBox)footerRow.FindControl("txtUsertransactionFooter")).Text.Trim() == "")
+                {
+                    UserTransactionNo = Convert.ToInt32(((TextBox)dr.FindControl("txtUsertransaction")).Text);
+                }
+                else
+                {
+                    UserTransactionNo = Convert.ToInt32(((TextBox)footerRow.FindControl("txtUsertransactionFooter")).Text);
+                }
+
 
                 CheckBox checkBox = (CheckBox)dr.FindControl("chkId");
                 if (checkBox.Checked)
@@ -838,7 +894,7 @@ namespace WealthERP.Uploads
                     gdi = (GridDataItem)checkBox.NamingContainer;
                     selectedRow = gdi.ItemIndex + 1;
                     CMFTSId = int.Parse((gvWERPTrans.MasterTableView.DataKeyValues[selectedRow - 1]["CMFTSId"].ToString()));
-                    blResult = rejectedRecordsBo.UpdateMFTrasactionStaging(CMFTSId, PanNum, newScheme);
+                    blResult = rejectedRecordsBo.UpdateMFTrasactionStaging(CMFTSId, PanNum, newScheme, TransactionType, FolioNumber, Price, Units, Amount, UserTransactionNo);
                 }
             }
             if (blResult)

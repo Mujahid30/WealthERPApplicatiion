@@ -933,19 +933,6 @@ namespace DaoUploads
                 else
                     db.AddInParameter(getMFRejectedTransactionsCmd, "@processId", DbType.Int32, DBNull.Value);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
                 //if (RejectReasonFilter != "")
                 //    db.AddInParameter(getMFRejectedTransactionsCmd, "@rejectReasonFilter", DbType.String, RejectReasonFilter);
 
@@ -2156,7 +2143,7 @@ namespace DaoUploads
             }
             return dsGetFolioDetails;
         }
-        public bool UpdateMFTrasactionStaging(int CMFTSId, string PanNum ,string newScheme)
+        public bool UpdateMFTrasactionStaging(int CMFTSId, string PanNum, string newScheme, string TransactionType, string FolioNumber, double Price, double Units, double Amount, int UserTransactionNo)
         {
             bool result = false;
             Database db;
@@ -2174,6 +2161,31 @@ namespace DaoUploads
                     db.AddInParameter(UpdateTrnxCmd, "@Scheme", DbType.String, newScheme);
                 else
                     db.AddInParameter(UpdateTrnxCmd, "@Scheme", DbType.String, DBNull.Value);
+                if (TransactionType != "")
+                    db.AddInParameter(UpdateTrnxCmd, "@TransactionType", DbType.String, TransactionType);
+                else
+                    db.AddInParameter(UpdateTrnxCmd, "@TransactionType", DbType.String, DBNull.Value);
+                if (FolioNumber != "")
+                    db.AddInParameter(UpdateTrnxCmd, "@FolioNumber", DbType.String, FolioNumber);
+                else
+                    db.AddInParameter(UpdateTrnxCmd, "@FolioNumber", DbType.String, DBNull.Value);
+
+                if (Price != 0)
+                    db.AddInParameter(UpdateTrnxCmd, "@Price", DbType.Decimal, Price);
+                else
+                    db.AddInParameter(UpdateTrnxCmd, "@Price", DbType.Decimal, DBNull.Value);
+                if (Units != 0)
+                    db.AddInParameter(UpdateTrnxCmd, "@Units", DbType.Decimal, Units);
+                else
+                    db.AddInParameter(UpdateTrnxCmd, "@Units", DbType.Decimal, DBNull.Value);
+                if (Amount != 0)
+                    db.AddInParameter(UpdateTrnxCmd, "@Amount", DbType.Decimal, Amount);
+                else
+                    db.AddInParameter(UpdateTrnxCmd, "@Amount", DbType.Decimal, DBNull.Value);
+                if (UserTransactionNo != 0)
+                    db.AddInParameter(UpdateTrnxCmd, "@UserTransactionNo", DbType.Int32, UserTransactionNo);
+                else
+                    db.AddInParameter(UpdateTrnxCmd, "@UserTransactionNo", DbType.Int32, DBNull.Value);
 
                 db.ExecuteNonQuery(UpdateTrnxCmd);
                 result = true;

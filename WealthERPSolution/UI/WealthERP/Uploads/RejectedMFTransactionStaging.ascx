@@ -272,6 +272,16 @@
         </td>
     </tr>--%>
 </table>
+<table width="100%">
+    <tr id="tr1" runat="server">
+        <td class="Cell" align="right">
+            <asp:LinkButton ID="LinkButton1" runat="server" CssClass="PCGLongLongButton" Text="Scheme/Scrip Code Mapping"
+                OnClick="btnSchemeMapping_Click" />
+            <asp:LinkButton ID="LinkButton2" runat="server" CssClass="PCGLongLongButton" Text="Data Translation Mapping"
+                OnClick="btnDataTranslationMapping_Click" />
+        </td>
+    </tr>
+</table>
 <asp:Panel ID="Panel2" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
     <table cellspacing="0" cellpadding="4" width="100%">
         <tr id="trAdviserSelection" runat="server">
@@ -288,14 +298,14 @@
             <td colspan="2">
                 <telerik:RadGrid ID="gvWERPTrans" runat="server" GridLines="None" AutoGenerateColumns="False"
                     PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" Skin="Telerik"
-                    EnableEmbeddedSkins="false" Width="1050px" AllowFilteringByColumn="true" AllowAutomaticInserts="false"
+                    EnableEmbeddedSkins="false" Width="1500px" AllowFilteringByColumn="true" AllowAutomaticInserts="false"
                     EnableViewState="true" ExportSettings-FileName="MF Transaction Reject Details"
                     ShowFooter="true" OnItemDataBound="gvWERPTrans_ItemDataBound" OnPreRender="gvWERPTrans_PreRender"
                     OnNeedDataSource="gvWERPTrans_NeedDataSource">
                     <%--  OnPreRender="gvWERPTrans_PreRende"--%>
                     <ExportSettings HideStructureColumns="true">
                     </ExportSettings>
-                    <MasterTableView TableLayout="Auto" DataKeyNames="CMFTSId,ProcessId,FolioNumber,InvestorName"
+                    <MasterTableView TableLayout="Auto" DataKeyNames="CMFTSId,ProcessId,FolioNumber,InvestorName,TransactionType"
                         AllowFilteringByColumn="true" Width="120%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
                         CommandItemDisplay="none">
                         <Columns>
@@ -313,7 +323,7 @@
                                 </FooterTemplate>
                             </telerik:GridTemplateColumn>
                             <telerik:GridBoundColumn DataField="RejectReason" AllowFiltering="true" HeaderText="RejectReason"
-                                HeaderStyle-Width="194px" UniqueName="RejectReason" SortExpression="RejectReason"
+                                HeaderStyle-Width="270px" UniqueName="RejectReason" SortExpression="RejectReason"
                                 AutoPostBackOnFilter="false" ShowFilterIcon="false">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 <FilterTemplate>
@@ -350,11 +360,16 @@
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="TransactionType" AllowFiltering="true" HeaderText="TransactionType"
+                            <telerik:GridTemplateColumn DataField="TransactionType" AllowFiltering="true" HeaderText="TransactionType"
                                 UniqueName="TransactionType" SortExpression="TransactionType" AutoPostBackOnFilter="true"
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>
+                                <ItemTemplate>
+                                    <asp:TextBox ID="txtTransaction" CssClass="txtField" runat="server" Text='<%# Bind("TransactionType") %>'></asp:TextBox>
+                                </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtTransactionFooter" CssClass="txtField" runat="server" />
+                                </FooterTemplate>
+                            </telerik:GridTemplateColumn>
                             <telerik:GridBoundColumn DataField="ProcessId" AllowFiltering="true" HeaderText="ProcessId"
                                 UniqueName="ProcessId" SortExpression="ProcessId" AutoPostBackOnFilter="true"
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains">
@@ -379,17 +394,22 @@
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>--%>
-                            <telerik:GridBoundColumn DataField="FolioNumber" AllowFiltering="true" HeaderText="FolioNumber"
+                            <telerik:GridTemplateColumn DataField="FolioNumber" AllowFiltering="true" HeaderText="FolioNumber"
                                 UniqueName="FolioNumber" SortExpression="FolioNumber" AutoPostBackOnFilter="true"
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                                <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>
+                                <ItemTemplate>
+                                    <asp:TextBox ID="txtFolioNumber" CssClass="txtField" runat="server" Text='<%# Bind("FolioNumber") %>'></asp:TextBox>
+                                </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtFolioNumberFooter" CssClass="txtField" runat="server" />
+                                </FooterTemplate>
+                            </telerik:GridTemplateColumn>
                             <%--<telerik:GridBoundColumn DataField="Scheme" AllowFiltering="true" HeaderText="Scheme"
                                 UniqueName="Scheme" SortExpression="Scheme" AutoPostBackOnFilter="true" ShowFilterIcon="false"
                                 CurrentFilterFunction="Contains">
                                 <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>--%>
-                            <telerik:GridTemplateColumn HeaderStyle-Width="160px" HeaderText="Scheme" DataField="Scheme"
+                            <telerik:GridTemplateColumn HeaderStyle-Width="160px" HeaderText="ProductCode" DataField="Scheme"
                                 SortExpression="Scheme" AutoPostBackOnFilter="true" ShowFilterIcon="false">
                                 <ItemTemplate>
                                     <asp:TextBox ID="txtScheme" CssClass="txtField" runat="server" Text='<%# Bind("Scheme") %>'></asp:TextBox>
@@ -399,9 +419,9 @@
                                 </FooterTemplate>
                             </telerik:GridTemplateColumn>
                             <telerik:GridBoundColumn DataField="SchemeName" AllowFiltering="true" HeaderText="Scheme Name"
-                                UniqueName="SchemeName" SortExpression="SchemeName" AutoPostBackOnFilter="true"
-                                ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                UniqueName="SchemeName" HeaderStyle-Width="194px" SortExpression="SchemeName"
+                                AutoPostBackOnFilter="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                <ItemStyle Width="200px" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridDateTimeColumn DataField="TransactionDate" SortExpression="TransactionDate"
                                 AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" AllowFiltering="true"
@@ -413,22 +433,42 @@
                                     </telerik:RadDatePicker>
                                 </FilterTemplate>
                             </telerik:GridDateTimeColumn>
-                            <telerik:GridBoundColumn FooterStyle-HorizontalAlign="Right" DataField="Price" AllowFiltering="false"
-                                HeaderText="Price" UniqueName="Price" Aggregate="Sum" DataFormatString="{0:N2}">
-                                <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn FooterStyle-HorizontalAlign="Right" DataField="Units" AllowFiltering="false"
-                                HeaderText="Units" UniqueName="Units" Aggregate="Sum" DataFormatString="{0:N2}">
-                                <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn FooterStyle-HorizontalAlign="Right" DataField="Amount" AllowFiltering="false"
-                                HeaderText="Amount" UniqueName="Amount" Aggregate="Sum" DataFormatString="{0:N2}">
-                                <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>
-                             <telerik:GridBoundColumn FooterStyle-HorizontalAlign="Right" DataField="UserTransactionNo" AllowFiltering="false"
-                                HeaderText="UserTransactionNo" UniqueName="UserTransactionNo">
-                                <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>
+                            <telerik:GridTemplateColumn FooterStyle-HorizontalAlign="Right" DataField="Price"
+                                AllowFiltering="false" HeaderText="Price" UniqueName="Price" Aggregate="Sum">
+                                <ItemTemplate>
+                                    <asp:TextBox ID="txtPrice" CssClass="txtField" runat="server" Text='<%# Bind("Price") %>'></asp:TextBox>
+                                </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtPriceFooter" CssClass="txtField" runat="server" />
+                                </FooterTemplate>
+                            </telerik:GridTemplateColumn>
+                            <telerik:GridTemplateColumn FooterStyle-HorizontalAlign="Right" DataField="Units"
+                                AllowFiltering="false" HeaderText="Units" UniqueName="Units" Aggregate="Sum">
+                                <ItemTemplate>
+                                    <asp:TextBox ID="txtUnits" CssClass="txtField" runat="server" Text='<%# Bind("Units") %>'></asp:TextBox>
+                                </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtUnitsFooter" CssClass="txtField" runat="server" />
+                                </FooterTemplate>
+                            </telerik:GridTemplateColumn>
+                            <telerik:GridTemplateColumn FooterStyle-HorizontalAlign="Right" DataField="Amount"
+                                AllowFiltering="false" HeaderText="Amount" UniqueName="Amount" Aggregate="Sum">
+                                <ItemTemplate>
+                                    <asp:TextBox ID="txtAmount" CssClass="txtField" runat="server" Text='<%# Bind("Amount") %>'></asp:TextBox>
+                                </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtAmountFooter" CssClass="txtField" runat="server" />
+                                </FooterTemplate>
+                            </telerik:GridTemplateColumn>
+                            <telerik:GridTemplateColumn FooterStyle-HorizontalAlign="Right" DataField="CMFTS_UserTransactionNo"
+                                AllowFiltering="false" HeaderText="UserTransactionNo" UniqueName="CMFTS_UserTransactionNo">
+                                <ItemTemplate>
+                                    <asp:TextBox ID="txtUsertransaction" CssClass="txtField" runat="server" Text='<%# Bind("CMFTS_UserTransactionNo") %>'></asp:TextBox>
+                                </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtUsertransactionFooter" CssClass="txtField" runat="server" />
+                                </FooterTemplate>
+                            </telerik:GridTemplateColumn>
                         </Columns>
                     </MasterTableView>
                     <ClientSettings>
@@ -451,11 +491,6 @@
                 OnClick="btnDelete_Click" />
             <asp:Button ID="btnProbableDuplicateInsert" runat="server" CssClass="PCGLongLongButton"
                 Text="Insert Probable Duplicate Records" OnClick="btnProbableInsert_Click" OnClientClick="return ShowPopupProbableInsert_Delete()" />
-            <asp:Button ID="btnSchemeMapping" runat="server" CssClass="PCGLongLongButton"
-                Text="Scheme/Scrip Code Mapping" OnClick="btnSchemeMapping_Click" />
-              
-            <asp:Button ID="btnDataTranslationMapping" runat="server" CssClass="PCGLongLongButton" Text="Data Translation Mapping"
-                OnClick="btnDataTranslationMapping_Click"  />
         </td>
     </tr>
     <tr id="trMessage" runat="server" visible="false">
