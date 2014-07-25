@@ -176,22 +176,30 @@ namespace WealthERP.OnlineOrderManagement
 
             foreach (DataRow drSIP in dtSIPDetails.Rows)
             {
-               
+                
                     drSIPOrderBook = dtFinalSIPOrderBook.NewRow();
 
-                    int sipDueCount = 0, inProcessCount = 0, acceptCount = 0, systemRejectCount = 0, rejectedCount = 0, executedCount = 0;
+                    int sipDueCount = 0, inProcessCount = 0, acceptCount = 0, systemRejectCount = 0, rejectedCount = 0, executedCount = 0,otherCount=0;
+                    //if (drSIP["CMFSS_SystematicSetupId"].ToString() == "8593")
+                    //{
+ 
+                    //}
 
                     dvSIPOrderDetails = new DataView(dtOrderDetails, "CMFSS_SystematicSetupId=" + drSIP["CMFSS_SystematicSetupId"].ToString(), "CMFSS_SystematicSetupId", DataViewRowState.CurrentRows);
-                    if (int.Parse(drSIP["CMFSS_IsSourceAA"].ToString()) == 1)
+                    if (drSIP["CMFSS_IsCanceled"].ToString() != "Cancelled")
                     {
                         sipDueCount = (Convert.ToInt16(drSIP["CMFSS_TotalInstallment"].ToString())
                               - ((Convert.ToInt16(drSIP["CMFSS_CurrentInstallmentNumber"].ToString())) - 1));
-                        // - dvSIPOrderDetails.ToTable().Rows.Count
+                        //- dvSIPOrderDetails.ToTable().Rows.Count
                     }
                     else
                     {
-                        sipDueCount = (Convert.ToInt16(drSIP["CMFSS_TotalInstallment"].ToString()) - dvSIPOrderDetails.ToTable().Rows.Count);
+                        sipDueCount = 0;
                     }
+                    //else
+                    //{
+                    //    sipDueCount = (Convert.ToInt16(drSIP["CMFSS_TotalInstallment"].ToString()) - dvSIPOrderDetails.ToTable().Rows.Count);
+                    //}
                     //int.Parse(drSIP["CMFSS_InstallmentAccepted"].ToString())
                     dvAAAcceptedCount = new DataView(dtAAAcceptedCount, "CMFSS_SystematicSetupId=" + drSIP["CMFSS_SystematicSetupId"].ToString(), "CMFSS_SystematicSetupId", DataViewRowState.CurrentRows);
                     foreach (DataRow drOrder in dvSIPOrderDetails.ToTable().Rows)
@@ -245,20 +253,31 @@ namespace WealthERP.OnlineOrderManagement
                     drSIPOrderBook["CMFSS_Remark"] = drSIP["CMFSS_Remark"];
                     drSIPOrderBook["SIPDueCount"] = sipDueCount;
                     drSIPOrderBook["InProcessCount"] = inProcessCount;
-                    drSIPOrderBook["CMFSS_InstallmentOther"] = drSIP["CMFSS_InstallmentOther"];
+                    
                     if (int.Parse(drSIP["CMFSS_IsSourceAA"].ToString()) == 1)
                     {
-                        foreach (DataRow drAAAcceptedCount in dvAAAcceptedCount.ToTable().Rows)
-                        {
-                            if (int.Parse(drSIP["CMFSS_SystematicSetupId"].ToString()) == int.Parse(drAAAcceptedCount["CMFSS_SystematicSetupId"].ToString()))
-                                drSIPOrderBook["AcceptCount"] = int.Parse(drAAAcceptedCount["Occurence"].ToString());
+                        //foreach (DataRow drAAAcceptedCount in dvAAAcceptedCount.ToTable().Rows)
+                        //{
+
+                            //if (int.Parse(drSIP["CMFSS_SystematicSetupId"].ToString()) == int.Parse(drAAAcceptedCount["CMFSS_SystematicSetupId"].ToString()))
+                            if(dvAAAcceptedCount.ToTable().Rows.Count>0)
+                                acceptCount =Convert.ToInt16(dvAAAcceptedCount.ToTable().Rows[0]["Occurence"].ToString());
+                            else
+                                acceptCount=0;
                             //int.Parse(drSIP["CMFSS_InstallmentAccepted"].ToString()) +
-                        }
+                        //}
+                    }
+
+                    if (drSIP["CMFSS_IsCanceled"].ToString() != "Cancelled")
+                    {
+                        otherCount = (Convert.ToInt16(drSIP["CMFSS_TotalInstallment"].ToString()) - (acceptCount + inProcessCount + executedCount + rejectedCount + sipDueCount));
+                           
                     }
                     else
-                    {
-                        drSIPOrderBook["AcceptCount"] = acceptCount;
-                    }
+                       otherCount=Convert.ToInt16(drSIP["CMFSS_InstallmentOther"].ToString());
+
+                    drSIPOrderBook["AcceptCount"] = acceptCount;
+                    drSIPOrderBook["CMFSS_InstallmentOther"]=otherCount;
                     drSIPOrderBook["SystemRejectCount"] = systemRejectCount;
                     drSIPOrderBook["RejectedCount"] = rejectedCount;
                     drSIPOrderBook["ExecutedCount"] = executedCount;
