@@ -1,9 +1,24 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="OnlineClientAccess.ascx.cs"
     Inherits="WealthERP.OnlineOrderBackOffice.OnlineClientAccess" %>
-<%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
+<%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
+<%@ Register TagPrefix="telerik" Namespace="Telerik.Charting" Assembly="Telerik.Web.UI" %>
 <asp:ScriptManager ID="scrptMgr" runat="server">
 </asp:ScriptManager>
+<telerik:RadStyleSheetManager ID="RdStylesheet" runat="server">
+</telerik:RadStyleSheetManager>
+
+<script type="text/javascript" language="javascript">
+    function GetCustomerId(source, eventArgs) {
+        isItemSelected = true;
+        //         document.getElementById("lblgetPan").innerHTML = "";
+        document.getElementById("<%= txtCustomerId.ClientID %>").value = eventArgs.get_value();
+
+        return false;
+    }
+</script>
+
 <table width="100%">
     <tr>
         <td>
@@ -27,7 +42,45 @@
     <tr>
     </tr>
 </table>
-<asp:Panel ID="KYClist" runat="server" ScrollBars="Horizontal" Width="100%">
+<table>
+    <tr>
+        <td align="right">
+            <asp:Label ID="lblIskyc" runat="server" Text="Select:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td>
+            <asp:DropDownList ID="ddlCOption" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlCOption_SelectedIndexChanged"
+                AutoPostBack="true">
+                <asp:ListItem Text="Select" Value="Select" Selected="true" />
+                <asp:ListItem Text="Client Code" Value="Clientcode" />
+                <asp:ListItem Text="KYC" Value="Kyc" />
+            </asp:DropDownList>
+            <asp:RequiredFieldValidator ID="requddlCOption" ControlToValidate="ddlCOption" ErrorMessage="<br />Please select search option"
+                Display="Dynamic" runat="server" CssClass="rfvPCG" ValidationGroup="btnGo" InitialValue="Select"></asp:RequiredFieldValidator>
+        </td>
+        <td align="left" id="tdtxtClientCode" runat="server" visible="false">
+            <asp:TextBox ID="txtClientCode" runat="server" CssClass="txtField" AutoComplete="Off"
+                AutoPostBack="True" Width="250px"></asp:TextBox>
+            <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" TargetControlID="txtClientCode"
+                WatermarkText="Enter few characters of Client Code" runat="server" EnableViewState="false">
+            </cc1:TextBoxWatermarkExtender>
+            <ajaxToolkit:AutoCompleteExtender ID="txtClientCode_autoCompleteExtender" runat="server"
+                TargetControlID="txtClientCode" ServiceMethod="GetCustCode" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
+                MinimumPrefixLength="1" EnableCaching="False" CompletionSetCount="5" CompletionInterval="100"
+                CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
+                CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
+                UseContextKey="True" OnClientItemSelected="GetCustomerId" DelimiterCharacters=""
+                Enabled="True" />
+            <asp:RequiredFieldValidator ID="requtxtClientCode" ControlToValidate="txtClientCode"
+                ErrorMessage="<br />Please Enter Client Code" Display="Dynamic" runat="server"
+                CssClass="rfvPCG" ValidationGroup="btnGo"></asp:RequiredFieldValidator>
+        </td>
+        <td>
+            <asp:Button ID="btngo" runat="server" CssClass="PCGButton" OnClick="click_Go" Text="Go"
+                ValidationGroup="btnGo" />
+        </td>
+    </tr>
+</table>
+<asp:Panel ID="KYClist" runat="server" ScrollBars="Horizontal" Width="100%" Visible="false">
     <table width="100%" cellspacing="0" cellpadding="1">
         <tr>
             <td>
@@ -51,6 +104,23 @@
                                 FilterControlWidth="70px" CurrentFilterFunction="Contains">
                                 <ItemStyle Width="90px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                             </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="ClientAccountCode" UniqueName="ClientAccountCode"
+                                HeaderText="Client code" ShowFilterIcon="false" AutoPostBackOnFilter="true" AllowFiltering="true"
+                                HeaderStyle-Width="90px" SortExpression="ClientAccountCode" FilterControlWidth="70px"
+                                CurrentFilterFunction="Contains">
+                                <ItemStyle Width="90px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="BeneficiaryAccountNum" UniqueName="BeneficiaryAccountNum"
+                                HeaderText="Beneficiary Account" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                AllowFiltering="true" HeaderStyle-Width="90px" SortExpression="BeneficiaryAccountNum"
+                                FilterControlWidth="70px" CurrentFilterFunction="Contains">
+                                <ItemStyle Width="90px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="DOB" UniqueName="DOB" HeaderText="Date of birth"
+                                ShowFilterIcon="false" AutoPostBackOnFilter="true" AllowFiltering="true" HeaderStyle-Width="90px"
+                                SortExpression="DOB" FilterControlWidth="70px" CurrentFilterFunction="Contains">
+                                <ItemStyle Width="90px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
+                            </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="PAN" UniqueName="PAN" HeaderText="PAN" ShowFilterIcon="false"
                                 AutoPostBackOnFilter="true" AllowFiltering="true" HeaderStyle-Width="100px" SortExpression="PAN"
                                 FilterControlWidth="80px" CurrentFilterFunction="Contains">
@@ -68,8 +138,8 @@
                                 <ItemStyle Width="70px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn Visible="true" DataField="Privilege" UniqueName="Privilege"
-                                HeaderText="Access Privilege" ShowFilterIcon="false" AutoPostBackOnFilter="true" AllowFiltering="true"
-                                HeaderStyle-Width="100px" SortExpression="Privilege" FilterControlWidth="80px"
+                                HeaderText="Access Privilege" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                AllowFiltering="true" HeaderStyle-Width="100px" SortExpression="Privilege" FilterControlWidth="80px"
                                 CurrentFilterFunction="Contains">
                                 <ItemStyle Width="100px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                             </telerik:GridBoundColumn>
@@ -106,7 +176,7 @@
                                 CurrentFilterFunction="Contains">
                                 <ItemStyle Width="100px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                             </telerik:GridBoundColumn>
-                            </Columns>
+                        </Columns>
                     </MasterTableView>
                     <ClientSettings>
                         <Resizing AllowColumnResize="true" />
@@ -117,3 +187,4 @@
         </tr>
     </table>
 </asp:Panel>
+<asp:HiddenField ID="txtCustomerId" runat="server" />

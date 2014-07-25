@@ -1583,14 +1583,14 @@ namespace BoOnlineOrderManagement
             }
         }
 
-        public DataTable GetAdviserClientKYCStatusList(int adviserId)
+        public DataTable GetAdviserClientKYCStatusList(int adviserId,string filterOn,string clientCode)
         {
             DataTable dtFinalAdviserClientKYCStatusList = new DataTable();
             DataSet dsAdviserClientKYCStatusList = new DataSet();
             OnlineOrderBackOfficeDao onlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
             try
             {
-                dsAdviserClientKYCStatusList = onlineOrderBackOfficeDao.GetAdviserClientKYCStatusList(adviserId);
+                dsAdviserClientKYCStatusList = onlineOrderBackOfficeDao.GetAdviserClientKYCStatusList(adviserId,filterOn,clientCode);
                 dtFinalAdviserClientKYCStatusList = CreateFinalClientKYCDataTable(dsAdviserClientKYCStatusList);
 
             }
@@ -1618,10 +1618,12 @@ namespace BoOnlineOrderManagement
             Dictionary<string, string> kycStatus;
             dtFinalClientKYCList.Columns.Add("CustomerId");
             dtFinalClientKYCList.Columns.Add("ClientAccountCode");
+            dtFinalClientKYCList.Columns.Add("DOB");
             dtFinalClientKYCList.Columns.Add("Name");
             dtFinalClientKYCList.Columns.Add("PAN");
             dtFinalClientKYCList.Columns.Add("KYCStatus");
             dtFinalClientKYCList.Columns.Add("Holding");
+            dtFinalClientKYCList.Columns.Add("BeneficiaryAccountNum");
 
             dtFinalClientKYCList.Columns.Add("SecondHolder");
             dtFinalClientKYCList.Columns.Add("SecondHolderPAN");
@@ -1646,6 +1648,8 @@ namespace BoOnlineOrderManagement
                 drFinalClientKYC["Name"] = dr["ClientName"];
                 drFinalClientKYC["PAN"] = dr["C_PANNum"];
                 drFinalClientKYC["KYCStatus"] = dr["C_IsKYCAvailable"];
+                drFinalClientKYC["DOB"] = dr["C_DOB"];
+                drFinalClientKYC["BeneficiaryAccountNum"] = dr["AccountNo"];
                 if (drClientDematJointList.Count() > 0)
                     drFinalClientKYC["Holding"] = drClientDematJointList[0][7].ToString();
                 else

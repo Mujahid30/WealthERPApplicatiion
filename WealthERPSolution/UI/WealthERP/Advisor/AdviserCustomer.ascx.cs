@@ -76,7 +76,7 @@ namespace WealthERP.Advisor
                 txtPansearch_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerPan";
                 txtClientCode_autoCompleteExtender.ContextKey = adviserVo.advisorId.ToString();
                 txtClientCode_autoCompleteExtender.ServiceMethod = "GetCustCode";
-                
+
             }
             else if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
             {
@@ -188,7 +188,7 @@ namespace WealthERP.Advisor
         /// This function use to bind Adviser in superadmin
         /// </summary>
         /// 
-      
+
         protected void ddlCOption_SelectedIndexChanged(object sender, EventArgs e)
         {
             clearControls();
@@ -225,19 +225,19 @@ namespace WealthERP.Advisor
             //{
             //    txtCustomerId.Value = "0";
             //}
-           
+
         }
 
         protected void click_Go(object sender, EventArgs e)
         {
-                gvCustomerList.DataSource = null;
-                BindCustomerGrid();
-                tdcustomerlist.Visible = true;
-                txtCustomerId.Value = string.Empty;
+            gvCustomerList.DataSource = null;
+            BindCustomerGrid();
+            tdcustomerlist.Visible = true;
+            txtCustomerId.Value = string.Empty;
         }
         private string GetSelectedFilterValue()
         {
-            
+
             string FilterOn;
             if (ddlCOption.SelectedValue == "Name" || ddlCOption.SelectedValue == "Panno" || ddlCOption.SelectedValue == "Clientcode")
             {
@@ -249,7 +249,7 @@ namespace WealthERP.Advisor
                 FilterOn = ddlCOption.SelectedValue;
                 txtCustomerId.Value = string.Empty;
             }
-            
+
 
             return FilterOn;
         }
@@ -276,7 +276,7 @@ namespace WealthERP.Advisor
                 {
                     rmId = int.Parse(dsAdviserRmDetails.Tables[0].Rows[0]["ar_rmid"].ToString());
                 }
-               DivCustomerList.Visible = true;
+                DivCustomerList.Visible = true;
                 BindCustomerGrid();
                 gvCustomerList.Columns[0].Visible = false;
                 gvCustomerList.Visible = true;
@@ -297,7 +297,7 @@ namespace WealthERP.Advisor
         /// <returns> Return Column on UserRole condition</returns>
 
         public DataTable CreateCustomeListTable(string UserRole)
-       {
+        {
             DataTable dtCustomer = new DataTable();
             dtCustomer.Columns.Add("CustomerId");
             dtCustomer.Columns.Add("ParentId");
@@ -327,6 +327,7 @@ namespace WealthERP.Advisor
             dtCustomer.Columns.Add("CreatedOn");
             dtCustomer.Columns.Add("C_ModifiedOn");
             dtCustomer.Columns.Add("C_ModifiedBy");
+            dtCustomer.Columns.Add("C_CreatedBy");
             if (UserRole != "rm")
             {
                 dtCustomer.Columns.Add("BranchName");
@@ -358,7 +359,7 @@ namespace WealthERP.Advisor
 
         protected void BindCustomerGrid()
         {
-          
+
             AdvisorBo adviserBo = new AdvisorBo();
             //List<CustomerVo> customerList = new List<CustomerVo>();
             DataTable dtcustomerList = new DataTable();
@@ -372,7 +373,7 @@ namespace WealthERP.Advisor
             pnlCustomerList.Visible = true;
             imgexportButton.Visible = true;
             ErrorMessage.Visible = false;
-            
+
         }
 
         /// <summary>
@@ -502,10 +503,16 @@ namespace WealthERP.Advisor
                         {
                             drCustomer["IsMFKYC"] = "N";
                         }
-                        
+
                         if (customerVo.Createdon != null)
-                       
+
                             drCustomer["CreatedOn"] = customerVo.Createdon;
+                        if (customerVo.Modifiefon != null)
+                            drCustomer["C_ModifiedOn"] = customerVo.Modifiefon;
+                        if (drCustomer["C_ModifiedBy"] != null)
+                            drCustomer["C_ModifiedBy"] = customerVo.Modifiedby.ToString();
+                        if (drCustomer["C_CreatedBy"] != null)
+                            drCustomer["C_CreatedBy"] = customerVo.CreatedBy.ToString();
                         if (UserRole != "rm")
                         {
                             drCustomer["BranchName"] = customerVo.BranchName;
@@ -515,11 +522,11 @@ namespace WealthERP.Advisor
                             drCustomer["custcode"] = customerVo.CustCode.ToString();
                         }
                         else
-                           drCustomer["custcode"] = "";
+                            drCustomer["custcode"] = "";
                         dtCustomerList.Rows.Add(drCustomer);
 
                     }
-                     
+
                     if (Cache["CustomerList+UserRole" + adviserVo.advisorId + UserRole] == null)
                     {
                         Cache.Insert("CustomerList+UserRole" + adviserVo.advisorId + UserRole, dtCustomerList);
@@ -570,7 +577,8 @@ namespace WealthERP.Advisor
 
         protected void gvCustomerList_ItemDataBound(object sender, GridItemEventArgs e)
         {
-            if (e.Item is GridFilteringItem && e.Item.ItemIndex == -1) {
+            if (e.Item is GridFilteringItem && e.Item.ItemIndex == -1)
+            {
                 //GridFilteringItem filterItem = (GridFilteringItem)e.Item;
                 //RadComboBox RadComboRM = (RadComboBox)filterItem.FindControl("RadComboRM");
 
@@ -593,7 +601,7 @@ namespace WealthERP.Advisor
 
         protected void gvCustomerList_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
-            
+
             AdvisorBo adviserBo = new AdvisorBo();
             List<CustomerVo> customerList = new List<CustomerVo>();
             RMVo customerRMVo = new RMVo();
@@ -607,10 +615,10 @@ namespace WealthERP.Advisor
                 dtcustomerList = BindOnDemamd(adviserId, rmId, AgentId, UserRole, branchHeadId, AgentCode, GetSelectedFilterValue(), (!string.IsNullOrEmpty(txtCustomerId.Value)) ? int.Parse(txtCustomerId.Value) : 0, hdncustomerCategoryFilter.Value, hdnSystemId.Value, hdnClientId.Value, hdnName.Value, hdnGroup.Value, hdnPAN.Value, hdnBranch.Value, rmType, hdnArea.Value, hdnCity.Value, hdnPincode.Value, hdnIsProspect.Value, hdnIsActive.Value, hdnIsMFKYC.Value, hdnProcessId.Value, gvCustomerList.PageSize, gvCustomerList.CurrentPageIndex + 1, out genDictParent, out genDictRM, out genDictReassignRM, out RowCount);
                 gvCustomerList.DataSource = dtcustomerList;
                 gvCustomerList.VirtualItemCount = RowCount;
-                
-               
+
+
             }
-            
+
             catch (BaseApplicationException Ex)
             {
                 throw Ex;
@@ -631,7 +639,7 @@ namespace WealthERP.Advisor
                 throw exBase;
             }
 
-           
+
 
         }
         /// <summary>
@@ -642,7 +650,7 @@ namespace WealthERP.Advisor
         public void btnExportData_OnClick(object sender, ImageClickEventArgs e)
         {
             gvCustomerList.ExportSettings.OpenInNewWindow = true;
-            gvCustomerList.ExportSettings.IgnorePaging =false;
+            gvCustomerList.ExportSettings.IgnorePaging = false;
             gvCustomerList.ExportSettings.HideStructureColumns = true;
             gvCustomerList.ExportSettings.ExportOnlyData = true;
             gvCustomerList.ExportSettings.FileName = "Customer List";
@@ -739,7 +747,7 @@ namespace WealthERP.Advisor
 
             ////        (fItem[col.UniqueName].Controls[0] as TextBox).Attributes.Add("onkeyup", "semicolon(this, event)");
             ////    }
-           
+
             //}
         }
         protected void gvCustomerList_PreRender(object sender, EventArgs e)
@@ -772,7 +780,7 @@ namespace WealthERP.Advisor
             {
                 RefreshCombos();
             }
-            
+
 
         }
 
@@ -1133,9 +1141,10 @@ namespace WealthERP.Advisor
             }
         }
 
-        string cleanCustomerName(string str) {
-            string custName = str.Trim();            
-            return Regex.Replace(custName, @"([\s]+)", " "); 
+        string cleanCustomerName(string str)
+        {
+            string custName = str.Trim();
+            return Regex.Replace(custName, @"([\s]+)", " ");
         }
 
 
@@ -1143,7 +1152,7 @@ namespace WealthERP.Advisor
         {
             if (e.CommandName == RadGrid.FilterCommandName)
             {
-   
+
                 GridFilteringItem item = gvCustomerList.MasterTableView.GetItems(GridItemType.FilteringItem)[0] as GridFilteringItem;
                 gvCustomerList.CurrentPageIndex = 0;
                 hdncustomerCategoryFilter.Value = (item["ACC_CustomerCategoryName"].Controls[0] as TextBox).Text;
@@ -1158,14 +1167,14 @@ namespace WealthERP.Advisor
                 hdnIsMFKYC.Value = (item["IsMFKYC"].Controls[0] as TextBox).Text;
                 hdnProcessId.Value = (item["ADUL_ProcessId"].Controls[0] as TextBox).Text;
                 hdnSystemAddDate.Value = (item["CreatedOn"].Controls[0] as TextBox).Text;
-                
+
 
             }
 
         }
         protected void GetGridFilters()
         {
-            
+
             //if (ViewState["IsProspect"] != null)
             //{
             //    if (ViewState["IsProspect"].ToString() == "Yes")
@@ -1180,7 +1189,7 @@ namespace WealthERP.Advisor
             //    {
             //        hdnIsProspect.Value = "";
             //    }
-               
+
 
 
             //}
@@ -1211,23 +1220,23 @@ namespace WealthERP.Advisor
                 {
                     hdnIsMFKYC.Value = "0";
                 }
-                
+
             }
 
-            
-          
+
+
 
         }
         protected DataTable BindOnDemamd(int adviserId, int rmId, int AgentId, string UserRole, int branchHeadId, string agentCode, string filterOn, int customerId, string customerCategoryFilter, string customerFilter, string custcodeFilter, string nameFilter, string parentFilter, string panFilter, string BranchFilter, string Rmfilter, string areaFilter, string cityFilter, string pincodeFilter, string IsProspectFilter, string isActiveFilter, string iskycavailableFilter, string processFilter, int pageSize, int pageindex, out Dictionary<string, string> genDictParent, out Dictionary<string, string> genDictRM, out Dictionary<string, string> genDictReassignRM, out int RowCount)
-        { 
+        {
             AdvisorBo adviserBo = new AdvisorBo();
             List<CustomerVo> customerList = new List<CustomerVo>();
             DataTable dtCustomerList = new DataTable();
             RMVo customerRMVo = new RMVo();
             try
             {
-               
-                customerList = adviserBo.GetStaffUserCustomerList(adviserId, rmId, AgentId, UserRole, branchHeadId, AgentCode,filterOn,customerId,customerCategoryFilter,customerFilter,custcodeFilter,nameFilter,parentFilter,panFilter,BranchFilter,Rmfilter,areaFilter,cityFilter,pincodeFilter,IsProspectFilter,isActiveFilter,iskycavailableFilter,processFilter,gvCustomerList.PageSize,gvCustomerList.CurrentPageIndex+1, out genDictParent, out genDictRM, out genDictReassignRM, out RowCount);
+
+                customerList = adviserBo.GetStaffUserCustomerList(adviserId, rmId, AgentId, UserRole, branchHeadId, AgentCode, filterOn, customerId, customerCategoryFilter, customerFilter, custcodeFilter, nameFilter, parentFilter, panFilter, BranchFilter, Rmfilter, areaFilter, cityFilter, pincodeFilter, IsProspectFilter, isActiveFilter, iskycavailableFilter, processFilter, gvCustomerList.PageSize, gvCustomerList.CurrentPageIndex + 1, out genDictParent, out genDictRM, out genDictReassignRM, out RowCount);
                 if (customerList != null)
                 {
 
@@ -1332,9 +1341,10 @@ namespace WealthERP.Advisor
                             drCustomer["CreatedOn"] = customerVo.Createdon;
                         if (customerVo.Modifiefon != null)
                             drCustomer["C_ModifiedOn"] = customerVo.Modifiefon;
-                        if(drCustomer["C_ModifiedBy"]!=null)
-                        drCustomer["C_ModifiedBy"] = customerVo.UserId.ToString();
-
+                        if (drCustomer["C_ModifiedBy"] != null)
+                            drCustomer["C_ModifiedBy"] = customerVo.Modifiedby.ToString();
+                        if (drCustomer["C_CreatedBy"] != null)
+                            drCustomer["C_CreatedBy"] = customerVo.CreatedBy.ToString();
 
                         if (UserRole != "rm")
                         {
@@ -1348,8 +1358,8 @@ namespace WealthERP.Advisor
 
                     }
                 }
-                   
-                
+
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -1383,7 +1393,7 @@ namespace WealthERP.Advisor
             txtCustomerName.Text = "";
             txtPansearch.Text = "";
             txtCustomerId.Value = string.Empty;
-           
+
 
 
         }
@@ -1392,11 +1402,11 @@ namespace WealthERP.Advisor
         /// Binding Customer List when find customer
         /// </summary>
 
-        
-        }
-
 
     }
+
+
+}
 
 
 

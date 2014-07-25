@@ -555,18 +555,25 @@
                                         ShowFilterIcon="false">
                                         <ItemStyle Width="55px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                                     </telerik:GridBoundColumn>
-                                    <telerik:GridBoundColumn DataField="C_ModifiedBy" UniqueName="C_ModifiedBy" HeaderText="Modified On"
-                                        SortExpression="C_ModifiedBy" AutoPostBackOnFilter="true" AllowFiltering="true"
+                                    <telerik:GridBoundColumn DataField="C_CreatedBy" UniqueName="C_CreatedBy" HeaderText="Created UserId"
+                                        SortExpression="C_CreatedBy" AutoPostBackOnFilter="true" AllowFiltering="true"
                                         HeaderStyle-Width="150px" FilterControlWidth="60px" CurrentFilterFunction="Contains"
                                         ShowFilterIcon="false">
                                         <ItemStyle Width="55px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                                     </telerik:GridBoundColumn>
-                                    <telerik:GridBoundColumn DataField="C_ModifiedOn" UniqueName="C_ModifiedOn" HeaderText="Modified Date"
+                                      <telerik:GridBoundColumn DataField="C_ModifiedOn" UniqueName="C_ModifiedOn" HeaderText="System Modified Date"
                                         SortExpression="C_ModifiedOn" AutoPostBackOnFilter="true" AllowFiltering="true"
                                         HeaderStyle-Width="150px" FilterControlWidth="60px" CurrentFilterFunction="Contains"
                                         ShowFilterIcon="false">
                                         <ItemStyle Width="55px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                                     </telerik:GridBoundColumn>
+                                    <telerik:GridBoundColumn DataField="C_ModifiedBy" UniqueName="C_ModifiedBy" HeaderText="Modified UserId"
+                                        SortExpression="C_ModifiedBy" AutoPostBackOnFilter="true" AllowFiltering="true"
+                                        HeaderStyle-Width="150px" FilterControlWidth="60px" CurrentFilterFunction="Contains"
+                                        ShowFilterIcon="false">
+                                        <ItemStyle Width="55px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
+                                    </telerik:GridBoundColumn>
+                                  
                                     <telerik:GridBoundColumn DataField="ACC_CustomerCategoryName" UniqueName="ACC_CustomerCategoryName"
                                         HeaderText="Category" ShowFilterIcon="false" AutoPostBackOnFilter="true" AllowFiltering="true"
                                         HeaderStyle-Width="67px" SortExpression="ACC_CustomerCategoryName" FilterControlWidth="50px"

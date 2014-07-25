@@ -232,6 +232,10 @@ namespace WealthERP.OnlineOrderBackOffice
 
 
                 drSIPOrderBook["CMFSS_CreatedOn"] = DateTime.Parse(drSIP["CMFSS_CreatedOn"].ToString());
+                drSIPOrderBook["CMFSS_ModifiedOn"] = DateTime.Parse(drSIP["CMFSS_ModifiedOn"].ToString());
+                drSIPOrderBook["CMFSS_CreatedBy"] = drSIP["CMFSS_CreatedBy"];
+                drSIPOrderBook["CMFSS_ModifiedBy"] = drSIP["CMFSS_ModifiedBy"];
+
                 drSIPOrderBook["CMFSS_SystematicSetupId"] = drSIP["CMFSS_SystematicSetupId"];
                 drSIPOrderBook["PA_AMCName"] = drSIP["PA_AMCName"].ToString();
                 drSIPOrderBook["C_FirstName"] = drSIP["C_FirstName"].ToString();
@@ -325,6 +329,9 @@ namespace WealthERP.OnlineOrderBackOffice
             dtSIPOrderBook.Columns.Add("PASP_SchemePlanCode");
             dtSIPOrderBook.Columns.Add("CMFA_AccountId");
             dtSIPOrderBook.Columns.Add("C_CustomerId");
+            dtSIPOrderBook.Columns.Add("CMFSS_CreatedBy");
+            dtSIPOrderBook.Columns.Add("CMFSS_ModifiedBy");
+            dtSIPOrderBook.Columns.Add("CMFSS_ModifiedOn");
             dtSIPOrderBook.Columns.Add("U_UMId");
             return dtSIPOrderBook;
 

@@ -3215,6 +3215,9 @@ namespace DaoAdvisorProfiling
                             customerVo.Modifiefon = DateTime.Parse(dr["C_ModifiedOn"].ToString());
                         if (dr["C_ModifiedBy"].ToString() != "")
                             customerVo.Modifiedby = int.Parse(dr["C_ModifiedBy"].ToString());
+                        if (dr["C_CreatedBy"].ToString() != "")
+                            customerVo.CreatedBy = int.Parse(dr["C_CreatedBy"].ToString());
+
                         if (UserRole != "rm")
                         {
                             if (dr["BranchName"].ToString() != "")

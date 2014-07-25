@@ -39,7 +39,10 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel KYClist;
-        
+        protected global::AjaxControlToolkit.AutoCompleteExtender txtClientCode_autoCompleteExtender;
+        protected global::System.Web.UI.WebControls.DropDownList ddlCOption;
+        protected global::System.Web.UI.WebControls.TextBox txtClientCode;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdtxtClientCode;
         /// <summary>
         /// gvKYCStatusList control.
         /// </summary>

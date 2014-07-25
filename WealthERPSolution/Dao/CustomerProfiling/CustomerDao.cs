@@ -5142,7 +5142,7 @@ namespace DaoCustomerProfiling
 
         }
 
-        public bool UpdateMemberRelation(int AssociationId, string relationCode, bool isrealInvestor,int iskyc,DateTime DOB)
+        public bool UpdateMemberRelation(int AssociationId, string relationCode, bool isrealInvestor,int iskyc,DateTime DOB,string txtPan)
         {
             bool isEdited = false;
             Database db;
@@ -5156,6 +5156,8 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(updateMemberRelationCmd, "@IsRealInvestor", DbType.Boolean, isrealInvestor ? 1 : 0);
                 db.AddInParameter(updateMemberRelationCmd, "@Iskyc", DbType.Int16, iskyc);
                 db.AddInParameter(updateMemberRelationCmd, "@DOB", DbType.DateTime, DOB);
+                db.AddInParameter(updateMemberRelationCmd, "@PANno", DbType.String, txtPan);
+
                 if (db.ExecuteNonQuery(updateMemberRelationCmd) != 0)
                     isEdited = true;
             }

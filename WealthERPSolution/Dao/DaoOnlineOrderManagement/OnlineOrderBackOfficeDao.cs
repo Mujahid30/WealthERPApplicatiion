@@ -1605,7 +1605,7 @@ namespace DaoOnlineOrderManagement
         }
 
 
-        public DataSet GetAdviserClientKYCStatusList(int adviserId)
+        public DataSet GetAdviserClientKYCStatusList(int adviserId,string filterOn,string clientCode)
         {
 
             Database db;
@@ -1616,6 +1616,22 @@ namespace DaoOnlineOrderManagement
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 AdviserClientKYCStatusListcmd = db.GetStoredProcCommand("SPROC_GetAdviserAllClientKYCStatus");
                 db.AddInParameter(AdviserClientKYCStatusListcmd, "@AdviserId", DbType.Int32, adviserId);
+                if (filterOn != null)
+                {
+                    db.AddInParameter(AdviserClientKYCStatusListcmd, "@filterOn", DbType.String, filterOn);
+                }
+                else
+                {
+                    db.AddInParameter(AdviserClientKYCStatusListcmd, "@filterOn", DbType.String, DBNull.Value);
+                }
+                if (clientCode != null)
+                {
+                    db.AddInParameter(AdviserClientKYCStatusListcmd, "@clientCode", DbType.String, clientCode);
+                }
+                else
+                {
+                    db.AddInParameter(AdviserClientKYCStatusListcmd, "@clientCode", DbType.String, DBNull.Value);
+                }
                 dsAdviserClientKYCStatusList = db.ExecuteDataSet(AdviserClientKYCStatusListcmd);
             }
             catch (BaseApplicationException Ex)

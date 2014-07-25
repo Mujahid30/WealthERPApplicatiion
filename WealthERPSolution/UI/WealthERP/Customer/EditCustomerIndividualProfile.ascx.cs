@@ -2306,6 +2306,7 @@ namespace WealthERP.Customer
                 bool isrealInvestor = false;
                 int iskyc = 0;
                 DateTime CusrtomerDOBDate;
+                string pannumber = string.Empty;
                 string relationCode = string.Empty;
                 GridEditableItem gridEditableItem = (GridEditableItem)e.Item;
                 gridEditableItem.OwnerTableView.IsItemInserted = false;
@@ -2317,6 +2318,8 @@ namespace WealthERP.Customer
                 CheckBox chkycinside = (CheckBox)e.Item.FindControl("chKInsideKyc");
                 CheckBox chkycinside1 = (CheckBox)e.Item.FindControl("chKInsideKyc1");
                 RadDatePicker RadDatePicker1 = e.Item.FindControl("RadDatePicker1") as RadDatePicker;
+                TextBox txtPan5 = (TextBox)e.Item.FindControl("txtPan");
+                pannumber = txtPan5.Text;
                 if (chkIsrealInvestorMem.Checked)
                     isrealInvestor = true;
                 if (chkycinside.Checked)
@@ -2326,6 +2329,7 @@ namespace WealthERP.Customer
                     TextBox txtMember = (TextBox)e.Item.FindControl("txtMember");
                     //Label lblGetPan = (Label)e.Item.FindControl("lblGetPan");
                     TextBox txtPan = (TextBox)e.Item.FindControl("txtPan");
+                    pannumber = txtPan.Text;
                     DropDownList ddlRelation = (DropDownList)e.Item.FindControl("ddlRelation");
                     txtMember.Enabled = false;
                     //lblGetPan.Enabled = false;
@@ -2355,7 +2359,7 @@ namespace WealthERP.Customer
                 else
                 {
 
-                    isUpdated = customerBo.UpdateMemberRelation(AssociationId, relationCode, isrealInvestor, iskyc, Convert.ToDateTime(RadDatePicker1.SelectedDate));
+                    isUpdated = customerBo.UpdateMemberRelation(AssociationId, relationCode, isrealInvestor, iskyc, Convert.ToDateTime(RadDatePicker1.SelectedDate), pannumber);
 
                 }
             }

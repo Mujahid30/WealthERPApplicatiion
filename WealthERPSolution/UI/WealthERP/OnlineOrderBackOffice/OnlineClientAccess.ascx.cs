@@ -13,6 +13,7 @@ using BoCommon;
 using BoOnlineOrderManagement;
 using VoUser;
 using VoOnlineOrderManagemnet;
+using WealthERP.Base;
 
 
 namespace WealthERP.OnlineOrderBackOffice
@@ -27,14 +28,59 @@ namespace WealthERP.OnlineOrderBackOffice
             SessionBo.CheckSession();
             userVo = (UserVo)Session["userVo"];
             adviserVo = (AdvisorVo)Session["advisorVo"];
+            //if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
+            //{
+                txtClientCode_autoCompleteExtender.ContextKey = adviserVo.advisorId.ToString();
+                txtClientCode_autoCompleteExtender.ServiceMethod = "GetCustCode";
+            //}
+          //  BindAdviserClientKYCStatusList();
+        }
+        protected void ddlCOption_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            clearControls();
+            if (ddlCOption.SelectedValue == "Clientcode")
+            {
+                tdtxtClientCode.Visible = true;
+                tdtxtClientCode.Visible = true;
+            }
+            else
+            {
+                txtClientCode.Visible = false;
+                tdtxtClientCode.Visible = false;
+            }
+        }
+        protected void clearControls()
+        {
+            txtClientCode.Text = "";
+            //txtCustomerId.Value = string.Empty;
+        }
+        private string GetSelectedFilterValue()
+        {
+
+            string FilterOn;
+            if (ddlCOption.SelectedValue == "Clientcode")
+            {
+                FilterOn = "customer";
+            }
+            else
+            {
+                FilterOn = ddlCOption.SelectedValue;
+            }
+
+
+            return FilterOn;
+        }
+        protected void click_Go(object sender, EventArgs e)
+        {
             BindAdviserClientKYCStatusList();
+            KYClist.Visible = true;
         }
         protected void BindAdviserClientKYCStatusList()
         {
             try
             {
                 DataTable dtAdviserClientKYCStatusList = new DataTable();
-                dtAdviserClientKYCStatusList = onlineOrderBackOfficeBo.GetAdviserClientKYCStatusList(adviserVo.advisorId);
+                dtAdviserClientKYCStatusList = onlineOrderBackOfficeBo.GetAdviserClientKYCStatusList(adviserVo.advisorId, GetSelectedFilterValue(),(string.IsNullOrEmpty(txtClientCode.Text))?string.Empty:txtClientCode.Text);
                 if (dtAdviserClientKYCStatusList.Rows.Count > 0)
                 {
                     if (Cache["KYCList" + adviserVo.advisorId] == null)

@@ -122,6 +122,7 @@ namespace VoUser
         public string FatherHusbandName { get; set; }
         public DateTime Modifiefon { get; set; }
         public int Modifiedby { get; set; }
+        public int CreatedBy { get; set; }
         public int CustomerCategoryCode
         {
             get { return m_CustomerCategoryCode; }
