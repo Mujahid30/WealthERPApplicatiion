@@ -41,11 +41,9 @@ namespace WealthERP.OnlineOrderBackOffice
             if (ddlCOption.SelectedValue == "Clientcode")
             {
                 tdtxtClientCode.Visible = true;
-                tdtxtClientCode.Visible = true;
             }
             else
             {
-                txtClientCode.Visible = false;
                 tdtxtClientCode.Visible = false;
             }
         }

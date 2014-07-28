@@ -24,8 +24,8 @@
     function Realinvestor() {
         if (document.getElementById('<%=chkRealInvestor.ClientID%>').checked == false) {
             var con = confirm("Are you sure about the change?\nCustomer will be mark as non investor and will not be accessible.!!");
-           
-            if (con==true) {
+
+            if (con == true) {
                 document.getElementById('<%=chkRealInvestor.ClientID%>').checked = false;
                 return true;
             }
@@ -91,184 +91,195 @@
         </td>
     </tr>
 </table>
-<table style="width: 100%; height: 254px;">
+<table width="100%">
     <tr>
-        <td class="leftField" style="width: 20%">
-            <asp:Label ID="lblCustomerType" runat="server" CssClass="FieldName" Text="Customer Type:"></asp:Label>
-        </td>
-        <td class="rightField">
-            <asp:RadioButton ID="rbtnIndividual" runat="server" CssClass="txtField" Text="Individual"
-                GroupName="grpCustomerType" AutoPostBack="true" OnCheckedChanged="rbtnIndividual_CheckedChanged" />
-            &nbsp;&nbsp;
-            <asp:RadioButton ID="rbtnNonIndividual" runat="server" CssClass="txtField" Text="Non Individual"
-                GroupName="grpCustomerType" AutoPostBack="true" OnCheckedChanged="rbtnNonIndividual_CheckedChanged" />
-        </td>
-    </tr>
-    <tr>
-        <td class="leftField">
-            <asp:Label ID="lblBranchName" runat="server" CssClass="FieldName" Text="Branch Name:"></asp:Label>
-        </td>
-        <td>
-            <asp:DropDownList ID="ddlAdviserBranchList" runat="server" CssClass="cmbField">
-            </asp:DropDownList>
-            <span id="Span3" class="spnRequiredField">*</span>
-            <asp:CompareValidator ID="ddlAdviserBranchList_CompareValidator" runat="server" ControlToValidate="ddlAdviserBranchList"
-                ErrorMessage="Please select a Branch" Operator="NotEqual" ValueToCompare="Select a Branch"
-                CssClass="cvPCG">
-            </asp:CompareValidator>
-        </td>
-    </tr>
-    <tr>
-        <td class="leftField" style="width: 20%">
-            <asp:Label ID="lblRMName" runat="server" CssClass="FieldName" Text="RM Name:"></asp:Label>
-        </td>
-        <td class="rightField">
-            <asp:Label ID="lblRM" runat="server" CssClass="FieldName" Text="RM Name:"></asp:Label>
-        </td>
-    </tr>
-    <tr>
-        <td class="leftField">
-            <asp:Label ID="lblCustomerSubType" runat="server" CssClass="FieldName" Text="Customer Sub Type:"></asp:Label>
-        </td>
-        <td>
-            <asp:DropDownList ID="ddlCustomerSubType" runat="server" CssClass="cmbField" AutoPostBack="true"
-                OnSelectedIndexChanged="ddlCustomerSubType_SelectedIndexChanged">
-            </asp:DropDownList>
-            <span id="Span2" class="spnRequiredField">*</span>
-            <asp:CheckBox ID="chkRealInvestor" runat="server" CssClass="txtField" Text="Investor"
-                AutoPostBack="false" OnCheckedChanged="chkRealInvestor_OnCheckedChanged" onClick="Realinvestor();"/>
-            <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="ddlCustomerSubType"
-                ErrorMessage="Please select a Customer Sub-Type" Operator="NotEqual" ValueToCompare="Select a Sub-Type"
-                CssClass="cvPCG"></asp:CompareValidator>
-        </td>
-    </tr>
-    <tr>
-        <td class="leftField" style="width: 20%">
-            <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="Date of Profiling:"></asp:Label>
-        </td>
-        <td class="rightField">
-            <%--<asp:TextBox ID="txtProfilingDate" runat="server" CssClass="txtField" Enabled="false"></asp:TextBox>--%>
-            <telerik:RadDatePicker ID="txtProfilingDate" CssClass="txtField" runat="server" Culture="English (United States)"
-                Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
-                <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
-                    Skin="Telerik" EnableEmbeddedSkins="false">
-                </Calendar>
-                <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
-                </DateInput>
-            </telerik:RadDatePicker>
-        </td>
-    </tr>
-    <tr>
-        <td class="leftField">
-            <asp:Label ID="Label5" runat="server" CssClass="FieldName" Text="Client Code:"></asp:Label>
-        </td>
-        <td class="rightField">
-            <asp:TextBox ID="txtCustomerCode" runat="server" CssClass="txtField" MaxLength="16"></asp:TextBox>
-            <asp:RegularExpressionValidator ID="revCustCode" runat="server" Display="Dynamic"
-                CssClass="cvPCG" ControlToValidate="txtCustomerCode" ValidationExpression="^[0-9a-zA-Z ]+$"
-                ErrorMessage="Please enter alphanumeric of max 16 digit"></asp:RegularExpressionValidator>
-        </td>
-    </tr>
-    <tr>
-        <td class="leftField">
-            <asp:Label ID="lblGender" runat="server" CssClass="FieldName" Text="Gender:"></asp:Label>
-        </td>
-        <td class="rightField">
-            <asp:RadioButton ID="rbtnMale" runat="server" CssClass="txtField" Text="Male" GroupName="rbtnGender" />
-            <asp:RadioButton ID="rbtnFemale" runat="server" CssClass="txtField" Text="Female"
-                GroupName="rbtnGender" />
-            &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-            <asp:CheckBox ID="chkKYC" runat="server" CssClass="txtField" Text="MF KYC" AutoPostBack="true" />
-        </td>
-    </tr>
-    <tr>
-        <td class="leftField">
-            <asp:Label ID="Label8" runat="server" CssClass="FieldName" Text="PAN Number:"></asp:Label>
-        </td>
-        <td class="rightField">
-            <asp:TextBox ID="txtPanNumber" runat="server" CssClass="txtField" MaxLength="10"  ></asp:TextBox>
-            <span id="Span4" class="spnRequiredField">*</span> &nbsp; &nbsp;
-            <asp:CheckBox ID="chkdummypan" runat="server" CssClass="txtField" Text="Dummy PAN"
-                AutoPostBack="true" />
-            <br />
-            <asp:RequiredFieldValidator ID="rfvPanNumber" ControlToValidate="txtPanNumber" ErrorMessage="Please enter a PAN Number"
-                Display="Dynamic" runat="server" CssClass="rfvPCG">
-            </asp:RequiredFieldValidator>
-            <asp:Label ID="lblPanDuplicate" runat="server" CssClass="Error" Text="PAN Number already exists"></asp:Label>
-        </td>
-    </tr>
-    <tr>
-        <td class="leftField">
-            <asp:Label ID="Label3" runat="server" CssClass="FieldName" Text="Salutation:"></asp:Label>
-        </td>
-        <td class="rightField" width="75%">
-            <asp:DropDownList ID="ddlSalutation" runat="server" CssClass="cmbField">
-                <asp:ListItem>Select a Salutation</asp:ListItem>
-                <asp:ListItem>Mr.</asp:ListItem>
-                <asp:ListItem>Mrs.</asp:ListItem>
-                <asp:ListItem>Ms.</asp:ListItem>
-                <asp:ListItem>M/S.</asp:ListItem>
-                <asp:ListItem>Dr.</asp:ListItem>
-            </asp:DropDownList>
-            <%--            <span id="Span5" class="spnRequiredField">*</span>
+        <td class="rightField" style="width: 75%;">
+            <table style="width: 100%;">
+                <tr>
+                    <td class="leftField" style="width: 20%">
+                        <asp:Label ID="lblCustomerType" runat="server" CssClass="FieldName" Text="Customer Type:"></asp:Label>
+                    </td>
+                    <td class="rightField">
+                        <asp:RadioButton ID="rbtnIndividual" runat="server" CssClass="txtField" Text="Individual"
+                            GroupName="grpCustomerType" AutoPostBack="true" OnCheckedChanged="rbtnIndividual_CheckedChanged" />
+                        &nbsp;&nbsp;
+                        <asp:RadioButton ID="rbtnNonIndividual" runat="server" CssClass="txtField" Text="Non Individual"
+                            GroupName="grpCustomerType" AutoPostBack="true" OnCheckedChanged="rbtnNonIndividual_CheckedChanged" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftField">
+                        <asp:Label ID="lblBranchName" runat="server" CssClass="FieldName" Text="Branch Name:"></asp:Label>
+                    </td>
+                    <td>
+                        <asp:DropDownList ID="ddlAdviserBranchList" runat="server" CssClass="cmbField">
+                        </asp:DropDownList>
+                        <span id="Span3" class="spnRequiredField">*</span>
+                        <asp:CompareValidator ID="ddlAdviserBranchList_CompareValidator" runat="server" ControlToValidate="ddlAdviserBranchList"
+                            ErrorMessage="Please select a Branch" Operator="NotEqual" ValueToCompare="Select a Branch"
+                            CssClass="cvPCG">
+                        </asp:CompareValidator>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftField" style="width: 20%">
+                        <asp:Label ID="lblRMName" runat="server" CssClass="FieldName" Text="RM Name:"></asp:Label>
+                    </td>
+                    <td class="rightField">
+                        <asp:Label ID="lblRM" runat="server" CssClass="FieldName" Text="RM Name:"></asp:Label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftField">
+                        <asp:Label ID="lblCustomerSubType" runat="server" CssClass="FieldName" Text="Customer Sub Type:"></asp:Label>
+                    </td>
+                    <td>
+                        <asp:DropDownList ID="ddlCustomerSubType" runat="server" CssClass="cmbField" AutoPostBack="true"
+                            OnSelectedIndexChanged="ddlCustomerSubType_SelectedIndexChanged">
+                        </asp:DropDownList>
+                        <span id="Span2" class="spnRequiredField">*</span>
+                        <asp:CheckBox ID="chkRealInvestor" runat="server" CssClass="txtField" Text="Investor"
+                            AutoPostBack="false" OnCheckedChanged="chkRealInvestor_OnCheckedChanged" onClick="Realinvestor();" />
+                        <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="ddlCustomerSubType"
+                            ErrorMessage="Please select a Customer Sub-Type" Operator="NotEqual" ValueToCompare="Select a Sub-Type"
+                            CssClass="cvPCG"></asp:CompareValidator>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftField" style="width: 20%">
+                        <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="Date of Profiling:"></asp:Label>
+                    </td>
+                    <td class="rightField">
+                        <%--<asp:TextBox ID="txtProfilingDate" runat="server" CssClass="txtField" Enabled="false"></asp:TextBox>--%>
+                        <telerik:RadDatePicker ID="txtProfilingDate" CssClass="txtField" runat="server" Culture="English (United States)"
+                            Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                            <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
+                                Skin="Telerik" EnableEmbeddedSkins="false">
+                            </Calendar>
+                            <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                            <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                            </DateInput>
+                        </telerik:RadDatePicker>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftField">
+                        <asp:Label ID="Label5" runat="server" CssClass="FieldName" Text="Client Code:"></asp:Label>
+                    </td>
+                    <td class="rightField">
+                        <asp:TextBox ID="txtCustomerCode" runat="server" CssClass="txtField" MaxLength="16"></asp:TextBox>
+                        <asp:RegularExpressionValidator ID="revCustCode" runat="server" Display="Dynamic"
+                            CssClass="cvPCG" ControlToValidate="txtCustomerCode" ValidationExpression="^[0-9a-zA-Z ]+$"
+                            ErrorMessage="Please enter alphanumeric of max 16 digit" ValidationGroup="btnEdit"></asp:RegularExpressionValidator>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftField">
+                        <asp:Label ID="lblGender" runat="server" CssClass="FieldName" Text="Gender:"></asp:Label>
+                    </td>
+                    <td class="rightField">
+                        <asp:RadioButton ID="rbtnMale" runat="server" CssClass="txtField" Text="Male" GroupName="rbtnGender" />
+                        <asp:RadioButton ID="rbtnFemale" runat="server" CssClass="txtField" Text="Female"
+                            GroupName="rbtnGender" />
+                        &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                        <asp:CheckBox ID="chkKYC" runat="server" CssClass="txtField" Text="MF KYC" AutoPostBack="true" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftField">
+                        <asp:Label ID="Label8" runat="server" CssClass="FieldName" Text="PAN Number:"></asp:Label>
+                    </td>
+                    <td class="rightField">
+                        <asp:TextBox ID="txtPanNumber" runat="server" CssClass="txtField" MaxLength="10"></asp:TextBox>
+                        <span id="Span4" class="spnRequiredField">*</span> &nbsp; &nbsp;&nbsp;
+                        <asp:CheckBox ID="chkdummypan" runat="server" CssClass="txtField" Text="Dummy PAN"
+                            AutoPostBack="true" />
+                        <br />
+                        <asp:RequiredFieldValidator ID="rfvPanNumber" ControlToValidate="txtPanNumber" ErrorMessage="Please enter a PAN Number"
+                            Display="Dynamic" runat="server" CssClass="rfvPCG" ValidationGroup="btnEdit">
+                        </asp:RequiredFieldValidator>
+                        <asp:Label ID="lblPanDuplicate" runat="server" CssClass="Error" Text="PAN Number already exists"></asp:Label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftField">
+                        <asp:Label ID="Label3" runat="server" CssClass="FieldName" Text="Salutation:"></asp:Label>
+                    </td>
+                    <td class="rightField" width="75%">
+                        <asp:DropDownList ID="ddlSalutation" runat="server" CssClass="cmbField">
+                            <asp:ListItem>Select a Salutation</asp:ListItem>
+                            <asp:ListItem>Mr.</asp:ListItem>
+                            <asp:ListItem>Mrs.</asp:ListItem>
+                            <asp:ListItem>Ms.</asp:ListItem>
+                            <asp:ListItem>M/S.</asp:ListItem>
+                            <asp:ListItem>Dr.</asp:ListItem>
+                        </asp:DropDownList>
+                        <%--            <span id="Span5" class="spnRequiredField">*</span>
             <asp:CompareValidator ID="cmpddlSalutation" runat="server" ControlToValidate="ddlSalutation"
                 ErrorMessage="Please select a Salutation for customer" Operator="NotEqual" ValueToCompare="Select a Salutation"
                 CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>--%>
-        </td>
-    </tr>
-    <tr>
-        <td class="leftField">
-            <asp:Label ID="Label4" runat="server" CssClass="FieldName" Text="Name:"></asp:Label>
-        </td>
-        <td class="rightField">
-            <asp:TextBox ID="txtFirstName" runat="server" CssClass="txtField" Style="width: 30%"></asp:TextBox>
-            <span id="Span1" class="spnRequiredField">*</span>
-            <asp:TextBox ID="txtMiddleName" runat="server" CssClass="txtField" Style="width: 30%"></asp:TextBox>
-            <asp:TextBox ID="txtLastName" runat="server" CssClass="txtField" Style="width: 30%"></asp:TextBox>
-            <asp:RequiredFieldValidator ID="rfvLastName" ControlToValidate="txtFirstName" ErrorMessage="Please enter the First Name"
-                Display="Dynamic" runat="server" CssClass="rfvPCG">
-            </asp:RequiredFieldValidator>
-        </td>
-    </tr>
-    <tr id="trGuardianName" runat="server">
-        <td class="leftField">
-            <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Guardian Name:"></asp:Label>
-        </td>
-        <td class="rightField">
-            <asp:TextBox ID="txtGuardianFirstName" runat="server" CssClass="txtField" Style="width: 30%"></asp:TextBox>
-            <asp:TextBox ID="txtGuardianMiddleName" runat="server" CssClass="txtField" Style="width: 30%"></asp:TextBox>
-            <asp:TextBox ID="txtGuardianLastName" runat="server" CssClass="txtField" Style="width: 30%"></asp:TextBox>
-        </td>
-    </tr>
-    <%--<tr>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftField">
+                        <asp:Label ID="Label4" runat="server" CssClass="FieldName" Text="Name:"></asp:Label>
+                    </td>
+                    <td class="rightField">
+                        <asp:TextBox ID="txtFirstName" runat="server" CssClass="txtField" Style="width: 30%"></asp:TextBox>
+                        <span id="Span1" class="spnRequiredField">*</span>
+                        <asp:TextBox ID="txtMiddleName" runat="server" CssClass="txtField" Style="width: 30%"></asp:TextBox>
+                        <asp:TextBox ID="txtLastName" runat="server" CssClass="txtField" Style="width: 30%"></asp:TextBox>
+                        <asp:RequiredFieldValidator ID="rfvLastName" ControlToValidate="txtFirstName" ErrorMessage="Please enter the First Name"
+                            Display="Dynamic" runat="server" CssClass="rfvPCG" ValidationGroup="btnEdit">
+                        </asp:RequiredFieldValidator>
+                    </td>
+                </tr>
+                <tr id="trGuardianName" runat="server">
+                    <td class="leftField">
+                        <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Guardian Name:"></asp:Label>
+                    </td>
+                    <td class="rightField">
+                        <asp:TextBox ID="txtGuardianFirstName" runat="server" CssClass="txtField" Style="width: 30%"></asp:TextBox>
+                        <asp:TextBox ID="txtGuardianMiddleName" runat="server" CssClass="txtField" Style="width: 30%"></asp:TextBox>
+                        <asp:TextBox ID="txtGuardianLastName" runat="server" CssClass="txtField" Style="width: 30%"></asp:TextBox>
+                    </td>
+                </tr>
+                <%--<tr>
         <td class="leftField">
             <%--<asp:Label ID="lblMfKYC" runat="server" CssClass="FieldName" Text="MF KYC:"></asp:Label>--%>
-    <%-- </td>
+                <%-- </td>
         <td class="rightField">
             <asp:RadioButton ID="rbtnkycYes" runat="server" CssClass="txtField" Text="Yes" GroupName="rbtnKYC" />
             <asp:RadioButton ID="rbtnKycNo" runat="server" CssClass="txtField" Text="No" Checked="true" GroupName="rbtnKYC" />
         </td>
     </tr>--%>
-    <tr id="trForResidence" runat="server">
-        <td align="right">
-            <asp:Label ID="lblFatherHusband" runat="server" Text="Father/Husband Name:" CssClass="FieldName"></asp:Label>
+                <tr id="trForResidence" runat="server">
+                    <td align="right">
+                        <asp:Label ID="lblFatherHusband" runat="server" Text="Father/Husband Name:" CssClass="FieldName"></asp:Label>
+                    </td>
+                    <td>
+                        <asp:TextBox ID="txtFatherHusband" runat="server" CssClass="txtField" Width="300px"></asp:TextBox>
+                        <%-- </td>
+        <td  style="width: 30%;">--%>
+                        &nbsp;&nbsp;
+                        <asp:Label ID="lblSlabForOther" runat="server" CssClass="FieldName" Text="Tax slab applicable(%):"></asp:Label>
+                        <%-- </td>
+        <td>--%>
+                        <asp:TextBox ID="txtSlab" runat="server" CssClass="txtField" Width="157px"></asp:TextBox>
+                        <asp:CompareValidator ID="cmpareSlabForOther" ControlToValidate="txtSlab" runat="server"
+                            Display="Dynamic" ErrorMessage="<br /> Please enter a numeric value for Tax slab."
+                            Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
+                        &nbsp;&nbsp;
+                        <asp:Button ID="btnGetSlab" runat="server" Text="Get the slab" CssClass="PCGMediumButton"
+                            OnClick="btnGetSlab_Click" />
+                    </td>
+                </tr>
+            </table>
         </td>
         <td>
-            <asp:TextBox ID="txtFatherHusband" runat="server" CssClass="txtField" Width="300px"></asp:TextBox>
-            <%-- </td>
-        <td  style="width: 30%;">--%>
-            &nbsp;&nbsp;
-            <asp:Label ID="lblSlabForOther" runat="server" CssClass="FieldName" Text="Tax slab applicable(%):"></asp:Label>
-            <%-- </td>
-        <td>--%>
-            <asp:TextBox ID="txtSlab" runat="server" CssClass="txtField" Width="157px"></asp:TextBox>
-            <asp:CompareValidator ID="cmpareSlabForOther" ControlToValidate="txtSlab" runat="server"
-                Display="Dynamic" ErrorMessage="<br /> Please enter a numeric value for Tax slab."
-                Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
-            &nbsp;&nbsp;
-            <asp:Button ID="btnGetSlab" runat="server" Text="Get the slab" CssClass="PCGMediumButton"
-                OnClick="btnGetSlab_Click" />
+            <div>
+                <asp:ValidationSummary ID="ValidationSummary1" runat="server" CssClass="cvPCG" ValidationGroup="btnEdit" DisplayMode="BulletList" />
+            </div>
         </td>
     </tr>
 </table>
@@ -1192,7 +1203,7 @@
                         <span id="spBranchName" class="spnRequiredField">*</span>
                         <asp:RequiredFieldValidator ID="reqtxtCorrAdrLine1" runat="server" ControlToValidate="txtCorrAdrLine1"
                             ValidationGroup="btnEdit" InitialValue="" Display="Dynamic" ErrorMessage="Please fill address line1"
-                            CssClas="rfvPCG"></asp:RequiredFieldValidator>
+                            CssClass="rfvPCG"></asp:RequiredFieldValidator>
                     </td>
                 </tr>
                 <tr>
@@ -1696,7 +1707,7 @@
         </td>
     </tr>
     <tr>
-        <td colspan="3" class="SubmitCell">
+        <td colspan="2" class="SubmitCell">
             <asp:Button ID="btnEdit" runat="server" ValidationGroup="btnEdit" Text="Save" CssClass="PCGButton"
                 onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_EditCustomerIndividualProfile_btnEdit');"
                 onmouseout="javascript:ChangeButtonCss('out', 'ctrl_EditCustomerIndividualProfile_btnEdit');"

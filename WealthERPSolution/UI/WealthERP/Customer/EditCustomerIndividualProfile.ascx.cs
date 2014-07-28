@@ -906,13 +906,14 @@ namespace WealthERP.Customer
 
                     if (chkCorrPerm.Checked)
                     {
-                        customerVo.PermanentCityId = int.Parse(ddlPermAdrCity.SelectedValue.ToString());
                         customerVo.Adr2Country = txtCorrAdrCountry.Text;
                         customerVo.Adr2Line1 = txtCorrAdrLine1.Text;
                         customerVo.Adr2Line2 = txtCorrAdrLine2.Text;
                         customerVo.Adr2Line3 = txtCorrAdrLine3.Text;
                         customerVo.Adr2PinCode = int.Parse(txtCorrAdrPinCode.Text);
                         customerVo.Adr2State = ddlCorrAdrState.SelectedItem.Value.ToString();
+                        customerVo.PermanentStateId = int.Parse(ddlCorrAdrState.SelectedValue);
+                        customerVo.PermanentCityId = int.Parse(ddlCorrAdrCity.SelectedValue);
                     }
 
 

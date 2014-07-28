@@ -1624,7 +1624,7 @@ namespace BoOnlineOrderManagement
             dtFinalClientKYCList.Columns.Add("KYCStatus");
             dtFinalClientKYCList.Columns.Add("Holding");
             dtFinalClientKYCList.Columns.Add("BeneficiaryAccountNum");
-
+            dtFinalClientKYCList.Columns.Add("Nominee");
             dtFinalClientKYCList.Columns.Add("SecondHolder");
             dtFinalClientKYCList.Columns.Add("SecondHolderPAN");
             dtFinalClientKYCList.Columns.Add("SecondHolderKYC");
@@ -1650,6 +1650,8 @@ namespace BoOnlineOrderManagement
                 drFinalClientKYC["KYCStatus"] = dr["C_IsKYCAvailable"];
                 drFinalClientKYC["DOB"] = dr["C_DOB"];
                 drFinalClientKYC["BeneficiaryAccountNum"] = dr["AccountNo"];
+                drFinalClientKYC["Nominee"] = dr["Nominee1"];
+
                 if (drClientDematJointList.Count() > 0)
                     drFinalClientKYC["Holding"] = drClientDematJointList[0][7].ToString();
                 else

@@ -5155,7 +5155,14 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(updateMemberRelationCmd, "@relationCode", DbType.String, relationCode);
                 db.AddInParameter(updateMemberRelationCmd, "@IsRealInvestor", DbType.Boolean, isrealInvestor ? 1 : 0);
                 db.AddInParameter(updateMemberRelationCmd, "@Iskyc", DbType.Int16, iskyc);
-                db.AddInParameter(updateMemberRelationCmd, "@DOB", DbType.DateTime, DOB);
+                if (DOB != DateTime.MinValue)
+                {
+                    db.AddInParameter(updateMemberRelationCmd, "@DOB", DbType.DateTime, DOB);
+                }
+                else
+                {
+                db.AddInParameter(updateMemberRelationCmd, "@DOB", DbType.DateTime, DBNull.Value);
+                }
                 db.AddInParameter(updateMemberRelationCmd, "@PANno", DbType.String, txtPan);
 
                 if (db.ExecuteNonQuery(updateMemberRelationCmd) != 0)
