@@ -105,14 +105,10 @@ namespace WealthERP.OnlineOrderManagement
                 gvCommMgmt.DataBind();
 
             }
-
-            //FILING THE DATA FOR THE CHILD GRID
-            // gvCommMgmt.MasterTableView.DetailTables[0].DataSource = dsStructureRules.Tables[1];
-            if (Cache["NCDIssueList" + userVo.UserId.ToString()] != null)
-            {
-                Cache.Remove("NCDIssueList" + userVo.UserId.ToString());
-                Cache.Insert("NCDIssueList" + userVo.UserId.ToString(), dtIssue);
-            }
+            if ("NCDIssueList" + userVo.UserId.ToString() != null) Cache.Remove("NCDIssueList" + userVo.UserId.ToString());
+            
+            if (dtIssue.Rows.Count > 0 ) Cache.Insert("NCDIssueList" + userVo.UserId.ToString(), dtIssue);
+            
 
 
         }
@@ -276,12 +272,8 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void gvCommMgmt_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
-            DataTable dtIssueDetail = new DataTable();
-            dtIssueDetail = (DataTable)Cache["NCDIssueList" + userVo.UserId.ToString()];
-            if (dtIssueDetail != null)
-            {
-                gvCommMgmt.DataSource = dtIssueDetail;
-            }
+            DataTable dtUpload = (DataTable)Cache["NCDIssueList" + userVo.UserId.ToString()];
+            if (dtUpload != null) gvCommMgmt.DataSource = dtUpload;
              
         }
         protected void gvChildDetails_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
