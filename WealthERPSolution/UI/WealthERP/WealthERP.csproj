@@ -8464,9 +8464,11 @@
     <None Include="FillablePDFForms\FranklinInfotechFund%28G%29_SIP.pdf" />
     <None Include="MarketDataDownloadFiles\BseEquities.CSV" />
     <None Include="MarketDataDownloadFiles\BseEquitiesFiltered.csv" />
+    <None Include="ReferenceFiles\RTAExtractSampleFiles\amcbank.dbf" />
     <None Include="ReferenceFiles\RTAExtractSampleFiles\cams.dbf" />
     <None Include="ReferenceFiles\RTAExtractSampleFiles\karvy.dbf" />
     <None Include="ReferenceFiles\RTAExtractSampleFiles\frank.dbf" />
+    <None Include="ReferenceFiles\RTAExtractSampleFiles\sipbook.dbf" />
     <None Include="ReferenceFiles\RTAExtractSampleFiles\sund.dbf" />
     <None Include="Reports\CapitalGainDetailsDs.xsc">
       <DependentUpon>CapitalGainDetailsDs.xsd</DependentUpon>
