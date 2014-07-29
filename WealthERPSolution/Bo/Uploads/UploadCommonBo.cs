@@ -25,7 +25,7 @@ namespace BoUploads
         //To retrieve all fieldnames for a type of file used for upload. These fields are used to map column names of 
         //of the file uploaded with fields that must actually be thee for the type of uploaded file
 
-        
+
         public DataSet GetColumnNames(int XMLFileTypeId)
         {
             DataSet dsColumnNames = new DataSet();
@@ -47,7 +47,7 @@ namespace BoUploads
 
                 object[] objects = new object[1];
                 objects[0] = XMLFileTypeId;
-               
+
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
@@ -75,7 +75,7 @@ namespace BoUploads
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "UploadCommonBo.cs:GetLastUploadDate()");
-                object[] objects = new object[1];                
+                object[] objects = new object[1];
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -85,7 +85,7 @@ namespace BoUploads
         }
         public string GetLastUploadDate(int advisorid)
         {
-            string lastUploadDate="";
+            string lastUploadDate = "";
             UploadsCommonDao uploadscommonDao = new UploadsCommonDao();
             try
             {
@@ -733,7 +733,7 @@ namespace BoUploads
                                 // Checking for dependant data - Net Postion Updated for the transaction
                                 //blCustMFTranNetPositionUpdated = CustMFNetPositionUpdated(ProcessID);
 
-                               // blCustEQTranNetPositionUpdated = CustEQNetPositionUpdated(ProcessID);
+                                // blCustEQTranNetPositionUpdated = CustEQNetPositionUpdated(ProcessID);
 
                                 if (blCustEQTranNetPositionUpdated)
                                 {
@@ -820,7 +820,7 @@ namespace BoUploads
                                 // 2) Remove details from werp tables onwards
 
                                 // Checking for dependant data - Net Postion Updated for the transaction
-                               // blCustMFTranNetPositionUpdated = CustMFNetPositionUpdated(ProcessID);
+                                // blCustMFTranNetPositionUpdated = CustMFNetPositionUpdated(ProcessID);
 
                                 if (blCustMFTranNetPositionUpdated)
                                 {
@@ -847,7 +847,7 @@ namespace BoUploads
                                 // 2) Remove details from werp tables onwards
 
                                 // Checking for dependant data - Net Postion Updated for the transaction
-                               // blCustMFTranNetPositionUpdated = CustMFNetPositionUpdated(ProcessID);
+                                // blCustMFTranNetPositionUpdated = CustMFNetPositionUpdated(ProcessID);
 
                                 if (blCustMFTranNetPositionUpdated)
                                 {
@@ -3185,7 +3185,7 @@ namespace BoUploads
             UploadsCommonDao uploadDAO = new UploadsCommonDao();
 
 
-                count = uploadDAO.GetUploadFolioUploadCount(processID, source);
+            count = uploadDAO.GetUploadFolioUploadCount(processID, source);
 
             return count;
         }
@@ -3580,14 +3580,14 @@ namespace BoUploads
                         int AdvId = int.Parse(dsmindateval.Tables[0].Rows[0]["AdviserId"].ToString());
                         valupdated = customerportfoliobo.UpdateAdviserDailyEODLogRevaluateForTransaction(AdvId, "MF", LeastTransDate);
                     }
-                    
+
 
                     if (valupdated)
                     {
                         IsProcessComplete = true;
                     }
                 }
-                    
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -3613,13 +3613,13 @@ namespace BoUploads
         }
 
         //Populate the Branch drop down
-        public DataSet GetAdviserBranchList(int adviserId,string userType)
+        public DataSet GetAdviserBranchList(int adviserId, string userType)
         {
             DataSet ds = new DataSet();
             UploadsCommonDao uploadscommonDao = new UploadsCommonDao();
             try
             {
-                ds = uploadscommonDao.GetAdviserBranchList(adviserId,userType);
+                ds = uploadscommonDao.GetAdviserBranchList(adviserId, userType);
             }
             catch (BaseApplicationException Ex)
             {
@@ -3634,7 +3634,7 @@ namespace BoUploads
 
                 object[] objects = new object[1];
                 objects[0] = adviserId;
-                
+
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
@@ -4236,7 +4236,7 @@ namespace BoUploads
         }
 
 
-        public DataSet GetRejectedSIPRecords(int adviserId, int processId,DateTime fromDate,DateTime toDate,int rejectreasonCode)
+        public DataSet GetRejectedSIPRecords(int adviserId, int processId, DateTime fromDate, DateTime toDate, int rejectreasonCode)
         {
             DataSet dsSIPRejectedDetails = new DataSet();
             UploadsCommonDao uploadDAO = new UploadsCommonDao();
@@ -4257,7 +4257,7 @@ namespace BoUploads
                 FunctionInfo.Add("Method", "UploadCommonBo.cs:GetRejectedSIPRecords()");
 
                 object[] objects = new object[2];
-               
+
 
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
@@ -4413,7 +4413,7 @@ namespace BoUploads
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "UploadCommonBo.cs:GetWERPUploadDetailsForProcessId()");
-                object[] objects = new object[1];              
+                object[] objects = new object[1];
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -4439,7 +4439,7 @@ namespace BoUploads
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "UploadCommonBo.cs:GetWERPUploadProcessIdForAdviser()");
-                object[] objects = new object[1];              
+                object[] objects = new object[1];
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -4468,7 +4468,7 @@ namespace BoUploads
                 FunctionInfo.Add("Method", "UploadCommonBo.cs:GetSuperAdminUploadDistinctProcessIdForAdviser()");
 
                 object[] objects = new object[1];
-                
+
 
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
@@ -4499,7 +4499,7 @@ namespace BoUploads
                 FunctionInfo.Add("Method", "UploadCommonBo.cs:GetSuperAdminUploadDistinctProcessIdForAdviser()");
 
                 object[] objects = new object[1];
-                
+
 
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
@@ -4528,7 +4528,7 @@ namespace BoUploads
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "UploadCommonBo.cs:GetSuperAdminEquityTradeAccountStagingForProcessId()");
                 object[] objects = new object[1];
-             
+
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -4555,7 +4555,7 @@ namespace BoUploads
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "UploadCommonBo.cs:GetSuperAdminEquityTradeAccountStagingProcessId()");
                 object[] objects = new object[1];
-             
+
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -4581,7 +4581,7 @@ namespace BoUploads
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "UploadCommonBo.cs:GetSuperAdminEquityTransactionStagingProcessId()");
-                object[] objects = new object[1];                
+                object[] objects = new object[1];
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -4608,7 +4608,7 @@ namespace BoUploads
         //        NameValueCollection FunctionInfo = new NameValueCollection();
         //        FunctionInfo.Add("Method", "UploadCommonBo.cs:GetSuperAdminEquityTransactionStagingProcessId()");
         //        object[] objects = new object[1];
-                
+
         //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
         //        exBase.AdditionalInformation = FunctionInfo;
         //        ExceptionManager.Publish(exBase);
@@ -4617,7 +4617,7 @@ namespace BoUploads
         //    return ds;
         //}
 
-        public DataSet GetSuperAdminRejectedSIPRecords(int CurrentPage, out int Count, int processId, string RejectReasonFilter, string fileNameFilter, string FolioFilter, string TransactionTypeFilter, string investorNameFileter, string schemeNameFilter,string OrgName)
+        public DataSet GetSuperAdminRejectedSIPRecords(int CurrentPage, out int Count, int processId, string RejectReasonFilter, string fileNameFilter, string FolioFilter, string TransactionTypeFilter, string investorNameFileter, string schemeNameFilter, string OrgName)
         {
             DataSet dsSIPRejectedDetails = new DataSet();
             UploadsCommonDao uploadDAO = new UploadsCommonDao();
@@ -4776,8 +4776,8 @@ namespace BoUploads
 
         public int getInputRejectedRecordsForEquity(int processId)
         {
-            UploadsCommonDao UploadsCommonDao=new UploadsCommonDao();
-            int InputRejectedRecordsForEquity=0;            
+            UploadsCommonDao UploadsCommonDao = new UploadsCommonDao();
+            int InputRejectedRecordsForEquity = 0;
             try
             {
                 InputRejectedRecordsForEquity = UploadsCommonDao.getInputRejectedRecordsForEquity(processId);
@@ -4790,7 +4790,7 @@ namespace BoUploads
             {
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "UploadCommonBo.cs:getInputRejectedRecordsForEquity()");              
+                FunctionInfo.Add("Method", "UploadCommonBo.cs:getInputRejectedRecordsForEquity()");
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
                 throw exBase;
@@ -4835,7 +4835,7 @@ namespace BoUploads
 
             return inserted;
         }
-        public bool InsertIntoXtrnlTableForSUSIP(int UploadProcessId,string fileName)
+        public bool InsertIntoXtrnlTableForSUSIP(int UploadProcessId, string fileName)
         {
             bool inserted = false;
             UploadsCommonDao UploadsCommonDao = new UploadsCommonDao();
@@ -4907,6 +4907,54 @@ namespace BoUploads
             }
 
             return dsSIPRejectedDetails;
+        }
+
+        public DataSet GetCMLType()
+        {
+            DataSet dsType = new DataSet();
+            UploadsCommonDao uploadDAO = new UploadsCommonDao();
+
+            try
+            {
+                dsType = uploadDAO.GetCMLType();
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsType;
+        }
+        public DataSet GetCMLData(int taskId, DateTime dtReqDate,int adviserId)
+        {
+            DataSet dsType = new DataSet();
+            UploadsCommonDao uploadDAO = new UploadsCommonDao();
+
+            try
+            {
+                dsType = uploadDAO.GetCMLData(taskId, dtReqDate, adviserId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+
+            return dsType;
+        }
+
+        public DataSet RequestWiseRejects(int reqId)
+        {
+            DataSet dsReqRej = new DataSet();
+            UploadsCommonDao uploadDAO = new UploadsCommonDao();
+            try
+            {
+                dsReqRej = uploadDAO.RequestWiseRejects(reqId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsReqRej;
         }
     }
 }

@@ -14,5 +14,48 @@ namespace WealthERP.OnlineOrderBackOffice
 
     public partial class UploadRequestStatus
     {
+        
+
+        /// <summary>
+        /// lb1Product control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lb1Product;
+
+        /// <summary>
+        /// ddlProduct control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlType;
+        protected global::Telerik.Web.UI.RadDatePicker txtReqDate;
+
+        protected global::Telerik.Web.UI.RadGrid rgRequests;
+        protected global::Telerik.Web.UI.RadGrid rgRequestRejects;
+        protected global::System.Web.UI.WebControls.Button btnGo;
+
+
+        /// <summary>
+        /// pnlSeries control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlRequest;
+
+        /// <summary>
+        /// RequiredFieldValidator5 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator5;
     }
 }

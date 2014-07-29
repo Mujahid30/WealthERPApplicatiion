@@ -53,7 +53,7 @@ namespace DaoUploads
 
                 object[] objects = new object[1];
                 objects[0] = XMLFileTypeId;
-               
+
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
@@ -85,7 +85,7 @@ namespace DaoUploads
                 NameValueCollection FunctionInfo = new NameValueCollection();
 
                 FunctionInfo.Add("Method", "CamsUploadsDao.cs:GetLastUploadDate()");
-                object[] objects = new object[1];                
+                object[] objects = new object[1];
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -140,7 +140,7 @@ namespace DaoUploads
                 getColumnNamesCmd = db.GetStoredProcCommand("SP_GetUploadWERPNameForExternalColumnNames");
 
                 db.AddInParameter(getColumnNamesCmd, "@XMLFileTypeId", DbType.Int32, xmlfiletypeId);
-                
+
                 ds = db.ExecuteDataSet(getColumnNamesCmd);
                 //dr = getNewCustomersDs.Tables[0].Rows[0];
             }
@@ -246,35 +246,35 @@ namespace DaoUploads
                     uploadlogvo.AdviserId = Int32.Parse(dr["A_AdviserId"].ToString());
                     uploadlogvo.BranchId = Int32.Parse(dr["AB_BranchId"].ToString());
                     uploadlogvo.StartTime = DateTime.Parse(dr["ADUL_StartTime"].ToString());
-                    if (dr["ADUL_EndTime"] != null && dr["ADUL_EndTime"].ToString()!=string.Empty)
+                    if (dr["ADUL_EndTime"] != null && dr["ADUL_EndTime"].ToString() != string.Empty)
                         uploadlogvo.EndTime = DateTime.Parse(dr["ADUL_EndTime"].ToString());
                     if (dr["ADUL_TotalNoOfRecords"].ToString() != string.Empty)
-                    uploadlogvo.NoOfTotalRecords = int.Parse(dr["ADUL_TotalNoOfRecords"].ToString());
+                        uploadlogvo.NoOfTotalRecords = int.Parse(dr["ADUL_TotalNoOfRecords"].ToString());
                     if (dr["ADUL_NoOfCustomersCreated"].ToString() != string.Empty)
-                    uploadlogvo.NoOfCustomerInserted = int.Parse(dr["ADUL_NoOfCustomersCreated"].ToString());
+                        uploadlogvo.NoOfCustomerInserted = int.Parse(dr["ADUL_NoOfCustomersCreated"].ToString());
                     if (dr["ADUL_NoOfAccountsCreated"].ToString() != string.Empty)
-                    uploadlogvo.NoOfAccountsInserted = int.Parse(dr["ADUL_NoOfAccountsCreated"].ToString());
+                        uploadlogvo.NoOfAccountsInserted = int.Parse(dr["ADUL_NoOfAccountsCreated"].ToString());
                     if (dr["ADUL_NoOfTransactionsCreated"].ToString() != string.Empty)
-                    uploadlogvo.NoOfTransactionInserted = int.Parse(dr["ADUL_NoOfTransactionsCreated"].ToString());
+                        uploadlogvo.NoOfTransactionInserted = int.Parse(dr["ADUL_NoOfTransactionsCreated"].ToString());
                     if (dr["ADUL_NoOfRejectRecords"].ToString() != string.Empty)
-                    uploadlogvo.NoOfRejectedRecords = int.Parse(dr["ADUL_NoOfRejectRecords"].ToString());
+                        uploadlogvo.NoOfRejectedRecords = int.Parse(dr["ADUL_NoOfRejectRecords"].ToString());
                     if (dr["ADUL_IsXMLConvesionComplete"].ToString() != string.Empty)
-                    uploadlogvo.IsExternalConversionComplete = Int16.Parse(dr["ADUL_IsXMLConvesionComplete"].ToString());
+                        uploadlogvo.IsExternalConversionComplete = Int16.Parse(dr["ADUL_IsXMLConvesionComplete"].ToString());
                     if (dr["ADUL_IsInsertionToFirstStagingComplete"].ToString() != string.Empty)
-                    uploadlogvo.IsInsertionToFirstStagingComplete = Int16.Parse(dr["ADUL_IsInsertionToFirstStagingComplete"].ToString());
+                        uploadlogvo.IsInsertionToFirstStagingComplete = Int16.Parse(dr["ADUL_IsInsertionToFirstStagingComplete"].ToString());
                     if (dr["ADUL_IsInsertionToSecondStagingComplete"].ToString() != string.Empty)
-                    uploadlogvo.IsInsertionToSecondStagingComplete = Int16.Parse(dr["ADUL_IsInsertionToSecondStagingComplete"].ToString());
+                        uploadlogvo.IsInsertionToSecondStagingComplete = Int16.Parse(dr["ADUL_IsInsertionToSecondStagingComplete"].ToString());
                     if (dr["ADUL_IsInsertionToInputComplete"].ToString() != string.Empty)
-                    uploadlogvo.IsInsertionToInputComplete = Int16.Parse(dr["ADUL_IsInsertionToInputComplete"].ToString());
+                        uploadlogvo.IsInsertionToInputComplete = Int16.Parse(dr["ADUL_IsInsertionToInputComplete"].ToString());
                     if (dr["ADUL_IsInsertionToWerpComplete"].ToString() != string.Empty)
-                    uploadlogvo.IsInsertionToWERPComplete = Int16.Parse(dr["ADUL_IsInsertionToWerpComplete"].ToString());
-                
+                        uploadlogvo.IsInsertionToWERPComplete = Int16.Parse(dr["ADUL_IsInsertionToWerpComplete"].ToString());
+
                     if (dr["ADUL_NoOfRecordsInserted"].ToString() != "")
                         uploadlogvo.NoOfRecordsInserted = Int32.Parse(dr["ADUL_NoOfRecordsInserted"].ToString());
                     if (dr["ADUL_IsInsertionToXtrnlComplete"].ToString() != "")
                         uploadlogvo.IsInsertionToXtrnlComplete = Int16.Parse(dr["ADUL_IsInsertionToXtrnlComplete"].ToString());
                     if (dr["XUET_ExtractTypeCode"].ToString() != "")
-                        uploadlogvo.ExtractTypeCode =(dr["XUET_ExtractTypeCode"].ToString());
+                        uploadlogvo.ExtractTypeCode = (dr["XUET_ExtractTypeCode"].ToString());
                     if (dr["ADUL_NoOfCustomerDuplicates"].ToString() != "")
                         uploadlogvo.NoOfCustomerDuplicates = Int32.Parse(dr["ADUL_NoOfCustomerDuplicates"].ToString());
                     if (dr["ADUL_NoOfAccountDuplicate"].ToString() != "")
@@ -335,7 +335,7 @@ namespace DaoUploads
                 db.AddInParameter(updateProcessCmd, "@ADUL_ModifiedBy", DbType.Int32, processlogVo.ModifiedBy);
                 db.AddInParameter(updateProcessCmd, "@U_UserId", DbType.Int32, processlogVo.UserId);
                 db.AddInParameter(updateProcessCmd, "@ADUL_Comment", DbType.String, processlogVo.Comment);
-                db.AddInParameter(updateProcessCmd, "@ADUL_EndTime", DbType.DateTime,DateTime.Now);
+                db.AddInParameter(updateProcessCmd, "@ADUL_EndTime", DbType.DateTime, DateTime.Now);
                 db.AddInParameter(updateProcessCmd, "@ADUL_NoOfRejectRecords", DbType.Int32, processlogVo.NoOfRejectedRecords);
                 db.AddInParameter(updateProcessCmd, "@ADUL_NoOfCustomersCreated", DbType.Int32, processlogVo.NoOfCustomerInserted);
                 db.AddInParameter(updateProcessCmd, "@ADUL_NoOfAccountsCreated", DbType.Int32, processlogVo.NoOfAccountsInserted);
@@ -418,7 +418,7 @@ namespace DaoUploads
             return blResult;
         }
 
-        public DataSet GetUploadProcessLogAdmin(int adviserId, string SortExpression )
+        public DataSet GetUploadProcessLogAdmin(int adviserId, string SortExpression)
         {
             Database db;
             DbCommand getProcessLogCmd;
@@ -428,11 +428,11 @@ namespace DaoUploads
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getProcessLogCmd = db.GetStoredProcCommand("SP_GetAdvDailyUploadLog");
-                db.AddInParameter(getProcessLogCmd,"@A_AdviserId",DbType.Int32,adviserId);
+                db.AddInParameter(getProcessLogCmd, "@A_AdviserId", DbType.Int32, adviserId);
                 //db.AddInParameter(getProcessLogCmd, "@currentPage", DbType.Int32, CurrentPage);
                 db.AddInParameter(getProcessLogCmd, "@processIdSort", DbType.String, SortExpression);
                 getProcessLogDs = db.ExecuteDataSet(getProcessLogCmd);
-                
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -588,18 +588,18 @@ namespace DaoUploads
         //Get the count for number of transactions that are uploaded into WERP
         public int GetTransUploadCount(int processID, string type)
         {
-            int count= 0;
+            int count = 0;
 
             Database db;
             DbCommand getCount;
-            
+
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getCount = db.GetStoredProcCommand("SP_GetCommonTransUploadCount");
                 db.AddInParameter(getCount, "@processId", DbType.Int32, processID);
                 db.AddInParameter(getCount, "@type", DbType.String, type);
-                
+
                 string result = (db.ExecuteScalar(getCount).ToString());
                 count = int.Parse(result);
             }
@@ -684,7 +684,7 @@ namespace DaoUploads
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getCount = db.GetStoredProcCommand("SP_GetCommonTrailCommissionUploadRejectCount");
-                
+
                 db.AddInParameter(getCount, "@processId", DbType.Int32, processID);
                 db.AddInParameter(getCount, "@assetType", DbType.String, assetType);
                 db.AddOutParameter(getCount, "@TotalRejectedRecords", DbType.Int32, 5000);
@@ -729,8 +729,8 @@ namespace DaoUploads
                 db.AddInParameter(getCount, "@processId", DbType.Int32, processID);
                 db.AddInParameter(getCount, "@source", DbType.String, source);
                 db.AddOutParameter(getCount, "@totalRejectedCount", DbType.Int32, 5000);
-                
-                if(db.ExecuteNonQuery(getCount) != 0)
+
+                if (db.ExecuteNonQuery(getCount) != 0)
                     count = int.Parse(db.GetParameterValue(getCount, "totalRejectedCount").ToString());
 
             }
@@ -747,7 +747,7 @@ namespace DaoUploads
 
                 object[] objects = new object[2];
                 objects[0] = processID;
-                
+
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
@@ -850,18 +850,18 @@ namespace DaoUploads
 
             Database db;
             DbCommand getCount;
-           
-                db = DatabaseFactory.CreateDatabase("wealtherp");
-                getCount = db.GetStoredProcCommand("SP_CountInsertedFolioRejected");
-                db.AddInParameter(getCount, "@processId", DbType.Int32, processID);
-                db.AddInParameter(getCount, "@source", DbType.String, source);
-                db.AddOutParameter(getCount, "@InputStageValue", DbType.Int32, 1000);
 
-                db.ExecuteNonQuery(getCount);
-                count = Convert.ToInt32(db.GetParameterValue(getCount, "@InputStageValue").ToString());
-                //string result = (db.ExecuteScalar(getCount).ToString());
-                //count = int.Parse(result);
-                   
+            db = DatabaseFactory.CreateDatabase("wealtherp");
+            getCount = db.GetStoredProcCommand("SP_CountInsertedFolioRejected");
+            db.AddInParameter(getCount, "@processId", DbType.Int32, processID);
+            db.AddInParameter(getCount, "@source", DbType.String, source);
+            db.AddOutParameter(getCount, "@InputStageValue", DbType.Int32, 1000);
+
+            db.ExecuteNonQuery(getCount);
+            count = Convert.ToInt32(db.GetParameterValue(getCount, "@InputStageValue").ToString());
+            //string result = (db.ExecuteScalar(getCount).ToString());
+            //count = int.Parse(result);
+
 
 
             return count;
@@ -1211,7 +1211,7 @@ namespace DaoUploads
                 cmdCustomerBankExists = db.GetStoredProcCommand("SP_DoesCustomerBankExistByProcessId");
                 db.AddInParameter(cmdCustomerBankExists, "@processId", DbType.Int32, ProcessID);
                 ds = db.ExecuteDataSet(cmdCustomerBankExists);
-                
+
                 // If the count is greater than 0, then return true
                 if (Int32.Parse(ds.Tables[0].Rows[0]["CNT"].ToString()) > 0)
                     blResult = true;
@@ -1278,7 +1278,7 @@ namespace DaoUploads
             return blResult;
         }
 
-        
+
 
         // Rollback Methods from External Onwards
         public bool RollbackOdinNSETransactionXtrnl(int ProcessID)
@@ -2826,12 +2826,12 @@ namespace DaoUploads
             bool blResult = false;
 
             Database db;
-            
+
 
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-               
+
                 blResult = true;
             }
             catch (BaseApplicationException Ex)
@@ -2846,7 +2846,7 @@ namespace DaoUploads
                 FunctionInfo.Add("Method", "UploadsCommonDao.cs:ProcessTransactionStaging()");
 
                 object[] objects = new object[0];
-            
+
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
@@ -2861,7 +2861,7 @@ namespace DaoUploads
             bool blResult = false;
 
             Database db;
-            
+
 
             try
             {
@@ -2891,16 +2891,16 @@ namespace DaoUploads
             return blResult;
         }
 
-        public DataSet GetAdviserBranchList(int adviserId,string userType)
+        public DataSet GetAdviserBranchList(int adviserId, string userType)
         {
             Database db;
             DbCommand cmd;
-            DataSet ds=null;
+            DataSet ds = null;
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmd = db.GetStoredProcCommand("SP_GetAdviserBranchList");
-                db.AddInParameter(cmd , "@Id", DbType.Int32, adviserId);
+                db.AddInParameter(cmd, "@Id", DbType.Int32, adviserId);
                 db.AddInParameter(cmd, "@userType", DbType.String, userType);
 
                 ds = db.ExecuteDataSet(cmd);
@@ -2925,7 +2925,7 @@ namespace DaoUploads
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-        return ds;
+            return ds;
         }
 
         #region New Rollback Functions
@@ -3384,7 +3384,7 @@ namespace DaoUploads
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmd = db.GetStoredProcCommand("SP_GetUploadDistinctProcessIdForAdviser");
-                db.AddInParameter(cmd, "@AdviserId", DbType.Int32, AdviserId);                
+                db.AddInParameter(cmd, "@AdviserId", DbType.Int32, AdviserId);
                 ds = db.ExecuteDataSet(cmd);
             }
             catch (BaseApplicationException Ex)
@@ -3583,7 +3583,7 @@ namespace DaoUploads
         }
 
 
-        public DataSet GetRejectedSIPRecords(int adviserId, int processId,DateTime fromDate,DateTime toDate,int rejectReasonCode)
+        public DataSet GetRejectedSIPRecords(int adviserId, int processId, DateTime fromDate, DateTime toDate, int rejectReasonCode)
         {
             DataSet dsSIPRejectedDetails = new DataSet();
 
@@ -3613,9 +3613,9 @@ namespace DaoUploads
                     db.AddInParameter(getCount, "@rejectReasonCode", DbType.Int32, rejectReasonCode);
                 else
                     db.AddInParameter(getCount, "@rejectReasonCode", DbType.Int32, DBNull.Value);
-                                           
+
                 dsSIPRejectedDetails = db.ExecuteDataSet(getCount);
-                
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -3723,7 +3723,7 @@ namespace DaoUploads
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                getProcessLogCmd = db.GetStoredProcCommand("SP_GetSuperAdminAdvDailyUploadLog");                
+                getProcessLogCmd = db.GetStoredProcCommand("SP_GetSuperAdminAdvDailyUploadLog");
                 db.AddInParameter(getProcessLogCmd, "@currentPage", DbType.Int32, CurrentPage);
                 db.AddInParameter(getProcessLogCmd, "@processIdSort", DbType.String, SortExpression);
                 db.AddInParameter(getProcessLogCmd, "@orgName", DbType.String, orgName);
@@ -3756,367 +3756,367 @@ namespace DaoUploads
         }
 
         public DataSet GetWERPUploadDetailsForProcessId(int processId)
-          {
-              Database db;
-              DbCommand cmd;
-              DataSet ds = null;
-              try
-              {
-                  db = DatabaseFactory.CreateDatabase("wealtherp");                  
-                  cmd = db.GetStoredProcCommand("SP_GetWERPUploadDetailsForProcessId");
-                  db.AddInParameter(cmd, "@processID", DbType.Int32, processId);
-                  ds = db.ExecuteDataSet(cmd);
-              }
-              catch (BaseApplicationException Ex)
-              {
-                  throw Ex;
-              }
-              catch (Exception Ex)
-              {
-                  BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                  NameValueCollection FunctionInfo = new NameValueCollection();
-                  FunctionInfo.Add("Method", "UploadCommonDao.cs:GetWERPUploadProcessId()");
-                  object[] objects = new object[1];
-                  FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                  exBase.AdditionalInformation = FunctionInfo;
-                  ExceptionManager.Publish(exBase);
-                  throw exBase;
-              }
-              return ds;
-          }
+        {
+            Database db;
+            DbCommand cmd;
+            DataSet ds = null;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmd = db.GetStoredProcCommand("SP_GetWERPUploadDetailsForProcessId");
+                db.AddInParameter(cmd, "@processID", DbType.Int32, processId);
+                ds = db.ExecuteDataSet(cmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "UploadCommonDao.cs:GetWERPUploadProcessId()");
+                object[] objects = new object[1];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return ds;
+        }
 
-          public DataSet GetWERPUploadProcessId()
-          {
-              Database db;
-              DbCommand cmd;
-              DataSet ds = null;
-              try
-              {
-                  db = DatabaseFactory.CreateDatabase("wealtherp");
-                  cmd = db.GetStoredProcCommand("SP_GetWERPUploadProcessId");                 
-                  ds = db.ExecuteDataSet(cmd);
-              }
-              catch (BaseApplicationException Ex)
-              {
-                  throw Ex;
-              }
-              catch (Exception Ex)
-              {
-                  BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                  NameValueCollection FunctionInfo = new NameValueCollection();
-                  FunctionInfo.Add("Method", "UploadCommonDao.cs:GetWERPUploadProcessId()");
-                  object[] objects = new object[1];
-                  FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                  exBase.AdditionalInformation = FunctionInfo;
-                  ExceptionManager.Publish(exBase);
-                  throw exBase;
-              }
-              return ds;
-          }
+        public DataSet GetWERPUploadProcessId()
+        {
+            Database db;
+            DbCommand cmd;
+            DataSet ds = null;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmd = db.GetStoredProcCommand("SP_GetWERPUploadProcessId");
+                ds = db.ExecuteDataSet(cmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "UploadCommonDao.cs:GetWERPUploadProcessId()");
+                object[] objects = new object[1];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return ds;
+        }
 
-          public DataSet GetSuperAdminUploadDistinctDetailsForProcessId(int processId)
-          {
-              Database db;
-              DbCommand cmd;
-              DataSet ds = null;
-              try
-              {
-                  db = DatabaseFactory.CreateDatabase("wealtherp");
-                  cmd = db.GetStoredProcCommand("SP_GetSuperAdminUploadDistinctDetailsForProcessId");
-                  db.AddInParameter(cmd, "@processId", DbType.Int32, processId);
-                  ds = db.ExecuteDataSet(cmd);
-              }
-              catch (BaseApplicationException Ex)
-              {
-                  throw Ex;
-              }
-              catch (Exception Ex)
-              {
-                  BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                  NameValueCollection FunctionInfo = new NameValueCollection();
-                  FunctionInfo.Add("Method", "UploadCommonDao.cs:GetSuperAdminUploadDistinctProcessIdForAdviser()");
-                  object[] objects = new object[1];
+        public DataSet GetSuperAdminUploadDistinctDetailsForProcessId(int processId)
+        {
+            Database db;
+            DbCommand cmd;
+            DataSet ds = null;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmd = db.GetStoredProcCommand("SP_GetSuperAdminUploadDistinctDetailsForProcessId");
+                db.AddInParameter(cmd, "@processId", DbType.Int32, processId);
+                ds = db.ExecuteDataSet(cmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "UploadCommonDao.cs:GetSuperAdminUploadDistinctProcessIdForAdviser()");
+                object[] objects = new object[1];
 
-                  FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                  exBase.AdditionalInformation = FunctionInfo;
-                  ExceptionManager.Publish(exBase);
-                  throw exBase;
-              }
-              return ds;
-          }
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return ds;
+        }
 
-          public DataSet GetSuperAdminUploadDistinctProcessIdForAdviser()
-          {
-              Database db;
-              DbCommand cmd;
-              DataSet ds = null;
-              try
-              {
-                  db = DatabaseFactory.CreateDatabase("wealtherp");
-                  cmd = db.GetStoredProcCommand("SP_GetSuperAdminUploadDistinctProcessIdForAdviser");
-                  
-                  ds = db.ExecuteDataSet(cmd);
-              }
-              catch (BaseApplicationException Ex)
-              {
-                  throw Ex;
-              }
-              catch (Exception Ex)
-              {
-                  BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                  NameValueCollection FunctionInfo = new NameValueCollection();
-                  FunctionInfo.Add("Method", "UploadCommonDao.cs:GetSuperAdminUploadDistinctProcessIdForAdviser()");
-                  object[] objects = new object[1];
-                 
-                  FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                  exBase.AdditionalInformation = FunctionInfo;
-                  ExceptionManager.Publish(exBase);
-                  throw exBase;
-              }
-              return ds;
-          }
+        public DataSet GetSuperAdminUploadDistinctProcessIdForAdviser()
+        {
+            Database db;
+            DbCommand cmd;
+            DataSet ds = null;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmd = db.GetStoredProcCommand("SP_GetSuperAdminUploadDistinctProcessIdForAdviser");
 
+                ds = db.ExecuteDataSet(cmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "UploadCommonDao.cs:GetSuperAdminUploadDistinctProcessIdForAdviser()");
+                object[] objects = new object[1];
 
-          public DataSet GetSuperAdminEquityTradeAccountStagingForProcessId(int processId)
-          {
-              Database db;
-              DbCommand cmd;
-              DataSet ds = null;
-              try
-              {
-                  db = DatabaseFactory.CreateDatabase("wealtherp");
-                  cmd = db.GetStoredProcCommand("SP_GetSuperAdminEquityTradeAccountStagingProcessId");                  
-                  ds = db.ExecuteDataSet(cmd);
-              }
-              catch (BaseApplicationException Ex)
-              {
-                  throw Ex;
-              }
-              catch (Exception Ex)
-              {
-                  BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                  NameValueCollection FunctionInfo = new NameValueCollection();
-                  FunctionInfo.Add("Method", "UploadCommonDao.cs:GetSuperAdminEquityTradeAccountStagingProcessId()");
-                  object[] objects = new object[1];                 
-                  FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                  exBase.AdditionalInformation = FunctionInfo;
-                  ExceptionManager.Publish(exBase);
-                  throw exBase;
-              }
-              return ds;
-          }
-
-          public DataSet GetSuperAdminEquityTradeAccountStagingProcessId()
-          {
-              Database db;
-              DbCommand cmd;
-              DataSet ds = null;
-              try
-              {
-                  db = DatabaseFactory.CreateDatabase("wealtherp");
-                  cmd = db.GetStoredProcCommand("SP_GetSuperAdminEquityTradeAccountStagingProcessId");                  
-                  ds = db.ExecuteDataSet(cmd);
-              }
-              catch (BaseApplicationException Ex)
-              {
-                  throw Ex;
-              }
-              catch (Exception Ex)
-              {
-                  BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                  NameValueCollection FunctionInfo = new NameValueCollection();
-                  FunctionInfo.Add("Method", "UploadCommonDao.cs:GetSuperAdminEquityTradeAccountStagingProcessId()");
-                  object[] objects = new object[1];                 
-                  FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                  exBase.AdditionalInformation = FunctionInfo;
-                  ExceptionManager.Publish(exBase);
-                  throw exBase;
-              }
-              return ds;
-          }
-          public DataSet GetSuperAdminEquityTransactionStagingProcessId()
-          {
-              Database db;
-              DbCommand cmd;
-              DataSet ds = null;
-              try
-              {
-                  db = DatabaseFactory.CreateDatabase("wealtherp");
-                  cmd = db.GetStoredProcCommand("SP_GetSuperAdminCustomerEqTransactionStagingProcessId");                 
-                  ds = db.ExecuteDataSet(cmd);
-              }
-              catch (BaseApplicationException Ex)
-              {
-                  throw Ex;
-              }
-              catch (Exception Ex)
-              {
-                  BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                  NameValueCollection FunctionInfo = new NameValueCollection();
-                  FunctionInfo.Add("Method", "UploadCommonDao.cs:GetSuperAdminEquityTransactionStagingProcessId()");
-                  object[] objects = new object[1];
-                  
-                  FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                  exBase.AdditionalInformation = FunctionInfo;
-                  ExceptionManager.Publish(exBase);
-                  throw exBase;
-              }
-              return ds;
-          }
-
-          public DataSet GetSuperAdminRejectedSIPRecords(int CurrentPage, out int Count, int processId, string RejectReasonFilter, string fileNameFilter, string FolioFilter, string TransactionTypeFilter, string investorNameFileter, string schemeNameFilter,string OrgName)
-          {
-              DataSet dsSIPRejectedDetails = new DataSet();
-
-              Database db;
-              DbCommand getCount;
-              try
-              {
-                  db = DatabaseFactory.CreateDatabase("wealtherp");
-                  getCount = db.GetStoredProcCommand("SP_GetSuperAdminSystematicRejectDetail");
-                  db.AddInParameter(getCount, "@currentPage", DbType.Int32, CurrentPage);
-                  if (processId != 0)
-                      db.AddInParameter(getCount, "@processId", DbType.Int32, processId);
-                  else
-                      db.AddInParameter(getCount, "@processId", DbType.Int32, 0);
-
-                  if (RejectReasonFilter != "")
-                      db.AddInParameter(getCount, "@rejectReasonFilter", DbType.String, RejectReasonFilter);
-
-                  if (fileNameFilter != "")
-                      db.AddInParameter(getCount, "@fileNameFilter", DbType.String, fileNameFilter);
-
-                  if (FolioFilter != "")
-                      db.AddInParameter(getCount, "@folioFilter", DbType.String, FolioFilter);
-
-                  if (TransactionTypeFilter != "")
-                      db.AddInParameter(getCount, "@transactionTypeFilter", DbType.String, TransactionTypeFilter);
-
-                  if (investorNameFileter != "")
-                      db.AddInParameter(getCount, "@investorNameFileter", DbType.String, investorNameFileter);
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return ds;
+        }
 
 
-                  if (schemeNameFilter != "")
-                      db.AddInParameter(getCount, "@schemeNameFilter", DbType.String, schemeNameFilter);
-                  db.AddInParameter(getCount, "@orgName", DbType.String, OrgName);
+        public DataSet GetSuperAdminEquityTradeAccountStagingForProcessId(int processId)
+        {
+            Database db;
+            DbCommand cmd;
+            DataSet ds = null;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmd = db.GetStoredProcCommand("SP_GetSuperAdminEquityTradeAccountStagingProcessId");
+                ds = db.ExecuteDataSet(cmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "UploadCommonDao.cs:GetSuperAdminEquityTradeAccountStagingProcessId()");
+                object[] objects = new object[1];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return ds;
+        }
 
-                  getCount.CommandTimeout = 60 * 60;
-                  dsSIPRejectedDetails = db.ExecuteDataSet(getCount);
+        public DataSet GetSuperAdminEquityTradeAccountStagingProcessId()
+        {
+            Database db;
+            DbCommand cmd;
+            DataSet ds = null;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmd = db.GetStoredProcCommand("SP_GetSuperAdminEquityTradeAccountStagingProcessId");
+                ds = db.ExecuteDataSet(cmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "UploadCommonDao.cs:GetSuperAdminEquityTradeAccountStagingProcessId()");
+                object[] objects = new object[1];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return ds;
+        }
+        public DataSet GetSuperAdminEquityTransactionStagingProcessId()
+        {
+            Database db;
+            DbCommand cmd;
+            DataSet ds = null;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmd = db.GetStoredProcCommand("SP_GetSuperAdminCustomerEqTransactionStagingProcessId");
+                ds = db.ExecuteDataSet(cmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "UploadCommonDao.cs:GetSuperAdminEquityTransactionStagingProcessId()");
+                object[] objects = new object[1];
 
-                  Count = Int32.Parse(dsSIPRejectedDetails.Tables[8].Rows[0]["CNT"].ToString());
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return ds;
+        }
 
-              }
-              catch (BaseApplicationException Ex)
-              {
-                  throw Ex;
-              }
-              return dsSIPRejectedDetails;
-          }
+        public DataSet GetSuperAdminRejectedSIPRecords(int CurrentPage, out int Count, int processId, string RejectReasonFilter, string fileNameFilter, string FolioFilter, string TransactionTypeFilter, string investorNameFileter, string schemeNameFilter, string OrgName)
+        {
+            DataSet dsSIPRejectedDetails = new DataSet();
+
+            Database db;
+            DbCommand getCount;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getCount = db.GetStoredProcCommand("SP_GetSuperAdminSystematicRejectDetail");
+                db.AddInParameter(getCount, "@currentPage", DbType.Int32, CurrentPage);
+                if (processId != 0)
+                    db.AddInParameter(getCount, "@processId", DbType.Int32, processId);
+                else
+                    db.AddInParameter(getCount, "@processId", DbType.Int32, 0);
+
+                if (RejectReasonFilter != "")
+                    db.AddInParameter(getCount, "@rejectReasonFilter", DbType.String, RejectReasonFilter);
+
+                if (fileNameFilter != "")
+                    db.AddInParameter(getCount, "@fileNameFilter", DbType.String, fileNameFilter);
+
+                if (FolioFilter != "")
+                    db.AddInParameter(getCount, "@folioFilter", DbType.String, FolioFilter);
+
+                if (TransactionTypeFilter != "")
+                    db.AddInParameter(getCount, "@transactionTypeFilter", DbType.String, TransactionTypeFilter);
+
+                if (investorNameFileter != "")
+                    db.AddInParameter(getCount, "@investorNameFileter", DbType.String, investorNameFileter);
+
+
+                if (schemeNameFilter != "")
+                    db.AddInParameter(getCount, "@schemeNameFilter", DbType.String, schemeNameFilter);
+                db.AddInParameter(getCount, "@orgName", DbType.String, OrgName);
+
+                getCount.CommandTimeout = 60 * 60;
+                dsSIPRejectedDetails = db.ExecuteDataSet(getCount);
+
+                Count = Int32.Parse(dsSIPRejectedDetails.Tables[8].Rows[0]["CNT"].ToString());
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsSIPRejectedDetails;
+        }
 
 
 
-          public DataSet GetSuperAdminSIPUploadRejectDistinctDetailsForProcessId()
-          {
-              DataSet dsSIPRejectedDetails = new DataSet();
+        public DataSet GetSuperAdminSIPUploadRejectDistinctDetailsForProcessId()
+        {
+            DataSet dsSIPRejectedDetails = new DataSet();
 
-              Database db;
-              DbCommand getCount;
-              try
-              {
-                  db = DatabaseFactory.CreateDatabase("wealtherp");
-                  getCount = db.GetStoredProcCommand("SP_GetSIPUploadRejectDistinctProcessIdForAdviser");
-                  
+            Database db;
+            DbCommand getCount;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getCount = db.GetStoredProcCommand("SP_GetSIPUploadRejectDistinctProcessIdForAdviser");
 
-                  dsSIPRejectedDetails = db.ExecuteDataSet(getCount);
-              }
 
-              catch (BaseApplicationException Ex)
-              {
-                  throw Ex;
-              }
+                dsSIPRejectedDetails = db.ExecuteDataSet(getCount);
+            }
 
-              return dsSIPRejectedDetails;
-          }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
 
-          public DataSet GetSuperAdminSIPUploadRejectDistinctProcessIdForAdviser()
-          {
-              DataSet dsSIPRejectedDetails = new DataSet();
+            return dsSIPRejectedDetails;
+        }
 
-              Database db;
-              DbCommand getCount;
-              try
-              {
-                  db = DatabaseFactory.CreateDatabase("wealtherp");
-                  getCount = db.GetStoredProcCommand("SP_GetSIPUploadRejectDistinctProcessIdForAdviser");
-                  
+        public DataSet GetSuperAdminSIPUploadRejectDistinctProcessIdForAdviser()
+        {
+            DataSet dsSIPRejectedDetails = new DataSet();
 
-                  dsSIPRejectedDetails = db.ExecuteDataSet(getCount);
-              }
+            Database db;
+            DbCommand getCount;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getCount = db.GetStoredProcCommand("SP_GetSIPUploadRejectDistinctProcessIdForAdviser");
 
-              catch (BaseApplicationException Ex)
-              {
-                  throw Ex;
-              }
 
-              return dsSIPRejectedDetails;
-          }
+                dsSIPRejectedDetails = db.ExecuteDataSet(getCount);
+            }
+
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+            return dsSIPRejectedDetails;
+        }
         /// <summary>
         /// Function to get all the trail reject record details
         /// </summary>
         /// <param name="adviserId"></param>
         /// <param name="processId"></param>
         /// <returns></returns>
-          public DataSet GetTrailCommissionRejectRejectDetails(int adviserId, int processId, DateTime fromDate, DateTime toDate, int rejectReasonCode)
-          {
-              Database db;
-              DbCommand cmdGetTrailRejectDetails;
-              DataSet dsTrailRejectRecords = null;
+        public DataSet GetTrailCommissionRejectRejectDetails(int adviserId, int processId, DateTime fromDate, DateTime toDate, int rejectReasonCode)
+        {
+            Database db;
+            DbCommand cmdGetTrailRejectDetails;
+            DataSet dsTrailRejectRecords = null;
 
-              try
-              {
-                  db = DatabaseFactory.CreateDatabase("wealtherp");
-                  cmdGetTrailRejectDetails = db.GetStoredProcCommand("SP_GetTrailCommissionRejectDetail");
-                  db.AddInParameter(cmdGetTrailRejectDetails, "@adviserId", DbType.Int32, adviserId);
-                  if (processId != 0)
-                      db.AddInParameter(cmdGetTrailRejectDetails, "@processId", DbType.Int32, processId);
-                  else
-                      db.AddInParameter(cmdGetTrailRejectDetails, "@processId", DbType.Int32, DBNull.Value);
-                  if (fromDate != DateTime.MinValue)
-                      db.AddInParameter(cmdGetTrailRejectDetails, "@fromDate", DbType.DateTime, fromDate);
-                  else
-                      db.AddInParameter(cmdGetTrailRejectDetails, "@fromDate", DbType.DateTime, DBNull.Value);
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetTrailRejectDetails = db.GetStoredProcCommand("SP_GetTrailCommissionRejectDetail");
+                db.AddInParameter(cmdGetTrailRejectDetails, "@adviserId", DbType.Int32, adviserId);
+                if (processId != 0)
+                    db.AddInParameter(cmdGetTrailRejectDetails, "@processId", DbType.Int32, processId);
+                else
+                    db.AddInParameter(cmdGetTrailRejectDetails, "@processId", DbType.Int32, DBNull.Value);
+                if (fromDate != DateTime.MinValue)
+                    db.AddInParameter(cmdGetTrailRejectDetails, "@fromDate", DbType.DateTime, fromDate);
+                else
+                    db.AddInParameter(cmdGetTrailRejectDetails, "@fromDate", DbType.DateTime, DBNull.Value);
 
-                  if (toDate != DateTime.MinValue)
-                      db.AddInParameter(cmdGetTrailRejectDetails, "@toDate", DbType.DateTime, toDate);
-                  else
-                      db.AddInParameter(cmdGetTrailRejectDetails, "@toDate", DbType.DateTime, DBNull.Value);
-                  if (rejectReasonCode != 0)
-                      db.AddInParameter(cmdGetTrailRejectDetails, "@rejectReasonCode", DbType.Int32, rejectReasonCode);
-                  else
-                      db.AddInParameter(cmdGetTrailRejectDetails, "@rejectReasonCode", DbType.Int32, DBNull.Value);
-                  dsTrailRejectRecords = db.ExecuteDataSet(cmdGetTrailRejectDetails);
-              }
-              catch (BaseApplicationException Ex)
-              {
-                  throw Ex;
-              }
-              catch (Exception Ex)
-              {
-                  BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                  NameValueCollection FunctionInfo = new NameValueCollection();
+                if (toDate != DateTime.MinValue)
+                    db.AddInParameter(cmdGetTrailRejectDetails, "@toDate", DbType.DateTime, toDate);
+                else
+                    db.AddInParameter(cmdGetTrailRejectDetails, "@toDate", DbType.DateTime, DBNull.Value);
+                if (rejectReasonCode != 0)
+                    db.AddInParameter(cmdGetTrailRejectDetails, "@rejectReasonCode", DbType.Int32, rejectReasonCode);
+                else
+                    db.AddInParameter(cmdGetTrailRejectDetails, "@rejectReasonCode", DbType.Int32, DBNull.Value);
+                dsTrailRejectRecords = db.ExecuteDataSet(cmdGetTrailRejectDetails);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
 
-                  FunctionInfo.Add("Method", "RejectedRecordsDao.cs:DeleteMFSIPTransactionStaging()");
+                FunctionInfo.Add("Method", "RejectedRecordsDao.cs:DeleteMFSIPTransactionStaging()");
 
-                  object[] objects = new object[1];
-                  objects[0] = adviserId;
-                  objects[1] = processId;
-                  FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                  exBase.AdditionalInformation = FunctionInfo;
-                  ExceptionManager.Publish(exBase);
-                  throw exBase;
-              }
-              return dsTrailRejectRecords;
-          }
+                object[] objects = new object[1];
+                objects[0] = adviserId;
+                objects[1] = processId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsTrailRejectRecords;
+        }
         public int GetInputRejectForCAMSProfile(int processID)
         {
             string count = string.Empty;
@@ -4130,7 +4130,7 @@ namespace DaoUploads
                 db.AddInParameter(cmdGetInputRejectForCAMSProfile, "@processId", DbType.Int32, processID);
                 if (db.ExecuteNonQuery(cmdGetInputRejectForCAMSProfile) != 0)
                     count = (db.ExecuteScalar(cmdGetInputRejectForCAMSProfile)).ToString();
-                result = int.Parse( count.ToString());
+                result = int.Parse(count.ToString());
 
             }
             catch (BaseApplicationException Ex)
@@ -4173,7 +4173,7 @@ namespace DaoUploads
 
                 if (db.ExecuteNonQuery(getCount) != 0)
                     count = (db.ExecuteScalar(getCount)).ToString();
-                result = int.Parse( count.ToString());
+                result = int.Parse(count.ToString());
 
             }
             catch (BaseApplicationException Ex)
@@ -4236,18 +4236,18 @@ namespace DaoUploads
             string conString;
             conString = ConfigurationManager.ConnectionStrings["wealtherp"].ConnectionString;
             SqlConnection sqlCon = new SqlConnection(conString);
-            
+
             try
             {
                 Database db = DatabaseFactory.CreateDatabase("wealtherp");
                 DbCommand cmdXML = db.GetStoredProcCommand("SPROC_InsertIntoInputTableForTNSIP");
 
                 db.AddInParameter(cmdXML, "@XmlString", DbType.String, xmlTableString);
-                db.AddParameter(cmdXML, "@ret", DbType.Int32,ParameterDirection.ReturnValue, "", DataRowVersion.Current,IsSuccess);
+                db.AddParameter(cmdXML, "@ret", DbType.Int32, ParameterDirection.ReturnValue, "", DataRowVersion.Current, IsSuccess);
 
                 db.ExecuteNonQuery(cmdXML);
                 IsSuccess = Convert.ToInt32(db.GetParameterValue(cmdXML, "ret"));
-               
+
 
             }
 
@@ -4390,7 +4390,7 @@ namespace DaoUploads
             return dsRejectReasonTrailList;
         }
 
-        public DataSet GetRejectedAutoSIPRecords(int adviserId,DateTime fromDate, DateTime toDate)
+        public DataSet GetRejectedAutoSIPRecords(int adviserId, DateTime fromDate, DateTime toDate)
         {
             DataSet dsSIPRejectedDetails = new DataSet();
 
@@ -4402,7 +4402,7 @@ namespace DaoUploads
                 getCount = db.GetStoredProcCommand("SP_GetRejectedAutoSIPRecords");
 
                 db.AddInParameter(getCount, "@adviserId", DbType.Int32, adviserId);
-               
+
                 if (fromDate != DateTime.MinValue)
                     db.AddInParameter(getCount, "@fromDate", DbType.DateTime, fromDate);
                 else
@@ -4411,7 +4411,7 @@ namespace DaoUploads
                 if (toDate != DateTime.MinValue)
                     db.AddInParameter(getCount, "@toDate", DbType.DateTime, toDate);
                 else
-                    db.AddInParameter(getCount, "@toDate", DbType.DateTime, DBNull.Value);               
+                    db.AddInParameter(getCount, "@toDate", DbType.DateTime, DBNull.Value);
 
                 dsSIPRejectedDetails = db.ExecuteDataSet(getCount);
 
@@ -4423,5 +4423,65 @@ namespace DaoUploads
             return dsSIPRejectedDetails;
         }
 
+        public DataSet GetCMLType()
+        {
+            DataSet dsType;
+            Database db;
+            DbCommand dbCommand;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbCommand = db.GetStoredProcCommand("SPROC_GetCMLType");
+                dsType = db.ExecuteDataSet(dbCommand);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+            return dsType;
+        }
+
+        public DataSet GetCMLData(int taskId, DateTime dtReqDate, int adviserId)
+        {
+            DataSet dsData;
+            Database db;
+            DbCommand dbCommand;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbCommand = db.GetStoredProcCommand("SPROC_GetCMLData");
+                db.AddInParameter(dbCommand, "@taskId", DbType.Int32, taskId);
+                db.AddInParameter(dbCommand, "@date", DbType.DateTime, dtReqDate);
+                db.AddInParameter(dbCommand, "@adviserId", DbType.Int32, adviserId);
+
+                dsData = db.ExecuteDataSet(dbCommand);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsData;
+        }
+
+        public DataSet RequestWiseRejects(int reqId)
+        {
+            DataSet dsReqRej;
+            Database db;
+            DbCommand dbCommand;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbCommand = db.GetStoredProcCommand("SPROC_RequestWiseRejects");
+                db.AddInParameter(dbCommand, "@reqId", DbType.Int32, reqId);
+                dsReqRej = db.ExecuteDataSet(dbCommand);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+            return dsReqRej;
+        }
     }
 }

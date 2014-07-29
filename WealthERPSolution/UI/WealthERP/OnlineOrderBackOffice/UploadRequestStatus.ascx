@@ -1,1 +1,193 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="UploadRequestStatus.ascx.cs" Inherits="WealthERP.OnlineOrderBackOffice.UploadRequestStatus" %>
+
+<style type="text/css">
+    .table
+    {
+        border: 1px solid orange;
+    }
+    .leftLabel
+    {
+        width: 18%;
+        text-align: right;
+    }
+    .rightData
+    {
+        width: 18%;
+        text-align: left;
+    }
+</style>
+<asp:ScriptManager ID="scrptMgr" runat="server">
+    <Services>
+        <asp:ServiceReference Path="AutoComplete.asmx" />
+    </Services>
+</asp:ScriptManager>
+<table width="100%">
+    <tr>
+        <td>
+            <div class="divPageHeading">
+                <table cellspacing="0" cellpadding="3" width="100%">
+                    <tr>
+                        <td align="left">
+                            Request Rejects
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+</table>
+<table width="70%" runat="server" id="tbIssue">
+    <tr>
+        <td class="leftLabel">
+            <asp:Label ID="lb1Type" runat="server" Text="Type:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td class="rightData">
+            <asp:DropDownList ID="ddlType" runat="server" CssClass="cmbField" AutoPostBack="true"
+                Width="240px">
+            </asp:DropDownList>
+            <span id="Span7" class="spnRequiredField">*</span>
+            <br />
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ErrorMessage="Please Select Type"
+                CssClass="rfvPCG" ControlToValidate="ddlType" ValidationGroup="btnGo" Display="Dynamic"
+                InitialValue="Select"></asp:RequiredFieldValidator>
+        </td>
+        <td class="leftLabel">
+            <asp:Label ID="lb1date" runat="server" Text="Requested Date:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td class="rightData">
+            <telerik:RadDatePicker ID="txtReqDate" CssClass="txtField" runat="server" Culture="English (United States)"
+                Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01"
+                TabIndex="17" Width="150px" AutoPostBack="true">
+                <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
+                    Skin="Telerik" EnableEmbeddedSkins="false">
+                </Calendar>
+                <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                </DateInput>
+            </telerik:RadDatePicker>
+            <span id="Span18" class="spnRequiredField">*</span>
+            <br />
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator21" runat="server" CssClass="rfvPCG"
+                ErrorMessage="Please Enter Requested Date" Display="Dynamic" ControlToValidate="txtReqDate"
+                InitialValue="" ValidationGroup="btnGo">
+            </asp:RequiredFieldValidator>
+        </td>
+    </tr>
+</table>
+<table width="60%">
+ <tr id="trBtnSubmit" runat="server">
+       <td class="leftLabel"> 
+            <asp:Button ID="btnGo" runat="server" Text="Go" CssClass="PCGButton" ValidationGroup="btnGo"
+                OnClick="btnGo_Click" />
+                
+        </td>
+        <td class="rightData">
+          <%-- <asp:Button ID="btnGo" runat="server" Text="Go" CssClass="PCGButton" ValidationGroup="btnGo"
+                OnClick="btnGo_Click" />--%>
+        </td>
+        <td class="leftLabel">
+            &nbsp;
+        </td>
+        <td class="rightData">
+            &nbsp;
+        </td>
+    </tr>
+</table>
+<%-- OnItemCommand="rgEligibleInvestorCategories_ItemCommand" OnItemDataBound="rgEligibleInvestorCategories_ItemDataBound"--%>
+<asp:Panel ID="pnlRequest" runat="server" CssClass="Landscape" Width="68%" Visible="false" ScrollBars="Both" class="leftLabel">
+    <table id="Table1" runat="server" width="80%">
+        <tr>
+            <td class="leftLabel">
+                &nbsp;
+            </td>
+            <td>
+                <table>
+                    <tr>
+                        <td>
+                            <telerik:RadGrid ID="rgRequests" runat="server" AllowSorting="True" enableloadondemand="True"
+                                PageSize="5" AutoGenerateColumns="False" EnableEmbeddedSkins="False" GridLines="None"
+                                ShowFooter="True" PagerStyle-AlwaysVisible="true" AllowPaging="true" ShowStatusBar="True"
+                                Skin="Telerik" AllowFilteringByColumn="true" OnNeedDataSource="rgRequests_OnNeedDataSource" OnItemCommand="rgRequests_ItemCommand">
+                                <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true"  
+                                    AutoGenerateColumns="false" Width="100%"   
+                                     DataKeyNames="ReqId">
+                                    <Columns>
+                                        <telerik:GridTemplateColumn AllowFiltering="false">
+                                            <ItemTemplate>
+                                                <asp:LinkButton ID="lbDetails" runat="server" CommandName="ExpandCollapse" Font-Underline="False"
+                                                    Font-Bold="true" UniqueName="DetailsCategorieslink" OnClick="btnCategoriesExpandAll_Click"
+                                                    Font-Size="Medium"> View Rejects</asp:LinkButton>
+                                            </ItemTemplate>
+                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="20px" Wrap="false" />
+                                        </telerik:GridTemplateColumn>
+                                        
+                                         <telerik:GridBoundColumn DataField="ReqId" HeaderText="Req Id" SortExpression="ReqId"
+                                    ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                    UniqueName="ReqId" FooterStyle-HorizontalAlign="Left">
+                                    <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="ReqDate" HeaderText="Request Date" SortExpression="ReqDate"
+                                    ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                    DataFormatString="{0:d}" UniqueName="ReqDate" FooterStyle-HorizontalAlign="Left">
+                                    <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
+                                  <telerik:GridBoundColumn DataField="TotalNoOfRecords" HeaderText="Total Records" SortExpression="TotalNoOfRecords"
+                                    ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                    UniqueName="TotalNoOfRecords" FooterStyle-HorizontalAlign="Left">
+                                    <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
+                                 <telerik:GridBoundColumn DataField="InputRejects" HeaderText="Input Rejects" SortExpression="InputRejects"
+                                    ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                    UniqueName="InputRejects" FooterStyle-HorizontalAlign="Left">
+                                    <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
+                                 <telerik:GridBoundColumn DataField="StagingRejects" HeaderText="Staging Rejects" SortExpression="StagingRejects"
+                                    ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                    UniqueName="StagingRejects" FooterStyle-HorizontalAlign="Left">
+                                    <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
+                                 <telerik:GridBoundColumn DataField="Success" HeaderText="Success" SortExpression="Success"
+                                    ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                    UniqueName="Success" FooterStyle-HorizontalAlign="Left">
+                                    <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
+                                        <telerik:GridTemplateColumn AllowFiltering="false">
+                                            <ItemTemplate>
+                                                <tr>
+                                                    <td colspan="0.2%">
+                                                        &nbsp;
+                                                    </td>
+                                                    <td  >
+                                                        <asp:Panel ID="pnlchild" runat="server" Style="display: inline" CssClass="Landscape"
+                                                            ScrollBars="Both" Visible="false">
+                                                            <telerik:RadGrid ID="rgRequestRejects" runat="server" AutoGenerateColumns="true"
+                                                                enableloadondemand="True" PageSize="5" EnableEmbeddedSkins="False" GridLines="None"
+                                                                ShowFooter="True" PagerStyle-AlwaysVisible="true" ShowStatusBar="True" Skin="Telerik"
+                                                                AllowFilteringByColumn="true" OnNeedDataSource="rgRequestRejects_OnNeedDataSource"
+                                                                AllowPaging="false">
+                                                               <%-- <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="AIIC_InvestorCatgeoryId,AIICST_Id"
+                                                                    AutoGenerateColumns="false">--%>
+                                                                    <%--<Columns>
+                                                                        <telerik:GridBoundColumn DataField="WCMV_Name" HeaderStyle-Width="30px" UniqueName="WCMV_Name"
+                                                                            CurrentFilterFunction="Contains" HeaderText="Investor Type" SortExpression="WCMV_Name"
+                                                                            AllowFiltering="true">
+                                                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="20px" Wrap="false" />
+                                                                        </telerik:GridBoundColumn>
+                                                                    </Columns>--%>
+                                                             <%--   </MasterTableView>--%>
+                                                            </telerik:RadGrid>
+                                                        </asp:Panel>
+                                                    </td>
+                                                </tr>
+                                            </ItemTemplate>
+                                        </telerik:GridTemplateColumn>
+                                    </Columns>
+                                </MasterTableView>
+                            </telerik:RadGrid>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    </asp:panel>

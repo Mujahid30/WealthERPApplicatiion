@@ -197,6 +197,7 @@ namespace WealthERP.Uploads
                 BindListBranch(adviserId, "adviser");
 
             }
+
             divInputErrorList.Visible = false;
 
         }
@@ -434,16 +435,16 @@ namespace WealthERP.Uploads
                     msgUploadComplete.InnerText = "Not able to create Request,Try again";
                 }
             }
-           else if (Page.IsValid & ddlUploadType.SelectedValue == "P")
+            else if (Page.IsValid & ddlUploadType.SelectedValue == "P")
             {
                 int ReqId = 0;
                 msgUploadComplete.Visible = true;
 
-                string uploadFilePath = ConfigurationManager.AppSettings["ADVISOR_UPLOAD_PATH"].ToString() + "\\" + adviserVo.advisorId.ToString() + "\\"  ;
+                string uploadFilePath = ConfigurationManager.AppSettings["ADVISOR_UPLOAD_PATH"].ToString() + "\\" + adviserVo.advisorId.ToString() + "\\";
 
 
 
-                string newFileName = SaveFileIntoServer(FileUpload,   uploadFilePath);
+                string newFileName = SaveFileIntoServer(FileUpload, uploadFilePath);
                 newFileName = uploadFilePath + newFileName;
                 //   packagePath = Server.MapPath("\\UploadPackages\\Integration Services Project1\\Integration Services Project1\\Package9.dtsx");
                 werpTaskRequestManagementBo.CreateTaskRequest(3, userVo.UserId, out ReqId, newFileName, adviserVo.advisorId, Convert.ToInt32(ddlRM.SelectedValue), Convert.ToInt32(ddlListBranch.SelectedValue), ddlListCompany.SelectedValue);
@@ -4583,15 +4584,15 @@ namespace WealthERP.Uploads
             if (ddlUploadType.SelectedValue == "CM")
             {
                 //trListBranch.Visible = true;
-                trRM.Visible = false;
+                trRM.Visible = true;
 
             }
             else
             {
-                trRM.Visible = true;
+                trRM.Visible = false;
             }
-            
-           
+
+
             //MF FOLIO UPLOADS DROPDOWN POPULATE -VISHAL 
             if (ddlUploadType.SelectedValue == Contants.ExtractTypeMFFolio)
             {   // MF FOLIO  Only
