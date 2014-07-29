@@ -343,15 +343,15 @@
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="File Upload" Value="File_Upload">
                                         <Items>
-                                            <telerik:RadPanelItem runat="server" Text="MF Upload" Value="Start_Upload">
+                                            <telerik:RadPanelItem runat="server" Text="Upload" Value="Start_Upload">
                                             </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="MF Upload Offline" Value="MF_Upload_Offline">
+                                            <telerik:RadPanelItem runat="server" Text="Request Upload Status" Value="Request_Upload_Status">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Uploads History" Value="Uploads History">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="View MF Exception" Value="Uploads_Exception">
                                             </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="NCD/IPO Upload" Value="NCD/IPO_allotment">
+                                            <telerik:RadPanelItem runat="server" Text="NCD/IPO Allotment Upload" Value="NCD/IPO_allotment">
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
@@ -898,9 +898,9 @@
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="SIP Online Order Book" Value="MF_Online_SIP_Ord_Book">
                                                     </telerik:RadPanelItem>
-                                                     <telerik:RadPanelItem runat="server" Text="SIP Online Book" Value="SIP_Book">
+                                                    <telerik:RadPanelItem runat="server" Text="SIP Online Book" Value="SIP_Book">
                                                     </telerik:RadPanelItem>
-                                                     <telerik:RadPanelItem runat="server" Text="MF Transaction Book" Value="MF_Transaction_Books">
+                                                    <telerik:RadPanelItem runat="server" Text="MF Transaction Book" Value="MF_Transaction_Books">
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="NCD Order Book" Value="NCD_Order_Book">
                                                     </telerik:RadPanelItem>
@@ -1027,15 +1027,15 @@
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="File Upload" Value="File_Upload">
                                         <Items>
-                                            <telerik:RadPanelItem runat="server" Text="MF Upload" Value="Start_Upload">
+                                            <telerik:RadPanelItem runat="server" Text="Upload" Value="Start_Upload">
                                             </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="MF Upload Offline" Value="MF_Upload_Offline">
+                                            <telerik:RadPanelItem runat="server" Text="Request Upload Status" Value="Request_Upload_Status">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Uploads History" Value="Uploads History">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="View MF Exception" Value="Uploads_Exception">
                                             </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="NCD/IPO Upload" Value="NCD/IPO_allotment">
+                                            <telerik:RadPanelItem runat="server" Text="NCD/IPO Allotment Upload" Value="NCD/IPO_allotment">
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
