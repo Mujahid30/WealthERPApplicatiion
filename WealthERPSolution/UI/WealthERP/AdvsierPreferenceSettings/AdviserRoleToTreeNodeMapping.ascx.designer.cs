@@ -14,6 +14,15 @@ namespace WealthERP.AdvsierPreferenceSettings {
     public partial class AdviserRoleToTreeNodeMapping {
         
         /// <summary>
+        /// scrptMgr control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.ScriptManager scrptMgr;
+        
+        /// <summary>
         /// lnkBtnEdit control.
         /// </summary>
         /// <remarks>
@@ -41,31 +50,49 @@ namespace WealthERP.AdvsierPreferenceSettings {
         protected global::System.Web.UI.WebControls.LinkButton lnkDelete;
         
         /// <summary>
-        /// tbIssue control.
+        /// tblMessage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTable tbIssue;
-
-        protected global::Telerik.Web.UI.RadTreeView RTVAdmin;
-        protected global::Telerik.Web.UI.RadTreeView RTVRM;
-        protected global::Telerik.Web.UI.RadTreeView RTVBM;
-        protected global::Telerik.Web.UI.RadTreeView RTVCustomer;
-        protected global::Telerik.Web.UI.RadTreeView RTVOps;
-        protected global::Telerik.Web.UI.RadTreeView RTVResearch;
-        protected global::Telerik.Web.UI.RadTreeView RTVSuperAdmin;
-        protected global::Telerik.Web.UI.RadTreeView RTVAssociates;
+        protected global::System.Web.UI.HtmlControls.HtmlTable tblMessage;
         
         /// <summary>
-        /// lb1Product control.
+        /// trSumbitSuccess control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lb1Product;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trSumbitSuccess;
+        
+        /// <summary>
+        /// msgRecordStatus control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl msgRecordStatus;
+        
+        /// <summary>
+        /// tbRole control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTable tbRole;
+        
+        /// <summary>
+        /// lb1Role control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lb1Role;
         
         /// <summary>
         /// ddlRole control.
@@ -75,9 +102,7 @@ namespace WealthERP.AdvsierPreferenceSettings {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlRole;
-        protected global::System.Web.UI.WebControls.DropDownList ddlLevel;
-
-         
+        
         /// <summary>
         /// RequiredFieldValidator5 control.
         /// </summary>
@@ -86,39 +111,365 @@ namespace WealthERP.AdvsierPreferenceSettings {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator5;
-
-        protected global::System.Web.UI.WebControls.Button btnMapingSubmit;
-        protected global::System.Web.UI.WebControls.Button btnUpdate;
-
-        protected global::System.Web.UI.WebControls.Panel PnlAdmin;
-
-        protected global::System.Web.UI.WebControls.Panel PnlRM;
-
-        protected global::System.Web.UI.WebControls.Panel PnlBM;
-
-        protected global::System.Web.UI.WebControls.Panel PnlCustomer;
-
-        protected global::System.Web.UI.WebControls.Panel PnlOps;
-
-        protected global::System.Web.UI.WebControls.Panel PnlResearch;
-
-        protected global::System.Web.UI.WebControls.Panel PnlSuperAdmin;
-
-        protected global::System.Web.UI.WebControls.Panel PnlAssociates;
-
-        protected global::System.Web.UI.HtmlControls.HtmlTable tbRole;
-        protected global::System.Web.UI.WebControls.Button BtnGo;
-        protected global::System.Web.UI.WebControls.Button btnAdminRemoveNodes;
-        protected global::System.Web.UI.WebControls.Button btnRMRemoveNodes;
-        protected global::System.Web.UI.WebControls.Button btnBMRemoveNodes;
-        protected global::System.Web.UI.WebControls.Button btnCustomerRemoveNodes;
-        protected global::System.Web.UI.WebControls.Button btnOpsRemoveNodes;
-        protected global::System.Web.UI.WebControls.Button btnResearchRemoveNodes;
-        protected global::System.Web.UI.WebControls.Button btnSuperAdminRemoveNodes;
-        protected global::System.Web.UI.WebControls.Button btnAssociatesRemoveNodes;
-        protected global::System.Web.UI.HtmlControls.HtmlTable tblMessage;
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl msgRecordStatus;
-
         
+        /// <summary>
+        /// lb1Level control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lb1Level;
+        
+        /// <summary>
+        /// ddlLevel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlLevel;
+        
+        /// <summary>
+        /// RequiredFieldValidator1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
+        
+        /// <summary>
+        /// chkRTVAdmin control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkRTVAdmin;
+        
+        /// <summary>
+        /// BtnGo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button BtnGo;
+        
+        /// <summary>
+        /// PnlAdmin control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel PnlAdmin;
+        
+        /// <summary>
+        /// lb1Admin control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lb1Admin;
+        
+        /// <summary>
+        /// RTVAdmin control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadTreeView RTVAdmin;
+        
+        /// <summary>
+        /// btnAdminRemoveNodes control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnAdminRemoveNodes;
+        
+        /// <summary>
+        /// PnlRM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel PnlRM;
+        
+        /// <summary>
+        /// lb1RM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lb1RM;
+        
+        /// <summary>
+        /// RTVRM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadTreeView RTVRM;
+        
+        /// <summary>
+        /// btnRMRemoveNodes control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnRMRemoveNodes;
+        
+        /// <summary>
+        /// PnlBM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel PnlBM;
+        
+        /// <summary>
+        /// lb1BM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lb1BM;
+        
+        /// <summary>
+        /// RTVBM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadTreeView RTVBM;
+        
+        /// <summary>
+        /// btnBMRemoveNodes control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnBMRemoveNodes;
+        
+        /// <summary>
+        /// PnlCustomer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel PnlCustomer;
+        
+        /// <summary>
+        /// lb1Customer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lb1Customer;
+        
+        /// <summary>
+        /// RTVCustomer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadTreeView RTVCustomer;
+        
+        /// <summary>
+        /// btnCustomerRemoveNodes control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnCustomerRemoveNodes;
+        
+        /// <summary>
+        /// PnlOps control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel PnlOps;
+        
+        /// <summary>
+        /// lb1Ops control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lb1Ops;
+        
+        /// <summary>
+        /// RTVOps control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadTreeView RTVOps;
+        
+        /// <summary>
+        /// btnOpsRemoveNodes control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnOpsRemoveNodes;
+        
+        /// <summary>
+        /// PnlResearch control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel PnlResearch;
+        
+        /// <summary>
+        /// lb1Research control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lb1Research;
+        
+        /// <summary>
+        /// RTVResearch control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadTreeView RTVResearch;
+        
+        /// <summary>
+        /// btnResearchRemoveNodes control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnResearchRemoveNodes;
+        
+        /// <summary>
+        /// PnlSuperAdmin control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel PnlSuperAdmin;
+        
+        /// <summary>
+        /// lb1SuperAdmin control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lb1SuperAdmin;
+        
+        /// <summary>
+        /// RTVSuperAdmin control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadTreeView RTVSuperAdmin;
+        
+        /// <summary>
+        /// btnSuperAdminRemoveNodes control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSuperAdminRemoveNodes;
+        
+        /// <summary>
+        /// PnlAssociates control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel PnlAssociates;
+        
+        /// <summary>
+        /// lb1Associates control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lb1Associates;
+        
+        /// <summary>
+        /// RTVAssociates control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadTreeView RTVAssociates;
+        
+        /// <summary>
+        /// btnAssociatesRemoveNodes control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnAssociatesRemoveNodes;
+        
+        /// <summary>
+        /// trBtnSubmit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trBtnSubmit;
+        
+        /// <summary>
+        /// btnMapingSubmit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnMapingSubmit;
+        
+        /// <summary>
+        /// btnUpdate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnUpdate;
     }
 }
