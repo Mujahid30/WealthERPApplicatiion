@@ -3661,6 +3661,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OnlineOrderBackOffice//UploadRequestStatus.ascx.
+        /// </summary>
+        internal static string UploadRequestStatus {
+            get {
+                return ResourceManager.GetString("UploadRequestStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to General//UserLogin.ascx.
         /// </summary>
         internal static string Userlogin {

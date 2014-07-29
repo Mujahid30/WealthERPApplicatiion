@@ -2856,6 +2856,13 @@
     <Compile Include="OnlineOrderBackOffice\TradeBusinessDate.ascx.designer.cs">
       <DependentUpon>TradeBusinessDate.ascx</DependentUpon>
     </Compile>
+    <Compile Include="OnlineOrderBackOffice\UploadRequestStatus.ascx.cs">
+      <DependentUpon>UploadRequestStatus.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OnlineOrderBackOffice\UploadRequestStatus.ascx.designer.cs">
+      <DependentUpon>UploadRequestStatus.ascx</DependentUpon>
+    </Compile>
     <Compile Include="OnlineOrderManagement\BondOrderManagement.ascx.cs">
       <DependentUpon>BondOrderManagement.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -7902,6 +7909,7 @@
     <Content Include="OnlineOrderBackOffice\OnlineSchemeMIS.ascx" />
     <Content Include="OnlineOrderBackOffice\OnlineSchemeSetUp.ascx" />
     <Content Include="OnlineOrderBackOffice\TradeBusinessDate.ascx" />
+    <Content Include="OnlineOrderBackOffice\UploadRequestStatus.ascx" />
     <Content Include="OnlineOrderManagement\BondOrderManagement.ascx" />
     <Content Include="OnlineOrderManagement\CustomerIPOHolding.ascx" />
     <Content Include="OnlineOrderManagement\CustomerIPOOrderBook.ascx" />

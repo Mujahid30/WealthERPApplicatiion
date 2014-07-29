@@ -1913,4 +1913,8 @@
     <value>Widgets//LoginWidgets.ascx</value>
     <comment>Widgets//LoginWidgets.ascx</comment>
   </data>
+  <data name="UploadRequestStatus" xml:space="preserve">
+    <value>OnlineOrderBackOffice//UploadRequestStatus.ascx</value>
+    <comment>OnlineOrderBackOffice//UploadRequestStatus.ascx</comment>
+  </data>
 </root>
