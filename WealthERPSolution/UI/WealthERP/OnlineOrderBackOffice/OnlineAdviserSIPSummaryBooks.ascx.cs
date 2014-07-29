@@ -257,6 +257,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     drSIPOrderBook["CMFSS_NextSIPDueDate"] = "";
                 }
                 drSIPOrderBook["CMFSS_TotalInstallment"] = drSIP["CMFSS_TotalInstallment"];
+                drSIPOrderBook["CMFSS_CurrentInstallmentNumber"] = drSIP["CMFSS_CurrentInstallmentNumber"];
                 drSIPOrderBook["CMFA_FolioNum"] = drSIP["CMFA_FolioNum"];
                 drSIPOrderBook["Channel"] = drSIP["Channel"];
                 drSIPOrderBook["CMFSS_IsCanceled"] = drSIP["CMFSS_IsCanceled"];
@@ -289,6 +290,16 @@ namespace WealthERP.OnlineOrderBackOffice
                 drSIPOrderBook["CMFSS_IsSourceAA"] = drSIP["CMFSS_IsSourceAA"];
                 drSIPOrderBook["C_CustomerId"] = drSIP["C_CustomerId"];
                 drSIPOrderBook["U_UMId"] = drSIP["U_UMId"];
+                drSIPOrderBook["CMFSS_StartDate"] = DateTime.Parse(drSIP["CMFSS_StartDate"].ToString());
+                if (!string.IsNullOrEmpty(drSIP["CMFSS_RegistrationDate"].ToString()))
+                {
+                    drSIPOrderBook["CMFSS_RegistrationDate"] = DateTime.Parse(drSIP["CMFSS_RegistrationDate"].ToString()).ToShortDateString();
+
+                }
+                else
+                {
+                    drSIPOrderBook["CMFSS_NextSIPDueDate"] = DateTime.MinValue;
+                }
                 dtFinalSIPOrderBook.Rows.Add(drSIPOrderBook);
             }
 
@@ -313,6 +324,7 @@ namespace WealthERP.OnlineOrderBackOffice
             dtSIPOrderBook.Columns.Add("CMFSS_EndDate", typeof(DateTime));
             dtSIPOrderBook.Columns.Add("CMFSS_NextSIPDueDate");
             dtSIPOrderBook.Columns.Add("CMFSS_TotalInstallment");
+            dtSIPOrderBook.Columns.Add("CMFSS_CurrentInstallmentNumber");
             dtSIPOrderBook.Columns.Add("CMFA_FolioNum");
             dtSIPOrderBook.Columns.Add("Channel");
             dtSIPOrderBook.Columns.Add("CMFSS_IsCanceled");
@@ -333,6 +345,7 @@ namespace WealthERP.OnlineOrderBackOffice
             dtSIPOrderBook.Columns.Add("CMFSS_ModifiedBy");
             dtSIPOrderBook.Columns.Add("CMFSS_ModifiedOn");
             dtSIPOrderBook.Columns.Add("U_UMId");
+            dtSIPOrderBook.Columns.Add("CMFSS_RegistrationDate", typeof(DateTime));
             return dtSIPOrderBook;
 
         }
@@ -492,12 +505,25 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 GridDataItem dataItem = (GridDataItem)e.Item;
                 string Iscancel = Convert.ToString(gvSIPSummaryBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CMFSS_IsCanceled"]);
+                int totalInstallment = Convert.ToInt32(gvSIPSummaryBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CMFSS_TotalInstallment"].ToString());
+                int currentInstallmentNumber = Convert.ToInt32(gvSIPSummaryBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CMFSS_CurrentInstallmentNumber"].ToString());
+                DateTime endDate = Convert.ToDateTime(gvSIPSummaryBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CMFSS_EndDate"].ToString());
                 LinkButton buttonEdit = dataItem["editColumn"].Controls[0] as LinkButton;
-                if (Iscancel == "Cancelled")
+                DateTime currentTime = DateTime.Now;
+                DateTime fixedTime = Convert.ToDateTime("08:35:00 AM");
+                int compare = DateTime.Compare(currentTime, fixedTime);
+                if (Iscancel == "Cancelled" || totalInstallment == currentInstallmentNumber || endDate < DateTime.Now)
                 {
+
                     buttonEdit.Enabled = false;
                 }
-
+                if (endDate == DateTime.Now)
+                {
+                    if (compare >= 0)
+                    {
+                        buttonEdit.Enabled = false;
+                    }
+                }
             }
         }
     }

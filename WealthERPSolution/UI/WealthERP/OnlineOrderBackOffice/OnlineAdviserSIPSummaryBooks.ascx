@@ -118,7 +118,7 @@
                     OnItemCommand="gvSIPSummaryBookMIS_OnItemCommand">
                     <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="OrderMIS">
                     </ExportSettings>
-                    <MasterTableView DataKeyNames="CMFSS_SystematicSetupId,CMFSS_IsCanceled,AcceptCount,InProcessCount,RejectedCount,CMFA_AccountId,PASP_SchemePlanCode,CMFSS_IsSourceAA,C_CustomerId"
+                    <MasterTableView DataKeyNames="CMFSS_SystematicSetupId,CMFSS_IsCanceled,AcceptCount,InProcessCount,RejectedCount,CMFA_AccountId,PASP_SchemePlanCode,CMFSS_IsSourceAA,C_CustomerId,CMFSS_TotalInstallment,CMFSS_CurrentInstallmentNumber,CMFSS_EndDate"
                         Width="102%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None"
                         EditMode="PopUp">
                         <CommandItemSettings ShowExportToWordButton="false" ShowExportToExcelButton="false"
@@ -140,10 +140,9 @@
                                     </asp:LinkButton>
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>
-                             <telerik:GridBoundColumn DataField="U_UMId" AllowFiltering="true"
-                                HeaderText="User Id" UniqueName="U_UMId" SortExpression="U_UMId"
-                                ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
-                                HeaderStyle-Width="75px" FilterControlWidth="50px">
+                            <telerik:GridBoundColumn DataField="U_UMId" AllowFiltering="true" HeaderText="User Id"
+                                UniqueName="U_UMId" SortExpression="U_UMId" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                AutoPostBackOnFilter="true" HeaderStyle-Width="75px" FilterControlWidth="50px">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="C_FirstName" HeaderText="Customer Name" AllowFiltering="true"
@@ -259,6 +258,12 @@
                                 AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="CMFSS_CurrentInstallmentNumber" AllowFiltering="false"
+                                HeaderText="Current Installment" UniqueName="CMFSS_CurrentInstallmentNumber"
+                                SortExpression="CMFSS_TotalInstallment" ShowFilterIcon="false" HeaderStyle-Width="80px"
+                                Visible="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
                             <%-- <telerik:GridBoundColumn DataField="AcceptCount" AllowFiltering="false" HeaderText="Accepted"
                                 UniqueName="AcceptCount" SortExpression="AcceptCount" ShowFilterIcon="false"
                                 HeaderStyle-Width="80px" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
@@ -326,16 +331,6 @@
                                 AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="TotalAmount" AllowFiltering="false" HeaderText="Total Amount"
-                                UniqueName="TotalAmount" SortExpression="TotalAmount" ShowFilterIcon="false"
-                                HeaderStyle-Width="80px" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
-                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="TotalUnits" AllowFiltering="false" HeaderText="Total Units"
-                                UniqueName="TotalUnits" SortExpression="TotalUnits" ShowFilterIcon="false" HeaderStyle-Width="80px"
-                                CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
-                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn Visible="false" DataField="XS_Status" AllowFiltering="false"
                                 HeaderText="Order Status" HeaderStyle-Width="80px" UniqueName="XS_Status" SortExpression="XS_Status"
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
@@ -346,32 +341,26 @@
                                 CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            
-                            <telerik:GridBoundColumn  DataField="CMFSS_CreatedOn" AllowFiltering="false"
-                                HeaderText="System Add Date" UniqueName="CMFSS_CreatedOn" SortExpression="CMFSS_CreatedOn"
-                                ShowFilterIcon="false" HeaderStyle-Width="80px" CurrentFilterFunction="Contains"
-                                AutoPostBackOnFilter="true">
+                            <telerik:GridBoundColumn DataField="CMFSS_RegistrationDate" AllowFiltering="false" HeaderText="System Add Date"
+                                UniqueName="CMFSS_RegistrationDate" SortExpression="CMFSS_RegistrationDate" ShowFilterIcon="false"
+                                HeaderStyle-Width="80px" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                             <telerik:GridBoundColumn  DataField="CMFSS_CreatedBy" AllowFiltering="false"
-                                HeaderText="Created UserId" UniqueName="CMFSS_CreatedBy" SortExpression="CMFSS_CreatedBy"
-                                ShowFilterIcon="false" HeaderStyle-Width="80px" CurrentFilterFunction="Contains"
-                                AutoPostBackOnFilter="true">
+                            <telerik:GridBoundColumn DataField="CMFSS_CreatedBy" AllowFiltering="false" HeaderText="Created UserId"
+                                UniqueName="CMFSS_CreatedBy" SortExpression="CMFSS_CreatedBy" ShowFilterIcon="false"
+                                HeaderStyle-Width="80px" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                             <telerik:GridBoundColumn  DataField="CMFSS_ModifiedOn" AllowFiltering="false"
-                                HeaderText="System Modified Date" UniqueName="CMFSS_ModifiedOn" SortExpression="CMFSS_ModifiedOn"
-                                ShowFilterIcon="false" HeaderStyle-Width="80px" CurrentFilterFunction="Contains"
-                                AutoPostBackOnFilter="true">
+                            <telerik:GridBoundColumn DataField="CMFSS_ModifiedOn" AllowFiltering="false" HeaderText="System Modified Date"
+                                UniqueName="CMFSS_ModifiedOn" SortExpression="CMFSS_ModifiedOn" ShowFilterIcon="false"
+                                HeaderStyle-Width="80px" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn  DataField="CMFSS_ModifiedBy" AllowFiltering="false"
-                                HeaderText="Modified UserId" UniqueName="CMFSS_ModifiedBy" SortExpression="CMFSS_ModifiedBy"
-                                ShowFilterIcon="false" HeaderStyle-Width="80px" CurrentFilterFunction="Contains"
-                                AutoPostBackOnFilter="true">
+                            <telerik:GridBoundColumn DataField="CMFSS_ModifiedBy" AllowFiltering="false" HeaderText="Modified UserId"
+                                UniqueName="CMFSS_ModifiedBy" SortExpression="CMFSS_ModifiedBy" ShowFilterIcon="false"
+                                HeaderStyle-Width="80px" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                           
                             <telerik:GridBoundColumn DataField="CMFSS_IsCanceled" AllowFiltering="false" HeaderText="Status"
                                 HeaderStyle-Width="80px" UniqueName="CMFSS_IsCanceled" SortExpression="CMFSS_IsCanceled"
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
