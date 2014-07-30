@@ -258,17 +258,18 @@
                 AutoPostBack="true" CssClass="cmbLongField">
                 <asp:ListItem Value="0">Select an Extract Type</asp:ListItem>
                 <%-- <asp:ListItem Value="MFF">MF Folio Only</asp:ListItem>--%>
-                <asp:ListItem Value="PMFF">Profile & MF Folio</asp:ListItem>
+                <asp:ListItem Value="PMFF" Enabled="false">Profile & MF Folio</asp:ListItem>
                 <asp:ListItem Value="MFT">MF Transaction</asp:ListItem>
                 <%--    <asp:ListItem Value="MFF">MF Folio Only</asp:ListItem> --%>
                 <asp:ListItem Value="EQTA" Enabled="false">Equity Trade Account Only</asp:ListItem>
                 <%-- <asp:ListItem Value="EQDA">Equity Demat Account Only</asp:ListItem>--%>
                 <asp:ListItem Value="EQT" Enabled="false">Equity Transaction</asp:ListItem>
-                <asp:ListItem Value="MFSS">Systematic</asp:ListItem>
-                <asp:ListItem Value="TRAIL">Trail Commission</asp:ListItem>
-                <asp:ListItem Value="Link">Fixed Income</asp:ListItem>
+                <asp:ListItem Value="MFSS" Enabled="false">Systematic</asp:ListItem>
+                <asp:ListItem Value="TRAIL" Enabled="false">Trail Commission</asp:ListItem>
+                
                 <asp:ListItem Value="P">Profile Incremental</asp:ListItem>
                 <asp:ListItem Value="CM">Client Modification</asp:ListItem>
+                <asp:ListItem Value="Link">Fixed Income</asp:ListItem>
             </asp:DropDownList>
             <img src="../Images/help.png" class="ScreenTip1" style="height: 15px; width: 15px;" />
             <div id="div1" style="display: none;">

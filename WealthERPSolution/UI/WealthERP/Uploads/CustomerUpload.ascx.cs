@@ -4581,7 +4581,7 @@ namespace WealthERP.Uploads
             {
                 trListBranch.Visible = false;
             }
-            if (ddlUploadType.SelectedValue == "CM")
+            if ( ddlUploadType.SelectedValue == "P")
             {
                 //trListBranch.Visible = true;
                 trRM.Visible = true;
