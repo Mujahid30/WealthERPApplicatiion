@@ -116,11 +116,7 @@
                                 FilterControlWidth="70px" CurrentFilterFunction="Contains">
                                 <ItemStyle Width="90px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="DOB" UniqueName="DOB" HeaderText="Date of birth"
-                                ShowFilterIcon="false" AutoPostBackOnFilter="true" AllowFiltering="true" HeaderStyle-Width="90px"
-                                SortExpression="DOB" FilterControlWidth="70px" CurrentFilterFunction="Contains">
-                                <ItemStyle Width="90px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
-                            </telerik:GridBoundColumn>
+                          
                             <telerik:GridBoundColumn DataField="PAN" UniqueName="PAN" HeaderText="PAN" ShowFilterIcon="false"
                                 AutoPostBackOnFilter="true" AllowFiltering="true" HeaderStyle-Width="100px" SortExpression="PAN"
                                 FilterControlWidth="80px" CurrentFilterFunction="Contains">
@@ -148,6 +144,11 @@
                                 AllowFiltering="true" HeaderStyle-Width="100px" SortExpression="Nominee" FilterControlWidth="80px"
                                 CurrentFilterFunction="Contains">
                                 <ItemStyle Width="100px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
+                            </telerik:GridBoundColumn>
+                              <telerik:GridBoundColumn DataField="DOB" UniqueName="DOB" HeaderText="Nominee DOB"
+                                ShowFilterIcon="false" AutoPostBackOnFilter="true" AllowFiltering="true" HeaderStyle-Width="90px"
+                                SortExpression="DOB" FilterControlWidth="70px" CurrentFilterFunction="Contains">
+                                <ItemStyle Width="90px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="SecondHolder" UniqueName="SecondHolder" HeaderText="2nd Holder"
                                 SortExpression="SecondHolder" AutoPostBackOnFilter="true" HeaderStyle-Width="100px"

@@ -2403,29 +2403,29 @@ namespace DaoCustomerPortfolio
                 else
                     db.AddInParameter(getRMCustomerMFTransactionsCmd, "@SchemePlanCode", DbType.String, DBNull.Value);
 
-                if (AmcCode!=0)
+                if (AmcCode != 0)
                     db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AmcCode", DbType.Int32, AmcCode);
                 else
                     db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AmcCode", DbType.Int32, DBNull.Value);
-               if (Category!="0")
+                if (Category != "0")
                     db.AddInParameter(getRMCustomerMFTransactionsCmd, "@Category", DbType.String, Category);
                 else
                     db.AddInParameter(getRMCustomerMFTransactionsCmd, "@Category", DbType.String, DBNull.Value);
-               //if (AgentId != 0)
-               //    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AAC_AdviserAgentId", DbType.Int32, AgentId);
-               //else
-               //    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AAC_AdviserAgentId", DbType.Int32, DBNull.Value);
-               //if (IsAssociates != 0)
-               db.AddInParameter(getRMCustomerMFTransactionsCmd, "@IsAgentBasedCode", DbType.Int32, A_AgentCodeBased);
-               db.AddInParameter(getRMCustomerMFTransactionsCmd, "@IsfolioOnline", DbType.Int32, IsfolioOnline);
-                
-               //else
-               //    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@IsAssociate", DbType.Int32, DBNull.Value);
+                //if (AgentId != 0)
+                //    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AAC_AdviserAgentId", DbType.Int32, AgentId);
+                //else
+                //    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AAC_AdviserAgentId", DbType.Int32, DBNull.Value);
+                //if (IsAssociates != 0)
+                db.AddInParameter(getRMCustomerMFTransactionsCmd, "@IsAgentBasedCode", DbType.Int32, A_AgentCodeBased);
+                db.AddInParameter(getRMCustomerMFTransactionsCmd, "@IsfolioOnline", DbType.Int32, IsfolioOnline);
+
+                //else
+                //    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@IsAssociate", DbType.Int32, DBNull.Value);
                 //if (All != 0)
                 //    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@all", DbType.Int32, All);
                 //else
                 //    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@all", DbType.Int32, 0);
-               
+
                 //db.AddInParameter(getRMCustomerMFTransactionsCmd, "@CurrentPage", DbType.Int32, CurrentPage);
                 //if (CustomerName != string.Empty)
                 //    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@CustomerName", DbType.String, CustomerName);
@@ -2461,7 +2461,7 @@ namespace DaoCustomerPortfolio
                 //    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AMCCode", DbType.String, AMCCode);
                 getRMCustomerMFTransactionsCmd.CommandTimeout = 60 * 60;
                 ds = db.ExecuteDataSet(getRMCustomerMFTransactionsCmd);
-               
+
                 if (ds.Tables[0].Rows.Count > 0)
                 {
                     dtGetMFTransactions = ds.Tables[0];
@@ -2497,26 +2497,43 @@ namespace DaoCustomerPortfolio
                         mfTransactionVo.Category = dr["PAIC_AssetInstrumentCategoryName"].ToString();
                         mfTransactionVo.CategoryCode = dr["PAIC_AssetInstrumentCategoryCode"].ToString();
                         mfTransactionVo.BuySell = dr["CMFT_BuySell"].ToString();
-                        mfTransactionVo.DividendRate = float.Parse(dr["CMFT_DividendRate"].ToString());
+                        if (dr["CMFT_DividendRate"].ToString() != "")
+                        {
+                            mfTransactionVo.DividendRate = float.Parse(dr["CMFT_DividendRate"].ToString());
+                        }
                         mfTransactionVo.TransactionDate = DateTime.Parse(dr["CMFT_TransactionDate"].ToString());
-                        mfTransactionVo.NAV = float.Parse(dr["CMFT_NAV"].ToString());
-                        mfTransactionVo.Price = float.Parse(dr["CMFT_Price"].ToString());
-                        mfTransactionVo.Amount = float.Parse(dr["CMFT_Amount"].ToString());
-                        mfTransactionVo.Units = float.Parse(dr["CMFT_Units"].ToString());
-                        mfTransactionVo.STT = float.Parse(dr["CMFT_STT"].ToString());
+                        if (dr["CMFT_NAV"].ToString() != "")
+                        {
+                            mfTransactionVo.NAV = float.Parse(dr["CMFT_NAV"].ToString());
+                        }
+                        if (dr["CMFT_Price"].ToString() != "")
+                        {
+                            mfTransactionVo.Price = float.Parse(dr["CMFT_Price"].ToString());
+                        }
+                        if (dr["CMFT_Amount"].ToString() != "")
+                        {
+                            mfTransactionVo.Amount = float.Parse(dr["CMFT_Amount"].ToString());
+                        }
+                        if (dr["CMFT_Units"].ToString() != "")
+                        {
+                            mfTransactionVo.Units = float.Parse(dr["CMFT_Units"].ToString());
+                        }
+                        if ( dr["CMFT_STT"].ToString() !="")
+                        {
+                            mfTransactionVo.STT = float.Parse(dr["CMFT_STT"].ToString());
+                        }
                         mfTransactionVo.Source = dr["XES_SourceCode"].ToString();
                         mfTransactionVo.SwitchSourceTrxId = int.Parse(dr["CMFT_SwitchSourceTrxId"].ToString());
                         mfTransactionVo.TransactionClassificationCode = dr["WMTT_TransactionClassificationCode"].ToString();
                         mfTransactionVo.TransactionType = dr["WMTT_TransactionClassificationName"].ToString();
                         mfTransactionVo.TransactionTrigger = dr["WMTT_Trigger"].ToString();
                         mfTransactionVo.FinancialFlag = int.Parse(dr["WMTT_FinancialFlag"].ToString());
-                        mfTransactionVo.Folio = dr["CMFA_FolioNum"].ToString();                      
+                        mfTransactionVo.Folio = dr["CMFA_FolioNum"].ToString();
                         mfTransactionVo.PortfolioName = dr["CP_PortfolioName"].ToString();
                         mfTransactionVo.CreatedOn = DateTime.Parse(dr["CMFT_CreatedOn"].ToString());
-                        
-                         //&& dr["CMFT_UserTransactionNo"].ToString() != string.Empty)
+
+                        //&& dr["CMFT_UserTransactionNo"].ToString() != string.Empty)
                         if (dr["CMFT_UserTransactionNo"].ToString() != string.Empty)
-                           
                         {
                             mfTransactionVo.UserTransactionNo = dr["CMFT_UserTransactionNo"].ToString();
                         }
@@ -2550,7 +2567,7 @@ namespace DaoCustomerPortfolio
                             {
                                 mfTransactionVo.SubbrokerName = "N/A";
                             }
-                            if  (dr["ChannelName"].ToString() != null && dr["ChannelName"].ToString() != string.Empty)
+                            if (dr["ChannelName"].ToString() != null && dr["ChannelName"].ToString() != string.Empty)
                             {
                                 mfTransactionVo.Channel = dr["ChannelName"].ToString();
                             }
@@ -2558,7 +2575,7 @@ namespace DaoCustomerPortfolio
                             {
                                 mfTransactionVo.Channel = "N/A";
                             }
-                            
+
                             if (dr["Titles"].ToString() != null && dr["Titles"].ToString() != string.Empty)
                             {
                                 mfTransactionVo.Titles = dr["Titles"].ToString();
@@ -2599,7 +2616,7 @@ namespace DaoCustomerPortfolio
                             {
                                 mfTransactionVo.DeuptyHead = "N/A";
                             }
-                           
+
                         }
                         if (dr["CMFT_EUIN"].ToString() != null && dr["CMFT_EUIN"].ToString() != string.Empty)
                         {
@@ -2609,7 +2626,7 @@ namespace DaoCustomerPortfolio
                         {
                             mfTransactionVo.EUIN = "N/A";
                         }
-                       if(dr["CMFT_Area"].ToString() != null && dr["CMFT_Area"].ToString() != string.Empty)
+                        if (dr["CMFT_Area"].ToString() != null && dr["CMFT_Area"].ToString() != string.Empty)
                         {
                             mfTransactionVo.Area = dr["CMFT_Area"].ToString();
                         }
@@ -2632,34 +2649,40 @@ namespace DaoCustomerPortfolio
                             mfTransactionVo.BrokerageAmount = float.Parse(dr["CMFT_ExternalBrokerageAmount"].ToString());
 
                         mfTransactionsList.Add(mfTransactionVo);
+                        //if (ds.Tables[0].Rows.Count == mfTransactionsList.Count)
+                        //{
+                        //    return mfTransactionsList;
+                        //}
                     }
+                   
                 }
-                //pramod
-                //if (ds.Tables.Count > 1)
-                //{
-                //    if (ds.Tables[2].Rows.Count > 0)
-                //    {
-                //        foreach (DataRow dr in ds.Tables[2].Rows)
-                //        {
-                //            genDictTranType.Add(dr["WMTT_TransactionClassificationName"].ToString(), dr["WMTT_TransactionClassificationName"].ToString());
-                //        }
-                //    }
-                //    if (ds.Tables[3].Rows.Count > 0)
-                //    {
-                //        foreach (DataRow dr in ds.Tables[3].Rows)
-                //        {
-                //            genDictCategory.Add(dr["PAIC_AssetInstrumentCategoryName"].ToString(), dr["PAIC_AssetInstrumentCategoryCode"].ToString());
-                //        }
-                //    }
-                //    if (ds.Tables[4].Rows.Count > 0)
-                //    {
-                //        foreach (DataRow dr in ds.Tables[4].Rows)
-                //        {
-                //            genDictAMC.Add(dr["PA_AMCName"].ToString(), int.Parse(dr["PA_AMCCode"].ToString()));
-                //        }
-                //    }
-                //}
             }
+            //pramod
+            //if (ds.Tables.Count > 1)
+            //{
+            //    if (ds.Tables[2].Rows.Count > 0)
+            //    {
+            //        foreach (DataRow dr in ds.Tables[2].Rows)
+            //        {
+            //            genDictTranType.Add(dr["WMTT_TransactionClassificationName"].ToString(), dr["WMTT_TransactionClassificationName"].ToString());
+            //        }
+            //    }
+            //    if (ds.Tables[3].Rows.Count > 0)
+            //    {
+            //        foreach (DataRow dr in ds.Tables[3].Rows)
+            //        {
+            //            genDictCategory.Add(dr["PAIC_AssetInstrumentCategoryName"].ToString(), dr["PAIC_AssetInstrumentCategoryCode"].ToString());
+            //        }
+            //    }
+            //    if (ds.Tables[4].Rows.Count > 0)
+            //    {
+            //        foreach (DataRow dr in ds.Tables[4].Rows)
+            //        {
+            //            genDictAMC.Add(dr["PA_AMCName"].ToString(), int.Parse(dr["PA_AMCCode"].ToString()));
+            //        }
+            //    }
+            //}
+            //  }
             catch (BaseApplicationException Ex)
             {
                 throw Ex;

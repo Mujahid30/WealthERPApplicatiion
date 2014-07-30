@@ -181,7 +181,7 @@
                         <asp:RadioButton ID="rbtnMale" runat="server" CssClass="txtField" Text="Male" GroupName="rbtnGender" />
                         <asp:RadioButton ID="rbtnFemale" runat="server" CssClass="txtField" Text="Female"
                             GroupName="rbtnGender" />
-                        &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                        &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
                         <asp:CheckBox ID="chkKYC" runat="server" CssClass="txtField" Text="MF KYC" AutoPostBack="true" />
                     </td>
                 </tr>
@@ -285,10 +285,10 @@
 </table>
 <telerik:RadTabStrip ID="RadTabStripCustomerProfile" runat="server" EnableTheming="True"
     Skin="Telerik" EnableEmbeddedSkins="False" MultiPageID="CustomerProfileDetails"
-    SelectedIndex="0">
+    SelectedIndex="2">
     <Tabs>
         <telerik:RadTab runat="server" Text="Family Associates" Value="FamilyAssociates"
-            TabIndex="0">
+            TabIndex="0" Visible="false">
         </telerik:RadTab>
         <telerik:RadTab runat="server" Text="ISA Account" Value="ISAAccount" TabIndex="1">
         </telerik:RadTab>
@@ -310,10 +310,10 @@
     </Tabs>
 </telerik:RadTabStrip>
 <telerik:RadMultiPage ID="CustomerProfileDetails" EnableViewState="true" runat="server">
-    <telerik:RadPageView ID="rpvFamilyAssociates" runat="server">
+    <telerik:RadPageView ID="rpvFamilyAssociates" runat="server" Visible="false">
         <asp:UpdatePanel ID="UpdatePanel2" runat="server">
             <ContentTemplate>
-                <table style="width: 100%;">
+                <table style="width: 100%;" visible="false">
                     <tr>
                         <td>
                             <div class="divSectionHeading" style="vertical-align: text-bottom">

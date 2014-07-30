@@ -144,7 +144,8 @@
                 Width="300px">
                 <asp:Label ID="lb1Admin" runat="server" Text="Admin:" CssClass="FieldName" Visible="false"></asp:Label>
                 <telerik:RadTreeView ID="RTVAdmin" runat="server" CheckBoxes="True" Height="280px"
-                    TriStateCheckBoxes="true" CheckChildNodes="true" MultipleSelect="true">
+                    TriStateCheckBoxes="true" CheckChildNodes="true" MultipleSelect="true" 
+                    Skin="Vista">
                 </telerik:RadTreeView>
                 <div>
                     &nbsp;&nbsp; &nbsp;&nbsp;</div>
@@ -157,7 +158,7 @@
                 Width="300px">
                 <asp:Label ID="lb1RM" runat="server" Text="RM:" CssClass="FieldName" Visible="false"></asp:Label>
                 <telerik:RadTreeView ID="RTVRM" runat="server" CheckBoxes="True" Height="280px" Width="300px"
-                    TriStateCheckBoxes="true" CheckChildNodes="true">
+                    TriStateCheckBoxes="true" CheckChildNodes="true" Skin="Vista">
                 </telerik:RadTreeView>
                 <div>
                     &nbsp;&nbsp; &nbsp;&nbsp;</div>
@@ -180,7 +181,7 @@
                 <asp:Label ID="lb1Customer" runat="server" Text="Customer:" CssClass="FieldName"
                     Visible="false"></asp:Label>
                 <telerik:RadTreeView ID="RTVCustomer" runat="server" CheckBoxes="True" Height="280px"
-                    TriStateCheckBoxes="true" CheckChildNodes="true">
+                    TriStateCheckBoxes="true" CheckChildNodes="true" Skin="Vista">
                 </telerik:RadTreeView>
                 <div>
                     &nbsp;&nbsp; &nbsp;&nbsp;</div>
@@ -191,7 +192,7 @@
                 Width="300px">
                 <asp:Label ID="lb1Ops" runat="server" Text="Ops:" CssClass="FieldName" Visible="false"></asp:Label>
                 <telerik:RadTreeView ID="RTVOps" runat="server" CheckBoxes="True" Height="280px"
-                    TriStateCheckBoxes="true" CheckChildNodes="true">
+                    TriStateCheckBoxes="true" CheckChildNodes="true" Skin="Vista">
                 </telerik:RadTreeView>
                 <div>
                     &nbsp;&nbsp; &nbsp;&nbsp;</div>
