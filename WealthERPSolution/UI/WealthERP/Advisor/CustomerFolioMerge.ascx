@@ -437,13 +437,18 @@
                             </asp:LinkButton>
                               </ItemTemplate>
                         </telerik:GridTemplateColumn>--%>
-                            <telerik:GridTemplateColumn UniqueName="Count" HeaderText="Folios" HeaderStyle-Width="50px"
+                          <telerik:GridBoundColumn UniqueName="Count" HeaderText="Folios" DataField="Count"
+                                HeaderStyle-Width="225px" SortExpression="Count" AllowFiltering="true" ShowFilterIcon="false"
+                                AutoPostBackOnFilter="true">
+                                <HeaderStyle></HeaderStyle>
+                            </telerik:GridBoundColumn>
+                      <%--      <telerik:GridTemplateColumn UniqueName="Count" HeaderText="Folios" HeaderStyle-Width="50px"
                                 AllowFiltering="false" SortExpression="Count" ItemStyle-HorizontalAlign="left"
                                 DataField="Count" FooterStyle-HorizontalAlign="Right">
                                 <ItemTemplate>
                                     <asp:LinkButton ID="lnkMF" runat="server" Text='<%#Eval("Count")%>' CommandName="Redirect" OnClick="LinkButton1_Click"></asp:LinkButton>
                                 </ItemTemplate>
-                            </telerik:GridTemplateColumn>
+                            </telerik:GridTemplateColumn>--%>
                             <%-- <telerik:GridTemplateColumn UniqueName="Count" HeaderText="Folios" Groupable="False"
                             ItemStyle-Wrap="false" AllowFiltering="true"  SortExpression="Count" ItemStyle-HorizontalAlign="Right"
                             DataField="Count" FooterStyle-HorizontalAlign="Right">
