@@ -195,7 +195,7 @@
                 </ExportSettings>
                 <%--<MasterTableView Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
                                         CommandItemDisplay="None">--%>
-                <MasterTableView DataKeyNames="CDAA_Id,CEDA_DematAccountId,CDAA_Name,CDAA_PanNum,Sex,CDAA_DOB,RelationshipName,AssociateType,CDAA_IsKYC,SexShortName,CDAA_AssociateType,XR_RelationshipCode"
+                <MasterTableView DataKeyNames="CDAA_Id,CEDA_DematAccountId,CDAA_Name,CDAA_PanNum,Sex,CDAA_DOB,RelationshipName,AssociateType,CDAA_AssociateTypeNo,CDAA_IsKYC,SexShortName,CDAA_AssociateType,XR_RelationshipCode"
                     Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" EditMode="EditForms"
                     CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false" CommandItemSettings-AddNewRecordText="Add Family Associates">
                     <Columns>
@@ -252,7 +252,7 @@
                                                     <asp:Label ID="lblAssociate" runat="server" CssClass="FieldName" Text="Associate Type :"></asp:Label>
                                                 </td>
                                                 <td class="rightField">
-                                                    <asp:DropDownList ID="ddlAssociate" runat="server" CssClass="cmbField">
+                                                    <asp:DropDownList ID="ddlAssociate" runat="server" CssClass="cmbField" >
                                                     <asp:ListItem Value ="JH1">JointHolder-1</asp:ListItem>
                                                     <asp:ListItem Value ="JH2">JointHolder-2</asp:ListItem>
                                                     <asp:ListItem Value ="N1">Nominee-1</asp:ListItem>
@@ -285,7 +285,7 @@
                                                     <span id="Span6" class="spnRequiredField">*</span>
                                                  
                                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtNewPan"
-                                                        ErrorMessage="<br />Please Enter PAN Number" Display="Dynamic" runat="server"
+                                                        ErrorMessage="<br />Please Enter PAN Number" Visible="false" runat="server"
                                                         CssClass="rfvPCG" ValidationGroup="Submit"></asp:RequiredFieldValidator>
                                                 </td>
                                                 <td>
@@ -341,6 +341,7 @@
                                                         CssClass="rfvPCG" ValidationGroup="Submit"></asp:RequiredFieldValidator>
                                                 </td>
                                             </tr>
+                                            
                                             <tr>
                                                 <td>
                                                 </td>
@@ -348,6 +349,11 @@
                                                     <asp:Button ID="Button1" Text='<%# (Container is GridEditFormInsertItem) ? "Submit" : "Update" %>'
                                                         runat="server" CssClass="PCGButton" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'
                                                         ValidationGroup="Submit"></asp:Button>
+                      <%--   <asp:CustomValidator ID="OrFieldValidator" 
+                        runat="server" 
+                        Text="Enter bcjsdh" 
+                        Display="Dynamic"
+                        OnServerValidate="OrFieldValidator_ServerValidate" />--%>
                                                 </td>
                                                 <td>
                                                     <asp:Button ID="Button2" Text="Cancel" runat="server" CausesValidation="False" CssClass="PCGButton"

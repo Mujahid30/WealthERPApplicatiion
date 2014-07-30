@@ -628,9 +628,9 @@ namespace DaoCustomerPortfolio
             return dsDepositoryNames.Tables[0];
 
         }
-        public bool UpdateCustomerDematAccountAssociates(int associationId, int dematAccountId, string associateType, string name, string panNum, string sex, DateTime dob, int isKYC, string relationshipCode, int modifiedBy)
+        public int UpdateCustomerDematAccountAssociates(int associationId, int dematAccountId, string associateType, string name, string panNum, string sex, DateTime dob, int isKYC, string relationshipCode, int modifiedBy)
         {
-            bool blResult = false;
+            int result = 0;
             Database db;
             DbCommand dbDematAccountAssociates;     
            
@@ -652,8 +652,10 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(dbDematAccountAssociates, "@CDAA_IsKYC", DbType.Int32, isKYC);
                 db.AddInParameter(dbDematAccountAssociates, "@XR_RelationshipCode", DbType.String, relationshipCode);
                 db.AddInParameter(dbDematAccountAssociates, "@CDAA_ModifiedBy", DbType.Int32, modifiedBy);
+                db.AddOutParameter(dbDematAccountAssociates, "@return", DbType.Int32, 1000);
+              
               if( db.ExecuteNonQuery(dbDematAccountAssociates)!=0)
-                  blResult = true;
+                  result = Convert.ToInt32(db.GetParameterValue(dbDematAccountAssociates, "@return").ToString()); ;
 
             }
             catch (BaseApplicationException ex)
@@ -675,7 +677,7 @@ namespace DaoCustomerPortfolio
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-            return blResult;
+            return result;
         }
         public bool DeleteCustomerDematAccountAssociates(int associationId)
         {
@@ -711,8 +713,9 @@ namespace DaoCustomerPortfolio
             return bResult;
  
         }
-        public void AddCustomerDematAccountAssociates(int associationId, int dematAccountId, string associateType, string name, string panNum, string sex, DateTime dob, int isKYC, string relationshipCode, int createdBy)
+        public int AddCustomerDematAccountAssociates(int associationId, int dematAccountId, string associateType, string name, string panNum, string sex, DateTime dob, int isKYC, string relationshipCode, int createdBy)
         {
+            int result = 0;
             Database db;
             DbCommand dbDematAccountAssociates;
             try
@@ -737,7 +740,10 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(dbDematAccountAssociates, "@CDAA_IsKYC", DbType.Int32, isKYC);
                 db.AddInParameter(dbDematAccountAssociates, "@XR_RelationshipCode", DbType.String, relationshipCode);
                 db.AddInParameter(dbDematAccountAssociates, "@CDAA_CreatedBy", DbType.String, createdBy);
+                db.AddOutParameter(dbDematAccountAssociates, "@return", DbType.Int32, 1000);
+                //dbDematAccountAssociates.Parameters["@return"].Direction = ParameterDirection.ReturnValue;
                 db.ExecuteNonQuery(dbDematAccountAssociates);
+                result = Convert.ToInt32(db.GetParameterValue(dbDematAccountAssociates, "@return").ToString()); ;
             }
             catch (BaseApplicationException ex)
             {
@@ -758,6 +764,7 @@ namespace DaoCustomerPortfolio
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
+            return result;
         }
         public void UpdateDematDetails(int customerId, int portfolioId,int dematId, DematAccountVo demataccountvo, RMVo rmvo)
         {

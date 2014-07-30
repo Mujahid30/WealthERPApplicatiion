@@ -83,13 +83,13 @@ namespace BoCustomerPortfolio
         //{
         //    demataccountdao.UpdateTradeAccountForDemat(accountId);
         //}
-        public bool UpdateCustomerDematAccountAssociates(int associationId, int dematAccountId, string associateType, string name, string panNum, string sex, DateTime dob, int isKYC, string relationshipCode, int modifiedBy)
+        public int UpdateCustomerDematAccountAssociates(int associationId, int dematAccountId, string associateType, string name, string panNum, string sex, DateTime dob, int isKYC, string relationshipCode, int modifiedBy)
         {
-            bool blResult = false;
+            int result = 0;
             try
             {
 
-                demataccountdao.UpdateCustomerDematAccountAssociates(associationId, dematAccountId, associateType, name, panNum, sex, dob, isKYC, relationshipCode, modifiedBy);
+                result = demataccountdao.UpdateCustomerDematAccountAssociates(associationId, dematAccountId, associateType, name, panNum, sex, dob, isKYC, relationshipCode, modifiedBy);
 
             }
             catch (BaseApplicationException Ex)
@@ -110,7 +110,7 @@ namespace BoCustomerPortfolio
                 throw exBase;
 
             }
-            return blResult;
+            return result;
         }
         public DataSet GetCustomerDematAccountAssociates(int dematAccountId)
         {
@@ -172,11 +172,12 @@ namespace BoCustomerPortfolio
 
             return bResult;
         }
-        public void AddCustomerDematAccountAssociates(int associationId, int dematAccountId, string associateType, string name, string panNum, string sex, DateTime dob, int isKYC, string relationshipCode, int createdBy)
+        public int AddCustomerDematAccountAssociates(int associationId, int dematAccountId, string associateType, string name, string panNum, string sex, DateTime dob, int isKYC, string relationshipCode, int createdBy)
         {
+            int result = 0;
             try
             {
-                demataccountdao.AddCustomerDematAccountAssociates(associationId, dematAccountId, associateType, name, panNum, sex, dob, isKYC, relationshipCode, createdBy);
+               result= demataccountdao.AddCustomerDematAccountAssociates(associationId, dematAccountId, associateType, name, panNum, sex, dob, isKYC, relationshipCode, createdBy);
             }
             catch (BaseApplicationException Ex)
             {
@@ -196,7 +197,7 @@ namespace BoCustomerPortfolio
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-
+            return result;
 
         }
 

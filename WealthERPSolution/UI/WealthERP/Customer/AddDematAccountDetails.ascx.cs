@@ -451,7 +451,7 @@ namespace WealthERP.Customer
             if (e.CommandName == RadGrid.UpdateCommandName)
             {
 
-                bool isUpdated = false;
+                int result = 0;
                 int iskyc = 0;
                 DateTime date;
                 string relationCode = string.Empty;
@@ -476,23 +476,41 @@ namespace WealthERP.Customer
                 DropDownList ddlelationshipName = (DropDownList)e.Item.FindControl("ddlNewRelationship");
                 DropDownList ddlAssociate = (DropDownList)e.Item.FindControl("ddlAssociate");
                 relationCode = ddlelationshipName.SelectedValue;
-                associatetype = ddlAssociate.SelectedValue;
+                associatetype = ddlAssociate.SelectedValue.Trim();
                 Button button1 = (Button)e.Item.FindControl("Button1");
 
-                isUpdated = boDematAccount.UpdateCustomerDematAccountAssociates(associationId, demataccountid, associatetype, txtName.Text, txtPan.Text, ddlGender.SelectedValue, date, iskyc, ddlelationshipName.SelectedValue, userVo.UserId);
+                result = boDematAccount.UpdateCustomerDematAccountAssociates(associationId, demataccountid, associatetype, txtName.Text, txtPan.Text, ddlGender.SelectedValue, date, iskyc, ddlelationshipName.SelectedValue, userVo.UserId);
+
+                if (result == 2)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('U Can Have Atmost Two Nominee/JointHolder');", true);
+
+                }
             }
             if (e.CommandName == RadGrid.PerformInsertCommandName)
             {
+                bool test = true;
+                int result = 0;
+                DropDownList ddlAssociate = (DropDownList)e.Item.FindControl("ddlAssociate");
+                string associatetype = string.Empty;
+                associatetype = ddlAssociate.SelectedValue;
+                TextBox ttPan = (TextBox)e.Item.FindControl("txtNewPan");
+                if (associatetype == "JH1" && ttPan.Text.Length <= 0)
+                {
+                    test = false;
+                }
+
+
                 int iskyc = 0;
                 CheckBox chkycinside1 = (CheckBox)e.Item.FindControl("chkKYC");
                 if (chkycinside1.Checked)
                     iskyc = 1;
                 string relationCode = string.Empty;
-                string associatetype = string.Empty;
+                //string associatetype = string.Empty;
                 DateTime date;
                 GridEditableItem gridEditableItem = (GridEditableItem)e.Item;
                 //int associationId = int.Parse(gvAssociate.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CDAA_Id"].ToString());
-                TextBox ttPan = (TextBox)e.Item.FindControl("txtNewPan");
+                //TextBox ttPan = (TextBox)e.Item.FindControl("txtNewPan");
                 TextBox txtName = (TextBox)e.Item.FindControl("txtNewName");
                 DropDownList ddlGender = (DropDownList)e.Item.FindControl("ddlGender");
 
@@ -507,13 +525,24 @@ namespace WealthERP.Customer
 
 
                 DropDownList ddlelationshipName = (DropDownList)e.Item.FindControl("ddlNewRelationship");
-                DropDownList ddlAssociate = (DropDownList)e.Item.FindControl("ddlAssociate");
+                //DropDownList ddlAssociate = (DropDownList)e.Item.FindControl("ddlAssociate");
                 relationCode = ddlelationshipName.SelectedValue;
-                associatetype = ddlAssociate.SelectedValue;
+                //associatetype = ddlAssociate.SelectedValue;
                 Button button1 = (Button)e.Item.FindControl("Button1");
                 gridEditableItem.OwnerTableView.IsItemInserted = false;
-                boDematAccount.AddCustomerDematAccountAssociates(23, dematAccountNo, associatetype, txtName.Text, ttPan.Text, ddlGender.SelectedValue, date, iskyc, relationCode, userVo.UserId);
+                if (test)
+                {
 
+                    result = boDematAccount.AddCustomerDematAccountAssociates(23, dematAccountNo, associatetype, txtName.Text, ttPan.Text, ddlGender.SelectedValue, date, iskyc, relationCode, userVo.UserId);
+                    if (result == 2)
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('U Can Have Atmost Two Nominee/JointHolder');", true);
+
+                    }
+                }
+                else
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Pan No cant be Empty');", true);
+        
 
             }
             if (e.CommandName == RadGrid.DeleteCommandName)
@@ -537,6 +566,8 @@ namespace WealthERP.Customer
 
             if (e.Item is GridEditFormInsertItem && e.Item.OwnerTableView.IsItemInserted)
             {
+
+
                 GridEditFormInsertItem item = (GridEditFormInsertItem)e.Item;
                 GridEditFormItem gefi = (GridEditFormItem)e.Item;
                 DataTable dtRelationship = customerBo.GetMemberRelationShip();
@@ -573,6 +604,8 @@ namespace WealthERP.Customer
                 string gender = gvAssociate.MasterTableView.DataKeyValues[e.Item.ItemIndex]["SexShortName"].ToString();
                 string relationshipName = gvAssociate.MasterTableView.DataKeyValues[e.Item.ItemIndex]["XR_RelationshipCode"].ToString();
                 string date = gvAssociate.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CDAA_DOB"].ToString();
+                string AssociateTypeNo = gvAssociate.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CDAA_AssociateTypeNo"].ToString();
+               
                  DateTime  txtDate=DateTime.Now;
                 if (date != "")
                 
@@ -599,7 +632,8 @@ namespace WealthERP.Customer
                 rdDate.SelectedDate = DateTime.Parse(txtDate.ToShortDateString());
                 DropDownList ddlrelation = (DropDownList)editedItem.FindControl("ddlNewRelationship");
                 DropDownList ddlassociateType = (DropDownList)editedItem.FindControl("ddlAssociate");
-                ddlassociateType.SelectedValue = associateType;
+                ddlassociateType.SelectedValue = associateType.Trim() + AssociateTypeNo;
+
                 ddlrelation.DataSource = dtRelationship;
                 ddlrelation.DataTextField = dtRelationship.Columns["XR_Relationship"].ToString();
                 ddlrelation.DataValueField = dtRelationship.Columns["XR_RelationshipCode"].ToString();
@@ -613,7 +647,7 @@ namespace WealthERP.Customer
 
         }
 
-
+       
 
     }
 }

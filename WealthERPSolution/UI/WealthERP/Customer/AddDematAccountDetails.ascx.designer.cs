@@ -383,6 +383,7 @@ namespace WealthERP.Customer {
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid gvAssociate;
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trAssociatePanel;
-      
+        protected global::System.Web.UI.WebControls.DropDownList ddlAssociate;
+        protected global::System.Web.UI.WebControls.TextBox txtNewPan;
     }
 }
