@@ -195,7 +195,7 @@
                 </ExportSettings>
                 <%--<MasterTableView Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
                                         CommandItemDisplay="None">--%>
-                <MasterTableView DataKeyNames="CDAA_Id,CEDA_DematAccountId,CDAA_Name,CDAA_PanNum,Sex,CDAA_DOB,RelationshipName,AssociateType,CDAA_AssociateTypeNo,CDAA_IsKYC,SexShortName,CDAA_AssociateType,XR_RelationshipCode"
+                <MasterTableView DataKeyNames="CDAA_Id,CEDA_DematAccountId,CDAA_Name,CDAA_PanNum,Sex,CDAA_DOB,RelationshipName,AssociateType,CDAA_IsKYC,SexShortName,CDAA_AssociateType,XR_RelationshipCode"
                     Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" EditMode="EditForms"
                     CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false" CommandItemSettings-AddNewRecordText="Add Family Associates">
                     <Columns>

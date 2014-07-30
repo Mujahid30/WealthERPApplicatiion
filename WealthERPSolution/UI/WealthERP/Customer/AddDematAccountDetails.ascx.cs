@@ -167,7 +167,7 @@ namespace WealthERP.Customer
             ////=========================================================
             if (!string.IsNullOrEmpty(dsDematDetails.Tables[0].Rows[0]["DepositoryName"].ToString()))
             {
-                ddlDepositoryName.SelectedValue = dsDematDetails.Tables[0].Rows[0]["DepositoryName"].ToString();
+                ddlDepositoryName.SelectedValue = dsDematDetails.Tables[0].Rows[0]["DepositoryName"].ToString().Trim();
                if (Session["DematDetailsView"].ToString() == "Edit")
                 {
                    if (ddlDepositoryName.SelectedItem.Text == "NSDL")
@@ -190,7 +190,7 @@ namespace WealthERP.Customer
             }
 
 
-            if (dsDematDetails.Tables[0].Rows[0]["IsHeldJointly"].ToString() == "1")
+            if (dsDematDetails.Tables[0].Rows[0]["ModeOfHolding"].ToString() != "SI")
             {
                 rbtnYes.Checked = true;
               
