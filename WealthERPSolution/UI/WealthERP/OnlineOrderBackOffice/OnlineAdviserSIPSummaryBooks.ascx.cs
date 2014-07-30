@@ -296,10 +296,15 @@ namespace WealthERP.OnlineOrderBackOffice
                     drSIPOrderBook["CMFSS_RegistrationDate"] = DateTime.Parse(drSIP["CMFSS_RegistrationDate"].ToString()).ToShortDateString();
 
                 }
-                else
+                drSIPOrderBook["CMFSS_CancelBy"] = drSIP["CMFSS_CancelBy"];
+                if (!string.IsNullOrEmpty(drSIP["CMFSS_CancelDate"].ToString()))
                 {
-                    drSIPOrderBook["CMFSS_NextSIPDueDate"] = DateTime.MinValue;
+                    drSIPOrderBook["CMFSS_CancelDate"] = DateTime.Parse(drSIP["CMFSS_CancelDate"].ToString());
                 }
+                //else
+                //{
+                //    drSIPOrderBook["CMFSS_CancelDate"] = null;
+                //}
                 dtFinalSIPOrderBook.Rows.Add(drSIPOrderBook);
             }
 
@@ -346,6 +351,8 @@ namespace WealthERP.OnlineOrderBackOffice
             dtSIPOrderBook.Columns.Add("CMFSS_ModifiedOn");
             dtSIPOrderBook.Columns.Add("U_UMId");
             dtSIPOrderBook.Columns.Add("CMFSS_RegistrationDate", typeof(DateTime));
+            dtSIPOrderBook.Columns.Add("CMFSS_CancelDate", typeof(DateTime));
+            dtSIPOrderBook.Columns.Add("CMFSS_CancelBy");
             return dtSIPOrderBook;
 
         }

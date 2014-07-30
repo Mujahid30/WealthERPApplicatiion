@@ -105,7 +105,7 @@ namespace WealthERP.CustomerPortfolio
                 dtMFFolio.Columns.Add("Name");// original costumer name from folio uploads
                 dtMFFolio.Columns.Add("Mode Of Holding");
                 dtMFFolio.Columns.Add("A/C Opening Date", typeof(DateTime));
-                dtMFFolio.Columns.Add("CMFA_IsOnline");
+                dtMFFolio.Columns.Add("CMFA_IsOnline",typeof(string));
 
 
                 DataRow drMFFolio;
@@ -165,9 +165,13 @@ namespace WealthERP.CustomerPortfolio
                         drMFFolio[5] = FolioVo.ModeOfHolding.ToString();
                         if (FolioVo.AccountOpeningDate != DateTime.MinValue)
                             drMFFolio[6] = FolioVo.AccountOpeningDate.ToShortDateString();
-                        if(FolioVo.IsOnline!=null)
-                            drMFFolio["CMFA_IsOnline"] = FolioVo.IsOnline.ToString();
-                        
+                        if (FolioVo.IsOnline != null)
+                        {
+                            if (FolioVo.IsOnline==1)    
+                                drMFFolio["CMFA_IsOnline"] = "Yes";
+                            else if (FolioVo.IsOnline==0)
+                                drMFFolio["CMFA_IsOnline"] = "No";
+                        }
                         //else
                         //    drMFFolio[5] = String.Empty;
                         dtMFFolio.Rows.Add(drMFFolio);

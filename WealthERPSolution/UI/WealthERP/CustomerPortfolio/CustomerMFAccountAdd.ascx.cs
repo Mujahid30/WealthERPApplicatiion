@@ -1647,6 +1647,8 @@ namespace WealthERP.CustomerPortfolio
             #endregion
             trAddJointHolder.Visible = true;
             gvJoint2.Visible = true;
+            ddlModeOfHolding.SelectedValue = "JO";
+            ddlModeOfHolding.Enabled = true;
         }
 
         //protected void foliobutton_click(object sender, EventArgs e)
