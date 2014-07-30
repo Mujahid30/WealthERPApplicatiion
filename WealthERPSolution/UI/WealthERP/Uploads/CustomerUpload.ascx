@@ -251,7 +251,7 @@
     </tr>
     <tr>
         <td class="leftField">
-            <asp:Label ID="Label4" CssClass="FieldName" runat="server" Text="Extract Type:"></asp:Label>
+            <asp:Label ID="Label4" CssClass="FieldName" runat="server" Text="Upload Type:"></asp:Label>
         </td>
         <td class="rightField">
             <asp:DropDownList ID="ddlUploadType" runat="server" OnSelectedIndexChanged="ddlUploadType_SelectedIndexChanged"
