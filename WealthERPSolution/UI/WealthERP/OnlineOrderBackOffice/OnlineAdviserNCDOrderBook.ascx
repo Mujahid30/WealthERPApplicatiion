@@ -118,6 +118,10 @@
                                     Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" AllowFilteringByColumn="true">
                                     <Columns>
                                         <telerik:GridTemplateColumn AllowFiltering="false">
+                                        <HeaderTemplate>
+                                        <asp:LinkButton ID="AllDetailslink" runat="server" CommandName="ExpandAllCollapse" Font-Underline="False"
+                                         Font-Bold="true" UniqueName="AllDetailslink" Font-Size="Medium" OnClick="btnExpand_Click" >+</asp:LinkButton>
+                                        </HeaderTemplate>
                                             <ItemTemplate>
                                                 <asp:LinkButton ID="lbDetails" runat="server" CommandName="ExpandCollapse" Font-Underline="False"
                                                     Font-Bold="true" UniqueName="Detailslink" OnClick="btnExpandAll_Click" Font-Size="Medium">+</asp:LinkButton>

@@ -214,6 +214,8 @@ namespace WealthERP.OnlineOrderBackOffice
         //}
         protected void btnExpandAll_Click(object sender, EventArgs e)
         {
+
+            int count = gvNCDOrderBook.MasterTableView.Items.Count;
             DataTable dtIssueDetail;
             int strIssuerId = 0;
             LinkButton buttonlink = (LinkButton)sender;
@@ -268,6 +270,49 @@ namespace WealthERP.OnlineOrderBackOffice
             gvNCDOrderBook.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
             gvNCDOrderBook.MasterTableView.ExportToExcel();
 
+        }
+
+        protected void btnExpand_Click(object sender, EventArgs e)
+        {
+            LinkButton button1 = (LinkButton)sender;
+            if (button1.Text == "+")
+            {
+                foreach (GridDataItem gvr in this.gvNCDOrderBook.Items)
+                {
+
+                    DataTable dtIssueDetail;
+                    int strIssuerId = 0;
+                    LinkButton button = (LinkButton)gvr.FindControl("lbDetails");
+                    RadGrid gvChildDetails = (RadGrid)gvr.FindControl("gvChildDetails");
+                    Panel PnlChild = (Panel)gvr.FindControl("pnlchild");
+                    strIssuerId = int.Parse(gvNCDOrderBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["AIM_IssueId"].ToString());
+                    int orderId = int.Parse(gvNCDOrderBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["CO_OrderId"].ToString());
+                    DataTable dtNCDOrderBook = onlineNCDBackOfficeBo.GetAdviserNCDOrderSubBook(advisorVo.advisorId, strIssuerId, orderId);
+                    dtIssueDetail = dtNCDOrderBook;
+                    gvChildDetails.DataSource = dtIssueDetail;
+                    gvChildDetails.DataBind();
+                    if (PnlChild.Visible == false)
+                    {
+                        PnlChild.Visible = true;
+                        button.Text = "-";
+                    }
+
+                }
+                button1.Text = "-";
+            }
+         else 
+            {
+                foreach (GridDataItem gvr in this.gvNCDOrderBook.Items)
+                {
+                    LinkButton button = (LinkButton)gvr.FindControl("lbDetails");
+                    Panel PnlChild = (Panel)gvr.FindControl("pnlchild");
+                    if( PnlChild.Visible == true)
+                    PnlChild.Visible = false;
+                    button.Text = "+";
+                }
+                button1.Text = "+";
+            }
+           
         }
     }
 }
