@@ -615,7 +615,10 @@ namespace WealthERP.Customer
                 int iskyc = int.Parse(gvAssociate.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CDAA_IsKYC"].ToString());
                 string associateType = gvAssociate.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CDAA_AssociateType"].ToString();
                 DropDownList ddlGender = (DropDownList)e.Item.FindControl("ddlGender");
-                ddlGender.SelectedValue = gender;
+                if (gender == "M" || gender == "F")
+                    ddlGender.SelectedValue = gender;
+                else
+                    ddlGender.SelectedValue = "S";
                 CheckBox chkyc = (CheckBox)e.Item.FindControl("chkKYC");
                 if (iskyc == 1)
                     chkyc.Checked = true;

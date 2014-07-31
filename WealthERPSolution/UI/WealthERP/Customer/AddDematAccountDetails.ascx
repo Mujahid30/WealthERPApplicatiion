@@ -214,6 +214,13 @@
                             SortExpression="CDAA_PanNum">
                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
+                        
+                        
+                        <telerik:GridBoundColumn DataField="CDAA_IsKYC" HeaderText="IsKYC" UniqueName="CDAA_IsKYC"
+                            SortExpression="CDAA_IsKYC">
+                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        
                         <telerik:GridBoundColumn DataField="Sex" HeaderText="Gender" UniqueName="Sex"
                             SortExpression="Sex">
                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
@@ -298,6 +305,7 @@
                                                 </td>
                                                 <td class="rightField">
                                                    <asp:DropDownList ID="ddlGender" runat="server" CssClass="cmbField">
+                                                    <asp:ListItem Value ="S">Select</asp:ListItem>
                                                     <asp:ListItem Value ="M">Male</asp:ListItem>
                                                     <asp:ListItem Value ="F">FeMale</asp:ListItem>
                                                     </asp:DropDownList>
