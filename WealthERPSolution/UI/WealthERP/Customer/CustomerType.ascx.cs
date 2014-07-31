@@ -384,9 +384,8 @@ namespace WealthERP.Customer
                         customerVo.Type = "IND";
 
                         customerVo.TaxStatusCustomerSubTypeId = Int16.Parse(ddlCustomerSubType.SelectedValue.ToString());
-                        customerVo.AccountId = txtClientCode.Text.Trim();
+                        customerVo.CustCode = txtClientCode.Text.Trim();
                         customerVo.IsRealInvestor = chkRealInvestor.Checked;
-
                         customerVo.FirstName = txtFirstName.Text.ToString();
                         customerVo.MiddleName = txtMiddleName.Text.ToString();
                         customerVo.LastName = txtLastName.Text.ToString();
@@ -412,9 +411,8 @@ namespace WealthERP.Customer
                         customerVo.Type = "NIND";
 
                         customerVo.TaxStatusCustomerSubTypeId = Int16.Parse(ddlCustomerSubType.SelectedValue.ToString());
-                        customerVo.AccountId = txtClientCode.Text.Trim();
+                        customerVo.CustCode = txtClientCode.Text.Trim();
                         customerVo.IsRealInvestor = chkRealInvestor.Checked;
-
                         customerVo.CompanyName = txtCompanyName.Text.ToString();
                         customerVo.FirstName = txtCompanyName.Text.ToString();
                         userVo.FirstName = txtCompanyName.Text.ToString();

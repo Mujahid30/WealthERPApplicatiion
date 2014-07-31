@@ -467,10 +467,10 @@
                     <br />
                     <asp:RequiredFieldValidator ID="rfvddlOption" runat="server" ErrorMessage="Please Select any option"
                         CssClass="rfvPCG" ControlToValidate="ddlOption" ValidationGroup="btnsubmit" Display="Dynamic"
-                        InitialValue="Select"></asp:RequiredFieldValidator>
+                        InitialValue="0"></asp:RequiredFieldValidator>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ErrorMessage="Please Select Dividend type"
                         CssClass="rfvPCG" ControlToValidate="ddlDFrequency" ValidationGroup="btnsubmit"
-                        Display="Dynamic" InitialValue="Select"></asp:RequiredFieldValidator>
+                        Display="Dynamic" InitialValue="0"></asp:RequiredFieldValidator>
                 </td>
             </tr>
             <tr>

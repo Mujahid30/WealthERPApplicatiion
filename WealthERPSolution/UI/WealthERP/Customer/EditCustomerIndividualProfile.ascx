@@ -278,7 +278,8 @@
         </td>
         <td>
             <div>
-                <asp:ValidationSummary ID="ValidationSummary1" runat="server" CssClass="cvPCG" ValidationGroup="btnEdit" DisplayMode="BulletList" />
+                <asp:ValidationSummary ID="ValidationSummary1" runat="server" CssClass="cvPCG" ValidationGroup="btnEdit"
+                    DisplayMode="List" />
             </div>
         </td>
     </tr>
@@ -587,19 +588,19 @@
                                                         OnClick="btnSave_Click" />
                                                 </td>
                                             </tr>--%>
-                                                                    <tr>
-                                                                        <td>
-                                                                        </td>
-                                                                        <td>
-                                                                            <asp:Button ID="Button1" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
-                                                                                runat="server" CssClass="PCGButton" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'
-                                                                                ValidationGroup="Submit"></asp:Button>
-                                                                        </td>
-                                                                        <td>
-                                                                            <asp:Button ID="Button2" Text="Cancel" runat="server" CausesValidation="False" CssClass="PCGButton"
-                                                                                CommandName="Cancel"></asp:Button>
-                                                                        </td>
-                                                                    </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                    </td>
+                                                                    <td>
+                                                                        <asp:Button ID="Button1" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
+                                                                            runat="server" CssClass="PCGButton" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'
+                                                                            ValidationGroup="Submit"></asp:Button>
+                                                                    </td>
+                                                                    <td>
+                                                                        <asp:Button ID="Button2" Text="Cancel" runat="server" CausesValidation="False" CssClass="PCGButton"
+                                                                            CommandName="Cancel"></asp:Button>
+                                                                    </td>
+                                                                </tr>
                                                             </table>
                                                         </td>
                                                     </tr>
@@ -1694,6 +1695,11 @@
                             <DateInput ID="DateInput1" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
                             </DateInput>
                         </telerik:RadDatePicker>
+                          <span id="Span13" class="spnRequiredField">*</span>
+                        <asp:RequiredFieldValidator ID="rfvtxtDate" ControlToValidate="txtDate"
+                            ValidationGroup="btnEdit" ErrorMessage="<br />Please enter DOB" Display="Dynamic"
+                            runat="server" CssClass="rfvPCG" InitialValue="">
+                        </asp:RequiredFieldValidator>
                     </td>
                 </tr>
             </table>

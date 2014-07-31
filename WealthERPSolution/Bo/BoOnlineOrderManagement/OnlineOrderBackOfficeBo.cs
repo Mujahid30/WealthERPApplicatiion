@@ -1669,7 +1669,7 @@ namespace BoOnlineOrderManagement
                         //drFinalClientKYC["Holding"] = "";
                         //drFinalClientKYC["Holding"] = "";
 
-                        kycStatus.Add("JOINT2", drClientDematJointList[0]["JointKYC"].ToString());
+                        kycStatus.Add("JOINT2", drClientDematJointList[0]["JointKYC"].ToString() == "Y" ? "1" : "0");
                     }
                     else if (drClientDematJointList.Count() > 1)
                     {
@@ -1682,8 +1682,8 @@ namespace BoOnlineOrderManagement
                         drFinalClientKYC["ThirdHolderPAN"] = drClientDematJointList[1]["JointPAN"];
                         drFinalClientKYC["SThirdHolderKYC"] = drClientDematJointList[1]["JointKYC"];
 
-                        kycStatus.Add("JOINT2", drClientDematJointList[0]["JointKYC"].ToString());
-                        kycStatus.Add("JOINT3", drClientDematJointList[1]["JointKYC"].ToString());
+                        kycStatus.Add("JOINT2", drClientDematJointList[0]["JointKYC"].ToString() == "Y" ? "1" : "0");
+                        kycStatus.Add("JOINT3", drClientDematJointList[1]["JointKYC"].ToString() == "Y" ? "1" : "0");
 
                     }
                 }
