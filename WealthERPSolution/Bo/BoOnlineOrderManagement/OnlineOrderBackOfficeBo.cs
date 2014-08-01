@@ -839,7 +839,7 @@ namespace BoOnlineOrderManagement
                                 case "AMFE_NomineeName":
                                     drFinalRTAExtract[dcc.ToString()] = AMFE_NomineeName;
                                     break;
-                                case "AMFE_Nom2Name":
+                                case "AMFE_Nom2_Name":
                                     drFinalRTAExtract[dcc.ToString()] = AMFE_Nom2Name;
                                     break;
                                 case "AMFE_Nom2_Relationship":
