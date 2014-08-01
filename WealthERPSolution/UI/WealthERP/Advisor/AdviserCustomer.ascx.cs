@@ -654,7 +654,7 @@ namespace WealthERP.Advisor
             gvCustomerList.ExportSettings.HideStructureColumns = true;
             gvCustomerList.ExportSettings.ExportOnlyData = true;
             gvCustomerList.ExportSettings.FileName = "Customer List";
-            gvCustomerList.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            gvCustomerList.ExportSettings.Excel.Format = GridExcelExportFormat.Html;
             gvCustomerList.MasterTableView.ExportToExcel();
         }
         #region no need to apply Drop down filter on group
