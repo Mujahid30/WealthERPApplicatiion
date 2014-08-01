@@ -32,6 +32,7 @@ namespace WealthERP.Advisor
         DataSet ds = new DataSet();
         DataSet dsBankDetails = new DataSet();
         int customerId;
+       
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -83,47 +84,14 @@ namespace WealthERP.Advisor
                 Session["Check"] = "Dashboard";
 
                 //Binding the Customer Family Grid
-                customerFamilyList = customerFamilyBo.GetCustomerFamily(customerVo.CustomerId);
-                if (customerFamilyList == null)
-                {
-                    tdFamilyDetailsHeader.Visible=false;
-                    tdFamilyDetailsGrid.Visible=false;
-                }
-                else
-                {
-                    DataTable dtCustomerFamilyList = new DataTable();
-                    dtCustomerFamilyList.Columns.Add("CustomerId");
-                    dtCustomerFamilyList.Columns.Add("Name");
-                    dtCustomerFamilyList.Columns.Add("Relationship");
-
-                    DataRow drCustomerFamily;
-                    for (int i = 0; i < customerFamilyList.Count; i++)
-                    {
-                        drCustomerFamily = dtCustomerFamilyList.NewRow();
-                        CustomerFamilyVo customerFamilyVo = new CustomerFamilyVo();
-                        customerFamilyVo = customerFamilyList[i];
-                        drCustomerFamily[0] = customerFamilyVo.AssociateCustomerId.ToString();
-                        drCustomerFamily[1] = customerFamilyVo.AssociateCustomerName;
-                        drCustomerFamily[2] = customerFamilyVo.Relationship;
-                        dtCustomerFamilyList.Rows.Add(drCustomerFamily);
-
-                    }
-                    if (dtCustomerFamilyList.Rows.Count > 0)
-                    {
-                        gvFamilyMembers.DataSource = dtCustomerFamilyList;
-                        gvFamilyMembers.DataBind();
-                        gvFamilyMembers.Visible = true;
-                    }
-                    else
-                    {
-                        gvFamilyMembers.DataSource = null;
-                        gvFamilyMembers.DataBind();
-                    }
-                }
+               
+                
 
                 //Call the function to bind the Bank Details
                 lblBankDetailsMsg.Visible = false;
                 BindBankDetails();
+                BindFamilyDematDetails();
+                BindDematDetails();
             }
             catch (BaseApplicationException Ex)
             {
@@ -145,7 +113,62 @@ namespace WealthERP.Advisor
                 throw exBase;
             }
         }
+        protected void BindFamilyDematDetails()
+        {
+            DataSet dsDematDetails = new DataSet();
+            DataTable dtDematDetails = new DataTable();
+            dsDematDetails = customerFamilyBo.GetCustomerDematDetails(customerId);
+            dtDematDetails = dsDematDetails.Tables[0];
+            if (dsDematDetails == null)
+            {
+                tdFamilyDetailsHeader.Visible = false;
+                tdFamilyDetailsGrid.Visible = false;
+            }
+            else
+            {
 
+
+                if (dtDematDetails.Rows.Count > 0)
+                {
+                    gvFamilyMembers.DataSource = dtDematDetails;
+                    gvFamilyMembers.DataBind();
+                    gvFamilyMembers.Visible = true;
+                }
+                else
+                {
+                    gvFamilyMembers.DataSource = null;
+                    gvFamilyMembers.DataBind();
+                }
+            }
+        }
+        protected void BindDematDetails()
+        {
+            DataSet dsDematDetails = new DataSet();
+            DataTable dtDematDetails = new DataTable();
+            dsDematDetails = customerFamilyBo.GetCustomerDematDetails(customerId);
+            dtDematDetails = dsDematDetails.Tables[1];
+            if (dsDematDetails == null)
+            {
+                tdDematDetailsHeader.Visible = false;
+                tdDematDetailsGrid.Visible = false;
+            }
+            else
+            {
+
+
+                if (dtDematDetails.Rows.Count > 0)
+                {
+                    gvDematDetails.DataSource = dtDematDetails;
+                    gvDematDetails.DataBind();
+                    gvDematDetails.Visible = true;
+                }
+                else
+                {
+                    gvDematDetails.DataSource = null;
+                    gvDematDetails.DataBind();
+                }
+            }
+        }
         protected void gvFamilyMembers_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             gvFamilyMembers.PageIndex = e.NewPageIndex;
@@ -221,7 +244,7 @@ namespace WealthERP.Advisor
 
             }
         }
-
+         
         /// <summary>
         /// Goes to the Bank Details Dashboard when we click on the Member name on the Bank Details Grid
         /// </summary>

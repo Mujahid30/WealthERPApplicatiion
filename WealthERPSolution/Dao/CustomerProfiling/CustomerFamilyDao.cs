@@ -151,6 +151,44 @@ namespace DaoCustomerProfiling
             }
             return customerFamilyVo;
         }
+        public DataSet GetCustomerDematDetails(int customerId)
+        {
+            DataSet dsDematDetails;
+            Database db;
+            DbCommand GetDematDetailsCmd;
+            
+            try
+            {
+
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetDematDetailsCmd = db.GetStoredProcCommand("SP_GetCustomerDematDetails");
+                db.AddInParameter(GetDematDetailsCmd, "@CustomerId", DbType.Int32, customerId);
+                dsDematDetails = db.ExecuteDataSet(GetDematDetailsCmd);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerFamilyDao.cs:GetCustomerDematDetails()");
+
+
+                object[] objects = new object[1];
+                objects[0] = customerId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dsDematDetails;
+        }
 
         public List<CustomerFamilyVo> GetCustomerFamily(int customerId)
         {

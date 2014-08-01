@@ -124,9 +124,9 @@
                         <CommandItemSettings ShowExportToWordButton="false" ShowExportToExcelButton="false"
                             ShowExportToCsvButton="false" ShowAddNewRecordButton="false" ShowRefreshButton="false" />
                         <Columns>
-                            <telerik:GridBoundColumn DataField="CMFSS_CreatedOn" DataFormatString="{0:dd/MM/yyyy HH:mm:ss}"
-                                AllowFiltering="true" HeaderText="Request Date/Time" UniqueName="CMFSS_CreatedOn"
-                                SortExpression="CMFSS_CreatedOn" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                            <telerik:GridBoundColumn DataField="CMFSS_RegistrationDate" DataFormatString="{0:dd/MM/yyyy HH:mm:ss}"
+                                AllowFiltering="true" HeaderText="Request Date/Time" UniqueName="CMFSS_RegistrationDate"
+                                SortExpression="CMFSS_RegistrationDate" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                 AutoPostBackOnFilter="true" HeaderStyle-Width="120px" FilterControlWidth="60px">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
@@ -341,9 +341,9 @@
                                 CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="CMFSS_RegistrationDate" AllowFiltering="false" HeaderText="Created On"
-                                UniqueName="CMFSS_RegistrationDate" SortExpression="CMFSS_RegistrationDate" ShowFilterIcon="false"
-                                HeaderStyle-Width="80px" DataFormatString="{0:dd/MM/yyyy}" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
+                            <telerik:GridBoundColumn DataField="CMFSS_CreatedOn" AllowFiltering="false" HeaderText="Created On"
+                                UniqueName="CMFSS_CreatedOn" SortExpression="CMFSS_CreatedOn" ShowFilterIcon="false"
+                                HeaderStyle-Width="80px"  CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="CMFSS_CreatedBy" AllowFiltering="false" HeaderText="Created By"

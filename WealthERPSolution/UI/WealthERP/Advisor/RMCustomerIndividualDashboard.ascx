@@ -49,6 +49,22 @@
                         <asp:Label ID="lblAddress" runat="server" Text="Label" CssClass="Field"></asp:Label>
                     </td>
                 </tr>
+                <tr>
+                    <td class="leftField" width="25%">
+                        <asp:Label ID="Label4" runat="server" Text="Phone Number:" CssClass="FieldName"></asp:Label>
+                    </td>
+                    <td class="rightField">
+                        <asp:Label ID="lblPhone" runat="server" Text="Label" CssClass="Field"></asp:Label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftField" width="25%">
+                        <asp:Label ID="Label6" runat="server" Text="Email:" CssClass="FieldName"></asp:Label>
+                    </td>
+                    <td class="rightField">
+                        <asp:Label ID="lblEmail" runat="server" Text="Label" CssClass="Field"></asp:Label>
+                    </td>
+                </tr>
             </table>
         </td>
         <td width="50%" runat="server" valign="top">
@@ -85,12 +101,12 @@
         </td>
     </tr>
     <tr>
-        <td width="50%">
-            <asp:Label ID="Label1" runat="server" Text="Contact Details" Class="HeaderTextSmall"></asp:Label>
+        <td width="50%" id="tdDematDetailsHeader" runat="server">
+            <asp:Label ID="Label1" runat="server" Text="Demat Details" Class="HeaderTextSmall"></asp:Label>
             <hr />
         </td>
         <td width="50%" id="tdFamilyDetailsHeader" runat="server">
-            <asp:Label ID="Label2" runat="server" Text="Family Details" Class="HeaderTextSmall"></asp:Label>
+            <asp:Label ID="Label2" runat="server" Text="Demat Family Details" Class="HeaderTextSmall"></asp:Label>
             <hr />
         </td>
     </tr>
@@ -98,26 +114,28 @@
         <td width="50%" valign="top">
             <table style="width: 100%; height: 100%; margin-top: 0px">
                 <tr>
-                    <td class="leftField" width="25%">
-                        <asp:Label ID="Label4" runat="server" Text="Phone Number:" CssClass="FieldName"></asp:Label>
-                    </td>
-                    <td class="rightField">
-                        <asp:Label ID="lblPhone" runat="server" Text="Label" CssClass="Field"></asp:Label>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="leftField" width="25%">
-                        <asp:Label ID="Label6" runat="server" Text="Email:" CssClass="FieldName"></asp:Label>
-                    </td>
-                    <td class="rightField">
-                        <asp:Label ID="lblEmail" runat="server" Text="Label" CssClass="Field"></asp:Label>
+                    <td width="50%" id="tdDematDetailsGrid" runat="server" valign="top">
+                        <asp:GridView ID="gvDematDetails" runat="server" AllowSorting="True" AutoGenerateColumns="False"
+                            CellPadding="4" EnableViewState="false" CssClass="GridViewStyle">
+                            <RowStyle CssClass="RowStyle" />
+                            <FooterStyle CssClass="FooterStyle" />
+                            <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
+                            <SelectedRowStyle CssClass="SelectedRowStyle" />
+                            <HeaderStyle CssClass="HeaderStyle" />
+                            <EditRowStyle CssClass="EditRowStyle" />
+                            <AlternatingRowStyle CssClass="AltRowStyle" />
+                            <Columns>
+                                <asp:BoundField DataField="XMOH_ModeOfHoldingCode" HeaderText="Mode Of Holding" />
+                                <asp:BoundField DataField="CEDA_DepositoryName" HeaderText="Depositer Name" />
+                            </Columns>
+                        </asp:GridView>
                     </td>
                 </tr>
             </table>
         </td>
         <td width="50%" id="tdFamilyDetailsGrid" runat="server" valign="top">
             <asp:GridView ID="gvFamilyMembers" runat="server" AllowSorting="True" AutoGenerateColumns="False"
-                CellPadding="4" EnableViewState="false" CssClass="GridViewStyle" DataKeyNames="CustomerId">
+                CellPadding="4" EnableViewState="false" CssClass="GridViewStyle">
                 <RowStyle CssClass="RowStyle" />
                 <FooterStyle CssClass="FooterStyle" />
                 <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
@@ -126,14 +144,9 @@
                 <EditRowStyle CssClass="EditRowStyle" />
                 <AlternatingRowStyle CssClass="AltRowStyle" />
                 <Columns>
-                    <asp:TemplateField HeaderText="Member Name">
-                        <ItemTemplate>
-                            <asp:Label ID="lnkCustomerName" runat="server" CssClass="CmbField" OnClick="lnkCustomerNameFamilyGrid_Click"
-                                Text='<%# Eval("Name") %>' >
-                            </asp:Label>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                    <asp:BoundField DataField="Relationship" HeaderText="Relationship" />
+                    <asp:BoundField DataField="CDAA_Name" HeaderText="Member Name" />
+                    <asp:BoundField DataField="CDAA_AssociateType" HeaderText="Associate Type" />
+                    <asp:BoundField DataField="CDAA_IsKYC" HeaderText="KYC" />
                 </Columns>
             </asp:GridView>
         </td>

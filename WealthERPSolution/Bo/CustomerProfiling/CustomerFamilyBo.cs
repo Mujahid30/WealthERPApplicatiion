@@ -155,6 +155,38 @@ namespace BoCustomerProfiling
             return familyList;
 
         }
+        public DataSet GetCustomerDematDetails(int customerId)
+        {
+            DataSet dsDematDetails = null;
+            CustomerFamilyDao customerFamilyDao = new CustomerFamilyDao();
+            try
+            {
+                dsDematDetails = customerFamilyDao.GetCustomerDematDetails(customerId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerFamilyBo.cs:GetCustomerDematDetails()");
+
+
+                object[] objects = new object[1];
+                objects[0] = customerId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dsDematDetails;
+
+        }
 
         /// <summary>
         /// Modified by Vinayak Patil.. Customer Association functionality for adviser..
