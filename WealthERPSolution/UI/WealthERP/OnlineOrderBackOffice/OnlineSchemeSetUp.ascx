@@ -32,18 +32,29 @@
         alert(masterTable);
     }
     function CheckOnline() {
-        if (document.getElementById('<%=chkonline.ClientID%>').checked == false) {
-            var con = confirm("Are you sure about the change?\n if you uncheck scheme will be offline.!!");
+        if (document.getElementById('<%=chkonline.ClientID%>').checked == true) {
+            var con = confirm("Are you sure about the change?\n if you check scheme will be online.!!");
 
             if (con == true) {
-                document.getElementById('<%=chkonline.ClientID%>').checked = false;
+                document.getElementById('<%=chkonline.ClientID%>').checked = true;
                 return true;
             }
             if (con == false) {
-                document.getElementById('<%=chkonline.ClientID%>').checked = true;
+                document.getElementById('<%=chkonline.ClientID%>').checked = false;
                 return false;
             }
         }
+         if (document.getElementById('<%=chkonline.ClientID%>').checked == false)
+             var con = confirm("Are you sure about the change?\n if you uncheck scheme will be offline.!!");
+
+         if (con == true) {
+             document.getElementById('<%=chkonline.ClientID%>').checked = false;
+             return true;
+         }
+         if (con == false) {
+             document.getElementById('<%=chkonline.ClientID%>').checked = true;
+             return false;
+         }
     }
 
 </script>

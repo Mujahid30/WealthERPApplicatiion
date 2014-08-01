@@ -1467,7 +1467,7 @@ namespace WealthERP.OnlineOrderBackOffice
             if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.SecurityCode))
                 txtSecuritycode.Text = mfProductAMCSchemePlanDetailsVo.SecurityCode.ToString();
             txtinvestment.Text = mfProductAMCSchemePlanDetailsVo.PASPD_MaxInvestment.ToString();
-            btnupdate.Visible = true;
+           // btnupdate.Visible = true;
             txtESSchemecode.Enabled = false;
 
         }
@@ -1535,6 +1535,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 txtESSchemecode.Enabled = false;
                 ddlGenerationfreq.Enabled = false;
                 ddlDFrequency.Enabled = false;
+                lblddlDFrequency.Visible = false;
                 btnsubmit.Visible = false;
                 btnupdate.Visible = true;
                 txtRedemptionmultiple.Enabled = false;
@@ -1828,6 +1829,7 @@ namespace WealthERP.OnlineOrderBackOffice
             Clearallcontrols(false);
             lnkEdit.Visible = true;
             btnupdate.Visible = false;
+            lblddlDFrequency.Visible = false;
             //}
             //}
         }
