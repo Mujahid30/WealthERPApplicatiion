@@ -200,13 +200,13 @@
             <table width="80%" class="SchemeInfoTable">
                 <tr class="SchemeInfoTable">
                     <td>
-                        <asp:Label ID="lblHolderDetails" runat="server" Text="Customer Name:" CssClass="FieldName"></asp:Label>
+                        <asp:Label ID="lblHolderDetails" runat="server" Text="Customer:" CssClass="FieldName"></asp:Label>
                         <%-- </td>--%>
                         <%--<td align="left">--%>
                         <asp:Label ID="lblHolderTwo" runat="server" CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
-                        <asp:Label ID="lblNominee" runat="server" Text="Nominee Name:" CssClass="FieldName"></asp:Label>
+                        <asp:Label ID="lblNominee" runat="server" Text="Nominee:" CssClass="FieldName"></asp:Label>
                         <%-- </td>
         <td align="left">--%>
                         <asp:Label ID="lblNomineeTwo" runat="server" CssClass="FieldName"></asp:Label>
@@ -306,7 +306,7 @@
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="AIM_FaceValue" HeaderStyle-Width="80px" HeaderText="Face Value"
                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                            UniqueName="FaceValue" Visible="true" DataFormatString="{0:N0}">
+                                            UniqueName="FaceValue" Visible="false" DataFormatString="{0:N0}" >
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="AID_MinApplication" HeaderStyle-Width="110px"
@@ -374,7 +374,7 @@
                     <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="LiveBondList">
                     </ExportSettings>
                     <PagerStyle AlwaysVisible="True" />
-                    <MasterTableView AllowMultiColumnSorting="True" AllowSorting="false" DataKeyNames="AID_IssueDetailId,AIM_IssueId,AID_DefaultInterestRate,AID_Tenure,AIM_FaceValue,AIM_TradingInMultipleOf,AIM_MInQty,AIM_MaxQty,AIM_MaxApplNo,AIDCSR_Id"
+                    <MasterTableView AllowMultiColumnSorting="True" AllowSorting="false" DataKeyNames="AID_SeriesFaceValue,AID_IssueDetailId,AIM_IssueId,AID_DefaultInterestRate,AID_Tenure,AIM_FaceValue,AIM_TradingInMultipleOf,AIM_MInQty,AIM_MaxQty,AIM_MaxApplNo,AIDCSR_Id"
                         AutoGenerateColumns="false" Width="100%" ShowFooter="true">
                         <CommandItemSettings ExportToPdfText="Export to Pdf" />
                         <Columns>
@@ -444,7 +444,7 @@
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="AID_Tenure" HeaderStyle-Width="70px" CurrentFilterFunction="Contains"
-                                ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Tenure (Months)"
+                                ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Tenure"
                                 UniqueName="AID_Tenure" SortExpression="AID_Tenure">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="true" />
                             </telerik:GridBoundColumn>
@@ -517,6 +517,11 @@
                             <telerik:GridBoundColumn Visible="false" DataField="AID_BuyBackFacility" HeaderStyle-Width="120px"
                                 HeaderText="Is Buy Back Facility" CurrentFilterFunction="Contains" ShowFilterIcon="false"
                                 AutoPostBackOnFilter="true" UniqueName="AID_BuyBackFacility">
+                                <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                            </telerik:GridBoundColumn>
+                             <telerik:GridBoundColumn  DataField="AID_SeriesFaceValue " HeaderStyle-Width="120px"
+                                HeaderText="Face Value" CurrentFilterFunction="Contains" ShowFilterIcon="false"
+                                AutoPostBackOnFilter="true" UniqueName="AID_SeriesFaceValue ">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn Visible="false" DataField="AIM_MInQty" HeaderStyle-Width="140px"

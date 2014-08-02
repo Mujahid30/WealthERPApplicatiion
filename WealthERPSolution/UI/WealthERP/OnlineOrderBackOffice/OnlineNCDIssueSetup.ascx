@@ -45,6 +45,7 @@
     }
 
 </script>
+
 <script type="text/javascript" language="javascript">
     function ChkIscancelallowedornot(sender, args) {
         if (document.getElementById("<%=chkIScancelAllowed.ClientID %>").checked == false && document.getElementById("<%=chkIsCancelNotAllowed.ClientID %>").checked == false) {
@@ -56,6 +57,7 @@
     }
 
 </script>
+
 <script type="text/javascript">
     var crnt = 0;
     function PreventClicks() {
@@ -827,7 +829,7 @@
                 ErrorMessage="Please Enter Minutes" Display="Dynamic" ControlToValidate="ddlOpenTimeMinutes"
                 InitialValue="MM" ValidationGroup="SetUpSubmit">
             </asp:RequiredFieldValidator>
-              <asp:RequiredFieldValidator ID="RequiredFieldValidator40" runat="server" CssClass="rfvPCG"
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator40" runat="server" CssClass="rfvPCG"
                 ErrorMessage="Please Enter Seconds" Display="Dynamic" ControlToValidate="ddlOpenTimeSeconds"
                 InitialValue="SS" ValidationGroup="SetUpSubmit">
             </asp:RequiredFieldValidator>
@@ -855,7 +857,7 @@
                 Width="60px" />
             <span id="Span35" class="spnRequiredField">*</span>
             <br />
-        <asp:RequiredFieldValidator ID="RequiredFieldValidator30" runat="server" CssClass="rfvPCG"
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator30" runat="server" CssClass="rfvPCG"
                 ErrorMessage="Please Enter  Time" Display="Dynamic" ControlToValidate="ddlCloseTimeHours"
                 InitialValue="HH" ValidationGroup="SetUpSubmit">
             </asp:RequiredFieldValidator>
@@ -863,7 +865,7 @@
                 ErrorMessage="Please Enter Minutes" Display="Dynamic" ControlToValidate="ddlCloseTimeMinutes"
                 InitialValue="MM" ValidationGroup="SetUpSubmit">
             </asp:RequiredFieldValidator>
-              <asp:RequiredFieldValidator ID="RequiredFieldValidator44" runat="server" CssClass="rfvPCG"
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator44" runat="server" CssClass="rfvPCG"
                 ErrorMessage="Please Enter Seconds" Display="Dynamic" ControlToValidate="ddlCloseTimeSeconds"
                 InitialValue="SS" ValidationGroup="SetUpSubmit">
             </asp:RequiredFieldValidator>
@@ -897,11 +899,11 @@
                 ErrorMessage="Please Enter Time" Display="Dynamic" ControlToValidate="ddlCutOffTimeHours"
                 InitialValue="HH" ValidationGroup="SetUpSubmit">
             </asp:RequiredFieldValidator>
-          <asp:RequiredFieldValidator ID="RequiredFieldValidator45" runat="server" CssClass="rfvPCG"
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator45" runat="server" CssClass="rfvPCG"
                 ErrorMessage="Please Enter Minutes" Display="Dynamic" ControlToValidate="ddlCutOffTimeMinutes"
                 InitialValue="MM" ValidationGroup="SetUpSubmit">
             </asp:RequiredFieldValidator>
-              <asp:RequiredFieldValidator ID="RequiredFieldValidator46" runat="server" CssClass="rfvPCG"
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator46" runat="server" CssClass="rfvPCG"
                 ErrorMessage="Please Enter Seconds" Display="Dynamic" ControlToValidate="ddlCutOffTimeSeconds"
                 InitialValue="SS" ValidationGroup="SetUpSubmit">
             </asp:RequiredFieldValidator>
@@ -1196,8 +1198,8 @@
         </td>
         <td>
             <asp:CheckBox ID="chkMultipleApplicationAllowed" runat="server" CssClass="txtField"
-                Text="Multiple applications allowed" OnCheckedChanged="chkMultipleApplicationAllowed_OnCheckedChanged" AutoPostBack="true">
-            </asp:CheckBox>
+                Text="Multiple applications allowed" OnCheckedChanged="chkMultipleApplicationAllowed_OnCheckedChanged"
+                AutoPostBack="true"></asp:CheckBox>
             <asp:CustomValidator ID="CustomValidator1" runat="server" ErrorMessage="Please check multiple applications allowed"
                 ClientValidationFunction="CheckBoxes" EnableClientScript="true" Display="Dynamic"
                 ValidationGroup="SetUpSubmit" CssClass="rfvPCG">
@@ -1207,35 +1209,33 @@
         </td>
         <td>
             <asp:CheckBox ID="chkMultipleApplicationNotAllowed" runat="server" CssClass="txtField"
-                Text="Multiple applications not allowed" OnCheckedChanged="chkMultipleApplicationNotAllowed_OnCheckedChanged" AutoPostBack="true">
-            </asp:CheckBox>
+                Text="Multiple applications not allowed" OnCheckedChanged="chkMultipleApplicationNotAllowed_OnCheckedChanged"
+                AutoPostBack="true"></asp:CheckBox>
             <asp:CustomValidator ID="CustomValidator2" runat="server" ErrorMessage="<br>Please check multiple applications not allowed"
                 ClientValidationFunction="CheckBoxes" EnableClientScript="true" Display="Dynamic"
                 ValidationGroup="SetUpSubmit" CssClass="rfvPCG">
             </asp:CustomValidator>
         </td>
     </tr>
-     <tr id="trIsCancelAllowed" runat="server">
+    <tr id="trIsCancelAllowed" runat="server">
         <td>
         </td>
         <td>
-            <asp:CheckBox ID="chkIScancelAllowed" runat="server" CssClass="txtField"
-                Text="Cancellation allowed" OnCheckedChanged="chkIScancelAllowed_OnCheckedChanged" AutoPostBack="true">
-            </asp:CheckBox>
+            <asp:CheckBox ID="chkIScancelAllowed" runat="server" CssClass="txtField" Text="Cancellation allowed"
+                OnCheckedChanged="chkIScancelAllowed_OnCheckedChanged" AutoPostBack="true"></asp:CheckBox>
             <asp:CustomValidator ID="custIScancelAllowed" runat="server" ErrorMessage="<br>Please check cancellation allowed"
-                ClientValidationFunction="ChkIscancelallowedornot" EnableClientScript="true" Display="Dynamic"
-                ValidationGroup="SetUpSubmit" CssClass="rfvPCG">
+                ClientValidationFunction="ChkIscancelallowedornot" EnableClientScript="true"
+                Display="Dynamic" ValidationGroup="SetUpSubmit" CssClass="rfvPCG">
             </asp:CustomValidator>
         </td>
         <td>
         </td>
         <td>
-            <asp:CheckBox ID="chkIsCancelNotAllowed" runat="server" CssClass="txtField"
-                Text="Cancellation is not allowed" OnCheckedChanged="IsCancelNotAllowed_OnCheckedChanged" AutoPostBack="true">
-            </asp:CheckBox>
+            <asp:CheckBox ID="chkIsCancelNotAllowed" runat="server" CssClass="txtField" Text="Cancellation is not allowed"
+                OnCheckedChanged="IsCancelNotAllowed_OnCheckedChanged" AutoPostBack="true"></asp:CheckBox>
             <asp:CustomValidator ID="custIScancelnotAllowed" runat="server" ErrorMessage="<br>Please check cancellation is not allowed"
-                ClientValidationFunction="ChkIscancelallowedornot" EnableClientScript="true" Display="Dynamic"
-                ValidationGroup="SetUpSubmit" CssClass="rfvPCG">
+                ClientValidationFunction="ChkIscancelallowedornot" EnableClientScript="true"
+                Display="Dynamic" ValidationGroup="SetUpSubmit" CssClass="rfvPCG">
             </asp:CustomValidator>
         </td>
     </tr>
@@ -1922,6 +1922,20 @@
                                                             AutoPostBack="true" OnCheckedChanged="chkRedemptiondate_changed" /></asp:CheckBox>
                                                         <asp:CheckBox ID="chkLockinperiod" runat="server" CssClass="cmbFielde" Text="Lock In Period"
                                                             AutoPostBack="true" OnCheckedChanged="chkLockinperiod_changed" /></asp:CheckBox>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="20%" align="right">
+                                                        <asp:Label ID="lblseriesFacevalue" runat="server" Text="Face Value:" CssClass="FieldName"></asp:Label>
+                                                    </td>
+                                                    <td width="30%" align="left">
+                                                        <asp:TextBox ID="txtseriesFacevalue" runat="server" CssClass="txtField"></asp:TextBox>
+                                                        <span id="Span39" class="spnRequiredField">*</span>
+                                                        <br />
+                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator47" runat="server" CssClass="rfvPCG"
+                                                            ErrorMessage="Please Enter Numeric Value" Display="Dynamic" ControlToValidate="txtseriesFacevalue"
+                                                            ValidationGroup="btnOK" InitialValue="" ValidationExpression="[1-9]\d*$">
+                                                        </asp:RequiredFieldValidator>
                                                     </td>
                                                 </tr>
                                                 <tr>

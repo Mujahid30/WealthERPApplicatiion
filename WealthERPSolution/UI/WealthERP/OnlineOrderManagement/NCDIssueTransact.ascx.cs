@@ -58,7 +58,7 @@ namespace WealthERP.OnlineOrderManagement
                     orderId = int.Parse(Request.QueryString["OrderId"].ToString());
                     IssuerId = int.Parse(Request.QueryString["IssuerId"].ToString());
                     string Issuername = Request.QueryString["Issuername"].ToString();
-                    lblIssuer.Text = "Selected Issue Name :" + Issuername;
+                    lblIssuer.Text = "Selected Issue Name:" + Issuername;
                     ViewState["orderId"] = orderId;
                     ViewState["IssuerId"] = IssuerId;
                     ViewState["seriesId"] = seriesId;
@@ -268,6 +268,7 @@ namespace WealthERP.OnlineOrderManagement
             string Description = string.Empty;
             int catId = 0;
             int issuedetId = 0;
+            double AIM_FaceValue = 0.0;
             TextBox txtQuantity = (TextBox)gvCommMgmt.MasterTableView.Items[rowindex]["Quantity"].FindControl("txtQuantity");
             if (!string.IsNullOrEmpty(txtQuantity.Text))
             {
@@ -286,7 +287,7 @@ namespace WealthERP.OnlineOrderManagement
                         txtQuantity.Text = "";
                         return;
                     }
-                    double AIM_FaceValue = Convert.ToDouble(gvCommMgmt.MasterTableView.DataKeyValues[rowindex]["AIM_FaceValue"].ToString());
+                    AIM_FaceValue = Convert.ToDouble(gvCommMgmt.MasterTableView.DataKeyValues[rowindex]["AID_SeriesFaceValue"].ToString());
                     TextBox txtAmount = (TextBox)gvCommMgmt.MasterTableView.Items[rowindex]["Amount"].FindControl("txtAmount");
                     txtAmount.Text = Convert.ToString(Qty * AIM_FaceValue);
                     CheckBox cbSelectOrder = (CheckBox)gvCommMgmt.MasterTableView.Items[rowindex]["Check"].FindControl("cbOrderCheck");

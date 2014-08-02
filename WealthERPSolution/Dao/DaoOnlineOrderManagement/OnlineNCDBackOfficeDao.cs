@@ -911,7 +911,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(createCmd, "@RedemptionApplicable", DbType.Int32, onlineNCDBackOfficeVo.RedemptionApplicable);
                 db.AddInParameter(createCmd, "@LockinApplicable", DbType.Int32, onlineNCDBackOfficeVo.LockInApplicable);
                 db.AddInParameter(createCmd, "@TenureUnits", DbType.String, onlineNCDBackOfficeVo.TenureUnits);
-
+                db.AddInParameter(createCmd, "@seriesFaceValue", DbType.Double, onlineNCDBackOfficeVo.SeriesFaceValue);
                 if (db.ExecuteNonQuery(createCmd) != 0)
                 {
                     seriesId = Convert.ToInt32(db.GetParameterValue(createCmd, "SeriesId").ToString());
@@ -1419,6 +1419,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(updateCmd, "@RedemptionApplicable", DbType.Int32, onlineNCDBackOfficeVo.RedemptionApplicable);
                 db.AddInParameter(updateCmd, "@LockinApplicable", DbType.Int32, onlineNCDBackOfficeVo.LockInApplicable);
                 db.AddInParameter(updateCmd, "@TenureUnits", DbType.String, onlineNCDBackOfficeVo.TenureUnits);
+                db.AddInParameter(updateCmd, "@seriesFaceValue", DbType.Double, onlineNCDBackOfficeVo.SeriesFaceValue);
 
                 seriesId = db.ExecuteNonQuery(updateCmd);
             }

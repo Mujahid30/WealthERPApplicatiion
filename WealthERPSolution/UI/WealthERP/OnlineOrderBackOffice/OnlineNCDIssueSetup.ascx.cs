@@ -1405,7 +1405,7 @@ namespace WealthERP.OnlineOrderBackOffice
         //}
 
         private int CreateUpdateDeleteSeries(int issueId, int seriesId, string seriesName, int isBuyBackAvailable, int redemptionApplicable, int lockInApplicable, int tenure, string interestFrequency,
-         string interestType, int SeriesSequence, string tenureUnits, string CommandType)
+         string interestType, int SeriesSequence, string tenureUnits,double seriesFaceValue, string CommandType)
         {
             int result = 0;
 
@@ -1422,7 +1422,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 onlineNCDBackOfficeVo.RedemptionApplicable = redemptionApplicable;
                 onlineNCDBackOfficeVo.LockInApplicable = lockInApplicable;
                 onlineNCDBackOfficeVo.TenureUnits = tenureUnits;
-
+                onlineNCDBackOfficeVo.SeriesFaceValue = seriesFaceValue;
                 result = onlineNCDBackOfficeBo.CreateSeries(onlineNCDBackOfficeVo, userVo.UserId);
             }
             else if (CommandType == "Update")
@@ -1438,7 +1438,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 onlineNCDBackOfficeVo.RedemptionApplicable = redemptionApplicable;
                 onlineNCDBackOfficeVo.LockInApplicable = lockInApplicable;
                 onlineNCDBackOfficeVo.TenureUnits = tenureUnits;
-
+                onlineNCDBackOfficeVo.SeriesFaceValue = seriesFaceValue;
                 result = onlineNCDBackOfficeBo.UpdateSeries(onlineNCDBackOfficeVo, userVo.UserId);
 
             }
@@ -1520,6 +1520,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 CheckBox chkredemptiondate = (CheckBox)e.Item.FindControl("chkredemptiondate");
                 CheckBox chkLockinperiod = (CheckBox)e.Item.FindControl("chkLockinperiod");
                 DropDownList ddlTenureUnits = (DropDownList)e.Item.FindControl("ddlTenureUnits");
+                TextBox txtseriesFacevalue = (TextBox)e.Item.FindControl("txtseriesFacevalue");
 
 
 
@@ -1604,7 +1605,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
 
 
-                int seriesId = CreateUpdateDeleteSeries(Convert.ToInt32(txtIssueId.Text), 0, txtSereiesName.Text, availblity, redemptionavaliable, lockinperiodavaliable, Convert.ToInt32(txtTenure.Text), ddltInterestFrequency.SelectedValue, ddlInterestType.SelectedValue, Convert.ToInt32(txtSequence.Text), ddlTenureUnits.SelectedValue, "Insert");
+                int seriesId = CreateUpdateDeleteSeries(Convert.ToInt32(txtIssueId.Text), 0, txtSereiesName.Text, availblity, redemptionavaliable, lockinperiodavaliable, Convert.ToInt32(txtTenure.Text), ddltInterestFrequency.SelectedValue, ddlInterestType.SelectedValue, Convert.ToInt32(txtSequence.Text), ddlTenureUnits.SelectedValue,Convert.ToDouble(txtseriesFacevalue.Text), "Insert");
 
                 foreach (GridDataItem gdi in rgSeriesCat.Items)
                 {
@@ -1679,7 +1680,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 CheckBox chkLockinperiod = (CheckBox)e.Item.FindControl("chkLockinperiod");
                 RadGrid rgSeriesCat = (RadGrid)e.Item.FindControl("rgSeriesCat");
                 DropDownList ddlTenureUnits = (DropDownList)e.Item.FindControl("ddlTenureUnits");
-
+                TextBox txtseriesFacevalue = (TextBox)e.Item.FindControl("txtseriesFacevalue");
                 int seriesId = Convert.ToInt32(rgSeries.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AID_IssueDetailId"].ToString());
 
                 int isSeqExist = onlineNCDBackOfficeBo.ChekSeriesSequence(Convert.ToInt32(txtSequence.Text), Convert.ToInt32(txtIssueId.Text), advisorVo.advisorId, seriesId);
@@ -1746,7 +1747,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 //    txtSequence.Text = 0.ToString();
                 //}
 
-                int InsseriesId = CreateUpdateDeleteSeries(Convert.ToInt32(txtIssueId.Text), seriesId, txtSereiesName.Text, availblity, redemptionavaliable, lockinperiodavaliable, Convert.ToInt32(txtTenure.Text), ddlInterestFrequency.SelectedValue, ddlInterestType.SelectedValue, Convert.ToInt32(txtSequence.Text), ddlTenureUnits.SelectedValue, "Update");
+                int InsseriesId = CreateUpdateDeleteSeries(Convert.ToInt32(txtIssueId.Text), seriesId, txtSereiesName.Text, availblity, redemptionavaliable, lockinperiodavaliable, Convert.ToInt32(txtTenure.Text), ddlInterestFrequency.SelectedValue, ddlInterestType.SelectedValue, Convert.ToInt32(txtSequence.Text), ddlTenureUnits.SelectedValue, Convert.ToDouble(txtseriesFacevalue.Text), "Update");
                 foreach (GridDataItem gdi in rgSeriesCat.Items)
                 {
                     if (((CheckBox)gdi.FindControl("cbSeriesCat")).Checked == true)
@@ -2739,6 +2740,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     CheckBox chkLockinperiod = (CheckBox)e.Item.FindControl("chkLockinperiod");
                     TextBox txtSequence = (TextBox)e.Item.FindControl("txtSequence");
                     DropDownList ddlTenureUnits = (DropDownList)e.Item.FindControl("ddlTenureUnits");
+                    TextBox txtseriesFacevalue = (TextBox)e.Item.FindControl("txtseriesFacevalue");
 
 
                     DropDownList ddlInterestType = (DropDownList)e.Item.FindControl("ddlInterestType");
@@ -2758,7 +2760,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     }
                     BindFrequency(ddlInterestFrequency);
                     BindCategory(rgSeriesCat, Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text));
-                    FillSeriesPopupControlsForUpdate(seriesId, txtSereiesName, txtTenure, ddlInterestFrequency, chkBuyAvailability, chkredemptiondate, chkLockinperiod, txtSequence, ddlInterestType, ddlTenureUnits, rgSeriesCat);
+                    FillSeriesPopupControlsForUpdate(seriesId, txtSereiesName, txtTenure, ddlInterestFrequency, chkBuyAvailability, chkredemptiondate, chkLockinperiod, txtSequence, ddlInterestType, ddlTenureUnits,txtseriesFacevalue, rgSeriesCat);
                 }
 
 
@@ -2783,7 +2785,7 @@ namespace WealthERP.OnlineOrderBackOffice
         }
 
         private void FillSeriesPopupControlsForUpdate(int seriesId, TextBox txtSereiesName, TextBox txtTenure,
-                         DropDownList ddlInterestFrequency, CheckBox chkBuyAvailability, CheckBox chkredemptiondate, CheckBox chkLockinperiod, TextBox txtSequence, DropDownList ddlInterestType, DropDownList ddlTenureCycle, RadGrid rgSeriesCat)
+                         DropDownList ddlInterestFrequency, CheckBox chkBuyAvailability, CheckBox chkredemptiondate, CheckBox chkLockinperiod, TextBox txtSequence, DropDownList ddlInterestType, DropDownList ddlTenureCycle,TextBox txtSeriesFaceValue, RadGrid rgSeriesCat)
         {
             int seriesCategoryId = 0;
             try
@@ -2798,6 +2800,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
                         txtSereiesName.Text = dr["AID_IssueDetailName"].ToString();
                         txtTenure.Text = dr["AID_Tenure"].ToString();
+                        txtSeriesFaceValue.Text =dr["AID_SeriesFaceValue"].ToString();
                         ddlInterestFrequency.SelectedValue = dr["WCMV_LookupId"].ToString();
                         chkBuyAvailability.Checked = Convert.ToBoolean(dr["AID_BuyBackFacility"].ToString());
                         if (dr["AID_RedemptionApplicable"].ToString() != string.Empty)
