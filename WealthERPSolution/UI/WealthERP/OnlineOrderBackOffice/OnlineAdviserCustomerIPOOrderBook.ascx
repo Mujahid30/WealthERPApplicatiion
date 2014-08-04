@@ -114,7 +114,7 @@
                                 GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="true" ShowStatusBar="True"
                                 OnItemDataBound="gvIPOOrderBook_OnItemDataCommand" Skin="Telerik" AllowFilteringByColumn="false"
                                 OnNeedDataSource="gvIPOOrderBook_OnNeedDataSource" OnItemCommand="gvIPOOrderBook_OnItemCommand">
-                                <MasterTableView DataKeyNames="CO_OrderId,AIM_IssueId,AIM_IssueName,Amount,WES_Code,C_CustCode,WOS_OrderStep"
+                                <MasterTableView DataKeyNames="CO_OrderId,AIM_IssueId,AIM_IssueName,Amount,WES_Code,C_CustCode,WOS_OrderStep,AIM_IsCancelAllowed"
                                     Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" AllowFilteringByColumn="true">
                                     <Columns>
                                         <telerik:GridTemplateColumn AllowFiltering="false">
@@ -204,7 +204,13 @@
                                             AutoPostBackOnFilter="true">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridEditCommandColumn Visible="false" HeaderStyle-Width="60px" UniqueName="MarkAsReject"
+                                           <telerik:GridBoundColumn DataField="AIM_IsCancelAllowed" AllowFiltering="false"
+                                            HeaderText="Is cancel" HeaderStyle-Width="70px" UniqueName="AIM_IsCancelAllowed"
+                                            SortExpression="AIM_IsCancelAllowed" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                            AutoPostBackOnFilter="true" Visible="false">
+                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridEditCommandColumn Visible="true" HeaderStyle-Width="60px" UniqueName="MarkAsReject"
                                             EditText="Cancel" CancelText="Cancel" UpdateText="OK" HeaderText="Cancel">
                                         </telerik:GridEditCommandColumn>
                                         <%--<telerik:GridTemplateColumn AllowFiltering="false" HeaderStyle-Width="100px" UniqueName="Action"

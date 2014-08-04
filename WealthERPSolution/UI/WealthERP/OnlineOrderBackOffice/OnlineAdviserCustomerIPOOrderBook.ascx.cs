@@ -178,13 +178,18 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             if (e.Item is GridDataItem)
             {
-                GridDataItem dataItem = (GridDataItem)e.Item;
-                string Iscancel = Convert.ToString(gvIPOOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WOS_OrderStep"]);
-                //LinkButton MarkAsReject = (LinkButton)dataItem.FindControl("MarkAsReject");
-                LinkButton buttonEdit = dataItem["MarkAsReject"].Controls[0] as LinkButton;
-                if (Iscancel == "CANCELLED" || Iscancel == "EXECUTED" || Iscancel == "ORDERED" || Iscancel == "ACCEPTED")
+                GridDataItem dataItem = e.Item as GridDataItem;
+                LinkButton lbtnMarkAsReject = dataItem["MarkAsReject"].Controls[0] as LinkButton;
+                string OrderStepCode = Convert.ToString(gvIPOOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WOS_OrderStep"]);
+                Boolean isCancel = Convert.ToBoolean(gvIPOOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIM_IsCancelAllowed"].ToString());
+                //  string extractionStepCode = gvNCDOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WES_COde"].ToString();
+                if (OrderStepCode == "INPROCESS" && isCancel != false)
                 {
-                    buttonEdit.Enabled = false;
+                    lbtnMarkAsReject.Visible = true;
+                }
+                else
+                {
+                    lbtnMarkAsReject.Visible = false;
                 }
             }
         }        
