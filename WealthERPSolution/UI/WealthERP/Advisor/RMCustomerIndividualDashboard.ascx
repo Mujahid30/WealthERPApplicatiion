@@ -126,7 +126,7 @@
                             <AlternatingRowStyle CssClass="AltRowStyle" />
                             <Columns>
                                 <asp:BoundField DataField="XMOH_ModeOfHoldingCode" HeaderText="Mode Of Holding" />
-                                <asp:BoundField DataField="CEDA_DepositoryName" HeaderText="Depositer Name" />
+                                <asp:BoundField DataField="CEDA_DepositoryName" HeaderText="Depository Name" />
                             </Columns>
                         </asp:GridView>
                     </td>
