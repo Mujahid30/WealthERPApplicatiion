@@ -120,10 +120,21 @@ namespace WealthERP.OnlineOrderBackOffice
             }
 
         }
-
-        protected void rgRequests_ItemCommand(object source, GridCommandEventArgs e)
+        public void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
         {
-            if (e.CommandName == "ExpandCollapse")
+            rgRequests.ExportSettings.OpenInNewWindow = true;
+            // rgRequests.MasterTableView.Caption = "Adviser:" + adviserVo.OrganizationName+' '+"RM:"+ rmVo.FirstName;            
+            rgRequests.ExportSettings.IgnorePaging = true;
+            rgRequests.ExportSettings.HideStructureColumns = true;
+            rgRequests.ExportSettings.ExportOnlyData = true;
+            rgRequests.ExportSettings.FileName = "Upload Request Status";
+            rgRequests.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            rgRequests.MasterTableView.ExportToExcel();
+        }
+
+        protected void rgRequests_ItemDataBound(object sender, GridItemEventArgs e)
+        {
+            if (e.Item is GridDataItem && e.Item.ItemIndex != -1)
             {
                 GridDataItem editform = (GridDataItem)e.Item;
                 int inputRejects = Convert.ToInt32(editform["InputRejects"].Text);
