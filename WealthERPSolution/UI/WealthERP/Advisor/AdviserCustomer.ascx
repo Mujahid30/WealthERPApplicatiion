@@ -342,12 +342,20 @@
                                                 <Items>
                                                     <asp:ListItem Text="Select" Value="Select" Selected="true" />
                                                     <asp:ListItem Text="ShortCuts" Value="QuickLinks" />
-                                                    <asp:ListItem Text="Dashboard" Value="Dashboard" />
+                                                    <asp:ListItem Text="Dashboard" Value="Dashboard" Enabled="false" />
                                                     <asp:ListItem Text="Profile" Value="Profile" />
-                                                    <asp:ListItem Text="Assets" Value="Portfolio" />
-                                                    <asp:ListItem Text="Alerts" Value="Alerts" />
-                                                    <asp:ListItem Text="Delete Profile" Value="Delete Profile" />
-                                                    <asp:ListItem Text="Financial Planning" Value="FinancialPlanning" />
+                                                    <asp:ListItem Text="Unit Holdings" Value="UnitHoldings" />
+                                                    <asp:ListItem Text="Transaction Book" Value="TransactionBook" />
+                                                    <asp:ListItem Text="SIP Book" Value="SIPBook" />
+                                                    <asp:ListItem Text="Order Book" Value="OrderBook" />
+                                                    <asp:ListItem Text="NCD Issue List" Value="NCDIssueList" />
+                                                    <asp:ListItem Text="NCD Holdings" Value="NCDHoldings" />
+                                                    <asp:ListItem Text="IPO Issue List" Value="IPOIssueList" />
+                                                    <asp:ListItem Text="IPO Holdings" Value="IPOHoldings" />
+                                                    <asp:ListItem Text="Assets" Value="Portfolio" Enabled="false" />
+                                                    <asp:ListItem Text="Alerts" Value="Alerts" Enabled="false" />
+                                                    <asp:ListItem Text="Delete Profile" Value="Delete Profile" Enabled="false" />
+                                                    <asp:ListItem Text="Financial Planning" Value="FinancialPlanning" Enabled="false" />
                                                 </Items>
                                             </asp:DropDownList>
                                             <%--<telerik:RadComboBox ID="ddlAction" OnSelectedIndexChanged="ddlAction_OnSelectedIndexChanged"
@@ -561,7 +569,7 @@
                                         ShowFilterIcon="false">
                                         <ItemStyle Width="55px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                                     </telerik:GridBoundColumn>
-                                      <telerik:GridBoundColumn DataField="C_ModifiedOn" UniqueName="C_ModifiedOn" HeaderText="Modified On"
+                                    <telerik:GridBoundColumn DataField="C_ModifiedOn" UniqueName="C_ModifiedOn" HeaderText="Modified On"
                                         SortExpression="C_ModifiedOn" AutoPostBackOnFilter="true" AllowFiltering="true"
                                         HeaderStyle-Width="150px" FilterControlWidth="60px" CurrentFilterFunction="Contains"
                                         ShowFilterIcon="false">
@@ -573,7 +581,6 @@
                                         ShowFilterIcon="false">
                                         <ItemStyle Width="55px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                                     </telerik:GridBoundColumn>
-                                  
                                     <telerik:GridBoundColumn DataField="ACC_CustomerCategoryName" UniqueName="ACC_CustomerCategoryName"
                                         HeaderText="Category" ShowFilterIcon="false" AutoPostBackOnFilter="true" AllowFiltering="true"
                                         HeaderStyle-Width="67px" SortExpression="ACC_CustomerCategoryName" FilterControlWidth="50px"

@@ -240,6 +240,8 @@ namespace WealthERP.OnlineOrderBackOffice
                 drSIPOrderBook["PA_AMCName"] = drSIP["PA_AMCName"].ToString();
                 drSIPOrderBook["C_FirstName"] = drSIP["C_FirstName"].ToString();
                 drSIPOrderBook["C_PANNum"] = drSIP["C_PANNum"].ToString();
+                drSIPOrderBook["CustCode"] = drSIP["C_custcode"].ToString();
+
                 drSIPOrderBook["PASP_SchemePlanName"] = drSIP["PASP_SchemePlanName"].ToString();
                 drSIPOrderBook["PAISC_AssetInstrumentSubCategoryName"] = drSIP["PAISC_AssetInstrumentSubCategoryName"].ToString();
                 drSIPOrderBook["CMFSS_DividendOption"] = drSIP["CMFSS_DividendOption"];
@@ -353,6 +355,8 @@ namespace WealthERP.OnlineOrderBackOffice
             dtSIPOrderBook.Columns.Add("CMFSS_RegistrationDate", typeof(DateTime));
             dtSIPOrderBook.Columns.Add("CMFSS_CancelDate", typeof(DateTime));
             dtSIPOrderBook.Columns.Add("CMFSS_CancelBy");
+            dtSIPOrderBook.Columns.Add("CustCode");
+
             return dtSIPOrderBook;
 
         }

@@ -130,7 +130,7 @@
                                 AutoPostBackOnFilter="true" HeaderStyle-Width="120px" FilterControlWidth="60px">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridTemplateColumn AllowFiltering="false" DataField="CMFSS_SystematicSetupId"
+                            <telerik:GridTemplateColumn AllowFiltering="true" DataField="CMFSS_SystematicSetupId"
                                 AutoPostBackOnFilter="true" HeaderText="Request No." ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                 SortExpression="CMFSS_SystematicSetupId" FooterStyle-HorizontalAlign="Right"
                                 HeaderStyle-Width="90px">
@@ -149,6 +149,11 @@
                                 HeaderStyle-Wrap="false" SortExpression="C_FirstName" ShowFilterIcon="false"
                                 CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="100px"
                                 UniqueName="C_FirstName" FooterStyle-HorizontalAlign="Left">
+                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                             <telerik:GridBoundColumn DataField="CustCode" HeaderText="Client Id" AllowFiltering="true"
+                                HeaderStyle-Wrap="false" SortExpression="CustCode" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                AutoPostBackOnFilter="true" HeaderStyle-Width="100px" UniqueName="CustCode" FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="C_PANNum" HeaderText="PAN No" AllowFiltering="true"

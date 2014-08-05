@@ -278,6 +278,62 @@ namespace WealthERP.Advisor
                         RadPanelBar1.FindItemByValue("Portfolio Dashboard").Expanded = true;
                         //Session["IsDashboard"] = "false";
                     }
+                    else if (IsDashboard == "UnitHoldingss")
+                    {
+                        RadPanelBar1.FindItemByValue("MF_Online_Order").Expanded = true;
+                        RadPanelBar1.FindItemByValue("Holdings").Expanded = true;
+                        RadPanelBar1.FindItemByValue("UnitHoldings").Selected = true;
+                        //Session["IsDashboard"] = "false";
+                    }
+                    else if (IsDashboard == "TransactionBooks")
+                    {
+                        RadPanelBar1.FindItemByValue("MF_Online_Order").Expanded = true;
+                        RadPanelBar1.FindItemByValue("Books").Expanded = true;
+                        RadPanelBar1.FindItemByValue("TransactionBook").Selected = true;
+                        //Session["IsDashboard"] = "false";
+                    }
+                    else if (IsDashboard == "SIPBooks")
+                    {
+                        RadPanelBar1.FindItemByValue("MF_Online_Order").Expanded = true;
+                        RadPanelBar1.FindItemByValue("Books").Expanded = true;
+                        RadPanelBar1.FindItemByValue("SIPBook").Selected = true;
+                        //Session["IsDashboard"] = "false";
+                    }
+                    else if (IsDashboard == "OrderBooks")
+                    {
+                        RadPanelBar1.FindItemByValue("MF_Online_Order").Expanded = true;
+                        RadPanelBar1.FindItemByValue("Books").Expanded = true;
+                        RadPanelBar1.FindItemByValue("OrderBook").Selected = true;
+                        //Session["IsDashboard"] = "false";
+                    }
+                    else if (IsDashboard == "NCDIssueLists")
+                    {
+                        RadPanelBar1.FindItemByValue("NCD_Online_Order").Expanded = true;
+                        RadPanelBar1.FindItemByValue("NCDTransact").Expanded = true;
+                        RadPanelBar1.FindItemByValue("NCDIssueList").Selected = true;
+                        //Session["IsDashboard"] = "false";
+                    }
+                    else if (IsDashboard == "NCDHoldingss")
+                    {
+                        RadPanelBar1.FindItemByValue("NCD_Online_Order").Expanded = true;
+                        RadPanelBar1.FindItemByValue("NCDHoldings").Expanded = true;
+                        RadPanelBar1.FindItemByValue("NCDHolding").Selected = true;
+                        //Session["IsDashboard"] = "false";
+                    }
+                    else if (IsDashboard == "IPOIssueLists")
+                    {
+                        RadPanelBar1.FindItemByValue("IPO_Online_Order").Expanded = true;
+                        RadPanelBar1.FindItemByValue("IPOIssueTransact").Expanded = true;
+                        RadPanelBar1.FindItemByValue("IPOIssueList").Selected = true;
+                        //Session["IsDashboard"] = "false";
+                    }
+                    else if (IsDashboard == "IPOHoldingss")
+                    {
+                        RadPanelBar1.FindItemByValue("IPO_Online_Order").Expanded = true;
+                        RadPanelBar1.FindItemByValue("IPOIssueTransact").Expanded = true;
+                        RadPanelBar1.FindItemByValue("IPOHolding").Selected = true;
+                        //Session["IsDashboard"] = "false";
+                    }
                     else if (IsDashboard == "FP")
                     {
                         RadPanelBar1.FindItemByValue("Financial Planning").Selected = true;

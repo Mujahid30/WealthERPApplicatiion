@@ -947,6 +947,222 @@ namespace WealthERP.Advisor
                         //Session[SessionContents.FPS_TreeView_Status] = "FinanceProfile";
                     }
                 }
+                else if (ddlAction.SelectedItem.Value.ToString() == "UnitHoldings")
+                {
+                    Session["IsDashboard"] = "UnitHoldingss";
+                    customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(ParentId);
+                    if (customerVo.IsProspect == 0)
+                    {
+                        Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
+                        Session["customerPortfolioVo"] = customerPortfolioVo;
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerMFUnitHoldingList','login');", true);
+                    }
+                    else
+                    {
+                        isGrpHead = customerBo.CheckCustomerGroupHead(ParentId);
+                        if (isGrpHead == false)
+                        {
+                            ParentId = customerBo.GetCustomerGroupHead(ParentId);
+                        }
+                        else
+                        {
+                            ParentId = customerVo.CustomerId;
+                        }
+                        Session[SessionContents.FPS_ProspectList_CustomerId] = ParentId;
+                        Session[SessionContents.FPS_AddProspectListActionStatus] = "View";
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerMFUnitHoldingList','login');", true);
+                        //Session[SessionContents.FPS_TreeView_Status] = "FinanceProfile";
+                    }
+                }
+                else if (ddlAction.SelectedItem.Value.ToString() == "TransactionBook")
+                {
+                    Session["IsDashboard"] = "TransactionBooks";
+                    customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(ParentId);
+                    if (customerVo.IsProspect == 0)
+                    {
+                        Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
+                        Session["customerPortfolioVo"] = customerPortfolioVo;
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerTransactionBookList','login');", true);
+                    }
+                    else
+                    {
+                        isGrpHead = customerBo.CheckCustomerGroupHead(ParentId);
+                        if (isGrpHead == false)
+                        {
+                            ParentId = customerBo.GetCustomerGroupHead(ParentId);
+                        }
+                        else
+                        {
+                            ParentId = customerVo.CustomerId;
+                        }
+                        Session[SessionContents.FPS_ProspectList_CustomerId] = ParentId;
+                        Session[SessionContents.FPS_AddProspectListActionStatus] = "View";
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerTransactionBookList','login');", true);
+                        //Session[SessionContents.FPS_TreeView_Status] = "FinanceProfile";
+                    }
+                }
+                else if (ddlAction.SelectedItem.Value.ToString() == "SIPBook")
+                {
+                    Session["IsDashboard"] = "SIPBooks";
+                    customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(ParentId);
+                    if (customerVo.IsProspect == 0)
+                    {
+                        Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
+                        Session["customerPortfolioVo"] = customerPortfolioVo;
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerSIPBookList','login');", true);
+                    }
+                    else
+                    {
+                        isGrpHead = customerBo.CheckCustomerGroupHead(ParentId);
+                        if (isGrpHead == false)
+                        {
+                            ParentId = customerBo.GetCustomerGroupHead(ParentId);
+                        }
+                        else
+                        {
+                            ParentId = customerVo.CustomerId;
+                        }
+                        Session[SessionContents.FPS_ProspectList_CustomerId] = ParentId;
+                        Session[SessionContents.FPS_AddProspectListActionStatus] = "View";
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerSIPBookList','login');", true);
+                        //Session[SessionContents.FPS_TreeView_Status] = "FinanceProfile";
+                    }
+                }
+                else if (ddlAction.SelectedItem.Value.ToString() == "OrderBook")
+                {
+                    Session["IsDashboard"] = "OrderBooks";
+                    customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(ParentId);
+                    if (customerVo.IsProspect == 0)
+                    {
+                        Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
+                        Session["customerPortfolioVo"] = customerPortfolioVo;
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerMFOrderBookList','login');", true);
+                    }
+                    else
+                    {
+                        isGrpHead = customerBo.CheckCustomerGroupHead(ParentId);
+                        if (isGrpHead == false)
+                        {
+                            ParentId = customerBo.GetCustomerGroupHead(ParentId);
+                        }
+                        else
+                        {
+                            ParentId = customerVo.CustomerId;
+                        }
+                        Session[SessionContents.FPS_ProspectList_CustomerId] = ParentId;
+                        Session[SessionContents.FPS_AddProspectListActionStatus] = "View";
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerMFOrderBookList','login');", true);
+                        //Session[SessionContents.FPS_TreeView_Status] = "FinanceProfile";
+                    }
+                }
+                else if (ddlAction.SelectedItem.Value.ToString() == "NCDIssueList")
+                {
+                    Session["IsDashboard"] = "NCDIssueLists";
+                    customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(ParentId);
+                    if (customerVo.IsProspect == 0)
+                    {
+                        Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
+                        Session["customerPortfolioVo"] = customerPortfolioVo;
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('NCDIssueList','login');", true);
+                    }
+                    else
+                    {
+                        isGrpHead = customerBo.CheckCustomerGroupHead(ParentId);
+                        if (isGrpHead == false)
+                        {
+                            ParentId = customerBo.GetCustomerGroupHead(ParentId);
+                        }
+                        else
+                        {
+                            ParentId = customerVo.CustomerId;
+                        }
+                        Session[SessionContents.FPS_ProspectList_CustomerId] = ParentId;
+                        Session[SessionContents.FPS_AddProspectListActionStatus] = "View";
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('NCDIssueList','login');", true);
+                        //Session[SessionContents.FPS_TreeView_Status] = "FinanceProfile";
+                    }
+                }
+                else if (ddlAction.SelectedItem.Value.ToString() == "NCDHoldings")
+                {
+                    Session["IsDashboard"] = "NCDHoldingss";
+                    customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(ParentId);
+                    if (customerVo.IsProspect == 0)
+                    {
+                        Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
+                        Session["customerPortfolioVo"] = customerPortfolioVo;
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('NCDIssueHoldings','login');", true);
+                    }
+                    else
+                    {
+                        isGrpHead = customerBo.CheckCustomerGroupHead(ParentId);
+                        if (isGrpHead == false)
+                        {
+                            ParentId = customerBo.GetCustomerGroupHead(ParentId);
+                        }
+                        else
+                        {
+                            ParentId = customerVo.CustomerId;
+                        }
+                        Session[SessionContents.FPS_ProspectList_CustomerId] = ParentId;
+                        Session[SessionContents.FPS_AddProspectListActionStatus] = "View";
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('NCDIssueHoldings','login');", true);
+                        //Session[SessionContents.FPS_TreeView_Status] = "FinanceProfile";
+                    }
+                }
+                else if (ddlAction.SelectedItem.Value.ToString() == "IPOIssueList")
+                {
+                    Session["IsDashboard"] = "IPOIssueLists";
+                    customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(ParentId);
+                    if (customerVo.IsProspect == 0)
+                    {
+                        Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
+                        Session["customerPortfolioVo"] = customerPortfolioVo;
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('IPOIssueList','login');", true);
+                    }
+                    else
+                    {
+                        isGrpHead = customerBo.CheckCustomerGroupHead(ParentId);
+                        if (isGrpHead == false)
+                        {
+                            ParentId = customerBo.GetCustomerGroupHead(ParentId);
+                        }
+                        else
+                        {
+                            ParentId = customerVo.CustomerId;
+                        }
+                        Session[SessionContents.FPS_ProspectList_CustomerId] = ParentId;
+                        Session[SessionContents.FPS_AddProspectListActionStatus] = "View";
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('IPOIssueList','login');", true);
+                        //Session[SessionContents.FPS_TreeView_Status] = "FinanceProfile";
+                    }
+                }
+                else if (ddlAction.SelectedItem.Value.ToString() == "IPOHoldings")
+                {
+                    Session["IsDashboard"] = "IPOHoldingss";
+                    customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(ParentId);
+                    if (customerVo.IsProspect == 0)
+                    {
+                        Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
+                        Session["customerPortfolioVo"] = customerPortfolioVo;
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerIPOHolding','login');", true);
+                    }
+                    else
+                    {
+                        isGrpHead = customerBo.CheckCustomerGroupHead(ParentId);
+                        if (isGrpHead == false)
+                        {
+                            ParentId = customerBo.GetCustomerGroupHead(ParentId);
+                        }
+                        else
+                        {
+                            ParentId = customerVo.CustomerId;
+                        }
+                        Session[SessionContents.FPS_ProspectList_CustomerId] = ParentId;
+                        Session[SessionContents.FPS_AddProspectListActionStatus] = "View";
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerIPOHolding','login');", true);
+                        //Session[SessionContents.FPS_TreeView_Status] = "FinanceProfile";
+                    }
+                }
                 else if (ddlAction.SelectedItem.Value.ToString() == "Portfolio")
                 {
                     Session["IsDashboard"] = "portfolio";

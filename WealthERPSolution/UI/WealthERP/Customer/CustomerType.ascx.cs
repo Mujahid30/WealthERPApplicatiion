@@ -468,6 +468,7 @@ namespace WealthERP.Customer
 
                         }
                         else
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Customer Added Successfully!!');", true);
                             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('AdviserCustomer','none');", true);
                         //trSumbitSuccess.Visible = true;
                         MakeReadonlyControls();

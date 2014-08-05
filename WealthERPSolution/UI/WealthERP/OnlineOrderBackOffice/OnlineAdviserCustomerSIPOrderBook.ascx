@@ -180,12 +180,12 @@
                                 FilterControlWidth="60px">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn Visible="true" DataField="Name" AllowFiltering="false"
+                            <telerik:GridBoundColumn Visible="true" DataField="Name" AllowFiltering="true"
                                 HeaderText="Customer" UniqueName="Name" SortExpression="Name" ShowFilterIcon="false"
                                 CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="130px">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn Visible="true" DataField="C_PANNum" AllowFiltering="false"
+                            <telerik:GridBoundColumn Visible="true" DataField="C_PANNum" AllowFiltering="true"
                                 HeaderText="PAN" UniqueName="C_PANNum" SortExpression="C_PANNum" ShowFilterIcon="false"
                                 CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="100px">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
