@@ -46,8 +46,6 @@ namespace WealthERP.OnlineOrderManagement
             adviserVo = (AdvisorVo)Session["advisorVo"];
             ShowAvailableLimits();
             BindKYCDetailDDl();
-            //lblAvailableLimits.Text = "40000";
-
             if (!IsPostBack)
             {
                 Session["sum"] = null;
@@ -137,17 +135,17 @@ namespace WealthERP.OnlineOrderManagement
         protected void BindStructureRuleGrid()
         {
             DataTable dtIssue = new DataTable();
-                        
+
             //1--- For Curent Issues
-              if (Cache["NCDIssueList" + userVo.UserId.ToString()] != null)
-              {
-                  DataTable dtIssueList=(DataTable)Cache["NCDIssueList" + userVo.UserId.ToString()];
-                  dtIssueList.DefaultView.RowFilter = "AIM_IssueId=" + IssuerId.ToString();
-                  dtIssue = dtIssueList.DefaultView.ToTable();
-              }
-              else
-                  dtIssue = OnlineBondBo.GetAdviserIssuerList(adviserVo.advisorId, IssuerId, 1, customerVo.CustomerId, Session["PageDefaultSetting"] == null ? 1 : 0, customerVo.TaxStatusCustomerSubTypeId).Tables[0];
-    
+            if (Cache["NCDIssueList" + userVo.UserId.ToString()] != null)
+            {
+                DataTable dtIssueList = (DataTable)Cache["NCDIssueList" + userVo.UserId.ToString()];
+                dtIssueList.DefaultView.RowFilter = "AIM_IssueId=" + IssuerId.ToString();
+                dtIssue = dtIssueList.DefaultView.ToTable();
+            }
+            else
+                dtIssue = OnlineBondBo.GetAdviserIssuerList(adviserVo.advisorId, IssuerId, 1, customerVo.CustomerId, Session["PageDefaultSetting"] == null ? 1 : 0, customerVo.TaxStatusCustomerSubTypeId).Tables[0];
+
             if (dtIssue.Rows.Count > 0)
             {
                 if (Cache["NCDIssueList" + userVo.UserId.ToString()] == null)
@@ -452,14 +450,6 @@ namespace WealthERP.OnlineOrderManagement
             {
 
                 TextBox txtQuantity = (TextBox)gvCommMgmt.MasterTableView.Items[rowNo]["Quantity"].FindControl("txtQuantity");
-                //if (rowNo < gvCommMgmt.MasterTableView.Items.Count)
-                //{
-                //    rowNo = rowNo + 1;
-                //}
-                //else
-                //{
-                //    break;
-                //}
                 if (txtQuantity.Text == "0" || txtQuantity.Text == string.Empty)
                 {
                     if (rowNo < gvCommMgmt.MasterTableView.Items.Count)
@@ -468,24 +458,6 @@ namespace WealthERP.OnlineOrderManagement
                     }
                     continue;
                 }
-                //else
-                //{
-                //    if (rowNo < gvCommMgmt.MasterTableView.Items.Count)
-                //    {
-
-                //        if (dt.Rows.Count >= 1)
-                //        {
-                //            rowNo = rowNo + 1;
-                //            tableRow++;
-                //        }
-                //    }
-                //    else
-                //    {
-                //        break;
-                //    }
-
-                //}
-
                 OnlineBondVo.CustomerId = customerVo.CustomerId;
                 OnlineBondVo.BankAccid = 1002321521;
                 OnlineBondVo.PFISD_SeriesId = int.Parse(gvCommMgmt.MasterTableView.DataKeyValues[rowNo]["AID_IssueDetailId"].ToString());
@@ -626,11 +598,14 @@ namespace WealthERP.OnlineOrderManagement
                     int orderId = 0;
                     if (availableBalance >= totalOrderAmt)
                     {
-                        accountDebitStatus = OnlineBondBo.DebitRMSUserAccountBalance(customerVo.AccountId, -totalOrderAmt, orderId);
-                        if (accountDebitStatus == true)
-                        {
+
                             orderIds = OnlineBondBo.onlineBOndtransact(dt, adviserVo.advisorId, IssuerId);
-                            orderId = int.Parse(orderIds["Order_Id"].ToString()); ;
+                            orderId = int.Parse(orderIds["Order_Id"].ToString());
+                            if (orderId != 0)
+                            {
+                                accountDebitStatus = OnlineBondBo.DebitRMSUserAccountBalance(customerVo.AccountId, -totalOrderAmt, orderId);
+                                ShowAvailableLimits();
+                            }
                             Applicationno = int.Parse(orderIds["application"].ToString());
                             aplicationNoStatus = orderIds["aplicationNoStatus"].ToString();
 
@@ -638,15 +613,8 @@ namespace WealthERP.OnlineOrderManagement
                             ViewState["application"] = Applicationno;
 
                             btnConfirmOrder.Enabled = false;
-                            Label3.Visible = false;
-
-                            if (orderId == 0 && !string.IsNullOrEmpty(customerVo.AccountId))
-                            {
-                                accountDebitStatus = OnlineBondBo.DebitRMSUserAccountBalance(customerVo.AccountId, totalOrderAmt, orderId);
-                                ShowAvailableLimits();
-
-                            }
-                        }
+                            Label3.Visible = false;                          
+                       
 
                     }
 
