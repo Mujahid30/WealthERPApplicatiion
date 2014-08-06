@@ -14,14 +14,14 @@ namespace WealthERP.OnlineOrderBackOffice
 {
     public partial class OnlineAdviserCustomerIPOOrderBook : System.Web.UI.UserControl
     {
-        
-        UserVo userVo;       
+
+        UserVo userVo;
         OnlineMFOrderBo OnlineMFOrderBo = new OnlineMFOrderBo();
-        AdvisorVo advisorVo;       
+        AdvisorVo advisorVo;
         DateTime fromDate;
         DateTime toDate;
         int AIMissueId = 0;
-        int orderId = 0; 
+        int orderId = 0;
         BoOnlineOrderManagement.OnlineBondOrderBo BoOnlineBondOrder = new BoOnlineOrderManagement.OnlineBondOrderBo();
         OnlineNCDBackOfficeBo onlineNCDBackOfficeBo = new OnlineNCDBackOfficeBo();
         OnlineIPOBackOfficeBo OnlineIPOBackOfficeBo = new OnlineIPOBackOfficeBo();
@@ -105,7 +105,7 @@ namespace WealthERP.OnlineOrderBackOffice
             if (txtOrderTo.SelectedDate != null)
                 toDate = DateTime.Parse(txtOrderTo.SelectedDate.ToString());
             DataTable dtIPOOrder;
-            dtIPOOrder = OnlineIPOBackOfficeBo.GetAdviserIPOOrderBook(advisorVo.advisorId,Convert.ToInt32(ddlIssueName.SelectedValue.ToString()), ddlOrderStatus.SelectedValue, fromDate, toDate,orderId);
+            dtIPOOrder = OnlineIPOBackOfficeBo.GetAdviserIPOOrderBook(advisorVo.advisorId, Convert.ToInt32(ddlIssueName.SelectedValue.ToString()), ddlOrderStatus.SelectedValue, fromDate, toDate, orderId);
             if (dtIPOOrder.Rows.Count >= 0)
             {
                 if (Cache["IPOBookList" + userVo.UserId.ToString()] == null)
@@ -192,7 +192,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     lbtnMarkAsReject.Visible = false;
                 }
             }
-        }        
+        }
         protected void btnExpandAll_Click(object sender, EventArgs e)
         {
             int strIssuerId = 0;
@@ -226,10 +226,10 @@ namespace WealthERP.OnlineOrderBackOffice
                 gvIPOOrderBook.DataSource = dtIPOOrderBook;
             }
 
-        }       
+        }
         public void ibtExport_OnClick(object sender, ImageClickEventArgs e)
         {
-          //  gvIPOOrderBook.MasterTableView.DetailTables[0].HierarchyDefaultExpanded = true;
+            //  gvIPOOrderBook.MasterTableView.DetailTables[0].HierarchyDefaultExpanded = true;
             gvIPOOrderBook.MasterTableView.HierarchyLoadMode = GridChildLoadMode.ServerBind;
             gvIPOOrderBook.ExportSettings.OpenInNewWindow = true;
             gvIPOOrderBook.ExportSettings.IgnorePaging = true;
@@ -240,5 +240,47 @@ namespace WealthERP.OnlineOrderBackOffice
             gvIPOOrderBook.MasterTableView.ExportToExcel();
 
         }
+        protected void btnExpand_Click(object sender, EventArgs e)
+        {
+            LinkButton button1 = (LinkButton)sender;
+            if (button1.Text == "+")
+            {
+                foreach (GridDataItem gvr in this.gvIPOOrderBook.Items)
+                {
+
+                    DataTable dtIssueDetail;
+                    int strIssuerId = 0;
+                    LinkButton button = (LinkButton)gvr.FindControl("lbDetails");
+                    RadGrid gvIPODetails = (RadGrid)gvr.FindControl("gvIPODetails");
+                    Panel PnlChild = (Panel)gvr.FindControl("pnlchild");
+                    strIssuerId = int.Parse(gvIPOOrderBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["AIM_IssueId"].ToString());
+                    int orderId = int.Parse(gvIPOOrderBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["CO_OrderId"].ToString());
+                    DataTable dtIPOOrderBook = OnlineIPOBackOfficeBo.GetAdviserIPOOrderSubBook(advisorVo.advisorId, strIssuerId, orderId);
+                    dtIssueDetail = dtIPOOrderBook;
+                    gvIPODetails.DataSource = dtIssueDetail;
+                    gvIPODetails.DataBind();
+                    if (PnlChild.Visible == false)
+                    {
+                        PnlChild.Visible = true;
+                        button.Text = "-";
+                    }
+
+                }
+                button1.Text = "-";
+            }
+            else
+            {
+                foreach (GridDataItem gvr in this.gvIPOOrderBook.Items)
+                {
+                    LinkButton button = (LinkButton)gvr.FindControl("lbDetails");
+                    Panel PnlChild = (Panel)gvr.FindControl("pnlchild");
+                    if (PnlChild.Visible == true)
+                        PnlChild.Visible = false;
+                    button.Text = "+";
+                }
+                button1.Text = "+";
+            }
+
         }
     }
+}
