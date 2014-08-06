@@ -31,7 +31,7 @@
                     <asp:LinkButton runat="server" ID="lbBack" CssClass="LinkButtons" Text="Back" Visible="false"
                         OnClick="lbBack_Click"></asp:LinkButton>
                 </td>
-                <td align="right" style="width: 10%">
+                <td align="right" style="width:5%">
                     <asp:ImageButton Visible="false" ID="btnExport" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                         runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
                         OnClientClick="setFormat('excel')" Height="20px" Width="25px"></asp:ImageButton>
@@ -43,9 +43,9 @@
 <div id="divConditional" runat="server" style="padding-top: 4px">
     <table class="TableBackground" cellpadding="2">
         <tr>
-            <td id="tdlblRejectReason" runat="server" style="padding-right: 40px">
+            <td id="tdlblRejectReason" runat="server" style="padding-right: 20px">
                 <asp:Label runat="server" class="FieldName" Text="AMC:" ID="lblAccount"></asp:Label>
-                <asp:DropDownList CssClass="cmbField" Width="100%" ID="ddlAmc" runat="server" AutoPostBack="false">
+                <asp:DropDownList CssClass="cmbField" ID="ddlAmc" runat="server" AutoPostBack="false">
                 </asp:DropDownList>
             </td>
             <td align="right" visible="false" runat="server">
@@ -109,7 +109,8 @@
                 </div>
                 <asp:CompareValidator ID="CompareValidator14" runat="server" ControlToValidate="txtTo"
                     ErrorMessage="<br/> To Date should be greater than From Date" Type="Date" Operator="GreaterThanEqual"
-                    ControlToCompare="txtFrom" CssClass="cvPCG" ValidationGroup="btnViewSIP" Display="Dynamic">
+                    ControlToCompare="txtFrom" CssClass="cvPCG" ValidationGroup="btnViewTransaction"
+                    Display="Dynamic">
                 </asp:CompareValidator>
             </td>
             <td id="tdBtnOrder" runat="server" colspan="4">
@@ -137,8 +138,7 @@
                     <telerik:RadGrid ID="gvTransationBookMIS" runat="server" GridLines="None" AutoGenerateColumns="False"
                         allowfiltering="true" AllowFilteringByColumn="true" PageSize="10" AllowSorting="true"
                         AllowPaging="True" ShowStatusBar="True" OnNeedDataSource="gvTransationBookMIS_OnNeedDataSource"
-                        ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowAutomaticInserts="false"
-                        OnItemDataBound="ItemDataBound">
+                        ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowAutomaticInserts="false" OnItemDataBound="ItemDataBound" >
                         <%--OnItemCommand="gvTransationBookMIS_OnItemCommand"OnPreRender="gvTransationBookMIS_PreRender" 
                                             OnItemDataBound="gvTransationBookMIS_ItemDataBound"--%>
                         <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true">
@@ -160,7 +160,7 @@
                                     UniqueName="Customer Name" FooterStyle-HorizontalAlign="Left">
                                     <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                <%-- <telerik:GridBoundColumn DataField="CO_OrderDate" DataFormatString="{0:dd/MM/yyyy hh:mm:ss}"
+                               <%-- <telerik:GridBoundColumn DataField="CO_OrderDate" DataFormatString="{0:dd/MM/yyyy hh:mm:ss}"
                                     AllowFiltering="true" HeaderText="Request Date/Time" UniqueName="CO_OrderDate"
                                     SortExpression="CO_OrderDate" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                     AutoPostBackOnFilter="true" HeaderStyle-Width="80px" FilterControlWidth="60px">
@@ -178,7 +178,7 @@
                                     FooterStyle-HorizontalAlign="Left">
                                     <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                <%-- <telerik:GridBoundColumn DataField="OrderNo" AllowFiltering="true" HeaderText="Order No."
+                               <%-- <telerik:GridBoundColumn DataField="OrderNo" AllowFiltering="true" HeaderText="Order No."
                                     UniqueName="OrderNo" SortExpression="OrderNo" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                     AutoPostBackOnFilter="true" HeaderStyle-Width="75px" FilterControlWidth="50px">
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
@@ -227,7 +227,7 @@
                                 <telerik:GridBoundColumn DataField="Price" HeaderText="Actioned NAV" AllowFiltering="false"
                                     SortExpression="Price" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                     HeaderStyle-Wrap="false" AutoPostBackOnFilter="true" UniqueName="Price" FooterStyle-HorizontalAlign="Right"
-                                    DataFormatString="{0:n4}">
+                                    DataFormatString="{0:n4}" >
                                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn DataField="Transaction Date" HeaderText="Date" AllowFiltering="false"
@@ -236,13 +236,13 @@
                                     AutoPostBackOnFilter="true" UniqueName="Transaction Date" FooterStyle-HorizontalAlign="Center">
                                     <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn DataField="DivReinvestment" HeaderText="Dividend Type" AllowFiltering="true"
-                                    HeaderStyle-Wrap="false" SortExpression="DivReinvestment" ShowFilterIcon="false"
-                                    CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="DivReinvestment"
-                                    FooterStyle-HorizontalAlign="Left" HeaderStyle-Width="100px">
+                                <telerik:GridBoundColumn DataField="DivReinvestment" HeaderText="Dividend Type"
+                                    AllowFiltering="true" HeaderStyle-Wrap="false" SortExpression="DivReinvestment"
+                                    ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                    UniqueName="DivReinvestment" FooterStyle-HorizontalAlign="Left" HeaderStyle-Width="100px">
                                     <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn Visible="false" DataField="DivedendFrequency" HeaderText="Divedend Frequency"
+                                <telerik:GridBoundColumn visible="false" DataField="DivedendFrequency" HeaderText="Divedend Frequency"
                                     AllowFiltering="true" HeaderStyle-Wrap="false" SortExpression="DivedendFrequency"
                                     ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
                                     UniqueName="DivedendFrequency" FooterStyle-HorizontalAlign="Left" HeaderStyle-Width="100px">
@@ -337,13 +337,13 @@
                                     AutoPostBackOnFilter="true" HeaderStyle-Width="80px" FilterControlWidth="60px">
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn DataField="CO_OrderDate" DataFormatString="{0:dd/MM/yyyy hh:mm:ss}"
+                                 <telerik:GridBoundColumn DataField="CO_OrderDate" DataFormatString="{0:dd/MM/yyyy hh:mm:ss}"
                                     AllowFiltering="true" HeaderText="Request Date/Time" UniqueName="CO_OrderDate"
                                     SortExpression="CO_OrderDate" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                     AutoPostBackOnFilter="true" HeaderStyle-Width="80px" FilterControlWidth="60px">
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn DataField="OrderNo" AllowFiltering="true" HeaderText="Order No."
+                                 <telerik:GridBoundColumn DataField="OrderNo" AllowFiltering="true" HeaderText="Order No."
                                     UniqueName="OrderNo" SortExpression="OrderNo" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                     AutoPostBackOnFilter="true" HeaderStyle-Width="75px" FilterControlWidth="50px">
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
@@ -358,6 +358,7 @@
                         </MasterTableView>
                         <ClientSettings>
                             <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+                           
                         </ClientSettings>
                     </telerik:RadGrid>
                 </div>
