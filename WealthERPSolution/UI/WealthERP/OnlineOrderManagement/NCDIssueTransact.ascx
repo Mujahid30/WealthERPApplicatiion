@@ -304,9 +304,9 @@
                                             UniqueName="AIM_MaxQty" DataFormatString="{0:N0}" Visible="false">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="AIM_FaceValue" HeaderStyle-Width="80px" HeaderText="Face Value"
+                                        <telerik:GridBoundColumn DataField="AIM_FaceValue" HeaderStyle-Width="80px" HeaderText="Minimum Application Amount"
                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                            UniqueName="FaceValue" Visible="false" DataFormatString="{0:N0}" >
+                                            UniqueName="FaceValue" Visible="true" DataFormatString="{0:N0}" >
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="AID_MinApplication" HeaderStyle-Width="110px"

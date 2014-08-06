@@ -434,6 +434,7 @@ namespace WealthERP.OnlineOrderManagement
             minQty = int.Parse(ViewState["minQty"].ToString());
             maxQty = int.Parse(ViewState["maxQty"].ToString());
             int MaxAppNo = Convert.ToInt32(gvCommMgmt.MasterTableView.DataKeyValues[0]["AIM_MaxApplNo"].ToString());
+            int FaceValue = Convert.ToInt32(gvCommMgmt.MasterTableView.DataKeyValues[0]["AIM_FaceValue"].ToString());
             DataTable dt = new DataTable();
             bool isValid = false;
             //Need to be collect from Session...
@@ -542,6 +543,13 @@ namespace WealthERP.OnlineOrderManagement
                 else if (Convert.ToDouble(lbltotAmt.Text) > Convert.ToDouble(lblAvailableLimits.Text))
                 {
                     ShowMessage("Order cannot be processed. Insufficient balance");
+                    //  tdsubmit.Visible = false;
+                    // lnlBack.Visible = true;
+
+                }
+                else if (FaceValue > sum)
+                {
+                    ShowMessage("Application amount is less than minimum application amount.");
                     //  tdsubmit.Visible = false;
                     // lnlBack.Visible = true;
 
