@@ -439,16 +439,17 @@ namespace WealthERP.OnlineOrderBackOffice
 
                                 int selectedRow = gvr.ItemIndex + 1;
                                 int systematicId = int.Parse(gvr.GetDataKeyValue("CMFSS_SystematicSetupId").ToString());
-                                //int accept = int.Parse(gvr.GetDataKeyValue("AcceptCount").ToString());
-                                //if (e.CommandName == "Select")
-                                //{
-                                //    Response.Redirect("ControlHost.aspx?pageid=OnlineAdviserCustomerTransactionBook&systematicId=" + systematicId + "", false);
-
-                                //}
                                 int AccountId = int.Parse(gvr.GetDataKeyValue("CMFA_AccountId").ToString());
                                 int schemeplanCode = int.Parse(gvr.GetDataKeyValue("PASP_SchemePlanCode").ToString());
                                 int IsSourceAA = int.Parse(gvr.GetDataKeyValue("CMFSS_IsSourceAA").ToString());
                                 int customerId = int.Parse(gvr.GetDataKeyValue("C_CustomerId").ToString());
+                                //int accept = int.Parse(gvr.GetDataKeyValue("AcceptCount").ToString());
+                                if (e.CommandName == "Select")
+                                {
+                                  //  Response.Redirect("ControlHost.aspx?pageid=OnlineAdviserCustomerTransactionBook&systematicId=" + systematicId + "", false);
+                                    Response.Redirect("ControlHost.aspx?pageid=OnlineAdviserCustomerSIPOrderBook&systematicId=" + systematicId + "&AccountId=" + AccountId + "&schemeplanCode=" + schemeplanCode + "&IsSourceAA=" + IsSourceAA + "&customerId=" + customerId + "", false);
+                                }
+                              
                                 // if (e.CommandName == "Accepted")
                                 //{
                                 //    Response.Redirect("ControlHost.aspx?pageid=OnlineAdviserCustomerTransctionBook&systematicId=" + systematicId + "&AccountId=" + AccountId + "&schemeplanCode=" + schemeplanCode + "&IsSourceAA=" + IsSourceAA + "&customerId=" + customerId + "", false);
@@ -482,7 +483,6 @@ namespace WealthERP.OnlineOrderBackOffice
                                     //else if (e.CommandName == "Executed")
                                     //{
                                     //    Response.Redirect("ControlHost.aspx?pageid=OnlineAdviserCustomerTransactionBook&systematicId=" + systematicId + "&OrderStatus=IP", false);
-
                                     //}  
                                 }
                             }
