@@ -79,6 +79,7 @@ namespace DaoOnlineOrderManagement
                     db.AddInParameter(GetSIPBookMISCmd, "@systematicId", DbType.Int32, 0);
                 db.AddInParameter(GetSIPBookMISCmd, "@Fromdate", DbType.DateTime, dtFrom);
                 db.AddInParameter(GetSIPBookMISCmd, "@ToDate", DbType.DateTime, dtTo);
+                GetSIPBookMISCmd.CommandTimeout = 60 * 60;
                 dsSIPBookMIS = db.ExecuteDataSet(GetSIPBookMISCmd);
 
             }
@@ -115,6 +116,7 @@ namespace DaoOnlineOrderManagement
                     db.AddInParameter(GetSIPSummaryBookMISCmd, "@AMC", DbType.Int32, 0);
                 db.AddInParameter(GetSIPSummaryBookMISCmd, "@Fromdate", DbType.DateTime, dtFrom);
                 db.AddInParameter(GetSIPSummaryBookMISCmd, "@ToDate", DbType.DateTime, dtTo);
+
                 dsSIPSummaryBookMIS = db.ExecuteDataSet(GetSIPSummaryBookMISCmd);
 
             }

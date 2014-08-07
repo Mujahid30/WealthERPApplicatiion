@@ -1207,6 +1207,11 @@ namespace BoOnlineOrderManagement
 
                 GetAcntingExtractFileName(ref filename, ref delimeter, ref format, strIssue, fileTypeId);
             }
+            else if (extractStepCode == "EODJV")
+            {
+                GetAcntingExtractFileName(ref filename, ref delimeter, ref format, strIssue, fileTypeId);
+            }
+
         }
 
         //GetAcntingExtractFileName
@@ -1241,6 +1246,18 @@ namespace BoOnlineOrderManagement
                 format = ".txt";
             }
             else if (fileTypeId == 35)
+            {
+                filename = "eIPO" + DD + MM + YYYY + '-' + strIssue;
+                delimeter = "|";
+                format = ".txt";
+            }
+            else if (fileTypeId == 36)
+            {
+                filename = "eNCD" + DD + MM + YYYY + '-' + strIssue;
+                delimeter = "|";
+                format = ".txt";
+            }
+            else if (fileTypeId == 37)
             {
                 filename = "eIPO" + DD + MM + YYYY + '-' + strIssue;
                 delimeter = "|";
