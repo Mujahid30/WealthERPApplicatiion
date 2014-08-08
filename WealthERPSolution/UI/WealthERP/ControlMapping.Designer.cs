@@ -1366,6 +1366,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OnlineOrderBackOffice//CustomerProfileAudit.ascx.
+        /// </summary>
+        internal static string CustomerProfileAudit {
+            get {
+                return ResourceManager.GetString("CustomerProfileAudit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Customer//CustomerProofsAdd.ascx.
         /// </summary>
         internal static string CustomerProofsAdd {
