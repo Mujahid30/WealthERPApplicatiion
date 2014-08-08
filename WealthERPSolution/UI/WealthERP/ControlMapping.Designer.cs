@@ -2320,6 +2320,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OnlineOrderManagement//MFOrderSwitchTransType.ascx.
+        /// </summary>
+        internal static string MFOrderSwitchTransType {
+            get {
+                return ResourceManager.GetString("MFOrderSwitchTransType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Reports//MFReports.ascx.
         /// </summary>
         internal static string MFReports {

@@ -1917,4 +1917,8 @@
     <value>OnlineOrderBackOffice//UploadRequestStatus.ascx</value>
     <comment>OnlineOrderBackOffice//UploadRequestStatus.ascx</comment>
   </data>
+  <data name="MFOrderSwitchTransType" xml:space="preserve">
+    <value>OnlineOrderManagement//MFOrderSwitchTransType.ascx</value>
+    <comment>OnlineOrderManagement//MFOrderSwitchTransType.ascx</comment>
+  </data>
 </root>
