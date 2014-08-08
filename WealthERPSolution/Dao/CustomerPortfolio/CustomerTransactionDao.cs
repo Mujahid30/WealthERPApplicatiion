@@ -4831,7 +4831,7 @@ namespace DaoCustomerPortfolio
         }
 
 
-        public List<MFTransactionVo> GetCustomerTransactionsBookSIP(int AdviserID,int customerId, int SystematicId, int IsSourceAA, int AccountId, int SchemePlanCode,int amount)
+        public List<MFTransactionVo> GetCustomerTransactionsBookSIP(int AdviserID, int customerId, int SystematicId, int IsSourceAA, int AccountId, int SchemePlanCode, int amount, DateTime SIPStartDate)
         {
             DataSet ds = null;
             Database db;
@@ -4860,10 +4860,11 @@ namespace DaoCustomerPortfolio
                 {
                     db.AddInParameter(getRMCustomerMFTransactionsCmd, "@CustomerId", DbType.Int32, DBNull.Value);
                 }
-                db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AccountId", DbType.Int32, @AccountId);
-                db.AddInParameter(getRMCustomerMFTransactionsCmd, "@SchemePlanCode", DbType.Int32, @SchemePlanCode);
+                db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AccountId", DbType.Int32, AccountId);
+                db.AddInParameter(getRMCustomerMFTransactionsCmd, "@SchemePlanCode", DbType.Int32, SchemePlanCode);
                 db.AddInParameter(getRMCustomerMFTransactionsCmd, "@IsSourceAA", DbType.Int32, IsSourceAA);
                 db.AddInParameter(getRMCustomerMFTransactionsCmd, "@amount", DbType.Int32, amount);
+                db.AddInParameter(getRMCustomerMFTransactionsCmd, "@SIPStartDate", DbType.DateTime, SIPStartDate);
 
                 //if (AmcCode != 0)
                 //{ db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AMC", DbType.Int32, AmcCode); }
@@ -4971,14 +4972,14 @@ namespace DaoCustomerPortfolio
                         mfTransactionVo.latestNav = float.Parse(dr["NAV"].ToString());
                         // mfTransactionVo.TrxnNo = (dr["CMFT_TransactionNumber"].ToString());
                         // if (mfTransactionVo.OrdDate != DateTime.MinValue) 
-                        if (dr["CO_OrderDate"].ToString() != null && dr["CO_OrderDate"].ToString() != string.Empty)
-                        {
-                            mfTransactionVo.OrdDate = DateTime.Parse(dr["CO_OrderDate"].ToString());
-                        }
-                        else
-                        {
-                            mfTransactionVo.OrdDate = DateTime.MinValue;
-                        }
+                        //if (dr["CO_OrderDate"].ToString() != null && dr["CO_OrderDate"].ToString() != string.Empty)
+                        //{
+                        //    mfTransactionVo.OrdDate = DateTime.Parse(dr["CO_OrderDate"].ToString());
+                        //}
+                        //else
+                        //{
+                        //    mfTransactionVo.OrdDate = DateTime.MinValue;
+                        //}
                         if (dr["CMFT_ELSSMaturityDate"].ToString() != null && dr["CMFT_ELSSMaturityDate"].ToString() != string.Empty)
                         {
                             mfTransactionVo.ELSSMaturityDate = DateTime.Parse(dr["CMFT_ELSSMaturityDate"].ToString());

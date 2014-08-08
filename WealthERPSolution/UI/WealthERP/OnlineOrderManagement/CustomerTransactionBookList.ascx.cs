@@ -43,6 +43,7 @@ namespace WealthERP.OnlineOrderManagement
         static double totalAmount = 0;
         static double totalUnits = 0;
         DataTable dtMFTransactions = new DataTable();
+        DateTime SIPStartDate;
         int amount = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -60,13 +61,14 @@ namespace WealthERP.OnlineOrderManagement
             // lbBack.Attributes.Add("onClick", "javascript:history.back(); return false;");
             if (!Page.IsPostBack)
             {
-                if (Request.QueryString["systematicId"] != null && Request.QueryString["AccountId"] != null && Request.QueryString["schemeplanCode"] != null && Request.QueryString["IsSourceAA"] != null && Request.QueryString["Amount"] != null)
+                if (Request.QueryString["systematicId"] != null && Request.QueryString["AccountId"] != null && Request.QueryString["schemeplanCode"] != null && Request.QueryString["IsSourceAA"] != null && Request.QueryString["Amount"] != null && Request.QueryString["SIPStartDate"] != null)
                 {
                     systematicId = int.Parse(Request.QueryString["systematicId"].ToString());
                     AccountId = int.Parse(Request.QueryString["AccountId"].ToString());
                     schemeplanCode = int.Parse(Request.QueryString["schemeplanCode"].ToString());
                     IsSourceAA = int.Parse(Request.QueryString["IsSourceAA"].ToString());
                     amount = int.Parse(Request.QueryString["Amount"].ToString());
+                    SIPStartDate = Convert.ToDateTime(Request.QueryString["SIPStartDate"].ToString());
                     BindGrid();
                     divConditional.Visible = false;
 
@@ -76,9 +78,15 @@ namespace WealthERP.OnlineOrderManagement
                     fromDate = DateTime.Now.AddMonths(-1);
                     txtFrom.SelectedDate = fromDate.Date;
                     txtTo.SelectedDate = DateTime.Now;
+                   // divConditional.Visible = false;
                 }
-
             }
+            else
+            {
+                fromDate = DateTime.Now.AddMonths(-1);
+                txtFrom.SelectedDate = fromDate.Date;
+            }
+            
         }
         private void BindCustomerTranscationGrid(int systematicId,int AccountId,int schemeplanCode)
         {
@@ -131,25 +139,26 @@ namespace WealthERP.OnlineOrderManagement
             }
             ddlAmc.Items.Insert(0, new ListItem("All", "0"));
         }
-        //protected void BindLink()
-        //{
-        //    if (Request.QueryString["folionum"] != null && Request.QueryString["SchemePlanCode"] != null && Request.QueryString["accountddl"] != null && Request.QueryString["AMCCode"] != null)
-        //    {
-        //        int accountId = int.Parse(Request.QueryString["folionum"].ToString());
-        //        int SchemePlanCode = int.Parse(Request.QueryString["SchemePlanCode"].ToString());
-        //        int accountddl = int.Parse(Request.QueryString["accountddl"].ToString());
-        //        int amc = int.Parse(Request.QueryString["AMCCode"].ToString());
-        //        AccountId = int.Parse(accountId.ToString());
-        //        BindLastTradeDate();
-        //        string fromdate = "01-01-1990";
-        //        txtFrom.SelectedDate = DateTime.Parse(fromdate);
-        //        ViewState["SchemePlanCode"] = SchemePlanCode;
-        //        hdnAmc.Value = "0";
-        //        hdnOrderStatus.Value = "0";
-        //        BindGrid();
-        //        lbBack.Visible = true;
-        //    }
-        //}
+        protected void BindLink()
+        {
+            if (Request.QueryString["folionum"] != null && Request.QueryString["SchemePlanCode"] != null && Request.QueryString["accountddl"] != null)
+            {
+                int accountId = int.Parse(Request.QueryString["folionum"].ToString());
+                int SchemePlanCode = int.Parse(Request.QueryString["SchemePlanCode"].ToString());
+                int accountddl = int.Parse(Request.QueryString["accountddl"].ToString());
+                AccountId = int.Parse(accountId.ToString());
+                BindLastTradeDate();
+                string fromdate = "01-01-1990";
+                txtFrom.SelectedDate = DateTime.Parse(fromdate);
+                ViewState["SchemePlanCode"] = SchemePlanCode;
+                hdnAmc.Value = "0";
+                hdnOrderStatus.Value = "0";
+                BindGrid();
+                lbBack.Visible = true;
+                divConditional.Visible = false;
+
+            }
+        }
         protected void lbBack_Click(object sender, EventArgs e)
         {
             if (Request.QueryString["folionum"] != null && Request.QueryString["SchemePlanCode"] != null && Request.QueryString["accountddl"] != null)
@@ -217,9 +226,9 @@ namespace WealthERP.OnlineOrderManagement
         }
         private void BindGrid()
         {
-            if (Request.QueryString["systematicId"] != null && Request.QueryString["AccountId"] != null && Request.QueryString["schemeplanCode"] != null && Request.QueryString["amount"] != null)
+            if (Request.QueryString["systematicId"] != null && Request.QueryString["AccountId"] != null && Request.QueryString["schemeplanCode"] != null && Request.QueryString["amount"] != null && Request.QueryString["SIPStartDate"] != null)
             {
-                mfTransactionList = customerTransactionBo.GetCustomerTransactionsBookSIP(advisorVo.advisorId, customerId,systematicId,IsSourceAA,AccountId,schemeplanCode,amount);
+                mfTransactionList = customerTransactionBo.GetCustomerTransactionsBookSIP(advisorVo.advisorId, customerId, systematicId, IsSourceAA, AccountId, schemeplanCode, amount, SIPStartDate);
             }
             else
             {
