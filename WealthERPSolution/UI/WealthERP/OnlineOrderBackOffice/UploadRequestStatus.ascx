@@ -201,7 +201,7 @@
     </table>
 </asp:Panel>
 <table>
-    <tr>
+    <tr id="trNote" runat="server">
         <td colspan="2">
             <div id="Div2" class="Note">
                 <p>

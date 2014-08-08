@@ -53,6 +53,7 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             pnlRequest.Visible = true;
             GetRequests();
+           
         }
         private void GetTypes()
         {
