@@ -1253,13 +1253,13 @@ namespace BoOnlineOrderManagement
             }
             else if (fileTypeId == 36)
             {
-                filename = "eNCD" + DD + MM + YYYY + '-' + strIssue;
+                filename = "eNCD" + DD + MM + YYYY + '-' + strIssue + '-' + "EOD";
                 delimeter = "|";
                 format = ".txt";
             }
             else if (fileTypeId == 37)
             {
-                filename = "eIPO" + DD + MM + YYYY + '-' + strIssue;
+                filename = "eIPO" + DD + MM + YYYY + '-' + strIssue + '-' + "EOD";
                 delimeter = "|";
                 format = ".txt";
             }
