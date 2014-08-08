@@ -52,6 +52,7 @@ namespace WealthERP.OnlineOrderManagement
             userVo = (UserVo)Session["userVo"];
             customerId = customerVO.CustomerId;
             BindOrderStatus();
+            BindLink();
             BindAmc();
             BindLink();
            // Session["PreviousPage"] = "yes";
@@ -130,24 +131,25 @@ namespace WealthERP.OnlineOrderManagement
             }
             ddlAmc.Items.Insert(0, new ListItem("All", "0"));
         }
-        protected void BindLink()
-        {
-            if (Request.QueryString["folionum"] != null && Request.QueryString["SchemePlanCode"] != null && Request.QueryString["accountddl"] != null)
-            {
-                int accountId = int.Parse(Request.QueryString["folionum"].ToString());
-                int SchemePlanCode = int.Parse(Request.QueryString["SchemePlanCode"].ToString());
-                int accountddl = int.Parse(Request.QueryString["accountddl"].ToString());
-                AccountId = int.Parse(accountId.ToString());
-                BindLastTradeDate();
-                string fromdate = "01-01-1990";
-                txtFrom.SelectedDate = DateTime.Parse(fromdate);
-                ViewState["SchemePlanCode"] = SchemePlanCode;
-                hdnAmc.Value = "0";
-                hdnOrderStatus.Value = "0";
-                BindGrid();
-                lbBack.Visible = true;
-            }
-        }
+        //protected void BindLink()
+        //{
+        //    if (Request.QueryString["folionum"] != null && Request.QueryString["SchemePlanCode"] != null && Request.QueryString["accountddl"] != null && Request.QueryString["AMCCode"] != null)
+        //    {
+        //        int accountId = int.Parse(Request.QueryString["folionum"].ToString());
+        //        int SchemePlanCode = int.Parse(Request.QueryString["SchemePlanCode"].ToString());
+        //        int accountddl = int.Parse(Request.QueryString["accountddl"].ToString());
+        //        int amc = int.Parse(Request.QueryString["AMCCode"].ToString());
+        //        AccountId = int.Parse(accountId.ToString());
+        //        BindLastTradeDate();
+        //        string fromdate = "01-01-1990";
+        //        txtFrom.SelectedDate = DateTime.Parse(fromdate);
+        //        ViewState["SchemePlanCode"] = SchemePlanCode;
+        //        hdnAmc.Value = "0";
+        //        hdnOrderStatus.Value = "0";
+        //        BindGrid();
+        //        lbBack.Visible = true;
+        //    }
+        //}
         protected void lbBack_Click(object sender, EventArgs e)
         {
             if (Request.QueryString["folionum"] != null && Request.QueryString["SchemePlanCode"] != null && Request.QueryString["accountddl"] != null)

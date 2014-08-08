@@ -44,23 +44,23 @@ namespace WealthERP.OnlineOrderManagement
             userVo = (UserVo)Session["userVo"];
             customerId = customerVO.CustomerId;
             BindFolioAccount();
-            //BindLink();
+            BindLink();
             if (!IsPostBack)
                 Cache.Remove("UnitHolding" + userVo.UserId);
         }
-        //protected void BindLink()
-        //{
-        //    if (Request.QueryString["folionum"] != null && Request.QueryString["SchemePlanCode"] != null && Request.QueryString["accountddl"] != null)
-        //    {
-        //        int accountId = int.Parse(Request.QueryString["folionum"].ToString());
-        //        int SchemePlanCode = int.Parse(Request.QueryString["SchemePlanCode"].ToString());
-        //        int accountddl = int.Parse(Request.QueryString["accountddl"].ToString());
-        //        hdnAccount.Value = accountddl.ToString();
-        //        BindUnitHolding();
-        //        ViewState["SchemePlanCode"] = SchemePlanCode;
-        //        ddlPortfolio.SelectedValue = accountddl.ToString();
-        //    }
-        //}
+        protected void BindLink()
+        {
+            if (Request.QueryString["folionum"] != null && Request.QueryString["SchemePlanCode"] != null && Request.QueryString["accountddl"] != null)
+            {
+                int accountId = int.Parse(Request.QueryString["folionum"].ToString());
+                int SchemePlanCode = int.Parse(Request.QueryString["SchemePlanCode"].ToString());
+                int accountddl = int.Parse(Request.QueryString["accountddl"].ToString());
+                hdnAccount.Value = accountddl.ToString();
+                BindUnitHolding();
+                ViewState["SchemePlanCode"] = SchemePlanCode;
+                ddlPortfolio.SelectedValue = accountddl.ToString();
+            }
+        }
 
 
         private void SetParameter()
