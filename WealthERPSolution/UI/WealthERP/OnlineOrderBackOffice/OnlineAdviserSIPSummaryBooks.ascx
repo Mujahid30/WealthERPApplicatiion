@@ -373,7 +373,7 @@
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="CMFSS_CancelDate" AllowFiltering="false" HeaderText="Canceled On"
                                 HeaderStyle-Width="80px"  UniqueName="CMFSS_CancelDate" SortExpression="CMFSS_CancelDate"
-                                ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:dd/MM/yyyy}" AutoPostBackOnFilter="true">
+                                ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="CMFSS_IsCanceled" AllowFiltering="false" HeaderText="Status"
