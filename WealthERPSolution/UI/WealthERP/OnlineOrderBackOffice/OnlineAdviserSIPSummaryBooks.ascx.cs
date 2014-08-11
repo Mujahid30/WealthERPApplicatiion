@@ -34,6 +34,8 @@ namespace WealthERP.OnlineOrderBackOffice
         int customerId = 0;
         DateTime fromDate;
         DateTime toDate;
+        int searchType = 0;
+        int statusType = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
@@ -51,6 +53,30 @@ namespace WealthERP.OnlineOrderBackOffice
                 fromDate = DateTime.Now;
                 txtFrom.SelectedDate = fromDate.Date;
                 txtTo.SelectedDate = DateTime.Now;
+                tdStatusType.Visible = false;
+                
+
+            }
+        }
+        protected void ddlSearchtype_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlSearchtype.SelectedValue == "5")
+            {
+                tdStatusType.Visible = true;
+                ddlStatus.Visible = true;
+                tdlblFromDate.Visible = false;
+                tdTxtFromDate.Visible = false;
+                tdlblToDate.Visible = false;
+                tdTxtToDate.Visible = false;
+            }
+            else
+            {
+                tdStatusType.Visible = false;
+                ddlStatus.Visible = false;
+                tdlblFromDate.Visible = true;
+                tdTxtFromDate.Visible = true;
+                tdlblToDate.Visible = true;
+                tdTxtToDate.Visible = true;
             }
         }
 
@@ -106,11 +132,14 @@ namespace WealthERP.OnlineOrderBackOffice
             //}
             //ddlOrderstatus.Items.Insert(0, new ListItem("All", "0"));
         }
+       
 
         protected void btnViewOrder_Click(object sender, EventArgs e)
         {
+
             SetParameter();
             BindSIPSummaryBook();
+           
         }
 
         /// <summary>
@@ -139,11 +168,17 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             DataSet dsSIPBookMIS = new DataSet();
             DataTable dtSIPBookMIS = new DataTable();
+           
+            searchType = Convert.ToInt32(ddlSearchtype.SelectedValue.ToString());
+            if (searchType == 5)
+            {
+                statusType = Convert.ToInt32(ddlStatus.SelectedValue.ToString());
+            }
             if (txtFrom.SelectedDate != null)
                 fromDate = DateTime.Parse(txtFrom.SelectedDate.ToString());
             if (txtTo.SelectedDate != null)
                 toDate = DateTime.Parse(txtTo.SelectedDate.ToString());
-            dsSIPBookMIS = OnlineOrderMISBo.GetSIPSummaryBookMIS(advisorVo.advisorId, int.Parse(hdnAmc.Value), fromDate, toDate);
+            dsSIPBookMIS = OnlineOrderMISBo.GetSIPSummaryBookMIS(advisorVo.advisorId, int.Parse(hdnAmc.Value), fromDate, toDate, searchType, statusType);
             dtSIPBookMIS = dsSIPBookMIS.Tables[0];
             dtSIPBookMIS = createSIPOrderBook(dsSIPBookMIS);
             if (dtSIPBookMIS.Rows.Count > 0)
@@ -504,6 +539,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 //sr
                 //Int32 accept = Convert.ToInt32(gvSIPSummaryBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AcceptCount"].ToString());
                 OnlineMFOrderBo.UpdateCnacleRegisterSIP(systematicId, 1, strRemark, userVo.UserId);
+                SetParameter();
                 BindSIPSummaryBook();
                 buttonEdit.Enabled = false;
 

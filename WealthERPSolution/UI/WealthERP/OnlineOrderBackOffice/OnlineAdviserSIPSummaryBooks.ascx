@@ -27,16 +27,44 @@
 <div id="divConditional" runat="server" style="padding-top: 4px">
     <table class="TableBackground" cellpadding="2">
         <tr>
-            <td id="tdlblRejectReason" runat="server">
+            <td id="tdlblRejectReason" class="leftField" runat="server">
                 <asp:Label runat="server" class="FieldName" Text="AMC:" ID="lblAccount"></asp:Label>
-                <asp:DropDownList CssClass="cmbField" ID="ddlAMCCode" runat="server" AutoPostBack="false">
+            </td>
+            <td>
+                <asp:DropDownList CssClass="cmbField" ID="ddlAMCCode" Width="100%" runat="server"
+                    AutoPostBack="false">
                     <%--<asp:ListItem Text="All" Value="0"></asp:ListItem>--%>
                 </asp:DropDownList>
             </td>
-            <td id="tdlblFromDate" runat="server" align="right">
+            <td id="tdSearchtype" runat="server" class="rightField">
+                <asp:Label runat="server" class="FieldName" Text="Search Type:" ID="Label2"></asp:Label>
+                <asp:DropDownList CssClass="cmbField" ID="ddlSearchtype" runat="server" OnSelectedIndexChanged="ddlSearchtype_SelectedIndexChanged"
+                    AutoPostBack="true">
+                    <asp:ListItem Text="Next SIP Date" Value="1"></asp:ListItem>
+                    <asp:ListItem Text="SIP Start Date" Value="2"></asp:ListItem>
+                    <asp:ListItem Text="SIP End Date" Value="3"></asp:ListItem>
+                    <asp:ListItem Text="SIP Request Date" Value="4"></asp:ListItem>
+                    <asp:ListItem Text="Status" Value="5"></asp:ListItem>
+                </asp:DropDownList>
+            </td>
+            <td id="tdStatusType" runat="server" class="leftField">
+                <asp:Label runat="server" class="FieldName" Text="Status Type:" ID="Label3"></asp:Label>
+                <asp:DropDownList CssClass="cmbField" ID="ddlStatus" runat="server" AutoPostBack="true">
+                    <asp:ListItem Text="Cancelled" Value="1"></asp:ListItem>
+                    <asp:ListItem Text="Active" Value="2"></asp:ListItem>
+                    <asp:ListItem Text="Matured" Value="3"></asp:ListItem>
+                </asp:DropDownList>
+            </td>
+        </tr>
+    </table>
+</div>
+<div id="div2" runat="server" style="padding-top: 4px">
+    <table class="TableBackground" cellpadding="3">
+        <tr>
+            <td id="tdlblFromDate" runat="server" class="leftField">
                 <asp:Label class="FieldName" ID="lblFromTran" Text="From :" runat="server" />
             </td>
-            <td id="tdTxtFromDate" runat="server">
+            <td id="tdTxtFromDate" runat="server" class="leftField">
                 <telerik:RadDatePicker ID="txtFrom" CssClass="txtField" runat="server" Culture="English (United States)"
                     Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
                     <Calendar ID="Calendar1" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
@@ -85,6 +113,8 @@
                     ControlToCompare="txtFrom" CssClass="cvPCG" ValidationGroup="btnViewSIP" Display="Dynamic">
                 </asp:CompareValidator>
             </td>
+        </tr>
+        <tr>
             <td id="tdBtnOrder" runat="server">
                 <asp:Button ID="btnViewSIP" runat="server" CssClass="PCGButton" Text="Go" ValidationGroup="btnViewSIP"
                     OnClick="btnViewOrder_Click" />
@@ -151,7 +181,7 @@
                                 UniqueName="C_FirstName" FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                             <telerik:GridBoundColumn DataField="CustCode" HeaderText="Client Id" AllowFiltering="true"
+                            <telerik:GridBoundColumn DataField="CustCode" HeaderText="Client Id" AllowFiltering="true"
                                 HeaderStyle-Wrap="false" SortExpression="CustCode" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                 AutoPostBackOnFilter="true" HeaderStyle-Width="100px" UniqueName="CustCode" FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
@@ -348,7 +378,7 @@
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="CMFSS_CreatedOn" AllowFiltering="false" HeaderText="Created On"
                                 UniqueName="CMFSS_CreatedOn" SortExpression="CMFSS_CreatedOn" ShowFilterIcon="false"
-                                HeaderStyle-Width="80px"  CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
+                                HeaderStyle-Width="80px" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="CMFSS_CreatedBy" AllowFiltering="false" HeaderText="Created By"
@@ -372,9 +402,9 @@
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="CMFSS_CancelDate" AllowFiltering="false" HeaderText="Canceled On"
-                                HeaderStyle-Width="80px"  UniqueName="CMFSS_CancelDate" SortExpression="CMFSS_CancelDate"
+                                HeaderStyle-Width="80px" UniqueName="CMFSS_CancelDate" SortExpression="CMFSS_CancelDate"
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
-                                <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="CMFSS_IsCanceled" AllowFiltering="false" HeaderText="Status"
                                 HeaderStyle-Width="80px" UniqueName="CMFSS_IsCanceled" SortExpression="CMFSS_IsCanceled"
