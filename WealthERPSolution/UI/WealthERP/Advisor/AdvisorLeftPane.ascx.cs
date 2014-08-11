@@ -560,6 +560,10 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('IFAAdminMainDashboard','login');", true);
                 }
+                else if (e.Item.Value == "RTA_Unit_Recon")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerProfileAudit','login');", true);
+                }
                 else if (e.Item.Value == "Setup Associate Category")
                 {
                     Session["UserType"] = "adviser";
@@ -1077,7 +1081,7 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "AddAssociates")
                 {
                     Session["UserType"] = "adviser";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AddAssociates", "loadcontrol('AddAssociates','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AddAssociates", "loadcontrol('AddAssociatesDetails','login');", true);
                 }
                 else if (e.Item.Value == "ViewAssociates")
                 {
