@@ -425,7 +425,7 @@ namespace WealthERP.Uploads
                 string newFileName = SaveFileIntoServer(FileUpload, uploadFilePath);
                 newFileName = uploadFilePath + newFileName;
                 //   packagePath = Server.MapPath("\\UploadPackages\\Integration Services Project1\\Integration Services Project1\\Package9.dtsx");
-                werpTaskRequestManagementBo.CreateTaskRequest(4, userVo.UserId, out ReqId, newFileName, adviserVo.advisorId, Convert.ToInt32(ddlRM.SelectedValue), Convert.ToInt32(ddlListBranch.SelectedValue), ddlListCompany.SelectedValue);
+                werpTaskRequestManagementBo.CreateTaskRequest(4, userVo.UserId, out ReqId, newFileName, adviserVo.advisorId, 0, 0, ddlListCompany.SelectedValue);
                 if (ReqId > 0)
                 {
                     msgUploadComplete.InnerText = "Request Id-" + ReqId.ToString() + "-Generated SuccessFully";
@@ -4573,23 +4573,26 @@ namespace WealthERP.Uploads
             //SkiprowsVisible.Visible = true;
             upload.Visible = false;
             datevisible.Visible = false;
-            if (ddlUploadType.SelectedValue == "CM" || ddlUploadType.SelectedValue == "P" || ddlUploadType.SelectedValue == "PMFF")
+            if (ddlUploadType.SelectedValue == "P" || ddlUploadType.SelectedValue == "PMFF")
             {
-                
-                trRM.Visible = true;
-                ddlRM.Enabled = false;
-                ddlRM.SelectedValue = "4682";
                 trListBranch.Visible = true;
-                ddlListBranch.Enabled = false;
-                ddlListBranch.SelectedValue = "1339";
-                
+            }
+            else
+            {
+                trListBranch.Visible = false;
+            }
+            if ( ddlUploadType.SelectedValue == "P")
+            {
+                //trListBranch.Visible = true;
+                trRM.Visible = true;
+
             }
             else
             {
                 trRM.Visible = false;
-                trListBranch.Visible = false;
             }
-           
+
+
             //MF FOLIO UPLOADS DROPDOWN POPULATE -VISHAL 
             if (ddlUploadType.SelectedValue == Contants.ExtractTypeMFFolio)
             {   // MF FOLIO  Only
@@ -4601,7 +4604,7 @@ namespace WealthERP.Uploads
 
 
             }
-            if (ddlUploadType.SelectedValue == Contants.ExtractTypeProfile || ddlUploadType.SelectedValue == Contants.ExtractTypeModification)
+            if (ddlUploadType.SelectedValue == Contants.ExtractTypeProfile)
             {   // Profile Only
 
                 //fill External Type dropdownbox
@@ -4801,18 +4804,18 @@ namespace WealthERP.Uploads
                 ddlListCompany.Items.Clear();
                 //ddlListExtensionType.Items.Clear();
             }
-            //if (ddlUploadType.SelectedValue == Contants.ExtractTypeModification)
-            //{   // Profile Only
+            if (ddlUploadType.SelectedValue == Contants.ExtractTypeModification)
+            {   // Profile Only
 
-            //    //fill External Type dropdownbox
-            //    ddlListCompany.DataSource = GetMFFolioGenericDictionary();
-            //    ddlListCompany.DataTextField = "Key";
-            //    ddlListCompany.DataValueField = "Value";
-            //    ddlListCompany.DataBind();
-            //    ddlListCompany.Items.Insert(0, new ListItem("Select Source Type", "Select Source Type"));
+                //fill External Type dropdownbox
+                ddlListCompany.DataSource = GetMFFolioGenericDictionary();
+                ddlListCompany.DataTextField = "Key";
+                ddlListCompany.DataValueField = "Value";
+                ddlListCompany.DataBind();
+                ddlListCompany.Items.Insert(0, new ListItem("Select Source Type", "Select Source Type"));
 
 
-            //}
+            }
         }
 
         /*  Code For Downloading standerd file formats */
