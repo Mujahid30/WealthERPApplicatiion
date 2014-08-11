@@ -6114,5 +6114,48 @@ namespace DaoCustomerProfiling
             }
             return count;
         }
+        public DataSet GetCustomerProfileAuditDetails(int customerId, DateTime fromModificationDate, DateTime toModificationDate, int advisorId, string TypeofAudit)
+        {
+            Database db;
+            DbCommand cmdCustomerProfileAudit;
+            DataSet dsCustomerProfileAudit;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //To retreive data from the table 
+                cmdCustomerProfileAudit = db.GetStoredProcCommand("SPROC_ONL_GetCustomerProfileAuditDetails");
+                db.AddInParameter(cmdCustomerProfileAudit, "@CustomerId", DbType.Int32, customerId);
+                db.AddInParameter(cmdCustomerProfileAudit, "@FromModificationDate", DbType.DateTime, fromModificationDate);
+                db.AddInParameter(cmdCustomerProfileAudit, "@ToModificationDate", DbType.DateTime, toModificationDate);
+                db.AddInParameter(cmdCustomerProfileAudit, "@TypeofAudit", DbType.String, TypeofAudit);
+                db.AddInParameter(cmdCustomerProfileAudit, "@AdvisorId", DbType.Int32, advisorId);
+                dsCustomerProfileAudit = db.ExecuteDataSet(cmdCustomerProfileAudit);
+
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerDao.cs:GetCustomerProfileAuditDetails()");
+                object[] objects = new object[3];
+                objects[0] = customerId;
+                objects[1] = fromModificationDate;
+                objects[2] = advisorId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dsCustomerProfileAudit;
+
+        }
     }
 }
