@@ -6079,5 +6079,40 @@ namespace DaoCustomerProfiling
             return dtGetCustCode;
         }
 
+        public int CheckStaffCode(string prefixText)
+        {
+            Database db;
+            DataSet dsCheckStaffCode;
+            DbCommand cmdCheckStaffCode;
+            int count = 0;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //To retreive data from the table 
+                cmdCheckStaffCode = db.GetStoredProcCommand("SPROC_CheckDuplicateStaffcode");
+                db.AddInParameter(cmdCheckStaffCode, "@StaffCode", DbType.String, prefixText);
+                db.AddOutParameter(cmdCheckStaffCode, "@StaffCodeDupliate", DbType.Int32, 1000);
+                dsCheckStaffCode = db.ExecuteDataSet(cmdCheckStaffCode);
+
+                if (db.ExecuteScalar(cmdCheckStaffCode) != null)
+                    count = Convert.ToInt32(db.ExecuteScalar(cmdCheckStaffCode).ToString());
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AssociateDAO.cs:CodeduplicateChack()");
+                object[] objects = new object[2];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return count;
+        }
     }
 }

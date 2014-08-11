@@ -311,7 +311,7 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(createRMCmd, "@U_UserType", DbType.String, userVo.UserType);
                 db.AddInParameter(createRMCmd, "@U_Theme", DbType.String, theme);
 
-                // db.AddInParameter(createRMCmd, "@U_LoginId", DbType.String, userVo.LoginId);
+                db.AddInParameter(createRMCmd, "@U_LoginId", DbType.String, userVo.LoginId);
                 db.AddInParameter(createRMCmd, "@A_AdviserId", DbType.Int32, rmVo.AdviserId);
                 db.AddInParameter(createRMCmd, "@AR_FirstName", DbType.String, rmVo.FirstName);
                 db.AddInParameter(createRMCmd, "@AR_MiddleName", DbType.String, rmVo.MiddleName);

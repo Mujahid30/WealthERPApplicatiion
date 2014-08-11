@@ -25,6 +25,7 @@ using CrystalDecisions.CrystalReports.Engine;
 using System.Collections.Specialized;
 using Telerik.Web.UI;
 using System.Web.UI.HtmlControls;
+using BoCustomerProfiling;
 
 
 namespace WealthERP.Advisor
@@ -48,7 +49,8 @@ namespace WealthERP.Advisor
         AdvisorStaffBo advisorStaffBo = new AdvisorStaffBo();
         AdvisorBranchBo advisorBranchBo = new AdvisorBranchBo();
         //AdviserPreferenceBo BoAdviserPreference = new AdviserPreferenceBo();
-       
+
+        CustomerBo customerbo = new CustomerBo();
         UserBo userBo = new UserBo();
         String userType;
         string agentCode = string.Empty;
@@ -191,7 +193,7 @@ namespace WealthERP.Advisor
             //rmUserVo.UserType = ddlRMRole.SelectedItem.Text.ToString().Trim();
             rmUserVo.Password = password;
             rmUserVo.MiddleName = txtMiddleName.Text.ToString();
-            rmUserVo.LoginId = txtEmail.Text.ToString();
+            rmUserVo.LoginId = txtStaffcode.Text.ToString();
             rmUserVo.LastName = txtLastName.Text.ToString();
             rmUserVo.FirstName = txtFirstName.Text.ToString();
             rmUserVo.Email = txtEmail.Text.ToString();
@@ -584,7 +586,15 @@ namespace WealthERP.Advisor
             String RoleIds=GetDepartmentRoleIds();
             RoleIds = RoleIds.Remove(RoleIds.Length - 1);
             string theme = userVo.theme;
-           
+            if (txtStaffcode.Text != string.Empty)
+            {
+                int staffCodeDuplicatechec = customerbo.CheckStaffCode(txtStaffcode.Text);
+                if (staffCodeDuplicatechec > 0)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please Enter Unique Staffcode Code. You Can Use Combination of 0-9 and a-z');", true);
+                    return;
+                }
+            }
             if (ValidateStaffReportingManager())
             {
                 rmStaffVo = CollectAdviserStaffData();

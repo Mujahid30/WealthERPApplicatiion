@@ -3358,6 +3358,13 @@ namespace BoCustomerProfiling
             }
             return dtGetCustCode;
         }
+        public int CheckStaffCode(string prefixText)
+        {
+            int count;
+            CustomerDao customerDao = new CustomerDao();
+            count = customerDao.CheckStaffCode(prefixText);
+            return count;
 
+        }
     }
 }

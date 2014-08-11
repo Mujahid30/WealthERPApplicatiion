@@ -1,7 +1,12 @@
-<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AddAdviserStaff.ascx.cs" Inherits="WealthERP.Advisor.AddAdviserStaff" %>
+<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AddAdviserStaff.ascx.cs"
+    Inherits="WealthERP.Advisor.AddAdviserStaff" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <%@ Register TagPrefix="demo" Namespace="DanLudwig.Controls.Web" Assembly="DanLudwig.Controls.AspAjax.ListBox" %>
-
+<asp:ScriptManager runat="server" ID="scriptManager">
+    <Services>
+        <asp:ServiceReference Path="~/CustomerPortfolio/AutoComplete.asmx" />
+    </Services>
+</asp:ScriptManager>
 <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" />
 
 <script src="../Scripts/jquery.js" type="text/javascript"></script>
@@ -20,8 +25,20 @@
 
 <script src="../Scripts/jQuery.bubbletip-1.0.6.js" type="text/javascript"></script>
 
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js"></script>
+
 <script type="text/javascript" src="../Scripts/JScript.js"></script>
+
+<%--<script runat="server">
+    public void txtStaffcode_OnTextChanged(object sender, EventArgs e)
+          {
+              Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "CallWebMethod()", true);
+          
+          }
+</script>--%>
+
 <script type="text/javascript">
+ 
     function checkInsuranceNoAvailability() {
         if ($("#<%=txtAgentCode.ClientID %>").val() == "") {
             $("#spnLoginStatus").html("");
@@ -57,17 +74,18 @@
         });
     }
 </script>
+
 <script language="javascript" type="text/javascript">
     function validateCheckBoxList() {
         var isAnyCheckBoxChecked = false;
 
         // ::: Step-1 & 2 ::: Let's get all the CheckBoxes inside the CheckBoxList.
-       // var checkBoxes = document.getElementById("chkbldepart").getElementsByTagName("input");
+        // var checkBoxes = document.getElementById("chkbldepart").getElementsByTagName("input");
 
         // ::: NOTE ::: For jsfiddle demo I have directly used the ID. 
         // Otherwise you might have to use ClientID like below...
 
-       var checkBoxes= document.getElementById("<%= chkbldepart.ClientID %>").getElementsByTagName("input");
+        var checkBoxes = document.getElementById("<%= chkbldepart.ClientID %>").getElementsByTagName("input");
 
         // ::: Step-3 ::: Now let's Loop through the Children.
         for (var i = 0; i < checkBoxes.length; i++) {
@@ -76,7 +94,7 @@
                     // ::: Step-4 ::: If current CheckBox is checked, then show alert.
                     // Break the Loop.
                     isAnyCheckBoxChecked = true;
-                    
+
                     break;
                 }
             }
@@ -91,6 +109,7 @@
         return isAnyCheckBoxChecked;
     }
 </script>
+
 <script type="text/javascript">
     function ValidateColorList(source, args) {
         var chkListModules = document.getElementById('<%=chkbldepart.ClientID %>');
@@ -104,7 +123,8 @@
         args.IsValid = false;
     }
 
-   </script>
+</script>
+
 <style type="text/css">
     .table
     {
@@ -127,24 +147,18 @@
         cursor: hand;
     }
 </style>
-
 <style type="text/css">
-        .rlbItem
-        {
-            float:left !important;
-           
-        }
-        .rlbGroup, .RadListBox 
-        {
-            width:auto !important;
-             
-            
-        }
-       
-       
-       
-    </style>
-<script language="javascript" type="text/javascript" >
+    .rlbItem
+    {
+        float: left !important;
+    }
+    .rlbGroup, .RadListBox
+    {
+        width: auto !important;
+    }
+</style>
+
+<script language="javascript" type="text/javascript">
     function ValidateCheckBoxList() {
 
         var listItems = document.getElementById("chkbldepart").getElementsByTagName("input");
@@ -165,7 +179,8 @@
         }
         return false;
     }
-   </script>
+</script>
+
 <script language="JavaScript" type="text/jscript">
     function ValidatereportingManager(source, arguments) {
         arguments.IsValid = false;
@@ -193,9 +208,10 @@
         return false;
     }
 </script>
-<asp:ScriptManager ID="ScriptManager1" runat="server">
-</asp:ScriptManager>
- <%--<telerik:RadSkinManager ID="QsfSkinManager" runat="server" ShowChooser="true" />--%>
+
+<%--<asp:ScriptManager ID="ScriptManager1" runat="server">
+</asp:ScriptManager>--%>
+<%--<telerik:RadSkinManager ID="QsfSkinManager" runat="server" ShowChooser="true" />--%>
 <table width="100%">
     <tr>
         <td colspan="6">
@@ -249,7 +265,8 @@
             <asp:TextBox ID="txtFirstName" runat="server" CssClass="txtField"></asp:TextBox>
             <span id="Span1" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="rfvName" ControlToValidate="txtFirstName" ErrorMessage="<br />Please Enter the Name"
-                Display="Dynamic" runat="server" CssClass="rfvPCG" ValidationGroup="btnSubmit">
+                Display="Dynamic" runat="server" CssClass="rfvPCG" ValidationGroup="btnSubmit"
+                InitialValue="">
             </asp:RequiredFieldValidator>
         </td>
         <td class="leftField">
@@ -330,36 +347,38 @@
         </td>
     </tr>
     <tr>
-    <td class="leftLabel"> 
-    <asp:Label ID="lblDept" runat="server" Text="Department Name:" CssClass="FieldName"></asp:Label>
-    </td>
-    <td  class="rightData">
-    <asp:DropDownList ID="ddlDepart" runat="server" CssClass="cmbField" AutoPostBack="true" OnSelectedIndexChanged="ddlDepart_SelectedIndexChanged"></asp:DropDownList>
-    <span id="Span11" class="spnRequiredField">*</span>
+        <td class="leftLabel">
+            <asp:Label ID="lblDept" runat="server" Text="Department Name:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td class="rightData">
+            <asp:DropDownList ID="ddlDepart" runat="server" CssClass="cmbField" AutoPostBack="true"
+                OnSelectedIndexChanged="ddlDepart_SelectedIndexChanged">
+            </asp:DropDownList>
+            <span id="Span11" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator9" runat="server" ErrorMessage="Please Select Department"
                 CssClass="rfvPCG" ControlToValidate="ddlDepart" ValidationGroup="btnSubmit" InitialValue="0"
                 Display="Dynamic">
             </asp:RequiredFieldValidator>
-    </td>
+        </td>
     </tr>
     <tr>
-    
-    <td class="leftLabel">
-   <asp:Label ID="Label1" runat="server" Text=" Department Roles :" CssClass="FieldName"></asp:Label></td>
-    <td class="rightData" colspan="5">
-    <asp:Panel ID="PnlDepartRole" runat="server" ScrollBars="Horizontal" Width="800px" Visible="false">
-    <telerik:RadListBox ID="chkbldepart" runat="server" CheckBoxes="true" AutoPostBack="true">
-      </telerik:RadListBox>
-      <span id="Span12" class="spnRequiredField">*</span>
-      <%--<asp:CheckBoxList ID="chkbldepart" runat="server" RepeatDirection="Horizontal" Width="100px" CssClass="cmbField" ></asp:CheckBoxList>--%>
-   <%-- <asp:CustomValidator ID="Cvdchkbldepart" runat="server" ControlToValidate="chkbldepart" CssClass="rfvPCG" 
+        <td class="leftLabel">
+            <asp:Label ID="Label1" runat="server" Text=" Department Roles :" CssClass="FieldName"></asp:Label>
+        </td>
+        <td class="rightData" colspan="5">
+            <asp:Panel ID="PnlDepartRole" runat="server" ScrollBars="Horizontal" Width="800px"
+                Visible="false">
+                <telerik:RadListBox ID="chkbldepart" runat="server" CheckBoxes="true" AutoPostBack="true">
+                </telerik:RadListBox>
+                <span id="Span12" class="spnRequiredField">*</span>
+                <%--<asp:CheckBoxList ID="chkbldepart" runat="server" RepeatDirection="Horizontal" Width="100px" CssClass="cmbField" ></asp:CheckBoxList>--%>
+                <%-- <asp:CustomValidator ID="Cvdchkbldepart" runat="server" ControlToValidate="chkbldepart" CssClass="rfvPCG" 
     ClientValidationFunction="ValidateColorList" EnableClientScript="true"
     ErrorMessage="Please Selected One of the Role"></asp:CustomValidator>--%>
-    <%--<asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator8" ErrorMessage="Select a role!" ControlToValidate="chkbldepart" 
+                <%--<asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator8" ErrorMessage="Select a role!" ControlToValidate="chkbldepart" 
      ValidationGroup="btnSubmit" Display="Dynamic" CssClass="rfvPCG" />--%>
-</asp:Panel>
-    </td>
-     
+            </asp:Panel>
+        </td>
     </tr>
     <tr id="tr2" runat="server" visible="true">
         <td colspan="6" style="vertical-align: text-bottom; padding-top: 6px; padding-bottom: 6px">
@@ -376,10 +395,6 @@
             <asp:TextBox ID="txtStaffcode" runat="server" CssClass="txtField"></asp:TextBox>
             <span id="Span10" class="spnRequiredField">*</span>
             <br />
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator7" ControlToValidate="txtStaffcode"
-                ErrorMessage="Please enter a StaffCode" Display="Dynamic" runat="server" ValidationGroup="btnSubmit"
-                CssClass="rfvPCG">
-            </asp:RequiredFieldValidator>
         </td>
         <td class="leftField">
             <asp:Label ID="lblAgentCodeL" runat="server" CssClass="FieldName" Text="Agent Code:"></asp:Label>
@@ -390,9 +405,9 @@
             <asp:TextBox ID="txtAgentCode" onblur="return checkInsuranceNoAvailability()" runat="server"
                 CssClass="txtField">
             </asp:TextBox>
-           
-           <%--<asp:Label ID="lblrg" runat="server" Text="*" class="spnRequiredField"></asp:Label>--%>
-            <span  runat="server" id="Span9" class="spnRequiredField"><asp:Label ID="lblrg" runat="server" Text="*"></asp:Label></span>
+            <%--<asp:Label ID="lblrg" runat="server" Text="*" class="spnRequiredField"></asp:Label>--%>
+            <span runat="server" id="Span9" class="spnRequiredField">
+                <asp:Label ID="lblrg" runat="server" Text="*"></asp:Label></span>
             <br />
             <asp:RequiredFieldValidator ID="RequiredFieldValidator6" ControlToValidate="txtAgentCode"
                 ErrorMessage="Please enter a AgentCode" Display="Dynamic" runat="server" ValidationGroup="btnSubmit"
@@ -558,25 +573,25 @@
             <%--  <asp:Label ID="lblEmailDuplicate" runat="server" CssClass="Error" Text="Email Id already exists"></asp:Label>--%>
         </td>
     </tr>
-    <tr id="tr4" runat="server" visible="true">
+    <tr id="tr4" runat="server" visible="false">
         <td colspan="6" style="vertical-align: text-bottom; padding-top: 6px; padding-bottom: 6px">
             <div class="divSectionHeading" style="vertical-align: text-bottom">
                 Staff to Branch Association
             </div>
         </td>
     </tr>
-    <tr>
+    <tr visible="false">
         <td colspan="6">
             <div class="clearfix" style="margin-bottom: 1em;">
-               <asp:Panel ID="PLCustomer" runat="server" Style="float: left;
-                    padding-left: 150px;">
+                <asp:Panel ID="PLCustomer" runat="server" Style="float: left; padding-left: 150px;"
+                    Visible="false">
                     <asp:Label ID="lblSelectBranch" runat="server" CssClass="FieldName" Text="   ">
                     </asp:Label>
                     <telerik:RadListBox SelectionMode="Multiple" EnableDragAndDrop="true" AccessKey="y"
                         AllowTransferOnDoubleClick="true" AllowTransferDuplicates="false" OnTransferred="ListBoxSource_Transferred"
-                        EnableViewState="true" EnableMarkMatches="true" runat="server" ID="LBStaffBranch" 
-                        Height="200px" Width="250px"  AllowTransfer="true"
-                        TransferToID="RadListBoxDestination" CssClass="cmbFielde">
+                        EnableViewState="true" EnableMarkMatches="true" runat="server" ID="LBStaffBranch"
+                        Height="200px" Width="250px" AllowTransfer="true" TransferToID="RadListBoxDestination"
+                        CssClass="cmbFielde">
                     </telerik:RadListBox>
                     <telerik:RadListBox runat="server" AutoPostBackOnTransfer="true" SelectionMode="Multiple"
                         ID="RadListBoxDestination" Height="200px" Width="220px" CssClass="cmbField">
@@ -591,7 +606,8 @@
         <td colspan="5" class="SubmitCell">
             <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="PCGButton" ValidationGroup="btnSubmit"
                 onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_AddRM_btnNext', 'S');"
-                onmouseout="javascript:ChangeButtonCss('out', 'ctrl_AddRM_btnNext', 'S');" OnClick="btnSubmit_Click"  OnClientClick="javascript:validateCheckBoxList();" />
+                onmouseout="javascript:ChangeButtonCss('out', 'ctrl_AddRM_btnNext', 'S');" OnClick="btnSubmit_Click"
+                OnClientClick="javascript:validateCheckBoxList();" />
             <asp:Button ID="btnUpdate" runat="server" Text="Update" CssClass="PCGButton" ValidationGroup="btnSubmit"
                 onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_AddRM_btnNext', 'S');"
                 onmouseout="javascript:ChangeButtonCss('out', 'ctrl_AddRM_btnNext', 'S');" OnClick="btnUpdate_Click" />
@@ -604,4 +620,3 @@
     <asp:HiddenField ID="HdnAdviserId" runat="server" />
     <asp:HiddenField ID="hidValidCheck" runat="server" EnableViewState="true" />
 </div>
-
