@@ -93,5 +93,37 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblModificationDate;
+        protected global::Telerik.Web.UI.RadDatePicker rdpFromModificationDate;
+        protected global::Telerik.Web.UI.RadDatePicker rdpToDate;
+        /// <summary>
+        /// rfvDOwnloadDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        /// 
+        protected global::System.Web.UI.WebControls.HiddenField hdnCustomerId;
+        /// <summary>
+        /// rfvDOwnloadDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTable tblProfileData;
+        protected global::System.Web.UI.HtmlControls.HtmlTable tblProfileHeading;
+        protected global::System.Web.UI.HtmlControls.HtmlTable tblCustomerBankHeading;
+        protected global::System.Web.UI.HtmlControls.HtmlTable tblCustomerDematHeading;
+        protected global::System.Web.UI.HtmlControls.HtmlTable tblCustomerDemat;
+        protected global::System.Web.UI.HtmlControls.HtmlTable tblCustomerDematAssociates;
+        protected global::System.Web.UI.HtmlControls.HtmlTable tblCustomerDematAssociatesHeading;
+        protected global::System.Web.UI.HtmlControls.HtmlTable tblCustomerBank;
+        protected global::Telerik.Web.UI.RadGrid rdCustomerProfile;
+        protected global::Telerik.Web.UI.RadGrid rdCustomerBank;
+        protected global::Telerik.Web.UI.RadGrid rdCustomerDemat;
+        protected global::Telerik.Web.UI.RadGrid rdCustomerDematAssociates;
+        protected global::System.Web.UI.WebControls.DropDownList ddlAuditType;
+
     }
 }

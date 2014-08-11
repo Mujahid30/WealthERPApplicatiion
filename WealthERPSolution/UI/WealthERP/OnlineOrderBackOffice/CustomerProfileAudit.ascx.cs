@@ -29,35 +29,15 @@ using System.Text.RegularExpressions;
 
 namespace WealthERP.OnlineOrderBackOffice
 {
-    public partial class CustomerProfileAudit : System.Web.UI.UserControl{
+    public partial class CustomerProfileAudit : System.Web.UI.UserControl
+    {
         RMVo rmVo = new RMVo();
-        CustomerVo customerVo = new CustomerVo();
         CustomerBo customerBo = new CustomerBo();
-        AdvisorStaffBo advisorStaffBo = new AdvisorStaffBo();
-        int CustomerId;
         UserVo userVo = new UserVo();
         AdvisorVo adviserVo = new AdvisorVo();
-        AdvisorBo advisorBo = new AdvisorBo();
-        static string user = "";
-        string UserRole;
-        static Dictionary<string, string> genDictParent;
-        static Dictionary<string, string> genDictRM;
-        static Dictionary<string, string> genDictReassignRM;
-        int RowCount = 0;
-        SuperAdminOpsBo superAdminOpsBo = new SuperAdminOpsBo();
-        CustomerPortfolioVo customerPortfolioVo = new CustomerPortfolioVo();
-        PortfolioBo portfolioBo = new PortfolioBo();
         AssociatesVO associatesVo = new AssociatesVO();
-        int rmId;
-        int branchHeadId;
         AdvisorPreferenceVo advisorPrefernceVo = new AdvisorPreferenceVo();
-        string customer = "";
-        int ParentId;
-        int adviserId;
-        int AgentId;
-        string AgentCode;
-        AssociatesUserHeirarchyVo assocUsrHeirVo;
-    
+
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
@@ -70,16 +50,102 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 txtCustomerName_autoCompleteExtender.ContextKey = adviserVo.advisorId.ToString();
                 txtCustomerName_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
-                
 
+
+            }
+            else if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
+            {
+                txtCustomerName_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                txtCustomerName_autoCompleteExtender.ServiceMethod = "GetBMIndividualCustomerNames";
+
+            }
+            else if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
+            {
+                txtCustomerName_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                txtCustomerName_autoCompleteExtender.ServiceMethod = "GetMemberCustomerName";
             }
 
         }
         protected void hdnCustomerId_ValueChanged(object sender, EventArgs e)
         {
 
-            
 
+
+        }
+        protected void btnSubmit_Click(object sender, EventArgs e)
+        {
+            GetCustomerProfileAduditDetails();
+
+        }
+        protected void GetCustomerProfileAduditDetails()
+        {
+            tblProfileHeading.Visible = false;
+            tblProfileData.Visible = false;
+            tblCustomerBank.Visible = false;
+            tblCustomerBankHeading.Visible = false;
+            tblCustomerDemat.Visible = false;
+            tblCustomerDematHeading.Visible = false;
+            tblCustomerDematAssociates.Visible = false;
+            tblCustomerDematAssociatesHeading.Visible = false;
+            DataSet dsGetCustomerProfileAuditData = new DataSet();
+            dsGetCustomerProfileAuditData = customerBo.GetCustomerProfileAuditDetails((!string.IsNullOrEmpty(hdnCustomerId.Value)) ? int.Parse(hdnCustomerId.Value) : 0, rdpFromModificationDate.SelectedDate.Value, rdpToDate.SelectedDate.Value, adviserVo.advisorId, ddlAuditType.SelectedValue);
+            switch (ddlAuditType.SelectedValue.ToString())
+            {
+                case "CP": rdCustomerProfile.DataSource = dsGetCustomerProfileAuditData.Tables[0];
+                    rdCustomerProfile.DataBind();
+                    tblProfileHeading.Visible = true;
+                    tblProfileData.Visible = true;
+                    if (Cache["CustomerProfile" + adviserVo.advisorId] != null) Cache.Remove("CustomerProfile" + adviserVo.advisorId);
+                    if (dsGetCustomerProfileAuditData.Tables[0].Rows.Count >= 0) Cache.Insert("CustomerProfile" + adviserVo.advisorId, dsGetCustomerProfileAuditData.Tables[0]);
+                    break;
+                case "CB": rdCustomerBank.DataSource = dsGetCustomerProfileAuditData.Tables[0];
+                    rdCustomerBank.DataBind();
+                    tblCustomerBank.Visible = true;
+                    tblCustomerBankHeading.Visible = true;
+                    if (Cache["CustomerBank" + adviserVo.advisorId] != null) Cache.Remove("CustomerBank" + adviserVo.advisorId);
+                    if (dsGetCustomerProfileAuditData.Tables[0].Rows.Count >= 0) Cache.Insert("CustomerBank" + adviserVo.advisorId, dsGetCustomerProfileAuditData.Tables[0]);
+                    break;
+                case "CD": rdCustomerDemat.DataSource = dsGetCustomerProfileAuditData.Tables[0];
+                    rdCustomerDemat.DataBind();
+                    tblCustomerDemat.Visible = true;
+                    tblCustomerDematHeading.Visible = true;
+                    if (Cache["CustomerDemat" + adviserVo.advisorId] != null) Cache.Remove("CustomerDemat" + adviserVo.advisorId);
+                    if (dsGetCustomerProfileAuditData.Tables[0].Rows.Count >= 0) Cache.Insert("CustomerDemat" + adviserVo.advisorId, dsGetCustomerProfileAuditData.Tables[0]);
+                    break;
+                case "CDA": rdCustomerDematAssociates.DataSource = dsGetCustomerProfileAuditData.Tables[0];
+                    rdCustomerDematAssociates.DataBind();
+                    tblCustomerDematAssociates.Visible = true;
+                    tblCustomerDematAssociatesHeading.Visible = true;
+                    if (Cache["CustomerDematAssociate" + adviserVo.advisorId] != null) Cache.Remove("CustomerDematAssociate" + adviserVo.advisorId);
+                    if (dsGetCustomerProfileAuditData.Tables[0].Rows.Count >=0) Cache.Insert("CustomerDematAssociate" + adviserVo.advisorId, dsGetCustomerProfileAuditData.Tables[0]);
+                    break;
+            }
+
+
+        }
+        protected void rdCustomerProfile_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        {
+            DataTable dtCustomerProfile = (DataTable)Cache["CustomerProfile" + adviserVo.advisorId];
+
+            if (dtCustomerProfile != null) rdCustomerProfile.DataSource = dtCustomerProfile;
+        }
+        protected void rdCustomerBank_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        {
+            DataTable dtCustomerBank = (DataTable)Cache["CustomerBank" + adviserVo.advisorId];
+
+            if (dtCustomerBank != null) rdCustomerBank.DataSource = dtCustomerBank;
+        }
+        protected void rdCustomerDemat_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        {
+            DataTable dtCustomerDemat = (DataTable)Cache["CustomerDemat" + adviserVo.advisorId];
+
+            if (dtCustomerDemat != null) rdCustomerDemat.DataSource = dtCustomerDemat;
+        }
+        protected void rdCustomerDematAssociates_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        {
+            DataTable dtCustomerDematAssociates = (DataTable)Cache["CustomerDematAssociate" + adviserVo.advisorId];
+
+            if (dtCustomerDematAssociates != null) rdCustomerDematAssociates.DataSource = dtCustomerDematAssociates;
         }
     }
 }
