@@ -1925,4 +1925,8 @@
     <value>OnlineOrderBackOffice//CustomerProfileAudit.ascx</value>
     <comment>OnlineOrderBackOffice//CustomerProfileAudit.ascx</comment>
   </data>
+  <data name="MFHoldingRecon" xml:space="preserve">
+    <value>OnlineOrderBackOffice//MFHoldingRecon.ascx</value>
+    <comment>OnlineOrderBackOffice//MFHoldingRecon.ascx</comment>
+  </data>
 </root>

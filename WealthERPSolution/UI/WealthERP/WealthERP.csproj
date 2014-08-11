@@ -2723,6 +2723,13 @@
     <Compile Include="OnlineOrderBackOffice\MFAccountValuation.ascx.designer.cs">
       <DependentUpon>MFAccountValuation.ascx</DependentUpon>
     </Compile>
+    <Compile Include="OnlineOrderBackOffice\MFHoldingRecon.ascx.cs">
+      <DependentUpon>MFHoldingRecon.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OnlineOrderBackOffice\MFHoldingRecon.ascx.designer.cs">
+      <DependentUpon>MFHoldingRecon.ascx</DependentUpon>
+    </Compile>
     <Compile Include="OnlineOrderBackOffice\OnlineAdviserCustomerIPOHoldings.ascx.cs">
       <DependentUpon>OnlineAdviserCustomerIPOHoldings.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -7904,6 +7911,7 @@
     <Content Include="OnlineOrderBackOffice\HoldingIssueAllotment.ascx" />
     <Content Include="OnlineOrderBackOffice\ManageLookups.ascx" />
     <Content Include="OnlineOrderBackOffice\MFAccountValuation.ascx" />
+    <Content Include="OnlineOrderBackOffice\MFHoldingRecon.ascx" />
     <Content Include="OnlineOrderBackOffice\OnlineAdviserCustomerIPOHoldings.ascx" />
     <Content Include="OnlineOrderBackOffice\OnlineAdviserCustomerIPOOrderBook.ascx" />
     <Content Include="OnlineOrderBackOffice\OnlineAdviserCustomerNCDHoldings.ascx" />
