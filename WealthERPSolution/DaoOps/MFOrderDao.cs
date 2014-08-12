@@ -625,10 +625,12 @@ namespace DaoOps
                 db.AddInParameter(MFOrderAutoMatchCmd, "@trxType", DbType.String, TransType);
                 db.AddInParameter(MFOrderAutoMatchCmd, "@customerId", DbType.Int32, CustomerId);
                 db.AddInParameter(MFOrderAutoMatchCmd, "@amount", DbType.Double, Amount);
+                if(OrderDate !=DateTime.MinValue)
                 db.AddInParameter(MFOrderAutoMatchCmd, "@orderDate", DbType.DateTime, OrderDate);
+                 
                 db.AddOutParameter(MFOrderAutoMatchCmd, "@IsSuccess", DbType.Int16, 0);
-                if (db.ExecuteNonQuery(MFOrderAutoMatchCmd) != 0)
-                    affectedRecords = int.Parse(db.GetParameterValue(MFOrderAutoMatchCmd, "@IsSuccess").ToString());
+             //sai   //if (db.ExecuteNonQuery(MFOrderAutoMatchCmd) != 0)
+                //    affectedRecords = int.Parse(db.GetParameterValue(MFOrderAutoMatchCmd, "@IsSuccess").ToString());
             }
             catch (BaseApplicationException Ex)
             {

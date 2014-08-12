@@ -47,7 +47,7 @@ namespace WealthERP.Advisor
         String userType;
         string agentCode = string.Empty;
         int agentId = 0;
-       
+
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
@@ -72,6 +72,7 @@ namespace WealthERP.Advisor
                     action = Request.QueryString["action"].ToString();
                 }
                 BindTeamDropList();
+                BinddepartDropList(advisorVo.advisorId);
                 BindBranchDropList(userType);
                 BindStaffBranchDrop(userType);
                 if (!string.IsNullOrEmpty(hidRMid.Value.ToString()) && !string.IsNullOrEmpty(action))
@@ -192,6 +193,27 @@ namespace WealthERP.Advisor
             return rmUserVo;
 
         }
+
+        protected void ddlDepart_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            PnlDepartRole.Visible = false;
+            if (ddlDepart.SelectedValue.ToString() != "0")
+            {
+                BindAdviserrole(int.Parse(ddlDepart.SelectedValue));
+                PnlDepartRole.Visible = true;
+            }
+        }
+
+        private void BindAdviserrole(int departmentId)
+        {
+            DataTable dtBindAdvisor = new DataTable();
+            dtBindAdvisor = advisorStaffBo.GetUserRoleDepartmentWise(departmentId, advisorVo.advisorId);
+            chkbldepart.DataSource = dtBindAdvisor;
+            chkbldepart.DataTextField = dtBindAdvisor.Columns["AR_Role"].ToString();
+            chkbldepart.DataValueField = dtBindAdvisor.Columns["AR_RoleId"].ToString();
+            chkbldepart.DataBind();
+        }
+
         private bool Validation(string agentCode)
         {
             bool result = true;
@@ -281,7 +303,7 @@ namespace WealthERP.Advisor
         private void BindTeamDropList()
         {
             DataTable dtAdviserTeamList = new DataTable();
-            dtAdviserTeamList = advisorStaffBo.GetAdviserTeamList();
+            dtAdviserTeamList = advisorStaffBo.GetAdviserTeamList(0);
             ddlTeamList.DataSource = dtAdviserTeamList;
             ddlTeamList.DataValueField = dtAdviserTeamList.Columns["WHLM_Id"].ToString();
             ddlTeamList.DataTextField = dtAdviserTeamList.Columns["WHLM_Name"].ToString();
@@ -339,7 +361,7 @@ namespace WealthERP.Advisor
                 ddlChannel.DataValueField = dsAdviserTitleChannelRole.Tables[0].Columns["AH_ChannelId"].ToString();
                 ddlChannel.DataTextField = dsAdviserTitleChannelRole.Tables[0].Columns["AH_ChannelName"].ToString();
                 ddlChannel.DataBind();
-                ddlChannel.Enabled = false;
+                // ddlChannel.Enabled = false;
             }
             else
             {
@@ -397,7 +419,7 @@ namespace WealthERP.Advisor
                     RequiredFieldValidator6.Enabled = true;
                 }
 
-                
+
             }
 
         }
@@ -408,9 +430,9 @@ namespace WealthERP.Advisor
 
             if (ddlTeamList.SelectedIndex != -1)
             {
-                
+
                 BindTeamTitleDropList(Convert.ToInt32(ddlTeamList.SelectedValue));
-                
+
             }
 
         }
@@ -529,16 +551,40 @@ namespace WealthERP.Advisor
             ControlInitialState();
         }
 
+        private void BinddepartDropList(int adviserId)
+        {
+            CommonLookupBo commonLookup = new CommonLookupBo();
+            DataSet dsDepartmentlist = new DataSet();
+            dsDepartmentlist = commonLookup.GetDepartment(adviserId);
+            ddlDepart.DataSource = dsDepartmentlist.Tables[0];
+            ddlDepart.DataTextField = dsDepartmentlist.Tables[0].Columns["AD_DepartmentName"].ToString();
+            ddlDepart.DataValueField = dsDepartmentlist.Tables[0].Columns["AD_DepartmentId"].ToString();
+            ddlDepart.DataBind();
+            ddlDepart.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
+
+        }
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
+            String RoleIds = GetDepartmentRoleIds();
+            RoleIds = RoleIds.Remove(RoleIds.Length - 1);
+            string theme = userVo.theme;
             if (ValidateStaffReportingManager())
             {
                 rmStaffVo = CollectAdviserStaffData();
                 rmUserVo = CollectAdviserStaffUserData();
                 if (Validation(txtAgentCode.Text) && EmailValidation(txtEmail.Text))
                 {
-                    rmIds = advisorStaffBo.CreateCompleteRM(rmUserVo, rmStaffVo, userVo.UserId, ddlTitleList.SelectedItem.Text.Trim().ToUpper()=="OPS"?true:false, false);
-                    hidRMid.Value = rmIds[1].ToString();
+                    if ( ddlDepart.SelectedItem.Text  =="OPS")
+                    {
+                        rmStaffVo.IsExternal = 0;
+                        hidRMid.Value = Convert.ToString(advisorStaffBo.CreateAdviserStaff(rmUserVo, rmStaffVo, userVo.UserId, ddlTitleList.SelectedItem.Text.Trim().ToUpper() == "OPS" ? true : false, false, RoleIds, theme));
+                    }
+                    else if (ddlDepart.SelectedItem.Text == "SALES")
+                    {
+                        rmStaffVo.IsExternal = 1;
+                        rmIds = advisorStaffBo.CreateCompleteRM(rmUserVo, rmStaffVo, userVo.UserId, ddlTitleList.SelectedItem.Text.Trim().ToUpper() == "OPS" ? true : false, false, RoleIds);
+                        hidRMid.Value = rmIds[1].ToString();
+                    }
                     ControlViewEditMode(true);
                     divMsgSuccess.InnerText = " Staff Added Sucessfully";
                     trSuccessMsg.Visible = true;
@@ -548,6 +594,16 @@ namespace WealthERP.Advisor
 
         }
 
+        public string GetDepartmentRoleIds()
+        {
+            string departmentRoleids = string.Empty;
+            foreach (RadListBoxItem li in chkbldepart.Items)
+            {
+                if (li.Checked == true)
+                    departmentRoleids += li.Value + ",";
+            }
+            return departmentRoleids;
+        }
         protected bool ValidateStaffReportingManager()
         {
             DataTable dtTeamList = new DataTable();

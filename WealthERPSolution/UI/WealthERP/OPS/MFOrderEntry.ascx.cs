@@ -78,7 +78,7 @@ namespace WealthERP.OPS
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+
             SessionBo.CheckSession();
 
             associatesVo = (AssociatesVO)Session["associatesVo"];
@@ -87,7 +87,37 @@ namespace WealthERP.OPS
 
 
             GetUserType();
+            if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
+            {
+                txtCustomerName_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                txtCustomerName_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
+                AutoCompleteExtender1.ContextKey = advisorVo.advisorId.ToString();
+                AutoCompleteExtender1.ServiceMethod = "GetAdviserCustomerPan";
+                AutoCompleteExtender2.ContextKey = advisorVo.advisorId.ToString();
+                AutoCompleteExtender2.ServiceMethod = "GetAgentCodeAssociateDetails";
 
+            }
+            else if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
+            {
+                txtCustomerName_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                txtCustomerName_autoCompleteExtender.ServiceMethod = "GetBMIndividualCustomerNames";
+
+            }
+            else if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
+            {
+                txtCustomerName_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                txtCustomerName_autoCompleteExtender.ServiceMethod = "GetMemberCustomerName";
+            }
+            else if (Session[SessionContents.CurrentUserRole].ToString() == "Associates")
+            {
+                txtCustomerName_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                txtCustomerName_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
+                AutoCompleteExtender1.ContextKey = advisorVo.advisorId.ToString();
+                AutoCompleteExtender1.ServiceMethod = "GetAdviserCustomerPan";
+                AutoCompleteExtender2.ContextKey = associateuserheirarchyVo.AgentCode;
+                AutoCompleteExtender2.ServiceMethod = "GetAgentCodeAssociateDetailsForAssociates";
+
+            }
             //if (Session["mforderVo"] != null && Session["orderVo"] != null)
             //{
             //    mforderVo = (MFOrderVo)Session["mforderVo"];
@@ -129,37 +159,7 @@ namespace WealthERP.OPS
                 }
 
 
-                if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
-                {
-                    txtCustomerName_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
-                    txtCustomerName_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
-                    AutoCompleteExtender1.ContextKey = advisorVo.advisorId.ToString();
-                    AutoCompleteExtender1.ServiceMethod = "GetAdviserCustomerPan";
-                    AutoCompleteExtender2.ContextKey = advisorVo.advisorId.ToString();
-                    AutoCompleteExtender2.ServiceMethod = "GetAgentCodeAssociateDetails";
-
-                }
-                else if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
-                {
-                    txtCustomerName_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
-                    txtCustomerName_autoCompleteExtender.ServiceMethod = "GetBMIndividualCustomerNames";
-
-                }
-                else if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
-                {
-                    txtCustomerName_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
-                    txtCustomerName_autoCompleteExtender.ServiceMethod = "GetMemberCustomerName";
-                }
-                else if (Session[SessionContents.CurrentUserRole].ToString() == "Associates")
-                {
-                    txtCustomerName_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
-                    txtCustomerName_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
-                    AutoCompleteExtender1.ContextKey = advisorVo.advisorId.ToString();
-                    AutoCompleteExtender1.ServiceMethod = "GetAdviserCustomerPan";
-                    AutoCompleteExtender2.ContextKey = associateuserheirarchyVo.AgentCode;
-                    AutoCompleteExtender2.ServiceMethod = "GetAgentCodeAssociateDetailsForAssociates";
-
-                }
+             
                 if (Request.QueryString["CustomerId"] != null)
                 {
                     customerId = Convert.ToInt32(Request.QueryString["CustomerId"]);
@@ -289,7 +289,7 @@ namespace WealthERP.OPS
                 ControlsEnblity("New");
                 ShowPaymentSectionBasedOnTransactionType("", "");
                 ButtonsEnablement("New");
-               
+
             }
         }
 
@@ -363,7 +363,7 @@ namespace WealthERP.OPS
                     lblGetBranch.Text = dr["AB_BranchName"].ToString();
                     lblgetPan.Text = dr["C_PANNum"].ToString();
 
-                    
+
 
                     if (!string.IsNullOrEmpty(dr["PA_AMCCode"].ToString().Trim()))
                         ddlAMCList.SelectedValue = dr["PA_AMCCode"].ToString();
@@ -378,8 +378,8 @@ namespace WealthERP.OPS
 
 
                     lblGetOrderNo.Text = orderId.ToString();
-                     txtSchemeCode.Value=dr["PASP_SchemePlanCode"].ToString();
- 
+                    txtSchemeCode.Value = dr["PASP_SchemePlanCode"].ToString();
+
 
                     if (int.Parse(dr["CMFA_accountid"].ToString()) != 0)
                         hidFolioNumber.Value = dr["CMFA_accountid"].ToString();
@@ -389,7 +389,7 @@ namespace WealthERP.OPS
                     ddltransType.SelectedValue = dr["WMTT_TransactionClassificationCode"].ToString();
                     txtOrderDate.SelectedDate = DateTime.Parse(dr["CO_OrderDate"].ToString());
 
-                   
+
 
                     txtApplicationNumber.Text = dr["CO_ApplicationNumber"].ToString();
 
@@ -414,7 +414,7 @@ namespace WealthERP.OPS
                     else
                         txtPaymentInstDate.SelectedDate = txtLivingSince.MinDate;// DateTime.MinValue;
 
-                   
+
 
                     if (!string.IsNullOrEmpty(dr["CMFOD_FutureTriggerCondition"].ToString()))
                         txtFutureTrigger.Text = dr["CMFOD_FutureTriggerCondition"].ToString();
@@ -424,18 +424,18 @@ namespace WealthERP.OPS
                         txtFutureDate.SelectedDate = DateTime.Parse(dr["CMFOD_FutureExecutionDate"].ToString());
                     else
                         txtFutureDate.SelectedDate = txtLivingSince.MinDate;//DateTime.MinValue;
-                   
+
 
                     if (!string.IsNullOrEmpty(dr["CB_CustBankAccId"].ToString()))
                         ddlBankName.SelectedValue = dr["CB_CustBankAccId"].ToString();
                     else
                         orderVo.CustBankAccId = 0;
-                   
+
                     if (!string.IsNullOrEmpty(dr["CMFOD_BranchName"].ToString()))
                         txtBranchName.Text = dr["CMFOD_BranchName"].ToString();
                     else
                         txtBranchName.Text = "";
-                   
+
                     if (!string.IsNullOrEmpty(dr["CMFOD_PinCode"].ToString()))
                         txtCorrAdrPinCode.Text = dr["CMFOD_PinCode"].ToString();
                     else
@@ -462,7 +462,7 @@ namespace WealthERP.OPS
                         txtendDateSIP.SelectedDate = DateTime.Parse(dr["CMFOD_EndDate"].ToString());
                     else
                         txtendDateSIP.SelectedDate = txtendDateSIP.MinDate; // DateTime.MinValue;
-                    
+
                     txtAmount.Text = dr["CMFOD_Amount"].ToString();
                     if (!string.IsNullOrEmpty(dr["CMFOD_Units"].ToString()))
                     {
@@ -483,7 +483,7 @@ namespace WealthERP.OPS
                     txtPeriod.Text = dr["CMFSS_Tenure"].ToString();
                     txtSystematicdates.Text = dr["CMFSS_SystematicDate"].ToString();
                     ddlPeriodSelection.SelectedValue = dr["CMFSS_TenureCycle"].ToString();
-                     
+
                 }
             }
         }
@@ -580,7 +580,7 @@ namespace WealthERP.OPS
                 btnSubmit.Visible = true;
                 trOrderNo.Visible = false;
                 ClearAllFields();
-                
+
             }
         }
 
@@ -2387,9 +2387,9 @@ namespace WealthERP.OPS
 
                 // pnl_BUY_ABY_SIP_PaymentSection.Enabled = enablement;
                 pnl_BUY_ABY_SIP_PaymentSection.Visible = true;
-                if(transType == "BUY")
-                Tr1.Visible = false;
-                
+                if (transType == "BUY")
+                    Tr1.Visible = false;
+
             }
             else if (transType == "Sel")
             {
@@ -2956,7 +2956,7 @@ namespace WealthERP.OPS
         {
             ShowPaymentSectionBasedOnTransactionType(ddltransType.SelectedValue, "");
             PaymentMode(ddlPaymentMode.SelectedValue);
-            
+
             //lblAMC.Visible = true; ddlAMCList.Visible = true;
             //lblCategory.Visible = true; ddlCategory.Visible = true;
             //lblSearchScheme.Visible = true; ddlAmcSchemeList.Visible = true;
@@ -3103,7 +3103,7 @@ namespace WealthERP.OPS
             //{
             //    trGetAmount.Visible = true;
             //}
-           
+
             // Sipvisblity(hdnType.Value, "");
 
         }
@@ -3210,6 +3210,20 @@ namespace WealthERP.OPS
             DataTable dt = (DataTable)Session["OrderDetails"];
             if (e.Item is GridDataItem)
             {
+                if (hidFolioNumber.Value == "")
+                    hidFolioNumber.Value = "0";
+                if (lblGetOrderNo.Text == "")
+                    lblGetOrderNo.Text = "0";
+                if (txtSchemeCode.Value == "")
+                    txtSchemeCode.Value = "0";
+                if (txtCustomerId.Value == "")
+                    txtCustomerId.Value = "0";
+                if (txtCustomerId.Value == "")
+                    txtCustomerId.Value = "0";
+                if (hidAmt.Value == "")
+                    hidAmt.Value = "0";
+
+
                 GridDataItem dataItem = e.Item as GridDataItem;
 
                 TemplateColumn tm = new TemplateColumn();
@@ -3234,11 +3248,11 @@ namespace WealthERP.OPS
                     if (lblStatusCode.Text == "OMIP")
                     {
                         editButton.Text = "Mark as Pending";
-                      //  hidAmt
+                        //  hidAmt
 
-                      //  result = mfOrderBo.MFOrderAutoMatch(orderVo.OrderId, mforderVo.SchemePlanCode, mforderVo.accountid, mforderVo.TransactionCode, orderVo.CustomerId, mforderVo.Amount, orderVo.OrderDate);
+                        //  result = mfOrderBo.MFOrderAutoMatch(orderVo.OrderId, mforderVo.SchemePlanCode, mforderVo.accountid, mforderVo.TransactionCode, orderVo.CustomerId, mforderVo.Amount, orderVo.OrderDate);
                         result = mfOrderBo.MFOrderAutoMatch(Convert.ToInt32(lblGetOrderNo.Text), Convert.ToInt32(txtSchemeCode.Value), Convert.ToInt32(hidFolioNumber.Value), ddltransType.SelectedValue, Convert.ToInt32(txtCustomerId.Value), Convert.ToDouble(hidAmt.Value), Convert.ToDateTime(txtOrderDate.SelectedDate));
-                       
+
                         if (result == true)
                         {
                             editButton.Text = "";
@@ -3471,11 +3485,7 @@ namespace WealthERP.OPS
                 }
                 else
                 {
-
-
                     Sflag = 0;
-
-
                 }
                 BindSchemeSwitch();
             }
@@ -3596,7 +3606,7 @@ namespace WealthERP.OPS
             //Session["CO_OrderId"] = orderId;
             //orderVo.OrderId = orderId;
             //rgvOrderSteps.Enabled = true;
-            BindOrderStepsGrid(orderId);
+            BindOrderStepsGrid(Convert.ToInt32(lblGetOrderNo.Text));
             // Sipvisblity(hdnType.Value, "View");
             ButtonsEnablement("Submitted");
             ControlsEnblity("View");
@@ -3697,10 +3707,10 @@ namespace WealthERP.OPS
             else
                 hidAmt.Value = txtNewAmount.Text;
 
-                if (ddlPaymentMode.SelectedIndex != 0)
-                    orderVo.PaymentMode = ddlPaymentMode.SelectedValue;
-                else
-                    orderVo.PaymentMode = "ES";
+            if (ddlPaymentMode.SelectedIndex != 0)
+                orderVo.PaymentMode = ddlPaymentMode.SelectedValue;
+            else
+                orderVo.PaymentMode = "ES";
 
             if (!string.IsNullOrEmpty(txtPaymentNumber.Text.ToString().Trim()))
                 orderVo.ChequeNumber = txtPaymentNumber.Text;
@@ -3873,14 +3883,18 @@ namespace WealthERP.OPS
         {
         }
 
-        protected void txtPeriod_TextChanged(object sender, EventArgs e)
+        //protected void txtNSECode_OnTextChanged(object sender, EventArgs e)
+        //{
+           
+        //}
+        protected void txtPeriod_OnTextChanged(object sender, EventArgs e)
         {
 
-            if (txtPeriod.Text == "0" || txtstartDateSIP.SelectedDate  ==null || ddlFrequencySIP.SelectedIndex == 0) return;
+            if (txtPeriod.Text == "0" || txtstartDateSIP.SelectedDate == null || ddlFrequencySIP.SelectedIndex == 0) return;
             OnlineMFOrderBo boOnlineOrder = new OnlineMFOrderBo();
-            DateTime dtEndDate = boOnlineOrder.GetSipEndDate(Convert.ToDateTime(txtstartDateSIP.SelectedDate), ddlFrequencySIP.SelectedValue, Convert.ToInt32(txtPeriod.Text) );
-            txtendDateSIP.SelectedDate   = dtEndDate;//.ToString("dd-MMM-yyyy");
-         
+            DateTime dtEndDate = boOnlineOrder.GetSipEndDate(Convert.ToDateTime(txtstartDateSIP.SelectedDate), ddlFrequencySIP.SelectedValue, Convert.ToInt32(txtPeriod.Text));
+            txtendDateSIP.SelectedDate = dtEndDate;//.ToString("dd-MMM-yyyy");
+
         }
         private DateTime CalcEndDate(int period, DateTime startDate)
         {

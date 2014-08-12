@@ -30,7 +30,9 @@ namespace WealthERP.Advisor {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblTitle;
-        
+        protected global::System.Web.UI.WebControls.DropDownList ddlDepart;
+        protected global::System.Web.UI.WebControls.Panel PnlDepartRole;
+        protected global::Telerik.Web.UI.RadListBox chkbldepart;
         /// <summary>
         /// lnkEditStaff control.
         /// </summary>

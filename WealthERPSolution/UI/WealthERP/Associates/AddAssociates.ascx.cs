@@ -701,10 +701,10 @@ namespace WealthERP.Associates
             //    result = false;
             //    lblPanDuplicate.Visible = true;
             //}
-            if (hidValidCheck.Value != "0")
-            {
+            //if (hidValidCheck.Value != "0")
+            //{
                 result = true;
-            }
+            //}
             
             return result;
         }

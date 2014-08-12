@@ -250,13 +250,13 @@ namespace BoAdvisorProfiling
         /// <param name="rmVo"></param>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public List<int> CreateCompleteRM(UserVo userVo, RMVo rmVo, int userId, bool isOpsIsChecked, bool isPurelyResearchLogin)
+        public List<int> CreateCompleteRM(UserVo userVo, RMVo rmVo, int userId, bool isOpsIsChecked, bool isPurelyResearchLogin, string roleIds)
         {
             List<int> rmIds = new List<int>();
             AdvisorStaffDao advisorStaffDao = new AdvisorStaffDao();
             try
             {
-                rmIds = advisorStaffDao.CreateCompleteRM(userVo, rmVo, userId, isOpsIsChecked, isPurelyResearchLogin);
+                rmIds = advisorStaffDao.CreateCompleteRM(userVo, rmVo, userId, isOpsIsChecked, isPurelyResearchLogin, roleIds);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1473,13 +1473,13 @@ namespace BoAdvisorProfiling
             return dsPlanOpsStaffAddStatus;
         }
 
-        public DataTable GetAdviserTeamList()
+        public DataTable GetAdviserTeamList(int flag)
         {
             AdvisorStaffDao advisorStaffDao = new AdvisorStaffDao();
             DataTable dtAdviserTeamList;
             try
             {
-                dtAdviserTeamList = advisorStaffDao.GetAdviserTeamList(); ;
+                dtAdviserTeamList = advisorStaffDao.GetAdviserTeamList(flag); ;
             }
             catch (BaseApplicationException Ex)
             {

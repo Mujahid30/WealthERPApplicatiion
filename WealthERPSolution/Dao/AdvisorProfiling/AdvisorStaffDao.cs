@@ -167,7 +167,7 @@ namespace DaoAdvisorProfiling
             return bResult;
         }
 
-        public List<int> CreateCompleteRM(UserVo userVo, RMVo rmVo, int userId, bool isOpsIsChecked, bool isPurelyResearchLogin)
+        public List<int> CreateCompleteRM(UserVo userVo, RMVo rmVo, int userId, bool isOpsIsChecked, bool isPurelyResearchLogin, string roleIds)
         {
             int rmId;
             int rmUserId;
@@ -242,7 +242,7 @@ namespace DaoAdvisorProfiling
                 db.AddOutParameter(createRMCmd, "@AR_RMId", DbType.Int32, 1000000);
                 db.AddOutParameter(createRMCmd, "@U_UserId", DbType.Int32, 1000000);
                 //db.AddOutParameter(createRMCmd, "@AAC_AdviserAgentId", DbType.Int32, 1000000);
-              
+                db.AddInParameter(createRMCmd, "@roleIds", DbType.String, roleIds);
 
                 if (db.ExecuteNonQuery(createRMCmd) != 0)
                 {
@@ -2852,7 +2852,7 @@ namespace DaoAdvisorProfiling
             return dsViewStaff;
         }
 
-        public DataTable GetAdviserTeamList()
+        public DataTable GetAdviserTeamList(int  flag)
         {
             Database db;
             DbCommand adviserTeamListCmd;
@@ -2862,6 +2862,8 @@ namespace DaoAdvisorProfiling
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 adviserTeamListCmd = db.GetStoredProcCommand("SPROC_GetAdviserTeamList");
+                db.AddInParameter(adviserTeamListCmd, "@flag", DbType.Int32, flag);
+              
                 dsAdviserTeamList = db.ExecuteDataSet(adviserTeamListCmd);
             }
             catch (BaseApplicationException Ex)

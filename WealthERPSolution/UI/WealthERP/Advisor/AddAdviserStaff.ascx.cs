@@ -299,7 +299,7 @@ namespace WealthERP.Advisor
         private void BindTeamDropList()
         {
             DataTable dtAdviserTeamList = new DataTable();
-            dtAdviserTeamList = advisorStaffBo.GetAdviserTeamList();
+            dtAdviserTeamList = advisorStaffBo.GetAdviserTeamList(1);
             ddlTeamList.DataSource = dtAdviserTeamList;
             ddlTeamList.DataValueField = dtAdviserTeamList.Columns["WHLM_Id"].ToString();
             ddlTeamList.DataTextField = dtAdviserTeamList.Columns["WHLM_Name"].ToString();

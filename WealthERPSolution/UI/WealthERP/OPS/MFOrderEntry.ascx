@@ -4,9 +4,9 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 <asp:ScriptManager ID="scrptMgr" runat="server">
-    <%--<Services>
+    <Services>
         <asp:ServiceReference Path="~/CustomerPortfolio/AutoComplete.asmx" />
-    </Services>--%>
+    </Services>
 </asp:ScriptManager>
 
 <script type="text/javascript" language="javascript">
@@ -1095,8 +1095,10 @@
             <asp:Label ID="lblPeriod" runat="server" Text="Tenure:" CssClass="FieldName"></asp:Label>
         </td>
         <td colspan="3">
+          
+                
             <asp:TextBox ID="txtPeriod" runat="server" CssClass="txtField" AutoPostBack="true"
-                ValidationGroup="MFSubmit" CausesValidation="true" OnTextChanged="txtPeriod_TextChanged"></asp:TextBox>
+               OnTextChanged="txtPeriod_OnTextChanged"></asp:TextBox>
             <span id="Span21" class="spnRequiredField">*</span>
             <asp:DropDownList ID="ddlPeriodSelection" runat="server" AutoPostBack="true" CssClass="cmbField"
                 CausesValidation="true" ValidationGroup="MFSubmit" OnSelectedIndexChanged="ddlPeriodSelection_SelectedIndexChanged" Visible="false">

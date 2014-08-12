@@ -241,6 +241,38 @@
             </asp:RequiredFieldValidator>
         </td>
     </tr>
+    <tr>
+    <td class="leftLabel"> 
+    <asp:Label ID="lblDept" runat="server" Text="Department Name:" CssClass="FieldName"></asp:Label>
+    </td>
+    <td  class="rightData">
+    <asp:DropDownList ID="ddlDepart" runat="server" CssClass="cmbField" AutoPostBack="true" OnSelectedIndexChanged="ddlDepart_SelectedIndexChanged"></asp:DropDownList>
+    <span id="Span11" class="spnRequiredField">*</span>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator9" runat="server" ErrorMessage="Please Select Department"
+                CssClass="rfvPCG" ControlToValidate="ddlDepart" ValidationGroup="btnSubmit" InitialValue="0"
+                Display="Dynamic">
+            </asp:RequiredFieldValidator>
+    </td>
+    </tr>
+    <tr>
+    
+    <td class="leftLabel">
+   <asp:Label ID="Label1" runat="server" Text=" Department Roles :" CssClass="FieldName"></asp:Label></td>
+    <td class="rightData" colspan="5">
+    <asp:Panel ID="PnlDepartRole" runat="server" ScrollBars="Horizontal" Width="800px" Visible="false">
+    <telerik:RadListBox ID="chkbldepart" runat="server" CheckBoxes="true" AutoPostBack="true">
+      </telerik:RadListBox>
+      <span id="Span12" class="spnRequiredField">*</span>
+      <%--<asp:CheckBoxList ID="chkbldepart" runat="server" RepeatDirection="Horizontal" Width="100px" CssClass="cmbField" ></asp:CheckBoxList>--%>
+   <%-- <asp:CustomValidator ID="Cvdchkbldepart" runat="server" ControlToValidate="chkbldepart" CssClass="rfvPCG" 
+    ClientValidationFunction="ValidateColorList" EnableClientScript="true"
+    ErrorMessage="Please Selected One of the Role"></asp:CustomValidator>--%>
+    <%--<asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator8" ErrorMessage="Select a role!" ControlToValidate="chkbldepart" 
+     ValidationGroup="btnSubmit" Display="Dynamic" CssClass="rfvPCG" />--%>
+</asp:Panel>
+    </td>
+     
+    </tr>
     <tr id="tr2" runat="server" visible="true">
         <td colspan="6" style="vertical-align: text-bottom; padding-top: 6px; padding-bottom: 6px">
             <div class="divSectionHeading" style="vertical-align: text-bottom">
