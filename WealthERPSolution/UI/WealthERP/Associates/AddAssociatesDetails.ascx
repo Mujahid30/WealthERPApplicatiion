@@ -1,67 +1,9 @@
-<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AddAssociatesDetails.ascx.cs"
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AddAssociatesDetails.ascx.cs"
     Inherits="WealthERP.Associates.AddAssociatesDetails" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
-<%--<telerik:RadScriptManager ID="scptMgr" runat="server">
-</telerik:RadScriptManager>--%>
-<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" />
-
-<script src="../Scripts/jquery.js" type="text/javascript"></script>
-
-<script src="../Scripts/jquery-1.2.6.js" type="text/javascript"></script>
-
-<script src="../Scripts/jquery-1.4.2.min.js" type="text/javascript"></script>
-
-<script src="../Scripts/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
-
-<script src="../Scripts/jquery.min.js" type="text/javascript"></script>
-
-<script src="../Scripts/jquery-1.3.1.min.js" type="text/javascript"></script>
-
-<script src="../Scripts/jQuery.bubbletip-1.0.6.js" type="text/javascript"></script>
-
-<asp:ScriptManager ID="scrptMgr" runat="server">
-    <Services>
-        <asp:ServiceReference Path="AutoComplete.asmx" />
-    </Services>
-</asp:ScriptManager>
-<script type="text/javascript">
-    function chkPanExists() {
-        $("#<%= hidValidCheck.ClientID %>").val("0");
-        if ($("#<%=txtPan.ClientID %>").val() == "") {
-            $("#spnLoginStatus").html("");
-            return;
-        }
-        $("#spnLoginStatus").html("<img src='Images/loader.gif' />");
-        $.ajax({
-            type: "POST",
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            url: "ControlHost.aspx/CheckPANNoAvailabilityForAssociates",
-            data: "{ 'PanNumber': '" + $("#<%=txtPan.ClientID %>").val() + "','adviserId': '" + $("#<%=hdnAdviserID.ClientID %>").val() + "' }",
-            error: function(xhr, status, error) {
-
-            },
-            success: function(msg) {
-
-                if (msg.d) {
-
-                    $("#<%= hidValidCheck.ClientID %>").val("1");
-                    $("#spnLoginStatus").html("");
-                }
-                else {
-
-                    $("#<%= hidValidCheck.ClientID %>").val("0");
-                    $("#spnLoginStatus").removeClass();
-                    alert("Pan Number Already Exists");
-                    return false;
-                }
-
-            }
-        });
-    }
-</script>
-
+<telerik:RadScriptManager ID="scptMgr" runat="server">
+</telerik:RadScriptManager>
 <table width="100%">
     <tr>
         <td colspan="3" style="width: 100%;">
@@ -85,78 +27,24 @@
     </tr>
 </table>
 <table width="100%">
-    <tr>
-        <td align="right">
-            <asp:Label ID="lblTitleList" runat="server" Text="Title:" CssClass="FieldName"></asp:Label>
-        </td>
-        <td class="rightData">
-            <asp:DropDownList ID="ddlTitleList" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlTitleList_SelectedIndexChanged"
-                AutoPostBack="true">
-            </asp:DropDownList>
-            <span id="Span5" class="spnRequiredField">*</span>
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ErrorMessage="Please Select Title"
-                CssClass="rfvPCG" ControlToValidate="ddlTitleList" ValidationGroup="Submit" Display="Dynamic"
-                InitialValue="0"></asp:RequiredFieldValidator>
-        </td>
-        <td align="right">
-            <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Staff:"></asp:Label>
-        </td>
-        <td>
-            <asp:DropDownList ID="ddlRM" runat="server" CssClass="cmbField" AutoPostBack="true"
-                OnSelectedIndexChanged="ddlRM_SelectedIndexChanged" Style="vertical-align: middle">
-            </asp:DropDownList>
-            <span id="Span4" class="spnRequiredField">*</span>
-            <br />
-            <asp:CompareValidator ID="cvRM" runat="server" ValidationGroup="Submit" ControlToValidate="ddlRM"
-                ErrorMessage="Please select a RM" Operator="NotEqual" ValueToCompare="Select"
-                CssClass="cvPCG" Display="Dynamic">
-            </asp:CompareValidator>
-        </td>
-        <td align="right" id="tdCustomerSelection1" runat="server">
-            <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="Branch:"></asp:Label>
-        </td>
-        <td>
-            <asp:DropDownList ID="ddlBranch" runat="server" Style="vertical-align: middle" AutoPostBack="false"
-                CssClass="cmbField">
-            </asp:DropDownList>
-            <span id="Span5" class="spnRequiredField">*</span>
-            <br />
-            <asp:CompareValidator ID="CompareValidator9" runat="server" ValidationGroup="Submit"
-                ControlToValidate="ddlBranch" ErrorMessage="Please select a Branch" Operator="NotEqual"
-                TextToCompare="Select" CssClass="cvPCG" Display="Dynamic">
-            </asp:CompareValidator>
-        </td>
-    </tr>
     <tr id="trBranchRM" runat="server">
-        <%--<td align="right">
+        <td align="right">
             <asp:Label ID="lblBranch" runat="server" CssClass="FieldName" Text="Branch:"></asp:Label>
         </td>
         <td>
-            <asp:TextBox ID="txtBranch" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtBranch" runat="server" CssClass="txtField" Enabled="false"></asp:TextBox>
         </td>
         <td align="right">
             <asp:Label ID="lblRM" runat="server" CssClass="FieldName" Text="RM:"></asp:Label>
         </td>
         <td>
-            <asp:TextBox ID="txtRM" runat="server" CssClass="txtField"></asp:TextBox>
-        </td>--%>
+            <asp:TextBox ID="txtRM" runat="server" CssClass="txtField" Enabled="false"></asp:TextBox>
+        </td>
         <td align="right">
             <asp:Label ID="lblAssociateName" runat="server" CssClass="FieldName" Text="Associate Name: "></asp:Label>
         </td>
         <td>
-            <asp:TextBox ID="txtAssociateName" runat="server" CssClass="txtField"></asp:TextBox>
-        </td>
-        <td class="leftLabel" align="right">
-            <asp:Label ID="lblAdviserAgentCode" runat="server" Text="Adviser Agent Code: " CssClass="FieldName"></asp:Label>
-        </td>
-        <td class="rightData">
-            <asp:TextBox ID="txtAdviserAgentCode" runat="server" CssClass="txtField" Enabled="False"></asp:TextBox>
-        </td>
-        <td align="right">
-            <asp:Label ID="lblPanNo" runat="server" Text="PAN No: " CssClass="FieldName"></asp:Label>
-        </td>
-        <td class="rightData">
-            <asp:TextBox ID="txtPan" runat="server" CssClass="txtFieldUpper" Enabled="true"  onblur="return chkPanExists()"></asp:TextBox>
+            <asp:TextBox ID="txtAssociateName" runat="server" CssClass="txtField" Enabled="false"></asp:TextBox>
         </td>
     </tr>
     <tr>
@@ -166,31 +54,6 @@
         <td>
             <asp:TextBox ID="txtAMFINo" runat="server" CssClass="txtField" MaxLength="20"></asp:TextBox>
         </td>
-        <td align="right">
-            <asp:Label ID="lblAssociateExpiryDate" CssClass="FieldName" runat="server" Text="AMFI Number Expiry Date:"></asp:Label>
-        </td>
-        <td>
-            <telerik:RadDatePicker ID="txtAssociateExpDate" CssClass="txtTo" runat="server" Culture="English (United States)"
-                Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
-                <Calendar ID="Calendar3" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
-                    ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
-                </Calendar>
-                <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                <DateInput ID="DateInput3" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
-                </DateInput>
-            </telerik:RadDatePicker>
-            <asp:CompareValidator ID="CompareValidator5" runat="server" ErrorMessage="<br/>Please enter a valid date."
-                Type="Date" ControlToValidate="txtAssociateExpDate" CssClass="cvPCG" Operator="DataTypeCheck"
-                ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
-        </td>
-        <td class="leftLabel" align="right">
-            <asp:Label ID="lblEUIN" runat="server" Text="EUIN: " CssClass="FieldName"></asp:Label>
-        </td>
-        <td class="rightData">
-            <asp:TextBox ID="txtEUIN" runat="server" CssClass="txtField"></asp:TextBox>
-        </td>
-    </tr>
-    <tr>
         <td align="right">
             <asp:Label ID="lblStartDate" CssClass="FieldName" runat="server" Text="Start Date:"></asp:Label>
         </td>
@@ -227,16 +90,61 @@
         </td>
     </tr>
     <tr>
-        <td class="leftField" align="right">
+        <td align="right">
+            <asp:Label ID="lblAssociateExpiryDate" CssClass="FieldName" runat="server" Text="AMFI Number Expiry Date:"></asp:Label>
+        </td>
+        <td>
+            <telerik:RadDatePicker ID="txtAssociateExpDate" CssClass="txtTo" runat="server" Culture="English (United States)"
+                Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                <Calendar ID="Calendar3" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
+                    ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
+                </Calendar>
+                <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                <DateInput ID="DateInput3" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                </DateInput>
+            </telerik:RadDatePicker>
+            <asp:CompareValidator ID="CompareValidator5" runat="server" ErrorMessage="<br/>Please enter a valid date."
+                Type="Date" ControlToValidate="txtAssociateExpDate" CssClass="cvPCG" Operator="DataTypeCheck"
+                ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
+        </td>
+        <td class="leftLabel" align="right">
+            <asp:Label ID="lblAdviserAgentCode" runat="server" Text="Adviser Agent Code: " CssClass="FieldName"></asp:Label>
+        </td>
+        <td class="rightData">
+            <asp:TextBox ID="txtAdviserAgentCode" runat="server" CssClass="txtField" Enabled="False"></asp:TextBox>
+        </td>
+        <td align="right">
+            <asp:Label ID="lblPanNo" runat="server" Text="PAN No: " CssClass="FieldName"></asp:Label>
+        </td>
+        <td class="rightData">
+            <asp:TextBox ID="txtPan" runat="server" CssClass="txtField" Enabled="False"></asp:TextBox>
+        </td>
+    </tr>
+    <tr>
+        <td class="leftLabel" align="right">
+            <asp:Label ID="lblEUIN" runat="server" Text="EUIN: " CssClass="FieldName"></asp:Label>
+        </td>
+        <td class="rightData">
+            <asp:TextBox ID="txtEUIN" runat="server" CssClass="txtField"></asp:TextBox>
+        </td>
+        <td colspan="4">
+        </td>
+    </tr>
+    <tr>
+        <td class="leftField" style="width: 20%" align="right">
             <asp:Label ID="lblAssociateType" runat="server" CssClass="FieldName" Text="Associate Type:"></asp:Label>
         </td>
         <td class="rightField">
-            <asp:RadioButton ID="rbtnIndividual" runat="server" CssClass="txtField" Text="Individual"
-                Checked="true" GroupName="grpAssociateType" AutoPostBack="true" OnCheckedChanged="rbtnIndividual_CheckedChanged" />
+            <asp:RadioButton ID="rbtnIndividual" runat="server" CssClass="txtField" Text="Individual" Checked="true"
+                GroupName="grpAssociateType" AutoPostBack="true" OnCheckedChanged="rbtnIndividual_CheckedChanged" />
             &nbsp;&nbsp;
             <asp:RadioButton ID="rbtnNonIndividual" runat="server" CssClass="txtField" Text="Non Individual"
                 GroupName="grpAssociateType" AutoPostBack="true" OnCheckedChanged="rbtnNonIndividual_CheckedChanged" />
         </td>
+        <td colspan="4">
+        </td>
+    </tr>
+    <tr>
         <td class="leftField" align="right">
             <asp:Label ID="lblAssociateSubType" runat="server" CssClass="FieldName" Text="Associate Sub Type:"></asp:Label>
         </td>
@@ -470,7 +378,7 @@
                 <tr>
                     <td colspan="4">
                         <asp:CheckBox ID="chkAddressChk" runat="server" Text="Is permanent addess is same as correspondes address?"
-                            CssClass="cmbFielde" OnCheckedChanged="chkAddressChk_CheckedChanged" AutoPostBack="true" />
+                            CssClass="cmbField" OnCheckedChanged="chkAddressChk_CheckedChanged" AutoPostBack="true" />
                     </td>
                 </tr>
                 <tr>
@@ -502,7 +410,7 @@
                         <asp:Label ID="lblPermState" runat="server" CssClass="FieldName" Text="State:"></asp:Label>
                     </td>
                     <td class="rightField">
-                        <asp:DropDownList ID="ddlPermAdrState" runat="server" CssClass="cmbField">
+                        <asp:DropDownList ID="ddlPermAdrState" runat="server" CssClass="cmbField" >
                         </asp:DropDownList>
                     </td>
                 </tr>
@@ -521,7 +429,7 @@
                     </td>
                     <td class="rightField">
                         <asp:TextBox ID="txtPermAdrCity" runat="server" CssClass="txtField"></asp:TextBox>
-                        <%-- <asp:DropDownList ID="ddlPermAdrCity" runat="server" CssClass="cmbField">
+                       <%-- <asp:DropDownList ID="ddlPermAdrCity" runat="server" CssClass="cmbField">
                         </asp:DropDownList>--%>
                     </td>
                 </tr>
@@ -678,7 +586,8 @@
                         <asp:Label ID="Label13" runat="server" CssClass="FieldName" Text="State:"></asp:Label>
                     </td>
                     <td class="rightField">
-                        <asp:DropDownList ID="ddlBankAdrState" runat="server" CssClass="txtField" Width="150px">
+                        <asp:DropDownList ID="ddlBankAdrState" runat="server" CssClass="txtField"
+                            Width="150px" >
                         </asp:DropDownList>
                     </td>
                 </tr>
@@ -933,7 +842,7 @@
                             <asp:ListItem Text="FD" Value="FD"></asp:ListItem>
                             <asp:ListItem Text="EQ" Value="DE"></asp:ListItem>
                             <asp:ListItem Text="Debt" Value="DT"></asp:ListItem>
-                            <asp:ListItem Text="PMS" Value="PM"></asp:ListItem>
+                            <asp:ListItem Text="PMS" Value="PM"></asp:ListItem> 
                             <asp:ListItem Text="Insurance" Value="IN"></asp:ListItem>
                             <asp:ListItem Text="Bond" Value="BO"></asp:ListItem>
                         </asp:CheckBoxList>
@@ -948,11 +857,7 @@
         <td>
         </td>
         <td colspan="3">
-            <asp:Button ID="btnSubmit" runat="server" Text="Update" CssClass="PCGButton" OnClick="Update_Click" />
-            <asp:Button ID="BtnSave" runat="server" Text="Submit" CssClass="PCGButton" OnClick="btnSubmit_Click" />
+            <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="PCGButton" OnClick="btnSubmit_Click" />
         </td>
     </tr>
 </table>
-<asp:HiddenField ID="hidValidCheck" runat="server" EnableViewState="true" />
-<asp:HiddenField ID="hdnAdviserID" runat="server" />
-
