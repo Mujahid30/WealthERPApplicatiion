@@ -337,5 +337,48 @@ namespace DaoOnlineOrderManagement
              }
              return dtGetAdviserCustomerTransactionsBookSIP;
         }
+        public DataTable GetMFHolding()
+        {
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DbCommand cmdGetMFHolding;
+            DataTable dtGetMFHolding;
+            DataSet dsGetMFHolding = null;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //To retreive data from the table 
+                cmdGetMFHolding = db.GetStoredProcCommand("SPROC_GetReconRequestList");
+                dsGetMFHolding = db.ExecuteDataSet(cmdGetMFHolding);
+                dtGetMFHolding = dsGetMFHolding.Tables[0];
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetMFHolding;
+        }
+        public DataTable GetMFHoldingRecon(int requestNo)
+        {
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DbCommand cmdGetMFHoldingRecon;
+            DataTable dtGetMFHoldingRecon;
+            DataSet dsGetMFHoldingRecon = null;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //To retreive data from the table 
+                cmdGetMFHoldingRecon = db.GetStoredProcCommand("SPROC_GetAdviserMFRecon");
+                db.AddInParameter(cmdGetMFHoldingRecon, "@Reuestno", DbType.Int32, requestNo);
+                dsGetMFHoldingRecon = db.ExecuteDataSet(cmdGetMFHoldingRecon);
+                dtGetMFHoldingRecon = dsGetMFHoldingRecon.Tables[0];
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetMFHoldingRecon;
+        }
     }
 }

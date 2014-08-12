@@ -31,5 +31,8 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblSelect;
         protected global::System.Web.UI.WebControls.DropDownList ddlIssue;
+        protected global::Telerik.Web.UI.RadGrid gvMFHoldinfRecon;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl MFHoldingRecons;
+        protected global::System.Web.UI.WebControls.Panel pnlMFHoldingRecons;
     }
 }

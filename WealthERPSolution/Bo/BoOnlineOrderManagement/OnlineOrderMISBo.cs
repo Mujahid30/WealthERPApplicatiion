@@ -141,6 +141,19 @@ namespace BoOnlineOrderManagement
             dtGetAdviserCustomerTransactionsBookSIP = OnlineOrderMISDao.GetAdviserCustomerTransactionsBookSIP(AdviserID, customerId, SystematicId, IsSourceAA, AccountId, SchemePlanCode);
             return dtGetAdviserCustomerTransactionsBookSIP;
         }
-
+        public DataTable GetMFHolding()
+        {
+            DataTable dtGetMFHolding;
+            OnlineOrderMISDao OnlineOrderMISDao = new OnlineOrderMISDao();
+            dtGetMFHolding = OnlineOrderMISDao.GetMFHolding();
+            return dtGetMFHolding;
+        }
+        public DataTable GetMFHoldingRecon(int requestNo)
+        {
+            DataTable dtGetMFHoldingRecon;
+            OnlineOrderMISDao OnlineOrderMISDao = new OnlineOrderMISDao();
+            dtGetMFHoldingRecon = OnlineOrderMISDao.GetMFHoldingRecon(requestNo);
+            return dtGetMFHoldingRecon;
+        }
     }
 }

@@ -86,7 +86,7 @@
                         </telerik:GridButtonColumn>
                     </Columns>
                     <EditFormSettings EditFormType="Template" PopUpSettings-Height="490px" PopUpSettings-Width="350px"
-                        CaptionFormatString="Add User">
+                        CaptionFormatString="Add User Role">
                         <FormTemplate>
                             <table width="100%">
                                 <tr>

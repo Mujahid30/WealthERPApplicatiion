@@ -19,14 +19,15 @@ namespace WealthERP.OnlineOrderBackOffice
 {
     public partial class MFHoldingRecon : System.Web.UI.UserControl
     {
+        UserVo userVo = new UserVo();
         OnlineOrderMISBo OnlineOrderMISBo = new OnlineOrderMISBo();
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
-            UserVo userVo = new UserVo();
             AdvisorVo adviserVo = new AdvisorVo();
+            BindRequestId();
         }
-        protected void BindIssueName()
+        protected void BindRequestId()
         {
             DataTable dtGetIssueName = new DataTable();
 
@@ -35,40 +36,63 @@ namespace WealthERP.OnlineOrderBackOffice
             ddlIssue.DataValueField = dtGetIssueName.Columns["WR_RequestId"].ToString();
             ddlIssue.DataTextField = dtGetIssueName.Columns["WRD_InputParameterValue"].ToString();
             ddlIssue.DataBind();
-            ddlIssue.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "0"));
+            ddlIssue.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
         }
-        protected void BindSchemeMIS()
+        protected void btnGo_OnClick(object sender, EventArgs e)
         {
             try
             {
-                DataSet dsSchemeMIs = new DataSet();
-                DataTable dtschememis = new DataTable();
-                dsSchemeMIs = OnlineOrderMISBo.GetSchemeMIS(hdnAssettype.Value, int.Parse(ddlTosee.SelectedItem.Value), hdnStatus.Value);
-                dtschememis = dsSchemeMIs.Tables[0];
+                
+                BindMFHoldingRecon();
+                //imgexportButton.Visible = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "MFHoldingRecon.ascx.cs:btngo_Click()");
+                object[] objects = new object[4];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
 
-                if (dtschememis.Rows.Count > 0)
+        }
+        protected void BindMFHoldingRecon()
+        {
+            try
+            {
+              
+                DataTable dtMFHoldingRecon = new DataTable();
+                dtMFHoldingRecon = OnlineOrderMISBo.GetMFHoldingRecon(int.Parse(ddlIssue.SelectedValue));
+                if (dtMFHoldingRecon.Rows.Count > 0)
                 {
-                    if (Cache["SchemeMIS" + userVo.UserId] == null)
+                    if (Cache["MFHoldingMIS" + userVo.UserId] == null)
                     {
-                        Cache.Insert("SchemeMIS" + userVo.UserId, dtschememis);
+                        Cache.Insert("MFHoldingMIS" + userVo.UserId, dtMFHoldingRecon);
                     }
                     else
                     {
-                        Cache.Remove("SchemeMIS" + userVo.UserId);
-                        Cache.Insert("SchemeMIS" + userVo.UserId, dtschememis);
+                        Cache.Remove("MFHoldingMIS" + userVo.UserId);
+                        Cache.Insert("MFHoldingMIS" + userVo.UserId, dtMFHoldingRecon);
                     }
-                    gvonlineschememis.DataSource = dtschememis;
-                    gvonlineschememis.DataBind();
-                    SchemeMIS.Visible = true;
-                    pnlSchemeMIS.Visible = true;
+                    gvMFHoldinfRecon.DataSource = dtMFHoldingRecon;
+                    gvMFHoldinfRecon.DataBind();
+                     MFHoldingRecons.Visible = true;
+                     pnlMFHoldingRecons.Visible = true;
                 }
                 else
                 {
-                    // tdtosee.Visible = false;
-                    gvonlineschememis.DataSource = dtschememis;
-                    gvonlineschememis.DataBind();
-                    SchemeMIS.Visible = true;
-                    pnlSchemeMIS.Visible = true;
+                    gvMFHoldinfRecon.DataSource = dtMFHoldingRecon;
+                    gvMFHoldinfRecon.DataBind();
+                    MFHoldingRecons.Visible = true;
+                    pnlMFHoldingRecons.Visible = true;
+                   
                 }
             }
             catch (BaseApplicationException Ex)
@@ -79,12 +103,22 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "OnlineSchemeMIS.ascx.cs:SetParameter()");
+                FunctionInfo.Add("Method", "MFHoldingRecon.ascx.cs:MFHoldingRecon()");
                 object[] objects = new object[4];
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
                 throw exBase;
+            }
+        }
+        protected void gvMFHoldinfRecon_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        {
+
+            DataTable dtMFHoldingRecon = new DataTable();
+            dtMFHoldingRecon = (DataTable)Cache["MFHoldingMIS" + userVo.UserId];
+            if (dtMFHoldingRecon != null)
+            {
+                gvMFHoldinfRecon.DataSource = dtMFHoldingRecon;
             }
         }
     }
