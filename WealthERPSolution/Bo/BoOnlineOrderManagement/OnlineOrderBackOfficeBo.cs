@@ -641,7 +641,7 @@ namespace BoOnlineOrderManagement
                            AMFE_JointDateofBirth = string.Empty, AMFE_JointGaurdianName = string.Empty, AMFE_JointHolder1Pan = string.Empty,
                            AMFE_JointHolder2Pan = string.Empty, AMFE_JH1PanValid = "N", AMFE_JH2PanValid = "N", AMFE_NomineeName = string.Empty,
                            AMFE_Nom2Name = string.Empty, AMFE_Nom2_Relationship = string.Empty, AMFE_NomineeRelation = string.Empty,
-                           AMFE_NomineeDateofBirth = string.Empty, AMFE_NomineeGaurdianName = string.Empty, AMFE_NominationNotOpted = "N", AMFE_Dp_Id = string.Empty;
+                           AMFE_NomineeDateofBirth = string.Empty, AMFE_NomineeGaurdianName = string.Empty, AMFE_NominationNotOpted = "Y", AMFE_Dp_Id = string.Empty;
 
                     #region   Old Joint Holder Logic
                     /*
@@ -757,7 +757,7 @@ namespace BoOnlineOrderManagement
                                     AMFE_NomineeRelation = drNominee["AMFE_JointNomineeRelation"].ToString();
                                     AMFE_NomineeDateofBirth = drNominee["AMFE_JointNomineeDateofBirth"].ToString();
                                     AMFE_NomineeGaurdianName = drNominee["AMFE_JointNomineeGaurdianName"].ToString();
-                                    AMFE_NominationNotOpted = "Y";
+                                    AMFE_NominationNotOpted = "N";
                                     break;
                                 case "2":
                                     AMFE_Nom2Name = drNominee["AMFE_JointNomineeName"].ToString();
