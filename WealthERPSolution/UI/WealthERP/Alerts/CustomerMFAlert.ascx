@@ -90,28 +90,28 @@
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <%--MF Absolute Stop Loss Column--%>
-                            <asp:TemplateField HeaderText="Absolute Stop Loss">
+                            <asp:TemplateField HeaderText="Absolute Stop Loss" Visible="false">
                                 <ItemTemplate>
                                     <asp:Button ID="btnMFAbsoluteStopLoss" runat="server" Text="Setup" OnClick="btnMFAbsoluteStopLoss_Click" />
                                     <asp:Label ID="lblMFAbsoluteStopLoss" runat="server" Text='<%# Eval("MFAbsoluteStopLoss").ToString() %>' />
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <%--SIP Absolute Profit Booking Column--%>
-                            <asp:TemplateField HeaderText="Absolute Profit Booking">
+                            <asp:TemplateField HeaderText="Absolute Profit Booking" Visible="false">
                                 <ItemTemplate>
                                     <asp:Button ID="btnMFAbsoluteProfitBooking" runat="server" Text="Setup" OnClick="btnMFAbsoluteProfitBooking_Click" />
                                     <asp:Label ID="lblMFAbsoluteProfitBooking" runat="server" Text='<%# Eval("MFAbsoluteProfitBooking").ToString() %>' />
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <%--SWP Reminder Column--%>
-                            <asp:TemplateField HeaderText="SWP Reminder">
+                            <asp:TemplateField HeaderText="SWP Reminder" Visible="false">
                                 <ItemTemplate>
                                     <asp:Button ID="btnSWPReminder" runat="server" Text="Setup" OnClick="btnSWPReminder_Click" />
                                     <asp:Label ID="lblSWPReminder" runat="server" Text='<%# Eval("SWPReminder").ToString() %>' />
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <%--SWP Confirmation Column--%>
-                            <asp:TemplateField HeaderText="SWP Confirmation">
+                            <asp:TemplateField HeaderText="SWP Confirmation" Visible="false">
                                 <ItemTemplate>
                                     <asp:Button ID="btnSWPConfirmation" runat="server" Text="Setup" OnClick="btnSWPConfirmation_Click" />
                                     <asp:Label ID="lblSWPConfirmation" runat="server" Text='<%# Eval("SWPConfirmation").ToString() %>' />
@@ -125,7 +125,7 @@
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <%--Dividend Transaction Column--%>
-                            <asp:TemplateField HeaderText="Dividend Transactions Occurrence">
+                            <asp:TemplateField HeaderText="Dividend Transactions Occurrence" Visible="false">
                                 <ItemTemplate>
                                     <asp:Button ID="btnDivTranxOccur" runat="server" Text="Setup" OnClick="btnDivTranxOccur_Click" />
                                     <asp:Label ID="lblDivTranxOccur" runat="server" Text='<%# Eval("DivTranxOccur").ToString() %>' />
