@@ -3366,5 +3366,39 @@ namespace BoCustomerProfiling
             return count;
 
         }
+        public DataSet GetCustomerProfileAuditDetails(int customerId, DateTime fromModificationDate, DateTime toModificationDate, int advisorId, string TypeofAudit)
+        {
+            CustomerDao customerDao = new CustomerDao();
+
+            DataSet dsCustomerAudit = new DataSet();
+            try
+            {
+                dsCustomerAudit = customerDao.GetCustomerProfileAuditDetails(customerId, fromModificationDate, toModificationDate, advisorId, TypeofAudit);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerBo.cs:GetCustomerProfileAuditDetails()");
+
+
+                object[] objects = new object[3];
+                objects[0] = customerId;
+                objects[1] = fromModificationDate;
+                objects[2] = advisorId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dsCustomerAudit;
+        }
     }
 }
