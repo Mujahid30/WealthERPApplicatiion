@@ -116,7 +116,7 @@
             <asp:ListItem Text="Customer Profile" Value="CP"></asp:ListItem>
             <asp:ListItem Text="Customer Bank" Value="CB"></asp:ListItem>
             <asp:ListItem Text="Customer Demat" Value="CD"></asp:ListItem>
-            <asp:ListItem Text="Customer Demat Associates" Value="CDA"></asp:ListItem>
+            <asp:ListItem Text="Customer Demat Association" Value="CDA"></asp:ListItem>
             </asp:DropDownList>
              <br />
              <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Please select a Type Audit"
