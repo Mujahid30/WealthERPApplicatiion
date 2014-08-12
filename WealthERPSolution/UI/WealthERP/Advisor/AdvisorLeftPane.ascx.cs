@@ -562,6 +562,10 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "RTA_Unit_Recon")
                 {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFHoldingRecon','login');", true);
+                }
+                else if (e.Item.Value == "Audit_Log")
+                {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerProfileAudit','login');", true);
                 }
                 else if (e.Item.Value == "Setup Associate Category")
@@ -665,6 +669,10 @@ namespace WealthERP.Advisor
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddRM','login');", true);
                     else
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddAdviserStaff','login');", true);
+                }
+                else if (e.Item.Value == "Add_Staff_Offline")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddStaff','login');", true);
                 }
                 else if (e.Item.Value == "Branch/Association")
                 {
@@ -1814,6 +1822,10 @@ namespace WealthERP.Advisor
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddRM','login');", true);
                     else
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddAdviserStaff','login');", true);
+                }
+                else if (e.Item.Value == "Add_Staff_Offline")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddStaff','login');", true);
                 }
                 else if (e.Item.Value == "Branch/Association")
                 {
