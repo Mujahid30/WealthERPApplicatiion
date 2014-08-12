@@ -49,6 +49,34 @@ namespace BoCommon
             }
 
         }
+        public void CreateTaskRequestForRecon(int taskId, int userId, out int taskRequestId, string filePath, int adviserId, string uploadType, string remarks)
+        {
+            WERPTaskRequestManagementDao requestManagementDao = new WERPTaskRequestManagementDao();
+
+            try
+            {
+                requestManagementDao.CreateTaskRequestForRecon(taskId, userId, out taskRequestId, filePath, adviserId, uploadType, remarks);
+
+            }
+            catch (BaseApplicationException ex)
+            {
+                throw (ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "WERPTaskRequestManagementBo.cs:CreateTaskRequestForRecon()");
+                object[] objects = new object[2];
+                objects[0] = taskId;
+                objects[1] = userId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+        }
 
         public DataSet GetAdviserWiseRM(int adviserId)
         {

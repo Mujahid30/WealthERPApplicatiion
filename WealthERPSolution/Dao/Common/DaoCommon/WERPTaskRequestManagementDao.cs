@@ -81,6 +81,55 @@ namespace DaoCommon
             }
 
         }
+        public void CreateTaskRequestForRecon(int taskId, int userId, out int taskRequestId, string filePath, int adviserId, string uploadType, string remarks)
+        {
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DbCommand cmdCreateTaskRequest;
+
+            try
+            {
+
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdCreateTaskRequest = db.GetStoredProcCommand("SPROC_CreateTaskRequestForRecon");
+                db.AddInParameter(cmdCreateTaskRequest, "@TaskId", DbType.Int32, taskId);
+                db.AddInParameter(cmdCreateTaskRequest, "@UserId", DbType.Int32, userId);
+                db.AddInParameter(cmdCreateTaskRequest, "@DependentRequestId", DbType.Int32, 0);
+                db.AddInParameter(cmdCreateTaskRequest, "@ParentRequestId", DbType.Int32, 0);
+                db.AddOutParameter(cmdCreateTaskRequest, "@OutRequestId", DbType.Int32, 1000000);
+                db.AddInParameter(cmdCreateTaskRequest, "@FilePath", DbType.String, filePath);
+                db.AddInParameter(cmdCreateTaskRequest, "@AdvisorId", DbType.Int32, adviserId);
+                
+                db.AddInParameter(cmdCreateTaskRequest, "@UploadType", DbType.String, uploadType);
+
+                db.AddInParameter(cmdCreateTaskRequest, "@Remarks", DbType.String, remarks);
+                db.ExecuteNonQuery(cmdCreateTaskRequest);
+
+                Object objRequestId = db.GetParameterValue(cmdCreateTaskRequest, "@OutRequestId");
+                if (objRequestId != DBNull.Value)
+                    taskRequestId = int.Parse(db.GetParameterValue(cmdCreateTaskRequest, "@OutRequestId").ToString());
+                else
+                    taskRequestId = 0;
+
+            }
+            catch (BaseApplicationException ex)
+            {
+                throw (ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "MFReports.cs:GetCalculateFromDate()");
+                object[] objects = new object[2];
+                objects[0] = taskId;
+                objects[1] = userId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+        }
 
         public DataSet GetAdviserWiseRM(int adviserId)
         {

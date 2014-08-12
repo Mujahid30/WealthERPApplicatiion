@@ -392,6 +392,42 @@ namespace WealthERP.Uploads {
         protected global::System.Web.UI.WebControls.DropDownList ddlAction;
         
         /// <summary>
+        /// trMfRecon control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trMfRecon;
+        
+        /// <summary>
+        /// lblMfRecon control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMfRecon;
+        
+        /// <summary>
+        /// txtMfRecon control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtMfRecon;
+        
+        /// <summary>
+        /// txtNoOfRows_RequiredFieldValidator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator txtNoOfRows_RequiredFieldValidator;
+        
+        /// <summary>
         /// Label3 control.
         /// </summary>
         /// <remarks>

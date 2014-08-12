@@ -342,6 +342,8 @@ namespace WealthERP.OnlineOrderBackOffice
                 //{
                 //    drSIPOrderBook["CMFSS_CancelDate"] = null;
                 //}
+                drSIPOrderBook["C_Mobile1"] = drSIP["C_Mobile1"].ToString();
+                drSIPOrderBook["C_Email"] = drSIP["C_Email"];
                 dtFinalSIPOrderBook.Rows.Add(drSIPOrderBook);
             }
 
@@ -391,7 +393,8 @@ namespace WealthERP.OnlineOrderBackOffice
             dtSIPOrderBook.Columns.Add("CMFSS_CancelDate", typeof(DateTime));
             dtSIPOrderBook.Columns.Add("CMFSS_CancelBy");
             dtSIPOrderBook.Columns.Add("CustCode");
-
+            dtSIPOrderBook.Columns.Add("C_Mobile1");
+            dtSIPOrderBook.Columns.Add("C_Email");
             return dtSIPOrderBook;
 
         }

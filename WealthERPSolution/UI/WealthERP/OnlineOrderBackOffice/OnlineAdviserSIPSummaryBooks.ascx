@@ -49,7 +49,7 @@
             </td>
             <td id="tdStatusType" runat="server" class="leftField">
                 <asp:Label runat="server" class="FieldName" Text="Status Type:" ID="Label3"></asp:Label>
-                <asp:DropDownList CssClass="cmbField" ID="ddlStatus" runat="server" AutoPostBack="true">
+                <asp:DropDownList CssClass="cmbField" ID="ddlStatus" runat="server" AutoPostBack="false">
                     <asp:ListItem Text="Cancelled" Value="1"></asp:ListItem>
                     <asp:ListItem Text="Active" Value="2"></asp:ListItem>
                     <asp:ListItem Text="Matured" Value="3"></asp:ListItem>
@@ -189,6 +189,16 @@
                             <telerik:GridBoundColumn DataField="C_PANNum" HeaderText="PAN No" AllowFiltering="true"
                                 HeaderStyle-Wrap="false" SortExpression="C_PANNum" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                 AutoPostBackOnFilter="true" HeaderStyle-Width="100px" UniqueName="C_PANNum" FooterStyle-HorizontalAlign="Left">
+                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                             <telerik:GridBoundColumn DataField="C_Mobile1" HeaderText="Mobile No" AllowFiltering="true"
+                                HeaderStyle-Wrap="false" SortExpression="C_Mobile1" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                AutoPostBackOnFilter="true" HeaderStyle-Width="100px" UniqueName="C_Mobile1" FooterStyle-HorizontalAlign="Left">
+                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                             <telerik:GridBoundColumn DataField="C_Email" HeaderText="Email Id" AllowFiltering="true"
+                                HeaderStyle-Wrap="false" SortExpression="C_Email" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                AutoPostBackOnFilter="true" HeaderStyle-Width="100px" UniqueName="C_Email" FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="PA_AMCName" HeaderText="Fund Name" AllowFiltering="true"

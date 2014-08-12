@@ -256,7 +256,7 @@ namespace WealthERP.Uploads
             genDictMF.Add("Standard", "WPT");
             return genDictMF;
         }
-
+    
         private static Dictionary<string, string> GetEquityGenericDictionary()
         {
             Dictionary<string, string> genDictEquity = new Dictionary<string, string>();
@@ -413,7 +413,27 @@ namespace WealthERP.Uploads
         {
             //System.Threading.Thread.Sleep(5000);
             //Create XML for the file
-            if (Page.IsValid & ddlUploadType.SelectedValue == "CM")
+
+            if (Page.IsValid & ddlUploadType.SelectedValue == "MFR")
+            {
+                int ReqId = 0;
+                msgUploadComplete.Visible = true;
+                string uploadFilePath = ConfigurationManager.AppSettings["ADVISOR_UPLOAD_PATH"].ToString() + "\\" + adviserVo.advisorId.ToString() + "\\";
+                string newFileName = SaveFileIntoServer(FileUpload, uploadFilePath);
+                newFileName = uploadFilePath + newFileName;
+                //   packagePath = Server.MapPath("\\UploadPackages\\Integration Services Project1\\Integration Services Project1\\Package9.dtsx");
+                werpTaskRequestManagementBo.CreateTaskRequestForRecon(5, userVo.UserId, out ReqId, newFileName, adviserVo.advisorId, ddlListCompany.SelectedValue,txtMfRecon.Text);
+                
+                if (ReqId > 0)
+                {
+                    msgUploadComplete.InnerText = "Request Id-" + ReqId.ToString() + "-Generated SuccessFully";
+                }
+                else
+                {
+                    msgUploadComplete.InnerText = "Not able to create Request,Try again";
+                }
+            }
+           else if (Page.IsValid & ddlUploadType.SelectedValue == "CM")
             {
                 int ReqId = 0;
                 msgUploadComplete.Visible = true;
@@ -425,7 +445,7 @@ namespace WealthERP.Uploads
                 string newFileName = SaveFileIntoServer(FileUpload, uploadFilePath);
                 newFileName = uploadFilePath + newFileName;
                 //   packagePath = Server.MapPath("\\UploadPackages\\Integration Services Project1\\Integration Services Project1\\Package9.dtsx");
-                werpTaskRequestManagementBo.CreateTaskRequest(4, userVo.UserId, out ReqId, newFileName, adviserVo.advisorId, 0, 0, ddlListCompany.SelectedValue);
+                werpTaskRequestManagementBo.CreateTaskRequest(4, userVo.UserId, out ReqId, newFileName, adviserVo.advisorId, Convert.ToInt32(ddlRM.SelectedValue), Convert.ToInt32(ddlListBranch.SelectedValue), ddlListCompany.SelectedValue);
                 if (ReqId > 0)
                 {
                     msgUploadComplete.InnerText = "Request Id-" + ReqId.ToString() + "-Generated SuccessFully";
@@ -457,7 +477,7 @@ namespace WealthERP.Uploads
                     msgUploadComplete.InnerText = "Not able to create Request,Try again";
                 }
             }
-            if (Page.IsValid & ddlUploadType.SelectedValue != "P" & ddlUploadType.SelectedValue != "CM")
+            if (Page.IsValid & ddlUploadType.SelectedValue != "P" & ddlUploadType.SelectedValue != "CM" & ddlUploadType.SelectedValue != "MFR")
             {
                 #region Uploading Content
                 string pathxml = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
@@ -4573,25 +4593,35 @@ namespace WealthERP.Uploads
             //SkiprowsVisible.Visible = true;
             upload.Visible = false;
             datevisible.Visible = false;
-            if (ddlUploadType.SelectedValue == "P" || ddlUploadType.SelectedValue == "PMFF")
+            if (ddlUploadType.SelectedValue == "CM" || ddlUploadType.SelectedValue == "P" || ddlUploadType.SelectedValue == "PMFF")
             {
-                trListBranch.Visible = true;
-            }
-            else
-            {
-                trListBranch.Visible = false;
-            }
-            if ( ddlUploadType.SelectedValue == "P")
-            {
-                //trListBranch.Visible = true;
                 trRM.Visible = true;
-
+                ddlRM.Enabled = false;
+                ddlRM.SelectedValue = "4682";
+                trListBranch.Visible = true;
+                ddlListBranch.Enabled = false;
+                ddlListBranch.SelectedValue = "1339";
             }
             else
             {
                 trRM.Visible = false;
+                trListBranch.Visible = false;
             }
-
+           
+            if (ddlUploadType.SelectedValue == "MFR")
+            {
+                trListBranch.Visible = false;
+                trRM.Visible = false;
+                trMfRecon.Visible = true;
+                      
+            }
+            else
+            {
+                trListBranch.Visible = true;
+                trRM.Visible = true;
+                trMfRecon.Visible = false;
+            }
+           
 
             //MF FOLIO UPLOADS DROPDOWN POPULATE -VISHAL 
             if (ddlUploadType.SelectedValue == Contants.ExtractTypeMFFolio)
@@ -4815,6 +4845,25 @@ namespace WealthERP.Uploads
                 ddlListCompany.Items.Insert(0, new ListItem("Select Source Type", "Select Source Type"));
 
 
+            }
+            if (ddlUploadType.SelectedValue == Contants.ExtractTypeMFRecon)
+            {   // Profile Only
+
+                //fill External Type dropdownbox
+                ddlListCompany.DataSource = GetMFGenericDictionary();
+               
+                ddlListCompany.DataTextField = "Key";
+                ddlListCompany.DataValueField = "Value";
+                ddlListCompany.DataBind();
+                ddlListCompany.Items.Insert(0, new ListItem("Select Source Type", "Select Source Type"));
+
+                ListItem li = ddlListCompany.Items.FindByValue("DT");
+                ddlListCompany.Items.Remove(li);
+
+                li = ddlListCompany.Items.FindByValue("SU");
+                ddlListCompany.Items.Remove(li);
+                li = ddlListCompany.Items.FindByValue("WPT");
+                ddlListCompany.Items.Remove(li);  
             }
         }
 

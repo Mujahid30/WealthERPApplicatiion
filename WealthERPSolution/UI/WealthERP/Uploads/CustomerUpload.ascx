@@ -270,6 +270,7 @@
                 <asp:ListItem Value="P">Profile Incremental</asp:ListItem>
                 <asp:ListItem Value="CM">Client Modification</asp:ListItem>
                 <asp:ListItem Value="Link">Fixed Income</asp:ListItem>
+                <asp:ListItem Value="MFR">MF Holding Recon</asp:ListItem>
             </asp:DropDownList>
             <img src="../Images/help.png" class="ScreenTip1" style="height: 15px; width: 15px;" />
             <div id="div1" style="display: none;">
@@ -426,6 +427,19 @@
                 Operator="DataTypeCheck" ErrorMessage="Not acceptable format" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
         </td>
     </tr>--%>
+    <tr id="trMfRecon" runat="server" visible="false">
+        <td class="leftField">
+            <asp:Label ID="lblMfRecon" runat="server" CssClass="FieldName" Text="Remarks:"></asp:Label>
+        </td>
+        <td class="rightField" colspan="3">
+            <asp:TextBox ID="txtMfRecon" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:RequiredFieldValidator ID="txtNoOfRows_RequiredFieldValidator" ControlToValidate="txtMfRecon"
+                ValidationGroup="btn_Upload" ErrorMessage="Please enter remark" Display="Dynamic"
+                runat="server" CssClass="rfvPCG">
+            </asp:RequiredFieldValidator>
+   
+        </td>
+    </tr>
     <tr>
         <td class="leftField">
             <asp:Label ID="Label3" runat="server" CssClass="FieldName" Text="Browse:"></asp:Label>

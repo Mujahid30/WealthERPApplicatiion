@@ -30,6 +30,7 @@ namespace WealthERP.Base
         public const string ExtractTypeMFFolio = "MFFO";
         public const string ExtractTypeFIHoldings = "Link";
         public const string ExtractTypeModification = "CM";
+        public const string ExtractTypeMFRecon = "MFR";
 
 
 
