@@ -52,10 +52,10 @@
 </table>
  <table width="100%">
             <tr>
-            <td  style="width:310px;">
+            <td style="width:21.5%;">
             <asp:Label ID="lblCustName" runat="server" Text="Select Customer:" CssClass="FieldName"  ></asp:Label> 
             <asp:TextBox ID="txtCustomerName" runat="server" CssClass="txtField" AutoComplete="Off"
-                AutoPostBack="True" onclientClick="ShowIsa()" Width="200px">  </asp:TextBox>
+                AutoPostBack="True" onclientClick="ShowIsa()" Width="165px">  </asp:TextBox>
             <cc1:TextBoxWatermarkExtender ID="txtCustomerName_water" TargetControlID="txtCustomerName"
                 WatermarkText="Enter Three Characters" runat="server" EnableViewState="false">
             </cc1:TextBoxWatermarkExtender>
@@ -71,7 +71,7 @@
                 ErrorMessage="<br />Please Enter Customer Name" Display="Dynamic" runat="server"
                 CssClass="rfvPCG" ValidationGroup="BtnGo"></asp:RequiredFieldValidator>
         </td>
-        <td style="width:190px;">
+        <td style="width:15%;" >
         <asp:Label ID="lblModificationDate" runat="server" Text="From:" CssClass="FieldName" ></asp:Label>
         
                     <telerik:RadDatePicker ID="rdpFromModificationDate" CssClass="txtField" runat="server" AutoPostBack="false"
@@ -86,8 +86,8 @@
                     <asp:RequiredFieldValidator ID="RFVDModificationDate" runat="server" ErrorMessage="Please select a valid date"
                         Display="Dynamic" ControlToValidate="rdpFromModificationDate" Text="Please select a valid date"
                         CssClass="rfvPCG" ValidationGroup="BtnGo">Please select a valid date</asp:RequiredFieldValidator>
-                </td>
-         <td  style="width:175px;">
+               </td>
+               <td style="width:12.5%;">
         <asp:Label ID="lblToDate" runat="server" Text="To:" CssClass="FieldName" ></asp:Label>
        
                     <telerik:RadDatePicker ID="rdpToDate" CssClass="txtField" runat="server" AutoPostBack="false"
@@ -108,7 +108,7 @@
                     Display="Dynamic">
                 </asp:CompareValidator>
                 </td>
-            <td>
+            <td style="width:21%;">
             <asp:Label ID="lblFilterType" runat="server" Text="Select Type:" CssClass="FieldName" ></asp:Label>
             
             <asp:DropDownList ID="ddlAuditType" runat="server" >
@@ -123,7 +123,7 @@
                         Display="Dynamic" ControlToValidate="ddlAuditType" Text="Please select a Type Audit"
                         CssClass="rfvPCG" ValidationGroup="BtnGo" InitialValue="select">Please select a Type Audit</asp:RequiredFieldValidator>
             </td>
-             <td>
+            <td style="width:1%;">
                  <asp:Button ID="btnSubmit" runat="server"  Text="Go" CssClass="PCGButton" OnClick="btnSubmit_Click" ValidationGroup="BtnGo"/>
             </td>
             </tr>

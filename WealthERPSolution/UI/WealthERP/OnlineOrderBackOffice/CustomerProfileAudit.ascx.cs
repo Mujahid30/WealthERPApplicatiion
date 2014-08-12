@@ -96,28 +96,28 @@ namespace WealthERP.OnlineOrderBackOffice
                     tblProfileHeading.Visible = true;
                     tblProfileData.Visible = true;
                     if (Cache["CustomerProfile" + adviserVo.advisorId] != null) Cache.Remove("CustomerProfile" + adviserVo.advisorId);
-                    if (dsGetCustomerProfileAuditData.Tables[0].Rows.Count >= 0) Cache.Insert("CustomerProfile" + adviserVo.advisorId, dsGetCustomerProfileAuditData.Tables[0]);
+                    Cache.Insert("CustomerProfile" + adviserVo.advisorId, dsGetCustomerProfileAuditData.Tables[0]);
                     break;
                 case "CB": rdCustomerBank.DataSource = dsGetCustomerProfileAuditData.Tables[0];
                     rdCustomerBank.DataBind();
                     tblCustomerBank.Visible = true;
                     tblCustomerBankHeading.Visible = true;
                     if (Cache["CustomerBank" + adviserVo.advisorId] != null) Cache.Remove("CustomerBank" + adviserVo.advisorId);
-                    if (dsGetCustomerProfileAuditData.Tables[0].Rows.Count >= 0) Cache.Insert("CustomerBank" + adviserVo.advisorId, dsGetCustomerProfileAuditData.Tables[0]);
+                    Cache.Insert("CustomerBank" + adviserVo.advisorId, dsGetCustomerProfileAuditData.Tables[0]);
                     break;
                 case "CD": rdCustomerDemat.DataSource = dsGetCustomerProfileAuditData.Tables[0];
                     rdCustomerDemat.DataBind();
                     tblCustomerDemat.Visible = true;
                     tblCustomerDematHeading.Visible = true;
                     if (Cache["CustomerDemat" + adviserVo.advisorId] != null) Cache.Remove("CustomerDemat" + adviserVo.advisorId);
-                    if (dsGetCustomerProfileAuditData.Tables[0].Rows.Count >= 0) Cache.Insert("CustomerDemat" + adviserVo.advisorId, dsGetCustomerProfileAuditData.Tables[0]);
+                    Cache.Insert("CustomerDemat" + adviserVo.advisorId, dsGetCustomerProfileAuditData.Tables[0]);
                     break;
                 case "CDA": rdCustomerDematAssociates.DataSource = dsGetCustomerProfileAuditData.Tables[0];
                     rdCustomerDematAssociates.DataBind();
                     tblCustomerDematAssociates.Visible = true;
                     tblCustomerDematAssociatesHeading.Visible = true;
                     if (Cache["CustomerDematAssociate" + adviserVo.advisorId] != null) Cache.Remove("CustomerDematAssociate" + adviserVo.advisorId);
-                    if (dsGetCustomerProfileAuditData.Tables[0].Rows.Count >=0) Cache.Insert("CustomerDematAssociate" + adviserVo.advisorId, dsGetCustomerProfileAuditData.Tables[0]);
+                    Cache.Insert("CustomerDematAssociate" + adviserVo.advisorId, dsGetCustomerProfileAuditData.Tables[0]);
                     break;
             }
 
