@@ -427,7 +427,7 @@ namespace WealthERP.Advisor
                     else
                         rmVo.IsExternal = 0;
 
-                    rmIds = advisorStaffBo.CreateCompleteRM(rmUserVo, rmVo, userVo.UserId, isOpsIsChecked, isPurelyResearchLogin);
+                    rmIds = advisorStaffBo.CreateCompleteRM(rmUserVo, rmVo, userVo.UserId, isOpsIsChecked, isPurelyResearchLogin,null);
 
                     rmVo.UserId = rmIds[0];
                     Session["rmId"] = rmIds[1];
@@ -784,7 +784,7 @@ namespace WealthERP.Advisor
                     rmVo.CTC = Double.Parse(txtCTCMonthly.Text);
 
 
-                rmIds = advisorStaffBo.CreateCompleteRM(rmUserVo, rmVo, userVo.UserId, isOpsIsChecked, isPurelyResearchLogin);
+                rmIds = advisorStaffBo.CreateCompleteRM(rmUserVo, rmVo, userVo.UserId, isOpsIsChecked, isPurelyResearchLogin,null);
 
                 rmVo.UserId = rmIds[0];
                 if ((CheckListCKMK.Items[0].Selected == true) || (CheckListCKMK.Items[1].Selected == true))
@@ -993,7 +993,7 @@ namespace WealthERP.Advisor
                 else
                     rmVo.IsExternal = 0;
 
-                rmIds = advisorStaffBo.CreateCompleteRM(rmUserVo, rmVo, userVo.UserId, isOpsIsChecked, isPurelyResearchLogin);
+                rmIds = advisorStaffBo.CreateCompleteRM(rmUserVo, rmVo, userVo.UserId, isOpsIsChecked, isPurelyResearchLogin,null);
 
                 rmVo.UserId = rmIds[0];
                 Session["rmId"] = rmIds[1];
