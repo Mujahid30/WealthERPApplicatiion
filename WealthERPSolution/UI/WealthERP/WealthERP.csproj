@@ -2688,13 +2688,6 @@
     <Compile Include="OnlineMainHost.aspx.designer.cs">
       <DependentUpon>OnlineMainHost.aspx</DependentUpon>
     </Compile>
-    <Compile Include="OnlineOrderBackOffice\CustomerProfileAudit.ascx.cs">
-      <DependentUpon>CustomerProfileAudit.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="OnlineOrderBackOffice\CustomerProfileAudit.ascx.designer.cs">
-      <DependentUpon>CustomerProfileAudit.ascx</DependentUpon>
-    </Compile>
     <Compile Include="OnlineOrderBackOffice\ExternalFieldMapping.ascx.cs">
       <DependentUpon>ExternalFieldMapping.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2722,13 +2715,6 @@
     </Compile>
     <Compile Include="OnlineOrderBackOffice\MFAccountValuation.ascx.designer.cs">
       <DependentUpon>MFAccountValuation.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="OnlineOrderBackOffice\MFHoldingRecon.ascx.cs">
-      <DependentUpon>MFHoldingRecon.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="OnlineOrderBackOffice\MFHoldingRecon.ascx.designer.cs">
-      <DependentUpon>MFHoldingRecon.ascx</DependentUpon>
     </Compile>
     <Compile Include="OnlineOrderBackOffice\OnlineAdviserCustomerIPOHoldings.ascx.cs">
       <DependentUpon>OnlineAdviserCustomerIPOHoldings.ascx</DependentUpon>
@@ -3832,6 +3818,13 @@
     </Compile>
     <Compile Include="SuperAdmin\ViewUploadHistory.ascx.designer.cs">
       <DependentUpon>ViewUploadHistory.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UploadBackOffice\ManageProfileReject.ascx.cs">
+      <DependentUpon>ManageProfileReject.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UploadBackOffice\ManageProfileReject.ascx.designer.cs">
+      <DependentUpon>ManageProfileReject.ascx</DependentUpon>
     </Compile>
     <Compile Include="Uploads\CAMSProfileFolioInputRejects.ascx.cs">
       <DependentUpon>CAMSProfileFolioInputRejects.ascx</DependentUpon>
@@ -7906,12 +7899,10 @@
     <Content Include="OffLineOrderManagement\MFOrderBuyTransTypeOffline.ascx" />
     <Content Include="OnlineBottomHost.aspx" />
     <Content Include="OnlineMainHost.aspx" />
-    <Content Include="OnlineOrderBackOffice\CustomerProfileAudit.ascx" />
     <Content Include="OnlineOrderBackOffice\ExternalFieldMapping.ascx" />
     <Content Include="OnlineOrderBackOffice\HoldingIssueAllotment.ascx" />
     <Content Include="OnlineOrderBackOffice\ManageLookups.ascx" />
     <Content Include="OnlineOrderBackOffice\MFAccountValuation.ascx" />
-    <Content Include="OnlineOrderBackOffice\MFHoldingRecon.ascx" />
     <Content Include="OnlineOrderBackOffice\OnlineAdviserCustomerIPOHoldings.ascx" />
     <Content Include="OnlineOrderBackOffice\OnlineAdviserCustomerIPOOrderBook.ascx" />
     <Content Include="OnlineOrderBackOffice\OnlineAdviserCustomerNCDHoldings.ascx" />
@@ -8062,6 +8053,7 @@
     <Content Include="SuperAdmin\UploadFolioTrxnReconcilation.ascx" />
     <Content Include="SuperAdmin\ViewIssuseDetails.ascx" />
     <Content Include="SuperAdmin\ViewUploadHistory.ascx" />
+    <Content Include="UploadBackOffice\ManageProfileReject.ascx" />
     <Content Include="UploadPackages\CAMSSystematicUploadPackageNew\CAMSSystematicUploadPackageNew.sln" />
     <Content Include="UploadPackages\CAMSSystematicUploadPackageNew\CAMSSystematicUploadPackageNew\CAMSSystematicUploadPackageNew.dtproj.user" />
     <Content Include="UploadPackages\FINEW\FINEW\FINEW.sln" />

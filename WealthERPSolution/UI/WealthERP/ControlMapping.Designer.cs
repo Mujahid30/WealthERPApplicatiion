@@ -2131,6 +2131,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to UploadBackOffice//ManageProfileReject.ascx.
+        /// </summary>
+        internal static string ManageProfileReject {
+            get {
+                return ResourceManager.GetString("ManageProfileReject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Admin//ManageRepository.ascx.
         /// </summary>
         internal static string ManageRepository {

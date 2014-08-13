@@ -1921,12 +1921,8 @@
     <value>OnlineOrderManagement//MFOrderSwitchTransType.ascx</value>
     <comment>OnlineOrderManagement//MFOrderSwitchTransType.ascx</comment>
   </data>
-  <data name="CustomerProfileAudit" xml:space="preserve">
-    <value>OnlineOrderBackOffice//CustomerProfileAudit.ascx</value>
-    <comment>OnlineOrderBackOffice//CustomerProfileAudit.ascx</comment>
-  </data>
-  <data name="MFHoldingRecon" xml:space="preserve">
-    <value>OnlineOrderBackOffice//MFHoldingRecon.ascx</value>
-    <comment>OnlineOrderBackOffice//MFHoldingRecon.ascx</comment>
+  <data name="ManageProfileReject" xml:space="preserve">
+    <value>UploadBackOffice//ManageProfileReject.ascx</value>
+    <comment>UploadBackOffice//ManageProfileReject.ascx</comment>
   </data>
 </root>
