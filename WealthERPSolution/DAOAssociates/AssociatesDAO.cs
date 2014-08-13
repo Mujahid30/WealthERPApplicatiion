@@ -61,7 +61,7 @@ namespace DAOAssociates
                 db.AddOutParameter(completeAssociatesCmd, "@AA_AdviserAssociateId", DbType.Int32, 10);
                 db.AddOutParameter(completeAssociatesCmd, "@AAC_AdviserAgentId", DbType.Int32, 10);
                 db.AddOutParameter(completeAssociatesCmd, "@U_UserId", DbType.Int32, 10);
-
+                db.AddInParameter(completeAssociatesCmd, "@roleIds", DbType.String,associatesVo.Roleid);
                 if (db.ExecuteNonQuery(completeAssociatesCmd) != 0)
                 {
 
@@ -1276,6 +1276,12 @@ namespace DAOAssociates
                         associatesVo.AssociateSubType = dr["XCST_CustomerSubTypeCode"].ToString();
                     if (dr["AssetCodes"] != DBNull.Value)
                         associatesVo.assetGroupCode = dr["AssetCodes"].ToString();
+                    if (dr["AH_HierarchyId"] != DBNull.Value)
+                        associatesVo.adviserhirerchi = int.Parse(dr["AH_HierarchyId"].ToString());
+                    if (dr["DepartmentId"] != DBNull.Value)
+                        associatesVo.Departmrntid = int.Parse(dr["DepartmentId"].ToString());
+                    if (dr["DepartentRoles"] != DBNull.Value)
+                        associatesVo.Roleid = dr["DepartentRoles"].ToString();
 
                 }
             }
@@ -2035,6 +2041,68 @@ namespace DAOAssociates
             }
             return dsAdviserStaffBranchList.Tables[0];
 
+        }
+        public bool UpdateUserrole( int DepartmentId,string rollid)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand UpdateUserroleCmd;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                UpdateUserroleCmd = db.GetStoredProcCommand("SPROC_UpdateAdviserRoleAssociation");
+                db.AddInParameter(UpdateUserroleCmd, "@userIds", DbType.Int32, DepartmentId);
+                db.AddInParameter(UpdateUserroleCmd, "@roleIds", DbType.String, rollid);
+                if (db.ExecuteNonQuery(UpdateUserroleCmd) != 0)
+                    bResult = true;
+            }
+
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:UpdateUserrole()");
+                object[] objects = new object[3];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return bResult;
+        }
+        public DataSet GetDepartment(int adviserId)
+        {
+            Database db;
+            DataSet dsGetUserRole;
+            DbCommand GetUserRolecmd;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetUserRolecmd = db.GetStoredProcCommand("SPROC_GetDepartmentNameAssociate");
+                db.AddInParameter(GetUserRolecmd, "@adviserId", DbType.Int64, adviserId);
+                dsGetUserRole = db.ExecuteDataSet(GetUserRolecmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:GetFrequency()");
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetUserRole;
         }
     }
 }

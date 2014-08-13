@@ -17,6 +17,7 @@ using System.Configuration;
 using VOAssociates;
 using BOAssociates;
 using BoCustomerProfiling;
+using BoUser;
 
 namespace WealthERP.Associates
 {
@@ -32,7 +33,9 @@ namespace WealthERP.Associates
         CustomerBankAccountBo customerBankAccountBo = new CustomerBankAccountBo();
         AdvisorBo advisorBo = new AdvisorBo();
         CustomerBo customerBo = new CustomerBo();
-
+        List<int> associatesIds;
+        UserBo userBo = new UserBo();
+        AdvisorStaffBo advisorStaffBo = new AdvisorStaffBo();
         int adviserId = 0;
         string path;
         string viewAction;
@@ -44,7 +47,7 @@ namespace WealthERP.Associates
             advisorVo = (AdvisorVo)Session["advisorVo"];
             rmVo = (RMVo)Session[SessionContents.RmVo];
             userVo = (UserVo)Session["userVo"];
-            viewAction = (string)Session["action"];
+            //viewAction = (string)Session["action"];
             if (Session["associatesVo"] != null)
             {
                 associatesVo = (AssociatesVO)Session["associatesVo"];
@@ -64,31 +67,48 @@ namespace WealthERP.Associates
                 BindRelationship();
                 BindAssetCategory();
                 BindMaritalStatus();
+                BindHierarchyTitleDropList();
                 //BindCity(0);
+                BinddepartDropList();
                 BindSubTypeDropDown("IND");
-                if (viewAction == "View")
+                if (Request.QueryString["action"] != "" && Request.QueryString["action"] != null)
                 {
-                    SetEnableDisable(0);
-                    associatesVo = (AssociatesVO)Session["associatesVo"];
-                    if (associatesVo != null)
-                        SetEditViewControls(associatesVo);
-                    head.InnerText = "View Associates";
-                    lnkBtnEdit.Visible = true;
-                    lnlBack.Visible = true;
-                }
-                if (viewAction == "Edit" || viewAction == "EditFromRequestPage") {
-                    associatesVo = (AssociatesVO)Session["associatesVo"];
-                    if (associatesVo != null)
-                        SetEditViewControls(associatesVo);
-                    head.InnerText = "Edit Associates";
-                    lnkBtnEdit.Visible = false;
-                    lnlBack.Visible = true;
+                    BtnSave.Visible = false;
+                    if (Request.QueryString["action"].Trim() == "View")
+                    {
+                        //if (viewAction == "View")
+                        //{
+                        SetEnableDisable(0);
+                        associatesVo = (AssociatesVO)Session["associatesVo"];
+                        if (associatesVo != null)
+                            SetEditViewControls(associatesVo);
+                        head.InnerText = "View Associates";
+                        ddlTitleList.Enabled = false;
+                        ddlBranch.Enabled = false;
+                        ddlRM.Enabled = false;
+                        lnkBtnEdit.Visible = true;
+                        lnlBack.Visible = true;
+                    }
+                    else if (Request.QueryString["action"].Trim() == "Edit")
+                    //if (viewAction == "Edit" || viewAction == "EditFromRequestPage")
+                    {
+                        associatesVo = (AssociatesVO)Session["associatesVo"];
+                        if (associatesVo != null)
+                            SetEditViewControls(associatesVo);
+                        head.InnerText = "Edit Associates";
+                        ddlTitleList.Enabled = false;
+                        ddlBranch.Enabled = false;
+                        ddlRM.Enabled = false;
+                        lnkBtnEdit.Visible = false;
+                        lnlBack.Visible = true;
+                        btnSubmit.Visible = true;
+
+                    }
                 }
 
             }
             if (userVo.UserType != "Advisor") { lnkBtnEdit.Visible = false; }
         }
-
         private void BindMaritalStatus()
         {
             DataTable dtMaritalStatus = XMLBo.GetMaritalStatus(path);
@@ -103,9 +123,9 @@ namespace WealthERP.Associates
         {
             if (flag == 0)
             {
-                txtBranch.Enabled = false;
+                // txtBranch.Enabled = false;
                 btnSubmit.Visible = false;
-                txtRM.Enabled = false;
+                // txtRM.Enabled = false;
                 txtAMFINo.Enabled = false;
                 txtStartDate.Enabled = false;
                 txtEndDate.Enabled = false;
@@ -186,9 +206,9 @@ namespace WealthERP.Associates
             }
             else
             {
-                txtBranch.Enabled = false;
+                // txtBranch.Enabled = false;
                 btnSubmit.Visible = true;
-                txtRM.Enabled = false;
+                //txtRM.Enabled = false;
                 txtAMFINo.Enabled = true;
                 txtStartDate.Enabled = true;
                 txtEndDate.Enabled = true;
@@ -272,10 +292,36 @@ namespace WealthERP.Associates
 
         private void SetEditViewControls(AssociatesVO associatesVo)
         {
+            BindHierarchyTitleDropList();
+            BindStaffBranchDropList(associatesVo.RMId);
+            BindStaffDropList(associatesVo.adviserhirerchi);
+            BinddepartDropList();
+            if (associatesVo.Departmrntid != 0)
+            {
+                BindAdviserrole(associatesVo.Departmrntid);
+                string[] RoleIds = associatesVo.Roleid.Split(',');
+                for (int i = 0; i < RoleIds.Length; i++)
+                {
+                    foreach (RadListBoxItem li in chkbldepart.Items)
+                    {
+                        if (RoleIds[i] == li.Value.ToString())
+                        {
+                            li.Checked = true;
+                        }
+                    }
+                }
+            }
             if (associatesVo.BMName != null)
-                txtBranch.Text = associatesVo.BMName;
+                ddlBranch.SelectedValue = associatesVo.BranchId.ToString();
+            if (associatesVo.Departmrntid != 0)
+            {
+                ddlDepart.SelectedValue = associatesVo.Departmrntid.ToString();
+                PnlDepartRole.Visible = true;
+            }
             if (associatesVo.RMNAme != null)
-                txtRM.Text = associatesVo.RMNAme;
+                ddlRM.SelectedValue = associatesVo.RMId.ToString();
+            if (associatesVo.adviserhirerchi != 0)
+                ddlTitleList.SelectedValue = associatesVo.adviserhirerchi.ToString();
             if (associatesVo.ContactPersonName != null)
                 txtAssociateName.Text = associatesVo.ContactPersonName;
             if (associatesVo.AMFIregistrationNo != null)
@@ -589,8 +635,321 @@ namespace WealthERP.Associates
             txtEmail.Text = associatesVo.Email;
         }
 
-        protected void btnSubmit_Click(object sender, EventArgs e)
+        protected void Update_Click(object sender, EventArgs e)
         {
+            UpdatingDetails();
+            Updatedepartment();
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Associates Updated successfully!!');", true);
+
+            //int associationId = 0;
+            //bool result = false;
+            //string assetGroupCodes;
+            //if (associatesVo.AdviserAssociateId != 0)
+            //    associationId = associatesVo.AdviserAssociateId;
+
+            //associatesVo.AdviserAssociateId = associationId;
+            //associatesVo.AAC_AdviserAgentId = associatesVo.AAC_AdviserAgentId;
+            //associatesVo.ContactPersonName = txtAssociateName.Text;
+
+            ////------------------------------CONTACT DETAILS--------------
+            //if (txtResPhoneNoIsd.Text != null)
+            //    associatesVo.ResISDCode = int.Parse(txtResPhoneNoIsd.Text);
+            //else
+            //    associatesVo.ResISDCode = 0;
+            //if (!string.IsNullOrEmpty(txtResPhoneNo.Text))
+            //    associatesVo.ResPhoneNo = int.Parse(txtResPhoneNo.Text);
+            //else
+            //    associatesVo.ResPhoneNo = 0;
+
+            //if (!string.IsNullOrEmpty(txtResFaxStd.Text))
+            //    associatesVo.ResFaxStd = int.Parse(txtResFaxStd.Text);
+            //else
+            //    associatesVo.ResFaxStd = 0;
+            //if (!string.IsNullOrEmpty(txtResFax.Text))
+            //    associatesVo.ResFaxNumber = int.Parse(txtResFax.Text);
+            //else
+            //    associatesVo.ResFaxNumber = 0;
+            //if (!string.IsNullOrEmpty(txtOfcFaxStd.Text))
+            //    associatesVo.OfcFaxNumber = int.Parse(txtOfcFaxStd.Text);
+            //else
+            //    associatesVo.OfcFaxNumber = 0;
+            //if (!string.IsNullOrEmpty(txtMobile1.Text))
+            //    associatesVo.Mobile = long.Parse(txtMobile1.Text);
+            //else
+            //    associatesVo.Mobile = 0;
+            //if (txtEmail.Text != null)
+            //    associatesVo.Email = txtEmail.Text;
+            //else
+            //    associatesVo.Email = "";
+            //#region ---------------------------------------CORRESPONDING ADDRESS-------------------------------------------
+
+            //if (txtCorLine1.Text != null)
+            //    associatesVo.CorrAdrLine1 = txtCorLine1.Text;
+            //else
+            //    associatesVo.CorrAdrLine1 = "";
+            //if (txtCorLine2.Text != null)
+            //    associatesVo.CorrAdrLine2 = txtCorLine2.Text;
+            //else
+            //    associatesVo.CorrAdrLine2 = "";
+            //if (txtCorLine3.Text != null)
+            //    associatesVo.CorrAdrLine3 = txtCorLine3.Text;
+            //else
+            //    associatesVo.CorrAdrLine3 = "";
+            //if (txtCorCity.Text != null)
+            //    associatesVo.CorrAdrCity = txtCorCity.Text;
+            //else
+            //    associatesVo.CorrAdrCity = "";
+            ////if (ddlCorCity.SelectedIndex != 0)
+            ////    associatesVo.CorrAdrCity = ddlCorCity.SelectedValue;
+
+            //if (!string.IsNullOrEmpty(txtCorPin.Text))
+            //    associatesVo.CorrAdrPinCode = int.Parse(txtCorPin.Text);
+            //else
+            //    associatesVo.CorrAdrPinCode = 0;
+            //if (ddlCorState.SelectedIndex != 0)
+            //    associatesVo.CorrAdrState = ddlCorState.SelectedValue;
+            //else
+            //    associatesVo.CorrAdrState = "";
+            //if (txtCorCountry.Text != null)
+            //    associatesVo.CorrAdrCountry = txtCorCountry.Text;
+            //else
+            //    associatesVo.CorrAdrCountry = "";
+
+            //#endregion
+            //#region //---------------------------------------PERMANENT ADDRESS-------------------------------------------
+
+
+            //if (txtPermAdrLine1.Text != null)
+            //    associatesVo.PerAdrLine1 = txtPermAdrLine1.Text;
+            //else
+            //    associatesVo.PerAdrLine1 = "";
+            //if (txtPermAdrLine2.Text != null)
+            //    associatesVo.PerAdrLine2 = txtPermAdrLine2.Text;
+            //else
+            //    associatesVo.PerAdrLine2 = "";
+            //if (txtPermAdrLine3.Text != null)
+            //    associatesVo.PerAdrLine3 = txtPermAdrLine3.Text;
+            //else
+            //    associatesVo.PerAdrLine3 = "";
+            //if (txtPermAdrCity.Text != null)
+            //    associatesVo.PerAdrCity = txtCorCity.Text;
+            //else
+            //    associatesVo.PerAdrCity = "";
+            ////if (ddlPermAdrCity.SelectedIndex != 0)
+            ////    associatesVo.PerAdrCity = ddlPermAdrCity.SelectedValue;
+            //if (!string.IsNullOrEmpty(txtPermAdrPinCode.Text))
+            //    associatesVo.PerAdrPinCode = int.Parse(txtPermAdrPinCode.Text);
+            //else
+            //    associatesVo.PerAdrPinCode = 0;
+            //if (ddlPermAdrState.SelectedIndex != 0)
+            //    associatesVo.PerAdrState = ddlPermAdrState.SelectedValue;
+            //else
+            //    associatesVo.PerAdrState = "";
+            //if (txtPermAdrCountry.Text != null)
+            //    associatesVo.PerAdrCountry = txtPermAdrCountry.Text;
+            //else
+            //    associatesVo.PerAdrCountry = "";
+            //#endregion
+            ////---------------------------------------OTHER INFO---------------------------------------------
+
+            //if (ddlMaritalStatus.SelectedIndex != 0)
+            //    associatesVo.MaritalStatusCode = ddlMaritalStatus.SelectedValue;
+            //else
+            //    associatesVo.MaritalStatusCode = "";
+            //if (ddlQualification.SelectedIndex != 0)
+            //    associatesVo.QualificationCode = ddlQualification.SelectedValue;
+            //else
+            //    associatesVo.QualificationCode = "";
+            //associatesVo.Gender = ddlGender.SelectedValue;
+            //if (txtDOB.SelectedDate != DateTime.MinValue)
+            //    associatesVo.DOB = Convert.ToDateTime(txtDOB.SelectedDate);
+
+            ////---------------------------------------BANK DETAILS-------------------------------------------
+
+            //if (ddlBankName.SelectedIndex != 0)
+            //    associatesVo.BankCode = ddlBankName.SelectedValue;
+            //else
+            //    associatesVo.BankCode = "";
+            //if (ddlAccountType.SelectedIndex != 0)
+            //    associatesVo.BankAccountTypeCode = ddlAccountType.SelectedValue;
+            //else
+            //    associatesVo.BankAccountTypeCode = "";
+            //if (txtAccountNumber.Text != null)
+            //    associatesVo.AccountNum = txtAccountNumber.Text;
+            //else
+            //    associatesVo.AccountNum = "";
+            //if (txtBankBranchName.Text != null)
+            //    associatesVo.BranchName = txtBankBranchName.Text;
+            //else
+            //    associatesVo.BranchName = "";
+            //if (txtBankAdrLine1.Text != null)
+            //    associatesVo.BranchAdrLine1 = txtBankAdrLine1.Text;
+            //else
+            //    associatesVo.BranchAdrLine1 = "";
+            //if (txtBankAdrLine2.Text != null)
+            //    associatesVo.BranchAdrLine2 = txtBankAdrLine2.Text;
+            //else
+            //    associatesVo.BranchAdrLine2 = "";
+            //if (txtBankAdrLine3.Text != null)
+            //    associatesVo.BranchAdrLine3 = txtBankAdrLine3.Text;
+            //else
+            //    associatesVo.BranchAdrLine3 = "";
+            //if (txtBankAdrCity.Text != null)
+            //    associatesVo.BranchAdrCity = txtBankAdrCity.Text;
+            //else
+            //    associatesVo.BranchAdrCity = "";
+            ////if (ddlBankAdrCity.SelectedIndex != 0)
+            ////    associatesVo.BranchAdrCity = ddlBankAdrCity.SelectedValue;
+            //if (ddlBankAdrState.SelectedIndex != 0)
+            //    associatesVo.BranchAdrState = ddlBankAdrState.SelectedValue;
+            //else
+            //    associatesVo.BranchAdrState = "";
+            //if (txtMicr.Text != null)
+            //    associatesVo.MICR = txtMicr.Text;
+            //else
+            //    associatesVo.MICR = "";
+            //if (txtIfsc.Text != null)
+            //    associatesVo.IFSC = txtIfsc.Text;
+            //else
+            //    associatesVo.IFSC = "";
+            ////---------------------------------------Registration-------------------------------------------
+
+            //if (txtRegNo.Text != null)
+            //    associatesVo.Registrationumber = txtRegNo.Text;
+            //else
+            //    associatesVo.Registrationumber = "";
+            ////if (ddlCategory.SelectedIndex != 0)
+            ////    associatesVo.assetGroupCode = ddlCategory.SelectedValue;
+            ////else
+            ////    associatesVo.assetGroupCode = "";
+
+            //assetGroupCodes = GetAssetGroup();
+            //if (assetGroupCodes != null)
+            //    associatesVo.assetGroupCode = assetGroupCodes;
+
+            //if (txtRegExpDate.SelectedDate != DateTime.MinValue)
+            //    associatesVo.ExpiryDate = Convert.ToDateTime(txtRegExpDate.SelectedDate);
+            ////---------------------------------------NOMINEE-------------------------------------------
+
+            //if (txtNomineeName.Text != null)
+            //    associatesVo.NomineeName = txtNomineeName.Text;
+            //else
+            //    associatesVo.NomineeName = "";
+            //if (ddlNomineeRel.SelectedIndex != 0)
+            //    associatesVo.RelationshipCode = ddlNomineeRel.SelectedValue;
+            //else
+            //    associatesVo.RelationshipCode = "";
+            //if (txtNomineeAdress.Text != null)
+            //    associatesVo.NomineeAddres = txtNomineeAdress.Text;
+            //else
+            //    associatesVo.NomineeAddres = "";
+            //if (!string.IsNullOrEmpty(txtNomineePhone.Text))
+            //    associatesVo.NomineeTelNo = int.Parse(txtNomineePhone.Text);
+            //else
+            //    associatesVo.NomineeTelNo = 0;
+            //if (txtGurdiannName.Text != null)
+            //    associatesVo.GuardianName = txtGurdiannName.Text;
+            //else
+            //    associatesVo.GuardianName = "";
+            //if (txtGuardianAdress.Text != null)
+            //    associatesVo.GuardianAddress = txtGuardianAdress.Text;
+            //else
+            //    associatesVo.GuardianAddress = "";
+            //if (!string.IsNullOrEmpty(txtGurdianPhone.Text))
+            //    associatesVo.GuardianTelNo = int.Parse(txtGurdianPhone.Text);
+            //else
+            //    associatesVo.GuardianTelNo = 0;
+            //if (ddlGuardianRel.SelectedIndex != 0)
+            //    associatesVo.GuardianRelationship = ddlGuardianRel.SelectedValue;
+            //else
+            //    associatesVo.GuardianRelationship = "";
+            ////---------------------------------------Category-------------------------------------------
+
+            //if (ddlAdviserCategory.SelectedIndex != 0)
+            //    associatesVo.AdviserCategory = ddlAdviserCategory.SelectedValue;
+            //else
+            //    associatesVo.AdviserCategory = "";
+            ////---------------------------------------Business Details-----------------------------------
+
+            //if (txtStartDate.SelectedDate == null)
+            //    associatesVo.StartDate = DateTime.MinValue;
+            //else
+            //    associatesVo.StartDate = Convert.ToDateTime(txtStartDate.SelectedDate);
+            //if (txtEndDate.SelectedDate == null)
+            //    associatesVo.EndDate = DateTime.MinValue;
+            //else
+            //    associatesVo.EndDate = Convert.ToDateTime(txtEndDate.SelectedDate);
+            //if (txtAssociateExpDate.SelectedDate == null)
+            //    associatesVo.AssociationExpairyDate = DateTime.MinValue;
+            //else
+            //    associatesVo.AssociationExpairyDate = Convert.ToDateTime(txtAssociateExpDate.SelectedDate);
+            //if (txtAMFINo.Text != null)
+            //    associatesVo.AMFIregistrationNo = txtAMFINo.Text;
+            //else
+            //    associatesVo.AMFIregistrationNo = "";
+            //if (!string.IsNullOrEmpty(txtNoBranches.Text))
+            //    associatesVo.NoOfBranches = int.Parse(txtNoBranches.Text);
+            //else
+            //    associatesVo.NoOfBranches = 0;
+            //if (!string.IsNullOrEmpty(txtNoofSales.Text))
+            //    associatesVo.NoOfSalesEmployees = int.Parse(txtNoofSales.Text);
+            //else
+            //    associatesVo.NoOfSalesEmployees = 0;
+            //if (!string.IsNullOrEmpty(txtNoofSubBrokers.Text))
+            //    associatesVo.NoOfSubBrokers = int.Parse(txtNoofSubBrokers.Text);
+            //else
+            //    associatesVo.NoOfSubBrokers = 0;
+            //if (!string.IsNullOrEmpty(txtNoofClients.Text))
+            //    associatesVo.NoOfClients = int.Parse(txtNoofClients.Text);
+            //else
+            //    associatesVo.NoOfClients = 0;
+            //if (!string.IsNullOrEmpty(txtEUIN.Text))
+            //    associatesVo.EUIN = txtEUIN.Text;
+            //if (rbtnIndividual.Checked == true)
+            //    associatesVo.AssociateType = "IND";
+            //if (rbtnNonIndividual.Checked == true)
+            //    associatesVo.AssociateType = "NIND";
+            //if (ddlAssociateSubType.SelectedIndex != 0)
+            //    associatesVo.AssociateSubType = ddlAssociateSubType.SelectedValue;
+
+
+
+
+            //result = associatesBo.UpdateAdviserAssociates(associatesVo);
+            //Session["associatesVo"] = associatesVo;
+            //if (result == true)
+            //{
+            //    if (viewAction == "View" || viewAction == "Edit")
+            //    {
+            //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewAdviserAssociateList');", true);
+
+            //        //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddBranchRMAgentAssociation','?AssociationId=" + associationId + "');", true);
+            //    }
+            //    else if (viewAction == "EditFromRequestPage")
+            //    {
+            //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddAssociates','?AssociationId=" + associationId + "&pageName=" + "AddAssociates" + "');", true);
+            //    }
+            //}
+        }
+        private void Updatedepartment()
+        {
+            bool result = false;
+            int departmentid=0;
+            string roleIds = string.Empty;
+            int userid = associatesVo.UserId;
+        if (ddlDepart.SelectedValue != "0")
+            departmentid = int.Parse(ddlDepart.SelectedValue);
+        foreach (RadListBoxItem items in chkbldepart.Items)
+        {
+            if (items.Checked == true)
+                roleIds = roleIds + items.Value.ToString() + ",";
+        }
+         roleIds = roleIds.Remove(roleIds.Length - 1);
+         result = associatesBo.UpdateUserrole(userid, roleIds);
+        }
+        private void UpdatingDetails()
+        {
+
             int associationId = 0;
             bool result = false;
             string assetGroupCodes;
@@ -754,10 +1113,10 @@ namespace WealthERP.Associates
                 associatesVo.BranchAdrState = ddlBankAdrState.SelectedValue;
             else
                 associatesVo.BranchAdrState = "";
-            if (!string.IsNullOrEmpty(txtMicr.Text))
-                associatesVo.MICR = int.Parse(txtMicr.Text);
+            if (txtMicr.Text != null)
+                associatesVo.MICR = txtMicr.Text;
             else
-                associatesVo.MICR = 0;
+                associatesVo.MICR = "";
             if (txtIfsc.Text != null)
                 associatesVo.IFSC = txtIfsc.Text;
             else
@@ -794,7 +1153,7 @@ namespace WealthERP.Associates
             else
                 associatesVo.NomineeAddres = "";
             if (!string.IsNullOrEmpty(txtNomineePhone.Text))
-                associatesVo.NomineeTelNo = int.Parse(txtNomineePhone.Text);
+                associatesVo.NomineeTelNo = Convert.ToInt32(txtNomineePhone.Text);
             else
                 associatesVo.NomineeTelNo = 0;
             if (txtGurdiannName.Text != null)
@@ -869,6 +1228,8 @@ namespace WealthERP.Associates
             Session["associatesVo"] = associatesVo;
             if (result == true)
             {
+                btnSubmit.Visible = false;
+                lnkBtnEdit.Visible = true;
                 if (viewAction == "View" || viewAction == "Edit")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewAdviserAssociateList');", true);
@@ -881,7 +1242,6 @@ namespace WealthERP.Associates
                 }
             }
         }
-
         private string GetAssetGroup()
         {
             string assetGroupCodes = "";
@@ -947,7 +1307,7 @@ namespace WealthERP.Associates
 
         //protected void ddlCorState_SelectedIndexChanged(object sender, EventArgs e)
         //{
-        //    if (ddlCorState.SelectedIndex != 0)   
+        //    if (ddlCorState.SelectedIndex != 0)
         //        BindCity(1);
         //}
         protected void rbtnIndividual_CheckedChanged(object sender, EventArgs e)
@@ -968,6 +1328,152 @@ namespace WealthERP.Associates
             ddlAssociateSubType.DataValueField = "CustomerSubTypeCode";
             ddlAssociateSubType.DataBind();
             ddlAssociateSubType.Items.Insert(0, new ListItem("Select", "Select"));
+        }
+        protected void btnSubmit_Click(object sender, EventArgs e)
+        {
+            string roleIds = string.Empty;
+            UserVo associateUserVo = new UserVo();
+            Random id = new Random();
+            string password = id.Next(10000, 99999).ToString();
+
+            associateUserVo.Password = password;
+            associateUserVo.LoginId = txtEmail.Text.ToString();
+            associateUserVo.FirstName = txtAssociateName.Text.ToString();
+            associateUserVo.Email = txtEmail.Text.ToString();
+            associateUserVo.UserType = "Associates";
+
+            associatesVo.ContactPersonName = txtAssociateName.Text;
+            associatesVo.BranchId = Convert.ToInt32(ddlBranch.SelectedValue);
+            associatesVo.BMName = ddlBranch.SelectedItem.Text;
+            associatesVo.RMId = Convert.ToInt32(ddlRM.SelectedValue);
+            associatesVo.RMNAme = ddlRM.SelectedItem.Text;
+            associatesVo.UserRoleId = 1009;
+            associatesVo.Email = txtEmail.Text;
+            associatesVo.PanNo = txtPan.Text;
+            if (!string.IsNullOrEmpty(txtMobile1.Text))
+                associatesVo.Mobile = long.Parse(txtMobile1.Text);
+            else
+                associatesVo.Mobile = 0;
+            associatesVo.RequestDate = DateTime.Now;
+            associatesVo.AAC_UserType = "Associates";
+            Session["TempAssociatesVo"] = associatesVo;
+            Session["AssociateUserVo"] = associateUserVo;
+            foreach (RadListBoxItem items in chkbldepart.Items)
+            {
+                if (items.Checked == true)
+                    roleIds = roleIds + items.Value.ToString() + ",";
+            }
+            associatesVo.Roleid= roleIds.Remove(roleIds.Length - 1);
+            associatesIds = associatesBo.CreateCompleteAssociates(associateUserVo, associatesVo, userVo.UserId);
+            associatesVo.UserId = associatesIds[0];
+            associatesVo.AdviserAssociateId = associatesIds[1];
+            //   txtGenerateReqstNum.Text = associatesVo.AdviserAssociateId.ToString();
+            //Session["userId"] = associatesVo.UserId;
+            //Session["associatesId"] = associatesVo.AdviserAssociateId;
+            Session["AdviserAgentId"] = associatesVo.AAC_AdviserAgentId;
+            //------------------------ To create User role Association-----------------------
+            userBo.CreateRoleAssociation(associatesVo.UserId, 1009);
+            UpdatingDetails();
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Associates Added successfully!!');", true);
+            BtnSave.Visible = false;
+            //    if (associatesIds.Count > 0)
+            //    {
+            //        HideAndShowBasedOnRole(associatesIds[1]);
+            //    }
+
+            //    AssignHeaderInfo();
+            //    SetAccsessMode();
+            //    //txtRequestNumber.Text = associatesVo.AdviserAssociateId.ToString();
+            //    divStep1SuccMsg.Visible = true;
+            //}
+            //else
+            //{
+            //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Pan Number Already Exists');", true);
+            //}
+        }
+        private void BindHierarchyTitleDropList()
+        {
+            DataTable dtAdviserHierachyTitleList = new DataTable();
+            dtAdviserHierachyTitleList = associatesBo.GetAdviserHierarchyTitleList(advisorVo.advisorId);
+            ddlTitleList.DataSource = dtAdviserHierachyTitleList;
+            ddlTitleList.DataValueField = dtAdviserHierachyTitleList.Columns["AH_Id"].ToString();
+            ddlTitleList.DataTextField = dtAdviserHierachyTitleList.Columns["AH_HierarchyName"].ToString();
+            ddlTitleList.DataBind();
+            ddlTitleList.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
+
+        }
+        protected void ddlTitleList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlTitleList.SelectedIndex != -1)
+            {
+                BindStaffDropList(Convert.ToInt32(ddlTitleList.SelectedValue));
+            }
+
+        }
+        private void BindStaffBranchDropList(int staffId)
+        {
+            DataTable dtAdviserStaffBranchList = new DataTable();
+            dtAdviserStaffBranchList = associatesBo.GetAdviserStaffBranchList(staffId);
+            ddlBranch.DataSource = dtAdviserStaffBranchList;
+            ddlBranch.DataValueField = dtAdviserStaffBranchList.Columns["AB_BranchId"].ToString();
+            ddlBranch.DataTextField = dtAdviserStaffBranchList.Columns["AB_BranchName"].ToString();
+            ddlBranch.DataBind();
+            ddlBranch.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
+
+        }
+        protected void ddlRM_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlRM.SelectedIndex > 0)
+            {
+                BindStaffBranchDropList(Convert.ToInt32(ddlRM.SelectedValue));
+            }
+
+        }
+
+        private void BindStaffDropList(int hierarchyId)
+        {
+
+            DataSet ds = associatesBo.GetAdviserHierarchyStaffList(hierarchyId);
+            if (ds != null)
+            {
+                ddlRM.DataSource = ds.Tables[0]; ;
+                ddlRM.DataValueField = ds.Tables[0].Columns["AR_RMId"].ToString();
+                ddlRM.DataTextField = ds.Tables[0].Columns["AR_RMName"].ToString();
+                ddlRM.DataBind();
+            }
+            ddlRM.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
+        }
+
+        private void BinddepartDropList()
+        {
+            DataSet dsDepartmentlist = new DataSet();
+            dsDepartmentlist = associatesBo.GetDepartment(advisorVo.advisorId);
+            ddlDepart.DataSource = dsDepartmentlist.Tables[0];
+            ddlDepart.DataTextField = dsDepartmentlist.Tables[0].Columns["AD_DepartmentName"].ToString();
+            ddlDepart.DataValueField = dsDepartmentlist.Tables[0].Columns["AD_DepartmentId"].ToString();
+            ddlDepart.DataBind();
+            ddlDepart.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
+
+        }
+        protected void ddlDepart_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            PnlDepartRole.Visible = false;
+            if (ddlDepart.SelectedValue.ToString() != "0")
+            {
+                BindAdviserrole(int.Parse(ddlDepart.SelectedValue));
+                PnlDepartRole.Visible = true;
+            }
+        }
+        private void BindAdviserrole(int departmentId)
+        {
+
+            DataTable dtBindAdvisor = new DataTable();
+            dtBindAdvisor = advisorStaffBo.GetUserRoleDepartmentWise(departmentId, advisorVo.advisorId);
+            chkbldepart.DataSource = dtBindAdvisor;
+            chkbldepart.DataTextField = dtBindAdvisor.Columns["AR_Role"].ToString();
+            chkbldepart.DataValueField = dtBindAdvisor.Columns["AR_RoleId"].ToString();
+            chkbldepart.DataBind();
+
         }
     }
 }

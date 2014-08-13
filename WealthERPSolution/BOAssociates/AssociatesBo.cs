@@ -373,13 +373,13 @@ namespace BOAssociates
             }
             return bResult;
         }
-        public DataTable GetAgentCodeFromAgentPaaingAssociateId(int assiciateId,string type)
+        public DataTable GetAgentCodeFromAgentPaaingAssociateId(int assiciateId, string type)
         {
             DataTable dtGetAgentdetails;
             //string code;
             try
             {
-                dtGetAgentdetails = associatesDao.GetAgentCodeFromAgentPaaingAssociateId(assiciateId,type);
+                dtGetAgentdetails = associatesDao.GetAgentCodeFromAgentPaaingAssociateId(assiciateId, type);
             }
             catch (BaseApplicationException Ex)
             {
@@ -582,12 +582,12 @@ namespace BOAssociates
             }
             return dtBranchSubBrokerCodeList;
         }
-        public DataSet GetProductDetailsFromMFTransaction(string agentcode, string userType, int AdviserId, int rmId, int branchId, int branchHeadId, DateTime FromDate, DateTime Todate,int All,int IsOnline)
+        public DataSet GetProductDetailsFromMFTransaction(string agentcode, string userType, int AdviserId, int rmId, int branchId, int branchHeadId, DateTime FromDate, DateTime Todate, int All, int IsOnline)
         {
             DataSet dsGetProductDetailFromMFOrder;
             try
             {
-                dsGetProductDetailFromMFOrder = associatesDao.GetProductDetailsFromMFTransaction(agentcode, userType, AdviserId, rmId, branchId, branchHeadId, FromDate, Todate,All,IsOnline);
+                dsGetProductDetailFromMFOrder = associatesDao.GetProductDetailsFromMFTransaction(agentcode, userType, AdviserId, rmId, branchId, branchHeadId, FromDate, Todate, All, IsOnline);
             }
             catch (BaseApplicationException Ex)
             {
@@ -640,12 +640,12 @@ namespace BOAssociates
             }
             return dsGetOrganizationFromMFOrder;
         }
-        public DataSet GetMemberDetailFromTransaction(string agentcode, string userType, int AdviserId,int branchHeadId, DateTime FromDate, DateTime Todate,int IsOnline)
+        public DataSet GetMemberDetailFromTransaction(string agentcode, string userType, int AdviserId, int branchHeadId, DateTime FromDate, DateTime Todate, int IsOnline)
         {
             DataSet dsGetMemberDetailFromTransaction;
             try
             {
-                dsGetMemberDetailFromTransaction = associatesDao.GetMemberDetailFromTransaction(agentcode, userType, AdviserId, branchHeadId, FromDate, Todate,IsOnline);
+                dsGetMemberDetailFromTransaction = associatesDao.GetMemberDetailFromTransaction(agentcode, userType, AdviserId, branchHeadId, FromDate, Todate, IsOnline);
             }
             catch (BaseApplicationException Ex)
             {
@@ -691,7 +691,7 @@ namespace BOAssociates
             dsBindTitleList = associatesDao.BindTitleList(0, AdviserId);
             return dsBindTitleList;
         }
-        public DataSet BindSubBrokerList(int searchId, int AdviserId,string searchType)
+        public DataSet BindSubBrokerList(int searchId, int AdviserId, string searchType)
         {
             DataSet dsBindSubBrokerList;
 
@@ -724,7 +724,7 @@ namespace BOAssociates
             return dtStateList;
         }
 
-        public DataTable GetCityList(string stateId,int flag)
+        public DataTable GetCityList(string stateId, int flag)
         {
             DataTable dtCityList;
             try
@@ -777,7 +777,7 @@ namespace BOAssociates
 
         public DataTable GetAdviserStaffBranchList(int staffId)
         {
-           
+
             DataTable dtAdviserStaffBranchList;
 
             try
@@ -803,7 +803,39 @@ namespace BOAssociates
             return dtAdviserStaffBranchList;
 
         }
+        public bool UpdateUserrole(int DepartmentId, string rollid)
+        {
+            bool bResult = false;
+            bResult = associatesDao.UpdateUserrole(DepartmentId, rollid);
+            return bResult;
+        }
+        public DataSet GetDepartment(int adviserId)
+        {
+            DataSet dsGetUserRole;
+            try
+            {
 
+                dsGetUserRole = associatesDao.GetDepartment(adviserId);
 
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommonLookupBo.cs:CheckForBusinessDate(DateTime date)");
+                object[] objParams = new object[1];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objParams);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetUserRole;
+
+        }
     }
 }

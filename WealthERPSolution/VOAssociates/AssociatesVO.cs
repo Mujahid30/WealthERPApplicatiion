@@ -109,7 +109,9 @@ namespace VOAssociates
         private int m_NoOfSubBrokers;
         private int m_NoOfClients;
         private DateTime m_AssociationExpairyDate;
-
+        public int adviserhirerchi { get; set; }
+        public string Roleid { get; set; }
+        public int Departmrntid { get; set; }
         #endregion
 
         #region Properties

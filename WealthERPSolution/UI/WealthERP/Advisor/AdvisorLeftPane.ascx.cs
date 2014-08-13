@@ -1089,7 +1089,7 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "AddAssociates")
                 {
                     Session["UserType"] = "adviser";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AddAssociates", "loadcontrol('AddAssociates','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AddAssociates", "loadcontrol('AddAssociatesDetails','login');", true);
                 }
                 else if (e.Item.Value == "ViewAssociates")
                 {
@@ -1761,6 +1761,14 @@ namespace WealthERP.Advisor
                 {
                     //Session["UserType"] = "adviser";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserStaffSMTP','login');", true);
+                }
+                else if (e.Item.Value == "RTA_Unit_Recon")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFHoldingRecon','login');", true);
+                }
+                else if (e.Item.Value == "Audit_Log")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerProfileAudit','login');", true);
                 }
                 else if (e.Item.Value == "Set Theme")
                 {
