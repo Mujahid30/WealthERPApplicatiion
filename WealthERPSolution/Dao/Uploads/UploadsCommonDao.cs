@@ -4474,6 +4474,7 @@ namespace DaoUploads
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 dbCommand = db.GetStoredProcCommand("SPROC_RequestWiseRejects");
                 db.AddInParameter(dbCommand, "@reqId", DbType.Int32, reqId);
+                
                 dsReqRej = db.ExecuteDataSet(dbCommand);
             }
             catch (BaseApplicationException Ex)
@@ -4482,6 +4483,108 @@ namespace DaoUploads
             }
 
             return dsReqRej;
+        }
+        public bool UpdateRequestRejects(int Id,int tableNo, string city, string state, string pincode, int mobileno, string occupation, string accounttype, string bankname, string personalstatus)
+        {
+            bool result = false;
+            Database db;
+            DbCommand UpdateRequestRejectCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                UpdateRequestRejectCmd = db.GetStoredProcCommand("SPROC_UpdateRequestRejected");
+                db.AddInParameter(UpdateRequestRejectCmd, "@Id", DbType.Int32, Id);
+                db.AddInParameter(UpdateRequestRejectCmd, "@TableNo", DbType.Int32, tableNo);
+                if (city != "")
+                    db.AddInParameter(UpdateRequestRejectCmd, "@City", DbType.String, city);
+                else
+                    db.AddInParameter(UpdateRequestRejectCmd, "@City", DbType.String, DBNull.Value);
+                if (state != "")
+                    db.AddInParameter(UpdateRequestRejectCmd, "@State", DbType.String, state);
+                else
+                    db.AddInParameter(UpdateRequestRejectCmd, "@State", DbType.String, DBNull.Value);
+                if (pincode != "")
+                    db.AddInParameter(UpdateRequestRejectCmd, "@Pincode", DbType.String, pincode);
+                else
+                    db.AddInParameter(UpdateRequestRejectCmd, "@Pincode", DbType.String, DBNull.Value);
+                if (mobileno != 0)
+                    db.AddInParameter(UpdateRequestRejectCmd, "@Mobileno", DbType.Int32, mobileno);
+                else
+                    db.AddInParameter(UpdateRequestRejectCmd, "@Mobileno", DbType.Int32, DBNull.Value);
+                if (occupation != "")
+                    db.AddInParameter(UpdateRequestRejectCmd, "@Occupation", DbType.String, occupation);
+                else
+                    db.AddInParameter(UpdateRequestRejectCmd, "@Occupation", DbType.String, DBNull.Value);
+
+                if (accounttype != "")
+                    db.AddInParameter(UpdateRequestRejectCmd, "@Accounttype", DbType.String, accounttype);
+                else
+                    db.AddInParameter(UpdateRequestRejectCmd, "@Accounttype", DbType.String, DBNull.Value);
+                if (bankname != "")
+                    db.AddInParameter(UpdateRequestRejectCmd, "@Bankname", DbType.String, bankname);
+                else
+                    db.AddInParameter(UpdateRequestRejectCmd, "@Bankname", DbType.String, DBNull.Value);
+                if (personalstatus != "")
+                    db.AddInParameter(UpdateRequestRejectCmd, "@Personalstatus", DbType.String, personalstatus);
+                else
+                    db.AddInParameter(UpdateRequestRejectCmd, "@Personalstatus", DbType.String, DBNull.Value);
+               
+
+                db.ExecuteNonQuery(UpdateRequestRejectCmd);
+                result = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "UploadCommonBo.cs:UpdateRequestRejects()");
+
+                object[] objects = new object[2];
+                
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return result;
+        }
+        public void DeleteRequestRejected(int Id, int tableNo)
+        {
+            Database db;
+            DbCommand deleterejectedrequest;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                deleterejectedrequest = db.GetStoredProcCommand("SP_DeleteRequestRejected");
+                db.AddInParameter(deleterejectedrequest, "@Id", DbType.Int32, Id);
+                db.AddInParameter(deleterejectedrequest, "@TableNo", DbType.Int32, tableNo);
+                db.ExecuteDataSet(deleterejectedrequest);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "UploadCommonBo.cs:DeleteRequestRejected()");
+
+                object[] objects = new object[1];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
         }
     }
 }

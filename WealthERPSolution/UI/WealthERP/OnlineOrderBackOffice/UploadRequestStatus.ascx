@@ -112,8 +112,7 @@
                             <telerik:RadGrid ID="rgRequests" Width="1500px" runat="server" AllowSorting="True"
                                 enableloadondemand="True" PageSize="5" AutoGenerateColumns="False" EnableEmbeddedSkins="False"
                                 GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="true" AllowPaging="true"
-                                ShowStatusBar="True" Skin="Telerik" AllowFilteringByColumn="true" OnNeedDataSource="rgRequests_OnNeedDataSource"
-                                OnItemDataBound="rgRequests_ItemDataBound">
+                                ShowStatusBar="True" Skin="Telerik" AllowFilteringByColumn="true" OnNeedDataSource="rgRequests_OnNeedDataSource">
                                 <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" AutoGenerateColumns="false"
                                     Width="100%" DataKeyNames="ReqId">
                                     <Columns>

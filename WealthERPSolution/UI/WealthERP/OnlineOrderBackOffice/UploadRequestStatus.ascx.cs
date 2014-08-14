@@ -97,30 +97,30 @@ namespace WealthERP.OnlineOrderBackOffice
 
         }
 
-        private void GetRequestWiseRejects(int reqId, RadGrid rgReqWiseRejects)
-        {
-            try
-            {
-                DataTable dtReqReje = new DataTable();
-                DataSet dsRej = new DataSet();
-                dsRej = uploadCommonBo.RequestWiseRejects(reqId);
-                if (dsRej.Tables.Count == 0)
-                    return;
-                dtReqReje = dsRej.Tables[0];
-                rgReqWiseRejects.DataSource = dtReqReje;
-                rgReqWiseRejects.DataBind();
+        //private void GetRequestWiseRejects(int reqId, RadGrid rgReqWiseRejects)
+        //{
+        //    try
+        //    {
+        //        DataTable dtReqReje = new DataTable();
+        //        DataSet dsRej = new DataSet();
+        //        dsRej = uploadCommonBo.RequestWiseRejects(reqId);
+        //        if (dsRej.Tables.Count == 0)
+        //            return;
+        //        dtReqReje = dsRej.Tables[0];
+        //        rgReqWiseRejects.DataSource = dtReqReje;
+        //        rgReqWiseRejects.DataBind();
 
-                if (Cache[userVo.UserId.ToString() + "RequestsWiseRejects"] != null)
-                    Cache.Remove(userVo.UserId.ToString() + "RequestsWiseRejects");
-                Cache.Insert(userVo.UserId.ToString() + "RequestsWiseRejects", dtReqReje);
+        //        if (Cache[userVo.UserId.ToString() + "RequestsWiseRejects"] != null)
+        //            Cache.Remove(userVo.UserId.ToString() + "RequestsWiseRejects");
+        //        Cache.Insert(userVo.UserId.ToString() + "RequestsWiseRejects", dtReqReje);
 
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
 
-        }
+        //}
         public void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
         {
             rgRequests.ExportSettings.OpenInNewWindow = true;
@@ -183,25 +183,24 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 reqId = int.Parse(rgRequests.MasterTableView.DataKeyValues[gdi.ItemIndex]["ReqId"].ToString());
             }
-            else
-            {
-                reqId = 0;
-            }
-            RadGrid rgReqWiseRejects = (RadGrid)gdi.FindControl("rgRequestRejects");
-            Panel pnlchild = (Panel)gdi.FindControl("pnlchild");
-
-
-            GetRequestWiseRejects(reqId, rgReqWiseRejects);
-            if (pnlchild.Visible == false)
-            {
-                pnlchild.Visible = true;
-                buttonlink.Text = "-";
-            }
-            else if (pnlchild.Visible == true)
-            {
-                pnlchild.Visible = false;
-                buttonlink.Text = "+";
-            }
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('ManageProfileReject','?ReqId=" + reqId + "');", true);
+            //else
+            //{
+            //    reqId = 0;
+            //}
+            //RadGrid rgReqWiseRejects = (RadGrid)gdi.FindControl("rgRequestRejects");
+            //Panel pnlchild = (Panel)gdi.FindControl("pnlchild");
+            //GetRequestWiseRejects(reqId, rgReqWiseRejects);
+            //if (pnlchild.Visible == false)
+            //{
+            //    pnlchild.Visible = true;
+            //    buttonlink.Text = "-";
+            //}
+            //else if (pnlchild.Visible == true)
+            //{
+            //    pnlchild.Visible = false;
+            //    buttonlink.Text = "+";
+            //}
         }
     }
 }

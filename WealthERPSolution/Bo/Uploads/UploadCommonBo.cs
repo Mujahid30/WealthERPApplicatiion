@@ -4956,5 +4956,58 @@ namespace BoUploads
             }
             return dsReqRej;
         }
+        public bool UpdateRequestRejects(int Id, int tableNo, string city, string state, string pincode, int mobileno, string occupation, string accounttype, string bankname, string personalstatus)
+        {
+            bool result = false;
+            UploadsCommonDao uploadDAO = new UploadsCommonDao();
+            try
+            {
+                result = uploadDAO.UpdateRequestRejects(Id,tableNo, city, state, pincode, mobileno, occupation, accounttype, bankname, personalstatus);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "UploadCommonBo.cs:UpdateRequestRejects()");
+                object[] objects = new object[2];
+               
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return result;
+        }
+        public void DeleteRequestRejected(int Id, int tableNo)
+        {
+            UploadsCommonDao uploadDAO = new UploadsCommonDao();
+            try
+            {
+                uploadDAO.DeleteRequestRejected(Id, tableNo);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "UploadCommonBo.cs:DeleteRequestRejected()");
+
+                object[] objects = new object[1];
+                
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
     }
 }
