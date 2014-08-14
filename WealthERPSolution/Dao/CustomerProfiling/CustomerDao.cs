@@ -422,8 +422,8 @@ namespace DaoCustomerProfiling
                     customerVo.Adr1Line3 = dr["C_Adr1Line3"].ToString();
                    if (!string.IsNullOrEmpty(dr["C_Adr1PinCode"].ToString()))
                     customerVo.Adr1PinCode = int.Parse(dr["C_Adr1PinCode"].ToString());
-                   if (!string.IsNullOrEmpty(dr["C_WCMV_City_Id"].ToString()))
-                       customerVo.Adr1City = dr["C_WCMV_City_Id"].ToString();
+                   if (!string.IsNullOrEmpty(dr["WCMV_City_Id"].ToString()))
+                       customerVo.Adr1City = dr["WCMV_City_Id"].ToString();
                    if (!string.IsNullOrEmpty(dr["C_WCMV_State_Id"].ToString()))
                        customerVo.Adr1State = dr["C_WCMV_State_Id"].ToString();
                     if (!string.IsNullOrEmpty(dr["C_Adr1Country"].ToString()))
@@ -575,10 +575,11 @@ namespace DaoCustomerProfiling
                         customerVo.OfficeCityId = int.Parse(dr["C_WCMV_OfficeAdrCity_Id"].ToString());
                     if (!string.IsNullOrEmpty(dr["C_WCMV_OfficeAdrState_Id"].ToString()))
                         customerVo.OfficeStateId = int.Parse(dr["C_WCMV_OfficeAdrState_Id"].ToString());
-
+                    
                     if (!string.IsNullOrEmpty(dr["C_WCMV_Occupation_Id"].ToString()))
                         customerVo.OccupationId = int.Parse(dr["C_WCMV_Occupation_Id"].ToString());
-
+                    if (!string.IsNullOrEmpty(dr["C_WCMV_City_Id"].ToString()))
+                        customerVo.customerCity = int.Parse(dr["C_WCMV_City_Id"].ToString());
                 }
             }
 

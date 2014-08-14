@@ -280,7 +280,7 @@ namespace WealthERP.Customer
                     txtCorrAdrPinCode.Text = customerVo.Adr1PinCode.ToString();
 
                     if (customerVo.Adr1City != null)
-                        ddlCorrAdrCity.SelectedItem.Text = customerVo.Adr1City.ToString();
+                        ddlCorrAdrCity.SelectedValue = customerVo.customerCity.ToString();
                     else
                         ddlCorrAdrCity.SelectedValue = "--Select---";
                     if (customerVo.Adr1State!=null)

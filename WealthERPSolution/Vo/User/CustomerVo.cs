@@ -202,7 +202,7 @@ namespace VoUser
             get { return m_TaxSlab; }
             set { m_TaxSlab = value; }
         }
-
+        public int customerCity { set; get; }
         #endregion Fields
 
         #region Properties
