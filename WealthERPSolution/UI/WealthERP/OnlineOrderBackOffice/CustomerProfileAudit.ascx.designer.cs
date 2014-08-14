@@ -93,6 +93,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblModificationDate;
+        protected global::System.Web.UI.WebControls.Label lblCustomerTransaction;
         protected global::Telerik.Web.UI.RadDatePicker rdpFromModificationDate;
         protected global::Telerik.Web.UI.RadDatePicker rdpToDate;
         /// <summary>
@@ -119,11 +120,14 @@ namespace WealthERP.OnlineOrderBackOffice {
         protected global::System.Web.UI.HtmlControls.HtmlTable tblCustomerDematAssociates;
         protected global::System.Web.UI.HtmlControls.HtmlTable tblCustomerDematAssociatesHeading;
         protected global::System.Web.UI.HtmlControls.HtmlTable tblCustomerBank;
+        protected global::System.Web.UI.HtmlControls.HtmlTable tableCustomerTransaction;
         protected global::Telerik.Web.UI.RadGrid rdCustomerProfile;
         protected global::Telerik.Web.UI.RadGrid rdCustomerBank;
         protected global::Telerik.Web.UI.RadGrid rdCustomerDemat;
         protected global::Telerik.Web.UI.RadGrid rdCustomerDematAssociates;
         protected global::System.Web.UI.WebControls.DropDownList ddlAuditType;
+        protected global::Telerik.Web.UI.RadGrid rdTransaction;
+        protected global::System.Web.UI.HtmlControls.HtmlTable tableTransaction;
 
     }
 }

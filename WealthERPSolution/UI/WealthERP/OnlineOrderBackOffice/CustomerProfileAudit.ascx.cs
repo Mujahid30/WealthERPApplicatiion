@@ -87,6 +87,8 @@ namespace WealthERP.OnlineOrderBackOffice
             tblCustomerDematHeading.Visible = false;
             tblCustomerDematAssociates.Visible = false;
             tblCustomerDematAssociatesHeading.Visible = false;
+            tableCustomerTransaction.Visible = false;
+            tableTransaction.Visible = false;
             DataSet dsGetCustomerProfileAuditData = new DataSet();
             dsGetCustomerProfileAuditData = customerBo.GetCustomerProfileAuditDetails((!string.IsNullOrEmpty(hdnCustomerId.Value)) ? int.Parse(hdnCustomerId.Value) : 0, rdpFromModificationDate.SelectedDate.Value, rdpToDate.SelectedDate.Value, adviserVo.advisorId, ddlAuditType.SelectedValue);
             switch (ddlAuditType.SelectedValue.ToString())
@@ -119,9 +121,16 @@ namespace WealthERP.OnlineOrderBackOffice
                     if (Cache["CustomerDematAssociate" + adviserVo.advisorId] != null) Cache.Remove("CustomerDematAssociate" + adviserVo.advisorId);
                     Cache.Insert("CustomerDematAssociate" + adviserVo.advisorId, dsGetCustomerProfileAuditData.Tables[0]);
                     break;
+                case "CTA": rdTransaction.DataSource = dsGetCustomerProfileAuditData.Tables[0];
+                    rdTransaction.DataBind();
+                    tableTransaction.Visible = true;
+                    tableCustomerTransaction.Visible = true;
+                    if (Cache["CustomerTransaction" + adviserVo.advisorId] != null) Cache.Remove("CustomerTransaction" + adviserVo.advisorId);
+                    Cache.Insert("CustomerTransaction" + adviserVo.advisorId, dsGetCustomerProfileAuditData.Tables[0]);
+                    break;
             }
 
-
+            
         }
         protected void rdCustomerProfile_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
@@ -146,6 +155,12 @@ namespace WealthERP.OnlineOrderBackOffice
             DataTable dtCustomerDematAssociates = (DataTable)Cache["CustomerDematAssociate" + adviserVo.advisorId];
 
             if (dtCustomerDematAssociates != null) rdCustomerDematAssociates.DataSource = dtCustomerDematAssociates;
+        }
+        protected void rdTransaction_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        {
+            DataTable dtCustomerTransaction = (DataTable)Cache["CustomerTransaction" + adviserVo.advisorId];
+
+            if (dtCustomerTransaction != null) rdTransaction.DataSource = dtCustomerTransaction;
         }
     }
 }
