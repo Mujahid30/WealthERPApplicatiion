@@ -2989,6 +2989,13 @@
     <Compile Include="OnlineOrderManagement\MFOrderSwitchTransType.ascx.designer.cs">
       <DependentUpon>MFOrderSwitchTransType.ascx</DependentUpon>
     </Compile>
+    <Compile Include="OnlineOrderManagement\MFOrderSWPTransType.ascx.cs">
+      <DependentUpon>MFOrderSWPTransType.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OnlineOrderManagement\MFOrderSWPTransType.ascx.designer.cs">
+      <DependentUpon>MFOrderSWPTransType.ascx</DependentUpon>
+    </Compile>
     <Compile Include="OnlineOrderManagement\NCDIssueBooks.ascx.cs">
       <DependentUpon>NCDIssueBooks.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -7956,6 +7963,7 @@
     <Content Include="OnlineOrderManagement\MFOrderManagement.ascx" />
     <Content Include="OnlineOrderManagement\MFOrderSIPTransType.ascx" />
     <Content Include="OnlineOrderManagement\MFOrderSwitchTransType.ascx" />
+    <Content Include="OnlineOrderManagement\MFOrderSWPTransType.ascx" />
     <Content Include="OnlineOrderManagement\NCDIssueBooks.ascx" />
     <Content Include="OnlineOrderManagement\NCDIssueHoldings.ascx" />
     <Content Include="OnlineOrderManagement\NCDIssueList.ascx" />

@@ -1933,4 +1933,8 @@
     <value>OnlineOrderBackOffice//MFHoldingRecon.ascx</value>
     <comment>OnlineOrderBackOffice//MFHoldingRecon.ascx</comment>
   </data>
+  <data name="MFOrderSWPTransType" xml:space="preserve">
+    <value>OnlineOrderManagement//MFOrderSWPTransType.ascx</value>
+    <comment>OnlineOrderManagement//MFOrderSWPTransType.ascx</comment>
+  </data>
 </root>
