@@ -44,7 +44,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 
                 BindMFHoldingRecon();
-                trSynch.Visible = true;
+                //trSynch.Visible = true;
                 //imgexportButton.Visible = true;
             }
             catch (BaseApplicationException Ex)
@@ -66,7 +66,7 @@ namespace WealthERP.OnlineOrderBackOffice
         }
         protected void btnSync_OnClick(object sender, EventArgs e)
         {
-
+            BindMFHoldingReconAfterSync();
         }
         protected void BindMFHoldingRecon()
         {
@@ -122,7 +122,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
 
                 DataTable dtMFHoldingReconSync = new DataTable();
-                dtMFHoldingReconSync = OnlineOrderMISBo.GetMFHoldingReconAfterSync(int.Parse(ddlIssue.SelectedValue), txtTo.SelectedDate);
+                dtMFHoldingReconSync = OnlineOrderMISBo.GetMFHoldingReconAfterSync(int.Parse(ddlIssue.SelectedValue),Convert.ToDateTime(txtTo.SelectedDate));
                 if (dtMFHoldingReconSync.Rows.Count > 0)
                 {
                     if (Cache["MFHoldingMIS" + userVo.UserId] == null)
