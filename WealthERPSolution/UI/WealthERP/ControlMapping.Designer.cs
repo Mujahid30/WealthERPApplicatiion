@@ -2230,15 +2230,6 @@ namespace WealthERP {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to OnlineOrderBackOffice//MFHoldingRecon.ascx.
-        /// </summary>
-        internal static string MFHoldingRecon {
-            get {
-                return ResourceManager.GetString("MFHoldingRecon", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to CustomerPortfolio//MFManualMultipleTran.ascx.
         /// </summary>
         internal static string MFManualMultipleTran {

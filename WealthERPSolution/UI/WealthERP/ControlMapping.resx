@@ -1925,4 +1925,8 @@
     <value>UploadBackOffice//ManageProfileReject.ascx</value>
     <comment>UploadBackOffice//ManageProfileReject.ascx</comment>
   </data>
+  <data name="CustomerProfileAudit" xml:space="preserve">
+    <value>OnlineOrderBackOffice//CustomerProfileAudit.ascx</value>
+    <comment>OnlineOrderBackOffice//CustomerProfileAudit.ascx</comment>
+  </data>
 </root>
