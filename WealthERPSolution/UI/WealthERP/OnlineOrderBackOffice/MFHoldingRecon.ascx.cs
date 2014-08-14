@@ -44,6 +44,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 
                 BindMFHoldingRecon();
+                trSynch.Visible = true;
                 //imgexportButton.Visible = true;
             }
             catch (BaseApplicationException Ex)
@@ -61,6 +62,10 @@ namespace WealthERP.OnlineOrderBackOffice
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
+
+        }
+        protected void btnSync_OnClick(object sender, EventArgs e)
+        {
 
         }
         protected void BindMFHoldingRecon()
@@ -93,6 +98,54 @@ namespace WealthERP.OnlineOrderBackOffice
                     MFHoldingRecons.Visible = true;
                     pnlMFHoldingRecons.Visible = true;
                    
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "MFHoldingRecon.ascx.cs:MFHoldingRecon()");
+                object[] objects = new object[4];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
+        protected void BindMFHoldingReconAfterSync()
+        {
+            try
+            {
+
+                DataTable dtMFHoldingReconSync = new DataTable();
+                dtMFHoldingReconSync = OnlineOrderMISBo.GetMFHoldingReconAfterSync(int.Parse(ddlIssue.SelectedValue), txtTo.SelectedDate);
+                if (dtMFHoldingReconSync.Rows.Count > 0)
+                {
+                    if (Cache["MFHoldingMIS" + userVo.UserId] == null)
+                    {
+                        Cache.Insert("MFHoldingMIS" + userVo.UserId, dtMFHoldingReconSync);
+                    }
+                    else
+                    {
+                        Cache.Remove("MFHoldingMIS" + userVo.UserId);
+                        Cache.Insert("MFHoldingMIS" + userVo.UserId, dtMFHoldingReconSync);
+                    }
+                    gvMFHoldinfRecon.DataSource = dtMFHoldingReconSync;
+                    gvMFHoldinfRecon.DataBind();
+                    MFHoldingRecons.Visible = true;
+                    pnlMFHoldingRecons.Visible = true;
+                }
+                else
+                {
+                    gvMFHoldinfRecon.DataSource = dtMFHoldingReconSync;
+                    gvMFHoldinfRecon.DataBind();
+                    MFHoldingRecons.Visible = true;
+                    pnlMFHoldingRecons.Visible = true;
+
                 }
             }
             catch (BaseApplicationException Ex)

@@ -369,7 +369,30 @@ namespace DaoOnlineOrderManagement
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 //To retreive data from the table 
                 cmdGetMFHoldingRecon = db.GetStoredProcCommand("SPROC_GetAdviserMFRecon");
-                db.AddInParameter(cmdGetMFHoldingRecon, "@Reuestno", DbType.Int32, requestNo);
+                db.AddInParameter(cmdGetMFHoldingRecon, "@ReqId", DbType.Int32, requestNo);
+                dsGetMFHoldingRecon = db.ExecuteDataSet(cmdGetMFHoldingRecon);
+                dtGetMFHoldingRecon = dsGetMFHoldingRecon.Tables[0];
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetMFHoldingRecon;
+        }
+        public DataTable GetMFHoldingReconAfterSync(int requestNo, DateTime toDate)
+        {
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DbCommand cmdGetMFHoldingRecon;
+            DataTable dtGetMFHoldingRecon;
+            DataSet dsGetMFHoldingRecon = null;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //To retreive data from the table 
+                cmdGetMFHoldingRecon = db.GetStoredProcCommand("SPROC_SyncDataForMFHoldingRecon");
+                db.AddInParameter(cmdGetMFHoldingRecon, "@ReqId", DbType.Int32, requestNo);
+                db.AddInParameter(cmdGetMFHoldingRecon, "@ToDate", DbType.Date, toDate);
                 dsGetMFHoldingRecon = db.ExecuteDataSet(cmdGetMFHoldingRecon);
                 dtGetMFHoldingRecon = dsGetMFHoldingRecon.Tables[0];
 

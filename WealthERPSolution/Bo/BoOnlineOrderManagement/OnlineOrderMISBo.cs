@@ -155,5 +155,12 @@ namespace BoOnlineOrderManagement
             dtGetMFHoldingRecon = OnlineOrderMISDao.GetMFHoldingRecon(requestNo);
             return dtGetMFHoldingRecon;
         }
+        public DataTable GetMFHoldingReconAfterSync(int requestNo,DateTime toDate)
+        {
+            DataTable dtGetMFHoldingRecon;
+            OnlineOrderMISDao OnlineOrderMISDao = new OnlineOrderMISDao();
+            dtGetMFHoldingRecon = OnlineOrderMISDao.GetMFHoldingReconAfterSync(requestNo,toDate);
+            return dtGetMFHoldingRecon;
+        }
     }
 }

@@ -45,9 +45,35 @@
                 Text="Go" />
         </td>
     </tr>
+    <tr id="trSynch" visible="false">
+        <td align="right">
+            <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Select:"></asp:Label>
+        </td>
+        <td>
+             <telerik:RadDatePicker ID="txtTo" CssClass="txtField" runat="server" Culture="English (United States)"
+                    Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                    <Calendar ID="Calendar1" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
+                        ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
+                    </Calendar>
+                    <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                    <DateInput ID="DateInput1" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                    </DateInput>
+                </telerik:RadDatePicker>
+            <span id="Span1" class="spnRequiredField">*</span>
+            <br />
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Please Select A Date"
+                CssClass="rfvPCG" ControlToValidate="txtTo" ValidationGroup="btnSynch"
+                Display="Dynamic"></asp:RequiredFieldValidator>
+        </td>   
+        </td>
+        <td>
+            <asp:Button ID="btnSynch" runat="server" CssClass="PCGButton" OnClick="btnSync_OnClick" ValidationGroup="btnSynch"
+                Text="Sync" />
+        </td>
+    </tr>
     <tr>
 </table>
-<asp:Panel ID="pnlMFHoldingRecons" runat="server" ScrollBars="Horizontal" Height="100%"
+<asp:Panel ID="pnlMFHoldingRecons" runat="server" ScrollBars="Horizontal" Height="100%" 
     Width="100%" Visible="false">
     <table width="100%">
         <tr>
