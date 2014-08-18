@@ -75,7 +75,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.AutoCompleteExtender txtCustomerName_autoCompleteExtender;
-        
+        protected global::AjaxControlToolkit.AutoCompleteExtender txtSchemeName_AutoCompleteExtender;
         /// <summary>
         /// RequiredFieldValidator2 control.
         /// </summary>
@@ -105,6 +105,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// </remarks>
         /// 
         protected global::System.Web.UI.WebControls.HiddenField hdnCustomerId;
+        protected global::System.Web.UI.WebControls.HiddenField hdnschemePlanId;
         /// <summary>
         /// rfvDOwnloadDate control.
         /// </summary>
@@ -121,13 +122,23 @@ namespace WealthERP.OnlineOrderBackOffice {
         protected global::System.Web.UI.HtmlControls.HtmlTable tblCustomerDematAssociatesHeading;
         protected global::System.Web.UI.HtmlControls.HtmlTable tblCustomerBank;
         protected global::System.Web.UI.HtmlControls.HtmlTable tableCustomerTransaction;
+        protected global::System.Web.UI.HtmlControls.HtmlTable tblSchemePlan;
         protected global::Telerik.Web.UI.RadGrid rdCustomerProfile;
         protected global::Telerik.Web.UI.RadGrid rdCustomerBank;
         protected global::Telerik.Web.UI.RadGrid rdCustomerDemat;
         protected global::Telerik.Web.UI.RadGrid rdCustomerDematAssociates;
+        protected global::Telerik.Web.UI.RadGrid rdSchemeAudit;
         protected global::System.Web.UI.WebControls.DropDownList ddlAuditType;
+        protected global::System.Web.UI.WebControls.DropDownList ddlType;
         protected global::Telerik.Web.UI.RadGrid rdTransaction;
         protected global::System.Web.UI.HtmlControls.HtmlTable tableTransaction;
-
+        protected global::System.Web.UI.HtmlControls.HtmlTable taSchemeAudit;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdCustomerAuditList;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdTodate;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdFromDate;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdCustomer;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdSchemePlan;
+        protected global::System.Web.UI.WebControls.TextBox txtSchemeName;
+        protected global::System.Web.UI.WebControls.Button btnSubmit;
     }
 }

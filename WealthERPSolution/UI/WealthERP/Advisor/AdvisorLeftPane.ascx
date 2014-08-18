@@ -192,6 +192,8 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Customer Reports" Value="Customer_Report">
                                             </telerik:RadPanelItem>
+                                             <telerik:RadPanelItem runat="server" Text="Alert Notifications" Value="Alert Notifications">
+                                            </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Order" Value="Order_Management" PostBack="false">

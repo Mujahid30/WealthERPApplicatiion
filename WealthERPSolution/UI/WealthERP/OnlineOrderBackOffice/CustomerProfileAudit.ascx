@@ -33,6 +33,13 @@
 
         var hdn = document.getElementById("<%=hdnIsSubscripted.ClientID%>").value;
     }
+    function GetSchemePlanCode(source, eventArgs) {
+        isItemSelected = true;
+        //         document.getElementById("lblgetPan").innerHTML = "";
+        document.getElementById("<%=  hdnschemePlanId.ClientID %>").value = eventArgs.get_value();
+
+        return false;
+    }
 </script>
 
 <asp:ScriptManager ID="ScriptManager1" runat="server">
@@ -54,7 +61,32 @@
 </table>
 <table width="100%">
     <tr>
-        <td style="width: 21.5%;">
+        <td >
+            <asp:Label ID="lblType" runat="server" Text="Select Type:" CssClass="FieldName"></asp:Label>
+       <%-- </td>
+        <td >--%>
+            <asp:DropDownList ID="ddlType" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlType_OnSelectedIndexChanged"
+                AutoPostBack="true">
+                <asp:ListItem Text="Select" Value="select"></asp:ListItem>
+                <asp:ListItem Text="Customer Profile" Value="CustomerProfile"></asp:ListItem>
+                <asp:ListItem Text="Scheme" Value="Schemeplan"></asp:ListItem>
+            </asp:DropDownList>
+        </td>
+    </tr>
+    <tr>
+        <td id="tdSchemePlan" runat="server" visible="false" style="width: 21.5%;">
+            <asp:Label ID="lblSchemePlan" runat="server" Text="SchemePlan Name:" CssClass="FieldName"></asp:Label>
+            <asp:TextBox ID="txtSchemeName" runat="server" CssClass="txtField" AutoPostBack="True"
+                AutoComplete="Off" Width="300px"></asp:TextBox>
+            <ajaxToolkit:AutoCompleteExtender ID="txtSchemeName_AutoCompleteExtender" runat="server"
+                TargetControlID="txtSchemeName" ServiceMethod="GetSchemeName" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
+                MinimumPrefixLength="3" EnableCaching="False" CompletionSetCount="5" CompletionInterval="100"
+                CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
+                CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
+                UseContextKey="True" OnClientItemSelected="GetSchemePlanCode" DelimiterCharacters=""
+                Enabled="True" />
+        </td>
+        <td style="width: 21.5%;" id="tdCustomer" runat="server" visible="false">
             <asp:Label ID="lblCustName" runat="server" Text="Select Customer:" CssClass="FieldName"></asp:Label>
             <asp:TextBox ID="txtCustomerName" runat="server" CssClass="txtField" AutoComplete="Off"
                 AutoPostBack="True" onclientClick="ShowIsa()" Width="165px">  </asp:TextBox>
@@ -73,7 +105,7 @@
                 ErrorMessage="<br />Please Enter Customer Name" Display="Dynamic" runat="server"
                 CssClass="rfvPCG" ValidationGroup="BtnGo"></asp:RequiredFieldValidator>
         </td>
-        <td style="width: 15%;">
+        <td style="width: 15%;" id="tdFromDate" runat="server" visible="false">
             <asp:Label ID="lblModificationDate" runat="server" Text="From:" CssClass="FieldName"></asp:Label>
             <telerik:RadDatePicker ID="rdpFromModificationDate" CssClass="txtField" runat="server"
                 AutoPostBack="false" Skin="Telerik" EnableEmbeddedSkins="false">
@@ -88,7 +120,7 @@
                 Display="Dynamic" ControlToValidate="rdpFromModificationDate" Text="Please select a valid date"
                 CssClass="rfvPCG" ValidationGroup="BtnGo">Please select a valid date</asp:RequiredFieldValidator>
         </td>
-        <td style="width: 12.5%;">
+        <td style="width: 12.5%;" id="tdTodate" runat="server" visible="false">
             <asp:Label ID="lblToDate" runat="server" Text="To:" CssClass="FieldName"></asp:Label>
             <telerik:RadDatePicker ID="rdpToDate" CssClass="txtField" runat="server" AutoPostBack="false"
                 Skin="Telerik" EnableEmbeddedSkins="false">
@@ -108,9 +140,9 @@
                 Display="Dynamic">
             </asp:CompareValidator>
         </td>
-        <td style="width: 21%;">
+        <td style="width: 21%;" id="tdCustomerAuditList" runat="server" visible="false">
             <asp:Label ID="lblFilterType" runat="server" Text="Select Type:" CssClass="FieldName"></asp:Label>
-            <asp:DropDownList ID="ddlAuditType" runat="server">
+            <asp:DropDownList ID="ddlAuditType" runat="server" CssClass="cmbField">
                 <asp:ListItem Text="Select" Value="select"></asp:ListItem>
                 <asp:ListItem Text="Customer Profile" Value="CP"></asp:ListItem>
                 <asp:ListItem Text="Customer Bank" Value="CB"></asp:ListItem>
@@ -125,7 +157,7 @@
         </td>
         <td style="width: 1%;">
             <asp:Button ID="btnSubmit" runat="server" Text="Go" CssClass="PCGButton" OnClick="btnSubmit_Click"
-                ValidationGroup="BtnGo" />
+                ValidationGroup="BtnGo" Visible="false"/>
         </td>
     </tr>
 </table>
@@ -683,5 +715,86 @@
         </td>
     </tr>
 </table>
+<table id="tblSchemePlan" runat="server" visible="false" style="width: 100%"
+    cellpadding="2" cellspacing="5">
+    <tr>
+        <td class="tdSectionHeading">
+            <div class="divSectionHeading" style="vertical-align: text-bottom;">
+                <asp:Label ID="Label2" runat="server" Text="SchemePlan Audit"></asp:Label>
+            </div>
+        </td>
+    </tr>
+</table>
+<table id="taSchemeAudit" runat="server" visible="false">
+    <tr>
+        <td>
+            <asp:Panel ID="pnlSchemeAudit" runat="server" Width="95%" ScrollBars="Horizontal"
+                Visible="true">
+                <telerik:RadGrid ID="rdSchemeAudit" runat="server" AutoGenerateColumns="false" AllowPaging="true"
+                    AllowSorting="true" Skin="Telerik" EnableHeaderContextMenu="true" GridLines="Both"
+                    EnableEmbeddedSkins="false" ShowFooter="true" PagerStyle-AlwaysVisible="true"
+                    EnableViewState="true" ShowStatusBar="true" AllowFilteringByColumn="true" PageSize="5"
+                    OnNeedDataSource="rdSchemeAudit_OnNeedDataSource">
+                    <ExportSettings HideStructureColumns="true">
+                    </ExportSettings>
+                    <MasterTableView Width="110%" AllowMultiColumnSorting="True" AutoGenerateColumns="false">
+                        <Columns>
+                            <telerik:GridBoundColumn DataField="Status" SortExpression="Status" AutoPostBackOnFilter="true"
+                                CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="false"
+                                HeaderText=" Audit Status" UniqueName="Status" HeaderStyle-Width="15px">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="PASP_SchemePlanCode" SortExpression="PASP_SchemePlanCode"
+                                UniqueName="PASP_SchemePlanCode" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"
+                                ShowFilterIcon="false" HeaderText="SchemePlan Code " HeaderStyle-Width="15px">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="PASP_SchemePlanName" SortExpression="PASP_SchemePlanName"
+                                UniqueName="PASP_SchemePlanName" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"
+                                ShowFilterIcon="false" HeaderText="SchemePlan Name" HeaderStyle-Width="15px">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="PA_AMCName" SortExpression="PA_AMCName"
+                                AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
+                                AllowFiltering="false" HeaderText="AMC Name" UniqueName="PA_AMCName" HeaderStyle-Width="20px">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="XES_SourceName" SortExpression="XES_SourceName"
+                                AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
+                                AllowFiltering="false" HeaderText="RNT" UniqueName="XES_SourceName"
+                                HeaderStyle-Width="20px">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridTemplateColumn DataField="PASP_Status" SortExpression="PASP_Status"
+                                AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
+                                AllowFiltering="false" HeaderText="Status" UniqueName="PASP_Status" HeaderStyle-Width="20px">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridTemplateColumn>
+                            <telerik:GridBoundColumn DataField="ModificationBy" SortExpression="ModificationBy"
+                                AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
+                                AllowFiltering="false" HeaderText="Modified By" UniqueName="ModificationBy" HeaderStyle-Width="20px">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="ModiicationDateTime" SortExpression="ModiicationDateTime"
+                                AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
+                                AllowFiltering="false" HeaderText="Modified By" UniqueName="ModiicationDateTime"
+                                HeaderStyle-Width="20px">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                        </Columns>
+                    </MasterTableView>
+                    <ClientSettings>
+                        <Resizing AllowColumnResize="true" />
+                        <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+                    </ClientSettings>
+                    <FilterMenu EnableEmbeddedSkins="false">
+                    </FilterMenu>
+                </telerik:RadGrid>
+            </asp:Panel>
+        </td>
+    </tr>
+</table>
+
 <asp:HiddenField ID="hdnCustomerId" runat="server" />
 <asp:HiddenField ID="hdnIsSubscripted" runat="server" />
+<asp:HiddenField ID="hdnschemePlanId" runat="server" />

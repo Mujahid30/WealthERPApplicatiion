@@ -391,7 +391,27 @@ namespace WealthERP.CustomerPortfolio
         /// <param name="contextKey"></param>
         /// <returns></returns>
         /// 
+        [WebMethod]
+        public string[] GetSchemeName(string prefixText, int count)
+        {
+            CustomerBo customerBo = new CustomerBo();
+            DataTable dtGetSchemeName = new DataTable();
+            List<string> names = new List<string>();
 
+            dtGetSchemeName = customerBo.GetSchemePlanName(prefixText);
+            //string[] customerNameList = new string[dtCustomerName.Rows.Count];
+
+            foreach (DataRow dr in dtGetSchemeName.Rows)
+            {
+
+                string item = AjaxControlToolkit.AutoCompleteExtender.CreateAutoCompleteItem(dr["SchemePlanName"].ToString(), dr["PASP_SchemePlanCode"].ToString());
+                names.Add(item);
+
+                //customerNameList[i] = dr["C_FirstName"].ToString() + "|" + dr["C_PANNum"].ToString();
+                //i++;
+            }
+            return names.ToArray();
+        }
         [WebMethod]
         public string[] GetAdviserCustomerName(string prefixText, int count, string contextKey)
       {
@@ -714,9 +734,14 @@ namespace WealthERP.CustomerPortfolio
             }
             return names.ToArray();
         }
-
-     
-
+        [WebMethod]
+        public int CheckStaffCodes(string prefixText)
+        {
+            int result = 0;
+            CustomerBo customerBo = new CustomerBo();
+            result = customerBo.CheckStaffCode(prefixText);
+            return result;
+        }
     }
 
 }

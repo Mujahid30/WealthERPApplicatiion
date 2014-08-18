@@ -3358,6 +3358,15 @@ namespace BoCustomerProfiling
             }
             return dtGetCustCode;
         }
+        public DataTable GetSchemePlanName(string prefixText)
+        {
+            CustomerDao customerDao = new CustomerDao();
+
+            DataTable dtGetSchemePlanName = new DataTable();
+            dtGetSchemePlanName = customerDao.GetSchemePlanName(prefixText);
+            return dtGetSchemePlanName;
+
+        }
         public int CheckStaffCode(string prefixText)
         {
             int count;
@@ -3399,6 +3408,14 @@ namespace BoCustomerProfiling
 
             }
             return dsCustomerAudit;
+        }
+        public DataSet GetSchemePlanAuditDetails(int SchemePlancode, DateTime fromModificationDate, DateTime toModificationDate)
+        {
+            CustomerDao customerDao = new CustomerDao();
+
+            DataSet dsGetSchemePlanAuditDetails = new DataSet();
+            dsGetSchemePlanAuditDetails = customerDao.GetSchemePlanAuditDetails(SchemePlancode, fromModificationDate, toModificationDate);
+            return dsGetSchemePlanAuditDetails;
         }
     }
 }

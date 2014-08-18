@@ -50,6 +50,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 txtCustomerName_autoCompleteExtender.ContextKey = adviserVo.advisorId.ToString();
                 txtCustomerName_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
+                txtSchemeName_AutoCompleteExtender.ServiceMethod = "GetSchemeName";
 
 
             }
@@ -57,12 +58,16 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 txtCustomerName_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
                 txtCustomerName_autoCompleteExtender.ServiceMethod = "GetBMIndividualCustomerNames";
+                txtSchemeName_AutoCompleteExtender.ServiceMethod = "GetSchemeName";
+
 
             }
             else if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
             {
                 txtCustomerName_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
                 txtCustomerName_autoCompleteExtender.ServiceMethod = "GetMemberCustomerName";
+                txtSchemeName_AutoCompleteExtender.ServiceMethod = "GetSchemeName";
+
             }
 
         }
@@ -74,8 +79,46 @@ namespace WealthERP.OnlineOrderBackOffice
         }
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
-            GetCustomerProfileAduditDetails();
+            if (ddlType.SelectedValue == "CustomerProfile")
+            {
+                GetCustomerProfileAduditDetails();
+            }
+            else
+            {
+                GetSchemePlanAuditDetail();
+            }
 
+        }
+        protected void GetSchemePlanAuditDetail()
+        {
+            DataTable dtGetSchemePlanAuditDetail=new DataTable();
+         DataSet dsGetCustomerProfileAuditData = new DataSet();
+         dsGetCustomerProfileAuditData = customerBo.GetSchemePlanAuditDetails(int.Parse(hdnschemePlanId.Value), rdpFromModificationDate.SelectedDate.Value, rdpToDate.SelectedDate.Value);
+            dtGetSchemePlanAuditDetail=dsGetCustomerProfileAuditData.Tables[0];
+            if (dtGetSchemePlanAuditDetail.Rows.Count > 0)
+            {
+                if (Cache["SchemeAudit" + userVo.UserId] == null)
+                {
+                    Cache.Insert("SchemeAudit" + userVo.UserId, dtGetSchemePlanAuditDetail);
+                }
+                else
+                {
+                    Cache.Remove("SchemeAudit" + userVo.UserId);
+                    Cache.Insert("SchemeAudit" + userVo.UserId, dtGetSchemePlanAuditDetail);
+                }
+                rdSchemeAudit.DataSource = dtGetSchemePlanAuditDetail;
+                rdSchemeAudit.DataBind();
+                taSchemeAudit.Visible = true;
+                tblSchemePlan.Visible = true;
+            }
+            else
+            {
+                rdSchemeAudit.DataSource = dtGetSchemePlanAuditDetail;
+                rdSchemeAudit.DataBind();
+                taSchemeAudit.Visible = true;
+                tblSchemePlan.Visible = true;
+
+            }
         }
         protected void GetCustomerProfileAduditDetails()
         {
@@ -161,6 +204,33 @@ namespace WealthERP.OnlineOrderBackOffice
             DataTable dtCustomerTransaction = (DataTable)Cache["CustomerTransaction" + adviserVo.advisorId];
 
             if (dtCustomerTransaction != null) rdTransaction.DataSource = dtCustomerTransaction;
+        }
+        protected void rdSchemeAudit_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        {
+
+
+
+        }
+        protected void ddlType_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlType.SelectedValue == "CustomerProfile")
+            {
+                tdCustomer.Visible = true;
+                tdTodate.Visible = true;
+                tdFromDate.Visible = true;
+                tdCustomerAuditList.Visible = true;
+                tdSchemePlan.Visible = false;
+                btnSubmit.Visible = true;
+            }
+            else
+            {
+                tdSchemePlan.Visible = true;
+                tdTodate.Visible = true;
+                tdFromDate.Visible = true;
+                tdCustomer.Visible = false;
+                tdCustomerAuditList.Visible = false;
+                btnSubmit.Visible = true;
+            }
         }
     }
 }

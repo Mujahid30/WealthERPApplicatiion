@@ -6080,6 +6080,48 @@ namespace DaoCustomerProfiling
             return dtGetCustCode;
         }
 
+        public DataTable GetSchemePlanName(string prefixText)
+        {
+
+            Database db;
+            DbCommand cmdGetSchemePlanName;
+            DataSet dsGetSchemePlanName;
+            DataTable dtGetSchemePlanName;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //To retreive data from the table 
+                cmdGetSchemePlanName = db.GetStoredProcCommand("SPROC_GetProductAmcSchemeList");
+                db.AddInParameter(cmdGetSchemePlanName, "@prefixText", DbType.String, prefixText);
+                dsGetSchemePlanName = db.ExecuteDataSet(cmdGetSchemePlanName);
+                dtGetSchemePlanName = dsGetSchemePlanName.Tables[0];
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerDao.cs:GetCustCode()");
+
+
+                object[] objects = new object[1];
+
+                objects[0] = prefixText;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dtGetSchemePlanName;
+        }
         public int CheckStaffCode(string prefixText)
         {
             Database db;
@@ -6156,6 +6198,47 @@ namespace DaoCustomerProfiling
 
             }
             return dsCustomerProfileAudit;
+
+        }
+        public DataSet GetSchemePlanAuditDetails(int SchemePlancode, DateTime fromModificationDate, DateTime toModificationDate)
+        {
+            Database db;
+            DbCommand cmdGetSchemePlanAuditDetails;
+            DataSet dsGetSchemePlanAuditDetails;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //To retreive data from the table 
+                cmdGetSchemePlanAuditDetails = db.GetStoredProcCommand("SPROC_SchemePlan_Audit");
+                db.AddInParameter(cmdGetSchemePlanAuditDetails, "@schemePlanCode", DbType.Int32, SchemePlancode);
+                db.AddInParameter(cmdGetSchemePlanAuditDetails, "@FromModificationDate", DbType.DateTime, fromModificationDate);
+                db.AddInParameter(cmdGetSchemePlanAuditDetails, "@ToModificationDate", DbType.DateTime, toModificationDate);
+                dsGetSchemePlanAuditDetails = db.ExecuteDataSet(cmdGetSchemePlanAuditDetails);
+
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerDao.cs:GetSchemePlanAuditDetails()");
+                object[] objects = new object[3];
+                objects[0] = SchemePlancode;
+                objects[1] = fromModificationDate;
+                objects[2] = toModificationDate;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dsGetSchemePlanAuditDetails;
 
         }
     }
