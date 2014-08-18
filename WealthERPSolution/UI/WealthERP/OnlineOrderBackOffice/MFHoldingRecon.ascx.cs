@@ -77,8 +77,6 @@ namespace WealthERP.OnlineOrderBackOffice
         protected void btnSync_OnClick(object sender, EventArgs e)
         {
             BindMFHoldingReconAfterSync();
-
-
         }
         protected void BindMFHoldingRecon()
         {
@@ -102,13 +100,14 @@ namespace WealthERP.OnlineOrderBackOffice
                     gvMFHoldinfRecon.DataBind();
                     MFHoldingRecons.Visible = true;
                     pnlMFHoldingRecons.Visible = true;
-                    gvMFHoldinfRecon.MasterTableView.GetColumn("AccountId").Display = false;
-                    gvMFHoldinfRecon.MasterTableView.GetColumn("SchemePlanCode").Display = false;
-                    gvMFHoldinfRecon.MasterTableView.GetColumn("CustomerId").Display = false;
+
+                    gvMFHoldinfRecon.MasterTableView.GetColumn("SchemePlanName").Display = false;
+
                     gvMFHoldinfRecon.MasterTableView.GetColumn("SystemUnits").Display = false;
-                    gvMFHoldinfRecon.MasterTableView.GetColumn("CMFHR_SystemNAV").Display = false;
-                    gvMFHoldinfRecon.MasterTableView.GetColumn("CMFHR_SystemNAVDate").Display = false;
-                    gvMFHoldinfRecon.MasterTableView.GetColumn("CMFHR_SystemAUM").Display = false;
+                    gvMFHoldinfRecon.MasterTableView.GetColumn("SystemNAV").Display = false;
+                    gvMFHoldinfRecon.MasterTableView.GetColumn("SystemNAVDate").Display = false;
+                    gvMFHoldinfRecon.MasterTableView.GetColumn("SystemAUM").Display = false;
+                    //gvMFHoldinfRecon.MasterTableView.GetColumn("Diff").Display = false;
                 }
                 else
                 {
@@ -157,13 +156,23 @@ namespace WealthERP.OnlineOrderBackOffice
                     gvMFHoldinfRecon.DataBind();
                     MFHoldingRecons.Visible = true;
                     pnlMFHoldingRecons.Visible = true;
-                    gvMFHoldinfRecon.MasterTableView.GetColumn("AccountId").Display = true;
-                    gvMFHoldinfRecon.MasterTableView.GetColumn("SchemePlanCode").Display = true;
-                    gvMFHoldinfRecon.MasterTableView.GetColumn("CustomerId").Display = true;
+
+                    gvMFHoldinfRecon.MasterTableView.GetColumn("SchemePlanName").Display = true;
+
                     gvMFHoldinfRecon.MasterTableView.GetColumn("SystemUnits").Display = true;
-                    gvMFHoldinfRecon.MasterTableView.GetColumn("CMFHR_SystemNAV").Display = true;
-                    gvMFHoldinfRecon.MasterTableView.GetColumn("CMFHR_SystemNAVDate").Display = true;
-                    gvMFHoldinfRecon.MasterTableView.GetColumn("CMFHR_SystemAUM").Display = true;
+                    gvMFHoldinfRecon.MasterTableView.GetColumn("SystemNAV").Display = true;
+                    gvMFHoldinfRecon.MasterTableView.GetColumn("SystemNAVDate").Display = true;
+                    gvMFHoldinfRecon.MasterTableView.GetColumn("SystemAUM").Display = true;
+                    //gvMFHoldinfRecon.MasterTableView.GetColumn("Diff").Display = true;
+                    foreach (GridDataItem item in gvMFHoldinfRecon.Items)
+                    {
+                        item["SchemePlanName"].BackColor = System.Drawing.Color.Yellow;
+                        item["SystemUnits"].BackColor = System.Drawing.Color.Yellow;
+                        item["SystemNAV"].BackColor = System.Drawing.Color.Yellow;
+                        item["SystemNAVDate"].BackColor = System.Drawing.Color.Yellow;
+                        item["SystemAUM"].BackColor = System.Drawing.Color.Yellow;
+                        //item["Diff"].BackColor = System.Drawing.Color.Yellow;
+                    }
                 }
                 else
                 {
@@ -200,5 +209,6 @@ namespace WealthERP.OnlineOrderBackOffice
                 gvMFHoldinfRecon.DataSource = dtMFHoldingRecon;
             }
         }
+
     }
 }
