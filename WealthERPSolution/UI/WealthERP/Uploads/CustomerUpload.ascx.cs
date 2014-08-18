@@ -4593,6 +4593,8 @@ namespace WealthERP.Uploads
             //SkiprowsVisible.Visible = true;
             upload.Visible = false;
             datevisible.Visible = false;
+            trType.Visible = false;
+
             if (ddlUploadType.SelectedValue == "CM" || ddlUploadType.SelectedValue == "P" || ddlUploadType.SelectedValue == "PMFF")
             {
                 trRM.Visible = true;
@@ -4698,6 +4700,10 @@ namespace WealthERP.Uploads
                 ddlListCompany.DataValueField = "Value";
                 ddlListCompany.DataBind();
                 ddlListCompany.Items.Insert(0, new ListItem("Select Source Type", "Select Source Type"));
+
+                trType.Visible = true ;
+                trListBranch.Visible = false;
+                trRM.Visible = false;
 
                 //Fill Extension types for Selected Asset
                 //ddlListExtensionType.DataSource = GetMFExtensions();
@@ -7960,6 +7966,7 @@ namespace WealthERP.Uploads
                         else if (ddlUploadType.SelectedValue == "TRAIL")
                             processlogVo.ExtractTypeCode = "TRAIL";
 
+                        processlogVo.IsOnline = Convert.ToInt32(ddlType.SelectedValue);
                         processlogVo.ProcessId = uploadcommonBo.CreateUploadProcess(processlogVo);
                         dsXML.Tables[0].Columns.Add("ProcessId");
                         dsXML.Tables[0].Columns.Add("AdviserId");

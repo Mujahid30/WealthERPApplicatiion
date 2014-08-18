@@ -190,6 +190,8 @@ namespace DaoUploads
                 db.AddInParameter(createProcessCmd, "@ADUL_ModifiedBy", DbType.Int32, processlogVo.ModifiedBy);
                 db.AddInParameter(createProcessCmd, "@U_UserId", DbType.Int32, processlogVo.UserId);
                 db.AddOutParameter(createProcessCmd, "@ADUL_ProcessId", DbType.Int32, 10);
+                db.AddInParameter(createProcessCmd, "@ADUL_IsOnline", DbType.Int32, processlogVo.IsOnline);
+                
                 db.ExecuteNonQuery(createProcessCmd);
                 processId = int.Parse(db.GetParameterValue(createProcessCmd, "ADUL_ProcessId").ToString());
             }

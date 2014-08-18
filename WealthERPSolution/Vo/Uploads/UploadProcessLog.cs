@@ -33,6 +33,7 @@ namespace VoUploads
         private string m_ExtractTypeCode;
         private int m_BranchId;
         private int m_RmId;
+        private int m_IsOnline;
 
         public int RmId
         {
@@ -48,6 +49,7 @@ namespace VoUploads
         public int NoOfAccountDuplicates { get; set; }
         public int NoOfTransactionDuplicates { get; set; }
         public int NoOfInputRejects { get; set; }
+        public int IsOnline { get; set; }
 
         public int BranchId
         {
@@ -103,6 +105,7 @@ namespace VoUploads
             set { m_AdviserId = value; }
         }
 
+       
         public string Comment
         {
             get { return m_Comment; }

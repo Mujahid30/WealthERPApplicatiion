@@ -1016,7 +1016,7 @@
             <asp:Label ID="lblFrequencySIP" runat="server" Text="Frequency:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField" style="width: 20%">
-            <asp:DropDownList ID="ddlFrequencySIP" runat="server" CssClass="cmbField" TabIndex="20">
+            <asp:DropDownList ID="ddlFrequencySIP" runat="server" CssClass="cmbField" TabIndex="20" AutoPostBack=true>
             </asp:DropDownList>
         </td>
         <td class="leftField" colspan="2" style="width: 40%">

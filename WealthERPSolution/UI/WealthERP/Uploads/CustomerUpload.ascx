@@ -199,7 +199,8 @@
                 Uploading successfully Completed
             </div>
             <asp:LinkButton ID="lnkClick" runat="server" Text="Click here to start new upload"
-                Font-Size="Small" Font-Underline="false" class="textfield" OnClick="lnkClick_Click" Visible="false"></asp:LinkButton>
+                Font-Size="Small" Font-Underline="false" class="textfield" OnClick="lnkClick_Click"
+                Visible="false"></asp:LinkButton>
         </td>
     </tr>
 </table>
@@ -266,7 +267,6 @@
                 <asp:ListItem Value="EQT" Enabled="false">Equity Transaction</asp:ListItem>
                 <asp:ListItem Value="MFSS" Enabled="false">Systematic</asp:ListItem>
                 <asp:ListItem Value="TRAIL" Enabled="false">Trail Commission</asp:ListItem>
-                
                 <asp:ListItem Value="P">Profile Incremental</asp:ListItem>
                 <asp:ListItem Value="CM">Client Modification</asp:ListItem>
                 <asp:ListItem Value="Link">Fixed Income</asp:ListItem>
@@ -285,8 +285,24 @@
             </asp:RequiredFieldValidator>
         </td>
     </tr>
-    
-     <tr id="trRM" runat="server"  >
+    <tr id="trType" runat="server" Visible="false">
+        <td class="leftField">
+            <asp:Label ID="Label5" CssClass="FieldName" runat="server" Text="Offline/Online Type:"></asp:Label>
+        </td>
+        <td class="rightField">
+            <asp:DropDownList ID="ddlType" runat="server"  
+                AutoPostBack="true" CssClass="cmbLongField" >
+                <asp:ListItem Value="1">Online</asp:ListItem>                
+                <asp:ListItem Value="0">Offline</asp:ListItem>
+                <%-- <asp:ListItem Value="MFF">MF Folio Only</asp:ListItem>--%>
+            </asp:DropDownList>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="ddlType" 
+                ValidationGroup="btn_Upload" ErrorMessage="Please select type" InitialValue="" 
+                Display="Dynamic" runat="server" CssClass="rfvPCG">
+            </asp:RequiredFieldValidator>
+        </td>
+    </tr>
+    <tr id="trRM" runat="server">
         <td class="leftField">
             <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="Pick a RM:"></asp:Label>
         </td>
@@ -437,7 +453,6 @@
                 ValidationGroup="btn_Upload" ErrorMessage="Please enter remark" Display="Dynamic"
                 runat="server" CssClass="rfvPCG">
             </asp:RequiredFieldValidator>
-   
         </td>
     </tr>
     <tr>
