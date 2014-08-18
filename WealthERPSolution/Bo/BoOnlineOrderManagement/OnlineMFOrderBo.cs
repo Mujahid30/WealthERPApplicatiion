@@ -5,6 +5,7 @@ using System.Text;
 using System.Data;
 using System.Collections;
 using System.Data.Sql;
+using System.Reflection;
 using VoOnlineOrderManagemnet;
 using Microsoft.Practices.EnterpriseLibrary.Data;
 using System.Data.Common;
@@ -16,13 +17,13 @@ namespace BoOnlineOrderManagement
 {
     public class OnlineMFOrderBo : OnlineOrderBo
     {
-        public DataSet GetOrderBookMIS(int CustomerId,int AmcCode,string OrderStatus, DateTime dtFrom, DateTime dtTo)
+        public DataSet GetOrderBookMIS(int CustomerId, int AmcCode, string OrderStatus, DateTime dtFrom, DateTime dtTo)
         {
             DataSet dsOrderBookMIS = null;
             OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
             try
             {
-                dsOrderBookMIS = OnlineMFOrderDao.GetOrderBookMIS(CustomerId,AmcCode,OrderStatus,dtFrom, dtTo);
+                dsOrderBookMIS = OnlineMFOrderDao.GetOrderBookMIS(CustomerId, AmcCode, OrderStatus, dtFrom, dtTo);
             }
             catch (BaseApplicationException Ex)
             {
@@ -75,7 +76,7 @@ namespace BoOnlineOrderManagement
         public DataSet GetOrderStatus()
         {
             DataSet dsOrderStatus = null;
-            OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();         
+            OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
             {
                 dsOrderStatus = OnlineMFOrderDao.GetOrderStatus();
             }
@@ -111,7 +112,7 @@ namespace BoOnlineOrderManagement
         }
         public IDictionary<string, string> CreateOrderMFSipDetails(OnlineMFOrderVo onlineMFOrderVo, int userId)
         {
-            IDictionary<string, string> sipOrderIds = new Dictionary<string, string>();            
+            IDictionary<string, string> sipOrderIds = new Dictionary<string, string>();
             OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
 
             try
@@ -139,13 +140,13 @@ namespace BoOnlineOrderManagement
             }
             return orderIds;
         }
-        public DataSet GetSIPBookMIS(int CustomerId, int AmcCode, string OrderStatus,int systematicId, DateTime dtFrom, DateTime dtTo)
+        public DataSet GetSIPBookMIS(int CustomerId, int AmcCode, string OrderStatus, int systematicId, DateTime dtFrom, DateTime dtTo)
         {
             DataSet dsSIPBookMIS = null;
             OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
             try
             {
-                dsSIPBookMIS = OnlineMFOrderDao.GetSIPBookMIS(CustomerId, AmcCode,OrderStatus,systematicId ,dtFrom, dtTo);
+                dsSIPBookMIS = OnlineMFOrderDao.GetSIPBookMIS(CustomerId, AmcCode, OrderStatus, systematicId, dtFrom, dtTo);
             }
             catch (BaseApplicationException Ex)
             {
@@ -173,7 +174,7 @@ namespace BoOnlineOrderManagement
             OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
             try
             {
-                dsSIPSummaryBookMIS = OnlineMFOrderDao.GetSIPSummaryBookMIS(CustomerId, AmcCode,dtFrom, dtTo);
+                dsSIPSummaryBookMIS = OnlineMFOrderDao.GetSIPSummaryBookMIS(CustomerId, AmcCode, dtFrom, dtTo);
             }
             catch (BaseApplicationException Ex)
             {
@@ -250,7 +251,7 @@ namespace BoOnlineOrderManagement
 
                 DateTime dateCurr = DateTime.Now;
                 if (DateTime.Now.TimeOfDay > System.TimeSpan.Parse("12:59:00"))
-                    dateCurr=DateTime.Now.AddDays(1);
+                    dateCurr = DateTime.Now.AddDays(1);
 
                 while (dateCurr <= DateTime.Now.AddMonths(3))
                 {
@@ -389,13 +390,13 @@ namespace BoOnlineOrderManagement
             }
             return dsGetTransAllAmcDetails;
         }
-        public bool UpdateCnacleRegisterSIP(int systematicId,int is_Cancel,string remark,int cancelBy)
+        public bool UpdateCnacleRegisterSIP(int systematicId, int is_Cancel, string remark, int cancelBy)
         {
             bool bResult = false;
             OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
             try
             {
-                bResult = OnlineMFOrderDao.UpdateCnacleRegisterSIP(systematicId,is_Cancel,remark,cancelBy);
+                bResult = OnlineMFOrderDao.UpdateCnacleRegisterSIP(systematicId, is_Cancel, remark, cancelBy);
 
             }
             catch (BaseApplicationException Ex)
@@ -410,7 +411,7 @@ namespace BoOnlineOrderManagement
                 FunctionInfo.Add("Method", "AdvisorBo.cs:UpdateCnacleRegisterSIP()");
 
 
-                object[] objects = new object[1];            
+                object[] objects = new object[1];
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
@@ -420,12 +421,12 @@ namespace BoOnlineOrderManagement
             }
             return bResult;
         }
-        public DataTable GetMFSchemeDetailsForLanding(int Schemeplancode,string category)
+        public DataTable GetMFSchemeDetailsForLanding(int Schemeplancode, string category)
         {
-            
+
             DataTable dtGetMFSchemeDetailsForLanding;
             OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
-           
+
             try
             {
                 dtGetMFSchemeDetailsForLanding = OnlineMFOrderDao.GetMFSchemeDetailsForLanding(Schemeplancode, category);
@@ -475,6 +476,71 @@ namespace BoOnlineOrderManagement
 
             }
             return ds;
+        }
+        public DataTable creataTableForSwitch(List<OnlineMFOrderVo> lsonlinemforder)
+        {
+            OnlineMFOrderVo onlineMFOrderVo = new OnlineMFOrderVo();
+            DataTable dtSwitchOrder = new DataTable();
+            dtSwitchOrder.Columns.Add("CMFSO_AccountId");
+            dtSwitchOrder.Columns.Add("CMFSO_SchemePlanCode");
+            dtSwitchOrder.Columns.Add("CMFSO_Amount");
+            dtSwitchOrder.Columns.Add("CMFSO_TransactionType");
+            dtSwitchOrder.Columns.Add("CMFSO_DivOption");
+            dtSwitchOrder.Columns.Add("CO_OrderId");
+
+            DataRow drOrderDetails;
+            for (int i = 0; i < lsonlinemforder.Count; i++)
+            {
+                onlineMFOrderVo = lsonlinemforder[i];
+                drOrderDetails = dtSwitchOrder.NewRow();
+                drOrderDetails["CMFSO_AccountId"] = onlineMFOrderVo.AccountId.ToString();
+                drOrderDetails["CMFSO_SchemePlanCode"] = onlineMFOrderVo.SchemePlanCode.ToString();
+                drOrderDetails["CMFSO_Amount"] = onlineMFOrderVo.Amount.ToString();
+                drOrderDetails["CMFSO_TransactionType"] = onlineMFOrderVo.TransactionType.ToString();
+                if (onlineMFOrderVo.DivOption == string.Empty)
+                    drOrderDetails["CMFSO_DivOption"] = onlineMFOrderVo.DivOption.ToString();
+                else
+                    drOrderDetails["CMFSO_DivOption"] = null;
+                dtSwitchOrder.Rows.Add(drOrderDetails);
+            }
+            return dtSwitchOrder;
+
+        }
+        public List<int> CreateOnlineMFSwitchOrderDetails(List<OnlineMFOrderVo> lsonlinemforder, int userId, int customerId)
+        {
+            OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
+            DataTable dtSwitchOrder = new DataTable();
+            List<int> OrderIds = new List<int>();
+            List<OnlineOrderSwitchVo> OnlineOrderSwitchVolist = new List<OnlineOrderSwitchVo>();
+
+            try
+            {
+                dtSwitchOrder = creataTableForSwitch(lsonlinemforder);
+                OrderIds = OnlineMFOrderDao.CreateOnlineMFSwitchOrderDetails(dtSwitchOrder, userId, customerId);
+
+            }
+
+
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineMFOrderBo.cs:GetCustomerSchemeFolioHoldings(int customerId, int schemeId)");
+
+                object[] objects = new object[1];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return OrderIds;
+
+
         }
     }
 }
