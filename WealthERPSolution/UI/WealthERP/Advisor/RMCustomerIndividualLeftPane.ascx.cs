@@ -1496,6 +1496,10 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerFIAlerts", "loadcontrol('MFOrderBuyTransTypeOffline','none');", true);
                 }
+                else if (e.Item.Value == "MF_Switch")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerFIAlerts", "loadcontrol('MFOrderSwitchTransType','none');", true);
+                }
                 else if (e.Item.Value == "OrderBook")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerFIAlerts", "loadcontrol('CustomerMFOrderBookList','none');", true);
