@@ -80,7 +80,7 @@
                 <telerik:RadGrid ID="gvProfileIncreamenetReject" Visible="true" runat="server" GridLines="None"
                     AutoGenerateColumns="False" PageSize="10" AllowSorting="true" AllowPaging="True"
                     ShowStatusBar="True" ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false"
-                    AllowFilteringByColumn="true" Width="100%" AllowAutomaticInserts="false" OnNeedDataSource="gvProfileIncreamenetReject_OnNeedDataSource">
+                    AllowFilteringByColumn="true" Width="100%"  AllowAutomaticInserts="false" OnNeedDataSource="gvProfileIncreamenetReject_OnNeedDataSource">
                     <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="OrderMIS">
                     </ExportSettings>
                     <MasterTableView Width="102%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"

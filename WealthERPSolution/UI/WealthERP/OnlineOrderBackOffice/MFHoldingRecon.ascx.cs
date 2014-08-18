@@ -25,7 +25,16 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             SessionBo.CheckSession();
             AdvisorVo adviserVo = new AdvisorVo();
+
             BindRequestId();
+            if (!Page.IsPostBack)
+            {
+                Label1.Visible = false;
+                txtTo.Visible = false;
+                btnSynch.Visible = false;
+
+            }
+
         }
         protected void BindRequestId()
         {
@@ -42,10 +51,11 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             try
             {
-                
+
                 BindMFHoldingRecon();
-                //trSynch.Visible = true;
-                //imgexportButton.Visible = true;
+                Label1.Visible = true;
+                txtTo.Visible = true;
+                btnSynch.Visible = true;
             }
             catch (BaseApplicationException Ex)
             {
@@ -67,12 +77,14 @@ namespace WealthERP.OnlineOrderBackOffice
         protected void btnSync_OnClick(object sender, EventArgs e)
         {
             BindMFHoldingReconAfterSync();
+
+
         }
         protected void BindMFHoldingRecon()
         {
             try
             {
-              
+
                 DataTable dtMFHoldingRecon = new DataTable();
                 dtMFHoldingRecon = OnlineOrderMISBo.GetMFHoldingRecon(int.Parse(ddlIssue.SelectedValue));
                 if (dtMFHoldingRecon.Rows.Count > 0)
@@ -88,8 +100,15 @@ namespace WealthERP.OnlineOrderBackOffice
                     }
                     gvMFHoldinfRecon.DataSource = dtMFHoldingRecon;
                     gvMFHoldinfRecon.DataBind();
-                     MFHoldingRecons.Visible = true;
-                     pnlMFHoldingRecons.Visible = true;
+                    MFHoldingRecons.Visible = true;
+                    pnlMFHoldingRecons.Visible = true;
+                    gvMFHoldinfRecon.MasterTableView.GetColumn("AccountId").Display = false;
+                    gvMFHoldinfRecon.MasterTableView.GetColumn("SchemePlanCode").Display = false;
+                    gvMFHoldinfRecon.MasterTableView.GetColumn("CustomerId").Display = false;
+                    gvMFHoldinfRecon.MasterTableView.GetColumn("SystemUnits").Display = false;
+                    gvMFHoldinfRecon.MasterTableView.GetColumn("CMFHR_SystemNAV").Display = false;
+                    gvMFHoldinfRecon.MasterTableView.GetColumn("CMFHR_SystemNAVDate").Display = false;
+                    gvMFHoldinfRecon.MasterTableView.GetColumn("CMFHR_SystemAUM").Display = false;
                 }
                 else
                 {
@@ -97,7 +116,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     gvMFHoldinfRecon.DataBind();
                     MFHoldingRecons.Visible = true;
                     pnlMFHoldingRecons.Visible = true;
-                   
+
                 }
             }
             catch (BaseApplicationException Ex)
@@ -122,7 +141,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
 
                 DataTable dtMFHoldingReconSync = new DataTable();
-                dtMFHoldingReconSync = OnlineOrderMISBo.GetMFHoldingReconAfterSync(int.Parse(ddlIssue.SelectedValue),Convert.ToDateTime(txtTo.SelectedDate));
+                dtMFHoldingReconSync = OnlineOrderMISBo.GetMFHoldingReconAfterSync(int.Parse(ddlIssue.SelectedValue), Convert.ToDateTime(txtTo.SelectedDate));
                 if (dtMFHoldingReconSync.Rows.Count > 0)
                 {
                     if (Cache["MFHoldingMIS" + userVo.UserId] == null)
@@ -138,6 +157,13 @@ namespace WealthERP.OnlineOrderBackOffice
                     gvMFHoldinfRecon.DataBind();
                     MFHoldingRecons.Visible = true;
                     pnlMFHoldingRecons.Visible = true;
+                    gvMFHoldinfRecon.MasterTableView.GetColumn("AccountId").Display = true;
+                    gvMFHoldinfRecon.MasterTableView.GetColumn("SchemePlanCode").Display = true;
+                    gvMFHoldinfRecon.MasterTableView.GetColumn("CustomerId").Display = true;
+                    gvMFHoldinfRecon.MasterTableView.GetColumn("SystemUnits").Display = true;
+                    gvMFHoldinfRecon.MasterTableView.GetColumn("CMFHR_SystemNAV").Display = true;
+                    gvMFHoldinfRecon.MasterTableView.GetColumn("CMFHR_SystemNAVDate").Display = true;
+                    gvMFHoldinfRecon.MasterTableView.GetColumn("CMFHR_SystemAUM").Display = true;
                 }
                 else
                 {

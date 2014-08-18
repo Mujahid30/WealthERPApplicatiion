@@ -112,7 +112,7 @@
                             <telerik:RadGrid ID="rgRequests" Width="1500px" runat="server" AllowSorting="True"
                                 enableloadondemand="True" PageSize="5" AutoGenerateColumns="False" EnableEmbeddedSkins="False"
                                 GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="true" AllowPaging="true"
-                                ShowStatusBar="True" Skin="Telerik" AllowFilteringByColumn="true" OnNeedDataSource="rgRequests_OnNeedDataSource">
+                                ShowStatusBar="True" Skin="Telerik" AllowFilteringByColumn="true" OnItemDataBound="rgRequests_ItemDataBound" OnNeedDataSource="rgRequests_OnNeedDataSource">
                                 <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" AutoGenerateColumns="false"
                                     Width="100%" DataKeyNames="ReqId">
                                     <Columns>
@@ -144,14 +144,19 @@
                                             AutoPostBackOnFilter="true" UniqueName="TotalNoOfRecords" FooterStyle-HorizontalAlign="Left">
                                             <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="InputRejects" HeaderText="Input Rejects" SortExpression="InputRejects"
+                                        <telerik:GridBoundColumn DataField="InputRejects" HeaderText="Duplicate Rejects" SortExpression="InputRejects"
                                             ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
                                             UniqueName="InputRejects" FooterStyle-HorizontalAlign="Left">
                                             <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="StagingRejects" HeaderText="Staging Rejects"
+                                        <telerik:GridBoundColumn DataField="StagingRejects" HeaderText="DataType Rejects"
                                             SortExpression="StagingRejects" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                             AutoPostBackOnFilter="true" UniqueName="StagingRejects" FooterStyle-HorizontalAlign="Left">
+                                            <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn DataField="Staging" HeaderText="DataTranslation Rejects"
+                                            SortExpression="Staging" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                            AutoPostBackOnFilter="true" UniqueName="Staging" FooterStyle-HorizontalAlign="Left">
                                             <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="Success" HeaderText="Success" SortExpression="Success"
