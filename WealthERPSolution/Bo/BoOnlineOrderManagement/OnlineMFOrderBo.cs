@@ -511,15 +511,13 @@ namespace BoOnlineOrderManagement
             OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
             DataTable dtSwitchOrder = new DataTable();
             List<int> OrderIds = new List<int>();
-            List<OnlineOrderSwitchVo> OnlineOrderSwitchVolist = new List<OnlineOrderSwitchVo>();
-
+           
             try
             {
                 dtSwitchOrder = creataTableForSwitch(lsonlinemforder);
                 OrderIds = OnlineMFOrderDao.CreateOnlineMFSwitchOrderDetails(dtSwitchOrder, userId, customerId);
 
             }
-
 
             catch (BaseApplicationException Ex)
             {
