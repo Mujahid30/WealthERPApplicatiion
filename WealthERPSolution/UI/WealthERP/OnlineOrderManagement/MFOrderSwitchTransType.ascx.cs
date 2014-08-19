@@ -29,15 +29,8 @@ namespace WealthERP.OnlineOrderManagement
         CustomerAccountAssociationVo customerAccountAssociationVo = new CustomerAccountAssociationVo();
         CustomerTransactionBo customerTransactionBo = new CustomerTransactionBo();
         CustomerVo customerVo = new CustomerVo();
-        OnlineMFOrderVo[] onlinemforderVo = new OnlineMFOrderVo[2];
-        OnlineOrderSwitchVo OnlineOrderSwitchVo = new OnlineOrderSwitchVo();
         UserVo userVo;
         string path;
-        DataSet dsCustomerAssociates = new DataSet();
-        DataTable dtCustomerAssociatesRaw = new DataTable();
-        DataTable dtCustomerAssociates = new DataTable();
-        DataRow drCustomerAssociates;
-        int accountId;
         int OrderId;
         string clientMFAccessCode = string.Empty;
         protected void Page_Load(object sender, EventArgs e)
@@ -114,12 +107,7 @@ namespace WealthERP.OnlineOrderManagement
 
         protected void ddlScheme_onSelectedChanged(object sender, EventArgs e)
         {
-            //if (ddlScheme.SelectedIndex != -1)
-            //{
-
-            //    GetControlDetails(int.Parse(ddlScheme.SelectedValue), null);
-            //    SetControlDetails();
-            //}
+            
         }
         protected void ddlFolio_OnSelectedIndexChanged(object sender, EventArgs e)
         {
@@ -127,7 +115,7 @@ namespace WealthERP.OnlineOrderManagement
             {
 
                 GetControlDetails(int.Parse(ddlScheme.SelectedValue), ddlFolio.SelectedValue, "SO");
-                SetControlDetails();
+                
             }
         }
 
@@ -352,7 +340,7 @@ namespace WealthERP.OnlineOrderManagement
             {
                 BindSchemeDividendTypes(int.Parse(ddlSchemeName.SelectedValue));
                 GetControlDetails(int.Parse(ddlSchemeName.SelectedValue), null, "SI");
-                SetControlDetails();
+               
                 
             }
         }
@@ -475,31 +463,32 @@ namespace WealthERP.OnlineOrderManagement
 
         private void CreatePurchaseOrderType()
         {
-            OnlineMFOrderVo onlinemforderVo = new OnlineMFOrderVo();
+            OnlineMFOrderVo[] onlinemforderVo = new OnlineMFOrderVo[2];
             List<OnlineMFOrderVo> lsonlinemforder = new List<OnlineMFOrderVo>();
-            onlinemforderVo.SchemePlanCode = Int32.Parse(ddlScheme.SelectedValue.ToString());
-            onlinemforderVo.AccountId = Int32.Parse(ddlFolio.SelectedValue.ToString());
+            onlinemforderVo[0]= new OnlineMFOrderVo();
+            onlinemforderVo[0].SchemePlanCode = Int32.Parse(ddlScheme.SelectedValue.ToString());
+            onlinemforderVo[0].AccountId = Int32.Parse(ddlFolio.SelectedValue.ToString());
             
             List<int> OrderIds = new List<int>();
 
             if (!string.IsNullOrEmpty(lblAmtVale.Text.ToString()))
             {
-                onlinemforderVo.Amount = double.Parse(lblAmtVale.Text.ToString());
+                onlinemforderVo[0].Amount = double.Parse(txtSwitchAmnt.Text.ToString());
             }
             else
             {
-                onlinemforderVo.Amount = 0.0;
+                onlinemforderVo[0].Amount = 0.0;
             }
-            onlinemforderVo.TransactionType = "SO";
-            lsonlinemforder.Add(onlinemforderVo);
-            OnlineMFOrderVo onlinemforderVo2 = new OnlineMFOrderVo();
-            onlinemforderVo2.AccountId = int.Parse(ddlSwitchFolio.SelectedValue.ToString());
-            onlinemforderVo2.SchemePlanCode = int.Parse(ddlSchemeName.SelectedValue.ToString());
-            onlinemforderVo2.Amount = int.Parse(txtSwitchAmnt.Text.ToString());
-            onlinemforderVo2.DivOption = ddlSwitchDvdnType.SelectedValue.ToString();
-            onlinemforderVo2.TransactionType = "SI";
+            onlinemforderVo[0].TransactionType = "SO";
+            lsonlinemforder.Add(onlinemforderVo[0]);
+            onlinemforderVo[1] = new OnlineMFOrderVo();
+            onlinemforderVo[1].AccountId = int.Parse(ddlSwitchFolio.SelectedValue.ToString());
+            onlinemforderVo[1].SchemePlanCode = int.Parse(ddlSchemeName.SelectedValue.ToString());
+            onlinemforderVo[1].Amount = int.Parse(txtSwitchAmnt.Text.ToString());
+            onlinemforderVo[1].DivOption = ddlSwitchDvdnType.SelectedValue.ToString();
+            onlinemforderVo[1].TransactionType = "SI";
             string message = string.Empty;
-            lsonlinemforder.Add(onlinemforderVo2);
+            lsonlinemforder.Add(onlinemforderVo[1]);
             OrderIds = onlineMforderBo.CreateOnlineMFSwitchOrderDetails(lsonlinemforder, userVo.UserId, customerVo.CustomerId);
             OrderId = int.Parse(OrderIds[0].ToString());
             char msgType='s';
@@ -552,9 +541,9 @@ namespace WealthERP.OnlineOrderManagement
         {
             if (ddlSchemeType.SelectedIndex != 0)
             {
-                if (char.Parse(ddlSchemeType.SelectedValue) == 'S')
+                if (char.Parse(ddlSchemeType.SelectedValue) == 'N')
                 {
-                    BindSwitchScheme(int.Parse(ddlAmc.SelectedValue), null, 0, char.Parse(ddlSchemeType.SelectedValue));
+                    BindSwitchScheme(int.Parse(ddlAmc.SelectedValue), null, customerVo.CustomerId, char.Parse(ddlSchemeType.SelectedValue));
                 }
                 else
                 {

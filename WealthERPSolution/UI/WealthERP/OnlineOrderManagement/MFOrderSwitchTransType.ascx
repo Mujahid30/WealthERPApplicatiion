@@ -343,8 +343,8 @@
                     <td>
                         <asp:DropDownList ID="ddlSchemeType" runat="server" CssClass="cmbField" AutoPostBack="true" OnSelectedIndexChanged="ddlSchemeType_OnSelectedIndexChanged">
                         <asp:ListItem Text="Select" Value="select"></asp:ListItem>
-                        <asp:ListItem Text="New" Value="S"></asp:ListItem>
-                        <asp:ListItem Text="Existing" Value="R"></asp:ListItem>
+                        <asp:ListItem Text="New" Value="N"></asp:ListItem>
+                        <asp:ListItem Text="Existing" Value="E"></asp:ListItem>
                         </asp:DropDownList>
                         <span id="Span5" class="spnRequiredField">*</span>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" CssClass="rfvPCG"
