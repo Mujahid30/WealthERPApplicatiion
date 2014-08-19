@@ -256,7 +256,7 @@ namespace WealthERP.Uploads
             genDictMF.Add("Standard", "WPT");
             return genDictMF;
         }
-    
+
         private static Dictionary<string, string> GetEquityGenericDictionary()
         {
             Dictionary<string, string> genDictEquity = new Dictionary<string, string>();
@@ -422,8 +422,8 @@ namespace WealthERP.Uploads
                 string newFileName = SaveFileIntoServer(FileUpload, uploadFilePath);
                 newFileName = uploadFilePath + newFileName;
                 //   packagePath = Server.MapPath("\\UploadPackages\\Integration Services Project1\\Integration Services Project1\\Package9.dtsx");
-                werpTaskRequestManagementBo.CreateTaskRequestForRecon(5, userVo.UserId, out ReqId, newFileName, adviserVo.advisorId, ddlListCompany.SelectedValue,txtMfRecon.Text);
-                
+                werpTaskRequestManagementBo.CreateTaskRequestForRecon(5, userVo.UserId, out ReqId, newFileName, adviserVo.advisorId, ddlListCompany.SelectedValue, txtMfRecon.Text);
+
                 if (ReqId > 0)
                 {
                     msgUploadComplete.InnerText = "Request Id-" + ReqId.ToString() + "-Generated SuccessFully";
@@ -433,8 +433,9 @@ namespace WealthERP.Uploads
                     msgUploadComplete.InnerText = "Not able to create Request,Try again";
                 }
             }
-           else if (Page.IsValid & ddlUploadType.SelectedValue == "CM")
+            else if (Page.IsValid & ddlUploadType.SelectedValue == "CM")
             {
+
                 int ReqId = 0;
                 msgUploadComplete.Visible = true;
 
@@ -454,6 +455,25 @@ namespace WealthERP.Uploads
                 {
                     msgUploadComplete.InnerText = "Not able to create Request,Try again";
                 }
+                //int ReqId = 0;
+                //msgUploadComplete.Visible = true;
+
+                //string uploadFilePath = ConfigurationManager.AppSettings["ADVISOR_UPLOAD_PATH"].ToString() + "\\" + adviserVo.advisorId.ToString() + "\\";
+
+
+
+                //string newFileName = SaveFileIntoServer(FileUpload, uploadFilePath);
+                //newFileName = uploadFilePath + newFileName;
+                ////   packagePath = Server.MapPath("\\UploadPackages\\Integration Services Project1\\Integration Services Project1\\Package9.dtsx");
+                //werpTaskRequestManagementBo.CreateTaskRequest(4, userVo.UserId, out ReqId, newFileName, adviserVo.advisorId, Convert.ToInt32(ddlRM.SelectedValue), Convert.ToInt32(ddlListBranch.SelectedValue), ddlListCompany.SelectedValue);
+                //if (ReqId > 0)
+                //{
+                //    msgUploadComplete.InnerText = "Request Id-" + ReqId.ToString() + "-Generated SuccessFully";
+                //}
+                //else
+                //{
+                //    msgUploadComplete.InnerText = "Not able to create Request,Try again";
+                //}
             }
             else if (Page.IsValid & ddlUploadType.SelectedValue == "P")
             {
@@ -4603,19 +4623,20 @@ namespace WealthERP.Uploads
                 trListBranch.Visible = true;
                 ddlListBranch.Enabled = false;
                 ddlListBranch.SelectedValue = "1339";
+                
             }
             else
             {
                 trRM.Visible = false;
                 trListBranch.Visible = false;
             }
-           
+
             if (ddlUploadType.SelectedValue == "MFR")
             {
                 trListBranch.Visible = false;
                 trRM.Visible = false;
                 trMfRecon.Visible = true;
-                      
+
             }
             else
             {
@@ -4623,7 +4644,7 @@ namespace WealthERP.Uploads
                 trRM.Visible = true;
                 trMfRecon.Visible = false;
             }
-           
+
 
             //MF FOLIO UPLOADS DROPDOWN POPULATE -VISHAL 
             if (ddlUploadType.SelectedValue == Contants.ExtractTypeMFFolio)
@@ -4645,7 +4666,7 @@ namespace WealthERP.Uploads
                 ddlListCompany.DataValueField = "Value";
                 ddlListCompany.DataBind();
                 ddlListCompany.Items.Insert(0, new ListItem("Select Source Type", "Select Source Type"));
-
+                //ddlListCompany.Enabled = false;
                 ddlRM.DataSource = werpTaskRequestManagementBo.GetAdviserWiseRM(adviserVo.advisorId);
                 ddlRM.DataValueField = "AR_RMId";
                 ddlRM.DataTextField = "AR_RMName";
@@ -4701,7 +4722,7 @@ namespace WealthERP.Uploads
                 ddlListCompany.DataBind();
                 ddlListCompany.Items.Insert(0, new ListItem("Select Source Type", "Select Source Type"));
 
-                trType.Visible = true ;
+                trType.Visible = true;
                 trListBranch.Visible = false;
                 trRM.Visible = false;
 
@@ -4844,12 +4865,17 @@ namespace WealthERP.Uploads
             {   // Profile Only
 
                 //fill External Type dropdownbox
-                ddlListCompany.DataSource = GetMFFolioGenericDictionary();
+                ddlListCompany.DataSource = GetProfileGenericDictionary();
                 ddlListCompany.DataTextField = "Key";
                 ddlListCompany.DataValueField = "Value";
                 ddlListCompany.DataBind();
                 ddlListCompany.Items.Insert(0, new ListItem("Select Source Type", "Select Source Type"));
-
+                //ddlListCompany.Enabled = false;
+                ddlRM.DataSource = werpTaskRequestManagementBo.GetAdviserWiseRM(adviserVo.advisorId);
+                ddlRM.DataValueField = "AR_RMId";
+                ddlRM.DataTextField = "AR_RMName";
+                ddlRM.DataBind();
+                ddlRM.Items.Insert(0, new ListItem("Select", "Select Rm"));
 
             }
             if (ddlUploadType.SelectedValue == Contants.ExtractTypeMFRecon)
@@ -4857,7 +4883,7 @@ namespace WealthERP.Uploads
 
                 //fill External Type dropdownbox
                 ddlListCompany.DataSource = GetMFGenericDictionary();
-               
+
                 ddlListCompany.DataTextField = "Key";
                 ddlListCompany.DataValueField = "Value";
                 ddlListCompany.DataBind();
@@ -4869,7 +4895,7 @@ namespace WealthERP.Uploads
                 li = ddlListCompany.Items.FindByValue("SU");
                 ddlListCompany.Items.Remove(li);
                 li = ddlListCompany.Items.FindByValue("WPT");
-                ddlListCompany.Items.Remove(li);  
+                ddlListCompany.Items.Remove(li);
             }
         }
 
@@ -4954,6 +4980,11 @@ namespace WealthERP.Uploads
 
                 Response.Redirect("Standard Upload Files/GeneralInsurance.xlsx");
             }
+            //else if (File13.Checked)
+            //{
+
+            //    Response.Redirect("Standard Upload Files/Sample File for ClientModification.xlsx");
+            //}
             else if (AllFiles.Checked)
             {
                 Response.Redirect("Standard Upload Files/All Standard Upload Files.zip");
@@ -5002,6 +5033,20 @@ namespace WealthERP.Uploads
                 lblFileType.Visible = false;
 
             }
+            //if (ddlUploadType.SelectedValue == "CM")
+            //{
+            //    lblType.Visible = true;
+            //    message = Show_Message(ddlUploadType.SelectedValue, ddlListCompany.SelectedValue);
+            //    lblType.Text = "Please use file format &nbsp;" + message + "&nbsp; ,that were provided by us to Upload.";
+
+
+            //}
+
+            //else
+            //{
+            //    lblType.Visible = false;
+
+            //}
             //Hide Skip Rows for MF Folo Upload - vishal
             if (ddlUploadType.SelectedValue == "MFFO" || ddlUploadType.SelectedValue == "MFF")
             {

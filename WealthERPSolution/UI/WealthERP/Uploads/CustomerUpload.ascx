@@ -68,7 +68,6 @@
             var rdButton = document.getElementById('<%= File8.ClientID %>');
             rdButton.checked = true;
         }
-
     }
 
 </script>
@@ -285,19 +284,18 @@
             </asp:RequiredFieldValidator>
         </td>
     </tr>
-    <tr id="trType" runat="server" Visible="false">
+    <tr id="trType" runat="server" visible="false">
         <td class="leftField">
             <asp:Label ID="Label5" CssClass="FieldName" runat="server" Text="Offline/Online Type:"></asp:Label>
         </td>
         <td class="rightField">
-            <asp:DropDownList ID="ddlType" runat="server"  
-                AutoPostBack="true" CssClass="cmbLongField" >
-                <asp:ListItem Value="1">Online</asp:ListItem>                
+            <asp:DropDownList ID="ddlType" runat="server" AutoPostBack="true" CssClass="cmbLongField">
+                <asp:ListItem Value="1">Online</asp:ListItem>
                 <asp:ListItem Value="0">Offline</asp:ListItem>
                 <%-- <asp:ListItem Value="MFF">MF Folio Only</asp:ListItem>--%>
             </asp:DropDownList>
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="ddlType" 
-                ValidationGroup="btn_Upload" ErrorMessage="Please select type" InitialValue="" 
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="ddlType"
+                ValidationGroup="btn_Upload" ErrorMessage="Please select type" InitialValue=""
                 Display="Dynamic" runat="server" CssClass="rfvPCG">
             </asp:RequiredFieldValidator>
         </td>
@@ -481,6 +479,7 @@
             <%--<asp:label ID="FileType_lbl" runat="server" Font-Bold="false" CssClass="MsgInfo" text="Label"></asp:label>--%>
             <%-- <asp:Label ID="lblErrorFileType" runat="server"  CssClass="rfvPCG" Text="Please Upload Correct Format of file.."></asp:Label>
             --%>
+             <%--<asp:Label ID="lblType" runat="server" Font-Bold="false" CssClass="MsgInfo" Text="Label"></asp:Label>--%>
         </td>
     </tr>
     <tr>
