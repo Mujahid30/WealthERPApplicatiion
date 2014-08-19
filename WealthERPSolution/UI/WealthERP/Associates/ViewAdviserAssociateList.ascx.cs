@@ -127,7 +127,7 @@ namespace WealthERP.Associates
         }
         protected void ddlMenu_SelectedIndexChanged(object sender, EventArgs e)
         {
-            RadComboBox ddlAction = (RadComboBox)sender;
+            DropDownList ddlAction = (DropDownList)sender;
             GridDataItem gvr = (GridDataItem)ddlAction.NamingContainer;
             int selectedRow = gvr.ItemIndex + 1;
 
