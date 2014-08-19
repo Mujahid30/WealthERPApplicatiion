@@ -346,6 +346,8 @@
                                             </telerik:RadPanelItem>
                                               <telerik:RadPanelItem runat="server" Text="Switch" Value="MF_Switch">
                                             </telerik:RadPanelItem>
+                                              <telerik:RadPanelItem runat="server" Text="SWP" Value="MF_SWP">
+                                            </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Books" Value="Books">

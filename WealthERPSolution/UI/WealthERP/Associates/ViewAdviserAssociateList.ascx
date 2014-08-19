@@ -25,19 +25,19 @@
 <table width="100%">
     <tr>
         <td colspan="4">
-            <asp:Panel ID="pnlAdviserAssociateList" runat="server" ScrollBars="Horizontal" Width="98%"
-                Visible="true">
+            <asp:Panel ID="pnlAdviserAssociateList" runat="server" ScrollBars="Both" Width="90%"
+                Height="100%" Visible="true">
                 <table>
                     <tr>
                         <td>
-                            <div runat="server" id="divAdviserAssociateList" style="margin: 2px; width: 640px;">
-                                <telerik:RadGrid ID="gvAdviserAssociateList" runat="server" GridLines="None" AutoGenerateColumns="False"
-                                    PageSize="15" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
-                                    Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
-                                    AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true" OnNeedDataSource="gvAdviserAssociateList_OnNeedDataSource"
-                                    EnableHeaderContextMenu="true" EnableHeaderContextFilterMenu="true" OnItemDataBound="gvAdviserAssociateList_ItemDataBound">
-                                    <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
-                                        FileName="ViewAssociateList" Excel-Format="ExcelML">
+                            <div runat="server" id="divAdviserAssociateList" style="width: 100%;">
+                                <telerik:RadGrid ID="gvAdviserAssociateList" runat="server" AllowAutomaticDeletes="false"
+                                    PageSize="10" EnableEmbeddedSkins="false" AllowFilteringByColumn="true" AutoGenerateColumns="False"
+                                    ShowStatusBar="false" ShowFooter="false" AllowPaging="true" AllowSorting="true"
+                                    GridLines="none" AllowAutomaticInserts="false" Skin="Telerik" EnableHeaderContextMenu="true"
+                                    OnNeedDataSource="gvAdviserAssociateList_OnNeedDataSource" OnItemDataBound="gvAdviserAssociateList_ItemDataBound">
+                                    <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="ViewAssociateList"
+                                        Excel-Format="ExcelML">
                                     </ExportSettings>
                                     <MasterTableView Width="100%" DataKeyNames="AA_AdviserAssociateId" AllowMultiColumnSorting="True"
                                         AutoGenerateColumns="false" CommandItemDisplay="None" GroupsDefaultExpanded="false"
@@ -49,12 +49,14 @@
                                                         CssClass="cmbField" runat="server" EnableEmbeddedSkins="false" Skin="Telerik"
                                                         AllowCustomText="true" Width="120px" AutoPostBack="true">
                                                         <Items>
-                                                            <asp:ListItem Text="Select" Value="0" Selected="true">
-                                                            </asp:ListItem>
-                                                            <asp:ListItem Text="View" Value="View" runat="server"></asp:ListItem>
-                                                            <asp:ListItem Text="Edit" Value="Edit" runat="server"></asp:ListItem>
-                                                        </Items>
-                                                    </asp:DropDownList>
+                                                            <telerik:RadComboBoxItem ImageUrl="~/Images/Select.png" Text="Select" Value="0" Selected="true">
+                                                            </telerik:RadComboBoxItem>
+                                                            <telerik:RadComboBoxItem Text="View" Value="View" ImageUrl="~/Images/DetailedView.png"
+                                                                runat="server"></telerik:RadComboBoxItem>
+                                                            <telerik:RadComboBoxItem ImageUrl="~/Images/RecordEdit.png" Text="Edit" Value="Edit"
+                                                                runat="server"></telerik:RadComboBoxItem>
+                                                       </Items>
+                                                    </telerik:RadComboBox>
                                                 </ItemTemplate>
                                             </telerik:GridTemplateColumn>
                                             <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Sub Broker Code" DataField="SubBrokerCode"

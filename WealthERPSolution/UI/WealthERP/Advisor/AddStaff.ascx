@@ -470,28 +470,28 @@
             <%--  <asp:Label ID="lblEmailDuplicate" runat="server" CssClass="Error" Text="Email Id already exists"></asp:Label>--%>
         </td>
     </tr>
-    <tr id="tr4" runat="server" visible="true">
+    <tr id="tr4" runat="server" visible="false">
         <td colspan="6" style="vertical-align: text-bottom; padding-top: 6px; padding-bottom: 6px">
             <div class="divSectionHeading" style="vertical-align: text-bottom">
                 Staff to Branch Association
             </div>
         </td>
     </tr>
-    <tr>
+    <tr visible="false">
         <td colspan="6">
             <div class="clearfix" style="margin-bottom: 1em;">
                <asp:Panel ID="PLCustomer" runat="server" Style="float: left;
-                    padding-left: 150px;">
+                    padding-left: 150px;" Visible="false">
                     <asp:Label ID="lblSelectBranch" runat="server" CssClass="FieldName" Text="   ">
                     </asp:Label>
                     <telerik:RadListBox SelectionMode="Multiple" EnableDragAndDrop="true" AccessKey="y"
                         AllowTransferOnDoubleClick="true" AllowTransferDuplicates="false" OnTransferred="ListBoxSource_Transferred"
                         EnableViewState="true" EnableMarkMatches="true" runat="server" ID="LBStaffBranch" 
                         Height="200px" Width="250px"  AllowTransfer="true"
-                        TransferToID="RadListBoxDestination" CssClass="cmbFielde">
+                        TransferToID="RadListBoxDestination" CssClass="cmbFielde" Visible="false">
                     </telerik:RadListBox>
                     <telerik:RadListBox runat="server" AutoPostBackOnTransfer="true" SelectionMode="Multiple"
-                        ID="RadListBoxDestination" Height="200px" Width="220px" CssClass="cmbField">
+                        ID="RadListBoxDestination" Height="200px" Width="220px" CssClass="cmbField" Visible="false">
                     </telerik:RadListBox>
                 </asp:Panel>
             </div>

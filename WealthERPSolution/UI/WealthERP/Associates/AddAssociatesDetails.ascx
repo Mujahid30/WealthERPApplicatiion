@@ -25,18 +25,22 @@
         <asp:ServiceReference Path="AutoComplete.asmx" />
     </Services>
 </asp:ScriptManager>
-   <title>test</title>
-    <style type="text/css">
-        .horizontalListbox {
-            border: 0px;
-        }
-        .horizontalListbox .rlbItem {
-            float: left !important;
-        }
-        .horizontalListbox .rlbGroup, .RadListBox {
-            width: auto !important;
-        }
-    </style>
+<title>test</title>
+<style type="text/css">
+    .horizontalListbox
+    {
+        border: 0px;
+    }
+    .horizontalListbox .rlbItem
+    {
+        float: left !important;
+    }
+    .horizontalListbox .rlbGroup, .RadListBox
+    {
+        width: auto !important;
+    }
+</style>
+
 <script type="text/javascript">
     function chkPanExists() {
         $("#<%= hidValidCheck.ClientID %>").val("0");
@@ -74,6 +78,25 @@
     }
 </script>
 
+<script language="javascript" type="text/javascript">
+    
+    function validateCheckBoxList(sender, args) {
+        var isAnyCheckBoxChecked = false;
+        var checkBoxes = document.getElementById("<%= chkbldepart.ClientID %>").getElementsByTagName("input");
+        for (var i = 0; i < checkBoxes.length; i++) {
+            if (checkBoxes[i].type == "checkbox") {
+                if (checkBoxes[i].checked) {
+                    isAnyCheckBoxChecked = true;
+                    break;
+                }
+            }
+        }
+        if (!isAnyCheckBoxChecked) {
+            alert("Please Select Role for the associates!!");
+        }
+        return isAnyCheckBoxChecked;
+    }
+</script>
 <table width="100%">
     <tr>
         <td colspan="3" style="width: 100%;">
@@ -84,8 +107,8 @@
                             Add Associates
                         </td>
                         <td align="right">
-                            <asp:LinkButton ID="lnkBtnEdit" runat="server" CssClass="LinkButtons" Text="Edit" Visible="false"
-                                OnClick="lnkBtnEdit_Click"></asp:LinkButton>
+                            <asp:LinkButton ID="lnkBtnEdit" runat="server" CssClass="LinkButtons" Text="Edit"
+                                Visible="false" OnClick="lnkBtnEdit_Click"></asp:LinkButton>
                             &nbsp; &nbsp;
                             <asp:LinkButton runat="server" ID="lnlBack" CssClass="LinkButtons" Text="Back" Visible="false"
                                 OnClick="lnlBack_Click"></asp:LinkButton>
@@ -120,7 +143,7 @@
             <span id="Span4" class="spnRequiredField">*</span>
             <br />
             <asp:CompareValidator ID="cvRM" runat="server" ValidationGroup="Submit" ControlToValidate="ddlRM"
-                ErrorMessage="Please select a RM" Operator="NotEqual" ValueToCompare="Select"
+                ErrorMessage="Please select a RM" Operator="NotEqual" ValueToCompare="--Select--"
                 CssClass="cvPCG" Display="Dynamic">
             </asp:CompareValidator>
         </td>
@@ -135,7 +158,7 @@
             <br />
             <asp:CompareValidator ID="CompareValidator9" runat="server" ValidationGroup="Submit"
                 ControlToValidate="ddlBranch" ErrorMessage="Please select a Branch" Operator="NotEqual"
-                TextToCompare="Select" CssClass="cvPCG" Display="Dynamic">
+                TextToCompare="--Select--" CssClass="cvPCG" Display="Dynamic">
             </asp:CompareValidator>
         </td>
     </tr>
@@ -157,6 +180,10 @@
         </td>
         <td>
             <asp:TextBox ID="txtAssociateName" runat="server" CssClass="txtField"></asp:TextBox>
+            <span id="Span6" class="spnRequiredField">*</span>
+            <asp:RequiredFieldValidator ID="ReqtxtAssociateName" runat="server" ErrorMessage="Please Enter Associate Name"
+                CssClass="rfvPCG" ControlToValidate="txtAssociateName" ValidationGroup="Submit"
+                Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
         </td>
         <td class="leftLabel" align="right">
             <asp:Label ID="lblAdviserAgentCode" runat="server" Text="Adviser Agent Code: " CssClass="FieldName"></asp:Label>
@@ -272,7 +299,7 @@
             </asp:DropDownList>
             <span id="Span11" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator9" runat="server" ErrorMessage="Please Select Department"
-                CssClass="rfvPCG" ControlToValidate="ddlDepart" ValidationGroup="btnSubmit" InitialValue="0"
+                CssClass="rfvPCG" ControlToValidate="ddlDepart" ValidationGroup="Submit" InitialValue="0"
                 Display="Dynamic">
             </asp:RequiredFieldValidator>
         </td>
@@ -284,13 +311,17 @@
         <td class="rightData" colspan="5">
             <asp:Panel ID="PnlDepartRole" runat="server" ScrollBars="Horizontal" Width="800px"
                 Visible="false">
-                <telerik:RadListBox ID="chkbldepart" runat="server" CheckBoxes="true" AutoPostBack="true" CssClass="horizontalListbox">
+                <telerik:RadListBox ID="chkbldepart" runat="server" CheckBoxes="true" AutoPostBack="true"
+                    CssClass="horizontalListbox">
                 </telerik:RadListBox>
-                <%--<span id="Span12" class="spnRequiredField">*</span>--%>
+                <span id="Span12" class="spnRequiredField">*</span>
+                 <asp:CustomValidator ID="CustomValidator1" runat="server" ErrorMessage="Please check multiple applications allowed"
+                ClientValidationFunction="validateCheckBoxList" EnableClientScript="true" Display="Dynamic"
+                ValidationGroup="Submit" CssClass="rfvPCG">
+            </asp:CustomValidator>
                 <%--<asp:CheckBoxList ID="chkbldepart" runat="server" RepeatDirection="Horizontal" Width="100px" CssClass="cmbField" ></asp:CheckBoxList>--%>
-                <%-- <asp:CustomValidator ID="Cvdchkbldepart" runat="server" ControlToValidate="chkbldepart" CssClass="rfvPCG" 
-    ClientValidationFunction="ValidateColorList" EnableClientScript="true"
-    ErrorMessage="Please Selected One of the Role"></asp:CustomValidator>--%>
+              <%--  <asp:CustomValidator ID="Cvdchkbldepart" runat="server" ControlToValidate="chkbldepart"
+                    CssClass="rfvPCG" EnableClientScript="true" ValidationGroup="Submit" ErrorMessage="Please Selected One of the Role"></asp:CustomValidator>--%>
                 <%--<asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator8" ErrorMessage="Select a role!" ControlToValidate="chkbldepart" 
      ValidationGroup="btnSubmit" Display="Dynamic" CssClass="rfvPCG" />--%>
             </asp:Panel>
@@ -995,7 +1026,8 @@
         <td colspan="3">
             <asp:Button ID="btnSubmit" runat="server" Text="Update" CssClass="PCGButton" OnClick="Update_Click"
                 Visible="false" />
-            <asp:Button ID="BtnSave" runat="server" Text="Submit" CssClass="PCGButton" OnClick="btnSubmit_Click" />
+            <asp:Button ID="BtnSave" runat="server" Text="Submit" CssClass="PCGButton" OnClick="btnSubmit_Click"
+                ValidationGroup="Submit" />
         </td>
     </tr>
 </table>

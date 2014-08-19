@@ -733,7 +733,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtACno;
-        
+        protected global::System.Web.UI.WebControls.TextBox txtISIN;
         /// <summary>
         /// rfvtxtACno control.
         /// </summary>

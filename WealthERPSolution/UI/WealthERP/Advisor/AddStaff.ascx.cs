@@ -24,6 +24,7 @@ using CrystalDecisions.CrystalReports.Engine;
 using System.Collections.Specialized;
 using Telerik.Web.UI;
 using System.Web.UI.HtmlControls;
+using BoCustomerProfiling;
 
 namespace WealthERP.Advisor
 {
@@ -156,12 +157,12 @@ namespace WealthERP.Advisor
                 rmStaffVo.IsAssociateUser = false;
             else
                 rmStaffVo.IsAssociateUser = true;
-            foreach (RadListBoxItem ListItem in this.RadListBoxDestination.Items)
-            {
-                AllBranchId = AllBranchId + ListItem.Value.ToString() + ",";
+            //foreach (RadListBoxItem ListItem in this.RadListBoxDestination.Items)
+            //{
+            //    AllBranchId = AllBranchId + ListItem.Value.ToString() + ",";
 
-            }
-            rmStaffVo.StaffBranchAssociation = AllBranchId;
+            //}
+            rmStaffVo.StaffBranchAssociation = ddlBranch.SelectedValue;
             return rmStaffVo;
         }
 
@@ -176,7 +177,7 @@ namespace WealthERP.Advisor
             //rmUserVo.UserType = ddlRMRole.SelectedItem.Text.ToString().Trim();
             rmUserVo.Password = password;
             rmUserVo.MiddleName = txtMiddleName.Text.ToString();
-            rmUserVo.LoginId = txtEmail.Text.ToString();
+            rmUserVo.LoginId = txtStaffcode.Text.ToString();
             rmUserVo.LastName = txtLastName.Text.ToString();
             rmUserVo.FirstName = txtFirstName.Text.ToString();
             rmUserVo.Email = txtEmail.Text.ToString();
@@ -288,7 +289,7 @@ namespace WealthERP.Advisor
             ddlBranch.DataValueField = dsAdviserBranchList.Tables[0].Columns["AB_BranchId"].ToString();
             ddlBranch.DataTextField = dsAdviserBranchList.Tables[0].Columns["AB_BranchName"].ToString();
             ddlBranch.DataBind();
-            ddlBranch.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
+            //ddlBranch.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
         }
         private void BindStaffBranchDrop(string userRole)
         {
@@ -565,9 +566,19 @@ namespace WealthERP.Advisor
         }
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
+            CustomerBo customerbo = new CustomerBo();
             String RoleIds = GetDepartmentRoleIds();
             RoleIds = RoleIds.Remove(RoleIds.Length - 1);
             string theme = userVo.theme;
+            if (txtStaffcode.Text != string.Empty)
+            {
+                int staffCodeDuplicatechec = customerbo.CheckStaffCode(txtStaffcode.Text);
+                if (staffCodeDuplicatechec > 0)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please Enter Unique Staffcode Code. You Can Use Combination of 0-9 and a-z');", true);
+                    return;
+                }
+            }
             if (ValidateStaffReportingManager())
             {
                 rmStaffVo = CollectAdviserStaffData();

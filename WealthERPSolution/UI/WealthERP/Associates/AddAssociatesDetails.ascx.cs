@@ -1418,7 +1418,7 @@ namespace WealthERP.Associates
             ddlBranch.DataValueField = dtAdviserStaffBranchList.Columns["AB_BranchId"].ToString();
             ddlBranch.DataTextField = dtAdviserStaffBranchList.Columns["AB_BranchName"].ToString();
             ddlBranch.DataBind();
-            ddlBranch.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
+           // ddlBranch.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
 
         }
         protected void ddlRM_SelectedIndexChanged(object sender, EventArgs e)

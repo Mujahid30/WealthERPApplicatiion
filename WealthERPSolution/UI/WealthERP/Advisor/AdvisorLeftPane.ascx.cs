@@ -2159,7 +2159,7 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "Valuation")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('DailyValuation','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFAccountValuation','login');", true);
                 }
                 else if (e.Item.Value == "MF Systematic Daily Recon")
                 {

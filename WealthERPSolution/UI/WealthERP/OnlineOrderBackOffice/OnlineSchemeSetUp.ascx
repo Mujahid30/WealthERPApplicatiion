@@ -383,8 +383,10 @@
             <tr>
                 <td align="right">
                     <asp:Label ID="Label4" runat="server" Text="Scheme:" CssClass="FieldName" Visible="false"> </asp:Label>
+                    <asp:Label ID="lblISIN" runat="server" Text="ISIN:" CssClass="FieldName"></asp:Label>
                 </td>
                 <td>
+                <asp:TextBox ID="txtISIN" runat="server" CssClass="cmbFielde"></asp:TextBox> 
                     <asp:DropDownList ID="ddlSchemeList" runat="server" CssClass="cmbField" AutoPostBack="true"
                         OnSelectedIndexChanged="ddlSchemeList_OnSelectedIndexChanged" Style="width: 300px;"
                         Visible="false">
