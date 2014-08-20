@@ -1151,6 +1151,13 @@
     <Compile Include="AdvsierPreferenceSettings\CustomerCategorySetup.ascx.designer.cs">
       <DependentUpon>CustomerCategorySetup.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Alerts\AdviserAlertConfiguration.ascx.cs">
+      <DependentUpon>AdviserAlertConfiguration.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Alerts\AdviserAlertConfiguration.ascx.designer.cs">
+      <DependentUpon>AdviserAlertConfiguration.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Alerts\AlertDashboard.ascx.cs">
       <DependentUpon>AlertDashboard.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1174,6 +1181,7 @@
     </Compile>
     <Compile Include="Alerts\BulkAlertSetup.ascx.cs">
       <DependentUpon>BulkAlertSetup.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Alerts\BulkAlertSetup.ascx.designer.cs">
       <DependentUpon>BulkAlertSetup.ascx</DependentUpon>
@@ -4643,6 +4651,7 @@
     <Content Include="AdvsierPreferenceSettings\AdviserDepartmentRoleSetup.ascx" />
     <Content Include="AdvsierPreferenceSettings\AdviserRoleToTreeNodeMapping.ascx" />
     <Content Include="AdvsierPreferenceSettings\CustomerCategorySetup.ascx" />
+    <Content Include="Alerts\AdviserAlertConfiguration.ascx" />
     <Content Include="Alerts\AlertDashboard.ascx" />
     <Content Include="Alerts\BulkAlertSetup.ascx" />
     <Content Include="Alerts\CustomerEQAlerts.ascx" />

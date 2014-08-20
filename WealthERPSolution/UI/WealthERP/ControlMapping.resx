@@ -1941,4 +1941,8 @@
     <value>Alert//BulkAlertSetup.ascx</value>
     <comment>Alert//BulkAlertSetup.ascx</comment>
   </data>
+  <data name="AdviserAlertConfiguration" xml:space="preserve">
+    <value>Alert//AdviserAlertConfiguration.ascx</value>
+    <comment>Alert//AdviserAlertConfiguration.ascx</comment>
+  </data>
 </root>

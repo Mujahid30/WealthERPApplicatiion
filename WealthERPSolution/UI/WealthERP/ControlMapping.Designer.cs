@@ -277,6 +277,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Alert//AdviserAlertConfiguration.ascx.
+        /// </summary>
+        internal static string AdviserAlertConfiguration {
+            get {
+                return ResourceManager.GetString("AdviserAlertConfiguration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Advisor//AdviserAssociateCategorySetup.ascx.
         /// </summary>
         internal static string AdviserAssociateCategorySetup {
