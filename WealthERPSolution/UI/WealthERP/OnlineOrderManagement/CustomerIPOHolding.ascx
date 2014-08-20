@@ -44,18 +44,19 @@
                                 AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="AIA_AllotmentDate" SortExpression="AIA_AllotmentDate"
+                           
+                            <telerik:GridBoundColumn DataField="AIM_IssueName" SortExpression="AIM_IssueName"
+                                AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
+                                AllowFiltering="false" HeaderText="Issue Name" UniqueName="AIM_IssueName" HeaderStyle-Width="100px">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                             <telerik:GridBoundColumn DataField="AIA_AllotmentDate" SortExpression="AIA_AllotmentDate"
                                 AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
                                 AllowFiltering="false" HeaderText="Date of allotment" UniqueName="AIA_AllotmentDate"
                                 DataFormatString="{0:dd/MM/yyyy HH:mm:ss}" HeaderStyle-Width="50px">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="AIM_IssueName" SortExpression="AIM_IssueName"
-                                AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
-                                AllowFiltering="false" HeaderText="Scrip" UniqueName="AIM_IssueName" HeaderStyle-Width="100px">
-                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="CO_OrderId" SortExpression="CO_OrderId" AutoPostBackOnFilter="true"
+                            <telerik:GridBoundColumn DataField="CO_OrderId" Visible="false" SortExpression="CO_OrderId" AutoPostBackOnFilter="true"
                                 CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="false"
                                 HeaderText="Order No" UniqueName="CO_OrderId" HeaderStyle-Width="40px">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
@@ -63,7 +64,7 @@
                             <telerik:GridTemplateColumn DataField="CO_ApplicationNumber" SortExpression="CO_ApplicationNumber"
                                 AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
                                 AllowFiltering="false" HeaderText="Application Number" UniqueName="CO_ApplicationNumber"
-                                HeaderStyle-Width="60px">
+                                HeaderStyle-Width="60px" Visible="false">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 <ItemTemplate>
                                     <asp:LinkButton ID="lnkApplicationNo" runat="server" CommandName="Select" Text='<%# Eval("CO_ApplicationNumber").ToString() %>'>
@@ -73,18 +74,18 @@
                             <telerik:GridBoundColumn DataField="OpenDateTime" SortExpression="OpenDateTime" AutoPostBackOnFilter="true"
                                 DataFormatString="{0:dd/MM/yyyy HH:mm:ss}" CurrentFilterFunction="Contains" ShowFilterIcon="false"
                                 AllowFiltering="false" HeaderText="Issue Open Date" UniqueName="OpenDateTime"
-                                HeaderStyle-Width="60px">
+                                HeaderStyle-Width="60px" Visible="false">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="CloseDateTime" SortExpression="CloseDateTime"
                                 DataFormatString="{0:dd/MM/yyyy HH:mm:ss}" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"
                                 ShowFilterIcon="false" AllowFiltering="false" HeaderText="Issue Close Date" UniqueName="CloseDateTime"
-                                HeaderStyle-Width="60px">
+                                HeaderStyle-Width="60px" Visible="false">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="AllotedQty" SortExpression="AllotedQty" AutoPostBackOnFilter="true"
                                 CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="false"
-                                HeaderText="Quantity" UniqueName="AllotedQty" HeaderStyle-Width="40px">
+                                HeaderText=" Alloted Quantity" UniqueName="AllotedQty" HeaderStyle-Width="40px">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="AIA_Price" SortExpression="AIA_Price" AutoPostBackOnFilter="true"
