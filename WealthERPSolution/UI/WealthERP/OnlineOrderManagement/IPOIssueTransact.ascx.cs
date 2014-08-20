@@ -304,6 +304,7 @@ namespace WealthERP.OnlineOrderManagement
 
                 lblBidHighestValue.Text = finalBidPayableAmount.ToString();
                 txtFinalBidAmount.Text = lblBidHighestValue.Text.Trim();
+                Session["finalprice"] = lblBidHighestValue.Text;
             }
 
 
@@ -546,6 +547,15 @@ namespace WealthERP.OnlineOrderManagement
             int issueMinQty = 0;
             int issueMaxQty = 0;
             int bidId = 1;
+            int sum = int.Parse(Session["finalprice"].ToString());
+            int minbidamount = Convert.ToInt32(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIIC_MInBidAmount"].ToString());
+            int maxmimbidamount = Convert.ToInt32(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIIC_MaxBidAmount"].ToString());
+            if(minbidamount>sum || maxmimbidamount<sum)
+            {
+                msg = "Highest Bid Value should be greater than minbid amount and less than maxbid amout";
+                isBidValid = false;
+                return isBidValid; 
+            }
             if (!string.IsNullOrEmpty(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIM_TradingInMultipleOf"].ToString()))
                 issueQtyMultiple = Convert.ToInt16(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIM_TradingInMultipleOf"].ToString());
             if (!string.IsNullOrEmpty(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIM_MInQty"].ToString()))
