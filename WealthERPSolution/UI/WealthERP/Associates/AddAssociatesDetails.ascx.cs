@@ -1343,7 +1343,9 @@ namespace WealthERP.Associates
             associateUserVo.UserType = "Associates";
 
             associatesVo.ContactPersonName = txtAssociateName.Text;
+            if(!string.IsNullOrEmpty(ddlBranch.SelectedValue))
             associatesVo.BranchId = Convert.ToInt32(ddlBranch.SelectedValue);
+            if (!string.IsNullOrEmpty(ddlBranch.SelectedValue))
             associatesVo.BMName = ddlBranch.SelectedItem.Text;
             associatesVo.RMId = Convert.ToInt32(ddlRM.SelectedValue);
             associatesVo.RMNAme = ddlRM.SelectedItem.Text;
@@ -1363,7 +1365,15 @@ namespace WealthERP.Associates
                 if (items.Checked == true)
                     roleIds = roleIds + items.Value.ToString() + ",";
             }
-            associatesVo.Roleid= roleIds.Remove(roleIds.Length - 1);
+            if (!string.IsNullOrEmpty(roleIds))
+            {
+                associatesVo.Roleid = roleIds.Remove(roleIds.Length - 1);
+            }
+            else
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please Select Department Roles!!');", true);
+                return;
+            }
             associatesIds = associatesBo.CreateCompleteAssociates(associateUserVo, associatesVo, userVo.UserId);
             associatesVo.UserId = associatesIds[0];
             associatesVo.AdviserAssociateId = associatesIds[1];

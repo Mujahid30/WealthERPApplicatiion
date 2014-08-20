@@ -79,7 +79,7 @@
 </script>
 
 <script language="javascript" type="text/javascript">
-    
+
     function validateCheckBoxList(sender, args) {
         var isAnyCheckBoxChecked = false;
         var checkBoxes = document.getElementById("<%= chkbldepart.ClientID %>").getElementsByTagName("input");
@@ -97,6 +97,7 @@
         return isAnyCheckBoxChecked;
     }
 </script>
+
 <table width="100%">
     <tr>
         <td colspan="3" style="width: 100%;">
@@ -142,6 +143,9 @@
             </asp:DropDownList>
             <span id="Span4" class="spnRequiredField">*</span>
             <br />
+             <asp:RequiredFieldValidator ID="requddlRM" runat="server" ErrorMessage="Please select a RM"
+                CssClass="rfvPCG" ControlToValidate="ddlRM" ValidationGroup="Submit"
+                Display="Dynamic" InitialValue="0"></asp:RequiredFieldValidator>
             <asp:CompareValidator ID="cvRM" runat="server" ValidationGroup="Submit" ControlToValidate="ddlRM"
                 ErrorMessage="Please select a RM" Operator="NotEqual" ValueToCompare="--Select--"
                 CssClass="cvPCG" Display="Dynamic">
@@ -315,12 +319,12 @@
                     CssClass="horizontalListbox">
                 </telerik:RadListBox>
                 <span id="Span12" class="spnRequiredField">*</span>
-                 <asp:CustomValidator ID="CustomValidator1" runat="server" ErrorMessage="Please check multiple applications allowed"
+                <%--     <asp:CustomValidator ID="CustomValidator1" runat="server" ErrorMessage="Please check multiple applications allowed"
                 ClientValidationFunction="validateCheckBoxList" EnableClientScript="true" Display="Dynamic"
                 ValidationGroup="Submit" CssClass="rfvPCG">
-            </asp:CustomValidator>
+            </asp:CustomValidator>--%>
                 <%--<asp:CheckBoxList ID="chkbldepart" runat="server" RepeatDirection="Horizontal" Width="100px" CssClass="cmbField" ></asp:CheckBoxList>--%>
-              <%--  <asp:CustomValidator ID="Cvdchkbldepart" runat="server" ControlToValidate="chkbldepart"
+                <%--  <asp:CustomValidator ID="Cvdchkbldepart" runat="server" ControlToValidate="chkbldepart"
                     CssClass="rfvPCG" EnableClientScript="true" ValidationGroup="Submit" ErrorMessage="Please Selected One of the Role"></asp:CustomValidator>--%>
                 <%--<asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator8" ErrorMessage="Select a role!" ControlToValidate="chkbldepart" 
      ValidationGroup="btnSubmit" Display="Dynamic" CssClass="rfvPCG" />--%>
@@ -1027,7 +1031,7 @@
             <asp:Button ID="btnSubmit" runat="server" Text="Update" CssClass="PCGButton" OnClick="Update_Click"
                 Visible="false" />
             <asp:Button ID="BtnSave" runat="server" Text="Submit" CssClass="PCGButton" OnClick="btnSubmit_Click"
-                ValidationGroup="Submit" />
+                ValidationGroup="Submit"/>
         </td>
     </tr>
 </table>

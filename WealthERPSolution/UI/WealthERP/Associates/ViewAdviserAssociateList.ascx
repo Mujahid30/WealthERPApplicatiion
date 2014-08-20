@@ -49,14 +49,11 @@
                                                         CssClass="cmbField" runat="server" EnableEmbeddedSkins="false" Skin="Telerik"
                                                         AllowCustomText="true" Width="120px" AutoPostBack="true">
                                                         <Items>
-                                                            <telerik:RadComboBoxItem ImageUrl="~/Images/Select.png" Text="Select" Value="0" Selected="true">
-                                                            </telerik:RadComboBoxItem>
-                                                            <telerik:RadComboBoxItem Text="View" Value="View" ImageUrl="~/Images/DetailedView.png"
-                                                                runat="server"></telerik:RadComboBoxItem>
-                                                            <telerik:RadComboBoxItem ImageUrl="~/Images/RecordEdit.png" Text="Edit" Value="Edit"
-                                                                runat="server"></telerik:RadComboBoxItem>
-                                                       </Items>
-                                                    </telerik:RadComboBox>
+                                                            <asp:ListItem Text="Select" Value="0" Selected="true" />
+                                                            <asp:ListItem Text="View" Value="View" />
+                                                            <asp:ListItem Text="Edit" Value="Edit" />
+                                                        </Items>
+                                                    </asp:DropDownList>
                                                 </ItemTemplate>
                                             </telerik:GridTemplateColumn>
                                             <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Sub Broker Code" DataField="SubBrokerCode"
