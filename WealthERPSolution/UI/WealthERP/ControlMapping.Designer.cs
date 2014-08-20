@@ -277,7 +277,7 @@ namespace WealthERP {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Alert//AdviserAlertConfiguration.ascx.
+        ///   Looks up a localized string similar to Alerts//AdviserAlertConfiguration.ascx.
         /// </summary>
         internal static string AdviserAlertConfiguration {
             get {
@@ -781,7 +781,7 @@ namespace WealthERP {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Alert//BulkAlertSetup.ascx.
+        ///   Looks up a localized string similar to Alerts//BulkAlertSetup.ascx.
         /// </summary>
         internal static string BulkAlertSetup {
             get {
@@ -943,7 +943,7 @@ namespace WealthERP {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Alert//CustomerAlertSetup.ascx.
+        ///   Looks up a localized string similar to Alerts//CustomerAlertSetup.ascx.
         /// </summary>
         internal static string CustomerAlertSetup {
             get {

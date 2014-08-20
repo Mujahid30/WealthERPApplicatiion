@@ -1938,15 +1938,15 @@
     <comment>OnlineOrderManagement//MFOrderSWPTransType.ascx</comment>
   </data>
   <data name="BulkAlertSetup" xml:space="preserve">
-    <value>Alert//BulkAlertSetup.ascx</value>
-    <comment>Alert//BulkAlertSetup.ascx</comment>
+    <value>Alerts//BulkAlertSetup.ascx</value>
+    <comment>Alerts//BulkAlertSetup.ascx</comment>
   </data>
   <data name="AdviserAlertConfiguration" xml:space="preserve">
-    <value>Alert//AdviserAlertConfiguration.ascx</value>
-    <comment>Alert//AdviserAlertConfiguration.ascx</comment>
+    <value>Alerts//AdviserAlertConfiguration.ascx</value>
+    <comment>Alerts//AdviserAlertConfiguration.ascx</comment>
   </data>
   <data name="CustomerAlertSetup" xml:space="preserve">
-    <value>Alert//CustomerAlertSetup.ascx</value>
-    <comment>Alert//CustomerAlertSetup.ascx</comment>
+    <value>Alerts//CustomerAlertSetup.ascx</value>
+    <comment>Alerts//CustomerAlertSetup.ascx</comment>
   </data>
 </root>
