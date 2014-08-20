@@ -1937,4 +1937,8 @@
     <value>OnlineOrderManagement//MFOrderSWPTransType.ascx</value>
     <comment>OnlineOrderManagement//MFOrderSWPTransType.ascx</comment>
   </data>
+  <data name="BulkAlertSetup" xml:space="preserve">
+    <value>Alert//BulkAlertSetup.ascx</value>
+    <comment>Alert//BulkAlertSetup.ascx</comment>
+  </data>
 </root>
