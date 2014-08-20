@@ -1437,7 +1437,6 @@ namespace WealthERP.Associates
             {
                 BindStaffBranchDropList(Convert.ToInt32(ddlRM.SelectedValue));
             }
-
         }
 
         private void BindStaffDropList(int hierarchyId)
