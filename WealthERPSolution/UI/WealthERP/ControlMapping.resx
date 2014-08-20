@@ -1945,4 +1945,8 @@
     <value>Alert//AdviserAlertConfiguration.ascx</value>
     <comment>Alert//AdviserAlertConfiguration.ascx</comment>
   </data>
+  <data name="CustomerAlertSetup" xml:space="preserve">
+    <value>Alert//CustomerAlertSetup.ascx</value>
+    <comment>Alert//CustomerAlertSetup.ascx</comment>
+  </data>
 </root>

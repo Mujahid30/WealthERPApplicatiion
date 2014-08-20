@@ -1186,6 +1186,13 @@
     <Compile Include="Alerts\BulkAlertSetup.ascx.designer.cs">
       <DependentUpon>BulkAlertSetup.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Alerts\CustomerAlertSetup.ascx.cs">
+      <DependentUpon>CustomerAlertSetup.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Alerts\CustomerAlertSetup.ascx.designer.cs">
+      <DependentUpon>CustomerAlertSetup.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Alerts\CustomerDataAlertManagement.ascx.cs">
       <DependentUpon>CustomerDataAlertManagement.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -4654,6 +4661,7 @@
     <Content Include="Alerts\AdviserAlertConfiguration.ascx" />
     <Content Include="Alerts\AlertDashboard.ascx" />
     <Content Include="Alerts\BulkAlertSetup.ascx" />
+    <Content Include="Alerts\CustomerAlertSetup.ascx" />
     <Content Include="Alerts\CustomerEQAlerts.ascx" />
     <Content Include="Alerts\CustomerFIAlerts.ascx" />
     <Content Include="Alerts\CustomerInsuranceAlerts.ascx" />

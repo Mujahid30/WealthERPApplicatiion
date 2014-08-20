@@ -943,6 +943,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Alert//CustomerAlertSetup.ascx.
+        /// </summary>
+        internal static string CustomerAlertSetup {
+            get {
+                return ResourceManager.GetString("CustomerAlertSetup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Customer//CustomerAssociatesAdd.ascx.
         /// </summary>
         internal static string CustomerAssociatesAdd {
