@@ -3283,6 +3283,7 @@ namespace DaoOnlineOrderManagement
                 {
                     //Set destination table name
                     //to table previously created.
+                    bulkcopy.BulkCopyTimeout = 60 * 60;
                     bulkcopy.DestinationTableName = allotmentDataTable;
 
                     try
