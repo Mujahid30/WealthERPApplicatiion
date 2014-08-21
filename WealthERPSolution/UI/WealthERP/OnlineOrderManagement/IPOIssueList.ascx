@@ -75,7 +75,7 @@
                                 GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="true" ShowStatusBar="True"
                                 Skin="Telerik" AllowFilteringByColumn="false" OnItemCommand="RadGridIPOIssueList_OnItemCommand"
                                 OnItemDataBound="RadGridIPOIssueList_ItemDataBound">
-                                <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="AIM_IssueId"
+                                <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="AIM_IssueId,AR_Filename"
                                     AutoGenerateColumns="false" Width="100%">
                                     <Columns>
                                         <telerik:GridBoundColumn DataField="AIM_IssueName" HeaderStyle-Width="200px" CurrentFilterFunction="Contains"
@@ -161,6 +161,9 @@
                                                     ToolTip="BUY IPO" />
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>
+                                        <telerik:GridButtonColumn CommandName="download_file" Text="View Prospectus" UniqueName="Download"
+                                            HeaderText="Download">
+                                        </telerik:GridButtonColumn>
                                     </Columns>
                                 </MasterTableView>
                             </telerik:RadGrid>
@@ -171,5 +174,6 @@
         </asp:Panel>
     </ContentTemplate>
     <Triggers>
+    <asp:PostBackTrigger ControlID="RadGridIPOIssueList" />
     </Triggers>
 </asp:UpdatePanel>

@@ -72,6 +72,7 @@ namespace WealthERP.OnlineOrderBackOffice
             BindNcdCategory();
             BindBankName();
             BindBranch();
+            BindSyndicate();
             if (Request.QueryString["action"] != null || Request.QueryString["ProspectUsaction"] != null)
             {
                 int issueNo = Convert.ToInt32(Request.QueryString["issueNo"].ToString());
@@ -208,11 +209,12 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 DataTable dtSeries = new DataTable();
                 dtSeries = onlineNCDBackOfficeBo.GetIssueDetails(issueNo, adviserId).Tables[0];
-
+               
                 foreach (DataRow dr in dtSeries.Rows)
                 {
                     txtIssueId.Text = issueNo.ToString();
-
+                    //BindSyndicate();
+                   
 
                     if (product == "NCD")
                     {
@@ -640,7 +642,23 @@ namespace WealthERP.OnlineOrderBackOffice
                     {
                         txtContactPerson.Text = "";
                     }
-
+                    if (!string.IsNullOrEmpty(dr["XES_SourceId"].ToString()))
+                    {
+                      //  BindRTA();
+                        ddlRegistrar.SelectedValue= dr["XES_SourceId"].ToString();
+                    }
+                    else
+                    {
+                        ddlRegistrar.SelectedValue ="";
+                    }
+                    if (!string.IsNullOrEmpty(dr["WSM_SyndicateId"].ToString()))
+                    {
+                        ddllblSyndicatet.SelectedValue = dr["WSM_SyndicateId"].ToString();
+                    }
+                    else
+                    {
+                        ddllblSyndicatet.SelectedValue = "";
+                    }
 
 
                     if (ddlIssuer.SelectedValue == "Select")
@@ -799,7 +817,7 @@ namespace WealthERP.OnlineOrderBackOffice
             ddlCutOffTimeHours.Enabled = value;
             ddlCutOffTimeMinutes.Enabled = value;
             ddlCutOffTimeSeconds.Enabled = value;
-
+            trlblSyndicatet.Visible = value;
             txtTradingLot.Enabled = value;
             txtBiddingLot.Enabled = value;
             txtBSECode.Enabled = value;
@@ -1167,16 +1185,23 @@ namespace WealthERP.OnlineOrderBackOffice
                 }
 
 
-                if (!string.IsNullOrEmpty(ddlRegistrar.Text))
+                if (!string.IsNullOrEmpty(ddlRegistrar.SelectedValue))
                 {
-                    onlineNCDBackOfficeVo.RtaSourceCode = ddlRegistrar.Text;
+                    onlineNCDBackOfficeVo.RtaSourceCode = int.Parse(ddlRegistrar.SelectedValue);
                 }
                 else
                 {
-                    onlineNCDBackOfficeVo.RtaSourceCode = "";
+                    onlineNCDBackOfficeVo.RtaSourceCode = 0;
                 }
 
-
+                if (!string.IsNullOrEmpty(ddllblSyndicatet.SelectedValue))
+                {
+                    onlineNCDBackOfficeVo.syndicateId = int.Parse(ddllblSyndicatet.SelectedValue);
+                }
+                else
+                {
+                    onlineNCDBackOfficeVo.syndicateId = 0;
+                }
                 if (!string.IsNullOrEmpty(txtIssueSizeQty.Text))
                 {
                     onlineNCDBackOfficeVo.IssueSizeQty = Convert.ToInt32(txtIssueSizeQty.Text);
@@ -3323,13 +3348,20 @@ namespace WealthERP.OnlineOrderBackOffice
 
                 if (!string.IsNullOrEmpty(ddlRegistrar.SelectedValue))
                 {
-                    onlineNCDBackOfficeVo.RtaSourceCode = ddlRegistrar.SelectedValue.ToString();
+                    onlineNCDBackOfficeVo.RtaSourceCode = int.Parse(ddlRegistrar.SelectedValue);
                 }
                 else
                 {
-                    onlineNCDBackOfficeVo.RtaSourceCode = "";
+                    onlineNCDBackOfficeVo.RtaSourceCode = 0;
                 }
-
+                if (!string.IsNullOrEmpty(ddllblSyndicatet.SelectedValue))
+                {
+                    onlineNCDBackOfficeVo.syndicateId = int.Parse(ddllblSyndicatet.SelectedValue);
+                }
+                else
+                {
+                    onlineNCDBackOfficeVo.syndicateId = 0;
+                }
 
                 if (!string.IsNullOrEmpty(txtIssueSizeQty.Text))
                 {
@@ -4440,7 +4472,7 @@ namespace WealthERP.OnlineOrderBackOffice
             if (dtRTA.Rows.Count > 0)
             {
                 ddlRegistrar.DataSource = dtRTA;
-                ddlRegistrar.DataValueField = dtRTA.Columns["XES_SourceCode"].ToString();
+                ddlRegistrar.DataValueField = dtRTA.Columns["XES_SourceId"].ToString();
                 ddlRegistrar.DataTextField = dtRTA.Columns["XES_SourceName"].ToString();
                 ddlRegistrar.DataBind();
             }
@@ -4785,7 +4817,9 @@ namespace WealthERP.OnlineOrderBackOffice
                 tdtxtModeofTrading.Visible = true;
                 tdlb1SBIRegistationNo.Visible = false;
                 tdtxtSBIRegistationNo.Visible = false;
+                trlblSyndicatet.Visible = false;
                 lb1Rating.Text = "Rating:";
+                
             }
             else if (product == "IP")
             {
@@ -5072,6 +5106,12 @@ namespace WealthERP.OnlineOrderBackOffice
 
         }
 
+        protected void ImageddlRegistrar_Click(object sender, EventArgs e)
+        {
+            RadRegister.VisibleOnPageLoad = true;
+            txtRegistername.Text = "";
+            RadSyndicate.VisibleOnPageLoad = false;
+        }
         private void BindIssuerGrid()
         {
             try
@@ -5378,6 +5418,38 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             onlineNCDBackOfficeBo.UpdateOnlineEnablement(issueId);
 
+        }
+        protected void btnSubmitRegister_OnClick(object sender, EventArgs e)
+        {
+            onlineNCDBackOfficeBo.CreateRegister(txtRegistername.Text,userVo.UserId);
+            BindRTA();
+            RadRegister.VisibleOnPageLoad = false;
+        }
+        protected void btnSyndicate_OnClick(object sender, EventArgs e)
+        {
+            onlineNCDBackOfficeBo.CreateSyndiacte(txtSyndicate.Text,userVo.UserId);
+            BindSyndicate();
+            RadSyndicate.VisibleOnPageLoad = false;
+        }
+  
+        protected void ImageddlSyndicate_Click(object sender, EventArgs e)
+        {
+            RadSyndicate.VisibleOnPageLoad = true;
+            txtSyndicate.Text = "";
+            RadRegister.VisibleOnPageLoad = false ;
+        }
+        private void BindSyndicate()
+        {
+            DataTable dtBindSyndicate = new DataTable();
+            dtBindSyndicate = onlineNCDBackOfficeBo.BindSyndiacte();
+            if (dtBindSyndicate.Rows.Count > 0)
+            {
+                ddllblSyndicatet.DataSource = dtBindSyndicate;
+                ddllblSyndicatet.DataValueField = dtBindSyndicate.Columns["WSM_SyndicateId"].ToString();
+                ddllblSyndicatet.DataTextField = dtBindSyndicate.Columns["WSM_SyndicateName"].ToString();
+                ddllblSyndicatet.DataBind();
+                ddllblSyndicatet.Items.Insert(0, new ListItem("Select", "0"));
+            }
         }
     }
 }

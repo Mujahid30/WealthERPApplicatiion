@@ -482,7 +482,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(createCmd, "@BookBuildingPercentage", DbType.Double, onlineNCDBackOfficeVo.BookBuildingPercentage);
                 db.AddInParameter(createCmd, "@CapPrice", DbType.Double, onlineNCDBackOfficeVo.CapPrice);
                 db.AddInParameter(createCmd, "@NoOfBidAllowed", DbType.Int32, onlineNCDBackOfficeVo.NoOfBidAllowed);
-                db.AddInParameter(createCmd, "@RtaSourceCode", DbType.String, onlineNCDBackOfficeVo.RtaSourceCode);
+                db.AddInParameter(createCmd, "@RtaSourceCode", DbType.Int32, onlineNCDBackOfficeVo.RtaSourceCode);
                 db.AddInParameter(createCmd, "@MaxQty", DbType.Int32, onlineNCDBackOfficeVo.MaxQty);
                 db.AddInParameter(createCmd, "@IssueSizeQty", DbType.Int32, onlineNCDBackOfficeVo.IssueSizeQty);
                 db.AddInParameter(createCmd, "@IssueSizeAmt", DbType.Decimal, onlineNCDBackOfficeVo.IssueSizeAmt);
@@ -517,6 +517,9 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(createCmd, "@CutOffTime", DbType.Time, onlineNCDBackOfficeVo.CutOffTime);
                 db.AddInParameter(createCmd, "@MultipleApplicationAllowed", DbType.Int32, onlineNCDBackOfficeVo.MultipleApplicationAllowed);
                 db.AddInParameter(createCmd, "@IsCancelAllowed", DbType.Int32, onlineNCDBackOfficeVo.IsCancelAllowed);
+                db.AddInParameter(createCmd, "@Syndicateid", DbType.Int32, onlineNCDBackOfficeVo.syndicateId);
+
+                
                 issueId = db.ExecuteNonQuery(createCmd);
             }
             catch (BaseApplicationException Ex)
@@ -850,7 +853,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(createCmd, "@BookBuildingPercentage", DbType.Double, onlineNCDBackOfficeVo.BookBuildingPercentage);
                 db.AddInParameter(createCmd, "@CapPrice", DbType.Double, onlineNCDBackOfficeVo.CapPrice);
                 db.AddInParameter(createCmd, "@NoOfBidAllowed", DbType.Int32, onlineNCDBackOfficeVo.NoOfBidAllowed);
-                db.AddInParameter(createCmd, "@RtaSourceCode", DbType.String, onlineNCDBackOfficeVo.RtaSourceCode);
+                db.AddInParameter(createCmd, "@RtaSourceCode", DbType.Int32, onlineNCDBackOfficeVo.RtaSourceCode);
                 db.AddInParameter(createCmd, "@MaxQty", DbType.Int32, onlineNCDBackOfficeVo.MaxQty);
                 db.AddInParameter(createCmd, "@IssueSizeQty", DbType.Int32, onlineNCDBackOfficeVo.IssueSizeQty);
                 db.AddInParameter(createCmd, "@IssueSizeAmt", DbType.Decimal, onlineNCDBackOfficeVo.IssueSizeAmt);
@@ -873,7 +876,8 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(createCmd, "@SBIRegistationNo", DbType.String, onlineNCDBackOfficeVo.SBIRegistationNo);
                 db.AddInParameter(createCmd, "@MultipleApplicationAllowed", DbType.Int32, onlineNCDBackOfficeVo.MultipleApplicationAllowed);
                 db.AddInParameter(createCmd, "@IsCancelAllowed", DbType.Int32, onlineNCDBackOfficeVo.IsCancelAllowed);
-
+                db.AddInParameter(createCmd, "@Syndicateid", DbType.Int32, onlineNCDBackOfficeVo.syndicateId);
+                
                 if (db.ExecuteNonQuery(createCmd) != 0)
                 {
                     issueId = Convert.ToInt32(db.GetParameterValue(createCmd, "AIM_IssueId").ToString());
@@ -3333,6 +3337,77 @@ namespace DaoOnlineOrderManagement
 
             }
             return Count;
+        }
+        public bool CreateRegister(string register,int userid)
+        {
+            bool bResult = false;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DbCommand CreateRegisterCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                CreateRegisterCmd = db.GetStoredProcCommand("SPROC_XMLRegister");
+                db.AddInParameter(CreateRegisterCmd, "@register", DbType.String, register);
+                db.AddInParameter(CreateRegisterCmd, "@userid", DbType.Int32, userid);
+
+                if (db.ExecuteNonQuery(CreateRegisterCmd) != 0)
+                    bResult = true;
+            }
+             catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return bResult;
+        }
+        public DataTable BindSyndiacte()
+        {
+            DataTable dtBindSyndiacte;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DbCommand dbCommand;
+            DataSet dsBindSyndiacte;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbCommand = db.GetStoredProcCommand("SPROC_BindSyndicate");
+                dsBindSyndiacte = db.ExecuteDataSet(dbCommand);
+                dtBindSyndiacte = dsBindSyndiacte.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineNCDBackOfficeDao.cs:BindRta()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtBindSyndiacte;
+        }
+        public bool CreateSyndiacte(string Syndicatename,int userid)
+        {
+            bool bResult = false;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DbCommand CreateSyndiacteCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                CreateSyndiacteCmd = db.GetStoredProcCommand("SPROC_CreateSyndiacte");
+                db.AddInParameter(CreateSyndiacteCmd, "@syndicateName", DbType.String, Syndicatename);
+                db.AddInParameter(CreateSyndiacteCmd, "@userId", DbType.Int32, userid);
+                if (db.ExecuteNonQuery(CreateSyndiacteCmd) != 0)
+                    bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return bResult;
         }
     }
 }

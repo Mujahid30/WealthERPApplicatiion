@@ -8,11 +8,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WealthERP.OnlineOrderBackOffice {
-    
-    
-    public partial class OnlineNCDIssueSetup {
-        
+namespace WealthERP.OnlineOrderBackOffice
+{
+
+
+    public partial class OnlineNCDIssueSetup
+    {
+
         /// <summary>
         /// scrptMgr control.
         /// </summary>
@@ -21,7 +23,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.ScriptManager scrptMgr;
-        
+
         /// <summary>
         /// lnkBtnEdit control.
         /// </summary>
@@ -30,7 +32,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lnkBtnEdit;
-        
+
         /// <summary>
         /// lnlBack control.
         /// </summary>
@@ -39,7 +41,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lnlBack;
-        
+
         /// <summary>
         /// lnkDelete control.
         /// </summary>
@@ -48,7 +50,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lnkDelete;
-        
+
         /// <summary>
         /// radAplicationPopUp control.
         /// </summary>
@@ -57,7 +59,8 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadWindow radAplicationPopUp;
-        
+        protected global::Telerik.Web.UI.RadWindow RadRegister;
+        protected global::Telerik.Web.UI.RadWindow RadSyndicate;
         /// <summary>
         /// rgAplication control.
         /// </summary>
@@ -66,7 +69,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid rgAplication;
-        
+
         /// <summary>
         /// BtnActivRangeClose control.
         /// </summary>
@@ -75,7 +78,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button BtnActivRangeClose;
-        
+
         /// <summary>
         /// radIssuerPopUp control.
         /// </summary>
@@ -84,7 +87,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadWindow radIssuerPopUp;
-        
+
         /// <summary>
         /// rgIssuer control.
         /// </summary>
@@ -93,7 +96,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid rgIssuer;
-        
+
         /// <summary>
         /// btnIssuerPopClose control.
         /// </summary>
@@ -115,7 +118,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTable tbIssue;
-        
+
         /// <summary>
         /// lb1Product control.
         /// </summary>
@@ -124,7 +127,12 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lb1Product;
-        
+        protected global::System.Web.UI.WebControls.Label lblSyndicatet;
+        protected global::System.Web.UI.WebControls.Label lblSyndicate;
+        protected global::System.Web.UI.WebControls.TextBox txtSyndicate;
+        protected global::System.Web.UI.WebControls.DropDownList ddllblSyndicatet;
+        protected global::System.Web.UI.WebControls.ImageButton ImageddlSyndicate;
+        protected global::System.Web.UI.WebControls.Button btnSyndicate;
         /// <summary>
         /// ddlProduct control.
         /// </summary>
@@ -133,7 +141,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlProduct;
-        
+
         /// <summary>
         /// RequiredFieldValidator5 control.
         /// </summary>
@@ -142,7 +150,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator5;
-        
+
         /// <summary>
         /// tdlblCategory control.
         /// </summary>
@@ -151,11 +159,12 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblCategory;
-        
 
-         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlb1ModeofTrading;
-         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdtxtModeofTrading;
-         protected global::System.Web.UI.HtmlControls.HtmlTableRow trMultipleApplicationAllowed;
+
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlb1ModeofTrading;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdtxtModeofTrading;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trMultipleApplicationAllowed;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trlblSyndicatet;
         /// <summary>
         /// lblCategory control.
         /// </summary>
@@ -164,7 +173,9 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblCategory;
-        
+        protected global::System.Web.UI.WebControls.TextBox txtRegisterLookup;
+        protected global::System.Web.UI.WebControls.TextBox txtRegistername;
+        protected global::System.Web.UI.WebControls.Button btnSubmitRegister;
         /// <summary>
         /// tdddlCategory control.
         /// </summary>
@@ -173,7 +184,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdddlCategory;
-        
+
         /// <summary>
         /// ddlSubInstrCategory control.
         /// </summary>
@@ -182,7 +193,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlSubInstrCategory;
-        
+
         /// <summary>
         /// RequiredFieldValidator1 control.
         /// </summary>
@@ -191,7 +202,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
-        
+
         /// <summary>
         /// ddlInstrCat control.
         /// </summary>
@@ -200,7 +211,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlInstrCat;
-        
+
         /// <summary>
         /// lb1Name control.
         /// </summary>
@@ -209,7 +220,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lb1Name;
-        
+
         /// <summary>
         /// txtName control.
         /// </summary>
@@ -218,7 +229,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtName;
-        
+
         /// <summary>
         /// RequiredFieldValidator7 control.
         /// </summary>
@@ -227,7 +238,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator7;
-        
+
         /// <summary>
         /// lb1Issuer control.
         /// </summary>
@@ -236,7 +247,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lb1Issuer;
-        
+
         /// <summary>
         /// ddlIssuer control.
         /// </summary>
@@ -245,7 +256,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlIssuer;
-        
+
         /// <summary>
         /// imgIssuer control.
         /// </summary>
@@ -254,7 +265,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton imgIssuer;
-        
+
         /// <summary>
         /// RequiredFieldValidator3 control.
         /// </summary>
@@ -263,7 +274,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator3;
-        
+
         /// <summary>
         /// lb1ActiveFormRange control.
         /// </summary>
@@ -272,7 +283,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lb1ActiveFormRange;
-        
+
         /// <summary>
         /// txtFormRange control.
         /// </summary>
@@ -281,7 +292,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtFormRange;
-        
+
         /// <summary>
         /// RequiredFieldValidator8 control.
         /// </summary>
@@ -290,7 +301,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator8;
-        
+
         /// <summary>
         /// RegularExpressionValidator11 control.
         /// </summary>
@@ -299,7 +310,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator11;
-        
+
         /// <summary>
         /// CompareValidator2 control.
         /// </summary>
@@ -308,7 +319,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator CompareValidator2;
-        
+
         /// <summary>
         /// lb1ToRange control.
         /// </summary>
@@ -317,7 +328,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lb1ToRange;
-        
+
         /// <summary>
         /// txtToRange control.
         /// </summary>
@@ -326,7 +337,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtToRange;
-        
+
         /// <summary>
         /// ImageActivRange control.
         /// </summary>
@@ -355,7 +366,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         protected global::System.Web.UI.WebControls.TextBox txtContactPerson;
         protected global::System.Web.UI.WebControls.TextBox txtSBIRegistationNo;
 
-        
+
         /// <summary>
         /// RequiredFieldValidator9 control.
         /// </summary>
@@ -364,7 +375,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator9;
-        
+
         /// <summary>
         /// RegularExpressionValidator12 control.
         /// </summary>
@@ -373,7 +384,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator12;
-        
+
         /// <summary>
         /// CompareValidator3 control.
         /// </summary>
@@ -382,7 +393,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator CompareValidator3;
-        
+
         /// <summary>
         /// trIssueTypes control.
         /// </summary>
@@ -391,7 +402,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trIssueTypes;
-        
+
         /// <summary>
         /// Label6 control.
         /// </summary>
@@ -400,7 +411,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label6;
-        
+
         /// <summary>
         /// ddlIssueType control.
         /// </summary>
@@ -409,7 +420,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlIssueType;
-        
+
         /// <summary>
         /// trBookBuildingAndCapprices control.
         /// </summary>
@@ -418,7 +429,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trBookBuildingAndCapprices;
-        
+
         /// <summary>
         /// tdBookBuilding control.
         /// </summary>
@@ -427,9 +438,9 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdBookBuilding;
-        
- protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlb1SBIRegistationNo;
- protected global::System.Web.UI.HtmlControls.HtmlTableCell tdtxtSBIRegistationNo;
+
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlb1SBIRegistationNo;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdtxtSBIRegistationNo;
         /// <summary>
         /// Label7 control.
         /// </summary>
@@ -438,7 +449,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label7;
-        
+
         /// <summary>
         /// txtBookBuildingPer control.
         /// </summary>
@@ -447,7 +458,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtBookBuildingPer;
-        
+
         /// <summary>
         /// RequiredFieldValidator34 control.
         /// </summary>
@@ -456,7 +467,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator34;
-        
+
         /// <summary>
         /// Label9 control.
         /// </summary>
@@ -465,7 +476,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label9;
-        
+
         /// <summary>
         /// txtCapPrice control.
         /// </summary>
@@ -474,7 +485,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtCapPrice;
-        
+
         /// <summary>
         /// RequiredFieldValidator36 control.
         /// </summary>
@@ -483,7 +494,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator36;
-        
+
         /// <summary>
         /// trFloorAndFixedPrices control.
         /// </summary>
@@ -492,7 +503,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trFloorAndFixedPrices;
-        
+
         /// <summary>
         /// tdLbFloorPrice control.
         /// </summary>
@@ -505,7 +516,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlb1MinQty;
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdltxtMinQty;
 
-        
+
         /// <summary>
         /// Label11 control.
         /// </summary>
@@ -514,7 +525,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label11;
-        
+
         /// <summary>
         /// tdTxtFloorPrice control.
         /// </summary>
@@ -523,7 +534,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdTxtFloorPrice;
-        
+
         /// <summary>
         /// txtFloorPrice control.
         /// </summary>
@@ -532,7 +543,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtFloorPrice;
-        
+
         /// <summary>
         /// RequiredFieldValidator35 control.
         /// </summary>
@@ -541,7 +552,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator35;
-        
+
         /// <summary>
         /// RegularExpressionValidator5 control.
         /// </summary>
@@ -550,7 +561,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator5;
-        
+
         /// <summary>
         /// tdLbFixedPrice control.
         /// </summary>
@@ -559,7 +570,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdLbFixedPrice;
-        
+
         /// <summary>
         /// Label10 control.
         /// </summary>
@@ -568,7 +579,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label10;
-        
+
         /// <summary>
         /// tdtxtFixedPrice control.
         /// </summary>
@@ -577,7 +588,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdtxtFixedPrice;
-        
+
         /// <summary>
         /// txtFixedPrice control.
         /// </summary>
@@ -586,7 +597,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtFixedPrice;
-        
+
         /// <summary>
         /// RequiredFieldValidator37 control.
         /// </summary>
@@ -595,7 +606,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator37;
-        
+
         /// <summary>
         /// RegularExpressionValidator1 control.
         /// </summary>
@@ -604,7 +615,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator1;
-        
+
         /// <summary>
         /// trSyndicateAndMemberCodes control.
         /// </summary>
@@ -613,7 +624,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trSyndicateAndMemberCodes;
-        
+
         /// <summary>
         /// Td1 control.
         /// </summary>
@@ -622,7 +633,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableCell Td1;
-        
+
         /// <summary>
         /// Label8 control.
         /// </summary>
@@ -631,7 +642,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label8;
-        
+
         /// <summary>
         /// Td2 control.
         /// </summary>
@@ -640,7 +651,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableCell Td2;
-        
+
         /// <summary>
         /// txtSyndicateMemberCode control.
         /// </summary>
@@ -649,7 +660,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtSyndicateMemberCode;
-        
+
         /// <summary>
         /// Td3 control.
         /// </summary>
@@ -658,7 +669,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableCell Td3;
-        
+
         /// <summary>
         /// Label12 control.
         /// </summary>
@@ -667,7 +678,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label12;
-        
+
         /// <summary>
         /// Td4 control.
         /// </summary>
@@ -676,7 +687,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableCell Td4;
-        
+
         /// <summary>
         /// txtBrokerCode control.
         /// </summary>
@@ -685,7 +696,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtBrokerCode;
-        
+
         /// <summary>
         /// trRegistrarAndNoofBidsAlloweds control.
         /// </summary>
@@ -694,7 +705,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trRegistrarAndNoofBidsAlloweds;
-        
+
         /// <summary>
         /// Td5 control.
         /// </summary>
@@ -703,7 +714,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableCell Td5;
-        
+
         /// <summary>
         /// Label13 control.
         /// </summary>
@@ -712,7 +723,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label13;
-        
+
         /// <summary>
         /// Td6 control.
         /// </summary>
@@ -721,7 +732,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableCell Td6;
-        
+
         /// <summary>
         /// ddlRegistrar control.
         /// </summary>
@@ -730,7 +741,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlRegistrar;
-        
+
         /// <summary>
         /// RequiredFieldValidator42 control.
         /// </summary>
@@ -739,7 +750,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator42;
-        
+
         /// <summary>
         /// Td7 control.
         /// </summary>
@@ -748,7 +759,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableCell Td7;
-        
+
         /// <summary>
         /// Label14 control.
         /// </summary>
@@ -757,7 +768,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label14;
-        
+
         /// <summary>
         /// Td8 control.
         /// </summary>
@@ -766,7 +777,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableCell Td8;
-        
+
         /// <summary>
         /// txtNoOfBids control.
         /// </summary>
@@ -775,7 +786,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtNoOfBids;
-        
+
         /// <summary>
         /// lb1InitialCqNo control.
         /// </summary>
@@ -784,7 +795,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lb1InitialCqNo;
-        
+
         /// <summary>
         /// txtInitialCqNo control.
         /// </summary>
@@ -793,7 +804,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtInitialCqNo;
-        
+
         /// <summary>
         /// RegularExpressionValidator13 control.
         /// </summary>
@@ -802,7 +813,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator13;
-        
+
         /// <summary>
         /// lb1FaceValue control.
         /// </summary>
@@ -811,7 +822,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lb1FaceValue;
-        
+
         /// <summary>
         /// txtFaceValue control.
         /// </summary>
@@ -820,7 +831,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtFaceValue;
-        
+
         /// <summary>
         /// RequiredFieldValidator10 control.
         /// </summary>
@@ -829,7 +840,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator10;
-        
+
         /// <summary>
         /// RegularExpressionValidator2 control.
         /// </summary>
@@ -838,7 +849,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator2;
-        
+
         /// <summary>
         /// trModeofIssue control.
         /// </summary>
@@ -847,7 +858,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trModeofIssue;
-        
+
         /// <summary>
         /// lb1Price control.
         /// </summary>
@@ -856,7 +867,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lb1Price;
-        
+
         /// <summary>
         /// txtPrice control.
         /// </summary>
@@ -865,7 +876,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtPrice;
-        
+
         /// <summary>
         /// RequiredFieldValidator28 control.
         /// </summary>
@@ -874,7 +885,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator28;
-        
+
         /// <summary>
         /// CompareValidator1 control.
         /// </summary>
@@ -883,7 +894,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator CompareValidator1;
-        
+
         /// <summary>
         /// lb1ddlModeofIssue control.
         /// </summary>
@@ -892,7 +903,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lb1ddlModeofIssue;
-        
+
         /// <summary>
         /// ddlModeofIssue control.
         /// </summary>
@@ -901,7 +912,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlModeofIssue;
-        
+
         /// <summary>
         /// RequiredFieldValidator2 control.
         /// </summary>
@@ -910,7 +921,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator2;
-        
+
         /// <summary>
         /// trRatingAndModeofTrading control.
         /// </summary>
@@ -919,7 +930,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trRatingAndModeofTrading;
-        
+
         /// <summary>
         /// lb1Rating control.
         /// </summary>
@@ -928,7 +939,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lb1Rating;
-        
+
         /// <summary>
         /// txtRating control.
         /// </summary>
@@ -937,7 +948,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtRating;
-        
+
         /// <summary>
         /// lb1ModeOfTrading control.
         /// </summary>
@@ -946,7 +957,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lb1ModeOfTrading;
-        
+
         /// <summary>
         /// ddlModeOfTrading control.
         /// </summary>
@@ -955,7 +966,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlModeOfTrading;
-        
+
         /// <summary>
         /// RequiredFieldValidator6 control.
         /// </summary>
@@ -964,7 +975,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator6;
-        
+
         /// <summary>
         /// lb1Opendate control.
         /// </summary>
@@ -973,7 +984,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lb1Opendate;
-        
+
         /// <summary>
         /// txtOpenDate control.
         /// </summary>
@@ -982,7 +993,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadDatePicker txtOpenDate;
-        
+
         /// <summary>
         /// RequiredFieldValidator21 control.
         /// </summary>
@@ -991,7 +1002,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator21;
-        
+
         /// <summary>
         /// CompareValidator4 control.
         /// </summary>
@@ -1000,7 +1011,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator CompareValidator4;
-        
+
         /// <summary>
         /// lb1CloseDate control.
         /// </summary>
@@ -1009,7 +1020,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lb1CloseDate;
-        
+
         /// <summary>
         /// txtCloseDate control.
         /// </summary>
@@ -1018,7 +1029,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadDatePicker txtCloseDate;
-        
+
         /// <summary>
         /// RequiredFieldValidator22 control.
         /// </summary>
@@ -1027,7 +1038,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator22;
-        
+
         /// <summary>
         /// CompareValidator5 control.
         /// </summary>
@@ -1036,7 +1047,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator CompareValidator5;
-        
+
         /// <summary>
         /// lb1OpenTime control.
         /// </summary>
@@ -1045,7 +1056,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lb1OpenTime;
-        
+
         /// <summary>
         /// ddlOpenTimeHours control.
         /// </summary>
@@ -1054,7 +1065,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlOpenTimeHours;
-        
+
         /// <summary>
         /// ddlOpenTimeMinutes control.
         /// </summary>
@@ -1063,7 +1074,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlOpenTimeMinutes;
-        
+
         /// <summary>
         /// ddlOpenTimeSeconds control.
         /// </summary>
@@ -1072,7 +1083,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlOpenTimeSeconds;
-        
+
         /// <summary>
         /// RequiredFieldValidator17 control.
         /// </summary>
@@ -1081,7 +1092,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator17;
-        
+
         /// <summary>
         /// lb1Closetime control.
         /// </summary>
@@ -1090,7 +1101,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lb1Closetime;
-        
+
         /// <summary>
         /// ddlCloseTimeHours control.
         /// </summary>
@@ -1099,7 +1110,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlCloseTimeHours;
-        
+
         /// <summary>
         /// ddlCloseTimeMinutes control.
         /// </summary>
@@ -1108,7 +1119,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlCloseTimeMinutes;
-        
+
         /// <summary>
         /// ddlCloseTimeSeconds control.
         /// </summary>
@@ -1117,7 +1128,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlCloseTimeSeconds;
-        
+
         /// <summary>
         /// RequiredFieldValidator30 control.
         /// </summary>
@@ -1126,7 +1137,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator30;
-        
+
         /// <summary>
         /// Label21 control.
         /// </summary>
@@ -1135,7 +1146,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label21;
-        
+
         /// <summary>
         /// ddlCutOffTimeHours control.
         /// </summary>
@@ -1144,7 +1155,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlCutOffTimeHours;
-        
+
         /// <summary>
         /// ddlCutOffTimeMinutes control.
         /// </summary>
@@ -1153,7 +1164,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlCutOffTimeMinutes;
-        
+
         /// <summary>
         /// ddlCutOffTimeSeconds control.
         /// </summary>
@@ -1162,7 +1173,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlCutOffTimeSeconds;
-        
+
         /// <summary>
         /// RequiredFieldValidator18 control.
         /// </summary>
@@ -1171,7 +1182,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator18;
-        
+
         /// <summary>
         /// CompareValidator6 control.
         /// </summary>
@@ -1180,7 +1191,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator CompareValidator6;
-        
+
         /// <summary>
         /// lblSubBrokerCode control.
         /// </summary>
@@ -1189,7 +1200,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblSubBrokerCode;
-        
+
         /// <summary>
         /// txtSubBrokerCode control.
         /// </summary>
@@ -1198,7 +1209,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtSubBrokerCode;
-        
+
         /// <summary>
         /// trIssueqtySize control.
         /// </summary>
@@ -1207,7 +1218,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trIssueqtySize;
-        
+
         /// <summary>
         /// Label16 control.
         /// </summary>
@@ -1216,7 +1227,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label16;
-        
+
         /// <summary>
         /// txtIssueSizeQty control.
         /// </summary>
@@ -1225,7 +1236,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtIssueSizeQty;
-        
+
         /// <summary>
         /// RequiredFieldValidator39 control.
         /// </summary>
@@ -1234,7 +1245,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator39;
-        
+
         /// <summary>
         /// RegularExpressionValidator3 control.
         /// </summary>
@@ -1243,7 +1254,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator3;
-        
+
         /// <summary>
         /// Label17 control.
         /// </summary>
@@ -1252,7 +1263,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label17;
-        
+
         /// <summary>
         /// txtIssueSizeAmt control.
         /// </summary>
@@ -1261,7 +1272,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtIssueSizeAmt;
-        
+
         /// <summary>
         /// RequiredFieldValidator41 control.
         /// </summary>
@@ -1270,7 +1281,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator41;
-        
+
         /// <summary>
         /// RegularExpressionValidator4 control.
         /// </summary>
@@ -1279,7 +1290,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator4;
-        
+
         /// <summary>
         /// trTradinglotBidding control.
         /// </summary>
@@ -1288,7 +1299,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trTradinglotBidding;
-        
+
         /// <summary>
         /// lb1TradingLot control.
         /// </summary>
@@ -1297,7 +1308,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lb1TradingLot;
-        
+
         /// <summary>
         /// txtTradingLot control.
         /// </summary>
@@ -1306,7 +1317,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtTradingLot;
-        
+
         /// <summary>
         /// RegularExpressionValidator8 control.
         /// </summary>
@@ -1315,7 +1326,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator8;
-        
+
         /// <summary>
         /// RequiredFieldValidator19 control.
         /// </summary>
@@ -1324,7 +1335,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator19;
-        
+
         /// <summary>
         /// lb1BiddingLot control.
         /// </summary>
@@ -1333,7 +1344,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lb1BiddingLot;
-        
+
         /// <summary>
         /// txtBiddingLot control.
         /// </summary>
@@ -1342,7 +1353,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtBiddingLot;
-        
+
         /// <summary>
         /// RequiredFieldValidator25 control.
         /// </summary>
@@ -1351,7 +1362,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator25;
-        
+
         /// <summary>
         /// RegularExpressionValidator9 control.
         /// </summary>
@@ -1360,7 +1371,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator9;
-        
+
         /// <summary>
         /// trMinQty control.
         /// </summary>
@@ -1369,7 +1380,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trMinQty;
-        
+
         /// <summary>
         /// lb1MinApplicationsize control.
         /// </summary>
@@ -1378,7 +1389,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lb1MinApplicationsize;
-        
+
         /// <summary>
         /// txtMinAplicSize control.
         /// </summary>
@@ -1387,7 +1398,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtMinAplicSize;
-        
+
         /// <summary>
         /// RequiredFieldValidator20 control.
         /// </summary>
@@ -1396,7 +1407,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator20;
-        
+
         /// <summary>
         /// RegularExpressionValidator7 control.
         /// </summary>
@@ -1405,7 +1416,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator7;
-        
+
         /// <summary>
         /// CompareValidator10 control.
         /// </summary>
@@ -1414,7 +1425,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator CompareValidator10;
-        
+
         /// <summary>
         /// trMaxQty control.
         /// </summary>
@@ -1423,7 +1434,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trMaxQty;
-        
+
         /// <summary>
         /// Label15 control.
         /// </summary>
@@ -1432,7 +1443,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label15;
-        
+
         /// <summary>
         /// txtMaxQty control.
         /// </summary>
@@ -1441,7 +1452,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtMaxQty;
-        
+
         /// <summary>
         /// RegularExpressionValidator10 control.
         /// </summary>
@@ -1450,7 +1461,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator10;
-        
+
         /// <summary>
         /// RequiredFieldValidator38 control.
         /// </summary>
@@ -1459,7 +1470,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator38;
-        
+
         /// <summary>
         /// CompareValidator8 control.
         /// </summary>
@@ -1468,7 +1479,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator CompareValidator8;
-        
+
         /// <summary>
         /// lb1IsPrefix control.
         /// </summary>
@@ -1477,7 +1488,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lb1IsPrefix;
-        
+
         /// <summary>
         /// txtIsPrefix control.
         /// </summary>
@@ -1486,7 +1497,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtIsPrefix;
-        
+
         /// <summary>
         /// RegularExpressionValidator17 control.
         /// </summary>
@@ -1495,7 +1506,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator17;
-        
+
         /// <summary>
         /// lb1Trading control.
         /// </summary>
@@ -1504,7 +1515,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lb1Trading;
-        
+
         /// <summary>
         /// txtTradingInMultipleOf control.
         /// </summary>
@@ -1513,7 +1524,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtTradingInMultipleOf;
-        
+
         /// <summary>
         /// RequiredFieldValidator27 control.
         /// </summary>
@@ -1522,7 +1533,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator27;
-        
+
         /// <summary>
         /// RegularExpressionValidator6 control.
         /// </summary>
@@ -1531,7 +1542,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator6;
-        
+
         /// <summary>
         /// trExchangeCode control.
         /// </summary>
@@ -1540,7 +1551,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trExchangeCode;
-        
+
         /// <summary>
         /// Label19 control.
         /// </summary>
@@ -1549,7 +1560,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label19;
-        
+
         /// <summary>
         /// txtNSECode control.
         /// </summary>
@@ -1558,7 +1569,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtNSECode;
-        
+
         /// <summary>
         /// lb1Code control.
         /// </summary>
@@ -1567,7 +1578,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lb1Code;
-        
+
         /// <summary>
         /// txtBSECode control.
         /// </summary>
@@ -1576,7 +1587,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtBSECode;
-        
+
         /// <summary>
         /// lb1BankName control.
         /// </summary>
@@ -1585,7 +1596,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lb1BankName;
-        
+
         /// <summary>
         /// txtBankName control.
         /// </summary>
@@ -1594,7 +1605,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtBankName;
-        
+
         /// <summary>
         /// ddlBankName control.
         /// </summary>
@@ -1603,7 +1614,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlBankName;
-        
+
         /// <summary>
         /// lb1BankBranch control.
         /// </summary>
@@ -1612,7 +1623,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lb1BankBranch;
-        
+
         /// <summary>
         /// txtBankBranch control.
         /// </summary>
@@ -1621,7 +1632,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtBankBranch;
-        
+
         /// <summary>
         /// ddlBankBranch control.
         /// </summary>
@@ -1630,7 +1641,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlBankBranch;
-        
+
         /// <summary>
         /// lb1RevisionDate control.
         /// </summary>
@@ -1639,7 +1650,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lb1RevisionDate;
-        
+
         /// <summary>
         /// txtRevisionDates control.
         /// </summary>
@@ -1648,7 +1659,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadDatePicker txtRevisionDates;
-        
+
         /// <summary>
         /// CmptxtRevisionDates1 control.
         /// </summary>
@@ -1657,7 +1668,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator CmptxtRevisionDates1;
-        
+
         /// <summary>
         /// CmptxtRevisionDates control.
         /// </summary>
@@ -1666,7 +1677,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator CmptxtRevisionDates;
-        
+
         /// <summary>
         /// Label18 control.
         /// </summary>
@@ -1675,7 +1686,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label18;
-        
+
         /// <summary>
         /// txtAllotmentDate control.
         /// </summary>
@@ -1684,7 +1695,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadDatePicker txtAllotmentDate;
-        
+
         /// <summary>
         /// cmp control.
         /// </summary>
@@ -1693,7 +1704,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator cmp;
-        
+
         /// <summary>
         /// trIsActiveandPutCallOption control.
         /// </summary>
@@ -1702,12 +1713,12 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trIsActiveandPutCallOption;
-        
-         protected global::System.Web.UI.HtmlControls.HtmlTableRow trRegistrarAddressAndTelNo;
- protected global::System.Web.UI.HtmlControls.HtmlTableRow trRegistrarFaxNoAndInvestorGrievenceEmail;
- 
- protected global::System.Web.UI.HtmlControls.HtmlTableRow trWebsiteAndContactPerson;
- protected global::System.Web.UI.HtmlControls.HtmlTableRow trSBIRegistationNoAndISINNumber;
+
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trRegistrarAddressAndTelNo;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trRegistrarFaxNoAndInvestorGrievenceEmail;
+
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trWebsiteAndContactPerson;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trSBIRegistationNoAndISINNumber;
 
         /// <summary>
         /// chkIsActive control.
@@ -1718,8 +1729,8 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chkIsActive;
         protected global::System.Web.UI.WebControls.CheckBox chkIsPrefix;
-        
-        
+
+
         /// <summary>
         /// chkPutCallOption control.
         /// </summary>
@@ -1728,7 +1739,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chkPutCallOption;
-        
+
         /// <summary>
         /// trNomineeReQuired control.
         /// </summary>
@@ -1737,7 +1748,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trNomineeReQuired;
-        
+
         /// <summary>
         /// chkNomineeReQuired control.
         /// </summary>
@@ -1746,7 +1757,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chkNomineeReQuired;
-        
+
         /// <summary>
         /// chkTradebleExchange control.
         /// </summary>
@@ -1755,7 +1766,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chkTradebleExchange;
-        
+
         /// <summary>
         /// trBtnSubmit control.
         /// </summary>
@@ -1764,7 +1775,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trBtnSubmit;
-        
+
         /// <summary>
         /// btnSetUpSubmit control.
         /// </summary>
@@ -1773,7 +1784,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSetUpSubmit;
-        
+
         /// <summary>
         /// btnUpdate control.
         /// </summary>
@@ -1782,7 +1793,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnUpdate;
-        
+
         /// <summary>
         /// btnProspect control.
         /// </summary>
@@ -1791,7 +1802,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnProspect;
-        
+
         /// <summary>
         /// trIssueId control.
         /// </summary>
@@ -1800,7 +1811,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trIssueId;
-        
+
         /// <summary>
         /// txtIssueId control.
         /// </summary>
@@ -1809,7 +1820,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtIssueId;
-        
+
         /// <summary>
         /// pnlCategory control.
         /// </summary>
@@ -1818,7 +1829,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlCategory;
-        
+
         /// <summary>
         /// Table1 control.
         /// </summary>
@@ -1827,7 +1838,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTable Table1;
-        
+
         /// <summary>
         /// rgEligibleInvestorCategories control.
         /// </summary>
@@ -1836,7 +1847,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid rgEligibleInvestorCategories;
-        
+
         /// <summary>
         /// pnlSeries control.
         /// </summary>
@@ -1845,7 +1856,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlSeries;
-        
+
         /// <summary>
         /// tblSeries control.
         /// </summary>
@@ -1854,7 +1865,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTable tblSeries;
-        
+
         /// <summary>
         /// rgSeries control.
         /// </summary>

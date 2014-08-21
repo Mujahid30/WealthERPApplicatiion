@@ -90,7 +90,7 @@ namespace VoOnlineOrderManagemnet
         public double CapPrice { get; set; }
         public int LookupBankId { get; set; }
         public int NoOfBidAllowed { get; set; }
-        public string RtaSourceCode { get; set; }
+        public int RtaSourceCode { get; set; }
 
         public string SyndicateMemberCode { get; set; }
         public string BrokerCode { get; set; }
@@ -125,6 +125,7 @@ namespace VoOnlineOrderManagemnet
         public int MultipleApplicationNotAllowed { get; set; }
         public int IsCancelAllowed { get; set; }
         public Double SeriesFaceValue { get; set; }
+        public int syndicateId{get;set;}
 
     }
 
@@ -138,5 +139,6 @@ namespace VoOnlineOrderManagemnet
         public string ColumnName { get; set; }
         public bool IsUploadRelated { get; set; }
         public bool ColumnExists { get; set; }
+
     }
 }

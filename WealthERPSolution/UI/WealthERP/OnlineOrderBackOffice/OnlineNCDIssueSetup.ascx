@@ -573,6 +573,9 @@
                 Width="205px">
             </asp:DropDownList>
             <span id="Span34" class="spnRequiredField">*</span>
+            <asp:ImageButton ID="ImageddlRegistrar" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
+                AlternateText="Add" runat="server" ToolTip="Click here to Add Registrar" OnClick="ImageddlRegistrar_Click"
+                Height="15px" Width="15px"></asp:ImageButton>
             <br />
             <asp:RequiredFieldValidator ID="RequiredFieldValidator42" runat="server" ErrorMessage="Please Enter FromRange"
                 CssClass="rfvPCG" ControlToValidate="ddlRegistrar" ValidationGroup="SetUpSubmit"
@@ -583,7 +586,8 @@
             <asp:Label ID="Label14" runat="server" Text="Bids Allowed(Per App.):" CssClass="FieldName"></asp:Label>
         </td>
         <td id="Td8" runat="server" class="rightData">
-            <asp:TextBox ID="txtNoOfBids" runat="server" CssClass="txtField" Width="200px" Text="3"></asp:TextBox>
+            <asp:TextBox ID="txtNoOfBids" runat="server" CssClass="txtField" Width="200px" Text="3"
+                Enabled="false"></asp:TextBox>
             <br />
             <asp:RegularExpressionValidator ID="RegularExpressionValidator18" ControlToValidate="txtNoOfBids"
                 runat="server" Display="Dynamic" ErrorMessage="Please Enter Integer Type" CssClass="cvPCG"
@@ -1191,6 +1195,18 @@
             <asp:CompareValidator ID="cmp" ControlToValidate="txtAllotmentDate" runat="server"
                 ControlToCompare="txtCloseDate" Display="Dynamic" ErrorMessage="<br/>Allotment Date Should Be Greater Than Close Date"
                 Type="Date" Operator="GreaterThan" CssClass="cvPCG" ValidationGroup="SetUpSubmit"></asp:CompareValidator>
+        </td>
+    </tr>
+    <tr id="trlblSyndicatet" runat="server">
+        <td align="right">
+            <asp:Label ID="lblSyndicatet" runat="server" Text="Syndicate:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td>
+            <asp:DropDownList ID="ddllblSyndicatet" runat="server" CssClass="cmbField">
+            </asp:DropDownList>
+            <asp:ImageButton ID="ImageddlSyndicate" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
+                AlternateText="Add" runat="server" ToolTip="Click here to Add Syndicate" OnClick="ImageddlSyndicate_Click"
+                Height="15px" Width="15px"></asp:ImageButton>
         </td>
     </tr>
     <tr id="trMultipleApplicationAllowed" runat="server">
@@ -2407,3 +2423,46 @@
         </tr>
     </table>
 </asp:Panel>--%>
+<telerik:RadWindow ID="RadRegister" runat="server" VisibleOnPageLoad="false" Height="30%"
+    Width="400px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="Resize, Close, Move"
+    Title="Add New Register" RestrictionZoneID="radWindowZone">
+    <ContentTemplate>
+        <table>
+            <tr>
+                <td align="right">
+                    <asp:Label ID="lblRegistername" runat="server" Text="Register:" CssClass="FieldName"></asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtRegistername" runat="server" CssClass="txtField"></asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Button ID="btnSubmitRegister" runat="server" Text="Submit" CssClass="PCGButton"
+                        OnClick="btnSubmitRegister_OnClick" />
+                </td>
+            </tr>
+        </table>
+    </ContentTemplate>
+</telerik:RadWindow>
+<telerik:RadWindow ID="RadSyndicate" runat="server" VisibleOnPageLoad="false" Height="30%"
+    Width="400px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="Resize, Close, Move"
+    Title="Add New Syndicate" RestrictionZoneID="radWindowZone">
+    <ContentTemplate>
+        <table>
+            <tr>
+                <td align="right">
+                    <asp:Label ID="lblSyndicate" runat="server" Text="Syndicate:" CssClass="FieldName"></asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtSyndicate" runat="server" CssClass="txtField"></asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Button ID="btnSyndicate" runat="server" Text="Submit" CssClass="PCGButton" OnClick="btnSyndicate_OnClick" />
+                </td>
+            </tr>
+        </table>
+    </ContentTemplate>
+</telerik:RadWindow>

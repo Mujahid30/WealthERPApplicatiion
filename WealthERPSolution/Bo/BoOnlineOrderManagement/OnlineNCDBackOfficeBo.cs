@@ -893,13 +893,13 @@ namespace BoOnlineOrderManagement
             onlineNCDBackOfficeDao.GenereateNcdExtract(AdviserId, UserId, ExternalSource, ProductAsset, issueId, ref isExtracted);
         }
 
-        public DataTable GetAdviserNCDOrderBook(int adviserId,int issueNo, string status, DateTime dtFrom, DateTime dtTo)
+        public DataTable GetAdviserNCDOrderBook(int adviserId, int issueNo, string status, DateTime dtFrom, DateTime dtTo)
         {
             DataTable dtNCDOrder;
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
             try
             {
-                dtNCDOrder = onlineNCDBackOfficeDao.GetAdviserNCDOrderBook(adviserId,issueNo, status, dtFrom, dtTo);
+                dtNCDOrder = onlineNCDBackOfficeDao.GetAdviserNCDOrderBook(adviserId, issueNo, status, dtFrom, dtTo);
             }
             catch (BaseApplicationException Ex)
             {
@@ -950,7 +950,7 @@ namespace BoOnlineOrderManagement
 
             return onlineNCDBackOfficeDao.GetFileTypeList(FileTypeId, ExternalSource, FileSubType, ProductCode);
         }
-       
+
 
         private KeyValuePair<string, string>[] GetHeaderMapping(int fileTypeId, string extSource)
         {
@@ -982,7 +982,7 @@ namespace BoOnlineOrderManagement
             }
             return kvpHeaders;
         }
-        public DataTable GetOnlineAllotment(int fileTypeId,string extSource,DataTable dtUpload)
+        public DataTable GetOnlineAllotment(int fileTypeId, string extSource, DataTable dtUpload)
         {
             KeyValuePair<string, string>[] headers = GetHeaderMapping(fileTypeId, extSource);
             if (dtUpload.Rows.Count != 0)
@@ -1002,7 +1002,7 @@ namespace BoOnlineOrderManagement
                     }
                     dtUpload.AcceptChanges();
                 }
-                
+
                 if (dtUpload.Columns.Contains("Status"))
                 {
                     dtUpload.Columns.Remove(dtUpload.Columns["Status"]);
@@ -1089,7 +1089,7 @@ namespace BoOnlineOrderManagement
                         dtExtract.AcceptChanges();
                     }
 
-                    if (extSource == "BSE" && fileTypeId==1)
+                    if (extSource == "BSE" && fileTypeId == 1)
                     {
                         DataTable dtExtractClone = dtExtract.Copy();
                         DataRow newBlankRow;
@@ -1292,14 +1292,14 @@ namespace BoOnlineOrderManagement
 
             DataTable dtUploadFile = new DataTable("Upload");
             string columnName = "";
-           
+
 
             if (fileTypeId == 17 || fileTypeId == 18 || fileTypeId == 19 || fileTypeId == 25)
             {
                 int i = 1;
                 foreach (string header in headers)
                 {
-                    columnName= "column" + i;
+                    columnName = "column" + i;
                     if (dtUploadFile.Columns.Contains(columnName))
                     {
                         dtUploadFile.Columns.Add(columnName + dtUploadFile.Columns.Count);
@@ -1308,7 +1308,7 @@ namespace BoOnlineOrderManagement
                     {
                         dtUploadFile.Columns.Add(columnName);
                     }
-                   
+
                     i++;
                 }
                 for (i = 0; i < allLines.Length; i++)
@@ -1338,7 +1338,7 @@ namespace BoOnlineOrderManagement
                 }
 
             }
-            
+
             return dtUploadFile;
         }
 
@@ -1559,7 +1559,7 @@ namespace BoOnlineOrderManagement
             }
             return fileHeaderList.OrderBy(o => o.HeaderSequence).ToList();
         }
-        
+
         private string HtmError(string csvError)
         {
             string[] strErrList = csvError.Split('|');
@@ -1578,7 +1578,7 @@ namespace BoOnlineOrderManagement
 
             return sbError.ToString();
         }
-        
+
 
         public string GetErrorsForRow(List<OnlineIssueHeader> Headers, DataRow row, int rowNum)
         {
@@ -1631,7 +1631,7 @@ namespace BoOnlineOrderManagement
             return true;
         }
 
-        public DataTable ValidateUploadData(DataTable dtRawData, int fileTypeId, string extSource,ref StringBuilder ColumnNameErrors)
+        public DataTable ValidateUploadData(DataTable dtRawData, int fileTypeId, string extSource, ref StringBuilder ColumnNameErrors)
         {
             DataColumn serialNo = new DataColumn("SN", System.Type.GetType("System.Int32"));
             DataColumn errorCol = new DataColumn("Remarks", System.Type.GetType("System.String"), "");
@@ -1668,11 +1668,11 @@ namespace BoOnlineOrderManagement
 
             ColumnNameErrors.Append("Column Name MisMatch");
             ColumnNameErrors.AppendLine();
-           
+
             foreach (OnlineIssueHeader header in Headers)
             {
-                if (header.ColumnExists == false) 
-                { 
+                if (header.ColumnExists == false)
+                {
                     ColumnNameErrors.Append("Actual Name:  " + header.HeaderName);
                     ColumnNameErrors.Append("\n");
                 }
@@ -1746,16 +1746,16 @@ namespace BoOnlineOrderManagement
                 OnlineNCDBackOfficeDao daoOnlNcdBackOff = new OnlineNCDBackOfficeDao();
                 isEligbleIssue = "";
                 string extractStepCode = daoOnlNcdBackOff.GetExtractStepCode(fileTypeId);
-                
-                    daoOnlNcdBackOff.IsIssueAlloted(issueId, ref   result);
-                    if (result != string.Empty && result != "0")
-                        dtUploadAllotment = daoOnlNcdBackOff.UploadAllotmentIssueDataDynamic(dtCheckOrder, issueId, ref  result, product, filePath, userId);
-                    else
-                    {
-                        result = "Pls Fill Allotment Date";
-                    }
 
-                
+                daoOnlNcdBackOff.IsIssueAlloted(issueId, ref   result);
+                if (result != string.Empty && result != "0")
+                    dtUploadAllotment = daoOnlNcdBackOff.UploadAllotmentIssueDataDynamic(dtCheckOrder, issueId, ref  result, product, filePath, userId);
+                else
+                {
+                    result = "Pls Fill Allotment Date";
+                }
+
+
 
             }
             catch (Exception Ex)
@@ -1773,7 +1773,7 @@ namespace BoOnlineOrderManagement
             return dtUploadAllotment;
 
         }
-        public int UploadCheckOrderFile(DataTable dtCheckOrder, int fileTypeId, int issueId, ref string isEligbleIssue, int adviserid, string source, ref string result, string product,string filePath,int userId)
+        public int UploadCheckOrderFile(DataTable dtCheckOrder, int fileTypeId, int issueId, ref string isEligbleIssue, int adviserid, string source, ref string result, string product, string filePath, int userId)
         {
 
             int nRows = 0;
@@ -1796,7 +1796,7 @@ namespace BoOnlineOrderManagement
 
                 //}
                 //else
-                    if (extractStepCode == "UC")
+                if (extractStepCode == "UC")
                 {
                     int orderId = int.Parse(dtCheckOrder.Rows[0][0].ToString());
                     int orderIssueId = daoOnlNcdBackOff.Getissueid(orderId);
@@ -2136,7 +2136,7 @@ namespace BoOnlineOrderManagement
             }
             return result;
         }
-        public DataTable GetNCDAllotmentFileType(string fileType,string productType)
+        public DataTable GetNCDAllotmentFileType(string fileType, string productType)
         {
             DataTable dtGetNCDAllotmentFile;
 
@@ -2177,6 +2177,43 @@ namespace BoOnlineOrderManagement
                 throw Ex;
             }
             return result;
+        }
+        public bool CreateRegister(string register,int userid)
+        {
+            OnlineNCDBackOfficeDao daoOnlNcdBackOff = new OnlineNCDBackOfficeDao();
+            bool bResult = false;
+            try
+            {
+                bResult = daoOnlNcdBackOff.CreateRegister(register,userid);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return bResult;
+        }
+        public DataTable BindSyndiacte()
+        {
+            DataTable dt;
+            OnlineNCDBackOfficeDao daoOnlNcdBackOff = new OnlineNCDBackOfficeDao();
+            dt = daoOnlNcdBackOff.BindSyndiacte();
+            return dt;
+        }
+        public bool CreateSyndiacte(string Syndicatename, int userid)
+        {
+            OnlineNCDBackOfficeDao daoOnlNcdBackOff = new OnlineNCDBackOfficeDao();
+            bool bResult = false;
+            try
+            {
+                bResult = daoOnlNcdBackOff.CreateSyndiacte(Syndicatename, userid);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return bResult;
         }
     }
 }
