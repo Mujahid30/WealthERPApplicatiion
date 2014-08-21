@@ -59,6 +59,19 @@
             return false;
         }
     }
+
+
+    function Validate() {
+        var isValid = false;
+        isValid = Page_ClientValidate('btnConfirmOrder');       
+        if (isValid) {
+            isValid = Page_ClientValidate('btnTC');
+        }
+
+        return isValid;
+    }   
+   
+    
 </script>
 
 <asp:ScriptManager ID="scrptMgr" runat="server">
@@ -96,7 +109,7 @@
                                 PageSize="10" AllowPaging="false" AutoGenerateColumns="False" EnableEmbeddedSkins="False"
                                 GridLines="None" ShowFooter="false" PagerStyle-AlwaysVisible="false" ShowStatusBar="True"
                                 Skin="Telerik" AllowFilteringByColumn="false">
-                                <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="AIM_IssueId,AIIC_PriceDiscountType,AIIC_PriceDiscountValue,AIM_CutOffTime,AIM_TradingInMultipleOf,AIM_MInQty,AIM_MaxQty,AIIC_MInBidAmount,AIIC_MaxBidAmount"
+                                <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="AIM_IssueId,AIIC_PriceDiscountType,AIIC_PriceDiscountValue,AIM_CutOffTime,AIM_TradingInMultipleOf,AIM_MInQty,AIM_MaxQty,AIIC_MInBidAmount,AIIC_MaxBidAmount,AIM_CloseDate"
                                     AutoGenerateColumns="false" Width="100%" PagerStyle-AlwaysVisible="false">
                                     <Columns>
                                         <telerik:GridBoundColumn DataField="AIM_IssueName" HeaderStyle-Width="200px" CurrentFilterFunction="Contains"
@@ -299,27 +312,26 @@
                         </td>
                     </tr>
                     <tr class="spaceUnder" id="trTermsCondition" runat="server">
-                        <td align="left" style="width: 30%">
+                        <td align="left" style="width: 100%" colspan="4">
                             <asp:CheckBox ID="chkTermsCondition" runat="server" Font-Bold="True" Font-Names="Shruti"
                                 Enabled="false" Checked="false" ForeColor="#145765" Text="" ToolTip="Click 'Terms & Conditions' to proceed further"
                                 CausesValidation="true" />
                             <asp:LinkButton ID="lnkTermsCondition" CausesValidation="false" Text="Terms & Conditions"
                                 runat="server" CssClass="txtField" OnClick="lnkTermsCondition_Click" ToolTip="Click here to accept terms & conditions"></asp:LinkButton>
                             <span id="Span9" class="spnRequiredField">*</span>
-                        </td>
-                        <td colspan="3" style="width: 70%" align="left">
-                            <asp:CustomValidator ID="CustomValidator1" runat="server" ErrorMessage="Please read terms & conditions"
+                            <asp:CustomValidator ID="CustomValidator1" runat="server" Text="Please read terms & conditions"
                                 ClientValidationFunction="ValidateTermsConditions" EnableClientScript="true"
-                                OnServerValidate="TermsConditionCheckBox" Display="Dynamic" ValidationGroup="btnConfirmOrder"
+                                OnServerValidate="TermsConditionCheckBox" Display="Dynamic" ValidationGroup="btnTC"
                                 CssClass="rfvPCG">
-                    Please read terms & conditions
+                               Please read terms & conditions
                             </asp:CustomValidator>
                         </td>
+                      
                     </tr>
                     <tr>
                         <td align="left" style="width: 10%">
                             <asp:Button ID="btnConfirmOrder" runat="server" Text="Confirm Order" OnClick="btnConfirmOrder_Click"
-                                CssClass="PCGMediumButton" ValidationGroup="btnConfirmOrder" />
+                                CssClass="PCGMediumButton" ValidationGroup="btnConfirmOrder, btnTC" OnClientClick="return Validate()" />
                         </td>
                         <td>
                             <asp:LinkButton runat="server" ID="lnlBack" CssClass="LinkButtons" Text="Click here to view the issue list"

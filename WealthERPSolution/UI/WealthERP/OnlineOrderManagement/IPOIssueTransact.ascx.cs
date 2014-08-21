@@ -118,13 +118,17 @@ namespace WealthERP.OnlineOrderManagement
         {
             int currentRowidex = (((GridDataItem)((TextBox)sender).NamingContainer).RowIndex / 2) - 1;
             ReseIssueBidValues(currentRowidex, false);
-
+            CustomValidator1.IsValid = true;
+            Page.Validate("btnConfirmOrder");
+            
         }
 
         protected void BidPrice_TextChanged(object sender, EventArgs e)
         {
             int currentRowidex = (((GridDataItem)((TextBox)sender).NamingContainer).RowIndex / 2) - 1;
             ReseIssueBidValues(currentRowidex, true);
+            CustomValidator1.IsValid = true;
+            Page.Validate("btnConfirmOrder");
 
         }
 
@@ -133,6 +137,7 @@ namespace WealthERP.OnlineOrderManagement
             int currentRowindex = (((GridDataItem)((CheckBox)sender).NamingContainer).RowIndex / 2) - 1;
             ReseIssueBidValues(currentRowindex, false);
             //CheckBox chkCutOff = (CheckBox)RadGridIPOBid.MasterTableView.Items[currentRowindex]["CheckCutOff"].FindControl("cbCutOffCheck");
+            Page.Validate("btnConfirmOrder");
 
         }
 
@@ -240,7 +245,7 @@ namespace WealthERP.OnlineOrderManagement
                             txtBidQuantity1.Text = string.Empty;
                             txtBidQuantity1.Focus();
                         }
-                        txtBidAmount1.Text ="0";
+                        txtBidAmount1.Text = "0";
                         txtBidAmountPayable1.Text = "0";
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Duplcate bids found.Each bid should have unique combination of price and quantity!');", true);
                         //return;
@@ -304,7 +309,7 @@ namespace WealthERP.OnlineOrderManagement
 
                 lblBidHighestValue.Text = finalBidPayableAmount.ToString();
                 txtFinalBidAmount.Text = lblBidHighestValue.Text.Trim();
-                Session["finalprice"] = lblBidHighestValue.Text;
+                //Session["finalprice"] = lblBidHighestValue.Text;
             }
 
 
@@ -317,21 +322,25 @@ namespace WealthERP.OnlineOrderManagement
         {
             string errorMsg = string.Empty;
             bool isBidsVallid = false;
-            isBidsVallid = ValidateIPOBids(out errorMsg);
-            if (!isBidsVallid)
+            Page.Validate();
+            if (Page.IsValid)
             {
+                isBidsVallid = ValidateIPOBids(out errorMsg);
+                if (!isBidsVallid)
+                {
 
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('" + errorMsg + "');", true);
-                return;
-            }
-            else
-            {
-                CreateIPOOrder();
-                ControlsVisblity(true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('" + errorMsg + "');", true);
+                    return;
+                }
+                else
+                {
+                    CreateIPOOrder();
+                    ControlsVisblity(true);
 
+                }
             }
-            
-           
+
+
 
 
 
@@ -485,7 +494,7 @@ namespace WealthERP.OnlineOrderManagement
             }
             else if (accountDebitStatus == false)
             {
-                userMessage = "NO Rms Response";
+                userMessage = "No RMS Response";
             }
 
             else if (orderId == 0)
@@ -529,7 +538,7 @@ namespace WealthERP.OnlineOrderManagement
 
         protected void rbConfirm_OK_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void ControlsVisblity(bool visble)
@@ -547,14 +556,23 @@ namespace WealthERP.OnlineOrderManagement
             int issueMinQty = 0;
             int issueMaxQty = 0;
             int bidId = 1;
-            int sum = int.Parse(Session["finalprice"].ToString());
-            int minbidamount = Convert.ToInt32(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIIC_MInBidAmount"].ToString());
-            int maxmimbidamount = Convert.ToInt32(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIIC_MaxBidAmount"].ToString());
-            if(minbidamount>sum || maxmimbidamount<sum)
+            DateTime dtCloseDate = Convert.ToDateTime(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIM_CloseDate"].ToString());
+            //dtCloseDate = DateTime.Now.AddHours(-1);
+            int minBidAmount = Convert.ToInt32(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIIC_MInBidAmount"].ToString());
+            int maxBidAmount = Convert.ToInt32(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIIC_MaxBidAmount"].ToString());
+            GridFooterItem footerItem = (GridFooterItem)RadGridIPOBid.MasterTableView.GetItems(GridItemType.Footer)[0];
+            int maxPaybleAmount = Convert.ToInt32(((TextBox)footerItem.FindControl("txtFinalBidValue")).Text);//accessing Button inside 
+            if (dtCloseDate < DateTime.Now)
+            {
+                msg = "Issue is closed now, order can not accept";
+                isBidValid = false;
+                return isBidValid;
+            }
+            if (minBidAmount > maxPaybleAmount || maxBidAmount < maxPaybleAmount)
             {
                 msg = "Highest Bid Value should be greater than minbid amount and less than maxbid amout";
                 isBidValid = false;
-                return isBidValid; 
+                return isBidValid;
             }
             if (!string.IsNullOrEmpty(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIM_TradingInMultipleOf"].ToString()))
                 issueQtyMultiple = Convert.ToInt16(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIM_TradingInMultipleOf"].ToString());
@@ -565,7 +583,7 @@ namespace WealthERP.OnlineOrderManagement
             foreach (GridDataItem item in RadGridIPOBid.MasterTableView.Items)
             {
                 double bidAmountPayble = 0;
-               
+
                 //CheckBox chkCutOff = (CheckBox)item.FindControl("cbCutOffCheck");
                 TextBox txtBidQuantity = (TextBox)item.FindControl("txtBidQuantity");
                 TextBox txtBidPrice = (TextBox)item.FindControl("txtBidPrice");
@@ -576,16 +594,16 @@ namespace WealthERP.OnlineOrderManagement
                 if (!string.IsNullOrEmpty(txtBidQuantity.Text))
                 {
                     //Bid Quantity Multiple Validation
-                   
-                    if ((Convert.ToInt64(txtBidQuantity.Text)-issueMinQty) % issueQtyMultiple != 0 && Convert.ToInt64(txtBidQuantity.Text) != issueMinQty && Convert.ToInt64(txtBidQuantity.Text) != issueMaxQty)
+
+                    if ((Convert.ToInt64(txtBidQuantity.Text) - issueMinQty) % issueQtyMultiple != 0 && Convert.ToInt64(txtBidQuantity.Text) != issueMinQty && Convert.ToInt64(txtBidQuantity.Text) != issueMaxQty)
                     {
                         msg = "Please enter Quantity in multiples permissibile for this issue";
                         isBidValid = false;
                         return isBidValid;
                     }
                 }
-                if (bidAmountPayble>0)
-                 validBidSum += int.Parse(item.GetDataKeyValue("IssueBidNo").ToString());
+                if (bidAmountPayble > 0)
+                    validBidSum += int.Parse(item.GetDataKeyValue("IssueBidNo").ToString());
 
                 if (bidAmountPayble <= 0 && int.Parse(item.GetDataKeyValue("IssueBidNo").ToString()) == 1)
                 {
