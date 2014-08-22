@@ -1179,6 +1179,7 @@
                     <Selecting AllowRowSelect="true" />
                 </ClientSettings>
             </telerik:RadGrid>
+            </br> </br> </br> </br> </br> </br> </br> </br> </br> </br> </br>
         </div>
         <%--</ContentTemplate>
             <Triggers>
