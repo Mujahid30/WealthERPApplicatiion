@@ -29,6 +29,7 @@
             args.IsValid = false;
         }
     }
+    
 </script>
 
 <script type="text/javascript">
@@ -63,7 +64,7 @@
 
     function Validate() {
         var isValid = false;
-        isValid = Page_ClientValidate('btnConfirmOrder');       
+        isValid = Page_ClientValidate('btnConfirmOrder');
         if (isValid) {
             isValid = Page_ClientValidate('btnTC');
         }
@@ -257,6 +258,11 @@
                                                 <asp:RegularExpressionValidator ID="revtxtBidQuantity" ControlToValidate="txtBidQuantity"
                                                     runat="server" ErrorMessage="Please enter a valid bid quantity" Text="*" Display="Dynamic"
                                                     ValidationExpression="[0-9]*" CssClass="rfvPCG" ValidationGroup="btnConfirmOrder"></asp:RegularExpressionValidator>
+                                                <asp:CustomValidator ID="CVBidQtyMultiple" runat="server" 
+                                                    OnServerValidate="CVBidQtyMultiple_ServerValidate" Text="*" ErrorMessage="Please enter Quantity in multiples permissibile for this issue"
+                                                    ControlToValidate="txtBidQuantity" Display="Dynamic" ValidationGroup="btnConfirmOrder"
+                                                    CssClass="rfvPCG">                                                
+                                                </asp:CustomValidator>
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>
                                         <telerik:GridTemplateColumn AllowFiltering="false" DataField="" HeaderStyle-Width="100px"
@@ -326,7 +332,6 @@
                                Please read terms & conditions
                             </asp:CustomValidator>
                         </td>
-                      
                     </tr>
                     <tr>
                         <td align="left" style="width: 10%">

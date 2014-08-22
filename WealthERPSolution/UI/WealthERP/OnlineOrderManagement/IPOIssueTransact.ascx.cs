@@ -113,14 +113,39 @@ namespace WealthERP.OnlineOrderManagement
 
 
         }
+        protected void CVBidQtyMultiple_ServerValidate(object source, System.Web.UI.WebControls.ServerValidateEventArgs args)
+        {
+            int issueQtyMultiple = 0;
+            int issueMinQty = 0;
+            int issueMaxQty = 0;
+            int bidQuantity = Convert.ToInt32(args.Value.ToString());
+
+            if (!string.IsNullOrEmpty(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIM_TradingInMultipleOf"].ToString()))
+                issueQtyMultiple = Convert.ToInt16(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIM_TradingInMultipleOf"].ToString());
+            if (!string.IsNullOrEmpty(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIM_MInQty"].ToString()))
+                issueMinQty = Convert.ToInt32(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIM_MInQty"].ToString());
+            if (!string.IsNullOrEmpty(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIM_MaxQty"].ToString()))
+                issueMaxQty = Convert.ToInt32(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIM_MaxQty"].ToString());
+
+            if ((bidQuantity - issueMinQty) % issueQtyMultiple != 0 && bidQuantity != issueMinQty && bidQuantity != issueMaxQty)
+            {
+                args.IsValid = false;
+            }
+            else
+            {
+                args.IsValid = true;
+            }
+
+            
+        }
 
         protected void BidQuantity_TextChanged(object sender, EventArgs e)
         {
             int currentRowidex = (((GridDataItem)((TextBox)sender).NamingContainer).RowIndex / 2) - 1;
             ReseIssueBidValues(currentRowidex, false);
-            CustomValidator1.IsValid = true;
+
             Page.Validate("btnConfirmOrder");
-            
+
         }
 
         protected void BidPrice_TextChanged(object sender, EventArgs e)
@@ -247,7 +272,7 @@ namespace WealthERP.OnlineOrderManagement
                         }
                         txtBidAmount1.Text = "0";
                         txtBidAmountPayable1.Text = "0";
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Duplcate bids found.Each bid should have unique combination of price and quantity!');", true);
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Duplicate bids found.Each bid should have unique combination of price and quantity!');", true);
                         //return;
                     }
                 }
