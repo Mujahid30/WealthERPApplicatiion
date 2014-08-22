@@ -427,23 +427,24 @@ namespace DaoOnlineOrderManagement
             }
             return dsSipDetails;
         }
-        public DataSet GetRedeemAmcDetails(int customerId)
+        public DataSet GetCustomerHoldingAMCList(int customerId,char type)
         {
-            DataSet dsGetRedeemSchemeDetails;
+            DataSet dsCustomerHoldingAMCList;
             Database db;
-            DbCommand GetRedeemSchemeDetailscmd;
+            DbCommand GetCustomerHoldingAMCListcmd;
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                GetRedeemSchemeDetailscmd = db.GetStoredProcCommand("SPROC_ONL_GetRedeemAmcDetails");
-                db.AddInParameter(GetRedeemSchemeDetailscmd, "@customerId", DbType.Int32, customerId);
-                dsGetRedeemSchemeDetails = db.ExecuteDataSet(GetRedeemSchemeDetailscmd);
+                GetCustomerHoldingAMCListcmd = db.GetStoredProcCommand("SPROC_ONL_GetCustomerHoldingAMCList");
+                db.AddInParameter(GetCustomerHoldingAMCListcmd, "@customerId", DbType.Int32, customerId);
+                db.AddInParameter(GetCustomerHoldingAMCListcmd, "@Type", DbType.String, type);
+                dsCustomerHoldingAMCList = db.ExecuteDataSet(GetCustomerHoldingAMCListcmd);
             }
             catch (BaseApplicationException Ex)
             {
                 throw (Ex);
             }
-            return dsGetRedeemSchemeDetails;
+            return dsCustomerHoldingAMCList;
         }
         public OnlineMFOrderVo GetOrderDetails(int Id)
         {
