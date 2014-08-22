@@ -16,7 +16,7 @@ namespace DaoOnlineOrderManagement
 {
     public class OnlineOrderDao
     {
-        public void UpdateOrderRMSAccountDebitRequestTime(int orderId)
+        public void UpdateOrderRMSAccountDebitRequestTime(int orderId, decimal amount)
         {
 
             Database db;
@@ -26,6 +26,7 @@ namespace DaoOnlineOrderManagement
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 updateRMSDebitRequestTimeCmd = db.GetStoredProcCommand("SPROC_ONL_UpdateOrderRMSDebitRequestTime");
                 db.AddInParameter(updateRMSDebitRequestTimeCmd, "@OrderId", DbType.Int32, orderId);
+                db.AddInParameter(updateRMSDebitRequestTimeCmd, "@Amount", DbType.Decimal, amount);
                 db.ExecuteDataSet(updateRMSDebitRequestTimeCmd);
 
             }
