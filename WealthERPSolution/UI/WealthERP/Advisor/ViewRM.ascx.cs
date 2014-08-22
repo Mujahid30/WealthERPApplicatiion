@@ -573,6 +573,8 @@ namespace WealthERP.Advisor
                 {
                     //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('EditRMDetails','?Menu=" + menu + "');", true);
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AddAdviserStaff", "loadcontrol('AddAdviserStaff','?RmId=" + rmVo.RMId + "&action=" + menu + "');", true);
+                  //  ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AddAdviserStaff", "loadcontrol('AddStaff','?RmId=" + rmVo.RMId + "&action=" + menu + "');", true);
+
                 }
                 if (menu == "View")
                 {

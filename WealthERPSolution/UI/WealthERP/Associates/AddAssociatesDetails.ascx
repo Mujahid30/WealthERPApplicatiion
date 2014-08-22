@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AddAssociatesDetails.ascx.cs"
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AddAssociatesDetails.ascx.cs"
     Inherits="WealthERP.Associates.AddAssociatesDetails" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
@@ -156,7 +156,7 @@
         </td>
         <td>
             <asp:DropDownList ID="ddlBranch" runat="server" Style="vertical-align: middle" AutoPostBack="false"
-                CssClass="cmbField">
+                CssClass="cmbField" Enabled="false">
             </asp:DropDownList>
             <span id="Span5" class="spnRequiredField">*</span>
             <br />
@@ -1020,6 +1020,50 @@
                     </td>
                 </tr>
             </table>
+        </asp:Panel>
+    </telerik:RadPageView>
+    <telerik:RadPageView ID="RadPageView1" runat="server">
+        <asp:Panel ID="Panel5" runat="server">
+            <table style="width: 100%;">
+                <tr>
+                    <td colspan="4">
+                        <div class="divSectionHeading" style="vertical-align: text-bottom">
+                            Child Codes
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftField">
+                        <table id="tableGrid" runat="server" width="100%">
+                            <tr>
+                                <td>
+                                    <%-- <telerik:RadGrid ID="gvChildCode" runat="server" Skin="Telerik" CssClass="RadGrid"
+                                        GridLines="None" AllowPaging="True" PageSize="10" AllowSorting="True" AutoGenerateColumns="False"
+                                        ShowStatusBar="true" AllowAutomaticDeletes="false" AllowAutomaticInserts="false"
+                                        OnNeedDataSource="gvChildCode_OnNeedDataSource" Visible="false" AllowAutomaticUpdates="false"
+                                        HorizontalAlign="NotSet"  >
+                                        <MasterTableView CommandItemDisplay="Top" EditMode="PopUp" DataKeyNames="AAC_AdviserAgentId,AAC_AdviserAgentIdParent,AAC_AgentCode"
+                                            CommandItemSettings-ShowRefreshButton="false" CommandItemSettings-AddNewRecordText="Add child codes">
+                                            <Columns>
+                                                <telerik:GridBoundColumn UniqueName="AAC_AgentCode" HeaderText="Child Code" DataField="AAC_AgentCode">
+                                                </telerik:GridBoundColumn>
+                                                <telerik:GridEditCommandColumn EditText="Update" UniqueName="editColumn" CancelText="Cancel"
+                                                    UpdateText="Edit">
+                                                </telerik:GridEditCommandColumn>
+                                                <telerik:GridButtonColumn UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete the code?"
+                                                    ConfirmDialogType="RadWindow" ConfirmTitle="Delete" ButtonType="LinkButton" CommandName="Delete"
+                                                    Text="Delete">
+                                                    <ItemStyle HorizontalAlign="Center" CssClass="MyImageButton" />
+                                                </telerik:GridButtonColumn>
+                                            </Columns>
+                                        </MasterTableView>
+                                        <ClientSettings>
+                                            <ClientEvents />
+                                        </ClientSettings>
+                                    </telerik:RadGrid>--%>
+                                </td>
+                            </tr>
+                        </table>
         </asp:Panel>
     </telerik:RadPageView>
 </telerik:RadMultiPage>
