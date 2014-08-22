@@ -126,6 +126,7 @@ namespace VoOnlineOrderManagemnet
         public int IsCancelAllowed { get; set; }
         public Double SeriesFaceValue { get; set; }
         public int syndicateId{get;set;}
+        public int broker {get;set;}
 
     }
 

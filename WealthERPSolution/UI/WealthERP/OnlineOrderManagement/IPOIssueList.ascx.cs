@@ -118,7 +118,10 @@ namespace WealthERP.OnlineOrderManagement
             {
                 string filename = RadGridIPOIssueList.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AR_Filename"].ToString();
                 if (filename == string.Empty)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Prospectus is not available for this issue!!');", true);
                     return;
+                }
                 string path = MapPath("~/Repository") + "\\advisor_" + advisorVo.advisorId + "\\" + filename;
                 byte[] bts = System.IO.File.ReadAllBytes(path);
                 Response.Clear();

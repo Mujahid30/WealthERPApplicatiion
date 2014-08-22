@@ -1208,6 +1208,16 @@
                 AlternateText="Add" runat="server" ToolTip="Click here to Add Syndicate" OnClick="ImageddlSyndicate_Click"
                 Height="15px" Width="15px"></asp:ImageButton>
         </td>
+        <td align="right">
+            <asp:Label ID="lblBrokerCode" runat="server" CssClass="FieldName" Text="Broker:"></asp:Label>
+        </td>
+        <td>
+            <asp:DropDownList ID="ddlBrokerCode" runat="server" CssClass="cmbField">
+            </asp:DropDownList>
+            <asp:ImageButton ID="ImagddlBrokerCode" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
+                AlternateText="Add" runat="server" ToolTip="Click here to Add Broker" OnClick="ImagddlBrokerCode_Click"
+                Height="15px" Width="15px"></asp:ImageButton>
+        </td>
     </tr>
     <tr id="trMultipleApplicationAllowed" runat="server">
         <td>
@@ -2466,3 +2476,25 @@
         </table>
     </ContentTemplate>
 </telerik:RadWindow>
+<telerik:RadWindow ID="RadBroker" runat="server" VisibleOnPageLoad="false" Height="30%"
+    Width="400px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="Resize, Close, Move"
+    Title="Add New Broker" RestrictionZoneID="radWindowZone">
+    <ContentTemplate>
+        <table>
+            <tr>
+                <td align="right">
+                    <asp:Label ID="lblBrokercodeadd" runat="server" Text="Broker:" CssClass="FieldName"></asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtBrokercodeadd" runat="server" CssClass="txtField" MaxLength="50"></asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Button ID="btnBrokercodeadd" runat="server" Text="Submit" CssClass="PCGButton" OnClick="btnBrokercodeadd_OnClick" />
+                </td>
+            </tr>
+        </table>
+    </ContentTemplate>
+</telerik:RadWindow>
+

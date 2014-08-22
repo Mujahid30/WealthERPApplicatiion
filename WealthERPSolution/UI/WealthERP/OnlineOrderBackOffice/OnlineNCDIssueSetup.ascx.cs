@@ -39,7 +39,10 @@ namespace WealthERP.OnlineOrderBackOffice
             advisorVo = (AdvisorVo)Session["advisorVo"];
             int adviserId = advisorVo.advisorId;
             txtOpenDate.SelectedDate = DateTime.Now;
-
+            radAplicationPopUp.VisibleOnPageLoad = false;
+            RadRegister.VisibleOnPageLoad = false;
+            RadSyndicate.VisibleOnPageLoad = false;
+            RadBroker.VisibleOnPageLoad = false;
             if (!IsPostBack)
             {
                 if (Cache[userVo.UserId.ToString() + "SubCat"] != null)
@@ -73,6 +76,8 @@ namespace WealthERP.OnlineOrderBackOffice
             BindBankName();
             BindBranch();
             BindSyndicate();
+            BindBrokerCode();
+
             if (Request.QueryString["action"] != null || Request.QueryString["ProspectUsaction"] != null)
             {
                 int issueNo = Convert.ToInt32(Request.QueryString["issueNo"].ToString());
@@ -659,7 +664,14 @@ namespace WealthERP.OnlineOrderBackOffice
                     {
                         ddllblSyndicatet.SelectedValue = "";
                     }
-
+                    if (!string.IsNullOrEmpty(dr["XB_BrokerId"].ToString()))
+                    {
+                        ddlBrokerCode.SelectedValue = dr["XB_BrokerId"].ToString();
+                    }
+                    else
+                    {
+                        ddlBrokerCode.SelectedValue = "";
+                    }
 
                     if (ddlIssuer.SelectedValue == "Select")
                         return;
@@ -813,11 +825,11 @@ namespace WealthERP.OnlineOrderBackOffice
             txtRevisionDates.Enabled = value;
             txtAllotmentDate.Enabled = value;
 
-
+            
             ddlCutOffTimeHours.Enabled = value;
             ddlCutOffTimeMinutes.Enabled = value;
             ddlCutOffTimeSeconds.Enabled = value;
-            trlblSyndicatet.Visible = value;
+            ddllblSyndicatet.Enabled = value;
             txtTradingLot.Enabled = value;
             txtBiddingLot.Enabled = value;
             txtBSECode.Enabled = value;
@@ -1201,6 +1213,14 @@ namespace WealthERP.OnlineOrderBackOffice
                 else
                 {
                     onlineNCDBackOfficeVo.syndicateId = 0;
+                }
+                if (!string.IsNullOrEmpty(ddlBrokerCode.SelectedValue))
+                {
+                    onlineNCDBackOfficeVo.broker = int.Parse(ddlBrokerCode.SelectedValue);
+                }
+                else
+                {
+                    onlineNCDBackOfficeVo.broker = 0;
                 }
                 if (!string.IsNullOrEmpty(txtIssueSizeQty.Text))
                 {
@@ -3362,7 +3382,14 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     onlineNCDBackOfficeVo.syndicateId = 0;
                 }
-
+                if (!string.IsNullOrEmpty(ddlBrokerCode.SelectedValue))
+                {
+                    onlineNCDBackOfficeVo.broker = int.Parse(ddlBrokerCode.SelectedValue);
+                }
+                else
+                {
+                    onlineNCDBackOfficeVo.broker = 0;
+                }
                 if (!string.IsNullOrEmpty(txtIssueSizeQty.Text))
                 {
                     onlineNCDBackOfficeVo.IssueSizeQty = Convert.ToInt32(txtIssueSizeQty.Text);
@@ -5111,6 +5138,7 @@ namespace WealthERP.OnlineOrderBackOffice
             RadRegister.VisibleOnPageLoad = true;
             txtRegistername.Text = "";
             RadSyndicate.VisibleOnPageLoad = false;
+            RadBroker.VisibleOnPageLoad = false;
         }
         private void BindIssuerGrid()
         {
@@ -5437,6 +5465,7 @@ namespace WealthERP.OnlineOrderBackOffice
             RadSyndicate.VisibleOnPageLoad = true;
             txtSyndicate.Text = "";
             RadRegister.VisibleOnPageLoad = false ;
+            RadBroker.VisibleOnPageLoad = false;
         }
         private void BindSyndicate()
         {
@@ -5450,6 +5479,33 @@ namespace WealthERP.OnlineOrderBackOffice
                 ddllblSyndicatet.DataBind();
                 ddllblSyndicatet.Items.Insert(0, new ListItem("Select", "0"));
             }
+        }
+        private void BindBrokerCode()
+        {
+            DataTable dtBindBrokerCode = new DataTable();
+            dtBindBrokerCode = onlineNCDBackOfficeBo.BindBroker();
+            if (dtBindBrokerCode.Rows.Count > 0)
+            {
+                ddlBrokerCode.DataSource = dtBindBrokerCode;
+                ddlBrokerCode.DataValueField = dtBindBrokerCode.Columns["XB_BrokerId"].ToString();
+                ddlBrokerCode.DataTextField = dtBindBrokerCode.Columns["XB_BrokerShortName"].ToString();
+                ddlBrokerCode.DataBind();
+                ddlBrokerCode.Items.Insert(0, new ListItem("Select", "0"));
+            }
+        }
+        protected void ImagddlBrokerCode_Click(object sender, EventArgs e)
+        {
+            RadBroker.VisibleOnPageLoad = true;
+            txtBrokercodeadd.Text = "";
+            RadRegister.VisibleOnPageLoad = false;
+            RadSyndicate.VisibleOnPageLoad = false;
+
+        }
+        protected void btnBrokercodeadd_OnClick(object sender, EventArgs e)
+        {
+            onlineNCDBackOfficeBo.CreateBroker(txtBrokercodeadd.Text, userVo.UserId);
+            BindBrokerCode();
+            RadBroker.VisibleOnPageLoad = false;
         }
     }
 }

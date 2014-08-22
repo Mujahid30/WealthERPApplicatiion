@@ -2215,5 +2215,35 @@ namespace BoOnlineOrderManagement
             }
             return bResult;
         }
+        public DataTable BindBroker()
+        {
+            DataTable dtBindBroker;
+            OnlineNCDBackOfficeDao daoOnlNcdBackOff = new OnlineNCDBackOfficeDao();
+            try
+            {
+                dtBindBroker = daoOnlNcdBackOff.BindBroker();
+            }
+
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtBindBroker;
+        }
+        public bool CreateBroker(string BrokerName, int userid)
+        {
+            OnlineNCDBackOfficeDao daoOnlNcdBackOff = new OnlineNCDBackOfficeDao();
+            bool bResult = false;
+            try
+            {
+                bResult = daoOnlNcdBackOff.CreateBroker(BrokerName, userid);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return bResult;
+        }
     }
 }

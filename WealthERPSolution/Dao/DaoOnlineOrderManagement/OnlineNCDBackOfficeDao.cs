@@ -518,6 +518,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(createCmd, "@MultipleApplicationAllowed", DbType.Int32, onlineNCDBackOfficeVo.MultipleApplicationAllowed);
                 db.AddInParameter(createCmd, "@IsCancelAllowed", DbType.Int32, onlineNCDBackOfficeVo.IsCancelAllowed);
                 db.AddInParameter(createCmd, "@Syndicateid", DbType.Int32, onlineNCDBackOfficeVo.syndicateId);
+                db.AddInParameter(createCmd, "@Broker", DbType.Int32, onlineNCDBackOfficeVo.broker);
 
                 
                 issueId = db.ExecuteNonQuery(createCmd);
@@ -877,6 +878,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(createCmd, "@MultipleApplicationAllowed", DbType.Int32, onlineNCDBackOfficeVo.MultipleApplicationAllowed);
                 db.AddInParameter(createCmd, "@IsCancelAllowed", DbType.Int32, onlineNCDBackOfficeVo.IsCancelAllowed);
                 db.AddInParameter(createCmd, "@Syndicateid", DbType.Int32, onlineNCDBackOfficeVo.syndicateId);
+                db.AddInParameter(createCmd, "@Broker", DbType.Int32, onlineNCDBackOfficeVo.broker);
                 
                 if (db.ExecuteNonQuery(createCmd) != 0)
                 {
@@ -3402,6 +3404,56 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(CreateSyndiacteCmd, "@syndicateName", DbType.String, Syndicatename);
                 db.AddInParameter(CreateSyndiacteCmd, "@userId", DbType.Int32, userid);
                 if (db.ExecuteNonQuery(CreateSyndiacteCmd) != 0)
+                    bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return bResult;
+        }
+        public DataTable BindBroker()
+        {
+            DataTable dtBindBroker;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DbCommand dbBindBroker;
+            DataSet dsBindBroker;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbBindBroker = db.GetStoredProcCommand("SPROC_GetBrokerName");
+                dsBindBroker = db.ExecuteDataSet(dbBindBroker);
+                dtBindBroker = dsBindBroker.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineNCDBackOfficeDao.cs:BindRta()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtBindBroker;
+        }
+        public bool CreateBroker(string BrokerName, int userid)
+        {
+            bool bResult = false;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DbCommand CreateBrokerCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                CreateBrokerCmd = db.GetStoredProcCommand("SPROC_CreateBroker");
+                db.AddInParameter(CreateBrokerCmd, "@brokerShortName", DbType.String, BrokerName);
+                db.AddInParameter(CreateBrokerCmd, "@userId", DbType.Int32, userid);
+                if (db.ExecuteNonQuery(CreateBrokerCmd) != 0)
                     bResult = true;
             }
             catch (BaseApplicationException Ex)

@@ -61,6 +61,7 @@ namespace WealthERP.OnlineOrderBackOffice
         protected global::Telerik.Web.UI.RadWindow radAplicationPopUp;
         protected global::Telerik.Web.UI.RadWindow RadRegister;
         protected global::Telerik.Web.UI.RadWindow RadSyndicate;
+        protected global::Telerik.Web.UI.RadWindow RadBroker;
         /// <summary>
         /// rgAplication control.
         /// </summary>
@@ -133,6 +134,12 @@ namespace WealthERP.OnlineOrderBackOffice
         protected global::System.Web.UI.WebControls.DropDownList ddllblSyndicatet;
         protected global::System.Web.UI.WebControls.ImageButton ImageddlSyndicate;
         protected global::System.Web.UI.WebControls.Button btnSyndicate;
+        protected global::System.Web.UI.WebControls.Button btnBrokercodeadd;
+        protected global::System.Web.UI.WebControls.ImageButton ImagddlBrokerCode;
+        protected global::System.Web.UI.WebControls.Label lblBrokercodeadd;
+        protected global::System.Web.UI.WebControls.TextBox txtBrokercodeadd;
+        protected global::System.Web.UI.WebControls.Label lblBrokerCode;
+        protected global::System.Web.UI.WebControls.DropDownList ddlBrokerCode;
         /// <summary>
         /// ddlProduct control.
         /// </summary>
