@@ -291,7 +291,7 @@
         <td class="rightField">
             <asp:DropDownList ID="ddlType" runat="server" AutoPostBack="true" CssClass="cmbLongField">
                 <asp:ListItem Value="1">Online</asp:ListItem>
-                <asp:ListItem Value="0">Offline</asp:ListItem>
+                <asp:ListItem Value="0" Enabled=false>Offline</asp:ListItem>
                 <%-- <asp:ListItem Value="MFF">MF Folio Only</asp:ListItem>--%>
             </asp:DropDownList>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="ddlType"
