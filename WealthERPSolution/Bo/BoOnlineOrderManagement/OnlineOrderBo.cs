@@ -30,7 +30,7 @@ namespace BoOnlineOrderManagement
             {
                 rmsAPI = rmsAPI.Replace("#UserAccountId#", userAccountId);
                 rmsAPI = rmsAPI.Replace("#Amount#", amount.ToString());
-                onlineOrderDao.UpdateOrderRMSAccountDebitRequestTime(orderId);
+                onlineOrderDao.UpdateOrderRMSAccountDebitRequestTime(orderId,Convert.ToDecimal(amount));
                 Response = TrigerAPI(rmsAPI);
                 if (Response.Contains("TRUE"))
                 {
