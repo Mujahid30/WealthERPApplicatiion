@@ -350,6 +350,7 @@ namespace WealthERP.Customer
             customerBankAccountVo.BranchAdrLine2 = txtBankAdrLine2.Text.ToString();
             customerBankAccountVo.BranchAdrLine3 = txtBankAdrLine3.Text.ToString();
             customerBankAccountVo.BankCity = txtBankCity.Text.ToString();
+            customerBankAccountVo.BankBranchCode = txtBankBranchCode.Text.ToString();
             if (txtBankAdrPinCode.Text.ToString() != "")
                 customerBankAccountVo.BranchAdrPinCode = int.Parse(txtBankAdrPinCode.Text.ToString());
             //if (txtNEFTCode.Text.ToString() != "")
@@ -492,6 +493,7 @@ namespace WealthERP.Customer
             customerBankAccountVo.BranchAdrLine2 = txtBankAdrLine2.Text.ToString();
             customerBankAccountVo.BranchAdrLine3 = txtBankAdrLine3.Text.ToString();
             customerBankAccountVo.BankCity = txtBankCity.Text.ToString();
+            customerBankAccountVo.BankBranchCode= txtBankBranchCode.Text.ToString();
             if (chk_Ismain.Checked)
             {
                 customerBankAccountVo.IsCurrent = true;
@@ -912,7 +914,7 @@ namespace WealthERP.Customer
             txtBankCity.Text = customerBankAccountVo.BankCity;
             txtRTGSCode.Text = customerBankAccountVo.RTGSCode;
             txtNEFTCode.Text = customerBankAccountVo.NeftCode;
-
+            txtBankBranchCode.Text = customerBankAccountVo.BankBranchCode;
             if (customerBankAccountVo.BranchAdrPinCode.ToString() != "")
             {
                 txtBankAdrPinCode.Text = customerBankAccountVo.BranchAdrPinCode.ToString();
@@ -1049,6 +1051,7 @@ namespace WealthERP.Customer
                 txtBankAdrLine1.Enabled = false;
                 txtBankAdrLine2.Enabled = false;
                 txtBankAdrLine3.Enabled = false;
+                txtBankBranchCode.Enabled = false;
                 txtBankAdrPinCode.Enabled = false;
                 txtRTGSCode.Enabled = false;
                 txtNEFTCode.Enabled = false;
@@ -1074,6 +1077,7 @@ namespace WealthERP.Customer
                 txtBankAdrLine1.Enabled = true;
                 txtBankAdrLine2.Enabled = true;
                 txtBankAdrLine3.Enabled = true;
+                txtBankBranchCode.Enabled = true;
                 txtBankAdrPinCode.Enabled = true;
                 txtNEFTCode.Enabled = true;
                 txtRTGSCode.Enabled = true;

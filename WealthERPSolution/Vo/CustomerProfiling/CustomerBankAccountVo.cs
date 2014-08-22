@@ -35,8 +35,8 @@ namespace VoCustomerProfiling
         private string m_IFSC;
         private float m_Balance;
         private float m_InterestRate;
-        private bool  m_IsCurrent;
-
+        private bool m_IsCurrent;
+        private string m_BankBranchCode;
         public int BankId { get; set; }
         public int BankAccTypeId { get; set; }
         public string NeftCode { get; set; }
@@ -92,7 +92,7 @@ namespace VoCustomerProfiling
             get { return m_CustBankAccId; }
             set { m_CustBankAccId = value; }
         }
-       public string WERPBMBankName
+        public string WERPBMBankName
         {
             get { return m_WERPBMBankName; }
             set { m_WERPBMBankName = value; }
@@ -184,7 +184,11 @@ namespace VoCustomerProfiling
             get { return m_IsCurrent; }
             set { m_IsCurrent = value; }
         }
-
+        public string BankBranchCode
+        {
+            get { return m_BankBranchCode; }
+            set { m_BankBranchCode = value; }
+        }
 
         #endregion Properties
     }

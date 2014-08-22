@@ -25,7 +25,22 @@ namespace VoUser
         private string m_Salutation;
         private string m_PANNum;
         private string m_GuardPANNum;
-        
+        private string m_MinNo1;
+        private string m_MinNo2;
+        private string m_MinNo3;
+        private string m_UINNo;
+        private string m_ESCNo;
+        private int m_POA;
+        private string m_GuardianName;
+        private string m_GuardianRelation;
+        private string m_ContactGuardianPANNum;
+        private decimal m_AnnualIncome;
+        private int m_OfcPhoneExt;
+      
+        private DateTime m_GuardianDob;
+        private string m_GuardianMinNo;
+        private string m_SubBroker;
+
         private string m_Adr1Line1;
         private string m_Adr1Line2;
         private string m_Adr1Line3;
@@ -117,7 +132,7 @@ namespace VoUser
         public int OfficeStateId { get; set; }
         public int CorrespondenceStateId { get; set; }
         public int PermanentStateId { get; set; }
-       
+
         public int OccupationId { get; set; }
         public string FatherHusbandName { get; set; }
         public DateTime Modifiefon { get; set; }
@@ -128,7 +143,7 @@ namespace VoUser
             get { return m_CustomerCategoryCode; }
             set { m_CustomerCategoryCode = value; }
         }
-      
+
         public long RMMobile
         {
             get { return m_RMMobile; }
@@ -216,8 +231,76 @@ namespace VoUser
             get { return m_MothersMaidenName; }
             set { m_MothersMaidenName = value; }
         }
-
-
+        public string MinNo1
+        {
+            get { return m_MinNo1; }
+            set { m_MinNo1 = value; }
+        }
+        public string MinNo2
+        {
+            get { return m_MinNo2; }
+            set { m_MinNo2 = value; }
+        }
+        public string MinNo3
+        {
+            get { return m_MinNo3; }
+            set { m_MinNo3 = value; }
+        }
+        public string ESCNo
+        {
+            get { return m_ESCNo; }
+            set { m_ESCNo = value; }
+        }
+        public string UINNo
+        {
+            get { return m_UINNo; }
+            set { m_UINNo = value; }
+        }
+        public string GuardianName
+        {
+            get { return m_GuardianName; }
+            set { m_GuardianName = value; }
+        }
+        public string GuardianRelation
+        {
+            get { return m_GuardianRelation; }
+            set { m_GuardianRelation = value; }
+        }
+        public string ContactGuardianPANNum
+        {
+            get { return m_ContactGuardianPANNum; }
+            set { m_ContactGuardianPANNum = value; }
+        }
+        public int POA
+        {
+            get { return m_POA; }
+            set { m_POA = value; }
+        }
+        public decimal AnnualIncome
+        {
+            get { return m_AnnualIncome; }
+            set { m_AnnualIncome = value; }
+        }
+        public int OfcPhoneExt
+        {
+            get { return m_OfcPhoneExt; }
+            set { m_OfcPhoneExt = value; }
+        }
+        public DateTime GuardianDob
+        {
+            get { return m_GuardianDob; }
+            set { m_GuardianDob = value; }
+        }
+        public string GuardianMinNo
+        {
+            get { return m_GuardianMinNo; }
+            set { m_GuardianMinNo = value; }
+        }
+        public string SubBroker
+        {
+            get { return m_SubBroker; }
+            set { m_SubBroker = value; }
+        }
 
         public DateTime JobStartDate
         {
@@ -291,7 +374,7 @@ namespace VoUser
         {
             get { return m_ParentId; }
             set { m_ParentId = value; }
-        
+
         }
         public string CustCode
         {
@@ -336,7 +419,7 @@ namespace VoUser
             get { return m_GuardPANNum; }
             set { m_GuardPANNum = value; }
         }
-        
+
         public string Adr1Line1
         {
             get { return m_Adr1Line1; }
@@ -616,7 +699,6 @@ namespace VoUser
             set { m_CustBankAccId = value; }
         }
 
-
         #endregion Properties
 
     }
@@ -667,7 +749,7 @@ namespace VoUser
             get { return m_ProofImage; }
             set { m_ProofImage = value; }
         }
-     
+
         #endregion Properties
     }
 }

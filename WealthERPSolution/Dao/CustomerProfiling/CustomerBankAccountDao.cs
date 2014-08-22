@@ -78,7 +78,10 @@ namespace DaoCustomerProfiling
 
                 db.AddOutParameter(createCustomerBankCmd, "@CB_CustBankAccId", DbType.Int32, 10000);
                 db.AddInParameter(createCustomerBankCmd, "@CB_IsCurrent", DbType.Int16, customerBankAccountVo.IsCurrent);
-
+                if (!string.IsNullOrEmpty(customerBankAccountVo.BankBranchCode.ToString()))
+                    db.AddInParameter(createCustomerBankCmd, "@CB_BankBranchCode", DbType.String, customerBankAccountVo.BankBranchCode);
+                else
+                    db.AddInParameter(createCustomerBankCmd, "@CB_BankBranchCode", DbType.String, 0);
 
 
                 // db.ExecuteNonQuery(createCustomerBankCmd);
@@ -221,7 +224,7 @@ namespace DaoCustomerProfiling
                             customerBankAccountVo.BranchAddStateId = int.Parse(dr["WCMV_Lookup_BranchAddStateId"].ToString());
                         if (!string.IsNullOrEmpty(dr["WCMV_Lookup_BranchAddCountryId"].ToString()))
                             customerBankAccountVo.BranchAddCountryId = int.Parse(dr["WCMV_Lookup_BranchAddCountryId"].ToString());
-
+                        customerBankAccountVo.BankBranchCode = dr["CB_BankBranchCode"].ToString();
                         accountList.Add(customerBankAccountVo);
 
                     }
@@ -390,6 +393,7 @@ namespace DaoCustomerProfiling
                 if (customerBankAccountVo.BranchAddCountryId != 0)
                     db.AddInParameter(updateCustomerBankCmd, "@WCMV_Lookup_BranchAddCountryId", DbType.Int32, customerBankAccountVo.BranchAddCountryId);
                 db.AddInParameter(updateCustomerBankCmd, "@CB_IsCurrent", DbType.Int16, customerBankAccountVo.IsCurrent);
+                db.AddInParameter(updateCustomerBankCmd, "@CB_BankBranchCode", DbType.String, customerBankAccountVo.BankBranchCode);
                 db.ExecuteNonQuery(updateCustomerBankCmd);
 
                 bResult = true;
@@ -615,7 +619,8 @@ namespace DaoCustomerProfiling
                         customerBankAccountVo.BranchAddStateId = int.Parse(dr["WCMV_Lookup_BranchAddStateId"].ToString());
                     if (!string.IsNullOrEmpty(dr["WCMV_Lookup_BranchAddCountryId"].ToString()))
                         customerBankAccountVo.BranchAddCountryId = int.Parse(dr["WCMV_Lookup_BranchAddCountryId"].ToString());
-
+                    if (!string.IsNullOrEmpty(dr["CB_BankBranchCode"].ToString()))
+                        customerBankAccountVo.BankBranchCode = dr["CB_BankBranchCode"].ToString();
                     customerBankAccountVo.IsCurrent = Convert.ToBoolean(dr["CB_IsCurrent"]);
 
                 }

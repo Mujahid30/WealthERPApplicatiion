@@ -588,19 +588,19 @@
                                                         OnClick="btnSave_Click" />
                                                 </td>
                                             </tr>--%>
-                                                                <tr>
-                                                                    <td>
-                                                                    </td>
-                                                                    <td>
-                                                                        <asp:Button ID="Button1" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
-                                                                            runat="server" CssClass="PCGButton" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'
-                                                                            ValidationGroup="Submit"></asp:Button>
-                                                                    </td>
-                                                                    <td>
-                                                                        <asp:Button ID="Button2" Text="Cancel" runat="server" CausesValidation="False" CssClass="PCGButton"
-                                                                            CommandName="Cancel"></asp:Button>
-                                                                    </td>
-                                                                </tr>
+                                                                    <tr>
+                                                                        <td>
+                                                                        </td>
+                                                                        <td>
+                                                                            <asp:Button ID="Button1" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
+                                                                                runat="server" CssClass="PCGButton" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'
+                                                                                ValidationGroup="Submit"></asp:Button>
+                                                                        </td>
+                                                                        <td>
+                                                                            <asp:Button ID="Button2" Text="Cancel" runat="server" CausesValidation="False" CssClass="PCGButton"
+                                                                                CommandName="Cancel"></asp:Button>
+                                                                        </td>
+                                                                    </tr>
                                                             </table>
                                                         </td>
                                                     </tr>
@@ -1580,6 +1580,14 @@
                             ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" CssClass="revPCG"></asp:RegularExpressionValidator>
                     </td>
                 </tr>
+                <tr>
+                    <td class="leftField">
+                        <asp:Label ID="lblOfcPhoneExt" CssClass="FieldName" runat="server" Text="Office Extension No:"></asp:Label>
+                    </td>
+                    <td>
+                        <asp:TextBox ID="txtOfcPhoneExt" runat="server" CssClass="txtField" MaxLength="10"></asp:TextBox>
+                    </td>
+                </tr>
             </table>
         </asp:Panel>
     </telerik:RadPageView>
@@ -1625,6 +1633,76 @@
                     <td class="rightField">
                         <asp:DropDownList ID="ddlNationality" runat="server" CssClass="cmbField">
                         </asp:DropDownList>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftField">
+                        <asp:Label ID="lblMinno1" CssClass="FieldName" runat="server" Text="MinNo1:"></asp:Label>
+                    </td>
+                    <td class="rightField" width="25%">
+                        <asp:TextBox ID="txtMinNo1" runat="server" CssClass="txtField"></asp:TextBox>
+                    </td>
+                    <td class="leftField">
+                        <asp:Label ID="lblMinno2" CssClass="FieldName" runat="server" Text="MinNo2:"></asp:Label>
+                    </td>
+                    <td class="rightField" width="25%">
+                        <asp:TextBox ID="txtMinNo2" runat="server" CssClass="txtField"></asp:TextBox>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftField">
+                        <asp:Label ID="lblMinno3" CssClass="FieldName" runat="server" Text="MinNo3:"></asp:Label>
+                    </td>
+                    <td class="rightField" width="25%">
+                        <asp:TextBox ID="txtMinNo3" runat="server" CssClass="txtField"></asp:TextBox>
+                    </td>
+                    <td class="leftField">
+                        <asp:Label ID="lblESCNo" CssClass="FieldName" runat="server" Text="ESCNo:"></asp:Label>
+                    </td>
+                    <td class="rightField" width="25%">
+                        <asp:TextBox ID="txtESCNo" runat="server" CssClass="txtField"></asp:TextBox>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftField">
+                        <asp:Label ID="lblUINNo" CssClass="FieldName" runat="server" Text="UINNo:"></asp:Label>
+                    </td>
+                    <td class="rightField" width="25%">
+                        <asp:TextBox ID="txtUINNo" runat="server" CssClass="txtField"></asp:TextBox>
+                    </td>
+                    <td class="leftField">
+                        <asp:Label ID="lblGuardianName" CssClass="FieldName" runat="server" Text="GuardianName:"></asp:Label>
+                    </td>
+                    <td class="rightField" width="25%">
+                        <asp:TextBox ID="txtGuardianName" runat="server" CssClass="txtField"></asp:TextBox>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftField">
+                        <asp:Label ID="lblGuardianRelation" CssClass="FieldName" runat="server" Text="GuardianRelation:"></asp:Label>
+                    </td>
+                    <td class="rightField" width="25%">
+                        <asp:TextBox ID="txtGuardianRelation" runat="server" CssClass="txtField"></asp:TextBox>
+                    </td>
+                    <td class="leftField">
+                        <asp:Label ID="lblContactGuardianPANNum" CssClass="FieldName" runat="server" Text="GuardianPANNum:"></asp:Label>
+                    </td>
+                    <td class="rightField" width="25%">
+                        <asp:TextBox ID="txtContactGuardianPANNum" runat="server" CssClass="txtField"></asp:TextBox>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftField">
+                        <asp:Label ID="lblPOA" CssClass="FieldName" runat="server" Text="POA:"></asp:Label>
+                    </td>
+                    <td class="rightField" width="25%">
+                        <asp:TextBox ID="txtPOA" runat="server" CssClass="txtField"></asp:TextBox>
+                    </td>
+                    <td class="leftField">
+                        <asp:Label ID="lblAnnualIncome" CssClass="FieldName" runat="server" Text="AnnualIncome:"></asp:Label>
+                    </td>
+                    <td class="rightField" width="25%">
+                        <asp:TextBox ID="txtAnnualIncome" runat="server" CssClass="txtField"></asp:TextBox>
                     </td>
                 </tr>
                 <tr>
@@ -1695,11 +1773,58 @@
                             <DateInput ID="DateInput1" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
                             </DateInput>
                         </telerik:RadDatePicker>
-                          <span id="Span13" class="spnRequiredField">*</span>
-                        <asp:RequiredFieldValidator ID="rfvtxtDate" ControlToValidate="txtDate"
+                        <span id="Span13" class="spnRequiredField">*</span>
+                        <asp:RequiredFieldValidator ID="rfvtxtDate" ControlToValidate="txtDate" ValidationGroup="btnEdit"
+                            ErrorMessage="<br />Please enter DOB" Display="Dynamic" runat="server" CssClass="rfvPCG"
+                            InitialValue="">
+                        </asp:RequiredFieldValidator>
+                    </td>
+                </tr>
+                <tr>
+                    <%--  <td class="leftField">
+                        <asp:Label ID="lblTaxStatus" CssClass="FieldName" runat="server" Text="Tax Status:"></asp:Label>
+                    </td>
+                    <td class="rightField">
+                        <%-- <asp:DropDownList ID="ddlMaritalStatus" runat="server" CssClass="cmbField" OnChange="OnMaritalStatusChange(this)">
+                    </asp:DropDownList>--%>
+                    <%--      <asp:DropDownList ID="ddlTaxStatus" runat="server" CssClass="cmbField">
+                        </asp:DropDownList>
+                    </td>--%>
+                    <td class="leftField" width="25%">
+                        <asp:Label ID="lblGuardianMinNo" CssClass="FieldName" runat="server" Text="GuardianMinNo:"></asp:Label>
+                    </td>
+                    <td class="rightField" width="25%">
+                        <asp:TextBox ID="txtGuardianMinNo" runat="server" CssClass="txtField"></asp:TextBox>
+                    </td>
+                    <td class="leftField">
+                        <asp:Label ID="lblGuardianDOB" runat="server" CssClass="FieldName" Text="Guardian Date Of Birth:"></asp:Label>
+                    </td>
+                    <td class="rightField">
+                        <asp:CompareValidator ID="CompareValidator4" runat="server" ErrorMessage="<br/>Please enter a valid date."
+                            Type="Date" ControlToValidate="txtGuardianDOB" CssClass="cvPCG" Operator="DataTypeCheck"
+                            ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
+                        <telerik:RadDatePicker ID="txtGuardianDOB" CssClass="txtTo" runat="server" Culture="English (United States)"
+                            Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                            <Calendar ID="Calendar3" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
+                                ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
+                            </Calendar>
+                            <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                            <DateInput ID="DateInput3" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                            </DateInput>
+                        </telerik:RadDatePicker>
+                        <span id="Span14" class="spnRequiredField">*</span>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator7" ControlToValidate="txtDate"
                             ValidationGroup="btnEdit" ErrorMessage="<br />Please enter DOB" Display="Dynamic"
                             runat="server" CssClass="rfvPCG" InitialValue="">
                         </asp:RequiredFieldValidator>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftField">
+                        <asp:Label ID="lblSubBroker" CssClass="FieldName" runat="server" Text="SubBroker:"></asp:Label>
+                    </td>
+                    <td class="rightField" width="25%">
+                        <asp:TextBox ID="txtSubBroker" runat="server" CssClass="txtField"></asp:TextBox>
                     </td>
                 </tr>
             </table>

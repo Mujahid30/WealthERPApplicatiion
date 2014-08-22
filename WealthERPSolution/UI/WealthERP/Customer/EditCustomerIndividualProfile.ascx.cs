@@ -161,13 +161,14 @@ namespace WealthERP.Customer
                     }
 
                     BindDropDowns();
+                    //BindTaxStatus();
                     //BinSubtypeDropdown();
 
                     //Bind Adviser Branch List
 
                     BindListBranch(customerVo.RmId, "rm");
 
-                    if (customerVo.Type==null || customerVo.Type.ToUpper().ToString() == "IND")
+                    if (customerVo.Type == null || customerVo.Type.ToUpper().ToString() == "IND")
                     {
                         rbtnIndividual.Checked = true;
                         BinSubtypeDropdown(1001);
@@ -197,12 +198,12 @@ namespace WealthERP.Customer
                     if (customerRMVo.FirstName + " " + customerRMVo.MiddleName + " " + customerRMVo.LastName != null && (customerRMVo.FirstName + " " + customerRMVo.MiddleName + " " + customerRMVo.LastName).ToString() != "")
                         lblRM.Text = customerRMVo.FirstName + " " + customerRMVo.MiddleName + " " + customerRMVo.LastName;
                     else
-                        lblRM.Text = ""; 
+                        lblRM.Text = "";
                     if (customerVo.MaritalStatus != null)
 
                         ddlMaritalStatus.SelectedValue = customerVo.MaritalStatus.ToString();
                     if (ddlMaritalStatus.SelectedValue == "MA")
-                        txtMarriageDate.Enabled = true; 
+                        txtMarriageDate.Enabled = true;
                     else
                         txtMarriageDate.Enabled = false;
 
@@ -230,6 +231,7 @@ namespace WealthERP.Customer
                         ddlSalutation.SelectedValue = customerVo.Salutation;
                     else
                         ddlSalutation.SelectedIndex = 0;
+
                     if (customerVo.DummyPAN == 1)
                     {
                         chkdummypan.Checked = true;
@@ -283,7 +285,7 @@ namespace WealthERP.Customer
                         ddlCorrAdrCity.SelectedValue = customerVo.customerCity.ToString();
                     else
                         ddlCorrAdrCity.SelectedValue = "--Select---";
-                    if (customerVo.Adr1State!=null)
+                    if (customerVo.Adr1State != null)
                         ddlCorrAdrState.SelectedValue = customerVo.Adr1State.ToString();
                     else
                         ddlCorrAdrState.SelectedValue = "--Select---";
@@ -325,6 +327,7 @@ namespace WealthERP.Customer
                     txtEmail.Text = customerVo.Email;
                     txtAltEmail.Text = customerVo.AltEmail;
                     txtRBIRefNo.Text = customerVo.RBIRefNum;
+                    txtOfcPhoneExt.Text = customerVo.OfcPhoneExt.ToString();
                     if (!string.IsNullOrEmpty(customerVo.FatherHusbandName))
                         txtFatherHusband.Text = customerVo.FatherHusbandName;
                     txtSlab.Text = customerVo.TaxSlab.ToString();
@@ -345,6 +348,22 @@ namespace WealthERP.Customer
                         txtJobStartDate.Text = customerVo.JobStartDate.ToShortDateString();
 
                     txtMotherMaidenName.Text = customerVo.MothersMaidenName;
+                    txtMinNo1.Text = customerVo.MinNo1;
+                    txtMinNo2.Text = customerVo.MinNo2;
+                    txtMinNo3.Text = customerVo.MinNo3;
+                    txtESCNo.Text = customerVo.ESCNo;
+                    txtUINNo.Text = customerVo.UINNo;
+                    txtGuardianName.Text = customerVo.GuardianName;
+                    txtGuardianRelation.Text = customerVo.GuardianRelation;
+                    txtContactGuardianPANNum.Text = customerVo.ContactGuardianPANNum;
+                    txtPOA.Text = customerVo.POA.ToString();
+                    txtAnnualIncome.Text = customerVo.AnnualIncome.ToString();
+                    if (customerVo.GuardianDob == DateTime.MinValue)
+                        txtGuardianDOB.SelectedDate = null;
+                    else
+                        txtGuardianDOB.SelectedDate = customerVo.GuardianDob;
+                    txtGuardianMinNo.Text = customerVo.GuardianMinNo;
+                    txtSubBroker.Text = customerVo.SubBroker;
                     //txtMember_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
                     //txtMember_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
                     BindFamilyAssociationList(customerVo.CustomerId);
@@ -552,7 +571,7 @@ namespace WealthERP.Customer
                 ddlPermAdrCity.Items.Insert(0, new ListItem("--SELECT--", "0"));
 
 
-                if ( customerVo.Type==null|| customerVo.Type.ToUpper().ToString() == "IND")
+                if (customerVo.Type == null || customerVo.Type.ToUpper().ToString() == "IND")
                 {
                     dtCustomerSubType = XMLBo.GetCustomerSubType(path, "IND");
 
@@ -591,7 +610,17 @@ namespace WealthERP.Customer
 
             }
         }
+        //private void BindTaxStatus()
+        //{
+        //    CustomerBo customerBo = new CustomerBo();
+        //    DataSet ds = customerBo.GetTaxStatusList();
 
+        //    ddlTaxStatus.DataSource = ds.Tables[0];
+        //    ddlTaxStatus.DataTextField = "WCMV_Name";
+        //    ddlTaxStatus.DataValueField = "WCMV_LookupId";
+        //    ddlTaxStatus.DataBind();
+        //    ddlTaxStatus.Items.Insert(0, new ListItem("Select a TaxStatus", "Select a TaxStatus"));
+        //}
         private void BindListBranch(int Id, string userType)
         {
             UploadCommonBo uploadCommonBo = new UploadCommonBo();
@@ -814,9 +843,11 @@ namespace WealthERP.Customer
 
                     customerVo.Email = txtEmail.Text.ToString();
                     customerVo.AltEmail = txtAltEmail.Text.ToString();
-                    if(!string.IsNullOrEmpty(txtFatherHusband.Text))
+                    if (txtOfcPhoneExt.Text != "")
+                        customerVo.OfcPhoneExt = int.Parse(txtOfcPhoneExt.Text);
+                    if (!string.IsNullOrEmpty(txtFatherHusband.Text))
                     {
-                        customerVo.FatherHusbandName=txtFatherHusband.Text;
+                        customerVo.FatherHusbandName = txtFatherHusband.Text;
                     }
                     //if (ddlOccupation.SelectedIndex == 0)
                     //    customerVo.Occupation = null;
@@ -867,7 +898,6 @@ namespace WealthERP.Customer
                     else
                         customerVo.Nationality = ddlNationality.SelectedItem.Value.ToString();
 
-
                     customerVo.RBIRefNum = txtRBIRefNo.Text.ToString();
                     if (txtRBIRefDate.Text == "")
                         //customerVo.RBIApprovalDate = DateTime.Parse("1/1/0001 12:00:00 AM");
@@ -895,6 +925,25 @@ namespace WealthERP.Customer
                     else
                         customerVo.JobStartDate = DateTime.Parse(txtJobStartDate.Text.ToString());
                     customerVo.MothersMaidenName = txtMotherMaidenName.Text.ToString();
+                    customerVo.MinNo1 = txtMinNo1.Text.ToString();
+                    customerVo.MinNo2 = txtMinNo2.Text.ToString();
+                    customerVo.MinNo3 = txtMinNo3.Text.ToString();
+                    customerVo.ESCNo = txtESCNo.Text.ToString();
+                    customerVo.UINNo = txtUINNo.Text.ToString();
+                    customerVo.GuardianName = txtGuardianName.Text.ToString();
+                    customerVo.GuardianRelation = txtGuardianRelation.Text.ToString();
+                    customerVo.ContactGuardianPANNum = txtContactGuardianPANNum.Text.ToString();
+                    customerVo.GuardianMinNo = txtGuardianMinNo.Text.ToString();
+                    customerVo.SubBroker = txtSubBroker.Text.ToString();
+                    if (txtGuardianDOB.SelectedDate.ToString() == "")
+                        customerVo.GuardianDob = DateTime.MinValue;
+                    else
+                        customerVo.GuardianDob = DateTime.Parse(txtGuardianDOB.SelectedDate.ToString());
+                    if (txtPOA.Text != "")
+                        customerVo.POA = int.Parse(txtPOA.Text);
+                    if (txtAnnualIncome.Text != "")
+                        customerVo.AnnualIncome = decimal.Parse(txtAnnualIncome.Text);
+
                     if (chkKYC.Checked)
                     {
                         customerVo.MfKYC = 1;
@@ -917,7 +966,7 @@ namespace WealthERP.Customer
                     }
 
 
-                    if (customerBo.UpdateCustomer(customerVo,userVo.UserId))
+                    if (customerBo.UpdateCustomer(customerVo, userVo.UserId))
                     {
                         customerVo = customerBo.GetCustomer(customerVo.CustomerId);
                         Session["CustomerVo"] = customerVo;
@@ -2100,7 +2149,7 @@ namespace WealthERP.Customer
                 TextBox txtMember = editedItem.FindControl("txtMember") as TextBox;
                 RadDatePicker RadDatePicker1 = editedItem.FindControl("RadDatePicker1") as RadDatePicker;
                 Label Label18 = editedItem.FindControl("Label18") as Label;
-                
+
                 if (e.Item.RowIndex == -1)
                 {
                     txtMember.Enabled = true;

@@ -257,7 +257,7 @@ namespace DaoCustomerProfiling
             return getschemePlanCodeDs;
         }
 
-        public DataSet GetSchemeMapDetails(string ExternalType, int AmcCode, string Category, string Type,int mtype)
+        public DataSet GetSchemeMapDetails(string ExternalType, int AmcCode, string Category, string Type, int mtype)
         {
             CustomerVo customerVo = null;
             Database db;
@@ -295,6 +295,40 @@ namespace DaoCustomerProfiling
                 throw exBase;
             }
             return getschemePlanCodeDs;
+        }
+        public DataSet GetTaxStatusList()
+        {
+            CustomerVo customerVo = null;
+            Database db;
+            DbCommand getCustomerCmd;
+            DataSet getTaxStatusDs;
+            DataRow dr;
+
+            try
+            {
+                
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getCustomerCmd = db.GetStoredProcCommand("SP_GetTaxStatusList");
+                getTaxStatusDs = db.ExecuteDataSet(getCustomerCmd);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerDao.cs:GetDataTransMapDetails()");
+                object[] objects = new object[1];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return getTaxStatusDs;
         }
         public DataSet GetDataTransMapDetails(string ExternalType)
         {
@@ -373,7 +407,7 @@ namespace DaoCustomerProfiling
                     }
                     else
                     {
-                        customerVo.MiddleName = string.Empty;    
+                        customerVo.MiddleName = string.Empty;
                     }
                     if (dr["C_IsDummyPAN"].ToString() != string.Empty)
                         customerVo.DummyPAN = int.Parse(dr["C_IsDummyPAN"].ToString());
@@ -406,34 +440,34 @@ namespace DaoCustomerProfiling
                     if (!string.IsNullOrEmpty(dr["C_DOB"].ToString()))
                         customerVo.Dob = Convert.ToDateTime(dr["C_DOB"].ToString());
                     //customerVo.Dob = DateTime.Parse(dr["C_DOB"].ToString());
-                   if(!string.IsNullOrEmpty(dr["XCT_CustomerTypeCode"].ToString()))
-                      customerVo.Type = dr["XCT_CustomerTypeCode"].ToString();
-                   if (!string.IsNullOrEmpty(dr["XCST_CustomerSubTypeCode"].ToString()))
-                    customerVo.SubType = dr["XCST_CustomerSubTypeCode"].ToString();
-                   if (!string.IsNullOrEmpty(dr["C_Salutation"].ToString()))
-                    customerVo.Salutation = dr["C_Salutation"].ToString();
-                   if (!string.IsNullOrEmpty(dr["C_PANNum"].ToString()))
-                    customerVo.PANNum = dr["C_PANNum"].ToString();
-                   if (!string.IsNullOrEmpty(dr["C_Adr1Line1"].ToString()))
-                    customerVo.Adr1Line1 = dr["C_Adr1Line1"].ToString();
-                   if (!string.IsNullOrEmpty(dr["C_Adr1Line2"].ToString()))
-                    customerVo.Adr1Line2 = dr["C_Adr1Line2"].ToString();
-                   if (!string.IsNullOrEmpty(dr["C_Adr1Line3"].ToString()))
-                    customerVo.Adr1Line3 = dr["C_Adr1Line3"].ToString();
-                   if (!string.IsNullOrEmpty(dr["C_Adr1PinCode"].ToString()))
-                    customerVo.Adr1PinCode = int.Parse(dr["C_Adr1PinCode"].ToString());
-                   if (!string.IsNullOrEmpty(dr["WCMV_City_Id"].ToString()))
-                       customerVo.Adr1City = dr["WCMV_City_Id"].ToString();
-                   if (!string.IsNullOrEmpty(dr["C_WCMV_State_Id"].ToString()))
-                       customerVo.Adr1State = dr["C_WCMV_State_Id"].ToString();
+                    if (!string.IsNullOrEmpty(dr["XCT_CustomerTypeCode"].ToString()))
+                        customerVo.Type = dr["XCT_CustomerTypeCode"].ToString();
+                    if (!string.IsNullOrEmpty(dr["XCST_CustomerSubTypeCode"].ToString()))
+                        customerVo.SubType = dr["XCST_CustomerSubTypeCode"].ToString();
+                    if (!string.IsNullOrEmpty(dr["C_Salutation"].ToString()))
+                        customerVo.Salutation = dr["C_Salutation"].ToString();
+                    if (!string.IsNullOrEmpty(dr["C_PANNum"].ToString()))
+                        customerVo.PANNum = dr["C_PANNum"].ToString();
+                    if (!string.IsNullOrEmpty(dr["C_Adr1Line1"].ToString()))
+                        customerVo.Adr1Line1 = dr["C_Adr1Line1"].ToString();
+                    if (!string.IsNullOrEmpty(dr["C_Adr1Line2"].ToString()))
+                        customerVo.Adr1Line2 = dr["C_Adr1Line2"].ToString();
+                    if (!string.IsNullOrEmpty(dr["C_Adr1Line3"].ToString()))
+                        customerVo.Adr1Line3 = dr["C_Adr1Line3"].ToString();
+                    if (!string.IsNullOrEmpty(dr["C_Adr1PinCode"].ToString()))
+                        customerVo.Adr1PinCode = int.Parse(dr["C_Adr1PinCode"].ToString());
+                    if (!string.IsNullOrEmpty(dr["WCMV_City_Id"].ToString()))
+                        customerVo.Adr1City = dr["WCMV_City_Id"].ToString();
+                    if (!string.IsNullOrEmpty(dr["C_WCMV_State_Id"].ToString()))
+                        customerVo.Adr1State = dr["C_WCMV_State_Id"].ToString();
                     if (!string.IsNullOrEmpty(dr["C_Adr1Country"].ToString()))
-                    customerVo.Adr1Country = dr["C_Adr1Country"].ToString();
+                        customerVo.Adr1Country = dr["C_Adr1Country"].ToString();
                     if (!string.IsNullOrEmpty(dr["C_Adr2Line1"].ToString()))
-                     customerVo.Adr2Line1 = dr["C_Adr2Line1"].ToString();
+                        customerVo.Adr2Line1 = dr["C_Adr2Line1"].ToString();
                     if (!string.IsNullOrEmpty(dr["C_Adr2Line2"].ToString()))
-                      customerVo.Adr2Line2 = dr["C_Adr2Line2"].ToString();
+                        customerVo.Adr2Line2 = dr["C_Adr2Line2"].ToString();
                     if (!string.IsNullOrEmpty(dr["C_Adr2Line3"].ToString()))
-                      customerVo.Adr2Line3 = dr["C_Adr2Line3"].ToString();
+                        customerVo.Adr2Line3 = dr["C_Adr2Line3"].ToString();
                     if (!string.IsNullOrEmpty(dr["C_Adr2PinCode"].ToString()))
                         customerVo.Adr2PinCode = int.Parse(dr["C_Adr2PinCode"].ToString());
                     if (!string.IsNullOrEmpty(dr["C_Adr2City"].ToString()))
@@ -559,7 +593,7 @@ namespace DaoCustomerProfiling
                     if (!string.IsNullOrEmpty(dr["C_IsRealInvestor"].ToString()))
                         customerVo.IsRealInvestor = bool.Parse(dr["C_IsRealInvestor"].ToString()) ? true : false;
                     if (!string.IsNullOrEmpty(dr["C_WCMV_TaxStatus_Id"].ToString()))
-                        customerVo.TaxStatusCustomerSubTypeId =int.Parse(dr["C_WCMV_TaxStatus_Id"].ToString());
+                        customerVo.TaxStatusCustomerSubTypeId = int.Parse(dr["C_WCMV_TaxStatus_Id"].ToString());
 
                     if (!string.IsNullOrEmpty(dr["C_WCMV_CorrAdrCity_Id"].ToString()))
                         customerVo.CorrespondenceCityId = int.Parse(dr["C_WCMV_CorrAdrCity_Id"].ToString());
@@ -575,11 +609,55 @@ namespace DaoCustomerProfiling
                         customerVo.OfficeCityId = int.Parse(dr["C_WCMV_OfficeAdrCity_Id"].ToString());
                     if (!string.IsNullOrEmpty(dr["C_WCMV_OfficeAdrState_Id"].ToString()))
                         customerVo.OfficeStateId = int.Parse(dr["C_WCMV_OfficeAdrState_Id"].ToString());
-                    
+
                     if (!string.IsNullOrEmpty(dr["C_WCMV_Occupation_Id"].ToString()))
                         customerVo.OccupationId = int.Parse(dr["C_WCMV_Occupation_Id"].ToString());
                     if (!string.IsNullOrEmpty(dr["C_WCMV_City_Id"].ToString()))
                         customerVo.customerCity = int.Parse(dr["C_WCMV_City_Id"].ToString());
+                    if (!string.IsNullOrEmpty(dr["C_MinNO1"].ToString()))
+                        customerVo.MinNo1 = dr["C_MinNO1"].ToString();
+                    else
+                        customerVo.MinNo1 = string.Empty;
+                    if (!string.IsNullOrEmpty(dr["C_MinNO2"].ToString()))
+                        customerVo.MinNo2 = dr["C_MinNO2"].ToString();
+                    else
+                        customerVo.MinNo2 = string.Empty;
+                    if (!string.IsNullOrEmpty(dr["C_MinNO3"].ToString()))
+                        customerVo.MinNo3 = dr["C_MinNO3"].ToString();
+                    else
+                        customerVo.MinNo3 = string.Empty;
+                    if (!string.IsNullOrEmpty(dr["C_ESCNo"].ToString()))
+                        customerVo.ESCNo = dr["C_ESCNo"].ToString();
+                    else
+                        customerVo.ESCNo = string.Empty;
+                    if (!string.IsNullOrEmpty(dr["C_UINNo"].ToString()))
+                        customerVo.UINNo = dr["C_UINNo"].ToString();
+                    else
+                        customerVo.UINNo = string.Empty;
+                    if (!string.IsNullOrEmpty(dr["C_GuardianName"].ToString()))
+                        customerVo.GuardianName = dr["C_GuardianName"].ToString();
+                    else
+                        customerVo.GuardianName = string.Empty;
+                    if (!string.IsNullOrEmpty(dr["XR_GuardianRelation"].ToString()))
+                        customerVo.GuardianRelation = dr["XR_GuardianRelation"].ToString();
+                    else
+                        customerVo.GuardianRelation = string.Empty;
+                    if (!string.IsNullOrEmpty(dr["C_ContactGuardianPANNum"].ToString()))
+                        customerVo.ContactGuardianPANNum = dr["C_ContactGuardianPANNum"].ToString();
+                    else
+                        customerVo.ContactGuardianPANNum = string.Empty;
+                    if (!string.IsNullOrEmpty(dr["C_POA"].ToString()))
+                        customerVo.POA = int.Parse(dr["C_POA"].ToString());
+                    if (!string.IsNullOrEmpty(dr["C_AnnualIncome"].ToString()))
+                        customerVo.AnnualIncome = decimal.Parse(dr["C_AnnualIncome"].ToString());
+                    if (!string.IsNullOrEmpty(dr["C_OfcPhoneExt"].ToString()))
+                        customerVo.OfcPhoneExt = int.Parse(dr["C_OfcPhoneExt"].ToString());
+                    if (!string.IsNullOrEmpty(dr["C_GuardianDOB"].ToString()))
+                        customerVo.GuardianDob = Convert.ToDateTime(dr["C_GuardianDOB"].ToString());
+                    if (!string.IsNullOrEmpty(dr["C_GuardianMinNo"].ToString()))
+                        customerVo.GuardianMinNo =dr["C_GuardianMinNo"].ToString();
+                    if (!string.IsNullOrEmpty(dr["C_SubBroker"].ToString()))
+                        customerVo.SubBroker = dr["C_SubBroker"].ToString();
                 }
             }
 
@@ -720,7 +798,7 @@ namespace DaoCustomerProfiling
                     customerVo.Adr1Line2 = dr["C_Adr1Line2"].ToString();
                     customerVo.Adr1Line3 = dr["C_Adr1Line3"].ToString();
                     if (!string.IsNullOrEmpty(dr["C_Adr1PinCode"].ToString()))
-                    customerVo.Adr1PinCode = int.Parse(dr["C_Adr1PinCode"].ToString());
+                        customerVo.Adr1PinCode = int.Parse(dr["C_Adr1PinCode"].ToString());
                     customerVo.Adr1City = dr["C_Adr1City"].ToString();
                     customerVo.Adr1State = dr["C_Adr1State"].ToString();
                     customerVo.Adr1Country = dr["C_Adr1Country"].ToString();
@@ -728,40 +806,40 @@ namespace DaoCustomerProfiling
                     customerVo.Adr2Line2 = dr["C_Adr2Line2"].ToString();
                     customerVo.Adr2Line3 = dr["C_Adr2Line3"].ToString();
                     if (!string.IsNullOrEmpty(dr["C_Adr2PinCode"].ToString()))
-                    customerVo.Adr2PinCode = int.Parse(dr["C_Adr2PinCode"].ToString());
+                        customerVo.Adr2PinCode = int.Parse(dr["C_Adr2PinCode"].ToString());
                     customerVo.Adr2City = dr["C_Adr2City"].ToString();
                     customerVo.Adr2State = dr["C_Adr2State"].ToString();
                     customerVo.Adr2Country = dr["C_Adr2Country"].ToString();
                     if (!string.IsNullOrEmpty(dr["C_ResISDCode"].ToString()))
-                    customerVo.ResISDCode = int.Parse(dr["C_ResISDCode"].ToString());
+                        customerVo.ResISDCode = int.Parse(dr["C_ResISDCode"].ToString());
                     if (!string.IsNullOrEmpty(dr["C_ResSTDCode"].ToString()))
-                    customerVo.ResSTDCode = int.Parse(dr["C_ResSTDCode"].ToString());
+                        customerVo.ResSTDCode = int.Parse(dr["C_ResSTDCode"].ToString());
                     if (!string.IsNullOrEmpty(dr["C_ResPhoneNum"].ToString()))
-                    customerVo.ResPhoneNum = int.Parse(dr["C_ResPhoneNum"].ToString());
+                        customerVo.ResPhoneNum = int.Parse(dr["C_ResPhoneNum"].ToString());
                     if (!string.IsNullOrEmpty(dr["C_OfcISDCode"].ToString()))
-                    customerVo.OfcISDCode = int.Parse(dr["C_OfcISDCode"].ToString());
+                        customerVo.OfcISDCode = int.Parse(dr["C_OfcISDCode"].ToString());
                     if (!string.IsNullOrEmpty(dr["C_OfcSTDCode"].ToString()))
-                    customerVo.OfcSTDCode = int.Parse(dr["C_OfcSTDCode"].ToString());
+                        customerVo.OfcSTDCode = int.Parse(dr["C_OfcSTDCode"].ToString());
                     if (!string.IsNullOrEmpty(dr["C_OfcPhoneNum"].ToString()))
-                    customerVo.OfcPhoneNum = int.Parse(dr["C_OfcPhoneNum"].ToString());
+                        customerVo.OfcPhoneNum = int.Parse(dr["C_OfcPhoneNum"].ToString());
                     customerVo.Email = dr["C_Email"].ToString();
                     customerVo.AltEmail = dr["C_AltEmail"].ToString();
                     if (!string.IsNullOrEmpty(dr["C_Mobile1"].ToString()))
-                    customerVo.Mobile1 = long.Parse(dr["C_Mobile1"].ToString());
+                        customerVo.Mobile1 = long.Parse(dr["C_Mobile1"].ToString());
                     if (!string.IsNullOrEmpty(dr["C_Mobile2"].ToString()))
-                    customerVo.Mobile2 = long.Parse(dr["C_Mobile2"].ToString());
+                        customerVo.Mobile2 = long.Parse(dr["C_Mobile2"].ToString());
                     if (!string.IsNullOrEmpty(dr["C_ISDFax"].ToString()))
-                    customerVo.ISDFax = int.Parse(dr["C_ISDFax"].ToString());
+                        customerVo.ISDFax = int.Parse(dr["C_ISDFax"].ToString());
                     if (!string.IsNullOrEmpty(dr["C_STDFax"].ToString()))
-                    customerVo.STDFax = int.Parse(dr["C_STDFax"].ToString());
+                        customerVo.STDFax = int.Parse(dr["C_STDFax"].ToString());
                     if (!string.IsNullOrEmpty(dr["C_Fax"].ToString()))
-                    customerVo.Fax = int.Parse(dr["C_Fax"].ToString());
+                        customerVo.Fax = int.Parse(dr["C_Fax"].ToString());
                     if (!string.IsNullOrEmpty(dr["C_OfcFaxISD"].ToString()))
-                    customerVo.OfcISDFax = int.Parse(dr["C_OfcFaxISD"].ToString());
+                        customerVo.OfcISDFax = int.Parse(dr["C_OfcFaxISD"].ToString());
                     if (!string.IsNullOrEmpty(dr["C_OfcFax"].ToString()))
                         customerVo.OfcSTDFax = int.Parse(dr["C_OfcFax"].ToString());
                     if (!string.IsNullOrEmpty(dr["C_OfcFax"].ToString()))
-                    customerVo.OfcFax = int.Parse(dr["C_OfcFax"].ToString());
+                        customerVo.OfcFax = int.Parse(dr["C_OfcFax"].ToString());
                     customerVo.Occupation = dr["XO_OccupationCode"].ToString();
                     customerVo.Qualification = dr["XQ_QualificationCode"].ToString();
                     customerVo.MaritalStatus = dr["XMS_MaritalStatusCode"].ToString();
@@ -774,7 +852,7 @@ namespace DaoCustomerProfiling
                     customerVo.OfcAdrLine2 = dr["C_OfcAdrLine2"].ToString();
                     customerVo.OfcAdrLine3 = dr["C_OfcAdrLine3"].ToString();
                     if (!string.IsNullOrEmpty(dr["C_OfcAdrPinCode"].ToString()))
-                    customerVo.OfcAdrPinCode = int.Parse(dr["C_OfcAdrPinCode"].ToString());
+                        customerVo.OfcAdrPinCode = int.Parse(dr["C_OfcAdrPinCode"].ToString());
                     customerVo.OfcAdrCity = dr["C_OfcAdrCity"].ToString();
                     customerVo.OfcAdrState = dr["C_OfcAdrState"].ToString();
                     customerVo.OfcAdrCountry = dr["C_OfcAdrCountry"].ToString();
@@ -931,7 +1009,7 @@ namespace DaoCustomerProfiling
         {
             Database db;
             DbCommand dbCommand;
-            int typeCode=0;
+            int typeCode = 0;
             try
             {
 
@@ -939,8 +1017,8 @@ namespace DaoCustomerProfiling
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 dbCommand = db.GetStoredProcCommand("SP_GetCustomerSubType");
                 db.AddInParameter(dbCommand, "@CustomerId", DbType.Int32, customerId);
-                if(db.ExecuteScalar(dbCommand) !=null)              
-                typeCode = int.Parse(db.ExecuteScalar(dbCommand).ToString());
+                if (db.ExecuteScalar(dbCommand) != null)
+                    typeCode = int.Parse(db.ExecuteScalar(dbCommand).ToString());
             }
             catch (BaseApplicationException Ex)
             {
@@ -1024,7 +1102,7 @@ namespace DaoCustomerProfiling
         /// </summary>
         /// <param name="customerVo"></param>
         /// <returns></returns>
-        public bool UpdateCustomer(CustomerVo customerVo,int userId)
+        public bool UpdateCustomer(CustomerVo customerVo, int userId)
         {
             bool bResult = false;
             Database db;
@@ -1107,8 +1185,7 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(editCustomerCmd, "@C_ContactGuardianFirstName", DbType.String, customerVo.ContactFirstName);
                 db.AddInParameter(editCustomerCmd, "@C_ContactGuardianMiddleName", DbType.String, customerVo.ContactMiddleName);
                 db.AddInParameter(editCustomerCmd, "@C_ContactGuardianLastName", DbType.String, customerVo.ContactLastName);
-
-
+               
 
                 //if (customerVo.Occupation != "Select a Occupation" && customerVo.Occupation != "")
                 //    db.AddInParameter(editCustomerCmd, "@XO_OccupationCode", DbType.String, customerVo.Occupation);
@@ -1197,6 +1274,26 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(editCustomerCmd, "@C_WCMV_Occupation_Id", DbType.Int32, customerVo.OccupationId);
                 db.AddInParameter(editCustomerCmd, "@C_ModifiedBy", DbType.Int32, userId);
                 db.AddInParameter(editCustomerCmd, "@C_FatherHusbandName", DbType.String, customerVo.FatherHusbandName);
+                db.AddInParameter(editCustomerCmd, "@C_MinNO1", DbType.String, customerVo.MinNo1);
+                db.AddInParameter(editCustomerCmd, "@C_MinNO2", DbType.String, customerVo.MinNo2);
+                db.AddInParameter(editCustomerCmd, "@C_MinNO3", DbType.String, customerVo.MinNo3);
+                db.AddInParameter(editCustomerCmd, "C_ESCNo", DbType.String, customerVo.ESCNo);
+                db.AddInParameter(editCustomerCmd, "@C_UINNo", DbType.String, customerVo.UINNo);
+                db.AddInParameter(editCustomerCmd, "@C_GuardianName", DbType.String, customerVo.GuardianName);
+                db.AddInParameter(editCustomerCmd, "@XR_GuardianRelation", DbType.String, customerVo.GuardianRelation);
+                db.AddInParameter(editCustomerCmd, "@C_ContactGuardianPANNum", DbType.String, customerVo.ContactGuardianPANNum);
+                if (customerVo.POA != 0)
+                    db.AddInParameter(editCustomerCmd, "@C_POA", DbType.Int32, customerVo.POA);
+                if (customerVo.AnnualIncome != 0)
+                    db.AddInParameter(editCustomerCmd, "@C_AnnualIncome", DbType.Decimal, customerVo.AnnualIncome);
+                if (customerVo.OfcPhoneExt != 0)
+                    db.AddInParameter(editCustomerCmd, "@C_OfcPhoneExt", DbType.Decimal, customerVo.OfcPhoneExt);
+                db.AddInParameter(editCustomerCmd, "@C_GuardianMinNo", DbType.String, customerVo.GuardianMinNo);
+                db.AddInParameter(editCustomerCmd, "@C_SubBroker", DbType.String, customerVo.SubBroker);
+                if (customerVo.GuardianDob != DateTime.MinValue)
+                    db.AddInParameter(editCustomerCmd, "@C_GuardianDOB", DbType.DateTime, customerVo.GuardianDob);
+                else
+                    db.AddInParameter(editCustomerCmd, "@C_GuardianDOB", DbType.DateTime, DBNull.Value);
 
                 if (db.ExecuteNonQuery(editCustomerCmd) != 0)
                     bResult = true;
@@ -1586,7 +1683,7 @@ namespace DaoCustomerProfiling
             return dsAMCExternalType;
         }
 
-        public bool EditProductAMCSchemeMapping(int schemePlanCode, string strExternalCodeToBeEdited, string strExtCode,int Isonline, string strExtName, DateTime createdDate, DateTime editedDate, DateTime deletedDate,int userid)
+        public bool EditProductAMCSchemeMapping(int schemePlanCode, string strExternalCodeToBeEdited, string strExtCode, int Isonline, string strExtName, DateTime createdDate, DateTime editedDate, DateTime deletedDate, int userid)
         {
             bool bResult = false;
             Database db;
@@ -1599,7 +1696,7 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(editProductAMCSchemeMappingCmd, "@externalCode", DbType.String, strExtCode);
                 db.AddInParameter(editProductAMCSchemeMappingCmd, "@externalCodeToBeEdited", DbType.String, strExternalCodeToBeEdited);
                 db.AddInParameter(editProductAMCSchemeMappingCmd, "@externalType", DbType.String, strExtName);
-               // db.AddInParameter(editProductAMCSchemeMappingCmd, "@count", DbType.Int32, 0);
+                // db.AddInParameter(editProductAMCSchemeMappingCmd, "@count", DbType.Int32, 0);
                 db.AddInParameter(editProductAMCSchemeMappingCmd, "@Isonline", DbType.Int32, Isonline);
                 if (createdDate != DateTime.MinValue)
                     db.AddInParameter(editProductAMCSchemeMappingCmd, "@createdDate", DbType.DateTime, createdDate);
@@ -1915,7 +2012,7 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(createCustomerCmd, "@CPS_GuardPan", DbType.String, customerVo.GuardPANNum);
 
                 db.AddInParameter(createCustomerCmd, "@C_MfKYC", DbType.Int32, customerVo.MfKYC);
-                db.AddInParameter(createCustomerCmd, "@C_IsRealInvestor", DbType.Boolean, customerVo.IsRealInvestor?1:0);
+                db.AddInParameter(createCustomerCmd, "@C_IsRealInvestor", DbType.Boolean, customerVo.IsRealInvestor ? 1 : 0);
                 db.AddInParameter(createCustomerCmd, "@C_WCMV_TaxStatus_Id", DbType.Int16, customerVo.TaxStatusCustomerSubTypeId);
 
 
@@ -5143,7 +5240,7 @@ namespace DaoCustomerProfiling
 
         }
 
-        public bool UpdateMemberRelation(int AssociationId, string relationCode, bool isrealInvestor,int iskyc,DateTime DOB,string txtPan)
+        public bool UpdateMemberRelation(int AssociationId, string relationCode, bool isrealInvestor, int iskyc, DateTime DOB, string txtPan)
         {
             bool isEdited = false;
             Database db;
@@ -5162,7 +5259,7 @@ namespace DaoCustomerProfiling
                 }
                 else
                 {
-                db.AddInParameter(updateMemberRelationCmd, "@DOB", DbType.DateTime, DBNull.Value);
+                    db.AddInParameter(updateMemberRelationCmd, "@DOB", DbType.DateTime, DBNull.Value);
                 }
                 db.AddInParameter(updateMemberRelationCmd, "@PANno", DbType.String, txtPan);
 
@@ -5991,7 +6088,7 @@ namespace DaoCustomerProfiling
             }
             return dsCustomerProfileSetupLookupData;
 
- 
+
         }
         public int ToCheckSchemeisonline(int schemeplanecode, int Isonline, string sourcecode)
         {
@@ -6004,7 +6101,7 @@ namespace DaoCustomerProfiling
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 //checking year
                 cmdToCheckSchemeisonline = db.GetStoredProcCommand("SPROC_ToValidateIsonline");
-                db.AddInParameter(cmdToCheckSchemeisonline, "@schemeplancode", DbType.Int32,schemeplanecode);
+                db.AddInParameter(cmdToCheckSchemeisonline, "@schemeplancode", DbType.Int32, schemeplanecode);
                 db.AddInParameter(cmdToCheckSchemeisonline, "@Isonline", DbType.Int32, Isonline);
                 //db.AddInParameter(cmdToCheckSchemeisonline, "@sourcecode", DbType.String, sourcecode);
                 db.AddOutParameter(cmdToCheckSchemeisonline, "@count", DbType.Int32, 0);
@@ -6027,7 +6124,7 @@ namespace DaoCustomerProfiling
                 FunctionInfo.Add("Method", "AssociateDAO.cs:ToCheckSchemeisonline()");
                 object[] objects = new object[3];
                 objects[0] = schemeplanecode;
-                objects[1]=sourcecode;
+                objects[1] = sourcecode;
                 objects[2] = Isonline;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;

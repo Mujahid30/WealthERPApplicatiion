@@ -100,7 +100,7 @@
                 <asp:Label ID="lblBankName" runat="server" Text="Bank Name:" CssClass="FieldName"></asp:Label>
             </td>
             <td class="rightField">
-                <asp:DropDownList ID="ddlBankName" CssClass="cmbLongField" Width="300px"  runat="server">
+                <asp:DropDownList ID="ddlBankName" CssClass="cmbLongField" Width="300px" runat="server">
                 </asp:DropDownList>
                 <span id="Span3" class="spnRequiredField">*</span>
                 <asp:CompareValidator ID="CompareValidator3" runat="server" ControlToValidate="ddlBankName"
@@ -111,7 +111,7 @@
                 &nbsp;
             </td>
         </tr>
-       <%-- <tr>
+        <%-- <tr>
             <td class="leftField">
                 <asp:Label ID="lblBankCity" runat="server" Text="Bank City:" CssClass="FieldName"></asp:Label>
             </td>
@@ -145,7 +145,8 @@
                 &nbsp;
             </td>
         </tr>
---%>        <tr id="trJoingHolding" runat="server">
+--%>
+        <tr id="trJoingHolding" runat="server">
             <td class="leftField">
                 <asp:Label ID="Label6" runat="server" CssClass="FieldName" Text="Joint Holding:"></asp:Label>
             </td>
@@ -312,7 +313,6 @@
                 &nbsp;
             </td>
         </tr>
-
         <tr>
             <td class="leftField">
                 <asp:Label ID="lblAdrLine1" runat="server" Text="Line1(House No/Building):" CssClass="FieldName"></asp:Label>
@@ -321,7 +321,7 @@
                 <asp:TextBox ID="txtBankAdrLine1" runat="server" CssClass="txtField" Style="width: 250px;"
                     Text='<%# Bind("CB_BranchAdrLine1") %>'></asp:TextBox>
             </td>
-             <td class="leftField">
+            <td class="leftField">
                 <asp:Label ID="lblBankCity" runat="server" Text="Bank City:" CssClass="FieldName"></asp:Label>
             </td>
             <td class="rightField">
@@ -403,7 +403,14 @@
                     CssClass="rfvPCG" Type="Integer" ControlToValidate="txtBankAdrPinCode" ValidationGroup="btnSubmit"
                     Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
             </td>
-           <%-- <td class="leftField">
+            <td class="leftField">
+                <asp:Label ID="lblBankBranchCode" runat="server" Text="Bank Branch Code:" CssClass="FieldName"></asp:Label>
+            </td>
+            <td class="rightField">
+                <asp:TextBox ID="txtBankBranchCode" runat="server" CssClass="txtField" MaxLength="6"
+                    Text='<%# Bind("CB_BankBranchCode") %>'></asp:TextBox>
+            </td>
+            <%-- <td class="leftField">
                 <asp:Label ID="Label25" runat="server" Text="Country:" CssClass="FieldName"></asp:Label>
             </td>
             <td class="rightField">
@@ -416,7 +423,7 @@
                 <asp:Label ID="lblMicr" runat="server" Text="MICR:" CssClass="FieldName"></asp:Label>
             </td>
             <td class="rightField">
-                <asp:TextBox ID="txtMicr" runat="server" CssClass="txtField" MaxLength="9" Text='<%# Bind("CB_MICR") %>' ></asp:TextBox>
+                <asp:TextBox ID="txtMicr" runat="server" CssClass="txtField" MaxLength="9" Text='<%# Bind("CB_MICR") %>'></asp:TextBox>
                 <asp:CompareValidator ID="cvMicr" runat="server" ErrorMessage="<br />Enter a numeric value"
                     CssClass="rfvPCG" Type="Integer" ValidationGroup="btnSubmit" ControlToValidate="txtMicr"
                     Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
