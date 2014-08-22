@@ -843,8 +843,10 @@ namespace WealthERP.Customer
 
                     customerVo.Email = txtEmail.Text.ToString();
                     customerVo.AltEmail = txtAltEmail.Text.ToString();
-                    if (txtOfcPhoneExt.Text != "")
-                        customerVo.OfcPhoneExt = int.Parse(txtOfcPhoneExt.Text);
+                    if (txtOfcPhoneExt.Text == "")
+                        customerVo.OfcPhoneExt = 0;
+                    else
+                        customerVo.OfcPhoneExt = long.Parse(txtOfcPhoneExt.Text.ToString());
                     if (!string.IsNullOrEmpty(txtFatherHusband.Text))
                     {
                         customerVo.FatherHusbandName = txtFatherHusband.Text;

@@ -651,7 +651,7 @@ namespace DaoCustomerProfiling
                     if (!string.IsNullOrEmpty(dr["C_AnnualIncome"].ToString()))
                         customerVo.AnnualIncome = decimal.Parse(dr["C_AnnualIncome"].ToString());
                     if (!string.IsNullOrEmpty(dr["C_OfcPhoneExt"].ToString()))
-                        customerVo.OfcPhoneExt = int.Parse(dr["C_OfcPhoneExt"].ToString());
+                        customerVo.OfcPhoneExt = Int64.Parse(dr["C_OfcPhoneExt"].ToString());
                     if (!string.IsNullOrEmpty(dr["C_GuardianDOB"].ToString()))
                         customerVo.GuardianDob = Convert.ToDateTime(dr["C_GuardianDOB"].ToString());
                     if (!string.IsNullOrEmpty(dr["C_GuardianMinNo"].ToString()))
@@ -1287,7 +1287,7 @@ namespace DaoCustomerProfiling
                 if (customerVo.AnnualIncome != 0)
                     db.AddInParameter(editCustomerCmd, "@C_AnnualIncome", DbType.Decimal, customerVo.AnnualIncome);
                 if (customerVo.OfcPhoneExt != 0)
-                    db.AddInParameter(editCustomerCmd, "@C_OfcPhoneExt", DbType.Decimal, customerVo.OfcPhoneExt);
+                    db.AddInParameter(editCustomerCmd, "@C_OfcPhoneExt", DbType.Int64, customerVo.OfcPhoneExt);
                 db.AddInParameter(editCustomerCmd, "@C_GuardianMinNo", DbType.String, customerVo.GuardianMinNo);
                 db.AddInParameter(editCustomerCmd, "@C_SubBroker", DbType.String, customerVo.SubBroker);
                 if (customerVo.GuardianDob != DateTime.MinValue)

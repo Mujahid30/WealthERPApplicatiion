@@ -35,7 +35,7 @@ namespace VoUser
         private string m_GuardianRelation;
         private string m_ContactGuardianPANNum;
         private decimal m_AnnualIncome;
-        private int m_OfcPhoneExt;
+        private long m_OfcPhoneExt;
       
         private DateTime m_GuardianDob;
         private string m_GuardianMinNo;
@@ -281,7 +281,7 @@ namespace VoUser
             get { return m_AnnualIncome; }
             set { m_AnnualIncome = value; }
         }
-        public int OfcPhoneExt
+        public long OfcPhoneExt
         {
             get { return m_OfcPhoneExt; }
             set { m_OfcPhoneExt = value; }
