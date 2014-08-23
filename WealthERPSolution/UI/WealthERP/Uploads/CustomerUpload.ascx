@@ -266,10 +266,10 @@
                 <asp:ListItem Value="EQT" Enabled="false">Equity Transaction</asp:ListItem>
                 <asp:ListItem Value="MFSS" Enabled="false">Systematic</asp:ListItem>
                 <asp:ListItem Value="TRAIL" Enabled="false">Trail Commission</asp:ListItem>
-                <asp:ListItem Value="P">Profile Incremental</asp:ListItem>
-                <asp:ListItem Value="CM">Client Modification</asp:ListItem>
+                <asp:ListItem Value="P"  Enabled="false">Profile Incremental</asp:ListItem>
+                <asp:ListItem Value="CM"  Enabled="false">Client Modification</asp:ListItem>
                 <asp:ListItem Value="Link">Fixed Income</asp:ListItem>
-                <asp:ListItem Value="MFR">MF Holding Recon</asp:ListItem>
+                <asp:ListItem Value="MFR"  Enabled="false">MF Holding Recon</asp:ListItem>
             </asp:DropDownList>
             <img src="../Images/help.png" class="ScreenTip1" style="height: 15px; width: 15px;" />
             <div id="div1" style="display: none;">
