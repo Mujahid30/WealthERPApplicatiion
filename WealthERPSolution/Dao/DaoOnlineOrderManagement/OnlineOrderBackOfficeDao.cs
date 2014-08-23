@@ -570,7 +570,7 @@ namespace DaoOnlineOrderManagement
                         if (dr["PASP_MargeToScheme"].ToString() != null && dr["PASP_MargeToScheme"].ToString() != string.Empty)
                             mfProductAMCSchemePlanDetailsVo.Mergecode = int.Parse(dr["PASP_MargeToScheme"].ToString());
                         if (dr["PASP_ISIN"].ToString() != null && dr["PASP_ISIN"].ToString() != string.Empty)
-                            mfProductAMCSchemePlanDetailsVo.ISINNo = int.Parse(dr["PASP_ISIN"].ToString());
+                            mfProductAMCSchemePlanDetailsVo.ISINNo = dr["PASP_ISIN"].ToString();
                         if (dr["PASP_SchemeOpenDate"].ToString() != string.Empty)
 
                             mfProductAMCSchemePlanDetailsVo.SchemeStartDate = DateTime.Parse(dr["PASP_SchemeOpenDate"].ToString());
@@ -1858,7 +1858,7 @@ namespace DaoOnlineOrderManagement
                 {
                     db.AddInParameter(UpdateproductamcschemeCmd, "@MaturityDate", DbType.DateTime, DBNull.Value);
                 }
-                db.AddInParameter(UpdateproductamcschemeCmd, "@ISINNo", DbType.Int32, mfProductAMCSchemePlanDetailsVo.ISINNo);
+                db.AddInParameter(UpdateproductamcschemeCmd, "@ISINNo", DbType.String, mfProductAMCSchemePlanDetailsVo.ISINNo);
 
                 db.ExecuteNonQuery(UpdateproductamcschemeCmd);
                 if (db.ExecuteNonQuery(UpdateproductamcschemeCmd) != 0)
@@ -1945,7 +1945,7 @@ namespace DaoOnlineOrderManagement
                 {
                     db.AddInParameter(CreateOnlineSchemeSetupPlanCmd, "@MaturityDate", DbType.DateTime, DBNull.Value);
                 }
-                db.AddInParameter(CreateOnlineSchemeSetupPlanCmd, "@ISINNo", DbType.Int32, mfProductAMCSchemePlanDetailsVo.ISINNo);
+                db.AddInParameter(CreateOnlineSchemeSetupPlanCmd, "@ISINNo", DbType.String, mfProductAMCSchemePlanDetailsVo.ISINNo);
 
                 if (db.ExecuteNonQuery(CreateOnlineSchemeSetupPlanCmd) != 0)
                     schemeplancode = int.Parse(db.GetParameterValue(CreateOnlineSchemeSetupPlanCmd, "@SchemePlanCode").ToString());

@@ -387,6 +387,10 @@
                 </td>
                 <td>
                 <asp:TextBox ID="txtISIN" runat="server" CssClass="cmbFielde"></asp:TextBox> 
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="txtISIN"
+                                    ErrorMessage="Enter only alphanumeric " runat="server" Display="Dynamic" CssClass="cvPCG"
+                                    ValidationExpression="[a-zA-Z0-9]+$" ValidationGroup="btnsubmit">     
+                                </asp:RegularExpressionValidator>
                     <asp:DropDownList ID="ddlSchemeList" runat="server" CssClass="cmbField" AutoPostBack="true"
                         OnSelectedIndexChanged="ddlSchemeList_OnSelectedIndexChanged" Style="width: 300px;"
                         Visible="false">

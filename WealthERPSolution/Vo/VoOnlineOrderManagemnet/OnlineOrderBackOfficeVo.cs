@@ -100,7 +100,7 @@ namespace VoOnlineOrderManagemnet
         public DateTime SchemeStartDate { get; set; }
         public DateTime MaturityDate { get; set; }
         public int IsOnlineEnablement { get; set; }
-        public int ISINNo { get; set; }
+        public string ISINNo { get; set; }
     }
 
     public class TradeBusinessDateVo

@@ -776,7 +776,7 @@ namespace WealthERP.OnlineOrderBackOffice
             txtESSchemecode.Text = mfProductAMCSchemePlanDetailsVo.ExternalCode;
             txtProductCode.Text = mfProductAMCSchemePlanDetailsVo.productcode;
             txtAMFI.Text = mfProductAMCSchemePlanDetailsVo.AMFIcode;
-            txtISIN.Text = mfProductAMCSchemePlanDetailsVo.ISINNo.ToString();
+            txtISIN.Text = mfProductAMCSchemePlanDetailsVo.ISINNo;
             if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.Allproductcode))
             {
                 lnkProductcode.Text = mfProductAMCSchemePlanDetailsVo.Allproductcode;
@@ -1142,7 +1142,7 @@ namespace WealthERP.OnlineOrderBackOffice
             txtScname.Text = mfProductAMCSchemePlanDetailsVo.SchemePlanName;
             txtESSchemecode.Text = mfProductAMCSchemePlanDetailsVo.ExternalCode;
             txtProductCode.Text = mfProductAMCSchemePlanDetailsVo.productcode;
-            txtISIN.Text = mfProductAMCSchemePlanDetailsVo.ISINNo.ToString();
+            txtISIN.Text = mfProductAMCSchemePlanDetailsVo.ISINNo;
             txtAMFI.Text = mfProductAMCSchemePlanDetailsVo.AMFIcode;
             if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.Allproductcode))
             {
@@ -1693,7 +1693,7 @@ namespace WealthERP.OnlineOrderBackOffice
             mfProductAMCSchemePlanDetailsVo.productcode = txtProductCode.Text;
             mfProductAMCSchemePlanDetailsVo.AMFIcode = txtAMFI.Text;
             if (!string.IsNullOrEmpty(txtISIN.Text))
-            mfProductAMCSchemePlanDetailsVo.ISINNo = int.Parse(txtISIN.Text);
+            mfProductAMCSchemePlanDetailsVo.ISINNo = txtISIN.Text;
             if (chkonline.Checked)
             {
                 mfProductAMCSchemePlanDetailsVo.IsOnline = 1;
@@ -1874,7 +1874,7 @@ namespace WealthERP.OnlineOrderBackOffice
             else
                 mfProductAMCSchemePlanDetailsVo.AMFIcode = "0";
             if (!string.IsNullOrEmpty(txtISIN.Text))
-               mfProductAMCSchemePlanDetailsVo.ISINNo = int.Parse(txtISIN.Text);
+               mfProductAMCSchemePlanDetailsVo.ISINNo = txtISIN.Text;
 
             if (!string.IsNullOrEmpty(ddlcategory.SelectedValue))
             {

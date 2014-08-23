@@ -1204,9 +1204,15 @@
         <td>
             <asp:DropDownList ID="ddllblSyndicatet" runat="server" CssClass="cmbField">
             </asp:DropDownList>
+            <span id="Span40" class="spnRequiredField">*</span>
             <asp:ImageButton ID="ImageddlSyndicate" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
                 AlternateText="Add" runat="server" ToolTip="Click here to Add Syndicate" OnClick="ImageddlSyndicate_Click"
                 Height="15px" Width="15px"></asp:ImageButton>
+            <br />
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator48" runat="server" CssClass="rfvPCG"
+                ErrorMessage="Please select syndicate" Display="Dynamic" ControlToValidate="ddllblSyndicatet"
+                InitialValue="0" ValidationGroup="SetUpSubmit">
+            </asp:RequiredFieldValidator>
         </td>
         <td align="right">
             <asp:Label ID="lblBrokerCode" runat="server" CssClass="FieldName" Text="Broker:"></asp:Label>
@@ -1214,9 +1220,15 @@
         <td>
             <asp:DropDownList ID="ddlBrokerCode" runat="server" CssClass="cmbField">
             </asp:DropDownList>
+            <span id="Span41" class="spnRequiredField">*</span>
             <asp:ImageButton ID="ImagddlBrokerCode" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
                 AlternateText="Add" runat="server" ToolTip="Click here to Add Broker" OnClick="ImagddlBrokerCode_Click"
                 Height="15px" Width="15px"></asp:ImageButton>
+            <br />
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator49" runat="server" CssClass="rfvPCG"
+                ErrorMessage="Please select broker" Display="Dynamic" ControlToValidate="ddllblSyndicatet"
+                InitialValue="0" ValidationGroup="SetUpSubmit">
+            </asp:RequiredFieldValidator>
         </td>
     </tr>
     <tr id="trMultipleApplicationAllowed" runat="server">
@@ -2491,10 +2503,10 @@
             </tr>
             <tr>
                 <td>
-                    <asp:Button ID="btnBrokercodeadd" runat="server" Text="Submit" CssClass="PCGButton" OnClick="btnBrokercodeadd_OnClick" />
+                    <asp:Button ID="btnBrokercodeadd" runat="server" Text="Submit" CssClass="PCGButton"
+                        OnClick="btnBrokercodeadd_OnClick" />
                 </td>
             </tr>
         </table>
     </ContentTemplate>
 </telerik:RadWindow>
-
