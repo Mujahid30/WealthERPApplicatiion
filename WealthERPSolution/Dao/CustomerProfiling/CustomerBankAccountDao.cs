@@ -48,7 +48,7 @@ namespace DaoCustomerProfiling
                  if(!string.IsNullOrEmpty(customerBankAccountVo.MICR.ToString()))                
                 db.AddInParameter(createCustomerBankCmd, "@CB_MICR", DbType.Int64, customerBankAccountVo.MICR);
                  else
-                     db.AddInParameter(createCustomerBankCmd, "@CB_MICR", DbType.Int64, 0);
+                     db.AddInParameter(createCustomerBankCmd, "@CB_MICR", DbType.Int64, DBNull.Value);
                  if (!string.IsNullOrEmpty(customerBankAccountVo.RTGSCode.ToString()))
                      db.AddInParameter(createCustomerBankCmd, "@CB_RTGS", DbType.String, customerBankAccountVo.RTGSCode);
                  else
@@ -56,11 +56,11 @@ namespace DaoCustomerProfiling
                  if (!string.IsNullOrEmpty(customerBankAccountVo.NeftCode.ToString()))
                      db.AddInParameter(createCustomerBankCmd, "@CB_NEFT", DbType.String, customerBankAccountVo.NeftCode);
                  else
-                     db.AddInParameter(createCustomerBankCmd, "@CB_NEFT", DbType.String, 0);
+                     db.AddInParameter(createCustomerBankCmd, "@CB_NEFT", DbType.String, DBNull.Value);
                  if (!string.IsNullOrEmpty(customerBankAccountVo.IFSC.ToString()))
                      db.AddInParameter(createCustomerBankCmd, "@CB_IFSC", DbType.String, customerBankAccountVo.IFSC);
                  else
-                     db.AddInParameter(createCustomerBankCmd, "@CB_IFSC", DbType.String, 0);
+                     db.AddInParameter(createCustomerBankCmd, "@CB_IFSC", DbType.String, DBNull.Value);
                 db.AddInParameter(createCustomerBankCmd, "@CB_CreatedBy", DbType.Int32, userId);
                 db.AddInParameter(createCustomerBankCmd, "@CB_ModifiedBy", DbType.Int32, userId);
 
@@ -81,7 +81,7 @@ namespace DaoCustomerProfiling
                 if (!string.IsNullOrEmpty(customerBankAccountVo.BankBranchCode.ToString()))
                     db.AddInParameter(createCustomerBankCmd, "@CB_BankBranchCode", DbType.String, customerBankAccountVo.BankBranchCode);
                 else
-                    db.AddInParameter(createCustomerBankCmd, "@CB_BankBranchCode", DbType.String, 0);
+                    db.AddInParameter(createCustomerBankCmd, "@CB_BankBranchCode", DbType.String, null);
 
 
                 // db.ExecuteNonQuery(createCustomerBankCmd);
@@ -365,7 +365,7 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(updateCustomerBankCmd, "@CB_BranchAdrLine2", DbType.String, customerBankAccountVo.BranchAdrLine2);
                 // if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrLine3))
                 db.AddInParameter(updateCustomerBankCmd, "@CB_BranchAdrLine3", DbType.String, customerBankAccountVo.BranchAdrLine3);
-                db.AddInParameter(updateCustomerBankCmd, "@CB_BranchAdrPinCode", DbType.String, customerBankAccountVo.BranchAdrPinCode);
+                db.AddInParameter(updateCustomerBankCmd, "@CB_BranchAdrPinCode", DbType.Int64, customerBankAccountVo.BranchAdrPinCode);
                 //if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrCity))
                 //db.AddInParameter(updateCustomerBankCmd, "@CB_BranchAdrCity", DbType.String, customerBankAccountVo.BranchAdrCity);
                 // if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrState))
@@ -373,7 +373,7 @@ namespace DaoCustomerProfiling
                 //if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrCountry))
                 //db.AddInParameter(updateCustomerBankCmd, "@CB_BranchAdrCountry", DbType.String, customerBankAccountVo.BranchAdrCountry);
                 db.AddInParameter(updateCustomerBankCmd, "@CB_Balance", DbType.Decimal, customerBankAccountVo.Balance);
-                db.AddInParameter(updateCustomerBankCmd, "@CB_MICR", DbType.Int64, customerBankAccountVo.MICR);
+                db.AddInParameter(updateCustomerBankCmd, "@CB_MICR", DbType.String, customerBankAccountVo.MICR);
                 // if (!string.IsNullOrEmpty(customerBankAccountVo.IFSC))
                 db.AddInParameter(updateCustomerBankCmd, "@CB_RTGS", DbType.String, customerBankAccountVo.RTGSCode);
                 db.AddInParameter(updateCustomerBankCmd, "@CB_NEFT", DbType.String, customerBankAccountVo.NeftCode);
@@ -392,7 +392,7 @@ namespace DaoCustomerProfiling
 
                 if (customerBankAccountVo.BranchAddCountryId != 0)
                     db.AddInParameter(updateCustomerBankCmd, "@WCMV_Lookup_BranchAddCountryId", DbType.Int32, customerBankAccountVo.BranchAddCountryId);
-                db.AddInParameter(updateCustomerBankCmd, "@CB_IsCurrent", DbType.Int16, customerBankAccountVo.IsCurrent);
+                db.AddInParameter(updateCustomerBankCmd, "@CB_IsCurrent", DbType.Int32, Convert.ToInt32( customerBankAccountVo.IsCurrent));
                 db.AddInParameter(updateCustomerBankCmd, "@CB_BankBranchCode", DbType.String, customerBankAccountVo.BankBranchCode);
                 db.ExecuteNonQuery(updateCustomerBankCmd);
 

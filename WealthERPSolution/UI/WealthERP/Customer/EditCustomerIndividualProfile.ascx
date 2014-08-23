@@ -1813,11 +1813,6 @@
                             <DateInput ID="DateInput3" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
                             </DateInput>
                         </telerik:RadDatePicker>
-                        <span id="Span14" class="spnRequiredField">*</span>
-                        <asp:RequiredFieldValidator ID="RequiredFieldValidator7" ControlToValidate="txtDate"
-                            ValidationGroup="btnEdit" ErrorMessage="<br />Please enter DOB" Display="Dynamic"
-                            runat="server" CssClass="rfvPCG" InitialValue="">
-                        </asp:RequiredFieldValidator>
                     </td>
                 </tr>
                 <tr>
