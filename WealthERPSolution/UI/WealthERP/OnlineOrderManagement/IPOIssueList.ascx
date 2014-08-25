@@ -73,7 +73,7 @@
                             <telerik:RadGrid ID="RadGridIPOIssueList" runat="server" AllowSorting="True" enableloadondemand="True"
                                 PageSize="10" AllowPaging="True" AutoGenerateColumns="False" EnableEmbeddedSkins="False"
                                 GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="true" ShowStatusBar="True"
-                                Skin="Telerik" AllowFilteringByColumn="false" OnItemCommand="RadGridIPOIssueList_OnItemCommand"
+                                Skin="Telerik" AllowFilteringByColumn="false" OnNeedDataSource="gvCommMgmt_OnNeedDataSource" OnItemCommand="RadGridIPOIssueList_OnItemCommand"
                                 OnItemDataBound="RadGridIPOIssueList_ItemDataBound">
                                 <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="AIM_IssueId,AR_Filename"
                                     AutoGenerateColumns="false" Width="100%">
