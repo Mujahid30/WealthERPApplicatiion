@@ -43,6 +43,7 @@ namespace WealthERP.OnlineOrderBackOffice
             RadRegister.VisibleOnPageLoad = false;
             RadSyndicate.VisibleOnPageLoad = false;
             RadBroker.VisibleOnPageLoad = false;
+            radIssuerPopUp.VisibleOnPageLoad = false;
             if (!IsPostBack)
             {
                 if (Cache[userVo.UserId.ToString() + "SubCat"] != null)

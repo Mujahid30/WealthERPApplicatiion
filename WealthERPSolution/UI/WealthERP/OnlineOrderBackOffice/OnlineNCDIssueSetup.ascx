@@ -123,7 +123,7 @@
 </table>
 <telerik:RadWindow ID="radAplicationPopUp" runat="server" VisibleOnPageLoad="false"
     Height="30%" Width="400px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false"
-    Behaviors="None" Title="Add New Active Range">
+    Behaviors="Resize, Close, Move" Title="Add New Active Range">
     <ContentTemplate>
         <div style="padding: 20px">
             <table width="100%">
@@ -1226,7 +1226,7 @@
                 Height="15px" Width="15px"></asp:ImageButton>
             <br />
             <asp:RequiredFieldValidator ID="RequiredFieldValidator49" runat="server" CssClass="rfvPCG"
-                ErrorMessage="Please select broker" Display="Dynamic" ControlToValidate="ddllblSyndicatet"
+                ErrorMessage="Please select broker" Display="Dynamic" ControlToValidate="ddlBrokerCode"
                 InitialValue="0" ValidationGroup="SetUpSubmit">
             </asp:RequiredFieldValidator>
         </td>
