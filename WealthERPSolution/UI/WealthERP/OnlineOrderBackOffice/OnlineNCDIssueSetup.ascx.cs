@@ -39,11 +39,11 @@ namespace WealthERP.OnlineOrderBackOffice
             advisorVo = (AdvisorVo)Session["advisorVo"];
             int adviserId = advisorVo.advisorId;
             txtOpenDate.SelectedDate = DateTime.Now;
+            radAplicationPopUp.VisibleOnPageLoad = false;
             RadRegister.VisibleOnPageLoad = false;
             RadSyndicate.VisibleOnPageLoad = false;
             RadBroker.VisibleOnPageLoad = false;
             radIssuerPopUp.VisibleOnPageLoad = false;
-            radAplicationPopUp.VisibleOnPageLoad = false;
             if (!IsPostBack)
             {
                 if (Cache[userVo.UserId.ToString() + "SubCat"] != null)
@@ -775,9 +775,12 @@ namespace WealthERP.OnlineOrderBackOffice
                         EnablityOfScreen(false, false, false, true);
                         txtAllotmentDate.Enabled = true;
                         txtRevisionDates.Enabled = true;
+                       
                     }
                     else
                         EnablityOfScreen(true, true, true, true);
+                        txtFormRange.Enabled = false;
+                        txtToRange.Enabled = false;
                 }
 
             }
@@ -825,13 +828,12 @@ namespace WealthERP.OnlineOrderBackOffice
             ddlCloseTimeSeconds.Enabled = value;
             txtRevisionDates.Enabled = value;
             txtAllotmentDate.Enabled = value;
-            ddlIssueType.Enabled = value;
-            ddlRegistrar.Enabled = value;
+
+            
             ddlCutOffTimeHours.Enabled = value;
             ddlCutOffTimeMinutes.Enabled = value;
             ddlCutOffTimeSeconds.Enabled = value;
             ddllblSyndicatet.Enabled = value;
-            ddlBrokerCode.Enabled = value;
             txtTradingLot.Enabled = value;
             txtBiddingLot.Enabled = value;
             txtBSECode.Enabled = value;
@@ -3032,6 +3034,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     VisblityAndEnablityOfScreen("LnkEdit");
                     txtAllotmentDate.Enabled = true;
                     txtRevisionDates.Enabled = true;
+                    
                 }
 
                 else
@@ -5019,7 +5022,6 @@ namespace WealthERP.OnlineOrderBackOffice
 
         protected void rgIssuer_ItemCommand(object source, GridCommandEventArgs e)
         {
-            radIssuerPopUp.VisibleOnPageLoad = true;
             int issuerId;
             if (e.CommandName == RadGrid.PerformInsertCommandName)
             {
@@ -5051,7 +5053,6 @@ namespace WealthERP.OnlineOrderBackOffice
 
         protected void rgAplication_ItemCommand(object source, GridCommandEventArgs e)
         {
-            radAplicationPopUp.VisibleOnPageLoad = true;
             int formRangeId = 0;
             if (e.CommandName == RadGrid.PerformInsertCommandName)
             {
@@ -5112,7 +5113,7 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             radIssuerPopUp.VisibleOnPageLoad = true;
             // BindIssuer();
-            //BindIssuerGrid();
+            BindIssuerGrid();
         }
 
         protected void btnIssuerPopClose_Click(object sender, EventArgs e)
