@@ -75,7 +75,9 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void RadGridIPOIssueList_OnItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
         {
-            int issueId = Convert.ToInt32(RadGridIPOIssueList.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIM_IssueId"].ToString());
+            if (e.Item is GridDataItem && e.Item.ItemIndex != -1)
+            {
+                int issueId = int.Parse(RadGridIPOIssueList.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIM_IssueId"].ToString());
 
             if (e.CommandName == "Buy")
             {
@@ -133,7 +135,7 @@ namespace WealthERP.OnlineOrderManagement
                 Response.Flush();
                 Response.End();
             }
-
+        }
         }
 
         protected void RadGridIPOIssueList_ItemDataBound(object sender, GridItemEventArgs e)
