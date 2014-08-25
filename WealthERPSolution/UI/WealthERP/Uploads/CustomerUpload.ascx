@@ -266,10 +266,10 @@
                 <asp:ListItem Value="EQT" Enabled="false">Equity Transaction</asp:ListItem>
                 <asp:ListItem Value="MFSS" Enabled="false">Systematic</asp:ListItem>
                 <asp:ListItem Value="TRAIL" Enabled="false">Trail Commission</asp:ListItem>
-                <asp:ListItem Value="P"  Enabled="false">Profile Incremental</asp:ListItem>
-                <asp:ListItem Value="CM"  Enabled="false">Client Modification</asp:ListItem>
+                <asp:ListItem Value="P">Profile Incremental</asp:ListItem>
+                <asp:ListItem Value="CM">Client Modification</asp:ListItem>
                 <asp:ListItem Value="Link">Fixed Income</asp:ListItem>
-                <asp:ListItem Value="MFR"  Enabled="false">MF Holding Recon</asp:ListItem>
+                <asp:ListItem Value="MFR">MF Holding Recon</asp:ListItem>
             </asp:DropDownList>
             <img src="../Images/help.png" class="ScreenTip1" style="height: 15px; width: 15px;" />
             <div id="div1" style="display: none;">
@@ -291,7 +291,7 @@
         <td class="rightField">
             <asp:DropDownList ID="ddlType" runat="server" AutoPostBack="true" CssClass="cmbLongField">
                 <asp:ListItem Value="1">Online</asp:ListItem>
-                <asp:ListItem Value="0" Enabled=false>Offline</asp:ListItem>
+                <asp:ListItem Value="0" Enabled="false">Offline</asp:ListItem>
                 <%-- <asp:ListItem Value="MFF">MF Folio Only</asp:ListItem>--%>
             </asp:DropDownList>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="ddlType"
@@ -479,7 +479,7 @@
             <%--<asp:label ID="FileType_lbl" runat="server" Font-Bold="false" CssClass="MsgInfo" text="Label"></asp:label>--%>
             <%-- <asp:Label ID="lblErrorFileType" runat="server"  CssClass="rfvPCG" Text="Please Upload Correct Format of file.."></asp:Label>
             --%>
-             <%--<asp:Label ID="lblType" runat="server" Font-Bold="false" CssClass="MsgInfo" Text="Label"></asp:Label>--%>
+            <%--<asp:Label ID="lblType" runat="server" Font-Bold="false" CssClass="MsgInfo" Text="Label"></asp:Label>--%>
         </td>
     </tr>
     <tr>
