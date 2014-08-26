@@ -109,7 +109,6 @@ namespace WealthERP.AdvsierPreferenceSettings
                 TextBox txtNote = (TextBox)editedItem.FindControl("txtNote");
                 RadGrid rgRoles = (RadGrid)editedItem.FindControl("rgRoles");
                 //BindPopUpcontrols(roleId, ddlDepartMent, txtRoleName, txtNote, rgRoles);
-                GetDepartmentWiseUserRole(Convert.ToInt32(ddlDepartMent.SelectedValue));
 
                 FillAdviserrole(roleId, ddlDepartMent, txtRoleName, txtNote, rgRoles);
 
@@ -178,6 +177,8 @@ namespace WealthERP.AdvsierPreferenceSettings
                     }
                 }
                 advisorPreferenceBo.UpdateUserrole(rollid, int.Parse(ddlDepartMent.SelectedValue), txtRoleName.Text, txtNote.Text, userVo.UserId, StrUserLeve.TrimEnd(','));
+                Cache.Remove(userVo.UserId.ToString() + "DepartRoles");
+                BindUserRole();
             }
             if (e.CommandName == RadGrid.DeleteCommandName)
             {
@@ -217,10 +218,9 @@ namespace WealthERP.AdvsierPreferenceSettings
 
                     if (rgRoles.Items.Count == 0)
                     {
-                        dtBindUserRole = advisorPreferenceBo.GetUserRoleDepartmentWise(Convert.ToInt32(ddlDepartMent.SelectedValue));
-
-                        //rgRoles.DataSource = dtBindUserRole;
-                        //rgRoles.DataBind();
+                        GetDepartmentWiseUserRole(Convert.ToInt32(ddlDepartMent.SelectedValue));
+                        rgRoles.DataSource = (DataTable)Cache[userVo.UserId.ToString() + "DepartRoles"]; ;
+                        rgRoles.DataBind();
                     }
 
                     foreach (GridDataItem gdi in rgRoles.Items)
