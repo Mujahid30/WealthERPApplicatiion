@@ -1686,7 +1686,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(GetOnlineNCDExtractPreviewcmd, "@IssueId", DbType.Int32, issueId);
                 db.AddInParameter(GetOnlineNCDExtractPreviewcmd, "@ExtSource", DbType.String, extSource);
                 db.AddOutParameter(GetOnlineNCDExtractPreviewcmd, "@AID_SeriesCount", DbType.Int32, 1000);
-
+                GetOnlineNCDExtractPreviewcmd.CommandTimeout = 60 * 60;
                 if (db.ExecuteNonQuery(GetOnlineNCDExtractPreviewcmd) != 0)
                 {
                     if (db.GetParameterValue(GetOnlineNCDExtractPreviewcmd, "AID_SeriesCount").ToString() != string.Empty)
