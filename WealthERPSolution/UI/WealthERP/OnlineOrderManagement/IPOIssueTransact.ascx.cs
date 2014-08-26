@@ -517,11 +517,10 @@ namespace WealthERP.OnlineOrderManagement
                 userMessage = "Order cannot be placed , Application oversubscribed. Please contact your relationship manager or contact call centre";
 
             }
-            else if (accountDebitStatus == false)
+            else if (orderId!=0 && accountDebitStatus == false)
             {
-                userMessage = "No RMS Response";
+                userMessage = "Please allocate the adequate amount to place the order successfully.";
             }
-
             else if (orderId == 0)
             {
                 userMessage = "Please allocate the adequate amount to place the order successfully.";

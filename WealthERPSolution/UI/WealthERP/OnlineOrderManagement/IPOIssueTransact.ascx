@@ -336,7 +336,7 @@
                     <tr>
                         <td align="left" style="width: 10%">
                             <asp:Button ID="btnConfirmOrder" runat="server" Text="Confirm Order" OnClick="btnConfirmOrder_Click"
-                                CssClass="PCGMediumButton" ValidationGroup="btnConfirmOrder, btnTC" OnClientClick="return Validate()" />
+                                CssClass="PCGMediumButton" ValidationGroup="btnConfirmOrder, btnTC" OnClientClick="return PreventClicks(); Validate();" />
                         </td>
                         <td>
                             <asp:LinkButton runat="server" ID="lnlBack" CssClass="LinkButtons" Text="Click here to view the issue list"
