@@ -175,7 +175,7 @@
                         ControlToValidate="ddlProduct" Display="Dynamic" InitialValue="0" ValidationGroup="IssueExtract">Please select a product</asp:RequiredFieldValidator>
                     <asp:RequiredFieldValidator ID="rfvProductFileType" runat="server" CssClass="rfvPCG"
                         ErrorMessage="Please select a product" ControlToValidate="ddlProduct" Display="Dynamic"
-                        InitialValue="0" ValidationGroup="FileType">Please select a product</asp:RequiredFieldValidator>
+                        InitialValue="0" ValidationGroup="onlineIssueExtract">Please select a product</asp:RequiredFieldValidator>
                 </td>
                 <td class="leftLabel" style="width:15%">
                     <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="Select Issue:"></asp:Label>
@@ -183,17 +183,17 @@
                 <td class="rightData">
                     <asp:DropDownList ID="ddlIssueName" runat="server" Width="450px" CssClass="cmbLongField"
                         AutoPostBack="true" OnSelectedIndexChanged="ddlIssueName_SelectedIndexChanged">
-                        <%--<asp:ListItem Selected="True" Value="Select">--SELECT--</asp:ListItem>--%>
+                        <asp:ListItem Selected="True" Value="Select">--SELECT--</asp:ListItem>
                     </asp:DropDownList>
                     <br />
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="ddlIssueName"
                         CssClass="rfvPCG" Display="Dynamic" ErrorMessage="Please select a IssueName"
-                        InitialValue="Select" ValidationGroup="OnlineIssueUpload">
+                        InitialValue="Select" ValidationGroup="onlineIssueExtract">
                     </asp:RequiredFieldValidator>
                 </td>
                 <td class="rightData" colspan="3">
                     <asp:Button ID="btnIssueExtract" runat="server" CssClass="PCGLongButton" Text="Extract"
-                        OnClick="btnIssueExtract_Click" />
+                        OnClick="btnIssueExtract_Click" ValidationGroup="onlineIssueExtract" />
                 </td>
             </tr>
         </table>
@@ -206,7 +206,7 @@
                         <div class="divSectionHeadingNumber fltlftStep">
                             2</div>
                         <div class="fltlft">
-                            <asp:Label ID="Label1" runat="server" Text="NCD Extract"></asp:Label>
+                            <asp:Label ID="Label1" runat="server" Text="NCD/IPO Extract"></asp:Label>
                         </div>
                     </div>
                 </td>
