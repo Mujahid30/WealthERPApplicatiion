@@ -594,7 +594,7 @@ namespace WealthERP.OnlineOrderManagement
             }
             if (minBidAmount > maxPaybleAmount || maxBidAmount < maxPaybleAmount)
             {
-                msg = "Bid Value (Amount Payable) should be greater than the Min bid amount and less than the max bid amount";
+                msg = "Bid Value (Amount Payable) should be greater than the Min bid amount and less than the Max bid amount";
                 isBidValid = false;
                 return isBidValid;
             }
