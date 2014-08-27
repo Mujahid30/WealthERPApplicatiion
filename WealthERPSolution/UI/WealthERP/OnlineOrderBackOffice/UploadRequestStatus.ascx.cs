@@ -140,6 +140,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 GridDataItem editform = (GridDataItem)e.Item;
                 int inputRejects = Convert.ToInt32(editform["InputRejects"].Text);
                 int stagingRejects = Convert.ToInt32(editform["StagingRejects"].Text);
+                int Staging = Convert.ToInt32(editform["Staging"].Text);
                 LinkButton lbDetails = (LinkButton)editform.FindControl("lbDetails");
                 if (inputRejects + stagingRejects > 0)
                 {
