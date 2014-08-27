@@ -115,14 +115,6 @@
                                 ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="true"
                                 AllowAutomaticInserts="false" Width="120%" Height="400px" OnItemDataBound="gvIPOOrderBook_ItemDataBound"
                                 OnUpdateCommand="gvIPOOrderBook_UpdateCommand">
-                                <%--  <telerik:RadGrid ID="gvIPOOrderBook" runat="server" AllowSorting="True" PageSize="10"
-                                AllowPaging="True" AutoGenerateColumns="False" EnableEmbeddedSkins="False" GridLines="None"
-                                ShowFooter="True" PagerStyle-AlwaysVisible="true" ShowStatusBar="True" OnItemDataBound="gvIPOOrderBook_OnItemDataCommand"
-                                Skin="Telerik" AllowFilteringByColumn="false" OnNeedDataSource="gvIPOOrderBook_OnNeedDataSource"
-                                OnItemCommand="gvIPOOrderBook_OnItemCommand">--%>
-                                <%-- <MasterTableView DataKeyNames="CO_OrderId,AIM_IssueId,AIM_IssueName,Amount,WES_Code,C_CustCode,WOS_OrderStep,AIM_IsCancelAllowed"
-                                    Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" AllowFilteringByColumn="true">
-                                    --%>
                                 <MasterTableView DataKeyNames="CO_OrderId,AIM_IssueId,AIM_IssueName,Amount,WES_Code,C_CustCode,WOS_OrderStep,AIM_IsCancelAllowed"
                                     Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None"
                                     EditMode="PopUp">
@@ -169,20 +161,11 @@
                                             AutoPostBackOnFilter="true" HeaderStyle-Width="120px" FilterControlWidth="60px">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
-                                        <%-- <telerik:GridBoundColumn DataField="CO_OrderId" AllowFiltering="true" HeaderText="Transaction No."
-                                            UniqueName="CO_OrderId" SortExpression="CO_OrderId" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                            AutoPostBackOnFilter="true" HeaderStyle-Width="80px" FilterControlWidth="75px" Visible=false>
-                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                        </telerik:GridBoundColumn>--%>
+                               
                                         <telerik:GridBoundColumn DataField="CO_OrderId" HeaderText="Transaction No." SortExpression="CO_OrderId"
                                             ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
                                             UniqueName="CO_OrderId" FooterStyle-HorizontalAlign="Left">
-                                            <%-- <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
-                                    <ItemTemplate>
-                                        <asp:LinkButton ID="lnkOrderNo" runat="server" CssClass="cmbFielde" Text='<%# Eval("CO_OrderId") %>'
-                                            OnClick="lnkOrderNo_Click">
-                                        </asp:LinkButton>
-                                    </ItemTemplate>--%>
+                                            <ItemStyle Width="60px" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="CO_ApplicationNumber" AllowFiltering="true" HeaderText="Application No."
                                             UniqueName="CO_ApplicationNumber" SortExpression="CO_ApplicationNumber" ShowFilterIcon="false"
@@ -242,7 +225,7 @@
                                         <telerik:GridEditCommandColumn Visible="true" HeaderStyle-Width="60px" UniqueName="MarkAsReject"
                                             EditText="Cancel" CancelText="Cancel" UpdateText="OK" HeaderText="Cancel">
                                         </telerik:GridEditCommandColumn>
-                                       <%-- <telerik:GridTemplateColumn AllowFiltering="false" HeaderStyle-Width="100px" UniqueName="Action"
+                                        <%-- <telerik:GridTemplateColumn AllowFiltering="false" HeaderStyle-Width="100px" UniqueName="Action"
                                             HeaderText="Action">
                                             <ItemTemplate>
                                                 <asp:ImageButton ID="imgCancel" runat="server" CommandName="Update" ImageUrl="~/Images/Cancel.jpg"
@@ -299,16 +282,10 @@
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>
                                     </Columns>
-                                    <EditFormSettings FormTableStyle-Height="40%" EditFormType="Template" FormMainTableStyle-Width="300px">
+                                    <EditFormSettings FormTableStyle-Height="40%" EditFormType="Template" FormMainTableStyle-Width="300px"
+                                        CaptionFormatString=" Order canceling Request">
                                         <FormTemplate>
                                             <table style="background-color: White;" border="0">
-                                                <tr>
-                                                    <td colspan="4">
-                                                        <div class="divSectionHeading" style="vertical-align: text-bottom">
-                                                            Order canceling Request
-                                                        </div>
-                                                    </td>
-                                                </tr>
                                                 <tr>
                                                     <td class="leftField">
                                                         <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="Request No.:"></asp:Label>

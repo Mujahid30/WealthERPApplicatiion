@@ -163,55 +163,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 }
             }
         }
-        //protected void gvIPOOrderBook_OnItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
-        //{
-        //    bool lbResult = false;
-        //    string strRemark = string.Empty;
-        //    //if (e.CommandName == RadGrid.UpdateCommandName)
-        //    //{
-        //    //    int OrderId = int.Parse(gvIPOOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_OrderId"].ToString());
-        //    //    int Amount = int.Parse(gvIPOOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["Amount"].ToString());
-        //    //    //lbResult = BoOnlineBondOrder.cancelBondsBookOrder(OrderId, 2);
-        //    //    if (lbResult == true)
-        //    //    {
-        //    //        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Order Cancelled Successfully');", true);
-        //    //    }
-
-        //    //}
-        //    if (e.CommandName == RadGrid.FilterCommandName)
-        //    {
-        //        // GridDataItem gdi =(GridDataItem)e.item;
-
-        //    }
-        //    if (e.CommandName == "Update1")
-        //    {
-        //        GridEditableItem editItem = e.Item as GridEditableItem;
-        //        TextBox txtRemark = (TextBox)e.Item.FindControl("txtRemark");
-        //        strRemark = txtRemark.Text;
-        //        LinkButton buttonEdit = editItem["MarkAsReject"].Controls[0] as LinkButton;
-        //        //   Label extractStepCode = editItem["WES_Code"].Controls[1] as Label;
-        //        Int32 orderId = Convert.ToInt32(gvIPOOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_OrderId"].ToString());
-        //        string extractionStepCode = gvIPOOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WES_Code"].ToString();
-        //        if (extractionStepCode == string.Empty)
-        //        {
-        //            string AcntId = gvIPOOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["C_CustCode"].ToString();
-        //            double AmountPayable = Convert.ToDouble(gvIPOOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["Amount"].ToString());
-        //            lbResult = BoOnlineBondOrder.cancelBondsBookOrder(orderId, 2, txtRemark.Text);
-        //            BoOnlineBondOrder.DebitRMSUserAccountBalance(AcntId, AmountPayable, 0);
-        //            if (lbResult == true)
-        //            {
-        //                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Order Cancelled Successfully');", true);
-        //            }
-        //            BindAdviserNCCOrderBook();
-
-        //        }
-        //        else
-        //        {
-        //            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Order Cant be Cancelled as it is Extracted.');", true);
-
-        //        }
-        //    }
-        //}
+        
         protected void gvIPOOrderBook_ItemDataBound(object sender, GridItemEventArgs e)
         {
 
@@ -232,33 +184,7 @@ namespace WealthERP.OnlineOrderBackOffice
             }
         }
 
-        //public void gvIPOOrderBook_OnItemDataCommand(object sender, Telerik.Web.UI.GridItemEventArgs e)
-        //{
-        //    if (e.Item is GridDataItem)
-        //    {
-        //        GridDataItem dataItem = e.Item as GridDataItem;
-        //        LinkButton lbtnMarkAsReject = dataItem["MarkAsReject"].Controls[0] as LinkButton;
-        //        string OrderStepCode = Convert.ToString(gvIPOOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WOS_OrderStep"]);
-        //        Boolean isCancel = Convert.ToBoolean(gvIPOOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIM_IsCancelAllowed"].ToString());
-        //        //  string extractionStepCode = gvNCDOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WES_COde"].ToString();
-        //        if (OrderStepCode == "INPROCESS" && isCancel != false)
-        //        {
-        //            lbtnMarkAsReject.Visible = true;
-        //        }
-        //        else
-        //        {
-        //            lbtnMarkAsReject.Visible = false;
-        //        }
-        //    }
-        //    if (e.Item.ItemType == GridItemType.FilteringItem)
-        //    {
-        //       // GridFilteringItem filterItem = (GridFilteringItem)e.Item;
-        //       // int RowIndex = gvIPOOrderBook.MasterTableView.GetColumn("CO_OrderId").OrderIndex;                 
-        //       //int orderId = int.Parse(gvIPOOrderBook.MasterTableView.DataKeyValues[(RowIndex/2)-1]["CO_OrderId"].ToString());
-
-
-        //    }
-        //}
+    
         protected void btnExpandAll_Click(object sender, EventArgs e)
         {
             int strIssuerId = 0;
