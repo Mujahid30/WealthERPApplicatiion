@@ -38,8 +38,9 @@
                 </asp:DropDownList>
             </td>
             <td>
-            <asp:Label ID="lblIssueName" runat="server" class="FieldName" Text="Issue Name:"></asp:Label>
-            <asp:DropDownList CssClass="cmbField" ID="ddlIssueName" runat="server"></asp:DropDownList>
+                <asp:Label ID="lblIssueName" runat="server" class="FieldName" Text="Issue Name:"></asp:Label>
+                <asp:DropDownList CssClass="cmbField" ID="ddlIssueName" runat="server">
+                </asp:DropDownList>
             </td>
             <td id="tdlblFromDate" runat="server" align="right">
                 <asp:Label class="FieldName" ID="lblFromTran" Text="From :" runat="server" />
@@ -109,19 +110,29 @@
                 <table>
                     <tr>
                         <td>
-                            <telerik:RadGrid ID="gvIPOOrderBook" runat="server" AllowSorting="True" enableloadondemand="True"
-                                PageSize="10" AllowPaging="True" AutoGenerateColumns="False" EnableEmbeddedSkins="False"
-                                GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="true" ShowStatusBar="True"
-                                OnItemDataBound="gvIPOOrderBook_OnItemDataCommand" Skin="Telerik" AllowFilteringByColumn="false"
-                                OnNeedDataSource="gvIPOOrderBook_OnNeedDataSource" OnItemCommand="gvIPOOrderBook_OnItemCommand">
-                                <MasterTableView DataKeyNames="CO_OrderId,AIM_IssueId,AIM_IssueName,Amount,WES_Code,C_CustCode,WOS_OrderStep,AIM_IsCancelAllowed"
+                            <telerik:RadGrid ID="gvIPOOrderBook" runat="server" GridLines="None" AutoGenerateColumns="False"
+                                PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" OnNeedDataSource="gvIPOOrderBook_OnNeedDataSource"
+                                ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="true"
+                                AllowAutomaticInserts="false" Width="120%" Height="400px" OnItemDataBound="gvIPOOrderBook_ItemDataBound"
+                                OnUpdateCommand="gvIPOOrderBook_UpdateCommand">
+                                <%--  <telerik:RadGrid ID="gvIPOOrderBook" runat="server" AllowSorting="True" PageSize="10"
+                                AllowPaging="True" AutoGenerateColumns="False" EnableEmbeddedSkins="False" GridLines="None"
+                                ShowFooter="True" PagerStyle-AlwaysVisible="true" ShowStatusBar="True" OnItemDataBound="gvIPOOrderBook_OnItemDataCommand"
+                                Skin="Telerik" AllowFilteringByColumn="false" OnNeedDataSource="gvIPOOrderBook_OnNeedDataSource"
+                                OnItemCommand="gvIPOOrderBook_OnItemCommand">--%>
+                                <%-- <MasterTableView DataKeyNames="CO_OrderId,AIM_IssueId,AIM_IssueName,Amount,WES_Code,C_CustCode,WOS_OrderStep,AIM_IsCancelAllowed"
                                     Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" AllowFilteringByColumn="true">
+                                    --%>
+                                <MasterTableView DataKeyNames="CO_OrderId,AIM_IssueId,AIM_IssueName,Amount,WES_Code,C_CustCode,WOS_OrderStep,AIM_IsCancelAllowed"
+                                    Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None"
+                                    EditMode="PopUp">
                                     <Columns>
                                         <telerik:GridTemplateColumn AllowFiltering="false">
-                                        <HeaderTemplate>
-                                        <asp:LinkButton ID="AllDetailslink" runat="server" CommandName="ExpandAllCollapse" Font-Underline="False"
-                                         Font-Bold="true" UniqueName="AllDetailslink" Font-Size="Medium" OnClick="btnExpand_Click" >+</asp:LinkButton>
-                                        </HeaderTemplate>
+                                            <HeaderTemplate>
+                                                <asp:LinkButton ID="AllDetailslink" runat="server" CommandName="ExpandAllCollapse"
+                                                    Font-Underline="False" Font-Bold="true" UniqueName="AllDetailslink" Font-Size="Medium"
+                                                    OnClick="btnExpand_Click">+</asp:LinkButton>
+                                            </HeaderTemplate>
                                             <ItemTemplate>
                                                 <asp:LinkButton ID="lbDetails" runat="server" CommandName="ExpandCollapse" Font-Underline="False"
                                                     Font-Bold="true" UniqueName="Detailslink" OnClick="btnExpandAll_Click" Font-Size="Medium">+</asp:LinkButton>
@@ -158,10 +169,20 @@
                                             AutoPostBackOnFilter="true" HeaderStyle-Width="120px" FilterControlWidth="60px">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="CO_OrderId" AllowFiltering="true" HeaderText="Transaction No."
+                                        <%-- <telerik:GridBoundColumn DataField="CO_OrderId" AllowFiltering="true" HeaderText="Transaction No."
                                             UniqueName="CO_OrderId" SortExpression="CO_OrderId" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                            AutoPostBackOnFilter="true" HeaderStyle-Width="80px" FilterControlWidth="75px">
+                                            AutoPostBackOnFilter="true" HeaderStyle-Width="80px" FilterControlWidth="75px" Visible=false>
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>--%>
+                                        <telerik:GridBoundColumn DataField="CO_OrderId" HeaderText="Transaction No." SortExpression="CO_OrderId"
+                                            ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                            UniqueName="CO_OrderId" FooterStyle-HorizontalAlign="Left">
+                                            <%-- <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
+                                    <ItemTemplate>
+                                        <asp:LinkButton ID="lnkOrderNo" runat="server" CssClass="cmbFielde" Text='<%# Eval("CO_OrderId") %>'
+                                            OnClick="lnkOrderNo_Click">
+                                        </asp:LinkButton>
+                                    </ItemTemplate>--%>
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="CO_ApplicationNumber" AllowFiltering="true" HeaderText="Application No."
                                             UniqueName="CO_ApplicationNumber" SortExpression="CO_ApplicationNumber" ShowFilterIcon="false"
@@ -202,32 +223,30 @@
                                             ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
-                                         <telerik:GridBoundColumn DataField="Bidding_Exchange" AllowFiltering="false"
-                                            HeaderText="Bidding Exchange" HeaderStyle-Width="70px" UniqueName="Bidding_Exchange"
-                                            SortExpression="Bidding_Exchange" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                            AutoPostBackOnFilter="true">
+                                        <telerik:GridBoundColumn DataField="Bidding_Exchange" AllowFiltering="false" HeaderText="Bidding Exchange"
+                                            HeaderStyle-Width="70px" UniqueName="Bidding_Exchange" SortExpression="Bidding_Exchange"
+                                            ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
-                                           <telerik:GridBoundColumn DataField="AIM_IsCancelAllowed" AllowFiltering="false"
-                                            HeaderText="Is cancel" HeaderStyle-Width="70px" UniqueName="AIM_IsCancelAllowed"
-                                            SortExpression="AIM_IsCancelAllowed" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                            AutoPostBackOnFilter="true" Visible="false">
+                                        <telerik:GridBoundColumn DataField="AIM_IsCancelAllowed" AllowFiltering="false" HeaderText="Is cancel"
+                                            HeaderStyle-Width="70px" UniqueName="AIM_IsCancelAllowed" SortExpression="AIM_IsCancelAllowed"
+                                            ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                            Visible="false">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
-                                         <telerik:GridBoundColumn DataField="COS_Reason" AllowFiltering="false"
-                                            HeaderText="Reject Reason" HeaderStyle-Width="70px" UniqueName="COS_Reason"
-                                            SortExpression="COS_Reason" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                            AutoPostBackOnFilter="true" >
+                                        <telerik:GridBoundColumn DataField="COS_Reason" AllowFiltering="false" HeaderText="Reject Reason"
+                                            HeaderStyle-Width="70px" UniqueName="COS_Reason" SortExpression="COS_Reason"
+                                            ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridEditCommandColumn Visible="true" HeaderStyle-Width="60px" UniqueName="MarkAsReject"
                                             EditText="Cancel" CancelText="Cancel" UpdateText="OK" HeaderText="Cancel">
                                         </telerik:GridEditCommandColumn>
-                                        <%--<telerik:GridTemplateColumn AllowFiltering="false" HeaderStyle-Width="100px" UniqueName="Action"
+                                       <%-- <telerik:GridTemplateColumn AllowFiltering="false" HeaderStyle-Width="100px" UniqueName="Action"
                                             HeaderText="Action">
                                             <ItemTemplate>
-                                              <%--  <asp:ImageButton ID="imgCancel" runat="server" CommandName="Update" ImageUrl="~/Images/Cancel.jpg"
-                                                    ToolTip="Cancel" Enabled="false" />&nbsp;
+                                                <asp:ImageButton ID="imgCancel" runat="server" CommandName="Update" ImageUrl="~/Images/Cancel.jpg"
+                                                    ToolTip="Cancel" />&nbsp;
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>--%>
                                         <telerik:GridTemplateColumn AllowFiltering="false">
