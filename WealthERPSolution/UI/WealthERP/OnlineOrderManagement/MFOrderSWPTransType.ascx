@@ -1,4 +1,5 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="MFOrderSWPTransType.ascx.cs" Inherits="WealthERP.OnlineOrderManagement.MFOrderSWTTransType" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="MFOrderSWPTransType.ascx.cs"
+    Inherits="WealthERP.OnlineOrderManagement.MFOrderSWTTransType" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
@@ -82,7 +83,7 @@
                 <td>
                     <div class="divOnlinePageHeading">
                         <div class="divClientAccountBalance" id="divClientAccountBalance" runat="server">
-                           <asp:Label ID="lblUserAccount" runat="server" Text="" CssClass="BalanceAmount"></asp:Label>
+                            <asp:Label ID="lblUserAccount" runat="server" Text="" CssClass="BalanceAmount"></asp:Label>
                             <asp:Label ID="lblTest" runat="server" Text="" CssClass="BalanceAmount"></asp:Label>
                             <asp:Label ID="Label1" runat="server" Text="Available Limits:" CssClass="BalanceLabel"> </asp:Label>
                             <asp:Label ID="lblAvailableLimits" runat="server" Text="" CssClass="BalanceAmount"></asp:Label>
@@ -178,36 +179,36 @@
                     <td colspan="2">
                     </td>
                     <td align="left" style="vertical-align: top;" colspan="3">
-                        <table width="100%" class="SchemeInfoTable">
+                        <table width="75%" class="SchemeInfoTable">
                             <tr class="SchemeInfoTable">
-                                <td align="left">
-                                    <asp:Label ID="lblNav" runat="server" Text="Last Recorded NAV(Rs):" CssClass="FieldName"></asp:Label>
+                                <td align="left" style="vertical-align: top;">
+                                    <asp:Label ID="lblNav" runat="server" Text=" Last Recorded NAV (Rs):" CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td>
                                     <asp:Label ID="lblNavDisplay" runat="server" CssClass="readOnlyField"></asp:Label>
                                 </td>
-                                <td align="left">
-                                    <asp:Label ID="lblMinAmountrequired" runat="server" Text="Minimum Initial Amount:"
-                                        CssClass="FieldName"></asp:Label>
+                                <td align="left" style="width: 25%;">
+                                    <asp:Label ID="lblMinAmount" runat="server" Text="Minimum Amount(Rs):" CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td>
-                                    <asp:Label ID="lblMinAmountrequiredDisplay" runat="server" CssClass="readOnlyField"></asp:Label>
+                                    <asp:Label ID="lblMinAmountValue" runat="server" Text="" CssClass="FieldName"></asp:Label>
                                 </td>
                             </tr>
                             <tr class="SchemeInfoTable">
-                                <td align="left">
-                                    <asp:Label ID="lblCutOffTime" runat="server" Text="Cut-Off time:" CssClass="FieldName"></asp:Label>
+                                <td align="left" style="vertical-align: top;">
+                                    <asp:Label ID="lblCutt" runat="server" Text="Cut-Off time:" CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td>
-                                    <asp:Label ID="lblCutOffTimeDisplay" runat="server" CssClass="readOnlyField"></asp:Label>
-                                </td>
-                                <td style="vertical-align: top;" align="left">
-                                    <asp:Label ID="lblMutiplesThereAfter" runat="server" CssClass="FieldName" Text="Subsequent Amount:</br>(In Multiples Of)"></asp:Label>
+                                    <asp:Label ID="lbltime" runat="server" Text="" CssClass="readOnlyField"></asp:Label>
                                 </td>
                                 <td>
-                                    <asp:Label ID="lblMutiplesThereAfterDisplay" runat="server" CssClass="readOnlyField"></asp:Label>
+                                    <asp:Label ID="lblMinUnit" runat="server" Text="Minimum Units:" CssClass="FieldName"></asp:Label>
+                                </td>
+                                <td>
+                                    <asp:Label ID="lblMinUnitValue" runat="server" Text="" CssClass="FieldName"></asp:Label>
                                 </td>
                             </tr>
+                           
                         </table>
                     </td>
                 </tr>
@@ -234,7 +235,7 @@
                     <td colspan="2">
                     </td>
                     <td align="left" style="vertical-align: top;" colspan="3">
-                        <table width="100%" class="SchemeInfoTable" id="tblNomineeJoint" runat="server">
+                        <table width="100%" class="SchemeInfoTable" id="tblNomineeJoint" runat="server" style="display:none">
                             <tr id="trNominee" runat="server">
                                 <td align="left">
                                     <asp:Label ID="lblHolder" runat="server" Text="Joint Holder:" CssClass="FieldName"></asp:Label>
@@ -272,7 +273,7 @@
                     <td>
                     </td>
                     <td align="right" style="vertical-align: top;">
-                        <asp:Label ID="lblFrequency" runat="server" Text="SIP Frequency:" CssClass="FieldName"></asp:Label>
+                        <asp:Label ID="lblFrequency" runat="server" Text="SWP Frequency:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
                         <asp:DropDownList ID="ddlFrequency" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlFrequency_OnSelectedIndexChanged"
@@ -342,6 +343,25 @@
                         <asp:Label ID="lblEndDateDisplay" runat="server" CssClass="readOnlyField"></asp:Label>
                     </td>
                     <td colspan="2">
+                    </td>
+                </tr>
+                <tr class="spaceUnder">
+                    <td>
+                    </td>
+                    <td align="right" style="vertical-align: top;">
+                        <asp:Label ID="lblRedeem" runat="server" Text="SWP Type:" CssClass="FieldName"></asp:Label>
+                    </td>
+                    <td>
+                        <asp:DropDownList ID="ddlRedeem" runat="server" AutoPostBack="true" CssClass="cmbField"
+                            OnSelectedIndexChanged="ddlRedeem_OnSelectedIndexChanged">
+                            <asp:ListItem Text="--SELECT--" Value="0"></asp:ListItem>
+                            <asp:ListItem Text="Units" Value="UN"></asp:ListItem>
+                            <asp:ListItem Text="Amount (Rs)" Value="AM"></asp:ListItem>
+                        </asp:DropDownList>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" CssClass="rfvPCG"
+                            ErrorMessage="Please Select an Redeem Type" Display="Dynamic" ControlToValidate="ddlRedeem"
+                            InitialValue="0" ValidationGroup="btnSubmit">
+                        </asp:RequiredFieldValidator>
                     </td>
                 </tr>
                 <tr class="spaceUnder">
@@ -456,7 +476,7 @@
                 </tr>
                 <tr id="trNewOrder" runat="server" visible="false">
                     <td align="center" colspan="4">
-                        <asp:LinkButton ID="lnkNewOrder" CausesValidation="false" Text="Make another SIP"
+                        <asp:LinkButton ID="lnkNewOrder" CausesValidation="false" Text="Make another SWP"
                             runat="server" OnClick="lnkNewOrder_Click" CssClass="LinkButtons"></asp:LinkButton>
                     </td>
                 </tr>

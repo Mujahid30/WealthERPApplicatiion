@@ -306,19 +306,19 @@ namespace BoOnlineOrderManagement
 
             return StartDate.AddMonths(multiplier * installments);
         }
-        public DataSet GetRedeemAmcDetails(int customerId)
+        public DataSet GetCustomerHoldingAMCList(int customerId,char type)
         {
-            DataSet dsGetRedeemSchemeDetails;
+            DataSet dsCustomerHoldingAMCList;
             OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
             try
             {
-                dsGetRedeemSchemeDetails = OnlineMFOrderDao.GetRedeemAmcDetails(customerId);
+                dsCustomerHoldingAMCList = OnlineMFOrderDao.GetCustomerHoldingAMCList(customerId, type);
             }
             catch (BaseApplicationException Ex)
             {
                 throw (Ex);
             }
-            return dsGetRedeemSchemeDetails;
+            return dsCustomerHoldingAMCList;
         }
         public OnlineMFOrderVo GetOrderDetails(int Id)
         {
@@ -510,8 +510,8 @@ namespace BoOnlineOrderManagement
         {
             OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
             DataTable dtSwitchOrder = new DataTable();
-            List<int> OrderIds = new List<int>();
-           
+            List<int> OrderIds = new List<int>();          
+
             try
             {
                 dtSwitchOrder = creataTableForSwitch(lsonlinemforder);

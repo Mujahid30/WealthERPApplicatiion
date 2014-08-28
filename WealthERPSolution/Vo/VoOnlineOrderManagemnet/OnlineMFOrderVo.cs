@@ -32,5 +32,7 @@ namespace VoOnlineOrderManagemnet
         public int MinDues { set; get; }
         public int MaxDues { set; get; }
         public bool IsAllUnits { set; get; }
+        public string SWPRedeemValueType { set; get; }
+        
     }
 }
