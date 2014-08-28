@@ -91,10 +91,10 @@ namespace WealthERP.OnlineOrderBackOffice
         }
         protected void GetSchemePlanAuditDetail()
         {
-            DataTable dtGetSchemePlanAuditDetail=new DataTable();
-         DataSet dsGetCustomerProfileAuditData = new DataSet();
-         dsGetCustomerProfileAuditData = customerBo.GetSchemePlanAuditDetails(int.Parse(hdnschemePlanId.Value), rdpFromModificationDate.SelectedDate.Value, rdpToDate.SelectedDate.Value);
-            dtGetSchemePlanAuditDetail=dsGetCustomerProfileAuditData.Tables[0];
+            DataTable dtGetSchemePlanAuditDetail = new DataTable();
+            DataSet dsGetCustomerProfileAuditData = new DataSet();
+            dsGetCustomerProfileAuditData = customerBo.GetSchemePlanAuditDetails(int.Parse(hdnschemePlanId.Value), rdpFromModificationDate.SelectedDate.Value, rdpToDate.SelectedDate.Value);
+            dtGetSchemePlanAuditDetail = dsGetCustomerProfileAuditData.Tables[0];
             if (dtGetSchemePlanAuditDetail.Rows.Count > 0)
             {
                 if (Cache["SchemeAudit" + userVo.UserId] == null)
@@ -110,6 +110,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 rdSchemeAudit.DataBind();
                 taSchemeAudit.Visible = true;
                 tblSchemePlan.Visible = true;
+                rdSchemeAudit.Visible = true;
             }
             else
             {
@@ -117,7 +118,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 rdSchemeAudit.DataBind();
                 taSchemeAudit.Visible = true;
                 tblSchemePlan.Visible = true;
-
+                rdSchemeAudit.Visible = true;
             }
         }
         protected void GetCustomerProfileAduditDetails()
@@ -140,6 +141,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     rdCustomerProfile.DataBind();
                     tblProfileHeading.Visible = true;
                     tblProfileData.Visible = true;
+                    rdCustomerProfile.Visible = true;
                     if (Cache["CustomerProfile" + adviserVo.advisorId] != null) Cache.Remove("CustomerProfile" + adviserVo.advisorId);
                     Cache.Insert("CustomerProfile" + adviserVo.advisorId, dsGetCustomerProfileAuditData.Tables[0]);
                     break;
@@ -147,6 +149,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     rdCustomerBank.DataBind();
                     tblCustomerBank.Visible = true;
                     tblCustomerBankHeading.Visible = true;
+                    rdCustomerBank.Visible = true;
                     if (Cache["CustomerBank" + adviserVo.advisorId] != null) Cache.Remove("CustomerBank" + adviserVo.advisorId);
                     Cache.Insert("CustomerBank" + adviserVo.advisorId, dsGetCustomerProfileAuditData.Tables[0]);
                     break;
@@ -154,6 +157,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     rdCustomerDemat.DataBind();
                     tblCustomerDemat.Visible = true;
                     tblCustomerDematHeading.Visible = true;
+                    rdCustomerDemat.Visible = true;
                     if (Cache["CustomerDemat" + adviserVo.advisorId] != null) Cache.Remove("CustomerDemat" + adviserVo.advisorId);
                     Cache.Insert("CustomerDemat" + adviserVo.advisorId, dsGetCustomerProfileAuditData.Tables[0]);
                     break;
@@ -161,6 +165,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     rdCustomerDematAssociates.DataBind();
                     tblCustomerDematAssociates.Visible = true;
                     tblCustomerDematAssociatesHeading.Visible = true;
+                    rdCustomerDematAssociates.Visible = true;
                     if (Cache["CustomerDematAssociate" + adviserVo.advisorId] != null) Cache.Remove("CustomerDematAssociate" + adviserVo.advisorId);
                     Cache.Insert("CustomerDematAssociate" + adviserVo.advisorId, dsGetCustomerProfileAuditData.Tables[0]);
                     break;
@@ -168,12 +173,17 @@ namespace WealthERP.OnlineOrderBackOffice
                     rdTransaction.DataBind();
                     tableTransaction.Visible = true;
                     tableCustomerTransaction.Visible = true;
+                    rdTransaction.Visible = true;
                     if (Cache["CustomerTransaction" + adviserVo.advisorId] != null) Cache.Remove("CustomerTransaction" + adviserVo.advisorId);
                     Cache.Insert("CustomerTransaction" + adviserVo.advisorId, dsGetCustomerProfileAuditData.Tables[0]);
                     break;
+                //if (ddlType.SelectedValue == "CustomerProfile")
+                //{
+                //    r
+                //}
             }
 
-            
+
         }
         protected void rdCustomerProfile_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
@@ -207,9 +217,8 @@ namespace WealthERP.OnlineOrderBackOffice
         }
         protected void rdSchemeAudit_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
-
-
-
+            DataTable dtrdSchemeAudit = (DataTable)Cache["SchemeAudit" + userVo.UserId];
+            if (dtrdSchemeAudit != null) rdSchemeAudit.DataSource = dtrdSchemeAudit;
         }
         protected void ddlType_OnSelectedIndexChanged(object sender, EventArgs e)
         {
@@ -221,8 +230,12 @@ namespace WealthERP.OnlineOrderBackOffice
                 tdCustomerAuditList.Visible = true;
                 tdSchemePlan.Visible = false;
                 btnSubmit.Visible = true;
+                tblSchemePlan.Visible = false;
+                taSchemeAudit.Visible = false;
+                rdSchemeAudit.Visible = false;
+
             }
-            else
+            else if (ddlType.SelectedValue == "Schemeplan")
             {
                 tdSchemePlan.Visible = true;
                 tdTodate.Visible = true;
@@ -230,7 +243,80 @@ namespace WealthERP.OnlineOrderBackOffice
                 tdCustomer.Visible = false;
                 tdCustomerAuditList.Visible = false;
                 btnSubmit.Visible = true;
+                tblProfileHeading.Visible = false;
+                rdCustomerProfile.Visible = false;
+                tblCustomerBankHeading.Visible = false;
+                tblCustomerBank.Visible = false;
+                rdCustomerBank.Visible = false;
+                tblCustomerDematHeading.Visible = false;
+                rdCustomerDemat.Visible = false;
+                tblCustomerDematAssociatesHeading.Visible = false;
+                tblCustomerDematAssociates.Visible = false;
+                rdCustomerDematAssociates.Visible = false;
+                tableCustomerTransaction.Visible = false;
+                tableTransaction.Visible = false;
+                rdTransaction.Visible = false;
             }
+        }
+        protected void btnExportFilteredData_OnClick1(object sender, EventArgs e)
+        {
+            rdCustomerProfile.ExportSettings.OpenInNewWindow = true;
+            rdCustomerProfile.ExportSettings.IgnorePaging = true;
+            rdCustomerProfile.ExportSettings.HideStructureColumns = true;
+            rdCustomerProfile.ExportSettings.ExportOnlyData = true;
+            rdCustomerProfile.ExportSettings.FileName = "Profile Audit Details";
+            rdCustomerProfile.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            rdCustomerProfile.MasterTableView.ExportToExcel();
+        }
+        protected void btnExportFilteredData_OnClick2(object sender, EventArgs e)
+        {
+            rdCustomerBank.ExportSettings.OpenInNewWindow = true;
+            rdCustomerBank.ExportSettings.IgnorePaging = true;
+            rdCustomerBank.ExportSettings.HideStructureColumns = true;
+            rdCustomerBank.ExportSettings.ExportOnlyData = true;
+            rdCustomerBank.ExportSettings.FileName = "Bank Audit Details";
+            rdCustomerBank.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            rdCustomerBank.MasterTableView.ExportToExcel();
+        }
+        protected void btnExportFilteredData_OnClick3(object sender, EventArgs e)
+        {
+            rdCustomerDemat.ExportSettings.OpenInNewWindow = true;
+            rdCustomerDemat.ExportSettings.IgnorePaging = true;
+            rdCustomerDemat.ExportSettings.HideStructureColumns = true;
+            rdCustomerDemat.ExportSettings.ExportOnlyData = true;
+            rdCustomerDemat.ExportSettings.FileName = "Demat Audit Details";
+            rdCustomerDemat.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            rdCustomerDemat.MasterTableView.ExportToExcel();
+        }
+        protected void btnExportFilteredData_OnClick4(object sender, EventArgs e)
+        {
+            rdCustomerDematAssociates.ExportSettings.OpenInNewWindow = true;
+            rdCustomerDematAssociates.ExportSettings.IgnorePaging = true;
+            rdCustomerDematAssociates.ExportSettings.HideStructureColumns = true;
+            rdCustomerDematAssociates.ExportSettings.ExportOnlyData = true;
+            rdCustomerDematAssociates.ExportSettings.FileName = "Demat Association Audit Details";
+            rdCustomerDematAssociates.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            rdCustomerDematAssociates.MasterTableView.ExportToExcel();
+        }
+        protected void btnExportFilteredData_OnClick5(object sender, EventArgs e)
+        {
+            rdTransaction.ExportSettings.OpenInNewWindow = true;
+            rdTransaction.ExportSettings.IgnorePaging = true;
+            rdTransaction.ExportSettings.HideStructureColumns = true;
+            rdTransaction.ExportSettings.ExportOnlyData = true;
+            rdTransaction.ExportSettings.FileName = "Customer Transaction Audit";
+            rdTransaction.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            rdTransaction.MasterTableView.ExportToExcel();
+        }
+        protected void btnExportFilteredData_OnClick6(object sender, EventArgs e)
+        {
+            rdSchemeAudit.ExportSettings.OpenInNewWindow = true;
+            rdSchemeAudit.ExportSettings.IgnorePaging = true;
+            rdSchemeAudit.ExportSettings.HideStructureColumns = true;
+            rdSchemeAudit.ExportSettings.ExportOnlyData = true;
+            rdSchemeAudit.ExportSettings.FileName = "SchemePlan Audit";
+            rdSchemeAudit.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            rdSchemeAudit.MasterTableView.ExportToExcel();
         }
     }
 }
