@@ -81,15 +81,19 @@ namespace WealthERP.OnlineOrderManagement
 
             if (e.CommandName == "Buy")
             {
-                int Multipleallowed = onlineNCDBackOfficeBo.CustomerMultipleOrder(customerVo.CustomerId, issueId);
-                if (Multipleallowed == 1 || Multipleallowed > 1)
+                Boolean isMultipleApplicationAllowed = Convert.ToBoolean(RadGridIPOIssueList.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIM_IsMultipleApplicationsallowed"].ToString());
+                if (isMultipleApplicationAllowed == false)
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('You have already invested in selected issue, Please check the order book for the status.Multiple Investment is not allowed in same issue!!');", true);
-                    return;
+                    int issueApplicationSubmitCount = onlineNCDBackOfficeBo.CustomerMultipleOrder(customerVo.CustomerId, issueId);
+                    if (issueApplicationSubmitCount > 0)
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('You have already invested in selected issue, Please check the order book for the status.Multiple Investment is not allowed in same issue!!');", true);
+                        return;
+                    }
                 }
-                int accountactivate = onlineNCDBackOfficeBo.CheckAccountisActive(advisorVo.advisorId, customerVo.CustomerId);
-                int BankaccountActive = onlineNCDBackOfficeBo.CheckBankisActive(customerVo.CustomerId);
-                if (accountactivate != 0 && BankaccountActive != 0)
+                int accountActivate = onlineNCDBackOfficeBo.CheckAccountisActive(advisorVo.advisorId, customerVo.CustomerId);
+                int bankaccountActive = onlineNCDBackOfficeBo.CheckBankisActive(customerVo.CustomerId);
+                if (accountActivate != 0 && bankaccountActive != 0)
                 {
                     //int rowindex1 = ((GridDataItem)((LinkButton)sender).NamingContainer).RowIndex;
                     //int rowindex = (rowindex1 / 2) - 1;

@@ -23,6 +23,7 @@ namespace WealthERP.OnlineOrderManagement
     {
         OnlineIPOOrderBo onlineIPOOrderBo = new OnlineIPOOrderBo();
         OnlineIPOOrderVo onlineIPOOrderVo = new OnlineIPOOrderVo();
+        OnlineNCDBackOfficeBo onlineNCDBackOfficeBo = new OnlineNCDBackOfficeBo();
         AdvisorVo advisorVo;
         CustomerVo customerVo;
         UserVo userVo;
@@ -136,7 +137,7 @@ namespace WealthERP.OnlineOrderManagement
                 args.IsValid = true;
             }
 
-            
+
         }
 
         protected void BidQuantity_TextChanged(object sender, EventArgs e)
@@ -517,7 +518,7 @@ namespace WealthERP.OnlineOrderManagement
                 userMessage = "Order cannot be placed , Application oversubscribed. Please contact your relationship manager or contact call centre";
 
             }
-            else if (orderId!=0 && accountDebitStatus == false)
+            else if (orderId != 0 && accountDebitStatus == false)
             {
                 userMessage = "Please allocate the adequate amount to place the order successfully.";
             }
@@ -586,6 +587,18 @@ namespace WealthERP.OnlineOrderManagement
             int maxBidAmount = Convert.ToInt32(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIIC_MaxBidAmount"].ToString());
             GridFooterItem footerItem = (GridFooterItem)RadGridIPOBid.MasterTableView.GetItems(GridItemType.Footer)[0];
             int maxPaybleAmount = Convert.ToInt32(((TextBox)footerItem.FindControl("txtFinalBidValue")).Text);//accessing Button inside 
+            Boolean isMultipleApplicationAllowed = Convert.ToBoolean(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIM_IsMultipleApplicationsallowed"].ToString());
+            int issueId = int.Parse(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIM_IssueId"].ToString());
+            if (isMultipleApplicationAllowed == false)
+            {
+                int issueApplicationSubmitCount = onlineNCDBackOfficeBo.CustomerMultipleOrder(customerVo.CustomerId, issueId);
+                if (issueApplicationSubmitCount > 0)
+                {
+                    msg = "You have already invested in selected issue, Please check the order book for the status.Multiple Investment is not allowed in same issue";
+                    isBidValid = false;
+                    return isBidValid;
+                }
+            }
             if (dtCloseDate < DateTime.Now)
             {
                 msg = "Issue is closed now, order can not accept";

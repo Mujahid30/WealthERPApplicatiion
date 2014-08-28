@@ -75,7 +75,7 @@
                                 GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="true" ShowStatusBar="True"
                                 Skin="Telerik" AllowFilteringByColumn="false" OnNeedDataSource="gvCommMgmt_OnNeedDataSource" OnItemCommand="RadGridIPOIssueList_OnItemCommand"
                                 OnItemDataBound="RadGridIPOIssueList_ItemDataBound">
-                                <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="AIM_IssueId,AR_Filename"
+                                <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="AIM_IssueId,AR_Filename,AIM_IsMultipleApplicationsallowed"
                                     AutoGenerateColumns="false" Width="100%">
                                     <Columns>
                                         <telerik:GridBoundColumn DataField="AIM_IssueName" HeaderStyle-Width="200px" CurrentFilterFunction="Contains"
