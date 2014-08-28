@@ -142,7 +142,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 int stagingRejects = Convert.ToInt32(editform["StagingRejects"].Text);
                 int Staging = Convert.ToInt32(editform["Staging"].Text);
                 LinkButton lbDetails = (LinkButton)editform.FindControl("lbDetails");
-                if (inputRejects + stagingRejects > 0)
+                if (inputRejects + stagingRejects + Staging > 0)
                 {
                     lbDetails.Visible = true;
                 }
