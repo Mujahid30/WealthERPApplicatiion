@@ -32,6 +32,7 @@ namespace WealthERP.OnlineOrderBackOffice
             //{
                 txtClientCode_autoCompleteExtender.ContextKey = adviserVo.advisorId.ToString();
                 txtClientCode_autoCompleteExtender.ServiceMethod = "GetCustCode";
+                imgexportButton.Visible = false;
             //}
           //  BindAdviserClientKYCStatusList();
         }
@@ -59,19 +60,21 @@ namespace WealthERP.OnlineOrderBackOffice
             if (ddlCOption.SelectedValue == "Clientcode")
             {
                 FilterOn = "customer";
+                
+
             }
             else
             {
                 FilterOn = ddlCOption.SelectedValue;
             }
-
-
+            
             return FilterOn;
         }
         protected void click_Go(object sender, EventArgs e)
         {
             BindAdviserClientKYCStatusList();
             KYClist.Visible = true;
+            imgexportButton.Visible = true;
         }
         protected void BindAdviserClientKYCStatusList()
         {
