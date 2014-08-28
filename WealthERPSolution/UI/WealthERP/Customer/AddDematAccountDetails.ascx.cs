@@ -33,7 +33,7 @@ namespace WealthERP.Customer
         CustomerPortfolioVo customerportfoliovo = new CustomerPortfolioVo();
         CustomerVo customervo = new CustomerVo();
         CustomerBo customerBo = new CustomerBo();
-      
+
         int customerId = 0;
         int demataccountid = 0;
         //Used when Performing Adding Action
@@ -66,7 +66,7 @@ namespace WealthERP.Customer
                 txtDpName.Enabled = false;
                 ddlModeOfHolding.Enabled = false;
                 ddlDepositoryName.Enabled = false;
-              
+
                 txtAccountOpeningDate.Enabled = false;
                 btnSubmit.Visible = false;
                 lbtnBackButton.Visible = true;
@@ -91,7 +91,7 @@ namespace WealthERP.Customer
                 rbtnNo.Enabled = true;
                 ddlModeOfHolding.Enabled = true;
                 ddlDepositoryName.Enabled = true;
-              
+
                 txtAccountOpeningDate.Enabled = true;
                 btnSubmit.Visible = true;
                 lbtnBackButton.Visible = false;
@@ -121,9 +121,9 @@ namespace WealthERP.Customer
                     ddlModeOfHolding.DataValueField = "XMOH_ModeOfHoldingCode";
                     ddlModeOfHolding.DataBind();
                     ddlModeOfHolding.SelectedIndex = 8;
-                
 
-                 }
+
+                }
                 catch (BaseApplicationException ex)
                 {
                     BaseApplicationException exBase = new BaseApplicationException(ex.Message, ex);
@@ -168,20 +168,20 @@ namespace WealthERP.Customer
             if (!string.IsNullOrEmpty(dsDematDetails.Tables[0].Rows[0]["DepositoryName"].ToString()))
             {
                 ddlDepositoryName.SelectedValue = dsDematDetails.Tables[0].Rows[0]["DepositoryName"].ToString().Trim();
-               if (Session["DematDetailsView"].ToString() == "Edit")
+                if (Session["DematDetailsView"].ToString() == "Edit")
                 {
-                   if (ddlDepositoryName.SelectedItem.Text == "NSDL")
-                   {
+                    if (ddlDepositoryName.SelectedItem.Text == "NSDL")
+                    {
                         txtDPId.Enabled = true;
                     }
                     else if (ddlDepositoryName.SelectedItem.Text == "CDSL")
                     {
                         txtDPId.Enabled = false;
                     }
-               }
+                }
             }
             if (dsDematDetails.Tables[0].Rows[0]["IsActive"].ToString() == "1")
-           {
+            {
                 chk_isactive.Checked = true;
             }
             else
@@ -193,16 +193,16 @@ namespace WealthERP.Customer
             if (dsDematDetails.Tables[0].Rows[0]["ModeOfHolding"].ToString() != "SI")
             {
                 rbtnYes.Checked = true;
-              
-                
+
+
                 rbtnNo.Checked = false;
             }
             else
             {
                 rbtnNo.Checked = true;
                 rbtnYes.Checked = false;
-               
-              
+
+
             }
             foreach (ListItem liModeOfHolding in ddlModeOfHolding.Items)
             {
@@ -221,18 +221,18 @@ namespace WealthERP.Customer
             }
             else
             {
-                txtAccountOpeningDate.SelectedDate =null;
+                txtAccountOpeningDate.SelectedDate = null;
 
             }
 
 
 
-            
 
 
 
-            
-            BindgvFamilyAssociate(demataccountid); 
+
+
+            BindgvFamilyAssociate(demataccountid);
 
 
 
@@ -270,7 +270,7 @@ namespace WealthERP.Customer
 
             }
         }
-       
+
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
             bool result = false;
@@ -293,7 +293,7 @@ namespace WealthERP.Customer
 
             if (Page.IsValid)
             {
-                
+
                 try
                 {
                     if (Session["DematDetailsView"].ToString() == "Add")
@@ -317,16 +317,16 @@ namespace WealthERP.Customer
 
 
 
-                       
-                        
 
 
 
-                       result= bodemataccount.AddDematDetails(customerId, portfolioid, demataccountvo, rmvo);
-                       if (result)
-                       {
-                           ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('DematAccountDetails','none');", true);
-                       }
+
+
+                        result = bodemataccount.AddDematDetails(customerId, portfolioid, demataccountvo, rmvo);
+                        if (result)
+                        {
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('DematAccountDetails','none');", true);
+                        }
                     }
                     else if (Session["DematDetailsView"].ToString() == "Edit")
                     {
@@ -356,9 +356,9 @@ namespace WealthERP.Customer
                             demataccountvo.IsActive = 0;
                         demataccountvo.ModeOfHolding = ddlModeOfHolding.SelectedValue.ToString();
 
-                      
 
-                        bodemataccount.UpdateDematDetails(customerId, portfolioid, demataccountid, demataccountvo,rmvo);
+
+                        bodemataccount.UpdateDematDetails(customerId, portfolioid, demataccountid, demataccountvo, rmvo);
                         ViewEditMode();
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('DematAccountDetails','none');", true);
                     }
@@ -370,7 +370,7 @@ namespace WealthERP.Customer
             }
         }
 
-        
+
         protected void lbtnBackButton_Click(object sender, EventArgs e)
         {
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('AddDematAccountDetails','none');", true);
@@ -399,19 +399,19 @@ namespace WealthERP.Customer
         {
             ddlModeOfHolding.SelectedIndex = 8;
             ddlModeOfHolding.Enabled = false;
-            
+
         }
         protected void RadioButton_CheckChanged(object sender, EventArgs e)
         {
-            if (rbtnYes.Checked && !(rbtnNo.Checked))
+            if (rbtnYes.Checked)
             {
                 ddlModeOfHolding.SelectedIndex = 4;
-                
+
                 ddlModeOfHolding.Enabled = true;
-                
-               
+
+
             }
-         
+
         }
 
         //------------------------------------------------
@@ -472,7 +472,7 @@ namespace WealthERP.Customer
                     date = DateTime.Parse(rdDate.SelectedDate.ToString());
                 }
                 else
-                    date =DateTime.MinValue;
+                    date = DateTime.MinValue;
                 DropDownList ddlelationshipName = (DropDownList)e.Item.FindControl("ddlNewRelationship");
                 DropDownList ddlAssociate = (DropDownList)e.Item.FindControl("ddlAssociate");
                 relationCode = ddlelationshipName.SelectedValue;
@@ -542,7 +542,7 @@ namespace WealthERP.Customer
                 }
                 else
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Pan No cant be Empty');", true);
-        
+
 
             }
             if (e.CommandName == RadGrid.DeleteCommandName)
@@ -605,13 +605,13 @@ namespace WealthERP.Customer
                 string relationshipName = gvAssociate.MasterTableView.DataKeyValues[e.Item.ItemIndex]["XR_RelationshipCode"].ToString();
                 string date = gvAssociate.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CDAA_DOB"].ToString();
                 string AssociateTypeNo = gvAssociate.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CDAA_AssociateTypeNo"].ToString();
-               
-                 DateTime  txtDate=DateTime.Now;
+
+                DateTime txtDate = DateTime.Now;
                 if (date != "")
-                
-                  txtDate = Convert.ToDateTime(gvAssociate.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CDAA_DOB"].ToString());
-                
-                
+
+                    txtDate = Convert.ToDateTime(gvAssociate.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CDAA_DOB"].ToString());
+
+
                 int iskyc = int.Parse(gvAssociate.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CDAA_IsKYC"].ToString());
                 string associateType = gvAssociate.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CDAA_AssociateType"].ToString();
                 DropDownList ddlGender = (DropDownList)e.Item.FindControl("ddlGender");
@@ -631,8 +631,8 @@ namespace WealthERP.Customer
                 TextBox txtPan = (TextBox)editedItem.FindControl("txtPan");
 
                 RadDatePicker rdDate = (RadDatePicker)editedItem.FindControl("txtDOB");
-                if(date!="")
-                rdDate.SelectedDate = DateTime.Parse(txtDate.ToShortDateString());
+                if (date != "")
+                    rdDate.SelectedDate = DateTime.Parse(txtDate.ToShortDateString());
                 DropDownList ddlrelation = (DropDownList)editedItem.FindControl("ddlNewRelationship");
                 DropDownList ddlassociateType = (DropDownList)editedItem.FindControl("ddlAssociate");
                 ddlassociateType.SelectedValue = associateType.Trim() + AssociateTypeNo;
@@ -650,7 +650,7 @@ namespace WealthERP.Customer
 
         }
 
-       
+
 
     }
 }
