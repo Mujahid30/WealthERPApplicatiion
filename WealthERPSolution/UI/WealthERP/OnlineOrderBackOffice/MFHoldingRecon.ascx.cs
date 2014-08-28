@@ -25,14 +25,14 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             SessionBo.CheckSession();
             AdvisorVo adviserVo = new AdvisorVo();
-
+           
             BindRequestId();
             if (!Page.IsPostBack)
             {
                 Label1.Visible = false;
                 txtTo.Visible = false;
                 btnSynch.Visible = false;
-
+                 
             }
 
         }
@@ -102,12 +102,15 @@ namespace WealthERP.OnlineOrderBackOffice
                     pnlMFHoldingRecons.Visible = true;
 
                     gvMFHoldinfRecon.MasterTableView.GetColumn("SchemePlanName").Display = false;
-
+                    gvMFHoldinfRecon.MasterTableView.GetColumn("Diff").Display = false;
                     gvMFHoldinfRecon.MasterTableView.GetColumn("SystemUnits").Display = false;
                     gvMFHoldinfRecon.MasterTableView.GetColumn("SystemNAV").Display = false;
                     gvMFHoldinfRecon.MasterTableView.GetColumn("SystemNAVDate").Display = false;
                     gvMFHoldinfRecon.MasterTableView.GetColumn("SystemAUM").Display = false;
-                    //gvMFHoldinfRecon.MasterTableView.GetColumn("Diff").Display = false;
+
+                    //this.gvMFHoldinfRecon.ClientSettings.Scrolling.FrozenColumnsCount = 1;
+                    //this.gvMFHoldinfRecon.ClientSettings.Scrolling.UseStaticHeaders = true;
+                    //this.gvMFHoldinfRecon.ClientSettings.Scrolling.SaveScrollPosition = true;
                 }
                 else
                 {
@@ -163,16 +166,17 @@ namespace WealthERP.OnlineOrderBackOffice
                     gvMFHoldinfRecon.MasterTableView.GetColumn("SystemNAV").Display = true;
                     gvMFHoldinfRecon.MasterTableView.GetColumn("SystemNAVDate").Display = true;
                     gvMFHoldinfRecon.MasterTableView.GetColumn("SystemAUM").Display = true;
-                    //gvMFHoldinfRecon.MasterTableView.GetColumn("Diff").Display = true;
-                    foreach (GridDataItem item in gvMFHoldinfRecon.Items)
-                    {
-                        item["SchemePlanName"].BackColor = System.Drawing.Color.Yellow;
-                        item["SystemUnits"].BackColor = System.Drawing.Color.Yellow;
-                        item["SystemNAV"].BackColor = System.Drawing.Color.Yellow;
-                        item["SystemNAVDate"].BackColor = System.Drawing.Color.Yellow;
-                        item["SystemAUM"].BackColor = System.Drawing.Color.Yellow;
-                        //item["Diff"].BackColor = System.Drawing.Color.Yellow;
-                    }
+                    gvMFHoldinfRecon.MasterTableView.GetColumn("Diff").Display = true;
+              
+                        //foreach (GridDataItem item in gvMFHoldinfRecon.Items)
+                        //{
+                        //    item["SchemePlanName"]. = System.Drawing.Color.Yellow;
+                        //    item["SystemUnits"].BackColor = System.Drawing.Color.Yellow;
+                        //    item["SystemNAV"].BackColor = System.Drawing.Color.Yellow;
+                        //    item["SystemNAVDate"].BackColor = System.Drawing.Color.Yellow;
+                        //    item["SystemAUM"].BackColor = System.Drawing.Color.Yellow;
+                        //    item["Diff"].BackColor = System.Drawing.Color.Yellow;
+                        //}
                 }
                 else
                 {
@@ -209,6 +213,15 @@ namespace WealthERP.OnlineOrderBackOffice
                 gvMFHoldinfRecon.DataSource = dtMFHoldingRecon;
             }
         }
-
+        protected void btnExportData_OnClick(object sender, EventArgs e)
+        {
+            gvMFHoldinfRecon.ExportSettings.OpenInNewWindow = true;
+            gvMFHoldinfRecon.ExportSettings.IgnorePaging = true;
+            gvMFHoldinfRecon.ExportSettings.HideStructureColumns = true;
+            gvMFHoldinfRecon.ExportSettings.ExportOnlyData = true;
+            gvMFHoldinfRecon.ExportSettings.FileName = "MF Holding Recon";
+            gvMFHoldinfRecon.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            gvMFHoldinfRecon.MasterTableView.ExportToExcel();
+        }
     }
 }
