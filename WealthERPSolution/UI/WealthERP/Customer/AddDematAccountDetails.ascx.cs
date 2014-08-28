@@ -48,7 +48,7 @@ namespace WealthERP.Customer
         DataSet dsDematDetails;
         DataSet dsJointHoldersAndNominees;
         protected void Page_Load(object sender, EventArgs e)
-        {
+       {
             rmvo = (RMVo)Session["rmvo"];
 
             BindDepositoryType();
@@ -397,8 +397,11 @@ namespace WealthERP.Customer
         }
         protected void rbtnNo_CheckChanged(object sender, EventArgs e)
         {
-            ddlModeOfHolding.SelectedIndex = 8;
-            ddlModeOfHolding.Enabled = false;
+            if (rbtnNo.Checked)
+            {
+                ddlModeOfHolding.SelectedIndex = 8;
+                ddlModeOfHolding.Enabled = false;
+            }
 
         }
         protected void RadioButton_CheckChanged(object sender, EventArgs e)

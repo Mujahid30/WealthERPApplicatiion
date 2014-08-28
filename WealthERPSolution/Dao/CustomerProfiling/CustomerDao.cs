@@ -489,7 +489,7 @@ namespace DaoCustomerProfiling
                     if (dr["C_OfcSTDCode"].ToString() != string.Empty)
                         customerVo.OfcSTDCode = int.Parse(dr["C_OfcSTDCode"].ToString());
                     if (dr["C_OfcPhoneNum"].ToString() != string.Empty)
-                        customerVo.OfcPhoneNum = int.Parse(dr["C_OfcPhoneNum"].ToString());
+                        customerVo.OfcPhoneNum = Int64.Parse(dr["C_OfcPhoneNum"].ToString());
                     if (!string.IsNullOrEmpty(dr["C_Email"].ToString()))
                         customerVo.Email = dr["C_Email"].ToString();
                     if (!string.IsNullOrEmpty(dr["C_AltEmail"].ToString()))
@@ -1171,7 +1171,7 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(editCustomerCmd, "@C_ResPhoneNum", DbType.Int32, customerVo.ResPhoneNum);
                 db.AddInParameter(editCustomerCmd, "@C_OfcISDCode", DbType.Int32, customerVo.OfcISDCode);
                 db.AddInParameter(editCustomerCmd, "@C_OfcSTDCode", DbType.Int32, customerVo.OfcSTDCode);
-                db.AddInParameter(editCustomerCmd, "@C_OfcPhoneNum", DbType.Int32, customerVo.OfcPhoneNum);
+                db.AddInParameter(editCustomerCmd, "@C_OfcPhoneNum", DbType.Int64, customerVo.OfcPhoneNum);
                 db.AddInParameter(editCustomerCmd, "@C_Email", DbType.String, customerVo.Email);
                 db.AddInParameter(editCustomerCmd, "@C_AltEmail", DbType.String, customerVo.AltEmail);
                 db.AddInParameter(editCustomerCmd, "@C_Mobile1", DbType.Int64, customerVo.Mobile1);

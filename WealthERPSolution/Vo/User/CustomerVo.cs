@@ -60,7 +60,7 @@ namespace VoUser
         private int m_ResPhoneNum;
         private int m_OfcISDCode;
         private int m_OfcSTDCode;
-        private int m_OfcPhoneNum;
+        private long m_OfcPhoneNum;
         private long m_Mobile1;
         private long m_Mobile2;
         private string m_Occupation;
@@ -515,7 +515,7 @@ namespace VoUser
             get { return m_OfcSTDCode; }
             set { m_OfcSTDCode = value; }
         }
-        public int OfcPhoneNum
+        public long OfcPhoneNum
         {
             get { return m_OfcPhoneNum; }
             set { m_OfcPhoneNum = value; }
