@@ -134,7 +134,7 @@ namespace WealthERP.OnlineOrderManagement
             ddlAmc.Items.Clear();
             DataSet ds = new DataSet();
             DataTable dtAmc = new DataTable();
-            ds = onlineMforderBo.GetRedeemAmcDetails(customerVo.CustomerId);
+            ds = onlineMforderBo.GetCustomerHoldingAMCList(customerVo.CustomerId,'R');
             dtAmc = ds.Tables[0];
             if (dtAmc.Rows.Count > 0)
             {
