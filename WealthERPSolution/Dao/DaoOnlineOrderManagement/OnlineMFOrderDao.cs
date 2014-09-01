@@ -206,7 +206,7 @@ namespace DaoOnlineOrderManagement
                 }
                 else
                     db.AddInParameter(CreateCustomerOnlineMFOrderDetailsCmd, "@accountid", DbType.Int32, 0);
-                if (onlinemforderVo.IsAllUnits==true)
+                if (onlinemforderVo.IsAllUnits == true)
                 {
                     db.AddInParameter(CreateCustomerOnlineMFOrderDetailsCmd, "@IsAllUnits", DbType.Boolean, bool.Parse(onlinemforderVo.IsAllUnits.ToString()));
                 }
@@ -253,10 +253,10 @@ namespace DaoOnlineOrderManagement
             try
             {
 
-               
+
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 CreateOnlineMFSwitchOrderDetailsCmd = db.GetStoredProcCommand("SPROC_ONL_CreateCustomerOnlineMFOrderSwitchDetails");
-                db.AddInParameter(CreateOnlineMFSwitchOrderDetailsCmd, "@xmlOrderDetails", DbType.Xml,sb);
+                db.AddInParameter(CreateOnlineMFSwitchOrderDetailsCmd, "@xmlOrderDetails", DbType.Xml, sb);
                 db.AddInParameter(CreateOnlineMFSwitchOrderDetailsCmd, "@userId", DbType.Int32, userId);
                 db.AddInParameter(CreateOnlineMFSwitchOrderDetailsCmd, "@customerId", DbType.Int32, customerId);
                 db.AddOutParameter(CreateOnlineMFSwitchOrderDetailsCmd, "@SICO_OrderId", DbType.Int32, 10);
@@ -289,7 +289,7 @@ namespace DaoOnlineOrderManagement
             return orderIds;
 
         }
-        public DataSet GetSIPBookMIS(int CustomerId, int AmcCode, string OrderStatus,int systematicId,DateTime dtFrom, DateTime dtTo)
+        public DataSet GetSIPBookMIS(int CustomerId, int AmcCode, string OrderStatus, int systematicId, DateTime dtFrom, DateTime dtTo)
         {
             DataSet dsSIPBookMIS;
             Database db;
@@ -297,7 +297,7 @@ namespace DaoOnlineOrderManagement
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                GetSIPBookMISCmd = db.GetStoredProcCommand("SPROC_Onl_GetSIPBook");               
+                GetSIPBookMISCmd = db.GetStoredProcCommand("SPROC_Onl_GetSIPBook");
                 db.AddInParameter(GetSIPBookMISCmd, "@C_CustomerId", DbType.Int32, CustomerId);
                 if (AmcCode != 0)
                     db.AddInParameter(GetSIPBookMISCmd, "@AMC", DbType.Int32, AmcCode);
@@ -379,8 +379,8 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(createMFOrderTrackingCmd, "@CP_PortfolioId", DbType.Int32, onlineMFOrderVo.PortfolioId);
                 db.AddInParameter(createMFOrderTrackingCmd, "@CMFOD_DividendOption", DbType.String, onlineMFOrderVo.DivOption);
                 if (!string.IsNullOrEmpty(onlineMFOrderVo.SWPRedeemValueType.Trim()))
-                db.AddInParameter(createMFOrderTrackingCmd, "@CMFSS_SWPRedeemValueType", DbType.String, onlineMFOrderVo.SWPRedeemValueType);
-                
+                    db.AddInParameter(createMFOrderTrackingCmd, "@CMFSS_SWPRedeemValueType", DbType.String, onlineMFOrderVo.SWPRedeemValueType);
+
                 db.AddOutParameter(createMFOrderTrackingCmd, "@SIPRegisterId", DbType.Int32, 10000);
 
 
@@ -388,7 +388,7 @@ namespace DaoOnlineOrderManagement
                 {
                     sipOrderIds.Add("OrderId", db.GetParameterValue(createMFOrderTrackingCmd, "CO_OrderId").ToString());
                     sipOrderIds.Add("SIPId", db.GetParameterValue(createMFOrderTrackingCmd, "SIPRegisterId").ToString());
-                    
+
                 }
             }
             catch (BaseApplicationException Ex)
@@ -430,23 +430,24 @@ namespace DaoOnlineOrderManagement
             }
             return dsSipDetails;
         }
-        public DataSet GetRedeemAmcDetails(int customerId)
+        public DataSet GetCustomerHoldingAMCList(int customerId, char type)
         {
-            DataSet dsGetRedeemSchemeDetails;
+            DataSet dsCustomerHoldingAMCList;
             Database db;
-            DbCommand GetRedeemSchemeDetailscmd;
+            DbCommand GetCustomerHoldingAMCListcmd;
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                GetRedeemSchemeDetailscmd = db.GetStoredProcCommand("SPROC_ONL_GetRedeemAmcDetails");
-                db.AddInParameter(GetRedeemSchemeDetailscmd, "@customerId", DbType.Int32, customerId);
-                dsGetRedeemSchemeDetails = db.ExecuteDataSet(GetRedeemSchemeDetailscmd);
+                GetCustomerHoldingAMCListcmd = db.GetStoredProcCommand("SPROC_ONL_GetCustomerHoldingAMCList");
+                db.AddInParameter(GetCustomerHoldingAMCListcmd, "@customerId", DbType.Int32, customerId);
+                db.AddInParameter(GetCustomerHoldingAMCListcmd, "@Type", DbType.String, type);
+                dsCustomerHoldingAMCList = db.ExecuteDataSet(GetCustomerHoldingAMCListcmd);
             }
             catch (BaseApplicationException Ex)
             {
                 throw (Ex);
             }
-            return dsGetRedeemSchemeDetails;
+            return dsCustomerHoldingAMCList;
         }
         public OnlineMFOrderVo GetOrderDetails(int Id)
         {
@@ -475,7 +476,7 @@ namespace DaoOnlineOrderManagement
             }
             return onlinemforderVo;
         }
-        public DataSet GetSIPSummaryBookMIS(int CustomerId, int AmcCode,DateTime dtFrom, DateTime dtTo)
+        public DataSet GetSIPSummaryBookMIS(int CustomerId, int AmcCode, DateTime dtFrom, DateTime dtTo)
         {
             DataSet dsSIPSummaryBookMIS;
             Database db;
@@ -596,7 +597,7 @@ namespace DaoOnlineOrderManagement
             return dsGetTransAllAmcDetails;
         }
 
-        public bool UpdateCnacleRegisterSIP(int systematicId,int is_Cancel,string remark, int cancelBy)
+        public bool UpdateCnacleRegisterSIP(int systematicId, int is_Cancel, string remark, int cancelBy)
         {
             bool bResult = false;
             Database db;
@@ -618,7 +619,7 @@ namespace DaoOnlineOrderManagement
             }
             return bResult;
         }
-        public DataTable GetMFSchemeDetailsForLanding(int Schemeplancode,string category)
+        public DataTable GetMFSchemeDetailsForLanding(int Schemeplancode, string category)
         {
             DataSet dsGetMFSchemeDetailsForLanding;
             DataTable dtGetMFSchemeDetailsForLanding;
@@ -632,10 +633,10 @@ namespace DaoOnlineOrderManagement
                     db.AddInParameter(GetMFSchemeDetailsForLandingCmd, "@Schemeplancode", DbType.Int32, Schemeplancode);
                 else
                     db.AddInParameter(GetMFSchemeDetailsForLandingCmd, "@Schemeplancode", DbType.Int32, 0);
-                if (category!= "0")
+                if (category != "0")
                     db.AddInParameter(GetMFSchemeDetailsForLandingCmd, "@category", DbType.String, category);
                 else
-                db.AddInParameter(GetMFSchemeDetailsForLandingCmd, "@category", DbType.String, DBNull.Value);
+                    db.AddInParameter(GetMFSchemeDetailsForLandingCmd, "@category", DbType.String, DBNull.Value);
                 dsGetMFSchemeDetailsForLanding = db.ExecuteDataSet(GetMFSchemeDetailsForLandingCmd);
                 dtGetMFSchemeDetailsForLanding = dsGetMFSchemeDetailsForLanding.Tables[0];
 
@@ -663,7 +664,7 @@ namespace DaoOnlineOrderManagement
             DataSet dsCustomerSchemeFolioHoldings;
             Database db;
             DbCommand GetCustomerSchemeFolioHoldingsCmd;
-          
+
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
