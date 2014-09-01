@@ -71,6 +71,7 @@ namespace WealthERP.Associates
                 //BindCity(0);
                 BinddepartDropList();
                 BindSubTypeDropDown("IND");
+                RadTab radTABChildCodes = RadTabStripAssociatesDetails.Tabs.FindTabByValue("Child_Codes");
                 if (Request.QueryString["action"] != "" && Request.QueryString["action"] != null)
                 {
                     BtnSave.Visible = false;
@@ -88,6 +89,9 @@ namespace WealthERP.Associates
                         ddlRM.Enabled = false;
                         lnkBtnEdit.Visible = true;
                         lnlBack.Visible = true;
+                        radTABChildCodes.Visible = true;
+                        
+                        
                     }
                     else if (Request.QueryString["action"].Trim() == "Edit")
                     //if (viewAction == "Edit" || viewAction == "EditFromRequestPage")
@@ -102,7 +106,8 @@ namespace WealthERP.Associates
                         lnkBtnEdit.Visible = false;
                         lnlBack.Visible = true;
                         btnSubmit.Visible = true;
-
+                        radTABChildCodes.Visible = true;
+                        lbkbtnAddChildCodes.Enabled = true;
                     }
                 }
 
@@ -123,6 +128,7 @@ namespace WealthERP.Associates
         {
             if (flag == 0)
             {
+                
                 // txtBranch.Enabled = false;
                 btnSubmit.Visible = false;
                 // txtRM.Enabled = false;
@@ -203,9 +209,11 @@ namespace WealthERP.Associates
                 ddlAssociateSubType.Enabled = false;
                 rbtnIndividual.Enabled = false;
                 rbtnNonIndividual.Enabled = false;
+
             }
             else
             {
+                
                 // txtBranch.Enabled = false;
                 btnSubmit.Visible = true;
                 //txtRM.Enabled = false;
@@ -934,18 +942,18 @@ namespace WealthERP.Associates
         private void Updatedepartment()
         {
             bool result = false;
-            int departmentid=0;
+            int departmentid = 0;
             string roleIds = string.Empty;
             int userid = associatesVo.UserId;
-        if (ddlDepart.SelectedValue != "0")
-            departmentid = int.Parse(ddlDepart.SelectedValue);
-        foreach (RadListBoxItem items in chkbldepart.Items)
-        {
-            if (items.Checked == true)
-                roleIds = roleIds + items.Value.ToString() + ",";
-        }
-         roleIds = roleIds.Remove(roleIds.Length - 1);
-         result = associatesBo.UpdateUserrole(userid, roleIds);
+            if (ddlDepart.SelectedValue != "0")
+                departmentid = int.Parse(ddlDepart.SelectedValue);
+            foreach (RadListBoxItem items in chkbldepart.Items)
+            {
+                if (items.Checked == true)
+                    roleIds = roleIds + items.Value.ToString() + ",";
+            }
+            roleIds = roleIds.Remove(roleIds.Length - 1);
+            result = associatesBo.UpdateUserrole(userid, roleIds);
         }
         private void UpdatingDetails()
         {
@@ -1233,7 +1241,7 @@ namespace WealthERP.Associates
                 if (viewAction == "View" || viewAction == "Edit")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewAdviserAssociateList');", true);
-
+                    
                     //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddBranchRMAgentAssociation','?AssociationId=" + associationId + "');", true);
                 }
                 else if (viewAction == "EditFromRequestPage")
@@ -1255,7 +1263,18 @@ namespace WealthERP.Associates
             }
             return assetGroupCodes;
         }
-
+        protected void lnkBtnChildCodes_Click(object sender, EventArgs e)
+        {
+            int associationId = 0;
+            string AAC_AgentCode = "";
+            string Flag = "";
+            if (associatesVo.AdviserAssociateId != 0)
+            {   associationId = associatesVo.AdviserAssociateId;
+                AAC_AgentCode = associatesVo.AAC_AgentCode;
+                Flag = "notnull";
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddBranchRMAgentAssociation','?AssociationId=" + associationId + "&AgentCode=" + AAC_AgentCode + "&Flag=" + Flag + "');", true);
+            }
+        }
         protected void lnkBtnEdit_Click(object sender, EventArgs e)
         {
             if (Session["associatesVo"] != null)
@@ -1343,10 +1362,10 @@ namespace WealthERP.Associates
             associateUserVo.UserType = "Associates";
 
             associatesVo.ContactPersonName = txtAssociateName.Text;
-            if(!string.IsNullOrEmpty(ddlBranch.SelectedValue))
-            associatesVo.BranchId = Convert.ToInt32(ddlBranch.SelectedValue);
             if (!string.IsNullOrEmpty(ddlBranch.SelectedValue))
-            associatesVo.BMName = ddlBranch.SelectedItem.Text;
+                associatesVo.BranchId = Convert.ToInt32(ddlBranch.SelectedValue);
+            if (!string.IsNullOrEmpty(ddlBranch.SelectedValue))
+                associatesVo.BMName = ddlBranch.SelectedItem.Text;
             associatesVo.RMId = Convert.ToInt32(ddlRM.SelectedValue);
             associatesVo.RMNAme = ddlRM.SelectedItem.Text;
             associatesVo.UserRoleId = 1009;
@@ -1428,7 +1447,7 @@ namespace WealthERP.Associates
             ddlBranch.DataValueField = dtAdviserStaffBranchList.Columns["AB_BranchId"].ToString();
             ddlBranch.DataTextField = dtAdviserStaffBranchList.Columns["AB_BranchName"].ToString();
             ddlBranch.DataBind();
-           // ddlBranch.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
+            // ddlBranch.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
 
         }
         protected void ddlRM_SelectedIndexChanged(object sender, EventArgs e)

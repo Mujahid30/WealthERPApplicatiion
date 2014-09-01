@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AddAssociatesDetails.ascx.cs"
+<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AddAssociatesDetails.ascx.cs"
     Inherits="WealthERP.Associates.AddAssociatesDetails" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
@@ -349,6 +349,8 @@
         <telerik:RadTab runat="server" Text="Category" Value="Category" TabIndex="6">
         </telerik:RadTab>
         <telerik:RadTab runat="server" Text="Business Details" Value="Business_Details" TabIndex="7">
+        </telerik:RadTab>
+        <telerik:RadTab runat="server" Text="Child Codes" Value="Child_Codes" Visible="false" TabIndex="8">
         </telerik:RadTab>
     </Tabs>
 </telerik:RadTabStrip>
@@ -1022,7 +1024,7 @@
             </table>
         </asp:Panel>
     </telerik:RadPageView>
-    <telerik:RadPageView ID="RadPageView1" runat="server">
+    <telerik:RadPageView ID="rpvChildCodes" runat="server">
         <asp:Panel ID="Panel5" runat="server">
             <table style="width: 100%;">
                 <tr>
@@ -1036,7 +1038,8 @@
                     <td class="leftField">
                         <table id="tableGrid" runat="server" width="100%">
                             <tr>
-                                <td>
+                                <td align="center">
+                                    <asp:LinkButton ID="lbkbtnAddChildCodes" Enabled="false" CssClass="LinkButtons" runat="server" OnClick="lnkBtnChildCodes_Click">Add Child Codes</asp:LinkButton>
                                     <%-- <telerik:RadGrid ID="gvChildCode" runat="server" Skin="Telerik" CssClass="RadGrid"
                                         GridLines="None" AllowPaging="True" PageSize="10" AllowSorting="True" AutoGenerateColumns="False"
                                         ShowStatusBar="true" AllowAutomaticDeletes="false" AllowAutomaticInserts="false"
@@ -1062,6 +1065,7 @@
                                         </ClientSettings>
                                     </telerik:RadGrid>--%>
                                 </td>
+                                <td></td>
                             </tr>
                         </table>
         </asp:Panel>

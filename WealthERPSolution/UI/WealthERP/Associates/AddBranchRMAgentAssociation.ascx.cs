@@ -27,7 +27,7 @@ namespace WealthERP.Associates
         RMVo rmVo = new RMVo();
         String userType;
 
-        string agentCode=string.Empty;
+        string agentCode = string.Empty;
         int agentId = 0;
         int associationId;
         protected void Page_Load(object sender, EventArgs e)
@@ -38,7 +38,7 @@ namespace WealthERP.Associates
             if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin")
                 userType = "advisor";
             associatesVo = (AssociatesVO)Session["associatesVo"];
-            if(!IsPostBack)
+            if (!IsPostBack)
             {
                 lblPanDuplicate.Visible = false;
                 BindAgentList();
@@ -53,7 +53,7 @@ namespace WealthERP.Associates
                 }
                 if (Request.QueryString["AssociationId"] != null)
                 {
-                    
+
                     associationId = int.Parse(Request.QueryString["AssociationId"]);
                     ddlUserType.Enabled = false;
                     ddlSelectType.Enabled = false;
@@ -61,7 +61,7 @@ namespace WealthERP.Associates
                     ddlSelectType.SelectedValue = associationId.ToString();
 
                 }
-                
+
                 if (Request.QueryString["StaffRole"] != null)
                 {
                     ddlUserType.Text = Request.QueryString["StaffRole"].ToString();
@@ -91,9 +91,14 @@ namespace WealthERP.Associates
                 if (Request.QueryString["AgentCode"] != null)
                 {
                     txtAgentCode.Text = Request.QueryString["AgentCode"].ToString();
+                    if (Request.QueryString["Flag"] != null)
+                    {
+                        checkUser();
+                        getgrid();
+                    }
 
                 }
-              
+
             }
         }
 
@@ -102,7 +107,7 @@ namespace WealthERP.Associates
             AssociatesVO associatesVo = new AssociatesVO();
             lblPanDuplicate.Visible = false;
             bool result = false;
-            if (Request.QueryString["AgentId"]!= null)
+            if (Request.QueryString["AgentId"] != null)
             {
                 agentId = int.Parse(Request.QueryString["AgentId"]);
                 associatesVo.AAC_AdviserAgentId = agentId;
@@ -132,7 +137,7 @@ namespace WealthERP.Associates
                         associatesVo.AdviserAssociateId = int.Parse(ddlSelectType.SelectedValue);
                         associatesVo.ContactPersonName = ddlSelectType.SelectedItem.Text;
                         associatesVo.AAC_UserType = ddlUserType.SelectedValue;
-                        
+
                     }
                 }
 
@@ -143,7 +148,7 @@ namespace WealthERP.Associates
                 associatesVo.AAC_AgentCode = null;
             associatesVo.AAC_CreatedBy = userVo.UserId;
             associatesVo.AAC_ModifiedBy = userVo.UserId;
-        
+
 
             if (Session["agentCodelist"] != null)
             {
@@ -152,7 +157,7 @@ namespace WealthERP.Associates
                 for (int i = 0; i < agentcodelist.Count; i++)
                 {
                     associatesBo.AddAgentChildCode(associatesVo, agentcodelist[i]);
-                    
+
                 }
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewAgentCode", "loadcontrol('ViewAgentCode','login');", true);
             }
@@ -160,7 +165,7 @@ namespace WealthERP.Associates
             {
                 if (Validation(txtAgentCode.Text))
                 {
-                    result = associatesBo.CreateAdviserAgentCode(associatesVo, agentId,advisorVo.advisorId);
+                    result = associatesBo.CreateAdviserAgentCode(associatesVo, agentId, advisorVo.advisorId);
                     if (Request.QueryString["AssociationId"] != null)
                     {
                         int associationId = int.Parse(Request.QueryString["AssociationId"]);
@@ -243,7 +248,7 @@ namespace WealthERP.Associates
             DataSet ds;
             DataTable dt;
             dt = associatesBo.GetAssociatesList(advisorVo.advisorId);
-            if (dt.Rows.Count>0)
+            if (dt.Rows.Count > 0)
             {
                 ddlSelectType.DataSource = dt;
                 ddlSelectType.DataValueField = dt.Columns["AA_AdviserAssociateId"].ToString();
@@ -329,6 +334,10 @@ namespace WealthERP.Associates
 
         protected void ddlUserType_SelectedIndexChanged(object sender, EventArgs e)
         {
+            checkUser();
+        }
+        protected void checkUser()
+        {
             if (ddlUserType.SelectedIndex != 0)
             {
                 if (ddlUserType.SelectedValue == "BM")
@@ -356,11 +365,15 @@ namespace WealthERP.Associates
 
         protected void ddlSelectType_SelectedIndexChanged(object sender, EventArgs e)
         {
+            getgrid();
+        }
+        protected void getgrid()
+        {
             int PagentId = 0;
-            if(ddlSelectType.SelectedIndex!=0)
+            if (ddlSelectType.SelectedIndex != 0)
             {
                 lblPanDuplicate.Visible = false;
-                GetAgentCode(int.Parse(ddlSelectType.SelectedValue),ddlUserType.SelectedValue);
+                GetAgentCode(int.Parse(ddlSelectType.SelectedValue), ddlUserType.SelectedValue);
                 if (!string.IsNullOrEmpty(Session["Code"].ToString()) && !string.IsNullOrEmpty(Session["PagentId"].ToString()))
                 {
                     PagentId = (int)Session["PagentId"];
@@ -396,26 +409,26 @@ namespace WealthERP.Associates
                         txtAgentCode.Text = "";
                         txtAgentCode.Enabled = true;
                     }
-                    
+
                 }
             }
             //else if()
-            
+
         }
 
-        private void GetAgentCode(int id,string type)
+        private void GetAgentCode(int id, string type)
         {
             DataTable dt;
             string code = string.Empty;
-            int PagentId=0;
+            int PagentId = 0;
             dt = associatesBo.GetAgentCodeFromAgentPaaingAssociateId(id, type);
-            if (dt.Rows.Count>0)
+            if (dt.Rows.Count > 0)
             {
                 code = dt.Rows[0]["AAC_AgentCode"].ToString();
                 Session["Code"] = code;
                 PagentId = int.Parse(dt.Rows[0]["AAC_AdviserAgentId"].ToString());
                 Session["PagentId"] = PagentId;
-                
+
             }
             else
             {
@@ -432,7 +445,7 @@ namespace WealthERP.Associates
             dtChildCodeList = associatesBo.GetAgentChildCodeList(PagentId);
             //dtChildCodeList = dsChildCodeList.Tables[0];
             ViewState["ChildCodeList"] = dtChildCodeList;
-            if (dtChildCodeList!=null)
+            if (dtChildCodeList != null)
             {
                 gvChildCode.DataSource = dtChildCodeList;
                 gvChildCode.DataBind();
@@ -461,11 +474,11 @@ namespace WealthERP.Associates
         }
         protected void gvChildCode_ItemCommand(object source, GridCommandEventArgs e)
         {
-            int PagentId=0;
+            int PagentId = 0;
             int childAgentId = 0;
             string ChildCode = string.Empty;
             AssociatesVO associatesVo = new AssociatesVO();
-            if(Session["PagentId"]!=null)
+            if (Session["PagentId"] != null)
                 PagentId = (int)Session["PagentId"];
 
             associatesVo.AAC_UserType = "Associates";
@@ -481,7 +494,7 @@ namespace WealthERP.Associates
                 GridEditableItem gridEditableItem = (GridEditableItem)e.Item;
                 TextBox txtChildCode = (TextBox)e.Item.FindControl("txtChildCode");
                 ChildCode = txtChildCode.Text;
-                isUpdated = associatesBo.EditAddChildAgentCodeList(associatesVo, ChildCode, PagentId,'U');
+                isUpdated = associatesBo.EditAddChildAgentCodeList(associatesVo, ChildCode, PagentId, 'U');
 
             }
             if (e.CommandName == RadGrid.DeleteCommandName)
