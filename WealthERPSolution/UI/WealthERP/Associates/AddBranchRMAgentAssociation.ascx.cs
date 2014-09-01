@@ -94,7 +94,7 @@ namespace WealthERP.Associates
                     if (Request.QueryString["Flag"] != null)
                     {
                         checkUser();
-                        getgrid();
+                        getChildCodes();
                     }
 
                 }
@@ -365,9 +365,9 @@ namespace WealthERP.Associates
 
         protected void ddlSelectType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            getgrid();
+            getChildCodes();
         }
-        protected void getgrid()
+        protected void getChildCodes()
         {
             int PagentId = 0;
             if (ddlSelectType.SelectedIndex != 0)
