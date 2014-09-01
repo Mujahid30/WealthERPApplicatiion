@@ -55,6 +55,34 @@ namespace WealthERP.OnlineOrderManagement
             int type = GetType(ddlType.SelectedValue);
             BindIPOIssueList(type);
         }
+        protected void RadGridIPOIssueList_PreRender(object sender, EventArgs e)
+        {
+            if (ddlType.SelectedValue == "Closed" || ddlType.SelectedValue == "Future")
+            {
+                foreach (GridColumn column in RadGridIPOIssueList.Columns)
+                {
+                    if (column.UniqueName == "AIM_IssueSizeQty" | column.UniqueName == "AIM_IssueSizeAmt" | column.UniqueName == "AIM_Rating" | column.UniqueName == "AIIC_MInBidAmount" | column.UniqueName == "AIIC_MaxBidAmount")
+                    {
+                        column.Visible = false;
+
+                    }
+                    else
+                    {
+                        column.Visible = true;
+                    }
+                }
+            }
+            else
+            {
+                foreach (GridColumn column in RadGridIPOIssueList.Columns)
+                {
+
+                    column.Visible = true;
+
+                }
+            }
+            RadGridIPOIssueList.Rebind();
+        }
 
         private int GetType(string ddlSelection)
         {
@@ -79,67 +107,67 @@ namespace WealthERP.OnlineOrderManagement
             {
                 int issueId = int.Parse(RadGridIPOIssueList.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIM_IssueId"].ToString());
 
-            if (e.CommandName == "Buy")
-            {
-                Boolean isMultipleApplicationAllowed = Convert.ToBoolean(RadGridIPOIssueList.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIM_IsMultipleApplicationsallowed"].ToString());
-                if (isMultipleApplicationAllowed == false)
+                if (e.CommandName == "Buy")
                 {
-                    int issueApplicationSubmitCount = onlineNCDBackOfficeBo.CustomerMultipleOrder(customerVo.CustomerId, issueId);
-                    if (issueApplicationSubmitCount > 0)
+                    Boolean isMultipleApplicationAllowed = Convert.ToBoolean(RadGridIPOIssueList.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIM_IsMultipleApplicationsallowed"].ToString());
+                    if (isMultipleApplicationAllowed == false)
                     {
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('You have already invested in selected issue, Please check the order book for the status.Multiple Investment is not allowed in same issue!!');", true);
-                        return;
+                        int issueApplicationSubmitCount = onlineNCDBackOfficeBo.CustomerMultipleOrder(customerVo.CustomerId, issueId);
+                        if (issueApplicationSubmitCount > 0)
+                        {
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('You have already invested in selected issue, Please check the order book for the status.Multiple Investment is not allowed in same issue!!');", true);
+                            return;
+                        }
                     }
-                }
-                int accountActivate = onlineNCDBackOfficeBo.CheckAccountisActive(advisorVo.advisorId, customerVo.CustomerId);
-                int bankaccountActive = onlineNCDBackOfficeBo.CheckBankisActive(customerVo.CustomerId);
-                if (accountActivate != 0 && bankaccountActive != 0)
-                {
-                    //int rowindex1 = ((GridDataItem)((LinkButton)sender).NamingContainer).RowIndex;
-                    //int rowindex = (rowindex1 / 2) - 1;
-                    //LinkButton lbButton = (LinkButton)sender;
-                    //GridDataItem item = (GridDataItem)lbButton.NamingContainer;
-                    //int IssuerId = int.Parse(gvCommMgmt.MasterTableView.DataKeyValues[rowindex]["AIM_IssueId"].ToString());
-                    // categoryId = Convert.ToInt32(rgEligibleInvestorCategories.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIIC_InvestorCatgeoryId"].ToString());
-
-
-                    if (Session["PageDefaultSetting"] != null)
+                    int accountActivate = onlineNCDBackOfficeBo.CheckAccountisActive(advisorVo.advisorId, customerVo.CustomerId);
+                    int bankaccountActive = onlineNCDBackOfficeBo.CheckBankisActive(customerVo.CustomerId);
+                    if (accountActivate != 0 && bankaccountActive != 0)
                     {
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('IPOIssueTransact','&issueId=" + issueId + "')", true);
+                        //int rowindex1 = ((GridDataItem)((LinkButton)sender).NamingContainer).RowIndex;
+                        //int rowindex = (rowindex1 / 2) - 1;
+                        //LinkButton lbButton = (LinkButton)sender;
+                        //GridDataItem item = (GridDataItem)lbButton.NamingContainer;
+                        //int IssuerId = int.Parse(gvCommMgmt.MasterTableView.DataKeyValues[rowindex]["AIM_IssueId"].ToString());
+                        // categoryId = Convert.ToInt32(rgEligibleInvestorCategories.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIIC_InvestorCatgeoryId"].ToString());
+
+
+                        if (Session["PageDefaultSetting"] != null)
+                        {
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('IPOIssueTransact','&issueId=" + issueId + "')", true);
+                        }
+                        else
+                        {
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "loadcontrol('IPOIssueTransact','&issueId=" + issueId + "')", true);
+                            //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('IPOIssueTransact','&issueId=" + issueId + "')", true);
+                        }
+
                     }
                     else
                     {
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "loadcontrol('IPOIssueTransact','&issueId=" + issueId + "')", true);
-                        //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('IPOIssueTransact','&issueId=" + issueId + "')", true);
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Your Transaction request cannot be processed. For Further Details please speak to Call Centre Team !!');", true);
                     }
-
                 }
-                else
+
+                if (e.CommandName == "download_file" & e.Item is GridDataItem && e.Item.ItemIndex != -1)
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Your Transaction request cannot be processed. For Further Details please speak to Call Centre Team !!');", true);
+                    string filename = RadGridIPOIssueList.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AR_Filename"].ToString();
+                    if (filename == string.Empty)
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Prospectus is not available for this issue!!');", true);
+                        return;
+                    }
+                    string path = MapPath("~/Repository") + "\\advisor_" + advisorVo.advisorId + "\\" + filename;
+                    byte[] bts = System.IO.File.ReadAllBytes(path);
+                    Response.Clear();
+                    Response.ClearHeaders();
+                    Response.AddHeader("Content-Type", "Application/octet-stream");
+                    Response.AddHeader("Content-Length", bts.Length.ToString());
+                    Response.AddHeader("Content-Disposition", "attachment; filename=" + filename);
+                    Response.BinaryWrite(bts);
+                    Response.Flush();
+                    Response.End();
                 }
             }
-
-            if (e.CommandName == "download_file" & e.Item is GridDataItem && e.Item.ItemIndex != -1)
-            {
-                string filename = RadGridIPOIssueList.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AR_Filename"].ToString();
-                if (filename == string.Empty)
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Prospectus is not available for this issue!!');", true);
-                    return;
-                }
-                string path = MapPath("~/Repository") + "\\advisor_" + advisorVo.advisorId + "\\" + filename;
-                byte[] bts = System.IO.File.ReadAllBytes(path);
-                Response.Clear();
-                Response.ClearHeaders();
-                Response.AddHeader("Content-Type", "Application/octet-stream");
-                Response.AddHeader("Content-Length", bts.Length.ToString());
-                Response.AddHeader("Content-Disposition", "attachment; filename=" + filename);
-                Response.BinaryWrite(bts);
-                Response.Flush();
-                Response.End();
-            }
-        }
         }
 
         protected void RadGridIPOIssueList_ItemDataBound(object sender, GridItemEventArgs e)

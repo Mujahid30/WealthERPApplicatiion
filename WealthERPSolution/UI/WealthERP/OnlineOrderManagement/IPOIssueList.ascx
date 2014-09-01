@@ -65,7 +65,7 @@
                 </td>
             </tr>
         </table>
-        <asp:Panel ID="pnlSchemeMIS" runat="server" ScrollBars="Horizontal" Width="100%">
+        <asp:Panel ID="pnlSchemeMIS" runat="server" ScrollBars="Both" Width="100%">
             <div class="divControlContiner" id="divControlContainer" runat="server">
                 <table width="100%">
                     <tr>
@@ -74,7 +74,7 @@
                                 PageSize="10" AllowPaging="True" AutoGenerateColumns="False" EnableEmbeddedSkins="False"
                                 GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="true" ShowStatusBar="True"
                                 Skin="Telerik" AllowFilteringByColumn="false" OnNeedDataSource="gvCommMgmt_OnNeedDataSource" OnItemCommand="RadGridIPOIssueList_OnItemCommand"
-                                OnItemDataBound="RadGridIPOIssueList_ItemDataBound">
+                                OnItemDataBound="RadGridIPOIssueList_ItemDataBound" OnPreRender="RadGridIPOIssueList_PreRender">
                                 <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="AIM_IssueId,AR_Filename,AIM_IsMultipleApplicationsallowed"
                                     AutoGenerateColumns="false" Width="100%">
                                     <Columns>
