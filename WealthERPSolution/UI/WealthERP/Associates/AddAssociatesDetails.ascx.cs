@@ -108,6 +108,7 @@ namespace WealthERP.Associates
                         btnSubmit.Visible = true;
                         radTABChildCodes.Visible = true;
                         lbkbtnAddChildCodes.Enabled = true;
+                        
                     }
                 }
 
@@ -1283,6 +1284,7 @@ namespace WealthERP.Associates
                 if (associatesVo != null)
                     SetEnableDisable(1);
                 lnkBtnEdit.Visible = false;
+                lbkbtnAddChildCodes.Enabled = true;
             }
         }
 

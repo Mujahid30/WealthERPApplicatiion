@@ -143,9 +143,9 @@
             </asp:DropDownList>
             <span id="Span4" class="spnRequiredField">*</span>
             <br />
-             <asp:RequiredFieldValidator ID="requddlRM" runat="server" ErrorMessage="Please select a RM"
-                CssClass="rfvPCG" ControlToValidate="ddlRM" ValidationGroup="Submit"
-                Display="Dynamic" InitialValue="0"></asp:RequiredFieldValidator>
+            <asp:RequiredFieldValidator ID="requddlRM" runat="server" ErrorMessage="Please select a RM"
+                CssClass="rfvPCG" ControlToValidate="ddlRM" ValidationGroup="Submit" Display="Dynamic"
+                InitialValue="0"></asp:RequiredFieldValidator>
             <asp:CompareValidator ID="cvRM" runat="server" ValidationGroup="Submit" ControlToValidate="ddlRM"
                 ErrorMessage="Please select a RM" Operator="NotEqual" ValueToCompare="--Select--"
                 CssClass="cvPCG" Display="Dynamic">
@@ -350,7 +350,8 @@
         </telerik:RadTab>
         <telerik:RadTab runat="server" Text="Business Details" Value="Business_Details" TabIndex="7">
         </telerik:RadTab>
-        <telerik:RadTab runat="server" Text="Child Codes" Value="Child_Codes" Visible="false" TabIndex="8">
+        <telerik:RadTab runat="server" Text="Child Codes" Value="Child_Codes" Visible="false"
+            TabIndex="8">
         </telerik:RadTab>
     </Tabs>
 </telerik:RadTabStrip>
@@ -1039,7 +1040,8 @@
                         <table id="tableGrid" runat="server" width="100%">
                             <tr>
                                 <td align="center">
-                                    <asp:LinkButton ID="lbkbtnAddChildCodes" Enabled="false" CssClass="LinkButtons" runat="server" OnClick="lnkBtnChildCodes_Click">Add Child Codes</asp:LinkButton>
+                                    <asp:LinkButton ID="lbkbtnAddChildCodes" Enabled="false" CssClass="LinkButtons" runat="server"
+                                        OnClick="lnkBtnChildCodes_Click">Add Child Codes</asp:LinkButton>
                                     <%-- <telerik:RadGrid ID="gvChildCode" runat="server" Skin="Telerik" CssClass="RadGrid"
                                         GridLines="None" AllowPaging="True" PageSize="10" AllowSorting="True" AutoGenerateColumns="False"
                                         ShowStatusBar="true" AllowAutomaticDeletes="false" AllowAutomaticInserts="false"
@@ -1065,9 +1067,13 @@
                                         </ClientSettings>
                                     </telerik:RadGrid>--%>
                                 </td>
-                                <td></td>
+                                <td>
+                                </td>
                             </tr>
                         </table>
+                    </td>
+                </tr>
+            </table>
         </asp:Panel>
     </telerik:RadPageView>
 </telerik:RadMultiPage>
@@ -1078,8 +1084,8 @@
         <td colspan="3">
             <asp:Button ID="btnSubmit" runat="server" Text="Update" CssClass="PCGButton" OnClick="Update_Click"
                 Visible="false" />
-            <asp:Button ID="BtnSave" runat="server" Text="Submit" CssClass="PCGButton" OnClick="btnSubmit_Click"
-                ValidationGroup="Submit"/>
+            <asp:Button ID="BtnSave" runat="server" Visible="true" Text="Submit" CssClass="PCGButton"
+                OnClick="btnSubmit_Click" ValidationGroup="Submit" />
         </td>
     </tr>
 </table>

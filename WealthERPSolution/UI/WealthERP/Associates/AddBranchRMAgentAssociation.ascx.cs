@@ -95,6 +95,7 @@ namespace WealthERP.Associates
                     {
                         checkUser();
                         getChildCodes();
+
                     }
 
                 }
