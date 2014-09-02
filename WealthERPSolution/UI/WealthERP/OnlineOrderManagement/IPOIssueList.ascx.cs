@@ -62,7 +62,7 @@ namespace WealthERP.OnlineOrderManagement
             {
                 foreach (GridColumn column in RadGridIPOIssueList.Columns)
                 {
-                    if (column.UniqueName == "AIM_IssueSizeQty" | column.UniqueName == "AIM_IssueSizeAmt" | column.UniqueName == "AIM_Rating" | column.UniqueName == "AIIC_MInBidAmount" | column.UniqueName == "AIIC_MaxBidAmount" | column.UniqueName == "AIM_TradingInMultipleOf" | column.UniqueName == "AIM_MaxQty" | column.UniqueName == "AIIC_MInBidAmount" | column.UniqueName == "DiscountType" | column.UniqueName == "AIIC_MaxBidAmount" | column.UniqueName == "DiscountValue" | column.UniqueName == "action" | column.UniqueName == "AIM_FixedPrice")
+                    if (column.UniqueName == "AIM_IssueSizeQty" | column.UniqueName == "AIM_IssueSizeAmt" | column.UniqueName == "AIM_Rating" | column.UniqueName == "AIIC_MInBidAmount" | column.UniqueName == "AIIC_MaxBidAmount" | column.UniqueName == "AIM_TradingInMultipleOf" | column.UniqueName == "AIM_MaxQty" | column.UniqueName == "AIIC_MInBidAmount" | column.UniqueName == "DiscountType" | column.UniqueName == "AIIC_MaxBidAmount" | column.UniqueName == "DiscountValue" | column.UniqueName == "action")
                     {
                         column.Visible = false;
 

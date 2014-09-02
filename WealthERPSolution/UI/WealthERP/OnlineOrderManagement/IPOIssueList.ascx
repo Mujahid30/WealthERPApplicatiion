@@ -125,10 +125,7 @@
                                             ShowFilterIcon="false" UniqueName="AIM_CapPrice" Visible="true">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="AIM_FixedPrice" HeaderStyle-Width="200px" HeaderText="Max. Bid Price"
-                                            Visible="false" ShowFilterIcon="false" UniqueName="AIM_FixedPrice">
-                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
-                                        </telerik:GridBoundColumn>
+                                       
                                         <telerik:GridBoundColumn DataField="AIIC_MInBidAmount" HeaderStyle-Width="200px"
                                             HeaderText="Min Bid Amount" ShowFilterIcon="false" UniqueName="AIIC_MInBidAmount"
                                             Visible="true" DataType="System.Decimal" DataFormatString="{0:0.00}">
