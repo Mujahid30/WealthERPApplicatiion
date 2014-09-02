@@ -22,7 +22,7 @@ namespace DAOAssociates
         {
             int associateId;
             int UserId;
-            int AdviserAgentId;
+            int AdviserAgentId=0;
             List<int> associatesIds = new List<int>();
             Database db;
             DbCommand completeAssociatesCmd;
@@ -67,6 +67,7 @@ namespace DAOAssociates
 
                     UserId = int.Parse(db.GetParameterValue(completeAssociatesCmd, "U_UserId").ToString());
                     associateId = int.Parse(db.GetParameterValue(completeAssociatesCmd, "AA_AdviserAssociateId").ToString());
+                    if (!string.IsNullOrEmpty(db.GetParameterValue(completeAssociatesCmd, "AAC_AdviserAgentId").ToString()))
                     AdviserAgentId = int.Parse(db.GetParameterValue(completeAssociatesCmd, "AAC_AdviserAgentId").ToString());
 
 
