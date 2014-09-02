@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-
 using BoUser;
 using VoUser;
 using WealthERP.Base;
@@ -36,10 +35,12 @@ namespace WealthERP.OnlineOrderManagement
             customerVo = (CustomerVo)Session["customerVo"];
             if (!Page.IsPostBack)
             {
+                pnlSchemeMIS.Visible = true;
                 ddlType.SelectedValue = "Curent";
                 BindIPOIssueList(GetType(ddlType.SelectedValue));
                 ShowAvailableLimits();
             }
+           
 
         }
         private void ShowAvailableLimits()
@@ -61,7 +62,7 @@ namespace WealthERP.OnlineOrderManagement
             {
                 foreach (GridColumn column in RadGridIPOIssueList.Columns)
                 {
-                    if (column.UniqueName == "AIM_IssueSizeQty" | column.UniqueName == "AIM_IssueSizeAmt" | column.UniqueName == "AIM_Rating" | column.UniqueName == "AIIC_MInBidAmount" | column.UniqueName == "AIIC_MaxBidAmount")
+                    if (column.UniqueName == "AIM_IssueSizeQty" | column.UniqueName == "AIM_IssueSizeAmt" | column.UniqueName == "AIM_Rating" | column.UniqueName == "AIIC_MInBidAmount" | column.UniqueName == "AIIC_MaxBidAmount" | column.UniqueName == "AIM_TradingInMultipleOf" | column.UniqueName == "AIM_MaxQty" | column.UniqueName == "AIIC_MInBidAmount" | column.UniqueName == "DiscountType" | column.UniqueName == "AIIC_MaxBidAmount" | column.UniqueName == "DiscountValue" | column.UniqueName == "action" | column.UniqueName == "AIM_FixedPrice")
                     {
                         column.Visible = false;
 
@@ -203,7 +204,7 @@ namespace WealthERP.OnlineOrderManagement
 
         }
 
-        protected void gvCommMgmt_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        protected void RadGridIPOIssueList_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
             DataTable dtIssueDetail = new DataTable();
             dtIssueDetail = (DataTable)Cache["IPOIssueList" + userVo.UserId.ToString()];
@@ -219,8 +220,7 @@ namespace WealthERP.OnlineOrderManagement
         private void BindIPOIssueList(int type)
         {
             DataTable dtOnlineIPOIssueList = onlineIPOOrderBo.GetIPOIssueList(advisorVo.advisorId, 0, type, customerVo.CustomerId);
-
-            if (dtOnlineIPOIssueList.Rows.Count > 0)
+            if (dtOnlineIPOIssueList.Rows.Count >= 0)
             {
                 if (Cache["IPOIssueList" + userVo.UserId.ToString()] == null)
                 {
@@ -234,6 +234,7 @@ namespace WealthERP.OnlineOrderManagement
                 //ibtExportSummary.Visible = false;
                 RadGridIPOIssueList.DataSource = dtOnlineIPOIssueList;
                 RadGridIPOIssueList.DataBind();
+             
             }
             else
             {
@@ -242,6 +243,14 @@ namespace WealthERP.OnlineOrderManagement
                 RadGridIPOIssueList.DataBind();
 
             }
+            pnlSchemeMIS.Visible = true;
+        }
+        protected void ddlType_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            Cache.Remove("IPOIssueList" + userVo.UserId.ToString());
+            RadGridIPOIssueList.DataSource = null;
+            RadGridIPOIssueList.DataBind();
+            pnlSchemeMIS.Visible = false;
         }
     }
 }

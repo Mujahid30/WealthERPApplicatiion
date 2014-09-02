@@ -47,7 +47,7 @@
                     <asp:Label ID="lb1Type" runat="server" Text="Type:" CssClass="FieldName"></asp:Label>
                 </td>
                 <td style="width: 25%;">
-                    <asp:DropDownList ID="ddlType" runat="server" CssClass="cmbField" AutoPostBack="true">
+                    <asp:DropDownList ID="ddlType" runat="server" CssClass="cmbField" AutoPostBack="true" OnSelectedIndexChanged="ddlType_OnSelectedIndexChanged">
                         <asp:ListItem Value="Select">Select</asp:ListItem>
                         <asp:ListItem Value="Curent">Current Issues</asp:ListItem>
                         <asp:ListItem Value="Closed">Closed Issues</asp:ListItem>
@@ -65,7 +65,7 @@
                 </td>
             </tr>
         </table>
-        <asp:Panel ID="pnlSchemeMIS" runat="server" ScrollBars="Both" Width="100%">
+        <asp:Panel ID="pnlSchemeMIS" runat="server" ScrollBars="Both" Width="100%" Height="80%" Visible="false">
             <div class="divControlContiner" id="divControlContainer" runat="server">
                 <table width="100%">
                     <tr>
@@ -73,8 +73,8 @@
                             <telerik:RadGrid ID="RadGridIPOIssueList" runat="server" AllowSorting="True" enableloadondemand="True"
                                 PageSize="10" AllowPaging="True" AutoGenerateColumns="False" EnableEmbeddedSkins="False"
                                 GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="true" ShowStatusBar="True"
-                                Skin="Telerik" AllowFilteringByColumn="false" OnNeedDataSource="gvCommMgmt_OnNeedDataSource" OnItemCommand="RadGridIPOIssueList_OnItemCommand"
-                                OnItemDataBound="RadGridIPOIssueList_ItemDataBound" OnPreRender="RadGridIPOIssueList_PreRender">
+                                Skin="Telerik" AllowFilteringByColumn="false" OnNeedDataSource="RadGridIPOIssueList_OnNeedDataSource" OnItemCommand="RadGridIPOIssueList_OnItemCommand"
+                                OnItemDataBound="RadGridIPOIssueList_ItemDataBound" OnPreRender="RadGridIPOIssueList_PreRender" >
                                 <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="AIM_IssueId,AR_Filename,AIM_IsMultipleApplicationsallowed"
                                     AutoGenerateColumns="false" Width="100%">
                                     <Columns>
@@ -139,11 +139,11 @@
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="AIM_OpenDate" HeaderStyle-Width="200px" HeaderText="Open Date"
-                                            ShowFilterIcon="false" UniqueName="AIM_OpenDate" Visible="true">
+                                            ShowFilterIcon="false" UniqueName="AIM_OpenDate" Visible="true" DataType="System.DateTime">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="AIM_CloseDate" HeaderStyle-Width="200px" HeaderText="Close Date"
-                                            ShowFilterIcon="false" UniqueName="AIM_CloseDate" Visible="true">
+                                            ShowFilterIcon="false" UniqueName="AIM_CloseDate" Visible="true" DataType="System.DateTime">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="DiscountType" HeaderStyle-Width="200px" HeaderText="Discount Type"
@@ -155,7 +155,7 @@
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridTemplateColumn ItemStyle-Width="140px" AllowFiltering="false" HeaderText="Action"
-                                            ItemStyle-Wrap="false">
+                                            ItemStyle-Wrap="false" UniqueName="action">
                                             <ItemTemplate>
                                                 <asp:ImageButton ID="imgBuy" runat="server" CommandName="Buy" ImageUrl="~/Images/Buy-Button.png"
                                                     ToolTip="BUY IPO" />
