@@ -1738,7 +1738,7 @@ namespace BoAlerts
         /// <param name="Remindercount"></param>
         /// <param name="ConditionsCount"></param>
         /// <returns></returns>
-        
+
         public DataSet GetAdviserUserAlerts(int userId, out int Remindercount, out int ConditionsCount)
         {
             DataSet dsGetAdviserUserAlerts = new DataSet();
@@ -1769,5 +1769,159 @@ namespace BoAlerts
 
             return dsGetAdviserUserAlerts;
         }
+        public DataTable GetSIPdescription()
+        {
+            AlertsDao alertDo = new AlertsDao();
+            DataTable dtGetSIPdescription;
+            try
+            {
+                dtGetSIPdescription = alertDo.GetSIPdescription();
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetSIPdescription;
+        }
+        public DataTable GetAdviserAlertConfiguration(int adviserId)
+        {
+            AlertsDao alertDo = new AlertsDao();
+            DataTable dtGetAdviserAlertConfiguration;
+            try
+            {
+                dtGetAdviserAlertConfiguration = alertDo.GetAdviserAlertConfiguration(adviserId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetAdviserAlertConfiguration;
+        }
+        public DataTable GetSIPAlert(int eventId)
+        {
+            AlertsDao alertDo = new AlertsDao();
+            DataTable dtGetSIPAlert;
+            try
+            {
+                dtGetSIPAlert = alertDo.GetSIPAlert(eventId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetSIPAlert;
+        }
+         public bool CreateAdviserAlertConfiguration(int adviserId, int eventId, int reminderDay, string sipRuleType, int IsActive, int IsOverride,int userId)
+        {
+            bool bResult = false;
+            AlertsDao alertsDao = new AlertsDao();
+              try
+            {
+                bResult = alertsDao.CreateAdviserAlertConfiguration(adviserId, eventId, reminderDay, sipRuleType, IsActive, IsOverride, userId);
+            }
+              catch (BaseApplicationException Ex)
+              {
+                  throw Ex;
+              }
+              return bResult;
+        }
+         public DataTable GetAdviserAlertConfigurationData(int adviserId, int ruleId)
+         {
+             AlertsDao alertDo = new AlertsDao();
+             DataTable dtGetAdviserAlertConfigurationData;
+             try
+             {
+                 dtGetAdviserAlertConfigurationData = alertDo.GetAdviserAlertConfigurationData(adviserId,ruleId);
+             }
+             catch (BaseApplicationException Ex)
+             {
+                 throw Ex;
+             }
+             return dtGetAdviserAlertConfigurationData;
+         }
+         public bool UpdateAdviserAlertConfiguration(int ruleId,int eventId, int reminderDay, string sipRuleType, int IsActive, int IsOverride, int userId)
+         {
+             bool bResult = false;
+             AlertsDao alertsDao = new AlertsDao();
+             try
+             {
+                 bResult = alertsDao.UpdateAdviserAlertConfiguration(ruleId,eventId, reminderDay, sipRuleType, IsActive, IsOverride, userId);
+             }
+             catch (BaseApplicationException Ex)
+             {
+                 throw Ex;
+             }
+             return bResult;
+         }
+         public DataTable GetCustomerSIPAlert(int customerId)
+         {
+             AlertsDao alertDo = new AlertsDao();
+             DataTable dtGetCustomerSIPAlert;
+             try
+             {
+                 dtGetCustomerSIPAlert = alertDo.GetCustomerSIPAlert(customerId);
+             }
+             catch (BaseApplicationException Ex)
+             {
+                 throw Ex;
+             }
+             return dtGetCustomerSIPAlert;
+         }
+         public DataTable GetCustomerSIPList(int customerId)
+         {
+             AlertsDao alertDo = new AlertsDao();
+             DataTable dtGetCustomerSIPList;
+             try
+             {
+                 dtGetCustomerSIPList = alertDo.GetCustomerSIPList(customerId);
+             }
+             catch (BaseApplicationException Ex)
+             {
+                 throw Ex;
+             }
+             return dtGetCustomerSIPList;
+         }
+         public DataTable GetSIPAlertCustomerconfig()
+        {
+            AlertsDao alertDo = new AlertsDao();
+            DataTable dtGetSIPAlertCustomerconfig;
+            try
+            {
+                dtGetSIPAlertCustomerconfig = alertDo.GetSIPAlertCustomerconfig();
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetSIPAlertCustomerconfig;
+        }
+         public bool CreateCustomerAlertConfiguration(int ruleID, int targetId, string subscriptionMessage, DateTime eventSubscription, int userId)
+         {
+             bool bResult = false;
+             AlertsDao alertsDao = new AlertsDao();
+             try
+             {
+                 bResult = alertsDao.CreateCustomerAlertConfiguration(ruleID, targetId, subscriptionMessage, eventSubscription,userId);
+             }
+             catch (BaseApplicationException Ex)
+             {
+                 throw Ex;
+             }
+             return bResult;
+         }
+         public bool DeleteCustomerAlertConfiguration(int eventId)
+         {
+             bool bResult = false;
+             AlertsDao alertsDao = new AlertsDao();
+             try
+             {
+                 bResult = alertsDao.DeleteCustomerAlertConfiguration(eventId);
+             }
+             catch (BaseApplicationException Ex)
+             {
+                 throw Ex;
+             }
+             return bResult;
+         }
     }
 }

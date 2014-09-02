@@ -2816,5 +2816,284 @@ namespace DaoAlerts
             }
             return dsAdviserAlertList;
         }
+        public DataTable GetSIPdescription()
+        {
+            DbCommand cmdGetSIPdescription;
+            DataTable dtGetSIPdescription;
+            DataSet dsGetSIPdescription = null;
+            Database db;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetSIPdescription = db.GetStoredProcCommand("SPROC_SIPdescription");
+                dsGetSIPdescription = db.ExecuteDataSet(cmdGetSIPdescription);
+                dtGetSIPdescription = dsGetSIPdescription.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetSIPdescription;
+        }
+        public DataTable GetAdviserAlertConfiguration(int adviserId)
+        {
+            DbCommand cmdGetAdviserAlertConfiguration;
+            DataTable dtGetAdviserAlertConfiguration;
+            DataSet dsGetAdviserAlertConfiguration = null;
+            Database db;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetAdviserAlertConfiguration = db.GetStoredProcCommand("SPROC_GetAdviserAlertConfiguration");
+                db.AddInParameter(cmdGetAdviserAlertConfiguration, "@adviserId", DbType.Int32, adviserId);
+                dsGetAdviserAlertConfiguration = db.ExecuteDataSet(cmdGetAdviserAlertConfiguration);
+                dtGetAdviserAlertConfiguration = dsGetAdviserAlertConfiguration.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetAdviserAlertConfiguration;
+        }
+        public DataTable GetSIPAlert(int eventId)
+        {
+            DbCommand cmdGetSIPAlert;
+            DataTable dtGetSIPAlert;
+            DataSet dsGetSIPAlert = null;
+            Database db;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetSIPAlert = db.GetStoredProcCommand("SPROC_GetAlertData");
+                db.AddInParameter(cmdGetSIPAlert, "@aelEventId", DbType.Int32, eventId);
+                dsGetSIPAlert = db.ExecuteDataSet(cmdGetSIPAlert);
+                dtGetSIPAlert = dsGetSIPAlert.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetSIPAlert;
+        }
+        public bool CreateAdviserAlertConfiguration(int adviserId, int eventId, int reminderDay, string sipRuleType,  int IsActive, int IsOverride,int userId)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand CmdCreateAdviserAlertConfiguration;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                CmdCreateAdviserAlertConfiguration = db.GetStoredProcCommand("SPROC_CreateAdviserAlertConfigure");
+                db.AddInParameter(CmdCreateAdviserAlertConfiguration, "@adviserId", DbType.Int32, adviserId);
+                db.AddInParameter(CmdCreateAdviserAlertConfiguration, "@eventId", DbType.Int32, eventId);
+                db.AddInParameter(CmdCreateAdviserAlertConfiguration, "@reminderDay", DbType.Int32, reminderDay);
+                db.AddInParameter(CmdCreateAdviserAlertConfiguration, "@sipRuleType", DbType.String, sipRuleType);
+                db.AddInParameter(CmdCreateAdviserAlertConfiguration, "@IsActive", DbType.Int32, IsActive);
+                db.AddInParameter(CmdCreateAdviserAlertConfiguration, "@IsOverride", DbType.Int32, IsOverride);
+                db.AddInParameter(CmdCreateAdviserAlertConfiguration, "@createdBy", DbType.Int32, userId);
+                db.AddInParameter(CmdCreateAdviserAlertConfiguration, "@modifiedBy", DbType.Int32, userId);
+                if (db.ExecuteNonQuery(CmdCreateAdviserAlertConfiguration) != 0)
+                    bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AlertsDao.cs:DeleteAdviserCustomerSMSAlerts(int alertId)");
+                object[] objects = new object[1];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return bResult;
+        }
+        public DataTable GetAdviserAlertConfigurationData(int adviserId,int ruleId)
+        {
+            DbCommand cmdGetAdviserAlertConfigurationData;
+            DataTable dtGetAdviserAlertConfigurationData;
+            DataSet dsGetAdviserAlertConfigurationData = null;
+            Database db;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetAdviserAlertConfigurationData = db.GetStoredProcCommand("SPROC_GetAdviserAlertConfigurationSetdata");
+                db.AddInParameter(cmdGetAdviserAlertConfigurationData, "@adviserId", DbType.Int32, adviserId);
+                db.AddInParameter(cmdGetAdviserAlertConfigurationData, "@ruleId", DbType.Int32, ruleId);
+                dsGetAdviserAlertConfigurationData = db.ExecuteDataSet(cmdGetAdviserAlertConfigurationData);
+                dtGetAdviserAlertConfigurationData = dsGetAdviserAlertConfigurationData.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetAdviserAlertConfigurationData;
+        }
+        public bool UpdateAdviserAlertConfiguration( int ruleId,int eventId, int reminderDay, string sipRuleType, int IsActive, int IsOverride, int userId)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand CmdUpdateAdviserAlertConfiguration;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                CmdUpdateAdviserAlertConfiguration = db.GetStoredProcCommand("SPROC_UpdateAdviserAlertConfigure");
+                db.AddInParameter(CmdUpdateAdviserAlertConfiguration, "@ruleId", DbType.Int32, ruleId);
+                db.AddInParameter(CmdUpdateAdviserAlertConfiguration, "@eventId", DbType.Int32, eventId);
+                db.AddInParameter(CmdUpdateAdviserAlertConfiguration, "@reminderDay", DbType.Int32, reminderDay);
+                db.AddInParameter(CmdUpdateAdviserAlertConfiguration, "@sipRuleType", DbType.String, sipRuleType);
+                db.AddInParameter(CmdUpdateAdviserAlertConfiguration, "@IsActive", DbType.Int32, IsActive);
+                db.AddInParameter(CmdUpdateAdviserAlertConfiguration, "@IsOverride", DbType.Int32, IsOverride);
+                db.AddInParameter(CmdUpdateAdviserAlertConfiguration, "@modifiedBy", DbType.Int32, userId);
+                if (db.ExecuteNonQuery(CmdUpdateAdviserAlertConfiguration) != 0)
+                    bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AlertsDao.cs:DeleteAdviserCustomerSMSAlerts(int alertId)");
+                object[] objects = new object[1];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return bResult;
+        }
+        public DataTable GetCustomerSIPAlert(int customerId)
+        {
+            DbCommand cmdGetCustomerSIPAlert;
+            DataTable dtGetCustomerSIPAlert;
+            DataSet dsGetCustomerSIPAlert = null;
+            Database db;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetCustomerSIPAlert = db.GetStoredProcCommand("SPROC_GetCustomerSIPAlert");
+                db.AddInParameter(cmdGetCustomerSIPAlert, "@customerId", DbType.Int32, customerId);
+                //db.AddInParameter(cmdGetCustomerSIPAlert, "@ruleId", DbType.String, PANNo);
+                //db.AddInParameter(cmdGetCustomerSIPAlert, "@ruleId", DbType.String, custCode);
+                dsGetCustomerSIPAlert = db.ExecuteDataSet(cmdGetCustomerSIPAlert);
+                dtGetCustomerSIPAlert = dsGetCustomerSIPAlert.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetCustomerSIPAlert;
+        }
+        public DataTable GetCustomerSIPList(int customerId)
+        {
+            DbCommand cmdGetCustomerSIPList;
+            DataTable dtGetCustomerSIPList;
+            DataSet dsGetCustomerSIPList = null;
+            Database db;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetCustomerSIPList = db.GetStoredProcCommand("SPROC_SIPCustomerAssociate");
+                db.AddInParameter(cmdGetCustomerSIPList, "@customerId", DbType.Int32, customerId);
+                dsGetCustomerSIPList = db.ExecuteDataSet(cmdGetCustomerSIPList);
+                dtGetCustomerSIPList = dsGetCustomerSIPList.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetCustomerSIPList;
+        }
+        public DataTable GetSIPAlertCustomerconfig()
+        {
+            DbCommand cmdGetSIPAlertCustomerconfig;
+            DataTable dtGetSIPAlertCustomerconfig;
+            DataSet dsGetSIPAlertCustomerconfig = null;
+            Database db;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetSIPAlertCustomerconfig = db.GetStoredProcCommand("SPROC_GetSIPRule");
+                dsGetSIPAlertCustomerconfig = db.ExecuteDataSet(cmdGetSIPAlertCustomerconfig);
+                dtGetSIPAlertCustomerconfig = dsGetSIPAlertCustomerconfig.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetSIPAlertCustomerconfig;
+        }
+        public bool CreateCustomerAlertConfiguration(int ruleID, int targetId, string subscriptionMessage, DateTime eventSubscription, int userId)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand CmdCreateCustomerAlertConfiguration;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                CmdCreateCustomerAlertConfiguration = db.GetStoredProcCommand("SPROC_CreateCustomerSIPAlert");
+                db.AddInParameter(CmdCreateCustomerAlertConfiguration, "@AAECR_RuleId", DbType.Int32, ruleID);
+                db.AddInParameter(CmdCreateCustomerAlertConfiguration, "@AES_EventMessage", DbType.String, subscriptionMessage);
+                db.AddInParameter(CmdCreateCustomerAlertConfiguration, "@AES_TargetID", DbType.Int32, targetId);
+                db.AddInParameter(CmdCreateCustomerAlertConfiguration, "@AES_EventSubscriptionDate", DbType.DateTime, eventSubscription);
+                db.AddInParameter(CmdCreateCustomerAlertConfiguration, "@AES_CreatedBy", DbType.Int32, userId);
+                db.AddInParameter(CmdCreateCustomerAlertConfiguration, "@AES_ModifiedBy", DbType.Int32, userId);
+                if (db.ExecuteNonQuery(CmdCreateCustomerAlertConfiguration) != 0)
+                    bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AlertsDao.cs:CreateCustomerAlertConfiguration()");
+                object[] objects = new object[1];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return bResult;
+        }
+        public bool DeleteCustomerAlertConfiguration(int eventId)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand CmdDeleteCustomerAlertConfiguration;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                CmdDeleteCustomerAlertConfiguration = db.GetStoredProcCommand("SPROC_DeleteCustomerAlert");
+                db.AddInParameter(CmdDeleteCustomerAlertConfiguration, "@eventSetupId", DbType.Int32, eventId);
+                if (db.ExecuteNonQuery(CmdDeleteCustomerAlertConfiguration) != 0)
+                    bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AlertsDao.cs:DeleteCustomerAlertConfiguration(int eventId)");
+                object[] objects = new object[1];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return bResult;
+        }
     }
 }
