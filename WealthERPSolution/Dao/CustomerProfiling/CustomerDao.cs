@@ -1133,6 +1133,7 @@ namespace DaoCustomerProfiling
 
                 db.AddInParameter(editCustomerCmd, "@C_Salutation", DbType.String, customerVo.Salutation);
                 db.AddInParameter(editCustomerCmd, "@C_PANNum", DbType.String, customerVo.PANNum);
+               
                 if (customerVo.ProfilingDate != DateTime.MinValue)
                     db.AddInParameter(editCustomerCmd, "@C_ProfilingDate", DbType.DateTime, customerVo.ProfilingDate);
                 else
@@ -1185,12 +1186,12 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(editCustomerCmd, "@C_ContactGuardianFirstName", DbType.String, customerVo.ContactFirstName);
                 db.AddInParameter(editCustomerCmd, "@C_ContactGuardianMiddleName", DbType.String, customerVo.ContactMiddleName);
                 db.AddInParameter(editCustomerCmd, "@C_ContactGuardianLastName", DbType.String, customerVo.ContactLastName);
-               
 
-                //if (customerVo.Occupation != "Select a Occupation" && customerVo.Occupation != "")
-                //    db.AddInParameter(editCustomerCmd, "@XO_OccupationCode", DbType.String, customerVo.Occupation);
-                //else
-                //    db.AddInParameter(editCustomerCmd, "@XO_OccupationCode", DbType.String, DBNull.Value);
+
+                if (customerVo.Occupation != "Select a Occupation" && customerVo.Occupation != "")
+                    db.AddInParameter(editCustomerCmd, "@XO_OccupationCode", DbType.String, customerVo.Occupation);
+                else
+                    db.AddInParameter(editCustomerCmd, "@XO_OccupationCode", DbType.String, DBNull.Value);
 
                 if (customerVo.Qualification != "Select a Qualification" && customerVo.Qualification != "")
                     db.AddInParameter(editCustomerCmd, "@XQ_QualificationCode", DbType.String, customerVo.Qualification);
