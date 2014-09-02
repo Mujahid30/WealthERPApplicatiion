@@ -1478,6 +1478,41 @@
     <Compile Include="BusinessMIS\TurnOverDashBoard.ascx.designer.cs">
       <DependentUpon>TurnOverDashBoard.ascx</DependentUpon>
     </Compile>
+    <Compile Include="CommisionManagement\CommissionStructureRuleGrid.ascx.cs">
+      <DependentUpon>CommissionStructureRuleGrid.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CommisionManagement\CommissionStructureRuleGrid.ascx.designer.cs">
+      <DependentUpon>CommissionStructureRuleGrid.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CommisionManagement\CommissionStructureToSchemeMapping.ascx.cs">
+      <DependentUpon>CommissionStructureToSchemeMapping.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CommisionManagement\CommissionStructureToSchemeMapping.ascx.designer.cs">
+      <DependentUpon>CommissionStructureToSchemeMapping.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CommisionManagement\ReceivableSetup.ascx.cs">
+      <DependentUpon>ReceivableSetup.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CommisionManagement\ReceivableSetup.ascx.designer.cs">
+      <DependentUpon>ReceivableSetup.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CommisionManagement\SchemeStructureRuleAssociation.ascx.cs">
+      <DependentUpon>SchemeStructureRuleAssociation.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CommisionManagement\SchemeStructureRuleAssociation.ascx.designer.cs">
+      <DependentUpon>SchemeStructureRuleAssociation.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CommisionManagement\ViewSchemeStructureAssociation.ascx.cs">
+      <DependentUpon>ViewSchemeStructureAssociation.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CommisionManagement\ViewSchemeStructureAssociation.ascx.designer.cs">
+      <DependentUpon>ViewSchemeStructureAssociation.ascx</DependentUpon>
+    </Compile>
     <Compile Include="ControlHost.aspx.cs">
       <DependentUpon>ControlHost.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -7557,6 +7592,11 @@
     <Content Include="BusinessMIS\PerformanceAndAllocation.ascx" />
     <Content Include="BusinessMIS\TransactionDashBoard.ascx" />
     <Content Include="BusinessMIS\TurnOverDashBoard.ascx" />
+    <Content Include="CommisionManagement\CommissionStructureRuleGrid.ascx" />
+    <Content Include="CommisionManagement\CommissionStructureToSchemeMapping.ascx" />
+    <Content Include="CommisionManagement\ReceivableSetup.ascx" />
+    <Content Include="CommisionManagement\SchemeStructureRuleAssociation.ascx" />
+    <Content Include="CommisionManagement\ViewSchemeStructureAssociation.ascx" />
     <Content Include="CustomerAssetDetails\CustomerGovtSaving.ascx" />
     <Content Include="CustomerPortfolio\AdviserLoanScheme.ascx" />
     <Content Include="CustomerPortfolio\AdviserLoanSchemeView.ascx" />
