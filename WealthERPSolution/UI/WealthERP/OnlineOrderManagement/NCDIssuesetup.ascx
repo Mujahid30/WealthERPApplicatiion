@@ -160,7 +160,7 @@
             <asp:TextBox ID="txtInitialCqNo" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
         </td>
         <td class="leftLabel">
-            <asp:Label ID="lb1FaceValue" runat="server" Text="Face Value:" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="lb1FaceValue" runat="server" Text="Min Amount:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightData">
             <asp:TextBox ID="txtFaceValue" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
