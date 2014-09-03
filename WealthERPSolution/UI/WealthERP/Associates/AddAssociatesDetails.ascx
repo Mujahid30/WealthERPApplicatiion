@@ -199,8 +199,14 @@
             <asp:Label ID="lblPanNo" runat="server" Text="PAN No: " CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightData">
-            <asp:TextBox ID="txtPan" runat="server" CssClass="txtFieldUpper" Enabled="true" onblur="return chkPanExists()"></asp:TextBox>
-            
+            <asp:TextBox ID="txtPan" runat="server" MaxLength="10" CssClass="txtFieldUpper" Enabled="true" onblur="return chkPanExists()"></asp:TextBox>
+            <span id="Span7" class="spnRequiredField">*</span> &nbsp;
+            <br />
+            <asp:RequiredFieldValidator ID="rfvPanNumber" ControlToValidate="txtPan" ErrorMessage="Please enter a PAN Number"
+                Display="Dynamic" runat="server" CssClass="rfvPCG">
+            </asp:RequiredFieldValidator>
+            <asp:Label ID="lblPanDuplicate" runat="server" Visible="false" CssClass="Error" Text="PAN Number already exists"></asp:Label>
+            <asp:Label ID="lblPanlength" runat="server" Visible="false" CssClass="Error" Text="PAN Number should have 10 digits"></asp:Label>
         </td>
     </tr>
     <tr>

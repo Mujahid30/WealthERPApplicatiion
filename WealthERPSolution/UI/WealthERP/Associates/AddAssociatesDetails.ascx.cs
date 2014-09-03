@@ -54,6 +54,8 @@ namespace WealthERP.Associates
             }
             if (!IsPostBack)
             {
+                lblPanDuplicate.Visible = false;
+                lblPanlength.Visible = false; 
                 AssociatesDetails.SelectedIndex = 0;
                 //if (Request.QueryString["action"] != null)
                 //{
@@ -653,7 +655,21 @@ namespace WealthERP.Associates
                     return;
                 }
             }
-            
+            if (associatesVo.PanNo != txtPan.Text)
+            {
+                if (panValidation(txtPan.Text, associatesVo.AdviserAssociateId, "Update"))
+                {
+                    lblPanlength.Visible = false;
+                    lblPanDuplicate.Visible = true;
+                    return;
+                }
+                if (txtPan.Text.Length != 10)
+                {
+                    lblPanDuplicate.Visible = false;
+                    lblPanlength.Visible = true;
+                    return;
+                }
+            }
             UpdatingDetails();
             Updatedepartment();
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Associates Updated successfully!!');", true);
@@ -977,7 +993,7 @@ namespace WealthERP.Associates
             associatesVo.AAC_AdviserAgentId = associatesVo.AAC_AdviserAgentId;
             associatesVo.ContactPersonName = txtAssociateName.Text;
             associatesVo.AAC_AgentCode = txtAdviserAgentCode.Text;
-
+            associatesVo.PanNo = txtPan.Text;
             //------------------------------CONTACT DETAILS--------------
             if (txtResPhoneNoIsd.Text != null)
                 associatesVo.ResISDCode = int.Parse(txtResPhoneNoIsd.Text);
@@ -1411,7 +1427,18 @@ namespace WealthERP.Associates
             {
                 return;
             }
-            
+            if (panValidation(txtPan.Text, associatesVo.AdviserAssociateId, "Insert"))
+            {
+                lblPanlength.Visible = false;
+                lblPanDuplicate.Visible = true;
+                return;
+            }
+            if (txtPan.Text.Length != 10)
+            {
+                lblPanDuplicate.Visible = false; 
+                lblPanlength.Visible = true;
+                return;
+            }
             associatesIds = associatesBo.CreateCompleteAssociates(associateUserVo, associatesVo, userVo.UserId);
             associatesVo.UserId = associatesIds[0];
             associatesVo.AdviserAssociateId = associatesIds[1];
@@ -1442,7 +1469,41 @@ namespace WealthERP.Associates
 
 
         }
-        
+
+        public bool panValidation(string Pan, int AdviserAssociateId, string Statement)
+        {
+
+            bool result = false;
+            try
+            {
+                if (associatesBo.CheckPanNumberDuplicatesForAssociates(Pan, AdviserAssociateId, Statement))
+                {
+                    result = true;
+
+                }
+            }
+
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AddAssociatesDetails.ascx:panValidation()");
+                object[] objects = new object[3];
+                objects[0] = Pan;
+                objects[1] = AdviserAssociateId;
+                objects[2] = Statement;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return result;
+        }
         private bool Validation(string agentCode)
         {
             bool result = true;

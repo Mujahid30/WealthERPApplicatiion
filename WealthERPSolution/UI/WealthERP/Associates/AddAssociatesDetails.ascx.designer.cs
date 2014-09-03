@@ -196,7 +196,8 @@ namespace WealthERP.Associates
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblAssociateExpiryDate;
-
+        protected global::System.Web.UI.WebControls.Label lblPanDuplicate;
+        protected global::System.Web.UI.WebControls.Label lblPanlength;
         /// <summary>
         /// txtAssociateExpDate control.
         /// </summary>
