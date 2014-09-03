@@ -8,11 +8,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WealthERP.OnlineOrderBackOffice {
-    
-    
-    public partial class CustomerProfileAudit {
-        
+namespace WealthERP.OnlineOrderBackOffice
+{
+
+
+    public partial class CustomerProfileAudit
+    {
+
         /// <summary>
         /// ScriptManager1 control.
         /// </summary>
@@ -21,7 +23,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.ScriptManager ScriptManager1;
-        
+
         /// <summary>
         /// Label1 control.
         /// </summary>
@@ -30,7 +32,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label1;
-        
+
         /// <summary>
         /// lblCustName control.
         /// </summary>
@@ -39,7 +41,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblCustName;
-        
+
         /// <summary>
         /// tdtxtCustomerName control.
         /// </summary>
@@ -48,7 +50,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdtxtCustomerName;
-        
+
         /// <summary>
         /// txtCustomerName control.
         /// </summary>
@@ -57,7 +59,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtCustomerName;
-        
+
         /// <summary>
         /// txtCustomerName_water control.
         /// </summary>
@@ -66,7 +68,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.TextBoxWatermarkExtender txtCustomerName_water;
-        
+
         /// <summary>
         /// txtCustomerName_autoCompleteExtender control.
         /// </summary>
@@ -84,7 +86,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator2;
-        
+
         /// <summary>
         /// lblModificationDate control.
         /// </summary>
@@ -136,8 +138,11 @@ namespace WealthERP.OnlineOrderBackOffice {
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdCustomerAuditList;
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdTodate;
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdFromDate;
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdCustomer;
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdSchemePlan;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdTodate1;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdFromDate1;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trCustomer;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trSchemePlan;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trdate;
         protected global::System.Web.UI.WebControls.TextBox txtSchemeName;
         protected global::System.Web.UI.WebControls.Button btnSubmit;
     }

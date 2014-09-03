@@ -224,11 +224,13 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             if (ddlType.SelectedValue == "CustomerProfile")
             {
-                tdCustomer.Visible = true;
+                trCustomer.Visible = true;
                 tdTodate.Visible = true;
                 tdFromDate.Visible = true;
+                tdTodate1.Visible = true;
+                tdFromDate1.Visible = true;
                 tdCustomerAuditList.Visible = true;
-                tdSchemePlan.Visible = false;
+                trSchemePlan.Visible = false;
                 btnSubmit.Visible = true;
                 tblSchemePlan.Visible = false;
                 taSchemeAudit.Visible = false;
@@ -237,10 +239,13 @@ namespace WealthERP.OnlineOrderBackOffice
             }
             else if (ddlType.SelectedValue == "Schemeplan")
             {
-                tdSchemePlan.Visible = true;
+                trSchemePlan.Visible = true;
                 tdTodate.Visible = true;
                 tdFromDate.Visible = true;
-                tdCustomer.Visible = false;
+                tdTodate1.Visible = true;
+                tdFromDate1.Visible = true;
+                trCustomer.Visible = false;
+                //tdCustomer1.Visible = false;
                 tdCustomerAuditList.Visible = false;
                 btnSubmit.Visible = true;
                 tblProfileHeading.Visible = false;
