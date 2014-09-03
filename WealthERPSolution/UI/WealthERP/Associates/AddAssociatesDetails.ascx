@@ -193,13 +193,14 @@
             <asp:Label ID="lblAdviserAgentCode" runat="server" Text="Adviser Agent Code: " CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightData">
-            <asp:TextBox ID="txtAdviserAgentCode" runat="server" CssClass="txtField" Enabled="False"></asp:TextBox>
+            <asp:TextBox ID="txtAdviserAgentCode" runat="server" CssClass="txtField" Enabled="True"></asp:TextBox>
         </td>
         <td align="right">
             <asp:Label ID="lblPanNo" runat="server" Text="PAN No: " CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightData">
             <asp:TextBox ID="txtPan" runat="server" CssClass="txtFieldUpper" Enabled="true" onblur="return chkPanExists()"></asp:TextBox>
+            
         </td>
     </tr>
     <tr>

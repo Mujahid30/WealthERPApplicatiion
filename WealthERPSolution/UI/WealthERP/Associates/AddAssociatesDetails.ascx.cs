@@ -90,8 +90,8 @@ namespace WealthERP.Associates
                         lnkBtnEdit.Visible = true;
                         lnlBack.Visible = true;
                         radTABChildCodes.Visible = true;
-                        
-                        
+
+
                     }
                     else if (Request.QueryString["action"].Trim() == "Edit")
                     //if (viewAction == "Edit" || viewAction == "EditFromRequestPage")
@@ -108,7 +108,7 @@ namespace WealthERP.Associates
                         btnSubmit.Visible = true;
                         radTABChildCodes.Visible = true;
                         lbkbtnAddChildCodes.Enabled = true;
-                        
+
                     }
                 }
 
@@ -129,7 +129,7 @@ namespace WealthERP.Associates
         {
             if (flag == 0)
             {
-                
+
                 // txtBranch.Enabled = false;
                 btnSubmit.Visible = false;
                 // txtRM.Enabled = false;
@@ -214,7 +214,7 @@ namespace WealthERP.Associates
             }
             else
             {
-                
+
                 // txtBranch.Enabled = false;
                 btnSubmit.Visible = true;
                 //txtRM.Enabled = false;
@@ -646,6 +646,14 @@ namespace WealthERP.Associates
 
         protected void Update_Click(object sender, EventArgs e)
         {
+            if (associatesVo.AAC_AgentCode != txtAdviserAgentCode.Text)
+            {
+                if (!Validation(txtAdviserAgentCode.Text))
+                {
+                    return;
+                }
+            }
+            
             UpdatingDetails();
             Updatedepartment();
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Associates Updated successfully!!');", true);
@@ -958,7 +966,7 @@ namespace WealthERP.Associates
         }
         private void UpdatingDetails()
         {
-
+            advisorVo = (AdvisorVo)Session["advisorVo"];
             int associationId = 0;
             bool result = false;
             string assetGroupCodes;
@@ -968,6 +976,7 @@ namespace WealthERP.Associates
             associatesVo.AdviserAssociateId = associationId;
             associatesVo.AAC_AdviserAgentId = associatesVo.AAC_AdviserAgentId;
             associatesVo.ContactPersonName = txtAssociateName.Text;
+            associatesVo.AAC_AgentCode = txtAdviserAgentCode.Text;
 
             //------------------------------CONTACT DETAILS--------------
             if (txtResPhoneNoIsd.Text != null)
@@ -1233,7 +1242,7 @@ namespace WealthERP.Associates
 
 
 
-            result = associatesBo.UpdateAdviserAssociates(associatesVo);
+            result = associatesBo.UpdateAdviserAssociates(associatesVo, advisorVo);
             Session["associatesVo"] = associatesVo;
             if (result == true)
             {
@@ -1242,7 +1251,7 @@ namespace WealthERP.Associates
                 if (viewAction == "View" || viewAction == "Edit")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewAdviserAssociateList');", true);
-                    
+
                     //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddBranchRMAgentAssociation','?AssociationId=" + associationId + "');", true);
                 }
                 else if (viewAction == "EditFromRequestPage")
@@ -1270,7 +1279,8 @@ namespace WealthERP.Associates
             string AAC_AgentCode = "";
             string Flag = "";
             if (associatesVo.AdviserAssociateId != 0)
-            {   associationId = associatesVo.AdviserAssociateId;
+            {
+                associationId = associatesVo.AdviserAssociateId;
                 AAC_AgentCode = associatesVo.AAC_AgentCode;
                 Flag = "notnull";
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddBranchRMAgentAssociation','?AssociationId=" + associationId + "&AgentCode=" + AAC_AgentCode + "&Flag=" + Flag + "');", true);
@@ -1362,6 +1372,7 @@ namespace WealthERP.Associates
             associateUserVo.FirstName = txtAssociateName.Text.ToString();
             associateUserVo.Email = txtEmail.Text.ToString();
             associateUserVo.UserType = "Associates";
+            associatesVo.AAC_AgentCode = txtAdviserAgentCode.Text;
 
             associatesVo.ContactPersonName = txtAssociateName.Text;
             if (!string.IsNullOrEmpty(ddlBranch.SelectedValue))
@@ -1395,6 +1406,12 @@ namespace WealthERP.Associates
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please Select Department Roles!!');", true);
                 return;
             }
+
+            if (!Validation(txtAdviserAgentCode.Text))
+            {
+                return;
+            }
+            
             associatesIds = associatesBo.CreateCompleteAssociates(associateUserVo, associatesVo, userVo.UserId);
             associatesVo.UserId = associatesIds[0];
             associatesVo.AdviserAssociateId = associatesIds[1];
@@ -1421,6 +1438,42 @@ namespace WealthERP.Associates
             //{
             //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Pan Number Already Exists');", true);
             //}
+
+
+
+        }
+        
+        private bool Validation(string agentCode)
+        {
+            bool result = true;
+            int adviserId = advisorVo.advisorId;
+            try
+            {
+                if (associatesBo.CodeduplicateCheck(adviserId, agentCode))
+                {
+                    result = false;
+                    //lblPanDuplicate.Visible = true;
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Adviser Agent Code already exists !!');", true);
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AddAssociatesDetails.ascx.ascx:Validation()");
+                object[] objects = new object[1];
+                objects[0] = agentCode;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return result;
         }
         private void BindHierarchyTitleDropList()
         {
