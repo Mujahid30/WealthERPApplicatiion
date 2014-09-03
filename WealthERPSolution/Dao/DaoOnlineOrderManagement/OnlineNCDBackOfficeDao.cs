@@ -2366,7 +2366,7 @@ namespace DaoOnlineOrderManagement
                 cmdProc.CommandType = CommandType.StoredProcedure;
                 cmdProc.Parameters.AddWithValue("@Details", dtData);
                 cmdProc.Parameters.AddWithValue("@issueId", issueId);
-
+                cmdProc.CommandTimeout = 60 * 60;
                 result = cmdProc.ExecuteNonQuery();
                
             }
