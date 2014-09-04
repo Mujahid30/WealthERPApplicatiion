@@ -287,6 +287,11 @@ namespace WealthERP.OnlineOrderManagement
             CalculateCurrentholding(ds, out finalunits, out finalamt, dsNav.Tables[0].Rows[0][1].ToString());
             lblUnitsheldDisplay.Text = Math.Round(finalunits, 2).ToString();
             lblCurrentValueDisplay.Text = Math.Round(finalamt, 2).ToString();
+
+            if (subcategory == "MFEQTP")
+            {
+                ddlRedeem.Items.RemoveAt(3);
+            }
             if ((double.Parse(lblUnitsheldDisplay.Text) <= 0) && (subcategory == "MFEQTP"))
             {
                 SetControlsState(false);
@@ -296,6 +301,9 @@ namespace WealthERP.OnlineOrderManagement
                 SetControlsState(true);
 
             }
+
+        
+           
         }
         public void SetControlsState(bool isEnable)
         {
