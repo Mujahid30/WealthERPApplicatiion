@@ -358,6 +358,8 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="SIP Book" Value="SIPBook">
                                             </telerik:RadPanelItem>
+                                                <telerik:RadPanelItem runat="server" Text="SWPBook" Value="SWP_Book">
+                                            </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="SIP Book" Value="SIPSumBook" Visible="false">
                                             </telerik:RadPanelItem>
                                         </Items>

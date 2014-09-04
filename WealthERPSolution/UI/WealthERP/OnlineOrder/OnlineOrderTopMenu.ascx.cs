@@ -81,9 +81,14 @@ namespace WealthERP.OnlineOrder
                     break;
 
                 case "RTSMFOrderMenuBooksSIPBook": // add a new child tab
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('SIPBookSummmaryList','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('SIPBookSummmaryList','?systematicType=" + "SIP" + "');", true);
+                   // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('SIPBookSummmaryList','login');", true);
                     break;
+                case "RTSMFOrderMenuBooksSWPBook": // add a new child tab
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('SIPBookSummmaryList','?systematicType=" + "SWP" + "');", true);
+                    //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "SIPBookSummmaryList", "loadcontrol('SIPBookSummmaryList','?systematicType=" + "SWP" + "');", true);
 
+                    break;
                 case "RTSMFOrderMenuBooksDividendBook": // add a new child tab
                     //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('MFOrderSIPTransType','login');", true);
                     break;

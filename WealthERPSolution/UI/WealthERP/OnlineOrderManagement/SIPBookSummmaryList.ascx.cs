@@ -33,6 +33,7 @@ namespace WealthERP.OnlineOrderManagement
         int customerId = 0;
         DateTime fromDate;
         DateTime toDate;
+        string systematicType;
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
@@ -41,25 +42,31 @@ namespace WealthERP.OnlineOrderManagement
             userType = Session[SessionContents.CurrentUserRole].ToString();
             userVo = (UserVo)Session[SessionContents.UserVo];
             customerId = customerVO.CustomerId;
-            BindAmc();
+            hdnsystamaticType.Value="";
+            //BindAmc();
             BindOrderStatus();
             if (!Page.IsPostBack)
-            {
+               {
                 fromDate = DateTime.Now.AddMonths(-1);
                 txtFrom.SelectedDate = fromDate.Date;
                 txtTo.SelectedDate = DateTime.Now;
+                if (Request.QueryString["systematicType"] != null)
+                {
+                    hdnsystamaticType.Value = Request.QueryString["systematicType"].ToString();
+                    BindAmc(hdnsystamaticType.Value);
+                }
             }
         }
 
         /// <summary>
         /// get AMC
         /// </summary>
-        protected void BindAmc()
+        protected void BindAmc(string systematicType)
         {
             ddlAMCCode.Items.Clear();
             DataSet ds = new DataSet();
             DataTable dtAmc = new DataTable();
-            ds = OnlineMFOrderBo.GetSIPAmcDetails(customerId);
+            ds = OnlineMFOrderBo.GetSIPAmcDetails(customerId, hdnsystamaticType.Value);
             dtAmc = ds.Tables[0];
             if (dtAmc.Rows.Count > 0)
             {
@@ -129,7 +136,7 @@ namespace WealthERP.OnlineOrderManagement
                 fromDate = DateTime.Parse(txtFrom.SelectedDate.ToString());
             if (txtTo.SelectedDate != null)
                 toDate = DateTime.Parse(txtTo.SelectedDate.ToString());
-            dsSIPBookMIS = OnlineMFOrderBo.GetSIPSummaryBookMIS(customerId, int.Parse(hdnAmc.Value), fromDate, toDate);
+            dsSIPBookMIS = OnlineMFOrderBo.GetSIPSummaryBookMIS(customerId, int.Parse(hdnAmc.Value), fromDate, toDate, hdnsystamaticType.Value);
             dtSIPBookMIS = dsSIPBookMIS.Tables[0];
             dtSIPBookMIS = createSIPOrderBook(dsSIPBookMIS);
             if (dtSIPBookMIS.Rows.Count > 0)
@@ -176,119 +183,120 @@ namespace WealthERP.OnlineOrderManagement
 
             foreach (DataRow drSIP in dtSIPDetails.Rows)
             {
-                
-                    drSIPOrderBook = dtFinalSIPOrderBook.NewRow();
 
-                    int sipDueCount = 0, inProcessCount = 0, acceptCount = 0, systemRejectCount = 0, rejectedCount = 0, executedCount = 0,otherCount=0;
-                    //if (drSIP["CMFSS_SystematicSetupId"].ToString() == "8593")
+                drSIPOrderBook = dtFinalSIPOrderBook.NewRow();
+
+                int sipDueCount = 0, inProcessCount = 0, acceptCount = 0, systemRejectCount = 0, rejectedCount = 0, executedCount = 0, otherCount = 0;
+                //if (drSIP["CMFSS_SystematicSetupId"].ToString() == "8593")
+                //{
+
+                //}
+
+                dvSIPOrderDetails = new DataView(dtOrderDetails, "CMFSS_SystematicSetupId=" + drSIP["CMFSS_SystematicSetupId"].ToString(), "CMFSS_SystematicSetupId", DataViewRowState.CurrentRows);
+                if (drSIP["CMFSS_IsCanceled"].ToString() != "Cancelled")
+                {
+                    sipDueCount = (Convert.ToInt16(drSIP["CMFSS_TotalInstallment"].ToString())
+                          - ((Convert.ToInt16(drSIP["CMFSS_CurrentInstallmentNumber"].ToString())) - 1));
+                    //- dvSIPOrderDetails.ToTable().Rows.Count
+                }
+                else
+                {
+                    sipDueCount = 0;
+                }
+                //else
+                //{
+                //    sipDueCount = (Convert.ToInt16(drSIP["CMFSS_TotalInstallment"].ToString()) - dvSIPOrderDetails.ToTable().Rows.Count);
+                //}
+                //int.Parse(drSIP["CMFSS_InstallmentAccepted"].ToString())
+                dvAAAcceptedCount = new DataView(dtAAAcceptedCount, "CMFSS_SystematicSetupId=" + drSIP["CMFSS_SystematicSetupId"].ToString(), "CMFSS_SystematicSetupId", DataViewRowState.CurrentRows);
+                foreach (DataRow drOrder in dvSIPOrderDetails.ToTable().Rows)
+                {
+                    switch (drOrder["WOS_OrderStepCode"].ToString().TrimEnd())
+                    {
+                        case "AL":
+                            inProcessCount = inProcessCount + 1;
+                            break;
+                        case "IP":
+                            executedCount = executedCount + 1;
+                            break;
+                        case "RJ":
+                            rejectedCount = rejectedCount + 1;
+                            break;
+                        case "PR":
+                            acceptCount = acceptCount + 1;
+                            break;
+                        case "SJ":
+                            systemRejectCount = systemRejectCount + 1;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+
+
+                drSIPOrderBook["CMFSS_CreatedOn"] = DateTime.Parse(drSIP["CMFSS_CreatedOn"].ToString());
+                drSIPOrderBook["CMFSS_SystematicSetupId"] = drSIP["CMFSS_SystematicSetupId"];
+                drSIPOrderBook["PA_AMCName"] = drSIP["PA_AMCName"].ToString();
+                drSIPOrderBook["PASP_SchemePlanName"] = drSIP["PASP_SchemePlanName"].ToString();
+                drSIPOrderBook["PAISC_AssetInstrumentSubCategoryName"] = drSIP["PAISC_AssetInstrumentSubCategoryName"].ToString();
+                drSIPOrderBook["CMFSS_DividendOption"] = drSIP["CMFSS_DividendOption"];
+                drSIPOrderBook["CMFSS_Amount"] = drSIP["CMFSS_Amount"];
+                drSIPOrderBook["XF_Frequency"] = drSIP["XF_Frequency"];
+                drSIPOrderBook["CMFSS_StartDate"] = DateTime.Parse(drSIP["CMFSS_StartDate"].ToString());
+                drSIPOrderBook["CMFSS_EndDate"] = DateTime.Parse(drSIP["CMFSS_EndDate"].ToString());
+                if (!string.IsNullOrEmpty(drSIP["CMFSS_NextSIPDueDate"].ToString()))
+                {
+                    drSIPOrderBook["CMFSS_NextSIPDueDate"] = DateTime.Parse(drSIP["CMFSS_NextSIPDueDate"].ToString());
+                }
+                else
+                {
+                    drSIPOrderBook["CMFSS_NextSIPDueDate"] = "";
+                }
+                drSIPOrderBook["CMFSS_TotalInstallment"] = drSIP["CMFSS_TotalInstallment"];
+                drSIPOrderBook["CMFSS_CurrentInstallmentNumber"] = drSIP["CMFSS_CurrentInstallmentNumber"];
+                drSIPOrderBook["CMFA_FolioNum"] = drSIP["CMFA_FolioNum"];
+                drSIPOrderBook["Channel"] = drSIP["Channel"];
+                drSIPOrderBook["CMFSS_IsCanceled"] = drSIP["CMFSS_IsCanceled"];
+                drSIPOrderBook["CMFSS_Remark"] = drSIP["CMFSS_Remark"];
+                drSIPOrderBook["SIPDueCount"] = sipDueCount;
+                drSIPOrderBook["InProcessCount"] = inProcessCount;
+
+                if (int.Parse(drSIP["CMFSS_IsSourceAA"].ToString()) == 1)
+                {
+                    //foreach (DataRow drAAAcceptedCount in dvAAAcceptedCount.ToTable().Rows)
                     //{
- 
+
+                    //if (int.Parse(drSIP["CMFSS_SystematicSetupId"].ToString()) == int.Parse(drAAAcceptedCount["CMFSS_SystematicSetupId"].ToString()))
+                    if (dvAAAcceptedCount.ToTable().Rows.Count > 0)
+                        acceptCount = Convert.ToInt16(dvAAAcceptedCount.ToTable().Rows[0]["Occurence"].ToString());
+                    else
+                        acceptCount = 0;
+                    //int.Parse(drSIP["CMFSS_InstallmentAccepted"].ToString()) +
                     //}
+                }
 
-                    dvSIPOrderDetails = new DataView(dtOrderDetails, "CMFSS_SystematicSetupId=" + drSIP["CMFSS_SystematicSetupId"].ToString(), "CMFSS_SystematicSetupId", DataViewRowState.CurrentRows);
-                    if (drSIP["CMFSS_IsCanceled"].ToString() != "Cancelled")
-                    {
-                        sipDueCount = (Convert.ToInt16(drSIP["CMFSS_TotalInstallment"].ToString())
-                              - ((Convert.ToInt16(drSIP["CMFSS_CurrentInstallmentNumber"].ToString())) - 1));
-                        //- dvSIPOrderDetails.ToTable().Rows.Count
-                    }
-                    else
-                    {
-                        sipDueCount = 0;
-                    }
-                    //else
-                    //{
-                    //    sipDueCount = (Convert.ToInt16(drSIP["CMFSS_TotalInstallment"].ToString()) - dvSIPOrderDetails.ToTable().Rows.Count);
-                    //}
-                    //int.Parse(drSIP["CMFSS_InstallmentAccepted"].ToString())
-                    dvAAAcceptedCount = new DataView(dtAAAcceptedCount, "CMFSS_SystematicSetupId=" + drSIP["CMFSS_SystematicSetupId"].ToString(), "CMFSS_SystematicSetupId", DataViewRowState.CurrentRows);
-                    foreach (DataRow drOrder in dvSIPOrderDetails.ToTable().Rows)
-                    {
-                        switch (drOrder["WOS_OrderStepCode"].ToString().TrimEnd())
-                        {
-                            case "AL":
-                                inProcessCount = inProcessCount + 1;
-                                break;
-                            case "IP":
-                                executedCount = executedCount + 1;
-                                break;
-                            case "RJ":
-                                rejectedCount = rejectedCount + 1;
-                                break;
-                            case "PR":
-                                acceptCount = acceptCount + 1;
-                                break;
-                            case "SJ":
-                                systemRejectCount = systemRejectCount + 1;
-                                break;
-                            default:
-                                break;
-                        }
-                    }
+                if (drSIP["CMFSS_IsCanceled"].ToString() != "Cancelled")
+                {
+                    otherCount = (Convert.ToInt16(drSIP["CMFSS_TotalInstallment"].ToString()) - (acceptCount + inProcessCount + executedCount + rejectedCount + sipDueCount));
 
+                }
+                else
+                    otherCount = Convert.ToInt16(drSIP["CMFSS_InstallmentOther"].ToString());
 
-                    drSIPOrderBook["CMFSS_CreatedOn"] = DateTime.Parse(drSIP["CMFSS_CreatedOn"].ToString());
-                    drSIPOrderBook["CMFSS_SystematicSetupId"] = drSIP["CMFSS_SystematicSetupId"];
-                    drSIPOrderBook["PA_AMCName"] = drSIP["PA_AMCName"].ToString();
-                    drSIPOrderBook["PASP_SchemePlanName"] = drSIP["PASP_SchemePlanName"].ToString();
-                    drSIPOrderBook["PAISC_AssetInstrumentSubCategoryName"] = drSIP["PAISC_AssetInstrumentSubCategoryName"].ToString();
-                    drSIPOrderBook["CMFSS_DividendOption"] = drSIP["CMFSS_DividendOption"];
-                    drSIPOrderBook["CMFSS_Amount"] = drSIP["CMFSS_Amount"];
-                    drSIPOrderBook["XF_Frequency"] = drSIP["XF_Frequency"];
-                    drSIPOrderBook["CMFSS_StartDate"] = DateTime.Parse(drSIP["CMFSS_StartDate"].ToString());
-                    drSIPOrderBook["CMFSS_EndDate"] = DateTime.Parse(drSIP["CMFSS_EndDate"].ToString());
-                    if (!string.IsNullOrEmpty(drSIP["CMFSS_NextSIPDueDate"].ToString()))
-                    {
-                        drSIPOrderBook["CMFSS_NextSIPDueDate"] = DateTime.Parse(drSIP["CMFSS_NextSIPDueDate"].ToString());
-                    }
-                    else
-                    {
-                        drSIPOrderBook["CMFSS_NextSIPDueDate"] = "";
-                    }
-                    drSIPOrderBook["CMFSS_TotalInstallment"] = drSIP["CMFSS_TotalInstallment"];
-                    drSIPOrderBook["CMFSS_CurrentInstallmentNumber"] = drSIP["CMFSS_CurrentInstallmentNumber"];
-                    drSIPOrderBook["CMFA_FolioNum"] = drSIP["CMFA_FolioNum"];
-                    drSIPOrderBook["Channel"] = drSIP["Channel"];
-                    drSIPOrderBook["CMFSS_IsCanceled"] = drSIP["CMFSS_IsCanceled"];
-                    drSIPOrderBook["CMFSS_Remark"] = drSIP["CMFSS_Remark"];
-                    drSIPOrderBook["SIPDueCount"] = sipDueCount;
-                    drSIPOrderBook["InProcessCount"] = inProcessCount;
-                    
-                    if (int.Parse(drSIP["CMFSS_IsSourceAA"].ToString()) == 1)
-                    {
-                        //foreach (DataRow drAAAcceptedCount in dvAAAcceptedCount.ToTable().Rows)
-                        //{
+                drSIPOrderBook["AcceptCount"] = acceptCount;
+                drSIPOrderBook["CMFSS_InstallmentOther"] = otherCount;
+                drSIPOrderBook["SystemRejectCount"] = systemRejectCount;
+                drSIPOrderBook["RejectedCount"] = rejectedCount;
+                drSIPOrderBook["ExecutedCount"] = executedCount;
+                drSIPOrderBook["CMFA_AccountId"] = drSIP["CMFA_AccountId"];
+                drSIPOrderBook["PASP_SchemePlanCode"] = drSIP["PASP_SchemePlanCode"];
+                drSIPOrderBook["CMFSS_IsSourceAA"] = drSIP["CMFSS_IsSourceAA"];
+                drSIPOrderBook["Unit"] = drSIP["Unit"];
+                dtFinalSIPOrderBook.Rows.Add(drSIPOrderBook);
 
-                            //if (int.Parse(drSIP["CMFSS_SystematicSetupId"].ToString()) == int.Parse(drAAAcceptedCount["CMFSS_SystematicSetupId"].ToString()))
-                            if(dvAAAcceptedCount.ToTable().Rows.Count>0)
-                                acceptCount =Convert.ToInt16(dvAAAcceptedCount.ToTable().Rows[0]["Occurence"].ToString());
-                            else
-                                acceptCount=0;
-                            //int.Parse(drSIP["CMFSS_InstallmentAccepted"].ToString()) +
-                        //}
-                    }
-
-                    if (drSIP["CMFSS_IsCanceled"].ToString() != "Cancelled")
-                    {
-                        otherCount = (Convert.ToInt16(drSIP["CMFSS_TotalInstallment"].ToString()) - (acceptCount + inProcessCount + executedCount + rejectedCount + sipDueCount));
-                           
-                    }
-                    else
-                       otherCount=Convert.ToInt16(drSIP["CMFSS_InstallmentOther"].ToString());
-
-                    drSIPOrderBook["AcceptCount"] = acceptCount;
-                    drSIPOrderBook["CMFSS_InstallmentOther"]=otherCount;
-                    drSIPOrderBook["SystemRejectCount"] = systemRejectCount;
-                    drSIPOrderBook["RejectedCount"] = rejectedCount;
-                    drSIPOrderBook["ExecutedCount"] = executedCount;
-                    drSIPOrderBook["CMFA_AccountId"] = drSIP["CMFA_AccountId"];
-                    drSIPOrderBook["PASP_SchemePlanCode"] = drSIP["PASP_SchemePlanCode"];
-                    drSIPOrderBook["CMFSS_IsSourceAA"] = drSIP["CMFSS_IsSourceAA"];
-                    dtFinalSIPOrderBook.Rows.Add(drSIPOrderBook);
-           
             }
-                return dtFinalSIPOrderBook;
-           
+            return dtFinalSIPOrderBook;
+
         }
 
         protected DataTable CreateSIPBookDataTable()
@@ -322,6 +330,8 @@ namespace WealthERP.OnlineOrderManagement
             dtSIPOrderBook.Columns.Add("ExecutedCount");
             dtSIPOrderBook.Columns.Add("CMFA_AccountId");
             dtSIPOrderBook.Columns.Add("PASP_SchemePlanCode");
+            dtSIPOrderBook.Columns.Add("Unit", typeof(double));
+
             return dtSIPOrderBook;
 
         }
@@ -422,7 +432,7 @@ namespace WealthERP.OnlineOrderManagement
                                     }
 
                                 }
-                                 if (e.CommandName == "InProcess" |e.CommandName == "Rejected"|e.CommandName == "Executed")
+                                if (e.CommandName == "InProcess" | e.CommandName == "Rejected" | e.CommandName == "Executed")
                                 {
                                     if (e.CommandName == "InProcess")
                                     {
@@ -445,7 +455,7 @@ namespace WealthERP.OnlineOrderManagement
                                         Response.Redirect("ControlHost.aspx?pageid=CustomerSIPBookList&systematicId=" + systematicId + "&OrderStatus=" + orderStatus + "", false);
                                     }
 
-                                }                               
+                                }
                             }
                         }
                     }
@@ -455,21 +465,21 @@ namespace WealthERP.OnlineOrderManagement
         protected void lnkprAmcB_Click(object sender, EventArgs e)
         {
             LinkButton lnkOrderNo = (LinkButton)sender;
-           GridDataItem gdi;
+            GridDataItem gdi;
             gdi = (GridDataItem)lnkOrderNo.NamingContainer;
-           int selectedRow = gdi.ItemIndex + 1;
-           int systematicId = int.Parse((gvSIPSummaryBookMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CMFSS_SystematicSetupId"].ToString()));
-           if (Session["PageDefaultSetting"] != null)
-           {
-               ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('CustomerSIPBookList','?systematicId=" + systematicId + "');", true);
-           }
-           else
-           {
-               Response.Redirect("ControlHost.aspx?pageid=CustomerSIPBookList&systematicId=" + systematicId + "", false);
-           }
-         //  ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerSIPBookList", "loadcontrol('CustomerSIPBookList');", true);
-          // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerSIPBookList", "loadcontrol('CustomerSIPBookList','action=viewIsssueList&issueNo=" + issueNo + "&type=" + ddlType.SelectedValue + "&date=" + DateTime.Now + "&product=" + ddlProduct.SelectedValue + "');", true);
-       
+            int selectedRow = gdi.ItemIndex + 1;
+            int systematicId = int.Parse((gvSIPSummaryBookMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CMFSS_SystematicSetupId"].ToString()));
+            if (Session["PageDefaultSetting"] != null)
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('CustomerSIPBookList','?systematicId=" + systematicId + "');", true);
+            }
+            else
+            {
+                Response.Redirect("ControlHost.aspx?pageid=CustomerSIPBookList&systematicId=" + systematicId + "", false);
+            }
+            //  ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerSIPBookList", "loadcontrol('CustomerSIPBookList');", true);
+            // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerSIPBookList", "loadcontrol('CustomerSIPBookList','action=viewIsssueList&issueNo=" + issueNo + "&type=" + ddlType.SelectedValue + "&date=" + DateTime.Now + "&product=" + ddlProduct.SelectedValue + "');", true);
+
         }
         protected void gvSIPSummaryBookMIS_UpdateCommand(object source, GridCommandEventArgs e)
         {
@@ -512,6 +522,17 @@ namespace WealthERP.OnlineOrderManagement
                         buttonCancel.Enabled = false;
                     }
                 }
+            }
+            if (hdnsystamaticType.Value == "SWP")
+            {
+                gvSIPSummaryBookMIS.MasterTableView.GetColumn("CMFSS_Amount").Visible = false;
+                gvSIPSummaryBookMIS.MasterTableView.GetColumn("Unit").Visible = true;
+            }
+            else
+            {
+                gvSIPSummaryBookMIS.MasterTableView.GetColumn("CMFSS_Amount").Visible = true;
+                gvSIPSummaryBookMIS.MasterTableView.GetColumn("Unit").Visible = false;
+
             }
 
         }

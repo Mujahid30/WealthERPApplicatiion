@@ -98,7 +98,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlStatus;
-        
+        protected global::System.Web.UI.WebControls.DropDownList ddlSystematicType;
         /// <summary>
         /// tdlblFromDate control.
         /// </summary>

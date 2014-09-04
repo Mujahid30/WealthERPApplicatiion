@@ -168,13 +168,13 @@ namespace BoOnlineOrderManagement
             }
             return dsSIPBookMIS;
         }
-        public DataSet GetSIPSummaryBookMIS(int CustomerId, int AmcCode, DateTime dtFrom, DateTime dtTo)
+        public DataSet GetSIPSummaryBookMIS(int CustomerId, int AmcCode, DateTime dtFrom, DateTime dtTo, string systematicType)
         {
             DataSet dsSIPSummaryBookMIS = null;
             OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
             try
             {
-                dsSIPSummaryBookMIS = OnlineMFOrderDao.GetSIPSummaryBookMIS(CustomerId, AmcCode, dtFrom, dtTo);
+                dsSIPSummaryBookMIS = OnlineMFOrderDao.GetSIPSummaryBookMIS(CustomerId, AmcCode, dtFrom, dtTo, systematicType);
             }
             catch (BaseApplicationException Ex)
             {
@@ -306,7 +306,7 @@ namespace BoOnlineOrderManagement
 
             return StartDate.AddMonths(multiplier * installments);
         }
-        public DataSet GetCustomerHoldingAMCList(int customerId,char type)
+        public DataSet GetCustomerHoldingAMCList(int customerId, char type)
         {
             DataSet dsCustomerHoldingAMCList;
             OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
@@ -348,13 +348,13 @@ namespace BoOnlineOrderManagement
                 throw (Ex);
             }
         }
-        public DataSet GetSIPAmcDetails(int customerId)
+        public DataSet GetSIPAmcDetails(int customerId, string systematicType)
         {
             DataSet dsGetSIPAmcDetails;
             OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
             try
             {
-                dsGetSIPAmcDetails = OnlineMFOrderDao.GetSIPAmcDetails(customerId);
+                dsGetSIPAmcDetails = OnlineMFOrderDao.GetSIPAmcDetails(customerId, systematicType);
             }
             catch (BaseApplicationException Ex)
             {

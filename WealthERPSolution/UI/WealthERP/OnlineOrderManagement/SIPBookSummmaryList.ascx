@@ -25,29 +25,36 @@
     </tr>
 </table>--%>
 <table width="100%">
-    <tr>
+    <table class="tblMessage" cellpadding="0" cellspacing="0">
+        <tr>
+            <td>
+                <div class="divOnlinePageHeading">
+                    <div class="divClientAccountBalance" id="divClientAccountBalance" runat="server">
+                        <asp:ImageButton Visible="false" ID="btnExport" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                            runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
+                            OnClientClick="setFormat('excel')" Height="20px" Width="25px"></asp:ImageButton>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <%--<tr>
         <td>
-            <div class="divPageHeading">
+            <div class="divOnlinePageHeading">
                 <table cellspacing="0" cellpadding="3" width="100%">
                     <tr>
-                    <td align="left">
-                            SIP Book
-                        </td>
-                        <%--<td align="right">
+                        <%-- <td align="left">
+                            Systematic Book
+                        </td>--%>
+    <%--<td align="right">
                     <asp:LinkButton runat="server" ID="lbBack" CssClass="LinkButtons" Text="Back" Visible="false"
                         OnClick="lbBack_Click"></asp:LinkButton>
-                </td>--%>
-                        <td align="right" style="width: 10px">
-                            <asp:ImageButton Visible="true" ID="btnExport" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
-                                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
-                                OnClientClick="setFormat('excel')" Height="20px" Width="25px"></asp:ImageButton>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </td>
+                </td
+    <td>
+    </td>
     </tr>
 </table>
+</div> </td> </tr>--%> </table>
 <div id="divConditional" runat="server" style="padding-top: 4px">
     <table class="TableBackground" cellpadding="2">
         <tr>
@@ -234,6 +241,11 @@
                                 DataFormatString="{0:N2}" UniqueName="CMFSS_Amount" SortExpression="CMFSS_Amount"
                                 ShowFilterIcon="false" HeaderStyle-Width="80px" CurrentFilterFunction="Contains"
                                 AutoPostBackOnFilter="true">
+                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="Unit" AllowFiltering="false" HeaderText="Units"
+                                DataFormatString="{0:N0}" UniqueName="Unit" SortExpression="Unit" ShowFilterIcon="false"
+                                HeaderStyle-Width="80px" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn Visible="false" DataField="CMFOD_Units" AllowFiltering="false"
@@ -446,3 +458,4 @@
 </asp:Panel>
 <asp:HiddenField ID="hdnAmc" runat="server" />
 <asp:HiddenField ID="hdnOrderStatus" runat="server" />
+<asp:HiddenField ID="hdnsystamaticType" runat="server" Value="" />

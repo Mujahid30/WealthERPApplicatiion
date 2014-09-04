@@ -54,8 +54,10 @@ namespace WealthERP.OnlineOrderBackOffice
                 txtFrom.SelectedDate = fromDate.Date;
                 txtTo.SelectedDate = DateTime.Now;
                 tdStatusType.Visible = false;
-                
-
+                if (Request.QueryString["SIPBook"] != null)
+                {
+                    string r = Request.QueryString["SIPBook"].ToString();
+                }
             }
         }
         protected void ddlSearchtype_SelectedIndexChanged(object sender, EventArgs e)
@@ -64,19 +66,19 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 tdStatusType.Visible = true;
                 ddlStatus.Visible = true;
-                tdlblFromDate.Visible = false;
-                tdTxtFromDate.Visible = false;
-                tdlblToDate.Visible = false;
-                tdTxtToDate.Visible = false;
+                //tdlblFromDate.Visible = false;
+                //tdTxtFromDate.Visible = false;
+                //tdlblToDate.Visible = false;
+                //tdTxtToDate.Visible = false;
             }
             else
             {
                 tdStatusType.Visible = false;
                 ddlStatus.Visible = false;
-                tdlblFromDate.Visible = true;
-                tdTxtFromDate.Visible = true;
-                tdlblToDate.Visible = true;
-                tdTxtToDate.Visible = true;
+                //tdlblFromDate.Visible = true;
+                //tdTxtFromDate.Visible = true;
+                //tdlblToDate.Visible = true;
+                //tdTxtToDate.Visible = true;
             }
         }
 
@@ -132,14 +134,14 @@ namespace WealthERP.OnlineOrderBackOffice
             //}
             //ddlOrderstatus.Items.Insert(0, new ListItem("All", "0"));
         }
-       
+
 
         protected void btnViewOrder_Click(object sender, EventArgs e)
         {
 
             SetParameter();
             BindSIPSummaryBook();
-           
+
         }
 
         /// <summary>
@@ -168,7 +170,7 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             DataSet dsSIPBookMIS = new DataSet();
             DataTable dtSIPBookMIS = new DataTable();
-           
+
             searchType = Convert.ToInt32(ddlSearchtype.SelectedValue.ToString());
             if (searchType == 5)
             {
@@ -178,7 +180,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 fromDate = DateTime.Parse(txtFrom.SelectedDate.ToString());
             if (txtTo.SelectedDate != null)
                 toDate = DateTime.Parse(txtTo.SelectedDate.ToString());
-            dsSIPBookMIS = OnlineOrderMISBo.GetSIPSummaryBookMIS(advisorVo.advisorId, int.Parse(hdnAmc.Value), fromDate, toDate, searchType, statusType);
+            dsSIPBookMIS = OnlineOrderMISBo.GetSIPSummaryBookMIS(advisorVo.advisorId, int.Parse(hdnAmc.Value), fromDate, toDate, searchType, statusType, ddlSystematicType.SelectedValue);
             dtSIPBookMIS = dsSIPBookMIS.Tables[0];
             dtSIPBookMIS = createSIPOrderBook(dsSIPBookMIS);
             if (dtSIPBookMIS.Rows.Count > 0)
@@ -344,6 +346,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 //}
                 drSIPOrderBook["C_Mobile1"] = drSIP["C_Mobile1"].ToString();
                 drSIPOrderBook["C_Email"] = drSIP["C_Email"];
+                drSIPOrderBook["Unit"] = drSIP["Unit"];
                 dtFinalSIPOrderBook.Rows.Add(drSIPOrderBook);
             }
 
@@ -395,6 +398,7 @@ namespace WealthERP.OnlineOrderBackOffice
             dtSIPOrderBook.Columns.Add("CustCode");
             dtSIPOrderBook.Columns.Add("C_Mobile1");
             dtSIPOrderBook.Columns.Add("C_Email");
+            dtSIPOrderBook.Columns.Add("Unit", typeof(double));
             return dtSIPOrderBook;
 
         }
@@ -484,10 +488,10 @@ namespace WealthERP.OnlineOrderBackOffice
                                 //int accept = int.Parse(gvr.GetDataKeyValue("AcceptCount").ToString());
                                 if (e.CommandName == "Select")
                                 {
-                                  //  Response.Redirect("ControlHost.aspx?pageid=OnlineAdviserCustomerTransactionBook&systematicId=" + systematicId + "", false);
+                                    //  Response.Redirect("ControlHost.aspx?pageid=OnlineAdviserCustomerTransactionBook&systematicId=" + systematicId + "", false);
                                     Response.Redirect("ControlHost.aspx?pageid=OnlineAdviserCustomerSIPOrderBook&systematicId=" + systematicId + "&AccountId=" + AccountId + "&schemeplanCode=" + schemeplanCode + "&IsSourceAA=" + IsSourceAA + "&customerId=" + customerId + "", false);
                                 }
-                              
+
                                 // if (e.CommandName == "Accepted")
                                 //{
                                 //    Response.Redirect("ControlHost.aspx?pageid=OnlineAdviserCustomerTransctionBook&systematicId=" + systematicId + "&AccountId=" + AccountId + "&schemeplanCode=" + schemeplanCode + "&IsSourceAA=" + IsSourceAA + "&customerId=" + customerId + "", false);
@@ -562,6 +566,8 @@ namespace WealthERP.OnlineOrderBackOffice
                 DateTime currentTime = DateTime.Now;
                 DateTime fixedTime = Convert.ToDateTime("08:35:00 AM");
                 int compare = DateTime.Compare(currentTime, fixedTime);
+                //DropDownList ddlSystematicType = (DropDownList)e.Item.FindControl("ddlSystematicType");
+
                 if (Iscancel == "Cancelled" || totalInstallment == currentInstallmentNumber || endDate < DateTime.Now)
                 {
 
@@ -574,7 +580,20 @@ namespace WealthERP.OnlineOrderBackOffice
                         buttonEdit.Enabled = false;
                     }
                 }
+
+                if (ddlSystematicType.SelectedValue == "SWP")
+                {
+                    gvSIPSummaryBookMIS.MasterTableView.GetColumn("CMFSS_Amount").Visible = false;
+                    gvSIPSummaryBookMIS.MasterTableView.GetColumn("Unit").Visible = true;
+                }
+                else
+                {
+                    gvSIPSummaryBookMIS.MasterTableView.GetColumn("CMFSS_Amount").Visible = true;
+                    gvSIPSummaryBookMIS.MasterTableView.GetColumn("Unit").Visible = false;
+
+                }
             }
         }
+
     }
 }

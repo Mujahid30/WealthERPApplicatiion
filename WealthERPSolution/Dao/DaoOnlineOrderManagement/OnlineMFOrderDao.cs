@@ -476,7 +476,7 @@ namespace DaoOnlineOrderManagement
             }
             return onlinemforderVo;
         }
-        public DataSet GetSIPSummaryBookMIS(int CustomerId, int AmcCode, DateTime dtFrom, DateTime dtTo)
+        public DataSet GetSIPSummaryBookMIS(int CustomerId, int AmcCode, DateTime dtFrom, DateTime dtTo,string systematicType)
         {
             DataSet dsSIPSummaryBookMIS;
             Database db;
@@ -496,6 +496,8 @@ namespace DaoOnlineOrderManagement
                 //    db.AddInParameter(GetSIPSummaryBookMISCmd, "@Status", DbType.String, DBNull.Value);
                 db.AddInParameter(GetSIPSummaryBookMISCmd, "@Fromdate", DbType.DateTime, dtFrom);
                 db.AddInParameter(GetSIPSummaryBookMISCmd, "@ToDate", DbType.DateTime, dtTo);
+                db.AddInParameter(GetSIPSummaryBookMISCmd, "@systematicType", DbType.String, systematicType);
+                GetSIPSummaryBookMISCmd.CommandTimeout = 60 * 60;
                 dsSIPSummaryBookMIS = db.ExecuteDataSet(GetSIPSummaryBookMISCmd);
 
             }
@@ -542,7 +544,7 @@ namespace DaoOnlineOrderManagement
                 throw exBase;
             }
         }
-        public DataSet GetSIPAmcDetails(int customerId)
+        public DataSet GetSIPAmcDetails(int customerId, string systematicType)
         {
             DataSet dsGetSIPAmcDetails;
             Database db;
@@ -552,6 +554,7 @@ namespace DaoOnlineOrderManagement
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 GetSIPAmcDetailscmd = db.GetStoredProcCommand("sproc_onl_BindAmcSIP");
                 db.AddInParameter(GetSIPAmcDetailscmd, "@customerId", DbType.Int32, customerId);
+                db.AddInParameter(GetSIPAmcDetailscmd, "@systematicType", DbType.String, systematicType);
                 dsGetSIPAmcDetails = db.ExecuteDataSet(GetSIPAmcDetailscmd);
             }
             catch (BaseApplicationException Ex)

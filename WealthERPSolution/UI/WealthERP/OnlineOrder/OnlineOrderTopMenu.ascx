@@ -64,6 +64,9 @@
                             <telerik:RadTab runat="server" Text="SIP BOOK" Value="RTSMFOrderMenuBooksSIPBook"
                                 TabIndex="2" PageViewID="RPVSIPBook">
                             </telerik:RadTab>
+                            <telerik:RadTab runat="server" Text="SWP BOOK" Value="RTSMFOrderMenuBooksSWPBook"
+                                TabIndex="3" PageViewID="RPVSWPBook">
+                            </telerik:RadTab>
                             <telerik:RadTab runat="server" Text="DIVIDEND BOOK" Value="RTSMFOrderMenuBooksDividendBook"
                                 TabIndex="2" PageViewID="RPVDividendBook" Visible="false">
                             </telerik:RadTab>
@@ -76,6 +79,8 @@
                         <telerik:RadPageView ID="RPVTransactionBook" runat="server" Style="margin-top: 20px">
                         </telerik:RadPageView>
                         <telerik:RadPageView ID="RPVSIPBook" runat="server" Style="margin-top: 20px">
+                        </telerik:RadPageView>
+                        <telerik:RadPageView ID="RPVSWPBook" runat="server" Style="margin-top: 20px">
                         </telerik:RadPageView>
                         <telerik:RadPageView ID="RPVDividendBook" runat="server" Style="margin-top: 20px">
                         </telerik:RadPageView>

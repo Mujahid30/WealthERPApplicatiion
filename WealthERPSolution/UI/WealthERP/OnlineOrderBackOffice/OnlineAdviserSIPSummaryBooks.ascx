@@ -11,7 +11,7 @@
                 <table cellspacing="0" cellpadding="3" width="100%">
                     <tr>
                         <td align="left">
-                            SIP Book
+                            Systematic Book
                         </td>
                         <td align="right" style="width: 10px">
                             <asp:ImageButton Visible="false" ID="btnExport" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
@@ -27,7 +27,22 @@
 <div id="divConditional" runat="server" style="padding-top: 4px">
     <table class="TableBackground" cellpadding="2">
         <tr>
-            <td id="tdlblRejectReason" class="leftField" runat="server">
+            <td align="right">
+                <asp:Label ID="lblSystematicType" runat="server" Text="Systematic Type:" CssClass="FieldName"></asp:Label>
+            </td>
+            <td>
+                <asp:DropDownList ID="ddlSystematicType" runat="server" CssClass="cmbField">
+                    <asp:ListItem Text="Select"></asp:ListItem>
+                    <asp:ListItem Text="SIP" Value="SIP"></asp:ListItem>
+                    <asp:ListItem Text="SWP" Value="SWP"></asp:ListItem>
+                </asp:DropDownList>
+                  <span id="Span3" class="spnRequiredField">*</span>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="ddlSystematicType"
+                        ErrorMessage="<br />Select systematic type" CssClass="cvPCG" Display="Dynamic"
+                        runat="server" InitialValue="Select" ValidationGroup="btnViewSIP">
+                    </asp:RequiredFieldValidator>
+            </td>
+            <td id="tdlblRejectReason" runat="server">
                 <asp:Label runat="server" class="FieldName" Text="AMC:" ID="lblAccount"></asp:Label>
             </td>
             <td>
@@ -40,10 +55,10 @@
                 <asp:Label runat="server" class="FieldName" Text="Search Type:" ID="Label2"></asp:Label>
                 <asp:DropDownList CssClass="cmbField" ID="ddlSearchtype" runat="server" OnSelectedIndexChanged="ddlSearchtype_SelectedIndexChanged"
                     AutoPostBack="true">
-                    <asp:ListItem Text="Next SIP Date" Value="1"></asp:ListItem>
-                    <asp:ListItem Text="SIP Start Date" Value="2"></asp:ListItem>
-                    <asp:ListItem Text="SIP End Date" Value="3"></asp:ListItem>
-                    <asp:ListItem Text="SIP Request Date" Value="4"></asp:ListItem>
+                    <asp:ListItem Text="Next Systematic Date" Value="1"></asp:ListItem>
+                    <asp:ListItem Text="Start Date" Value="2"></asp:ListItem>
+                    <asp:ListItem Text="End Date" Value="3"></asp:ListItem>
+                    <asp:ListItem Text="Request Date" Value="4"></asp:ListItem>
                     <asp:ListItem Text="Status" Value="5"></asp:ListItem>
                 </asp:DropDownList>
             </td>
@@ -56,12 +71,12 @@
                 </asp:DropDownList>
             </td>
         </tr>
-    </table>
+        <%--    </table>
 </div>
 <div id="div2" runat="server" style="padding-top: 4px">
-    <table class="TableBackground" cellpadding="3">
+    <table class="TableBackground" cellpadding="3">--%>
         <tr>
-            <td id="tdlblFromDate" runat="server" class="leftField">
+            <td id="tdlblFromDate" runat="server" align="right">
                 <asp:Label class="FieldName" ID="lblFromTran" Text="From :" runat="server" />
             </td>
             <td id="tdTxtFromDate" runat="server" class="leftField">
@@ -85,7 +100,7 @@
                         Display="Dynamic" ValidationGroup="btnViewSIP"></asp:CompareValidator>
                 </div>
             </td>
-            <td id="tdlblToDate" runat="server">
+            <td id="tdlblToDate" runat="server" align="right">
                 <asp:Label ID="lblToTran" Text="To :" CssClass="FieldName" runat="server" />
             </td>
             <td id="tdTxtToDate" runat="server">
@@ -112,10 +127,9 @@
                     ErrorMessage="<br/> To Date should be greater than From Date" Type="Date" Operator="GreaterThanEqual"
                     ControlToCompare="txtFrom" CssClass="cvPCG" ValidationGroup="btnViewSIP" Display="Dynamic">
                 </asp:CompareValidator>
-            </td>
-        </tr>
-        <tr>
-            <td id="tdBtnOrder" runat="server">
+            <%--</td>
+            <td id="tdBtnOrder" runat="server">--%>
+            &nbsp
                 <asp:Button ID="btnViewSIP" runat="server" CssClass="PCGButton" Text="Go" ValidationGroup="btnViewSIP"
                     OnClick="btnViewOrder_Click" />
             </td>
@@ -191,12 +205,13 @@
                                 AutoPostBackOnFilter="true" HeaderStyle-Width="100px" UniqueName="C_PANNum" FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                             <telerik:GridBoundColumn DataField="C_Mobile1" HeaderText="Mobile No" AllowFiltering="true"
+                            <telerik:GridBoundColumn DataField="C_Mobile1" HeaderText="Mobile No" AllowFiltering="true"
                                 HeaderStyle-Wrap="false" SortExpression="C_Mobile1" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                AutoPostBackOnFilter="true" HeaderStyle-Width="100px" UniqueName="C_Mobile1" FooterStyle-HorizontalAlign="Left">
+                                AutoPostBackOnFilter="true" HeaderStyle-Width="100px" UniqueName="C_Mobile1"
+                                FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                             <telerik:GridBoundColumn DataField="C_Email" HeaderText="Email Id" AllowFiltering="true"
+                            <telerik:GridBoundColumn DataField="C_Email" HeaderText="Email Id" AllowFiltering="true"
                                 HeaderStyle-Wrap="false" SortExpression="C_Email" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                 AutoPostBackOnFilter="true" HeaderStyle-Width="100px" UniqueName="C_Email" FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
@@ -267,6 +282,11 @@
                                 AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
+                            <telerik:GridNumericColumn  DataField="Unit" AllowFiltering="false" HeaderText="Unit"
+                                UniqueName="Unit" SortExpression="Unit" ShowFilterIcon="false" HeaderStyle-Width="80px"
+                                CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"  DataFormatString="{0:N0}">
+                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridNumericColumn >
                             <telerik:GridBoundColumn Visible="false" DataField="CMFOD_Units" AllowFiltering="false"
                                 HeaderText="Order Units" DataFormatString="{0:N0}" UniqueName="CMFOD_Units" SortExpression="CMFOD_Units"
                                 ShowFilterIcon="false" HeaderStyle-Width="80px" CurrentFilterFunction="Contains"

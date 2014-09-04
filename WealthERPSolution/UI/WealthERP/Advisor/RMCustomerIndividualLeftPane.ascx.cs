@@ -1514,7 +1514,8 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "SIPBook")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "SIPBookSummmaryList", "loadcontrol('SIPBookSummmaryList','none');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "SIPBookSummmaryList", "loadcontrol('SIPBookSummmaryList','?systematicType=" + "SIP" + "');", true);
+                    //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "SIPBookSummmaryList", "loadcontrol('SIPBookSummmaryList','none');", true);
                     // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerFIAlerts", "loadcontrol('CustomerSIPBookList','none');", true);
                 }
                 else if (e.Item.Value == "UnitHoldings")
@@ -1556,6 +1557,11 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "IPOHolding")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerIPOHolding", "loadcontrol('CustomerIPOHolding','none');", true);
+                }
+                else if (e.Item.Value == "SWP_Book")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "SIPBookSummmaryList", "loadcontrol('SIPBookSummmaryList','?systematicType=" + "SWP" + "');", true);
+                    // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerFIAlerts", "loadcontrol('CustomerSIPBookList','none');", true);
                 }
                 else if (e.Item.Value == "Bond_Order")
                 {
