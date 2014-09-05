@@ -234,8 +234,47 @@ namespace DAOAssociates
             }
             return bResult;
         }
+        public bool CheckPanNumberDuplicatesForAssociates(string Pan, int AdviserAssociateId, string Statement)
+        {
+            Database db;
+            DbCommand cmdPanDuplicateCheck;
+            bool bResult = false;
+            int res = 0;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //Adding Data to the table 
+                cmdPanDuplicateCheck = db.GetStoredProcCommand("SPROC_CheckPanNumberDuplicatesForAssociates");
+                db.AddInParameter(cmdPanDuplicateCheck, "@PanNumber", DbType.String, Pan);
+                db.AddInParameter(cmdPanDuplicateCheck, "@AdviserAssociateId", DbType.Int32, AdviserAssociateId);
+                db.AddInParameter(cmdPanDuplicateCheck, "@Statement", DbType.String, Statement); 
+                res = int.Parse(db.ExecuteScalar(cmdPanDuplicateCheck).ToString());
+                if (res > 0)
+                    bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerDao.cs:CheckPanNumberDuplicatesForAssociates()");
+                object[] objects = new object[3];
+                objects[0] = Pan;
+                objects[1] = AdviserAssociateId;
+                objects[2] = Statement;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
 
-        public bool UpdateAdviserAssociates(AssociatesVO associatesVo)
+            }
+            return bResult;
+        }
+
+        public bool UpdateAdviserAssociates(AssociatesVO associatesVo, AdvisorVo advisorVo)
         {
             Database db;
             DbCommand UpdateAssociatesCmd;
@@ -515,6 +554,23 @@ namespace DAOAssociates
                     db.AddInParameter(UpdateAssociatesCmd, "@XCST_CustomerSubTypeCode", DbType.String, associatesVo.AssociateSubType);
                 else
                     db.AddInParameter(UpdateAssociatesCmd, "@XCST_CustomerSubTypeCode", DbType.String, DBNull.Value);
+                if (advisorVo.advisorId != 0)
+                    db.AddInParameter(UpdateAssociatesCmd, "@AdviserId", DbType.Int32, advisorVo.advisorId);
+                else
+                    db.AddInParameter(UpdateAssociatesCmd, "@AdviserId", DbType.Int32, DBNull.Value);
+                if (associatesVo.AAC_AdviserAgentId != 0)
+                    db.AddInParameter(UpdateAssociatesCmd, "@AgentId", DbType.Int32, associatesVo.AAC_AdviserAgentId);
+                else
+                    db.AddInParameter(UpdateAssociatesCmd, "@AgentId", DbType.Int32, DBNull.Value);
+                if (!string.IsNullOrEmpty(associatesVo.AAC_AgentCode))
+                    db.AddInParameter(UpdateAssociatesCmd, "@AAC_AgentCode", DbType.String, associatesVo.AAC_AgentCode);
+                else
+                    db.AddInParameter(UpdateAssociatesCmd, "@AAC_AgentCode", DbType.String, DBNull.Value);
+                if (!string.IsNullOrEmpty(associatesVo.PanNo))
+                    db.AddInParameter(UpdateAssociatesCmd, "@AA_PAN", DbType.String, associatesVo.PanNo);
+                else
+                    db.AddInParameter(UpdateAssociatesCmd, "@AAC_AgentCode", DbType.String, DBNull.Value);
+
 
 
                 db.ExecuteNonQuery(UpdateAssociatesCmd);
