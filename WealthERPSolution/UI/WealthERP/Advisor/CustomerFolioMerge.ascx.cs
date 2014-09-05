@@ -1455,7 +1455,8 @@ namespace WealthERP.Advisor
             }
             else if (flag == 4)
             {
-                trAction.Visible = false;
+                trAction.Visible = true;
+                Label1.Visible = true;
             }
             else if (flag == 5)
             {
