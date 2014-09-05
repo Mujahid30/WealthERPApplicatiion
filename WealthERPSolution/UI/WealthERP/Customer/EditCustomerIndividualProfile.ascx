@@ -195,6 +195,10 @@
                         <asp:CheckBox ID="chkdummypan" runat="server" CssClass="txtField" Text="Dummy PAN"
                             AutoPostBack="true" />
                         <br />
+                        <asp:RegularExpressionValidator ID="revPan" runat="server" Display="Dynamic"
+                            ValidationGroup="btnEdit" ErrorMessage="Please check PAN Format" ControlToValidate="txtPanNumber"
+                            ValidationExpression="[A-Za-z]{5}\d{4}[A-Za-z]{1}">
+                        </asp:RegularExpressionValidator>
                         <asp:RequiredFieldValidator ID="rfvPanNumber" ControlToValidate="txtPanNumber" ErrorMessage="Please enter a PAN Number"
                             Display="Dynamic" runat="server" CssClass="rfvPCG" ValidationGroup="btnEdit">
                         </asp:RequiredFieldValidator>
@@ -1301,7 +1305,7 @@
                     <td>
                     </td>
                     <td colspan="3">
-                        <asp:CheckBox ID="chkCorrPerm" runat="server" CssClass="FieldName" Text="Same as Correspondance Address" />
+                        <asp:CheckBox ID="chkCorrPerm" runat="server" CssClass="FieldName" Text="Same as Correspondence Address" />
                     </td>
                 </tr>
                 <tr>
