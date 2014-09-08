@@ -77,12 +77,12 @@
                 <asp:Label ID="lblFromDate" runat="server" CssClass="FieldName">From:</asp:Label>
                 <telerik:RadDatePicker ID="txtFromDate" CssClass="txtField" runat="server" Culture="English (United States)"
                     Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
-                    <calendar id="Calendar1" runat="server" userowheadersasselectors="False" usecolumnheadersasselectors="False"
-                        viewselectortext="x" skin="Telerik" enableembeddedskins="false">
-                    </calendar>
-                    <datepopupbutton imageurl="" hoverimageurl=""></datepopupbutton>
-                    <dateinput id="DateInput1" runat="server" displaydateformat="d/M/yyyy" dateformat="d/M/yyyy">
-                    </dateinput>
+                    <Calendar ID="Calendar1" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
+                        ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
+                    </Calendar>
+                    <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                    <DateInput ID="DateInput1" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                    </DateInput>
                 </telerik:RadDatePicker>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtFromDate"
                     CssClass="rfvPCG" ErrorMessage="<br />Please select a From Date" Display="Dynamic"
@@ -90,12 +90,12 @@
                 <asp:Label ID="lblToDate" runat="server" CssClass="FieldName">To:</asp:Label>
                 <telerik:RadDatePicker ID="txtToDate" CssClass="txtTo" runat="server" Culture="English (United States)"
                     Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
-                    <calendar id="Calendar2" runat="server" userowheadersasselectors="False" usecolumnheadersasselectors="False"
-                        viewselectortext="x" skin="Telerik" enableembeddedskins="false">
-                    </calendar>
-                    <datepopupbutton imageurl="" hoverimageurl=""></datepopupbutton>
-                    <dateinput id="DateInput2" runat="server" displaydateformat="d/M/yyyy" dateformat="d/M/yyyy">
-                    </dateinput>
+                    <Calendar ID="Calendar2" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
+                        ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
+                    </Calendar>
+                    <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                    <DateInput ID="DateInput2" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                    </DateInput>
                 </telerik:RadDatePicker>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtToDate"
                     CssClass="rfvPCG" ErrorMessage="<br />Please select a To Date" Display="Dynamic"
@@ -119,7 +119,7 @@
     <tr>
         <td>
             <asp:Label ID="lblFilter" runat="server" Text="Filter:" CssClass="FieldName"></asp:Label>
-            <asp:DropDownList ID="ddlFilter" runat="server" CssClass="cmbField" >
+            <asp:DropDownList ID="ddlFilter" runat="server" CssClass="cmbField">
                 <asp:ListItem Value="S">Select</asp:ListItem>
                 <asp:ListItem Value="0">Offline Only</asp:ListItem>
                 <asp:ListItem Value="1">Online Only</asp:ListItem>
@@ -127,7 +127,7 @@
             </asp:DropDownList>
             <span id="Span2" class="spnRequiredField">*</span>
             <asp:Label ID="lblErrorFilter" Text="Please Select a Filter" CssClass="rfvPCG" Visible="false"
-                runat="server" style="color:Red"></asp:Label>
+                runat="server" Style="color: Red"></asp:Label>
         </td>
     </tr>
     <tr>
@@ -176,12 +176,12 @@
                         Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
                         AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true" EnableHeaderContextMenu="true"
                         EnableHeaderContextFilterMenu="true" OnNeedDataSource="gvProduct_OnNeedDataSource">
-                        <exportsettings hidestructurecolumns="true" exportonlydata="true" ignorepaging="true"
-                            filename="Product Details" excel-format="ExcelML">
-                        </exportsettings>
-                        <mastertableview datakeynames="SchemeCode" width="100%" allowmulticolumnsorting="True"
-                            autogeneratecolumns="false" commanditemdisplay="None" groupsdefaultexpanded="false"
-                            expandcollapsecolumn-groupable="true" grouploadmode="Client" showgroupfooter="true">
+                        <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
+                            FileName="Product Details" Excel-Format="ExcelML">
+                        </ExportSettings>
+                        <MasterTableView DataKeyNames="SchemeCode" Width="100%" AllowMultiColumnSorting="True"
+                            AutoGenerateColumns="false" CommandItemDisplay="None" GroupsDefaultExpanded="false"
+                            ExpandCollapseColumn-Groupable="true" GroupLoadMode="Client" ShowGroupFooter="true">
                             <Columns>
                                 <telerik:GridTemplateColumn HeaderStyle-Width="100px" AllowFiltering="false" UniqueName="action"
                                     DataField="action" FooterText="Grand Total:" Visible="false">
@@ -212,8 +212,6 @@
                                     CurrentFilterFunction="Contains" DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
                                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                
-                                
                                 <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Gross Investment"
                                     HeaderText="Gross Invest" DataField="GrossInvestment" HeaderStyle-HorizontalAlign="Right"
                                     UniqueName="GrossInvestment" SortExpression="GrossInvestment" AutoPostBackOnFilter="true"
@@ -228,11 +226,11 @@
                                     DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
                                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Is Online"
-                                    HeaderText="Is Online" DataField="IsOnline" HeaderStyle-HorizontalAlign="Right"
-                                    UniqueName="IsOnline" SortExpression="IsOnline" AutoPostBackOnFilter="true"
-                                    AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                    DataFormatString="{0:N0}"  FooterStyle-HorizontalAlign="Right">
+                                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Is Online" HeaderText="Is Online"
+                                    DataField="IsOnline" HeaderStyle-HorizontalAlign="Right" UniqueName="IsOnline"
+                                    SortExpression="IsOnline" AutoPostBackOnFilter="true" AllowFiltering="false"
+                                    ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N0}"
+                                    FooterStyle-HorizontalAlign="Right">
                                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Purchase Transaction"
@@ -572,12 +570,12 @@
                                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
                             </Columns>
-                        </mastertableview>
-                        <headerstyle width="150px" />
-                        <clientsettings>
+                        </MasterTableView>
+                        <HeaderStyle Width="150px" />
+                        <ClientSettings>
                             <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
                             <Resizing AllowColumnResize="true" />
-                        </clientsettings>
+                        </ClientSettings>
                     </telerik:RadGrid>
                 </div>
             </asp:Panel>
@@ -592,12 +590,12 @@
                         Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
                         AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true" EnableHeaderContextMenu="true"
                         EnableHeaderContextFilterMenu="true" OnNeedDataSource="gvOrganization_OnNeedDataSource">
-                        <exportsettings hidestructurecolumns="true" exportonlydata="true" ignorepaging="true"
-                            filename="Organization Details" excel-format="ExcelML">
-                        </exportsettings>
-                        <mastertableview datakeynames="customerId" width="100%" allowmulticolumnsorting="True"
-                            autogeneratecolumns="false" commanditemdisplay="None" groupsdefaultexpanded="false"
-                            expandcollapsecolumn-groupable="true" grouploadmode="Client" showgroupfooter="true">
+                        <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
+                            FileName="Organization Details" Excel-Format="ExcelML">
+                        </ExportSettings>
+                        <MasterTableView DataKeyNames="customerId" Width="100%" AllowMultiColumnSorting="True"
+                            AutoGenerateColumns="false" CommandItemDisplay="None" GroupsDefaultExpanded="false"
+                            ExpandCollapseColumn-Groupable="true" GroupLoadMode="Client" ShowGroupFooter="true">
                             <Columns>
                                 <telerik:GridTemplateColumn HeaderStyle-Width="100px" AllowFiltering="false" UniqueName="action"
                                     DataField="action" FooterText="Grand Total:" Visible="false">
@@ -986,12 +984,12 @@
                                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
                             </Columns>
-                        </mastertableview>
-                        <headerstyle width="150px" />
-                        <clientsettings>
+                        </MasterTableView>
+                        <HeaderStyle Width="150px" />
+                        <ClientSettings>
                             <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
                             <Resizing AllowColumnResize="true" />
-                        </clientsettings>
+                        </ClientSettings>
                     </telerik:RadGrid>
                 </div>
             </asp:Panel>
@@ -1006,12 +1004,12 @@
                         Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
                         AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true" EnableHeaderContextMenu="true"
                         EnableHeaderContextFilterMenu="true" OnNeedDataSource="gvMember_OnNeedDataSource">
-                        <exportsettings hidestructurecolumns="true" exportonlydata="true" ignorepaging="true"
-                            filename="Member Details" excel-format="ExcelML">
-                        </exportsettings>
-                        <mastertableview datakeynames="AccountId" width="100%" allowmulticolumnsorting="True"
-                            autogeneratecolumns="false" commanditemdisplay="None" groupsdefaultexpanded="false"
-                            expandcollapsecolumn-groupable="true" grouploadmode="Client" showgroupfooter="true">
+                        <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
+                            FileName="Member Details" Excel-Format="ExcelML">
+                        </ExportSettings>
+                        <MasterTableView DataKeyNames="AccountId" Width="100%" AllowMultiColumnSorting="True"
+                            AutoGenerateColumns="false" CommandItemDisplay="None" GroupsDefaultExpanded="false"
+                            ExpandCollapseColumn-Groupable="true" GroupLoadMode="Client" ShowGroupFooter="true">
                             <Columns>
                                 <telerik:GridTemplateColumn HeaderStyle-Width="100px" AllowFiltering="false" UniqueName="action"
                                     DataField="action" FooterText="Grand Total:" Visible="false">
@@ -1042,14 +1040,13 @@
                                     DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
                                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Is Online"
-                                    HeaderText="Is Online" DataField="IsOnline" HeaderStyle-HorizontalAlign="Right"
-                                    UniqueName="IsOnline" SortExpression="IsOnline" AutoPostBackOnFilter="true"
-                                    AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                    DataFormatString="{0:N0}"  FooterStyle-HorizontalAlign="Right">
+                                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Is Online" HeaderText="Is Online"
+                                    DataField="IsOnline" HeaderStyle-HorizontalAlign="Right" UniqueName="IsOnline"
+                                    SortExpression="IsOnline" AutoPostBackOnFilter="true" AllowFiltering="false"
+                                    ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N0}"
+                                    FooterStyle-HorizontalAlign="Right">
                                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                
                                 <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Purchase Transaction"
                                     HeaderText="Purchase Cnt" DataField="BUYCount" HeaderStyle-HorizontalAlign="Right"
                                     UniqueName="BUYCount" SortExpression="BUYCount" AutoPostBackOnFilter="true" AllowFiltering="false"
@@ -1386,65 +1383,62 @@
                                     DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
                                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                   <telerik:GridBoundColumn HeaderText="SubBrokerCode" DataField="SubBrokerCode" UniqueName="SubBrokerCode"
+                                <telerik:GridBoundColumn HeaderText="SubBrokerCode" DataField="SubBrokerCode" UniqueName="SubBrokerCode"
                                     SortExpression="SubBrokerCode" AutoPostBackOnFilter="true" AllowFiltering="true"
                                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                     <ItemStyle HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn HeaderTooltip="SubBroker Name" HeaderText="SubBroker Name" DataField="AssociatesName"
-                                    HeaderStyle-Width="80px" UniqueName="AssociatesName" SortExpression="AssociatesName" AutoPostBackOnFilter="true"
-                                    AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                    Aggregate="Count">
+                                <telerik:GridBoundColumn HeaderTooltip="SubBroker Name" HeaderText="SubBroker Name"
+                                    DataField="AssociatesName" HeaderStyle-Width="80px" UniqueName="AssociatesName"
+                                    SortExpression="AssociatesName" AutoPostBackOnFilter="true" AllowFiltering="true"
+                                    ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
+                                <%--  Aggregate="Count"--%>
                                 <telerik:GridBoundColumn HeaderText="Folio No." HeaderTooltip="Folio No." DataField="Folio"
                                     HeaderStyle-Width="80px" UniqueName="Folio" SortExpression="Folio" AutoPostBackOnFilter="true"
                                     AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn HeaderTooltip="Channel" HeaderText="Channel" DataField="ChannelName"
-                                    HeaderStyle-Width="80px" UniqueName="ChannelName" SortExpression="ChannelName" AutoPostBackOnFilter="true"
-                                    AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                    Aggregate="Count">
+                                    HeaderStyle-Width="80px" UniqueName="ChannelName" SortExpression="ChannelName"
+                                    AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn HeaderTooltip="Titles" HeaderText="Titles" DataField="Titles"
                                     HeaderStyle-Width="80px" UniqueName="Titles" SortExpression="Titles" AutoPostBackOnFilter="true"
-                                    AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                    Aggregate="Count">
+                                    AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn HeaderTooltip="Cluster Manager" HeaderText="Cluster Manager" DataField="ClusterManager"
-                                    HeaderStyle-Width="80px" UniqueName="ClusterManager" SortExpression="ClusterManager" AutoPostBackOnFilter="true"
-                                    AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                    Aggregate="Count">
+                                <telerik:GridBoundColumn HeaderTooltip="Cluster Manager" HeaderText="Cluster Manager"
+                                    DataField="ClusterManager" HeaderStyle-Width="80px" UniqueName="ClusterManager"
+                                    SortExpression="ClusterManager" AutoPostBackOnFilter="true" AllowFiltering="true"
+                                    ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                 <telerik:GridBoundColumn HeaderTooltip="Area Manager" HeaderText="Area Manager" DataField="AreaManager"
-                                    HeaderStyle-Width="80px" UniqueName="AreaManager" SortExpression="AreaManager" AutoPostBackOnFilter="true"
-                                    AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                    Aggregate="Count">
+                                <telerik:GridBoundColumn HeaderTooltip="Area Manager" HeaderText="Area Manager" DataField="AreaManager"
+                                    HeaderStyle-Width="80px" UniqueName="AreaManager" SortExpression="AreaManager"
+                                    AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                 <telerik:GridBoundColumn HeaderTooltip="Zonal Manager" HeaderText="Zonal Manager" DataField="ZonalManagerName"
-                                    HeaderStyle-Width="80px" UniqueName="ZonalManagerName" SortExpression="ZonalManagerName" AutoPostBackOnFilter="true"
-                                    AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                    Aggregate="Count">
+                                <telerik:GridBoundColumn HeaderTooltip="Zonal Manager" HeaderText="Zonal Manager"
+                                    DataField="ZonalManagerName" HeaderStyle-Width="80px" UniqueName="ZonalManagerName"
+                                    SortExpression="ZonalManagerName" AutoPostBackOnFilter="true" AllowFiltering="true"
+                                    ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                 <telerik:GridBoundColumn HeaderTooltip="Deputy Head" HeaderText="Deputy Head" DataField="DeputyHead"
-                                    HeaderStyle-Width="80px" UniqueName="DeputyHead" SortExpression="DeputyHead" AutoPostBackOnFilter="true"
-                                    AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                    Aggregate="Count">
+                                <telerik:GridBoundColumn HeaderTooltip="Deputy Head" HeaderText="Deputy Head" DataField="DeputyHead"
+                                    HeaderStyle-Width="80px" UniqueName="DeputyHead" SortExpression="DeputyHead"
+                                    AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
                             </Columns>
-                        </mastertableview>
-                        <headerstyle width="150px" />
-                        <clientsettings>
+                        </MasterTableView>
+                        <HeaderStyle Width="150px" />
+                        <ClientSettings>
                             <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
                             <Resizing AllowColumnResize="true" />
-                        </clientsettings>
+                        </ClientSettings>
                     </telerik:RadGrid>
                 </div>
             </asp:Panel>

@@ -108,8 +108,8 @@ namespace WealthERP.Advisor
             ddlPeriod.DataTextField = "PeriodType";
             ddlPeriod.DataValueField = "PeriodCode";
             ddlPeriod.DataBind();
-            ddlPeriod.Items.Insert(0, new RadComboBoxItem("Select a Period","0"));
-            ddlPeriod.Items.Remove(15);
+            ddlPeriod.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select a Period", "0"));
+            ddlPeriod.Items.RemoveAt(15);
             ddlPeriod.SelectedIndex = 0;
         }
         private void SetParameter()

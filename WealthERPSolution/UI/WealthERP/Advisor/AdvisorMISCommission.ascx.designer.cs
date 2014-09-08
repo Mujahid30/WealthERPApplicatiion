@@ -210,8 +210,8 @@ namespace WealthERP.Advisor {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadComboBox ddlPeriod;
-        
+       // protected global::Telerik.Web.UI.RadComboBox ddlPeriod;
+        protected global::System.Web.UI.WebControls.DropDownList ddlPeriod;
         /// <summary>
         /// PickAPeriodValidation control.
         /// </summary>

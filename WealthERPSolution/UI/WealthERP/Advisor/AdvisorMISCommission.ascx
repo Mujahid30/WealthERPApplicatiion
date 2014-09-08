@@ -59,7 +59,7 @@
                     </td>
                     <td runat="server">
                         <telerik:RadComboBox ID="ddlMISType" AutoPostBack="true" OnSelectedIndexChanged="ddlMISType_SelectedIndexChanged"
-                            runat="server" CssClass="cmbField" EnableEmbeddedSkins="false" Skin="Telerik"
+                            runat="server" CssClass="cmbFielde" EnableEmbeddedSkins="false" Skin="Telerik"
                             AllowCustomText="true" Width="150px">
                             <Items>
                                 <telerik:RadComboBoxItem Text="Organization Level" Value="Zone_Cluster_Wise" />
@@ -69,10 +69,10 @@
                         </telerik:RadComboBox>
                     </td>
                     <td class="style1">
-                        <asp:RadioButton ID="rbtnPickDate" Class="cmbField" Checked="True" runat="server"
+                        <asp:RadioButton ID="rbtnPickDate" Class="cmbFielde" Checked="True" runat="server"
                             AutoPostBack="true" Text="Pick a Date" GroupName="Date" OnCheckedChanged="RadioButtonClick" />
                         &nbsp;&nbsp;
-                        <asp:RadioButton ID="rbtnPickPeriod" Class="cmbField" runat="server" Text="Pick a Period"
+                        <asp:RadioButton ID="rbtnPickPeriod" Class="cmbFielde" runat="server" Text="Pick a Period"
                             AutoPostBack="true" GroupName="Date" OnCheckedChanged="RadioButtonClick" />
                     </td>
                     <td>
@@ -136,9 +136,8 @@
                         <asp:Label ID="lblPeriod" runat="server" Text="Period:" CssClass="FieldName"> </asp:Label>
                     </td>
                     <td>
-                        <telerik:RadComboBox ID="ddlPeriod" runat="server" CssClass="cmbField" EnableEmbeddedSkins="false"
-                            Skin="Telerik" AllowCustomText="true" Width="120px">
-                        </telerik:RadComboBox>
+                        <asp:DropDownList ID="ddlPeriod" runat="server"  Width="120px" CssClass="cmbFielde">
+                        </asp:DropDownList>
                     </td>
                     <td>
                     </td>
@@ -362,6 +361,11 @@
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn HeaderText="Scheme" HeaderTooltip="Scheme" DataField="SchemeName"
                                     HeaderStyle-Width="350px" UniqueName="SchemeName" SortExpression="SchemeName"
+                                    AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn HeaderText="RNT" HeaderTooltip="RNT" DataField="RNT"
+                                    HeaderStyle-Width="120px" UniqueName="RNT" SortExpression="RNT"
                                     AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>

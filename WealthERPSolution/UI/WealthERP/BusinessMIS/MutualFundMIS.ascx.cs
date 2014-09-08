@@ -847,6 +847,7 @@ namespace WealthERP.BusinessMIS
                 dtMISReport.Columns.Add("AMCCode");
                 dtMISReport.Columns.Add("AUM", typeof(double));
                 dtMISReport.Columns.Add("Percentage", typeof(double));
+                dtMISReport.Columns.Add("customer");
                 DataRow drMISReport;
                 for (int i = 0; i < dsMISReport.Tables[0].Rows.Count; i++)
                 {
@@ -855,6 +856,7 @@ namespace WealthERP.BusinessMIS
                     drMISReport[1] = dsMISReport.Tables[0].Rows[i]["AMCCode"].ToString();
                     drMISReport[2] = dsMISReport.Tables[0].Rows[i]["AUM"].ToString();
                     drMISReport[3] = System.Math.Round(decimal.Parse(dsMISReport.Tables[0].Rows[i]["Percentage"].ToString()), 2).ToString();
+                    drMISReport[4] = dsMISReport.Tables[0].Rows[i]["customer"].ToString();
                     dtMISReport.Rows.Add(drMISReport);
                 }
                 gvAmcWiseAUM.DataSource = dtMISReport;

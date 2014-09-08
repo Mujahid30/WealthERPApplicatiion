@@ -179,8 +179,8 @@
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 <telerik:GridTemplateColumn AllowFiltering="false" DataField="AUM" AutoPostBackOnFilter="true"
-                    HeaderText="AUM" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                    Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                    HeaderText="AUM" ShowFilterIcon="false" CurrentFilterFunction="Contains" Aggregate="Sum"
+                    FooterStyle-HorizontalAlign="Right">
                     <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
                     <ItemTemplate>
                         <asp:LinkButton ID="lnkprAmc" runat="server" CommandName="Select" Text='<%# Eval("AUM").ToString() %>' />
@@ -196,6 +196,11 @@
                     HeaderStyle-HorizontalAlign="Center" UniqueName="Percentage" SortExpression="Percentage"
                     AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                     DataFormatString="{0:N4}" Aggregate="Sum" FooterStyle-HorizontalAlign="Center">
+                    <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn UniqueName="customer" HeaderText="Customer Count" DataField="customer"
+                    HeaderStyle-Width="80px" SortExpression="customer" AllowFiltering="false" ShowFilterIcon="false"
+                    AutoPostBackOnFilter="true">
                     <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
             </Columns>
@@ -219,8 +224,8 @@
         <MasterTableView DataKeyNames="CMFA_AccountId,FolioNum,SchemePlanCode" Width="100%"
             AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
             <Columns>
-                <telerik:GridTemplateColumn Visible="false" HeaderStyle-Width="100px" AllowFiltering="false" UniqueName="action"
-                    DataField="action" FooterText="Grand Total:">
+                <telerik:GridTemplateColumn Visible="false" HeaderStyle-Width="100px" AllowFiltering="false"
+                    UniqueName="action" DataField="action" FooterText="Grand Total:">
                     <ItemTemplate>
                         <asp:LinkButton ID="LinkButton1" CommandName="Select" runat="server" Text="View Details"
                             ItemStyle-Width="12px" />
@@ -292,8 +297,8 @@
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 <telerik:GridTemplateColumn AllowFiltering="false" DataField="AUM" AutoPostBackOnFilter="true"
-                    HeaderText="AUM" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                    Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                    HeaderText="AUM" ShowFilterIcon="false" CurrentFilterFunction="Contains" Aggregate="Sum"
+                    FooterStyle-HorizontalAlign="Right">
                     <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
                     <ItemTemplate>
                         <asp:LinkButton ID="lnkprAmc" runat="server" CommandName="Select" Text='<%# Eval("AUM").ToString() %>' />
@@ -385,8 +390,8 @@
         <MasterTableView DataKeyNames="SchemePlanCode" Width="100%" AllowMultiColumnSorting="True"
             AutoGenerateColumns="false" CommandItemDisplay="None">
             <Columns>
-                <telerik:GridTemplateColumn  Visible="false" HeaderStyle-Width="100px" AllowFiltering="false" UniqueName="action"
-                    DataField="action" FooterText="Grand Total:">
+                <telerik:GridTemplateColumn Visible="false" HeaderStyle-Width="100px" AllowFiltering="false"
+                    UniqueName="action" DataField="action" FooterText="Grand Total:">
                     <ItemTemplate>
                         <asp:LinkButton ID="LinkButton1" CommandName="Select" runat="server" Text="View Details"
                             ItemStyle-Width="12px" />
@@ -404,6 +409,11 @@
                 <telerik:GridBoundColumn HeaderText="Product Code" DataField="PASC_AMC_ExternalCode"
                     UniqueName="PASC_AMC_ExternalCode" SortExpression="PASC_AMC_ExternalCode" AutoPostBackOnFilter="true"
                     AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn HeaderText="Customer Count" DataField="customer" UniqueName="customer"
+                    SortExpression="customer" AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false"
+                    CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn HeaderText="Category" DataField="Category" UniqueName="Category"
@@ -439,9 +449,9 @@
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 <telerik:GridTemplateColumn AllowFiltering="false" DataField="AUM" AutoPostBackOnFilter="true"
-                    HeaderText="AUM" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                    Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
-                    <ItemStyle Wrap="false" Width="" HorizontalAlign="Right"/>
+                    HeaderText="AUM" ShowFilterIcon="false" CurrentFilterFunction="Contains" Aggregate="Sum"
+                    FooterStyle-HorizontalAlign="Right">
+                    <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
                     <ItemTemplate>
                         <asp:LinkButton ID="lnkprAmc" runat="server" CommandName="Select" Text='<%# Eval("AUM").ToString() %>' />
                     </ItemTemplate>
