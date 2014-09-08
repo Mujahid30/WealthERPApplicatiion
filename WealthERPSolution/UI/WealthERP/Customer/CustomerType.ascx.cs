@@ -384,8 +384,9 @@ namespace WealthERP.Customer
                         customerVo.Type = "IND";
 
                         customerVo.TaxStatusCustomerSubTypeId = Int16.Parse(ddlCustomerSubType.SelectedValue.ToString());
-                        customerVo.CustCode = txtClientCode.Text.Trim();
+                        customerVo.AccountId = txtClientCode.Text.Trim();
                         customerVo.IsRealInvestor = chkRealInvestor.Checked;
+
                         customerVo.FirstName = txtFirstName.Text.ToString();
                         customerVo.MiddleName = txtMiddleName.Text.ToString();
                         customerVo.LastName = txtLastName.Text.ToString();
@@ -411,8 +412,9 @@ namespace WealthERP.Customer
                         customerVo.Type = "NIND";
 
                         customerVo.TaxStatusCustomerSubTypeId = Int16.Parse(ddlCustomerSubType.SelectedValue.ToString());
-                        customerVo.CustCode = txtClientCode.Text.Trim();
+                        customerVo.AccountId = txtClientCode.Text.Trim();
                         customerVo.IsRealInvestor = chkRealInvestor.Checked;
+
                         customerVo.CompanyName = txtCompanyName.Text.ToString();
                         customerVo.FirstName = txtCompanyName.Text.ToString();
                         userVo.FirstName = txtCompanyName.Text.ToString();
@@ -468,7 +470,6 @@ namespace WealthERP.Customer
 
                         }
                         else
-                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Customer Added Successfully!!');", true);
                             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('AdviserCustomer','none');", true);
                         //trSumbitSuccess.Visible = true;
                         MakeReadonlyControls();

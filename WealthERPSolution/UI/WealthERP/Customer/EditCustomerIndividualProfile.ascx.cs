@@ -796,7 +796,7 @@ namespace WealthERP.Customer
                     if (txtOfcPhoneNo.Text == "")
                         customerVo.OfcPhoneNum = 0;
                     else
-                        customerVo.OfcPhoneNum = Int64.Parse(txtOfcPhoneNo.Text.ToString());
+                        customerVo.OfcPhoneNum = int.Parse(txtOfcPhoneNo.Text.ToString());
 
                     if (txtResFaxIsd.Text == "")
                         customerVo.ISDFax = 0;

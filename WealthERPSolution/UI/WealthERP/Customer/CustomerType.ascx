@@ -31,7 +31,8 @@
         if (check) {
             document.getElementById("<%=btnCustomerProfile.ClientID %>").style.visibility = 'visible';
         }
-        else {
+        else 
+        {
             document.getElementById("<%=btnCustomerProfile.ClientID %>").style.visibility = 'hidden';
         }
     }
@@ -95,7 +96,7 @@
                 GroupName="grpCustomerType" AutoPostBack="true" OnCheckedChanged="rbtnNonIndividual_CheckedChanged" />
         </td>
     </tr>
-    <tr id="trBranchlist"  visible="false" runat="server">
+    <tr id="trBranchlist" runat="server">
         <td class="leftField">
             <asp:Label ID="lblBranchName" runat="server" CssClass="FieldName" Text="Branch Name:"></asp:Label>
         </td>
@@ -111,7 +112,7 @@
             </asp:CompareValidator>
         </td>
     </tr>
-    <tr id="trRMlist" visible="false"  runat="server">
+    <tr id="trRMlist" runat="server">
         <td class="leftField">
             <asp:Label ID="lblRMName" runat="server" CssClass="FieldName" Text="Select RM:"></asp:Label>
         </td>
@@ -135,7 +136,7 @@
             </asp:DropDownList>
             <span id="Span1" class="spnRequiredField">*</span> &nbsp;
             <asp:CheckBox ID="chkRealInvestor" runat="server" CssClass="txtField" Text="Investor"
-                AutoPostBack="false" Checked="true" onclick="javascript:ShowSubmitAndSave();" />
+                AutoPostBack="false"  Checked="true" onclick="javascript:ShowSubmitAndSave();" />
             <br />
             <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="ddlCustomerSubType"
                 ErrorMessage="Please select a Customer Sub-Type" Operator="NotEqual" ValueToCompare="Select"
@@ -148,9 +149,9 @@
         </td>
         <td>
             <asp:TextBox ID="txtClientCode" runat="server" CssClass="txtField" MaxLength="15"></asp:TextBox>
-            <%-- <span id="Span5" class="spnRequiredField">*</span> &nbsp;
+           <%-- <span id="Span5" class="spnRequiredField">*</span> &nbsp;
             <br />--%>
-            <%-- <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtClientCode"
+           <%-- <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtClientCode"
                 ErrorMessage="Please enter a client code" Display="Dynamic" runat="server" CssClass="rfvPCG">
             </asp:RequiredFieldValidator>--%>
         </td>
@@ -165,13 +166,9 @@
             <asp:CheckBox ID="chkdummypan" runat="server" CssClass="txtField" Text="Dummy PAN"
                 AutoPostBack="false" />
             <br />
-            <asp:RegularExpressionValidator ID="revPan" runat="server" Display="Dynamic" 
-                ErrorMessage="Please check PAN Format" CssClass="revPCG" ControlToValidate="txtPanNumber" ValidationExpression="[A-Za-z]{5}\d{4}[A-Za-z]{1}">
-            </asp:RegularExpressionValidator>
             <asp:RequiredFieldValidator ID="rfvPanNumber" ControlToValidate="txtPanNumber" ErrorMessage="Please enter a PAN Number"
                 Display="Dynamic" runat="server" CssClass="rfvPCG">
             </asp:RequiredFieldValidator>
-            
             <asp:Label ID="lblPanDuplicate" runat="server" CssClass="Error" Text="PAN Number already exists"></asp:Label>
         </td>
     </tr>
