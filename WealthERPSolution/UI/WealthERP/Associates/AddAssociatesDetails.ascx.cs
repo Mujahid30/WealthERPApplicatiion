@@ -55,7 +55,7 @@ namespace WealthERP.Associates
             if (!IsPostBack)
             {
                 lblPanDuplicate.Visible = false;
-                lblPanlength.Visible = false; 
+                lblPanlength.Visible = false;
                 AssociatesDetails.SelectedIndex = 0;
                 //if (Request.QueryString["action"] != null)
                 //{
@@ -92,6 +92,7 @@ namespace WealthERP.Associates
                         lnkBtnEdit.Visible = true;
                         lnlBack.Visible = true;
                         radTABChildCodes.Visible = true;
+                        BindChildCodeLabel(associatesVo.AAC_AdviserAgentId);
 
 
                     }
@@ -110,12 +111,37 @@ namespace WealthERP.Associates
                         btnSubmit.Visible = true;
                         radTABChildCodes.Visible = true;
                         lbkbtnAddChildCodes.Enabled = true;
-
+                        BindChildCodeLabel(associatesVo.AAC_AdviserAgentId);
                     }
                 }
 
             }
             if (userVo.UserType != "Advisor") { lnkBtnEdit.Visible = false; }
+        }
+        private void BindChildCodeLabel(int PagentId)
+        {
+            lblChildCodeListView.Text = "";
+            DataTable dtChildCodeList;
+            dtChildCodeList = associatesBo.GetAgentChildCodeList(PagentId);
+            //dtChildCodeList = dsChildCodeList.Tables[0];
+            if (dtChildCodeList.Rows.Count > 0)
+            {
+                int times = 1;
+                foreach (DataRow row in dtChildCodeList.Rows)
+                {
+                    if (times == dtChildCodeList.Rows.Count)
+                    {
+                        lblChildCodeListView.Text = lblChildCodeListView.Text + row["AAC_AgentCode"].ToString();
+                    }
+                    else
+                    {
+                        lblChildCodeListView.Text = lblChildCodeListView.Text + row["AAC_AgentCode"].ToString() + ",";
+                    }
+                    times++;
+                }
+            }
+
+
         }
         private void BindMaritalStatus()
         {
@@ -126,6 +152,7 @@ namespace WealthERP.Associates
             ddlMaritalStatus.DataBind();
             ddlMaritalStatus.Items.Insert(0, new ListItem("Select", "Selec"));
         }
+
 
         private void SetEnableDisable(int flag)
         {
@@ -1311,6 +1338,7 @@ namespace WealthERP.Associates
                     SetEnableDisable(1);
                 lnkBtnEdit.Visible = false;
                 lbkbtnAddChildCodes.Enabled = true;
+                BindChildCodeLabel(associatesVo.AAC_AdviserAgentId);
             }
         }
 
@@ -1435,7 +1463,7 @@ namespace WealthERP.Associates
             }
             if (txtPan.Text.Length != 10)
             {
-                lblPanDuplicate.Visible = false; 
+                lblPanDuplicate.Visible = false;
                 lblPanlength.Visible = true;
                 return;
             }
@@ -1510,11 +1538,14 @@ namespace WealthERP.Associates
             int adviserId = advisorVo.advisorId;
             try
             {
-                if (associatesBo.CodeduplicateCheck(adviserId, agentCode))
+                if (agentCode != null)
                 {
-                    result = false;
-                    //lblPanDuplicate.Visible = true;
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Adviser Agent Code already exists !!');", true);
+                    if (associatesBo.CodeduplicateCheck(adviserId, agentCode))
+                    {
+                        result = false;
+                        //lblPanDuplicate.Visible = true;
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Adviser Agent Code already exists !!');", true);
+                    }
                 }
             }
             catch (BaseApplicationException Ex)
@@ -1536,6 +1567,7 @@ namespace WealthERP.Associates
             }
             return result;
         }
+
         private void BindHierarchyTitleDropList()
         {
             DataTable dtAdviserHierachyTitleList = new DataTable();

@@ -199,11 +199,12 @@
             <asp:Label ID="lblPanNo" runat="server" Text="PAN No: " CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightData">
-            <asp:TextBox ID="txtPan" runat="server" MaxLength="10" CssClass="txtFieldUpper" Enabled="true" onblur="return chkPanExists()"></asp:TextBox>
+            <asp:TextBox ID="txtPan" runat="server" MaxLength="10" CssClass="txtFieldUpper" Enabled="true"
+                onblur="return chkPanExists()"></asp:TextBox>
             <span id="Span7" class="spnRequiredField">*</span> &nbsp;
             <br />
             <asp:RequiredFieldValidator ID="rfvPanNumber" ControlToValidate="txtPan" ErrorMessage="Please enter a PAN Number"
-                Display="Dynamic" runat="server" CssClass="rfvPCG">
+                Display="Dynamic" runat="server" CssClass="rfvPCG" ValidationGroup="Submit">
             </asp:RequiredFieldValidator>
             <asp:Label ID="lblPanDuplicate" runat="server" Visible="false" CssClass="Error" Text="PAN Number already exists"></asp:Label>
             <asp:Label ID="lblPanlength" runat="server" Visible="false" CssClass="Error" Text="PAN Number should have 10 digits"></asp:Label>
@@ -296,7 +297,7 @@
             <span id="Span2" class="spnRequiredField">*</span>
             <br />
             <asp:CompareValidator ID="CompareValidator8" runat="server" ControlToValidate="ddlAssociateSubType"
-                ErrorMessage="Please select a Sub-Type" Operator="NotEqual" ValueToCompare="Select"
+                ErrorMessage="Please select a Sub-Type" Operator="NotEqual" ValueToCompare="Select" ValidationGroup="Submit"
                 CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
     </tr>
@@ -1048,7 +1049,7 @@
                             <tr>
                                 <td align="center">
                                     <asp:LinkButton ID="lbkbtnAddChildCodes" Enabled="false" CssClass="LinkButtons" runat="server"
-                                        OnClick="lnkBtnChildCodes_Click">Add Child Codes</asp:LinkButton>
+                                        OnClick="lnkBtnChildCodes_Click">View Child Codes</asp:LinkButton>
                                     <%-- <telerik:RadGrid ID="gvChildCode" runat="server" Skin="Telerik" CssClass="RadGrid"
                                         GridLines="None" AllowPaging="True" PageSize="10" AllowSorting="True" AutoGenerateColumns="False"
                                         ShowStatusBar="true" AllowAutomaticDeletes="false" AllowAutomaticInserts="false"
@@ -1075,6 +1076,12 @@
                                     </telerik:RadGrid>--%>
                                 </td>
                                 <td>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="left">
+                                    <asp:Label ID="lblChildCodeList" runat="server" Text="ChildCode List" CssClass="FieldName"></asp:Label>
+                                    <asp:Label ID="lblChildCodeListView" runat="server"  CssClass="txtField"></asp:Label>                                    
                                 </td>
                             </tr>
                         </table>
