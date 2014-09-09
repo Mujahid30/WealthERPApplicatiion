@@ -2,67 +2,67 @@
     Inherits="WealthERP.Customer.AddDematAccountDetails" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolKit" %>
 <asp:ScriptManager ID="ScriptManager1" runat="server">
-    <Services>
-        <asp:ServiceReference Path="~/CustomerPortfolio/AutoComplete.asmx" />
-    </Services>
 </asp:ScriptManager>
 
+<script type="text/javascript">
+    function checked() {
 
-<script runat="server">
-  
-    protected void rbtnNo_Load(object sender, EventArgs e)
-    {
-        if (rbtnNo.Checked)
-        {
-            ddlModeOfHolding.Enabled = false;
+        var e = document.getElementById('<%=ddlModeOfHolding.ClientID %>');
+        var Yes = document.getElementById('<%= rbtnYes.ClientID %>');
+        var No = document.getElementById('<%= rbtnNo.ClientID %>');
+        if (Yes.checked) {
+            e.selectedIndex = 4
+            e.disabled = false;
+            alert("sid");
         }
-    }
-   
+
+        if (No.checked) {
+            e.selectedIndex = 8
+            e.disabled = true;
+            alert("raj");
+
+        }
+
+    };
 </script>
 
-<table  width=" 100%">
-     <tr >
-                <td colspan="4" >
-                    <div class="divPageHeading">
-                        <table cellspacing="0" cellpadding="3" width="100%">
-                            <tr id="lblLifeInsurance" runat="server" style="width: 100%">
-                                <td align="left">
-                                    <asp:Label ID="lblTitle" runat="server" CssClass="HeaderTextBig"></asp:Label>
-                                </td>
-                                
-                                <td align="right">
-                                      
-                                    <asp:LinkButton ID="lbtnBackButton" runat="server" OnClick="lbtnBackButton_Click"
-                                      Visible="False" CssClass="LinkButtons">Edit</asp:LinkButton>
-                               &nbsp; &nbsp;
-                                      
-                                    <asp:LinkButton ID="lbtnBack2Button" runat="server" OnClick="lbtnBack2Button_Click"
-                                      Visible="true" CssClass="LinkButtons">Back</asp:LinkButton>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </td>
-            </tr>
-
-    </table>
-    <table class="TableBackground" width="100%">
+<table width=" 100%">
     <tr>
-        <td class="leftField" style="width:150px;">
+        <td colspan="4">
+            <div class="divPageHeading">
+                <table cellspacing="0" cellpadding="3" width="100%">
+                    <tr id="lblLifeInsurance" runat="server" style="width: 100%">
+                        <td align="left">
+                            <asp:Label ID="lblTitle" runat="server" CssClass="HeaderTextBig"></asp:Label>
+                        </td>
+                        <td align="right">
+                            <asp:LinkButton ID="lbtnBackButton" runat="server" OnClick="lbtnBackButton_Click"
+                                Visible="False" CssClass="LinkButtons">Edit</asp:LinkButton>
+                            &nbsp; &nbsp;
+                            <asp:LinkButton ID="lbtnBack2Button" runat="server" OnClick="lbtnBack2Button_Click"
+                                Visible="true" CssClass="LinkButtons">Back</asp:LinkButton>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+</table>
+<table class="TableBackground" width="100%">
+    <tr>
+        <td class="leftField" style="width: 150px;">
             <asp:Label ID="lblDpName" runat="server" Text="DP Name:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField">
             <asp:TextBox ID="txtDpName" runat="server" CssClass="txtField" Width="250px"></asp:TextBox>
             <span id="Span1" class="spnRequiredField">*</span>
         </td>
-         <td class="leftField" style="width:150px;">
+        <td class="leftField" style="width: 150px;">
             &nbsp;<asp:Label ID="lblDPId" runat="server" Text="DP Id:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField">
             <asp:TextBox ID="txtDPId" runat="server" CssClass="txtField"></asp:TextBox>
-          
         </td>
-        
     </tr>
     <tr>
         <td class="leftField">
@@ -71,7 +71,6 @@
         <td class="rightField">
             <asp:TextBox ID="txtDpClientId" runat="server" CssClass="txtField"></asp:TextBox>
             <span id="Span2" class="spnRequiredField">*</span>
-        
             <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtDpClientId"
                 ErrorMessage="Client Id Required" CssClass="cvPCG" Display="Dynamic"></asp:RequiredFieldValidator>
         </td>
@@ -81,24 +80,19 @@
         </td>
         <td class="rightField">
             <!-- calAccountOpeningDate -->
-         
-            <telerik:RadDatePicker ID="txtAccountOpeningDate" CssClass="txtTo" runat="server" Culture="English (United States)"
-                            Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
-                            <calendar id="Calendar1" runat="server" userowheadersasselectors="False" usecolumnheadersasselectors="False"
-                                viewselectortext="x" skin="Telerik" enableembeddedskins="false">
-                            </calendar>
-                            <datepopupbutton imageurl="" hoverimageurl=""></datepopupbutton>
-                            <dateinput id="DateInput1" runat="server" displaydateformat="d/M/yyyy" dateformat="d/M/yyyy">
-                            </dateinput>
-                        </telerik:RadDatePicker>
-        
-            
-            
-       
-                                <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="txtAccountOpeningDate"
-                    Type="Date" Operator="DataTypeCheck" ErrorMessage="Please Enter a Valid Date" Display="Dynamic" CssClass="cvPCG"/>
-  
-            
+            <telerik:RadDatePicker ID="txtAccountOpeningDate" CssClass="txtTo" runat="server"
+                Culture="English (United States)" Skin="Telerik" EnableEmbeddedSkins="false"
+                ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                <Calendar ID="Calendar1" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
+                    ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
+                </Calendar>
+                <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                <DateInput ID="DateInput1" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                </DateInput>
+            </telerik:RadDatePicker>
+            <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="txtAccountOpeningDate"
+                Type="Date" Operator="DataTypeCheck" ErrorMessage="Please Enter a Valid Date"
+                Display="Dynamic" CssClass="cvPCG" />
         </td>
     </tr>
     <tr>
@@ -106,28 +100,23 @@
             <asp:Label ID="lblIsHeldJointly" runat="server" Text="Is Held Jointly:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField">
-           
-                <asp:RadioButton ID="rbtnYes" runat="server" Text="Yes" GroupName="IsHeldJointly"
-                    CssClass="txtField" AutoPostBack="True" 
-                    OnCheckedChanged="RadioButton_CheckChanged" />
-                <asp:RadioButton ID="rbtnNo" runat="server" Text="No" GroupName="IsHeldJointly" CssClass="txtField"
-                    AutoPostBack="True" OnCheckedChanged="rbtnNo_CheckChanged" OnLoad="rbtnNo_Load" Checked="true"
-                    />
-           
+            <asp:RadioButton ID="rbtnYes" runat="server" Text="Yes" GroupName="IsHeldJointly"
+                CssClass="txtField" AutoPostBack="True" onChange="checked();" />
+            <asp:RadioButton ID="rbtnNo" runat="server" Text="No" GroupName="IsHeldJointly" CssClass="txtField"
+                AutoPostBack="True" Checked="true" onChange="checked();" />
         </td>
-        
         <td class="leftField">
-            &nbsp;<asp:Label ID="lblDepositoryName" runat="server" Text="Depository Name:"
-                CssClass="FieldName"></asp:Label>
+            &nbsp;<asp:Label ID="lblDepositoryName" runat="server" Text="Depository Name:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField">
-              <asp:DropDownList ID="ddlDepositoryName" runat="server" CssClass="cmbField" AutoPostBack="true" OnSelectedIndexChanged="ddlDepositoryName_SelectedIndexChanged" ></asp:DropDownList>
-              <br />
+            <asp:DropDownList ID="ddlDepositoryName" runat="server" CssClass="cmbField" AutoPostBack="true"
+                OnSelectedIndexChanged="ddlDepositoryName_SelectedIndexChanged">
+            </asp:DropDownList>
+            <br />
             <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="ddlDepositoryName"
                 CssClass="rfvPCG" Display="Dynamic" ErrorMessage="Please select Depository Name"
                 InitialValue="Select" ValidationGroup="btnsubmit">
             </asp:RequiredFieldValidator>
-                
         </td>
     </tr>
     <tr>
@@ -135,62 +124,50 @@
             &nbsp;<asp:Label ID="lblModeOfHolding" runat="server" Text="Mode Of Holding:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField">
-            <asp:DropDownList ID="ddlModeOfHolding" runat="server" AutoPostBack="True" 
-                OnSelectedIndexChanged="ddlModeOfHolding_SelectedIndexChanged" CssClass="cmbField">
+            <asp:DropDownList ID="ddlModeOfHolding" runat="server" AutoPostBack="false" 
+                CssClass="cmbField">
             </asp:DropDownList>
         </td>
         <td class="leftField">
-           
         </td>
-         <td>
-           
+        <td>
         </td>
     </tr>
-    
     <tr>
         <td align="right">
             &nbsp;<asp:Label ID="lblisactive" runat="server" Text="Is Active" CssClass="FieldName"></asp:Label>
         </td>
         <td>
-           <asp:CheckBox ID="chk_isactive" runat="server" CssClass="cmbFielde" /> 
+            <asp:CheckBox ID="chk_isactive" runat="server" CssClass="cmbFielde" />
         </td>
-        
     </tr>
-       <tr>
-   <td class="leftField">
-   </td>
-                    <td class="rightField">
-                        <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="btnSubmit_Click"
-                            CssClass="PCGButton" OnClientClick="GetSelectedBranches()"  ValidationGroup="btnsubmit"/>
-                    </td>
-    </tr>
-    </table>
-    <table width="100%" class="TableBackground">
-
-       <tr id="trAssociatePanel" runat="server" visible="false">
-        <td >
-        <div class="divSectionHeading" style="vertical-align: text-bottom">
-            Nominee JointHolder Details
-        </div>
-        </td>
-        <td></td>
-       
-    </tr>
-
-  
-   
-
-   
     <tr>
-        <td >
-           
-            
-            
-            <telerik:RadGrid ID="gvAssociate" runat="server" CssClass="RadGrid" GridLines="Both" Visible="false"
-                Width="90%" AllowPaging="True" PageSize="20" AllowSorting="True" AutoGenerateColumns="false"
-                ShowStatusBar="true" AllowAutomaticDeletes="True" Skin="Telerik" OnItemDataBound="gvFamilyAssociate_ItemDataBound"
-                OnItemCommand="gvFamilyAssociate_ItemCommand" OnNeedDataSource="gvFamilyAssociate_NeedDataSource" >
-                <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true" 
+        <td class="leftField">
+        </td>
+        <td class="rightField">
+            <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="btnSubmit_Click"
+                CssClass="PCGButton" OnClientClick="GetSelectedBranches()" ValidationGroup="btnsubmit" />
+        </td>
+    </tr>
+</table>
+<table width="100%" class="TableBackground">
+    <tr id="trAssociatePanel" runat="server" visible="false">
+        <td>
+            <div class="divSectionHeading" style="vertical-align: text-bottom">
+                Nominee JointHolder Details
+            </div>
+        </td>
+        <td>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <telerik:RadGrid ID="gvAssociate" runat="server" CssClass="RadGrid" GridLines="Both"
+                Visible="false" Width="90%" AllowPaging="True" PageSize="20" AllowSorting="True"
+                AutoGenerateColumns="false" ShowStatusBar="true" AllowAutomaticDeletes="True"
+                Skin="Telerik" OnItemDataBound="gvFamilyAssociate_ItemDataBound" OnItemCommand="gvFamilyAssociate_ItemCommand"
+                OnNeedDataSource="gvFamilyAssociate_NeedDataSource">
+                <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
                     FileName="Family Associates" Excel-Format="ExcelML">
                 </ExportSettings>
                 <%--<MasterTableView Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
@@ -206,7 +183,7 @@
                             SortExpression="AssociateName">
                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                         <telerik:GridBoundColumn DataField="AssociateType" HeaderText="Associate Type" UniqueName="AssociateType"
+                        <telerik:GridBoundColumn DataField="AssociateType" HeaderText="Associate Type" UniqueName="AssociateType"
                             SortExpression="AssociateType">
                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
@@ -214,15 +191,11 @@
                             SortExpression="CDAA_PanNum">
                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        
-                        
                         <telerik:GridBoundColumn DataField="CDAA_IsKYC" HeaderText="IsKYC" UniqueName="CDAA_IsKYC"
                             SortExpression="CDAA_IsKYC">
                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        
-                        <telerik:GridBoundColumn DataField="Sex" HeaderText="Gender" UniqueName="Sex"
-                            SortExpression="Sex">
+                        <telerik:GridBoundColumn DataField="Sex" HeaderText="Gender" UniqueName="Sex" SortExpression="Sex">
                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="CDAA_DOB" HeaderText="Date Of Birth" UniqueName="CDAA_DOB"
@@ -242,8 +215,6 @@
                     <EditFormSettings FormTableStyle-Height="10px" EditFormType="Template" FormTableStyle-Width="1000px">
                         <FormTemplate>
                             <table width="100%" style="background-color: White">
-                              
-                                
                                 <tr id="trNewCustHeader" runat="server">
                                     <td colspan="4">
                                         <div class="divSectionHeading" style="vertical-align: text-bottom">
@@ -254,16 +225,16 @@
                                 <tr id="trNewCustomer" runat="server">
                                     <td colspan="4">
                                         <table width="50%">
-                                         <tr>
+                                            <tr>
                                                 <td class="leftField" align="right">
                                                     <asp:Label ID="lblAssociate" runat="server" CssClass="FieldName" Text="Associate Type :"></asp:Label>
                                                 </td>
                                                 <td class="rightField">
-                                                    <asp:DropDownList ID="ddlAssociate" runat="server" CssClass="cmbField" >
-                                                    <asp:ListItem Value ="JH1">JointHolder-1</asp:ListItem>
-                                                    <asp:ListItem Value ="JH2">JointHolder-2</asp:ListItem>
-                                                    <asp:ListItem Value ="N1">Nominee-1</asp:ListItem>
-                                                    <asp:ListItem Value ="N2">Nominee-2</asp:ListItem>
+                                                    <asp:DropDownList ID="ddlAssociate" runat="server" CssClass="cmbField">
+                                                        <asp:ListItem Value="JH1">JointHolder-1</asp:ListItem>
+                                                        <asp:ListItem Value="JH2">JointHolder-2</asp:ListItem>
+                                                        <asp:ListItem Value="N1">Nominee-1</asp:ListItem>
+                                                        <asp:ListItem Value="N2">Nominee-2</asp:ListItem>
                                                     </asp:DropDownList>
                                                     <span id="Span3" class="spnRequiredField">*</span>
                                                 </td>
@@ -290,52 +261,45 @@
                                                 <td class="rightField">
                                                     <asp:TextBox ID="txtNewPan" runat="server" Text='<%# Bind("CDAA_PanNum") %>' CssClass="txtField"></asp:TextBox>
                                                     <span id="Span6" class="spnRequiredField">*</span>
-                                                 
                                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtNewPan"
-                                                        ErrorMessage="<br />Please Enter PAN Number" Visible="false" runat="server"
-                                                        CssClass="rfvPCG" ValidationGroup="Submit"></asp:RequiredFieldValidator>
+                                                        ErrorMessage="<br />Please Enter PAN Number" Visible="false" runat="server" CssClass="rfvPCG"
+                                                        ValidationGroup="Submit"></asp:RequiredFieldValidator>
                                                 </td>
                                                 <td>
                                                     <%--<asp:CheckBox ID="isRealInvestormem" runat="server" Text="ISRealInvestor" />--%>
                                                 </td>
                                             </tr>
-                                             <tr>
+                                            <tr>
                                                 <td class="leftField" align="right">
                                                     <asp:Label ID="lblgender" runat="server" CssClass="FieldName" Text="Gender:"></asp:Label>
                                                 </td>
                                                 <td class="rightField">
-                                                   <asp:DropDownList ID="ddlGender" runat="server" CssClass="cmbField">
-                                                    <asp:ListItem Value ="S">Select</asp:ListItem>
-                                                    <asp:ListItem Value ="M">Male</asp:ListItem>
-                                                    <asp:ListItem Value ="F">FeMale</asp:ListItem>
+                                                    <asp:DropDownList ID="ddlGender" runat="server" CssClass="cmbField">
+                                                        <asp:ListItem Value="S">Select</asp:ListItem>
+                                                        <asp:ListItem Value="M">Male</asp:ListItem>
+                                                        <asp:ListItem Value="F">FeMale</asp:ListItem>
                                                     </asp:DropDownList>
                                                 </td>
-                                              
                                             </tr>
-                                             <tr>
+                                            <tr>
                                                 <td class="leftField" align="right">
                                                     <asp:Label ID="lblDOB" runat="server" CssClass="FieldName" Text="Date Of Birth:"></asp:Label>
                                                 </td>
-                                                 <td class="rightField">
-                                               
-                                                     
-                                                     
-                                                     <telerik:RadDatePicker ID="txtDOB" CssClass="txtTo" runat="server" Culture="English (United States)"
-                                                         Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
-                                                         <Calendar ID="Calendar1" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
-                                                             ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
-                                                         </Calendar>
-                                                         <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                                                         <DateInput ID="DateInput1" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
-                                                         </DateInput>
-                                                     </telerik:RadDatePicker>
-                                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator5" ControlToValidate="txtDOB"
-                                                         ErrorMessage="<br />Please Enter Date of Birth" Display="Dynamic" runat="server"
-                                                         InitialValue="Select" CssClass="rfvPCG" ValidationGroup="Submit"></asp:RequiredFieldValidator>
-                                                 </td>
-                                              
+                                                <td class="rightField">
+                                                    <telerik:RadDatePicker ID="txtDOB" CssClass="txtTo" runat="server" Culture="English (United States)"
+                                                        Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                                                        <Calendar ID="Calendar1" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
+                                                            ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
+                                                        </Calendar>
+                                                        <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                                                        <DateInput ID="DateInput1" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                                                        </DateInput>
+                                                    </telerik:RadDatePicker>
+                                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator5" ControlToValidate="txtDOB"
+                                                        ErrorMessage="<br />Please Enter Date of Birth" Display="Dynamic" runat="server"
+                                                        InitialValue="Select" CssClass="rfvPCG" ValidationGroup="Submit"></asp:RequiredFieldValidator>
+                                                </td>
                                             </tr>
-                                           
                                             <tr>
                                                 <td class="leftField" align="right">
                                                     <asp:Label ID="lblNewRelationShip" runat="server" CssClass="FieldName" Text="RelationShip :"></asp:Label>
@@ -344,12 +308,11 @@
                                                     <asp:DropDownList ID="ddlNewRelationship" runat="server" CssClass="cmbField">
                                                     </asp:DropDownList>
                                                     <span id="Span5" class="spnRequiredField">*</span>
-                                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="ddlNewRelationship" 
+                                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="ddlNewRelationship"
                                                         ErrorMessage="<br />Please a relationship" Display="Dynamic" runat="server" InitialValue="Select"
                                                         CssClass="rfvPCG" ValidationGroup="Submit"></asp:RequiredFieldValidator>
                                                 </td>
                                             </tr>
-                                            
                                             <tr>
                                                 <td>
                                                 </td>
@@ -357,7 +320,7 @@
                                                     <asp:Button ID="Button1" Text='<%# (Container is GridEditFormInsertItem) ? "Submit" : "Update" %>'
                                                         runat="server" CssClass="PCGButton" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'
                                                         ValidationGroup="Submit"></asp:Button>
-                      <%--   <asp:CustomValidator ID="OrFieldValidator" 
+                                                    <%--   <asp:CustomValidator ID="OrFieldValidator" 
                         runat="server" 
                         Text="Enter bcjsdh" 
                         Display="Dynamic"
@@ -379,15 +342,10 @@
                     <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
                 </ClientSettings>
             </telerik:RadGrid>
-            
-            
         </td>
         <td>
         </td>
     </tr>
-
-  
-
     <tr>
         <td>
             <asp:HiddenField ID="hdnSelectedBranches" runat="server" />
