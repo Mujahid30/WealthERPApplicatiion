@@ -1414,7 +1414,7 @@ namespace WealthERP.Associates
             associateUserVo.Password = password;
             associateUserVo.LoginId = txtEmail.Text.ToString();
             associateUserVo.FirstName = txtAssociateName.Text.ToString();
-            associateUserVo.Email = txtEmail.Text.ToString();
+            associateUserVo.Email = userVo.Email;
             associateUserVo.UserType = "Associates";
             associatesVo.AAC_AgentCode = txtAdviserAgentCode.Text;
 
@@ -1466,7 +1466,6 @@ namespace WealthERP.Associates
                 lblPanlength.Visible = false;
                 lblPanDuplicate.Visible = false;
             }
-
             if (txtPan.Text.Length != 10)
             {
                 lblPanDuplicate.Visible = false;
@@ -1490,6 +1489,7 @@ namespace WealthERP.Associates
             UpdatingDetails();
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Associates Added successfully!!');", true);
             BtnSave.Visible = false;
+            Session["associatesVo"] = null;
             //    if (associatesIds.Count > 0)
             //    {
             //        HideAndShowBasedOnRole(associatesIds[1]);
@@ -1548,7 +1548,7 @@ namespace WealthERP.Associates
             int adviserId = advisorVo.advisorId;
             try
             {
-                if (agentCode != null)
+                if (agentCode != string.Empty )
                 {
                     if (associatesBo.CodeduplicateCheck(adviserId, agentCode))
                     {
