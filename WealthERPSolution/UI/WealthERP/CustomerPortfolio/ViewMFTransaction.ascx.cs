@@ -63,6 +63,11 @@ namespace WealthERP.CustomerPortfolio
 
             if (userVo.UserType == "Advisor") lnkEdit.Visible = false;
             //if (userVo.UserType == "Advisor") btnCancel.Visible = true;
+            if (userVo.UserType == "Associates")
+            {
+                lnkEdit.Visible = false;
+                btnCancel.Visible = false;
+            }
         }
 
         private void LoadViewFields()

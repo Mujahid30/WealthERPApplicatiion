@@ -330,7 +330,7 @@ namespace WealthERP.Advisor
                 RadPanelBar1.FindItemByValue("Business MIS").Expanded = true;
                 RadPanelBar1.FindItemByValue("MFDashBoard").Expanded = true;
                 RadPanelBar1.FindItemByValue("MFDashBoard").Selected = true;
-
+                RadPanelBar6.FindItemByValue("Business MIS").Expanded = true;
             }
 
             else if (Session["NodeType"] == "MessageInbox")
@@ -3441,6 +3441,11 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('SalesDashBoard','login');", true);
                 }
+                else if (e.Item.Value == "MFT")
+                {
+                    Session["UserType"] = "Associates";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('TransactionDashBoard','login');", true);
+                }
                 else if (e.Item.Value == "ViewAssociates")
                 {
                     Session["UserType"] = "adviser";
@@ -3604,7 +3609,7 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "MFDashboard")
                 {
                     Session["UserType"] = "Associates";
-                    // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFDashBoard','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFDashBoard','login');", true);
                 }
                 else if (e.Item.Value == "CustomerSignUp")
                 {
@@ -3659,7 +3664,7 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "Customer_AUM")
                 {
                     Session["UserType"] = "Associates";
-                    //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerAUM','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerAUM','login');", true);
                 }
                 else if (e.Item.Value == "Customer_Holdings")
                 {

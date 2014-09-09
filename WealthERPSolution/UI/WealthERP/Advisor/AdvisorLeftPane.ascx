@@ -1425,9 +1425,10 @@
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
+                                    
                                     <telerik:RadPanelItem runat="server" Text="Business MIS" Value="Business MIS">
-                                        <Items>
-                                            <telerik:RadPanelItem runat="server" Text="MIS_MF" Value="MF">
+                                         <Items>
+                                            <telerik:RadPanelItem runat="server" Text="MF" Value="MIS_MF">
                                                 <Items>
                                                     <telerik:RadPanelItem runat="server" Text="MF DashBoard" Value="MFDashBoard" Vissble="true">
                                                     </telerik:RadPanelItem>
@@ -1443,7 +1444,7 @@
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="Customer Holdings" Value="Customer_Holdings">
                                                     </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" Text="Branch AUM" Value="Business_MIS_Dashboard">
+                                                    <telerik:RadPanelItem runat="server" Text="Branch AUM" Value="Business_MIS_Dashboard" Visible="false">
                                                     </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>

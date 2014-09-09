@@ -22,49 +22,40 @@
             </div>
         </td>
     </tr>
-    <%--    <tr>
+</table>
+<%--    <tr>
         <td colspan="2">
             <div class="divSectionHeading" style="vertical-align: text-bottom">
                 Customer Added
             </div>
         </td>
     </tr>--%>
-     <tr>
-                <td colspan="2">
-                    <table class="TableBackground" width="100%">
-                        <tr id="trBranchRM" runat="server">
-                            <td align="right" valign="top" class="leftLabel">
-                                <asp:Label ID="lblBranch" runat="server" CssClass="FieldName" Text="Branch:"></asp:Label>
-                            </td>
-                            <td valign="top" class="rightData">
-                                <asp:DropDownList ID="ddlBranch" runat="server" Style="vertical-align: middle" AutoPostBack="true"
-                                    CssClass="cmbField" OnSelectedIndexChanged="ddlBranch_SelectedIndexChanged">
-                                </asp:DropDownList>
-                            </td>
-                            <td style="width: 1%">
-                            </td>
-                            <td align="right" valign="top" class="leftLabel">
-                                <asp:Label ID="lblRM" runat="server" CssClass="FieldName" Text="RM:"></asp:Label>
-                            </td>
-                            <td valign="top" class="rightData">
-                                <asp:DropDownList ID="ddlRM" runat="server" CssClass="cmbField" Style="vertical-align: middle">
-                                </asp:DropDownList>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-            <tr colspan="2">
-                <td id="tdGoBtn" runat="server" colspan="7">
-                    <asp:Button ID="btnGo" runat="server" CssClass="PCGButton" Text="Go" OnClick="btnGo_Click"
-                        ValidationGroup="vgBtnGo" />
-                </td>
-            </tr>
+<table>
+    <tr id="trBranchRM" runat="server">
+        <td align="right" style="width: 12%;">
+            <asp:Label ID="lblBranch" runat="server" CssClass="FieldName" Text="Branch:"></asp:Label>
+        </td>
+        <td style="width: 10%;">
+            <asp:DropDownList ID="ddlBranch" runat="server" AutoPostBack="true" CssClass="cmbField"
+                OnSelectedIndexChanged="ddlBranch_SelectedIndexChanged">
+            </asp:DropDownList>
+        </td>
+        <td align="right" style="width: 3%;">
+            <asp:Label ID="lblRM" runat="server" CssClass="FieldName" Text="RM:"></asp:Label>
+        </td>
+        <td style="width: 12%;">
+            <asp:DropDownList ID="ddlRM" runat="server" CssClass="cmbField">
+            </asp:DropDownList>
+        </td>
+        <td id="tdGoBtn" runat="server" style="width: 5%;" align="center">
+            <asp:Button ID="btnGo" runat="server" CssClass="PCGButton" Text="Go" OnClick="btnGo_Click"
+                ValidationGroup="vgBtnGo" />
+        </td>
+    </tr>
 </table>
 <table>
     <asp:UpdatePanel runat="server" ID="UpnlMFDashBoard" Visible="false">
         <ContentTemplate>
-           
             <tr>
                 <td colspan="2">
                     <table width="100%">
@@ -303,7 +294,6 @@
                     <asp:LinkButton ID="lnkSchemeNavi" Text=" >>More" runat="server" CssClass="LinkButtons"
                         OnClick="lnkSchemeNavi_Click"></asp:LinkButton>
                 </td>
-                
                 <td style="padding-left: 10px; padding-right: 5px; width: 50%" valign="top">
                     <asp:Label ID="Label3" runat="server" CssClass="HeaderTextSmall" Text="Sub category wise AUM"></asp:Label>
                     <br />
