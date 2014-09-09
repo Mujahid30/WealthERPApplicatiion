@@ -2014,6 +2014,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OffLineOrderManagement//IPOIssueTransactOffline.ascx.
+        /// </summary>
+        internal static string IPOIssueTransactOffline {
+            get {
+                return ResourceManager.GetString("IPOIssueTransactOffline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Uploads//KarvyProfileFolioInputRejects.ascx.
         /// </summary>
         internal static string KarvyProfileFolioInputRejects {
@@ -2523,6 +2532,15 @@ namespace WealthERP {
         internal static string NCDIssueTransact {
             get {
                 return ResourceManager.GetString("NCDIssueTransact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OffLineOrderManagement//NCDIssueTransactOffline.ascx.
+        /// </summary>
+        internal static string NCDIssueTransactOffline {
+            get {
+                return ResourceManager.GetString("NCDIssueTransactOffline", resourceCulture);
             }
         }
         

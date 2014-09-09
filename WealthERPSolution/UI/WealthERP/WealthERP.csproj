@@ -2695,12 +2695,26 @@
     <Compile Include="Messages\MessageOutbox.ascx.designer.cs">
       <DependentUpon>MessageOutbox.ascx</DependentUpon>
     </Compile>
+    <Compile Include="OffLineOrderManagement\IPOIssueTransactOffline.ascx.cs">
+      <DependentUpon>IPOIssueTransactOffline.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OffLineOrderManagement\IPOIssueTransactOffline.ascx.designer.cs">
+      <DependentUpon>IPOIssueTransactOffline.ascx</DependentUpon>
+    </Compile>
     <Compile Include="OffLineOrderManagement\MFOrderBuyTransTypeOffline.ascx.cs">
       <DependentUpon>MFOrderBuyTransTypeOffline.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="OffLineOrderManagement\MFOrderBuyTransTypeOffline.ascx.designer.cs">
       <DependentUpon>MFOrderBuyTransTypeOffline.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="OffLineOrderManagement\NCDIssueTransactOffline.ascx.cs">
+      <DependentUpon>NCDIssueTransactOffline.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OffLineOrderManagement\NCDIssueTransactOffline.ascx.designer.cs">
+      <DependentUpon>NCDIssueTransactOffline.ascx</DependentUpon>
     </Compile>
     <Compile Include="OnlineBottomHost.aspx.cs">
       <DependentUpon>OnlineBottomHost.aspx</DependentUpon>
@@ -7942,7 +7956,9 @@
     <Content Include="Messages\MessageCompose.ascx" />
     <Content Include="Messages\MessageInbox.ascx" />
     <Content Include="Messages\MessageOutbox.ascx" />
+    <Content Include="OffLineOrderManagement\IPOIssueTransactOffline.ascx" />
     <Content Include="OffLineOrderManagement\MFOrderBuyTransTypeOffline.ascx" />
+    <Content Include="OffLineOrderManagement\NCDIssueTransactOffline.ascx" />
     <Content Include="OnlineBottomHost.aspx" />
     <Content Include="OnlineMainHost.aspx" />
     <Content Include="OnlineOrderBackOffice\CustomerProfileAudit.ascx" />

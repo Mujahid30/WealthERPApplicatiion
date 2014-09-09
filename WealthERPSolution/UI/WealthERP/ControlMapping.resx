@@ -1949,4 +1949,12 @@
     <value>Alerts//CustomerAlertSetup.ascx</value>
     <comment>Alerts//CustomerAlertSetup.ascx</comment>
   </data>
+  <data name="IPOIssueTransactOffline" xml:space="preserve">
+    <value>OffLineOrderManagement//IPOIssueTransactOffline.ascx</value>
+    <comment>OffLineOrderManagement//IPOIssueTransactOffline.ascx</comment>
+  </data>
+  <data name="NCDIssueTransactOffline" xml:space="preserve">
+    <value>OffLineOrderManagement//NCDIssueTransactOffline.ascx</value>
+    <comment>OffLineOrderManagement//NCDIssueTransactOffline.ascx</comment>
+  </data>
 </root>
