@@ -38,6 +38,18 @@
 </script>
 
 <script type="text/javascript" language="javascript">
+    function Compare() {
+        var birthday = document.getElementById('<%=txtDate.ClientID%>').value;
+        var marriageday = document.getElementById('<%=txtMarriageDate.ClientID%>').value;
+        if (birthday >= marriageday) {
+            alert("Please fill Birthday Date less than Marriage Date");
+            document.getElementById('<%=txtDate.ClientID%>').value = ""; 
+        }
+    }
+
+</script>
+
+<script type="text/javascript" language="javascript">
     function checkDate(sender, args) {
 
         var selectedDate = new Date();
@@ -182,7 +194,6 @@
                         <asp:RadioButton ID="rbtnFemale" runat="server" CssClass="txtField" Text="Female"
                             GroupName="rbtnGender" />
                         &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
-                        <asp:CheckBox ID="chkKYC" runat="server" CssClass="txtField" Text="MF KYC" AutoPostBack="true" />
                     </td>
                 </tr>
                 <tr>
@@ -192,17 +203,24 @@
                     <td class="rightField">
                         <asp:TextBox ID="txtPanNumber" runat="server" CssClass="txtField" MaxLength="10"></asp:TextBox>
                         <span id="Span4" class="spnRequiredField">*</span> &nbsp; &nbsp;&nbsp;
-                        <asp:CheckBox ID="chkdummypan" runat="server" CssClass="txtField" Text="Dummy PAN"
-                            AutoPostBack="true" />
+                        <asp:CheckBox ID="chkdummypan" runat="server" OnCheckedChanged="chkdummypan_click"
+                            CssClass="txtField" Text="Dummy PAN" AutoPostBack="true" />
                         <br />
-                        <asp:RegularExpressionValidator ID="revPan" runat="server" Display="Dynamic"
-                            ValidationGroup="btnEdit" ErrorMessage="Please check PAN Format" ControlToValidate="txtPanNumber"
-                            ValidationExpression="[A-Za-z]{5}\d{4}[A-Za-z]{1}">
-                        </asp:RegularExpressionValidator>
                         <asp:RequiredFieldValidator ID="rfvPanNumber" ControlToValidate="txtPanNumber" ErrorMessage="Please enter a PAN Number"
                             Display="Dynamic" runat="server" CssClass="rfvPCG" ValidationGroup="btnEdit">
                         </asp:RequiredFieldValidator>
+                        <asp:RegularExpressionValidator ID="revPan" runat="server" Display="Dynamic" ValidationGroup="btnEdit"
+                            ErrorMessage="Please check PAN Format" ControlToValidate="txtPanNumber" CssClass="rfvPCG"
+                            ValidationExpression="[A-Za-z]{5}\d{4}[A-Za-z]{1}">
+                        </asp:RegularExpressionValidator>
                         <asp:Label ID="lblPanDuplicate" runat="server" CssClass="Error" Text="PAN Number already exists"></asp:Label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftField">
+                    </td>
+                    <td class="rightField">
+                        <asp:CheckBox ID="chkKYC" runat="server" CssClass="txtField" Text="MF KYC" AutoPostBack="true" />
                     </td>
                 </tr>
                 <tr>
@@ -1724,6 +1742,11 @@
                             <DateInput ID="DateInput2" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
                             </DateInput>
                         </telerik:RadDatePicker>
+                        <span id="Span14" class="spnRequiredField">*</span>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator7" ControlToValidate="txtMarriageDate"
+                            ValidationGroup="btnEdit" ErrorMessage="<br />Please enter Marriage Date" Display="Dynamic"
+                            runat="server" CssClass="rfvPCG" InitialValue="">
+                        </asp:RequiredFieldValidator>
                     </td>
                     <td class="leftField" width="25%">
                         <asp:Label ID="lblMotherMaidenName" CssClass="FieldName" runat="server" Text="Mother's Maiden Name:"></asp:Label>
@@ -1770,7 +1793,8 @@
                             Type="Date" ControlToValidate="txtDate" CssClass="cvPCG" Operator="DataTypeCheck"
                             ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
                         <telerik:RadDatePicker ID="txtDate" CssClass="txtTo" runat="server" Culture="English (United States)"
-                            Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                            Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" onChange="Compare();"
+                            MinDate="1900-01-01">
                             <Calendar ID="Calendar1" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
                                 ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
                             </Calendar>
@@ -1779,11 +1803,15 @@
                             </DateInput>
                         </telerik:RadDatePicker>
                         <span id="Span13" class="spnRequiredField">*</span>
+                        <asp:Label ID="lblBirthMsg" runat="server"></asp:Label>
                         <asp:RequiredFieldValidator ID="rfvtxtDate" ControlToValidate="txtDate" ValidationGroup="btnEdit"
                             ErrorMessage="<br />Please enter DOB" Display="Dynamic" runat="server" CssClass="rfvPCG"
                             InitialValue="">
                         </asp:RequiredFieldValidator>
                     </td>
+                    <%-- <asp:CompareValidator ID="cvMatDate" runat="server" ErrorMessage="Maturatiy Date Should be greater than Deposit date"
+                        Type="Date" ControlToValidate="txtDate" ControlToCompare="txtMarriageDate" Operator="GreaterThan"
+                        CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>--%>
                 </tr>
                 <tr>
                     <%--  <td class="leftField">

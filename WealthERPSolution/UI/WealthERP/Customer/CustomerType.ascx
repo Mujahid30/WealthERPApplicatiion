@@ -31,8 +31,7 @@
         if (check) {
             document.getElementById("<%=btnCustomerProfile.ClientID %>").style.visibility = 'visible';
         }
-        else 
-        {
+        else {
             document.getElementById("<%=btnCustomerProfile.ClientID %>").style.visibility = 'hidden';
         }
     }
@@ -96,7 +95,7 @@
                 GroupName="grpCustomerType" AutoPostBack="true" OnCheckedChanged="rbtnNonIndividual_CheckedChanged" />
         </td>
     </tr>
-    <tr id="trBranchlist" runat="server">
+    <tr id="trBranchlist" runat="server" visible="false">
         <td class="leftField">
             <asp:Label ID="lblBranchName" runat="server" CssClass="FieldName" Text="Branch Name:"></asp:Label>
         </td>
@@ -112,7 +111,7 @@
             </asp:CompareValidator>
         </td>
     </tr>
-    <tr id="trRMlist" runat="server">
+    <tr id="trRMlist" runat="server" visible="false">
         <td class="leftField">
             <asp:Label ID="lblRMName" runat="server" CssClass="FieldName" Text="Select RM:"></asp:Label>
         </td>
@@ -136,7 +135,7 @@
             </asp:DropDownList>
             <span id="Span1" class="spnRequiredField">*</span> &nbsp;
             <asp:CheckBox ID="chkRealInvestor" runat="server" CssClass="txtField" Text="Investor"
-                AutoPostBack="false"  Checked="true" onclick="javascript:ShowSubmitAndSave();" />
+                AutoPostBack="false" Checked="true" onclick="javascript:ShowSubmitAndSave();" />
             <br />
             <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="ddlCustomerSubType"
                 ErrorMessage="Please select a Customer Sub-Type" Operator="NotEqual" ValueToCompare="Select"
@@ -149,9 +148,9 @@
         </td>
         <td>
             <asp:TextBox ID="txtClientCode" runat="server" CssClass="txtField" MaxLength="15"></asp:TextBox>
-           <%-- <span id="Span5" class="spnRequiredField">*</span> &nbsp;
+            <%-- <span id="Span5" class="spnRequiredField">*</span> &nbsp;
             <br />--%>
-           <%-- <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtClientCode"
+            <%-- <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtClientCode"
                 ErrorMessage="Please enter a client code" Display="Dynamic" runat="server" CssClass="rfvPCG">
             </asp:RequiredFieldValidator>--%>
         </td>
@@ -164,11 +163,14 @@
             <asp:TextBox ID="txtPanNumber" runat="server" CssClass="txtField" MaxLength="10"></asp:TextBox>
             <span id="Span6" class="spnRequiredField">*</span> &nbsp;
             <asp:CheckBox ID="chkdummypan" runat="server" CssClass="txtField" Text="Dummy PAN"
-                AutoPostBack="false" />
+                AutoPostBack="true" />
             <br />
             <asp:RequiredFieldValidator ID="rfvPanNumber" ControlToValidate="txtPanNumber" ErrorMessage="Please enter a PAN Number"
                 Display="Dynamic" runat="server" CssClass="rfvPCG">
             </asp:RequiredFieldValidator>
+            <asp:RegularExpressionValidator ID="revPan" runat="server" Display="Dynamic" CssClass="rfvPCG"
+                ErrorMessage="Please check PAN Format" ControlToValidate="txtPanNumber" ValidationExpression="[A-Za-z]{5}\d{4}[A-Za-z]{1}">
+            </asp:RegularExpressionValidator>
             <asp:Label ID="lblPanDuplicate" runat="server" CssClass="Error" Text="PAN Number already exists"></asp:Label>
         </td>
     </tr>
@@ -209,16 +211,17 @@
             <asp:Label ID="lblName" runat="server" CssClass="FieldName" Text="Name:"></asp:Label>
         </td>
         <td class="rightField">
-            <asp:TextBox ID="txtFirstName" runat="server" Style="width: 30%" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtFirstName" runat="server" MaxLength="75" Style="width: 30%" CssClass="txtField"></asp:TextBox>
             <cc1:TextBoxWatermarkExtender ID="txtFirstName_TextBoxWatermarkExtender" runat="server"
                 Enabled="True" TargetControlID="txtFirstName" WatermarkText="FirstName">
             </cc1:TextBoxWatermarkExtender>
             <span id="Span7" class="spnRequiredField">*</span>
-            <asp:TextBox ID="txtMiddleName" runat="server" Style="width: 30%" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtMiddleName" runat="server" MaxLength="25" Style="width: 30%"
+                CssClass="txtField"></asp:TextBox>
             <cc1:TextBoxWatermarkExtender ID="txtMiddleName_TextBoxWatermarkExtender" runat="server"
                 Enabled="True" TargetControlID="txtMiddleName" WatermarkText="MiddleName">
             </cc1:TextBoxWatermarkExtender>
-            <asp:TextBox ID="txtLastName" runat="server" Style="width: 30%" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtLastName" runat="server" MaxLength="75" Style="width: 30%" CssClass="txtField"></asp:TextBox>
             <cc1:TextBoxWatermarkExtender ID="txtLastName_TextBoxWatermarkExtender" runat="server"
                 Enabled="True" TargetControlID="txtLastName" WatermarkText="LastName">
             </cc1:TextBoxWatermarkExtender>

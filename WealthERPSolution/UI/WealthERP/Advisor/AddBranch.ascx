@@ -96,6 +96,10 @@
             <asp:RequiredFieldValidator ControlToValidate="txtBranchCode" ErrorMessage="Please enter the Branch Code"
                 CssClass="rfvPCG" Display="Dynamic" ID="rfvBranchCode" ValidationGroup="btnSubmit"
                 runat="server"></asp:RequiredFieldValidator>
+                 <asp:RegularExpressionValidator ID="revCode" runat="server" Display="Dynamic" CssClass="rfvPCG"
+                ErrorMessage="Please check Alphanumeric Format" ControlToValidate="txtBranchCode" ValidationExpression="[A-Za-z][0-9 ]">
+            </asp:RegularExpressionValidator>
+            <asp:Label ID="lblcodeDuplicate" runat="server" CssClass="Error" Visible="false" Text="Code already exists"></asp:Label>
         </td>
         <td class="leftField" width="25%">
             <asp:Label ID="Label4" runat="server" CssClass="FieldName" Text="Name :"></asp:Label>
@@ -225,7 +229,7 @@
             
         </td>
         <td class="rightField">
-            <asp:TextBox ID="txtPinCode" runat="server" MaxLength="6" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtPinCode" runat="server"  MinLength="6" MaxLength="6"  CssClass="txtField"></asp:TextBox>
             <span id="Span7" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="txtPinCode"
                 ErrorMessage="Pincode Required" CssClass="cvPCG" ValidationGroup="btnSubmit" Display="Dynamic"></asp:RequiredFieldValidator>

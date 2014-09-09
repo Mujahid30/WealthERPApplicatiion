@@ -57,7 +57,7 @@
                             <td class="rightField">
                                 <asp:TextBox ID="txtMFOrgName" runat="server" CssClass="txtField"></asp:TextBox>
                                 <span id="Span1" class="spnRequiredField">*</span>
-                                <asp:RequiredFieldValidator ID="rfvName" ControlToValidate="txtMFOrgName" ErrorMessage="<br />Please Enter Intermediay Name"
+                                <asp:RequiredFieldValidator ID="rfvName" ControlToValidate="txtMFOrgName" ErrorMessage="<br />Please Enter Intermediary Name"
                                     ValidationGroup="btnMF" Display="Dynamic" runat="server" CssClass="rfvPCG">
                                 </asp:RequiredFieldValidator>
                             </td>

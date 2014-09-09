@@ -50,10 +50,9 @@
     <asp:Label ID="lblAction" runat="server" Text="Show:" CssClass="FieldName"></asp:Label>
     <telerik:RadComboBox CssClass="cmbField" runat="server" ID="rcbShow" EmptyMessage="Show">
         <Items>
-            <telerik:RadComboBoxItem Text="" Value="" />
-            <telerik:RadComboBoxItem Text="Zone" Value="1" />
+            <telerik:RadComboBoxItem Text="ALL" Value="1" />
             <telerik:RadComboBoxItem Text="Cluster" Value="2" />
-            <telerik:RadComboBoxItem Text="ALL" Value="3" />
+            <telerik:RadComboBoxItem Text="Zone" Value="3" />
         </Items>
     </telerik:RadComboBox>
     <asp:RequiredFieldValidator CssClass="rfvPCG" Text="* Please select a type" ControlToValidate="rcbShow"
@@ -79,9 +78,9 @@
                 <telerik:GridEditCommandColumn EditText="Edit" UniqueName="editColumn" CancelText="Cancel"
                     UpdateText="Update">
                 </telerik:GridEditCommandColumn>
-                  <telerik:GridBoundColumn Visible="false" UniqueName="AZOC_ZoneId" HeaderText="Type"
-                    DataField="AZOC_ZoneId" SortExpression="AZOC_ZoneId" AllowFiltering="true"
-                    ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                <telerik:GridBoundColumn Visible="false" UniqueName="AZOC_ZoneId" HeaderText="Type"
+                    DataField="AZOC_ZoneId" SortExpression="AZOC_ZoneId" AllowFiltering="true" ShowFilterIcon="false"
+                    AutoPostBackOnFilter="true">
                     <HeaderStyle></HeaderStyle>
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn Visible="false" UniqueName="AZOC_ZoneClusterId" HeaderText="Type"
@@ -101,8 +100,8 @@
                     SortExpression="AZOC_Type" AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                     <HeaderStyle></HeaderStyle>
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn Visible="false" UniqueName="Name" HeaderText="Head" DataField="Name" SortExpression="Name"
-                    AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                <telerik:GridBoundColumn Visible="false" UniqueName="Name" HeaderText="Head" DataField="Name"
+                    SortExpression="Name" AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                     <HeaderStyle></HeaderStyle>
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn HeaderStyle-Width="200px" UniqueName="AZOC_Description"
@@ -114,8 +113,8 @@
                     SortExpression="AZOC_Name" AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                     <HeaderStyle></HeaderStyle>
                 </telerik:GridBoundColumn>
-                <telerik:GridDateTimeColumn AllowFiltering="false" HeaderText="Created Date" DataField="AZOC_CreatedOn" UniqueName="AZOC_CreatedOn"
-                    DataFormatString="{0:d}" AutoPostBackOnFilter="true">
+                <telerik:GridDateTimeColumn AllowFiltering="false" HeaderText="Created Date" DataField="AZOC_CreatedOn"
+                    UniqueName="AZOC_CreatedOn" DataFormatString="{0:d}" AutoPostBackOnFilter="true">
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                     <FilterTemplate>
                         <telerik:RadDatePicker ID="AZOC_CreatedOnFilter" AutoPostBack="true" runat="server">
@@ -152,11 +151,11 @@
                                             <telerik:RadComboBox Text='<%# Bind("AZOC_Type") %>' AutoPostBack="true" OnSelectedIndexChanged="rcbEditFormAddType_SelectedIndexChanged"
                                                 runat="server" ID="rcbEditFormAddType" EmptyMessage="Select">
                                                 <Items>
-                                                    <telerik:RadComboBoxItem Text="" Value="" />
                                                     <telerik:RadComboBoxItem Text="Zone" Value="1" />
                                                     <telerik:RadComboBoxItem Text="Cluster" Value="2" />
                                                 </Items>
                                             </telerik:RadComboBox>
+                                            <span id="Span1" class="spnRequiredField">*</span>
                                             <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" CssClass="rfvPCG"
                                                 ErrorMessage="Please select a Type" Display="Dynamic" ValidationGroup="btnSubmit"
                                                 ControlToValidate="rcbEditFormAddType">
@@ -169,8 +168,14 @@
                                         </td>
                                         <td>
                                             <asp:TextBox ID="txtName" Text='<%# Bind("ZCName") %>' runat="server"></asp:TextBox>
-                                            <asp:RequiredFieldValidator ErrorMessage="Please enter name" ValidationGroup="btnSubmit"
+                                            <span id="Span6" class="spnRequiredField">*</span>
+                                            <asp:RequiredFieldValidator ErrorMessage="Please enter name" CssClass="rfvPCG" ValidationGroup="btnSubmit"
                                                 runat="server" ControlToValidate="txtName"></asp:RequiredFieldValidator>
+                                            <asp:RegularExpressionValidator ID="revName" runat="server" Display="Dynamic" CssClass="rfvPCG"
+                                                ErrorMessage="Please check Name format" ValidationGroup="btnSubmit" ControlToValidate="txtName"
+                                                ValidationExpression="[A-Za-z][0-9]">
+                                            </asp:RegularExpressionValidator>
+                                            <asp:Label ID="lblNameDuplicate" runat="server" CssClass="Error" Visible="false" Text="Name already exists"></asp:Label>
                                         </td>
                                     </tr>
                                     <tr>
@@ -178,10 +183,10 @@
                                             <asp:Label Visible="false" runat="server" Text="Head :" ID="Label2"></asp:Label>
                                         </td>
                                         <td>
-                                            <telerik:RadComboBox Visible="false" runat="server" ID="rcbHead" Text="Show" EmptyMessage="Select">                                          
+                                            <telerik:RadComboBox Visible="false" runat="server" ID="rcbHead" Text="Show" EmptyMessage="Select">
                                             </telerik:RadComboBox>
-                                            <asp:RequiredFieldValidator Visible="false" ID="RequiredFieldValidator2" runat="server" CssClass="rfvPCG"
-                                                ErrorMessage="Please select a head" Display="Dynamic" ValidationGroup="btnSubmit"
+                                            <asp:RequiredFieldValidator Visible="false" ID="RequiredFieldValidator2" runat="server"
+                                                CssClass="rfvPCG" ErrorMessage="Please select a head" Display="Dynamic" ValidationGroup="btnSubmit"
                                                 ControlToValidate="rcbHead">
                                             </asp:RequiredFieldValidator>
                                         </td>
@@ -193,6 +198,7 @@
                                         <td colspan="3">
                                             <telerik:RadComboBox runat="server" ID="rcbPickAZone" Text="Show" EmptyMessage="Select">
                                             </telerik:RadComboBox>
+                                            <span id="Span2" class="spnRequiredField">*</span>
                                             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" CssClass="rfvPCG"
                                                 ErrorMessage="Please select a Zone" Display="Dynamic" ValidationGroup="btnSubmit"
                                                 ControlToValidate="rcbPickAZone">

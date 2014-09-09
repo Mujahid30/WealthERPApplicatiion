@@ -66,7 +66,7 @@ namespace WealthERP.Customer
                     trBranchlist.Visible = false;
                     trRMlist.Visible = false;
                     btnCustomerProfile.Visible = false;
-                   //  Session.Remove("AddMFCustLinkId");
+                    //  Session.Remove("AddMFCustLinkId");
                 }
                 if (!IsPostBack)
                 {
@@ -78,7 +78,7 @@ namespace WealthERP.Customer
                     BindRMforBranchDropdown(0, 0);
                     //BindListBranch(rmVo.RMId, "rm");
                     BindSubTypeDropDown(1001);
-                    
+
                 }
 
             }
@@ -191,7 +191,7 @@ namespace WealthERP.Customer
             int adviserId = (int)Session["adviserId"];
             try
             {
-                if(customerBo.PANNumberDuplicateChild(adviserId,txtPanNumber.Text.ToString()))
+                if (customerBo.PANNumberDuplicateChild(adviserId, txtPanNumber.Text.ToString()))
                 {
                     result = false;
                     lblPanDuplicate.Visible = true;
@@ -380,13 +380,19 @@ namespace WealthERP.Customer
                         rmVo = (RMVo)Session["rmVo"];
                         tempUserVo = (UserVo)Session["userVo"];
                         //customerVo.RmId = rmVo.RMId;
-                        customerVo.RmId = int.Parse(ddlAdviseRMList.SelectedValue.ToString());
+                        if (customerVo.RmId == 4682)
+                        {
+                            customerVo.RmId = int.Parse(ddlAdviseRMList.SelectedValue.ToString());
+                        }
+                        else
+                        {
+                            customerVo.RmId = int.Parse(ddlAdviseRMList.SelectedValue="4682");
+                        }
                         customerVo.Type = "IND";
 
                         customerVo.TaxStatusCustomerSubTypeId = Int16.Parse(ddlCustomerSubType.SelectedValue.ToString());
-                        customerVo.AccountId = txtClientCode.Text.Trim();
+                        customerVo.CustCode = txtClientCode.Text.Trim();
                         customerVo.IsRealInvestor = chkRealInvestor.Checked;
-
                         customerVo.FirstName = txtFirstName.Text.ToString();
                         customerVo.MiddleName = txtMiddleName.Text.ToString();
                         customerVo.LastName = txtLastName.Text.ToString();
@@ -408,18 +414,32 @@ namespace WealthERP.Customer
                         rmVo = (RMVo)Session["rmVo"];
                         tempUserVo = (UserVo)Session["userVo"];
                         //customerVo.RmId = rmVo.RMId;
-                        customerVo.RmId = int.Parse(ddlAdviseRMList.SelectedValue.ToString());
+                        //customerVo.RmId = int.Parse(ddlAdviseRMList.SelectedValue.ToString());
+                        if (customerVo.RmId == 4682)
+                        {
+                            customerVo.RmId = int.Parse(ddlAdviseRMList.SelectedValue.ToString());
+                        }
+                        else
+                        {
+                            customerVo.RmId = int.Parse(ddlAdviseRMList.SelectedValue = "4682");
+                        }
                         customerVo.Type = "NIND";
 
                         customerVo.TaxStatusCustomerSubTypeId = Int16.Parse(ddlCustomerSubType.SelectedValue.ToString());
-                        customerVo.AccountId = txtClientCode.Text.Trim();
+                        customerVo.CustCode = txtClientCode.Text.Trim();
                         customerVo.IsRealInvestor = chkRealInvestor.Checked;
-
                         customerVo.CompanyName = txtCompanyName.Text.ToString();
                         customerVo.FirstName = txtCompanyName.Text.ToString();
                         userVo.FirstName = txtCompanyName.Text.ToString();
                     }
-                    customerVo.BranchId = int.Parse(ddlAdviserBranchList.SelectedValue);
+                    if (customerVo.BranchId == 1339)
+                    {
+                        customerVo.BranchId = int.Parse(ddlAdviserBranchList.SelectedValue);
+                    }
+                    else
+                    {
+                        customerVo.BranchId = int.Parse(ddlAdviserBranchList.SelectedValue = "1339");
+                    }
 
                     //if (chkprospect.Checked)
                     //{
@@ -470,7 +490,8 @@ namespace WealthERP.Customer
 
                         }
                         else
-                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('AdviserCustomer','none');", true);
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Customer Added Successfully!!');", true);
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('AdviserCustomer','none');", true);
                         //trSumbitSuccess.Visible = true;
                         MakeReadonlyControls();
 
@@ -548,7 +569,7 @@ namespace WealthERP.Customer
                         customerVo.LastName = txtLastName.Text.ToString();
 
                         customerVo.TaxStatusCustomerSubTypeId = Int16.Parse(ddlCustomerSubType.SelectedValue.ToString());
-                       // customerVo.AccountId = txtClientCode.Text.Trim();
+                        // customerVo.AccountId = txtClientCode.Text.Trim();
                         customerVo.CustCode = txtClientCode.Text.Trim();
                         customerVo.IsRealInvestor = chkRealInvestor.Checked;
 
@@ -569,7 +590,7 @@ namespace WealthERP.Customer
                         customerVo.Type = "NIND";
 
                         customerVo.TaxStatusCustomerSubTypeId = Int16.Parse(ddlCustomerSubType.SelectedValue.ToString());
-                    //    customerVo.AccountId = txtClientCode.Text.Trim();
+                        //    customerVo.AccountId = txtClientCode.Text.Trim();
                         customerVo.IsRealInvestor = chkRealInvestor.Checked;
                         customerVo.CustCode = txtClientCode.Text.Trim();
                         customerVo.CompanyName = txtCompanyName.Text.ToString();
@@ -695,6 +716,7 @@ namespace WealthERP.Customer
                     ddlAdviserBranchList.DataSource = ds.Tables[0];
                     ddlAdviserBranchList.DataTextField = "AB_BranchName";
                     ddlAdviserBranchList.DataValueField = "AB_BranchId";
+                    ddlAdviserBranchList.SelectedValue = "1339";
                     ddlAdviserBranchList.DataBind();
                     ddlAdviserBranchList.Items.Insert(0, new ListItem("Select", "Select"));
                 }
@@ -725,7 +747,7 @@ namespace WealthERP.Customer
                 {
                     ddlAdviseRMList.Enabled = false;
                 }
-            
+
             }
         }
 
@@ -742,6 +764,7 @@ namespace WealthERP.Customer
                         ddlAdviseRMList.DataSource = ds.Tables[0];
                         ddlAdviseRMList.DataValueField = ds.Tables[0].Columns["RmID"].ToString();
                         ddlAdviseRMList.DataTextField = ds.Tables[0].Columns["RMName"].ToString();
+                        ddlAdviseRMList.SelectedValue = "4682";
                         ddlAdviseRMList.DataBind();
                         ddlAdviseRMList.Items.Remove("No RM Available");
                         ddlAdviseRMList.Items.Insert(0, new ListItem("Select", "Select"));

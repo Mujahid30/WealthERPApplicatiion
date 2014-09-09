@@ -86,6 +86,10 @@
             <td class="rightField">
                 <asp:TextBox ID="txtAccountNumber" runat="server" CssClass="txtField" Text='<%# Bind("CB_AccountNum") %>'></asp:TextBox>
                 <span id="spAccountNumber" class="spnRequiredField">*</span>
+                <asp:RegularExpressionValidator ID="reqtxtAccountNumber" ControlToValidate="txtAccountNumber"
+                    ErrorMessage=" </br>Enter Only Number" runat="server" Display="Dynamic" CssClass="cvPCG"
+                    ValidationExpression="^\d+(;\d+)*$" ValidationGroup="btnSubmit">     
+                </asp:RegularExpressionValidator>
                 <asp:RequiredFieldValidator ID="rfvAccountNumber" ControlToValidate="txtAccountNumber"
                     ValidationGroup="btnSubmit" ErrorMessage="<br />Please enter a Account Number"
                     Display="Dynamic" runat="server" CssClass="rfvPCG">

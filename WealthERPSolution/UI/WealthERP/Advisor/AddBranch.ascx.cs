@@ -380,6 +380,43 @@ namespace WealthERP.Advisor
         //    bool confirmValue = Convert.ToBoolean(this.hfConfirmValue.Value);
         //    Response.Write(confirmValue.ToString());
         //}
+        //  public bool ValidationBranchCode()
+        //{
+        //    bool result = true;
+        //    int adviserId = (int)Session["adviserId"];
+        //    AdvisorBo advisorBo = new AdvisorBo();
+        //    try
+        //    {
+        //        if (advisorBo.BranchCodeDuplicateChild(adviserId, txtBranchCode.Text.ToString()))
+        //        {
+        //            result = false;
+        //            lblcodeDuplicate.Visible = true;
+        //        }
+        //        else
+        //        {
+        //            lblcodeDuplicate.Visible = false;
+        //        }
+        //    }
+
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
+        //        FunctionInfo.Add("Method", "AddBranch.ascx:Validation()");
+        //        object[] objects = new object[1];
+        //        objects[0] = result;
+        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+        //        exBase.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(exBase);
+        //        throw exBase;
+
+        //    }
+        //    return result;
+        //}
 
         protected void btnSaveChanges_Click(object sender, EventArgs e)
         {

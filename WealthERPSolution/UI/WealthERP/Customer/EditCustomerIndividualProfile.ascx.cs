@@ -632,6 +632,52 @@ namespace WealthERP.Customer
             ddlAdviserBranchList.DataBind();
             ddlAdviserBranchList.Items.Insert(0, new ListItem("Select a Branch", "Select a Branch"));
         }
+        protected void chkdummypan_click(object sender, EventArgs e)
+        {
+           
+            int adviserId = ((AdvisorVo)Session["advisorVo"]).advisorId;
+            if (chkdummypan.Checked)
+            {
+            FOUND:
+                {
+
+                    Random rnd = new Random();
+                    int rnumber = rnd.Next(0, 9);
+                    int randomNumber1 = rnd.Next(0, 9);
+                    int randomNumber2 = rnd.Next(0, 9);
+                    int randomNumber3 = rnd.Next(0, 9);
+                    var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+                    var random = new Random();
+                    var result = new string(
+                        Enumerable.Repeat(chars, 2)
+                                  .Select(s => s[random.Next(s.Length)])
+                                  .ToArray());
+                    var result1 = new string(
+                       Enumerable.Repeat(chars, 1)
+                                 .Select(s => s[random.Next(s.Length)])
+                                 .ToArray());
+                    txtPanNumber.Text = "PAN" + result + rnumber + randomNumber1 + randomNumber2 + randomNumber3 + result1;
+                    
+                }
+
+                if (customerBo.PANNumberDuplicateCheck(adviserId, txtPanNumber.Text.ToString(), customerVo.CustomerId))
+                {
+
+                    goto FOUND;
+
+                    
+                }
+                else
+                {
+                    chkdummypan.Checked = true;
+                    txtPanNumber.Enabled = false;
+                }
+            }
+            else
+            {
+                txtPanNumber.Enabled = true;
+            }
+        }
 
         protected void btnEdit_Click(object sender, EventArgs e)
         {
@@ -796,7 +842,7 @@ namespace WealthERP.Customer
                     if (txtOfcPhoneNo.Text == "")
                         customerVo.OfcPhoneNum = 0;
                     else
-                        customerVo.OfcPhoneNum = int.Parse(txtOfcPhoneNo.Text.ToString());
+                        customerVo.OfcPhoneNum = Int64.Parse(txtOfcPhoneNo.Text.ToString());
 
                     if (txtResFaxIsd.Text == "")
                         customerVo.ISDFax = 0;
