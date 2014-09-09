@@ -22,7 +22,12 @@
 
 <script type="text/javascript" src="../Scripts/JScript.js"></script>
 <script type="text/javascript">
+    function assignValueToAgentCode() {
+        document.getElementById("<%=txtAgentCode.ClientID%>").value = document.getElementById("<%=txtStaffcode.ClientID%>").value
+     }
     function checkInsuranceNoAvailability() {
+       
+    
         if ($("#<%=txtAgentCode.ClientID %>").val() == "") {
             $("#spnLoginStatus").html("");
             return;
@@ -132,7 +137,7 @@
                             </asp:LinkButton>
                             &nbsp;&nbsp;
                             <asp:LinkButton ID="lnkAddNewStaff" Text="AddNew/Clear " runat="server" CssClass="LinkButtons"
-                                ToolTip="Add new New Staff" OnClick="lnkAddNewStaff_Click">
+                                ToolTip="Add New Staff" OnClick="lnkAddNewStaff_Click">
                             </asp:LinkButton>
                         </td>
                     </tr>
@@ -211,6 +216,18 @@
         </td>
     </tr>
     <tr>
+       <td class="leftLabel">
+            <asp:Label ID="lblBranch" runat="server" Text="Branch:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td class="rightData">
+            <asp:DropDownList ID="ddlBranch" runat="server" CssClass="cmbField">
+            </asp:DropDownList>
+            <span id="Span6" class="spnRequiredField">*</span>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="Please Select Branch"
+                CssClass="rfvPCG" ControlToValidate="ddlBranch" ValidationGroup="btnSubmit" InitialValue="0"
+                Display="Dynamic">
+            </asp:RequiredFieldValidator>
+        </td>
         <td class="leftLabel">
             <asp:Label ID="lblReportingRole" runat="server" Text="Reporting to Role:" CssClass="FieldName"></asp:Label>
         </td>
@@ -228,18 +245,7 @@
             </asp:DropDownList>
             <span id="Span8" class="spnRequiredField">*</span>
         </td>
-        <td class="leftLabel">
-            <asp:Label ID="lblBranch" runat="server" Text="Branch:" CssClass="FieldName"></asp:Label>
-        </td>
-        <td class="rightData">
-            <asp:DropDownList ID="ddlBranch" runat="server" CssClass="cmbField">
-            </asp:DropDownList>
-            <span id="Span6" class="spnRequiredField">*</span>
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="Please Select Branch"
-                CssClass="rfvPCG" ControlToValidate="ddlBranch" ValidationGroup="btnSubmit" InitialValue="0"
-                Display="Dynamic">
-            </asp:RequiredFieldValidator>
-        </td>
+     
     </tr>
     <tr>
     <td class="leftLabel"> 
@@ -285,7 +291,8 @@
             <asp:Label ID="lb1StaffCode" runat="server" CssClass="FieldName" Text="Staff Code:"></asp:Label>
         </td>
         <td>
-            <asp:TextBox ID="txtStaffcode" runat="server" CssClass="txtField"></asp:TextBox>
+          <asp:TextBox ID="txtStaffPrefix" Text="SSL" runat="server" ReadOnly="true" Width="35px"></asp:TextBox>
+            <asp:TextBox ID="txtStaffcode" runat="server" CssClass="txtField" onblur="return assignValueToAgentCode()" ></asp:TextBox>
             <span id="Span10" class="spnRequiredField">*</span>
             <br />
             <asp:RequiredFieldValidator ID="RequiredFieldValidator7" ControlToValidate="txtStaffcode"
@@ -300,7 +307,7 @@
             <%--<asp:Label ID="lblAgentCode" runat="server" CssClass="txtField" Text=""></asp:Label>
                     <td>--%>
             <asp:TextBox ID="txtAgentCode" onblur="return checkInsuranceNoAvailability()" runat="server"
-                CssClass="txtField">
+              Enabled="false"  CssClass="txtField">
             </asp:TextBox>
            
            <%--<asp:Label ID="lblrg" runat="server" Text="*" class="spnRequiredField"></asp:Label>--%>

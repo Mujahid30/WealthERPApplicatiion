@@ -109,7 +109,7 @@ namespace WealthERP.Advisor
                 rmStaffVo.LastName = txtLastName.Text;
 
             if (!string.IsNullOrEmpty(txtStaffcode.Text.Trim()))
-                rmStaffVo.StaffCode = txtStaffcode.Text;
+                rmStaffVo.StaffCode = txtStaffPrefix.Text + txtStaffcode.Text;
             if (ddlBranch.SelectedIndex != 0 || ddlBranch.SelectedIndex != -1)
                 rmStaffVo.BranchId = Convert.ToInt32(ddlBranch.SelectedValue);
 
@@ -177,7 +177,7 @@ namespace WealthERP.Advisor
             //rmUserVo.UserType = ddlRMRole.SelectedItem.Text.ToString().Trim();
             rmUserVo.Password = password;
             rmUserVo.MiddleName = txtMiddleName.Text.ToString();
-            rmUserVo.LoginId = txtStaffcode.Text.ToString();
+            rmUserVo.LoginId = txtStaffPrefix.Text.ToString() + txtStaffcode.Text.ToString();
             rmUserVo.LastName = txtLastName.Text.ToString();
             rmUserVo.FirstName = txtFirstName.Text.ToString();
             rmUserVo.Email = txtEmail.Text.ToString();
@@ -493,7 +493,7 @@ namespace WealthERP.Advisor
                 lnkAddNewStaff.Visible = false;
                 lnkEditStaff.Visible = true;
                 RadListBoxDestination.Enabled = false;
-
+                txtFaxSTD.Enabled = false;
             }
             else
             {
@@ -533,7 +533,7 @@ namespace WealthERP.Advisor
 
                 lnkAddNewStaff.Visible = true;
                 lnkEditStaff.Visible = false;
-
+                txtFaxSTD.Enabled = true;
 
 
             }
@@ -572,7 +572,7 @@ namespace WealthERP.Advisor
             string theme = userVo.theme;
             if (txtStaffcode.Text != string.Empty)
             {
-                int staffCodeDuplicatechec = customerbo.CheckStaffCode(txtStaffcode.Text);
+                int staffCodeDuplicatechec = customerbo.CheckStaffCode(txtStaffPrefix.Text+txtStaffcode.Text);
                 if (staffCodeDuplicatechec > 0)
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please Enter Unique Staffcode Code. You Can Use Combination of 0-9 and a-z');", true);
@@ -715,7 +715,7 @@ namespace WealthERP.Advisor
             txtFirstName.Text = rmStaffVo.FirstName;
             txtMiddleName.Text = rmStaffVo.MiddleName;
             txtLastName.Text = rmStaffVo.LastName;
-            txtStaffcode.Text = rmStaffVo.StaffCode;
+            txtStaffcode.Text = rmStaffVo.StaffCode.Substring(3);
             ddlBranch.SelectedValue = rmStaffVo.BranchId.ToString();
 
 
