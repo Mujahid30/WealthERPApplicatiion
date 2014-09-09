@@ -114,12 +114,12 @@ namespace BOAssociates
             }
             return bResult;
         }
-        public bool CheckPanNumberDuplicatesForAssociates(string Pan, int AdviserAssociateId, string Statement)
+        public bool CheckPanNumberDuplicatesForAssociates(string Pan, int AdviserAssociateId  )
         {
             bool bResult = false;
             try
             {
-                bResult = associatesDao.CheckPanNumberDuplicatesForAssociates(Pan, AdviserAssociateId, Statement);
+               bResult = associatesDao.CheckPanNumberDuplicatesForAssociates(Pan, AdviserAssociateId );
             }
             catch (BaseApplicationException Ex)
             {
@@ -132,7 +132,7 @@ namespace BOAssociates
             bool bResult = false;
             try
             {
-                bResult = associatesDao.UpdateAdviserAssociates(associatesVo,advisorVo);
+               // bResult = associatesDao.UpdateAdviserAssociates(associatesVo,advisorVo);
             }
             catch (BaseApplicationException Ex)
             {

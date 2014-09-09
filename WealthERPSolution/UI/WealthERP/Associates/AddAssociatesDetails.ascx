@@ -199,8 +199,7 @@
             <asp:Label ID="lblPanNo" runat="server" Text="PAN No: " CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightData">
-            <asp:TextBox ID="txtPan" runat="server" MaxLength="10" CssClass="txtFieldUpper" Enabled="true"
-                onblur="return chkPanExists()"></asp:TextBox>
+            <asp:TextBox ID="txtPan" runat="server" MaxLength="10" CssClass="txtFieldUpper" Enabled="true"></asp:TextBox>
             <span id="Span7" class="spnRequiredField">*</span> &nbsp;
             <br />
             <asp:RequiredFieldValidator ID="rfvPanNumber" ControlToValidate="txtPan" ErrorMessage="Please enter a PAN Number"
@@ -297,8 +296,8 @@
             <span id="Span2" class="spnRequiredField">*</span>
             <br />
             <asp:CompareValidator ID="CompareValidator8" runat="server" ControlToValidate="ddlAssociateSubType"
-                ErrorMessage="Please select a Sub-Type" Operator="NotEqual" ValueToCompare="Select" ValidationGroup="Submit"
-                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                ErrorMessage="Please select a Sub-Type" Operator="NotEqual" ValueToCompare="Select"
+                ValidationGroup="Submit" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
     </tr>
     <tr>
@@ -1081,7 +1080,7 @@
                             <tr>
                                 <td align="left">
                                     <asp:Label ID="lblChildCodeList" runat="server" Text="ChildCode List" CssClass="FieldName"></asp:Label>
-                                    <asp:Label ID="lblChildCodeListView" runat="server"  CssClass="txtField"></asp:Label>                                    
+                                    <asp:Label ID="lblChildCodeListView" runat="server" CssClass="txtField"></asp:Label>
                                 </td>
                             </tr>
                         </table>

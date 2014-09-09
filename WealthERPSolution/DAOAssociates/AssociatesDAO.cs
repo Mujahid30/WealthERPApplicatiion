@@ -234,7 +234,7 @@ namespace DAOAssociates
             }
             return bResult;
         }
-        public bool CheckPanNumberDuplicatesForAssociates(string Pan, int AdviserAssociateId, string Statement)
+        public bool CheckPanNumberDuplicatesForAssociates(string Pan, int AdviserAssociateId)
         {
             Database db;
             DbCommand cmdPanDuplicateCheck;
@@ -247,7 +247,7 @@ namespace DAOAssociates
                 cmdPanDuplicateCheck = db.GetStoredProcCommand("SPROC_CheckPanNumberDuplicatesForAssociates");
                 db.AddInParameter(cmdPanDuplicateCheck, "@PanNumber", DbType.String, Pan);
                 db.AddInParameter(cmdPanDuplicateCheck, "@AdviserAssociateId", DbType.Int32, AdviserAssociateId);
-                db.AddInParameter(cmdPanDuplicateCheck, "@Statement", DbType.String, Statement); 
+              
                 res = int.Parse(db.ExecuteScalar(cmdPanDuplicateCheck).ToString());
                 if (res > 0)
                     bResult = true;
@@ -263,8 +263,7 @@ namespace DAOAssociates
                 FunctionInfo.Add("Method", "CustomerDao.cs:CheckPanNumberDuplicatesForAssociates()");
                 object[] objects = new object[3];
                 objects[0] = Pan;
-                objects[1] = AdviserAssociateId;
-                objects[2] = Statement;
+                objects[1] = AdviserAssociateId;                 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);

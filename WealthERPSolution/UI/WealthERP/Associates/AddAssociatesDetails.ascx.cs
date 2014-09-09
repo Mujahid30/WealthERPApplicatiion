@@ -684,7 +684,7 @@ namespace WealthERP.Associates
             }
             if (associatesVo.PanNo != txtPan.Text)
             {
-                if (panValidation(txtPan.Text, associatesVo.AdviserAssociateId, "Update"))
+                if (panValidation(txtPan.Text, associatesVo.AdviserAssociateId))
                 {
                     lblPanlength.Visible = false;
                     lblPanDuplicate.Visible = true;
@@ -1455,17 +1455,28 @@ namespace WealthERP.Associates
             {
                 return;
             }
-            if (panValidation(txtPan.Text, associatesVo.AdviserAssociateId, "Insert"))
+            if (panValidation(txtPan.Text, associatesVo.AdviserAssociateId))
             {
                 lblPanlength.Visible = false;
                 lblPanDuplicate.Visible = true;
                 return;
             }
+            else
+            {
+                lblPanlength.Visible = false;
+                lblPanDuplicate.Visible = false;
+            }
+
             if (txtPan.Text.Length != 10)
             {
                 lblPanDuplicate.Visible = false;
                 lblPanlength.Visible = true;
                 return;
+            }
+            else
+            {
+                lblPanDuplicate.Visible = false;
+                lblPanlength.Visible = false;
             }
             associatesIds = associatesBo.CreateCompleteAssociates(associateUserVo, associatesVo, userVo.UserId);
             associatesVo.UserId = associatesIds[0];
@@ -1498,13 +1509,13 @@ namespace WealthERP.Associates
 
         }
 
-        public bool panValidation(string Pan, int AdviserAssociateId, string Statement)
+        public bool panValidation(string Pan, int AdviserAssociateId)
         {
 
             bool result = false;
             try
             {
-                if (associatesBo.CheckPanNumberDuplicatesForAssociates(Pan, AdviserAssociateId, Statement))
+                if (associatesBo.CheckPanNumberDuplicatesForAssociates(Pan, AdviserAssociateId))
                 {
                     result = true;
 
@@ -1523,7 +1534,6 @@ namespace WealthERP.Associates
                 object[] objects = new object[3];
                 objects[0] = Pan;
                 objects[1] = AdviserAssociateId;
-                objects[2] = Statement;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
