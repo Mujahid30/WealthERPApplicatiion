@@ -32,22 +32,24 @@
     </tr>--%>
 <table>
     <tr id="trBranchRM" runat="server">
-        <td align="right" style="width: 12%;">
+        <td align="right">
             <asp:Label ID="lblBranch" runat="server" CssClass="FieldName" Text="Branch:"></asp:Label>
         </td>
-        <td style="width: 10%;">
+        <td>
             <asp:DropDownList ID="ddlBranch" runat="server" AutoPostBack="true" CssClass="cmbField"
                 OnSelectedIndexChanged="ddlBranch_SelectedIndexChanged">
             </asp:DropDownList>
         </td>
-        <td align="right" style="width: 3%;">
+       <td></td>
+        <td align="right">
             <asp:Label ID="lblRM" runat="server" CssClass="FieldName" Text="RM:"></asp:Label>
         </td>
-        <td style="width: 12%;">
+        <td >
             <asp:DropDownList ID="ddlRM" runat="server" CssClass="cmbField">
             </asp:DropDownList>
         </td>
-        <td id="tdGoBtn" runat="server" style="width: 5%;" align="center">
+        <td></td>
+        <td id="tdGoBtn" runat="server" align="right">
             <asp:Button ID="btnGo" runat="server" CssClass="PCGButton" Text="Go" OnClick="btnGo_Click"
                 ValidationGroup="vgBtnGo" />
         </td>

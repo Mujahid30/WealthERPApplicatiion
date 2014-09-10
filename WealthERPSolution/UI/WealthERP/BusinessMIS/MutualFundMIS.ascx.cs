@@ -1283,7 +1283,7 @@ namespace WealthERP.BusinessMIS
 
                                     showHideGrid("SchemeWise");
                                     BindSCHEMEWISEAUMDetails();
-                                    lblMFMISType.Text = "SCHEME WISE AUM";
+                                    lblMFMISType.Text = "AMC WISE AUM // SCHEME WISE AUM";
                                 }
                             }
                         }
@@ -1405,7 +1405,7 @@ namespace WealthERP.BusinessMIS
                                     SchemeCode = int.Parse(gvr.GetDataKeyValue("SchemePlanCode").ToString());
                                     showHideGrid("FolioWise");
                                     BindFOLIOWISEAUMDetails();
-                                    lblMFMISType.Text = "FOLIO WISE AUM";
+                                    lblMFMISType.Text = "AMC WISE AUM // SCHEME WISE AUM // FOLIO WISE AUM";
                                 }
                             }
                         }
