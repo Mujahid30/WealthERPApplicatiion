@@ -113,27 +113,31 @@ namespace WealthERP.BusinessMIS
             //ds.ReadXml(Server.MapPath(@"\Sample.xml"));
 
             ds = adviserMFMIS.GetCommissionReceivableRecon(advisorVo.advisorId, int.Parse(hdnschemeId.Value), DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnToDate.Value), hdnCategory.Value, hdnrecon.Value, ddlCommType.SelectedValue, int.Parse(hdnSBbrokercode.Value));
-            if (ds.Tables[0] != null)
+            if (ds.Tables.Count > 0)
             {
-                gvCommissionReceiveRecon.Visible = true;
-                gvCommissionReceiveRecon.DataSource = ds.Tables[0];
-                DataTable dtGetAMCTransactionDeatails = new DataTable();
-                gvCommissionReceiveRecon.DataBind();
-                if (Cache["gvCommissionReceiveRecon" + userVo.UserId.ToString()] == null)
+                if (ds.Tables[0] != null)
                 {
-                    Cache.Insert("gvCommissionReceiveRecon" + userVo.UserId.ToString(), ds.Tables[0]);
+                    gvCommissionReceiveRecon.Visible = true;
+                    gvCommissionReceiveRecon.DataSource = ds.Tables[0];
+                    DataTable dtGetAMCTransactionDeatails = new DataTable();
+                    gvCommissionReceiveRecon.DataBind();
+                    if (Cache["gvCommissionReceiveRecon" + userVo.UserId.ToString()] == null)
+                    {
+                        Cache.Insert("gvCommissionReceiveRecon" + userVo.UserId.ToString(), ds.Tables[0]);
+                    }
+                    else
+                    {
+                        Cache.Remove("gvCommissionReceiveRecon" + userVo.UserId.ToString());
+                        Cache.Insert("gvCommissionReceiveRecon" + userVo.UserId.ToString(), ds.Tables[0]);
+                    }
                 }
                 else
                 {
-                    Cache.Remove("gvCommissionReceiveRecon" + userVo.UserId.ToString());
-                    Cache.Insert("gvCommissionReceiveRecon" + userVo.UserId.ToString(), ds.Tables[0]);
+                    gvCommissionReceiveRecon.Visible = false;
+
                 }
             }
-            else
-            {
-                gvCommissionReceiveRecon.Visible = false;
-
-            }
+             
         }
         public void BindMutualFundDropDowns()
         {

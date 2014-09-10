@@ -143,7 +143,7 @@ namespace WealthERP.OPS
                     OnAssociateTextchanged(this, null);
                 }
                 gvJointHoldersList.Visible = false;
-                BindARNNo(advisorVo.advisorId);
+
                 hdnIsSubscripted.Value = advisorVo.IsISASubscribed.ToString();
 
                 if (hdnIsSubscripted.Value == "True")
@@ -159,7 +159,7 @@ namespace WealthERP.OPS
                 }
 
 
-             
+
                 if (Request.QueryString["CustomerId"] != null)
                 {
                     customerId = Convert.ToInt32(Request.QueryString["CustomerId"]);
@@ -263,6 +263,7 @@ namespace WealthERP.OPS
         private void DefaultBindings()
         {
             cvFutureDate1.ValueToCompare = DateTime.Today.ToShortDateString();
+            BindARNNo(advisorVo.advisorId);
             BindAMC(0);
             BindScheme(0);
             Sflag = 0;
@@ -275,6 +276,7 @@ namespace WealthERP.OPS
             trCust.Visible = false;
             //ddlAMCList.Enabled = false;
             Pan_Cust_Search("1");
+            GetuserTypeTransactionSlipDownload();
             if (Request.QueryString["action"] != null)
             {
                 ViewForm = Request.QueryString["action"].ToString();
@@ -283,6 +285,7 @@ namespace WealthERP.OPS
                 ViewOrderList(orderId);
                 ShowPaymentSectionBasedOnTransactionType(ddltransType.SelectedValue, ViewForm);
                 ButtonsEnablement(ViewForm);
+                FrequencyEnablityForTransactionType(ddltransType.SelectedValue);
             }
             else
             {
@@ -293,6 +296,20 @@ namespace WealthERP.OPS
             }
         }
 
+        protected void GetuserTypeTransactionSlipDownload()
+        {
+            if (userVo.UserType == "Advisor")
+            {
+                btnViewInPDF.Visible = true;
+                btnViewReport.Visible = true;
+            }
+            else
+            {
+                btnViewInPDF.Visible = false;
+                btnViewReport.Visible = false;
+            }
+
+        }
 
         public void Order_OrderDetails_Sections_ReadOnly(bool value)
         {
@@ -684,7 +701,7 @@ namespace WealthERP.OPS
                 //int schemeCode = 0;
                 //string FileName = "";
 
-                // hdnSchemeCode.Value = schmePlanCode.ToString();
+                hdnSchemeCode.Value = schmePlanCode.ToString();
                 txtSchemeCode.Value = schmePlanCode.ToString();
                 categoryCode = productMFBo.GetCategoryNameFromSChemeCode(schmePlanCode);
 
@@ -746,6 +763,7 @@ namespace WealthERP.OPS
                 ddlARNNo.DataBind();
             }
             ddlARNNo.Items.Insert(0, new ListItem("Select", "Select"));
+            ddlARNNo.SelectedIndex = 1;
         }
 
 
@@ -1157,8 +1175,8 @@ namespace WealthERP.OPS
                     }
 
                 }
-                imgAddBank.Visible = true;
-                imgBtnRefereshBank.Visible = true;
+                //imgAddBank.Visible = true;
+                //imgBtnRefereshBank.Visible = true;
 
             }
 
@@ -2665,6 +2683,14 @@ namespace WealthERP.OPS
                 if (Agentname.Rows.Count > 0)
                 {
                     lblAssociatetext.Text = Agentname.Rows[0][0].ToString();
+                    if (!string.IsNullOrEmpty(Agentname.Rows[0][3].ToString()))
+                    {
+                        lb1EUIN.Text = Agentname.Rows[0][3].ToString();
+                    }
+                    else
+                    {
+                        lb1EUIN.Text = string.Empty;
+                    }
                 }
                 else
                 {
@@ -2952,11 +2978,25 @@ namespace WealthERP.OPS
             }
         }
 
+        private void FrequencyEnablityForTransactionType(String transactionType)
+        {
+            if (transactionType == "SWP")
+            {
+                ddlFrequencySIP.Items[7].Enabled = false;
+                ddlFrequencySIP.Items[8].Enabled = false;
+            }
+            else
+            {
+                ddlFrequencySIP.Items[7].Enabled = true;
+                ddlFrequencySIP.Items[8].Enabled = true;
+            }
+        }
+
         protected void ddltransType_SelectedIndexChanged(object sender, EventArgs e)
         {
             ShowPaymentSectionBasedOnTransactionType(ddltransType.SelectedValue, "");
             PaymentMode(ddlPaymentMode.SelectedValue);
-
+            FrequencyEnablityForTransactionType(ddltransType.SelectedValue);
             //lblAMC.Visible = true; ddlAMCList.Visible = true;
             //lblCategory.Visible = true; ddlCategory.Visible = true;
             //lblSearchScheme.Visible = true; ddlAmcSchemeList.Visible = true;
@@ -3458,7 +3498,7 @@ namespace WealthERP.OPS
 
         private void PaymentMode(string type)
         {
-            if (ddlPaymentMode.SelectedValue == "CQ")
+            if (type == "CQ" || type == "DF")
             {
                 trPINo.Visible = true;
                 txtPaymentInstDate.MaxDate = txtOrderDate.MaxDate;
@@ -3885,7 +3925,7 @@ namespace WealthERP.OPS
 
         //protected void txtNSECode_OnTextChanged(object sender, EventArgs e)
         //{
-           
+
         //}
         protected void txtPeriod_OnTextChanged(object sender, EventArgs e)
         {

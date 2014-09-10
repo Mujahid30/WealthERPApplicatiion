@@ -476,6 +476,12 @@
         <td class="rightField" style="width: 20%">
             <asp:Label ID="lblGetBranch" runat="server" Text="" CssClass="FieldName"></asp:Label>
         </td>
+         <td class="leftField" style="width: 20%">
+            <asp:Label ID="Label1" runat="server" Text="EUIN: " CssClass="FieldName"></asp:Label>
+        </td>
+        <td class="rightField" style="width: 20%">
+            <asp:Label ID="lb1EUIN" runat="server" Text="" CssClass="FieldName"></asp:Label>
+        </td>
         <td colspan="4">
         </td>
     </tr>
@@ -935,11 +941,11 @@
             <span id="Span4" class="spnRequiredField">*</span>
             <asp:ImageButton ID="imgAddBank" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
                 AlternateText="Add" runat="server" ToolTip="Click here to Add Bank" OnClientClick="return openpopupAddBank()"
-                Height="15px" Width="15px"></asp:ImageButton>
+                Height="15px" Width="15px" visible="false"></asp:ImageButton>
             <%-- --%>
             <asp:ImageButton ID="imgBtnRefereshBank" ImageUrl="~/Images/refresh.png" AlternateText="Refresh"
                 runat="server" ToolTip="Click here to refresh Bank List" OnClick="imgBtnRefereshBank_OnClick"
-                OnClientClick="return closepopupAddBank()" Height="15px" Width="25px" TabIndex="19">
+                OnClientClick="return closepopupAddBank()" Height="15px" Width="25px" TabIndex="19" visible="false">
             </asp:ImageButton>
             <asp:CompareValidator ID="CompareValidator18" runat="server" ControlToValidate="ddlBankName"
                 CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select a Bank"

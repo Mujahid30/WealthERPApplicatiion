@@ -646,6 +646,7 @@ namespace WealthERP.OPS
                 gvCustomerFIOrderMIS.Visible = false;
                 hdnOrdStatus.Value = string.Empty;
                 SetParameters();
+                setMatchButtonsVisblity();
                 BindMISGridView();
             }
             else if (hdnProductType.Value == "FI")
@@ -657,6 +658,20 @@ namespace WealthERP.OPS
                 BindFIMISGridView();
             }
 
+        }
+
+        private void setMatchButtonsVisblity()
+        {
+            if (ddlMISOrderStatus.SelectedValue == "0" && Convert.ToInt32(ddlOnlineOffline.SelectedValue) == 1)
+            {
+                btnMannualMatch.Visible = false;
+                btnSync.Visible = false;
+            }
+            else if (ddlMISOrderStatus.SelectedValue == "0" && Convert.ToInt32(ddlOnlineOffline.SelectedValue) == 0)
+            {
+                btnMannualMatch.Visible = true;
+                btnSync.Visible = true;
+            }
         }
         private void SetFIParameters()
         {
@@ -1336,11 +1351,18 @@ namespace WealthERP.OPS
 
         protected void ddlMISOrderStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (ddlMISOrderStatus.SelectedValue == "0")
+            if (ddlMISOrderStatus.SelectedValue == "0" && Convert.ToInt32(ddlOnlineOffline.SelectedValue) ==1)
             {
                 btnMannualMatch.Visible = false;
                 btnSync.Visible = false;
             }
+            else if (ddlMISOrderStatus.SelectedValue == "0" && Convert.ToInt32(ddlOnlineOffline.SelectedValue) == 0)
+            {
+                btnMannualMatch.Visible = true;
+                btnSync.Visible = true;
+            }
+
+
         }
 
         //protected void gvMIS_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -2065,16 +2087,16 @@ namespace WealthERP.OPS
             dtOrderMIS = (DataTable)Cache["OrderMIS" + userVo.UserId];
             gvCustomerOrderMIS.DataSource = dtOrderMIS;
             gvCustomerOrderMIS.Visible = true;
-            if (ddlMISOrderStatus.SelectedValue == "IP")
-            {
-                btnSync.Visible = false;
-                btnMannualMatch.Visible = false;
-            }
-            else
-            {
-                btnSync.Visible = false;
-                btnMannualMatch.Visible = false;
-            }
+            //if (ddlMISOrderStatus.SelectedValue == "IP")
+            //{
+            //    btnSync.Visible = false;
+            //    btnMannualMatch.Visible = false;
+            //}
+            //else
+            //{
+            //    btnSync.Visible = false;
+            //    btnMannualMatch.Visible = false;
+            //}
         }
 
         protected void btnMForderRecon_Click(object sender, ImageClickEventArgs e)
