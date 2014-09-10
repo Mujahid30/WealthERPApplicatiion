@@ -302,9 +302,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoAdviserPreference", "Bo\B
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaoOfflineOrderManagement", "Dao\DaoOfflineOrderManagement\DaoOfflineOrderManagement.csproj", "{D737AE18-B0C3-4E99-A8B6-966745D6E414}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoOfflineOrderManagement", "Bo\BoOfflineOrderManagement\BoOfflineOrderManagement.csproj", "{E4694B76-B0A7-4AE1-B15E-5DF568AD6F29}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 117
+		SccNumberOfProjects = 118
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = http://192.168.0.2:8080/tfs/Ampsys%20WealthERP
 		SccLocalPath0 = .
@@ -772,6 +774,10 @@ Global
 		SccProjectTopLevelParentUniqueName116 = WealthERPSolution.sln
 		SccProjectName116 = Dao/DaoOfflineOrderManagement
 		SccLocalPath116 = Dao\\DaoOfflineOrderManagement
+		SccProjectUniqueName117 = Bo\\BoOfflineOrderManagement\\BoOfflineOrderManagement.csproj
+		SccProjectTopLevelParentUniqueName117 = WealthERPSolution.sln
+		SccProjectName117 = Bo/BoOfflineOrderManagement
+		SccLocalPath117 = Bo\\BoOfflineOrderManagement
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -1246,6 +1252,10 @@ Global
 		{D737AE18-B0C3-4E99-A8B6-966745D6E414}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D737AE18-B0C3-4E99-A8B6-966745D6E414}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D737AE18-B0C3-4E99-A8B6-966745D6E414}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E4694B76-B0A7-4AE1-B15E-5DF568AD6F29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4694B76-B0A7-4AE1-B15E-5DF568AD6F29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4694B76-B0A7-4AE1-B15E-5DF568AD6F29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4694B76-B0A7-4AE1-B15E-5DF568AD6F29}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1279,6 +1289,7 @@ Global
 		{C2983DE5-3D6C-461B-9A81-B6682F080840} = {6A34B4A9-F72E-4E8D-8DE0-50BDEF32E4A7}
 		{895BD846-24E9-48CA-90EF-37FE761296FB} = {6A34B4A9-F72E-4E8D-8DE0-50BDEF32E4A7}
 		{A557C3E7-CFC8-4BFF-96A4-4A2C728C7B2D} = {6A34B4A9-F72E-4E8D-8DE0-50BDEF32E4A7}
+		{E4694B76-B0A7-4AE1-B15E-5DF568AD6F29} = {6A34B4A9-F72E-4E8D-8DE0-50BDEF32E4A7}
 		{B3A976E6-D981-4E80-8E59-92197CFB43B8} = {237208AE-9476-44B0-B146-93E1B8C7C271}
 		{422A6051-72C2-42C1-BE26-C178B619C4F8} = {237208AE-9476-44B0-B146-93E1B8C7C271}
 		{48C6D1D8-F089-430E-A555-4F384199E912} = {237208AE-9476-44B0-B146-93E1B8C7C271}
