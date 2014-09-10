@@ -109,7 +109,7 @@ namespace WealthERP.Advisor
                 rmStaffVo.LastName = txtLastName.Text;
 
             if (!string.IsNullOrEmpty(txtStaffcode.Text.Trim()))
-                rmStaffVo.StaffCode = txtStaffPrefix.Text + txtStaffcode.Text;
+                rmStaffVo.StaffCode =  txtStaffcode.Text;
             if (ddlBranch.SelectedIndex != 0 || ddlBranch.SelectedIndex != -1)
                 rmStaffVo.BranchId = Convert.ToInt32(ddlBranch.SelectedValue);
 
@@ -177,7 +177,7 @@ namespace WealthERP.Advisor
             //rmUserVo.UserType = ddlRMRole.SelectedItem.Text.ToString().Trim();
             rmUserVo.Password = password;
             rmUserVo.MiddleName = txtMiddleName.Text.ToString();
-            rmUserVo.LoginId = txtStaffPrefix.Text.ToString() + txtStaffcode.Text.ToString();
+            rmUserVo.LoginId =  txtStaffcode.Text.ToString();
             rmUserVo.LastName = txtLastName.Text.ToString();
             rmUserVo.FirstName = txtFirstName.Text.ToString();
             rmUserVo.Email = txtEmail.Text.ToString();
@@ -572,7 +572,7 @@ namespace WealthERP.Advisor
             string theme = userVo.theme;
             if (txtStaffcode.Text != string.Empty)
             {
-                int staffCodeDuplicatechec = customerbo.CheckStaffCode(txtStaffPrefix.Text+txtStaffcode.Text);
+                int staffCodeDuplicatechec = customerbo.CheckStaffCode(txtStaffcode.Text);
                 if (staffCodeDuplicatechec > 0)
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please Enter Unique Staffcode Code. You Can Use Combination of 0-9 and a-z');", true);
