@@ -7,21 +7,10 @@
 <script type="text/javascript">
     function checked() {
 
-        var e = document.getElementById('<%=ddlModeOfHolding.ClientID %>');
-        var Yes = document.getElementById('<%= rbtnYes.ClientID %>');
-        var No = document.getElementById('<%= rbtnNo.ClientID %>');
-        if (Yes.checked) {
-            e.selectedIndex = 4
-            e.disabled = false;
-            alert("sid");
-        }
-
-        if (No.checked) {
-            e.selectedIndex = 8
-            e.disabled = true;
-            alert("raj");
-
-        }
+//        var e = document.getElementById('<%=ddlModeOfHolding.ClientID %>');
+//        var Yes = document.getElementById('<%= rbtnYes.ClientID %>');
+//        var No = document.getElementById('<%= rbtnNo.ClientID %>');
+//        
 
     };
 </script>
