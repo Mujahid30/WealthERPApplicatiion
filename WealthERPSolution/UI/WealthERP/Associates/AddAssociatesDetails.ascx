@@ -468,9 +468,20 @@
                     </td>
                     <td class="rightField">
                         <asp:TextBox ID="txtEmail" runat="server" CssClass="txtField"></asp:TextBox>
+                        <span id="Span8" class="spnRequiredField">*</span>
+                        <br />
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtEmail"
+                            ValidationGroup="Submit" ErrorMessage="Please enter an EmailId" Display="Dynamic"
+                            runat="server" CssClass="rfvPCG">
+                        </asp:RequiredFieldValidator>
+                        <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="txtEmail"
+                            ErrorMessage="Please enter a valid EmailId" Display="Dynamic" runat="server"
+                            ValidationGroup="Submit" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"
+                            CssClass="revPCG"></asp:RegularExpressionValidator>
+                        <%-- <asp:TextBox ID="txtEmail" runat="server" CssClass="txtField"></asp:TextBox>
                         <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="txtEmail"
                             ErrorMessage="<br />Please enter a valid Email ID" Display="Dynamic" runat="server"
-                            ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" CssClass="revPCG"></asp:RegularExpressionValidator>
+                            ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" CssClass="revPCG"></asp:RegularExpressionValidator>--%>
                     </td>
                 </tr>
             </table>
