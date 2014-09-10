@@ -117,7 +117,7 @@ namespace WealthERP.OnlineOrderManagement
             ddlAMCCode.Items.Clear();
             DataSet ds = new DataSet();
             DataTable dtAmc = new DataTable();
-            ds = OnlineMFOrderBo.GetSIPAmcDetails(customerId);
+            ds = OnlineMFOrderBo.GetSIPAmcDetails(customerId,"SIP");
             dtAmc = ds.Tables[0];
             if (dtAmc.Rows.Count > 0)
             {
