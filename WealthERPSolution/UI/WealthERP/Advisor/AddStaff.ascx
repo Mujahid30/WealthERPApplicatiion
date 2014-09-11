@@ -24,7 +24,8 @@
 <script type="text/javascript">
     window.onload = function() { assignValueToAgentCode() };
     function assignValueToAgentCode() {
-        document.getElementById("<%=txtAgentCode.ClientID%>").value = "SSLE"+document.getElementById("<%=txtStaffcode.ClientID%>").value
+        document.getElementById("<%=txtAgentCode.ClientID%>").value = "SSLE" + document.getElementById("<%=txtStaffcode.ClientID%>").value;
+        document.getElementById("ctrl_AddStaff_hdnAgentCode").value = "SSLE" + document.getElementById("<%=txtStaffcode.ClientID%>").value
     }
     function checkInsuranceNoAvailability() {
        
@@ -318,10 +319,10 @@
             <span runat="server" id="Span9" class="spnRequiredField">
                 <asp:Label ID="lblrg" runat="server" Text="*"></asp:Label></span>
             <br />
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator6" ControlToValidate="txtAgentCode"
+            <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator6" ControlToValidate="txtAgentCode"
                 ErrorMessage="Please enter a AgentCode" Display="Dynamic" runat="server" ValidationGroup="btnSubmit"
                 CssClass="rfvPCG">
-            </asp:RequiredFieldValidator>
+            </asp:RequiredFieldValidator>--%>
         </td>
         <%--<asp:ImageButton ID="imgAddAgentCode" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
                         AlternateText="Add" runat="server" ToolTip="Click here to add staff agent code"
@@ -527,4 +528,5 @@
     <asp:HiddenField ID="hidMinHierarchyTitleId" runat="server" />
     <asp:HiddenField ID="HdnAdviserId" runat="server" />
     <asp:HiddenField ID="hidValidCheck" runat="server" EnableViewState="true" />
+     <asp:HiddenField ID="hdnAgentCode" runat="server" />
 </div>

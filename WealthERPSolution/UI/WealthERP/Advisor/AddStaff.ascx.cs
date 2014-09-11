@@ -149,8 +149,8 @@ namespace WealthERP.Advisor
                 rmStaffVo.EUIN = (txtEUIN.Text.Trim()).ToString();
             rmStaffVo.AdviserId = advisorVo.advisorId;
 
-            if (!string.IsNullOrEmpty(txtAgentCode.Text))
-                rmStaffVo.AAC_AgentCode = txtAgentCode.Text;
+            if (!string.IsNullOrEmpty(hdnAgentCode.Value))
+                rmStaffVo.AAC_AgentCode = hdnAgentCode.Value;
             else
                 rmStaffVo.AAC_AgentCode = null;
             if (ddlTitleList.SelectedItem.Text.Trim().ToUpper() == "OPS")
@@ -583,7 +583,7 @@ namespace WealthERP.Advisor
             {
                 rmStaffVo = CollectAdviserStaffData();
                 rmUserVo = CollectAdviserStaffUserData();
-                if (Validation(txtAgentCode.Text) && EmailValidation(txtEmail.Text))
+                if (Validation(hdnAgentCode.Value) && EmailValidation(txtEmail.Text))
                 {
                     if ( ddlDepart.SelectedItem.Text  =="OPS")
                     {
@@ -757,7 +757,7 @@ namespace WealthERP.Advisor
                 txtExtSTD.Text = rmStaffVo.FaxStd.ToString();
             if (!string.IsNullOrEmpty(rmStaffVo.AAC_AgentCode))
             {
-                txtAgentCode.Text = rmStaffVo.AAC_AgentCode.ToString();
+                hdnAgentCode.Value = rmStaffVo.AAC_AgentCode.ToString();
                 //lblAgentCode.Text = rmStaffVo.AAC_AgentCode;
                 //imgBtnReferesh.Visible = false;
                 //imgAddAgentCode.Visible = false;

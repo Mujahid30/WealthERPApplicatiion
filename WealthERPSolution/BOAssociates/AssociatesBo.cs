@@ -132,7 +132,7 @@ namespace BOAssociates
             bool bResult = false;
             try
             {
-               // bResult = associatesDao.UpdateAdviserAssociates(associatesVo,advisorVo);
+                bResult = associatesDao.UpdateAdviserAssociates(associatesVo,advisorVo);
             }
             catch (BaseApplicationException Ex)
             {

@@ -239,6 +239,12 @@ namespace WealthERP.Associates
                 ddlAssociateSubType.Enabled = false;
                 rbtnIndividual.Enabled = false;
                 rbtnNonIndividual.Enabled = false;
+                txtAdviserAgentCode.Enabled=false;
+                txtAssociateName.Enabled=false;
+                chkbldepart.Enabled=false;
+                chkAddressChk.Enabled=false;
+                txtBankBranchName.Enabled = false;
+                txtPan.Enabled = false;
 
             }
             else
@@ -324,6 +330,12 @@ namespace WealthERP.Associates
                 ddlAssociateSubType.Enabled = true;
                 rbtnIndividual.Enabled = true;
                 rbtnNonIndividual.Enabled = true;
+                txtAdviserAgentCode.Enabled = true;
+                txtAssociateName.Enabled = true;
+                chkbldepart.Enabled = true;
+                chkAddressChk.Enabled = true;
+                txtBankBranchName.Enabled = true;
+                txtPan.Enabled = true;
             }
 
         }
@@ -700,7 +712,8 @@ namespace WealthERP.Associates
             UpdatingDetails();
             Updatedepartment();
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Associates Updated successfully!!');", true);
-
+            SetEnableDisable(0);
+            lnkBtnEdit.Visible = true;
             //int associationId = 0;
             //bool result = false;
             //string assetGroupCodes;
@@ -1182,6 +1195,7 @@ namespace WealthERP.Associates
                 associatesVo.IFSC = txtIfsc.Text;
             else
                 associatesVo.IFSC = "";
+          
             //---------------------------------------Registration-------------------------------------------
 
             if (txtRegNo.Text != null)

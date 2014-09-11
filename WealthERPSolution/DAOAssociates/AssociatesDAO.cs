@@ -453,10 +453,10 @@ namespace DAOAssociates
                 else
                     db.AddInParameter(UpdateAssociatesCmd, "@AA_BranchAdrState", DbType.String, DBNull.Value);
 
-                //if (!string.IsNullOrEmpty(associatesVo.BranchAdrCountry.ToString().Trim()))
-                //    db.AddInParameter(UpdateAssociatesCmd, "@AA_BranchAdrCountry", DbType.String, associatesVo.BranchAdrCountry);
-                //else
-                //    db.AddInParameter(UpdateAssociatesCmd, "@AA_BranchAdrCountry", DbType.String, DBNull.Value);
+                if (!string.IsNullOrEmpty(associatesVo.BranchAdrCountry.ToString().Trim()))
+                    db.AddInParameter(UpdateAssociatesCmd, "@AA_BranchAdrCountry", DbType.String, associatesVo.BranchAdrCountry);
+                else
+                    db.AddInParameter(UpdateAssociatesCmd, "@AA_BranchAdrCountry", DbType.String, DBNull.Value);
                 if (!string.IsNullOrEmpty(associatesVo.MICR.ToString().Trim()))
                     db.AddInParameter(UpdateAssociatesCmd, "@CB_MICR", DbType.Int32, associatesVo.MICR);
                 else
@@ -501,10 +501,10 @@ namespace DAOAssociates
                 else
                     db.AddInParameter(UpdateAssociatesCmd, "@AA_GuardianRelationship", DbType.String, DBNull.Value);
 
-                //if (associatesVo.ExpiryDate!= DateTime.MinValue)
-                //    db.AddInParameter(UpdateAssociatesCmd, "@AAAR_ExpiryDate", DbType.DateTime,associatesVo.ExpiryDate );
-                //else
-                //    db.AddInParameter(UpdateAssociatesCmd, "@AAAR_ExpiryDate", DbType.DateTime, DBNull.Value);
+                if (associatesVo.ExpiryDate != DateTime.MinValue)
+                    db.AddInParameter(UpdateAssociatesCmd, "@AAAR_ExpiryDate", DbType.DateTime, associatesVo.ExpiryDate);
+                else
+                    db.AddInParameter(UpdateAssociatesCmd, "@AAAR_ExpiryDate", DbType.DateTime, DBNull.Value);
                 if (!string.IsNullOrEmpty(associatesVo.Registrationumber.ToString().Trim()))
                     db.AddInParameter(UpdateAssociatesCmd, "@AAAR_Registrationumber", DbType.String, associatesVo.Registrationumber);
                 else
@@ -568,7 +568,7 @@ namespace DAOAssociates
                 if (!string.IsNullOrEmpty(associatesVo.PanNo))
                     db.AddInParameter(UpdateAssociatesCmd, "@AA_PAN", DbType.String, associatesVo.PanNo);
                 else
-                    db.AddInParameter(UpdateAssociatesCmd, "@AAC_AgentCode", DbType.String, DBNull.Value);
+                    db.AddInParameter(UpdateAssociatesCmd, "@AA_PAN", DbType.String, DBNull.Value);
 
 
 

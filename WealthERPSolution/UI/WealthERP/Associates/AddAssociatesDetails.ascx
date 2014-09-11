@@ -193,7 +193,7 @@
             <asp:Label ID="lblAdviserAgentCode" runat="server" Text="Adviser Agent Code: " CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightData">
-            <asp:TextBox ID="txtAdviserAgentCode" runat="server" CssClass="txtField" Enabled="True"></asp:TextBox>
+            <asp:TextBox ID="txtAdviserAgentCode" MaxLength="20" runat="server" CssClass="txtField" Enabled="True"></asp:TextBox>
         </td>
         <td align="right">
             <asp:Label ID="lblPanNo" runat="server" Text="PAN No: " CssClass="FieldName"></asp:Label>
@@ -207,6 +207,9 @@
             </asp:RequiredFieldValidator>
             <asp:Label ID="lblPanDuplicate" runat="server" Visible="false" CssClass="Error" Text="PAN Number already exists"></asp:Label>
             <asp:Label ID="lblPanlength" runat="server" Visible="false" CssClass="Error" Text="PAN Number should have 10 digits"></asp:Label>
+         <asp:RegularExpressionValidator ID="revPan" runat="server" Display="Dynamic" ValidationGroup="btnEdit"  CssClass="rfvPCG"
+                ErrorMessage="Please check PAN Format" ControlToValidate="txtPan" ValidationExpression="[A-Za-z]{5}\d{4}[A-Za-z]{1}">
+            </asp:RegularExpressionValidator>
         </td>
     </tr>
     <tr>
@@ -215,9 +218,13 @@
         </td>
         <td>
             <asp:TextBox ID="txtAMFINo" runat="server" CssClass="txtField" MaxLength="20"></asp:TextBox>
+            <%-- <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" Display="Dynamic" ValidationGroup="btnEdit"  CssClass="rfvPCG"
+                ErrorMessage="Enter only Numeric Values" ControlToValidate="txtAMFINo" ValidationExpression="[0-9]">
+            </asp:RegularExpressionValidator>--%>
         </td>
         <td align="right">
             <asp:Label ID="lblAssociateExpiryDate" CssClass="FieldName" runat="server" Text="AMFI Number Expiry Date:"></asp:Label>
+            
         </td>
         <td>
             <telerik:RadDatePicker ID="txtAssociateExpDate" CssClass="txtTo" runat="server" Culture="English (United States)"
