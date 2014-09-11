@@ -13,6 +13,7 @@ using DaoCustomerProfiling;
 using VoUser;
 using System.Collections.Specialized;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
+ 
 
 namespace BoCustomerProfiling
 {
@@ -3191,11 +3192,17 @@ namespace BoCustomerProfiling
         public DataTable GetAgentCodeAssociateDetailsForAssociates(string prefixText, string agentcode)
         {
             CustomerDao customerDao = new CustomerDao();
-
+            int adviserid = 0;
             DataTable dtCustomerNames = new DataTable();
             try
             {
-                dtCustomerNames = customerDao.GetAgentCodeAssociateDetailsForAssociates(prefixText, agentcode);
+
+                if (agentcode.IndexOf("/") != -1)
+            {
+                adviserid = Convert.ToInt32(agentcode.Substring(agentcode.IndexOf("/") + 1, agentcode.Length - (agentcode.IndexOf("/")+1)));
+                    agentcode=agentcode.Substring(0,agentcode.IndexOf("/"));
+            }
+                dtCustomerNames = customerDao.GetAgentCodeAssociateDetailsForAssociates(prefixText, agentcode, adviserid);
             }
             catch (BaseApplicationException Ex)
             {

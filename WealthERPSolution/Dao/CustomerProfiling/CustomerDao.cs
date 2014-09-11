@@ -5853,7 +5853,7 @@ namespace DaoCustomerProfiling
             }
             return dtCustomerNames;
         }
-        public DataTable GetAgentCodeAssociateDetailsForAssociates(string prefixText, string agentcode)
+        public DataTable GetAgentCodeAssociateDetailsForAssociates(string prefixText, string agentcode,int adviserId)
         {
 
             Database db;
@@ -5868,6 +5868,8 @@ namespace DaoCustomerProfiling
                 cmdGetAgentCodeAssociateDetails = db.GetStoredProcCommand("GetAgentCodeAssociateDetailsForAssociates");
                 db.AddInParameter(cmdGetAgentCodeAssociateDetails, "@prefixText", DbType.String, prefixText);
                 db.AddInParameter(cmdGetAgentCodeAssociateDetails, "@agentcode", DbType.String, agentcode);
+                db.AddInParameter(cmdGetAgentCodeAssociateDetails, "@adviserId", DbType.Int32, adviserId);
+
                 dsCustomerNames = db.ExecuteDataSet(cmdGetAgentCodeAssociateDetails);
                 dtCustomerNames = dsCustomerNames.Tables[0];
 

@@ -314,7 +314,7 @@ namespace DaoOps
                 else
                     db.AddInParameter(UpdateMFOrderTrackingCmd, "@CustBankAccId", DbType.Int32, 0);
                 db.AddInParameter(UpdateMFOrderTrackingCmd, "@AssetGroupCode", DbType.String, orderVo.AssetGroup);
-                db.AddInParameter(UpdateMFOrderTrackingCmd, "@CMFOD_Amount ", DbType.Double, mforderVo.Amount);
+                db.AddInParameter(UpdateMFOrderTrackingCmd, "@CMFOD_Amount ", DbType.Decimal, mforderVo.Amount);
 
                 if (mforderVo.accountid != 0)
                     db.AddInParameter(UpdateMFOrderTrackingCmd, "@CMFA_accountid", DbType.Int32, mforderVo.accountid);
