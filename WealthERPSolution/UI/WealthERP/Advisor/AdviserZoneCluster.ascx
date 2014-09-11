@@ -127,17 +127,8 @@
                     <ItemStyle HorizontalAlign="Center" CssClass="MyImageButton" />
                 </telerik:GridButtonColumn>
             </Columns>
-            <EditFormSettings EditFormType="Template" FormTableStyle-Width="1000px">
+            <EditFormSettings EditFormType="Template" FormTableStyle-Width="1000px" CaptionFormatString="Add Zone/Cluster">
                 <FormTemplate>
-                    <table>
-                        <tr>
-                            <td colspan="5">
-                                <div class="divSectionHeading" style="vertical-align: text-bottom; width: 380px">
-                                    &nbsp;&nbsp;Add Zone/Cluster
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
                     <table id="Table2" cellspacing="2" cellpadding="1" border="0" rules="none" style="border-collapse: collapse;
                         background: white;">
                         <tr>
@@ -172,10 +163,11 @@
                                             <asp:RequiredFieldValidator ErrorMessage="Please enter name" CssClass="rfvPCG" ValidationGroup="btnSubmit"
                                                 runat="server" ControlToValidate="txtName"></asp:RequiredFieldValidator>
                                             <asp:RegularExpressionValidator ID="revName" runat="server" Display="Dynamic" CssClass="rfvPCG"
-                                                ErrorMessage="Please check Name format" ValidationGroup="btnSubmit" ControlToValidate="txtName"
-                                                ValidationExpression="[A-Za-z][0-9]">
+                                                ErrorMessage="</br>Please check Name format" ValidationGroup="Button1" ControlToValidate="txtName"
+                                                ValidationExpression="^[0-9a-zA-Z' ']+$">
                                             </asp:RegularExpressionValidator>
-                                            <asp:Label ID="lblNameDuplicate" runat="server" CssClass="Error" Visible="false" Text="Name already exists"></asp:Label>
+                                            <asp:Label ID="lblNameDuplicate" runat="server" CssClass="Error" Visible="false"
+                                                Text="Name already exists"></asp:Label>
                                         </td>
                                     </tr>
                                     <tr>

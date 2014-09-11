@@ -41,10 +41,10 @@ namespace WealthERP.Advisor
         System.Drawing.Bitmap final_image = null;
         System.Drawing.Graphics graphic = null;
         MemoryStream ms = null;
-        string UploadImagePath=string.Empty;
+        string UploadImagePath = string.Empty;
         string imgPath = string.Empty;
 
-        
+
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -57,7 +57,7 @@ namespace WealthERP.Advisor
                 rmVo = (RMVo)Session["rmVo"];
                 path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
                 imgPath = Server.MapPath("Images") + "\\";
-                trAddBranchCode.Visible = false ;
+                trAddBranchCode.Visible = false;
                 if (!IsPostBack)
                 {
 
@@ -129,10 +129,10 @@ namespace WealthERP.Advisor
         }
         protected void BtnBranchCode_Click(object sender, EventArgs e)
         {
-          
+
 
             //string queryString = "?prevPage=AddRM&?StaffName=" + txtFirstName.Text + "&?StaffRole='" + StaffRole + "' ";
-            string queryString = "?prevPage=AddBranch&BranchRole=BM&BranchName="+txtBranchName.Text+"";
+            string queryString = "?prevPage=AddBranch&BranchRole=BM&BranchName=" + txtBranchName.Text + "";
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('AddBranchRMAgentAssociation','" + queryString + "');", true);
 
             //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AddBranchRMAgentAssociation", "loadcontrol('AddBranchRMAgentAssociation', '?GoalId=" + 5 + "&GoalAction=" + "pavani m" + "&'" + queryString + "'');", true);
@@ -148,7 +148,7 @@ namespace WealthERP.Advisor
         {
             string queryString = "?prevPage=ViewBranches";//&BranchRole=BM&BranchName=" + txtBranchName.Text + "";
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('ViewBranches','" + queryString + "');", true);
-                      
+
         }
 
 
@@ -167,6 +167,7 @@ namespace WealthERP.Advisor
             ddlBranchAssociateType.DataValueField = "XABRT_BranchTypeCode";
             ddlBranchAssociateType.DataTextField = "XABRT_BranchType";
             ddlBranchAssociateType.DataBind();
+            ddlBranchAssociateType.Items.RemoveAt(1);
             ddlBranchAssociateType.Items.Insert(0, new ListItem("Select a Type", "Select a Type"));
 
             ds = adviserAssociateCategoryBo.GetAdviserAssociateCategory(advisorVo.advisorId);
@@ -220,7 +221,7 @@ namespace WealthERP.Advisor
             try
             {
                 ddlRmlist.Items.Clear();
-                dt = advisorStaffBo.GetExternalRMList(advisorVo.advisorId,flag);
+                dt = advisorStaffBo.GetExternalRMList(advisorVo.advisorId, flag);
                 if (dt.Rows.Count > 0)
                 {
                     ddlRmlist.DataSource = dt;
@@ -443,7 +444,8 @@ namespace WealthERP.Advisor
                     advisorBranchVo.AddressLine1 = txtLine1.Text.ToString();
                     advisorBranchVo.AddressLine2 = txtLine2.Text.ToString();
                     advisorBranchVo.AddressLine3 = txtLine3.Text.ToString();
-                    advisorBranchVo.BranchCode =  txtBranchCode.Text.ToString();
+                    advisorBranchVo.BranchCode = txtBranchCode.Text.ToString();
+
                     rmList = advisorStaffBo.GetRMList(advisorVo.advisorId);
                     if (rmList == null)
                     {
@@ -474,11 +476,11 @@ namespace WealthERP.Advisor
                     if (ddlBranchAssociateType.SelectedValue.ToString() == "2")
                     {
                         if (ddlAssociateCategory.SelectedIndex != 0)
-                         advisorBranchVo.AssociateCategoryId = Int32.Parse(ddlAssociateCategory.SelectedItem.Value.ToString());
+                            advisorBranchVo.AssociateCategoryId = Int32.Parse(ddlAssociateCategory.SelectedItem.Value.ToString());
                         if (FileUpload.HasFile)
                         {
                             //advisorBranchVo.LogoPath = advisorVo.advisorId + "_" + "" + ".jpg";
-                             advisorBranchVo.LogoPath = advisorVo.advisorId + "_" + txtBranchCode.Text.ToString() + ".jpg";
+                            advisorBranchVo.LogoPath = advisorVo.advisorId + "_" + txtBranchCode.Text.ToString() + ".jpg";
                             HttpPostedFile myFile = FileUpload.PostedFile;
                             UploadImage(imgPath, myFile, advisorBranchVo.LogoPath);
                             //FileUpload.SaveAs(Server.MapPath("Images") + "\\" + advisorVo.advisorId + "_" + txtBranchCode.Text.ToString() + ".jpg");
@@ -563,8 +565,10 @@ namespace WealthERP.Advisor
                     }
                     if (ddlZOneCluster.SelectedIndex != 0 && ddlSelectedZC.SelectedIndex != 0)
                     {
-                         advisorBranchVo.ZoneClusterId = int.Parse( ddlSelectedZC.SelectedItem.Value.ToString());
+                        advisorBranchVo.ZoneClusterId = int.Parse(ddlSelectedZC.SelectedItem.Value.ToString());
                     }
+                    //advisorBranchVo.AdviserAgentCode = txtAgentCode.Text;
+                     advisorBranchVo.AdviserAgentCode = hdnValue.Value.ToString();
                     //else
                     //{
                     //    advisorBranchVo.ZoneClusterId = 0;
@@ -573,7 +577,7 @@ namespace WealthERP.Advisor
                     // Create Branch 
 
                     advisorBranchVo.BranchId = advisorBranchBo.CreateAdvisorBranch(advisorBranchVo, advisorId, userId);
-                   
+
                     //Add Associate Commission Details
                     if (ddlBranchAssociateType.SelectedValue.ToString() == "2")
                     {
@@ -586,7 +590,7 @@ namespace WealthERP.Advisor
                             TextBox revLower = (TextBox)row.FindControl("txtRevLowerLimit");
                             TextBox startDate = (TextBox)row.FindControl("txtStartDate");
                             TextBox endDate = (TextBox)row.FindControl("txtEndDate");
-                            
+
 
                             if (ddlAssGp.SelectedValue.ToString() != "Select Asset Group")
                             {
@@ -617,20 +621,20 @@ namespace WealthERP.Advisor
                                 advisorBranchBo.AddAssociateCommission(userId, advisorAssociateCommissionVo);
                             }
 
-                        }   
+                        }
                     }
 
                     // Creating Branch Association
                     int cnt = advisorStaffBo.CheckRMMainBranch(advisorBranchVo.BranchHeadId);
-                    if(cnt == 0)
+                    if (cnt == 0)
                         advisorBranchBo.AssociateBranch(advisorBranchVo.BranchHeadId, advisorBranchVo.BranchId, 1, userId);
                     else
                         advisorBranchBo.AssociateBranch(advisorBranchVo.BranchHeadId, advisorBranchVo.BranchId, 0, userId);
-                    Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showmessage();", true);
-                   // Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Branch Details added successfully.Select Either to add agent code or view branches');", true);
-                
+                    // Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showmessage();", true);
+                    // Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Branch Details added successfully.Select Either to add agent code or view branches');", true);
+
                     //  btnSubmit_Click(this, null);
-                  //  Button1.Attributes.Add("onClick", "Add();");
+                    //  Button1.Attributes.Add("onClick", "Add();");
                     //if (!advisorBranchBo.CheckBranchMgrRole(advisorBranchVo.BranchHeadId))
                     //{
                     //    int rmUserId = advisorStaffBo.GetUserId(advisorBranchVo.BranchHeadId);
@@ -684,8 +688,8 @@ namespace WealthERP.Advisor
                     Session.Remove("table");
                     Session.Remove("count");
                     btnSubmit.Enabled = false;
-                   // trAddBranchCode.Visible = true;
-                   // BtnBranchCode_Click(this, null);
+                    // trAddBranchCode.Visible = true;
+                    // BtnBranchCode_Click(this, null);
                     //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewBranches','none');", true);
                 }
 
@@ -795,7 +799,7 @@ namespace WealthERP.Advisor
 
         protected void ddlBranchAssociateType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (ddlBranchAssociateType.SelectedIndex ==2)
+            if (ddlBranchAssociateType.SelectedIndex == 2)
             {
                 trCommsharingHeading.Visible = true;
                 AssociateCategoryRow.Visible = true;
@@ -803,7 +807,7 @@ namespace WealthERP.Advisor
                 AssociateLogoHdr.Visible = true;
                 CommSharingStructureHdr.Visible = true;
                 CommSharingStructureGv.Visible = true;
-                
+
             }
             else
             {
@@ -834,32 +838,32 @@ namespace WealthERP.Advisor
             }
             dt = advisorBranchBo.GetZoneClusterAssociation(advisorVo.advisorId);
             DataView dv = new DataView(dt);
-             dv.RowFilter = "AZOC_Type='" + ddlZOneCluster.SelectedValue + "'";
+            dv.RowFilter = "AZOC_Type='" + ddlZOneCluster.SelectedValue + "'";
 
-             //ddlSelectedZC.SelectedItem 
+            //ddlSelectedZC.SelectedItem 
             ddlSelectedZC.DataTextField = "AZOC_Name";
             ddlSelectedZC.DataValueField = "AZOC_ZoneClusterId";
             ddlSelectedZC.DataSource = dv;
             ddlSelectedZC.DataBind();
             ddlSelectedZC.Items.Insert(0, "--SELECT--");
-            
+
         }
 
         protected void gvCommStructure_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
-               
+
                 DropDownList ddlAssetGroup = e.Row.FindControl("ddlAssetGroup") as DropDownList;
                 DataTable dt = new DataTable();
                 try
                 {
-                        dt = advisorBranchBo.GetAdviserAssetGroups(advisorVo.advisorId);
-                        ddlAssetGroup.DataSource = dt;
-                        ddlAssetGroup.DataTextField = "XALAG_LOBAssetGroup";
-                        ddlAssetGroup.DataValueField = "XALAG_LOBAssetGroupsCode";
-                        ddlAssetGroup.DataBind();
-                        ddlAssetGroup.Items.Insert(0, new ListItem("Select Asset Group", "Select Asset Group"));
+                    dt = advisorBranchBo.GetAdviserAssetGroups(advisorVo.advisorId);
+                    ddlAssetGroup.DataSource = dt;
+                    ddlAssetGroup.DataTextField = "XALAG_LOBAssetGroup";
+                    ddlAssetGroup.DataValueField = "XALAG_LOBAssetGroupsCode";
+                    ddlAssetGroup.DataBind();
+                    ddlAssetGroup.Items.Insert(0, new ListItem("Select Asset Group", "Select Asset Group"));
                 }
                 catch (BaseApplicationException Ex)
                 {
@@ -910,7 +914,7 @@ namespace WealthERP.Advisor
             ViewState["CurrentTable"] = dt;
             gvCommStructure.DataSource = dt;
             gvCommStructure.DataBind();
-        } 
+        }
 
         private void AddNewRowToGrid()
         {
@@ -998,7 +1002,7 @@ namespace WealthERP.Advisor
                         TextBox box4 = (TextBox)gvCommStructure.Rows[rowIndex].Cells[4].FindControl("txtStartDate");
                         TextBox box5 = (TextBox)gvCommStructure.Rows[rowIndex].Cells[5].FindControl("txtEndDate");
 
-                       // ddl1.DataTextField = dt.Rows[i]["AssetGroup"].ToString();
+                        // ddl1.DataTextField = dt.Rows[i]["AssetGroup"].ToString();
                         ddl1.SelectedValue = dt.Rows[i][0].ToString();
                         box1.Text = dt.Rows[i]["CommFee"].ToString();
                         box2.Text = dt.Rows[i]["RevUpperLimit"].ToString();
@@ -1018,7 +1022,7 @@ namespace WealthERP.Advisor
             try
             {
                 dt = advisorBranchBo.GetAdviserAssetGroups(advisorVo.advisorId);
-                foreach(DataRow dr in dt.Rows)
+                foreach (DataRow dr in dt.Rows)
                 {
                     if (dr["XALAG_LOBAssetGroupsCode"].ToString() == "EQ")
                         flag = 1;
@@ -1169,6 +1173,6 @@ namespace WealthERP.Advisor
                 if (codecs[i].MimeType == mimeType)
                     return codecs[i];
             return null;
-        }   
+        }
     }
 }

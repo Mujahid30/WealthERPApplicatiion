@@ -1,5 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AddBranch.ascx.cs" Inherits="WealthERP.Advisor.AddBranch" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+
 <script language="javascript" type="text/javascript">
     function showmessage() {
 
@@ -16,6 +17,15 @@
         }
     }
    
+</script>
+
+<script language="javascript" type="text/javascript">
+    window.onload = function() { assignValueToAgentCode() };
+    function assignValueToAgentCode() {
+        document.getElementById("<%=txtAgentCode.ClientID%>").value = "SSLB" + document.getElementById("<%=txtBranchCode.ClientID%>").value;
+        document.getElementById("ctrl_AddBranch_hdnValue").value = "SSLB" + document.getElementById("<%=txtBranchCode.ClientID%>").value;
+      
+    }
 </script>
 
 <html>
@@ -55,20 +65,19 @@
 <body>
 </body>
 </html>
- 
 <asp:ScriptManager ID="scriptmanager" runat="server">
 </asp:ScriptManager>
 <%--<asp:UpdatePanel ID="upnl" runat="server">
 <ContentTemplate>--%>
 <style type="text/css">
-.txtGridMediumField
-{
-    font-family: Verdana,Tahoma;
-    font-weight: normal;
-    font-size: x-small;
-    color: #16518A;
-    width: 100px;
-}
+    .txtGridMediumField
+    {
+        font-family: Verdana,Tahoma;
+        font-weight: normal;
+        font-size: x-small;
+        color: #16518A;
+        width: 100px;
+    }
 </style>
 <table width="100%" class="TableBackground">
     <tr>
@@ -90,17 +99,40 @@
             <asp:Label ID="Label3" runat="server" CssClass="FieldName" Text="Code :"></asp:Label>
         </td>
         <td class="rightField" width="25%">
-            <asp:TextBox ID="txtBranchCode" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtBranchCode" runat="server" CssClass="txtField" onblur="return assignValueToAgentCode()"></asp:TextBox>
             <span id="Span1" class="spnRequiredField">*</span>
             <br />
             <asp:RequiredFieldValidator ControlToValidate="txtBranchCode" ErrorMessage="Please enter the Branch Code"
                 CssClass="rfvPCG" Display="Dynamic" ID="rfvBranchCode" ValidationGroup="btnSubmit"
                 runat="server"></asp:RequiredFieldValidator>
-                 <asp:RegularExpressionValidator ID="revCode" runat="server" Display="Dynamic" CssClass="rfvPCG"
-                ErrorMessage="Please check Alphanumeric Format" ControlToValidate="txtBranchCode" ValidationExpression="[A-Za-z][0-9 ]">
+            <asp:RegularExpressionValidator ID="revCode" runat="server" Display="Dynamic" CssClass="rfvPCG"
+                ErrorMessage="Please check Alphanumeric Format" ControlToValidate="txtBranchCode"
+                ValidationExpression="^[0-9a-zA-Z' ']+$">
             </asp:RegularExpressionValidator>
-            <asp:Label ID="lblcodeDuplicate" runat="server" CssClass="Error" Visible="false" Text="Code already exists"></asp:Label>
+            <asp:Label ID="lblcodeDuplicate" runat="server" CssClass="Error" Visible="false"
+                Text="Code already exists"></asp:Label>
         </td>
+        <td class="leftField" width="25%">
+            <asp:Label ID="Label15" runat="server" CssClass="FieldName" Text="Agent Code :"></asp:Label>
+        </td>
+        <td class="rightField" width="25%">
+            <asp:TextBox ID="txtAgentCode" Enabled="false" runat="server" 
+                CssClass="txtField"></asp:TextBox>
+            <span id="Span8" class="spnRequiredField">*</span>
+        </td>
+    </tr>
+    <%--<tr>
+     <td class="leftField" width="25%">
+            <asp:Label ID="Label15" runat="server" CssClass="FieldName" Text="Agent Code :"></asp:Label>
+        </td>
+        <td class="rightField" width="25%">
+            <asp:TextBox ID="txtAgentCode" runat="server" CssClass="txtField"></asp:TextBox>
+           <%-- <span id="Span8" class="spnRequiredField">*</span>--%>
+    <%--  <br />--%>
+    <%-- <asp:RequiredFieldValidator ControlToValidate="txtBranchCode" ErrorMessage="Please enter the Branch Code"
+                CssClass="rfvPCG" Display="Dynamic" ID="RequiredFieldValidator6" ValidationGroup="btnSubmit"
+                runat="server"></asp:RequiredFieldValidator>--%>
+    <tr>
         <td class="leftField" width="25%">
             <asp:Label ID="Label4" runat="server" CssClass="FieldName" Text="Name :"></asp:Label>
         </td>
@@ -112,55 +144,43 @@
                 CssClass="rfvPCG" Display="Dynamic" ID="RequiredFieldValidator1" ValidationGroup="btnSubmit"
                 runat="server"></asp:RequiredFieldValidator>
         </td>
-        
-    </tr>
-    <%--<tr>
-     <td class="leftField" width="25%">
-            <asp:Label ID="Label15" runat="server" CssClass="FieldName" Text="Agent Code :"></asp:Label>
-        </td>
-        <td class="rightField" width="25%">
-            <asp:TextBox ID="txtAgentCode" runat="server" CssClass="txtField"></asp:TextBox>
-           <%-- <span id="Span8" class="spnRequiredField">*</span>--%>
-          <%--  <br />--%>
-           <%-- <asp:RequiredFieldValidator ControlToValidate="txtBranchCode" ErrorMessage="Please enter the Branch Code"
-                CssClass="rfvPCG" Display="Dynamic" ID="RequiredFieldValidator6" ValidationGroup="btnSubmit"
-                runat="server"></asp:RequiredFieldValidator>--%>
-        
-    <tr>
-              <td class="leftField" width="25%" >
+        <td class="leftField" width="25%">
             <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Type:"></asp:Label>
-        </td> 
+        </td>
         <td class="rightfield" width="25%">
             <asp:DropDownList ID="ddlBranchAssociateType" runat="server" CssClass="cmbField"
                 OnSelectedIndexChanged="ddlBranchAssociateType_SelectedIndexChanged" AutoPostBack="true">
             </asp:DropDownList>
-            <span id="Span4" class="spnRequiredField">*</span>
+            <span id="Span4" class="spnRequiredField">*</span> </br>
             <asp:CompareValidator ID="ddlBranchAssociateType_CompareValidator" runat="server"
                 ControlToValidate="ddlBranchAssociateType" ErrorMessage="Please select a Branch/Associate Type"
                 Operator="NotEqual" ValueToCompare="Select a Type" CssClass="cvPCG" ValidationGroup="btnSubmit">
             </asp:CompareValidator>
         </td>
+    </tr>
+    <tr>
         <td class="leftField" width="25%">
-        <asp:Label ID="Label13" runat="server" CssClass="FieldName" Text="Pick Zone/Cluster :"></asp:Label>
-            </td> 
+            <asp:Label ID="Label13" runat="server" CssClass="FieldName" Text="Pick Zone/Cluster :"></asp:Label>
+        </td>
         <td class="rightfield" width="25%">
-            <asp:DropDownList ID="ddlZOneCluster" runat="server" CssClass="cmbField"
-                OnSelectedIndexChanged="ddlZOneCluster_SelectedIndexChanged"  AutoPostBack="true">
-                  <asp:ListItem Text="--SELECT--" Value="Select" Selected="True"></asp:ListItem>
-                                            <asp:ListItem Text="Zone" Value="Zone"></asp:ListItem>
-                                            <asp:ListItem Text="Cluster" Value="Cluster"></asp:ListItem>
-                                             
-                  </asp:DropDownList> </td> 
+            <asp:DropDownList ID="ddlZOneCluster" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlZOneCluster_SelectedIndexChanged"
+                AutoPostBack="true">
+                <asp:ListItem Text="--SELECT--" Value="Select" Selected="True"></asp:ListItem>
+                <asp:ListItem Text="Zone" Value="Zone"></asp:ListItem>
+                <asp:ListItem Text="Cluster" Value="Cluster"></asp:ListItem>
+            </asp:DropDownList>
+        </td>
     </tr>
     <tr id="trZoneCluster" runat="server">
-    <td colspan="2"></td>
-    <td class="leftField" width="25%">
-        <asp:Label ID="lb1Zc" runat="server" CssClass="FieldName" Text="Zone :"></asp:Label>
-            </td> 
+        <td colspan="2">
+        </td>
+        <td class="leftField" width="25%">
+            <asp:Label ID="lb1Zc" runat="server" CssClass="FieldName" Text="Zone :"></asp:Label>
+        </td>
         <td class="rightfield" width="25%">
-            <asp:DropDownList ID="ddlSelectedZC" runat="server" CssClass="cmbField"
-                  AutoPostBack="true"></asp:DropDownList> </td> 
-     
+            <asp:DropDownList ID="ddlSelectedZC" runat="server" CssClass="cmbField" AutoPostBack="true">
+            </asp:DropDownList>
+        </td>
     </tr>
     <tr id="AssociateCategoryRow" runat="server">
         <td class="leftField">
@@ -169,11 +189,8 @@
         <td class="rightfield" width="25%">
             <asp:DropDownList ID="ddlAssociateCategory" runat="server" CssClass="cmbField" ToolTip="Please setup the category if u dont find any data here">
             </asp:DropDownList>
-                       
         </td>
-        
     </tr>
-    
     <tr>
         <td colspan="4">
             <asp:Label ID="Label5" runat="server" CssClass="HeaderTextSmall" Text="Address"></asp:Label>
@@ -185,30 +202,23 @@
             <asp:Label ID="lblLine1" runat="server" CssClass="FieldName" Text="Line1 (House No/Building) :"></asp:Label>
         </td>
         <td class="rightField">
-        <table width="100%" cellspacing="0">
-        <tr>
-         <td>
-          <asp:TextBox ID="txtLine1" CssClass="txtLongAddField" runat="server"></asp:TextBox>
-         </td>
-        <td>
-         <span id="Span3" class="spnRequiredField">*</span>
-        </td>
-        
-        </tr>
-        <tr>
-         <td colspan="2">
-            
-            <asp:RequiredFieldValidator ControlToValidate="txtLine1" ErrorMessage="Please enter the Address Line1"
-                CssClass="rfvPCG" Display="Dynamic" ID="RequiredFieldValidator2" ValidationGroup="btnSubmit"
-                runat="server"></asp:RequiredFieldValidator>
-         </td>
-        </tr>
-        </table>
-       
-           
-            
-            
-           
+            <table width="100%" cellspacing="0">
+                <tr>
+                    <td>
+                        <asp:TextBox ID="txtLine1" CssClass="txtLongAddField" runat="server"></asp:TextBox>
+                    </td>
+                    <td>
+                        <span id="Span3" class="spnRequiredField">*</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <asp:RequiredFieldValidator ControlToValidate="txtLine1" ErrorMessage="Please enter the Address Line1"
+                            CssClass="rfvPCG" Display="Dynamic" ID="RequiredFieldValidator2" ValidationGroup="btnSubmit"
+                            runat="server"></asp:RequiredFieldValidator>
+                    </td>
+                </tr>
+            </table>
         </td>
         <td class="leftField">
             <asp:Label ID="Label21" runat="server" CssClass="FieldName" Text="City :"></asp:Label>
@@ -226,16 +236,16 @@
         </td>
         <td class="leftField">
             <asp:Label ID="lblPinCode" runat="server" CssClass="FieldName" Text="Pin Code :"></asp:Label>
-            
         </td>
         <td class="rightField">
-            <asp:TextBox ID="txtPinCode" runat="server"  MinLength="6" MaxLength="6"  CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtPinCode" runat="server" MinLength="6" MaxLength="6" CssClass="txtField"></asp:TextBox>
             <span id="Span7" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="txtPinCode"
-                ErrorMessage="Pincode Required" CssClass="cvPCG" ValidationGroup="btnSubmit" Display="Dynamic"></asp:RequiredFieldValidator>
+                ErrorMessage="Pincode Required" CssClass="cvPCG" ValidationGroup="btnSubmit"
+                Display="Dynamic"></asp:RequiredFieldValidator>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" CssClass="cvPCG"
-                ErrorMessage="Please give only Numbers" ValidationGroup="btnSubmit" ValidationExpression="\d+" ControlToValidate="txtPinCode"
-                Display="Dynamic" ></asp:RegularExpressionValidator>
+                ErrorMessage="</br>Please give min. 6 digit Numbers" ValidationGroup="btnSubmit"
+                ValidationExpression="^\d{6,6}$" ControlToValidate="txtPinCode" Display="Dynamic"></asp:RegularExpressionValidator>
         </td>
     </tr>
     <tr>
@@ -278,13 +288,13 @@
             </asp:DropDownList>
             <span id="Span6" class="spnRequiredField">*</span>
             <br />
-            <asp:CompareValidator ID="CompareValidator12" runat="server" ControlToValidate="ddlRmlist" Display="Dynamic"
-                ErrorMessage="Please select a Branch Head" Operator="NotEqual" ValueToCompare="Select Branch head"
-                CssClass="cvPCG" ValidationGroup="btnSubmit">
+            <asp:CompareValidator ID="CompareValidator12" runat="server" ControlToValidate="ddlRmlist"
+                Display="Dynamic" ErrorMessage="Please select a Branch Head" Operator="NotEqual"
+                ValueToCompare="Select Branch head" CssClass="cvPCG" ValidationGroup="btnSubmit">
             </asp:CompareValidator>
         </td>
         <td class="leftField">
-        &nbsp;
+            &nbsp;
             <%--<asp:Label ID="lblFax0" runat="server" CssClass="FieldName" Text="Mobile Number :"></asp:Label>--%>
         </td>
         <td class="rightField">
@@ -293,7 +303,7 @@
             <asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server" CssClass="cvPCG"
                 ErrorMessage="Please give only 10 digit Numbers" ValidationGroup="btnSubmit" ValidationExpression="^[0-9]{10}"  ControlToValidate="txtMobileNumber"
                 Display="Dynamic"></asp:RegularExpressionValidator>--%>
-                &nbsp;
+            &nbsp;
         </td>
     </tr>
     <tr id="trNoOfTerminals" runat="server">
@@ -318,11 +328,12 @@
         </td>
     </tr>--%>
     <tr>
-    <td>&nbsp;&nbsp;</td>
+        <td>
+            &nbsp;&nbsp;
+        </td>
         <td colspan="3">
-            
             <asp:Label ID="lblISD" runat="server" CssClass="FieldName" Text="ISD"></asp:Label>
-           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <asp:Label ID="lblSTD" runat="server" Names="Arial" CssClass="FieldName" Size="X-Small"
                 Text="STD"></asp:Label>
             &nbsp;&nbsp;&nbsp;&nbsp;
@@ -353,9 +364,9 @@
             <asp:RegularExpressionValidator ID="RegularExpressionValidator8" runat="server" CssClass="cvPCG"
                 ErrorMessage="<br />Please give only Numbers" ValidationExpression="\d+" ControlToValidate="txtStdPhone1"
                 Display="Dynamic"></asp:RegularExpressionValidator>
-            <asp:RegularExpressionValidator ID="RegularExpressionValidator9" runat="server" CssClass="cvPCG" ValidationGroup="btnSubmit"
-                ErrorMessage="<br />Please give only Numbers" ValidationExpression="^[0-9]+$" ControlToValidate="txtPhone1"
-                Display="Dynamic"></asp:RegularExpressionValidator>
+            <asp:RegularExpressionValidator ID="RegularExpressionValidator9" runat="server" CssClass="cvPCG"
+                ValidationGroup="btnSubmit" ErrorMessage="<br />Please give only Numbers" ValidationExpression="^[0-9]+$"
+                ControlToValidate="txtPhone1" Display="Dynamic"></asp:RegularExpressionValidator>
         </td>
     </tr>
     <tr>
@@ -366,7 +377,7 @@
             <asp:TextBox ID="txtIsdPhone2" CssClass="txtField" runat="server" Width="55px" MaxLength="5">91</asp:TextBox>
             <asp:TextBox ID="txtStdPhone2" CssClass="txtField" runat="server" Width="55px" MaxLength="4"></asp:TextBox>
             <asp:TextBox ID="txtPhone2" CssClass="txtField" runat="server" MaxLength="8"></asp:TextBox>
- <%--         <asp:CompareValidator ID="CompareValidator8" runat="server" ErrorMessage="<br />Enter a numeric value"
+            <%--         <asp:CompareValidator ID="CompareValidator8" runat="server" ErrorMessage="<br />Enter a numeric value"
                 CssClass="cvPCG" Type="Integer" ControlToValidate="txtPhone2" Operator="DataTypeCheck"
                 Display="Dynamic"></asp:CompareValidator>
             <asp:CompareValidator ID="CompareValidator6" runat="server" ErrorMessage="<br />Enter a numeric value"
@@ -375,16 +386,15 @@
             <asp:CompareValidator ID="CompareValidator7" runat="server" ErrorMessage="<br />Enter a numeric value"
                 CssClass="cvPCG" Type="Integer" ControlToValidate="txtStdPhone2" Operator="DataTypeCheck"
                 Display="Dynamic"></asp:CompareValidator>--%>
-                
-              <asp:RegularExpressionValidator ID="RegularExpressionValidator10" runat="server" CssClass="cvPCG"
-                ErrorMessage="<br />Please give only Numbers" ValidationExpression="\d+" ControlToValidate="txtIsdPhone2"
-                Display="Dynamic"></asp:RegularExpressionValidator>
-            <asp:RegularExpressionValidator ID="RegularExpressionValidator11" runat="server" CssClass="cvPCG"
-                ErrorMessage="<br />Please give only Numbers" ValidationExpression="\d+" ControlToValidate="txtStdPhone2"
-                Display="Dynamic"></asp:RegularExpressionValidator>
-            <asp:RegularExpressionValidator ID="RegularExpressionValidator12" runat="server" CssClass="cvPCG" ValidationGroup="btnSubmit"
-                ErrorMessage="<br />Please give only Numbers" ValidationExpression="^[0-9]+$" ControlToValidate="txtPhone2"
-                Display="Dynamic"></asp:RegularExpressionValidator>
+            <asp:RegularExpressionValidator ID="RegularExpressionValidator10" runat="server"
+                CssClass="cvPCG" ErrorMessage="<br />Please give only Numbers" ValidationExpression="\d+"
+                ControlToValidate="txtIsdPhone2" Display="Dynamic"></asp:RegularExpressionValidator>
+            <asp:RegularExpressionValidator ID="RegularExpressionValidator11" runat="server"
+                CssClass="cvPCG" ErrorMessage="<br />Please give only Numbers" ValidationExpression="\d+"
+                ControlToValidate="txtStdPhone2" Display="Dynamic"></asp:RegularExpressionValidator>
+            <asp:RegularExpressionValidator ID="RegularExpressionValidator12" runat="server"
+                CssClass="cvPCG" ValidationGroup="btnSubmit" ErrorMessage="<br />Please give only Numbers"
+                ValidationExpression="^[0-9]+$" ControlToValidate="txtPhone2" Display="Dynamic"></asp:RegularExpressionValidator>
         </td>
     </tr>
     <tr>
@@ -395,7 +405,7 @@
             <asp:TextBox ID="txtIsdFax" CssClass="txtField" runat="server" Width="55px" MaxLength="5">91</asp:TextBox>
             <asp:TextBox ID="txtStdFax" CssClass="txtField" runat="server" Width="55px" MaxLength="4"></asp:TextBox>
             <asp:TextBox ID="txtFax" CssClass="txtField" runat="server" MaxLength="8"></asp:TextBox>
-          <%--  <asp:CompareValidator ID="CompareValidator11" runat="server" ErrorMessage="<br />Enter a numeric value"
+            <%--  <asp:CompareValidator ID="CompareValidator11" runat="server" ErrorMessage="<br />Enter a numeric value"
                 CssClass="cvPCG" Type="Integer" ControlToValidate="txtFax" Operator="DataTypeCheck"
                 Display="Dynamic"></asp:CompareValidator>
             <asp:CompareValidator ID="CompareValidator9" runat="server" ErrorMessage="<br />Enter a numeric value"
@@ -404,16 +414,15 @@
             <asp:CompareValidator ID="CompareValidator10" runat="server" ErrorMessage="<br />Enter a numeric value"
                 CssClass="cvPCG" Type="Integer" ControlToValidate="txtStdFax" Operator="DataTypeCheck"
                 Display="Dynamic"></asp:CompareValidator>--%>
-                   
-              <asp:RegularExpressionValidator ID="RegularExpressionValidator13" runat="server" CssClass="cvPCG"
-                ErrorMessage="<br />Please give only Numbers" ValidationExpression="\d+" ControlToValidate="txtIsdFax"
-                Display="Dynamic"></asp:RegularExpressionValidator>
-            <asp:RegularExpressionValidator ID="RegularExpressionValidator14" runat="server" CssClass="cvPCG"
-                ErrorMessage="<br />Please give only Numbers" ValidationExpression="\d+" ControlToValidate="txtStdFax"
-                Display="Dynamic"></asp:RegularExpressionValidator>
-            <asp:RegularExpressionValidator ID="RegularExpressionValidator15" runat="server" CssClass="cvPCG" ValidationGroup="btnSubmit"
-                ErrorMessage="<br />Please give only Numbers" ValidationExpression="^[0-9]+$" ControlToValidate="txtFax"
-                Display="Dynamic"></asp:RegularExpressionValidator>
+            <asp:RegularExpressionValidator ID="RegularExpressionValidator13" runat="server"
+                CssClass="cvPCG" ErrorMessage="<br />Please give only Numbers" ValidationExpression="\d+"
+                ControlToValidate="txtIsdFax" Display="Dynamic"></asp:RegularExpressionValidator>
+            <asp:RegularExpressionValidator ID="RegularExpressionValidator14" runat="server"
+                CssClass="cvPCG" ErrorMessage="<br />Please give only Numbers" ValidationExpression="\d+"
+                ControlToValidate="txtStdFax" Display="Dynamic"></asp:RegularExpressionValidator>
+            <asp:RegularExpressionValidator ID="RegularExpressionValidator15" runat="server"
+                CssClass="cvPCG" ValidationGroup="btnSubmit" ErrorMessage="<br />Please give only Numbers"
+                ValidationExpression="^[0-9]+$" ControlToValidate="txtFax" Display="Dynamic"></asp:RegularExpressionValidator>
         </td>
     </tr>
     <tr>
@@ -429,16 +438,13 @@
         </td>
     </tr>
     <tr id="trCommsharingHeading" runat="server">
-     <td colspan="4">
-     <asp:Label ID="Label10" runat="server" CssClass="HeaderTextSmall" Text="Commision Sharing Structure"></asp:Label>
-   
-    <hr />
-    </td>
+        <td colspan="4">
+            <asp:Label ID="Label10" runat="server" CssClass="HeaderTextSmall" Text="Commision Sharing Structure"></asp:Label>
+            <hr />
+        </td>
     </tr>
     <tr id="CommSharingStructureHdr" runat="server">
-    
         <td colspan="4">
-           
             <asp:GridView ID="gvCommStructure" runat="server" AutoGenerateColumns="False" CssClass="GridViewStyle"
                 ShowFooter="True" CellPadding="4" OnRowDataBound="gvCommStructure_RowDataBound">
                 <RowStyle CssClass="RowStyle" />
@@ -453,49 +459,48 @@
                         <ItemTemplate>
                             <asp:DropDownList ID="ddlAssetGroup" runat="server" CssClass="cmbField">
                             </asp:DropDownList>
-                            
                             <asp:CompareValidator ID="cmpValidatorAssetGroup" runat="server" ControlToValidate="ddlAssetGroup"
-                ErrorMessage="Please select a asset group" Operator="NotEqual" ValueToCompare="Select Asset Group" Display="Dynamic"
-                CssClass="cvPCG" ValidationGroup="btnAdd">
-            </asp:CompareValidator>
+                                ErrorMessage="Please select a asset group" Operator="NotEqual" ValueToCompare="Select Asset Group"
+                                Display="Dynamic" CssClass="cvPCG" ValidationGroup="btnAdd">
+                            </asp:CompareValidator>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Commission Fee(%)">
                         <ItemTemplate>
                             <asp:TextBox ID="txtCommFee" runat="server" CssClass="txtGridMediumField" MaxLength="5"></asp:TextBox>
-                            <cc1:filteredtextboxextender id="txtCommFee_E" runat="server" enabled="True" targetcontrolid="txtCommFee"
-                                filtertype="Custom,Numbers" validchars=".">
-                            </cc1:filteredtextboxextender>
+                            <cc1:FilteredTextBoxExtender ID="txtCommFee_E" runat="server" Enabled="True" TargetControlID="txtCommFee"
+                                FilterType="Custom,Numbers" ValidChars=".">
+                            </cc1:FilteredTextBoxExtender>
                             <asp:RequiredFieldValidator ControlToValidate="txtCommFee" ErrorMessage="Please enter Commission Fee(%)"
-                             CssClass="rfvPCG" Display="Dynamic" ID="reqtxtCommFee" ValidationGroup="btnAdd"
+                                CssClass="rfvPCG" Display="Dynamic" ID="reqtxtCommFee" ValidationGroup="btnAdd"
                                 runat="server"></asp:RequiredFieldValidator>
                             <asp:RangeValidator ID="RangeValidator1" SetFocusOnError="true" Type="Double" ErrorMessage="Margin should be 0 - 100%"
-                                MinimumValue="0" MaximumValue="100" CssClass="rfvPCG" Display="Dynamic" ControlToValidate="txtCommFee"  ValidationGroup="btnAdd"
-                                runat="server"></asp:RangeValidator>
+                                MinimumValue="0" MaximumValue="100" CssClass="rfvPCG" Display="Dynamic" ControlToValidate="txtCommFee"
+                                ValidationGroup="btnAdd" runat="server"></asp:RangeValidator>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Upper Limit of Revenue">
                         <ItemTemplate>
                             <asp:TextBox ID="txtRevUpperLimit" runat="server" CssClass="txtGridMediumField"></asp:TextBox>
-                            <cc1:filteredtextboxextender id="txtRevUpperLimit_E" runat="server" enabled="True"
-                                targetcontrolid="txtRevUpperLimit" filtertype="Custom, Numbers" validchars=".">
-                            </cc1:filteredtextboxextender>
+                            <cc1:FilteredTextBoxExtender ID="txtRevUpperLimit_E" runat="server" Enabled="True"
+                                TargetControlID="txtRevUpperLimit" FilterType="Custom, Numbers" ValidChars=".">
+                            </cc1:FilteredTextBoxExtender>
                             <asp:RequiredFieldValidator ControlToValidate="txtRevUpperLimit" ErrorMessage="Please enter Commission upper limit"
-                             CssClass="rfvPCG" Display="Dynamic" ID="reqtxtRevUpperLimit" ValidationGroup="btnAdd"
+                                CssClass="rfvPCG" Display="Dynamic" ID="reqtxtRevUpperLimit" ValidationGroup="btnAdd"
                                 runat="server"></asp:RequiredFieldValidator>
                             <asp:RegularExpressionValidator ID="RegularExpressionValidator6" ControlToValidate="txtRevUpperLimit"
-                                Display="Dynamic" CssClass="rfvPCG" runat="server" ErrorMessage="Not acceptable format" ValidationGroup="btnAdd"
-                                ValidationExpression="^\d*(\.(\d{0,2}))?$"></asp:RegularExpressionValidator>
+                                Display="Dynamic" CssClass="rfvPCG" runat="server" ErrorMessage="Not acceptable format"
+                                ValidationGroup="btnAdd" ValidationExpression="^\d*(\.(\d{0,2}))?$"></asp:RegularExpressionValidator>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Lower Limit of Revenue">
                         <ItemTemplate>
                             <asp:TextBox ID="txtRevLowerLimit" runat="server" CssClass="txtGridMediumField"></asp:TextBox>
-                            <cc1:filteredtextboxextender id="txtRevLowerLimit_E" runat="server" enabled="True"
-                                targetcontrolid="txtRevLowerLimit" filtertype="Custom, Numbers" validchars=".">
-                            </cc1:filteredtextboxextender>
-                             <asp:RequiredFieldValidator ControlToValidate="txtRevLowerLimit" ErrorMessage="Please enter Commission lower limit"
-                             CssClass="rfvPCG" Display="Dynamic" ID="reqtxtRevLowerLimit" ValidationGroup="btnAdd"
+                            <cc1:FilteredTextBoxExtender ID="txtRevLowerLimit_E" runat="server" Enabled="True"
+                                TargetControlID="txtRevLowerLimit" FilterType="Custom, Numbers" ValidChars=".">
+                            </cc1:FilteredTextBoxExtender>
+                            <asp:RequiredFieldValidator ControlToValidate="txtRevLowerLimit" ErrorMessage="Please enter Commission lower limit"
+                                CssClass="rfvPCG" Display="Dynamic" ID="reqtxtRevLowerLimit" ValidationGroup="btnAdd"
                                 runat="server"></asp:RequiredFieldValidator>
                             <asp:CompareValidator ID="CompareValidator13" runat="server" ControlToValidate="txtRevLowerLimit"
                                 ErrorMessage="Lower Limit should be less than the Upper Limit" Type="Double"
@@ -509,30 +514,30 @@
                     <asp:TemplateField HeaderText="Start Date">
                         <ItemTemplate>
                             <asp:TextBox ID="txtStartDate" runat="server" CssClass="txtGridMediumField"></asp:TextBox>
-                            <cc1:calendarextender id="txtStartDate_CalendarExtender" runat="server" targetcontrolid="txtStartDate"
-                                format="dd/MM/yyyy">
-                            </cc1:calendarextender>
-                            <cc1:textboxwatermarkextender id="txtStartDate_TextBoxWatermarkExtender" runat="server"
-                                targetcontrolid="txtStartDate" watermarktext="dd/mm/yyyy">
-                            </cc1:textboxwatermarkextender>
-                             <asp:RequiredFieldValidator ID="reqtxtStartDate" runat="server" ControlToValidate="txtStartDate"
-                            CssClass="rfvPCG" ValidationGroup="btnAdd" Display="Dynamic" ErrorMessage="Please select a start Date"></asp:RequiredFieldValidator>
+                            <cc1:CalendarExtender ID="txtStartDate_CalendarExtender" runat="server" TargetControlID="txtStartDate"
+                                Format="dd/MM/yyyy">
+                            </cc1:CalendarExtender>
+                            <cc1:TextBoxWatermarkExtender ID="txtStartDate_TextBoxWatermarkExtender" runat="server"
+                                TargetControlID="txtStartDate" WatermarkText="dd/mm/yyyy">
+                            </cc1:TextBoxWatermarkExtender>
+                            <asp:RequiredFieldValidator ID="reqtxtStartDate" runat="server" ControlToValidate="txtStartDate"
+                                CssClass="rfvPCG" ValidationGroup="btnAdd" Display="Dynamic" ErrorMessage="Please select a start Date"></asp:RequiredFieldValidator>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="End Date">
                         <ItemTemplate>
                             <asp:TextBox ID="txtEndDate" runat="server" CssClass="txtGridMediumField"></asp:TextBox>
-                           <%-- <cc1:calendarextender id="txtEndDate_CalendarExtender" runat="server" targetcontrolid="txtEndDate"
+                            <%-- <cc1:calendarextender id="txtEndDate_CalendarExtender" runat="server" targetcontrolid="txtEndDate"
                                 format="dd/MM/yyyy">
                             </cc1:calendarextender>--%>
                             <cc1:CalendarExtender ID="txtEndDate_CalendarExtender" runat="server" Format="dd/MM/yyyy"
-                                 TargetControlID="txtEndDate" Enabled="True">
-                           </cc1:CalendarExtender>
-                            <cc1:textboxwatermarkextender id="txtEndDate_TextBoxWatermarkExtender" runat="server"
-                                targetcontrolid="txtEndDate" watermarktext="dd/mm/yyyy">
-                            </cc1:textboxwatermarkextender>
-                             <asp:RequiredFieldValidator ID="reqtxtEndDate" runat="server" ControlToValidate="txtEndDate"
-                            CssClass="rfvPCG" ValidationGroup="btnAdd" Display="Dynamic" ErrorMessage="Please select a End Date"></asp:RequiredFieldValidator>
+                                TargetControlID="txtEndDate" Enabled="True">
+                            </cc1:CalendarExtender>
+                            <cc1:TextBoxWatermarkExtender ID="txtEndDate_TextBoxWatermarkExtender" runat="server"
+                                TargetControlID="txtEndDate" WatermarkText="dd/mm/yyyy">
+                            </cc1:TextBoxWatermarkExtender>
+                            <asp:RequiredFieldValidator ID="reqtxtEndDate" runat="server" ControlToValidate="txtEndDate"
+                                CssClass="rfvPCG" ValidationGroup="btnAdd" Display="Dynamic" ErrorMessage="Please select a End Date"></asp:RequiredFieldValidator>
                             <asp:CompareValidator ID="CompareValidator14" runat="server" ControlToValidate="txtEndDate"
                                 ErrorMessage="End Date should be greater than Start Date" Type="Date" Operator="GreaterThanEqual"
                                 ControlToCompare="txtStartDate" CssClass="cvPCG" ValidationGroup="btnSubmit"
@@ -594,25 +599,26 @@
                 Text="Submit" OnClick="btnSaveChanges_Click" ValidationGroup="btnSubmit" />
         </td>
     </tr>
-     <tr id="trAddBranchCode"  runat="server">
-       <td class="leftField">
-       <asp:Label ID="lb1BranchCode" runat="server" CssClass="FieldName" Text="Add Branch code"></asp:Label>
-        </td> 
-    <td  class="rightField">
-     <asp:Button ID="BtnBranchCode" runat="server"  Text="Agent Code" 
-            CssClass="PCGMediumButton" onClick="BtnBranchCode_Click"  />
-    </td>
-    <td class="leftField">
-       <asp:Label ID="lb1ViewBranch" runat="server" CssClass="FieldName" Text="View Branch"></asp:Label>
-        </td> 
-        <td  class="rightField">
-     <asp:Button ID="BtnBranchCode1" runat="server"  Text="View Branch" 
-            CssClass="PCGMediumButton" onClick="BtnBranchCode1_Click" />
-    </td>
+    <tr id="trAddBranchCode" runat="server">
+        <td class="leftField">
+            <asp:Label ID="lb1BranchCode" runat="server" CssClass="FieldName" Text="Add Branch code"></asp:Label>
+        </td>
+        <td class="rightField">
+            <asp:Button ID="BtnBranchCode" runat="server" Text="Agent Code" CssClass="PCGMediumButton"
+                OnClick="BtnBranchCode_Click" />
+        </td>
+        <td class="leftField">
+            <asp:Label ID="lb1ViewBranch" runat="server" CssClass="FieldName" Text="View Branch"></asp:Label>
+        </td>
+        <td class="rightField">
+            <asp:Button ID="BtnBranchCode1" runat="server" Text="View Branch" CssClass="PCGMediumButton"
+                OnClick="BtnBranchCode1_Click" />
+        </td>
     </tr>
     <tr>
         <td colspan="2">
             <asp:HiddenField ID="hdnMsgValue" runat="server" />
+            <asp:HiddenField ID=hdnValue runat="server" />
         </td>
     </tr>
     <tr>
@@ -621,9 +627,10 @@
                 BorderStyle="None" BackColor="Transparent" />
         </td>
     </tr>
-   <%-- <tr>
+    <%-- <tr>
      <asp:Button runat="server" ID="Button1"  onClick="Button1_Click"
             Text="Submit" Visible="false" />
     <asp:HiddenField runat="server" ID="hfConfirmValue" />
     </tr>--%>
 </table>
+
