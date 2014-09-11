@@ -319,10 +319,7 @@
             <span runat="server" id="Span9" class="spnRequiredField">
                 <asp:Label ID="lblrg" runat="server" Text="*"></asp:Label></span>
             <br />
-            <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator6" ControlToValidate="txtAgentCode"
-                ErrorMessage="Please enter a AgentCode" Display="Dynamic" runat="server" ValidationGroup="btnSubmit"
-                CssClass="rfvPCG">
-            </asp:RequiredFieldValidator>--%>
+          
         </td>
         <%--<asp:ImageButton ID="imgAddAgentCode" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
                         AlternateText="Add" runat="server" ToolTip="Click here to add staff agent code"

@@ -412,12 +412,12 @@ namespace WealthERP.Advisor
                 if (ddlTitleList.SelectedItem.Text == "OPS")
                 {
                     lblrg.Visible = false;
-                    RequiredFieldValidator6.Enabled = false;
+                    
                 }
                 else
                 {
                     lblrg.Visible = true;
-                    RequiredFieldValidator6.Enabled = true;
+                  
                 }
 
 
