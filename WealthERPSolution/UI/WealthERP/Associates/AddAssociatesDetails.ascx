@@ -1066,7 +1066,7 @@
                             <tr>
                                 <td align="center">
                                     <asp:LinkButton ID="lbkbtnAddChildCodes" Enabled="false" CssClass="LinkButtons" runat="server"
-                                        OnClick="lnkBtnChildCodes_Click">View Child Codes</asp:LinkButton>
+                                        OnClick="lnkBtnChildCodes_Click">Add Child Codes</asp:LinkButton>
                                     <%-- <telerik:RadGrid ID="gvChildCode" runat="server" Skin="Telerik" CssClass="RadGrid"
                                         GridLines="None" AllowPaging="True" PageSize="10" AllowSorting="True" AutoGenerateColumns="False"
                                         ShowStatusBar="true" AllowAutomaticDeletes="false" AllowAutomaticInserts="false"

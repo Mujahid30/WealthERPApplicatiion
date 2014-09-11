@@ -9,7 +9,7 @@
                 <table cellspacing="0" width="100%">
                     <tr>
                         <td align="left">
-                            View SubBroker List
+                            View Associate List
                         </td>
                         <td align="right" id="tdExport" runat="server" style="padding-bottom: 2px;">
                             <asp:ImageButton ID="imgViewAssoList" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
