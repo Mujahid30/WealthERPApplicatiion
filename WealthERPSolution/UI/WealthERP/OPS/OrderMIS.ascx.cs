@@ -160,10 +160,10 @@ namespace WealthERP.OPS
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
-            
+
 
             userVo = (UserVo)Session["userVo"];
-            
+
 
             if (!string.IsNullOrEmpty(Session["advisorVo"].ToString()))
                 advisorVo = (AdvisorVo)Session["advisorVo"];
@@ -182,7 +182,7 @@ namespace WealthERP.OPS
             btnMannualMatch.Visible = false;
             btnSync.Visible = false;
 
-            
+
             if (Request.QueryString["result"] != null)
             {
                 gvCustomerOrderMIS.Visible = true;
@@ -196,9 +196,9 @@ namespace WealthERP.OPS
                     BindBranchDropDown();
                     BindRMDropDown();
                     BindOrderStatus();
-                    hdnProductType.Value= "MF";
+                    hdnProductType.Value = "MF";
                     OnMfOrdersMediumSelection(ddlOnlineOffline.SelectedValue);
-                    
+
                 }
                 if (userType == "bm")
                 {
@@ -210,7 +210,7 @@ namespace WealthERP.OPS
                 //BindPortfolioDropdown();
                 //BindFolionumberDropdown(portfolioId);
                 //BindTransactionType();
-               
+
                 //BindAssetType();
                 lblselectCustomer.Visible = false;
                 txtIndividualCustomer.Visible = false;
@@ -279,7 +279,7 @@ namespace WealthERP.OPS
         }
 
         private void BindOrderStatus()
-         {
+        {
             DataSet dsOrderStaus;
             DataTable dtOrderStatus;
             dsOrderStaus = operationBo.Get_Onl_OrderStatus();
@@ -371,7 +371,7 @@ namespace WealthERP.OPS
         {
             //DataTable dtBindGridView = new DataTable();
             DataSet dsFIOrderMIS = new DataSet();
-            DataTable dtFIOrderMIS =  new DataTable();
+            DataTable dtFIOrderMIS = new DataTable();
             //dsFIOrderMIS = operationBo.GetFIOrderMIS(advisorVo.advisorId,hdnBranchId.Value,hdnRMId.Value,hdnTransactionType.Value,hdnOrdStatus.Value,hdnOrderType.Value,hdnamcCode.Value,DateTime.Parse(hdnFromdate.Value),DateTime.Parse(hdnTodate.Value), mypager.CurrentPage, out  count);
             dsFIOrderMIS = fiorderBo.GetCustomerFIOrderMIS(advisorVo.advisorId, DateTime.Parse(hdnFromdate.Value), DateTime.Parse(hdnTodate.Value), hdnBranchId.Value, hdnRMId.Value, hdnTransactionType.Value, hdnOrdStatus.Value, hdnOrderType.Value, hdnamcCode.Value, hdnCustomerId.Value);
             dtFIOrderMIS = dsFIOrderMIS.Tables[0];
@@ -457,6 +457,16 @@ namespace WealthERP.OPS
                 {
                     btnSync.Visible = false;
                     btnMannualMatch.Visible = false;
+                }
+                else
+                {
+                    btnSync.Visible = false;
+                    btnMannualMatch.Visible = false;
+                }
+                if (ddlOnlineOffline.SelectedValue == "Offline")
+                {
+                    btnSync.Visible = true;
+                    btnMannualMatch.Visible = true;
                 }
                 else
                 {
@@ -1335,7 +1345,7 @@ namespace WealthERP.OPS
                         else
                             OnlineStatus = 0;
 
-                        Response.Write("<script type='text/javascript'>detailedresults=window.open('OPS/ManualOrderMapping.aspx?result=" + OrderId + "&SchemeCode=" + SchemeCode + "&AccountId=" + accountId + "&Type=" + TrxType + "&Amount=" + Amount + "&OrderDate=" + OrderDate + "&Customerid=" + CustomerId + "&SchemeSwitch=" + schemeCodeSwitch + "&OnlineStatus=" + OnlineStatus + "&userTranscationNo=" +UserTransactionNo +"','mywindow', 'width=1000,height=450,scrollbars=yes,location=center');</script>");
+                        Response.Write("<script type='text/javascript'>detailedresults=window.open('OPS/ManualOrderMapping.aspx?result=" + OrderId + "&SchemeCode=" + SchemeCode + "&AccountId=" + accountId + "&Type=" + TrxType + "&Amount=" + Amount + "&OrderDate=" + OrderDate + "&Customerid=" + CustomerId + "&SchemeSwitch=" + schemeCodeSwitch + "&OnlineStatus=" + OnlineStatus + "&userTranscationNo=" + UserTransactionNo + "','mywindow', 'width=1000,height=450,scrollbars=yes,location=center');</script>");
                     }
 
                 }
@@ -1351,7 +1361,7 @@ namespace WealthERP.OPS
 
         protected void ddlMISOrderStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (ddlMISOrderStatus.SelectedValue == "0" && Convert.ToInt32(ddlOnlineOffline.SelectedValue) ==1)
+            if (ddlMISOrderStatus.SelectedValue == "0" && Convert.ToInt32(ddlOnlineOffline.SelectedValue) == 1)
             {
                 btnMannualMatch.Visible = false;
                 btnSync.Visible = false;
@@ -1670,7 +1680,7 @@ namespace WealthERP.OPS
                 Label OrderStep = dataItem.FindControl("lblOrderStep") as Label;
                 Label OrderStepCode = dataItem.FindControl("lblOrderStepCode") as Label;
 
-                
+
                 int selectedRow = dataItem.ItemIndex + 1;
 
                 if (gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CO_IsOnline"].ToString().Trim() == "1")
@@ -1901,9 +1911,9 @@ namespace WealthERP.OPS
                     else
                         mforderVo.ARNNo = "";
                     if (!string.IsNullOrEmpty(dr["Ordstatus"].ToString()))
-                   mforderVo.OrderStatusCode=  dr["Ordstatus"].ToString();
-                      else
-                         mforderVo.OrderStatusCode="";
+                        mforderVo.OrderStatusCode = dr["Ordstatus"].ToString();
+                    else
+                        mforderVo.OrderStatusCode = "";
                 }
                 Session["orderVo"] = orderVo;
                 Session["mforderVo"] = mforderVo;

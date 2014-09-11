@@ -1077,7 +1077,7 @@
     </table>
     
 </asp:Panel>
-<table visible="false">
+<table>
         <tr>
             <td>
                 <asp:Button ID="btnSync" runat="server" Text="Auto Match" CssClass="PCGMediumButton"
