@@ -1957,4 +1957,12 @@
     <value>OffLineOrderManagement//NCDIssueTransactOffline.ascx</value>
     <comment>OffLineOrderManagement//NCDIssueTransactOffline.ascx</comment>
   </data>
+  <data name="OfflineCustomersIPOOrderBook" xml:space="preserve">
+    <value>OffLineOrderManagement//OfflineCustomersIPOOrderBook.ascx</value>
+    <comment>OffLineOrderManagement//OfflineCustomersIPOOrderBook.ascx</comment>
+  </data>
+  <data name="OfflineCustomersNCDOrderBook" xml:space="preserve">
+    <value>OffLineOrderManagement//OfflineCustomersNCDOrderBook.ascx</value>
+    <comment>OffLineOrderManagement//OfflineCustomersNCDOrderBook.ascx</comment>
+  </data>
 </root>
