@@ -145,13 +145,13 @@
                 runat="server"></asp:RequiredFieldValidator>
         </td>
         <td class="leftField" width="25%">
-            <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Type:"></asp:Label>
+            <asp:Label ID="Label1" runat="server" CssClass="FieldName" Visible="false" Text="Type:"></asp:Label>
         </td>
         <td class="rightfield" width="25%">
-            <asp:DropDownList ID="ddlBranchAssociateType" runat="server" CssClass="cmbField"
+            <asp:DropDownList ID="ddlBranchAssociateType" runat="server" CssClass="cmbField" Visible="false"
                 OnSelectedIndexChanged="ddlBranchAssociateType_SelectedIndexChanged" AutoPostBack="true">
             </asp:DropDownList>
-            <span id="Span4" class="spnRequiredField">*</span> </br>
+           <%-- <span id="Span4" class="spnRequiredField">*</span> </br>--%>
             <asp:CompareValidator ID="ddlBranchAssociateType_CompareValidator" runat="server"
                 ControlToValidate="ddlBranchAssociateType" ErrorMessage="Please select a Branch/Associate Type"
                 Operator="NotEqual" ValueToCompare="Select a Type" CssClass="cvPCG" ValidationGroup="btnSubmit">

@@ -58,6 +58,7 @@ namespace WealthERP.Advisor
                 path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
                 imgPath = Server.MapPath("Images") + "\\";
                 trAddBranchCode.Visible = false;
+                ddlBranchAssociateType.Visible = false;
                 if (!IsPostBack)
                 {
 
@@ -68,8 +69,8 @@ namespace WealthERP.Advisor
                     //lblISD.CssClass = "FieldName";
                     //lblPinCode.CssClass = "FieldName";
                     //lblFax.CssClass = "FieldName";
-                    //showRM();
-                    ddlRmlist.Items.Insert(0, "Select Branch head");
+                    showRM();
+                    //ddlRmlist.Items.Insert(0, "Select Branch head");
                     BindDropDowns(path);
                     //BindGridView(advisorVo.advisorId, int.Parse(ddlAssociateCategory.SelectedValue.ToString()));
                     //AssociateLogoRow.Style.Add("display", "none");
@@ -168,7 +169,8 @@ namespace WealthERP.Advisor
             ddlBranchAssociateType.DataTextField = "XABRT_BranchType";
             ddlBranchAssociateType.DataBind();
             ddlBranchAssociateType.Items.RemoveAt(1);
-            ddlBranchAssociateType.Items.Insert(0, new ListItem("Select a Type", "Select a Type"));
+            ddlBranchAssociateType.SelectedValue = "1";
+            //ddlBranchAssociateType.Items.Insert(0, new ListItem("Select a Type", "Select a Type"));
 
             ds = adviserAssociateCategoryBo.GetAdviserAssociateCategory(advisorVo.advisorId);
             dt = ds.Tables[0];
@@ -212,7 +214,7 @@ namespace WealthERP.Advisor
 
             DataTable dt = new DataTable(); ;
             DataRow dr;
-            int flag = 2;
+            int flag = 0;
 
             if (ddlBranchAssociateType.SelectedValue == "1")
                 flag = 0;
