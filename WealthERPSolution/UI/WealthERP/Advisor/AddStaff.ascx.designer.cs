@@ -920,9 +920,13 @@ namespace WealthERP.Advisor {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
+        ///  
+        /// protected global::System.Web.UI.HtmlControls.HtmlTableCell tdLblNav;
         protected global::System.Web.UI.WebControls.HiddenField hdnAgentCode;
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdLb1Branch;
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdDdl1Branch;
 
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdLb1Branch1;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdDdl1Branch1;
     }
 }

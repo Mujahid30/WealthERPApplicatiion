@@ -221,10 +221,10 @@
         </td>
     </tr>
     <tr>
-        <td class="leftLabel" id="tdLb1Branch" >
+        <td class="leftLabel" id="tdLb1Branch1" runat="server">
             <asp:Label ID="lblBranch" runat="server" Text="Branch:" CssClass="FieldName"></asp:Label>
         </td>
-        <td class="rightData" id=tdDdl1Branch>
+        <td class="rightData" id="tdDdl1Branch1" runat="server">
             <asp:DropDownList ID="ddlBranch" runat="server" CssClass="cmbField">
             </asp:DropDownList>
             <span id="Span6" class="spnRequiredField">*</span>

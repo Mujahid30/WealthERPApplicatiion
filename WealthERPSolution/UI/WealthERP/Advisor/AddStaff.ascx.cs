@@ -442,13 +442,13 @@ namespace WealthERP.Advisor
                 BindTeamTitleDropList(Convert.ToInt32(ddlTeamList.SelectedValue));
                 if (ddlTeamList.SelectedValue.ToUpper() == "OPS")
                 {
-                    tdLb1Branch.Visible = true;
-                    tdDdl1Branch.Visible = true;
+                    tdLb1Branch1.Visible = true;
+                    tdDdl1Branch1.Visible = true;
                 }
                 else
                 {
-                    tdLb1Branch.Visible = false;
-                    tdDdl1Branch.Visible = false;
+                    tdLb1Branch1.Visible = false;
+                    tdDdl1Branch1.Visible = false;
                 }
 
             }
@@ -583,13 +583,14 @@ namespace WealthERP.Advisor
             ddlDepart.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
 
         }
+
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
             CustomerBo customerbo = new CustomerBo();
             String RoleIds = GetDepartmentRoleIds();
             RoleIds = RoleIds.Remove(RoleIds.Length - 1);
             string theme = userVo.theme;
-            int BranchId = 0;
+            string  BranchId = string.Empty ;
             if (txtStaffcode.Text != string.Empty)
             {
                 int staffCodeDuplicatechec = customerbo.CheckStaffCode(txtStaffcode.Text);
@@ -602,7 +603,13 @@ namespace WealthERP.Advisor
 
             foreach (RadListBoxItem ListItem in this.RadListBoxDestination.Items)
             {
-                //BranchId = BranchId + ListItem.Value.ToString();
+              BranchId = BranchId + ListItem.Value.ToString();
+            }
+
+            if (BranchId == string.Empty)
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please Select Branch.');", true);
+                return;
             }
 
             if (ValidateStaffReportingManager())
