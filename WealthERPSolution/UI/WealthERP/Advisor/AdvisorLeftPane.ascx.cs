@@ -568,7 +568,7 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('IPOIssueTransactOffline','login');", true);
                 }
-                else if (e.Item.Value == "IPO_Order_Book")
+                else if (e.Item.Value == "IPO_Offline_Order_Book")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OfflineCustomersIPOOrderBook','login');", true);
                 }
@@ -1788,7 +1788,7 @@ namespace WealthERP.Advisor
 
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('IPOIssueTransactOffline','login');", true);
                 }
-                else if (e.Item.Value == "IPO_Order_Book")
+                else if (e.Item.Value == "IPO_Offline_Order_Book")
                 {
 
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OfflineCustomersIPOOrderBook','login');", true);
@@ -3491,7 +3491,7 @@ namespace WealthERP.Advisor
                     Session["UserType"] = "Associates";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('IPOIssueTransactOffline','login');", true);
                 }
-                else if (e.Item.Value == "IPO_Order_Book")
+                else if (e.Item.Value == "IPO_Offline_Order_Book")
                 {
                     Session["UserType"] = "Associates";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OfflineCustomersIPOOrderBook','login');", true);
