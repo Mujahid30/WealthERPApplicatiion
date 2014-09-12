@@ -122,7 +122,7 @@
                                                 <Items>
                                                     <telerik:RadPanelItem runat="server" Text="Add Staff Online" Value="Add Staff">
                                                     </telerik:RadPanelItem>
-                                                      <telerik:RadPanelItem runat="server" Text="Add Staff Offline" Value="Add_Staff_Offline">
+                                                    <telerik:RadPanelItem runat="server" Text="Add Staff Offline" Value="Add_Staff_Offline">
                                                     </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>
@@ -192,7 +192,7 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Customer Reports" Value="Customer_Report">
                                             </telerik:RadPanelItem>
-                                             <telerik:RadPanelItem runat="server" Text="Alert Notifications" Value="Alert Notifications">
+                                            <telerik:RadPanelItem runat="server" Text="Alert Notifications" Value="Alert Notifications">
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
@@ -200,11 +200,19 @@
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text="Offline" Value="Offline">
                                                 <Items>
-                                                    <telerik:RadPanelItem runat="server" Text=" MFOrder Entry" Value="OrderEntry">
+                                                    <telerik:RadPanelItem runat="server" Text="Add MF Order" Value="OrderEntry">
                                                     </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" Text="ProductOrderMaster" Value="ProductOrderMaster">
+                                                    <telerik:RadPanelItem runat="server" Text="Add NCD Order" Value="Add_NCD_Order">
                                                     </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" Text="Order List" Value="Order_List">
+                                                    <telerik:RadPanelItem runat="server" Text="Add IPO Order" Value="Add_IPO_Order">
+                                                    </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="Add FD&54EC order" Value="ProductOrderMaster">
+                                                    </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="MF Order Book" Value="Order_List">
+                                                    </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="NCD Order Book" Value="NCD_Offline_Book">
+                                                    </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="IPO Order Book" Value="IPO_Order_Book">
                                                     </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>
@@ -892,11 +900,19 @@
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text="Offline" Value="Offline">
                                                 <Items>
-                                                    <telerik:RadPanelItem runat="server" Text=" MFOrder Entry" Value="OrderEntry">
+                                                    <telerik:RadPanelItem runat="server" Text="Add MF Order" Value="OrderEntry">
                                                     </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" Text="ProductOrderMaster" Value="ProductOrderMaster">
+                                                    <telerik:RadPanelItem runat="server" Text="Add NCD Order" Value="Add_NCD_Order">
                                                     </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" Text="Order List" Value="Order_List">
+                                                    <telerik:RadPanelItem runat="server" Text="Add IPO Order" Value="Add_IPO_Order">
+                                                    </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="Add FD&54EC order" Value="ProductOrderMaster">
+                                                    </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="MF Order Book" Value="Order_List">
+                                                    </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="NCD Order Book" Value="NCD_Offline_Book">
+                                                    </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="IPO Order Book" Value="IPO_Order_Book">
                                                     </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>
@@ -1399,11 +1415,19 @@
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text="Offline" Value="Offline">
                                                 <Items>
-                                                    <telerik:RadPanelItem runat="server" Text=" MFOrder Entry" Value="OrderEntry">
+                                                    <telerik:RadPanelItem runat="server" Text="Add MF Order" Value="OrderEntry">
                                                     </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" Text="ProductOrderMaster" Value="ProductOrderMaster">
+                                                    <telerik:RadPanelItem runat="server" Text="Add NCD Order" Value="Add_NCD_Order">
                                                     </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" Text="Order List" Value="Order_List">
+                                                    <telerik:RadPanelItem runat="server" Text="Add IPO Order" Value="Add_IPO_Order">
+                                                    </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="Add FD&54EC order" Value="ProductOrderMaster">
+                                                    </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="MF Order Book" Value="Order_List">
+                                                    </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="NCD Order Book" Value="NCD_Offline_Book">
+                                                    </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="IPO Order Book" Value="IPO_Order_Book">
                                                     </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>
@@ -1425,9 +1449,8 @@
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
-                                    
                                     <telerik:RadPanelItem runat="server" Text="Business MIS" Value="Business MIS">
-                                         <Items>
+                                        <Items>
                                             <telerik:RadPanelItem runat="server" Text="MF" Value="MIS_MF">
                                                 <Items>
                                                     <telerik:RadPanelItem runat="server" Text="MF DashBoard" Value="MFDashBoard" Vissble="true">
@@ -1444,7 +1467,8 @@
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="Customer Holdings" Value="Customer_Holdings">
                                                     </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" Text="Branch AUM" Value="Business_MIS_Dashboard" Visible="false">
+                                                    <telerik:RadPanelItem runat="server" Text="Branch AUM" Value="Business_MIS_Dashboard"
+                                                        Visible="false">
                                                     </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>

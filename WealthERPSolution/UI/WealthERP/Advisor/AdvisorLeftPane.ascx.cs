@@ -61,17 +61,17 @@ namespace WealthERP.Advisor
 
                 }
                 DataSet dsFilteredData = new DataSet();
-                
+
                 //Code to display and hide the searches based on the roles
                 //Code to display and hide the searches based on the roles
                 SetUserSearchBox();
                 ShowUserRoleBasedPannel();
-                DataSet dsUserTreeNode=new DataSet();
+                DataSet dsUserTreeNode = new DataSet();
                 dsUserTreeNode = FilterUserTreeNodeData(dsAdviserTreeNodes);
 
                 SetUserTreeNode(dsUserTreeNode);
                 SetAllTreeNodeDefaultExpandSelection();
-            
+
 
                 //dsSubscriptionDetails = FilterUserTreeNodeSubscription(dsTreeNodes);
                 //dsTreeNodes = FilterUserTreeNodePlan(dsTreeNodes);
@@ -179,7 +179,7 @@ namespace WealthERP.Advisor
             DataTable dtUserTreeSubNode = dsAdviserTreeNodes.Tables[1].Clone();
             DataTable dtUserTreeSubSubsNode = dsAdviserTreeNodes.Tables[2].Clone();
             Dictionary<Int16, string> userAdviserRole = (Dictionary<Int16, string>)userVo.AdviserRole;
-            
+
             foreach (int role in userAdviserRole.Keys)
             {
                 dsAdviserTreeNodes.Tables[0].DefaultView.RowFilter = "AR_RoleId=" + role.ToString();
@@ -189,7 +189,7 @@ namespace WealthERP.Advisor
                 dtUserTreeSubNode.Merge(dsAdviserTreeNodes.Tables[1].DefaultView.ToTable(), false, MissingSchemaAction.Ignore);
 
                 dsAdviserTreeNodes.Tables[2].DefaultView.RowFilter = "AR_RoleId=" + role.ToString();
-                dtUserTreeSubSubsNode.Merge(dsAdviserTreeNodes.Tables[2].DefaultView.ToTable(), false, MissingSchemaAction.Ignore);        
+                dtUserTreeSubSubsNode.Merge(dsAdviserTreeNodes.Tables[2].DefaultView.ToTable(), false, MissingSchemaAction.Ignore);
             }
             dsUserTreeNode.Tables.Clear();
             dsUserTreeNode.Tables.Add(dtUserTreeNode.Copy().DefaultView.ToTable(true, "WTN_TreeNodeId", "WTN_TreeNode", "WTN_TreeNodeText", "WTN_IsApplicableForMultiBranch", "WTN_IsApplicableForMultiStaff", "UR_RoleId", "UR_RoleName"));
@@ -456,13 +456,13 @@ namespace WealthERP.Advisor
             dtTreeSubSubNode = dsTreeNode.Tables[2].Clone();
 
             if (dsTreeNode.Tables[0].Rows.Count > 0)
-            {                
+            {
                 dsTreeNode.Tables[0].DefaultView.RowFilter = "UR_RoleName='" + userRole + "'";
                 dtTreeNode = dsTreeNode.Tables[0].DefaultView.ToTable();
             }
 
             if (dsTreeNode.Tables[1].Rows.Count > 0)
-            {               
+            {
                 dsTreeNode.Tables[1].DefaultView.RowFilter = "UR_RoleName='" + userRole + "'";
                 dtTreeSubNode = dsTreeNode.Tables[1].DefaultView.ToTable();
             }
@@ -553,8 +553,24 @@ namespace WealthERP.Advisor
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ManageLookups','login');", true);
                 }
                 else if (e.Item.Value == "Alert Notifications")
-                {   
+                {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserCustomerSMSAlerts','login');", true);
+                }
+                else if (e.Item.Value == "Add_NCD_Order")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('NCDIssueTransactOffline','login');", true);
+                }
+                else if (e.Item.Value == "NCD_Offline_Book")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OfflineCustomersNCDOrderBook','login');", true);
+                }
+                else if (e.Item.Value == "Add_IPO_Order")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('IPOIssueTransactOffline','login');", true);
+                }
+                else if (e.Item.Value == "IPO_Order_Book")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OfflineCustomersIPOOrderBook','login');", true);
                 }
                 if (e.Item.Value == "Trade_Business_Date")
                 {
@@ -1170,7 +1186,7 @@ namespace WealthERP.Advisor
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineAdviserCustomerTransctionBook','login');", true);
 
                 }
-                
+
                 else if (e.Item.Value == "Scheme_Setup")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineSchemeSetUp','login');", true);
@@ -1756,6 +1772,26 @@ namespace WealthERP.Advisor
                 if (e.Item.Value == "Manage Lookups")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ManageLookups','login');", true);
+                }
+                else if (e.Item.Value == "Add_NCD_Order")
+                {
+
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('NCDIssueTransactOffline','login');", true);
+                }
+                else if (e.Item.Value == "NCD_Offline_Book")
+                {
+
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OfflineCustomersNCDOrderBook','login');", true);
+                }
+                else if (e.Item.Value == "Add_IPO_Order")
+                {
+
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('IPOIssueTransactOffline','login');", true);
+                }
+                else if (e.Item.Value == "IPO_Order_Book")
+                {
+
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OfflineCustomersIPOOrderBook','login');", true);
                 }
                 if (e.Item.Value == "Trade_Business_Date")
                 {
@@ -2431,12 +2467,11 @@ namespace WealthERP.Advisor
 
 
         private void SetAdminTreeNodesForRoles(DataSet dsAdminTreeNodes, string userRole)
-        
         {
             int flag = 0;
             DataView tempView;
             DataRow dr;
-            
+
             if (userRole == "Admin")
             {
                 //foreach (DataRow dr in dsAdminTreeNodes.Tables[0].Rows)
@@ -3440,6 +3475,26 @@ namespace WealthERP.Advisor
                 if (e.Item.Value == "RM Home")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('SalesDashBoard','login');", true);
+                }
+                else if (e.Item.Value == "Add_NCD_Order")
+                {
+                    Session["UserType"] = "Associates";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('NCDIssueTransactOffline','login');", true);
+                }
+                else if (e.Item.Value == "NCD_Offline_Book")
+                {
+                    Session["UserType"] = "Associates";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OfflineCustomersNCDOrderBook','login');", true);
+                }
+                else if (e.Item.Value == "Add_IPO_Order")
+                {
+                    Session["UserType"] = "Associates";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('IPOIssueTransactOffline','login');", true);
+                }
+                else if (e.Item.Value == "IPO_Order_Book")
+                {
+                    Session["UserType"] = "Associates";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OfflineCustomersIPOOrderBook','login');", true);
                 }
                 else if (e.Item.Value == "MFT")
                 {
