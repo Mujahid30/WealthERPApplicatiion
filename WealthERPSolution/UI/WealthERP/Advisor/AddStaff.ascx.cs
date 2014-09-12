@@ -494,6 +494,8 @@ namespace WealthERP.Advisor
                 lnkEditStaff.Visible = true;
                 RadListBoxDestination.Enabled = false;
                 txtFaxSTD.Enabled = false;
+                ddlDepart.Enabled = false;
+                chkbldepart.Enabled = false;
             }
             else
             {
@@ -534,7 +536,8 @@ namespace WealthERP.Advisor
                 lnkAddNewStaff.Visible = true;
                 lnkEditStaff.Visible = false;
                 txtFaxSTD.Enabled = true;
-
+                ddlDepart.Enabled = true;
+                chkbldepart.Enabled = true;
 
             }
 
