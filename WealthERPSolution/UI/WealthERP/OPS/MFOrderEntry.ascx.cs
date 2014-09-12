@@ -85,7 +85,7 @@ namespace WealthERP.OPS
             userVo = (UserVo)Session[SessionContents.UserVo];
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
 
-
+             advisorVo = (AdvisorVo)Session[SessionContents.AdvisorVo];  
             GetUserType();
             if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
             {
@@ -114,10 +114,12 @@ namespace WealthERP.OPS
                 txtCustomerName_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
                 AutoCompleteExtender1.ContextKey = advisorVo.advisorId.ToString();
                 AutoCompleteExtender1.ServiceMethod = "GetAdviserCustomerPan";
-                AutoCompleteExtender2.ContextKey = associateuserheirarchyVo.AgentCode;
+
+                AutoCompleteExtender2.ContextKey = associateuserheirarchyVo.AgentCode + "/" + advisorVo.advisorId.ToString();                
                 AutoCompleteExtender2.ServiceMethod = "GetAgentCodeAssociateDetailsForAssociates";
 
             }
+            bindSearchScheme();
             //if (Session["mforderVo"] != null && Session["orderVo"] != null)
             //{
             //    mforderVo = (MFOrderVo)Session["mforderVo"];
@@ -615,6 +617,8 @@ namespace WealthERP.OPS
 
                 String parameters = string.Empty;
                 //parameters = ddlAMCList.SelectedValue + '/' + ddlCategory.SelectedValue + '/' + 1 + '/' + txtCustomerId.Value;
+                if (ddlAMCList.SelectedIndex == -1)
+                    return;
 
                 if (ddlAMCList.SelectedIndex != 0 && ddlCategory.SelectedIndex != 0)
                 {
@@ -2741,7 +2745,7 @@ namespace WealthERP.OPS
                 //btnreport.Visible = true;
                 //btnpdfReport.Visible = true;
 
-                ClearAllFields();
+               // ClearAllFields();
 
             }
         }

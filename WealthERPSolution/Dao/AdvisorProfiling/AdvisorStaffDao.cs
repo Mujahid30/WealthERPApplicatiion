@@ -1001,17 +1001,20 @@ namespace DaoAdvisorProfiling
                          rmVo.AAC_AgentCode = dr["AAC_AgentCode"].ToString();
                     if (!string.IsNullOrEmpty(dr["AR_EUIN"].ToString()))
                         rmVo.EUIN = dr["AR_EUIN"].ToString();
-                    
+                    if (!string.IsNullOrEmpty(dr["DepartMentRoles"].ToString()))
+                    {
+                        rmVo.roleIds = dr["DepartMentRoles"].ToString();
+                    }
                 }
                 foreach (DataRow rdr in getAdvisorStaffDs.Tables[0].Rows)
                 {
                     if (!string.IsNullOrEmpty(rdr["StaffBranchAssociation"].ToString()))
                     {
                         rmVo.StaffBranchAssociation = rmVo.StaffBranchAssociation + rdr["StaffBranchAssociation"].ToString() + ',';
-                    
+                       
                     }
                 }
-                
+              
                 
             }
             catch (BaseApplicationException Ex)

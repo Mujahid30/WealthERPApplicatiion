@@ -204,14 +204,18 @@ namespace WealthERP.Advisor
 
         protected void ddlDepart_SelectedIndexChanged(object sender, EventArgs e)
         {
+            BindingDepartmentRoles(int.Parse(ddlDepart.SelectedValue));
+        }
+
+        private void BindingDepartmentRoles(int departId)
+        {
             PnlDepartRole.Visible = false;
-            if (ddlDepart.SelectedValue.ToString() != "0")
+            if (departId.ToString() != "0")
             {
-                BindAdviserrole(int.Parse(ddlDepart.SelectedValue));
+                BindAdviserrole(departId);
                 PnlDepartRole.Visible = true;
             }
         }
-
         private void BindAdviserrole(int departmentId)
         {
             DataTable dtBindAdvisor = new DataTable();
@@ -590,7 +594,7 @@ namespace WealthERP.Advisor
             String RoleIds = GetDepartmentRoleIds();
             RoleIds = RoleIds.Remove(RoleIds.Length - 1);
             string theme = userVo.theme;
-            string  BranchId = string.Empty ;
+            string BranchId = string.Empty;
             if (txtStaffcode.Text != string.Empty)
             {
                 int staffCodeDuplicatechec = customerbo.CheckStaffCode(txtStaffcode.Text);
@@ -603,7 +607,7 @@ namespace WealthERP.Advisor
 
             foreach (RadListBoxItem ListItem in this.RadListBoxDestination.Items)
             {
-              BranchId = BranchId + ListItem.Value.ToString();
+                BranchId = BranchId + ListItem.Value.ToString();
             }
 
             if (BranchId == string.Empty)
@@ -648,6 +652,23 @@ namespace WealthERP.Advisor
             }
             return departmentRoleids;
         }
+
+        public void  SetDepartmentRoleIds(string  roleIds)
+        {
+            if (roleIds == string.Empty)
+                return;
+            foreach (RadListBoxItem li in chkbldepart.Items)
+            {
+                if (li.Value == roleIds.ToString())
+                {
+                    li.Checked = true;
+                }
+
+                   
+            }
+           
+        }
+
         protected bool ValidateStaffReportingManager()
         {
             DataTable dtTeamList = new DataTable();
@@ -761,7 +782,16 @@ namespace WealthERP.Advisor
 
             txtMobileNumber.Text = rmStaffVo.Mobile.ToString();
             txtEmail.Text = rmStaffVo.Email.ToString();
-
+            if (ddlTeamList.SelectedItem.ToString().ToUpper() == "OPS")
+            {
+                ddlDepart.SelectedIndex = 1;
+            }
+            else
+            {
+                ddlDepart.SelectedIndex  =2;                
+            }
+            BindingDepartmentRoles(Convert.ToInt32(ddlDepart.SelectedValue));
+            SetDepartmentRoleIds(rmStaffVo.roleIds); 
             if (rmStaffVo.OfficePhoneDirectIsd != 0)
                 txtPhDirectISD.Text = rmStaffVo.OfficePhoneDirectIsd.ToString();
             if (rmStaffVo.OfficePhoneDirectNumber != 0)
