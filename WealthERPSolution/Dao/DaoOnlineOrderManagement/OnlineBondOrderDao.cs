@@ -344,6 +344,61 @@ namespace DaoOnlineOrderManagement
             }
             return ds;
         }
+        public IDictionary<string, string> CreateOfflineBondTransact(DataTable BondORder, int adviserId, int IssuerId)
+        {
+            //List<int> orderIds = new List<int>();
+            IDictionary<string, string> OrderIds = new Dictionary<string, string>();
+            Database db;
+            DbCommand cmdOfflineBondTransact;
+            try
+            {
+
+                DataSet ds = new DataSet();
+                DataTable dt = new DataTable();
+                dt = BondORder.Copy();
+                ds.Tables.Add(dt);
+                String sb;
+                sb = ds.GetXml().ToString();
+
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdOfflineBondTransact = db.GetStoredProcCommand("[SPROC_OFF_OfflineBondTransaction]");
+                db.AddInParameter(cmdOfflineBondTransact, "@xmlBondsOrder", DbType.Xml, sb);
+                db.AddInParameter(cmdOfflineBondTransact, "@AdviserId", DbType.Int32, adviserId);
+                db.AddInParameter(cmdOfflineBondTransact, "@AIM_IssueId", DbType.Int32, IssuerId);
+                db.AddOutParameter(cmdOfflineBondTransact, "@Order_Id", DbType.Int32, 1000000);
+                db.AddOutParameter(cmdOfflineBondTransact, "@application", DbType.Int32, 1000000);
+                db.AddOutParameter(cmdOfflineBondTransact, "@aplicationNoStatus", DbType.String, 10);
+
+
+                if (db.ExecuteNonQuery(cmdOfflineBondTransact) != 0)
+                {
+
+                    OrderIds.Add("Order_Id", db.GetParameterValue(cmdOfflineBondTransact, "Order_Id").ToString());
+                    OrderIds.Add("application", db.GetParameterValue(cmdOfflineBondTransact, "application").ToString());
+                    OrderIds.Add("aplicationNoStatus", db.GetParameterValue(cmdOfflineBondTransact, "aplicationNoStatus").ToString());
+
+                }
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineBondOrderDao.cs:UpdateOnlineBondTransact(VoOnlineOrderManagemnet.OnlineBondOrderVo BondORder)");
+                object[] objects = new object[1];
+                objects[0] = BondORder;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return OrderIds;
+        }
+
 
         public IDictionary<string, string> UpdateOnlineBondTransact(DataTable BondORder, int adviserId, int IssuerId)
         {

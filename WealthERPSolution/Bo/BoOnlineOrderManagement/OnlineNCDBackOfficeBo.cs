@@ -1961,6 +1961,21 @@ namespace BoOnlineOrderManagement
             }
             return blResult;
         }
+        public DataTable GetIssueList(int adviserId,int type, int customerId, string productAssetGroup)
+        {
+          
+            OnlineNCDBackOfficeDao daoOnlNcdBackOff = new OnlineNCDBackOfficeDao();
+            try
+            {
+                return daoOnlNcdBackOff.GetIssueList(adviserId,type, customerId, productAssetGroup);
+                
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+           
+        }
         public void DeleteAvaliable(int adviserid, int InvestorCatgeoryId, int AIICST_Id, int AIDCSR_Id, int IssueDetailId, int issueId)
         {
             OnlineNCDBackOfficeDao daoOnlNcdBackOff = new OnlineNCDBackOfficeDao();

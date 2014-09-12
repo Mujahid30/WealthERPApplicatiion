@@ -253,6 +253,34 @@ namespace BoOnlineOrderManagement
             }
             return OrderIds;
         }
+        public IDictionary<string, string> OfflineBOndtransact(DataTable OnlineBondOrder, int adviserId, int IssuerId)
+        {
+            IDictionary<string, string> OrderIds = new Dictionary<string, string>();
+            //bool result = false;
+            //int orderIds = 0; 
+            try
+            {
+                OrderIds = onlineBondDao.CreateOfflineBondTransact(OnlineBondOrder, adviserId, IssuerId);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineBondOrderBo.cs:onlineBOndtransact(OnlineBondOrderVo OnlineBondOrder)");
+                object[] objects = new object[1];
+                objects[0] = OnlineBondOrder;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return OrderIds;
+        }
         public IDictionary<string, string> UpdateTransactOrder(DataTable OnlineBondOrder, OnlineBondOrderVo OnlineBondOrderVo, int adviserId, int IssuerId, int OrderId, int seriesId)
         {
             IDictionary<string, string> OrderIds = new Dictionary<string, string>();

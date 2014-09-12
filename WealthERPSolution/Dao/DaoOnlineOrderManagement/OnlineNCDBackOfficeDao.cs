@@ -3362,6 +3362,40 @@ namespace DaoOnlineOrderManagement
             }
             return bResult;
         }
+        public DataTable GetIssueList(int adviserId,int type,int customerId,string productAssetGroup)
+        {
+            DataTable dtIssueList;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DbCommand getIssueListCmd;
+        
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getIssueListCmd = db.GetStoredProcCommand("SPROC_OFF_GetIssueList");
+                db.AddInParameter(getIssueListCmd, "@adviserId", DbType.Int32, adviserId);
+                db.AddInParameter(getIssueListCmd, "@type", DbType.Int32, type);
+                db.AddInParameter(getIssueListCmd, "@customerId", DbType.Int32, customerId);
+                db.AddInParameter(getIssueListCmd, "@productAssetGroup", DbType.String, productAssetGroup);
+                dtIssueList = db.ExecuteDataSet(getIssueListCmd).Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineNCDBackOfficeDao.cs:GetIssueList()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtIssueList;
+        }
+        
         public DataTable BindSyndiacte()
         {
             DataTable dtBindSyndiacte;
