@@ -8,6 +8,7 @@ using System.Data;
 using Telerik.Web.UI;
 using VoUser;
 using BoOnlineOrderManagement;
+using BoOfflineOrderManagement;
 using WealthERP.Base;
 
 namespace WealthERP.OffLineOrderManagement
@@ -21,6 +22,7 @@ namespace WealthERP.OffLineOrderManagement
         DateTime toDate;
         BoOnlineOrderManagement.OnlineBondOrderBo BoOnlineBondOrder = new BoOnlineOrderManagement.OnlineBondOrderBo();
         OnlineNCDBackOfficeBo onlineNCDBackOfficeBo = new OnlineNCDBackOfficeBo();
+        OfflineNCDIPOBackOfficeBo offlineNCDBackOfficeBo = new OfflineNCDIPOBackOfficeBo();
         protected void Page_Load(object sender, EventArgs e)
         {
             userVo = (UserVo)Session[SessionContents.UserVo];
@@ -69,6 +71,13 @@ namespace WealthERP.OffLineOrderManagement
             dtOrderStatus = dsOrderStatus.Tables[0];
             if (dtOrderStatus.Rows.Count > 0)
             {
+                
+                for (int i = dtOrderStatus.Rows.Count - 1; i >= 0; i--)
+                {
+                    if (dtOrderStatus.Rows[i][1].ToString() == "INPROCESS" || dtOrderStatus.Rows[i][1].ToString() == "EXECUTED")
+                        dtOrderStatus.Rows[i].Delete();
+                }
+                dtOrderStatus.AcceptChanges();
                 ddlOrderStatus.DataSource = dtOrderStatus;
                 ddlOrderStatus.DataTextField = dtOrderStatus.Columns["WOS_OrderStep"].ToString();
                 ddlOrderStatus.DataValueField = dtOrderStatus.Columns["WOS_OrderStepCode"].ToString();
@@ -88,7 +97,7 @@ namespace WealthERP.OffLineOrderManagement
             if (txtOrderTo.SelectedDate != null)
                 toDate = DateTime.Parse(txtOrderTo.SelectedDate.ToString());
             DataTable dtNCDOrder = new DataTable();
-            dtNCDOrder = onlineNCDBackOfficeBo.GetAdviserNCDOrderBook(advisorVo.advisorId, Convert.ToInt32(ddlIssueName.SelectedValue.ToString()), hdnOrderStatus.Value, fromDate, toDate);
+            dtNCDOrder = offlineNCDBackOfficeBo.GetOfflineCustomerNCDOrderBook(advisorVo.advisorId, Convert.ToInt32(ddlIssueName.SelectedValue.ToString()), hdnOrderStatus.Value, fromDate, toDate);
             if (dtNCDOrder.Rows.Count >= 0)
             {
                 if (Cache["NCDBookList" + userVo.UserId.ToString()] == null)
@@ -235,7 +244,7 @@ namespace WealthERP.OffLineOrderManagement
                 PnlChild.Visible = false;
                 buttonlink.Text = "+";
             }
-            DataTable dtNCDOrderBook = onlineNCDBackOfficeBo.GetAdviserNCDOrderSubBook(advisorVo.advisorId, strIssuerId, orderId);
+            DataTable dtNCDOrderBook = offlineNCDBackOfficeBo.GetAdviserNCDOrderSubBook(advisorVo.advisorId, strIssuerId, orderId);
             dtIssueDetail = dtNCDOrderBook;
             gvChildDetails.DataSource = dtIssueDetail;
             gvChildDetails.DataBind();
@@ -287,7 +296,7 @@ namespace WealthERP.OffLineOrderManagement
                     Panel PnlChild = (Panel)gvr.FindControl("pnlchild");
                     strIssuerId = int.Parse(gvNCDOrderBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["AIM_IssueId"].ToString());
                     int orderId = int.Parse(gvNCDOrderBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["CO_OrderId"].ToString());
-                    DataTable dtNCDOrderBook = onlineNCDBackOfficeBo.GetAdviserNCDOrderSubBook(advisorVo.advisorId, strIssuerId, orderId);
+                    DataTable dtNCDOrderBook = offlineNCDBackOfficeBo.GetAdviserNCDOrderSubBook(advisorVo.advisorId, strIssuerId, orderId);
                     dtIssueDetail = dtNCDOrderBook;
                     gvChildDetails.DataSource = dtIssueDetail;
                     gvChildDetails.DataBind();
