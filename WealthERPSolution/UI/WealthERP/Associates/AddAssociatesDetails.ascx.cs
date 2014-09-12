@@ -427,8 +427,8 @@ namespace WealthERP.Associates
                 txtPermAdrLine2.Text = associatesVo.PerAdrLine2;
             if (associatesVo.PerAdrLine3 != null)
                 txtPermAdrLine3.Text = associatesVo.PerAdrLine3;
-            //if (associatesVo.PerAdrCity != null)
-            //    txtPermAdrCity.Text = associatesVo.PerAdrCity;
+            if (associatesVo.PerAdrCity != null)
+                txtPermAdrCity.Text = associatesVo.PerAdrCity;
             if (associatesVo.PerAdrPinCode != null)
                 txtPermAdrPinCode.Text = associatesVo.PerAdrPinCode.ToString();
             //BindState();
@@ -460,8 +460,8 @@ namespace WealthERP.Associates
                 txtBankAdrLine3.Text = associatesVo.BranchAdrLine3;
             if (associatesVo.BranchAdrCity != null)
                 txtBankAdrCity.Text = associatesVo.BranchAdrCity;
-            //if (!string.IsNullOrEmpty(associatesVo.BranchAdrCity))
-            //    ddlBankAdrCity.SelectedValue = associatesVo.BranchAdrCity;
+            //if (!string.isnullorempty(associatesvo.branchadrcity))
+            //    ddlbankadrcity.selectedvalue = associatesvo.branchadrcity;
             if (!string.IsNullOrEmpty(associatesVo.BranchAdrState))
                 ddlBankAdrState.Text = associatesVo.BranchAdrState;
 
@@ -475,7 +475,7 @@ namespace WealthERP.Associates
                 txtRegNo.Text = associatesVo.Registrationumber;
             if (associatesVo.ExpiryDate != DateTime.MinValue)
                 txtRegExpDate.SelectedDate = associatesVo.ExpiryDate;
-
+            
             if (associatesVo.NomineeName != null)
                 txtNomineeName.Text = associatesVo.NomineeName;
             if (associatesVo.RelationshipCode != null)
@@ -679,8 +679,8 @@ namespace WealthERP.Associates
 
         private void SetControls(AssociatesVO associatesVo)
         {
-            txtBranch.Text = associatesVo.BMName;
-            txtRM.Text = associatesVo.RMNAme;
+            //txtBranch.Text = associatesVo.BMName;
+            //txtRM.Text = associatesVo.RMNAme;
             txtAssociateName.Text = associatesVo.ContactPersonName;
             txtEmail.Text = associatesVo.Email;
         }

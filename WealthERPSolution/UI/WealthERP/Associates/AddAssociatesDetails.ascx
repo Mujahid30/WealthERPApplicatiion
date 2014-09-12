@@ -156,7 +156,7 @@
         </td>
         <td>
             <asp:DropDownList ID="ddlBranch" runat="server" Style="vertical-align: middle" AutoPostBack="false"
-                CssClass="cmbField" Enabled="false">
+                CssClass="cmbField" Enabled="true">
             </asp:DropDownList>
             <span id="Span5" class="spnRequiredField">*</span>
             <br />
