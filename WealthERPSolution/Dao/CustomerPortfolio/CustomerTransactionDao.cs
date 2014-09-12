@@ -2333,7 +2333,7 @@ namespace DaoCustomerPortfolio
         /// <param name="FolioNumber">MF Folio Number Search Parameter</param>
         /// <param name="PasssedFolioValue">Folio Value Search Parameter</param>
         /// <returns></returns>
-        public List<MFTransactionVo> GetRMCustomerMFTransactions(int RMId, int AdviserID, int GroupHeadId,int IsfolioOnline, DateTime From, DateTime To, int Manage, int AccountId, bool isCustomerTransactionOnly, int SchemePlanCode, int AmcCode, string Category, int A_AgentCodeBased,string AgentCode,string UserType)
+        public List<MFTransactionVo> GetRMCustomerMFTransactions(int RMId, int AdviserID, int GroupHeadId,int IsfolioOnline, DateTime From, DateTime To, int Manage, int AccountId, bool isCustomerTransactionOnly, int SchemePlanCode, int AmcCode, string Category, int A_AgentCodeBased,string AgentCode,string UserType,int agentCode)
         {
             DataSet ds = null;
             Database db;
@@ -2355,8 +2355,9 @@ namespace DaoCustomerPortfolio
                 //}
                 //else
                 //{
-                getRMCustomerMFTransactionsCmd = db.GetStoredProcCommand("SP_GetRMCustomerMFTransactions");
+              //  getRMCustomerMFTransactionsCmd = db.GetStoredProcCommand("SP_GetRMCustomerMFTransactions");//comment
                 //}
+                getRMCustomerMFTransactionsCmd = db.GetStoredProcCommand("SPROC_GetMFOfflineTransaction");
 
                 if (RMId != 0)
                     db.AddInParameter(getRMCustomerMFTransactionsCmd, "@RMId", DbType.Int32, RMId);
@@ -2418,6 +2419,7 @@ namespace DaoCustomerPortfolio
                 //if (IsAssociates != 0)
                 db.AddInParameter(getRMCustomerMFTransactionsCmd, "@IsAgentBasedCode", DbType.Int32, A_AgentCodeBased);
                 db.AddInParameter(getRMCustomerMFTransactionsCmd, "@IsfolioOnline", DbType.Int32, IsfolioOnline);
+                db.AddInParameter(getRMCustomerMFTransactionsCmd, "@IsagentCode", DbType.Int32, agentCode);
 
                 //else
                 //    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@IsAssociate", DbType.Int32, DBNull.Value);

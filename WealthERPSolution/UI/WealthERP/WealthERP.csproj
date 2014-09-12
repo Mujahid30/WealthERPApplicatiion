@@ -4368,10 +4368,6 @@
       <Project>{11F67200-9287-465A-9A0C-2B7DE855D61D}</Project>
       <Name>BoMarketDataPull</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Bo\BoOfflineOrderManagement\BoOfflineOrderManagement.csproj">
-      <Project>{E4694B76-B0A7-4AE1-B15E-5DF568AD6F29}</Project>
-      <Name>BoOfflineOrderManagement</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Bo\BoOnlineOrderManagement\BoOnlineOrderManagement.csproj">
       <Project>{895BD846-24E9-48CA-90EF-37FE761296FB}</Project>
       <Name>BoOnlineOrderManagement</Name>

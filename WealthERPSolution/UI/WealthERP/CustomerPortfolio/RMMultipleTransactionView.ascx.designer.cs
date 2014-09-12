@@ -57,7 +57,7 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid gvManualMerge;
-        
+        protected global::Telerik.Web.UI.RadGrid gvMFTransactionWithoutAgentCode;
         /// <summary>
         /// Button1 control.
         /// </summary>
@@ -75,7 +75,7 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lbBack;
-        
+        protected global::System.Web.UI.WebControls.LinkButton lnkViewWithoutAgentCode;
         /// <summary>
         /// lnkBackHolding control.
         /// </summary>
@@ -84,7 +84,8 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lnkBackHolding;
-        
+        protected global::System.Web.UI.WebControls.DropDownList ddlType;
+        protected global::System.Web.UI.WebControls.DropDownList ddlAgentCode;
         /// <summary>
         /// btnTrnxExport control.
         /// </summary>
@@ -570,7 +571,7 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel Panel2;
-        
+        protected global::System.Web.UI.WebControls.Panel pnlMFTransactionWithoutAgentCode;
         /// <summary>
         /// dvTransactionsView control.
         /// </summary>
@@ -687,7 +688,7 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnRecordCount;
-        
+        protected global::System.Web.UI.WebControls.HiddenField hdnMFTransaction;
         /// <summary>
         /// hdnCurrentPage control.
         /// </summary>
