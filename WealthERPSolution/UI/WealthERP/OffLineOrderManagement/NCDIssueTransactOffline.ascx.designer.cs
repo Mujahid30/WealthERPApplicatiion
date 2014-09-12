@@ -606,5 +606,27 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidAmt;
+        protected global::System.Web.UI.WebControls.Panel pnlNCDTransact;
+        protected global::Telerik.Web.UI.RadGrid gvIssueList;
+        protected global::Telerik.Web.UI.RadGrid gvCommMgmt;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trSubmit;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trTermsCondition;
+        protected global::System.Web.UI.WebControls.Label lb1AvailbleCat;
+        protected global::System.Web.UI.HtmlControls.HtmlTable tblMessage;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl msgRecordStatus;
+        /// <summary>
+        /// rwTermsCondition control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadWindow rwTermsCondition;
+        protected global::System.Web.UI.WebControls.Button btnConfirmOrder;
+        protected global::System.Web.UI.WebControls.CheckBox chkTermsCondition;
+        protected global::System.Web.UI.WebControls.Label Label3;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdsubmit;
+        protected global::System.Web.UI.WebControls.Panel pnlIssuList;
+       
     }
 }
