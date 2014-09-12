@@ -109,7 +109,7 @@ namespace WealthERP.Advisor
                 rmStaffVo.LastName = txtLastName.Text;
 
             if (!string.IsNullOrEmpty(txtStaffcode.Text.Trim()))
-                rmStaffVo.StaffCode =  txtStaffcode.Text;
+                rmStaffVo.StaffCode = txtStaffcode.Text;
             if (ddlBranch.SelectedIndex != 0 || ddlBranch.SelectedIndex != -1)
                 rmStaffVo.BranchId = Convert.ToInt32(ddlBranch.SelectedValue);
 
@@ -157,12 +157,19 @@ namespace WealthERP.Advisor
                 rmStaffVo.IsAssociateUser = false;
             else
                 rmStaffVo.IsAssociateUser = true;
-            //foreach (RadListBoxItem ListItem in this.RadListBoxDestination.Items)
-            //{
-            //    AllBranchId = AllBranchId + ListItem.Value.ToString() + ",";
+            if (ddlTeamList.SelectedValue.ToUpper() == "OPS")
+            {
+                AllBranchId = ddlBranch.SelectedValue;
+            }
+            else
+            {
+                foreach (RadListBoxItem ListItem in this.RadListBoxDestination.Items)
+                {
+                    AllBranchId = AllBranchId + ListItem.Value.ToString() + ",";
 
-            //}
-            rmStaffVo.StaffBranchAssociation = ddlBranch.SelectedValue;
+                }
+            }
+            rmStaffVo.StaffBranchAssociation = AllBranchId;
             return rmStaffVo;
         }
 
@@ -177,7 +184,7 @@ namespace WealthERP.Advisor
             //rmUserVo.UserType = ddlRMRole.SelectedItem.Text.ToString().Trim();
             rmUserVo.Password = password;
             rmUserVo.MiddleName = txtMiddleName.Text.ToString();
-            rmUserVo.LoginId =  txtStaffcode.Text.ToString();
+            rmUserVo.LoginId = txtStaffcode.Text.ToString();
             rmUserVo.LastName = txtLastName.Text.ToString();
             rmUserVo.FirstName = txtFirstName.Text.ToString();
             rmUserVo.Email = txtEmail.Text.ToString();
@@ -412,12 +419,12 @@ namespace WealthERP.Advisor
                 if (ddlTitleList.SelectedItem.Text == "OPS")
                 {
                     lblrg.Visible = false;
-                    
+
                 }
                 else
                 {
                     lblrg.Visible = true;
-                  
+
                 }
 
 
@@ -433,9 +440,18 @@ namespace WealthERP.Advisor
             {
 
                 BindTeamTitleDropList(Convert.ToInt32(ddlTeamList.SelectedValue));
+                if (ddlTeamList.SelectedValue.ToUpper() == "OPS")
+                {
+                    tdLb1Branch.Visible = true;
+                    tdDdl1Branch.Visible = true;
+                }
+                else
+                {
+                    tdLb1Branch.Visible = false;
+                    tdDdl1Branch.Visible = false;
+                }
 
             }
-
         }
 
         protected void ddlRportingRole_SelectedIndexChanged(object sender, EventArgs e)
@@ -573,6 +589,7 @@ namespace WealthERP.Advisor
             String RoleIds = GetDepartmentRoleIds();
             RoleIds = RoleIds.Remove(RoleIds.Length - 1);
             string theme = userVo.theme;
+            int BranchId = 0;
             if (txtStaffcode.Text != string.Empty)
             {
                 int staffCodeDuplicatechec = customerbo.CheckStaffCode(txtStaffcode.Text);
@@ -582,13 +599,19 @@ namespace WealthERP.Advisor
                     return;
                 }
             }
+
+            foreach (RadListBoxItem ListItem in this.RadListBoxDestination.Items)
+            {
+                //BranchId = BranchId + ListItem.Value.ToString();
+            }
+
             if (ValidateStaffReportingManager())
             {
                 rmStaffVo = CollectAdviserStaffData();
                 rmUserVo = CollectAdviserStaffUserData();
                 if (Validation(hdnAgentCode.Value) && EmailValidation(txtEmail.Text))
                 {
-                    if ( ddlDepart.SelectedItem.Text  =="OPS")
+                    if (ddlDepart.SelectedItem.Text == "OPS")
                     {
                         rmStaffVo.IsExternal = 0;
                         hidRMid.Value = Convert.ToString(advisorStaffBo.CreateAdviserStaff(rmUserVo, rmStaffVo, userVo.UserId, ddlTitleList.SelectedItem.Text.Trim().ToUpper() == "OPS" ? true : false, false, RoleIds, theme));

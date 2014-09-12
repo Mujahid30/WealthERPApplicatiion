@@ -221,10 +221,10 @@
         </td>
     </tr>
     <tr>
-        <td class="leftLabel">
+        <td class="leftLabel" id="tdLb1Branch" >
             <asp:Label ID="lblBranch" runat="server" Text="Branch:" CssClass="FieldName"></asp:Label>
         </td>
-        <td class="rightData">
+        <td class="rightData" id=tdDdl1Branch>
             <asp:DropDownList ID="ddlBranch" runat="server" CssClass="cmbField">
             </asp:DropDownList>
             <span id="Span6" class="spnRequiredField">*</span>
@@ -480,28 +480,30 @@
             <%--  <asp:Label ID="lblEmailDuplicate" runat="server" CssClass="Error" Text="Email Id already exists"></asp:Label>--%>
         </td>
     </tr>
-    <tr id="tr4" runat="server" visible="false">
+    <tr id="tr4" runat="server" visible="True">
         <td colspan="6" style="vertical-align: text-bottom; padding-top: 6px; padding-bottom: 6px">
             <div class="divSectionHeading" style="vertical-align: text-bottom">
                 Staff to Branch Association
             </div>
         </td>
     </tr>
-    <tr visible="false">
+    <tr visible="True">
         <td colspan="6">
             <div class="clearfix" style="margin-bottom: 1em;">
                 <asp:Panel ID="PLCustomer" runat="server" Style="float: left; padding-left: 150px;"
-                    Visible="false">
-                    <asp:Label ID="lblSelectBranch" runat="server" CssClass="FieldName" Text="   ">
+                    >
+                    <asp:Label ID="lblSelectBranch" runat="server" CssClass="FieldName" Text="Existing Branches">
                     </asp:Label>
                     <telerik:RadListBox SelectionMode="Multiple" EnableDragAndDrop="true" AccessKey="y"
                         AllowTransferOnDoubleClick="true" AllowTransferDuplicates="false" OnTransferred="ListBoxSource_Transferred"
                         EnableViewState="true" EnableMarkMatches="true" runat="server" ID="LBStaffBranch"
                         Height="200px" Width="250px" AllowTransfer="true" TransferToID="RadListBoxDestination"
-                        CssClass="cmbFielde" Visible="false">
+                        CssClass="cmbFielde"  >
                     </telerik:RadListBox>
+                     <asp:Label ID="Label3" runat="server" CssClass="FieldName" Text="Mapped Branches">
+                    </asp:Label>
                     <telerik:RadListBox runat="server" AutoPostBackOnTransfer="true" SelectionMode="Multiple"
-                        ID="RadListBoxDestination" Height="200px" Width="220px" CssClass="cmbField" Visible="false">
+                        ID="RadListBoxDestination" Height="200px" Width="220px" CssClass="cmbField"  >
                     </telerik:RadListBox>
                 </asp:Panel>
             </div>
