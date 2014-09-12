@@ -453,7 +453,7 @@ namespace DAOAssociates
                 else
                     db.AddInParameter(UpdateAssociatesCmd, "@AA_BranchAdrState", DbType.String, DBNull.Value);
 
-                if (!string.IsNullOrEmpty(associatesVo.BranchAdrCountry.ToString().Trim()))
+                if (!string.IsNullOrEmpty(associatesVo.BranchAdrCountry))
                     db.AddInParameter(UpdateAssociatesCmd, "@AA_BranchAdrCountry", DbType.String, associatesVo.BranchAdrCountry);
                 else
                     db.AddInParameter(UpdateAssociatesCmd, "@AA_BranchAdrCountry", DbType.String, DBNull.Value);
