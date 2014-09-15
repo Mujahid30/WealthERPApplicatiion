@@ -380,26 +380,6 @@
             <tr>
                 <td>
                     <table>
-                        <tr>
-                            <td align="left">
-                                <asp:RadioButton ID="rdtnOnline" runat="server" Text="Online" CssClass="Field" GroupName="status"
-                                    Checked="true" Visible="false" />
-                                <asp:RadioButton ID="rbtnOffline" runat="server" Text="Offline" CssClass="Field"
-                                    GroupName="status" Visible="false" />
-                            </td>
-                            <td align="right" visible="false">
-                                <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="Date Type:" Visible="false"></asp:Label>
-                            </td>
-                            <td align="left" visible="false">
-                                <asp:RadioButton ID="rbtnPickDate" AutoPostBack="true" Checked="true" OnCheckedChanged="rbtnDate_CheckedChanged"
-                                    runat="server" GroupName="Date" Visible="false" />
-                                <asp:Label ID="lblPickDate" runat="server" Text="Date Range" CssClass="Field" Visible="false"></asp:Label>
-                                &nbsp;
-                                <asp:RadioButton ID="rbtnPickPeriod" AutoPostBack="true" OnCheckedChanged="rbtnDate_CheckedChanged"
-                                    runat="server" GroupName="Date" Visible="false" />
-                                <asp:Label ID="lblPickPeriod" runat="server" Text="Period" CssClass="Field" Visible="false"></asp:Label>
-                            </td>
-                        </tr>
                         <tr id="trRangeNcustomer" runat="server">
                             <td align="right">
                                 <asp:Label ID="Label4" runat="server" CssClass="FieldName" Text="Display Type:"></asp:Label>
@@ -608,6 +588,26 @@
                                     ValidationGroup="btnGo" onmouseover="javascript:ChangeButtonCss('hover',
                 'ctrl_RMMultipleTransactionView_btnGo', 'S');" onmouseout="javascript:ChangeButtonCss('out',
                 'ctrl_RMMultipleTransactionView_btnGo', 'S');" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left">
+                                <asp:RadioButton ID="rdtnOnline" runat="server" Text="Online" CssClass="Field" GroupName="status"
+                                    Checked="true" Visible="false" />
+                                <asp:RadioButton ID="rbtnOffline" runat="server" Text="Offline" CssClass="Field"
+                                    GroupName="status" Visible="false" />
+                            </td>
+                            <td align="right" visible="false">
+                                <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="Date Type:" Visible="false"></asp:Label>
+                            </td>
+                            <td align="left" visible="false">
+                                <asp:RadioButton ID="rbtnPickDate" AutoPostBack="true" Checked="true" OnCheckedChanged="rbtnDate_CheckedChanged"
+                                    runat="server" GroupName="Date" Visible="false" />
+                                <asp:Label ID="lblPickDate" runat="server" Text="Date Range" CssClass="Field" Visible="false"></asp:Label>
+                                &nbsp;
+                                <asp:RadioButton ID="rbtnPickPeriod" AutoPostBack="true" OnCheckedChanged="rbtnDate_CheckedChanged"
+                                    runat="server" GroupName="Date" Visible="false" />
+                                <asp:Label ID="lblPickPeriod" runat="server" Text="Period" CssClass="Field" Visible="false"></asp:Label>
                             </td>
                         </tr>
                         <%--<tr visible="false">
@@ -927,7 +927,7 @@
                                     AutoGenerateColumns="False" allowfiltering="true" AllowFilteringByColumn="true"
                                     PageSize="10" AllowSorting="true" fAllowAutomaticDeletes="false" OnPreRender="gvMFTransactions_PreRender"
                                     AllowPaging="True" ShowStatusBar="True" ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false"
-                                    Width="120%" Height="400px" AllowAutomaticInserts="false"  OnNeedDataSource="gvMFTransactionWithoutAgentCode_OnNeedDataSource">
+                                    Width="120%" Height="400px" AllowAutomaticInserts="false" OnNeedDataSource="gvMFTransactionWithoutAgentCode_OnNeedDataSource">
                                     <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
                                         FileName="View Transactions Details">
                                     </ExportSettings>
@@ -1087,11 +1087,6 @@
                                                 CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="CreatedOn"
                                                 FooterStyle-HorizontalAlign="Left">
                                                 <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
-                                            </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="UserType" AllowFiltering="true" HeaderText="Type"
-                                                Visible="true" UniqueName="UserType" SortExpression="UserType" ShowFilterIcon="false"
-                                                CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="120px">
-                                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn DataField="CMFT_UserTransactionNo" AllowFiltering="true"
                                                 HeaderText="User Transaction No" UniqueName="UserTransactionNo" SortExpression="CMFT_UserTransactionNo"
