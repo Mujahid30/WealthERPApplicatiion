@@ -1545,7 +1545,7 @@
     </tr>
 </table>
 
-<asp:Panel ID="pnlOrderSteps" runat="server" Width="100%" Height="80%">
+<asp:Panel ID="pnlOrderSteps" runat="server" Width="100%" Height="80%" Visible="false">
     <table width="100%">
         <tr>
             <td>

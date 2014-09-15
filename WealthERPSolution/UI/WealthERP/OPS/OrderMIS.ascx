@@ -1064,29 +1064,33 @@
                         </telerik:GridBoundColumn>--%>
                             </Columns>
                         </MasterTableView>
-                        <ClientSettings>
+                       <%-- <ClientSettings>
                             <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
-                        </ClientSettings>
+                        </ClientSettings>--%>
                     </telerik:RadGrid></div>
             </td>
         </tr>
         <tr>
             <td>
-            </td>
-        </tr>
-    </table>
-    
-</asp:Panel>
-<table>
-        <tr>
-            <td>
-                <asp:Button ID="btnSync" runat="server" Text="Auto Match" CssClass="PCGMediumButton"
+              <asp:Button ID="btnSync" runat="server" Text="Auto Match" CssClass="PCGMediumButton"
                     OnClick="btnSync_Click" Visible="false"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:Button ID="btnMannualMatch" runat="server" Text="Manual Match" CssClass="PCGMediumButton"
                     OnClick="btnMannualMatch_Click" Visible="false"/>
             </td>
         </tr>
     </table>
+    
+</asp:Panel>
+<%--<table>
+        <tr>
+           <%-- <td>
+                <asp:Button ID="btnSync" runat="server" Text="Auto Match" CssClass="PCGMediumButton"
+                    OnClick="btnSync_Click" Visible="false"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <asp:Button ID="btnMannualMatch" runat="server" Text="Manual Match" CssClass="PCGMediumButton"
+                    OnClick="btnMannualMatch_Click" Visible="false"/>
+            </td>--%>
+       <%-- </tr>
+    </table> --%>
 <table width="50%">
     <tr>
         <%--    <td> 

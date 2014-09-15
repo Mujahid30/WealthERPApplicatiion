@@ -178,9 +178,7 @@ namespace WealthERP.OPS
             rmVo = (RMVo)Session[SessionContents.RmVo];
             int RMId = rmVo.RMId;
             bmID = rmVo.RMId;
-            gvCustomerOrderMIS.Visible = false;
-            btnMannualMatch.Visible = false;
-            btnSync.Visible = false;
+           
 
 
             if (Request.QueryString["result"] != null)
@@ -190,7 +188,9 @@ namespace WealthERP.OPS
             }
             if (!IsPostBack)
             {
-
+                gvCustomerOrderMIS.Visible = false;
+                btnMannualMatch.Visible = false;
+                btnSync.Visible = false;
                 if (userType == "advisor")
                 {
                     BindBranchDropDown();
@@ -435,7 +435,7 @@ namespace WealthERP.OPS
             DataSet dsOrderMIS = new DataSet();
             DataTable dtOrderMIS = new DataTable();
             int OnlineStatus = 0;
-
+           
             if (ddlOnlineOffline.SelectedValue == "Online")
             {
                 OnlineStatus = 1;
@@ -452,27 +452,28 @@ namespace WealthERP.OPS
                 gvCustomerOrderMIS.DataSource = dtOrderMIS;
                 gvCustomerOrderMIS.DataBind();
                 gvCustomerOrderMIS.Visible = true;
+              
                 //this.GetPageCount();
-                if (ddlMISOrderStatus.SelectedValue.Trim() == "IP")
-                {
-                    btnSync.Visible = false;
-                    btnMannualMatch.Visible = false;
-                }
-                else
-                {
-                    btnSync.Visible = false;
-                    btnMannualMatch.Visible = false;
-                }
-                if (ddlOnlineOffline.SelectedValue == "Offline")
-                {
-                    btnSync.Visible = true;
-                    btnMannualMatch.Visible = true;
-                }
-                else
-                {
-                    btnSync.Visible = false;
-                    btnMannualMatch.Visible = false;
-                }
+                //if (ddlMISOrderStatus.SelectedValue.Trim() == "IP")
+                //{
+                //    btnSync.Visible = false;
+                //    btnMannualMatch.Visible = false;
+                //}
+                //else
+                //{
+                //    btnSync.Visible = false;
+                //    btnMannualMatch.Visible = false;
+                //}
+                //if (ddlOnlineOffline.SelectedValue == "Offline")
+                //{
+                //    btnSync.Visible = true;
+                //    btnMannualMatch.Visible = true;
+                //}
+                //else
+                //{
+                //    btnSync.Visible = false;
+                //    btnMannualMatch.Visible = false;
+                //}
                 if (Cache["OrderMIS" + advisorVo.advisorId] == null)
                 {
                     Cache.Insert("OrderMIS" + userVo.UserId, dtOrderMIS);
@@ -497,14 +498,14 @@ namespace WealthERP.OPS
                 //btnSubmit.Visible = false;
                 ErrorMessage.Visible = true;
                 ErrorMessage.InnerText = "No Records Found...!";
-                btnSync.Visible = false;
-                btnMannualMatch.Visible = false;
+                //btnSync.Visible = false;
+                //btnMannualMatch.Visible = false;
 
                 btnMForderRecon.Visible = false;
                 //imgBtnExport.Visible = false;
             }
 
-
+            setMatchButtonsVisblity();
 
         }
 
@@ -655,8 +656,7 @@ namespace WealthERP.OPS
                 gvCustomerOrderMIS.Visible = true;
                 gvCustomerFIOrderMIS.Visible = false;
                 hdnOrdStatus.Value = string.Empty;
-                SetParameters();
-                setMatchButtonsVisblity();
+                SetParameters();                 
                 BindMISGridView();
             }
             else if (hdnProductType.Value == "FI")
@@ -672,15 +672,15 @@ namespace WealthERP.OPS
 
         private void setMatchButtonsVisblity()
         {
-            if (ddlMISOrderStatus.SelectedValue == "0" && Convert.ToInt32(ddlOnlineOffline.SelectedValue) == 1)
-            {
-                btnMannualMatch.Visible = false;
-                btnSync.Visible = false;
-            }
-            else if (ddlMISOrderStatus.SelectedValue == "0" && Convert.ToInt32(ddlOnlineOffline.SelectedValue) == 0)
+            if (ddlMISOrderStatus.SelectedValue == "IP" && ddlOnlineOffline.SelectedValue.ToUpper() == "OFFLINE")
             {
                 btnMannualMatch.Visible = true;
                 btnSync.Visible = true;
+            }
+            else
+            {
+                btnMannualMatch.Visible = false;
+                btnSync.Visible = false;
             }
         }
         private void SetFIParameters()
@@ -1361,17 +1361,8 @@ namespace WealthERP.OPS
 
         protected void ddlMISOrderStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (ddlMISOrderStatus.SelectedValue == "0" && Convert.ToInt32(ddlOnlineOffline.SelectedValue) == 1)
-            {
-                btnMannualMatch.Visible = false;
-                btnSync.Visible = false;
-            }
-            else if (ddlMISOrderStatus.SelectedValue == "0" && Convert.ToInt32(ddlOnlineOffline.SelectedValue) == 0)
-            {
-                btnMannualMatch.Visible = true;
-                btnSync.Visible = true;
-            }
 
+            setMatchButtonsVisblity();
 
         }
 
