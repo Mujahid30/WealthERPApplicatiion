@@ -4368,6 +4368,10 @@
       <Project>{11F67200-9287-465A-9A0C-2B7DE855D61D}</Project>
       <Name>BoMarketDataPull</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Bo\BoOfflineOrderManagement\BoOfflineOrderManagement.csproj">
+      <Project>{E4694B76-B0A7-4AE1-B15E-5DF568AD6F29}</Project>
+      <Name>BoOfflineOrderManagement</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Bo\BoOnlineOrderManagement\BoOnlineOrderManagement.csproj">
       <Project>{895BD846-24E9-48CA-90EF-37FE761296FB}</Project>
       <Name>BoOnlineOrderManagement</Name>
@@ -7523,6 +7527,8 @@
     <Content Include="bin\BoFPSuperlite.pdb" />
     <Content Include="bin\BoHostConfig.dll" />
     <Content Include="bin\BoHostConfig.pdb" />
+    <Content Include="bin\BoOfflineOrderManagement.dll" />
+    <Content Include="bin\BoOfflineOrderManagement.pdb" />
     <Content Include="bin\BoOnlineOrderManagement.dll" />
     <Content Include="bin\BoOnlineOrderManagement.pdb" />
     <Content Include="bin\BoOps.dll" />
@@ -7541,6 +7547,8 @@
     <Content Include="bin\DaoCommon.pdb" />
     <Content Include="bin\DaoFPSuperlite.dll" />
     <Content Include="bin\DaoFPSuperlite.pdb" />
+    <Content Include="bin\DaoOfflineOrderManagement.dll" />
+    <Content Include="bin\DaoOfflineOrderManagement.pdb" />
     <Content Include="bin\DaoOnlineOrderManagement.dll" />
     <Content Include="bin\DaoOnlineOrderManagement.pdb" />
     <Content Include="bin\DaoOps.dll" />
