@@ -56,35 +56,19 @@ namespace WealthERP.OffLineOrderManagement
         AssociatesUserHeirarchyVo associateuserheirarchyVo = new AssociatesUserHeirarchyVo();
         OnlineNCDBackOfficeBo onlineNCDBackOfficeBO = new OnlineNCDBackOfficeBo();
         List<DataSet> applicationNoDup = new List<DataSet>();
-
         UserVo userVo;
         PriceBo priceBo = new PriceBo();
         string path;
         DataTable dtBankName = new DataTable();
-        DataTable dtFrequency;
-        DataTable ISAList;
-        int amcCode;
-        string categoryCode;
-        int portfolioId;
-        int schemePlanCode;
-        int Aflag = 0;
-        int Sflag = 0;
-        int orderId;
-        int orderNumber = 0;
-        string ViewForm = string.Empty;
-        string updatedStatus = "";
-        string updatedReason = "";
-        bool result = false;
         string userType = string.Empty;
         string mail = string.Empty;
         string AgentCode;
-        DataTable AgentId;
         DataTable Agentname;
+        DataTable dtAgentId;
         int customerId;
         double sum = 0;
         int Quantity = 0;
         int IssuerId = 0;
-        int seriesId = 0;
         int minQty = 0;
         int maxQty = 0;
         int EligblecatId = 0;
@@ -844,8 +828,11 @@ namespace WealthERP.OffLineOrderManagement
         }
         protected void ddlIssueList_OnSelectedIndexChanged(object sender, EventArgs e)
         {
-            BindStructureRuleGrid();
-            BindStructureRuleGrid(int.Parse(ddlIssueList.SelectedValue));
+            if (ddlIssueList.SelectedValue.ToLower() != "select")
+            {
+                BindStructureRuleGrid();
+                BindStructureRuleGrid(int.Parse(ddlIssueList.SelectedValue));
+            }
         }
 
         protected void lnkBtnEdit_Click(object sender, EventArgs e)
@@ -958,6 +945,7 @@ namespace WealthERP.OffLineOrderManagement
 
                 gvIssueList.DataSource = dtIssue;
                 gvIssueList.DataBind();
+               
             }
             else
             {
@@ -991,6 +979,8 @@ namespace WealthERP.OffLineOrderManagement
                 pnlNCDTransact.Visible = true;
                 trTermsCondition.Visible = true;
                 trSubmit.Visible = true;
+               
+                
             }
             else
             {
@@ -1038,7 +1028,7 @@ namespace WealthERP.OffLineOrderManagement
                         txtQuantity.Text = "";
                         return;
                     }
-                    if (gvCommMgmt.MasterTableView.DataKeyValues[rowindex]["AID_SeriesFaceValue"].ToString()=="")
+                    if (gvCommMgmt.MasterTableView.DataKeyValues[rowindex]["AID_SeriesFaceValue"].ToString() == "")
                         return;
                     AIM_FaceValue = Convert.ToDouble(gvCommMgmt.MasterTableView.DataKeyValues[rowindex]["AID_SeriesFaceValue"].ToString());
                     TextBox txtAmount = (TextBox)gvCommMgmt.MasterTableView.Items[rowindex]["Amount"].FindControl("txtAmount");
@@ -1063,19 +1053,10 @@ namespace WealthERP.OffLineOrderManagement
                                 ViewState["Sum"] = sum;
                                 lblQty.Text = Quantity.ToString();
                                 lblSum.Text = sum.ToString();
-
-                                //  lb1AvailbleCat.Visible = true;
                                 OnlineBondBo.GetCustomerCat(issueId, customerVo.CustomerId, advisorVo.advisorId, Convert.ToDouble(lblSum.Text), ref catName, ref issuedetId, ref catId, ref Description);
 
-                                //OnlineBondBo.GetCustomerCat(issueId, customerVo.CustomerId, adviserVo.advisorId, Convert.ToDouble(lblSum.Text), ref catName, ref issuedetId, ref catId, ref Description);
                                 ViewState["CustCat"] = catName;
-                                //ViewState["Description"] = Description;
-                                //lb1AvailbleCat.Text = " You have applied this issue under category : " + catName + "-" + Description;
-                                //ShowMessage(lb1AvailbleCat.Text);
 
-                                //if (catName == string.Empty)
-                                //    ShowMessage("Bid category Not Available");
-                                //txtTotAmt_ValueChanged(null, new EventArgs());
                             }
                         if (rowno < gvCommMgmt.MasterTableView.Items.Count)
                         {
@@ -1137,12 +1118,15 @@ namespace WealthERP.OffLineOrderManagement
         {
             int issueDetId = 0;
             int catId = 0;
+            int agentId=0;
 
             Button Button = (Button)sender;
             if (gvCommMgmt.MasterTableView.DataKeyValues[0]["AIM_MaxApplNo"].ToString() == "" || gvCommMgmt.MasterTableView.DataKeyValues[0]["AIM_FaceValue"].ToString() == "")
                 return;
             int MaxAppNo = Convert.ToInt32(gvCommMgmt.MasterTableView.DataKeyValues[0]["AIM_MaxApplNo"].ToString());
             int FaceValue = Convert.ToInt32(gvCommMgmt.MasterTableView.DataKeyValues[0]["AIM_FaceValue"].ToString());
+            int minQty = int.Parse(gvIssueList.MasterTableView.DataKeyValues[0]["AIM_MInQty"].ToString());
+            int maxQty = int.Parse(gvIssueList.MasterTableView.DataKeyValues[0]["AIM_MaxQty"].ToString());
             DataTable dt = new DataTable();
             bool isValid = false;
             //Need to be collect from Session...
@@ -1167,7 +1151,7 @@ namespace WealthERP.OffLineOrderManagement
                     }
                     continue;
                 }
-                OnlineBondVo.CustomerId = customerVo.CustomerId;
+                OnlineBondVo.CustomerId = int.Parse(txtCustomerId.Value);
                 OnlineBondVo.BankAccid = 1002321521;
                 OnlineBondVo.PFISD_SeriesId = int.Parse(gvCommMgmt.MasterTableView.DataKeyValues[rowNo]["AID_IssueDetailId"].ToString());
                 OnlineBondVo.IssueId = Convert.ToInt32(gvCommMgmt.MasterTableView.DataKeyValues[rowNo]["AIM_IssueId"].ToString());
@@ -1284,30 +1268,28 @@ namespace WealthERP.OffLineOrderManagement
                 {
                     // placing order 
                     IDictionary<string, string> orderIds = new Dictionary<string, string>();
-                    IssuerId = int.Parse(ViewState["IssueId"].ToString());
-                    
+                    //IssuerId = int.Parse(ViewState["IssueId"].ToString());
                     int totalOrderAmt = int.Parse(ViewState["Sum"].ToString());
-                    //availableBalance = 40000;
                     string message;
                     string aplicationNoStatus = string.Empty;
-                    bool accountDebitStatus = false;
-                    int Applicationno = 0;
                     int orderId = 0;
-                    
-
-                        orderIds = OnlineBondBo.OfflineBOndtransact(dt, advisorVo.advisorId, IssuerId);
+                    if (!String.IsNullOrEmpty(txtAssociateSearch.Text))
+                        dtAgentId = customerBo.GetAssociateName(advisorVo.advisorId, txtAssociateSearch.Text);
+                 if (dtAgentId.Rows.Count > 0)
+                 {
+                   agentId = int.Parse(dtAgentId.Rows[0][1].ToString());
+                 }
+                else
+                   agentId = 0;
+                 orderIds = OnlineBondBo.OfflineBOndtransact(dt, advisorVo.advisorId, OnlineBondVo.IssueId, agentId, txtAssociateSearch.Text, userVo.UserId);
                         orderId = int.Parse(orderIds["Order_Id"].ToString());
-
-                        Applicationno = int.Parse(orderIds["application"].ToString());
                         aplicationNoStatus = orderIds["aplicationNoStatus"].ToString();
 
                         ViewState["OrderId"] = orderId;
-                        ViewState["application"] = Applicationno;
-
                         btnConfirmOrder.Enabled = false;
                         Label3.Visible = false;
                     tdsubmit.Visible = false;
-                    message = CreateUserMessage(orderId, Applicationno, accountDebitStatus, aplicationNoStatus);
+                    message = CreateUserMessage(orderId, aplicationNoStatus);
                     ShowMessage(message);
 
                 }
@@ -1322,20 +1304,16 @@ namespace WealthERP.OffLineOrderManagement
             rwTermsCondition.VisibleOnPageLoad = false;
             chkTermsCondition.Checked = true;
         }
-        private string CreateUserMessage(int orderId, int Applicationno, bool accountDebitStatus, string aplicationNoStatus)
+        private string CreateUserMessage(int orderId,string aplicationNoStatus)
         {
             string userMessage = string.Empty;
             string cutOffTimeType = string.Empty;
 
-            if (orderId != 0 && accountDebitStatus == true)
+            if (orderId != 0 )
             {
-
-                cutOffTimeType = OnlineBondBo.GetCutOFFTimeForCurent(orderId);
-                if (cutOffTimeType == "2")
-                    //if (cutOffTime == "Closed")
-                    userMessage = "Order placed successfully, Order reference no is " + orderId.ToString() + ", Order will process next business day";
-                else
-                    userMessage = "Order placed successfully, Order reference no. is " + orderId.ToString() + " & Application no. " + Applicationno.ToString();
+                
+                
+                    userMessage = "Order placed successfully, Order reference no. is " + orderId.ToString();
 
 
             }
@@ -1349,11 +1327,7 @@ namespace WealthERP.OffLineOrderManagement
                 //  userMessage = "Please Contact sbi team to fill Aplications";
 
             }
-            else if (accountDebitStatus == false)
-            {
-                userMessage = "NO Rms Response";
-
-            }
+            
             else if (orderId == 0)
             {
                 userMessage = "Order cannot be processed. Issue Got Closed";

@@ -384,7 +384,7 @@
     <asp:Label ID="lblIssueName" runat="server" Text="Select Issue Name:" CssClass="FieldName"></asp:Label>
     </td>
     <td class="rightField">
-    <asp:DropDownList ID="ddlIssueList" runat="server" AutoPostBack="true" CssClass="cmbField" OnSelectedIndexChanged="ddlIssueList_OnSelectedIndexChanged"></asp:DropDownList>
+    <asp:DropDownList ID="ddlIssueList" runat="server" AutoPostBack="true" CssClass="cmbExtraLongField" OnSelectedIndexChanged="ddlIssueList_OnSelectedIndexChanged"></asp:DropDownList>
     <asp:RequiredFieldValidator ID="rfvIssueList" runat="server" ControlToValidate="ddlIssueList" ErrorMessage="Please select the Issue Name" Display="Dynamic"  ValidationGroup="btnConfirmOrder"></asp:RequiredFieldValidator>
     </td>
     <td  colspan="4">
@@ -403,7 +403,7 @@
                                 PageSize="10" AllowPaging="false" AutoGenerateColumns="False" EnableEmbeddedSkins="False"
                                 GridLines="None" ShowFooter="false" PagerStyle-AlwaysVisible="true" ShowStatusBar="True"
                                 Skin="Telerik" AllowFilteringByColumn="false">
-                                <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="AIM_IssueId,AIM_IssueName,IssueTimeType"
+                                <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="AIM_IssueId,AIM_IssueName,IssueTimeType,AIM_MInQty,AIM_MaxQty"
                                     AutoGenerateColumns="false" Width="100%">
                                     <Columns>
                                       
