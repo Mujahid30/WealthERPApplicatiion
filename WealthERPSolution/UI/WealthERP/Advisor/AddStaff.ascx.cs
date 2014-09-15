@@ -769,7 +769,7 @@ namespace WealthERP.Advisor
             txtFirstName.Text = rmStaffVo.FirstName;
             txtMiddleName.Text = rmStaffVo.MiddleName;
             txtLastName.Text = rmStaffVo.LastName;
-            txtStaffcode.Text = rmStaffVo.StaffCode.Substring(3);
+            txtStaffcode.Text = rmStaffVo.StaffCode;
             ddlBranch.SelectedValue = rmStaffVo.BranchId.ToString();
 
 
