@@ -344,7 +344,7 @@ namespace DaoOnlineOrderManagement
             }
             return ds;
         }
-        public IDictionary<string, string> CreateOfflineBondTransact(DataTable BondORder, int adviserId, int IssuerId)
+        public IDictionary<string, string> CreateOfflineBondTransact(DataTable BondORder, int adviserId, int IssuerId,int agentId,string agentCode,int userId)
         {
             //List<int> orderIds = new List<int>();
             IDictionary<string, string> OrderIds = new Dictionary<string, string>();
@@ -365,6 +365,9 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(cmdOfflineBondTransact, "@xmlBondsOrder", DbType.Xml, sb);
                 db.AddInParameter(cmdOfflineBondTransact, "@AdviserId", DbType.Int32, adviserId);
                 db.AddInParameter(cmdOfflineBondTransact, "@AIM_IssueId", DbType.Int32, IssuerId);
+                db.AddInParameter(cmdOfflineBondTransact,"@AgentId",DbType.Int32,agentId);
+                db.AddInParameter(cmdOfflineBondTransact, "@AgentCode", DbType.String, agentCode);
+                db.AddInParameter(cmdOfflineBondTransact, "@UserId", DbType.Int32,userId);
                 db.AddOutParameter(cmdOfflineBondTransact, "@Order_Id", DbType.Int32, 1000000);
                 db.AddOutParameter(cmdOfflineBondTransact, "@application", DbType.Int32, 1000000);
                 db.AddOutParameter(cmdOfflineBondTransact, "@aplicationNoStatus", DbType.String, 10);
