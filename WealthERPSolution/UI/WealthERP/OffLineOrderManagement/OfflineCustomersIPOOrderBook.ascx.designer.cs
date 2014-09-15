@@ -14,5 +14,33 @@ namespace WealthERP.OffLineOrderManagement
 
     public partial class OfflineCustomersIPOOrderBook
     {
+
+        /// <summary>
+        /// scrptMgr control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.ScriptManager scrptMgr;
+
+        /// <summary>
+        /// ibtExportSummary control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        /// 
+        protected global::System.Web.UI.WebControls.Panel pnlGrid;
+        protected global::System.Web.UI.WebControls.ImageButton ibtExportSummary;
+        protected global::Telerik.Web.UI.RadGrid gvIPOOrderBook;
+        protected global::System.Web.UI.WebControls.DropDownList ddlOrderStatus;
+        protected global::System.Web.UI.WebControls.Button btnViewOrder;
+        protected global::System.Web.UI.WebControls.HiddenField hdnOrderStatus;
+        protected global::Telerik.Web.UI.RadDatePicker txtOrderTo;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdTxtToDate;
+        protected global::Telerik.Web.UI.RadDatePicker txtOrderFrom;
+        protected global::System.Web.UI.WebControls.DropDownList ddlIssueName;
     }
 }
