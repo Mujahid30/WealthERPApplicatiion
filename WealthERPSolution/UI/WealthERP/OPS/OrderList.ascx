@@ -419,7 +419,7 @@
                                 AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="CO_ChequeNumber" HeaderText="Cheque No." AllowFiltering="true"
+                            <telerik:GridBoundColumn DataField="CO_ChequeNumber" HeaderText="Cheque No.\Draft No." AllowFiltering="true"
                                 HeaderStyle-Wrap="false" SortExpression="CO_ChequeNumber" ShowFilterIcon="false"
                                 CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="100px"
                                 UniqueName="CO_ChequeNumber" FooterStyle-HorizontalAlign="Left">
@@ -449,18 +449,18 @@
                                 UniqueName="CMFOD_ARNNo" FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="Address" HeaderText="Address" AllowFiltering="true"
+                            <telerik:GridBoundColumn DataField="Address" HeaderText="Address" AllowFiltering="true" Visible="false"
                                 HeaderStyle-Wrap="false" SortExpression="Address" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                 AutoPostBackOnFilter="true" HeaderStyle-Width="100px" UniqueName="Address" FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="CMFOD_City" HeaderText="City" AllowFiltering="true"
+                            <telerik:GridBoundColumn DataField="CMFOD_City" HeaderText="City" AllowFiltering="true" Visible="false"
                                 HeaderStyle-Wrap="false" SortExpression="CMFOD_City" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                 AutoPostBackOnFilter="true" HeaderStyle-Width="100px" UniqueName="CMFOD_City"
                                 FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="CMFOD_PinCode" HeaderText="Pin Code" AllowFiltering="true"
+                            <telerik:GridBoundColumn DataField="CMFOD_PinCode" HeaderText="Pin Code" AllowFiltering="true" Visible="false"
                                 HeaderStyle-Wrap="false" SortExpression="CMFOD_PinCode" ShowFilterIcon="false"
                                 CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="100px"
                                 UniqueName="CMFOD_PinCode" FooterStyle-HorizontalAlign="Left">
