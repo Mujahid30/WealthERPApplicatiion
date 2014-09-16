@@ -586,7 +586,7 @@ namespace WealthERP.OnlineOrderManagement
             int minBidAmount = Convert.ToInt32(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIIC_MInBidAmount"].ToString());
             int maxBidAmount = Convert.ToInt32(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIIC_MaxBidAmount"].ToString());
             GridFooterItem footerItem = (GridFooterItem)RadGridIPOBid.MasterTableView.GetItems(GridItemType.Footer)[0];
-            int maxPaybleAmount = Convert.ToInt32(((TextBox)footerItem.FindControl("txtFinalBidValue")).Text);//accessing Button inside 
+            decimal maxPaybleAmount = Convert.ToDecimal(((TextBox)footerItem.FindControl("txtFinalBidValue")).Text);//accessing Button inside 
             Boolean isMultipleApplicationAllowed = Convert.ToBoolean(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIM_IsMultipleApplicationsallowed"].ToString());
             int issueId = int.Parse(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIM_IssueId"].ToString());
             if (isMultipleApplicationAllowed == false)
