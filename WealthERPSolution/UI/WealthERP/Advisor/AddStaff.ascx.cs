@@ -620,7 +620,7 @@ namespace WealthERP.Advisor
             {
                 rmStaffVo = CollectAdviserStaffData();
                 rmUserVo = CollectAdviserStaffUserData();
-                if (Validation(hdnAgentCode.Value) && EmailValidation(txtEmail.Text))
+                if (Validation(hdnAgentCode.Value))//removed unique validation of Email-- && EmailValidation(txtEmail.Text)
                 {
                     if (ddlDepart.SelectedItem.Text == "OPS")
                     {
