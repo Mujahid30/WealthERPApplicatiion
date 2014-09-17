@@ -1243,6 +1243,8 @@ namespace DaoAdvisorProfiling
                     db.AddInParameter(updateAdvisorStaffCmd, "@staffbranch", DbType.String, rmVo.StaffBranchAssociation);
                 else
                     db.AddInParameter(updateAdvisorStaffCmd, "@staffbranch", DbType.String,null);
+                if (!string.IsNullOrEmpty(rmVo.roleIds))
+                    db.AddInParameter(updateAdvisorStaffCmd, "@roleIds", DbType.String, rmVo.roleIds);
                 if (db.ExecuteNonQuery(updateAdvisorStaffCmd) != 0)
                    
                     bResult = true;

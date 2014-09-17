@@ -1426,7 +1426,7 @@ namespace WealthERP.Associates
             string password = id.Next(10000, 99999).ToString();
 
             associateUserVo.Password = password;
-            associateUserVo.LoginId = txtEmail.Text.ToString();
+            associateUserVo.LoginId = txtAdviserAgentCode.Text.ToString();
             associateUserVo.FirstName = txtAssociateName.Text.ToString();
             associateUserVo.Email = userVo.Email;
             associateUserVo.UserType = "Associates";

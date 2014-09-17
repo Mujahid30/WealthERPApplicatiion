@@ -221,10 +221,10 @@
         </td>
     </tr>
     <tr>
-        <td class="leftLabel" id="tdLb1Branch1" runat="server">
+        <td class="leftLabel" id="tdLb1Branch1" runat="server" visible="false">
             <asp:Label ID="lblBranch" runat="server" Text="Branch:" CssClass="FieldName"></asp:Label>
         </td>
-        <td class="rightData" id="tdDdl1Branch1" runat="server">
+        <td class="rightData" id="tdDdl1Branch1" runat="server" visible="false">
             <asp:DropDownList ID="ddlBranch" runat="server" CssClass="cmbField">
             </asp:DropDownList>
             <span id="Span6" class="spnRequiredField">*</span>
@@ -253,7 +253,7 @@
     </tr>
     <tr>
         <td class="leftLabel">
-            <asp:Label ID="lblDept" runat="server" Text="Department Name:" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="lblDept" runat="server" Text="Privilege Name:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightData">
             <asp:DropDownList ID="ddlDepart" runat="server" CssClass="cmbField" AutoPostBack="true"
@@ -268,7 +268,7 @@
     </tr>
     <tr>
         <td class="leftLabel">
-            <asp:Label ID="Label1" runat="server" Text=" Department Roles :" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="Label1" runat="server" Text="Privilege Role:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightData" colspan="5">
             <asp:Panel ID="PnlDepartRole" runat="server" ScrollBars="Horizontal" Width="800px"
@@ -480,7 +480,7 @@
             <%--  <asp:Label ID="lblEmailDuplicate" runat="server" CssClass="Error" Text="Email Id already exists"></asp:Label>--%>
         </td>
     </tr>
-    <tr id="tr4" runat="server" visible="True">
+    <tr id="tr4" runat="server" visible="false">
         <td colspan="6" style="vertical-align: text-bottom; padding-top: 6px; padding-bottom: 6px">
             <div class="divSectionHeading" style="vertical-align: text-bottom">
                 Staff to Branch Association
@@ -491,7 +491,7 @@
         <td colspan="6">
             <div class="clearfix" style="margin-bottom: 1em;">
                 <asp:Panel ID="PLCustomer" runat="server" Style="float: left; padding-left: 150px;"
-                    >
+                    visible="false">
                     <asp:Label ID="lblSelectBranch" runat="server" CssClass="FieldName" Text="Existing Branches">
                     </asp:Label>
                     <telerik:RadListBox SelectionMode="Multiple" EnableDragAndDrop="true" AccessKey="y"

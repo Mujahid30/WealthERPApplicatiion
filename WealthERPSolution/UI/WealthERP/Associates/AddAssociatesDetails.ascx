@@ -190,10 +190,15 @@
                 Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
         </td>
         <td class="leftLabel" align="right">
-            <asp:Label ID="lblAdviserAgentCode" runat="server" Text="Adviser Agent Code: " CssClass="FieldName"></asp:Label>
+            <asp:Label ID="lblAdviserAgentCode" runat="server" Text="Agent Code: " CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightData">
             <asp:TextBox ID="txtAdviserAgentCode" MaxLength="20" runat="server" CssClass="txtField" Enabled="True"></asp:TextBox>
+            <span id="Span9" class="spnRequiredField">*</span> &nbsp;
+            <br />
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtAdviserAgentCode" ErrorMessage="Enter agent code"
+                Display="Dynamic" runat="server" CssClass="rfvPCG" ValidationGroup="Submit">
+            </asp:RequiredFieldValidator>
         </td>
         <td align="right">
             <asp:Label ID="lblPanNo" runat="server" Text="PAN No: " CssClass="FieldName"></asp:Label>
@@ -309,7 +314,7 @@
     </tr>
     <tr>
         <td align="right">
-            <asp:Label ID="lblDept" runat="server" Text="Department Name:" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="lblDept" runat="server" Text="Privilege Name:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightData">
             <asp:DropDownList ID="ddlDepart" runat="server" CssClass="cmbField" AutoPostBack="true"
@@ -324,7 +329,7 @@
     </tr>
     <tr>
         <td align="right">
-            <asp:Label ID="Label3" runat="server" Text=" Department Roles :" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="Label3" runat="server" Text="Privilege Role:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightData" colspan="5">
             <asp:Panel ID="PnlDepartRole" runat="server" ScrollBars="Horizontal" Width="800px"

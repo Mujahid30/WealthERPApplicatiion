@@ -172,13 +172,7 @@ namespace WealthERP.Advisor
 
             }
             rmStaffVo.StaffBranchAssociation = AllBranchId;
-            foreach (RadListBoxItem items in chkbldepart.Items)
-            {
-                if (items.Checked == true)
-                    roleIds = roleIds + items.Value.ToString() + ",";
-            }
-           
-            rmStaffVo.roleIds = roleIds.Remove(roleIds.Length-1);
+            rmStaffVo.roleIds = GetDepartmentRoleIds().Remove(GetDepartmentRoleIds().Length - 1);
             return rmStaffVo;
         }
 
@@ -613,8 +607,8 @@ namespace WealthERP.Advisor
         }
         public string GetDepartmentRoleIds()
         {
-            string departmentRoleids=string.Empty;
-            foreach(RadListBoxItem li in chkbldepart.Items)
+            string departmentRoleids = string.Empty;
+            foreach (RadListBoxItem li in chkbldepart.Items)
             {
                 if (li.Checked == true)
                     departmentRoleids += li.Value + ",";

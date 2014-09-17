@@ -170,6 +170,7 @@ namespace WealthERP.Advisor
                 }
             }
             rmStaffVo.StaffBranchAssociation = AllBranchId;
+            rmStaffVo.roleIds = GetDepartmentRoleIds().Remove(GetDepartmentRoleIds().Length - 1);
             return rmStaffVo;
         }
 
@@ -444,13 +445,17 @@ namespace WealthERP.Advisor
             {
 
                 BindTeamTitleDropList(Convert.ToInt32(ddlTeamList.SelectedValue));
-                if (ddlTeamList.SelectedValue.ToUpper() == "OPS")
+                if (ddlTeamList.SelectedValue =="14")
                 {
                     tdLb1Branch1.Visible = true;
                     tdDdl1Branch1.Visible = true;
+                    tr4.Visible = false;
+                    PLCustomer.Visible = false;
                 }
                 else
                 {
+                    tr4.Visible = true;
+                    PLCustomer.Visible = true;
                     tdLb1Branch1.Visible = false;
                     tdDdl1Branch1.Visible = false;
                 }
@@ -655,16 +660,21 @@ namespace WealthERP.Advisor
 
         public void  SetDepartmentRoleIds(string  roleIds)
         {
+            
+            string[] roleIs = roleIds.Split(',');
             if (roleIds == string.Empty)
                 return;
+            for (int i = 0; i < roleIs.Length; i++)
+            {
             foreach (RadListBoxItem li in chkbldepart.Items)
             {
-                if (li.Value == roleIds.ToString())
+                if (li.Value == roleIs[i])
                 {
                     li.Checked = true;
                 }
 
                    
+            }
             }
            
         }
@@ -697,6 +707,8 @@ namespace WealthERP.Advisor
                 rmStaffVo = CollectAdviserStaffData();
                 rmUserVo = CollectAdviserStaffUserData();
                 rmStaffVo.RMId = Convert.ToInt32(hidRMid.Value);
+                String RoleIds = GetDepartmentRoleIds();
+                RoleIds = RoleIds.Remove(RoleIds.Length - 1);
                 //userBo.UpdateUser(rmUserVo);
                 advisorStaffBo.UpdateStaff(rmStaffVo);
                 ControlViewEditMode(true);
@@ -774,6 +786,20 @@ namespace WealthERP.Advisor
 
 
             ddlTeamList.SelectedValue = rmStaffVo.HierarchyTeamId.ToString();
+            if (ddlTeamList.SelectedValue == "14")
+            {
+                tdLb1Branch1.Visible = true;
+                tdDdl1Branch1.Visible = true;
+                tr4.Visible = false;
+                PLCustomer.Visible = false;
+            }
+            else
+            {
+                tr4.Visible = true;
+                PLCustomer.Visible = true;
+                tdLb1Branch1.Visible = false;
+                tdDdl1Branch1.Visible = false;
+            }
             ddlTitleList.SelectedValue = rmStaffVo.HierarchyTitleId.ToString();
             AgentCodesvalidation();
             ddlRportingRole.SelectedValue = rmStaffVo.HierarchyRoleId.ToString();

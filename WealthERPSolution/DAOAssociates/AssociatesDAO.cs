@@ -569,7 +569,11 @@ namespace DAOAssociates
                     db.AddInParameter(UpdateAssociatesCmd, "@AA_PAN", DbType.String, associatesVo.PanNo);
                 else
                     db.AddInParameter(UpdateAssociatesCmd, "@AA_PAN", DbType.String, DBNull.Value);
-
+                if (associatesVo.StartDate != DateTime.MinValue)
+                    db.AddInParameter(UpdateAssociatesCmd, "@AA_ExpiryDate", DbType.DateTime, associatesVo.AssociationExpairyDate);
+                else
+                    db.AddInParameter(UpdateAssociatesCmd, "@AA_ExpiryDate", DbType.DateTime, DBNull.Value);
+                
 
 
                 db.ExecuteNonQuery(UpdateAssociatesCmd);
@@ -1338,6 +1342,8 @@ namespace DAOAssociates
                         associatesVo.Departmrntid = int.Parse(dr["DepartmentId"].ToString());
                     if (dr["DepartentRoles"] != DBNull.Value)
                         associatesVo.Roleid = dr["DepartentRoles"].ToString();
+                    if (dr["AA_ExpiryDate"] != DBNull.Value)
+                        associatesVo.AssociationExpairyDate = DateTime.Parse(dr["AA_ExpiryDate"].ToString());
 
                 }
             }

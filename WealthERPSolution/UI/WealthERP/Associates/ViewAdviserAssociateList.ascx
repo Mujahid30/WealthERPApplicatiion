@@ -25,7 +25,7 @@
 <table width="100%">
     <tr>
         <td colspan="4">
-            <asp:Panel ID="pnlAdviserAssociateList" runat="server" ScrollBars="Both" Width="90%"
+            <asp:Panel ID="pnlAdviserAssociateList" runat="server" ScrollBars="Horizontal" Width="99%"
                 Height="100%" Visible="true">
                 <table>
                     <tr>
@@ -56,12 +56,12 @@
                                                     </asp:DropDownList>
                                                 </ItemTemplate>
                                             </telerik:GridTemplateColumn>
-                                            <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Sub Broker Code" DataField="SubBrokerCode"
+                                            <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Agent Code" DataField="SubBrokerCode"
                                                 UniqueName="SubBrokerCode" SortExpression="SubBrokerCode" AutoPostBackOnFilter="true"
                                                 AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                                 <ItemStyle HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Sub Broker Name" DataField="AA_ContactPersonName"
+                                            <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Associate Name" DataField="AA_ContactPersonName"
                                                 UniqueName="AA_ContactPersonName" SortExpression="AA_ContactPersonName" AutoPostBackOnFilter="true"
                                                 AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
@@ -83,7 +83,7 @@
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Email Id" DataField="AA_Email"
                                                 UniqueName="AA_Email" SortExpression="AA_Email" AutoPostBackOnFilter="true" AllowFiltering="true"
-                                                ShowFilterIcon="false" CurrentFilterFunction="Contains" Visible="false">
+                                                ShowFilterIcon="false" CurrentFilterFunction="Contains" >
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Address" DataField="Address"
@@ -91,7 +91,7 @@
                                                 ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                                 <ItemStyle HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Office" DataField="AB_BranchName"
+                                            <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Branch" DataField="AB_BranchName"
                                                 UniqueName="AB_BranchName" SortExpression="AB_BranchName" AutoPostBackOnFilter="true"
                                                 AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
@@ -129,10 +129,10 @@
                                         </Columns>
                                     </MasterTableView>
                                     <HeaderStyle Width="150px" />
-                                    <ClientSettings>
+                                   <%-- <ClientSettings>
                                         <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
                                         <Resizing AllowColumnResize="true" />
-                                    </ClientSettings>
+                                    </ClientSettings>--%>
                                 </telerik:RadGrid>
                             </div>
                         </td>
