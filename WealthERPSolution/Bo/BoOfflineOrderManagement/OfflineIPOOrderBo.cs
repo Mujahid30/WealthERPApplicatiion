@@ -2,10 +2,45 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Data;
+using DaoOfflineOrderManagement;
+using Microsoft.Practices.EnterpriseLibrary.Data;
+using System.Data.Common;
+using Microsoft.ApplicationBlocks.ExceptionManagement;
+using System.Collections.Specialized;
+using VoOnlineOrderManagemnet;
 
 namespace BoOfflineOrderManagement
 {
     public class OfflineIPOOrderBo
     {
+        public int CreateIPOBidOrderDetails(int adviserId, int userId, DataTable dtIPOBidList, OnlineIPOOrderVo onlineIPOOrderVo)
+        {
+            int orderId = 0;
+            OfflineIPOOrderDao OfflineIPOOrderDao = new OfflineIPOOrderDao();
+            try
+            {
+                orderId = OfflineIPOOrderDao.CreateIPOBidOrderDetails(adviserId, userId, dtIPOBidList, onlineIPOOrderVo);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "BoOnlineOrderManagement.cs:CreateIPOBidOrderDetails(int adviserId, int userId, DataTable dtIPOBidList)");
+                object[] objects = new object[2];
+                objects[0] = adviserId;
+                objects[1] = userId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return orderId;
+        }
     }
 }
