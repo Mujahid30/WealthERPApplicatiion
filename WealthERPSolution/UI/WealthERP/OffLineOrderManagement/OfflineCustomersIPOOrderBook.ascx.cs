@@ -88,6 +88,12 @@ namespace WealthERP.OffLineOrderManagement
             dtOrderStatus = dsOrderStatus.Tables[0];
             if (dtOrderStatus.Rows.Count > 0)
             {
+                for (int i = dtOrderStatus.Rows.Count - 1; i >= 0; i--)
+                {
+                    if (dtOrderStatus.Rows[i][1].ToString() == "INPROCESS" || dtOrderStatus.Rows[i][1].ToString() == "EXECUTED")
+                        dtOrderStatus.Rows[i].Delete();
+                }
+                dtOrderStatus.AcceptChanges();
                 ddlOrderStatus.DataSource = dtOrderStatus;
                 ddlOrderStatus.DataTextField = dtOrderStatus.Columns["WOS_OrderStep"].ToString();
                 ddlOrderStatus.DataValueField = dtOrderStatus.Columns["WOS_OrderStepCode"].ToString();
