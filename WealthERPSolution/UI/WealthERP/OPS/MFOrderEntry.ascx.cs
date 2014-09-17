@@ -119,7 +119,7 @@ namespace WealthERP.OPS
                 AutoCompleteExtender2.ServiceMethod = "GetAgentCodeAssociateDetailsForAssociates";
 
             }
-            bindSearchScheme();
+           // bindSearchScheme();
             //if (Session["mforderVo"] != null && Session["orderVo"] != null)
             //{
             //    mforderVo = (MFOrderVo)Session["mforderVo"];
@@ -597,6 +597,7 @@ namespace WealthERP.OPS
                 btnViewReport.Visible = true;
                 btnViewInPDF.Visible = true;
                 btnSubmit.Visible = true;
+                btnAddMore.Visible = true;
                 trOrderNo.Visible = false;
                 ClearAllFields();
 

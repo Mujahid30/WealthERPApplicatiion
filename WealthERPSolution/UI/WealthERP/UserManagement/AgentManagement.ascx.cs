@@ -30,12 +30,13 @@ namespace WealthERP.UserManagement
         UserBo userBo = new UserBo();
         AssociatesVO associatesVo = new AssociatesVO();
         AssociatesBo associatesBo = new AssociatesBo();
-
+        RMVo rmVo = new RMVo();
         OneWayEncryption encryption;
         protected void Page_Load(object sender, EventArgs e)
         {
             advisorVo = (AdvisorVo)Session["advisorVo"];
             userVo = (UserVo)Session["userVo"];
+            rmVo = (RMVo)Session["rmVo"];
             if (!IsPostBack)
             {
                 BindAssociateUserMangemnetGrid(advisorVo.advisorId);
@@ -223,9 +224,8 @@ namespace WealthERP.UserManagement
 
                         email.To.Add(userVo.Email);
 
-                        AdviserStaffSMTPBo adviserStaffSMTPBo = new AdviserStaffSMTPBo();
-                        int rmId = Convert.ToInt32(ViewState["rmId"]);
-                        AdviserStaffSMTPVo adviserStaffSMTPVo = adviserStaffSMTPBo.GetSMTPCredentials(rmId);
+                        AdviserStaffSMTPBo adviserStaffSMTPBo = new AdviserStaffSMTPBo();                         
+                        AdviserStaffSMTPVo adviserStaffSMTPVo = adviserStaffSMTPBo.GetSMTPCredentials(rmVo.RMId);
                         if (adviserStaffSMTPVo.HostServer != null && adviserStaffSMTPVo.HostServer != string.Empty)
                         {
                             emailer.isDefaultCredentials = !Convert.ToBoolean(adviserStaffSMTPVo.IsAuthenticationRequired);

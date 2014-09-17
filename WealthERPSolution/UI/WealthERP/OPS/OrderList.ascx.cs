@@ -875,8 +875,8 @@ namespace WealthERP.OPS
                 string customerId = gvOrderList.MasterTableView.DataKeyValues[selectedRow - 1]["C_CustomerId"].ToString();
                 string assetGroupCode = gvOrderList.MasterTableView.DataKeyValues[selectedRow - 1]["PAG_AssetGroupCode"].ToString();
 
-                
-                    if (assetGroupCode == "MF")
+
+                if (assetGroupCode == "MF" && ddlAction.SelectedItem.Value!="0")
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MFOrderEntry", "loadcontrol('MFOrderEntry','action=" + ddlAction.SelectedItem.Value.ToString() + "&orderId=" + orderId + "');", true);
                                    
             }
