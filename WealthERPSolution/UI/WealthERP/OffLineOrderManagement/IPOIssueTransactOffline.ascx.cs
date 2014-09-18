@@ -834,8 +834,9 @@ namespace WealthERP.OffLineOrderManagement
         {
             if (ddlIssueList.SelectedValue.ToLower() != "select")
             {
-                //BindStructureRuleGrid();
-                //BindStructureRuleGrid(int.Parse(ddlIssueList.SelectedValue));
+                
+                BindIPOIssueList(ddlIssueList.SelectedValue.ToString());
+                BindIPOBidGrid(3);
             }
         }
 
@@ -1250,11 +1251,11 @@ namespace WealthERP.OffLineOrderManagement
             dtIPOBidTransactionDettails.Columns.Add("IPOIssueBidAmountPayable", typeof(decimal), null);
             dtIPOBidTransactionDettails.Columns.Add("TransactionStatusCode", typeof(Int16));
             DataRow drIPOBid;
-            onlineIPOOrderVo.CustomerId = customerVo.CustomerId;
+            onlineIPOOrderVo.CustomerId = int.Parse(txtCustomerId.Value);
             onlineIPOOrderVo.IssueId = issueId;
             onlineIPOOrderVo.AssetGroup = "IP";
             onlineIPOOrderVo.IsOrderClosed = false;
-            onlineIPOOrderVo.IsOnlineOrder = true;
+            onlineIPOOrderVo.IsOnlineOrder = false;
             onlineIPOOrderVo.IsDeclarationAccepted = true;
             onlineIPOOrderVo.OrderDate = DateTime.Now;
             int radgridRowNo = 0;
@@ -1315,7 +1316,14 @@ namespace WealthERP.OffLineOrderManagement
                 Label lblBidHighestValue = (Label)footeritem["BidAmountPayable"].FindControl("lblFinalBidAmountPayable");
                 maxPaybleBidAmount = Convert.ToDouble(lblBidHighestValue.Text.Trim());
             }
-            orderId = OfflineIPOOrderBo.CreateIPOBidOrderDetails(advisorVo.advisorId, userVo.UserId, dtIPOBidTransactionDettails, onlineIPOOrderVo);
+            int agentId = 0;
+            if (!String.IsNullOrEmpty(txtAssociateSearch.Text))
+                dtAgentId = customerBo.GetAssociateName(advisorVo.advisorId, txtAssociateSearch.Text);
+            if (dtAgentId.Rows.Count > 0)
+            {
+                agentId = int.Parse(dtAgentId.Rows[0][1].ToString());
+            }
+            orderId = OfflineIPOOrderBo.CreateIPOBidOrderDetails(advisorVo.advisorId, userVo.UserId, dtIPOBidTransactionDettails, onlineIPOOrderVo, agentId, txtAssociateSearch.Text);
             userMessage = CreateUserMessage(orderId, accountDebitStatus, isCutOffTimeOver);
             
             ShowMessage(userMessage);
@@ -1388,8 +1396,8 @@ namespace WealthERP.OffLineOrderManagement
             int bidId = 1;
             DateTime dtCloseDate = Convert.ToDateTime(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIM_CloseDate"].ToString());
             //dtCloseDate = DateTime.Now.AddHours(-1);
-            int minBidAmount = Convert.ToInt32(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIIC_MInBidAmount"].ToString());
-            int maxBidAmount = Convert.ToInt32(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIIC_MaxBidAmount"].ToString());
+            decimal minBidAmount = Convert.ToDecimal(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIIC_MInBidAmount"].ToString());
+            decimal maxBidAmount = Convert.ToDecimal(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIIC_MaxBidAmount"].ToString());
             GridFooterItem footerItem = (GridFooterItem)RadGridIPOBid.MasterTableView.GetItems(GridItemType.Footer)[0];
             decimal maxPaybleAmount = Convert.ToDecimal(((TextBox)footerItem.FindControl("txtFinalBidValue")).Text);//accessing Button inside 
             Boolean isMultipleApplicationAllowed = Convert.ToBoolean(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIM_IsMultipleApplicationsallowed"].ToString());

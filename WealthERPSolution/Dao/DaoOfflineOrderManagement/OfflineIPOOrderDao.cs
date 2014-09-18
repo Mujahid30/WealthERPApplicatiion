@@ -16,7 +16,7 @@ namespace DaoOfflineOrderManagement
 {
     public class OfflineIPOOrderDao
     {
-        public int CreateIPOBidOrderDetails(int adviserId, int userId, DataTable dtIPOBidList, OnlineIPOOrderVo onlineIPOOrderVo)
+        public int CreateIPOBidOrderDetails(int adviserId, int userId, DataTable dtIPOBidList, OnlineIPOOrderVo onlineIPOOrderVo,int agentId,string agentCode)
         {
             int orderId = 0;
             Database db;
@@ -38,13 +38,10 @@ namespace DaoOfflineOrderManagement
                 db.AddInParameter(CreateIPOBidOrderCmd, "@ApplicationNo", DbType.Int32, onlineIPOOrderVo.ApplicationNumber);
                 db.AddInParameter(CreateIPOBidOrderCmd, "@PAG_AssetGroupCode", DbType.String, onlineIPOOrderVo.AssetGroup);
                 db.AddInParameter(CreateIPOBidOrderCmd, "@CO_IsDeclarationAccepted", DbType.Int16, onlineIPOOrderVo.IsDeclarationAccepted ? 1 : 0);
-
                 db.AddInParameter(CreateIPOBidOrderCmd, "@XMLIPOBids", DbType.Xml, dsIssueBidList.GetXml().ToString());
+                db.AddInParameter(CreateIPOBidOrderCmd, "@AgentId", DbType.Int32, agentId);
+                db.AddInParameter(CreateIPOBidOrderCmd, "@AgentCode", DbType.String, agentCode);
                 db.AddOutParameter(CreateIPOBidOrderCmd, "@OrderId", DbType.Int32, 1000000);
-                db.AddOutParameter(CreateIPOBidOrderCmd, "@ApplicationNo", DbType.String, 1000000);
-                db.AddOutParameter(CreateIPOBidOrderCmd, "@AplicationNoStatus", DbType.String, 1000000);
-
-
                 if (db.ExecuteNonQuery(CreateIPOBidOrderCmd) != 0)
                 {
                     orderId = Convert.ToInt32(db.GetParameterValue(CreateIPOBidOrderCmd, "OrderId").ToString());

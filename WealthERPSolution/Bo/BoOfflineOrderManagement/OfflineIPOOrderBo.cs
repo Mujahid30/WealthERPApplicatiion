@@ -14,13 +14,13 @@ namespace BoOfflineOrderManagement
 {
     public class OfflineIPOOrderBo
     {
-        public int CreateIPOBidOrderDetails(int adviserId, int userId, DataTable dtIPOBidList, OnlineIPOOrderVo onlineIPOOrderVo)
+        public int CreateIPOBidOrderDetails(int adviserId, int userId, DataTable dtIPOBidList, OnlineIPOOrderVo onlineIPOOrderVo,int agentId,string agentCode)
         {
             int orderId = 0;
             OfflineIPOOrderDao OfflineIPOOrderDao = new OfflineIPOOrderDao();
             try
             {
-                orderId = OfflineIPOOrderDao.CreateIPOBidOrderDetails(adviserId, userId, dtIPOBidList, onlineIPOOrderVo);
+                orderId = OfflineIPOOrderDao.CreateIPOBidOrderDetails(adviserId, userId, dtIPOBidList, onlineIPOOrderVo,agentId,agentCode);
 
             }
             catch (BaseApplicationException Ex)
