@@ -7,6 +7,8 @@ using System.Web.UI.WebControls;
 using System.Data;
 using Telerik.Web.UI;
 using VoUser;
+using BoCommon;
+using BoWerpAdmin;
 using BoOnlineOrderManagement;
 using BoOfflineOrderManagement;
 using WealthERP.Base;
@@ -25,6 +27,8 @@ namespace WealthERP.OffLineOrderManagement
         OfflineNCDIPOBackOfficeBo offlineNCDBackOfficeBo = new OfflineNCDIPOBackOfficeBo();
         protected void Page_Load(object sender, EventArgs e)
         {
+           
+            SessionBo.CheckSession();
             userVo = (UserVo)Session[SessionContents.UserVo];
             advisorVo = (AdvisorVo)Session["advisorVo"];
             if (!IsPostBack)
@@ -171,12 +175,14 @@ namespace WealthERP.OffLineOrderManagement
         }
         public void gvNCDOrderBook_OnItemDataCommand(object sender, GridItemEventArgs e)
         {
+             Boolean isCancel=false;
             if (e.Item is GridDataItem)
             {
                 GridDataItem dataItem = e.Item as GridDataItem;
                 LinkButton lbtnMarkAsReject = dataItem["MarkAsReject"].Controls[0] as LinkButton;
                 string OrderStepCode = gvNCDOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WOS_OrderStep"].ToString();
-                Boolean isCancel = Convert.ToBoolean(gvNCDOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIM_IsCancelAllowed"].ToString());
+                if(gvNCDOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIM_IsCancelAllowed"].ToString()!=string.Empty)
+                    isCancel = Convert.ToBoolean(gvNCDOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIM_IsCancelAllowed"].ToString());
                 //  string extractionStepCode = gvNCDOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WES_COde"].ToString();
                 if (OrderStepCode == "INPROCESS" && isCancel != false)
                 {
