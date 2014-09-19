@@ -902,7 +902,7 @@ namespace DaoOps
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 updateMFTransactionForSynchCmd = db.GetStoredProcCommand("SP_UpdateMFTransactionForSync");
-                db.AddInParameter(updateMFTransactionForSynchCmd, "@orderId", DbType.Int32, gvOrderId);
+                db.AddInParameter(updateMFTransactionForSynchCmd, "@orderDetId", DbType.Int32, gvOrderId);
                 db.AddInParameter(updateMFTransactionForSynchCmd, "@schemeCode", DbType.Int32, gvSchemeCode);
                 db.AddInParameter(updateMFTransactionForSynchCmd, "@accountId", DbType.Int32, gvaccountId);
                 db.AddInParameter(updateMFTransactionForSynchCmd, "@trxType", DbType.String, gvTrxType);
