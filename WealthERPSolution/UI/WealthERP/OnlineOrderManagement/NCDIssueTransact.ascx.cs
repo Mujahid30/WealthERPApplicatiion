@@ -549,7 +549,7 @@ namespace WealthERP.OnlineOrderManagement
                 }
                 else if (FaceValue > sum)
                 {
-                    ShowMessage("Application amount is less than minimum application amount.");
+                    ShowMessage("Application amount is less than face value.");
                     //  tdsubmit.Visible = false;
                     // lnlBack.Visible = true;
 
