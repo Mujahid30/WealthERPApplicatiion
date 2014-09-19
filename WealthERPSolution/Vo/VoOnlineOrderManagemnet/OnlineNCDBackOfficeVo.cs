@@ -31,15 +31,15 @@ namespace VoOnlineOrderManagemnet
         public string CatgeoryName { get; set; }
         public string CatgeoryDescription { get; set; }
         public string ChequePayableTo { get; set; }
-        public long MInBidAmount { get; set; }
-        public long MaxBidAmount { get; set; }
+        public decimal MInBidAmount { get; set; }
+        public decimal MaxBidAmount { get; set; }
         public string Subbrokercode { get; set; }
         public int LockInPeriodapplicable { get; set; }
         
         public int LookUpId { get; set; }
         public string SubCatgeoryTypeCode { get; set; }
-        public double MinInvestmentAmount { get; set; }
-        public double MaxInvestmentAmount { get; set; }
+        public decimal MinInvestmentAmount { get; set; }
+        public decimal MaxInvestmentAmount { get; set; }
 
 
         public string AssetGroupCode { get; set; }

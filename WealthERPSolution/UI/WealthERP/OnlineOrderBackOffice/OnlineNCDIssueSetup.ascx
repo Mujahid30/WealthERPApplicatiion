@@ -1552,7 +1552,7 @@
                                                         </asp:RequiredFieldValidator>
                                                         <asp:RegularExpressionValidator ID="RegularExpressionValidator16" ControlToValidate="txtMaxBidAmount"
                                                             runat="server" Display="Dynamic" ErrorMessage="Please Enter Digits" CssClass="cvPCG"
-                                                            ValidationExpression="[0-9]\d*$" ValidationGroup="btnOK"> 
+                                                            ValidationExpression="[0-9]\d*(\.\d?[0-9])?$" ValidationGroup="btnOK"> 
                                                         </asp:RegularExpressionValidator>
                                                         <asp:CompareValidator ID="cmp" ControlToValidate="txtMaxBidAmount" runat="server"
                                                             ControlToCompare="txtMinBidAmount" Display="Dynamic" ErrorMessage="<br/>MaxbidAmount  Should Be Greater Than Minbid"
@@ -1665,13 +1665,14 @@
                                                                             <span id="Spanamount" class="spnRequiredField">*</span>
                                                                             <asp:CompareValidator ID="cmp" ControlToValidate="txtMinInvestmentAmount" runat="server"
                                                                                 ControlToCompare="txtMaxInvestmentAmount" Display="Dynamic" ErrorMessage="<br/>MinInvestmentAmt  Should Be less Than MaxInvestmentAmt "
-                                                                                Type="integer" Operator="LessThan"></asp:CompareValidator>
+                                                                                Type="Double" Operator="LessThan"></asp:CompareValidator>
                                                                             <asp:RegularExpressionValidator ID="RegularExpressionValidatormin" ControlToValidate="txtMinInvestmentAmount"
                                                                                 runat="server" Display="Dynamic" ErrorMessage="Please Enter Digits" CssClass="cvPCG"
                                                                                 ValidationExpression="[0-9]\d*(\.\d?[0-9])?$" ValidationGroup="btnOK">   </asp:RegularExpressionValidator>
                                                                             <%--<asp:CompareValidator ID="cmpMinInvestmentAmt" Display="Dynamic" runat="server" Type="Integer"
                                                                                 ControlToCompare="txtMinInvestmentAmount" Operator="LessThan" ControlToValidate="txtMaxInvestmentAmount"
-                                                                                ErrorMessage="MinInvestmentAmount should be lessthan MaxInvestmentAmt"></asp:CompareValidator>--%>
+                                                                                ErrorMessage="MinInvestmentAmount should be lessthan MaxInvestmentAmt"></asp:CompareValidator>
+                                                                              "[0-9]\d*(\.\d?[0-9])?$"  "[0-9]\d*(\.\d?[0-9])?$"--%>
                                                                         </ItemTemplate>
                                                                     </telerik:GridTemplateColumn>
                                                                     <telerik:GridTemplateColumn HeaderText="Max Investment Amount" ShowFilterIcon="false"

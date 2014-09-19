@@ -351,8 +351,7 @@ namespace DaoAdvisorProfiling
                 else
                     db.AddInParameter(createRMCmd, "@IsPurelyResearchStaff", DbType.Int16, 0);
 
-                if (rmVo.BranchId != 0)
-                    db.AddInParameter(createRMCmd, "@BranchId", DbType.Int32, rmVo.BranchId);
+                
                 if (rmVo.HierarchyRoleId != 0)
                     db.AddInParameter(createRMCmd, "@HierarchyRoleId", DbType.Int32, rmVo.HierarchyRoleId);
                 if (rmVo.ReportingManagerId != 0)
@@ -362,8 +361,11 @@ namespace DaoAdvisorProfiling
 
                 db.AddOutParameter(createRMCmd, "@AR_RMId", DbType.Int32, 1000000);
                 db.AddOutParameter(createRMCmd, "@U_UserId", DbType.Int32, 1000000);
+                if (rmVo.BranchId != 0)
+                    db.AddInParameter(createRMCmd, "@BranchId", DbType.Int32, rmVo.BranchId);
                 if (db.ExecuteNonQuery(createRMCmd) != 0)
                     StaffId = int.Parse(db.GetParameterValue(createRMCmd, "AR_RMId").ToString());
+
                     
             }
             catch (BaseApplicationException Ex)

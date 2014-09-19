@@ -166,11 +166,11 @@ namespace WealthERP.Advisor
                 foreach (RadListBoxItem ListItem in this.RadListBoxDestination.Items)
                 {
                     AllBranchId = AllBranchId + ListItem.Value.ToString() + ",";
-
                 }
             }
-            rmStaffVo.StaffBranchAssociation = AllBranchId;
-            rmStaffVo.roleIds = GetDepartmentRoleIds().Remove(GetDepartmentRoleIds().Length - 1);
+            rmStaffVo.StaffBranchAssociation = AllBranchId.TrimEnd(',');
+            rmStaffVo.roleIds = GetDepartmentRoleIds();
+            rmStaffVo.roleIds= rmStaffVo.roleIds.Remove(rmStaffVo.roleIds.Length - 1);
             return rmStaffVo;
         }
 
@@ -609,18 +609,19 @@ namespace WealthERP.Advisor
                     return;
                 }
             }
-
-            foreach (RadListBoxItem ListItem in this.RadListBoxDestination.Items)
+            if (ddlTeamList.SelectedValue != "14")
             {
-                BranchId = BranchId + ListItem.Value.ToString();
-            }
+                foreach (RadListBoxItem ListItem in this.RadListBoxDestination.Items)
+                {
+                    BranchId = BranchId + ListItem.Value.ToString();
+                }
 
-            if (BranchId == string.Empty)
-            {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please Select Branch.');", true);
-                return;
+                if (BranchId == string.Empty)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please Select Branch.');", true);
+                    return;
+                }
             }
-
             if (ValidateStaffReportingManager())
             {
                 rmStaffVo = CollectAdviserStaffData();
@@ -862,11 +863,11 @@ namespace WealthERP.Advisor
             {
                 DataSet ds = advisorStaffBo.GetStaffBranchAssociation(rmStaffVo.StaffBranchAssociation, advisorVo.advisorId);
                 RadListBoxDestination.DataSource = ds.Tables[0];
-                RadListBoxDestination.DataValueField = ds.Tables[0].Columns["StaffBranch"].ToString(); ;
+                RadListBoxDestination.DataValueField = ds.Tables[0].Columns["StaffBranch"].ToString(); 
                 RadListBoxDestination.DataTextField = ds.Tables[0].Columns["AB_BranchName"].ToString();
                 RadListBoxDestination.DataBind();
                 LBStaffBranch.DataSource = ds.Tables[1];
-                LBStaffBranch.DataValueField = ds.Tables[1].Columns["AB_BranchId"].ToString(); ;
+                LBStaffBranch.DataValueField = ds.Tables[1].Columns["AB_BranchId"].ToString(); 
                 LBStaffBranch.DataTextField = ds.Tables[1].Columns["AB_BranchName"].ToString();
                 LBStaffBranch.DataBind();
             }
