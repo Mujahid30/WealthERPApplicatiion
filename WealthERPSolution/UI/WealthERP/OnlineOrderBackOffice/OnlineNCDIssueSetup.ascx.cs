@@ -2335,7 +2335,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     txtDiscountValue.Text = 0.ToString();
                 }
-                result = CreateUpdateDeleteCategory(0, categoryId, txtCategoryName.Text, txtCategoryDescription.Text, txtChequePayableTo.Text, Convert.ToInt64(txtMinBidAmount.Text), Convert.ToInt64(txtMaxBidAmount.Text), discountType, Convert.ToDecimal(txtDiscountValue.Text), "Update");
+                result = CreateUpdateDeleteCategory(0, categoryId, txtCategoryName.Text, txtCategoryDescription.Text, txtChequePayableTo.Text, Convert.ToDecimal(txtMinBidAmount.Text), Convert.ToDecimal(txtMaxBidAmount.Text), discountType, Convert.ToDecimal(txtDiscountValue.Text), "Update");
                 RadGrid rgSubCategories = (RadGrid)e.Item.FindControl("rgSubCategories");
 
 
@@ -2361,10 +2361,10 @@ namespace WealthERP.OnlineOrderBackOffice
                             txtMaxInvestmentAmount.Text = 0.ToString();
                         }
                         if (txtSubCategoryId.Text == string.Empty)
-                            CreateUpdateDeleteCategoryDetails(categoryId, 0, lookupId, txtSubCategoryCode.Text, Convert.ToInt64(txtMinInvestmentAmount.Text), Convert.ToInt64(txtMaxInvestmentAmount.Text), "Insert");
+                            CreateUpdateDeleteCategoryDetails(categoryId, 0, lookupId, txtSubCategoryCode.Text, Convert.ToDecimal(txtMinInvestmentAmount.Text), Convert.ToDecimal(txtMaxInvestmentAmount.Text), "Insert");
 
                         else if (Convert.ToInt32(txtSubCategoryId.Text) > 0)
-                            CreateUpdateDeleteCategoryDetails(categoryId, Convert.ToInt32(txtSubCategoryId.Text), lookupId, txtSubCategoryCode.Text, Convert.ToInt64(txtMinInvestmentAmount.Text), Convert.ToInt64(txtMaxInvestmentAmount.Text), "Update");
+                            CreateUpdateDeleteCategoryDetails(categoryId, Convert.ToInt32(txtSubCategoryId.Text), lookupId, txtSubCategoryCode.Text, Convert.ToDecimal(txtMinInvestmentAmount.Text), Convert.ToDecimal(txtMaxInvestmentAmount.Text), "Update");
 
 
 
