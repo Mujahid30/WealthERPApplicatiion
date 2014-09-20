@@ -790,6 +790,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to UploadBackOffice//BulkRequestManagement.aspx.
+        /// </summary>
+        internal static string BulkRequestManagement {
+            get {
+                return ResourceManager.GetString("BulkRequestManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to BusinessMIS//BusinessDashBoard.ascx.
         /// </summary>
         internal static string BusinessDashBoard {

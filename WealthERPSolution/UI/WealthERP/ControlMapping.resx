@@ -1965,4 +1965,8 @@
     <value>OffLineOrderManagement//OfflineCustomersNCDOrderBook.ascx</value>
     <comment>OffLineOrderManagement//OfflineCustomersNCDOrderBook.ascx</comment>
   </data>
+  <data name="BulkRequestManagement" xml:space="preserve">
+    <value>UploadBackOffice//BulkRequestManagement.aspx</value>
+    <comment>UploadBackOffice//BulkRequestManagement.aspx</comment>
+  </data>
 </root>
