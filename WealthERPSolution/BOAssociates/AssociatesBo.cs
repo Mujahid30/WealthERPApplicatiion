@@ -114,12 +114,12 @@ namespace BOAssociates
             }
             return bResult;
         }
-        public bool CheckPanNumberDuplicatesForAssociates(string Pan, int AdviserAssociateId  )
+        public bool CheckPanNumberDuplicatesForAssociates(string Pan, int AdviserAssociateId)
         {
             bool bResult = false;
             try
             {
-               bResult = associatesDao.CheckPanNumberDuplicatesForAssociates(Pan, AdviserAssociateId );
+                bResult = associatesDao.CheckPanNumberDuplicatesForAssociates(Pan, AdviserAssociateId);
             }
             catch (BaseApplicationException Ex)
             {
@@ -127,12 +127,12 @@ namespace BOAssociates
             }
             return bResult;
         }
-        public bool UpdateAdviserAssociates(AssociatesVO associatesVo,AdvisorVo advisorVo)
+        public bool UpdateAdviserAssociates(AssociatesVO associatesVo, AdvisorVo advisorVo)
         {
             bool bResult = false;
             try
             {
-                bResult = associatesDao.UpdateAdviserAssociates(associatesVo,advisorVo);
+                bResult = associatesDao.UpdateAdviserAssociates(associatesVo, advisorVo);
             }
             catch (BaseApplicationException Ex)
             {
@@ -849,6 +849,48 @@ namespace BOAssociates
             }
             return dsGetUserRole;
 
+        }
+        public string GetAgentCode(int agentId, int adviserId)
+        {
+            string agentCode = string.Empty;
+             try
+            {
+                agentCode = associatesDao.GetAgentCode(agentId, adviserId);
+
+             }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+             return agentCode;
+         }
+        public string GetPANNo(int agentId)
+        {
+            string PANNo = string.Empty;
+              try
+            {
+                PANNo = associatesDao.GetPANNo(agentId);
+
+             }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+             return PANNo;
+         }
+         public bool UpdateAssociate(AssociatesVO associatesVo, int userId, int associateId, int agentId)
+        {
+            bool bResult = false;
+            try
+            {
+                bResult = associatesDao.UpdateAssociate(associatesVo,userId,associateId,agentId);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return bResult;
         }
     }
 }

@@ -72,6 +72,7 @@ namespace WealthERP.Associates
                 BindHierarchyTitleDropList();
                 //BindCity(0);
                 BinddepartDropList();
+                BindDepartmentRole();
                 BindSubTypeDropDown("IND");
                 RadTab radTABChildCodes = RadTabStripAssociatesDetails.Tabs.FindTabByValue("Child_Codes");
                 if (Request.QueryString["action"] != "" && Request.QueryString["action"] != null)
@@ -239,10 +240,10 @@ namespace WealthERP.Associates
                 ddlAssociateSubType.Enabled = false;
                 rbtnIndividual.Enabled = false;
                 rbtnNonIndividual.Enabled = false;
-                txtAdviserAgentCode.Enabled=false;
-                txtAssociateName.Enabled=false;
-                chkbldepart.Enabled=false;
-                chkAddressChk.Enabled=false;
+                txtAdviserAgentCode.Enabled = false;
+                txtAssociateName.Enabled = false;
+                chkbldepart.Enabled = false;
+                chkAddressChk.Enabled = false;
                 txtBankBranchName.Enabled = false;
                 txtPan.Enabled = false;
 
@@ -475,7 +476,7 @@ namespace WealthERP.Associates
                 txtRegNo.Text = associatesVo.Registrationumber;
             if (associatesVo.ExpiryDate != DateTime.MinValue)
                 txtRegExpDate.SelectedDate = associatesVo.ExpiryDate;
-            
+
             if (associatesVo.NomineeName != null)
                 txtNomineeName.Text = associatesVo.NomineeName;
             if (associatesVo.RelationshipCode != null)
@@ -687,14 +688,32 @@ namespace WealthERP.Associates
 
         protected void Update_Click(object sender, EventArgs e)
         {
-            if (associatesVo.AAC_AgentCode != txtAdviserAgentCode.Text)
+            int associateid = 0, agentcode = 0;
+
+            if (Request.QueryString["action"] != "" && Request.QueryString["action"] != null)
+            {
+                if (Request.QueryString["action"].Trim() == "Edit" || Request.QueryString["action"].Trim() == "View")
+                {
+                    agentcode = associatesVo.AAC_AdviserAgentId;
+                    associateid = associatesVo.AdviserAssociateId;
+                }
+            }
+            else
+            {
+                agentcode = int.Parse(Session["AdviserAgentId"].ToString());
+                associateid = int.Parse(Session["AdviserAssociateIds"].ToString());
+            }
+
+            string PANNo = associatesBo.GetPANNo(associateid);
+            string Agentcode1 = associatesBo.GetAgentCode(agentcode, 0);
+            if (Agentcode1 != txtAdviserAgentCode.Text)
             {
                 if (!Validation(txtAdviserAgentCode.Text))
                 {
                     return;
                 }
             }
-            if (associatesVo.PanNo != txtPan.Text)
+            if (PANNo != txtPan.Text)
             {
                 if (panValidation(txtPan.Text, associatesVo.AdviserAssociateId))
                 {
@@ -709,6 +728,7 @@ namespace WealthERP.Associates
                     return;
                 }
             }
+            UpdateAssociate();
             UpdatingDetails();
             Updatedepartment();
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Associates Updated successfully!!');", true);
@@ -1195,7 +1215,7 @@ namespace WealthERP.Associates
                 associatesVo.IFSC = txtIfsc.Text;
             else
                 associatesVo.IFSC = "";
-          
+
             //---------------------------------------Registration-------------------------------------------
 
             if (txtRegNo.Text != null)
@@ -1354,6 +1374,10 @@ namespace WealthERP.Associates
                 lbkbtnAddChildCodes.Enabled = true;
                 BindChildCodeLabel(associatesVo.AAC_AdviserAgentId);
             }
+            else
+            {
+                btnSubmit.Visible = true;
+            }
         }
 
         protected void lnlBack_Click(object sender, EventArgs e)
@@ -1418,6 +1442,34 @@ namespace WealthERP.Associates
             ddlAssociateSubType.DataBind();
             ddlAssociateSubType.Items.Insert(0, new ListItem("Select", "Select"));
         }
+        protected void UpdateAssociate()
+        {
+            int associateid = 0, agentcode = 0, userId = 0;
+
+            if (Request.QueryString["action"] != "" && Request.QueryString["action"] != null)
+            {
+                if (Request.QueryString["action"].Trim() == "Edit" || Request.QueryString["action"].Trim() == "View")
+                {
+                    agentcode = associatesVo.AAC_AdviserAgentId;
+                    associateid = associatesVo.AdviserAssociateId;
+                    userId = associatesVo.UserId;
+                }
+            }
+            else
+            {
+                agentcode = int.Parse(Session["AdviserAgentId"].ToString());
+                associateid = int.Parse(Session["AdviserAssociateIds"].ToString());
+                userId = int.Parse(Session["UserIds"].ToString());
+            }
+            associatesVo.AAC_AgentCode = txtAdviserAgentCode.Text.ToString();
+            associatesVo.ContactPersonName = txtAssociateName.Text;
+            if (!string.IsNullOrEmpty(ddlBranch.SelectedValue))
+                associatesVo.BranchId = Convert.ToInt32(ddlBranch.SelectedValue);
+            associatesVo.RMId = Convert.ToInt32(ddlRM.SelectedValue);
+            associatesVo.PanNo = txtPan.Text;
+            associatesBo.UpdateAssociate(associatesVo, userId, associateid, agentcode);
+
+        }
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
             string roleIds = string.Empty;
@@ -1428,7 +1480,7 @@ namespace WealthERP.Associates
             associateUserVo.Password = password;
             associateUserVo.LoginId = txtAdviserAgentCode.Text.ToString();
             associateUserVo.FirstName = txtAssociateName.Text.ToString();
-            associateUserVo.Email = userVo.Email;
+            associateUserVo.Email = txtEmail.Text;
             associateUserVo.UserType = "Associates";
             associatesVo.AAC_AgentCode = txtAdviserAgentCode.Text;
 
@@ -1461,7 +1513,7 @@ namespace WealthERP.Associates
             }
             else
             {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please Select Department Roles!!');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please Select Privilege Roles!!');", true);
                 return;
             }
 
@@ -1494,10 +1546,12 @@ namespace WealthERP.Associates
             associatesIds = associatesBo.CreateCompleteAssociates(associateUserVo, associatesVo, userVo.UserId);
             associatesVo.UserId = associatesIds[0];
             associatesVo.AdviserAssociateId = associatesIds[1];
+            Session["AdviserAssociateIds"] = associatesIds[1];
+            Session["UserIds"] = associatesIds[0];
             //   txtGenerateReqstNum.Text = associatesVo.AdviserAssociateId.ToString();
             //Session["userId"] = associatesVo.UserId;
             //Session["associatesId"] = associatesVo.AdviserAssociateId;
-            Session["AdviserAgentId"] = associatesVo.AAC_AdviserAgentId;
+            Session["AdviserAgentId"] = associatesIds[2];
             //------------------------ To create User role Association-----------------------
             userBo.CreateRoleAssociation(associatesVo.UserId, 1009);
             UpdatingDetails();
@@ -1562,13 +1616,14 @@ namespace WealthERP.Associates
             int adviserId = advisorVo.advisorId;
             try
             {
-                if (agentCode != string.Empty )
+                if (agentCode != string.Empty)
                 {
                     if (associatesBo.CodeduplicateCheck(adviserId, agentCode))
                     {
+
                         result = false;
                         //lblPanDuplicate.Visible = true;
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Adviser Agent Code already exists !!');", true);
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Agent Code already exists !!');", true);
                     }
                 }
             }
@@ -1652,10 +1707,14 @@ namespace WealthERP.Associates
             ddlDepart.DataTextField = dsDepartmentlist.Tables[0].Columns["AD_DepartmentName"].ToString();
             ddlDepart.DataValueField = dsDepartmentlist.Tables[0].Columns["AD_DepartmentId"].ToString();
             ddlDepart.DataBind();
-            ddlDepart.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
+            //ddlDepart.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
 
         }
         protected void ddlDepart_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+        protected void BindDepartmentRole()
         {
             PnlDepartRole.Visible = false;
             if (ddlDepart.SelectedValue.ToString() != "0")

@@ -35,10 +35,12 @@ namespace DAOAssociates
                 db.AddInParameter(completeAssociatesCmd, "@U_Password", DbType.String, userVo.Password);
                 db.AddInParameter(completeAssociatesCmd, "@U_PasswordSaltValue", DbType.String, userVo.PasswordSaltValue);
                 db.AddInParameter(completeAssociatesCmd, "@U_FirstName", DbType.String, userVo.FirstName);
-                //db.AddInParameter(completeAssociatesCmd, "@U_MiddleName", DbType.String, userVo.MiddleName);
-                //db.AddInParameter(completeAssociatesCmd, "@U_LastName", DbType.String, userVo.LastName);
-                db.AddInParameter(completeAssociatesCmd, "@U_Email", DbType.String, userVo.Email);
+                db.AddInParameter(completeAssociatesCmd, "@U_MiddleName", DbType.String, userVo.MiddleName);
+                db.AddInParameter(completeAssociatesCmd, "@U_LastName", DbType.String, userVo.LastName);
+                db.AddInParameter(completeAssociatesCmd, "@U_Email", DbType.String, userVo.Email); 
                 db.AddInParameter(completeAssociatesCmd, "@U_UserType", DbType.String, userVo.UserType);
+                db.AddInParameter(completeAssociatesCmd, "@U_LoginId", DbType.String, userVo.LoginId);
+               
                 db.AddInParameter(completeAssociatesCmd, "@AA_ContactPersonName", DbType.String, associatesVo.ContactPersonName);
                 db.AddInParameter(completeAssociatesCmd, "@AR_BranchId", DbType.Int32, associatesVo.BranchId);
                 db.AddInParameter(completeAssociatesCmd, "@AR_RMId", DbType.Int32, associatesVo.RMId);
@@ -569,7 +571,7 @@ namespace DAOAssociates
                     db.AddInParameter(UpdateAssociatesCmd, "@AA_PAN", DbType.String, associatesVo.PanNo);
                 else
                     db.AddInParameter(UpdateAssociatesCmd, "@AA_PAN", DbType.String, DBNull.Value);
-                if (associatesVo.StartDate != DateTime.MinValue)
+                if (associatesVo.AssociationExpairyDate != DateTime.MinValue)
                     db.AddInParameter(UpdateAssociatesCmd, "@AA_ExpiryDate", DbType.DateTime, associatesVo.AssociationExpairyDate);
                 else
                     db.AddInParameter(UpdateAssociatesCmd, "@AA_ExpiryDate", DbType.DateTime, DBNull.Value);
@@ -2165,6 +2167,86 @@ namespace DAOAssociates
                 throw exBase;
             }
             return dsGetUserRole;
+        }
+        public string GetAgentCode(int agentId, int adviserId)
+        {
+            Database db;
+            DataSet ds;
+            DbCommand cmdGetAgentCode;
+            string agentCode = string.Empty;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //checking year
+                cmdGetAgentCode = db.GetStoredProcCommand("SPROC_CheckAdviserAgentCode");
+                db.AddInParameter(cmdGetAgentCode, "@adviserAgentId", DbType.Int32, agentId);
+                db.AddInParameter(cmdGetAgentCode, "@adviserId", DbType.Int32, adviserId);
+                db.AddOutParameter(cmdGetAgentCode, "@agentCode", DbType.String, 20);
+                ds = db.ExecuteDataSet(cmdGetAgentCode);
+                if (db.ExecuteNonQuery(cmdGetAgentCode) != 0)
+                {
+                    agentCode = db.GetParameterValue(cmdGetAgentCode, "agentCode").ToString();
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return agentCode;
+        }
+        public string GetPANNo(int agentId)
+        {
+            Database db;
+            DataSet ds;
+            DbCommand cmdGetPANNo;
+            string PANNo = string.Empty;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //checking year
+                cmdGetPANNo = db.GetStoredProcCommand("SPROC_CheckDuplicatePANNo");
+                db.AddInParameter(cmdGetPANNo, "@adviserAssociateId", DbType.Int32, agentId);
+                db.AddOutParameter(cmdGetPANNo, "@PANN0", DbType.String, 20);
+                ds = db.ExecuteDataSet(cmdGetPANNo);
+                if (db.ExecuteNonQuery(cmdGetPANNo) != 0)
+                {
+                    PANNo = db.GetParameterValue(cmdGetPANNo, "PANN0").ToString();
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return PANNo;
+        }
+        public bool UpdateAssociate(AssociatesVO associatesVo, int userId, int associateId, int agentId)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand UpdateAssociateCmd;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                UpdateAssociateCmd = db.GetStoredProcCommand("SPROC_UpdateAssociateDetails");
+                db.AddInParameter(UpdateAssociateCmd, "@AA_ContactPersonName ", DbType.String, associatesVo.ContactPersonName);
+                db.AddInParameter(UpdateAssociateCmd, "@AR_RMid ", DbType.Int32, associatesVo.RMId);
+                db.AddInParameter(UpdateAssociateCmd, "@AB_BranchId", DbType.Int32, associatesVo.BranchId);
+                db.AddInParameter(UpdateAssociateCmd, "@AA_PAN", DbType.String, associatesVo.PanNo);
+               // db.AddInParameter(UpdateAssociateCmd, "@U_LoginId", DbType.String, associatesVo.AAC_AgentCode);
+                db.AddInParameter(UpdateAssociateCmd, "@AAC_AgentCode", DbType.String, associatesVo.AAC_AgentCode);
+                db.AddInParameter(UpdateAssociateCmd, "@U_UserId", DbType.Int32, userId);
+                db.AddInParameter(UpdateAssociateCmd, "@AAC_AdviserAgentId", DbType.Int32, agentId);
+                db.AddInParameter(UpdateAssociateCmd, "@AA_AdviserAssociateId", DbType.Int32, associateId);
+                if (db.ExecuteNonQuery(UpdateAssociateCmd) != 0)
+                    bResult = true;
+            }
+
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return bResult;
         }
     }
 }

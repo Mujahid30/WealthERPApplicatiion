@@ -22,15 +22,15 @@
         </td>
     </tr>
 </table>
-<table width="100%">
+<table>
     <tr>
-        <td colspan="4">
-            <asp:Panel ID="pnlAdviserAssociateList" runat="server" ScrollBars="Horizontal" Width="99%"
+        <td>
+            <asp:Panel ID="pnlAdviserAssociateList" runat="server" ScrollBars="Both" Width="95%"
                 Height="100%" Visible="true">
-                <table>
+                <table width="90%">
                     <tr>
-                        <td> 
-                            <div runat="server" id="divAdviserAssociateList" style="width: 100%;">
+                        <td>
+                            <div runat="server" id="divAdviserAssociateList" style="width: 90%;">
                                 <telerik:RadGrid ID="gvAdviserAssociateList" runat="server" AllowAutomaticDeletes="false"
                                     PageSize="10" EnableEmbeddedSkins="false" AllowFilteringByColumn="true" AutoGenerateColumns="False"
                                     ShowStatusBar="false" ShowFooter="false" AllowPaging="true" AllowSorting="true"
@@ -83,7 +83,7 @@
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Email Id" DataField="AA_Email"
                                                 UniqueName="AA_Email" SortExpression="AA_Email" AutoPostBackOnFilter="true" AllowFiltering="true"
-                                                ShowFilterIcon="false" CurrentFilterFunction="Contains" >
+                                                ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Address" DataField="Address"
@@ -128,11 +128,9 @@
                                             </telerik:GridBoundColumn>
                                         </Columns>
                                     </MasterTableView>
-                                    <HeaderStyle Width="150px" />
-                                   <%-- <ClientSettings>
+                                    <ClientSettings>
                                         <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
-                                        <Resizing AllowColumnResize="true" />
-                                    </ClientSettings>--%>
+                                    </ClientSettings>
                                 </telerik:RadGrid>
                             </div>
                         </td>
