@@ -49,12 +49,28 @@ namespace WealthERP.Customer
         DataSet dsJointHoldersAndNominees;
         protected void Page_Load(object sender, EventArgs e)
         {
+            int customerId;
             rmvo = (RMVo)Session["rmvo"];
-
             BindDepositoryType();
             customerportfoliovo = (CustomerPortfolioVo)Session["customerPortfolioVo"];
+            if (Session["CustomerId"] != null)
+            {
+                
+                    customerId = int.Parse(Session["CustomerId"].ToString());
+                    dsModeOfHolding = new DataSet();
+                    dtCustomerAccociation = new DataTable();
+                    dsCustomerAssociation = new DataSet();
+                    dsModeOfHolding = bodemataccount.GetXmlModeOfHolding();
+                    dsCustomerAssociation = bodemataccount.GetCustomerAccociation(customerId);
+                    //Mode of Holding Combobox populating
+                    ddlModeOfHolding.DataSource = dsModeOfHolding;
+                    ddlModeOfHolding.DataTextField = "XMOH_ModeOfHolding";
+                    ddlModeOfHolding.DataValueField = "XMOH_ModeOfHoldingCode";
+                    ddlModeOfHolding.DataBind();
+                    ddlModeOfHolding.SelectedIndex = 8;
+            }
 
-            if (Session["DematDetailsView"].ToString() == "View")
+            else if (Session["DematDetailsView"].ToString() == "View")
             {
                 lblTitle.Text = "View Demat Account";
                 # region View Section
@@ -66,7 +82,7 @@ namespace WealthERP.Customer
                 txtDpName.Enabled = false;
                 ddlModeOfHolding.Enabled = false;
                 ddlDepositoryName.Enabled = false;
-              
+
                 txtAccountOpeningDate.Enabled = false;
                 btnSubmit.Visible = false;
                 lbtnBackButton.Visible = true;
@@ -91,7 +107,7 @@ namespace WealthERP.Customer
                 rbtnNo.Enabled = true;
                 ddlModeOfHolding.Enabled = true;
                 ddlDepositoryName.Enabled = true;
-              
+
                 txtAccountOpeningDate.Enabled = true;
                 btnSubmit.Visible = true;
                 lbtnBackButton.Visible = false;
@@ -104,26 +120,28 @@ namespace WealthERP.Customer
             }
             else if (Session["DematDetailsView"].ToString() == "Add")
             {
-
+                
                 lblTitle.Text = "Add Demat Account";
+                
+                    customervo = (CustomerVo)Session["CustomerVo"];
+                    customerId = customervo.CustomerId;
 
-                customervo = (CustomerVo)Session["CustomerVo"];
                 try
                 {
                     dsModeOfHolding = new DataSet();
                     dtCustomerAccociation = new DataTable();
                     dsCustomerAssociation = new DataSet();
                     dsModeOfHolding = bodemataccount.GetXmlModeOfHolding();
-                    dsCustomerAssociation = bodemataccount.GetCustomerAccociation(customervo);
+                    dsCustomerAssociation = bodemataccount.GetCustomerAccociation(customerId);
                     //Mode of Holding Combobox populating
                     ddlModeOfHolding.DataSource = dsModeOfHolding;
                     ddlModeOfHolding.DataTextField = "XMOH_ModeOfHolding";
                     ddlModeOfHolding.DataValueField = "XMOH_ModeOfHoldingCode";
                     ddlModeOfHolding.DataBind();
                     ddlModeOfHolding.SelectedIndex = 8;
-                
 
-                 }
+
+                }
                 catch (BaseApplicationException ex)
                 {
                     BaseApplicationException exBase = new BaseApplicationException(ex.Message, ex);

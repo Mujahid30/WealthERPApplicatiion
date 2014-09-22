@@ -339,7 +339,36 @@ namespace BoCommon
             }
             return dtAllSIPDataForOrder;
         }
+        public Boolean CheckDuplicateDepositoryType(string code)
+        {
+            return daoCommonLookup.CheckDuplicateDepositoryType(code);
+        }
+        public void CreateDepositoryType(string code, string description)
+        {
+            try
+            {
+                daoCommonLookup.CreateDepositoryType(code, description);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommonLookupBo.cs:CreateDepositoryType(string code, string description)");
+                object[] objParams = new object[3];
+                objParams[0] = code;
+                objParams[1] = description;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objParams);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
 
+
+        }
 
         public DataTable GetAllSIPDataForOrder(int schemeCode, string frequencyCode)
         {

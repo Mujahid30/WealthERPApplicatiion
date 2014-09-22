@@ -344,6 +344,45 @@ namespace DaoOnlineOrderManagement
             }
             return ds;
         }
+        public void CreateOfflineCustomerOrderAssociation(DataTable OrderAssociates, int userId,int orderId)
+        {
+            Database db;
+            DbCommand cmdOfflineBondTransact;
+            try
+            {
+
+                DataSet ds = new DataSet();
+                DataTable dt = new DataTable();
+                dt = OrderAssociates.Copy();
+                ds.Tables.Add(dt);
+                String sb;
+                sb = ds.GetXml().ToString();
+
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdOfflineBondTransact = db.GetStoredProcCommand("SPROC_OFF_CreateCustomerOrderAssociates");
+                db.AddInParameter(cmdOfflineBondTransact, "@xmlBondsOrder", DbType.Xml, sb);
+                db.AddInParameter(cmdOfflineBondTransact, "@UserId", DbType.Int32, userId);
+                db.AddInParameter(cmdOfflineBondTransact, "@Order_Id", DbType.Int32, orderId);
+                db.ExecuteNonQuery(cmdOfflineBondTransact); 
+                
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineBondOrderDao.cs:CreateCustomerOrderAssociation(DataTable OrderAssociates, int userId,int orderId)");
+                object[] objects = new object[1];
+                objects[0] = OrderAssociates;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
         public IDictionary<string, string> CreateOfflineBondTransact(DataTable BondORder, int adviserId, int IssuerId,int agentId,string agentCode,int userId)
         {
             //List<int> orderIds = new List<int>();

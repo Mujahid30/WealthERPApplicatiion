@@ -790,7 +790,81 @@ namespace DaoCommon
             }
             return dtSchemeAMCCategory;
         }
+        public void CreateDepositoryType(string code,string description)
+        {
+            Database db;
+            DbCommand CreateDepositoryTypecmd;
 
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                CreateDepositoryTypecmd = db.GetStoredProcCommand("SPROC_CreateDepositoryType");
+                db.AddInParameter(CreateDepositoryTypecmd, "@WCMV_Code", DbType.String, code);
+                db.AddInParameter(CreateDepositoryTypecmd, "@WCMV_Name", DbType.String, description);
+                db.ExecuteNonQuery(CreateDepositoryTypecmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommonLookupDao.cs:CreateDepositoryType()");
+                object[] objParams = new object[2];
+                objParams[0] = code;
+                objParams[1] = description;
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            
+        }
+
+        public Boolean CheckDuplicateDepositoryType(string code)
+        {
+            Database db;
+            DbCommand GetDepositoryTypecmd;
+            Boolean result=true;
+            int count = 0;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetDepositoryTypecmd = db.GetStoredProcCommand("SPROC_CheckDuplicateDepositoryType");
+                db.AddInParameter(GetDepositoryTypecmd, "@WCMV_Code", DbType.String, code);
+                db.AddOutParameter(GetDepositoryTypecmd, "@Count", DbType.Int64, 10);
+                db.ExecuteNonQuery(GetDepositoryTypecmd);
+                Object objAMCCode = db.GetParameterValue(GetDepositoryTypecmd, "@Count");
+                if (objAMCCode != DBNull.Value)
+                {
+                    count = Convert.ToInt32(objAMCCode);
+                    if (count > 0)
+                        result = false;
+                }
+
+                
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommonLookupDao.cs:CheckDuplicateDepositoryType(string code)");
+                object[] objParams = new object[1];
+                objParams[0] = code;
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return result;
+
+        }
+        
         public DataTable GetMFSchemeDividentType(int schemeId)
         {
             Database db;

@@ -1097,14 +1097,9 @@ namespace BoCustomerPortfolio
             {
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
-
                 FunctionInfo.Add("Method", "CustomerAccountBo.cs:GetCustomerAssociatesRel()");
-
-
                 object[] objects = new object[1];
                 objects[0] = customerId;
-
-
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -1115,7 +1110,36 @@ namespace BoCustomerPortfolio
             return dsCustomerAssociates;
 
         }
+        public DataSet GetCustomerDematAccountAssociatesDetails(int customerId, string type)
+        {
+            CustomerAccountDao customerAccountsDao = new CustomerAccountDao();
+            DataSet dsCustomerDematAccountAssociatesDet= new DataSet();
+            try
+            {
+                dsCustomerDematAccountAssociatesDet = customerAccountsDao.GetCustomerDematAccountAssociatesDetails(customerId, type);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
 
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerAccountBo.cs:GetCustomerAssociatesRel()");
+                object[] objects = new object[2];
+                objects[0] = customerId;
+                objects[1]=type;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dsCustomerDematAccountAssociatesDet;
+
+        }
 
         public DataSet GetCustomerAssociatedRel(int customerId)
         {

@@ -19,7 +19,7 @@ namespace DaoCustomerPortfolio
     public class DematAccountDao
     {
         
-        public DataSet GetCustomerAccociation(CustomerVo customervo)
+        public DataSet GetCustomerAccociation(int customerId)
         {
             DataSet datasetCustomerAssociationList=null;
             Database db;
@@ -29,7 +29,7 @@ namespace DaoCustomerPortfolio
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 dbCustomerAssociationList = db.GetStoredProcCommand("SP_GetCustomerAssociatesRel");
-                db.AddInParameter(dbCustomerAssociationList, "@C_CustomerId", DbType.Int32, customervo.CustomerId);
+                db.AddInParameter(dbCustomerAssociationList, "@C_CustomerId", DbType.Int32, customerId);
                 datasetCustomerAssociationList = db.ExecuteDataSet(dbCustomerAssociationList);
             }            
             catch(BaseApplicationException ex)

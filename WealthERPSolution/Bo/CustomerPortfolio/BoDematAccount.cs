@@ -18,9 +18,9 @@ namespace BoCustomerPortfolio
     {
         DematAccountDao demataccountdao = new DematAccountDao();
 
-        public DataSet GetCustomerAccociation(CustomerVo customervo)
+        public DataSet GetCustomerAccociation(int customerid)
         {
-            return demataccountdao.GetCustomerAccociation(customervo);
+            return demataccountdao.GetCustomerAccociation(customerid);
         }
         public DataSet GetTradeAccountNumber(CustomerVo customervo)
         {

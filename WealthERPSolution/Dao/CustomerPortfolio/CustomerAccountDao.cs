@@ -1850,6 +1850,41 @@ namespace DaoCustomerPortfolio
 
             return dsCustomerAssociates;
         }
+        public DataSet GetCustomerDematAccountAssociatesDetails(int customerId, string type)
+        {
+            DataSet dsCustomerDematAccountAssociates = null;
+            DbCommand getCustomerDematAccountAssociatesCmd;
+            Database db;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getCustomerDematAccountAssociatesCmd = db.GetStoredProcCommand("SPROC_GetCustomerDematAccountAssociates");
+                db.AddInParameter(getCustomerDematAccountAssociatesCmd, "@CustomerId", DbType.Int32, customerId);
+                db.AddInParameter(getCustomerDematAccountAssociatesCmd, "@Type", DbType.String, type);
+                dsCustomerDematAccountAssociates = db.ExecuteDataSet(getCustomerDematAccountAssociatesCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerAccountDao.cs:GetCustomerDematAccountAssociatesDetails()");
+                object[] objects = new object[2];
+                objects[0] = customerId;
+                objects[1]=type;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+
+
+            return dsCustomerDematAccountAssociates;
+        }
 
         public DataSet GetCustomerAssociatesRel(int customerId)
         {
@@ -1871,13 +1906,9 @@ namespace DaoCustomerPortfolio
             {
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
-
                 FunctionInfo.Add("Method", "CustomerAccountDao.cs:GetCustomerAssociatesRel()");
-
-
                 object[] objects = new object[1];
                 objects[0] = customerId;
-
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
