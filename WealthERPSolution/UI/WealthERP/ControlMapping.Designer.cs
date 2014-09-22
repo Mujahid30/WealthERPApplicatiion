@@ -790,7 +790,7 @@ namespace WealthERP {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to UploadBackOffice//BulkRequestManagement.aspx.
+        ///   Looks up a localized string similar to UploadBackOffice//BulkRequestManagement.ascx.
         /// </summary>
         internal static string BulkRequestManagement {
             get {
