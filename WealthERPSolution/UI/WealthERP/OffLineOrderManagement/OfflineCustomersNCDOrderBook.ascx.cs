@@ -27,7 +27,7 @@ namespace WealthERP.OffLineOrderManagement
         OfflineNCDIPOBackOfficeBo offlineNCDBackOfficeBo = new OfflineNCDIPOBackOfficeBo();
         protected void Page_Load(object sender, EventArgs e)
         {
-           
+
             SessionBo.CheckSession();
             userVo = (UserVo)Session[SessionContents.UserVo];
             advisorVo = (AdvisorVo)Session["advisorVo"];
@@ -75,7 +75,7 @@ namespace WealthERP.OffLineOrderManagement
             dtOrderStatus = dsOrderStatus.Tables[0];
             if (dtOrderStatus.Rows.Count > 0)
             {
-                
+
                 for (int i = dtOrderStatus.Rows.Count - 1; i >= 0; i--)
                 {
                     if (dtOrderStatus.Rows[i][1].ToString() == "INPROCESS" || dtOrderStatus.Rows[i][1].ToString() == "EXECUTED")
@@ -170,18 +170,19 @@ namespace WealthERP.OffLineOrderManagement
         }
         protected void gvNCDOrderBook_OnItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
         {
-
-
+                Int32 orderId = Convert.ToInt32(gvNCDOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_OrderId"].ToString());
+                string custCode = gvNCDOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["C_CustCode"].ToString();
+                Response.Redirect("ControlHost.aspx?pageid=NCDIssueTransactOffline&orderId=" + orderId + "&custCode=" + custCode + "", false);
         }
         public void gvNCDOrderBook_OnItemDataCommand(object sender, GridItemEventArgs e)
         {
-             Boolean isCancel=false;
+            Boolean isCancel = false;
             if (e.Item is GridDataItem)
             {
                 GridDataItem dataItem = e.Item as GridDataItem;
                 LinkButton lbtnMarkAsReject = dataItem["MarkAsReject"].Controls[0] as LinkButton;
                 string OrderStepCode = gvNCDOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WOS_OrderStep"].ToString();
-                if(gvNCDOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIM_IsCancelAllowed"].ToString()!=string.Empty)
+                if (gvNCDOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIM_IsCancelAllowed"].ToString() != string.Empty)
                     isCancel = Convert.ToBoolean(gvNCDOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIM_IsCancelAllowed"].ToString());
                 //  string extractionStepCode = gvNCDOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WES_COde"].ToString();
                 if (OrderStepCode == "INPROCESS" && isCancel != false)
@@ -286,6 +287,11 @@ namespace WealthERP.OffLineOrderManagement
             gvNCDOrderBook.MasterTableView.ExportToExcel();
 
         }
+        //protected void btnView_Click(object sender, EventArgs e)
+        //{
+        //    Response.Redirect("ControlHost.aspx?pageid=NCDIssueTransactOffline", false);
+
+        //}
 
         protected void btnExpand_Click(object sender, EventArgs e)
         {
