@@ -307,7 +307,7 @@
             </asp:RequiredFieldValidator>
         </td>
         <td class="leftField">
-            <asp:Label ID="lblAgentCodeL" runat="server" CssClass="FieldName" Text="Agent Code:"></asp:Label>
+            <asp:Label ID="lblAgentCodeL" runat="server" CssClass="FieldName" Text="SubBroker Code:"></asp:Label>
         </td>
         <td colspan="3">
             <%--<asp:Label ID="lblAgentCode" runat="server" CssClass="txtField" Text=""></asp:Label>

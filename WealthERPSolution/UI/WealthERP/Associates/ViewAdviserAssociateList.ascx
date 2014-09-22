@@ -25,7 +25,7 @@
 <table>
     <tr>
         <td>
-            <asp:Panel ID="pnlAdviserAssociateList" runat="server" ScrollBars="Both" Width="95%"
+            <asp:Panel ID="pnlAdviserAssociateList" runat="server" ScrollBars="Both" Width="85%"
                 Height="100%" Visible="true">
                 <table width="90%">
                     <tr>
@@ -56,7 +56,7 @@
                                                     </asp:DropDownList>
                                                 </ItemTemplate>
                                             </telerik:GridTemplateColumn>
-                                            <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Agent Code" DataField="SubBrokerCode"
+                                            <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="SubBroker Code" DataField="SubBrokerCode"
                                                 UniqueName="SubBrokerCode" SortExpression="SubBrokerCode" AutoPostBackOnFilter="true"
                                                 AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                                 <ItemStyle HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />

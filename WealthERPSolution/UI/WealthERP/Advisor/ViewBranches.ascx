@@ -193,7 +193,7 @@
                                             <HeaderStyle></HeaderStyle>
                                         </telerik:GridBoundColumn>
                                          <%--<asp:BoundField DataField="AAC_AgentCode" HeaderText="AgentCode" />--%>
-                                         <telerik:GridBoundColumn UniqueName="AAC_AgentCode" HeaderStyle-Width="120px" HeaderText="Agent Code"
+                                         <telerik:GridBoundColumn UniqueName="AAC_AgentCode" HeaderStyle-Width="120px" HeaderText="SubBroker Code"
                                             DataField="AAC_AgentCode" SortExpression="AAC_AgentCode" AllowFiltering="true"
                                             ShowFilterIcon="false" AutoPostBackOnFilter="true">
                                             <HeaderStyle></HeaderStyle>

@@ -86,7 +86,7 @@ namespace WealthERP.Associates
                         associatesVo = (AssociatesVO)Session["associatesVo"];
                         if (associatesVo != null)
                             SetEditViewControls(associatesVo);
-                        head.InnerText = "View Associates";
+                        head.InnerText = "View Associate";
                         ddlTitleList.Enabled = false;
                         ddlBranch.Enabled = false;
                         ddlRM.Enabled = false;
@@ -103,7 +103,7 @@ namespace WealthERP.Associates
                         associatesVo = (AssociatesVO)Session["associatesVo"];
                         if (associatesVo != null)
                             SetEditViewControls(associatesVo);
-                        head.InnerText = "Edit Associates";
+                        head.InnerText = "Edit Associate";
                         ddlTitleList.Enabled = false;
                         ddlBranch.Enabled = false;
                         ddlRM.Enabled = false;
@@ -246,7 +246,7 @@ namespace WealthERP.Associates
                 chkAddressChk.Enabled = false;
                 txtBankBranchName.Enabled = false;
                 txtPan.Enabled = false;
-
+                chkIsActive.Enabled = false;
             }
             else
             {
@@ -337,6 +337,7 @@ namespace WealthERP.Associates
                 chkAddressChk.Enabled = true;
                 txtBankBranchName.Enabled = true;
                 txtPan.Enabled = true;
+                chkIsActive.Enabled = true;
             }
 
         }
@@ -362,6 +363,10 @@ namespace WealthERP.Associates
                     }
                 }
             }
+            if (associatesVo.IsActive == 1)
+                chkIsActive.Checked = true;
+            else
+                chkIsActive.Checked = false;
             if (associatesVo.BMName != null)
                 ddlBranch.SelectedValue = associatesVo.BranchId.ToString();
             if (associatesVo.Departmrntid != 0)
@@ -1048,7 +1053,14 @@ namespace WealthERP.Associates
             string assetGroupCodes;
             if (associatesVo.AdviserAssociateId != 0)
                 associationId = associatesVo.AdviserAssociateId;
-
+            if (chkIsActive.Checked)
+            {
+                associatesVo.IsActive = 1;
+            }
+            else
+            {
+                associatesVo.IsActive = 0;
+            }
             associatesVo.AdviserAssociateId = associationId;
             associatesVo.AAC_AdviserAgentId = associatesVo.AAC_AdviserAgentId;
             associatesVo.ContactPersonName = txtAssociateName.Text;
@@ -1623,7 +1635,7 @@ namespace WealthERP.Associates
 
                         result = false;
                         //lblPanDuplicate.Visible = true;
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Agent Code already exists !!');", true);
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('SubBroker Code already exists !!');", true);
                     }
                 }
             }

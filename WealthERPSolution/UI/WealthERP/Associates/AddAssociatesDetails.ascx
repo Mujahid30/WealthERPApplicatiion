@@ -105,7 +105,7 @@
                 <table cellspacing="0" width="100%">
                     <tr>
                         <td align="left" id="head" runat="server">
-                            Add Associates
+                            Add Associate
                         </td>
                         <td align="right">
                             <asp:LinkButton ID="lnkBtnEdit" runat="server" CssClass="LinkButtons" Text="Edit"
@@ -190,13 +190,13 @@
                 Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
         </td>
         <td class="leftLabel" align="right">
-            <asp:Label ID="lblAdviserAgentCode" runat="server" Text="Agent Code: " CssClass="FieldName"></asp:Label>
+            <asp:Label ID="lblAdviserAgentCode" runat="server" Text="SubBroker Code: " CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightData">
             <asp:TextBox ID="txtAdviserAgentCode" MaxLength="20" runat="server" CssClass="txtField" Enabled="True"></asp:TextBox>
             <span id="Span9" class="spnRequiredField">*</span> &nbsp;
             <br />
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtAdviserAgentCode" ErrorMessage="Enter agent code"
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtAdviserAgentCode" ErrorMessage="Enter SubBroker code"
                 Display="Dynamic" runat="server" CssClass="rfvPCG" ValidationGroup="Submit">
             </asp:RequiredFieldValidator>
         </td>
@@ -325,6 +325,10 @@
                 CssClass="rfvPCG" ControlToValidate="ddlDepart" ValidationGroup="Submit" InitialValue="0"
                 Display="Dynamic">
             </asp:RequiredFieldValidator>
+        </td>
+        <td></td>
+        <td >
+        <asp:CheckBox ID="chkIsActive" runat="server" Text="IsActive" CssClass="txtField"/>
         </td>
     </tr>
     <tr>

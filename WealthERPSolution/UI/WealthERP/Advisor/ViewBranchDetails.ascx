@@ -66,7 +66,7 @@
     </tr>
     <tr>
         <td class="leftField" style="width: 30%">
-            <asp:Label ID="lb1AgentCode" runat="server" CssClass="FieldName" Text="Branch/Agent Code:"></asp:Label>
+            <asp:Label ID="lb1AgentCode" runat="server" CssClass="FieldName" Text="Branch/SubBroker Code:"></asp:Label>
         </td>
         <td class="rightField">
             <asp:Label ID="lb1AgentCode1" runat="server" Text="Label" CssClass="Field"></asp:Label>

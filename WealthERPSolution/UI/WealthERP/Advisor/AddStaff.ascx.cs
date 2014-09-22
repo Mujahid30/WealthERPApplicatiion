@@ -237,7 +237,7 @@ namespace WealthERP.Advisor
                 {
                     result = false;
                     //lblPanDuplicate.Visible = true;
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Agent Code already exists !!');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('SubBroker Code already exists !!');", true);
                 }
             }
 

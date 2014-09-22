@@ -9,7 +9,7 @@
                 <table cellspacing="0" width="100%">
                     <tr>
                         <td align="left">
-                            View Agent Code
+                            View SubBroker Code
                         </td>
                         <td align="right" style="padding-bottom: 2px;">
                         </td>
@@ -55,7 +55,7 @@
                                                     </asp:LinkButton>
                                                 </ItemTemplate>
                                             </telerik:GridTemplateColumn>--%>
-                                         <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Code" DataField="AAC_AgentCode"
+                                         <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="SubBroker Code" DataField="AAC_AgentCode"
                                                 UniqueName="AAC_AgentCode" SortExpression="AAC_AgentCode" AutoPostBackOnFilter="true"
                                                 AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />

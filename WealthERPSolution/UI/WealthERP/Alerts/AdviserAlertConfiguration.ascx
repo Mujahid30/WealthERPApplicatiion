@@ -63,7 +63,7 @@
                         AddNewRecordText="Add New SIP Alert" ShowExportToCsvButton="false" ShowAddNewRecordButton="true"
                         ShowRefreshButton="false" />
                     <Columns>
-                      <telerik:GridEditCommandColumn UniqueName="EditCommandColumn" Visible="false"></telerik:GridEditCommandColumn>
+                      <telerik:GridEditCommandColumn UniqueName="EditCommandColumn" Visible="true"></telerik:GridEditCommandColumn>
                         <%--<telerik:GridEditCommandColumn EditText="Edit" UniqueName="editColumn" CancelText="Cancel"
                             UpdateText="Update" HeaderStyle-Width="80px">
                         </telerik:GridEditCommandColumn>--%>
@@ -200,9 +200,9 @@
         </td>
     </tr>
 </table>
-<input type="hidden" id="radGridClickedRowIndex" name="radGridClickedRowIndex" />
+<input type="hidden" id="radGridClickedRowIndex" name="radGridClickedRowIndex" visible="false"/>
 <telerik:RadContextMenu ID="radMenu" runat="server" OnItemClick="radMenu_ItemClick"
-    EnableRoundedCorners="true" EnableShadows="true" Skin="WebBlue">
+    EnableRoundedCorners="true" EnableShadows="true" Skin="WebBlue" Visible="false">
     <Items>
         <telerik:RadMenuItem Text="Add">
         </telerik:RadMenuItem>

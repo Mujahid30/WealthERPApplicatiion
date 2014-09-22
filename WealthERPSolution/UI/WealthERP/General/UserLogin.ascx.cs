@@ -680,60 +680,70 @@ namespace WealthERP.General
                                     GetLatestValuationDate();
                                 }
                                 //-------------------------------------------------Checking Associate User Login Details----------------
-                                else if (userVo.UserType == "Associates")
+                                else if (userVo.UserType.Trim() =="Associates")
                                 {
                                     bool breakLoopIfIPFailed = false;
                                     Session[SessionContents.CurrentUserRole] = "Associates";
                                     associatesVo = associatesBo.GetAssociateUser(userVo.UserId);
-                                    associatesUserHeirarchyVo = associatesBo.GetAssociateUserHeirarchy(userVo.UserId, advisorVo.advisorId);
-                                    Session["associatesVo"] = associatesVo;
-                                    Session["associatesUserHeirarchyVo"] = associatesUserHeirarchyVo;
-                                    Session["rmVo"] = advisorStaffBo.GetAdvisorStaffDetails(associatesVo.RMId);
-                                    //advisorVo = (AdvisorVo)Session["advisorVo"];
-                                    rmVo = (RMVo)Session["rmVo"];
-                                    Session["adviserId"] = advisorBo.GetRMAdviserId(rmVo.RMId);
-                                    if (advisorVo.LogoPath == null)
+                                    if (associatesVo.IsActive==1)
                                     {
-                                        advisorVo.LogoPath = "";
-                                    }
-                                    sourcePath = "Images/" + advisorVo.LogoPath.ToString();
-
-                                    Session[SessionContents.LogoPath] = sourcePath;
-
-                                    roleList = userBo.GetUserRoles(userVo.UserId);
-                                    count = roleList.Count;
-                                    //Check For IP Authentication enable for Advisor 
-                                    if (advisorVo.IsIPEnable == 1)
-                                    {
-                                        breakLoopIfIPFailed = CheckIPAuthentication(roleList, advisorVo);
-                                        if (breakLoopIfIPFailed == false)
-                                            return;
-                                    }
-
-                                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "loadingatthelogin", "parent.loadCB();", true);
-
-                                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "adviserpaneleftttt", "loadlinks('AdvisorLeftPane','login');", true);
-                                    if (count == 1)
-                                    {
-                                        if (roleList.Contains("Associates"))
+                                        associatesUserHeirarchyVo = associatesBo.GetAssociateUserHeirarchy(userVo.UserId, advisorVo.advisorId);
+                                        Session["associatesVo"] = associatesVo;
+                                        Session["associatesUserHeirarchyVo"] = associatesUserHeirarchyVo;
+                                        Session["rmVo"] = advisorStaffBo.GetAdvisorStaffDetails(associatesVo.RMId);
+                                        //advisorVo = (AdvisorVo)Session["advisorVo"];
+                                        rmVo = (RMVo)Session["rmVo"];
+                                        Session["adviserId"] = advisorBo.GetRMAdviserId(rmVo.RMId);
+                                        if (advisorVo.LogoPath == null)
                                         {
-                                            Session["adviserId"] = advisorBo.GetRMAdviserId(rmVo.RMId);
-                                            //Session["advisorVo"]=advisorBo.GetAdvisor(
-                                            branchLogoSourcePath = "Images/" + userBo.GetRMBranchLogo(rmVo.RMId);
-                                            sourcePath = "Images/" + userBo.GetRMLogo(rmVo.RMId);
-                                            Session[SessionContents.LogoPath] = sourcePath;
-                                            Session[SessionContents.BranchLogoPath] = branchLogoSourcePath;
-                                            userBo.GetUserTheme(rmVo.RMId, "RM", out strUserTheme);
-                                            Session["Theme"] = strUserTheme;
-                                            Session["refreshTheme"] = true;
-                                            Session[SessionContents.CurrentUserRole] = "Associates";
-                                            Session[SessionContents.UserTopRole] = "Associates";
-                                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('SalesDashBoard','login');", true);
-
+                                            advisorVo.LogoPath = "";
                                         }
-                                    }
+                                        sourcePath = "Images/" + advisorVo.LogoPath.ToString();
 
-                                    GetLatestValuationDate();
+                                        Session[SessionContents.LogoPath] = sourcePath;
+
+                                        roleList = userBo.GetUserRoles(userVo.UserId);
+                                        count = roleList.Count;
+                                        //Check For IP Authentication enable for Advisor 
+                                        if (advisorVo.IsIPEnable == 1)
+                                        {
+                                            breakLoopIfIPFailed = CheckIPAuthentication(roleList, advisorVo);
+                                            if (breakLoopIfIPFailed == false)
+                                                return;
+                                        }
+
+                                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "loadingatthelogin", "parent.loadCB();", true);
+
+                                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "adviserpaneleftttt", "loadlinks('AdvisorLeftPane','login');", true);
+                                        if (count == 1)
+                                        {
+                                            if (roleList.Contains("Associates"))
+                                            {
+                                                Session["adviserId"] = advisorBo.GetRMAdviserId(rmVo.RMId);
+                                                //Session["advisorVo"]=advisorBo.GetAdvisor(
+                                                branchLogoSourcePath = "Images/" + userBo.GetRMBranchLogo(rmVo.RMId);
+                                                sourcePath = "Images/" + userBo.GetRMLogo(rmVo.RMId);
+                                                Session[SessionContents.LogoPath] = sourcePath;
+                                                Session[SessionContents.BranchLogoPath] = branchLogoSourcePath;
+                                                userBo.GetUserTheme(rmVo.RMId, "RM", out strUserTheme);
+                                                Session["Theme"] = strUserTheme;
+                                                Session["refreshTheme"] = true;
+                                                Session[SessionContents.CurrentUserRole] = "Associates";
+                                                Session[SessionContents.UserTopRole] = "Associates";
+                                                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('SalesDashBoard','login');", true);
+
+                                            }
+                                        }
+
+                                        GetLatestValuationDate();
+                                    }
+                                    else
+                                    {
+                                        Session["Theme"] = "SBIOnLine";
+                                        Session["refreshTheme"] = true;
+                                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "loadingatthelogin", "parent.loadCB();", true);
+                                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Reg23itlpoeewsderwjhh", "loadcontrol('AccountDeactive','login');", true);
+                                    }
                                 }
                                 //else if (userVo.UserType == "RM")
                                 //{
@@ -807,7 +817,7 @@ namespace WealthERP.General
                                     Session["refreshTheme"] = false;
                                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('AdminUpload','login','" + UserName + "','');", true);
                                 }
-                                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "anytextcanbewritten", "parent.loadCB();", true);
+                                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "anytextcanbewritten", "parent.loadCB();", true);
                             }
                             else
                             {

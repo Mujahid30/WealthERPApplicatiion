@@ -13,7 +13,7 @@
                 <table cellspacing="0" width="100%">
                     <tr>
                         <td align="left">
-                            Add Agent Code
+                            Add SubBroker Code
                         </td>
                     </tr>
                 </table>
@@ -84,7 +84,7 @@
     </tr>--%>
     <tr>
         <td class="leftField">
-            <asp:Label ID="lblAgentCode" CssClass="FieldName" runat="server" Text="Agent Code:"></asp:Label>
+            <asp:Label ID="lblAgentCode" CssClass="FieldName" runat="server" Text="SubBroker Code:"></asp:Label>
         </td>
         <td class="rightField">
             <asp:TextBox ID="txtAgentCode" runat="server" CssClass="txtField"></asp:TextBox>

@@ -112,6 +112,7 @@ namespace VOAssociates
         public int adviserhirerchi { get; set; }
         public string Roleid { get; set; }
         public int Departmrntid { get; set; }
+        public int IsActive { get; set; }
         #endregion
 
         #region Properties

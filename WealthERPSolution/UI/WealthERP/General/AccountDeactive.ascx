@@ -28,7 +28,7 @@
                                        
                    <b>Your account access has been temporarily disabled.</b>      
                    <br />
-                    Please contact <b>+91 99001 66306</b> for further details                             
+                    Please contact <b>customer care </b> for further details                             
                    </div>
                 </td>
             </tr>
