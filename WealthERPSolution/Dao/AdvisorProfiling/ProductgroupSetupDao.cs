@@ -441,7 +441,122 @@ namespace DaoAdvisorProfiling
             }
             return inserted;
         }
-        
 
+        public bool HierarchyDetailsAddEditDelete(int adviserId, int Hid, String HierarchyName,
+            int TitleId, String Teamname, int TeamId, int ReportsToId,
+            string ReportsTo, string ChannelName, int ChannelId, int Sequence,
+            string HierarchyType,int ChangeATExistingSeq, string CommandName)
+        {
+            bool inserted = false;
+            Database db;
+            DbCommand InsertHierarchyDetailsCmd;
+            int Result;
+
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                InsertHierarchyDetailsCmd = db.GetStoredProcCommand("SPROC_HierarchyDetailsAddEditDelete");
+
+                db.AddInParameter(InsertHierarchyDetailsCmd, "@adviserId", DbType.Int32, adviserId);
+
+                if (Hid != 0)
+                    db.AddInParameter(InsertHierarchyDetailsCmd, "@HId", DbType.Int32, Hid);
+                else
+                    db.AddInParameter(InsertHierarchyDetailsCmd, "@HId", DbType.Int32, DBNull.Value);
+
+                if (HierarchyName != "")
+                    db.AddInParameter(InsertHierarchyDetailsCmd, "@HierarchyName", DbType.String, HierarchyName);
+                else
+                    db.AddInParameter(InsertHierarchyDetailsCmd, "@HierarchyName", DbType.String, DBNull.Value);
+
+                if (TitleId != 0)
+
+                    db.AddInParameter(InsertHierarchyDetailsCmd, "@TitleId", DbType.Int32, TitleId);
+                else
+                    db.AddInParameter(InsertHierarchyDetailsCmd, "@TitleId", DbType.Int32, DBNull.Value);
+
+                if (Teamname != "")
+                    db.AddInParameter(InsertHierarchyDetailsCmd, "@Teamname", DbType.String, Teamname);
+                else
+                    db.AddInParameter(InsertHierarchyDetailsCmd, "@Teamname", DbType.String, DBNull.Value);
+
+                if (TeamId != 0)
+                    db.AddInParameter(InsertHierarchyDetailsCmd, "@TeamId", DbType.Int32, TeamId);
+                else
+                    db.AddInParameter(InsertHierarchyDetailsCmd, "@TeamId", DbType.Int32, DBNull.Value);
+
+                if (ReportsToId != 0)
+                    db.AddInParameter(InsertHierarchyDetailsCmd, "@ReportsToId", DbType.Int32, ReportsToId);
+                else
+                    db.AddInParameter(InsertHierarchyDetailsCmd, "@ReportsToId", DbType.Int32, DBNull.Value);
+
+                if (ReportsTo != "")
+                    db.AddInParameter(InsertHierarchyDetailsCmd, "@ReportsTo", DbType.String, ReportsTo);
+                else
+                    db.AddInParameter(InsertHierarchyDetailsCmd, "@ReportsTo", DbType.String, DBNull.Value);
+
+                if (ChannelName != "")
+                    db.AddInParameter(InsertHierarchyDetailsCmd, "@ChannelName", DbType.String, ChannelName);
+                else
+                    db.AddInParameter(InsertHierarchyDetailsCmd, "@ChannelName", DbType.String, DBNull.Value);
+
+
+
+                if (ChannelId != 0)
+                    db.AddInParameter(InsertHierarchyDetailsCmd, "@ChannelId", DbType.Int32, ChannelId);
+                else
+                    db.AddInParameter(InsertHierarchyDetailsCmd, "@ChannelId", DbType.Int32, DBNull.Value);
+
+
+                if (Sequence != 0)
+                    db.AddInParameter(InsertHierarchyDetailsCmd, "@Sequence", DbType.Int32, Sequence);
+                else
+                    db.AddInParameter(InsertHierarchyDetailsCmd, "@Sequence", DbType.Int32, DBNull.Value);
+
+
+                if (HierarchyType != "")
+                    db.AddInParameter(InsertHierarchyDetailsCmd, "@HierarchyType", DbType.String, HierarchyType);
+                else
+                    db.AddInParameter(InsertHierarchyDetailsCmd, "@HierarchyType", DbType.String, DBNull.Value);
+
+                db.AddInParameter(InsertHierarchyDetailsCmd, "@ChangeATExistingSeq", DbType.String, ChangeATExistingSeq);
+
+                db.AddInParameter(InsertHierarchyDetailsCmd, "@CommandName", DbType.String, CommandName);
+                //   db.AddOutParameter(InsertHierarchyDetailsCmd, "@deleted", DbType.Int32, 5000);
+
+                if (db.ExecuteNonQuery(InsertHierarchyDetailsCmd) != 0)
+                    inserted = true;
+
+                //if (CommandName == "Delete")
+                //{
+
+                //    Result = int.Parse(db.GetParameterValue(InsertHierarchyDetailsCmd, "deleted").ToString());
+                //    if (Result == 0)
+                //        inserted = false;
+                //}
+
+
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "ProductGroupSetupDao.cs: HierarchyDetailsDetailsAddEditDelete(int adviserId,int Hid ,String  HierarchyName, int TitleId, String Teamname, int TeamId, int ReportsToId,string ReportsTo, string ChannelName, int ChannelId, int Sequence,string HierarchyType, string CommandName)");
+                object[] objects = new object[2];
+                objects[0] = adviserId;
+                objects[9] = CommandName;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return inserted;
+        }
     }
 }

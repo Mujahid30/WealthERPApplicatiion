@@ -276,6 +276,41 @@ namespace BoAdvisorProfiling
             return inserted;
         }
 
+        public bool HierarchyDetailsAddEditDelete(int adviserId, int Hid, String HierarchyName,
+           int TitleId, String Teamname, int TeamId, int ReportsToId,
+           string ReportsTo, string ChannelName, int ChannelId, int Sequence,
+           string HierarchyType,int ChangeATExistingSeq, string CommandName)
+        {
+
+
+            ProductgroupSetupDao PgDao = new ProductgroupSetupDao();
+            bool inserted = false;
+            try
+            {
+                inserted = PgDao.HierarchyDetailsAddEditDelete(adviserId, Hid, HierarchyName,
+                    TitleId, Teamname, TeamId, ReportsToId, ReportsTo, ChannelName,
+                    ChannelId, Sequence, HierarchyType,ChangeATExistingSeq, CommandName);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "ProductgroupSetupBo.cs:HierarchyDetailsDetailsAddEditDelete(int adviserId, int Hid, String HierarchyName,int TitleId, String Teamname, int TeamId, int ReportsToId,string ReportsTo, string ChannelName, int ChannelId, int Sequence,string HierarchyType, string CommandName)");
+                object[] objects = new object[2];
+                objects[0] = adviserId;
+                objects[1] = CommandName;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return inserted;
+        }
+
     }
         
     

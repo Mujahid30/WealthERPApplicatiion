@@ -64,9 +64,9 @@ namespace WealthERP.Advisor
 
                 //if (SeqNNo != 0 & SeqNNo != 1)
                 //{
-                SeqNNo = PSBo.GetSeqNoinChanel(Convert.ToInt32(rcbChanel.SelectedValue), advisorVo.advisorId);
-                //}
-                TxtSeq.Text = SeqNNo.ToString();
+                //SeqNNo = PSBo.GetSeqNoinChanel(Convert.ToInt32(rcbChanel.SelectedValue), advisorVo.advisorId);
+                ////}
+                //TxtSeq.Text = SeqNNo.ToString();
                 //dtTeam = PSBo.GetTeam().Tables[0];                
                 //rcbTeamm.DataSource = dtTeam;
                 //rcbTeamm.DataTextField = "WHLM_Name";
@@ -153,24 +153,24 @@ namespace WealthERP.Advisor
 
                 //if (SeqNNo != 0 & SeqNNo != 1)
                 //{
-                SeqNNo = PSBo.GetSeqNoinChanel(Convert.ToInt32(rcbChanel.SelectedValue), advisorVo.advisorId);
+               // SeqNNo = PSBo.GetSeqNoinChanel(Convert.ToInt32(rcbChanel.SelectedValue), advisorVo.advisorId);
                 //}
                 // SeqNNo = PSBo.GetSeqNoinChanel(Convert.ToInt32(rcbChanel.SelectedValue));
 
-                if (SeqNNo == 0 | SeqNNo == 1)
-                {
-                    rcbReportingTo.Visible = false;
-                    Lb1Report.Visible = false;
-                    // Lb1Title.Visible = false;
-                }
-                else
-                {
-                    rcbReportingTo.Visible = true;
-                    Lb1Report.Visible = true;
-                    //  Lb1Title.Visible = true;
-                }
+                //if (SeqNNo == 0 | SeqNNo == 1)
+                //{
+                //    rcbReportingTo.Visible = false;
+                //    Lb1Report.Visible = false;
+                //    // Lb1Title.Visible = false;
+                //}
+                //else
+                //{
+                //    rcbReportingTo.Visible = true;
+                //    Lb1Report.Visible = true;
+                //    //  Lb1Title.Visible = true;
+                //}
 
-                TxtSeq.Text = SeqNNo.ToString();
+                //TxtSeq.Text = SeqNNo.ToString();
                 dtReportingTo = PSBo.GetReportsTo(Convert.ToInt32(rcbChanel.SelectedValue), advisorVo.advisorId).Tables[0];
                 rcbReportingTo.DataSource = dtReportingTo;
                 rcbReportingTo.DataTextField = "AH_HierarchyName";
@@ -310,26 +310,28 @@ namespace WealthERP.Advisor
                 RadComboBox Radops = (RadComboBox)e.Item.FindControl("Radops");
                 RadComboBox rcbTitles = e.Item.FindControl("rcbTitles") as RadComboBox;
                 TextBox TxtSeq = (TextBox)e.Item.FindControl("TxtSeq");
+                CheckBox chkIsSeqChange = (CheckBox)e.Item.FindControl("chkIsSeqChange");
 
+                
                 int Hid = Convert.ToInt32(gvHirarchy.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AH_Id"].ToString());
                 int SeqsNo = Convert.ToInt32(gvHirarchy.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AH_Sequence"].ToString());
 
                 if (SeqsNo == Convert.ToInt32(TxtSeq.Text))
                 {
-                    isUpdated = PSBo.HierarchyDetailsDetailsAddEditDelete(advisorVo.advisorId, Hid, txtHierarchy.Text, Convert.ToInt32(rcbTitles.SelectedValue), rcbTeamm.Text, Convert.ToInt32(rcbTeamm.SelectedValue), Convert.ToInt32(rcbReportingTo.SelectedValue), rcbReportingTo.Text, rcbChanel.Text, Convert.ToInt32(rcbChanel.SelectedValue), Convert.ToInt32(TxtSeq.Text), rcbSetup.Text, e.CommandName);
+                    isUpdated = PSBo.HierarchyDetailsAddEditDelete(advisorVo.advisorId, Hid, txtHierarchy.Text, Convert.ToInt32(rcbTitles.SelectedValue), rcbTeamm.Text, Convert.ToInt32(rcbTeamm.SelectedValue), Convert.ToInt32(rcbReportingTo.SelectedValue), rcbReportingTo.Text, rcbChanel.Text, Convert.ToInt32(rcbChanel.SelectedValue), Convert.ToInt32(TxtSeq.Text), rcbSetup.Text,Convert.ToInt32(chkIsSeqChange.Checked), e.CommandName);
                 }
                 else
                 {
-                    if (ChkSeq(Convert.ToInt32(rcbChanel.SelectedValue), TxtSeq.Text) == true)
-                    {
-                        Response.Write(@"<script language='javascript'>alert('This Sequence alerady entered');</script>");
-                        return;
-                    }
-                    else
-                    {
-                        isUpdated = PSBo.HierarchyDetailsDetailsAddEditDelete(advisorVo.advisorId, Hid, txtHierarchy.Text, Convert.ToInt32(rcbTitles.SelectedValue), rcbTeamm.Text, Convert.ToInt32(rcbTeamm.SelectedValue), Convert.ToInt32(rcbReportingTo.SelectedValue), rcbReportingTo.Text, rcbChanel.Text, Convert.ToInt32(rcbChanel.SelectedValue), Convert.ToInt32(TxtSeq.Text), rcbSetup.Text, e.CommandName);
+                    //if (ChkSeq(Convert.ToInt32(rcbChanel.SelectedValue), TxtSeq.Text) == true)
+                    //{
+                    //    Response.Write(@"<script language='javascript'>alert('This Sequence alerady entered');</script>");
+                    //    return;
+                    //}
+                    //else
+                    //{
+                        isUpdated = PSBo.HierarchyDetailsAddEditDelete(advisorVo.advisorId, Hid, txtHierarchy.Text, Convert.ToInt32(rcbTitles.SelectedValue), rcbTeamm.Text, Convert.ToInt32(rcbTeamm.SelectedValue), Convert.ToInt32(rcbReportingTo.SelectedValue), rcbReportingTo.Text, rcbChanel.Text, Convert.ToInt32(rcbChanel.SelectedValue), Convert.ToInt32(TxtSeq.Text), rcbSetup.Text,Convert.ToInt32(chkIsSeqChange.Checked), e.CommandName);
 
-                    }
+                    //}
                 }
 
 
@@ -366,6 +368,7 @@ namespace WealthERP.Advisor
                 RadComboBox Radops = (RadComboBox)e.Item.FindControl("Radops");
                 RadComboBox rcbTitles = e.Item.FindControl("rcbTitles") as RadComboBox;
                 TextBox TxtSeq = (TextBox)e.Item.FindControl("TxtSeq");
+                CheckBox chkIsSeqChange = (CheckBox)e.Item.FindControl("chkIsSeqChange");
 
                 int Rid;
                 int RTitId;
@@ -399,12 +402,12 @@ namespace WealthERP.Advisor
                 {
                     RChanelid = Convert.ToInt32(rcbChanel.SelectedValue);
                 }
-                if (ChkSeq(RChanelid, TxtSeq.Text) == true)
-                {
-                    Response.Write(@"<script language='javascript'>alert('Sequence alerady exist');</script>");
-                    return;
-                }
-                else if (ChkHirarchy(txtHierarchy.Text, RChanelid))
+                //if (ChkSeq(RChanelid, TxtSeq.Text) == true)
+                //{
+                //    Response.Write(@"<script language='javascript'>alert('Sequence alerady exist');</script>");
+                //    return;
+                //}
+                  if (ChkHirarchy(txtHierarchy.Text, RChanelid))
                 {
                     Response.Write(@"<script language='javascript'>alert('Title name  alerady exist for this chanel');</script>");
                     return;
@@ -414,7 +417,7 @@ namespace WealthERP.Advisor
 
                     //  Convert.ToInt32(rcbTitles.SelectedValue)
 
-                    isInserted = PSBo.HierarchyDetailsDetailsAddEditDelete(advisorVo.advisorId, 0, txtHierarchy.Text.ToUpper(), 0, rcbTeamm.Text, RTeamid, Rid, rcbReportingTo.Text, rcbChanel.Text, RChanelid, Convert.ToInt32(TxtSeq.Text), rcbSetup.Text, e.CommandName);
+                    isInserted = PSBo.HierarchyDetailsAddEditDelete(advisorVo.advisorId, 0, txtHierarchy.Text.ToUpper(), 0, rcbTeamm.Text, RTeamid, Rid, rcbReportingTo.Text, rcbChanel.Text, RChanelid, Convert.ToInt32(TxtSeq.Text), rcbSetup.Text, Convert.ToInt32(chkIsSeqChange.Checked),e.CommandName);
                     if (isInserted == false)
                         Response.Write(@"<script language='javascript'>alert('Error inserting records');</script>");
                     else
@@ -431,7 +434,7 @@ namespace WealthERP.Advisor
                 int HId = int.Parse(HirarchyIdForDelete.Text);
                 //string deleteType = gvHirarchy.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AZOC_Type"].ToString();
                 //check if deleted then show message
-                isDeleted = PSBo.HierarchyDetailsDetailsAddEditDelete(advisorVo.advisorId, HId, "", 0, string.Empty, 0, 0, string.Empty, "", 0, 0, "", e.CommandName);
+               // isDeleted = PSBo.HierarchyDetailsDetailsAddEditDelete(advisorVo.advisorId, HId, "", 0, string.Empty, 0, 0, string.Empty, "", 0, 0, "",0, e.CommandName);
                 if (isDeleted == false)
                     Response.Write(@"<script language='javascript'>alert('The Hierarchy : \n" + "" + " Cannot be deleted since it is attached to a Hierarchy.');</script>");
                 else
@@ -535,10 +538,10 @@ namespace WealthERP.Advisor
                 rcbReportingTo.DataBind();
 
                 dtHirarchy = PSBo.GetHirarchy(Convert.ToInt32(rcbChanel.SelectedValue), advisorVo.advisorId).Tables[0];
-                rcbTitles.DataSource = dtHirarchy;
-                rcbTitles.DataTextField = "WHLM_Name";
-                rcbTitles.DataValueField = "WHLM_Id";
-                rcbTitles.DataBind();
+                //rcbTitles.DataSource = dtHirarchy;
+                //rcbTitles.DataTextField = "WHLM_Name";
+                //rcbTitles.DataValueField = "WHLM_Id";
+                //rcbTitles.DataBind();
 
 
                 TxtSeq.Text = SeqNO.ToString();
