@@ -130,12 +130,12 @@
                                                     Font-Bold="true" UniqueName="Detailslink" OnClick="btnExpandAll_Click" Font-Size="Medium">+</asp:LinkButton>
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>
-                                        <telerik:GridTemplateColumn AllowFiltering="false">
+                                        <telerik:GridTemplateColumn AllowFiltering="false" Visible="false">
                                             <HeaderTemplate>
                                             </HeaderTemplate>
                                             <ItemTemplate>
                                                 <asp:LinkButton ID="lbViewDetails" runat="server" CommandName="ViewDetails" Font-Underline="true"
-                                                    Font-Bold="false" UniqueName="ViewDetailslink" Text="View"></asp:LinkButton>
+                                                    Font-Bold="false" UniqueName="ViewDetailslink" Text="View" Visible="false"></asp:LinkButton>
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>
                                         <telerik:GridBoundColumn DataField="CustomerName" SortExpression="CustomerName" AutoPostBackOnFilter="true"
