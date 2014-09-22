@@ -408,6 +408,37 @@ namespace DaoOnlineOrderManagement
             }
             return dsIssueDetails;
         }
+        public DataSet GetAdviserIssueListClosed(string product, int adviserId)
+        {
+            DataSet dsIssueDetails;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DbCommand dbCommand;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbCommand = db.GetStoredProcCommand("SPROC_GetAdviserClosedIssueList");
+                db.AddInParameter(dbCommand, "@product", DbType.String, product);
+                db.AddInParameter(dbCommand, "@adviserId", DbType.String, adviserId);
+                dbCommand.CommandTimeout = 60 * 60;
+                dsIssueDetails = db.ExecuteDataSet(dbCommand);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineNCDBackOfficeDao.cs:GetAdviserIssueList()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsIssueDetails;
+        }
 
         public bool UpdateOnlineEnablement(int issueId)
         {

@@ -5,6 +5,7 @@
         <asp:ServiceReference Path="AutoComplete.asmx" />
     </Services>
 </asp:ScriptManager>
+
 <script type="text/javascript">
     function isNumberKey(evt) { // Numbers only
         var charCode = (evt.which) ? evt.which : event.keyCode;
@@ -80,7 +81,7 @@
                 <telerik:RadGrid ID="gvProfileIncreamenetReject" Visible="true" runat="server" GridLines="None"
                     AutoGenerateColumns="False" PageSize="10" AllowSorting="true" AllowPaging="True"
                     ShowStatusBar="True" ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false"
-                    AllowFilteringByColumn="true" Width="100%"  AllowAutomaticInserts="false" OnNeedDataSource="gvProfileIncreamenetReject_OnNeedDataSource">
+                    AllowFilteringByColumn="true" Width="100%" AllowAutomaticInserts="false" OnNeedDataSource="gvProfileIncreamenetReject_OnNeedDataSource">
                     <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="OrderMIS">
                     </ExportSettings>
                     <MasterTableView Width="102%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
@@ -88,7 +89,6 @@
                         <CommandItemSettings ShowExportToWordButton="false" ShowExportToExcelButton="false"
                             ShowExportToCsvButton="false" ShowAddNewRecordButton="false" ShowRefreshButton="false" />
                         <Columns>
-                      
                             <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="action" DataField="action"
                                 HeaderStyle-Width="70px">
                                 <HeaderTemplate>
@@ -102,7 +102,7 @@
                                         Text="Save" />
                                 </FooterTemplate>
                             </telerik:GridTemplateColumn>
-                              <telerik:GridBoundColumn AllowFiltering="true" DataField="RejectedReasonDescription "
+                            <telerik:GridBoundColumn AllowFiltering="true" DataField="RejectedReasonDescription "
                                 AutoPostBackOnFilter="true" Visible="true" HeaderText="RejectedReasonDescription "
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains" SortExpression="RejectedReasonDescription "
                                 FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="250px">
@@ -177,7 +177,8 @@
                                 HeaderText="PinCode" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                 SortExpression="PinCode" FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="90px">
                                 <ItemTemplate>
-                                    <asp:TextBox ID="txtPinCode" CssClass="txtField" runat="server" Text='<%# Bind("PinCode") %>'  OnKeypress="javascript:return isNumberKey(event);"  AutoPostBack="true"></asp:TextBox>
+                                    <asp:TextBox ID="txtPinCode" CssClass="txtField" runat="server" Text='<%# Bind("PinCode") %>'
+                                        OnKeypress="javascript:return isNumberKey(event);" AutoPostBack="true"></asp:TextBox>
                                 </ItemTemplate>
                                 <FooterTemplate>
                                     <asp:TextBox ID="txtPinCodeFooter" CssClass="txtField" runat="server" />
@@ -217,7 +218,8 @@
                                 HeaderText="MobileNo" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                 SortExpression="MobileNo" FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="90px">
                                 <ItemTemplate>
-                                    <asp:TextBox ID="txtMobileNo" CssClass="txtField" runat="server" OnKeypress="javascript:return isNumberKey(event);"  AutoPostBack="true" Text='<%# Bind("MobileNo") %>'></asp:TextBox>
+                                    <asp:TextBox ID="txtMobileNo" CssClass="txtField" runat="server" OnKeypress="javascript:return isNumberKey(event);"
+                                        AutoPostBack="true" Text='<%# Bind("MobileNo") %>'></asp:TextBox>
                                 </ItemTemplate>
                                 <FooterTemplate>
                                     <asp:TextBox ID="txtMobileNoFooter" CssClass="txtField" runat="server" />
@@ -481,13 +483,12 @@
                                 SortExpression="MicrCode " FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="90px">
                                 <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
                             </telerik:GridBoundColumn>
-                          <%--  <telerik:GridBoundColumn AllowFiltering="true" DataField="WRR_RejectReasonCodes "
+                            <%--  <telerik:GridBoundColumn AllowFiltering="true" DataField="WRR_RejectReasonCodes "
                                 AutoPostBackOnFilter="true" HeaderText="WRR_RejectReasonCodes " ShowFilterIcon="false"
                                 CurrentFilterFunction="Contains" SortExpression="WRR_RejectReasonCodes " FooterStyle-HorizontalAlign="Right"
                                 HeaderStyle-Width="90px">
                                 <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
                             </telerik:GridBoundColumn>--%>
-                            
                         </Columns>
                     </MasterTableView>
                     <ClientSettings>
@@ -505,5 +506,10 @@
             <asp:Button ID="btnDelete" runat="server" CssClass="PCGLongButton" Text="Delete Records"
                 OnClick="btnDelete_Click" />
         </td>
+        <td class="ReProcessCell">
+            <asp:Button ID="btnReProcess" runat="server" CssClass="PCGLongButton" Text="ReProcess"
+                OnClick="btnReProcess_Click" />
+        </td>
     </tr>
+    
 </table>

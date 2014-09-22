@@ -353,6 +353,49 @@ namespace DaoCommon
 
         }
 
+        public void CreateTaskRequestForBulk(int taskId, int UserId, out int ReqId, int advisorId, string OrderBookType, string IssueNO)
+        {
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DbCommand cmdCreateTaskRequest;
+            try
+            {
+
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdCreateTaskRequest = db.GetStoredProcCommand("SPROC_CreateTaskRequestForBulkOrderBook");
+                db.AddInParameter(cmdCreateTaskRequest, "@TaskId", DbType.Int32, taskId);
+                db.AddInParameter(cmdCreateTaskRequest, "@UserId", DbType.Int32, UserId);
+                db.AddOutParameter(cmdCreateTaskRequest, "@OutRequestId", DbType.Int32, 1000000);
+                db.AddInParameter(cmdCreateTaskRequest, "@AdvisorId", DbType.Int32, advisorId);
+                db.AddInParameter(cmdCreateTaskRequest, "@OrderBookType", DbType.String, OrderBookType);
+                db.AddInParameter(cmdCreateTaskRequest, "@IssueNO", DbType.String, IssueNO);
+                db.ExecuteNonQuery(cmdCreateTaskRequest);
+
+                Object objRequestId = db.GetParameterValue(cmdCreateTaskRequest, "@OutRequestId");
+                if (objRequestId != DBNull.Value)
+                    ReqId = int.Parse(db.GetParameterValue(cmdCreateTaskRequest, "@OutRequestId").ToString());
+                else
+                    ReqId = 0;
+
+            }
+            catch (BaseApplicationException ex)
+            {
+                throw (ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "WERPTaskRequestManagementDao.cs:CreateTaskRequestForBulk()");
+                object[] objects = new object[2];
+                objects[0] = taskId;
+                objects[1] = UserId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+        }
 
 
     }

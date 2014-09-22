@@ -207,5 +207,33 @@ namespace BoCommon
             }
 
         }
+
+        public void CreateTaskRequestForBulk(int taskId, int UserId, out int ReqId, int advisorId, string OrderBookType, string IssueNO)
+        {
+            WERPTaskRequestManagementDao requestManagementDao = new WERPTaskRequestManagementDao();
+
+            try
+            {
+                requestManagementDao.CreateTaskRequestForBulk(taskId, UserId, out ReqId, advisorId, OrderBookType, IssueNO);
+
+            }
+            catch (BaseApplicationException ex)
+            {
+                throw (ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "WERPTaskRequestManagementBo.cs:CreateTaskRequestForBulk()");
+                object[] objects = new object[2];
+                objects[0] = taskId;
+                objects[1] = UserId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
     }
 }

@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -30,6 +30,7 @@ namespace WealthERP.UploadBackOffice
             userVo = (UserVo)Session[SessionContents.UserVo];
             if (!IsPostBack)
             {
+                msgReprocessComplete.Visible = false;
                 reqId = Convert.ToInt32(Request.QueryString["ReqId"]);
                 if (reqId != null)
                 {
@@ -169,6 +170,26 @@ namespace WealthERP.UploadBackOffice
                 gvProfileIncreamenetReject.DataSource = dtRequests;
             }
             
+        }
+        protected void btnReProcess_Click(object sender, EventArgs e)
+        {
+            int reprocess;
+            if (Request.QueryString["ReqId"] != null)
+            {
+                reqId = Int32.Parse(Request.QueryString["ReqId"].ToString());
+                reprocess=uploadCommonBo.SetRequestParentreqId(reqId, userVo.UserId);
+                if (reprocess > 0)
+                {
+                    msgReprocessincomplete.Visible = true;
+                    msgReprocessincomplete.InnerText = "Request already exists";
+                }
+                else 
+                {
+                    msgReprocessComplete.Visible = true;
+                    msgReprocessComplete.InnerText = "ReProcess SuccessFully Done";
+                }
+            }
+
         }
         protected void btnDelete_Click(object sender, EventArgs e)
         {

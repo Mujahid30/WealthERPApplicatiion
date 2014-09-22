@@ -4588,5 +4588,42 @@ namespace DaoUploads
                 throw exBase;
             }
         }
+        public int SetRequestParentreqId(int reqId, int userId)
+        {
+            Database db;
+            DbCommand reprocess;
+            int existsCount=0;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                reprocess = db.GetStoredProcCommand("SP_ManageprofileReprocess");
+                db.AddInParameter(reprocess, "@reqId", DbType.Int32, reqId);
+                db.AddInParameter(reprocess, "@userId", DbType.Int32, userId);
+                db.AddOutParameter(reprocess, "@existsCount", DbType.Int32, 10);
+                if (db.ExecuteNonQuery(reprocess) != 0)
+                {
+                    existsCount = Convert.ToInt32(db.GetParameterValue(reprocess, "@existsCount"));
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "UploadCommonDao.cs:SetRequestParentreqId()");
+
+                object[] objects = new object[1];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return existsCount;
+        }
     }
 }
