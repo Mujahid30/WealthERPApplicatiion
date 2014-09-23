@@ -74,5 +74,6 @@ namespace WealthERP.Advisor {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid gvZoneClusterDetails;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trPickAZone;
     }
 }

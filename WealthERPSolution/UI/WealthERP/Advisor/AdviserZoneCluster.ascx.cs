@@ -53,7 +53,7 @@ namespace WealthERP.Advisor
         /// <param name="e"></param>
         protected void btnAction_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (rcbShow.SelectedIndex != 0)
+            if (rcbShow.SelectedValue != null)
             {
                 dsRMAndZoneDetails = new DataSet();
                 try
@@ -98,8 +98,9 @@ namespace WealthERP.Advisor
                 HtmlTableRow trPickAZone = editedItem.FindControl("trPickAZone") as HtmlTableRow;
                 RadComboBox rcbHead = editedItem.FindControl("rcbHead") as RadComboBox;
                 RadComboBox rcbPickAZone = editedItem.FindControl("rcbPickAZone") as RadComboBox;
-
-                if (rcbEditFormAddType.SelectedValue == "2")
+                trPickAZone.Visible = false;
+                if
+                    (rcbEditFormAddType.SelectedValue == "2")
                     trPickAZone.Visible = true;
                 else
                     trPickAZone.Visible = false;
@@ -171,6 +172,16 @@ namespace WealthERP.Advisor
 
                 rcbHead.Items.Insert(0, defaultItem);
                 rcbPickAZone.Items.Insert(0, defaultItemPickAZone);
+                if (rcbEditFormAddType.SelectedValue == "2")
+                {
+
+                    trPickAZone.Visible = true;
+                }
+
+                else
+                {
+                    trPickAZone.Visible = false;
+                }
             }
             catch (BaseApplicationException Ex)
             {
@@ -200,12 +211,14 @@ namespace WealthERP.Advisor
         {
             try
             {
+               
                 dsZoneClusterDetails = new DataSet();
                 advisorBo = new AdvisorBo();
                 //getting dataset for grid and the rm ddl and the zone name ddl
                 dsZoneClusterDetails = advisorBo.GetZoneClusterDetailsAdviserwise(advisorVo.advisorId, Convert.ToInt32(rcbShow.SelectedValue));
                 gvZoneClusterDetails.DataSource = dsZoneClusterDetails;
                 gvZoneClusterDetails.DataBind();
+               
                 //set the visibility for export button
                 if (dsZoneClusterDetails != null)
                     btnExportFilteredData.Visible = true;
@@ -274,10 +287,10 @@ namespace WealthERP.Advisor
             string description = string.Empty;
             string name = string.Empty;
             string insertType = string.Empty;
-            
+
             if (e.CommandName == RadGrid.UpdateCommandName)
             {
-                int AZOC_ZoneId=0;
+                int AZOC_ZoneId = 0;
                 advisorBo = new AdvisorBo();
                 bool isUpdated = false;
                 GridEditableItem gridEditableItem = (GridEditableItem)e.Item;
@@ -291,9 +304,9 @@ namespace WealthERP.Advisor
 
                 if (AZOC_Type != "Zone")
                 {
-                     AZOC_ZoneId = Convert.ToInt32(rcbPickAZone.SelectedValue);
+                    AZOC_ZoneId = Convert.ToInt32(rcbPickAZone.SelectedValue);
                 }
-                
+
                 string zoneName = txtName.Text;
                 int AZOC_ZoneClusterId = Convert.ToInt32(gvZoneClusterDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AZOC_ZoneClusterId"].ToString());
                 type = Convert.ToInt32(rcbEditFormAddType.SelectedValue);
@@ -314,7 +327,7 @@ namespace WealthERP.Advisor
                     {
                         Response.Write(@"<script language='javascript'>alert('The Cluster: \n" + zoneName + " updated successfully.');</script>");
                     }
-           
+
             }
             if (e.CommandName == RadGrid.PerformInsertCommandName)
             {
@@ -333,14 +346,14 @@ namespace WealthERP.Advisor
                 {
                     insertType = "Zone";
                     //check if inserted then show message
-                    isInserted = advisorBo.ZoneClusterDetailsAddEditDelete(advisorVo.advisorId, Convert.ToInt32(rcbHead.SelectedValue), Convert.ToInt32(0),0, txtDescription.Text, txtName.Text, insertType, UserVo.UserId, 0, DateTime.Now, DateTime.MinValue, e.CommandName);
+                    isInserted = advisorBo.ZoneClusterDetailsAddEditDelete(advisorVo.advisorId, Convert.ToInt32(rcbHead.SelectedValue), Convert.ToInt32(0), 0, txtDescription.Text, txtName.Text, insertType, UserVo.UserId, 0, DateTime.Now, DateTime.MinValue, e.CommandName);
 
                 }
                 else
                 {
                     insertType = "Cluster";
                     //check if inserted then show message
-                    isInserted = advisorBo.ZoneClusterDetailsAddEditDelete(advisorVo.advisorId, Convert.ToInt32(rcbHead.SelectedValue), Convert.ToInt32(rcbPickAZone.SelectedValue), 0,txtDescription.Text, txtName.Text, insertType, UserVo.UserId, 0, DateTime.Now, DateTime.MinValue, e.CommandName);
+                    isInserted = advisorBo.ZoneClusterDetailsAddEditDelete(advisorVo.advisorId, Convert.ToInt32(rcbHead.SelectedValue), Convert.ToInt32(rcbPickAZone.SelectedValue), 0, txtDescription.Text, txtName.Text, insertType, UserVo.UserId, 0, DateTime.Now, DateTime.MinValue, e.CommandName);
 
                 }
                 if (isInserted == false)
@@ -358,7 +371,7 @@ namespace WealthERP.Advisor
                 int zoneId = int.Parse(ZoneClusterIdForDelete.Text);
                 string deleteType = gvZoneClusterDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AZOC_Type"].ToString();
                 //check if deleted then show message
-                isDeleted = advisorBo.ZoneClusterDetailsAddEditDelete(advisorVo.advisorId, 0, zoneId,0, string.Empty, string.Empty, deleteType.ToString(), UserVo.UserId, 0, DateTime.Now, DateTime.MinValue, e.CommandName);
+                isDeleted = advisorBo.ZoneClusterDetailsAddEditDelete(advisorVo.advisorId, 0, zoneId, 0, string.Empty, string.Empty, deleteType.ToString(), UserVo.UserId, 0, DateTime.Now, DateTime.MinValue, e.CommandName);
                 if (isDeleted == false)
                     Response.Write(@"<script language='javascript'>alert('The Zone : \n" + zoneName + " Cannot be deleted since it is attached to a Zone.');</script>");
                 else

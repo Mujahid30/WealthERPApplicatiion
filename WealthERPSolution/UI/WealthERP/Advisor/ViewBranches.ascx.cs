@@ -629,7 +629,7 @@ namespace WealthERP.Advisor
             gvZoneClusterdetails.ExportSettings.IgnorePaging = true;
             gvZoneClusterdetails.ExportSettings.HideStructureColumns = true;
             gvZoneClusterdetails.ExportSettings.ExportOnlyData = true;
-            gvZoneClusterdetails.ExportSettings.FileName = "Scheme Mapping Details";
+            gvZoneClusterdetails.ExportSettings.FileName = "Zone Cluster Branch Details";
             gvZoneClusterdetails.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
             gvZoneClusterdetails.MasterTableView.ExportToExcel();
         }

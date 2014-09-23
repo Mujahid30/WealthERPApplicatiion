@@ -71,7 +71,7 @@
         EnableHeaderContextMenu="true" EnableHeaderContextFilterMenu="true" AllowFilteringByColumn="true">
         <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="ExistMFInvestlist">
         </ExportSettings>
-        <MasterTableView DataKeyNames="AZOC_ZoneId,A_AdviserId,AZOC_Type,AZOC_ZoneClusterId,AR_RMId,AZOC_Name"
+        <MasterTableView DataKeyNames="AZOC_ZoneId,A_AdviserId,AZOC_Type,AZOC_ZoneClusterId,AR_RMId,AZOC_Name,AZOC_Description"
             EditMode="PopUp" CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false"
             CommandItemSettings-AddNewRecordText="Add Zone/Cluster">
             <Columns>
@@ -183,7 +183,7 @@
                                             </asp:RequiredFieldValidator>
                                         </td>
                                     </tr>
-                                    <tr runat="server" id="trPickAZone">
+                                    <tr runat="server" id="trPickAZone" visible="false">
                                         <td align="right">
                                             <asp:Label runat="server" ID="lblPickAZone" Text="Zone :"></asp:Label>
                                         </td>
