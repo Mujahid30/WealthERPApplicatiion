@@ -158,7 +158,7 @@
                                             <asp:Label runat="server" Text="Name :" ID="Label1"></asp:Label>
                                         </td>
                                         <td>
-                                            <asp:TextBox ID="txtName" Text='<%# Bind("ZCName") %>' runat="server"></asp:TextBox>
+                                            <asp:TextBox ID="txtName" Text='<%# Bind("AZOC_Name") %>' runat="server"></asp:TextBox>
                                             <span id="Span6" class="spnRequiredField">*</span>
                                             <asp:RequiredFieldValidator ErrorMessage="Please enter name" CssClass="rfvPCG" ValidationGroup="btnSubmit"
                                                 runat="server" ControlToValidate="txtName"></asp:RequiredFieldValidator>
