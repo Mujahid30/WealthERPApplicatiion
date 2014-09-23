@@ -3114,9 +3114,9 @@ namespace WealthERP {
         /// <summary>
         ///   Looks up a localized string similar to Associates//ReassignStaffAssociats.ascx.
         /// </summary>
-        internal static string ReassignStaffAssociats_ascx {
+        internal static string ReassignStaffAssociats {
             get {
-                return ResourceManager.GetString("ReassignStaffAssociats.ascx", resourceCulture);
+                return ResourceManager.GetString("ReassignStaffAssociats", resourceCulture);
             }
         }
         

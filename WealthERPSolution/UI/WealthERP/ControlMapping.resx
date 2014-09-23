@@ -1969,7 +1969,7 @@
     <value>UploadBackOffice//BulkRequestManagement.ascx</value>
     <comment>UploadBackOffice//BulkRequestManagement.ascx</comment>
   </data>
-  <data name="ReassignStaffAssociats.ascx" xml:space="preserve">
+  <data name="ReassignStaffAssociats" xml:space="preserve">
     <value>Associates//ReassignStaffAssociats.ascx</value>
     <comment>Associates//ReassignStaffAssociats.ascx</comment>
   </data>
