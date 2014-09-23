@@ -132,9 +132,9 @@
                                                 HeaderText="Area Manager" UniqueName="AreaManager">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="true" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn HeaderStyle-Width="130px" DataField="ZonalManager" SortExpression="ZonalManagerName"
+                                            <telerik:GridBoundColumn HeaderStyle-Width="130px" DataField="ZonalManagerName" SortExpression="ZonalManagerName"
                                                 AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
-                                                AllowFiltering="true" HeaderText="Zone Manager" UniqueName="ZonalManagerName">
+                                                AllowFiltering="true" HeaderText="Zonal Manager" UniqueName="ZonalManagerName">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="true" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
                                              <telerik:GridBoundColumn HeaderStyle-Width="130px" DataField="DeputyHead" SortExpression="DeputyHead"
