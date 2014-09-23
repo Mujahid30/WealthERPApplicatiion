@@ -1270,6 +1270,12 @@
     <Compile Include="Associates\AddBranchRMAgentAssociation.ascx.designer.cs">
       <DependentUpon>AddBranchRMAgentAssociation.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Associates\ReassignStaffAssociats.ascx.cs">
+      <DependentUpon>ReassignStaffAssociats.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Associates\ReassignStaffAssociats.ascx.designer.cs">
+      <DependentUpon>ReassignStaffAssociats.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Associates\ViewAdviserAssociateList.ascx.cs">
       <DependentUpon>ViewAdviserAssociateList.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -7517,6 +7523,7 @@
     <Content Include="Associates\AddAssociates.ascx" />
     <Content Include="Associates\AddAssociatesDetails.ascx" />
     <Content Include="Associates\AddBranchRMAgentAssociation.ascx" />
+    <Content Include="Associates\ReassignStaffAssociats.ascx" />
     <Content Include="Associates\ViewAdviserAssociateList.ascx" />
     <Content Include="Associates\ViewAgentCode.ascx" />
     <Content Include="Associates\ViewAssociates.ascx" />
