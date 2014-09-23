@@ -552,7 +552,16 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ManageLookups','login');", true);
                 }
-                else if (e.Item.Value == "Alert Notifications")
+                else if (e.Item.Value == "Alert_configure")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserAlertConfiguration','login');", true);
+                }
+                else if (e.Item.Value == "Alert_SetUp")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerAlertSetup','login');", true);
+                }
+
+                else if (e.Item.Value == "Alert_SMSNotification")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserCustomerSMSAlerts','login');", true);
                 }

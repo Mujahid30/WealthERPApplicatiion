@@ -97,6 +97,8 @@
                                                     </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="Alert Configuration" Value="Alert_configure">
+                                            </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
                                     <%--<telerik:RadPanelItem runat="server" Text="Product Group setup" Value="Product Group setup">
@@ -192,7 +194,13 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Customer Reports" Value="Customer_Report">
                                             </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="Alert Notifications" Value="Alert Notifications">
+                                            <telerik:RadPanelItem runat="server" Text="Alert" Value="Alert Notifications">
+                                                <Items>
+                                                    <telerik:RadPanelItem runat="server" Text="Setup" Value="Alert_SetUp">
+                                                    </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="Notification" Value="Alert_SMSNotification">
+                                                    </telerik:RadPanelItem>
+                                                </Items>
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
