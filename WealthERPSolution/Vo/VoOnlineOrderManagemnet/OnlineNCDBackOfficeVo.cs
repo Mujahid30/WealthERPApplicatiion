@@ -127,6 +127,7 @@ namespace VoOnlineOrderManagemnet
         public Double SeriesFaceValue { get; set; }
         public int syndicateId{get;set;}
         public int broker {get;set;}
+        public int BusinessChannelId { get; set; }
 
     }
 

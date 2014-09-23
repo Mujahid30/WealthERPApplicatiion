@@ -550,7 +550,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(createCmd, "@IsCancelAllowed", DbType.Int32, onlineNCDBackOfficeVo.IsCancelAllowed);
                 db.AddInParameter(createCmd, "@Syndicateid", DbType.Int32, onlineNCDBackOfficeVo.syndicateId);
                 db.AddInParameter(createCmd, "@Broker", DbType.Int32, onlineNCDBackOfficeVo.broker);
-
+                db.AddInParameter(createCmd, "@BusinessId", DbType.Int32, onlineNCDBackOfficeVo.BusinessChannelId);
                 
                 issueId = db.ExecuteNonQuery(createCmd);
             }
@@ -910,7 +910,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(createCmd, "@IsCancelAllowed", DbType.Int32, onlineNCDBackOfficeVo.IsCancelAllowed);
                 db.AddInParameter(createCmd, "@Syndicateid", DbType.Int32, onlineNCDBackOfficeVo.syndicateId);
                 db.AddInParameter(createCmd, "@Broker", DbType.Int32, onlineNCDBackOfficeVo.broker);
-                
+                db.AddInParameter(createCmd, "@BusinessId", DbType.Int32, onlineNCDBackOfficeVo.BusinessChannelId);
                 if (db.ExecuteNonQuery(createCmd) != 0)
                 {
                     issueId = Convert.ToInt32(db.GetParameterValue(createCmd, "AIM_IssueId").ToString());
@@ -3426,19 +3426,19 @@ namespace DaoOnlineOrderManagement
             }
             return dtIssueList;
         }
-        
-        public DataTable BindSyndiacte()
+       
+        public DataSet BindSyndiacteAndBusinessChannel()
         {
-            DataTable dtBindSyndiacte;
+            
             Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand dbCommand;
-            DataSet dsBindSyndiacte;
+            DataSet dsBindSyndiacteChannel;
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 dbCommand = db.GetStoredProcCommand("SPROC_BindSyndicate");
-                dsBindSyndiacte = db.ExecuteDataSet(dbCommand);
-                dtBindSyndiacte = dsBindSyndiacte.Tables[0];
+                dsBindSyndiacteChannel = db.ExecuteDataSet(dbCommand);
+               
             }
             catch (BaseApplicationException Ex)
             {
@@ -3448,14 +3448,14 @@ namespace DaoOnlineOrderManagement
             {
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "OnlineNCDBackOfficeDao.cs:BindRta()");
+                FunctionInfo.Add("Method", "OnlineNCDBackOfficeDao.cs:BindSyndiacteAndBusinessChannel()");
                 object[] objects = new object[0];
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-            return dtBindSyndiacte;
+            return dsBindSyndiacteChannel;
         }
         public bool CreateSyndiacte(string Syndicatename,int userid)
         {

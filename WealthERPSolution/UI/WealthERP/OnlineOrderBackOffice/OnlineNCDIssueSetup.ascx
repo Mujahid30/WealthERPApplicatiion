@@ -1231,6 +1231,30 @@
             </asp:RequiredFieldValidator>
         </td>
     </tr>
+    <tr>
+    <%-- <td class="leftLabel">
+          
+        </td>--%>
+    <td class="leftLabel">
+    <asp:Label ID="lblChnl" runat="server" Text="Bussiness Channel:" CssClass="FieldName"></asp:Label>
+    </td>
+    <td class="rightData">
+            <asp:DropDownList ID="ddlBssChnl" runat="server" CssClass="cmbField" AutoPostBack="true"
+                >
+            </asp:DropDownList>
+         
+            <span id="Span42" class="spnRequiredField">*</span>
+          
+            <br />
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator50" runat="server" CssClass="rfvPCG"
+                ErrorMessage="Please select broker" Display="Dynamic" ControlToValidate="ddlBssChnl"
+                InitialValue="0" ValidationGroup="SetUpSubmit">
+            </asp:RequiredFieldValidator>
+        </td>
+        <td class="leftLabel" colspan="3">
+            &nbsp;
+        </td>
+    </tr>
     <tr id="trMultipleApplicationAllowed" runat="server">
         <td>
         </td>
@@ -1320,7 +1344,7 @@
         <td>
         </td>
         <td>
-            <asp:CheckBox ID="chkTradebleExchange" runat="server" CssClass="txtField" Text="Exchange Tradable" /></asp:CheckBox>
+            <asp:CheckBox ID="chkTradebleExchange" runat="server" CssClass="txtField" Text="Exchange Tradable" />
         </td>
     </tr>
     <tr>
@@ -1328,6 +1352,7 @@
             &nbsp;
         </td>
     </tr>
+     
     <tr id="trBtnSubmit" runat="server">
         <td class="leftLabel">
             &nbsp;

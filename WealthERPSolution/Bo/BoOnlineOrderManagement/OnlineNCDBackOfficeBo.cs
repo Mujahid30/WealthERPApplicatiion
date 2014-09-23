@@ -2231,12 +2231,13 @@ namespace BoOnlineOrderManagement
             }
             return bResult;
         }
-        public DataTable BindSyndiacte()
+      
+        public DataSet BindSyndiacteAndBusinessChannel()
         {
-            DataTable dt;
+            DataSet ds;
             OnlineNCDBackOfficeDao daoOnlNcdBackOff = new OnlineNCDBackOfficeDao();
-            dt = daoOnlNcdBackOff.BindSyndiacte();
-            return dt;
+            ds = daoOnlNcdBackOff.BindSyndiacteAndBusinessChannel();
+            return ds;
         }
         public bool CreateSyndiacte(string Syndicatename, int userid)
         {
