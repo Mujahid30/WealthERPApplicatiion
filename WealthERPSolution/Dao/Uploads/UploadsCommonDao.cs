@@ -4486,7 +4486,7 @@ namespace DaoUploads
 
             return dsReqRej;
         }
-        public bool UpdateRequestRejects(int Id,int tableNo, string city, string state, string pincode, int mobileno, string occupation, string accounttype, string bankname, string personalstatus)
+        public bool UpdateRequestRejects(string clientCode,int Id,int tableNo, string city, string state, string pincode, string mobileno, string occupation, string accounttype, string bankname, string personalstatus)
         {
             bool result = false;
             Database db;
@@ -4495,6 +4495,10 @@ namespace DaoUploads
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 UpdateRequestRejectCmd = db.GetStoredProcCommand("SPROC_UpdateRequestRejected");
+                if (clientCode != "")
+                    db.AddInParameter(UpdateRequestRejectCmd, "@ClientCode", DbType.String, clientCode);
+                else
+                    db.AddInParameter(UpdateRequestRejectCmd, "@ClientCode", DbType.String, DBNull.Value);
                 db.AddInParameter(UpdateRequestRejectCmd, "@Id", DbType.Int32, Id);
                 db.AddInParameter(UpdateRequestRejectCmd, "@TableNo", DbType.Int32, tableNo);
                 if (city != "")
@@ -4509,10 +4513,10 @@ namespace DaoUploads
                     db.AddInParameter(UpdateRequestRejectCmd, "@Pincode", DbType.String, pincode);
                 else
                     db.AddInParameter(UpdateRequestRejectCmd, "@Pincode", DbType.String, DBNull.Value);
-                if (mobileno != 0)
-                    db.AddInParameter(UpdateRequestRejectCmd, "@Mobileno", DbType.Int32, mobileno);
+                if (mobileno != "")
+                    db.AddInParameter(UpdateRequestRejectCmd, "@Mobileno", DbType.String, mobileno);
                 else
-                    db.AddInParameter(UpdateRequestRejectCmd, "@Mobileno", DbType.Int32, DBNull.Value);
+                    db.AddInParameter(UpdateRequestRejectCmd, "@Mobileno", DbType.String, DBNull.Value);
                 if (occupation != "")
                     db.AddInParameter(UpdateRequestRejectCmd, "@Occupation", DbType.String, occupation);
                 else

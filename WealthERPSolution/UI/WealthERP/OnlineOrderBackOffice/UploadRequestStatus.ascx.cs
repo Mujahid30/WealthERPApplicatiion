@@ -41,6 +41,9 @@ namespace WealthERP.OnlineOrderBackOffice
             SessionBo.CheckSession();
             userVo = (UserVo)Session[SessionContents.UserVo];
             advisorVo = (AdvisorVo)Session["advisorVo"];
+            txtReqDate.SelectedDate = DateTime.Now.Date;
+
+
 
             if (!IsPostBack)
             {
@@ -52,8 +55,9 @@ namespace WealthERP.OnlineOrderBackOffice
         protected void btnGo_Click(object sender, EventArgs e)
         {
             pnlRequest.Visible = true;
+            btnexport.Visible = true;
             GetRequests();
-           
+
         }
         private void GetTypes()
         {

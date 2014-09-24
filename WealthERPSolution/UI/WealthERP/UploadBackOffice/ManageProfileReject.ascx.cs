@@ -65,7 +65,7 @@ namespace WealthERP.UploadBackOffice
             string city = string.Empty;
             string state = string.Empty;
             string pincode = string.Empty;
-            int mobileno = 0;
+            string mobileno = string.Empty;
             string occupation = string.Empty;
             string accounttype = string.Empty;
             string bankname = string.Empty;
@@ -73,10 +73,19 @@ namespace WealthERP.UploadBackOffice
             bool blResult = false;
             int Id = 0;
             int tableNo=0;
+            string clientCode = string.Empty;
             uploadCommonBo = new UploadCommonBo();
             GridFooterItem footerRow = (GridFooterItem)gvProfileIncreamenetReject.MasterTableView.GetItems(GridItemType.Footer)[0];
             foreach (GridDataItem dr in gvProfileIncreamenetReject.Items)
             {
+                if (((TextBox)footerRow.FindControl("txtClientCodeFooter")).Text.Trim() == "")
+                {
+                    clientCode = ((TextBox)dr.FindControl("txtClientCode")).Text;
+                }
+                else
+                {
+                    clientCode = ((TextBox)footerRow.FindControl("txtClientCodeFooter")).Text;
+                }
                 if (((TextBox)footerRow.FindControl("txtCityFooter")).Text.Trim() == "")
                 {
                     city = ((TextBox)dr.FindControl("txtCity")).Text;
@@ -103,11 +112,11 @@ namespace WealthERP.UploadBackOffice
                 }
                 if (((TextBox)footerRow.FindControl("txtMobileNoFooter")).Text.Trim() == "")
                 {
-                    mobileno = Convert.ToInt32(((TextBox)dr.FindControl("txtMobileNo")).Text);
+                    mobileno =((TextBox)dr.FindControl("txtMobileNo")).Text;
                 }
                 else
                 {
-                    mobileno = Convert.ToInt32(((TextBox)footerRow.FindControl("txtMobileNoFooter")).Text);
+                    mobileno =((TextBox)footerRow.FindControl("txtMobileNoFooter")).Text;
                 }
                 if (((TextBox)footerRow.FindControl("txtOccupationFooter")).Text.Trim() == "")
                 {
@@ -150,7 +159,7 @@ namespace WealthERP.UploadBackOffice
                     selectedRow = gdi.ItemIndex + 1;
                     Id = int.Parse((gvProfileIncreamenetReject.MasterTableView.DataKeyValues[selectedRow - 1]["ID"].ToString()));
                      tableNo = int.Parse((gvProfileIncreamenetReject.MasterTableView.DataKeyValues[selectedRow - 1]["TableNo"].ToString()));
-                    blResult = uploadCommonBo.UpdateRequestRejects(Id,tableNo, city, state, pincode, mobileno, occupation, accounttype, bankname, personalstatus);
+                     blResult = uploadCommonBo.UpdateRequestRejects(clientCode,Id, tableNo, city, state, pincode, mobileno, occupation, accounttype, bankname, personalstatus);
                     
                 }
                 

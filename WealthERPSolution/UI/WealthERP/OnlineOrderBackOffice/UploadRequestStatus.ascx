@@ -30,11 +30,6 @@
                         <td align="left">
                             Request Upload Status
                         </td>
-                        <td align="right">
-                            <asp:ImageButton ID="imgBtnrgHoldings" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
-                                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
-                                OnClientClick="setFormat('excel')" Height="20px" Width="25px"></asp:ImageButton>
-                        </td>
                     </tr>
                 </table>
             </div>
@@ -43,23 +38,25 @@
 </table>
 <table width="70%" runat="server" id="tbIssue">
     <tr>
-        <td class="leftLabel">
+        <td class="leftField" style="width: 70px">
             <asp:Label ID="lb1Type" runat="server" Text="Type:" CssClass="FieldName"></asp:Label>
         </td>
-        <td class="rightData">
+        <td class="rightField" style="width: 70px">
             <asp:DropDownList ID="ddlType" runat="server" CssClass="cmbField" AutoPostBack="true"
                 Width="240px">
             </asp:DropDownList>
+        </td>
+        <td style="width: 2px">
             <span id="Span7" class="spnRequiredField">*</span>
             <br />
             <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ErrorMessage="Please Select Type"
                 CssClass="rfvPCG" ControlToValidate="ddlType" ValidationGroup="btnGo" Display="Dynamic"
                 InitialValue="Select"></asp:RequiredFieldValidator>
         </td>
-        <td class="leftLabel">
+        <td class="leftField">
             <asp:Label ID="lb1date" runat="server" Text="Requested Date:" CssClass="FieldName"></asp:Label>
         </td>
-        <td class="rightData">
+        <td class="rightField">
             <telerik:RadDatePicker ID="txtReqDate" CssClass="txtField" runat="server" Culture="English (United States)"
                 Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01"
                 TabIndex="17" Width="150px" AutoPostBack="true">
@@ -77,23 +74,44 @@
                 InitialValue="" ValidationGroup="btnGo">
             </asp:RequiredFieldValidator>
         </td>
-    </tr>
-</table>
-<table width="60%">
-    <tr id="trBtnSubmit" runat="server">
-        <td class="leftLabel">
+        <td class="leftField">
             <asp:Button ID="btnGo" runat="server" Text="Go" CssClass="PCGButton" ValidationGroup="btnGo"
                 OnClick="btnGo_Click" />
         </td>
-        <td class="rightData">
-            <%-- <asp:Button ID="btnGo" runat="server" Text="Go" CssClass="PCGButton" ValidationGroup="btnGo"
-                OnClick="btnGo_Click" />--%>
+    </tr>
+</table>
+<%--<table width="100%" id="btnexport" visible="false">
+    <tr>
+        <td>
+            <div class="divPageHeading" visible="false">
+                <table cellspacing="0" cellpadding="3" width="100%" visible="false">
+                    <tr>
+                        <td align="right" visible="false">
+                            <asp:ImageButton ID="ImageButton1" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
+                                OnClientClick="setFormat('excel')" Height="20px" Width="25px" Visible="false"></asp:ImageButton>
+                        </td>
+                    </tr>
+                </table>
+            </div>
         </td>
-        <td class="leftLabel">
-            &nbsp;
-        </td>
-        <td class="rightData">
-            &nbsp;
+    </tr>
+</table>--%>
+<table id="btnexport" runat="server" visible="false" style="width: 100%" cellpadding="2"
+    cellspacing="5">
+    <tr>
+        <td class="tdSectionHeading">
+            <div class="divSectionHeading" style="vertical-align: text-bottom;">
+                <table width="100%">
+                    <tr>
+                        <td align="right">
+                            <asp:ImageButton ID="ImageButton1" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
+                                OnClientClick="setFormat('excel')" Height="20px" Width="25px"></asp:ImageButton>
+                        </td>
+                    </tr>
+                </table>
+            </div>
         </td>
     </tr>
 </table>
@@ -112,7 +130,8 @@
                             <telerik:RadGrid ID="rgRequests" Width="1500px" runat="server" AllowSorting="True"
                                 enableloadondemand="True" PageSize="5" AutoGenerateColumns="False" EnableEmbeddedSkins="False"
                                 GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="true" AllowPaging="true"
-                                ShowStatusBar="True" Skin="Telerik" AllowFilteringByColumn="true" OnItemDataBound="rgRequests_ItemDataBound" OnNeedDataSource="rgRequests_OnNeedDataSource">
+                                ShowStatusBar="True" Skin="Telerik" AllowFilteringByColumn="true" OnItemDataBound="rgRequests_ItemDataBound"
+                                OnNeedDataSource="rgRequests_OnNeedDataSource">
                                 <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" AutoGenerateColumns="false"
                                     Width="100%" DataKeyNames="ReqId">
                                     <Columns>
@@ -144,9 +163,9 @@
                                             AutoPostBackOnFilter="true" UniqueName="TotalNoOfRecords" FooterStyle-HorizontalAlign="Left">
                                             <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="InputRejects" HeaderText="Duplicate Rejects" SortExpression="InputRejects"
-                                            ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
-                                            UniqueName="InputRejects" FooterStyle-HorizontalAlign="Left">
+                                        <telerik:GridBoundColumn DataField="InputRejects" HeaderText="Duplicate Rejects"
+                                            SortExpression="InputRejects" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                            AutoPostBackOnFilter="true" UniqueName="InputRejects" FooterStyle-HorizontalAlign="Left">
                                             <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="StagingRejects" HeaderText="DataType Rejects"

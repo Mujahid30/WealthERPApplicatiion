@@ -58,5 +58,6 @@ namespace WealthERP.OnlineOrderBackOffice
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator5;
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trNote;
+        protected global::System.Web.UI.HtmlControls.HtmlTable btnexport;
     }
 }
