@@ -168,12 +168,12 @@ namespace WealthERP.OffLineOrderManagement
 
             }
         }
-        protected void gvNCDOrderBook_OnItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
-        {
-                Int32 orderId = Convert.ToInt32(gvNCDOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_OrderId"].ToString());
-                string custCode = gvNCDOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["C_CustCode"].ToString();
-                Response.Redirect("ControlHost.aspx?pageid=NCDIssueTransactOffline&orderId=" + orderId + "&custCode=" + custCode + "", false);
-        }
+        //protected void gvNCDOrderBook_OnItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
+        //{
+        //        Int32 orderId = Convert.ToInt32(gvNCDOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_OrderId"].ToString());
+        //        string custCode = gvNCDOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["C_CustCode"].ToString();
+        //        Response.Redirect("ControlHost.aspx?pageid=NCDIssueTransactOffline&orderId=" + orderId + "&custCode=" + custCode + "", false);
+        //}
         public void gvNCDOrderBook_OnItemDataCommand(object sender, GridItemEventArgs e)
         {
             Boolean isCancel = false;
