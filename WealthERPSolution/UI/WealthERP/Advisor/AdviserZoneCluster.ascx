@@ -71,7 +71,7 @@
         EnableHeaderContextMenu="true" EnableHeaderContextFilterMenu="true" AllowFilteringByColumn="true">
         <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="ExistMFInvestlist">
         </ExportSettings>
-        <MasterTableView DataKeyNames="AZOC_ZoneId,A_AdviserId,AZOC_Type,AZOC_ZoneClusterId,AR_RMId,AZOC_Name,AZOC_Description"
+        <MasterTableView DataKeyNames="AZOC_ZoneId,A_AdviserId,AZOC_Type,AZOC_ZoneClusterId,AZOC_Name,AZOC_Description"
             EditMode="PopUp" CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false"
             CommandItemSettings-AddNewRecordText="Add Zone/Cluster">
             <Columns>
@@ -92,10 +92,10 @@
                     SortExpression="ZCName" AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                     <HeaderStyle></HeaderStyle>
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn Visible="false" UniqueName="AR_RMId" HeaderText="Type" DataField="AR_RMId"
+<%--                <telerik:GridBoundColumn Visible="false" UniqueName="AR_RMId" HeaderText="Type" DataField="AR_RMId"
                     SortExpression="AR_RMId" AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                     <HeaderStyle></HeaderStyle>
-                </telerik:GridBoundColumn>
+                </telerik:GridBoundColumn--%>
                 <telerik:GridBoundColumn UniqueName="AZOC_Type" HeaderText="Type" DataField="AZOC_Type"
                     SortExpression="AZOC_Type" AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                     <HeaderStyle></HeaderStyle>
@@ -109,7 +109,7 @@
                     AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                     <HeaderStyle></HeaderStyle>
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn UniqueName="Zone" HeaderText="Zone" DataField="AZOC_Name"
+                <telerik:GridBoundColumn UniqueName="AZOC_Name" HeaderText="Zone" DataField="AZOC_Name"
                     SortExpression="AZOC_Name" AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                     <HeaderStyle></HeaderStyle>
                 </telerik:GridBoundColumn>
