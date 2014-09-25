@@ -37,6 +37,7 @@
     }
 </script>
 
+<%--
 <script type="text/javascript" language="javascript">
     function Compare() {
         var birthday = document.getElementById('<%=txtDate.ClientID%>').value;
@@ -47,7 +48,7 @@
         }
     }
 
-</script>
+</script>--%>
 
 <script type="text/javascript" language="javascript">
     function checkDate(sender, args) {
@@ -610,19 +611,19 @@
                                                         OnClick="btnSave_Click" />
                                                 </td>
                                             </tr>--%>
-                                                                    <tr>
-                                                                        <td>
-                                                                        </td>
-                                                                        <td>
-                                                                            <asp:Button ID="Button1" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
-                                                                                runat="server" CssClass="PCGButton" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'
-                                                                                ValidationGroup="Submit"></asp:Button>
-                                                                        </td>
-                                                                        <td>
-                                                                            <asp:Button ID="Button2" Text="Cancel" runat="server" CausesValidation="False" CssClass="PCGButton"
-                                                                                CommandName="Cancel"></asp:Button>
-                                                                        </td>
-                                                                    </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                    </td>
+                                                                    <td>
+                                                                        <asp:Button ID="Button1" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
+                                                                            runat="server" CssClass="PCGButton" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'
+                                                                            ValidationGroup="Submit"></asp:Button>
+                                                                    </td>
+                                                                    <td>
+                                                                        <asp:Button ID="Button2" Text="Cancel" runat="server" CausesValidation="False" CssClass="PCGButton"
+                                                                            CommandName="Cancel"></asp:Button>
+                                                                    </td>
+                                                                </tr>
                                                             </table>
                                                         </td>
                                                     </tr>
@@ -1743,10 +1744,6 @@
                             </DateInput>
                         </telerik:RadDatePicker>
                         <span id="Span14" class="spnRequiredField">*</span>
-                        <asp:RequiredFieldValidator ID="RequiredFieldValidator7" ControlToValidate="txtMarriageDate"
-                            ValidationGroup="btnEdit" ErrorMessage="<br />Please enter Marriage Date" Display="Dynamic"
-                            runat="server" CssClass="rfvPCG" InitialValue="">
-                        </asp:RequiredFieldValidator>
                     </td>
                     <td class="leftField" width="25%">
                         <asp:Label ID="lblMotherMaidenName" CssClass="FieldName" runat="server" Text="Mother's Maiden Name:"></asp:Label>
