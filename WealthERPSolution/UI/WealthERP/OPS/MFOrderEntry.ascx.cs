@@ -2680,7 +2680,7 @@ namespace WealthERP.OPS
                 int recCount = customerBo.ChkAssociateCode(advisorVo.advisorId, txtAssociateSearch.Text);
                 if (recCount == 0)
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Agent Code is invalid!');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Sub Broker Code is invalid!');", true);
                     txtAssociateSearch.Text = string.Empty;
                     return;
                 }
@@ -2700,7 +2700,7 @@ namespace WealthERP.OPS
                 else
                 {
                     lblAssociatetext.Text = "";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Agent Code is invalid!');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Sub Broker Code is invalid!');", true);
 
                     txtAssociateSearch.Text = "";
                 }
@@ -3643,6 +3643,11 @@ namespace WealthERP.OPS
         {
 
             List<int> OrderIds = new List<int>();
+            if (string.IsNullOrEmpty(txtCustomerId.Value))
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Enter a valid Customer Name.');", true);
+                return;
+            }
             SaveOrderDetails();
             OrderIds = mfOrderBo.CreateCustomerMFOrderDetails(orderVo, mforderVo, userVo.UserId, systematicSetupVo);
             lblGetOrderNo.Text = OrderIds[0].ToString();
@@ -3675,6 +3680,7 @@ namespace WealthERP.OPS
 
         private void SaveOrderDetails()
         {
+
             orderVo.CustomerId = int.Parse(txtCustomerId.Value);
             orderVo.AssetGroup = "MF";
             mforderVo.CustomerName = txtCustomerName.Text;
@@ -3704,7 +3710,7 @@ namespace WealthERP.OPS
                 mforderVo.SchemePlanCode = int.Parse(txtSchemeCode.Value);//ddlAmcSchemeList.SelectedValue);
             else
                 mforderVo.SchemePlanCode = 0;
-            mforderVo.portfolioId = int.Parse(ddlPortfolio.SelectedValue);
+           // mforderVo.portfolioId = int.Parse(ddlPortfolio.SelectedValue);
             if (!string.IsNullOrEmpty(hidFolioNumber.Value))
                 mforderVo.accountid = int.Parse(hidFolioNumber.Value);
             else

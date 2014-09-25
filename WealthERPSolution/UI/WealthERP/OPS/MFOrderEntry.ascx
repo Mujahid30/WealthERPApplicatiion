@@ -487,14 +487,14 @@
     </tr>
     <tr>
         <td class="leftField" style="width: 20%">
-            <asp:Label ID="lblAssociateSearch" runat="server" CssClass="FieldName" Text="Agent Code:"></asp:Label>
+            <asp:Label ID="lblAssociateSearch" runat="server" CssClass="FieldName" Text="Sub Broker Code:"></asp:Label>
         </td>
         <td class="rightField" style="width: 20%">
             <asp:TextBox ID="txtAssociateSearch" runat="server" CssClass="txtField" AutoComplete="Off"
                 OnTextChanged="OnAssociateTextchanged" AutoPostBack="True" TabIndex="4">
             </asp:TextBox><span id="Span7" class="spnRequiredField">*</span>
             <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" TargetControlID="txtAssociateSearch"
-                WatermarkText="Enter few chars of Agent code" runat="server" EnableViewState="false">
+                WatermarkText="Enter few chars of Sub Broker Code" runat="server" EnableViewState="false">
             </cc1:TextBoxWatermarkExtender>
             <ajaxToolkit:AutoCompleteExtender ID="AutoCompleteExtender2" runat="server" TargetControlID="txtAssociateSearch"
                 ServiceMethod="GetCustomerName" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
@@ -503,7 +503,7 @@
                 CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
                 UseContextKey="True" DelimiterCharacters="" Enabled="True" />
             <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtAssociateSearch"
-                ErrorMessage="<br />Please Enter a agent code" Display="Dynamic" runat="server"
+                ErrorMessage="<br />Please Enter a Sub Broker Code" Display="Dynamic" runat="server"
                 CssClass="rfvPCG" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
         </td>
         <td class="leftField" style="width: 20%">
