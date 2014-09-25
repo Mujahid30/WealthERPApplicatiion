@@ -193,7 +193,7 @@ namespace WealthERP.OnlineOrderManagement
                 //}
 
                 dvSIPOrderDetails = new DataView(dtOrderDetails, "CMFSS_SystematicSetupId=" + drSIP["CMFSS_SystematicSetupId"].ToString(), "CMFSS_SystematicSetupId", DataViewRowState.CurrentRows);
-                if (drSIP["CMFSS_IsCanceled"].ToString() != "Cancelled")
+                if (drSIP["CMFSS_IsCanceled"].ToString() != "Cancelled" && Convert.ToInt16(drSIP["CMFSS_TotalInstallment"].ToString()) != Convert.ToInt16(drSIP["CMFSS_CurrentInstallmentNumber"].ToString()))
                 {
                     sipDueCount = (Convert.ToInt16(drSIP["CMFSS_TotalInstallment"].ToString())
                           - ((Convert.ToInt16(drSIP["CMFSS_CurrentInstallmentNumber"].ToString())) - 1));
