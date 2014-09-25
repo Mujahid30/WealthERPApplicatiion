@@ -148,6 +148,7 @@ namespace WealthERP.OnlineOrderBackOffice
         protected global::System.Web.UI.WebControls.Button btnSubmit;
         protected global::System.Web.UI.WebControls.DropDownList ddlCOption;
         protected global::System.Web.UI.WebControls.TextBox txtClientCode;
+        protected global::System.Web.UI.WebControls.TextBox txtPansearch;
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdtxtPansearch;
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdtxtClientCode;
         protected global::AjaxControlToolkit.AutoCompleteExtender txtPansearch_autoCompleteExtender;

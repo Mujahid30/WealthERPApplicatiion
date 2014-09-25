@@ -83,14 +83,14 @@
         </td>
         <td class="rightField" style="width: 40px; height: 20px">
             <asp:TextBox ID="txtSchemeName" runat="server" CssClass="txtField" AutoPostBack="True"
-                AutoComplete="Off" Width="170px"></asp:TextBox>
+                AutoComplete="Off" Width="300px"></asp:TextBox>
             <span id="Span5" class="spnRequiredField">*</span>
             <cc1:TextBoxWatermarkExtender ID="txtSchemeName_water" TargetControlID="txtSchemeName"
                 WatermarkText="Enter Three Characters" runat="server" EnableViewState="false">
             </cc1:TextBoxWatermarkExtender>
             <ajaxToolkit:AutoCompleteExtender ID="txtSchemeName_AutoCompleteExtender" runat="server"
                 TargetControlID="txtSchemeName" ServiceMethod="GetSchemeName" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
-                MinimumPrefixLength="3" EnableCaching="False" CompletionSetCount="5" CompletionInterval="100"
+                MinimumPrefixLength="1" EnableCaching="False" CompletionSetCount="5" CompletionInterval="100"
                 CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
                 CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
                 UseContextKey="True" OnClientItemSelected="GetSchemePlanCode" DelimiterCharacters=""
@@ -171,7 +171,7 @@
             <asp:Label ID="lblFilterType" runat="server" Text="Select Type:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField">
-            <asp:DropDownList ID="ddlAuditType" runat="server" CssClass="cmbField" Width="220px">
+            <asp:DropDownList ID="ddlAuditType" runat="server" CssClass="cmbField" Width="235px">
                 <asp:ListItem Text="Select" Value="select"></asp:ListItem>
                 <asp:ListItem Text="Customer Profile" Value="CP"></asp:ListItem>
                 <asp:ListItem Text="Customer Bank" Value="CB"></asp:ListItem>

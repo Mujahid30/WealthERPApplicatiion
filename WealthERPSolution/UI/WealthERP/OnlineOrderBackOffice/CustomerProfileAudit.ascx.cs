@@ -50,7 +50,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 txtCustomerName_autoCompleteExtender.ContextKey = adviserVo.advisorId.ToString();
                 txtCustomerName_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
-                txtSchemeName_AutoCompleteExtender.ServiceMethod = "GetSchemeName";
+                txtSchemeName_AutoCompleteExtender.ServiceMethod = "GetSchemeList";
                 txtPansearch_autoCompleteExtender.ContextKey = adviserVo.advisorId.ToString();
                 txtPansearch_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerPan";
                 txtClientCode_autoCompleteExtender.ContextKey = adviserVo.advisorId.ToString();
@@ -279,6 +279,66 @@ namespace WealthERP.OnlineOrderBackOffice
                 rdTransaction.Visible = false;
             }
         }
+        protected void clearControls()
+        {
+            txtClientCode.Text = "";
+            txtCustomerName.Text = "";
+            txtPansearch.Text = "";
+            tblProfileHeading.Visible = false;
+            rdCustomerProfile.Visible = false;
+            rdCustomerProfile.DataSource = null;
+            rdCustomerProfile.CurrentPageIndex = 0;
+            tblCustomerBankHeading.Visible = false;
+            tblCustomerBank.Visible = false;
+            rdCustomerBank.Visible = false;
+            rdCustomerBank.DataSource = null;
+            rdCustomerBank.CurrentPageIndex = 0;
+            tblCustomerDematHeading.Visible = false;
+            rdCustomerDemat.Visible = false;
+            rdCustomerDemat.DataSource = null;
+            rdCustomerDemat.CurrentPageIndex = 0;
+            tblCustomerDematAssociatesHeading.Visible = false;
+            tblCustomerDematAssociates.Visible = false;
+            rdCustomerDematAssociates.Visible = false;
+            rdCustomerDematAssociates.DataSource = null;
+            rdCustomerDematAssociates.CurrentPageIndex = 0;
+            tableCustomerTransaction.Visible = false;
+            tableTransaction.Visible = false;
+            rdTransaction.Visible = false;
+            rdTransaction.DataSource = null;
+            rdTransaction.CurrentPageIndex = 0;
+        }
+
+        protected void ddlCOption_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            clearControls();
+            if (ddlCOption.SelectedValue == "Name")
+            {
+                tdtxtCustomerName.Visible = true;
+                tdtxtClientCode.Visible = false;
+                tdtxtPansearch.Visible = false;
+            }
+            else if (ddlCOption.SelectedValue == "Panno")
+            {
+                tdtxtPansearch.Visible = true;
+                tdtxtCustomerName.Visible = false;
+                tdtxtClientCode.Visible = false;
+
+            }
+            else if (ddlCOption.SelectedValue == "Clientcode")
+            {
+                tdtxtClientCode.Visible = true;
+                tdtxtPansearch.Visible = false;
+                tdtxtCustomerName.Visible = false;
+            }
+            else
+            {
+                tdtxtClientCode.Visible = false;
+                tdtxtPansearch.Visible = false;
+                tdtxtCustomerName.Visible = false;
+
+            }
+        }
         protected void btnExportFilteredData_OnClick1(object sender, EventArgs e)
         {
             rdCustomerProfile.ExportSettings.OpenInNewWindow = true;
@@ -339,49 +399,7 @@ namespace WealthERP.OnlineOrderBackOffice
             rdSchemeAudit.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
             rdSchemeAudit.MasterTableView.ExportToExcel();
         }
-        //protected void clearControls()
-        //{
-        //    trCustomer.Visible = false;
-        //    pnlCustomerList.Visible = false;
-        //    gvCustomerList.DataSource = null;
-        //    gvCustomerList.CurrentPageIndex = 0;
-        //    txtClientCode.Text = "";
-        //    txtCustomerName.Text = "";
-        //    txtPansearch.Text = "";
-        //    txtCustomerId.Value = string.Empty;
-
-
-
-        //}
-
-        protected void ddlCOption_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //clearControls();
-            if (ddlCOption.SelectedValue == "Name")
-            {
-                tdtxtCustomerName.Visible = true;
-                tdtxtClientCode.Visible = false;
-                tdtxtPansearch.Visible = false;
-            }
-            else if (ddlCOption.SelectedValue == "Panno")
-            {
-                tdtxtPansearch.Visible = true;
-                tdtxtCustomerName.Visible = false;
-                tdtxtClientCode.Visible = false;
-            }
-            else if (ddlCOption.SelectedValue == "Clientcode")
-            {
-                tdtxtClientCode.Visible = true;
-                tdtxtPansearch.Visible = false;
-                tdtxtCustomerName.Visible = false;
-            }
-            else
-            {
-                tdtxtClientCode.Visible = false;
-                tdtxtPansearch.Visible = false;
-                tdtxtCustomerName.Visible = false;
-
-            }
-        }
+       
+    
     }
 }
