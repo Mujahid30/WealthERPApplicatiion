@@ -306,7 +306,7 @@ namespace DaoCustomerProfiling
 
             try
             {
-                
+
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getCustomerCmd = db.GetStoredProcCommand("SP_GetTaxStatusList");
                 getTaxStatusDs = db.ExecuteDataSet(getCustomerCmd);
@@ -655,7 +655,7 @@ namespace DaoCustomerProfiling
                     if (!string.IsNullOrEmpty(dr["C_GuardianDOB"].ToString()))
                         customerVo.GuardianDob = Convert.ToDateTime(dr["C_GuardianDOB"].ToString());
                     if (!string.IsNullOrEmpty(dr["C_GuardianMinNo"].ToString()))
-                        customerVo.GuardianMinNo =dr["C_GuardianMinNo"].ToString();
+                        customerVo.GuardianMinNo = dr["C_GuardianMinNo"].ToString();
                     if (!string.IsNullOrEmpty(dr["C_SubBroker"].ToString()))
                         customerVo.SubBroker = dr["C_SubBroker"].ToString();
                 }
@@ -1133,7 +1133,7 @@ namespace DaoCustomerProfiling
 
                 db.AddInParameter(editCustomerCmd, "@C_Salutation", DbType.String, customerVo.Salutation);
                 db.AddInParameter(editCustomerCmd, "@C_PANNum", DbType.String, customerVo.PANNum);
-               
+
                 if (customerVo.ProfilingDate != DateTime.MinValue)
                     db.AddInParameter(editCustomerCmd, "@C_ProfilingDate", DbType.DateTime, customerVo.ProfilingDate);
                 else
@@ -5853,7 +5853,7 @@ namespace DaoCustomerProfiling
             }
             return dtCustomerNames;
         }
-        public DataTable GetAgentCodeAssociateDetailsForAssociates(string prefixText, string agentcode,int adviserId)
+        public DataTable GetAgentCodeAssociateDetailsForAssociates(string prefixText, string agentcode, int adviserId)
         {
 
             Database db;
@@ -6340,6 +6340,30 @@ namespace DaoCustomerProfiling
             }
             return dsGetSchemePlanAuditDetails;
 
+        }
+        public DataTable GetRMStaffList(string prefixText, int herarchyId, int adviserId)
+        {
+
+            Database db;
+            DbCommand cmdGetRMStaffList;
+            DataSet dsGetRMStaffList;
+            DataTable dtGetRMStaffList;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetRMStaffList = db.GetStoredProcCommand("SPROC_GetRMandStaffList");
+                db.AddInParameter(cmdGetRMStaffList, "@prefixText", DbType.String, prefixText);
+                db.AddInParameter(cmdGetRMStaffList, "@herarchyId", DbType.Int32, herarchyId);
+                db.AddInParameter(cmdGetRMStaffList, "@adviserId", DbType.Int32, adviserId);
+                dsGetRMStaffList = db.ExecuteDataSet(cmdGetRMStaffList);
+                dtGetRMStaffList = dsGetRMStaffList.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetRMStaffList;
         }
     }
 }

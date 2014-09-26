@@ -13,7 +13,7 @@ using DaoCustomerProfiling;
 using VoUser;
 using System.Collections.Specialized;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
- 
+
 
 namespace BoCustomerProfiling
 {
@@ -151,13 +151,13 @@ namespace BoCustomerProfiling
             }
             return dsGetSchemeDetails;
         }
-        public DataSet GetSchemeMapDetails(string ExternalType, int AmcCode, string Category, string Type,int mtype)
+        public DataSet GetSchemeMapDetails(string ExternalType, int AmcCode, string Category, string Type, int mtype)
         {
             DataSet dsGetSchemeDetails = new DataSet();
             CustomerDao customerDao = new CustomerDao();
             try
             {
-                dsGetSchemeDetails = customerDao.GetSchemeMapDetails(ExternalType, AmcCode, Category, Type,mtype);
+                dsGetSchemeDetails = customerDao.GetSchemeMapDetails(ExternalType, AmcCode, Category, Type, mtype);
             }
             catch (BaseApplicationException Ex)
             {
@@ -276,13 +276,13 @@ namespace BoCustomerProfiling
         public DataSet GetTaxStatusList()
         {
 
-          
+
             CustomerDao customerDao = new CustomerDao();
             DataSet ds;
 
             try
             {
-                 ds = customerDao.GetTaxStatusList();
+                ds = customerDao.GetTaxStatusList();
 
             }
             catch (BaseApplicationException Ex)
@@ -298,7 +298,7 @@ namespace BoCustomerProfiling
 
 
                 object[] objects = new object[1];
-            
+
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
@@ -502,7 +502,7 @@ namespace BoCustomerProfiling
         /// </summary>
         /// <param name="customerVo"></param>
         /// <returns></returns>
-        public bool UpdateCustomer(CustomerVo customerVo,int userId)
+        public bool UpdateCustomer(CustomerVo customerVo, int userId)
         {
             bool bResult = false;
             CustomerDao customerDao = new CustomerDao();
@@ -3198,10 +3198,10 @@ namespace BoCustomerProfiling
             {
 
                 if (agentcode.IndexOf("/") != -1)
-            {
-                adviserid = Convert.ToInt32(agentcode.Substring(agentcode.IndexOf("/") + 1, agentcode.Length - (agentcode.IndexOf("/")+1)));
-                    agentcode=agentcode.Substring(0,agentcode.IndexOf("/"));
-            }
+                {
+                    adviserid = Convert.ToInt32(agentcode.Substring(agentcode.IndexOf("/") + 1, agentcode.Length - (agentcode.IndexOf("/") + 1)));
+                    agentcode = agentcode.Substring(0, agentcode.IndexOf("/"));
+                }
                 dtCustomerNames = customerDao.GetAgentCodeAssociateDetailsForAssociates(prefixText, agentcode, adviserid);
             }
             catch (BaseApplicationException Ex)
@@ -3460,5 +3460,20 @@ namespace BoCustomerProfiling
             dsGetSchemePlanAuditDetails = customerDao.GetSchemePlanAuditDetails(SchemePlancode, fromModificationDate, toModificationDate);
             return dsGetSchemePlanAuditDetails;
         }
+        public DataTable GetRMStaffList(string prefixText, int herarchyId, int adviserId)
+        {
+            CustomerDao customerDao = new CustomerDao();
+            DataTable dtGetRMStaffList;
+            try
+            {
+                dtGetRMStaffList = customerDao.GetRMStaffList(prefixText, herarchyId, adviserId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetRMStaffList;
+        }
     }
+
 }

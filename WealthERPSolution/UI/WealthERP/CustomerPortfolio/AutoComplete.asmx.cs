@@ -745,6 +745,32 @@ namespace WealthERP.CustomerPortfolio
             result = customerBo.CheckStaffCode(prefixText);
             return result;
         }
+        [WebMethod]
+        public string[] GetRMStaffList(string prefixText,string contextKey)
+        {
+            string[] parts = contextKey.Split('/');
+
+            int herachiyId = Convert.ToInt32(parts[0]);
+            int adviserId = Convert.ToInt32(parts[1]);
+            CustomerBo customerBo = new CustomerBo();
+            DataTable dtGetRMStaffList = new DataTable();
+            int i = 0;
+            List<string> names = new List<string>();
+
+            dtGetRMStaffList = customerBo.GetRMStaffList(prefixText, herachiyId, adviserId);
+            //string[] customerNameList = new string[dtCustomerName.Rows.Count];
+
+            foreach (DataRow dr in dtGetRMStaffList.Rows)
+            {
+
+                string item = AjaxControlToolkit.AutoCompleteExtender.CreateAutoCompleteItem(dr["AR_FirstName"].ToString(), dr["AR_RMId"].ToString());
+                names.Add(item);
+
+                //customerNameList[i] = dr["C_FirstName"].ToString() + "|" + dr["C_PANNum"].ToString();
+                //i++;
+            }
+            return names.ToArray();
+        }
     }
 
 }

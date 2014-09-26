@@ -1,1 +1,172 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ReassignStaffAssociats.ascx.cs" Inherits="WealthERP.Associates.ReassignStaffAssociats" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ReassignStaffAssociats.ascx.cs"
+    Inherits="WealthERP.Associates.ReassignStaffAssociats" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
+<%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
+<%@ Register TagPrefix="telerik" Namespace="Telerik.Charting" Assembly="Telerik.Web.UI" %>
+<asp:ScriptManager ID="scrptMgr" runat="server">
+    <Services>
+        <asp:ServiceReference Path="~/CustomerPortfolio/AutoComplete.asmx" />
+    </Services>
+</asp:ScriptManager>
+
+<script type="text/javascript" language="javascript">
+    function GetStaffCode(source, eventArgs) {
+        isItemSelected = true;
+        //         document.getElementById("lblgetPan").innerHTML = "";
+        document.getElementById("<%= txtStaffId.ClientID %>").value = eventArgs.get_value();
+
+        return false;
+    }
+</script>
+
+<table width="100%">
+    <tr>
+        <td colspan="3" style="width: 100%;">
+            <div class="divPageHeading">
+                <table cellspacing="0" width="100%">
+                    <tr>
+                        <td align="left">
+                            Re-Assign Staff/Associates
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+</table>
+<table width="100%">
+    <tr id="tr1" runat="server" visible="true">
+        <td style="vertical-align: text-bottom; padding-top: 6px; padding-bottom: 6px">
+            <div class="divSectionHeading" style="vertical-align: text-bottom">
+                Search Staff/Association
+            </div>
+        </td>
+    </tr>
+</table>
+<table width="100%">
+    <tr>
+        <td align="right">
+            <asp:Label ID="lblChannel" runat="server" CssClass="FieldName" Text="Channel:"></asp:Label>
+        </td>
+        <td style="width:150px;">
+            <asp:DropDownList ID="ddlChannel" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlChannel_OnSelectedIndexChanged"
+                AutoPostBack="true">
+            </asp:DropDownList>
+        </td>
+        <td style="width:150px;">
+        </td>
+        <td>
+            <asp:DropDownList ID="ddlStaff" runat="server" CssClass="cmbField">
+                <asp:ListItem Text="Staff" Value="Staff"></asp:ListItem>
+                <asp:ListItem Text="Associate" Value="Associates"></asp:ListItem>
+            </asp:DropDownList>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">
+            <asp:Label ID="lblTitleChannel" runat="server" Text="Title" CssClass="FieldName"></asp:Label>
+        </td>
+        <td style="width:150px;">
+            <asp:DropDownList ID="ddltitlechannelId" runat="server" CssClass="cmbField" AutoPostBack="true"
+                OnSelectedIndexChanged="ddltitlechannelId_OnSelectedIndexChanged">
+            </asp:DropDownList>
+        </td>
+        <td align="right" style="width:150px;">
+            <asp:Label ID="lblNewReporting" runat="server" CssClass="FieldName" Text="New Reporting Manager:"></asp:Label>
+        </td>
+        <td>
+            <asp:TextBox ID="txtNewReporting" runat="server" CssClass="txtField" AutoPostBack="false"
+                AutoComplete="Off" Width="250px" TabIndex="2" OnTextChanged="txtNewReporting_OnTextChanged"></asp:TextBox>
+            <span id="Span1" class="spnRequiredField"></span>
+            <cc1:TextBoxWatermarkExtender ID="txtWaterMarktxtNewReporting" TargetControlID="txtNewReporting"
+                WatermarkText="Enter few characters Reporting Manager" runat="server" EnableViewState="false">
+            </cc1:TextBoxWatermarkExtender>
+            <ajaxToolkit:AutoCompleteExtender ID="txtNewReporting_autoCompleteExtender" runat="server"
+                TargetControlID="txtNewReporting" ServiceMethod="GetRMStaffList" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
+                MinimumPrefixLength="1" EnableCaching="False" CompletionSetCount="1" CompletionInterval="0"
+                CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
+                CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
+                UseContextKey="True" OnClientItemSelected="GetStaffCode" DelimiterCharacters=""
+                Enabled="True" />
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtNewReporting"
+                ErrorMessage="<br />Please Enter Reporting Manager" Display="Dynamic" runat="server"
+                CssClass="rfvPCG" ValidationGroup="btnGo"></asp:RequiredFieldValidator>
+        </td>
+        <%--  <asp:DropDownList ID="ddlReportingManager" runat="server" CssClass="cmbField">OnClientItemSelected="txtStaffId"
+            </asp:DropDownList>--%>
+    </tr>
+</table>
+<table width="100%">
+    <tr id="tr4" runat="server" visible="true">
+        <td style="vertical-align: text-bottom; padding-top: 6px; padding-bottom: 6px">
+            <div class="divSectionHeading" style="vertical-align: text-bottom">
+                Staff/Association
+            </div>
+        </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td align="right">
+            <asp:Label ID="lblTitle" runat="server" Text="Reporting Manager:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td>
+            <asp:DropDownList ID="ddlTitle" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlTitle_OnSelectedIndexChanged"
+                AutoPostBack="true">
+            </asp:DropDownList>
+        </td>
+    </tr>
+    <tr>
+        <td>
+        </td>
+        <td>
+            <asp:Label ID="lblOldReportingManager" runat="server" CssClass="FieldName" Text="Source Reporting Manager"></asp:Label>
+        </td>
+        <td>
+            <asp:Label ID="lblSelectBranch" runat="server" CssClass="FieldName" Text="Existing Staff">
+            </asp:Label>
+        </td>
+        <td>
+            <asp:Label ID="Label3" runat="server" CssClass="FieldName" Text="Mapped Staff">
+            </asp:Label>
+        </td>
+    </tr>
+    <tr>
+        <td>
+        </td>
+        <td>
+            <telerik:RadListBox ID="radStaffList" runat="server" CheckBoxes="true" CssClass="txtField"
+                Width="220px" Height="200px" OnSelectedIndexChanged="radStaffList_OnSelectedIndexChanged"
+                AutoPostBack="true">
+            </telerik:RadListBox>
+        </td>
+        <td>
+            <telerik:RadListBox SelectionMode="Multiple" EnableDragAndDrop="true" AccessKey="y"
+                AllowTransferOnDoubleClick="true" AllowTransferDuplicates="false" OnTransferred="ExistingStaffList_Transferred"
+                EnableViewState="true" EnableMarkMatches="true" runat="server" ID="ExistingStaffList"
+                Height="200px" Width="250px" AllowTransfer="true" TransferToID="MappedStaffList"
+                CssClass="cmbFielde" CheckBoxes="true">
+            </telerik:RadListBox>
+        </td>
+        <td>
+            <telerik:RadListBox runat="server" AutoPostBackOnTransfer="true" SelectionMode="Multiple"
+                ID="MappedStaffList" Height="200px" Width="220px" CssClass="cmbField" CheckBoxes="true">
+            </telerik:RadListBox>
+        </td>
+    </tr>
+    <tr visible="True">
+        <div class="clearfix" style="margin-bottom: 1em;">
+            <asp:Panel ID="PLStaff" runat="server" Style="float: left; padding-left: 150px;"
+                Visible="true">
+            </asp:Panel>
+        </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="PCGButton" OnClick="btnSubmit_OnClick" />
+        </td>
+    </tr>
+</table>
+<asp:HiddenField ID="txtStaffId" runat="server" />

@@ -188,7 +188,7 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(createRMCmd, "@U_LastName", DbType.String, userVo.LastName);
                 db.AddInParameter(createRMCmd, "@U_Email", DbType.String, userVo.Email);
                 db.AddInParameter(createRMCmd, "@U_UserType", DbType.String, userVo.UserType);
-                 db.AddInParameter(createRMCmd, "@U_LoginId", DbType.String, userVo.LoginId);
+                db.AddInParameter(createRMCmd, "@U_LoginId", DbType.String, userVo.LoginId);
                 db.AddInParameter(createRMCmd, "@A_AdviserId", DbType.Int32, rmVo.AdviserId);
                 db.AddInParameter(createRMCmd, "@AR_FirstName", DbType.String, rmVo.FirstName);
                 db.AddInParameter(createRMCmd, "@AR_MiddleName", DbType.String, rmVo.MiddleName);
@@ -216,9 +216,9 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(createRMCmd, "@AR_EUIN", DbType.String, rmVo.EUIN);
                 db.AddInParameter(createRMCmd, "@AAC_AgentCode", DbType.String, rmVo.AAC_AgentCode);
                 //db.AddInParameter(createRMCmd, "@AAC_AdviserAgentId", DbType.Int32, rmVo.AdviserAgentId);
-                db.AddInParameter(createRMCmd, "@AssociatesId", DbType.Int32,0);
+                db.AddInParameter(createRMCmd, "@AssociatesId", DbType.Int32, 0);
                 db.AddInParameter(createRMCmd, "@staffbranch", DbType.String, rmVo.StaffBranchAssociation);
-               
+
 
                 if (isOpsIsChecked == true)
                     db.AddInParameter(createRMCmd, "@IsOpsOrRMStaff", DbType.Int16, 1);
@@ -241,7 +241,7 @@ namespace DaoAdvisorProfiling
 
                 db.AddOutParameter(createRMCmd, "@AR_RMId", DbType.Int32, 1000000);
                 db.AddOutParameter(createRMCmd, "@U_UserId", DbType.Int32, 1000000);
-              db.AddOutParameter(createRMCmd, "@AAC_AdviserAgentId", DbType.Int32, 1000000);
+                db.AddOutParameter(createRMCmd, "@AAC_AdviserAgentId", DbType.Int32, 1000000);
                 db.AddInParameter(createRMCmd, "@roleIds", DbType.String, roleIds);
 
                 if (db.ExecuteNonQuery(createRMCmd) != 0)
@@ -289,9 +289,9 @@ namespace DaoAdvisorProfiling
         }
 
 
-        public int CreateAdviserStaff(UserVo userVo, RMVo rmVo, int userId, bool isOpsIsChecked, bool isPurelyResearchLogin,string roleIds,string theme)
+        public int CreateAdviserStaff(UserVo userVo, RMVo rmVo, int userId, bool isOpsIsChecked, bool isPurelyResearchLogin, string roleIds, string theme)
         {
-            int StaffId=0;
+            int StaffId = 0;
             bool bResult = false;
             Database db;
             DbCommand createRMCmd;
@@ -301,7 +301,7 @@ namespace DaoAdvisorProfiling
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 createRMCmd = db.GetStoredProcCommand("SPROC_CreateAdviserStaff");
-                db.AddInParameter(createRMCmd, "@roleIds", DbType.String,roleIds);
+                db.AddInParameter(createRMCmd, "@roleIds", DbType.String, roleIds);
                 db.AddInParameter(createRMCmd, "@U_Password", DbType.String, userVo.Password);
                 db.AddInParameter(createRMCmd, "@U_PasswordSaltValue", DbType.String, userVo.PasswordSaltValue);
                 db.AddInParameter(createRMCmd, "@U_FirstName", DbType.String, userVo.FirstName);
@@ -351,7 +351,7 @@ namespace DaoAdvisorProfiling
                 else
                     db.AddInParameter(createRMCmd, "@IsPurelyResearchStaff", DbType.Int16, 0);
 
-                
+
                 if (rmVo.HierarchyRoleId != 0)
                     db.AddInParameter(createRMCmd, "@HierarchyRoleId", DbType.Int32, rmVo.HierarchyRoleId);
                 if (rmVo.ReportingManagerId != 0)
@@ -366,7 +366,7 @@ namespace DaoAdvisorProfiling
                 if (db.ExecuteNonQuery(createRMCmd) != 0)
                     StaffId = int.Parse(db.GetParameterValue(createRMCmd, "AR_RMId").ToString());
 
-                    
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -389,7 +389,7 @@ namespace DaoAdvisorProfiling
 
             }
             return StaffId;
-         
+
         }
 
         public bool CreateRMBranch(int rmId, int branchId, int userId)
@@ -448,11 +448,11 @@ namespace DaoAdvisorProfiling
                 findRMCmd = db.GetStoredProcCommand("SP_FindRM");
                 db.AddInParameter(findRMCmd, "@AR_FirstName", DbType.String, rmName);
                 db.AddInParameter(findRMCmd, "@A_AdviserId", DbType.Int16, advisorId);
-              
+
                 //db.AddInParameter(findRMCmd, "@CurrentPage", DbType.Int16, currentpage);
-               // db.AddInParameter(findRMCmd, "@SortOrder", DbType.String, sortorder);
+                // db.AddInParameter(findRMCmd, "@SortOrder", DbType.String, sortorder);
                 ds = db.ExecuteDataSet(findRMCmd);
-              
+
 
                 count = 0;
             }
@@ -561,8 +561,8 @@ namespace DaoAdvisorProfiling
                     foreach (DataRow dr in getAdvisorDs.Tables[0].Rows)
                     {
                         rmVo = new RMVo();
-                        if (dr["U_UserId"].ToString()!="")
-                        rmVo.UserId = int.Parse(dr["U_UserId"].ToString());
+                        if (dr["U_UserId"].ToString() != "")
+                            rmVo.UserId = int.Parse(dr["U_UserId"].ToString());
                         rmVo.RMId = int.Parse(dr["AR_RMId"].ToString());
                         rmVo.FirstName = dr["AR_FirstName"].ToString();
                         rmVo.MiddleName = dr["AR_MiddleName"].ToString();
@@ -645,7 +645,7 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(getAdvisorCmd, "@SortOrder", DbType.String, sortOrder);
                 db.AddInParameter(getAdvisorCmd, "@nameSrch", DbType.String, nameSrch);
                 getAdvisorDs = db.ExecuteDataSet(getAdvisorCmd);
-               
+
                 //Count = Int32.Parse(getAdvisorDs.Tables[1].Rows[0][0].ToString());
                 if (getAdvisorDs.Tables[0].Rows.Count > 0)
                 {
@@ -687,7 +687,7 @@ namespace DaoAdvisorProfiling
                             rmVo.Mobile = Convert.ToInt64(dr["AR_Mobile"].ToString());
                         if (dr["RoleList"].ToString() != "" && dr["RoleList"] != null)
                             rmVo.userRole = dr["RoleList"].ToString();
-                        
+
                         rmVo.Email = dr["AR_Email"].ToString();
                         rmVo.RMRole = dr["AR_JobFunction"].ToString();
                         //rmVo.MainBranch = dr["MainBranch"].ToString();
@@ -860,9 +860,9 @@ namespace DaoAdvisorProfiling
                         rmVo.AdviserId = 0;
 
                     if (dr["AAC_AgentCode"] != DBNull.Value)
-                        rmVo.AAC_AgentCode =  dr["AAC_AgentCode"].ToString() ;
+                        rmVo.AAC_AgentCode = dr["AAC_AgentCode"].ToString();
                     else
-                        rmVo.AAC_AgentCode ="";
+                        rmVo.AAC_AgentCode = "";
                 }
             }
             catch (BaseApplicationException Ex)
@@ -997,10 +997,10 @@ namespace DaoAdvisorProfiling
                         rmVo.HierarchyTitleId = Convert.ToInt16(dr["AH_HierarchyTitleId"].ToString());
 
                     if (!string.IsNullOrEmpty(dr["AH_TeamId"].ToString()))
-                          rmVo.HierarchyTeamId = Convert.ToInt16(dr["AH_TeamId"].ToString());
+                        rmVo.HierarchyTeamId = Convert.ToInt16(dr["AH_TeamId"].ToString());
 
                     if (!string.IsNullOrEmpty(dr["AAC_AgentCode"].ToString()))
-                         rmVo.AAC_AgentCode = dr["AAC_AgentCode"].ToString();
+                        rmVo.AAC_AgentCode = dr["AAC_AgentCode"].ToString();
                     if (!string.IsNullOrEmpty(dr["AR_EUIN"].ToString()))
                         rmVo.EUIN = dr["AR_EUIN"].ToString();
                     if (!string.IsNullOrEmpty(dr["DepartMentRoles"].ToString()))
@@ -1013,11 +1013,11 @@ namespace DaoAdvisorProfiling
                     if (!string.IsNullOrEmpty(rdr["StaffBranchAssociation"].ToString()))
                     {
                         rmVo.StaffBranchAssociation = rmVo.StaffBranchAssociation + rdr["StaffBranchAssociation"].ToString() + ',';
-                       
+
                     }
                 }
-              
-                
+
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -1244,11 +1244,11 @@ namespace DaoAdvisorProfiling
                 if (!string.IsNullOrEmpty(rmVo.StaffBranchAssociation))
                     db.AddInParameter(updateAdvisorStaffCmd, "@staffbranch", DbType.String, rmVo.StaffBranchAssociation);
                 else
-                    db.AddInParameter(updateAdvisorStaffCmd, "@staffbranch", DbType.String,null);
+                    db.AddInParameter(updateAdvisorStaffCmd, "@staffbranch", DbType.String, null);
                 if (!string.IsNullOrEmpty(rmVo.roleIds))
                     db.AddInParameter(updateAdvisorStaffCmd, "@roleIds", DbType.String, rmVo.roleIds);
                 if (db.ExecuteNonQuery(updateAdvisorStaffCmd) != 0)
-                   
+
                     bResult = true;
             }
             catch (BaseApplicationException Ex)
@@ -1550,7 +1550,7 @@ namespace DaoAdvisorProfiling
             return customerList;
         }
 
-        public List<CustomerVo> GetCustomerList(int rmId, int currentPage, out int count, string sortExpression,string panFilter, string nameFilter, string areaFilter, string pincodeFilter, string parentFilter, string cityFilter, string Active, string IsProspect, out Dictionary<string, string> genDictParent, out Dictionary<string, string> genDictCity)
+        public List<CustomerVo> GetCustomerList(int rmId, int currentPage, out int count, string sortExpression, string panFilter, string nameFilter, string areaFilter, string pincodeFilter, string parentFilter, string cityFilter, string Active, string IsProspect, out Dictionary<string, string> genDictParent, out Dictionary<string, string> genDictCity)
         {
             List<CustomerVo> customerList = new List<CustomerVo>();
             CustomerVo customerVo;
@@ -1696,7 +1696,7 @@ namespace DaoAdvisorProfiling
             return customerList;
         }
 
-        public List<CustomerVo> GetBMCustomerList(int rmId, int currentPage, out int count, string sortExpression,string panFilter, string nameFilter, string areaFilter, string pincodeFilter, string parentFilter, string cityFilter, string RMFilter, string isProspect, out Dictionary<string, string> genDictParent, out Dictionary<string, string> genDictCity, out Dictionary<string, string> genDictRM)
+        public List<CustomerVo> GetBMCustomerList(int rmId, int currentPage, out int count, string sortExpression, string panFilter, string nameFilter, string areaFilter, string pincodeFilter, string parentFilter, string cityFilter, string RMFilter, string isProspect, out Dictionary<string, string> genDictParent, out Dictionary<string, string> genDictCity, out Dictionary<string, string> genDictRM)
         {
             List<CustomerVo> customerList = new List<CustomerVo>();
             CustomerVo customerVo;
@@ -1716,7 +1716,7 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(getCustomerListCmd, "@AR_RMId", DbType.Int32, rmId);
                 db.AddInParameter(getCustomerListCmd, "@CurrentPage", DbType.Int32, currentPage);
                 if (!string.IsNullOrEmpty(sortExpression.Trim()))
-                  db.AddInParameter(getCustomerListCmd, "@SortOrder", DbType.String, sortExpression);
+                    db.AddInParameter(getCustomerListCmd, "@SortOrder", DbType.String, sortExpression);
                 if (nameFilter != "")
                     db.AddInParameter(getCustomerListCmd, "@nameFilter", DbType.String, nameFilter);
                 else
@@ -1750,10 +1750,10 @@ namespace DaoAdvisorProfiling
                     {
                         customerVo = new CustomerVo();
                         customerVo.CustomerId = int.Parse(dr["C_CustomerId"].ToString());
-                        if (dr["ADUL_ProcessId"].ToString() == null || dr["ADUL_ProcessId"].ToString() == "" )
+                        if (dr["ADUL_ProcessId"].ToString() == null || dr["ADUL_ProcessId"].ToString() == "")
                         {
-                          customerVo.ProcessId = 0;
-                            
+                            customerVo.ProcessId = 0;
+
                         }
                         else
                         {
@@ -2325,7 +2325,7 @@ namespace DaoAdvisorProfiling
             }
             return branchId;
         }
-        public int GetAdviserAgentID(string AgentCode,string UserType)
+        public int GetAdviserAgentID(string AgentCode, string UserType)
         {
             Database db;
             DbCommand cmdGetAdviserAgentID;
@@ -2359,7 +2359,7 @@ namespace DaoAdvisorProfiling
             }
             return AdviserAgentID;
         }
-      
+
         public DataTable GetBranchRMList(int branchId)
         {
             Database db;
@@ -2485,7 +2485,7 @@ namespace DaoAdvisorProfiling
             Database db;
             DbCommand getRMListCmd;
             DataSet getRMListDs;
-           
+
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
@@ -2518,7 +2518,7 @@ namespace DaoAdvisorProfiling
                 }
                 else
                     rmList = null;
-               
+
             }
             catch (Exception e)
             {
@@ -2819,7 +2819,7 @@ namespace DaoAdvisorProfiling
             }
             return dsPlanOpsStaffAddStatus;
         }
-        public DataSet BindStaffGridWithTeamChanelDetails(int id, bool isAdviser, bool isBranchHead, bool isBranchId, string currentUserRole,int AdviserId,string agentCode)
+        public DataSet BindStaffGridWithTeamChanelDetails(int id, bool isAdviser, bool isBranchHead, bool isBranchId, string currentUserRole, int AdviserId, string agentCode)
         {
             DataSet dsViewStaff;
             Database db;
@@ -2859,18 +2859,18 @@ namespace DaoAdvisorProfiling
             return dsViewStaff;
         }
 
-        public DataTable GetAdviserTeamList(int  flag)
+        public DataTable GetAdviserTeamList(int flag)
         {
             Database db;
             DbCommand adviserTeamListCmd;
             DataSet dsAdviserTeamList;
-            
+
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 adviserTeamListCmd = db.GetStoredProcCommand("SPROC_GetAdviserTeamList");
                 db.AddInParameter(adviserTeamListCmd, "@flag", DbType.Int32, flag);
-              
+
                 dsAdviserTeamList = db.ExecuteDataSet(adviserTeamListCmd);
             }
             catch (BaseApplicationException Ex)
@@ -2882,14 +2882,14 @@ namespace DaoAdvisorProfiling
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "AdvisorStaffBo.cs:GetAdviserTeamList()");
-                object[] objects = new object[1];              
+                object[] objects = new object[1];
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
             return dsAdviserTeamList.Tables[0];
- 
+
         }
 
         public DataTable GetAdviserTeamTitleList(int teamId, int adviserId)
@@ -3115,7 +3115,7 @@ namespace DaoAdvisorProfiling
             }
             return bResult;
         }
-        public DataTable GetUserRoleDepartmentWise(int departmentid,int adviserId)
+        public DataTable GetUserRoleDepartmentWise(int departmentid, int adviserId)
         {
             Database db;
             DbCommand cmdGetUserRoleDepartmentWise;
@@ -3146,6 +3146,134 @@ namespace DaoAdvisorProfiling
                 throw exBase;
             }
             return dsGetUserRoleDepartmentWise.Tables[0];
+        }
+        public DataTable GetIFAChannel(int adviserId)
+        {
+            Database db;
+            DbCommand cmdGetIFAChannel;
+            DataSet dsGetIFAChannel;
+            DataTable dtGetIFAChannel;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetIFAChannel = db.GetStoredProcCommand("SPROC_GetIFAChannel");
+                db.AddInParameter(cmdGetIFAChannel, "@adviserId", DbType.Int32, adviserId);
+                dsGetIFAChannel = db.ExecuteDataSet(cmdGetIFAChannel);
+                dtGetIFAChannel = dsGetIFAChannel.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetIFAChannel;
+        }
+        public DataTable GetTitleList(int channelId, int adviserId)
+        {
+            Database db;
+            DbCommand cmdGetTitleList;
+            DataSet dsGetTitleList;
+            DataTable dtGetTitleList;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetTitleList = db.GetStoredProcCommand("SPROC_GetTitle");
+                db.AddInParameter(cmdGetTitleList, "@adviserId", DbType.Int32, adviserId);
+                db.AddInParameter(cmdGetTitleList, "@channelId", DbType.Int32, channelId);
+                dsGetTitleList = db.ExecuteDataSet(cmdGetTitleList);
+                dtGetTitleList = dsGetTitleList.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetTitleList;
+        }
+        public DataTable GetStaffList(int hierarchyId, int adviserId,int staffId)
+        {
+            Database db;
+            DbCommand cmdGetStaffList;
+            DataSet dsGetStaffList;
+            DataTable dtGetStaffList;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetStaffList = db.GetStoredProcCommand("SPROC_GetStaffList");
+                db.AddInParameter(cmdGetStaffList, "@adviserId", DbType.Int32, adviserId);
+                db.AddInParameter(cmdGetStaffList, "@hierarchyId", DbType.Int32, hierarchyId);
+                db.AddInParameter(cmdGetStaffList, "@staffId", DbType.Int32, staffId);
+                dsGetStaffList = db.ExecuteDataSet(cmdGetStaffList);
+                dtGetStaffList = dsGetStaffList.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetStaffList;
+        }
+        public DataTable GetStaffAssociateList(string rmId, int adviserId)
+        {
+            Database db;
+            DbCommand cmdGetStaffAssociateList;
+            DataSet dsGetStaffAssociateList;
+            DataTable dtGetStaffAssociateList;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetStaffAssociateList = db.GetStoredProcCommand("SPROC_StaffListUnderReportingManager");
+                db.AddInParameter(cmdGetStaffAssociateList, "@adviserId", DbType.Int32, adviserId);
+                db.AddInParameter(cmdGetStaffAssociateList, "@rmId", DbType.String, rmId);
+                dsGetStaffAssociateList = db.ExecuteDataSet(cmdGetStaffAssociateList);
+                dtGetStaffAssociateList = dsGetStaffAssociateList.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetStaffAssociateList;
+        }
+        public DataTable GetStaffTitleList(int hierarchyId, int adviserId)
+        {
+            Database db;
+            DbCommand cmdGetStaffTitleList;
+            DataSet dsGetStaffTitleList;
+            DataTable dtGetStaffTitleList;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetStaffTitleList = db.GetStoredProcCommand("SPROC_GetTitleOfChannel");
+                db.AddInParameter(cmdGetStaffTitleList, "@adviserId", DbType.Int32, adviserId);
+                db.AddInParameter(cmdGetStaffTitleList, "@channelId", DbType.Int32, hierarchyId);
+                dsGetStaffTitleList = db.ExecuteDataSet(cmdGetStaffTitleList);
+                dtGetStaffTitleList = dsGetStaffTitleList.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetStaffTitleList;
+        }
+        public bool UpdateReportingManager(string staffList,int armId,int adviserId)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand UpdateReportingManagerCmd;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                UpdateReportingManagerCmd = db.GetStoredProcCommand("SPROC_OFF_BulkStaffReportingManagerUpdate");
+                db.AddInParameter(UpdateReportingManagerCmd, "@adviserId", DbType.Int32, adviserId);
+                db.AddInParameter(UpdateReportingManagerCmd, "@AR_id", DbType.Int32, armId);
+                db.AddInParameter(UpdateReportingManagerCmd, "@staffId", DbType.String, staffList);
+                if (db.ExecuteNonQuery(UpdateReportingManagerCmd) != 0)
+
+                    bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return bResult;
         }
     }
 }
