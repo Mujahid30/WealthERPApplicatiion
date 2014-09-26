@@ -584,7 +584,7 @@ namespace WealthERP.Advisor
                 if (e.Item.Value == "Trade_Business_Date")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('TradeBusinessDate','login');", true);
-                }
+                } 
                 else if (e.Item.Value == "Admin Home")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('IFAAdminMainDashboard','login');", true);
