@@ -24,6 +24,7 @@ namespace WealthERP.Advisor
         DataSet dsRMAndZoneDetails;
         int adviserId;
         int type;
+        int zoneId;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -33,14 +34,14 @@ namespace WealthERP.Advisor
             advisorVo = (AdvisorVo)Session["advisorVo"];
             //fill the userVO from the session 
             UserVo = (UserVo)Session["userVo"];
-
+           
             if (!IsPostBack)
             {
                 //Clear the cahce when the page first loads                
                 Cache.Remove("ZoneClusterDetails" + advisorVo.advisorId);
                 Cache.Remove("RMDetail" + advisorVo.advisorId);
                 Cache.Remove("ZoneDetail" + advisorVo.advisorId);
-
+              
             }
         }
 
@@ -51,6 +52,7 @@ namespace WealthERP.Advisor
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
+       
         protected void btnAction_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (rcbShow.SelectedValue != null)
@@ -92,19 +94,39 @@ namespace WealthERP.Advisor
         {
             try
             {
+                
                 RadComboBox RadComboBox = (RadComboBox)sender;
                 GridEditableItem editedItem = RadComboBox.NamingContainer as GridEditableItem;
                 RadComboBox rcbEditFormAddType = editedItem.FindControl("rcbEditFormAddType") as RadComboBox;
                 HtmlTableRow trPickAZone = editedItem.FindControl("trPickAZone") as HtmlTableRow;
                 RadComboBox rcbHead = editedItem.FindControl("rcbHead") as RadComboBox;
                 RadComboBox rcbPickAZone = editedItem.FindControl("rcbPickAZone") as RadComboBox;
+                HtmlTableRow trPickArea = editedItem.FindControl("trPickArea") as HtmlTableRow;
+                RadComboBox rcbPickArea = editedItem.FindControl("rcbPickArea") as RadComboBox;
+                HtmlTableRow trPickAType = editedItem.FindControl("trPickAType") as HtmlTableRow;
+                RadComboBox rcbEditForm = editedItem.FindControl("rcbEditForm") as RadComboBox;
+                
                 trPickAZone.Visible = false;
-                if
-                    (rcbEditFormAddType.SelectedValue == "2")
+                trPickArea.Visible = false;
+                trPickAType.Visible = false;
+                if (rcbEditFormAddType.SelectedValue == "2")
+                {
+                    trPickArea.Visible = false;
+                    trPickAType.Visible = true;
                     trPickAZone.Visible = true;
+                }
+                else if (rcbEditFormAddType.SelectedValue == "3")
+                {
+                    trPickAZone.Visible = true;
+                    trPickArea.Visible = false;
+                    trPickAType.Visible = false;
+                }
                 else
+                {
                     trPickAZone.Visible = false;
-
+                    trPickArea.Visible = false;
+                    trPickAType.Visible = false;
+                }
                 //bind RM on the basis of zonal head or the cluster head
                 DataTable dtAccType = new DataTable();
                 DataTable dtZoneDetail = new DataTable();
@@ -144,7 +166,7 @@ namespace WealthERP.Advisor
                     DataView dvTypeFilter = new DataView(dtZoneDetail, typeFilter, "AZOC_Type", DataViewRowState.CurrentRows);
                     dtZoneDetail = dvTypeFilter.ToTable();
                 }
-                else
+                else if (rcbEditFormAddType.SelectedValue == "2")
                 {
                     string expressionForRowsWithoutFM;
                     string typeFilter;
@@ -157,18 +179,39 @@ namespace WealthERP.Advisor
                     DataView dvTypeFilter = new DataView(dtZoneDetail, typeFilter, "AZOC_Type", DataViewRowState.CurrentRows);
                     dtZoneDetail = dvTypeFilter.ToTable();
                 }
+                else
+                {
 
+                    string expressionForRowsWithout;
+                    string typeFilter;
+                    expressionForRowsWithout = "AR_JobFunction=" + "'Area Head'";
+                    typeFilter = "AZOC_Type=" + "'Zone'";
+                    //dataview creation for job function
+                    DataView dvMFTransactionsProcessed = new DataView(dtRMDetail, expressionForRowsWithout, "AR_JobFunction", DataViewRowState.CurrentRows);
+                    dtRMDetail = dvMFTransactionsProcessed.ToTable();
+                    //dataview creation for type filter
+                    DataView dvTypeFilter = new DataView(dtZoneDetail, typeFilter, "AZOC_Type", DataViewRowState.CurrentRows);
+                    dtZoneDetail = dvTypeFilter.ToTable();
+                }
+               
                 //binding the ddl RM
                 rcbHead.DataSource = dtRMDetail;
                 rcbHead.DataTextField = "name";
                 rcbHead.DataValueField = "ar_rmid";
                 rcbHead.DataBind();
 
+                //BindAreaName(advisorVo.advisorId, zoneId);
+                
                 //binding ddl Zone
                 rcbPickAZone.DataSource = dtZoneDetail;
                 rcbPickAZone.DataTextField = "AZOC_Name";
                 rcbPickAZone.DataValueField = "AZOC_ZoneClusterId";
                 rcbPickAZone.DataBind();
+
+                //rcbPickArea.DataSource = dtZoneDetail;
+                //rcbPickArea.DataTextField = "AZOC_Name";
+                //rcbPickArea.DataValueField = "AZOC_ZoneClusterId";
+                //rcbPickArea.DataBind();
 
                 rcbHead.Items.Insert(0, defaultItem);
                 rcbPickAZone.Items.Insert(0, defaultItemPickAZone);
@@ -176,11 +219,21 @@ namespace WealthERP.Advisor
                 {
 
                     trPickAZone.Visible = true;
+                    trPickArea.Visible = false;
+                    trPickAType.Visible = true;
                 }
 
+                else if (rcbEditFormAddType.SelectedValue == "3")
+                {
+                    trPickAZone.Visible = true;
+                    trPickArea.Visible = false;
+                    trPickAType.Visible = false;
+                }
                 else
                 {
                     trPickAZone.Visible = false;
+                    trPickArea.Visible = false;
+                    trPickAType.Visible = false;
                 }
             }
             catch (BaseApplicationException Ex)
@@ -211,14 +264,14 @@ namespace WealthERP.Advisor
         {
             try
             {
-               
+
                 dsZoneClusterDetails = new DataSet();
                 advisorBo = new AdvisorBo();
                 //getting dataset for grid and the rm ddl and the zone name ddl
                 dsZoneClusterDetails = advisorBo.GetZoneClusterDetailsAdviserwise(advisorVo.advisorId, Convert.ToInt32(rcbShow.SelectedValue));
                 gvZoneClusterDetails.DataSource = dsZoneClusterDetails;
                 gvZoneClusterDetails.DataBind();
-               
+
                 //set the visibility for export button
                 if (dsZoneClusterDetails != null)
                     btnExportFilteredData.Visible = true;
@@ -299,7 +352,7 @@ namespace WealthERP.Advisor
                 RadComboBox rcbHead = (RadComboBox)e.Item.FindControl("rcbHead");
                 RadComboBox rcbPickAZone = (RadComboBox)e.Item.FindControl("rcbPickAZone");
                 TextBox txtDescription = (TextBox)e.Item.FindControl("txtDescription");
-
+                RadComboBox rcbPickArea = (RadComboBox)e.Item.FindControl("rcbPickArea");
                 string AZOC_Type = gvZoneClusterDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AZOC_Type"].ToString();
 
                 if (AZOC_Type != "Zone")
@@ -312,8 +365,10 @@ namespace WealthERP.Advisor
                 type = Convert.ToInt32(rcbEditFormAddType.SelectedValue);
                 if (type == 1)
                     insertType = "Zone";
-                else
+                else if (type == 2)
                     insertType = "Cluster";
+                else
+                    insertType = "Area";
                 //check if update then show the message
                 isUpdated = advisorBo.ZoneClusterDetailsAddEditDelete(advisorVo.advisorId, Convert.ToInt32(rcbHead.SelectedValue), AZOC_ZoneClusterId, AZOC_ZoneId, txtDescription.Text, txtName.Text, insertType, 0, UserVo.UserId, DateTime.MinValue, DateTime.Now, e.CommandName);
                 if (isUpdated == false)
@@ -339,6 +394,7 @@ namespace WealthERP.Advisor
                 RadComboBox rcbHead = (RadComboBox)e.Item.FindControl("rcbHead");
                 TextBox txtDescription = (TextBox)e.Item.FindControl("txtDescription");
                 RadComboBox rcbPickAZone = (RadComboBox)e.Item.FindControl("rcbPickAZone");
+                RadComboBox rcbPickArea = (RadComboBox)e.Item.FindControl("rcbPickArea");
                 type = Convert.ToInt32(rcbEditFormAddType.SelectedValue);
                 if (string.IsNullOrEmpty(rcbHead.SelectedValue))
                     rcbHead.SelectedValue = "0";
@@ -349,12 +405,18 @@ namespace WealthERP.Advisor
                     isInserted = advisorBo.ZoneClusterDetailsAddEditDelete(advisorVo.advisorId, Convert.ToInt32(rcbHead.SelectedValue), Convert.ToInt32(0), 0, txtDescription.Text, txtName.Text, insertType, UserVo.UserId, 0, DateTime.Now, DateTime.MinValue, e.CommandName);
 
                 }
-                else
+                else if (type == 2)
                 {
                     insertType = "Cluster";
                     //check if inserted then show message
                     isInserted = advisorBo.ZoneClusterDetailsAddEditDelete(advisorVo.advisorId, Convert.ToInt32(rcbHead.SelectedValue), Convert.ToInt32(rcbPickAZone.SelectedValue), 0, txtDescription.Text, txtName.Text, insertType, UserVo.UserId, 0, DateTime.Now, DateTime.MinValue, e.CommandName);
 
+                }
+                else
+                {
+                    insertType = "Area";
+                    //check if inserted then show message
+                    isInserted = advisorBo.ZoneClusterDetailsAddEditDelete(advisorVo.advisorId, Convert.ToInt32(rcbHead.SelectedValue), Convert.ToInt32(rcbPickAZone.SelectedValue), 0, txtDescription.Text, txtName.Text, insertType, UserVo.UserId, 0, DateTime.Now, DateTime.MinValue, e.CommandName);
                 }
                 if (isInserted == false)
                     Response.Write(@"<script language='javascript'>alert('Error inserting records');</script>");
@@ -433,6 +495,7 @@ namespace WealthERP.Advisor
                 GridEditFormItem gefi = (GridEditFormItem)e.Item;
                 RadComboBox rcbHead = (RadComboBox)gefi.FindControl("rcbHead");
                 RadComboBox rcbPickAZone = (RadComboBox)gefi.FindControl("rcbPickAZone");
+                RadComboBox rcbPickArea = (RadComboBox)gefi.FindControl("rcbPickAZone");
 
                 //getting the ZoneDetail from cache 
                 dtZoneDetail = (DataTable)Cache["ZoneDetail" + advisorVo.advisorId];
@@ -444,7 +507,9 @@ namespace WealthERP.Advisor
                 //setting default for radcombobox
                 defaultItem.Text = "";
                 defaultItem.Value = "";
-
+           
+                  
+                
                 //binding the ddl RM
                 //rcbHead.DataSource = dtRMDetail;
                 //rcbHead.DataTextField = "name";
@@ -478,11 +543,16 @@ namespace WealthERP.Advisor
                 RadComboBox rcbHead = (RadComboBox)e.Item.FindControl("rcbHead");
                 RadComboBox rcbPickAZone = (RadComboBox)e.Item.FindControl("rcbPickAZone");
                 HtmlTableRow trPickAZone = editedItem.FindControl("trPickAZone") as HtmlTableRow;
+                RadComboBox rcbPickArea = (RadComboBox)e.Item.FindControl("rcbPickArea");
+                HtmlTableRow trPickArea = editedItem.FindControl("trPickArea") as HtmlTableRow;
+                RadComboBox rcbEditForm = (RadComboBox)e.Item.FindControl("rcbEditForm");
+                HtmlTableRow trPickAType = editedItem.FindControl("trPickAType") as HtmlTableRow;
                 DataTable dtZoneDetail = new DataTable();
                 DataTable dtRMDetail = new DataTable();
 
                 //disabling ddl for type update we will not allow changing the zone to cluster or vice versa
                 rcbEditFormAddType.Enabled = false;
+                trPickAType.Visible = false;
 
                 //getting the ZoneDetail from cache 
                 dtZoneDetail = (DataTable)Cache["ZoneDetail" + advisorVo.advisorId];
@@ -495,6 +565,7 @@ namespace WealthERP.Advisor
                 {
                     type = "1";
                     trPickAZone.Visible = false;
+                    trPickAType.Visible = false;
                     string JobFunctionFilter;
                     string typeFilter;
                     JobFunctionFilter = "AR_JobFunction=" + "'Zonal Head'";
@@ -506,7 +577,7 @@ namespace WealthERP.Advisor
                     DataView dvTypeFilter = new DataView(dtZoneDetail, typeFilter, "AZOC_Type", DataViewRowState.CurrentRows);
                     dtZoneDetail = dvTypeFilter.ToTable();
                 }
-                else
+                else if (type == "Cluster")
                 {
                     type = "2";
                     trPickAZone.Visible = true;
@@ -521,7 +592,22 @@ namespace WealthERP.Advisor
                     DataView dvTypeFilter = new DataView(dtZoneDetail, typeFilter, "AZOC_Type", DataViewRowState.CurrentRows);
                     dtZoneDetail = dvTypeFilter.ToTable();
                 }
-
+                else
+                {
+                    type = "3";
+                    trPickAZone.Visible = true;
+                    trPickAType.Visible = false;
+                    string expressionForRowsWithoutFM;
+                    string typeFilter;
+                    expressionForRowsWithoutFM = "AR_JobFunction=" + "'Cluster Head'";
+                    typeFilter = "AZOC_Type=" + "'Zone'";
+                    //dataview creation for job function
+                    DataView dvMFTransactionsProcessed = new DataView(dtRMDetail, expressionForRowsWithoutFM, "AR_JobFunction", DataViewRowState.CurrentRows);
+                    dtRMDetail = dvMFTransactionsProcessed.ToTable();
+                    //dataview creation for type filter
+                    DataView dvTypeFilter = new DataView(dtZoneDetail, typeFilter, "AZOC_Type", DataViewRowState.CurrentRows);
+                    dtZoneDetail = dvTypeFilter.ToTable();
+                }
 
 
 
@@ -531,12 +617,17 @@ namespace WealthERP.Advisor
                 rcbPickAZone.DataValueField = "AZOC_ZoneClusterId";
                 rcbPickAZone.DataBind();
 
+                //rcbPickArea.DataSource = dtZoneDetail;
+                //rcbPickArea.DataTextField = "AZOC_Name";
+                //rcbPickArea.DataValueField = "AZOC_ZoneClusterId";
+                //rcbPickArea.DataBind();
+
                 //filling the data from rm ddl
                 rcbHead.DataSource = dtRMDetail;
                 rcbHead.DataTextField = "name";
                 rcbHead.DataValueField = "ar_rmid";
                 rcbHead.DataBind();
-
+               
                 //setting the value in the ddl according to the grid dataitem 
                 rcbEditFormAddType.SelectedValue = type.ToString();
                 rcbHead.SelectedValue = Name.ToString();
@@ -554,6 +645,70 @@ namespace WealthERP.Advisor
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
+        /// 
+
+
+        //protected void BindAreaName(int adviserId, int zoneClusterId)
+        //{
+           
+        //    RadComboBox item = new RadComboBox();
+        //    dsGetArea = advisorBo.BindArea(adviserId, zoneClusterId);
+        //    dtGetArea = dsGetArea.Tables[0];
+        //    rcbPickArea.DataSource = dtGetArea;
+        //    rcbPickArea.DataValueField = dtGetArea.Columns["AZOC_ZoneClusterId"].ToString();
+        //    rcbPickArea.DataTextField = dtGetArea.Columns["AZOC_Name"].ToString();
+        //    rcbPickArea.DataBind();
+           
+        //}
+        protected void rcbEditForm_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DataSet dsGetArea;
+            DataTable dtGetArea = new DataTable();
+            AdvisorBo advisorBo = new AdvisorBo();
+            RadComboBox RadComboBox = (RadComboBox)sender;
+            GridEditableItem editedItem = RadComboBox.NamingContainer as GridEditableItem;
+            RadComboBox rcbEditFormAddType = editedItem.FindControl("rcbEditFormAddType") as RadComboBox;
+            HtmlTableRow trPickAZone = editedItem.FindControl("trPickAZone") as HtmlTableRow;
+            RadComboBox rcbHead = editedItem.FindControl("rcbHead") as RadComboBox;
+            RadComboBox rcbPickAZone = editedItem.FindControl("rcbPickAZone") as RadComboBox;
+            HtmlTableRow trPickArea = editedItem.FindControl("trPickArea") as HtmlTableRow;
+            RadComboBox rcbPickArea = editedItem.FindControl("rcbPickArea") as RadComboBox;
+            RadComboBox rcbEditForm = editedItem.FindControl("rcbEditForm") as RadComboBox;
+            HtmlTableRow trPickAType = editedItem.FindControl("trPickAType") as HtmlTableRow;
+            dtGetArea = (DataTable)Cache["ZoneDetail" + advisorVo.advisorId];
+            trPickAZone.Visible = true;
+            rcbPickAZone.Visible = true;
+            if (rcbEditForm.SelectedValue == "3")
+            {
+                //int zoneClusterId = rcbPickAZone.FindItemByValue(dr["AZOC_ZoneClusterId"].ToString());
+                trPickArea.Visible = true;
+                rcbPickArea.Visible = true;
+               
+                int adviserId = advisorVo.advisorId;
+                dsGetArea = advisorBo.BindArea(adviserId);
+                dtGetArea = dsGetArea.Tables[0];
+                rcbPickArea.DataSource = dtGetArea;
+                rcbPickArea.DataValueField = dtGetArea.Columns["AZOC_ZoneClusterId"].ToString();
+                rcbPickArea.DataTextField = dtGetArea.Columns["AZOC_Name"].ToString();
+                rcbPickArea.DataBind();
+                trPickAZone.Visible = false;
+                rcbPickAZone.Visible = false;
+            }
+            else
+            {
+                trPickArea.Visible = false;
+                rcbPickArea.Visible = false;
+                int adviserId = advisorVo.advisorId;
+                dsGetArea = advisorBo.BindArea(adviserId);
+                dtGetArea = dsGetArea.Tables[1];
+                rcbPickAZone.DataSource = dtGetArea;
+                rcbPickAZone.DataTextField = dtGetArea.Columns["AZOC_Name"].ToString();
+                rcbPickAZone.DataValueField = dtGetArea.Columns["AZOC_ZoneClusterId"].ToString();
+                rcbPickAZone.DataBind();
+               
+            }
+
+        }
         public void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
         {
             DataSet dtExportFilteredData = new DataSet();
@@ -588,5 +743,6 @@ namespace WealthERP.Advisor
                 throw exBase;
             }
         }
+
     }
 }

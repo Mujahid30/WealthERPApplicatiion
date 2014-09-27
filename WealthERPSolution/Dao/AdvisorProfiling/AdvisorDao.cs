@@ -3575,6 +3575,37 @@ namespace DaoAdvisorProfiling
             }
             return dsAdviserTreeNodes;
         }
+        public DataSet BindArea(int adviserId)
+        {
+            Database db;
+            DbCommand GetArea;
+            DataSet dsArea;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetArea = db.GetStoredProcCommand("SP_GetBindArea");
+                db.AddInParameter(GetArea, "@AdviserId", DbType.Int32, adviserId);
+                dsArea = db.ExecuteDataSet(GetArea);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "BindArea(int adviserId)");
+                object[] objects = new object[1];
+                objects[0] = adviserId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsArea;
+        }
 
     }
 }

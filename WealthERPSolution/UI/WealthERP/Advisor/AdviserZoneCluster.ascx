@@ -51,11 +51,12 @@
     <telerik:RadComboBox CssClass="cmbField" runat="server" ID="rcbShow" EmptyMessage="Show">
         <Items>
             <telerik:RadComboBoxItem Text="ALL" Value="1" />
-            <telerik:RadComboBoxItem Text="Cluster" Value="2" />
             <telerik:RadComboBoxItem Text="Zone" Value="3" />
+            <telerik:RadComboBoxItem Text="Area" Value="4" />
+            <telerik:RadComboBoxItem Text="Cluster" Value="2" />
         </Items>
     </telerik:RadComboBox>
-    <asp:RequiredFieldValidator CssClass="rfvPCG" Text="* Please select a type" ControlToValidate="rcbShow"
+    <asp:RequiredFieldValidator CssClass="rfvPCG" Text="*Please select a type" ControlToValidate="rcbShow"
         Display="Dynamic" runat="server" ValidationGroup="VgBtnAction"></asp:RequiredFieldValidator>
     <asp:Button runat="server" CssClass="PCGButton" ID="btnAction" Text="Go" OnClick="btnAction_SelectedIndexChanged"
         ValidationGroup="VgBtnAction" />
@@ -92,7 +93,7 @@
                     SortExpression="ZCName" AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                     <HeaderStyle></HeaderStyle>
                 </telerik:GridBoundColumn>
-<%--                <telerik:GridBoundColumn Visible="false" UniqueName="AR_RMId" HeaderText="Type" DataField="AR_RMId"
+                <%--                <telerik:GridBoundColumn Visible="false" UniqueName="AR_RMId" HeaderText="Type" DataField="AR_RMId"
                     SortExpression="AR_RMId" AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                     <HeaderStyle></HeaderStyle>
                 </telerik:GridBoundColumn--%>
@@ -113,6 +114,10 @@
                     SortExpression="AZOC_Name" AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                     <HeaderStyle></HeaderStyle>
                 </telerik:GridBoundColumn>
+                <%--<telerik:GridBoundColumn UniqueName="AZOC_Name" HeaderText="Area" DataField="AZOC_Name"
+                    SortExpression="AZOC_Name" AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                    <HeaderStyle></HeaderStyle>
+                </telerik:GridBoundColumn>--%>
                 <telerik:GridDateTimeColumn AllowFiltering="false" HeaderText="Created Date" DataField="AZOC_CreatedOn"
                     UniqueName="AZOC_CreatedOn" DataFormatString="{0:d}" AutoPostBackOnFilter="true">
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
@@ -143,6 +148,7 @@
                                                 runat="server" ID="rcbEditFormAddType" EmptyMessage="Select">
                                                 <Items>
                                                     <telerik:RadComboBoxItem Text="Zone" Value="1" />
+                                                    <telerik:RadComboBoxItem Text="Area" Value="3" />
                                                     <telerik:RadComboBoxItem Text="Cluster" Value="2" />
                                                 </Items>
                                             </telerik:RadComboBox>
@@ -153,21 +159,23 @@
                                             </asp:RequiredFieldValidator>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr id="trPickAType" visible="false" runat="server">
                                         <td align="right">
-                                            <asp:Label runat="server" Text="Name :" ID="Label1"></asp:Label>
+                                            <asp:Label runat="server" Text="Select Type :" ID="lblEditForm"></asp:Label>
                                         </td>
-                                        <td>
-                                            <asp:TextBox ID="txtName" Text='<%# Bind("AZOC_Name") %>' runat="server"></asp:TextBox>
-                                            <span id="Span6" class="spnRequiredField">*</span>
-                                            <asp:RequiredFieldValidator ErrorMessage="Please enter name" CssClass="rfvPCG" ValidationGroup="btnSubmit"
-                                                runat="server" ControlToValidate="txtName"></asp:RequiredFieldValidator>
-                                            <asp:RegularExpressionValidator ID="revName" runat="server" Display="Dynamic" CssClass="rfvPCG"
-                                                ErrorMessage="</br>Please check Name format" ValidationGroup="Button1" ControlToValidate="txtName"
-                                                ValidationExpression="^[0-9a-zA-Z' ']+$">
-                                            </asp:RegularExpressionValidator>
-                                            <asp:Label ID="lblNameDuplicate" runat="server" CssClass="Error" Visible="false"
-                                                Text="Name already exists"></asp:Label>
+                                        <td colspan="3">
+                                            <telerik:RadComboBox Text="Show" AutoPostBack="true" OnSelectedIndexChanged="rcbEditForm_SelectedIndexChanged"
+                                                runat="server" ID="rcbEditForm" EmptyMessage="Select">
+                                                <Items>
+                                                    <telerik:RadComboBoxItem Text="Zone" Value="1" />
+                                                    <telerik:RadComboBoxItem Text="Area" Value="3" />
+                                                </Items>
+                                            </telerik:RadComboBox>
+                                            <span id="Span4" class="spnRequiredField">*</span>
+                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" CssClass="rfvPCG"
+                                                ErrorMessage="Please select a Type" Display="Dynamic" ValidationGroup="btnSubmit"
+                                                ControlToValidate="rcbEditForm">
+                                            </asp:RequiredFieldValidator>
                                         </td>
                                     </tr>
                                     <tr>
@@ -188,13 +196,45 @@
                                             <asp:Label runat="server" ID="lblPickAZone" Text="Zone :"></asp:Label>
                                         </td>
                                         <td colspan="3">
-                                            <telerik:RadComboBox runat="server" ID="rcbPickAZone" Text="Show" EmptyMessage="Select">
+                                            <telerik:RadComboBox runat="server" ID="rcbPickAZone" AutoPostBack="true" Text="Show"
+                                                EmptyMessage="Select">
                                             </telerik:RadComboBox>
                                             <span id="Span2" class="spnRequiredField">*</span>
                                             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" CssClass="rfvPCG"
                                                 ErrorMessage="Please select a Zone" Display="Dynamic" ValidationGroup="btnSubmit"
                                                 ControlToValidate="rcbPickAZone">
                                             </asp:RequiredFieldValidator>
+                                        </td>
+                                    </tr>
+                                    <tr runat="server" id="trPickArea" visible="false">
+                                        <td align="right">
+                                            <asp:Label runat="server" ID="lblPickArea" Text="Area :"></asp:Label>
+                                        </td>
+                                        <td colspan="4">
+                                            <telerik:RadComboBox runat="server" ID="rcbPickArea" Text="Show" EmptyMessage="Select">
+                                            </telerik:RadComboBox>
+                                            <span id="Span3" class="spnRequiredField">*</span>
+                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" CssClass="rfvPCG"
+                                                ErrorMessage="Please select a Zone" Display="Dynamic" ValidationGroup="btnSubmit"
+                                                ControlToValidate="rcbPickArea">
+                                            </asp:RequiredFieldValidator>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="right">
+                                            <asp:Label runat="server" Text="Name :" ID="Label1"></asp:Label>
+                                        </td>
+                                        <td>
+                                            <asp:TextBox ID="txtName" Text='<%# Bind("AZOC_Name") %>' runat="server"></asp:TextBox>
+                                            <span id="Span6" class="spnRequiredField">*</span>
+                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ErrorMessage="Please enter name"
+                                                CssClass="rfvPCG" ValidationGroup="btnSubmit" runat="server" ControlToValidate="txtName"></asp:RequiredFieldValidator>
+                                            <asp:RegularExpressionValidator ID="revName" runat="server" Display="Dynamic" CssClass="rfvPCG"
+                                                ErrorMessage="</br>Please check Name format" ValidationGroup="Button1" ControlToValidate="txtName"
+                                                ValidationExpression="^[0-9a-zA-Z' ']+$">
+                                            </asp:RegularExpressionValidator>
+                                            <asp:Label ID="lblNameDuplicate" runat="server" CssClass="Error" Visible="false"
+                                                Text="Name already exists"></asp:Label>
                                         </td>
                                     </tr>
                                     <tr>

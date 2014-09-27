@@ -75,5 +75,11 @@ namespace WealthERP.Advisor {
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid gvZoneClusterDetails;
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trPickAZone;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trPickArea;
+        protected global::Telerik.Web.UI.RadComboBox rcbPickArea;
+        protected global::Telerik.Web.UI.RadComboBox rcbPickAZone;
+        protected global::Telerik.Web.UI.RadComboBox rcbEditFormAddType;
+        protected global::Telerik.Web.UI.RadComboBox rcbEditForm;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trPickAType;
     }
 }
