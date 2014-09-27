@@ -45,8 +45,11 @@ namespace WealthERP.Associates
                 Agentcode = string.Empty;
             }
             else
+            {
+                Agentcode = associatesVo.AAC_AgentCode;   
+            }
 
-                Agentcode = associateuserheirarchyVo.AgentCode;
+              //  Agentcode = associateuserheirarchyVo.AgentCode;
             
             BindAgentCodeList();
 
