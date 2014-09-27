@@ -134,6 +134,16 @@ namespace WealthERP.Associates
             ExistingStaffList.DataTextField = dtBindSourceManager.Columns["AR_FirstName"].ToString();
             ExistingStaffList.DataBind();
         }
+        protected void chkSourceStaff_OnCheckedChanged(object sender, EventArgs e)
+        {
+        }
+        protected void ChkExistingStaff_OnCheckedChanged(object sender, EventArgs e)
+        {
+         
+        }
+        protected void chkNewStaff_OnCheckedChanged(object sender, EventArgs e)
+        {
+        }
         protected void radStaffList_OnSelectedIndexChanged(object sender, EventArgs e)
         {
             string selectStaffAssociate = string.Empty;

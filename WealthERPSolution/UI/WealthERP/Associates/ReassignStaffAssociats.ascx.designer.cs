@@ -30,6 +30,10 @@ namespace WealthERP.Associates
         protected global::Telerik.Web.UI.RadComboBox radOldReportingManager;
         protected global::System.Web.UI.WebControls.DropDownList ddltitlechannelId;
         protected global::System.Web.UI.WebControls.TextBox txtNewReporting;
+        protected global::System.Web.UI.WebControls.CheckBox chkSourceStaff;
+        protected global::System.Web.UI.WebControls.CheckBox ChkExistingStaff;
+        protected global::System.Web.UI.WebControls.CheckBox chkNewStaff;
+
         /// <summary>
         /// ddlChannel control.
         /// </summary>

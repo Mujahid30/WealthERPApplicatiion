@@ -685,7 +685,7 @@ namespace WealthERP.General
                                     bool breakLoopIfIPFailed = false;
                                     Session[SessionContents.CurrentUserRole] = "Associates";
                                     associatesVo = associatesBo.GetAssociateUser(userVo.UserId);
-                                    if (associatesVo.IsActive==1)
+                                    if (associatesVo.IsActive==1 || associatesVo.AAC_AgentCode==null)
                                     {
                                         associatesUserHeirarchyVo = associatesBo.GetAssociateUserHeirarchy(userVo.UserId, advisorVo.advisorId);
                                         Session["associatesVo"] = associatesVo;

@@ -126,6 +126,8 @@
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="Add Staff Offline" Value="Add_Staff_Offline">
                                                     </telerik:RadPanelItem>
+                                                     <telerik:RadPanelItem runat="server" Text="Staff Reassign" Value="Staff_ReAssign">
+                                                    </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Branch/Association" Value="Branch/Association">

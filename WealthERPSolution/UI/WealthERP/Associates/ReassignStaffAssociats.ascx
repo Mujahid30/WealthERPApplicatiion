@@ -49,12 +49,12 @@
         <td align="right">
             <asp:Label ID="lblChannel" runat="server" CssClass="FieldName" Text="Channel:"></asp:Label>
         </td>
-        <td style="width:150px;">
+        <td style="width: 150px;">
             <asp:DropDownList ID="ddlChannel" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlChannel_OnSelectedIndexChanged"
                 AutoPostBack="true">
             </asp:DropDownList>
         </td>
-        <td style="width:150px;">
+        <td style="width: 150px;">
         </td>
         <td>
             <asp:DropDownList ID="ddlStaff" runat="server" CssClass="cmbField">
@@ -67,12 +67,12 @@
         <td align="right">
             <asp:Label ID="lblTitleChannel" runat="server" Text="Title" CssClass="FieldName"></asp:Label>
         </td>
-        <td style="width:150px;">
+        <td style="width: 150px;">
             <asp:DropDownList ID="ddltitlechannelId" runat="server" CssClass="cmbField" AutoPostBack="true"
                 OnSelectedIndexChanged="ddltitlechannelId_OnSelectedIndexChanged">
             </asp:DropDownList>
         </td>
-        <td align="right" style="width:150px;">
+        <td align="right" style="width: 150px;">
             <asp:Label ID="lblNewReporting" runat="server" CssClass="FieldName" Text="New Reporting Manager:"></asp:Label>
         </td>
         <td>
@@ -136,9 +136,21 @@
         <td>
         </td>
         <td>
+            <asp:CheckBox ID="chkSourceStaff" runat="server" Text="Check All" OnCheckedChanged="chkSourceStaff_OnCheckedChanged" CssClass="FieldName" AutoPostBack="true" Visible="false"/>
+        </td>
+        <td>
+            <asp:CheckBox ID="ChkExistingStaff" runat="server" Text="Check All" OnCheckedChanged="ChkExistingStaff_OnCheckedChanged" CssClass="FieldName" AutoPostBack="true" Visible="false"/>
+        </td>
+        <td>
+            <asp:CheckBox ID="chkNewStaff" runat="server" Text="Check All" OnCheckedChanged="chkNewStaff_OnCheckedChanged" CssClass="FieldName" AutoPostBack="true" Visible="false"/>
+        </td>
+    </tr>
+    <tr>
+        <td>
+        </td>
+        <td>
             <telerik:RadListBox ID="radStaffList" runat="server" CheckBoxes="true" CssClass="txtField"
-                Width="220px" Height="200px" OnSelectedIndexChanged="radStaffList_OnSelectedIndexChanged"
-                AutoPostBack="true">
+                Width="220px" Height="200px" OnSelectedIndexChanged="radStaffList_OnSelectedIndexChanged" AutoPostBack="true">
             </telerik:RadListBox>
         </td>
         <td>
@@ -146,7 +158,7 @@
                 AllowTransferOnDoubleClick="true" AllowTransferDuplicates="false" OnTransferred="ExistingStaffList_Transferred"
                 EnableViewState="true" EnableMarkMatches="true" runat="server" ID="ExistingStaffList"
                 Height="200px" Width="250px" AllowTransfer="true" TransferToID="MappedStaffList"
-                CssClass="cmbFielde" CheckBoxes="true">
+                CssClass="cmbFielde" CheckBoxes="false">
             </telerik:RadListBox>
         </td>
         <td>
