@@ -445,7 +445,7 @@
                 CssClass="FieldName"></asp:Label>
         </td>
        <td class="rightField" style="width: 20%">
-            <asp:TextBox ID="txtApplicationNo" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtApplicationNo" runat="server" CssClass="txtField" OnKeypress="javascript:return isNumberKey(event);"></asp:TextBox>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator5" ControlToValidate="txtApplicationNo"
                 ErrorMessage="<br />Please Enter Application No" Display="Dynamic" runat="server"
                 CssClass="rfvPCG" ValidationGroup="btnConfirmOrder"></asp:RequiredFieldValidator>
