@@ -167,6 +167,7 @@
                 AutoPostBack="true">
                 <asp:ListItem Text="--SELECT--" Value="Select" Selected="True"></asp:ListItem>
                 <asp:ListItem Text="Zone" Value="Zone"></asp:ListItem>
+                <asp:ListItem Text="Area" Value="Area"></asp:ListItem>                
                 <asp:ListItem Text="Cluster" Value="Cluster"></asp:ListItem>
             </asp:DropDownList>
         </td>

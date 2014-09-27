@@ -195,10 +195,53 @@ namespace WealthERP.Uploads
                     BindAdviserDropDownList();
                 }
                 BindListBranch(adviserId, "adviser");
+                if (Request.QueryString["OfflineUpload"] != null)
+                {
+                    ddlType.SelectedValue = "0";
+                    UploadTypeSelection(ddlType.SelectedValue);
+                }
+                else
+                {
+                    ddlType.SelectedValue = "1";
+                    UploadTypeSelection(ddlType.SelectedValue);
 
+                }
             }
 
             divInputErrorList.Visible = false;
+
+        }
+        private void UploadTypeSelection(String UploadType)
+        {
+            ddlUploadType.Items[0].Enabled = false;
+            ddlUploadType.Items[1].Enabled = false;
+            ddlUploadType.Items[2].Enabled = false;
+            ddlUploadType.Items[3].Enabled = false;
+            ddlUploadType.Items[4].Enabled = false;
+            ddlUploadType.Items[5].Enabled = false;
+            ddlUploadType.Items[6].Enabled = false;
+            ddlUploadType.Items[7].Enabled = false;
+            ddlUploadType.Items[8].Enabled = false;
+            ddlUploadType.Items[9].Enabled = false;
+            ddlUploadType.Items[10].Enabled = false;
+          //  ddlUploadType.Items[11].Enabled = false;
+
+            if (UploadType == "1")
+            {
+                ddlUploadType.Items[0].Enabled = true;
+                ddlUploadType.Items[2].Enabled = true;
+                ddlUploadType.Items[7].Enabled = true;
+                ddlUploadType.Items[8].Enabled = true;
+            }
+            else
+            {
+                ddlUploadType.Items[0].Enabled = true;
+                ddlUploadType.Items[1].Enabled = true;
+                ddlUploadType.Items[2].Enabled = true;
+                ddlUploadType.Items[6].Enabled = true;
+                ddlUploadType.Items[9].Enabled = true;
+
+            }
 
         }
         protected void BindAdviserDropDownList()
@@ -4623,7 +4666,7 @@ namespace WealthERP.Uploads
                 trListBranch.Visible = true;
                 ddlListBranch.Enabled = false;
                 ddlListBranch.SelectedValue = "1339";
-                
+
             }
             else
             {

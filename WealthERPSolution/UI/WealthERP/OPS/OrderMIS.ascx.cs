@@ -590,7 +590,7 @@ namespace WealthERP.OPS
             else if (ordersMedium == "Offline")
             {
                 Common_MfControls_Visiblity(true);
-                OnlineMforders_Controls_Visiblity(true);
+                OnlineMforders_Controls_Visiblity(false);
 
             }
         }

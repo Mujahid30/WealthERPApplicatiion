@@ -289,9 +289,9 @@
             <asp:Label ID="Label5" CssClass="FieldName" runat="server" Text="Offline/Online Type:"></asp:Label>
         </td>
         <td class="rightField">
-            <asp:DropDownList ID="ddlType" runat="server" AutoPostBack="true" CssClass="cmbLongField">
-                <asp:ListItem Value="1">Online</asp:ListItem>
-                <asp:ListItem Value="0" Enabled="True">Offline</asp:ListItem>
+            <asp:DropDownList ID="ddlType" runat="server" AutoPostBack="true" CssClass="cmbLongField" enabled="false" >
+                <asp:ListItem Value="1"  >Online</asp:ListItem>
+                <asp:ListItem Value="0"  >Offline</asp:ListItem>
                 <%-- <asp:ListItem Value="MFF">MF Folio Only</asp:ListItem>--%>
             </asp:DropDownList>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="ddlType"

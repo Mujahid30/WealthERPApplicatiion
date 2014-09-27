@@ -83,9 +83,10 @@ namespace WealthERP.OPS
 
             associatesVo = (AssociatesVO)Session["associatesVo"];
             userVo = (UserVo)Session[SessionContents.UserVo];
+            
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
-
-             advisorVo = (AdvisorVo)Session[SessionContents.AdvisorVo];  
+           
+             advisorVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
             GetUserType();
             if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
             {
@@ -114,8 +115,8 @@ namespace WealthERP.OPS
                 txtCustomerName_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
                 AutoCompleteExtender1.ContextKey = advisorVo.advisorId.ToString();
                 AutoCompleteExtender1.ServiceMethod = "GetAdviserCustomerPan";
-
-                AutoCompleteExtender2.ContextKey = associateuserheirarchyVo.AgentCode + "/" + advisorVo.advisorId.ToString();                
+                txtAssociateSearch.Text = associatesVo.AAC_AgentCode;
+                AutoCompleteExtender2.ContextKey = associatesVo.AAC_AgentCode + "/" + advisorVo.advisorId.ToString();                
                 AutoCompleteExtender2.ServiceMethod = "GetAgentCodeAssociateDetailsForAssociates";
 
             }
@@ -300,16 +301,16 @@ namespace WealthERP.OPS
 
         protected void GetuserTypeTransactionSlipDownload()
         {
-            if (userVo.UserType == "Advisor")
-            {
-                btnViewInPDF.Visible = true;
-                btnViewReport.Visible = true;
-            }
-            else
-            {
-                btnViewInPDF.Visible = false;
-                btnViewReport.Visible = false;
-            }
+            //if (userVo.UserType == "Advisor")
+            //{
+            //    btnViewInPDF.Visible = true;
+            //    btnViewReport.Visible = true;
+            //}
+            //else
+            //{
+            //    btnViewInPDF.Visible = false;
+            //    btnViewReport.Visible = false;
+            //}
 
         }
 
@@ -566,20 +567,20 @@ namespace WealthERP.OPS
                 lnlBack.Visible = true;
                 lnkDelete.Visible = true;
                 btnUpdate.Visible = true;
-                btnViewReport.Visible = true;
-                btnViewInPDF.Visible = true;
+                //btnViewReport.Visible = true;
+                //btnViewInPDF.Visible = true;
             }
             else if (mode == "Updated")
             {
                 lnlBack.Visible = true;
                 lnkDelete.Visible = true;
-                btnViewReport.Visible = true;
-                btnViewInPDF.Visible = true;
+                //btnViewReport.Visible = true;
+                //btnViewInPDF.Visible = true;
             }
             else if (mode == "New")
             {
-                btnViewReport.Visible = true;
-                btnViewInPDF.Visible = true;
+                //btnViewReport.Visible = true;
+                //btnViewInPDF.Visible = true;
                 btnSubmit.Visible = true;
                 btnAddMore.Visible = true;
 
@@ -589,13 +590,13 @@ namespace WealthERP.OPS
             else if (mode == "Submitted")
             {
                 lnkBtnEdit.Visible = true;
-                btnViewReport.Visible = true;
-                btnViewInPDF.Visible = true;
+                //btnViewReport.Visible = true;
+                //btnViewInPDF.Visible = true;
             }
             else if (mode == "Save_And_More")
             {
-                btnViewReport.Visible = true;
-                btnViewInPDF.Visible = true;
+                //btnViewReport.Visible = true;
+                //btnViewInPDF.Visible = true;
                 btnSubmit.Visible = true;
                 btnAddMore.Visible = true;
                 trOrderNo.Visible = false;
@@ -2674,7 +2675,10 @@ namespace WealthERP.OPS
         }
         protected void OnAssociateTextchanged(object sender, EventArgs e)
         {
-
+            if (!IsPostBack)
+            {
+                txtAssociateSearch.Text = associatesVo.AAC_AgentCode;
+            }
             if (!string.IsNullOrEmpty(txtAssociateSearch.Text))
             {
                 int recCount = customerBo.ChkAssociateCode(advisorVo.advisorId, txtAssociateSearch.Text);

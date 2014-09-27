@@ -367,7 +367,9 @@
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="File Upload" Value="File_Upload">
                                         <Items>
-                                            <telerik:RadPanelItem runat="server" Text="Upload" Value="Start_Upload">
+                                            <telerik:RadPanelItem runat="server" Text="Online Upload" Value="Start_Upload">
+                                            </telerik:RadPanelItem>
+                                             <telerik:RadPanelItem runat="server" Text="Offline Upload" Value="Offline_Upload">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Request Upload Status" Value="Request_Upload_Status">
                                             </telerik:RadPanelItem>
