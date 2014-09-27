@@ -53,10 +53,10 @@ namespace WealthERP.Customer
             rmvo = (RMVo)Session["rmvo"];
             BindDepositoryType();
             customerportfoliovo = (CustomerPortfolioVo)Session["customerPortfolioVo"];
-            if (Session["CustomerId"] != null)
+            if (Request.QueryString["CustomerId"] != null)
             {
-                
-                    customerId = int.Parse(Session["CustomerId"].ToString());
+
+                    customerId = int.Parse(Request.QueryString["CustomerId"].ToString());
                     dsModeOfHolding = new DataSet();
                     dtCustomerAccociation = new DataTable();
                     dsCustomerAssociation = new DataSet();
@@ -68,6 +68,8 @@ namespace WealthERP.Customer
                     ddlModeOfHolding.DataValueField = "XMOH_ModeOfHoldingCode";
                     ddlModeOfHolding.DataBind();
                     ddlModeOfHolding.SelectedIndex = 8;
+                    chk_isactive.Enabled = false;
+                    lbtnBack2Button.Visible = false;
             }
 
             else if (Session["DematDetailsView"].ToString() == "View")
@@ -295,11 +297,17 @@ namespace WealthERP.Customer
             int portfolioid = 0;
             customervo = (CustomerVo)Session["CustomerVo"];
             int customerId = customervo.CustomerId;
-
-            customerportfoliovo = (CustomerPortfolioVo)Session["customerPortfolioVo"];
-            if (customerportfoliovo.PortfolioId.ToString() != "")
+            if (Request.QueryString["CustomerId"] != null)
             {
-                portfolioid = (int)customerportfoliovo.PortfolioId;
+                portfolioid = 0;
+            }
+            else
+            {
+                customerportfoliovo = (CustomerPortfolioVo)Session["customerPortfolioVo"];
+                if (customerportfoliovo.PortfolioId.ToString() != "")
+                {
+                    portfolioid = (int)customerportfoliovo.PortfolioId;
+                }
             }
             //string associationIdJH = null;
             //string associationIdN = null;

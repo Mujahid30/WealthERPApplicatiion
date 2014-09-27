@@ -593,7 +593,7 @@
     <tr>
     <td align="right">
      <asp:ImageButton ID="imgDemat" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
-                AlternateText="Add Demat Account" runat="server" ToolTip="Click here to Add Demat Account" OnClientClick="return openpopupAddDematAccount()"
+                AlternateText="Add Demat Account" runat="server" ToolTip="Click here to Add Demat Account" OnClientClick="return  "
             Height="15px" Width="15px" TabIndex="3"></asp:ImageButton>
             </td>
     </tr>
