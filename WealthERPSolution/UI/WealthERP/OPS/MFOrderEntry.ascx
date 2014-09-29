@@ -248,7 +248,7 @@
     }
    
 </script>
-
+<asp:UpdatePanel >
 <telerik:RadWindow ID="radwindowPopup" runat="server" VisibleOnPageLoad="false" Height="30%"
     Width="400px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="None"
     Title="Add New Folio">
@@ -1669,3 +1669,4 @@
     </tr>
     
 </table>--%>
+</asp:UpdatePanel>
