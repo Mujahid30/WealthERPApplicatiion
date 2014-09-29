@@ -216,10 +216,12 @@ namespace WealthERP.Advisor
 
             if (e.Item is GridDataItem) {
                 GridDataItem item = (GridDataItem)e.Item;
-                RadComboBox actions = (RadComboBox)item.FindControl("ddlMenu");
-                RadComboBoxItem rbcItem = actions.Items.FindItemByValue("Edit", true);
-                rbcItem.Visible = false;
+                DropDownList actions = (DropDownList)item.FindControl("ddlMenu");
+                //RadComboBoxItem rbcItem = actions.Items.FindItemByValue("Edit", true);
+                //rbcItem.Visible = false;
             }
+            if (currentUserRole == "associates")
+                rgvViewStaff.Columns[0].Visible = false;
         }
 
         protected void imgViewStaff_Click(object sender, ImageClickEventArgs e)

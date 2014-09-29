@@ -126,7 +126,8 @@ namespace WealthERP.Advisor
                 UserRole = "associates";
                 AgentId = associatesVo.AAC_AdviserAgentId;
                 branchHeadId = rmVo.RMId;
-                assocUsrHeirVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
+                assocUsrHeirVo = (AssociatesUserHeirarchyVo)Session["associatesUserHeirarchyVo"];
+               // assocUsrHeirVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
                 AgentCode = assocUsrHeirVo.AgentCode;
             }
             if (userVo.UserType == "SuperAdmin")

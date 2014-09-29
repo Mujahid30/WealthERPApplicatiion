@@ -52,6 +52,7 @@ namespace WealthERP.Associates
                 userType = Session[SessionContents.CurrentUserRole].ToString().ToLower();
             if (!IsPostBack)
             {
+                //associatesVo = (AssociatesVO)Session["associatesVo"];
                 if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin"
                     || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops"
                     || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "bm")
@@ -162,9 +163,14 @@ namespace WealthERP.Associates
             if ((e.Item is GridDataItem) == false) return;
 
             GridDataItem item = (GridDataItem)e.Item;
-            RadComboBox actions = (RadComboBox)item.FindControl("ddlMenu");
-            RadComboBoxItem rbcItem = actions.Items.FindItemByValue("Edit", true);
-            rbcItem.Visible = false;
+            //GridColumn column=(GridColumn)sender as GridColumn;
+            DropDownList actions = (DropDownList)item.FindControl("ddlMenu");
+            if (userType == "associates")
+                gvAdviserAssociateList.Columns[0].Visible = false;
+                //column.Visible = false;
+            
+            //RadComboBoxItem rbcItem = actions.Items.FindItemByValue("Edit", true);
+            //rbcItem.Visible = false;
         }
     }
 }
