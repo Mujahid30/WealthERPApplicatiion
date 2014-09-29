@@ -70,6 +70,7 @@ namespace WealthERP.Customer
                     ddlModeOfHolding.SelectedIndex = 8;
                     chk_isactive.Enabled = false;
                     lbtnBack2Button.Visible = false;
+                    Session["DematDetailsView"] = "ADD";
             }
 
             else if (Session["DematDetailsView"].ToString() == "View")
@@ -322,7 +323,7 @@ namespace WealthERP.Customer
                 
                 try
                 {
-                    if (Session["DematDetailsView"].ToString() == "Add")
+                    if (Session["DematDetailsView"].ToString() == "ADD")
                     {
                         if (!string.IsNullOrEmpty(accountopeningdate.Trim()))
                             demataccountvo.AccountOpeningDate = DateTime.Parse(accountopeningdate);

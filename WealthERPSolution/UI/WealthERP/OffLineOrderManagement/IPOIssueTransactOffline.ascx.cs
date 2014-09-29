@@ -87,8 +87,8 @@ namespace WealthERP.OffLineOrderManagement
             associatesVo = (AssociatesVO)Session["associatesVo"];
             userVo = (UserVo)Session[SessionContents.UserVo];
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
-
-
+            
+            rwDematDetails.VisibleOnPageLoad = false;
             GetUserType();
             if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
             {
@@ -132,7 +132,7 @@ namespace WealthERP.OffLineOrderManagement
                     OnAssociateTextchanged(this, null);
                 }
                 //gvJointHoldersList.Visible = false;
-                BindARNNo(advisorVo.advisorId);
+                
                 hdnIsSubscripted.Value = advisorVo.IsISASubscribed.ToString();
                 if (hdnIsSubscripted.Value == "True")
                 {
@@ -209,22 +209,6 @@ namespace WealthERP.OffLineOrderManagement
 
 
         }
-
-        private void BindARNNo(int adviserId)
-        {
-            DataSet dsArnNo = mfOrderBo.GetARNNo(adviserId);
-            if (dsArnNo.Tables[0].Rows.Count > 0)
-            {
-                ddlARNNo.DataSource = dsArnNo;
-                ddlARNNo.DataValueField = dsArnNo.Tables[0].Columns["Identifier"].ToString();
-                ddlARNNo.DataTextField = dsArnNo.Tables[0].Columns["Identifier"].ToString();
-                ddlARNNo.DataBind();
-            }
-            ddlARNNo.Items.Insert(0, new ListItem("Select", "Select"));
-        }
-
-
-
 
         protected void imgAddBank_OnClick(object sender, EventArgs e)
         {
@@ -603,12 +587,30 @@ namespace WealthERP.OffLineOrderManagement
                 gvDematDetailsTeleR.Visible = true;
                 gvDematDetailsTeleR.DataSource = dsDematDetails.Tables[0];
                 gvDematDetailsTeleR.DataBind();
-                pnlDematGv.Visible = true;
+                
             }
             catch (Exception ex)
             {
                 throw ex;
             }
+        }
+        protected void GetcustomerDetails()
+        {
+
+            customerVo = customerBo.GetCustomer(int.Parse(txtCustomerId.Value));
+            Session["customerVo"] = customerVo;
+            lblGetBranch.Text = customerVo.BranchName;
+            lblgetPan.Text = customerVo.PANNum;
+            hdnCustomerId.Value = txtCustomerId.Value;
+            customerId = int.Parse(txtCustomerId.Value);
+            if (ddlsearch.SelectedItem.Value == "2")
+                lblgetcust.Text = customerVo.FirstName + ' ' + customerVo.MiddleName + ' ' + customerVo.LastName;
+            BindBank();
+            BindISAList();
+            BindCustomerNCDIssueList();
+            GetDematAccountDetails(int.Parse(txtCustomerId.Value));
+            Panel1.Visible = true;
+
         }
         protected void txtCustomerId_ValueChanged1(object sender, EventArgs e)
         {
@@ -617,42 +619,10 @@ namespace WealthERP.OffLineOrderManagement
             if (!string.IsNullOrEmpty(txtCustomerId.Value.ToString().Trim()))
             {
 
-                //ddlAMCList.Enabled = true;
-                customerVo = customerBo.GetCustomer(int.Parse(txtCustomerId.Value));
-                Session["customerVo"] = customerVo;
-                lblGetBranch.Text = customerVo.BranchName;
-                
-                lblgetPan.Text = customerVo.PANNum;
-                hdnCustomerId.Value = txtCustomerId.Value;
-                customerId = int.Parse(txtCustomerId.Value);
-                if (ddlsearch.SelectedItem.Value == "2")
-                    lblgetcust.Text = customerVo.FirstName + ' ' + customerVo.MiddleName + ' ' + customerVo.LastName;
-                BindBank();
-                BindISAList();
-                BindCustomerNCDIssueList();
-                BindJointHolderNominee();
-                GetFIModeOfHolding();
-                BindDepositoryType();
-                GetDematAccountDetails(int.Parse(txtCustomerId.Value));
+                GetcustomerDetails();
             }
         }
-        protected void chkjnthld_OnCheckedChanged(object sender, EventArgs e)
-        {
-            CheckBox chkJntHld = (CheckBox)sender;
-            GridDataItem item = (GridDataItem)chkJntHld.NamingContainer;
-            CompareValidator1.Enabled = false;
-            foreach (GridDataItem gvr in gvJointHolder.MasterTableView.Items)
-            {
-                if (((CheckBox)gvr.FindControl("chkjnthld")).Checked == true)
-                {
-
-
-                    CompareValidator1.Enabled = true;
-                    return;
-                }
-
-            }
-        }
+       
         public DataTable LoadNomineesJointHolder(string type)
         {
             DataTable dtCustomerAssociatesRaw = new DataTable();
@@ -717,60 +687,9 @@ namespace WealthERP.OffLineOrderManagement
             }
         }
 
-        private void BindJointHolderNominee()
-        {
-            DataTable dtJointHolderNomiee = new DataTable();
-            DataTable dtNominee = new DataTable();
-            dtJointHolderNomiee = LoadNomineesJointHolder("JH");
-            gvJointHolder.DataSource = dtJointHolderNomiee;
-            gvJointHolder.DataBind();
-            pnlJointHolder.Visible = true;
-            dtNominee = LoadNomineesJointHolder("N");
-            gvNominee.DataSource = null;
-            gvNominee.DataSource = dtNominee;
-            gvNominee.DataBind();
-            pnlNominee.Visible = true;
-
-        }
-        protected void BindDepositoryType()
-        {
-            DataTable DsDepositoryNames = new DataTable();
-            DsDepositoryNames = boDematAccount.GetDepositoryName();
-            ddlDepositoryName.DataSource = DsDepositoryNames;
-            if (DsDepositoryNames.Rows.Count > 0)
-            {
-                ddlDepositoryName.DataTextField = "WCMV_Code";
-                ddlDepositoryName.DataValueField = "WCMV_Code";
-                ddlDepositoryName.DataBind();
-            }
-            ddlDepositoryName.Items.Insert(0, new ListItem("Select", "Select"));
-
-        }
-        private void GetFIModeOfHolding()
-        {
-            FIOrderBo fiorderBo = new FIOrderBo();
-            DataSet dsDepoBank = fiorderBo.GetFIModeOfHolding();
-
-
-            if (dsDepoBank.Tables[0].Rows.Count > 0)
-            {
-
-                ddlModeofHOldingFI.DataSource = dsDepoBank.Tables[0];
-                ddlModeofHOldingFI.DataValueField = dsDepoBank.Tables[0].Columns["XMOH_ModeOfHoldingCode"].ToString();
-                ddlModeofHOldingFI.DataTextField = dsDepoBank.Tables[0].Columns["XMOH_ModeOfHolding"].ToString();
-                ddlModeofHOldingFI.DataBind();
-
-                ddlModeofHOldingFI.Items.Insert(0, new ListItem("Select", "Select"));
-
-            }
-            else
-            {
-                ddlModeofHOldingFI.Items.Clear();
-                ddlModeofHOldingFI.DataSource = null;
-                ddlModeofHOldingFI.DataBind();
-                ddlModeofHOldingFI.Items.Insert(0, new ListItem("Select", "Select"));
-            }
-        }
+        
+        
+        
         private void BindBank()
         {
             CommonLookupBo commonLookupBo = new CommonLookupBo();
@@ -1512,36 +1431,22 @@ namespace WealthERP.OffLineOrderManagement
             }
             orderId = OfflineIPOOrderBo.CreateIPOBidOrderDetails(advisorVo.advisorId, userVo.UserId, dtIPOBidTransactionDettails, onlineIPOOrderVo, agentId, txtAssociateSearch.Text);
             int rowNodt = 0;
-            if (gvJointHolder.MasterTableView.Items.Count > 0)
+            if (gvAssociate.MasterTableView.Items.Count > 0)
             {
-                foreach (GridDataItem gvr in gvJointHolder.Items)
+                foreach (GridDataItem gvr in gvAssociate.Items)
                 {
-                    if (((CheckBox)gvr.FindControl("chkjnthld")).Checked == true)
-                    {
-                        dtJntHld.Rows.Add();
-                        dtJntHld.Rows[rowNodt]["AssociateId"] = int.Parse(gvJointHolder.MasterTableView.DataKeyValues[gvr.ItemIndex]["AssociateId"].ToString());
-                        dtJntHld.Rows[rowNodt]["AssociateType"] = ddlModeofHOldingFI.SelectedItem.Text;
-                        rowNodt++;
+
+                    dtJntHld.Rows.Add();
+                    dtJntHld.Rows[rowNodt]["AssociateId"] = int.Parse(gvAssociate.MasterTableView.DataKeyValues[gvr.ItemIndex]["CDAA_Id"].ToString());
+                    dtJntHld.Rows[rowNodt]["AssociateType"] = gvAssociate.MasterTableView.DataKeyValues[gvr.ItemIndex]["AssociateType"].ToString();
+                    rowNodt++;
 
 
-                    }
+
 
                 }
             }
-            if (gvNominee.MasterTableView.Items.Count > 0)
-            {
-                foreach (GridDataItem gvr in gvNominee.Items)
-                {
-                    if (((CheckBox)gvr.FindControl("ChkNominee")).Checked == true)
-                    {
-                        dtJntHld.Rows.Add();
-                        dtJntHld.Rows[rowNodt]["AssociateId"] = int.Parse(gvNominee.MasterTableView.DataKeyValues[gvr.ItemIndex]["AssociateId"].ToString());
-                        dtJntHld.Rows[rowNodt]["AssociateType"] = "Jointly";
-                        rowNodt++;
-                    }
 
-                }
-            }
             if (dtJntHld.Rows.Count > 0)
             {
                 OnlineBondBo.CreateOfflineCustomerOrderAssociation(dtJntHld, userVo.UserId, orderId);
@@ -1761,5 +1666,48 @@ namespace WealthERP.OffLineOrderManagement
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "IPOIssueList", "loadcontrol('IPOIssueList');", true);
             }
         }
+        protected void ImageddlSyndicate_Click(object sender, EventArgs e)
+        {
+            RadDepository.VisibleOnPageLoad = true;
+
+        }
+        protected void btnAddDemat_Click(object sender, EventArgs e)
+        {
+            int dematAccountId = 0;
+            foreach (GridDataItem gvr in gvDematDetailsTeleR.MasterTableView.Items)
+            {
+                if (((CheckBox)gvr.FindControl("chkDematId")).Checked == true)
+                {
+                    dematAccountId = int.Parse(gvDematDetailsTeleR.MasterTableView.DataKeyValues[gvr.ItemIndex]["CEDA_DematAccountId"].ToString());
+                    txtDematid.Text = gvDematDetailsTeleR.MasterTableView.DataKeyValues[gvr.ItemIndex]["CEDA_DPClientId"].ToString();
+                    break;
+                }
+
+            }
+            BindgvFamilyAssociate(dematAccountId);
+
+        }
+        private void BindgvFamilyAssociate(int demataccountid)
+        {
+            gvAssociate.Visible = true;
+            DataSet dsAssociate = boDematAccount.GetCustomerDematAccountAssociates(demataccountid);
+            gvAssociate.DataSource = dsAssociate;
+            gvAssociate.DataBind();
+            pnlJointHolderNominee.Visible = true;
+            if (Cache["gvAssociate" + userVo.UserId] == null)
+            {
+                Cache.Insert("gvAssociate" + userVo.UserId, dsAssociate);
+            }
+            else
+            {
+                Cache.Remove("gvAssociate" + userVo.UserId);
+                Cache.Insert("gvAssociate" + userVo.UserId, dsAssociate);
+            }
+        }
+        protected void lnkBtnDemat_onClick(object sender, EventArgs e)
+        {
+            rwDematDetails.VisibleOnPageLoad = true;
+        }
+        
     }
 }
