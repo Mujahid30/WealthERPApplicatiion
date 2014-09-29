@@ -408,10 +408,10 @@
                                     CssClass="rfvPCG" ErrorMessage="<br />Please select a From Date" Display="Dynamic"
                                     runat="server" InitialValue="" ValidationGroup="btnGo"> </asp:RequiredFieldValidator>
                             </td>
-                            <td align="right" style="width: 80px;">
+                            <td align="right" style="width: 80px;" colspan="1">
                                 <asp:Label ID="lblToDate" runat="server" CssClass="FieldName">To:</asp:Label>
                             </td>
-                            <td colspan="3">
+                            <td colspan="2">
                                 <telerik:RadDatePicker ID="txtToDate" CssClass="txtTo" runat="server" Culture="English (United States)"
                                     Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
                                     <Calendar ID="Calendar2" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
@@ -443,7 +443,7 @@
                             <td align="right">
                     &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;--%>
                             <td align="right">
-                                <asp:Label ID="lblAgentCode" runat="server" Text="Agent Code:" CssClass="FieldName"></asp:Label>
+                                <asp:Label ID="lblAgentCode" runat="server" Text="SubBroker Code:" CssClass="FieldName"></asp:Label>
                             </td>
                             <td>
                                 <asp:DropDownList ID="ddlAgentCode" runat="server" CssClass="cmbField">
@@ -473,7 +473,7 @@
                                             <asp:Label ID="lblGroupHead" runat="server" CssClass="FieldName" Text="Group Head :"></asp:Label>
                                             <asp:Label ID="lblCustomerSearch" runat="server" Text="Customer:" CssClass="FieldName"></asp:Label>
                                         </td>
-                                        <td valign="top" colspan="1">
+                                        <td valign="top" >
                                             <asp:TextBox ID="txtParentCustomer" runat="server" CssClass="txtField" AutoPostBack="true"
                                                 AutoComplete="Off"></asp:TextBox>
                                             <cc1:TextBoxWatermarkExtender ID="txtParentCustomer_TextBoxWatermarkExtender" runat="server"
@@ -619,18 +619,18 @@
                                     <asp:ListItem Text="Managed" Value="1">Managed</asp:ListItem>
                                     <asp:ListItem Text="UnManaged" Value="0">UnManaged</asp:ListItem>
                                 </asp:DropDownList>
-                            </td>
+                            </td>--%>
                             <tr id="trZCCS" runat="server" visible="false">
                                 <td align="right">
                                     <asp:Label ID="lblBrokerCode" runat="server" Text="Sub Broker Code:" CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
                                     <asp:DropDownList ID="ddlBrokerCode" runat="server" CssClass="cmbField">
-                                        <%-- <asp:ListItem Text="SubBroker Code" Value="0" Selected="true"></asp:ListItem>
+                                        <asp:ListItem Text="SubBroker Code" Value="0" Selected="true"></asp:ListItem>
                     </asp:DropDownList>
                 </td>
             </tr>
-            --%>
+            
                     </table>
                 </td>
             </tr>

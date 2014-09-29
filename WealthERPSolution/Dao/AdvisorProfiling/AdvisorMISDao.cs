@@ -2444,7 +2444,7 @@ namespace DaoAdvisorProfiling
         /// <param name="Todate"></param>
         /// <param name="AgentId"></param>
         /// <returns></returns>
-        public DataSet GetProductDetailFromMFOrder(string agentcode, string userType, int AdviserId, int rmId, int branchId, int branchHeadId, int all, DateTime FromDate, DateTime Todate, int AgentId)
+        public DataSet GetProductDetailFromMFOrder(string agentcode, string userType, int AdviserId, int rmId, int branchId, int branchHeadId, int all, DateTime FromDate, DateTime Todate, int AgentId, int isOnline)
         {
             Database db;
             DbCommand GetSchemeTransactionDeatailsCmd;
@@ -2472,7 +2472,9 @@ namespace DaoAdvisorProfiling
                     db.AddInParameter(GetSchemeTransactionDeatailsCmd, "@AAC_AdviserAgentId", DbType.Int32, AgentId);
                 else
                     db.AddInParameter(GetSchemeTransactionDeatailsCmd, "@AAC_AdviserAgentId", DbType.Int32, DBNull.Value);
+                db.AddInParameter(GetSchemeTransactionDeatailsCmd, "@IsOnline", DbType.Int32, isOnline);
 
+                GetSchemeTransactionDeatailsCmd.CommandTimeout = 60 * 60;
                 dsSchemeTransactionDeatails = db.ExecuteDataSet(GetSchemeTransactionDeatailsCmd);
             }
             catch (BaseApplicationException Ex)

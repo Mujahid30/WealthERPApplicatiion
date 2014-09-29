@@ -205,8 +205,8 @@ namespace WealthERP.CustomerPortfolio
                     //txtParentCustomer.Visible = false;
                     if (userType == "associates")
                     {
-                        trZCCS.Visible = true;
-                        BindSubBrokerAgentCode(AgentCode);
+                        //trZCCS.Visible = true;
+                       // BindSubBrokerAgentCode(AgentCode);\\commented
                     }
 
 

@@ -303,12 +303,13 @@ namespace WealthERP.CustomerPortfolio
         }
         private void BindPortfolioDropDown()
         {
-            DataSet ds = portfolioBo.GetCustomerPortfolio(customerId);
+            DataSet ds = portfolioBo.GetCustomerPortfolio(int.Parse(hdntxtcustomerId.Value));
             ddlPortfolio.DataSource = ds;
             ddlPortfolio.DataValueField = ds.Tables[0].Columns["CP_PortfolioId"].ToString();
             ddlPortfolio.DataTextField = ds.Tables[0].Columns["CP_PortfolioName"].ToString();
             ddlPortfolio.DataBind();
             customerId = 0;
+            hdntxtcustomerId.Value = "";
             //ddlAMC.Items.Clear();
             //ddlPortfolio.Items.Insert(0, "Select the Portfolio");
 

@@ -177,6 +177,7 @@ namespace DaoOnlineOrderManagement
                 //    db.AddInParameter(GetSchemeMISCmd, "@status", DbType.String, Status);
 
                 //}
+                    GetSchemeMISCmd.CommandTimeout = 60 * 60;
                 dsSchemeMIS = db.ExecuteDataSet(GetSchemeMISCmd);
 
             }

@@ -141,7 +141,7 @@ namespace WealthERP.BusinessMIS
             int customerId = 0;
             int customerIdOld = 0;
             DataSet dsGetMemberDetailFromMFOrder = new DataSet();
-            dsGetMemberDetailFromMFOrder = adviserMFMIS.GetMemberDetailFromMFOrder(Agentcode, userType, int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), int.Parse(hdnAll.Value), DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnToDate.Value), int.Parse(hdnAgentId.Value),int.Parse(ddlFilter.SelectedValue));
+            dsGetMemberDetailFromMFOrder = adviserMFMIS.GetMemberDetailFromMFOrder(Agentcode, userType, int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), int.Parse(hdnAll.Value), DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnToDate.Value), int.Parse(hdnAgentId.Value), int.Parse(ddlFilter.SelectedValue));
             DataTable dtGetMemberDetailFromMFOrder = new DataTable();
             dtGetMemberDetailFromMFOrder.Columns.Add("customerId");
             dtGetMemberDetailFromMFOrder.Columns.Add("OrderNo");
@@ -317,7 +317,7 @@ namespace WealthERP.BusinessMIS
                                             }
                                     }
 
-                                }           
+                                }
                             }
 
                             drGetMemberDetailFromMFOrder["Net"] = double.Parse(drGetMemberDetailFromMFOrder["GrossInvestment"].ToString()) - double.Parse(drGetMemberDetailFromMFOrder["GrossRedemption"].ToString());
@@ -554,7 +554,7 @@ namespace WealthERP.BusinessMIS
                     }//**
 
                 }//***
-                
+
                 gvOrganization.DataSource = dtGetOrganizationDetailFromMFOrder;
                 gvOrganization.DataBind();
                 pnlProduct.Visible = true;
@@ -579,13 +579,21 @@ namespace WealthERP.BusinessMIS
 
         protected void lnkBtnProduct_Click(object sender, EventArgs e)
         {
-            SetParameters();
-            BindProductGrid();
-            lblMFMISType.Text = "PRODUCT";
-            trPnlProduct.Visible = true;
-            trPnlOrganization.Visible = false;
-            trMember.Visible = false;
-        
+            if (ddlFilter.SelectedValue == "S")
+            {
+                lblErrorFilter.Visible = true;
+            }
+            else
+            {
+                lblErrorFilter.Visible = false;
+                SetParameters();
+                BindProductGrid();
+                lblMFMISType.Text = "PRODUCT";
+                trPnlProduct.Visible = true;
+                trPnlOrganization.Visible = false;
+                trMember.Visible = false;
+            }
+
         }
 
         private void BindProductGrid()
@@ -593,7 +601,7 @@ namespace WealthERP.BusinessMIS
             int SchemeCode = 0;
             int SchemeCodeOld = 0;
             DataSet dsGetProductDetailFromMFOrder = new DataSet();
-            dsGetProductDetailFromMFOrder = adviserMFMIS.GetProductDetailFromMFOrder(Agentcode, userType, int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), int.Parse(hdnAll.Value), DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnToDate.Value), int.Parse(hdnAgentId.Value));
+            dsGetProductDetailFromMFOrder = adviserMFMIS.GetProductDetailFromMFOrder(Agentcode, userType, int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), int.Parse(hdnAll.Value), DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnToDate.Value), int.Parse(hdnAgentId.Value),int.Parse(ddlFilter.SelectedValue));
 
             DataTable dtGetProductDetailFromMFOrder = new DataTable();
             dtGetProductDetailFromMFOrder.Columns.Add("AMC");
@@ -601,7 +609,7 @@ namespace WealthERP.BusinessMIS
             dtGetProductDetailFromMFOrder.Columns.Add("Scheme");
             dtGetProductDetailFromMFOrder.Columns.Add("Category");
             dtGetProductDetailFromMFOrder.Columns.Add("SubCategory");
-            
+
             dtGetProductDetailFromMFOrder.Columns.Add("BUYCount", typeof(double));
             dtGetProductDetailFromMFOrder.Columns.Add("BUYAmount", typeof(double));
             dtGetProductDetailFromMFOrder.Columns.Add("SELCount", typeof(double));
@@ -672,7 +680,7 @@ namespace WealthERP.BusinessMIS
 
                             drGetProductDetailFromMFOrder["Category"] = drAMCTransaction["PAIC_AssetInstrumentCategoryName"].ToString();
                             drGetProductDetailFromMFOrder["SubCategory"] = drAMCTransaction["PAISC_AssetInstrumentSubCategoryName"].ToString();
-                            
+
                             if (drTransactionSchemeWise.Count() > 0)
                             {
                                 foreach (DataRow dr in drTransactionSchemeWise)
@@ -768,7 +776,7 @@ namespace WealthERP.BusinessMIS
                     }//**
 
                 }//***
-                
+
                 gvProduct.DataSource = dtGetProductDetailFromMFOrder;
                 gvProduct.DataBind();
                 pnlProduct.Visible = true;
@@ -911,12 +919,12 @@ namespace WealthERP.BusinessMIS
         }
         protected void gvMember_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
-           
-                DataTable dtGetMemberDetailFromMFOrder = new DataTable();
-                dtGetMemberDetailFromMFOrder = (DataTable)Cache["gvMember" + advisorVo.advisorId];
-                gvMember.Visible = true;
-                this.gvMember.DataSource = dtGetMemberDetailFromMFOrder;
-         
+
+            DataTable dtGetMemberDetailFromMFOrder = new DataTable();
+            dtGetMemberDetailFromMFOrder = (DataTable)Cache["gvMember" + advisorVo.advisorId];
+            gvMember.Visible = true;
+            this.gvMember.DataSource = dtGetMemberDetailFromMFOrder;
+
         }
     }
 }

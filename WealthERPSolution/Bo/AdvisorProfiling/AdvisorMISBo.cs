@@ -1680,13 +1680,13 @@ namespace BoAdvisorProfiling
         /// <param name="Todate"></param>
         /// <param name="AgentId"></param>
         /// <returns></returns>
-        public DataSet GetProductDetailFromMFOrder(string agentcode, string userType, int AdviserId, int rmId, int branchId, int branchHeadId, int all, DateTime FromDate, DateTime Todate, int AgentId)
+        public DataSet GetProductDetailFromMFOrder(string agentcode, string userType, int AdviserId, int rmId, int branchId, int branchHeadId, int all, DateTime FromDate, DateTime Todate, int AgentId,int isOnline)
         {
             AdvisorMISDao MISDao = new AdvisorMISDao();
             DataSet dsGetProductDetailFromMFOrder;
             try
             {
-                dsGetProductDetailFromMFOrder = MISDao.GetProductDetailFromMFOrder(agentcode, userType, AdviserId, rmId, branchId, branchHeadId, all, FromDate, Todate, AgentId);
+                dsGetProductDetailFromMFOrder = MISDao.GetProductDetailFromMFOrder(agentcode, userType, AdviserId, rmId, branchId, branchHeadId, all, FromDate, Todate, AgentId, isOnline);
             }
             catch (BaseApplicationException Ex)
             {
