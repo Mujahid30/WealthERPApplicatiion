@@ -1973,4 +1973,8 @@
     <value>Associates//ReassignStaffAssociats.ascx</value>
     <comment>Associates//ReassignStaffAssociats.ascx</comment>
   </data>
+  <data name="BulkRequestStatus" xml:space="preserve">
+    <value>UploadBackOffice//BulkRequestStatus.ascx</value>
+    <comment>UploadBackOffice//BulkRequestStatus.ascx</comment>
+  </data>
 </root>

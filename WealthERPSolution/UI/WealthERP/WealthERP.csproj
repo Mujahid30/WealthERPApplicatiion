@@ -3902,6 +3902,13 @@
     <Compile Include="UploadBackOffice\BulkRequestManagement.ascx.designer.cs">
       <DependentUpon>BulkRequestManagement.ascx</DependentUpon>
     </Compile>
+    <Compile Include="UploadBackOffice\BulkRequestStatus.ascx.cs">
+      <DependentUpon>BulkRequestStatus.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UploadBackOffice\BulkRequestStatus.ascx.designer.cs">
+      <DependentUpon>BulkRequestStatus.ascx</DependentUpon>
+    </Compile>
     <Compile Include="UploadBackOffice\ManageProfileReject.ascx.cs">
       <DependentUpon>ManageProfileReject.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -8156,6 +8163,7 @@
     <Content Include="SuperAdmin\ViewIssuseDetails.ascx" />
     <Content Include="SuperAdmin\ViewUploadHistory.ascx" />
     <Content Include="UploadBackOffice\BulkRequestManagement.ascx" />
+    <Content Include="UploadBackOffice\BulkRequestStatus.ascx" />
     <Content Include="UploadBackOffice\ManageProfileReject.ascx" />
     <Content Include="UploadPackages\CAMSSystematicUploadPackageNew\CAMSSystematicUploadPackageNew.sln" />
     <Content Include="UploadPackages\CAMSSystematicUploadPackageNew\CAMSSystematicUploadPackageNew\CAMSSystematicUploadPackageNew.dtproj.user" />
