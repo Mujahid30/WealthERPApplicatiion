@@ -59,6 +59,7 @@ namespace WealthERP.Associates
             radStaffList.Items.Clear();
             ExistingStaffList.Items.Clear();
             MappedStaffList.Items.Clear();
+            txtNewReporting.Text = "";
         }
         protected void BindChannelList()
         {
@@ -103,10 +104,16 @@ namespace WealthERP.Associates
         }
         protected void ddlTitle_OnSelectedIndexChanged(object sender, EventArgs e)
         {
-            //if (ddlTitle.SelectedValue != "Select")
-            //{
-            BindSourceManager();
-            //}
+            string mappedStaffAssociate = string.Empty;
+            if (txtStaffId.Value == "")
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please Select New reporing Manager.');", true);
+                return;
+            }
+            else
+            {
+                BindSourceManager();
+            }
         }
         protected void BindSourceManager()
         {
@@ -139,41 +146,80 @@ namespace WealthERP.Associates
         }
         protected void ChkExistingStaff_OnCheckedChanged(object sender, EventArgs e)
         {
-         
+
         }
         protected void chkNewStaff_OnCheckedChanged(object sender, EventArgs e)
         {
         }
-        protected void radStaffList_OnSelectedIndexChanged(object sender, EventArgs e)
+        //protected void radStaffList_OnSelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //string selectStaffAssociate = string.Empty;
+        //foreach (RadListBoxItem li in radStaffList.Items)
+        //{
+        //    if (li.Checked == true)
+        //    {
+        //        selectStaffAssociate += li.Value + ',';
+        //    }
+        //}
+        //BindAssociateList(selectStaffAssociate.TrimEnd(','));
+        //}
+        protected void ExistingStaffList_Transferred(object source, Telerik.Web.UI.RadListBoxTransferredEventArgs e)
+        {
+            ExistingStaffList.Items.Sort();
+        }
+        protected void btnStaffList_Click(object sender, EventArgs e)
         {
             string selectStaffAssociate = string.Empty;
+
             foreach (RadListBoxItem li in radStaffList.Items)
             {
                 if (li.Checked == true)
                 {
                     selectStaffAssociate += li.Value + ',';
                 }
+                if (selectStaffAssociate == string.Empty)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please Select Source Reporting Manager.');", true);
+                    return;
+                }
             }
             BindAssociateList(selectStaffAssociate.TrimEnd(','));
-        }
-        protected void ExistingStaffList_Transferred(object source, Telerik.Web.UI.RadListBoxTransferredEventArgs e)
-        {
-            ExistingStaffList.Items.Sort();
         }
         protected void btnSubmit_OnClick(object sender, EventArgs e)
         {
             int newManagerId;
-            newManagerId = int.Parse(txtStaffId.Value);
             string mappedStaffAssociate = string.Empty;
-            foreach (RadListBoxItem li in MappedStaffList.Items)
+            if (txtStaffId.Value == "")
             {
-                if (li.Checked == true)
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please Select New reporing Manager.');", true);
+                return;
+            }
+            else
+            {
+                newManagerId = int.Parse(txtStaffId.Value);
+            }
+            if (MappedStaffList.Items.Count > 0)
+            {
+                foreach (RadListBoxItem li in MappedStaffList.Items)
                 {
-                    mappedStaffAssociate += li.Value + ',';
+                    if (li.Checked == true)
+                    {
+                        mappedStaffAssociate += li.Value + ',';
+                    }
+                    if (mappedStaffAssociate == string.Empty)
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please Select Mapped Staff.');", true);
+                        return;
+                    }
                 }
             }
+            else
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please Select Existing Staff To Mapped Staff.');", true);
+                return;
+            }
             advisorStaffBo.UpdateReportingManager(mappedStaffAssociate.TrimEnd(','), newManagerId, advisorVo.advisorId);
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Reporting Manager Change Successful!!');", true);
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Reporting Manager Change Successfully!!');", true);
 
         }
     }

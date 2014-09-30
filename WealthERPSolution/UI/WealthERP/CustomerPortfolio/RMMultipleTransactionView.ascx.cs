@@ -123,6 +123,9 @@ namespace WealthERP.CustomerPortfolio
                         userType = "rm";
                     else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "associates")
                     {
+                        tdCustomerGroup.Visible = false;
+                        ddlAgentCode.Items[1].Enabled = false;
+                        
                         userType = "associates";
                         associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
                         if (associateuserheirarchyVo.UserTitle == "SubBroker")
@@ -140,7 +143,7 @@ namespace WealthERP.CustomerPortfolio
                         {
                             if (associateuserheirarchyVo.AgentCode != null)
                             {
-                                AgentCode = associateuserheirarchyVo.AgentCode.ToString();
+                                AgentCode =  associateuserheirarchyVo.AgentCode.ToString();
                             }
                             else
                             {
@@ -206,7 +209,7 @@ namespace WealthERP.CustomerPortfolio
                     if (userType == "associates")
                     {
                         //trZCCS.Visible = true;
-                       // BindSubBrokerAgentCode(AgentCode);\\commented
+                        BindSubBrokerAgentCode(AgentCode);//commented
                     }
 
 

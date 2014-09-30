@@ -816,6 +816,7 @@ ul.tabbernav li.tabberactive a:hover
     border-style: solid;
     border-color: Scrollbar;
     visibility: hidden;
+    z-index: 0;
 }
 
 /*AutoComplete flyout */
@@ -824,7 +825,8 @@ ul.tabbernav li.tabberactive a:hover
     background-color: #FFFFFF;
     font-size: small;
     text-align: left;
-    max-height: 200px;
+    max-height: 20px;
+    z-index: 0;
 }
 
 /* AutoComplete highlighted item */

@@ -3686,12 +3686,12 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "CustomerSignUp")
                 {
                     Session["UserType"] = "Associates";
-                    //  ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserNewSignupMIS','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserNewSignupMIS','login');", true);
                 }
 
                 else if (e.Item.Value == "MF Commission MIS")
                 {
-                    // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('Commissiondashboard','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('Commissiondashboard','login');", true);
                 }
                 else if (e.Item.Value == "MF systematic MIS")
                 {

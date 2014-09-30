@@ -49,10 +49,15 @@
         <td align="right">
             <asp:Label ID="lblChannel" runat="server" CssClass="FieldName" Text="Channel:"></asp:Label>
         </td>
-        <td style="width: 150px;">
+        <td style="width: 200px;">
             <asp:DropDownList ID="ddlChannel" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlChannel_OnSelectedIndexChanged"
                 AutoPostBack="true">
             </asp:DropDownList>
+            <span id="Span27" class="spnRequiredField">*</span>
+            <br />
+            <asp:RequiredFieldValidator ID="rfvddlChannel" runat="server" ErrorMessage="Please Select Channel"
+                CssClass="rfvPCG" ControlToValidate="ddlChannel" ValidationGroup="btnbasicsubmit"
+                Display="Dynamic" InitialValue="Select"></asp:RequiredFieldValidator>
         </td>
         <td style="width: 150px;">
         </td>
@@ -71,6 +76,11 @@
             <asp:DropDownList ID="ddltitlechannelId" runat="server" CssClass="cmbField" AutoPostBack="true"
                 OnSelectedIndexChanged="ddltitlechannelId_OnSelectedIndexChanged">
             </asp:DropDownList>
+            <span id="Span2" class="spnRequiredField">*</span>
+            <br />
+            <asp:RequiredFieldValidator ID="rfvddltitlechannelId" runat="server" ErrorMessage="Please Select Title"
+                CssClass="rfvPCG" ControlToValidate="ddltitlechannelId" ValidationGroup="btnbasicsubmit"
+                Display="Dynamic" InitialValue="Select"></asp:RequiredFieldValidator>
         </td>
         <td align="right" style="width: 150px;">
             <asp:Label ID="lblNewReporting" runat="server" CssClass="FieldName" Text="New Reporting Manager:"></asp:Label>
@@ -115,6 +125,11 @@
             <asp:DropDownList ID="ddlTitle" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlTitle_OnSelectedIndexChanged"
                 AutoPostBack="true">
             </asp:DropDownList>
+            <span id="Span3" class="spnRequiredField">*</span>
+            <br />
+            <asp:RequiredFieldValidator ID="rfvddlTitle" runat="server" ErrorMessage="Please Select Title"
+                CssClass="rfvPCG" ControlToValidate="ddlTitle" ValidationGroup="btnbasicsubmit"
+                Display="Dynamic" InitialValue="Select"></asp:RequiredFieldValidator>
         </td>
     </tr>
     <tr>
@@ -136,13 +151,16 @@
         <td>
         </td>
         <td>
-            <asp:CheckBox ID="chkSourceStaff" runat="server" Text="Check All" OnCheckedChanged="chkSourceStaff_OnCheckedChanged" CssClass="FieldName" AutoPostBack="true" Visible="false"/>
+            <asp:CheckBox ID="chkSourceStaff" runat="server" Text="Check All" OnCheckedChanged="chkSourceStaff_OnCheckedChanged"
+                CssClass="FieldName" AutoPostBack="true" Visible="false" />
         </td>
         <td>
-            <asp:CheckBox ID="ChkExistingStaff" runat="server" Text="Check All" OnCheckedChanged="ChkExistingStaff_OnCheckedChanged" CssClass="FieldName" AutoPostBack="true" Visible="false"/>
+            <asp:CheckBox ID="ChkExistingStaff" runat="server" Text="Check All" OnCheckedChanged="ChkExistingStaff_OnCheckedChanged"
+                CssClass="FieldName" AutoPostBack="true" Visible="false" />
         </td>
         <td>
-            <asp:CheckBox ID="chkNewStaff" runat="server" Text="Check All" OnCheckedChanged="chkNewStaff_OnCheckedChanged" CssClass="FieldName" AutoPostBack="true" Visible="false"/>
+            <asp:CheckBox ID="chkNewStaff" runat="server" Text="Check All" OnCheckedChanged="chkNewStaff_OnCheckedChanged"
+                CssClass="FieldName" AutoPostBack="true" Visible="false" />
         </td>
     </tr>
     <tr>
@@ -150,8 +168,10 @@
         </td>
         <td>
             <telerik:RadListBox ID="radStaffList" runat="server" CheckBoxes="true" CssClass="txtField"
-                Width="220px" Height="200px" OnSelectedIndexChanged="radStaffList_OnSelectedIndexChanged" AutoPostBack="true">
+                Width="220px" Height="200px">
             </telerik:RadListBox>
+            <asp:ImageButton ID="btnStaffList" ImageUrl="~/Images/rightArrow1.png" runat="server"
+                Height="25px" Width="25px" OnClick="btnStaffList_Click" ToolTip="To Right"></asp:ImageButton>
         </td>
         <td>
             <telerik:RadListBox SelectionMode="Multiple" EnableDragAndDrop="true" AccessKey="y"
@@ -177,7 +197,8 @@
     </tr>
     <tr>
         <td>
-            <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="PCGButton" OnClick="btnSubmit_OnClick" />
+            <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="PCGButton" OnClick="btnSubmit_OnClick"
+                ValidationGroup="btnbasicsubmit" />
         </td>
     </tr>
 </table>

@@ -453,7 +453,7 @@
                                 </asp:DropDownList>
                             </td>
                             &nbsp; &nbsp;
-                            <td colspan="3">
+                            <td colspan="3" id="tdCustomerGroup" runat="server">
                                 <asp:Label ID="lblCustomerGroup" runat="server" CssClass="FieldName" Text="Customer:"></asp:Label>
                                 <%-- </td>
                             <td align="left" colspan="3">--%>

@@ -127,8 +127,15 @@ namespace WealthERP.Advisor
                 AgentId = associatesVo.AAC_AdviserAgentId;
                 branchHeadId = rmVo.RMId;
                 assocUsrHeirVo = (AssociatesUserHeirarchyVo)Session["associatesUserHeirarchyVo"];
-               // assocUsrHeirVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
+                // assocUsrHeirVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
                 AgentCode = assocUsrHeirVo.AgentCode;
+                ddlCOption.Items[3].Enabled = false;
+                ddlCOption.Items[0].Enabled = false;
+                ddlCOption.Items[1].Enabled = false;
+                ddlCOption.Items[2].Enabled = false;
+                ddlCOption.Items[4].Enabled = false;
+                ddlCOption.Items[5].Enabled = false;
+
             }
             if (userVo.UserType == "SuperAdmin")
             {
@@ -598,7 +605,7 @@ namespace WealthERP.Advisor
 
             if (userVo.UserType == "Advisor") { return; }
             if (userVo.UserType == "Associates") ;
-                gvCustomerList.MasterTableView.GetColumn("Action").Visible = false;
+            gvCustomerList.MasterTableView.GetColumn("Action").Visible = false;
         }
 
         protected void gvCustomerList_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
