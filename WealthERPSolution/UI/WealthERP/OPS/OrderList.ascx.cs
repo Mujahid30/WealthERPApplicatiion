@@ -688,8 +688,11 @@ namespace WealthERP.OPS
             //if (userVo.UserType == "Advisor" && orderDate.Date == DateTime.Now.Date) return;
 
             RadComboBox actions = (RadComboBox)item.FindControl("ddlMenu");
-            RadComboBoxItem rbcItem = actions.Items.FindItemByValue("Edit", true);
-            rbcItem.Visible = false;
+            if (actions != null)
+            {
+                RadComboBoxItem rbcItem = actions.Items.FindItemByValue("Edit", true);
+                rbcItem.Visible = false;
+            }
         }
 
         protected void gvFIOrderList_ItemCommand(object source, GridCommandEventArgs e)
@@ -866,7 +869,7 @@ namespace WealthERP.OPS
             try
             {
                 btnConunt = 1;
-                RadComboBox ddlAction = (RadComboBox)sender;
+                DropDownList ddlAction = (DropDownList)sender;
                 GridDataItem gvr = (GridDataItem)ddlAction.NamingContainer;
                 int selectedRow = gvr.ItemIndex + 1;
 
