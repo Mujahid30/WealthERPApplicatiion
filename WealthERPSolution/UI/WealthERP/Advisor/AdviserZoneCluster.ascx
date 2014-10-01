@@ -72,7 +72,7 @@
         EnableHeaderContextMenu="true" EnableHeaderContextFilterMenu="true" AllowFilteringByColumn="true">
         <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="ExistMFInvestlist">
         </ExportSettings>
-        <MasterTableView DataKeyNames="AZOC_ZoneId,A_AdviserId,AZOC_Type,AZOC_ZoneClusterId,AZOC_Name,AZOC_Description"
+        <MasterTableView DataKeyNames="AZOC_ZoneId,A_AdviserId,AZOC_Type,AZOC_ZoneClusterId,AZOC_Name,AZOC_Description,ZCName"
             EditMode="PopUp" CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false"
             CommandItemSettings-AddNewRecordText="Add Zone/Cluster">
             <Columns>
@@ -114,10 +114,10 @@
                     SortExpression="AZOC_Name" AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                     <HeaderStyle></HeaderStyle>
                 </telerik:GridBoundColumn>
-                <%--<telerik:GridBoundColumn UniqueName="AZOC_Name" HeaderText="Area" DataField="AZOC_Name"
-                    SortExpression="AZOC_Name" AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                <telerik:GridBoundColumn UniqueName="Area" HeaderText="Area" DataField="Area"
+                    SortExpression="Area" AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                     <HeaderStyle></HeaderStyle>
-                </telerik:GridBoundColumn>--%>
+                </telerik:GridBoundColumn>
                 <telerik:GridDateTimeColumn AllowFiltering="false" HeaderText="Created Date" DataField="AZOC_CreatedOn"
                     UniqueName="AZOC_CreatedOn" DataFormatString="{0:d}" AutoPostBackOnFilter="true">
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
@@ -225,7 +225,7 @@
                                             <asp:Label runat="server" Text="Name :" ID="Label1"></asp:Label>
                                         </td>
                                         <td>
-                                            <asp:TextBox ID="txtName" Text='<%# Bind("AZOC_Name") %>' runat="server"></asp:TextBox>
+                                            <asp:TextBox ID="txtName" Text='<%# Bind("ZCName") %>' runat="server"></asp:TextBox>
                                             <span id="Span6" class="spnRequiredField">*</span>
                                             <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ErrorMessage="Please enter name"
                                                 CssClass="rfvPCG" ValidationGroup="btnSubmit" runat="server" ControlToValidate="txtName"></asp:RequiredFieldValidator>

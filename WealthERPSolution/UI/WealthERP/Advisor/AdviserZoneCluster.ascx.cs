@@ -353,11 +353,19 @@ namespace WealthERP.Advisor
                 RadComboBox rcbPickAZone = (RadComboBox)e.Item.FindControl("rcbPickAZone");
                 TextBox txtDescription = (TextBox)e.Item.FindControl("txtDescription");
                 RadComboBox rcbPickArea = (RadComboBox)e.Item.FindControl("rcbPickArea");
+                  RadComboBox rcbEditForm = (RadComboBox)e.Item.FindControl("rcbEditForm");
                 string AZOC_Type = gvZoneClusterDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AZOC_Type"].ToString();
 
                 if (AZOC_Type != "Zone")
                 {
-                    AZOC_ZoneId = Convert.ToInt32(rcbPickAZone.SelectedValue);
+                    if (rcbEditForm.SelectedValue == "1")
+                    {
+                        AZOC_ZoneId = Convert.ToInt32(rcbPickAZone.SelectedValue);
+                    }
+                    else
+                    {
+                        AZOC_ZoneId = Convert.ToInt32(rcbPickArea.SelectedValue);
+                    }
                 }
 
                 string zoneName = txtName.Text;
@@ -382,7 +390,7 @@ namespace WealthERP.Advisor
                     {
                         Response.Write(@"<script language='javascript'>alert('The Cluster: \n" + zoneName + " updated successfully.');</script>");
                     }
-
+                BindZoneClusterGrid(advisorVo.advisorId, type);
             }
             if (e.CommandName == RadGrid.PerformInsertCommandName)
             {
@@ -395,6 +403,7 @@ namespace WealthERP.Advisor
                 TextBox txtDescription = (TextBox)e.Item.FindControl("txtDescription");
                 RadComboBox rcbPickAZone = (RadComboBox)e.Item.FindControl("rcbPickAZone");
                 RadComboBox rcbPickArea = (RadComboBox)e.Item.FindControl("rcbPickArea");
+                RadComboBox rcbEditForm = (RadComboBox)e.Item.FindControl("rcbEditForm");
                 type = Convert.ToInt32(rcbEditFormAddType.SelectedValue);
                 if (string.IsNullOrEmpty(rcbHead.SelectedValue))
                     rcbHead.SelectedValue = "0";
@@ -409,8 +418,14 @@ namespace WealthERP.Advisor
                 {
                     insertType = "Cluster";
                     //check if inserted then show message
-                    isInserted = advisorBo.ZoneClusterDetailsAddEditDelete(advisorVo.advisorId, Convert.ToInt32(rcbHead.SelectedValue), Convert.ToInt32(rcbPickAZone.SelectedValue), 0, txtDescription.Text, txtName.Text, insertType, UserVo.UserId, 0, DateTime.Now, DateTime.MinValue, e.CommandName);
-
+                    if (rcbEditForm.SelectedValue == "1")
+                    {
+                        isInserted = advisorBo.ZoneClusterDetailsAddEditDelete(advisorVo.advisorId, Convert.ToInt32(rcbHead.SelectedValue), Convert.ToInt32(rcbPickAZone.SelectedValue), 0, txtDescription.Text, txtName.Text, insertType, UserVo.UserId, 0, DateTime.Now, DateTime.MinValue, e.CommandName);
+                    }
+                    else
+                        {
+                            isInserted = advisorBo.ZoneClusterDetailsAddEditDelete(advisorVo.advisorId, Convert.ToInt32(rcbHead.SelectedValue), Convert.ToInt32(rcbPickArea.SelectedValue), 0, txtDescription.Text, txtName.Text, insertType, UserVo.UserId, 0, DateTime.Now, DateTime.MinValue, e.CommandName);
+                        }
                 }
                 else
                 {
@@ -422,6 +437,7 @@ namespace WealthERP.Advisor
                     Response.Write(@"<script language='javascript'>alert('Error inserting records');</script>");
                 else
                     Response.Write(@"<script language='javascript'>alert('Records inserted successfully');</script>");
+                BindZoneClusterGrid(advisorVo.advisorId, type);
             }
             if (e.CommandName == RadGrid.DeleteCommandName)
             {
@@ -438,9 +454,10 @@ namespace WealthERP.Advisor
                     Response.Write(@"<script language='javascript'>alert('The Zone : \n" + zoneName + " Cannot be deleted since it is attached to a Zone.');</script>");
                 else
                     Response.Write(@"<script language='javascript'>alert('The Zone: \n" + zoneName + " deleted successfully.');</script>");
+                BindZoneClusterGrid(advisorVo.advisorId, type);
             }
             //bind the grid to get the edit form mode
-            BindZoneClusterGrid(advisorVo.advisorId, type);
+           
         }
 
         /// <summary>
@@ -531,8 +548,8 @@ namespace WealthERP.Advisor
                 string type = gvZoneClusterDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AZOC_Type"].ToString();
                 int Name = 0;
                 int AZOC_ZoneId = 0;
-                if (!string.IsNullOrEmpty(gvZoneClusterDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AR_RMId"].ToString()))
-                    Name = Convert.ToInt32(gvZoneClusterDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AR_RMId"].ToString());
+                //if (!string.IsNullOrEmpty(gvZoneClusterDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AR_RMId"].ToString()))
+                //    Name = Convert.ToInt32(gvZoneClusterDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AR_RMId"].ToString());
                 int zoneName = Convert.ToInt32(gvZoneClusterDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AZOC_ZoneClusterId"].ToString());
                 if (!string.IsNullOrEmpty(gvZoneClusterDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AZOC_ZoneId"].ToString()))
                     AZOC_ZoneId = Convert.ToInt32(gvZoneClusterDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AZOC_ZoneId"].ToString());
@@ -542,6 +559,9 @@ namespace WealthERP.Advisor
                 RadComboBox rcbEditFormAddType = (RadComboBox)e.Item.FindControl("rcbEditFormAddType");
                 RadComboBox rcbHead = (RadComboBox)e.Item.FindControl("rcbHead");
                 RadComboBox rcbPickAZone = (RadComboBox)e.Item.FindControl("rcbPickAZone");
+                TextBox txtName = (TextBox)e.Item.FindControl("txtName");
+
+                
                 HtmlTableRow trPickAZone = editedItem.FindControl("trPickAZone") as HtmlTableRow;
                 RadComboBox rcbPickArea = (RadComboBox)e.Item.FindControl("rcbPickArea");
                 HtmlTableRow trPickArea = editedItem.FindControl("trPickArea") as HtmlTableRow;
@@ -581,6 +601,7 @@ namespace WealthERP.Advisor
                 {
                     type = "2";
                     trPickAZone.Visible = true;
+                    trPickAType.Visible = true;
                     string expressionForRowsWithoutFM;
                     string typeFilter;
                     expressionForRowsWithoutFM = "AR_JobFunction=" + "'Cluster Head'";
@@ -599,7 +620,7 @@ namespace WealthERP.Advisor
                     trPickAType.Visible = false;
                     string expressionForRowsWithoutFM;
                     string typeFilter;
-                    expressionForRowsWithoutFM = "AR_JobFunction=" + "'Cluster Head'";
+                    expressionForRowsWithoutFM = "AR_JobFunction=" + "'Area Head'";
                     typeFilter = "AZOC_Type=" + "'Zone'";
                     //dataview creation for job function
                     DataView dvMFTransactionsProcessed = new DataView(dtRMDetail, expressionForRowsWithoutFM, "AR_JobFunction", DataViewRowState.CurrentRows);
@@ -616,7 +637,8 @@ namespace WealthERP.Advisor
                 rcbPickAZone.DataTextField = "AZOC_Name";
                 rcbPickAZone.DataValueField = "AZOC_ZoneClusterId";
                 rcbPickAZone.DataBind();
-
+             
+                    
                 //rcbPickArea.DataSource = dtZoneDetail;
                 //rcbPickArea.DataTextField = "AZOC_Name";
                 //rcbPickArea.DataValueField = "AZOC_ZoneClusterId";
