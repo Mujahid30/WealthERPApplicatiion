@@ -49,9 +49,9 @@
         <td align="right">
             <asp:Label ID="lblChannel" runat="server" CssClass="FieldName" Text="Channel:"></asp:Label>
         </td>
-        <td style="width: 200px;">
+        <td style="width: 260px;">
             <asp:DropDownList ID="ddlChannel" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlChannel_OnSelectedIndexChanged"
-                AutoPostBack="true">
+                AutoPostBack="true" Width="230px">
             </asp:DropDownList>
             <span id="Span27" class="spnRequiredField">*</span>
             <br />
@@ -72,9 +72,9 @@
         <td align="right">
             <asp:Label ID="lblTitleChannel" runat="server" Text="Title" CssClass="FieldName"></asp:Label>
         </td>
-        <td style="width: 150px;">
+        <td style="width: 260px;">
             <asp:DropDownList ID="ddltitlechannelId" runat="server" CssClass="cmbField" AutoPostBack="true"
-                OnSelectedIndexChanged="ddltitlechannelId_OnSelectedIndexChanged">
+                OnSelectedIndexChanged="ddltitlechannelId_OnSelectedIndexChanged" Width="230px">
             </asp:DropDownList>
             <span id="Span2" class="spnRequiredField">*</span>
             <br />
@@ -117,13 +117,14 @@
     </tr>
 </table>
 <table>
-    <tr>
+    <tr style="margin-top: 0px;">
         <td align="right">
+            &nbsp;&nbsp
             <asp:Label ID="lblTitle" runat="server" Text="Reporting Manager:" CssClass="FieldName"></asp:Label>
         </td>
         <td>
             <asp:DropDownList ID="ddlTitle" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlTitle_OnSelectedIndexChanged"
-                AutoPostBack="true">
+                AutoPostBack="true" Width="200px">
             </asp:DropDownList>
             <span id="Span3" class="spnRequiredField">*</span>
             <br />

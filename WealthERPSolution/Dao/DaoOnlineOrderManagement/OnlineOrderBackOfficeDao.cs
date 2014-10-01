@@ -2510,5 +2510,27 @@ namespace DaoOnlineOrderManagement
             }
             return dtGetSchemeLookupType;
         }
+        public DataTable GetRTAInitialReport(string type, DateTime fromDate, DateTime toDate)
+        {
+            Database db;
+            DbCommand cmdGetRTAInitialReport;
+            DataTable dtGetRTAInitialReport;
+            DataSet dsGetRTAInitialReport = null;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetRTAInitialReport = db.GetStoredProcCommand("SPROC_GetInitialRTAReport");
+                db.AddInParameter(cmdGetRTAInitialReport, "@AMCWise", DbType.String, type);
+                db.AddInParameter(cmdGetRTAInitialReport, "@Fromdate", DbType.String, fromDate);
+                db.AddInParameter(cmdGetRTAInitialReport, "@Todate", DbType.String, toDate);
+                dsGetRTAInitialReport = db.ExecuteDataSet(cmdGetRTAInitialReport);
+                dtGetRTAInitialReport = dsGetRTAInitialReport.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetRTAInitialReport;
+        }
     }
 }

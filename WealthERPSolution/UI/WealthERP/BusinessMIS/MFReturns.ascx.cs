@@ -223,6 +223,11 @@ namespace WealthERP.BusinessMIS
                 hdnAll.Value = "0";
                 hdnrmId.Value = "0";
             }
+            else if (userType == "associates")
+            {
+                hdnrmId.Value = rmVo.RMId.ToString(); 
+                hdnAll.Value = "0";
+            }
             if (hdnbranchHeadId.Value == "")
                 hdnbranchHeadId.Value = "0";
 

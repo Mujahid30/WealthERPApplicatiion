@@ -21,6 +21,7 @@ namespace WealthERP.OnlineOrderBackOffice
     public partial class HoldingIssueAllotment : System.Web.UI.UserControl
     {
         OnlineNCDBackOfficeBo OnlineNCDBackOfficeBo = new OnlineNCDBackOfficeBo();
+        OnlineOrderBackOfficeBo onlineOrderBackOffice = new OnlineOrderBackOfficeBo();
         UserVo userVo = new UserVo();
         AdvisorVo advisorVo = new AdvisorVo();
         DateTime fromdate;
@@ -30,6 +31,7 @@ namespace WealthERP.OnlineOrderBackOffice
             SessionBo.CheckSession();
             userVo = (UserVo)Session[SessionContents.UserVo];
             advisorVo = (AdvisorVo)Session["advisorVo"];
+           // BindRTAInitialReport();
             if (!IsPostBack)
             {
 
@@ -38,20 +40,78 @@ namespace WealthERP.OnlineOrderBackOffice
                 txtToDate.SelectedDate = DateTime.Now;
 
                 //BindAdviserIssueAllotmentList();
-                BindDropDownListIssuer();
+                // BindDropDownListIssuer();
                 //BindIssuerId();
             }
 
+        }
+        protected void BindRTAInitialReport()
+        {
+            try
+            {
+                DataTable dtBindRTAInitialReport;
+                if (txtFromDate.SelectedDate != null)
+                    fromdate = DateTime.Parse(txtFromDate.SelectedDate.ToString());
+                if (txtToDate.SelectedDate != null)
+                    todate = DateTime.Parse(txtToDate.SelectedDate.ToString());
+                dtBindRTAInitialReport = onlineOrderBackOffice.GetRTAInitialReport(ddlType.SelectedValue.ToString(), fromdate, todate);
+                if (dtBindRTAInitialReport.Rows.Count > 0)
+                {
+                    if (Cache["RTAInitialReport" + advisorVo.advisorId] == null)
+                    {
+                        Cache.Insert("RTAInitialReport" + advisorVo.advisorId, dtBindRTAInitialReport);
+                    }
+                    else
+                    {
+                        Cache.Remove("RTAInitialReport" + advisorVo.advisorId);
+                        Cache.Insert("RTAInitialReport" + advisorVo.advisorId, dtBindRTAInitialReport);
+                    }
+                    gvOrderReport.DataSource = dtBindRTAInitialReport;
+                    gvOrderReport.DataBind();
+                    pnlOrderReport.Visible = true;
+                }
+                else
+                {
+                    gvOrderReport.DataSource = dtBindRTAInitialReport;
+                    gvOrderReport.DataBind();
+                    pnlOrderReport.Visible = true;
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineClientAccess.ascx.cs:BindRTAInitialReport()");
+                object[] objects = new object[1];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+
+        }
+        protected void gvOrderReport_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        {
+            DataSet dtBindRTAInitialReport = new DataSet();
+            dtBindRTAInitialReport = (DataSet)Cache["RTAInitialReport" + advisorVo.advisorId];
+
+            if (dtBindRTAInitialReport != null)
+            {
+                gvOrderReport.DataSource = dtBindRTAInitialReport;
+            }
         }
         protected void BindAdviserIssueAllotmentList()
         {
             try
             {
                 DataSet dsGetAdviserissueallotmentList = new DataSet();
-                if (txtFromDate.SelectedDate != null)
-                    fromdate = DateTime.Parse(txtFromDate.SelectedDate.ToString());
-                if (txtToDate.SelectedDate != null)
-                    todate = DateTime.Parse(txtToDate.SelectedDate.ToString());
+
+
                 // if(ddlIssuer.SelectedValue!=null)
 
 
@@ -146,20 +206,21 @@ namespace WealthERP.OnlineOrderBackOffice
         }
         protected void Go_OnClick(object sender, EventArgs e)
         {
-            BindAdviserIssueAllotmentList();
+            BindRTAInitialReport();
+            //BindAdviserIssueAllotmentList();
             imgexportButton.Visible = true;
 
         }
         public void btnExportData_OnClick(object sender, ImageClickEventArgs e)
         {
 
-            gvAdviserIssueList.ExportSettings.OpenInNewWindow = true;
-            gvAdviserIssueList.ExportSettings.IgnorePaging = true;
-            gvAdviserIssueList.ExportSettings.HideStructureColumns = true;
-            gvAdviserIssueList.ExportSettings.ExportOnlyData = true;
-            gvAdviserIssueList.ExportSettings.FileName = "Issue Allotment";
-            gvAdviserIssueList.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
-            gvAdviserIssueList.MasterTableView.ExportToExcel();
+            gvOrderReport.ExportSettings.OpenInNewWindow = true;
+            gvOrderReport.ExportSettings.IgnorePaging = true;
+            gvOrderReport.ExportSettings.HideStructureColumns = true;
+            gvOrderReport.ExportSettings.ExportOnlyData = true;
+            gvOrderReport.ExportSettings.FileName = "Initial Order Report AMC/RTA Wise";
+            gvOrderReport.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            gvOrderReport.MasterTableView.ExportToExcel();
         }
         protected void gvAdviserIssueList_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {

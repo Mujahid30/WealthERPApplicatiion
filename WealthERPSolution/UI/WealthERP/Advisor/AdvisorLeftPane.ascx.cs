@@ -596,7 +596,7 @@ namespace WealthERP.Advisor
                 if (e.Item.Value == "Trade_Business_Date")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('TradeBusinessDate','login');", true);
-                } 
+                }
                 else if (e.Item.Value == "Admin Home")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('IFAAdminMainDashboard','login');", true);
@@ -914,7 +914,7 @@ namespace WealthERP.Advisor
                     Session["UserType"] = "adviser";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('TransactionDashBoard','login');", true);
                 }
-                else if (e.Item.Value == "NCD_Allotments")
+                else if (e.Item.Value == "Client_Initial_Order")
                 {
                     Session["UserType"] = "adviser";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('HoldingIssueAllotment','login');", true);
@@ -1793,6 +1793,10 @@ namespace WealthERP.Advisor
                 if (e.Item.Value == "Manage Lookups")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ManageLookups','login');", true);
+                }
+                else if (e.Item.Value == "Client_Initial_Order")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('HoldingIssueAllotment','login');", true);
                 }
                 else if (e.Item.Value == "Add_Request")
                 {
@@ -3694,11 +3698,18 @@ namespace WealthERP.Advisor
                     Session["UserType"] = "Associates";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MutualFundMIS','login');", true);
                 }
-                else if (e.Item.Value == "MFDashboard")
+                else if (e.Item.Value == "MFDashBoard")
                 {
                     Session["UserType"] = "Associates";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFDashBoard','login');", true);
                 }
+                //else if (e.Item.Value == "MFDashboard")
+                //{
+                //    Session["UserType"] = "Associates";
+                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFDashBoard','login');", true);
+
+                //    //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFDashBoard','login');", true);
+                //}
                 else if (e.Item.Value == "CustomerSignUp")
                 {
                     Session["UserType"] = "Associates";
@@ -3723,7 +3734,7 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "Performance_Allocation")
                 {
                     Session["UserType"] = "Associates";
-                    //  ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('PerformanceAndAllocation','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('PerformanceAndAllocation','login');", true);
                 }
                 else if (e.Item.Value == "Equity MIS")
                 {

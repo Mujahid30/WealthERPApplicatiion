@@ -741,13 +741,13 @@ namespace BoOnlineOrderManagement
                                         AMFE_Dp_Id = drJoint["AMFE_Dp_Id"].ToString();
                                     break;
                             }
-                            
+
                         }
 
                     }
 
                     if (dvNominee.ToTable().Rows.Count > 0)
-                    {                        
+                    {
                         foreach (DataRow drNominee in dvNominee.ToTable().Rows)
                         {
                             switch (drNominee["CDAA_AssociateTypeNo"].ToString())
@@ -765,7 +765,7 @@ namespace BoOnlineOrderManagement
                                     break;
 
                             }
-                            
+
                         }
                     }
 
@@ -1583,14 +1583,14 @@ namespace BoOnlineOrderManagement
             }
         }
 
-        public DataTable GetAdviserClientKYCStatusList(int adviserId,string filterOn,string clientCode)
+        public DataTable GetAdviserClientKYCStatusList(int adviserId, string filterOn, string clientCode)
         {
             DataTable dtFinalAdviserClientKYCStatusList = new DataTable();
             DataSet dsAdviserClientKYCStatusList = new DataSet();
             OnlineOrderBackOfficeDao onlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
             try
             {
-                dsAdviserClientKYCStatusList = onlineOrderBackOfficeDao.GetAdviserClientKYCStatusList(adviserId,filterOn,clientCode);
+                dsAdviserClientKYCStatusList = onlineOrderBackOfficeDao.GetAdviserClientKYCStatusList(adviserId, filterOn, clientCode);
                 dtFinalAdviserClientKYCStatusList = CreateFinalClientKYCDataTable(dsAdviserClientKYCStatusList);
 
             }
@@ -2124,6 +2124,19 @@ namespace BoOnlineOrderManagement
             dtGetSchemeLookupType = daoOnlineOrderBackOffice.GetSchemeLookupType(dividentType);
             return dtGetSchemeLookupType;
         }
+        public DataTable GetRTAInitialReport(string type,DateTime fromDate,DateTime toDate)
+        {
+            DataTable dt;
+            OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
+            try
+            {
+                dt = OnlineOrderBackOfficeDao.GetRTAInitialReport(type,fromDate,toDate);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dt;
+        }
     }
-
 }
