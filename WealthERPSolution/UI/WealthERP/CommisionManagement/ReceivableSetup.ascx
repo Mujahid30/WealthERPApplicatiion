@@ -39,7 +39,7 @@
         args.IsValid = false; 
         var minValue = document.getElementById('ctrl_ReceivableSetup_RadGridStructureRule_ctl00_ctl02_ctl03_txtMinInvestmentAmount').value;
         var maxValue = document.getElementById('ctrl_ReceivableSetup_RadGridStructureRule_ctl00_ctl02_ctl03_txtMaxInvestmentAmount').value;
-        if (maxValue > minValue)
+        if (parseInt(maxValue)> parseInt(minValue))
             args.IsValid = true;
 
         if ((minValue == "" && maxValue == "")||(minValue != "" && maxValue == ""))
@@ -59,8 +59,7 @@
         args.IsValid = false;
         var minValue = document.getElementById('ctrl_ReceivableSetup_RadGridStructureRule_ctl00_ctl02_ctl03_txtMinTenure').value;
         var maxValue = document.getElementById('ctrl_ReceivableSetup_RadGridStructureRule_ctl00_ctl02_ctl03_txtMaxTenure').value;
-
-        if (maxValue > minValue)
+        if (parseInt(maxValue) > parseInt(minValue))
             args.IsValid = true;
 
         if ((minValue == "" && maxValue == "") || (minValue != "" && maxValue == ""))
@@ -71,11 +70,14 @@
         args.IsValid = false;
         var minValue = document.getElementById('ctrl_ReceivableSetup_RadGridStructureRule_ctl00_ctl02_ctl03_txtMinInvestAge').value;
         var maxValue = document.getElementById('ctrl_ReceivableSetup_RadGridStructureRule_ctl00_ctl02_ctl03_txtMaxInvestAge').value;
-        if (maxValue > minValue)
+        if (parseInt(minValue) < parseInt(maxValue)) {
             args.IsValid = true;
+            
+        }
 
-        if ((minValue == "" && maxValue == "") || (minValue != "" && maxValue == ""))
+        if ((minValue == "" && maxValue == "") || (minValue != "" && maxValue == "")) {
             args.IsValid = true;
+        } 
     }
 
 

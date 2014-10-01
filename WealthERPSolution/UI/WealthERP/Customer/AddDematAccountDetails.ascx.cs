@@ -300,7 +300,7 @@ namespace WealthERP.Customer
             int customerId = customervo.CustomerId;
             if (Request.QueryString["CustomerId"] != null)
             {
-                portfolioid = 0;
+                portfolioid = int.Parse(Request.QueryString["CustomerPortfolioId"].ToString()); 
             }
             else
             {

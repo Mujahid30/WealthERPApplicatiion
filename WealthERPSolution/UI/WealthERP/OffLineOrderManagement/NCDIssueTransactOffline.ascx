@@ -23,6 +23,7 @@
     </Services>
 </asp:ScriptManager>
 
+
 <script type="text/javascript">
     var TargetBaseControl = null;
      var TragetBaseControl2 = null;
@@ -64,10 +65,16 @@
             
             return true;
 
-        
-    }
+
+        }
+        function TriggeredKey(e) {
+            var keycode;
+            if (window.event) keycode = window.event.keyCode;
+            if (window.event.keyCode = 13) return false;
+        }
     
 </script>
+
 <script type="text/javascript" language="javascript">
 
     function GetCustomerId(source, eventArgs) {
@@ -91,8 +98,9 @@
     }
     function openpopupAddDematAccount() {
         var customerId = document.getElementById("<%=txtCustomerId.ClientID %>").value;
+        var customerPortfolioId=document.getElementById("<%=hdnPortfolioId.ClientID %>").value;
         if (customerId != 0) {
-            window.open('PopUp.aspx?PageId=AddDematAccountDetails&CustomerId=' + customerId, 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')
+            window.open('PopUp.aspx?PageId=AddDematAccountDetails&CustomerId=' + customerId + '&CustomerPortfolioId=' + customerPortfolioId, 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')
             
         }
         else {
@@ -338,7 +346,7 @@
             </asp:TextBox><span id="spnCustomer" class="spnRequiredField">*</span>
             
             <asp:ImageButton ID="btnImgAddCustomer" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
-                AlternateText="Add" runat="server" ToolTip="Click here to Add Customer" OnClientClick="return openpopupAddCustomer()"
+                AlternateText="Add" runat="server" ToolTip="Click here to Add Customer" OnClientClick ="return openpopupAddCustomer()"
                 Height="15px" Width="15px" TabIndex="3"></asp:ImageButton>
             <cc1:TextBoxWatermarkExtender ID="txtCustomer_water" TargetControlID="txtCustomerName"
                 WatermarkText="Enter few chars of Customer" runat="server" EnableViewState="false">
@@ -380,7 +388,7 @@
     </tr>
     <tr>
         <td class="leftField" style="width: 20%">
-            <asp:Label ID="lblAssociateSearch" runat="server" CssClass="FieldName" Text="Agent Code:"></asp:Label>
+            <asp:Label ID="lblAssociateSearch" runat="server" CssClass="FieldName" Text="Sub Broker Code:"></asp:Label>
         </td>
         <td class="rightField" style="width: 20%">
             <asp:TextBox ID="txtAssociateSearch" runat="server" CssClass="txtField" AutoComplete="Off"
@@ -645,7 +653,7 @@
         </td>
        <td class="rightField" style="width: 20%">
             <asp:TextBox ID="txtDematid" runat="server" CssClass="txtField"></asp:TextBox>
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator6" ControlToValidate="txtApplicationNo"
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator6" ControlToValidate="txtDematid"
                 ErrorMessage="<br />Please Select Demat from the List" Display="Dynamic" runat="server"
                 CssClass="rfvPCG" ValidationGroup="btnConfirmOrder"></asp:RequiredFieldValidator>
         </td>
@@ -1183,7 +1191,7 @@
     <tr>
     <td>
             <telerik:RadGrid ID="gvDematDetailsTeleR" runat="server" 
-            AllowAutomaticInserts="false" AllowFilteringByColumn="true" AllowPaging="true" 
+            AllowAutomaticInserts="false"  AllowPaging="true" 
             AllowSorting="true" AutoGenerateColumns="False" EnableEmbeddedSkins="false" 
             EnableHeaderContextMenu="true" fAllowAutomaticDeletes="false" GridLines="none" 
             ShowFooter="false" ShowStatusBar="false" Skin="Telerik">
@@ -1202,41 +1210,41 @@
                         </ItemTemplate>
                        
                     </telerik:GridTemplateColumn>
-                    <telerik:GridBoundColumn AllowFiltering="true" AutoPostBackOnFilter="true" 
-                        CurrentFilterFunction="Contains" DataField="CEDA_DPName" 
-                        FilterControlWidth="50px" HeaderStyle-Width="67px" HeaderText="DP Name" 
+                    <telerik:GridBoundColumn  AutoPostBackOnFilter="true" 
+                        DataField="CEDA_DPName" 
+                         HeaderStyle-Width="67px" HeaderText="DP Name" 
                         ShowFilterIcon="false" SortExpression="CEDA_DPName" UniqueName="CEDA_DPName">
                         <HeaderStyle Width="67px" />
                         <ItemStyle HorizontalAlign="left" VerticalAlign="top" Width="100px" 
                             Wrap="false" />
                     </telerik:GridBoundColumn>
-                    <telerik:GridBoundColumn AllowFiltering="true" AutoPostBackOnFilter="true" 
+                    <telerik:GridBoundColumn  AutoPostBackOnFilter="true" 
                         CurrentFilterFunction="Contains" DataField="CEDA_DepositoryName" 
-                        FilterControlWidth="120px" HeaderStyle-Width="140px" 
+                         HeaderStyle-Width="140px" 
                         HeaderText="Depository Name" ShowFilterIcon="false" 
                         SortExpression="CEDA_DepositoryName" UniqueName="CEDA_DepositoryName">
                         <HeaderStyle Width="140px" />
                         <ItemStyle HorizontalAlign="left" VerticalAlign="top" Width="67px" 
                             Wrap="false" />
                     </telerik:GridBoundColumn>
-                    <telerik:GridBoundColumn AllowFiltering="true" AutoPostBackOnFilter="true" 
+                    <telerik:GridBoundColumn  AutoPostBackOnFilter="true" 
                         CurrentFilterFunction="Contains" DataField="CEDA_DPClientId" 
-                        FilterControlWidth="50px" HeaderStyle-Width="67px" 
+                         HeaderStyle-Width="67px" 
                         HeaderText="Beneficiary Acct No" ShowFilterIcon="false" 
                         SortExpression="CEDA_DPClientId" UniqueName="CEDA_DPClientId">
                         <HeaderStyle Width="80px" />
                         <ItemStyle HorizontalAlign="left" VerticalAlign="top" Width="100px" 
                             Wrap="false" />
                     </telerik:GridBoundColumn>
-                    <telerik:GridBoundColumn AllowFiltering="true" AutoPostBackOnFilter="true" 
+                    <telerik:GridBoundColumn  AutoPostBackOnFilter="true" 
                         CurrentFilterFunction="Contains" DataField="CEDA_DPId" 
-                        FilterControlWidth="50px" HeaderStyle-Width="67px" HeaderText="DP Id" 
+                         HeaderStyle-Width="67px" HeaderText="DP Id" 
                         ShowFilterIcon="false" SortExpression="CEDA_DPId" UniqueName="CEDA_DPId">
                         <HeaderStyle Width="140px" />
                         <ItemStyle HorizontalAlign="left" VerticalAlign="top" Width="140px" 
                             Wrap="false" />
                     </telerik:GridBoundColumn>
-                    <telerik:GridBoundColumn AllowFiltering="true" AutoPostBackOnFilter="true" 
+                    <telerik:GridBoundColumn AutoPostBackOnFilter="true" 
                         DataField="XMOH_ModeOfHolding" HeaderStyle-Width="145px" 
                         HeaderText="Mode of holding" ShowFilterIcon="false" 
                         SortExpression="XMOH_ModeOfHolding" UniqueName="XMOH_ModeOfHolding">
@@ -1244,7 +1252,7 @@
                         <ItemStyle HorizontalAlign="left" VerticalAlign="top" Width="145px" 
                             Wrap="false" />
                     </telerik:GridBoundColumn>
-                    <telerik:GridBoundColumn AllowFiltering="true" AutoPostBackOnFilter="true" 
+                    <telerik:GridBoundColumn  AutoPostBackOnFilter="true" 
                         DataField="CEDA_AccountOpeningDate" DataFormatString="{0:dd/MM/yyyy}" 
                         HeaderStyle-Width="145px" HeaderText="Account Opening Date" 
                         ShowFilterIcon="false" SortExpression="CEDA_AccountOpeningDate" 

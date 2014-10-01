@@ -651,14 +651,20 @@ namespace WealthERP.OffLineOrderManagement
                 GetcustomerDetails();
             }
         }
+        protected void btnImgAddCustomer_click(object sender, EventArgs e)
+        {
+            ScriptManager.RegisterStartupScript(this, GetType(), "openpopupAddCustomer", "openpopupAddCustomer();", true);
+        }
         protected void GetcustomerDetails()
         {
-           
+            CustomerPortfolioVo customerPortfolioVo = new CustomerPortfolioVo();
+            customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(int.Parse(txtCustomerId.Value));
             customerVo = customerBo.GetCustomer(int.Parse(txtCustomerId.Value));
             Session["customerVo"] = customerVo;
             lblGetBranch.Text = customerVo.BranchName;
             lblgetPan.Text = customerVo.PANNum;
             hdnCustomerId.Value = txtCustomerId.Value;
+            hdnPortfolioId.Value = customerPortfolioVo.PortfolioId.ToString();
             customerId = int.Parse(txtCustomerId.Value);
             if (ddlsearch.SelectedItem.Value == "2")
                 lblgetcust.Text = customerVo.FirstName + ' ' + customerVo.MiddleName + ' ' + customerVo.LastName;
@@ -668,7 +674,6 @@ namespace WealthERP.OffLineOrderManagement
             BindJointHolderNominee();
             GetFIModeOfHolding();
             BindDepositoryType();
-            GetDematAccountDetails(int.Parse(txtCustomerId.Value));
             Panel1.Visible = true;
            
         }
@@ -1186,7 +1191,9 @@ namespace WealthERP.OffLineOrderManagement
         }
         protected void lnkBtnDemat_onClick(object sender, EventArgs e)
         {
+            GetDematAccountDetails(int.Parse(txtCustomerId.Value));
             rwDematDetails.VisibleOnPageLoad= true;
+            
         }
         protected void lnkTermsCondition_Click(object sender, EventArgs e)
         {
