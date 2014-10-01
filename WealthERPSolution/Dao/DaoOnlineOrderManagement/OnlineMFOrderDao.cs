@@ -378,7 +378,7 @@ namespace DaoOnlineOrderManagement
                 db.AddOutParameter(createMFOrderTrackingCmd, "@CO_OrderId", DbType.Int32, 10);
                 db.AddInParameter(createMFOrderTrackingCmd, "@CP_PortfolioId", DbType.Int32, onlineMFOrderVo.PortfolioId);
                 db.AddInParameter(createMFOrderTrackingCmd, "@CMFOD_DividendOption", DbType.String, onlineMFOrderVo.DivOption);
-                if (!string.IsNullOrEmpty(onlineMFOrderVo.SWPRedeemValueType.Trim()))
+                if (!string.IsNullOrEmpty(onlineMFOrderVo.SWPRedeemValueType))
                     db.AddInParameter(createMFOrderTrackingCmd, "@CMFSS_SWPRedeemValueType", DbType.String, onlineMFOrderVo.SWPRedeemValueType);
 
                 db.AddOutParameter(createMFOrderTrackingCmd, "@SIPRegisterId", DbType.Int32, 10000);
