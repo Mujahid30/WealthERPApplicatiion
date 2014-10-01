@@ -331,7 +331,14 @@
                         <Columns>
                             <telerik:GridTemplateColumn ItemStyle-Width="120px" AllowFiltering="false">
                                 <ItemTemplate>
-                                    <telerik:RadComboBox ID="ddlMenu" OnSelectedIndexChanged="ddlMenu_SelectedIndexChanged"
+                                    <asp:DropDownList ID="ddlMenu1" runat="server" CssClass="cmbField" Width="100px" OnSelectedIndexChanged="ddlMenu_SelectedIndexChanged" AutoPostBack="true">
+                                        <asp:ListItem Text="Select" Value="0"></asp:ListItem>
+                                        <asp:ListItem Text="View" Value="View"></asp:ListItem>
+                                        <asp:ListItem Text="Edit" Value="Edit"></asp:ListItem>
+                                    </asp:DropDownList>
+                                </ItemTemplate>
+                            </telerik:GridTemplateColumn>
+                            <%-- <telerik:RadComboBox ID="ddlMenu" OnSelectedIndexChanged="ddlMenu_SelectedIndexChanged"
                                         CssClass="cmbField" runat="server" EnableEmbeddedSkins="false" Skin="Telerik"
                                         AllowCustomText="true" Width="100px" AutoPostBack="true">
                                         <Items>
@@ -343,10 +350,10 @@
                                                 runat="server"></telerik:RadComboBoxItem>
                                             <%--<telerik:RadComboBoxItem ImageUrl="~/Images/DeleteRecord.png" Text="Delete" Value="Delete"
                                             runat="server"></telerik:RadComboBoxItem>--%>
-                                        </Items>
+                            <%--  </Items>
                                     </telerik:RadComboBox>
                                 </ItemTemplate>
-                            </telerik:GridTemplateColumn>
+                            </telerik:GridTemplateColumn> --%>
                             <%-- <telerik:GridButtonColumn ButtonType="LinkButton" CommandName="Redirect" UniqueName="CO_OrderId"
                                 HeaderText="Order No." DataTextField="CO_OrderId" FooterStyle-HorizontalAlign="Right">
                                 <ItemStyle HorizontalAlign="Right" />
@@ -492,12 +499,12 @@
                                 UniqueName="CO_ApplicationNumber" SortExpression="CO_ApplicationNumber" ShowFilterIcon="false"
                                 HeaderStyle-Width="80px" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>                            
-                             <telerik:GridBoundColumn DataField="DeputyManagerName" AllowFiltering="true" HeaderText="Deputy Manager"
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="DeputyManagerName" AllowFiltering="true" HeaderText="Deputy Manager"
                                 UniqueName="DeputyManagerName" SortExpression="DeputyManagerName" ShowFilterIcon="false"
                                 CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="130px">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>                            
+                            </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="ZonalManagerName" AllowFiltering="true" HeaderText="Zonal Manager"
                                 UniqueName="ZonalManagerName" SortExpression="ZonalManagerName" ShowFilterIcon="false"
                                 CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="130px">
