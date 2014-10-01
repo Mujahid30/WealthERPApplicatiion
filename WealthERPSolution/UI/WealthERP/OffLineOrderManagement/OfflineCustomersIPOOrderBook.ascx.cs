@@ -245,12 +245,12 @@ namespace WealthERP.OffLineOrderManagement
         //    Response.Redirect("ControlHost.aspx?pageid=IPOIssueTransactOffline", false);
 
         //}
-        protected void gvIPOOrderBook_OnItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
-        {
-            Int32 orderId = Convert.ToInt32(gvIPOOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_OrderId"].ToString());
-            string custCode = gvIPOOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["C_CustCode"].ToString();
-            Response.Redirect("ControlHost.aspx?pageid=IPOIssueTransactOffline&orderId=" + orderId + "&custCode=" + custCode + "", false);
-        }
+        //protected void gvIPOOrderBook_OnItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
+        //{
+        //    Int32 orderId = Convert.ToInt32(gvIPOOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_OrderId"].ToString());
+        //    string custCode = gvIPOOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["C_CustCode"].ToString();
+        //    //Response.Redirect("ControlHost.aspx?pageid=IPOIssueTransactOffline&orderId=" + orderId + "&custCode=" + custCode + "", false);
+        //}
         protected void btnExpand_Click(object sender, EventArgs e)
         {
             LinkButton button1 = (LinkButton)sender;
