@@ -1123,7 +1123,7 @@
         </td>
         <td colspan="3">
             <asp:Button ID="btnSubmit" runat="server" Text="Update" CssClass="PCGButton" OnClick="Update_Click"
-                Visible="false" />
+                Visible="false" ValidationGroup="Submit" />
             <asp:Button ID="BtnSave" runat="server" Visible="true" Text="Submit" CssClass="PCGButton"
                 OnClick="btnSubmit_Click" ValidationGroup="Submit" />
         </td>
