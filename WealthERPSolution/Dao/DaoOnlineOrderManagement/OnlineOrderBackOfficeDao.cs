@@ -2521,8 +2521,8 @@ namespace DaoOnlineOrderManagement
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmdGetRTAInitialReport = db.GetStoredProcCommand("SPROC_GetInitialRTAReport");
                 db.AddInParameter(cmdGetRTAInitialReport, "@AMCWise", DbType.String, type);
-                db.AddInParameter(cmdGetRTAInitialReport, "@Fromdate", DbType.String, fromDate);
-                db.AddInParameter(cmdGetRTAInitialReport, "@Todate", DbType.String, toDate);
+                db.AddInParameter(cmdGetRTAInitialReport, "@Fromdate", DbType.DateTime, fromDate);
+                db.AddInParameter(cmdGetRTAInitialReport, "@Todate", DbType.DateTime, toDate);
                 dsGetRTAInitialReport = db.ExecuteDataSet(cmdGetRTAInitialReport);
                 dtGetRTAInitialReport = dsGetRTAInitialReport.Tables[0];
             }
