@@ -2925,6 +2925,13 @@
     <Compile Include="OnlineOrderBackOffice\OnlineSchemeSetUp.ascx.designer.cs">
       <DependentUpon>OnlineSchemeSetUp.ascx</DependentUpon>
     </Compile>
+    <Compile Include="OnlineOrderBackOffice\SubBrokerCodecCeansing.ascx.cs">
+      <DependentUpon>SubBrokerCodecCeansing.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OnlineOrderBackOffice\SubBrokerCodecCeansing.ascx.designer.cs">
+      <DependentUpon>SubBrokerCodecCeansing.ascx</DependentUpon>
+    </Compile>
     <Compile Include="OnlineOrderBackOffice\TradeBusinessDate.ascx.cs">
       <DependentUpon>TradeBusinessDate.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -8031,6 +8038,7 @@
     <Content Include="OnlineOrderBackOffice\OnlineOrderNCDIPOAccountingExtract.ascx" />
     <Content Include="OnlineOrderBackOffice\OnlineSchemeMIS.ascx" />
     <Content Include="OnlineOrderBackOffice\OnlineSchemeSetUp.ascx" />
+    <Content Include="OnlineOrderBackOffice\SubBrokerCodecCeansing.ascx" />
     <Content Include="OnlineOrderBackOffice\TradeBusinessDate.ascx" />
     <Content Include="OnlineOrderBackOffice\UploadRequestStatus.ascx" />
     <Content Include="OnlineOrderManagement\BondOrderManagement.ascx" />

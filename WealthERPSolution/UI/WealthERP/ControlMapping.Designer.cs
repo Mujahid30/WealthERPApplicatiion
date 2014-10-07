@@ -3634,6 +3634,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OnlineOrderBackOffice//SubBrokerCodecCeansing.ascx.
+        /// </summary>
+        internal static string SubBrokerCodecCeansing {
+            get {
+                return ResourceManager.GetString("SubBrokerCodecCeansing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Advisor//SubBrokerCustomerAssociationSync.ascx.
         /// </summary>
         internal static string SubBrokerCustomerAssociationSync {

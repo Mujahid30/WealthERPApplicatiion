@@ -1977,4 +1977,8 @@
     <value>UploadBackOffice//BulkRequestStatus.ascx</value>
     <comment>UploadBackOffice//BulkRequestStatus.ascx</comment>
   </data>
+  <data name="SubBrokerCodecCeansing" xml:space="preserve">
+    <value>OnlineOrderBackOffice//SubBrokerCodecCeansing.ascx</value>
+    <comment>OnlineOrderBackOffice//SubBrokerCodecCeansing.ascx</comment>
+  </data>
 </root>
