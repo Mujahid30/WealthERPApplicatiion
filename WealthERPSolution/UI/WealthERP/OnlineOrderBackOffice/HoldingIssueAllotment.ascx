@@ -34,7 +34,7 @@
             <asp:DropDownList ID="ddlType" runat="server" CssClass="cmbField">
                 <asp:ListItem Selected="True" Value="0">--SELECT--</asp:ListItem>
                 <asp:ListItem Text="AMC Wise" Value="AMC" />
-                <asp:ListItem Text="RNT Wise" Value="RNT" />
+                <asp:ListItem Text="RTA Wise" Value="RNT" />
             </asp:DropDownList>
             <asp:RequiredFieldValidator ID="rfvType" runat="server" CssClass="rfvPCG" ErrorMessage="Please select a Type"
                 ControlToValidate="ddlType" Display="Dynamic" InitialValue="0" ValidationGroup="Issueallotment">

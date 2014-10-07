@@ -177,11 +177,12 @@ namespace WealthERP.Associates
                 {
                     selectStaffAssociate += li.Value + ',';
                 }
-                if (selectStaffAssociate == string.Empty)
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please Select Source Reporting Manager.');", true);
-                    return;
-                }
+            }
+            if (selectStaffAssociate == string.Empty)
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please Select Source Reporting Manager.');", true);
+                return;
+
             }
             BindAssociateList(selectStaffAssociate.TrimEnd(','));
         }
@@ -206,11 +207,11 @@ namespace WealthERP.Associates
                     {
                         mappedStaffAssociate += li.Value + ',';
                     }
-                    if (mappedStaffAssociate == string.Empty)
-                    {
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please Select Mapped Staff.');", true);
-                        return;
-                    }
+                }
+                if (mappedStaffAssociate == string.Empty)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please Select Mapped Staff.');", true);
+                    return;
                 }
             }
             else

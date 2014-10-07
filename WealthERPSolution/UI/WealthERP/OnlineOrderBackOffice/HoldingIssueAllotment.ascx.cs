@@ -35,7 +35,7 @@ namespace WealthERP.OnlineOrderBackOffice
             if (!IsPostBack)
             {
 
-                fromdate = DateTime.Now.AddMonths(-1);
+                fromdate = DateTime.Now.AddDays(-1);
                 txtFromDate.SelectedDate = fromdate;
                 txtToDate.SelectedDate = DateTime.Now;
 
