@@ -115,8 +115,8 @@ namespace WealthERP.OPS
                 txtCustomerName_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
                 AutoCompleteExtender1.ContextKey = advisorVo.advisorId.ToString();
                 AutoCompleteExtender1.ServiceMethod = "GetAdviserCustomerPan";
-                txtAssociateSearch.Text = associatesVo.AAC_AgentCode;
-                AutoCompleteExtender2.ContextKey = associatesVo.AAC_AgentCode + "/" + advisorVo.advisorId.ToString();                
+                txtAssociateSearch.Text = associateuserheirarchyVo.AgentCode;
+                AutoCompleteExtender2.ContextKey = associateuserheirarchyVo.AgentCode + "/" + advisorVo.advisorId.ToString();                
                 AutoCompleteExtender2.ServiceMethod = "GetAgentCodeAssociateDetailsForAssociates";
 
             }
@@ -140,7 +140,7 @@ namespace WealthERP.OPS
                 pnl_SIP_PaymentSection.Enabled = false;
                 pnl_SEL_PaymentSection.Enabled = false;
                 DefaultBindings();
-                if (AgentCode != null)
+                if (AgentCode != "0")
                 {
                     txtAssociateSearch.Text = AgentCode;
                     OnAssociateTextchanged(this, null);
@@ -2677,7 +2677,7 @@ namespace WealthERP.OPS
         {
             if (!IsPostBack)
             {
-                txtAssociateSearch.Text = associatesVo.AAC_AgentCode;
+                txtAssociateSearch.Text = associateuserheirarchyVo.AgentCode;
             }
             if (!string.IsNullOrEmpty(txtAssociateSearch.Text))
             {
