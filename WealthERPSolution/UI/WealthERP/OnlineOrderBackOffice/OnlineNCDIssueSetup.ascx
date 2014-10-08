@@ -1247,7 +1247,7 @@
           
             <br />
             <asp:RequiredFieldValidator ID="RequiredFieldValidator50" runat="server" CssClass="rfvPCG"
-                ErrorMessage="Please select broker" Display="Dynamic" ControlToValidate="ddlBssChnl"
+                ErrorMessage="Please select Business Channel" Display="Dynamic" ControlToValidate="ddlBssChnl"
                 InitialValue="0" ValidationGroup="SetUpSubmit">
             </asp:RequiredFieldValidator>
         </td>
