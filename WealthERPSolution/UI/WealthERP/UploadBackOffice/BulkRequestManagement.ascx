@@ -1,4 +1,5 @@
-<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="BulkRequestManagement.ascx.cs" Inherits="WealthERP.UploadBackOffice.BulkRequestManagement" %>
+<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="BulkRequestManagement.ascx.cs"
+    Inherits="WealthERP.UploadBackOffice.BulkRequestManagement" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" />
 <style type="text/css">
@@ -44,7 +45,7 @@
         <telerik:RadTab runat="server" Text="Request Bulk Order" Value="RequestBulkOrder"
             TabIndex="0">
         </telerik:RadTab>
-        <telerik:RadTab runat="server" Text="Bulk Order Status" Value="BulkOrderStatus" TabIndex="1">
+        <telerik:RadTab runat="server" Text="Bulk Order Status" Value="BulkOrderStatus">
         </telerik:RadTab>
     </Tabs>
 </telerik:RadTabStrip>
@@ -67,7 +68,8 @@
                     </td>
                     <td class="rightData">
                         <asp:DropDownList ID="ddlSelectType" runat="server" CssClass="cmbField" AutoPostBack="true"
-                            Width="205px" OnSelectedIndexChanged="Product_SelectedIndexChanged" InitialValue="Select">
+                            Width="205px" OnSelectedIndexChanged="Product_SelectedIndexChanged" InitialValue="Select"
+                            TabIndex="1">
                             <asp:ListItem Value="Select">Select</asp:ListItem>
                             <asp:ListItem Value="FI">Order Book NCD</asp:ListItem>
                             <asp:ListItem Value="IP">Order Book IPO</asp:ListItem>
@@ -75,8 +77,8 @@
                         <span id="Span1" class="spnRequiredField">*</span>
                         <br />
                         <asp:RequiredFieldValidator ID="rfvType1" runat="server" ErrorMessage="Please Select Order Type"
-                            CssClass="rfvPCG" ControlToValidate="ddlSelectType" ValidationGroup="btnGo1" Display="Dynamic"
-                            InitialValue="Select"></asp:RequiredFieldValidator>
+                            CssClass="rfvPCG" ControlToValidate="ddlSelectType" ValidationGroup="btnGo1"
+                            Display="Dynamic" InitialValue="Select"></asp:RequiredFieldValidator>
                     </td>
                 </tr>
                 <tr id="trSelectIssueRow" visible="false">
@@ -85,20 +87,20 @@
                     </td>
                     <td class="rightData">
                         <asp:DropDownList ID="ddlSelectIssue" runat="server" CssClass="cmbField" AutoPostBack="true"
-                            Width="205px" Visible="false">
-                            <asp:ListItem Value="Select">Select</asp:ListItem>
+                            Width="205px" Visible="false" TabIndex="2">
+                            
                         </asp:DropDownList>
                         <span id="Span3" class="spnRequiredField">*</span>
                         <br />
                         <asp:RequiredFieldValidator ID="rfvIssue" runat="server" ErrorMessage="Please Select Issue"
                             CssClass="rfvPCG" ControlToValidate="ddlSelectIssue" ValidationGroup="btnGo1"
-                            Display="Dynamic" InitialValue="Select"></asp:RequiredFieldValidator>
+                            Display="Dynamic" InitialValue="0"></asp:RequiredFieldValidator>
                     </td>
                 </tr>
                 <tr id="tr2" runat="server">
                     <td class="leftLabel">
-                        <asp:Button ID="btnGo1" runat="server" Text="Go" CssClass="PCGButton" ValidationGroup="btnGo1"
-                            OnClick="btnGo_Click" />
+                        <asp:Button ID="btnGo1" runat="server" Text="Go" TabIndex="3" CssClass="PCGButton"
+                            ValidationGroup="btnGo1" OnClick="btnGo_Click" />
                     </td>
                 </tr>
                 <tr>
@@ -151,28 +153,27 @@
                         </telerik:RadDatePicker>
                         <span id="Span18" class="spnRequiredField">*</span>
                         <br />
-                        <asp:RequiredFieldValidator ID="rfvDate" runat="server" CssClass="rfvPCG"
-                            ErrorMessage="Please Enter Requested Date" Display="Dynamic" ControlToValidate="txtReqDate"
-                            InitialValue="" ValidationGroup="btnGo2">
+                        <asp:RequiredFieldValidator ID="rfvDate" runat="server" CssClass="rfvPCG" ErrorMessage="Please Enter Requested Date"
+                            Display="Dynamic" ControlToValidate="txtReqDate" InitialValue="" ValidationGroup="btnGo2">
                         </asp:RequiredFieldValidator>
                     </td>
                 </tr>
             </table>
             <table width="60%">
-    <tr id="trBtnSubmit" runat="server">
-        <td class="leftLabel">
-            <asp:Button ID="btnGo2" runat="server" Text="Go" CssClass="PCGButton" ValidationGroup="btnGo2" />
-        </td>
-        <td class="rightData">
-        </td>
-        <td class="leftLabel">
-            &nbsp;
-        </td>
-        <td class="rightData">
-            &nbsp;
-        </td>
-    </tr>
-</table>
+                <tr id="trBtnSubmit" runat="server">
+                    <td class="leftLabel">
+                        <asp:Button ID="btnGo2" runat="server" Text="Go" CssClass="PCGButton" ValidationGroup="btnGo2" />
+                    </td>
+                    <td class="rightData">
+                    </td>
+                    <td class="leftLabel">
+                        &nbsp;
+                    </td>
+                    <td class="rightData">
+                        &nbsp;
+                    </td>
+                </tr>
+            </table>
         </asp:Panel>
     </telerik:RadPageView>
 </telerik:RadMultiPage>
