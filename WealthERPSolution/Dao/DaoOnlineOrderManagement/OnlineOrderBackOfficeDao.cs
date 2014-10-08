@@ -100,7 +100,7 @@ namespace DaoOnlineOrderManagement
             DbCommand cmd;
             //if (AmcCode == 19 && TransactionType == "AMCBANK")
             //{
- 
+
             //}
             try
             {
@@ -1062,6 +1062,23 @@ namespace DaoOnlineOrderManagement
             }
             return dsGetRTA;
         }
+        public DataSet GetRTALists()
+        {
+            DataSet dsGetRTAList;
+            Database db;
+            DbCommand cmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmd = db.GetStoredProcCommand("SPROC_Onl_GetRTA");
+                dsGetRTAList = db.ExecuteDataSet(cmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsGetRTAList;
+        }
         public bool CreateMapwithRTA(WERPlookupCodeValueManagementVo werplookupCodeValueManagementVo, int userID)
         {
             bool bResult = false;
@@ -1337,7 +1354,7 @@ namespace DaoOnlineOrderManagement
             return dsSystematicDetails;
         }
 
-        public bool CreateSystematicDetails(MFProductAMCSchemePlanDetailsVo mfProductAMCSchemePlanDetailsVo, int schemeplancode,int userId)
+        public bool CreateSystematicDetails(MFProductAMCSchemePlanDetailsVo mfProductAMCSchemePlanDetailsVo, int schemeplancode, int userId)
         {
             bool bResult = false;
             Database db;
@@ -1382,7 +1399,7 @@ namespace DaoOnlineOrderManagement
             }
             return bResult;
         }
-        public bool EditSystematicDetails(MFProductAMCSchemePlanDetailsVo mfProductAMCSchemePlanDetailsVo, int schemeplancode, int systematicdetailsid,int userId)
+        public bool EditSystematicDetails(MFProductAMCSchemePlanDetailsVo mfProductAMCSchemePlanDetailsVo, int schemeplancode, int systematicdetailsid, int userId)
         {
             bool blResult = false;
             Database db;
@@ -1607,7 +1624,7 @@ namespace DaoOnlineOrderManagement
         }
 
 
-        public DataSet GetAdviserClientKYCStatusList(int adviserId,string filterOn,string clientCode)
+        public DataSet GetAdviserClientKYCStatusList(int adviserId, string filterOn, string clientCode)
         {
 
             Database db;
@@ -2531,6 +2548,78 @@ namespace DaoOnlineOrderManagement
                 throw Ex;
             }
             return dtGetRTAInitialReport;
+        }
+        public DataTable GetAMCListRNTWise(string RNTType)
+        {
+            DataSet dsGetAMCListRNTWise;
+            DataTable dtGetAMCListRNTWise;
+            Database db;
+            DbCommand cmdGetAMCListRNTWise;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetAMCListRNTWise = db.GetStoredProcCommand("SPROC_GetAMCListRNTWise");
+                db.AddInParameter(cmdGetAMCListRNTWise, "@RNTType", DbType.String, RNTType);
+                dsGetAMCListRNTWise = db.ExecuteDataSet(cmdGetAMCListRNTWise);
+                dtGetAMCListRNTWise = dsGetAMCListRNTWise.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetAMCListRNTWise;
+        }
+        public DataTable GetSubBrokerCodeCleansing(string RNTType, int AMCCode, int schemePlanCode, int adviserId, int subBrokerCode)
+        {
+            DataSet dsGetSubBrokerCodeCleansing;
+            DataTable dtGetSubBrokerCodeCleansing;
+            Database db;
+            DbCommand cmdGetSubBrokerCodeCleansing;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetSubBrokerCodeCleansing = db.GetStoredProcCommand("SPROC_GetSubBrokerCleansing");
+                if (schemePlanCode != 0)
+                    db.AddInParameter(cmdGetSubBrokerCodeCleansing, "@SchemePlanCode", DbType.Int32, schemePlanCode);
+                else
+                    db.AddInParameter(cmdGetSubBrokerCodeCleansing, "@SchemePlanCode", DbType.Int32, DBNull.Value);
+                if (AMCCode != 0)
+                    db.AddInParameter(cmdGetSubBrokerCodeCleansing, "@AmcCode", DbType.Int32, AMCCode);
+                else
+                    db.AddInParameter(cmdGetSubBrokerCodeCleansing, "@AmcCode", DbType.Int32, DBNull.Value);
+                db.AddInParameter(cmdGetSubBrokerCodeCleansing, "@adviserId", DbType.Int32, adviserId);
+                db.AddInParameter(cmdGetSubBrokerCodeCleansing, "@subBrokerType", DbType.Int32, subBrokerCode);
+                db.AddInParameter(cmdGetSubBrokerCodeCleansing, "@ExternalType", DbType.String, RNTType);
+                dsGetSubBrokerCodeCleansing = db.ExecuteDataSet(cmdGetSubBrokerCodeCleansing);
+                dtGetSubBrokerCodeCleansing = dsGetSubBrokerCodeCleansing.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetSubBrokerCodeCleansing;
+        }
+        public bool UpdateSubBrokerCode(string transactionId, string subBrokerCode)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand UpdateSubBrokerCodeCmd;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                UpdateSubBrokerCodeCmd = db.GetStoredProcCommand("SPROC_UpdateSubBrokerCode");
+                db.AddInParameter(UpdateSubBrokerCodeCmd, "@transactionId", DbType.String, transactionId);
+                db.AddInParameter(UpdateSubBrokerCodeCmd, "@subBrokerCode", DbType.String, subBrokerCode);
+                if (db.ExecuteNonQuery(UpdateSubBrokerCodeCmd) != 0)
+
+                    bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return bResult;
         }
     }
 }

@@ -1146,6 +1146,21 @@ namespace BoOnlineOrderManagement
             }
             return dsGetRTA;
         }
+        public DataSet GetRTALists()
+        {
+            DataSet dsGetRTAList;
+            try
+            {
+                OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
+                dsGetRTAList = OnlineOrderBackOfficeDao.GetRTALists();
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsGetRTAList;
+        }
         public DataSet GetRtaWiseMapings(string sourceCode, int categoryID)
         {
             DataSet dsGetRtaWiseMapings;
@@ -2124,19 +2139,61 @@ namespace BoOnlineOrderManagement
             dtGetSchemeLookupType = daoOnlineOrderBackOffice.GetSchemeLookupType(dividentType);
             return dtGetSchemeLookupType;
         }
-        public DataTable GetRTAInitialReport(string type,DateTime fromDate,DateTime toDate)
+        public DataTable GetRTAInitialReport(string type, DateTime fromDate, DateTime toDate)
         {
             DataTable dt;
             OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
             try
             {
-                dt = OnlineOrderBackOfficeDao.GetRTAInitialReport(type,fromDate,toDate);
+                dt = OnlineOrderBackOfficeDao.GetRTAInitialReport(type, fromDate, toDate);
             }
             catch (BaseApplicationException Ex)
             {
                 throw Ex;
             }
             return dt;
+        }
+        public DataTable GetAMCListRNTWise(string RNTType)
+        {
+            DataTable dtGetAMCListRNTWise;
+            OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
+            try
+            {
+                dtGetAMCListRNTWise = OnlineOrderBackOfficeDao.GetAMCListRNTWise(RNTType);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetAMCListRNTWise;
+        }
+        public DataTable GetSubBrokerCodeCleansing(string RNTType, int AMCCode, int schemePlanCode, int adviserId, int subBrokerCode)
+        {
+            DataTable dtGetSubBrokerCodeCleansing;
+            OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
+            try
+            {
+                dtGetSubBrokerCodeCleansing = OnlineOrderBackOfficeDao.GetSubBrokerCodeCleansing(RNTType, AMCCode, schemePlanCode, adviserId, subBrokerCode);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetSubBrokerCodeCleansing;
+        }
+        public bool UpdateSubBrokerCode(string transactionId, string subBrokerCode)
+        {
+            bool bResult = false;
+            OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
+            try
+            {
+                bResult = OnlineOrderBackOfficeDao.UpdateSubBrokerCode(transactionId, subBrokerCode);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return bResult;
         }
     }
 }
