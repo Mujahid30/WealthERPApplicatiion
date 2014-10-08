@@ -139,7 +139,7 @@
                                             </tr>
                                             <tr>
                                                 <td align="right">
-                                                    <asp:Label runat="server" Text="Chanel :" ID="Label2"></asp:Label>
+                                                    <asp:Label runat="server" Text="Channel :" ID="Label2"></asp:Label>
                                                 </td>
                                                 <td colspan="3">
                                                     <telerik:RadComboBox AutoPostBack="true" runat="server" ID="rcbChanel" EmptyMessage="Select"
@@ -191,10 +191,10 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td align="right" width="50%">
+                                                <td align="right"  >
                                                 <asp:CheckBox ID="chkIsSeqChange" runat="server" CssClass="txtField" Text="" AutoPostBack="true">
                                                     </asp:CheckBox>
-                                                    <asp:Label runat="server" Text="Changes Aplicable Existing Seq.:" ID="Label8"></asp:Label>
+                                                    <asp:Label runat="server" Text="Changes Applicable Existing Seq.:" ID="Label8"></asp:Label>
                                                 </td>
                                                <%-- <td colspan="3">
                                                     <asp:CheckBox ID="chkIsSeqChange" runat="server" CssClass="txtField" Text="" AutoPostBack="true">
