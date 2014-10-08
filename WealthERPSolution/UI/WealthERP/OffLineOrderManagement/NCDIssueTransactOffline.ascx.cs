@@ -28,6 +28,7 @@ using System.IO;
 using System.Globalization;
 using BoOnlineOrderManagement;
 using VoOnlineOrderManagemnet;
+using BoOfflineOrderManagement;
 using System.Text.RegularExpressions;
 
 
@@ -36,6 +37,7 @@ namespace WealthERP.OffLineOrderManagement
     public partial class NCDIssueTransactOffline : System.Web.UI.UserControl
     {
         OnlineBondOrderBo OnlineBondBo = new OnlineBondOrderBo();
+        OfflineBondOrderBo offlineBondBo = new OfflineBondOrderBo();
         CustomerVo customerVo = new CustomerVo();
         CustomerAccountBo customerAccountBo = new CustomerAccountBo();
         CustomerBo customerBo = new CustomerBo();
@@ -1019,7 +1021,7 @@ namespace WealthERP.OffLineOrderManagement
             DataTable dtIssue = new DataTable();
             //1--- For Curent Issues
             pnlIssuList.Visible = true;
-            dtIssue = OnlineBondBo.GetAdviserIssuerList(advisorVo.advisorId, int.Parse(ddlIssueList.SelectedValue), 1, int.Parse(hdnCustomerId.Value), Session["PageDefaultSetting"] == null ? 1 : 0, customerVo.TaxStatusCustomerSubTypeId).Tables[0];
+            dtIssue = offlineBondBo.GetOfflineAdviserIssuerList(advisorVo.advisorId, int.Parse(ddlIssueList.SelectedValue), 1, int.Parse(hdnCustomerId.Value), customerVo.TaxStatusCustomerSubTypeId).Tables[0];
 
             if (dtIssue.Rows.Count > 0)
             {
@@ -1050,7 +1052,7 @@ namespace WealthERP.OffLineOrderManagement
         protected void BindStructureRuleGrid(int IssuerId)
         {
             customerVo = (CustomerVo)Session["customerVo"];
-            DataSet dsStructureRules = OnlineBondBo.GetLiveBondTransaction(IssuerId, customerVo.CustomerId, customerVo.TaxStatusCustomerSubTypeId);
+            DataSet dsStructureRules = offlineBondBo.GetOfflineLiveBondTransaction(IssuerId, customerVo.CustomerId, customerVo.TaxStatusCustomerSubTypeId);
             DataTable dtTransact = dsStructureRules.Tables[0];
             if (dtTransact.Rows.Count > 0)
             {
@@ -1421,7 +1423,7 @@ namespace WealthERP.OffLineOrderManagement
                     }
                     else
                         agentId = 0;
-                    orderIds = OnlineBondBo.OfflineBOndtransact(dt, advisorVo.advisorId, OnlineBondVo.IssueId, agentId, txtAssociateSearch.Text, userVo.UserId);
+                    orderIds = offlineBondBo.OfflineBOndtransact(dt, advisorVo.advisorId, OnlineBondVo.IssueId, agentId, txtAssociateSearch.Text, userVo.UserId);
                     orderId = int.Parse(orderIds["Order_Id"].ToString());
                     aplicationNoStatus = orderIds["aplicationNoStatus"].ToString();
                     
@@ -1444,7 +1446,7 @@ namespace WealthERP.OffLineOrderManagement
 
                     if (dtJntHld.Rows.Count > 0)
                     {
-                        OnlineBondBo.CreateOfflineCustomerOrderAssociation(dtJntHld, userVo.UserId, orderId);
+                        offlineBondBo.CreateOfflineCustomerOrderAssociation(dtJntHld, userVo.UserId, orderId);
                     }
                     ViewState["OrderId"] = orderId;
                     btnConfirmOrder.Enabled = false;

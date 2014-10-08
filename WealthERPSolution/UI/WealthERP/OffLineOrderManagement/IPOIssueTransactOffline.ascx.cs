@@ -37,6 +37,7 @@ namespace WealthERP.OffLineOrderManagement
     public partial class IPOIssueTransactOffline : System.Web.UI.UserControl
     {
         OnlineBondOrderBo OnlineBondBo = new OnlineBondOrderBo();
+        OfflineBondOrderBo OfflineBondOrderBo = new OfflineBondOrderBo();
         CustomerVo customerVo = new CustomerVo();
         CustomerAccountBo customerAccountBo = new CustomerAccountBo();
         CustomerBo customerBo = new CustomerBo();
@@ -1449,7 +1450,7 @@ namespace WealthERP.OffLineOrderManagement
 
             if (dtJntHld.Rows.Count > 0)
             {
-                OnlineBondBo.CreateOfflineCustomerOrderAssociation(dtJntHld, userVo.UserId, orderId);
+                OfflineBondOrderBo.CreateOfflineCustomerOrderAssociation(dtJntHld, userVo.UserId, orderId);
             }
             userMessage = CreateUserMessage(orderId, accountDebitStatus, isCutOffTimeOver);
             

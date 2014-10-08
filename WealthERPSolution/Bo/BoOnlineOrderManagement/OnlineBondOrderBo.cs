@@ -226,31 +226,7 @@ namespace BoOnlineOrderManagement
             return dsCommissionStructureRules;
         }
 
-        public void CreateOfflineCustomerOrderAssociation(DataTable OrderAssociates, int userId, int orderId)
-        {
-            try
-            {
-                onlineBondDao.CreateOfflineCustomerOrderAssociation(OrderAssociates, userId, orderId);
-
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "CreateOfflineCustomerOrderAssociation(OrderAssociates, userId, orderId);");
-                object[] objects = new object[1];
-                objects[0] = OrderAssociates;
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
-           
-        }
+      
         public IDictionary<string, string> onlineBOndtransact(DataTable OnlineBondOrder, int adviserId, int IssuerId)
         {
             IDictionary<string, string> OrderIds = new Dictionary<string, string>();

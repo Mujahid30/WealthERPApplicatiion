@@ -1594,7 +1594,7 @@ namespace DaoOnlineOrderManagement
             return dsGetIssuerIssue;
         }
 
-        public DataSet GetUploadIssue(string product, int adviserId)
+        public DataSet GetUploadIssue(string product, int adviserId,string type)
         {
             DataSet dsGetIssuerIssue;
             Microsoft.Practices.EnterpriseLibrary.Data.Database db;
@@ -1605,7 +1605,7 @@ namespace DaoOnlineOrderManagement
                 dbCommand = db.GetStoredProcCommand("SPROC_GetUploadIssue");
                 db.AddInParameter(dbCommand, "@adviserId", DbType.Int32, adviserId);
                 db.AddInParameter(dbCommand, "@product", DbType.String, product);
-
+                db.AddInParameter(dbCommand, "Type", DbType.String, type);
                 //@product
                 dsGetIssuerIssue = db.ExecuteDataSet(dbCommand);
             }

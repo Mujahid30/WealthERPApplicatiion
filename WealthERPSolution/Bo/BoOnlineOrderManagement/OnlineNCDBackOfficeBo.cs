@@ -1481,12 +1481,12 @@ namespace BoOnlineOrderManagement
 
 
 
-        public DataSet GetUploadIssue(string product, int adviserId)
+        public DataSet GetUploadIssue(string product, int adviserId,string type)
         {
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
             try
             {
-                return onlineNCDBackOfficeDao.GetUploadIssue(product, adviserId);
+                return onlineNCDBackOfficeDao.GetUploadIssue(product, adviserId,type);
             }
             catch (BaseApplicationException Ex)
             {
