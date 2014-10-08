@@ -124,7 +124,7 @@
                                                 <Items>
                                                     <telerik:RadPanelItem runat="server" Text="Add Staff Online" Value="Add Staff">
                                                     </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" Text="Add Staff Offline" Value="Add_Staff_Offline">
+                                                    <telerik:RadPanelItem runat="server" Text="Add Staff" Value="Add_Staff_Offline">
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="Staff Reassign" Value="Staff_ReAssign">
                                                     </telerik:RadPanelItem>
@@ -284,6 +284,8 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Add Receivable Structure" Value="Receivable_Strucrure_setup">
                                             </telerik:RadPanelItem>
+                                             <telerik:RadPanelItem runat="server" Text="Commission Receivable" Value="Commission_Receivable_Recon">
+                                            </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="View Scheme Structure Association" Value="View_Scheme_Structure_Association">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="View Scheme Rules" Value="Receivable_Scheme_Structure_Association">
@@ -304,6 +306,8 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Audit Log" Value="Audit_Log">
                                             </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="SubBroker Code Cleansing" Value="SubBroker_Code_Cleansing">
+                                            </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="NCD and IPO Order Match" Value="NcdIpoRecon">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="MF NP & Tranx Compare" Value="MFNP_Tranx_Compare">
@@ -316,8 +320,7 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Valuation" Value="Valuation">
                                             </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="Commission Receivable Recon" Value="Commission_Receivable_Recon">
-                                            </telerik:RadPanelItem>
+                                           
                                         </Items>
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="User Management" Value="User_Management">
@@ -994,6 +997,8 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Add Receivable Structure" Value="Receivable_Strucrure_setup">
                                             </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="Commission Receivable" Value="Commission_Receivable_Recon">
+                                            </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="View Scheme Structure Association" Value="View_Scheme_Structure_Association">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="View Scheme Rules" Value="Receivable_Scheme_Structure_Association">
@@ -1022,8 +1027,7 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Valuation" Value="Valuation">
                                             </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="Commission Receivable Recon" Value="Commission_Receivable_Recon">
-                                            </telerik:RadPanelItem>
+                                            
                                         </Items>
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="User Management" Value="User_Management">

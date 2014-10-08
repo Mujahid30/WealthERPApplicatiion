@@ -30,6 +30,12 @@
                         <td align="left">
                             SubBroker Code Cleansing
                         </td>
+                         <td align="right">
+                            <asp:ImageButton ID="imgexportButton" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                                Visible="false" runat="server" AlternateText="Excel" ToolTip="Export To Excel"
+                                OnClick="btnExportData_OnClick" OnClientClick="setFormat('excel')" Height="22px"
+                                Width="25px"></asp:ImageButton>
+                        </td>
                     </tr>
                 </table>
             </div>
@@ -90,6 +96,8 @@
         </td>
     </tr>
 </table>
+<asp:Panel ID="pnlgvSubBrokerCleansing" runat="server" ScrollBars="Horizontal" Height="100%" Width="100%"
+    Visible="false">
 <table width="100%">
     <tr id="trSubBrokerCleansing" runat="server">
         <td>
@@ -146,7 +154,7 @@
                         </telerik:GridTemplateColumn>
                         <telerik:GridBoundColumn DataField="PASP_SchemePlanName" SortExpression="PASP_SchemePlanName"
                             UniqueName="PASP_SchemePlanName" AllowFiltering="true" HeaderText="Scheme Name"
-                            ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
+                            ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"  FilterControlWidth="180px">
                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="CMFT_Amount" SortExpression="CMFT_Amount" UniqueName="CMFT_Amount"
@@ -180,3 +188,4 @@
         </td>
     </tr>
 </table>
+</asp:Panel>

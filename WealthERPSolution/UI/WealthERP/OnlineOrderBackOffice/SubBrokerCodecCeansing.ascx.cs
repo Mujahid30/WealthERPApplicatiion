@@ -118,6 +118,7 @@ namespace WealthERP.OnlineOrderBackOffice
         protected void Go_OnClick(object sender, EventArgs e)
         {
             BindSubBrokerCleansingLisrt();
+            imgexportButton.Visible = true;
         }
         protected void BindSubBrokerCleansingLisrt()
         {
@@ -127,6 +128,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 dtBindSubBrokerCleansingLisrt = OnlineOrderBackOfficeBo.GetSubBrokerCodeCleansing(ddlRTA.SelectedValue, int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), advisorVo.advisorId, int.Parse(ddlSubbrokerCode.SelectedValue));
                 gvSubBrokerCleansing.DataSource = dtBindSubBrokerCleansingLisrt;
                 gvSubBrokerCleansing.DataBind();
+                pnlgvSubBrokerCleansing.Visible = true;
                 if (Cache["SubBrokerCleansing" + userVo.UserId] == null)
                 {
                     Cache.Insert("SubBrokerCleansing" + userVo.UserId, dtBindSubBrokerCleansingLisrt);
@@ -177,8 +179,19 @@ namespace WealthERP.OnlineOrderBackOffice
                     }
                 }
                 OnlineOrderBackOfficeBo.UpdateSubBrokerCode(gvMFAId.TrimEnd(','), newSubBrokerCode.Text);
+                BindSubBrokerCleansingLisrt();
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('SubBrokerCode Update successfully !!');", true);
             }
+        }
+        public void btnExportData_OnClick(object sender, ImageClickEventArgs e)
+        {
+            gvSubBrokerCleansing.ExportSettings.OpenInNewWindow = true;
+            gvSubBrokerCleansing.ExportSettings.IgnorePaging = true;
+            gvSubBrokerCleansing.ExportSettings.HideStructureColumns = true;
+            gvSubBrokerCleansing.ExportSettings.ExportOnlyData = true;
+            gvSubBrokerCleansing.ExportSettings.FileName = "SubBroker Code Cleansing";
+            gvSubBrokerCleansing.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            gvSubBrokerCleansing.MasterTableView.ExportToExcel();
         }
     }
 }

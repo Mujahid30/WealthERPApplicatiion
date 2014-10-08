@@ -552,6 +552,10 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ManageLookups','login');", true);
                 }
+                else if (e.Item.Value == "SubBroker_Code_Cleansing")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('SubBrokerCodecCeansing','login');", true);
+                }
                 else if (e.Item.Value == "Add_Request")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('BulkRequestManagement','login');", true);
