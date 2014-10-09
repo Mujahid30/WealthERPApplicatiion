@@ -597,12 +597,13 @@ namespace WealthERP.OffLineOrderManagement
         }
         protected void GetcustomerDetails()
         {
-
+            CustomerPortfolioVo customerPortfolioVo = new CustomerPortfolioVo();
             customerVo = customerBo.GetCustomer(int.Parse(txtCustomerId.Value));
             Session["customerVo"] = customerVo;
             lblGetBranch.Text = customerVo.BranchName;
             lblgetPan.Text = customerVo.PANNum;
             hdnCustomerId.Value = txtCustomerId.Value;
+            hdnPortfolioId.Value = customerPortfolioVo.PortfolioId.ToString();
             customerId = int.Parse(txtCustomerId.Value);
             if (ddlsearch.SelectedItem.Value == "2")
                 lblgetcust.Text = customerVo.FirstName + ' ' + customerVo.MiddleName + ' ' + customerVo.LastName;

@@ -75,9 +75,11 @@
         return false;
     }
     function openpopupAddDematAccount() {
+        alert("Please ")
         var customerId = document.getElementById("<%=txtCustomerId.ClientID %>").value;
+        var customerPortfolioId = document.getElementById("<%=hdnPortfolioId.ClientID %>").value;
         if (customerId != 0) {
-            window.open('PopUp.aspx?PageId=AddDematAccountDetails&CustomerId=' + customerId, 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')
+            window.open('PopUp.aspx?PageId=AddDematAccountDetails&CustomerId=' + customerId + '&CustomerPortfolioId=' + customerPortfolioId, 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')
 
         }
         else {
@@ -445,7 +447,7 @@
                 CssClass="FieldName"></asp:Label>
         </td>
        <td class="rightField" style="width: 20%">
-            <asp:TextBox ID="txtApplicationNo" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtApplicationNo" runat="server" CssClass="txtField" MaxLength="6" OnKeypress="javascript:return isNumberKey(event);"></asp:TextBox>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator5" ControlToValidate="txtApplicationNo"
                 ErrorMessage="<br />Please Enter Application No" Display="Dynamic" runat="server"
                 CssClass="rfvPCG" ValidationGroup="btnConfirmOrder"></asp:RequiredFieldValidator>

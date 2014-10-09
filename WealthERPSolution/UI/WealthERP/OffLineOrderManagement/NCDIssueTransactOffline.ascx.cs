@@ -153,7 +153,7 @@ namespace WealthERP.OffLineOrderManagement
                     lblGetBranch.Text = customerVo.BranchName;
                     //lblGetRM.Text = customerVo.RMName;
                     lblgetPan.Text = customerVo.PANNum;
-                    BindPortfolioDropdown(customerId);
+                  
                 }
 
 
@@ -653,10 +653,10 @@ namespace WealthERP.OffLineOrderManagement
                 GetcustomerDetails();
             }
         }
-        protected void btnImgAddCustomer_click(object sender, EventArgs e)
-        {
-            ScriptManager.RegisterStartupScript(this, GetType(), "openpopupAddCustomer", "openpopupAddCustomer();", true);
-        }
+        ////protected void btnImgAddCustomer_click(object sender, EventArgs e)
+        ////{
+        ////    ScriptManager.RegisterStartupScript(this, GetType(), "openpopupAddCustomer", "openpopupAddCustomer();", true);
+        ////}
         protected void GetcustomerDetails()
         {
             CustomerPortfolioVo customerPortfolioVo = new CustomerPortfolioVo();
@@ -709,18 +709,7 @@ namespace WealthERP.OffLineOrderManagement
             ddlBankName.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
 
         }
-        private void BindPortfolioDropdown(int customerId)
-        {
-            DataSet ds = portfolioBo.GetCustomerPortfolio(customerId);
-            if (ds.Tables[0].Rows.Count > 0)
-            {
-                //ddlPortfolio.DataSource = ds;
-                //ddlPortfolio.DataValueField = ds.Tables[0].Columns["CP_PortfolioId"].ToString();
-                //ddlPortfolio.DataTextField = ds.Tables[0].Columns["CP_PortfolioName"].ToString();
-                //ddlPortfolio.DataBind();
-                //hdnPortfolioId.Value = ddlPortfolio.SelectedValue;
-            }
-        }
+      
         public void clearPancustomerDetails()
         {
             lblgetPan.Text = "";
