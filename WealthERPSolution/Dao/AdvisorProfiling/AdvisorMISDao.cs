@@ -802,7 +802,7 @@ namespace DaoAdvisorProfiling
         #endregion
 
 
-        public DataSet GetCustomerAMCSchemewiseAUMForAdviser(int adviserid, int branchid, int rmid, DateTime valuationDate, int SchemeCode, string AgentCode, int IsAgentBasedCode)
+        public DataSet GetCustomerAMCSchemewiseAUMForAdviser(int adviserid, int branchid, int rmid, DateTime valuationDate, int SchemeCode, string AgentCode, int IsAgentBasedCode, int type)
         {
 
             Database db;
@@ -832,6 +832,8 @@ namespace DaoAdvisorProfiling
                 else
                     db.AddInParameter(getLoanMICmd, "@SchemeCode", DbType.Int32, DBNull.Value);
                 db.AddInParameter(getLoanMICmd, "@IsAgentBasedCode", DbType.Int32, IsAgentBasedCode);
+                db.AddInParameter(getLoanMICmd, "@online", DbType.Int32, type);
+
                 getLoanMICmd.CommandTimeout = 60 * 60;
                 AMCSchemewiseMIS = db.ExecuteDataSet(getLoanMICmd);
             }
@@ -1175,7 +1177,7 @@ namespace DaoAdvisorProfiling
         }
 
 
-        public DataSet GetAMCwiseAUMForAdviser(int adviserid, int branchid, int rmid, DateTime valuationDate)
+        public DataSet GetAMCwiseAUMForAdviser(int adviserid, int branchid, int rmid, DateTime valuationDate, int type)
         {
 
             Database db;
@@ -1196,6 +1198,7 @@ namespace DaoAdvisorProfiling
                     db.AddInParameter(getLoanMICmd, "@RMId", DbType.Int32, DBNull.Value);
 
                 db.AddInParameter(getLoanMICmd, "@Valuation_Date", DbType.DateTime, valuationDate.ToString("dd/MM/yyyy"));
+                db.AddInParameter(getLoanMICmd, "@online", DbType.Int32, type);
 
                 AMCwiseAUMForAdviser = db.ExecuteDataSet(getLoanMICmd);
             }
@@ -1223,7 +1226,7 @@ namespace DaoAdvisorProfiling
 
         }
 
-        public DataSet GetAMCSchemewiseAUMForAdviser(int adviserid, int branchid, int rmid, DateTime valuationDate, int AmcCode, string AgentCode, int IsAgentBasedCode)
+        public DataSet GetAMCSchemewiseAUMForAdviser(int adviserid, int branchid, int rmid, DateTime valuationDate, int AmcCode, string AgentCode, int IsAgentBasedCode,int type)
         {
 
             Database db;
@@ -1252,6 +1255,8 @@ namespace DaoAdvisorProfiling
                 else
                     db.AddInParameter(getLoanMICmd, "@AgentCode", DbType.Int32, DBNull.Value);
                 db.AddInParameter(getLoanMICmd, "@IsAgentBasedCode", DbType.Int32, IsAgentBasedCode);
+                db.AddInParameter(getLoanMICmd, "@online", DbType.Int32, type);
+
                 getLoanMICmd.CommandTimeout = 60 * 60;
                 AMCSchemewiseMIS = db.ExecuteDataSet(getLoanMICmd);
             }
@@ -2094,7 +2099,7 @@ namespace DaoAdvisorProfiling
             return dsGetMISCommission;
         }
 
-        public DataSet GetMFReturnsDetails(string userType, int adviserid, int RmId, int branchId, int branchHeadId, int All, string strValuationDate,int customerid)
+        public DataSet GetMFReturnsDetails(string userType, int adviserid, int RmId, int branchId, int branchHeadId, int All, string strValuationDate, int customerid)
         {
             Database db;
             DbCommand getMFReturnsCmd;
@@ -2112,7 +2117,7 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(getMFReturnsCmd, "@all", DbType.Int32, All);
                 if (strValuationDate != "01/01/0001")
                     db.AddInParameter(getMFReturnsCmd, "@valuationDate", DbType.DateTime, DateTime.Parse(strValuationDate));
-                  db.AddInParameter(getMFReturnsCmd, "@customerid", DbType.Int32, customerid);
+                db.AddInParameter(getMFReturnsCmd, "@customerid", DbType.Int32, customerid);
                 getMFReturnsCmd.CommandTimeout = 60 * 60;
                 dsGetMFReturns = db.ExecuteDataSet(getMFReturnsCmd);
                 //dtGetReturns = dsGetMFReturns.Tables[0];
@@ -2415,7 +2420,7 @@ namespace DaoAdvisorProfiling
                     db.AddInParameter(getCommissionReconMisCmd, "@Category", DbType.String, category);
                 else
                     db.AddInParameter(getCommissionReconMisCmd, "@Category", DbType.String, DBNull.Value);
-                if(Issuer!=0)
+                if (Issuer != 0)
                     db.AddInParameter(getCommissionReconMisCmd, "@Issuer", DbType.Int32, Issuer);
                 else
                     db.AddInParameter(getCommissionReconMisCmd, "@Issuer", DbType.Int32, 0);
@@ -2513,7 +2518,7 @@ namespace DaoAdvisorProfiling
         /// <param name="Todate"></param>
         /// <param name="AgentId"></param>
         /// <returns></returns>
-        public DataSet GetOrganizationDetailFromMFOrder(string agentcode, string userType, int AdviserId, int rmId, int branchId, int branchHeadId, int all, DateTime FromDate, DateTime Todate, int AgentId,int IsOnline)
+        public DataSet GetOrganizationDetailFromMFOrder(string agentcode, string userType, int AdviserId, int rmId, int branchId, int branchHeadId, int all, DateTime FromDate, DateTime Todate, int AgentId, int IsOnline)
         {
             Database db;
             DbCommand GetSchemeTransactionDeatailsCmd;
@@ -2568,7 +2573,7 @@ namespace DaoAdvisorProfiling
             return dsSchemeTransactionDeatails;
         }
 
-        public DataSet GetMemberDetailFromMFOrder(string agentcode, string userType, int AdviserId, int rmId, int branchId, int branchHeadId, int all, DateTime FromDate, DateTime Todate, int AgentId,int IsOnline)
+        public DataSet GetMemberDetailFromMFOrder(string agentcode, string userType, int AdviserId, int rmId, int branchId, int branchHeadId, int all, DateTime FromDate, DateTime Todate, int AgentId, int IsOnline)
         {
             Database db;
             DbCommand GetMemberTransactionDeatailsCmd;
@@ -2657,7 +2662,7 @@ namespace DaoAdvisorProfiling
                     db.AddInParameter(getCommissionReconMisCmd, "@commissiontype", DbType.String, commtype);
                 else
                     db.AddInParameter(getCommissionReconMisCmd, "@commissiontype", DbType.String, DBNull.Value);
-                if(issuer!=0)
+                if (issuer != 0)
                     db.AddInParameter(getCommissionReconMisCmd, "@issuer", DbType.Int32, issuer);
                 else
                     db.AddInParameter(getCommissionReconMisCmd, "@issuer", DbType.Int32, DBNull.Value);

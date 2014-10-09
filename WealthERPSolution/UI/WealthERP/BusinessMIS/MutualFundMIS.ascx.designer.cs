@@ -8,11 +8,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WealthERP.BusinessMIS {
-    
-    
-    public partial class MutualFundMIS {
-        
+namespace WealthERP.BusinessMIS
+{
+
+
+    public partial class MutualFundMIS
+    {
+
         /// <summary>
         /// scrptMgr control.
         /// </summary>
@@ -21,7 +23,7 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.ScriptManager scrptMgr;
-        
+
         /// <summary>
         /// imgBtnGvFolioWiseAUM control.
         /// </summary>
@@ -30,7 +32,7 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton imgBtnGvFolioWiseAUM;
-        
+
         /// <summary>
         /// imgBtnGvAmcWiseAUM control.
         /// </summary>
@@ -39,7 +41,7 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton imgBtnGvAmcWiseAUM;
-        
+
         /// <summary>
         /// imgBtnGvSchemeWiseAUM control.
         /// </summary>
@@ -48,7 +50,8 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton imgBtnGvSchemeWiseAUM;
-        
+        protected global::System.Web.UI.WebControls.DropDownList ddlType;
+        protected global::System.Web.UI.WebControls.Label lblType;
         /// <summary>
         /// divAdviserList control.
         /// </summary>
@@ -57,7 +60,7 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divAdviserList;
-        
+
         /// <summary>
         /// lblAdviser control.
         /// </summary>
@@ -66,7 +69,7 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblAdviser;
-        
+
         /// <summary>
         /// ddlAdviser control.
         /// </summary>
@@ -75,7 +78,7 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlAdviser;
-        
+
         /// <summary>
         /// divDateDetails control.
         /// </summary>
@@ -84,7 +87,7 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divDateDetails;
-        
+
         /// <summary>
         /// lblBranch control.
         /// </summary>
@@ -93,7 +96,7 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblBranch;
-        
+
         /// <summary>
         /// ddlBranch control.
         /// </summary>
@@ -102,7 +105,7 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlBranch;
-        
+
         /// <summary>
         /// lblRM control.
         /// </summary>
@@ -111,7 +114,7 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblRM;
-        
+
         /// <summary>
         /// ddlRM control.
         /// </summary>
@@ -120,7 +123,7 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlRM;
-        
+
         /// <summary>
         /// lblDate control.
         /// </summary>
@@ -129,7 +132,7 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblDate;
-        
+
         /// <summary>
         /// ddlFilterSelection control.
         /// </summary>
@@ -138,7 +141,7 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlFilterSelection;
-        
+
         /// <summary>
         /// txtDate control.
         /// </summary>
@@ -147,7 +150,7 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadDatePicker txtDate;
-        
+
         /// <summary>
         /// RequiredFieldValidator3 control.
         /// </summary>
@@ -156,7 +159,7 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator3;
-        
+
         /// <summary>
         /// lblFrom control.
         /// </summary>
@@ -165,7 +168,7 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblFrom;
-        
+
         /// <summary>
         /// rdpFrom control.
         /// </summary>
@@ -174,7 +177,7 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadDatePicker rdpFrom;
-        
+
         /// <summary>
         /// lblTo control.
         /// </summary>
@@ -183,7 +186,7 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblTo;
-        
+
         /// <summary>
         /// rdpTo control.
         /// </summary>
@@ -192,7 +195,7 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadDatePicker rdpTo;
-        
+
         /// <summary>
         /// LstValDt control.
         /// </summary>
@@ -201,7 +204,7 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LstValDt;
-        
+
         /// <summary>
         /// lblValDt control.
         /// </summary>
@@ -210,7 +213,7 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblValDt;
-        
+
         /// <summary>
         /// divSelectionDetails control.
         /// </summary>
@@ -219,7 +222,7 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divSelectionDetails;
-        
+
         /// <summary>
         /// Label1 control.
         /// </summary>
@@ -228,7 +231,7 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label1;
-        
+
         /// <summary>
         /// lnkBtnAMCWISEAUM control.
         /// </summary>
@@ -237,7 +240,7 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lnkBtnAMCWISEAUM;
-        
+
         /// <summary>
         /// lnkBtnSCHEMEWISEAUM control.
         /// </summary>
@@ -246,7 +249,7 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lnkBtnSCHEMEWISEAUM;
-        
+
         /// <summary>
         /// lnkBtnFOLIOWISEAUM control.
         /// </summary>
@@ -255,7 +258,7 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lnkBtnFOLIOWISEAUM;
-        
+
         /// <summary>
         /// divSection control.
         /// </summary>
@@ -264,7 +267,7 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divSection;
-        
+
         /// <summary>
         /// lblMFMISType control.
         /// </summary>
@@ -273,7 +276,7 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblMFMISType;
-        
+
         /// <summary>
         /// lblErrorMsg control.
         /// </summary>
@@ -282,7 +285,7 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblErrorMsg;
-        
+
         /// <summary>
         /// divGvAmcWiseAUM control.
         /// </summary>
@@ -291,7 +294,7 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divGvAmcWiseAUM;
-        
+
         /// <summary>
         /// gvAmcWiseAUM control.
         /// </summary>
@@ -300,7 +303,7 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid gvAmcWiseAUM;
-        
+
         /// <summary>
         /// divGvFolioWiseAUM control.
         /// </summary>
@@ -309,7 +312,7 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divGvFolioWiseAUM;
-        
+
         /// <summary>
         /// gvFolioWiseAUM control.
         /// </summary>
@@ -318,7 +321,7 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid gvFolioWiseAUM;
-        
+
         /// <summary>
         /// divGvSchemeWiseAUM control.
         /// </summary>
@@ -327,7 +330,7 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divGvSchemeWiseAUM;
-        
+
         /// <summary>
         /// gvSchemeWiseAUM control.
         /// </summary>
@@ -336,7 +339,7 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid gvSchemeWiseAUM;
-        
+
         /// <summary>
         /// divRgvFolioWiseAUM control.
         /// </summary>
@@ -345,7 +348,7 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divRgvFolioWiseAUM;
-        
+
         /// <summary>
         /// rgvFolioWiseAUM control.
         /// </summary>
@@ -354,7 +357,7 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid rgvFolioWiseAUM;
-        
+
         /// <summary>
         /// divRgvSchemeWiseAUM control.
         /// </summary>
@@ -363,7 +366,7 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divRgvSchemeWiseAUM;
-        
+
         /// <summary>
         /// rgvSchemeWiseAUM control.
         /// </summary>
@@ -372,7 +375,7 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid rgvSchemeWiseAUM;
-        
+
         /// <summary>
         /// divNote control.
         /// </summary>
@@ -381,7 +384,7 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divNote;
-        
+
         /// <summary>
         /// btnasp control.
         /// </summary>
@@ -390,7 +393,7 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnasp;
-        
+
         /// <summary>
         /// hdnbranchId control.
         /// </summary>
@@ -399,7 +402,7 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnbranchId;
-        
+
         /// <summary>
         /// hdnbranchHeadId control.
         /// </summary>
@@ -408,7 +411,7 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnbranchHeadId;
-        
+
         /// <summary>
         /// hdnAll control.
         /// </summary>
@@ -417,7 +420,7 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnAll;
-        
+
         /// <summary>
         /// hdnrmId control.
         /// </summary>
@@ -426,7 +429,7 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnrmId;
-        
+
         /// <summary>
         /// hdnAgentId control.
         /// </summary>
@@ -435,7 +438,7 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnAgentId;
-        
+
         /// <summary>
         /// hdnXWise control.
         /// </summary>
@@ -444,7 +447,7 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnXWise;
-        
+
         /// <summary>
         /// hdnadviserId control.
         /// </summary>
@@ -453,7 +456,7 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnadviserId;
-        
+
         /// <summary>
         /// hdnValuationDate control.
         /// </summary>
@@ -462,7 +465,7 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnValuationDate;
-        
+
         /// <summary>
         /// hdnType control.
         /// </summary>

@@ -2266,7 +2266,7 @@ namespace DaoAdvisorProfiling
             return ds;
         }
 
-        public DataSet GetNEWSignupMISDetails(int adviserId, DateTime fromDate, DateTime toDate)
+        public DataSet GetNEWSignupMISDetails(int adviserId, DateTime fromDate, DateTime toDate, int type)
         {
 
             Database db;
@@ -2279,8 +2279,7 @@ namespace DaoAdvisorProfiling
             db.AddInParameter(getGetNEWSignupMISDetailsCmd, "@AdviserID", DbType.Int32, adviserId);
             db.AddInParameter(getGetNEWSignupMISDetailsCmd, "@FromDate", DbType.DateTime, fromDate);
             db.AddInParameter(getGetNEWSignupMISDetailsCmd, "@ToDate", DbType.DateTime, toDate);
-
-
+            db.AddInParameter(getGetNEWSignupMISDetailsCmd, "@online", DbType.Int32, type);
             getNEWSignupMISDetailsDs = db.ExecuteDataSet(getGetNEWSignupMISDetailsCmd);
             return getNEWSignupMISDetailsDs;
         }
@@ -2665,7 +2664,7 @@ namespace DaoAdvisorProfiling
             }
             return ds;
         }
-        public DataSet GetFolioSignUp(int adviserId, DateTime dtFromDate, DateTime dtToDate)
+        public DataSet GetFolioSignUp(int adviserId, DateTime dtFromDate, DateTime dtToDate,int type)
         {
             Database db;
             DbCommand getGetCmd;
@@ -2677,6 +2676,8 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(getGetCmd, "@AdviserID", DbType.Int32, adviserId);
                 db.AddInParameter(getGetCmd, "@FromDate", DbType.DateTime, dtFromDate);
                 db.AddInParameter(getGetCmd, "@ToDate", DbType.DateTime, dtToDate);
+                db.AddInParameter(getGetCmd, "@online", DbType.Int32, type);
+
                 dsGetFolio = db.ExecuteDataSet(getGetCmd);
             }
             catch (BaseApplicationException Ex)
@@ -2686,7 +2687,7 @@ namespace DaoAdvisorProfiling
             return dsGetFolio;
         }
 
-        public DataSet GetSIPSignUp(int adviserId, DateTime dtFromDate, DateTime dtToDate)
+        public DataSet GetSIPSignUp(int adviserId, DateTime dtFromDate, DateTime dtToDate,int Type)
         {
             Database db;
             DbCommand getGetCmd;
@@ -2698,6 +2699,8 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(getGetCmd, "@AdviserID", DbType.Int32, adviserId);
                 db.AddInParameter(getGetCmd, "@FromDate", DbType.DateTime, dtFromDate);
                 db.AddInParameter(getGetCmd, "@ToDate", DbType.DateTime, dtToDate);
+                db.AddInParameter(getGetCmd, "@online", DbType.Int32, Type);
+
                 dsGetsip = db.ExecuteDataSet(getGetCmd);
             }
             catch (BaseApplicationException Ex)

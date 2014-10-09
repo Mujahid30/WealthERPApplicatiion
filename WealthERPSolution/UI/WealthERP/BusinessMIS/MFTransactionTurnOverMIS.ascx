@@ -59,8 +59,8 @@
             <span id="Span2" class="spnRequiredField">*</span>
         </td>
     </tr>--%>
-    <tr>
-        <td align="left" class="rightData" colspan="4">
+    <tr visible="false">
+        <td align="left" class="rightData" colspan="4" visible="false">
             <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="Date Type:"></asp:Label>
             <asp:RadioButton ID="rbtnPickDate" AutoPostBack="true" Checked="true" OnCheckedChanged="rbtnDate_CheckedChanged"
                 runat="server" GroupName="Date" />
@@ -74,7 +74,7 @@
     <tr>
         <td valign="top" colspan="4" align="left">
             <div id="divDateRange" runat="server" visible="false" style="float: left;">
-                <asp:Label ID="lblFromDate" runat="server" CssClass="FieldName">From:</asp:Label>
+                <asp:Label ID="lblFromDate" runat="server" CssClass="FieldName" >From:</asp:Label>
                 <telerik:RadDatePicker ID="txtFromDate" CssClass="txtField" runat="server" Culture="English (United States)"
                     Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
                     <Calendar ID="Calendar1" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
@@ -118,7 +118,7 @@
     </tr>
     <tr>
         <td>
-            <asp:Label ID="lblFilter" runat="server" Text="Filter:" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="lblFilter" runat="server" Text="Select Type::" CssClass="FieldName"></asp:Label>
             <asp:DropDownList ID="ddlFilter" runat="server" CssClass="cmbField">
                 <asp:ListItem Value="S">Select</asp:ListItem>
                 <asp:ListItem Value="0">Offline Only</asp:ListItem>

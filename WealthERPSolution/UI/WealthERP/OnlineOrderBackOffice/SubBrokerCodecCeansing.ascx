@@ -71,7 +71,7 @@
             <asp:Label ID="lblScheme" runat="server" Text="SchemePlan:" CssClass="FieldName"></asp:Label>
         </td>
         <td>
-            <asp:DropDownList ID="ddlScheme" CssClass="cmbField" runat="server" Width="350px">
+            <asp:DropDownList ID="ddlScheme" CssClass="cmbField" runat="server" Width="330px">
             </asp:DropDownList>
         </td>
         <td align="right">

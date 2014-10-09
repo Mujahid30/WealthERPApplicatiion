@@ -444,13 +444,13 @@ namespace BoAdvisorProfiling
 
 
 
-        public DataSet GetNEWSignupMISDetails(int adviserId,DateTime fromDate,DateTime toDate)
+        public DataSet GetNEWSignupMISDetails(int adviserId,DateTime fromDate,DateTime toDate,int type)
         {
             DataSet ds = new DataSet();
             AdvisorBranchDao advisorBranchDao = new AdvisorBranchDao();
             try
             {
-                ds = advisorBranchDao.GetNEWSignupMISDetails(adviserId,fromDate,toDate);
+                ds = advisorBranchDao.GetNEWSignupMISDetails(adviserId,fromDate,toDate,type);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1852,13 +1852,13 @@ namespace BoAdvisorProfiling
 
         }
 
-        public DataSet GetFolioSignUp(int adviserId, DateTime dtFromDate, DateTime dtToDate)
+        public DataSet GetFolioSignUp(int adviserId, DateTime dtFromDate, DateTime dtToDate,int type)
         {
             AdvisorBranchDao advisorBranchDao = new AdvisorBranchDao();
             DataSet ds = new DataSet();
             try
             {
-                ds = advisorBranchDao.GetFolioSignUp(adviserId, dtFromDate, dtToDate);
+                ds = advisorBranchDao.GetFolioSignUp(adviserId, dtFromDate, dtToDate, type);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1867,13 +1867,13 @@ namespace BoAdvisorProfiling
             return ds;
         }
 
-        public DataSet GetSIPSignUp(int adviserId, DateTime dtFromDate, DateTime dtToDate)
+        public DataSet GetSIPSignUp(int adviserId, DateTime dtFromDate, DateTime dtToDate,int type)
         {
             AdvisorBranchDao advisorBranchDao = new AdvisorBranchDao();
             DataSet ds = new DataSet();
             try
             {
-                ds = advisorBranchDao.GetSIPSignUp(adviserId, dtFromDate, dtToDate);
+                ds = advisorBranchDao.GetSIPSignUp(adviserId, dtFromDate, dtToDate, type);
             }
             catch (BaseApplicationException Ex)
             {

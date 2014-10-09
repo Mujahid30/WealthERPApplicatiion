@@ -421,13 +421,13 @@ namespace BoAdvisorProfiling
             return dsMIS;
         }
 
-        public DataSet GetCustomerAMCSchemewiseAUMForAdviser(int adviserid, int branchid, int rmid, DateTime valuationDate, int SchemeCode, string AgentCode, int IsAgentBasedCode)
+        public DataSet GetCustomerAMCSchemewiseAUMForAdviser(int adviserid, int branchid, int rmid, DateTime valuationDate, int SchemeCode, string AgentCode, int IsAgentBasedCode, int type)
         {
             DataSet dsMIS;
             AdvisorMISDao MISDao = new AdvisorMISDao();
             try
             {
-                dsMIS = MISDao.GetCustomerAMCSchemewiseAUMForAdviser(adviserid, branchid, rmid, valuationDate, SchemeCode, AgentCode, IsAgentBasedCode);
+                dsMIS = MISDao.GetCustomerAMCSchemewiseAUMForAdviser(adviserid, branchid, rmid, valuationDate, SchemeCode, AgentCode, IsAgentBasedCode, type);
             }
             catch (BaseApplicationException Ex)
             {
@@ -745,13 +745,13 @@ namespace BoAdvisorProfiling
             return dsBMMIS;
         }
 
-        public DataSet GetAMCwiseAUMForAdviser(int adviserid, int branchid, int rmid, DateTime valuationDate)
+        public DataSet GetAMCwiseAUMForAdviser(int adviserid, int branchid, int rmid, DateTime valuationDate,int type)
         {
             DataSet dsAmsWiseAUM;
             AdvisorMISDao MISDao = new AdvisorMISDao();
             try
             {
-                dsAmsWiseAUM = MISDao.GetAMCwiseAUMForAdviser(adviserid, branchid, rmid, valuationDate);
+                dsAmsWiseAUM = MISDao.GetAMCwiseAUMForAdviser(adviserid, branchid, rmid, valuationDate,type);
             }
             catch (BaseApplicationException Ex)
             {
@@ -777,13 +777,13 @@ namespace BoAdvisorProfiling
             return dsAmsWiseAUM;
         }
 
-        public DataSet GetAMCSchemewiseAUMForAdviser(int adviserid, int branchid, int rmid, DateTime valuationDate, int AmcCode, string AgentCode, int IsAgentBasedCode)
+        public DataSet GetAMCSchemewiseAUMForAdviser(int adviserid, int branchid, int rmid, DateTime valuationDate, int AmcCode, string AgentCode, int IsAgentBasedCode,int type)
         {
             DataSet dsMIS;
             AdvisorMISDao MISDao = new AdvisorMISDao();
             try
             {
-                dsMIS = MISDao.GetAMCSchemewiseAUMForAdviser(adviserid, branchid, rmid, valuationDate, AmcCode, AgentCode, IsAgentBasedCode);
+                dsMIS = MISDao.GetAMCSchemewiseAUMForAdviser(adviserid, branchid, rmid, valuationDate, AmcCode, AgentCode, IsAgentBasedCode,type);
             }
             catch (BaseApplicationException Ex)
             {

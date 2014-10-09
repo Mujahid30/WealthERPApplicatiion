@@ -19,7 +19,7 @@ namespace WealthERP.BusinessMIS
         DataSet dsNEWSignupMISDetails = new DataSet();
         AdvisorBranchBo advisorBranchBo = new AdvisorBranchBo();
         AdvisorVo adviserVo = new AdvisorVo();
-        DateTime dtFromDate=new DateTime();
+        DateTime dtFromDate = new DateTime();
         DateTime dtToDate = new DateTime();
 
         string userType;
@@ -32,7 +32,11 @@ namespace WealthERP.BusinessMIS
             if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
                 userType = "advisor";
             else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "associates")
+            {
                 userType = "associates";
+                lblTypes.Visible = false;
+                ddlTypes.Visible = false;
+            }
             else
                 userType = Session[SessionContents.CurrentUserRole].ToString().ToLower();
 
@@ -54,9 +58,9 @@ namespace WealthERP.BusinessMIS
         {
             DataSet dsNEWSignupMISDetails = new DataSet();
             dsNEWSignupMISDetails = (DataSet)Cache["gvSchemeDetailsForMappinginSuperAdmin"];
-            if(dsNEWSignupMISDetails.Tables.Count>0)
-            gvNewCustomerSignUpMIS.DataSource = dsNEWSignupMISDetails;
-            
+            if (dsNEWSignupMISDetails.Tables.Count > 0)
+                gvNewCustomerSignUpMIS.DataSource = dsNEWSignupMISDetails;
+
         }
 
 
@@ -80,6 +84,7 @@ namespace WealthERP.BusinessMIS
             {
                 pnlFolio.Visible = false;
                 pnlSIP.Visible = true;
+
                 PnlCustomerWise.Visible = false;
                 BindSIPSignUp();
             }
@@ -90,7 +95,7 @@ namespace WealthERP.BusinessMIS
             dtFromDate = Convert.ToDateTime(rdpFromDate.SelectedDate);
             dtToDate = Convert.ToDateTime(rdpToDate.SelectedDate);
             DataSet dsSIP;
-            dsSIP = advisorBranchBo.GetSIPSignUp(adviserVo.advisorId, dtFromDate, dtToDate);
+            dsSIP = advisorBranchBo.GetSIPSignUp(adviserVo.advisorId, dtFromDate, dtToDate, int.Parse(ddlTypes.SelectedValue));
             DataTable dtSIP = dsSIP.Tables[0];
             if (dtSIP == null)
             {
@@ -121,7 +126,7 @@ namespace WealthERP.BusinessMIS
             dtFromDate = Convert.ToDateTime(rdpFromDate.SelectedDate);
             dtToDate = Convert.ToDateTime(rdpToDate.SelectedDate);
             DataSet dsFolio;
-            dsFolio = advisorBranchBo.GetFolioSignUp(adviserVo.advisorId, dtFromDate, dtToDate);
+            dsFolio = advisorBranchBo.GetFolioSignUp(adviserVo.advisorId, dtFromDate, dtToDate, int.Parse(ddlTypes.SelectedValue));
             DataTable dtFolio = dsFolio.Tables[0];
             if (dtFolio == null)
             {
@@ -150,17 +155,17 @@ namespace WealthERP.BusinessMIS
 
         public void BindNewCustomerSignUpMIS()
         {
-            dtFromDate=Convert.ToDateTime(rdpFromDate.SelectedDate);
+            dtFromDate = Convert.ToDateTime(rdpFromDate.SelectedDate);
             dtToDate = Convert.ToDateTime(rdpToDate.SelectedDate);
             dsNEWSignupMISDetails = new DataSet();
-            
-            dsNEWSignupMISDetails = advisorBranchBo.GetNEWSignupMISDetails(adviserVo.advisorId,dtFromDate,dtToDate);
+
+            dsNEWSignupMISDetails = advisorBranchBo.GetNEWSignupMISDetails(adviserVo.advisorId, dtFromDate, dtToDate, int.Parse(ddlTypes.SelectedValue));
             gvNewCustomerSignUpMIS.DataSource = dsNEWSignupMISDetails;
             gvNewCustomerSignUpMIS.DataBind();
             if (dsNEWSignupMISDetails.Tables[0].Rows.Count > 0)
             {
                 btnExportFilteredData.Visible = true;
-                btnExportFolio.Visible = false ;
+                btnExportFolio.Visible = false;
                 btnExportSIP.Visible = false;
             }
             else
@@ -174,7 +179,7 @@ namespace WealthERP.BusinessMIS
                 Cache.Remove("gvSchemeDetailsForMappinginSuperAdmin");
                 Cache.Insert("gvSchemeDetailsForMappinginSuperAdmin", dsNEWSignupMISDetails);
             }
-           
+
         }
 
         public void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)

@@ -83,9 +83,9 @@
     <asp:DropDownList ID="ddlRM" runat="server" CssClass="cmbField" Style="vertical-align: middle"
         Visible="false">
     </asp:DropDownList>
-    <asp:Label ID="lblDate" runat="server" CssClass="FieldName">Select</asp:Label>
+    <asp:Label ID="lblDate" runat="server" CssClass="FieldName">As on Date</asp:Label>
     <asp:DropDownList ID="ddlFilterSelection" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlFilterSelection_SelectedIndexChanged"
-        CssClass="cmbField" Style="vertical-align: middle">
+        CssClass="cmbField" Style="vertical-align: middle" Visible="false">
         <asp:ListItem Text="As on Date" Value="0"></asp:ListItem>
         <asp:ListItem Text="Date Range" Value="1" Enabled="false"></asp:ListItem>
     </asp:DropDownList>
@@ -102,7 +102,14 @@
     <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtDate"
         CssClass="rfvPCG" ErrorMessage="Please select a Date" Display="Dynamic" runat="server"
         InitialValue="" ValidationGroup="vgBtnGo">
-    </asp:RequiredFieldValidator>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    </asp:RequiredFieldValidator>
+    <asp:Label ID="lblType" runat="server" CssClass="FieldName" Text="Select Type:"></asp:Label>
+    <asp:DropDownList ID="ddlType" runat="server" CssClass="cmbField">
+        <asp:ListItem Text="Online" Value="1" Selected=True>
+        </asp:ListItem>
+        <asp:ListItem Text="Offlline" Value="0">
+        </asp:ListItem>
+    </asp:DropDownList>
 </div>
 <div style="margin: 16px;">
     <asp:Label ID="lblFrom" runat="server" Visible="false" CssClass="FieldName" Text="From:"></asp:Label>
