@@ -44,7 +44,7 @@ namespace WealthERP.BusinessMIS
                 gvCommissionReceiveRecon.Visible = false;
                 txtFrom.SelectedDate = DateTime.Parse(day.ToString() + '/' + DateTime.Today.Month.ToString() + "/" + DateTime.Today.Year.ToString());
                 txtTo.SelectedDate = DateTime.Now;
-                divBtnActionSection.Visible = true;
+                
             }
         }
         private void BindNAVCategory()

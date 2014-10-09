@@ -37,7 +37,7 @@
                 <table cellspacing="0" cellpadding="3" width="100%">
                     <tr>
                         <td align="left">
-                            Commission Receivable Recon
+                            Commission Receivable View
                         </td>
                     </tr>
                 </table>
@@ -183,7 +183,7 @@
             CommandItemDisplay="None" GroupsDefaultExpanded="false" ExpandCollapseColumn-Groupable="true"
             GroupLoadMode="Client" ShowGroupFooter="true" DataKeyNames="CMFT_MFTransId">
             <Columns>
-                <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="action" DataField="action">
+                <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="action" DataField="action" Visible="false">
                     <HeaderTemplate>
                         <input id="chkIdAll" name="chkIdAll" type="checkbox" onclick="checkAllBoxes()" />
                     </HeaderTemplate>
@@ -244,7 +244,7 @@
                 </telerik:GridBoundColumn>
                 <telerik:GridTemplateColumn HeaderStyle-Width="160px" HeaderText="Commission Adjustment Amount"
                     DataField="CMFT_ReceivedCommissionAdjustment" SortExpression="CMFT_ReceivedCommissionAdjustment"
-                    AutoPostBackOnFilter="true" ShowFilterIcon="false">
+                    AutoPostBackOnFilter="true" ShowFilterIcon="false" Visible="false">
                     <ItemTemplate>
                         <asp:TextBox ID="txtAdjustAmount" CssClass="txtField" runat="server" Text='<%# Eval("adjust").ToString()%>'></asp:TextBox>
                     </ItemTemplate>
@@ -261,7 +261,7 @@
                 <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="Commission Updated Expected Amount"
                     DataField="UpdatedExpectedAmount" HeaderStyle-HorizontalAlign="Right" UniqueName="UpdatedExpectedAmount"
                     SortExpression="UpdatedExpectedAmount" AutoPostBackOnFilter="true" AllowFiltering="false"
-                    ShowFilterIcon="false" CurrentFilterFunction="Contains" FooterStyle-HorizontalAlign="Right">
+                    ShowFilterIcon="false" CurrentFilterFunction="Contains" FooterStyle-HorizontalAlign="Right" Visible="false">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="Recon Status" DataField="ReconStatus"
