@@ -47,7 +47,7 @@ namespace VoOps
         private string m_PanNo;
         private string m_ARNNo;
         public int AssociateId { get; set; }
-        
+        public int BankBranchId { get; set; }
         #endregion
 
         #region Properties
