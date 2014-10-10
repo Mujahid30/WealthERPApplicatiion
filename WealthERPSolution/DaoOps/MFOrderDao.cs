@@ -232,7 +232,10 @@ namespace DaoOps
                     db.AddInParameter(createMFOrderTrackingCmd, "@CeaseDate", DbType.DateTime, systematicSetupVo.CeaseDate);
                 else
                     db.AddInParameter(createMFOrderTrackingCmd, "@CeaseDate", DbType.DateTime, DBNull.Value);
-
+                if (mforderVo.BankBranchId != 0)
+                    db.AddInParameter(createMFOrderTrackingCmd, "@BranchLookUpId", DbType.Int32, mforderVo.BankBranchId);
+                else
+                    db.AddInParameter(createMFOrderTrackingCmd, "@BranchLookUpId", DbType.Int32, DBNull.Value);
 
                 if (db.ExecuteNonQuery(createMFOrderTrackingCmd) != 0)
                 {
@@ -476,7 +479,7 @@ namespace DaoOps
             }
             return dsGetCustomerMFOrderDetails;
         }
-        public int MarkAsReject(int OrderID,string Remarks)
+        public int MarkAsReject(int OrderID, string Remarks)
         {
             int IsMarked = 0;
 
@@ -541,7 +544,29 @@ namespace DaoOps
             }
             return dsGetCustomerBank;
         }
-        public DataTable GetBankBranch(int AccountId)
+
+
+        public DataTable GetBankBranchLookups(int lookUpId)
+        {
+            DataSet dsGetBankBranch;
+            DataTable dtGetBankBranch;
+            Database db;
+            DbCommand getBankBranchcmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getBankBranchcmd = db.GetStoredProcCommand("SP_GetBankBranchLookUPs");
+                db.AddInParameter(getBankBranchcmd, "@LookupId", DbType.Int32, lookUpId);
+                dsGetBankBranch = db.ExecuteDataSet(getBankBranchcmd);
+                dtGetBankBranch = dsGetBankBranch.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return dtGetBankBranch;
+        }
+        public DataTable GetBankBranch(int BankId)
         {
             DataSet dsGetBankBranch;
             DataTable dtGetBankBranch;
@@ -551,7 +576,7 @@ namespace DaoOps
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getBankBranchcmd = db.GetStoredProcCommand("SP_GetBankBranch");
-                db.AddInParameter(getBankBranchcmd, "@AccountId", DbType.Int32, AccountId);
+                db.AddInParameter(getBankBranchcmd, "@BankId", DbType.Int32, BankId);
                 dsGetBankBranch = db.ExecuteDataSet(getBankBranchcmd);
                 dtGetBankBranch = dsGetBankBranch.Tables[0];
             }
@@ -625,11 +650,11 @@ namespace DaoOps
                 db.AddInParameter(MFOrderAutoMatchCmd, "@trxType", DbType.String, TransType);
                 db.AddInParameter(MFOrderAutoMatchCmd, "@customerId", DbType.Int32, CustomerId);
                 db.AddInParameter(MFOrderAutoMatchCmd, "@amount", DbType.Double, Amount);
-                if(OrderDate !=DateTime.MinValue)
-                db.AddInParameter(MFOrderAutoMatchCmd, "@orderDate", DbType.DateTime, OrderDate);
-                 
+                if (OrderDate != DateTime.MinValue)
+                    db.AddInParameter(MFOrderAutoMatchCmd, "@orderDate", DbType.DateTime, OrderDate);
+
                 db.AddOutParameter(MFOrderAutoMatchCmd, "@IsSuccess", DbType.Int16, 0);
-             //sai   //if (db.ExecuteNonQuery(MFOrderAutoMatchCmd) != 0)
+                //sai   //if (db.ExecuteNonQuery(MFOrderAutoMatchCmd) != 0)
                 //    affectedRecords = int.Parse(db.GetParameterValue(MFOrderAutoMatchCmd, "@IsSuccess").ToString());
             }
             catch (BaseApplicationException Ex)

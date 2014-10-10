@@ -155,12 +155,26 @@ namespace BoOps
             }
             return dsGetSip;
         }
-        public DataTable GetBankBranch(int AccountId)
+        public DataTable GetBankBranch(int BankId)
         {
             DataTable dtGetBankBranch;
             try
             {
-                dtGetBankBranch = mfOrderDao.GetBankBranch(AccountId);
+                dtGetBankBranch = mfOrderDao.GetBankBranch(BankId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return dtGetBankBranch;
+        }
+
+        public DataTable GetBankBranchLookups(int lookUpId)
+        {
+            DataTable dtGetBankBranch;
+            try
+            {
+                dtGetBankBranch = mfOrderDao.GetBankBranchLookups(lookUpId);
             }
             catch (BaseApplicationException Ex)
             {
