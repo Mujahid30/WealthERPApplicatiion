@@ -104,7 +104,7 @@
                                                         <Items>
                                                             <telerik:RadComboBoxItem Text="" Value="" />
                                                             <telerik:RadComboBoxItem Text="Team Hierarchy" Value="1" />
-                                                            <telerik:RadComboBoxItem Text="Office Hierarchy" Value="2" />
+                                                            <telerik:RadComboBoxItem Text="Office Hierarchy" Value="2" Enabled="false" />
                                                         </Items>
                                                     </telerik:RadComboBox>
                                                 </td>
