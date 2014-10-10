@@ -1504,12 +1504,12 @@ namespace BoOnlineOrderManagement
                 throw exBase;
             }
         }
-        public DataSet GetAdviserOrders(int IssueId, string Product, string Status, DateTime FromDate, DateTime ToDate, int adviserid)
+        public DataSet GetAdviserOrders(int IssueId, string Product, string Status, DateTime FromDate, DateTime ToDate, int adviserid, int BusinessChannel)
         {
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
             try
             {
-                return onlineNCDBackOfficeDao.GetAdviserOrders(IssueId, Product, Status, FromDate, ToDate, adviserid);
+                return onlineNCDBackOfficeDao.GetAdviserOrders(IssueId, Product, Status, FromDate, ToDate, adviserid, BusinessChannel);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1558,6 +1558,28 @@ namespace BoOnlineOrderManagement
                 throw exBase;
             }
             return dtGetIssuerid;
+        }
+
+        public DataTable GetBusinessChannel()
+        {
+            DataTable dtBusinessChannel;
+            OnlineNCDBackOfficeDao OnlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
+            try
+            {
+                dtBusinessChannel = OnlineNCDBackOfficeDao.GetBusinessChannel();
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeBo.cs:OnlinebindRandT()");
+                object[] objects = new object[1];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtBusinessChannel;
         }
 
         public List<OnlineIssueHeader> GetHeaderDetails(int fileTypeId, string extSource)

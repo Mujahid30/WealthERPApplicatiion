@@ -48,20 +48,20 @@
         </td>
     </tr>
 </table>
-<table width="100%" align="center">
+<table>
     <tr id="trOrderDates" runat="server">
-        <td class="leftLabel">
+        <td align="right">
             <asp:Label ID="lblFrom" runat="server" Text=" Order From Date: " CssClass="FieldName"></asp:Label>
         </td>
-        <td class="rightData">
+        <td>
             <telerik:RadDatePicker ID="txtFromDate" CssClass="txtField" runat="server" Culture="English (United States)"
                 Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
-                <calendar userowheadersasselectors="False" usecolumnheadersasselectors="False" viewselectortext="x"
-                    skin="Telerik" enableembeddedskins="false">
-                </calendar>
-                <datepopupbutton imageurl="" hoverimageurl=""></datepopupbutton>
-                <dateinput displaydateformat="d/M/yyyy" dateformat="d/M/yyyy">
-                </dateinput>
+                <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
+                    Skin="Telerik" EnableEmbeddedSkins="false">
+                </Calendar>
+                <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                </DateInput>
             </telerik:RadDatePicker>
             <span id="Span3" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="rvFromdate" ControlToValidate="txtFromDate" CssClass="rfvPCG"
@@ -72,18 +72,20 @@
                 Type="Date">
             </asp:CompareValidator>
         </td>
-        <td class="leftLabel" colspan="2">
+        <td align="right">
             <asp:Label ID="lblTo" runat="server" Text="Order To Date: " CssClass="FieldName"></asp:Label>
-            <%-- </td>
+        </td>
+        <%-- </td>
         <td class="rightData"  >--%>
+        <td>
             <telerik:RadDatePicker ID="txtToDate" CssClass="txtField" runat="server" Culture="English (United States)"
                 Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
-                <calendar userowheadersasselectors="False" usecolumnheadersasselectors="False" viewselectortext="x"
-                    skin="Telerik" enableembeddedskins="false">
-                </calendar>
-                <datepopupbutton imageurl="" hoverimageurl=""></datepopupbutton>
-                <dateinput displaydateformat="d/M/yyyy" dateformat="d/M/yyyy">
-                </dateinput>
+                <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
+                    Skin="Telerik" EnableEmbeddedSkins="false">
+                </Calendar>
+                <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                </DateInput>
             </telerik:RadDatePicker>
             <span id="Span4" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="rvtoDate" ControlToValidate="txtToDate" CssClass="rfvPCG"
@@ -97,16 +99,14 @@
                 Type="Date" ControlToValidate="txtTo" ControlToCompare="txtFrom" Operator="GreaterThanEqual"
                 CssClass="cvPCG" Display="Dynamic" ValidationGroup="btnGo"></asp:CompareValidator>--%>
         </td>
-        <td width="5px">
-            &nbsp;
-        </td>
     </tr>
     <tr>
-        <td class="leftLabel">
+        <td align="right">
             <asp:Label ID="Label2" runat="server" Text="Product:" CssClass="FieldName"></asp:Label>
         </td>
         <td>
-            <asp:DropDownList ID="ddlProduct" runat="server" CssClass="cmbField" AutoPostBack="true" OnSelectedIndexChanged="ddlProduct_SelectedIndexChanged">
+            <asp:DropDownList ID="ddlProduct" runat="server" CssClass="cmbField" AutoPostBack="true"
+                OnSelectedIndexChanged="ddlProduct_SelectedIndexChanged">
                 <asp:ListItem Value="Select">Select</asp:ListItem>
                 <asp:ListItem Value="FI">NCD</asp:ListItem>
                 <asp:ListItem Value="IP">IPO</asp:ListItem>
@@ -117,24 +117,25 @@
                 CssClass="rfvPCG" ControlToValidate="ddlProduct" ValidationGroup="btnGo" Display="Dynamic"
                 InitialValue="Select"></asp:RequiredFieldValidator>
         </td>
-        <td class="rightLabelData">
-            <asp:Label ID="lb1Issue" runat="server" Text="Issue:" CssClass="FieldName"></asp:Label>
-         </td>  <%--  </td>
+        <td align="right">
+            &nbsp;&nbsp
+            <asp:Label ID="lb1BChannel" runat="server" Text="Business Channel:" CssClass="FieldName"></asp:Label>
+        </td>
+        <%--  </td>
         <td class="rightLabelData">--%>
         <td>
-            <asp:DropDownList ID="ddlIssue" runat="server" CssClass="cmbLongField" AutoPostBack="true" Width="190%">
+            <asp:DropDownList ID="ddlBChannnel" runat="server" CssClass="cmbLongField" AutoPostBack="true"
+                Width="150px">
             </asp:DropDownList>
-           <%-- <span id="Span10" class="spnRequiredField">*</span>--%>
-          <span id="Span10" class="spnRequiredField" >*</span>
+            <%-- <span id="Span10" class="spnRequiredField">*</span>--%>
+            <span id="Span20" class="spnRequiredField">*</span>
             <br />
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Please Select Issue"
-                CssClass="rfvPCG" ControlToValidate="ddlIssue" ValidationGroup="btnGo" Display="Dynamic"
+            <asp:RequiredFieldValidator ID="REqBChannel" runat="server" ErrorMessage="Please Select Business Channel"
+                CssClass="rfvPCG" ControlToValidate="ddlBChannnel" ValidationGroup="btnGo" Display="Dynamic"
                 InitialValue="Select"></asp:RequiredFieldValidator>
         </td>
-    </tr>
-    <tr id="trOrderStatus" runat="server">
-        <td class="leftLabel">
-            <asp:Label ID="lblOrderStatus" runat="server" Text="Order Status: " CssClass="FieldName"></asp:Label>
+        <td align="right">
+          &nbsp;&nbsp  <asp:Label ID="lblOrderStatus" runat="server" Text="Order Status: " CssClass="FieldName"></asp:Label>
         </td>
         <td>
             <asp:DropDownList ID="ddlOrderStatus" runat="server" CssClass="cmbField" AutoPostBack="true"
@@ -147,8 +148,23 @@
                 Display="Dynamic" InitialValue="Select"></asp:RequiredFieldValidator>
         </td>
     </tr>
+    <tr id="trOrderStatus" runat="server">
+        <td align="right">
+            <asp:Label ID="lb1Issue" runat="server" Text="Issue:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td colspan="3">
+            <asp:DropDownList ID="ddlIssue" runat="server" CssClass="cmbLongField" AutoPostBack="true"
+                Width="300px">
+            </asp:DropDownList>
+            <span id="Span10" class="spnRequiredField">*</span>
+            <br />
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Please Select Issue"
+                CssClass="rfvPCG" ControlToValidate="ddlIssue" ValidationGroup="btnGo" Display="Dynamic"
+                InitialValue="Select"></asp:RequiredFieldValidator>
+        </td>
+    </tr>
     <tr>
-        <td class="leftLabel">
+        <td align="right">
             <asp:Button ID="btnGo" runat="server" Text="GO" CssClass="PCGButton" ValidationGroup="btnGo"
                 OnClick="btnGo_Click" />
         </td>
@@ -166,32 +182,29 @@
                     Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="false" AllowAutomaticInserts="false"
                     ExportSettings-FileName="NCD Order Recon" OnItemDataBound="gvOrders_ItemDataBound"
                     OnItemCommand="gvOrders_ItemCommand" OnNeedDataSource="gvOrders_OnNeedDataSource">
-                    <exportsettings hidestructurecolumns="true" exportonlydata="true" ignorepaging="true"
-                        filename="Order" excel-format="ExcelML">
-                    </exportsettings>
-                    <mastertableview datakeynames="CO_OrderId,WOS_OrderStepCode,AIM_IssueId" width="100%"
-                        allowmulticolumnsorting="True" autogeneratecolumns="false" commanditemdisplay="None"
-                        editmode="PopUp">
+                    <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
+                        FileName="Order" Excel-Format="ExcelML">
+                    </ExportSettings>
+                    <MasterTableView DataKeyNames="CO_OrderId,WOS_OrderStepCode,AIM_IssueId" Width="100%"
+                        AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None"
+                        EditMode="PopUp">
                         <Columns>
                             <telerik:GridTemplateColumn HeaderText="Select">
                                 <HeaderTemplate>
                                     <asp:Label ID="lblchkBxSelect" runat="server" Text="Select"></asp:Label>
-                                     <asp:CheckBox ID="cbOrderSelect" runat="server" Checked="false" OnCheckedChanged="cbOrderSelect_changed" AutoPostBack="true" />
+                                    <asp:CheckBox ID="cbOrderSelect" runat="server" Checked="false" OnCheckedChanged="cbOrderSelect_changed"
+                                        AutoPostBack="true" />
                                 </HeaderTemplate>
                                 <ItemTemplate>
                                     <asp:CheckBox ID="cbAutoMatch" runat="server" Checked="false" />
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>
-                            
                             <telerik:GridBoundColumn DataField="CO_OrderId" HeaderText="Order No" SortExpression="CO_OrderId"
                                 ShowFilterIcon="true" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
                                 UniqueName="CO_OrderId" FooterStyle-HorizontalAlign="Left" AllowSorting="True">
                                 <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            
-                            
-                            
-                        <%--    <telerik:GridTemplateColumn DataField="CO_OrderId" HeaderText="Order/Transaction No."
+                            <%--    <telerik:GridTemplateColumn DataField="CO_OrderId" HeaderText="Order/Transaction No."
                                 SortExpression="CO_OrderId" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                 AutoPostBackOnFilter="true" UniqueName="CO_OrderId" FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
@@ -381,7 +394,7 @@
                                 </table>
                             </FormTemplate>
                         </EditFormSettings>
-                    </mastertableview>
+                    </MasterTableView>
                     <%--<clientsettings>
                             <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
                         </clientsettings>--%>
