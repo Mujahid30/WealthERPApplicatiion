@@ -171,7 +171,7 @@ namespace WealthERP.Associates
                     {
                         int associationId = int.Parse(Request.QueryString["AssociationId"]);
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('SubBroker code Added Successfully');", true);
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AddAssociates", "loadcontrol('AddAssociates','?AssociationId=" + associationId + "&fromPage=" + "AddCode" + "');", true);
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AddAssociates", "loadcontrol('AddAssociatesDetails','?AssociationId=" + associationId + "&fromPage=" + "AddCode" + "');", true);
                     }
                     else
                     {

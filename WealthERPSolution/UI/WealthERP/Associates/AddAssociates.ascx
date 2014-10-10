@@ -195,7 +195,7 @@
         width: 50%;
         text-align: left;
     }
-    .rightDataThreeColumn
+    .rightDataThreeColumnFe
     {
         width: 40%;
         text-align: left;

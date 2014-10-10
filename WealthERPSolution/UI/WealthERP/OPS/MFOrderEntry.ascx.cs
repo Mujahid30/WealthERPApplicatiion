@@ -451,10 +451,12 @@ namespace WealthERP.OPS
                     else
                         orderVo.CustBankAccId = 0;
 
-                    if (!string.IsNullOrEmpty(dr["CMFOD_BranchName"].ToString()))
-                        txtBranchName.Text = dr["CMFOD_BranchName"].ToString();
+                    BankBranches(Convert.ToInt32(ddlBankName.SelectedValue));
+
+                    if (!string.IsNullOrEmpty(dr["BranchName"].ToString()))
+                        ddlBranch.SelectedValue = dr["BranchName"].ToString();
                     else
-                        txtBranchName.Text = "";
+                        ddlBranch.SelectedValue = "";
 
                     if (!string.IsNullOrEmpty(dr["CMFOD_PinCode"].ToString()))
                         txtCorrAdrPinCode.Text = dr["CMFOD_PinCode"].ToString();
@@ -812,7 +814,7 @@ namespace WealthERP.OPS
                     txtPaymentNumber.Text = "";
                     txtPaymentInstDate.SelectedDate = null;
                     ddlBankName.SelectedIndex = 0;
-                    txtBranchName.Text = "";
+                    ddlBranch.SelectedIndex =0;
                     lblGetAvailableAmount.Text = "";
                     lblGetAvailableUnits.Text = "";
                     ddlSchemeSwitch.SelectedIndex = 0;
@@ -1129,7 +1131,7 @@ namespace WealthERP.OPS
                     }
 
 
-                    txtBranchName.Text = mforderVo.BranchName;
+                    ddlBranch.SelectedValue =  mforderVo.BankBranchId.ToString();
                     txtCorrAdrLine1.Text = mforderVo.AddrLine1;
                     txtCorrAdrLine2.Text = mforderVo.AddrLine2;
                     txtCorrAdrLine3.Text = mforderVo.AddrLine3;
@@ -1468,7 +1470,7 @@ namespace WealthERP.OPS
                         ddlBankName.SelectedIndex = 0;
                     }
 
-                    txtBranchName.Text = mforderVo.BranchName;
+                   // ddlBranch = mforderVo.BranchName;
 
                     txtCorrAdrLine1.Text = mforderVo.AddrLine1;
                     txtCorrAdrLine2.Text = mforderVo.AddrLine2;
@@ -1554,7 +1556,7 @@ namespace WealthERP.OPS
         //            txtPaymentNumber.Text = "";
         //            txtPaymentInstDate.SelectedDate = null;
         //            ddlBankName.SelectedIndex = 0;
-        //            txtBranchName.Text = "";
+        //            ddlBranch = "";
         //            lblGetAvailableAmount.Text = "";
         //            lblGetAvailableUnits.Text = "";
         //            ddlSchemeSwitch.SelectedIndex = 0;
@@ -1871,7 +1873,7 @@ namespace WealthERP.OPS
         //            }
 
 
-        //            txtBranchName.Text = mforderVo.BranchName;
+        //            ddlBranch = mforderVo.BranchName;
         //            txtCorrAdrLine1.Text = mforderVo.AddrLine1;
         //            txtCorrAdrLine2.Text = mforderVo.AddrLine2;
         //            txtCorrAdrLine3.Text = mforderVo.AddrLine3;
@@ -2210,7 +2212,7 @@ namespace WealthERP.OPS
         //                ddlBankName.SelectedIndex = 0;
         //            }
 
-        //            txtBranchName.Text = mforderVo.BranchName;
+        //            ddlBranch = mforderVo.BranchName;
 
         //            txtCorrAdrLine1.Text = mforderVo.AddrLine1;
         //            txtCorrAdrLine2.Text = mforderVo.AddrLine2;
@@ -2809,7 +2811,7 @@ namespace WealthERP.OPS
             txtPaymentNumber.Text = "";
             txtPaymentInstDate.SelectedDate = null;
             ddlBankName.SelectedIndex = -1;
-            txtBranchName.Text = "";
+            ddlBranch.SelectedIndex = 0;
             lblGetAvailableAmount.Text = "";
             lblGetAvailableUnits.Text = "";
             ddlSchemeSwitch.SelectedIndex = -1;
@@ -3793,8 +3795,8 @@ namespace WealthERP.OPS
             }
             else
                 mforderVo.BankName = "";
-            if (!string.IsNullOrEmpty(txtBranchName.Text.ToString().Trim()))
-                mforderVo.BranchName = txtBranchName.Text;
+            if (!string.IsNullOrEmpty(ddlBranch.SelectedValue ))
+                mforderVo.BranchName = ddlBranch.SelectedValue;
             else
                 mforderVo.BranchName = "";
 
@@ -3848,6 +3850,7 @@ namespace WealthERP.OPS
                 mforderVo.EndDate = DateTime.Parse(txtendDateSIP.SelectedDate.ToString());
             else
                 mforderVo.EndDate = DateTime.MinValue;
+            mforderVo.BankBranchId =Convert.ToInt32( ddlBranch.SelectedValue);
             //}
             //else if (ddltransType.SelectedValue == "STB" || ddltransType.SelectedValue == "SWP")
             //{
@@ -4314,8 +4317,8 @@ namespace WealthERP.OPS
             }
             else
                 mforderVo.BankName = "";
-            if (!string.IsNullOrEmpty(txtBranchName.Text.ToString().Trim()))
-                mforderVo.BranchName = txtBranchName.Text;
+            if (!string.IsNullOrEmpty(ddlBranch.SelectedValue ))
+                mforderVo.BranchName = ddlBranch.SelectedValue;
             else
                 mforderVo.BranchName = "";
             if (ddlSchemeSwitch.SelectedValue != "")
@@ -4394,20 +4397,28 @@ namespace WealthERP.OPS
         protected void ddlBankName_SelectedIndexChanged(object sender, EventArgs e)
         {
             int BankAccountId = 0;
-            DataTable dtgetBankBranch;
-            if (ddlBankName.SelectedIndex != 0)
-            {
-                BankAccountId = int.Parse(ddlBankName.SelectedValue);
-                dtgetBankBranch = mfOrderBo.GetBankBranch(BankAccountId);
-                if (dtgetBankBranch.Rows.Count > 0)
-                {
-                    DataRow dr = dtgetBankBranch.Rows[0];
-                    txtBranchName.Text = dr["CB_BranchName"].ToString();
-                }
-                hdnBankName.Value = ddlBankName.SelectedItem.Text;
-            }
+            BankBranches(Convert.ToInt32(ddlBankName.SelectedValue));
         }
 
+
+        private void BankBranches(int BankLookUpId)
+        {
+
+            DataTable dtgetBankBranch = new DataTable();
+            ddlBranch.DataSource = dtgetBankBranch;
+            ddlBranch.Items.Clear();
+            if (ddlBankName.SelectedIndex != 0)
+            {
+
+                dtBankName = mfOrderBo.GetBankBranch(BankLookUpId); ;
+                ddlBranch.DataSource = dtBankName;
+                ddlBranch.DataValueField = dtBankName.Columns["BBL_LookUp_Id"].ToString();
+                ddlBranch.DataTextField = dtBankName.Columns["BBL_BranchName"].ToString();
+                ddlBranch.DataBind();
+                ddlBranch.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "0"));
+
+            }
+        }
         protected void lnkDelete_Click(object sender, EventArgs e)
         {
             //if (mforderVo != null && orderVo != null)
@@ -4469,7 +4480,7 @@ namespace WealthERP.OPS
 
             Response.Write("<script type='text/javascript'>detailedresults=window.open('Reports/Display.aspx?Page=MFOrder&CustomerId=" + customerId + "&AmcCode=" + hdnAmcCode.Value +
                 "&AccoutId=" + hdnAccountId.Value + "&SchemeCode=" + hdnSchemeName.Value + "&Type=" + hdnType.Value + "&Portfolio=" + portfolioId +
-                "&BankName=" + bankName + "&BranchName=" + txtBranchName.Text + "&Amount=" + txtAmount.Text + "&ChequeNo=" + txtPaymentNumber.Text + "&ChequeDate=" + txtPaymentInstDate.SelectedDate +
+                "&BankName=" + bankName + "&BranchName=" + ddlBranch + "&Amount=" + txtAmount.Text + "&ChequeNo=" + txtPaymentNumber.Text + "&ChequeDate=" + txtPaymentInstDate.SelectedDate +
                 "&StartDateSIP=" + txtstartDateSIP.SelectedDate + "&StartDateSTP=" + txtstartDateSTP.SelectedDate + "&NewAmount=" + txtNewAmount.Text +
                 "&EndDateSIP=" + txtendDateSIP.SelectedDate + "&EndDateSTP=" + txtendDateSTP.SelectedDate + "&SchemeSwitch=" + schemeSwitch +
                 "&RbtnUnits=" + rbtUnit.Checked + "&RbtnAmounts=" + rbtAmount.Checked + "&ArnNo=" + arnno + "&mail=" + mail +
