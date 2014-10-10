@@ -577,7 +577,7 @@ namespace WealthERP.OffLineOrderManagement
                 int recCount = customerBo.ChkAssociateCode(advisorVo.advisorId, txtAssociateSearch.Text);
                 if (recCount == 0)
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Agent Code is invalid!');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('SubBroker Code is invalid!');", true);
                     txtAssociateSearch.Text = string.Empty;
                     return;
                 }
@@ -933,7 +933,7 @@ namespace WealthERP.OffLineOrderManagement
                 if (dtgetBankBranch.Rows.Count > 0)
                 {
                     DataRow dr = dtgetBankBranch.Rows[0];
-                    txtBranchName.Text = dr["CB_BranchName"].ToString();
+                    txtBranchName.Text = dr["BBL_BranchName"].ToString();
                 }
                 hdnBankName.Value = ddlBankName.SelectedItem.Text;
             }

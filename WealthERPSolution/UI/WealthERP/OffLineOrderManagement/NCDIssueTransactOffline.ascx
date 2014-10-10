@@ -89,8 +89,13 @@
 
     function openpopupAddCustomer() {
 
+
+   
+
         window.open('PopUp.aspx?AddMFCustLinkId=mf&pageID=CustomerType&', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')
-        return false;
+        return true;
+
+
     }
     function openpopupAddDematAccount() {
 
@@ -327,14 +332,16 @@
                 <asp:Label ID="lblCustomer" runat="server" Text="Customer Name: " CssClass="FieldName"></asp:Label>
             </td>
             <td class="rightField" style="width: 20%">
-                <asp:TextBox ID="txtCustomerName" runat="server" CssClass="txtField" AutoComplete="Off"
-                    onclientClick="ShowIsa()" AutoPostBack="True" TabIndex="2">
+                <asp:TextBox ID="txtCustomerName" onkeydown="return (event.keyCode!=13);" runat="server"
+                    CssClass="txtField" AutoComplete="Off" onclientClick="ShowIsa()" AutoPostBack="True"
+                    TabIndex="2">
             
                  
                 </asp:TextBox><span id="spnCustomer" class="spnRequiredField">*</span>
                 <asp:ImageButton ID="btnImgAddCustomer" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
-                    AlternateText="Add" runat="server" ToolTip="Click here to Add Customer" OnClientClick="return openpopupAddCustomer()"
-                    Height="15px" Width="15px" TabIndex="3"></asp:ImageButton>
+                    AlternateText="Add" CausesValidation="false" runat="server" ToolTip="Click here to Add Customer"
+                    OnClientClick="return openpopupAddCustomer()" Height="15px" Width="15px" TabIndex="3">
+                </asp:ImageButton>
                 <cc1:TextBoxWatermarkExtender ID="txtCustomer_water" TargetControlID="txtCustomerName"
                     WatermarkText="Enter few chars of Customer" runat="server" EnableViewState="false">
                 </cc1:TextBoxWatermarkExtender>
@@ -377,8 +384,9 @@
                 <asp:Label ID="lblAssociateSearch" runat="server" CssClass="FieldName" Text="Sub Broker Code:"></asp:Label>
             </td>
             <td class="rightField" style="width: 20%">
-                <asp:TextBox ID="txtAssociateSearch" runat="server" CssClass="txtField" AutoComplete="Off"
-                    OnTextChanged="OnAssociateTextchanged" AutoPostBack="True" TabIndex="4">
+                <asp:TextBox ID="txtAssociateSearch" onkeydown="return (event.keyCode!=13);" runat="server"
+                    CssClass="txtField" AutoComplete="Off" OnTextChanged="OnAssociateTextchanged"
+                    AutoPostBack="True" TabIndex="4">
                 </asp:TextBox><span id="Span7" class="spnRequiredField">*</span>
                 <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" TargetControlID="txtAssociateSearch"
                     WatermarkText="Enter few chars of Agent code" runat="server" EnableViewState="false">
@@ -451,8 +459,8 @@
                 <asp:Label ID="lblApplicationNo" runat="server" Text="Application No: " CssClass="FieldName"></asp:Label>
             </td>
             <td class="rightField" style="width: 20%">
-                <asp:TextBox ID="txtApplicationNo" runat="server" CssClass="txtField" AutoPostBack="false"
-                    MaxLength="6" OnKeypress="javascript:return isNumberKey(event);"></asp:TextBox>
+                <asp:TextBox ID="txtApplicationNo" onkeydown="return (event.keyCode!=13);" runat="server"
+                    CssClass="txtField" AutoPostBack="false" MaxLength="6" OnKeypress="javascript:return isNumberKey(event);"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator5" ControlToValidate="txtApplicationNo"
                     ErrorMessage="<br />Please Enter Application No" Display="Dynamic" runat="server"
                     CssClass="rfvPCG" ValidationGroup="btnConfirmOrder"></asp:RequiredFieldValidator>
@@ -519,8 +527,9 @@
                 <asp:Label ID="lblPaymentNumber" runat="server" Text="Cheque/Demand Draft NO: " CssClass="FieldName"></asp:Label>
             </td>
             <td class="rightField" style="width: 20%">
-                <asp:TextBox ID="txtPaymentNumber" runat="server" MaxLength="6" OnKeypress="javascript:return isNumberKey(event);"
-                    CssClass="txtField" TabIndex="16"></asp:TextBox>
+                <asp:TextBox ID="txtPaymentNumber" onkeydown="return (event.keyCode!=13);" runat="server"
+                    MaxLength="6" OnKeypress="javascript:return isNumberKey(event);" CssClass="txtField"
+                    TabIndex="16"></asp:TextBox>
                 <span id="Span12" class="spnRequiredField">*</span>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator8" ControlToValidate="txtPaymentNumber"
                     ErrorMessage="<br />Please Enter Cheque/Demand Draft NO." Display="Dynamic" runat="server"
@@ -530,9 +539,9 @@
                 <asp:Label ID="lblPIDate" runat="server" Text="Cheque Date:" CssClass="FieldName"></asp:Label>
             </td>
             <td class="rightField" style="width: 20%">
-                <telerik:RadDatePicker ID="txtPaymentInstDate" CssClass="txtField" runat="server"
-                    Culture="English (United States)" Skin="Telerik" EnableEmbeddedSkins="false"
-                    ShowAnimation-Type="Fade" MinDate="1900-01-01" TabIndex="17">
+                <telerik:RadDatePicker ID="txtPaymentInstDate" onkeydown="return (event.keyCode!=13);"
+                    CssClass="txtField" runat="server" Culture="English (United States)" Skin="Telerik"
+                    EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01" TabIndex="17">
                     <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
                         Skin="Telerik" EnableEmbeddedSkins="false">
                     </Calendar>
@@ -552,7 +561,8 @@
                     OnKeypress="javascript:return isNumberKey(event);"></asp:Label>
             </td>
             <td class="rightField">
-                <asp:TextBox ID="txtASBANO" runat="server" CssClass="txtField"></asp:TextBox>
+                <asp:TextBox ID="txtASBANO" onkeydown="return (event.keyCode!=13);" runat="server"
+                    CssClass="txtField"></asp:TextBox>
                 <span id="Span5" class="spnRequiredField">*</span>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator9" ControlToValidate="txtASBANO"
                     ErrorMessage="<br />Please Enter Account No." Display="Dynamic" runat="server"
@@ -590,7 +600,8 @@
                 <asp:Label ID="lblBranchName" runat="server" Text="Bank BranchName:" CssClass="FieldName"></asp:Label>
             </td>
             <td class="rightField" style="width: 20%">
-                <asp:TextBox ID="txtBranchName" runat="server" CssClass="txtField"></asp:TextBox>
+                <asp:TextBox ID="txtBranchName" onkeydown="return (event.keyCode!=13);" runat="server"
+                    CssClass="txtField"></asp:TextBox>
                 <span id="Span3" class="spnRequiredField">*</span>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator7" ControlToValidate="txtBranchName"
                     CssClass="rfvPCG" ErrorMessage="<br />Please Enter Bank Branch" Display="Dynamic"
@@ -626,7 +637,8 @@
                 <asp:Label ID="lblDpClientId" runat="server" Text="Beneficiary Acct No:" CssClass="FieldName"></asp:Label>
             </td>
             <td class="rightField" style="width: 20%">
-                <asp:TextBox ID="txtDematid" runat="server" CssClass="txtField"></asp:TextBox>
+                <asp:TextBox ID="txtDematid" onkeydown="return (event.keyCode!=13);" runat="server"
+                    CssClass="txtField"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator6" ControlToValidate="txtDematid"
                     ErrorMessage="<br />Please Select Demat from the List" Display="Dynamic" runat="server"
                     CssClass="rfvPCG" ValidationGroup="btnConfirmOrder"></asp:RequiredFieldValidator>
