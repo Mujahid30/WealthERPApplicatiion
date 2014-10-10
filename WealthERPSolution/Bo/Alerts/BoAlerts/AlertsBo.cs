@@ -1811,77 +1811,77 @@ namespace BoAlerts
             }
             return dtGetSIPAlert;
         }
-         public bool CreateAdviserAlertConfiguration(int adviserId, int eventId, int reminderDay, string sipRuleType, int IsActive, int IsOverride,int userId)
+        public bool CreateAdviserAlertConfiguration(int adviserId, int eventId, int reminderDay, string sipRuleType, int IsActive, int IsOverride, int userId)
         {
             bool bResult = false;
             AlertsDao alertsDao = new AlertsDao();
-              try
+            try
             {
                 bResult = alertsDao.CreateAdviserAlertConfiguration(adviserId, eventId, reminderDay, sipRuleType, IsActive, IsOverride, userId);
             }
-              catch (BaseApplicationException Ex)
-              {
-                  throw Ex;
-              }
-              return bResult;
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return bResult;
         }
-         public DataTable GetAdviserAlertConfigurationData(int adviserId, int ruleId)
-         {
-             AlertsDao alertDo = new AlertsDao();
-             DataTable dtGetAdviserAlertConfigurationData;
-             try
-             {
-                 dtGetAdviserAlertConfigurationData = alertDo.GetAdviserAlertConfigurationData(adviserId,ruleId);
-             }
-             catch (BaseApplicationException Ex)
-             {
-                 throw Ex;
-             }
-             return dtGetAdviserAlertConfigurationData;
-         }
-         public bool UpdateAdviserAlertConfiguration(int ruleId,int eventId, int reminderDay, string sipRuleType, int IsActive, int IsOverride, int userId)
-         {
-             bool bResult = false;
-             AlertsDao alertsDao = new AlertsDao();
-             try
-             {
-                 bResult = alertsDao.UpdateAdviserAlertConfiguration(ruleId,eventId, reminderDay, sipRuleType, IsActive, IsOverride, userId);
-             }
-             catch (BaseApplicationException Ex)
-             {
-                 throw Ex;
-             }
-             return bResult;
-         }
-         public DataTable GetCustomerSIPAlert(int customerId)
-         {
-             AlertsDao alertDo = new AlertsDao();
-             DataTable dtGetCustomerSIPAlert;
-             try
-             {
-                 dtGetCustomerSIPAlert = alertDo.GetCustomerSIPAlert(customerId);
-             }
-             catch (BaseApplicationException Ex)
-             {
-                 throw Ex;
-             }
-             return dtGetCustomerSIPAlert;
-         }
-         public DataTable GetCustomerSIPList(int customerId)
-         {
-             AlertsDao alertDo = new AlertsDao();
-             DataTable dtGetCustomerSIPList;
-             try
-             {
-                 dtGetCustomerSIPList = alertDo.GetCustomerSIPList(customerId);
-             }
-             catch (BaseApplicationException Ex)
-             {
-                 throw Ex;
-             }
-             return dtGetCustomerSIPList;
-         }
-         public DataTable GetSIPAlertCustomerconfig()
+        public DataTable GetAdviserAlertConfigurationData(int adviserId, int ruleId)
+        {
+            AlertsDao alertDo = new AlertsDao();
+            DataTable dtGetAdviserAlertConfigurationData;
+            try
+            {
+                dtGetAdviserAlertConfigurationData = alertDo.GetAdviserAlertConfigurationData(adviserId, ruleId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetAdviserAlertConfigurationData;
+        }
+        public bool UpdateAdviserAlertConfiguration(int ruleId, int eventId, int reminderDay, string sipRuleType, int IsActive, int IsOverride, int userId)
+        {
+            bool bResult = false;
+            AlertsDao alertsDao = new AlertsDao();
+            try
+            {
+                bResult = alertsDao.UpdateAdviserAlertConfiguration(ruleId, eventId, reminderDay, sipRuleType, IsActive, IsOverride, userId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return bResult;
+        }
+        public DataTable GetCustomerSIPAlert(int customerId)
+        {
+            AlertsDao alertDo = new AlertsDao();
+            DataTable dtGetCustomerSIPAlert;
+            try
+            {
+                dtGetCustomerSIPAlert = alertDo.GetCustomerSIPAlert(customerId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetCustomerSIPAlert;
+        }
+        public DataTable GetCustomerSIPList(int customerId)
+        {
+            AlertsDao alertDo = new AlertsDao();
+            DataTable dtGetCustomerSIPList;
+            try
+            {
+                dtGetCustomerSIPList = alertDo.GetCustomerSIPList(customerId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetCustomerSIPList;
+        }
+        public DataTable GetSIPAlertCustomerconfig()
         {
             AlertsDao alertDo = new AlertsDao();
             DataTable dtGetSIPAlertCustomerconfig;
@@ -1895,33 +1895,73 @@ namespace BoAlerts
             }
             return dtGetSIPAlertCustomerconfig;
         }
-         public bool CreateCustomerAlertConfiguration(int ruleID, int targetId, string subscriptionMessage, DateTime eventSubscription, int userId)
-         {
-             bool bResult = false;
-             AlertsDao alertsDao = new AlertsDao();
-             try
-             {
-                 bResult = alertsDao.CreateCustomerAlertConfiguration(ruleID, targetId, subscriptionMessage, eventSubscription,userId);
-             }
-             catch (BaseApplicationException Ex)
-             {
-                 throw Ex;
-             }
-             return bResult;
-         }
-         public bool DeleteCustomerAlertConfiguration(int eventId)
-         {
-             bool bResult = false;
-             AlertsDao alertsDao = new AlertsDao();
-             try
-             {
-                 bResult = alertsDao.DeleteCustomerAlertConfiguration(eventId);
-             }
-             catch (BaseApplicationException Ex)
-             {
-                 throw Ex;
-             }
-             return bResult;
-         }
+        public bool CreateCustomerAlertConfiguration(int ruleID, int targetId, string subscriptionMessage, DateTime eventSubscription, int userId)
+        {
+            bool bResult = false;
+            AlertsDao alertsDao = new AlertsDao();
+            try
+            {
+                bResult = alertsDao.CreateCustomerAlertConfiguration(ruleID, targetId, subscriptionMessage, eventSubscription, userId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return bResult;
+        }
+        public bool DeleteCustomerAlertConfiguration(int eventId)
+        {
+            bool bResult = false;
+            AlertsDao alertsDao = new AlertsDao();
+            try
+            {
+                bResult = alertsDao.DeleteCustomerAlertConfiguration(eventId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return bResult;
+        }
+        public int AlertDuplicateRule(int adviserId, int reminderDay, int eventId, int IsActive,int overrite)
+        {
+            int count;
+            AlertsDao alertsDao = new AlertsDao();
+            try
+            {
+                count = alertsDao.AlertDuplicateRule(adviserId, reminderDay, eventId, IsActive, overrite);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return count;
+        }
+        public void AlertRulechecking(int adviserId, int ruleId, ref int reminderDay, ref int eventId, ref int isOnline, ref int overrite)
+        {
+            AlertsDao alertsDao = new AlertsDao();
+            try
+            {
+                alertsDao.AlertRulechecking(adviserId, ruleId, ref reminderDay, ref eventId, ref isOnline,ref overrite);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+        }
+        public int AlertDuplicateRuleUpdate(int adviserId, int reminderDay, int eventId)
+        {
+            int count;
+            AlertsDao alertsDao = new AlertsDao();
+            try
+            {
+                count = alertsDao.AlertDuplicateRuleUpdate(adviserId, reminderDay, eventId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return count;
+        }
     }
 }

@@ -2771,7 +2771,7 @@ namespace DaoAlerts
         /// <param name="Remindercount"></param>
         /// <param name="ConditionsCount"></param>
         /// <returns></returns>
-        
+
         public DataSet GetAdviserUserAlerts(int userId, out int Remindercount, out int ConditionsCount)
         {
             DataSet dsAdviserAlertList = new DataSet();
@@ -2875,7 +2875,7 @@ namespace DaoAlerts
             }
             return dtGetSIPAlert;
         }
-        public bool CreateAdviserAlertConfiguration(int adviserId, int eventId, int reminderDay, string sipRuleType,  int IsActive, int IsOverride,int userId)
+        public bool CreateAdviserAlertConfiguration(int adviserId, int eventId, int reminderDay, string sipRuleType, int IsActive, int IsOverride, int userId)
         {
             bool bResult = false;
             Database db;
@@ -2912,7 +2912,7 @@ namespace DaoAlerts
             }
             return bResult;
         }
-        public DataTable GetAdviserAlertConfigurationData(int adviserId,int ruleId)
+        public DataTable GetAdviserAlertConfigurationData(int adviserId, int ruleId)
         {
             DbCommand cmdGetAdviserAlertConfigurationData;
             DataTable dtGetAdviserAlertConfigurationData;
@@ -2933,7 +2933,7 @@ namespace DaoAlerts
             }
             return dtGetAdviserAlertConfigurationData;
         }
-        public bool UpdateAdviserAlertConfiguration( int ruleId,int eventId, int reminderDay, string sipRuleType, int IsActive, int IsOverride, int userId)
+        public bool UpdateAdviserAlertConfiguration(int ruleId, int eventId, int reminderDay, string sipRuleType, int IsActive, int IsOverride, int userId)
         {
             bool bResult = false;
             Database db;
@@ -3094,6 +3094,82 @@ namespace DaoAlerts
                 throw exBase;
             }
             return bResult;
+        }
+        public int AlertDuplicateRule(int adviserId, int reminderDay, int eventId, int IsActive, int overrite)
+        {
+            Database AlertDuplicateRuleDb;
+            DbCommand AlertDuplicateRuleCmd;
+            DataSet AlertDuplicateRuleDs = new DataSet();
+            int count;
+            try
+            {
+                AlertDuplicateRuleDb = DatabaseFactory.CreateDatabase("wealtherp");
+                AlertDuplicateRuleCmd = AlertDuplicateRuleDb.GetStoredProcCommand("SPROC_AlertRuleDuplicateCheck");
+                AlertDuplicateRuleDb.AddInParameter(AlertDuplicateRuleCmd, "@adviserId", DbType.Int32, adviserId);
+                AlertDuplicateRuleDb.AddInParameter(AlertDuplicateRuleCmd, "@reminderDay", DbType.Int32, reminderDay);
+                AlertDuplicateRuleDb.AddInParameter(AlertDuplicateRuleCmd, "@eventId", DbType.Int32, eventId);
+                AlertDuplicateRuleDb.AddInParameter(AlertDuplicateRuleCmd, "@IsActive", DbType.Int32, IsActive);
+                AlertDuplicateRuleDb.AddInParameter(AlertDuplicateRuleCmd, "@overrite", DbType.Int32, overrite);
+                AlertDuplicateRuleDb.AddOutParameter(AlertDuplicateRuleCmd, "@count", DbType.Int32, 100);
+                AlertDuplicateRuleDs = AlertDuplicateRuleDb.ExecuteDataSet(AlertDuplicateRuleCmd);
+                count = Convert.ToInt32(AlertDuplicateRuleDb.GetParameterValue(AlertDuplicateRuleCmd, "count").ToString());
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return count;
+        }
+        public void AlertRulechecking(int adviserId,int ruleId,ref int reminderDay,ref int eventId,ref int isOnline,ref int overrite)
+        {
+            Database AlertRulecheckingDb;
+            DbCommand AlertRulecheckingCmd;
+            DataSet AlertRulecheckingDs = new DataSet();
+            try
+            {
+                AlertRulecheckingDb = DatabaseFactory.CreateDatabase("wealtherp");
+                AlertRulecheckingCmd = AlertRulecheckingDb.GetStoredProcCommand("SPROC_AdviserAlertRuleUpdateCheck");
+                AlertRulecheckingDb.AddInParameter(AlertRulecheckingCmd, "@adviserId", DbType.Int32, adviserId);
+                AlertRulecheckingDb.AddInParameter(AlertRulecheckingCmd, "@ruleId", DbType.Int32, ruleId);
+                AlertRulecheckingDb.AddOutParameter(AlertRulecheckingCmd, "@reminderDay", DbType.Int32, 1000);
+                AlertRulecheckingDb.AddOutParameter(AlertRulecheckingCmd, "@eventId", DbType.Int32, 1000);
+                AlertRulecheckingDb.AddOutParameter(AlertRulecheckingCmd, "@isActive", DbType.Int32, 1000);
+                AlertRulecheckingDb.AddOutParameter(AlertRulecheckingCmd, "@overrite", DbType.Int32, 1000);
+                AlertRulecheckingDs = AlertRulecheckingDb.ExecuteDataSet(AlertRulecheckingCmd);
+                reminderDay = Convert.ToInt32(AlertRulecheckingDb.GetParameterValue(AlertRulecheckingCmd, "reminderDay").ToString());
+                eventId = Convert.ToInt32(AlertRulecheckingDb.GetParameterValue(AlertRulecheckingCmd, "eventId").ToString());
+                isOnline = Convert.ToInt32(AlertRulecheckingDb.GetParameterValue(AlertRulecheckingCmd, "isActive").ToString());
+                overrite = Convert.ToInt32(AlertRulecheckingDb.GetParameterValue(AlertRulecheckingCmd, "overrite").ToString());
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+          
+        }
+        public int AlertDuplicateRuleUpdate(int adviserId, int reminderDay, int eventId)
+        {
+            Database AlertDuplicateRuleUpdateDb;
+            DbCommand AlertDuplicateRuleUpdateCmd;
+            DataSet AlertDuplicateRuleUpdateDs = new DataSet();
+            int count;
+            try
+            {
+                AlertDuplicateRuleUpdateDb = DatabaseFactory.CreateDatabase("wealtherp");
+                AlertDuplicateRuleUpdateCmd = AlertDuplicateRuleUpdateDb.GetStoredProcCommand("SPROC_AlertRuleDuplicateCheckUpdate");
+                AlertDuplicateRuleUpdateDb.AddInParameter(AlertDuplicateRuleUpdateCmd, "@adviserId", DbType.Int32, adviserId);
+                AlertDuplicateRuleUpdateDb.AddInParameter(AlertDuplicateRuleUpdateCmd, "@reminderDay", DbType.Int32, reminderDay);
+                AlertDuplicateRuleUpdateDb.AddInParameter(AlertDuplicateRuleUpdateCmd, "@eventId", DbType.Int32, eventId);
+                AlertDuplicateRuleUpdateDb.AddOutParameter(AlertDuplicateRuleUpdateCmd, "@count", DbType.Int32, 100);
+                AlertDuplicateRuleUpdateDs = AlertDuplicateRuleUpdateDb.ExecuteDataSet(AlertDuplicateRuleUpdateCmd);
+                count = Convert.ToInt32(AlertDuplicateRuleUpdateDb.GetParameterValue(AlertDuplicateRuleUpdateCmd, "count").ToString());
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return count;
         }
     }
 }

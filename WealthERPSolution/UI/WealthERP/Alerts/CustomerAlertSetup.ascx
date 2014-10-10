@@ -289,9 +289,9 @@
         </td>
     </tr>
 </table>
-<input type="hidden" id="radGridClickedRowIndex" name="radGridClickedRowIndex" />
+<input type="hidden" id="radGridClickedRowIndex" name="radGridClickedRowIndex" visible="false"/>
 <telerik:RadContextMenu ID="radMenu" runat="server" OnItemClick="radMenu_ItemClick"
-    EnableRoundedCorners="true" EnableShadows="true" Skin="WebBlue">
+    EnableRoundedCorners="true" EnableShadows="true" Skin="WebBlue" visible="false">
     <Items>
         <telerik:RadMenuItem Text="Add">
         </telerik:RadMenuItem>

@@ -42,7 +42,7 @@ namespace WealthERP.Alerts
         }
         protected void ddlSIPDiscription_OnSelectedIndexChanged(object sender, EventArgs e)
         {
-            
+
         }
         private void BindAlert(DropDownList ddlAlert)
         {
@@ -118,11 +118,11 @@ namespace WealthERP.Alerts
                 CheckBox chkOverrite = (CheckBox)e.Item.FindControl("chkOverrite");
                 FillAdviserrole(ruleId, ddlSIPDiscription, ddlAlert, txtRuleType, chkActive, chkOverrite);
             }
-            if (e.Item is GridDataItem)
-            {
-                GridDataItem gridItem = e.Item as GridDataItem;
-                gridItem.ToolTip = "Right click to Add/Edit";
-            }
+            //if (e.Item is GridDataItem)
+            //{
+            //    GridDataItem gridItem = e.Item as GridDataItem;
+            //    gridItem.ToolTip = "Right click to Add/Edit";
+            //}
         }
         private void FillAdviserrole(int ruleId, DropDownList ddlSIPDiscription, DropDownList ddlAlert, TextBox txtRuleType, CheckBox chkActive, CheckBox chkOverrite)
         {
@@ -174,7 +174,16 @@ namespace WealthERP.Alerts
                     chkActivevalue = 1;
                 if (chkOverrite.Checked)
                     chkOverritevalue = 1;
-                alertBo.CreateAdviserAlertConfiguration(adviserVo.advisorId, int.Parse(ddlSIPDiscription.SelectedValue), int.Parse(ddlAlert.SelectedValue), txtRuleType.Text, chkActivevalue, chkOverritevalue, userVo.UserId);
+                int count = alertBo.AlertDuplicateRule(adviserVo.advisorId, int.Parse(ddlAlert.SelectedValue), int.Parse(ddlSIPDiscription.SelectedValue), chkActivevalue, chkActivevalue);
+                if (count > 0)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('You have already created same rule');", true);
+                    return;
+                }
+                else
+                {
+                    alertBo.CreateAdviserAlertConfiguration(adviserVo.advisorId, int.Parse(ddlSIPDiscription.SelectedValue), int.Parse(ddlAlert.SelectedValue), txtRuleType.Text, chkActivevalue, chkOverritevalue, userVo.UserId);
+                }
             }
             if (e.CommandName == RadGrid.UpdateCommandName)
             {
@@ -189,7 +198,28 @@ namespace WealthERP.Alerts
                     chkActivevalue = 1;
                 if (chkOverrite.Checked)
                     chkOverritevalue = 1;
-                alertBo.UpdateAdviserAlertConfiguration(ruleId, int.Parse(ddlSIPDiscription.SelectedValue), int.Parse(ddlAlert.SelectedValue), txtRuleType.Text, chkActivevalue, chkOverritevalue, userVo.UserId);
+                int reminderDay = 0, eventId = 0, isOnline = 0, overrite = 0;
+                alertBo.AlertRulechecking(adviserVo.advisorId, ruleId, ref reminderDay, ref eventId, ref isOnline, ref overrite);
+                int remiderday1 = int.Parse(ddlAlert.SelectedValue);
+                int eventid1 = int.Parse(ddlSIPDiscription.SelectedValue);
+                if (remiderday1 != reminderDay || eventid1 != eventId || chkActivevalue != isOnline || chkOverritevalue != overrite)
+                {
+                    int count = alertBo.AlertDuplicateRule(adviserVo.advisorId, int.Parse(ddlAlert.SelectedValue), int.Parse(ddlSIPDiscription.SelectedValue), chkActivevalue, chkOverritevalue);
+                    if (count > 0)
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('You can not update.Same rule exist !!');", true);
+                        return;
+                    }
+                    else
+                    {
+                        alertBo.UpdateAdviserAlertConfiguration(ruleId, int.Parse(ddlSIPDiscription.SelectedValue), int.Parse(ddlAlert.SelectedValue), txtRuleType.Text, chkActivevalue, chkOverritevalue, userVo.UserId);
+                    }
+                }
+                else
+                {
+                    alertBo.UpdateAdviserAlertConfiguration(ruleId, int.Parse(ddlSIPDiscription.SelectedValue), int.Parse(ddlAlert.SelectedValue), txtRuleType.Text, chkActivevalue, chkOverritevalue, userVo.UserId);
+
+                }
             }
             BindSIPDescription();
         }
