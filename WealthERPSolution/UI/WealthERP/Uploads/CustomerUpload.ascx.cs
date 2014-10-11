@@ -484,23 +484,152 @@ namespace WealthERP.Uploads
 
                 int ReqId = 0;
                 msgUploadComplete.Visible = true;
-
                 string uploadFilePath = ConfigurationManager.AppSettings["ADVISOR_UPLOAD_PATH"].ToString() + "\\" + adviserVo.advisorId.ToString() + "\\";
-
-
-
                 string newFileName = SaveFileIntoServer(FileUpload, uploadFilePath);
                 newFileName = uploadFilePath + newFileName;
-                //   packagePath = Server.MapPath("\\UploadPackages\\Integration Services Project1\\Integration Services Project1\\Package9.dtsx");
-                werpTaskRequestManagementBo.CreateTaskRequest(4, userVo.UserId, out ReqId, newFileName, adviserVo.advisorId, Convert.ToInt32(ddlRM.SelectedValue), Convert.ToInt32(ddlListBranch.SelectedValue), ddlListCompany.SelectedValue);
-                if (ReqId > 0)
+                #region Client Modification
+
+                bool filereadflag = false;
+                bool XmlCreated = false;
+                //int skiprowsval = 1;
+                ReadExternalFile readFile = new ReadExternalFile();
+                UploadCommonBo uploadcommonBo = new UploadCommonBo();
+                DataSet ds = new DataSet(); //holds data from the file
+                // This dataset stores the values of actual colum names for the file type with Mandatory flags
+                DataSet dsColumnNames = new DataSet();
+                DataSet dsWerpColumnNames = new DataSet();
+                //This dataset is used as data for the final XML to be created.
+                //DataSet dsXML = new DataSet();
+                int indexofNewFileName = newFileName.LastIndexOf('.');
+                string xmlFileName = newFileName.Substring(0, indexofNewFileName) + ".xml";
+                int indexOfExtension = FileUpload.FileName.LastIndexOf('.');
+                int length = FileUpload.FileName.Length;
+                string UploadFileName = FileUpload.FileName.ToString();
+                string extension = (UploadFileName.Substring(indexOfExtension + 1)).ToLower();
+                string strFileReadError = string.Empty;
+                try
                 {
-                    msgUploadComplete.InnerText = "Request Id-" + ReqId.ToString() + "-Generated SuccessFully";
+                    // pathxml = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
+                    if (extension == "dbf")
+                    {
+                        string filename = "CPD.dbf";
+                        string filepath = Server.MapPath("UploadFiles");
+
+                        FileUpload.SaveAs(filepath + "\\" + filename);
+                        ds = readFile.ReadDBFFile(filepath, filename, out strFileReadError);
+                        if (strFileReadError == "")
+                        {
+
+                            //ds.Tables[0].Columns[15].ColumnName = "JOINT_NAME2";
+                            //ds.Tables[0].Columns[14].ColumnName = "JOINT_NAME1";
+                            for (int i = 0; i < ds.Tables[0].Columns.Count; i++)
+                            {
+                                if (ds.Tables[0].Columns[i].ColumnName == "CPD#dbf.JOINT_NAME")
+                                    ds.Tables[0].Columns[i].ColumnName = "JOINT_NAME1";
+
+                                if (ds.Tables[0].Columns[i].ColumnName == "CPD#dbf.JOINT_NAME1")
+                                    ds.Tables[0].Columns[i].ColumnName = "JOINT_NAME2";
+                            }
+                            filereadflag = true;
+
+                        }
+                        else
+                        {
+                            filereadflag = false;
+                            rejectUpload_Flag = true;
+                            reject_reason = strFileReadError;
+                        }
+                    }
+
+                    else if (extension == "xls" || extension == "xlsx")
+                    {
+
+                        ds = readFile.ReadExcelfile(newFileName);
+                        filereadflag = true;
+
+
+                    }
+
+                    else
+                    {
+                        filereadflag = false;
+
+                    }
+                    if (filereadflag == true)
+                    {
+                        dsColumnNames = uploadcommonBo.GetColumnNames(50);
+
+                        dsWerpColumnNames = uploadcommonBo.GetUploadWERPNameForExternalColumnNames(50);
+
+                        dsXML = removeUnwantedDatafromXMLDs(ds, dsColumnNames, dsWerpColumnNames, 50);
+                        //Get XML after mapping, checking for columns
+                        dsXML = getXMLDs(ds, dsColumnNames, dsWerpColumnNames);
+
+                        //Get filetypeid from XML
+                        // filetypeid = "Failure".getUploadFiletypeCode(pathxml, "MF", Contants.UploadExternalTypeCAMS, Contants.UploadFileTypeProfile);
+                    }
+
+                    else
+                    {
+                        ValidationProgress = "Failure";
+
+                    }
+
+                    if (ValidationProgress != "Failure")
+                    {
+                        //Fill details for Upload process log
+                        if (rejectUpload_Flag == false)
+                        {
+
+                            dsXML.Tables[0].Columns.Add("AdviserId");
+                            dsXML.Tables[0].Columns.Add("CreatedBy");
+                            dsXML.Tables[0].Columns.Add("CreatedOn");
+                            dsXML.Tables[0].Columns.Add("ModifiedBy");
+                            dsXML.Tables[0].Columns.Add("ModifiedOn");
+
+                            foreach (DataRow dr in dsXML.Tables[0].Rows)
+                            {
+                                dr["AdviserId"] = adviserId;
+                                dr["CreatedBy"] = userVo.UserId;
+                                dr["CreatedOn"] = DateTime.Now;
+                                dr["ModifiedBy"] = userVo.UserId;
+                                dr["ModifiedOn"] = DateTime.Now;
+                            }
+
+                            dsXML.WriteXml(xmlFileName, XmlWriteMode.WriteSchema);
+                            XmlCreated = true;
+                            if (XmlCreated)
+                            {
+                                werpTaskRequestManagementBo.CreateTaskRequest(4, userVo.UserId, out ReqId, xmlFileName, adviserVo.advisorId, Convert.ToInt32(ddlRM.SelectedValue), Convert.ToInt32(ddlListBranch.SelectedValue), ddlListCompany.SelectedValue);
+                            }
+                            //Show result division
+                            //divresult.Visible = true;
+
+                            // System.IO.StringWriter sw = new System.IO.StringWriter(sbXMLString);
+                            // dsXML.Tables[0].WriteXml(sw);
+                        }
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    msgUploadComplete.InnerText = "Not able to create Request,Try again";
+                    string exce = ex.Message;
                 }
+                finally
+                {
+                    if (ReqId > 0 && XmlCreated == true)
+                    {
+                        msgUploadComplete.InnerText = "Request Id-" + ReqId.ToString() + "-Generated SuccessFully";
+                    }
+                    else if (XmlCreated == false || filereadflag == false || ValidationProgress == "Failure")
+                    {
+                        msgUploadComplete.InnerText = "Uploaded File is not in Correct Format.May be Mandatatory columns not found.";
+                    }
+                    else
+                    {
+                        msgUploadComplete.InnerText = "Not able to create Request,Try again";
+                    }
+                }
+                #endregion Client Modification
                 //int ReqId = 0;
                 //msgUploadComplete.Visible = true;
 
@@ -8220,7 +8349,7 @@ namespace WealthERP.Uploads
 
                         DataTable dsMandatoryData = new DataTable();
 
-                        if (fileTypeId == 3 || fileTypeId == 8 || fileTypeId == 15 || fileTypeId == 1 || fileTypeId == 6 || fileTypeId == 19 || fileTypeId == 11 || fileTypeId == 10 || fileTypeId == 17)
+                        if (fileTypeId == 3 || fileTypeId == 8 || fileTypeId == 15 || fileTypeId == 1 || fileTypeId == 6 || fileTypeId == 19 || fileTypeId == 11 || fileTypeId == 10 || fileTypeId == 17 )
                         {
                             dsActual.Tables[0].DefaultView.RowFilter = "IsTransactionMandatory=" + 1;
                             dsMandatoryData = dsActual.Tables[0].DefaultView.ToTable();
@@ -8230,7 +8359,7 @@ namespace WealthERP.Uploads
                             dsActual.Tables[0].DefaultView.RowFilter = "IsTrailCommissionTransactionMandatory=" + 1;
                             dsMandatoryData = dsActual.Tables[0].DefaultView.ToTable();
                         }
-                        else if (fileTypeId == 2 || fileTypeId == 3 || fileTypeId == 4 || fileTypeId == 7 || fileTypeId == 16 || fileTypeId == 18 || fileTypeId == 17 || fileTypeId == 21)
+                        else if (fileTypeId == 2 || fileTypeId == 3 || fileTypeId == 4 || fileTypeId == 7 || fileTypeId == 16 || fileTypeId == 18 || fileTypeId == 17 || fileTypeId == 21 || fileTypeId == 50)
                         {
                             dsActual.Tables[0].DefaultView.RowFilter = "IsProfileMandatory=" + 1;
                             dsMandatoryData = dsActual.Tables[0].DefaultView.ToTable();
