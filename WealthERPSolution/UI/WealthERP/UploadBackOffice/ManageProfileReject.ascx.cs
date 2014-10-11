@@ -74,6 +74,21 @@ namespace WealthERP.UploadBackOffice
             int Id = 0;
             int tableNo=0;
             string clientCode = string.Empty;
+            string address1 = string.Empty;
+            string address2 = string.Empty;
+            string address3 = string.Empty;
+            string country = string.Empty;
+            string officePhoneNo = string.Empty;
+            string officeExtensionNo = string.Empty;
+            string officeFaxNo = string.Empty;
+            string homePhoneNo = string.Empty;
+            string homeFaxNo = string.Empty;
+            string annualIncome = string.Empty;
+            //string dob1 = string.Empty;
+            //string dob2 = string.Empty;
+            //string dob3 = string.Empty;
+            //string guardianDOB = string.Empty;
+           
             uploadCommonBo = new UploadCommonBo();
             GridFooterItem footerRow = (GridFooterItem)gvProfileIncreamenetReject.MasterTableView.GetItems(GridItemType.Footer)[0];
             foreach (GridDataItem dr in gvProfileIncreamenetReject.Items)
@@ -150,6 +165,118 @@ namespace WealthERP.UploadBackOffice
                 {
                     personalstatus = ((TextBox)footerRow.FindControl("txtPersonalStatusFooter")).Text;
                 }
+                if (((TextBox)footerRow.FindControl("txtAddress1Footer")).Text.Trim() == "")
+                {
+                    address1 = ((TextBox)dr.FindControl("txtAddress1")).Text;
+                }
+                else
+                {
+                    address1 = ((TextBox)footerRow.FindControl("txtAddress1Footer")).Text;
+                }
+                if (((TextBox)footerRow.FindControl("txtAddress2Footer")).Text.Trim() == "")
+                {
+                    address2 = ((TextBox)dr.FindControl("txtAddress2")).Text;
+                }
+                else
+                {
+                    address2 = ((TextBox)footerRow.FindControl("txtAddress2Footer")).Text;
+                }
+                if (((TextBox)footerRow.FindControl("txtAddress3Footer")).Text.Trim() == "")
+                {
+                    address3 = ((TextBox)dr.FindControl("txtAddress3")).Text;
+                }
+                else
+                {
+                    address3 = ((TextBox)footerRow.FindControl("txtAddress3Footer")).Text;
+                }
+                if (((TextBox)footerRow.FindControl("txtCountryFooter")).Text.Trim() == "")
+                {
+                    country = ((TextBox)dr.FindControl("txtCountry")).Text;
+                }
+                else
+                {
+                    country = ((TextBox)footerRow.FindControl("txtCountryFooter")).Text;
+                }
+                if (((TextBox)footerRow.FindControl("txtOfficePhoneNoFooter")).Text.Trim() == "")
+                {
+                    officePhoneNo = ((TextBox)dr.FindControl("txtOfficePhoneNo")).Text;
+                }
+                else
+                {
+                    officePhoneNo = ((TextBox)footerRow.FindControl("txtOfficePhoneNoFooter")).Text;
+                }
+                if (((TextBox)footerRow.FindControl("txtOfficeExtensionNoFooter")).Text.Trim() == "")
+                {
+                    officeExtensionNo = ((TextBox)dr.FindControl("txtOfficeExtensionNo")).Text;
+                }
+                else
+                {
+                    officeExtensionNo = ((TextBox)footerRow.FindControl("txtOfficeExtensionNoFooter")).Text;
+                }
+                if (((TextBox)footerRow.FindControl("txtOfficeFaxNoFooter")).Text.Trim() == "")
+                {
+                    officeFaxNo = ((TextBox)dr.FindControl("txtOfficeFaxNo")).Text;
+                }
+                else
+                {
+                    officeFaxNo = ((TextBox)footerRow.FindControl("txtOfficeFaxNoFooter")).Text;
+                }
+                if (((TextBox)footerRow.FindControl("txtHomePhoneNoFooter")).Text.Trim() == "")
+                {
+                    homePhoneNo = ((TextBox)dr.FindControl("txtHomePhoneNo")).Text;
+                }
+                else
+                {
+                    homePhoneNo = ((TextBox)footerRow.FindControl("txtHomePhoneNoFooter")).Text;
+                }
+                if (((TextBox)footerRow.FindControl("txtHomeFaxNoFooter")).Text.Trim() == "")
+                {
+                    homeFaxNo = ((TextBox)dr.FindControl("txtHomeFaxNo")).Text;
+                }
+                else
+                {
+                    homeFaxNo = ((TextBox)footerRow.FindControl("txtHomeFaxNoFooter")).Text;
+                }
+                if (((TextBox)footerRow.FindControl("txtAnnualIncomeFooter")).Text.Trim() == "")
+                {
+                    annualIncome = ((TextBox)dr.FindControl("txtAnnualIncome")).Text;
+                }
+                else
+                {
+                    annualIncome = ((TextBox)footerRow.FindControl("txtAnnualIncomeFooter")).Text;
+                }
+                //if (((TextBox)footerRow.FindControl("txtDOB1Footer")).Text.Trim() == "")
+                //{
+                //    dob1 = ((TextBox)dr.FindControl("txtDOB1")).Text;
+                //}
+                //else
+                //{
+                //    dob1 = ((TextBox)footerRow.FindControl("txtDOB1Footer")).Text;
+                //}
+                //if (((TextBox)footerRow.FindControl("txtDOB2Footer")).Text.Trim() == "")
+                //{
+                //    dob2 = ((TextBox)dr.FindControl("txtDOB2")).Text;
+                //}
+                //else
+                //{
+                //    dob2 = ((TextBox)footerRow.FindControl("txtDOB2Footer")).Text;
+                //}
+                // if (((TextBox)footerRow.FindControl("txtDOB3Footer")).Text.Trim() == "")
+                //{
+                //    dob3 = ((TextBox)dr.FindControl("txtDOB3")).Text;
+                //}
+                //else
+                //{
+                //    dob3 = ((TextBox)footerRow.FindControl("txtDOB3Footer")).Text;
+                //}
+                // if (((TextBox)footerRow.FindControl("txtGuardianDOBFooter")).Text.Trim() == "")
+                //{
+                //    guardianDOB = ((TextBox)dr.FindControl("txtGuardianDOB")).Text;
+                //}
+                //else
+                //{
+                //    guardianDOB = ((TextBox)footerRow.FindControl("txtGuardianDOBFooter")).Text;
+                //}
                 CheckBox checkBox = (CheckBox)dr.FindControl("chkId");
                 if (checkBox.Checked==true)
                 {
@@ -159,7 +286,7 @@ namespace WealthERP.UploadBackOffice
                     selectedRow = gdi.ItemIndex + 1;
                     Id = int.Parse((gvProfileIncreamenetReject.MasterTableView.DataKeyValues[selectedRow - 1]["ID"].ToString()));
                      tableNo = int.Parse((gvProfileIncreamenetReject.MasterTableView.DataKeyValues[selectedRow - 1]["TableNo"].ToString()));
-                     blResult = uploadCommonBo.UpdateRequestRejects(clientCode,Id, tableNo, city, state, pincode, mobileno, occupation, accounttype, bankname, personalstatus);
+                     blResult = uploadCommonBo.UpdateRequestRejects(clientCode, Id, tableNo, city, state, pincode, mobileno, occupation, accounttype, bankname, personalstatus, address1, address2, address3, country, officePhoneNo, officeExtensionNo, officeFaxNo, homePhoneNo, homeFaxNo, annualIncome);
                     
                 }
                 

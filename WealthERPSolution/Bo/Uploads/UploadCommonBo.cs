@@ -4956,13 +4956,13 @@ namespace BoUploads
             }
             return dsReqRej;
         }
-        public bool UpdateRequestRejects(string clientCode,int Id, int tableNo, string city, string state, string pincode, string mobileno, string occupation, string accounttype, string bankname, string personalstatus)
+        public bool UpdateRequestRejects(string clientCode, int Id, int tableNo, string city, string state, string pincode, string mobileno, string occupation, string accounttype, string bankname, string personalstatus, string address1, string address2, string address3, string country, string officePhoneNo, string officeExtensionNo, string officeFaxNo, string homePhoneNo, string homeFaxNo, string annualIncome)
         {
             bool result = false;
             UploadsCommonDao uploadDAO = new UploadsCommonDao();
             try
             {
-                result = uploadDAO.UpdateRequestRejects(clientCode,Id, tableNo, city, state, pincode, mobileno, occupation, accounttype, bankname, personalstatus);
+                result = uploadDAO.UpdateRequestRejects(clientCode, Id, tableNo, city, state, pincode, mobileno, occupation, accounttype, bankname, personalstatus, address1, address2, address3, country, officePhoneNo, officeExtensionNo, officeFaxNo, homePhoneNo, homeFaxNo, annualIncome);
             }
             catch (BaseApplicationException Ex)
             {

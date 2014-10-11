@@ -191,7 +191,7 @@ namespace DaoUploads
                 db.AddInParameter(createProcessCmd, "@U_UserId", DbType.Int32, processlogVo.UserId);
                 db.AddOutParameter(createProcessCmd, "@ADUL_ProcessId", DbType.Int32, 10);
                 db.AddInParameter(createProcessCmd, "@ADUL_IsOnline", DbType.Int32, processlogVo.IsOnline);
-                
+
                 db.ExecuteNonQuery(createProcessCmd);
                 processId = int.Parse(db.GetParameterValue(createProcessCmd, "ADUL_ProcessId").ToString());
             }
@@ -4476,7 +4476,7 @@ namespace DaoUploads
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 dbCommand = db.GetStoredProcCommand("SPROC_RequestWiseRejects");
                 db.AddInParameter(dbCommand, "@reqId", DbType.Int32, reqId);
-                
+
                 dsReqRej = db.ExecuteDataSet(dbCommand);
             }
             catch (BaseApplicationException Ex)
@@ -4486,7 +4486,7 @@ namespace DaoUploads
 
             return dsReqRej;
         }
-        public bool UpdateRequestRejects(string clientCode,int Id,int tableNo, string city, string state, string pincode, string mobileno, string occupation, string accounttype, string bankname, string personalstatus)
+        public bool UpdateRequestRejects(string clientCode, int Id, int tableNo, string city, string state, string pincode, string mobileno, string occupation, string accounttype, string bankname, string personalstatus, string address1, string address2, string address3, string country, string officePhoneNo, string officeExtensionNo, string officeFaxNo, string homePhoneNo, string homeFaxNo, string annualIncome)
         {
             bool result = false;
             Database db;
@@ -4534,7 +4534,47 @@ namespace DaoUploads
                     db.AddInParameter(UpdateRequestRejectCmd, "@Personalstatus", DbType.String, personalstatus);
                 else
                     db.AddInParameter(UpdateRequestRejectCmd, "@Personalstatus", DbType.String, DBNull.Value);
-               
+                if (address1 != "")
+                    db.AddInParameter(UpdateRequestRejectCmd, "@Address1", DbType.String, address1);
+                else
+                    db.AddInParameter(UpdateRequestRejectCmd, "@Address1", DbType.String, DBNull.Value);
+                if (address2 != "")
+                    db.AddInParameter(UpdateRequestRejectCmd, "@Address2", DbType.String, address2);
+                else
+                    db.AddInParameter(UpdateRequestRejectCmd, "@Address2", DbType.String, DBNull.Value);
+                if (address3 != "")
+                    db.AddInParameter(UpdateRequestRejectCmd, "@Address3", DbType.String, address3);
+                else
+                    db.AddInParameter(UpdateRequestRejectCmd, "@Address3", DbType.String, DBNull.Value);
+                if (country != "")
+                    db.AddInParameter(UpdateRequestRejectCmd, "@Country", DbType.String, country);
+                else
+                    db.AddInParameter(UpdateRequestRejectCmd, "@Country", DbType.String, DBNull.Value);
+                if (officePhoneNo != "")
+                    db.AddInParameter(UpdateRequestRejectCmd, "@OfficePhoneNo", DbType.String, officePhoneNo);
+                else
+                    db.AddInParameter(UpdateRequestRejectCmd, "@OfficePhoneNo", DbType.String, DBNull.Value);
+                if (officeExtensionNo != "")
+                    db.AddInParameter(UpdateRequestRejectCmd, "@OfficeExtensionNo", DbType.String, officeExtensionNo);
+                else
+                    db.AddInParameter(UpdateRequestRejectCmd, "@OfficeExtensionNo", DbType.String, DBNull.Value);
+                if (officeFaxNo != "")
+                    db.AddInParameter(UpdateRequestRejectCmd, "@OfficeFaxNo", DbType.String, officeFaxNo);
+                else
+                    db.AddInParameter(UpdateRequestRejectCmd, "@OfficeFaxNo", DbType.String, DBNull.Value);
+                if (homePhoneNo != "")
+                    db.AddInParameter(UpdateRequestRejectCmd, "@HomePhoneNo", DbType.String, homePhoneNo);
+                else
+                    db.AddInParameter(UpdateRequestRejectCmd, "@HomePhoneNo", DbType.String, DBNull.Value);
+                if (homeFaxNo != "")
+                    db.AddInParameter(UpdateRequestRejectCmd, "@HomeFaxNo", DbType.String, homeFaxNo);
+                else
+                    db.AddInParameter(UpdateRequestRejectCmd, "@HomeFaxNo", DbType.String, DBNull.Value);
+                if (annualIncome != "")
+                    db.AddInParameter(UpdateRequestRejectCmd, "@AnnualIncome", DbType.String, annualIncome);
+                else
+                    db.AddInParameter(UpdateRequestRejectCmd, "@AnnualIncome", DbType.String, DBNull.Value);
+
 
                 db.ExecuteNonQuery(UpdateRequestRejectCmd);
                 result = true;
@@ -4551,7 +4591,7 @@ namespace DaoUploads
                 FunctionInfo.Add("Method", "UploadCommonBo.cs:UpdateRequestRejects()");
 
                 object[] objects = new object[2];
-                
+
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
@@ -4596,7 +4636,7 @@ namespace DaoUploads
         {
             Database db;
             DbCommand reprocess;
-            int existsCount=0;
+            int existsCount = 0;
 
             try
             {

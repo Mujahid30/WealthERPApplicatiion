@@ -123,21 +123,36 @@
                                 SortExpression="ClientName " FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="90px">
                                 <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn AllowFiltering="true" DataField="Address1" AutoPostBackOnFilter="true"
+                            <telerik:GridTemplateColumn AllowFiltering="true" DataField="Address1" AutoPostBackOnFilter="true"
                                 HeaderText="Address1" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                 SortExpression="Address1" FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="90px">
-                                <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
-                            </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn AllowFiltering="true" DataField="Address2" AutoPostBackOnFilter="true"
+                                <ItemTemplate>
+                                    <asp:TextBox ID="txtAddress1" CssClass="txtField" runat="server" Text='<%# Bind("Address1") %>'></asp:TextBox>
+                                </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtAddress1Footer" CssClass="txtField" runat="server" />
+                                </FooterTemplate>
+                            </telerik:GridTemplateColumn>
+                            <telerik:GridTemplateColumn AllowFiltering="true" DataField="Address2" AutoPostBackOnFilter="true"
                                 HeaderText="Address2" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                 SortExpression="Address2" FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="90px">
-                                <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
-                            </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn AllowFiltering="true" DataField="Address3" AutoPostBackOnFilter="true"
+                                <ItemTemplate>
+                                    <asp:TextBox ID="txtAddress2" CssClass="txtField" runat="server" Text='<%# Bind("Address2") %>'></asp:TextBox>
+                                </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtAddress2Footer" CssClass="txtField" runat="server" />
+                                </FooterTemplate>
+                            </telerik:GridTemplateColumn>
+                            <telerik:GridTemplateColumn AllowFiltering="true" DataField="Address3" AutoPostBackOnFilter="true"
                                 HeaderText="Address3" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                 SortExpression="Address3" FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="90px">
-                                <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
-                            </telerik:GridBoundColumn>
+                                <ItemTemplate>
+                                    <asp:TextBox ID="txtAddress3" CssClass="txtField" runat="server" Text='<%# Bind("Address3") %>'></asp:TextBox>
+                                </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtAddress3Footer" CssClass="txtField" runat="server" />
+                                </FooterTemplate>
+                            </telerik:GridTemplateColumn>
                             <telerik:GridTemplateColumn AllowFiltering="true" DataField="City" AutoPostBackOnFilter="true"
                                 HeaderText="City" ShowFilterIcon="false" CurrentFilterFunction="Contains" SortExpression="City"
                                 FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="90px">
@@ -168,11 +183,16 @@
                                 SortExpression="OtherState" FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="90px">
                                 <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn AllowFiltering="true" DataField="Country" AutoPostBackOnFilter="true"
+                            <telerik:GridTemplateColumn AllowFiltering="true" DataField="Country" AutoPostBackOnFilter="true"
                                 HeaderText="Country" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                 SortExpression="Country" FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="90px">
-                                <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
-                            </telerik:GridBoundColumn>
+                                <ItemTemplate>
+                                    <asp:TextBox ID="txtCountry" CssClass="txtField" runat="server" Text='<%# Bind("Country") %>'></asp:TextBox>
+                                </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtCountryFooter" CssClass="txtField" runat="server" />
+                                </FooterTemplate>
+                            </telerik:GridTemplateColumn>
                             <telerik:GridBoundColumn AllowFiltering="true" DataField="OtherCountry" AutoPostBackOnFilter="true"
                                 HeaderText="OtherCountry" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                 SortExpression="OtherCountry" FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="90px">
@@ -194,31 +214,56 @@
                                 SortExpression="EmailId" FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="90px">
                                 <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn AllowFiltering="true" DataField="OfficePhoneNo" AutoPostBackOnFilter="true"
+                            <telerik:GridTemplateColumn AllowFiltering="true" DataField="OfficePhoneNo" AutoPostBackOnFilter="true"
                                 HeaderText="OfficePhoneNo" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                 SortExpression="OfficePhoneNo" FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="90px">
-                                <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
-                            </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn AllowFiltering="true" DataField="OfficeExtensionNo" AutoPostBackOnFilter="true"
+                                <ItemTemplate>
+                                    <asp:TextBox ID="txtOfficePhoneNo" CssClass="txtField" runat="server" Text='<%# Bind("OfficePhoneNo") %>'></asp:TextBox>
+                                </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtOfficePhoneNoFooter" CssClass="txtField" runat="server" />
+                                </FooterTemplate>
+                            </telerik:GridTemplateColumn>
+                            <telerik:GridTemplateColumn AllowFiltering="true" DataField="OfficeExtensionNo" AutoPostBackOnFilter="true"
                                 HeaderText="OfficeExtensionNo" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                 SortExpression="OfficeExtensionNo" FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="90px">
-                                <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
-                            </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn AllowFiltering="true" DataField="OfficeFaxNo" AutoPostBackOnFilter="true"
+                                <ItemTemplate>
+                                    <asp:TextBox ID="txtOfficeExtensionNo" CssClass="txtField" runat="server" Text='<%# Bind("OfficeExtensionNo") %>'></asp:TextBox>
+                                </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtOfficeExtensionNoFooter" CssClass="txtField" runat="server" />
+                                </FooterTemplate>
+                            </telerik:GridTemplateColumn>
+                            <telerik:GridTemplateColumn AllowFiltering="true" DataField="OfficeFaxNo" AutoPostBackOnFilter="true"
                                 HeaderText="OfficeFaxNo" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                 SortExpression="OfficeFaxNo" FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="90px">
-                                <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
-                            </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn AllowFiltering="true" DataField="HomePhoneNo" AutoPostBackOnFilter="true"
+                                <ItemTemplate>
+                                    <asp:TextBox ID="txtOfficeFaxNo" CssClass="txtField" runat="server" Text='<%# Bind("OfficeFaxNo") %>'></asp:TextBox>
+                                </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtOfficeFaxNoFooter" CssClass="txtField" runat="server" />
+                                </FooterTemplate>
+                            </telerik:GridTemplateColumn>
+                            <telerik:GridTemplateColumn AllowFiltering="true" DataField="HomePhoneNo" AutoPostBackOnFilter="true"
                                 HeaderText="HomePhoneNo" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                 SortExpression="HomePhoneNo" FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="90px">
-                                <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
-                            </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn AllowFiltering="true" DataField="HomeFaxNo" AutoPostBackOnFilter="true"
+                                <ItemTemplate>
+                                    <asp:TextBox ID="txtHomePhoneNo" CssClass="txtField" runat="server" Text='<%# Bind("HomePhoneNo") %>'></asp:TextBox>
+                                </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtHomePhoneNoFooter" CssClass="txtField" runat="server" />
+                                </FooterTemplate>
+                            </telerik:GridTemplateColumn>
+                            <telerik:GridTemplateColumn AllowFiltering="true" DataField="HomeFaxNo" AutoPostBackOnFilter="true"
                                 HeaderText="HomeFaxNo" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                 SortExpression="HomeFaxNo" FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="90px">
-                                <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
-                            </telerik:GridBoundColumn>
+                                <ItemTemplate>
+                                    <asp:TextBox ID="txtHomeFaxNo" CssClass="txtField" runat="server" Text='<%# Bind("HomeFaxNo") %>'></asp:TextBox>
+                                </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtHomeFaxNoFooter" CssClass="txtField" runat="server" />
+                                </FooterTemplate>
+                            </telerik:GridTemplateColumn>
                             <telerik:GridTemplateColumn AllowFiltering="true" DataField="MobileNo" AutoPostBackOnFilter="true"
                                 HeaderText="MobileNo" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                 SortExpression="MobileNo" FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="110px">
@@ -240,16 +285,26 @@
                                     <asp:TextBox ID="txtOccupationFooter" CssClass="txtField" runat="server" />
                                 </FooterTemplate>
                             </telerik:GridTemplateColumn>
-                            <telerik:GridBoundColumn AllowFiltering="true" DataField="AnnualIncome" AutoPostBackOnFilter="true"
+                            <telerik:GridTemplateColumn AllowFiltering="true" DataField="AnnualIncome" AutoPostBackOnFilter="true"
                                 HeaderText="AnnualIncome" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                 SortExpression="AnnualIncome" FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="90px">
-                                <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
-                            </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn AllowFiltering="true" DataField="AccountNo" AutoPostBackOnFilter="true"
+                                <ItemTemplate>
+                                    <asp:TextBox ID="txtAnnualIncome" CssClass="txtField" runat="server" Text='<%# Bind("AnnualIncome") %>'></asp:TextBox>
+                                </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtAnnualIncomeFooter" CssClass="txtField" runat="server" />
+                                </FooterTemplate>
+                            </telerik:GridTemplateColumn>
+                            <telerik:GridTemplateColumn AllowFiltering="true" DataField="AccountNo" AutoPostBackOnFilter="true"
                                 HeaderText="AccountNo" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                 SortExpression="AccountNo" FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="90px">
-                                <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
-                            </telerik:GridBoundColumn>
+                                <ItemTemplate>
+                                    <asp:TextBox ID="txtAccountNo" CssClass="txtField" runat="server" Text='<%# Bind("AccountNo") %>'></asp:TextBox>
+                                </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtAccountNoFooter" CssClass="txtField" runat="server" />
+                                </FooterTemplate>
+                            </telerik:GridTemplateColumn>
                             <telerik:GridTemplateColumn AllowFiltering="true" DataField="AccountType" AutoPostBackOnFilter="true"
                                 HeaderText="AccountType" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                 SortExpression="AccountType" FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="90px">
@@ -350,11 +405,41 @@
                                 FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="90px">
                                 <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn AllowFiltering="true" DataField="DOB3 " AutoPostBackOnFilter="true"
-                                HeaderText="DOB3 " ShowFilterIcon="false" CurrentFilterFunction="Contains" SortExpression="DOB3 "
+                            <telerik:GridBoundColumn AllowFiltering="true" DataField="DOB3" AutoPostBackOnFilter="true"
+                                HeaderText="DOB3" ShowFilterIcon="false" CurrentFilterFunction="Contains" SortExpression="DOB3"
                                 FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="90px">
                                 <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
                             </telerik:GridBoundColumn>
+                            <%--<telerik:GridTemplateColumn AllowFiltering="true" DataField="DOB1" AutoPostBackOnFilter="true"
+                                HeaderText="DOB1" ShowFilterIcon="false" CurrentFilterFunction="Contains" SortExpression="DOB1"
+                                FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="90px">
+                                <ItemTemplate>
+                                    <asp:TextBox ID="txtDOB1" CssClass="txtField" runat="server" Text='<%# Bind("DOB1") %>'></asp:TextBox>
+                                </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtDOB1Footer" CssClass="txtField" runat="server" />
+                                </FooterTemplate>
+                            </telerik:GridTemplateColumn>
+                            <telerik:GridTemplateColumn AllowFiltering="true" DataField="DOB2" AutoPostBackOnFilter="true"
+                                HeaderText="DOB2" ShowFilterIcon="false" CurrentFilterFunction="Contains" SortExpression="DOB2"
+                                FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="90px">
+                                <ItemTemplate>
+                                    <asp:TextBox ID="txtDOB2" CssClass="txtField" runat="server" Text='<%# Bind("DOB2") %>'></asp:TextBox>
+                                </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtDOB2Footer" CssClass="txtField" runat="server" />
+                                </FooterTemplate>
+                            </telerik:GridTemplateColumn>
+                            <telerik:GridTemplateColumn AllowFiltering="true" DataField="DOB3" AutoPostBackOnFilter="true"
+                                HeaderText="DOB3" ShowFilterIcon="false" CurrentFilterFunction="Contains" SortExpression="DOB3"
+                                FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="90px">
+                                <ItemTemplate>
+                                    <asp:TextBox ID="txtDOB3" CssClass="txtField" runat="server" Text='<%# Bind("DOB3") %>'></asp:TextBox>
+                                </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtDOB3Footer" CssClass="txtField" runat="server" />
+                                </FooterTemplate>
+                            </telerik:GridTemplateColumn>--%>
                             <telerik:GridBoundColumn AllowFiltering="true" DataField="PANNO1 " AutoPostBackOnFilter="true"
                                 HeaderText="PANNO1 " ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                 SortExpression="PANNO1 " FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="90px">
@@ -410,6 +495,16 @@
                                 SortExpression="Relation " FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="90px">
                                 <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
                             </telerik:GridBoundColumn>
+                            <%--<telerik:GridTemplateColumn AllowFiltering="true" DataField="GuardianDOB" AutoPostBackOnFilter="true"
+                                HeaderText="GuardianDOB" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                SortExpression="GuardianDOB" FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="90px">
+                                <ItemTemplate>
+                                    <asp:TextBox ID="txtGuardianDOB" CssClass="txtField" runat="server" Text='<%# Bind("GuardianDOB") %>'></asp:TextBox>
+                                </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtGuardianDOBFooter" CssClass="txtField" runat="server" />
+                                </FooterTemplate>
+                            </telerik:GridTemplateColumn>--%>
                             <telerik:GridBoundColumn AllowFiltering="true" DataField="GuardianDOB " AutoPostBackOnFilter="true"
                                 HeaderText="GuardianDOB " ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                 SortExpression="GuardianDOB " FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="90px">
