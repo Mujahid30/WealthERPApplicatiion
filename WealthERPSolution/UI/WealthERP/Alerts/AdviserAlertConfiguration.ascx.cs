@@ -174,7 +174,7 @@ namespace WealthERP.Alerts
                     chkActivevalue = 1;
                 if (chkOverrite.Checked)
                     chkOverritevalue = 1;
-                int count = alertBo.AlertDuplicateRule(adviserVo.advisorId, int.Parse(ddlAlert.SelectedValue), int.Parse(ddlSIPDiscription.SelectedValue), chkActivevalue, chkActivevalue);
+                int count = alertBo.AlertDuplicateRule(adviserVo.advisorId, int.Parse(ddlAlert.SelectedValue), int.Parse(ddlSIPDiscription.SelectedValue), chkActivevalue, chkOverritevalue);
                 if (count > 0)
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('You have already created same rule');", true);

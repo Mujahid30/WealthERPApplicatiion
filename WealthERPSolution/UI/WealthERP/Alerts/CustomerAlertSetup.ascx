@@ -164,7 +164,7 @@
                             AllowFiltering="true">
                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="PASP_SchemePlanName" HeaderStyle-Width="20px"
+                        <telerik:GridBoundColumn DataField="PASP_SchemePlanName" HeaderStyle-Width="80px"
                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
                             HeaderText="Scheme Plan Name" UniqueName="PASP_SchemePlanName" SortExpression="PASP_SchemePlanName"
                             AllowFiltering="true">
@@ -192,9 +192,9 @@
                             AllowFiltering="true" Visible="true">
                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="AAECR_RuleId" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
-                            ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Rule Id" UniqueName="AAECR_RuleId"
-                            SortExpression="AAECR_RuleId" AllowFiltering="true" Visible="true">
+                        <telerik:GridBoundColumn DataField="AAECR_DefaultReminderDay" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
+                            ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Rule Id" UniqueName="AAECR_DefaultReminderDay"
+                            SortExpression="AAECR_DefaultReminderDay" AllowFiltering="true" Visible="true">
                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                         </telerik:GridBoundColumn>
                         <telerik:GridButtonColumn UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete?"

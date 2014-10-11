@@ -1963,5 +1963,19 @@ namespace BoAlerts
             }
             return count;
         }
+        public int SIPRuleCheck(int ruleId, int targetId)
+        {
+            int count;
+            AlertsDao alertsDao = new AlertsDao();
+            try
+            {
+                count = alertsDao.SIPRuleCheck(ruleId, targetId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return count;
+        }
     }
 }

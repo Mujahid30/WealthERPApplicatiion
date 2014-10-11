@@ -3039,9 +3039,9 @@ namespace DaoAlerts
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 CmdCreateCustomerAlertConfiguration = db.GetStoredProcCommand("SPROC_CreateCustomerSIPAlert");
-                db.AddInParameter(CmdCreateCustomerAlertConfiguration, "@AAECR_RuleId", DbType.Int32, ruleID);
+                db.AddInParameter(CmdCreateCustomerAlertConfiguration, "@AAECR_RuleId", DbType.Int32,targetId );
                 db.AddInParameter(CmdCreateCustomerAlertConfiguration, "@AES_EventMessage", DbType.String, subscriptionMessage);
-                db.AddInParameter(CmdCreateCustomerAlertConfiguration, "@AES_TargetID", DbType.Int32, targetId);
+                db.AddInParameter(CmdCreateCustomerAlertConfiguration, "@AES_TargetID", DbType.Int32, ruleID);
                 db.AddInParameter(CmdCreateCustomerAlertConfiguration, "@AES_EventSubscriptionDate", DbType.DateTime, eventSubscription);
                 db.AddInParameter(CmdCreateCustomerAlertConfiguration, "@AES_CreatedBy", DbType.Int32, userId);
                 db.AddInParameter(CmdCreateCustomerAlertConfiguration, "@AES_ModifiedBy", DbType.Int32, userId);
@@ -3164,6 +3164,28 @@ namespace DaoAlerts
                 AlertDuplicateRuleUpdateDb.AddOutParameter(AlertDuplicateRuleUpdateCmd, "@count", DbType.Int32, 100);
                 AlertDuplicateRuleUpdateDs = AlertDuplicateRuleUpdateDb.ExecuteDataSet(AlertDuplicateRuleUpdateCmd);
                 count = Convert.ToInt32(AlertDuplicateRuleUpdateDb.GetParameterValue(AlertDuplicateRuleUpdateCmd, "count").ToString());
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return count;
+        }
+        public int SIPRuleCheck(int ruleId,int targetId)
+        {
+            Database AlertDuplicateRuleDb;
+            DbCommand AlertDuplicateRuleCmd;
+            DataSet AlertDuplicateRuleDs = new DataSet();
+            int count;
+            try
+            {
+                AlertDuplicateRuleDb = DatabaseFactory.CreateDatabase("wealtherp");
+                AlertDuplicateRuleCmd = AlertDuplicateRuleDb.GetStoredProcCommand("SPROC_GetSIPTargetScheme");
+                AlertDuplicateRuleDb.AddInParameter(AlertDuplicateRuleCmd, "@ruleId", DbType.Int32, targetId);
+                AlertDuplicateRuleDb.AddInParameter(AlertDuplicateRuleCmd, "@targetId", DbType.Int32, ruleId);
+                AlertDuplicateRuleDb.AddOutParameter(AlertDuplicateRuleCmd, "@count", DbType.Int32, 100);
+                AlertDuplicateRuleDs = AlertDuplicateRuleDb.ExecuteDataSet(AlertDuplicateRuleCmd);
+                count = Convert.ToInt32(AlertDuplicateRuleDb.GetParameterValue(AlertDuplicateRuleCmd, "count").ToString());
             }
             catch (BaseApplicationException Ex)
             {

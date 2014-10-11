@@ -169,7 +169,16 @@ namespace WealthERP.Alerts
                 DropDownList ddlAlert = (DropDownList)e.Item.FindControl("ddlAlert");
                 TextBox txtMsg = (TextBox)e.Item.FindControl("txtMsg");
                 RadDatePicker txtEventSubscription = (RadDatePicker)e.Item.FindControl("txtEventSubscription");
-                alertBo.CreateCustomerAlertConfiguration(int.Parse(ddlSIPDiscription.SelectedValue), int.Parse(ddlAlert.SelectedValue), txtMsg.Text, Convert.ToDateTime(txtEventSubscription.SelectedDate), userVo.UserId);
+                int count = alertBo.SIPRuleCheck(int.Parse(ddlSIPDiscription.SelectedValue), int.Parse(ddlAlert.SelectedValue));
+                if (count > 0)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Same rule exist for this Scheme!!');", true);
+                    return;
+                }
+                else
+                {
+                    alertBo.CreateCustomerAlertConfiguration(int.Parse(ddlSIPDiscription.SelectedValue), int.Parse(ddlAlert.SelectedValue), txtMsg.Text, Convert.ToDateTime(txtEventSubscription.SelectedDate), userVo.UserId);
+                }
             }
             if (e.CommandName == RadGrid.DeleteCommandName)
             {
