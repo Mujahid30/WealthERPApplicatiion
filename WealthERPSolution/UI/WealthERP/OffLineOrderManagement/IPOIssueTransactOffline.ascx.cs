@@ -1612,53 +1612,56 @@ namespace WealthERP.OffLineOrderManagement
 
         protected void RadGridIPOBid_ItemDataBound(object sender, GridItemEventArgs e)
         {
-            if (e.Item is GridDataItem)
+            if (dtOnlineIPOIssueList.Rows.Count > 0)
             {
-                GridDataItem dataform = (GridDataItem)e.Item;
-                RangeValidator rvQuantity = (RangeValidator)dataform.FindControl("rvQuantity");
-                RangeValidator rvBidPrice = (RangeValidator)dataform.FindControl("rvBidPrice");
-                int minQuantity = 0;
-                int maxQuantity = 0;
-                double minBidPrice = 0;
-                double maxBidPrice = 0;
-
+                if (e.Item is GridDataItem)
                 {
-                    int.TryParse(dtOnlineIPOIssueList.Rows[0]["AIM_MInQty"].ToString(), out minQuantity);
-                    int.TryParse(dtOnlineIPOIssueList.Rows[0]["AIM_MaxQty"].ToString(), out maxQuantity);
-                    string basic = dtOnlineIPOIssueList.Rows[0]["AIM_IsBookBuilding"].ToString();
-                    double.TryParse(dtOnlineIPOIssueList.Rows[0]["AIM_FloorPrice"].ToString(), out minBidPrice);
-                    double.TryParse(dtOnlineIPOIssueList.Rows[0]["AIM_CapPrice"].ToString(), out maxBidPrice);
+                    GridDataItem dataform = (GridDataItem)e.Item;
+                    RangeValidator rvQuantity = (RangeValidator)dataform.FindControl("rvQuantity");
+                    RangeValidator rvBidPrice = (RangeValidator)dataform.FindControl("rvBidPrice");
+                    int minQuantity = 0;
+                    int maxQuantity = 0;
+                    double minBidPrice = 0;
+                    double maxBidPrice = 0;
 
-                    if (e.Item.RowIndex != -1)
                     {
-                        rvQuantity.MinimumValue = minQuantity.ToString();
-                        rvQuantity.MaximumValue = maxQuantity.ToString();
+                        int.TryParse(dtOnlineIPOIssueList.Rows[0]["AIM_MInQty"].ToString(), out minQuantity);
+                        int.TryParse(dtOnlineIPOIssueList.Rows[0]["AIM_MaxQty"].ToString(), out maxQuantity);
+                        string basic = dtOnlineIPOIssueList.Rows[0]["AIM_IsBookBuilding"].ToString();
+                        double.TryParse(dtOnlineIPOIssueList.Rows[0]["AIM_FloorPrice"].ToString(), out minBidPrice);
+                        double.TryParse(dtOnlineIPOIssueList.Rows[0]["AIM_CapPrice"].ToString(), out maxBidPrice);
 
-                        rvBidPrice.MinimumValue = minBidPrice.ToString();
-                        rvBidPrice.MaximumValue = maxBidPrice.ToString();
-
-                        if (basic == "Fixed" && dataform.RowIndex == 4)
+                        if (e.Item.RowIndex != -1)
                         {
-                            int currentRowindex = (dataform.RowIndex / 4) - 1;
-                            CheckBox chkCutOff = (CheckBox)RadGridIPOBid.MasterTableView.Items[currentRowindex]["CheckCutOff"].FindControl("cbCutOffCheck");
-                            chkCutOff.Checked = true;
-                            chkCutOff.Enabled = false;
-                            ReseIssueBidValues(currentRowindex, false);
+                            rvQuantity.MinimumValue = minQuantity.ToString();
+                            rvQuantity.MaximumValue = maxQuantity.ToString();
+
+                            rvBidPrice.MinimumValue = minBidPrice.ToString();
+                            rvBidPrice.MaximumValue = maxBidPrice.ToString();
+
+                            if (basic == "Fixed" && dataform.RowIndex == 4)
+                            {
+                                int currentRowindex = (dataform.RowIndex / 4) - 1;
+                                CheckBox chkCutOff = (CheckBox)RadGridIPOBid.MasterTableView.Items[currentRowindex]["CheckCutOff"].FindControl("cbCutOffCheck");
+                                chkCutOff.Checked = true;
+                                chkCutOff.Enabled = false;
+                                ReseIssueBidValues(currentRowindex, false);
+
+                            }
 
                         }
 
+
+
+
+                        //else if (e.Item is GridFooterItem)
+                        //{
+                        //    GridFooterItem footerItem = (GridFooterItem)e.Item;
+                        //    CompareValidator cmpMaxBidAmount = (CompareValidator)footerItem.FindControl("cmpFinalBidAmountPayable");
+
+                        //    cmpMaxBidAmount.ValueToCompare = 0.ToString();
+                        //}
                     }
-
-
-
-
-                    //else if (e.Item is GridFooterItem)
-                    //{
-                    //    GridFooterItem footerItem = (GridFooterItem)e.Item;
-                    //    CompareValidator cmpMaxBidAmount = (CompareValidator)footerItem.FindControl("cmpFinalBidAmountPayable");
-
-                    //    cmpMaxBidAmount.ValueToCompare = 0.ToString();
-                    //}
                 }
             }
 

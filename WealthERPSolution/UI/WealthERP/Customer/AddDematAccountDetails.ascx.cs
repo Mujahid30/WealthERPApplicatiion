@@ -55,7 +55,8 @@ namespace WealthERP.Customer
             customerportfoliovo = (CustomerPortfolioVo)Session["customerPortfolioVo"];
             if (Request.QueryString["CustomerId"] != null)
             {
-
+                lblisactive.Visible = false;
+                chk_isactive.Visible = false;
                     customerId = int.Parse(Request.QueryString["CustomerId"].ToString());
                     dsModeOfHolding = new DataSet();
                     dtCustomerAccociation = new DataTable();
@@ -350,9 +351,12 @@ namespace WealthERP.Customer
 
 
                        result= bodemataccount.AddDematDetails(customerId, portfolioid, demataccountvo, rmvo);
-                       if (result)
+                       if (result=true)
                        {
                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('DematAccountDetails','none');", true);
+                          Response.Write("<script>alert('DematDeatails has been successfully added');</script>");
+                           Response.Write("<script>window.close();</" + "script>");
+                           Response.End();
                        }
                     }
                     else if (Session["DematDetailsView"].ToString() == "Edit")

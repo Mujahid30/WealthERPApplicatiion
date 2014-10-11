@@ -460,7 +460,7 @@
             </td>
             <td class="rightField" style="width: 20%">
                 <asp:TextBox ID="txtApplicationNo" onkeydown="return (event.keyCode!=13);" runat="server"
-                    CssClass="txtField" AutoPostBack="false" MaxLength="6" OnKeypress="javascript:return isNumberKey(event);"></asp:TextBox>
+                    CssClass="txtField" AutoPostBack="false" OnKeypress="javascript:return isNumberKey(event);"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator5" ControlToValidate="txtApplicationNo"
                     ErrorMessage="<br />Please Enter Application No" Display="Dynamic" runat="server"
                     CssClass="rfvPCG" ValidationGroup="btnConfirmOrder"></asp:RequiredFieldValidator>
