@@ -380,13 +380,13 @@ namespace WealthERP.Customer
                         rmVo = (RMVo)Session["rmVo"];
                         tempUserVo = (UserVo)Session["userVo"];
                         //customerVo.RmId = rmVo.RMId;
-                        if (customerVo.RmId == 4682)
+                        if (customerVo.RmId == rmVo.RMId)
                         {
                             customerVo.RmId = int.Parse(ddlAdviseRMList.SelectedValue.ToString());
                         }
                         else
                         {
-                            customerVo.RmId = int.Parse(ddlAdviseRMList.SelectedValue="4682");
+                            customerVo.RmId = int.Parse(ddlAdviseRMList.SelectedValue);
                         }
                         customerVo.Type = "IND";
 
@@ -415,13 +415,13 @@ namespace WealthERP.Customer
                         tempUserVo = (UserVo)Session["userVo"];
                         //customerVo.RmId = rmVo.RMId;
                         //customerVo.RmId = int.Parse(ddlAdviseRMList.SelectedValue.ToString());
-                        if (customerVo.RmId == 4682)
+                        if (customerVo.RmId == rmVo.RMId)
                         {
                             customerVo.RmId = int.Parse(ddlAdviseRMList.SelectedValue.ToString());
                         }
                         else
                         {
-                            customerVo.RmId = int.Parse(ddlAdviseRMList.SelectedValue = "4682");
+                            customerVo.RmId = int.Parse(ddlAdviseRMList.SelectedValue);
                         }
                         customerVo.Type = "NIND";
 
@@ -432,13 +432,13 @@ namespace WealthERP.Customer
                         customerVo.FirstName = txtCompanyName.Text.ToString();
                         userVo.FirstName = txtCompanyName.Text.ToString();
                     }
-                    if (customerVo.BranchId == 1339)
+                    if (customerVo.BranchId == rmVo.BranchId)
                     {
                         customerVo.BranchId = int.Parse(ddlAdviserBranchList.SelectedValue);
                     }
                     else
                     {
-                        customerVo.BranchId = int.Parse(ddlAdviserBranchList.SelectedValue = "1339");
+                        customerVo.BranchId = int.Parse(ddlAdviserBranchList.SelectedValue);
                     }
 
                     //if (chkprospect.Checked)
@@ -716,7 +716,7 @@ namespace WealthERP.Customer
                     ddlAdviserBranchList.DataSource = ds.Tables[0];
                     ddlAdviserBranchList.DataTextField = "AB_BranchName";
                     ddlAdviserBranchList.DataValueField = "AB_BranchId";
-                    ddlAdviserBranchList.SelectedValue = "1339";
+                    //ddlAdviserBranchList.SelectedValue = "1339";
                     ddlAdviserBranchList.DataBind();
                     ddlAdviserBranchList.Items.Insert(0, new ListItem("Select", "Select"));
                 }
@@ -764,7 +764,7 @@ namespace WealthERP.Customer
                         ddlAdviseRMList.DataSource = ds.Tables[0];
                         ddlAdviseRMList.DataValueField = ds.Tables[0].Columns["RmID"].ToString();
                         ddlAdviseRMList.DataTextField = ds.Tables[0].Columns["RMName"].ToString();
-                        ddlAdviseRMList.SelectedValue = "4682";
+                       // ddlAdviseRMList.SelectedValue = "4682";
                         ddlAdviseRMList.DataBind();
                         ddlAdviseRMList.Items.Remove("No RM Available");
                         ddlAdviseRMList.Items.Insert(0, new ListItem("Select", "Select"));
