@@ -3125,6 +3125,38 @@ namespace BoCustomerProfiling
             }
             return dtCustomerNames;
         }
+        public DataTable GetAssociateNameDetails(string prefixText, int Adviserid)
+        {
+            CustomerDao customerDao = new CustomerDao();
+
+            DataTable dtAssociatesNames = new DataTable();
+            try
+            {
+                dtAssociatesNames = customerDao.GetAssociateNameDetails(prefixText, Adviserid);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerBo.cs:GetAssociateNameDetails()");
+
+
+                object[] objects = new object[0];
+                objects[0] = prefixText;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dtAssociatesNames;
+        }
         public DataTable GetAgentId(int adviserid, int agentid)
         {
             CustomerDao customerDao = new CustomerDao();
@@ -3460,6 +3492,74 @@ namespace BoCustomerProfiling
             dsGetSchemePlanAuditDetails = customerDao.GetSchemePlanAuditDetails(SchemePlancode, fromModificationDate, toModificationDate);
             return dsGetSchemePlanAuditDetails;
         }
+        public DataSet GetStaffAuditDetail(int rmId, DateTime fromModificationDate, DateTime toModificationDate, int advisorId)
+        {
+            CustomerDao customerDao = new CustomerDao();
+
+            DataSet dsStaffAudit = new DataSet();
+            try
+            {
+                dsStaffAudit = customerDao.GetStaffAuditDetail(rmId, fromModificationDate, toModificationDate, advisorId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerBo.cs:GetStaffAuditDetail()");
+
+
+                object[] objects = new object[3];
+                objects[0] = rmId;
+                objects[1] = fromModificationDate;
+                objects[2] = advisorId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dsStaffAudit;
+        }
+        public DataSet GetAssociateAuditDetail(int AssociateId, DateTime fromModificationDate, DateTime toModificationDate, int advisorId)
+        {
+            CustomerDao customerDao = new CustomerDao();
+
+            DataSet dsAssociateAudit = new DataSet();
+            try
+            {
+                dsAssociateAudit = customerDao.GetAssociateAuditDetail(AssociateId, fromModificationDate, toModificationDate, advisorId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerBo.cs:GetAssociateAuditDetail()");
+
+
+                object[] objects = new object[3];
+                objects[0] = AssociateId;
+                objects[1] = fromModificationDate;
+                objects[2] = advisorId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dsAssociateAudit;
+        }
         public DataTable GetRMStaffList(string prefixText, int herarchyId, int adviserId)
         {
             CustomerDao customerDao = new CustomerDao();
@@ -3467,6 +3567,20 @@ namespace BoCustomerProfiling
             try
             {
                 dtGetRMStaffList = customerDao.GetRMStaffList(prefixText, herarchyId, adviserId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetRMStaffList;
+        }
+        public DataTable GetStaffName(string prefixText, int adviserId)
+        {
+            CustomerDao customerDao = new CustomerDao();
+            DataTable dtGetRMStaffList;
+            try
+            {
+                dtGetRMStaffList = customerDao.GetStaffName(prefixText, adviserId);
             }
             catch (BaseApplicationException Ex)
             {

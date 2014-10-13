@@ -50,28 +50,37 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 txtCustomerName_autoCompleteExtender.ContextKey = adviserVo.advisorId.ToString();
                 txtCustomerName_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
+
                 txtSchemeName_AutoCompleteExtender.ServiceMethod = "GetSchemeList";
+                txtStaffName_AutoCompleteExtender.ContextKey = adviserVo.advisorId.ToString();
+                txtStaffName_AutoCompleteExtender.ServiceMethod = "GetStaffName";
                 txtPansearch_autoCompleteExtender.ContextKey = adviserVo.advisorId.ToString();
                 txtPansearch_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerPan";
                 txtClientCode_autoCompleteExtender.ContextKey = adviserVo.advisorId.ToString();
                 txtClientCode_autoCompleteExtender.ServiceMethod = "GetCustCode";
-
-
+                txtAssociateName_AutoCompleteExtender.ContextKey = adviserVo.advisorId.ToString();
+                txtAssociateName_AutoCompleteExtender.ServiceMethod = "GetAssociateName";
+                txtSubBrokerCode_AutoCompleteExtender.ContextKey = adviserVo.advisorId.ToString();
+                txtSubBrokerCode_AutoCompleteExtender.ServiceMethod = "GetAgentCodeAssociateDetails";
             }
             else if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
             {
                 txtCustomerName_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
                 txtCustomerName_autoCompleteExtender.ServiceMethod = "GetBMIndividualCustomerNames";
-                txtSchemeName_AutoCompleteExtender.ServiceMethod = "GetSchemeName";
-
+                txtSchemeName_AutoCompleteExtender.ServiceMethod = "GetSchemeList";
+                txtStaffName_AutoCompleteExtender.ServiceMethod = "GetStaffName";
+                txtAssociateName_AutoCompleteExtender.ServiceMethod = "GetAssociateName";
+                txtSubBrokerCode_AutoCompleteExtender.ServiceMethod = "GetSubBrokerCode";
 
             }
             else if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
             {
                 txtCustomerName_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
                 txtCustomerName_autoCompleteExtender.ServiceMethod = "GetMemberCustomerName";
-                txtSchemeName_AutoCompleteExtender.ServiceMethod = "GetSchemeName";
-
+                txtSchemeName_AutoCompleteExtender.ServiceMethod = "GetSchemeList";
+                txtStaffName_AutoCompleteExtender.ServiceMethod = "GetStaffName";
+                txtAssociateName_AutoCompleteExtender.ServiceMethod = "GetAssociateName";
+                txtSubBrokerCode_AutoCompleteExtender.ServiceMethod = "GetSubBrokerCode";
             }
             else if (Session[SessionContents.CurrentUserRole].ToString() == "Associates")
             {
@@ -81,6 +90,10 @@ namespace WealthERP.OnlineOrderBackOffice
                 txtPansearch_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerPan";
                 txtClientCode_autoCompleteExtender.ContextKey = adviserVo.advisorId.ToString();
                 txtClientCode_autoCompleteExtender.ServiceMethod = "GetCustCode";
+                txtAssociateName_AutoCompleteExtender.ContextKey = adviserVo.advisorId.ToString();
+                txtAssociateName_AutoCompleteExtender.ServiceMethod = "GetAssociateName";
+                txtSubBrokerCode_AutoCompleteExtender.ContextKey = adviserVo.advisorId.ToString();
+                txtSubBrokerCode_AutoCompleteExtender.ServiceMethod = "GetSubBrokerCode";
 
             }
 
@@ -97,11 +110,87 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 GetCustomerProfileAduditDetails();
             }
-            else
+            else if (ddlType.SelectedValue == "Schemeplan")
             {
                 GetSchemePlanAuditDetail();
             }
+            else if (ddlType.SelectedValue == "StaffDetails")
+            {
+                GetStaffAuditDetail();
+            }
+            else
+            {
+                GetAssociateAuditDetail();
+            }
 
+        }
+        protected void GetAssociateAuditDetail()
+        {
+            DataTable dtGetAssociateAuditDetail = new DataTable();
+            DataSet dsGetAssociateAuditDetail = new DataSet();
+            dsGetAssociateAuditDetail = customerBo.GetAssociateAuditDetail((!string.IsNullOrEmpty(hdnAssociateId.Value)) ? int.Parse(hdnAssociateId.Value) : 0, rdpFromModificationDate.SelectedDate.Value, rdpToDate.SelectedDate.Value, adviserVo.advisorId);
+            dtGetAssociateAuditDetail = dsGetAssociateAuditDetail.Tables[0];
+            if (dtGetAssociateAuditDetail.Rows.Count > 0)
+            {
+                if (Cache["AssociateAudit" + userVo.UserId] == null)
+                {
+                    Cache.Insert("AssociateAudit" + userVo.UserId, dtGetAssociateAuditDetail);
+                }
+                else
+                {
+                    Cache.Remove("AssociateAudit" + userVo.UserId);
+                    Cache.Insert("AssociateAudit" + userVo.UserId, dtGetAssociateAuditDetail);
+                }
+                rdAssociateAudit.DataSource = dtGetAssociateAuditDetail;
+                rdAssociateAudit.DataBind();
+                //taSchemeAudit.Visible = true;
+                tbAssociateAudit.Visible = true;
+                rdAssociateAudit.Visible = true;
+                tblAssociateAudit.Visible = true;
+            }
+            else
+            {
+                rdAssociateAudit.DataSource = dtGetAssociateAuditDetail;
+                rdAssociateAudit.DataBind();
+                //taSchemeAudit.Visible = true;
+                tbAssociateAudit.Visible = true;
+                rdAssociateAudit.Visible = true;
+                tblAssociateAudit.Visible = true;
+            }
+        }
+        protected void GetStaffAuditDetail()
+        {
+            DataTable dtGetStaffAuditDetail = new DataTable();
+            DataSet dsGetStaffAuditDetail = new DataSet();
+            dsGetStaffAuditDetail = customerBo.GetStaffAuditDetail((!string.IsNullOrEmpty(hdnStaffId.Value)) ? int.Parse(hdnStaffId.Value) : 0, rdpFromModificationDate.SelectedDate.Value, rdpToDate.SelectedDate.Value, adviserVo.advisorId);
+            dtGetStaffAuditDetail = dsGetStaffAuditDetail.Tables[0];
+            if (dtGetStaffAuditDetail.Rows.Count > 0)
+            {
+                if (Cache["StaffAudit" + userVo.UserId] == null)
+                {
+                    Cache.Insert("StaffAudit" + userVo.UserId, dtGetStaffAuditDetail);
+                }
+                else
+                {
+                    Cache.Remove("StaffAudit" + userVo.UserId);
+                    Cache.Insert("StaffAudit" + userVo.UserId, dtGetStaffAuditDetail);
+                }
+                rdStaffAudit.DataSource = dtGetStaffAuditDetail;
+                rdStaffAudit.DataBind();
+                //taSchemeAudit.Visible = true;
+                tbStaffAudit.Visible = true;
+                rdStaffAudit.Visible = true;
+                tblStaffAudit.Visible = true;
+            }
+            else
+            {
+                rdStaffAudit.DataSource = dtGetStaffAuditDetail;
+                rdStaffAudit.DataBind();
+                //taSchemeAudit.Visible = true;
+                tbStaffAudit.Visible = true;
+                rdStaffAudit.Visible = true;
+                tblStaffAudit.Visible = true;
+            }
         }
         protected void GetSchemePlanAuditDetail()
         {
@@ -236,6 +325,16 @@ namespace WealthERP.OnlineOrderBackOffice
             DataTable dtrdSchemeAudit = (DataTable)Cache["SchemeAudit" + userVo.UserId];
             if (dtrdSchemeAudit != null) rdSchemeAudit.DataSource = dtrdSchemeAudit;
         }
+        protected void rdStaffAudit_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        {
+            DataTable dtrdStaffAudit = (DataTable)Cache["StaffAudit" + userVo.UserId];
+            if (dtrdStaffAudit != null) rdStaffAudit.DataSource = dtrdStaffAudit;
+        }
+        protected void rdAssociateAudit_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        {
+            DataTable dtrdAssociateAudit = (DataTable)Cache["AssociateAudit" + userVo.UserId];
+            if (dtrdAssociateAudit != null) rdAssociateAudit.DataSource = dtrdAssociateAudit;
+        }
         protected void ddlType_OnSelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlType.SelectedValue == "CustomerProfile")
@@ -251,7 +350,14 @@ namespace WealthERP.OnlineOrderBackOffice
                 tblSchemePlan.Visible = false;
                 taSchemeAudit.Visible = false;
                 rdSchemeAudit.Visible = false;
-
+                trStaff.Visible = false;
+                tbStaffAudit.Visible = false;
+                rdStaffAudit.Visible = false;
+                tblStaffAudit.Visible = false;
+                trAssociates.Visible = false;
+                tblAssociateAudit.Visible = false;
+                tbAssociateAudit.Visible = false;
+                rdAssociateAudit.Visible = false;
             }
             else if (ddlType.SelectedValue == "Schemeplan")
             {
@@ -277,9 +383,84 @@ namespace WealthERP.OnlineOrderBackOffice
                 tableCustomerTransaction.Visible = false;
                 tableTransaction.Visible = false;
                 rdTransaction.Visible = false;
+                trStaff.Visible = false;
+                tbStaffAudit.Visible = false;
+                rdStaffAudit.Visible = false;
+                tblStaffAudit.Visible = false;
+                trAssociates.Visible = false;
+                tblAssociateAudit.Visible = false;
+                tbAssociateAudit.Visible = false;
+                rdAssociateAudit.Visible = false;
+                tblSchemePlan.Visible = false;
+            
+            }
+            else if (ddlType.SelectedValue == "StaffDetails")
+            {
+                trStaff.Visible = true;
+                tdTodate.Visible = true;
+                tdFromDate.Visible = true;
+                tdTodate1.Visible = true;
+                tdFromDate1.Visible = true;
+                tbStaffAudit.Visible = false;
+                trCustomer.Visible = false;
+                //tdCustomer1.Visible = false;
+                tdCustomerAuditList.Visible = false;
+                btnSubmit.Visible = true;
+                tblProfileHeading.Visible = false;
+                rdCustomerProfile.Visible = false;
+                tblCustomerBankHeading.Visible = false;
+                tblCustomerBank.Visible = false;
+                rdCustomerBank.Visible = false;
+                tblCustomerDematHeading.Visible = false;
+                rdCustomerDemat.Visible = false;
+                tblCustomerDematAssociatesHeading.Visible = false;
+                tblCustomerDematAssociates.Visible = false;
+                rdCustomerDematAssociates.Visible = false;
+                tableCustomerTransaction.Visible = false;
+                tableTransaction.Visible = false;
+                rdTransaction.Visible = false;
+                trSchemePlan.Visible = false;
+                trAssociates.Visible = false;
+                tblAssociateAudit.Visible = false;
+                tbAssociateAudit.Visible = false;
+                rdAssociateAudit.Visible = false;
+                tblSchemePlan.Visible = false;
+                taSchemeAudit.Visible = false;
+            }
+            else
+            {
+                trAssociates.Visible = true;
+                tdTodate.Visible = true;
+                tdFromDate.Visible = true;
+                tdTodate1.Visible = true;
+                tdFromDate1.Visible = true;
+                tbAssociateAudit.Visible = true;
+                tbStaffAudit.Visible = false;
+                trStaff.Visible = false;
+                trCustomer.Visible = false;
+                //tdCustomer1.Visible = false;
+                tdCustomerAuditList.Visible = false;
+                btnSubmit.Visible = true;
+                tblProfileHeading.Visible = false;
+                rdCustomerProfile.Visible = false;
+                tblCustomerBankHeading.Visible = false;
+                tblCustomerBank.Visible = false;
+                rdCustomerBank.Visible = false;
+                tblCustomerDematHeading.Visible = false;
+                rdCustomerDemat.Visible = false;
+                tblCustomerDematAssociatesHeading.Visible = false;
+                tblCustomerDematAssociates.Visible = false;
+                rdCustomerDematAssociates.Visible = false;
+                tableCustomerTransaction.Visible = false;
+                tableTransaction.Visible = false;
+                rdTransaction.Visible = false;
+                trSchemePlan.Visible = false;
+                tblStaffAudit.Visible = false;
+                tblAssociateAudit.Visible = false;
+                tbAssociateAudit.Visible = false;
             }
         }
-        protected void clearControls()
+        protected void clearControls1()
         {
             txtClientCode.Text = "";
             txtCustomerName.Text = "";
@@ -311,7 +492,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
         protected void ddlCOption_SelectedIndexChanged(object sender, EventArgs e)
         {
-            clearControls();
+            clearControls1();
             if (ddlCOption.SelectedValue == "Name")
             {
                 tdtxtCustomerName.Visible = true;
@@ -336,6 +517,36 @@ namespace WealthERP.OnlineOrderBackOffice
                 tdtxtClientCode.Visible = false;
                 tdtxtPansearch.Visible = false;
                 tdtxtCustomerName.Visible = false;
+
+            }
+        }
+        protected void clearControls2()
+        {
+            txtAssociateName.Text = "";
+            txtSubbrokerCode.Text = "";
+            tblStaffAudit.Visible = false;
+            rdStaffAudit.Visible = false;
+            rdStaffAudit.DataSource = null;
+            rdStaffAudit.CurrentPageIndex = 0;
+        }
+        protected void ddlAssociateOption_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            clearControls2();
+            if (ddlAssociateOption.SelectedValue == "Name")
+            {
+                tdtxtAssociateName.Visible = true;
+                tdtxtSubBrokerCode.Visible = false;
+            }
+
+            else if (ddlAssociateOption.SelectedValue == "SubBrokerCode")
+            {
+                tdtxtSubBrokerCode.Visible = true;
+                tdtxtAssociateName.Visible = false;
+            }
+            else
+            {
+                tdtxtSubBrokerCode.Visible = false;
+                tdtxtAssociateName.Visible = false;
 
             }
         }
@@ -399,7 +610,27 @@ namespace WealthERP.OnlineOrderBackOffice
             rdSchemeAudit.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
             rdSchemeAudit.MasterTableView.ExportToExcel();
         }
-       
-    
+        protected void btnExportFilteredData_OnClick7(object sender, EventArgs e)
+        {
+            rdStaffAudit.ExportSettings.OpenInNewWindow = true;
+            rdStaffAudit.ExportSettings.IgnorePaging = true;
+            rdStaffAudit.ExportSettings.HideStructureColumns = true;
+            rdStaffAudit.ExportSettings.ExportOnlyData = true;
+            rdStaffAudit.ExportSettings.FileName = "Staff Details Audit";
+            rdStaffAudit.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            rdStaffAudit.MasterTableView.ExportToExcel();
+        }
+        protected void btnExportFilteredData_OnClick8(object sender, EventArgs e)
+        {
+            rdAssociateAudit.ExportSettings.OpenInNewWindow = true;
+            rdAssociateAudit.ExportSettings.IgnorePaging = true;
+            rdAssociateAudit.ExportSettings.HideStructureColumns = true;
+            rdAssociateAudit.ExportSettings.ExportOnlyData = true;
+            rdAssociateAudit.ExportSettings.FileName = "Associate Details Audit";
+            rdAssociateAudit.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            rdAssociateAudit.MasterTableView.ExportToExcel();
+        }
+
+
     }
 }

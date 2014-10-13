@@ -435,6 +435,29 @@ namespace WealthERP.CustomerPortfolio
             return names.ToArray();
         }
         [WebMethod]
+        public string[] GetStaffName(string prefixText, string contextKey)
+        {
+           
+            CustomerBo customerBo = new CustomerBo();
+            DataTable dtGetRMStaffList = new DataTable();
+            int i = 0;
+            List<string> names = new List<string>();
+
+            dtGetRMStaffList = customerBo.GetStaffName(prefixText, int.Parse(contextKey));
+            //string[] customerNameList = new string[dtCustomerName.Rows.Count];
+
+            foreach (DataRow dr in dtGetRMStaffList.Rows)
+            {
+
+                string item = AjaxControlToolkit.AutoCompleteExtender.CreateAutoCompleteItem(dr["AR_FirstName"].ToString(), dr["AR_RMId"].ToString());
+                names.Add(item);
+
+                //customerNameList[i] = dr["C_FirstName"].ToString() + "|" + dr["C_PANNum"].ToString();
+                //i++;
+            }
+            return names.ToArray();
+        }
+        [WebMethod]
         public string[] GetAdviserCustomerPan(string prefixText, int count, string contextKey)
        {
             CustomerBo customerBo = new CustomerBo();
@@ -719,6 +742,25 @@ namespace WealthERP.CustomerPortfolio
             return names.ToArray();
         }
         [WebMethod]
+        public string[] GetAssociateName(string prefixText, int count, string contextKey)
+        {
+            CustomerBo customerBo = new CustomerBo();
+            DataTable dtAssociateName = new DataTable();
+            int i = 0;
+            List<string> names = new List<string>();
+
+            dtAssociateName = customerBo.GetAssociateNameDetails(prefixText, int.Parse(contextKey));
+            //string[] customerNameList = new string[dtCustomerName.Rows.Count];
+
+            foreach (DataRow dr in dtAssociateName.Rows)
+            {
+
+                string item = AjaxControlToolkit.AutoCompleteExtender.CreateAutoCompleteItem(dr["AA_ContactPersonName"].ToString(), dr["AA_AdviserAssociateId"].ToString());
+                names.Add(item);
+            }
+            return names.ToArray();
+        }
+        [WebMethod]
         public string[] GetAgentCodeAssociateDetailsForAssociates(string prefixText, int count, string contextKey)
         {
             CustomerBo customerBo = new CustomerBo();
@@ -771,6 +813,7 @@ namespace WealthERP.CustomerPortfolio
             }
             return names.ToArray();
         }
+       
     }
 
 }

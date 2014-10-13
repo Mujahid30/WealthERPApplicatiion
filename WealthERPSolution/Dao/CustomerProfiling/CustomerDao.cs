@@ -3140,6 +3140,49 @@ namespace DaoCustomerProfiling
             }
             return dtCustomerNames;
         }
+        public DataTable GetAssociateNameDetails(string prefixText, int Adviserid)
+        {
+
+            Database db;
+            DbCommand cmdGetAgentCodeAssociateDetails;
+            DataSet dsAssociatesNames;
+            DataTable dtAssociatesNames;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //To retreive data from the table 
+                cmdGetAgentCodeAssociateDetails = db.GetStoredProcCommand("GetAssociateNameDetails");
+                db.AddInParameter(cmdGetAgentCodeAssociateDetails, "@prefixText", DbType.String, prefixText);
+                db.AddInParameter(cmdGetAgentCodeAssociateDetails, "@A_AdviserId", DbType.Int32, Adviserid);
+                dsAssociatesNames = db.ExecuteDataSet(cmdGetAgentCodeAssociateDetails);
+                dtAssociatesNames = dsAssociatesNames.Tables[0];
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerDao.cs:GetAssociateNameDetails()");
+
+
+                object[] objects = new object[1];
+
+                objects[0] = prefixText;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dtAssociatesNames;
+        }
         public DataTable GetCustomerName(string prefixText, int rmId)
         {
 
@@ -3275,6 +3318,29 @@ namespace DaoCustomerProfiling
 
             }
             return dtCustomerNames;
+        }
+        public DataTable GetStaffName(string prefixText, int adviserId)
+        {
+
+            Database db;
+            DbCommand cmdGetRMStaffList;
+            DataSet dsGetRMStaffList;
+            DataTable dtGetRMStaffList;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetRMStaffList = db.GetStoredProcCommand("SPROC_GetAdviserRmStaffList");
+                db.AddInParameter(cmdGetRMStaffList, "@prefixText", DbType.String, prefixText);
+                db.AddInParameter(cmdGetRMStaffList, "@adviserId", DbType.Int32, adviserId);
+                dsGetRMStaffList = db.ExecuteDataSet(cmdGetRMStaffList);
+                dtGetRMStaffList = dsGetRMStaffList.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetRMStaffList;
         }
 
         /// <summary>
@@ -6341,6 +6407,90 @@ namespace DaoCustomerProfiling
             return dsGetSchemePlanAuditDetails;
 
         }
+        public DataSet GetStaffAuditDetail(int rmId, DateTime fromModificationDate, DateTime toModificationDate, int advisorId)
+        {
+            Database db;
+            DbCommand cmdsStaffProfileAudit;
+            DataSet dsStaffProfileAudit;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //To retreive data from the table 
+                cmdsStaffProfileAudit = db.GetStoredProcCommand("SPROC_Staff_Audit");
+                db.AddInParameter(cmdsStaffProfileAudit, "@RMId", DbType.Int32, rmId);
+                db.AddInParameter(cmdsStaffProfileAudit, "@FromModificationDate", DbType.DateTime, fromModificationDate);
+                db.AddInParameter(cmdsStaffProfileAudit, "@ToModificationDate", DbType.DateTime, toModificationDate);
+                db.AddInParameter(cmdsStaffProfileAudit, "@AdvisorId", DbType.Int32, advisorId);
+                dsStaffProfileAudit = db.ExecuteDataSet(cmdsStaffProfileAudit);
+
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerDao.cs:GetCustomerProfileAuditDetails()");
+                object[] objects = new object[3];
+                objects[0] = rmId;
+                objects[1] = fromModificationDate;
+                objects[2] = advisorId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dsStaffProfileAudit;
+
+        }
+        public DataSet GetAssociateAuditDetail(int AssociateId, DateTime fromModificationDate, DateTime toModificationDate, int advisorId)
+        {
+            Database db;
+            DbCommand cmdsAssociateAudit;
+            DataSet dsAssociateAudit;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //To retreive data from the table 
+                cmdsAssociateAudit = db.GetStoredProcCommand("SPROC_GetAssociateAudit");
+                db.AddInParameter(cmdsAssociateAudit, "@AdviserAssociateId", DbType.Int32, AssociateId);
+                db.AddInParameter(cmdsAssociateAudit, "@FromModificationDate", DbType.DateTime, fromModificationDate);
+                db.AddInParameter(cmdsAssociateAudit, "@ToModificationDate", DbType.DateTime, toModificationDate);
+                db.AddInParameter(cmdsAssociateAudit, "@AdvisorId", DbType.Int32, advisorId);
+                dsAssociateAudit = db.ExecuteDataSet(cmdsAssociateAudit);
+
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerDao.cs:GetAssociateAuditDetail()");
+                object[] objects = new object[3];
+                objects[0] = AssociateId;
+                objects[1] = fromModificationDate;
+                objects[2] = advisorId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dsAssociateAudit;
+
+        }
         public DataTable GetRMStaffList(string prefixText, int herarchyId, int adviserId)
         {
 
@@ -6365,5 +6515,6 @@ namespace DaoCustomerProfiling
             }
             return dtGetRMStaffList;
         }
+     
     }
 }

@@ -50,6 +50,8 @@ namespace WealthERP.OnlineOrderBackOffice
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdtxtCustomerName;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdtxtAssociateName;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdtxtSubBrokerCode;
 
         /// <summary>
         /// txtCustomerName control.
@@ -78,6 +80,9 @@ namespace WealthERP.OnlineOrderBackOffice
         /// </remarks>
         protected global::AjaxControlToolkit.AutoCompleteExtender txtCustomerName_autoCompleteExtender;
         protected global::AjaxControlToolkit.AutoCompleteExtender txtSchemeName_AutoCompleteExtender;
+        protected global::AjaxControlToolkit.AutoCompleteExtender txtStaffName_AutoCompleteExtender;
+        protected global::AjaxControlToolkit.AutoCompleteExtender txtAssociateName_AutoCompleteExtender;
+        protected global::AjaxControlToolkit.AutoCompleteExtender txtSubBrokerCode_AutoCompleteExtender;
         /// <summary>
         /// RequiredFieldValidator2 control.
         /// </summary>
@@ -109,6 +114,8 @@ namespace WealthERP.OnlineOrderBackOffice
         protected global::System.Web.UI.WebControls.HiddenField hdnCustomerId;
         protected global::System.Web.UI.WebControls.HiddenField hdnschemePlanId;
         protected global::System.Web.UI.WebControls.Panel pnlCustomerDemat;
+        protected global::System.Web.UI.WebControls.HiddenField hdnStaffId;
+        protected global::System.Web.UI.WebControls.HiddenField hdnAssociateId;
         /// <summary>
         /// rfvDOwnloadDate control.
         /// </summary>
@@ -126,11 +133,17 @@ namespace WealthERP.OnlineOrderBackOffice
         protected global::System.Web.UI.HtmlControls.HtmlTable tblCustomerBank;
         protected global::System.Web.UI.HtmlControls.HtmlTable tableCustomerTransaction;
         protected global::System.Web.UI.HtmlControls.HtmlTable tblSchemePlan;
+        protected global::System.Web.UI.HtmlControls.HtmlTable tbStaffAudit;
+        protected global::System.Web.UI.HtmlControls.HtmlTable tblStaffAudit;
+        protected global::System.Web.UI.HtmlControls.HtmlTable tblAssociateAudit;
+        protected global::System.Web.UI.HtmlControls.HtmlTable tbAssociateAudit;
         protected global::Telerik.Web.UI.RadGrid rdCustomerProfile;
         protected global::Telerik.Web.UI.RadGrid rdCustomerBank;
         protected global::Telerik.Web.UI.RadGrid rdCustomerDemat;
         protected global::Telerik.Web.UI.RadGrid rdCustomerDematAssociates;
         protected global::Telerik.Web.UI.RadGrid rdSchemeAudit;
+        protected global::Telerik.Web.UI.RadGrid rdStaffAudit;
+        protected global::Telerik.Web.UI.RadGrid rdAssociateAudit;
         protected global::System.Web.UI.WebControls.DropDownList ddlAuditType;
         protected global::System.Web.UI.WebControls.DropDownList ddlType;
         protected global::Telerik.Web.UI.RadGrid rdTransaction;
@@ -143,12 +156,17 @@ namespace WealthERP.OnlineOrderBackOffice
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdFromDate1;
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trCustomer;
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trSchemePlan;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trStaff;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trAssociates;
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trdate;
         protected global::System.Web.UI.WebControls.TextBox txtSchemeName;
         protected global::System.Web.UI.WebControls.Button btnSubmit;
         protected global::System.Web.UI.WebControls.DropDownList ddlCOption;
+        protected global::System.Web.UI.WebControls.DropDownList ddlAssociateOption;
         protected global::System.Web.UI.WebControls.TextBox txtClientCode;
         protected global::System.Web.UI.WebControls.TextBox txtPansearch;
+        protected global::System.Web.UI.WebControls.TextBox txtAssociateName;
+        protected global::System.Web.UI.WebControls.TextBox txtSubbrokerCode;
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdtxtPansearch;
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdtxtClientCode;
         protected global::AjaxControlToolkit.AutoCompleteExtender txtPansearch_autoCompleteExtender;
