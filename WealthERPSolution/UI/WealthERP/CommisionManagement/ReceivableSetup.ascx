@@ -234,7 +234,7 @@
                     <asp:Label ID="lblStatusStage2" runat="server" Text="Pick Product:" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightData">
-                    <asp:DropDownList ID="ddlProductType" runat="server" CssClass="cmbField">
+                    <asp:DropDownList ID="ddlProductType" runat="server" CssClass="cmbField" AutoPostBack="true" OnSelectedIndexChanged="ddlProductType_OnSelectedIndexChanged">
                     </asp:DropDownList>
                     <br />
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" CssClass="rfvPCG"
@@ -259,7 +259,7 @@
                     <span id="Span4" class="spnRequiredField">*</span>
                 </td>
             </tr>
-            <tr>
+            <tr id="trIssuer" runat="server">
                 <td class="leftLabel">
                     <asp:Label ID="lblIssuer" runat="server" Text="Issuer :" CssClass="FieldName"></asp:Label>
                 </td>

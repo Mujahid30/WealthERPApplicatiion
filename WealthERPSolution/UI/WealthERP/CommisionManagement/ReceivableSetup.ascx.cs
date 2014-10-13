@@ -41,7 +41,7 @@ namespace WealthERP.Receivable
                 if (Request.QueryString["StructureId"] != null)
                     structureId = Convert.ToInt32(Request.QueryString["StructureId"].ToString());
 
-                BindAllDropdown();
+                GetProduct();
                 if (structureId != 0)
                 {
                     LoadStructureDetails(structureId);
@@ -55,9 +55,44 @@ namespace WealthERP.Receivable
 
         }
 
+
+        protected void ddlProductType_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            ShowHideControlsBasedOnProduct(ddlProductType.SelectedValue);
+            GetCategory(ddlProductType.SelectedValue);
+        }
+
         protected void ddlCategory_OnSelectedIndexChanged(object sender, EventArgs e)
         {
             BindSubcategoryListBox(ddlCategory.SelectedValue);
+        }
+
+        private void ShowHideControlsBasedOnProduct(string asset)
+        {
+
+            if (asset == "MF")
+            {
+                trIssuer.Visible = true;
+                lblCategory.Visible = true;
+                ddlCategory.Visible = true;
+                lblSubCategory.Visible = true;
+            }
+            else if (asset == "FI")
+            {
+                trIssuer.Visible = false;
+                lblCategory.Visible = false;
+                ddlCategory.Visible = false;
+                lblSubCategory.Visible = false;
+            }
+            else if (asset == "IP")
+            {
+                trIssuer.Visible = false;
+                lblCategory.Visible = false;
+                ddlCategory.Visible = false;
+                lblSubCategory.Visible = false;
+            }
+            BindAllDropdown();
+
         }
 
         private void BindSubcategoryListBox(string categoryCode)
@@ -77,42 +112,46 @@ namespace WealthERP.Receivable
 
         }
 
+
+        protected void GetProduct()
+        {
+            DataSet dsproduct;
+            dsproduct = commisionReceivableBo.GetProduct(advisorVo.advisorId);
+
+            ddlProductType.DataSource = dsproduct.Tables[0];
+            ddlProductType.DataValueField = dsproduct.Tables[0].Columns["PAG_AssetGroupCode"].ToString();
+            ddlProductType.DataTextField = dsproduct.Tables[0].Columns["PAG_AssetGroupName"].ToString();
+            ddlProductType.DataBind();
+
+        }
+
+        protected void GetCategory(string product)
+        {
+            DataSet dsLookupData;
+            dsLookupData = commisionReceivableBo.GetCategories(ddlProductType.SelectedValue);
+
+            ddlCategory.DataSource = dsLookupData.Tables[0];
+            ddlCategory.DataValueField = dsLookupData.Tables[0].Columns["PAIC_AssetInstrumentCategoryCode"].ToString();
+            ddlCategory.DataTextField = dsLookupData.Tables[0].Columns["PAIC_AssetInstrumentCategoryName"].ToString();
+            ddlCategory.DataBind();
+            //ddlCategory.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
+
+           
+        }
+
+
+
         protected void BindAllDropdown()
         {
             DataSet dsLookupData;
             dsLookupData = commisionReceivableBo.GetLookupDataForReceivableSetUP(advisorVo.advisorId);
-
-            ddlProductType.DataSource = dsLookupData.Tables[0];
-            ddlProductType.DataValueField = dsLookupData.Tables[0].Columns["PAG_AssetGroupCode"].ToString();
-            ddlProductType.DataTextField = dsLookupData.Tables[0].Columns["PAG_AssetGroupName"].ToString();
-            ddlProductType.DataBind();
-
-           
-
-            //ddlCommissionType.DataSource = dsLookupData.Tables[2];
-            //ddlCommissionType.DataValueField = dsLookupData.Tables[2].Columns["WCT_CommissionTypeCode"].ToString();
-            //ddlCommissionType.DataTextField = dsLookupData.Tables[2].Columns["WCT_CommissionType"].ToString();
-            //ddlCommissionType.DataBind();
-
-            //ddlBrokerageUnit.DataSource = dsLookupData.Tables[3];
-            //ddlBrokerageUnit.DataValueField = dsLookupData.Tables[3].Columns["WCU_UnitCode"].ToString();
-            //ddlBrokerageUnit.DataTextField = dsLookupData.Tables[3].Columns["WCU_Unit"].ToString();
-            //ddlBrokerageUnit.DataBind();
-
-            //ddlCommisionCalOn.DataSource = dsLookupData.Tables[4];
-            //ddlCommisionCalOn.DataValueField = dsLookupData.Tables[4].Columns["WCCO_Calculatedoncode"].ToString();
-            //ddlCommisionCalOn.DataTextField = dsLookupData.Tables[4].Columns["WCCO_CalculatedOn"].ToString();
-            //ddlCommisionCalOn.DataBind();
-
-           
-
 
             ddlIssuer.DataSource = dsLookupData.Tables[6];
             ddlIssuer.DataValueField = dsLookupData.Tables[6].Columns["PA_AMCCode"].ToString();
             ddlIssuer.DataTextField = dsLookupData.Tables[6].Columns["PA_AMCName"].ToString();
             ddlIssuer.DataBind();
             ddlIssuer.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
-           
+
 
             ddlCategory.DataSource = dsLookupData.Tables[8];
             ddlCategory.DataValueField = dsLookupData.Tables[8].Columns["PAIC_AssetInstrumentCategoryCode"].ToString();
@@ -121,11 +160,6 @@ namespace WealthERP.Receivable
             ddlCategory.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
 
 
-
-            //ddlInvestorType.DataSource = dsLookupData.Tables[9];
-            //ddlInvestorType.DataValueField = dsLookupData.Tables[8].Columns["XCC_CustomerCategoryCode"].ToString();
-            //ddlInvestorType.DataTextField = dsLookupData.Tables[8].Columns["XCC_CustomerCategory"].ToString();
-            //ddlInvestorType.DataBind();
             Session["CommissionLookUpData"] = dsLookupData;
 
         }
@@ -134,12 +168,19 @@ namespace WealthERP.Receivable
         {
             if (assetType == "MF")
             {
-                ddlProductType.SelectedValue = "MF";
-                ddlProductType.Enabled = false;
-
+                ddlProductType.SelectedValue = "MF";          
                 ddlCategory.SelectedValue = "MFDT";
             }
-            //ddlReceivableFrequency.SelectedValue = "MN";
+            else if (assetType == "FI")
+            {
+                ddlProductType.SelectedValue = "FI";
+                ddlCategory.SelectedValue = "FISD";
+            }
+            else if (assetType == "IP")
+            {
+                ddlProductType.SelectedValue = "FI";
+                ddlCategory.SelectedValue = "FIIP";
+            }
 
         }
         //protected void SetStructureRuleControlDefaultValues(string commType)
@@ -153,6 +194,7 @@ namespace WealthERP.Receivable
             StringBuilder strSubCategoryCode = new StringBuilder();
             try
             {
+                SetStructureMasterControlDefaultValues(ddlProductType.SelectedValue);
                 commissionStructureMasterVo.AdviserId = advisorVo.advisorId;
                 commissionStructureMasterVo.ProductType = ddlProductType.SelectedValue;
                 commissionStructureMasterVo.AssetCategory = ddlCategory.SelectedValue;
@@ -182,7 +224,7 @@ namespace WealthERP.Receivable
                 }
 
                 if (!string.IsNullOrEmpty(strSubCategoryCode.ToString()))
-                    strSubCategoryCode=strSubCategoryCode.Remove((strSubCategoryCode.Length - 1), 1);
+                    strSubCategoryCode = strSubCategoryCode.Remove((strSubCategoryCode.Length - 1), 1);
 
                 commissionStructureMasterVo.AssetSubCategory = strSubCategoryCode;
 
@@ -211,7 +253,12 @@ namespace WealthERP.Receivable
         {
             int commissionStructureId = 0;
             commissionStructureMasterVo = CollectStructureMastetrData();
-            if (!string.IsNullOrEmpty(commissionStructureMasterVo.AssetSubCategory.ToString()))
+            if (!string.IsNullOrEmpty(commissionStructureMasterVo.AssetSubCategory.ToString()) && ddlProductType.SelectedValue == "MF")
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('At least one subcategory required!');", true);
+                return;
+            }
+            else
             {
                 commisionReceivableBo.CreateCommissionStructureMastter(commissionStructureMasterVo, userVo.UserId, out commissionStructureId);
                 hidCommissionStructureName.Value = commissionStructureId.ToString();
@@ -220,16 +267,22 @@ namespace WealthERP.Receivable
                 tblCommissionStructureRule1.Visible = true;
 
             }
-            else
-            {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('At least one subcategory required!');", true);
-                return;
-            }
+
+
+
         }
 
         protected void btnMapToscheme_Click(object sender, EventArgs e)
         {
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('CommissionStructureToSchemeMapping','ID=" + hidCommissionStructureName.Value + "');", true);
+            if (ddlProductType.SelectedValue == "MF")
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('CommissionStructureToSchemeMapping','ID=" + hidCommissionStructureName.Value + "');", true);
+            }
+            else
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('CommisionManagementStructureToIssueMapping','ID=" + hidCommissionStructureName.Value + "');", true);
+
+            }
         }
 
 
@@ -275,58 +328,60 @@ namespace WealthERP.Receivable
                 DropDownList ddlCommissionApplicableLevel = (DropDownList)e.Item.FindControl("ddlCommissionApplicableLevel");
                 CheckBoxList chkListApplyTax = (CheckBoxList)editform.FindControl("chkListApplyTax");
 
-                ddlCommissionApplicableLevel.DataSource = dsCommissionLookup.Tables[1];
-                ddlCommissionApplicableLevel.DataValueField = dsCommissionLookup.Tables[1].Columns["WCAL_ApplicableLEvelCode"].ToString();
-                ddlCommissionApplicableLevel.DataTextField = dsCommissionLookup.Tables[1].Columns["WCAL_ApplicableLEvel"].ToString();
-                ddlCommissionApplicableLevel.DataBind();
-                ddlCommissionApplicableLevel.SelectedValue = "TR";
-                //ddlCommissionApplicableLevel.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
+                if (dsCommissionLookup != null )
+                {
+                    ddlCommissionApplicableLevel.DataSource = dsCommissionLookup.Tables[1];
+                    ddlCommissionApplicableLevel.DataValueField = dsCommissionLookup.Tables[1].Columns["WCAL_ApplicableLEvelCode"].ToString();
+                    ddlCommissionApplicableLevel.DataTextField = dsCommissionLookup.Tables[1].Columns["WCAL_ApplicableLEvel"].ToString();
+                    ddlCommissionApplicableLevel.DataBind();
+                    ddlCommissionApplicableLevel.SelectedValue = "TR";
+                    //ddlCommissionApplicableLevel.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
 
-                ddlAppCityGroup.DataSource = dsCommissionLookup.Tables[7];
-                ddlAppCityGroup.DataValueField = dsCommissionLookup.Tables[7].Columns["ACG_CityGroupID"].ToString();
-                ddlAppCityGroup.DataTextField = dsCommissionLookup.Tables[7].Columns["ACG_CityGroupName"].ToString();
-                ddlAppCityGroup.DataBind();
-                ddlAppCityGroup.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
+                    ddlAppCityGroup.DataSource = dsCommissionLookup.Tables[7];
+                    ddlAppCityGroup.DataValueField = dsCommissionLookup.Tables[7].Columns["ACG_CityGroupID"].ToString();
+                    ddlAppCityGroup.DataTextField = dsCommissionLookup.Tables[7].Columns["ACG_CityGroupName"].ToString();
+                    ddlAppCityGroup.DataBind();
+                    ddlAppCityGroup.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
 
-                ddlReceivableFrequency.DataSource = dsCommissionLookup.Tables[5];
-                ddlReceivableFrequency.DataValueField = dsCommissionLookup.Tables[5].Columns["XF_FrequencyCode"].ToString();
-                ddlReceivableFrequency.DataTextField = dsCommissionLookup.Tables[5].Columns["XF_Frequency"].ToString();
-                ddlReceivableFrequency.DataBind();
-                //ddlReceivableFrequency.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
-                ddlReceivableFrequency.SelectedValue = "MN";
+                    ddlReceivableFrequency.DataSource = dsCommissionLookup.Tables[5];
+                    ddlReceivableFrequency.DataValueField = dsCommissionLookup.Tables[5].Columns["XF_FrequencyCode"].ToString();
+                    ddlReceivableFrequency.DataTextField = dsCommissionLookup.Tables[5].Columns["XF_Frequency"].ToString();
+                    ddlReceivableFrequency.DataBind();
+                    //ddlReceivableFrequency.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
+                    ddlReceivableFrequency.SelectedValue = "MN";
 
-                ddlCommissionType.DataSource = dsCommissionLookup.Tables[2];
-                ddlCommissionType.DataValueField = dsCommissionLookup.Tables[2].Columns["WCT_CommissionTypeCode"].ToString();
-                ddlCommissionType.DataTextField = dsCommissionLookup.Tables[2].Columns["WCT_CommissionType"].ToString();
-                ddlCommissionType.DataBind();
+                    ddlCommissionType.DataSource = dsCommissionLookup.Tables[2];
+                    ddlCommissionType.DataValueField = dsCommissionLookup.Tables[2].Columns["WCT_CommissionTypeCode"].ToString();
+                    ddlCommissionType.DataTextField = dsCommissionLookup.Tables[2].Columns["WCT_CommissionType"].ToString();
+                    ddlCommissionType.DataBind();
 
-                ddlBrokerageUnit.DataSource = dsCommissionLookup.Tables[3];
-                ddlBrokerageUnit.DataValueField = dsCommissionLookup.Tables[3].Columns["WCU_UnitCode"].ToString();
-                ddlBrokerageUnit.DataTextField = dsCommissionLookup.Tables[3].Columns["WCU_Unit"].ToString();
-                ddlBrokerageUnit.DataBind();
-                ddlBrokerageUnit.SelectedValue = "PER";
+                    ddlBrokerageUnit.DataSource = dsCommissionLookup.Tables[3];
+                    ddlBrokerageUnit.DataValueField = dsCommissionLookup.Tables[3].Columns["WCU_UnitCode"].ToString();
+                    ddlBrokerageUnit.DataTextField = dsCommissionLookup.Tables[3].Columns["WCU_Unit"].ToString();
+                    ddlBrokerageUnit.DataBind();
+                    ddlBrokerageUnit.SelectedValue = "PER";
 
-                ddlCommisionCalOn.DataSource = dsCommissionLookup.Tables[4];
-                ddlCommisionCalOn.DataValueField = dsCommissionLookup.Tables[4].Columns["WCCO_Calculatedoncode"].ToString();
-                ddlCommisionCalOn.DataTextField = dsCommissionLookup.Tables[4].Columns["WCCO_CalculatedOn"].ToString();
-                ddlCommisionCalOn.DataBind();
+                    ddlCommisionCalOn.DataSource = dsCommissionLookup.Tables[4];
+                    ddlCommisionCalOn.DataValueField = dsCommissionLookup.Tables[4].Columns["WCCO_Calculatedoncode"].ToString();
+                    ddlCommisionCalOn.DataTextField = dsCommissionLookup.Tables[4].Columns["WCCO_CalculatedOn"].ToString();
+                    ddlCommisionCalOn.DataBind();
 
-                ddlInvestorType.DataSource = dsCommissionLookup.Tables[9];
-                ddlInvestorType.DataValueField = dsCommissionLookup.Tables[9].Columns["XCC_CustomerCategoryCode"].ToString();
-                ddlInvestorType.DataTextField = dsCommissionLookup.Tables[9].Columns["XCC_CustomerCategory"].ToString();
-                ddlInvestorType.DataBind();
+                    ddlInvestorType.DataSource = dsCommissionLookup.Tables[9];
+                    ddlInvestorType.DataValueField = dsCommissionLookup.Tables[9].Columns["XCC_CustomerCategoryCode"].ToString();
+                    ddlInvestorType.DataTextField = dsCommissionLookup.Tables[9].Columns["XCC_CustomerCategory"].ToString();
+                    ddlInvestorType.DataBind();
 
-                ddlSIPFrequency.DataSource = dsCommissionLookup.Tables[5];
-                ddlSIPFrequency.DataValueField = dsCommissionLookup.Tables[5].Columns["XF_FrequencyCode"].ToString();
-                ddlSIPFrequency.DataTextField = dsCommissionLookup.Tables[5].Columns["XF_Frequency"].ToString();
-                ddlSIPFrequency.DataBind();
-                ddlSIPFrequency.SelectedValue = "MN";
+                    ddlSIPFrequency.DataSource = dsCommissionLookup.Tables[5];
+                    ddlSIPFrequency.DataValueField = dsCommissionLookup.Tables[5].Columns["XF_FrequencyCode"].ToString();
+                    ddlSIPFrequency.DataTextField = dsCommissionLookup.Tables[5].Columns["XF_Frequency"].ToString();
+                    ddlSIPFrequency.DataBind();
+                    ddlSIPFrequency.SelectedValue = "MN";
 
-                chkListTtansactionType.DataSource = dsCommissionLookup.Tables[10];
-                chkListTtansactionType.DataValueField = dsCommissionLookup.Tables[10].Columns["WMTT_TransactionClassificationCode"].ToString();
-                chkListTtansactionType.DataTextField = dsCommissionLookup.Tables[10].Columns["WMTT_TransactionClassificationName"].ToString();
-                chkListTtansactionType.DataBind();
-
+                    chkListTtansactionType.DataSource = dsCommissionLookup.Tables[10];
+                    chkListTtansactionType.DataValueField = dsCommissionLookup.Tables[10].Columns["WMTT_TransactionClassificationCode"].ToString();
+                    chkListTtansactionType.DataTextField = dsCommissionLookup.Tables[10].Columns["WMTT_TransactionClassificationName"].ToString();
+                    chkListTtansactionType.DataBind();
+                }
                 if (e.Item.RowIndex != -1)
                 {
                     string strCommissionType = RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WCT_CommissionTypeCode"].ToString();
@@ -347,21 +402,21 @@ namespace WealthERP.Receivable
                     string strIsOtherTaxReduced = RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSM_IsOtherTaxReduced"].ToString();
 
 
-                    
-                    ddlAppCityGroup.SelectedValue=strCityGroupID;
-                    ddlReceivableFrequency.SelectedValue=strReceivableRuleFrequency;
+
+                    ddlAppCityGroup.SelectedValue = strCityGroupID;
+                    ddlReceivableFrequency.SelectedValue = strReceivableRuleFrequency;
                     ddlCommissionApplicableLevel.SelectedValue = strApplicableLevelCode;
 
                     foreach (ListItem chkItems in chkListApplyTax.Items)
                     {
-                        if (chkItems.Value == "ServiceTax" & strIsServiceTaxReduced=="1")
+                        if (chkItems.Value == "ServiceTax" & strIsServiceTaxReduced == "1")
                             chkItems.Selected = true;
                         else if (chkItems.Value == "TDS" & strIsTDSReduced == "1")
                             chkItems.Selected = true;
                         else if (chkItems.Value == "Others" & strIsOtherTaxReduced == "1")
                             chkItems.Selected = true;
                     }
-                    
+
 
 
                     ddlCommissionType.SelectedValue = strCommissionType;
@@ -555,12 +610,12 @@ namespace WealthERP.Receivable
                 commissionStructureRuleVo.ApplicableLevelCode = ddlCommissionApplicableLevel.SelectedValue;
 
 
-                if(chkListApplyTax.Items[0].Selected)
-                 commissionStructureRuleVo.IsServiceTaxReduced=true;
-                if(chkListApplyTax.Items[1].Selected)
-                 commissionStructureRuleVo.IsTDSReduced=true;
+                if (chkListApplyTax.Items[0].Selected)
+                    commissionStructureRuleVo.IsServiceTaxReduced = true;
+                if (chkListApplyTax.Items[1].Selected)
+                    commissionStructureRuleVo.IsTDSReduced = true;
                 if (chkListApplyTax.Items[2].Selected)
-                 commissionStructureRuleVo.IsOtherTaxReduced = true;
+                    commissionStructureRuleVo.IsOtherTaxReduced = true;
 
 
 
@@ -593,7 +648,7 @@ namespace WealthERP.Receivable
                     }
                 }
                 if (!string.IsNullOrEmpty(commissionStructureRuleVo.TransactionType))
-                commissionStructureRuleVo.TransactionType=commissionStructureRuleVo.TransactionType.Remove((commissionStructureRuleVo.TransactionType.Length - 1), 1);
+                    commissionStructureRuleVo.TransactionType = commissionStructureRuleVo.TransactionType.Remove((commissionStructureRuleVo.TransactionType.Length - 1), 1);
 
                 if (!string.IsNullOrEmpty(txtBrokerageValue.Text.Trim()))
                 {
@@ -852,7 +907,7 @@ namespace WealthERP.Receivable
         {
             if (enable)
             {
-                ddlProductType.Enabled = false;
+                ddlProductType.Enabled = true;
                 ddlCategory.Enabled = true;
                 rlbAssetSubCategory.Enabled = true;
                 ddlIssuer.Enabled = true;
@@ -940,7 +995,7 @@ namespace WealthERP.Receivable
             btnStructureUpdate.Visible = false;
             lnkEditStructure.Visible = false;
             lnkAddNewStructure.Visible = false;
-           
+
 
             if (Cache[userVo.UserId.ToString() + "CommissionStructureRule"] != null)
                 Cache.Remove(userVo.UserId.ToString() + "CommissionStructureRule");
@@ -965,7 +1020,7 @@ namespace WealthERP.Receivable
             Cache.Insert(userVo.UserId.ToString() + "CommissionStructureRule", dsStructureRules);
         }
 
-        private DataTable CreateCommissionStructureRuleDataTable() 
+        private DataTable CreateCommissionStructureRuleDataTable()
         {
             DataTable dtCommissionStructureRule = new DataTable();
             dtCommissionStructureRule.Columns.Add("WCT_CommissionType");

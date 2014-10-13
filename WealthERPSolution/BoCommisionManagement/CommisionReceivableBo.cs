@@ -10,7 +10,7 @@ using System.Collections.Specialized;
 using VoCommisionManagement;
 using DaoCommisionManagement;
 
-namespace BoCommisionManagement 
+namespace BoCommisionManagement
 {
     public class CommisionReceivableBo
     {
@@ -22,7 +22,7 @@ namespace BoCommisionManagement
             try
             {
                 dsLookupData = commisionReceivableDao.GetLookupDataForReceivableSetUP(adviserId);
-                
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -43,13 +43,97 @@ namespace BoCommisionManagement
             return dsLookupData;
         }
 
-        public void CreateCommissionStructureMastter(CommissionStructureMasterVo commissionStructureMasterVo, int userId,out int structureId)
+        public DataSet GetProduct(int adviserId)
         {
             CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
-            
+            DataSet dsLookupData;
             try
             {
-                 commisionReceivableDao.CreateCommissionStructureMastter(commissionStructureMasterVo, userId, out structureId);
+                dsLookupData = commisionReceivableDao.GetProduct(adviserId);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommisionReceivableBo.cs:GetLookupDataForReceivableSetUP(int adviserId)");
+                object[] objects = new object[1];
+                objects[0] = adviserId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsLookupData;
+        }
+
+        public DataSet GetIssuesStructureMapings(int adviserId, string mappedType, string issueType)
+        {
+            CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
+            DataSet dsLookupData;
+            try
+            {
+                dsLookupData = commisionReceivableDao.GetIssuesStructureMapings(adviserId, mappedType, issueType);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommisionReceivableBo.cs:GetLookupDataForReceivableSetUP(int adviserId)");
+                object[] objects = new object[1];
+                objects[0] = adviserId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsLookupData;
+        }
+
+
+        public void CreateIssuesStructureMapings(CommissionStructureRuleVo commissionStructureRuleVo, out  int instructureId)
+        {
+            CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
+
+            try
+            {
+                commisionReceivableDao.CreateIssuesStructureMapings(commissionStructureRuleVo, out instructureId);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommisionReceivableBo.cs:CreateCommissionStructureMastter(int adviserId)");
+                object[] objects = new object[2];              
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+        }
+
+        public void CreateCommissionStructureMastter(CommissionStructureMasterVo commissionStructureMasterVo, int userId, out int structureId)
+        {
+            CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
+
+            try
+            {
+                commisionReceivableDao.CreateCommissionStructureMastter(commissionStructureMasterVo, userId, out structureId);
 
             }
             catch (BaseApplicationException Ex)
@@ -69,7 +153,7 @@ namespace BoCommisionManagement
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-           
+
         }
 
         public DataSet GetAdviserCommissionStructureRules(int adviserId)
@@ -134,7 +218,7 @@ namespace BoCommisionManagement
             try
             {
                 commisionReceivableDao.CreateCommissionStructureRule(commissionStructureRuleVo, userId, ruleHash);
-                
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -346,7 +430,7 @@ namespace BoCommisionManagement
         public CommissionStructureMasterVo GetCommissionStructureMaster(int structureId)
         {
             CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
-            CommissionStructureMasterVo commissionStructureMasterVo = new CommissionStructureMasterVo();           
+            CommissionStructureMasterVo commissionStructureMasterVo = new CommissionStructureMasterVo();
             try
             {
                 commissionStructureMasterVo = commisionReceivableDao.GetCommissionStructureMaster(structureId);
@@ -723,7 +807,7 @@ namespace BoCommisionManagement
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-        } 
+        }
 
         public DataSet GetStructureScheme(int adviserId)
         {

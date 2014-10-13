@@ -39,6 +39,8 @@ namespace VoCommisionManagement
 
     public class CommissionStructureRuleVo : CommissionStructureMasterVo
     {
+        public Int32 IssueId { get; set; }
+
         public Int32 CommissionStructureRuleId { get; set; }
         public string CommissionType { get; set; }
         public string CustomerType { get; set; }

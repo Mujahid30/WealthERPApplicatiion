@@ -34,22 +34,43 @@ namespace WealthERP.CommisionManagement
 
             ibtExportSummary.Visible = false;
 
-            if (!IsPostBack) {
+            if (!IsPostBack)
+            {
                 pnlGrid.Visible = false;
 
                 BindProductDropdown();
                 ddProduct.SelectedValue = "MF";
-                ddProduct.Enabled = false;
+                //ddProduct.Enabled = false;
 
                 BindCategoryDropdown(ddProduct.SelectedValue);
                 BindIssuerDropdown();
-            }            
-        }
-        
-        private void bindDropdown(DropDownList ddList, DataSet dsListItems) {
-
+            }
         }
 
+        private void bindDropdown(DropDownList ddList, DataSet dsListItems)
+        {
+
+        }
+        private void ShowHideControlsBasedOnProduct(string asset)
+        {
+
+            if (asset == "MF")
+            {
+                trCategory.Visible = true;
+                
+            }
+            else if (asset == "FI")
+            {
+                trCategory.Visible = false;
+               
+            }
+            else if (asset == "IP")
+            {
+                trCategory.Visible = false;
+            }
+            
+
+        }
         private void BindProductDropdown()
         {
             DataSet dsLookupData = commisionReceivableBo.GetProductType();
@@ -95,7 +116,7 @@ namespace WealthERP.CommisionManagement
             ddSubCategory.DataBind();
         }
 
-        private void BindIssuerDropdown() 
+        private void BindIssuerDropdown()
         {
             DataSet dsLookupData = commisionReceivableBo.GetProdAmc();
 
@@ -113,6 +134,7 @@ namespace WealthERP.CommisionManagement
         protected void ddProduct_SelectedIndexChanged(object sender, EventArgs e)
         {
             BindCategoryDropdown(ddProduct.SelectedValue);
+            ShowHideControlsBasedOnProduct(ddProduct.SelectedValue);
         }
 
         protected void ddCategory_OnSelectedIndexChanged(object sender, EventArgs e)
@@ -180,17 +202,35 @@ namespace WealthERP.CommisionManagement
             GridDataItem item = (GridDataItem)ddlAction.NamingContainer;
             int structureId = int.Parse(gvCommMgmt.MasterTableView.DataKeyValues[item.ItemIndex]["StructureId"].ToString());
             string prodType = this.ddProduct.SelectedValue;
-
-            switch (ddlAction.SelectedValue)
+            if (ddProduct.SelectedValue == "MF")
             {
-                case "ViewSTDetails":
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('ReceivableSetup','StructureId=" + structureId + "');", true);
-                    break;
-                case "ManageSchemeMapping":
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('CommissionStructureToSchemeMapping','ID=" + structureId + "&p=" + prodType + "');", true);
-                    break;
-                default:
-                    return;
+                switch (ddlAction.SelectedValue)
+                {
+
+                    case "ViewSTDetails":
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('ReceivableSetup','StructureId=" + structureId + "&ProductType=" + prodType + "');", true);
+                        break;
+                    case "ManageSchemeMapping":
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('CommissionStructureToSchemeMapping','ID=" + structureId + "&p=" + prodType + "');", true);
+                        break;
+                    default:
+                        return;
+                }
+            }
+            else if (ddProduct.SelectedValue == "FI")
+            {
+                switch (ddlAction.SelectedValue)
+                {
+
+                    case "ViewSTDetails":
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('ReceivableSetup','StructureId=" + structureId + "'&ProductType=" + prodType + ");", true);
+                        break;
+                    case "ManageSchemeMapping":
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('CommisionManagementStructureToIssueMapping','ID=" + structureId + "&p=" + prodType + "');", true);
+                        break;
+                    default:
+                        return;
+                }
             }
         }
 

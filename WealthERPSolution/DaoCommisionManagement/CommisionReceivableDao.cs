@@ -51,6 +51,117 @@ namespace DaoCommisionManagement
             return ds;
         }
 
+
+        public DataSet GetProduct(int adviserId)
+        {
+            Database db;
+            DbCommand cmdProduct;
+            DataSet ds = null;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdProduct = db.GetStoredProcCommand("SPROC_GetProduct");
+                db.AddInParameter(cmdProduct, "@A_AdviserId", DbType.Int32, adviserId);
+                ds = db.ExecuteDataSet(cmdProduct);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommisionReceivableDao.cs:GetLookupDataForReceivableSetUP(int adviserId)");
+                object[] objects = new object[1];
+                objects[0] = adviserId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return ds;
+        }
+
+        public DataSet GetIssuesStructureMapings(int adviserId, string mappedType, string issueType)
+        {
+            Database db;
+            DbCommand cmdIssueMap;
+            DataSet ds = null;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdIssueMap = db.GetStoredProcCommand("SPROC_GetMappedIssues");
+                db.AddInParameter(cmdIssueMap, "@A_AdviserId", DbType.Int32, adviserId);
+                db.AddInParameter(cmdIssueMap, "@mappedType", DbType.String, mappedType);
+                db.AddInParameter(cmdIssueMap, "@issueType", DbType.String, issueType);
+
+
+                ds = db.ExecuteDataSet(cmdIssueMap);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommisionReceivableDao.cs:GetLookupDataForReceivableSetUP(int adviserId)");
+                object[] objects = new object[1];
+                objects[0] = adviserId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return ds;
+        }
+
+
+
+        public void CreateIssuesStructureMapings(CommissionStructureRuleVo commissionStructureRuleVo, out  int instructureId)
+        {
+            Database db;
+            DbCommand cmdCreateCommissionStructure;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdCreateCommissionStructure = db.GetStoredProcCommand("SPROC_CreateIssueStructureMapping");
+                db.AddInParameter(cmdCreateCommissionStructure, "@issueId", DbType.Int32, commissionStructureRuleVo.IssueId);
+                db.AddInParameter(cmdCreateCommissionStructure, "@structureId", DbType.Int32, commissionStructureRuleVo.CommissionStructureId);
+                db.AddInParameter(cmdCreateCommissionStructure, "@ValidityStartDate", DbType.Date, DateTime.Today);
+                db.AddInParameter(cmdCreateCommissionStructure, "@ValidityEndDate", DbType.Date, DateTime.Today);
+                db.AddOutParameter(cmdCreateCommissionStructure, "@mappingStructureId", DbType.Int64, 1000000);
+               
+                db.ExecuteNonQuery(cmdCreateCommissionStructure);
+                Object objCommissionStructureId = db.GetParameterValue(cmdCreateCommissionStructure, "@mappingStructureId");
+                if (objCommissionStructureId != DBNull.Value)
+                    instructureId = Convert.ToInt32(objCommissionStructureId);
+                else
+                    instructureId = 0;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommisionReceivableDao.cs:CreateCommissionStructureMastter(CommissionStructureMasterVo commissionStructureMasterVo)");
+                object[] objects = new object[2];
+                 
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+        }
+
         public void CreateCommissionStructureMastter(CommissionStructureMasterVo commissionStructureMasterVo, int userId, out Int32 instructureId)
         {
             Database db;
@@ -64,7 +175,10 @@ namespace DaoCommisionManagement
                 db.AddInParameter(cmdCreateCommissionStructure, "@PAG_AssetCategoryCode", DbType.String, commissionStructureMasterVo.ProductType);
                 db.AddInParameter(cmdCreateCommissionStructure, "@PAIC_AssetInstrumentCategoryCode", DbType.String, commissionStructureMasterVo.AssetCategory);
                 db.AddInParameter(cmdCreateCommissionStructure, "@ACSM_CommissionStructureName", DbType.String, commissionStructureMasterVo.CommissionStructureName);
+                if (!string.IsNullOrEmpty(commissionStructureMasterVo.Issuer))                
                 db.AddInParameter(cmdCreateCommissionStructure, "@ACSM_Issuer", DbType.Int32, Convert.ToUInt32(commissionStructureMasterVo.Issuer.ToString()));
+                else
+                    db.AddInParameter(cmdCreateCommissionStructure, "@ACSM_Issuer", DbType.Int32, 0);
 
                 db.AddInParameter(cmdCreateCommissionStructure, "@ACSM_ValidityStartDate", DbType.Date, commissionStructureMasterVo.ValidityStartDate);
                 db.AddInParameter(cmdCreateCommissionStructure, "@ACSM_ValidityEndDate", DbType.Date, commissionStructureMasterVo.ValidityEndDate);

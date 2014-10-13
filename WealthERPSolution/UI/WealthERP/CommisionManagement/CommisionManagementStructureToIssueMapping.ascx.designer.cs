@@ -14,5 +14,10 @@ namespace WealthERP.CommisionManagement
 
     public partial class CommisionManagementStructureToIssueMapping
     {
+        protected global::Telerik.Web.UI.RadGrid gvMappedIssueList;
+        protected global::System.Web.UI.WebControls.DropDownList ddlIssueType;
+        protected global::System.Web.UI.WebControls.DropDownList ddlUnMappedIssues;
+
+
     }
 }

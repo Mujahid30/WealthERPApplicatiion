@@ -345,6 +345,8 @@ namespace WealthERP.Receivable {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chkMoneytaryReward;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trIssuer;
+
         
         /// <summary>
         /// Label1 control.

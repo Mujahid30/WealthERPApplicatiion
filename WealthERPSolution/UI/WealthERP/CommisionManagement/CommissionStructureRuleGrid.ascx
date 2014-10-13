@@ -152,7 +152,7 @@
                 </td>
                 <td colspan="2"></td>
             </tr>
-            <tr>
+            <tr id="trCategory" runat="server">
                 <td class="leftLabel">
                     <asp:Label ID="lblCategory" runat="server" Text="Category:" CssClass="FieldName"></asp:Label>
                 </td>
