@@ -871,6 +871,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CommisionManagement//CommisionManagementStructureToIssueMapping.ascx.
+        /// </summary>
+        internal static string CommisionManagementStructureToIssueMapping {
+            get {
+                return ResourceManager.GetString("CommisionManagementStructureToIssueMapping", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to BusinessMIS//Commissiondashboard.ascx.
         /// </summary>
         internal static string Commissiondashboard {
@@ -2037,15 +2046,6 @@ namespace WealthERP {
         internal static string IPOIssueTransactOffline {
             get {
                 return ResourceManager.GetString("IPOIssueTransactOffline", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to CommisionManagement//IssueMappedToTheStructure.ascx.
-        /// </summary>
-        internal static string IssueMappedToTheStructure {
-            get {
-                return ResourceManager.GetString("IssueMappedToTheStructure", resourceCulture);
             }
         }
         

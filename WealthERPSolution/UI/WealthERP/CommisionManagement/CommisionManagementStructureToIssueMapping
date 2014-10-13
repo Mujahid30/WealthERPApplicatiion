@@ -1,0 +1,1 @@
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CommisionManagementStructureToIssueMapping.ascx.cs" Inherits="WealthERP.CommisionManagement.CommisionManagementStructureToIssueMapping" %>
