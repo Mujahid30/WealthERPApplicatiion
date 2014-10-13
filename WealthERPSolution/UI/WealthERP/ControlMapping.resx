@@ -1981,4 +1981,8 @@
     <value>OnlineOrderBackOffice//SubBrokerCodecCeansing.ascx</value>
     <comment>OnlineOrderBackOffice//SubBrokerCodecCeansing.ascx</comment>
   </data>
+  <data name="IssueMappedToTheStructure" xml:space="preserve">
+    <value>CommisionManagement//IssueMappedToTheStructure.ascx</value>
+    <comment>CommisionManagement//IssueMappedToTheStructure.ascx</comment>
+  </data>
 </root>

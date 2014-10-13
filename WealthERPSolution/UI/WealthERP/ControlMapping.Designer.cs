@@ -2041,6 +2041,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CommisionManagement//IssueMappedToTheStructure.ascx.
+        /// </summary>
+        internal static string IssueMappedToTheStructure {
+            get {
+                return ResourceManager.GetString("IssueMappedToTheStructure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Uploads//KarvyProfileFolioInputRejects.ascx.
         /// </summary>
         internal static string KarvyProfileFolioInputRejects {
