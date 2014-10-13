@@ -324,7 +324,7 @@ namespace WealthERP.Customer
                 
                 try
                 {
-                    if (Session["DematDetailsView"].ToString() == "ADD")
+                    if (Session["DematDetailsView"].ToString() == "Add")
                     {
                         if (!string.IsNullOrEmpty(accountopeningdate.Trim()))
                             demataccountvo.AccountOpeningDate = DateTime.Parse(accountopeningdate);

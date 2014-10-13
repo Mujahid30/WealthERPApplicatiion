@@ -36,7 +36,7 @@
                                       Visible="False" CssClass="LinkButtons">Edit</asp:LinkButton>
                                &nbsp; &nbsp;
                                       
-                                    <asp:LinkButton ID="lbtnBack2Button" runat="server" OnClick="lbtnBack2Button_Click"
+                                    <asp:LinkButton ID"lbtnBack2Button" runat="server" OnClick="lbtnBack2Button_Click"
                                       Visible="true" CssClass="LinkButtons">Back</asp:LinkButton>
                                 </td>
                             </tr>
