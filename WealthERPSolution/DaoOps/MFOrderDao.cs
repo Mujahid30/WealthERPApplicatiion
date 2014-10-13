@@ -575,8 +575,8 @@ namespace DaoOps
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                getBankBranchcmd = db.GetStoredProcCommand("SP_GetBankBranch");
-                db.AddInParameter(getBankBranchcmd, "@BankId", DbType.Int32, BankId);
+                getBankBranchcmd = db.GetStoredProcCommand("SP_GetBankBranchLookUPs");
+                db.AddInParameter(getBankBranchcmd, "@LookupId", DbType.Int32, BankId);
                 dsGetBankBranch = db.ExecuteDataSet(getBankBranchcmd);
                 dtGetBankBranch = dsGetBankBranch.Tables[0];
             }

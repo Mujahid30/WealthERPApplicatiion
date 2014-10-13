@@ -169,19 +169,19 @@ namespace BoOps
             return dtGetBankBranch;
         }
 
-        public DataTable GetBankBranchLookups(int lookUpId)
-        {
-            DataTable dtGetBankBranch;
-            try
-            {
-                dtGetBankBranch = mfOrderDao.GetBankBranchLookups(lookUpId);
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw (Ex);
-            }
-            return dtGetBankBranch;
-        }
+        //public DataTable GetBankBranchLookups(int lookUpId)
+        //{
+        //    DataTable dtGetBankBranch;
+        //    try
+        //    {
+        //        dtGetBankBranch = mfOrderDao.GetBankBranchLookups(lookUpId);
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw (Ex);
+        //    }
+        //    return dtGetBankBranch;
+        //}
 
         public bool DeleteMFOrder(int orderId)
         {
