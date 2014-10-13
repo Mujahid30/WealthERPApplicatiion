@@ -152,14 +152,14 @@
         <td style="width: 100px">
         </td>
         <td style="width: 120px" align="right">
-            <asp:Label ID="lblSelect" runat="server" Text="Select:" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="lblSelect" runat="server" Text="Select Type:" CssClass="FieldName"></asp:Label>
         </td>
         <td style="width: 300px">
             <asp:DropDownList ID="ddlSelect" runat="server" CssClass="cmbLongField" AutoPostBack="true"
                 OnSelectedIndexChanged="ddlSelect_SelectedIndexChanged">
                 <asp:ListItem Value="S">Select</asp:ListItem>
-                <asp:ListItem Value="1">Online Only</asp:ListItem>
-                <asp:ListItem Value="0">Offline Only</asp:ListItem>
+                <asp:ListItem Value="1">Online</asp:ListItem>
+                <asp:ListItem Value="0">Offline</asp:ListItem>
                 <asp:ListItem Value="2">All</asp:ListItem>
             </asp:DropDownList>
         </td>

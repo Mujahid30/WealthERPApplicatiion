@@ -58,6 +58,8 @@ namespace WealthERP.BusinessMIS
 
             if (userType == "associates")
             {
+                ddlFilter.Items[1].Enabled = false;
+                ddlFilter.Items[3].Enabled = false;
                 Agentcode = associateuserheirarchyVo.AgentCode;
                 //trSelectType.Visible = false;
             }

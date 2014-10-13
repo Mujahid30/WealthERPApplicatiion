@@ -48,7 +48,7 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lnlType;
-        
+        protected global::System.Web.UI.WebControls.Label lblType;
         /// <summary>
         /// ddlType control.
         /// </summary>
@@ -57,7 +57,7 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlType;
-        
+        protected global::System.Web.UI.WebControls.DropDownList ddlTypes;
         /// <summary>
         /// lblDate control.
         /// </summary>

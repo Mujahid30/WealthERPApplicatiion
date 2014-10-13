@@ -911,7 +911,7 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "Customer_Holdings")
                 {
                     Session["UserType"] = "adviser";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('HoldingDashBoard','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MutualFundMIS','login');", true);
                 }
                 else if (e.Item.Value == "MFT")
                 {
@@ -1478,7 +1478,7 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "Customer_Holdings")
                 {
                     Session["UserType"] = "rm";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('HoldingDashBoard','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MutualFundMIS','login');", true);
                 }
                 else if (e.Item.Value == "Transactions")
                 {
@@ -1699,7 +1699,7 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "Customer_Holdings")
                 {
                     Session["UserType"] = "bm";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('HoldingDashBoard','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MutualFundMIS','login');", true);
                 }
                 else if (e.Item.Value == "Transactions")
                 {
@@ -2159,7 +2159,7 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "Customer_Holdings")
                 {
                     Session["UserType"] = "adviser";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('HoldingDashBoard','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MutualFundMIS','login');", true);
                 }
                 else if (e.Item.Value == "NCD_Allotments")
                 {
@@ -3772,7 +3772,7 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "Customer_Holdings")
                 {
                     Session["UserType"] = "Associates";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('HoldingDashBoard','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MutualFundMIS','login');", true);
                 }
                 else if (e.Item.Value == "Transactions")
                 {

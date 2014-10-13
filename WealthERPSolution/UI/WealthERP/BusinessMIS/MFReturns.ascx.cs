@@ -64,7 +64,11 @@ namespace WealthERP.BusinessMIS
                 userType = "bm";
             else
                 userType = Session[SessionContents.CurrentUserRole].ToString().ToLower();
-
+            if (userType == "associates")
+            {
+                ddlTypes.Items[0].Enabled = false;
+                ddlTypes.Items[2].Enabled = false; 
+            }
             advisorId = advisorVo.advisorId;
             int RMId = rmVo.RMId;
             rmId = rmVo.RMId;
@@ -118,7 +122,7 @@ namespace WealthERP.BusinessMIS
             DataSet dsMfReturns;
             DataTable dtMfReturns;
             customerid = 0;
-            dsMfReturns = adviserMFMIS.GetMFReturnsDetails(userType, int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), int.Parse(hdnAll.Value), strValuationDate, customerid);
+            dsMfReturns = adviserMFMIS.GetMFReturnsDetails(userType, int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), int.Parse(hdnAll.Value), strValuationDate, customerid,int.Parse(ddlTypes.SelectedValue));
             dtMfReturns = dsMfReturns.Tables[0];
             if (dtMfReturns == null)
             {
@@ -323,7 +327,7 @@ namespace WealthERP.BusinessMIS
             double totalPL = 0.0;
             DataSet dsMfReturnsScheme;
             DataTable dtMfReturnsScheme;
-            dsMfReturnsScheme = adviserMFMIS.GetMFReturnsDetails(userType, int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), int.Parse(hdnAll.Value), strValuationDate, customerid);
+            dsMfReturnsScheme = adviserMFMIS.GetMFReturnsDetails(userType, int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), int.Parse(hdnAll.Value), strValuationDate, customerid,int.Parse(ddlTypes.SelectedValue));
             dtMfReturnsScheme = dsMfReturnsScheme.Tables[1];
             if (dtMfReturnsScheme == null)
             {

@@ -1449,7 +1449,7 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "MF Alerts")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerMFAlert", "loadcontrol('CustomerMFAlert','none');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerMFAlert", "loadcontrol('CustomerAlertSetup','none');", true);
                 }
                 else if (e.Item.Value == "FI Alerts")
                 {

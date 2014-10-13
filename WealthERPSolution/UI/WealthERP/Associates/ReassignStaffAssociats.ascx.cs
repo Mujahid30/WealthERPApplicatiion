@@ -59,6 +59,7 @@ namespace WealthERP.Associates
             radStaffList.Items.Clear();
             ExistingStaffList.Items.Clear();
             MappedStaffList.Items.Clear();
+            txtStaffId.Value = "";
             txtNewReporting.Text = "";
         }
         protected void BindChannelList()
@@ -104,7 +105,6 @@ namespace WealthERP.Associates
         }
         protected void ddlTitle_OnSelectedIndexChanged(object sender, EventArgs e)
         {
-            string mappedStaffAssociate = string.Empty;
             if (txtStaffId.Value == "")
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please Select New reporing Manager.');", true);

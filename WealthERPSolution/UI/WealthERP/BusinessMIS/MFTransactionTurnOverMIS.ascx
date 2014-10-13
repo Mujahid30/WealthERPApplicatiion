@@ -32,8 +32,7 @@
         </td>
     </tr>
 </table>
-<table width="60%">
-    <%--<tr id="trSelectType" runat="server">
+<%--<tr id="trSelectType" runat="server">
         <td class="leftField">
             <asp:Label ID="lblSelectType" runat="server" CssClass="FieldName" Text="Select Type:"></asp:Label>
         </td>
@@ -59,23 +58,12 @@
             <span id="Span2" class="spnRequiredField">*</span>
         </td>
     </tr>--%>
-    <tr visible="false">
-        <td align="left" class="rightData" colspan="4" visible="false">
-            <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="Date Type:"></asp:Label>
-            <asp:RadioButton ID="rbtnPickDate" AutoPostBack="true" Checked="true" OnCheckedChanged="rbtnDate_CheckedChanged"
-                runat="server" GroupName="Date" />
-            <asp:Label ID="lblPickDate" runat="server" Text="Date Range" CssClass="Field"></asp:Label>
-            &nbsp;
-            <asp:RadioButton ID="rbtnPickPeriod" AutoPostBack="true" OnCheckedChanged="rbtnDate_CheckedChanged"
-                runat="server" GroupName="Date" />
-            <asp:Label ID="lblPickPeriod" runat="server" Text="Period" CssClass="Field"></asp:Label>
-        </td>
-    </tr>
+<table width="60%">
     <tr>
         <td valign="top" colspan="4" align="left">
             <div id="divDateRange" runat="server" visible="false" style="float: left;">
-                <asp:Label ID="lblFromDate" runat="server" CssClass="FieldName" >From:</asp:Label>
-                <telerik:RadDatePicker ID="txtFromDate" CssClass="txtField" runat="server" Culture="English (United States)"
+               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <asp:Label ID="lblFromDate" runat="server" CssClass="FieldName">From:</asp:Label>
+                &nbsp;<telerik:RadDatePicker ID="txtFromDate" CssClass="txtField" runat="server" Culture="English (United States)"
                     Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
                     <Calendar ID="Calendar1" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
                         ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
@@ -118,39 +106,47 @@
     </tr>
     <tr>
         <td>
-            <asp:Label ID="lblFilter" runat="server" Text="Select Type::" CssClass="FieldName"></asp:Label>
+           &nbsp; <asp:Label ID="lblFilter" runat="server" Text="Select Type:" CssClass="FieldName"></asp:Label>
             <asp:DropDownList ID="ddlFilter" runat="server" CssClass="cmbField">
                 <asp:ListItem Value="S">Select</asp:ListItem>
-                <asp:ListItem Value="0">Offline Only</asp:ListItem>
-                <asp:ListItem Value="1">Online Only</asp:ListItem>
+                <asp:ListItem Value="1">Online</asp:ListItem>
+                <asp:ListItem Value="0">Offline</asp:ListItem>
                 <asp:ListItem Value="2">All</asp:ListItem>
             </asp:DropDownList>
             <span id="Span2" class="spnRequiredField">*</span>
             <asp:Label ID="lblErrorFilter" Text="Please Select a Filter" CssClass="rfvPCG" Visible="false"
                 runat="server" Style="color: Red"></asp:Label>
         </td>
-    </tr>
-    <tr>
-        <td colspan="4">
+        <td align="left" class="rightData" colspan="4" visible="false">
+            <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="Date Type:" Visible="false"></asp:Label>
+            <asp:RadioButton ID="rbtnPickDate" AutoPostBack="true" Checked="true" OnCheckedChanged="rbtnDate_CheckedChanged"
+                runat="server" GroupName="Date" Visible="false" />
+            <asp:Label ID="lblPickDate" runat="server" Text="Date Range" CssClass="Field" Visible="false"></asp:Label>
+            &nbsp;
+            <asp:RadioButton ID="rbtnPickPeriod" AutoPostBack="true" OnCheckedChanged="rbtnDate_CheckedChanged"
+                runat="server" GroupName="Date" Visible="false" />
+            <asp:Label ID="lblPickPeriod" runat="server" Text="Period" CssClass="Field" Visible="false"></asp:Label>
         </td>
     </tr>
-    <tr>
-        <td colspan="4">
-            <asp:Label ID="lblMis" runat="server" CssClass="FieldName" Text="Select MIS:"></asp:Label>
-            <asp:LinkButton ID="lnkBtnSubBrokerCustomer" Text="CUSTOMER/FOLIO" CssClass="LinkButtonsWithoutUnderLine"
-                runat="server" ValidationGroup="vgBtnGo" OnClick="lnkBtnSubBrokerCustomer_Click"></asp:LinkButton>
-            <span>|</span>
-            <%--<asp:LinkButton ID="lnkBtnOrganization" Text="ORGANIZATION" CssClass="LinkButtonsWithoutUnderLine"
+</table>
+</td> </tr>
+<tr>
+    <td colspan="4">
+       &nbsp;&nbsp;  <asp:Label ID="lblMis" runat="server" CssClass="FieldName" Text="Select MIS:"></asp:Label>
+        <asp:LinkButton ID="lnkBtnSubBrokerCustomer" Text="CUSTOMER/FOLIO" CssClass="LinkButtonsWithoutUnderLine"
+            runat="server" ValidationGroup="vgBtnGo" OnClick="lnkBtnSubBrokerCustomer_Click"></asp:LinkButton>
+        <span>|</span>
+        <%--<asp:LinkButton ID="lnkBtnOrganization" Text="ORGANIZATION" CssClass="LinkButtonsWithoutUnderLine"
                 runat="server" ValidationGroup="vgBtnGo" OnClick="lnkBtnOrganization_Click"></asp:LinkButton>
             <span>|</span>--%>
-            <asp:LinkButton ID="lnkBtnProduct" Text="PRODUCT" CssClass="LinkButtonsWithoutUnderLine"
-                runat="server" ValidationGroup="vgBtnGo" OnClick="lnkBtnProduct_Click"></asp:LinkButton>
-        </td>
-    </tr>
-    <tr>
-        <td colspan="4">
-        </td>
-    </tr>
+        <asp:LinkButton ID="lnkBtnProduct" Text="PRODUCT" CssClass="LinkButtonsWithoutUnderLine"
+            runat="server" ValidationGroup="vgBtnGo" OnClick="lnkBtnProduct_Click"></asp:LinkButton>
+    </td>
+</tr>
+<tr>
+    <td colspan="4">
+    </td>
+</tr>
 </table>
 <div id="dvSectionHeading" runat="server" class="divSectionHeading" style="vertical-align: middle;
     margin: 2px; padding-top: 2px;">

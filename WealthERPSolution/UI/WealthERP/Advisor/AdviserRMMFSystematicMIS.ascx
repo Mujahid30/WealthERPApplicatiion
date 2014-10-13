@@ -111,14 +111,14 @@
                         </asp:DropDownList>--%>
                     <%--  </td>--%>
                     <td align="right">
-                        <asp:Label ID="lblStatus" runat="server" Text="Status:" CssClass="FieldName"></asp:Label>
+                        <asp:Label ID="lblStatus" runat="server" Text="Select Type:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
                         <asp:DropDownList ID="ddlStatus" runat="server" CssClass="cmbField">
                             <Items>
-                                <asp:ListItem Text="Offline" Value="0" />
                                 <asp:ListItem Text="Online" Value="1" />
-                                <asp:ListItem Text="Both" Value="2"/>
+                                <asp:ListItem Text="Offline" Value="0" />
+                                <asp:ListItem Text="All" Value="2"/>
                             </Items>
                         </asp:DropDownList>
                     </td>

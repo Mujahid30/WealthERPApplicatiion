@@ -30,20 +30,32 @@
 </table>
 <table width="80%">
     <tr>
-        <td align="left">
-            <asp:Label ID="lnlType" runat="server" Text="Select Type:" CssClass="FieldName"></asp:Label>
+        <td align="right">
+            <asp:Label ID="lnlType" runat="server" Text="Select Option:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td>
             <asp:DropDownList ID="ddlType" runat="server" CssClass="cmbField">
-                <asp:ListItem Text="Customer Wise" Value="CustomerWise"></asp:ListItem> 
+                <asp:ListItem Text="Customer Wise" Value="CustomerWise"></asp:ListItem>
                 <asp:ListItem Text="Scheme Wise" Value="SchemeWise"></asp:ListItem>
             </asp:DropDownList>
         </td>
-        <td align="left" colspan="4">
+        <td align="right">
+            <asp:Label ID="lblType" runat="server" Text="Select Type:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td>
+            <asp:DropDownList ID="ddlTypes" runat="server" CssClass="cmbField">
+                <asp:ListItem Text="Online" Value="1"></asp:ListItem>
+                <asp:ListItem Text="Offline" Value="2"></asp:ListItem>
+                <asp:ListItem Text="All" Value="0"></asp:ListItem>
+            </asp:DropDownList>
+        </td>
+        <td align="right">
             <asp:Label ID="lblDate" runat="server" Text="As on Date:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td>
             <asp:Label ID="lblPickDate" Text="" runat="server" CssClass="FieldName"> </asp:Label>
         </td>
-    </tr>
-    <tr>
-        <td colspan="2" align="left">
+        <td>
             <asp:Button ID="btnGo" runat="server" Text="Go" CssClass="PCGButton" OnClick="btnGo_Click" />
         </td>
     </tr>
@@ -59,15 +71,14 @@
                                 <telerik:RadGrid ID="gvMfReturns" runat="server" GridLines="None" AutoGenerateColumns="False"
                                     PageSize="15" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                                     Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
-                                     AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true"
-                                    OnNeedDataSource="gvMfReturns_OnNeedDataSource" EnableHeaderContextMenu="true"
-                                    EnableHeaderContextFilterMenu="true">
+                                    AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true" OnNeedDataSource="gvMfReturns_OnNeedDataSource"
+                                    EnableHeaderContextMenu="true" EnableHeaderContextFilterMenu="true">
                                     <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
                                         FileName="MFReturns" Excel-Format="ExcelML">
                                     </ExportSettings>
                                     <MasterTableView Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
                                         CommandItemDisplay="None" GroupsDefaultExpanded="false" ExpandCollapseColumn-Groupable="true"
-                                        GroupLoadMode="Client" ShowGroupFooter="true" >
+                                        GroupLoadMode="Client" ShowGroupFooter="true">
                                         <Columns>
                                             <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="CustomerId" DataField="CustomerId"
                                                 HeaderStyle-HorizontalAlign="Right" UniqueName="CustomerId" SortExpression="CustomerId"
@@ -158,9 +169,10 @@
                             <div runat="server" id="divScheme" style="margin: 2px; width: 640px;">
                                 <telerik:RadGrid ID="gvMfReturnsScheme" runat="server" GridLines="None" AutoGenerateColumns="False"
                                     PageSize="15" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
-                                    Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true" OnItemCommand="gvMfReturns_ItemCommand"
-                                    AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true" OnNeedDataSource="gvMfReturnsScheme_OnNeedDataSource"
-                                    EnableHeaderContextMenu="true" EnableHeaderContextFilterMenu="true">
+                                    Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
+                                    OnItemCommand="gvMfReturns_ItemCommand" AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true"
+                                    OnNeedDataSource="gvMfReturnsScheme_OnNeedDataSource" EnableHeaderContextMenu="true"
+                                    EnableHeaderContextFilterMenu="true">
                                     <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
                                         FileName="MFReturnsSchemeWise" Excel-Format="ExcelML">
                                     </ExportSettings>
@@ -215,7 +227,7 @@
                                                 DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
                                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
-                                           <%-- <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="Current Value" DataField="CurrentValue"
+                                            <%-- <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="Current Value" DataField="CurrentValue"
                                                 HeaderStyle-HorizontalAlign="Right" UniqueName="CurrentValue" SortExpression="CurrentValue"
                                                 AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                                 DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">

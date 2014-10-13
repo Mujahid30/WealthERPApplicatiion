@@ -21,19 +21,36 @@ namespace WealthERP.Alerts
         UserVo userVo;
         AdvisorVo adviserVo = new AdvisorVo();
         AlertsBo alertBo = new AlertsBo();
+        string userType;
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
             userBo = new UserBo();
             userVo = (UserVo)Session[SessionContents.UserVo];
             adviserVo = (AdvisorVo)Session["advisorVo"];
-
-            txtCustomerName_autoCompleteExtender.ContextKey = adviserVo.advisorId.ToString();
-            txtCustomerName_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
-            txtPansearch_autoCompleteExtender.ContextKey = adviserVo.advisorId.ToString();
-            txtPansearch_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerPan";
-            txtClientCode_autoCompleteExtender.ContextKey = adviserVo.advisorId.ToString();
-            txtClientCode_autoCompleteExtender.ServiceMethod = "GetCustCode";
+            CustomerVo cusromerVo=new CustomerVo();
+            cusromerVo = (CustomerVo)Session["customerVo"];
+            if (!IsPostBack)
+            {
+                if (Session["IsCustomerDrillDown"] != null)
+                {
+                    txtCustomerId.Value = cusromerVo.CustomerId.ToString();
+                    BindCustomerAlertSetup();
+                    lblType.Visible = false;
+                    ddlType.Visible = false;
+                    btngo.Visible = false;
+                     //gvCustomerAlertSetup.MasterTableView.IsItemInserted = false; 
+                    //GridEditableItem gridEditableItem = (GridEditableItem)e.(sender);
+                    //gridEditableItem.OwnerTableView.IsItemInserted = false;
+                    //this.gvCustomerAlertSetup.MasterTableView.Items[0].EditFormItem.Enabled = false;
+                }
+            }
+                txtCustomerName_autoCompleteExtender.ContextKey = adviserVo.advisorId.ToString();
+                txtCustomerName_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
+                txtPansearch_autoCompleteExtender.ContextKey = adviserVo.advisorId.ToString();
+                txtPansearch_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerPan";
+                txtClientCode_autoCompleteExtender.ContextKey = adviserVo.advisorId.ToString();
+                txtClientCode_autoCompleteExtender.ServiceMethod = "GetCustCode";
 
         }
         protected void click_Go(object sender, EventArgs e)

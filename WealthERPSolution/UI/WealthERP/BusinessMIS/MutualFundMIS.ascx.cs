@@ -151,8 +151,8 @@ namespace WealthERP.BusinessMIS
                     userType = "bm";
                 else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "associates")
                 {
-                    lblType.Visible = false;
-                    ddlType.Visible = false;
+                    //lblType.Visible = false;
+                    //ddlType.Visible = false;
                     userType = "associates";
                     associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
                     if (associateuserheirarchyVo.UserTitle == "SubBroker")
@@ -180,6 +180,10 @@ namespace WealthERP.BusinessMIS
                 }
                 else
                     userType = Session[SessionContents.CurrentUserRole].ToString().ToLower();
+            }
+            if (userType == "associates")
+            {
+                ddlType.Items[0].Enabled = false;
             }
             advisorId = advisorVo.advisorId;
             if (!IsPostBack)

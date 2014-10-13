@@ -35,22 +35,10 @@
     </tr>
 </table>
 <table class="TableBackground" width="100%">
-    <tr>
-        <td align="left" class="rightData" style="width: 40%;" colspan="2">
-            <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="Date Type:"></asp:Label>
-            <asp:RadioButton ID="rbtnPickDate" AutoPostBack="true" Checked="true" OnCheckedChanged="rbtnDate_CheckedChanged"
-                runat="server" GroupName="Date" />
-            <asp:Label ID="lblPickDate" runat="server" Text="Date Range" CssClass="Field"></asp:Label>
-            &nbsp;
-            <asp:RadioButton ID="rbtnPickPeriod" AutoPostBack="true" OnCheckedChanged="rbtnDate_CheckedChanged"
-                runat="server" GroupName="Date" />
-            <asp:Label ID="lblPickPeriod" runat="server" Text="Period" CssClass="Field"></asp:Label>
-        </td>
-    </tr>
     <tr id="trCategoryAction" runat="server">
         <td valign="top" style="width: 40%" colspan="2" align="left">
             <div id="divDateRange" runat="server" visible="false" style="float: left;">
-                <asp:Label ID="lblFromDate" runat="server" CssClass="FieldName">From:</asp:Label>
+               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <asp:Label ID="lblFromDate" runat="server" CssClass="FieldName">From:</asp:Label>
                 <telerik:RadDatePicker ID="txtFromDate" CssClass="txtField" runat="server" Culture="English (United States)"
                     Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
                     <Calendar ID="Calendar1" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
@@ -89,21 +77,33 @@
                 <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="ddlPeriod"
                     CssClass="rfvPCG" ErrorMessage="Please select a Period" Operator="NotEqual" ValueToCompare="Select a Period"
                     ValidationGroup="vgBtnGo"> </asp:CompareValidator>
+                <tr>
+                    <td align="left" class="rightData" style="width: 40%;" colspan="2">
+                        <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="Date Type:"></asp:Label>
+                        <asp:RadioButton ID="rbtnPickDate" AutoPostBack="true" Checked="true" OnCheckedChanged="rbtnDate_CheckedChanged"
+                            runat="server" GroupName="Date" />
+                        <asp:Label ID="lblPickDate" runat="server" Text="Date Range" CssClass="Field"></asp:Label>
+                        &nbsp;
+                        <asp:RadioButton ID="rbtnPickPeriod" AutoPostBack="true" OnCheckedChanged="rbtnDate_CheckedChanged"
+                            runat="server" GroupName="Date" />
+                        <asp:Label ID="lblPickPeriod" runat="server" Text="Period" CssClass="Field"></asp:Label>
+                    </td>
+                </tr>
             </div>
         </td>
     </tr>
     <tr>
         <td>
-            <asp:Label ID="lblFilter" runat="server" Text="Filter:" CssClass="FieldName"></asp:Label>
+         &nbsp;<asp:Label ID="lblFilter" runat="server" Text="Select Type:" CssClass="FieldName"></asp:Label>
             <asp:DropDownList ID="ddlFilter" runat="server" CssClass="cmbField">
                 <asp:ListItem Value="S">Select</asp:ListItem>
-                <asp:ListItem Value="0">Offline Only</asp:ListItem>
-                <asp:ListItem Value="1">Online Only</asp:ListItem>
+                <asp:ListItem Value="1">Online</asp:ListItem>
+                <asp:ListItem Value="0">Offline</asp:ListItem>
                 <asp:ListItem Value="2">All</asp:ListItem>
             </asp:DropDownList>
             <span id="Span1" class="spnRequiredField">*</span>
             <asp:Label ID="lblErrorFilter" Text="Please Select a Filter" CssClass="rfvPCG" Visible="false"
-                runat="server" style="color:Red"></asp:Label>
+                runat="server" Style="color: Red"></asp:Label>
         </td>
     </tr>
     <tr id="trGoButton" runat="server">
@@ -112,7 +112,7 @@
                 ValidationGroup="vgBtnGo"/>
          </td>--%>
         <td>
-            <asp:Label ID="lblMis" runat="server" CssClass="FieldName" Text="Select MIS:"></asp:Label>
+           &nbsp; <asp:Label ID="lblMis" runat="server" CssClass="FieldName" Text="Select MIS:"></asp:Label>
             <asp:LinkButton ID="lnkBtnSubBrokerCustomer" Text="CUSTOMER/FOLIO" CssClass="LinkButtonsWithoutUnderLine"
                 runat="server" OnClick="lnkBtnSubBrokerCustomer_Click" ValidationGroup="vgBtnGo"></asp:LinkButton>
             <span>|</span>
@@ -123,8 +123,6 @@
                 runat="server" OnClick="lnkBtnProduct_Click" ValidationGroup="vgBtnGo"></asp:LinkButton>
         </td>
     </tr>
-    
-    
     <tr>
         <td>
             <div id="dvSectionHeading" runat="server" class="divSectionHeading" style="vertical-align: middle;
@@ -331,7 +329,6 @@
                                 <telerik:GridTemplateColumn HeaderStyle-Width="100px" AllowFiltering="false" UniqueName="action"
                                     DataField="action" FooterText="Grand Total:" Visible="false">
                                 </telerik:GridTemplateColumn>
-                               
                                 <telerik:GridBoundColumn HeaderText="Order No." HeaderTooltip="Order Number" DataField="OrderNo"
                                     UniqueName="OrderNo" SortExpression="OrderNo" AutoPostBackOnFilter="true" AllowFiltering="true"
                                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
@@ -362,14 +359,13 @@
                                     DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
                                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Is Online"
-                                    HeaderText="Is Online" DataField="IsOnline" HeaderStyle-HorizontalAlign="Right"
-                                    UniqueName="IsOnline" SortExpression="IsOnline" AutoPostBackOnFilter="true"
-                                    AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                    DataFormatString="{0:N0}"  FooterStyle-HorizontalAlign="Right">
+                                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Is Online" HeaderText="Is Online"
+                                    DataField="IsOnline" HeaderStyle-HorizontalAlign="Right" UniqueName="IsOnline"
+                                    SortExpression="IsOnline" AutoPostBackOnFilter="true" AllowFiltering="false"
+                                    ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N0}"
+                                    FooterStyle-HorizontalAlign="Right">
                                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                
                                 <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Purchase Transaction"
                                     HeaderText="Purchase Cnt" DataField="BUYCount" HeaderStyle-HorizontalAlign="Right"
                                     UniqueName="BUYCount" SortExpression="BUYCount" AutoPostBackOnFilter="true" AllowFiltering="false"
@@ -473,7 +469,7 @@
                                     AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                  <telerik:GridBoundColumn HeaderTooltip="ClusterManager" HeaderText="Cluster Manager"
+                                <telerik:GridBoundColumn HeaderTooltip="ClusterManager" HeaderText="Cluster Manager"
                                     DataField="ClusterManager" UniqueName="ClusterManager" SortExpression="ClusterManager"
                                     AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                     Aggregate="Count">
@@ -484,15 +480,15 @@
                                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                     <ItemStyle HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                 <telerik:GridBoundColumn HeaderText="ZonalManagerName" HeaderTooltip="ZonalManagerName"
+                                <telerik:GridBoundColumn HeaderText="ZonalManagerName" HeaderTooltip="ZonalManagerName"
                                     DataField="ZonalManagerName" UniqueName="ZonalManagerName" SortExpression="ZonalManagerName"
                                     AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                     FooterText="Grand Total:">
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn HeaderText="Deputy Head" HeaderTooltip="DeputyHead"
-                                    DataField="DeputyHead" UniqueName="DeputyHead" SortExpression="DeputyHead"
-                                    AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                <telerik:GridBoundColumn HeaderText="Deputy Head" HeaderTooltip="DeputyHead" DataField="DeputyHead"
+                                    UniqueName="DeputyHead" SortExpression="DeputyHead" AutoPostBackOnFilter="true"
+                                    AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                     FooterText="Grand Total:">
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
@@ -574,14 +570,13 @@
                                     DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
                                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Is Online"
-                                    HeaderText="Is Online" DataField="IsOnline" HeaderStyle-HorizontalAlign="Right"
-                                    UniqueName="IsOnline" SortExpression="IsOnline" AutoPostBackOnFilter="true"
-                                    AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                    DataFormatString="{0:N0}"  FooterStyle-HorizontalAlign="Right">
+                                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Is Online" HeaderText="Is Online"
+                                    DataField="IsOnline" HeaderStyle-HorizontalAlign="Right" UniqueName="IsOnline"
+                                    SortExpression="IsOnline" AutoPostBackOnFilter="true" AllowFiltering="false"
+                                    ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N0}"
+                                    FooterStyle-HorizontalAlign="Right">
                                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                
                                 <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Purchase Transaction"
                                     HeaderText="Purchase Cnt" DataField="BUYCount" HeaderStyle-HorizontalAlign="Right"
                                     UniqueName="BUYCount" SortExpression="BUYCount" AutoPostBackOnFilter="true" AllowFiltering="false"
@@ -680,7 +675,7 @@
                                     DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
                                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                 <telerik:GridBoundColumn HeaderText="SubBrokerCode" DataField="SubBrokerCode" UniqueName="SubBrokerCode"
+                                <telerik:GridBoundColumn HeaderText="SubBrokerCode" DataField="SubBrokerCode" UniqueName="SubBrokerCode"
                                     SortExpression="SubBrokerCode" AutoPostBackOnFilter="true" AllowFiltering="true"
                                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                     <ItemStyle HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
@@ -692,8 +687,8 @@
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn HeaderTooltip="Channel" HeaderText="Channel" DataField="ChannelName"
-                                    HeaderStyle-Width="80px" UniqueName="ChannelName" SortExpression="ChannelName" AutoPostBackOnFilter="true"
-                                    AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                    HeaderStyle-Width="80px" UniqueName="ChannelName" SortExpression="ChannelName"
+                                    AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                     Aggregate="Count">
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
@@ -703,27 +698,27 @@
                                     Aggregate="Count">
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn HeaderTooltip="Cluster Manager" HeaderText="Cluster Manager" DataField="ClusterManager"
-                                    HeaderStyle-Width="80px" UniqueName="ClusterManager" SortExpression="ClusterManager" AutoPostBackOnFilter="true"
-                                    AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                <telerik:GridBoundColumn HeaderTooltip="Cluster Manager" HeaderText="Cluster Manager"
+                                    DataField="ClusterManager" HeaderStyle-Width="80px" UniqueName="ClusterManager"
+                                    SortExpression="ClusterManager" AutoPostBackOnFilter="true" AllowFiltering="true"
+                                    ShowFilterIcon="false" CurrentFilterFunction="Contains" Aggregate="Count">
+                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn HeaderTooltip="Area Manager" HeaderText="Area Manager" DataField="AreaManager"
+                                    HeaderStyle-Width="80px" UniqueName="AreaManager" SortExpression="AreaManager"
+                                    AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                     Aggregate="Count">
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                 <telerik:GridBoundColumn HeaderTooltip="Area Manager" HeaderText="Area Manager" DataField="AreaManager"
-                                    HeaderStyle-Width="80px" UniqueName="AreaManager" SortExpression="AreaManager" AutoPostBackOnFilter="true"
-                                    AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                    Aggregate="Count">
+                                <telerik:GridBoundColumn HeaderTooltip="Zonal Manager" HeaderText="Zonal Manager"
+                                    DataField="ZonalManagerName" HeaderStyle-Width="80px" UniqueName="ZonalManagerName"
+                                    SortExpression="ZonalManagerName" AutoPostBackOnFilter="true" AllowFiltering="true"
+                                    ShowFilterIcon="false" CurrentFilterFunction="Contains" Aggregate="Count">
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                 <telerik:GridBoundColumn HeaderTooltip="Zonal Manager" HeaderText="Zonal Manager" DataField="ZonalManagerName"
-                                    HeaderStyle-Width="80px" UniqueName="ZonalManagerName" SortExpression="ZonalManagerName" AutoPostBackOnFilter="true"
-                                    AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                    Aggregate="Count">
-                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                </telerik:GridBoundColumn>
-                                 <telerik:GridBoundColumn HeaderTooltip="Deputy Head" HeaderText="Deputy Head" DataField="DeputyHead"
-                                    HeaderStyle-Width="80px" UniqueName="DeputyHead" SortExpression="DeputyHead" AutoPostBackOnFilter="true"
-                                    AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                <telerik:GridBoundColumn HeaderTooltip="Deputy Head" HeaderText="Deputy Head" DataField="DeputyHead"
+                                    HeaderStyle-Width="80px" UniqueName="DeputyHead" SortExpression="DeputyHead"
+                                    AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                     Aggregate="Count">
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>

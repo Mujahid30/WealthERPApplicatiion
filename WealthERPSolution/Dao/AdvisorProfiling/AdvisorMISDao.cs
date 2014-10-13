@@ -2099,7 +2099,7 @@ namespace DaoAdvisorProfiling
             return dsGetMISCommission;
         }
 
-        public DataSet GetMFReturnsDetails(string userType, int adviserid, int RmId, int branchId, int branchHeadId, int All, string strValuationDate, int customerid)
+        public DataSet GetMFReturnsDetails(string userType, int adviserid, int RmId, int branchId, int branchHeadId, int All, string strValuationDate, int customerid,int online)
         {
             Database db;
             DbCommand getMFReturnsCmd;
@@ -2118,6 +2118,7 @@ namespace DaoAdvisorProfiling
                 if (strValuationDate != "01/01/0001")
                     db.AddInParameter(getMFReturnsCmd, "@valuationDate", DbType.DateTime, DateTime.Parse(strValuationDate));
                 db.AddInParameter(getMFReturnsCmd, "@customerid", DbType.Int32, customerid);
+                db.AddInParameter(getMFReturnsCmd, "@online", DbType.Int32, online);
                 getMFReturnsCmd.CommandTimeout = 60 * 60;
                 dsGetMFReturns = db.ExecuteDataSet(getMFReturnsCmd);
                 //dtGetReturns = dsGetMFReturns.Tables[0];
