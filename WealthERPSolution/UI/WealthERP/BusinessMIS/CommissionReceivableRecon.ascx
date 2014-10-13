@@ -181,7 +181,8 @@
         <%-- </exportsettings>--%>
         <MasterTableView Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
             CommandItemDisplay="None" GroupsDefaultExpanded="false" ExpandCollapseColumn-Groupable="true"
-            GroupLoadMode="Client" ShowGroupFooter="true" DataKeyNames="CMFT_MFTransId">
+            GroupLoadMode="Client" ShowGroupFooter="true" DataKeyNames="CMFT_MFTransId,totalNAV,perDayTrail,
+PerDayAssets">
             <Columns>
                 <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="action" DataField="action" Visible="false">
                     <HeaderTemplate>
@@ -227,13 +228,31 @@
                 <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="Current Value" DataField="currentvalue"
                     HeaderStyle-HorizontalAlign="Right" UniqueName="currentvalue" SortExpression="currentvalue"
                     AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                    FooterStyle-HorizontalAlign="Right">
+                    FooterStyle-HorizontalAlign="Right" Visible="false" >
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="Commission Amount Received"
                     DataField="receivedamount" HeaderStyle-HorizontalAlign="Right" UniqueName="receivedamount"
                     SortExpression="receivedamount" AutoPostBackOnFilter="true" AllowFiltering="false"
-                    ShowFilterIcon="false" CurrentFilterFunction="Contains" FooterStyle-HorizontalAlign="Right">
+                    ShowFilterIcon="false" CurrentFilterFunction="Contains" FooterStyle-HorizontalAlign="Right" Visible="false">
+                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                 <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="Cumulative Nav" DataField="totalNAV"
+                    HeaderStyle-HorizontalAlign="Right" UniqueName="totalNAV" SortExpression="totalNAV"
+                    AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                    FooterStyle-HorizontalAlign="Right" DataType="System.Decimal">
+                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="PerDayAssets" DataField="PerDayAssets"
+                    HeaderStyle-HorizontalAlign="Right" UniqueName="PerDayAssets" SortExpression="PerDayAssets"
+                    AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                    FooterStyle-HorizontalAlign="Right" DataType="System.Decimal">
+                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="PerDayTrail" DataField="perDayTrail"
+                    HeaderStyle-HorizontalAlign="Right" UniqueName="perDayTrail" SortExpression="perDayTrail"
+                    AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                    FooterStyle-HorizontalAlign="Right" DataType="System.Decimal">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="Commission Amount Expected"
@@ -255,7 +274,7 @@
                 <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="Amount Difference"
                     DataField="diff" HeaderStyle-HorizontalAlign="Right" UniqueName="diff" SortExpression="diff"
                     AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                    FooterStyle-HorizontalAlign="Right">
+                    FooterStyle-HorizontalAlign="Right" Visible="false">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="Commission Updated Expected Amount"
@@ -273,7 +292,7 @@
                 <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="CalculatedDate" DataField="calculatedDate"
                     HeaderStyle-HorizontalAlign="Right" UniqueName="calculatedDate" SortExpression="calculatedDate"
                     AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                    FooterStyle-HorizontalAlign="Right">
+                    FooterStyle-HorizontalAlign="Right" Visible="false">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 <%--<telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="Structure Name" DataField="structName"
@@ -282,6 +301,7 @@
                     FooterStyle-HorizontalAlign="Right">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>--%>
+               
             </Columns>
         </MasterTableView>
         <ClientSettings>

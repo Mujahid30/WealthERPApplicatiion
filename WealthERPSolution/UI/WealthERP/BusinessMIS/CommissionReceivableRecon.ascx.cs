@@ -103,7 +103,23 @@ namespace WealthERP.BusinessMIS
         protected void gvWERPTrans_ItemDataBound(object sender, GridItemEventArgs e)
         {
             if (e.Item is GridDataItem)
-            { }
+            {
+                if (ddlCommType.SelectedValue != "TC")
+                {
+                    gvCommissionReceiveRecon.MasterTableView.GetColumn("totalNAV").Visible = false;
+                    gvCommissionReceiveRecon.MasterTableView.GetColumn("PerDayAssets").Visible = false;
+                    gvCommissionReceiveRecon.MasterTableView.GetColumn("perDayTrail").Visible = false;
+
+                }
+                else
+                {
+                    gvCommissionReceiveRecon.MasterTableView.GetColumn("totalNAV").Visible = true;
+                    gvCommissionReceiveRecon.MasterTableView.GetColumn("PerDayAssets").Visible = true;
+                    gvCommissionReceiveRecon.MasterTableView.GetColumn("perDayTrail").Visible = true;
+                   
+
+                }
+            }
 
         }
         protected void GdBind_Click(Object sender, EventArgs e)
