@@ -84,7 +84,7 @@ namespace DaoCommisionManagement
             return ds;
         }
 
-        public DataSet GetIssuesStructureMapings(int adviserId, string mappedType, string issueType)
+        public DataSet GetIssuesStructureMapings(int adviserId, string mappedType, string issueType, string product)
         {
             Database db;
             DbCommand cmdIssueMap;
@@ -97,6 +97,7 @@ namespace DaoCommisionManagement
                 db.AddInParameter(cmdIssueMap, "@A_AdviserId", DbType.Int32, adviserId);
                 db.AddInParameter(cmdIssueMap, "@mappedType", DbType.String, mappedType);
                 db.AddInParameter(cmdIssueMap, "@issueType", DbType.String, issueType);
+                db.AddInParameter(cmdIssueMap, "@product", DbType.String, product);
 
 
                 ds = db.ExecuteDataSet(cmdIssueMap);

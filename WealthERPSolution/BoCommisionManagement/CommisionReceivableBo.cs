@@ -71,13 +71,13 @@ namespace BoCommisionManagement
             return dsLookupData;
         }
 
-        public DataSet GetIssuesStructureMapings(int adviserId, string mappedType, string issueType)
+        public DataSet GetIssuesStructureMapings(int adviserId, string mappedType, string issueType, string product)
         {
             CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
             DataSet dsLookupData;
             try
             {
-                dsLookupData = commisionReceivableDao.GetIssuesStructureMapings(adviserId, mappedType, issueType);
+                dsLookupData = commisionReceivableDao.GetIssuesStructureMapings(adviserId, mappedType, issueType, product);
 
             }
             catch (BaseApplicationException Ex)
