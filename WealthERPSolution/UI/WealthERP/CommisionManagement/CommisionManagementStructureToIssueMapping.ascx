@@ -38,9 +38,9 @@
         </td>
     </tr>
     <tr id="trBtnSubmit" runat="server">
-        <td class="leftLabel">
+        <td  >
             <asp:Button ID="btnMAP" runat="server" Text="Map" CssClass="PCGButton" ValidationGroup="btnGo"
-                OnClick="btnMAP_Click" />
+                OnClick="btnMAP_Click"  />
         </td>
     </tr>
 </table>

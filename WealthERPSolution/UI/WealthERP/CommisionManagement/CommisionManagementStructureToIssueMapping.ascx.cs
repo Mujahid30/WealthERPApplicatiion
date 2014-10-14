@@ -41,13 +41,19 @@ namespace WealthERP.CommisionManagement
                 GetMapped_Unmapped_Issues("Mapped", "");
                 GetUnamppedIssues(ddlIssueType.SelectedValue);
 
+
             }
         }
 
         public void GetMapped_Unmapped_Issues(string type, string issueType)
         {
             DataTable dtmappedIssues = new DataTable();
-            dtmappedIssues = commisionReceivableBo.GetIssuesStructureMapings(advisorVo.advisorId, type, issueType).Tables[0];
+            string product=string.Empty;
+            if (Request.QueryString["Product"] != null)
+            {
+                 product =  Request.QueryString["Product"].ToString();
+            }
+            dtmappedIssues = commisionReceivableBo.GetIssuesStructureMapings(advisorVo.advisorId, type, issueType,product).Tables[0];
             if (dtmappedIssues == null)
                 return;
             if (dtmappedIssues.Rows.Count == 0)
@@ -95,6 +101,11 @@ namespace WealthERP.CommisionManagement
         protected void btnMAP_Click(object sender, EventArgs e)
         {
             int mappingId;
+            if (string.IsNullOrEmpty( ddlUnMappedIssues.SelectedValue))
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select Issue');", true);
+                return;
+            }
             if (Request.QueryString["ID"] != null)
             {
                 commissionStructureRuleVo.CommissionStructureId = Convert.ToInt32(Request.QueryString["ID"].Trim().ToString());

@@ -201,6 +201,11 @@ namespace WealthERP.Receivable {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.TextBoxWatermarkExtender TextBoxWatermarkExtender2;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl SpanCategory;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl SpanSubCategory;
+
+        
+
         
         /// <summary>
         /// CompareValidator1 control.

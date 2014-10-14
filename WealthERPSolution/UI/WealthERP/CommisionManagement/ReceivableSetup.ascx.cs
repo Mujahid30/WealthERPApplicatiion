@@ -76,6 +76,8 @@ namespace WealthERP.Receivable
                 lblCategory.Visible = true;
                 ddlCategory.Visible = true;
                 lblSubCategory.Visible = true;
+                SpanCategory.Visible = true;
+                SpanSubCategory.Visible = true;
             }
             else if (asset == "FI")
             {
@@ -83,6 +85,8 @@ namespace WealthERP.Receivable
                 lblCategory.Visible = false;
                 ddlCategory.Visible = false;
                 lblSubCategory.Visible = false;
+                SpanCategory.Visible = false;
+                 SpanSubCategory.Visible = false;
             }
             else if (asset == "IP")
             {
@@ -90,6 +94,8 @@ namespace WealthERP.Receivable
                 lblCategory.Visible = false;
                 ddlCategory.Visible = false;
                 lblSubCategory.Visible = false;
+                SpanCategory.Visible = false;
+                SpanSubCategory.Visible = false;
             }
             BindAllDropdown();
 
@@ -168,8 +174,10 @@ namespace WealthERP.Receivable
         {
             if (assetType == "MF")
             {
+                
                 ddlProductType.SelectedValue = "MF";          
                 ddlCategory.SelectedValue = "MFDT";
+
             }
             else if (assetType == "FI")
             {
@@ -178,7 +186,7 @@ namespace WealthERP.Receivable
             }
             else if (assetType == "IP")
             {
-                ddlProductType.SelectedValue = "FI";
+                ddlProductType.SelectedValue = "IP";
                 ddlCategory.SelectedValue = "FIIP";
             }
 
@@ -213,21 +221,33 @@ namespace WealthERP.Receivable
 
                 commissionStructureMasterVo.StructureNote = txtNote.Text.Trim();
 
-
-                foreach (RadListBoxItem item in rlbAssetSubCategory.Items)
+                if (ddlProductType.SelectedValue == "MF")
                 {
-                    if (item.Checked == true)
+                    foreach (RadListBoxItem item in rlbAssetSubCategory.Items)
                     {
-                        strSubCategoryCode.Append(item.Value);
-                        strSubCategoryCode.Append("~");
+                        if (item.Checked == true)
+                        {
+                            strSubCategoryCode.Append(item.Value);
+                            strSubCategoryCode.Append("~");
+                        }
                     }
+
+                    if (!string.IsNullOrEmpty(strSubCategoryCode.ToString()))
+                        strSubCategoryCode = strSubCategoryCode.Remove((strSubCategoryCode.Length - 1), 1);
+
+                    commissionStructureMasterVo.AssetSubCategory = strSubCategoryCode;
                 }
-
-                if (!string.IsNullOrEmpty(strSubCategoryCode.ToString()))
-                    strSubCategoryCode = strSubCategoryCode.Remove((strSubCategoryCode.Length - 1), 1);
-
-                commissionStructureMasterVo.AssetSubCategory = strSubCategoryCode;
-
+                else if (ddlProductType.SelectedValue == "IP")
+                {
+                 
+                    strSubCategoryCode.Append("FIFIIP");
+                      commissionStructureMasterVo.AssetSubCategory = strSubCategoryCode;
+                }
+                else if (ddlProductType.SelectedValue == "FI")
+                {       
+                    strSubCategoryCode.Append("FISDSD");
+                    commissionStructureMasterVo.AssetSubCategory = strSubCategoryCode;
+                }
             }
 
             catch (BaseApplicationException Ex)
@@ -253,7 +273,7 @@ namespace WealthERP.Receivable
         {
             int commissionStructureId = 0;
             commissionStructureMasterVo = CollectStructureMastetrData();
-            if (!string.IsNullOrEmpty(commissionStructureMasterVo.AssetSubCategory.ToString()) && ddlProductType.SelectedValue == "MF")
+            if (string.IsNullOrEmpty(commissionStructureMasterVo.AssetSubCategory.ToString()) && ddlProductType.SelectedValue == "MF")
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('At least one subcategory required!');", true);
                 return;
@@ -276,11 +296,11 @@ namespace WealthERP.Receivable
         {
             if (ddlProductType.SelectedValue == "MF")
             {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('CommissionStructureToSchemeMapping','ID=" + hidCommissionStructureName.Value + "');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('CommissionStructureToSchemeMapping','ID=" + hidCommissionStructureName.Value + "&Product=" + ddlProductType.SelectedValue + "');", true);
             }
             else
             {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('CommisionManagementStructureToIssueMapping','ID=" + hidCommissionStructureName.Value + "');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('CommisionManagementStructureToIssueMapping','ID=" + hidCommissionStructureName.Value + "&Product=" + ddlProductType.SelectedValue + "');", true);
 
             }
         }
@@ -1007,6 +1027,7 @@ namespace WealthERP.Receivable
 
             btnMapToscheme.Visible = false;
 
+            ShowHideControlsBasedOnProduct("MF");
             SetStructureMasterControlDefaultValues("MF");
             BindSubcategoryListBox(ddlCategory.SelectedValue);
         }

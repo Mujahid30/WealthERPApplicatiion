@@ -249,14 +249,14 @@
                     <asp:DropDownList ID="ddlCategory" runat="server" CssClass="cmbField" AutoPostBack="true"
                         OnSelectedIndexChanged="ddlCategory_OnSelectedIndexChanged">
                     </asp:DropDownList>
-                    <span id="Span7" class="spnRequiredField">*</span>
+                    <span id="SpanCategory" class="spnRequiredField" runat="server">*</span>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ErrorMessage="Please Select Category"
                         CssClass="rfvPCG" ControlToValidate="ddlCategory" ValidationGroup="btnStrAddUpdate"
                         Display="Dynamic" InitialValue="0"></asp:RequiredFieldValidator>
                 </td>
                 <td align="left">
                     <asp:Label ID="lblSubCategory" runat="server" Text="Sub Category:" CssClass="FieldName"></asp:Label>
-                    <span id="Span4" class="spnRequiredField">*</span>
+                    <span id="SpanSubCategory" class="spnRequiredField" runat="server">*</span>
                 </td>
             </tr>
             <tr id="trIssuer" runat="server">

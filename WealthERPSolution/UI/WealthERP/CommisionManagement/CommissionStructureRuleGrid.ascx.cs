@@ -41,7 +41,7 @@ namespace WealthERP.CommisionManagement
                 BindProductDropdown();
                 ddProduct.SelectedValue = "MF";
                 //ddProduct.Enabled = false;
-
+                ShowHideControlsBasedOnProduct(ddProduct.SelectedValue);
                 BindCategoryDropdown(ddProduct.SelectedValue);
                 BindIssuerDropdown();
             }
@@ -217,16 +217,16 @@ namespace WealthERP.CommisionManagement
                         return;
                 }
             }
-            else if (ddProduct.SelectedValue == "FI")
+            else if (ddProduct.SelectedValue == "FI" || ddProduct.SelectedValue=="IP")
             {
                 switch (ddlAction.SelectedValue)
                 {
 
                     case "ViewSTDetails":
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('ReceivableSetup','StructureId=" + structureId + "'&ProductType=" + prodType + ");", true);
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('ReceivableSetup','StructureId=" + structureId + "&ProductType=" + prodType + "');", true);
                         break;
                     case "ManageSchemeMapping":
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('CommisionManagementStructureToIssueMapping','ID=" + structureId + "&p=" + prodType + "');", true);
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('CommisionManagementStructureToIssueMapping','ID=" + structureId + "&Product=" + prodType + "');", true);
                         break;
                     default:
                         return;
