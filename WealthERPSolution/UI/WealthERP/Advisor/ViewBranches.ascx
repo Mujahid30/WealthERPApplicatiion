@@ -6,7 +6,7 @@
 <div id="divBranchDetails" runat="server" style="width: 1100px; overflow: scroll">
     <table width="100%" class="TableBackground">
         <tr>
-            <td> 
+            <td>
                 <div class="divPageHeading">
                     <table cellspacing="0" cellpadding="3" width="100%">
                         <tr>
@@ -73,9 +73,7 @@
                         </asp:TemplateField>
                         <asp:BoundField DataField="BranchName" HeaderText="Name" />
                         <asp:BoundField DataField="BranchCode" HeaderText="Code" />
-                       
                         <asp:BoundField DataField="BranchHead" HeaderText="Head" />
-                         
                         <asp:BoundField DataField="Email" HeaderText="Email" />
                         <asp:BoundField DataField="Phone" HeaderText="Phone" />
                         <asp:BoundField DataField="BranchType" HeaderText="Type" />
@@ -95,7 +93,6 @@
     <asp:HiddenField ID="hdnCurrentPage" runat="server" />
     <asp:HiddenField ID="hdnSort" runat="server" Value="AB_BranchName ASC" />
 </div>
-
 <table id="tblClusterZone" runat="server" width="100%" class="TableBackground">
     <tr>
         <td>
@@ -103,7 +100,7 @@
                 <table cellspacing="0" cellpadding="3" width="100%">
                     <tr>
                         <td align="left">
-                            Zone Cluster Branch Details
+                            Branch Details
                         </td>
                         <td align="right">
                             <asp:ImageButton Visible="false" ID="btnExportFilteredDataForZoneClusterdetails"
@@ -116,17 +113,16 @@
             </div>
         </td>
     </tr>
-    
     <tr>
-        <td style="padding-top:8px;">
+        <td style="padding-top: 8px;">
             <asp:Panel ID="pnlZoneCluster" ScrollBars="Horizontal" runat="server">
                 <div runat="server" id="divZoneCluster" style="margin: 2px; width: 640px;">
                     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                         <ContentTemplate>
                             <telerik:RadGrid ID="gvZoneClusterdetails" runat="server" CssClass="RadGrid" GridLines="None"
-                                Width="120%" AllowSorting="True" AutoGenerateColumns="false"
-                                ShowStatusBar="true" AllowAutomaticDeletes="True" PageSize="5" AllowAutomaticInserts="false"
-                                AllowAutomaticUpdates="false" Skin="Telerik" OnNeedDataSource="gvZoneClusterdetails_NeedDataSource"
+                                enableloadondemand="True" Width="120%" AllowSorting="True" PagerStyle-AlwaysVisible="true"
+                                AllowPaging="true" AutoGenerateColumns="false" ShowStatusBar="true" PageSize="5"
+                                AllowAutomaticInserts="false" AllowAutomaticUpdates="false" Skin="Telerik" OnNeedDataSource="gvZoneClusterdetails_NeedDataSource"
                                 EnableEmbeddedSkins="false" EnableHeaderContextMenu="true" EnableHeaderContextFilterMenu="true"
                                 AllowFilteringByColumn="true" ShowFooter="false">
                                 <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="ZoneClusterdetailslist">
@@ -149,9 +145,9 @@
                                             AutoPostBackOnFilter="true" Visible="false">
                                             <HeaderStyle></HeaderStyle>
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridTemplateColumn ItemStyle-Width="100Px" AllowFiltering="false" >
-                                                <ItemTemplate>
-                                          <%--       <telerik:RadComboBox ID="ddlMenuzcd" UniqueName="ddlMenuzcd" OnSelectedIndexChanged="ddlMenuzcd_SelectedIndexChanged"
+                                        <telerik:GridTemplateColumn ItemStyle-Width="100Px" AllowFiltering="false">
+                                            <ItemTemplate>
+                                                <%--       <telerik:RadComboBox ID="ddlMenuzcd" UniqueName="ddlMenuzcd" OnSelectedIndexChanged="ddlMenuzcd_SelectedIndexChanged"
                                                         runat="server" EnableEmbeddedSkins="true" Skin ="Telerik"
                                                         AllowCustomText="true" Width="100px" AutoPostBack="true">
                                                         <Items>
@@ -160,16 +156,17 @@
                                                             <telerik:RadComboBoxItem  Text="Edit" Value="Edit" runat="server"></telerik:RadComboBoxItem>
                                                         </Items>
                                                   </telerik:RadComboBox>--%>
-                                                    <asp:DropDownList ID="ddlMenuzcd"  OnSelectedIndexChanged="ddlMenuzcd_SelectedIndexChanged" runat="server" EnableEmbeddedSkins="false" AutoPostBack="true"
-                                                     Width="100px" AppendDataBoundItems="true" CssClass="cmbField" >
-                                                     <items>
-                                                     <asp:ListItem Text="Select" Value="0" Selected="true"></asp:ListItem>
-                                                     <asp:ListItem Text="View" Value="View" ImageUrl="~/Images/DetailedView.png" runat="server"></asp:ListItem>
-                                                     <asp:ListItem Text="Edit" Value="Edit" runat="server" ></asp:ListItem>
-                                                     </items>
-                                                     </asp:DropDownList>
-                                                </ItemTemplate>
-                                            </telerik:GridTemplateColumn>
+                                                <asp:DropDownList ID="ddlMenuzcd" OnSelectedIndexChanged="ddlMenuzcd_SelectedIndexChanged"
+                                                    runat="server" EnableEmbeddedSkins="false" AutoPostBack="true" Width="100px"
+                                                    AppendDataBoundItems="true" CssClass="cmbField">
+                                                    <Items>
+                                                        <asp:ListItem Text="Select" Value="0" Selected="true"></asp:ListItem>
+                                                        <asp:ListItem Text="View" Value="View" ImageUrl="~/Images/DetailedView.png" runat="server"></asp:ListItem>
+                                                        <asp:ListItem Text="Edit" Value="Edit" runat="server"></asp:ListItem>
+                                                    </Items>
+                                                </asp:DropDownList>
+                                            </ItemTemplate>
+                                        </telerik:GridTemplateColumn>
                                         <telerik:GridBoundColumn UniqueName="ZoneName" HeaderStyle-Width="120px" HeaderText="Zone"
                                             DataField="ZoneName" SortExpression="ZoneName" AllowFiltering="true" ShowFilterIcon="false"
                                             AutoPostBackOnFilter="true" Aggregate="Count" FooterText="Row Count : ">
@@ -192,8 +189,8 @@
                                             ShowFilterIcon="false" AutoPostBackOnFilter="true">
                                             <HeaderStyle></HeaderStyle>
                                         </telerik:GridBoundColumn>
-                                         <%--<asp:BoundField DataField="AAC_AgentCode" HeaderText="AgentCode" />--%>
-                                         <telerik:GridBoundColumn UniqueName="AAC_AgentCode" HeaderStyle-Width="120px" HeaderText="SubBroker Code"
+                                        <%--<asp:BoundField DataField="AAC_AgentCode" HeaderText="AgentCode" />--%>
+                                        <telerik:GridBoundColumn UniqueName="AAC_AgentCode" HeaderStyle-Width="120px" HeaderText="SubBroker Code"
                                             DataField="AAC_AgentCode" SortExpression="AAC_AgentCode" AllowFiltering="true"
                                             ShowFilterIcon="false" AutoPostBackOnFilter="true">
                                             <HeaderStyle></HeaderStyle>
