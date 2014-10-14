@@ -19,12 +19,57 @@
    
 </script>
 
+<script type="text/javascript">
+    function validate(c) {
+        if (c.value == "") {
+            ValidatorEnable(document.getElementById("<%=RequiredFieldValidator1.ClientID%>"), true);
+
+        }
+    }
+</script>
+
+<script type="text/javascript">
+    function validate2(c) {
+        if (c.value == "") {
+            ValidatorEnable(document.getElementById("<%=rfvBranchCode.ClientID%>"), true);
+
+        }
+    }
+</script>
+
+<script type="text/javascript">
+    function validate3(c) {
+        if (c.value == "") {
+            ValidatorEnable(document.getElementById("<%=RequiredFieldValidator2.ClientID%>"), true);
+
+        }
+    }
+</script>
+
+<script type="text/javascript">
+    function validate4(c) {
+        if (c.value == "") {
+            ValidatorEnable(document.getElementById("<%=RequiredFieldValidator4.ClientID%>"), true);
+
+        }
+    }
+</script>
+
+<script type="text/javascript">
+    function validate5(c) {
+        if (c.value == "") {
+            ValidatorEnable(document.getElementById("<%=RequiredFieldValidator3.ClientID%>"), true);
+
+        }
+    }
+</script>
+
 <script language="javascript" type="text/javascript">
     window.onload = function() { assignValueToAgentCode() };
     function assignValueToAgentCode() {
         document.getElementById("<%=txtAgentCode.ClientID%>").value = "SSLB" + document.getElementById("<%=txtBranchCode.ClientID%>").value;
         document.getElementById("ctrl_AddBranch_hdnValue").value = "SSLB" + document.getElementById("<%=txtBranchCode.ClientID%>").value;
-      
+
     }
 </script>
 
@@ -99,7 +144,8 @@
             <asp:Label ID="Label3" runat="server" CssClass="FieldName" Text="Code :"></asp:Label>
         </td>
         <td class="rightField" width="25%">
-            <asp:TextBox ID="txtBranchCode" runat="server" CssClass="txtField" onblur="return assignValueToAgentCode()"></asp:TextBox>
+            <asp:TextBox ID="txtBranchCode" runat="server" CssClass="txtField" ValidationGroup="txtBranchCode"
+                onblur="return assignValueToAgentCode(validate2(this))"></asp:TextBox>
             <span id="Span1" class="spnRequiredField">*</span>
             <br />
             <asp:RequiredFieldValidator ControlToValidate="txtBranchCode" ErrorMessage="Please enter the Branch Code"
@@ -116,8 +162,7 @@
             <asp:Label ID="Label15" runat="server" CssClass="FieldName" Text="Agent Code :"></asp:Label>
         </td>
         <td class="rightField" width="25%">
-            <asp:TextBox ID="txtAgentCode" Enabled="false" runat="server" 
-                CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtAgentCode" Enabled="false" runat="server" CssClass="txtField"></asp:TextBox>
             <span id="Span8" class="spnRequiredField">*</span>
         </td>
     </tr>
@@ -137,7 +182,8 @@
             <asp:Label ID="Label4" runat="server" CssClass="FieldName" Text="Name :"></asp:Label>
         </td>
         <td class="rightField" width="25%">
-            <asp:TextBox ID="txtBranchName" CssClass="txtField" runat="server" MaxLength="25"></asp:TextBox>
+            <asp:TextBox ID="txtBranchName" CssClass="txtField" runat="server" MaxLength="25"
+                onblur="validate(this)"></asp:TextBox>
             <span id="Span2" class="spnRequiredField">*</span>
             <br />
             <asp:RequiredFieldValidator ControlToValidate="txtBranchName" ErrorMessage="Please enter the Branch/Associate Name"
@@ -148,10 +194,11 @@
             <asp:Label ID="Label1" runat="server" CssClass="FieldName" Visible="false" Text="Type:"></asp:Label>
         </td>
         <td class="rightfield" width="25%">
-            <asp:DropDownList ID="ddlBranchAssociateType" runat="server" CssClass="cmbField" Visible="false"
-                OnSelectedIndexChanged="ddlBranchAssociateType_SelectedIndexChanged" AutoPostBack="true">
+            <asp:DropDownList ID="ddlBranchAssociateType" runat="server" CssClass="cmbField"
+                Visible="false" OnSelectedIndexChanged="ddlBranchAssociateType_SelectedIndexChanged"
+                AutoPostBack="true">
             </asp:DropDownList>
-           <%-- <span id="Span4" class="spnRequiredField">*</span> </br>--%>
+            <%-- <span id="Span4" class="spnRequiredField">*</span> </br>--%>
             <asp:CompareValidator ID="ddlBranchAssociateType_CompareValidator" runat="server"
                 ControlToValidate="ddlBranchAssociateType" ErrorMessage="Please select a Branch/Associate Type"
                 Operator="NotEqual" ValueToCompare="Select a Type" CssClass="cvPCG" ValidationGroup="btnSubmit">
@@ -167,7 +214,7 @@
                 AutoPostBack="true">
                 <asp:ListItem Text="--SELECT--" Value="Select" Selected="True"></asp:ListItem>
                 <asp:ListItem Text="Zone" Value="Zone"></asp:ListItem>
-                <asp:ListItem Text="Area" Value="Area"></asp:ListItem>                
+                <asp:ListItem Text="Area" Value="Area"></asp:ListItem>
                 <asp:ListItem Text="Cluster" Value="Cluster"></asp:ListItem>
             </asp:DropDownList>
         </td>
@@ -206,7 +253,7 @@
             <table width="100%" cellspacing="0">
                 <tr>
                     <td>
-                        <asp:TextBox ID="txtLine1" CssClass="txtLongAddField" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="txtLine1" CssClass="txtLongAddField" onblur="validate3(this)" runat="server"></asp:TextBox>
                     </td>
                     <td>
                         <span id="Span3" class="spnRequiredField">*</span>
@@ -239,7 +286,8 @@
             <asp:Label ID="lblPinCode" runat="server" CssClass="FieldName" Text="Pin Code :"></asp:Label>
         </td>
         <td class="rightField">
-            <asp:TextBox ID="txtPinCode" runat="server" MinLength="6" MaxLength="6" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtPinCode" runat="server" MinLength="6" onblur="validate4(this)"
+                MaxLength="6" CssClass="txtField"></asp:TextBox>
             <span id="Span7" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="txtPinCode"
                 ErrorMessage="Pincode Required" CssClass="cvPCG" ValidationGroup="btnSubmit"
@@ -349,15 +397,13 @@
         <td class="rightField" colspan="3">
             <asp:TextBox ID="txtIsdPhone1" CssClass="txtField" runat="server" Width="55px" MaxLength="5">91</asp:TextBox>
             <asp:TextBox ID="txtStdPhone1" CssClass="txtField" runat="server" Width="55px" MaxLength="4"></asp:TextBox>
-            <asp:TextBox ID="txtPhone1" CssClass="txtField" runat="server" MaxLength="8"></asp:TextBox>
+            <asp:TextBox ID="txtPhone1" CssClass="txtField" onblur="validate5(this)" runat="server"
+                MaxLength="8"></asp:TextBox>
             <span id="Span5" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtPhone1"
                 ErrorMessage="<br />Please enter the Contact Number" Display="Dynamic" runat="server"
                 CssClass="rfvPCG" ValidationGroup="btnSubmit">
             </asp:RequiredFieldValidator>
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator5" ControlToValidate="txtStdPhone1"
-                ErrorMessage="<br />Please enter STD Code" Display="Dynamic" runat="server" CssClass="rfvPCG"
-                ValidationGroup="btnSubmit">
             </asp:RequiredFieldValidator>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator7" runat="server" CssClass="cvPCG"
                 ErrorMessage="<br />Please give only Numbers" ValidationExpression="\d+" ControlToValidate="txtIsdPhone1"
@@ -619,7 +665,7 @@
     <tr>
         <td colspan="2">
             <asp:HiddenField ID="hdnMsgValue" runat="server" />
-            <asp:HiddenField ID=hdnValue runat="server" />
+            <asp:HiddenField ID="hdnValue" runat="server" />
         </td>
     </tr>
     <tr>
@@ -634,4 +680,3 @@
     <asp:HiddenField runat="server" ID="hfConfirmValue" />
     </tr>--%>
 </table>
-
