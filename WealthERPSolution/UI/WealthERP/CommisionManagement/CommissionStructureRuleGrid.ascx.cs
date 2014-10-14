@@ -57,16 +57,22 @@ namespace WealthERP.CommisionManagement
             if (asset == "MF")
             {
                 trCategory.Visible = true;
-                
+                ddIssuer.Visible = true;
+                lblIssuer.Visible = true;
+               
             }
             else if (asset == "FI")
             {
                 trCategory.Visible = false;
-               
+                ddIssuer.Visible = false;
+                lblIssuer.Visible = false;
+                              
             }
             else if (asset == "IP")
             {
                 trCategory.Visible = false;
+                ddIssuer.Visible = false;
+                lblIssuer.Visible = false;
             }
             
 

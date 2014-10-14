@@ -131,7 +131,7 @@
                     <asp:Label ID="lblProduct" runat="server" Text="Product:" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightData">
-                    <asp:DropDownList ID="ddProduct" runat="server" CssClass="cmbField" 
+                    <asp:DropDownList ID="ddProduct" runat="server" CssClass="cmbField" AutoPostBack="true"
                         onselectedindexchanged="ddProduct_SelectedIndexChanged">
                     </asp:DropDownList>
                     <br />
