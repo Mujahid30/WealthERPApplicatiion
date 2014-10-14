@@ -49,6 +49,17 @@
             </asp:DropDownList>
         </td>
         <td></td>
+         <td align="right">
+            <asp:Label ID="lblType" runat="server" CssClass="FieldName" Text="Select Type:"></asp:Label>
+        </td>
+        <td >
+            <asp:DropDownList ID="ddlType" runat="server" CssClass="cmbField">
+             <asp:ListItem Value="2">All</asp:ListItem>
+            <asp:ListItem Value="0">OffLine</asp:ListItem>
+            <asp:ListItem Value="1">OnLine</asp:ListItem>
+            </asp:DropDownList>
+        </td>
+        <td></td>
         <td id="tdGoBtn" runat="server" align="right">
             <asp:Button ID="btnGo" runat="server" CssClass="PCGButton" Text="Go" OnClick="btnGo_Click"
                 ValidationGroup="vgBtnGo" />

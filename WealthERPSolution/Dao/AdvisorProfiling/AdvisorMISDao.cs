@@ -1570,7 +1570,7 @@ namespace DaoAdvisorProfiling
 
             return latestValuationDate;
         }
-        public DataSet GetMFDashBoard(string userType, int adviserId, int rmId, int branchId, int branchHeadId, int All, out int i, int IsAssociates, int AgentId)
+        public DataSet GetMFDashBoard(string userType, int adviserId, int rmId, int branchId, int branchHeadId, int All, out int i, int IsAssociates, string agentCode,int isOnline)
         {
             Database db;
             DbCommand getMFDashBoardCmd;
@@ -1581,13 +1581,13 @@ namespace DaoAdvisorProfiling
                 getMFDashBoardCmd = db.GetStoredProcCommand("SP_GetMFDashBoard");
                 db.AddInParameter(getMFDashBoardCmd, "@UserType", DbType.String, userType);
                 db.AddInParameter(getMFDashBoardCmd, "@adviserId", DbType.Int32, adviserId);
-                db.AddInParameter(getMFDashBoardCmd, "@AAC_AdviserAgentId", DbType.Int32, AgentId);
+                db.AddInParameter(getMFDashBoardCmd, "@agentCode", DbType.String, agentCode);
                 db.AddInParameter(getMFDashBoardCmd, "@IsAssociates", DbType.Int32, IsAssociates);
                 db.AddInParameter(getMFDashBoardCmd, "@RMId", DbType.Int32, rmId);
                 db.AddInParameter(getMFDashBoardCmd, "@branchHeadId", DbType.Int32, branchHeadId);
                 db.AddInParameter(getMFDashBoardCmd, "@BranchId", DbType.Int32, branchId);
                 db.AddInParameter(getMFDashBoardCmd, "@all", DbType.Int32, All);
-
+                db.AddInParameter(getMFDashBoardCmd, "@IsOnline", DbType.Int32, isOnline);
 
                 db.AddOutParameter(getMFDashBoardCmd, "@month", DbType.Int32, 0);
                 getMFDashBoardCmd.CommandTimeout = 60 * 60;

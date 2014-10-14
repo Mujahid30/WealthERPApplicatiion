@@ -29,7 +29,7 @@ namespace WealthERP.BusinessMIS
         AdvisorBranchBo advisorBranchBo = new AdvisorBranchBo();
         AssociatesVO associatesVo = new AssociatesVO();
         string path = string.Empty;
-
+        AssociatesUserHeirarchyVo associateuserheirarchyVo = new AssociatesUserHeirarchyVo();
         int advisorId = 0;
         String userType;
         int rmId = 0;
@@ -39,10 +39,13 @@ namespace WealthERP.BusinessMIS
         int branchHeadId = 0;
         int AgentId = 0;
         int IsAssociates;
+        string agentCode;
+        int isOnline;
 
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
             advisorVo = (AdvisorVo)Session["advisorVo"];
             rmVo = (RMVo)Session[SessionContents.RmVo];
             userVo = (UserVo)Session["userVo"];
@@ -81,6 +84,8 @@ namespace WealthERP.BusinessMIS
                     BindRMDropDown();
                     if (userType == "rm")
                     {
+                        ddlType.Visible = false;
+                        lblType.Visible = false;
                         ddlBranch.Enabled = false;
                         ddlRM.SelectedValue = rmVo.RMId.ToString();
                         ddlRM.Enabled = false;
@@ -127,6 +132,8 @@ namespace WealthERP.BusinessMIS
                     UpnlMFDashBoard.Visible = true;
                     trBranchRM.Visible = false;
                     btnGo.Visible = false;
+                    ddlType.Visible=false;
+                    lblType.Visible = false;
                 }
             }
 
@@ -176,6 +183,7 @@ namespace WealthERP.BusinessMIS
             if (userType == "advisor")
             {
                 IsAssociates = 0;
+                isOnline = Convert.ToInt32(ddlType.SelectedValue);
                 if (ddlBranch.SelectedIndex == 0 && ddlRM.SelectedIndex == 0)
                 {
                     hdnadviserId.Value = advisorVo.advisorId.ToString();
@@ -210,10 +218,12 @@ namespace WealthERP.BusinessMIS
                 IsAssociates = 0;
                 hdnrmId.Value = rmVo.RMId.ToString();
                 hdnAll.Value = "0";
+                isOnline = 0;
             }
             else if (userType == "bm")
             {
                 IsAssociates = 0;
+                isOnline = 0;
                 if (ddlBranch.SelectedIndex == 0 && ddlRM.SelectedIndex == 0)
                 {
 
@@ -244,13 +254,14 @@ namespace WealthERP.BusinessMIS
                 }
             }
             else if (userType == "associates")
-            {
-                AgentId = associatesVo.AAC_AdviserAgentId;
+             {
+                 agentCode = associateuserheirarchyVo.AgentCode;
                 IsAssociates = 1;
-                hdnadviserId.Value ="0";
+                hdnadviserId.Value = advisorVo.advisorId.ToString() ;
                 hdnbranchId.Value ="0";
                 hdnrmId.Value ="0";
                 hdnAll.Value = "0";
+                isOnline = 0;
             }
             if (hdnbranchHeadId.Value == "")
                 hdnbranchHeadId.Value = "0";
@@ -342,7 +353,7 @@ namespace WealthERP.BusinessMIS
             int i = 0, j = 0;
             DataSet dsMFDashBoard = new DataSet();
 
-            dsMFDashBoard = adviserMFMIS.GetMFDashBoard(userType, int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), int.Parse(hdnAll.Value), out i,IsAssociates,AgentId);
+            dsMFDashBoard = adviserMFMIS.GetMFDashBoard(userType, int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), int.Parse(hdnAll.Value), out i,IsAssociates,agentCode,isOnline);
 
 
             //i = DateTime.Now.Month;
