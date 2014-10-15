@@ -598,6 +598,7 @@ namespace WealthERP.OffLineOrderManagement
         protected void GetcustomerDetails()
         {
             CustomerPortfolioVo customerPortfolioVo = new CustomerPortfolioVo();
+            customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(int.Parse(txtCustomerId.Value));
             customerVo = customerBo.GetCustomer(int.Parse(txtCustomerId.Value));
             Session["customerVo"] = customerVo;
             lblGetBranch.Text = customerVo.BranchName;
@@ -683,7 +684,7 @@ namespace WealthERP.OffLineOrderManagement
                 if (dtgetBankBranch.Rows.Count > 0)
                 {
                     DataRow dr = dtgetBankBranch.Rows[0];
-                    txtBranchName.Text = dr["CB_BranchName"].ToString();
+                    txtBranchName.Text = dr["BBL_BranchName"].ToString();
                 }
                 hdnBankName.Value = ddlBankName.SelectedItem.Text;
             }
@@ -987,7 +988,7 @@ namespace WealthERP.OffLineOrderManagement
 
         private void BindIPOIssueList(string issueId)
         {
-            dtOnlineIPOIssueList = onlineIPOOrderBo.GetIPOIssueList(advisorVo.advisorId, Convert.ToInt32(issueId), 1, int.Parse(txtCustomerId.Value));
+            dtOnlineIPOIssueList = OfflineIPOOrderBo.GetIPOIssueList(advisorVo.advisorId, Convert.ToInt32(issueId), 1, int.Parse(txtCustomerId.Value));
             RadGridIPOIssueList.DataSource = dtOnlineIPOIssueList;
             RadGridIPOIssueList.DataBind();
             pnlIPOControlContainer.Visible = true;
