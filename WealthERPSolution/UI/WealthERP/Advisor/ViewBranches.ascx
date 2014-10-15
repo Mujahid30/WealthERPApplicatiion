@@ -121,7 +121,7 @@
                         <ContentTemplate>
                             <telerik:RadGrid ID="gvZoneClusterdetails" runat="server" CssClass="RadGrid" GridLines="None"
                                 enableloadondemand="True" Width="120%" AllowSorting="True" PagerStyle-AlwaysVisible="true"
-                                AllowPaging="true" AutoGenerateColumns="false" ShowStatusBar="true" PageSize="5"
+                                AllowPaging="true" AutoGenerateColumns="false" ShowStatusBar="true" PageSize="10"
                                 AllowAutomaticInserts="false" AllowAutomaticUpdates="false" Skin="Telerik" OnNeedDataSource="gvZoneClusterdetails_NeedDataSource"
                                 EnableEmbeddedSkins="false" EnableHeaderContextMenu="true" EnableHeaderContextFilterMenu="true"
                                 AllowFilteringByColumn="true" ShowFooter="false">
