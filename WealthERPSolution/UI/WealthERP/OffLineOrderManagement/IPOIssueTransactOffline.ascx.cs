@@ -673,22 +673,22 @@ namespace WealthERP.OffLineOrderManagement
             }
 
         }
-        protected void ddlBankName_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            int BankAccountId = 0;
-            DataTable dtgetBankBranch;
-            if (ddlBankName.SelectedIndex != 0)
-            {
-                BankAccountId = int.Parse(ddlBankName.SelectedValue);
-                dtgetBankBranch = mfOrderBo.GetBankBranch(BankAccountId);
-                if (dtgetBankBranch.Rows.Count > 0)
-                {
-                    DataRow dr = dtgetBankBranch.Rows[0];
-                    txtBranchName.Text = dr["BBL_BranchName"].ToString();
-                }
-                hdnBankName.Value = ddlBankName.SelectedItem.Text;
-            }
-        }
+        //protected void ddlBankName_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    int BankAccountId = 0;
+        //    DataTable dtgetBankBranch;
+        //    if (ddlBankName.SelectedIndex != 0)
+        //    {
+        //        BankAccountId = int.Parse(ddlBankName.SelectedValue);
+        //        dtgetBankBranch = mfOrderBo.GetBankBranch(BankAccountId);
+        //        if (dtgetBankBranch.Rows.Count > 0)
+        //        {
+        //            DataRow dr = dtgetBankBranch.Rows[0];
+        //            txtBranchName.Text = dr["BBL_BranchName"].ToString();
+        //        }
+        //        hdnBankName.Value = ddlBankName.SelectedItem.Text;
+        //    }
+        //}
 
         
         
@@ -1462,7 +1462,8 @@ namespace WealthERP.OffLineOrderManagement
 
         private void ShowMessage(string msg)
         {
-
+            tblMessage.Visible = true;
+            msgRecordStatus.InnerText = msg;
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "wsedrftgyhjukloghjnnn", " showMsg('" + msg + "','S');", true);
 
         }
@@ -1718,6 +1719,7 @@ namespace WealthERP.OffLineOrderManagement
         }
         protected void lnkBtnDemat_onClick(object sender, EventArgs e)
         {
+            GetDematAccountDetails(int.Parse(txtCustomerId.Value));
             rwDematDetails.VisibleOnPageLoad = true;
         }
         

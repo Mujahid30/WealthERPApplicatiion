@@ -278,8 +278,8 @@
                 <asp:DropDownList ID="ddlsearch" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlsearch_Selectedindexchanged"
                     AutoPostBack="true" TabIndex="0">
                     <asp:ListItem Text="Select" Value="0"></asp:ListItem>
-                    <asp:ListItem Text="Customer" Value="1"></asp:ListItem>
-                    <asp:ListItem Text="Pan" Value="2"></asp:ListItem>
+                    <asp:ListItem Text="Customer Name" Value="1"></asp:ListItem>
+                    <asp:ListItem Text="Customer Pan" Value="2"></asp:ListItem>
                 </asp:DropDownList>
             </td>
             <%--<td class="leftField" style="width: 20%">
@@ -461,6 +461,7 @@
             <td class="rightField" style="width: 20%">
                 <asp:TextBox ID="txtApplicationNo" onkeydown="return (event.keyCode!=13);" runat="server"
                     CssClass="txtField" AutoPostBack="false" OnKeypress="javascript:return isNumberKey(event);"></asp:TextBox>
+                <span id="Span2" class="spnRequiredField">*</span>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator5" ControlToValidate="txtApplicationNo"
                     ErrorMessage="<br />Please Enter Application No" Display="Dynamic" runat="server"
                     CssClass="rfvPCG" ValidationGroup="btnConfirmOrder"></asp:RequiredFieldValidator>
@@ -576,8 +577,8 @@
                 <asp:Label ID="lblBankName" runat="server" Text="Bank Name:" CssClass="FieldName"></asp:Label>
             </td>
             <td class="rightField" style="width: 20%">
-                <asp:DropDownList ID="ddlBankName" runat="server" CssClass="cmbField" AutoPostBack="true"
-                    AppendDataBoundItems="true" OnSelectedIndexChanged="ddlBankName_SelectedIndexChanged"
+                <asp:DropDownList ID="ddlBankName" runat="server" CssClass="cmbField" AutoPostBack="false"
+                    AppendDataBoundItems="true"
                     TabIndex="18">
                 </asp:DropDownList>
                 <span id="Span4" class="spnRequiredField">*</span>
