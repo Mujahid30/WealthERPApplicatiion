@@ -53,7 +53,7 @@ namespace WealthERP.CommisionManagement
             {
                  product =  Request.QueryString["Product"].ToString();
             }
-            dtmappedIssues = commisionReceivableBo.GetIssuesStructureMapings(advisorVo.advisorId, type, issueType,product).Tables[0];
+            dtmappedIssues = commisionReceivableBo.GetIssuesStructureMapings(advisorVo.advisorId, type, issueType,product,0).Tables[0];
             if (dtmappedIssues == null)
                 return;
             if (dtmappedIssues.Rows.Count == 0)
