@@ -16,6 +16,42 @@ namespace DaoOfflineOrderManagement
 {
     public class OfflineIPOOrderDao
     {
+        public DataTable GetIPOIssueList(int adviserId, int issueId, int type, int customerId)
+        {
+            DataTable dtIPOIssueList;
+            Database db;
+            DbCommand GetIPOIssueListCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetIPOIssueListCmd = db.GetStoredProcCommand("SPROC_OFF_GetIPOIssueList");
+                db.AddInParameter(GetIPOIssueListCmd, "@AdviserId", DbType.Int32, adviserId);
+                if (issueId != 0)
+                    db.AddInParameter(GetIPOIssueListCmd, "@IssueId", DbType.Int32, issueId);
+                db.AddInParameter(GetIPOIssueListCmd, "@type", DbType.Int32, type);
+                db.AddInParameter(GetIPOIssueListCmd, "@customerId", DbType.Int32, customerId);
+
+                dtIPOIssueList = db.ExecuteDataSet(GetIPOIssueListCmd).Tables[0];
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "DaoOfflineOrderManagement.cs:GetIPOIssueList(int adviserId)");
+                object[] objects = new object[1];
+                objects[0] = adviserId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtIPOIssueList;
+        }
         public int CreateIPOBidOrderDetails(int adviserId, int userId, DataTable dtIPOBidList, OnlineIPOOrderVo onlineIPOOrderVo,int agentId,string agentCode)
         {
             int orderId = 0;
