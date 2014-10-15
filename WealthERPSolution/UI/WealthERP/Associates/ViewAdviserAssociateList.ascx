@@ -25,8 +25,8 @@
 <table>
     <tr>
         <td>
-            <asp:Panel ID="pnlAdviserAssociateList" runat="server" ScrollBars="Both" Width="85%"
-                Height="100%" Visible="true">
+            <asp:Panel ID="pnlAdviserAssociateList" runat="server" ScrollBars="Both" Width="80%"
+                Height="400Px" Visible="true">
                 <table width="90%">
                     <tr>
                         <td>

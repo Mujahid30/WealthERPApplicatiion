@@ -27,7 +27,7 @@
                 <table cellspacing="0" width="100%">
                     <tr>
                         <td align="left">
-                            Re-Assign Staff/Associates
+                            Staff Re-Assign
                         </td>
                     </tr>
                 </table>
@@ -39,7 +39,7 @@
     <tr id="tr1" runat="server" visible="true">
         <td style="vertical-align: text-bottom; padding-top: 6px; padding-bottom: 6px">
             <div class="divSectionHeading" style="vertical-align: text-bottom">
-                Search Staff/Association
+                Select Reporting Manager
             </div>
         </td>
     </tr>
@@ -111,7 +111,7 @@
     <tr id="tr4" runat="server" visible="true">
         <td style="vertical-align: text-bottom; padding-top: 6px; padding-bottom: 6px">
             <div class="divSectionHeading" style="vertical-align: text-bottom">
-                Staff/Association
+                Select Staff Reporting to Manager
             </div>
         </td>
     </tr>
