@@ -50,6 +50,7 @@ namespace WealthERP.Customer
         protected void Page_Load(object sender, EventArgs e)
         {
             int customerId;
+            int portfolioid;
             rmvo = (RMVo)Session["rmvo"];
             BindDepositoryType();
             customerportfoliovo = (CustomerPortfolioVo)Session["customerPortfolioVo"];
@@ -58,6 +59,7 @@ namespace WealthERP.Customer
                 lblisactive.Visible = false;
                 chk_isactive.Visible = false;
                     customerId = int.Parse(Request.QueryString["CustomerId"].ToString());
+                    
                     dsModeOfHolding = new DataSet();
                     dtCustomerAccociation = new DataTable();
                     dsCustomerAssociation = new DataSet();
@@ -71,7 +73,7 @@ namespace WealthERP.Customer
                     ddlModeOfHolding.SelectedIndex = 8;
                     chk_isactive.Enabled = false;
                     lbtnBack2Button.Visible = false;
-                    Session["DematDetailsView"] = "ADD";
+                    Session["DematDetailsView"] = "Add";
             }
 
             else if (Session["DematDetailsView"].ToString() == "View")
@@ -356,7 +358,7 @@ namespace WealthERP.Customer
                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('DematAccountDetails','none');", true);
                           Response.Write("<script>alert('DematDeatails has been successfully added');</script>");
                            Response.Write("<script>window.close();</" + "script>");
-                           Response.End();
+                          
                        }
                     }
                     else if (Session["DematDetailsView"].ToString() == "Edit")
@@ -414,7 +416,7 @@ namespace WealthERP.Customer
         }
         protected void ddlDepositoryName_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if ((Session["DematDetailsView"].ToString() != "Add"))
+            if ((Session["DematDetailsView"].ToString() != "ADD"))
             {
                 if (ddlDepositoryName.SelectedItem.Text == "NSDL")
                 {
