@@ -107,7 +107,7 @@ namespace WealthERP.Associates
         {
             if (txtStaffId.Value == "")
             {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please Select New reporing Manager.');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please Select New Reporting Manager.');", true);
                 return;
             }
             else
@@ -192,7 +192,7 @@ namespace WealthERP.Associates
             string mappedStaffAssociate = string.Empty;
             if (txtStaffId.Value == "")
             {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please Select New reporing Manager.');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please Select New Reporing Manager.');", true);
                 return;
             }
             else

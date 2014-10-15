@@ -139,7 +139,7 @@
                 PageSize="5" AutoGenerateColumns="False" EnableEmbeddedSkins="False" GridLines="None"
                 ShowFooter="True" PagerStyle-AlwaysVisible="true" AllowPaging="true" ShowStatusBar="True"
                 Skin="Telerik" AllowFilteringByColumn="true" OnItemCommand="gvCustomerAlertSetup_OnItemCommand"
-                OnNeedDataSource="gvCustomerAlertSetup_OnNeedDataSource" OnItemDataBound="gvCustomerAlertSetup_OnItemDataBound">
+                OnNeedDataSource="gvCustomerAlertSetup_OnNeedDataSource" OnItemDataBound="gvCustomerAlertSetup_OnItemDataBound" OnPreRender="gvCustomerAlertSetup_PreRender" >
                 <MasterTableView DataKeyNames="AES_EventSetupID" AllowFilteringByColumn="true" Width="100%"
                     AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="Top"
                     EditMode="PopUp">

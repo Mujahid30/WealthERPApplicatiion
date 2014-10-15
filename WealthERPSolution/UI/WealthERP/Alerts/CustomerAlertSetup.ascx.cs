@@ -28,7 +28,7 @@ namespace WealthERP.Alerts
             userBo = new UserBo();
             userVo = (UserVo)Session[SessionContents.UserVo];
             adviserVo = (AdvisorVo)Session["advisorVo"];
-            CustomerVo cusromerVo=new CustomerVo();
+            CustomerVo cusromerVo = new CustomerVo();
             cusromerVo = (CustomerVo)Session["customerVo"];
             if (!IsPostBack)
             {
@@ -39,18 +39,18 @@ namespace WealthERP.Alerts
                     lblType.Visible = false;
                     ddlType.Visible = false;
                     btngo.Visible = false;
-                     //gvCustomerAlertSetup.MasterTableView.IsItemInserted = false; 
+                    //gvCustomerAlertSetup.MasterTableView.IsItemInserted = false; 
                     //GridEditableItem gridEditableItem = (GridEditableItem)e.(sender);
                     //gridEditableItem.OwnerTableView.IsItemInserted = false;
                     //this.gvCustomerAlertSetup.MasterTableView.Items[0].EditFormItem.Enabled = false;
                 }
             }
-                txtCustomerName_autoCompleteExtender.ContextKey = adviserVo.advisorId.ToString();
-                txtCustomerName_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
-                txtPansearch_autoCompleteExtender.ContextKey = adviserVo.advisorId.ToString();
-                txtPansearch_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerPan";
-                txtClientCode_autoCompleteExtender.ContextKey = adviserVo.advisorId.ToString();
-                txtClientCode_autoCompleteExtender.ServiceMethod = "GetCustCode";
+            txtCustomerName_autoCompleteExtender.ContextKey = adviserVo.advisorId.ToString();
+            txtCustomerName_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
+            txtPansearch_autoCompleteExtender.ContextKey = adviserVo.advisorId.ToString();
+            txtPansearch_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerPan";
+            txtClientCode_autoCompleteExtender.ContextKey = adviserVo.advisorId.ToString();
+            txtClientCode_autoCompleteExtender.ServiceMethod = "GetCustCode";
 
         }
         protected void click_Go(object sender, EventArgs e)
@@ -149,6 +149,16 @@ namespace WealthERP.Alerts
                 BindCustomerSIPRule(ddlAlert);
             }
         }
+        protected void gvCustomerAlertSetup_PreRender(object sender, EventArgs e)
+        {
+            if (Session["IsCustomerDrillDown"] != null)
+            {
+                GridCommandItem commandItem = gvCustomerAlertSetup.MasterTableView.GetItems(GridItemType.CommandItem)[0] as GridCommandItem;
+                commandItem.FindControl("AddNewRecordButton").Visible = false;
+                commandItem.FindControl("InitInsertButton").Visible = false;
+            }
+
+        }
         protected void BindCustomerSIP(DropDownList ddlSIPDiscription)
         {
             DataTable dt = alertBo.GetCustomerSIPList(int.Parse(txtCustomerId.Value));
@@ -196,6 +206,7 @@ namespace WealthERP.Alerts
                 {
                     alertBo.CreateCustomerAlertConfiguration(int.Parse(ddlSIPDiscription.SelectedValue), int.Parse(ddlAlert.SelectedValue), txtMsg.Text, Convert.ToDateTime(txtEventSubscription.SelectedDate), userVo.UserId);
                 }
+
             }
             if (e.CommandName == RadGrid.DeleteCommandName)
             {

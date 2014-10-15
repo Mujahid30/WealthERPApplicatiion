@@ -130,7 +130,7 @@
                                                     </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="Branch/Association" Value="Branch/Association">
+                                            <telerik:RadPanelItem runat="server" Text="Branch" Value="Branch/Association">
                                                 <Items>
                                                     <telerik:RadPanelItem runat="server" Text="Add Branch" Value="Add Branch">
                                                     </telerik:RadPanelItem>
@@ -845,7 +845,7 @@
                                                     </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="Branch/Association" Value="Branch/Association">
+                                            <telerik:RadPanelItem runat="server" Text="Branch" Value="Branch/Association">
                                                 <Items>
                                                     <telerik:RadPanelItem runat="server" Text="Add Branch" Value="Add Branch">
                                                     </telerik:RadPanelItem>
