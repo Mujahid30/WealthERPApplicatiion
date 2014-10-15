@@ -219,6 +219,10 @@ namespace WealthERP.BusinessMIS {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadGrid gvCommissionReconMIs;
+        protected global::Telerik.Web.UI.RadGrid gvCommissionReceiveRecon;
+        protected global::System.Web.UI.WebControls.DropDownList ddlProduct;
+        protected global::System.Web.UI.WebControls.DropDownList ddlCommType;
+        protected global::System.Web.UI.WebControls.DropDownList ddlSelectMode;
+        protected global::System.Web.UI.WebControls.DropDownList ddlIssueName;
     }
 }
