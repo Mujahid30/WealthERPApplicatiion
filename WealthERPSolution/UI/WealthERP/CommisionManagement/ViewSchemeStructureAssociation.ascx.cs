@@ -37,15 +37,27 @@ namespace WealthERP.CommisionManagement
 
             if (!IsPostBack)
             {
-                BindStructureSchemeGrid();
+                GetProduct();
             }
         }
 
+        protected void GetProduct()
+        {
+            DataSet dsproduct;
+            dsproduct = commisionReceivableBo.GetProduct(advisorVo.advisorId);
+
+            ddlProductType.DataSource = dsproduct.Tables[0];
+            ddlProductType.DataValueField = dsproduct.Tables[0].Columns["PAG_AssetGroupCode"].ToString();
+            ddlProductType.DataTextField = dsproduct.Tables[0].Columns["PAG_AssetGroupName"].ToString();
+            ddlProductType.DataBind();
+            ddlProductType.SelectedValue = "MF";
+            BindStructureSchemeGrid();
+        }
         private void BindStructureSchemeGrid()
         {
             try
             {
-                DataSet dsStructToScheme = commisionReceivableBo.GetStructureScheme(advisorVo.advisorId);
+                DataSet dsStructToScheme = commisionReceivableBo.GetStructureScheme(advisorVo.advisorId, ddlProductType.SelectedValue);
                 if (dsStructToScheme.Tables[0].Rows.Count > 0)
                 {
                     ibtExportSummary.Visible = true;
@@ -107,6 +119,10 @@ namespace WealthERP.CommisionManagement
             }
         }
 
+        protected void btnGo_Click(object sender, EventArgs e)
+        {
+            BindStructureSchemeGrid();
+        }
         protected void lbtStruct_Click(object sender, EventArgs e)
         {
             LinkButton lnkStruct = (LinkButton)sender;

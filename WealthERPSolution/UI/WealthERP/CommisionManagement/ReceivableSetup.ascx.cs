@@ -60,6 +60,7 @@ namespace WealthERP.Receivable
         {
             ShowHideControlsBasedOnProduct(ddlProductType.SelectedValue);
             GetCategory(ddlProductType.SelectedValue);
+            
         }
 
         protected void ddlCategory_OnSelectedIndexChanged(object sender, EventArgs e)
@@ -97,7 +98,7 @@ namespace WealthERP.Receivable
                 SpanCategory.Visible = false;
                 SpanSubCategory.Visible = false;
             }
-            BindAllDropdown();
+        
 
         }
 
@@ -128,6 +129,9 @@ namespace WealthERP.Receivable
             ddlProductType.DataValueField = dsproduct.Tables[0].Columns["PAG_AssetGroupCode"].ToString();
             ddlProductType.DataTextField = dsproduct.Tables[0].Columns["PAG_AssetGroupName"].ToString();
             ddlProductType.DataBind();
+            ddlProductType.SelectedValue = "MF";
+
+            GetCategory(ddlProductType.SelectedValue);
 
         }
 
@@ -159,11 +163,11 @@ namespace WealthERP.Receivable
             ddlIssuer.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
 
 
-            ddlCategory.DataSource = dsLookupData.Tables[8];
-            ddlCategory.DataValueField = dsLookupData.Tables[8].Columns["PAIC_AssetInstrumentCategoryCode"].ToString();
-            ddlCategory.DataTextField = dsLookupData.Tables[8].Columns["PAIC_AssetInstrumentCategoryName"].ToString();
-            ddlCategory.DataBind();
-            ddlCategory.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
+            //ddlCategory.DataSource = dsLookupData.Tables[8];
+            //ddlCategory.DataValueField = dsLookupData.Tables[8].Columns["PAIC_AssetInstrumentCategoryCode"].ToString();
+            //ddlCategory.DataTextField = dsLookupData.Tables[8].Columns["PAIC_AssetInstrumentCategoryName"].ToString();
+            //ddlCategory.DataBind();
+            //ddlCategory.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
 
 
             Session["CommissionLookUpData"] = dsLookupData;
@@ -879,6 +883,7 @@ namespace WealthERP.Receivable
                 BindSubcategoryListBox(commissionStructureMasterVo.AssetCategory);
                 ddlProductType.SelectedValue = commissionStructureMasterVo.ProductType;
                 ddlCategory.SelectedValue = commissionStructureMasterVo.AssetCategory;
+                ShowHideControlsBasedOnProduct(ddlProductType.SelectedValue);
                 foreach (RadListBoxItem item in rlbAssetSubCategory.Items)
                 {
                     item.Checked = false;
@@ -1029,6 +1034,7 @@ namespace WealthERP.Receivable
 
             ShowHideControlsBasedOnProduct("MF");
             SetStructureMasterControlDefaultValues("MF");
+            BindAllDropdown();
             BindSubcategoryListBox(ddlCategory.SelectedValue);
         }
 

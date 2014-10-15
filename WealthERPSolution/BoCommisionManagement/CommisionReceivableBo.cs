@@ -510,6 +510,19 @@ namespace BoCommisionManagement
             }
 
         }
+        public void DeleteIssueMapping(int issueId )
+        {
+            CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
+            try
+            {
+                commisionReceivableDao.DeleteIssueMapping(issueId);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+        }
 
         public void DeleteCommissionStructureRule(int id, bool isAllRuleDelete)
         {
@@ -809,12 +822,12 @@ namespace BoCommisionManagement
             }
         }
 
-        public DataSet GetStructureScheme(int adviserId)
+        public DataSet GetStructureScheme(int adviserId,string product)
         {
             CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
             try
             {
-                return commisionReceivableDao.GetStructureScheme(adviserId);
+                return commisionReceivableDao.GetStructureScheme(adviserId, product);
             }
             catch (BaseApplicationException Ex)
             {

@@ -817,7 +817,11 @@ ul.tabbernav li.tabberactive a:hover
     border-color: Scrollbar;
     visibility: hidden;
     z-index: 0;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
+
 
 /*AutoComplete flyout */
 .AutoCompleteExtender_CompletionListItem
@@ -827,6 +831,8 @@ ul.tabbernav li.tabberactive a:hover
     text-align: left;
     max-height: 20px;
     z-index: 0;
+     overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 /* AutoComplete highlighted item */
@@ -836,6 +842,8 @@ ul.tabbernav li.tabberactive a:hover
     color: White;
     font-size: small;
     font-weight: bold;
+     overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .success-msg, .failure-msg, .warning-msg, .information-msg
