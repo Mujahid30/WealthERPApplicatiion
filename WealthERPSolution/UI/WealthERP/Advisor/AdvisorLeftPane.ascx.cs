@@ -1164,7 +1164,7 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "Commission_Receivable_Recon")
                 {
                     Session["UserType"] = "adviser";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CommissionReceivableRecon','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CommissionReconMIS','login');", true);
                 }
                 else if (e.Item.Value == "File_Generation")
                 {
@@ -1853,7 +1853,7 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "Set Theme")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('SetTheme','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CommissionReconMIS','login');", true);
                 }
                 else if (e.Item.Value == "Setup_customer_category")
                 {
@@ -2136,7 +2136,7 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "Commission_Receivable_Recon")
                 {
                     Session["UserType"] = "adviser";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CommissionReceivableRecon','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CommissionReconMIS','login');", true);
                 }
                 else if (e.Item.Value == "NcdIpoRecon")
                 {

@@ -2628,7 +2628,9 @@ namespace DaoAdvisorProfiling
             }
             return dsMemberTransactionDeatails;
         }
-        public DataSet GetCommissionReceivableRecon(int AdviserId, int schemeid, DateTime FromDate, DateTime Todate, string category, string recontype, string commtype, int issuer)
+
+
+        public DataSet GetCommissionReceivableRecon(string product, int typeOfTransaction, int AdviserId, int schemeid, DateTime FromDate, DateTime Todate, string category, string recontype, string commtype, int issuer, int issueId)
         {
             Database db;
             DbCommand getCommissionReconMisCmd;
@@ -2636,20 +2638,17 @@ namespace DaoAdvisorProfiling
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                getCommissionReconMisCmd = db.GetStoredProcCommand("SPROC_GetCommissionReceivableRecon");
+                getCommissionReconMisCmd = db.GetStoredProcCommand("SPROC_GetCommissionReceivableExceptedMIS");
                 db.AddInParameter(getCommissionReconMisCmd, "@adviserId", DbType.Int32, AdviserId);
                 db.AddInParameter(getCommissionReconMisCmd, "@schemeid", DbType.Int32, schemeid);
-
                 if (FromDate != DateTime.MinValue)
                     db.AddInParameter(getCommissionReconMisCmd, "@FromDate", DbType.DateTime, FromDate);
                 else
                     db.AddInParameter(getCommissionReconMisCmd, "@FromDate", DbType.DateTime, DateTime.MinValue);
-
                 if (Todate != DateTime.MinValue)
                     db.AddInParameter(getCommissionReconMisCmd, "@ToDate", DbType.DateTime, Todate);
                 else
                     db.AddInParameter(getCommissionReconMisCmd, "@ToDate", DbType.DateTime, DateTime.MinValue);
-
                 if (!string.IsNullOrEmpty(category))
                     db.AddInParameter(getCommissionReconMisCmd, "@Category", DbType.String, category);
                 else
@@ -2658,15 +2657,14 @@ namespace DaoAdvisorProfiling
                     db.AddInParameter(getCommissionReconMisCmd, "@recontype", DbType.String, recontype);
                 else
                     db.AddInParameter(getCommissionReconMisCmd, "@recontype", DbType.Int32, DBNull.Value);
-
                 if (!string.IsNullOrEmpty(commtype))
                     db.AddInParameter(getCommissionReconMisCmd, "@commissiontype", DbType.String, commtype);
                 else
                     db.AddInParameter(getCommissionReconMisCmd, "@commissiontype", DbType.String, DBNull.Value);
-                if (issuer != 0)
-                    db.AddInParameter(getCommissionReconMisCmd, "@issuer", DbType.Int32, issuer);
-                else
-                    db.AddInParameter(getCommissionReconMisCmd, "@issuer", DbType.Int32, DBNull.Value);
+                db.AddInParameter(getCommissionReconMisCmd, "@issuer", DbType.Int32, issuer);
+                db.AddInParameter(getCommissionReconMisCmd, "@productType", DbType.String, product);
+                db.AddInParameter(getCommissionReconMisCmd, "@typeOfTransaction", DbType.Int16, typeOfTransaction);
+                db.AddInParameter(getCommissionReconMisCmd, "@issueId", DbType.Int32, issueId);
                 getCommissionReconMisCmd.CommandTimeout = 60 * 60;
                 dsGetCommissionReconMis = db.ExecuteDataSet(getCommissionReconMisCmd);
             }

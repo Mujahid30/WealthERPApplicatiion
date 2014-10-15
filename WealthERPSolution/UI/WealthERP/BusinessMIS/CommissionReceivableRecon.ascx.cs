@@ -128,7 +128,7 @@ namespace WealthERP.BusinessMIS
             DataSet ds = new DataSet();
             //ds.ReadXml(Server.MapPath(@"\Sample.xml"));
 
-            ds = adviserMFMIS.GetCommissionReceivableRecon(advisorVo.advisorId, int.Parse(hdnschemeId.Value), DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnToDate.Value), hdnCategory.Value, hdnrecon.Value, ddlCommType.SelectedValue, int.Parse(hdnSBbrokercode.Value));
+            //ds = adviserMFMIS.GetCommissionReceivableRecon(advisorVo.advisorId, int.Parse(hdnschemeId.Value), DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnToDate.Value), hdnCategory.Value, hdnrecon.Value, ddlCommType.SelectedValue, int.Parse(hdnSBbrokercode.Value));
             if (ds.Tables.Count > 0)
             {
                 if (ds.Tables[0] != null)

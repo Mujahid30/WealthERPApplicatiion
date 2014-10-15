@@ -29,6 +29,7 @@ namespace WealthERP.BusinessMIS {
         protected global::System.Web.UI.WebControls.HiddenField hdnschemeId;
         protected global::System.Web.UI.WebControls.HiddenField hdnCategory;
         protected global::System.Web.UI.WebControls.HiddenField hdnSBbrokercode;
+        protected global::System.Web.UI.WebControls.HiddenField hdnIssueId;
 
         protected global::Telerik.Web.UI.RadStyleSheetManager RadStyleSheetManager1;
         
@@ -49,6 +50,7 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trSelectMutualFund;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trNCDIPO;
         
         /// <summary>
         /// lblSelectMutualFund control.
@@ -175,6 +177,9 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdToDate;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdFrom;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdTolbl;
+        protected global::System.Web.UI.WebControls.CompareValidator cvddlIssueType;
         
         /// <summary>
         /// Label11 control.
@@ -220,9 +225,14 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid gvCommissionReceiveRecon;
+        protected global::Telerik.Web.UI.RadGrid rgNCDIPOMIS;
         protected global::System.Web.UI.WebControls.DropDownList ddlProduct;
         protected global::System.Web.UI.WebControls.DropDownList ddlCommType;
         protected global::System.Web.UI.WebControls.DropDownList ddlSelectMode;
         protected global::System.Web.UI.WebControls.DropDownList ddlIssueName;
+        protected global::System.Web.UI.WebControls.DropDownList ddlIssueType;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl dvMfMIS;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl dvNCDIPOMIS;
+
     }
 }

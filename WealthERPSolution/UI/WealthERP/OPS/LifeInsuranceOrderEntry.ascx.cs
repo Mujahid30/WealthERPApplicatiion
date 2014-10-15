@@ -295,7 +295,7 @@ namespace WealthERP.OPS
         {
             DataSet dsCustomerAssociation = new DataSet();
             customerVo = customerBo.GetCustomer(int.Parse(txtCustomerId.Value));
-            dsCustomerAssociation = bodemataccount.GetCustomerAccociation(customerVo);
+            dsCustomerAssociation = bodemataccount.GetCustomerAccociation(customerVo.CustomerId);
             //Populating  Pick nominee
             if (dsCustomerAssociation.Tables[0].Rows.Count == 0)
             {
