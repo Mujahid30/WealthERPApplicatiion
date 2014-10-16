@@ -19,6 +19,7 @@ using BoAdvisorProfiling;
 using System.Configuration;
 using BOAssociates;
 using BoCommisionManagement;
+using BoUser;
 
 
 
@@ -41,6 +42,7 @@ namespace WealthERP.BusinessMIS
         protected void Page_load(object sender, EventArgs e)
         {
             advisorVo = (AdvisorVo)Session["advisorVo"];
+            SessionBo.CheckSession();
             if (!IsPostBack)
             {
                 BindMutualFundDropDowns();
@@ -48,7 +50,6 @@ namespace WealthERP.BusinessMIS
                 LoadAllSchemeList(0);
                 BindProductDropdown();
                 int day = 1;
-                gvCommissionReceiveRecon.Visible = false;
                 txtFrom.SelectedDate = DateTime.Parse(day.ToString()+'/'+DateTime.Today.Month.ToString() + "/" + DateTime.Today.Year.ToString());
                 txtTo.SelectedDate = DateTime.Now;
                 btnExportFilteredData.Visible = false;
@@ -92,31 +93,7 @@ namespace WealthERP.BusinessMIS
             }
 
         }
-        //protected void gvCommissionReceiveRecon_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
-        //{
-        //    DataTable dt = new DataTable();
-        //    string rcbType = string.Empty;
-        //    dt = (DataTable)Cache["gvCommissionReceiveRecon" + userVo.UserId];
-        //    if (ViewState["CommissionReceiveRecon"] != null)
-        //        rcbType = ViewState["CommissionReceiveRecon"].ToString();
-        //    if (!string.IsNullOrEmpty(rcbType))
-        //    {
-        //        DataView dvStaffList = new DataView(dt, "CommissionReceiveRecon = '" + rcbType + "'", "schemeplanname,transactiondate,amount,transactiontype,Age,currentvalue,expectedamount,calculatedDate,receivedamount,diff,ACSR_CommissionStructureRuleId,CMFT_MFTransId,CMFT_ReceivableExpectedAmount,CMFT_ReceivedCommissionAdjustment", DataViewRowState.CurrentRows);
-        //        // DataView dvStaffList = dtMIS.DefaultView;
-        //        gvCommissionReceiveRecon.DataSource = dvStaffList.ToTable();
-        //        gvCommissionReceiveRecon.Visible = true;
-
-        //    }
-        //    else
-        //    {
-        //        gvCommissionReceiveRecon.DataSource = dt;
-        //        gvCommissionReceiveRecon.Visible = true;
-
-        //    }
-
-
-
-        //}
+      
         protected void ddlCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlIssuer.SelectedIndex != 0)
@@ -300,9 +277,7 @@ namespace WealthERP.BusinessMIS
             DataSet ds = new DataSet();
             //ds.ReadXml(Server.MapPath(@"\Sample.xml"));
             dvMfMIS.Visible = false;
-            gvCommissionReceiveRecon.Visible = false;
             dvNCDIPOMIS.Visible = false;
-            rgNCDIPOMIS.Visible = false;
             ds = adviserMFMIS.GetCommissionReceivableRecon(ddlProduct.SelectedValue, int.Parse(ddlSelectMode.SelectedValue), advisorVo.advisorId, int.Parse(hdnschemeId.Value), DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnToDate.Value), hdnCategory.Value, null, ddlCommType.SelectedValue, int.Parse(hdnSBbrokercode.Value),int.Parse(hdnIssueId.Value));
             if (ds.Tables[0] != null)
             {
@@ -310,7 +285,6 @@ namespace WealthERP.BusinessMIS
                 {
                     btnExportFilteredData.Visible = true;
                     dvMfMIS.Visible = true;
-                    gvCommissionReceiveRecon.Visible = true;
                     gvCommissionReceiveRecon.DataSource = ds.Tables[0];
                     DataTable dtGetAMCTransactionDeatails = new DataTable();
                     gvCommissionReceiveRecon.DataBind();
@@ -330,7 +304,6 @@ namespace WealthERP.BusinessMIS
                 {
                     btnExportFilteredData.Visible = true;
                     dvNCDIPOMIS.Visible = true;
-                    rgNCDIPOMIS.Visible = true;
                     rgNCDIPOMIS.DataSource = ds.Tables[0];
                     rgNCDIPOMIS.DataBind();
                     if (Cache["rgNCDIPOMIS" + userVo.UserId.ToString()] == null)
