@@ -32,6 +32,9 @@
 <td align="right">
 <asp:DropDownList ID="ddlProduct" runat="server" AutoPostBack="true" CssClass="cmbField" OnSelectedIndexChanged="ddlProduct_SelectedIndexChanged">
 </asp:DropDownList>
+<asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="ddlProduct"
+                CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select an Product type"
+                Operator="NotEqual" ValidationGroup="vgbtnSubmit" ValueToCompare="Select"></asp:CompareValidator>
 </td>
 <td class="leftField">
 <asp:Label ID="lblOffline" runat="server" Text="Select Transaction Type:" CssClass="FieldName"></asp:Label>
