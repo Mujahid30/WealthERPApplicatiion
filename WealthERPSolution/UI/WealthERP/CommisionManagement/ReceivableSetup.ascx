@@ -500,7 +500,9 @@
                                                     <asp:Label ID="lblCommissionType" runat="server" Text="Commission Type:" CssClass="FieldName"></asp:Label>
                                                 </td>
                                                 <td class="rightData">
-                                                    <asp:DropDownList ID="ddlCommissionType" runat="server" CssClass="cmbField">
+                                                    <asp:DropDownList ID="ddlCommissionType" runat="server" CssClass="cmbField"  AutoPostBack="true"
+                                                    OnSelectedIndexChanged="ddlCommissionType_Selectedindexchanged"
+                                                    >
                                                     </asp:DropDownList>
                                                 </td>
                                                 <td class="leftLabel">
@@ -571,7 +573,7 @@
                                                 <td class="leftLabel">
                                                 </td>
                                             </tr>
-                                            <tr>
+                                            <tr id="trMinMaxTenure" runat="server">
                                                 <td class="leftLabel">
                                                     <asp:Label ID="lblMinTenure" runat="server" Text="Min Tenure:" CssClass="FieldName"></asp:Label>
                                                 </td>
@@ -593,7 +595,7 @@
                                                     </asp:DropDownList>
                                                 </td>
                                             </tr>
-                                            <tr>
+                                            <tr id="trMinMaxAge" runat="server">
                                                 <td class="leftLabel">
                                                     <asp:Label ID="lblMinInvestAge" runat="server" Text="Min Investment age :" CssClass="FieldName"></asp:Label>
                                                 </td>
@@ -614,7 +616,7 @@
                                                     </asp:DropDownList>
                                                 </td>
                                             </tr>
-                                            <tr>
+                                            <tr runat="server" id="trTransactionTypeSipFreq">
                                                 <td class="leftLabel">
                                                     <asp:Label ID="lblTransactionType" runat="server" Text="Transaction type:" CssClass="FieldName"></asp:Label>
                                                 </td>
@@ -658,7 +660,7 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td class="leftLabel">
+                                                <td class="leftLabel" runat="server" id="tdMinNumberOfApplication">
                                                     <asp:Label ID="lblMinNumberOfApplication" runat="server" Text="Min number of applications:"
                                                         CssClass="FieldName"></asp:Label>
                                                     <br />

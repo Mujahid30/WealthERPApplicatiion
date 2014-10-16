@@ -84,6 +84,8 @@ namespace WealthERP.Receivable {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlProductType;
+        protected global::System.Web.UI.WebControls.DropDownList ddlReceivableFrequency;
+
         
         /// <summary>
         /// RequiredFieldValidator1 control.
@@ -351,7 +353,13 @@ namespace WealthERP.Receivable {
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chkMoneytaryReward;
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trIssuer;
+        
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trTransactionTypeSipFreq;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdMinNumberOfApplication;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trMinMaxTenure;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trMinMaxAge;
 
+        
         
         /// <summary>
         /// Label1 control.
@@ -361,6 +369,8 @@ namespace WealthERP.Receivable {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label1;
+        protected global::System.Web.UI.WebControls.Label lblReceivableFrequency;
+
         
         /// <summary>
         /// lblNote control.

@@ -1262,7 +1262,7 @@ namespace DaoCommisionManagement
         }
 
 
-        public DataSet GetCommissionSchemeStructureRuleList(int adviserId)
+        public DataSet GetCommissionSchemeStructureRuleList(int adviserId,string product)
         {
             Database db;
             DbCommand cmdGetCommissionSchemeStructureRuleList;
@@ -1273,6 +1273,8 @@ namespace DaoCommisionManagement
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmdGetCommissionSchemeStructureRuleList = db.GetStoredProcCommand("SPROC_GetCommissionSchemeStructureRule");
                 db.AddInParameter(cmdGetCommissionSchemeStructureRuleList, "@AdviserId", DbType.Int32, adviserId);
+                db.AddInParameter(cmdGetCommissionSchemeStructureRuleList, "@Product", DbType.String, product);
+
                 dsSchemeStructureRule = db.ExecuteDataSet(cmdGetCommissionSchemeStructureRuleList);
             }
             catch (BaseApplicationException Ex)

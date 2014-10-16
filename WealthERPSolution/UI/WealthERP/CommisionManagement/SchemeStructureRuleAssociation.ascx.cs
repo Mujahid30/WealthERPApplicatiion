@@ -34,18 +34,50 @@ namespace WealthERP.CommisionManagement
             //ibtExportSummary.Visible = false;
             if (!Page.IsPostBack)
             {
+                GetProduct();
+
                 BindSchemeStructureRuleGrid(advisorVo.advisorId);
 
             }
 
         }
 
+        protected void GetProduct()
+        {
+            DataSet dsproduct;
+            dsproduct = commisionReceivableBo.GetProduct(advisorVo.advisorId);
+
+            ddlProductType.DataSource = dsproduct.Tables[0];
+            ddlProductType.DataValueField = dsproduct.Tables[0].Columns["PAG_AssetGroupCode"].ToString();
+            ddlProductType.DataTextField = dsproduct.Tables[0].Columns["PAG_AssetGroupName"].ToString();
+            ddlProductType.DataBind();
+            ddlProductType.SelectedValue = "MF";
+            BindSchemeStructureRuleGrid(advisorVo.advisorId);
+        }
+
+        protected void btnGo_Click(object sender, EventArgs e)
+        {
+            BindSchemeStructureRuleGrid(advisorVo.advisorId);
+        }
 
         private void BindSchemeStructureRuleGrid(int adviserId)
         {
-            DataSet dsSchemeStructureRule = commisionReceivableBo.GetCommissionSchemeStructureRuleList(adviserId);
-            RadGridSchemeRule.DataSource = dsSchemeStructureRule.Tables[0];
-            RadGridSchemeRule.DataBind();
+            DataSet dsSchemeStructureRule = commisionReceivableBo.GetCommissionSchemeStructureRuleList(adviserId, ddlProductType.SelectedValue);
+            RadGridSchemeRule.Visible = false;
+            RadGridIssueStructureRule.Visible = false;
+
+            if (ddlProductType.SelectedValue == "MF")
+            {
+                RadGridSchemeRule.Visible = true;
+                RadGridSchemeRule.DataSource = dsSchemeStructureRule.Tables[0];
+                RadGridSchemeRule.DataBind();
+            }
+            else
+            {
+                RadGridIssueStructureRule.Visible = true;
+                RadGridIssueStructureRule.DataSource = dsSchemeStructureRule.Tables[0];
+                RadGridIssueStructureRule.DataBind();
+            }
             Cache.Insert(userVo.UserId.ToString() + "SchemeStructureRule", dsSchemeStructureRule);
             if (dsSchemeStructureRule.Tables[0].Rows.Count > 0)
             {
@@ -60,6 +92,16 @@ namespace WealthERP.CommisionManagement
             {
                 dsSchemeStructureRule = (DataSet)Cache[userVo.UserId.ToString() + "SchemeStructureRule"];
                 RadGridSchemeRule.DataSource = dsSchemeStructureRule.Tables[0];
+            }
+        }
+
+        protected void RadGridIssueStructureRule_NeedDataSource(object source, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        {
+            DataSet dsSchemeStructureRule = new DataSet();
+            if (Cache[userVo.UserId.ToString() + "SchemeStructureRule"] != null)
+            {
+                dsSchemeStructureRule = (DataSet)Cache[userVo.UserId.ToString() + "SchemeStructureRule"];
+                RadGridIssueStructureRule.DataSource = dsSchemeStructureRule.Tables[0];
             }
         }
 

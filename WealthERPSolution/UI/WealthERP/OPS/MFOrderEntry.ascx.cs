@@ -83,10 +83,10 @@ namespace WealthERP.OPS
 
             associatesVo = (AssociatesVO)Session["associatesVo"];
             userVo = (UserVo)Session[SessionContents.UserVo];
-            
+
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
-           
-             advisorVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
+
+            advisorVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
             GetUserType();
             if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
             {
@@ -116,11 +116,11 @@ namespace WealthERP.OPS
                 AutoCompleteExtender1.ContextKey = advisorVo.advisorId.ToString();
                 AutoCompleteExtender1.ServiceMethod = "GetAdviserCustomerPan";
                 txtAssociateSearch.Text = associateuserheirarchyVo.AgentCode;
-                AutoCompleteExtender2.ContextKey = associateuserheirarchyVo.AgentCode + "/" + advisorVo.advisorId.ToString();                
+                AutoCompleteExtender2.ContextKey = associateuserheirarchyVo.AgentCode + "/" + advisorVo.advisorId.ToString();
                 AutoCompleteExtender2.ServiceMethod = "GetAgentCodeAssociateDetailsForAssociates";
 
             }
-           // bindSearchScheme();
+            // bindSearchScheme();
             //if (Session["mforderVo"] != null && Session["orderVo"] != null)
             //{
             //    mforderVo = (MFOrderVo)Session["mforderVo"];
@@ -140,11 +140,35 @@ namespace WealthERP.OPS
                 pnl_SIP_PaymentSection.Enabled = false;
                 pnl_SEL_PaymentSection.Enabled = false;
                 DefaultBindings();
-                if (AgentCode != "0")
+
+                if (Request.QueryString["action"] != null)
                 {
-                    txtAssociateSearch.Text = AgentCode;
-                    OnAssociateTextchanged(this, null);
+                    ViewForm = Request.QueryString["action"].ToString();
+                    int orderId = Convert.ToInt32(Request.QueryString["orderId"].ToString());
+                    ControlsEnblity(ViewForm);
+                    ViewOrderList(orderId);
+                    ShowPaymentSectionBasedOnTransactionType(ddltransType.SelectedValue, ViewForm);
+                    ButtonsEnablement(ViewForm);
+                    FrequencyEnablityForTransactionType(ddltransType.SelectedValue);
                 }
+                else
+                {
+                    ControlsEnblity("New");
+                    ShowPaymentSectionBasedOnTransactionType("", "");
+                    ButtonsEnablement("New");
+                    if (AgentCode != "0")
+                    {
+
+                        txtAssociateSearch.Text = AgentCode;
+                        OnAssociateTextchanged(this, null);
+
+                    }
+
+                }
+
+
+
+
                 gvJointHoldersList.Visible = false;
 
                 hdnIsSubscripted.Value = advisorVo.IsISASubscribed.ToString();
@@ -280,23 +304,7 @@ namespace WealthERP.OPS
             //ddlAMCList.Enabled = false;
             Pan_Cust_Search("1");
             GetuserTypeTransactionSlipDownload();
-            if (Request.QueryString["action"] != null)
-            {
-                ViewForm = Request.QueryString["action"].ToString();
-                int orderId = Convert.ToInt32(Request.QueryString["orderId"].ToString());
-                ControlsEnblity(ViewForm);
-                ViewOrderList(orderId);
-                ShowPaymentSectionBasedOnTransactionType(ddltransType.SelectedValue, ViewForm);
-                ButtonsEnablement(ViewForm);
-                FrequencyEnablityForTransactionType(ddltransType.SelectedValue);
-            }
-            else
-            {
-                ControlsEnblity("New");
-                ShowPaymentSectionBasedOnTransactionType("", "");
-                ButtonsEnablement("New");
 
-            }
         }
 
         protected void GetuserTypeTransactionSlipDownload()
@@ -814,7 +822,7 @@ namespace WealthERP.OPS
                     txtPaymentNumber.Text = "";
                     txtPaymentInstDate.SelectedDate = null;
                     ddlBankName.SelectedIndex = 0;
-                    ddlBranch.SelectedIndex =0;
+                    ddlBranch.SelectedIndex = 0;
                     lblGetAvailableAmount.Text = "";
                     lblGetAvailableUnits.Text = "";
                     ddlSchemeSwitch.SelectedIndex = 0;
@@ -1131,7 +1139,7 @@ namespace WealthERP.OPS
                     }
 
 
-                    ddlBranch.SelectedValue =  mforderVo.BankBranchId.ToString();
+                    ddlBranch.SelectedValue = mforderVo.BankBranchId.ToString();
                     txtCorrAdrLine1.Text = mforderVo.AddrLine1;
                     txtCorrAdrLine2.Text = mforderVo.AddrLine2;
                     txtCorrAdrLine3.Text = mforderVo.AddrLine3;
@@ -1470,7 +1478,7 @@ namespace WealthERP.OPS
                         ddlBankName.SelectedIndex = 0;
                     }
 
-                   // ddlBranch = mforderVo.BranchName;
+                    // ddlBranch = mforderVo.BranchName;
 
                     txtCorrAdrLine1.Text = mforderVo.AddrLine1;
                     txtCorrAdrLine2.Text = mforderVo.AddrLine2;
@@ -2752,7 +2760,7 @@ namespace WealthERP.OPS
                 //btnreport.Visible = true;
                 //btnpdfReport.Visible = true;
 
-               // ClearAllFields();
+                // ClearAllFields();
 
             }
         }
@@ -3716,7 +3724,7 @@ namespace WealthERP.OPS
                 mforderVo.SchemePlanCode = int.Parse(txtSchemeCode.Value);//ddlAmcSchemeList.SelectedValue);
             else
                 mforderVo.SchemePlanCode = 0;
-           // mforderVo.portfolioId = int.Parse(ddlPortfolio.SelectedValue);
+            // mforderVo.portfolioId = int.Parse(ddlPortfolio.SelectedValue);
             if (!string.IsNullOrEmpty(hidFolioNumber.Value))
                 mforderVo.accountid = int.Parse(hidFolioNumber.Value);
             else
@@ -3795,7 +3803,7 @@ namespace WealthERP.OPS
             }
             else
                 mforderVo.BankName = "";
-            if (!string.IsNullOrEmpty(ddlBranch.SelectedValue ))
+            if (!string.IsNullOrEmpty(ddlBranch.SelectedValue))
                 mforderVo.BranchName = ddlBranch.SelectedValue;
             else
                 mforderVo.BranchName = "";
@@ -3850,7 +3858,7 @@ namespace WealthERP.OPS
                 mforderVo.EndDate = DateTime.Parse(txtendDateSIP.SelectedDate.ToString());
             else
                 mforderVo.EndDate = DateTime.MinValue;
-            mforderVo.BankBranchId =Convert.ToInt32( ddlBranch.SelectedValue);
+            mforderVo.BankBranchId = Convert.ToInt32(ddlBranch.SelectedValue);
             //}
             //else if (ddltransType.SelectedValue == "STB" || ddltransType.SelectedValue == "SWP")
             //{
@@ -4317,7 +4325,7 @@ namespace WealthERP.OPS
             }
             else
                 mforderVo.BankName = "";
-            if (!string.IsNullOrEmpty(ddlBranch.SelectedValue ))
+            if (!string.IsNullOrEmpty(ddlBranch.SelectedValue))
                 mforderVo.BranchName = ddlBranch.SelectedValue;
             else
                 mforderVo.BranchName = "";

@@ -847,13 +847,13 @@ namespace BoCommisionManagement
             }
         }
 
-        public DataSet GetCommissionSchemeStructureRuleList(int adviserId)
+        public DataSet GetCommissionSchemeStructureRuleList(int adviserId,string product)
         {
             CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
             DataSet dsSchemeStructureRule;
             try
             {
-                dsSchemeStructureRule = commisionReceivableDao.GetCommissionSchemeStructureRuleList(adviserId);
+                dsSchemeStructureRule = commisionReceivableDao.GetCommissionSchemeStructureRuleList(adviserId, product);
 
             }
             catch (BaseApplicationException Ex)

@@ -25,6 +25,29 @@
     </tr>
 </table>
 <br />
+ <table>
+            <tr>
+                <td class="leftLabel">
+                    <asp:Label ID="lblStatusStage2" runat="server" Text="Pick Product:" CssClass="FieldName"></asp:Label>
+                </td>
+                <td class="rightData">
+                    <asp:DropDownList ID="ddlProductType" runat="server" CssClass="cmbField" AutoPostBack="true"  >
+                    </asp:DropDownList>
+                    <br />
+                    
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" CssClass="rfvPCG"
+                        ErrorMessage="Please Select Product Type" Display="Dynamic" ControlToValidate="ddlProductType"
+                        InitialValue="Select" ValidationGroup="btnGo">
+                    </asp:RequiredFieldValidator>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Button ID="btnGo" CssClass="PCGButton" Text="Go" runat="server" ValidationGroup="btnGo"
+                        OnClick="btnGo_Click" />
+                </td>
+            </tr>
+        </table>
 <div style="width: 100%; overflow: scroll;">
     <telerik:RadGrid ID="RadGridSchemeRule" runat="server" GridLines="None" AutoGenerateColumns="False"
         PageSize="15" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
@@ -148,6 +171,76 @@
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
+                 <telerik:GridBoundColumn HeaderStyle-Width="120px" HeaderText="Brokerage Value" DataField="ACSR_BrokerageValue"
+                    UniqueName="ACSR_BrokerageValue" SortExpression="ACSR_BrokerageValue" AutoPostBackOnFilter="true"
+                    AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="EqualTo">
+                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                
+                 <telerik:GridBoundColumn HeaderStyle-Width="120px" HeaderText="Brokerage Unit" DataField="WCU_Unit"
+                    UniqueName="WCU_Unit" SortExpression="WCU_Unit" AutoPostBackOnFilter="true"
+                    AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                
+                <telerik:GridBoundColumn HeaderStyle-Width="120px" HeaderText="Calculated On" DataField="WCCO_CalculatedOn"
+                    UniqueName="WCCO_CalculatedOn" SortExpression="WCCO_CalculatedOn" AutoPostBackOnFilter="true"
+                    AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                    
+            </telerik:GridBoundColumn>
+                
+               
+                
+                
+                
+            </Columns>
+        </MasterTableView>
+        <HeaderStyle Width="120px" />
+        <ClientSettings>
+            <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+            <Resizing AllowColumnResize="true" />
+        </ClientSettings>
+    </telerik:RadGrid>
+<%--</div>
+
+<div style="width: 100%; overflow: scroll;">--%>
+    <telerik:RadGrid ID="RadGridIssueStructureRule" runat="server" GridLines="None" AutoGenerateColumns="False"
+        PageSize="15" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
+        Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" AllowFilteringByColumn="true"
+        OnNeedDataSource="RadGridIssueStructureRule_NeedDataSource"
+        AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true" EnableHeaderContextMenu="true"
+        EnableHeaderContextFilterMenu="true">
+        <%--<exportsettings hidestructurecolumns="true" exportonlydata="true" ignorepaging="true"
+                    filename="Company/Sector" excel-format="ExcelML">--%>
+        <%-- </exportsettings>--%>
+        <ExportSettings Excel-Format="ExcelML">
+        </ExportSettings>
+        <MasterTableView Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
+            CommandItemDisplay="None" GroupsDefaultExpanded="false" ExpandCollapseColumn-Groupable="true"
+            GroupLoadMode="Client" ShowGroupFooter="true" HeaderStyle-Wrap="false">
+            <Columns>
+                <telerik:GridBoundColumn HeaderStyle-Width="180px" HeaderText="Issue Name" DataField="AIM_Issuename"
+                    UniqueName="AIM_Issuename" SortExpression="AIM_Issuename" AutoPostBackOnFilter="true"
+                    AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Structure Name" DataField="ACSM_CommissionStructureName"
+                    UniqueName="ACSM_CommissionStructureName" SortExpression="ACSM_CommissionStructureName" AutoPostBackOnFilter="true"
+                    AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn HeaderStyle-Width="120px" HeaderText="Validity Start Date" DataField="ACSTSM_ValidityStart"
+                   UniqueName="ACSTSM_ValidityStart" DataFormatString="{0:dd/MM/yyyy}" SortExpression="ACSTSM_ValidityStart" AutoPostBackOnFilter="true"
+                    AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="EqualTo">
+                    <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn HeaderStyle-Width="120px" HeaderText="Validity End Date" DataField="ACSTSM_ValidityEnd"
+                    UniqueName="ACSTSM_ValidityEnd" DataFormatString="{0:dd/MM/yyyy}" SortExpression="ACSTSM_ValidityEnd" AutoPostBackOnFilter="true"
+                    AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="EqualTo">
+                    <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                             
                  <telerik:GridBoundColumn HeaderStyle-Width="120px" HeaderText="Brokerage Value" DataField="ACSR_BrokerageValue"
                     UniqueName="ACSR_BrokerageValue" SortExpression="ACSR_BrokerageValue" AutoPostBackOnFilter="true"
                     AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="EqualTo">
