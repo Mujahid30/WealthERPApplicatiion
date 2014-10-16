@@ -510,19 +510,19 @@ namespace BoCommisionManagement
             }
 
         }
-        public void DeleteIssueMapping(int issueId )
-        {
-            CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
-            try
-            {
-                commisionReceivableDao.DeleteIssueMapping(issueId);
+        //public void DeleteIssueMapping(int issueId )
+        //{
+        //    CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
+        //    try
+        //    {
+        //        commisionReceivableDao.DeleteIssueMapping(issueId);
 
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-        }
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //}
 
         public void DeleteCommissionStructureRule(int id, bool isAllRuleDelete)
         {
