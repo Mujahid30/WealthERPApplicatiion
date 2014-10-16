@@ -223,7 +223,7 @@
         </tr>
     </table>
 </asp:Panel>
-<table>
+<%--<table>
     <tr id="trNote" runat="server">
         <td colspan="2">
             <div id="Div2" class="Note">
@@ -240,4 +240,4 @@
         <td colspan="2">
         </td>
     </tr>
-</table>
+</table>--%>

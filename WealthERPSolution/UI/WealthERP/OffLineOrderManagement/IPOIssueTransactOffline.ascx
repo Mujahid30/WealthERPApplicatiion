@@ -186,8 +186,7 @@
 <script type="text/javascript">
     var crnt = 0;
     function PreventClicks() {
-
-        if (typeof (Page_ClientValidate('btnSubmit')) == 'function') {
+        if (typeof (Page_ClientValidate('btnConfirmOrder')) == 'function') {
             Page_ClientValidate();
         }
 
@@ -201,6 +200,19 @@
             return false;
         }
     }
+
+
+    function Validate() {
+        var isValid = false;
+        isValid = Page_ClientValidate('btnConfirmOrder');
+        if (isValid) {
+            isValid = Page_ClientValidate('btnTC');
+        }
+
+        return isValid;
+    }   
+   
+    
 </script>
 
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
@@ -439,7 +451,7 @@
                 <asp:Label ID="lblApplicationNo" runat="server" Text="Application No: " CssClass="FieldName"></asp:Label>
             </td>
             <td class="rightField" style="width: 20%">
-                <asp:TextBox ID="txtApplicationNo" onkeydown="return (event.keyCode!=13);" runat="server"
+                <asp:TextBox ID="txtApplicationNo" MaxLength="9" onkeydown="return (event.keyCode!=13);" runat="server"
                     CssClass="txtField" OnKeypress="javascript:return isNumberKey(event);"></asp:TextBox>
                 <span id="Span2" class="spnRequiredField">*</span>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator5" ControlToValidate="txtApplicationNo"
@@ -585,8 +597,7 @@
             </td>
             <td class="rightField" style="width: 20%">
                 <asp:DropDownList ID="ddlBankName" runat="server" CssClass="cmbField" AutoPostBack="false"
-                    AppendDataBoundItems="true"
-                    TabIndex="18">
+                    AppendDataBoundItems="true" TabIndex="18">
                 </asp:DropDownList>
                 <span id="Span4" class="spnRequiredField">*</span>
                 <asp:ImageButton ID="imgAddBank" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
@@ -952,10 +963,6 @@
                         </td>
                     </tr>
                     <tr>
-                        <td align="left" style="width: 10%">
-                            <asp:Button ID="btnConfirmOrder" runat="server" Text="Confirm Order" OnClick="btnConfirmOrder_Click"
-                                CssClass="PCGMediumButton" ValidationGroup="btnConfirmOrder, btnTC" OnClientClick="return TestCheckBox(); PreventClicks(); Validate(); " />
-                        </td>
                         <td>
                             <asp:LinkButton runat="server" ID="lnlBack" CssClass="LinkButtons" Text="Click here to view the issue list"
                                 Visible="false" OnClick="lnlktoviewIPOissue_Click"></asp:LinkButton>
@@ -966,6 +973,12 @@
                 </table>
             </div>
         </asp:Panel>
+        <tr>
+            <td align="left" style="width: 10%">
+                <asp:Button ID="btnConfirmOrder" runat="server" Text="Confirm Order" OnClick="btnConfirmOrder_Click"
+                    CssClass="PCGMediumButton" ValidationGroup="btnConfirmOrder, btnTC" OnClientClick="return  PreventClicks(); Validate(); " />
+            </td>
+        </tr>
         <telerik:RadWindow ID="rwTermsCondition" runat="server" VisibleOnPageLoad="false"
             Width="1000px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="Move, Resize,Close"
             Title="Terms & Conditions" EnableShadow="true" Left="580" Top="-8">
@@ -1019,7 +1032,7 @@
                     <tr>
                         <td>
                             <telerik:RadGrid ID="gvDematDetailsTeleR" runat="server" AllowAutomaticInserts="false"
-                                AllowFilteringByColumn="true" AllowPaging="true" AllowSorting="true" AutoGenerateColumns="False"
+                                AllowFilteringByColumn="false" AllowPaging="true" AllowSorting="true" AutoGenerateColumns="False"
                                 EnableEmbeddedSkins="false" EnableHeaderContextMenu="true" Height="120px" fAllowAutomaticDeletes="false"
                                 GridLines="none" ShowFooter="false" ShowStatusBar="false" Skin="Telerik">
                                 <%--<HeaderContextMenu EnableEmbeddedSkins="False">

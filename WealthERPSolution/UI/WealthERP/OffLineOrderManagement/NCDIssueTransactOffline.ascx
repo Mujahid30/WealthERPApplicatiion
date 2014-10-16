@@ -205,8 +205,7 @@
 <script type="text/javascript">
     var crnt = 0;
     function PreventClicks() {
-
-        if (typeof (Page_ClientValidate('btnSubmit')) == 'function') {
+        if (typeof (Page_ClientValidate('btnConfirmOrder')) == 'function') {
             Page_ClientValidate();
         }
 
@@ -220,6 +219,19 @@
             return false;
         }
     }
+
+
+    function Validate() {
+        var isValid = false;
+        isValid = Page_ClientValidate('btnConfirmOrder');
+        if (isValid) {
+            isValid = Page_ClientValidate('btnTC');
+        }
+
+        return isValid;
+    }   
+   
+    
 </script>
 
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
@@ -459,8 +471,8 @@
                 <asp:Label ID="lblApplicationNo" runat="server" Text="Application No: " CssClass="FieldName"></asp:Label>
             </td>
             <td class="rightField" style="width: 20%">
-                <asp:TextBox ID="txtApplicationNo" onkeydown="return (event.keyCode!=13);" runat="server"
-                    CssClass="txtField" AutoPostBack="false" OnKeypress="javascript:return isNumberKey(event);"></asp:TextBox>
+                <asp:TextBox ID="txtApplicationNo" MaxLength="9" onkeydown="return (event.keyCode!=13);"
+                    runat="server" CssClass="txtField" AutoPostBack="false" OnKeypress="javascript:return isNumberKey(event);"></asp:TextBox>
                 <span id="Span2" class="spnRequiredField">*</span>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator5" ControlToValidate="txtApplicationNo"
                     ErrorMessage="<br />Please Enter Application No" Display="Dynamic" runat="server"
@@ -578,8 +590,7 @@
             </td>
             <td class="rightField" style="width: 20%">
                 <asp:DropDownList ID="ddlBankName" runat="server" CssClass="cmbField" AutoPostBack="false"
-                    AppendDataBoundItems="true"
-                    TabIndex="18">
+                    AppendDataBoundItems="true" TabIndex="18">
                 </asp:DropDownList>
                 <span id="Span4" class="spnRequiredField">*</span>
                 <asp:ImageButton ID="imgAddBank" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
@@ -1120,14 +1131,9 @@
             </asp:CustomValidator>
         </td>
     </tr>
-    <tr id="trSubmit" runat="server" visible="false">
+    <tr id="trSubmit" runat="server" visible="true">
         <td>
-            <asp:Label ID="lb1CustOffTimeMsg" runat="server" CssClass="FieldName"></asp:Label>
-        </td>
-        <td id="tdsubmit" runat="server" align="left" style="width: 60%">
-            <asp:Label ID="Label3" runat="server" Text="Confirm Your Order :" CssClass="FieldName"></asp:Label>
-            <asp:Button ID="btnConfirmOrder" runat="server" Text="Submit" OnClick="btnConfirmOrder_Click"
-                CssClass="PCGButton" ValidationGroup="btnConfirmOrder" />
+            <asp:Label ID="lb1CustOffTimeMsg" Visible="false" runat="server" CssClass="FieldName"></asp:Label>
         </td>
         <td>
             <asp:LinkButton runat="server" ID="lnlBack" CssClass="LinkButtons" Text="Click here to view the issue list"
@@ -1135,6 +1141,13 @@
         </td>
     </tr>
 </table>
+<tr>
+    <td id="tdsubmit" runat="server" align="left" style="width: 60%">
+        <asp:Label ID="Label3" runat="server" Text="Confirm Your Order :" CssClass="FieldName"></asp:Label>
+        <asp:Button ID="btnConfirmOrder" runat="server" Text="Submit" OnClientClick="return  PreventClicks(); Validate(); "
+            OnClick="btnConfirmOrder_Click" CssClass="PCGButton" ValidationGroup="btnConfirmOrder" />
+    </td>
+</tr>
 <table>
     <tr runat="server" visible="false">
         <%--<td id="tdsubmit" runat="server">
