@@ -48,11 +48,13 @@ namespace WealthERP.UploadBackOffice
                 multipageBulkOrderRequest.SelectedIndex = 0;
                 ddlSelectIssue.Visible = false;
                 trSelectIssueRow.Visible = false;
+                gvBulkOrderStatusList.Visible = false;
+                msgNoRecords.Visible = false;
 
             }
         }
 
-        protected void btnGo_Click(object sender, EventArgs e)
+        protected void btnGo1_Click(object sender, EventArgs e)
         {
             int ReqId;
             string OBT = ddlSelectType.SelectedItem.Value;
@@ -67,6 +69,41 @@ namespace WealthERP.UploadBackOffice
             else
             {
                 msgUploadComplete.InnerText = "Not able to create Request,Try again";
+            }
+        }
+        protected void btnGo2_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                msgNoRecords.Visible = false; 
+                gvBulkOrderStatusList.Visible = false;
+                string OBT = ddlIssueType.SelectedItem.Value;
+                DateTime Fromdate = txtReqFromDate.SelectedDate.Value;
+                DateTime Todate = txtReqToDate.SelectedDate.Value;
+                //string Fromdate=frmdt.ToString("yyyy-mm-dd");
+                //string Todate=todt.ToString("yyyy-mm-dd");
+                WERPTaskRequestManagementBo werpTaskRequestManagementBo = new WERPTaskRequestManagementBo();
+                
+                dtBulkOrderStatusList = werpTaskRequestManagementBo.GetBulkOrderStatus(OBT, Fromdate, Todate);
+                if (dtBulkOrderStatusList.Tables[0].Rows.Count > 0)
+                {
+                    gvBulkOrderStatusList.Visible = true;
+                    gvBulkOrderStatusList.DataSource = dtBulkOrderStatusList.Tables[0];
+                    gvBulkOrderStatusList.DataBind();
+                }
+                else
+                {
+                    msgNoRecords.Visible = true;
+                    msgNoRecords.InnerText = "No records Found";
+                }
+
+
+
+            }
+
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
             }
         }
         private void BindViewListGrid(DateTime date, string product)
@@ -107,6 +144,26 @@ namespace WealthERP.UploadBackOffice
             ddlSelectIssue.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
             trSelectIssueRow.Visible = true;
         }
- 
+        protected void gvBulkOrderStatusList_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        {
+            try
+            {
+                string OBT = ddlIssueType.SelectedItem.Value;
+                DateTime Fromdate = txtReqFromDate.SelectedDate.Value;
+                DateTime Todate = txtReqToDate.SelectedDate.Value;
+                //string Fromdate = frmdt.ToString("yyyy-mm-dd");
+                //string Todate = todt.ToString("yyyy-mm-dd");
+                WERPTaskRequestManagementBo werpTaskRequestManagementBo = new WERPTaskRequestManagementBo();
+                dtBulkOrderStatusList = werpTaskRequestManagementBo.GetBulkOrderStatus(OBT, Fromdate, Todate);
+                gvBulkOrderStatusList.DataSource = dtBulkOrderStatusList;
+            }
+
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+        }
+
     }
 }

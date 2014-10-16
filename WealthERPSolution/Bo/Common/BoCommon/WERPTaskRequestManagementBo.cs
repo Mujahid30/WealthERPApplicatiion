@@ -235,5 +235,18 @@ namespace BoCommon
                 throw exBase;
             }
         }
+        public DataSet GetBulkOrderStatus(string OrderBookType,DateTime Fromdate,DateTime Todate)
+        {
+            WERPTaskRequestManagementDao requestManagementDao = new WERPTaskRequestManagementDao();
+            try
+            {
+                return requestManagementDao.GetBulkOrderStatus(OrderBookType, Fromdate, Todate);
+
+            }
+            catch (BaseApplicationException ex)
+            {
+                throw (ex);
+            }
+        }
     }
 }

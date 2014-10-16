@@ -31,7 +31,7 @@ namespace WealthERP.UploadBackOffice
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl msgUploadComplete;
-
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl msgNoRecords;
         /// <summary>
         /// tbNcdIssueList control.
         /// </summary>
@@ -59,6 +59,7 @@ namespace WealthERP.UploadBackOffice
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlSelectType;
+        protected global::System.Web.UI.WebControls.DropDownList ddlIssueType;
 
         /// <summary>
         /// RequiredFieldValidator3 control.
@@ -126,6 +127,7 @@ namespace WealthERP.UploadBackOffice
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnGo1;
         protected global::System.Web.UI.WebControls.Button btnGo2;
+        protected global::System.Web.UI.WebControls.Panel pnlBulkOrderStatusList;
         /// <summary>
         /// RadTabStripAssociatesDetails control.
         /// </summary>
@@ -160,6 +162,10 @@ namespace WealthERP.UploadBackOffice
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel panelRequestBulkOrder;
         protected global::System.Web.UI.WebControls.Panel panelBulkOrderStatus;
-        protected global::Telerik.Web.UI.RadDatePicker txtReqDate;
+        protected global::Telerik.Web.UI.RadDatePicker txtReqFromDate;
+        protected global::Telerik.Web.UI.RadDatePicker txtReqToDate;
+
+        protected global::Telerik.Web.UI.RadGrid gvBulkOrderStatusList;
+        protected global::System.Data.DataSet dtBulkOrderStatusList;
     }
 }

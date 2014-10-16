@@ -396,7 +396,26 @@ namespace DaoCommon
             }
 
         }
-
+        public DataSet GetBulkOrderStatus(string OrderBookType,DateTime Fromdate,DateTime Todate)
+        {
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DbCommand dbCommand;
+            DataSet dsbos;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbCommand = db.GetStoredProcCommand("SPROC_GetBulkOrderStatus");
+                db.AddInParameter(dbCommand, "@OrderBookType", DbType.String, OrderBookType);
+                db.AddInParameter(dbCommand, "@FromDate", DbType.Date, Fromdate);
+                db.AddInParameter(dbCommand, "@ToDate", DbType.Date, Todate);
+                dsbos = db.ExecuteDataSet(dbCommand);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dsbos;
+        }
 
     }
 }
