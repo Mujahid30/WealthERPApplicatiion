@@ -98,7 +98,7 @@ namespace DaoCommisionManagement
                 db.AddInParameter(cmdIssueMap, "@mappedType", DbType.String, mappedType);
                 db.AddInParameter(cmdIssueMap, "@issueType", DbType.String, issueType);
                 db.AddInParameter(cmdIssueMap, "@product", DbType.String, product);
-                
+
                 db.AddInParameter(cmdIssueMap, "@IsOnlineIssue", DbType.Int16, IsOnlineIssue);
                 ds = db.ExecuteDataSet(cmdIssueMap);
             }
@@ -136,7 +136,7 @@ namespace DaoCommisionManagement
                 db.AddInParameter(cmdCreateCommissionStructure, "@ValidityStartDate", DbType.Date, DateTime.Today);
                 db.AddInParameter(cmdCreateCommissionStructure, "@ValidityEndDate", DbType.Date, DateTime.Today);
                 db.AddOutParameter(cmdCreateCommissionStructure, "@mappingStructureId", DbType.Int64, 1000000);
-               
+
                 db.ExecuteNonQuery(cmdCreateCommissionStructure);
                 Object objCommissionStructureId = db.GetParameterValue(cmdCreateCommissionStructure, "@mappingStructureId");
                 if (objCommissionStructureId != DBNull.Value)
@@ -154,7 +154,7 @@ namespace DaoCommisionManagement
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "CommisionReceivableDao.cs:CreateCommissionStructureMastter(CommissionStructureMasterVo commissionStructureMasterVo)");
                 object[] objects = new object[2];
-                 
+
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -176,8 +176,8 @@ namespace DaoCommisionManagement
                 db.AddInParameter(cmdCreateCommissionStructure, "@PAG_AssetCategoryCode", DbType.String, commissionStructureMasterVo.ProductType);
                 db.AddInParameter(cmdCreateCommissionStructure, "@PAIC_AssetInstrumentCategoryCode", DbType.String, commissionStructureMasterVo.AssetCategory);
                 db.AddInParameter(cmdCreateCommissionStructure, "@ACSM_CommissionStructureName", DbType.String, commissionStructureMasterVo.CommissionStructureName);
-                if (!string.IsNullOrEmpty(commissionStructureMasterVo.Issuer))                
-                db.AddInParameter(cmdCreateCommissionStructure, "@ACSM_Issuer", DbType.Int32, Convert.ToUInt32(commissionStructureMasterVo.Issuer.ToString()));
+                if (!string.IsNullOrEmpty(commissionStructureMasterVo.Issuer))
+                    db.AddInParameter(cmdCreateCommissionStructure, "@ACSM_Issuer", DbType.Int32, Convert.ToUInt32(commissionStructureMasterVo.Issuer.ToString()));
                 else
                     db.AddInParameter(cmdCreateCommissionStructure, "@ACSM_Issuer", DbType.Int32, 0);
 
@@ -349,7 +349,7 @@ namespace DaoCommisionManagement
                 db.AddInParameter(cmdCreateCommissionStructureRule, "@ACSR_InvestmentAgeUnit", DbType.String, commissionStructureRuleVo.InvestmentAgeUnit);
 
 
-                if (!string.IsNullOrEmpty(commissionStructureRuleVo.TransactionType)) 
+                if (!string.IsNullOrEmpty(commissionStructureRuleVo.TransactionType))
                     db.AddInParameter(cmdCreateCommissionStructureRule, "@ACSR_TransactionType", DbType.String, commissionStructureRuleVo.TransactionType);
                 if (!string.IsNullOrEmpty(commissionStructureRuleVo.SIPFrequency))
                     db.AddInParameter(cmdCreateCommissionStructureRule, "@ACSR_SIPFrequency", DbType.String, commissionStructureRuleVo.SIPFrequency);
@@ -782,7 +782,7 @@ namespace DaoCommisionManagement
 
                 if ((commissionStructureRuleVo.TenureMin == 0 && commissionStructureRuleVo.TenureMax == 0))
                     db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_TenureUnit", DbType.String, DBNull.Value);
-                 else
+                else
                     db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_TenureUnit", DbType.String, commissionStructureRuleVo.TenureUnit);
 
 
@@ -1002,6 +1002,19 @@ namespace DaoCommisionManagement
         /**
          * CommissionStructureToSchemeMapping - 
          */
+        public void DeleteIssueMapping(int issueId)
+        {
+            //CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
+            //try
+            //{
+            //  //  commisionReceivableDao.DeleteIssueMapping(issueId);
+
+            //}
+            //catch (BaseApplicationException Ex)
+            //{
+            //    throw Ex;
+            //}
+        }
 
         public DataSet GetStructureDetails(int adviserId, int structureId)
         {
@@ -1216,7 +1229,7 @@ namespace DaoCommisionManagement
             }
         }
 
-        public DataSet GetStructureScheme(int adviserId)
+        public DataSet GetStructureScheme(int adviserId, string product)
         {
             DataSet dsStructureScheme = new DataSet();
             Database db;
@@ -1226,6 +1239,8 @@ namespace DaoCommisionManagement
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmdStructureScheme = db.GetStoredProcCommand("SP_GetStuctSchemeAssoc");
                 db.AddInParameter(cmdStructureScheme, "@adviserId", DbType.Int32, adviserId);
+                db.AddInParameter(cmdStructureScheme, "@product", DbType.String, product);
+
                 dsStructureScheme = db.ExecuteDataSet(cmdStructureScheme);
             }
             catch (BaseApplicationException Ex)
@@ -1322,10 +1337,12 @@ namespace DaoCommisionManagement
                 db.AddInParameter(cmdUpdateSetup, "@A_AdviserId", DbType.Int32, adviserId);
                 dsRules = db.ExecuteDataSet(cmdUpdateSetup);
             }
-            catch (BaseApplicationException Ex) {
+            catch (BaseApplicationException Ex)
+            {
                 throw Ex;
             }
-            catch (Exception Ex) {
+            catch (Exception Ex)
+            {
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "CommissionManagementDao.cs:bool hasRule(int adviserId, string ruleHash)");
