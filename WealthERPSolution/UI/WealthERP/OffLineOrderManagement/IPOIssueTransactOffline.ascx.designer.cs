@@ -46,6 +46,7 @@ namespace WealthERP.OffLineOrderManagement {
         protected global::System.Web.UI.WebControls.TextBox txtPansearch;
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trCust;
         protected global::AjaxControlToolkit.AutoCompleteExtender txtCustomerName_autoCompleteExtender;
+        protected global::System.Web.UI.WebControls.TextBox txtAmount;
         protected global::System.Web.UI.WebControls.TextBox txtASBANO;
         protected global::System.Web.UI.WebControls.DropDownList ddlPaymentMode;
         protected global::System.Web.UI.WebControls.TextBox txtBranchName;
@@ -247,7 +248,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnConfirmOrder;
-        
+        protected global::System.Web.UI.WebControls.Button btnAddMore;
         /// <summary>
         /// lnlBack control.
         /// </summary>

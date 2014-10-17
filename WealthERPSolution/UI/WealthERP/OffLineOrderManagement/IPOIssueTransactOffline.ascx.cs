@@ -81,16 +81,17 @@ namespace WealthERP.OffLineOrderManagement
         BoDematAccount boDematAccount = new BoDematAccount();
         DataTable dtOnlineIPOIssueList;
         protected void Page_Load(object sender, EventArgs e)
-        {
+            {
 
             SessionBo.CheckSession();
 
             associatesVo = (AssociatesVO)Session["associatesVo"];
             userVo = (UserVo)Session[SessionContents.UserVo];
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
-            
+
             rwDematDetails.VisibleOnPageLoad = false;
             GetUserType();
+
             if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
             {
                 txtCustomerName_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
@@ -123,7 +124,7 @@ namespace WealthERP.OffLineOrderManagement
 
             }
 
-
+            this.txtApplicationNo.Text = string.Empty;
             if (!IsPostBack)
             {
 
@@ -133,7 +134,7 @@ namespace WealthERP.OffLineOrderManagement
                     OnAssociateTextchanged(this, null);
                 }
                 //gvJointHoldersList.Visible = false;
-                
+
                 hdnIsSubscripted.Value = advisorVo.IsISASubscribed.ToString();
                 if (hdnIsSubscripted.Value == "True")
                 {
@@ -588,7 +589,7 @@ namespace WealthERP.OffLineOrderManagement
                 gvDematDetailsTeleR.Visible = true;
                 gvDematDetailsTeleR.DataSource = dsDematDetails.Tables[0];
                 gvDematDetailsTeleR.DataBind();
-                
+
             }
             catch (Exception ex)
             {
@@ -625,7 +626,7 @@ namespace WealthERP.OffLineOrderManagement
                 GetcustomerDetails();
             }
         }
-       
+
         public DataTable LoadNomineesJointHolder(string type)
         {
             DataTable dtCustomerAssociatesRaw = new DataTable();
@@ -690,9 +691,9 @@ namespace WealthERP.OffLineOrderManagement
         //    }
         //}
 
-        
-        
-        
+
+
+
         private void BindBank()
         {
             CommonLookupBo commonLookupBo = new CommonLookupBo();
@@ -841,9 +842,9 @@ namespace WealthERP.OffLineOrderManagement
         }
 
 
-       
 
-        
+
+
 
         protected void ddlAMCList_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -861,12 +862,12 @@ namespace WealthERP.OffLineOrderManagement
 
         }
 
-        protected void btnAddMore_Click(object sender, EventArgs e)
-        {
+        //protected void btnAddMore_Click(object sender, EventArgs e)
+        //{
 
 
 
-        }
+        //}
         protected void ddlPeriodSelection_SelectedIndexChanged(object sender, EventArgs e)
         {
         }
@@ -894,7 +895,7 @@ namespace WealthERP.OffLineOrderManagement
         {
             if (ddlIssueList.SelectedValue.ToLower() != "select")
             {
-                
+
                 BindIPOIssueList(ddlIssueList.SelectedValue.ToString());
                 BindIPOBidGrid(3);
             }
@@ -918,7 +919,7 @@ namespace WealthERP.OffLineOrderManagement
 
 
 
-       
+
 
         protected void lnkDelete_Click(object sender, EventArgs e)
         {
@@ -1274,7 +1275,7 @@ namespace WealthERP.OffLineOrderManagement
                 {
                     CreateIPOOrder();
                     ControlsVisblity(true);
-
+                 
                 }
             }
 
@@ -1395,24 +1396,24 @@ namespace WealthERP.OffLineOrderManagement
                     drIPOBid["ASBAAccNo"] = txtASBANO.Text.Trim();
                 else
                     drIPOBid["ASBAAccNo"] = DBNull.Value;
-               
-                    drIPOBid["BankName"] = ddlBankName.SelectedItem.Text;
-               
+
+                drIPOBid["BankName"] = ddlBankName.SelectedItem.Text;
+
                 if (!string.IsNullOrEmpty(txtBranchName.Text.Trim()))
                     drIPOBid["BranchName"] = txtBranchName.Text.Trim();
                 else
                     drIPOBid["BranchName"] = DBNull.Value;
-                
+
                 if (ddlPaymentMode.SelectedValue == "CQ")
                 {
                     if (!string.IsNullOrEmpty(txtPaymentNumber.Text.Trim()))
                         drIPOBid["ChequeNo"] = txtPaymentNumber.Text.Trim();
                     if (!string.IsNullOrEmpty(txtPaymentInstDate.SelectedDate.ToString()))
                         drIPOBid["ChequeDate"] = DateTime.Parse(txtPaymentInstDate.SelectedDate.ToString());
-                  
+
                 }
-                    drIPOBid["DematId"] = dematAccountId;
-               
+                drIPOBid["DematId"] = dematAccountId;
+
                 dtIPOBidTransactionDettails.Rows.Add(drIPOBid);
                 if (radgridRowNo < RadGridIPOBid.MasterTableView.Items.Count)
                     radgridRowNo++;
@@ -1455,8 +1456,9 @@ namespace WealthERP.OffLineOrderManagement
                 OfflineBondOrderBo.CreateOfflineCustomerOrderAssociation(dtJntHld, userVo.UserId, orderId);
             }
             userMessage = CreateUserMessage(orderId, accountDebitStatus, isCutOffTimeOver);
-            
+
             ShowMessage(userMessage);
+            
 
         }
 
@@ -1464,24 +1466,75 @@ namespace WealthERP.OffLineOrderManagement
         {
             tblMessage.Visible = true;
             msgRecordStatus.InnerText = msg;
-            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "wsedrftgyhjukloghjnnn", " showMsg('" + msg + "','S');", true);
+          
 
         }
 
         private string CreateUserMessage(int orderId, bool accountDebitStatus, bool isCutOffTimeOver)
         {
             string userMessage = string.Empty;
-            if (orderId != 0 )
+            if (orderId != 0)
             {
-                
-                    userMessage = "Order placed successfully, Order reference no is " + orderId.ToString();
+
+                userMessage = "Order placed successfully, Order reference no is " + orderId.ToString();
             }
-            
+
             return userMessage;
 
         }
-        
 
+        public void btnAddMore_Click(object sender, EventArgs e)
+        {
+           
+            string errorMsg = string.Empty;
+            bool isBidsVallid = false;
+            Page.Validate();
+            if (Page.IsValid)
+            {
+                isBidsVallid = ValidateIPOBids(out errorMsg);
+                if (!isBidsVallid)
+                {
+
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('" + errorMsg + "');", true);
+                    return;
+                }
+                else
+                {
+
+                    CreateIPOOrder();
+                    //ControlsVisblity(true);
+                    ClearAllFields();
+                    btnConfirmOrder.Visible = true;
+                    tblMessage.Visible = false;
+                }
+
+            }
+        }
+        public void ClearAllFields()
+        {
+            txtCustomerName.Text= "";
+            ddlsearch.SelectedIndex = -1;
+            txtCustomerName.Text =null;
+            txtAssociateSearch.Text = "";
+            lblgetPan.Text = "";
+            lblGetBranch.Text = "";
+            txtAssociateSearch.Text = "";
+            lblAssociatetext.Text = "";
+            ddlIssueList.SelectedIndex = 0;
+            txtApplicationNo.Text = null;
+            ddlPaymentMode.SelectedIndex = 0;
+            ddlBankName.SelectedIndex = -1;
+            txtBranchName.Text = "";
+            txtAmount.Text = "";
+            txtPaymentNumber.Text = "";
+            txtPaymentInstDate.SelectedDate = null;
+            txtDematid.Text = string.Empty;
+            txtASBANO.Text = "";
+            pnlIPOControlContainer.Visible = false;
+            pnlJointHolderNominee.Visible = false;
+            
+           
+        }
         protected void lnkTermsCondition_Click(object sender, EventArgs e)
         {
             rwTermsCondition.VisibleOnPageLoad = true;
@@ -1513,7 +1566,8 @@ namespace WealthERP.OffLineOrderManagement
         private void ControlsVisblity(bool visble)
         {
             btnConfirmOrder.Visible = false;
-            
+            btnAddMore.Visible = false;
+
         }
 
         private bool ValidateIPOBids(out string msg)
@@ -1722,6 +1776,6 @@ namespace WealthERP.OffLineOrderManagement
             GetDematAccountDetails(int.Parse(txtCustomerId.Value));
             rwDematDetails.VisibleOnPageLoad = true;
         }
-        
+
     }
 }

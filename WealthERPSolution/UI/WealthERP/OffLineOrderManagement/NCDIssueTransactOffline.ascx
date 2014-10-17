@@ -89,9 +89,6 @@
 
     function openpopupAddCustomer() {
 
-
-
-
         window.open('PopUp.aspx?AddMFCustLinkId=mf&pageID=CustomerType&', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')
         return true;
 
@@ -462,8 +459,10 @@
                 <asp:DropDownList ID="ddlIssueList" runat="server" AutoPostBack="true" CssClass="cmbExtraLongField"
                     OnSelectedIndexChanged="ddlIssueList_OnSelectedIndexChanged">
                 </asp:DropDownList>
+                <span id="Span6" class="spnRequiredField">*</span>
                 <asp:RequiredFieldValidator ID="rfvIssueList" runat="server" ControlToValidate="ddlIssueList"
-                    ErrorMessage="Please select the Issue Name" Display="Dynamic" ValidationGroup="btnConfirmOrder"></asp:RequiredFieldValidator>
+                    ErrorMessage="Please select the Issue Name" CssClass="rfvPCG" Display="Dynamic"
+                    ValidationGroup="btnConfirmOrder"></asp:RequiredFieldValidator>
             </td>
         </tr>
         <tr>
@@ -1146,6 +1145,8 @@
         <asp:Label ID="Label3" runat="server" Text="Confirm Your Order :" CssClass="FieldName"></asp:Label>
         <asp:Button ID="btnConfirmOrder" runat="server" Text="Submit" OnClientClick="return  PreventClicks(); Validate(); "
             OnClick="btnConfirmOrder_Click" CssClass="PCGButton" ValidationGroup="btnConfirmOrder" />
+        <asp:Button ID="btnAddMore" runat="server" Text="Save & AddMore" CssClass="PCGMediumButton"
+            ValidationGroup="btnConfirmOrder" OnClick="btnAddMore_Click" OnClientClick="return  PreventClicks(); Validate(); " />
     </td>
 </tr>
 <table>
