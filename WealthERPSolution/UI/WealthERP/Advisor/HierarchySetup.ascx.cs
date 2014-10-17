@@ -117,92 +117,92 @@ namespace WealthERP.Advisor
         }
         protected void rcbSetup_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
         {
-            try
-            {
-                int SeqNNo;
-                PSBo = new ProductgroupSetupBo();
-                RadComboBox RadComboBox = (RadComboBox)sender;
-                GridEditableItem editedItem = RadComboBox.NamingContainer as GridEditableItem;
-                RadComboBox rcbChanel = editedItem.FindControl("rcbChanel") as RadComboBox;
-                RadComboBox rcbTeamm = editedItem.FindControl("rcbTeamm") as RadComboBox;
-                RadComboBox rcbReportingTo = editedItem.FindControl("rcbReportingTo") as RadComboBox;
-                RadComboBox rcbTitles = editedItem.FindControl("rcbTitles") as RadComboBox;
-                TextBox TxtSeq = (TextBox)editedItem.FindControl("TxtSeq");
+            //try
+            //{
+            //    int SeqNNo;
+            //    PSBo = new ProductgroupSetupBo();
+            //    RadComboBox RadComboBox = (RadComboBox)sender;
+            //    GridEditableItem editedItem = RadComboBox.NamingContainer as GridEditableItem;
+            //    RadComboBox rcbChanel = editedItem.FindControl("rcbChanel") as RadComboBox;
+            //    RadComboBox rcbTeamm = editedItem.FindControl("rcbTeamm") as RadComboBox;
+            //    RadComboBox rcbReportingTo = editedItem.FindControl("rcbReportingTo") as RadComboBox;
+            //    RadComboBox rcbTitles = editedItem.FindControl("rcbTitles") as RadComboBox;
+            //    TextBox TxtSeq = (TextBox)editedItem.FindControl("TxtSeq");
 
-                Label Lb1Report = (Label)editedItem.FindControl("Label4");
+            //    Label Lb1Report = (Label)editedItem.FindControl("Label4");
 
-                dtTeam = PSBo.GetTeam().Tables[0];
-                rcbTeamm.DataSource = dtTeam;
-                rcbTeamm.DataTextField = "WHLM_Name";
-                rcbTeamm.DataValueField = "WHLM_Id";
-                rcbTeamm.DataBind();
+            //    dtTeam = PSBo.GetTeam().Tables[0];
+            //    rcbTeamm.DataSource = dtTeam;
+            //    rcbTeamm.DataTextField = "WHLM_Name";
+            //    rcbTeamm.DataValueField = "WHLM_Id";
+            //    rcbTeamm.DataBind();
 
-                dtChanel = PSBo.GetChanel().Tables[0];
-                rcbChanel.DataSource = dtChanel;
-                rcbChanel.DataTextField = "WHLM_Name";
-                rcbChanel.DataValueField = "WHLM_Id";
-                rcbChanel.DataBind();
+            //    dtChanel = PSBo.GetChanel().Tables[0];
+            //    rcbChanel.DataSource = dtChanel;
+            //    rcbChanel.DataTextField = "WHLM_Name";
+            //    rcbChanel.DataValueField = "WHLM_Id";
+            //    rcbChanel.DataBind();
 
-                //Getting Seq NO 
-
-
-                rcbChanel.SelectedValue = "0";
+            //    //Getting Seq NO 
 
 
-                //SeqNNo = PSBo.GetTopSeqNo(advisorVo.advisorId);
-
-                //if (SeqNNo != 0 & SeqNNo != 1)
-                //{
-               // SeqNNo = PSBo.GetSeqNoinChanel(Convert.ToInt32(rcbChanel.SelectedValue), advisorVo.advisorId);
-                //}
-                // SeqNNo = PSBo.GetSeqNoinChanel(Convert.ToInt32(rcbChanel.SelectedValue));
-
-                //if (SeqNNo == 0 | SeqNNo == 1)
-                //{
-                //    rcbReportingTo.Visible = false;
-                //    Lb1Report.Visible = false;
-                //    // Lb1Title.Visible = false;
-                //}
-                //else
-                //{
-                //    rcbReportingTo.Visible = true;
-                //    Lb1Report.Visible = true;
-                //    //  Lb1Title.Visible = true;
-                //}
-
-                //TxtSeq.Text = SeqNNo.ToString();
-                dtReportingTo = PSBo.GetReportsTo(Convert.ToInt32(rcbChanel.SelectedValue), advisorVo.advisorId).Tables[0];
-                rcbReportingTo.DataSource = dtReportingTo;
-                rcbReportingTo.DataTextField = "AH_HierarchyName";
-                rcbReportingTo.DataValueField = "AH_TitleId";
-                rcbReportingTo.DataBind();
-
-                //dtHirarchy  = PSBo.GetHirarchy().Tables[0];
-                //rcbTitles.DataSource = dtHirarchy;
-                //rcbTitles.DataTextField = "WHLM_Name";
-                //rcbTitles.DataValueField = "WHLM_Id";
-                //rcbTitles.DataBind();
+            //    rcbChanel.SelectedValue = "0";
 
 
+            //    //SeqNNo = PSBo.GetTopSeqNo(advisorVo.advisorId);
 
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "AdviserHierarchyCluster.ascx:rcbSetup_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)");
-                object[] objects = new object[3];
-                objects[0] = sender;
-                objects[1] = e;
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
+            //    //if (SeqNNo != 0 & SeqNNo != 1)
+            //    //{
+            //   // SeqNNo = PSBo.GetSeqNoinChanel(Convert.ToInt32(rcbChanel.SelectedValue), advisorVo.advisorId);
+            //    //}
+            //    // SeqNNo = PSBo.GetSeqNoinChanel(Convert.ToInt32(rcbChanel.SelectedValue));
+
+            //    //if (SeqNNo == 0 | SeqNNo == 1)
+            //    //{
+            //    //    rcbReportingTo.Visible = false;
+            //    //    Lb1Report.Visible = false;
+            //    //    // Lb1Title.Visible = false;
+            //    //}
+            //    //else
+            //    //{
+            //    //    rcbReportingTo.Visible = true;
+            //    //    Lb1Report.Visible = true;
+            //    //    //  Lb1Title.Visible = true;
+            //    //}
+
+            //    //TxtSeq.Text = SeqNNo.ToString();
+            //    dtReportingTo = PSBo.GetReportsTo(Convert.ToInt32(rcbChanel.SelectedValue), advisorVo.advisorId).Tables[0];
+            //    rcbReportingTo.DataSource = dtReportingTo;
+            //    rcbReportingTo.DataTextField = "AH_HierarchyName";
+            //    rcbReportingTo.DataValueField = "AH_TitleId";
+            //    rcbReportingTo.DataBind();
+
+            //    //dtHirarchy  = PSBo.GetHirarchy().Tables[0];
+            //    //rcbTitles.DataSource = dtHirarchy;
+            //    //rcbTitles.DataTextField = "WHLM_Name";
+            //    //rcbTitles.DataValueField = "WHLM_Id";
+            //    //rcbTitles.DataBind();
+
+
+
+            //}
+            //catch (BaseApplicationException Ex)
+            //{
+            //    throw Ex;
+            //}
+            //catch (Exception Ex)
+            //{
+            //    BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+            //    NameValueCollection FunctionInfo = new NameValueCollection();
+            //    FunctionInfo.Add("Method", "AdviserHierarchyCluster.ascx:rcbSetup_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)");
+            //    object[] objects = new object[3];
+            //    objects[0] = sender;
+            //    objects[1] = e;
+            //    FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+            //    exBase.AdditionalInformation = FunctionInfo;
+            //    ExceptionManager.Publish(exBase);
+            //    throw exBase;
+            //}
 
         }
         public void  BindHierarchyGrid(int adviserId)
@@ -447,7 +447,11 @@ namespace WealthERP.Advisor
         {
             dsRMAndHierarchyDetails = new DataSet();
             PSBo = new ProductgroupSetupBo();
+            if (e.Item is GridDataItem && e.Item.ItemIndex != -1)
+            {
+                
 
+            }
             if (e.Item is GridEditFormInsertItem && e.Item.OwnerTableView.IsItemInserted)
             {
                 GridEditFormInsertItem item = (GridEditFormInsertItem)e.Item;
@@ -456,6 +460,7 @@ namespace WealthERP.Advisor
                 DataTable dtChanel = new DataTable();
 
                 GridEditFormItem gefi = (GridEditFormItem)e.Item;
+                
                 RadComboBox rcbChanel = (RadComboBox)gefi.FindControl("rcbChanel");
                 RadComboBox rcbTeamm = (RadComboBox)gefi.FindControl("rcbTeamm");
 
@@ -465,7 +470,36 @@ namespace WealthERP.Advisor
                 defaultItem.Text = "";
                 defaultItem.Value = "";
 
+                int SeqNNo;
+                PSBo = new ProductgroupSetupBo();
+                //GridEditableItem editedItem = RadComboBox.NamingContainer as GridEditableItem;
+                 
+                RadComboBox rcbReportingTo = e.Item.FindControl("rcbReportingTo") as RadComboBox;
+                RadComboBox rcbTitles = e.Item.FindControl("rcbTitles") as RadComboBox;
+                TextBox TxtSeq = (TextBox)e.Item.FindControl("TxtSeq");
 
+                Label Lb1Report = (Label)e.Item.FindControl("Label4");
+
+                dtTeam = PSBo.GetTeam().Tables[0];
+                rcbTeamm.DataSource = dtTeam;
+                rcbTeamm.DataTextField = "WHLM_Name";
+                rcbTeamm.DataValueField = "WHLM_Id";
+                rcbTeamm.DataBind();
+
+                dtChanel = PSBo.GetChanel().Tables[0];
+                rcbChanel.DataSource = dtChanel;
+                rcbChanel.DataTextField = "WHLM_Name";
+                rcbChanel.DataValueField = "WHLM_Id";
+                rcbChanel.DataBind();
+
+
+                rcbChanel.SelectedValue = "0";
+
+                dtReportingTo = PSBo.GetReportsTo(Convert.ToInt32(rcbChanel.SelectedValue), advisorVo.advisorId).Tables[0];
+                rcbReportingTo.DataSource = dtReportingTo;
+                rcbReportingTo.DataTextField = "AH_HierarchyName";
+                rcbReportingTo.DataValueField = "AH_TitleId";
+                rcbReportingTo.DataBind();
             }
 
             if (e.Item is GridEditFormItem && e.Item.IsInEditMode && e.Item.ItemIndex != -1)

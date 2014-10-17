@@ -91,10 +91,10 @@
                             </table>
                             <table id="Table2" cellspacing="2" cellpadding="1" border="0" rules="none" style="border-collapse: collapse;
                                 background: white;">
-                                <tr>
+                                <tr  >
                                     <td>
                                         <table id="Table3" cellspacing="1" cellpadding="1" border="0" width="390px">
-                                            <tr>
+                                            <tr runat="server" tr="trSetUpFor" visible="false" >
                                                 <td align="right">
                                                     <asp:Label runat="server" Text="Setup for :" ID="label3"></asp:Label>
                                                 </td>
@@ -103,8 +103,8 @@
                                                         OnSelectedIndexChanged="rcbSetup_SelectedIndexChanged">
                                                         <Items>
                                                             <telerik:RadComboBoxItem Text="" Value="" />
-                                                            <telerik:RadComboBoxItem Text="Team Hierarchy" Value="1" />
-                                                            <telerik:RadComboBoxItem Text="Office Hierarchy" Value="2" Enabled="false" />
+                                                            <telerik:RadComboBoxItem Text="Team Hierarchy" Value="1" Selected="true"/>
+                                                           <%-- <telerik:RadComboBoxItem Text="Office Hierarchy" Value="2"  />--%>
                                                         </Items>
                                                     </telerik:RadComboBox>
                                                 </td>
@@ -191,12 +191,12 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td align="right"  >
-                                                <asp:CheckBox ID="chkIsSeqChange" runat="server" CssClass="txtField" Text="" AutoPostBack="true">
+                                                <td align="right">
+                                                    <asp:CheckBox ID="chkIsSeqChange" runat="server" CssClass="txtField" Text="" AutoPostBack="true">
                                                     </asp:CheckBox>
                                                     <asp:Label runat="server" Text="Changes Applicable Existing Seq.:" ID="Label8"></asp:Label>
                                                 </td>
-                                               <%-- <td colspan="3">
+                                                <%-- <td colspan="3">
                                                     <asp:CheckBox ID="chkIsSeqChange" runat="server" CssClass="txtField" Text="" AutoPostBack="true">
                                                     </asp:CheckBox>
                                                 </td>--%>

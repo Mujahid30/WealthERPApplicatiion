@@ -35,7 +35,7 @@ namespace WealthERP.CommisionManagement
 
             if (!IsPostBack)
             {
-               
+
                 if (Cache[userVo.UserId.ToString() + "MappedIssueList"] != null)
                     Cache.Remove(userVo.UserId.ToString() + "MappedIssueList");
                 GetMapped_Unmapped_Issues("Mapped", "");
@@ -48,12 +48,12 @@ namespace WealthERP.CommisionManagement
         public void GetMapped_Unmapped_Issues(string type, string issueType)
         {
             DataTable dtmappedIssues = new DataTable();
-            string product=string.Empty;
+            string product = string.Empty;
             if (Request.QueryString["Product"] != null)
             {
-                 product =  Request.QueryString["Product"].ToString();
+                product = Request.QueryString["Product"].ToString();
             }
-            dtmappedIssues = commisionReceivableBo.GetIssuesStructureMapings(advisorVo.advisorId, type, issueType,product,0).Tables[0];
+            dtmappedIssues = commisionReceivableBo.GetIssuesStructureMapings(advisorVo.advisorId, type, issueType, product, 0).Tables[0];
             if (dtmappedIssues == null)
                 return;
             if (dtmappedIssues.Rows.Count == 0)
@@ -66,7 +66,7 @@ namespace WealthERP.CommisionManagement
 
                 if (Cache[userVo.UserId.ToString() + "MappedIssueList"] != null)
                     Cache.Remove(userVo.UserId.ToString() + "MappedIssueList");
-                              
+
                 Cache.Insert(userVo.UserId.ToString() + "MappedIssueList", dtmappedIssues);
             }
             else if (type == "UnMapped")
@@ -98,10 +98,22 @@ namespace WealthERP.CommisionManagement
             if (dtIssues != null) gvMappedIssueList.DataSource = dtIssues;
 
         }
+
+        protected void gvMappedIssueList_ItemCommand(object source, GridCommandEventArgs e)
+        {
+            if (e.CommandName == RadGrid.DeleteCommandName)
+            {
+                int setupId = Convert.ToInt32(gvMappedIssueList.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSTSM_SetupId"].ToString());
+                commisionReceivableBo.DeleteIssueMapping(setupId);
+                GetUnamppedIssues(ddlIssueType.SelectedValue);
+                GetMapped_Unmapped_Issues("Mapped", "");
+            }
+        }
+
         protected void btnMAP_Click(object sender, EventArgs e)
         {
             int mappingId;
-            if (string.IsNullOrEmpty( ddlUnMappedIssues.SelectedValue))
+            if (string.IsNullOrEmpty(ddlUnMappedIssues.SelectedValue))
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select Issue');", true);
                 return;

@@ -44,6 +44,7 @@ namespace WealthERP.Receivable
                 GetProduct();
                 if (structureId != 0)
                 {
+                    BindAllDropdown();
                     LoadStructureDetails(structureId);
                     BindCommissionStructureRuleGrid(structureId);
                 }
@@ -206,7 +207,7 @@ namespace WealthERP.Receivable
             StringBuilder strSubCategoryCode = new StringBuilder();
             try
             {
-                SetStructureMasterControlDefaultValues(ddlProductType.SelectedValue);
+
                 commissionStructureMasterVo.AdviserId = advisorVo.advisorId;
                 commissionStructureMasterVo.ProductType = ddlProductType.SelectedValue;
                 commissionStructureMasterVo.AssetCategory = ddlCategory.SelectedValue;
@@ -276,6 +277,7 @@ namespace WealthERP.Receivable
         protected void btnStructureSubmit_Click(object sender, EventArgs e)
         {
             int commissionStructureId = 0;
+            SetStructureMasterControlDefaultValues(ddlProductType.SelectedValue);
             commissionStructureMasterVo = CollectStructureMastetrData();
             if (string.IsNullOrEmpty(commissionStructureMasterVo.AssetSubCategory.ToString()) && ddlProductType.SelectedValue == "MF")
             {

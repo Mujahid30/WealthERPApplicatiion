@@ -42,13 +42,12 @@
                     <asp:Label ID="lblStatusStage2" runat="server" Text="Pick Product:" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightData">
-                    <asp:DropDownList ID="ddlProductType" runat="server" CssClass="cmbField" AutoPostBack="true"
-                         >
+                    <asp:DropDownList ID="ddlProductType" runat="server" CssClass="cmbField" AutoPostBack="true">
                     </asp:DropDownList>
                     <br />
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" CssClass="rfvPCG"
                         ErrorMessage="Please Select Product Type" Display="Dynamic" ControlToValidate="ddlProductType"
-                        InitialValue="Select" ValidationGroup="btnGo">
+                        InitialValue="Select" ValidationGroup="btnGo" >
                     </asp:RequiredFieldValidator>
                 </td>
             </tr>

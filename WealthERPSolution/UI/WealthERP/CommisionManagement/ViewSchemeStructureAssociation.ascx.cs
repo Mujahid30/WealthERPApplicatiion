@@ -37,7 +37,7 @@ namespace WealthERP.CommisionManagement
 
             if (!IsPostBack)
             {
-                GetProduct();
+                GetProduct();   
             }
         }
 

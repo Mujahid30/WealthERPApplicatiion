@@ -1,6 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CommisionManagementStructureToIssueMapping.ascx.cs"
     Inherits="WealthERP.CommisionManagement.CommisionManagementStructureToIssueMapping" %>
-    
 <asp:ScriptManager ID="scrptMgr" runat="server">
     <Services>
         <asp:ServiceReference Path="AutoComplete.asmx" />
@@ -15,6 +14,7 @@
             <asp:DropDownList ID="ddlIssueType" runat="server" CssClass="cmbField" AutoPostBack="true"
                 Width="205px" OnSelectedIndexChanged="ddlIssueType_Selectedindexchanged">
                 <asp:ListItem Value="OpenIssue">Open Issue</asp:ListItem>
+                <asp:ListItem Value="ClosedIssue">Closed Issue</asp:ListItem>
                 <asp:ListItem Value="FutureIssue">Future Issue</asp:ListItem>
             </asp:DropDownList>
             <span id="Span2" class="spnRequiredField">*</span>
@@ -24,7 +24,8 @@
                 InitialValue="Select"></asp:RequiredFieldValidator>
         </td>
         <td align="right">
-           &nbsp;&nbsp; <asp:Label ID="Label1" runat="server" Text="Unmmaped Issues:" CssClass="FieldName"></asp:Label>
+            &nbsp;&nbsp;
+            <asp:Label ID="Label1" runat="server" Text="Unmmaped Issues:" CssClass="FieldName"></asp:Label>
         </td>
         <td>
             <asp:DropDownList ID="ddlUnMappedIssues" runat="server" CssClass="cmbField" AutoPostBack="true"
@@ -38,14 +39,14 @@
         </td>
     </tr>
     <tr id="trBtnSubmit" runat="server">
-        <td  >
+        <td>
             <asp:Button ID="btnMAP" runat="server" Text="Map" CssClass="PCGButton" ValidationGroup="btnGo"
-                OnClick="btnMAP_Click"  />
+                OnClick="btnMAP_Click" />
         </td>
     </tr>
 </table>
 <asp:Panel ID="pnlIssueList" runat="server" class="Landscape" Width="80%" Height="80%"
-    ScrollBars="Both"  >
+    ScrollBars="Both">
     <table width="100%">
         <tr>
             <td>
@@ -53,13 +54,17 @@
                     <telerik:RadGrid ID="gvMappedIssueList" runat="server" GridLines="None" AutoGenerateColumns="False"
                         PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                         Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" AllowFilteringByColumn="true"
-                        AllowAutomaticInserts="false" ExportSettings-FileName="Issue List" OnNeedDataSource="gvMappedIssueList_OnNeedDataSource">
+                        AllowAutomaticInserts="false" ExportSettings-FileName="Issue List" OnNeedDataSource="gvMappedIssueList_OnNeedDataSource"
+                        OnItemCommand="gvMappedIssueList_ItemCommand">
                         <%-- <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
                             FileName="MF Order Recon" Excel-Format="ExcelML">
                         </ExportSettings>--%>
-                        <MasterTableView   Width="100%" AllowMultiColumnSorting="True"
-                            AutoGenerateColumns="false" CommandItemDisplay="None">
+                        <MasterTableView Width="100%" AllowMultiColumnSorting="True" DataKeyNames="ACSTSM_SetupId" AutoGenerateColumns="false"
+                            CommandItemDisplay="None">
                             <Columns>
+                                <telerik:GridButtonColumn CommandName="Delete" Text="Delete" ConfirmText="Do you want to delete this rule? Click OK to proceed"
+                                    UniqueName="column">
+                                </telerik:GridButtonColumn>
                                 <telerik:GridBoundColumn DataField="AIM_IssueName" HeaderText="Issue Name" SortExpression="AIM_IssueName"
                                     ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
                                     UniqueName="AIM_IssueName" FooterStyle-HorizontalAlign="Left">
