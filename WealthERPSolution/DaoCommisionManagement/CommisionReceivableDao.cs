@@ -701,7 +701,10 @@ namespace DaoCommisionManagement
                 db.AddInParameter(cmdUpdateCommissionStructure, "@PAG_AssetCategoryCode", DbType.String, commissionStructureMasterVo.ProductType);
                 db.AddInParameter(cmdUpdateCommissionStructure, "@PAIC_AssetInstrumentCategoryCode", DbType.String, commissionStructureMasterVo.AssetCategory);
                 db.AddInParameter(cmdUpdateCommissionStructure, "@ACSM_CommissionStructureName", DbType.String, commissionStructureMasterVo.CommissionStructureName);
+                if (!string.IsNullOrEmpty(commissionStructureMasterVo.Issuer))
                 db.AddInParameter(cmdUpdateCommissionStructure, "@ACSM_Issuer", DbType.Int32, Convert.ToUInt32(commissionStructureMasterVo.Issuer.ToString()));
+                else
+                    db.AddInParameter(cmdUpdateCommissionStructure, "@ACSM_Issuer", DbType.Int32, 0);
 
                 db.AddInParameter(cmdUpdateCommissionStructure, "@ACSM_ValidityStartDate", DbType.Date, commissionStructureMasterVo.ValidityStartDate);
                 db.AddInParameter(cmdUpdateCommissionStructure, "@ACSM_ValidityEndDate", DbType.Date, commissionStructureMasterVo.ValidityEndDate);
@@ -1002,18 +1005,24 @@ namespace DaoCommisionManagement
         /**
          * CommissionStructureToSchemeMapping - 
          */
-        public void DeleteIssueMapping(int issueId)
+        public void DeleteIssueMapping(int setUpId)
         {
-            //CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
-            //try
-            //{
-            //  //  commisionReceivableDao.DeleteIssueMapping(issueId);
 
-            //}
-            //catch (BaseApplicationException Ex)
-            //{
-            //    throw Ex;
-            //}
+            Database db;
+            DbCommand cmdGetStructDet;
+            DataSet ds = null;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetStructDet = db.GetStoredProcCommand("SPROC_DeleteIssueMapping");
+                db.AddInParameter(cmdGetStructDet, "@setUpId", DbType.Int32, setUpId);
+                ds = db.ExecuteDataSet(cmdGetStructDet);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
         }
 
         public DataSet GetStructureDetails(int adviserId, int structureId)

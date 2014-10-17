@@ -98,7 +98,7 @@ namespace BoCommisionManagement
             }
             return dsLookupData;
         }
-
+        
 
         public void CreateIssuesStructureMapings(CommissionStructureRuleVo commissionStructureRuleVo, out  int instructureId)
         {
@@ -510,19 +510,19 @@ namespace BoCommisionManagement
             }
 
         }
-        //public void DeleteIssueMapping(int issueId )
-        //{
-        //    CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
-        //    try
-        //    {
-        //        commisionReceivableDao.DeleteIssueMapping(issueId);
+        public void DeleteIssueMapping(int setUpId)
+        {
+            CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
+            try
+            {
+                commisionReceivableDao.DeleteIssueMapping(setUpId);
 
-        //    }
-        //    catch (BaseApplicationException Ex)
-        //    {
-        //        throw Ex;
-        //    }
-        //}
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+        }
 
         public void DeleteCommissionStructureRule(int id, bool isAllRuleDelete)
         {
