@@ -277,7 +277,6 @@ namespace WealthERP.Receivable
         protected void btnStructureSubmit_Click(object sender, EventArgs e)
         {
             int commissionStructureId = 0;
-            SetStructureMasterControlDefaultValues(ddlProductType.SelectedValue);
             commissionStructureMasterVo = CollectStructureMastetrData();
             if (string.IsNullOrEmpty(commissionStructureMasterVo.AssetSubCategory.ToString()) && ddlProductType.SelectedValue == "MF")
             {
@@ -309,6 +308,7 @@ namespace WealthERP.Receivable
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('CommisionManagementStructureToIssueMapping','ID=" + hidCommissionStructureName.Value + "&Product=" + ddlProductType.SelectedValue + "');", true);
 
             }
+
         }
 
 
