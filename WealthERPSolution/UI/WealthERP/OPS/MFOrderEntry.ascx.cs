@@ -3173,8 +3173,8 @@ namespace WealthERP.OPS
             if ((transactiontype == "SIP" | transactiontype == "SWP" | transactiontype == "STB"))
             {
                 trSystematicDateChk1.Visible = true;
-                trSystematicDateChk2.Visible = true;
-                trSystematicDateChk3.Visible = true;
+              //  trSystematicDateChk2.Visible = true;
+                //trSystematicDateChk3.Visible = true;
                 trSystematicDate.Visible = true;
 
                 if (mode == "View")
@@ -3190,8 +3190,8 @@ namespace WealthERP.OPS
             {
 
                 trSystematicDateChk1.Visible = false;
-                trSystematicDateChk2.Visible = false;
-                trSystematicDateChk3.Visible = false;
+                //trSystematicDateChk2.Visible = false;
+               // trSystematicDateChk3.Visible = false;
                 trSystematicDate.Visible = false;
                 SipEnablity(false);
             }
@@ -3803,8 +3803,8 @@ namespace WealthERP.OPS
             }
             else
                 mforderVo.BankName = "";
-            if (!string.IsNullOrEmpty(ddlBranch.SelectedValue))
-                mforderVo.BranchName = ddlBranch.SelectedValue;
+            if (!string.IsNullOrEmpty(txtBranchName.Text))
+                mforderVo.BranchName = txtBranchName.Text;
             else
                 mforderVo.BranchName = "";
 
@@ -4018,7 +4018,7 @@ namespace WealthERP.OPS
                 rbtUnit.Enabled = false;
                 txtNewAmount.Enabled = false;
                 ddlBankName.Enabled = false;
-                txtBranchName.Enabled = false;
+                //txtBranchName.Enabled = false;
                 ddlFrequencySIP.Enabled = false;
                 txtstartDateSIP.Enabled = false;
                 txtendDateSIP.Enabled = false;
@@ -4085,7 +4085,7 @@ namespace WealthERP.OPS
                 rbtUnit.Enabled = true;
                 txtNewAmount.Enabled = true;
                 ddlBankName.Enabled = true;
-                txtBranchName.Enabled = true;
+                //txtBranchName.Enabled = true;
                 ddlFrequencySIP.Enabled = true;
                 txtstartDateSIP.Enabled = true;
                 txtendDateSIP.Enabled = true;
@@ -4325,8 +4325,8 @@ namespace WealthERP.OPS
             }
             else
                 mforderVo.BankName = "";
-            if (!string.IsNullOrEmpty(ddlBranch.SelectedValue))
-                mforderVo.BranchName = ddlBranch.SelectedValue;
+            if (!string.IsNullOrEmpty(txtBranchName.Text))
+                mforderVo.BranchName = txtBranchName.Text;
             else
                 mforderVo.BranchName = "";
             if (ddlSchemeSwitch.SelectedValue != "")
