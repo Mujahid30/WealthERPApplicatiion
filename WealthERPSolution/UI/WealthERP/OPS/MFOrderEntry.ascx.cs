@@ -139,6 +139,7 @@ namespace WealthERP.OPS
                 pnl_BUY_ABY_SIP_PaymentSection.Enabled = false;
                 pnl_SIP_PaymentSection.Enabled = false;
                 pnl_SEL_PaymentSection.Enabled = false;
+                txtAssociateSearch.Text = associateuserheirarchyVo.AgentCode;
                 DefaultBindings();
 
                 if (Request.QueryString["action"] != null)
@@ -2685,13 +2686,23 @@ namespace WealthERP.OPS
         }
         protected void OnAssociateTextchanged(object sender, EventArgs e)
         {
+           //txtAgentId.Value 
             if (!IsPostBack)
             {
                 txtAssociateSearch.Text = associateuserheirarchyVo.AgentCode;
             }
             if (!string.IsNullOrEmpty(txtAssociateSearch.Text))
             {
-                int recCount = customerBo.ChkAssociateCode(advisorVo.advisorId, txtAssociateSearch.Text);
+                int recCount =0;
+                if (userType == "associates")
+                {
+                   recCount= customerBo.ChkAssociateCode(advisorVo.advisorId, associateuserheirarchyVo.AgentCode, txtAssociateSearch.Text, userType);
+                }
+                else
+                {
+                    recCount=customerBo.ChkAssociateCode(advisorVo.advisorId, "", txtAssociateSearch.Text, userType);
+
+                }
                 if (recCount == 0)
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Sub Broker Code is invalid!');", true);

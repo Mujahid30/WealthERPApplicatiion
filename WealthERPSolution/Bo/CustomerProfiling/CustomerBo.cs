@@ -354,14 +354,14 @@ namespace BoCustomerProfiling
             return custUserId;
         }
 
-        public int ChkAssociateCode(int adviserid, string agentcode)
+        public int ChkAssociateCode(int adviserid, string agentcode,string validateAgentCode, string userType)
         {
             int CountRecord = 0;
 
             CustomerDao customerDao = new CustomerDao();
             try
             {
-                CountRecord = customerDao.ChkAssociateCode(adviserid, agentcode);
+                CountRecord = customerDao.ChkAssociateCode(adviserid, agentcode, validateAgentCode,userType);
 
             }
             catch (BaseApplicationException Ex)

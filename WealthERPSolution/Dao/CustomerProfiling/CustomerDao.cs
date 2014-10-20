@@ -3112,6 +3112,7 @@ namespace DaoCustomerProfiling
                 cmdGetAgentCodeAssociateDetails = db.GetStoredProcCommand("GetAgentCodeAssociateDetails");
                 db.AddInParameter(cmdGetAgentCodeAssociateDetails, "@prefixText", DbType.String, prefixText);
                 db.AddInParameter(cmdGetAgentCodeAssociateDetails, "@A_AdviserId", DbType.Int32, Adviserid);
+
                 dsCustomerNames = db.ExecuteDataSet(cmdGetAgentCodeAssociateDetails);
                 dtCustomerNames = dsCustomerNames.Tables[0];
 
@@ -5829,7 +5830,7 @@ namespace DaoCustomerProfiling
             }
             return dtCustomerNames;
         }
-        public int ChkAssociateCode(int adviserid, string agentcode)
+        public int ChkAssociateCode(int adviserid, string agentcode, string validateAgentCode, string userType)
         {
 
             Database db;
@@ -5845,6 +5846,8 @@ namespace DaoCustomerProfiling
                 cmdGetGroupCustomerNames = db.GetStoredProcCommand("ChkAssociateCode");
                 db.AddInParameter(cmdGetGroupCustomerNames, "@adviserid", DbType.Int32, adviserid);
                 db.AddInParameter(cmdGetGroupCustomerNames, "@agentcode", DbType.String, agentcode);
+                db.AddInParameter(cmdGetGroupCustomerNames, "@validateAgentCode", DbType.String, validateAgentCode);
+                db.AddInParameter(cmdGetGroupCustomerNames, "@userType", DbType.String, userType);
 
                 dsCustomerNames = db.ExecuteDataSet(cmdGetGroupCustomerNames);
                 CountRecord = Convert.ToInt32(dsCustomerNames.Tables[0].Rows[0][0]);
