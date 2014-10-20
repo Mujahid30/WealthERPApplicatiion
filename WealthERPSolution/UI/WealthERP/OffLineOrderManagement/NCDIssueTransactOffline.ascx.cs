@@ -88,7 +88,7 @@ namespace WealthERP.OffLineOrderManagement
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
             RadDepository.VisibleOnPageLoad = false;
             rwDematDetails.VisibleOnPageLoad = false;
-
+            tblMessage.Visible = false;
             GetUserType();
             if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
             {
@@ -574,7 +574,17 @@ namespace WealthERP.OffLineOrderManagement
 
             if (!string.IsNullOrEmpty(txtAssociateSearch.Text))
             {
-                int recCount = customerBo.ChkAssociateCode(advisorVo.advisorId, txtAssociateSearch.Text);
+                int recCount = 0;
+                //customerBo.ChkAssociateCode(advisorVo.advisorId, txtAssociateSearch.Text);
+                if (userType == "associates")
+                {
+                    recCount = customerBo.ChkAssociateCode(advisorVo.advisorId, associateuserheirarchyVo.AgentCode, txtAssociateSearch.Text, userType);
+                }
+                else
+                {
+                    recCount = customerBo.ChkAssociateCode(advisorVo.advisorId, "", txtAssociateSearch.Text, userType);
+
+                }
                 if (recCount == 0)
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('SubBroker Code is invalid!');", true);
@@ -1441,9 +1451,11 @@ namespace WealthERP.OffLineOrderManagement
                     btnConfirmOrder.Enabled = false;
                     Label3.Visible = false;
                     tdsubmit.Visible = false;
+                    LoadJScript();
                     message = CreateUserMessage(orderId, aplicationNoStatus);
                     ShowMessage(message);
                     btnConfirmOrder.Visible = false;
+                    btnAddMore.Visible = false;
 
                 }
             }
@@ -1728,10 +1740,11 @@ namespace WealthERP.OffLineOrderManagement
                     ViewState["OrderId"] = orderId;
                     btnConfirmOrder.Enabled = true;
                     Label3.Visible = false;
+                    LoadJScript();
                     message = CreateUserMessage(orderId, aplicationNoStatus);
                     ShowMessage(message);
                     ClearAllFields();
-                    tblMessage.Visible = false;
+                    
                    
                     
                 }
@@ -1742,6 +1755,16 @@ namespace WealthERP.OffLineOrderManagement
             }
 
         }
+        internal void LoadJScript()
+        {
+            ClientScriptManager script = Page.ClientScript;
+            //prevent duplicate script
+            if (!script.IsStartupScriptRegistered(this.GetType(), "HideLabel"))
+            {
+                script.RegisterStartupScript(this.GetType(), "HideLabel",
+                "<script type='text/javascript'>HideLabel('" + tblMessage.ClientID + "')</script>");
+            }
+        } 
         private void ClearAllFields()
         {
 

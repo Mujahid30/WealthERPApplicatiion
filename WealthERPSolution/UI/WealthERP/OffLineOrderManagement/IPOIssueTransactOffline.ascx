@@ -10,15 +10,13 @@
 </asp:ScriptManager>
 
 <script type="text/javascript">
-    function HideLabel() {
-        alert("Please");
-        document.getElementById('<%= tblMessage.ClientID %>').style.display = "none";
-        setTimeout("HideLabel();", 5000);
-    }
-    
-       
-    
-</script>
+    function HideLabel(tblMessage) {
+            setTimeout("HideLabelHelper('" + tblMessage + "');", 5000);
+        }
+        function HideLabelHelper(tblMessage) {
+            document.getElementById(tblMessage).style.display = "none";
+        }
+    </script>
 
 <script type="text/javascript">
     var TargetBaseControl = null;
@@ -228,10 +226,10 @@
 
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
     <ContentTemplate>
-        <table id="tblMessage" width="100%" runat="server" visible="false" style="padding-top: 20px;">
+        <table id="tblMessage" width="100%" runat="server" visible="false"  style="padding-top: 20px;">
             <tr id="trSumbitSuccess">
                 <td align="center">
-                    <div id="msgRecordStatus" class="success-msg" align="center" runat="server">
+                    <div id="msgRecordStatus"   class="success-msg" align="center" runat="server">
                     </div>
                 </td>
             </tr>

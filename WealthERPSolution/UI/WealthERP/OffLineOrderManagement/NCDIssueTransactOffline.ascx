@@ -18,7 +18,14 @@
         <asp:ServiceReference Path="~/CustomerPortfolio/AutoComplete.asmx" />
     </Services>
 </asp:ScriptManager>
-
+<script type="text/javascript">
+    function HideLabel(tblMessage) {
+        setTimeout("HideLabelHelper('" + tblMessage + "');", 5000);
+    }
+    function HideLabelHelper(tblMessage) {
+        document.getElementById(tblMessage).style.display = "none";
+    }
+    </script>
 <script type="text/javascript">
     var TargetBaseControl = null;
     var TragetBaseControl2 = null;
@@ -90,7 +97,6 @@
     function openpopupAddCustomer() {
 
         window.open('PopUp.aspx?AddMFCustLinkId=mf&pageID=CustomerType&', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')
-        return true;
 
 
     }

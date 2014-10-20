@@ -31,6 +31,8 @@ using BoOnlineOrderManagement;
 using BoOfflineOrderManagement;
 using VoOnlineOrderManagemnet;
 using System.Text.RegularExpressions;
+using System.Threading;
+using System.Timers;
 
 namespace WealthERP.OffLineOrderManagement
 {
@@ -91,7 +93,7 @@ namespace WealthERP.OffLineOrderManagement
 
             rwDematDetails.VisibleOnPageLoad = false;
             GetUserType();
-
+            tblMessage.Visible = false;
             if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
             {
                 txtCustomerName_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
@@ -546,7 +548,17 @@ namespace WealthERP.OffLineOrderManagement
 
             if (!string.IsNullOrEmpty(txtAssociateSearch.Text))
             {
-                int recCount = customerBo.ChkAssociateCode(advisorVo.advisorId, txtAssociateSearch.Text);
+                int recCount = 0;
+                //customerBo.ChkAssociateCode(advisorVo.advisorId, txtAssociateSearch.Text);
+                if (userType == "associates")
+                {
+                    recCount = customerBo.ChkAssociateCode(advisorVo.advisorId, associateuserheirarchyVo.AgentCode, txtAssociateSearch.Text, userType);
+                }
+                else
+                {
+                    recCount = customerBo.ChkAssociateCode(advisorVo.advisorId, "", txtAssociateSearch.Text, userType);
+
+                }
                 if (recCount == 0)
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Agent Code is invalid!');", true);
@@ -1273,6 +1285,7 @@ namespace WealthERP.OffLineOrderManagement
                 }
                 else
                 {
+                    LoadJScript();
                     CreateIPOOrder();
                     ControlsVisblity(true);
                  
@@ -1466,8 +1479,6 @@ namespace WealthERP.OffLineOrderManagement
         {
             tblMessage.Visible = true;
             msgRecordStatus.InnerText = msg;
-          
-
         }
 
         private string CreateUserMessage(int orderId, bool accountDebitStatus, bool isCutOffTimeOver)
@@ -1482,7 +1493,7 @@ namespace WealthERP.OffLineOrderManagement
             return userMessage;
 
         }
-
+    
         public void btnAddMore_Click(object sender, EventArgs e)
         {
            
@@ -1500,16 +1511,29 @@ namespace WealthERP.OffLineOrderManagement
                 }
                 else
                 {
-
+                    LoadJScript();
                     CreateIPOOrder();
                     //ControlsVisblity(true);
+                    //Page.ClientScript.RegisterStartupScript(this.GetType(), "HideLabel", "<script type=\"text/javascript\">setTimeout(\"document.getElementById('" + tblMessage.ClientID + "').style.display='none'\",2000)</script>");
                     ClearAllFields();
                     btnConfirmOrder.Visible = true;
-                    tblMessage.Visible = false;
+
+                    
                 }
+
 
             }
         }
+        internal void LoadJScript()
+        {
+            ClientScriptManager script = Page.ClientScript;
+            //prevent duplicate script
+            if (!script.IsStartupScriptRegistered(this.GetType(), "HideLabel"))
+            {
+                script.RegisterStartupScript(this.GetType(), "HideLabel",
+                "<script type='text/javascript'>HideLabel('" + tblMessage.ClientID + "')</script>");
+            }
+        } 
         public void ClearAllFields()
         {
             txtCustomerName.Text= "";
