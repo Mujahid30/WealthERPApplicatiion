@@ -67,6 +67,15 @@
         </td>
     </tr>
 </table>
+<table style="width: 100%" class="TableBackground">
+    <tr id="trNoRecords" runat="server" visible="false">
+        <td align="center">
+            <div id="divNoRecords" runat="server" class="failure-msg" visible="true">
+                No Record Found
+            </div>
+        </td>
+    </tr>
+</table>
 <asp:Panel ID="pnlMFHoldingRecons" runat="server" ScrollBars="Horizontal" Height="100%"
     Width="100%" Visible="false">
     <table width="100%">

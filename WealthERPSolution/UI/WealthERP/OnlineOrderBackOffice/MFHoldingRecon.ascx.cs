@@ -50,12 +50,27 @@ namespace WealthERP.OnlineOrderBackOffice
         protected void btnGo_OnClick(object sender, EventArgs e)
         {
             try
-            {
-
-                BindMFHoldingRecon();
-                Label1.Visible = true;
-                txtTo.Visible = true;
-                btnSynch.Visible = true;
+            {  DataTable dtMFHoldingRecon = new DataTable();
+                dtMFHoldingRecon = OnlineOrderMISBo.GetMFHoldingRecon(int.Parse(ddlIssue.SelectedValue));
+                if (dtMFHoldingRecon.Rows.Count > 0)
+                {
+                    BindMFHoldingRecon();
+                    Label1.Visible = true;
+                    txtTo.Visible = true;
+                    btnSynch.Visible = true;
+                    trNoRecords.Visible = false;
+                    divNoRecords.Visible = false;
+                }
+                else
+                {
+                    BindMFHoldingRecon();
+                     Label1.Visible = false;
+                     txtTo.Visible = false;
+                     btnSynch.Visible = false;
+                     trNoRecords.Visible = true;
+                     divNoRecords.Visible = true;
+                    
+                }
             }
             catch (BaseApplicationException Ex)
             {

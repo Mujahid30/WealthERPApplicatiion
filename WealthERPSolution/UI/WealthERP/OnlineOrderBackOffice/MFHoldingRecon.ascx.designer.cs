@@ -38,5 +38,8 @@ namespace WealthERP.OnlineOrderBackOffice {
         protected global::System.Web.UI.WebControls.Panel pnlMFHoldingRecons;
         protected global::System.Web.UI.HtmlControls.HtmlTableCell trSynch;
         protected global::System.Web.UI.WebControls.Button btnSynch;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divNoRecords;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trNoRecords;
+
     }
 }
