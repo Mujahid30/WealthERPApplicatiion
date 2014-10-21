@@ -1785,7 +1785,7 @@ namespace BoAdvisorProfiling
             }
             return dsGetMemberDetailFromMFOrder;
         }
-        public DataSet GetCommissionReceivableRecon(string product, int typeOfTransaction, int AdviserId, int schemeid, DateTime FromDate, DateTime Todate, string category, string recontype, string commtype, int issuer, int issueId)
+        public DataSet GetCommissionReceivableRecon(string product, int typeOfTransaction, int AdviserId, int schemeid, int month, int year, string category, string recontype, string commtype, int issuer, int issueId)
         {
             AdvisorMISDao MISDao = new AdvisorMISDao();
             DataSet dsGetCommissionReconMis = new DataSet();
@@ -1794,7 +1794,7 @@ namespace BoAdvisorProfiling
 
             try
             {
-                dsGetCommissionReconMis = MISDao.GetCommissionReceivableRecon(product, typeOfTransaction, AdviserId, schemeid, FromDate, Todate, category, recontype, commtype, issuer, issueId);
+                dsGetCommissionReconMis = MISDao.GetCommissionReceivableRecon(product, typeOfTransaction, AdviserId, schemeid, month, year, category, recontype, commtype, issuer, issueId);
 
             }
             catch (Exception Ex)

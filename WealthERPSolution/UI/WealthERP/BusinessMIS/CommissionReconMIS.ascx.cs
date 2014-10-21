@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using BoWerpAdmin;
+using System.Globalization;
 using System.Data;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections.Specialized;
@@ -49,11 +50,30 @@ namespace WealthERP.BusinessMIS
                 BindNAVCategory();
                 LoadAllSchemeList(0);
                 BindProductDropdown();
+                BindMonthsAndYear();
                 int day = 1;
-                txtFrom.SelectedDate = DateTime.Parse(day.ToString()+'/'+DateTime.Today.Month.ToString() + "/" + DateTime.Today.Year.ToString());
-                txtTo.SelectedDate = DateTime.Now;
+                //txtFrom.SelectedDate = DateTime.Parse(day.ToString()+'/'+DateTime.Today.Month.ToString() + "/" + DateTime.Today.Year.ToString());
+                //txtTo.SelectedDate = DateTime.Now;
                 btnExportFilteredData.Visible = false;
             }
+        }
+        private void BindMonthsAndYear()
+        {
+            for (int i = 1; i <=12; i++)
+            {
+                string monthName = DateTimeFormatInfo.CurrentInfo.GetMonthName(i);
+                ddlMnthQtr.Items.Add(new ListItem(monthName, i.ToString().PadLeft(2, '0')));
+            }
+            ddlMnthQtr.Items.Add(new ListItem("Quater-1", "13"));
+            ddlMnthQtr.Items.Add(new ListItem("Quater-2", "14"));
+            ddlMnthQtr.Items.Add(new ListItem("Quater-3", "15"));
+            ddlMnthQtr.Items.Add(new ListItem("Quater-4", "16"));
+            ddlMnthQtr.Items.Insert(0, new ListItem("Select", "0"));
+            for (int i = 1980; i <=2030; i++)
+            {
+                ddlYear.Items.Add(new ListItem(i.ToString(), i.ToString()));
+            }
+            ddlYear.Items.Insert(0, new ListItem("Select", "0"));
         }
         
         protected void ddlIssuer_SelectedIndexChanged(object sender, EventArgs e)
@@ -204,10 +224,10 @@ namespace WealthERP.BusinessMIS
         {
             //if (userVo.UserType=="advisor")
             //{
-                if (string.IsNullOrEmpty(txtFrom.SelectedDate.ToString())!=true)
-                    hdnFromDate.Value = txtFrom.SelectedDate.ToString();
-                if (string.IsNullOrEmpty(txtTo.SelectedDate.ToString()) != true)
-                    hdnToDate.Value = txtTo.SelectedDate.ToString();
+                if (string.IsNullOrEmpty(ddlMnthQtr.SelectedItem.Value.ToString())!=true)
+                    hdnFromDate.Value = ddlMnthQtr.SelectedItem.Value.ToString();
+                if (string.IsNullOrEmpty(ddlYear.SelectedItem.Value.ToString()) != true)
+                    hdnToDate.Value = ddlYear.SelectedItem.Value.ToString();
                 if (string.IsNullOrEmpty(ddlScheme.SelectedItem.Value.ToString()) != true)
                     hdnschemeId.Value = ddlScheme.SelectedItem.Value.ToString();
                 if (string.IsNullOrEmpty(ddlCategory.SelectedItem.Value.ToString()) != true)
@@ -278,7 +298,7 @@ namespace WealthERP.BusinessMIS
             //ds.ReadXml(Server.MapPath(@"\Sample.xml"));
             dvMfMIS.Visible = false;
             dvNCDIPOMIS.Visible = false;
-            ds = adviserMFMIS.GetCommissionReceivableRecon(ddlProduct.SelectedValue, int.Parse(ddlSelectMode.SelectedValue), advisorVo.advisorId, int.Parse(hdnschemeId.Value), DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnToDate.Value), hdnCategory.Value, null, ddlCommType.SelectedValue, int.Parse(hdnSBbrokercode.Value),int.Parse(hdnIssueId.Value));
+            ds = adviserMFMIS.GetCommissionReceivableRecon(ddlProduct.SelectedValue, int.Parse(ddlSelectMode.SelectedValue), advisorVo.advisorId, int.Parse(hdnschemeId.Value), int.Parse(hdnFromDate.Value), int.Parse(hdnToDate.Value), hdnCategory.Value, null, ddlCommType.SelectedValue, int.Parse(hdnSBbrokercode.Value),int.Parse(hdnIssueId.Value));
             if (ds.Tables[0] != null)
             {
                 if (ddlProduct.SelectedValue.ToString() == "MF")

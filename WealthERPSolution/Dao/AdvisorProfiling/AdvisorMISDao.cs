@@ -2630,7 +2630,7 @@ namespace DaoAdvisorProfiling
         }
 
 
-        public DataSet GetCommissionReceivableRecon(string product, int typeOfTransaction, int AdviserId, int schemeid, DateTime FromDate, DateTime Todate, string category, string recontype, string commtype, int issuer, int issueId)
+        public DataSet GetCommissionReceivableRecon(string product, int typeOfTransaction, int AdviserId, int schemeid, int month, int year, string category, string recontype, string commtype, int issuer, int issueId)
         {
             Database db;
             DbCommand getCommissionReconMisCmd;
@@ -2641,14 +2641,14 @@ namespace DaoAdvisorProfiling
                 getCommissionReconMisCmd = db.GetStoredProcCommand("SPROC_GetCommissionReceivableExceptedMIS");
                 db.AddInParameter(getCommissionReconMisCmd, "@adviserId", DbType.Int32, AdviserId);
                 db.AddInParameter(getCommissionReconMisCmd, "@schemeid", DbType.Int32, schemeid);
-                if (FromDate != DateTime.MinValue)
-                    db.AddInParameter(getCommissionReconMisCmd, "@FromDate", DbType.DateTime, FromDate);
+                if (month != 0)
+                    db.AddInParameter(getCommissionReconMisCmd, "@Month", DbType.Int16, month);
                 else
-                    db.AddInParameter(getCommissionReconMisCmd, "@FromDate", DbType.DateTime, DateTime.MinValue);
-                if (Todate != DateTime.MinValue)
-                    db.AddInParameter(getCommissionReconMisCmd, "@ToDate", DbType.DateTime, Todate);
+                    db.AddInParameter(getCommissionReconMisCmd, "@Month", DbType.Int16, DBNull.Value);
+                if (year != 0)
+                    db.AddInParameter(getCommissionReconMisCmd, "@Year", DbType.Int16, year);
                 else
-                    db.AddInParameter(getCommissionReconMisCmd, "@ToDate", DbType.DateTime, DateTime.MinValue);
+                    db.AddInParameter(getCommissionReconMisCmd, "@Year", DbType.DateTime, DBNull.Value);
                 if (!string.IsNullOrEmpty(category))
                     db.AddInParameter(getCommissionReconMisCmd, "@Category", DbType.String, category);
                 else

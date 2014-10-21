@@ -132,6 +132,8 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlScheme;
+        protected global::System.Web.UI.WebControls.DropDownList ddlMnthQtr;
+        protected global::System.Web.UI.WebControls.DropDownList ddlYear;
         
         /// <summary>
         /// CompareValidator3 control.

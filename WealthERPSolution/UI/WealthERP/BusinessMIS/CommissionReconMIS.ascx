@@ -129,50 +129,34 @@
     </td>
     </tr>--%>
     <tr>
-        <td id="tdFromDate" runat="server" visible="false">
-            <asp:Label ID="Label10" Text="From Date:" runat="server" CssClass="FieldName"></asp:Label>
+        <td id="tdFromDate" runat="server" visible="false">  
+            <asp:Label ID="lblPeriod" Text="Select Month/Quarter For Brokage Period :" runat="server" CssClass="FieldName"></asp:Label>
         </td>
         <td align="left" id="tdFrom" runat="server" visible="false">
-            <telerik:RadDatePicker ID="txtFrom" CssClass="txtField" runat="server" Culture="English (United States)"
-                Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
-                <Calendar ID="Calendar1" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
-                    ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
-                </Calendar>
-                <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                <DateInput ID="DateInput1" runat="server" DisplayDateFormat="dd/MM/yyyy" DateFormat="dd/MM/yyyy">
-                </DateInput>
-            </telerik:RadDatePicker>
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtFrom"
-                CssClass="rfvPCG" ErrorMessage="<br />Please select a From Date" Display="Dynamic"
-                runat="server" InitialValue="" ValidationGroup="vgbtnSubmit"> </asp:RequiredFieldValidator>
+            <asp:DropDownList ID="ddlMnthQtr" runat="server" CssClass="cmbField" ></asp:DropDownList>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="ddlMnthQtr"
+                CssClass="rfvPCG" ErrorMessage="<br />Please Select Month" Display="Dynamic"
+                runat="server" InitialValue="0" ValidationGroup="vgbtnSubmit"> </asp:RequiredFieldValidator>
         </td>
-        <%--        </td>
---        <td id="tdToDate" runat="server">--%>
         <td align="left" id="tdTolbl" runat="server" visible="false">
-            <asp:Label ID="Label11" runat="server" CssClass="FieldName" Text="To Date:"></asp:Label>
+            <asp:Label ID="Label11" runat="server" CssClass="FieldName" Text="Year:"></asp:Label>
         </td>
         <td align="left" id="tdToDate" runat="server" visible="false">
-            <telerik:RadDatePicker ID="txtTo" CssClass="txtTo" runat="server" Culture="English (United States)"
-                Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
-                <Calendar ID="Calendar2" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
-                    ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
-                </Calendar>
-                <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                <DateInput ID="DateInput2" runat="server" DisplayDateFormat="dd/MM/yyyy" DateFormat="dd/MM/yyyy">
-                </DateInput>
-            </telerik:RadDatePicker>
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtTo"
-                CssClass="rfvPCG" ErrorMessage="<br />Please select a to Date" Display="Dynamic"
-                runat="server" InitialValue="" ValidationGroup="vgbtnSubmit"> </asp:RequiredFieldValidator>
+           
+            <asp:DropDownList ID="ddlYear" runat="server" CssClass="cmbField" ></asp:DropDownList>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="ddlYear"
+                CssClass="rfvPCG" ErrorMessage="<br />Please select a Year" Display="Dynamic"
+                runat="server" InitialValue="0" ValidationGroup="vgbtnSubmit"> </asp:RequiredFieldValidator>
         </td>
-        <%--        </td>
---%>
         <td align="left" style="padding-right: 50px">
             <asp:Button ID="btnSubmit" runat="server" CssClass="PCGButton" OnClick="GdBind_Click"
                 Text="GO" ValidationGroup="vgbtnSubmit" />
         </td>
         <td>
         </td>
+    </tr>
+    <tr>
+    
     </tr>
     <tr>
         <td align="right">
