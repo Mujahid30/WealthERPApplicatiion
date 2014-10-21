@@ -1063,7 +1063,7 @@
         <asp:Panel ID="Panel5" runat="server">
             <table style="width: 100%;">
                 <tr>
-                    <td colspan="4">
+                    <td>
                         <div class="divSectionHeading" style="vertical-align: text-bottom">
                             Child Codes
                         </div>
@@ -1126,6 +1126,9 @@
                 Visible="false" ValidationGroup="Submit" />
             <asp:Button ID="BtnSave" runat="server" Visible="true" Text="Submit" CssClass="PCGButton"
                 OnClick="btnSubmit_Click" ValidationGroup="Submit" />
+                 <asp:Button ID="btnPreviewSend" runat="server" Visible="true" target="_blank"
+                Text="Preview and Send Welcome Letter" CssClass="PCGButton" onclick="btnPreviewSend_Click"
+                 />
         </td>
     </tr>
 </table>

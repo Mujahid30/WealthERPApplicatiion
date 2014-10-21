@@ -161,6 +161,34 @@ namespace BoCommon
             //emailVo.AdviserId = adviserId;
             //isCompleted = AddToEmailQueue(emailVo);
         }
+        public bool CreateReportBulkMailRequest(EmailVo emailVo)
+        {
+            bool isCompleted = false;
+            EmailSMSDao emailSMSDao = new EmailSMSDao();
+            try
+            {
+                isCompleted = bool.Parse(emailSMSDao.CreateReportBulkMailRequest(emailVo).ToString());
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "EmailSMSBo.cs:AddToEmailQueue(EmailVo emailVo)");
+                object[] objects = new object[1];
+                objects[0] = emailVo;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return isCompleted;
+        }
 
     }
 }

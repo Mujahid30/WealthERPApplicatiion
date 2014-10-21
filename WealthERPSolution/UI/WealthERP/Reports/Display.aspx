@@ -40,6 +40,10 @@
     </style>
 
     <script>
+        function alertMessage() {
+            alert('Welcome letter created and saved successfully.');
+            window.close();
+        }
         function ShowProcesssing(btn) {
            
             document.getElementById('btnSend').value ="Sending Email.Please wait..";
@@ -52,16 +56,16 @@
                 alert("Please enter To Email Address.");
                 return false;
             }
-                     
+                    
             document.getElementById("hidTo").value = document.getElementById("txtTo").value
             document.getElementById("hidSubject").value = document.getElementById("txtSubject").value
-            document.getElementById("hidFormat").value = document.getElementById("ddlFormat").options[document.getElementById("ddlFormat").selectedIndex].value
+            //document.getElementById("hidFormat").value = document.getElementById("ddlFormat").options[document.getElementById("ddlFormat").selectedIndex].value
             document.getElementById("hidCC").value = document.getElementById("txtCC").value
             document.getElementById("hidBody").value = document.getElementById("txtBody").value
            // alert(document.getElementById("txtBody").value)
             
-            document.getElementById("hidCCMe").value = document.getElementById("chkCopy").checked
-            window.document.forms[0].action = "Display.aspx?mail=0";
+            //document.getElementById("hidCCMe").value = document.getElementById("chkCopy").checked
+            //window.document.forms[0].action = "Display.aspx?mail=0";
             //ConvertnlTobr();
             document.getElementById("btnSendEmail").click()
 
@@ -131,7 +135,7 @@
                                                     Send Report by Email</h3>
                                             </td>
                                         </tr>
-                                        <tr>
+                                        <tr id="trFormat" runat="server">
                                             <td style="width: 150px">
                                                 Format
                                             </td>
@@ -195,6 +199,7 @@
                             </div>
                         </td>
                     </tr>
+                 
                     <tr>
                         <td align="center">
                         <div runat="server" id="divMessage" class="yellow-box" visible="false" enableviewstate="false">
@@ -208,10 +213,11 @@
         </tr>
          <tr>
             <td width="100%" align="center">
-            <asp:Button ID="btnSendMail" runat="server" class='sendEmail ButtonField'  
+            <asp:Button ID="btnSendMail" runat="server" class='sendEmail ButtonField'  Visible="true"
                                 Text="Send Report by Email" OnClientClick="replaceSpecialChars()" />
             </td>
          </tr>
+         
          <tr>
            <td width="100%" align="left" style=" font-family: Verdana,Tahoma;  font-weight: normal;  font-size: x-small; color: #16518A;">
             <asp:Label ID="lblNote" runat="server" Text="Note: <br />1.You can navigate to any particular page by directly typing a Page Number in Provided Space.<br />2.You can export this report in PDF, Word & Excel format by clicking on Export Icon on Top bar."

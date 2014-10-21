@@ -892,5 +892,20 @@ namespace BOAssociates
             }
             return bResult;
         }
+         public bool UpdateAssociateWelcomeNotePath(int userId, long associateId, string welcomeNotePath)
+         {
+             bool bResult = false;
+              
+             try
+             {
+                 bResult = associatesDao.UpdateAssociateWelcomeNotePath(userId, associateId, welcomeNotePath);
+
+             }
+             catch (BaseApplicationException Ex)
+             {
+                 throw Ex;
+             }
+             return bResult;
+         }
     }
 }

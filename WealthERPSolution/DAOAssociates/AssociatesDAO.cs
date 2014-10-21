@@ -22,7 +22,7 @@ namespace DAOAssociates
         {
             int associateId;
             int UserId;
-            int AdviserAgentId=0;
+            int AdviserAgentId = 0;
             List<int> associatesIds = new List<int>();
             Database db;
             DbCommand completeAssociatesCmd;
@@ -37,10 +37,10 @@ namespace DAOAssociates
                 db.AddInParameter(completeAssociatesCmd, "@U_FirstName", DbType.String, userVo.FirstName);
                 db.AddInParameter(completeAssociatesCmd, "@U_MiddleName", DbType.String, userVo.MiddleName);
                 db.AddInParameter(completeAssociatesCmd, "@U_LastName", DbType.String, userVo.LastName);
-                db.AddInParameter(completeAssociatesCmd, "@U_Email", DbType.String, userVo.Email); 
+                db.AddInParameter(completeAssociatesCmd, "@U_Email", DbType.String, userVo.Email);
                 db.AddInParameter(completeAssociatesCmd, "@U_UserType", DbType.String, userVo.UserType);
                 db.AddInParameter(completeAssociatesCmd, "@U_LoginId", DbType.String, userVo.LoginId);
-               
+
                 db.AddInParameter(completeAssociatesCmd, "@AA_ContactPersonName", DbType.String, associatesVo.ContactPersonName);
                 db.AddInParameter(completeAssociatesCmd, "@AR_BranchId", DbType.Int32, associatesVo.BranchId);
                 db.AddInParameter(completeAssociatesCmd, "@AR_RMId", DbType.Int32, associatesVo.RMId);
@@ -63,14 +63,14 @@ namespace DAOAssociates
                 db.AddOutParameter(completeAssociatesCmd, "@AA_AdviserAssociateId", DbType.Int32, 10);
                 db.AddOutParameter(completeAssociatesCmd, "@AAC_AdviserAgentId", DbType.Int32, 10);
                 db.AddOutParameter(completeAssociatesCmd, "@U_UserId", DbType.Int32, 10);
-                db.AddInParameter(completeAssociatesCmd, "@roleIds", DbType.String,associatesVo.Roleid);
+                db.AddInParameter(completeAssociatesCmd, "@roleIds", DbType.String, associatesVo.Roleid);
                 if (db.ExecuteNonQuery(completeAssociatesCmd) != 0)
                 {
 
                     UserId = int.Parse(db.GetParameterValue(completeAssociatesCmd, "U_UserId").ToString());
                     associateId = int.Parse(db.GetParameterValue(completeAssociatesCmd, "AA_AdviserAssociateId").ToString());
                     if (!string.IsNullOrEmpty(db.GetParameterValue(completeAssociatesCmd, "AAC_AdviserAgentId").ToString()))
-                    AdviserAgentId = int.Parse(db.GetParameterValue(completeAssociatesCmd, "AAC_AdviserAgentId").ToString());
+                        AdviserAgentId = int.Parse(db.GetParameterValue(completeAssociatesCmd, "AAC_AdviserAgentId").ToString());
 
 
                     associatesIds.Add(UserId);
@@ -249,7 +249,7 @@ namespace DAOAssociates
                 cmdPanDuplicateCheck = db.GetStoredProcCommand("SPROC_CheckPanNumberDuplicatesForAssociates");
                 db.AddInParameter(cmdPanDuplicateCheck, "@PanNumber", DbType.String, Pan);
                 db.AddInParameter(cmdPanDuplicateCheck, "@AdviserAssociateId", DbType.Int32, AdviserAssociateId);
-              
+
                 res = int.Parse(db.ExecuteScalar(cmdPanDuplicateCheck).ToString());
                 if (res > 0)
                     bResult = true;
@@ -265,7 +265,7 @@ namespace DAOAssociates
                 FunctionInfo.Add("Method", "CustomerDao.cs:CheckPanNumberDuplicatesForAssociates()");
                 object[] objects = new object[3];
                 objects[0] = Pan;
-                objects[1] = AdviserAssociateId;                 
+                objects[1] = AdviserAssociateId;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -575,8 +575,8 @@ namespace DAOAssociates
                     db.AddInParameter(UpdateAssociatesCmd, "@AA_ExpiryDate", DbType.DateTime, associatesVo.AssociationExpairyDate);
                 else
                     db.AddInParameter(UpdateAssociatesCmd, "@AA_ExpiryDate", DbType.DateTime, DBNull.Value);
-                db.AddInParameter(UpdateAssociatesCmd, "@AA_IsActive", DbType.Int16,associatesVo.IsActive);
-                
+                db.AddInParameter(UpdateAssociatesCmd, "@AA_IsActive", DbType.Int16, associatesVo.IsActive);
+
 
 
                 db.ExecuteNonQuery(UpdateAssociatesCmd);
@@ -687,13 +687,13 @@ namespace DAOAssociates
 
         }
 
-        public DataSet GetAgentCodeAndType(int adviserId,string Usertype,string agentcode)
+        public DataSet GetAgentCodeAndType(int adviserId, string Usertype, string agentcode)
         {
-            DataSet dsAgentCodeAndTypeList; 
+            DataSet dsAgentCodeAndTypeList;
             Database db;
             DbCommand getAgentCodeAndTypecmd;
             try
-            {   
+            {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getAgentCodeAndTypecmd = db.GetStoredProcCommand("SPROC_GetAgentCodeAndType");
                 db.AddInParameter(getAgentCodeAndTypecmd, "@adviserId", DbType.Int32, adviserId);
@@ -1051,7 +1051,7 @@ namespace DAOAssociates
             return associatesVo;
         }
 
-        public AssociatesUserHeirarchyVo GetAssociateUserHeirarchy(int UserId,int adviserId)
+        public AssociatesUserHeirarchyVo GetAssociateUserHeirarchy(int UserId, int adviserId)
         {
             AssociatesUserHeirarchyVo associatesUserHeirarchyVo = new AssociatesUserHeirarchyVo();
             Database db;
@@ -1066,7 +1066,7 @@ namespace DAOAssociates
                 getAssociateUserCmd = db.GetStoredProcCommand("SPROC_GetAssociateUserHeirarchy");
                 db.AddInParameter(getAssociateUserCmd, "@U_UserId", DbType.Int32, UserId);
                 db.AddInParameter(getAssociateUserCmd, "@adviserId", DbType.Int32, adviserId);
-                
+
                 getAssociateUserDs = db.ExecuteDataSet(getAssociateUserCmd);
                 if (getAssociateUserDs.Tables[0].Rows.Count > 0)
                 {
@@ -1077,7 +1077,7 @@ namespace DAOAssociates
                     associatesUserHeirarchyVo.UserId = int.Parse((dr["U_UserId"].ToString()));
                     associatesUserHeirarchyVo.UserTitleId = int.Parse(dr["UserTitleId"].ToString());
                     associatesUserHeirarchyVo.AgentCode = dr["AAC_AgentCode"].ToString();
-                    associatesUserHeirarchyVo.RMId =  int.Parse(dr["AR_RMId"].ToString());                    
+                    associatesUserHeirarchyVo.RMId = int.Parse(dr["AR_RMId"].ToString());
                 }
             }
             catch (BaseApplicationException Ex)
@@ -1085,14 +1085,14 @@ namespace DAOAssociates
                 throw Ex;
             }
             catch (Exception Ex)
-            {               
+            {
 
             }
             return associatesUserHeirarchyVo;
         }
         public int SynchronizeCustomerAssociation(int AdviserId, string Type, int UId)
         {
-            Database db;            
+            Database db;
             DbCommand getSynchcmd;
             int Result;
             try
@@ -1102,7 +1102,7 @@ namespace DAOAssociates
                 db.AddInParameter(getSynchcmd, "@A_AdviserId", DbType.Int32, AdviserId);
                 db.AddInParameter(getSynchcmd, "@Type", DbType.String, Type);
                 db.AddInParameter(getSynchcmd, "@userId", DbType.Int32, UId);
-               Result= db.ExecuteNonQuery(getSynchcmd);
+                Result = db.ExecuteNonQuery(getSynchcmd);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1111,7 +1111,7 @@ namespace DAOAssociates
             return Result;
 
         }
-        public DataSet GetAdviserAssociateList(int Id,string Usertype,string agentcode)
+        public DataSet GetAdviserAssociateList(int Id, string Usertype, string agentcode)
         {
             Database db;
             DataSet dsGetAdviserAssociateList;
@@ -1159,6 +1159,10 @@ namespace DAOAssociates
                         associatesVo.RMNAme = dr["RMName"].ToString();
                     else
                         associatesVo.RMNAme = string.Empty;
+                    if (dr["AA_WelcomeNotePath"] != DBNull.Value)
+                        associatesVo.WelcomeNotePath = dr["AA_WelcomeNotePath"].ToString();
+                    else
+                        associatesVo.WelcomeNotePath = string.Empty;
                     associatesVo.BranchId = int.Parse(dr["AB_BranchId"].ToString());
                     if (dr["AB_BranchName"] != DBNull.Value)
                         associatesVo.BMName = dr["AB_BranchName"].ToString();
@@ -1351,8 +1355,8 @@ namespace DAOAssociates
                         associatesVo.AssociationExpairyDate = DateTime.Parse(dr["AA_ExpiryDate"].ToString());
                     if (bool.Parse(dr["AA_IsActive"].ToString().ToUpper()) != false)
                         associatesVo.IsActive = 1;
-                    
-                    
+
+
 
                 }
             }
@@ -1459,11 +1463,11 @@ namespace DAOAssociates
             return bResult;
         }
 
-        public DataTable GetAgentCodeFromAgentPaaingAssociateId(int assiciateId,string type)
+        public DataTable GetAgentCodeFromAgentPaaingAssociateId(int assiciateId, string type)
         {
             DataSet ds;
             Database db;
-            DataTable dt=new DataTable();
+            DataTable dt = new DataTable();
             DbCommand getcmd;
             //string code = null;
             try
@@ -1526,7 +1530,7 @@ namespace DAOAssociates
         public DataTable GetAgentChildCodeList(int PagentId)
         {
             DataSet dsChildCodeList;
-            DataTable dtChildCodeList=new DataTable();
+            DataTable dtChildCodeList = new DataTable();
             Database db;
             DbCommand getAgentChildCodeListcmd;
             try
@@ -1534,10 +1538,10 @@ namespace DAOAssociates
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getAgentChildCodeListcmd = db.GetStoredProcCommand("SPROC_GetAgentChildCodeList");
                 db.AddInParameter(getAgentChildCodeListcmd, "@PagentId", DbType.String, PagentId);
-                dsChildCodeList=db.ExecuteDataSet(getAgentChildCodeListcmd);
+                dsChildCodeList = db.ExecuteDataSet(getAgentChildCodeListcmd);
                 if (dsChildCodeList.Tables.Count > 0)
                     dtChildCodeList = dsChildCodeList.Tables[0];
-             }
+            }
             catch (BaseApplicationException Ex)
             {
                 throw Ex;
@@ -1765,7 +1769,7 @@ namespace DAOAssociates
         /// <param name="Todate"></param>
         /// <param name="AgentId"></param>
         /// <returns></returns>
-        public DataSet GetProductDetailsFromMFTransaction(string agentcode, string userType, int AdviserId, int rmId, int branchId, int branchHeadId, DateTime FromDate, DateTime Todate,int All,int IsOnline)
+        public DataSet GetProductDetailsFromMFTransaction(string agentcode, string userType, int AdviserId, int rmId, int branchId, int branchHeadId, DateTime FromDate, DateTime Todate, int All, int IsOnline)
         {
             Database db;
             DbCommand GetProductDetailFromMFOrderCmd;
@@ -1870,7 +1874,7 @@ namespace DAOAssociates
             return dsOrganizationDetailFromMFOrder;
         }
 
-        public DataSet GetMemberDetailFromTransaction(string agentcode, string userType, int AdviserId, int branchHeadId, DateTime FromDate, DateTime Todate,int IsOnline)
+        public DataSet GetMemberDetailFromTransaction(string agentcode, string userType, int AdviserId, int branchHeadId, DateTime FromDate, DateTime Todate, int IsOnline)
         {
             Database db;
             DbCommand GetMemberDetailFromTrnxCmd;
@@ -1926,7 +1930,7 @@ namespace DAOAssociates
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                ChannelListCmd = db.GetStoredProcCommand("SPROC_BindChannelList");                
+                ChannelListCmd = db.GetStoredProcCommand("SPROC_BindChannelList");
                 db.AddInParameter(ChannelListCmd, "@adviserId", DbType.Int32, AdviserId);
 
                 dsChannelList = db.ExecuteDataSet(ChannelListCmd);
@@ -1934,7 +1938,7 @@ namespace DAOAssociates
             catch (BaseApplicationException Ex)
             {
                 throw (Ex);
-            }            
+            }
             return dsChannelList;
         }
 
@@ -1984,7 +1988,7 @@ namespace DAOAssociates
             Database db;
             DbCommand StateListCmd;
             DataSet dsStateList;
-            DataTable dtStateList=new DataTable();
+            DataTable dtStateList = new DataTable();
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
@@ -2016,12 +2020,12 @@ namespace DAOAssociates
             Database db;
             DbCommand CityListCmd;
             DataSet dsCityList;
-            DataTable dtCityList=new DataTable();
+            DataTable dtCityList = new DataTable();
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 CityListCmd = db.GetStoredProcCommand("SPROC_GetCityList");
-                if(!string.IsNullOrEmpty(stateId))
+                if (!string.IsNullOrEmpty(stateId))
                     db.AddInParameter(CityListCmd, "@stateId", DbType.String, stateId);
                 else
                     db.AddInParameter(CityListCmd, "@stateId", DbType.String, DBNull.Value);
@@ -2113,7 +2117,7 @@ namespace DAOAssociates
             return dsAdviserStaffBranchList.Tables[0];
 
         }
-        public bool UpdateUserrole( int DepartmentId,string rollid)
+        public bool UpdateUserrole(int DepartmentId, string rollid)
         {
             bool bResult = false;
             Database db;
@@ -2240,7 +2244,7 @@ namespace DAOAssociates
                 db.AddInParameter(UpdateAssociateCmd, "@AR_RMid ", DbType.Int32, associatesVo.RMId);
                 db.AddInParameter(UpdateAssociateCmd, "@AB_BranchId", DbType.Int32, associatesVo.BranchId);
                 db.AddInParameter(UpdateAssociateCmd, "@AA_PAN", DbType.String, associatesVo.PanNo);
-               // db.AddInParameter(UpdateAssociateCmd, "@U_LoginId", DbType.String, associatesVo.AAC_AgentCode);
+                // db.AddInParameter(UpdateAssociateCmd, "@U_LoginId", DbType.String, associatesVo.AAC_AgentCode);
                 db.AddInParameter(UpdateAssociateCmd, "@AAC_AgentCode", DbType.String, associatesVo.AAC_AgentCode);
                 db.AddInParameter(UpdateAssociateCmd, "@U_UserId", DbType.Int32, userId);
                 db.AddInParameter(UpdateAssociateCmd, "@AAC_AdviserAgentId", DbType.Int32, agentId);
@@ -2249,6 +2253,28 @@ namespace DAOAssociates
                     bResult = true;
             }
 
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return bResult;
+        }
+        public bool UpdateAssociateWelcomeNotePath(int userId, long associateId, string welcomeNotePath)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand UpdateAssociateCmd;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                UpdateAssociateCmd = db.GetStoredProcCommand("SPROC_UpdateAssociateWelcomeNotePath");
+                db.AddInParameter(UpdateAssociateCmd, "@AA_WelcomeNotePath", DbType.String, welcomeNotePath);
+                db.AddInParameter(UpdateAssociateCmd, "@AA_AdviserAssociateId", DbType.Int64, associateId);
+                db.AddInParameter(UpdateAssociateCmd, "@UserId", DbType.Int32, userId);
+                if (db.ExecuteNonQuery(UpdateAssociateCmd) != 0)
+                    bResult = true;
+            }
             catch (BaseApplicationException Ex)
             {
                 throw Ex;

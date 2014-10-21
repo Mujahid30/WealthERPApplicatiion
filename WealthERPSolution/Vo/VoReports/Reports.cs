@@ -110,7 +110,8 @@ namespace VoReports
         FinancialPlanning = 4,
         FinancialPlanningSectional=5,
         FPOfflineForm=6,
-        OrderTransactionSlip=7
+        OrderTransactionSlip=7,
+        WelcomeNote=8
     }
 
 

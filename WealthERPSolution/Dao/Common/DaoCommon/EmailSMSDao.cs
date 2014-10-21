@@ -148,7 +148,7 @@ namespace DaoCommon
 
         public bool AddToEmailQueue(EmailVo emailVo)
         {
-           
+
             bool isComplete = false;
             Database db;
             DbCommand addToEmailQueueCmd;
@@ -196,9 +196,9 @@ namespace DaoCommon
                     db.AddInParameter(addToEmailQueueCmd, "@Path", DbType.String, DBNull.Value);
 
                 //db.AddOutParameter(addToEmailQueueCmd, "@EmailQId", DbType.Int32, 10000);
-                noOfRecord=Convert.ToInt16(db.ExecuteNonQuery(addToEmailQueueCmd));
+                noOfRecord = Convert.ToInt16(db.ExecuteNonQuery(addToEmailQueueCmd));
 
-                if (noOfRecord>0)
+                if (noOfRecord > 0)
                     isComplete = true;
                 //if (db.ExecuteNonQuery(addToEmailQueueCmd) != 0)
                 //{
@@ -210,7 +210,7 @@ namespace DaoCommon
                 //else
                 //    db.AddInParameter(addToEmailQueueCmd, "@EmailQId", DbType.Int32, DBNull.Value);
 
-                
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -221,6 +221,89 @@ namespace DaoCommon
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "AdvisorDao.cs:AddToEmailQueue(EmailVo emailVo)");
+                object[] objects = new object[1];
+                objects[0] = emailVo;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return isComplete;
+        }
+        public bool CreateReportBulkMailRequest(EmailVo emailVo)
+        {
+            Database db;
+            bool isComplete = false;
+            DbCommand addToEmailQueueCmd;
+            Int16 noOfRecord;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                addToEmailQueueCmd = db.GetStoredProcCommand("SPROC_CreateReportBulkMailRequest");
+                if (emailVo.To != null)
+                    db.AddInParameter(addToEmailQueueCmd, "@To", DbType.String, emailVo.To);
+                else
+                    db.AddInParameter(addToEmailQueueCmd, "@To", DbType.String, DBNull.Value);
+
+                if (emailVo.Cc != null)
+                    db.AddInParameter(addToEmailQueueCmd, "@Cc", DbType.String, emailVo.Cc);
+                else
+                    db.AddInParameter(addToEmailQueueCmd, "@Cc", DbType.String, DBNull.Value);
+
+                if (emailVo.Bcc != null)
+                    db.AddInParameter(addToEmailQueueCmd, "@Bcc", DbType.String, emailVo.Bcc);
+                else
+                    db.AddInParameter(addToEmailQueueCmd, "@Bcc", DbType.String, DBNull.Value);
+
+                if (emailVo.Subject != null)
+                    db.AddInParameter(addToEmailQueueCmd, "@Subject", DbType.String, emailVo.Subject);
+                else
+                    db.AddInParameter(addToEmailQueueCmd, "@Subject", DbType.String, DBNull.Value);
+
+                if (emailVo.Body != null)
+                    db.AddInParameter(addToEmailQueueCmd, "@Body", DbType.String, emailVo.Body);
+                else
+                    db.AddInParameter(addToEmailQueueCmd, "@Body", DbType.String, DBNull.Value);
+
+                if (emailVo.HasAttachment != null)
+                    db.AddInParameter(addToEmailQueueCmd, "@HasAttachment", DbType.Int32, emailVo.HasAttachment);
+                else
+                    db.AddInParameter(addToEmailQueueCmd, "@HasAttachment", DbType.Int32, DBNull.Value);
+
+                if (emailVo.SourceId != 0)
+                    db.AddInParameter(addToEmailQueueCmd, "@SourceId", DbType.String, emailVo.SourceId);
+                else
+                    db.AddInParameter(addToEmailQueueCmd, "@SourceId", DbType.String, DBNull.Value);
+
+                if (emailVo.AttachmentPath != null)
+                    db.AddInParameter(addToEmailQueueCmd, "@FilePathList", DbType.String, emailVo.AttachmentPath);
+                else
+                    db.AddInParameter(addToEmailQueueCmd, "@FilePathList", DbType.String, DBNull.Value);
+
+                if (emailVo.AdviserId != 0)
+                    db.AddInParameter(addToEmailQueueCmd, "@AdviserId", DbType.String, emailVo.AdviserId);
+                else
+                    db.AddInParameter(addToEmailQueueCmd, "@AdviserId", DbType.String, DBNull.Value);
+
+                if (emailVo.EmailFrom != null)
+                    db.AddInParameter(addToEmailQueueCmd, "@FromEmailId", DbType.String, emailVo.EmailFrom);
+                else
+                    db.AddInParameter(addToEmailQueueCmd, "@FromEmailId", DbType.String, DBNull.Value);
+
+                db.ExecuteNonQuery(addToEmailQueueCmd);
+                isComplete = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorDao.cs:CreateReportBulkMailRequest(EmailVo emailVo)");
                 object[] objects = new object[1];
                 objects[0] = emailVo;
 

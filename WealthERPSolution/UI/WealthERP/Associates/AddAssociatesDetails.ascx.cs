@@ -18,7 +18,7 @@ using VOAssociates;
 using BOAssociates;
 using BoCustomerProfiling;
 using BoUser;
-
+using System.Net;
 namespace WealthERP.Associates
 {
     public partial class AddAssociatesDetails : System.Web.UI.UserControl
@@ -39,7 +39,7 @@ namespace WealthERP.Associates
         int adviserId = 0;
         string path;
         string viewAction;
-
+        int associateId;
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
@@ -94,8 +94,28 @@ namespace WealthERP.Associates
                         lnlBack.Visible = true;
                         radTABChildCodes.Visible = true;
                         BindChildCodeLabel(associatesVo.AAC_AdviserAgentId);
+                        associateId = associatesVo.AdviserAssociateId;
+                        btnPreviewSend.OnClientClick = "window.document.forms[0].target='_blank'; setTimeout(function(){window.document.forms[0].target='';}, 500);";
+                        if (associatesVo.WelcomeNotePath == "")
+                        {
 
-
+                            btnPreviewSend.PostBackUrl = "~/Reports/Display.aspx?welcomeNote=1&associateId=" + associateId.ToString();
+                        }
+                        else
+                        {
+                            //string s = "\";
+                            //btnPreviewSend.PostBackUrl = associatesVo.WelcomeNotePath;
+                            //string appPath = Server.MapPath("/Reports/TempReports/ViewInPDF/") + associatesVo.WelcomeNotePath;
+                            //btnPreviewSend.PostBackUrl = appPath;
+                             //Response.Redirect("Reports/TempReports/ViewInPDF//" + associatesVo.WelcomeNotePath);
+                            //Response.Redirect(Server.MapPath("~/Reports/TempReports/ViewInPDF//") + associatesVo.WelcomeNotePath);
+                            //string as=HttpContext.Current.Request.MapPath("~/Example.txt");
+                            ////Response.Redirect(appPath);
+                            //btnPreviewSend.PostBackUrl =Server.MapPath("~Reports/TempReports/ViewInPDF//" + associatesVo.WelcomeNotePath);
+                             //Response.Write(@"<script>window.open('" + "Reports/TempReports/ViewInPDF//" + associatesVo.WelcomeNotePath + "','_blank');</script>");
+                            //Response.Redirect(appPath);
+                            //btnPreviewSend.PostBackUrl = @"file://" + appPath.Replace(@"\", @"/");
+                        }
                     }
                     else if (Request.QueryString["action"].Trim() == "Edit")
                     //if (viewAction == "Edit" || viewAction == "EditFromRequestPage")
@@ -104,6 +124,7 @@ namespace WealthERP.Associates
                         if (associatesVo != null)
                             SetEditViewControls(associatesVo);
                         head.InnerText = "Edit Associate";
+                        associateId = associatesVo.AdviserAssociateId;
                         ddlTitleList.Enabled = false;
                         ddlBranch.Enabled = false;
                         ddlRM.Enabled = false;
@@ -113,7 +134,18 @@ namespace WealthERP.Associates
                         radTABChildCodes.Visible = true;
                         lbkbtnAddChildCodes.Enabled = true;
                         BindChildCodeLabel(associatesVo.AAC_AdviserAgentId);
+                        if (associatesVo.WelcomeNotePath == "")
+                        {
+
+                            btnPreviewSend.PostBackUrl = "~/Reports/Display.aspx?welcomeNote=1&associateId=" + associateId.ToString();
+
+                        }
+                        else
+                        {
+                           
+                        }
                     }
+                    
                 }
 
             }
@@ -1558,6 +1590,7 @@ namespace WealthERP.Associates
             associatesIds = associatesBo.CreateCompleteAssociates(associateUserVo, associatesVo, userVo.UserId);
             associatesVo.UserId = associatesIds[0];
             associatesVo.AdviserAssociateId = associatesIds[1];
+            associateId = associatesVo.AdviserAssociateId;
             Session["AdviserAssociateIds"] = associatesIds[1];
             Session["UserIds"] = associatesIds[0];
             //   txtGenerateReqstNum.Text = associatesVo.AdviserAssociateId.ToString();
@@ -1569,7 +1602,10 @@ namespace WealthERP.Associates
             UpdatingDetails();
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Associates Added successfully!!');", true);
             BtnSave.Visible = false;
+            btnPreviewSend.PostBackUrl = "~/Reports/Display.aspx?&welcomeNote=1&associateId=" + associateId.ToString();
+            btnPreviewSend.OnClientClick = "window.document.forms[0].target='_blank'; setTimeout(function(){window.document.forms[0].target='';}, 500);";
             Session["associatesVo"] = null;
+            btnPreviewSend.Visible = true;
             //    if (associatesIds.Count > 0)
             //    {
             //        HideAndShowBasedOnRole(associatesIds[1]);
@@ -1588,7 +1624,7 @@ namespace WealthERP.Associates
 
 
         }
-
+       
         public bool panValidation(string Pan, int AdviserAssociateId)
         {
 
@@ -1745,6 +1781,15 @@ namespace WealthERP.Associates
             chkbldepart.DataValueField = dtBindAdvisor.Columns["AR_RoleId"].ToString();
             chkbldepart.DataBind();
 
+        }
+
+        protected void btnPreviewSend_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty( associatesVo.WelcomeNotePath))
+            {
+                string targetPath = ConfigurationManager.AppSettings["Welcome_Note_PATH"].ToString();
+                Response.Redirect(targetPath + associatesVo.WelcomeNotePath);
+            }
         }
     }
 }

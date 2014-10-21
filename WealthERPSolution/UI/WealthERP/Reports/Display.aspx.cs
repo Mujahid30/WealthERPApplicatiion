@@ -36,7 +36,7 @@ using iTextSharp.text;
 using iTextSharp.text.pdf;
 using BoOps;
 using VoOps;
-
+using BOAssociates;
 
 
 
@@ -99,7 +99,9 @@ namespace WealthERP.Reports
         string ChequeNo = string.Empty;
         string ChequeDate = string.Empty;
         string SchemeSwitch = string.Empty;
-
+        long associateId = 0;
+        string welcomeNote;
+        string associateMailId;
         private ReportType CurrentReportType
         {
             get
@@ -217,7 +219,16 @@ namespace WealthERP.Reports
                 CurrentReportType = ReportType.OrderTransactionSlip;
                 ctrlPrefix = "ctrl_MFOrderEntry$";
             }
-
+            if (Request.QueryString["welcomeNote"] == "1")
+            {
+                CurrentReportType = ReportType.WelcomeNote;
+                associateId = Convert.ToInt64( Request.QueryString["associateId"]);
+                btnSendMail.Text="Save and send welcome letter";
+                chkCopy.Visible=false;
+                welcomeNote = Request.QueryString["welcomeNote"].ToString();
+                
+                trFormat.Visible= false;
+            }
             if (PreviousPage != null)
             {
                 GetReportParameters();
@@ -482,6 +493,10 @@ namespace WealthERP.Reports
             {
                 DisplayReport(orderTransaction);
             }
+            else if (CurrentReportType == ReportType.WelcomeNote)
+            {
+                GenerateWelComeNote();
+            }
             else
             {
                 Response.Write("Invalid Report Type");
@@ -519,6 +534,44 @@ namespace WealthERP.Reports
                     Response.Redirect("TempReports/ViewInPDF//" + DOCViewPath);
             }
         }
+
+        private void GenerateWelComeNote()
+        {
+            if (Request.QueryString["welcomeNote"] != null)
+            {
+                FinancialPlanningReportsBo fpBo = new FinancialPlanningReportsBo();
+                string headerText = "";
+                string footerText = "";
+                DataSet dsWelComeNoteDetails = fpBo.GetWelComeNoteDetails(associateId, out footerText, out headerText);
+                associateMailId = dsWelComeNoteDetails.Tables["AssociateDetails"].Rows[0]["EmailId"].ToString().Trim();
+                crmain.Load(Server.MapPath("MultiAssetReport.rpt"));
+
+                if (!string.IsNullOrEmpty(headerText.Trim()))
+                {
+                    
+                    crmain.SetParameterValue("Body", !string.IsNullOrEmpty(headerText.Trim()) ? headerText.ToString() : string.Empty);
+                    crmain.SetParameterValue("footer", !string.IsNullOrEmpty(footerText.Trim()) ? footerText.ToString() : string.Empty);
+                    crmain.SetParameterValue("RMName", !string.IsNullOrEmpty(dsWelComeNoteDetails.Tables["AssociateDetails"].Rows[0]["RMName"].ToString().Trim()) ? dsWelComeNoteDetails.Tables["AssociateDetails"].Rows[0]["RMName"].ToString() : string.Empty);
+                    crmain.SetParameterValue("Branch", !string.IsNullOrEmpty(dsWelComeNoteDetails.Tables["AssociateDetails"].Rows[0]["BranchName"].ToString().Trim()) ? dsWelComeNoteDetails.Tables["AssociateDetails"].Rows[0]["BranchName"].ToString() : string.Empty);
+                    crmain.SetParameterValue("EUIN", !string.IsNullOrEmpty(dsWelComeNoteDetails.Tables["AssociateDetails"].Rows[0]["EUIN"].ToString().Trim()) ? dsWelComeNoteDetails.Tables["AssociateDetails"].Rows[0]["EUIN"].ToString() : string.Empty);
+                    crmain.SetParameterValue("ARN", !string.IsNullOrEmpty(dsWelComeNoteDetails.Tables["AssociateDetails"].Rows[0]["ARNNo"].ToString().Trim()) ? dsWelComeNoteDetails.Tables["AssociateDetails"].Rows[0]["ARNNo"].ToString() : string.Empty);
+                    crmain.SetParameterValue("PAN", !string.IsNullOrEmpty(dsWelComeNoteDetails.Tables["AssociateDetails"].Rows[0]["PAN"].ToString().Trim()) ? dsWelComeNoteDetails.Tables["AssociateDetails"].Rows[0]["PAN"].ToString() : string.Empty);
+                    crmain.SetParameterValue("AccountNo", !string.IsNullOrEmpty(dsWelComeNoteDetails.Tables["AssociateDetails"].Rows[0]["AccountNum"].ToString().Trim()) ? dsWelComeNoteDetails.Tables["AssociateDetails"].Rows[0]["AccountNum"].ToString() : string.Empty);
+                    crmain.SetParameterValue("BankBranch", !string.IsNullOrEmpty(dsWelComeNoteDetails.Tables["AssociateDetails"].Rows[0]["BankBranch"].ToString().Trim()) ? dsWelComeNoteDetails.Tables["AssociateDetails"].Rows[0]["BankBranch"].ToString() : string.Empty);
+                    crmain.SetParameterValue("BankName", !string.IsNullOrEmpty(dsWelComeNoteDetails.Tables["AssociateDetails"].Rows[0]["BankName"].ToString().Trim()) ? dsWelComeNoteDetails.Tables["AssociateDetails"].Rows[0]["BankName"].ToString() : string.Empty);
+                    //setLogo();
+                    txtTo.Text = associateMailId;
+                    CrystalReportViewer1.ReportSource = crmain;
+                    CrystalReportViewer1.EnableDrillDown = true;
+                    CrystalReportViewer1.HasCrystalLogo = false;
+                    String exportFilename = Server.MapPath("~/Reports/TempReports/ViewInPDF/") + associateId.ToString()+".pdf";
+                    crmain.ExportToDisk(ExportFormatType.PortableDocFormat, exportFilename);
+                    //Response.Redirect( exportFilename);
+                    //Response.Write(@"<script>window.open('" + @exportFilename + "','_blank');</script>");
+                }
+            }
+        }
+       
 
         private void DisplayReport(OrderTransactionSlipVo report)
         {
@@ -4852,6 +4905,8 @@ namespace WealthERP.Reports
 
                     if (!String.IsNullOrEmpty(adviserStaffSMTPVo.Password))
                         emailer.smtpPassword = Encryption.Decrypt(adviserStaffSMTPVo.Password);
+                    //emailer.smtpPassword = "Ampsys123#";
+                    //string t=Encryption.Encrypt("Ampsys123#");
                     emailer.smtpPort = int.Parse(adviserStaffSMTPVo.Port);
                     emailer.smtpServer = adviserStaffSMTPVo.HostServer;
                     emailer.smtpUserName = adviserStaffSMTPVo.Email;
@@ -4886,7 +4941,10 @@ namespace WealthERP.Reports
                 htmlView.LinkedResources.Add(imageResource);
                 //Add two views to message.
                 email.AlternateViews.Add(plainTextView);
-                email.AlternateViews.Add(htmlView);
+                if (Request.QueryString["welcomeNote"] != "1")
+                {
+                    email.AlternateViews.Add(htmlView);
+                }
                 //Send message
                 System.Net.Mail.SmtpClient smtpClient = new System.Net.Mail.SmtpClient();
                 //smtpClient.Send(email);
@@ -4968,21 +5026,75 @@ namespace WealthERP.Reports
 
         protected void btnSendEmail_Click(object sender, EventArgs e)
         {
-            //DisplayReport();
-            string reportFileName = ExportToDisk();
+            string reportFileName;
+            bool isMailSent=false;
 
-            bool isMailSent = SendMail(reportFileName);
-            divMessage.Visible = true;
-            if (isMailSent)
+            if (welcomeNote == "1" && !string.IsNullOrEmpty(associateMailId))
             {
-                lblEmailStatus.Text = "Email sent successfully";
-                lblEmailStatus.CssClass = "SuccessMsg";
+                string fileName = associateId.ToString() + ".pdf";
+                string sourcePath = Server.MapPath("~/Reports/TempReports/ViewInPDF/");
+                string targetPath = Server.MapPath("~"+ConfigurationManager.AppSettings["Welcome_Note_PATH"].ToString());
+
+                // Use Path class to manipulate file and directory paths.
+                string sourceFile = System.IO.Path.Combine(sourcePath, fileName);
+                string destFile = System.IO.Path.Combine(targetPath, fileName);
+
+                // To copy a folder's contents to a new location:
+                // Create a new target folder, if necessary.
+                if (!System.IO.Directory.Exists(targetPath))
+                {
+                    System.IO.Directory.CreateDirectory(targetPath);
+                }
+
+                System.IO.File.Copy(sourceFile, destFile, true);
+                EmailVo emailVo = new EmailVo();
+                AssociatesBo associateBo = new AssociatesBo();
+               
+                emailVo.HasAttachment=1;
+                emailVo.Bcc = null;
+                emailVo.SourceId = 0;
+                emailVo.AdviserId = advisorVo.advisorId;
+                emailVo.EmailFrom = rmVo.Email;
+                emailVo.To = hidTo.Value;
+                emailVo.Cc = hidCC.Value;
+                emailVo.AttachmentPath = destFile;
+                emailVo.Subject = hidSubject.Value;
+                emailVo.Body = hidBody.Value;
+                EmailSMSBo emailSMS = new EmailSMSBo();
+                isMailSent = emailSMS.CreateReportBulkMailRequest(emailVo);
+                bool isupdated = associateBo.UpdateAssociateWelcomeNotePath(userVo.UserId, associateId, fileName);
+                divMessage.Visible = true;
+
+                if (isMailSent)
+                {
+                    lblEmailStatus.Text = "Welcome letter created and saved successfully.";
+                    lblEmailStatus.CssClass = "SuccessMsg";
+                    ScriptManager.RegisterStartupScript(this, GetType(), "alertMessage", "alertMessage();", true);
+                }
+                else
+                {
+                    lblEmailStatus.Text = "An error occurred while saving and sending the welcome letter.";
+                    lblEmailStatus.CssClass = "Error";
+                }
             }
             else
             {
-                lblEmailStatus.Text = "An error occurred while sending mail.";
-                lblEmailStatus.CssClass = "Error";
+                DisplayReport();
+                reportFileName = ExportToDisk();
+                isMailSent = SendMail(reportFileName);
+                divMessage.Visible = true;
+                if (isMailSent)
+                {
+                    lblEmailStatus.Text = "Email sent successfully";
+                    lblEmailStatus.CssClass = "SuccessMsg";
+                }
+                else
+                {
+                    lblEmailStatus.Text = "An error occurred while sending mail.";
+                    lblEmailStatus.CssClass = "Error";
+                }
             }
+            
         }
 
         #endregion
@@ -5195,6 +5307,8 @@ namespace WealthERP.Reports
 
             return strFullCustomerName;
         }
+
+        
 
     }
 

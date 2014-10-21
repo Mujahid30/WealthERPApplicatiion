@@ -113,6 +113,7 @@ namespace VOAssociates
         public string Roleid { get; set; }
         public int Departmrntid { get; set; }
         public int IsActive { get; set; }
+        private string m_WelcomeNotePath;
         #endregion
 
         #region Properties
@@ -154,6 +155,11 @@ namespace VOAssociates
         {
             get { return m_Email; }
             set { m_Email = value; }
+        }
+        public string WelcomeNotePath
+        {
+            get { return m_WelcomeNotePath; }
+            set { m_WelcomeNotePath = value; }
         }
         public int  ResPhoneNo
         {

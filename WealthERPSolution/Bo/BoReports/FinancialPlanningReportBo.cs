@@ -26,7 +26,7 @@ namespace BoReports
             return financialPlanningReports.GetFinancialPlanningReport(report);
         }
 
-        public DataSet GetCustomerFPDetails(FinancialPlanningVo report, out double asset, out double liabilities, out double netWorth, out string riskClass, out int dynamicRiskClass, out double totalAnnualIncome,out int financialAssetTotal)
+        public DataSet GetCustomerFPDetails(FinancialPlanningVo report, out double asset, out double liabilities, out double netWorth, out string riskClass, out int dynamicRiskClass, out double totalAnnualIncome, out int financialAssetTotal)
         {
             DataSet dsCustomerFPReportDetails;
             DataTable dtHLVAnalysis;
@@ -74,7 +74,7 @@ namespace BoReports
             string strHomeLoan = string.Empty;
             string strAutoLoan = string.Empty;
             FinancialPlanningReportsDao financialPlanningReports = new FinancialPlanningReportsDao();
-            dsCustomerFPReportDetails = financialPlanningReports.GetCustomerFPDetails(report, out asset, out liabilities, out netWorth, out riskClass, out sumAssuredLI, out dynamicRiskClass,out financialAssetTotal);
+            dsCustomerFPReportDetails = financialPlanningReports.GetCustomerFPDetails(report, out asset, out liabilities, out netWorth, out riskClass, out sumAssuredLI, out dynamicRiskClass, out financialAssetTotal);
             dtHLVAnalysis = dsCustomerFPReportDetails.Tables["HLV"];
             dtAssetClass = dsCustomerFPReportDetails.Tables["AdvisorRiskClass"];
             dtPortfolioAllocation = dsCustomerFPReportDetails.Tables["AdvisorPortfolioAllocation"];
@@ -259,7 +259,7 @@ namespace BoReports
                     }
 
                 }
-               
+
             }
 
             //**************Emergency Fund Ratio:*****************
@@ -284,7 +284,7 @@ namespace BoReports
                     {
                         strInvestment += " and " + "` " + convertUSCurrencyFormat(totalMF) + " in Mutual Fund";
                     }
-                   
+
                 }
                 else
                     strInvestment = "Your current investments are ` " + convertUSCurrencyFormat(totalMF) + " in Mutual Fund";
@@ -578,7 +578,7 @@ namespace BoReports
         private string convertUSCurrencyFormat(double value)
         {
             string strValues = string.Empty;
-            if (value !=0)
+            if (value != 0)
                 strValues = value.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("en-US"));
             else
                 strValues = value.ToString();
@@ -664,8 +664,8 @@ namespace BoReports
                     {
                         if (tempLower == 0 && tempUpper != 0)
                         {
-                            if (Convert.ToInt16(dr["WFFR_RatioId"].ToString())==5)
-                                strRatioRangeOne = "<=" + (tempUpper+1).ToString();
+                            if (Convert.ToInt16(dr["WFFR_RatioId"].ToString()) == 5)
+                                strRatioRangeOne = "<=" + (tempUpper + 1).ToString();
                             else
                                 strRatioRangeOne = "<" + (tempUpper + 1).ToString();
 
@@ -693,7 +693,7 @@ namespace BoReports
                     {
                         if (tempUpper == 0 && tempLower != 0)
                         {
-                            strRatioRangeThree = ">" +(tempLower-1).ToString();
+                            strRatioRangeThree = ">" + (tempLower - 1).ToString();
 
                         }
                         //else if (tempLower != 0 && tempUpper != 0)
@@ -763,6 +763,129 @@ namespace BoReports
             return dtCustomerFPRatio;
 
         }
+        public DataSet GetWelComeNoteDetails(long associateId,out string footerText,out string headerText )
+        {
+            FinancialPlanningReportsDao financialPlanningReports = new FinancialPlanningReportsDao();
+            DataSet dsWelComeNoteDetails;
+            headerText = "";
+            footerText = "";
+            dsWelComeNoteDetails = financialPlanningReports.GetWelComeNoteDetails(associateId);
+            DataTable dtReportSectionAndText = dsWelComeNoteDetails.Tables["ReportSection"];
+            DataTable dtAssociateDetails = dsWelComeNoteDetails.Tables["AssociateDetails"];
+            DataTable dtFieldCode = dsWelComeNoteDetails.Tables["FieldCode"];
+            if (dsWelComeNoteDetails.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow dr in dtReportSectionAndText.Rows)
+                {
 
+                    switch (dr["TextPurpose"].ToString())
+                    {
+                        case "WelCome_Note_Header":
+                            {
+
+                                if (string.IsNullOrEmpty(headerText.Trim()))
+                                    headerText = dr["TextParagraph"].ToString();
+
+                                if (dr["HasFieldCode"].ToString().Trim() == "Y")
+                                {
+                                    foreach (DataRow dr1 in dtFieldCode.Rows)
+                                    {
+                                        switch (dr1["FieldCode"].ToString())
+                                        {
+                                            case "#RMName#":
+                                                {
+                                                    headerText = headerText.Replace("#RMName#", !string.IsNullOrEmpty(dtAssociateDetails.Rows[0]["RMName"].ToString().Trim()) ? dtAssociateDetails.Rows[0]["RMName"].ToString() : string.Empty);
+                                                    break;
+                                                }
+                                            case "#AssociateName#":
+                                                {
+                                                    headerText = headerText.Replace("#AssociateName#", !string.IsNullOrEmpty(dtAssociateDetails.Rows[0]["Name"].ToString().Trim()) ? dtAssociateDetails.Rows[0]["Name"].ToString() : string.Empty);
+                                                    break;
+                                                }
+                                            case "#Address1#":
+                                                {
+                                                    headerText = headerText.Replace("#Address1#", !string.IsNullOrEmpty(dtAssociateDetails.Rows[0]["Address1"].ToString().Trim()) ? dtAssociateDetails.Rows[0]["Address1"].ToString() : string.Empty );
+                                                    break;
+                                                }
+                                            case "#Address2#":
+                                                {
+                                                    headerText = headerText.Replace("#Address2#" , !string.IsNullOrEmpty(dtAssociateDetails.Rows[0]["Address2"].ToString().Trim()) ? dtAssociateDetails.Rows[0]["Address2"].ToString() : string.Empty );
+                                                    break;
+                                                }
+                                            case "#City#":
+                                                {
+                                                    headerText = headerText.Replace("#City#", !string.IsNullOrEmpty(dtAssociateDetails.Rows[0]["City"].ToString().Trim()) ? dtAssociateDetails.Rows[0]["City"].ToString() : string.Empty );
+                                                    break;
+                                                }
+                                            case "#State#":
+                                                {
+                                                    headerText = headerText.Replace("#State#", !string.IsNullOrEmpty(dtAssociateDetails.Rows[0]["State"].ToString().Trim()) ? dtAssociateDetails.Rows[0]["State"].ToString() : string.Empty );
+                                                    break;
+                                                }
+                                            case "#Pin#":
+                                                {
+                                                    headerText = headerText.Replace("#Pin#", !string.IsNullOrEmpty(dtAssociateDetails.Rows[0]["PinCode"].ToString().Trim()) ? dtAssociateDetails.Rows[0]["PinCode"].ToString() : string.Empty );
+                                                    break;
+                                                }
+                                            case "#AgentCode#":
+                                                {
+                                                    headerText = headerText.Replace("#AgentCode#", !string.IsNullOrEmpty(dtAssociateDetails.Rows[0]["AgentCode"].ToString().Trim()) ? dtAssociateDetails.Rows[0]["AgentCode"].ToString() : string.Empty );
+                                                    break;
+                                                }
+                                            case "#BankName#":
+                                                {
+                                                    headerText = headerText.Replace("#BankName#", !string.IsNullOrEmpty(dtAssociateDetails.Rows[0]["BankName"].ToString().Trim()) ? dtAssociateDetails.Rows[0]["BankName"].ToString() : string.Empty );
+                                                    break;
+                                                }
+                                            case "#BankBranch#":
+                                                {
+                                                    headerText = headerText.Replace("#BankBranch#", !string.IsNullOrEmpty(dtAssociateDetails.Rows[0]["BankBranch"].ToString().Trim()) ? dtAssociateDetails.Rows[0]["BankBranch"].ToString() : string.Empty );
+                                                    break;
+                                                }
+                                            case "#AccountNo#":
+                                                {
+                                                    headerText = headerText.Replace("#AccountNo#", !string.IsNullOrEmpty(dtAssociateDetails.Rows[0]["AccountNum"].ToString().Trim()) ? dtAssociateDetails.Rows[0]["AccountNum"].ToString() : string.Empty );
+                                                    break;
+                                                }
+                                            case "#PANNo#":
+                                                {
+                                                    headerText = headerText.Replace("#PANNo#", !string.IsNullOrEmpty(dtAssociateDetails.Rows[0]["PAN"].ToString().Trim()) ? dtAssociateDetails.Rows[0]["PAN"].ToString() : string.Empty );
+                                                    break;
+                                                }
+                                            case "#ARNNo#":
+                                                {
+                                                    headerText = headerText.Replace("#ARNNo#", !string.IsNullOrEmpty(dtAssociateDetails.Rows[0]["ARNNo"].ToString().Trim()) ? dtAssociateDetails.Rows[0]["ARNNo"].ToString() : string.Empty );
+                                                    break;
+                                                }
+                                            case "#EUIN#":
+                                                {
+                                                    headerText = headerText.Replace("#EUIN#", !string.IsNullOrEmpty(dtAssociateDetails.Rows[0]["EUIN"].ToString().Trim()) ? dtAssociateDetails.Rows[0]["EUIN"].ToString() : string.Empty );
+                                                    break;
+                                                }
+                                            case "#Branch#":
+                                                {
+                                                    headerText = headerText.Replace("#Branch#", !string.IsNullOrEmpty(dtAssociateDetails.Rows[0]["BranchName"].ToString().Trim()) ? dtAssociateDetails.Rows[0]["BranchName"].ToString() : string.Empty );
+                                                    break;
+                                                }
+                                          
+                                        }
+                                    }
+                                }
+                                break;
+                            }
+                        case "WelCome_Note_Footer":
+                            {
+                                if (string.IsNullOrEmpty(footerText.Trim()))
+                                    footerText = dr["TextParagraph"].ToString();
+
+                                break;
+                            }
+
+                    }
+                }
+
+            }
+            return dsWelComeNoteDetails;
+        }
     }
 }
