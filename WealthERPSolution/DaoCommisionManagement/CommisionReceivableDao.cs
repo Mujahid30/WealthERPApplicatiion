@@ -19,7 +19,7 @@ namespace DaoCommisionManagement
         /// <param name="adviserId"></param>
         /// <returns></returns>
 
-        public DataSet GetLookupDataForReceivableSetUP(int adviserId)
+        public DataSet GetLookupDataForReceivableSetUP(int adviserId, string product)
         {
             Database db;
             DbCommand cmdGetLookupDataForReceivable;
@@ -30,6 +30,8 @@ namespace DaoCommisionManagement
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmdGetLookupDataForReceivable = db.GetStoredProcCommand("SPROC_GetLookupDataForReceivableSetUP");
                 db.AddInParameter(cmdGetLookupDataForReceivable, "@A_AdviserId", DbType.Int32, adviserId);
+                db.AddInParameter(cmdGetLookupDataForReceivable, "@Product", DbType.String, product);
+
                 ds = db.ExecuteDataSet(cmdGetLookupDataForReceivable);
             }
             catch (BaseApplicationException Ex)
@@ -81,6 +83,27 @@ namespace DaoCommisionManagement
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
+            return ds;
+        }
+
+
+        public DataSet GetCommisionTypes()
+        {
+            Database db;
+            DbCommand cmdIssueMap;
+            DataSet ds = null;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdIssueMap = db.GetStoredProcCommand("SPROC_GetCommisionTypes");
+                ds = db.ExecuteDataSet(cmdIssueMap);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
             return ds;
         }
 
@@ -163,7 +186,35 @@ namespace DaoCommisionManagement
 
         }
 
-        public void CreateCommissionStructureMastter(CommissionStructureMasterVo commissionStructureMasterVo, int userId, out Int32 instructureId)
+        public void CreatePayableAgentCodeMapping(int StructureId,string userType,string Category,string agentId,  out Int32 mappingId)
+        {
+            Database db;
+            DbCommand cmdCreateCommissionStructure;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdCreateCommissionStructure = db.GetStoredProcCommand("SPROC_CreateAdviserPayableStructureAgentCategoryMapping");
+                db.AddInParameter(cmdCreateCommissionStructure, "@CommissionStructureId", DbType.Int64, StructureId);
+                db.AddInParameter(cmdCreateCommissionStructure, "@UserType", DbType.String, userType);
+                db.AddInParameter(cmdCreateCommissionStructure, "@StaffCategory", DbType.String, Category);
+                db.AddInParameter(cmdCreateCommissionStructure, "@AgentId", DbType.String, agentId);
+
+                db.AddOutParameter(cmdCreateCommissionStructure, "@id", DbType.Int64, 1000000);
+                db.ExecuteNonQuery(cmdCreateCommissionStructure);
+                Object objCommissionStructureId = db.GetParameterValue(cmdCreateCommissionStructure, "@id");
+                if (objCommissionStructureId != DBNull.Value)
+                    mappingId = Convert.ToInt32(objCommissionStructureId);
+                else
+                    mappingId = 0;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+        }
+
+        public void CreateCommissionStructureMastter(CommissionStructureMasterVo commissionStructureMasterVo, int userId, int commissionLookUpId, out Int32 instructureId)
         {
             Database db;
             DbCommand cmdCreateCommissionStructure;
@@ -191,6 +242,8 @@ namespace DaoCommisionManagement
                 db.AddInParameter(cmdCreateCommissionStructure, "@AssetSubGroupCode", DbType.String, Convert.ToString(commissionStructureMasterVo.AssetSubCategory));
 
                 db.AddInParameter(cmdCreateCommissionStructure, "@UserId", DbType.String, userId);
+                db.AddInParameter(cmdCreateCommissionStructure, "@commissionLookUpId", DbType.Int32, commissionLookUpId);
+
                 db.AddOutParameter(cmdCreateCommissionStructure, "@CommissionStructureId", DbType.Int64, 1000000);
                 db.ExecuteNonQuery(cmdCreateCommissionStructure);
                 Object objCommissionStructureId = db.GetParameterValue(cmdCreateCommissionStructure, "@CommissionStructureId");
@@ -219,6 +272,26 @@ namespace DaoCommisionManagement
 
         }
 
+
+        public DataSet GetAdviserAgentCodes(int adviserId)
+        {
+            Database db;
+            DbCommand cmdGetCommissionStructureRules;
+            DataSet ds = null;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetCommissionStructureRules = db.GetStoredProcCommand("SP_GetAdviserWiseAgentCodes");
+                db.AddInParameter(cmdGetCommissionStructureRules, "@A_AdviserId", DbType.Int32, adviserId);
+                ds = db.ExecuteDataSet(cmdGetCommissionStructureRules);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return ds;
+        }
         //Gets all the structures under adviser
         public DataSet GetAdviserCommissionStructureRules(int adviserId)
         {
@@ -702,7 +775,7 @@ namespace DaoCommisionManagement
                 db.AddInParameter(cmdUpdateCommissionStructure, "@PAIC_AssetInstrumentCategoryCode", DbType.String, commissionStructureMasterVo.AssetCategory);
                 db.AddInParameter(cmdUpdateCommissionStructure, "@ACSM_CommissionStructureName", DbType.String, commissionStructureMasterVo.CommissionStructureName);
                 if (!string.IsNullOrEmpty(commissionStructureMasterVo.Issuer))
-                db.AddInParameter(cmdUpdateCommissionStructure, "@ACSM_Issuer", DbType.Int32, Convert.ToUInt32(commissionStructureMasterVo.Issuer.ToString()));
+                    db.AddInParameter(cmdUpdateCommissionStructure, "@ACSM_Issuer", DbType.Int32, Convert.ToUInt32(commissionStructureMasterVo.Issuer.ToString()));
                 else
                     db.AddInParameter(cmdUpdateCommissionStructure, "@ACSM_Issuer", DbType.Int32, 0);
 
@@ -1271,7 +1344,7 @@ namespace DaoCommisionManagement
         }
 
 
-        public DataSet GetCommissionSchemeStructureRuleList(int adviserId,string product)
+        public DataSet GetCommissionSchemeStructureRuleList(int adviserId, string product)
         {
             Database db;
             DbCommand cmdGetCommissionSchemeStructureRuleList;

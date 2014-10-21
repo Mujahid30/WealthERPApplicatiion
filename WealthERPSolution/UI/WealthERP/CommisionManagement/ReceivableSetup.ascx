@@ -35,16 +35,16 @@
 
 <script language="JavaScript" type="text/jscript">
 
-    function InvestmentAmountValidation(source, args) { 
-        args.IsValid = false; 
+    function InvestmentAmountValidation(source, args) {
+        args.IsValid = false;
         var minValue = document.getElementById('ctrl_ReceivableSetup_RadGridStructureRule_ctl00_ctl02_ctl03_txtMinInvestmentAmount').value;
         var maxValue = document.getElementById('ctrl_ReceivableSetup_RadGridStructureRule_ctl00_ctl02_ctl03_txtMaxInvestmentAmount').value;
-        if (parseInt(maxValue)> parseInt(minValue))
+        if (parseInt(maxValue) > parseInt(minValue))
             args.IsValid = true;
 
-        if ((minValue == "" && maxValue == "")||(minValue != "" && maxValue == ""))
+        if ((minValue == "" && maxValue == "") || (minValue != "" && maxValue == ""))
             args.IsValid = true;
-       
+
     }
 
     //    function alertTest() {
@@ -54,7 +54,7 @@
     //            else
     //                alert("empty");
     //    }
-    
+
     function TenureValidation(source, args) {
         args.IsValid = false;
         var minValue = document.getElementById('ctrl_ReceivableSetup_RadGridStructureRule_ctl00_ctl02_ctl03_txtMinTenure').value;
@@ -72,12 +72,12 @@
         var maxValue = document.getElementById('ctrl_ReceivableSetup_RadGridStructureRule_ctl00_ctl02_ctl03_txtMaxInvestAge').value;
         if (parseInt(minValue) < parseInt(maxValue)) {
             args.IsValid = true;
-            
+
         }
 
         if ((minValue == "" && maxValue == "") || (minValue != "" && maxValue == "")) {
             args.IsValid = true;
-        } 
+        }
     }
 
 
@@ -231,10 +231,25 @@
             </tr>
             <tr>
                 <td class="leftLabel">
+                    <asp:Label ID="Label3" runat="server" Text="Pick CommissionType:" CssClass="FieldName"></asp:Label>
+                </td>
+                <td class="rightData">
+                    <asp:DropDownList ID="ddlCommissionype" runat="server" CssClass="cmbField" AutoPostBack="true">
+                    </asp:DropDownList>
+                    <br />
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" CssClass="rfvPCG"
+                        ErrorMessage="Please Select CommissionType" Display="Dynamic" ControlToValidate="ddlCommissionype"
+                        InitialValue="Select" ValidationGroup="vgBtnSubmitStage2">
+                    </asp:RequiredFieldValidator>
+                </td>
+            </tr>
+            <tr>
+                <td class="leftLabel">
                     <asp:Label ID="lblStatusStage2" runat="server" Text="Pick Product:" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightData">
-                    <asp:DropDownList ID="ddlProductType" runat="server" CssClass="cmbField" AutoPostBack="true" OnSelectedIndexChanged="ddlProductType_OnSelectedIndexChanged">
+                    <asp:DropDownList ID="ddlProductType" runat="server" CssClass="cmbField" AutoPostBack="true"
+                        OnSelectedIndexChanged="ddlProductType_OnSelectedIndexChanged">
                     </asp:DropDownList>
                     <br />
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" CssClass="rfvPCG"
@@ -345,8 +360,9 @@
                     <asp:Label ID="lblOptions" runat="server" Text="Options:" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightDataThreeColumn" colspan="3">
-                    <asp:CheckBox ID="chkHasClawBackOption" Text="" runat="server"  Visible="false"/>
-                    <asp:Label ID="lblHasClawBackOption" runat="server" Text="Has claw back option" CssClass="txtField" Visible="false"></asp:Label>
+                    <asp:CheckBox ID="chkHasClawBackOption" Text="" runat="server" Visible="false" />
+                    <asp:Label ID="lblHasClawBackOption" runat="server" Text="Has claw back option" CssClass="txtField"
+                        Visible="false"></asp:Label>
                     <asp:CheckBox ID="chkMoneytaryReward" Text="" runat="server" />
                     <asp:Label ID="Label1" runat="server" Text="Is non moneytary reward" CssClass="txtField"></asp:Label>
                 </td>
@@ -364,6 +380,8 @@
                         OnClick="btnStructureUpdate_Click" ValidationGroup="btnStrAddUpdate" />
                     <asp:Button ID="btnMapToscheme" CssClass="PCGMediumButton" Text="Map Scheme" runat="server"
                         OnClick="btnMapToscheme_Click" ValidationGroup="btnStrAddUpdate" />
+                         <asp:Button ID="ButtonAgentCodeMapping" CssClass="PCGMediumButton" Text="Map AgentCode" runat="server"
+                        OnClick="ButtonAgentCodeMapping_Click" ValidationGroup="btnStrAddUpdate" />
                 </td>
             </tr>
         </table>
@@ -434,10 +452,12 @@
                                         DataField="ACSR_MaxInvestmentAmount" DataFormatString="{0:N2}">
                                         <HeaderStyle></HeaderStyle>
                                     </telerik:GridBoundColumn>
-                                    <telerik:GridBoundColumn UniqueName="ACSR_MinTenure" HeaderText="Min Tenure (SIP)" DataField="ACSR_MinTenure">
+                                    <telerik:GridBoundColumn UniqueName="ACSR_MinTenure" HeaderText="Min Tenure (SIP)"
+                                        DataField="ACSR_MinTenure">
                                         <HeaderStyle></HeaderStyle>
                                     </telerik:GridBoundColumn>
-                                    <telerik:GridBoundColumn UniqueName="ACSR_MaxTenure" HeaderText="Max Tenure (SIP)" DataField="ACSR_MaxTenure">
+                                    <telerik:GridBoundColumn UniqueName="ACSR_MaxTenure" HeaderText="Max Tenure (SIP)"
+                                        DataField="ACSR_MaxTenure">
                                         <HeaderStyle></HeaderStyle>
                                     </telerik:GridBoundColumn>
                                     <telerik:GridBoundColumn UniqueName="ACSR_TenureUnit" HeaderText="Tenure Unit" DataField="ACSR_TenureUnit">
@@ -500,9 +520,8 @@
                                                     <asp:Label ID="lblCommissionType" runat="server" Text="Commission Type:" CssClass="FieldName"></asp:Label>
                                                 </td>
                                                 <td class="rightData">
-                                                    <asp:DropDownList ID="ddlCommissionType" runat="server" CssClass="cmbField"  AutoPostBack="true"
-                                                    OnSelectedIndexChanged="ddlCommissionType_Selectedindexchanged"
-                                                    >
+                                                    <asp:DropDownList ID="ddlCommissionType" runat="server" CssClass="cmbField" AutoPostBack="true"
+                                                        OnSelectedIndexChanged="ddlCommissionType_Selectedindexchanged">
                                                     </asp:DropDownList>
                                                 </td>
                                                 <td class="leftLabel">
@@ -600,17 +619,17 @@
                                                     <asp:Label ID="lblMinInvestAge" runat="server" Text="Min Investment age :" CssClass="FieldName"></asp:Label>
                                                 </td>
                                                 <td class="rightData">
-                                                    <asp:TextBox ID="txtMinInvestAge" Text='<%# Bind( "ACSR_MinInvestmentAge") %>'
-                                                        runat="server" CssClass="txtField"></asp:TextBox>
+                                                    <asp:TextBox ID="txtMinInvestAge" Text='<%# Bind( "ACSR_MinInvestmentAge") %>' runat="server"
+                                                        CssClass="txtField"></asp:TextBox>
                                                 </td>
                                                 <td class="leftLabel">
                                                     <asp:Label ID="lblMaxInvestAge" runat="server" Text="Max Investment age :" CssClass="FieldName"></asp:Label>
                                                 </td>
                                                 <td class="rightData" colspan="2">
-                                                    <asp:TextBox ID="txtMaxInvestAge" Text='<%# Bind( "ACSR_MaxInvestmentAge") %>'
-                                                        runat="server" CssClass="txtField"></asp:TextBox>
+                                                    <asp:TextBox ID="txtMaxInvestAge" Text='<%# Bind( "ACSR_MaxInvestmentAge") %>' runat="server"
+                                                        CssClass="txtField"></asp:TextBox>
                                                     <asp:DropDownList ID="ddlInvestAgeTenure" runat="server" CssClass="cmbField" Style="width: 100px !Important">
-                                                         <asp:ListItem Text="Days" Value="Days"></asp:ListItem>
+                                                        <asp:ListItem Text="Days" Value="Days"></asp:ListItem>
                                                         <asp:ListItem Text="Years" Value="Years"></asp:ListItem>
                                                         <asp:ListItem Text="Months" Value="Months"></asp:ListItem>
                                                     </asp:DropDownList>
@@ -653,7 +672,7 @@
                                                     <asp:Label ID="lblUnit" runat="server" Text="Brokerage Unit:" CssClass="FieldName"></asp:Label>
                                                 </td>
                                                 <td class="rightData">
-                                                    <asp:DropDownList ID="ddlBrokerageUnit" runat="server" CssClass="cmbField">
+                                                    <asp:DropDownList ID="ddlBrokerageUnit" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlBrokerageUnit_OnSelectedIndexChanged">
                                                     </asp:DropDownList>
                                                 </td>
                                                 <td class="leftLabel">
@@ -691,9 +710,9 @@
                                                 <td class="rightData" colspan="2">
                                                     <asp:Button ID="btnSubmitRule" ValidationGroup="btnSubmitRule" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
                                                         CssClass="PCGButton" runat="server" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'
-                                                        CausesValidation="true" ></asp:Button>&nbsp;
-                                                    <asp:Button ID="Button2" CssClass="PCGButton" Text="Cancel" 
-                                                        runat="server" CausesValidation="false" CommandName="Cancel"></asp:Button>
+                                                        CausesValidation="true"></asp:Button>&nbsp;
+                                                    <asp:Button ID="Button2" CssClass="PCGButton" Text="Cancel" runat="server" CausesValidation="false"
+                                                        CommandName="Cancel"></asp:Button>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -717,10 +736,9 @@
                                                     <asp:RequiredFieldValidator runat="server" ID="reqName" ValidationGroup="btnSubmitRule"
                                                         Display="Dynamic" ControlToValidate="txtBrokerageValue" ErrorMessage="Brokerage value is mandatory"
                                                         Text="" />
-                                                  <%--  <asp:ValidationSummary ID="ValidationSummary1" runat="server" HeaderText="You must enter valid value in the following fields:"
+                                                    <%--  <asp:ValidationSummary ID="ValidationSummary1" runat="server" HeaderText="You must enter valid value in the following fields:"
                                                         ShowMessageBox="false" DisplayMode="BulletList" ShowSummary="true" Display="Dynamic"
                                                         ValidationGroup="btnSubmitRule" />--%>
-                                                    
                                                     <%-- <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ErrorMessage="Please Select Frequency"
                                                         CssClass="rfvPCG" ControlToValidate="ddlReceivableFrequency" ValidationGroup="btnSubmitRule"
                                                         InitialValue="0"></asp:RequiredFieldValidator>

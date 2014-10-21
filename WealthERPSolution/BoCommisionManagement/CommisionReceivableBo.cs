@@ -15,13 +15,13 @@ namespace BoCommisionManagement
     public class CommisionReceivableBo
     {
 
-        public DataSet GetLookupDataForReceivableSetUP(int adviserId)
+        public DataSet GetLookupDataForReceivableSetUP(int adviserId,string product)
         {
             CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
             DataSet dsLookupData;
             try
             {
-                dsLookupData = commisionReceivableDao.GetLookupDataForReceivableSetUP(adviserId);
+                dsLookupData = commisionReceivableDao.GetLookupDataForReceivableSetUP(adviserId, product);
 
             }
             catch (BaseApplicationException Ex)
@@ -71,7 +71,23 @@ namespace BoCommisionManagement
             return dsLookupData;
         }
 
-        public DataSet GetIssuesStructureMapings(int adviserId, string mappedType, string issueType, string product,int isOnlineIssue)
+        public DataSet GetCommisionTypes()
+        {
+            CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
+            DataSet dsLookupData;
+            try
+            {
+                dsLookupData = commisionReceivableDao.GetCommisionTypes();
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsLookupData;
+        }
+
+        public DataSet GetIssuesStructureMapings(int adviserId, string mappedType, string issueType, string product, int isOnlineIssue)
         {
             CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
             DataSet dsLookupData;
@@ -98,7 +114,7 @@ namespace BoCommisionManagement
             }
             return dsLookupData;
         }
-        
+
 
         public void CreateIssuesStructureMapings(CommissionStructureRuleVo commissionStructureRuleVo, out  int instructureId)
         {
@@ -118,7 +134,7 @@ namespace BoCommisionManagement
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "CommisionReceivableBo.cs:CreateCommissionStructureMastter(int adviserId)");
-                object[] objects = new object[2];              
+                object[] objects = new object[2];
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -127,13 +143,27 @@ namespace BoCommisionManagement
 
         }
 
-        public void CreateCommissionStructureMastter(CommissionStructureMasterVo commissionStructureMasterVo, int userId, out int structureId)
+        public void CreatePayableAgentCodeMapping(int StructureId, string userType, string Category, string agentId, out Int32 mappingId)
         {
             CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
 
             try
             {
-                commisionReceivableDao.CreateCommissionStructureMastter(commissionStructureMasterVo, userId, out structureId);
+                commisionReceivableDao.CreatePayableAgentCodeMapping(StructureId, userType, Category, agentId, out   mappingId);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+        }
+        public void CreateCommissionStructureMastter(CommissionStructureMasterVo commissionStructureMasterVo, int userId, int commissionLookUpId, out int structureId)
+        {
+            CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
+
+            try
+            {
+                commisionReceivableDao.CreateCommissionStructureMastter(commissionStructureMasterVo, userId, commissionLookUpId, out structureId);
 
             }
             catch (BaseApplicationException Ex)
@@ -154,6 +184,22 @@ namespace BoCommisionManagement
                 throw exBase;
             }
 
+        }
+
+        public DataSet GetAdviserAgentCodes(int adviserId)
+        {
+            CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
+            DataSet dsAgentCodes;
+            try
+            {
+                dsAgentCodes = commisionReceivableDao.GetAdviserAgentCodes(adviserId);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsAgentCodes;
         }
 
         public DataSet GetAdviserCommissionStructureRules(int adviserId)
@@ -822,7 +868,7 @@ namespace BoCommisionManagement
             }
         }
 
-        public DataSet GetStructureScheme(int adviserId,string product)
+        public DataSet GetStructureScheme(int adviserId, string product)
         {
             CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
             try
@@ -847,7 +893,7 @@ namespace BoCommisionManagement
             }
         }
 
-        public DataSet GetCommissionSchemeStructureRuleList(int adviserId,string product)
+        public DataSet GetCommissionSchemeStructureRuleList(int adviserId, string product)
         {
             CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
             DataSet dsSchemeStructureRule;

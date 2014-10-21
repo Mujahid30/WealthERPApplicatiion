@@ -40,8 +40,9 @@ namespace WealthERP.Receivable
             {
                 if (Request.QueryString["StructureId"] != null)
                     structureId = Convert.ToInt32(Request.QueryString["StructureId"].ToString());
-
+                GetCommisionTypes();
                 GetProduct();
+
                 if (structureId != 0)
                 {
                     BindAllDropdown();
@@ -53,12 +54,12 @@ namespace WealthERP.Receivable
                     ControlStateNewStructureCreate();
                 }
             }
-
         }
 
 
         protected void ddlProductType_OnSelectedIndexChanged(object sender, EventArgs e)
         {
+            BindAllDropdown();
             ShowHideControlsBasedOnProduct(ddlProductType.SelectedValue);
             GetCategory(ddlProductType.SelectedValue);
 
@@ -68,6 +69,40 @@ namespace WealthERP.Receivable
         {
             BindSubcategoryListBox(ddlCategory.SelectedValue);
         }
+
+        protected void ddlBrokerageUnit_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            DropDownList ddlBrokerageUnit = (DropDownList)sender;
+            DropDownList ddlCommisionCalOn = new DropDownList();
+            if (ddlBrokerageUnit.NamingContainer is Telerik.Web.UI.GridEditFormItem)
+            {
+                GridEditFormItem gdi;
+                gdi = (GridEditFormItem)ddlBrokerageUnit.NamingContainer;
+                ddlCommisionCalOn = (DropDownList)gdi.FindControl("ddlCommisionCalOn");
+            }
+            else if (ddlBrokerageUnit.NamingContainer is Telerik.Web.UI.GridEditFormInsertItem)
+            {
+                GridEditFormInsertItem gdi;
+                gdi = (GridEditFormInsertItem)ddlBrokerageUnit.NamingContainer;
+                ddlCommisionCalOn = (DropDownList)gdi.FindControl("ddlCommisionCalOn");
+                ddlCommisionCalOn.Enabled = false;
+            }
+
+            if (ddlBrokerageUnit.SelectedValue == "PER")
+            {
+                ddlCommisionCalOn.SelectedValue = "AUM on the date";
+            }
+            else if (ddlBrokerageUnit.SelectedValue == "ADA")
+            {
+                ddlCommisionCalOn.SelectedValue = "APPC";
+            }
+            else if (ddlBrokerageUnit.SelectedValue == "APU")
+            {
+                ddlCommisionCalOn.SelectedValue = "INAM";
+
+            }
+        }
+
 
         private void ShowHideControlsBasedOnProduct(string asset)
         {
@@ -150,12 +185,22 @@ namespace WealthERP.Receivable
 
         }
 
+        protected void GetCommisionTypes()
+        {
+            DataSet dscommissionTypes;
+            dscommissionTypes = commisionReceivableBo.GetCommisionTypes();
 
+            ddlCommissionype.DataSource = dscommissionTypes.Tables[0];
+            ddlCommissionype.DataValueField = "WCMV_LookupId";
+            ddlCommissionype.DataTextField = "WCMV_Name";
+            ddlCommissionype.DataBind();
+            //ddlCommissionype.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
+        }
 
         protected void BindAllDropdown()
         {
             DataSet dsLookupData;
-            dsLookupData = commisionReceivableBo.GetLookupDataForReceivableSetUP(advisorVo.advisorId);
+            dsLookupData = commisionReceivableBo.GetLookupDataForReceivableSetUP(advisorVo.advisorId, ddlProductType.SelectedValue);
 
             ddlIssuer.DataSource = dsLookupData.Tables[6];
             ddlIssuer.DataValueField = dsLookupData.Tables[6].Columns["PA_AMCCode"].ToString();
@@ -285,7 +330,7 @@ namespace WealthERP.Receivable
             }
             else
             {
-                commisionReceivableBo.CreateCommissionStructureMastter(commissionStructureMasterVo, userVo.UserId, out commissionStructureId);
+                commisionReceivableBo.CreateCommissionStructureMastter(commissionStructureMasterVo, userVo.UserId, Convert.ToInt32(ddlCommissionype.SelectedValue), out commissionStructureId);
                 hidCommissionStructureName.Value = commissionStructureId.ToString();
                 CommissionStructureControlsEnable(false);
                 tblCommissionStructureRule.Visible = true;
@@ -310,6 +355,16 @@ namespace WealthERP.Receivable
             }
 
         }
+        protected void ButtonAgentCodeMapping_Click(object sender, EventArgs e)
+        {
+
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('PayableStructureToAgentCategoryMapping','ID=" + hidCommissionStructureName.Value + "&Product=" + ddlProductType.SelectedValue + "');", true);
+
+
+
+        }
+
+
 
 
         protected void btnStructureUpdate_Click(object sender, EventArgs e)

@@ -149,6 +149,8 @@ namespace WealthERP.Receivable {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlIssuer;
+        protected global::System.Web.UI.WebControls.DropDownList ddlCommissionype;
+
         
         /// <summary>
         /// RequiredFieldValidator2 control.
@@ -416,6 +418,8 @@ namespace WealthERP.Receivable {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnMapToscheme;
+        protected global::System.Web.UI.WebControls.Button ButtonAgentCodeMapping;
+
         
         /// <summary>
         /// tblCommissionStructureRule control.
