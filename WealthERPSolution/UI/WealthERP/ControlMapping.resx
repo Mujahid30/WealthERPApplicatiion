@@ -1985,4 +1985,8 @@
     <value>CommisionManagement//CommisionManagementStructureToIssueMapping.ascx</value>
     <comment>CommisionManagement//CommisionManagementStructureToIssueMapping.ascx</comment>
   </data>
+  <data name="PayableStructureToAgentCategoryMapping" xml:space="preserve">
+    <value>CommisionManagement//PayableStructureToAgentCategoryMapping.ascx</value>
+    <comment>CommisionManagement//PayableStructureToAgentCategoryMapping.ascx</comment>
+  </data>
 </root>

@@ -1505,6 +1505,13 @@
     <Compile Include="CommisionManagement\CommissionStructureToSchemeMapping.ascx.designer.cs">
       <DependentUpon>CommissionStructureToSchemeMapping.ascx</DependentUpon>
     </Compile>
+    <Compile Include="CommisionManagement\PayableStructureToAgentCategoryMapping.ascx.cs">
+      <DependentUpon>PayableStructureToAgentCategoryMapping.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CommisionManagement\PayableStructureToAgentCategoryMapping.ascx.designer.cs">
+      <DependentUpon>PayableStructureToAgentCategoryMapping.ascx</DependentUpon>
+    </Compile>
     <Compile Include="CommisionManagement\ReceivableSetup.ascx.cs">
       <DependentUpon>ReceivableSetup.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -7671,6 +7678,7 @@
     <Content Include="CommisionManagement\CommisionManagementStructureToIssueMapping.ascx" />
     <Content Include="CommisionManagement\CommissionStructureRuleGrid.ascx" />
     <Content Include="CommisionManagement\CommissionStructureToSchemeMapping.ascx" />
+    <Content Include="CommisionManagement\PayableStructureToAgentCategoryMapping.ascx" />
     <Content Include="CommisionManagement\ReceivableSetup.ascx" />
     <Content Include="CommisionManagement\SchemeStructureRuleAssociation.ascx" />
     <Content Include="CommisionManagement\ViewSchemeStructureAssociation.ascx" />

@@ -2860,6 +2860,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CommisionManagement//PayableStructureToAgentCategoryMapping.ascx.
+        /// </summary>
+        internal static string PayableStructureToAgentCategoryMapping {
+            get {
+                return ResourceManager.GetString("PayableStructureToAgentCategoryMapping", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CustomerPortfolio//PensionAndGratuities.ascx.
         /// </summary>
         internal static string PensionAndGratuities {
