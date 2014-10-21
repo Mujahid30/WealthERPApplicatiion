@@ -13,7 +13,7 @@ namespace DaoOfflineOrderManagement
 {
     public class OfflineIPOBackOfficeDao
     {
-        public DataTable GetOfflineIPOOrderBook(int adviserId, int issueId, string status, DateTime dtFrom, DateTime dtTo, int orderId)
+        public DataTable GetOfflineIPOOrderBook(int adviserId, int issueId, string status, DateTime dtFrom, DateTime dtTo, int orderId, string userType, string agentCode)
         {
             Database db;
             DataSet dsIPOOrder;
@@ -33,8 +33,17 @@ namespace DaoOfflineOrderManagement
                 db.AddInParameter(cmd, "@ToDate", DbType.DateTime, dtTo);
                 if (orderId != 0)
                     db.AddInParameter(cmd, "@OrderId", DbType.Int32, orderId);
+                if (userType != "0")
+                    db.AddInParameter(cmd, "@UserType", DbType.String, userType);
+                else
+                    db.AddInParameter(cmd, "@UserType", DbType.String, DBNull.Value);
+                if (agentCode != "0")
+                    db.AddInParameter(cmd, "@AgentCode", DbType.String, agentCode);
+                else
+                    db.AddInParameter(cmd, "@AgentCode", DbType.String, DBNull.Value);
                 dsIPOOrder = db.ExecuteDataSet(cmd);
                 dtIPOOrder = dsIPOOrder.Tables[0];
+
             }
             catch (BaseApplicationException Ex)
             {

@@ -10,6 +10,7 @@ using VoUser;
 using BoOnlineOrderManagement;
 using WealthERP.Base;
 using BoOfflineOrderManagement;
+using VOAssociates;
 
 namespace WealthERP.OffLineOrderManagement
 {
@@ -22,11 +23,17 @@ namespace WealthERP.OffLineOrderManagement
         DateTime toDate;
         int AIMissueId = 0;
         int orderId = 0;
+        string userType;
+        string UserTitle;
+        string AgentCode;
+        string agentCode;
         BoOnlineOrderManagement.OnlineBondOrderBo BoOnlineBondOrder = new BoOnlineOrderManagement.OnlineBondOrderBo();
         OnlineNCDBackOfficeBo onlineNCDBackOfficeBo = new OnlineNCDBackOfficeBo();
         OnlineIPOBackOfficeBo OnlineIPOBackOfficeBo = new OnlineIPOBackOfficeBo();
         OfflineNCDIPOBackOfficeBo onlineNCDIPOBackOfficeBo = new OfflineNCDIPOBackOfficeBo();
         OfflineIPOBackOfficeBo OfflineIPOBackOfficeBo = new OfflineIPOBackOfficeBo();
+        AssociatesUserHeirarchyVo associateuserheirarchyVo = new AssociatesUserHeirarchyVo();
+       
         protected void Page_Load(object sender, EventArgs e)
         {
             userVo = (UserVo)Session[SessionContents.UserVo];
@@ -36,6 +43,40 @@ namespace WealthERP.OffLineOrderManagement
             txtOrderTo.SelectedDate = DateTime.Now;
             BindOrderStatus();
             BindIssueName();
+            associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
+            if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "associates")
+            {
+                userType = "associates";
+                if (UserTitle == "SubBroker")
+                {
+                    associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
+                    if (associateuserheirarchyVo.AgentCode != null)
+                    {
+                        AgentCode = associateuserheirarchyVo.AgentCode.ToString();
+                    }
+                    else
+                        AgentCode = "0";
+                }
+                else
+                {
+                    associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
+                    if (associateuserheirarchyVo.AgentCode != null)
+                    {
+                        AgentCode = associateuserheirarchyVo.AgentCode.ToString();
+                    }
+                    else
+                        AgentCode = "0";
+                }
+            }
+                if (!IsPostBack)
+                {
+                    fromDate = DateTime.Now.AddMonths(-1);
+                    txtOrderFrom.SelectedDate = fromDate.Date;
+                    txtOrderTo.SelectedDate = DateTime.Now;
+                    BindOrderStatus();
+                    BindIssueName();
+                }
+            
             if (!IsPostBack)
             {
                 if (Request.QueryString["AIMissueId"] != null && Request.QueryString["orderId"] != null && Request.QueryString["fromDate"] != null && Request.QueryString["toDate"] != null)
@@ -108,12 +149,22 @@ namespace WealthERP.OffLineOrderManagement
         }
         protected void BindAdviserNCCOrderBook()
         {
+            if (userType == "rm" || userType == "bm")
+            {
+                agentCode = associateuserheirarchyVo.AgentCode;
+
+            }
+            else if (userType == "associates")
+            {
+                agentCode = associateuserheirarchyVo.AgentCode;
+            }
             if (txtOrderFrom.SelectedDate != null)
                 fromDate = DateTime.Parse(txtOrderFrom.SelectedDate.ToString());
             if (txtOrderTo.SelectedDate != null)
                 toDate = DateTime.Parse(txtOrderTo.SelectedDate.ToString());
+            userType = Session[SessionContents.CurrentUserRole].ToString();
             DataTable dtIPOOrder;
-            dtIPOOrder = OfflineIPOBackOfficeBo.GetOfflineIPOOrderBook(advisorVo.advisorId, Convert.ToInt32(ddlIssueName.SelectedValue.ToString()), ddlOrderStatus.SelectedValue, fromDate, toDate, orderId);
+            dtIPOOrder = OfflineIPOBackOfficeBo.GetOfflineIPOOrderBook(advisorVo.advisorId, Convert.ToInt32(ddlIssueName.SelectedValue.ToString()), ddlOrderStatus.SelectedValue, fromDate, toDate, orderId, userType, agentCode);
             if (dtIPOOrder.Rows.Count >= 0)
             {
                 if (Cache["IPOBookList" + userVo.UserId.ToString()] == null)

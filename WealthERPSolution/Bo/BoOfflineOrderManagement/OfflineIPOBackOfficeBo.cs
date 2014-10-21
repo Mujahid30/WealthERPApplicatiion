@@ -11,13 +11,13 @@ namespace BoOfflineOrderManagement
 {
     public class OfflineIPOBackOfficeBo
     {
-        public DataTable GetOfflineIPOOrderBook(int adviserId, int issueNo, string status, DateTime dtFrom, DateTime dtTo, int orderId)
+        public DataTable GetOfflineIPOOrderBook(int adviserId, int issueNo, string status, DateTime dtFrom, DateTime dtTo, int orderId, string userType, string agentCode)
         {
             DataTable dtIPOOrder;
             OfflineIPOBackOfficeDao OfflineIPOBackOfficeDao = new OfflineIPOBackOfficeDao();
             try
             {
-                dtIPOOrder = OfflineIPOBackOfficeDao.GetOfflineIPOOrderBook(adviserId, issueNo, status, dtFrom, dtTo, orderId);
+                dtIPOOrder = OfflineIPOBackOfficeDao.GetOfflineIPOOrderBook(adviserId, issueNo, status, dtFrom, dtTo, orderId, userType, agentCode);
             }
             catch (BaseApplicationException Ex)
             {

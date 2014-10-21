@@ -12,6 +12,9 @@ using BoWerpAdmin;
 using BoOnlineOrderManagement;
 using BoOfflineOrderManagement;
 using WealthERP.Base;
+using VOAssociates;
+using VoOps;
+using BoOps;
 
 namespace WealthERP.OffLineOrderManagement
 {
@@ -19,27 +22,87 @@ namespace WealthERP.OffLineOrderManagement
     {
         UserVo userVo;
         OnlineMFOrderBo OnlineMFOrderBo = new OnlineMFOrderBo();
+        OrderBo orderbo = new OrderBo();
         AdvisorVo advisorVo;
         DateTime fromDate;
         DateTime toDate;
+        string userType;
+        string UserTitle;
+         string AgentCode;
+         string agentCode;
         BoOnlineOrderManagement.OnlineBondOrderBo BoOnlineBondOrder = new BoOnlineOrderManagement.OnlineBondOrderBo();
         OnlineNCDBackOfficeBo onlineNCDBackOfficeBo = new OnlineNCDBackOfficeBo();
         OfflineNCDIPOBackOfficeBo offlineNCDBackOfficeBo = new OfflineNCDIPOBackOfficeBo();
-        protected void Page_Load(object sender, EventArgs e)
-        {
+          AssociatesUserHeirarchyVo associateuserheirarchyVo = new AssociatesUserHeirarchyVo();
+          protected void Page_Load(object sender, EventArgs e)
+          {
 
-            SessionBo.CheckSession();
-            userVo = (UserVo)Session[SessionContents.UserVo];
-            advisorVo = (AdvisorVo)Session["advisorVo"];
-            if (!IsPostBack)
-            {
-                fromDate = DateTime.Now.AddMonths(-1);
-                txtOrderFrom.SelectedDate = fromDate.Date;
-                txtOrderTo.SelectedDate = DateTime.Now;
-                BindOrderStatus();
-                BindIssueName();
-            }
-        }
+              SessionBo.CheckSession();
+              userVo = (UserVo)Session[SessionContents.UserVo];
+              advisorVo = (AdvisorVo)Session["advisorVo"];
+              userType = Session[SessionContents.CurrentUserRole].ToString();
+              associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
+
+              if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
+              {
+                  userType = "advisor";
+                  // userType = "admin";
+                
+              }
+              else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "bm")
+              {
+                  userType = "bm";
+                  
+              }
+              else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "rm")
+              {
+                  userType = "rm";
+                  
+              }
+
+              if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "associates")
+              {
+                  userType = "associates";
+                  if (UserTitle == "SubBroker")
+                  {
+                      associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
+                      if (associateuserheirarchyVo.AgentCode != null)
+                      {
+                          AgentCode = associateuserheirarchyVo.AgentCode.ToString();
+                      }
+                      else
+                          AgentCode = "0";
+                  }
+                  else
+                  {
+                      associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
+                      if (associateuserheirarchyVo.AgentCode != null)
+                      {
+                          AgentCode = associateuserheirarchyVo.AgentCode.ToString();
+                      }
+                      else
+                          AgentCode = "0";
+                  }
+              }
+              //string userType;
+              //string AgentCode;
+             
+          
+                  if (!IsPostBack)
+                  {
+                      fromDate = DateTime.Now.AddMonths(-1);
+                      txtOrderFrom.SelectedDate = fromDate.Date;
+                      txtOrderTo.SelectedDate = DateTime.Now;
+                      BindOrderStatus();
+                      BindIssueName();
+                  }
+              
+          }
+         
+            
+              
+              
+          
         protected void BindIssueName()
         {
             DataTable dtGetIssueName = new DataTable();
@@ -100,8 +163,9 @@ namespace WealthERP.OffLineOrderManagement
                 fromDate = DateTime.Parse(txtOrderFrom.SelectedDate.ToString());
             if (txtOrderTo.SelectedDate != null)
                 toDate = DateTime.Parse(txtOrderTo.SelectedDate.ToString());
+            userType = Session[SessionContents.CurrentUserRole].ToString();
             DataTable dtNCDOrder = new DataTable();
-            dtNCDOrder = offlineNCDBackOfficeBo.GetOfflineCustomerNCDOrderBook(advisorVo.advisorId, Convert.ToInt32(ddlIssueName.SelectedValue.ToString()), hdnOrderStatus.Value, fromDate, toDate);
+            dtNCDOrder = offlineNCDBackOfficeBo.GetOfflineCustomerNCDOrderBook(advisorVo.advisorId, Convert.ToInt32(ddlIssueName.SelectedValue.ToString()), hdnOrderStatus.Value, fromDate, toDate, userType, AgentCode);
             if (dtNCDOrder.Rows.Count >= 0)
             {
                 if (Cache["NCDBookList" + userVo.UserId.ToString()] == null)
