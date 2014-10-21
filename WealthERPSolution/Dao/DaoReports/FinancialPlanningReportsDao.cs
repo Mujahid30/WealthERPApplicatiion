@@ -363,6 +363,32 @@ namespace DaoReports
             }
 
         }
+
+        public DataSet GetWelComeNoteDetails(long associateId)
+        {
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DbCommand WelComeNoteDetailsFormCmd;
+            DataSet dsWelComeNoteDetails;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                WelComeNoteDetailsFormCmd = db.GetStoredProcCommand("SP_GetWelcomeNoteDetails");
+                db.AddInParameter(WelComeNoteDetailsFormCmd, "@AssociateId", DbType.Int64, associateId);
+                dsWelComeNoteDetails = db.ExecuteDataSet(WelComeNoteDetailsFormCmd);
+                dsWelComeNoteDetails.Tables[0].TableName = "AssociateDetails";
+                dsWelComeNoteDetails.Tables[1].TableName = "ReportSection";
+                dsWelComeNoteDetails.Tables[2].TableName = "FieldCode";
+                
+
+
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+            return dsWelComeNoteDetails;
+        }
      
 
     }
