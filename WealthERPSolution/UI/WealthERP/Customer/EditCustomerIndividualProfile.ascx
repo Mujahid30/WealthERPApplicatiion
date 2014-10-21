@@ -1851,6 +1851,34 @@
                     <td class="rightField" width="25%">
                         <asp:TextBox ID="txtSubBroker" runat="server" CssClass="txtField"></asp:TextBox>
                     </td>
+                    <td class="leftField">
+                        <asp:Label ID="lblOtherBankName" CssClass="FieldName" runat="server" Text="Other BankName:"></asp:Label>
+                    </td>
+                    <td class="rightField" width="25%">
+                        <asp:TextBox ID="txtOtherBankName" runat="server" CssClass="txtField"></asp:TextBox>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftField">
+                        <asp:Label ID="lblAdr1City" CssClass="FieldName" runat="server" Text="Other City:"></asp:Label>
+                    </td>
+                    <td class="rightField" width="25%">
+                        <asp:TextBox ID="txtAdr1City" runat="server" CssClass="txtField"></asp:TextBox>
+                    </td>
+                    <td class="leftField">
+                        <asp:Label ID="lblAdr1State" CssClass="FieldName" runat="server" Text="Other State:"></asp:Label>
+                    </td>
+                    <td class="rightField" width="25%">
+                        <asp:TextBox ID="txtAdr1State" runat="server" CssClass="txtField"></asp:TextBox>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftField">
+                        <asp:Label ID="lblOtherCountry" CssClass="FieldName" runat="server" Text="Other Country:"></asp:Label>
+                    </td>
+                    <td class="rightField" width="25%">
+                        <asp:TextBox ID="txtOtherCountry" runat="server" CssClass="txtField"></asp:TextBox>
+                    </td>
                 </tr>
             </table>
         </asp:Panel>

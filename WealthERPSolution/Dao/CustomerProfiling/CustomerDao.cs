@@ -1295,7 +1295,8 @@ namespace DaoCustomerProfiling
                     db.AddInParameter(editCustomerCmd, "@C_GuardianDOB", DbType.DateTime, customerVo.GuardianDob);
                 else
                     db.AddInParameter(editCustomerCmd, "@C_GuardianDOB", DbType.DateTime, DBNull.Value);
-
+                db.AddInParameter(editCustomerCmd, "@C_OtherBankName", DbType.String, customerVo.OtherBankName);
+                db.AddInParameter(editCustomerCmd, "@C_OtherCountry", DbType.String, customerVo.OtherCountry);
                 if (db.ExecuteNonQuery(editCustomerCmd) != 0)
                     bResult = true;
 

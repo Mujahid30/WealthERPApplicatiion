@@ -40,6 +40,10 @@ namespace VoUser
         private DateTime m_GuardianDob;
         private string m_GuardianMinNo;
         private string m_SubBroker;
+        private string m_OtherBankName;
+        private string m_OtherCity;
+        private string m_OtherState;
+        private string m_OtherCountry;
 
         private string m_Adr1Line1;
         private string m_Adr1Line2;
@@ -697,6 +701,26 @@ namespace VoUser
         {
             get { return m_CustBankAccId; }
             set { m_CustBankAccId = value; }
+        }
+        public string OtherBankName
+        {
+            get { return m_OtherBankName; }
+            set { m_OtherBankName = value; }
+        }
+        public string OtherCity
+        {
+            get { return m_OtherCity; }
+            set { m_OtherCity = value; }
+        }
+        public string OtherState
+        {
+            get { return m_OtherState; }
+            set { m_OtherState = value; }
+        }
+        public string OtherCountry
+        {
+            get { return m_OtherCountry; }
+            set { m_OtherCountry = value; }
         }
 
         #endregion Properties

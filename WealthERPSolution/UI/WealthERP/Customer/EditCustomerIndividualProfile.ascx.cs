@@ -364,6 +364,10 @@ namespace WealthERP.Customer
                         txtGuardianDOB.SelectedDate = customerVo.GuardianDob;
                     txtGuardianMinNo.Text = customerVo.GuardianMinNo;
                     txtSubBroker.Text = customerVo.SubBroker;
+                    txtOtherBankName.Text = customerVo.OtherBankName;
+                    txtAdr1City.Text = customerVo.OtherCity;
+                    txtAdr1State.Text = customerVo.OtherState;
+                    txtOtherCountry.Text = customerVo.OtherCountry;
                     //txtMember_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
                     //txtMember_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
                     BindFamilyAssociationList(customerVo.CustomerId);
@@ -983,6 +987,10 @@ namespace WealthERP.Customer
                     customerVo.ContactGuardianPANNum = txtContactGuardianPANNum.Text.ToString();
                     customerVo.GuardianMinNo = txtGuardianMinNo.Text.ToString();
                     customerVo.SubBroker = txtSubBroker.Text.ToString();
+                    customerVo.OtherBankName = txtOtherBankName.Text.ToString();
+                    customerVo.Adr1City = txtAdr1City.Text.ToString();
+                    customerVo.Adr1State = txtAdr1State.Text.ToString();
+                    customerVo.OtherCountry = txtOtherCountry.Text.ToString();
                     if (txtGuardianDOB.SelectedDate.ToString() == "")
                         customerVo.GuardianDob = DateTime.MinValue;
                     else

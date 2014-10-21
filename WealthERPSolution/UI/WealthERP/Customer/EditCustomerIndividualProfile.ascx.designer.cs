@@ -168,6 +168,11 @@ namespace WealthERP.Customer
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtCustomerCode;
+        protected global::System.Web.UI.WebControls.TextBox txtOtherBankName;
+        protected global::System.Web.UI.WebControls.TextBox txtAdr1City;
+        protected global::System.Web.UI.WebControls.TextBox txtAdr1State;
+        protected global::System.Web.UI.WebControls.TextBox txtOtherCountry;
+
 
         /// <summary>
         /// revCustCode control.
