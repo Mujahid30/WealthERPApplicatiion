@@ -5,6 +5,22 @@
         <asp:ServiceReference Path="AutoComplete.asmx" />
     </Services>
 </asp:ScriptManager>
+<style type="text/css">
+    .table
+    {
+        border: 1px solid orange;
+    }
+    .leftLabel
+    {
+        width: 18%;
+        text-align: right;
+    }
+    .rightData
+    {
+        width: 18%;
+        text-align: left;
+    }
+</style>
 <table width="100%">
     <tr>
         <td>
@@ -98,8 +114,8 @@
             <asp:TextBox ID="txtValidTo" runat="server" Enabled="false" CssClass="txtField" AutoPostBack="true"></asp:TextBox>
         </td>
     </tr>
-</table>
-<table width="100%">
+    <%--</table>
+<table width="100%">--%>
     <tr>
         <td class="leftLabel">
             <asp:Label ID="Label1" runat="server" Text="Mapping For:" CssClass="FieldName"></asp:Label>
@@ -120,10 +136,19 @@
                 <asp:ListItem Text="UserCategory" Value="UserCategory"></asp:ListItem>
             </asp:DropDownList>
         </td>
-        <td class="leftField">
+        <%--  <td class="leftLabel">
             <asp:Label ID="lblAssetCategory" CssClass="FieldName" runat="server" Text="Asset Category:"></asp:Label>
         </td>
-        <td class="rightField">
+        <td class="rightData">
+            <asp:DropDownList ID="ddlAdviserCategory" runat="server" CssClass="cmbField">
+            </asp:DropDownList>
+        </td>--%>
+    </tr>
+    <tr>
+        <td class="leftLabel">
+            <asp:Label ID="lblAssetCategory" CssClass="FieldName" runat="server" Text="Asset Category:"></asp:Label>
+        </td>
+        <td class="rightData">
             <asp:DropDownList ID="ddlAdviserCategory" runat="server" CssClass="cmbField">
             </asp:DropDownList>
         </td>
@@ -137,7 +162,7 @@
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <asp:Label ID="lblSelectBranch" runat="server" CssClass="FieldName" Text="Existing AgentCodes">
                     </asp:Label>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <asp:Label ID="Label3" runat="server" CssClass="FieldName" Text="Mapped AgentCodes">
                     </asp:Label>
                     <br />
@@ -154,13 +179,12 @@
             </div>
         </td>
     </tr>
-   
 </table>
 <table>
- <tr>
+    <tr>
         <td class="rightData" colspan="2">
-            <asp:Button ID="btnGo" ValidationGroup="btnSubmitRule" CssClass="PCGButton" OnClick="btnGo_Click" Text="Submit"
-                runat="server" CausesValidation="true"></asp:Button>&nbsp;
+            <asp:Button ID="btnGo" ValidationGroup="btnSubmitRule" CssClass="PCGButton" OnClick="btnGo_Click"
+                Text="Submit" runat="server" CausesValidation="true"></asp:Button>&nbsp;
             <%--  <asp:Button ID="Button2" CssClass="PCGButton" Text="Cancel" runat="server" CausesValidation="false"
                                                         CommandName="Cancel"></asp:Button>--%>
         </td>
