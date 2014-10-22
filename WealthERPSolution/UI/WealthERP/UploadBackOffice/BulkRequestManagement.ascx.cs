@@ -164,6 +164,26 @@ namespace WealthERP.UploadBackOffice
             }
 
         }
+        protected void gvBulkOrderStatusList_OnItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
+        {
+            if (e.CommandName == "Download")
+            {
+                //GridDataItem ditem = (GridDataItem)e.Item;
+                //string filename = ditem["file_name"].Text; // get the filename from the row in which the download button is clicked   
+                string filename = "1064_40f73a63-b112-4e49-9e28-6c580a722ec4_List_of_MT_Subscribers_22.02.2012.xlsx";
+                //string path = MapPath("C:\\Users\\Jgeorge\\Downloads\\" + filename);
+                byte[] bts = System.IO.File.ReadAllBytes("C:\\Users\\Jgeorge\\Downloads\\" + filename);
+                Response.Clear();
+                Response.ClearHeaders();
+                Response.AddHeader("Content-Type", "Application/octet-stream");
+                Response.AddHeader("Content-Length", bts.Length.ToString());
+                Response.AddHeader("Content-Disposition", "attachment; filename=" + filename);
+                Response.BinaryWrite(bts);
+                Response.Flush();
+                Response.End();
+                
+            }
+        }
 
     }
 }

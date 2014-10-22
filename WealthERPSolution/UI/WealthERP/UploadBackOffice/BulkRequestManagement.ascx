@@ -203,7 +203,7 @@
                                 EnableEmbeddedSkins="false" AllowFilteringByColumn="true" AutoGenerateColumns="False"
                                 ShowStatusBar="false" ShowFooter="true" AllowPaging="true" AllowSorting="true"
                                 GridLines="none" AllowAutomaticInserts="false" Skin="Telerik" EnableHeaderContextMenu="true"
-                                OnNeedDataSource="gvBulkOrderStatusList_OnNeedDataSource" Visible="false">
+                                OnNeedDataSource="gvBulkOrderStatusList_OnNeedDataSource" OnItemCommand="gvBulkOrderStatusList_OnItemCommand" Visible="false">
                                 <ExportSettings HideStructureColumns="true">
                                 </ExportSettings>
                                 <MasterTableView DataKeyNames="RequestId" Width="99%" AllowMultiColumnSorting="True"
@@ -240,6 +240,9 @@
                                             SortExpression="FileNamePath" FilterControlWidth="50px" CurrentFilterFunction="Contains">
                                             <ItemStyle Width="100px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                                         </telerik:GridBoundColumn>
+                                        <telerik:GridButtonColumn CommandName="Download" Text="Download" HeaderText="File download"
+                                            UniqueName="Download">
+                                        </telerik:GridButtonColumn>
                                     </Columns>
                                 </MasterTableView>
                                 <ClientSettings>
