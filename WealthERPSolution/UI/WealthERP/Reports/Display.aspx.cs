@@ -5033,7 +5033,7 @@ namespace WealthERP.Reports
             {
                 string fileName = associateId.ToString() + ".pdf";
                 string sourcePath = Server.MapPath("~/Reports/TempReports/ViewInPDF/");
-                string targetPath = Server.MapPath("~"+ConfigurationManager.AppSettings["Welcome_Note_PATH"].ToString());
+                string targetPath = Server.MapPath("~/"+ConfigurationManager.AppSettings["Welcome_Note_PATH"].ToString());
 
                 // Use Path class to manipulate file and directory paths.
                 string sourceFile = System.IO.Path.Combine(sourcePath, fileName);

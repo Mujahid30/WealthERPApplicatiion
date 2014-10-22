@@ -95,6 +95,7 @@ namespace WealthERP.Associates
                         radTABChildCodes.Visible = true;
                         BindChildCodeLabel(associatesVo.AAC_AdviserAgentId);
                         associateId = associatesVo.AdviserAssociateId;
+                        btnPreviewSend.Visible = true;
                         btnPreviewSend.OnClientClick = "window.document.forms[0].target='_blank'; setTimeout(function(){window.document.forms[0].target='';}, 500);";
                         if (associatesVo.WelcomeNotePath == "")
                         {
@@ -133,6 +134,7 @@ namespace WealthERP.Associates
                         btnSubmit.Visible = true;
                         radTABChildCodes.Visible = true;
                         lbkbtnAddChildCodes.Enabled = true;
+                        btnPreviewSend.Visible = true;
                         BindChildCodeLabel(associatesVo.AAC_AdviserAgentId);
                         if (associatesVo.WelcomeNotePath == "")
                         {

@@ -1126,7 +1126,7 @@
                 Visible="false" ValidationGroup="Submit" />
             <asp:Button ID="BtnSave" runat="server" Visible="true" Text="Submit" CssClass="PCGButton"
                 OnClick="btnSubmit_Click" ValidationGroup="Submit" />
-                 <asp:Button ID="btnPreviewSend" runat="server" Visible="true" target="_blank"
+                 <asp:Button ID="btnPreviewSend" runat="server" Visible="false" target="_blank"
                 Text="Preview and Send Welcome Letter" CssClass="PCGButton" onclick="btnPreviewSend_Click"
                  />
         </td>
