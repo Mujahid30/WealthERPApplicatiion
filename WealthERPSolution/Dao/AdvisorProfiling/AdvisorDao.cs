@@ -2626,6 +2626,26 @@ namespace DaoAdvisorProfiling
             }
 
         }
+        public DataSet GetAdviserCategory(int AdviserId)
+        {
+            DataSet dsGetAdviserCustomerCategory;
+            Database db;
+            DbCommand GetAdviserCustomerCategoryCmd;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetAdviserCustomerCategoryCmd = db.GetStoredProcCommand("SP_GetAdviserCategory");
+                db.AddInParameter(GetAdviserCustomerCategoryCmd, "@AdviserId", DbType.Int16, AdviserId);
+                dsGetAdviserCustomerCategory = db.ExecuteDataSet(GetAdviserCustomerCategoryCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsGetAdviserCustomerCategory;
+        }
+
         public DataSet GetAdviserCustomerCategory(int AdviserId)
         {
             DataSet dsGetAdviserCustomerCategory;

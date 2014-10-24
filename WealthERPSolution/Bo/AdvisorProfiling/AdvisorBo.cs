@@ -1739,6 +1739,23 @@ namespace BoAdvisorProfiling
             return dsGetZoneClusterDetails;
         }
 
+        public DataSet GetAdviserCategory(int AdviserId)
+        {
+            AdvisorDao adviserDao = new AdvisorDao();
+            DataSet dsGetAdviserCustomerCategory;
+            try
+            {
+                dsGetAdviserCustomerCategory = adviserDao.GetAdviserCustomerCategory(AdviserId);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsGetAdviserCustomerCategory;
+        }
+
+
         public DataSet GetAdviserCustomerCategory(int AdviserId)
         {
             AdvisorDao adviserDao = new AdvisorDao();

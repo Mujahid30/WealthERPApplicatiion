@@ -128,6 +128,7 @@ namespace WealthERP.CommisionManagement
         protected global::System.Web.UI.WebControls.DropDownList ddlAdviserCategory;
         protected global::System.Web.UI.WebControls.DropDownList ddlMapping;
 
+        protected global::System.Web.UI.WebControls.Label lblAssetCategory;
         
         
         

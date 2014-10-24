@@ -105,11 +105,16 @@ namespace WealthERP.CommisionManagement
             if (type == "Custom")
             {
                 trListControls.Visible = true;
+                ddlAdviserCategory.Visible = false;
+                lblAssetCategory.Visible = false;
                 BindAgentCodes();
             }
             else
             {
                 trListControls.Visible = false;
+                ddlAdviserCategory.Visible = true;
+                lblAssetCategory.Visible = true;
+
                 BindClassification();
             }
         }
@@ -118,10 +123,10 @@ namespace WealthERP.CommisionManagement
         {
             DataSet classificationDs = new DataSet();
 
-            classificationDs = advisorBo.GetAdviserCustomerCategory(advisorVo.advisorId);
+            classificationDs = advisorBo.GetAdviserCategory(advisorVo.advisorId);
             ddlAdviserCategory.DataSource = classificationDs;
-            ddlAdviserCategory.DataValueField = classificationDs.Tables[0].Columns["ACC_CustomerCategoryCode"].ToString();
-            ddlAdviserCategory.DataTextField = classificationDs.Tables[0].Columns["ACC_customerCategoryName"].ToString();
+            ddlAdviserCategory.DataValueField = classificationDs.Tables[0].Columns["AC_CategoryId"].ToString();
+            ddlAdviserCategory.DataTextField = classificationDs.Tables[0].Columns["AC_CategoryName"].ToString();
             ddlAdviserCategory.DataBind();
             ddlAdviserCategory.Items.Insert(0, new ListItem("Select", "Select"));
         }

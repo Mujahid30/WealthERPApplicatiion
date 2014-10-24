@@ -337,8 +337,7 @@ namespace WealthERP.Receivable
                 tblCommissionStructureRule1.Visible = true;
 
             }
-
-
+            
 
         }
 
@@ -384,6 +383,59 @@ namespace WealthERP.Receivable
             }
         }
 
+        protected void ddlCommissionApplicableLevel_Selectedindexchanged(object sender, EventArgs e)
+        {
+
+
+            //DropDownList ddlCommissionApplicableLevel = (DropDownList)sender;
+            //DropDownList ddlCommissionType = new DropDownList();
+
+            ////ShowAndHideSTructureRuleControlsBasedOnCommissionTypeAndLevel
+
+            //Label lblReceivableFrequency = new Label();
+
+            //System.Web.UI.HtmlControls.HtmlTableRow trTransactionTypeSipFreq = new System.Web.UI.HtmlControls.HtmlTableRow();
+            //System.Web.UI.HtmlControls.HtmlTableRow trMinMaxTenure = new System.Web.UI.HtmlControls.HtmlTableRow(); ;
+            //System.Web.UI.HtmlControls.HtmlTableRow trMinMaxAge = new System.Web.UI.HtmlControls.HtmlTableRow(); ;
+            //System.Web.UI.HtmlControls.HtmlTableCell tdMinNumberOfApplication = new System.Web.UI.HtmlControls.HtmlTableCell(); ;
+
+            //if (ddlCommissionApplicableLevel.NamingContainer is Telerik.Web.UI.GridEditFormItem)
+            //{
+            //    GridEditFormItem gdi;
+            //    gdi = (GridEditFormItem)ddlCommissionApplicableLevel.NamingContainer;
+            //    lblReceivableFrequency = (Label)gdi.FindControl("lblReceivableFrequency");
+            //    ddlCommissionType = (DropDownList)gdi.FindControl("ddlCommissionType");
+            //    trTransactionTypeSipFreq = (System.Web.UI.HtmlControls.HtmlTableRow)gdi.FindControl("trTransactionTypeSipFreq");
+            //    trMinMaxTenure = (System.Web.UI.HtmlControls.HtmlTableRow)gdi.FindControl("trMinMaxTenure");
+            //    trMinMaxAge = (System.Web.UI.HtmlControls.HtmlTableRow)gdi.FindControl("trMinMaxAge");
+            //    tdMinNumberOfApplication = (System.Web.UI.HtmlControls.HtmlTableCell)gdi.FindControl("tdMinNumberOfApplication");
+            //}
+            //else if (ddlCommissionApplicableLevel.NamingContainer is Telerik.Web.UI.GridEditFormInsertItem)
+            //{
+            //    GridEditFormInsertItem gdi;
+            //    gdi = (GridEditFormInsertItem)ddlCommissionApplicableLevel.NamingContainer;
+            //    lblReceivableFrequency = (Label)gdi.FindControl("lblReceivableFrequency");
+
+            //    ddlCommissionType = (DropDownList)gdi.FindControl("ddlCommissionType");
+
+            //    trTransactionTypeSipFreq = (System.Web.UI.HtmlControls.HtmlTableRow)gdi.FindControl("trTransactionTypeSipFreq");
+            //    trMinMaxTenure = (System.Web.UI.HtmlControls.HtmlTableRow)gdi.FindControl("trMinMaxTenure");
+            //    trMinMaxAge = (System.Web.UI.HtmlControls.HtmlTableRow)gdi.FindControl("trMinMaxAge");
+            //    tdMinNumberOfApplication = (System.Web.UI.HtmlControls.HtmlTableCell)gdi.FindControl("tdMinNumberOfApplication");
+            //}
+
+
+
+            ////lblReceivableFrequency.Visible = !enablement;
+            ////ddlReceivableFrequency.Visible = !enablement;
+            ////trTransactionTypeSipFreq.Visible = !enablement;
+            ////trMinMaxTenure.Visible = !enablement;
+            ////trMinMaxAge.Visible = !enablement;
+            ////tdMinNumberOfApplication.Visible = !enablement;
+
+            //ShowAndHideSTructureRuleControlsBasedOnProductAndCommisionType(lblReceivableFrequency, ddlReceivableFrequency, trTransactionTypeSipFreq, trMinMaxTenure, trMinMaxAge, tdMinNumberOfApplication, ddlProductType.SelectedValue, ddlCommissionApplicableLevel.SelectedValue);
+        }
+
         protected void ddlCommissionType_Selectedindexchanged(object sender, EventArgs e)
         {
 
@@ -394,7 +446,12 @@ namespace WealthERP.Receivable
             System.Web.UI.HtmlControls.HtmlTableRow trTransactionTypeSipFreq = new System.Web.UI.HtmlControls.HtmlTableRow();
             System.Web.UI.HtmlControls.HtmlTableRow trMinMaxTenure = new System.Web.UI.HtmlControls.HtmlTableRow(); ;
             System.Web.UI.HtmlControls.HtmlTableRow trMinMaxAge = new System.Web.UI.HtmlControls.HtmlTableRow(); ;
-            System.Web.UI.HtmlControls.HtmlTableCell tdMinNumberOfApplication = new System.Web.UI.HtmlControls.HtmlTableCell(); ;
+            System.Web.UI.HtmlControls.HtmlTableCell tdlb1MinNumberOfApplication = new System.Web.UI.HtmlControls.HtmlTableCell(); ;
+            System.Web.UI.HtmlControls.HtmlTableCell tdtxtMinNumberOfApplication = new System.Web.UI.HtmlControls.HtmlTableCell(); ;
+            System.Web.UI.HtmlControls.HtmlTableCell tdlb1SipFreq = new System.Web.UI.HtmlControls.HtmlTableCell(); ;
+            System.Web.UI.HtmlControls.HtmlTableCell tdddlSipFreq = new System.Web.UI.HtmlControls.HtmlTableCell(); ;
+
+
 
             if (ddlCommissionType.NamingContainer is Telerik.Web.UI.GridEditFormItem)
             {
@@ -405,7 +462,11 @@ namespace WealthERP.Receivable
                 trTransactionTypeSipFreq = (System.Web.UI.HtmlControls.HtmlTableRow)gdi.FindControl("trTransactionTypeSipFreq");
                 trMinMaxTenure = (System.Web.UI.HtmlControls.HtmlTableRow)gdi.FindControl("trMinMaxTenure");
                 trMinMaxAge = (System.Web.UI.HtmlControls.HtmlTableRow)gdi.FindControl("trMinMaxAge");
-                tdMinNumberOfApplication = (System.Web.UI.HtmlControls.HtmlTableCell)gdi.FindControl("tdMinNumberOfApplication");
+                tdlb1MinNumberOfApplication = (System.Web.UI.HtmlControls.HtmlTableCell)gdi.FindControl("tdlb1MinNumberOfApplication");
+                tdtxtMinNumberOfApplication = (System.Web.UI.HtmlControls.HtmlTableCell)gdi.FindControl("tdtxtMinNumberOfApplication");
+                tdlb1SipFreq = (System.Web.UI.HtmlControls.HtmlTableCell)gdi.FindControl("tdlb1SipFreq");
+                tdddlSipFreq = (System.Web.UI.HtmlControls.HtmlTableCell)gdi.FindControl("tdddlSipFreq");
+
             }
             else if (ddlCommissionType.NamingContainer is Telerik.Web.UI.GridEditFormInsertItem)
             {
@@ -416,7 +477,11 @@ namespace WealthERP.Receivable
                 trTransactionTypeSipFreq = (System.Web.UI.HtmlControls.HtmlTableRow)gdi.FindControl("trTransactionTypeSipFreq");
                 trMinMaxTenure = (System.Web.UI.HtmlControls.HtmlTableRow)gdi.FindControl("trMinMaxTenure");
                 trMinMaxAge = (System.Web.UI.HtmlControls.HtmlTableRow)gdi.FindControl("trMinMaxAge");
-                tdMinNumberOfApplication = (System.Web.UI.HtmlControls.HtmlTableCell)gdi.FindControl("tdMinNumberOfApplication");
+                tdlb1MinNumberOfApplication = (System.Web.UI.HtmlControls.HtmlTableCell)gdi.FindControl("tdlb1MinNumberOfApplication");
+                tdtxtMinNumberOfApplication = (System.Web.UI.HtmlControls.HtmlTableCell)gdi.FindControl("tdtxtMinNumberOfApplication");
+                tdlb1SipFreq = (System.Web.UI.HtmlControls.HtmlTableCell)gdi.FindControl("tdlb1SipFreq");
+                tdddlSipFreq = (System.Web.UI.HtmlControls.HtmlTableCell)gdi.FindControl("tdddlSipFreq");
+
             }
 
 
@@ -428,7 +493,9 @@ namespace WealthERP.Receivable
             //trMinMaxAge.Visible = !enablement;
             //tdMinNumberOfApplication.Visible = !enablement;
 
-            ShowAndHideSTructureRuleControlsBasedOnProductAndCommisionType(lblReceivableFrequency, ddlReceivableFrequency, trTransactionTypeSipFreq, trMinMaxTenure, trMinMaxAge, tdMinNumberOfApplication, ddlProductType.SelectedValue, ddlCommissionType.SelectedValue);
+
+
+            ShowAndHideSTructureRuleControlsBasedOnProductAndCommisionType(lblReceivableFrequency, ddlReceivableFrequency, trTransactionTypeSipFreq, tdlb1SipFreq, tdddlSipFreq, trMinMaxTenure, trMinMaxAge, tdlb1MinNumberOfApplication, tdtxtMinNumberOfApplication, ddlProductType.SelectedValue, ddlCommissionType.SelectedValue);
         }
 
 
@@ -465,6 +532,8 @@ namespace WealthERP.Receivable
                 System.Web.UI.HtmlControls.HtmlTableRow trMinMaxTenure = (System.Web.UI.HtmlControls.HtmlTableRow)editform.FindControl("trMinMaxTenure");
                 System.Web.UI.HtmlControls.HtmlTableRow trMinMaxAge = (System.Web.UI.HtmlControls.HtmlTableRow)editform.FindControl("trMinMaxAge");
                 System.Web.UI.HtmlControls.HtmlTableCell tdMinNumberOfApplication = (System.Web.UI.HtmlControls.HtmlTableCell)editform.FindControl("tdMinNumberOfApplication");
+                System.Web.UI.HtmlControls.HtmlTableCell tdlb1SipFreq = (System.Web.UI.HtmlControls.HtmlTableCell)editform.FindControl("tdlb1SipFreq");
+                System.Web.UI.HtmlControls.HtmlTableCell tdddlSipFreq = (System.Web.UI.HtmlControls.HtmlTableCell)editform.FindControl("tdddlSipFreq");
 
                 if (dsCommissionLookup != null)
                 {
@@ -558,8 +627,8 @@ namespace WealthERP.Receivable
 
 
                     ddlCommissionType.SelectedValue = strCommissionType;
+                    ShowAndHideSTructureRuleControlsBasedOnProductAndCommisionType(lblReceivableFrequency, ddlReceivableFrequency, trTransactionTypeSipFreq, tdlb1SipFreq, tdddlSipFreq, trMinMaxTenure, trMinMaxAge, tdlb1MinNumberOfApplication, tdtxtMinNumberOfApplication, ddlProductType.SelectedValue, ddlCommissionType.SelectedValue);
 
-                    ShowAndHideSTructureRuleControlsBasedOnProductAndCommisionType(lblReceivableFrequency, ddlReceivableFrequency, trTransactionTypeSipFreq, trMinMaxTenure, trMinMaxAge, tdMinNumberOfApplication, ddlProductType.SelectedValue, ddlCommissionType.SelectedValue);
 
                     ddlInvestorType.SelectedValue = strCustomerCategory;
                     ddlTenureFrequency.SelectedValue = strTenureUnit;
@@ -840,7 +909,7 @@ namespace WealthERP.Receivable
             }
         }
 
-        private void ShowAndHideSTructureRuleControlsBasedOnProductAndCommisionType(Label lblReceivableFrequency, DropDownList ddlReceivableFrequency, System.Web.UI.HtmlControls.HtmlTableRow trTransactionTypeSipFreq, System.Web.UI.HtmlControls.HtmlTableRow trMinMaxTenure, System.Web.UI.HtmlControls.HtmlTableRow trMinMaxAge, System.Web.UI.HtmlControls.HtmlTableCell tdMinNumberOfApplication, string product, string CommisionType)
+        private void ShowAndHideSTructureRuleControlsBasedOnProductAndCommisionType(Label lblReceivableFrequency, DropDownList ddlReceivableFrequency, System.Web.UI.HtmlControls.HtmlTableRow trTransactionTypeSipFreq, System.Web.UI.HtmlControls.HtmlTableCell tdlb1SipFreq, System.Web.UI.HtmlControls.HtmlTableCell tdddlSipFreq, System.Web.UI.HtmlControls.HtmlTableRow trMinMaxTenure, System.Web.UI.HtmlControls.HtmlTableRow trMinMaxAge, System.Web.UI.HtmlControls.HtmlTableCell tdlb1MinNumberOfApplication, System.Web.UI.HtmlControls.HtmlTableCell tdtxtMinNumberOfApplication, string product, string CommisionType)
         {
             bool enablement = false;
             if (product == "FI" || product == "IP")
@@ -852,11 +921,43 @@ namespace WealthERP.Receivable
                 trMinMaxAge.Visible = enablement;
                 if (CommisionType == "upfront")
                 {
-                    tdMinNumberOfApplication.Visible = enablement;
+                    tdlb1MinNumberOfApplication.Visible = enablement;
                 }
                 else
                 {
-                    tdMinNumberOfApplication.Visible = !enablement;
+                    tdlb1MinNumberOfApplication.Visible = !enablement;
+                }
+            }
+            else if (product == "MF")
+            {
+                if (CommisionType == "IN")
+                {
+                    tdlb1MinNumberOfApplication.Visible = !enablement;
+                    tdtxtMinNumberOfApplication.Visible = !enablement;
+
+                }
+                if (CommisionType == "Trail Commission")
+                {
+                    trTransactionTypeSipFreq.Visible = !enablement;
+
+                    tdlb1SipFreq.Visible = enablement;
+                    tdddlSipFreq.Visible = enablement;
+                    lblReceivableFrequency.Visible = !enablement;
+                    ddlReceivableFrequency.Visible = !enablement;
+                }
+                else if (CommisionType == "upfront")
+                {
+                    trTransactionTypeSipFreq.Visible = !enablement;
+
+                }
+                else
+                {
+                    tdlb1SipFreq.Visible = !enablement;
+                    tdddlSipFreq.Visible = !enablement;
+                    lblReceivableFrequency.Visible = enablement;
+                    ddlReceivableFrequency.Visible = enablement;
+                    tdlb1MinNumberOfApplication.Visible = enablement;
+                    tdtxtMinNumberOfApplication.Visible = enablement;
 
                 }
             }
@@ -867,13 +968,51 @@ namespace WealthERP.Receivable
                 trTransactionTypeSipFreq.Visible = !enablement;
                 trMinMaxTenure.Visible = !enablement;
                 trMinMaxAge.Visible = !enablement;
-                tdMinNumberOfApplication.Visible = !enablement;
-
+                tdlb1MinNumberOfApplication.Visible = !enablement;
+                tdtxtMinNumberOfApplication.Visible = !enablement;
             }
 
         }
 
+        //private void ShowAndHideSTructureRuleControlsBasedOnCommissionTypeAndLevel (Label lblReceivableFrequency, DropDownList ddlReceivableFrequency, System.Web.UI.HtmlControls.HtmlTableRow trTransactionTypeSipFreq, System.Web.UI.HtmlControls.HtmlTableRow trMinMaxTenure, System.Web.UI.HtmlControls.HtmlTableRow trMinMaxAge, System.Web.UI.HtmlControls.HtmlTableCell tdMinNumberOfApplication, string product, string CommisionType)
+        //{
+        //    bool enablement = false;
 
+        //      if (product == "MF")
+        //    {
+        //        //if (CommisionType == "IN")
+        //        //{
+        //        //    tdMinNumberOfApplication.Visible = !enablement;
+        //        //}
+        //        if (CommisionType == "Trail Commission")
+        //        {
+        //            lblReceivableFrequency.Visible = !enablement;
+        //            ddlReceivableFrequency.Visible = !enablement;
+        //        }
+        //        //else if (CommisionType == "upfront")
+        //        //{
+        //        //    trTransactionTypeSipFreq.Visible = !enablement;
+
+        //        //}
+        //        else
+        //        {
+        //            lblReceivableFrequency.Visible = enablement;
+        //            ddlReceivableFrequency.Visible = enablement;
+        //            tdMinNumberOfApplication.Visible = enablement;
+        //        }
+        //    }
+        //    else
+        //    {
+        //        lblReceivableFrequency.Visible = !enablement;
+        //        ddlReceivableFrequency.Visible = !enablement;
+        //        trTransactionTypeSipFreq.Visible = !enablement;
+        //        trMinMaxTenure.Visible = !enablement;
+        //        trMinMaxAge.Visible = !enablement;
+        //        tdMinNumberOfApplication.Visible = !enablement;
+
+        //    }
+
+        //}
 
         private bool ValidateCommissionRule(CommissionStructureRuleVo commissionStructureRuleVo)
         {
@@ -1102,7 +1241,17 @@ namespace WealthERP.Receivable
                 lnkEditStructure.ToolTip = "View commission structure section";
                 btnStructureSubmit.Visible = false;
                 btnStructureUpdate.Visible = true;
-                btnMapToscheme.Visible = true;
+                if (ddlCommissionype.SelectedValue == "")
+                {
+                    btnMapToscheme.Visible = true;
+                }
+                else
+                {
+                    ButtonAgentCodeMapping.Visible = true;
+                }
+
+
+
             }
             else
             {
@@ -1127,7 +1276,14 @@ namespace WealthERP.Receivable
                 lnkAddNewStructure.Visible = true;
                 btnStructureSubmit.Visible = false;
                 btnStructureUpdate.Visible = false;
-                btnMapToscheme.Visible = true;
+                if (ddlCommissionype.SelectedValue == "")
+                {
+                    btnMapToscheme.Visible = true;
+                }
+                else
+                {
+                    ButtonAgentCodeMapping.Visible = true;
+                }
             }
 
         }

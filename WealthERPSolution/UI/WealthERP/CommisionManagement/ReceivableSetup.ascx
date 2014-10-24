@@ -380,8 +380,8 @@
                         OnClick="btnStructureUpdate_Click" ValidationGroup="btnStrAddUpdate" />
                     <asp:Button ID="btnMapToscheme" CssClass="PCGMediumButton" Text="Map Scheme" runat="server"
                         OnClick="btnMapToscheme_Click" ValidationGroup="btnStrAddUpdate" />
-                         <asp:Button ID="ButtonAgentCodeMapping" CssClass="PCGMediumButton" Text="Map AgentCode" runat="server"
-                        OnClick="ButtonAgentCodeMapping_Click" ValidationGroup="btnStrAddUpdate" />
+                    <asp:Button ID="ButtonAgentCodeMapping" CssClass="PCGMediumButton" Text="Map Agents"
+                       Visible="false" runat="server" OnClick="ButtonAgentCodeMapping_Click" ValidationGroup="btnStrAddUpdate" />
                 </td>
             </tr>
         </table>
@@ -556,7 +556,8 @@
                                                     <asp:Label ID="lblCommissionApplicableLevel" runat="server" Text="Level:" CssClass="FieldName"></asp:Label>
                                                 </td>
                                                 <td class="rightData">
-                                                    <asp:DropDownList ID="ddlCommissionApplicableLevel" runat="server" CssClass="cmbField">
+                                                    <asp:DropDownList ID="ddlCommissionApplicableLevel" runat="server" CssClass="cmbField"
+                                                        AutoPostBack="true" OnSelectedIndexChanged="ddlCommissionApplicableLevel_Selectedindexchanged">
                                                     </asp:DropDownList>
                                                     <span id="Span9" class="spnRequiredField">*</span>
                                                 </td>
@@ -636,10 +637,10 @@
                                                 </td>
                                             </tr>
                                             <tr runat="server" id="trTransactionTypeSipFreq">
-                                                <td class="leftLabel">
+                                                <td class="leftLabel" runat="server" id="tdlb1TransactionType">
                                                     <asp:Label ID="lblTransactionType" runat="server" Text="Transaction type:" CssClass="FieldName"></asp:Label>
                                                 </td>
-                                                <td class="rightData">
+                                                <td class="rightData" runat="server" id="tdtxtTransactionType">
                                                     <asp:CheckBoxList ID="chkListTtansactionType" runat="server" CssClass="txtField"
                                                         RepeatLayout="Flow" RepeatDirection="Horizontal">
                                                         <%--<asp:ListItem Text="Buy" Value="BUY"></asp:ListItem>
@@ -649,10 +650,10 @@
                                                         <asp:ListItem Text="Additional Purchase" Value="ADDPUR"></asp:ListItem>--%>
                                                     </asp:CheckBoxList>
                                                 </td>
-                                                <td class="leftLabel">
+                                                <td class="leftLabel" runat="server" id="tdlb1SipFreq">
                                                     <asp:Label ID="lblSIPFrequency" runat="server" Text="SIP Frequency:" CssClass="FieldName"></asp:Label>
                                                 </td>
-                                                <td class="rightData">
+                                                <td class="rightData" runat="server" id="tdddlSipFreq">
                                                     <asp:DropDownList ID="ddlSIPFrequency" runat="server" CssClass="cmbField">
                                                     </asp:DropDownList>
                                                 </td>
@@ -679,13 +680,13 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td class="leftLabel" runat="server" id="tdMinNumberOfApplication">
+                                                <td class="leftLabel" runat="server" id="tdlb1MinNumberOfApplication">
                                                     <asp:Label ID="lblMinNumberOfApplication" runat="server" Text="Min number of applications:"
                                                         CssClass="FieldName"></asp:Label>
                                                     <br />
                                                     <span id="Span4" class="spnRequiredField">&nbsp;</span>
                                                 </td>
-                                                <td class="rightData">
+                                                <td class="rightData" runat="server" id="tdtxtMinNumberOfApplication">
                                                     <asp:TextBox ID="txtMinNumberOfApplication" Text='<%# Bind( "ACSR_MinNumberOfApplications") %>'
                                                         runat="server" CssClass="txtField"></asp:TextBox>
                                                 </td>
