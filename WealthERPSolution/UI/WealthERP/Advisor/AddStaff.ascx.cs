@@ -676,7 +676,7 @@ namespace WealthERP.Advisor
                     if (Request.QueryString["RmId"] != null)
                     {
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('AddStaff','none');", true);
-                        Response.Write("<script>alert('DematDeatails has been successfully added');</script>");
+                        Response.Write("<script>alert('Add Staff has been successfully added');</script>");
                         Response.Write("<script>window.close();</" + "script>");
                     }
                 }
