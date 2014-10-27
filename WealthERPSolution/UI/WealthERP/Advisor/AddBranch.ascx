@@ -73,6 +73,15 @@
     }
 </script>
 
+<script language="javascript" type="text/javascript">
+    function openpopupAddBranchHead() {
+        var rmID = document.getElementById("<%=hdnRmId.ClientID%>").value;
+        {
+            window.open('PopUp.aspx?pageID=AddStaff&RmId=' + rmID, 'mywindow', 'width=1000,height=500,scrollbars=yes,location=no')
+        }
+    }
+</script>
+
 <html>
 <head>
     <meta http-equiv="CACHE-CONTROL" content="NO-CACHE">
@@ -133,12 +142,12 @@
     </tr>
 </table>
 <table style="width: 100%;" class="TableBackground">
-    <tr>
+   <%-- <tr>
         <td colspan="4">
             <label id="lbl" class="lblRequiredText">
                 Note: Fields marked with ' * ' are compulsory</label>
         </td>
-    </tr>
+    </tr>--%>
     <tr>
         <td class="leftField" width="25%">
             <asp:Label ID="Label3" runat="server" CssClass="FieldName" Text="Code :"></asp:Label>
@@ -332,7 +341,7 @@
         <td class="leftField">
             <asp:Label ID="lblHeadName0" runat="server" CssClass="FieldName" Text="Branch/Associate Head :"></asp:Label>
         </td>
-        <td class="rightField">
+        <td class="rightField" width="40%">
             <asp:DropDownList ID="ddlRmlist" runat="server" CssClass="cmbField">
             </asp:DropDownList>
             <span id="Span6" class="spnRequiredField">*</span>
@@ -341,6 +350,13 @@
                 Display="Dynamic" ErrorMessage="Please select a Branch Head" Operator="NotEqual"
                 ValueToCompare="Select Branch head" CssClass="cvPCG" ValidationGroup="btnSubmit">
             </asp:CompareValidator>
+            <asp:ImageButton ID="btnAddStaff" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
+                AlternateText="Add Branch Head" runat="server" ToolTip="Click here to Add Branch Head"
+                OnClientClick="return openpopupAddBranchHead()" Height="15px" Width="15px" TabIndex="3">
+            </asp:ImageButton>
+        <asp:ImageButton ID="btnRefresh" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
+                AlternateText="Refresh Branch Head" runat="server" ToolTip="Click here to Refresh"
+                OnClick="btnRefresh_Click" Height="15px" Width="15px" TabIndex="3"></asp:ImageButton>
         </td>
         <td class="leftField">
             &nbsp;
@@ -672,6 +688,7 @@
         <td>
             <asp:Button ID="hiddenDelete" runat="server" OnClick="hiddenDelete_Click" Text=""
                 BorderStyle="None" BackColor="Transparent" />
+                <asp:HiddenField ID="hdnRmId" runat="server" />
         </td>
     </tr>
     <%-- <tr>

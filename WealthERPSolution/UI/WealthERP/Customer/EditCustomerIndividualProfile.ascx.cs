@@ -365,9 +365,11 @@ namespace WealthERP.Customer
                     txtGuardianMinNo.Text = customerVo.GuardianMinNo;
                     txtSubBroker.Text = customerVo.SubBroker;
                     txtOtherBankName.Text = customerVo.OtherBankName;
-                    txtAdr1City.Text = customerVo.OtherCity;
-                    txtAdr1State.Text = customerVo.OtherState;
+                    txtAdr1City.Text = customerVo.Adr1City;
+                    txtAdr1State.Text = customerVo.Adr1State;
                     txtOtherCountry.Text = customerVo.OtherCountry;
+                    txtTaxStatus.Text = customerVo.TaxStatus;
+                    txtCategory.Text = customerVo.Category;
                     //txtMember_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
                     //txtMember_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
                     BindFamilyAssociationList(customerVo.CustomerId);
@@ -991,6 +993,8 @@ namespace WealthERP.Customer
                     customerVo.Adr1City = txtAdr1City.Text.ToString();
                     customerVo.Adr1State = txtAdr1State.Text.ToString();
                     customerVo.OtherCountry = txtOtherCountry.Text.ToString();
+                    customerVo.TaxStatus= txtTaxStatus.Text.ToString();
+                    customerVo.Category = txtCategory.Text.ToString();
                     if (txtGuardianDOB.SelectedDate.ToString() == "")
                         customerVo.GuardianDob = DateTime.MinValue;
                     else
@@ -2184,12 +2188,13 @@ namespace WealthERP.Customer
             if (e.CommandName == "Edit")
             {
                 bankId = int.Parse(gvBankDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CB_CustBankAccId"].ToString());
-                //customerBankAccountVo = customerBankAccountBo.GetCusomerIndBankAccount(bankId);
-                //Session["customerBankAccountVo"+customerVo.CustomerId] = customerBankAccountVo;
+                customerBankAccountVo = customerBankAccountBo.GetCusomerIndBankAccount(bankId);
+                Session["customerBankAccountVo" + customerVo.CustomerId] = customerBankAccountVo;
                 //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AddBankAccount", "loadcontrol('PopUp.aspx','?action=" + "View" + "&bankId=" + bankId + "');", true);
-
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AddBankAccount", "loadcontrol('AddBankAccount','?action=" + "View" + "&bankId=" + bankId + "');", true);
                 Response.Write("<script type='text/javascript'>detailedresults= window.open('PopUp.aspx?PageId=AddBankAccount&bankId=" + bankId + "&action=" + "View" + "', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no');</script>");
-                // return;
+                //return;
+                
             }
             BindBankDetails(customerId);
         }

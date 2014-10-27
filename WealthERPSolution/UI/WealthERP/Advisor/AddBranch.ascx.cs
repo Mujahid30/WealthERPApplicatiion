@@ -59,6 +59,7 @@ namespace WealthERP.Advisor
                 imgPath = Server.MapPath("Images") + "\\";
                 trAddBranchCode.Visible = false;
                 ddlBranchAssociateType.Visible = false;
+                hdnRmId.Value = rmVo.RMId.ToString();
                 if (!IsPostBack)
                 {
 
@@ -114,6 +115,10 @@ namespace WealthERP.Advisor
 
             }
 
+        }
+        protected void btnRefresh_Click(object sender, EventArgs e)
+        {
+            showRM();
         }
         protected void hiddenDelete_Click(object sender, EventArgs e)
         {
@@ -214,16 +219,14 @@ namespace WealthERP.Advisor
 
             DataTable dt = new DataTable(); ;
             DataRow dr;
-            int flag = 0;
+            int flag = 1;
 
-            if (ddlBranchAssociateType.SelectedValue == "1")
-                flag = 0;
-            else if (ddlBranchAssociateType.SelectedValue == "2")
-                flag = 1;
+          
             try
             {
                 ddlRmlist.Items.Clear();
                 dt = advisorStaffBo.GetExternalRMList(advisorVo.advisorId, flag);
+
                 if (dt.Rows.Count > 0)
                 {
                     ddlRmlist.DataSource = dt;
@@ -570,7 +573,7 @@ namespace WealthERP.Advisor
                         advisorBranchVo.ZoneClusterId = int.Parse(ddlSelectedZC.SelectedItem.Value.ToString());
                     }
                     //advisorBranchVo.AdviserAgentCode = txtAgentCode.Text;
-                     advisorBranchVo.AdviserAgentCode = hdnValue.Value.ToString();
+                    advisorBranchVo.AdviserAgentCode = hdnValue.Value.ToString();
                     //else
                     //{
                     //    advisorBranchVo.ZoneClusterId = 0;

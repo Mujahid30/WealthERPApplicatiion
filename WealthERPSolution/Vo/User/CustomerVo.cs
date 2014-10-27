@@ -44,6 +44,8 @@ namespace VoUser
         private string m_OtherCity;
         private string m_OtherState;
         private string m_OtherCountry;
+        private string m_TaxStatus;
+        private string m_Category;
 
         private string m_Adr1Line1;
         private string m_Adr1Line2;
@@ -722,7 +724,16 @@ namespace VoUser
             get { return m_OtherCountry; }
             set { m_OtherCountry = value; }
         }
-
+        public string TaxStatus
+         {
+            get { return m_TaxStatus; }
+            set { m_TaxStatus = value; }
+        }
+        public string Category
+             {
+            get { return m_Category; }
+            set { m_Category = value; }
+        }
         #endregion Properties
 
     }

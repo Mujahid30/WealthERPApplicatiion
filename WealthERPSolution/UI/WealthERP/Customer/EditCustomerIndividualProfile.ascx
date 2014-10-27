@@ -1879,6 +1879,20 @@
                     <td class="rightField" width="25%">
                         <asp:TextBox ID="txtOtherCountry" runat="server" CssClass="txtField"></asp:TextBox>
                     </td>
+                    <td  class="leftField">
+                        <asp:Label ID="lblTaxStatus" CssClass="FieldName" runat="server" Text="TaxStatus:"></asp:Label>
+                    </td>
+                    <td class="rightField" width="25%">
+                        <asp:TextBox ID="txtTaxStatus" runat="server" CssClass="txtField"></asp:TextBox>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftField">
+                        <asp:Label ID="lblCategory" CssClass="FieldName" runat="server" Text="Category:"></asp:Label>
+                    </td>
+                    <td class="rightField" width="25%">
+                        <asp:TextBox ID="txtCategory" runat="server" CssClass="txtField"></asp:TextBox>
+                    </td>
                 </tr>
             </table>
         </asp:Panel>

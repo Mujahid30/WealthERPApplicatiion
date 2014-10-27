@@ -419,6 +419,24 @@ namespace WealthERP.Advisor {
         protected global::System.Web.UI.WebControls.CompareValidator CompareValidator12;
         
         /// <summary>
+        /// btnAddStaff control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton btnAddStaff;
+        
+        /// <summary>
+        /// btnRefresh control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton btnRefresh;
+        
+        /// <summary>
         /// trNoOfTerminals control.
         /// </summary>
         /// <remarks>
@@ -885,5 +903,14 @@ namespace WealthERP.Advisor {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button hiddenDelete;
+        
+        /// <summary>
+        /// hdnRmId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnRmId;
     }
 }

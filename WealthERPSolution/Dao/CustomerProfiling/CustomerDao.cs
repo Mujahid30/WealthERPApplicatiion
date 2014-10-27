@@ -658,6 +658,20 @@ namespace DaoCustomerProfiling
                         customerVo.GuardianMinNo = dr["C_GuardianMinNo"].ToString();
                     if (!string.IsNullOrEmpty(dr["C_SubBroker"].ToString()))
                         customerVo.SubBroker = dr["C_SubBroker"].ToString();
+                    if (!string.IsNullOrEmpty(dr["C_OtherBankName"].ToString()))
+                        customerVo.OtherBankName = dr["C_OtherBankName"].ToString();
+                    if (!string.IsNullOrEmpty(dr["C_OtherCountry"].ToString()))
+                        customerVo.OtherCountry = dr["C_OtherCountry"].ToString();
+                    if (!string.IsNullOrEmpty(dr["C_Adr1City"].ToString()))
+                        customerVo.Adr1City = dr["C_Adr1City"].ToString();
+                    if (!string.IsNullOrEmpty(dr["C_Adr1State"].ToString()))
+                        customerVo.Adr1State = dr["C_Adr1State"].ToString();
+                    if (!string.IsNullOrEmpty(dr["C_TaxStatus"].ToString()))
+                        customerVo.TaxStatus = dr["C_TaxStatus"].ToString();
+                    if (!string.IsNullOrEmpty(dr["C_Category"].ToString()))
+                        customerVo.Category = dr["C_Category"].ToString();
+
+            
                 }
             }
 
@@ -1297,6 +1311,8 @@ namespace DaoCustomerProfiling
                     db.AddInParameter(editCustomerCmd, "@C_GuardianDOB", DbType.DateTime, DBNull.Value);
                 db.AddInParameter(editCustomerCmd, "@C_OtherBankName", DbType.String, customerVo.OtherBankName);
                 db.AddInParameter(editCustomerCmd, "@C_OtherCountry", DbType.String, customerVo.OtherCountry);
+                db.AddInParameter(editCustomerCmd, "@C_TaxStatus", DbType.String, customerVo.TaxStatus);
+                db.AddInParameter(editCustomerCmd, "@C_Category", DbType.String, customerVo.Category);
                 if (db.ExecuteNonQuery(editCustomerCmd) != 0)
                     bResult = true;
 

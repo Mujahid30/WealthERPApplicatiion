@@ -172,6 +172,8 @@ namespace WealthERP.Customer
         protected global::System.Web.UI.WebControls.TextBox txtAdr1City;
         protected global::System.Web.UI.WebControls.TextBox txtAdr1State;
         protected global::System.Web.UI.WebControls.TextBox txtOtherCountry;
+        protected global::System.Web.UI.WebControls.TextBox txtTaxStatus;
+        protected global::System.Web.UI.WebControls.TextBox txtCategory;
 
 
         /// <summary>
@@ -2075,5 +2077,6 @@ namespace WealthERP.Customer
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadDatePicker txtGuardianDOB;
+      
     }
 }

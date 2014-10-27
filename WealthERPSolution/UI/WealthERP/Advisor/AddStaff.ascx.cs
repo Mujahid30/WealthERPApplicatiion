@@ -65,12 +65,21 @@ namespace WealthERP.Advisor
             associatesVo = (AssociatesVO)Session["associatesVo"];
             HdnAdviserId.Value = advisorVo.advisorId.ToString();
             string action = string.Empty;
+           
             if (!Page.IsPostBack)
             {
                 if (Request.QueryString["RmId"] != null)
                 {
-                    hidRMid.Value = Request.QueryString["RmId"];
-                    action = Request.QueryString["action"].ToString();
+                    if (!string.IsNullOrEmpty(action))
+                    {
+                        hidRMid.Value = Request.QueryString["RmId"];
+                        action = Request.QueryString["action"].ToString();
+                    }
+                    else
+                    {
+                        hidRMid.Value = Request.QueryString["RmId"];
+
+                    }
                 }
                 BindTeamDropList();
                 BinddepartDropList(advisorVo.advisorId);
@@ -91,6 +100,16 @@ namespace WealthERP.Advisor
                 else
                 {
                     ControlInitialState();
+                    if (Request.QueryString["RmId"] != null)
+                    {
+                        ddlTeamList.SelectedValue = "13";
+                        ddlTeamList.Enabled = false;
+                        BindTeamTitleDropList(Convert.ToInt32(ddlTeamList.SelectedValue));
+                        BindTitleApplicableLevelAndChannel(Convert.ToInt32(ddlTitleList.SelectedValue));
+                        PLCustomer.Visible = true;
+
+
+                    }
                 }
             }
 
@@ -322,6 +341,7 @@ namespace WealthERP.Advisor
             ddlTeamList.DataTextField = dtAdviserTeamList.Columns["WHLM_Name"].ToString();
             ddlTeamList.DataBind();
             ddlTeamList.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
+            
         }
 
         private void BindTeamTitleDropList(int teamId)
@@ -346,6 +366,11 @@ namespace WealthERP.Advisor
             }
 
             ddlTitleList.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
+            if (Request.QueryString["RmId"] != null)
+            {
+                ddlTitleList.SelectedValue = "135";
+                ddlTitleList.Enabled = false;
+            }
 
         }
 
@@ -375,6 +400,11 @@ namespace WealthERP.Advisor
                 ddlChannel.DataTextField = dsAdviserTitleChannelRole.Tables[0].Columns["AH_ChannelName"].ToString();
                 ddlChannel.DataBind();
                 // ddlChannel.Enabled = false;
+                if (Request.QueryString["RmId"] != null)
+            {
+                ddlChannel.SelectedValue = "12";
+                ddlChannel.Enabled = false;
+            }
             }
             else
             {
@@ -414,6 +444,7 @@ namespace WealthERP.Advisor
         {
             AgentCodesvalidation();
             BindTitleApplicableLevelAndChannel(Convert.ToInt32(ddlTitleList.SelectedValue));
+           
         }
 
         protected void AgentCodesvalidation()
@@ -642,6 +673,12 @@ namespace WealthERP.Advisor
                     ControlViewEditMode(true);
                     divMsgSuccess.InnerText = " Staff Added Sucessfully";
                     trSuccessMsg.Visible = true;
+                    if (Request.QueryString["RmId"] != null)
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('AddStaff','none');", true);
+                        Response.Write("<script>alert('DematDeatails has been successfully added');</script>");
+                        Response.Write("<script>window.close();</" + "script>");
+                    }
                 }
 
             }
