@@ -11,7 +11,7 @@
                 <table cellspacing="0" cellpadding="3" width="100%">
                     <tr>
                         <td align="left">
-                            Expected Commission MIS
+                            Expected Commission/MIS
                         </td>
                          <td align="right">
                             <asp:ImageButton ID="btnExportFilteredData" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
@@ -24,9 +24,18 @@
         </td>
     </tr>
 </table>
-<table width="80%" class="TableBackground" cellspacing="0" cellpadding="2">
+<table width="90%" class="TableBackground" cellspacing="0" cellpadding="2">
+<tr>
+<td class="leftField" width="16%">
+<asp:Label ID="lblSearchType" runat="server" Text="Select  Type:" CssClass="FieldName"></asp:Label>
+</td>
+<td align="rightField">
+<asp:DropDownList ID="ddlSearchType" AutoPostBack="true" runat="server" CssClass="cmbField" >
+</asp:DropDownList>
+</td>
+</tr>
 <tr id="trSelectProduct"  runat="server">
-<td align="left" class="leftField">
+<td align="left" class="leftField" width="20%">
 <asp:Label ID="lblSelectProduct" runat="server" Text="Select product" CssClass="FieldName"></asp:Label>
 </td>
 <td align="right">
@@ -36,7 +45,7 @@
                 CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select an Product type"
                 Operator="NotEqual" ValidationGroup="vgbtnSubmit" ValueToCompare="Select"></asp:CompareValidator>
 </td>
-<td class="leftField">
+<td class="leftField" width="16%">
 <asp:Label ID="lblOffline" runat="server" Text="Select Transaction Type:" CssClass="FieldName"></asp:Label>
 </td>
 <td align="right">
@@ -47,8 +56,8 @@
 <asp:ListItem Text="Offline" Value="0"></asp:ListItem>
 </asp:DropDownList>
 </td>
-<td align="left" class="leftField">
-            <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Select Commission Type:"></asp:Label>
+<td align="left" class="leftField" width="16%">
+            <asp:Label ID="Label1" runat="server" CssClass="FieldName"  Text="Select Commission Type:"></asp:Label>
         </td>
         <td align="right">
             <asp:DropDownList ID="ddlCommType" runat="server" CssClass="cmbField" AutoPostBack="true">
@@ -129,19 +138,19 @@
     </td>
     </tr>--%>
     <tr>
-        <td id="tdFromDate" runat="server" visible="false">  
-            <asp:Label ID="lblPeriod" Text="Select Month/Quarter For Brokage Period :" runat="server" CssClass="FieldName"></asp:Label>
+        <td id="tdFromDate" class="leftField" runat="server" visible="false">  
+            <asp:Label ID="lblPeriod" Text="Select Month/Quarter:" runat="server" CssClass="FieldName"></asp:Label>
         </td>
-        <td align="left" id="tdFrom" runat="server" visible="false">
+        <td class="rightField" id="tdFrom" runat="server" visible="false">
             <asp:DropDownList ID="ddlMnthQtr" runat="server" CssClass="cmbField" ></asp:DropDownList>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="ddlMnthQtr"
                 CssClass="rfvPCG" ErrorMessage="<br />Please Select Month" Display="Dynamic"
                 runat="server" InitialValue="0" ValidationGroup="vgbtnSubmit"> </asp:RequiredFieldValidator>
         </td>
-        <td align="left" id="tdTolbl" runat="server" visible="false">
+        <td class="leftField" id="tdTolbl" runat="server" visible="false">
             <asp:Label ID="Label11" runat="server" CssClass="FieldName" Text="Year:"></asp:Label>
         </td>
-        <td align="left" id="tdToDate" runat="server" visible="false">
+        <td class="rightField" id="tdToDate" runat="server" visible="false">
            
             <asp:DropDownList ID="ddlYear" runat="server" CssClass="cmbField" ></asp:DropDownList>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="ddlYear"

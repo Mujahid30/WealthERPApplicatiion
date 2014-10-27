@@ -51,6 +51,7 @@ namespace WealthERP.BusinessMIS
                 LoadAllSchemeList(0);
                 BindProductDropdown();
                 BindMonthsAndYear();
+                GetCommisionTypes();
                 int day = 1;
                 //txtFrom.SelectedDate = DateTime.Parse(day.ToString()+'/'+DateTime.Today.Month.ToString() + "/" + DateTime.Today.Year.ToString());
                 //txtTo.SelectedDate = DateTime.Now;
@@ -298,7 +299,7 @@ namespace WealthERP.BusinessMIS
             //ds.ReadXml(Server.MapPath(@"\Sample.xml"));
             dvMfMIS.Visible = false;
             dvNCDIPOMIS.Visible = false;
-            ds = adviserMFMIS.GetCommissionReceivableRecon(ddlProduct.SelectedValue, int.Parse(ddlSelectMode.SelectedValue), advisorVo.advisorId, int.Parse(hdnschemeId.Value), int.Parse(hdnFromDate.Value), int.Parse(hdnToDate.Value), hdnCategory.Value, null, ddlCommType.SelectedValue, int.Parse(hdnSBbrokercode.Value),int.Parse(hdnIssueId.Value));
+            ds = adviserMFMIS.GetCommissionReceivableRecon(ddlProduct.SelectedValue, int.Parse(ddlSelectMode.SelectedValue), advisorVo.advisorId, int.Parse(hdnschemeId.Value), int.Parse(hdnFromDate.Value), int.Parse(hdnToDate.Value), hdnCategory.Value, null, ddlCommType.SelectedValue, int.Parse(hdnSBbrokercode.Value), int.Parse(hdnIssueId.Value), Convert.ToInt32(ddlSearchType.SelectedValue));
             if (ds.Tables[0] != null)
             {
                 if (ddlProduct.SelectedValue.ToString() == "MF")
@@ -370,6 +371,17 @@ namespace WealthERP.BusinessMIS
             ddlProduct.DataTextField = dsLookupData.Tables[0].Columns["PAG_AssetGroupName"].ToString();
             ddlProduct.DataBind();
             ddlProduct.Items.Insert(0, new ListItem("Select", "Select"));
+        }
+        protected void GetCommisionTypes()
+        {
+            DataSet dscommissionTypes;
+            dscommissionTypes = commisionReceivableBo.GetCommisionTypes();
+
+            ddlSearchType.DataSource = dscommissionTypes.Tables[0];
+            ddlSearchType.DataValueField = "WCMV_LookupId";
+            ddlSearchType.DataTextField = "WCMV_Name";
+            ddlSearchType.DataBind();
+            //ddlCommissionype.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
         }
     }
 }

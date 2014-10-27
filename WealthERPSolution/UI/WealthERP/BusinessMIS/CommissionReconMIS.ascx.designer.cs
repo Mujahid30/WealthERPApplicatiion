@@ -23,7 +23,7 @@ namespace WealthERP.BusinessMIS {
         protected global::System.Web.UI.WebControls.DropDownList ddlUserType;
         protected global::System.Web.UI.WebControls.DropDownList ddlSelectType;
         protected global::System.Web.UI.WebControls.ImageButton btnExportFilteredData;
-
+        protected global::System.Web.UI.WebControls.DropDownList ddlSearchType;
         protected global::System.Web.UI.WebControls.HiddenField hdnFromDate;
         protected global::System.Web.UI.WebControls.HiddenField hdnToDate;
         protected global::System.Web.UI.WebControls.HiddenField hdnschemeId;
