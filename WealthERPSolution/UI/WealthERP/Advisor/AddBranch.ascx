@@ -141,8 +141,8 @@
         </td>
     </tr>
 </table>
-<table style="width: 100%;" class="TableBackground">
-   <%-- <tr>
+<table style="width: 100%;"  class="TableBackground">
+    <%-- <tr>
         <td colspan="4">
             <label id="lbl" class="lblRequiredText">
                 Note: Fields marked with ' * ' are compulsory</label>
@@ -341,8 +341,8 @@
         <td class="leftField">
             <asp:Label ID="lblHeadName0" runat="server" CssClass="FieldName" Text="Branch/Associate Head :"></asp:Label>
         </td>
-        <td class="rightField" width="40%">
-            <asp:DropDownList ID="ddlRmlist" runat="server" CssClass="cmbField">
+        <td class="rightField" width="15%">
+            <asp:DropDownList ID="ddlRmlist" runat="server" Width="90%" CssClass="cmbField">
             </asp:DropDownList>
             <span id="Span6" class="spnRequiredField">*</span>
             <br />
@@ -350,13 +350,15 @@
                 Display="Dynamic" ErrorMessage="Please select a Branch Head" Operator="NotEqual"
                 ValueToCompare="Select Branch head" CssClass="cvPCG" ValidationGroup="btnSubmit">
             </asp:CompareValidator>
+        </td>
+        <td>
             <asp:ImageButton ID="btnAddStaff" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
                 AlternateText="Add Branch Head" runat="server" ToolTip="Click here to Add Branch Head"
                 OnClientClick="return openpopupAddBranchHead()" Height="15px" Width="15px" TabIndex="3">
             </asp:ImageButton>
-        <asp:ImageButton ID="btnRefresh" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
-                AlternateText="Refresh Branch Head" runat="server" ToolTip="Click here to Refresh"
-                OnClick="btnRefresh_Click" Height="15px" Width="15px" TabIndex="3"></asp:ImageButton>
+            <asp:ImageButton ID="btnRefresh" ImageUrl="~/Images/refresh.png" AlternateText="Refresh Branch Head"
+                runat="server" ToolTip="Click here to Refresh" OnClick="btnRefresh_Click" Height="15px"
+                Width="15px" TabIndex="3"></asp:ImageButton>
         </td>
         <td class="leftField">
             &nbsp;
@@ -688,7 +690,7 @@
         <td>
             <asp:Button ID="hiddenDelete" runat="server" OnClick="hiddenDelete_Click" Text=""
                 BorderStyle="None" BackColor="Transparent" />
-                <asp:HiddenField ID="hdnRmId" runat="server" />
+            <asp:HiddenField ID="hdnRmId" runat="server" />
         </td>
     </tr>
     <%-- <tr>
