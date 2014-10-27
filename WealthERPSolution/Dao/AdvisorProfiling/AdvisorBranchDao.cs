@@ -37,6 +37,7 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(createAdvisorBranchCmd, "@AB_AddressLine2", DbType.String, advisorBranchVo.AddressLine2);
                 db.AddInParameter(createAdvisorBranchCmd, "@AB_AddressLine3", DbType.String, advisorBranchVo.AddressLine3);
                 db.AddInParameter(createAdvisorBranchCmd, "@AB_BranchCode", DbType.String, advisorBranchVo.BranchCode);
+                db.AddInParameter(createAdvisorBranchCmd, "@AAC_AgentCode", DbType.String, advisorBranchVo.AdviserAgentCode);
                 //if (advisorBranchVo.BranchHeadId == 100)
                 //{
                 //    db.AddInParameter(createAdvisorBranchCmd, "@AB_BranchHeadId", DbType.Int32, DBNull.Value);
@@ -71,6 +72,8 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(createAdvisorBranchCmd, "@AB_State", DbType.String, advisorBranchVo.State);
                 db.AddInParameter(createAdvisorBranchCmd, "@AB_CreatedBy", DbType.Int32, userId);
                 db.AddInParameter(createAdvisorBranchCmd, "@AB_ModifiedBy", DbType.Int32, userId);
+                db.AddInParameter(createAdvisorBranchCmd, "@AAC_CreatedBy", DbType.Int32, userId);
+                db.AddInParameter(createAdvisorBranchCmd, "@AAC_ModifiedBy", DbType.Int32, userId);
                 if (advisorBranchVo.IsHeadBranch != null)
                     db.AddInParameter(createAdvisorBranchCmd, "@AB_IsHeadBranch", DbType.Int32, advisorBranchVo.IsHeadBranch);
                 else

@@ -381,7 +381,7 @@ namespace WealthERP.BusinessMIS
             ddlSearchType.DataValueField = "WCMV_LookupId";
             ddlSearchType.DataTextField = "WCMV_Name";
             ddlSearchType.DataBind();
-            //ddlCommissionype.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
+            ddlSearchType.Items.Insert(0, new ListItem("Select", "Select"));
         }
     }
 }

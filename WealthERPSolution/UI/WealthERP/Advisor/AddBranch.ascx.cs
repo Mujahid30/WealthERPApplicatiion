@@ -551,7 +551,14 @@ namespace WealthERP.Advisor
                     }
 
                     advisorBranchVo.Phone1Number = int.Parse(txtPhone1.Text.ToString());
-                    advisorBranchVo.Phone1Std = int.Parse(txtStdPhone1.Text.ToString());
+                    if (txtStdPhone1.Text == "")
+                    {
+                        advisorBranchVo.Phone1Std = 0;
+                    }
+                    else
+                    {
+                        advisorBranchVo.Phone1Std = int.Parse(txtStdPhone1.Text.ToString());
+                    }
                     if (txtPinCode.Text == "")
                     {
                         advisorBranchVo.PinCode = 0;
