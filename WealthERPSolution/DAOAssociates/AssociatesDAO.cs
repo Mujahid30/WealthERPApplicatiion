@@ -676,6 +676,7 @@ namespace DAOAssociates
                 db.AddInParameter(createAdviserAgentCodecmd, "@RmId", DbType.Int32, associatesVo.RMId);
                 db.AddInParameter(createAdviserAgentCodecmd, "@adviserId", DbType.Int32, adviserId);
                 db.AddInParameter(createAdviserAgentCodecmd, "@AssociatesId", DbType.Int32, associatesVo.AdviserAssociateId);
+                db.AddInParameter(createAdviserAgentCodecmd, "@AAC_AdviserAgentId", DbType.Int32, associatesVo.AAC_AdviserAgentId);
                 db.ExecuteNonQuery(createAdviserAgentCodecmd);
                 result = true;
             }
