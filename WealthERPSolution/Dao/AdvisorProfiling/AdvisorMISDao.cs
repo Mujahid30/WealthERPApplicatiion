@@ -2665,7 +2665,7 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(getCommissionReconMisCmd, "@productType", DbType.String, product);
                 db.AddInParameter(getCommissionReconMisCmd, "@typeOfTransaction", DbType.Int16, typeOfTransaction);
                 db.AddInParameter(getCommissionReconMisCmd, "@issueId", DbType.Int32, issueId);
-                db.AddInParameter(getCommissionReconMisCmd, "@issueId", DbType.Int32, commissionLookUpId);
+                db.AddInParameter(getCommissionReconMisCmd, "@commissionLookUpId", DbType.Int32, commissionLookUpId);
                 getCommissionReconMisCmd.CommandTimeout = 60 * 60;
                 dsGetCommissionReconMis = db.ExecuteDataSet(getCommissionReconMisCmd);
             }
