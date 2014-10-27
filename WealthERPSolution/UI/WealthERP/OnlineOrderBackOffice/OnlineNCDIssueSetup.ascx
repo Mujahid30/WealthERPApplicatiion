@@ -250,6 +250,7 @@
         </div>
     </ContentTemplate>
 </telerik:RadWindow>
+
 <telerik:RadWindow ID="radIssuerPopUp" runat="server" VisibleOnPageLoad="false" Height="30%"
     Width="400px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="Resize, Close, Move"
     Title="Add New Issuer" RestrictionZoneID="radWindowZone">
@@ -349,6 +350,7 @@
         </div>
     </ContentTemplate>
 </telerik:RadWindow>
+
 <table width="100%" runat="server" id="tbIssue">
     <tr>
         <td class="leftLabel">

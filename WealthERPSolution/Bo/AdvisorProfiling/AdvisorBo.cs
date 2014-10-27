@@ -1745,7 +1745,7 @@ namespace BoAdvisorProfiling
             DataSet dsGetAdviserCustomerCategory;
             try
             {
-                dsGetAdviserCustomerCategory = adviserDao.GetAdviserCustomerCategory(AdviserId);
+                dsGetAdviserCustomerCategory = adviserDao.GetAdviserCategory(AdviserId);
 
             }
             catch (BaseApplicationException Ex)
