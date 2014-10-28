@@ -186,6 +186,21 @@
         </td>
     </tr>
     <tr>
+    <td class="leftLabel"> <asp:Label ID="lblType" runat="server" CssClass="FieldName" Text="Select Type:"></asp:Label></td>
+    <td class="rightData"> 
+    <asp:DropDownList ID="ddlType" runat="server" CssClass="cmbField">
+                <asp:ListItem Selected="True" Value="2">--SELECT--</asp:ListItem>
+                <asp:ListItem Text="Offline" Value="0" />
+                <asp:ListItem Text="Online" Value="1" />
+            </asp:DropDownList>
+            <br />
+            <asp:RequiredFieldValidator ID="rfvType" runat="server" ControlToValidate="ddlType"
+                CssClass="rfvPCG" Display="Dynamic" ErrorMessage="Please select a Type" InitialValue="2"
+                ValidationGroup="FileType">
+            </asp:RequiredFieldValidator>
+            </td>
+    </tr>
+    <tr>
         <td class="leftLabel">
             <asp:Label ID="lblProduct" runat="server" CssClass="FieldName" Text="Select Product:"></asp:Label>
         </td>

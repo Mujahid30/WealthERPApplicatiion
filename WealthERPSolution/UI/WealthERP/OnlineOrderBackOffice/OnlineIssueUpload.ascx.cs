@@ -97,6 +97,8 @@ namespace WealthERP.OnlineOrderBackOffice
                 ddlRgsttype.Visible = true;
                 RFVRgsttype.Enabled = true;
                 RFVddlAlltmnt.Enabled = true;
+                btnUploadData.Visible = false;
+                lblUploadData.Visible = false;
             }
             else if (ddlFileType.SelectedValue == "10")
             {
@@ -107,6 +109,8 @@ namespace WealthERP.OnlineOrderBackOffice
                 ddlRgsttype.Visible = false;
                 RFVRgsttype.Enabled = false;
                 RFVddlAlltmnt.Enabled = false;
+                btnUploadData.Visible = true;
+                lblUploadData.Visible = true;
             }
 
         }
@@ -215,6 +219,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 ShowMessage(columnNameError.ToString());
                 bUpload = false;
+                return;
             }
             if (ddlFileType.SelectedValue == "12" || ddlFileType.SelectedValue == "13" || ddlFileType.SelectedValue == "14" || ddlFileType.SelectedValue == "15" && bUpload)
             {
@@ -238,7 +243,7 @@ namespace WealthERP.OnlineOrderBackOffice
             dtUploadData = CheckHeaders(dtUploadData);
             if (IsAllotmentUpload)
             {
-                dtAllotmentUpload = boNcdBackOff.UploadAllotmentFile(dtUploadData, int.Parse(ddlFileType.SelectedValue), int.Parse(ddlIssueName.SelectedValue), ref isIssueAvailable, advisorVo.advisorId, ddlSource.SelectedValue, ref result, ddlProduct.SelectedValue, hdnsavePath.Value, userVo.UserId);
+                dtAllotmentUpload = boNcdBackOff.UploadAllotmentFile(dtUploadData, int.Parse(ddlFileType.SelectedValue), int.Parse(ddlIssueName.SelectedValue), ref isIssueAvailable, advisorVo.advisorId, ddlSource.SelectedValue, ref result, ddlProduct.SelectedValue, hdnsavePath.Value, userVo.UserId, Convert.ToInt32(ddlType.SelectedValue));
                 if (dtAllotmentUpload.Rows.Count > 0)
                 {
                     GetUploadData(dtAllotmentUpload);

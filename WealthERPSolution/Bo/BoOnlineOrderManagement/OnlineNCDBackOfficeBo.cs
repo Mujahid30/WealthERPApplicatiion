@@ -1783,7 +1783,7 @@ namespace BoOnlineOrderManagement
             }
             return result;
         }
-        public DataTable UploadAllotmentFile(DataTable dtCheckOrder, int fileTypeId, int issueId, ref string isEligbleIssue, int adviserid, string source, ref string result, string product, string filePath, int userId)
+        public DataTable UploadAllotmentFile(DataTable dtCheckOrder, int fileTypeId, int issueId, ref string isEligbleIssue, int adviserid, string source, ref string result, string product, string filePath, int userId,int isOnline)
         {
             DataTable dtUploadAllotment = new DataTable();
             try
@@ -1794,7 +1794,7 @@ namespace BoOnlineOrderManagement
 
                 daoOnlNcdBackOff.IsIssueAlloted(issueId, ref   result);
                 if (result != string.Empty && result != "0")
-                    dtUploadAllotment = daoOnlNcdBackOff.UploadAllotmentIssueDataDynamic(dtCheckOrder, issueId, ref  result, product, filePath, userId);
+                    dtUploadAllotment = daoOnlNcdBackOff.UploadAllotmentIssueDataDynamic(dtCheckOrder, issueId, ref  result, product, filePath, userId, isOnline);
                 else
                 {
                     result = "Pls Fill Allotment Date";

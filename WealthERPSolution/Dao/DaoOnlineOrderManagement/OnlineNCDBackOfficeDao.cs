@@ -2320,7 +2320,7 @@ namespace DaoOnlineOrderManagement
             }
             return result;
         }
-        public DataTable UploadAllotmentIssueDataDynamic(DataTable dtData, int issueId, ref string isValidated, string product, string filePath, int userId)
+        public DataTable UploadAllotmentIssueDataDynamic(DataTable dtData, int issueId, ref string isValidated, string product, string filePath, int userId, int isOnline)
         {
             int result = 0;
             UploadData(dtData);
@@ -2338,6 +2338,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(cmdAllotmentUpload, "@filePath", DbType.String, filePath);
                 db.AddInParameter(cmdAllotmentUpload, "@createdBy", DbType.Int32, userId);
                 db.AddInParameter(cmdAllotmentUpload, "@product", DbType.String, product);
+                db.AddInParameter(cmdAllotmentUpload, "@IsOnline", DbType.String, isOnline);
                 dtAllotmentUploadData = db.ExecuteDataSet(cmdAllotmentUpload).Tables[0];
 
                 //isValidated = cmdProc.ExecuteScalar().ToString();

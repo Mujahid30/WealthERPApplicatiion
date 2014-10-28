@@ -78,6 +78,7 @@ namespace WealthERP.OnlineOrderBackOffice
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblProduct;
         protected global::System.Web.UI.WebControls.Label lblmsg;
+        protected global::System.Web.UI.WebControls.Label lblType;
         /// <summary>
         /// ddlProduct control.
         /// </summary>
@@ -86,7 +87,7 @@ namespace WealthERP.OnlineOrderBackOffice
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlProduct;
-
+        protected global::System.Web.UI.WebControls.DropDownList ddlType;
         /// <summary>
         /// rfvProduct control.
         /// </summary>
@@ -122,7 +123,7 @@ namespace WealthERP.OnlineOrderBackOffice
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvSource;
-
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvType;
         /// <summary>
         /// lblFileType control.
         /// </summary>
