@@ -199,16 +199,21 @@
                 <tr>
                     <td id="tdBulkOrderStatusList" runat="server">
                         <div id="DivBulkOrderStatusList" runat="server" style="width: 100%; padding-left: 5px;">
-                            <telerik:RadGrid ID="gvBulkOrderStatusList" runat="server" fAllowAutomaticDeletes="false"
+                            <telerik:RadGrid ID="gvBulkOrderStatusList" runat="server" AllowAutomaticDeletes="false"
                                 EnableEmbeddedSkins="false" AllowFilteringByColumn="true" AutoGenerateColumns="False"
                                 ShowStatusBar="false" ShowFooter="true" AllowPaging="true" AllowSorting="true"
                                 GridLines="none" AllowAutomaticInserts="false" Skin="Telerik" EnableHeaderContextMenu="true"
-                                OnNeedDataSource="gvBulkOrderStatusList_OnNeedDataSource" OnItemCommand="gvBulkOrderStatusList_OnItemCommand" Visible="false">
+                                OnNeedDataSource="gvBulkOrderStatusList_OnNeedDataSource" OnItemDataBound="gvBulkOrderStatusList_OnDataBound"
+                                OnItemCommand="gvBulkOrderStatusList_OnItemCommand" Visible="true">
                                 <ExportSettings HideStructureColumns="true">
                                 </ExportSettings>
-                                <MasterTableView DataKeyNames="RequestId" Width="99%" AllowMultiColumnSorting="True"
+                                <MasterTableView DataKeyNames="RequestId,FileNamePath" Width="99%" AllowMultiColumnSorting="True"
                                     AutoGenerateColumns="false">
                                     <Columns>
+                                        <telerik:GridButtonColumn CommandName="Download" Text="Download" HeaderText="File download"
+                                            HeaderStyle-Width="47px" UniqueName="Download">
+                                            <ItemStyle Width="100px" HorizontalAlign="left" Wrap="true" VerticalAlign="top" />
+                                        </telerik:GridButtonColumn>
                                         <telerik:GridBoundColumn DataField="RequestId" UniqueName="RequestId" HeaderText="Request Id"
                                             ShowFilterIcon="false" AutoPostBackOnFilter="true" AllowFiltering="true" HeaderStyle-Width="67px"
                                             SortExpression="RequestId" FilterControlWidth="50px">
@@ -240,9 +245,6 @@
                                             SortExpression="FileNamePath" FilterControlWidth="50px" CurrentFilterFunction="Contains">
                                             <ItemStyle Width="100px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridButtonColumn CommandName="Download" Text="Download" HeaderText="File download"
-                                            UniqueName="Download">
-                                        </telerik:GridButtonColumn>
                                     </Columns>
                                 </MasterTableView>
                                 <ClientSettings>
