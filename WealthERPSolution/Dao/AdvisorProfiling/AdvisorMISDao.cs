@@ -2630,7 +2630,7 @@ namespace DaoAdvisorProfiling
         }
 
 
-        public DataSet GetCommissionReceivableRecon(string product, int typeOfTransaction, int AdviserId, int schemeid, int month, int year, string category, string recontype, string commtype, int issuer, int issueId, int commissionLookUpId)
+        public DataSet GetCommissionReceivableRecon(string product, int typeOfTransaction, int AdviserId, int schemeid, int month, int year, string category, string recontype, string commtype, int issuer, int issueId, int commissionLookUpId,string orderStatus)
         {
             Database db;
             DbCommand getCommissionReconMisCmd;
@@ -2648,7 +2648,7 @@ namespace DaoAdvisorProfiling
                 if (year != 0)
                     db.AddInParameter(getCommissionReconMisCmd, "@Year", DbType.Int16, year);
                 else
-                    db.AddInParameter(getCommissionReconMisCmd, "@Year", DbType.DateTime, DBNull.Value);
+                    db.AddInParameter(getCommissionReconMisCmd, "@Year", DbType.Int16, DBNull.Value);
                 if (!string.IsNullOrEmpty(category))
                     db.AddInParameter(getCommissionReconMisCmd, "@Category", DbType.String, category);
                 else
@@ -2666,6 +2666,7 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(getCommissionReconMisCmd, "@typeOfTransaction", DbType.Int16, typeOfTransaction);
                 db.AddInParameter(getCommissionReconMisCmd, "@issueId", DbType.Int32, issueId);
                 db.AddInParameter(getCommissionReconMisCmd, "@commissionLookUpId", DbType.Int32, commissionLookUpId);
+                db.AddInParameter(getCommissionReconMisCmd, "@orderStatus", DbType.String, orderStatus);
                 getCommissionReconMisCmd.CommandTimeout = 60 * 60;
                 dsGetCommissionReconMis = db.ExecuteDataSet(getCommissionReconMisCmd);
             }

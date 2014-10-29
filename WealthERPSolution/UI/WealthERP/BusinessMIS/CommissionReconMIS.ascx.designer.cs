@@ -229,6 +229,7 @@ namespace WealthERP.BusinessMIS {
         protected global::Telerik.Web.UI.RadGrid gvCommissionReceiveRecon;
         protected global::Telerik.Web.UI.RadGrid rgNCDIPOMIS;
         protected global::System.Web.UI.WebControls.DropDownList ddlProduct;
+        protected global::System.Web.UI.WebControls.DropDownList ddlOrderStatus;
         protected global::System.Web.UI.WebControls.DropDownList ddlCommType;
         protected global::System.Web.UI.WebControls.DropDownList ddlSelectMode;
         protected global::System.Web.UI.WebControls.DropDownList ddlIssueName;

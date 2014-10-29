@@ -33,12 +33,10 @@
             <asp:DropDownList ID="ddlSearchType" AutoPostBack="true" runat="server" CssClass="cmbField">
             </asp:DropDownList>
              <asp:CompareValidator ID="CompareValidator5" runat="server" ControlToValidate="ddlSearchType"
-                CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select a Commision type"
+                CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select a Commission type"
                 Operator="NotEqual" ValidationGroup="vgbtnSubmit" ValueToCompare="Select"></asp:CompareValidator>
         </td>
-    </tr>
-    <tr id="trSelectProduct" runat="server">
-        <td align="left" class="leftField" width="20%">
+          <td align="left" class="leftField" width="20%">
             <asp:Label ID="lblSelectProduct" runat="server" Text="Select product:" CssClass="FieldName"></asp:Label>
         </td>
         <td align="right">
@@ -47,6 +45,21 @@
             </asp:DropDownList>
             <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="ddlProduct"
                 CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select an Product type"
+                Operator="NotEqual" ValidationGroup="vgbtnSubmit" ValueToCompare="Select"></asp:CompareValidator>
+        </td>
+    </tr>
+    <tr id="trSelectProduct" runat="server">
+       <td align="left" class="leftField" width="20%">
+            <asp:Label ID="Label2" runat="server" Text="Order Status" CssClass="FieldName"></asp:Label>
+        </td>
+        <td align="right">
+            <asp:DropDownList ID="ddlOrderStatus" runat="server" CssClass="cmbField">
+                <asp:ListItem Text="Select" Value="Select"></asp:ListItem>
+                <asp:ListItem Text="EXECUTED" Value="IP"> </asp:ListItem>
+                <asp:ListItem Text="ORDERED" Value="OR"></asp:ListItem>
+            </asp:DropDownList>
+            <asp:CompareValidator ID="CompareValidator6" runat="server" ControlToValidate="ddlOrderStatus"
+                CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select Order Status"
                 Operator="NotEqual" ValidationGroup="vgbtnSubmit" ValueToCompare="Select"></asp:CompareValidator>
         </td>
         <td class="leftField" width="16%">
