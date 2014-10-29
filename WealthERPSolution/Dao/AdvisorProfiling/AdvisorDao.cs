@@ -3626,6 +3626,112 @@ namespace DaoAdvisorProfiling
             }
             return dsArea;
         }
+        public DataSet AdvisorCategoryBind(int adviserId)
+        {
+            Database db;
+            DbCommand Getcategory;
+            DataSet dsCategory;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                Getcategory = db.GetStoredProcCommand("SP_GetAdvisorCategory");
+                db.AddInParameter(Getcategory, "@AdviserId", DbType.Int32, adviserId);
+                dsCategory = db.ExecuteDataSet(Getcategory);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorCategoryBind(int adviserId)");
+                object[] objects = new object[1];
+                objects[0] = adviserId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsCategory;
+        }
+        public DataSet gvAdvisorCategoryBind(int adviserId, int ACM_ID)
+        {
+            Database db;
+            DbCommand Getcategory;
+            DataSet dsCategory;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                Getcategory = db.GetStoredProcCommand("SP_GetgvAdvisorCategory");
+                db.AddInParameter(Getcategory, "@AdviserId", DbType.Int32, adviserId);
+                db.AddInParameter(Getcategory, "@ACM_ID", DbType.Int32, ACM_ID); 
+                dsCategory = db.ExecuteDataSet(Getcategory);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)    
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorCategoryBind(int adviserId)");
+                object[] objects = new object[1];
+                objects[0] = adviserId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsCategory;
+        }
+        public bool InsertEditDeleteCategory(string categoryname, int advisorid, int acm_id,int AC_CategoryId,string CommandName)
+        {
+            Database db;
+            bool isOperationDone = false;
+            int alreadyExists;
+            DbCommand CategoryCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                CategoryCmd = db.GetStoredProcCommand("SP_InsertEditDeleteCategory");
+                db.AddInParameter(CategoryCmd, "@AdvisorId", DbType.Int32, advisorid);
+                db.AddInParameter(CategoryCmd, "@CategoryName", DbType.String, categoryname);
+                db.AddInParameter(CategoryCmd, "@ACM_ID", DbType.Int32, acm_id);
+                db.AddInParameter(CategoryCmd, "@CommandName", DbType.String, CommandName);
+                db.AddInParameter(CategoryCmd, "@AC_CategoryId", DbType.Int32, AC_CategoryId);
+                db.AddOutParameter(CategoryCmd, "@alreadyExists", DbType.Int32, 0);
+                if (db.ExecuteNonQuery(CategoryCmd) != 0)
+                {
+
+                    isOperationDone = true;
+                    alreadyExists = int.Parse(db.GetParameterValue(CategoryCmd, "alreadyExists").ToString());
+                    if (alreadyExists == 1)
+                    {
+                        isOperationDone = false;
+                    }
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorDao.cs:InsertEditDeleteCategory()");
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return isOperationDone;
+        }
 
     }
 }

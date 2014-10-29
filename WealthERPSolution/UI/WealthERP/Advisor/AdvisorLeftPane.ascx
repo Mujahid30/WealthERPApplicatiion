@@ -99,6 +99,8 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Alert Configuration" Value="Alert_configure">
                                             </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="Category" Value="Category">
+                                            </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
                                     <%--<telerik:RadPanelItem runat="server" Text="Product Group setup" Value="Product Group setup">

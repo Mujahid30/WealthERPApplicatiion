@@ -2031,5 +2031,91 @@ namespace BoAdvisorProfiling
             }
             return dsArea;
         }
+
+        public DataSet AdvisorCategoryBind(int adviserId)
+        {
+            AdvisorDao advisorDao = new AdvisorDao();
+            DataSet dsCategory;
+
+            try
+            {
+                dsCategory = advisorDao.AdvisorCategoryBind(adviserId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorCategoryBind(int adviserId)");
+                object[] objects = new object[1];
+                objects[0] = adviserId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsCategory;
+        }
+
+
+        public DataSet gvAdvisorCategoryBind(int advisorId, int ACM_ID)
+        {
+
+            AdvisorDao advisorDao = new AdvisorDao();
+            DataSet dsCategory;
+
+            try
+            {
+                dsCategory = advisorDao.gvAdvisorCategoryBind(advisorId, ACM_ID);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "gvAdvisorCategoryBind(int adviserId)");
+                object[] objects = new object[1];
+                objects[0] = advisorId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsCategory;
+        }
+        public bool InsertEditDeleteCategory(string categoryname, int advisorId, int acm_id, int AC_CategoryId, string CommandName)
+        {
+            AdvisorDao advisorDao = new AdvisorDao();
+            bool isOperationDone;
+
+            try
+            {
+                isOperationDone = advisorDao.InsertEditDeleteCategory(categoryname, advisorId, acm_id,AC_CategoryId, CommandName);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "gvAdvisorCategoryBind(int adviserId)");
+                object[] objects = new object[1];
+                objects[0] = advisorId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return isOperationDone;
+
+        }
     }
 }
