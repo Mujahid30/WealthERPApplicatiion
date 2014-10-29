@@ -335,18 +335,27 @@ namespace WealthERP.Receivable
                 CommissionStructureControlsEnable(false);
                 tblCommissionStructureRule.Visible = true;
                 tblCommissionStructureRule1.Visible = true;
-                if (ddlCommissionype.SelectedValue == "16019")
-                {
-                    btnMapToscheme.Visible = true;
-                }
-                else
-                {
-                    ButtonAgentCodeMapping.Visible = true;
-                }
+                MapPingLinksBasedOnCpmmissionTypes(ddlCommissionype.SelectedValue);
 
             }
 
 
+        }
+
+        private void MapPingLinksBasedOnCpmmissionTypes(string lookUpId)
+        {
+            if (lookUpId == "16019")
+            {
+                btnMapToscheme.Text = "Map Scheme";
+                btnMapToscheme.Visible = true;
+                ButtonAgentCodeMapping.Visible = false;
+            }
+            else
+            {
+                btnMapToscheme.Text = "Map Issue";
+                btnMapToscheme.Visible = true;
+                ButtonAgentCodeMapping.Visible = true;
+            }
         }
 
         protected void btnMapToscheme_Click(object sender, EventArgs e)
@@ -367,8 +376,6 @@ namespace WealthERP.Receivable
 
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('PayableStructureToAgentCategoryMapping','ID=" + hidCommissionStructureName.Value + "&Product=" + ddlProductType.SelectedValue + "');", true);
 
-
-
         }
 
 
@@ -377,18 +384,21 @@ namespace WealthERP.Receivable
         protected void btnStructureUpdate_Click(object sender, EventArgs e)
         {
             commissionStructureMasterVo = CollectStructureMastetrData();
-            if (!string.IsNullOrEmpty(commissionStructureMasterVo.AssetSubCategory.ToString()))
-            {
-                commissionStructureMasterVo.CommissionStructureId = Convert.ToInt32(hidCommissionStructureName.Value);
-                commisionReceivableBo.UpdateCommissionStructureMastter(commissionStructureMasterVo, userVo.UserId);
-                CommissionStructureControlsEnable(false);
 
-            }
-            else
+
+            if (string.IsNullOrEmpty(commissionStructureMasterVo.AssetSubCategory.ToString()) && ddlProductType.SelectedValue == "MF")
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('At least one subcategory required!');", true);
                 return;
             }
+            else
+            {
+                commissionStructureMasterVo.CommissionStructureId = Convert.ToInt32(hidCommissionStructureName.Value);
+                commisionReceivableBo.UpdateCommissionStructureMastter(commissionStructureMasterVo, userVo.UserId);
+                CommissionStructureControlsEnable(false);
+                MapPingLinksBasedOnCpmmissionTypes(ddlCommissionype.SelectedValue);
+            }
+
         }
 
         protected void ddlCommissionApplicableLevel_Selectedindexchanged(object sender, EventArgs e)
@@ -1208,14 +1218,7 @@ namespace WealthERP.Receivable
                 txtNote.Text = commissionStructureMasterVo.StructureNote;
                 hidCommissionStructureName.Value = structureId.ToString();
                 CommissionStructureControlsEnable(false);
-                if (ddlCommissionype.SelectedValue == "16019")
-                {
-                    btnMapToscheme.Visible = true;
-                }
-                else
-                {
-                    ButtonAgentCodeMapping.Visible = true;
-                }
+                MapPingLinksBasedOnCpmmissionTypes(ddlCommissionype.SelectedValue);
             }
             catch (BaseApplicationException Ex)
             {

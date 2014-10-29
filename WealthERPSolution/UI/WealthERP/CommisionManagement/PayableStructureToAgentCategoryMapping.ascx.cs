@@ -168,7 +168,7 @@ namespace WealthERP.CommisionManagement
             {
                 foreach (RadListBoxItem ListItem in this.RadListBoxSelectedAgentCodes.Items)
                 {
-                    agentId = agentId + ListItem.Value.ToString();
+                    agentId = agentId + ListItem.Value.ToString()+",";
                 }
             }
             else
