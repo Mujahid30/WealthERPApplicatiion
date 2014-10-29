@@ -61,7 +61,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 txtAssociateName_AutoCompleteExtender.ContextKey = adviserVo.advisorId.ToString();
                 txtAssociateName_AutoCompleteExtender.ServiceMethod = "GetAssociateName";
                 txtSubBrokerCode_AutoCompleteExtender.ContextKey = adviserVo.advisorId.ToString();
-                txtSubBrokerCode_AutoCompleteExtender.ServiceMethod = "GetAgentCodeAssociateDetails";
+                txtSubBrokerCode_AutoCompleteExtender.ServiceMethod = "GetAgentCodeDetails";
             }
             else if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
             {
@@ -70,7 +70,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 txtSchemeName_AutoCompleteExtender.ServiceMethod = "GetSchemeList";
                 txtStaffName_AutoCompleteExtender.ServiceMethod = "GetStaffName";
                 txtAssociateName_AutoCompleteExtender.ServiceMethod = "GetAssociateName";
-                txtSubBrokerCode_AutoCompleteExtender.ServiceMethod = "GetSubBrokerCode";
+                txtSubBrokerCode_AutoCompleteExtender.ServiceMethod = "GetAgentCodeDetails";
 
             }
             else if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
@@ -80,7 +80,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 txtSchemeName_AutoCompleteExtender.ServiceMethod = "GetSchemeList";
                 txtStaffName_AutoCompleteExtender.ServiceMethod = "GetStaffName";
                 txtAssociateName_AutoCompleteExtender.ServiceMethod = "GetAssociateName";
-                txtSubBrokerCode_AutoCompleteExtender.ServiceMethod = "GetSubBrokerCode";
+                txtSubBrokerCode_AutoCompleteExtender.ServiceMethod = "GetAgentCodeDetails";
             }
             else if (Session[SessionContents.CurrentUserRole].ToString() == "Associates")
             {
@@ -93,7 +93,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 txtAssociateName_AutoCompleteExtender.ContextKey = adviserVo.advisorId.ToString();
                 txtAssociateName_AutoCompleteExtender.ServiceMethod = "GetAssociateName";
                 txtSubBrokerCode_AutoCompleteExtender.ContextKey = adviserVo.advisorId.ToString();
-                txtSubBrokerCode_AutoCompleteExtender.ServiceMethod = "GetSubBrokerCode";
+                txtSubBrokerCode_AutoCompleteExtender.ServiceMethod = "GetAgentCodeDetails";
 
             }
 

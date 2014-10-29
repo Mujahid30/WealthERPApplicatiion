@@ -73,10 +73,9 @@
         </td>
     </tr>
 </table>
-<%--<table width="100%">--%>
-<table>
+<table width="50%">
     <tr>
-        <td class="leftField">
+        <td class="leftField" width="25%">
             <asp:Label ID="lblType" runat="server" Text="Select Type:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField">
@@ -91,10 +90,9 @@
         </td>
     </tr>
 </table>
-<table width="80%">
+<table width="90%">
     <tr id="trSchemePlan" runat="server" visible="false">
-        <%--<td id="tdSchemePlan" runat="server" visible="false">--%>
-        <td class="leftField" style="width: 30px">
+        <td class="leftField" width="14%">
             <asp:Label ID="lblSchemePlan" runat="server" Text="SchemePlan Name:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField" style="width: 40px; height: 10px">
@@ -111,16 +109,19 @@
                 CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
                 UseContextKey="True" OnClientItemSelected="GetSchemePlanCode" DelimiterCharacters=""
                 Enabled="True" />
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator10" ControlToValidate="txtSchemeName"
+                ErrorMessage="<br />Please Enter Scheme Name" Display="Dynamic" runat="server"
+                CssClass="rfvPCG" ValidationGroup="BtnGo"></asp:RequiredFieldValidator>
         </td>
     </tr>
     <tr id="trStaff" runat="server" visible="false">
-        <td class="leftField" style="width: 30px">
+        <td class="leftField" width="14%">
             <asp:Label ID="lblStaff" runat="server" Text="Staff Name:" CssClass="FieldName"></asp:Label>
         </td>
-        <td class="rightField" style="width: 170px; height: 20px">
+        <td class="rightField" style="width: 10px; height: 10px">
             <asp:TextBox ID="txtStaffName" runat="server" CssClass="txtField" AutoPostBack="True"
                 AutoComplete="Off" Width="300px"></asp:TextBox>
-            <span id="Span7" class="spnRequiredField">*</span>
+            <%--<span id="Span7" class="spnRequiredField">*</span>--%>
             <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender3" TargetControlID="txtStaffName"
                 WatermarkText="Enter Three Characters" runat="server" EnableViewState="false">
             </cc1:TextBoxWatermarkExtender>
@@ -131,13 +132,16 @@
                 CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
                 UseContextKey="True" OnClientItemSelected="GetStaffId" DelimiterCharacters=""
                 Enabled="True" />
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator9" ControlToValidate="txtStaffName"
+                ErrorMessage="<br />Please Enter Staff Name" Display="Dynamic" runat="server"
+                CssClass="rfvPCG" ValidationGroup="BtnGo"></asp:RequiredFieldValidator>
         </td>
     </tr>
     <tr id="trAssociates" runat="server" visible="false">
-        <td class="leftField" style="width: 30px">
-            <asp:Label ID="lblAssociates" runat="server" Width="50px" Text="Select:" CssClass="FieldName"></asp:Label>
+        <td class="leftField" width="150px" align="left">
+            <asp:Label ID="lblAssociates" runat="server" Text="Select:" CssClass="FieldName"></asp:Label>
         </td>
-        <td class="rightField" style="width: 20px; height: 20px">
+        <td class="rightField">
             <asp:DropDownList ID="ddlAssociateOption" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlAssociateOption_SelectedIndexChanged"
                 AutoPostBack="true">
                 <asp:ListItem Text="Select" Value="Select" Selected="true" />
@@ -149,10 +153,9 @@
                 CssClass="rfvPCG" ControlToValidate="ddlAssociateOption" ValidationGroup="BtnGo"
                 Display="Dynamic" InitialValue="Select"></asp:RequiredFieldValidator>
         </td>
-        <td class="rightField" id="tdtxtAssociateName" style="width: 50px" runat="server"
-            visible="false">
+        <td class="rightField" id="tdtxtAssociateName" runat="server" visible="false">
             <asp:TextBox ID="txtAssociateName" runat="server" CssClass="txtField" AutoComplete="Off"
-                AutoPostBack="True" onclientClick="ShowIsa()" Width="250px">  </asp:TextBox>
+                AutoPostBack="True" onclientClick="ShowIsa()" Width="300px">  </asp:TextBox>
             <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender4" TargetControlID="txtAssociateName"
                 WatermarkText="Enter Three Characters of Associates" runat="server" EnableViewState="false">
             </cc1:TextBoxWatermarkExtender>
@@ -167,31 +170,32 @@
                 ErrorMessage="<br />Please Enter Associate Name" Display="Dynamic" runat="server"
                 CssClass="rfvPCG" ValidationGroup="BtnGo"></asp:RequiredFieldValidator>
         </td>
-        <td class="rightField" id="tdtxtSubBrokerCode" style="width: 50px" runat="server"
-            visible="false">
+        <td class="rightField" id="tdtxtSubBrokerCode" runat="server" visible="false">
             <asp:TextBox ID="txtSubbrokerCode" runat="server" CssClass="txtField" AutoComplete="Off"
-                AutoPostBack="True" onclientClick="ShowIsa()" Width="250px">  </asp:TextBox>
+                AutoPostBack="True" onclientClick="ShowIsa()" Width="300px">  </asp:TextBox>
             <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender5" TargetControlID="txtSubbrokerCode"
-                WatermarkText="Enter Three Characters of Associates" runat="server" EnableViewState="false">
+                WatermarkText="Enter Characters of Associates" runat="server" EnableViewState="false">
             </cc1:TextBoxWatermarkExtender>
             <ajaxToolkit:AutoCompleteExtender ID="txtSubBrokerCode_AutoCompleteExtender" runat="server"
-                TargetControlID="txtSubbrokerCode" ServiceMethod="GetAgentCodeAssociateDetails"
-                ServicePath="~/CustomerPortfolio/AutoComplete.asmx" MinimumPrefixLength="3" EnableCaching="False"
-                CompletionSetCount="5" CompletionInterval="100" CompletionListCssClass="AutoCompleteExtender_CompletionList"
-                CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem" CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
+                TargetControlID="txtSubbrokerCode" ServiceMethod="GetAgentCodeDetails" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
+                MinimumPrefixLength="1" EnableCaching="False" CompletionSetCount="5" CompletionInterval="100"
+                CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
+                CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
                 UseContextKey="True" OnClientItemSelected="GetAssociateId" DelimiterCharacters=""
                 Enabled="True" />
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator8" ControlToValidate="txtAssociateName"
-                ErrorMessage="<br />Please Enter Associate Name" Display="Dynamic" runat="server"
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator8" ControlToValidate="txtSubbrokerCode"
+                ErrorMessage="<br />Please Enter Subbroker Code" Display="Dynamic" runat="server"
                 CssClass="rfvPCG" ValidationGroup="BtnGo"></asp:RequiredFieldValidator>
+        </td>
+        <td class="rightField" style="width: 300px">
         </td>
     </tr>
     <tr id="trCustomer" runat="server" visible="false">
         <%-- <td id="tdCustomer" runat="server" visible="false">--%>
-        <td class="leftField" style="width: 70px">
+        <td class="leftField" width="10%">
             <asp:Label ID="lblIskyc" runat="server" Text="Select:" Width="50px" CssClass="FieldName"></asp:Label>
         </td>
-        <td class="rightField" style="width: 170px; height: 20px">
+        <td class="rightField" width="17%">
             <asp:DropDownList ID="ddlCOption" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlCOption_SelectedIndexChanged"
                 AutoPostBack="true">
                 <asp:ListItem Text="Select" Value="Select" Selected="true" />
@@ -204,7 +208,7 @@
                 CssClass="rfvPCG" ControlToValidate="ddlCOption" ValidationGroup="BtnGo" Display="Dynamic"
                 InitialValue="Select"></asp:RequiredFieldValidator>
         </td>
-        <td class="leftField" id="tdtxtPansearch" runat="server" visible="false">
+        <td class="leftField" id="tdtxtPansearch" width="21%" runat="server" visible="false">
             <asp:TextBox ID="txtPansearch" runat="server" CssClass="txtField" AutoComplete="Off"
                 AutoPostBack="True" onclientClick="ShowIsa()" TabIndex="2" Width="250px">
             </asp:TextBox><span id="Span1" class="spnRequiredField"></span>
@@ -222,7 +226,7 @@
                 ErrorMessage="<br />Please Enter Pan number" Display="Dynamic" runat="server"
                 CssClass="rfvPCG" ValidationGroup="BtnGo"></asp:RequiredFieldValidator>
         </td>
-        <td class="rightField" id="tdtxtClientCode" runat="server" visible="false">
+        <td class="rightField" id="tdtxtClientCode" width="21%" runat="server" visible="false">
             <asp:TextBox ID="txtClientCode" runat="server" CssClass="txtField" AutoComplete="Off"
                 AutoPostBack="True" onclientClick="ShowIsa()" Width="250px"></asp:TextBox>
             <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" TargetControlID="txtClientCode"
@@ -239,7 +243,7 @@
                 ErrorMessage="<br />Please Enter Client Code" Display="Dynamic" runat="server"
                 CssClass="rfvPCG" ValidationGroup="BtnGo"></asp:RequiredFieldValidator>
         </td>
-        <td class="leftField" id="tdtxtCustomerName" runat="server" visible="false">
+        <td class="leftField" id="tdtxtCustomerName" width="21%" runat="server" visible="false">
             <asp:TextBox ID="txtCustomerName" runat="server" CssClass="txtField" AutoComplete="Off"
                 AutoPostBack="True" onclientClick="ShowIsa()" Width="250px">  </asp:TextBox>
             <cc1:TextBoxWatermarkExtender ID="txtCustomerName_water" TargetControlID="txtCustomerName"
@@ -256,10 +260,10 @@
                 ErrorMessage="<br />Please Enter Customer Name" Display="Dynamic" runat="server"
                 CssClass="rfvPCG" ValidationGroup="BtnGo"></asp:RequiredFieldValidator>
         </td>
-        <td id="tdCustomerAuditList" runat="server" visible="false" class="leftField" style="width: 80px">
+        <td id="tdCustomerAuditList" runat="server" visible="false" class="leftField" width="8%">
             <asp:Label ID="lblFilterType" runat="server" Text="Select Type:" CssClass="FieldName"></asp:Label>
         </td>
-        <td class="rightField">
+        <td class="rightField" width="30%">
             <asp:DropDownList ID="ddlAuditType" runat="server" CssClass="cmbField" Width="235px">
                 <asp:ListItem Text="Select" Value="select"></asp:ListItem>
                 <asp:ListItem Text="Customer Profile" Value="CP"></asp:ListItem>
@@ -277,7 +281,7 @@
 </table>
 <table width="100%">
     <tr>
-        <td id="tdFromDate" runat="server" visible="false" class="leftField">
+        <td id="tdFromDate" runat="server" width="13%" visible="false" class="leftField">
             <asp:Label ID="lblModificationDate" runat="server" Text="From:" CssClass="FieldName"></asp:Label>
         </td>
         <td id="tdFromDate1" runat="server" visible="false" class="rightField" style="width: 170px;
