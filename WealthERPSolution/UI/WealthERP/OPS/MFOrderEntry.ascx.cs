@@ -27,6 +27,8 @@ using iTextSharp.text.pdf;
 using System.IO;
 using System.Globalization;
 using BoOnlineOrderManagement;
+using VoOnlineOrderManagemnet;
+
 
 namespace WealthERP.OPS
 {
@@ -48,7 +50,9 @@ namespace WealthERP.OPS
         AssociatesBo associatesBo = new AssociatesBo();
         AssociatesVO associatesVo = new AssociatesVO();
         CustomerPortfolioBo customerPortfolioBo = new CustomerPortfolioBo();
+        OnlineMFOrderBo onlineMforderBo = new OnlineMFOrderBo();
         AssociatesUserHeirarchyVo associateuserheirarchyVo = new AssociatesUserHeirarchyVo();
+        CommonLookupBo commonLookupBo = new CommonLookupBo();
         List<DataSet> applicationNoDup = new List<DataSet>();
         UserVo userVo;
         PriceBo priceBo = new PriceBo();
@@ -292,7 +296,7 @@ namespace WealthERP.OPS
         {
             cvFutureDate1.ValueToCompare = DateTime.Today.ToShortDateString();
             BindARNNo(advisorVo.advisorId);
-            BindAMC(0);
+
             BindScheme(0);
             Sflag = 0;
             BindCategory();
@@ -415,7 +419,9 @@ namespace WealthERP.OPS
                     else
                         hidFolioNumber.Value = "0";
                     txtFolioNumber.Text = dr["CMFA_FolioNum"].ToString();
+
                     ddltransType.SelectedValue = dr["WMTT_TransactionClassificationCode"].ToString();
+                    GetAmcBasedonTransactionType(ddltransType.SelectedValue);
                     txtOrderDate.SelectedDate = DateTime.Parse(dr["CO_OrderDate"].ToString());
 
 
@@ -2686,21 +2692,21 @@ namespace WealthERP.OPS
         }
         protected void OnAssociateTextchanged(object sender, EventArgs e)
         {
-           //txtAgentId.Value 
+            //txtAgentId.Value 
             if (!IsPostBack)
             {
                 txtAssociateSearch.Text = associateuserheirarchyVo.AgentCode;
             }
             if (!string.IsNullOrEmpty(txtAssociateSearch.Text))
             {
-                int recCount =0;
+                int recCount = 0;
                 if (userType == "associates")
                 {
-                   recCount= customerBo.ChkAssociateCode(advisorVo.advisorId, associateuserheirarchyVo.AgentCode, txtAssociateSearch.Text, userType);
+                    recCount = customerBo.ChkAssociateCode(advisorVo.advisorId, associateuserheirarchyVo.AgentCode, txtAssociateSearch.Text, userType);
                 }
                 else
                 {
-                    recCount=customerBo.ChkAssociateCode(advisorVo.advisorId, "", txtAssociateSearch.Text, userType);
+                    recCount = customerBo.ChkAssociateCode(advisorVo.advisorId, "", txtAssociateSearch.Text, userType);
 
                 }
                 if (recCount == 0)
@@ -2916,7 +2922,8 @@ namespace WealthERP.OPS
             {
                 DataSet dsScheme = new DataSet();
                 DataTable dtScheme;
-
+                if (ddlAMCList.SelectedIndex == -1)
+                    return;
                 if (ddlAMCList.SelectedIndex != 0 && ddlCategory.SelectedIndex != 0)
                 {
                     amcCode = int.Parse(ddlAMCList.SelectedValue.ToString());
@@ -3022,11 +3029,23 @@ namespace WealthERP.OPS
             }
         }
 
+        private void GetAmcBasedonTransactionType(string transactionType)
+        {
+            if (transactionType == "SWB")
+            {
+                BindAMC(1);
+            }
+            else
+            {
+                BindAMC(0);
+            }
+        }
         protected void ddltransType_SelectedIndexChanged(object sender, EventArgs e)
         {
             ShowPaymentSectionBasedOnTransactionType(ddltransType.SelectedValue, "");
             PaymentMode(ddlPaymentMode.SelectedValue);
             FrequencyEnablityForTransactionType(ddltransType.SelectedValue);
+            GetAmcBasedonTransactionType(ddltransType.SelectedValue);
             //lblAMC.Visible = true; ddlAMCList.Visible = true;
             //lblCategory.Visible = true; ddlCategory.Visible = true;
             //lblSearchScheme.Visible = true; ddlAmcSchemeList.Visible = true;
@@ -3184,7 +3203,7 @@ namespace WealthERP.OPS
             if ((transactiontype == "SIP" | transactiontype == "SWP" | transactiontype == "STB"))
             {
                 trSystematicDateChk1.Visible = true;
-              //  trSystematicDateChk2.Visible = true;
+                //  trSystematicDateChk2.Visible = true;
                 //trSystematicDateChk3.Visible = true;
                 trSystematicDate.Visible = true;
 
@@ -3202,7 +3221,7 @@ namespace WealthERP.OPS
 
                 trSystematicDateChk1.Visible = false;
                 //trSystematicDateChk2.Visible = false;
-               // trSystematicDateChk3.Visible = false;
+                // trSystematicDateChk3.Visible = false;
                 trSystematicDate.Visible = false;
                 SipEnablity(false);
             }
@@ -3499,6 +3518,8 @@ namespace WealthERP.OPS
         {
             DataSet dsSwitchScheme = new DataSet();
             DataTable dtSwitchScheme;
+            if (ddlAMCList.SelectedIndex == -1)
+                return;
             if (ddlAMCList.SelectedIndex != 0)
             {
                 amcCode = int.Parse(ddlAMCList.SelectedValue);
@@ -3673,36 +3694,77 @@ namespace WealthERP.OPS
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Enter a valid Customer Name.');", true);
                 return;
             }
-            SaveOrderDetails();
-            OrderIds = mfOrderBo.CreateCustomerMFOrderDetails(orderVo, mforderVo, userVo.UserId, systematicSetupVo);
-            lblGetOrderNo.Text = OrderIds[0].ToString();
-            rgvOrderSteps.Visible = true;
-            //orderId = int.Parse(OrderIds[0].ToString());
-            //Session["CO_OrderId"] = orderId;
-            //orderVo.OrderId = orderId;
-            //rgvOrderSteps.Enabled = true;
-            BindOrderStepsGrid(Convert.ToInt32(lblGetOrderNo.Text));
-            // Sipvisblity(hdnType.Value, "View");
-            ButtonsEnablement("Submitted");
-            ControlsEnblity("View");
-            //SetEditViewMode(true);
-            //btnSubmit.Visible = false;
-            //lnkBtnEdit.Visible = true;
-            //lnlBack.Visible = false;
-            //imgBtnRefereshBank.Enabled = false;
-            //imgAddBank.Enabled = false;
-            //orderNumber = mfOrderBo.GetOrderNumber(orderId);
-            //lblGetOrderNo.Text = orderNumber.ToString();
-            //lblOrderNumber.Visible = true;
-            //lblGetOrderNo.Visible = true;
+            if (ddltransType.SelectedValue == "SWB")
+            {
+                CreatePurchaseOrderType();
+            }
+            else
+            {
 
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Your order added successfully.');", true);
-
-
-
+                SaveOrderDetails();
+                OrderIds = mfOrderBo.CreateCustomerMFOrderDetails(orderVo, mforderVo, userVo.UserId, systematicSetupVo);
+                lblGetOrderNo.Text = OrderIds[0].ToString();
+                rgvOrderSteps.Visible = true;
+                BindOrderStepsGrid(Convert.ToInt32(lblGetOrderNo.Text));
+                ButtonsEnablement("Submitted");
+                ControlsEnblity("View");
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Your order added successfully.');", true);
+            }
 
         }
 
+
+
+        private void CreatePurchaseOrderType()
+        {
+            MFOrderVo[] onlinemforderVo = new MFOrderVo[2];
+            List<MFOrderVo> lsonlinemforder = new List<MFOrderVo>();
+            onlinemforderVo[0] = new MFOrderVo();
+            onlinemforderVo[0].SchemePlanCode = Int32.Parse(txtSchemeCode.Value);
+            onlinemforderVo[0].accountid = Int32.Parse(hidFolioNumber.Value);
+
+            List<int> OrderIds = new List<int>();
+             onlinemforderVo[0].Amount = double.Parse(txtNewAmount.Text.ToString());
+
+            onlinemforderVo[0].TransactionCode = "SO";
+            lsonlinemforder.Add(onlinemforderVo[0]);
+            onlinemforderVo[1] = new MFOrderVo();
+            onlinemforderVo[1].accountid = int.Parse(hidFolioNumber.Value);
+            onlinemforderVo[1].SchemePlanCode = int.Parse(ddlSchemeSwitch.SelectedValue.ToString());
+            onlinemforderVo[1].Amount = int.Parse(txtNewAmount.Text.ToString());
+            //if(ddlSwitchDvdnType.SelectedValue != "")
+            //onlinemforderVo[1].DivOption = ddlSwitchDvdnType.SelectedValue.ToString();
+           // onlinemforderVo[1].DivOption = string.Empty;
+            onlinemforderVo[1].TransactionCode = "SI";
+            string message = string.Empty;
+            lsonlinemforder.Add(onlinemforderVo[1]);
+            OrderIds = mfOrderBo.CreateOffLineMFSwitchOrderDetails(lsonlinemforder, userVo.UserId, customerVo.CustomerId);
+            int OrderId = int.Parse(OrderIds[0].ToString());
+            // char msgType = 's';
+            lblGetOrderNo.Text = OrderIds[0].ToString();
+            rgvOrderSteps.Visible = true;
+            BindOrderStepsGrid(Convert.ToInt32(lblGetOrderNo.Text));
+            ButtonsEnablement("Submitted");
+            ControlsEnblity("View");
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Your order added successfully.');", true);
+
+        }
+
+        protected void BindSchemeDividendTypes(int schemeId)
+        {
+            DataTable dtSchemeDividendOption = commonLookupBo.GetMFSchemeDividentType(schemeId);
+            ddlSwitchDvdnType.Items.Clear();
+            if (dtSchemeDividendOption.Rows.Count > 0)
+            {
+                ddlSwitchDvdnType.DataSource = dtSchemeDividendOption;
+                ddlSwitchDvdnType.DataValueField = dtSchemeDividendOption.Columns["PSLV_LookupValueCode"].ToString();
+                ddlSwitchDvdnType.DataTextField = dtSchemeDividendOption.Columns["PSLV_LookupValue"].ToString();
+                ddlSwitchDvdnType.DataBind();
+                ddlSwitchDvdnType.Items.Insert(0, new ListItem("--SELECT--", "0"));
+
+            }
+
+        }
         private void SaveOrderDetails()
         {
 
@@ -4527,11 +4589,52 @@ namespace WealthERP.OPS
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select AMC first!');", true);
 
         }
+
+        protected void btnSwitchOpenPopup_Click(object sender, ImageClickEventArgs e)
+        {
+
+            if (ddlSchemeSwitch.SelectedIndex > 0)
+            {
+                radWindowSwitchScheme.VisibleOnPageLoad = true;
+                lblFolioAMC.Text = ddlSchemeSwitch.SelectedItem.Text;
+            }
+            else
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select AMC first!');", true);
+
+        }
         protected void btnCancel_Click(object sender, EventArgs e)
         {
             radwindowPopup.VisibleOnPageLoad = false;
         }
+        protected void btnSwichSchemeCancel_Click(object sender, EventArgs e)
+        {
+            radWindowSwitchScheme.VisibleOnPageLoad = false;
+        }
 
+        
+        protected void btnSwichSchemeOk_Click(object sender, EventArgs e)
+        {
+            int accountId;
+
+            CustomerAccountsVo customerAccountVo = new CustomerAccountsVo();
+            customerAccountVo.CustomerId = int.Parse(txtCustomerId.Value);
+            customerAccountVo.AccountNum = txtNewFolio.Text;
+            customerAccountVo.AMCCode = int.Parse(ddlAMCList.SelectedValue);
+            if (!customerAccountBo.CheckFolioDuplicate(advisorVo.advisorId, customerAccountVo.AccountNum))
+            {
+                accountId = customerAccountBo.CreateCustomerMFAccountBasic(customerAccountVo, userVo.UserId);
+                if (accountId != 0)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Folio created successfully, now search for folio !');", true);
+                    radWindowSwitchScheme.VisibleOnPageLoad = false;
+                }
+            }
+            else
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Folio already Exists !');", true);
+            }
+
+        }
         protected void btnOk_Click(object sender, EventArgs e)
         {
             int accountId;

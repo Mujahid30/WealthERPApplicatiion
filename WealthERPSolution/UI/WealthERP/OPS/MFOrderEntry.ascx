@@ -249,7 +249,7 @@
    
 </script>
 
-<asp:UpdatePanel>
+<asp:UpdatePanel  >
     <telerik:RadWindow ID="radwindowPopup" runat="server" VisibleOnPageLoad="false" Height="30%"
         Width="400px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="None"
         Title="Add New Folio">
@@ -284,6 +284,46 @@
                         <td class="rightField" style="width: 25%">
                             <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="PCGButton" CausesValidation="false"
                                 OnClick="btnCancel_Click" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </ContentTemplate>
+    </telerik:RadWindow>
+     <telerik:RadWindow ID="radWindowSwitchScheme" runat="server" VisibleOnPageLoad="false" Height="30%"
+        Width="400px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="None"
+        Title="Add New Folio">
+        <ContentTemplate>
+            <div style="padding: 20px">
+                <table width="100%">
+                    <tr>
+                        <td class="leftField" style="width: 10%">
+                            <asp:Label ID="Label4" runat="server" Text="AMC Name: " CssClass="FieldName"></asp:Label>
+                        </td>
+                        <td class="rightField" style="width: 25%">
+                            <asp:Label ID="Label5" runat="server" Text="" CssClass="FieldName"></asp:Label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="leftField" style="width: 10%">
+                            <asp:Label ID="Label6" runat="server" Text="Folio Number: " CssClass="FieldName"></asp:Label>
+                        </td>
+                        <td class="rightField" style="width: 25%">
+                            <asp:TextBox ID="txtSwitchFolio" runat="server" CssClass="txtField"></asp:TextBox><br />
+                            <span id="Span28"></span>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator23" ControlToValidate="txtSwitchFolio" ErrorMessage="Please enter folio name"
+                                ValidationGroup="vgSwitchOK" Display="Dynamic" runat="server" CssClass="rfvPCG">
+                            </asp:RequiredFieldValidator>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="leftField" style="width: 10%">
+                            <asp:Button ID="btnSwichSchemeOk" runat="server" Text="Submit" CssClass="PCGButton"
+                                OnClick="btnSwichSchemeOk_Click" ValidationGroup="vgSwitchOK" />
+                        </td>
+                        <td class="rightField" style="width: 25%">
+                            <asp:Button ID="btnSwichSchemeCancel" runat="server" Text="Cancel" CssClass="PCGButton" CausesValidation="false"
+                                OnClick="btnSwichSchemeCancel_Click" />
                         </td>
                     </tr>
                 </table>
@@ -968,11 +1008,33 @@
                         CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select a scheme"
                         Operator="NotEqual" ValidationGroup="MFSubmit" ValueToCompare="Select"></asp:CompareValidator>
                 </td>
+                <td align="right">
+                    <asp:Label ID="Label3" runat="server" Text="Folio Number:" CssClass="FieldName"></asp:Label>
+                </td>
+                <td>
+                    <asp:HiddenField ID="hdnSwitchFolioNo" runat="server" OnValueChanged="hidFolioNumber_ValueChanged" />
+                    <asp:TextBox ID="txtSwitchFolioNo" runat="server" CssClass="txtField" onblur="return ValidateFolioSelection(this)"
+                        AutoPostBack="true" TabIndex="11">
+                    </asp:TextBox>
+                    <span id="Span27"></span>
+                    <asp:ImageButton ID="ImageButton1" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
+                        AlternateText="Add" runat="server" ToolTip="Click here to Add folio" OnClick="btnSwitchOpenPopup_Click"
+                        Height="15px" Width="15px"></asp:ImageButton>
+                    <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender4" runat="server" TargetControlID="txtSwitchFolioNo"
+                        WatermarkText="Type the folio name">
+                    </cc1:TextBoxWatermarkExtender>
+                    <ajaxToolkit:AutoCompleteExtender ID="AutoCompleteExtender3" runat="server" TargetControlID="txtSwitchFolioNo"
+                        ServicePath="~/CustomerPortfolio/AutoComplete.asmx" ServiceMethod="GetCustomerFolioAccount"
+                        MinimumPrefixLength="3" EnableCaching="false" CompletionSetCount="1" CompletionInterval="1"
+                        CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
+                        CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
+                        UseContextKey="true" OnClientItemSelected="GetFolioAccount" />
+                </td>
             </tr>
         </table>
     </asp:Panel>
     <div class="divSectionHeading" style="vertical-align: text-bottom">
-        Payment Section 
+        Payment Section
     </div>
     <asp:Panel ID="pnl_BUY_ABY_SIP_PaymentSection" runat="server" class="Landscape" Width="100%"
         Height="80%" ScrollBars="None">

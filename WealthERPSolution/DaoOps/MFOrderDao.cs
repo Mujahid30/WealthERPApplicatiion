@@ -88,6 +88,59 @@ namespace DaoOps
 
 
         }
+
+        public List<int> CreateOffLineMFSwitchOrderDetails(DataTable dtSwitchOrder, int userId, int customerId)
+        {
+            List<int> orderIds = new List<int>();
+            int sICO_OrderId, sOCO_OrderId;
+            DataTable dt = new DataTable();
+            DataSet ds = new DataSet();
+            dt = dtSwitchOrder.Copy();
+            ds.Tables.Add(dt);
+            String sb;
+            sb = ds.GetXml().ToString();
+            Database db;
+            DbCommand CreateOnlineMFSwitchOrderDetailsCmd;
+            try
+            {
+
+
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                CreateOnlineMFSwitchOrderDetailsCmd = db.GetStoredProcCommand("SPROC_OffLine_CreateCustomerOnlineMFOrderSwitchDetails");
+                db.AddInParameter(CreateOnlineMFSwitchOrderDetailsCmd, "@xmlOrderDetails", DbType.Xml, sb);
+                db.AddInParameter(CreateOnlineMFSwitchOrderDetailsCmd, "@userId", DbType.Int32, userId);
+                db.AddInParameter(CreateOnlineMFSwitchOrderDetailsCmd, "@customerId", DbType.Int32, customerId);
+                db.AddOutParameter(CreateOnlineMFSwitchOrderDetailsCmd, "@SICO_OrderId", DbType.Int32, 10);
+                db.AddOutParameter(CreateOnlineMFSwitchOrderDetailsCmd, "@SOCO_OrderId", DbType.Int32, 10);
+                if (db.ExecuteNonQuery(CreateOnlineMFSwitchOrderDetailsCmd) != 0)
+                {
+                    sICO_OrderId = Convert.ToInt32(db.GetParameterValue(CreateOnlineMFSwitchOrderDetailsCmd, "SICO_OrderId").ToString());
+                    sOCO_OrderId = Convert.ToInt32(db.GetParameterValue(CreateOnlineMFSwitchOrderDetailsCmd, "SOCO_OrderId").ToString());
+                    orderIds.Add(sICO_OrderId);
+                    orderIds.Add(sOCO_OrderId);
+                }
+
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OperationDao.cs:GetFolioAccount()");
+                object[] objects = new object[10];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return orderIds;
+
+        }
+
         public List<int> CreateOrderMFDetails(OrderVo orderVo, MFOrderVo mforderVo, int userId, SystematicSetupVo systematicSetupVo)
         {
             List<int> orderIds = new List<int>();

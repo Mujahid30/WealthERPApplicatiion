@@ -46,6 +46,8 @@ namespace VoOps
         private DateTime m_EndDate;
         private string m_PanNo;
         private string m_ARNNo;
+        private string m_DivOption;
+
         public int AssociateId { get; set; }
         public int BankBranchId { get; set; }
         #endregion
@@ -240,6 +242,13 @@ namespace VoOps
             get { return m_ARNNo; }
             set { m_ARNNo = value; }
         }
+
+        public string DivOption
+        {
+            get { return m_DivOption; }
+            set { m_DivOption = value; }
+        }
+        
         #endregion
 
     }

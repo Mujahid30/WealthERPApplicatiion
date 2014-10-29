@@ -42,6 +42,7 @@ namespace WealthERP.CommisionManagement
                     hdnStructId.Value = Request.QueryString["ID"].Trim();
                     lbtStructureName.Visible = true;
                     SetStructureDetails();
+                    DefaultAssignments();
                     //  CreateMappedSchemeGrid();
                 }
                 else
@@ -52,6 +53,13 @@ namespace WealthERP.CommisionManagement
                     ddlStructs.Visible = true;
                 }
             }
+        }
+
+        private void DefaultAssignments()
+        {
+            //ddlMapping.SelectedValue = "Associate";
+            //ddlType.SelectedValue = "UserCategory";
+            //GetControlsBasedOnType(ddlType.SelectedValue);
         }
 
         private void getAllStructures()
@@ -155,6 +163,7 @@ namespace WealthERP.CommisionManagement
 
             int mappingId = 0;
             string agentId = "";
+            string categoryId = string.Empty;
             if (ddlType.SelectedValue == "Custom")
             {
                 foreach (RadListBoxItem ListItem in this.RadListBoxSelectedAgentCodes.Items)
@@ -162,8 +171,12 @@ namespace WealthERP.CommisionManagement
                     agentId = agentId + ListItem.Value.ToString();
                 }
             }
+            else
+            {
+                categoryId = ddlAdviserCategory.SelectedValue;
+            }
 
-            commisionReceivableBo.CreatePayableAgentCodeMapping(Convert.ToInt32(hdnStructId.Value), ddlMapping.SelectedValue, ddlAdviserCategory.SelectedValue, agentId, out mappingId);
+            commisionReceivableBo.CreatePayableAgentCodeMapping(Convert.ToInt32(hdnStructId.Value), ddlMapping.SelectedValue, categoryId, agentId, out mappingId);
             return mappingId;
 
         }
@@ -212,6 +225,18 @@ namespace WealthERP.CommisionManagement
                     txtIssuerName.ToolTip = row["PA_AMCName"].ToString();
                     txtValidFrom.Text = DateTime.Parse(hdnStructValidFrom.Value).ToShortDateString();
                     txtValidTo.Text = DateTime.Parse(hdnStructValidTill.Value).ToShortDateString();
+                    ddlMapping.SelectedValue= row["UserType"].ToString();
+                    if (ddlMapping.SelectedValue == "Associate")
+                    {
+                        ddlType.SelectedValue = "UserCategory";
+                    }
+                    else
+                    {
+                        ddlType.SelectedValue = "Custom";
+
+                    }
+                    GetControlsBasedOnType(ddlType.SelectedValue);
+                  ddlAdviserCategory.SelectedValue = row["AC_CategoryId"].ToString();
                 }
 
 

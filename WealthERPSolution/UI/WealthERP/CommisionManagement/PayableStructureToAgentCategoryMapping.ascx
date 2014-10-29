@@ -146,7 +146,7 @@
     </tr>
     <tr>
         <td class="leftLabel">
-            <asp:Label ID="lblAssetCategory" CssClass="FieldName" runat="server" Text="Asset Category:"></asp:Label>
+            <asp:Label ID="lblAssetCategory" CssClass="FieldName" runat="server" Text="Associate Category:"></asp:Label>
         </td>
         <td class="rightData">
             <asp:DropDownList ID="ddlAdviserCategory" runat="server" CssClass="cmbField">

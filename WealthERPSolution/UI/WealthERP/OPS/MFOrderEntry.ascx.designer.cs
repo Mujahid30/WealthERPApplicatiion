@@ -30,7 +30,9 @@ namespace WealthERP.OPS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadWindow radwindowPopup;
-        
+        protected global::Telerik.Web.UI.RadWindow radWindowSwitchScheme;
+
+         
         /// <summary>
         /// lblAMCName control.
         /// </summary>
@@ -84,6 +86,8 @@ namespace WealthERP.OPS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSubmitFolio;
+        protected global::System.Web.UI.WebControls.Button btnSwichSchemeOk ;
+
         
         /// <summary>
         /// btnCancel control.
@@ -597,6 +601,8 @@ namespace WealthERP.OPS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddltransType;
+        protected global::System.Web.UI.WebControls.DropDownList ddlSwitchDvdnType;
+
         
         /// <summary>
         /// CVTrxType control.
@@ -777,6 +783,8 @@ namespace WealthERP.OPS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField txtSchemeCode;
+        protected global::System.Web.UI.WebControls.TextBox txtSwitchFolio;
+
         
         /// <summary>
         /// txtSearchScheme control.

@@ -7,6 +7,7 @@ namespace VoCommisionManagement
 {
     public class CommissionStructureMasterVo
     {
+        public Int32 CommissionLookUpId { get; set; }
         public Int32 CommissionStructureId { get; set; }
         public int AdviserId { get; set; }
         public string ProductType { get; set; }

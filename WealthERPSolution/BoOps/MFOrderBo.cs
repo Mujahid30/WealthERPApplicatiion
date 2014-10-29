@@ -65,6 +65,71 @@ namespace BoOps
             return orderIds;
         }
 
+        public List<int> CreateOffLineMFSwitchOrderDetails(List<MFOrderVo> lsonlinemforder, int userId, int customerId)
+        {
+            
+            DataTable dtSwitchOrder = new DataTable();
+            List<int> OrderIds = new List<int>();
+
+            try
+            {
+                dtSwitchOrder = creataTableForSwitch(lsonlinemforder);
+                OrderIds = mfOrderDao.CreateOffLineMFSwitchOrderDetails(dtSwitchOrder, userId, customerId);
+
+            }
+
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineMFOrderBo.cs:GetCustomerSchemeFolioHoldings(int customerId, int schemeId)");
+
+                object[] objects = new object[1];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return OrderIds;
+
+
+        }
+
+        public DataTable creataTableForSwitch(List<MFOrderVo> lsonlinemforder)
+        {
+            MFOrderVo offlineMFOrderVo = new MFOrderVo();
+            DataTable dtSwitchOrder = new DataTable();
+            dtSwitchOrder.Columns.Add("CMFSO_AccountId");
+            dtSwitchOrder.Columns.Add("CMFSO_SchemePlanCode");
+            dtSwitchOrder.Columns.Add("CMFSO_Amount");
+            dtSwitchOrder.Columns.Add("CMFSO_TransactionType");
+            dtSwitchOrder.Columns.Add("CMFSO_DivOption");
+            dtSwitchOrder.Columns.Add("CO_OrderId");
+
+            DataRow drOrderDetails;
+            for (int i = 0; i < lsonlinemforder.Count; i++)
+            {
+                offlineMFOrderVo = lsonlinemforder[i];
+                drOrderDetails = dtSwitchOrder.NewRow();
+                drOrderDetails["CMFSO_AccountId"] = offlineMFOrderVo.accountid.ToString();
+                drOrderDetails["CMFSO_SchemePlanCode"] = offlineMFOrderVo.SchemePlanCode.ToString();
+                drOrderDetails["CMFSO_Amount"] = offlineMFOrderVo.Amount.ToString();
+                drOrderDetails["CMFSO_TransactionType"] = offlineMFOrderVo.TransactionCode.ToString();
+                if (offlineMFOrderVo.DivOption == string.Empty)
+                    drOrderDetails["CMFSO_DivOption"] = offlineMFOrderVo.DivOption.ToString();
+                else
+                    drOrderDetails["CMFSO_DivOption"] = null;
+                dtSwitchOrder.Rows.Add(drOrderDetails);
+            }
+            return dtSwitchOrder;
+
+        }
+
         public DataSet GetCustomerMFOrderMIS(int AdviserId, DateTime FromDate, DateTime ToDate, string branchId, string rmId, string transactionType, string status, string orderType, string amcCode, string customerId, int isOnline)
         {
             DataSet dsGetMFOrderMIS;

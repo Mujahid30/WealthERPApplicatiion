@@ -335,9 +335,17 @@ namespace WealthERP.Receivable
                 CommissionStructureControlsEnable(false);
                 tblCommissionStructureRule.Visible = true;
                 tblCommissionStructureRule1.Visible = true;
+                if (ddlCommissionype.SelectedValue == "16019")
+                {
+                    btnMapToscheme.Visible = true;
+                }
+                else
+                {
+                    ButtonAgentCodeMapping.Visible = true;
+                }
 
             }
-            
+
 
         }
 
@@ -1173,6 +1181,7 @@ namespace WealthERP.Receivable
                 BindSubcategoryListBox(commissionStructureMasterVo.AssetCategory);
                 ddlProductType.SelectedValue = commissionStructureMasterVo.ProductType;
                 ddlCategory.SelectedValue = commissionStructureMasterVo.AssetCategory;
+                ddlCommissionype.SelectedValue = commissionStructureMasterVo.CommissionLookUpId.ToString();
                 ShowHideControlsBasedOnProduct(ddlProductType.SelectedValue);
                 foreach (RadListBoxItem item in rlbAssetSubCategory.Items)
                 {
@@ -1199,6 +1208,14 @@ namespace WealthERP.Receivable
                 txtNote.Text = commissionStructureMasterVo.StructureNote;
                 hidCommissionStructureName.Value = structureId.ToString();
                 CommissionStructureControlsEnable(false);
+                if (ddlCommissionype.SelectedValue == "16019")
+                {
+                    btnMapToscheme.Visible = true;
+                }
+                else
+                {
+                    ButtonAgentCodeMapping.Visible = true;
+                }
             }
             catch (BaseApplicationException Ex)
             {
@@ -1241,14 +1258,7 @@ namespace WealthERP.Receivable
                 lnkEditStructure.ToolTip = "View commission structure section";
                 btnStructureSubmit.Visible = false;
                 btnStructureUpdate.Visible = true;
-                if (ddlCommissionype.SelectedValue == "")
-                {
-                    btnMapToscheme.Visible = true;
-                }
-                else
-                {
-                    ButtonAgentCodeMapping.Visible = true;
-                }
+
 
 
 
@@ -1276,14 +1286,7 @@ namespace WealthERP.Receivable
                 lnkAddNewStructure.Visible = true;
                 btnStructureSubmit.Visible = false;
                 btnStructureUpdate.Visible = false;
-                if (ddlCommissionype.SelectedValue == "")
-                {
-                    btnMapToscheme.Visible = true;
-                }
-                else
-                {
-                    ButtonAgentCodeMapping.Visible = true;
-                }
+
             }
 
         }

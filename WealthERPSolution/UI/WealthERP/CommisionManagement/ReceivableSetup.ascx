@@ -379,9 +379,9 @@
                     <asp:Button ID="btnStructureUpdate" CssClass="PCGButton" Text="Update" runat="server"
                         OnClick="btnStructureUpdate_Click" ValidationGroup="btnStrAddUpdate" />
                     <asp:Button ID="btnMapToscheme" CssClass="PCGMediumButton" Text="Map Scheme" runat="server"
-                        OnClick="btnMapToscheme_Click" ValidationGroup="btnStrAddUpdate" />
+                        Visible="false" OnClick="btnMapToscheme_Click" ValidationGroup="btnStrAddUpdate" />
                     <asp:Button ID="ButtonAgentCodeMapping" CssClass="PCGMediumButton" Text="Map Agents"
-                       Visible="false" runat="server" OnClick="ButtonAgentCodeMapping_Click" ValidationGroup="btnStrAddUpdate" />
+                        Visible="false" runat="server" OnClick="ButtonAgentCodeMapping_Click" ValidationGroup="btnStrAddUpdate" />
                 </td>
             </tr>
         </table>
