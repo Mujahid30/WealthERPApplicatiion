@@ -40,7 +40,7 @@ namespace WealthERP.OnlineOrderManagement
             advisorVo = (AdvisorVo)Session["advisorVo"];
             customerVO = (CustomerVo)Session["customerVo"];
             userType = Session[SessionContents.CurrentUserRole].ToString();
-            userVo = (UserVo)Session[SessionContents.UserVo];
+            userVo = (UserVo)Session["UserVo"];
             customerId = customerVO.CustomerId;
             hdnsystamaticType.Value="";
             //BindAmc();
@@ -141,14 +141,14 @@ namespace WealthERP.OnlineOrderManagement
             dtSIPBookMIS = createSIPOrderBook(dsSIPBookMIS);
             if (dtSIPBookMIS.Rows.Count > 0)
             {
-                if (Cache["SIPSumList" + advisorVo.advisorId] == null)
+                if (Cache["SIPSumList" + userVo.UserId] == null)
                 {
-                    Cache.Insert("SIPSumList" + advisorVo.advisorId, dtSIPBookMIS);
+                    Cache.Insert("SIPSumList" + userVo.UserId, dtSIPBookMIS);
                 }
                 else
                 {
-                    Cache.Remove("SIPSumList" + advisorVo.advisorId);
-                    Cache.Insert("SIPSumList" + advisorVo.advisorId, dtSIPBookMIS);
+                    Cache.Remove("SIPSumList" + userVo.UserId);
+                    Cache.Insert("SIPSumList" + userVo.UserId, dtSIPBookMIS);
                 }
                 gvSIPSummaryBookMIS.DataSource = dtSIPBookMIS;
                 gvSIPSummaryBookMIS.DataBind();
@@ -380,7 +380,7 @@ namespace WealthERP.OnlineOrderManagement
         {
             gvSIPSummaryBookMIS.Visible = true;
             DataTable dtOrderBookMIS = new DataTable();
-            dtOrderBookMIS = (DataTable)Cache["SIPSumList" + advisorVo.advisorId.ToString()];
+            dtOrderBookMIS = (DataTable)Cache["SIPSumList" + userVo.UserId.ToString()];
             if (dtOrderBookMIS != null)
             {
                 gvSIPSummaryBookMIS.DataSource = dtOrderBookMIS;
