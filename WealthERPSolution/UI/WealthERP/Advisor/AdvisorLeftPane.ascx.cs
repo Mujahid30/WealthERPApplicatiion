@@ -558,7 +558,7 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "Category")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserAssociateCategorySetup','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdvisorCategoryConfiguration','login');", true);
                 }
                 else if (e.Item.Value == "Add_Request")
                 {
