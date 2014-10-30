@@ -2,112 +2,135 @@
     Inherits="WealthERP.Advisor.AdviserAssociateCategorySetup" %>
 <%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
 
-
-<telerik:RadStyleSheetManager ID="RadStyleSheetManager1" runat="server" />
-
-<script type="text/javascript" language="javascript">
-    function keyPress(sender, args) {
-        if (args.keyCode == 13) {
-            return false;
-        }
-    }
-
-</script>
-
-<telerik:RadScriptManager ID="RadScriptManager1" runat="server">
-</telerik:RadScriptManager>
-<table>
+<script type="text/javascript" src="../Scripts/JScript.js"></script>
+<table width="100%">
     <tr>
-        <td>
-            <asp:Label ID="lblCategory" runat="server" Text="Select Category" CssClass="FieldName"></asp:Label>
-        </td>
-        <td>
-            <asp:DropDownList ID="ddlCategory" runat="server" CssClass="cmbLongField" Style="vertical-align: middle"
-                Width="200px" OnSelectedIndexChanged="ddlCategory_OnSelectedIndexChanged" AutoPostBack="true">
-            </asp:DropDownList>
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="ddlCategory"
-                InitialValue="Select" CssClass="rfvPCG" Display="Dynamic" ValidationGroup="btnGo"
-                ErrorMessage="Please Select Category"></asp:RequiredFieldValidator>
-        </td>
-        <td>
-            <asp:Button ID="btnGo" runat="server" OnClick="btnGo_Click" Text="Go" CssClass="PCGButton"
-                ValidationGroup="btnGo" />
+        <td colspan="3">
+            <div class="divPageHeading">
+                <table cellspacing="0" cellpadding="3" width="100%">
+                    <tr>
+                        <td align="left">
+                            Associate Category
+                        </td>
+                    </tr>
+                </table>
+            </div>
         </td>
     </tr>
-</table>
-<table style="width: 100%">
+    </table>
+<table style="width: 100%;" class="TableBackground">
+    <tr id="trAssignNumber" visible="false" runat="server">
+        <td class="rightField" width="20%">
+            <asp:Label ID="lblNoOfCat" CssClass="FieldName" runat="server" Text="No of Categories:"></asp:Label>
+            <asp:TextBox ID="txtNoOfCat" CssClass="txtField" runat="server"></asp:TextBox>
+            <span id="Span5" class="spnRequiredField">*</span>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtNoOfCat"
+                ErrorMessage="<br />Please enter the no. of categories" Display="Dynamic" runat="server"
+                CssClass="rfvPCG" ValidationGroup="btnSubmit"> 
+            </asp:RequiredFieldValidator>
+            <asp:CompareValidator ID="CompareValidator2" runat="server" ErrorMessage="<br />Please enter a numeric value"
+                CssClass="rfvPCG" Type="Integer" ControlToValidate="txtNoOfCat" Operator="DataTypeCheck"
+                Display="Dynamic" ValidationGroup="btnSubmit"></asp:CompareValidator>
+            <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="<br />Please enter a value less than 10"
+                CssClass="rfvPCG" Type="Integer" ControlToValidate="txtNoOfCat" Operator="LessThanEqual"
+                ValidationGroup="btnSubmit" ValueToCompare="9" Display="Dynamic"></asp:CompareValidator>
+        </td>
+        <td>
+            <asp:Button ID="BtnNoOfCat" CssClass="PCGButton" Text="Submit" runat="server" OnClick="BtnNoOfCat_Click"
+                ValidationGroup="btnSubmit" />
+        </td>
+    </tr>
+    <tr id="trMeaageDefault" runat="server" visible="false" class="Message">
+        <td>
+            <asp:Label ID="lblMessage" runat="server" Text="Default values have been generated as the Names. You may edit the same according to your choice"
+                CssClass="FieldName"></asp:Label>
+        </td>
+    </tr>
+    <tr id="trUnboundedgrid" visible="false" runat="server">
+        <td>
+            <asp:GridView ID="gvAssocCatSetUp" runat="server" AutoGenerateColumns="False" CellPadding="4"
+                CssClass="GridViewStyle" ShowFooter="true" OnRowDataBound="gvAssocCatSetUp_RowDataBound">
+                <FooterStyle CssClass="FieldName" />
+                <RowStyle CssClass="RowStyle" />
+                <EditRowStyle HorizontalAlign="Left" CssClass="EditRowStyle" />
+                <SelectedRowStyle CssClass="SelectedRowStyle" />
+                <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
+                <HeaderStyle CssClass="HeaderStyle" />
+                <AlternatingRowStyle CssClass="AltRowStyle" />
+                <Columns>
+                    <asp:BoundField DataField="RowNumber" HeaderText="Row Number" />
+                    <asp:TemplateField HeaderText="Category Code">
+                        <ItemTemplate>
+                            <asp:TextBox ID="TextBox1" runat="server" CssClass="txtField"></asp:TextBox>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Category Description">
+                        <ItemTemplate>
+                            <asp:TextBox ID="TextBox2" runat="server" CssClass="txtField"></asp:TextBox>
+                        </ItemTemplate>
+                        <FooterStyle HorizontalAlign="Right" />
+                        <FooterTemplate>
+                            <asp:Button ID="ButtonAdd" runat="server" CssClass="PCGLongButton" OnClick="ButtonAdd_Click"
+                                Text="Add New Row" />
+                        </FooterTemplate>
+                    </asp:TemplateField>
+                </Columns>
+            </asp:GridView>
+        </td>
+    </tr>
+    <tr id="trBoundedgrid" visible="false" runat="server">
+        <td>
+            <asp:GridView ID="gvAssocCatSetUpBounded" runat="server" AutoGenerateColumns="False"
+                CellPadding="4" CssClass="GridViewStyle" ShowFooter="True" OnRowDataBound="gvAssocCatSetUp_RowDataBound"
+                DataKeyNames="AssociateCategoryId" OnRowDeleting="DeleteAssocCategory">
+                <FooterStyle CssClass="FieldName" />
+                <RowStyle CssClass="RowStyle" />
+                <EditRowStyle HorizontalAlign="Left" CssClass="EditRowStyle" />
+                <SelectedRowStyle CssClass="SelectedRowStyle" />
+                <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
+                <HeaderStyle CssClass="HeaderStyle" />
+                <AlternatingRowStyle CssClass="AltRowStyle" />
+                <Columns>
+                    <asp:BoundField DataField="RowNumber" HeaderText="Row Number" />
+                    <asp:TemplateField HeaderText="Category Code">
+                        <ItemTemplate>
+                            <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("AssociateCategoryCode") %>'
+                                CssClass="txtField"></asp:TextBox>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Category Description">
+                        <ItemTemplate>
+                            <asp:TextBox ID="TextBox2" runat="server" Text='<%# Bind("AssociateCategoryName") %>'
+                                CssClass="txtField"></asp:TextBox>
+                        </ItemTemplate>
+                        <FooterStyle HorizontalAlign="Right" />
+                        <FooterTemplate>
+                            <asp:Button ID="ButtonAdd" runat="server" CssClass="PCGLongButton" OnClick="ButtonAdd_Click"
+                                Text="Add New Row" />
+                        </FooterTemplate>
+                    </asp:TemplateField>
+                    <asp:BoundField DataField="AssociateCategoryId" HeaderText="AssociateCategoryId"
+                        Visible="false" />
+                    <asp:CommandField ShowDeleteButton="True">
+                        <ControlStyle CssClass="Error" />
+                    </asp:CommandField>
+                </Columns>
+            </asp:GridView>
+        </td>
+    </tr>
     <tr>
         <td>
-            <telerik:RadGrid ID="gvAdvisorCategory" runat="server" Skin="Telerik" CssClass="RadGrid"
-                GridLines="None" AllowPaging="True" PageSize="10" AllowSorting="True" AutoGenerateColumns="False"
-                ShowStatusBar="true" AllowAutomaticDeletes="false" AllowAutomaticInserts="false"
-                OnNeedDataSource="gvAdvisorCategory_OnNeedDataSource" OnItemDataBound="gvAdvisorCategory_ItemDataBound"
-                OnItemCommand="gvAdvisorCategory_ItemCommand" AllowAutomaticUpdates="false" HorizontalAlign="NotSet"
-                DataKeyNames="" ShowFooter="true" Width="60%">
-                <MasterTableView CommandItemDisplay="Top" EditMode="PopUp" DataKeyNames="A_AdviserId,AC_CategoryName,ACM_ID,AC_CategoryId"
-                    EnableEmbeddedSkins="false">
-                    <Columns>
-                        <telerik:GridEditCommandColumn EditText="Edit" UniqueName="editColumn" CancelText="Cancel"
-                            UpdateText="Update">
-                        </telerik:GridEditCommandColumn>
-                        <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="Category Id" HeaderTooltip="Category Id"
-                            DataField="ACM_Id" HeaderStyle-HorizontalAlign="Right" UniqueName="ACM_Id" SortExpression="ACM_Id"
-                            AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                            DataFormatString="{0:N0}" FooterStyle-HorizontalAlign="Right">
-                            <ItemStyle HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                        </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="Category Name" HeaderTooltip="Category Name"
-                            DataField="AC_CategoryName" HeaderStyle-HorizontalAlign="Right" UniqueName="AC_CategoryName"
-                            SortExpression="AC_CategoryName" AutoPostBackOnFilter="true" AllowFiltering="false"
-                            ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N0}"
-                            FooterStyle-HorizontalAlign="Right">
-                            <ItemStyle HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                        </telerik:GridBoundColumn>
-                        <telerik:GridButtonColumn UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete this Category?"
-                            ConfirmDialogType="RadWindow" ConfirmTitle="Delete" ButtonType="LinkButton" CommandName="Delete"
-                            Text="Delete">
-                            <ItemStyle HorizontalAlign="Center" CssClass="MyImageButton" />
-                        </telerik:GridButtonColumn>
-                    </Columns>
-                    <EditFormSettings InsertCaption="Add" FormTableStyle-HorizontalAlign="Center" CaptionFormatString="Edit"
-                        FormCaptionStyle-CssClass="TableBackground" PopUpSettings-Modal="true" PopUpSettings-ZIndex="20"
-                        EditFormType="Template" FormCaptionStyle-Width="100%" PopUpSettings-Height="260px"
-                        PopUpSettings-Width="300px">
-                        <FormTemplate>
-                            <table>
-                                <tr>
-                                    <td class="leftField">
-                                        <asp:Label ID="lblCategoryName" runat="server" Text="Category Name" CssClass="FieldName"></asp:Label>
-                                    </td>
-                                    <td>
-                                        <asp:TextBox ID="txtCategoryName" runat="server" Style="vertical-align: middle" Width="200px">
-                                        </asp:TextBox>
-                                        <asp:RequiredFieldValidator ID="rfvCategoryName" runat="server" ControlToValidate="txtCategoryName"
-                                            CssClass="rfvPCG" Display="Dynamic" ValidationGroup="Button1" ErrorMessage="Please Select Category">
-                                        </asp:RequiredFieldValidator>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                    </td>
-                                    <td align="left" colspan="2">
-                                        <asp:Button ID="Button1" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
-                                            ValidationGroup="Button1" CssClass="PCGButton" runat="server" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'>
-                                        </asp:Button>&nbsp;
-                                        <asp:Button ID="Button2" CssClass="PCGButton" Text="Cancel" runat="server" CausesValidation="False"
-                                            CommandName="Cancel"></asp:Button>
-                                    </td>
-                                    <td>
-                                    </td>
-                                </tr>
-                            </table>
-                        </FormTemplate>
-                    </EditFormSettings>
-                </MasterTableView>
-                <ClientSettings>
-                    <ClientEvents />
-                </ClientSettings>
-            </telerik:RadGrid>
+            &nbsp;
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <asp:Button ID="btnSave" CssClass="PCGButton" Text="Save" runat="server" OnClick="btnSave_Click" />
+        </td>
+    </tr>
+    <tr id="trError" runat="server" visible="false">
+        <td class="Message">
+            <asp:Label ID="lblError" CssClass="Error" runat="server"></asp:Label>
         </td>
     </tr>
 </table>
