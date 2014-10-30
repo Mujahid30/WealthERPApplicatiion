@@ -5028,7 +5028,8 @@ namespace WealthERP.Reports
         {
             string reportFileName;
             bool isMailSent=false;
-
+            if (string.IsNullOrEmpty(associateMailId))
+                associateMailId = hidTo.Value;
             if (welcomeNote == "1" && !string.IsNullOrEmpty(associateMailId))
             {
                 string fileName = associateId.ToString() + ".pdf";
