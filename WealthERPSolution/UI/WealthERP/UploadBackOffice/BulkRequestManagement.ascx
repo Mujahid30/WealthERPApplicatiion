@@ -207,7 +207,7 @@
                                 OnItemCommand="gvBulkOrderStatusList_OnItemCommand" Visible="true">
                                 <ExportSettings HideStructureColumns="true">
                                 </ExportSettings>
-                                <MasterTableView DataKeyNames="RequestId,FileNamePath" Width="99%" AllowMultiColumnSorting="True"
+                                <MasterTableView DataKeyNames="RequestId,IssueName,RequestDateTime,FileNamePath" Width="99%" AllowMultiColumnSorting="True"
                                     AutoGenerateColumns="false">
                                     <Columns>
                                         <telerik:GridButtonColumn CommandName="Download" Text="Download" HeaderText="File download"

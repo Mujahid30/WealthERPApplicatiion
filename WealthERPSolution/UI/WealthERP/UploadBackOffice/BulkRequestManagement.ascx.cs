@@ -13,6 +13,7 @@ using BoOnlineOrderManagement;
 using BoCommon;
 using VoUser;
 using VoOnlineOrderManagemnet;
+using System.Net;
 
 namespace WealthERP.UploadBackOffice
 {
@@ -183,16 +184,20 @@ namespace WealthERP.UploadBackOffice
             if (e.CommandName == "Download")
             {
                 GridDataItem ditem = (GridDataItem)e.Item;
-                string filename = ditem["FileNamePath"].Text;
+                string filenamepath = ditem["FileNamePath"].Text.ToString().Trim();
+                string issuename = ditem["IssueName"].Text.ToString().Trim();
+                string RequestId = ditem["RequestId"].Text.ToString().Trim();
+                string RequestDateTime = ditem["RequestDateTime"].Text.ToString().Substring(0, ditem["RequestDateTime"].Text.ToString().IndexOf(' '));
+                string fileName = (RequestId + "_" + issuename + RequestDateTime + ".xlsx").Replace(" ", "").Trim();
                 //string path = MapPath("C:\\Users\\Jgeorge\\Downloads\\" + filename);
-                if (filename != null || filename == "&nbsp;")
+                if (filenamepath != null || filenamepath == "&nbsp;")
                  {
-                     byte[] bts = System.IO.File.ReadAllBytes(filename);
+                     byte[] bts = System.IO.File.ReadAllBytes(filenamepath);
                      Response.Clear();
                      Response.ClearHeaders();
-                     Response.AddHeader("Content-Type", "Application/octet-stream");
+                     Response.ContentType = "application/vnd.xlsx";
                      Response.AddHeader("Content-Length", bts.Length.ToString());
-                     Response.AddHeader("Content-Disposition", "attachment; filename=" + filename);
+                     Response.AddHeader("Content-Disposition", "attachment; filename=" + fileName);
                      Response.BinaryWrite(bts);
                      Response.Flush();
                      Response.End();
