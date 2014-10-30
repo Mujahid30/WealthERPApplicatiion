@@ -75,6 +75,7 @@ namespace WealthERP.Associates
                 BindDepartmentRole();
                 BindSubTypeDropDown("IND");
                 RadTab radTABChildCodes = RadTabStripAssociatesDetails.Tabs.FindTabByValue("Child_Codes");
+                btnPreviewSend.OnClientClick = "window.document.forms[0].target='_blank'; setTimeout(function(){window.document.forms[0].target='';}, 500);";
                 if (Request.QueryString["action"] != "" && Request.QueryString["action"] != null)
                 {
                     BtnSave.Visible = false;
@@ -96,27 +97,8 @@ namespace WealthERP.Associates
                         BindChildCodeLabel(associatesVo.AAC_AdviserAgentId);
                         associateId = associatesVo.AdviserAssociateId;
                         btnPreviewSend.Visible = true;
-                        btnPreviewSend.OnClientClick = "window.document.forms[0].target='_blank'; setTimeout(function(){window.document.forms[0].target='';}, 500);";
-                        if (associatesVo.WelcomeNotePath == "")
-                        {
-
-                            btnPreviewSend.PostBackUrl = "~/Reports/Display.aspx?welcomeNote=1&associateId=" + associateId.ToString();
-                        }
-                        else
-                        {
-                            //string s = "\";
-                            //btnPreviewSend.PostBackUrl = associatesVo.WelcomeNotePath;
-                            //string appPath = Server.MapPath("/Reports/TempReports/ViewInPDF/") + associatesVo.WelcomeNotePath;
-                            //btnPreviewSend.PostBackUrl = appPath;
-                             //Response.Redirect("Reports/TempReports/ViewInPDF//" + associatesVo.WelcomeNotePath);
-                            //Response.Redirect(Server.MapPath("~/Reports/TempReports/ViewInPDF//") + associatesVo.WelcomeNotePath);
-                            //string as=HttpContext.Current.Request.MapPath("~/Example.txt");
-                            ////Response.Redirect(appPath);
-                            //btnPreviewSend.PostBackUrl =Server.MapPath("~Reports/TempReports/ViewInPDF//" + associatesVo.WelcomeNotePath);
-                             //Response.Write(@"<script>window.open('" + "Reports/TempReports/ViewInPDF//" + associatesVo.WelcomeNotePath + "','_blank');</script>");
-                            //Response.Redirect(appPath);
-                            //btnPreviewSend.PostBackUrl = @"file://" + appPath.Replace(@"\", @"/");
-                        }
+                        
+                        
                     }
                     else if (Request.QueryString["action"].Trim() == "Edit")
                     //if (viewAction == "Edit" || viewAction == "EditFromRequestPage")
@@ -136,16 +118,7 @@ namespace WealthERP.Associates
                         lbkbtnAddChildCodes.Enabled = true;
                         btnPreviewSend.Visible = true;
                         BindChildCodeLabel(associatesVo.AAC_AdviserAgentId);
-                        if (associatesVo.WelcomeNotePath == "")
-                        {
-
-                            btnPreviewSend.PostBackUrl = "~/Reports/Display.aspx?welcomeNote=1&associateId=" + associateId.ToString();
-
-                        }
-                        else
-                        {
-                           
-                        }
+                       
                     }
                     
                 }
@@ -1791,6 +1764,11 @@ namespace WealthERP.Associates
             {
                 string targetPath = ConfigurationManager.AppSettings["Welcome_Note_PATH"].ToString();
                 Response.Redirect(targetPath + associatesVo.WelcomeNotePath);
+            }
+            if (string.IsNullOrEmpty(associatesVo.WelcomeNotePath))
+            {
+                Response.Redirect("~/Reports/Display.aspx?welcomeNote=1&associateId=" + associatesVo.AdviserAssociateId);
+                //btnPreviewSend.PostBackUrl = "~/Reports/Display.aspx?welcomeNote=1&associateId=" + associateId.ToString();
             }
         }
     }

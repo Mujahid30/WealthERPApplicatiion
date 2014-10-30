@@ -473,9 +473,9 @@
                     </td>
                     <td>
                         <asp:TextBox ID="txtMobile1" runat="server" CssClass="txtField" MaxLength="10"></asp:TextBox>
-                        <asp:RegularExpressionValidator ID="rvMobile1" runat="server" ValidationGroup="btnEdit"
-                            ControlToValidate="txtMobile1" Display="Dynamic" ErrorMessage="<br />Telephone Number must be 7-11 digit"
-                            ValidationExpression="^((\+)?(\d{2}[-]))?(\d{10}){1}?$"></asp:RegularExpressionValidator>
+                        <asp:RegularExpressionValidator ID="rvMobile1" runat="server" ValidationGroup="Submit"
+                            ControlToValidate="txtMobile1" Display="Dynamic" ErrorMessage="<br />Mobile Number must be 10 digit"
+                         CssClass="rfvPCG"   ValidationExpression="^((\+)?(\d{2}[-]))?(\d{10}){1}?$"></asp:RegularExpressionValidator>
                     </td>
                 </tr>
                 <tr>
