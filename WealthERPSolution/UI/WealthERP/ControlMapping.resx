@@ -1989,4 +1989,8 @@
     <value>CommisionManagement//PayableStructureToAgentCategoryMapping.ascx</value>
     <comment>CommisionManagement//PayableStructureToAgentCategoryMapping.ascx</comment>
   </data>
+  <data name="AdvisorCategoryConfiguration" xml:space="preserve">
+    <value>AdvsierPreferenceSettings//AdvisorCategoryConfiguration.ascx</value>
+    <comment>AdvsierPreferenceSettings//AdvisorCategoryConfiguration.ascx</comment>
+  </data>
 </root>

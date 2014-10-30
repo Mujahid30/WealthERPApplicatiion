@@ -1143,6 +1143,13 @@
     <Compile Include="AdvsierPreferenceSettings\AdviserRoleToTreeNodeMapping.ascx.designer.cs">
       <DependentUpon>AdviserRoleToTreeNodeMapping.ascx</DependentUpon>
     </Compile>
+    <Compile Include="AdvsierPreferenceSettings\AdvisorCategoryConfiguration.ascx.cs">
+      <DependentUpon>AdvisorCategoryConfiguration.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdvsierPreferenceSettings\AdvisorCategoryConfiguration.ascx.designer.cs">
+      <DependentUpon>AdvisorCategoryConfiguration.ascx</DependentUpon>
+    </Compile>
     <Compile Include="AdvsierPreferenceSettings\CustomerCategorySetup.ascx.cs">
       <DependentUpon>CustomerCategorySetup.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -4730,6 +4737,7 @@
     <Content Include="Advisor\ViewStaffDashBoard.ascx" />
     <Content Include="AdvsierPreferenceSettings\AdviserDepartmentRoleSetup.ascx" />
     <Content Include="AdvsierPreferenceSettings\AdviserRoleToTreeNodeMapping.ascx" />
+    <Content Include="AdvsierPreferenceSettings\AdvisorCategoryConfiguration.ascx" />
     <Content Include="AdvsierPreferenceSettings\CustomerCategorySetup.ascx" />
     <Content Include="Alerts\AdviserAlertConfiguration.ascx" />
     <Content Include="Alerts\AlertDashboard.ascx" />

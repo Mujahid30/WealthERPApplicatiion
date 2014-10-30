@@ -502,6 +502,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to AdvsierPreferenceSettings//AdvisorCategoryConfiguration.ascx.
+        /// </summary>
+        internal static string AdvisorCategoryConfiguration {
+            get {
+                return ResourceManager.GetString("AdvisorCategoryConfiguration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Advisor//CustomerFolioMerge.ascx.
         /// </summary>
         internal static string AdvisorCustomerAccounts {
