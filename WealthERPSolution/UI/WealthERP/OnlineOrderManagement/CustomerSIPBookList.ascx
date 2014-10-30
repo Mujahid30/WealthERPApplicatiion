@@ -29,7 +29,7 @@
         <table cellspacing="0" cellpadding="3" width="100%">
             <tr>
                 <td align="right" style="width: 10px">
-                    <asp:LinkButton runat="server" ID="lbBack" CssClass="LinkButtons" Text="Back" Visible="false"
+                    <asp:LinkButton runat="server" ID="lbBack" CssClass="LinkButtons" OnClick="lbBack1_OnClick" Text="Back" Visible="false"
                         ></asp:LinkButton>
                     &nbsp;
                     <asp:ImageButton Visible="false" ID="btnExport" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"

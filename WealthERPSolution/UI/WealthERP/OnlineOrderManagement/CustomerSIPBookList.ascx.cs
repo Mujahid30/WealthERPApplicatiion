@@ -28,7 +28,7 @@ namespace WealthERP.OnlineOrderManagement
         MFOrderVo mforderVo = new MFOrderVo();
         OrderVo orderVo = new OrderVo();
         string userType;
-        int customerId = 0;       
+        int customerId = 0;
         DateTime fromDate;
         DateTime toDate;
         int systematicId = 0;
@@ -42,7 +42,7 @@ namespace WealthERP.OnlineOrderManagement
             BindAmc();
             BindOrderStatus();
             BindLink();
-            lbBack.Attributes.Add("onClick", "javascript:history.back(); return false;");
+            //lbBack.Attributes.Add("onClick", "javascript:history.back(); return false;");
             if (!Page.IsPostBack)
             {
                 fromDate = DateTime.Now.AddMonths(-1);
@@ -57,6 +57,8 @@ namespace WealthERP.OnlineOrderManagement
             if (Request.QueryString["systematicId"] != null)
             {
                 int systematicId = int.Parse(Request.QueryString["systematicId"].ToString());
+                int amcCode = int.Parse(Request.QueryString["AmcCode"].ToString());
+                string systematictype = Request.QueryString["systematicType"].ToString();
                 ViewState["systematicId"] = int.Parse(systematicId.ToString());
                 string OrderStatus = string.Empty;
 
@@ -67,17 +69,18 @@ namespace WealthERP.OnlineOrderManagement
                 }
                 else
                 {
-                    ViewState["OrderStatus"] =null;
+                    ViewState["OrderStatus"] = null;
                 }
-                
-                string fromdate = "01-01-1990";
-                txtFrom.SelectedDate = DateTime.Parse(fromdate);                
+
+                string fromdate = Request.QueryString["FromDate"].ToString();
+                string todate = Request.QueryString["ToDate"].ToString();
+                txtFrom.SelectedDate = DateTime.Parse(fromdate);
                 hdnAmc.Value = "0";
                 BindSIPBook(DateTime.Parse(fromdate), DateTime.Now);
                 lbBack.Visible = true;
             }
         }
-              
+
         protected void btnViewOrder_Click(object sender, EventArgs e)
         {
             SetParameter();
@@ -117,7 +120,7 @@ namespace WealthERP.OnlineOrderManagement
             ddlAMCCode.Items.Clear();
             DataSet ds = new DataSet();
             DataTable dtAmc = new DataTable();
-            ds = OnlineMFOrderBo.GetSIPAmcDetails(customerId,"SIP");
+            ds = OnlineMFOrderBo.GetSIPAmcDetails(customerId, "SIP");
             dtAmc = ds.Tables[0];
             if (dtAmc.Rows.Count > 0)
             {
@@ -125,7 +128,7 @@ namespace WealthERP.OnlineOrderManagement
                 ddlAMCCode.DataValueField = dtAmc.Columns["PA_AMCCode"].ToString();
                 ddlAMCCode.DataTextField = dtAmc.Columns["PA_AMCName"].ToString();
                 ddlAMCCode.DataBind();
-                              
+
             }
             ddlAMCCode.Items.Insert(0, new ListItem("All", "0"));
         }
@@ -152,7 +155,7 @@ namespace WealthERP.OnlineOrderManagement
         /// <summary>
         /// Get Order Book MIS
         /// </summary>
-        protected void BindSIPBook(DateTime fromDate,DateTime toDate)
+        protected void BindSIPBook(DateTime fromDate, DateTime toDate)
         {
             DataSet dsSIPBookMIS = new DataSet();
             DataTable dtSIPBookMIS = new DataTable();
@@ -224,18 +227,18 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void gvSIPBookMIS_OnItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
         {
-          if (e.CommandName == "Edit")
+            if (e.CommandName == "Edit")
             {
                 string orderId = gvSIPBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_OrderId"].ToString();
                 string customerId = gvSIPBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["C_CustomerId"].ToString();
                 string assetGroupCode = gvSIPBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["PAG_AssetGroupCode"].ToString();
                 if (assetGroupCode == "MF")
                 {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('MFOrderSIPTransType','&orderId=" + orderId + "&customerId=" + customerId + "');", true);     
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('MFOrderSIPTransType','&orderId=" + orderId + "&customerId=" + customerId + "');", true);
                 }
             }
 
-        }        
+        }
         //protected void ddlMenu_SelectedIndexChanged(object sender, EventArgs e)
         //{
 
@@ -267,7 +270,7 @@ namespace WealthERP.OnlineOrderManagement
         //        Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showmessage();", true);
         //    }
         //}
-           
+
         protected void gvSIPBookMIS_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
             gvSIPBookMIS.Visible = true;
@@ -290,22 +293,45 @@ namespace WealthERP.OnlineOrderManagement
             gvSIPBookMIS.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
             gvSIPBookMIS.MasterTableView.ExportToExcel();
         }
+        protected void lbBack1_OnClick(object sender, EventArgs e)
+        {
+            if (Request.QueryString["systematicId"] != null)
+            {
+                int systematicId = int.Parse(Request.QueryString["systematicId"].ToString());
+                int AmcCode = int.Parse(Request.QueryString["AmcCode"].ToString());
+                string fromdate = Request.QueryString["FromDate"].ToString();
+                string todate = Request.QueryString["ToDate"].ToString();
+                string systematictype = Request.QueryString["systematicType"].ToString();
+                ViewState["systematicId"] = int.Parse(systematicId.ToString());
+                string OrderStatus = string.Empty;
 
+                if (Request.QueryString["OrderStatus"] != null)
+                {
+                    OrderStatus = Request.QueryString["OrderStatus"].ToString();
+                    ViewState["OrderStatus"] = OrderStatus;
+                }
+                else
+                {
+                    ViewState["OrderStatus"] = null;
+                }
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "SIPBookSummmaryList", "loadcontrol('SIPBookSummmaryList','?systematicId=" + systematicId + "&OrderStatus=" + OrderStatus + "&AmcCode=" + AmcCode + "&FromDate=" + fromdate + "&ToDate=" + todate + "&systematicType=" + systematictype + "');", true);
+            }
+        }
 
         #region DDLVIEWEDITSELECTION
-         
+
         protected void ddlAction_OnSelectedIndexChange(object sender, EventArgs e)
         {
 
-                RadComboBox ddlAction = (RadComboBox)sender;
-          
-                GridDataItem gvr = (GridDataItem)ddlAction.NamingContainer;
-                int selectedRow = gvr.ItemIndex + 1;
-                string strAction = string.Empty;
+            RadComboBox ddlAction = (RadComboBox)sender;
+
+            GridDataItem gvr = (GridDataItem)ddlAction.NamingContainer;
+            int selectedRow = gvr.ItemIndex + 1;
+            string strAction = string.Empty;
 
 
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('MFOrderSIPTransType','strAction=" + ddlAction.SelectedValue + "');", true);
-                  
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('MFOrderSIPTransType','strAction=" + ddlAction.SelectedValue + "');", true);
+
 
         }
         #endregion
