@@ -1561,7 +1561,7 @@ namespace DaoOnlineOrderManagement
             return dsGetSubCategory;
         }
 
-        public DataSet GetIssuerIssue(int advisorId, string product)
+        public DataSet GetIssuerIssue(int advisorId, string product, int businessChannel, string orderStatus)
         {
             DataSet dsGetIssuerIssue;
             Microsoft.Practices.EnterpriseLibrary.Data.Database db;
@@ -1572,6 +1572,8 @@ namespace DaoOnlineOrderManagement
                 dbCommand = db.GetStoredProcCommand("SPROC_GetIssuerIssues");
                 db.AddInParameter(dbCommand, "@adviserId", DbType.Int32, advisorId);
                 db.AddInParameter(dbCommand, "@product", DbType.String, product);
+                db.AddInParameter(dbCommand, "@businessChannel", DbType.Int32, businessChannel);
+              //  db.AddInParameter(dbCommand, "@orderStatus", DbType.String, orderStatus);
 
                 dsGetIssuerIssue = db.ExecuteDataSet(dbCommand);
             }

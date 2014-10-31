@@ -125,7 +125,7 @@
         <td class="rightLabelData">--%>
         <td>
             <asp:DropDownList ID="ddlBChannnel" runat="server" CssClass="cmbLongField" AutoPostBack="true"
-                Width="150px">
+                OnSelectedIndexChanged="ddlBChannnel_SelectedIndexChanged" Width="150px">
             </asp:DropDownList>
             <%-- <span id="Span10" class="spnRequiredField">*</span>--%>
             <span id="Span20" class="spnRequiredField">*</span>
@@ -135,7 +135,8 @@
                 InitialValue="Select"></asp:RequiredFieldValidator>
         </td>
         <td align="right">
-          &nbsp;&nbsp  <asp:Label ID="lblOrderStatus" runat="server" Text="Order Status: " CssClass="FieldName"></asp:Label>
+            &nbsp;&nbsp
+            <asp:Label ID="lblOrderStatus" runat="server" Text="Order Status: " CssClass="FieldName"></asp:Label>
         </td>
         <td>
             <asp:DropDownList ID="ddlOrderStatus" runat="server" CssClass="cmbField" AutoPostBack="true"
@@ -145,7 +146,7 @@
             <br />
             <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ErrorMessage="Please Select Status"
                 CssClass="rfvPCG" ControlToValidate="ddlOrderStatus" ValidationGroup="btnGo"
-                Display="Dynamic" InitialValue="Select"></asp:RequiredFieldValidator>
+                Display="Dynamic" InitialValue="0"></asp:RequiredFieldValidator>
         </td>
     </tr>
     <tr id="trOrderStatus" runat="server">
