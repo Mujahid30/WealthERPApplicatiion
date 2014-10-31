@@ -396,7 +396,16 @@ namespace WealthERP.OPS
                     lblGetBranch.Text = dr["AB_BranchName"].ToString();
                     lblgetPan.Text = dr["C_PANNum"].ToString();
 
-
+                    ddltransType.SelectedValue = dr["WMTT_TransactionClassificationCode"].ToString();
+                    if (ddltransType.SelectedValue == "SWB")
+                    {
+                        BindAMC(1);
+                    }
+                    else
+                    {
+                        BindAMC(0);
+                    }
+                    
 
                     if (!string.IsNullOrEmpty(dr["PA_AMCCode"].ToString().Trim()))
                         ddlAMCList.SelectedValue = dr["PA_AMCCode"].ToString();
@@ -420,7 +429,6 @@ namespace WealthERP.OPS
                         hidFolioNumber.Value = "0";
                     txtFolioNumber.Text = dr["CMFA_FolioNum"].ToString();
 
-                    ddltransType.SelectedValue = dr["WMTT_TransactionClassificationCode"].ToString();
                     GetAmcBasedonTransactionType(ddltransType.SelectedValue);
                     txtOrderDate.SelectedDate = DateTime.Parse(dr["CO_OrderDate"].ToString());
 
@@ -465,7 +473,7 @@ namespace WealthERP.OPS
                         ddlBankName.SelectedValue = dr["CB_CustBankAccId"].ToString();
                     else
                         orderVo.CustBankAccId = 0;
-
+                    if( ddlBankName.SelectedValue !="Select")
                     BankBranches(Convert.ToInt32(ddlBankName.SelectedValue));
 
                     if (!string.IsNullOrEmpty(dr["BranchName"].ToString()))
@@ -3931,7 +3939,10 @@ namespace WealthERP.OPS
                 mforderVo.EndDate = DateTime.Parse(txtendDateSIP.SelectedDate.ToString());
             else
                 mforderVo.EndDate = DateTime.MinValue;
-            mforderVo.BankBranchId = Convert.ToInt32(ddlBranch.SelectedValue);
+            if (!string.IsNullOrEmpty((ddlBranch.SelectedValue).ToString().Trim()))
+                mforderVo.BankBranchId = Convert.ToInt32(ddlBranch.SelectedValue);
+            else
+                mforderVo.BankBranchId = 0;
             //}
             //else if (ddltransType.SelectedValue == "STB" || ddltransType.SelectedValue == "SWP")
             //{
