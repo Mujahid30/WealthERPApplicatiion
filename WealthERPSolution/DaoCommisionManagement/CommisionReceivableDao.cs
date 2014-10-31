@@ -107,7 +107,7 @@ namespace DaoCommisionManagement
             return ds;
         }
 
-        public DataSet GetIssuesStructureMapings(int adviserId, string mappedType, string issueType, string product, int IsOnlineIssue)
+        public DataSet GetIssuesStructureMapings(int adviserId, string mappedType, string issueType, string product, int IsOnlineIssue, int structureId)
         {
             Database db;
             DbCommand cmdIssueMap;
@@ -121,7 +121,9 @@ namespace DaoCommisionManagement
                 db.AddInParameter(cmdIssueMap, "@mappedType", DbType.String, mappedType);
                 db.AddInParameter(cmdIssueMap, "@issueType", DbType.String, issueType);
                 db.AddInParameter(cmdIssueMap, "@product", DbType.String, product);
+                db.AddInParameter(cmdIssueMap, "@structureId", DbType.Int32, structureId);
 
+                
                 db.AddInParameter(cmdIssueMap, "@IsOnlineIssue", DbType.Int16, IsOnlineIssue);
                 ds = db.ExecuteDataSet(cmdIssueMap);
             }
@@ -197,7 +199,7 @@ namespace DaoCommisionManagement
                 cmdCreateCommissionStructure = db.GetStoredProcCommand("SPROC_CreateAdviserPayableStructureAgentCategoryMapping");
                 db.AddInParameter(cmdCreateCommissionStructure, "@CommissionStructureId", DbType.Int64, StructureId);
                 db.AddInParameter(cmdCreateCommissionStructure, "@UserType", DbType.String, userType);
-                db.AddInParameter(cmdCreateCommissionStructure, "@StaffCategory", DbType.String, Category);
+                db.AddInParameter(cmdCreateCommissionStructure, "@StaffCategory", DbType.Int64, Category);
                 db.AddInParameter(cmdCreateCommissionStructure, "@AgentId", DbType.String, agentId);
 
                 db.AddOutParameter(cmdCreateCommissionStructure, "@id", DbType.Int64, 1000000);

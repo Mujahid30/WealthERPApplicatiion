@@ -1263,8 +1263,6 @@ namespace WealthERP.Receivable
                 btnStructureUpdate.Visible = true;
 
 
-
-
             }
             else
             {

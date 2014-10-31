@@ -2635,7 +2635,7 @@ namespace DaoAdvisorProfiling
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                GetAdviserCustomerCategoryCmd = db.GetStoredProcCommand("SP_GetAdviserCategory");
+                GetAdviserCustomerCategoryCmd = db.GetStoredProcCommand("SPROC_GetAdviserCategory");
                 db.AddInParameter(GetAdviserCustomerCategoryCmd, "@AdviserId", DbType.Int16, AdviserId);
                 dsGetAdviserCustomerCategory = db.ExecuteDataSet(GetAdviserCustomerCategoryCmd);
             }

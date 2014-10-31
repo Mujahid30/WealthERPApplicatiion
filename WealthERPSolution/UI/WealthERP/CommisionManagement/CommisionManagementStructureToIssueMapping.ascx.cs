@@ -49,11 +49,16 @@ namespace WealthERP.CommisionManagement
         {
             DataTable dtmappedIssues = new DataTable();
             string product = string.Empty;
+            int structureId=0;
             if (Request.QueryString["Product"] != null)
             {
                 product = Request.QueryString["Product"].ToString();
             }
-            dtmappedIssues = commisionReceivableBo.GetIssuesStructureMapings(advisorVo.advisorId, type, issueType, product, 0).Tables[0];
+            if (Request.QueryString["ID"] != null)
+            {
+                structureId = Convert.ToInt32(Request.QueryString["ID"].Trim().ToString());
+            }
+            dtmappedIssues = commisionReceivableBo.GetIssuesStructureMapings(advisorVo.advisorId, type, issueType, product, 0, structureId).Tables[0];
             if (dtmappedIssues == null)
                 return;
             if (dtmappedIssues.Rows.Count == 0)

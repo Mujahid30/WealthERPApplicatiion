@@ -1562,6 +1562,7 @@ namespace WealthERP.Associates
                 lblPanDuplicate.Visible = false;
                 lblPanlength.Visible = false;
             }
+            associatesVo.AdviserCategory = ddlAdviserCategory.SelectedValue;
             associatesIds = associatesBo.CreateCompleteAssociates(associateUserVo, associatesVo, userVo.UserId);
             associatesVo.UserId = associatesIds[0];
             associatesVo.AdviserAssociateId = associatesIds[1];

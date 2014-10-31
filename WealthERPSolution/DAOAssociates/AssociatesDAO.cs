@@ -64,6 +64,8 @@ namespace DAOAssociates
                 db.AddOutParameter(completeAssociatesCmd, "@AAC_AdviserAgentId", DbType.Int32, 10);
                 db.AddOutParameter(completeAssociatesCmd, "@U_UserId", DbType.Int32, 10);
                 db.AddInParameter(completeAssociatesCmd, "@roleIds", DbType.String, associatesVo.Roleid);
+
+                db.AddInParameter(completeAssociatesCmd, "@CategoryId", DbType.String, associatesVo.AdviserCategory);
                 if (db.ExecuteNonQuery(completeAssociatesCmd) != 0)
                 {
 
@@ -1356,8 +1358,8 @@ namespace DAOAssociates
                         associatesVo.AssociationExpairyDate = DateTime.Parse(dr["AA_ExpiryDate"].ToString());
                     if (bool.Parse(dr["AA_IsActive"].ToString().ToUpper()) != false)
                         associatesVo.IsActive = 1;
-
-
+                    if(!string.IsNullOrEmpty(dr["AC_CategoryId"].ToString()))
+                    associatesVo.AdviserCategory=dr["AC_CategoryId"].ToString();
 
                 }
             }
