@@ -69,7 +69,7 @@ namespace WealthERP.OnlineOrderManagement
         {
             ddlAmc.Items.Clear();
             DataSet ds = new DataSet();
-            ds = onlineMforderBo.GetCustomerHoldingAMCList(customerVo.CustomerId,'R');
+            ds = onlineMforderBo.GetCustomerHoldingAMCList(customerVo.CustomerId, 'R');
             if (ds.Tables[0].Rows.Count > 0)
             {
                 ddlAmc.DataSource = ds.Tables[0];
@@ -107,7 +107,7 @@ namespace WealthERP.OnlineOrderManagement
 
         protected void ddlScheme_onSelectedChanged(object sender, EventArgs e)
         {
-            
+
         }
         protected void ddlFolio_OnSelectedIndexChanged(object sender, EventArgs e)
         {
@@ -115,7 +115,7 @@ namespace WealthERP.OnlineOrderManagement
             {
 
                 GetControlDetails(int.Parse(ddlScheme.SelectedValue), ddlFolio.SelectedValue, "SO");
-                
+
             }
         }
 
@@ -317,8 +317,8 @@ namespace WealthERP.OnlineOrderManagement
                     ddlSwitchFolio.DataValueField = dtGetAmcFolioNo.Columns["CMFA_AccountId"].ToString();
                     ddlSwitchFolio.DataBind();
                     ddlSwitchFolio.Items.Insert(0, new ListItem("Select", "0"));
-                   
-                   
+
+
                 }
 
 
@@ -340,8 +340,8 @@ namespace WealthERP.OnlineOrderManagement
             {
                 BindSchemeDividendTypes(int.Parse(ddlSchemeName.SelectedValue));
                 GetControlDetails(int.Parse(ddlSchemeName.SelectedValue), null, "SI");
-               
-                
+
+
             }
         }
         protected void PurchaseOrderControlsEnable(bool enable)
@@ -465,10 +465,10 @@ namespace WealthERP.OnlineOrderManagement
         {
             OnlineMFOrderVo[] onlinemforderVo = new OnlineMFOrderVo[2];
             List<OnlineMFOrderVo> lsonlinemforder = new List<OnlineMFOrderVo>();
-            onlinemforderVo[0]= new OnlineMFOrderVo();
+            onlinemforderVo[0] = new OnlineMFOrderVo();
             onlinemforderVo[0].SchemePlanCode = Int32.Parse(ddlScheme.SelectedValue.ToString());
             onlinemforderVo[0].AccountId = Int32.Parse(ddlFolio.SelectedValue.ToString());
-            
+
             List<int> OrderIds = new List<int>();
 
             if (!string.IsNullOrEmpty(lblAmtVale.Text.ToString()))
@@ -491,7 +491,7 @@ namespace WealthERP.OnlineOrderManagement
             lsonlinemforder.Add(onlinemforderVo[1]);
             OrderIds = onlineMforderBo.CreateOnlineMFSwitchOrderDetails(lsonlinemforder, userVo.UserId, customerVo.CustomerId);
             OrderId = int.Parse(OrderIds[0].ToString());
-            char msgType='s';
+            char msgType = 's';
             ShowMessage(message, msgType);
 
         }
@@ -541,26 +541,27 @@ namespace WealthERP.OnlineOrderManagement
         {
             if (ddlSchemeType.SelectedIndex != 0)
             {
-                if (char.Parse(ddlSchemeType.SelectedValue) == 'N')
+                if (ddlSchemeType.SelectedValue.ToString() == "N")
                 {
-                    BindSwitchScheme(int.Parse(ddlAmc.SelectedValue), null, customerVo.CustomerId, char.Parse(ddlSchemeType.SelectedValue));
+                    BindSwitchScheme(int.Parse(ddlAmc.SelectedValue), null, customerVo.CustomerId, char.Parse(ddlSchemeType.SelectedValue), 'P', 0);
+
                 }
                 else
                 {
-                    BindSwitchScheme(int.Parse(ddlAmc.SelectedValue), null, customerVo.CustomerId, char.Parse(ddlSchemeType.SelectedValue));
-
+                    BindSwitchScheme(int.Parse(ddlAmc.SelectedValue), null, customerVo.CustomerId, char.Parse(ddlSchemeType.SelectedValue), 'P', int.Parse(ddlScheme.SelectedValue));
                 }
+
                 BindFolioNumber(int.Parse(ddlAmc.SelectedValue), "SI");
-                
-               
+
+
             }
 
         }
-        protected void BindSwitchScheme(int amcCode, string category, int customerId, char txnType)
+        protected void BindSwitchScheme(int amcCode, string category, int customerId, char switchType, char txnType, int schemePlanCode)
         {
             ddlSchemeName.Items.Clear();
             DataTable dtScheme = new DataTable();
-            dtScheme = commonLookupBo.GetAmcSchemeList(amcCode, category, customerId, txnType);
+            dtScheme = commonLookupBo.GetSwitchAmcSchemeList(amcCode,category,customerId,switchType,txnType,schemePlanCode);
             if (dtScheme.Rows.Count > 0)
             {
                 ddlSchemeName.DataSource = dtScheme;

@@ -103,7 +103,7 @@ namespace WealthERP.BusinessMIS
         }
         private void BindMappedIssues(string ModeOfIssue, string productType, int isOnlineIssue)
         {
-            DataSet dsCommissionReceivable = commisionReceivableBo.GetIssuesStructureMapings(advisorVo.advisorId, "MappedIssue", ModeOfIssue, productType, isOnlineIssue);
+            DataSet dsCommissionReceivable = commisionReceivableBo.GetIssuesStructureMapings(advisorVo.advisorId, "MappedIssue", ModeOfIssue, productType, isOnlineIssue,0);
             if (dsCommissionReceivable.Tables[0].Rows.Count > 0)
             {
                 ddlIssueName.DataSource = dsCommissionReceivable.Tables[0];
@@ -139,7 +139,7 @@ namespace WealthERP.BusinessMIS
             ddlIssuer.DataTextField = dtGetMutualFundList.Columns["PA_AMCName"].ToString();
             ddlIssuer.DataValueField = dtGetMutualFundList.Columns["PA_AMCCode"].ToString();
             ddlIssuer.DataBind();
-            ddlIssuer.Items.Insert(0, new ListItem("All", "0"));
+            ddlIssuer.Items.Insert(0, new ListItem("Select", "Select"));
 
         }
         private void ShowHideControlsBasedOnProduct(string asset)

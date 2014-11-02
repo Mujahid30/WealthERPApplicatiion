@@ -478,6 +478,35 @@ namespace BoCommon
             }
             return dtSchemeList;
         }
+
+        
+        public DataTable GetSwitchAmcSchemeList(int AmcCode, string Category, int customerId, char switchSchemeType, char txnType, int schemePlanCode)
+        {
+            DataTable dtSchemeList = new DataTable();
+            try
+            {
+                string CategoryCode = string.IsNullOrEmpty(Category) ? null : Category.Trim();
+                dtSchemeList = daoCommonLookup.GetSwitchAmcSchemeList(AmcCode, CategoryCode, customerId, switchSchemeType, txnType, schemePlanCode);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommonLookupBo.cs:GetSwitchAmcSchemeList(int AmcCode, string Category, int customerId, char switchSchemeType, char txnType, int schemePlanCode)");
+                object[] objParams = new object[3];
+                objParams[0] = AmcCode;
+                objParams[1] = Category;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objParams);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtSchemeList;
+        }
         public DataSet GetAllCategoryList()
         {
             DataSet dsGetAllCategoryList = new DataSet();

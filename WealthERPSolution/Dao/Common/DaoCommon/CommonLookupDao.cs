@@ -444,7 +444,56 @@ namespace DaoCommon
             }
             return dsGetAmcSchemeList.Tables[0];
         }
+        public DataTable GetSwitchAmcSchemeList(int AmcCode, string Category, int customerid,char switchSchemeType, char txnType,int schemePlanCode)
+        {
+            Database db;
+            DbCommand cmd;
+            DataSet dsGetAmcSchemeList = null;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmd = db.GetStoredProcCommand("SP_GetSwitchSchemeFromOverAllCategoryListForOnlOrder");
+                if (AmcCode != 0)
+                    db.AddInParameter(cmd, "@amcCode", DbType.Int32, AmcCode);
+                else
+                    db.AddInParameter(cmd, "@amcCode", DbType.Int32, 0);
+                if (Category != "0")
+                    db.AddInParameter(cmd, "@categoryCode", DbType.String, Category);
+                else
+                    db.AddInParameter(cmd, "@categoryCode", DbType.String, DBNull.Value);
+                if (customerid != 0)
+                    db.AddInParameter(cmd, "@customerid", DbType.Int32, customerid);
+                else
+                    db.AddInParameter(cmd, "@customerid", DbType.Int32, DBNull.Value);
 
+                db.AddInParameter(cmd, "@TxnType", DbType.String, txnType);
+                db.AddInParameter(cmd, "@switchSchemeType", DbType.String, switchSchemeType);
+                if (schemePlanCode != 0)
+                    db.AddInParameter(cmd, "@PASP_SchemePlanCode", DbType.Int32, schemePlanCode);
+                else
+                    db.AddInParameter(cmd, "@PASP_SchemePlanCode", DbType.Int32, DBNull.Value);
+                dsGetAmcSchemeList = db.ExecuteDataSet(cmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommonLookupDao.cs:GetProductSubCategories(string ProductCode, string CategoryCode, string SubCategoryCode)");
+                object[] objects = new object[3];
+                objects[0] = AmcCode;
+                objects[1] = Category;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetAmcSchemeList.Tables[0];
+        }
         public DataTable GetAmcSchemeList(int AmcCode, string Category, int customerid, char txnType)
         {
             Database db;
