@@ -66,14 +66,14 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(createCustomerCmd, "@C_Adr1Line1", DbType.String, customerVo.Adr1Line1);
                 db.AddInParameter(createCustomerCmd, "@C_Adr1Line2", DbType.String, customerVo.Adr1Line2);
                 db.AddInParameter(createCustomerCmd, "@C_Adr1Line3", DbType.String, customerVo.Adr1Line3);
-                db.AddInParameter(createCustomerCmd, "@C_Adr1PinCode", DbType.Int32, customerVo.Adr1PinCode);
+                db.AddInParameter(createCustomerCmd, "@C_Adr1PinCode", DbType.Int64, customerVo.Adr1PinCode);
                 db.AddInParameter(createCustomerCmd, "@C_Adr1City", DbType.String, customerVo.Adr1City);
                 db.AddInParameter(createCustomerCmd, "@C_Adr1State", DbType.String, customerVo.Adr1State);
                 db.AddInParameter(createCustomerCmd, "@C_Adr1Country", DbType.String, customerVo.Adr1Country);
                 db.AddInParameter(createCustomerCmd, "@C_Adr2Line1", DbType.String, customerVo.Adr2Line1);
                 db.AddInParameter(createCustomerCmd, "@C_Adr2Line2", DbType.String, customerVo.Adr2Line2);
                 db.AddInParameter(createCustomerCmd, "@C_Adr2Line3", DbType.String, customerVo.Adr2Line3);
-                db.AddInParameter(createCustomerCmd, "@C_Adr2PinCode", DbType.Int32, customerVo.Adr2PinCode);
+                db.AddInParameter(createCustomerCmd, "@C_Adr2PinCode", DbType.Int64, customerVo.Adr2PinCode);
                 db.AddInParameter(createCustomerCmd, "@C_Adr2City", DbType.String, customerVo.Adr2City);
                 db.AddInParameter(createCustomerCmd, "@C_Adr2State", DbType.String, customerVo.Adr2State);
                 db.AddInParameter(createCustomerCmd, "@C_Adr2Country", DbType.String, customerVo.Adr2Country);
@@ -90,7 +90,7 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(createCustomerCmd, "@C_ResPhoneNum", DbType.Int32, customerVo.ResPhoneNum);
                 db.AddInParameter(createCustomerCmd, "@C_OfcISDCode", DbType.Int32, customerVo.OfcISDCode);
                 db.AddInParameter(createCustomerCmd, "@C_OfcSTDCode", DbType.Int32, customerVo.OfcSTDCode);
-                db.AddInParameter(createCustomerCmd, "@C_OfcPhoneNum", DbType.Int32, customerVo.OfcPhoneNum);
+                db.AddInParameter(createCustomerCmd, "@C_OfcPhoneNum", DbType.Int64, customerVo.OfcPhoneNum);
                 db.AddInParameter(createCustomerCmd, "@C_MfKYC", DbType.Int32, customerVo.MfKYC);
                 db.AddInParameter(createCustomerCmd, "@C_Email", DbType.String, customerVo.Email);
                 db.AddInParameter(createCustomerCmd, "@C_AltEmail", DbType.String, customerVo.AltEmail);
@@ -98,10 +98,10 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(createCustomerCmd, "@C_Mobile2", DbType.Int64, customerVo.Mobile2);
                 db.AddInParameter(createCustomerCmd, "@C_ISDFax", DbType.Int32, customerVo.ISDFax);
                 db.AddInParameter(createCustomerCmd, "@C_STDFax", DbType.Int32, customerVo.STDFax);
-                db.AddInParameter(createCustomerCmd, "@C_Fax", DbType.Int32, customerVo.Fax);
+                db.AddInParameter(createCustomerCmd, "@C_Fax", DbType.Int64, customerVo.Fax);
                 db.AddInParameter(createCustomerCmd, "@C_OfcFaxISD", DbType.Int32, customerVo.OfcISDFax);
                 db.AddInParameter(createCustomerCmd, "@C_OfcFaxSTD", DbType.Int32, customerVo.OfcSTDFax);
-                db.AddInParameter(createCustomerCmd, "@C_OfcFax", DbType.Int32, customerVo.OfcFax);
+                db.AddInParameter(createCustomerCmd, "@C_OfcFax", DbType.Int64, customerVo.OfcFax);
                 db.AddInParameter(createCustomerCmd, "@XO_OccupationCode", DbType.String, customerVo.Occupation);
                 db.AddInParameter(createCustomerCmd, "@XQ_QualificationCode", DbType.String, customerVo.Qualification);
                 db.AddInParameter(createCustomerCmd, "@C_MarriageDate", DbType.DateTime, customerVo.MarriageDate);
@@ -120,7 +120,7 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(createCustomerCmd, "@C_OfcAdrLine1", DbType.String, customerVo.OfcAdrLine1);
                 db.AddInParameter(createCustomerCmd, "@C_OfcAdrLine2", DbType.String, customerVo.OfcAdrLine2);
                 db.AddInParameter(createCustomerCmd, "@C_OfcAdrLine3", DbType.String, customerVo.OfcAdrLine3);
-                db.AddInParameter(createCustomerCmd, "@C_OfcAdrPinCode", DbType.Int32, customerVo.OfcAdrPinCode);
+                db.AddInParameter(createCustomerCmd, "@C_OfcAdrPinCode", DbType.Int64, customerVo.OfcAdrPinCode);
                 db.AddInParameter(createCustomerCmd, "@C_OfcAdrCity", DbType.String, customerVo.OfcAdrCity);
                 db.AddInParameter(createCustomerCmd, "@C_OfcAdrState", DbType.String, customerVo.OfcAdrState);
                 db.AddInParameter(createCustomerCmd, "@C_OfcAdrCountry", DbType.String, customerVo.OfcAdrCountry);
@@ -455,7 +455,7 @@ namespace DaoCustomerProfiling
                     if (!string.IsNullOrEmpty(dr["C_Adr1Line3"].ToString()))
                         customerVo.Adr1Line3 = dr["C_Adr1Line3"].ToString();
                     if (!string.IsNullOrEmpty(dr["C_Adr1PinCode"].ToString()))
-                        customerVo.Adr1PinCode = int.Parse(dr["C_Adr1PinCode"].ToString());
+                        customerVo.Adr1PinCode = Int64.Parse(dr["C_Adr1PinCode"].ToString());
                     if (!string.IsNullOrEmpty(dr["WCMV_City_Id"].ToString()))
                         customerVo.Adr1City = dr["WCMV_City_Id"].ToString();
                     if (!string.IsNullOrEmpty(dr["C_WCMV_State_Id"].ToString()))
@@ -469,7 +469,7 @@ namespace DaoCustomerProfiling
                     if (!string.IsNullOrEmpty(dr["C_Adr2Line3"].ToString()))
                         customerVo.Adr2Line3 = dr["C_Adr2Line3"].ToString();
                     if (!string.IsNullOrEmpty(dr["C_Adr2PinCode"].ToString()))
-                        customerVo.Adr2PinCode = int.Parse(dr["C_Adr2PinCode"].ToString());
+                        customerVo.Adr2PinCode = Int64.Parse(dr["C_Adr2PinCode"].ToString());
                     if (!string.IsNullOrEmpty(dr["C_Adr2City"].ToString()))
                         customerVo.Adr2City = dr["C_Adr2City"].ToString();
                     if (!string.IsNullOrEmpty(dr["C_Adr2State"].ToString()))
@@ -503,13 +503,13 @@ namespace DaoCustomerProfiling
                     if (dr["C_STDFax"].ToString() != string.Empty)
                         customerVo.STDFax = int.Parse(dr["C_STDFax"].ToString());
                     if (dr["C_Fax"].ToString() != string.Empty)
-                        customerVo.Fax = int.Parse(dr["C_Fax"].ToString());
+                        customerVo.Fax = Int64.Parse(dr["C_Fax"].ToString());
                     if (dr["C_OfcFaxISD"].ToString() != string.Empty)
                         customerVo.OfcISDFax = int.Parse(dr["C_OfcFaxISD"].ToString());
                     if (dr["C_OfcFaxSTD"].ToString() != string.Empty)
                         customerVo.OfcSTDFax = int.Parse(dr["C_OfcFaxSTD"].ToString());
                     if (dr["C_OfcFax"].ToString() != string.Empty)
-                        customerVo.OfcFax = int.Parse(dr["C_OfcFax"].ToString());
+                        customerVo.OfcFax = Int64.Parse(dr["C_OfcFax"].ToString());
                     if (!string.IsNullOrEmpty(dr["XO_OccupationCode"].ToString()))
                         customerVo.Occupation = dr["XO_OccupationCode"].ToString();
                     if (!string.IsNullOrEmpty(dr["XQ_QualificationCode"].ToString()))
@@ -533,7 +533,7 @@ namespace DaoCustomerProfiling
                     if (!string.IsNullOrEmpty(dr["C_OfcAdrLine3"].ToString()))
                         customerVo.OfcAdrLine3 = dr["C_OfcAdrLine3"].ToString();
                     if (!string.IsNullOrEmpty(dr["C_OfcAdrPinCode"].ToString()))
-                        customerVo.OfcAdrPinCode = int.Parse(dr["C_OfcAdrPinCode"].ToString());
+                        customerVo.OfcAdrPinCode = Int64.Parse(dr["C_OfcAdrPinCode"].ToString());
                     if (!string.IsNullOrEmpty(dr["C_OfcAdrCity"].ToString()))
                         customerVo.OfcAdrCity = dr["C_OfcAdrCity"].ToString();
                     if (!string.IsNullOrEmpty(dr["C_OfcAdrState"].ToString()))
@@ -614,6 +614,8 @@ namespace DaoCustomerProfiling
                         customerVo.OccupationId = int.Parse(dr["C_WCMV_Occupation_Id"].ToString());
                     if (!string.IsNullOrEmpty(dr["C_WCMV_City_Id"].ToString()))
                         customerVo.customerCity = int.Parse(dr["C_WCMV_City_Id"].ToString());
+                    if (!string.IsNullOrEmpty(dr["C_WCMV_State_Id"].ToString()))
+                        customerVo.customerState = int.Parse(dr["C_WCMV_State_Id"].ToString());
                     if (!string.IsNullOrEmpty(dr["C_MinNO1"].ToString()))
                         customerVo.MinNo1 = dr["C_MinNO1"].ToString();
                     else
@@ -812,7 +814,7 @@ namespace DaoCustomerProfiling
                     customerVo.Adr1Line2 = dr["C_Adr1Line2"].ToString();
                     customerVo.Adr1Line3 = dr["C_Adr1Line3"].ToString();
                     if (!string.IsNullOrEmpty(dr["C_Adr1PinCode"].ToString()))
-                        customerVo.Adr1PinCode = int.Parse(dr["C_Adr1PinCode"].ToString());
+                        customerVo.Adr1PinCode = Int64.Parse(dr["C_Adr1PinCode"].ToString());
                     customerVo.Adr1City = dr["C_Adr1City"].ToString();
                     customerVo.Adr1State = dr["C_Adr1State"].ToString();
                     customerVo.Adr1Country = dr["C_Adr1Country"].ToString();
@@ -820,7 +822,7 @@ namespace DaoCustomerProfiling
                     customerVo.Adr2Line2 = dr["C_Adr2Line2"].ToString();
                     customerVo.Adr2Line3 = dr["C_Adr2Line3"].ToString();
                     if (!string.IsNullOrEmpty(dr["C_Adr2PinCode"].ToString()))
-                        customerVo.Adr2PinCode = int.Parse(dr["C_Adr2PinCode"].ToString());
+                        customerVo.Adr2PinCode = Int64.Parse(dr["C_Adr2PinCode"].ToString());
                     customerVo.Adr2City = dr["C_Adr2City"].ToString();
                     customerVo.Adr2State = dr["C_Adr2State"].ToString();
                     customerVo.Adr2Country = dr["C_Adr2Country"].ToString();
@@ -835,7 +837,7 @@ namespace DaoCustomerProfiling
                     if (!string.IsNullOrEmpty(dr["C_OfcSTDCode"].ToString()))
                         customerVo.OfcSTDCode = int.Parse(dr["C_OfcSTDCode"].ToString());
                     if (!string.IsNullOrEmpty(dr["C_OfcPhoneNum"].ToString()))
-                        customerVo.OfcPhoneNum = int.Parse(dr["C_OfcPhoneNum"].ToString());
+                        customerVo.OfcPhoneNum = Int64.Parse(dr["C_OfcPhoneNum"].ToString());
                     customerVo.Email = dr["C_Email"].ToString();
                     customerVo.AltEmail = dr["C_AltEmail"].ToString();
                     if (!string.IsNullOrEmpty(dr["C_Mobile1"].ToString()))
@@ -847,13 +849,13 @@ namespace DaoCustomerProfiling
                     if (!string.IsNullOrEmpty(dr["C_STDFax"].ToString()))
                         customerVo.STDFax = int.Parse(dr["C_STDFax"].ToString());
                     if (!string.IsNullOrEmpty(dr["C_Fax"].ToString()))
-                        customerVo.Fax = int.Parse(dr["C_Fax"].ToString());
+                        customerVo.Fax = Int64.Parse(dr["C_Fax"].ToString());
                     if (!string.IsNullOrEmpty(dr["C_OfcFaxISD"].ToString()))
                         customerVo.OfcISDFax = int.Parse(dr["C_OfcFaxISD"].ToString());
                     if (!string.IsNullOrEmpty(dr["C_OfcFax"].ToString()))
                         customerVo.OfcSTDFax = int.Parse(dr["C_OfcFax"].ToString());
                     if (!string.IsNullOrEmpty(dr["C_OfcFax"].ToString()))
-                        customerVo.OfcFax = int.Parse(dr["C_OfcFax"].ToString());
+                        customerVo.OfcFax = Int64.Parse(dr["C_OfcFax"].ToString());
                     customerVo.Occupation = dr["XO_OccupationCode"].ToString();
                     customerVo.Qualification = dr["XQ_QualificationCode"].ToString();
                     customerVo.MaritalStatus = dr["XMS_MaritalStatusCode"].ToString();
@@ -866,7 +868,7 @@ namespace DaoCustomerProfiling
                     customerVo.OfcAdrLine2 = dr["C_OfcAdrLine2"].ToString();
                     customerVo.OfcAdrLine3 = dr["C_OfcAdrLine3"].ToString();
                     if (!string.IsNullOrEmpty(dr["C_OfcAdrPinCode"].ToString()))
-                        customerVo.OfcAdrPinCode = int.Parse(dr["C_OfcAdrPinCode"].ToString());
+                        customerVo.OfcAdrPinCode = Int32.Parse(dr["C_OfcAdrPinCode"].ToString());
                     customerVo.OfcAdrCity = dr["C_OfcAdrCity"].ToString();
                     customerVo.OfcAdrState = dr["C_OfcAdrState"].ToString();
                     customerVo.OfcAdrCountry = dr["C_OfcAdrCountry"].ToString();
@@ -1160,7 +1162,7 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(editCustomerCmd, "@C_Adr1Line1", DbType.String, customerVo.Adr1Line1);
                 db.AddInParameter(editCustomerCmd, "@C_Adr1Line2", DbType.String, customerVo.Adr1Line2);
                 db.AddInParameter(editCustomerCmd, "@C_Adr1Line3", DbType.String, customerVo.Adr1Line3);
-                db.AddInParameter(editCustomerCmd, "@C_Adr1PinCode", DbType.Int32, customerVo.Adr1PinCode);
+                db.AddInParameter(editCustomerCmd, "@C_Adr1PinCode", DbType.Int64, customerVo.Adr1PinCode);
                 db.AddInParameter(editCustomerCmd, "@C_Adr1City", DbType.String, customerVo.Adr1City);
                 if (customerVo.Adr1State != "Select a State")
                     db.AddInParameter(editCustomerCmd, "@C_Adr1State", DbType.String, customerVo.Adr1State);
@@ -1170,7 +1172,7 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(editCustomerCmd, "@C_Adr2Line1", DbType.String, customerVo.Adr2Line1);
                 db.AddInParameter(editCustomerCmd, "@C_Adr2Line2", DbType.String, customerVo.Adr2Line2);
                 db.AddInParameter(editCustomerCmd, "@C_Adr2Line3", DbType.String, customerVo.Adr2Line3);
-                db.AddInParameter(editCustomerCmd, "@C_Adr2PinCode", DbType.Int32, customerVo.Adr2PinCode);
+                db.AddInParameter(editCustomerCmd, "@C_Adr2PinCode", DbType.Int64, customerVo.Adr2PinCode);
                 db.AddInParameter(editCustomerCmd, "@C_Adr2City", DbType.String, customerVo.Adr2City);
                 if (customerVo.Adr2State != "Select a State")
                     db.AddInParameter(editCustomerCmd, "@C_Adr2State", DbType.String, customerVo.Adr2State);
@@ -1183,7 +1185,7 @@ namespace DaoCustomerProfiling
                     db.AddInParameter(editCustomerCmd, "@C_ResidenceLivingDate", DbType.DateTime, DBNull.Value);
                 db.AddInParameter(editCustomerCmd, "@C_ResISDCode", DbType.Int32, customerVo.ResISDCode);
                 db.AddInParameter(editCustomerCmd, "@C_ResSTDCode", DbType.Int32, customerVo.ResSTDCode);
-                db.AddInParameter(editCustomerCmd, "@C_ResPhoneNum", DbType.Int32, customerVo.ResPhoneNum);
+                db.AddInParameter(editCustomerCmd, "@C_ResPhoneNum", DbType.Int64, customerVo.ResPhoneNum);
                 db.AddInParameter(editCustomerCmd, "@C_OfcISDCode", DbType.Int32, customerVo.OfcISDCode);
                 db.AddInParameter(editCustomerCmd, "@C_OfcSTDCode", DbType.Int32, customerVo.OfcSTDCode);
                 db.AddInParameter(editCustomerCmd, "@C_OfcPhoneNum", DbType.Int64, customerVo.OfcPhoneNum);
@@ -1193,10 +1195,10 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(editCustomerCmd, "@C_Mobile2", DbType.Int64, customerVo.Mobile2);
                 db.AddInParameter(editCustomerCmd, "@C_ISDFax", DbType.Int32, customerVo.ISDFax);
                 db.AddInParameter(editCustomerCmd, "@C_STDFax", DbType.Int32, customerVo.STDFax);
-                db.AddInParameter(editCustomerCmd, "@C_Fax", DbType.Int32, customerVo.Fax);
+                db.AddInParameter(editCustomerCmd, "@C_Fax", DbType.Int64, customerVo.Fax);
                 db.AddInParameter(editCustomerCmd, "@C_OfcFaxISD", DbType.Int32, customerVo.OfcISDFax);
                 db.AddInParameter(editCustomerCmd, "@C_OfcFaxSTD", DbType.Int32, customerVo.OfcSTDFax);
-                db.AddInParameter(editCustomerCmd, "@C_OfcFax", DbType.Int32, customerVo.OfcFax);
+                db.AddInParameter(editCustomerCmd, "@C_OfcFax", DbType.Int64, customerVo.OfcFax);
                 db.AddInParameter(editCustomerCmd, "@C_ContactGuardianFirstName", DbType.String, customerVo.ContactFirstName);
                 db.AddInParameter(editCustomerCmd, "@C_ContactGuardianMiddleName", DbType.String, customerVo.ContactMiddleName);
                 db.AddInParameter(editCustomerCmd, "@C_ContactGuardianLastName", DbType.String, customerVo.ContactLastName);
@@ -1237,7 +1239,7 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(editCustomerCmd, "@C_OfcAdrLine1", DbType.String, customerVo.OfcAdrLine1);
                 db.AddInParameter(editCustomerCmd, "@C_OfcAdrLine2", DbType.String, customerVo.OfcAdrLine2);
                 db.AddInParameter(editCustomerCmd, "@C_OfcAdrLine3", DbType.String, customerVo.OfcAdrLine3);
-                db.AddInParameter(editCustomerCmd, "@C_OfcAdrPinCode", DbType.Int32, customerVo.OfcAdrPinCode);
+                db.AddInParameter(editCustomerCmd, "@C_OfcAdrPinCode", DbType.Int64, customerVo.OfcAdrPinCode);
                 db.AddInParameter(editCustomerCmd, "@C_OfcAdrCity", DbType.String, customerVo.OfcAdrCity);
                 if (customerVo.OfcAdrState != "Select a State")
                     db.AddInParameter(editCustomerCmd, "@C_OfcAdrState", DbType.String, customerVo.OfcAdrState);
@@ -1897,7 +1899,7 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(createCustomerCmd, "@C_Adr1Line1", DbType.String, customerVo.Adr1Line1);
                 db.AddInParameter(createCustomerCmd, "@C_Adr1Line2", DbType.String, customerVo.Adr1Line2);
                 db.AddInParameter(createCustomerCmd, "@C_Adr1Line3", DbType.String, customerVo.Adr1Line3);
-                db.AddInParameter(createCustomerCmd, "@C_Adr1PinCode", DbType.Int32, customerVo.Adr1PinCode);
+                db.AddInParameter(createCustomerCmd, "@C_Adr1PinCode", DbType.Int64, customerVo.Adr1PinCode);
                 db.AddInParameter(createCustomerCmd, "@C_Adr1City", DbType.String, customerVo.Adr1City);
                 if (customerVo.Adr1State != "Select a State")
                     db.AddInParameter(createCustomerCmd, "@C_Adr1State", DbType.String, customerVo.Adr1State);
@@ -1907,7 +1909,7 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(createCustomerCmd, "@C_Adr2Line1", DbType.String, customerVo.Adr2Line1);
                 db.AddInParameter(createCustomerCmd, "@C_Adr2Line2", DbType.String, customerVo.Adr2Line2);
                 db.AddInParameter(createCustomerCmd, "@C_Adr2Line3", DbType.String, customerVo.Adr2Line3);
-                db.AddInParameter(createCustomerCmd, "@C_Adr2PinCode", DbType.Int32, customerVo.Adr2PinCode);
+                db.AddInParameter(createCustomerCmd, "@C_Adr2PinCode", DbType.Int64, customerVo.Adr2PinCode);
                 db.AddInParameter(createCustomerCmd, "@C_Adr2City", DbType.String, customerVo.Adr2City);
                 if (customerVo.Adr2State != "Select a State")
                     db.AddInParameter(createCustomerCmd, "@C_Adr2State", DbType.String, customerVo.Adr2State);
@@ -1927,17 +1929,17 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(createCustomerCmd, "@C_ResPhoneNum", DbType.Int32, customerVo.ResPhoneNum);
                 db.AddInParameter(createCustomerCmd, "@C_OfcISDCode", DbType.Int32, customerVo.OfcISDCode);
                 db.AddInParameter(createCustomerCmd, "@C_OfcSTDCode", DbType.Int32, customerVo.OfcSTDCode);
-                db.AddInParameter(createCustomerCmd, "@C_OfcPhoneNum", DbType.Int32, customerVo.OfcPhoneNum);
+                db.AddInParameter(createCustomerCmd, "@C_OfcPhoneNum", DbType.Int64, customerVo.OfcPhoneNum);
                 db.AddInParameter(createCustomerCmd, "@C_Email", DbType.String, customerVo.Email);
                 db.AddInParameter(createCustomerCmd, "@C_AltEmail", DbType.String, customerVo.AltEmail);
                 db.AddInParameter(createCustomerCmd, "@C_Mobile1", DbType.Int64, customerVo.Mobile1);
                 db.AddInParameter(createCustomerCmd, "@C_Mobile2", DbType.Int64, customerVo.Mobile2);
                 db.AddInParameter(createCustomerCmd, "@C_ISDFax", DbType.Int32, customerVo.ISDFax);
                 db.AddInParameter(createCustomerCmd, "@C_STDFax", DbType.Int32, customerVo.STDFax);
-                db.AddInParameter(createCustomerCmd, "@C_Fax", DbType.Int32, customerVo.Fax);
+                db.AddInParameter(createCustomerCmd, "@C_Fax", DbType.Int64, customerVo.Fax);
                 db.AddInParameter(createCustomerCmd, "@C_OfcFaxISD", DbType.Int32, customerVo.OfcISDFax);
                 db.AddInParameter(createCustomerCmd, "@C_OfcFaxSTD", DbType.Int32, customerVo.OfcSTDFax);
-                db.AddInParameter(createCustomerCmd, "@C_OfcFax", DbType.Int32, customerVo.OfcFax);
+                db.AddInParameter(createCustomerCmd, "@C_OfcFax", DbType.Int64, customerVo.OfcFax);
                 db.AddInParameter(createCustomerCmd, "@XO_OccupationCode", DbType.String, customerVo.Occupation);
                 db.AddInParameter(createCustomerCmd, "@XQ_QualificationCode", DbType.String, customerVo.Qualification);
                 db.AddInParameter(createCustomerCmd, "@XMS_MaritalStatusCode", DbType.String, customerVo.MaritalStatus);
@@ -1962,7 +1964,7 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(createCustomerCmd, "@C_OfcAdrLine1", DbType.String, customerVo.OfcAdrLine1);
                 db.AddInParameter(createCustomerCmd, "@C_OfcAdrLine2", DbType.String, customerVo.OfcAdrLine2);
                 db.AddInParameter(createCustomerCmd, "@C_OfcAdrLine3", DbType.String, customerVo.OfcAdrLine3);
-                db.AddInParameter(createCustomerCmd, "@C_OfcAdrPinCode", DbType.Int32, customerVo.OfcAdrPinCode);
+                db.AddInParameter(createCustomerCmd, "@C_OfcAdrPinCode", DbType.Int64, customerVo.OfcAdrPinCode);
                 db.AddInParameter(createCustomerCmd, "@C_OfcAdrCity", DbType.String, customerVo.OfcAdrCity);
                 if (customerVo.OfcAdrState != "Select a State")
                     db.AddInParameter(createCustomerCmd, "@C_OfcAdrState", DbType.String, customerVo.OfcAdrState);

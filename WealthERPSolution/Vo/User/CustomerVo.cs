@@ -50,14 +50,14 @@ namespace VoUser
         private string m_Adr1Line1;
         private string m_Adr1Line2;
         private string m_Adr1Line3;
-        private int m_Adr1PinCode;
+        private Int64 m_Adr1PinCode;
         private string m_Adr1City;
         private string m_Adr1State;
         private string m_Adr1Country;
         private string m_Adr2Line1;
         private string m_Adr2Line2;
         private string m_Adr2Line3;
-        private int m_Adr2PinCode;
+        private Int64 m_Adr2PinCode;
         private string m_Adr2City;
         private string m_Adr2State;
         private string m_Adr2Country;
@@ -79,7 +79,7 @@ namespace VoUser
         private string m_OfcAdrLine1;
         private string m_OfcAdrLine2;
         private string m_OfcAdrLine3;
-        private int m_OfcAdrPinCode;
+        private Int64 m_OfcAdrPinCode;
         private string m_OfcAdrCity;
         private string m_OfcAdrState;
         private string m_OfcAdrCountry;
@@ -91,10 +91,10 @@ namespace VoUser
         private string m_AltEmail;
         private int m_ISDFax;
         private int m_STDFax;
-        private int m_Fax;
+        private Int64 m_Fax;
         private int m_OfcISDFax;
         private int m_OfcSTDFax;
-        private int m_OfcFax;
+        private Int64 m_OfcFax;
         private string m_ParentCustomer;
         private int m_ProcessId;
         private string m_AssignedRM;
@@ -224,6 +224,7 @@ namespace VoUser
             set { m_TaxSlab = value; }
         }
         public int customerCity { set; get; }
+        public int customerState { set; get; }
         #endregion Fields
 
         #region Properties
@@ -441,7 +442,7 @@ namespace VoUser
             get { return m_Adr1Line3; }
             set { m_Adr1Line3 = value; }
         }
-        public int Adr1PinCode
+        public Int64 Adr1PinCode
         {
             get { return m_Adr1PinCode; }
             set { m_Adr1PinCode = value; }
@@ -476,7 +477,7 @@ namespace VoUser
             get { return m_Adr2Line3; }
             set { m_Adr2Line3 = value; }
         }
-        public int Adr2PinCode
+        public Int64 Adr2PinCode
         {
             get { return m_Adr2PinCode; }
             set { m_Adr2PinCode = value; }
@@ -582,7 +583,7 @@ namespace VoUser
             get { return m_OfcAdrLine3; }
             set { m_OfcAdrLine3 = value; }
         }
-        public int OfcAdrPinCode
+        public Int64 OfcAdrPinCode
         {
             get { return m_OfcAdrPinCode; }
             set { m_OfcAdrPinCode = value; }
@@ -633,7 +634,7 @@ namespace VoUser
             get { return m_STDFax; }
             set { m_STDFax = value; }
         }
-        public int Fax
+        public Int64 Fax
         {
             get { return m_Fax; }
             set { m_Fax = value; }
@@ -648,7 +649,7 @@ namespace VoUser
             get { return m_OfcSTDFax; }
             set { m_OfcSTDFax = value; }
         }
-        public int OfcFax
+        public Int64 OfcFax
         {
             get { return m_OfcFax; }
             set { m_OfcFax = value; }

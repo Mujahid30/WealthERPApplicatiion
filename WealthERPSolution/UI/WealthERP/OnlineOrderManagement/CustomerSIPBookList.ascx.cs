@@ -314,7 +314,15 @@ namespace WealthERP.OnlineOrderManagement
                 {
                     ViewState["OrderStatus"] = null;
                 }
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "SIPBookSummmaryList", "loadcontrol('SIPBookSummmaryList','?systematicId=" + systematicId + "&OrderStatus=" + OrderStatus + "&AmcCode=" + AmcCode + "&FromDate=" + fromdate + "&ToDate=" + todate + "&systematicType=" + systematictype + "');", true);
+
+                if (Request.QueryString["IsPageDefaultSetting"] != null)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('SIPBookSummmaryList','?systematicId=" + systematicId + "&OrderStatus=" + OrderStatus + "&AmcCode=" + AmcCode + "&FromDate=" + fromdate + "&ToDate=" + todate + "&systematicType=" + systematictype + "');", true);
+                }
+                else
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "SIPBookSummmaryList", "loadcontrol('SIPBookSummmaryList','?systematicId=" + systematicId + "&OrderStatus=" + OrderStatus + "&AmcCode=" + AmcCode + "&FromDate=" + fromdate + "&ToDate=" + todate + "&systematicType=" + systematictype + "');", true);
+                }
             }
         }
 

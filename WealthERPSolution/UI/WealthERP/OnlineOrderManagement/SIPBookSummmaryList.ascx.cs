@@ -57,7 +57,7 @@ namespace WealthERP.OnlineOrderManagement
                 }
                 if (Request.QueryString["systematicId"] != null)
                 {
-                     int systematicId = int.Parse(Request.QueryString["systematicId"].ToString());
+                int systematicId = int.Parse(Request.QueryString["systematicId"].ToString());
                 int AmcCode = int.Parse(Request.QueryString["AmcCode"].ToString());
                 string orderStatus = Request.QueryString["OrderStatus"];
                 string systematictype = Request.QueryString["systematicType"].ToString();
@@ -483,9 +483,9 @@ namespace WealthERP.OnlineOrderManagement
             int selectedRow = gdi.ItemIndex + 1;
             int systematicId = int.Parse((gvSIPSummaryBookMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CMFSS_SystematicSetupId"].ToString()));
             string systematictype= Request.QueryString["systematicType"].ToString();
-            if (Session["PageDefaultSetting"] != null)
+            if (Session["PageDefaultSetting"]!= null)
             {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('CustomerSIPBookList','?systematicId=" + systematicId + "&AmcCode=" + ddlAMCCode.SelectedValue + "&FromDate=" + txtFrom.SelectedDate + "&ToDate=" + txtTo.SelectedDate + "&systematicType=" + systematictype + "');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('CustomerSIPBookList','?systematicId=" + systematicId + "&AmcCode=" + ddlAMCCode.SelectedValue + "&FromDate=" + txtFrom.SelectedDate + "&ToDate=" + txtTo.SelectedDate + "&systematicType=" + systematictype + "&IsPageDefaultSetting=1" + "');", true);
             }
             else
             {

@@ -286,7 +286,7 @@ namespace WealthERP.Customer
                     else
                         ddlCorrAdrCity.SelectedValue = "--Select---";
                     if (customerVo.Adr1State != null)
-                        ddlCorrAdrState.SelectedValue = customerVo.Adr1State.ToString();
+                        ddlCorrAdrState.SelectedValue = customerVo.customerState.ToString();
                     else
                         ddlCorrAdrState.SelectedValue = "--Select---";
                     txtCorrAdrCountry.Text = customerVo.Adr1Country;
@@ -780,7 +780,7 @@ namespace WealthERP.Customer
                     if (txtOfcAdrPinCode.Text == "")
                         customerVo.OfcAdrPinCode = 0;
                     else
-                        customerVo.OfcAdrPinCode = int.Parse(txtOfcAdrPinCode.Text.ToString());
+                        customerVo.OfcAdrPinCode = Int64.Parse(txtOfcAdrPinCode.Text.ToString());
 
                     //customerVo.OfcAdrCity = txtOfcAdrCity.Text.ToString();
                     customerVo.OfficeCityId = int.Parse(ddlOfcAdrCity.SelectedValue);
@@ -1020,7 +1020,7 @@ namespace WealthERP.Customer
                         customerVo.Adr2Line2 = txtCorrAdrLine2.Text;
                         customerVo.Adr2Line3 = txtCorrAdrLine3.Text;
                         customerVo.Adr2PinCode = int.Parse(txtCorrAdrPinCode.Text);
-                        customerVo.Adr2State = ddlCorrAdrState.SelectedItem.Value.ToString();
+                        customerVo.Adr1State = ddlCorrAdrState.SelectedItem.Value.ToString();
                         customerVo.PermanentStateId = int.Parse(ddlCorrAdrState.SelectedValue);
                         customerVo.PermanentCityId = int.Parse(ddlCorrAdrCity.SelectedValue);
                     }
@@ -2191,7 +2191,7 @@ namespace WealthERP.Customer
                 customerBankAccountVo = customerBankAccountBo.GetCusomerIndBankAccount(bankId);
                 Session["customerBankAccountVo" + customerVo.CustomerId] = customerBankAccountVo;
                 //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AddBankAccount", "loadcontrol('PopUp.aspx','?action=" + "View" + "&bankId=" + bankId + "');", true);
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AddBankAccount", "loadcontrol('AddBankAccount','?action=" + "View" + "&bankId=" + bankId + "');", true);
+                //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AddBankAccount", "loadcontrol('AddBankAccount','?action=" + "View" + "&bankId=" + bankId + "');", true);
                 Response.Write("<script type='text/javascript'>detailedresults= window.open('PopUp.aspx?PageId=AddBankAccount&bankId=" + bankId + "&action=" + "View" + "', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no');</script>");
                 //return;
                 
