@@ -1316,7 +1316,7 @@ namespace WealthERP.OffLineOrderManagement
 
                         if (EligblecatId == 0)
                         {
-                            ShowMessage("Application amount is less than minimum Quantity.");
+                            ShowMessage("Application amount is more than Minimum Quantity and less than Maximum Quantity.");
                             return;
                         }
                         dt.Rows[tableRow]["CatId"] = catId;

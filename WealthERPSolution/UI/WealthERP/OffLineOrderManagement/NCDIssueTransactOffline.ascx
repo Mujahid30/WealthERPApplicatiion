@@ -571,6 +571,9 @@
                 <asp:CompareValidator ID="CompareValidator14" runat="server" ErrorMessage="<br/>Please enter a valid date."
                     Type="Date" ControlToValidate="txtPaymentInstDate" CssClass="cvPCG" Operator="DataTypeCheck"
                     ValueToCompare="" Display="Dynamic" ValidationGroup="btnConfirmOrder" Enabled="true"></asp:CompareValidator>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator10" ControlToValidate="txtPaymentInstDate"
+                    ErrorMessage="<br />Please Enter Cheque Date." Display="Dynamic" runat="server"
+                    CssClass="rfvPCG" ValidationGroup="btnConfirmOrder"></asp:RequiredFieldValidator>
             </td>
         </tr>
         <tr id="trASBA" runat="server" visible="false">
@@ -1168,7 +1171,7 @@
         </td>
     </tr>
 </table>
-<telerik:RadWindow ID="rwDematDetails" runat="server" VisibleOnPageLoad="false" Height="300px"
+<telerik:RadWindow ID="rwDematDetails" runat="server" VisibleOnPageLoad="false" Height="200px"
     Width="800px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="Resize, Close, Move"
     Title="Select Demat " RestrictionZoneID="radWindowZone">
     <ContentTemplate>
@@ -1178,7 +1181,7 @@
             <tr>
                 <td>
                     <telerik:RadGrid ID="gvDematDetailsTeleR" runat="server" AllowAutomaticInserts="false"
-                        AllowPaging="true" AllowSorting="true" AutoGenerateColumns="False" Height="120px"
+                        AllowPaging="true" AllowSorting="true" AutoGenerateColumns="False" Height="200px"
                         EnableEmbeddedSkins="false" EnableHeaderContextMenu="true" fAllowAutomaticDeletes="false"
                         GridLines="none" ShowFooter="false" ShowStatusBar="false" Skin="Telerik">
                         <%--<HeaderContextMenu EnableEmbeddedSkins="False">
@@ -1239,7 +1242,7 @@
                             </EditFormSettings>
                         </MasterTableView>
                         <ClientSettings>
-                            <Scrolling AllowScroll="true" ScrollHeight="50px" UseStaticHeaders="True" />
+                            <Scrolling AllowScroll="true" ScrollHeight="70px" UseStaticHeaders="True" />
                         </ClientSettings>
                     </telerik:RadGrid>
                 </td>

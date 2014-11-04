@@ -11,12 +11,12 @@
 
 <script type="text/javascript">
     function HideLabel(tblMessage) {
-            setTimeout("HideLabelHelper('" + tblMessage + "');", 5000);
-        }
-        function HideLabelHelper(tblMessage) {
-            document.getElementById(tblMessage).style.display = "none";
-        }
-    </script>
+        setTimeout("HideLabelHelper('" + tblMessage + "');", 5000);
+    }
+    function HideLabelHelper(tblMessage) {
+        document.getElementById(tblMessage).style.display = "none";
+    }
+</script>
 
 <script type="text/javascript">
     var TargetBaseControl = null;
@@ -226,10 +226,10 @@
 
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
     <ContentTemplate>
-        <table id="tblMessage" width="100%" runat="server" visible="false"  style="padding-top: 20px;">
+        <table id="tblMessage" width="100%" runat="server" visible="false" style="padding-top: 20px;">
             <tr id="trSumbitSuccess">
                 <td align="center">
-                    <div id="msgRecordStatus"   class="success-msg" align="center" runat="server">
+                    <div id="msgRecordStatus" class="success-msg" align="center" runat="server">
                     </div>
                 </td>
             </tr>
@@ -583,6 +583,9 @@
                 <asp:CompareValidator ID="CompareValidator14" runat="server" ErrorMessage="<br/>Please enter a valid date."
                     Type="Date" ControlToValidate="txtPaymentInstDate" CssClass="cvPCG" Operator="DataTypeCheck"
                     ValueToCompare="" Display="Dynamic" ValidationGroup="btnConfirmOrder" Enabled="true"></asp:CompareValidator>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator10" ControlToValidate="txtPaymentInstDate"
+                    ErrorMessage="<br />Please Enter Cheque Date." Display="Dynamic" runat="server"
+                    CssClass="rfvPCG" ValidationGroup="btnConfirmOrder"></asp:RequiredFieldValidator>
             </td>
         </tr>
         <tr id="trASBA" runat="server" visible="false">
@@ -845,12 +848,6 @@
             </tr>
             <tr>
                 <td colspan="4">
-                    <asp:ValidationSummary ID="vsSummary" runat="server" CssClass="rfvPCG" Visible="true"
-                        ValidationGroup="btnConfirmOrder" ShowSummary="true" DisplayMode="BulletList" />
-                </td>
-            </tr>
-            <tr>
-                <td colspan="4">
                     <telerik:RadGrid ID="RadGridIPOBid" runat="server" AllowSorting="True" enableloadondemand="True"
                         PageSize="10" AllowPaging="false" AutoGenerateColumns="False" EnableEmbeddedSkins="False"
                         GridLines="None" ShowFooter="true" PagerStyle-AlwaysVisible="false" ShowStatusBar="True"
@@ -988,7 +985,8 @@
         <asp:Button ID="btnConfirmOrder" runat="server" Text="Confirm Order" OnClick="btnConfirmOrder_Click"
             CssClass="PCGMediumButton" ValidationGroup="btnConfirmOrder, btnTC" OnClientClick="return  PreventClicks(); Validate(); " />
         <asp:Button ID="btnAddMore" runat="server" Text="Save & AddMore" CssClass="PCGMediumButton"
-            ValidationGroup="btnConfirmOrder" onblur="HideLabel()" OnClick="btnAddMore_Click" />
+            ValidationGroup="btnConfirmOrder" onblur="HideLabel()" OnClientClick="return  PreventClicks();"
+            OnClick="btnAddMore_Click" />
     </td>
 </tr>
 <telerik:RadWindow ID="rwTermsCondition" runat="server" VisibleOnPageLoad="false"
@@ -1034,7 +1032,7 @@
         </telerik:RadWindow>
     </Windows>
 </telerik:RadWindowManager>
-<telerik:RadWindow ID="rwDematDetails" runat="server" VisibleOnPageLoad="false" Height="300px"
+<telerik:RadWindow ID="rwDematDetails" runat="server" VisibleOnPageLoad="false" Height="200px"
     Width="800px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="Resize, Close, Move"
     Title="Select Demat " RestrictionZoneID="radWindowZone">
     <ContentTemplate>
@@ -1045,7 +1043,7 @@
                 <td>
                     <telerik:RadGrid ID="gvDematDetailsTeleR" runat="server" AllowAutomaticInserts="false"
                         AllowFilteringByColumn="false" AllowPaging="true" AllowSorting="true" AutoGenerateColumns="False"
-                        EnableEmbeddedSkins="false" EnableHeaderContextMenu="true" Height="120px" fAllowAutomaticDeletes="false"
+                        EnableEmbeddedSkins="false" EnableHeaderContextMenu="true" Height="200px" fAllowAutomaticDeletes="false"
                         GridLines="none" ShowFooter="false" ShowStatusBar="false" Skin="Telerik">
                         <%--<HeaderContextMenu EnableEmbeddedSkins="False">
                                 </HeaderContextMenu>--%>
@@ -1108,7 +1106,7 @@
                             </EditFormSettings>
                         </MasterTableView>
                         <ClientSettings>
-                            <Scrolling AllowScroll="true" ScrollHeight="50px" UseStaticHeaders="True" />
+                            <Scrolling AllowScroll="true" ScrollHeight="70px" UseStaticHeaders="True" />
                         </ClientSettings>
                     </telerik:RadGrid>
                 </td>
@@ -1122,6 +1120,12 @@
         </table>
     </ContentTemplate>
 </telerik:RadWindow>
+<tr>
+    <td colspan="4">
+        <asp:ValidationSummary ID="vsSummary" runat="server" CssClass="rfvPCG" Visible="true"
+            ValidationGroup="btnConfirmOrder" ShowSummary="true" DisplayMode="BulletList" />
+    </td>
+</tr>
 <%--</ContentTemplate>
     <Triggers>
     </Triggers>
