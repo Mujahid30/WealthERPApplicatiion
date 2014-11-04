@@ -282,17 +282,17 @@
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Brokerage" Value="Brokerage">
                                         <Items>
-                                            <telerik:RadPanelItem runat="server" Text="View Receivable Rules" Value="View_Receivable_structure">
+                                            <telerik:RadPanelItem runat="server" Text="View Brokerage Structure" Value="View_Receivable_structure">
                                             </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="Add Receivable Structure" Value="Receivable_Strucrure_setup">
-                                            </telerik:RadPanelItem>
-                                             <telerik:RadPanelItem runat="server" Text="Commission Receivable" Value="Commission_Receivable_Recon">
-                                            </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="View Scheme Structure Association" Value="View_Scheme_Structure_Association">
+                                            <telerik:RadPanelItem runat="server" Text="Add Brokerage Structure" Value="Receivable_Strucrure_setup">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="View Scheme Rules" Value="Receivable_Scheme_Structure_Association">
                                             </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="Map Scheme To Rule" Value="Map_scheme">
+                                             <telerik:RadPanelItem runat="server" Text="Map scheme to structure" Value="Map_scheme">
+                                            </telerik:RadPanelItem>
+                                             <telerik:RadPanelItem runat="server" Text="Calculate Brokerage" Value="Commission_Receivable_Recon">
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="View Scheme Structure Association" Value="View_Scheme_Structure_Association">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="View Payable Structure" Value="View_Payable_Structure">
                                             </telerik:RadPanelItem>
@@ -995,17 +995,17 @@
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Brokerage" Value="Brokerage">
                                         <Items>
-                                            <telerik:RadPanelItem runat="server" Text="View Receivable Rules" Value="View_Receivable_structure">
+                                            <telerik:RadPanelItem runat="server" Text="View Brokerage Structure" Value="View_Receivable_structure">
                                             </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="Add Receivable Structure" Value="Receivable_Strucrure_setup">
-                                            </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="Commission Receivable" Value="Commission_Receivable_Recon">
-                                            </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="View Scheme Structure Association" Value="View_Scheme_Structure_Association">
+                                            <telerik:RadPanelItem runat="server" Text="Add Brokerage Structure" Value="Receivable_Strucrure_setup">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="View Scheme Rules" Value="Receivable_Scheme_Structure_Association">
                                             </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="Map Scheme To Rule" Value="Map_scheme">
+                                             <telerik:RadPanelItem runat="server" Text="Map scheme to structure" Value="Map_scheme">
+                                            </telerik:RadPanelItem>
+                                             <telerik:RadPanelItem runat="server" Text="Calculate Brokerage" Value="Commission_Receivable_Recon">
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="View Scheme Structure Association" Value="View_Scheme_Structure_Association">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="View Payable Structure" Value="View_Payable_Structure">
                                             </telerik:RadPanelItem>
@@ -1202,15 +1202,15 @@
                                             </telerik:RadPanelItem>--%>
                                     <%--<telerik:RadPanelItem runat="server" Text="Commission" Value="Commissions">
                                                 <Items>
-                                                    <telerik:RadPanelItem runat="server" Text="View Receivable Rules" Value="View_Receivable_structure">
+                                                    <telerik:RadPanelItem runat="server" Text="View Brokerage Structure" Value="View_Receivable_structure">
                                                     </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" Text="Add Receivable Structure" Value="Receivable_Strucrure_setup">
+                                                    <telerik:RadPanelItem runat="server" Text="Add Brokerage Structure" Value="Receivable_Strucrure_setup">
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="View Scheme Structure Association" Value="View_Scheme_Structure_Association">
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="View Scheme Rules" Value="Receivable_Scheme_Structure_Association">
                                                     </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" Text="Map Scheme To Rule" Value="Map_scheme">
+                                                    <telerik:RadPanelItem runat="server" Text="Map scheme to structure" Value="Map_scheme">
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="View Payable Structure" Value="View_Payable_Structure">
                                                     </telerik:RadPanelItem>
