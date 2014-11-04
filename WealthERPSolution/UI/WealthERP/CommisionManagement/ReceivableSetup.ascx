@@ -187,6 +187,7 @@
         cursor: hand;
     }
 </style>
+<asp:Panel ID="pnl1" runat="server" Height="1000px">
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
     <ContentTemplate>
         <table width="100%">
@@ -279,7 +280,7 @@
                     <asp:Label ID="lblIssuer" runat="server" Text="Issuer :" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightData">
-                    <asp:DropDownList ID="ddlIssuer" runat="server" CssClass="cmbField">
+                    <asp:DropDownList ID="ddlIssuer" runat="server" CssClass="cmbLongField">
                     </asp:DropDownList>
                     <span id="Span6" class="spnRequiredField">*</span>
                     <br />
@@ -759,11 +760,259 @@
                 </td>
             </tr>
         </table>
+        <table id="Table2" runat="server" width="100%" visible="false">
+            <tr id="tr1" runat="server">
+                <td class="tdSectionHeading">
+                    <div class="divSectionHeading" style="vertical-align: text-bottom">
+                        <div class="divSectionHeadingNumber fltlftStep">
+                            3
+                        </div>
+                        <div class="fltlft" style="width: 300px;">
+                            &nbsp;
+                            <asp:Label ID="Label4" runat="server" Text="Schemes Mapped To The Structures "></asp:Label>
+                        </div>
+                        <div class="divViewEdit" style="padding-right: 10px;">
+                            <asp:ImageButton ID="ibtExportSummary" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                                Visible="false" runat="server" AlternateText="Excel" ToolTip="Export To Excel"
+                                OnClick="ibtExportSummary_OnClick" OnClientClick="setFormat('excel')" Height="22px"
+                                Width="25px" ></asp:ImageButton>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <table id="Table1" runat="server" width="100%">
+            <tr>
+                <td>
+                    <asp:Panel ID="pnlGrid" runat="server" CssClass="Landscape" Width="100%" ScrollBars="None"
+                        Visible="false">
+                        <table width="75%">
+                            <tr>
+                                <td>
+                                    <telerik:RadGrid ID="gvMappedSchemes" AllowSorting="false" runat="server" AllowAutomaticInserts="false"
+                                        AllowPaging="True" AutoGenerateColumns="False" AllowFilteringByColumn="true"
+                                        enableloadondemand="true" EnableEmbeddedSkins="false" GridLines="none" ShowFooter="true"
+                                        PagerStyle-AlwaysVisible="true" EnableViewState="true" ShowStatusBar="true" Skin="Telerik"
+                                        OnPageSizeChanged="gvMappedSchemes_PageSizeChanged" OnNeedDataSource="gvMappedSchemes_NeedDataSource"
+                                        OnItemCreated="gvMappedSchemes_OnItemCreated" OnPageIndexChanged="gvMappedSchemes_PageIndexChanged"
+                                        OnUpdateCommand="gvMappedSchemes_UpdateCommand" OnDeleteCommand="gvMappedSchemes_DeleteCommand">
+                                        <HeaderContextMenu EnableEmbeddedSkins="False">
+                                        </HeaderContextMenu>
+                                        <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="MappedSchemes"
+                                            IgnorePaging="true">
+                                        </ExportSettings>
+                                        <PagerStyle AlwaysVisible="True" />
+                                        <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" AutoGenerateColumns="false"
+                                            Width="100%" DataKeyNames="ACSTSM_SetupId">
+                                            <CommandItemSettings ExportToExcelText="Export to excel" />
+                                            <Columns>
+                                                <telerik:GridEditCommandColumn UniqueName="EditCommandColumn" HeaderStyle-Width="50px">
+                                                    <ItemStyle HorizontalAlign="Center" VerticalAlign="Top" Width="50px" Wrap="false" />
+                                                </telerik:GridEditCommandColumn>
+                                                <telerik:GridBoundColumn DataField="Name" HeaderStyle-Width="400px" CurrentFilterFunction="Contains"
+                                                    ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Scheme Name" UniqueName="structSchemeName"
+                                                    ReadOnly="true">
+                                                    <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="400px" Wrap="false" />
+                                                </telerik:GridBoundColumn>
+                                                <telerik:GridDateTimeColumn DataField="ValidFrom" ReadOnly="true" DataFormatString="{0:dd/MM/yyyy}"
+                                                    HeaderStyle-Width="100px" CurrentFilterFunction="EqualTo" ShowFilterIcon="false"
+                                                    AutoPostBackOnFilter="true" HeaderText="Valid From" SortExpression="ValidFrom"
+                                                    UniqueName="schemeValidFrom">
+                                                    <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="100px" Wrap="false" />
+                                                </telerik:GridDateTimeColumn>
+                                                <telerik:GridDateTimeColumn DataField="ValidTill" DataFormatString="{0:dd/MM/yyyy}"
+                                                    HeaderStyle-Width="100px" CurrentFilterFunction="EqualTo" ShowFilterIcon="false"
+                                                    AutoPostBackOnFilter="true" HeaderText="Valid Till" UniqueName="schemeValidTill">
+                                                    <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="100px" Wrap="false" />
+                                                </telerik:GridDateTimeColumn>
+                                                <telerik:GridButtonColumn ButtonType="LinkButton" Text="Delete" ConfirmText="Do you want to delete the mapping?"
+                                                    CommandName="Delete" UniqueName="DeleteCommandColumn" HeaderStyle-Width="50px">
+                                                    <ItemStyle HorizontalAlign="Center" VerticalAlign="Top" Width="50px" Wrap="false" />
+                                                </telerik:GridButtonColumn>
+                                            </Columns>
+                                            <PagerStyle AlwaysVisible="True" />
+                                        </MasterTableView>
+                                        <ClientSettings>
+                                            <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+                                            <Resizing AllowColumnResize="true" />
+                                        </ClientSettings>
+                                        <%--<FilterMenu EnableEmbeddedSkins="False"></FilterMenu>--%>
+                                    </telerik:RadGrid>
+                                </td>
+                            </tr>
+                        </table>
+                    </asp:Panel>
+                </td>
+            </tr>
+        </table>
+        <asp:Panel ID="pnlAddSchemesButton" runat="server" Visible="false">
+            <table width="33%">
+                <tr>
+                    <td class="leftLabel">
+                        <asp:Label ID="lblAddNewSchemes" runat="server" CssClass="FieldName" Text="Add Schemes"></asp:Label>
+                    </td>
+                    <td class="rightData">
+                        <asp:Button ID="btnAddNewSchemes" runat="server" Text="New Schemes" OnClick="btnAddNewSchemes_Click"
+                            CssClass="PCGButton wide-button" />
+                    </td>
+                </tr>
+            </table>
+        </asp:Panel>
+        <asp:Panel ID="pnlAddSchemes" runat="server" Visible="false" >
+            <table width="100%">
+                <tr>
+                    <td class="leftLabel">
+                        <asp:Label ID="lblPeriodStart" runat="server" CssClass="FieldName" Text="Available Between: "></asp:Label>
+                    </td>
+                    <td class="rightData">
+                        <telerik:RadDatePicker ID="rdpPeriodStart" runat="server">
+                        </telerik:RadDatePicker>
+                    </td>
+                    <td class="leftLabel">
+                        <telerik:RadDatePicker ID="rdpPeriodEnd" runat="server">
+                        </telerik:RadDatePicker>
+                    </td>
+                    <td class="rightData">
+                        <asp:Button ID="btn_GetAvailableSchemes" runat="server" Text="Schemes" CssClass="PCGButton"
+                            OnClick="btn_GetAvailableSchemes_Click" />
+                    </td>
+                    <td colspan="2">
+                        <asp:RequiredFieldValidator ID="rfvPeriodStart" runat="server" CssClass="rfvPCG"
+                            ErrorMessage="Please enter valid date(s)" ControlToValidate="rdpPeriodStart"
+                            ValidationGroup="availSchemesPeriod" Display="Dynamic"></asp:RequiredFieldValidator>
+                        <asp:RequiredFieldValidator ID="rfvPeriodEnd" runat="server" CssClass="rfvPCG" ErrorMessage="Please enter valid date(s)"
+                            ControlToValidate="rdpPeriodEnd" ValidationGroup="availSchemesPeriod" Display="Dynamic"></asp:RequiredFieldValidator>
+                        <asp:CompareValidator ID="cvPeriodEnd" runat="server" CssClass="rfvPCG" ControlToCompare="rdpPeriodStart"
+                            ErrorMessage="Please enter valid date(s)" ControlToValidate="rdpPeriodEnd" Display="Dynamic"
+                            Operator="GreaterThan" SetFocusOnError="True" Type="Date" ValidationGroup="availSchemesPeriod"></asp:CompareValidator>
+                        <asp:Label ID="lblMapError" runat="server" CssClass="rfvPCG" Text=""></asp:Label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        &nbsp;
+                    </td>
+                    <td>
+                        &nbsp;
+                    </td>
+                    <td>
+                        &nbsp;
+                    </td>
+                    <td>
+                        &nbsp;
+                    </td>
+                    <td>
+                        &nbsp;
+                    </td>
+                </tr>
+            </table>
+            <table width="100%">
+                <tr>
+                    <td>
+                        &nbsp;
+                    </td>
+                    <td class="rightData">
+                        <asp:Label ID="lblAvailableSchemes" runat="server" Text="Available Schemes" CssClass="FieldName"></asp:Label>
+                    </td>
+                    <td class="rightData">
+                        <asp:Label ID="lblMappedSchemes" runat="server" Text="Mapped Schemes" CssClass="FieldName"></asp:Label>
+                    </td>
+                    <td>
+                        &nbsp;
+                    </td>
+                    <td>
+                        &nbsp;
+                    </td>
+                    <td>
+                        &nbsp;
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        &nbsp;
+                    </td>
+                    <td rowspan="2" class="rightData">
+                        <telerik:RadListBox SelectionMode="Multiple" EnableDragAndDrop="true" AllowTransferOnDoubleClick="true"
+                            AllowTransferDuplicates="false" EnableViewState="true" EnableMarkMatches="true"
+                            runat="server" ID="rlbAvailSchemes" Height="200px" Width="250px" AllowTransfer="true"
+                            TransferToID="rlbMappedSchemes" CssClass="cmbField">
+                            <ButtonSettings TransferButtons="All" />
+                        </telerik:RadListBox>
+                    </td>
+                    <td rowspan="2" class="leftLabel">
+                        <telerik:RadListBox runat="server" AutoPostBackOnTransfer="true" SelectionMode="Multiple"
+                            ID="rlbMappedSchemes" Height="200px" Width="220px" CssClass="cmbField">
+                        </telerik:RadListBox>
+                    </td>
+                    <td>
+                        &nbsp;
+                    </td>
+                    <td>
+                        &nbsp;
+                    </td>
+                    <td>
+                        &nbsp;
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        &nbsp;
+                    </td>
+                    <td>
+                        &nbsp;
+                    </td>
+                    <td>
+                        &nbsp;
+                    </td>
+                    <td>
+                        &nbsp;
+                    </td>
+                    <td>
+                        &nbsp;
+                    </td>
+                    <td>
+                        &nbsp;
+                    </td>
+                </tr>
+            </table>
+            <table width="100%">
+                <tr>
+                    <td class="leftLabel">
+                        <asp:Label ID="lblMappedFrom" runat="server" CssClass="FieldName" Text="Mapping Period: "></asp:Label>
+                    </td>
+                    <td class="rightData">
+                        <telerik:RadDatePicker ID="rdpMappedFrom" runat="server">
+                        </telerik:RadDatePicker>
+                        <td class="leftLabel">
+                            <telerik:RadDatePicker ID="rdpMappedTill" runat="server">
+                            </telerik:RadDatePicker>
+                            <td class="rightData">
+                                <asp:Button ID="btnMapSchemes" CssClass="PCGButton" runat="server" Text="Map" OnClick="btnMapSchemes_Click" />
+                            </td>
+                            <td colspan="2">
+                                <asp:RequiredFieldValidator ID="rfvMappingTo" runat="server" ErrorMessage="Please enter valid date(s)"
+                                    Display="Dynamic" CssClass="rfvPCG" ValidationGroup="mappingPeriod" ControlToValidate="rdpMappedTill"></asp:RequiredFieldValidator>
+                                <asp:RequiredFieldValidator ID="rfvMappingFrom" runat="server" ErrorMessage="Please enter valid date(s)"
+                                    Display="Dynamic" CssClass="rfvPCG" ValidationGroup="mappingPeriod" ControlToValidate="rdpMappedFrom"></asp:RequiredFieldValidator>
+                                <asp:CompareValidator ID="cmvMappingPeriod" runat="server" ErrorMessage="Please enter valid date(s)"
+                                    CssClass="rfvPCG" Display="Dynamic" ControlToCompare="rdpMappedFrom" ControlToValidate="rdpMappedTill"
+                                    Operator="GreaterThan"></asp:CompareValidator>
+                            </td>
+                </tr>
+            </table>
+        </asp:Panel>
         <div>
             <asp:HiddenField ID="hidCommissionStructureName" runat="server" />
+            <asp:HiddenField ID="hdnProductId" runat="server" />
+            <asp:HiddenField ID="hdnStructValidFrom" runat="server" />
+            <asp:HiddenField ID="hdnStructValidTill" runat="server" />
+            <asp:HiddenField ID="hdnIssuerId" runat="server" />
+            <asp:HiddenField ID="hdnCategoryId" runat="server" />
+            <asp:HiddenField ID="hdnSubcategoryIds" runat="server" />
         </div>
     </ContentTemplate>
     <Triggers>
         <asp:PostBackTrigger ControlID="imgexportButton" />
     </Triggers>
 </asp:UpdatePanel>
+</asp:Panel>
