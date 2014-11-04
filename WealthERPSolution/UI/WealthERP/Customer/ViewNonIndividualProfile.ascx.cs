@@ -77,9 +77,18 @@ namespace WealthERP.Customer
                 {
                     lblCommencementDate.Text = customerVo.CommencementDate.ToShortDateString();
                 }
+                if (customerVo.RegistrationNum !=null)
+                {
                 lblRegistrationNum.Text = customerVo.RegistrationNum.ToString();
-                lblRegistrationPlace.Text = customerVo.RegistrationPlace.ToString();
-                lblCompanyWebsite.Text = customerVo.CompanyWebsite.ToString();
+                }
+                if (customerVo.RegistrationPlace != null)
+                {
+                    lblRegistrationPlace.Text = customerVo.RegistrationPlace.ToString();
+                }
+                if (customerVo.CompanyWebsite != null)
+                {
+                    lblCompanyWebsite.Text = customerVo.CompanyWebsite.ToString();
+                }
                 if (customerVo.DummyPAN == 1)
                 {
                     chkdummypan.Checked = true;
@@ -120,11 +129,26 @@ namespace WealthERP.Customer
                 else
                     lblRM.Text = "";
                 lblPanNum.Text = customerVo.PANNum.ToString();
-                lblCorrLine1.Text = customerVo.Adr1Line1.ToString();
-                lblCorrLine2.Text = customerVo.Adr1Line2.ToString();
-                lblCorrLine3.Text = customerVo.Adr1Line3.ToString();
-                lblCorrPinCode.Text = customerVo.Adr1PinCode.ToString();
-                lblCorrCity.Text = customerVo.Adr1City.ToString();
+                if (customerVo.Adr1Line1 != null)
+                {
+                    lblCorrLine1.Text = customerVo.Adr1Line1.ToString();
+                }
+                if (customerVo.Adr1Line2 != null)
+                {
+                    lblCorrLine2.Text = customerVo.Adr1Line2.ToString();
+                }
+                if (customerVo.Adr1Line3 != null)
+                {
+                    lblCorrLine3.Text = customerVo.Adr1Line3.ToString();
+                }
+                if (customerVo.Adr1PinCode != null)
+                {
+                    lblCorrPinCode.Text = customerVo.Adr1PinCode.ToString();
+                }
+                if (customerVo.Adr1City != null)
+                {
+                    lblCorrCity.Text = customerVo.Adr1City.ToString();
+                }
                 if (customerVo.Adr1State != "")
                 {
                     lblCorrState.Text = XMLBo.GetStateName(path, customerVo.Adr1State);
@@ -139,7 +163,7 @@ namespace WealthERP.Customer
                 lblPermLine2.Text = customerVo.Adr2Line2.ToString();
                 lblPermLine3.Text = customerVo.Adr2Line3.ToString();
                 lblPermPinCode.Text = customerVo.Adr2PinCode.ToString();
-                lblPermCity.Text = customerVo.Adr2City.ToString();
+                lblPermCity.Text = customerVo.Adr1City.ToString();
                 if (customerVo.Adr2State.ToString() !=string.Empty)
 
                 {
@@ -154,8 +178,16 @@ namespace WealthERP.Customer
                 lblResPhone.Text = customerVo.ResISDCode.ToString() + "-" + customerVo.ResSTDCode.ToString() + "-" + customerVo.ResPhoneNum.ToString();
                 lblOfcPhone.Text = customerVo.OfcISDCode.ToString() + "-" + customerVo.OfcSTDCode.ToString() + "-" + customerVo.OfcPhoneNum.ToString();
                 lblResFax.Text = customerVo.Fax.ToString() + "-" + customerVo.ISDFax.ToString() + "-" + customerVo.STDFax.ToString();
-                lblEmail.Text = customerVo.Email.ToString();
-                lblAltEmail.Text = customerVo.AltEmail.ToString();
+                if (customerVo.Email != null)
+                {
+                    lblEmail.Text = customerVo.Email.ToString();
+                }
+                if (customerVo.AltEmail != null)
+                {
+                    lblAltEmail.Text = customerVo.AltEmail.ToString();
+                }
+                lblType.Text = XMLBo.GetCustomerTypeName(path, customerVo.Type);
+                lblSubType.Text = XMLBo.GetCustomerSubTypeName(path, customerVo.SubType);
             }
             catch (BaseApplicationException Ex)
             {

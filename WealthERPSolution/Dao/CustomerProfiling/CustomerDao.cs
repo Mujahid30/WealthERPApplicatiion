@@ -1136,7 +1136,7 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(editCustomerCmd, "@C_LastName", DbType.String, customerVo.LastName);
                 db.AddInParameter(editCustomerCmd, "@C_Gender", DbType.String, customerVo.Gender);
                 db.AddInParameter(editCustomerCmd, "@XCT_CustomerTypeCode", DbType.String, customerVo.Type);
-                if (customerVo.SubType != "")
+                    if (customerVo.SubType != "")
                     db.AddInParameter(editCustomerCmd, "@XCST_CustomerSubTypeCode", DbType.String, customerVo.SubType);
                 else
                     db.AddInParameter(editCustomerCmd, "@XCST_CustomerSubTypeCode", DbType.String, DBNull.Value);

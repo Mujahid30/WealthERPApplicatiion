@@ -29,6 +29,7 @@ namespace WealthERP.Customer
         {
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
             customerVo = (CustomerVo)Session["CustomerVo"];
+            userVo = (UserVo)Session["userVo"];
             try
             {
                 SessionBo.CheckSession();
@@ -38,7 +39,6 @@ namespace WealthERP.Customer
                     BindDropDowns(path);
                     //Bind Adviser Branch List
                     BindListBranch(customerVo.RmId, "rm");
-
                     userVo = (UserVo)Session["userVo"];
                     if (customerVo.Type.ToUpper().ToString() == "IND")
                     {
@@ -50,6 +50,11 @@ namespace WealthERP.Customer
                     {
                         rbtnNonIndividual.Checked = true;
                         trSalutation.Visible = false;
+                        BinSubtypeDropdown(1002);
+                    }
+                    if (!string.IsNullOrEmpty(ddlCustomerSubType.SelectedValue))
+                    {
+                        ddlCustomerSubType.SelectedValue = customerVo.TaxStatusCustomerSubTypeId.ToString();
                     }
                     if (customerVo != null)
                     {
@@ -238,15 +243,11 @@ namespace WealthERP.Customer
                         {
                             txtFaxStd.Text = customerVo.STDFax.ToString();
                         }
-                        //txtEmail.Text = customerVo.Email.ToString();
-                        if (!string.IsNullOrEmpty(customerVo.AltEmail))
+                        txtEmail.Text = customerVo.Email.ToString();
+                        if (customerVo.AltEmail!=null)
                         {
                             txtAltEmail.Text = customerVo.AltEmail.ToString();
                         }
-                        //if (customerVo.AltEmail.ToString() != "")
-                        //{
-                        //    txtAltEmail.Text = customerVo.AltEmail.ToString();
-                        //}
                     }
                 }
             }
@@ -337,7 +338,7 @@ namespace WealthERP.Customer
                     customerVo.LastName = "";
                 }
                 customerVo.BranchId = int.Parse(ddlAdviserBranchList.SelectedValue.ToString());
-                customerVo.SubType = ddlCustomerSubType.SelectedItem.Value.ToString();
+                customerVo.TaxStatusCustomerSubTypeId = Int16.Parse(ddlCustomerSubType.SelectedItem.Value.ToString());
                 customerVo.ContactFirstName = txtFirstName.Text.ToString();
                 customerVo.ContactMiddleName = txtMiddleName.Text.ToString();
                 customerVo.ContactLastName = txtLastName.Text.ToString();
@@ -519,7 +520,10 @@ namespace WealthERP.Customer
                 {
                     customerVo.STDFax = 0;
                 }
-                customerVo.Email = txtEmail.Text.ToString();
+                if (txtEmail.Text != "")
+                {
+                    customerVo.Email = txtEmail.Text.ToString();
+                }
                 customerVo.AltEmail = txtAltEmail.Text;
                 customerVo.OfcFax = 0;
                 customerVo.OfcISDFax = 0;
@@ -531,12 +535,12 @@ namespace WealthERP.Customer
                 customerVo.Nationality = null;
                 customerVo.Occupation = null;
                 customerVo.Qualification = null;
-
-
                 if (customerBo.UpdateCustomer(customerVo,userVo.UserId))
                 {
                     customerVo = customerBo.GetCustomer(customerVo.CustomerId);
                     Session["CustomerVo"] = customerVo;
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Profile updated Succesfully');", true);
+                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), "CloseThePopUp", " CloseWindowsPopUp();", true);
                     if (customerVo.Type.ToUpper().ToString() == "IND")
                     {
                         Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('ViewCustomerIndividualProfile','none');", true);

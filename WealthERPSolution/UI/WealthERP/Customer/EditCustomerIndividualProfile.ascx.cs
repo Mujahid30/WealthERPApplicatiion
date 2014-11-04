@@ -719,7 +719,7 @@ namespace WealthERP.Customer
                     }
 
 
-                    //customerVo.SubType = ddlCustomerSubType.SelectedItem.Value.ToString();
+                    customerVo.SubType = ddlCustomerSubType.SelectedItem.Value.ToString();
                     customerVo.TaxStatusCustomerSubTypeId = Int16.Parse(ddlCustomerSubType.SelectedItem.Value.ToString());
                     customerVo.IsRealInvestor = chkRealInvestor.Checked;
 
@@ -1145,7 +1145,7 @@ namespace WealthERP.Customer
             ddlCustomerSubType.DataTextField = "WCMV_Name";
             ddlCustomerSubType.DataValueField = "WCMV_LookupId";
             ddlCustomerSubType.DataBind();
-            // ddlCustomerSubType.SelectedValue = customerVo.SubType;
+            //ddlCustomerSubType.SelectedValue = customerVo.SubType;
             if (customerVo != null)
             {
                 customerVo.Type = "NIND";
