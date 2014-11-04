@@ -176,9 +176,10 @@ namespace WealthERP.CommisionManagement
         protected void btnGo_Click(object sender, EventArgs e)
         {
             BindStructureRuleGrid();
-            //gvCommMgmt.Visible = true;
+           gvCommMgmt.Visible = true;
             pnlGrid.Visible = true;
             ibtExportSummary.Visible = true;
+            //tblCommissionStructureRule.Visible = true;
         }
 
         protected void ibtExportSummary_OnClick(object sender, ImageClickEventArgs e)
