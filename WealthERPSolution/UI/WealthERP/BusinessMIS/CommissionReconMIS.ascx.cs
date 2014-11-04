@@ -233,8 +233,10 @@ namespace WealthERP.BusinessMIS
                     hdnschemeId.Value = ddlScheme.SelectedItem.Value.ToString();
                 if (string.IsNullOrEmpty(ddlCategory.SelectedItem.Value.ToString()) != true)
                     hdnCategory.Value = ddlCategory.SelectedItem.Value.ToString();
-                if (string.IsNullOrEmpty(ddlIssuer.SelectedItem.Value.ToString()) != true)
+                if (ddlIssuer.SelectedValue.ToString()!="Select")
                     hdnSBbrokercode.Value = ddlIssuer.SelectedItem.Value.ToString();
+                else
+                    hdnSBbrokercode.Value = "0";
                 if (string.IsNullOrEmpty(ddlIssueName.SelectedValue.ToString()) != true)
                     hdnIssueId.Value = ddlIssueName.SelectedValue.ToString();
                 else

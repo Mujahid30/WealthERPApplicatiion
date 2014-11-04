@@ -55,8 +55,8 @@
         <td align="right">
             <asp:DropDownList ID="ddlOrderStatus" runat="server" CssClass="cmbField">
                 <asp:ListItem Text="Select" Value="Select"></asp:ListItem>
-                <asp:ListItem Text="EXECUTED" Value="IP"> </asp:ListItem>
-                <asp:ListItem Text="ORDERED" Value="OR"></asp:ListItem>
+                <asp:ListItem Text="EXECUTED/ORDERED" Value="IP"> </asp:ListItem>
+                <asp:ListItem Text="ACCEPTED" Value="OR"></asp:ListItem>
             </asp:DropDownList>
             <asp:CompareValidator ID="CompareValidator6" runat="server" ControlToValidate="ddlOrderStatus"
                 CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select Order Status"
