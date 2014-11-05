@@ -64,10 +64,12 @@
         <td class="rightField">
             <asp:TextBox ID="txtDpClientId" runat="server" CssClass="txtField"></asp:TextBox>
             <span id="Span2" class="spnRequiredField">*</span>
-            <asp:RegularExpressionValidator ID="rev" runat="server" ControlToValidate="txtDpClientId" ValidationGroup="btnsubmit"
-                ErrorMessage="Spaces are not allowed!" CssClass="cvPCG" Display="Dynamic" ValidationExpression="[^\s]+" />
+            <asp:RegularExpressionValidator ID="rev" runat="server" ControlToValidate="txtDpClientId"
+                ValidationGroup="btnsubmit" ErrorMessage="Special Character are not allowed!"
+                CssClass="cvPCG" Display="Dynamic" ValidationExpression="^[a-zA-Z0-9]+(?:--?[a-zA-Z0-9]+)*$" />
             <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtDpClientId"
-                ErrorMessage="Client Id Required" CssClass="cvPCG" ValidationGroup="btnsubmit" Display="Dynamic"></asp:RequiredFieldValidator>
+                ErrorMessage="Client Id Required" CssClass="cvPCG" ValidationGroup="btnsubmit"
+                Display="Dynamic"></asp:RequiredFieldValidator>
         </td>
         <td class="leftField">
             &nbsp;<asp:Label ID="lblAccountOpeningDate" runat="server" Text="Account Opening Date:"
