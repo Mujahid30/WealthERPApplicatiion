@@ -23,6 +23,8 @@ namespace WealthERP.Customer
         CustomerBo customerBo = new CustomerBo();
         string path = "";
         DataTable dtCustomerSubType = new DataTable();
+        DataTable dtOccupation = new DataTable();
+        DataTable dtNationality = new DataTable();
         CommonLookupBo commonLookupBo = new CommonLookupBo();
 
         protected void Page_Load(object sender, EventArgs e)
@@ -172,19 +174,19 @@ namespace WealthERP.Customer
                         {
                             chkmailn.Checked = false;
                         }
-                        if (!string.IsNullOrEmpty(customerVo.Adr1Country ))
+                        if (!string.IsNullOrEmpty(customerVo.Adr1Country))
                         {
                             ddlCorrAdrCountry.SelectedItem.Value = customerVo.Adr1Country.ToString();
                         }
-                        if (!string.IsNullOrEmpty(customerVo.Adr2Line1 ))
+                        if (!string.IsNullOrEmpty(customerVo.Adr2Line1))
                         {
                             txtPermAdrLine1.Text = customerVo.Adr2Line1.ToString();
                         }
-                        if (!string.IsNullOrEmpty(customerVo.Adr2Line2 ))
+                        if (!string.IsNullOrEmpty(customerVo.Adr2Line2))
                         {
                             txtPermAdrLine2.Text = customerVo.Adr2Line2.ToString();
                         }
-                        if (!string.IsNullOrEmpty(customerVo.Adr2Line3 ))
+                        if (!string.IsNullOrEmpty(customerVo.Adr2Line3))
                         {
                             txtPermAdrLine3.Text = customerVo.Adr2Line3.ToString();
                         }
@@ -192,7 +194,7 @@ namespace WealthERP.Customer
                         {
                             txtPermAdrPinCode.Text = customerVo.Adr2PinCode.ToString();
                         }
-                        if (!string.IsNullOrEmpty(customerVo.Adr2City ))
+                        if (!string.IsNullOrEmpty(customerVo.Adr2City))
                         {
                             txtPermAdrCity.Text = customerVo.Adr2City.ToString();
                         }
@@ -203,7 +205,7 @@ namespace WealthERP.Customer
                                 ddlPermAdrState.SelectedValue = customerVo.Adr2State;
                             }
                         }
-                        if (!string.IsNullOrEmpty(customerVo.Adr2Country ))
+                        if (!string.IsNullOrEmpty(customerVo.Adr2Country))
                         {
                             ddlPermAdrCountry.SelectedItem.Value = customerVo.Adr2Country.ToString();
                         }
@@ -244,10 +246,37 @@ namespace WealthERP.Customer
                             txtFaxStd.Text = customerVo.STDFax.ToString();
                         }
                         txtEmail.Text = customerVo.Email.ToString();
-                        if (customerVo.AltEmail!=null)
+                        if (customerVo.AltEmail != null)
                         {
                             txtAltEmail.Text = customerVo.AltEmail.ToString();
                         }
+                        if (customerVo.OccupationId != 0)
+                            ddlOccupation.SelectedValue = customerVo.OccupationId.ToString();
+                        if (customerVo.Nationality != null)
+                            ddlNationality.SelectedValue = customerVo.Nationality.ToString();
+                        txtAnnualIncome.Text = customerVo.AnnualIncome.ToString();
+                        txtMinNo1.Text = customerVo.MinNo1;
+                        txtMinNo2.Text = customerVo.MinNo2;
+                        txtMinNo3.Text = customerVo.MinNo3;
+                        txtESCNo.Text = customerVo.ESCNo;
+                        txtUINNo.Text = customerVo.UINNo;
+                        txtGuardianName.Text = customerVo.GuardianName;
+                        txtGuardianRelation.Text = customerVo.GuardianRelation;
+                        txtContactGuardianPANNum.Text = customerVo.ContactGuardianPANNum;
+                        txtPOA.Text = customerVo.POA.ToString();
+                        if (customerVo.GuardianDob == DateTime.MinValue)
+                            txtGuardianDOB.SelectedDate = null;
+                        else
+                            txtGuardianDOB.SelectedDate = customerVo.GuardianDob;
+                        txtGuardianMinNo.Text = customerVo.GuardianMinNo;
+                        txtOtherBankName.Text = customerVo.OtherBankName;
+                        txtTaxStatus.Text = customerVo.TaxStatus;
+                        txtCategory.Text = customerVo.Category;
+                        txtAdr1City.Text = customerVo.Adr1City;
+                        txtAdr1State.Text = customerVo.Adr1State;
+                        txtOtherCountry.Text = customerVo.OtherCountry;
+                        txtMobile1.Text = customerVo.Mobile1.ToString();
+                        txtMobile2.Text = customerVo.Mobile2.ToString();
                     }
                 }
             }
@@ -287,10 +316,24 @@ namespace WealthERP.Customer
             ddlPermAdrState.DataBind();
             ddlPermAdrState.Items.Insert(0, new ListItem("Select a State", "Select a State"));
 
+            dtOccupation = commonLookupBo.GetWERPLookupMasterValueList(3000, 0); ;
+            ddlOccupation.DataSource = dtOccupation;
+            ddlOccupation.DataTextField = "WCMV_Name";
+            ddlOccupation.DataValueField = "WCMV_LookupId";
+            ddlOccupation.DataBind();
+            ddlOccupation.Items.Insert(0, new ListItem("--SELECT--", "0"));
+
+            dtNationality = XMLBo.GetNationality(path);
+            ddlNationality.DataSource = dtNationality;
+            ddlNationality.DataTextField = "Nationality";
+            ddlNationality.DataValueField = "NationalityCode";
+            ddlNationality.DataBind();
+            ddlNationality.Items.Insert(0, new ListItem("Select a Nationality", "Select a Nationality"));
+
             if (customerVo.Type.ToUpper().ToString() == "IND")
             {
-               // dtCustomerSubType = XMLBo.GetCustomerSubType(path, "IND");
-               // commonLookupBo.GetWERPLookupMasterValueList(2000, 1001);
+                // dtCustomerSubType = XMLBo.GetCustomerSubType(path, "IND");
+                // commonLookupBo.GetWERPLookupMasterValueList(2000, 1001);
                 BinSubtypeDropdown(1001);
             }
             else
@@ -327,12 +370,12 @@ namespace WealthERP.Customer
                 if (rbtnIndividual.Checked)
                 {
                     customerVo.Type = "IND";
-                  
+
                 }
                 else
                 {
                     customerVo.Type = "NIND";
-                 
+
                     customerVo.FirstName = txtCompanyName.Text;
                     customerVo.MiddleName = "";
                     customerVo.LastName = "";
@@ -345,7 +388,7 @@ namespace WealthERP.Customer
                 customerVo.CompanyName = txtCompanyName.Text.ToString();
                 customerVo.CustCode = txtCustomerCode.Text.ToString();
                 //customerVo.Salutation = ddlSalutation.SelectedItem.Value.ToString();
-                
+
                 //if (customerVo.Salutation == "Mr.")
                 //{
                 //    customerVo.Gender = "M";
@@ -535,12 +578,82 @@ namespace WealthERP.Customer
                 customerVo.Nationality = null;
                 customerVo.Occupation = null;
                 customerVo.Qualification = null;
-                if (customerBo.UpdateCustomer(customerVo,userVo.UserId))
+                customerVo.OccupationId = int.Parse(ddlOccupation.SelectedItem.Value.ToString());
+                if (ddlNationality.SelectedIndex == 0)
+                    customerVo.Nationality = null;
+                else
+                    customerVo.Nationality = ddlNationality.SelectedItem.Value.ToString();
+                if (txtAnnualIncome.Text != "")
+                    customerVo.AnnualIncome = decimal.Parse(txtAnnualIncome.Text);
+                if (txtMinNo1.Text != "")
+                {
+                    customerVo.MinNo1 = txtMinNo1.Text.ToString();
+                }
+                if (txtMinNo2.Text != "")
+                {
+                    customerVo.MinNo2 = txtMinNo2.Text.ToString();
+                }
+                if (txtMinNo3.Text != "")
+                {
+                    customerVo.MinNo3 = txtMinNo3.Text.ToString();
+                }
+                if (txtESCNo.Text != "")
+                {
+                    customerVo.ESCNo = txtESCNo.Text.ToString();
+                }
+                if (txtUINNo.Text != "")
+                {
+                    customerVo.UINNo = txtUINNo.Text.ToString();
+                }
+                if (txtTaxStatus.Text != "")
+                {
+                    customerVo.TaxStatus = txtTaxStatus.Text.ToString();
+                }
+                if (txtCategory.Text != "")
+                {
+                    customerVo.Category = txtCategory.Text.ToString();
+                }
+                if (txtGuardianName.Text != "")
+                {
+                    customerVo.GuardianName = txtGuardianName.Text.ToString();
+                }
+                if (txtGuardianRelation.Text != "")
+                {
+                    customerVo.GuardianRelation = txtGuardianRelation.Text.ToString();
+                }
+                if (txtContactGuardianPANNum.Text != "")
+                {
+                    customerVo.ContactGuardianPANNum = txtContactGuardianPANNum.Text.ToString();
+                }
+                if (txtGuardianMinNo.Text != "")
+                {
+                    customerVo.GuardianMinNo = txtGuardianMinNo.Text.ToString();
+                }
+                if (txtGuardianDOB.SelectedDate.ToString() == "")
+                    customerVo.GuardianDob = DateTime.MinValue;
+                else
+                    customerVo.GuardianDob = DateTime.Parse(txtGuardianDOB.SelectedDate.ToString());
+                if (txtPOA.Text != "")
+                    customerVo.POA = int.Parse(txtPOA.Text);
+                if (txtOtherBankName.Text != "")
+                {
+                    customerVo.OtherBankName = txtOtherBankName.Text.ToString();
+                }
+                if (txtMobile1.Text == "")
+                    customerVo.Mobile1 = 0;
+                else
+                    customerVo.Mobile1 = long.Parse(txtMobile1.Text.ToString());
+
+                if (txtMobile2.Text == "")
+                    customerVo.Mobile2 = 0;
+                else
+                    customerVo.Mobile2 = long.Parse(txtMobile2.Text.ToString());
+                if (customerBo.UpdateCustomer(customerVo, userVo.UserId))
                 {
                     customerVo = customerBo.GetCustomer(customerVo.CustomerId);
                     Session["CustomerVo"] = customerVo;
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Profile updated Succesfully');", true);
-                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), "CloseThePopUp", " CloseWindowsPopUp();", true);
+                    //ScriptManager.RegisterClientScriptBlock(this.Page,this.GetType(), "Message", "alert('Profile updated Succesfully');", true);
+                    //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "CloseThePopUp", " CloseWindowsPopUp();", true);
                     if (customerVo.Type.ToUpper().ToString() == "IND")
                     {
                         Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('ViewCustomerIndividualProfile','none');", true);

@@ -15,7 +15,7 @@
     </tr>
 </table>--%>
 <table width="100%">
-<tr>
+    <tr>
         <td colspan="3">
             <div class="divPageHeading">
                 <table cellspacing="0" cellpadding="3" width="100%">
@@ -28,7 +28,7 @@
             </div>
         </td>
     </tr>
-    </table>
+</table>
 <table style="width: 100%; height: 391px;">
     <tr>
         <td>
@@ -66,9 +66,9 @@
             <asp:DropDownList ID="ddlAdviserBranchList" runat="server" CssClass="cmbField">
             </asp:DropDownList>
             <span id="Span3" class="spnRequiredField">*</span>
-            <asp:CompareValidator ID="ddlAdviserBranchList_CompareValidator" runat="server" ValidationGroup="btnSubmit" ControlToValidate="ddlAdviserBranchList"
-                ErrorMessage="Please select a Branch" Operator="NotEqual" ValueToCompare="Select a Branch"
-                CssClass="cvPCG">
+            <asp:CompareValidator ID="ddlAdviserBranchList_CompareValidator" runat="server" ValidationGroup="btnSubmit"
+                ControlToValidate="ddlAdviserBranchList" ErrorMessage="Please select a Branch"
+                Operator="NotEqual" ValueToCompare="Select a Branch" CssClass="cvPCG">
             </asp:CompareValidator>
         </td>
     </tr>
@@ -80,9 +80,9 @@
             <asp:DropDownList ID="ddlCustomerSubType" runat="server" CssClass="cmbField">
             </asp:DropDownList>
             <span id="Span2" class="spnRequiredField">*</span>
-            <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="ddlCustomerSubType" ValidationGroup="btnSubmit"
-                ErrorMessage="Please select a Customer Sub-Type" Operator="NotEqual" ValueToCompare="Select a Sub-Type"
-                CssClass="cvPCG"></asp:CompareValidator>
+            <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="ddlCustomerSubType"
+                ValidationGroup="btnSubmit" ErrorMessage="Please select a Customer Sub-Type"
+                Operator="NotEqual" ValueToCompare="Select a Sub-Type" CssClass="cvPCG"></asp:CompareValidator>
         </td>
     </tr>
     <tr>
@@ -117,7 +117,7 @@
         </td>
         <td class="rightField">
             <asp:TextBox ID="txtCompanyName" runat="server" CssClass="txtField"></asp:TextBox>
-             <span id="spAccountNumber" class="spnRequiredField">*</span>
+            <span id="spAccountNumber" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="rfvComapanyName" ControlToValidate="txtCompanyName"
                 ValidationGroup="btnSubmit" ErrorMessage="Please enter Company Name" Display="Dynamic"
                 runat="server" CssClass="rfvPCG">
@@ -190,15 +190,13 @@
             <asp:TextBox ID="txtCompanyWebsite" runat="server" CssClass="txtField"></asp:TextBox>
         </td>
     </tr>
-     <tr>
+    <tr>
         <td class="leftField">
             <asp:Label ID="Label8" runat="server" CssClass="FieldName" Text="PAN Number:"></asp:Label>
         </td>
         <td class="rightField">
             <asp:TextBox ID="txtPanNumber" runat="server" CssClass="txtField"></asp:TextBox>
-            
-           
-            <asp:Checkbox ID="chkdummypan" runat="server" CssClass="txtField" Text="Dummy PAN"
+            <asp:CheckBox ID="chkdummypan" runat="server" CssClass="txtField" Text="Dummy PAN"
                 AutoPostBack="true" />
         </td>
     </tr>
@@ -207,15 +205,13 @@
             <asp:Label ID="Label15" runat="server" CssClass="FieldName" Text="Contact Person Name:"></asp:Label>
         </td>
         <td class="rightField">
-            <asp:TextBox ID="txtFirstName" runat="server" CssClass="txtField" style="width: 30%"></asp:TextBox>
+            <asp:TextBox ID="txtFirstName" runat="server" CssClass="txtField" Style="width: 30%"></asp:TextBox>
             &nbsp;
-            <asp:TextBox ID="txtMiddleName" runat="server" CssClass="txtField" style="width: 30%"></asp:TextBox>
+            <asp:TextBox ID="txtMiddleName" runat="server" CssClass="txtField" Style="width: 30%"></asp:TextBox>
             &nbsp;
-            <asp:TextBox ID="txtLastName" runat="server" CssClass="txtField" style="width: 30%"></asp:TextBox>
+            <asp:TextBox ID="txtLastName" runat="server" CssClass="txtField" Style="width: 30%"></asp:TextBox>
         </td>
     </tr>
-   
-     
 </table>
 <div class="tabber">
     <div class="tabbertab">
@@ -232,7 +228,7 @@
                     <asp:Label ID="Label19" runat="server" Text="Line1(House No./Building):" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightField">
-                    <asp:TextBox ID="txtCorrAdrLine1" runat="server" CssClass="txtField" style="width: 30%" ></asp:TextBox>
+                    <asp:TextBox ID="txtCorrAdrLine1" runat="server" CssClass="txtField" Style="width: 30%"></asp:TextBox>
                 </td>
                 <td>
                     &nbsp;
@@ -246,7 +242,7 @@
                     <asp:Label ID="Label20" runat="server" Text="Line2(Street):" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightField">
-                    <asp:TextBox ID="txtCorrAdrLine2" runat="server" CssClass="txtField" style="width: 30%"></asp:TextBox>
+                    <asp:TextBox ID="txtCorrAdrLine2" runat="server" CssClass="txtField" Style="width: 30%"></asp:TextBox>
                 </td>
                 <td>
                     &nbsp;
@@ -260,7 +256,7 @@
                     <asp:Label ID="Label21" runat="server" Text="Line3(Area):" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightField">
-                    <asp:TextBox ID="txtCorrAdrLine3" runat="server" CssClass="txtField" style="width: 30%"></asp:TextBox>
+                    <asp:TextBox ID="txtCorrAdrLine3" runat="server" CssClass="txtField" Style="width: 30%"></asp:TextBox>
                 </td>
                 <td>
                     &nbsp;
@@ -294,7 +290,7 @@
                 <td class="rightField">
                     <asp:TextBox ID="txtCorrAdrPinCode" runat="server" CssClass="txtField"></asp:TextBox>
                     <asp:CompareValidator ID="txtCorrAdrPinCode_comparevalidator" ControlToValidate="txtCorrAdrPinCode"
-                        runat="server" Display="Dynamic" ErrorMessage="<br />Please enter a numeric value" 
+                        runat="server" Display="Dynamic" ErrorMessage="<br />Please enter a numeric value"
                         Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
                 </td>
                 <td class="leftField">
@@ -323,7 +319,7 @@
                     <asp:Label ID="Label27" runat="server" Text="Line1(House No./Building):" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightField">
-                    <asp:TextBox ID="txtPermAdrLine1" runat="server" CssClass="txtField" style="width: 30%"></asp:TextBox>
+                    <asp:TextBox ID="txtPermAdrLine1" runat="server" CssClass="txtField" Style="width: 30%"></asp:TextBox>
                 </td>
                 <td>
                     &nbsp;
@@ -337,7 +333,7 @@
                     <asp:Label ID="Label28" runat="server" Text="Line2(Street):" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightField">
-                    <asp:TextBox ID="txtPermAdrLine2" runat="server" CssClass="txtField" style="width: 30%"></asp:TextBox>
+                    <asp:TextBox ID="txtPermAdrLine2" runat="server" CssClass="txtField" Style="width: 30%"></asp:TextBox>
                 </td>
                 <td>
                     &nbsp;
@@ -351,7 +347,7 @@
                     <asp:Label ID="Label29" runat="server" Text="Line3(Area):" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightField">
-                    <asp:TextBox ID="txtPermAdrLine3" runat="server" CssClass="txtField" style="width: 30%"></asp:TextBox>
+                    <asp:TextBox ID="txtPermAdrLine3" runat="server" CssClass="txtField" Style="width: 30%"></asp:TextBox>
                 </td>
                 <td>
                     &nbsp;
@@ -501,7 +497,7 @@
                     &nbsp;
                 </td>
             </tr>
-             <tr>
+            <tr>
                 <td class="leftField">
                     <asp:Label ID="lblAltEmail" runat="server" Text="Alternate Email:" CssClass="FieldName"></asp:Label>
                 </td>
@@ -518,6 +514,24 @@
                     &nbsp;
                 </td>
             </tr>
+            <tr>
+                <td class="leftField">
+                    <asp:Label ID="Label38" CssClass="FieldName" runat="server" Text="Mobile1:"></asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtMobile1" runat="server" CssClass="txtField" MaxLength="10"></asp:TextBox>
+                    <asp:RegularExpressionValidator ValidationGroup="btnEdit" ControlToValidate="txtMobile1"
+                        Display="Dynamic" ErrorMessage="Telephone Number must be 7-11 digit" ValidationExpression="^((\+)?(\d{2}[-]))?(\d{10}){1}?$"></asp:RegularExpressionValidator>
+                </td>
+                <td class="leftField">
+                    <asp:Label ID="Label43" CssClass="FieldName" runat="server" Text="Mobile2:"></asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtMobile2" runat="server" CssClass="txtField" MaxLength="10"></asp:TextBox>
+                    <asp:RegularExpressionValidator ValidationGroup="btnEdit" ControlToValidate="txtMobile2"
+                        Display="Dynamic" ErrorMessage="Telephone Number must be 7-11 digit" ValidationExpression="^((\+)?(\d{2}[-]))?(\d{10}){1}?$"></asp:RegularExpressionValidator>
+                </td>
+            </tr>
         </table>
     </div>
     <div class="tabbertab" style="height: 250px;">
@@ -531,36 +545,173 @@
                 </td>
             </tr>
             <tr>
-                        <td class="leftField" width="25%">
-                                <asp:Label ID="Label6" runat="server" Text="Alert Preferences:" CssClass="FieldName"></asp:Label>
-                            </td>
-                            <td class="rightField" width="25%">
-                                 <asp:Checkbox ID="chkmailn" runat="server" CssClass="txtField" Text="Via Mail"
-                AutoPostBack="false"  Enabled = "true"/>
-                &nbsp;
-            
-                 <asp:Checkbox ID="chksmsn" runat="server" CssClass="txtField" Text="Via SMS" Checked="true"
-                AutoPostBack="false"  Enabled = "true"/>
-                            </td>
-                            <td>
-                            &nbsp;
-                            </td>
-                            <td>
-                            &nbsp;
-                            </td>
-                        </tr>
-            
-           
-            
-            
+                <td class="leftField">
+                    <asp:Label ID="Label45" CssClass="FieldName" runat="server" Text="Occupation:"></asp:Label>
+                </td>
+                <td class="rightField">
+                    <asp:DropDownList ID="ddlOccupation" runat="server" CssClass="cmbField">
+                    </asp:DropDownList>
+                </td>
+                <td class="leftField">
+                    <asp:Label ID="lblAnnualIncome" CssClass="FieldName" runat="server" Text="AnnualIncome:"></asp:Label>
+                </td>
+                <td class="rightField" width="25%">
+                    <asp:TextBox ID="txtAnnualIncome" runat="server" CssClass="txtField"></asp:TextBox>
+                    <asp:CompareValidator ID="CompareValidator2" ControlToValidate="txtAnnualIncome"
+                        runat="server" Display="Dynamic" ErrorMessage="<br />Please enter a numeric value"
+                        Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
+                </td>
+                <td class="leftField">
+                    <asp:Label ID="Label48" CssClass="FieldName" runat="server" Text="Nationality:"></asp:Label>
+                </td>
+                <td class="rightField">
+                    <asp:DropDownList ID="ddlNationality" runat="server" CssClass="cmbField">
+                    </asp:DropDownList>
+                </td>
+            </tr>
+            <tr>
+                <td class="leftField">
+                    <asp:Label ID="lblMinno1" CssClass="FieldName" runat="server" Text="MinNo1:"></asp:Label>
+                </td>
+                <td class="rightField" width="25%">
+                    <asp:TextBox ID="txtMinNo1" runat="server" CssClass="txtField"></asp:TextBox>
+                </td>
+                <td class="leftField">
+                    <asp:Label ID="lblMinno2" CssClass="FieldName" runat="server" Text="MinNo2:"></asp:Label>
+                </td>
+                <td class="rightField" width="25%">
+                    <asp:TextBox ID="txtMinNo2" runat="server" CssClass="txtField"></asp:TextBox>
+                </td>
+                <td class="leftField">
+                    <asp:Label ID="lblMinno3" CssClass="FieldName" runat="server" Text="MinNo3:"></asp:Label>
+                </td>
+                <td class="rightField" width="25%">
+                    <asp:TextBox ID="txtMinNo3" runat="server" CssClass="txtField"></asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td class="leftField">
+                    <asp:Label ID="lblESCNo" CssClass="FieldName" runat="server" Text="ESCNo:"></asp:Label>
+                </td>
+                <td class="rightField" width="25%">
+                    <asp:TextBox ID="txtESCNo" runat="server" CssClass="txtField"></asp:TextBox>
+                </td>
+                <td class="leftField">
+                    <asp:Label ID="lblUINNo" CssClass="FieldName" runat="server" Text="UINNo:"></asp:Label>
+                </td>
+                <td class="rightField" width="25%">
+                    <asp:TextBox ID="txtUINNo" runat="server" CssClass="txtField"></asp:TextBox>
+                </td>
+                <td class="leftField">
+                    <asp:Label ID="lblPOA" CssClass="FieldName" runat="server" Text="POA:"></asp:Label>
+                </td>
+                <td class="rightField" width="25%">
+                    <asp:TextBox ID="txtPOA" runat="server" CssClass="txtField"></asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td class="leftField">
+                    <asp:Label ID="lblGuardianName" CssClass="FieldName" runat="server" Text="GuardianName:"></asp:Label>
+                </td>
+                <td class="rightField" width="25%">
+                    <asp:TextBox ID="txtGuardianName" runat="server" CssClass="txtField"></asp:TextBox>
+                </td>
+                <td class="leftField">
+                    <asp:Label ID="lblGuardianRelation" CssClass="FieldName" runat="server" Text="GuardianRelation:"></asp:Label>
+                </td>
+                <td class="rightField" width="25%">
+                    <asp:TextBox ID="txtGuardianRelation" runat="server" CssClass="txtField"></asp:TextBox>
+                </td>
+                <td class="leftField">
+                    <asp:Label ID="lblContactGuardianPANNum" CssClass="FieldName" runat="server" Text="GuardianPANNum:"></asp:Label>
+                </td>
+                <td class="rightField" width="25%">
+                    <asp:TextBox ID="txtContactGuardianPANNum" runat="server" CssClass="txtField"></asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td class="leftField" width="25%">
+                    <asp:Label ID="Label6" runat="server" Text="Alert Preferences:" CssClass="FieldName"></asp:Label>
+                </td>
+                <td class="rightField" width="25%">
+                    <asp:CheckBox ID="chkmailn" runat="server" CssClass="txtField" Text="Via Mail" AutoPostBack="false"
+                        Enabled="true" />
+                    &nbsp;
+                    <asp:CheckBox ID="chksmsn" runat="server" CssClass="txtField" Text="Via SMS" Checked="true"
+                        AutoPostBack="false" Enabled="true" />
+                </td>
+                <td class="leftField" width="25%">
+                    <asp:Label ID="lblGuardianMinNo" CssClass="FieldName" runat="server" Text="GuardianMinNo:"></asp:Label>
+                </td>
+                <td class="rightField" width="25%">
+                    <asp:TextBox ID="txtGuardianMinNo" runat="server" CssClass="txtField"></asp:TextBox>
+                </td>
+                <td class="leftField">
+                    <asp:Label ID="lblGuardianDOB" runat="server" CssClass="FieldName" Text="Guardian Date Of Birth:"></asp:Label>
+                </td>
+                <td class="rightField">
+                    <asp:CompareValidator ID="CompareValidator4" runat="server" ErrorMessage="<br/>Please enter a valid date."
+                        Type="Date" ControlToValidate="txtGuardianDOB" CssClass="cvPCG" Operator="DataTypeCheck"
+                        ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
+                    <telerik:RadDatePicker ID="txtGuardianDOB" CssClass="txtTo" runat="server" Culture="English (United States)"
+                        Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                        <Calendar ID="Calendar3" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
+                            ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
+                        </Calendar>
+                        <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                        <DateInput ID="DateInput3" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                        </DateInput>
+                    </telerik:RadDatePicker>
+                </td>
+            </tr>
+            <tr>
+                <td class="leftField">
+                    <asp:Label ID="lblOtherBankName" CssClass="FieldName" runat="server" Text="Other BankName:"></asp:Label>
+                </td>
+                <td class="rightField" width="25%">
+                    <asp:TextBox ID="txtOtherBankName" runat="server" CssClass="txtField"></asp:TextBox>
+                </td>
+                <td class="leftField">
+                    <asp:Label ID="lblTaxStatus" CssClass="FieldName" runat="server" Text="TaxStatus:"></asp:Label>
+                </td>
+                <td class="rightField" width="25%">
+                    <asp:TextBox ID="txtTaxStatus" runat="server" CssClass="txtField"></asp:TextBox>
+                </td>
+                <td class="leftField">
+                    <asp:Label ID="lblCategory" CssClass="FieldName" runat="server" Text="Category:"></asp:Label>
+                </td>
+                <td class="rightField" width="25%">
+                    <asp:TextBox ID="txtCategory" runat="server" CssClass="txtField"></asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td class="leftField">
+                    <asp:Label ID="lblAdr1City" CssClass="FieldName" runat="server" Text="Other City:"></asp:Label>
+                </td>
+                <td class="rightField" width="25%">
+                    <asp:TextBox ID="txtAdr1City" runat="server" CssClass="txtField"></asp:TextBox>
+                </td>
+                <td class="leftField">
+                    <asp:Label ID="lblAdr1State" CssClass="FieldName" runat="server" Text="Other State:"></asp:Label>
+                </td>
+                <td class="rightField" width="25%">
+                    <asp:TextBox ID="txtAdr1State" runat="server" CssClass="txtField"></asp:TextBox>
+                </td>
+                <td class="leftField">
+                    <asp:Label ID="lblOtherCountry" CssClass="FieldName" runat="server" Text="Other Country:"></asp:Label>
+                </td>
+                <td class="rightField" width="25%">
+                    <asp:TextBox ID="txtOtherCountry" runat="server" CssClass="txtField"></asp:TextBox>
+                </td>
+            </tr>
         </table>
     </div>
 </div>
 <table>
     <tr>
         <td colspan="4" class="SubmitCell">
-            <asp:Button ID="btnEdit" runat="server" OnClick="btnEdit_Click" Text="Update" CssClass="PCGButton" ValidationGroup="btnSubmit"
-                onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_EditCustomerNonIndividualProfile_btnEdit', 'S');"
+            <asp:Button ID="btnEdit" runat="server" OnClick="btnEdit_Click" Text="Update" CssClass="PCGButton"
+                ValidationGroup="btnSubmit" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_EditCustomerNonIndividualProfile_btnEdit', 'S');"
                 onmouseout="javascript:ChangeButtonCss('out', 'ctrl_EditCustomerNonIndividualProfile_btnEdit', 'S');" />
         </td>
     </tr>

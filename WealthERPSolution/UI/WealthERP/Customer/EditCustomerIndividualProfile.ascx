@@ -1886,10 +1886,6 @@
                         <asp:TextBox ID="txtOtherCountry" runat="server" CssClass="txtField"></asp:TextBox>
                     </td>
                 </tr>
-                <tr>
-                </tr>
-                <tr>
-                </tr>
             </table>
         </asp:Panel>
     </telerik:RadPageView>

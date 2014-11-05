@@ -33,7 +33,7 @@ namespace WealthERP.Customer
                 customerVo = (CustomerVo)Session["CustomerVo"];
 
 
-                
+
                 if (userVo.UserType.Trim() == "Adviser" || userVo.UserType.Trim() == "RM" || userVo.UserType.Trim() == "Branch Man" || userVo.UserType.Trim() == "Advisor")
                 {
                     trDelete.Visible = true;
@@ -53,7 +53,7 @@ namespace WealthERP.Customer
 
                 lblType.Text = XMLBo.GetCustomerTypeName(path, customerVo.Type);
                 lblSubType.Text = XMLBo.GetCustomerSubTypeName(path, customerVo.SubType);
-                lblName.Text = customerVo.ContactFirstName+ " " + customerVo.ContactMiddleName + " " + customerVo.ContactLastName;
+                lblName.Text = customerVo.ContactFirstName + " " + customerVo.ContactMiddleName + " " + customerVo.ContactLastName;
                 lblCustomerCode.Text = customerVo.CustCode.ToString();
                 lblPanNum.Text = customerVo.PANNum.ToString();
                 lblCompanyName.Text = customerVo.CompanyName;
@@ -63,7 +63,7 @@ namespace WealthERP.Customer
                 }
                 if (customerVo.RegistrationDate == DateTime.MinValue)
                 {
-                    lblRegistrationDate.Text = "";
+                    lblRegistrationDate.Text = null;
                 }
                 else
                 {
@@ -71,23 +71,35 @@ namespace WealthERP.Customer
                 }
                 if (customerVo.CommencementDate == DateTime.MinValue)
                 {
-                    lblCommencementDate.Text = "";
+                    lblCommencementDate.Text = null;
                 }
                 else
                 {
                     lblCommencementDate.Text = customerVo.CommencementDate.ToShortDateString();
                 }
-                if (customerVo.RegistrationNum !=null)
+                if (customerVo.RegistrationNum != null)
                 {
-                lblRegistrationNum.Text = customerVo.RegistrationNum.ToString();
+                    lblRegistrationNum.Text = customerVo.RegistrationNum.ToString();
+                }
+                else 
+                {
+                    lblRegistrationNum.Text = null;
                 }
                 if (customerVo.RegistrationPlace != null)
                 {
                     lblRegistrationPlace.Text = customerVo.RegistrationPlace.ToString();
                 }
+                else
+                {
+                    lblRegistrationPlace.Text = null;
+                }
                 if (customerVo.CompanyWebsite != null)
                 {
                     lblCompanyWebsite.Text = customerVo.CompanyWebsite.ToString();
+                }
+                else
+                {
+                    lblCompanyWebsite.Text = null;
                 }
                 if (customerVo.DummyPAN == 1)
                 {
@@ -141,40 +153,72 @@ namespace WealthERP.Customer
                 {
                     lblCorrLine3.Text = customerVo.Adr1Line3.ToString();
                 }
+                else
+                {
+                    lblCorrLine3.Text = null;
+                }
                 if (customerVo.Adr1PinCode != null)
                 {
                     lblCorrPinCode.Text = customerVo.Adr1PinCode.ToString();
+                }
+                else
+                {
+                    lblCorrPinCode.Text = null;
                 }
                 if (customerVo.Adr1City != null)
                 {
                     lblCorrCity.Text = customerVo.Adr1City.ToString();
                 }
+                else
+                {
+                    lblCorrCity.Text = null;
+                }
                 if (customerVo.Adr1State != "")
                 {
                     lblCorrState.Text = XMLBo.GetStateName(path, customerVo.Adr1State);
-                    
+
                 }
                 else
                 {
-                    lblCorrState.Text = "";
+                    lblCorrState.Text =null;
                 }
-                lblCorrCountry.Text = customerVo.Adr1Country.ToString();
-                lblPermLine1.Text = customerVo.Adr2Line1.ToString();
-                lblPermLine2.Text = customerVo.Adr2Line2.ToString();
-                lblPermLine3.Text = customerVo.Adr2Line3.ToString();
-                lblPermPinCode.Text = customerVo.Adr2PinCode.ToString();
-                lblPermCity.Text = customerVo.Adr1City.ToString();
-                if (customerVo.Adr2State.ToString() !=string.Empty)
-
+                if (customerVo.Adr1Country != "")
+                {
+                    lblCorrCountry.Text = customerVo.Adr1Country.ToString();
+                }
+                if (customerVo.Adr2Line1 != null)
+                {
+                    lblPermLine1.Text = customerVo.Adr2Line1.ToString();
+                }
+                if (customerVo.Adr2Line2 != null)
+                {
+                    lblPermLine2.Text = customerVo.Adr2Line2.ToString();
+                }
+                if (customerVo.Adr2Line3 != null)
+                {
+                    lblPermLine3.Text = customerVo.Adr2Line3.ToString();
+                }
+                if (customerVo.Adr2PinCode != null)
+                {
+                    lblPermPinCode.Text = customerVo.Adr2PinCode.ToString();
+                }
+                if (customerVo.Adr1City != "")
+                {
+                    lblPermCity.Text = customerVo.Adr1City.ToString();
+                }
+                if (customerVo.Adr2State != null)
                 {
                     lblPermState.Text = XMLBo.GetStateName(path, customerVo.Adr2State);
-                    
+
                 }
                 else
                 {
                     lblPermState.Text = "";
                 }
-                lblPermCountry.Text = customerVo.Adr2Country.ToString();
+                if (customerVo.Adr2Country != null)
+                {
+                    lblPermCountry.Text = customerVo.Adr2Country.ToString();
+                }
                 lblResPhone.Text = customerVo.ResISDCode.ToString() + "-" + customerVo.ResSTDCode.ToString() + "-" + customerVo.ResPhoneNum.ToString();
                 lblOfcPhone.Text = customerVo.OfcISDCode.ToString() + "-" + customerVo.OfcSTDCode.ToString() + "-" + customerVo.OfcPhoneNum.ToString();
                 lblResFax.Text = customerVo.Fax.ToString() + "-" + customerVo.ISDFax.ToString() + "-" + customerVo.STDFax.ToString();
@@ -188,6 +232,99 @@ namespace WealthERP.Customer
                 }
                 lblType.Text = XMLBo.GetCustomerTypeName(path, customerVo.Type);
                 lblSubType.Text = XMLBo.GetCustomerSubTypeName(path, customerVo.SubType);
+                if (customerVo.Occupation != null)
+                {
+                    lblOccupation.Text = customerVo.Occupation.ToString();
+                }
+                if (customerVo.AnnualIncome != null)
+                {
+                    lblAnnualIncome.Text = customerVo.AnnualIncome.ToString();
+                }
+                if (customerVo.Nationality != null)
+                {
+                    lblNationality.Text = customerVo.Nationality.ToString();
+                }
+                if (customerVo.MinNo1 != null)
+                {
+                    lblMinNo1.Text = customerVo.MinNo1.ToString();
+                }
+                if (customerVo.MinNo2 != null)
+                {
+                    lblMinNo2.Text = customerVo.MinNo2.ToString();
+                }
+                if (customerVo.MinNo3 != null)
+                {
+                    lblMinNo3.Text = customerVo.MinNo3.ToString();
+                }
+                if (customerVo.ESCNo != null)
+                {
+                    lblESCNo.Text = customerVo.ESCNo.ToString();
+                }
+                if (customerVo.UINNo != null)
+                {
+                    lblUINNo.Text = customerVo.UINNo.ToString();
+                }
+                if (customerVo.POA != null)
+                {
+                    lblPOA.Text = customerVo.POA.ToString();
+                }
+                if (customerVo.GuardianName != null)
+                {
+                    lblGuardianName.Text = customerVo.GuardianName.ToString();
+                }
+                if (customerVo.GuardianRelation != null)
+                {
+                    lblGuardianRelation.Text = customerVo.GuardianRelation.ToString();
+                }
+                if (customerVo.GuardPANNum != null)
+                {
+                    lblGuardianPANNum.Text = customerVo.GuardPANNum.ToString();
+                }
+                if (customerVo.GuardianMinNo != null)
+                {
+                    lblGuardianMinNo.Text = customerVo.GuardianMinNo.ToString();
+                }
+                if (customerVo.GuardianDob == DateTime.MinValue)
+                {
+                    lblGuardianDateOfBirth.Text = "";
+                }
+                else
+                {
+                    lblGuardianDateOfBirth.Text = customerVo.GuardianDob.ToShortDateString();
+                }
+                if (customerVo.OtherBankName != null)
+                {
+                    lblOtherBankName.Text = customerVo.OtherBankName.ToString();
+                }
+                if (customerVo.TaxStatus != null)
+                {
+                    lblTaxStatus.Text = customerVo.TaxStatus.ToString();
+                }
+                if (customerVo.Category != null)
+                {
+                    lblCategory.Text = customerVo.Category.ToString();
+                }
+                if (customerVo.Adr1City != null)
+                {
+                    lblOtherCity.Text = customerVo.Adr1City.ToString();
+                }
+                if (customerVo.Adr1State != null)
+                {
+                    lblOtherState.Text = customerVo.Adr1State.ToString();
+                }
+                if (customerVo.OtherCountry != null)
+                {
+                    lblOtherCountry.Text = customerVo.OtherCountry.ToString();
+                }
+                if (customerVo.Mobile1 != null)
+                {
+                    lblMobile1.Text = customerVo.Mobile1.ToString();
+                }
+                if (customerVo.Mobile2 != null)
+                {
+                    lblMobile2.Text = customerVo.Mobile2.ToString();
+                }
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -200,7 +337,7 @@ namespace WealthERP.Customer
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "ViewNonIndividualProfile.ascx:Page_Load()");
                 object[] objects = new object[2];
-                objects[0] = customerVo;                
+                objects[0] = customerVo;
                 objects[2] = userVo;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
@@ -250,21 +387,21 @@ namespace WealthERP.Customer
                 throw exBase;
             }
         }
-    
+
         protected void hiddenassociation_Click(object sender, EventArgs e)
         {
-            
+
             {
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMCustomer','none');", true);
 
             }
-                 
+
         }
 
-               
 
-                    
-            }
-        }
-   
+
+
+    }
+}
+
 
