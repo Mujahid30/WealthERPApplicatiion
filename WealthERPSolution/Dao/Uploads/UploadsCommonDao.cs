@@ -4486,7 +4486,7 @@ namespace DaoUploads
 
             return dsReqRej;
         }
-        public bool UpdateRequestRejects(string clientCode, int Id, int tableNo, string city, string state, string pincode, string mobileno, string occupation, string accounttype, string bankname, string personalstatus, string address1, string address2, string address3, string country, string officePhoneNo, string officeExtensionNo, string officeFaxNo, string homePhoneNo, string homeFaxNo, string annualIncome)
+        public bool UpdateRequestRejects(string clientCode, int Id, int tableNo, string city, string state, string pincode, string mobileno, string occupation, string accounttype, string bankname, string personalstatus, string address1, string address2, string address3, string country, string officePhoneNo, string officeExtensionNo, string officeFaxNo, string homePhoneNo, string homeFaxNo, string annualIncome, string pan1, string pan2, string pan3, string emailId)
         {
             bool result = false;
             Database db;
@@ -4495,86 +4495,102 @@ namespace DaoUploads
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 UpdateRequestRejectCmd = db.GetStoredProcCommand("SPROC_UpdateRequestRejected");
-                if (clientCode != "")
+                if (!string.IsNullOrEmpty(clientCode))
                     db.AddInParameter(UpdateRequestRejectCmd, "@ClientCode", DbType.String, clientCode);
                 else
                     db.AddInParameter(UpdateRequestRejectCmd, "@ClientCode", DbType.String, DBNull.Value);
                 db.AddInParameter(UpdateRequestRejectCmd, "@Id", DbType.Int32, Id);
                 db.AddInParameter(UpdateRequestRejectCmd, "@TableNo", DbType.Int32, tableNo);
-                if (city != "")
+                if (!string.IsNullOrEmpty(city))
                     db.AddInParameter(UpdateRequestRejectCmd, "@City", DbType.String, city);
                 else
                     db.AddInParameter(UpdateRequestRejectCmd, "@City", DbType.String, DBNull.Value);
-                if (state != "")
+                if (!string.IsNullOrEmpty(state))
                     db.AddInParameter(UpdateRequestRejectCmd, "@State", DbType.String, state);
                 else
                     db.AddInParameter(UpdateRequestRejectCmd, "@State", DbType.String, DBNull.Value);
-                if (pincode != "")
+                if (!string.IsNullOrEmpty(pincode))
                     db.AddInParameter(UpdateRequestRejectCmd, "@Pincode", DbType.String, pincode);
                 else
                     db.AddInParameter(UpdateRequestRejectCmd, "@Pincode", DbType.String, DBNull.Value);
-                if (mobileno != "")
+                if (!string.IsNullOrEmpty(mobileno))
                     db.AddInParameter(UpdateRequestRejectCmd, "@Mobileno", DbType.String, mobileno);
                 else
                     db.AddInParameter(UpdateRequestRejectCmd, "@Mobileno", DbType.String, DBNull.Value);
-                if (occupation != "")
+                if (!string.IsNullOrEmpty(occupation))
                     db.AddInParameter(UpdateRequestRejectCmd, "@Occupation", DbType.String, occupation);
                 else
                     db.AddInParameter(UpdateRequestRejectCmd, "@Occupation", DbType.String, DBNull.Value);
 
-                if (accounttype != "")
+                if (!string.IsNullOrEmpty(accounttype))
                     db.AddInParameter(UpdateRequestRejectCmd, "@Accounttype", DbType.String, accounttype);
                 else
                     db.AddInParameter(UpdateRequestRejectCmd, "@Accounttype", DbType.String, DBNull.Value);
-                if (bankname != "")
+                if (!string.IsNullOrEmpty(bankname))
                     db.AddInParameter(UpdateRequestRejectCmd, "@Bankname", DbType.String, bankname);
                 else
                     db.AddInParameter(UpdateRequestRejectCmd, "@Bankname", DbType.String, DBNull.Value);
-                if (personalstatus != "")
+                if (!string.IsNullOrEmpty(personalstatus))
                     db.AddInParameter(UpdateRequestRejectCmd, "@Personalstatus", DbType.String, personalstatus);
                 else
                     db.AddInParameter(UpdateRequestRejectCmd, "@Personalstatus", DbType.String, DBNull.Value);
-                if (address1 != "")
+                if (!string.IsNullOrEmpty(address1))
                     db.AddInParameter(UpdateRequestRejectCmd, "@Address1", DbType.String, address1);
                 else
                     db.AddInParameter(UpdateRequestRejectCmd, "@Address1", DbType.String, DBNull.Value);
-                if (address2 != "")
+                if (!string.IsNullOrEmpty(address2))
                     db.AddInParameter(UpdateRequestRejectCmd, "@Address2", DbType.String, address2);
                 else
                     db.AddInParameter(UpdateRequestRejectCmd, "@Address2", DbType.String, DBNull.Value);
-                if (address3 != "")
+                if (!string.IsNullOrEmpty(address3))
                     db.AddInParameter(UpdateRequestRejectCmd, "@Address3", DbType.String, address3);
                 else
                     db.AddInParameter(UpdateRequestRejectCmd, "@Address3", DbType.String, DBNull.Value);
-                if (country != "")
+                if (!string.IsNullOrEmpty(country))
                     db.AddInParameter(UpdateRequestRejectCmd, "@Country", DbType.String, country);
                 else
                     db.AddInParameter(UpdateRequestRejectCmd, "@Country", DbType.String, DBNull.Value);
-                if (officePhoneNo != "")
+                if (!string.IsNullOrEmpty(officePhoneNo))
                     db.AddInParameter(UpdateRequestRejectCmd, "@OfficePhoneNo", DbType.String, officePhoneNo);
                 else
                     db.AddInParameter(UpdateRequestRejectCmd, "@OfficePhoneNo", DbType.String, DBNull.Value);
-                if (officeExtensionNo != "")
+                if (!string.IsNullOrEmpty(officeExtensionNo))
                     db.AddInParameter(UpdateRequestRejectCmd, "@OfficeExtensionNo", DbType.String, officeExtensionNo);
                 else
                     db.AddInParameter(UpdateRequestRejectCmd, "@OfficeExtensionNo", DbType.String, DBNull.Value);
-                if (officeFaxNo != "")
+                if (!string.IsNullOrEmpty(officeFaxNo))
                     db.AddInParameter(UpdateRequestRejectCmd, "@OfficeFaxNo", DbType.String, officeFaxNo);
                 else
                     db.AddInParameter(UpdateRequestRejectCmd, "@OfficeFaxNo", DbType.String, DBNull.Value);
-                if (homePhoneNo != "")
+                if (!string.IsNullOrEmpty(homePhoneNo))
                     db.AddInParameter(UpdateRequestRejectCmd, "@HomePhoneNo", DbType.String, homePhoneNo);
                 else
                     db.AddInParameter(UpdateRequestRejectCmd, "@HomePhoneNo", DbType.String, DBNull.Value);
-                if (homeFaxNo != "")
+                if (!string.IsNullOrEmpty(homeFaxNo))
                     db.AddInParameter(UpdateRequestRejectCmd, "@HomeFaxNo", DbType.String, homeFaxNo);
                 else
                     db.AddInParameter(UpdateRequestRejectCmd, "@HomeFaxNo", DbType.String, DBNull.Value);
-                if (annualIncome != "")
+                if (!string.IsNullOrEmpty(annualIncome))
                     db.AddInParameter(UpdateRequestRejectCmd, "@AnnualIncome", DbType.String, annualIncome);
                 else
                     db.AddInParameter(UpdateRequestRejectCmd, "@AnnualIncome", DbType.String, DBNull.Value);
 
+                if (!string.IsNullOrEmpty(pan1))
+                    db.AddInParameter(UpdateRequestRejectCmd, "@PANNO1", DbType.String, pan1);
+                else
+                    db.AddInParameter(UpdateRequestRejectCmd, "@PANNO1", DbType.String, DBNull.Value);
+                if (!string.IsNullOrEmpty(pan2))
+                    db.AddInParameter(UpdateRequestRejectCmd, "@PANNO2", DbType.String, pan2);
+                else
+                    db.AddInParameter(UpdateRequestRejectCmd, "@PANNO2", DbType.String, DBNull.Value);
+                if (!string.IsNullOrEmpty(pan3))
+                    db.AddInParameter(UpdateRequestRejectCmd, "@PANNO3", DbType.String, pan3);
+                else
+                    db.AddInParameter(UpdateRequestRejectCmd, "@PANNO3", DbType.String, DBNull.Value);
+                if (!string.IsNullOrEmpty(emailId))
+                    db.AddInParameter(UpdateRequestRejectCmd, "@EmailId", DbType.String, emailId);
+                else
+                    db.AddInParameter(UpdateRequestRejectCmd, "@EmailId", DbType.String, DBNull.Value);
 
                 db.ExecuteNonQuery(UpdateRequestRejectCmd);
                 result = true;

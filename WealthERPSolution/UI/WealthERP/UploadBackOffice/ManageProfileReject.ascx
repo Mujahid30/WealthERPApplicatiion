@@ -209,11 +209,25 @@
                                     <asp:TextBox ID="txtPinCodeFooter" CssClass="txtField" runat="server" />
                                 </FooterTemplate>
                             </telerik:GridTemplateColumn>
-                            <telerik:GridBoundColumn AllowFiltering="true" DataField="EmailId" AutoPostBackOnFilter="true"
+                          
+                            <telerik:GridTemplateColumn AllowFiltering="true" DataField="EmailId" AutoPostBackOnFilter="true"
                                 HeaderText="EmailId" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                 SortExpression="EmailId" FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="90px">
-                                <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
-                            </telerik:GridBoundColumn>
+                                <ItemTemplate>
+                                    <asp:TextBox ID="txtEmailId" CssClass="txtField" runat="server" Text='<%# Bind("EmailId") %>'></asp:TextBox>
+                                    <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="txtEmailId"
+                                        ErrorMessage="Please enter a valid Email ID" Display="Dynamic" runat="server"
+                                        ValidationGroup="btnSave" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"
+                                        CssClass="revPCG"></asp:RegularExpressionValidator>
+                                </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtEmailIdFooter" CssClass="txtField" runat="server" />
+                                    <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="txtEmailIdFooter"
+                                        ErrorMessage="Please enter a valid Email ID" Display="Dynamic" runat="server"
+                                        ValidationGroup="btnSave" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"
+                                        CssClass="revPCG"></asp:RegularExpressionValidator>
+                                </FooterTemplate>
+                            </telerik:GridTemplateColumn>
                             <telerik:GridTemplateColumn AllowFiltering="true" DataField="OfficePhoneNo" AutoPostBackOnFilter="true"
                                 HeaderText="OfficePhoneNo" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                 SortExpression="OfficePhoneNo" FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="90px">
@@ -440,7 +454,61 @@
                                     <asp:TextBox ID="txtDOB3Footer" CssClass="txtField" runat="server" />
                                 </FooterTemplate>
                             </telerik:GridTemplateColumn>--%>
-                            <telerik:GridBoundColumn AllowFiltering="true" DataField="PANNO1 " AutoPostBackOnFilter="true"
+                            <telerik:GridTemplateColumn AllowFiltering="true" DataField="PANNO1" AutoPostBackOnFilter="true"
+                                HeaderText="PANNO1" ShowFilterIcon="false" CurrentFilterFunction="Contains" SortExpression="PANNO1"
+                                FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="90px">
+                                <ItemTemplate>
+                                    <asp:TextBox ID="txtPANNO1" CssClass="txtField" runat="server" Text='<%# Bind("PANNO1") %>'></asp:TextBox>
+                                    <asp:RegularExpressionValidator ID="revPan1" runat="server" Display="Dynamic" ValidationGroup="btnSave"
+                                        CssClass="rfvPCG" ErrorMessage="Please check PAN Format" ControlToValidate="txtPANNO1"
+                                        ValidationExpression="[A-Za-z]{5}\d{4}[A-Za-z]{1}">
+                                    </asp:RegularExpressionValidator>
+                                </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtPANNO1Footer" CssClass="txtField" runat="server" />
+                                    <asp:RegularExpressionValidator ID="revPan2" runat="server" Display="Dynamic" ValidationGroup="btnSave"
+                                        CssClass="rfvPCG" ErrorMessage="Please check PAN Format" ControlToValidate="txtPANNO1Footer"
+                                        ValidationExpression="[A-Za-z]{5}\d{4}[A-Za-z]{1}">
+                                    </asp:RegularExpressionValidator>
+                                </FooterTemplate>
+                            </telerik:GridTemplateColumn>
+                            <telerik:GridTemplateColumn AllowFiltering="true" DataField="PANNO2" AutoPostBackOnFilter="true"
+                                HeaderText="PANNO2" ShowFilterIcon="false" CurrentFilterFunction="Contains" SortExpression="PANNO2"
+                                FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="90px">
+                                <ItemTemplate>
+                                    <asp:TextBox ID="txtPANNO2" CssClass="txtField" runat="server" Text='<%# Bind("PANNO2") %>'></asp:TextBox>
+                                    <asp:RegularExpressionValidator ID="revPan3" runat="server" Display="Dynamic" ValidationGroup="btnSave"
+                                        CssClass="rfvPCG" ErrorMessage="Please check PAN Format" ControlToValidate="txtPANNO2"
+                                        ValidationExpression="[A-Za-z]{5}\d{4}[A-Za-z]{1}">
+                                    </asp:RegularExpressionValidator>
+                                </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtPANNO2Footer" CssClass="txtField" runat="server" />
+                                    <asp:RegularExpressionValidator ID="revPan4" runat="server" Display="Dynamic" ValidationGroup="btnSave"
+                                        CssClass="rfvPCG" ErrorMessage="Please check PAN Format" ControlToValidate="txtPANNO2Footer"
+                                        ValidationExpression="[A-Za-z]{5}\d{4}[A-Za-z]{1}">
+                                    </asp:RegularExpressionValidator>
+                                </FooterTemplate>
+                            </telerik:GridTemplateColumn>
+                            <telerik:GridTemplateColumn AllowFiltering="true" DataField="PANNO3" AutoPostBackOnFilter="true"
+                                HeaderText="PANNO3" ShowFilterIcon="false" CurrentFilterFunction="Contains" SortExpression="PANNO3"
+                                FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="90px">
+                                <ItemTemplate>
+                                    <asp:TextBox ID="txtPANNO3" CssClass="txtField" runat="server" Text='<%# Bind("PANNO3") %>'></asp:TextBox>
+                                    <asp:RegularExpressionValidator ID="revPan5" runat="server" Display="Dynamic" ValidationGroup="btnSave"
+                                        CssClass="rfvPCG" ErrorMessage="Please check PAN Format" ControlToValidate="txtPANNO3"
+                                        ValidationExpression="[A-Za-z]{5}\d{4}[A-Za-z]{1}">
+                                    </asp:RegularExpressionValidator>
+                                </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtPANNO3Footer" CssClass="txtField" runat="server" />
+                                    <asp:RegularExpressionValidator ID="revPan6" runat="server" Display="Dynamic" ValidationGroup="btnSave"
+                                        CssClass="rfvPCG" ErrorMessage="Please check PAN Format" ControlToValidate="txtPANNO3Footer"
+                                        ValidationExpression="[A-Za-z]{5}\d{4}[A-Za-z]{1}">
+                                    </asp:RegularExpressionValidator>
+                                </FooterTemplate>
+                            </telerik:GridTemplateColumn>
+                            <%--                            <telerik:GridBoundColumn AllowFiltering="true" DataField="PANNO1 " AutoPostBackOnFilter="true"
                                 HeaderText="PANNO1 " ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                 SortExpression="PANNO1 " FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="90px">
                                 <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
@@ -454,7 +522,7 @@
                                 HeaderText="PANNO3 " ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                 SortExpression="PANNO3 " FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="90px">
                                 <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
-                            </telerik:GridBoundColumn>
+                            </telerik:GridBoundColumn>--%>
                             <telerik:GridBoundColumn AllowFiltering="true" DataField="MINNO1 " AutoPostBackOnFilter="true"
                                 HeaderText="MINNO1 " ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                 SortExpression="MINNO1 " FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="90px">

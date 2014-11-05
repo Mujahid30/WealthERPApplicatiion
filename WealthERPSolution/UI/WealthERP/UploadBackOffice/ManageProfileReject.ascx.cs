@@ -84,11 +84,14 @@ namespace WealthERP.UploadBackOffice
             string homePhoneNo = string.Empty;
             string homeFaxNo = string.Empty;
             string annualIncome = string.Empty;
+            string pan1 = string.Empty;
+            string pan2 = string.Empty;
+            string pan3 = string.Empty;
+            string emailId = string.Empty;
             //string dob1 = string.Empty;
             //string dob2 = string.Empty;
             //string dob3 = string.Empty;
             //string guardianDOB = string.Empty;
-           
             uploadCommonBo = new UploadCommonBo();
             GridFooterItem footerRow = (GridFooterItem)gvProfileIncreamenetReject.MasterTableView.GetItems(GridItemType.Footer)[0];
             foreach (GridDataItem dr in gvProfileIncreamenetReject.Items)
@@ -245,6 +248,38 @@ namespace WealthERP.UploadBackOffice
                 {
                     annualIncome = ((TextBox)footerRow.FindControl("txtAnnualIncomeFooter")).Text;
                 }
+                if (((TextBox)footerRow.FindControl("txtPANNO1Footer")).Text.Trim() == "")
+                {
+                    pan1 = ((TextBox)dr.FindControl("txtPANNO1")).Text;
+                }
+                else
+                {
+                    pan1 = ((TextBox)footerRow.FindControl("txtPANNO1Footer")).Text;
+                }
+                if (((TextBox)footerRow.FindControl("txtPANNO2Footer")).Text.Trim() == "")
+                {
+                    pan2 = ((TextBox)dr.FindControl("txtPANNO2")).Text;
+                }
+                else
+                {
+                    pan2 = ((TextBox)footerRow.FindControl("txtPANNO2Footer")).Text;
+                }
+                if (((TextBox)footerRow.FindControl("txtPANNO3Footer")).Text.Trim() == "")
+                {
+                    pan3 = ((TextBox)dr.FindControl("txtPANNO3")).Text;
+                }
+                else
+                {
+                    pan3 = ((TextBox)footerRow.FindControl("txtPANNO3Footer")).Text;
+                }
+                if (((TextBox)footerRow.FindControl("txtEmailIdFooter")).Text.Trim() == "")
+                {
+                    emailId = ((TextBox)dr.FindControl("txtEmailId")).Text;
+                }
+                else
+                {
+                    emailId = ((TextBox)footerRow.FindControl("txtEmailIdFooter")).Text;
+                }
                 //if (((TextBox)footerRow.FindControl("txtDOB1Footer")).Text.Trim() == "")
                 //{
                 //    dob1 = ((TextBox)dr.FindControl("txtDOB1")).Text;
@@ -286,7 +321,7 @@ namespace WealthERP.UploadBackOffice
                     selectedRow = gdi.ItemIndex + 1;
                     Id = int.Parse((gvProfileIncreamenetReject.MasterTableView.DataKeyValues[selectedRow - 1]["ID"].ToString()));
                      tableNo = int.Parse((gvProfileIncreamenetReject.MasterTableView.DataKeyValues[selectedRow - 1]["TableNo"].ToString()));
-                     blResult = uploadCommonBo.UpdateRequestRejects(clientCode, Id, tableNo, city, state, pincode, mobileno, occupation, accounttype, bankname, personalstatus, address1, address2, address3, country, officePhoneNo, officeExtensionNo, officeFaxNo, homePhoneNo, homeFaxNo, annualIncome);
+                     blResult = uploadCommonBo.UpdateRequestRejects(clientCode, Id, tableNo, city, state, pincode, mobileno, occupation, accounttype, bankname, personalstatus, address1, address2, address3, country, officePhoneNo, officeExtensionNo, officeFaxNo, homePhoneNo, homeFaxNo, annualIncome, pan1, pan2, pan3, emailId);
                     
                 }
                 
