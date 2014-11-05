@@ -657,7 +657,7 @@
                 <asp:Label ID="lblDpClientId" runat="server" Text="Beneficiary Acct No:" CssClass="FieldName"></asp:Label>
             </td>
             <td class="rightField" style="width: 20%">
-                <asp:TextBox ID="txtDematid" onkeydown="return (event.keyCode!=13);" runat="server"
+                <asp:TextBox ID="txtDematid" Enabled="false" onkeydown="return (event.keyCode!=13);" runat="server"
                     CssClass="txtField"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator6" ControlToValidate="txtDematid"
                     ErrorMessage="<br />Please Select Demat from the List" Display="Dynamic" runat="server"
