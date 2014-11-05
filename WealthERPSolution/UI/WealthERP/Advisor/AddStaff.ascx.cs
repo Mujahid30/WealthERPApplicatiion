@@ -70,7 +70,7 @@ namespace WealthERP.Advisor
             {
                 if (Request.QueryString["RmId"] != null)
                 {
-                    if (!string.IsNullOrEmpty(action))
+                    if (!string.IsNullOrEmpty(Request.QueryString["action"].ToString()))
                     {
                         hidRMid.Value = Request.QueryString["RmId"];
                         action = Request.QueryString["action"].ToString();
