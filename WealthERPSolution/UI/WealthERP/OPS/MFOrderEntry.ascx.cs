@@ -405,7 +405,7 @@ namespace WealthERP.OPS
                     {
                         BindAMC(0);
                     }
-                    
+
 
                     if (!string.IsNullOrEmpty(dr["PA_AMCCode"].ToString().Trim()))
                         ddlAMCList.SelectedValue = dr["PA_AMCCode"].ToString();
@@ -473,8 +473,8 @@ namespace WealthERP.OPS
                         ddlBankName.SelectedValue = dr["CB_CustBankAccId"].ToString();
                     else
                         orderVo.CustBankAccId = 0;
-                    if( ddlBankName.SelectedValue !="Select")
-                    BankBranches(Convert.ToInt32(ddlBankName.SelectedValue));
+                    if (ddlBankName.SelectedValue != "Select")
+                        BankBranches(Convert.ToInt32(ddlBankName.SelectedValue));
 
                     if (!string.IsNullOrEmpty(dr["BranchName"].ToString()))
                         ddlBranch.SelectedValue = dr["BranchName"].ToString();
@@ -641,7 +641,8 @@ namespace WealthERP.OPS
             {
                 DataSet dsScheme = new DataSet();
                 DataTable dtScheme;
-
+                if (ddltransType.SelectedValue == "Select")
+                    return;
                 String parameters = string.Empty;
                 //parameters = ddlAMCList.SelectedValue + '/' + ddlCategory.SelectedValue + '/' + 1 + '/' + txtCustomerId.Value;
                 if (ddlAMCList.SelectedIndex == -1)
@@ -662,10 +663,20 @@ namespace WealthERP.OPS
                     }
                     else
                     {
-                        parameters = string.Empty;
-                        parameters = (amcCode + "/" + categoryCode + "/" + 1 + "/" + 1);
-                        txtSearchScheme_autoCompleteExtender.ContextKey = parameters;
-                        txtSearchScheme_autoCompleteExtender.ServiceMethod = "GetSchemeName";
+                        if (ddltransType.SelectedValue == "SWB" || ddltransType.SelectedValue == "SWP" || ddltransType.SelectedValue == "STB")
+                        {
+                            parameters = string.Empty;
+                            parameters = (amcCode + "/" + categoryCode + "/" + 1 + "/" + 1);
+                            txtSearchScheme_autoCompleteExtender.ContextKey = parameters;
+                            txtSearchScheme_autoCompleteExtender.ServiceMethod = "GetSchemeForOrderEntry";
+                        }
+                        else
+                        {
+                            parameters = string.Empty;
+                            parameters = (amcCode + "/" + categoryCode + "/" + 1 + "/" + 1);
+                            txtSearchScheme_autoCompleteExtender.ContextKey = parameters;
+                            txtSearchScheme_autoCompleteExtender.ServiceMethod = "GetSchemeName";
+                        }
 
                     }
 
@@ -779,7 +790,10 @@ namespace WealthERP.OPS
 
         protected void hidFolioNumber_ValueChanged(object sender, EventArgs e)
         {
+            if (!string.IsNullOrEmpty(hidFolioNumber.Value))
+            {
 
+            }
 
         }
 
@@ -3025,21 +3039,23 @@ namespace WealthERP.OPS
 
         private void FrequencyEnablityForTransactionType(String transactionType)
         {
-            if (transactionType == "SWP")
-            {
-                ddlFrequencySIP.Items[7].Enabled = false;
-                ddlFrequencySIP.Items[8].Enabled = false;
-            }
-            else
-            {
-                ddlFrequencySIP.Items[7].Enabled = true;
-                ddlFrequencySIP.Items[8].Enabled = true;
-            }
+            //if (transactionType == "SIP" )
+            //{
+            ddlFrequencySIP.Items[1].Enabled = false;
+            ddlFrequencySIP.Items[7].Enabled = false;
+            ddlFrequencySIP.Items[8].Enabled = false;
+            //}
+            //else
+            //{
+            //    ddlFrequencySIP.Items[7].Enabled = true;
+            //    ddlFrequencySIP.Items[8].Enabled = true;
+            //}
         }
 
         private void GetAmcBasedonTransactionType(string transactionType)
         {
-            if (transactionType == "SWB")
+
+            if (transactionType == "SWB" || transactionType == "SWP" || transactionType == "STB")
             {
                 BindAMC(1);
             }
@@ -3584,7 +3600,8 @@ namespace WealthERP.OPS
                 }
                 else
                 {
-                    Sflag = 0;
+                    BindScheme(1);
+                    Sflag = 1;
                 }
                 BindSchemeSwitch();
             }
@@ -3702,6 +3719,11 @@ namespace WealthERP.OPS
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Enter a valid Customer Name.');", true);
                 return;
             }
+            else if (string.IsNullOrEmpty(txtFolioNumber.Text) && (ddltransType.SelectedValue.ToUpper() == "ABY" || ddltransType.SelectedValue.ToUpper() == "SEL"))
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Enter a valid Folio Number.');", true);
+                return;
+            }
             if (ddltransType.SelectedValue == "SWB")
             {
                 CreatePurchaseOrderType();
@@ -3725,6 +3747,12 @@ namespace WealthERP.OPS
 
         private void CreatePurchaseOrderType()
         {
+            if (string.IsNullOrEmpty(hidFolioNumber.Value))
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please select Valid Folio.');", true);
+                return;
+            }
+
             MFOrderVo[] onlinemforderVo = new MFOrderVo[2];
             List<MFOrderVo> lsonlinemforder = new List<MFOrderVo>();
             onlinemforderVo[0] = new MFOrderVo();
@@ -3732,7 +3760,7 @@ namespace WealthERP.OPS
             onlinemforderVo[0].accountid = Int32.Parse(hidFolioNumber.Value);
 
             List<int> OrderIds = new List<int>();
-             onlinemforderVo[0].Amount = double.Parse(txtNewAmount.Text.ToString());
+            onlinemforderVo[0].Amount = double.Parse(txtNewAmount.Text.ToString());
 
             onlinemforderVo[0].TransactionCode = "SO";
             lsonlinemforder.Add(onlinemforderVo[0]);
@@ -3742,7 +3770,7 @@ namespace WealthERP.OPS
             onlinemforderVo[1].Amount = int.Parse(txtNewAmount.Text.ToString());
             //if(ddlSwitchDvdnType.SelectedValue != "")
             //onlinemforderVo[1].DivOption = ddlSwitchDvdnType.SelectedValue.ToString();
-           // onlinemforderVo[1].DivOption = string.Empty;
+            // onlinemforderVo[1].DivOption = string.Empty;
             onlinemforderVo[1].TransactionCode = "SI";
             string message = string.Empty;
             lsonlinemforder.Add(onlinemforderVo[1]);
@@ -4006,9 +4034,41 @@ namespace WealthERP.OPS
 
         protected void btnAddMore_Click(object sender, EventArgs e)
         {
-            List<int> OrderIds = new List<int>(); ;
-            SaveOrderDetails();
-            OrderIds = mfOrderBo.CreateCustomerMFOrderDetails(orderVo, mforderVo, userVo.UserId, systematicSetupVo);
+
+            List<int> OrderIds = new List<int>();
+            if (string.IsNullOrEmpty(txtCustomerId.Value))
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Enter a valid Customer Name.');", true);
+                return;
+            }
+            else if (string.IsNullOrEmpty(txtFolioNumber.Text) && (ddltransType.SelectedValue.ToUpper() == "ABY" || ddltransType.SelectedValue.ToUpper() == "SEL"))
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Enter a valid Folio Number.');", true);
+                return;
+            }
+
+            if (ddltransType.SelectedValue == "SWB")
+            {
+                CreatePurchaseOrderType();
+            }
+            else
+            {
+
+                SaveOrderDetails();
+                OrderIds = mfOrderBo.CreateCustomerMFOrderDetails(orderVo, mforderVo, userVo.UserId, systematicSetupVo);
+                lblGetOrderNo.Text = OrderIds[0].ToString();
+                rgvOrderSteps.Visible = true;
+                BindOrderStepsGrid(Convert.ToInt32(lblGetOrderNo.Text));
+                lblGetOrderNo.Text = orderNumber.ToString();
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Your order added successfully.');", true);
+
+                //ButtonsEnablement("Submitted");
+                //ControlsEnblity("View");
+                //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Your order added successfully.');", true);
+            }
+            //List<int> OrderIds = new List<int>(); ;
+            //SaveOrderDetails();
+            //OrderIds = mfOrderBo.CreateCustomerMFOrderDetails(orderVo, mforderVo, userVo.UserId, systematicSetupVo);
             ButtonsEnablement("Save_And_More");
 
 
@@ -4017,8 +4077,6 @@ namespace WealthERP.OPS
             //orderNumber = mfOrderBo.GetOrderNumber(orderId);
             //lblOrderNumber.Visible = true;
             // lblGetOrderNo.Visible = true;
-            lblGetOrderNo.Text = orderNumber.ToString();
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Your order added successfully.');", true);
 
             ClearAllFields();
 
@@ -4264,6 +4322,16 @@ namespace WealthERP.OPS
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
             // List<int> OrderIds = new List<int>();
+            if (string.IsNullOrEmpty(txtCustomerId.Value))
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Enter a valid Customer Name.');", true);
+                return;
+            }
+            else if (string.IsNullOrEmpty(txtFolioNumber.Text) && (ddltransType.SelectedValue.ToUpper() == "ABY" || ddltransType.SelectedValue.ToUpper() == "SEL"))
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Enter a valid Folio Number.');", true);
+                return;
+            }
             UpdateMFOrderDetails();
 
             //   orderVo.AssetGroup = "MF";
@@ -4622,7 +4690,7 @@ namespace WealthERP.OPS
             radWindowSwitchScheme.VisibleOnPageLoad = false;
         }
 
-        
+
         protected void btnSwichSchemeOk_Click(object sender, EventArgs e)
         {
             int accountId;

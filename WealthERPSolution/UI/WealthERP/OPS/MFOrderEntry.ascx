@@ -722,6 +722,43 @@
                         runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
                 </td>
             </tr>
+             <tr class="spaceUnder"  >
+                   <%-- <td colspan="2">
+                    </td>--%>
+                    <td align="right" style="vertical-align: top;" colspan="3">
+                        <table width="75%" class="SchemeInfoTable">
+                            <tr class="SchemeInfoTable">
+                                <td align="left" style="vertical-align: top;">
+                                    <asp:Label ID="lblNav" runat="server" Text=" Last Recorded NAV (Rs):" CssClass="FieldName"></asp:Label>
+                                </td>
+                                <td>
+                                    <asp:Label ID="lblNavDisplay" runat="server" CssClass="readOnlyField"></asp:Label>
+                                </td>
+                                <td align="left" style="vertical-align: top;">
+                                    <asp:Label ID="lblMin" runat="server" Text="Minimum Initial Amount:" CssClass="FieldName"></asp:Label>
+                                </td>
+                                <td>
+                                    <asp:Label ID="lblMintxt" runat="server" CssClass="readOnlyField"></asp:Label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="left" style="vertical-align: top;">
+                                    <asp:Label ID="lblCutt" runat="server" Text="Cut-Off time:" CssClass="FieldName"></asp:Label>
+                                </td>
+                                <td>
+                                    <asp:Label ID="lbltime" runat="server" Text="" CssClass="readOnlyField"></asp:Label>
+                                </td>
+                                <td align="left" style="vertical-align: top;">
+                                    <asp:Label ID="lblMultiple" runat="server" Text="Subsequent Amount:</br>(In Multiples Of)" CssClass="FieldName"></asp:Label>
+                                </td>
+                                <td>
+                                    <asp:Label ID="lblMulti" runat="server" CssClass="readOnlyField"></asp:Label>
+                                </td>
+                                
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
             <tr id="Tr1" runat="server" visible="true">
                 <td align="right">
                     <asp:Label ID="lblFolioNumber" runat="server" Text="Folio Number:" CssClass="FieldName"></asp:Label>
