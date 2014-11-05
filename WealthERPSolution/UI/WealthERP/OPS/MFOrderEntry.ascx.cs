@@ -782,8 +782,95 @@ namespace WealthERP.OPS
         protected void txtSchemeCode_ValueChanged(object sender, EventArgs e)
         {
 
-            GetValuesBasedOnSchemeCode(int.Parse(txtSchemeCode.Value));
+            if (!string.IsNullOrEmpty(txtSchemeCode.Value))
+            {
+                GetControlDetails(int.Parse(txtSchemeCode.Value), null);
+                SetControlDetails();
+            }
 
+        
+        }
+
+        protected void GetControlDetails(int scheme, string folio)
+        {
+            DataSet ds = new DataSet();
+
+            ds = onlineMforderBo.GetControlDetails(scheme, folio);
+            DataTable dt = ds.Tables[0];
+            if (dt.Rows.Count > -1)
+            {
+
+                foreach (DataRow dr in dt.Rows)
+                {
+                    if (!string.IsNullOrEmpty(dr["PSLV_LookupValue"].ToString()))
+                    {
+                      //  lblDividendType.Text = dr["PSLV_LookupValue"].ToString();
+                    }
+                    if (!string.IsNullOrEmpty(dr["MinAmt"].ToString()))
+                    {
+                        lblMintxt.Text = dr["MinAmt"].ToString();
+                    }
+                    if (!string.IsNullOrEmpty(dr["MultiAmt"].ToString()))
+                    {
+                        lblMulti.Text = dr["MultiAmt"].ToString();
+                    }
+                    if (!string.IsNullOrEmpty(dr["CutOffTime"].ToString()))
+                    {
+                        lbltime.Text = dr["CutOffTime"].ToString();
+                    }
+
+                    if (!string.IsNullOrEmpty(dr["divFrequency"].ToString()))
+                    {
+                       // lbldftext.Text = dr["divFrequency"].ToString();
+                    }
+                    if (!string.IsNullOrEmpty(dr["url"].ToString()))
+                    {
+                       // lnkFactSheet.PostBackUrl = dr["url"].ToString();
+                    }
+                }
+                DataSet dsNav = commonLookupBo.GetLatestNav(int.Parse(txtSchemeCode.Value));
+                if (dsNav.Tables[0].Rows.Count > 0)
+                {
+                    string date = Convert.ToDateTime(dsNav.Tables[0].Rows[0][0]).ToString("dd-MMM-yyyy");
+                    lblNavDisplay.Text = dsNav.Tables[0].Rows[0][1] + " " + "As On " + " " + date;
+                }
+            }
+
+        }
+
+        protected void SetControlDetails()
+        {
+            lbltime.Visible = true;
+            //lblDividendType.Visible = true;
+            lblMulti.Visible = true;
+            lblMintxt.Visible = true;
+            //lblDivType.Visible = true;
+
+            //if (lblDividendType.Text == "Growth")
+            //{
+            //    lblDividendFrequency.Visible = false;
+            //    lbldftext.Visible = false;
+
+            //    //lblDivType.Visible = false;
+            //    //ddlDivType.Visible = false;
+            //    RequiredFieldValidator4.Enabled = false;
+            //    trDivtype.Visible = false;
+
+
+
+            //}
+            //else
+            //{
+            //    // lblDividendFrequency.Visible = true;
+            //    //lbldftext.Visible = true;
+            //    //lblDivType.Visible = true;
+            //    //ddlDivType.Visible = true;                
+            //    trDivtype.Visible = true;
+            //    RequiredFieldValidator4.Enabled = true;
+
+
+
+            //}
 
 
         }
