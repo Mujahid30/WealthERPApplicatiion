@@ -21,7 +21,7 @@
                                 OnClick="lnkBtnBack_Click"></asp:LinkButton>
                         </td>--%>
                         <td align="right" style="width: 10px">
-                             <asp:ImageButton ID="imgexportButton" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                            <asp:ImageButton ID="imgexportButton" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                                 Visible="false" runat="server" AlternateText="Excel" ToolTip="Export To Excel"
                                 OnClick="btnExportData_OnClick" OnClientClick="setFormat('excel')" Height="22px"
                                 Width="25px"></asp:ImageButton>
@@ -134,13 +134,13 @@
                     PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                     Skin="Telerik" EnableEmbeddedSkins="false" Width="102%" ClientSettings-AllowColumnsReorder="true"
                     AllowAutomaticInserts="false" OnNeedDataSource="gvOrderBookMIS_OnNeedDataSource"
-                    OnItemCommand="gvOrderBookMIS_OnItemCommand" AllowFilteringByColumn="true">
+                    OnItemCommand="gvOrderBookMIS_OnItemCommand" AllowFilteringByColumn="true" OnItemDataBound="gvOrderBookMIS_ItemDataBound">
                     <%--  OnNeedDataSource="gvOrderList_OnNeedDataSource" OnItemDataBound="gvOrderList_ItemDataBound"--%>
                     <ExportSettings HideStructureColumns="true" ExportOnlyData="true">
                     </ExportSettings>
-                    <MasterTableView DataKeyNames="CO_OrderId,C_CustomerId,PAG_AssetGroupCode,CO_OrderDate,WMTT_TransactionClassificationCode"
+                    <MasterTableView DataKeyNames="CO_OrderId,C_CustomerId,PAG_AssetGroupCode,CO_OrderDate,WMTT_TransactionClassificationCode,XS_Status"
                         Width="102%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None"
-                        AllowFilteringByColumn="true">
+                        AllowFilteringByColumn="true" EditMode="PopUp">
                         <CommandItemSettings ShowExportToWordButton="false" ShowExportToExcelButton="false"
                             ShowExportToCsvButton="false" ShowAddNewRecordButton="false" ShowRefreshButton="false" />
                         <Columns>
@@ -304,29 +304,29 @@
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                             <telerik:GridBoundColumn DataField="XS_Status" AllowFiltering="false" HeaderText="Status"
+                            <telerik:GridBoundColumn DataField="XS_Status" AllowFiltering="false" HeaderText="Status"
                                 HeaderStyle-Width="90px" UniqueName="XS_Status" SortExpression="XS_Status" ShowFilterIcon="false"
                                 CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                             <telerik:GridBoundColumn DataField="CO_CreatedOn" AllowFiltering="false" HeaderText="Created On"
-                                HeaderStyle-Width="90px" UniqueName="CO_CreatedOn" SortExpression="CO_CreatedOn" ShowFilterIcon="false"
-                                CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
+                            <telerik:GridBoundColumn DataField="CO_CreatedOn" AllowFiltering="false" HeaderText="Created On"
+                                HeaderStyle-Width="90px" UniqueName="CO_CreatedOn" SortExpression="CO_CreatedOn"
+                                ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                             <telerik:GridBoundColumn DataField="CO_CreatedBy" AllowFiltering="false" HeaderText="Created By"
-                                HeaderStyle-Width="90px" UniqueName="CO_CreatedBy" SortExpression="CO_CreatedBy" ShowFilterIcon="false"
-                                CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
+                            <telerik:GridBoundColumn DataField="CO_CreatedBy" AllowFiltering="false" HeaderText="Created By"
+                                HeaderStyle-Width="90px" UniqueName="CO_CreatedBy" SortExpression="CO_CreatedBy"
+                                ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                             <telerik:GridBoundColumn DataField="CO_ModifiedOn" AllowFiltering="false" HeaderText="Modified On"
-                                HeaderStyle-Width="90px" UniqueName="CO_ModifiedOn" SortExpression="CO_ModifiedOn" ShowFilterIcon="false"
-                                CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
+                            <telerik:GridBoundColumn DataField="CO_ModifiedOn" AllowFiltering="false" HeaderText="Modified On"
+                                HeaderStyle-Width="90px" UniqueName="CO_ModifiedOn" SortExpression="CO_ModifiedOn"
+                                ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="CO_ModifiedBy" AllowFiltering="false" HeaderText="Modified By"
-                                HeaderStyle-Width="90px" UniqueName="CO_ModifiedBy" SortExpression="CO_ModifiedBy" ShowFilterIcon="false"
-                                CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
+                                HeaderStyle-Width="90px" UniqueName="CO_ModifiedBy" SortExpression="CO_ModifiedBy"
+                                ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="COS_Reason" AllowFiltering="false" HeaderText="Remark"
@@ -339,13 +339,64 @@
                                 CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridTemplateColumn ItemStyle-Width="60px" AllowFiltering="false" HeaderText="Action"
+                           <%-- <telerik:GridTemplateColumn ItemStyle-Width="60px" AllowFiltering="false" HeaderText="Action"
                                 Visible="false">
                                 <ItemTemplate>
                                     <asp:ImageButton ID="ImageButton1" runat="server" CommandName="Edit" ImageUrl="~/Images/Buy-Button.png" />
                                 </ItemTemplate>
-                            </telerik:GridTemplateColumn>
+                            </telerik:GridTemplateColumn>--%>
+                            <telerik:GridEditCommandColumn Visible="true" HeaderStyle-Width="60px" UniqueName="MarkAsReject"
+                                EditText="Mark As Reject" CancelText="Cancel" UpdateText="OK">
+                            </telerik:GridEditCommandColumn>
                         </Columns>
+                        <EditFormSettings FormTableStyle-Height="40%" EditFormType="Template" FormMainTableStyle-Width="300px"
+                            CaptionFormatString=" Order canceling Request">
+                            <FormTemplate>
+                                <table style="background-color: White;" border="0">
+                                    <tr>
+                                        <td class="leftField">
+                                            <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="Request No.:"></asp:Label>
+                                        </td>
+                                        <td class="rightField">
+                                            <asp:TextBox ID="txtRejOrderId" runat="server" CssClass="txtField" Style="width: 250px;"
+                                                Text='<%# Bind("CO_OrderId") %>' ReadOnly="true"></asp:TextBox>
+                                        </td>
+                                        <td colspan="2">
+                                            &nbsp;
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="leftField">
+                                            <asp:Label ID="Label20" runat="server" Text="Remark:" CssClass="FieldName"></asp:Label>
+                                        </td>
+                                        <td class="rightField">
+                                            <asp:TextBox ID="txtRemark" runat="server" CssClass="txtField" Style="width: 250px;"></asp:TextBox>
+                                        </td>
+                                        <td colspan="2">
+                                            &nbsp;
+                                        </td>
+                                    </tr>
+                                    <%--  <td colspan="2">
+                                                    &nbsp;
+                                                </td>--%>
+                                    <tr>
+                                        <td>
+                                            &nbsp;
+                                        </td>
+                                        <td align="left">
+                                            <asp:Button ID="Button1" Text="OK" runat="server" CssClass="PCGButton" CommandName="Update"
+                                                ValidationGroup="btnSubmit">
+                                                <%-- OnClientClick='<%# (Container is GridEditFormInsertItem) ?  " javascript:return ShowPopup();": "" %>'--%>
+                                            </asp:Button>
+                                            <%--</td>
+                                                    <td  >--%>
+                                            <asp:Button ID="Button2" Text="Cancel" runat="server" CausesValidation="False" CssClass="PCGButton"
+                                                CommandName="Cancel"></asp:Button>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </FormTemplate>
+                        </EditFormSettings>
                     </MasterTableView>
                     <ClientSettings>
                         <Resizing AllowColumnResize="true" />

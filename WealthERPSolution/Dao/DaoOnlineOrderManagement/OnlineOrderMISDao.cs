@@ -35,6 +35,7 @@ namespace DaoOnlineOrderManagement
                     db.AddInParameter(GetOrderBookMISCmd, "@Status", DbType.String, DBNull.Value);
                 db.AddInParameter(GetOrderBookMISCmd, "@Fromdate", DbType.DateTime, dtFrom);
                 db.AddInParameter(GetOrderBookMISCmd, "@ToDate", DbType.DateTime, dtTo);
+                GetOrderBookMISCmd.CommandTimeout = 60 * 60;
                 dsOrderBookMIS = db.ExecuteDataSet(GetOrderBookMISCmd);
 
             }

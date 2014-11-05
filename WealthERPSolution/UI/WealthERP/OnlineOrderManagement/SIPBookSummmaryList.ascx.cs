@@ -426,6 +426,8 @@ namespace WealthERP.OnlineOrderManagement
                             if (e.CommandName.ToString() != "ChangePageSize")
                             {
                                 // GridDataItem gvr = (GridDataItem)e.Item;
+                                int amccode = int.Parse(ddlAMCCode.SelectedValue);
+                               
                                 int selectedRow = gvr.ItemIndex + 1;
                                 int systematicId = int.Parse(gvr.GetDataKeyValue("CMFSS_SystematicSetupId").ToString());
                                 int AccountId = int.Parse(gvr.GetDataKeyValue("CMFA_AccountId").ToString());
@@ -433,6 +435,8 @@ namespace WealthERP.OnlineOrderManagement
                                 int IsSourceAA = int.Parse(gvr.GetDataKeyValue("CMFSS_IsSourceAA").ToString());
                                 int Amount = int.Parse(gvr.GetDataKeyValue("CMFSS_Amount").ToString());
                                 DateTime SIPStartDate = Convert.ToDateTime(gvr.GetDataKeyValue("CMFSS_StartDate").ToString());
+                                string systematictype = Request.QueryString["systematicType"].ToString();
+
                                 if (e.CommandName == "Accepted")
                                 {
                                     if (Session["PageDefaultSetting"] != null)
@@ -461,11 +465,13 @@ namespace WealthERP.OnlineOrderManagement
                                     }
                                     if (Session["PageDefaultSetting"] != null)
                                     {
-                                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('CustomerSIPBookList','?systematicId=" + systematicId + "&OrderStatus=" + orderStatus + "');", true);
+                                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('CustomerSIPBookList','?systematicId=" + systematicId + "&AmcCode=" + ddlAMCCode.SelectedValue + "&FromDate=" + txtFrom.SelectedDate + "&ToDate=" + txtTo.SelectedDate + "&systematicType=" + systematictype + "&OrderStatus=" + orderStatus + "');", true);
                                     }
                                     else
                                     {
-                                        Response.Redirect("ControlHost.aspx?pageid=CustomerSIPBookList&systematicId=" + systematicId + "&OrderStatus=" + orderStatus + "", false);
+                                        Response.Redirect("ControlHost.aspx?pageid=CustomerSIPBookList&systematicId=" + systematicId + "&AmcCode=" + ddlAMCCode.SelectedValue + "&FromDate=" + txtFrom.SelectedDate + "&ToDate=" + txtTo.SelectedDate + "&systematicType=" + systematictype + "&OrderStatus=" + orderStatus + "", false);
+                                        //Response.Redirect("ControlHost.aspx?pageid=CustomerSIPBookList&systematicId=" + systematicId + "&AccountId=" + AccountId + "&schemeplanCode=" + schemeplanCode + "&IsSourceAA=" + IsSourceAA + "&Amount=" + Amount + "&SIPStartDate=" + SIPStartDate + "", false);
+                                        //Response.Redirect("ControlHost.aspx?pageid=CustomerSIPBookList&systematicId=" + systematicId + "&OrderStatus=" + orderStatus + "", false);
                                     }
 
                                 }

@@ -97,8 +97,8 @@ namespace WealthERP.OnlineOrderBackOffice
         }
         protected void gvOrderReport_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
-            DataSet dtBindRTAInitialReport = new DataSet();
-            dtBindRTAInitialReport = (DataSet)Cache["RTAInitialReport" + advisorVo.advisorId];
+            DataTable dtBindRTAInitialReport = new DataTable();
+            dtBindRTAInitialReport = (DataTable)Cache["RTAInitialReport" + advisorVo.advisorId];
 
             if (dtBindRTAInitialReport != null)
             {
@@ -110,12 +110,6 @@ namespace WealthERP.OnlineOrderBackOffice
             try
             {
                 DataSet dsGetAdviserissueallotmentList = new DataSet();
-
-
-                // if(ddlIssuer.SelectedValue!=null)
-
-
-                //DataTable dtGetAdviserissueallotmentList = new DataTable();
                 dsGetAdviserissueallotmentList = OnlineNCDBackOfficeBo.GetAdviserissueallotmentList(advisorVo.advisorId, int.Parse(ddlIssuer.SelectedValue.ToString()), ddlType.SelectedValue.ToString(), fromdate, todate);
                 if (dsGetAdviserissueallotmentList.Tables[0].Rows.Count > 0)
                 {
@@ -226,7 +220,6 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             DataSet dsGetAdviserissueallotmentList = new DataSet();
             dsGetAdviserissueallotmentList = (DataSet)Cache["AdviserIssueList" + advisorVo.advisorId];
-
             if (dsGetAdviserissueallotmentList != null)
             {
                 gvAdviserIssueList.DataSource = dsGetAdviserissueallotmentList;

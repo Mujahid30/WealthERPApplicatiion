@@ -41,13 +41,14 @@ namespace WealthERP.OnlineOrderManagement
             customerId = customerVO.CustomerId;
             BindAmc();
             BindOrderStatus();
-            BindLink();
+
             //lbBack.Attributes.Add("onClick", "javascript:history.back(); return false;");
             if (!Page.IsPostBack)
             {
                 fromDate = DateTime.Now.AddMonths(-1);
                 txtFrom.SelectedDate = fromDate.Date;
                 txtTo.SelectedDate = DateTime.Now;
+                BindLink();
 
             }
 
@@ -57,8 +58,14 @@ namespace WealthERP.OnlineOrderManagement
             if (Request.QueryString["systematicId"] != null)
             {
                 int systematicId = int.Parse(Request.QueryString["systematicId"].ToString());
-                int amcCode = int.Parse(Request.QueryString["AmcCode"].ToString());
-                string systematictype = Request.QueryString["systematicType"].ToString();
+                //if (Request.QueryString["AmcCode"] != null)
+                //{
+                //    int amcCode = int.Parse(Request.QueryString["AmcCode"].ToString());
+                //}
+                //if (Request.QueryString["AmcCode"] != null)
+                //{
+                //    string systematictype = Request.QueryString["systematicType"].ToString();
+                //}
                 ViewState["systematicId"] = int.Parse(systematicId.ToString());
                 string OrderStatus = string.Empty;
 
@@ -71,9 +78,10 @@ namespace WealthERP.OnlineOrderManagement
                 {
                     ViewState["OrderStatus"] = null;
                 }
-
+                //string fromdate = "01-01-1990";
+                //txtFrom.SelectedDate = DateTime.Parse(fromdate);  
                 string fromdate = Request.QueryString["FromDate"].ToString();
-                string todate = Request.QueryString["ToDate"].ToString();
+                //string todate = Request.QueryString["ToDate"].ToString();
                 txtFrom.SelectedDate = DateTime.Parse(fromdate);
                 hdnAmc.Value = "0";
                 BindSIPBook(DateTime.Parse(fromdate), DateTime.Now);
@@ -315,7 +323,7 @@ namespace WealthERP.OnlineOrderManagement
                     ViewState["OrderStatus"] = null;
                 }
 
-                if (Request.QueryString["IsPageDefaultSetting"] != null)
+                if (Session["PageDefaultSetting"] != null)
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('SIPBookSummmaryList','?systematicId=" + systematicId + "&OrderStatus=" + OrderStatus + "&AmcCode=" + AmcCode + "&FromDate=" + fromdate + "&ToDate=" + todate + "&systematicType=" + systematictype + "');", true);
                 }

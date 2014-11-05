@@ -2205,8 +2205,7 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(updateMFTransactionCmd, "@WMTT_TransactionClassificationCode", DbType.String, mfTransactionVo.TransactionClassificationCode);
                 db.AddInParameter(updateMFTransactionCmd, "@CMFT_ModifiedBy", DbType.String, userId);
                 db.AddInParameter(updateMFTransactionCmd, "@CMFT_CreatedBy", DbType.String, userId);
-
-
+                db.AddInParameter(updateMFTransactionCmd, "@CMFT_SubBrokerCode", DbType.String, mfTransactionVo.AgentCode);
                 if (db.ExecuteNonQuery(updateMFTransactionCmd) != 0)
 
                     bResult = true;
@@ -4866,7 +4865,7 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(getRMCustomerMFTransactionsCmd, "@SchemePlanCode", DbType.Int32, SchemePlanCode);
                 db.AddInParameter(getRMCustomerMFTransactionsCmd, "@IsSourceAA", DbType.Int32, IsSourceAA);
                 db.AddInParameter(getRMCustomerMFTransactionsCmd, "@amount", DbType.Int32, amount);
-                db.AddInParameter(getRMCustomerMFTransactionsCmd, "@SIPStartDate", DbType.DateTime, SIPStartDate);
+                //db.AddInParameter(getRMCustomerMFTransactionsCmd, "@SIPStartDate", DbType.DateTime, SIPStartDate);
 
                 //if (AmcCode != 0)
                 //{ db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AMC", DbType.Int32, AmcCode); }

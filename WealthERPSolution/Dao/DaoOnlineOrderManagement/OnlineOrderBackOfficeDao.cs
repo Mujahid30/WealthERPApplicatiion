@@ -2540,6 +2540,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(cmdGetRTAInitialReport, "@AMCWise", DbType.String, type);
                 db.AddInParameter(cmdGetRTAInitialReport, "@Fromdate", DbType.DateTime, fromDate);
                 db.AddInParameter(cmdGetRTAInitialReport, "@Todate", DbType.DateTime, toDate);
+                cmdGetRTAInitialReport.CommandTimeout = 60 * 60;
                 dsGetRTAInitialReport = db.ExecuteDataSet(cmdGetRTAInitialReport);
                 dtGetRTAInitialReport = dsGetRTAInitialReport.Tables[0];
             }
@@ -2621,5 +2622,30 @@ namespace DaoOnlineOrderManagement
             }
             return bResult;
         }
+        public bool UpdateNewSubBrokerCode(DataTable dtSubBrokerCode)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand UpdateNewSubBrokerCode;
+            DataSet dsUpdateNewSubBrokerCode = new DataSet();  
+
+            try
+            {
+                dsUpdateNewSubBrokerCode.Tables.Add(dtSubBrokerCode.Copy());
+                dsUpdateNewSubBrokerCode.DataSetName = "SubBrokerCodeDS";
+                dsUpdateNewSubBrokerCode.Tables[0].TableName = "SubBrokerCodeDT";
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                UpdateNewSubBrokerCode = db.GetStoredProcCommand("SPROC_UpdateNewSubBrokerCode");
+                db.AddInParameter(UpdateNewSubBrokerCode, "@XMLSubBrokerCode", DbType.Xml, dsUpdateNewSubBrokerCode.GetXml().ToString());
+                if (db.ExecuteNonQuery(UpdateNewSubBrokerCode) != 0)
+                    bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return bResult;
+        }
+      
     }
 }

@@ -129,6 +129,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 gvSubBrokerCleansing.DataSource = dtBindSubBrokerCleansingLisrt;
                 gvSubBrokerCleansing.DataBind();
                 pnlgvSubBrokerCleansing.Visible = true;
+                btnUpdateSubBroker.Visible = true;
                 if (Cache["SubBrokerCleansing" + userVo.UserId] == null)
                 {
                     Cache.Insert("SubBrokerCleansing" + userVo.UserId, dtBindSubBrokerCleansingLisrt);
@@ -154,7 +155,6 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             string gvMFAId = "";
             int i = 0;
-            // GridDataItem item = (GridDataItem)(sender);
             GridFooterItem footerItem = (GridFooterItem)gvSubBrokerCleansing.MasterTableView.GetItems(GridItemType.Footer)[0];
             TextBox newSubBrokerCode = (TextBox)footerItem.FindControl("newSubBrokerCode");
             foreach (GridDataItem dataItem in gvSubBrokerCleansing.MasterTableView.Items)
@@ -166,7 +166,7 @@ namespace WealthERP.OnlineOrderBackOffice
             }
             if (i == 0)
             {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please Select Item To Update SubBrokerCode !');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please Select Item To Apply SubBrokerCode !');", true);
                 return;
             }
             else
@@ -175,12 +175,11 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     if ((dataItem.FindControl("chkItem") as CheckBox).Checked)
                     {
-                        gvMFAId += dataItem.GetDataKeyValue("CMFT_MFTransId").ToString() + ",";
+                        TextBox txtSubBrokerCode = dataItem.FindControl("txtSubBrokerCode") as TextBox;
+                        txtSubBrokerCode.Text = newSubBrokerCode.Text;
                     }
                 }
-                OnlineOrderBackOfficeBo.UpdateSubBrokerCode(gvMFAId.TrimEnd(','), newSubBrokerCode.Text);
-                BindSubBrokerCleansingLisrt();
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('SubBrokerCode Update successfully !!');", true);
+            
             }
         }
         public void btnExportData_OnClick(object sender, ImageClickEventArgs e)
@@ -192,6 +191,48 @@ namespace WealthERP.OnlineOrderBackOffice
             gvSubBrokerCleansing.ExportSettings.FileName = "SubBroker Code Cleansing";
             gvSubBrokerCleansing.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
             gvSubBrokerCleansing.MasterTableView.ExportToExcel();
+        }
+        protected void btnUpdateSubBroker_OnClick(object sender, EventArgs e)
+        {
+            int i=0;
+            foreach (GridDataItem dataItem in gvSubBrokerCleansing.MasterTableView.Items)
+            {
+                if ((dataItem.FindControl("txtSubBrokerCode") as TextBox).Text != string.Empty)
+                {
+                    i = i + 1;
+                }
+            }
+            if (i == 0)
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please Fill SubBrokerCode !');", true);
+                return;
+            }
+            else
+            {
+                DataTable dtSubBrokerCode = new DataTable();
+                dtSubBrokerCode.Columns.Add("TransactioId", typeof(Int32));
+                dtSubBrokerCode.Columns.Add("subBrokerCode", typeof(String));
+                DataRow drSubBrokerCode;
+                int radgridRowNo = 0;
+                foreach (GridDataItem radItem in gvSubBrokerCleansing.MasterTableView.Items)
+                {
+                    drSubBrokerCode = dtSubBrokerCode.NewRow();
+                    if ((radItem.FindControl("txtSubBrokerCode") as TextBox).Text != string.Empty)
+                    {
+                        drSubBrokerCode["TransactioId"] = int.Parse(gvSubBrokerCleansing.MasterTableView.DataKeyValues[radgridRowNo]["CMFT_MFTransId"].ToString());
+                        TextBox txtSubBrokerCode = radItem.FindControl("txtSubBrokerCode") as TextBox;
+                        drSubBrokerCode["subBrokerCode"] = txtSubBrokerCode.Text;
+                        dtSubBrokerCode.Rows.Add(drSubBrokerCode);
+                        if (radgridRowNo < gvSubBrokerCleansing.MasterTableView.Items.Count)
+                            radgridRowNo++;
+                        else
+                            break;
+                    }
+                }
+                OnlineOrderBackOfficeBo.UpdateNewSubBrokerCode(dtSubBrokerCode);
+                BindSubBrokerCleansingLisrt();
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('SubBrokerCode Update successfully !!');", true);
+            }
         }
     }
 }

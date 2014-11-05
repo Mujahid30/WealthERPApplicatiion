@@ -39,7 +39,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton imgexportButton;
-        
+       protected global::System.Web.UI.WebControls.Button btnUpdateSubBroker;
         /// <summary>
         /// lblRTA control.
         /// </summary>

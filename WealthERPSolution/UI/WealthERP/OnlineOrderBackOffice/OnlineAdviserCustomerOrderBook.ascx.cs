@@ -36,11 +36,13 @@ namespace WealthERP.OnlineOrderBackOffice
         int AccountId = 0;
         DateTime fromDate;
         DateTime toDate;
+        UserVo userVo;
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
             advisorVo = (AdvisorVo)Session["advisorVo"];
             customerVO = (CustomerVo)Session["customerVo"];
+            userVo = (UserVo)Session[SessionContents.UserVo];
             userType = Session[SessionContents.CurrentUserRole].ToString();          
            // customerId = customerVO.CustomerId;                              
             if (!Page.IsPostBack)
@@ -157,14 +159,14 @@ namespace WealthERP.OnlineOrderBackOffice
                 pnlOrderBook.Visible = true;
                 imgexportButton.Visible = true;
                 trNoRecords.Visible = false;
-                if (Cache["OrderList" + advisorVo.advisorId] == null)
+                if (Cache["OrderList" + userVo.UserId ] == null)
                 {
-                    Cache.Insert("OrderList" + advisorVo.advisorId, dtOrderBookMIS);
+                    Cache.Insert("OrderList" + userVo.UserId, dtOrderBookMIS);
                 }
                 else
                 {
-                    Cache.Remove("OrderList" + advisorVo.advisorId);
-                    Cache.Insert("OrderList" + advisorVo.advisorId, dtOrderBookMIS);
+                    Cache.Remove("OrderList" + userVo.UserId);
+                    Cache.Insert("OrderList" + userVo.UserId, dtOrderBookMIS);
                 }
                
                 }
@@ -202,8 +204,8 @@ namespace WealthERP.OnlineOrderBackOffice
         protected void gvOrderBookMIS_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
             gvOrderBookMIS.Visible = true;
-            DataTable dtOrderBookMIS = new DataTable();          
-            dtOrderBookMIS = (DataTable)Cache["OrderList" + advisorVo.advisorId.ToString()];
+            DataTable dtOrderBookMIS = new DataTable();
+            dtOrderBookMIS = (DataTable)Cache["OrderList" + userVo.UserId.ToString()];
             if (dtOrderBookMIS != null)
 
             {
@@ -213,34 +215,79 @@ namespace WealthERP.OnlineOrderBackOffice
 
         }
 
-
-     protected void gvOrderBookMIS_OnItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
-      { 
-
-            if (e.CommandName == "Edit")
+        protected void gvOrderBookMIS_UpdateCommand(object source, GridCommandEventArgs e)
+        {
+            string strRemark = string.Empty;
+            int IsMarked = 0;
+            if (e.CommandName == RadGrid.UpdateCommandName)
             {
-            string orderId = gvOrderBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_OrderId"].ToString();
-            string customerId = gvOrderBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["C_CustomerId"].ToString();
-            string assetGroupCode = gvOrderBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["PAG_AssetGroupCode"].ToString();
-            string Code = gvOrderBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WMTT_TransactionClassificationCode"].ToString();
-                if (assetGroupCode == "MF")
-                {
-                    if (Code == "BUY")
-                    {
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MFOrderPurchaseTransType", "loadcontrol('MFOrderPurchaseTransType','action=Edit');", true);
-                    }
-                    else if (Code == "ABY")
-                    {
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MFOrderAdditionalPurchase", "loadcontrol('MFOrderAdditionalPurchase','action=Edit');", true);
-                    }
-                    else
-                    {
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MFOrderRdemptionTransType", "loadcontrol('MFOrderRdemptionTransType','action=Edit');", true);
-                    }
-                }
-            }
+                GridEditableItem editItem = e.Item as GridEditableItem;
+                TextBox txtRemark = (TextBox)e.Item.FindControl("txtRemark");
+                strRemark = txtRemark.Text;
+                LinkButton buttonEdit = editItem["MarkAsReject"].Controls[0] as LinkButton;
+                Int32 orderId = Convert.ToInt32(gvOrderBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_OrderId"].ToString());
+                IsMarked = mforderBo.MarkAsReject(orderId, txtRemark.Text);
+                BindOrderBook();
 
-        }        
+            }
+        }
+     protected void gvOrderBookMIS_OnItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
+      {
+          string strRemark = string.Empty;
+          int IsMarked = 0;
+          if (e.CommandName == RadGrid.UpdateCommandName)
+          {
+              GridEditableItem editItem = e.Item as GridEditableItem;
+              TextBox txtRemark = (TextBox)e.Item.FindControl("txtRemark");
+              strRemark = txtRemark.Text;
+              LinkButton buttonEdit = editItem["MarkAsReject"].Controls[0] as LinkButton;
+              Int32 orderId = Convert.ToInt32(gvOrderBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_OrderId"].ToString());
+              IsMarked = mforderBo.MarkAsReject(orderId, txtRemark.Text);
+              BindOrderBook();
+
+          }
+            //if (e.CommandName == "Edit")
+            //{
+            //string orderId = gvOrderBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_OrderId"].ToString();
+            //string customerId = gvOrderBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["C_CustomerId"].ToString();
+            //string assetGroupCode = gvOrderBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["PAG_AssetGroupCode"].ToString();
+            //string Code = gvOrderBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WMTT_TransactionClassificationCode"].ToString();
+            //    if (assetGroupCode == "MF")
+            //    {
+            //        if (Code == "BUY")
+            //        {
+            //            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MFOrderPurchaseTransType", "loadcontrol('MFOrderPurchaseTransType','action=Edit');", true);
+            //        }
+            //        else if (Code == "ABY")
+            //        {
+            //            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MFOrderAdditionalPurchase", "loadcontrol('MFOrderAdditionalPurchase','action=Edit');", true);
+            //        }
+            //        else
+            //        {
+            //            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MFOrderRdemptionTransType", "loadcontrol('MFOrderRdemptionTransType','action=Edit');", true);
+            //        }
+            //    }
+            //}
+
+        }
+     protected void gvOrderBookMIS_ItemDataBound(object sender, GridItemEventArgs e)
+     {
+
+         if (e.Item is GridDataItem)
+         {
+             GridDataItem dataItem = e.Item as GridDataItem;
+             LinkButton lbtnMarkAsReject = dataItem["MarkAsReject"].Controls[0] as LinkButton;
+             string OrderStepCode = Convert.ToString(gvOrderBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["XS_Status"]);
+             if (OrderStepCode == "INPROCESS" || OrderStepCode == "EXECUTED")
+             {
+                 lbtnMarkAsReject.Visible = true;
+             }
+             else
+             {
+                 lbtnMarkAsReject.Visible = false;
+             }
+         }
+     }
         protected void ddlMenu_SelectedIndexChanged(object sender, EventArgs e)
         {
          

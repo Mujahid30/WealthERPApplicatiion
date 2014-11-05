@@ -2195,5 +2195,19 @@ namespace BoOnlineOrderManagement
             }
             return bResult;
         }
+        public bool UpdateNewSubBrokerCode(DataTable dtSubBrokerCode)
+        {
+            bool bResult = false;
+            OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
+            try
+            {
+                bResult = OnlineOrderBackOfficeDao.UpdateNewSubBrokerCode(dtSubBrokerCode);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return bResult;
+        }
     }
 }

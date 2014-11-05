@@ -104,7 +104,7 @@
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn HeaderStyle-Width="120px"  DataField="BranchList" SortExpression="BranchList" AutoPostBackOnFilter="true"
                                                 CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="true"
-                                                HeaderText="Office" UniqueName="Branch">
+                                                HeaderText="Branch" UniqueName="Branch">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="true" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn HeaderStyle-Width="130px" Visible="false" DataField="ReportingManagerName" SortExpression="ReportingManagerName"
