@@ -1422,7 +1422,7 @@ namespace WealthERP.OffLineOrderManagement
                     if (!string.IsNullOrEmpty(txtPaymentNumber.Text.Trim()))
                         drIPOBid["ChequeNo"] = txtPaymentNumber.Text.Trim();
                     if (!string.IsNullOrEmpty(txtPaymentInstDate.SelectedDate.ToString()))
-                        drIPOBid["ChequeDate"] = DateTime.Parse(txtPaymentInstDate.SelectedDate.ToString());
+                        drIPOBid["ChequeDate"] =txtPaymentInstDate.SelectedDate.Value.ToString("yyyy/MM/dd");
 
                 }
                 drIPOBid["DematId"] = dematAccountId;
