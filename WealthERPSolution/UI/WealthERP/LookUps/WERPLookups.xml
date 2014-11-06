@@ -2032,16 +2032,15 @@
   </Fiscal>
 
   <Freq>
-
-    <Frequency FrequencyCode="DA" Frequency="Daily" Deleted="False" />
-    <Frequency FrequencyCode="FN" Frequency="FortNightly" Deleted="False" />
-    <Frequency FrequencyCode="HY" Frequency="HalfYearly" Deleted="False" />
     <Frequency FrequencyCode="MN" Frequency="Monthly" Deleted="False" />
+    <Frequency FrequencyCode="DA" Frequency="Daily" Deleted="False" />
+    <!--<Frequency FrequencyCode="FN" Frequency="FortNightly" Deleted="True" />-->
+    <Frequency FrequencyCode="HY" Frequency="HalfYearly" Deleted="False" />
     <Frequency FrequencyCode="QT" Frequency="Quarterly" Deleted="False" />
-    <Frequency FrequencyCode="WK" Frequency="Weekly" Deleted="False" />
+    <Frequency FrequencyCode="WK" Frequency="Weekly" Deleted="True" />
     <Frequency FrequencyCode="YR" Frequency="Yearly" Deleted="False" />
-    <Frequency FrequencyCode="AM" Frequency="At Maturity" Deleted="False" />
-    <Frequency FrequencyCode="SP" Frequency="Single Payment" Deleted="False" />
+    <!--<Frequency FrequencyCode="AM" Frequency="At Maturity" Deleted="True" />
+    <Frequency FrequencyCode="SP" Frequency="Single Payment" Deleted="True" />-->
   </Freq>
 
   <IntBasis>
