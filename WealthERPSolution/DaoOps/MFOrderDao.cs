@@ -660,6 +660,33 @@ namespace DaoOps
             }
             return bResult;
         }
+        
+        //      public bool ChkOnlineOrder(int OrderId)
+        //{
+        //    Database db;
+        //    DbCommand MFOrderAutoMatchCmd;
+        //    int status;
+        //    try
+        //    {
+        //        db = DatabaseFactory.CreateDatabase("wealtherp");
+        //        MFOrderAutoMatchCmd = db.GetStoredProcCommand("SPROC_IsOnlineFolioNo");
+        //        db.AddInParameter(MFOrderAutoMatchCmd, "@orderId", DbType.Int32, OrderId);
+        //        db.AddOutParameter(MFOrderAutoMatchCmd, "@IsOnline", DbType.Int16, 0);
+        //        db.ExecuteDataSet(MFOrderAutoMatchCmd);
+        //        status = int.Parse(db.GetParameterValue(MFOrderAutoMatchCmd, "@IsOnline").ToString());
+        //        if (status == 1)
+        //            return true;
+        //        else
+        //            return false;
+
+        //    }
+
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //}
+
 
         public bool ChkOnlineOrder(int OrderId)
         {
@@ -687,6 +714,32 @@ namespace DaoOps
             }
         }
 
+
+        public bool ChkOfflineValidFolio(string  folioNo)
+        {
+            Database db;
+            DbCommand MFOrderAutoMatchCmd;
+            int status;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                MFOrderAutoMatchCmd = db.GetStoredProcCommand("SPROC_CheckOfflineValidFolio");
+                db.AddInParameter(MFOrderAutoMatchCmd, "@folioNo", DbType.String, folioNo);
+                db.AddOutParameter(MFOrderAutoMatchCmd, "@count", DbType.Int16, 0);
+                db.ExecuteDataSet(MFOrderAutoMatchCmd);
+                status = int.Parse(db.GetParameterValue(MFOrderAutoMatchCmd, "@count").ToString());
+                if (status == 1)
+                    return true;
+                else
+                    return false;
+
+            }
+
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+        }
 
         public bool MFOrderAutoMatch(int OrderId, int SchemeCode, int AccountId, string TransType, int CustomerId, double Amount, DateTime OrderDate, out bool status)
         {

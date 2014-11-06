@@ -3128,9 +3128,10 @@ namespace WealthERP.OPS
         {
             //if (transactionType == "SIP" )
             //{
-            ddlFrequencySIP.Items[1].Enabled = false;
-            ddlFrequencySIP.Items[7].Enabled = false;
-            ddlFrequencySIP.Items[8].Enabled = false;
+            //ddlFrequencySIP.Items[1].Enabled = false;
+            //ddlFrequencySIP.Items[7].Enabled = false;
+            //ddlFrequencySIP.Items[8].Enabled = false;
+          
             //}
             //else
             //{
@@ -3801,13 +3802,15 @@ namespace WealthERP.OPS
         {
 
             List<int> OrderIds = new List<int>();
+            bool isvalidOfflineFolio = mfOrderBo.ChkOfflineValidFolio(txtFolioNumber.Text);
             if (string.IsNullOrEmpty(txtCustomerId.Value))
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Enter a valid Customer Name.');", true);
                 return;
             }
-            else if (string.IsNullOrEmpty(txtFolioNumber.Text) && (ddltransType.SelectedValue.ToUpper() == "ABY" || ddltransType.SelectedValue.ToUpper() == "SEL"))
+            else if ( (isvalidOfflineFolio) && (ddltransType.SelectedValue.ToUpper() == "ABY" || ddltransType.SelectedValue.ToUpper() == "SEL"))
             {
+
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Enter a valid Folio Number.');", true);
                 return;
             }
@@ -3932,6 +3935,7 @@ namespace WealthERP.OPS
                 mforderVo.IsImmediate = 1;
             else
                 mforderVo.IsImmediate = 0;
+            mforderVo.DivOption = ddlDivType.SelectedValue;
             if (!string.IsNullOrEmpty((txtFutureDate.SelectedDate).ToString().Trim()))
                 mforderVo.FutureExecutionDate = DateTime.Parse(txtFutureDate.SelectedDate.ToString());
             else
@@ -4185,26 +4189,33 @@ namespace WealthERP.OPS
         protected void txtPeriod_OnTextChanged(object sender, EventArgs e)
         {
 
-            if (txtPeriod.Text == "0" || txtstartDateSIP.SelectedDate == null || ddlFrequencySIP.SelectedIndex == 0) return;
+            if (txtPeriod.Text == "0" || txtstartDateSIP.SelectedDate == null || ddlFrequencySIP.SelectedIndex ==-1) return;
             OnlineMFOrderBo boOnlineOrder = new OnlineMFOrderBo();
-            DateTime dtEndDate = boOnlineOrder.GetSipEndDate(Convert.ToDateTime(txtstartDateSIP.SelectedDate), ddlFrequencySIP.SelectedValue, Convert.ToInt32(txtPeriod.Text));
+            DateTime dtEndDate = CalcEndDate(Convert.ToInt32(txtPeriod.Text), Convert.ToDateTime(txtstartDateSIP.SelectedDate));
+                
+                //boOnlineOrder.GetSipEndDate(Convert.ToDateTime(txtstartDateSIP.SelectedDate), ddlFrequencySIP.SelectedValue, Convert.ToInt32(txtPeriod.Text));
             txtendDateSIP.SelectedDate = dtEndDate;//.ToString("dd-MMM-yyyy");
 
         }
         private DateTime CalcEndDate(int period, DateTime startDate)
         {
             DateTime endDate = new DateTime();
-            if (ddlPeriodSelection.SelectedItem.Value == "DA")
+            if (ddlFrequencySIP.SelectedItem.Value == "DA")
             {
                 endDate = startDate.AddDays(period - 1);
             }
-            else if (ddlPeriodSelection.SelectedItem.Value == "MN")
+            else if (ddlFrequencySIP.SelectedItem.Value == "MN")
             {
-                endDate = startDate.AddMonths((period - 1));
+                endDate = startDate.AddMonths((period));
             }
-            else if (ddlPeriodSelection.SelectedItem.Value == "YR")
+            else if (ddlFrequencySIP.SelectedItem.Value == "YR")
             {
                 period = period * 12;
+                endDate = startDate.AddMonths(period - 1);
+            }
+            else if (ddlFrequencySIP.SelectedItem.Value == "QT")
+            {
+                period = period * 3;
                 endDate = startDate.AddMonths(period - 1);
             }
 

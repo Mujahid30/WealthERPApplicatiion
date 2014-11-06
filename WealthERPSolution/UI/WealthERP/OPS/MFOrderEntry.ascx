@@ -249,7 +249,8 @@
    
 </script>
 
-<asp:UpdatePanel  >
+<asp:UpdatePanel ID="UpdatePanel1" runat="server">
+    <ContentTemplate> 
     <telerik:RadWindow ID="radwindowPopup" runat="server" VisibleOnPageLoad="false" Height="30%"
         Width="400px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="None"
         Title="Add New Folio">
@@ -290,9 +291,9 @@
             </div>
         </ContentTemplate>
     </telerik:RadWindow>
-     <telerik:RadWindow ID="radWindowSwitchScheme" runat="server" VisibleOnPageLoad="false" Height="30%"
-        Width="400px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="None"
-        Title="Add New Folio">
+    <telerik:RadWindow ID="radWindowSwitchScheme" runat="server" VisibleOnPageLoad="false"
+        Height="30%" Width="400px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false"
+        Behaviors="None" Title="Add New Folio">
         <ContentTemplate>
             <div style="padding: 20px">
                 <table width="100%">
@@ -311,8 +312,9 @@
                         <td class="rightField" style="width: 25%">
                             <asp:TextBox ID="txtSwitchFolio" runat="server" CssClass="txtField"></asp:TextBox><br />
                             <span id="Span28"></span>
-                            <asp:RequiredFieldValidator ID="RequiredFieldValidator23" ControlToValidate="txtSwitchFolio" ErrorMessage="Please enter folio name"
-                                ValidationGroup="vgSwitchOK" Display="Dynamic" runat="server" CssClass="rfvPCG">
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator23" ControlToValidate="txtSwitchFolio"
+                                ErrorMessage="Please enter folio name" ValidationGroup="vgSwitchOK" Display="Dynamic"
+                                runat="server" CssClass="rfvPCG">
                             </asp:RequiredFieldValidator>
                         </td>
                     </tr>
@@ -322,8 +324,8 @@
                                 OnClick="btnSwichSchemeOk_Click" ValidationGroup="vgSwitchOK" />
                         </td>
                         <td class="rightField" style="width: 25%">
-                            <asp:Button ID="btnSwichSchemeCancel" runat="server" Text="Cancel" CssClass="PCGButton" CausesValidation="false"
-                                OnClick="btnSwichSchemeCancel_Click" />
+                            <asp:Button ID="btnSwichSchemeCancel" runat="server" Text="Cancel" CssClass="PCGButton"
+                                CausesValidation="false" OnClick="btnSwichSchemeCancel_Click" />
                         </td>
                     </tr>
                 </table>
@@ -617,7 +619,7 @@
                         <asp:ListItem Text="STP" Value="STB"></asp:ListItem>
                         <asp:ListItem Text="Switch" Value="SWB"></asp:ListItem>
                         <asp:ListItem Text="Change Of Address Form" Value="CAF" Enabled="false"></asp:ListItem>
-                        <asp:ListItem Text="Transfer IN" Value="TI"></asp:ListItem>
+                        <asp:ListItem Text="Transfer IN" Value="TI" Enabled="false"></asp:ListItem>
                     </asp:DropDownList>
                     <span id="spnTransType" class="spnRequiredField">*</span>
                     <asp:CompareValidator ID="CVTrxType" runat="server" ControlToValidate="ddltransType"
@@ -722,43 +724,60 @@
                         runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
                 </td>
             </tr>
-             <tr class="spaceUnder"  >
-                   <%-- <td colspan="2">
+            <tr>
+                <td align="right">
+                    <asp:Label ID="lblDivType" runat="server" Text="Dividend Type:" CssClass="FieldName"></asp:Label>
+                </td>
+                <td>
+                    <asp:DropDownList ID="ddlDivType" runat="server" CssClass="cmbField" Style="width: 250px;">
+                        <asp:ListItem Text="Select" Value="0"></asp:ListItem>
+                        <asp:ListItem Text="Dividend Reinvestment" Value="DVR"></asp:ListItem>
+                        <asp:ListItem Text="Dividend Payout" Value="DVP"></asp:ListItem>
+                    </asp:DropDownList>
+                    <span id="Span29" class="spnRequiredField">*</span>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator24" runat="server" CssClass="rfvPCG"
+                        ErrorMessage="Please Select an Dividend Type" Display="Dynamic" ControlToValidate="ddlDivType"
+                        InitialValue="0" ValidationGroup="btnSubmit">
+                    </asp:RequiredFieldValidator>
+                </td>
+            </tr>
+            <tr class="spaceUnder">
+                <%-- <td colspan="2">
                     </td>--%>
-                    <td align="right" style="vertical-align: top;" colspan="3">
-                        <table width="75%" class="SchemeInfoTable">
-                            <tr class="SchemeInfoTable">
-                                <td align="left" style="vertical-align: top;">
-                                    <asp:Label ID="lblNav" runat="server" Text=" Last Recorded NAV (Rs):" CssClass="FieldName"></asp:Label>
-                                </td>
-                                <td>
-                                    <asp:Label ID="lblNavDisplay" runat="server" CssClass="readOnlyField"></asp:Label>
-                                </td>
-                                <td align="left" style="vertical-align: top;">
-                                    <asp:Label ID="lblMin" runat="server" Text="Minimum Initial Amount:" CssClass="FieldName"></asp:Label>
-                                </td>
-                                <td>
-                                    <asp:Label ID="lblMintxt" runat="server" CssClass="readOnlyField"></asp:Label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td align="left" style="vertical-align: top;">
-                                    <asp:Label ID="lblCutt" runat="server" Text="Cut-Off time:" CssClass="FieldName"></asp:Label>
-                                </td>
-                                <td>
-                                    <asp:Label ID="lbltime" runat="server" Text="" CssClass="readOnlyField"></asp:Label>
-                                </td>
-                                <td align="left" style="vertical-align: top;">
-                                    <asp:Label ID="lblMultiple" runat="server" Text="Subsequent Amount:</br>(In Multiples Of)" CssClass="FieldName"></asp:Label>
-                                </td>
-                                <td>
-                                    <asp:Label ID="lblMulti" runat="server" CssClass="readOnlyField"></asp:Label>
-                                </td>
-                                
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
+                <td align="right" style="vertical-align: top;" colspan="3">
+                    <table width="75%" class="SchemeInfoTable">
+                        <tr class="SchemeInfoTable">
+                            <td align="left" style="vertical-align: top;">
+                                <asp:Label ID="lblNav" runat="server" Text=" Last Recorded NAV (Rs):" CssClass="FieldName"></asp:Label>
+                            </td>
+                            <td>
+                                <asp:Label ID="lblNavDisplay" runat="server" CssClass="readOnlyField"></asp:Label>
+                            </td>
+                            <td align="left" style="vertical-align: top;">
+                                <asp:Label ID="lblMin" runat="server" Text="Minimum Initial Amount:" CssClass="FieldName"></asp:Label>
+                            </td>
+                            <td>
+                                <asp:Label ID="lblMintxt" runat="server" CssClass="readOnlyField"></asp:Label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left" style="vertical-align: top;">
+                                <asp:Label ID="lblCutt" runat="server" Text="Cut-Off time:" CssClass="FieldName"></asp:Label>
+                            </td>
+                            <td>
+                                <asp:Label ID="lbltime" runat="server" Text="" CssClass="readOnlyField"></asp:Label>
+                            </td>
+                            <td align="left" style="vertical-align: top;">
+                                <asp:Label ID="lblMultiple" runat="server" Text="Subsequent Amount:</br>(In Multiples Of)"
+                                    CssClass="FieldName"></asp:Label>
+                            </td>
+                            <td>
+                                <asp:Label ID="lblMulti" runat="server" CssClass="readOnlyField"></asp:Label>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
             <tr id="Tr1" runat="server" visible="true">
                 <td align="right">
                     <asp:Label ID="lblFolioNumber" runat="server" Text="Folio Number:" CssClass="FieldName"></asp:Label>
@@ -868,6 +887,27 @@
                 </td>
                 <td>
                     <asp:TextBox ID="txtFutureTrigger" runat="server" CssClass="txtField" TextMode="MultiLine"></asp:TextBox>
+                </td>
+            </tr>
+            <tr class="spaceUnder" id="trDivtype" runat="server">
+                <td>
+                </td>
+                <%-- <td align="right" style="vertical-align: top;">
+                    <asp:Label ID="lblDivType" runat="server" Text="Dividend Type:" CssClass="FieldName"></asp:Label>
+                </td>
+                <td>
+                    <asp:DropDownList ID="ddlDivType" runat="server" CssClass="cmbField" Style="width: 250px;">
+                        <asp:ListItem Text="Select" Value="0"></asp:ListItem>
+                        <asp:ListItem Text="Dividend Reinvestment" Value="DVR"></asp:ListItem>
+                        <asp:ListItem Text="Dividend Payout" Value="DVP"></asp:ListItem>
+                    </asp:DropDownList>
+                    <span id="Span29" class="spnRequiredField">*</span>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator24" runat="server" CssClass="rfvPCG"
+                        ErrorMessage="Please Select an Dividend Type" Display="Dynamic" ControlToValidate="ddlDivType"
+                        InitialValue="0" ValidationGroup="btnSubmit">
+                    </asp:RequiredFieldValidator>
+                </td>--%>
+                <td colspan="2">
                 </td>
             </tr>
         </table>
@@ -1664,4 +1704,5 @@
     <asp:HiddenField ID="hidValidCheck" runat="server" EnableViewState="true" />
     <asp:HiddenField ID="HiddenField1" runat="server" OnValueChanged="HiddenField1_ValueChanged1" />
     <asp:HiddenField ID="hidAmt" runat="server" />
+    </ContentTemplate> 
 </asp:UpdatePanel>

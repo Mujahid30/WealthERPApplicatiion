@@ -179,6 +179,18 @@ namespace BoOps
                 throw (Ex);
             }
         }
+
+        public bool ChkOfflineValidFolio(string folioNo)
+        {
+            try
+            {
+                return mfOrderDao.ChkOfflineValidFolio(folioNo);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+        }
         public DataSet GetCustomerMFOrderDetails(int orderId)
         {
             DataSet dsGetCustomerMFOrderDetails;
