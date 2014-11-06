@@ -1082,8 +1082,8 @@ function showMsg(msgBody, msgType) {
     }
     $(".tblMessage").show();
     
-    var msg = '<div style="float: right;margin-right: -16px;margin-top: -15px;"><a href="javascript:void(0);" onclick="hideMsg()"><img src="../Images/DeleteRed.png" border="0" /></a></div>' + msgBody;
-    $("#divMessage").html(msg).show();
+    //var msg = '<div style="float: right;margin-right: -16px;margin-top: -15px;"><a href="javascript:void(0);" onclick="hideMsg()"><img src="../Images/DeleteRed.png" border="0" /></a></div>' + msgBody;
+    $("#divMessage").html(msgBody).show();
 }
 
 function hideMsg() {
