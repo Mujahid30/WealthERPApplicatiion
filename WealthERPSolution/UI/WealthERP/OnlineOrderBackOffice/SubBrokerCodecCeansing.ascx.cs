@@ -149,7 +149,10 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             DataTable dtBindSubBrokerCleansingLisrt = new DataTable();
             dtBindSubBrokerCleansingLisrt = (DataTable)Cache["SubBrokerCleansing" + userVo.UserId];
-            this.gvSubBrokerCleansing.DataSource = dtBindSubBrokerCleansingLisrt;
+            if (dtBindSubBrokerCleansingLisrt != null)
+            {
+                gvSubBrokerCleansing.DataSource = dtBindSubBrokerCleansingLisrt;
+            }
         }
         protected void btnUpdate_Update(object sender, EventArgs e)
         {
@@ -213,25 +216,20 @@ namespace WealthERP.OnlineOrderBackOffice
                 dtSubBrokerCode.Columns.Add("TransactioId", typeof(Int32));
                 dtSubBrokerCode.Columns.Add("subBrokerCode", typeof(String));
                 DataRow drSubBrokerCode;
-                int radgridRowNo = 0;
                 foreach (GridDataItem radItem in gvSubBrokerCleansing.MasterTableView.Items)
                 {
                     drSubBrokerCode = dtSubBrokerCode.NewRow();
                     if ((radItem.FindControl("txtSubBrokerCode") as TextBox).Text != string.Empty)
                     {
-                        drSubBrokerCode["TransactioId"] = int.Parse(gvSubBrokerCleansing.MasterTableView.DataKeyValues[radgridRowNo]["CMFT_MFTransId"].ToString());
+                        drSubBrokerCode["TransactioId"] = int.Parse(gvSubBrokerCleansing.MasterTableView.DataKeyValues[radItem.ItemIndex]["CMFT_MFTransId"].ToString());
                         TextBox txtSubBrokerCode = radItem.FindControl("txtSubBrokerCode") as TextBox;
                         drSubBrokerCode["subBrokerCode"] = txtSubBrokerCode.Text;
                         dtSubBrokerCode.Rows.Add(drSubBrokerCode);
-                        if (radgridRowNo < gvSubBrokerCleansing.MasterTableView.Items.Count)
-                            radgridRowNo++;
-                        else
-                            break;
                     }
                 }
                 OnlineOrderBackOfficeBo.UpdateNewSubBrokerCode(dtSubBrokerCode);
                 BindSubBrokerCleansingLisrt();
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('SubBrokerCode Update successfully !!');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('SubBroker Code Update Successfully !!');", true);
             }
         }
     }

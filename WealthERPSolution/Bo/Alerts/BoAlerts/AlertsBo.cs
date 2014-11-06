@@ -1596,13 +1596,13 @@ namespace BoAlerts
         /// <param name="nameFilter"></param>
         /// <param name="count"></param>
         /// <returns></returns>
-        public DataSet GetAdviserCustomerSMSAlerts(int id, string usertype, int currentpage, string nameFilter, out int count)
+        public DataSet GetAdviserCustomerSMSAlerts(int id, string usertype)
         {
             DataSet dsAdviserCustomerSMSAlerts;
             AlertsDao alertsDao = new AlertsDao();
             try
             {
-                dsAdviserCustomerSMSAlerts = alertsDao.GetAdviserCustomerSMSAlerts(id, usertype, currentpage, nameFilter, out count);
+                dsAdviserCustomerSMSAlerts = alertsDao.GetAdviserCustomerSMSAlerts(id, usertype);
             }
             catch (BaseApplicationException Ex)
             {

@@ -2599,9 +2599,9 @@ namespace DaoAlerts
         /// <param name="nameFilter"></param>
         /// <param name="count"></param>
         /// <returns></returns>
-        public DataSet GetAdviserCustomerSMSAlerts(int id, string usertype, int currentpage, string nameFilter, out int count)
+        public DataSet GetAdviserCustomerSMSAlerts(int id, string usertype)
         {
-
+            //(int id, string usertype, int currentpage, string nameFilter, out int count)
             Database db;
             DbCommand getAdviserSMSAlertsCmd;
             DataSet dsAdviserSMSAlerts;
@@ -2609,16 +2609,17 @@ namespace DaoAlerts
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                getAdviserSMSAlertsCmd = db.GetStoredProcCommand("SP_GetAdviserCustomerSMSAlerts");
+               // getAdviserSMSAlertsCmd = db.GetStoredProcCommand("SP_GetAdviserCustomerSMSAlerts");
+                getAdviserSMSAlertsCmd = db.GetStoredProcCommand("SP_GetNewAdviserCustomerSMSAlerts");
                 db.AddInParameter(getAdviserSMSAlertsCmd, "@Id", DbType.Int32, id);
-                db.AddInParameter(getAdviserSMSAlertsCmd, "@CurrentPage", DbType.Int32, currentpage);
+                //db.AddInParameter(getAdviserSMSAlertsCmd, "@CurrentPage", DbType.Int32, currentpage);
                 db.AddInParameter(getAdviserSMSAlertsCmd, "@Usertype", DbType.String, usertype);
-                db.AddInParameter(getAdviserSMSAlertsCmd, "@nameFilter", DbType.String, nameFilter);
+               // db.AddInParameter(getAdviserSMSAlertsCmd, "@nameFilter", DbType.String, nameFilter);
                 //db.AddInParameter(getAdviserSMSAlertsCmd, "@CurrentPage", DbType.String, sortorder);
                 //db.AddInParameter(getAdviserSMSAlertsCmd, "@SortOrder", DbType.Int32, currentpage);
 
                 dsAdviserSMSAlerts = db.ExecuteDataSet(getAdviserSMSAlertsCmd);
-                count = Int32.Parse(dsAdviserSMSAlerts.Tables[1].Rows[0][0].ToString());
+               // count = Int32.Parse(dsAdviserSMSAlerts.Tables[1].Rows[0][0].ToString());
 
             }
             catch (BaseApplicationException Ex)

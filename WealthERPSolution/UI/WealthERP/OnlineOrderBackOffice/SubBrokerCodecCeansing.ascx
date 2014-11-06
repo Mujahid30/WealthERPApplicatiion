@@ -81,9 +81,9 @@
         <td>
             <asp:DropDownList ID="ddlSubbrokerCode" runat="server" CssClass="cmbField" Width="340px">
                 <asp:ListItem Text="Select" Value="0"></asp:ListItem>
-                <asp:ListItem Text="With Identified SubBroker Code" Value="1"></asp:ListItem>
-                <asp:ListItem Text="With UnIdentified SubBroker Code" Value="2"></asp:ListItem>
-                <asp:ListItem Text="WithOut SubBrokerCode" Value="3"></asp:ListItem>
+                <asp:ListItem Text="Provided & Recognisable" Value="1"></asp:ListItem>
+                <asp:ListItem Text="Provided & Non-Recognisable" Value="2"></asp:ListItem>
+                <asp:ListItem Text="Not Provided" Value="3"></asp:ListItem>
             </asp:DropDownList>
             <span id="Span1" class="spnRequiredField">*</span>
             <br />
@@ -124,7 +124,7 @@
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="C_PANNum" SortExpression="C_PANNum" UniqueName="C_PANNum"
-                                AllowFiltering="true" HeaderText="PAN No" ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                                AllowFiltering="true" HeaderText="PAN" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="CMFA_FolioNum" SortExpression="CMFA_FolioNum"
@@ -133,7 +133,7 @@
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridTemplateColumn DataField="CMFT_SubBrokerCode" SortExpression="CMFT_SubBrokerCode"
-                                UniqueName="CMFT_SubBrokerCode" AllowFiltering="true" HeaderText="SubBrokerCode"
+                                UniqueName="CMFT_SubBrokerCode" AllowFiltering="true" HeaderText="SubBroker Code"
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
                                 <ItemTemplate>
                                     <asp:TextBox ID="txtSubBrokerCode" runat="server" Text='<%#Eval("CMFT_SubBrokerCode") %>'></asp:TextBox>
@@ -144,7 +144,7 @@
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridTemplateColumn>
                             <telerik:GridTemplateColumn DataField="AssociatesName" SortExpression="AssociatesName"
-                                UniqueName="AssociatesName" AllowFiltering="true" HeaderText="Associates Name"
+                                UniqueName="AssociatesName" AllowFiltering="true" HeaderText="Associate Name"
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
                                 <ItemTemplate>
                                     <%#Eval("AssociatesName")%>

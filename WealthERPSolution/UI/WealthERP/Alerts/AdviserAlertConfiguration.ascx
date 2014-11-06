@@ -40,7 +40,7 @@
     <table width="100%">
         <tr>
             <td align="left">
-                Adviser Alert Configuration
+                Alert Rule
             </td>
             <td>
             </td>
@@ -60,7 +60,7 @@
                     AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="Top"
                     EditMode="PopUp">
                     <CommandItemSettings ShowExportToWordButton="false" ShowExportToExcelButton="false"
-                        AddNewRecordText="Add New SIP Alert" ShowExportToCsvButton="false" ShowAddNewRecordButton="true"
+                        AddNewRecordText="Add SIP Alert" ShowExportToCsvButton="false" ShowAddNewRecordButton="true"
                         ShowRefreshButton="false" />
                     <Columns>
                       <telerik:GridEditCommandColumn UniqueName="EditCommandColumn" Visible="true"></telerik:GridEditCommandColumn>

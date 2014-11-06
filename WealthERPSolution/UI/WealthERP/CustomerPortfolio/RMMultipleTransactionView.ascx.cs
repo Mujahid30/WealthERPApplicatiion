@@ -166,6 +166,9 @@ namespace WealthERP.CustomerPortfolio
                 {
                     customerId = customerVo.CustomerId;
                     trRangeNcustomer.Visible = false;
+                    tdCustomerGroup.Visible = false;
+                    lblAgentCode.Visible = false;
+                    ddlAgentCode.Visible = false;
                     //trRange.Visible = false;
 
                 }
@@ -1150,7 +1153,7 @@ namespace WealthERP.CustomerPortfolio
                 else if (Convert.ToString(Session["IsCustomerDrillDown"]) == "Yes")
                 {
                     customerId = customerVo.CustomerId;
-                    mfTransactionList = customerTransactionBo.GetRMCustomerMFTransactions(rmID, AdviserId, customerId, IsfolioOnline, convertedFromDate, convertedToDate, 1, PasssedFolioValue, true, schemePlanCode, int.Parse(hdnAMC.Value), hdnCategory.Value, advisorVo.A_AgentCodeBased, hdnAgentCode.Value, userType, int.Parse(ddlAgentCode.SelectedValue));
+                    mfTransactionList = customerTransactionBo.GetRMCustomerMFTransactions(rmID, AdviserId, customerId, IsfolioOnline, convertedFromDate, convertedToDate, 1, PasssedFolioValue, true, schemePlanCode, int.Parse(hdnAMC.Value), hdnCategory.Value, advisorVo.A_AgentCodeBased, hdnAgentCode.Value, "Customer", int.Parse(ddlAgentCode.SelectedValue));
                 }
                 else
                 {

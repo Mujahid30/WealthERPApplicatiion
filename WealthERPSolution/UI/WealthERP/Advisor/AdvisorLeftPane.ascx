@@ -97,7 +97,7 @@
                                                     </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="Alert Configuration" Value="Alert_configure">
+                                            <telerik:RadPanelItem runat="server" Text="Alert Rule" Value="Alert_configure">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Category" Value="Category">
                                             </telerik:RadPanelItem>

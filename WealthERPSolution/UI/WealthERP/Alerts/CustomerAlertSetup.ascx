@@ -47,7 +47,7 @@
     <table width="100%">
         <tr>
             <td align="left">
-                Customer Alert Setup
+                Alert Setup
             </td>
             <td>
             </td>
@@ -144,7 +144,7 @@
                     AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="Top"
                     EditMode="PopUp">
                     <CommandItemSettings ShowExportToWordButton="false" ShowExportToExcelButton="false"
-                        AddNewRecordText="Add New Customer Alert Setup" ShowExportToCsvButton="false"
+                        AddNewRecordText="Add Alert Setup" ShowExportToCsvButton="false"
                         ShowAddNewRecordButton="true" ShowRefreshButton="false" />
                     <Columns>
                         <%-- <telerik:GridEditCommandColumn UniqueName="EditCommandColumn" Visible="false">
@@ -203,8 +203,8 @@
                             <ItemStyle HorizontalAlign="Center" CssClass="MyImageButton" Width="70px" />
                         </telerik:GridButtonColumn>
                     </Columns>
-                    <EditFormSettings EditFormType="Template" PopUpSettings-Height="220px" PopUpSettings-Width="500px"
-                        CaptionFormatString="Add Customer SIP Configuration">
+                    <EditFormSettings EditFormType="Template" PopUpSettings-Height="180px" PopUpSettings-Width="500px"
+                        CaptionFormatString="Add Alert Setup">
                         <FormTemplate>
                             <table width="100%">
                                 <tr>
@@ -237,17 +237,10 @@
                                         </asp:RequiredFieldValidator>
                                     </td>
                                 </tr>
+                               
                                 <tr>
                                     <td align="right">
-                                        <asp:Label ID="lblMsg" runat="server" CssClass="FieldName" Text="Event Message:"></asp:Label>
-                                    </td>
-                                    <td>
-                                        <asp:TextBox ID="txtMsg" runat="server"></asp:TextBox>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td align="right">
-                                        <asp:Label ID="lblEventSubscription" runat="server" CssClass="FieldName" Text="Subsccription Date:"></asp:Label>
+                                        <asp:Label ID="lblEventSubscription" runat="server" CssClass="FieldName" Text="Subscription Date:"></asp:Label>
                                     </td>
                                     <td>
                                         <telerik:RadDatePicker ID="txtEventSubscription" CssClass="txtField" runat="server"
@@ -274,6 +267,14 @@
                                     <td class="rightData">
                                         <asp:Button ID="btnCancel" Text="Cancel" runat="server" CausesValidation="False"
                                             CssClass="PCGButton" CommandName="Cancel"></asp:Button>
+                                    </td>
+                                </tr>
+                                 <tr>
+                                    <td align="right">
+                                        <asp:Label ID="lblMsg" runat="server" CssClass="FieldName" Text="Event Message:" Visible="false"></asp:Label>
+                                    </td>
+                                    <td>
+                                        <asp:TextBox ID="txtMsg" runat="server" Visible="false"></asp:TextBox>
                                     </td>
                                 </tr>
                             </table>

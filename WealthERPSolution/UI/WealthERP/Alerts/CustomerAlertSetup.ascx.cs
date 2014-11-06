@@ -98,27 +98,35 @@ namespace WealthERP.Alerts
         {
             try
             {
-                DataTable dtCustomerSIPAlert = alertBo.GetCustomerSIPAlert(int.Parse(txtCustomerId.Value));
-                if (dtCustomerSIPAlert.Rows.Count > 0)
+                if (txtCustomerId.Value == "")
                 {
-                    if (Cache["CustomerSIPAlert" + adviserVo.advisorId] == null)
-                    {
-                        Cache.Insert("CustomerSIPAlert" + adviserVo.advisorId, dtCustomerSIPAlert);
-                    }
-                    else
-                    {
-                        Cache.Remove("CustomerSIPAlert" + adviserVo.advisorId);
-                        Cache.Insert("CustomerSIPAlert" + adviserVo.advisorId, dtCustomerSIPAlert);
-                    }
-                    gvCustomerAlertSetup.DataSource = dtCustomerSIPAlert;
-                    gvCustomerAlertSetup.DataBind();
-                    tblCustomerAlertSetup.Visible = true;
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please Select Valid Data!');", true);
+                    return;
                 }
                 else
                 {
-                    gvCustomerAlertSetup.DataSource = dtCustomerSIPAlert;
-                    gvCustomerAlertSetup.DataBind();
-                    tblCustomerAlertSetup.Visible = true;
+                    DataTable dtCustomerSIPAlert = alertBo.GetCustomerSIPAlert(int.Parse(txtCustomerId.Value));
+                    if (dtCustomerSIPAlert.Rows.Count > 0)
+                    {
+                        if (Cache["CustomerSIPAlert" + adviserVo.advisorId] == null)
+                        {
+                            Cache.Insert("CustomerSIPAlert" + adviserVo.advisorId, dtCustomerSIPAlert);
+                        }
+                        else
+                        {
+                            Cache.Remove("CustomerSIPAlert" + adviserVo.advisorId);
+                            Cache.Insert("CustomerSIPAlert" + adviserVo.advisorId, dtCustomerSIPAlert);
+                        }
+                        gvCustomerAlertSetup.DataSource = dtCustomerSIPAlert;
+                        gvCustomerAlertSetup.DataBind();
+                        tblCustomerAlertSetup.Visible = true;
+                    }
+                    else
+                    {
+                        gvCustomerAlertSetup.DataSource = dtCustomerSIPAlert;
+                        gvCustomerAlertSetup.DataBind();
+                        tblCustomerAlertSetup.Visible = true;
+                    }
                 }
             }
             catch (BaseApplicationException Ex)
