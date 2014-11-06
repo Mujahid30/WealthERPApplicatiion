@@ -88,24 +88,24 @@
                             <ItemStyle Width="90px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                         </telerik:GridBoundColumn>
                         
-                        <telerik:GridBoundColumn DataField="[ZonalManager]" UniqueName="[ZonalManager]" HeaderText="Zonal Manager"
-                            AutoPostBackOnFilter="true" SortExpression="[ZonalManager]" ShowFilterIcon="false" AllowFiltering="true"
+                        <telerik:GridBoundColumn DataField="ZonalManagerName" UniqueName="ZonalManagerName" HeaderText="Zonal Manager"
+                            AutoPostBackOnFilter="true" SortExpression="ZonalManagerName" ShowFilterIcon="false" AllowFiltering="true"
                             HeaderStyle-Width="140px" FilterControlWidth="90px" CurrentFilterFunction="Contains">
                             <ItemStyle Width="90px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                         </telerik:GridBoundColumn>
                         
-                        <telerik:GridBoundColumn DataField="[AreaManager]" UniqueName="[Area Manager]" HeaderText="Area Manager"
-                            AutoPostBackOnFilter="true" SortExpression="[Area Manager]" ShowFilterIcon="false" AllowFiltering="true"
+                        <telerik:GridBoundColumn DataField="AreaManager" UniqueName="AreaManager" HeaderText="Area Manager"
+                            AutoPostBackOnFilter="true" SortExpression="AreaManager" ShowFilterIcon="false" AllowFiltering="true"
                             HeaderStyle-Width="140px" FilterControlWidth="90px" CurrentFilterFunction="Contains">
                             <ItemStyle Width="90px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="[CircleManager]" UniqueName="[CircleManager]" HeaderText="Circle Manager"
-                            AutoPostBackOnFilter="true" SortExpression="[CircleManager]" ShowFilterIcon="false" AllowFiltering="true"
+                        <telerik:GridBoundColumn DataField="ClusterManager" UniqueName="ClusterManager" HeaderText="Circle Manager"
+                            AutoPostBackOnFilter="true" SortExpression="ClusterManager" ShowFilterIcon="false" AllowFiltering="true"
                             HeaderStyle-Width="140px" FilterControlWidth="90px" CurrentFilterFunction="Contains">
                             <ItemStyle Width="90px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="[ChannelManager]" UniqueName="[ChannelManager]" HeaderText="Channel Manager"
-                            AutoPostBackOnFilter="true" SortExpression="[ChannelManager]" ShowFilterIcon="false" AllowFiltering="true"
+                        <telerik:GridBoundColumn DataField="ReportingManagerName" UniqueName="ReportingManagerName" HeaderText="Channel Manager"
+                            AutoPostBackOnFilter="true" SortExpression="ReportingManagerName" ShowFilterIcon="false" AllowFiltering="true"
                             HeaderStyle-Width="140px" FilterControlWidth="90px" CurrentFilterFunction="Contains">
                             <ItemStyle Width="90px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                         </telerik:GridBoundColumn>

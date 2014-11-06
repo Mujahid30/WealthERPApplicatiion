@@ -479,15 +479,15 @@ namespace DaoCustomerProfiling
                     if (!string.IsNullOrEmpty(dr["C_ResidenceLivingDate"].ToString()))
                         customerVo.ResidenceLivingDate = Convert.ToDateTime(dr["C_ResidenceLivingDate"].ToString());
                     if (dr["C_ResISDCode"].ToString() != string.Empty)
-                        customerVo.ResISDCode = int.Parse(dr["C_ResISDCode"].ToString());
+                        customerVo.ResISDCode = Int64.Parse(dr["C_ResISDCode"].ToString());
                     if (dr["C_ResSTDCode"].ToString() != string.Empty)
-                        customerVo.ResSTDCode = int.Parse(dr["C_ResSTDCode"].ToString());
+                        customerVo.ResSTDCode = Int64.Parse(dr["C_ResSTDCode"].ToString());
                     if (dr["C_ResPhoneNum"].ToString() != string.Empty)
-                        customerVo.ResPhoneNum = int.Parse(dr["C_ResPhoneNum"].ToString());
+                        customerVo.ResPhoneNum = Int64.Parse(dr["C_ResPhoneNum"].ToString());
                     if (dr["C_OfcISDCode"].ToString() != string.Empty)
-                        customerVo.OfcISDCode = int.Parse(dr["C_OfcISDCode"].ToString());
+                        customerVo.OfcISDCode = Int64.Parse(dr["C_OfcISDCode"].ToString());
                     if (dr["C_OfcSTDCode"].ToString() != string.Empty)
-                        customerVo.OfcSTDCode = int.Parse(dr["C_OfcSTDCode"].ToString());
+                        customerVo.OfcSTDCode = Int64.Parse(dr["C_OfcSTDCode"].ToString());
                     if (dr["C_OfcPhoneNum"].ToString() != string.Empty)
                         customerVo.OfcPhoneNum = Int64.Parse(dr["C_OfcPhoneNum"].ToString());
                     if (!string.IsNullOrEmpty(dr["C_Email"].ToString()))

@@ -379,7 +379,7 @@ namespace WealthERP.Customer
                     else
                         chkKYC.Checked = false;
 
-                    RadTabStripCustomerProfile.TabIndex = 0;
+                    RadTabStripCustomerProfile.TabIndex = 2;
                     //RadTabStripFPGoalDetails.SelectedTab.Enabled = true;
                     CustomerProfileDetails.SelectedIndex = 2;
                     RadTabStripCustomerProfile.Tabs[2].Selected = true;
@@ -823,27 +823,27 @@ namespace WealthERP.Customer
                     if (txtResPhoneNoIsd.Text == "")
                         customerVo.ResISDCode = 0;
                     else
-                        customerVo.ResISDCode = int.Parse(txtResPhoneNoIsd.Text.ToString());
+                        customerVo.ResISDCode = Int64.Parse(txtResPhoneNoIsd.Text.ToString());
 
                     if (txtResPhoneNoStd.Text == "")
                         customerVo.ResSTDCode = 0;
                     else
-                        customerVo.ResSTDCode = int.Parse(txtResPhoneNoStd.Text.ToString());
+                        customerVo.ResSTDCode = Int64.Parse(txtResPhoneNoStd.Text.ToString());
 
                     if (txtResPhoneNo.Text == "")
                         customerVo.ResPhoneNum = 0;
                     else
-                        customerVo.ResPhoneNum = int.Parse(txtResPhoneNo.Text.ToString());
+                        customerVo.ResPhoneNum = Int64.Parse(txtResPhoneNo.Text.ToString());
 
                     if (txtOfcPhoneNoIsd.Text == "")
                         customerVo.OfcISDCode = 0;
                     else
-                        customerVo.OfcISDCode = int.Parse(txtOfcPhoneNoIsd.Text.ToString());
+                        customerVo.OfcISDCode = Int64.Parse(txtOfcPhoneNoIsd.Text.ToString());
 
                     if (txtOfcPhoneNoStd.Text == "")
                         customerVo.OfcSTDCode = 0;
                     else
-                        customerVo.OfcSTDCode = int.Parse(txtOfcPhoneNoStd.Text.ToString());
+                        customerVo.OfcSTDCode = Int64.Parse(txtOfcPhoneNoStd.Text.ToString());
 
                     if (txtOfcPhoneNo.Text == "")
                         customerVo.OfcPhoneNum = 0;
@@ -1150,6 +1150,7 @@ namespace WealthERP.Customer
             {
                 customerVo.Type = "NIND";
                 Session["CustomerVo"] = customerVo;
+
                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "PageLoadScript", "loadcontrol('EditCustomerNonIndividualProfile','none');", true);
             }
         }

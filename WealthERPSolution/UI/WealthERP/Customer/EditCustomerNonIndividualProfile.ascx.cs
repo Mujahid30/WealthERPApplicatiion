@@ -14,6 +14,9 @@ using System.Configuration;
 using BoCommon;
 using System.Data;
 using WealthERP.Base;
+using AjaxControlToolkit;
+using Telerik.Web.UI;
+using System.Web.UI.HtmlControls;
 namespace WealthERP.Customer
 {
     public partial class EditCustomerNonIndividualProfile : System.Web.UI.UserControl
@@ -25,7 +28,9 @@ namespace WealthERP.Customer
         DataTable dtCustomerSubType = new DataTable();
         DataTable dtOccupation = new DataTable();
         DataTable dtNationality = new DataTable();
+        DataTable dtState = new DataTable();
         CommonLookupBo commonLookupBo = new CommonLookupBo();
+        AdvisorVo advisorVo = new AdvisorVo();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -35,6 +40,10 @@ namespace WealthERP.Customer
             try
             {
                 SessionBo.CheckSession();
+                //if (advisorVo.IsISASubscribed != true)
+                //{
+                //    RadTabStripCustomerProfile.Tabs[1].Visible = true;
+                //}
                 if (!IsPostBack)
                 {
 
@@ -150,14 +159,14 @@ namespace WealthERP.Customer
                         {
                             chkdummypan.Checked = false;
                         }
-                        if (customerVo.IsProspect == 1)
-                        {
-                            chkprospectn.Checked = true;
-                        }
-                        else
-                        {
-                            chkprospectn.Checked = false;
-                        }
+                        //if (customerVo.IsProspect == 1)
+                        //{
+                        //    chkprospectn.Checked = true;
+                        //}
+                        //else
+                        //{
+                        //    chkprospectn.Checked = false;
+                        //}
                         if (customerVo.ViaSMS == 1)
                         {
                             chksmsn.Checked = true;
@@ -277,6 +286,10 @@ namespace WealthERP.Customer
                         txtOtherCountry.Text = customerVo.OtherCountry;
                         txtMobile1.Text = customerVo.Mobile1.ToString();
                         txtMobile2.Text = customerVo.Mobile2.ToString();
+                        RadTabStripCustomerProfile.TabIndex = 0;
+                        CustomerProfileDetails.SelectedIndex = 0;
+                        RadTabStripCustomerProfile.Tabs[0].Selected = true;
+                        
                     }
                 }
             }
@@ -302,53 +315,82 @@ namespace WealthERP.Customer
         }
         private void BindDropDowns(string path)
         {
-            DataTable dtStates = XMLBo.GetStates(path);
-            ddlCorrAdrState.DataSource = dtStates;
-            ddlCorrAdrState.DataValueField = "StateCode";
-            ddlCorrAdrState.DataTextField = "StateName";
-            ddlCorrAdrState.DataBind();
-            ddlCorrAdrState.Items.Insert(0, new ListItem("Select a State", "Select a State"));
-
-
-            ddlPermAdrState.DataSource = dtStates;
-            ddlPermAdrState.DataValueField = "StateCode";
-            ddlPermAdrState.DataTextField = "StateName";
-            ddlPermAdrState.DataBind();
-            ddlPermAdrState.Items.Insert(0, new ListItem("Select a State", "Select a State"));
-
-            dtOccupation = commonLookupBo.GetWERPLookupMasterValueList(3000, 0); ;
-            ddlOccupation.DataSource = dtOccupation;
-            ddlOccupation.DataTextField = "WCMV_Name";
-            ddlOccupation.DataValueField = "WCMV_LookupId";
-            ddlOccupation.DataBind();
-            ddlOccupation.Items.Insert(0, new ListItem("--SELECT--", "0"));
-
-            dtNationality = XMLBo.GetNationality(path);
-            ddlNationality.DataSource = dtNationality;
-            ddlNationality.DataTextField = "Nationality";
-            ddlNationality.DataValueField = "NationalityCode";
-            ddlNationality.DataBind();
-            ddlNationality.Items.Insert(0, new ListItem("Select a Nationality", "Select a Nationality"));
-
-            if (customerVo.Type.ToUpper().ToString() == "IND")
+            AdvisorVo advisorVo = new AdvisorVo();
+            try
             {
-                // dtCustomerSubType = XMLBo.GetCustomerSubType(path, "IND");
-                // commonLookupBo.GetWERPLookupMasterValueList(2000, 1001);
-                BinSubtypeDropdown(1001);
+                dtState = commonLookupBo.GetWERPLookupMasterValueList(14000, 0);
+
+                ddlCorrAdrState.DataSource = dtState;
+                ddlCorrAdrState.DataTextField = "WCMV_Name";
+                ddlCorrAdrState.DataValueField = "WCMV_LookupId";
+                ddlCorrAdrState.DataBind();
+                ddlCorrAdrState.Items.Insert(0, new ListItem("--SELECT--", "0"));
+
+                ddlPermAdrState.DataSource = dtState;
+                ddlPermAdrState.DataTextField = "WCMV_Name";
+                ddlPermAdrState.DataValueField = "WCMV_LookupId";
+                ddlPermAdrState.DataBind();
+                ddlPermAdrState.Items.Insert(0, new ListItem("--SELECT--", "0"));
+
+                dtOccupation = commonLookupBo.GetWERPLookupMasterValueList(3000, 0); ;
+                ddlOccupation.DataSource = dtOccupation;
+                ddlOccupation.DataTextField = "WCMV_Name";
+                ddlOccupation.DataValueField = "WCMV_LookupId";
+                ddlOccupation.DataBind();
+                ddlOccupation.Items.Insert(0, new ListItem("--SELECT--", "0"));
+
+                dtNationality = XMLBo.GetNationality(path);
+                ddlNationality.DataSource = dtNationality;
+                ddlNationality.DataTextField = "Nationality";
+                ddlNationality.DataValueField = "NationalityCode";
+                ddlNationality.DataBind();
+                ddlNationality.Items.Insert(0, new ListItem("Select a Nationality", "Select a Nationality"));
+
+                if (customerVo.Type.ToUpper().ToString() == "IND")
+                {
+                    // dtCustomerSubType = XMLBo.GetCustomerSubType(path, "IND");
+                    // commonLookupBo.GetWERPLookupMasterValueList(2000, 1001);
+                    BinSubtypeDropdown(1001);
+                }
+                else
+                {
+                    BinSubtypeDropdown(1002);
+
+                    //commonLookupBo.GetWERPLookupMasterValueList(2000, 1002);
+                    //dtCustomerSubType = XMLBo.GetCustomerSubType(path, "NIND");
+                }
+                //ddlCustomerSubType.DataSource = dtCustomerSubType;
+                //ddlCustomerSubType.DataTextField = "CustomerTypeName";
+                //ddlCustomerSubType.DataValueField = "CustomerSubTypeCode";
+                //ddlCustomerSubType.DataBind();
+                //ddlCustomerSubType.SelectedValue = customerVo.SubType;
+
             }
-            else
+            catch (BaseApplicationException Ex)
             {
-                BinSubtypeDropdown(1002);
-
-                //commonLookupBo.GetWERPLookupMasterValueList(2000, 1002);
-                //dtCustomerSubType = XMLBo.GetCustomerSubType(path, "NIND");
+                throw Ex;
             }
-            //ddlCustomerSubType.DataSource = dtCustomerSubType;
-            //ddlCustomerSubType.DataTextField = "CustomerTypeName";
-            //ddlCustomerSubType.DataValueField = "CustomerSubTypeCode";
-            //ddlCustomerSubType.DataBind();
-            //ddlCustomerSubType.SelectedValue = customerVo.SubType;
 
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "EditCustomerIndividualProfile.ascx:BindDropDowns()");
+
+                object[] objects = new object[0];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+        }
+
+        protected void RadTabStripCustomerProfile_onClick(object sender, EventArgs e)
+        {
+ 
         }
         private void BinSubtypeDropdown(int parentId)
         {
@@ -453,14 +495,14 @@ namespace WealthERP.Customer
                 {
                     customerVo.DummyPAN = 0;
                 }
-                if (chkprospectn.Checked)
-                {
-                    customerVo.IsProspect = 1;
-                }
-                else
-                {
-                    customerVo.IsProspect = 0;
-                }
+                //if (chkprospectn.Checked)
+                //{
+                //    customerVo.IsProspect = 1;
+                //}
+                //else
+                //{
+                //    customerVo.IsProspect = 0;
+                //}
                 if (chkmailn.Checked)
                 {
                     customerVo.AlertViaEmail = 1;
@@ -493,7 +535,7 @@ namespace WealthERP.Customer
                 customerVo.Adr2Country = ddlPermAdrCountry.Text.ToString();
                 if (txtPhoneNo1Isd.Text != "")
                 {
-                    customerVo.ResISDCode = int.Parse(txtPhoneNo1Isd.Text.ToString());
+                    customerVo.ResISDCode = Int64.Parse(txtPhoneNo1Isd.Text.ToString());
                 }
                 else
                 {
@@ -501,7 +543,7 @@ namespace WealthERP.Customer
                 }
                 if (txtPhoneNo1Std.Text != "")
                 {
-                    customerVo.ResSTDCode = int.Parse(txtPhoneNo1Std.Text.ToString());
+                    customerVo.ResSTDCode = Int64.Parse(txtPhoneNo1Std.Text.ToString());
                 }
                 else
                 {
@@ -509,7 +551,7 @@ namespace WealthERP.Customer
                 }
                 if (txtPhoneNo1.Text != "")
                 {
-                    customerVo.ResPhoneNum = int.Parse(txtPhoneNo1.Text.ToString());
+                    customerVo.ResPhoneNum = Int64.Parse(txtPhoneNo1.Text.ToString());
                 }
                 else
                 {
@@ -517,7 +559,7 @@ namespace WealthERP.Customer
                 }
                 if (txtPhoneNo2Isd.Text != "")
                 {
-                    customerVo.OfcISDCode = int.Parse(txtPhoneNo2Isd.Text.ToString());
+                    customerVo.OfcISDCode = Int64.Parse(txtPhoneNo2Isd.Text.ToString());
                 }
                 else
                 {
@@ -525,7 +567,7 @@ namespace WealthERP.Customer
                 }
                 if (txtPhoneNo2Std.Text != "")
                 {
-                    customerVo.OfcSTDCode = int.Parse(txtPhoneNo2Std.Text.ToString());
+                    customerVo.OfcSTDCode = Int64.Parse(txtPhoneNo2Std.Text.ToString());
                 }
                 else
                 {
@@ -533,7 +575,7 @@ namespace WealthERP.Customer
                 }
                 if (txtPhoneNo2.Text != "")
                 {
-                    customerVo.OfcPhoneNum = int.Parse(txtPhoneNo2.Text.ToString());
+                    customerVo.OfcPhoneNum = Int64.Parse(txtPhoneNo2.Text.ToString());
                 }
                 else
                 {
@@ -579,6 +621,7 @@ namespace WealthERP.Customer
                 customerVo.Occupation = null;
                 customerVo.Qualification = null;
                 customerVo.OccupationId = int.Parse(ddlOccupation.SelectedItem.Value.ToString());
+                customerVo.OtherCountry = txtOtherCountry.Text.ToString();
                 if (ddlNationality.SelectedIndex == 0)
                     customerVo.Nationality = null;
                 else

@@ -175,7 +175,7 @@ namespace WealthERP.Customer
                 }
                 if (customerVo.Adr1State != "")
                 {
-                    lblCorrState.Text = XMLBo.GetStateName(path, customerVo.Adr1State);
+                    lblCorrState.Text = customerVo.Adr1State.ToString();
 
                 }
                 else
@@ -202,13 +202,13 @@ namespace WealthERP.Customer
                 {
                     lblPermPinCode.Text = customerVo.Adr2PinCode.ToString();
                 }
-                if (customerVo.Adr1City != "")
+                if (customerVo.Adr2City != "")
                 {
-                    lblPermCity.Text = customerVo.Adr1City.ToString();
+                    lblPermCity.Text = customerVo.Adr2City.ToString();
                 }
                 if (customerVo.Adr2State != null)
                 {
-                    lblPermState.Text = XMLBo.GetStateName(path, customerVo.Adr2State);
+                    lblPermState.Text = customerVo.Adr2State.ToString();
 
                 }
                 else
@@ -234,7 +234,7 @@ namespace WealthERP.Customer
                 lblSubType.Text = XMLBo.GetCustomerSubTypeName(path, customerVo.SubType);
                 if (customerVo.Occupation != null)
                 {
-                    lblOccupation.Text = customerVo.Occupation.ToString();
+                    lblOccupation.Text = customerVo.OccupationId.ToString();
                 }
                 if (customerVo.AnnualIncome != null)
                 {
@@ -278,7 +278,7 @@ namespace WealthERP.Customer
                 }
                 if (customerVo.GuardPANNum != null)
                 {
-                    lblGuardianPANNum.Text = customerVo.GuardPANNum.ToString();
+                    lblGuardianPANNum.Text = customerVo.ContactGuardianPANNum.ToString();
                 }
                 if (customerVo.GuardianMinNo != null)
                 {

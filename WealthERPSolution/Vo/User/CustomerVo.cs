@@ -61,11 +61,11 @@ namespace VoUser
         private string m_Adr2City;
         private string m_Adr2State;
         private string m_Adr2Country;
-        private int m_ResISDCode;
-        private int m_ResSTDCode;
-        private int m_ResPhoneNum;
-        private int m_OfcISDCode;
-        private int m_OfcSTDCode;
+        private long m_ResISDCode;
+        private long m_ResSTDCode;
+        private long m_ResPhoneNum;
+        private long m_OfcISDCode;
+        private long m_OfcSTDCode;
         private Int64 m_OfcPhoneNum;
         private long m_Mobile1;
         private long m_Mobile2;
@@ -497,27 +497,27 @@ namespace VoUser
             get { return m_Adr2Country; }
             set { m_Adr2Country = value; }
         }
-        public int ResISDCode
+        public long ResISDCode
         {
             get { return m_ResISDCode; }
             set { m_ResISDCode = value; }
         }
-        public int ResSTDCode
+        public long ResSTDCode
         {
             get { return m_ResSTDCode; }
             set { m_ResSTDCode = value; }
         }
-        public int ResPhoneNum
+        public long ResPhoneNum
         {
             get { return m_ResPhoneNum; }
             set { m_ResPhoneNum = value; }
         }
-        public int OfcISDCode
+        public long OfcISDCode
         {
             get { return m_OfcISDCode; }
             set { m_OfcISDCode = value; }
         }
-        public int OfcSTDCode
+        public long OfcSTDCode
         {
             get { return m_OfcSTDCode; }
             set { m_OfcSTDCode = value; }

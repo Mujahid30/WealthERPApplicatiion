@@ -78,7 +78,7 @@
     </tr>
     <tr>
         <td class="leftField">
-            <asp:Label ID="lblCustomerSubType" runat="server" CssClass="FieldName" Text="Customer Sub Type:"></asp:Label>
+            <asp:Label ID="lblCustomerSubType" runat="server" CssClass="FieldName" Text="Customer SubType:"></asp:Label>
         </td>
         <td>
             <asp:Label ID="lblSubType" runat="server" CssClass="FieldName" Text="Customer SubType:"></asp:Label>
