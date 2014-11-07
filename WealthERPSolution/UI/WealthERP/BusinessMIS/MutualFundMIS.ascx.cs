@@ -1329,10 +1329,11 @@ namespace WealthERP.BusinessMIS
                                 int selectedRow = gvr.ItemIndex + 1;
                                 int folio = int.Parse(gvr.GetDataKeyValue("CMFA_AccountId").ToString());
                                 int SchemePlanCode = int.Parse(gvr.GetDataKeyValue("SchemePlanCode").ToString());
+                                int AMC = int.Parse(gvr.GetDataKeyValue("AmcCode").ToString());
                                 if (e.CommandName == "Select")
                                 {
                                     string name = "Select";
-                                    Response.Redirect("ControlHost.aspx?pageid=RMMultipleTransactionView&folionum=" + folio + "&SchemePlanCode=" + SchemePlanCode + "&name=" + name + "", false);
+                                    Response.Redirect("ControlHost.aspx?pageid=RMMultipleTransactionView&folionum=" + folio + "&SchemePlanCode=" + SchemePlanCode + "&AMC=" + AMC + "&name=" + name + "", false);
                                 }
                             }
                         }
@@ -1727,9 +1728,17 @@ namespace WealthERP.BusinessMIS
 
         protected void rgvFolioWiseAUM_ItemDataBound(object sender, GridItemEventArgs e)
         {
-
+            if (e.Item is GridDataItem)
+            {
+                GridDataItem dataItem = e.Item as GridDataItem;
+                LinkButton lbtnMarkAsReject = (LinkButton)dataItem.FindControl("lnkprAmc");
+                if (ddlType.SelectedValue == "1")
+                {
+                    //LinkButton lnkprAmc = (LinkButton)e.Item.FindControl("lnkprAmc");
+                    lbtnMarkAsReject.Enabled = false;
+                }
+            }
         }
-
         protected void rgvFolioWiseAUM_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
             DataSet dtProcessLogDetails = new DataSet();

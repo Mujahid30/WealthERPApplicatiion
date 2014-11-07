@@ -222,13 +222,13 @@
 <div runat="server" id="divGvFolioWiseAUM" style="overflow: scroll;" visible="false">
     <telerik:RadGrid OnPreRender="gvFolioWiseAUM_PreRender" ID="gvFolioWiseAUM" runat="server"
         GridLines="None" AutoGenerateColumns="False" PageSize="10" AllowSorting="true"
-        OnItemDataBound="gvFolioWiseAUM_ItemDataBound" AllowPaging="True" ShowStatusBar="True"
+        OnItemDataBound="rgvFolioWiseAUM_ItemDataBound" AllowPaging="True" ShowStatusBar="True"
         ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false" Width="1050px" AllowFilteringByColumn="true"
         AllowAutomaticInserts="false" ExportSettings-FileName="FolioWiseAUM Details"
         OnNeedDataSource="gvFolioWiseAUM_OnNeedDataSource" OnItemCommand="gvFolioWiseAUM_OnItemCommand">
         <ExportSettings HideStructureColumns="true">
         </ExportSettings>
-        <MasterTableView DataKeyNames="CMFA_AccountId,FolioNum,SchemePlanCode" Width="100%"
+        <MasterTableView DataKeyNames="CMFA_AccountId,FolioNum,SchemePlanCode,AmcCode" Width="100%"
             AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
             <Columns>
                 <telerik:GridTemplateColumn Visible="false" HeaderStyle-Width="100px" AllowFiltering="false"

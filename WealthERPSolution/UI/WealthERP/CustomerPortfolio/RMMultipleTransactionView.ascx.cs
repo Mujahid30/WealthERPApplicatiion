@@ -847,16 +847,31 @@ namespace WealthERP.CustomerPortfolio
 
         protected void BindLink()
         {
-            if (Request.QueryString["folionum"] != null && Request.QueryString["SchemePlanCode"] != null)
+            if (Request.QueryString["folionum"] != null && Request.QueryString["SchemePlanCode"] != null && Request.QueryString["AMC"] != null || Request.QueryString["subBrokerCode"] !=null)
             {
                 int accountId = int.Parse(Request.QueryString["folionum"].ToString());
                 int SchemePlanCode = int.Parse(Request.QueryString["SchemePlanCode"].ToString());
+                if (Request.QueryString["subBrokerCode"] != null)
+                {
+                    string subBrokerCode = Request.QueryString["subBrokerCode"].ToString();
+                    if (subBrokerCode == "" || subBrokerCode == "N/A")
+                    {
+                        ddlAgentCode.SelectedValue = "2";
+                    }
+                    else
+                    {
+                        ddlAgentCode.SelectedValue = "1";
+                    }
+                }
+                ddlSchemeList.SelectedValue = SchemePlanCode.ToString();
+                int AMC = int.Parse(Request.QueryString["AMC"].ToString());
+                ddlAMC.SelectedValue = AMC.ToString();
                 PasssedFolioValue = accountId;
                 BindLastTradeDate();
                 string fromdate = "01-01-1990";
                 txtFromDate.SelectedDate = DateTime.Parse(fromdate);
                 ViewState["SchemePlanCode"] = SchemePlanCode;
-
+                ViewState["AMC"] = ddlAMC.SelectedValue;
                 if (Request.QueryString["name"] != null)
                 {
                     column = Request.QueryString["name"].ToString();
@@ -893,7 +908,10 @@ namespace WealthERP.CustomerPortfolio
                     ddlDisplayType.SelectedValue = "TV";
                     BindGrid(DateTime.Parse(fromdate), DateTime.Parse(txtToDate.SelectedDate.ToString()));
                     lnkBackHolding.Visible = true;
-                    Panel2.Visible = true;
+                    if (ddlAgentCode.SelectedValue == "1")
+                    {
+                        Panel2.Visible = true;
+                    }
                     Panel1.Visible = false;
                     divTrail.Visible = false;
                     hdnExportType.Value = "TV";
@@ -1489,6 +1507,8 @@ namespace WealthERP.CustomerPortfolio
                     dtMFBalance.Columns.Add("ReportingManagerName");
                     dtMFBalance.Columns.Add("UserType");
                     dtMFBalance.Columns.Add("DeuptyHead");
+                    dtMFBalance.Columns.Add("AMCCode");
+
                     DataRow drMFBalance;
 
                     for (int i = 0; i < mfBalanceList.Count; i++)
@@ -1501,6 +1521,7 @@ namespace WealthERP.CustomerPortfolio
                         drMFBalance["Folio Number"] = mfBalanceVo.Folio.ToString();
                         drMFBalance["AccountId"] = mfBalanceVo.AccountId.ToString();
                         drMFBalance["SchemePlanCode"] = mfBalanceVo.MFCode.ToString();
+                        drMFBalance["AMCCode"] = mfBalanceVo.AMCCode.ToString();
                         drMFBalance["Scheme Name"] = mfBalanceVo.SchemePlan.ToString();
                         if (GridViewCultureFlag == true)
                             drMFBalance["CurrentValue"] = decimal.Parse(mfBalanceVo.CurrentValue.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
@@ -2240,10 +2261,12 @@ namespace WealthERP.CustomerPortfolio
                                 int selectedRow = gvr.ItemIndex + 1;
                                 int folio = int.Parse(gvr.GetDataKeyValue("AccountId").ToString());
                                 int SchemePlanCode = int.Parse(gvr.GetDataKeyValue("SchemePlanCode").ToString());
+                                int AMC = int.Parse(gvr.GetDataKeyValue("AMCCode").ToString());
+                                string subBrokerCode = gvr.GetDataKeyValue("CMFT_SubBrokerCode").ToString();
                                 if (e.CommandName == "SelectTransaction")
                                 {
                                     //string name = "SelectAmt";
-                                    Response.Redirect("ControlHost.aspx?pageid=RMMultipleTransactionView&folionum=" + folio + "&SchemePlanCode=" + SchemePlanCode + "", false);
+                                    Response.Redirect("ControlHost.aspx?pageid=RMMultipleTransactionView&folionum=" + folio + "&SchemePlanCode=" + SchemePlanCode + "&AMC=" + AMC + "&subBrokerCode=" + subBrokerCode + "", false);
                                 }
                                 //if (e.CommandName == "SelectTrail")
                                 //{

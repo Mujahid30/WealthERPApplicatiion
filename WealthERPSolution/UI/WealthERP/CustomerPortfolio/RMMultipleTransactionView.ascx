@@ -477,8 +477,7 @@
                                             <asp:TextBox ID="txtParentCustomer" runat="server" CssClass="txtField" AutoPostBack="true"
                                                 AutoComplete="Off"></asp:TextBox>
                                             <cc1:TextBoxWatermarkExtender ID="txtParentCustomer_TextBoxWatermarkExtender" runat="server"
-                                                TargetControlID="txtParentCustomer" WatermarkText="Type the Customer
-                Name">
+                                                TargetControlID="txtParentCustomer" WatermarkText="Type the Customer Name">
                                             </cc1:TextBoxWatermarkExtender>
                                             <cc1:AutoCompleteExtender ID="txtParentCustomer_autoCompleteExtender" runat="server"
                                                 TargetControlID="txtParentCustomer" ServiceMethod="GetParentCustomerName" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
@@ -1132,7 +1131,7 @@
                                     <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
                                         Excel-Format="ExcelML" FileName="View ReturnHolding Details">
                                     </ExportSettings>
-                                    <MasterTableView DataKeyNames="TransactionId,AccountId,SchemePlanCode" Width="100%"
+                                    <MasterTableView DataKeyNames="TransactionId,AccountId,SchemePlanCode,AMCCode,CMFT_SubBrokerCode" Width="100%"
                                         AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
                                         <Columns>
                                             <telerik:GridTemplateColumn AllowFiltering="false" FooterText="Grand Total:" HeaderStyle-Wrap="false"
