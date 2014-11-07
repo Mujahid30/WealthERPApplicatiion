@@ -289,7 +289,12 @@ namespace DaoOps
                     db.AddInParameter(createMFOrderTrackingCmd, "@BranchLookUpId", DbType.Int32, mforderVo.BankBranchId);
                 else
                     db.AddInParameter(createMFOrderTrackingCmd, "@BranchLookUpId", DbType.Int32, DBNull.Value);
+                if (!string.IsNullOrEmpty( mforderVo.DivOption ))
+                    db.AddInParameter(createMFOrderTrackingCmd, "@DivOption", DbType.String, mforderVo.DivOption);
+                else
+                    db.AddInParameter(createMFOrderTrackingCmd, "@DivOption", DbType.String, mforderVo.DivOption);
 
+             
                 if (db.ExecuteNonQuery(createMFOrderTrackingCmd) != 0)
                 {
                     OrderId = Convert.ToInt32(db.GetParameterValue(createMFOrderTrackingCmd, "CO_OrderId").ToString());
