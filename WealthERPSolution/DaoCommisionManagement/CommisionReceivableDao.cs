@@ -199,7 +199,15 @@ namespace DaoCommisionManagement
                 cmdCreateCommissionStructure = db.GetStoredProcCommand("SPROC_CreateAdviserPayableStructureAgentCategoryMapping");
                 db.AddInParameter(cmdCreateCommissionStructure, "@CommissionStructureId", DbType.Int64, StructureId);
                 db.AddInParameter(cmdCreateCommissionStructure, "@UserType", DbType.String, userType);
-                db.AddInParameter(cmdCreateCommissionStructure, "@StaffCategory", DbType.Int64, Category);
+                if (!string.IsNullOrEmpty(Category))
+                {
+                    db.AddInParameter(cmdCreateCommissionStructure, "@StaffCategory", DbType.Int64, Category);
+                }
+                else
+                {
+                    db.AddInParameter(cmdCreateCommissionStructure, "@StaffCategory", DbType.Int64, 0);
+
+                }
                 db.AddInParameter(cmdCreateCommissionStructure, "@AgentId", DbType.String, agentId);
 
                 db.AddOutParameter(cmdCreateCommissionStructure, "@id", DbType.Int64, 1000000);
