@@ -192,7 +192,7 @@ namespace WealthERP.Receivable {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trIssuer;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trTransaction;
         /// <summary>
         /// lblIssuer control.
         /// </summary>
@@ -201,7 +201,7 @@ namespace WealthERP.Receivable {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblIssuer;
-        
+        protected global::System.Web.UI.WebControls.Label lbltransaction;
         /// <summary>
         /// ddlIssuer control.
         /// </summary>
@@ -210,7 +210,7 @@ namespace WealthERP.Receivable {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlIssuer;
-        
+        protected global::System.Web.UI.WebControls.DropDownList ddlTransaction;
         /// <summary>
         /// RequiredFieldValidator2 control.
         /// </summary>

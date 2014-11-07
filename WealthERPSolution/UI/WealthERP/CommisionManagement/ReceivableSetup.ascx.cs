@@ -312,7 +312,7 @@ namespace WealthERP.Receivable
                 string subcategoryIds = commissionStructureMasterVo.AssetSubCategory.ToString();
                 subcategoryIds = subcategoryIds.Replace("~", ",");
                 hdnSubcategoryIds.Value = subcategoryIds;
-              
+
             }
 
             catch (BaseApplicationException Ex)
@@ -470,6 +470,22 @@ namespace WealthERP.Receivable
 
             //ShowAndHideSTructureRuleControlsBasedOnProductAndCommisionType(lblReceivableFrequency, ddlReceivableFrequency, trTransactionTypeSipFreq, trMinMaxTenure, trMinMaxAge, tdMinNumberOfApplication, ddlProductType.SelectedValue, ddlCommissionApplicableLevel.SelectedValue);
         }
+        protected void ddlTransaction_Selectedindexchanged(object sender, EventArgs e)
+        {
+            GridEditFormItem editform = (GridEditFormItem)ddlTransaction.NamingContainer; ;
+            System.Web.UI.HtmlControls.HtmlTableRow trMinMaxTenure = (System.Web.UI.HtmlControls.HtmlTableRow)editform.FindControl("trMinMaxTenure");
+            Label lblSIPFrequency = (Label)editform.FindControl("lblSIPFrequency");
+            CheckBoxList chkListTtansactionType= (CheckBoxList)editform.FindControl("chkListTtansactionType");
+            if (ddlTransaction.SelectedValue == "SIP")
+            {
+                trMinMaxTenure.Visible = true;
+                
+            }
+            else if (ddlTransaction.SelectedValue == "NonSIP")
+            {
+                trMinMaxTenure.Visible = false;
+            }
+        }
 
         protected void ddlCommissionType_Selectedindexchanged(object sender, EventArgs e)
         {
@@ -486,12 +502,23 @@ namespace WealthERP.Receivable
             System.Web.UI.HtmlControls.HtmlTableCell tdlb1SipFreq = new System.Web.UI.HtmlControls.HtmlTableCell(); ;
             System.Web.UI.HtmlControls.HtmlTableCell tdddlSipFreq = new System.Web.UI.HtmlControls.HtmlTableCell(); ;
 
+            Label lblMinNumberOfApplication = new Label();
+            Label lblSIPFrequency = new Label();
+            DropDownList ddlSIPFrequency = new DropDownList();
+
+            TextBox txtMinNumberOfApplication = new TextBox();
 
 
             if (ddlCommissionType.NamingContainer is Telerik.Web.UI.GridEditFormItem)
             {
                 GridEditFormItem gdi;
+
                 gdi = (GridEditFormItem)ddlCommissionType.NamingContainer;
+                lblMinNumberOfApplication = (Label)gdi.FindControl("lblMinNumberOfApplication");
+                lblSIPFrequency = (Label)gdi.FindControl("lblSIPFrequency");
+                txtMinNumberOfApplication = (TextBox)gdi.FindControl("txtMinNumberOfApplication");
+                ddlSIPFrequency = (DropDownList)gdi.FindControl("ddlSIPFrequency");
+
                 lblReceivableFrequency = (Label)gdi.FindControl("lblReceivableFrequency");
                 ddlReceivableFrequency = (DropDownList)gdi.FindControl("ddlReceivableFrequency");
                 trTransactionTypeSipFreq = (System.Web.UI.HtmlControls.HtmlTableRow)gdi.FindControl("trTransactionTypeSipFreq");
@@ -507,6 +534,10 @@ namespace WealthERP.Receivable
             {
                 GridEditFormInsertItem gdi;
                 gdi = (GridEditFormInsertItem)ddlCommissionType.NamingContainer;
+                lblMinNumberOfApplication = (Label)gdi.FindControl("lblMinNumberOfApplication");
+                lblSIPFrequency = (Label)gdi.FindControl("lblSIPFrequency");
+                txtMinNumberOfApplication = (TextBox)gdi.FindControl("txtMinNumberOfApplication");
+                ddlSIPFrequency = (DropDownList)gdi.FindControl("ddlSIPFrequency");
                 lblReceivableFrequency = (Label)gdi.FindControl("lblReceivableFrequency");
                 ddlReceivableFrequency = (DropDownList)gdi.FindControl("ddlReceivableFrequency");
                 trTransactionTypeSipFreq = (System.Web.UI.HtmlControls.HtmlTableRow)gdi.FindControl("trTransactionTypeSipFreq");
@@ -530,7 +561,8 @@ namespace WealthERP.Receivable
 
 
 
-            ShowAndHideSTructureRuleControlsBasedOnProductAndCommisionType(lblReceivableFrequency, ddlReceivableFrequency, trTransactionTypeSipFreq, tdlb1SipFreq, tdddlSipFreq, trMinMaxTenure, trMinMaxAge, tdlb1MinNumberOfApplication, tdtxtMinNumberOfApplication, ddlProductType.SelectedValue, ddlCommissionType.SelectedValue);
+            ShowAndHideSTructureRuleControlsBasedOnProductAndCommisionType(lblReceivableFrequency, ddlReceivableFrequency, trTransactionTypeSipFreq, tdlb1SipFreq, tdddlSipFreq, trMinMaxTenure, trMinMaxAge, tdlb1MinNumberOfApplication, tdtxtMinNumberOfApplication, ddlProductType.SelectedValue, ddlCommissionType.SelectedValue
+                 ,lblMinNumberOfApplication,txtMinNumberOfApplication,lblSIPFrequency,ddlSIPFrequency);
         }
 
 
@@ -540,14 +572,27 @@ namespace WealthERP.Receivable
             //DropDownList ddlCommissionType = (DropDownList)e.Item.FindControl("ddlCommissionType");
             //ShowAndHideSTructureRuleControlsBasedOnProductAndCommisionType(ddlProductType.SelectedValue, ddlCommissionType.SelectedValue);
 
+           
             if ((e.Item is GridEditFormItem) && (e.Item.IsInEditMode))
             {
+
+                if (ddlProductType.SelectedValue == "MF")
+                {
+                    ShowHideControlsForRulesBasedOnProduct(true, e);
+                }
+                else
+                    ShowHideControlsForRulesBasedOnProduct(false, e);
                 DataSet dsCommissionLookup;
                 dsCommissionLookup = (DataSet)Session["CommissionLookUpData"];
-
+              
                 GridEditFormItem editform = (GridEditFormItem)e.Item;
                 DropDownList ddlCommissionType = (DropDownList)editform.FindControl("ddlCommissionType");
                 DropDownList ddlInvestorType = (DropDownList)editform.FindControl("ddlInvestorType");
+
+                Label lblMinNumberOfApplication=(Label)editform.FindControl("lblMinNumberOfApplication");
+                 Label lblSIPFrequency=(Label)editform.FindControl("lblSIPFrequency");
+                  
+                 TextBox txtMinNumberOfApplication=(TextBox)editform.FindControl("txtMinNumberOfApplication");
 
                 DropDownList ddlTenureFrequency = (DropDownList)editform.FindControl("ddlTenureFrequency");
                 DropDownList ddlInvestAgeTenure = (DropDownList)editform.FindControl("ddlInvestAgeTenure");
@@ -659,10 +704,11 @@ namespace WealthERP.Receivable
                             chkItems.Selected = true;
                     }
 
-
+                 
 
                     ddlCommissionType.SelectedValue = strCommissionType;
-                    ShowAndHideSTructureRuleControlsBasedOnProductAndCommisionType(lblReceivableFrequency, ddlReceivableFrequency, trTransactionTypeSipFreq, tdlb1SipFreq, tdddlSipFreq, trMinMaxTenure, trMinMaxAge, tdMinNumberOfApplication, tdtxtMinNumberOfApplication1, ddlProductType.SelectedValue, ddlCommissionType.SelectedValue);
+                    ShowAndHideSTructureRuleControlsBasedOnProductAndCommisionType(lblReceivableFrequency, ddlReceivableFrequency, trTransactionTypeSipFreq, tdlb1SipFreq, tdddlSipFreq, trMinMaxTenure, trMinMaxAge, tdMinNumberOfApplication, tdtxtMinNumberOfApplication1, ddlProductType.SelectedValue, ddlCommissionType.SelectedValue
+                        ,lblMinNumberOfApplication,txtMinNumberOfApplication,lblSIPFrequency,ddlSIPFrequency);
 
 
                     ddlInvestorType.SelectedValue = strCustomerCategory;
@@ -724,6 +770,12 @@ namespace WealthERP.Receivable
         protected void RadGridStructureRule_UpdateCommand(object source, GridCommandEventArgs e)
         {
             bool isPageValid = true;
+            //if (ddlProductType.SelectedValue == "MF")
+            //{
+            //    ShowHideControlsForRules(true, e);
+            //}
+            //else
+            //    ShowHideControlsForRules(false, e);
             /*******************COLLECT DATA********************/
             commissionStructureRuleVo = CollectDataForCommissionStructureRule(e);
 
@@ -751,7 +803,7 @@ namespace WealthERP.Receivable
 
         protected void RadGridStructureRule_ItemCommand(object source, GridCommandEventArgs e)
         {
-
+           
         }
 
         protected void RadGridStructureRule_InsertCommand(object source, GridCommandEventArgs e)
@@ -761,7 +813,7 @@ namespace WealthERP.Receivable
             {
                 /*******************COLLECT DATA********************/
                 commissionStructureRuleVo = CollectDataForCommissionStructureRule(e);
-
+               
                 /*******************UI VALIDATION********************/
                 //isPageValid = ValidatePage(commissionStructureRuleVo);
 
@@ -944,9 +996,12 @@ namespace WealthERP.Receivable
             }
         }
 
-        private void ShowAndHideSTructureRuleControlsBasedOnProductAndCommisionType(Label lblReceivableFrequency, DropDownList ddlReceivableFrequency, System.Web.UI.HtmlControls.HtmlTableRow trTransactionTypeSipFreq, System.Web.UI.HtmlControls.HtmlTableCell tdlb1SipFreq, System.Web.UI.HtmlControls.HtmlTableCell tdddlSipFreq, System.Web.UI.HtmlControls.HtmlTableRow trMinMaxTenure, System.Web.UI.HtmlControls.HtmlTableRow trMinMaxAge, System.Web.UI.HtmlControls.HtmlTableCell tdMinNumberOfApplication, System.Web.UI.HtmlControls.HtmlTableCell tdtxtMinNumberOfApplication1, string product, string CommisionType)
+        private void ShowAndHideSTructureRuleControlsBasedOnProductAndCommisionType(Label lblReceivableFrequency, DropDownList ddlReceivableFrequency, System.Web.UI.HtmlControls.HtmlTableRow trTransactionTypeSipFreq, System.Web.UI.HtmlControls.HtmlTableCell tdlb1SipFreq, System.Web.UI.HtmlControls.HtmlTableCell tdddlSipFreq, System.Web.UI.HtmlControls.HtmlTableRow trMinMaxTenure, System.Web.UI.HtmlControls.HtmlTableRow trMinMaxAge, System.Web.UI.HtmlControls.HtmlTableCell tdMinNumberOfApplication, System.Web.UI.HtmlControls.HtmlTableCell tdtxtMinNumberOfApplication1, string product, string CommisionType
+            , Label lblMinNumberOfApplication, TextBox txtMinNumberOfApplication, Label lblSIPFrequency, DropDownList ddlSIPFrequency)
         {
             bool enablement = false;
+            lblSIPFrequency.Visible=enablement;
+            ddlSIPFrequency.Visible = enablement;
             //GridEditableItem editedItem = chkBuyAvailability.NamingContainer as GridEditableItem;
             //RadGrid rgSeriesCat = (RadGrid)editedItem.FindControl("rgSeriesCat");
             if (product == "FI" || product == "IP")
@@ -956,34 +1011,55 @@ namespace WealthERP.Receivable
                 trTransactionTypeSipFreq.Visible = enablement;
                 trMinMaxTenure.Visible = enablement;
                 trMinMaxAge.Visible = enablement;
-                if (CommisionType == "upfront")
+                lblMinNumberOfApplication.Visible=enablement;
+                txtMinNumberOfApplication.Visible=enablement;
+                if (CommisionType == "UF")
                 {
-                    tdMinNumberOfApplication.Visible = enablement;
+                   
                 }
-                else
+                else if(CommisionType == "TC")
+                {
+                    lblMinNumberOfApplication.Visible=!enablement;
+                    txtMinNumberOfApplication.Visible=!enablement;
+                    lblReceivableFrequency.Visible = !enablement;
+                    ddlReceivableFrequency.Visible = !enablement;
+                }
+                else if (CommisionType == "IN")
                 {
                     tdMinNumberOfApplication.Visible = !enablement;
                 }
             }
             else if (product == "MF")
             {
+
+                trMinMaxTenure.Visible = enablement;
+                trMinMaxAge.Visible = enablement;
+
+                lblMinNumberOfApplication.Visible=enablement;
+                txtMinNumberOfApplication.Visible=enablement;
+                lblReceivableFrequency.Visible = enablement;
+                    ddlReceivableFrequency.Visible = enablement;
                 if (CommisionType == "IN")
                 {
-                    tdMinNumberOfApplication.Visible = !enablement;
+                    trMinMaxTenure.Visible = !enablement;
+                   
+                    lblMinNumberOfApplication.Visible=!enablement;
+                    txtMinNumberOfApplication.Visible=!enablement;
                     tdtxtMinNumberOfApplication1.Visible = !enablement;
 
                 }
-                if (CommisionType == "Trail Commission")
+                if (CommisionType == "TC")
                 {
-                    trTransactionTypeSipFreq.Visible = !enablement;
-
+                    trTransactionTypeSipFreq.Visible = enablement;
+                    trMinMaxAge.Visible = !enablement;
                     tdlb1SipFreq.Visible = enablement;
                     tdddlSipFreq.Visible = enablement;
                     lblReceivableFrequency.Visible = !enablement;
                     ddlReceivableFrequency.Visible = !enablement;
                 }
-                else if (CommisionType == "upfront")
+                else if (CommisionType == "UF")
                 {
+
                     trTransactionTypeSipFreq.Visible = !enablement;
 
                 }
@@ -998,16 +1074,16 @@ namespace WealthERP.Receivable
 
                 }
             }
-            else
-            {
-                lblReceivableFrequency.Visible = !enablement;
-                ddlReceivableFrequency.Visible = !enablement;
-                trTransactionTypeSipFreq.Visible = !enablement;
-                trMinMaxTenure.Visible = !enablement;
-                trMinMaxAge.Visible = !enablement;
-                tdtxtMinNumberOfApplication1.Visible = !enablement;
-                tdtxtMinNumberOfApplication1.Visible = !enablement;
-            }
+            //else
+            //{
+            //    lblReceivableFrequency.Visible = !enablement;
+            //    ddlReceivableFrequency.Visible = !enablement;
+            //    trTransactionTypeSipFreq.Visible = !enablement;
+            //    trMinMaxTenure.Visible = !enablement;
+            //    trMinMaxAge.Visible = !enablement;
+            //    tdtxtMinNumberOfApplication1.Visible = !enablement;
+            //    tdtxtMinNumberOfApplication1.Visible = !enablement;
+            //}
 
         }
 
@@ -1821,6 +1897,7 @@ namespace WealthERP.Receivable
                 item["schemeValidTill"].Controls.Add(rfvRequired);
                 item["schemeValidTill"].Controls.Add(cmvCompare);
                 item["schemeValidTill"].Controls.Add(cusValidator);
+
             }
         }
 
@@ -1862,6 +1939,46 @@ namespace WealthERP.Receivable
             //gvMappedSchemes.MasterTableView.ExportToExcel();
             //CreateMappedSchemeGrid();
         }
+        private void ShowHideControlsForRulesBasedOnProduct(bool flag, GridItemEventArgs e)
+        {
+            GridEditFormItem editform = (GridEditFormItem)e.Item;
+            Label lblInvestorType1 = (Label)editform.FindControl("lblInvestorType");
+            Label lblAppCityGroup = (Label)editform.FindControl("lblAppCityGroup");
+            Label lblReceivableFrequency = (Label)editform.FindControl("lblReceivableFrequency");
+            Label lbltransaction = (Label)editform.FindControl("lbltransaction");
+            DropDownList ddlTransaction = (DropDownList)editform.FindControl("ddlTransaction");
+            DropDownList ddlReceivableFrequency = (DropDownList)editform.FindControl("ddlReceivableFrequency");
+            DropDownList ddlAppCityGroup = (DropDownList)editform.FindControl("ddlAppCityGroup");
+            DropDownList ddlInvestorType = (DropDownList)editform.FindControl("ddlInvestorType");
+            System.Web.UI.HtmlControls.HtmlTableRow trTransactionTypeSipFreq = (System.Web.UI.HtmlControls.HtmlTableRow)editform.FindControl("trTransactionTypeSipFreq");
+            //System.Web.UI.HtmlControls.HtmlTableRow trTransaction = (System.Web.UI.HtmlControls.HtmlTableRow)editform.FindControl("trTransaction");
+            System.Web.UI.HtmlControls.HtmlTableRow trMinMaxTenure = (System.Web.UI.HtmlControls.HtmlTableRow)editform.FindControl("trMinMaxTenure");
+            System.Web.UI.HtmlControls.HtmlTableRow trMinMaxAge = (System.Web.UI.HtmlControls.HtmlTableRow)editform.FindControl("trMinMaxAge");
+
+            lblInvestorType1.Visible = flag;
+            lblAppCityGroup.Visible = flag;
+            lblReceivableFrequency.Visible = flag;
+            ddlReceivableFrequency.Visible = flag;
+            ddlAppCityGroup.Visible = flag;
+            ddlInvestorType.Visible = flag;
+            trTransactionTypeSipFreq.Visible = flag;
+            trMinMaxTenure.Visible = flag;
+            trMinMaxAge.Visible = flag;
+            //trTransaction.Visible = flag;
+         
+            
+
+
+
+
+
+        }
+        private void ShowHideControlsForRulesBasedOnProductAndCommisionType(bool flag, GridItemEventArgs e)
+        {
+
+
+        }
+        
 
     }
 
