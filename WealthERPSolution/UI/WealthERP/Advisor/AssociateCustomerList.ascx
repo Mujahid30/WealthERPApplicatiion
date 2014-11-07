@@ -99,7 +99,7 @@
                             HeaderStyle-Width="140px" FilterControlWidth="90px" CurrentFilterFunction="Contains">
                             <ItemStyle Width="90px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="ClusterManager" UniqueName="ClusterManager" HeaderText="Circle Manager"
+                        <telerik:GridBoundColumn DataField="ClusterManager" UniqueName="ClusterManager" HeaderText="Cluster Manager"
                             AutoPostBackOnFilter="true" SortExpression="ClusterManager" ShowFilterIcon="false" AllowFiltering="true"
                             HeaderStyle-Width="140px" FilterControlWidth="90px" CurrentFilterFunction="Contains">
                             <ItemStyle Width="90px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />

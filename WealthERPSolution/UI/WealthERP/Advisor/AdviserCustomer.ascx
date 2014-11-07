@@ -395,7 +395,7 @@
                                         <ItemStyle Width="140px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                                     </telerik:GridBoundColumn>
                                     <telerik:GridBoundColumn DataField="Group" UniqueName="ParentId" HeaderText="Group"
-                                        AutoPostBackOnFilter="true" SortExpression="Group" ShowFilterIcon="false" AllowFiltering="true"
+                                        AutoPostBackOnFilter="true" SortExpression="Group"  Visible="false" ShowFilterIcon="false" AllowFiltering="true"
                                         HeaderStyle-Width="145px">
                                         <ItemStyle Width="145px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                                         <%-- <FilterTemplate>

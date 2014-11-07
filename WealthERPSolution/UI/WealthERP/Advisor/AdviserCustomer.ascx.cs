@@ -1478,7 +1478,7 @@ namespace WealthERP.Advisor
                         customerVo = new CustomerVo();
                         customerVo = customerList[i];
                         drCustomer["CustomerId"] = customerVo.CustomerId.ToString();
-                        drCustomer["ParentId"] = customerVo.ParentId.ToString();
+                        //drCustomer["ParentId"] = customerVo.ParentId.ToString();
                         if (customerVo.ProcessId == 0)
                         {
                             drCustomer["ADUL_ProcessId"] = "N/A";

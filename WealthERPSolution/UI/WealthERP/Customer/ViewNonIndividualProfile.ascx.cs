@@ -55,11 +55,29 @@ namespace WealthERP.Customer
                 lblSubType.Text = XMLBo.GetCustomerSubTypeName(path, customerVo.SubType);
                 lblName.Text = customerVo.ContactFirstName + " " + customerVo.ContactMiddleName + " " + customerVo.ContactLastName;
                 lblCustomerCode.Text = customerVo.CustCode.ToString();
-                lblPanNum.Text = customerVo.PANNum.ToString();
-                lblCompanyName.Text = customerVo.CompanyName;
+                if (customerVo.PANNum != null)
+                {
+                    lblPanNum.Text = customerVo.PANNum.ToString();
+                }
+                else
+                {
+                    lblPanNum.Text = null;
+                }
+                if (customerVo.CompanyName != null)
+                {
+                    lblCompanyName.Text = customerVo.CompanyName;
+                }
+                else
+                {
+                    lblCompanyName.Text = null;
+                }
                 if (customerVo.BranchName != null)
                 {
                     lblBranch.Text = customerVo.BranchName.ToString();
+                }
+                else
+                {
+                    lblBranch.Text = null;
                 }
                 if (customerVo.RegistrationDate == DateTime.MinValue)
                 {
@@ -81,7 +99,7 @@ namespace WealthERP.Customer
                 {
                     lblRegistrationNum.Text = customerVo.RegistrationNum.ToString();
                 }
-                else 
+                else
                 {
                     lblRegistrationNum.Text = null;
                 }
@@ -140,14 +158,29 @@ namespace WealthERP.Customer
                     lblRM.Text = customerRMVo.FirstName + " " + customerRMVo.MiddleName + " " + customerRMVo.LastName;
                 else
                     lblRM.Text = "";
-                lblPanNum.Text = customerVo.PANNum.ToString();
+                if (customerVo.PANNum != null)
+                {
+                    lblPanNum.Text = customerVo.PANNum.ToString();
+                }
+                else
+                {
+                    lblPanNum.Text = null;
+                }
                 if (customerVo.Adr1Line1 != null)
                 {
                     lblCorrLine1.Text = customerVo.Adr1Line1.ToString();
                 }
+                else
+                {
+                    lblCorrLine1.Text = null;
+                }
                 if (customerVo.Adr1Line2 != null)
                 {
                     lblCorrLine2.Text = customerVo.Adr1Line2.ToString();
+                }
+                else
+                {
+                    lblCorrLine2.Text = null;
                 }
                 if (customerVo.Adr1Line3 != null)
                 {
@@ -180,29 +213,53 @@ namespace WealthERP.Customer
                 }
                 else
                 {
-                    lblCorrState.Text =null;
+                    lblCorrState.Text = null;
                 }
                 if (customerVo.Adr1Country != "")
                 {
                     lblCorrCountry.Text = customerVo.Adr1Country.ToString();
                 }
+                else
+                {
+                    lblCorrCountry.Text = null;
+                }
                 if (customerVo.Adr2Line1 != null)
                 {
                     lblPermLine1.Text = customerVo.Adr2Line1.ToString();
+                }
+                else
+                {
+                    lblPermLine1.Text = null;
                 }
                 if (customerVo.Adr2Line2 != null)
                 {
                     lblPermLine2.Text = customerVo.Adr2Line2.ToString();
                 }
+                else
+                {
+                    lblPermLine2.Text = null;
+                }
                 if (customerVo.Adr2Line3 != null)
                 {
                     lblPermLine3.Text = customerVo.Adr2Line3.ToString();
+                }
+                else
+                {
+                    lblPermLine3.Text = null;
                 }
                 if (customerVo.Adr2PinCode != null)
                 {
                     lblPermPinCode.Text = customerVo.Adr2PinCode.ToString();
                 }
-                if (customerVo.Adr2City != "")
+                else
+                {
+                    lblPermPinCode.Text = null;
+                }
+                if (customerVo.Adr2City == null)
+                {
+                    lblPermCity.Text = null;
+                }
+                else
                 {
                     lblPermCity.Text = customerVo.Adr2City.ToString();
                 }
@@ -213,11 +270,15 @@ namespace WealthERP.Customer
                 }
                 else
                 {
-                    lblPermState.Text = "";
+                    lblPermState.Text = null;
                 }
                 if (customerVo.Adr2Country != null)
                 {
                     lblPermCountry.Text = customerVo.Adr2Country.ToString();
+                }
+                else
+                {
+                    lblPermCountry.Text = null;
                 }
                 lblResPhone.Text = customerVo.ResISDCode.ToString() + "-" + customerVo.ResSTDCode.ToString() + "-" + customerVo.ResPhoneNum.ToString();
                 lblOfcPhone.Text = customerVo.OfcISDCode.ToString() + "-" + customerVo.OfcSTDCode.ToString() + "-" + customerVo.OfcPhoneNum.ToString();
@@ -226,9 +287,17 @@ namespace WealthERP.Customer
                 {
                     lblEmail.Text = customerVo.Email.ToString();
                 }
+                else
+                {
+                    lblEmail.Text = null;
+                }
                 if (customerVo.AltEmail != null)
                 {
                     lblAltEmail.Text = customerVo.AltEmail.ToString();
+                }
+                else
+                {
+                    lblAltEmail.Text = null;
                 }
                 lblType.Text = XMLBo.GetCustomerTypeName(path, customerVo.Type);
                 lblSubType.Text = XMLBo.GetCustomerSubTypeName(path, customerVo.SubType);
@@ -236,57 +305,109 @@ namespace WealthERP.Customer
                 {
                     lblOccupation.Text = customerVo.OccupationId.ToString();
                 }
+
+                else
+                {
+                    lblOccupation.Text = null;
+                }
                 if (customerVo.AnnualIncome != null)
                 {
                     lblAnnualIncome.Text = customerVo.AnnualIncome.ToString();
+                }
+                else
+                {
+                    lblAnnualIncome.Text = null;
                 }
                 if (customerVo.Nationality != null)
                 {
                     lblNationality.Text = customerVo.Nationality.ToString();
                 }
+                else
+                {
+                    lblNationality.Text = null;
+                }
                 if (customerVo.MinNo1 != null)
                 {
                     lblMinNo1.Text = customerVo.MinNo1.ToString();
+                }
+                else
+                {
+                    lblMinNo1.Text = null;
                 }
                 if (customerVo.MinNo2 != null)
                 {
                     lblMinNo2.Text = customerVo.MinNo2.ToString();
                 }
+                else
+                {
+                    lblMinNo2.Text = null;
+                }
                 if (customerVo.MinNo3 != null)
                 {
                     lblMinNo3.Text = customerVo.MinNo3.ToString();
+                }
+                {
+                    lblMinNo3.Text = null;
                 }
                 if (customerVo.ESCNo != null)
                 {
                     lblESCNo.Text = customerVo.ESCNo.ToString();
                 }
+                else
+                {
+                   lblESCNo.Text = null;
+                }
                 if (customerVo.UINNo != null)
                 {
                     lblUINNo.Text = customerVo.UINNo.ToString();
+                }
+                else
+                {
+                    lblUINNo.Text = null;
                 }
                 if (customerVo.POA != null)
                 {
                     lblPOA.Text = customerVo.POA.ToString();
                 }
+                else
+                {
+                    lblPOA.Text = null;
+                }
                 if (customerVo.GuardianName != null)
                 {
                     lblGuardianName.Text = customerVo.GuardianName.ToString();
+                }
+                else
+                {
+                    lblGuardianName.Text = null;
                 }
                 if (customerVo.GuardianRelation != null)
                 {
                     lblGuardianRelation.Text = customerVo.GuardianRelation.ToString();
                 }
+                else
+                {
+                    lblGuardianRelation.Text = null;
+                }
                 if (customerVo.GuardPANNum != null)
                 {
                     lblGuardianPANNum.Text = customerVo.ContactGuardianPANNum.ToString();
+                }
+                else
+                {
+                    lblGuardianPANNum.Text = null;
                 }
                 if (customerVo.GuardianMinNo != null)
                 {
                     lblGuardianMinNo.Text = customerVo.GuardianMinNo.ToString();
                 }
+                else
+                {
+                    lblGuardianMinNo.Text = null;
+                }
                 if (customerVo.GuardianDob == DateTime.MinValue)
                 {
-                    lblGuardianDateOfBirth.Text = "";
+                    lblGuardianDateOfBirth.Text =null;
                 }
                 else
                 {
@@ -296,33 +417,65 @@ namespace WealthERP.Customer
                 {
                     lblOtherBankName.Text = customerVo.OtherBankName.ToString();
                 }
+                else
+                {
+                    lblOtherBankName.Text = null;
+                }
                 if (customerVo.TaxStatus != null)
                 {
                     lblTaxStatus.Text = customerVo.TaxStatus.ToString();
+                }
+                else
+                {
+                    lblTaxStatus.Text = null;
                 }
                 if (customerVo.Category != null)
                 {
                     lblCategory.Text = customerVo.Category.ToString();
                 }
+                else
+                {
+                    lblCategory.Text = null;
+                }
                 if (customerVo.Adr1City != null)
                 {
                     lblOtherCity.Text = customerVo.Adr1City.ToString();
+                }
+                else
+                {
+                    lblOtherCity.Text = null;
                 }
                 if (customerVo.Adr1State != null)
                 {
                     lblOtherState.Text = customerVo.Adr1State.ToString();
                 }
+                else
+                {
+                    lblOtherState.Text = null;
+                }
                 if (customerVo.OtherCountry != null)
                 {
                     lblOtherCountry.Text = customerVo.OtherCountry.ToString();
+                }
+                else
+                {
+                    lblOtherCountry.Text = null;
                 }
                 if (customerVo.Mobile1 != null)
                 {
                     lblMobile1.Text = customerVo.Mobile1.ToString();
                 }
+                else
+                {
+                    lblMobile1.Text = null;
+                }
                 if (customerVo.Mobile2 != null)
                 {
                     lblMobile2.Text = customerVo.Mobile2.ToString();
+                }
+                else
+                {
+                    lblMobile2.Text = null;
                 }
 
             }

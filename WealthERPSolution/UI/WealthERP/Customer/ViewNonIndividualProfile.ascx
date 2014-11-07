@@ -161,7 +161,7 @@
             <asp:Label ID="Label8" runat="server" CssClass="FieldName" Text="PAN Number :"></asp:Label>
         </td>
         <td class="rightField">
-            <asp:Label ID="lblPanNum" runat="server" Text="Label" CssClass="Field"></asp:Label>
+            <asp:Label ID="lblPanNum" runat="server" Text="" CssClass="Field"></asp:Label>
             &nbsp; &nbsp; &nbsp;
             <asp:CheckBox ID="chkdummypan" runat="server" CssClass="txtField" Text="Dummy PAN"
                 AutoPostBack="true" Enabled="false" />
