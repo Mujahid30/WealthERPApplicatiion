@@ -2094,7 +2094,7 @@ namespace DaoOnlineOrderManagement
             return ds;
         }
 
-        public DataSet GetAdviserOrders(int IssueId, string Product, string Status, DateTime FromDate, DateTime ToDate, int adviserid, int BusinessChannel)
+        public DataSet GetAdviserOrders(int IssueId, string Product, int adviserid, int BusinessChannel)
         {
             DataSet dsOrders;
             Microsoft.Practices.EnterpriseLibrary.Data.Database db;
@@ -2105,9 +2105,6 @@ namespace DaoOnlineOrderManagement
                 dbCommand = db.GetStoredProcCommand("SPROC_GetAdviserWiseOrders");
                 db.AddInParameter(dbCommand, "@IssueId", DbType.Int32, IssueId);
                 db.AddInParameter(dbCommand, "@Product", DbType.String, Product);
-                db.AddInParameter(dbCommand, "@Status", DbType.String, Status);
-                db.AddInParameter(dbCommand, "@FromDate", DbType.Date, FromDate);
-                db.AddInParameter(dbCommand, "@ToDate", DbType.Date, ToDate);
                 db.AddInParameter(dbCommand, "@AdviserId", DbType.Int32, adviserid);
                 db.AddInParameter(dbCommand, "@BusinessChannel", DbType.Int32, BusinessChannel);
 

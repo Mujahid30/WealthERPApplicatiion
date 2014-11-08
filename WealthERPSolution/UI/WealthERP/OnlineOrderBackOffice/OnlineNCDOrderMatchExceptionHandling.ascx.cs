@@ -42,7 +42,7 @@ namespace WealthERP.OnlineOrderBackOffice
             int adviserId = advisorVo.advisorId;
             if (!IsPostBack)
             {
-                BindOrderStatus();
+               // BindOrderStatus();
                 BindBusinessChannel();
             }
         }
@@ -58,22 +58,22 @@ namespace WealthERP.OnlineOrderBackOffice
                 pnlBtns.Visible = false;
             }
             btnNcdIpoExport.Visible = true;
-            BindOrdersGrid(Convert.ToInt32(ddlIssue.SelectedValue), categoryCode, ddlOrderStatus.SelectedValue, Convert.ToDateTime(txtFromDate.SelectedDate), Convert.ToDateTime(txtToDate.SelectedDate),Convert.ToInt32(ddlBChannnel.SelectedValue));
+            BindOrdersGrid();
         }
 
 
-        protected void cbOrderSelect_changed(object sender, EventArgs e)
-        {
-            CheckBox cb = (CheckBox)sender;
-            foreach (GridDataItem item in gvOrders.Items)
-            {
-                CheckBox chkI = item.FindControl("cbAutoMatch") as CheckBox;
-                chkI.Checked = cb.Checked;
-            }
+        //protected void cbOrderSelect_changed(object sender, EventArgs e)
+        //{
+        //    CheckBox cb = (CheckBox)sender;
+        //    foreach (GridDataItem item in gvOrders.Items)
+        //    {
+        //        CheckBox chkI = item.FindControl("cbAutoMatch") as CheckBox;
+        //        chkI.Checked = cb.Checked;
+        //    }
 
 
 
-        }
+        //}
 
         protected void btnNcdIpoExport_Click(object sender, ImageClickEventArgs e)
         {
@@ -103,70 +103,70 @@ namespace WealthERP.OnlineOrderBackOffice
 
         protected void gvOrders_ItemDataBound(object sender, GridItemEventArgs e)
         {
-            int issueId;
-            try
-            {
-                if ((e.Item is GridEditFormItem) && (e.Item.IsInEditMode) && e.Item.ItemIndex != -1)
-                {
-                    //  DropDownList ddlIssuer = (DropDownList)e.Item.FindControl("ddlIssuer");
-                    RadGrid gvUnmatchedAllotments = (RadGrid)e.Item.FindControl("gvUnmatchedAllotments");
-                    Button btnMatchGO = (Button)e.Item.FindControl("btnMatchGO");
-                    System.Web.UI.HtmlControls.HtmlTableRow trUnMatchedGrd = (System.Web.UI.HtmlControls.HtmlTableRow)e.Item.FindControl("trUnMatchedGrd");
-                    System.Web.UI.HtmlControls.HtmlTableRow trUnMatchedBtns = (System.Web.UI.HtmlControls.HtmlTableRow)e.Item.FindControl("trUnMatchedBtns");
-                    System.Web.UI.HtmlControls.HtmlTableRow trUnMatchedddl = (System.Web.UI.HtmlControls.HtmlTableRow)e.Item.FindControl("trUnMatchedddl");
+            //int issueId;
+            //try
+            //{
+            //    if ((e.Item is GridEditFormItem) && (e.Item.IsInEditMode) && e.Item.ItemIndex != -1)
+            //    {
+            //        //  DropDownList ddlIssuer = (DropDownList)e.Item.FindControl("ddlIssuer");
+            //        RadGrid gvUnmatchedAllotments = (RadGrid)e.Item.FindControl("gvUnmatchedAllotments");
+            //        Button btnMatchGO = (Button)e.Item.FindControl("btnMatchGO");
+            //        System.Web.UI.HtmlControls.HtmlTableRow trUnMatchedGrd = (System.Web.UI.HtmlControls.HtmlTableRow)e.Item.FindControl("trUnMatchedGrd");
+            //        System.Web.UI.HtmlControls.HtmlTableRow trUnMatchedBtns = (System.Web.UI.HtmlControls.HtmlTableRow)e.Item.FindControl("trUnMatchedBtns");
+            //        System.Web.UI.HtmlControls.HtmlTableRow trUnMatchedddl = (System.Web.UI.HtmlControls.HtmlTableRow)e.Item.FindControl("trUnMatchedddl");
 
 
-                    issueId = Convert.ToInt32(gvOrders.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIM_IssueId"].ToString());
-                    trUnMatchedGrd.Visible = true;
-                    trUnMatchedBtns.Visible = true;
-                    trUnMatchedddl.Visible = false;
-                    //     BindIssuer(ddlIssuer);
-                    BindUnmatchedAllotmentsGrid(gvUnmatchedAllotments, issueId);
+            //        issueId = Convert.ToInt32(gvOrders.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIM_IssueId"].ToString());
+            //        trUnMatchedGrd.Visible = true;
+            //        trUnMatchedBtns.Visible = true;
+            //        trUnMatchedddl.Visible = false;
+            //        //     BindIssuer(ddlIssuer);
+            //        BindUnmatchedAllotmentsGrid(gvUnmatchedAllotments, issueId);
 
-                }
-                if (e.Item is GridDataItem && e.Item.ItemIndex != -1)
-                {
-                    string Status = Convert.ToString(gvOrders.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WOS_OrderStepCode"].ToString());
-                    // EditCommandColumn colmatch = (EditCommandColumn)e.Item["Match"];
+            //    }
+            //    if (e.Item is GridDataItem && e.Item.ItemIndex != -1)
+            //    {
+            //        string Status = Convert.ToString(gvOrders.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WOS_OrderStepCode"].ToString());
+            //        // EditCommandColumn colmatch = (EditCommandColumn)e.Item["Match"];
 
-                    GridDataItem item = (GridDataItem)e.Item;
-                    LinkButton editButton = (LinkButton)item["Match"].Controls[0];
+            //        GridDataItem item = (GridDataItem)e.Item;
+            //        LinkButton editButton = (LinkButton)item["Match"].Controls[0];
 
-                    if (Status == "")
-                    {
-                        editButton.Visible = false;
-                    }
-                    if (Status.Trim().ToUpper() == "OR")
-                    {
-                        editButton.Visible = true;
-                    }
-                    else
-                    {
-                        editButton.Visible = false;
-                    }
+            //        if (Status == "")
+            //        {
+            //            editButton.Visible = false;
+            //        }
+            //        if (Status.Trim().ToUpper() == "OR")
+            //        {
+            //            editButton.Visible = true;
+            //        }
+            //        else
+            //        {
+            //            editButton.Visible = false;
+            //        }
 
 
 
-                }
+            //    }
 
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "NCDIssuesetup.ascx.cs:gvOrders_ItemDataBound()");
-                object[] objects = new object[2];
-                objects[1] = sender;
-                objects[2] = e;
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
+            //}
+            //catch (BaseApplicationException Ex)
+            //{
+            //    throw Ex;
+            //}
+            //catch (Exception Ex)
+            //{
+            //    BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+            //    NameValueCollection FunctionInfo = new NameValueCollection();
+            //    FunctionInfo.Add("Method", "NCDIssuesetup.ascx.cs:gvOrders_ItemDataBound()");
+            //    object[] objects = new object[2];
+            //    objects[1] = sender;
+            //    objects[2] = e;
+            //    FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+            //    exBase.AdditionalInformation = FunctionInfo;
+            //    ExceptionManager.Publish(exBase);
+            //    throw exBase;
+            //}
         }
 
 
@@ -184,7 +184,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 RadGrid gvUnmatchedAllotments = (RadGrid)e.Item.FindControl("gvUnmatchedAllotments");
                 int orderId = Convert.ToInt32(gvOrders.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_OrderId"].ToString());
                 ManualMatch(gvUnmatchedAllotments, orderId);
-                BindOrdersGrid(Convert.ToInt32(ddlIssue.SelectedValue), categoryCode, ddlOrderStatus.SelectedValue, Convert.ToDateTime(txtFromDate.SelectedDate), Convert.ToDateTime(txtToDate.SelectedDate),Convert.ToInt32(ddlBChannnel.SelectedValue));
+                //BindOrdersGrid(Convert.ToInt32(ddlIssue.SelectedValue), categoryCode, ddlOrderStatus.SelectedValue, Convert.ToDateTime(txtFromDate.SelectedDate), Convert.ToDateTime(txtToDate.SelectedDate),Convert.ToInt32(ddlBChannnel.SelectedValue));
             }
             if (e.Item is GridDataItem)
             {
@@ -278,6 +278,14 @@ namespace WealthERP.OnlineOrderBackOffice
 
         }
 
+        protected void gvOfflineAllotment_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        {
+            DataTable dtOrdersMatch = new DataTable();
+            RadGrid gvOfflineAllotment = (RadGrid)sender;
+            dtOrdersMatch = (DataTable)Cache[userVo.UserId.ToString() + "HoldingOffline"];// Cache["OrderMIS" + userVo.UserId];
+            gvOfflineAllotment.DataSource = dtOrdersMatch;
+
+        }
         private void BindUnmatchedAllotmentsGrid(RadGrid gvUnmatchedAllotments, int issuerID)
         {
             try
@@ -309,45 +317,38 @@ namespace WealthERP.OnlineOrderBackOffice
             }
         }
 
-        private void BindOrdersGrid(int IssueId, string Product, string Status, DateTime FromDate, DateTime ToDate, int BusinessChannel)
+        private void BindOrdersGrid()
         {
             try
             {
                 DataTable dtOrdersMatch = new DataTable();
-                pnlGrid.Visible = true;
 
-                //if (ddlProduct.SelectedValue == "IP")
-                //{
-                //    categoryCode = "FIIP";
-                //}
-                //else
-                //{
-                //    categoryCode = "FISD";
-                //}
-                dtOrdersMatch = onlineNCDBackOfficeBo.GetAdviserOrders(IssueId, ddlProduct.SelectedValue, Status, FromDate, ToDate, advisorVo.advisorId, BusinessChannel).Tables[0];
-                gvOrders.DataSource = dtOrdersMatch;
-                gvOrders.DataBind();
-                if (Cache[userVo.UserId.ToString() + "OrdersMatch"] != null)
-                    Cache.Remove(userVo.UserId.ToString() + "OrdersMatch");
-                Cache.Insert(userVo.UserId.ToString() + "OrdersMatch", dtOrdersMatch);
+                if (ddlBChannnel.SelectedValue != "16017")
+                {
+                    dtOrdersMatch = onlineNCDBackOfficeBo.GetAdviserOrders(int.Parse(ddlIssue.SelectedValue), ddlProduct.SelectedValue, advisorVo.advisorId, int.Parse(ddlBChannnel.SelectedValue)).Tables[0];
+                    gvOfflineAllotment.DataSource = dtOrdersMatch;
+                    gvOfflineAllotment.DataBind();
+                    pnlOfflineNCDIPO.Visible = true;
+                    if (Cache[userVo.UserId.ToString() + "HoldingOffline"] != null)
+                        Cache.Remove(userVo.UserId.ToString() + "HoldingOffline");
+                    Cache.Insert(userVo.UserId.ToString() + "HoldingOffline", dtOrdersMatch);
+                }
+                else
+                {
+                    dtOrdersMatch = onlineNCDBackOfficeBo.GetAdviserOrders(int.Parse(ddlIssue.SelectedValue), ddlProduct.SelectedValue, advisorVo.advisorId, int.Parse(ddlBChannnel.SelectedValue)).Tables[0];
+                    gvOrders.DataSource = dtOrdersMatch;
+                    gvOrders.DataBind();
+                    pnlGrid.Visible = true;
+                    if (Cache[userVo.UserId.ToString() + "OrdersMatch"] != null)
+                        Cache.Remove(userVo.UserId.ToString() + "OrdersMatch");
+                    Cache.Insert(userVo.UserId.ToString() + "OrdersMatch", dtOrdersMatch);
+                }
             }
             catch (BaseApplicationException Ex)
             {
                 throw Ex;
             }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "NCDIssuesetup.ascx.cs:BindSeriesCategoryGrid()");
-                object[] objects = new object[5];
-                //objects[1] = issuerId;
-                //objects[2] = issueId;
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
+           
         }
 
         private void BindOrderStatus()
@@ -408,8 +409,9 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             try
             {
+                ddlIssue.Items.Clear();
                 DataSet dsIssuer = new DataSet();
-                dsIssuer = onlineNCDBackOfficeBo.GetIssuerIssue(advisorVo.advisorId, ddlProduct.SelectedValue,Convert.ToInt32(ddlBChannnel.SelectedValue),ddlOrderStatus.SelectedValue);
+                dsIssuer = onlineNCDBackOfficeBo.GetIssuerIssue(advisorVo.advisorId, ddlProduct.SelectedValue,Convert.ToInt32(ddlBChannnel.SelectedValue),"PR");
                 if (dsIssuer.Tables[0].Rows.Count > 0)
                 {
                     ddlIssue.DataSource = dsIssuer;
@@ -561,7 +563,7 @@ namespace WealthERP.OnlineOrderBackOffice
             if (result == true)
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Match is done');", true);
-                BindOrdersGrid(Convert.ToInt32(ddlIssue.SelectedValue), ddlProduct.SelectedValue, ddlOrderStatus.SelectedValue, Convert.ToDateTime(txtFromDate.SelectedDate), Convert.ToDateTime(txtToDate.SelectedDate), Convert.ToInt32(ddlBChannnel.SelectedValue));
+                //BindOrdersGrid(Convert.ToInt32(ddlIssue.SelectedValue), ddlProduct.SelectedValue, ddlOrderStatus.SelectedValue, Convert.ToDateTime(txtFromDate.SelectedDate), Convert.ToDateTime(txtToDate.SelectedDate), Convert.ToInt32(ddlBChannnel.SelectedValue));
             }
             else
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Not able to match');", true);
