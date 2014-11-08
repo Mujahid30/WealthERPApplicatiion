@@ -472,18 +472,78 @@ namespace WealthERP.Receivable
         }
         protected void ddlTransaction_Selectedindexchanged(object sender, EventArgs e)
         {
-            GridEditFormItem editform = (GridEditFormItem)ddlTransaction.NamingContainer; ;
-            System.Web.UI.HtmlControls.HtmlTableRow trMinMaxTenure = (System.Web.UI.HtmlControls.HtmlTableRow)editform.FindControl("trMinMaxTenure");
-            Label lblSIPFrequency = (Label)editform.FindControl("lblSIPFrequency");
-            CheckBoxList chkListTtansactionType= (CheckBoxList)editform.FindControl("chkListTtansactionType");
-            if (ddlTransaction.SelectedValue == "SIP")
+            DropDownList ddlTransaction = (DropDownList)sender;
+            if (ddlTransaction.NamingContainer is Telerik.Web.UI.GridEditFormItem)
             {
-                trMinMaxTenure.Visible = true;
-                
+                GridEditFormItem editform = (GridEditFormItem)ddlTransaction.NamingContainer; ;
+                System.Web.UI.HtmlControls.HtmlTableRow trMinMaxTenure = (System.Web.UI.HtmlControls.HtmlTableRow)editform.FindControl("trMinMaxTenure");
+                Label lblSIPFrequency = (Label)editform.FindControl("lblSIPFrequency");
+                CheckBoxList chkListTtansactionType = (CheckBoxList)editform.FindControl("chkListTtansactionType");
+                chkListTtansactionType.Visible = true;
+                if (ddlTransaction.SelectedValue == "SIP")
+                {
+                    trMinMaxTenure.Visible = true;
+                    foreach (ListItem chkItems in chkListTtansactionType.Items)
+                    {
+                        if (chkItems.Value == "SIP" || chkItems.Value == "STB")
+                            chkItems.Enabled = true;
+                        else
+                        {
+                            chkItems.Enabled = false;
+                            chkItems.Selected = false;
+                        }
+                    }
+                }
+                else if (ddlTransaction.SelectedValue == "NonSIP")
+                {
+                    trMinMaxTenure.Visible = false;
+                    foreach (ListItem chkItems in chkListTtansactionType.Items)
+                    {
+                        if (chkItems.Value == "SIP" || chkItems.Value == "STB")
+                        {
+                            chkItems.Enabled = false;
+                            chkItems.Selected = false;
+                        }
+                        else
+                            chkItems.Enabled = true;
+                    }
+                }
             }
-            else if (ddlTransaction.SelectedValue == "NonSIP")
+            else if (ddlTransaction.NamingContainer is Telerik.Web.UI.GridEditFormInsertItem)
             {
-                trMinMaxTenure.Visible = false;
+                GridEditFormInsertItem editform = (GridEditFormInsertItem)ddlTransaction.NamingContainer; ;
+                System.Web.UI.HtmlControls.HtmlTableRow trMinMaxTenure = (System.Web.UI.HtmlControls.HtmlTableRow)editform.FindControl("trMinMaxTenure");
+                Label lblSIPFrequency = (Label)editform.FindControl("lblSIPFrequency");
+                CheckBoxList chkListTtansactionType = (CheckBoxList)editform.FindControl("chkListTtansactionType");
+                if (ddlTransaction.SelectedValue == "SIP")
+                {
+                    trMinMaxTenure.Visible = true;
+                    foreach (ListItem chkItems in chkListTtansactionType.Items)
+                    {
+                        if (chkItems.Value == "SIP" || chkItems.Value == "STB")
+                            chkItems.Enabled = true;
+                        else
+                        {
+                            chkItems.Enabled = false;
+                            chkItems.Selected = false;
+                        }
+                    }
+
+                }
+                else if (ddlTransaction.SelectedValue == "NonSIP")
+                {
+                    trMinMaxTenure.Visible = false;
+                    foreach (ListItem chkItems in chkListTtansactionType.Items)
+                    {
+                        if (chkItems.Value == "SIP" || chkItems.Value == "STB")
+                        {
+                            chkItems.Enabled = false;
+                            chkItems.Selected = false;
+                        }
+                        else
+                            chkItems.Enabled = true;
+                    }
+                }
             }
         }
 
@@ -501,11 +561,12 @@ namespace WealthERP.Receivable
             System.Web.UI.HtmlControls.HtmlTableCell tdtxtMinNumberOfApplication = new System.Web.UI.HtmlControls.HtmlTableCell(); ;
             System.Web.UI.HtmlControls.HtmlTableCell tdlb1SipFreq = new System.Web.UI.HtmlControls.HtmlTableCell(); ;
             System.Web.UI.HtmlControls.HtmlTableCell tdddlSipFreq = new System.Web.UI.HtmlControls.HtmlTableCell(); ;
-
+            Label lblTransactionType = new Label();
+            CheckBoxList chkListTtansactionType = new CheckBoxList(); 
             Label lblMinNumberOfApplication = new Label();
             Label lblSIPFrequency = new Label();
             DropDownList ddlSIPFrequency = new DropDownList();
-
+            DropDownList ddlTransaction = new DropDownList();
             TextBox txtMinNumberOfApplication = new TextBox();
 
 
@@ -514,10 +575,13 @@ namespace WealthERP.Receivable
                 GridEditFormItem gdi;
 
                 gdi = (GridEditFormItem)ddlCommissionType.NamingContainer;
+                lblTransactionType = (Label)gdi.FindControl("lblTransactionType");
+                chkListTtansactionType = (CheckBoxList)gdi.FindControl("chkListTtansactionType"); 
                 lblMinNumberOfApplication = (Label)gdi.FindControl("lblMinNumberOfApplication");
                 lblSIPFrequency = (Label)gdi.FindControl("lblSIPFrequency");
                 txtMinNumberOfApplication = (TextBox)gdi.FindControl("txtMinNumberOfApplication");
                 ddlSIPFrequency = (DropDownList)gdi.FindControl("ddlSIPFrequency");
+                ddlTransaction = (DropDownList)gdi.FindControl("ddlTransaction");
 
                 lblReceivableFrequency = (Label)gdi.FindControl("lblReceivableFrequency");
                 ddlReceivableFrequency = (DropDownList)gdi.FindControl("ddlReceivableFrequency");
@@ -534,9 +598,12 @@ namespace WealthERP.Receivable
             {
                 GridEditFormInsertItem gdi;
                 gdi = (GridEditFormInsertItem)ddlCommissionType.NamingContainer;
+                lblTransactionType = (Label)gdi.FindControl("lblTransactionType");
+                chkListTtansactionType = (CheckBoxList)gdi.FindControl("chkListTtansactionType"); 
                 lblMinNumberOfApplication = (Label)gdi.FindControl("lblMinNumberOfApplication");
                 lblSIPFrequency = (Label)gdi.FindControl("lblSIPFrequency");
                 txtMinNumberOfApplication = (TextBox)gdi.FindControl("txtMinNumberOfApplication");
+                ddlTransaction = (DropDownList)gdi.FindControl("ddlTransaction");
                 ddlSIPFrequency = (DropDownList)gdi.FindControl("ddlSIPFrequency");
                 lblReceivableFrequency = (Label)gdi.FindControl("lblReceivableFrequency");
                 ddlReceivableFrequency = (DropDownList)gdi.FindControl("ddlReceivableFrequency");
@@ -562,7 +629,7 @@ namespace WealthERP.Receivable
 
 
             ShowAndHideSTructureRuleControlsBasedOnProductAndCommisionType(lblReceivableFrequency, ddlReceivableFrequency, trTransactionTypeSipFreq, tdlb1SipFreq, tdddlSipFreq, trMinMaxTenure, trMinMaxAge, tdlb1MinNumberOfApplication, tdtxtMinNumberOfApplication, ddlProductType.SelectedValue, ddlCommissionType.SelectedValue
-                 ,lblMinNumberOfApplication,txtMinNumberOfApplication,lblSIPFrequency,ddlSIPFrequency);
+                 , lblMinNumberOfApplication, txtMinNumberOfApplication, lblSIPFrequency, ddlSIPFrequency, ddlTransaction, chkListTtansactionType,lblTransactionType);
         }
 
 
@@ -591,7 +658,8 @@ namespace WealthERP.Receivable
 
                 Label lblMinNumberOfApplication=(Label)editform.FindControl("lblMinNumberOfApplication");
                  Label lblSIPFrequency=(Label)editform.FindControl("lblSIPFrequency");
-                  
+                 Label lblTransactionType=(Label)editform.FindControl("lblTransactionType");
+                 CheckBoxList chkListTtansactionType = (CheckBoxList)editform.FindControl("chkListTtansactionType"); 
                  TextBox txtMinNumberOfApplication=(TextBox)editform.FindControl("txtMinNumberOfApplication");
 
                 DropDownList ddlTenureFrequency = (DropDownList)editform.FindControl("ddlTenureFrequency");
@@ -600,10 +668,10 @@ namespace WealthERP.Receivable
                 DropDownList ddlBrokerageUnit = (DropDownList)editform.FindControl("ddlBrokerageUnit");
                 DropDownList ddlCommisionCalOn = (DropDownList)editform.FindControl("ddlCommisionCalOn");
                 //DropDownList ddlAUMFrequency = (DropDownList)editform.FindControl("ddlAUMFrequency");
-                CheckBoxList chkListTtansactionType = (CheckBoxList)editform.FindControl("chkListTtansactionType");
+                
                 DropDownList ddlSIPFrequency = (DropDownList)editform.FindControl("ddlSIPFrequency");
-
                 DropDownList ddlAppCityGroup = (DropDownList)e.Item.FindControl("ddlAppCityGroup");
+                DropDownList ddlTransaction = (DropDownList)e.Item.FindControl("ddlTransaction");
                 DropDownList ddlReceivableFrequency = (DropDownList)e.Item.FindControl("ddlReceivableFrequency");
                 DropDownList ddlCommissionApplicableLevel = (DropDownList)e.Item.FindControl("ddlCommissionApplicableLevel");
                 CheckBoxList chkListApplyTax = (CheckBoxList)editform.FindControl("chkListApplyTax");
@@ -708,7 +776,7 @@ namespace WealthERP.Receivable
 
                     ddlCommissionType.SelectedValue = strCommissionType;
                     ShowAndHideSTructureRuleControlsBasedOnProductAndCommisionType(lblReceivableFrequency, ddlReceivableFrequency, trTransactionTypeSipFreq, tdlb1SipFreq, tdddlSipFreq, trMinMaxTenure, trMinMaxAge, tdMinNumberOfApplication, tdtxtMinNumberOfApplication1, ddlProductType.SelectedValue, ddlCommissionType.SelectedValue
-                        ,lblMinNumberOfApplication,txtMinNumberOfApplication,lblSIPFrequency,ddlSIPFrequency);
+                        , lblMinNumberOfApplication, txtMinNumberOfApplication, lblSIPFrequency, ddlSIPFrequency, ddlTransaction, chkListTtansactionType, lblTransactionType);
 
 
                     ddlInvestorType.SelectedValue = strCustomerCategory;
@@ -716,8 +784,34 @@ namespace WealthERP.Receivable
                     ddlInvestAgeTenure.SelectedValue = "Months";
                     ddlBrokerageUnit.SelectedValue = strBrokargeUnit;
                     ddlCommisionCalOn.SelectedValue = strCalculatedOn;
+                    chkListTtansactionType.Visible = true;
                     //ddlAUMFrequency.SelectedValue = strAUMFrequency;
+                    if (strCommissionType=="UP" && (strInvestmentTransactionType.Contains("SIP") || strInvestmentTransactionType.Contains("STB")))
+                    {
+                        ddlTransaction.Visible = true;
+                        ddlTransaction.SelectedValue = "SIP";
+                        foreach (ListItem chkItems in chkListTtansactionType.Items)
+                        {
+                            if (chkItems.Value == "SIP" || chkItems.Value == "STB")
+                                chkItems.Enabled = true;
+                            else
+                                chkItems.Enabled = false;
+                        }
+                        
+                    }
+                    else if (strCommissionType=="UP")
+                    {
+                        foreach (ListItem chkItems in chkListTtansactionType.Items)
+                        {
+                            if (chkItems.Value == "SIP" || chkItems.Value == "STB")
+                                chkItems.Enabled = false;
+                            else
+                                chkItems.Enabled = true;
+                        }
+                        ddlTransaction.Visible = true;
 
+                        ddlTransaction.SelectedValue = "NonSIP";
+                    }
                     foreach (ListItem chkItems in chkListTtansactionType.Items)
                     {
                         if (strInvestmentTransactionType.Contains(chkItems.Value))
@@ -997,11 +1091,12 @@ namespace WealthERP.Receivable
         }
 
         private void ShowAndHideSTructureRuleControlsBasedOnProductAndCommisionType(Label lblReceivableFrequency, DropDownList ddlReceivableFrequency, System.Web.UI.HtmlControls.HtmlTableRow trTransactionTypeSipFreq, System.Web.UI.HtmlControls.HtmlTableCell tdlb1SipFreq, System.Web.UI.HtmlControls.HtmlTableCell tdddlSipFreq, System.Web.UI.HtmlControls.HtmlTableRow trMinMaxTenure, System.Web.UI.HtmlControls.HtmlTableRow trMinMaxAge, System.Web.UI.HtmlControls.HtmlTableCell tdMinNumberOfApplication, System.Web.UI.HtmlControls.HtmlTableCell tdtxtMinNumberOfApplication1, string product, string CommisionType
-            , Label lblMinNumberOfApplication, TextBox txtMinNumberOfApplication, Label lblSIPFrequency, DropDownList ddlSIPFrequency)
+            , Label lblMinNumberOfApplication, TextBox txtMinNumberOfApplication, Label lblSIPFrequency, DropDownList ddlSIPFrequency, DropDownList ddlTransaction,CheckBoxList chkListTtansactionType,Label lblTransactionType)
         {
             bool enablement = false;
             lblSIPFrequency.Visible=enablement;
             ddlSIPFrequency.Visible = enablement;
+            
             //GridEditableItem editedItem = chkBuyAvailability.NamingContainer as GridEditableItem;
             //RadGrid rgSeriesCat = (RadGrid)editedItem.FindControl("rgSeriesCat");
             if (product == "FI" || product == "IP")
@@ -1010,23 +1105,28 @@ namespace WealthERP.Receivable
                 ddlReceivableFrequency.Visible = enablement;
                 trTransactionTypeSipFreq.Visible = enablement;
                 trMinMaxTenure.Visible = enablement;
+                tdMinNumberOfApplication.Visible = enablement;
                 trMinMaxAge.Visible = enablement;
                 lblMinNumberOfApplication.Visible=enablement;
-                txtMinNumberOfApplication.Visible=enablement;
+                
+                tdtxtMinNumberOfApplication1.Visible = enablement;
                 if (CommisionType == "UF")
                 {
                    
                 }
                 else if(CommisionType == "TC")
                 {
+                    tdMinNumberOfApplication.Visible = !enablement;
                     lblMinNumberOfApplication.Visible=!enablement;
-                    txtMinNumberOfApplication.Visible=!enablement;
+                    tdtxtMinNumberOfApplication1.Visible = !enablement;
                     lblReceivableFrequency.Visible = !enablement;
                     ddlReceivableFrequency.Visible = !enablement;
                 }
                 else if (CommisionType == "IN")
                 {
                     tdMinNumberOfApplication.Visible = !enablement;
+                    lblMinNumberOfApplication.Visible = !enablement;
+                    tdtxtMinNumberOfApplication1.Visible = !enablement;
                 }
             }
             else if (product == "MF")
@@ -1034,45 +1134,54 @@ namespace WealthERP.Receivable
 
                 trMinMaxTenure.Visible = enablement;
                 trMinMaxAge.Visible = enablement;
-
+                tdMinNumberOfApplication.Visible = enablement;
                 lblMinNumberOfApplication.Visible=enablement;
-                txtMinNumberOfApplication.Visible=enablement;
+                tdtxtMinNumberOfApplication1.Visible = enablement;
                 lblReceivableFrequency.Visible = enablement;
                     ddlReceivableFrequency.Visible = enablement;
                 if (CommisionType == "IN")
                 {
+                    trTransactionTypeSipFreq.Visible = !enablement;
                     trMinMaxTenure.Visible = !enablement;
-                   
+                    tdMinNumberOfApplication.Visible = !enablement;
                     lblMinNumberOfApplication.Visible=!enablement;
-                    txtMinNumberOfApplication.Visible=!enablement;
                     tdtxtMinNumberOfApplication1.Visible = !enablement;
-
+                    tdtxtMinNumberOfApplication1.Visible = !enablement;
+                    chkListTtansactionType.Visible = !enablement;
+                    lblTransactionType.Visible = !enablement;
+                    ddlTransaction.Visible = enablement;
                 }
-                if (CommisionType == "TC")
+                else if (CommisionType == "TC")
                 {
-                    trTransactionTypeSipFreq.Visible = enablement;
+                    trTransactionTypeSipFreq.Visible = !enablement;
                     trMinMaxAge.Visible = !enablement;
                     tdlb1SipFreq.Visible = enablement;
                     tdddlSipFreq.Visible = enablement;
                     lblReceivableFrequency.Visible = !enablement;
                     ddlReceivableFrequency.Visible = !enablement;
+                    chkListTtansactionType.Visible = !enablement;
+                    lblTransactionType.Visible = !enablement;
+                    ddlTransaction.Visible = enablement;
                 }
                 else if (CommisionType == "UF")
                 {
 
                     trTransactionTypeSipFreq.Visible = !enablement;
+                    chkListTtansactionType.Visible = enablement;
+                    lblTransactionType.Visible = !enablement;
+                    ddlTransaction.Visible = !enablement;
 
                 }
-                else
-                {
-                    tdlb1SipFreq.Visible = !enablement;
-                    tdddlSipFreq.Visible = !enablement;
-                    lblReceivableFrequency.Visible = enablement;
-                    ddlReceivableFrequency.Visible = enablement;
-                    tdMinNumberOfApplication.Visible = enablement;
-                    tdtxtMinNumberOfApplication1.Visible = enablement;
+                //else
+                //{
+                //    tdlb1SipFreq.Visible = !enablement;
+                //    tdddlSipFreq.Visible = !enablement;
+                //    lblReceivableFrequency.Visible = enablement;
+                //    ddlReceivableFrequency.Visible = enablement;
+                //    tdMinNumberOfApplication.Visible = enablement;
+                //    tdtxtMinNumberOfApplication1.Visible = enablement;
 
-                }
+                //}
             }
             //else
             //{

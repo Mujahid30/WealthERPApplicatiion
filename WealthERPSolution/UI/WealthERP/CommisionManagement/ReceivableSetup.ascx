@@ -535,30 +535,6 @@
                                                     <td class="leftLabel">
                                                     </td>
                                                 </tr>
-                                                <tr id="trTransaction">
-                                                    <td class="leftLabel">
-                                                        <asp:Label ID="lbltransaction" Visible="false" runat="server" Text="Transaction type:"
-                                                            CssClass="FieldName"></asp:Label>
-                                                    </td>
-                                                    <td class="rightData">
-                                                        <asp:DropDownList Visible="false" ID="ddlTransaction" runat="server" CssClass="cmbField"
-                                                            AutoPostBack="true" OnSelectedIndexChanged="ddlTransaction_Selectedindexchanged">
-                                                            <asp:ListItem Text="Select" Value="0">
-                                                            </asp:ListItem>
-                                                            <asp:ListItem Text="Systematic Transaction" Value="SIP">
-                                                            </asp:ListItem>
-                                                            <asp:ListItem Text="Non Systematic Transaction" Value="NonSIP">
-                                                            </asp:ListItem>
-                                                        </asp:DropDownList>
-                                                        <asp:RequiredFieldValidator ID="rfvddlTransaction" runat="server" ErrorMessage="Please Select Transaction type"
-                                                            CssClass="rfvPCG" ControlToValidate="ddlTransaction" ValidationGroup="btnStrAddUpdate"
-                                                            Display="Dynamic" InitialValue="0"></asp:RequiredFieldValidator>
-                                                    </td>
-                                                    <td class="leftLabel">
-                                                    </td>
-                                                    <td class="rightData">
-                                                    </td>
-                                                </tr>
                                                 <tr>
                                                     <td class="leftLabel">
                                                         <asp:Label ID="lblAppCityGroup" runat="server" Text="App for city group:" CssClass="FieldName"></asp:Label>
@@ -674,8 +650,20 @@
                                                         <asp:Label ID="lblTransactionType" runat="server" Text="Transaction type:" CssClass="FieldName"></asp:Label>
                                                     </td>
                                                     <td class="rightData" runat="server" id="tdtxtTransactionType">
+                                                        <asp:DropDownList Visible="true" ID="ddlTransaction" runat="server" CssClass="cmbField"
+                                                            AutoPostBack="true" OnSelectedIndexChanged="ddlTransaction_Selectedindexchanged">
+                                                            <asp:ListItem Text="Select" Value="0">
+                                                            </asp:ListItem>
+                                                            <asp:ListItem Text="Systematic Transaction" Value="SIP">
+                                                            </asp:ListItem>
+                                                            <asp:ListItem Text="Non Systematic Transaction" Value="NonSIP">
+                                                            </asp:ListItem>
+                                                        </asp:DropDownList>
+                                                        <asp:RequiredFieldValidator ID="rfvddlTransaction" runat="server" ErrorMessage="Please Select Transaction type"
+                                                           Enabled="false" CssClass="rfvPCG" ControlToValidate="ddlTransaction" ValidationGroup="btnStrAddUpdate"
+                                                            Display="Dynamic" InitialValue="0"></asp:RequiredFieldValidator><br />
                                                         <asp:CheckBoxList ID="chkListTtansactionType" runat="server" CssClass="txtField"
-                                                            RepeatLayout="Flow" RepeatDirection="Horizontal">
+                                                          Visible="false"  RepeatLayout="Flow" RepeatDirection="Horizontal">
                                                             <%--<asp:ListItem Text="Buy" Value="BUY"></asp:ListItem>
                                                         <asp:ListItem Text="SIP" Value="SIP"></asp:ListItem>
                                                         <asp:ListItem Text="STP Buy" Value="STPBUY"></asp:ListItem>
@@ -729,6 +717,8 @@
                                                     <td class="rightData" colspan="2">
                                                         <asp:DropDownList ID="ddlCommisionCalOn" runat="server" CssClass="cmbField">
                                                         </asp:DropDownList>
+                                                    </td>
+                                                    <td>
                                                     </td>
                                                 </tr>
                                                 <tr>
