@@ -820,14 +820,17 @@ namespace WealthERP.OPS
                     {
                         lblMintxt.Text = dr["MinAmt"].ToString();
                     }
+                   
                     if (!string.IsNullOrEmpty(dr["MultiAmt"].ToString()))
                     {
                         lblMulti.Text = dr["MultiAmt"].ToString();
                     }
+                    
                     if (!string.IsNullOrEmpty(dr["CutOffTime"].ToString()))
                     {
                         lbltime.Text = dr["CutOffTime"].ToString();
                     }
+                   
 
                     if (!string.IsNullOrEmpty(dr["divFrequency"].ToString()))
                     {
@@ -3822,6 +3825,20 @@ namespace WealthERP.OPS
             
             List<int> OrderIds = new List<int>();
             bool isvalidOfflineFolio = mfOrderBo.ChkOfflineValidFolio(txtFolioNumber.Text);
+            if (string.IsNullOrEmpty(lblMintxt.Text))
+
+            {
+                lblMintxt.Text = "0";
+            }
+            if (string.IsNullOrEmpty(lblMulti.Text))
+            {
+                lblMulti.Text = "0";
+            }
+            if (string.IsNullOrEmpty(lbltime.Text))
+            {
+                lbltime.Text = DateTime.Now.ToString();
+            }
+
             int retVal = commonLookupBo.IsRuleCorrect(float.Parse(txtAmount.Text), float.Parse(lblMintxt.Text), float.Parse(txtAmount.Text),float.Parse(lblMulti.Text)  , DateTime.Parse(lbltime.Text));
             if (retVal != 0)
             {
@@ -4164,17 +4181,49 @@ namespace WealthERP.OPS
         {
 
             List<int> OrderIds = new List<int>();
+            bool isvalidOfflineFolio = mfOrderBo.ChkOfflineValidFolio(txtFolioNumber.Text);
+            if (string.IsNullOrEmpty(lblMintxt.Text))
+            {
+                lblMintxt.Text = "0";
+            }
+            if (string.IsNullOrEmpty(lblMulti.Text))
+            {
+                lblMulti.Text = "0";
+            }
+            if (string.IsNullOrEmpty(lbltime.Text))
+            {
+                lbltime.Text = DateTime.Now.ToString();
+            }
+
+            int retVal = commonLookupBo.IsRuleCorrect(float.Parse(txtAmount.Text), float.Parse(lblMintxt.Text), float.Parse(txtAmount.Text), float.Parse(lblMulti.Text), DateTime.Parse(lbltime.Text));
+            if (retVal != 0)
+            {
+                if (retVal == -2)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('You have entered amount less than Minimum Initial amount allowed');", true); return;
+                }
+                if (retVal == -1)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('You should enter the amount in multiples of Subsequent amount ');", true); return;
+                }
+
+            }
             if (string.IsNullOrEmpty(txtCustomerId.Value))
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Enter a valid Customer Name.');", true);
                 return;
             }
-            else if (string.IsNullOrEmpty(txtFolioNumber.Text) && (ddltransType.SelectedValue.ToUpper() == "ABY" || ddltransType.SelectedValue.ToUpper() == "SEL"))
+            else if ((isvalidOfflineFolio) && (ddltransType.SelectedValue.ToUpper() == "ABY" || ddltransType.SelectedValue.ToUpper() == "SEL"))
+            {
+
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Enter a valid Folio Number.');", true);
+                return;
+            }
+            else if (ddltransType.SelectedValue.ToUpper() == "SIP" && (!string.IsNullOrEmpty(txtFolioNumber.Text)) && (isvalidOfflineFolio))
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Enter a valid Folio Number.');", true);
                 return;
             }
-
             if (ddltransType.SelectedValue == "SWB")
             {
                 CreatePurchaseOrderType();
