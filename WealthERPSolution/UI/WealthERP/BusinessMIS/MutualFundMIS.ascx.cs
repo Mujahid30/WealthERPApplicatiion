@@ -1330,10 +1330,12 @@ namespace WealthERP.BusinessMIS
                                 int folio = int.Parse(gvr.GetDataKeyValue("CMFA_AccountId").ToString());
                                 int SchemePlanCode = int.Parse(gvr.GetDataKeyValue("SchemePlanCode").ToString());
                                 int AMC = int.Parse(gvr.GetDataKeyValue("AmcCode").ToString());
+                                int SubBrokerCode = int.Parse(gvr.GetDataKeyValue("CMFA_SubBrokerCode").ToString());
+                                
                                 if (e.CommandName == "Select")
                                 {
                                     string name = "Select";
-                                    Response.Redirect("ControlHost.aspx?pageid=RMMultipleTransactionView&folionum=" + folio + "&SchemePlanCode=" + SchemePlanCode + "&AMC=" + AMC + "&name=" + name + "", false);
+                                    Response.Redirect("ControlHost.aspx?pageid=RMMultipleTransactionView&folionum=" + folio + "&SchemePlanCode=" + SchemePlanCode + "&AMC=" + AMC + "&name=" + name + "&subBrokerCode=" + SubBrokerCode + "", false);
                                 }
                             }
                         }

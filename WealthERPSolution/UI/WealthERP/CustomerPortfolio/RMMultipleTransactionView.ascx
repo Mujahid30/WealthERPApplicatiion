@@ -152,6 +152,7 @@
 
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
     <ContentTemplate>
+        </td> </tr>
         <table width="100%" cellpadding="0" cellspacing="0">
             <tr>
                 <td>
@@ -375,7 +376,6 @@
                 </td>
             </tr>
         </table>
-        </td> </tr>
         <div>
             <tr>
                 <td>
@@ -408,25 +408,31 @@
                                     CssClass="rfvPCG" ErrorMessage="<br />Please select a From Date" Display="Dynamic"
                                     runat="server" InitialValue="" ValidationGroup="btnGo"> </asp:RequiredFieldValidator>
                             </td>
-                            <td align="right" style="width: 80px;" colspan="1">
-                                <asp:Label ID="lblToDate" runat="server" CssClass="FieldName">To:</asp:Label>
-                            </td>
-                            <td colspan="2">
-                                <telerik:RadDatePicker ID="txtToDate" CssClass="txtTo" runat="server" Culture="English (United States)"
-                                    Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
-                                    <Calendar ID="Calendar2" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
-                                        ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
-                                    </Calendar>
-                                    <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                                    <DateInput ID="DateInput2" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
-                                    </DateInput>
-                                </telerik:RadDatePicker>
-                                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtToDate"
-                                    CssClass="rfvPCG" ErrorMessage="<br />Please select a To Date" Display="Dynamic"
-                                    runat="server" InitialValue="" ValidationGroup="btnGo"> </asp:RequiredFieldValidator>
-                                <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="To Date should not be less than From Date"
-                                    Type="Date" ControlToValidate="txtToDate" ControlToCompare="txtFromDate" Operator="GreaterThanEqual"
-                                    CssClass="cvPCG" Display="Dynamic" ValidationGroup="btnGo"></asp:CompareValidator>
+                            <td>
+                                <table>
+                                    <tr>
+                                        <td align="right">
+                                            &nbsp; &nbsp; &nbsp; &nbsp;<asp:Label ID="lblToDate" runat="server" CssClass="FieldName">To:</asp:Label>
+                                        </td>
+                                        <td colspan="2">
+                                            <telerik:RadDatePicker ID="txtToDate" CssClass="txtTo" runat="server" Culture="English (United States)"
+                                                Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                                                <Calendar ID="Calendar2" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
+                                                    ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
+                                                </Calendar>
+                                                <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                                                <DateInput ID="DateInput2" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                                                </DateInput>
+                                            </telerik:RadDatePicker>
+                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtToDate"
+                                                CssClass="rfvPCG" ErrorMessage="<br />Please select a To Date" Display="Dynamic"
+                                                runat="server" InitialValue="" ValidationGroup="btnGo"> </asp:RequiredFieldValidator>
+                                            <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="To Date should not be less than From Date"
+                                                Type="Date" ControlToValidate="txtToDate" ControlToCompare="txtFromDate" Operator="GreaterThanEqual"
+                                                CssClass="cvPCG" Display="Dynamic" ValidationGroup="btnGo"></asp:CompareValidator>
+                                        </td>
+                                    </tr>
+                                </table>
                             </td>
                         </tr>
                         <tr>
@@ -441,6 +447,7 @@
                             </td>--%>
                             <%--</td>
                             <td align="right">
+                            
                     &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;--%>
                             <td align="right">
                                 <asp:Label ID="lblAgentCode" runat="server" Text="SubBroker Code:" CssClass="FieldName"></asp:Label>
@@ -452,85 +459,111 @@
                                     <asp:ListItem Text="All" Value="0" Enabled="false"></asp:ListItem>
                                 </asp:DropDownList>
                             </td>
-                            &nbsp; &nbsp;
-                            <td colspan="3" id="tdCustomerGroup" runat="server">
-                                <asp:Label ID="lblCustomerGroup" runat="server" CssClass="FieldName" Text="Customer:"></asp:Label>
-                                <%-- </td>
+                                &nbsp; &nbsp;
+                                <td ID="tdCustomerGroup" runat="server" colspan="2">
+                                    <asp:Label ID="lblCustomerGroup" runat="server" CssClass="FieldName" 
+                                        Text="Search Customer:"></asp:Label>
+                                    <%-- </td>
                             <td align="left" colspan="3">--%>
-                                <asp:RadioButton ID="rbtnAll" AutoPostBack="true" Checked="true" runat="server" GroupName="GroupAll"
-                                    Text="All" CssClass="cmbFielde" OnCheckedChanged="rbtnAll_CheckedChanged" />
-                                &nbsp;
-                                <asp:RadioButton ID="rbtnGroup" AutoPostBack="true" runat="server" GroupName="GroupAll"
-                                    Text="Group" CssClass="cmbFielde" OnCheckedChanged="rbtnAll_CheckedChanged" Visible="false" />
-                                &nbsp;
-                                <asp:RadioButton ID="rbtnIndividual" AutoPostBack="true" runat="server" GroupName="GroupAll"
-                                    OnCheckedChanged="rbtnIndividual_OnCheckedChanged" Text="Individual" CssClass="cmbFielde" />
-                            </td>
-                            <td>
-                                <table>
-                                    <tr id="trGroupHead" runat="server">
-                                        <td align="right">
-                                            <asp:Label ID="lblGroupHead" runat="server" CssClass="FieldName" Text="Group Head :"></asp:Label>
-                                            <asp:Label ID="lblCustomerSearch" runat="server" Text="Customer:" CssClass="FieldName"></asp:Label>
-                                        </td>
-                                        <td valign="top" >
-                                            <asp:TextBox ID="txtParentCustomer" runat="server" CssClass="txtField" AutoPostBack="true"
-                                                AutoComplete="Off"></asp:TextBox>
-                                            <cc1:TextBoxWatermarkExtender ID="txtParentCustomer_TextBoxWatermarkExtender" runat="server"
-                                                TargetControlID="txtParentCustomer" WatermarkText="Type the Customer Name">
-                                            </cc1:TextBoxWatermarkExtender>
-                                            <cc1:AutoCompleteExtender ID="txtParentCustomer_autoCompleteExtender" runat="server"
-                                                TargetControlID="txtParentCustomer" ServiceMethod="GetParentCustomerName" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
-                                                MinimumPrefixLength="1" EnableCaching="false" CompletionSetCount="5" CompletionInterval="100"
-                                                CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
-                                                CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
-                                                UseContextKey="true" OnClientItemSelected="GetParentCustomerId" />
-                                            <asp:DropDownList ID="ddlOptionSearch" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlOptionSearch_OnSelectedIndexChanged"
-                                                Visible="false" AutoPostBack="true">
-                                                <asp:ListItem Text="Select" Value="Select" Selected="true" />
-                                                <asp:ListItem Text="Name" Value="Name" />
-                                                <%-- <asp:ListItem Text="PAN" Value="Panno" />--%>
-                                                <asp:ListItem Text="Client Code" Value="Clientcode" />
-                                            </asp:DropDownList>
-                                            <%-- </td> <td align="left">--%>
-                                            <asp:TextBox ID="txtcustomerName" runat="server" CssClass="txtField" AutoPostBack="true"
-                                                Visible="false"></asp:TextBox>
-                                            <cc1:TextBoxWatermarkExtender ID="txtCustomerName_water" TargetControlID="txtcustomerName"
-                                                WatermarkText="Enter Three Characters of Customer" runat="server" EnableViewState="false">
-                                            </cc1:TextBoxWatermarkExtender>
-                                            <ajaxToolkit:AutoCompleteExtender ID="txtCustomerName_autoCompleteExtender" runat="server"
-                                                TargetControlID="txtcustomerName" ServiceMethod="GetCustomerName" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
-                                                MinimumPrefixLength="1" EnableCaching="False" CompletionSetCount="5" CompletionInterval="100"
-                                                CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
-                                                CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
-                                                UseContextKey="True" OnClientItemSelected="GetCustomerId" DelimiterCharacters=""
-                                                Enabled="True" />
-                                            <%-- <asp:RequiredFieldValidator ID="RequiredFieldValidator2"
+                                    <asp:DropDownList ID="ddlsearchcustomertype" runat="server" AutoPostBack="true" 
+                                        CssClass="cmbField" 
+                                        OnSelectedIndexChanged="ddlsearchcustomertype_OnSelectedIndexChanged">
+                                        <asp:ListItem Text="All" Value="All"></asp:ListItem>
+                                        <asp:ListItem Text="Individual" Value="Individual"></asp:ListItem>
+                                    </asp:DropDownList>
+                                </td>
+                                <td>
+                                    <table>
+                                        <tr ID="trGroupHead" runat="server">
+                                            <td align="right">
+                                                <asp:Label ID="lblGroupHead" runat="server" CssClass="FieldName" 
+                                                    Text="Group Head :"></asp:Label>
+                                                <asp:Label ID="lblCustomerSearch" runat="server" CssClass="FieldName" 
+                                                    Text="Customer:"></asp:Label>
+                                            </td>
+                                            <td>
+                                                <asp:DropDownList ID="ddlOptionSearch" runat="server" AutoPostBack="true" 
+                                                    CssClass="cmbField" 
+                                                    OnSelectedIndexChanged="ddlOptionSearch_OnSelectedIndexChanged" Visible="false">
+                                                    <asp:ListItem Selected="true" Text="Select" Value="Select" />
+                                                    <asp:ListItem Text="Name" Value="Name" />
+                                                    <%-- <asp:ListItem Text="PAN" Value="Panno" />--%>
+                                                    <asp:ListItem Text="Client Code" Value="Clientcode" />
+                                                </asp:DropDownList>
+                                                <%-- </td> <td align="left">--%>
+                                                <asp:TextBox ID="txtcustomerName" runat="server" AutoPostBack="true" 
+                                                    CssClass="txtField" Visible="false"></asp:TextBox>
+                                                <cc1:TextBoxWatermarkExtender ID="txtCustomerName_water" runat="server" 
+                                                    EnableViewState="false" TargetControlID="txtcustomerName" 
+                                                    WatermarkText="Enter Three Characters of Customer">
+                                                </cc1:TextBoxWatermarkExtender>
+                                                <cc1:AutoCompleteExtender ID="txtCustomerName_autoCompleteExtender" 
+                                                    runat="server" CompletionInterval="100" 
+                                                    CompletionListCssClass="AutoCompleteExtender_CompletionList" 
+                                                    CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem" 
+                                                    CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem" 
+                                                    CompletionSetCount="5" DelimiterCharacters="" EnableCaching="False" 
+                                                    Enabled="True" MinimumPrefixLength="1" OnClientItemSelected="GetCustomerId" 
+                                                    ServiceMethod="GetCustomerName" 
+                                                    ServicePath="~/CustomerPortfolio/AutoComplete.asmx" 
+                                                    TargetControlID="txtcustomerName" UseContextKey="True" />
+                                                <%-- <asp:RequiredFieldValidator ID="RequiredFieldValidator2"
                 ControlToValidate="txtcustomerName" ErrorMessage="<br />Please Enter Customer Name"
                 Display="Dynamic" runat="server" CssClass="rfvPCG" ValidationGroup="btnGo"></asp:RequiredFieldValidator>--%>
-                                            <asp:TextBox ID="txtCustCode" runat="server" CssClass="txtField" AutoPostBack="true"
-                                                Visible="false"></asp:TextBox>
-                                            <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" TargetControlID="txtCustCode"
-                                                WatermarkText="Enter few characters of Client Code" runat="server" EnableViewState="false">
-                                            </cc1:TextBoxWatermarkExtender>
-                                            <ajaxToolkit:AutoCompleteExtender ID="txtClientCode_autoCompleteExtender" runat="server"
-                                                TargetControlID="txtCustCode" ServiceMethod="GetCustCode" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
-                                                MinimumPrefixLength="1" EnableCaching="False" CompletionSetCount="5" CompletionInterval="100"
-                                                CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
-                                                CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
-                                                UseContextKey="True" OnClientItemSelected="GetCustomerId" DelimiterCharacters=""
-                                                Enabled="True" />
-                                            <%--
+                                                <asp:TextBox ID="txtCustCode" runat="server" AutoPostBack="true" 
+                                                    CssClass="txtField" Visible="false"></asp:TextBox>
+                                                <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" 
+                                                    EnableViewState="false" TargetControlID="txtCustCode" 
+                                                    WatermarkText="Enter few characters of Client Code">
+                                                </cc1:TextBoxWatermarkExtender>
+                                                <cc1:AutoCompleteExtender ID="txtClientCode_autoCompleteExtender" 
+                                                    runat="server" CompletionInterval="100" 
+                                                    CompletionListCssClass="AutoCompleteExtender_CompletionList" 
+                                                    CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem" 
+                                                    CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem" 
+                                                    CompletionSetCount="5" DelimiterCharacters="" EnableCaching="False" 
+                                                    Enabled="True" MinimumPrefixLength="1" OnClientItemSelected="GetCustomerId" 
+                                                    ServiceMethod="GetCustCode" ServicePath="~/CustomerPortfolio/AutoComplete.asmx" 
+                                                    TargetControlID="txtCustCode" UseContextKey="True" />
+                                                <%--
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="txtCustCode"
                 ErrorMessage="<br />Please Enter Client Code" Display="Dynamic" runat="server" CssClass="rfvPCG"
                 ValidationGroup="btnGo"></asp:RequiredFieldValidator>--%>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-                        <tr id="trRange" visible="false" runat="server" onkeypress="return keyPress(this,
-                event)">
+                                            </td>
+                                            <td>
+                                                <asp:RadioButton ID="rbtnAll" runat="server" AutoPostBack="true" Checked="true" 
+                                                    CssClass="cmbFielde" GroupName="GroupAll" 
+                                                    OnCheckedChanged="rbtnAll_CheckedChanged" Text="All" Visible="false" />
+                                                &nbsp;
+                                                <asp:RadioButton ID="rbtnGroup" runat="server" AutoPostBack="true" 
+                                                    CssClass="cmbFielde" GroupName="GroupAll" 
+                                                    OnCheckedChanged="rbtnAll_CheckedChanged" Text="Group" Visible="false" />
+                                                &nbsp;
+                                                <asp:RadioButton ID="rbtnIndividual" runat="server" AutoPostBack="true" 
+                                                    CssClass="cmbFielde" GroupName="GroupAll" 
+                                                    OnCheckedChanged="rbtnIndividual_OnCheckedChanged" Text="Individual" 
+                                                    Visible="false" />
+                                                <asp:TextBox ID="txtParentCustomer" runat="server" AutoComplete="Off" 
+                                                    AutoPostBack="true" CssClass="txtField"></asp:TextBox>
+                                                <cc1:TextBoxWatermarkExtender ID="txtParentCustomer_TextBoxWatermarkExtender" 
+                                                    runat="server" TargetControlID="txtParentCustomer" 
+                                                    WatermarkText="Type the Customer Name">
+                                                </cc1:TextBoxWatermarkExtender>
+                                                <cc1:AutoCompleteExtender ID="txtParentCustomer_autoCompleteExtender" 
+                                                    runat="server" CompletionInterval="100" 
+                                                    CompletionListCssClass="AutoCompleteExtender_CompletionList" 
+                                                    CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem" 
+                                                    CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem" 
+                                                    CompletionSetCount="5" EnableCaching="false" MinimumPrefixLength="1" 
+                                                    OnClientItemSelected="GetParentCustomerId" 
+                                                    ServiceMethod="GetParentCustomerName" 
+                                                    ServicePath="~/CustomerPortfolio/AutoComplete.asmx" 
+                                                    TargetControlID="txtParentCustomer" UseContextKey="true" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                           
                         </tr>
                         <tr id="trPeriod" visible="false" runat="server">
                             <td align="right">
@@ -578,38 +611,43 @@
                                 </asp:DropDownList>
                             </td>
                         </tr>
-                        <td>
-                            &nbsp;
-                        </td>
                         <tr>
                             <td>
-                                <asp:Button ID="btnGo" runat="server" OnClick="btnGo_Click" Text="Go" CssClass="PCGButton"
-                                    ValidationGroup="btnGo" onmouseover="javascript:ChangeButtonCss('hover',
-                'ctrl_RMMultipleTransactionView_btnGo', 'S');" onmouseout="javascript:ChangeButtonCss('out',
-                'ctrl_RMMultipleTransactionView_btnGo', 'S');" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td align="left">
-                                <asp:RadioButton ID="rdtnOnline" runat="server" Text="Online" CssClass="Field" GroupName="status"
-                                    Checked="true" Visible="false" />
-                                <asp:RadioButton ID="rbtnOffline" runat="server" Text="Offline" CssClass="Field"
-                                    GroupName="status" Visible="false" />
-                            </td>
-                            <td align="right" visible="false">
-                                <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="Date Type:" Visible="false"></asp:Label>
-                            </td>
-                            <td align="left" visible="false">
-                                <asp:RadioButton ID="rbtnPickDate" AutoPostBack="true" Checked="true" OnCheckedChanged="rbtnDate_CheckedChanged"
-                                    runat="server" GroupName="Date" Visible="false" />
-                                <asp:Label ID="lblPickDate" runat="server" Text="Date Range" CssClass="Field" Visible="false"></asp:Label>
                                 &nbsp;
-                                <asp:RadioButton ID="rbtnPickPeriod" AutoPostBack="true" OnCheckedChanged="rbtnDate_CheckedChanged"
-                                    runat="server" GroupName="Date" Visible="false" />
-                                <asp:Label ID="lblPickPeriod" runat="server" Text="Period" CssClass="Field" Visible="false"></asp:Label>
                             </td>
-                        </tr>
-                        <%--<tr visible="false">
+                            <tr>
+                                <td>
+                                    <asp:Button ID="btnGo" runat="server" CssClass="PCGButton" 
+                                        OnClick="btnGo_Click" onmouseout="javascript:ChangeButtonCss('out',
+                'ctrl_RMMultipleTransactionView_btnGo', 'S');" onmouseover="javascript:ChangeButtonCss('hover',
+                'ctrl_RMMultipleTransactionView_btnGo', 'S');" Text="Go" ValidationGroup="btnGo" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="left">
+                                    <asp:RadioButton ID="rdtnOnline" runat="server" Checked="true" CssClass="Field" 
+                                        GroupName="status" Text="Online" Visible="false" />
+                                    <asp:RadioButton ID="rbtnOffline" runat="server" CssClass="Field" 
+                                        GroupName="status" Text="Offline" Visible="false" />
+                                </td>
+                                <td align="right" visible="false">
+                                    <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="Date Type:" 
+                                        Visible="false"></asp:Label>
+                                </td>
+                                <td align="left" visible="false">
+                                    <asp:RadioButton ID="rbtnPickDate" runat="server" AutoPostBack="true" 
+                                        Checked="true" GroupName="Date" OnCheckedChanged="rbtnDate_CheckedChanged" 
+                                        Visible="false" />
+                                    <asp:Label ID="lblPickDate" runat="server" CssClass="Field" Text="Date Range" 
+                                        Visible="false"></asp:Label>
+                                    &nbsp;
+                                    <asp:RadioButton ID="rbtnPickPeriod" runat="server" AutoPostBack="true" 
+                                        GroupName="Date" OnCheckedChanged="rbtnDate_CheckedChanged" Visible="false" />
+                                    <asp:Label ID="lblPickPeriod" runat="server" CssClass="Field" Text="Period" 
+                                        Visible="false"></asp:Label>
+                                </td>
+                            </tr>
+                            <%--<tr visible="false">
                             <td align="right">
                                 <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Portfolio:" Visible="false"></asp:Label>
                             </td>
@@ -619,17 +657,18 @@
                                     <asp:ListItem Text="UnManaged" Value="0">UnManaged</asp:ListItem>
                                 </asp:DropDownList>
                             </td>--%>
-                            <tr id="trZCCS" runat="server" visible="false">
+                            <tr ID="trZCCS" runat="server" visible="false">
                                 <td align="right">
-                                    <asp:Label ID="lblBrokerCode" runat="server" Text="Sub Broker Code:" CssClass="FieldName"></asp:Label>
+                                    <asp:Label ID="lblBrokerCode" runat="server" CssClass="FieldName" 
+                                        Text="Sub Broker Code:"></asp:Label>
                                 </td>
                                 <td align="left">
                                     <asp:DropDownList ID="ddlBrokerCode" runat="server" CssClass="cmbField">
-                                        <asp:ListItem Text="SubBroker Code" Value="0" Selected="true"></asp:ListItem>
-                    </asp:DropDownList>
-                </td>
-            </tr>
-            
+                                        <asp:ListItem Selected="true" Text="SubBroker Code" Value="0"></asp:ListItem>
+                                    </asp:DropDownList>
+                                </td>
+                            </tr>
+                        </tr>
                     </table>
                 </td>
             </tr>
@@ -915,162 +954,196 @@
                 <%-- </div>--%>
             </td>
         </tr>
-        <td>
-            <asp:Panel ID="pnlMFTransactionWithoutAgentCode" runat="server" class="Landscape"
-                Height="100%" Width="100%" ScrollBars="Both" Visible="false">
-                <table width="100%">
-                    <tr>
-                        <td>
-                            <div id="Div1" runat="server" style="width: 640px; height: 300px">
-                                <telerik:RadGrid ID="gvMFTransactionWithoutAgentCode" runat="server" GridLines="None"
-                                    AutoGenerateColumns="False" allowfiltering="true" AllowFilteringByColumn="true"
-                                    PageSize="10" AllowSorting="true" fAllowAutomaticDeletes="false" OnPreRender="gvMFTransactions_PreRender"
-                                    AllowPaging="True" ShowStatusBar="True" ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false"
-                                    Width="120%" Height="400px" AllowAutomaticInserts="false" OnNeedDataSource="gvMFTransactionWithoutAgentCode_OnNeedDataSource">
-                                    <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
-                                        FileName="View Transactions Details">
-                                    </ExportSettings>
-                                    <MasterTableView DataKeyNames="TransactionId" Width="100%" AllowMultiColumnSorting="True"
-                                        AllowFilteringByColumn="true" AutoGenerateColumns="false" CommandItemDisplay="None">
-                                        <Columns>
-                                            <telerik:GridTemplateColumn AllowFiltering="false" FooterText="Grand Total:" HeaderStyle-Wrap="false">
-                                                <ItemStyle Wrap="false" />
-                                                <ItemTemplate>
-                                                    <asp:LinkButton ID="lnkViewWithoutAgentCode" runat="server" Text="View Details" OnClick="lnkViewWithoutAgentCode_Click">
+        <tr>
+            <td>
+                <asp:Panel ID="pnlMFTransactionWithoutAgentCode" runat="server" 
+                    class="Landscape" Height="100%" ScrollBars="Both" Visible="false" Width="100%">
+                    <table width="100%">
+                        <tr>
+                            <td>
+                                <div ID="Div1" runat="server" style="width: 640px; height: 300px">
+                                    <telerik:RadGrid ID="gvMFTransactionWithoutAgentCode" runat="server" 
+                                        AllowAutomaticInserts="false" allowfiltering="true" 
+                                        AllowFilteringByColumn="true" AllowPaging="True" AllowSorting="true" 
+                                        AutoGenerateColumns="False" EnableEmbeddedSkins="false" 
+                                        fAllowAutomaticDeletes="false" GridLines="None" Height="400px" 
+                                        OnNeedDataSource="gvMFTransactionWithoutAgentCode_OnNeedDataSource" 
+                                        OnPreRender="gvMFTransactions_PreRender" PageSize="10" ShowFooter="true" 
+                                        ShowStatusBar="True" Skin="Telerik" Width="120%">
+                                        <ExportSettings ExportOnlyData="true" FileName="View Transactions Details" 
+                                            HideStructureColumns="true" IgnorePaging="true">
+                                        </ExportSettings>
+                                        <MasterTableView AllowFilteringByColumn="true" AllowMultiColumnSorting="True" 
+                                            AutoGenerateColumns="false" CommandItemDisplay="None" 
+                                            DataKeyNames="TransactionId" Width="100%">
+                                            <Columns>
+                                                <telerik:GridTemplateColumn AllowFiltering="false" FooterText="Grand Total:" 
+                                                    HeaderStyle-Wrap="false">
+                                                    <ItemStyle Wrap="false" />
+                                                    <ItemTemplate>
+                                                        <asp:LinkButton ID="lnkViewWithoutAgentCode" runat="server" 
+                                                            OnClick="lnkViewWithoutAgentCode_Click" Text="View Details">
                                                     </asp:LinkButton>
-                                                </ItemTemplate>
-                                            </telerik:GridTemplateColumn>
-                                            <telerik:GridBoundColumn DataField="Customer Name" HeaderText="Customer" AllowFiltering="true"
-                                                HeaderStyle-Wrap="false" SortExpression="Customer Name" ShowFilterIcon="false"
-                                                CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="Customer Name"
-                                                FooterStyle-HorizontalAlign="Left">
-                                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
-                                            </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="TransactionId" HeaderText="TransactionId" AllowFiltering="false"
-                                                Visible="false" SortExpression="TransactionId" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                                AutoPostBackOnFilter="true" UniqueName="TransactionId" FooterStyle-HorizontalAlign="Left">
-                                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
-                                            </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="Folio Number" HeaderText="Folio No." AllowFiltering="true"
-                                                SortExpression="Folio Number" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                                AutoPostBackOnFilter="true" UniqueName="Folio Number" FooterStyle-HorizontalAlign="Left">
-                                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
-                                            </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="Category" HeaderText="Category" AllowFiltering="true"
-                                                HeaderStyle-Wrap="false" SortExpression="Category" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                                AutoPostBackOnFilter="true" UniqueName="Category" FooterStyle-HorizontalAlign="Left">
-                                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
-                                            </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="PAISC_AssetInstrumentSubCategoryName" HeaderText="Sub Category"
-                                                AllowFiltering="false" HeaderStyle-Wrap="false" SortExpression="PAISC_AssetInstrumentSubCategoryName"
-                                                ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
-                                                UniqueName="PAISC_AssetInstrumentSubCategoryName" FooterStyle-HorizontalAlign="Left">
-                                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
-                                            </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="AMC" HeaderText="AMC" AllowFiltering="true" HeaderStyle-Wrap="false"
-                                                SortExpression="AMC" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                                AutoPostBackOnFilter="true" UniqueName="AMC" FooterStyle-HorizontalAlign="Left">
-                                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
-                                            </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="Scheme Name" HeaderText="Scheme Name" AllowFiltering="true"
-                                                HeaderStyle-Wrap="false" SortExpression="Scheme Name" ShowFilterIcon="false"
-                                                CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="Scheme Name"
-                                                FooterStyle-HorizontalAlign="Left">
-                                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
-                                            </telerik:GridBoundColumn>
-                                            <%--<telerik:GridTemplateColumn AllowFiltering="true" DataField="Scheme Name" AutoPostBackOnFilter="true"
+                                                    </ItemTemplate>
+                                                </telerik:GridTemplateColumn>
+                                                <telerik:GridBoundColumn AllowFiltering="true" AutoPostBackOnFilter="true" 
+                                                    CurrentFilterFunction="Contains" DataField="Customer Name" 
+                                                    FooterStyle-HorizontalAlign="Left" HeaderStyle-Wrap="false" 
+                                                    HeaderText="Customer" ShowFilterIcon="false" SortExpression="Customer Name" 
+                                                    UniqueName="Customer Name">
+                                                    <ItemStyle HorizontalAlign="Left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                </telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn AllowFiltering="false" AutoPostBackOnFilter="true" 
+                                                    CurrentFilterFunction="Contains" DataField="TransactionId" 
+                                                    FooterStyle-HorizontalAlign="Left" HeaderText="TransactionId" 
+                                                    ShowFilterIcon="false" SortExpression="TransactionId" 
+                                                    UniqueName="TransactionId" Visible="false">
+                                                    <ItemStyle HorizontalAlign="Left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                </telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn AllowFiltering="true" AutoPostBackOnFilter="true" 
+                                                    CurrentFilterFunction="Contains" DataField="Folio Number" 
+                                                    FooterStyle-HorizontalAlign="Left" HeaderText="Folio No." 
+                                                    ShowFilterIcon="false" SortExpression="Folio Number" UniqueName="Folio Number">
+                                                    <ItemStyle HorizontalAlign="Left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                </telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn AllowFiltering="true" AutoPostBackOnFilter="true" 
+                                                    CurrentFilterFunction="Contains" DataField="Category" 
+                                                    FooterStyle-HorizontalAlign="Left" HeaderStyle-Wrap="false" 
+                                                    HeaderText="Category" ShowFilterIcon="false" SortExpression="Category" 
+                                                    UniqueName="Category">
+                                                    <ItemStyle HorizontalAlign="Left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                </telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn AllowFiltering="false" AutoPostBackOnFilter="true" 
+                                                    CurrentFilterFunction="Contains" 
+                                                    DataField="PAISC_AssetInstrumentSubCategoryName" 
+                                                    FooterStyle-HorizontalAlign="Left" HeaderStyle-Wrap="false" 
+                                                    HeaderText="Sub Category" ShowFilterIcon="false" 
+                                                    SortExpression="PAISC_AssetInstrumentSubCategoryName" 
+                                                    UniqueName="PAISC_AssetInstrumentSubCategoryName">
+                                                    <ItemStyle HorizontalAlign="Left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                </telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn AllowFiltering="true" AutoPostBackOnFilter="true" 
+                                                    CurrentFilterFunction="Contains" DataField="AMC" 
+                                                    FooterStyle-HorizontalAlign="Left" HeaderStyle-Wrap="false" HeaderText="AMC" 
+                                                    ShowFilterIcon="false" SortExpression="AMC" UniqueName="AMC">
+                                                    <ItemStyle HorizontalAlign="Left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                </telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn AllowFiltering="true" AutoPostBackOnFilter="true" 
+                                                    CurrentFilterFunction="Contains" DataField="Scheme Name" 
+                                                    FooterStyle-HorizontalAlign="Left" HeaderStyle-Wrap="false" 
+                                                    HeaderText="Scheme Name" ShowFilterIcon="false" SortExpression="Scheme Name" 
+                                                    UniqueName="Scheme Name">
+                                                    <ItemStyle HorizontalAlign="Left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                </telerik:GridBoundColumn>
+                                                <%--<telerik:GridTemplateColumn AllowFiltering="true" DataField="Scheme Name" AutoPostBackOnFilter="true"
                                                         HeaderText="Scheme" ShowFilterIcon="false" FilterControlWidth="280px">
                                                         <ItemStyle Wrap="false" />
                                                         <ItemTemplate>
                                                             <asp:LinkButton ID="lnkprAmc" runat="server" CommandName="Scheme" Text='<%# Eval("Scheme Name").ToString() %>' />
                                                         </ItemTemplate>
                                                     </telerik:GridTemplateColumn>--%>
-                                            <telerik:GridBoundColumn DataField="Transaction Type" HeaderText="Type" AllowFiltering="true"
-                                                HeaderStyle-Wrap="false" SortExpression="Transaction Type" ShowFilterIcon="false"
-                                                CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="Transaction Type"
-                                                FooterStyle-HorizontalAlign="Left">
-                                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
-                                            </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="Transaction Date" HeaderText="Date" AllowFiltering="false"
-                                                AllowSorting="true" HeaderStyle-Wrap="false" SortExpression="Transaction Date"
-                                                ShowFilterIcon="false" DataFormatString="{0:d}" DataType="System.DateTime" CurrentFilterFunction="Contains"
-                                                AutoPostBackOnFilter="true" UniqueName="Transaction Date" FooterStyle-HorizontalAlign="Center">
-                                                <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
-                                            </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="Price" HeaderText="Price (Rs)" AllowFiltering="false"
-                                                SortExpression="Price" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                                HeaderStyle-Wrap="false" AutoPostBackOnFilter="true" UniqueName="Price" FooterStyle-HorizontalAlign="Right"
-                                                DataFormatString="{0:n4}" Aggregate="Sum">
-                                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                                            </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="Units" HeaderText="Units" AllowFiltering="false"
-                                                HeaderStyle-Wrap="false" SortExpression="Units" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                                AutoPostBackOnFilter="true" UniqueName="Units" FooterStyle-HorizontalAlign="Right"
-                                                DataFormatString="{0:n3}" Aggregate="Sum">
-                                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                                            </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="Amount" HeaderText="Amount (Rs)" AllowFiltering="false"
-                                                HeaderStyle-Wrap="false" SortExpression="Amount" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                                AutoPostBackOnFilter="true" UniqueName="Amount" FooterStyle-HorizontalAlign="Right"
-                                                DataFormatString="{0:n0}" Aggregate="Sum">
-                                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                                            </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="CMFT_ExternalBrokerageAmount" HeaderText="Brokerage(Rs)"
-                                                AllowFiltering="false" HeaderStyle-Wrap="false" SortExpression="CMFT_ExternalBrokerageAmount"
-                                                ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
-                                                UniqueName="CMFT_ExternalBrokerageAmount" FooterStyle-HorizontalAlign="Right"
-                                                DataFormatString="{0:n2}" Aggregate="Sum">
-                                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                                            </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="STT" HeaderText="STT (Rs)" AllowFiltering="false"
-                                                HeaderStyle-Wrap="false" SortExpression="STT" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                                AutoPostBackOnFilter="true" UniqueName="STT" FooterStyle-HorizontalAlign="Right"
-                                                DataFormatString="{0:n}" Aggregate="Sum">
-                                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                                            </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="Portfolio Name" HeaderText="Portfolio Name" AllowFiltering="false"
-                                                HeaderStyle-Wrap="false" SortExpression="Portfolio Name" ShowFilterIcon="false"
-                                                CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="Portfolio Name"
-                                                FooterStyle-HorizontalAlign="Left">
-                                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
-                                            </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="ADUL_ProcessId" HeaderText="Process ID" AllowFiltering="true"
-                                                HeaderStyle-Wrap="false" SortExpression="ADUL_ProcessId" ShowFilterIcon="false"
-                                                CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="ADUL_ProcessId"
-                                                FooterStyle-HorizontalAlign="Left">
-                                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
-                                            </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="CMFT_Area" HeaderText="Area" AllowFiltering="true"
-                                                HeaderStyle-Wrap="false" SortExpression="CMFT_Area" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                                AutoPostBackOnFilter="true" UniqueName="CMFT_Area" FooterStyle-HorizontalAlign="Left">
-                                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
-                                            </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="CMFT_EUIN" HeaderText="EUIN" AllowFiltering="true"
-                                                HeaderStyle-Wrap="false" SortExpression="CMFT_EUIN" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                                AutoPostBackOnFilter="true" UniqueName="CMFT_EUIN" FooterStyle-HorizontalAlign="Left">
-                                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
-                                            </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="TransactionStatus" HeaderText="Transaction Status"
-                                                AllowFiltering="true" HeaderStyle-Wrap="false" SortExpression="TransactionStatus"
-                                                ShowFilterIcon="false" AutoPostBackOnFilter="true" UniqueName="TransactionStatus"
-                                                FooterStyle-HorizontalAlign="Left">
-                                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
-                                                <FilterTemplate>
-                                                    <telerik:RadComboBox ID="RadComboBoxTS" AutoPostBack="true" AllowFiltering="true"
-                                                        CssClass="cmbField" Width="100px" IsFilteringEnabled="true" AppendDataBoundItems="true"
-                                                        OnPreRender="Transaction_PreRender" EnableViewState="true" OnSelectedIndexChanged="RadComboBoxTS_SelectedIndexChanged"
-                                                        SelectedValue='<%# ((GridItem)Container).OwnerTableView.GetColumn("TransactionStatus").CurrentFilterValue %>'
-                                                        runat="server">
-                                                        <Items>
-                                                            <telerik:RadComboBoxItem Text="ALL" Value="" Selected="false"></telerik:RadComboBoxItem>
-                                                            <telerik:RadComboBoxItem Text="OK" Value="OK" Selected="false"></telerik:RadComboBoxItem>
-                                                            <telerik:RadComboBoxItem Text="Cancel" Value="Cancel" Selected="false"></telerik:RadComboBoxItem>
-                                                            <telerik:RadComboBoxItem Text="Original" Value="Original" Selected="false"></telerik:RadComboBoxItem>
-                                                        </Items>
-                                                    </telerik:RadComboBox>
-                                                    <telerik:RadScriptBlock ID="RadScriptBlock2" runat="server">
+                                                <telerik:GridBoundColumn AllowFiltering="true" AutoPostBackOnFilter="true" 
+                                                    CurrentFilterFunction="Contains" DataField="Transaction Type" 
+                                                    FooterStyle-HorizontalAlign="Left" HeaderStyle-Wrap="false" HeaderText="Type" 
+                                                    ShowFilterIcon="false" SortExpression="Transaction Type" 
+                                                    UniqueName="Transaction Type">
+                                                    <ItemStyle HorizontalAlign="Left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                </telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn AllowFiltering="false" AllowSorting="true" 
+                                                    AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" 
+                                                    DataField="Transaction Date" DataFormatString="{0:d}" 
+                                                    DataType="System.DateTime" FooterStyle-HorizontalAlign="Center" 
+                                                    HeaderStyle-Wrap="false" HeaderText="Date" ShowFilterIcon="false" 
+                                                    SortExpression="Transaction Date" UniqueName="Transaction Date">
+                                                    <ItemStyle HorizontalAlign="Center" VerticalAlign="Top" Width="" Wrap="false" />
+                                                </telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn Aggregate="Sum" AllowFiltering="false" 
+                                                    AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" DataField="Price" 
+                                                    DataFormatString="{0:n4}" FooterStyle-HorizontalAlign="Right" 
+                                                    HeaderStyle-Wrap="false" HeaderText="Price (Rs)" ShowFilterIcon="false" 
+                                                    SortExpression="Price" UniqueName="Price">
+                                                    <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" Width="" Wrap="false" />
+                                                </telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn Aggregate="Sum" AllowFiltering="false" 
+                                                    AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" DataField="Units" 
+                                                    DataFormatString="{0:n3}" FooterStyle-HorizontalAlign="Right" 
+                                                    HeaderStyle-Wrap="false" HeaderText="Units" ShowFilterIcon="false" 
+                                                    SortExpression="Units" UniqueName="Units">
+                                                    <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" Width="" Wrap="false" />
+                                                </telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn Aggregate="Sum" AllowFiltering="false" 
+                                                    AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" DataField="Amount" 
+                                                    DataFormatString="{0:n0}" FooterStyle-HorizontalAlign="Right" 
+                                                    HeaderStyle-Wrap="false" HeaderText="Amount (Rs)" ShowFilterIcon="false" 
+                                                    SortExpression="Amount" UniqueName="Amount">
+                                                    <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" Width="" Wrap="false" />
+                                                </telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn Aggregate="Sum" AllowFiltering="false" 
+                                                    AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" 
+                                                    DataField="CMFT_ExternalBrokerageAmount" DataFormatString="{0:n2}" 
+                                                    FooterStyle-HorizontalAlign="Right" HeaderStyle-Wrap="false" 
+                                                    HeaderText="Brokerage(Rs)" ShowFilterIcon="false" 
+                                                    SortExpression="CMFT_ExternalBrokerageAmount" 
+                                                    UniqueName="CMFT_ExternalBrokerageAmount">
+                                                    <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" Width="" Wrap="false" />
+                                                </telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn Aggregate="Sum" AllowFiltering="false" 
+                                                    AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" DataField="STT" 
+                                                    DataFormatString="{0:n}" FooterStyle-HorizontalAlign="Right" 
+                                                    HeaderStyle-Wrap="false" HeaderText="STT (Rs)" ShowFilterIcon="false" 
+                                                    SortExpression="STT" UniqueName="STT">
+                                                    <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" Width="" Wrap="false" />
+                                                </telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn AllowFiltering="false" AutoPostBackOnFilter="true" 
+                                                    CurrentFilterFunction="Contains" DataField="Portfolio Name" 
+                                                    FooterStyle-HorizontalAlign="Left" HeaderStyle-Wrap="false" 
+                                                    HeaderText="Portfolio Name" ShowFilterIcon="false" 
+                                                    SortExpression="Portfolio Name" UniqueName="Portfolio Name">
+                                                    <ItemStyle HorizontalAlign="Left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                </telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn AllowFiltering="true" AutoPostBackOnFilter="true" 
+                                                    CurrentFilterFunction="Contains" DataField="ADUL_ProcessId" 
+                                                    FooterStyle-HorizontalAlign="Left" HeaderStyle-Wrap="false" 
+                                                    HeaderText="Process ID" ShowFilterIcon="false" SortExpression="ADUL_ProcessId" 
+                                                    UniqueName="ADUL_ProcessId">
+                                                    <ItemStyle HorizontalAlign="Left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                </telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn AllowFiltering="true" AutoPostBackOnFilter="true" 
+                                                    CurrentFilterFunction="Contains" DataField="CMFT_Area" 
+                                                    FooterStyle-HorizontalAlign="Left" HeaderStyle-Wrap="false" HeaderText="Area" 
+                                                    ShowFilterIcon="false" SortExpression="CMFT_Area" UniqueName="CMFT_Area">
+                                                    <ItemStyle HorizontalAlign="Left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                </telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn AllowFiltering="true" AutoPostBackOnFilter="true" 
+                                                    CurrentFilterFunction="Contains" DataField="CMFT_EUIN" 
+                                                    FooterStyle-HorizontalAlign="Left" HeaderStyle-Wrap="false" HeaderText="EUIN" 
+                                                    ShowFilterIcon="false" SortExpression="CMFT_EUIN" UniqueName="CMFT_EUIN">
+                                                    <ItemStyle HorizontalAlign="Left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                </telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn AllowFiltering="true" AutoPostBackOnFilter="true" 
+                                                    DataField="TransactionStatus" FooterStyle-HorizontalAlign="Left" 
+                                                    HeaderStyle-Wrap="false" HeaderText="Transaction Status" ShowFilterIcon="false" 
+                                                    SortExpression="TransactionStatus" UniqueName="TransactionStatus">
+                                                    <ItemStyle HorizontalAlign="Left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                    <FilterTemplate>
+                                                        <telerik:RadComboBox ID="RadComboBoxTS" runat="server" AllowFiltering="true" 
+                                                            AppendDataBoundItems="true" AutoPostBack="true" CssClass="cmbField" 
+                                                            EnableViewState="true" IsFilteringEnabled="true" 
+                                                            OnPreRender="Transaction_PreRender" 
+                                                            OnSelectedIndexChanged="RadComboBoxTS_SelectedIndexChanged" 
+                                                            SelectedValue='<%# ((GridItem)Container).OwnerTableView.GetColumn("TransactionStatus").CurrentFilterValue %>' 
+                                                            Width="100px">
+                                                            <Items>
+                                                                <telerik:RadComboBoxItem Selected="false" Text="ALL" Value="" />
+                                                                <telerik:RadComboBoxItem Selected="false" Text="OK" Value="OK" />
+                                                                <telerik:RadComboBoxItem Selected="false" Text="Cancel" Value="Cancel" />
+                                                                <telerik:RadComboBoxItem Selected="false" Text="Original" Value="Original" />
+                                                            </Items>
+                                                        </telerik:RadComboBox>
+                                                        <telerik:RadScriptBlock ID="RadScriptBlock2" runat="server">
 
-                                                        <script type="text/javascript">
+                                                            <script type="text/javascript">
+
                                                             function TransactionIndexChanged(sender, args) {
                                                                 var tableView = $find("<%#((GridItem)Container).OwnerTableView.ClientID %>");
                                                                 //////                                                    sender.value = args.get_item().get_value();
@@ -1078,165 +1151,190 @@
                                                             }
                                                         </script>
 
-                                                    </telerik:RadScriptBlock>
-                                                </FilterTemplate>
-                                            </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="CreatedOn" HeaderText="Add Date (System)" AllowFiltering="false"
-                                                HeaderStyle-Wrap="false" SortExpression="CreatedOn" ShowFilterIcon="false" AllowSorting="true"
-                                                CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="CreatedOn"
-                                                FooterStyle-HorizontalAlign="Left">
-                                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
-                                            </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="CMFT_UserTransactionNo" AllowFiltering="true"
-                                                HeaderText="User Transaction No" UniqueName="UserTransactionNo" SortExpression="CMFT_UserTransactionNo"
-                                                ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
-                                                HeaderStyle-Width="330px">
-                                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                            </telerik:GridBoundColumn>
-                                        </Columns>
-                                    </MasterTableView>
-                                    <ClientSettings>
-                                        <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
-                                    </ClientSettings>
-                                </telerik:RadGrid>
-                            </div>
-                        </td>
-                    </tr>
-                </table>
-            </asp:Panel>
-        </td>
-        <tr>
-        </tr>
-        <table id="tbspace" runat="server" cellpadding="5">
+                                                        </telerik:RadScriptBlock>
+                                                    </FilterTemplate>
+                                                </telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn AllowFiltering="false" AllowSorting="true" 
+                                                    AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" 
+                                                    DataField="CreatedOn" FooterStyle-HorizontalAlign="Left" 
+                                                    HeaderStyle-Wrap="false" HeaderText="Add Date (System)" ShowFilterIcon="false" 
+                                                    SortExpression="CreatedOn" UniqueName="CreatedOn">
+                                                    <ItemStyle HorizontalAlign="Left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                </telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn AllowFiltering="true" AutoPostBackOnFilter="true" 
+                                                    CurrentFilterFunction="Contains" DataField="CMFT_UserTransactionNo" 
+                                                    HeaderStyle-Width="330px" HeaderText="User Transaction No" 
+                                                    ShowFilterIcon="false" SortExpression="CMFT_UserTransactionNo" 
+                                                    UniqueName="UserTransactionNo">
+                                                    <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                </telerik:GridBoundColumn>
+                                            </Columns>
+                                        </MasterTableView>
+                                        <ClientSettings>
+                                            <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+                                        </ClientSettings>
+                                    </telerik:RadGrid>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </asp:Panel>
+            </td>
+            <table ID="tbspace" runat="server" cellpadding="5">
+                <tr>
+                    <td>
+                    </td>
+                </tr>
+            </table>
             <tr>
-                <td>
-                </td>
-            </tr>
-        </table>
-        <tr>
-            <td style="padding-top: 20px">
-                <%--  <div id="Div1" runat="server">--%>
-                <asp:Panel ID="Panel1" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal"
-                    Visible="false">
-                    <table width="100%" cellspacing="0" cellpadding="0">
-                        <tr>
-                            <td>
-                                <%-- <div id="dvBalanceView" runat="server" style="margin: 2px; width: 640px;">--%>
-                                <telerik:RadGrid ID="gvBalanceView" runat="server" GridLines="None" AutoGenerateColumns="False"
-                                    allowfiltering="true" AllowFilteringByColumn="true" PageSize="10" AllowSorting="true"
-                                    AllowPaging="True" ShowStatusBar="True" OnNeedDataSource="gvBalanceView_OnNeedDataSource"
-                                    OnItemDataBound="gvBalanceView_ItemDataBound" ShowFooter="true" Skin="Telerik"
-                                    OnItemCommand="gvBalanceView_ItemCommand" EnableEmbeddedSkins="false" Width="120%"
-                                    AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true">
-                                    <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
-                                        Excel-Format="ExcelML" FileName="View ReturnHolding Details">
-                                    </ExportSettings>
-                                    <MasterTableView DataKeyNames="TransactionId,AccountId,SchemePlanCode,AMCCode,CMFT_SubBrokerCode" Width="100%"
-                                        AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
-                                        <Columns>
-                                            <telerik:GridTemplateColumn AllowFiltering="false" FooterText="Grand Total:" HeaderStyle-Wrap="false"
-                                                Visible="false">
-                                                <ItemStyle Wrap="false" />
-                                                <ItemTemplate>
-                                                    <asp:LinkButton ID="lnkView" runat="server" CssClass="cmbField" Text="View Details"
-                                                        Visible="false" OnClick="lnkView_Click">
+                <td style="padding-top: 20px">
+                    <%--  <div id="Div1" runat="server">--%>
+                    <asp:Panel ID="Panel1" runat="server" class="Landscape" ScrollBars="Horizontal" 
+                        Visible="false" Width="100%">
+                        <table cellpadding="0" cellspacing="0" width="100%">
+                            <tr>
+                                <td>
+                                    <%-- <div id="dvBalanceView" runat="server" style="margin: 2px; width: 640px;">--%>
+                                    <telerik:RadGrid ID="gvBalanceView" runat="server" 
+                                        AllowAutomaticInserts="false" allowfiltering="true" 
+                                        AllowFilteringByColumn="true" AllowPaging="True" AllowSorting="true" 
+                                        AutoGenerateColumns="False" EnableEmbeddedSkins="false" 
+                                        ExportSettings-ExportOnlyData="true" GridLines="None" 
+                                        OnItemCommand="gvBalanceView_ItemCommand" 
+                                        OnItemDataBound="gvBalanceView_ItemDataBound" 
+                                        OnNeedDataSource="gvBalanceView_OnNeedDataSource" PageSize="10" 
+                                        ShowFooter="true" ShowStatusBar="True" Skin="Telerik" Width="120%">
+                                        <ExportSettings Excel-Format="ExcelML" ExportOnlyData="true" 
+                                            FileName="View ReturnHolding Details" HideStructureColumns="true" 
+                                            IgnorePaging="true">
+                                        </ExportSettings>
+                                        <MasterTableView AllowMultiColumnSorting="True" AutoGenerateColumns="false" 
+                                            CommandItemDisplay="None" 
+                                            DataKeyNames="TransactionId,AccountId,SchemePlanCode,AMCCode,CMFT_SubBrokerCode" 
+                                            Width="100%">
+                                            <Columns>
+                                                <telerik:GridTemplateColumn AllowFiltering="false" FooterText="Grand Total:" 
+                                                    HeaderStyle-Wrap="false" Visible="false">
+                                                    <ItemStyle Wrap="false" />
+                                                    <ItemTemplate>
+                                                        <asp:LinkButton ID="lnkView" runat="server" CssClass="cmbField" 
+                                                            OnClick="lnkView_Click" Text="View Details" Visible="false">
                                                     </asp:LinkButton>
-                                                </ItemTemplate>
-                                            </telerik:GridTemplateColumn>
-                                            <telerik:GridBoundColumn DataField="Customer Name" HeaderText="Customer" AllowFiltering="true"
-                                                HeaderStyle-Wrap="false" SortExpression="Customer Name" ShowFilterIcon="false"
-                                                CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="Customer Name"
-                                                FooterStyle-HorizontalAlign="Left">
-                                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
-                                            </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="Folio Number" HeaderText="Folio No." AllowFiltering="true"
-                                                SortExpression="Folio Number" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                                AutoPostBackOnFilter="true" UniqueName="Folio Number" FooterStyle-HorizontalAlign="Left">
-                                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                                            </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="TransactionId" HeaderText="TransactionId" AllowFiltering="false"
-                                                Visible="false" SortExpression="TransactionId" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                                AutoPostBackOnFilter="true" UniqueName="TransactionId" FooterStyle-HorizontalAlign="Left">
-                                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
-                                            </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="Transaction Date" HeaderText="Transaction Date"
-                                                DataFormatString="{0:d}" DataType="System.DateTime" AllowFiltering="true" Visible="true"
-                                                SortExpression="Transaction Date" ShowFilterIcon="false" AllowSorting="true"
-                                                CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="Transaction Date"
-                                                FooterStyle-HorizontalAlign="Left">
-                                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
-                                            </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="Scheme Name" HeaderText="Scheme Name" AllowFiltering="true"
-                                                HeaderStyle-Wrap="false" SortExpression="Scheme Name" ShowFilterIcon="false"
-                                                CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="Scheme Name"
-                                                FooterStyle-HorizontalAlign="Left">
-                                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
-                                            </telerik:GridBoundColumn>
-                                            <%--<telerik:GridTemplateColumn AllowFiltering="true" DataField="Scheme Name" AutoPostBackOnFilter="true"
+                                                    </ItemTemplate>
+                                                </telerik:GridTemplateColumn>
+                                                <telerik:GridBoundColumn AllowFiltering="true" AutoPostBackOnFilter="true" 
+                                                    CurrentFilterFunction="Contains" DataField="Customer Name" 
+                                                    FooterStyle-HorizontalAlign="Left" HeaderStyle-Wrap="false" 
+                                                    HeaderText="Customer" ShowFilterIcon="false" SortExpression="Customer Name" 
+                                                    UniqueName="Customer Name">
+                                                    <ItemStyle HorizontalAlign="Left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                </telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn AllowFiltering="true" AutoPostBackOnFilter="true" 
+                                                    CurrentFilterFunction="Contains" DataField="Folio Number" 
+                                                    FooterStyle-HorizontalAlign="Left" HeaderText="Folio No." 
+                                                    ShowFilterIcon="false" SortExpression="Folio Number" UniqueName="Folio Number">
+                                                    <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" Width="" Wrap="false" />
+                                                </telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn AllowFiltering="false" AutoPostBackOnFilter="true" 
+                                                    CurrentFilterFunction="Contains" DataField="TransactionId" 
+                                                    FooterStyle-HorizontalAlign="Left" HeaderText="TransactionId" 
+                                                    ShowFilterIcon="false" SortExpression="TransactionId" 
+                                                    UniqueName="TransactionId" Visible="false">
+                                                    <ItemStyle HorizontalAlign="Left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                </telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn AllowFiltering="true" AllowSorting="true" 
+                                                    AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" 
+                                                    DataField="Transaction Date" DataFormatString="{0:d}" 
+                                                    DataType="System.DateTime" FooterStyle-HorizontalAlign="Left" 
+                                                    HeaderText="Transaction Date" ShowFilterIcon="false" 
+                                                    SortExpression="Transaction Date" UniqueName="Transaction Date" Visible="true">
+                                                    <ItemStyle HorizontalAlign="Left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                </telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn AllowFiltering="true" AutoPostBackOnFilter="true" 
+                                                    CurrentFilterFunction="Contains" DataField="Scheme Name" 
+                                                    FooterStyle-HorizontalAlign="Left" HeaderStyle-Wrap="false" 
+                                                    HeaderText="Scheme Name" ShowFilterIcon="false" SortExpression="Scheme Name" 
+                                                    UniqueName="Scheme Name">
+                                                    <ItemStyle HorizontalAlign="Left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                </telerik:GridBoundColumn>
+                                                <%--<telerik:GridTemplateColumn AllowFiltering="true" DataField="Scheme Name" AutoPostBackOnFilter="true"
                                                     HeaderText="Scheme" ShowFilterIcon="false" FilterControlWidth="280px">
                                                     <ItemStyle Wrap="false" />
                                                     <ItemTemplate>
                                                         <asp:LinkButton ID="lnkprAmc" runat="server" CommandName="Scheme" Text='<%# Eval("Scheme Name").ToString() %>' />
                                                     </ItemTemplate>
                                                 </telerik:GridTemplateColumn>--%>
-                                            <telerik:GridBoundColumn DataField="Category" HeaderText="Category" AllowFiltering="true"
-                                                HeaderStyle-Wrap="false" SortExpression="Category" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                                AutoPostBackOnFilter="true" UniqueName="Category" FooterStyle-HorizontalAlign="Left">
-                                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
-                                            </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="PAISC_AssetInstrumentSubCategoryName" HeaderText="Sub Category"
-                                                AllowFiltering="false" HeaderStyle-Wrap="false" SortExpression="PAISC_AssetInstrumentSubCategoryName"
-                                                ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
-                                                UniqueName="PAISC_AssetInstrumentSubCategoryName" FooterStyle-HorizontalAlign="Left">
-                                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
-                                            </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="AMC" HeaderText="AMC" AllowFiltering="true" HeaderStyle-Wrap="false"
-                                                SortExpression="AMC" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                                AutoPostBackOnFilter="true" UniqueName="AMC" FooterStyle-HorizontalAlign="Left">
-                                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
-                                            </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="Transaction Type" HeaderText="Type" AllowFiltering="true"
-                                                HeaderStyle-Wrap="false" SortExpression="Transaction Type" ShowFilterIcon="false"
-                                                CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="Transaction Type"
-                                                FooterStyle-HorizontalAlign="Left">
-                                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
-                                            </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="Amount" HeaderText="Amount (Rs)" AllowFiltering="false"
-                                                HeaderStyle-Wrap="false" SortExpression="Amount" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                                AutoPostBackOnFilter="true" UniqueName="Amount" FooterStyle-HorizontalAlign="Right"
-                                                DataFormatString="{0:n0}" Aggregate="Sum">
-                                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                                            </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="Price" HeaderText="Price (Rs)" AllowFiltering="false"
-                                                SortExpression="Price" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                                HeaderStyle-Wrap="false" AutoPostBackOnFilter="true" UniqueName="Price" FooterStyle-HorizontalAlign="Right"
-                                                DataFormatString="{0:n4}" Aggregate="Sum">
-                                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                                            </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="NAV" HeaderText="NAV (Rs)" AllowFiltering="false"
-                                                SortExpression="NAV" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                                HeaderStyle-Wrap="false" AutoPostBackOnFilter="true" UniqueName="NAV" FooterStyle-HorizontalAlign="Right"
-                                                DataFormatString="{0:n4}" Aggregate="Sum">
-                                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                                            </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="Units" HeaderText="Units" AllowFiltering="false"
-                                                HeaderStyle-Wrap="false" SortExpression="Units" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                                AutoPostBackOnFilter="true" UniqueName="Units" FooterStyle-HorizontalAlign="Right"
-                                                DataFormatString="{0:n3}" Aggregate="Sum">
-                                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                                            </telerik:GridBoundColumn>
-                                            <telerik:GridTemplateColumn AllowFiltering="false" DataField="CurrentValue" AutoPostBackOnFilter="true"
-                                                HeaderText="Current Value" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                                SortExpression="CurrentValue" Aggregate="Sum" FooterText=" " FooterStyle-HorizontalAlign="Right"
-                                                FooterAggregateFormatString="{0:n3}">
-                                                <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
-                                                <ItemTemplate>
-                                                    <asp:LinkButton ID="lnkprAmcB" runat="server" CommandName="SelectTransaction" Text='<%# String.Format("{0:N3}", DataBinder.Eval(Container.DataItem, "CurrentValue")) %>'>
+                                                <telerik:GridBoundColumn AllowFiltering="true" AutoPostBackOnFilter="true" 
+                                                    CurrentFilterFunction="Contains" DataField="Category" 
+                                                    FooterStyle-HorizontalAlign="Left" HeaderStyle-Wrap="false" 
+                                                    HeaderText="Category" ShowFilterIcon="false" SortExpression="Category" 
+                                                    UniqueName="Category">
+                                                    <ItemStyle HorizontalAlign="Left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                </telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn AllowFiltering="false" AutoPostBackOnFilter="true" 
+                                                    CurrentFilterFunction="Contains" 
+                                                    DataField="PAISC_AssetInstrumentSubCategoryName" 
+                                                    FooterStyle-HorizontalAlign="Left" HeaderStyle-Wrap="false" 
+                                                    HeaderText="Sub Category" ShowFilterIcon="false" 
+                                                    SortExpression="PAISC_AssetInstrumentSubCategoryName" 
+                                                    UniqueName="PAISC_AssetInstrumentSubCategoryName">
+                                                    <ItemStyle HorizontalAlign="Left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                </telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn AllowFiltering="true" AutoPostBackOnFilter="true" 
+                                                    CurrentFilterFunction="Contains" DataField="AMC" 
+                                                    FooterStyle-HorizontalAlign="Left" HeaderStyle-Wrap="false" HeaderText="AMC" 
+                                                    ShowFilterIcon="false" SortExpression="AMC" UniqueName="AMC">
+                                                    <ItemStyle HorizontalAlign="Left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                </telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn AllowFiltering="true" AutoPostBackOnFilter="true" 
+                                                    CurrentFilterFunction="Contains" DataField="Transaction Type" 
+                                                    FooterStyle-HorizontalAlign="Left" HeaderStyle-Wrap="false" HeaderText="Type" 
+                                                    ShowFilterIcon="false" SortExpression="Transaction Type" 
+                                                    UniqueName="Transaction Type">
+                                                    <ItemStyle HorizontalAlign="Left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                </telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn Aggregate="Sum" AllowFiltering="false" 
+                                                    AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" DataField="Amount" 
+                                                    DataFormatString="{0:n0}" FooterStyle-HorizontalAlign="Right" 
+                                                    HeaderStyle-Wrap="false" HeaderText="Amount (Rs)" ShowFilterIcon="false" 
+                                                    SortExpression="Amount" UniqueName="Amount">
+                                                    <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" Width="" Wrap="false" />
+                                                </telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn Aggregate="Sum" AllowFiltering="false" 
+                                                    AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" DataField="Price" 
+                                                    DataFormatString="{0:n4}" FooterStyle-HorizontalAlign="Right" 
+                                                    HeaderStyle-Wrap="false" HeaderText="Price (Rs)" ShowFilterIcon="false" 
+                                                    SortExpression="Price" UniqueName="Price">
+                                                    <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" Width="" Wrap="false" />
+                                                </telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn Aggregate="Sum" AllowFiltering="false" 
+                                                    AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" DataField="NAV" 
+                                                    DataFormatString="{0:n4}" FooterStyle-HorizontalAlign="Right" 
+                                                    HeaderStyle-Wrap="false" HeaderText="NAV (Rs)" ShowFilterIcon="false" 
+                                                    SortExpression="NAV" UniqueName="NAV">
+                                                    <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" Width="" Wrap="false" />
+                                                </telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn Aggregate="Sum" AllowFiltering="false" 
+                                                    AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" DataField="Units" 
+                                                    DataFormatString="{0:n3}" FooterStyle-HorizontalAlign="Right" 
+                                                    HeaderStyle-Wrap="false" HeaderText="Units" ShowFilterIcon="false" 
+                                                    SortExpression="Units" UniqueName="Units">
+                                                    <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" Width="" Wrap="false" />
+                                                </telerik:GridBoundColumn>
+                                                <telerik:GridTemplateColumn Aggregate="Sum" AllowFiltering="false" 
+                                                    AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" 
+                                                    DataField="CurrentValue" FooterAggregateFormatString="{0:n3}" 
+                                                    FooterStyle-HorizontalAlign="Right" FooterText=" " HeaderText="Current Value" 
+                                                    ShowFilterIcon="false" SortExpression="CurrentValue">
+                                                    <ItemStyle HorizontalAlign="Right" Width="" Wrap="false" />
+                                                    <ItemTemplate>
+                                                        <asp:LinkButton ID="lnkprAmcB" runat="server" CommandName="SelectTransaction" 
+                                                            Text='<%# String.Format("{0:N3}", DataBinder.Eval(Container.DataItem, "CurrentValue")) %>'>
                                                     </asp:LinkButton>
-                                                    <%-- Text='<%#(Eval("CurrentValue","{0:n3}").ToString()) %>' />--%>
-                                                </ItemTemplate>
-                                            </telerik:GridTemplateColumn>
-                                            <%-- <telerik:GridTemplateColumn AllowFiltering="false" DataField="CurrentValue" AutoPostBackOnFilter="true"
+                                                        <%-- Text='<%#(Eval("CurrentValue","{0:n3}").ToString()) %>' />--%>
+                                                    </ItemTemplate>
+                                                </telerik:GridTemplateColumn>
+                                                <%-- <telerik:GridTemplateColumn AllowFiltering="false" DataField="CurrentValue" AutoPostBackOnFilter="true"
                                                     HeaderText="Current Value" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                                     Aggregate="Sum" FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="100px">
                                                     <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
@@ -1244,126 +1342,146 @@
                                                         <asp:LinkButton ID="lnkprAmcB" runat="server" CommandName="SelectAmt" Text='<%# Eval("CurrentValue").ToString()%>' />
                                                     </ItemTemplate>
                                                 </telerik:GridTemplateColumn>--%>
-                                            <%--<telerik:GridBoundColumn DataField="CurrentValue" HeaderText="Current Value" AllowFiltering="false"
+                                                <%--<telerik:GridBoundColumn DataField="CurrentValue" HeaderText="Current Value" AllowFiltering="false"
                                                         SortExpression="CurrentValue" ShowFilterIcon="false" CurrentFilterFunction="Contains" 
                                                         HeaderStyle-Wrap="false" AutoPostBackOnFilter="true" UniqueName="CurrentValue" Aggregate="Sum"
                                                         FooterStyle-HorizontalAlign="Right" DataFormatString="{0:n2}">
                                                         <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                                     </telerik:GridBoundColumn>--%>
-                                            <telerik:GridBoundColumn DataField="Age" HeaderText="Age (Days)" AllowFiltering="false"
-                                                HeaderStyle-Wrap="false" SortExpression="CMFTB_Age" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                                AutoPostBackOnFilter="true" UniqueName="CMFTB_Age" FooterStyle-HorizontalAlign="Left">
-                                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
-                                            </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="Balance" HeaderText="Abs Rtn (%)" AllowFiltering="false"
-                                                DataFormatString="{0:n2}" HeaderStyle-Wrap="false" SortExpression="Return" ShowFilterIcon="false"
-                                                CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="Return"
-                                                FooterStyle-HorizontalAlign="Left">
-                                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
-                                            </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="CMFT_SubBrokerCode" HeaderText="Sub-Broker Code"
-                                                AllowFiltering="true" SortExpression="CMFT_SubBrokerCode" ShowFilterIcon="false"
-                                                CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="CMFT_SubBrokerCode"
-                                                FooterStyle-HorizontalAlign="Left">
-                                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
-                                            </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="AssociatesName" AllowFiltering="true" HeaderText="SubBroker Name"
-                                                Visible="true" UniqueName="AssociatesName" SortExpression="AssociatesName" ShowFilterIcon="false"
-                                                CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="120px">
-                                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                            </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="UserType" AllowFiltering="true" HeaderText="Type"
-                                                Visible="true" UniqueName="UserType" SortExpression="UserType" ShowFilterIcon="false"
-                                                CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="120px">
-                                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                            </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="ChannelName" AllowFiltering="true" HeaderText="Channel"
-                                                UniqueName="ChannelName" SortExpression="ChannelName" ShowFilterIcon="false"
-                                                CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="130px">
-                                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                            </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="Titles" AllowFiltering="true" HeaderText="Title"
-                                                Visible="true" UniqueName="Titles" SortExpression="Titles" ShowFilterIcon="false"
-                                                CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="120px">
-                                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                            </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="ReportingManagerName" AllowFiltering="true" HeaderText="Reporting Manager"
-                                                Visible="true" UniqueName="ReportingManagerName" SortExpression="ReportingManagerName"
-                                                ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
-                                                HeaderStyle-Width="120px">
-                                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                            </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn Visible="true" DataField="ClusterManager" AllowFiltering="true"
-                                                HeaderText="Cluster Manager" UniqueName="ClusterManager" SortExpression="ClusterManager"
-                                                ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
-                                                HeaderStyle-Width="130px">
-                                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                            </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="AreaManager" AllowFiltering="true" HeaderText="Area Manager"
-                                                UniqueName="AreaManager" SortExpression="AreaManager" ShowFilterIcon="false"
-                                                CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="130px">
-                                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                            </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="ZonalManagerName" AllowFiltering="true" HeaderText="Zonal Manager"
-                                                UniqueName="ZonalManagerName" SortExpression="ZonalManagerName" ShowFilterIcon="false"
-                                                CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="130px">
-                                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                            </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="DeuptyHead" AllowFiltering="true" HeaderText="Deupty Head"
-                                                UniqueName="DeuptyHead" SortExpression="DeuptyHead" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                                AutoPostBackOnFilter="true" HeaderStyle-Width="130px">
-                                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                            </telerik:GridBoundColumn>
-                                        </Columns>
-                                    </MasterTableView>
-                                    <ClientSettings>
-                                        <%-- <Resizing AllowColumnResize="true" />--%>
-                                        <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
-                                    </ClientSettings>
-                                </telerik:RadGrid>
-                                <%-- </div>--%>
-                            </td>
-                        </tr>
-                    </table>
-                </asp:Panel>
-                <%-- </div>--%>
-            </td>
-        </tr>
-        <tr>
-            <td style="padding-top: 20px">
-                <div id="divTrail" runat="server" style="margin: 2px; width: 100%; overflow: auto"
-                    visible="false">
-                    <%--    <asp:Panel ID="pnlTrail" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">--%>
-                    <table width="100%" cellspacing="0" cellpadding="0">
-                        <tr>
-                            <td>
-                                <div id="Div3" visible="false" runat="server" style="margin: 2px; width: 100%;">
-                                    <telerik:RadGrid ID="gvTrail" runat="server" GridLines="None" AutoGenerateColumns="False"
-                                        PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
-                                        Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" AllowFilteringByColumn="true"
-                                        OnItemDataBound="gvTrail_ItemDataBound" AllowAutomaticInserts="false" ExportSettings-FileName="Trail DETAILS"
-                                        OnPreRender="gvTrail_PreRender" OnNeedDataSource="gvTrail_OnNeedDataSource">
-                                        <ExportSettings HideStructureColumns="true">
-                                        </ExportSettings>
-                                        <MasterTableView Width="100%" DataKeyNames="CMFA_FolioNum,CMFA_AccountId,CMFTCSU_TrailComissionSetUpId,PASP_SchemePlanCode,CMFT_TransactionNumber,CMFTCSU_Units,CMFTCSU_Amount,CMFTCSU_TransactionDate"
-                                            AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
-                                            <Columns>
-                                                <telerik:GridBoundColumn HeaderStyle-Width="117px" DataField="Conditioning" AllowFiltering="true"
-                                                    UniqueName="Conditioning" AutoPostBackOnFilter="true">
-                                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                                    <FilterTemplate>
-                                                        <telerik:RadComboBox Width="100px" ID="RadComboBoxRR" CssClass="cmbField" AllowFiltering="true"
-                                                            AutoPostBack="true" OnSelectedIndexChanged="RCBForTrailCondiotining_SelectedIndexChanged"
-                                                            IsFilteringEnabled="true" AppendDataBoundItems="true" AutoPostBackOnFilter="false"
-                                                            OnPreRender="RCBForTrailCondiotining_PreRender" EnableViewState="true" SelectedValue='<%# ((GridItem)Container).OwnerTableView.GetColumn("Conditioning").CurrentFilterValue %>'
-                                                            runat="server">
-                                                            <Items>
-                                                                <telerik:RadComboBoxItem Text="All" Value="" Selected="false"></telerik:RadComboBoxItem>
-                                                            </Items>
-                                                        </telerik:RadComboBox>
-                                                        <telerik:RadScriptBlock ID="RadScriptBlock1" runat="server">
+                                                <telerik:GridBoundColumn AllowFiltering="false" AutoPostBackOnFilter="true" 
+                                                    CurrentFilterFunction="Contains" DataField="Age" 
+                                                    FooterStyle-HorizontalAlign="Left" HeaderStyle-Wrap="false" 
+                                                    HeaderText="Age (Days)" ShowFilterIcon="false" SortExpression="CMFTB_Age" 
+                                                    UniqueName="CMFTB_Age">
+                                                    <ItemStyle HorizontalAlign="Left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                </telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn AllowFiltering="false" AutoPostBackOnFilter="true" 
+                                                    CurrentFilterFunction="Contains" DataField="Balance" DataFormatString="{0:n2}" 
+                                                    FooterStyle-HorizontalAlign="Left" HeaderStyle-Wrap="false" 
+                                                    HeaderText="Abs Rtn (%)" ShowFilterIcon="false" SortExpression="Return" 
+                                                    UniqueName="Return">
+                                                    <ItemStyle HorizontalAlign="Left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                </telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn AllowFiltering="true" AutoPostBackOnFilter="true" 
+                                                    CurrentFilterFunction="Contains" DataField="CMFT_SubBrokerCode" 
+                                                    FooterStyle-HorizontalAlign="Left" HeaderText="Sub-Broker Code" 
+                                                    ShowFilterIcon="false" SortExpression="CMFT_SubBrokerCode" 
+                                                    UniqueName="CMFT_SubBrokerCode">
+                                                    <ItemStyle HorizontalAlign="Left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                </telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn AllowFiltering="true" AutoPostBackOnFilter="true" 
+                                                    CurrentFilterFunction="Contains" DataField="AssociatesName" 
+                                                    HeaderStyle-Width="120px" HeaderText="SubBroker Name" ShowFilterIcon="false" 
+                                                    SortExpression="AssociatesName" UniqueName="AssociatesName" Visible="true">
+                                                    <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                </telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn AllowFiltering="true" AutoPostBackOnFilter="true" 
+                                                    CurrentFilterFunction="Contains" DataField="UserType" HeaderStyle-Width="120px" 
+                                                    HeaderText="Type" ShowFilterIcon="false" SortExpression="UserType" 
+                                                    UniqueName="UserType" Visible="true">
+                                                    <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                </telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn AllowFiltering="true" AutoPostBackOnFilter="true" 
+                                                    CurrentFilterFunction="Contains" DataField="ChannelName" 
+                                                    HeaderStyle-Width="130px" HeaderText="Channel" ShowFilterIcon="false" 
+                                                    SortExpression="ChannelName" UniqueName="ChannelName">
+                                                    <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                </telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn AllowFiltering="true" AutoPostBackOnFilter="true" 
+                                                    CurrentFilterFunction="Contains" DataField="Titles" HeaderStyle-Width="120px" 
+                                                    HeaderText="Title" ShowFilterIcon="false" SortExpression="Titles" 
+                                                    UniqueName="Titles" Visible="true">
+                                                    <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                </telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn AllowFiltering="true" AutoPostBackOnFilter="true" 
+                                                    CurrentFilterFunction="Contains" DataField="ReportingManagerName" 
+                                                    HeaderStyle-Width="120px" HeaderText="Reporting Manager" ShowFilterIcon="false" 
+                                                    SortExpression="ReportingManagerName" UniqueName="ReportingManagerName" 
+                                                    Visible="true">
+                                                    <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                </telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn AllowFiltering="true" AutoPostBackOnFilter="true" 
+                                                    CurrentFilterFunction="Contains" DataField="ClusterManager" 
+                                                    HeaderStyle-Width="130px" HeaderText="Cluster Manager" ShowFilterIcon="false" 
+                                                    SortExpression="ClusterManager" UniqueName="ClusterManager" Visible="true">
+                                                    <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                </telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn AllowFiltering="true" AutoPostBackOnFilter="true" 
+                                                    CurrentFilterFunction="Contains" DataField="AreaManager" 
+                                                    HeaderStyle-Width="130px" HeaderText="Area Manager" ShowFilterIcon="false" 
+                                                    SortExpression="AreaManager" UniqueName="AreaManager">
+                                                    <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                </telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn AllowFiltering="true" AutoPostBackOnFilter="true" 
+                                                    CurrentFilterFunction="Contains" DataField="ZonalManagerName" 
+                                                    HeaderStyle-Width="130px" HeaderText="Zonal Manager" ShowFilterIcon="false" 
+                                                    SortExpression="ZonalManagerName" UniqueName="ZonalManagerName">
+                                                    <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                </telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn AllowFiltering="true" AutoPostBackOnFilter="true" 
+                                                    CurrentFilterFunction="Contains" DataField="DeuptyHead" 
+                                                    HeaderStyle-Width="130px" HeaderText="Deupty Head" ShowFilterIcon="false" 
+                                                    SortExpression="DeuptyHead" UniqueName="DeuptyHead">
+                                                    <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                </telerik:GridBoundColumn>
+                                            </Columns>
+                                        </MasterTableView>
+                                        <ClientSettings>
+                                            <%-- <Resizing AllowColumnResize="true" />--%>
+                                            <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+                                        </ClientSettings>
+                                    </telerik:RadGrid>
+                                    <%-- </div>--%>
+                                </td>
+                            </tr>
+                        </table>
+                    </asp:Panel>
+                    <%-- </div>--%>
+                </td>
+            </tr>
+            <tr>
+                <td style="padding-top: 20px">
+                    <div ID="divTrail" runat="server" 
+                        style="margin: 2px; width: 100%; overflow: auto" visible="false">
+                        <%--    <asp:Panel ID="pnlTrail" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">--%>
+                        <table cellpadding="0" cellspacing="0" width="100%">
+                            <tr>
+                                <td>
+                                    <div ID="Div3" runat="server" style="margin: 2px; width: 100%;" visible="false">
+                                        <telerik:RadGrid ID="gvTrail" runat="server" AllowAutomaticInserts="false" 
+                                            AllowFilteringByColumn="true" AllowPaging="True" AllowSorting="true" 
+                                            AutoGenerateColumns="False" EnableEmbeddedSkins="false" 
+                                            ExportSettings-FileName="Trail DETAILS" GridLines="None" 
+                                            OnItemDataBound="gvTrail_ItemDataBound" 
+                                            OnNeedDataSource="gvTrail_OnNeedDataSource" OnPreRender="gvTrail_PreRender" 
+                                            PageSize="10" ShowFooter="true" ShowStatusBar="True" Skin="Telerik" 
+                                            Width="100%">
+                                            <ExportSettings HideStructureColumns="true">
+                                            </ExportSettings>
+                                            <MasterTableView AllowMultiColumnSorting="True" AutoGenerateColumns="false" 
+                                                CommandItemDisplay="None" 
+                                                DataKeyNames="CMFA_FolioNum,CMFA_AccountId,CMFTCSU_TrailComissionSetUpId,PASP_SchemePlanCode,CMFT_TransactionNumber,CMFTCSU_Units,CMFTCSU_Amount,CMFTCSU_TransactionDate" 
+                                                Width="100%">
+                                                <Columns>
+                                                    <telerik:GridBoundColumn AllowFiltering="true" AutoPostBackOnFilter="true" 
+                                                        DataField="Conditioning" HeaderStyle-Width="117px" UniqueName="Conditioning">
+                                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                        <FilterTemplate>
+                                                            <telerik:RadComboBox ID="RadComboBoxRR" runat="server" AllowFiltering="true" 
+                                                                AppendDataBoundItems="true" AutoPostBack="true" AutoPostBackOnFilter="false" 
+                                                                CssClass="cmbField" EnableViewState="true" IsFilteringEnabled="true" 
+                                                                OnPreRender="RCBForTrailCondiotining_PreRender" 
+                                                                OnSelectedIndexChanged="RCBForTrailCondiotining_SelectedIndexChanged" 
+                                                                SelectedValue='<%# ((GridItem)Container).OwnerTableView.GetColumn("Conditioning").CurrentFilterValue %>' 
+                                                                Width="100px">
+                                                                <Items>
+                                                                    <telerik:RadComboBoxItem Selected="false" Text="All" Value="" />
+                                                                </Items>
+                                                            </telerik:RadComboBox>
+                                                            <telerik:RadScriptBlock ID="RadScriptBlock1" runat="server">
 
-                                                            <script type="text/javascript">
+                                                                <script type="text/javascript">
+
                                                                 function RejectReasonIndexChanged(sender, args) {
                                                                     alert(tableView);
                                                                     var tableView = $find("<%#((GridItem)Container).OwnerTableView.ClientID %>");
@@ -1371,256 +1489,288 @@
                                                                 } 
                                                             </script>
 
-                                                        </telerik:RadScriptBlock>
-                                                    </FilterTemplate>
-                                                </telerik:GridBoundColumn>
-                                                <telerik:GridTemplateColumn AllowFiltering="false" HeaderStyle-Width="50px">
-                                                    <HeaderTemplate>
-                                                        <asp:Label ID="lblchkBxSelect" runat="server" Text="Select"></asp:Label>
-                                                        <input style="display: none" id="chkBxWerpAll" name="chkBxWerpAll" type="checkbox"
-                                                            onclick="checkAllBoxes()" />
-                                                    </HeaderTemplate>
-                                                    <ItemTemplate>
-                                                        <asp:CheckBox ID="cbOne" runat="server" onclick="CheckOne(this)" />
-                                                    </ItemTemplate>
-                                                </telerik:GridTemplateColumn>
-                                                <telerik:GridBoundColumn AutoPostBackOnFilter="true" ShowFilterIcon="false" DataField="CMFA_FolioNum"
-                                                    HeaderStyle-Width="100px" FooterStyle-HorizontalAlign="Right" HeaderText="FolioNum"
-                                                    UniqueName="CMFA_FolioNum">
-                                                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                                                </telerik:GridBoundColumn>
-                                                <telerik:GridBoundColumn ShowFilterIcon="false" DataField="customerName" HeaderText="Customer Name"
-                                                    HeaderStyle-Width="150px" UniqueName="customerName" SortExpression="customerName"
-                                                    AutoPostBackOnFilter="true">
-                                                    <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
-                                                </telerik:GridBoundColumn>
-                                                <telerik:GridBoundColumn ShowFilterIcon="false" DataField="PASP_SchemePlanName" HeaderText="Scheme"
-                                                    HeaderStyle-Width="450px" SortExpression="PASP_SchemePlanName" ItemStyle-Wrap="false"
-                                                    UniqueName="PASP_SchemePlanName" AutoPostBackOnFilter="true" FilterControlWidth="280px">
-                                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                                </telerik:GridBoundColumn>
-                                                <telerik:GridBoundColumn AutoPostBackOnFilter="true" ShowFilterIcon="false" DataField="CMFTCSU_Units"
-                                                    HeaderStyle-Width="100px" AllowFiltering="false" SortExpression="CMFTCSU_Units"
-                                                    FooterStyle-HorizontalAlign="Right" HeaderText='Units' ItemStyle-Wrap="false"
-                                                    Aggregate="Sum" DataFormatString="{0:N0}" UniqueName="CMFTCSU_Units">
-                                                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                                                </telerik:GridBoundColumn>
-                                                <telerik:GridBoundColumn AutoPostBackOnFilter="true" ShowFilterIcon="false" DataField="CMFTCSU_Amount"
-                                                    HeaderStyle-Width="100px" FooterStyle-HorizontalAlign="Right" HeaderText="Amount"
-                                                    UniqueName="CMFTCSU_Amount" Aggregate="Sum" DataFormatString="{0:N0}">
-                                                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                                                </telerik:GridBoundColumn>
-                                                <telerik:GridBoundColumn ShowFilterIcon="false" DataField="ADUL_ProcessId" HeaderText="ProcessId"
-                                                    HeaderStyle-Width="100px" FooterStyle-HorizontalAlign="Right" UniqueName="ADUL_ProcessId"
-                                                    SortExpression="ADUL_ProcessId" AutoPostBackOnFilter="true" FooterText="Grand Total :">
-                                                    <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
-                                                </telerik:GridBoundColumn>
-                                                <telerik:GridBoundColumn DataField="PA_AMCName" HeaderText="AMC" AllowFiltering="true"
-                                                    HeaderStyle-Wrap="false" SortExpression="PA_AMCName" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                                    AutoPostBackOnFilter="true" UniqueName="PA_AMCName" FooterStyle-HorizontalAlign="Left">
-                                                    <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
-                                                </telerik:GridBoundColumn>
-                                                <telerik:GridBoundColumn DataField="CMFTCSU_SubBroker" HeaderText="Sub-Broker Code"
-                                                    AllowFiltering="true" SortExpression="CMFTCSU_SubBroker" ShowFilterIcon="false"
-                                                    CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="CMFTCSU_SubBroker"
-                                                    FooterStyle-HorizontalAlign="Left">
-                                                    <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
-                                                </telerik:GridBoundColumn>
-                                                <telerik:GridDateTimeColumn AutoPostBackOnFilter="true" ShowFilterIcon="false" DataField="CMFTCSU_TransactionDate"
-                                                    HeaderText="TransactionDate" DataFormatString="{0:d}" UniqueName="CMFTCSU_TransactionDate"
-                                                    ItemStyle-HorizontalAlign="Center">
-                                                    <FilterTemplate>
-                                                        <telerik:RadDatePicker ID="CMFTCSU_TransactionDate" AutoPostBack="true" runat="server">
-                                                        </telerik:RadDatePicker>
-                                                    </FilterTemplate>
-                                                </telerik:GridDateTimeColumn>
-                                                <telerik:GridDateTimeColumn AutoPostBackOnFilter="true" DataField="CMFTCSU_PRDate"
-                                                    HeaderText="PR Date" ShowFilterIcon="false" DataFormatString="{0:d}" UniqueName="CMFTCSU_PRDate"
-                                                    ItemStyle-HorizontalAlign="Center">
-                                                    <FilterTemplate>
-                                                        <telerik:RadDatePicker ID="CMFTCSU_PRDate" AutoPostBack="true" runat="server">
-                                                        </telerik:RadDatePicker>
-                                                    </FilterTemplate>
-                                                </telerik:GridDateTimeColumn>
-                                                <telerik:GridDateTimeColumn AutoPostBackOnFilter="true" ShowFilterIcon="false" DataField="CMFTCSU_FROMDate"
-                                                    HeaderText="FROM Date" UniqueName="CMFTCSU_FROMDate" DataFormatString="{0:d}"
-                                                    ItemStyle-HorizontalAlign="Center">
-                                                    <FilterTemplate>
-                                                        <telerik:RadDatePicker ID="CMFTCSU_FROMDate" AutoPostBack="true" runat="server">
-                                                        </telerik:RadDatePicker>
-                                                    </FilterTemplate>
-                                                </telerik:GridDateTimeColumn>
-                                                <telerik:GridDateTimeColumn AutoPostBackOnFilter="true" ShowFilterIcon="false" DataField="CMFTCSU_TODate"
-                                                    HeaderText="TO Date" UniqueName="CMFTCSU_TODate" DataFormatString="{0:d}" ItemStyle-HorizontalAlign="Center">
-                                                    <FilterTemplate>
-                                                        <telerik:RadDatePicker ID="CMFTCSU_TODate" AutoPostBack="true" runat="server">
-                                                        </telerik:RadDatePicker>
-                                                    </FilterTemplate>
-                                                </telerik:GridDateTimeColumn>
-                                                <telerik:GridBoundColumn AutoPostBackOnFilter="true" ShowFilterIcon="false" DataField="CMFTCSU_TrailFee"
-                                                    HeaderStyle-Width="100px" FooterStyle-HorizontalAlign="Right" HeaderText="Trail Fee"
-                                                    UniqueName="CMFTCSU_TrailFee" Aggregate="Sum" DataFormatString="{0:N2}">
-                                                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                                                </telerik:GridBoundColumn>
-                                                <telerik:GridBoundColumn AutoPostBackOnFilter="true" ShowFilterIcon="false" DataField="CMFT_MFTransId"
-                                                    HeaderStyle-Width="100px" FooterStyle-HorizontalAlign="Right" HeaderText="MFTransId"
-                                                    UniqueName="CMFT_MFTransId">
-                                                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                                                </telerik:GridBoundColumn>
-                                                <telerik:GridBoundColumn AutoPostBackOnFilter="true" ShowFilterIcon="false" DataField="CMFA_AccountId"
-                                                    HeaderStyle-Width="100px" FooterStyle-HorizontalAlign="Right" HeaderText="AccountId"
-                                                    UniqueName="CMFA_AccountId">
-                                                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                                                </telerik:GridBoundColumn>
-                                                <telerik:GridBoundColumn HeaderText="StartDate" DataField="CMFSS_StartDate" UniqueName="CMFSS_StartDate"
-                                                    DataFormatString="{0:d0}" SortExpression="CMFSS_StartDate" AutoPostBackOnFilter="true"
-                                                    AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                                    Visible="false">
-                                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                                </telerik:GridBoundColumn>
-                                                <telerik:GridBoundColumn DataField="EndDate" HeaderText="EndDate" UniqueName="EndDate"
-                                                    AllowFiltering="false" Visible="false">
-                                                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                                                </telerik:GridBoundColumn>
-                                                <telerik:GridBoundColumn HeaderStyle-Width="100px" DataField="CMFTCSU_TrailComissionSetUpId"
-                                                    HeaderText="TrailId" UniqueName="CMFTCSU_TrailComissionSetUpId" SortExpression="CMFTCSU_TrailComissionSetUpId"
-                                                    AutoPostBackOnFilter="true" ShowFilterIcon="false">
-                                                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="true" VerticalAlign="Top" />
-                                                </telerik:GridBoundColumn>
-                                                <telerik:GridBoundColumn DataField="PASP_SchemePlanCode" HeaderText="SchemePlanCode"
-                                                    UniqueName="PASP_SchemePlanCode" SortExpression="PASP_SchemePlanCode" AutoPostBackOnFilter="true"
-                                                    ShowFilterIcon="false" Visible="false">
-                                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                                </telerik:GridBoundColumn>
-                                                <telerik:GridBoundColumn DataField="CMFTCSU_TransactionType" HeaderText="TransactionType"
-                                                    UniqueName="CMFTCSU_TransactionType" SortExpression="CMFTCSU_TransactionType"
-                                                    AutoPostBackOnFilter="true" ShowFilterIcon="false" Visible="false">
-                                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                                </telerik:GridBoundColumn>
-                                                <telerik:GridBoundColumn DataField="PAIC_AssetInstrumentCategoryName" HeaderText="Category"
-                                                    AllowFiltering="true" HeaderStyle-Wrap="false" SortExpression="PAIC_AssetInstrumentCategoryName"
-                                                    ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
-                                                    UniqueName="PAIC_AssetInstrumentCategoryName" FooterStyle-HorizontalAlign="Left">
-                                                    <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
-                                                </telerik:GridBoundColumn>
-                                                <telerik:GridBoundColumn AutoPostBackOnFilter="true" ShowFilterIcon="false" DataField="CMFT_TransactionNumber"
-                                                    HeaderStyle-Width="100px" FooterStyle-HorizontalAlign="Right" HeaderText="TransNo."
-                                                    UniqueName="CMFT_TransactionNumber">
-                                                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                                                </telerik:GridBoundColumn>
-                                                <telerik:GridBoundColumn DataField="CMFT_SubBrokerCode" HeaderText="Sub-Broker Code"
-                                                    AllowFiltering="true" SortExpression="CMFT_SubBrokerCode" ShowFilterIcon="false"
-                                                    CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="CMFT_SubBrokerCode"
-                                                    FooterStyle-HorizontalAlign="Left">
-                                                    <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
-                                                </telerik:GridBoundColumn>
-                                                <telerik:GridBoundColumn DataField="AssociatesName" AllowFiltering="true" HeaderText="SubBroker Name"
-                                                    Visible="true" UniqueName="AssociatesName" SortExpression="AssociatesName" ShowFilterIcon="false"
-                                                    CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="120px">
-                                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                                </telerik:GridBoundColumn>
-                                                <telerik:GridBoundColumn DataField="UserType" AllowFiltering="true" HeaderText="Type"
-                                                    Visible="true" UniqueName="UserType" SortExpression="UserType" ShowFilterIcon="false"
-                                                    CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="120px">
-                                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                                </telerik:GridBoundColumn>
-                                                <telerik:GridBoundColumn DataField="ChannelName" AllowFiltering="true" HeaderText="Channel"
-                                                    UniqueName="ChannelName" SortExpression="ChannelName" ShowFilterIcon="false"
-                                                    CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="130px">
-                                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                                </telerik:GridBoundColumn>
-                                                <telerik:GridBoundColumn DataField="Titles" AllowFiltering="true" HeaderText="Title"
-                                                    Visible="true" UniqueName="Titles" SortExpression="Titles" ShowFilterIcon="false"
-                                                    CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="120px">
-                                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                                </telerik:GridBoundColumn>
-                                                <telerik:GridBoundColumn DataField="ReportingManagerName" AllowFiltering="true" HeaderText="Reporting Manager"
-                                                    Visible="true" UniqueName="ReportingManagerName" SortExpression="ReportingManagerName"
-                                                    ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
-                                                    HeaderStyle-Width="120px">
-                                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                                </telerik:GridBoundColumn>
-                                                <telerik:GridBoundColumn Visible="true" DataField="ClusterManager" AllowFiltering="true"
-                                                    HeaderText="Cluster Manager" UniqueName="ClusterManager" SortExpression="ClusterManager"
-                                                    ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
-                                                    HeaderStyle-Width="130px">
-                                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                                </telerik:GridBoundColumn>
-                                                <telerik:GridBoundColumn DataField="AreaManager" AllowFiltering="true" HeaderText="Area Manager"
-                                                    UniqueName="AreaManager" SortExpression="AreaManager" ShowFilterIcon="false"
-                                                    CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="130px">
-                                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                                </telerik:GridBoundColumn>
-                                                <telerik:GridBoundColumn DataField="ZonalManagerName" AllowFiltering="true" HeaderText="Zonal Manager"
-                                                    UniqueName="ZonalManagerName" SortExpression="ZonalManagerName" ShowFilterIcon="false"
-                                                    CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="130px">
-                                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                                </telerik:GridBoundColumn>
-                                                <telerik:GridBoundColumn DataField="DeuptyHead" AllowFiltering="true" HeaderText="Deupty Head"
-                                                    UniqueName="DeuptyHead" SortExpression="DeuptyHead" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                                    AutoPostBackOnFilter="true" HeaderStyle-Width="130px">
-                                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                                </telerik:GridBoundColumn>
-                                            </Columns>
-                                            <HeaderStyle Width="180px" />
-                                        </MasterTableView>
-                                        <ClientSettings>
-                                            <Scrolling AllowScroll="true" UseStaticHeaders="true" ScrollHeight="380px" />
-                                            <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
-                                            <Resizing AllowColumnResize="true" />
-                                        </ClientSettings>
-                                    </telerik:RadGrid>
+                                                            </telerik:RadScriptBlock>
+                                                        </FilterTemplate>
+                                                    </telerik:GridBoundColumn>
+                                                    <telerik:GridTemplateColumn AllowFiltering="false" HeaderStyle-Width="50px">
+                                                        <HeaderTemplate>
+                                                            <asp:Label ID="lblchkBxSelect" runat="server" Text="Select"></asp:Label>
+                                                            <input ID="chkBxWerpAll" name="chkBxWerpAll" onclick="checkAllBoxes()" 
+                                                                style="display: none" type="checkbox" />
+                                                        </HeaderTemplate>
+                                                        <ItemTemplate>
+                                                            <asp:CheckBox ID="cbOne" runat="server" onclick="CheckOne(this)" />
+                                                        </ItemTemplate>
+                                                    </telerik:GridTemplateColumn>
+                                                    <telerik:GridBoundColumn AutoPostBackOnFilter="true" DataField="CMFA_FolioNum" 
+                                                        FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="100px" 
+                                                        HeaderText="FolioNum" ShowFilterIcon="false" UniqueName="CMFA_FolioNum">
+                                                        <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" Width="" Wrap="false" />
+                                                    </telerik:GridBoundColumn>
+                                                    <telerik:GridBoundColumn AutoPostBackOnFilter="true" DataField="customerName" 
+                                                        HeaderStyle-Width="150px" HeaderText="Customer Name" ShowFilterIcon="false" 
+                                                        SortExpression="customerName" UniqueName="customerName">
+                                                        <ItemStyle HorizontalAlign="Left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                    </telerik:GridBoundColumn>
+                                                    <telerik:GridBoundColumn AutoPostBackOnFilter="true" 
+                                                        DataField="PASP_SchemePlanName" FilterControlWidth="280px" 
+                                                        HeaderStyle-Width="450px" HeaderText="Scheme" ItemStyle-Wrap="false" 
+                                                        ShowFilterIcon="false" SortExpression="PASP_SchemePlanName" 
+                                                        UniqueName="PASP_SchemePlanName">
+                                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                    </telerik:GridBoundColumn>
+                                                    <telerik:GridBoundColumn Aggregate="Sum" AllowFiltering="false" 
+                                                        AutoPostBackOnFilter="true" DataField="CMFTCSU_Units" DataFormatString="{0:N0}" 
+                                                        FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="100px" 
+                                                        HeaderText="Units" ItemStyle-Wrap="false" ShowFilterIcon="false" 
+                                                        SortExpression="CMFTCSU_Units" UniqueName="CMFTCSU_Units">
+                                                        <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" Width="" Wrap="false" />
+                                                    </telerik:GridBoundColumn>
+                                                    <telerik:GridBoundColumn Aggregate="Sum" AutoPostBackOnFilter="true" 
+                                                        DataField="CMFTCSU_Amount" DataFormatString="{0:N0}" 
+                                                        FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="100px" 
+                                                        HeaderText="Amount" ShowFilterIcon="false" UniqueName="CMFTCSU_Amount">
+                                                        <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" Width="" Wrap="false" />
+                                                    </telerik:GridBoundColumn>
+                                                    <telerik:GridBoundColumn AutoPostBackOnFilter="true" DataField="ADUL_ProcessId" 
+                                                        FooterStyle-HorizontalAlign="Right" FooterText="Grand Total :" 
+                                                        HeaderStyle-Width="100px" HeaderText="ProcessId" ShowFilterIcon="false" 
+                                                        SortExpression="ADUL_ProcessId" UniqueName="ADUL_ProcessId">
+                                                        <ItemStyle HorizontalAlign="right" VerticalAlign="Top" Width="" Wrap="false" />
+                                                    </telerik:GridBoundColumn>
+                                                    <telerik:GridBoundColumn AllowFiltering="true" AutoPostBackOnFilter="true" 
+                                                        CurrentFilterFunction="Contains" DataField="PA_AMCName" 
+                                                        FooterStyle-HorizontalAlign="Left" HeaderStyle-Wrap="false" HeaderText="AMC" 
+                                                        ShowFilterIcon="false" SortExpression="PA_AMCName" UniqueName="PA_AMCName">
+                                                        <ItemStyle HorizontalAlign="Left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                    </telerik:GridBoundColumn>
+                                                    <telerik:GridBoundColumn AllowFiltering="true" AutoPostBackOnFilter="true" 
+                                                        CurrentFilterFunction="Contains" DataField="CMFTCSU_SubBroker" 
+                                                        FooterStyle-HorizontalAlign="Left" HeaderText="Sub-Broker Code" 
+                                                        ShowFilterIcon="false" SortExpression="CMFTCSU_SubBroker" 
+                                                        UniqueName="CMFTCSU_SubBroker">
+                                                        <ItemStyle HorizontalAlign="Left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                    </telerik:GridBoundColumn>
+                                                    <telerik:GridDateTimeColumn AutoPostBackOnFilter="true" 
+                                                        DataField="CMFTCSU_TransactionDate" DataFormatString="{0:d}" 
+                                                        HeaderText="TransactionDate" ItemStyle-HorizontalAlign="Center" 
+                                                        ShowFilterIcon="false" UniqueName="CMFTCSU_TransactionDate">
+                                                        <FilterTemplate>
+                                                            <telerik:RadDatePicker ID="CMFTCSU_TransactionDate" runat="server" 
+                                                                AutoPostBack="true">
+                                                            </telerik:RadDatePicker>
+                                                        </FilterTemplate>
+                                                    </telerik:GridDateTimeColumn>
+                                                    <telerik:GridDateTimeColumn AutoPostBackOnFilter="true" 
+                                                        DataField="CMFTCSU_PRDate" DataFormatString="{0:d}" HeaderText="PR Date" 
+                                                        ItemStyle-HorizontalAlign="Center" ShowFilterIcon="false" 
+                                                        UniqueName="CMFTCSU_PRDate">
+                                                        <FilterTemplate>
+                                                            <telerik:RadDatePicker ID="CMFTCSU_PRDate" runat="server" AutoPostBack="true">
+                                                            </telerik:RadDatePicker>
+                                                        </FilterTemplate>
+                                                    </telerik:GridDateTimeColumn>
+                                                    <telerik:GridDateTimeColumn AutoPostBackOnFilter="true" 
+                                                        DataField="CMFTCSU_FROMDate" DataFormatString="{0:d}" HeaderText="FROM Date" 
+                                                        ItemStyle-HorizontalAlign="Center" ShowFilterIcon="false" 
+                                                        UniqueName="CMFTCSU_FROMDate">
+                                                        <FilterTemplate>
+                                                            <telerik:RadDatePicker ID="CMFTCSU_FROMDate" runat="server" AutoPostBack="true">
+                                                            </telerik:RadDatePicker>
+                                                        </FilterTemplate>
+                                                    </telerik:GridDateTimeColumn>
+                                                    <telerik:GridDateTimeColumn AutoPostBackOnFilter="true" 
+                                                        DataField="CMFTCSU_TODate" DataFormatString="{0:d}" HeaderText="TO Date" 
+                                                        ItemStyle-HorizontalAlign="Center" ShowFilterIcon="false" 
+                                                        UniqueName="CMFTCSU_TODate">
+                                                        <FilterTemplate>
+                                                            <telerik:RadDatePicker ID="CMFTCSU_TODate" runat="server" AutoPostBack="true">
+                                                            </telerik:RadDatePicker>
+                                                        </FilterTemplate>
+                                                    </telerik:GridDateTimeColumn>
+                                                    <telerik:GridBoundColumn Aggregate="Sum" AutoPostBackOnFilter="true" 
+                                                        DataField="CMFTCSU_TrailFee" DataFormatString="{0:N2}" 
+                                                        FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="100px" 
+                                                        HeaderText="Trail Fee" ShowFilterIcon="false" UniqueName="CMFTCSU_TrailFee">
+                                                        <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" Width="" Wrap="false" />
+                                                    </telerik:GridBoundColumn>
+                                                    <telerik:GridBoundColumn AutoPostBackOnFilter="true" DataField="CMFT_MFTransId" 
+                                                        FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="100px" 
+                                                        HeaderText="MFTransId" ShowFilterIcon="false" UniqueName="CMFT_MFTransId">
+                                                        <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" Width="" Wrap="false" />
+                                                    </telerik:GridBoundColumn>
+                                                    <telerik:GridBoundColumn AutoPostBackOnFilter="true" DataField="CMFA_AccountId" 
+                                                        FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="100px" 
+                                                        HeaderText="AccountId" ShowFilterIcon="false" UniqueName="CMFA_AccountId">
+                                                        <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" Width="" Wrap="false" />
+                                                    </telerik:GridBoundColumn>
+                                                    <telerik:GridBoundColumn AllowFiltering="false" AutoPostBackOnFilter="true" 
+                                                        CurrentFilterFunction="Contains" DataField="CMFSS_StartDate" 
+                                                        DataFormatString="{0:d0}" HeaderText="StartDate" ShowFilterIcon="false" 
+                                                        SortExpression="CMFSS_StartDate" UniqueName="CMFSS_StartDate" Visible="false">
+                                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                    </telerik:GridBoundColumn>
+                                                    <telerik:GridBoundColumn AllowFiltering="false" DataField="EndDate" 
+                                                        HeaderText="EndDate" UniqueName="EndDate" Visible="false">
+                                                        <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" Width="" Wrap="false" />
+                                                    </telerik:GridBoundColumn>
+                                                    <telerik:GridBoundColumn AutoPostBackOnFilter="true" 
+                                                        DataField="CMFTCSU_TrailComissionSetUpId" HeaderStyle-Width="100px" 
+                                                        HeaderText="TrailId" ShowFilterIcon="false" 
+                                                        SortExpression="CMFTCSU_TrailComissionSetUpId" 
+                                                        UniqueName="CMFTCSU_TrailComissionSetUpId">
+                                                        <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" Width="" Wrap="true" />
+                                                    </telerik:GridBoundColumn>
+                                                    <telerik:GridBoundColumn AutoPostBackOnFilter="true" 
+                                                        DataField="PASP_SchemePlanCode" HeaderText="SchemePlanCode" 
+                                                        ShowFilterIcon="false" SortExpression="PASP_SchemePlanCode" 
+                                                        UniqueName="PASP_SchemePlanCode" Visible="false">
+                                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                    </telerik:GridBoundColumn>
+                                                    <telerik:GridBoundColumn AutoPostBackOnFilter="true" 
+                                                        DataField="CMFTCSU_TransactionType" HeaderText="TransactionType" 
+                                                        ShowFilterIcon="false" SortExpression="CMFTCSU_TransactionType" 
+                                                        UniqueName="CMFTCSU_TransactionType" Visible="false">
+                                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                    </telerik:GridBoundColumn>
+                                                    <telerik:GridBoundColumn AllowFiltering="true" AutoPostBackOnFilter="true" 
+                                                        CurrentFilterFunction="Contains" DataField="PAIC_AssetInstrumentCategoryName" 
+                                                        FooterStyle-HorizontalAlign="Left" HeaderStyle-Wrap="false" 
+                                                        HeaderText="Category" ShowFilterIcon="false" 
+                                                        SortExpression="PAIC_AssetInstrumentCategoryName" 
+                                                        UniqueName="PAIC_AssetInstrumentCategoryName">
+                                                        <ItemStyle HorizontalAlign="Left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                    </telerik:GridBoundColumn>
+                                                    <telerik:GridBoundColumn AutoPostBackOnFilter="true" 
+                                                        DataField="CMFT_TransactionNumber" FooterStyle-HorizontalAlign="Right" 
+                                                        HeaderStyle-Width="100px" HeaderText="TransNo." ShowFilterIcon="false" 
+                                                        UniqueName="CMFT_TransactionNumber">
+                                                        <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" Width="" Wrap="false" />
+                                                    </telerik:GridBoundColumn>
+                                                    <telerik:GridBoundColumn AllowFiltering="true" AutoPostBackOnFilter="true" 
+                                                        CurrentFilterFunction="Contains" DataField="CMFT_SubBrokerCode" 
+                                                        FooterStyle-HorizontalAlign="Left" HeaderText="Sub-Broker Code" 
+                                                        ShowFilterIcon="false" SortExpression="CMFT_SubBrokerCode" 
+                                                        UniqueName="CMFT_SubBrokerCode">
+                                                        <ItemStyle HorizontalAlign="Left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                    </telerik:GridBoundColumn>
+                                                    <telerik:GridBoundColumn AllowFiltering="true" AutoPostBackOnFilter="true" 
+                                                        CurrentFilterFunction="Contains" DataField="AssociatesName" 
+                                                        HeaderStyle-Width="120px" HeaderText="SubBroker Name" ShowFilterIcon="false" 
+                                                        SortExpression="AssociatesName" UniqueName="AssociatesName" Visible="true">
+                                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                    </telerik:GridBoundColumn>
+                                                    <telerik:GridBoundColumn AllowFiltering="true" AutoPostBackOnFilter="true" 
+                                                        CurrentFilterFunction="Contains" DataField="UserType" HeaderStyle-Width="120px" 
+                                                        HeaderText="Type" ShowFilterIcon="false" SortExpression="UserType" 
+                                                        UniqueName="UserType" Visible="true">
+                                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                    </telerik:GridBoundColumn>
+                                                    <telerik:GridBoundColumn AllowFiltering="true" AutoPostBackOnFilter="true" 
+                                                        CurrentFilterFunction="Contains" DataField="ChannelName" 
+                                                        HeaderStyle-Width="130px" HeaderText="Channel" ShowFilterIcon="false" 
+                                                        SortExpression="ChannelName" UniqueName="ChannelName">
+                                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                    </telerik:GridBoundColumn>
+                                                    <telerik:GridBoundColumn AllowFiltering="true" AutoPostBackOnFilter="true" 
+                                                        CurrentFilterFunction="Contains" DataField="Titles" HeaderStyle-Width="120px" 
+                                                        HeaderText="Title" ShowFilterIcon="false" SortExpression="Titles" 
+                                                        UniqueName="Titles" Visible="true">
+                                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                    </telerik:GridBoundColumn>
+                                                    <telerik:GridBoundColumn AllowFiltering="true" AutoPostBackOnFilter="true" 
+                                                        CurrentFilterFunction="Contains" DataField="ReportingManagerName" 
+                                                        HeaderStyle-Width="120px" HeaderText="Reporting Manager" ShowFilterIcon="false" 
+                                                        SortExpression="ReportingManagerName" UniqueName="ReportingManagerName" 
+                                                        Visible="true">
+                                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                    </telerik:GridBoundColumn>
+                                                    <telerik:GridBoundColumn AllowFiltering="true" AutoPostBackOnFilter="true" 
+                                                        CurrentFilterFunction="Contains" DataField="ClusterManager" 
+                                                        HeaderStyle-Width="130px" HeaderText="Cluster Manager" ShowFilterIcon="false" 
+                                                        SortExpression="ClusterManager" UniqueName="ClusterManager" Visible="true">
+                                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                    </telerik:GridBoundColumn>
+                                                    <telerik:GridBoundColumn AllowFiltering="true" AutoPostBackOnFilter="true" 
+                                                        CurrentFilterFunction="Contains" DataField="AreaManager" 
+                                                        HeaderStyle-Width="130px" HeaderText="Area Manager" ShowFilterIcon="false" 
+                                                        SortExpression="AreaManager" UniqueName="AreaManager">
+                                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                    </telerik:GridBoundColumn>
+                                                    <telerik:GridBoundColumn AllowFiltering="true" AutoPostBackOnFilter="true" 
+                                                        CurrentFilterFunction="Contains" DataField="ZonalManagerName" 
+                                                        HeaderStyle-Width="130px" HeaderText="Zonal Manager" ShowFilterIcon="false" 
+                                                        SortExpression="ZonalManagerName" UniqueName="ZonalManagerName">
+                                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                    </telerik:GridBoundColumn>
+                                                    <telerik:GridBoundColumn AllowFiltering="true" AutoPostBackOnFilter="true" 
+                                                        CurrentFilterFunction="Contains" DataField="DeuptyHead" 
+                                                        HeaderStyle-Width="130px" HeaderText="Deupty Head" ShowFilterIcon="false" 
+                                                        SortExpression="DeuptyHead" UniqueName="DeuptyHead">
+                                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                    </telerik:GridBoundColumn>
+                                                </Columns>
+                                                <HeaderStyle Width="180px" />
+                                            </MasterTableView>
+                                            <ClientSettings>
+                                                <Scrolling AllowScroll="true" ScrollHeight="380px" UseStaticHeaders="true" />
+                                                <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+                                                <Resizing AllowColumnResize="true" />
+                                            </ClientSettings>
+                                        </telerik:RadGrid>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <asp:Button ID="btnAutoMatch" runat="server" CssClass="PCGMediumButton" 
+                                        OnClick="btnAutoMatch_Click" Text="Auto Match" />
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <asp:Button ID="btnMannualMatch" runat="server" CssClass="PCGMediumButton" 
+                                        OnClick="btnShowTransactionForManualMerge_Click" Text="Manual Match" />
+                                </td>
+                            </tr>
+                        </table>
+                        <%-- </asp:Panel>--%>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <table ID="ErrorMessage" runat="server" align="center">
+                        <tr>
+                            <td>
+                                <div align="center" class="failure-msg">
+                                    No Records found.....
                                 </div>
                             </td>
                         </tr>
-                        <tr>
-                            <td>
-                                <asp:Button ID="btnAutoMatch" runat="server" Text="Auto Match" CssClass="PCGMediumButton"
-                                    OnClick="btnAutoMatch_Click" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <asp:Button ID="btnMannualMatch" runat="server" Text="Manual Match" CssClass="PCGMediumButton"
-                                    OnClick="btnShowTransactionForManualMerge_Click" />
-                            </td>
-                        </tr>
                     </table>
-                    <%-- </asp:Panel>--%>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <table id="ErrorMessage" align="center" runat="server">
-                    <tr>
-                        <td>
-                            <div class="failure-msg" align="center">
-                                No Records found.....
-                            </div>
-                        </td>
-                    </tr>
-                </table>
-                <div style="margin: 6px" id="divNote" runat="server" class="Note">
-                    <label id="lbl">
+                    <div ID="divNote" runat="server" class="Note" style="margin: 6px">
+                        <label ID="lbl">
                         Note:<br />
                         1:To export excel the count should not exceed 8000 records.
-                    </label>
-                </div>
-                <asp:HiddenField ID="hdnRecordCount" runat="server" Visible="false" />
-                <asp:HiddenField ID="hdnCurrentPage" runat="server" />
-                <asp:HiddenField ID="hdnCustomerNameSearch" runat="server" Visible="false" />
-                <asp:HiddenField ID="hdnSchemeSearch" runat="server" Visible="false" />
-                <asp:HiddenField ID="hdnTranType" runat="server" Visible="false" />
-                <asp:HiddenField ID="hdnCategory" runat="server" />
-                <asp:HiddenField ID="hdnAMC" runat="server" />
-                <asp:HiddenField ID="hdnAgentCode" runat="server" />
-                <asp:HiddenField ID="hdnSubBrokerCode" runat="server" />
-                <asp:HiddenField ID="hdnFolioNumber" runat="server" Visible="false" />
-                <asp:HiddenField ID="hdnDownloadPageType" runat="server" Visible="true" />
-                <asp:HiddenField ID="hdnDownloadFormat" runat="server" Visible="true" />
-                <asp:HiddenField ID="txtParentCustomerId" runat="server" />
-                <asp:HiddenField ID="txtParentCustomerType" runat="server" />
-                <asp:HiddenField ID="hdnStatus" runat="server" />
-                <asp:HiddenField ID="hdnProcessIdSearch" runat="server" />
-                <asp:HiddenField ID="hdnExportType" runat="server" />
-            </td>
+                        </label>
+                    </div>
+                    <asp:HiddenField ID="hdnRecordCount" runat="server" Visible="false" />
+                    <asp:HiddenField ID="hdnCurrentPage" runat="server" />
+                    <asp:HiddenField ID="hdnCustomerNameSearch" runat="server" Visible="false" />
+                    <asp:HiddenField ID="hdnSchemeSearch" runat="server" Visible="false" />
+                    <asp:HiddenField ID="hdnTranType" runat="server" Visible="false" />
+                    <asp:HiddenField ID="hdnCategory" runat="server" />
+                    <asp:HiddenField ID="hdnAMC" runat="server" />
+                    <asp:HiddenField ID="hdnAgentCode" runat="server" />
+                    <asp:HiddenField ID="hdnSubBrokerCode" runat="server" />
+                    <asp:HiddenField ID="hdnFolioNumber" runat="server" Visible="false" />
+                    <asp:HiddenField ID="hdnDownloadPageType" runat="server" Visible="true" />
+                    <asp:HiddenField ID="hdnDownloadFormat" runat="server" Visible="true" />
+                    <asp:HiddenField ID="txtParentCustomerId" runat="server" />
+                    <asp:HiddenField ID="txtParentCustomerType" runat="server" />
+                    <asp:HiddenField ID="hdnStatus" runat="server" />
+                    <asp:HiddenField ID="hdnProcessIdSearch" runat="server" />
+                    <asp:HiddenField ID="hdnExportType" runat="server" />
+                </td>
+            </tr>
         </tr>
         </table>
     </ContentTemplate>

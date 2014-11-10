@@ -18,6 +18,7 @@ using BoOnlineOrderManagement;
 using VoOnlineOrderManagemnet;
 
 using BoOps;
+using VOAssociates;
 
 
 namespace WealthERP.OnlineOrderBackOffice
@@ -31,8 +32,12 @@ namespace WealthERP.OnlineOrderBackOffice
         OperationBo operationBo = new OperationBo();
         CommonLookupBo commonLookupBo = new CommonLookupBo();
         OnlineNCDBackOfficeVo onlineNCDBackOfficeVo;
+        AssociatesUserHeirarchyVo associateuserheirarchyVo = new AssociatesUserHeirarchyVo();
         string categoryCode = "";
-
+        string userType;
+        string UserTitle;
+        string AgentCode;
+        string agentCode;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -40,6 +45,50 @@ namespace WealthERP.OnlineOrderBackOffice
             userVo = (UserVo)Session[SessionContents.UserVo];
             advisorVo = (AdvisorVo)Session["advisorVo"];
             int adviserId = advisorVo.advisorId;
+            userType = Session[SessionContents.CurrentUserRole].ToString();
+            associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
+
+            if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
+            {
+                userType = "advisor";
+                // userType = "admin";
+
+            }
+            else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "bm")
+            {
+                userType = "bm";
+
+            }
+            else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "rm")
+            {
+                userType = "rm";
+
+            }
+
+            if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "associates")
+            {
+                userType = "associates";
+                if (UserTitle == "SubBroker")
+                {
+                    associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
+                    if (associateuserheirarchyVo.AgentCode != null)
+                    {
+                        AgentCode = associateuserheirarchyVo.AgentCode.ToString();
+                    }
+                    else
+                        AgentCode = "0";
+                }
+                else
+                {
+                    associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
+                    if (associateuserheirarchyVo.AgentCode != null)
+                    {
+                        AgentCode = associateuserheirarchyVo.AgentCode.ToString();
+                    }
+                    else
+                        AgentCode = "0";
+                }
+            }
             if (!IsPostBack)
             {
                // BindOrderStatus();
@@ -323,9 +372,10 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 DataTable dtOrdersMatch = new DataTable();
 
-                if (ddlBChannnel.SelectedValue != "16017")
+                if (ddlType.SelectedValue == "2")
                 {
-                    dtOrdersMatch = onlineNCDBackOfficeBo.GetAdviserOrders(int.Parse(ddlIssue.SelectedValue), ddlProduct.SelectedValue, advisorVo.advisorId, int.Parse(ddlBChannnel.SelectedValue)).Tables[0];
+                    pnlGrid.Visible = false;
+                    dtOrdersMatch = onlineNCDBackOfficeBo.GetAdviserOrders(int.Parse(ddlIssue.SelectedValue), ddlProduct.SelectedValue, advisorVo.advisorId, 2, userType, AgentCode).Tables[0];
                     gvOfflineAllotment.DataSource = dtOrdersMatch;
                     gvOfflineAllotment.DataBind();
                     pnlOfflineNCDIPO.Visible = true;
@@ -335,10 +385,11 @@ namespace WealthERP.OnlineOrderBackOffice
                 }
                 else
                 {
-                    dtOrdersMatch = onlineNCDBackOfficeBo.GetAdviserOrders(int.Parse(ddlIssue.SelectedValue), ddlProduct.SelectedValue, advisorVo.advisorId, int.Parse(ddlBChannnel.SelectedValue)).Tables[0];
+                    dtOrdersMatch = onlineNCDBackOfficeBo.GetAdviserOrders(int.Parse(ddlIssue.SelectedValue), ddlProduct.SelectedValue, advisorVo.advisorId,1, userType, AgentCode).Tables[0];
                     gvOrders.DataSource = dtOrdersMatch;
                     gvOrders.DataBind();
                     pnlGrid.Visible = true;
+                    pnlOfflineNCDIPO.Visible = false;
                     if (Cache[userVo.UserId.ToString() + "OrdersMatch"] != null)
                         Cache.Remove(userVo.UserId.ToString() + "OrdersMatch");
                     Cache.Insert(userVo.UserId.ToString() + "OrdersMatch", dtOrdersMatch);

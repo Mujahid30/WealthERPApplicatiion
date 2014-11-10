@@ -204,7 +204,7 @@ namespace WealthERP.CustomerPortfolio
                     hdnAMC.Value = "0";
                     rbtnPickDate.Checked = true;
                     rbtnPickPeriod.Checked = false;
-                    trRange.Visible = true;
+                 //   trRange.Visible = true;
                     trPeriod.Visible = false;
                     //tdGroupHead.Visible = false;
                     //lblGroupHead.Visible = false;
@@ -419,24 +419,39 @@ namespace WealthERP.CustomerPortfolio
                 txtcustomerName.Visible = false;
             }
         }
-        protected void rbtnIndividual_OnCheckedChanged(object sender, EventArgs e)
+        protected void ddlsearchcustomertype_OnSelectedIndexChanged(object sender, EventArgs e)
         {
-            if (rbtnIndividual.Checked == true)
+            if (ddlsearchcustomertype.SelectedValue == "Individual")
             {
-
                 trGroupHead.Visible = true;
                 txtParentCustomer.Visible = false;
                 ddlOptionSearch.Visible = true;
                 lblGroupHead.Visible = false;
                 lblCustomerSearch.Visible = true;
-
             }
             else
             {
-                trGroupHead.Visible = true;
-                txtParentCustomer.Visible = true;
-                lblGroupHead.Visible = true;
+                trGroupHead.Visible = false;
             }
+        }
+        protected void rbtnIndividual_OnCheckedChanged(object sender, EventArgs e)
+        {
+            //if (rbtnIndividual.Checked == true)
+            //{
+
+            //    trGroupHead.Visible = true;
+            //    txtParentCustomer.Visible = false;
+            //    ddlOptionSearch.Visible = true;
+            //    lblGroupHead.Visible = false;
+            //    lblCustomerSearch.Visible = true;
+
+            //}
+            //else
+            //{
+            //    trGroupHead.Visible = true;
+            //    txtParentCustomer.Visible = true;
+            //    lblGroupHead.Visible = true;
+            //}
         }
         protected void btnAutoMatch_Click(object sender, EventArgs e)
         {
@@ -624,12 +639,12 @@ namespace WealthERP.CustomerPortfolio
         {
             if (rbtnPickDate.Checked == true)
             {
-                trRange.Visible = true;
+                //trRange.Visible = true;
                 trPeriod.Visible = false;
             }
             else if (rbtnPickPeriod.Checked == true)
             {
-                trRange.Visible = false;
+               // trRange.Visible = false;
                 trPeriod.Visible = true;
                 BindPeriodDropDown();
             }
@@ -653,27 +668,27 @@ namespace WealthERP.CustomerPortfolio
 
         protected void rbtnAll_CheckedChanged(object sender, EventArgs e)
         {
-            if (rbtnAll.Checked == true)
-            {
-                //lblGroupHead.Visible = false;
-                //txtParentCustomer.Visible = false;
-                //tdGroupHead.Visible = false;
-                trGroupHead.Visible = false;
+            //if (rbtnAll.Checked == true)
+            //{
+            //    //lblGroupHead.Visible = false;
+            //    //txtParentCustomer.Visible = false;
+            //    //tdGroupHead.Visible = false;
+            //    trGroupHead.Visible = false;
 
-            }
-            else if (rbtnGroup.Checked == true)
-            {
-                //lblGroupHead.Visible = true;
-                ddlOptionSearch.Visible = false;
-                lblGroupHead.Visible = true;
-                txtCustCode.Visible = false;
-                txtcustomerName.Visible = false;
-                txtParentCustomer.Visible = true;
-                trGroupHead.Visible = true;
-                lblCustomerSearch.Visible = false;
-                BindGroupHead();
+            //}
+            //else if (rbtnGroup.Checked == true)
+            //{
+            //    //lblGroupHead.Visible = true;
+            //    ddlOptionSearch.Visible = false;
+            //    lblGroupHead.Visible = true;
+            //    txtCustCode.Visible = false;
+            //    txtcustomerName.Visible = false;
+            //    txtParentCustomer.Visible = true;
+            //    trGroupHead.Visible = true;
+            //    lblCustomerSearch.Visible = false;
+            //    BindGroupHead();
 
-            }
+            //}
         }
 
         private void BindAMC()
@@ -1163,8 +1178,8 @@ namespace WealthERP.CustomerPortfolio
             IsfolioOnline = 0;
             //}
             try
-            {//pramod
-                if (rbtnGroup.Checked || rbtnIndividual.Checked)
+            {//pramod if (rbtnGroup.Checked || rbtnIndividual.Checked)
+                if (ddlsearchcustomertype.SelectedValue == "All" || ddlsearchcustomertype.SelectedValue == "Individual")
                 {
                     mfTransactionList = customerTransactionBo.GetRMCustomerMFTransactions(rmID, AdviserId, customerId, IsfolioOnline, convertedFromDate, convertedToDate, 1, PasssedFolioValue, false, schemePlanCode, int.Parse(hdnAMC.Value), hdnCategory.Value, advisorVo.A_AgentCodeBased, hdnAgentCode.Value, userType, int.Parse(ddlAgentCode.SelectedValue));
                 }

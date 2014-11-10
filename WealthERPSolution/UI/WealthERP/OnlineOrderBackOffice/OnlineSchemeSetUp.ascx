@@ -216,11 +216,11 @@
                         Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
                 </td>
                 <td align="right">
-                    <asp:Label ID="lblToadd" runat="server" Text="Do You Wish To Add:" CssClass="FieldName"></asp:Label>
+                    <asp:Label ID="lblToadd" runat="server" Text="Online Scheme:" CssClass="FieldName"></asp:Label>
                 </td>
                 <td>
-                    &nbsp;
-                    <asp:CheckBox ID="chkonline" AutoPostBack="true" runat="server" Text="Online  Details"
+                    
+                    <asp:CheckBox ID="chkonline" AutoPostBack="false" runat="server" Text="Online  Details"
                         CssClass="FieldName" OnCheckedChanged="oncheckedOnlin_OnCheckedChanged" onClick="CheckOnline();"/>
                     <asp:Label ID="lblProductCode" runat="server" Text="Product Code:" CssClass="FieldName"
                         Visible="false"></asp:Label>
@@ -408,7 +408,7 @@
             </tr>
         </table>
     </div>
-    <div id="schemedetails" runat="server" visible="false">
+    <div id="schemedetails" runat="server" visible="true">
         <table width="100%">
             <tr>
                 <td colspan="5">

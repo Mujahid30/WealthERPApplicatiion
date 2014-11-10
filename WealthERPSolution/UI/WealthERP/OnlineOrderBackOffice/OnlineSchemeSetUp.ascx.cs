@@ -90,7 +90,7 @@ namespace WealthERP.OnlineOrderBackOffice
                         lblSchemeplancode.Visible = true;
                         lblschemeplanecodetext.Visible = true;
                         txtISIN.Enabled = true;
-                        
+                        btnupdate.Visible = true;
                     }
                     else if (Request.QueryString["strAction"].Trim() == "View")
                     {
@@ -519,7 +519,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 mfProductAMCSchemePlanDetailsVo.IsNFO = 0;
             }
-            if (chkOnlineEnablement.Checked )
+            if (chkOnlineEnablement.Checked)
             {
                 mfProductAMCSchemePlanDetailsVo.IsOnlineEnablement = 1;
 
@@ -786,7 +786,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 lnkMargeScheme.Text = "Merged Scheme";
             }
-          
+
             if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.GenerationFrequency))
             {
                 ddlGenerationfreq.SelectedValue = mfProductAMCSchemePlanDetailsVo.GenerationFrequency.ToString();
@@ -891,7 +891,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 ddlSctype.SelectedValue = "0";
             }
-           
+
             if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.SchemeOption))
             {
                 ddlOption.SelectedValue = mfProductAMCSchemePlanDetailsVo.SchemeOption.ToString();
@@ -943,13 +943,13 @@ namespace WealthERP.OnlineOrderBackOffice
             if (mfProductAMCSchemePlanDetailsVo.IsOnline == 1)
             {
                 chkonline.Checked = true;
-                schemedetails.Visible = true;
+                //schemedetails.Visible = true;
 
             }
             else
             {
                 chkonline.Checked = false;
-                schemedetails.Visible = false;
+                //schemedetails.Visible = false;
 
             }
 
@@ -1153,7 +1153,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 lnkMargeScheme.Text = "Merged Scheme";
             }
-           
+
             if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.GenerationFrequency))
             {
                 ddlGenerationfreq.SelectedValue = mfProductAMCSchemePlanDetailsVo.GenerationFrequency.ToString();
@@ -1279,14 +1279,14 @@ namespace WealthERP.OnlineOrderBackOffice
             if (mfProductAMCSchemePlanDetailsVo.IsOnline != 1)
             {
                 chkonline.Checked = false;
-                schemedetails.Visible = false;
+                //schemedetails.Visible = false;
                 btnupdate.Visible = false;
                 //chkoffline.Checked = false;
             }
             else
             {
                 chkonline.Checked = true;
-                schemedetails.Visible = true;
+                //schemedetails.Visible = true;
                 btnupdate.Visible = true;
                 //chkoffline.Checked = true;
             }
@@ -1357,7 +1357,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 txtSchemeStartDate.SelectedDate = mfProductAMCSchemePlanDetailsVo.SchemeStartDate;
             }
-              if (mfProductAMCSchemePlanDetailsVo.MaturityDate != DateTime.MinValue)
+            if (mfProductAMCSchemePlanDetailsVo.MaturityDate != DateTime.MinValue)
             {
                 txtMaturityDate.SelectedDate = mfProductAMCSchemePlanDetailsVo.MaturityDate;
             }
@@ -1453,7 +1453,7 @@ namespace WealthERP.OnlineOrderBackOffice
             if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.SecurityCode))
                 txtSecuritycode.Text = mfProductAMCSchemePlanDetailsVo.SecurityCode.ToString();
             txtinvestment.Text = mfProductAMCSchemePlanDetailsVo.PASPD_MaxInvestment.ToString();
-           // btnupdate.Visible = true;
+            // btnupdate.Visible = true;
             txtESSchemecode.Enabled = false;
 
         }
@@ -1693,7 +1693,7 @@ namespace WealthERP.OnlineOrderBackOffice
             mfProductAMCSchemePlanDetailsVo.productcode = txtProductCode.Text;
             mfProductAMCSchemePlanDetailsVo.AMFIcode = txtAMFI.Text;
             if (!string.IsNullOrEmpty(txtISIN.Text))
-            mfProductAMCSchemePlanDetailsVo.ISINNo = txtISIN.Text;
+                mfProductAMCSchemePlanDetailsVo.ISINNo = txtISIN.Text;
             if (chkonline.Checked)
             {
                 mfProductAMCSchemePlanDetailsVo.IsOnline = 1;
@@ -1747,11 +1747,11 @@ namespace WealthERP.OnlineOrderBackOffice
                     Session["newschemeplancode"] = schemeplancode;
                     lbBack.Visible = true;
                     btnBasicDSubmit.Visible = false;
-                    if (chkonline.Checked == true)
-                    {
-                        schemedetails.Visible = true;
+                    //if (chkonline.Checked == true)
+                    //{
+                    //    schemedetails.Visible = true;
                         btnsubmit.Visible = true;
-                    }
+                    //}
                     lblAllproductcode.Visible = true;
                     lnkProductcode.Visible = true;
                     Clearallcontrols(true);
@@ -1766,11 +1766,11 @@ namespace WealthERP.OnlineOrderBackOffice
                 Session["newschemeplancode"] = schemeplancode;
                 lbBack.Visible = true;
                 btnBasicDSubmit.Visible = false;
-                if (chkonline.Checked == true)
-                {
+                //if (chkonline.Checked == true)
+                //{
                     schemedetails.Visible = true;
                     btnsubmit.Visible = true;
-                }
+                //}
                 lblAllproductcode.Visible = true;
                 lnkProductcode.Visible = true;
                 Clearallcontrols(true);
@@ -1799,7 +1799,7 @@ namespace WealthERP.OnlineOrderBackOffice
             //if (AMFIValidation(txtAMFI.Text))
             //{
             OnlineOrderBackOfficeBo.CreateOnlineSchemeSetupPlanDetails(mfProductAMCSchemePlanDetailsVo, userVo.UserId);
-           // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Scheme Submit Successfully!!');", true);
+            // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Scheme Submit Successfully!!');", true);
             string msg = "Scheme Submit Successfully!!";
             ShowMessage(msg);
             Clearallcontrols(false);
@@ -1811,17 +1811,17 @@ namespace WealthERP.OnlineOrderBackOffice
         }
         protected void oncheckedOnlin_OnCheckedChanged(object sender, EventArgs e)
         {
-            if (chkonline.Checked)
-            {
-                schemedetails.Visible = true;
+            //    if (chkonline.Checked)
+            //    {
+            //        schemedetails.Visible = true;
 
-            }
-            else
-            {
-                schemedetails.Visible = false;
-                btnsubmit.Visible = false;
-                btnupdate.Visible = false;
-            }
+            //    }
+            //    else
+            //    {
+            //        schemedetails.Visible = false;
+            //        btnsubmit.Visible = false;
+            //        btnupdate.Visible = false;
+            //    }
         }
         protected void btnBasicDupdate_click(object sender, EventArgs e)
         {
@@ -1874,7 +1874,7 @@ namespace WealthERP.OnlineOrderBackOffice
             else
                 mfProductAMCSchemePlanDetailsVo.AMFIcode = "0";
             if (!string.IsNullOrEmpty(txtISIN.Text))
-               mfProductAMCSchemePlanDetailsVo.ISINNo = txtISIN.Text;
+                mfProductAMCSchemePlanDetailsVo.ISINNo = txtISIN.Text;
 
             if (!string.IsNullOrEmpty(ddlcategory.SelectedValue))
             {
@@ -1927,8 +1927,8 @@ namespace WealthERP.OnlineOrderBackOffice
                 }
                 else
                 {
-                    if(ddlOption.SelectedValue!="0")
-                      btnsubmit.Visible = false;
+                    if (ddlOption.SelectedValue != "0")
+                        btnsubmit.Visible = false;
                     else
                         btnsubmit.Visible = true; ;
 
@@ -1937,8 +1937,8 @@ namespace WealthERP.OnlineOrderBackOffice
             else
             {
                 mfProductAMCSchemePlanDetailsVo.IsOnline = 0;
-                btnsubmit.Visible = false;
-                schemedetails.Visible = false;
+                //btnsubmit.Visible = false;
+                //schemedetails.Visible = false;
             }
 
             //if (string.IsNullOrEmpty(txtProductCode.Text) && string.IsNullOrEmpty(ddlRT.SelectedValue))
@@ -2925,14 +2925,14 @@ namespace WealthERP.OnlineOrderBackOffice
             string strAction;
             string type;
             string status;
-          //  string filterValue;
+            //  string filterValue;
             if (Request.QueryString["strAction"] != null)
             {
                 schemeplancode = int.Parse(Request.QueryString["schemeplancode"].ToString());
                 strAction = Request.QueryString["strAction"].ToString();
                 product = Request.QueryString["product"].ToString();
                 type = Request.QueryString["type"].ToString();
-              //  filterValue = Request.QueryString["filterValue"].ToString();
+                //  filterValue = Request.QueryString["filterValue"].ToString();
                 status = Request.QueryString["status"].ToString();
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineSchemeMIS", "loadcontrol('OnlineSchemeMIS','?SchemePlanCode=" + schemeplancode + "&strAction=" + strAction + "&product=" + product + "&type=" + type + "&status=" + status + "');", true);
             }
@@ -3268,18 +3268,18 @@ namespace WealthERP.OnlineOrderBackOffice
         }
         protected void txtstartDate_OnServerValidate(object source, ServerValidateEventArgs args)
         {
-               // args.IsValid = false;
+            // args.IsValid = false;
 
 
-                string[] strsplit = args.Value.Split(';');
+            string[] strsplit = args.Value.Split(';');
 
-                for (int i = 0; i < strsplit.Length; i++)
+            for (int i = 0; i < strsplit.Length; i++)
+            {
+                if (int.Parse(strsplit[i]) >= 32)
                 {
-                    if (int.Parse(strsplit[i]) >= 32)
-                    {
-                        args.IsValid = false;
-                    }
+                    args.IsValid = false;
                 }
+            }
         }
     }
 }

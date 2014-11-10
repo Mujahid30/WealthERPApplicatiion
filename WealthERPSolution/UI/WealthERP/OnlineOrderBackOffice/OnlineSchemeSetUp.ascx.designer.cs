@@ -48,7 +48,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTable tblMessage;
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divMarge;
+        
         /// <summary>
         /// trSumbitSuccess control.
         /// </summary>
@@ -102,8 +102,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblAmc;
-        protected global::System.Web.UI.WebControls.Label lblSchemeplancode;
-        protected global::System.Web.UI.WebControls.Label lblschemeplanecodetext;
+        
         /// <summary>
         /// ddlAmc control.
         /// </summary>
@@ -474,6 +473,24 @@ namespace WealthERP.OnlineOrderBackOffice {
         protected global::System.Web.UI.WebControls.TextBox txtAMFI;
         
         /// <summary>
+        /// lblSchemeplancode control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSchemeplancode;
+        
+        /// <summary>
+        /// lblschemeplanecodetext control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblschemeplanecodetext;
+        
+        /// <summary>
         /// lnkMargeScheme control.
         /// </summary>
         /// <remarks>
@@ -490,6 +507,33 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label4;
+        
+        /// <summary>
+        /// lblISIN control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblISIN;
+        
+        /// <summary>
+        /// txtISIN control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtISIN;
+        
+        /// <summary>
+        /// RegularExpressionValidator1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator1;
         
         /// <summary>
         /// ddlSchemeList control.
@@ -733,7 +777,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtACno;
-        protected global::System.Web.UI.WebControls.TextBox txtISIN;
+        
         /// <summary>
         /// rfvtxtACno control.
         /// </summary>

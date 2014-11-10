@@ -548,6 +548,7 @@ namespace WealthERP.Advisor
             hdfSession.Value = "Admin";
             try
             {
+                
                 if (e.Item.Value == "Manage Lookups")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ManageLookups','login');", true);
@@ -555,6 +556,10 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "SubBroker_Code_Cleansing")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('SubBrokerCodecCeansing','login');", true);
+                }
+                else if (e.Item.Value == "NCD_IPO_Allotments")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineNCDOrderMatchExceptionHandling','login');", true);
                 }
                 else if (e.Item.Value == "Category")
                 {
@@ -1801,6 +1806,10 @@ namespace WealthERP.Advisor
                 if (e.Item.Value == "Manage Lookups")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ManageLookups','login');", true);
+                }
+                else if (e.Item.Value == "NCD_IPO_Allotments")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineNCDOrderMatchExceptionHandling','login');", true);
                 }
                 else if (e.Item.Value == "Client_Initial_Order")
                 {
@@ -3520,6 +3529,11 @@ namespace WealthERP.Advisor
                 if (e.Item.Value == "RM Home")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('SalesDashBoard','login');", true);
+                }
+                else if (e.Item.Value == "NCD_IPO_Allotments")
+                {
+                    Session["UserType"] = "Associates";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineNCDOrderMatchExceptionHandling','login');", true);
                 }
                 else if (e.Item.Value == "Add_NCD_Order")
                 {

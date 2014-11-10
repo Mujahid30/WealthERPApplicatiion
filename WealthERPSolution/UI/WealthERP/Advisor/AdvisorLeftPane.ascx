@@ -288,9 +288,9 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="View Scheme Rules" Value="Receivable_Scheme_Structure_Association">
                                             </telerik:RadPanelItem>
-                                             <telerik:RadPanelItem runat="server" Text="Map scheme to structure" Value="Map_scheme">
+                                            <telerik:RadPanelItem runat="server" Text="Map scheme to structure" Value="Map_scheme">
                                             </telerik:RadPanelItem>
-                                             <telerik:RadPanelItem runat="server" Text="Calculate Brokerage" Value="Commission_Receivable_Recon">
+                                            <telerik:RadPanelItem runat="server" Text="Calculate Brokerage" Value="Commission_Receivable_Recon">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="View Scheme Structure Association" Value="View_Scheme_Structure_Association">
                                             </telerik:RadPanelItem>
@@ -322,7 +322,6 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Valuation" Value="Valuation">
                                             </telerik:RadPanelItem>
-                                           
                                         </Items>
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="User Management" Value="User_Management">
@@ -341,6 +340,8 @@
                                     <telerik:RadPanelItem runat="server" Text="Transaction" Value="Transaction">
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text="Add Transactions" Value="Add EQ Transactions">
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="NCD/IPO Allotment" Value="NCD_IPO_Allotments">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Queries" Value="Queries">
                                                 <Items>
@@ -1001,9 +1002,9 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="View Scheme Rules" Value="Receivable_Scheme_Structure_Association">
                                             </telerik:RadPanelItem>
-                                             <telerik:RadPanelItem runat="server" Text="Map scheme to structure" Value="Map_scheme">
+                                            <telerik:RadPanelItem runat="server" Text="Map scheme to structure" Value="Map_scheme">
                                             </telerik:RadPanelItem>
-                                             <telerik:RadPanelItem runat="server" Text="Calculate Brokerage" Value="Commission_Receivable_Recon">
+                                            <telerik:RadPanelItem runat="server" Text="Calculate Brokerage" Value="Commission_Receivable_Recon">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="View Scheme Structure Association" Value="View_Scheme_Structure_Association">
                                             </telerik:RadPanelItem>
@@ -1029,7 +1030,6 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Valuation" Value="Valuation">
                                             </telerik:RadPanelItem>
-                                            
                                         </Items>
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="User Management" Value="User_Management">
@@ -1048,6 +1048,8 @@
                                     <telerik:RadPanelItem runat="server" Text="Transaction" Value="Transaction">
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text="Add Transactions" Value="Add EQ Transactions">
+                                            </telerik:RadPanelItem>
+                                             <telerik:RadPanelItem runat="server" Text="NCD/IPO Allotment" Value="NCD_IPO_Allotments">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Queries" Value="Queries">
                                                 <Items>
@@ -1479,6 +1481,8 @@
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Transaction" Value="Transaction">
                                         <Items>
+                                            <telerik:RadPanelItem runat="server" Text="NCD/IPO Allotment" Value="NCD_IPO_Allotments">
+                                            </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Queries" Value="Queries">
                                                 <Items>
                                                     <telerik:RadPanelItem runat="server" Text="MF Folio Accounts" Value="MF Folios">

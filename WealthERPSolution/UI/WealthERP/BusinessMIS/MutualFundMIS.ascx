@@ -228,7 +228,7 @@
         OnNeedDataSource="gvFolioWiseAUM_OnNeedDataSource" OnItemCommand="gvFolioWiseAUM_OnItemCommand">
         <ExportSettings HideStructureColumns="true">
         </ExportSettings>
-        <MasterTableView DataKeyNames="CMFA_AccountId,FolioNum,SchemePlanCode,AmcCode" Width="100%"
+        <MasterTableView DataKeyNames="CMFA_AccountId,FolioNum,SchemePlanCode,AmcCode,CMFA_SubBrokerCode" Width="100%"
             AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
             <Columns>
                 <telerik:GridTemplateColumn Visible="false" HeaderStyle-Width="100px" AllowFiltering="false"

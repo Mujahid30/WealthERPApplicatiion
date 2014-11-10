@@ -35,7 +35,7 @@
                 <table cellspacing="0" width="100%">
                     <tr>
                         <td align="left">
-                            NCD and IPO Order Match
+                            NCD/IPO Allotment
                         </td>
                         <td align="right">
                             <asp:ImageButton ID="btnNcdIpoExport" runat="server" ImageUrl="~/Images/Export_Excel.png"
@@ -133,6 +133,16 @@
             <asp:RequiredFieldValidator ID="REqBChannel" runat="server" ErrorMessage="Please Select Business Channel"
                 CssClass="rfvPCG" ControlToValidate="ddlBChannnel" ValidationGroup="btnGo" Display="Dynamic"
                 InitialValue="Select"></asp:RequiredFieldValidator>
+        </td>
+        <td>
+        <asp:Label ID="lblType" runat="server" Text="Select Type" CssClass="FieldName"></asp:Label>
+        </td>
+        <td>
+        <asp:DropDownList ID="ddlType" runat="server" CssClass="cmbField">
+        <asp:ListItem Text="Online" Value="1"></asp:ListItem>
+        <asp:ListItem Text="Offline" Value="2"></asp:ListItem>
+        </asp:DropDownList>
+        
         </td>
         <td align="right">
             &nbsp;&nbsp
