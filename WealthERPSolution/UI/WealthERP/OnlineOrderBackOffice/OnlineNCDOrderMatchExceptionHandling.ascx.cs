@@ -93,6 +93,13 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                // BindOrderStatus();
                 BindBusinessChannel();
+                if (userType == "associates")
+                {
+                    ddlBChannnel.Items[2].Enabled = false;
+                    ddlBChannnel.Items[1].Enabled = false;
+                    ddlType.Items[0].Enabled = false;
+
+                }
             }
         }
 

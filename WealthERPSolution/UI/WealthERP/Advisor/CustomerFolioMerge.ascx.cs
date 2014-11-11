@@ -247,7 +247,10 @@ namespace WealthERP.Advisor
                 if (userType == "associates")
                 {
                     trBranchRM.Visible = false;
+                    trAction.Visible = false;
                     ddlRM.Visible=false;
+                    ddlSelect.Items[1].Enabled = false;
+                    ddlSelect.Items[3].Enabled = false;
                     trSelect.Visible = true;
                    // Label1.Visible = true;
                     ddlBranch.Visible = false;
@@ -1460,7 +1463,7 @@ namespace WealthERP.Advisor
             }
             else if (flag == 5)
             {
-                trAction.Visible = true;
+                trAction.Visible = false;
                 Label1.Visible = true;
             }
         }
