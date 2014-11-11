@@ -35,15 +35,15 @@
                                     PageSize="10" EnableEmbeddedSkins="false" AllowFilteringByColumn="true" AutoGenerateColumns="False"
                                     ShowStatusBar="false" ShowFooter="false" AllowPaging="true" AllowSorting="true"
                                     GridLines="none" AllowAutomaticInserts="false" Skin="Telerik" EnableHeaderContextMenu="true"
-                                    OnNeedDataSource="gvAdviserAssociateList_OnNeedDataSource" OnItemDataBound="gvAdviserAssociateList_ItemDataBound">
+                                    OnNeedDataSource="gvAdviserAssociateList_OnNeedDataSource" OnItemDataBound="gvAdviserAssociateList_ItemDataBound" >
                                     <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="ViewAssociateList"
                                         Excel-Format="ExcelML">
                                     </ExportSettings>
-                                    <MasterTableView Width="100%" DataKeyNames="AA_AdviserAssociateId" AllowMultiColumnSorting="True"
+                                    <MasterTableView Width="100%" DataKeyNames="AA_AdviserAssociateId,WelcomeNotePath" AllowMultiColumnSorting="True"
                                         AutoGenerateColumns="false" CommandItemDisplay="None" GroupsDefaultExpanded="false"
                                         ExpandCollapseColumn-Groupable="true" GroupLoadMode="Client" ShowGroupFooter="true">
                                         <Columns>
-                                            <telerik:GridTemplateColumn ItemStyle-Width="80Px" AllowFiltering="false">
+                                            <telerik:GridTemplateColumn  ItemStyle-Width="80Px" AllowFiltering="false">
                                                 <ItemTemplate>
                                                     <asp:DropDownList ID="ddlMenu" OnSelectedIndexChanged="ddlMenu_SelectedIndexChanged"
                                                         CssClass="cmbField" runat="server" EnableEmbeddedSkins="false" Skin="Telerik"
@@ -126,6 +126,12 @@
                                                 AllowFiltering="true" HeaderText="Deputy Head" UniqueName="DeputyHead">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="true" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
+                                               <telerik:GridTemplateColumn UniqueName="Welcome" ItemStyle-Width="100Px" AllowFiltering="false">
+                                                <ItemTemplate>
+                                                  <asp:LinkButton ID="lbtnWelcomeletter" OnClientClick="window.document.forms[0].target='_blank'; setTimeout(function(){window.document.forms[0].target='';}, 500);"
+                                                   runat="server"  OnClick="lbtnWelcomeletter_OnClick" Visible='<%# Eval("WelcomeNotePath") != DBNull.Value %>' >View WelcomeLetter</asp:LinkButton>
+                                                </ItemTemplate>
+                                            </telerik:GridTemplateColumn>
                                         </Columns>
                                     </MasterTableView>
                                     <ClientSettings>

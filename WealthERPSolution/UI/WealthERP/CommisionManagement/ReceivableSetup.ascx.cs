@@ -388,7 +388,7 @@ namespace WealthERP.Receivable
                 else if (ddlCommissionype.SelectedValue == "16020")
                 {
                     Table3.Visible = true;
-                    SetStructureDetails();
+                   // SetStructureDetails();
                     DefaultAssignments();
                     tblMapping.Visible = true;
                     btnPaybleMapping.Visible = true;
@@ -519,10 +519,12 @@ namespace WealthERP.Receivable
                 System.Web.UI.HtmlControls.HtmlTableRow trMinMaxTenure = (System.Web.UI.HtmlControls.HtmlTableRow)editform.FindControl("trMinMaxTenure");
                 Label lblSIPFrequency = (Label)editform.FindControl("lblSIPFrequency");
                 CheckBoxList chkListTtansactionType = (CheckBoxList)editform.FindControl("chkListTtansactionType");
+                DropDownList ddlCommissionApplicableLevel = (DropDownList)editform.FindControl("ddlCommissionApplicableLevel");
                 chkListTtansactionType.Visible = true;
                 if (ddlTransaction.SelectedValue == "SIP")
                 {
                     trMinMaxTenure.Visible = true;
+                   
                     foreach (ListItem chkItems in chkListTtansactionType.Items)
                     {
                         if (chkItems.Value == "SIP" || chkItems.Value == "STB")
@@ -537,6 +539,8 @@ namespace WealthERP.Receivable
                 else if (ddlTransaction.SelectedValue == "NonSIP")
                 {
                     trMinMaxTenure.Visible = false;
+                    ddlCommissionApplicableLevel.SelectedValue = "TR";
+                    ddlCommissionApplicableLevel.Enabled = false;
                     foreach (ListItem chkItems in chkListTtansactionType.Items)
                     {
                         if (chkItems.Value == "SIP" || chkItems.Value == "STB")
@@ -607,8 +611,9 @@ namespace WealthERP.Receivable
             Label lblSIPFrequency = new Label();
             DropDownList ddlSIPFrequency = new DropDownList();
             DropDownList ddlTransaction = new DropDownList();
+            DropDownList ddlCommisionCalOn = new DropDownList();
             TextBox txtMinNumberOfApplication = new TextBox();
-
+            DropDownList ddlCommissionApplicableLevel = new DropDownList();
 
             if (ddlCommissionType.NamingContainer is Telerik.Web.UI.GridEditFormItem)
             {
@@ -622,7 +627,8 @@ namespace WealthERP.Receivable
                 txtMinNumberOfApplication = (TextBox)gdi.FindControl("txtMinNumberOfApplication");
                 ddlSIPFrequency = (DropDownList)gdi.FindControl("ddlSIPFrequency");
                 ddlTransaction = (DropDownList)gdi.FindControl("ddlTransaction");
-
+                ddlCommisionCalOn = (DropDownList)gdi.FindControl("ddlCommisionCalOn");
+                ddlCommissionApplicableLevel = (DropDownList)gdi.FindControl("ddlCommissionApplicableLevel");
                 lblReceivableFrequency = (Label)gdi.FindControl("lblReceivableFrequency");
                 ddlReceivableFrequency = (DropDownList)gdi.FindControl("ddlReceivableFrequency");
                 trTransactionTypeSipFreq = (System.Web.UI.HtmlControls.HtmlTableRow)gdi.FindControl("trTransactionTypeSipFreq");
@@ -644,6 +650,8 @@ namespace WealthERP.Receivable
                 lblSIPFrequency = (Label)gdi.FindControl("lblSIPFrequency");
                 txtMinNumberOfApplication = (TextBox)gdi.FindControl("txtMinNumberOfApplication");
                 ddlTransaction = (DropDownList)gdi.FindControl("ddlTransaction");
+                ddlCommisionCalOn = (DropDownList)gdi.FindControl("ddlCommisionCalOn");
+                ddlCommissionApplicableLevel = (DropDownList)gdi.FindControl("ddlCommissionApplicableLevel");
                 ddlSIPFrequency = (DropDownList)gdi.FindControl("ddlSIPFrequency");
                 lblReceivableFrequency = (Label)gdi.FindControl("lblReceivableFrequency");
                 ddlReceivableFrequency = (DropDownList)gdi.FindControl("ddlReceivableFrequency");
@@ -669,7 +677,7 @@ namespace WealthERP.Receivable
 
 
             ShowAndHideSTructureRuleControlsBasedOnProductAndCommisionType(lblReceivableFrequency, ddlReceivableFrequency, trTransactionTypeSipFreq, tdlb1SipFreq, tdddlSipFreq, trMinMaxTenure, trMinMaxAge, tdlb1MinNumberOfApplication, tdtxtMinNumberOfApplication, ddlProductType.SelectedValue, ddlCommissionType.SelectedValue
-                 , lblMinNumberOfApplication, txtMinNumberOfApplication, lblSIPFrequency, ddlSIPFrequency, ddlTransaction, chkListTtansactionType, lblTransactionType);
+                 , lblMinNumberOfApplication, txtMinNumberOfApplication, lblSIPFrequency, ddlSIPFrequency, ddlTransaction, chkListTtansactionType, lblTransactionType, ddlCommisionCalOn, ddlCommissionApplicableLevel);
         }
 
 
@@ -708,7 +716,7 @@ namespace WealthERP.Receivable
                 DropDownList ddlBrokerageUnit = (DropDownList)editform.FindControl("ddlBrokerageUnit");
                 DropDownList ddlCommisionCalOn = (DropDownList)editform.FindControl("ddlCommisionCalOn");
                 //DropDownList ddlAUMFrequency = (DropDownList)editform.FindControl("ddlAUMFrequency");
-
+                
                 DropDownList ddlSIPFrequency = (DropDownList)editform.FindControl("ddlSIPFrequency");
                 DropDownList ddlAppCityGroup = (DropDownList)e.Item.FindControl("ddlAppCityGroup");
                 DropDownList ddlTransaction = (DropDownList)e.Item.FindControl("ddlTransaction");
@@ -749,6 +757,7 @@ namespace WealthERP.Receivable
                     ddlCommissionType.DataValueField = dsCommissionLookup.Tables[2].Columns["WCT_CommissionTypeCode"].ToString();
                     ddlCommissionType.DataTextField = dsCommissionLookup.Tables[2].Columns["WCT_CommissionType"].ToString();
                     ddlCommissionType.DataBind();
+                    ddlCommissionType.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
 
                     ddlBrokerageUnit.DataSource = dsCommissionLookup.Tables[3];
                     ddlBrokerageUnit.DataValueField = dsCommissionLookup.Tables[3].Columns["WCU_UnitCode"].ToString();
@@ -816,7 +825,7 @@ namespace WealthERP.Receivable
 
                     ddlCommissionType.SelectedValue = strCommissionType;
                     ShowAndHideSTructureRuleControlsBasedOnProductAndCommisionType(lblReceivableFrequency, ddlReceivableFrequency, trTransactionTypeSipFreq, tdlb1SipFreq, tdddlSipFreq, trMinMaxTenure, trMinMaxAge, tdMinNumberOfApplication, tdtxtMinNumberOfApplication1, ddlProductType.SelectedValue, ddlCommissionType.SelectedValue
-                        , lblMinNumberOfApplication, txtMinNumberOfApplication, lblSIPFrequency, ddlSIPFrequency, ddlTransaction, chkListTtansactionType, lblTransactionType);
+                        , lblMinNumberOfApplication, txtMinNumberOfApplication, lblSIPFrequency, ddlSIPFrequency, ddlTransaction, chkListTtansactionType, lblTransactionType, ddlCommisionCalOn, ddlCommissionApplicableLevel);
 
 
                     ddlInvestorType.SelectedValue = strCustomerCategory;
@@ -1131,12 +1140,12 @@ namespace WealthERP.Receivable
         }
 
         private void ShowAndHideSTructureRuleControlsBasedOnProductAndCommisionType(Label lblReceivableFrequency, DropDownList ddlReceivableFrequency, System.Web.UI.HtmlControls.HtmlTableRow trTransactionTypeSipFreq, System.Web.UI.HtmlControls.HtmlTableCell tdlb1SipFreq, System.Web.UI.HtmlControls.HtmlTableCell tdddlSipFreq, System.Web.UI.HtmlControls.HtmlTableRow trMinMaxTenure, System.Web.UI.HtmlControls.HtmlTableRow trMinMaxAge, System.Web.UI.HtmlControls.HtmlTableCell tdMinNumberOfApplication, System.Web.UI.HtmlControls.HtmlTableCell tdtxtMinNumberOfApplication1, string product, string CommisionType
-            , Label lblMinNumberOfApplication, TextBox txtMinNumberOfApplication, Label lblSIPFrequency, DropDownList ddlSIPFrequency, DropDownList ddlTransaction, CheckBoxList chkListTtansactionType, Label lblTransactionType)
+            , Label lblMinNumberOfApplication, TextBox txtMinNumberOfApplication, Label lblSIPFrequency, DropDownList ddlSIPFrequency, DropDownList ddlTransaction, CheckBoxList chkListTtansactionType, Label lblTransactionType, DropDownList ddlCommisionCalOn, DropDownList ddlCommissionApplicableLevel)
         {
             bool enablement = false;
             lblSIPFrequency.Visible = enablement;
             ddlSIPFrequency.Visible = enablement;
-
+            
             //GridEditableItem editedItem = chkBuyAvailability.NamingContainer as GridEditableItem;
             //RadGrid rgSeriesCat = (RadGrid)editedItem.FindControl("rgSeriesCat");
             if (product == "FI" || product == "IP")
@@ -1152,10 +1161,14 @@ namespace WealthERP.Receivable
                 tdtxtMinNumberOfApplication1.Visible = enablement;
                 if (CommisionType == "UF")
                 {
+                    ddlCommissionApplicableLevel.SelectedValue = "TR";
+                    ddlCommissionApplicableLevel.Enabled = false;
 
+                    ddlCommisionCalOn.Items[0].Enabled = false;
                 }
                 else if (CommisionType == "TC")
                 {
+                    ddlCommissionApplicableLevel.Enabled = true;
                     tdMinNumberOfApplication.Visible = !enablement;
                     lblMinNumberOfApplication.Visible = !enablement;
                     tdtxtMinNumberOfApplication1.Visible = !enablement;
@@ -1164,6 +1177,8 @@ namespace WealthERP.Receivable
                 }
                 else if (CommisionType == "IN")
                 {
+                    ddlCommissionApplicableLevel.SelectedValue = "AD";
+                    ddlCommissionApplicableLevel.Enabled = false;
                     tdMinNumberOfApplication.Visible = !enablement;
                     lblMinNumberOfApplication.Visible = !enablement;
                     tdtxtMinNumberOfApplication1.Visible = !enablement;
@@ -1181,6 +1196,8 @@ namespace WealthERP.Receivable
                 ddlReceivableFrequency.Visible = enablement;
                 if (CommisionType == "IN")
                 {
+                    ddlCommissionApplicableLevel.SelectedValue = "AD";
+                    ddlCommissionApplicableLevel.Enabled = false;
                     trTransactionTypeSipFreq.Visible = !enablement;
                     trMinMaxTenure.Visible = !enablement;
                     tdMinNumberOfApplication.Visible = !enablement;
@@ -1190,9 +1207,21 @@ namespace WealthERP.Receivable
                     chkListTtansactionType.Visible = !enablement;
                     lblTransactionType.Visible = !enablement;
                     ddlTransaction.Visible = enablement;
+                    foreach (ListItem chkItems in chkListTtansactionType.Items)
+                    {
+                        //if (chkItems.Value == "SIP" || chkItems.Value == "STB")
+                        //{
+                        //    chkItems.Enabled = false;
+                        //    chkItems.Selected = false;
+                        //}
+                        //else
+                            chkItems.Enabled = true;
+                    }
                 }
                 else if (CommisionType == "TC")
                 {
+                    ddlCommissionApplicableLevel.SelectedValue = "TR";
+                    ddlCommissionApplicableLevel.Enabled = false;
                     trTransactionTypeSipFreq.Visible = !enablement;
                     trMinMaxAge.Visible = !enablement;
                     tdlb1SipFreq.Visible = enablement;
@@ -1202,6 +1231,16 @@ namespace WealthERP.Receivable
                     chkListTtansactionType.Visible = !enablement;
                     lblTransactionType.Visible = !enablement;
                     ddlTransaction.Visible = enablement;
+                    foreach (ListItem chkItems in chkListTtansactionType.Items)
+                    {
+                        ////if (chkItems.Value == "SIP" || chkItems.Value == "STB")
+                        ////{
+                        //    chkItems.Enabled = false;
+                        //    chkItems.Selected = false;
+                        //}
+                        //else
+                            chkItems.Enabled = true;
+                    }
                 }
                 else if (CommisionType == "UF")
                 {
@@ -1210,7 +1249,7 @@ namespace WealthERP.Receivable
                     chkListTtansactionType.Visible = enablement;
                     lblTransactionType.Visible = !enablement;
                     ddlTransaction.Visible = !enablement;
-
+                    ddlCommissionApplicableLevel.Enabled = true;
                 }
                 //else
                 //{
@@ -2124,9 +2163,9 @@ namespace WealthERP.Receivable
         }
         private void DefaultAssignments()
         {
-            //ddlMapping.SelectedValue = "Associate";
-            //ddlType.SelectedValue = "UserCategory";
-            //GetControlsBasedOnType(ddlType.SelectedValue);
+            ddlMapping.SelectedValue = "Associate";
+            ddlType.SelectedValue = "UserCategory";
+            GetControlsBasedOnType(ddlType.SelectedValue);
         }
 
 
@@ -2359,10 +2398,9 @@ namespace WealthERP.Receivable
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select Issue');", true);
                 return;
             }
-            if (Request.QueryString["ID"] != null)
-            {
-                commissionStructureRuleVo.CommissionStructureId = Convert.ToInt32(Request.QueryString["ID"].Trim().ToString());
-            }
+            
+                commissionStructureRuleVo.CommissionStructureId = Convert.ToInt32(hidCommissionStructureName.Value);
+            
             commissionStructureRuleVo.IssueId = Convert.ToInt32(ddlUnMappedIssues.SelectedValue);
             commisionReceivableBo.CreateIssuesStructureMapings(commissionStructureRuleVo, out mappingId);
             GetUnamppedIssues(ddlIssueType.SelectedValue);

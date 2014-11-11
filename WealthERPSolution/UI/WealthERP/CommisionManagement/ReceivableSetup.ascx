@@ -602,28 +602,7 @@
                                                     <td class="leftLabel">
                                                     </td>
                                                 </tr>
-                                                <tr id="trMinMaxTenure" runat="server">
-                                                    <td class="leftLabel">
-                                                        <asp:Label ID="lblMinTenure" runat="server" Text="Min Tenure:" CssClass="FieldName"></asp:Label>
-                                                    </td>
-                                                    <td class="rightData">
-                                                        <asp:TextBox ID="txtMinTenure" Text='<%# Bind( "ACSR_MinTenure") %>' runat="server"
-                                                            CssClass="txtField"></asp:TextBox>
-                                                    </td>
-                                                    <td class="leftLabel">
-                                                        <asp:Label ID="lblMaxTenure" runat="server" Text="Max Tenure:" CssClass="FieldName"></asp:Label>
-                                                    </td>
-                                                    <td class="rightData" colspan="2">
-                                                        <asp:TextBox ID="txtMaxTenure" Text='<%# Bind( "ACSR_MaxTenure") %>' runat="server"
-                                                            CssClass="txtField"></asp:TextBox>
-                                                        <asp:DropDownList ID="ddlTenureFrequency" runat="server" CssClass="cmbField" Style="width: 100px !Important">
-                                                            <asp:ListItem Text="Day" Value="Day"></asp:ListItem>
-                                                            <asp:ListItem Text="Month" Value="Month"></asp:ListItem>
-                                                            <asp:ListItem Text="Installment" Value="Installment"></asp:ListItem>
-                                                            <asp:ListItem Text="Year" Value="Year"></asp:ListItem>
-                                                        </asp:DropDownList>
-                                                    </td>
-                                                </tr>
+                                              
                                                 <tr id="trMinMaxAge" runat="server">
                                                     <td class="leftLabel">
                                                         <asp:Label ID="lblMinInvestAge" runat="server" Text="Min Investment age :" CssClass="FieldName"></asp:Label>
@@ -662,14 +641,7 @@
                                                         <asp:RequiredFieldValidator ID="rfvddlTransaction" runat="server" ErrorMessage="Please Select Transaction type"
                                                             Enabled="false" CssClass="rfvPCG" ControlToValidate="ddlTransaction" ValidationGroup="btnStrAddUpdate"
                                                             Display="Dynamic" InitialValue="0"></asp:RequiredFieldValidator><br />
-                                                        <asp:CheckBoxList ID="chkListTtansactionType" runat="server" CssClass="txtField"
-                                                            Visible="false" RepeatLayout="Flow" RepeatDirection="Horizontal">
-                                                            <%--<asp:ListItem Text="Buy" Value="BUY"></asp:ListItem>
-                                                        <asp:ListItem Text="SIP" Value="SIP"></asp:ListItem>
-                                                        <asp:ListItem Text="STP Buy" Value="STPBUY"></asp:ListItem>
-                                                        <asp:ListItem Text="Switch Buy" Value="SWITCHBUY"></asp:ListItem>
-                                                        <asp:ListItem Text="Additional Purchase" Value="ADDPUR"></asp:ListItem>--%>
-                                                        </asp:CheckBoxList>
+                                                       
                                                     </td>
                                                     <td class="leftLabel" runat="server" id="tdlb1SipFreq">
                                                         <asp:Label ID="lblSIPFrequency" runat="server" Text="SIP Frequency:" CssClass="FieldName"></asp:Label>
@@ -679,6 +651,41 @@
                                                         </asp:DropDownList>
                                                     </td>
                                                     <td class="leftLabel">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                <td></td>
+                                                <td>
+                                                 <asp:CheckBoxList ID="chkListTtansactionType" runat="server" CssClass="txtField"
+                                                            Visible="false" RepeatLayout="Flow" RepeatDirection="Horizontal">
+                                                            <%--<asp:ListItem Text="Buy" Value="BUY"></asp:ListItem>
+                                                        <asp:ListItem Text="SIP" Value="SIP"></asp:ListItem>
+                                                        <asp:ListItem Text="STP Buy" Value="STPBUY"></asp:ListItem>
+                                                        <asp:ListItem Text="Switch Buy" Value="SWITCHBUY"></asp:ListItem>
+                                                        <asp:ListItem Text="Additional Purchase" Value="ADDPUR"></asp:ListItem>--%>
+                                                        </asp:CheckBoxList>
+                                                </td>
+                                                </tr>
+                                                  <tr id="trMinMaxTenure" runat="server">
+                                                    <td class="leftLabel">
+                                                        <asp:Label ID="lblMinTenure" runat="server" Text="Min Tenure:" CssClass="FieldName"></asp:Label>
+                                                    </td>
+                                                    <td class="rightData">
+                                                        <asp:TextBox ID="txtMinTenure" Text='<%# Bind( "ACSR_MinTenure") %>' runat="server"
+                                                            CssClass="txtField"></asp:TextBox>
+                                                    </td>
+                                                    <td class="leftLabel">
+                                                        <asp:Label ID="lblMaxTenure" runat="server" Text="Max Tenure:" CssClass="FieldName"></asp:Label>
+                                                    </td>
+                                                    <td class="rightData" colspan="2">
+                                                        <asp:TextBox ID="txtMaxTenure" Text='<%# Bind( "ACSR_MaxTenure") %>' runat="server"
+                                                            CssClass="txtField"></asp:TextBox>
+                                                        <asp:DropDownList ID="ddlTenureFrequency" runat="server" CssClass="cmbField" Style="width: 100px !Important">
+                                                            <asp:ListItem Text="Day" Value="Day"></asp:ListItem>
+                                                            <asp:ListItem Text="Month" Value="Month"></asp:ListItem>
+                                                            <asp:ListItem Text="Installment" Value="Installment"></asp:ListItem>
+                                                            <asp:ListItem Text="Year" Value="Year"></asp:ListItem>
+                                                        </asp:DropDownList>
                                                     </td>
                                                 </tr>
                                                 <tr>

@@ -167,10 +167,27 @@ namespace WealthERP.Associates
             DropDownList actions = (DropDownList)item.FindControl("ddlMenu");
             if (userType == "associates")
                 gvAdviserAssociateList.Columns[0].Visible = false;
-                //column.Visible = false;
-            
+            //column.Visible = false;
+
             //RadComboBoxItem rbcItem = actions.Items.FindItemByValue("Edit", true);
             //rbcItem.Visible = false;
+        }
+        //protected void gvAdviserAssociateList_OnItemDataBound(object sender, GridItemEventArgs e)
+        //{
+        //    if (e.Item is GridDataItem)
+        //    {
+        //        GridDataItem dataItem = (GridDataItem)e.Item;
+        //    LinkButton lbtnWelcomeletter = dataItem["editColumn"].Controls[0] as LinkButton;
+        //    }
+        //}
+        protected void lbtnWelcomeletter_OnClick(object sender, EventArgs e)
+        {
+            GridDataItem grdrow = (GridDataItem)((LinkButton)sender).NamingContainer;
+            string WelcomeNotePath = gvAdviserAssociateList.MasterTableView.DataKeyValues[grdrow.RowIndex]["WelcomeNotePath"].ToString();
+            string targetPath = ConfigurationManager.AppSettings["Welcome_Note_PATH"].ToString();
+            Response.Redirect(targetPath + WelcomeNotePath);
+
+
         }
     }
 }
