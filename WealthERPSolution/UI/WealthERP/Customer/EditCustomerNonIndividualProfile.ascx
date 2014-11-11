@@ -417,9 +417,12 @@
                                     <asp:Label ID="Label34" runat="server" Text="Telephone No.1:" CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td class="rightField">
-                                    <asp:TextBox ID="txtPhoneNo1Isd" runat="server" Width="40px" CssClass="txtField"></asp:TextBox>
-                                    <asp:TextBox ID="txtPhoneNo1Std" runat="server" Width="40px" CssClass="txtField"></asp:TextBox>
-                                    <asp:TextBox ID="txtPhoneNo1" runat="server" Width="100px" CssClass="txtField"></asp:TextBox>
+                                    <asp:TextBox ID="txtPhoneNo1Isd" OnKeypress="javascript:return isNumberKey(event);"
+                                        runat="server" Width="40px" CssClass="txtField"></asp:TextBox>
+                                    <asp:TextBox ID="txtPhoneNo1Std" OnKeypress="javascript:return isNumberKey(event);"
+                                        runat="server" Width="40px" CssClass="txtField"></asp:TextBox>
+                                    <asp:TextBox ID="txtPhoneNo1" OnKeypress="javascript:return isNumberKey(event);"
+                                        runat="server" Width="100px" CssClass="txtField"></asp:TextBox>
                                     <asp:CompareValidator ID="txtPhoneNo1Isd_CompareValidator" ControlToValidate="txtPhoneNo1Isd"
                                         runat="server" Display="Dynamic" ErrorMessage="<br />Please enter a numeric value for ISD code."
                                         Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
@@ -436,9 +439,12 @@
                                     <asp:Label ID="Label35" runat="server" Text="Telephone No.2:" CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td class="rightField">
-                                    <asp:TextBox ID="txtPhoneNo2Isd" runat="server" Width="40px" CssClass="txtField"></asp:TextBox>
-                                    <asp:TextBox ID="txtPhoneNo2Std" runat="server" Width="40px" CssClass="txtField"></asp:TextBox>
-                                    <asp:TextBox ID="txtPhoneNo2" runat="server" Width="100px" CssClass="txtField"></asp:TextBox>
+                                    <asp:TextBox ID="txtPhoneNo2Isd" OnKeypress="javascript:return isNumberKey(event);"
+                                        runat="server" Width="40px" CssClass="txtField"></asp:TextBox>
+                                    <asp:TextBox ID="txtPhoneNo2Std" OnKeypress="javascript:return isNumberKey(event);"
+                                        runat="server" Width="40px" CssClass="txtField"></asp:TextBox>
+                                    <asp:TextBox ID="txtPhoneNo2" OnKeypress="javascript:return isNumberKey(event);"
+                                        runat="server" Width="100px" CssClass="txtField"></asp:TextBox>
                                     <asp:CompareValidator ID="txtPhoneNo2Isd_CompareValidator" ControlToValidate="txtPhoneNo2Isd"
                                         runat="server" Enabled="false" Display="Dynamic" ErrorMessage="<br />Please enter a numeric value for ISD code."
                                         Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
