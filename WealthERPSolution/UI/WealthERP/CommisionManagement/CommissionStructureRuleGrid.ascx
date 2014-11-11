@@ -201,7 +201,7 @@
         <%-- <table id="tblCommissionStructureRule" runat="server" width="0%">
             <tr>
                 <td>--%>
-        <asp:Panel ID="pnlGrid" runat="server" CssClass="Landscape" Width="100%" ScrollBars="Horizontal">
+        <asp:Panel ID="pnlGrid" runat="server" CssClass="Landscape" Width="100%" ScrollBars="Both">
             <table width="100%" runat="server">
                 <tr>
                     <td>
