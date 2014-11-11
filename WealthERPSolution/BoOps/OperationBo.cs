@@ -39,8 +39,8 @@ namespace BoOps
             }
             return dsOrderStatus;
         }
-        
-            public DataSet Get_Onl_NcdOrderStatus()
+
+        public DataSet Get_Onl_NcdOrderStatus()
         {
             DataSet dsOrderStatus;
             try
@@ -210,7 +210,7 @@ namespace BoOps
             DataSet dsMannualMatch;
             try
             {
-                dsMannualMatch = operationDao.Get_Onl_OrderMannualMatch(scheme, accountId, type, amount, orderDate, customerId, schemeSwitch,UserTransactionNo);
+                dsMannualMatch = operationDao.Get_Onl_OrderMannualMatch(scheme, accountId, type, amount, orderDate, customerId, schemeSwitch, UserTransactionNo);
             }
             catch (BaseApplicationException Ex)
             {
@@ -319,6 +319,20 @@ namespace BoOps
             return dsProductAMC;
         }
 
+        public DataSet GetSchemeFor_OFlline_MF_OrderEntry(int amcCode, int customerId, string prefixText)
+        {
+            DataSet dsScheme;
+            try
+            {
+                dsScheme = operationDao.GetSchemeFor_OFlline_MF_OrderEntry(amcCode, customerId, prefixText);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return dsScheme;
+
+        }
         public DataSet GetSchemeForOrderEntry(int amcCode, string categoryCode, int Sflag, int customerId)
         {
             DataSet dsScheme;

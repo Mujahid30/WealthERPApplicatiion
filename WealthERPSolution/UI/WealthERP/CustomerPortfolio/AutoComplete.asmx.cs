@@ -62,53 +62,53 @@ namespace WealthERP.CustomerPortfolio
 
 
         //}
-     
-
-       [WebMethod]
-       public string[] GetCustomerFolioAccount(string prefixText, string contextKey)
-       //int amcCode, string categoryCode, int Sflag, int customerId)
-       {
-           string[] parts = contextKey.Split('/');
-
-           int customerId = Convert.ToInt32(parts[0]);
-           int amcCode = Convert.ToInt32(parts[1]);
-           int schemeCode = Convert.ToInt32(parts[2]);
-           int flag = Convert.ToInt32(parts[3]);
-           int isaNo = Convert.ToInt32(parts[4]);
-
-           OperationBo opsBo = new OperationBo();
-           //foreach (string part in parts)
-           //{
-           //    Console.WriteLine(part);
-           //}
 
 
-           DataTable dtSchemePlans;
-           List<string> names = new List<string>();
-           dtSchemePlans = opsBo.GetFolioForOrderEntry(schemeCode, amcCode, flag, customerId, isaNo, prefixText).Tables[0];
+        [WebMethod]
+        public string[] GetCustomerFolioAccount(string prefixText, string contextKey)
+        //int amcCode, string categoryCode, int Sflag, int customerId)
+        {
+            string[] parts = contextKey.Split('/');
+
+            int customerId = Convert.ToInt32(parts[0]);
+            int amcCode = Convert.ToInt32(parts[1]);
+            int schemeCode = Convert.ToInt32(parts[2]);
+            int flag = Convert.ToInt32(parts[3]);
+            int isaNo = Convert.ToInt32(parts[4]);
+
+            OperationBo opsBo = new OperationBo();
+            //foreach (string part in parts)
+            //{
+            //    Console.WriteLine(part);
+            //}
 
 
-           foreach (DataRow dr in dtSchemePlans.Rows)
-           {
-               string item = AjaxControlToolkit.AutoCompleteExtender.CreateAutoCompleteItem(dr["CMFA_FolioNum"].ToString(), dr["CMFA_AccountId"].ToString());
-               names.Add(item);
+            DataTable dtSchemePlans;
+            List<string> names = new List<string>();
+            dtSchemePlans = opsBo.GetFolioForOrderEntry(schemeCode, amcCode, flag, customerId, isaNo, prefixText).Tables[0];
 
-           }
-           return names.ToArray();
-       }
+
+            foreach (DataRow dr in dtSchemePlans.Rows)
+            {
+                string item = AjaxControlToolkit.AutoCompleteExtender.CreateAutoCompleteItem(dr["CMFA_FolioNum"].ToString(), dr["CMFA_AccountId"].ToString());
+                names.Add(item);
+
+            }
+            return names.ToArray();
+        }
 
 
 
 
         [WebMethod]
         public string[] GetSchemeForOrderEntry(string prefixText, string contextKey)
-            //int amcCode, string categoryCode, int Sflag, int customerId)
+        //int amcCode, string categoryCode, int Sflag, int customerId)
         {
             string[] parts = contextKey.Split('/');
 
-            int amcCode=Convert.ToInt32 (parts[0]);
-            string categoryCode=parts[1];
-            int Sflag = Convert.ToInt32 (parts[2]);
+            int amcCode = Convert.ToInt32(parts[0]);
+            string categoryCode = parts[1];
+            int Sflag = Convert.ToInt32(parts[2]);
             int customerId = Convert.ToInt32(parts[3]);
 
             //foreach (string part in parts)
@@ -152,7 +152,7 @@ namespace WealthERP.CustomerPortfolio
             return names.ToArray();
         }
 
-        
+
         [WebMethod]
         public string[] GetScripList(string prefixText)
         {
@@ -182,20 +182,20 @@ namespace WealthERP.CustomerPortfolio
         /// <param name="contextKey"></param>
         /// <returns></returns>
         [WebMethod]
-        public string[] GetParentCustomerName(string prefixText,int count,string contextKey)
+        public string[] GetParentCustomerName(string prefixText, int count, string contextKey)
         {
             CustomerBo customerBo = new CustomerBo();
             DataTable dtCustomerName = new DataTable();
             int i = 0;
-           List<string> names = new List<string>();
+            List<string> names = new List<string>();
 
-            dtCustomerName = customerBo.GetParentCustomerName(prefixText,int.Parse(contextKey));
+            dtCustomerName = customerBo.GetParentCustomerName(prefixText, int.Parse(contextKey));
             //string[] customerNameList = new string[dtCustomerName.Rows.Count];
 
             foreach (DataRow dr in dtCustomerName.Rows)
             {
 
-                string item = AjaxControlToolkit.AutoCompleteExtender.CreateAutoCompleteItem(dr["C_FirstName"].ToString(),dr["C_CustomerId"].ToString());
+                string item = AjaxControlToolkit.AutoCompleteExtender.CreateAutoCompleteItem(dr["C_FirstName"].ToString(), dr["C_CustomerId"].ToString());
                 names.Add(item);
 
                 //customerNameList[i] = dr["C_FirstName"].ToString() + "|" + dr["C_PANNum"].ToString();
@@ -362,12 +362,58 @@ namespace WealthERP.CustomerPortfolio
         /// <param name="contextKey"></param>
         /// <returns></returns>
         /// 
-        
+        [WebMethod]
+        public string[] GetSchemeNames(string prefixText, string contextKey)
+        //int amcCode, string categoryCode, int Sflag, int customerId)
+        {
+
+            ProductMFBo productMFBo = new ProductMFBo();
+            DataTable dtSchemePlans;
+            List<string> names = new List<string>();
+            dtSchemePlans = productMFBo.GetSchemeNames(prefixText, int.Parse(contextKey)).Tables[0];
+
+
+            foreach (DataRow dr in dtSchemePlans.Rows)
+            {
+                string item = AjaxControlToolkit.AutoCompleteExtender.CreateAutoCompleteItem(dr["PASP_SchemePlanName"].ToString(), dr["PASP_SchemePlanCode"].ToString());
+                names.Add(item);
+
+            }
+            return names.ToArray();
+        }
+
+
+        [WebMethod]
+        public string[] GetSchemeForMFOrderEntry(string prefixText, string contextKey)
+        //int amcCode, string categoryCode, int Sflag, int customerId)
+        {
+
+
+
+            string[] parts = contextKey.Split('/');
+            int amcCode = Convert.ToInt32(parts[0]);
+            int customerId = Convert.ToInt32(parts[1]);
+
+
+            OperationBo productMFBo = new OperationBo();
+            DataTable dtSchemePlans;
+            List<string> names = new List<string>();
+            dtSchemePlans = productMFBo.GetSchemeFor_OFlline_MF_OrderEntry(amcCode, customerId, prefixText).Tables[0];
+            foreach (DataRow dr in dtSchemePlans.Rows)
+            {
+                string item = AjaxControlToolkit.AutoCompleteExtender.CreateAutoCompleteItem(dr["PASP_SchemePlanName"].ToString(), dr["PASP_SchemePlanCode"].ToString());
+                names.Add(item);
+
+            }
+            return names.ToArray();
+        }
+
 
         [WebMethod]
         public string[] GetSchemeName(string prefixText, string contextKey)
         //int amcCode, string categoryCode, int Sflag, int customerId)
         {
+
             string[] parts = contextKey.Split('/');
 
             int amcCode = Convert.ToInt32(parts[0]);
@@ -417,7 +463,7 @@ namespace WealthERP.CustomerPortfolio
         //}
         [WebMethod]
         public string[] GetAdviserCustomerName(string prefixText, int count, string contextKey)
-      {
+        {
             CustomerBo customerBo = new CustomerBo();
             DataTable dtCustomerName = new DataTable();
             int i = 0;
@@ -434,10 +480,11 @@ namespace WealthERP.CustomerPortfolio
             }
             return names.ToArray();
         }
+
         [WebMethod]
         public string[] GetStaffName(string prefixText, string contextKey)
         {
-           
+
             CustomerBo customerBo = new CustomerBo();
             DataTable dtGetRMStaffList = new DataTable();
             int i = 0;
@@ -459,7 +506,7 @@ namespace WealthERP.CustomerPortfolio
         }
         [WebMethod]
         public string[] GetAdviserCustomerPan(string prefixText, int count, string contextKey)
-       {
+        {
             CustomerBo customerBo = new CustomerBo();
             DataTable dtCustomerName = new DataTable();
             int i = 0;
@@ -543,7 +590,7 @@ namespace WealthERP.CustomerPortfolio
             List<string> names = new List<string>();
 
             dtCustomerName = customerBo.GetBMIndividualCustomerNames(prefixText, int.Parse(contextKey));
-             foreach (DataRow dr in dtCustomerName.Rows)
+            foreach (DataRow dr in dtCustomerName.Rows)
             {
 
                 string item = AjaxControlToolkit.AutoCompleteExtender.CreateAutoCompleteItem(dr["C_FirstName"].ToString(), dr["C_CustomerId"].ToString());
@@ -621,7 +668,7 @@ namespace WealthERP.CustomerPortfolio
         {
             CustomerBo customerBo = new CustomerBo();
             DataTable dtCustomerName = new DataTable();
-           
+
             int selectedParentId = 0;
             int rmId = 0;
             string[] splitStr = contextKey.Split('|');
@@ -656,7 +703,7 @@ namespace WealthERP.CustomerPortfolio
             selectedParentId = int.Parse(splitStr[1].ToString());
 
 
-            dtCustomerName = customerBo.GetBMParentCustomers(prefixText, rmId, selectedParentId);           
+            dtCustomerName = customerBo.GetBMParentCustomers(prefixText, rmId, selectedParentId);
             //string[] customerNameList = new string[dtCustomerName.Rows.Count];
 
             foreach (DataRow dr in dtCustomerName.Rows)
@@ -736,7 +783,7 @@ namespace WealthERP.CustomerPortfolio
             foreach (DataRow dr in dtCustomerName.Rows)
             {
 
-                string item = AjaxControlToolkit.AutoCompleteExtender.CreateAutoCompleteItem(dr["AAC_Agentcode"].ToString(), dr["A_Adviserid"].ToString());
+                string item = AjaxControlToolkit.AutoCompleteExtender.CreateAutoCompleteItem(dr["AAC_Agentcode"].ToString(), dr["AAC_AdviserAgentId"].ToString());
                 names.Add(item);
             }
             return names.ToArray();
@@ -768,7 +815,7 @@ namespace WealthERP.CustomerPortfolio
             int i = 0;
             List<string> names = new List<string>();
 
-            dtCustomerName = customerBo.GetAgentCodeAssociateDetailsForAssociates(prefixText,contextKey);
+            dtCustomerName = customerBo.GetAgentCodeAssociateDetailsForAssociates(prefixText, contextKey);
             //string[] customerNameList = new string[dtCustomerName.Rows.Count];
 
             foreach (DataRow dr in dtCustomerName.Rows)
@@ -788,7 +835,7 @@ namespace WealthERP.CustomerPortfolio
             return result;
         }
         [WebMethod]
-        public string[] GetRMStaffList(string prefixText,string contextKey)
+        public string[] GetRMStaffList(string prefixText, string contextKey)
         {
             string[] parts = contextKey.Split('/');
 
@@ -832,7 +879,7 @@ namespace WealthERP.CustomerPortfolio
             }
             return names.ToArray();
         }
-       
+
     }
 
 }

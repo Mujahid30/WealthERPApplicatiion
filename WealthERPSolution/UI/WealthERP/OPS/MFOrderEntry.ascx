@@ -18,7 +18,13 @@
 
         return false;
     }
+    function GeAgentId(source, eventArgs) {
+        isItemSelected = true;
+        //         document.getElementById("lblgetPan").innerHTML = "";
+        document.getElementById("<%= txtAgentId.ClientID %>").value = eventArgs.get_value();
 
+        return false;
+    }
     //    function GetAplicationNo(source, eventArgs) {
     //        isItemSelected = true;
     //        //         document.getElementById("lblgetPan").innerHTML = "";
@@ -550,13 +556,13 @@
                             WatermarkText="Enter few chars of Sub Broker Code" runat="server" EnableViewState="false">
                         </cc1:TextBoxWatermarkExtender>
                         <ajaxToolkit:AutoCompleteExtender ID="AutoCompleteExtender2" runat="server" TargetControlID="txtAssociateSearch"
-                            ServiceMethod="GetCustomerName" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
+                            ServiceMethod="GetCustomerName" ServicePath="~/CustomerPortfolio/AutoComplete.asmx" OnClientItemSelected="GeAgentId"
                             MinimumPrefixLength="1" EnableCaching="False" CompletionSetCount="5" CompletionInterval="100"
                             CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
-                            CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
-                            UseContextKey="True" DelimiterCharacters="" Enabled="True" />
+                            CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem" 
+                            UseContextKey="True" DelimiterCharacters="" Enabled="True"  ShowOnlyCurrentWordInCompletionListItem="true"/>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtAssociateSearch"
-                            ErrorMessage="<br />Please Enter a Sub Broker Code" Display="Dynamic" runat="server"
+                            ErrorMessage="<br />Please Enter a Sub Broker Code" Display="Dynamic" runat="server" 
                             CssClass="rfvPCG" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
                     </td>
                     <td align="right">
@@ -708,7 +714,7 @@
                     </td>
                     <td>
                         <asp:DropDownList ID="ddlAMCList" runat="server" CssClass="cmbLongField" AutoPostBack="true"
-                            OnSelectedIndexChanged="ddlAMCList_SelectedIndexChanged" TabIndex="8">
+                            OnSelectedIndexChanged="ddlAMCList_SelectedIndexChanged"  >
                         </asp:DropDownList>
                         <span id="spnAMC" runat="server" class="spnRequiredField">*</span>
                         <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="ddlAMCList"
@@ -716,11 +722,11 @@
                             Operator="NotEqual" ValidationGroup="MFSubmit" ValueToCompare="Select"></asp:CompareValidator>
                     </td>
                     <td align="right">
-                        <asp:Label ID="lblCategory" runat="server" Text="Category:" CssClass="FieldName"></asp:Label>
+                        <asp:Label ID="lblCategory" runat="server" Text="Category:" CssClass="FieldName" Visible="false"></asp:Label>
                     </td>
                     <td>
                         <asp:DropDownList ID="ddlCategory" runat="server" CssClass="cmbLongField" AutoPostBack="true"
-                            OnSelectedIndexChanged="ddlCategory_SelectedIndexChanged" TabIndex="9">
+                            OnSelectedIndexChanged="ddlCategory_SelectedIndexChanged" TabIndex="9" Visible="false">
                         </asp:DropDownList>
                     </td>
                 </tr>
@@ -738,10 +744,11 @@
                         </cc1:TextBoxWatermarkExtender>
                         <ajaxToolkit:AutoCompleteExtender ID="txtSearchScheme_autoCompleteExtender" runat="server"
                             TargetControlID="txtSearchScheme" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
-                            ServiceMethod="GetSchemeName" MinimumPrefixLength="1" EnableCaching="false" CompletionSetCount="1"
-                            CompletionInterval="1" CompletionListCssClass="AutoCompleteExtender_CompletionList"
-                            CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem" CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
-                            UseContextKey="true" OnClientItemSelected="GetSchemeCode" />
+                            ServiceMethod="GetSchemeName" MinimumPrefixLength="1" EnableCaching="false" CompletionSetCount="5"
+                            CompletionInterval="100" CompletionListCssClass="AutoCompleteExtender_CompletionList"
+                            CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem" 
+                            CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
+                            UseContextKey="true" OnClientItemSelected="GetSchemeCode" DelimiterCharacters="" />
                         <span id="Span9" class="spnRequiredField" runat="server">*<br />
                         </span>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator9" ControlToValidate="txtSearchScheme"

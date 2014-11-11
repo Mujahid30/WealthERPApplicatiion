@@ -25,7 +25,7 @@ namespace DaoOps
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getOrderStatusCmd = db.GetStoredProcCommand("SP_GetOrderStatus");
                 dsOrderStatus = db.ExecuteDataSet(getOrderStatusCmd);
-               
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -41,7 +41,7 @@ namespace DaoOps
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
                 throw exBase;
-             }
+            }
             return dsOrderStatus;
         }
         public DataSet Get_Onl_NcdOrderStatus()
@@ -73,7 +73,7 @@ namespace DaoOps
             }
             return dsOrderStatus;
         }
-       
+
         public DataSet Get_Onl_OrderStatus()
         {
             DataSet dsOrderStatus;
@@ -204,7 +204,7 @@ namespace DaoOps
 
 
 
-        public DataSet GetOrderMIS(int adviserId, string branchId, string rmId, string transactionType, string status, string orderType,string amcCode,DateTime dtFrom,DateTime dtTo, int currentPage, out int count)
+        public DataSet GetOrderMIS(int adviserId, string branchId, string rmId, string transactionType, string status, string orderType, string amcCode, DateTime dtFrom, DateTime dtTo, int currentPage, out int count)
         {
             DataSet dsOrderMIS;
             Database db;
@@ -216,8 +216,8 @@ namespace DaoOps
                 db.AddInParameter(getOrderMISCmd, "@adviserId", DbType.Int32, adviserId);
                 db.AddInParameter(getOrderMISCmd, "@branchId", DbType.String, branchId);
                 db.AddInParameter(getOrderMISCmd, "@rmId", DbType.String, rmId);
-                if(!string.IsNullOrEmpty(transactionType.ToString().Trim()))
-                     db.AddInParameter(getOrderMISCmd, "@trxType", DbType.String, transactionType);
+                if (!string.IsNullOrEmpty(transactionType.ToString().Trim()))
+                    db.AddInParameter(getOrderMISCmd, "@trxType", DbType.String, transactionType);
                 else
                     db.AddInParameter(getOrderMISCmd, "@trxType", DbType.String, DBNull.Value);
                 db.AddInParameter(getOrderMISCmd, "@orderStatus", DbType.String, status);
@@ -280,7 +280,7 @@ namespace DaoOps
                 db.AddInParameter(getMannualMatchcmd, "@orderDate", DbType.DateTime, orderDate);
                 db.AddInParameter(getMannualMatchcmd, "@customerId", DbType.Int32, customerId);
                 db.AddInParameter(getMannualMatchcmd, "@schemeSwitchCode", DbType.Int32, schemeSwitch);
-                db.AddInParameter(getMannualMatchcmd, "@CMFT_UserTransactionNo", DbType.Int32,UserTransactionNo);
+                db.AddInParameter(getMannualMatchcmd, "@CMFT_UserTransactionNo", DbType.Int32, UserTransactionNo);
                 dsmannualMatch = db.ExecuteDataSet(getMannualMatchcmd);
             }
             catch (BaseApplicationException Ex)
@@ -452,7 +452,30 @@ namespace DaoOps
             return dsScheme;
         }
 
-        public DataSet GetFolioForOrderEntry(int SchemeCode, int amcCode, int Fflag, int customerId, int IsaNo,string prefixText)
+
+        public DataSet GetSchemeFor_OFlline_MF_OrderEntry(int amcCode, int customerId, string prefixText)
+        {
+            DataSet dsScheme;
+            Database db;
+            DbCommand getSchemecmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getSchemecmd = db.GetStoredProcCommand("SP_GetSchemeForMFOrderEntry");
+                db.AddInParameter(getSchemecmd, "@amcCode", DbType.Int32, amcCode);
+                db.AddInParameter(getSchemecmd, "@customerId", DbType.Int32, customerId);
+                db.AddInParameter(getSchemecmd, "@prefixText", DbType.String, prefixText);
+
+                getSchemecmd.CommandTimeout = 60 * 60;
+                dsScheme = db.ExecuteDataSet(getSchemecmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return dsScheme;
+        }
+        public DataSet GetFolioForOrderEntry(int SchemeCode, int amcCode, int Fflag, int customerId, int IsaNo, string prefixText)
         {
             DataSet dsfolio;
             Database db;
@@ -549,7 +572,7 @@ namespace DaoOps
                 FunctionInfo.Add("Method", "OperationDao.cs:GetSwitchScheme()");
                 object[] objects = new object[1];
                 objects[0] = amcCode;
-                
+
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -575,7 +598,7 @@ namespace DaoOps
                 db.AddInParameter(createMFOrderTrackingCmd, "@amount", DbType.Double, operationVo.Amount);
                 db.AddInParameter(createMFOrderTrackingCmd, "@statusCode", DbType.String, operationVo.StatusCode);
                 db.AddInParameter(createMFOrderTrackingCmd, "@StatusReasonCode", DbType.String, operationVo.StatusReasonCode);
-                if(operationVo.accountid !=0)
+                if (operationVo.accountid != 0)
                     db.AddInParameter(createMFOrderTrackingCmd, "@accountid", DbType.Int32, operationVo.accountid);
                 else
                     db.AddInParameter(createMFOrderTrackingCmd, "@accountid", DbType.Int32, 0);
@@ -583,7 +606,7 @@ namespace DaoOps
                 db.AddInParameter(createMFOrderTrackingCmd, "@OrderDate", DbType.DateTime, operationVo.OrderDate);
                 db.AddInParameter(createMFOrderTrackingCmd, "@IsImmediate", DbType.Int16, operationVo.IsImmediate);
                 //db.AddInParameter(createMFOrderTrackingCmd, "@SourceCode", DbType.String, operationVo.SourceCode);
-                if(!string.IsNullOrEmpty(operationVo.FutureTriggerCondition.ToString().Trim()))
+                if (!string.IsNullOrEmpty(operationVo.FutureTriggerCondition.ToString().Trim()))
                     db.AddInParameter(createMFOrderTrackingCmd, "@FutureTriggerCondition", DbType.String, operationVo.FutureTriggerCondition);
                 else
                     db.AddInParameter(createMFOrderTrackingCmd, "@FutureTriggerCondition", DbType.String, DBNull.Value);
@@ -595,7 +618,7 @@ namespace DaoOps
                     db.AddInParameter(createMFOrderTrackingCmd, "@ChequeNumber", DbType.String, operationVo.ChequeNumber);
                 else
                     db.AddInParameter(createMFOrderTrackingCmd, "@ChequeNumber", DbType.String, DBNull.Value);
-                if (operationVo.PaymentDate!=DateTime.MinValue)
+                if (operationVo.PaymentDate != DateTime.MinValue)
                     db.AddInParameter(createMFOrderTrackingCmd, "@PaymentDate", DbType.DateTime, operationVo.PaymentDate);
                 else
                     db.AddInParameter(createMFOrderTrackingCmd, "@PaymentDate", DbType.DateTime, DBNull.Value);
@@ -603,7 +626,7 @@ namespace DaoOps
                     db.AddInParameter(createMFOrderTrackingCmd, "@FutureExecutionDate", DbType.DateTime, operationVo.FutureExecutionDate);
                 else
                     db.AddInParameter(createMFOrderTrackingCmd, "@FutureExecutionDate", DbType.DateTime, DBNull.Value);
-                if(operationVo.SchemePlanSwitch !=0)
+                if (operationVo.SchemePlanSwitch != 0)
                     db.AddInParameter(createMFOrderTrackingCmd, "@SchemePlanSwitch", DbType.Int32, operationVo.SchemePlanSwitch);
                 else
                     db.AddInParameter(createMFOrderTrackingCmd, "@SchemePlanSwitch", DbType.Int32, DBNull.Value);
@@ -619,7 +642,7 @@ namespace DaoOps
                     db.AddInParameter(createMFOrderTrackingCmd, "@AddrLine1", DbType.String, operationVo.AddrLine1);
                 else
                     db.AddInParameter(createMFOrderTrackingCmd, "@AddrLine1", DbType.String, DBNull.Value);
-                if (operationVo.AddrLine2!=null)
+                if (operationVo.AddrLine2 != null)
                     db.AddInParameter(createMFOrderTrackingCmd, "@AddrLine2", DbType.String, operationVo.AddrLine2);
                 else
                     db.AddInParameter(createMFOrderTrackingCmd, "@AddrLine2", DbType.String, DBNull.Value);
@@ -643,12 +666,12 @@ namespace DaoOps
                     db.AddInParameter(createMFOrderTrackingCmd, "@Pincode", DbType.String, operationVo.Pincode);
                 else
                     db.AddInParameter(createMFOrderTrackingCmd, "@Pincode", DbType.String, DBNull.Value);
-                if (operationVo.LivingSince!=DateTime.MinValue)
+                if (operationVo.LivingSince != DateTime.MinValue)
                     db.AddInParameter(createMFOrderTrackingCmd, "@LivingSince", DbType.DateTime, operationVo.LivingSince);
                 else
                     db.AddInParameter(createMFOrderTrackingCmd, "@LivingSince", DbType.DateTime, DBNull.Value);
                 db.AddInParameter(createMFOrderTrackingCmd, "@IsExecuted ", DbType.Int16, operationVo.IsExecuted);
-                if (operationVo.FrequencyCode != null && operationVo.FrequencyCode !="" )
+                if (operationVo.FrequencyCode != null && operationVo.FrequencyCode != "")
                     db.AddInParameter(createMFOrderTrackingCmd, "@FrequencyCode", DbType.String, operationVo.FrequencyCode);
                 else
                     db.AddInParameter(createMFOrderTrackingCmd, "@FrequencyCode", DbType.String, DBNull.Value);
@@ -660,12 +683,12 @@ namespace DaoOps
                     db.AddInParameter(createMFOrderTrackingCmd, "@EndDate", DbType.DateTime, operationVo.EndDate);
                 else
                     db.AddInParameter(createMFOrderTrackingCmd, "@EndDate", DbType.DateTime, DBNull.Value);
-                if(operationVo.Units!=0)
+                if (operationVo.Units != 0)
                     db.AddInParameter(createMFOrderTrackingCmd, "@units", DbType.Double, operationVo.Units);
                 else
                     db.AddInParameter(createMFOrderTrackingCmd, "@units", DbType.Double, DBNull.Value);
                 db.AddInParameter(createMFOrderTrackingCmd, "@isApproved", DbType.Int16, operationVo.IsApproved);
-                 db.ExecuteNonQuery(createMFOrderTrackingCmd);
+                db.ExecuteNonQuery(createMFOrderTrackingCmd);
 
                 bResult = true;
             }
@@ -741,12 +764,12 @@ namespace DaoOps
                     if (!string.IsNullOrEmpty(dr["PA_AMCCode"].ToString().Trim()))
                         operationVo.Amccode = int.Parse(dr["PA_AMCCode"].ToString());
                     else
-                        operationVo.Amccode =0;
+                        operationVo.Amccode = 0;
                     if (!string.IsNullOrEmpty(dr["PAIC_AssetInstrumentCategoryCode"].ToString().Trim()))
                         operationVo.category = dr["PAIC_AssetInstrumentCategoryCode"].ToString();
                     if (!string.IsNullOrEmpty(dr["PASP_SchemePlanCode"].ToString().Trim()))
                         operationVo.SchemePlanCode = int.Parse(dr["PASP_SchemePlanCode"].ToString());
-                    operationVo.OrderNumber =int.Parse( dr["CMOT_OrderNumber"].ToString());
+                    operationVo.OrderNumber = int.Parse(dr["CMOT_OrderNumber"].ToString());
                     operationVo.Amount = double.Parse(dr["CMOT_Amount"].ToString());
                     //if (!string.IsNullOrEmpty(dr["PASP_SchemePlanSwitch"].ToString()))
                     //    operationVo.Units = double.Parse(dr["CMFNP_NetHoldings"].ToString());
@@ -799,7 +822,7 @@ namespace DaoOps
                     if (!string.IsNullOrEmpty(dr["CMOT_AddrLine1"].ToString()))
                         operationVo.AddrLine1 = dr["CMOT_AddrLine1"].ToString();
                     else
-                        operationVo.AddrLine1 ="";
+                        operationVo.AddrLine1 = "";
                     if (!string.IsNullOrEmpty(dr["CMOT_AddrLine2"].ToString()))
                         operationVo.AddrLine2 = dr["CMOT_AddrLine2"].ToString();
                     else
@@ -832,9 +855,9 @@ namespace DaoOps
                     if (!string.IsNullOrEmpty(dr["XF_FrequencyCode"].ToString()))
                         operationVo.FrequencyCode = dr["XF_FrequencyCode"].ToString();
                     else
-                        operationVo.FrequencyCode ="";
+                        operationVo.FrequencyCode = "";
                     if (!string.IsNullOrEmpty(dr["CMOT_StartDate"].ToString()))
-                        operationVo.StartDate= DateTime.Parse(dr["CMOT_StartDate"].ToString());
+                        operationVo.StartDate = DateTime.Parse(dr["CMOT_StartDate"].ToString());
                     else
                         operationVo.StartDate = DateTime.MinValue;
                     if (!string.IsNullOrEmpty(dr["CMOT_EndDate"].ToString()))
@@ -860,13 +883,13 @@ namespace DaoOps
         {
             Database db;
             DbCommand updateMFTransactionForSynchCmd;
-            bool status=false;
+            bool status = false;
             int affectedRecords = 0;
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 updateMFTransactionForSynchCmd = db.GetStoredProcCommand("SP_Onl_UpdateMFTransactionForSync");
-                db.AddInParameter(updateMFTransactionForSynchCmd, "@orderDetId", DbType.Int32, gvOrderId);                
+                db.AddInParameter(updateMFTransactionForSynchCmd, "@orderDetId", DbType.Int32, gvOrderId);
                 db.AddOutParameter(updateMFTransactionForSynchCmd, "@IsSuccess", DbType.Int16, 0);
                 if (db.ExecuteNonQuery(updateMFTransactionForSynchCmd) != 0)
                     affectedRecords = int.Parse(db.GetParameterValue(updateMFTransactionForSynchCmd, "@IsSuccess").ToString());
@@ -881,7 +904,7 @@ namespace DaoOps
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "OperationDao.cs:Update_Onl_MFTransactionForSynch()");
                 object[] objects = new object[7];
-                objects[0] = gvOrderId;               
+                objects[0] = gvOrderId;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -950,22 +973,22 @@ namespace DaoOps
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-               updateMFOrderTrackingCmd = db.GetStoredProcCommand("SP_UpdateMFOrderTracking");
-               db.AddInParameter(updateMFOrderTrackingCmd, "@orderId", DbType.Int32, operationVo.OrderId);
-               db.AddInParameter(updateMFOrderTrackingCmd, "@customerId", DbType.Int32, operationVo.CustomerId);
-               db.AddInParameter(updateMFOrderTrackingCmd, "@schemeCode", DbType.Int32, operationVo.SchemePlanCode);
-               db.AddInParameter(updateMFOrderTrackingCmd, "@orderNumber", DbType.Int32, operationVo.OrderNumber);
-               db.AddInParameter(updateMFOrderTrackingCmd, "@amount", DbType.Double, operationVo.Amount);
-               db.AddInParameter(updateMFOrderTrackingCmd, "@statusCode", DbType.String, operationVo.StatusCode);
-               db.AddInParameter(updateMFOrderTrackingCmd, "@StatusReasonCode", DbType.String, operationVo.StatusReasonCode);
-               if(operationVo.accountid !=0)
+                updateMFOrderTrackingCmd = db.GetStoredProcCommand("SP_UpdateMFOrderTracking");
+                db.AddInParameter(updateMFOrderTrackingCmd, "@orderId", DbType.Int32, operationVo.OrderId);
+                db.AddInParameter(updateMFOrderTrackingCmd, "@customerId", DbType.Int32, operationVo.CustomerId);
+                db.AddInParameter(updateMFOrderTrackingCmd, "@schemeCode", DbType.Int32, operationVo.SchemePlanCode);
+                db.AddInParameter(updateMFOrderTrackingCmd, "@orderNumber", DbType.Int32, operationVo.OrderNumber);
+                db.AddInParameter(updateMFOrderTrackingCmd, "@amount", DbType.Double, operationVo.Amount);
+                db.AddInParameter(updateMFOrderTrackingCmd, "@statusCode", DbType.String, operationVo.StatusCode);
+                db.AddInParameter(updateMFOrderTrackingCmd, "@StatusReasonCode", DbType.String, operationVo.StatusReasonCode);
+                if (operationVo.accountid != 0)
                     db.AddInParameter(updateMFOrderTrackingCmd, "@accountid", DbType.Int32, operationVo.accountid);
-               else
-                   db.AddInParameter(updateMFOrderTrackingCmd, "@accountid", DbType.Int32, 0);
-               db.AddInParameter(updateMFOrderTrackingCmd, "@TransactionCode", DbType.String, operationVo.TransactionCode);
-               db.AddInParameter(updateMFOrderTrackingCmd, "@OrderDate", DbType.DateTime, operationVo.OrderDate);
-               db.AddInParameter(updateMFOrderTrackingCmd, "@IsImmediate", DbType.Int16, operationVo.IsImmediate);
-               //db.AddInParameter(updateMFOrderTrackingCmd, "@SourceCode", DbType.String, operationVo.SourceCode);
+                else
+                    db.AddInParameter(updateMFOrderTrackingCmd, "@accountid", DbType.Int32, 0);
+                db.AddInParameter(updateMFOrderTrackingCmd, "@TransactionCode", DbType.String, operationVo.TransactionCode);
+                db.AddInParameter(updateMFOrderTrackingCmd, "@OrderDate", DbType.DateTime, operationVo.OrderDate);
+                db.AddInParameter(updateMFOrderTrackingCmd, "@IsImmediate", DbType.Int16, operationVo.IsImmediate);
+                //db.AddInParameter(updateMFOrderTrackingCmd, "@SourceCode", DbType.String, operationVo.SourceCode);
                 if (!string.IsNullOrEmpty(operationVo.FutureTriggerCondition.ToString().Trim()))
                     db.AddInParameter(updateMFOrderTrackingCmd, "@FutureTriggerCondition", DbType.String, operationVo.FutureTriggerCondition);
                 else
@@ -1157,7 +1180,7 @@ namespace DaoOps
                 return status = false;
         }
 
-       
+
 
         /// <summary>
         /// Added to check PDF Form Availabilty
@@ -1195,7 +1218,7 @@ namespace DaoOps
                 object[] objects = new object[3];
                 objects[0] = transactionType;
                 objects[1] = schemeCode;
-                
+
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -1203,10 +1226,10 @@ namespace DaoOps
             }
 
             return dtPdfForms;
-            
+
         }
 
-        public DataSet GetCustomerApprovalList(int customerId,int status)
+        public DataSet GetCustomerApprovalList(int customerId, int status)
         {
             Database db;
             DataSet dsCustomerApprovalList = new DataSet();
@@ -1231,7 +1254,7 @@ namespace DaoOps
             Database db;
             int affectedRecords = 0;
             DbCommand updateCustomerApprovalListCmd;
-            
+
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
@@ -1240,7 +1263,7 @@ namespace DaoOps
                 db.AddOutParameter(updateCustomerApprovalListCmd, "@IsSuccess", DbType.Int16, 0);
                 if (db.ExecuteNonQuery(updateCustomerApprovalListCmd) != 0)
                     affectedRecords = int.Parse(db.GetParameterValue(updateCustomerApprovalListCmd, "@IsSuccess").ToString());
-  
+
             }
             catch (BaseApplicationException Ex)
             {

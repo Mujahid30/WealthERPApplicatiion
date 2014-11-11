@@ -205,6 +205,34 @@ namespace BoOps
             return dsGetCustomerMFOrderDetails;
         }
 
+        public DataSet GetControlDetails(int scheme, string folio)
+        {
+            DataSet ds = null;
+           
+            try
+            {
+                ds = mfOrderDao.GetControlDetails(scheme, folio);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OrderBo.cs:GetOrderStepsDetails()");
+
+                object[] objects = new object[1];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return ds;
+        }
+
         public DataSet GetCustomerBank(int customerId)
         {
             DataSet dsGetCustomerBank;

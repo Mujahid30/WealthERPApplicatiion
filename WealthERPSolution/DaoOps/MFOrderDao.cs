@@ -508,6 +508,43 @@ namespace DaoOps
 
         }
 
+
+        public DataSet GetControlDetails(int Scheme, string folio)
+        {
+            DataSet dsGetControlDetails;
+            Database db;
+            DbCommand GetGetControlDetailsCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetGetControlDetailsCmd = db.GetStoredProcCommand("SPROC_Onl_GetSchemeDetails");
+                db.AddInParameter(GetGetControlDetailsCmd, "@schemecode", DbType.Int32, Scheme);
+                if (!string.IsNullOrEmpty(folio))
+                    db.AddInParameter(GetGetControlDetailsCmd, "@accountid", DbType.Int32, int.Parse(folio));
+                else
+                    db.AddInParameter(GetGetControlDetailsCmd, "@accountid", DbType.Int32, 0);
+
+                dsGetControlDetails = db.ExecuteDataSet(GetGetControlDetailsCmd);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OperationDao.cs:GetFolioAccount()");
+                object[] objects = new object[10];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetControlDetails;
+        }
+
         public DataSet GetCustomerMFOrderDetails(int orderId)
         {
             DataSet dsGetCustomerMFOrderDetails;
