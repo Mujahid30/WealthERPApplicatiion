@@ -21,6 +21,7 @@ using System.Globalization;
 using VOAssociates;
 using BOAssociates;
 using BoSuperAdmin;
+using System.Drawing;
 
 namespace WealthERP.BusinessMIS
 {
@@ -1331,7 +1332,7 @@ namespace WealthERP.BusinessMIS
                                 int SchemePlanCode = int.Parse(gvr.GetDataKeyValue("SchemePlanCode").ToString());
                                 int AMC = int.Parse(gvr.GetDataKeyValue("AmcCode").ToString());
                                 int SubBrokerCode = int.Parse(gvr.GetDataKeyValue("CMFA_SubBrokerCode").ToString());
-                                
+
                                 if (e.CommandName == "Select")
                                 {
                                     string name = "Select";
@@ -1736,8 +1737,8 @@ namespace WealthERP.BusinessMIS
                 LinkButton lbtnMarkAsReject = (LinkButton)dataItem.FindControl("lnkprAmc");
                 if (ddlType.SelectedValue == "1")
                 {
-                    //LinkButton lnkprAmc = (LinkButton)e.Item.FindControl("lnkprAmc");
                     lbtnMarkAsReject.Enabled = false;
+                    lbtnMarkAsReject.ForeColor = Color.Black;
                 }
             }
         }
