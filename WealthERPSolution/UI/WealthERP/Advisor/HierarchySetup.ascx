@@ -1,6 +1,16 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="HierarchySetup.ascx.cs"
     Inherits="WealthERP.Advisor.HierarchySetup" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
+<%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 <telerik:RadScriptManager ID="RadScriptManager1" runat="server" />
+
+<script type="text/javascript" language="javascript">
+    function openpopupAddChannel() {
+        var myWindow = window.open("", "", "width=200, height=100");
+    }
+</script>
+
 <table width="100%">
     <tr>
         <td colspan="3" style="width: 100%;">
@@ -29,11 +39,10 @@
                 <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="ExistMFInvestlist">
                 </ExportSettings>
                 <MasterTableView DataKeyNames="AH_Id,AH_HierarchyName,AH_TitleId,AH_Teamname,AH_TeamId,AH_ReportsToId,AH_ReportsTo,AH_ChannelName,AH_ChannelId,AH_Sequence"
-                    EditMode="PopUp" CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false"
-                    CommandItemSettings-AddNewRecordText="Add Hierarchy Setup">
+                    CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false" CommandItemSettings-AddNewRecordText="Add Hierarchy Setup">
                     <Columns>
-                        <telerik:GridEditCommandColumn EditText="Edit" UniqueName="editColumn" CancelText="Cancel"
-                            UpdateText="Update">
+                        <telerik:GridEditCommandColumn EditText="Edit" Visible="false" UniqueName="editColumn"
+                            CancelText="Cancel" UpdateText="Update">
                         </telerik:GridEditCommandColumn>
                         <telerik:GridBoundColumn Visible="false" UniqueName="AH_Id" HeaderText="Type" DataField="AH_Id"
                             SortExpression="AH_Id" AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
@@ -91,10 +100,10 @@
                             </table>
                             <table id="Table2" cellspacing="2" cellpadding="1" border="0" rules="none" style="border-collapse: collapse;
                                 background: white;">
-                                <tr  >
+                                <tr>
                                     <td>
                                         <table id="Table3" cellspacing="1" cellpadding="1" border="0" width="390px">
-                                            <tr runat="server" tr="trSetUpFor" visible="false" >
+                                            <tr runat="server" tr="trSetUpFor" visible="false">
                                                 <td align="right">
                                                     <asp:Label runat="server" Text="Setup for :" ID="label3"></asp:Label>
                                                 </td>
@@ -103,8 +112,8 @@
                                                         OnSelectedIndexChanged="rcbSetup_SelectedIndexChanged">
                                                         <Items>
                                                             <telerik:RadComboBoxItem Text="" Value="" />
-                                                            <telerik:RadComboBoxItem Text="Team Hierarchy" Value="1" Selected="true"/>
-                                                           <%-- <telerik:RadComboBoxItem Text="Office Hierarchy" Value="2"  />--%>
+                                                            <telerik:RadComboBoxItem Text="Team Hierarchy" Value="1" Selected="true" />
+                                                            <%-- <telerik:RadComboBoxItem Text="Office Hierarchy" Value="2"  />--%>
                                                         </Items>
                                                     </telerik:RadComboBox>
                                                 </td>
@@ -145,6 +154,12 @@
                                                     <telerik:RadComboBox AutoPostBack="true" runat="server" ID="rcbChanel" EmptyMessage="Select"
                                                         OnSelectedIndexChanged="rcbChanel_SelectedIndexChanged">
                                                     </telerik:RadComboBox>
+                                                </td>
+                                                <td id="Td1" align="right" colspan="2">
+                                                    <asp:ImageButton ID="ImageButton1" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
+                                                        AlternateText="Add Channel" runat="server" ToolTip="Click here to Add Channel"
+                                                        OnClick="openpopupAddChannel_Click" Height="15px" Width="15px" TabIndex="3">
+                                                    </asp:ImageButton>
                                                 </td>
                                             </tr>
                                             <tr visible="false">
@@ -188,6 +203,10 @@
                                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" CssClass="rfvPCG"
                                                         ErrorMessage="Please enter a Seq No" Display="Dynamic" ValidationGroup="btnSubmit"
                                                         ControlToValidate="TxtSeq" />
+                                                        <br />
+                                                    <asp:RangeValidator ID="RNGVLD1" runat="server" CssClass="rfvPCG" Display="Dynamic"
+                                                         Type="Integer"  ValidationGroup="btnSubmit" MinimumValue="0" MaximumValue="1"
+                                                        ControlToValidate="TxtSeq"></asp:RangeValidator>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -201,12 +220,13 @@
                                                     </asp:CheckBox>
                                                 </td>--%>
                                             </tr>
-                                            <tr id="RcbReports">
-                                                <td align="right">
-                                                    <asp:Label runat="server" Text=" Reports to :" ID="Label4"></asp:Label>
+                                            <tr id="RcbReports" visible="false">
+                                                <td align="right" visible="false">
+                                                    <asp:Label runat="server" Visible="false" Text=" Reports to :" ID="Label4"></asp:Label>
                                                 </td>
                                                 <td>
-                                                    <telerik:RadComboBox runat="server" ID="rcbReportingTo" Text="Show" EmptyMessage="Select">
+                                                    <telerik:RadComboBox runat="server" Visible="false" ID="rcbReportingTo" Text="Show"
+                                                        EmptyMessage="Select">
                                                     </telerik:RadComboBox>
                                                 </td>
                                             </tr>
@@ -280,6 +300,38 @@
                     <Selecting AllowRowSelect="true" />
                 </ClientSettings>
             </telerik:RadGrid>
+            <telerik:RadWindow ID="radAplicationPopUp" runat="server" VisibleOnPageLoad="false"
+                Height="30%" Width="400px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false"
+                Behaviors="close,Move" Title="Add New Channel">
+                <ContentTemplate>
+                    <div style="padding: 20px">
+                        <table width="100%">
+                            <tr>
+                                <td class="leftField">
+                                    <asp:Label ID="lblChannel" runat="server" CssClass="FieldName" Text="Channel:"></asp:Label>
+                                </td>
+                                <td class="rightField">
+                                    <asp:TextBox ID="txtChannel" runat="server" CssClass="txtField"></asp:TextBox>
+                                    <span id="Span2" class="spnRequiredField">*</span>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" CssClass="rfvPCG"
+                                        ErrorMessage="Please enter a Channel" Display="Dynamic" ValidationGroup="btnChannelSubmit"
+                                        ControlToValidate="txtChannel" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="leftField">
+                                </td>
+                                <td class="rightField">
+                                    <asp:Button ID="btnChannelSubmit" runat="server" Text="Insert" OnClick="btnChannelSubmit_Click"
+                                        CssClass="PCGButton" ValidationGroup="btnChannelSubmit" />
+                                    <asp:Button ID="Button2" Text="Cancel" runat="server" CausesValidation="False" CssClass="PCGButton"
+                                        CommandName="Cancel"></asp:Button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </ContentTemplate>
+            </telerik:RadWindow>
         </td>
     </tr>
 </table>

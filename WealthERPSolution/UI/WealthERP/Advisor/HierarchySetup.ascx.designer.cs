@@ -31,6 +31,10 @@ namespace WealthERP.Advisor {
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid gvHirarchy;
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trSetUpFor;
+        protected global::Telerik.Web.UI.RadWindow radAplicationPopUp;
+        protected global::System.Web.UI.WebControls.TextBox txtChannel;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator6;
+        protected global::System.Web.UI.WebControls.RangeValidator RNGVLD1;
 
         
     }

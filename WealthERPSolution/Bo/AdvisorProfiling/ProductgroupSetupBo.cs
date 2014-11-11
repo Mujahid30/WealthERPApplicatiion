@@ -310,7 +310,61 @@ namespace BoAdvisorProfiling
             }
             return inserted;
         }
+        public DataSet AddChannel(string Channel)
+        {
 
+
+            DataSet dsAddChannel;
+            ProductgroupSetupDao ProdGrSetupDao = new ProductgroupSetupDao();
+            try
+            {
+                dsAddChannel = ProdGrSetupDao.AddChannel(Channel);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "ProductgroupSetupBo.cs:GetReportsTo()");
+                object[] objects = new object[1];
+                //objects[0] = adviserId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsAddChannel;
+        }
+        public DataSet GetMinMaxSeqNo(int AdviserId, int ChannelId)
+        {
+
+
+            DataSet dsGetMinMaxSeqNo;
+            ProductgroupSetupDao ProdGrSetupDao = new ProductgroupSetupDao();
+            try
+            {
+                dsGetMinMaxSeqNo = ProdGrSetupDao.GetMinMaxSeqNo(AdviserId, ChannelId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "ProductgroupSetupBo.cs:GetReportsTo()");
+                object[] objects = new object[1];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetMinMaxSeqNo;
+        }
     }
         
     

@@ -558,5 +558,77 @@ namespace DaoAdvisorProfiling
             }
             return inserted;
         }
+
+        public DataSet AddChannel(string Channel)
+        {
+            Database db;
+            DbCommand DbCmd;
+            DataSet dsResult;
+            DataTable dt = new DataTable();
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                DbCmd = db.GetStoredProcCommand("Sp_AddChannel");
+                if (Channel!=null)
+                   db.AddInParameter(DbCmd, "@AddChannel", DbType.String, Channel);
+                 else
+                    db.AddInParameter(DbCmd, "@AddChannel", DbType.String, DBNull.Value);
+                dsResult = db.ExecuteDataSet(DbCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "ProductgroupSetupDao.cs:GetHierarchyDetails()");
+                object[] objects = new object[1];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsResult;
+        }
+        public DataSet GetMinMaxSeqNo(int AdviserId, int ChannelId)
+        {
+            Database db;
+            DbCommand DbCmd;
+            DataSet dsResult;
+            DataTable dt = new DataTable();
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                DbCmd = db.GetStoredProcCommand("SP_GetChannelMinMaxValue");
+                if (AdviserId != 0)
+                    db.AddInParameter(DbCmd, "@A_AdviserId", DbType.Int32, AdviserId);
+                else
+                    db.AddInParameter(DbCmd, "@A_AdviserId", DbType.Int32, DBNull.Value);
+                if (ChannelId != 0)
+                    db.AddInParameter(DbCmd, "@AH_ChannelId", DbType.Int32, ChannelId);
+                else
+                    db.AddInParameter(DbCmd, "@AH_ChannelId", DbType.Int32, DBNull.Value);
+                dsResult = db.ExecuteDataSet(DbCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "ProductgroupSetupDao.cs:GetHierarchyDetails()");
+                object[] objects = new object[1];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsResult;
+        }
+
     }
 }
