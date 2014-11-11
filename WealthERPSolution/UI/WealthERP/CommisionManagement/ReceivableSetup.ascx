@@ -660,10 +660,10 @@
                                                             </asp:ListItem>
                                                         </asp:DropDownList>
                                                         <asp:RequiredFieldValidator ID="rfvddlTransaction" runat="server" ErrorMessage="Please Select Transaction type"
-                                                           Enabled="false" CssClass="rfvPCG" ControlToValidate="ddlTransaction" ValidationGroup="btnStrAddUpdate"
+                                                            Enabled="false" CssClass="rfvPCG" ControlToValidate="ddlTransaction" ValidationGroup="btnStrAddUpdate"
                                                             Display="Dynamic" InitialValue="0"></asp:RequiredFieldValidator><br />
                                                         <asp:CheckBoxList ID="chkListTtansactionType" runat="server" CssClass="txtField"
-                                                          Visible="false"  RepeatLayout="Flow" RepeatDirection="Horizontal">
+                                                            Visible="false" RepeatLayout="Flow" RepeatDirection="Horizontal">
                                                             <%--<asp:ListItem Text="Buy" Value="BUY"></asp:ListItem>
                                                         <asp:ListItem Text="SIP" Value="SIP"></asp:ListItem>
                                                         <asp:ListItem Text="STP Buy" Value="STPBUY"></asp:ListItem>
@@ -1020,6 +1020,211 @@
                                         CssClass="rfvPCG" Display="Dynamic" ControlToCompare="rdpMappedFrom" ControlToValidate="rdpMappedTill"
                                         Operator="GreaterThan"></asp:CompareValidator>
                                 </td>
+                    </tr>
+                </table>
+            </asp:Panel>
+            <table id="Table3" runat="server" width="100%" visible="false">
+                <tr id="tr2" runat="server">
+                    <td class="tdSectionHeading">
+                        <div class="divSectionHeading" style="vertical-align: text-bottom">
+                            <div class="divSectionHeadingNumber fltlftStep">
+                                3
+                            </div>
+                            <div class="fltlft" style="width: 400px;">
+                                &nbsp;
+                                <asp:Label ID="Label8" runat="server" Text="Payable Structure To Agent Category Mapping "></asp:Label>
+                            </div>
+                            <div class="divViewEdit" style="padding-right: 10px;">
+                                <asp:ImageButton ID="ImageButton1" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                                    Visible="false" runat="server" AlternateText="Excel" ToolTip="Export To Excel"
+                                    OnClick="ibtExportSummary_OnClick" OnClientClick="setFormat('excel')" Height="22px"
+                                    Width="25px"></asp:ImageButton>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <table id="tblMapping" runat="server" width="100%" visible="false">
+                <tr>
+                    <td class="leftLabel">
+                        <asp:Label ID="Label5" runat="server" Text="Mapping For:" CssClass="FieldName"></asp:Label>
+                    </td>
+                    <td class="rightData">
+                        <asp:DropDownList ID="ddlMapping" runat="server" CssClass="cmbField" AutoPostBack="true">
+                            <asp:ListItem Text="Staff" Value="Staff"></asp:ListItem>
+                            <asp:ListItem Text="Associate" Value="Associate"></asp:ListItem>
+                        </asp:DropDownList>
+                    </td>
+                    <td class="leftLabel">
+                        <asp:Label ID="Label6" runat="server" Text="Type: " CssClass="FieldName"></asp:Label>
+                    </td>
+                    <td class="rightData">
+                        <asp:DropDownList ID="ddlType" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlType_Selectedindexchanged"
+                            AutoPostBack="true">
+                            <asp:ListItem Text="Custom" Value="Custom"></asp:ListItem>
+                            <asp:ListItem Text="UserCategory" Value="UserCategory"></asp:ListItem>
+                        </asp:DropDownList>
+                    </td>
+                    <%--  <td class="leftLabel">
+            <asp:Label ID="lblAssetCategory" CssClass="FieldName" runat="server" Text="Asset Category:"></asp:Label>
+        </td>
+        <td class="rightData">
+            <asp:DropDownList ID="ddlAdviserCategory" runat="server" CssClass="cmbField">
+            </asp:DropDownList>
+        </td>--%>
+                </tr>
+                <tr>
+                    <td class="leftLabel">
+                        <asp:Label ID="lblAssetCategory" CssClass="FieldName" runat="server" Text="Associate Category:"></asp:Label>
+                    </td>
+                    <td class="rightData">
+                        <asp:DropDownList ID="ddlAdviserCategory" runat="server" CssClass="cmbField">
+                        </asp:DropDownList>
+                    </td>
+                </tr>
+            </table>
+            <table>
+                <tr runat="server" id="trListControls" visible="false">
+                    <td>
+                        <div class="clearfix" style="margin-bottom: 1em;">
+                            <asp:Panel ID="PLCustomer" runat="server" Style="float: left; padding-left: 150px;">
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <asp:Label ID="lblSelectBranch" runat="server" CssClass="FieldName" Text="Existing AgentCodes">
+                                </asp:Label>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <asp:Label ID="Label7" runat="server" CssClass="FieldName" Text="Mapped AgentCodes">
+                                </asp:Label>
+                                <br />
+                                <telerik:RadListBox SelectionMode="Multiple" EnableDragAndDrop="true" AccessKey="y"
+                                    AllowTransferOnDoubleClick="true" AllowTransferDuplicates="false" EnableViewState="true"
+                                    EnableMarkMatches="true" runat="server" ID="LBAgentCodes" Height="200px" Width="250px"
+                                    AllowTransfer="true" TransferToID="RadListBoxSelectedAgentCodes" CssClass="cmbFielde"
+                                    Visible="true">
+                                </telerik:RadListBox>
+                                <telerik:RadListBox runat="server" AutoPostBackOnTransfer="true" SelectionMode="Multiple"
+                                    ID="RadListBoxSelectedAgentCodes" Height="200px" Width="220px" CssClass="cmbField">
+                                </telerik:RadListBox>
+                            </asp:Panel>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <table>
+                <tr>
+                    <td class="rightData" colspan="2">
+                        <asp:Button ID="btnPaybleMapping" ValidationGroup="btnSubmitRule" CssClass="PCGButton"
+                            OnClick="btnPaybleMapping_Click" Visible="false" Text="Submit" runat="server"
+                            CausesValidation="true"></asp:Button>&nbsp;
+                        <%--  <asp:Button ID="Button2" CssClass="PCGButton" Text="Cancel" runat="server" CausesValidation="false"
+                                                        CommandName="Cancel"></asp:Button>--%>
+                    </td>
+                </tr>
+            </table>
+            
+              <table id="Table4" runat="server" width="100%" visible="false">
+                <tr id="tr3" runat="server">
+                    <td class="tdSectionHeading">
+                        <div class="divSectionHeading" style="vertical-align: text-bottom">
+                            <div class="divSectionHeadingNumber fltlftStep">
+                                3
+                            </div>
+                            <div class="fltlft" style="width: 400px;">
+                                &nbsp;
+                                <asp:Label ID="Label11" runat="server" Text="Commision Management Structure To Issue Mapping "></asp:Label>
+                            </div>
+                            <div class="divViewEdit" style="padding-right: 10px;">
+                                <asp:ImageButton ID="ImageButton2" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                                    Visible="false" runat="server" AlternateText="Excel" ToolTip="Export To Excel"
+                                    OnClick="ibtExportSummary_OnClick" OnClientClick="setFormat('excel')" Height="22px"
+                                    Width="25px"></asp:ImageButton>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <table runat="server" id="tbNcdIssueList" visible="false">
+                <tr>
+                    <td align="right">
+                        <asp:Label ID="Label9" runat="server" Text="Issue type:" CssClass="FieldName"></asp:Label>
+                    </td>
+                    <td>
+                        <asp:DropDownList ID="ddlIssueType" runat="server" CssClass="cmbField" AutoPostBack="true"
+                            Width="205px" OnSelectedIndexChanged="ddlIssueType_Selectedindexchanged">
+                            <asp:ListItem Value="OpenIssue">Open Issue</asp:ListItem>
+                            <asp:ListItem Value="ClosedIssue">Closed Issue</asp:ListItem>
+                            <asp:ListItem Value="FutureIssue">Future Issue</asp:ListItem>
+                        </asp:DropDownList>
+                        <span id="Span11" class="spnRequiredField">*</span>
+                        <br />
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator8" runat="server" ErrorMessage="Please Select Issue Type"
+                            CssClass="rfvPCG" ControlToValidate="ddlIssueType" ValidationGroup="btnGo" Display="Dynamic"
+                            InitialValue="Select"></asp:RequiredFieldValidator>
+                    </td>
+                    <td align="right">
+                        &nbsp;&nbsp;
+                        <asp:Label ID="Label10" runat="server" Text="Unmmaped Issues:" CssClass="FieldName"></asp:Label>
+                    </td>
+                    <td>
+                        <asp:DropDownList ID="ddlUnMappedIssues" runat="server" CssClass="cmbField" AutoPostBack="true"
+                            Width="205px">
+                        </asp:DropDownList>
+                        <span id="Span12" class="spnRequiredField">*</span>
+                        <br />
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator9" runat="server" ErrorMessage="Please Select Issue Type"
+                            CssClass="rfvPCG" ControlToValidate="ddlUnMappedIssues" ValidationGroup="btnGo"
+                            Display="Dynamic" InitialValue="Select"></asp:RequiredFieldValidator>
+                    </td>
+                </tr>
+                <tr id="trBtnSubmit" runat="server">
+                    <td>
+                        <asp:Button ID="btnMAP" runat="server" Text="Map" CssClass="PCGButton" ValidationGroup="btnGo"
+                            OnClick="btnMAP_Click" />
+                    </td>
+                </tr>
+            </table>
+            <asp:Panel ID="pnlIssueList"  visible="false" runat="server" class="Landscape" Width="80%" Height="80%"
+                ScrollBars="Both">
+                <table width="100%">
+                    <tr>
+                        <td>
+                            <div id="dvIssueList" runat="server" style="width: auto;">
+                                <telerik:RadGrid ID="gvMappedIssueList" runat="server" GridLines="None" AutoGenerateColumns="False"
+                                    PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
+                                    Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" AllowFilteringByColumn="true"
+                                    AllowAutomaticInserts="false" ExportSettings-FileName="Issue List" OnNeedDataSource="gvMappedIssueList_OnNeedDataSource"
+                                    OnItemCommand="gvMappedIssueList_ItemCommand">
+                                    <%-- <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
+                            FileName="MF Order Recon" Excel-Format="ExcelML">
+                        </ExportSettings>--%>
+                                    <MasterTableView Width="100%" AllowMultiColumnSorting="True" DataKeyNames="ACSTSM_SetupId"
+                                        AutoGenerateColumns="false" CommandItemDisplay="None">
+                                        <Columns>
+                                            <telerik:GridButtonColumn CommandName="Delete" Text="Delete" ConfirmText="Do you want to delete this rule? Click OK to proceed"
+                                                UniqueName="column">
+                                            </telerik:GridButtonColumn>
+                                            <telerik:GridBoundColumn DataField="AIM_IssueName" HeaderText="Issue Name" SortExpression="AIM_IssueName"
+                                                ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                                UniqueName="AIM_IssueName" FooterStyle-HorizontalAlign="Left">
+                                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                            </telerik:GridBoundColumn>
+                                            <telerik:GridBoundColumn DataField="ValidityFrom" HeaderText="Validity From" SortExpression="ValidityFrom"
+                                                ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                                DataFormatString="{0:d}" UniqueName="ValidityFrom" FooterStyle-HorizontalAlign="Left">
+                                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                            </telerik:GridBoundColumn>
+                                            <telerik:GridBoundColumn DataField="ValidityTo" HeaderText="Validity To" SortExpression="ValidityTo"
+                                                ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                                DataFormatString="{0:d}" UniqueName="ValidityTo" FooterStyle-HorizontalAlign="Left">
+                                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                            </telerik:GridBoundColumn>
+                                        </Columns>
+                                    </MasterTableView>
+                                </telerik:RadGrid>
+                            </div>
+                        </td>
+                        <td>
+                            &nbsp;&nbsp;
+                        </td>
                     </tr>
                 </table>
             </asp:Panel>
