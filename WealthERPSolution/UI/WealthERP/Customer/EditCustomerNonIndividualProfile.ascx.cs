@@ -29,6 +29,7 @@ namespace WealthERP.Customer
         DataTable dtOccupation = new DataTable();
         DataTable dtNationality = new DataTable();
         DataTable dtState = new DataTable();
+        DataTable dtCity = new DataTable();
         CommonLookupBo commonLookupBo = new CommonLookupBo();
         AdvisorVo advisorVo = new AdvisorVo();
 
@@ -122,7 +123,11 @@ namespace WealthERP.Customer
                         {
                             txtCustomerCode.Text = customerVo.CustCode.ToString();
                         }
-                        if (!string.IsNullOrEmpty(customerVo.PANNum.ToString()))
+                        if (customerVo.PANNum == null)
+                        {
+                            customerVo.PANNum = null;
+                        }
+                        else
                         {
                             txtPanNumber.Text = customerVo.PANNum.ToString();
                         }
@@ -142,10 +147,6 @@ namespace WealthERP.Customer
                         if (!string.IsNullOrEmpty(customerVo.Adr1PinCode.ToString()))
                         {
                             txtCorrAdrPinCode.Text = customerVo.Adr1PinCode.ToString();
-                        }
-                        if (!string.IsNullOrEmpty(customerVo.Adr1City))
-                        {
-                            txtCorrAdrCity.Text = customerVo.Adr1City.ToString();
                         }
                         if (customerVo.Adr1State != "")
                         {
@@ -202,10 +203,6 @@ namespace WealthERP.Customer
                         if (!string.IsNullOrEmpty(customerVo.Adr2PinCode.ToString()))
                         {
                             txtPermAdrPinCode.Text = customerVo.Adr2PinCode.ToString();
-                        }
-                        if (!string.IsNullOrEmpty(customerVo.Adr2City))
-                        {
-                            txtPermAdrCity.Text = customerVo.Adr2City.ToString();
                         }
                         if (!string.IsNullOrEmpty(customerVo.Adr2State))
                         {
@@ -286,6 +283,17 @@ namespace WealthERP.Customer
                         txtOtherCountry.Text = customerVo.OtherCountry;
                         txtMobile1.Text = customerVo.Mobile1.ToString();
                         txtMobile2.Text = customerVo.Mobile2.ToString();
+                        if (customerVo.Dob == DateTime.MinValue)
+                            txtDate.SelectedDate = null;
+                        else
+                            txtDate.SelectedDate = customerVo.Dob;
+                        txtSubBroker.Text = customerVo.SubBroker;
+                        txtMotherMaidenName.Text = customerVo.MothersMaidenName;
+                        if (customerVo.Adr1City != null)
+                            ddlCorrAdrCity.SelectedValue = customerVo.customerCity.ToString();
+                        else
+                            ddlCorrAdrCity.SelectedValue = "--Select---";
+                        ddlPermAdrCity.SelectedValue = customerVo.PermanentCityId.ToString();
                         RadTabStripCustomerProfile.TabIndex = 0;
                         CustomerProfileDetails.SelectedIndex = 0;
                         RadTabStripCustomerProfile.Tabs[0].Selected = true;
@@ -332,7 +340,7 @@ namespace WealthERP.Customer
                 ddlPermAdrState.DataBind();
                 ddlPermAdrState.Items.Insert(0, new ListItem("--SELECT--", "0"));
 
-                dtOccupation = commonLookupBo.GetWERPLookupMasterValueList(3000, 0); ;
+                dtOccupation = commonLookupBo.GetWERPLookupMasterValueList(3000, 0); 
                 ddlOccupation.DataSource = dtOccupation;
                 ddlOccupation.DataTextField = "WCMV_Name";
                 ddlOccupation.DataValueField = "WCMV_LookupId";
@@ -345,6 +353,21 @@ namespace WealthERP.Customer
                 ddlNationality.DataValueField = "NationalityCode";
                 ddlNationality.DataBind();
                 ddlNationality.Items.Insert(0, new ListItem("Select a Nationality", "Select a Nationality"));
+               
+                dtCity = commonLookupBo.GetWERPLookupMasterValueList(8000, 0);
+
+                ddlCorrAdrCity.DataSource = dtCity;
+                ddlCorrAdrCity.DataTextField = "WCMV_Name";
+                ddlCorrAdrCity.DataValueField = "WCMV_LookupId";
+                ddlCorrAdrCity.DataBind();
+                ddlCorrAdrCity.Items.Insert(0, new ListItem("--SELECT--", "0"));
+
+                ddlPermAdrCity.DataSource = dtCity;
+                ddlPermAdrCity.DataTextField = "WCMV_Name";
+                ddlPermAdrCity.DataValueField = "WCMV_LookupId";
+                ddlPermAdrCity.DataBind();
+                ddlPermAdrCity.Items.Insert(0, new ListItem("--SELECT--", "0"));
+
 
                 if (customerVo.Type.ToUpper().ToString() == "IND")
                 {
@@ -478,7 +501,6 @@ namespace WealthERP.Customer
                 {
                     customerVo.Adr1PinCode = 0;
                 }
-                customerVo.Adr1City = txtCorrAdrCity.Text.ToString();
                 if (ddlCorrAdrState.SelectedIndex != 0)
                 {
                     customerVo.Adr1State = ddlCorrAdrState.SelectedItem.Value.ToString();
@@ -527,7 +549,7 @@ namespace WealthERP.Customer
                 {
                     customerVo.Adr2PinCode = 0;
                 }
-                customerVo.Adr2City = txtPermAdrCity.Text.ToString();
+             
                 if (ddlPermAdrState.SelectedIndex != 0)
                 {
                     customerVo.Adr2State = ddlPermAdrState.SelectedItem.Value.ToString();
@@ -691,6 +713,22 @@ namespace WealthERP.Customer
                     customerVo.Mobile2 = 0;
                 else
                     customerVo.Mobile2 = long.Parse(txtMobile2.Text.ToString());
+                if (txtSubBroker.Text != "")
+                {
+                    customerVo.SubBroker = txtSubBroker.Text.ToString();
+                }
+                else
+                {
+                    customerVo.SubBroker =null;
+                }
+               
+                if (txtDate.SelectedDate.ToString() == "")
+                    customerVo.Dob = DateTime.MinValue;
+                else
+                    customerVo.Dob = DateTime.Parse(txtDate.SelectedDate.ToString());
+                customerVo.MothersMaidenName = txtMotherMaidenName.Text.ToString();
+                customerVo.PermanentCityId = int.Parse(ddlPermAdrCity.SelectedValue);
+                customerVo.CorrespondenceCityId = int.Parse(ddlCorrAdrCity.SelectedValue);
                 if (customerBo.UpdateCustomer(customerVo, userVo.UserId))
                 {
                     customerVo = customerBo.GetCustomer(customerVo.CustomerId);

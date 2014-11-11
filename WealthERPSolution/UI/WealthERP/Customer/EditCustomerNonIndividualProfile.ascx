@@ -14,6 +14,16 @@
     }
 </script>
 
+<script type="text/javascript">
+    function isNumberKey(evt) { // Numbers only
+        var charCode = (evt.which) ? evt.which : event.keyCode;
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+            alert('Only Numeric');
+            return false;
+        }
+        return true;  
+</script>
+
 <table width="100%">
     <tr>
         <td colspan="3">
@@ -261,7 +271,12 @@
                                     <asp:Label ID="Label22" runat="server" Text="City:" CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td class="rightField">
-                                    <asp:TextBox ID="txtCorrAdrCity" runat="server" CssClass="txtField"></asp:TextBox>
+                                    <asp:DropDownList ID="ddlCorrAdrCity" runat="server" CssClass="cmbField">
+                                    </asp:DropDownList>
+                                    <span id="Span10" class="spnRequiredField">*</span>
+                                    <asp:RequiredFieldValidator ID="reqddlCorrAdrCity" runat="server" CssClass="cvPCG"
+                                        ControlToValidate="ddlCorrAdrCity" ErrorMessage="Select city" Display="Dynamic"
+                                        ValidationGroup="btnEdit" InitialValue="0"></asp:RequiredFieldValidator>
                                 </td>
                                 <td class="leftField">
                                     <asp:Label ID="Label23" runat="server" Text="State:" CssClass="FieldName"></asp:Label>
@@ -279,7 +294,8 @@
                                     <asp:Label ID="Label24" runat="server" Text="Pin Code:" CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td class="rightField">
-                                    <asp:TextBox ID="txtCorrAdrPinCode" runat="server" CssClass="txtField"></asp:TextBox>
+                                    <asp:TextBox ID="txtCorrAdrPinCode" MaxLength="6" runat="server" OnKeypress="javascript:return isNumberKey(event);"
+                                        CssClass="txtField"></asp:TextBox>
                                     <asp:CompareValidator ID="txtCorrAdrPinCode_comparevalidator" ControlToValidate="txtCorrAdrPinCode"
                                         runat="server" Display="Dynamic" ErrorMessage="<br />Please enter a numeric value"
                                         Type="Integer" Enabled="false" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
@@ -347,7 +363,8 @@
                                     <asp:Label ID="Label30" runat="server" Text="City:" CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td class="rightField">
-                                    <asp:TextBox ID="txtPermAdrCity" runat="server" CssClass="txtField"></asp:TextBox>
+                                    <asp:DropDownList ID="ddlPermAdrCity" runat="server" CssClass="cmbField">
+                                    </asp:DropDownList>
                                 </td>
                                 <td class="leftField">
                                     <asp:Label ID="Label31" runat="server" Text="State:" CssClass="FieldName"></asp:Label>
@@ -365,7 +382,8 @@
                                     <asp:Label ID="Label32" runat="server" Text="Pin Code:" CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td class="rightField">
-                                    <asp:TextBox ID="txtPermAdrPinCode" MaxLength="6" runat="server" CssClass="txtField"></asp:TextBox>
+                                    <asp:TextBox ID="txtPermAdrPinCode" MaxLength="6" runat="server" OnKeypress="javascript:return isNumberKey(event);"
+                                        CssClass="txtField"></asp:TextBox>
                                     <asp:CompareValidator ID="txtPermAdrPinCode_CompareValidator" ControlToValidate="txtPermAdrPinCode"
                                         runat="server" Display="Dynamic" ErrorMessage="<br />Please enter a numeric value"
                                         Type="Integer" Enabled="false" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
@@ -480,7 +498,8 @@
                                     <asp:Label ID="Label38" CssClass="FieldName" runat="server" Text="Mobile1:"></asp:Label>
                                 </td>
                                 <td>
-                                    <asp:TextBox ID="txtMobile1" runat="server" CssClass="txtField" MaxLength="10"></asp:TextBox>
+                                    <asp:TextBox ID="txtMobile1" runat="server" OnKeypress="javascript:return isNumberKey(event);"
+                                        CssClass="txtField" MaxLength="10"></asp:TextBox>
                                     <asp:RegularExpressionValidator ValidationGroup="btnEdit" ControlToValidate="txtMobile1"
                                         Display="Dynamic" Enabled="false" ErrorMessage="Telephone Number must be 7-11 digit"
                                         ValidationExpression="^((\+)?(\d{2}[-]))?(\d{10}){1}?$"></asp:RegularExpressionValidator>
@@ -489,7 +508,8 @@
                                     <asp:Label ID="Label43" CssClass="FieldName" runat="server" Text="Mobile2:"></asp:Label>
                                 </td>
                                 <td>
-                                    <asp:TextBox ID="txtMobile2" runat="server" CssClass="txtField" MaxLength="10"></asp:TextBox>
+                                    <asp:TextBox ID="txtMobile2" runat="server" OnKeypress="javascript:return isNumberKey(event);"
+                                        CssClass="txtField" MaxLength="10"></asp:TextBox>
                                     <asp:RegularExpressionValidator ValidationGroup="btnEdit" ControlToValidate="txtMobile2"
                                         Display="Dynamic" Enabled="false" ErrorMessage="Telephone Number must be 7-11 digit"
                                         ValidationExpression="^((\+)?(\d{2}[-]))?(\d{10}){1}?$"></asp:RegularExpressionValidator>
@@ -571,6 +591,44 @@
                                 </td>
                                 <td class="rightField" width="25%">
                                     <asp:TextBox ID="txtPOA" runat="server" MaxLength="3" CssClass="txtField"></asp:TextBox>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="leftField">
+                                    <asp:Label ID="lblSubBroker" CssClass="FieldName" runat="server" Text="SubBroker:"></asp:Label>
+                                </td>
+                                <td class="rightField" width="25%">
+                                    <asp:TextBox ID="txtSubBroker" runat="server" CssClass="txtField"></asp:TextBox>
+                                </td>
+                                <td class="leftField">
+                                    <asp:Label ID="Label7" runat="server" CssClass="FieldName" Text="Date of Birth:"></asp:Label>
+                                </td>
+                                <td class="rightField">
+                                    <asp:CompareValidator ID="cvDepositDate1" runat="server" ErrorMessage="<br/>Please enter a valid date."
+                                        Type="Date" ControlToValidate="txtDate" CssClass="cvPCG" Operator="DataTypeCheck"
+                                        ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
+                                    <telerik:RadDatePicker ID="txtDate" CssClass="txtTo" runat="server" Culture="English (United States)"
+                                        Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" onChange="Compare();"
+                                        MinDate="1900-01-01">
+                                        <Calendar ID="Calendar1" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
+                                            ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
+                                        </Calendar>
+                                        <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                                        <DateInput ID="DateInput1" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                                        </DateInput>
+                                    </telerik:RadDatePicker>
+                                    <span id="Span13" class="spnRequiredField">*</span>
+                                    <asp:Label ID="lblBirthMsg" runat="server"></asp:Label>
+                                    <asp:RequiredFieldValidator ID="rfvtxtDate" ControlToValidate="txtDate" ValidationGroup="btnEdit"
+                                        ErrorMessage="<br />Please enter DOB" Display="Dynamic" runat="server" CssClass="rfvPCG"
+                                        InitialValue="">
+                                    </asp:RequiredFieldValidator>
+                                </td>
+                                <td class="leftField" width="25%">
+                                    <asp:Label ID="lblMotherMaidenName" CssClass="FieldName" runat="server" Text="Mother's Maiden Name:"></asp:Label>
+                                </td>
+                                <td class="rightField" width="25%">
+                                    <asp:TextBox ID="txtMotherMaidenName" runat="server" CssClass="txtField"></asp:TextBox>
                                 </td>
                             </tr>
                             <tr>

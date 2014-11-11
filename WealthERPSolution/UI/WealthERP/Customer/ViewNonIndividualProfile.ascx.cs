@@ -13,6 +13,14 @@ using Microsoft.ApplicationBlocks.ExceptionManagement;
 using WealthERP.Base;
 using BoCommon;
 using System.Configuration;
+using Microsoft.ApplicationBlocks.ExceptionManagement;
+using System.Configuration;
+using BoCommon;
+using System.Data;
+using WealthERP.Base;
+using AjaxControlToolkit;
+using Telerik.Web.UI;
+using System.Web.UI.HtmlControls;
 namespace WealthERP.Customer
 {
     public partial class ViewNonIndividualProfile : System.Web.UI.UserControl
@@ -22,6 +30,10 @@ namespace WealthERP.Customer
         CustomerBo customerBo = new CustomerBo();
         RMVo customerRMVo = new RMVo();
         AdvisorStaffBo adviserStaffBo = new AdvisorStaffBo();
+        DataTable dtState = new DataTable();
+        DataTable dtCity = new DataTable();
+          DataTable dtOccupation = new DataTable();
+        CommonLookupBo commonLookupBo = new CommonLookupBo();
         string path = "";
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -32,7 +44,39 @@ namespace WealthERP.Customer
                 userVo = (UserVo)Session["userVo"];
                 customerVo = (CustomerVo)Session["CustomerVo"];
 
+                dtCity = commonLookupBo.GetWERPLookupMasterValueList(8000, 0);
 
+                ddlCorrAdrCity.DataSource = dtCity;
+                ddlCorrAdrCity.DataTextField = "WCMV_Name";
+                ddlCorrAdrCity.DataValueField = "WCMV_LookupId";
+                ddlCorrAdrCity.DataBind();
+                ddlCorrAdrCity.Items.Insert(0, new ListItem("--SELECT--", "0"));
+
+                ddlPermAdrCity.DataSource = dtCity;
+                ddlPermAdrCity.DataTextField = "WCMV_Name";
+                ddlPermAdrCity.DataValueField = "WCMV_LookupId";
+                ddlPermAdrCity.DataBind();
+                ddlPermAdrCity.Items.Insert(0, new ListItem("--SELECT--", "0"));
+                dtState = commonLookupBo.GetWERPLookupMasterValueList(14000, 0);
+
+                ddlCorrAdrState.DataSource = dtState;
+                ddlCorrAdrState.DataTextField = "WCMV_Name";
+                ddlCorrAdrState.DataValueField = "WCMV_LookupId";
+                ddlCorrAdrState.DataBind();
+                ddlCorrAdrState.Items.Insert(0, new ListItem("--SELECT--", "0"));
+
+                ddlPermAdrState.DataSource = dtState;
+                ddlPermAdrState.DataTextField = "WCMV_Name";
+                ddlPermAdrState.DataValueField = "WCMV_LookupId";
+                ddlPermAdrState.DataBind();
+                ddlPermAdrState.Items.Insert(0, new ListItem("--SELECT--", "0"));
+
+                dtOccupation = commonLookupBo.GetWERPLookupMasterValueList(3000, 0); ;
+                ddlOccupation.DataSource = dtOccupation;
+                ddlOccupation.DataTextField = "WCMV_Name";
+                ddlOccupation.DataValueField = "WCMV_LookupId";
+                ddlOccupation.DataBind();
+                ddlOccupation.Items.Insert(0, new ListItem("--SELECT--", "0"));
 
                 if (userVo.UserType.Trim() == "Adviser" || userVo.UserType.Trim() == "RM" || userVo.UserType.Trim() == "Branch Man" || userVo.UserType.Trim() == "Advisor")
                 {
@@ -198,23 +242,23 @@ namespace WealthERP.Customer
                 {
                     lblCorrPinCode.Text = null;
                 }
-                if (customerVo.Adr1City != null)
-                {
-                    lblCorrCity.Text = customerVo.Adr1City.ToString();
-                }
-                else
-                {
-                    lblCorrCity.Text = null;
-                }
-                if (customerVo.Adr1State != "")
-                {
-                    lblCorrState.Text = customerVo.Adr1State.ToString();
+                //if (customerVo.Adr1City != null)
+                //{
+                //    lblCorrCity.Text = customerVo.customerCity.ToString();
+                //}
+                //else
+                //{
+                //    lblCorrCity.Text = null;
+                //}
+                //if (customerVo.Adr1State != "")
+                //{
+                //    lblCorrState.Text = customerVo.Adr1State.ToString();
 
-                }
-                else
-                {
-                    lblCorrState.Text = null;
-                }
+                //}
+                //else
+                //{
+                //    lblCorrState.Text = null;
+                //}
                 if (customerVo.Adr1Country != "")
                 {
                     lblCorrCountry.Text = customerVo.Adr1Country.ToString();
@@ -255,23 +299,16 @@ namespace WealthERP.Customer
                 {
                     lblPermPinCode.Text = null;
                 }
-                if (customerVo.Adr2City == null)
-                {
-                    lblPermCity.Text = null;
-                }
+                if (customerVo.Adr1City != null)
+                    ddlCorrAdrCity.SelectedValue = customerVo.customerCity.ToString();
                 else
+                    ddlCorrAdrCity.SelectedValue = "--Select---";
+                if (customerVo.Adr1State != "")
                 {
-                    lblPermCity.Text = customerVo.Adr2City.ToString();
+                    ddlCorrAdrState.SelectedValue = customerVo.Adr1State;
                 }
-                if (customerVo.Adr2State != null)
-                {
-                    lblPermState.Text = customerVo.Adr2State.ToString();
-
-                }
-                else
-                {
-                    lblPermState.Text = null;
-                }
+                ddlPermAdrCity.SelectedValue = customerVo.PermanentCityId.ToString();
+                ddlPermAdrState.SelectedValue = customerVo.Adr2State.ToString();
                 if (customerVo.Adr2Country != null)
                 {
                     lblPermCountry.Text = customerVo.Adr2Country.ToString();
@@ -301,14 +338,11 @@ namespace WealthERP.Customer
                 }
                 lblType.Text = XMLBo.GetCustomerTypeName(path, customerVo.Type);
                 lblSubType.Text = XMLBo.GetCustomerSubTypeName(path, customerVo.SubType);
-                if (customerVo.Occupation != null)
-                {
-                    lblOccupation.Text = customerVo.OccupationId.ToString();
-                }
-
+                if (customerVo.OccupationId != 0)
+                    ddlOccupation.SelectedValue = customerVo.OccupationId.ToString();
                 else
                 {
-                    lblOccupation.Text = null;
+                    ddlOccupation.SelectedValue = null;
                 }
                 if (customerVo.AnnualIncome != null)
                 {
@@ -389,7 +423,7 @@ namespace WealthERP.Customer
                 {
                     lblGuardianRelation.Text = null;
                 }
-                if (customerVo.GuardPANNum != null)
+                if (customerVo.ContactGuardianPANNum != null)
                 {
                     lblGuardianPANNum.Text = customerVo.ContactGuardianPANNum.ToString();
                 }
@@ -477,7 +511,30 @@ namespace WealthERP.Customer
                 {
                     lblMobile2.Text = null;
                 }
-
+                if (customerVo.SubBroker != null)
+                {
+                    lblSubbroker.Text = customerVo.SubBroker.ToString();
+                }
+                else
+                {
+                    lblSubbroker.Text = null;
+                }
+                if (customerVo.Dob != DateTime.MinValue)
+                {
+                    lblDOB.Text = customerVo.Dob.ToString();
+                }
+                else
+                {
+                    lblDOB.Text = null;
+                }
+                if (customerVo.MothersMaidenName != null)
+                {
+                    lblmothersname.Text = customerVo.MothersMaidenName.ToString();
+                }
+                else
+                {
+                    lblmothersname.Text = null;
+                }
             }
             catch (BaseApplicationException Ex)
             {

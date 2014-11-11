@@ -226,13 +226,15 @@
                     <asp:Label ID="Label9" runat="server" Text="City :" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightField" width="25%">
-                    <asp:Label ID="lblCorrCity" runat="server" Text="Label" CssClass="Field"></asp:Label>
+                    <asp:DropDownList ID="ddlCorrAdrCity"  Enabled="false" runat="server" CssClass="cmbField">
+                    </asp:DropDownList>
                 </td>
                 <td class="leftField" width="25%">
                     <asp:Label ID="Label16" runat="server" Text="State :" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightField" width="25%">
-                    <asp:Label ID="lblCorrState" runat="server" Text="Label" CssClass="Field"></asp:Label>
+                    <asp:DropDownList ID="ddlCorrAdrState"  Enabled="false" runat="server" CssClass="cmbField">
+                    </asp:DropDownList>
                 </td>
             </tr>
             <tr>
@@ -308,13 +310,15 @@
                     <asp:Label ID="Label22" runat="server" Text="City :" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightField" width="25%">
-                    <asp:Label ID="lblPermCity" runat="server" Text="Label" CssClass="Field"></asp:Label>
+                    <asp:DropDownList ID="ddlPermAdrCity"  Enabled="false" runat="server" CssClass="cmbField">
+                    </asp:DropDownList>
                 </td>
                 <td class="leftField" width="25%">
                     <asp:Label ID="Label23" runat="server" Text="State :" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightField" width="25%">
-                    <asp:Label ID="lblPermState" runat="server" Text="Label" CssClass="Field"></asp:Label>
+                    <asp:DropDownList ID="ddlPermAdrState" Enabled="false" runat="server" CssClass="cmbField">
+                    </asp:DropDownList>
                 </td>
             </tr>
             <tr>
@@ -409,7 +413,8 @@
                     <asp:Label ID="Label26" runat="server" Text="Occupation:" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightField" width="25%">
-                    <asp:Label ID="lblOccupation" runat="server" Text="Label" CssClass="Field"></asp:Label>
+                   <asp:DropDownList ID="ddlOccupation" Enabled="false" runat="server" CssClass="cmbField">
+                        </asp:DropDownList>
                 </td>
                 <td class="leftField" width="25%">
                     <asp:Label ID="Label28" runat="server" Text="AnnualIncome:" CssClass="FieldName"></asp:Label>
@@ -462,6 +467,26 @@
                 </td>
                 <td class="rightField" width="25%">
                     <asp:Label ID="lblPOA" runat="server" Text="Label" CssClass="Field"></asp:Label>
+                </td>
+            </tr>
+             <tr>
+                <td class="leftField" width="25%">
+                    <asp:Label ID="Label51" runat="server" Text="Subbroker:" CssClass="FieldName"></asp:Label>
+                </td>
+                <td class="rightField" width="25%">
+                    <asp:Label ID="lblSubbroker" runat="server" Text="Label" CssClass="Field"></asp:Label>
+                </td>
+                <td class="leftField" width="25%">
+                    <asp:Label ID="Label56" runat="server" Text="Date of birth:" CssClass="FieldName"></asp:Label>
+                </td>
+                <td class="rightField" width="25%">
+                    <asp:Label ID="lblDOB" runat="server" Text="Label" CssClass="Field"></asp:Label>
+                </td>
+                <td class="leftField" width="25%">
+                    <asp:Label ID="Label58" runat="server" Text="Mother's Maiden Name:" CssClass="FieldName"></asp:Label>
+                </td>
+                <td class="rightField" width="25%">
+                    <asp:Label ID="lblmothersname" runat="server" Text="Label" CssClass="Field"></asp:Label>
                 </td>
             </tr>
             <tr>

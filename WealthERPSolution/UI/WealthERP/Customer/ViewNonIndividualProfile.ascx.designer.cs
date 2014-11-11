@@ -347,13 +347,13 @@ namespace WealthERP.Customer {
         protected global::System.Web.UI.WebControls.Label Label9;
         
         /// <summary>
-        /// lblCorrCity control.
+        /// ddlCorrAdrCity control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCorrCity;
+        protected global::System.Web.UI.WebControls.DropDownList ddlCorrAdrCity;
         
         /// <summary>
         /// Label16 control.
@@ -365,13 +365,13 @@ namespace WealthERP.Customer {
         protected global::System.Web.UI.WebControls.Label Label16;
         
         /// <summary>
-        /// lblCorrState control.
+        /// ddlCorrAdrState control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCorrState;
+        protected global::System.Web.UI.WebControls.DropDownList ddlCorrAdrState;
         
         /// <summary>
         /// Label19 control.
@@ -482,13 +482,13 @@ namespace WealthERP.Customer {
         protected global::System.Web.UI.WebControls.Label Label22;
         
         /// <summary>
-        /// lblPermCity control.
+        /// ddlPermAdrCity control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblPermCity;
+        protected global::System.Web.UI.WebControls.DropDownList ddlPermAdrCity;
         
         /// <summary>
         /// Label23 control.
@@ -500,13 +500,13 @@ namespace WealthERP.Customer {
         protected global::System.Web.UI.WebControls.Label Label23;
         
         /// <summary>
-        /// lblPermState control.
+        /// ddlPermAdrState control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblPermState;
+        protected global::System.Web.UI.WebControls.DropDownList ddlPermAdrState;
         
         /// <summary>
         /// Label24 control.
@@ -698,13 +698,13 @@ namespace WealthERP.Customer {
         protected global::System.Web.UI.WebControls.Label Label26;
         
         /// <summary>
-        /// lblOccupation control.
+        /// ddlOccupation control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblOccupation;
+        protected global::System.Web.UI.WebControls.DropDownList ddlOccupation;
         
         /// <summary>
         /// Label28 control.
@@ -849,6 +849,60 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblPOA;
+        
+        /// <summary>
+        /// Label51 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label51;
+        
+        /// <summary>
+        /// lblSubbroker control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSubbroker;
+        
+        /// <summary>
+        /// Label56 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label56;
+        
+        /// <summary>
+        /// lblDOB control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDOB;
+        
+        /// <summary>
+        /// Label58 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label58;
+        
+        /// <summary>
+        /// lblmothersname control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblmothersname;
         
         /// <summary>
         /// Label33 control.
