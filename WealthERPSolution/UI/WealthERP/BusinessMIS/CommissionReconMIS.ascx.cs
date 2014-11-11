@@ -139,7 +139,7 @@ namespace WealthERP.BusinessMIS
             ddlIssuer.DataTextField = dtGetMutualFundList.Columns["PA_AMCName"].ToString();
             ddlIssuer.DataValueField = dtGetMutualFundList.Columns["PA_AMCCode"].ToString();
             ddlIssuer.DataBind();
-            ddlIssuer.Items.Insert(0, new ListItem("Select", "Select"));
+            ddlIssuer.Items.Insert(0, new ListItem("All", "0"));
 
         }
         private void ShowHideControlsBasedOnProduct(string asset)
