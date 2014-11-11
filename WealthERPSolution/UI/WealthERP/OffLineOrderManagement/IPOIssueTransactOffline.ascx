@@ -558,8 +558,8 @@
                 <asp:Label ID="lblPaymentNumber" runat="server" Text="Cheque/Demand Draft NO: " CssClass="FieldName"></asp:Label>
             </td>
             <td class="rightField" style="width: 20%">
-                <asp:TextBox ID="txtPaymentNumber" onkeydown="return (event.keyCode!=13);" runat="server"
-                    MaxLength="6" CssClass="txtField" TabIndex="16"></asp:TextBox>
+                <asp:TextBox ID="txtPaymentNumber" onkeydown="return (event.keyCode!=13);" OnKeypress="javascript:return isNumberKey(event);"
+                    runat="server" MaxLength="6" CssClass="txtField" TabIndex="16"></asp:TextBox>
                 <span id="Span12" class="spnRequiredField">*</span>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator8" ControlToValidate="txtPaymentNumber"
                     ErrorMessage="<br />Please Enter Cheque/Demand Draft NO." Display="Dynamic" runat="server"
@@ -590,12 +590,11 @@
         </tr>
         <tr id="trASBA" runat="server" visible="false">
             <td class="leftField">
-                <asp:Label ID="lblASBANo" Text="ASBA Bank A/c NO:" runat="server" CssClass="FieldName"
-                    OnKeypress="javascript:return isNumberKey(event);"></asp:Label>
+                <asp:Label ID="lblASBANo" Text="ASBA Bank A/c NO:" runat="server" CssClass="FieldName"></asp:Label>
             </td>
             <td class="rightField">
-                <asp:TextBox ID="txtASBANO" onkeydown="return (event.keyCode!=13);" runat="server"
-                    CssClass="txtField"></asp:TextBox>
+                <asp:TextBox ID="txtASBANO" onkeydown="return (event.keyCode!=13);" OnKeypress="javascript:return isNumberKey(event);"
+                    runat="server" CssClass="txtField"></asp:TextBox>
                 <span id="Span5" class="spnRequiredField">*</span>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator9" ControlToValidate="txtASBANO"
                     ErrorMessage="<br />Please Enter Account No." Display="Dynamic" runat="server"
@@ -669,8 +668,8 @@
                 <asp:Label ID="lblDpClientId" runat="server" Text="Beneficiary Acct No:" CssClass="FieldName"></asp:Label>
             </td>
             <td class="rightField" style="width: 20%">
-                <asp:TextBox ID="txtDematid" Enabled="false" onkeydown="return (event.keyCode!=13);" runat="server"
-                    CssClass="txtField"></asp:TextBox>
+                <asp:TextBox ID="txtDematid" Enabled="false" onkeydown="return (event.keyCode!=13);"
+                    runat="server" CssClass="txtField"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator6" ControlToValidate="txtApplicationNo"
                     ErrorMessage="<br />Please Select Demat from the List" Display="Dynamic" runat="server"
                     CssClass="rfvPCG" ValidationGroup="btnConfirmOrder"></asp:RequiredFieldValidator>
