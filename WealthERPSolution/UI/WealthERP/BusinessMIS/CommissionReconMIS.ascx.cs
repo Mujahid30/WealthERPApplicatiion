@@ -65,10 +65,10 @@ namespace WealthERP.BusinessMIS
                 string monthName = DateTimeFormatInfo.CurrentInfo.GetMonthName(i);
                 ddlMnthQtr.Items.Add(new ListItem(monthName, i.ToString().PadLeft(2, '0')));
             }
-            ddlMnthQtr.Items.Add(new ListItem("Quater-1", "13"));
-            ddlMnthQtr.Items.Add(new ListItem("Quater-2", "14"));
-            ddlMnthQtr.Items.Add(new ListItem("Quater-3", "15"));
-            ddlMnthQtr.Items.Add(new ListItem("Quater-4", "16"));
+            ddlMnthQtr.Items.Add(new ListItem("FY-1", "13"));
+            ddlMnthQtr.Items.Add(new ListItem("FY-2", "14"));
+            ddlMnthQtr.Items.Add(new ListItem("FY-3", "15"));
+            ddlMnthQtr.Items.Add(new ListItem("FY-4", "16"));
             ddlMnthQtr.Items.Insert(0, new ListItem("Select", "0"));
             for (int i = 1980; i <=2030; i++)
             {

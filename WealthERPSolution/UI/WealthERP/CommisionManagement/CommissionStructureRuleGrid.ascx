@@ -295,7 +295,7 @@
                             <ClientSettings>
                                 <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
                                 <Resizing AllowColumnResize="true" />
-                                <Scrolling AllowScroll="true" SaveScrollPosition="false" ScrollHeight="163px" UseStaticHeaders="true" />
+                                
                                 <Selecting AllowRowSelect="true" />
                             </ClientSettings>
                             <FilterMenu EnableEmbeddedSkins="False">

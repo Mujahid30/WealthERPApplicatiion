@@ -468,7 +468,7 @@
                 <span id="Span6" class="spnRequiredField">*</span>
                 <asp:RequiredFieldValidator ID="rfvIssueList" runat="server" ControlToValidate="ddlIssueList"
                     ErrorMessage="Please select the Issue Name" CssClass="rfvPCG" Display="Dynamic"
-                    ValidationGroup="btnConfirmOrder"></asp:RequiredFieldValidator>
+                    ValidationGroup="btnConfirmOrder" InitialValue="Select"></asp:RequiredFieldValidator>
             </td>
         </tr>
         <tr>

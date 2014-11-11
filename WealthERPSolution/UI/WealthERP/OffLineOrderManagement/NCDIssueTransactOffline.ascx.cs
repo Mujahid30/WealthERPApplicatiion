@@ -1306,8 +1306,11 @@ namespace WealthERP.OffLineOrderManagement
                         dt.Rows[tableRow]["BankName"] = ddlBankName.SelectedItem.Text;
                         dt.Rows[tableRow]["BranchName"] = OnlineBondVo.BankBranchName;
                         dt.Rows[tableRow]["DematId"] = dematAccountId;
-                        dt.Rows[tableRow]["ChequeDate"] = OnlineBondVo.PaymentDate.ToString("yyyy/MM/dd");
-                        dt.Rows[tableRow]["ChequeNo"] = OnlineBondVo.ChequeNumber;
+                        if (ddlPaymentMode.SelectedValue == "CQ")
+                        {
+                            dt.Rows[tableRow]["ChequeDate"] = OnlineBondVo.PaymentDate.ToString("yyyy/MM/dd");
+                            dt.Rows[tableRow]["ChequeNo"] = OnlineBondVo.ChequeNumber;
+                        }
                         GridFooterItem footerItemAmount = (GridFooterItem)gvCommMgmt.MasterTableView.GetItems(GridItemType.Footer)[0];
                         Label lblSum = (Label)footerItemAmount.FindControl("lblAmount");
                         txtAmount.Text = OnlineBondVo.Amount.ToString();
