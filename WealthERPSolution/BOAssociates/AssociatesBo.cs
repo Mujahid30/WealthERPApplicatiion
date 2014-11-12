@@ -127,12 +127,12 @@ namespace BOAssociates
             }
             return bResult;
         }
-        public bool UpdateAdviserAssociates(AssociatesVO associatesVo, AdvisorVo advisorVo)
+        public bool UpdateAdviserAssociates(AssociatesVO associatesVo, int associateId, int userId, string command)
         {
             bool bResult = false;
             try
             {
-                bResult = associatesDao.UpdateAdviserAssociates(associatesVo, advisorVo);
+                bResult = associatesDao.UpdateAdviserAssociates(associatesVo, associateId, userId, command);
             }
             catch (BaseApplicationException Ex)
             {
@@ -853,37 +853,37 @@ namespace BOAssociates
         public string GetAgentCode(int agentId, int adviserId)
         {
             string agentCode = string.Empty;
-             try
+            try
             {
                 agentCode = associatesDao.GetAgentCode(agentId, adviserId);
 
-             }
+            }
             catch (BaseApplicationException Ex)
             {
                 throw Ex;
             }
-             return agentCode;
-         }
+            return agentCode;
+        }
         public string GetPANNo(int agentId)
         {
             string PANNo = string.Empty;
-              try
+            try
             {
                 PANNo = associatesDao.GetPANNo(agentId);
 
-             }
+            }
             catch (BaseApplicationException Ex)
             {
                 throw Ex;
             }
-             return PANNo;
-         }
-         public bool UpdateAssociate(AssociatesVO associatesVo, int userId, int associateId, int agentId)
+            return PANNo;
+        }
+        public bool UpdateAssociate(AssociatesVO associatesVo, int userId, int associateId, int agentId)
         {
             bool bResult = false;
             try
             {
-                bResult = associatesDao.UpdateAssociate(associatesVo,userId,associateId,agentId);
+                bResult = associatesDao.UpdateAssociate(associatesVo, userId, associateId, agentId);
 
             }
             catch (BaseApplicationException Ex)
@@ -892,20 +892,34 @@ namespace BOAssociates
             }
             return bResult;
         }
-         public bool UpdateAssociateWelcomeNotePath(int userId, long associateId, string welcomeNotePath)
-         {
-             bool bResult = false;
-              
-             try
-             {
-                 bResult = associatesDao.UpdateAssociateWelcomeNotePath(userId, associateId, welcomeNotePath);
+        public bool UpdateAssociateWelcomeNotePath(int userId, long associateId, string welcomeNotePath)
+        {
+            bool bResult = false;
 
-             }
-             catch (BaseApplicationException Ex)
-             {
-                 throw Ex;
-             }
-             return bResult;
-         }
+            try
+            {
+                bResult = associatesDao.UpdateAssociateWelcomeNotePath(userId, associateId, welcomeNotePath);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return bResult;
+        }
+        public bool UpdateAssociateDetails( AssociatesVO associatesVo, int userId, int associateid, int agentcode)
+        {
+            bool bResult = false;
+            try
+            {
+                bResult = associatesDao.UpdateAssociateDetails( associatesVo, userId, associateid, agentcode);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return bResult;
+        }
     }
 }

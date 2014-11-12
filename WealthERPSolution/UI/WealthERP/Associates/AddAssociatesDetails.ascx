@@ -131,8 +131,8 @@
             </asp:DropDownList>
             <span id="Span5" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ErrorMessage="Please Select Title"
-                CssClass="rfvPCG" ControlToValidate="ddlTitleList" ValidationGroup="Submit" Display="Dynamic"
-                InitialValue="0"></asp:RequiredFieldValidator>
+                CssClass="rfvPCG" ControlToValidate="ddlTitleList" ValidationGroup="SubmitDetails"
+                Display="Dynamic" InitialValue="0"></asp:RequiredFieldValidator>
         </td>
         <td align="right">
             <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Staff:"></asp:Label>
@@ -144,7 +144,7 @@
             <span id="Span4" class="spnRequiredField">*</span>
             <br />
             <asp:RequiredFieldValidator ID="requddlRM" runat="server" ErrorMessage="Please select a RM"
-                CssClass="rfvPCG" ControlToValidate="ddlRM" ValidationGroup="Submit" Display="Dynamic"
+                CssClass="rfvPCG" ControlToValidate="ddlRM" ValidationGroup="SubmitDetails" Display="Dynamic"
                 InitialValue="0"></asp:RequiredFieldValidator>
             <asp:CompareValidator ID="cvRM" runat="server" ValidationGroup="Submit" ControlToValidate="ddlRM"
                 ErrorMessage="Please select a RM" Operator="NotEqual" ValueToCompare="--Select--"
@@ -160,7 +160,7 @@
             </asp:DropDownList>
             <span id="Span5" class="spnRequiredField">*</span>
             <br />
-            <asp:CompareValidator ID="CompareValidator9" runat="server" ValidationGroup="Submit"
+            <asp:CompareValidator ID="CompareValidator9" runat="server" ValidationGroup="SubmitDetails"
                 ControlToValidate="ddlBranch" ErrorMessage="Please select a Branch" Operator="NotEqual"
                 TextToCompare="--Select--" CssClass="cvPCG" Display="Dynamic">
             </asp:CompareValidator>
@@ -186,18 +186,20 @@
             <asp:TextBox ID="txtAssociateName" runat="server" CssClass="txtField"></asp:TextBox>
             <span id="Span6" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="ReqtxtAssociateName" runat="server" ErrorMessage="Please Enter Associate Name"
-                CssClass="rfvPCG" ControlToValidate="txtAssociateName" ValidationGroup="Submit"
+                CssClass="rfvPCG" ControlToValidate="txtAssociateName" ValidationGroup="SubmitDetails"
                 Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
         </td>
         <td class="leftLabel" align="right">
             <asp:Label ID="lblAdviserAgentCode" runat="server" Text="SubBroker Code: " CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightData">
-            <asp:TextBox ID="txtAdviserAgentCode" MaxLength="20" runat="server" CssClass="txtField" Enabled="True"></asp:TextBox>
+            <asp:TextBox ID="txtAdviserAgentCode" MaxLength="20" runat="server" CssClass="txtField"
+                Enabled="True"></asp:TextBox>
             <span id="Span9" class="spnRequiredField">*</span> &nbsp;
             <br />
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtAdviserAgentCode" ErrorMessage="Enter SubBroker code"
-                Display="Dynamic" runat="server" CssClass="rfvPCG" ValidationGroup="Submit">
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtAdviserAgentCode"
+                ErrorMessage="Enter SubBroker code" Display="Dynamic" runat="server" CssClass="rfvPCG"
+                ValidationGroup="SubmitDetails">
             </asp:RequiredFieldValidator>
         </td>
         <td align="right">
@@ -208,12 +210,13 @@
             <span id="Span7" class="spnRequiredField">*</span> &nbsp;
             <br />
             <asp:RequiredFieldValidator ID="rfvPanNumber" ControlToValidate="txtPan" ErrorMessage="Please enter a PAN Number"
-                Display="Dynamic" runat="server" CssClass="rfvPCG" ValidationGroup="Submit">
+                Display="Dynamic" runat="server" CssClass="rfvPCG" ValidationGroup="SubmitDetails">
             </asp:RequiredFieldValidator>
             <asp:Label ID="lblPanDuplicate" runat="server" Visible="false" CssClass="Error" Text="PAN Number already exists"></asp:Label>
             <asp:Label ID="lblPanlength" runat="server" Visible="false" CssClass="Error" Text="PAN Number should have 10 digits"></asp:Label>
-         <asp:RegularExpressionValidator ID="revPan" runat="server" Display="Dynamic" ValidationGroup="btnEdit"  CssClass="rfvPCG"
-                ErrorMessage="Please check PAN Format" ControlToValidate="txtPan" ValidationExpression="[A-Za-z]{5}\d{4}[A-Za-z]{1}">
+            <asp:RegularExpressionValidator ID="revPan" runat="server" Display="Dynamic" ValidationGroup="btnEdit"
+                CssClass="rfvPCG" ErrorMessage="Please check PAN Format" ControlToValidate="txtPan"
+                ValidationExpression="[A-Za-z]{5}\d{4}[A-Za-z]{1}">
             </asp:RegularExpressionValidator>
         </td>
     </tr>
@@ -229,7 +232,6 @@
         </td>
         <td align="right">
             <asp:Label ID="lblAssociateExpiryDate" CssClass="FieldName" runat="server" Text="AMFI Number Expiry Date:"></asp:Label>
-            
         </td>
         <td>
             <telerik:RadDatePicker ID="txtAssociateExpDate" CssClass="txtTo" runat="server" Culture="English (United States)"
@@ -322,13 +324,14 @@
             </asp:DropDownList>
             <span id="Span11" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator9" runat="server" ErrorMessage="Please Select Department"
-                CssClass="rfvPCG" ControlToValidate="ddlDepart" ValidationGroup="Submit" InitialValue="0"
-                Display="Dynamic">
+                CssClass="rfvPCG" ControlToValidate="ddlDepart" ValidationGroup="SubmitDetails"
+                InitialValue="0" Display="Dynamic">
             </asp:RequiredFieldValidator>
         </td>
-        <td></td>
-        <td >
-        <asp:CheckBox ID="chkIsActive" runat="server" Text="IsActive" CssClass="txtField"/>
+        <td>
+        </td>
+        <td>
+            <asp:CheckBox ID="chkIsActive" runat="server" Text="IsActive" CssClass="txtField" />
         </td>
     </tr>
     <tr>
@@ -353,6 +356,15 @@
      ValidationGroup="btnSubmit" Display="Dynamic" CssClass="rfvPCG" />--%>
             </asp:Panel>
         </td>
+    </tr>
+    <tr>
+        <td>
+            <asp:Button ID="BtnSave" runat="server" Visible="true" Text="Submit" CssClass="PCGButton"
+                OnClick="btnSubmit_Click" ValidationGroup="SubmitDetails" />
+            <asp:Button ID="btnAssociateUpdate" runat="server" Text="Update" CssClass="PCGButton"
+                OnClick="btnAssociateUpdate_OnClick" Visible="true" ValidationGroup="SubmitDetails" />
+        </td>
+    </tr>
 </table>
 <telerik:RadTabStrip ID="RadTabStripAssociatesDetails" runat="server" EnableTheming="True"
     Skin="Telerik" EnableEmbeddedSkins="False" MultiPageID="AssociatesDetails" SelectedIndex="0">
@@ -383,9 +395,16 @@
         <asp:Panel ID="pnlContactDetails" runat="server">
             <table style="width: 100%; height: 170px;">
                 <tr>
-                    <td colspan="4">
+                    <td class="tdSectionHeading" colspan="4">
                         <div class="divSectionHeading" style="vertical-align: text-bottom">
-                            Contact Details
+                            <div class="fltlft" style="width: 200px; float: left">
+                                &nbsp;
+                                <asp:Label ID="Label5" runat="server" Text="Contact Details"></asp:Label>
+                            </div>
+                            <div class="divViewEdit" style="float: right; padding-right: 50px">
+                                <asp:LinkButton ID="lnkContactDetails" runat="server" Text="Edit" CssClass="LinkButtons"
+                                    OnClick="lnkContactDetails_OnClick"></asp:LinkButton>
+                            </div>
                         </div>
                     </td>
                 </tr>
@@ -475,7 +494,7 @@
                         <asp:TextBox ID="txtMobile1" runat="server" CssClass="txtField" MaxLength="10"></asp:TextBox>
                         <asp:RegularExpressionValidator ID="rvMobile1" runat="server" ValidationGroup="Submit"
                             ControlToValidate="txtMobile1" Display="Dynamic" ErrorMessage="<br />Mobile Number must be 10 digit"
-                         CssClass="rfvPCG"   ValidationExpression="^((\+)?(\d{2}[-]))?(\d{10}){1}?$"></asp:RegularExpressionValidator>
+                            CssClass="rfvPCG" ValidationExpression="^((\+)?(\d{2}[-]))?(\d{10}){1}?$"></asp:RegularExpressionValidator>
                     </td>
                 </tr>
                 <tr>
@@ -500,6 +519,14 @@
                             ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" CssClass="revPCG"></asp:RegularExpressionValidator>--%>
                     </td>
                 </tr>
+                <tr>
+                    <td>
+                        <asp:Button ID="btnContactDetails" runat="server" CssClass="PCGButton" Text="Submit"
+                            OnClick="btnContactDetails_OnClick" />
+                        <asp:Button ID="btnContactDetailsUpdate" runat="server" CssClass="PCGButton" Text="Update"
+                            OnClick="btnContactDetailsUpdate_OnClick" />
+                    </td>
+                </tr>
             </table>
         </asp:Panel>
     </telerik:RadPageView>
@@ -509,7 +536,13 @@
                 <tr>
                     <td colspan="4">
                         <div class="divSectionHeading" style="vertical-align: text-bottom">
-                            Corresponding Address
+                            <div class="fltlft" style="width: 200px; float: left">
+                                &nbsp; Corresponding Address
+                            </div>
+                            <div class="divViewEdit" style="float: right; padding-right: 50px">
+                                <asp:LinkButton ID="lnkCrossPondingAddress" runat="server" CssClass="LinkButtons"
+                                    Text="Edit" OnClick="lnkCrossPondingAddress_OnClick"></asp:LinkButton>
+                            </div>
                         </div>
                     </td>
                 </tr>
@@ -650,6 +683,14 @@
                         <asp:TextBox ID="txtPermAdrCountry" runat="server" CssClass="txtField"></asp:TextBox>
                     </td>
                 </tr>
+                <tr>
+                    <td>
+                        <asp:Button ID="btnCrossPondence" runat="server" CssClass="PCGButton" Text="Submit"
+                            OnClick="btnCrossPondence_OnClick" />
+                        <asp:Button ID="btnbtnCrossPondenceUpdate" runat="server" CssClass="PCGButton" Text="Update"
+                            OnClick="btnbtnCrossPondenceUpdate_OnClick" />
+                    </td>
+                </tr>
             </table>
         </asp:Panel>
     </telerik:RadPageView>
@@ -659,7 +700,13 @@
                 <tr>
                     <td colspan="4">
                         <div class="divSectionHeading" style="vertical-align: text-bottom">
-                            Other Information
+                            <div class="fltlft" style="width: 200px; float: left">
+                                &nbsp; Other Information
+                            </div>
+                            <div class="divViewEdit" style="float: right; padding-right: 50px">
+                                <asp:LinkButton ID="lnkOtherInformation" runat="server" CssClass="LinkButtons" Text="Edit"
+                                    OnClick="lnkOtherInformation_OnClick"></asp:LinkButton>
+                            </div>
                         </div>
                     </td>
                 </tr>
@@ -709,6 +756,14 @@
                         </telerik:RadDatePicker>
                     </td>
                 </tr>
+                <tr>
+                    <td>
+                        <asp:Button ID="OtherInformation" runat="server" CssClass="PCGButton" Text="Submit"
+                            OnClick="btnAssociateUpdaOtherInformation_OnClickte_OnClick" />
+                        <asp:Button ID="btnOtherInformationUpdate" runat="server" CssClass="PCGButton" Text="Update"
+                            OnClick="btnOtherInformationUpdate_OnClick" />
+                    </td>
+                </tr>
             </table>
         </asp:Panel>
     </telerik:RadPageView>
@@ -718,7 +773,13 @@
                 <tr>
                     <td colspan="4">
                         <div class="divSectionHeading" style="vertical-align: text-bottom">
-                            Bank Details
+                            <div class="fltlft" style="width: 200px; float: left">
+                                &nbsp; Bank Details
+                            </div>
+                            <div class="divViewEdit" style="float: right; padding-right: 50px">
+                                <asp:LinkButton ID="lnkBankDetails" runat="server" CssClass="LinkButtons" Text="Edit"
+                                    OnClick="lnkBankDetails_OnClick"></asp:LinkButton>
+                            </div>
                         </div>
                     </td>
                 </tr>
@@ -731,7 +792,7 @@
                         </asp:DropDownList>
                         <span id="Span3" class="spnRequiredField">*</span>
                         <asp:CompareValidator ID="CompareValidator3" runat="server" ControlToValidate="ddlBankName"
-                            ValidationGroup="btnSubmit" ErrorMessage="<br />Please select a Bank Name" Operator="NotEqual"
+                            ValidationGroup="btnBank" ErrorMessage="<br />Please select a Bank Name" Operator="NotEqual"
                             ValueToCompare="Select" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
                     </td>
                     <td class="leftField">
@@ -742,7 +803,7 @@
                         </asp:DropDownList>
                         <span id="Span1" class="spnRequiredField">*</span>
                         <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="ddlAccountType"
-                            ValidationGroup="btnSubmit" ErrorMessage="<br />Please select a Account Type"
+                            ValidationGroup="btnBank" ErrorMessage="<br />Please select a Account Type"
                             Operator="NotEqual" ValueToCompare="Select" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
                     </td>
                 </tr>
@@ -754,7 +815,7 @@
                         <asp:TextBox ID="txtAccountNumber" runat="server" CssClass="txtField"></asp:TextBox>
                         <span id="spAccountNumber" class="spnRequiredField">*</span>
                         <asp:RequiredFieldValidator ID="rfvAccountNumber" ControlToValidate="txtAccountNumber"
-                            ValidationGroup="btnSubmit" ErrorMessage="<br />Please enter a Account Number"
+                            ValidationGroup="btnBank" ErrorMessage="<br />Please enter a Account Number"
                             Display="Dynamic" runat="server" CssClass="rfvPCG">
                         </asp:RequiredFieldValidator>
                     </td>
@@ -765,7 +826,7 @@
                         <asp:TextBox ID="txtBankBranchName" runat="server" CssClass="txtField"></asp:TextBox>
                         <span id="spBranchName" class="spnRequiredField">*</span>
                         <asp:RequiredFieldValidator ID="rfvBranchName" ControlToValidate="txtBankBranchName"
-                            ValidationGroup="btnSubmit" ErrorMessage="<br />Please enter a Branch Name" Display="Dynamic"
+                            ValidationGroup="btnBank" ErrorMessage="<br />Please enter a Branch Name" Display="Dynamic"
                             runat="server" CssClass="rfvPCG">
                         </asp:RequiredFieldValidator>
                     </td>
@@ -814,7 +875,7 @@
                     <td class="rightField">
                         <asp:TextBox ID="txtBankAdrPinCode" runat="server" CssClass="txtField" MaxLength="6"></asp:TextBox>
                         <asp:CompareValidator ID="cvBankPinCode" runat="server" ErrorMessage="<br />Enter a numeric value"
-                            CssClass="rfvPCG" Type="Integer" ControlToValidate="txtBankAdrPinCode" ValidationGroup="btnSubmit"
+                            CssClass="rfvPCG" Type="Integer" ControlToValidate="txtBankAdrPinCode" ValidationGroup="btnBank"
                             Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
                     </td>
                 </tr>
@@ -825,7 +886,7 @@
                     <td class="rightField">
                         <asp:TextBox ID="txtMicr" runat="server" CssClass="txtField" MaxLength="9"></asp:TextBox>
                         <asp:CompareValidator ID="cvMicr" runat="server" ErrorMessage="<br />Enter a numeric value"
-                            CssClass="rfvPCG" Type="Integer" ValidationGroup="btnSubmit" ControlToValidate="txtMicr"
+                            CssClass="rfvPCG" Type="Integer" ValidationGroup="btnBank" ControlToValidate="txtMicr"
                             Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
                     </td>
                     <td class="leftField">
@@ -837,8 +898,10 @@
                 </tr>
                 <tr>
                     <td>
-                    </td>
-                    <td colspan="3">
+                        <asp:Button ID="btnBankDetails" runat="server" CssClass="PCGButton" Text="Submit"
+                            OnClick="btnBankDetails_OnClick" ValidationGroup="btnBank"/>
+                        <asp:Button ID="btnBankDetailsUpdate" runat="server" CssClass="PCGButton" Text="Update"
+                            OnClick="btnBankDetailsUpdate_OnClick" ValidationGroup="btnBank"/>
                     </td>
                 </tr>
             </table>
@@ -850,7 +913,12 @@
                 <tr>
                     <td colspan="4">
                         <div class="divSectionHeading" style="vertical-align: text-bottom">
-                            Registration
+                            <div class="fltlft" style="width: 200px; float: left">
+                                &nbsp; Registration
+                            </div>
+                            <div class="divViewEdit" style="float: right; padding-right: 50px">
+                                <asp:LinkButton ID="lnkRegistration" runat="server" CssClass="LinkButtons" Text="Edit"
+                                    OnClick="lnkRegistration_OnClick"></asp:LinkButton></div>
                         </div>
                     </td>
                 </tr>
@@ -890,6 +958,14 @@
                     <td>
                     </td>
                 </tr>
+                <tr>
+                    <td>
+                        <asp:Button ID="btnRegistration" runat="server" CssClass="PCGButton" Text="Submit"
+                            OnClick="btnRegistration_OnClick" />
+                        <asp:Button ID="btnRegistrationUpdate" runat="server" CssClass="PCGButton" Text="Update"
+                            OnClick="btnRegistrationUpdate_OnClick" />
+                    </td>
+                </tr>
             </table>
         </asp:Panel>
     </telerik:RadPageView>
@@ -899,36 +975,41 @@
                 <tr>
                     <td colspan="4">
                         <div class="divSectionHeading" style="vertical-align: text-bottom">
-                            Nominee
+                            <div class="fltlft" style="width: 200px; float: left">
+                                &nbsp; Nominee
+                            </div>
+                            <div class="divViewEdit" style="float: right; padding-right: 50px">
+                                <asp:LinkButton ID="lnkNominee" runat="server" CssClass="LinkButtons" Text="Edit"
+                                    OnClick="lnkNominee_OnClick"></asp:LinkButton></div>
                         </div>
                     </td>
                 </tr>
                 <tr>
-                    <td class="leftField">
+                    <td align="right">
                         <asp:Label ID="lblNomineeName" CssClass="FieldName" runat="server" Text="Name:"></asp:Label>
                     </td>
-                    <td class="rightField">
+                    <td>
                         <asp:TextBox ID="txtNomineeName" runat="server" CssClass="txtField"></asp:TextBox>
                     </td>
-                    <td class="leftField">
+                    <td align="right">
                         <asp:Label ID="lblNomineeRel" CssClass="FieldName" runat="server" Text="Relationship:"></asp:Label>
                     </td>
-                    <td class="rightField">
+                    <td>
                         <asp:DropDownList ID="ddlNomineeRel" runat="server" CssClass="cmbField">
                         </asp:DropDownList>
                     </td>
                 </tr>
                 <tr>
-                    <td class="leftField">
+                    <td align="right">
                         <asp:Label ID="lblNomineeAdress" runat="server" CssClass="FieldName" Text="Adress:"></asp:Label>
                     </td>
-                    <td class="rightField">
+                    <td>
                         <asp:TextBox ID="txtNomineeAdress" runat="server" CssClass="txtField"></asp:TextBox>
                     </td>
-                    <td class="leftField">
+                    <td align="right">
                         <asp:Label ID="lblNomineePhone" runat="server" CssClass="FieldName" Text="Phone No:"></asp:Label>
                     </td>
-                    <td class="rightField">
+                    <td>
                         <asp:TextBox ID="txtNomineePhone" runat="server" CssClass="txtField"></asp:TextBox>
                     </td>
                 </tr>
@@ -938,32 +1019,39 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class="leftField">
+                    <td align="right">
                         <asp:Label ID="lblGurdianName" CssClass="FieldName" runat="server" Text="Name:"></asp:Label>
                     </td>
-                    <td class="rightField">
+                    <td>
                         <asp:TextBox ID="txtGurdiannName" runat="server" CssClass="txtField"></asp:TextBox>
                     </td>
-                    <td class="leftField">
+                    <td align="right">
                         <asp:Label ID="lblGuardianRel" CssClass="FieldName" runat="server" Text="Relationship:"></asp:Label>
                     </td>
-                    <td class="rightField">
+                    <td>
                         <asp:DropDownList ID="ddlGuardianRel" runat="server" CssClass="cmbField">
                         </asp:DropDownList>
                     </td>
                 </tr>
                 <tr>
-                    <td class="leftField">
+                    <td align="right">
                         <asp:Label ID="lblGuardianAdress" runat="server" CssClass="FieldName" Text="Adress:"></asp:Label>
                     </td>
-                    <td class="rightField">
+                    <td>
                         <asp:TextBox ID="txtGuardianAdress" runat="server" CssClass="txtField"></asp:TextBox>
                     </td>
-                    <td class="leftField">
+                    <td align="right">
                         <asp:Label ID="lblGurdianPhone" runat="server" CssClass="FieldName" Text="Phone No:"></asp:Label>
                     </td>
-                    <td class="rightField">
+                    <td>
                         <asp:TextBox ID="txtGurdianPhone" runat="server" CssClass="txtField"></asp:TextBox>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <asp:Button ID="btnNominee" runat="server" CssClass="PCGButton" Text="Submit" OnClick="btnNominee_OnClick" />
+                        <asp:Button ID="btnNomineeUpdate" runat="server" CssClass="PCGButton" Text="Update"
+                            OnClick="btnNomineeUpdate_OnClick" />
                     </td>
                 </tr>
             </table>
@@ -975,7 +1063,12 @@
                 <tr>
                     <td colspan="3">
                         <div class="divSectionHeading" style="vertical-align: text-bottom">
-                            Category
+                            <div class="fltlft" style="width: 200px; float: left">
+                                &nbsp; Category
+                            </div>
+                            <div class="divViewEdit" style="float: right; padding-right: 50px">
+                                <asp:LinkButton ID="lnkCategory" runat="server" CssClass="LinkButtons" Text="Edit"
+                                    OnClick="lnkCategory_OnClick"></asp:LinkButton></div>
                         </div>
                     </td>
                 </tr>
@@ -990,6 +1083,13 @@
                     <td class="leftField">
                     </td>
                 </tr>
+                <tr>
+                    <td>
+                        <asp:Button ID="btnCategory" runat="server" CssClass="PCGButton" Text="Submit" OnClick="btnCategory_OnClick" />
+                        <asp:Button ID="btnCategoryUpdate" runat="server" CssClass="PCGButton" Text="Update"
+                            OnClick="btnCategoryUpdate_OnClick" />
+                    </td>
+                </tr>
             </table>
         </asp:Panel>
     </telerik:RadPageView>
@@ -999,7 +1099,13 @@
                 <tr>
                     <td colspan="4">
                         <div class="divSectionHeading" style="vertical-align: text-bottom">
-                            Business Details
+                            <div class="fltlft" style="width: 200px; float: left">
+                                &nbsp; Business Details
+                            </div>
+                            <div class="divViewEdit" style="float: right; padding-right: 50px">
+                                <asp:LinkButton ID="lnkBusinessDetails" runat="server" Text="Edit" CssClass="LinkButtons"
+                                    OnClick="lnkBusinessDetails_OnClick"></asp:LinkButton>
+                            </div>
                         </div>
                     </td>
                 </tr>
@@ -1054,6 +1160,14 @@
                             <asp:ListItem Text="Insurance" Value="IN"></asp:ListItem>
                             <asp:ListItem Text="Bond" Value="BO"></asp:ListItem>
                         </asp:CheckBoxList>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <asp:Button ID="btnBusinessDetails" runat="server" CssClass="PCGButton" Text="Submit"
+                            OnClick="btnBusinessDetails_OnClick" />
+                        <asp:Button ID="btnBusinessDetailsUpdate" runat="server" CssClass="PCGButton" Text="Update"
+                            OnClick="btnBusinessDetailsUpdate_OnClick" />
                     </td>
                 </tr>
             </table>
@@ -1124,11 +1238,8 @@
         <td colspan="3">
             <asp:Button ID="btnSubmit" runat="server" Text="Update" CssClass="PCGButton" OnClick="Update_Click"
                 Visible="false" ValidationGroup="Submit" />
-            <asp:Button ID="BtnSave" runat="server" Visible="true" Text="Submit" CssClass="PCGButton"
-                OnClick="btnSubmit_Click" ValidationGroup="Submit" />
-                 <asp:Button ID="btnPreviewSend" runat="server" Visible="false" target="_blank"
-                Text="Preview and Send Welcome Letter" CssClass="PCGButton" onclick="btnPreviewSend_Click"
-                 />
+            <asp:Button ID="btnPreviewSend" runat="server" Visible="false" target="_blank" Text="Preview and Send Welcome Letter"
+                CssClass="PCGButton" OnClick="btnPreviewSend_Click" />
         </td>
     </tr>
 </table>

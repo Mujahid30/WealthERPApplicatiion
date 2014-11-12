@@ -114,6 +114,7 @@ namespace VOAssociates
         public int Departmrntid { get; set; }
         public int IsActive { get; set; }
         private string m_WelcomeNotePath;
+        private int categoryId { get; set; }
         #endregion
 
         #region Properties
