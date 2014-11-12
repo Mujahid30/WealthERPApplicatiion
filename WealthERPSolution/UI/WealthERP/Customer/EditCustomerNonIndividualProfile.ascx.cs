@@ -292,8 +292,12 @@ namespace WealthERP.Customer
                         if (customerVo.Adr1City != null)
                             ddlCorrAdrCity.SelectedValue = customerVo.customerCity.ToString();
                         else
+
                             ddlCorrAdrCity.SelectedValue = "--Select---";
-                        ddlPermAdrCity.SelectedValue = customerVo.PermanentCityId.ToString();
+                        if (customerVo.PermanentCityId != null)
+                            ddlPermAdrCity.SelectedValue = customerVo.PermanentCityId.ToString();
+                        else
+                            ddlPermAdrCity.SelectedValue = "--Select---";
                         RadTabStripCustomerProfile.TabIndex = 0;
                         CustomerProfileDetails.SelectedIndex = 0;
                         RadTabStripCustomerProfile.Tabs[0].Selected = true;

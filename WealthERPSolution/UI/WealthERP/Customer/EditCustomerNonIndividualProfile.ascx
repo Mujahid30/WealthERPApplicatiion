@@ -282,10 +282,7 @@
                                     <asp:Label ID="Label23" runat="server" Text="State:" CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td class="rightField">
-                                    <asp:DropDownList ID="ddlCorrAdrState" runat="server" CssClass="txtField">
-                                        <asp:ListItem>Karnataka</asp:ListItem>
-                                        <asp:ListItem>Andhra Pradesh</asp:ListItem>
-                                        <asp:ListItem>Tamil Nadu</asp:ListItem>
+                                    <asp:DropDownList ID="ddlCorrAdrState" runat="server" CssClass="cmbField">
                                     </asp:DropDownList>
                                 </td>
                             </tr>
@@ -461,9 +458,12 @@
                                     <asp:Label ID="Label36" runat="server" Text="Fax:" CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td class="rightField">
-                                    <asp:TextBox ID="txtFaxIsd" runat="server" Width="40px" CssClass="txtField"></asp:TextBox>
-                                    <asp:TextBox ID="txtFaxStd" runat="server" Width="40px" CssClass="txtField"></asp:TextBox>
-                                    <asp:TextBox ID="txtFax" runat="server" Width="100px" CssClass="txtField"></asp:TextBox>
+                                    <asp:TextBox ID="txtFaxIsd" runat="server" OnKeypress="javascript:return isNumberKey(event);"
+                                        Width="40px" CssClass="txtField"></asp:TextBox>
+                                    <asp:TextBox ID="txtFaxStd" runat="server" OnKeypress="javascript:return isNumberKey(event);"
+                                        Width="40px" CssClass="txtField"></asp:TextBox>
+                                    <asp:TextBox ID="txtFax" MaxLength="7" OnKeypress="javascript:return isNumberKey(event);"
+                                        runat="server" Width="100px" CssClass="txtField"></asp:TextBox>
                                     <asp:CompareValidator ID="txtFaxIsd_CompareValidator" ControlToValidate="txtFaxIsd"
                                         runat="server" Enabled="false" Display="Dynamic" ErrorMessage="<br />Please enter a numeric value for ISD code."
                                         Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>

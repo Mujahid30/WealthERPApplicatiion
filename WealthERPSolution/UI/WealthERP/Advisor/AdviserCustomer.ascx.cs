@@ -68,6 +68,7 @@ namespace WealthERP.Advisor
             rmVo = (RMVo)Session["rmVo"];
             adviserVo = (AdvisorVo)Session["advisorVo"];
             associatesVo = (AssociatesVO)Session["associatesVo"];
+            //rbtnRegister.Checked = true;
             if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
             {
                 txtCustomerName_autoCompleteExtender.ContextKey = adviserVo.advisorId.ToString();
@@ -163,6 +164,7 @@ namespace WealthERP.Advisor
             #endregion
             if (!IsPostBack)
             {
+                
                 if (Request.QueryString["CustomerDeleteStatus"] != null)
                 {
                     CreationSuccessMessage.Visible = true;
@@ -1630,7 +1632,16 @@ namespace WealthERP.Advisor
         /// <summary>
         /// Binding Customer List when find customer
         /// </summary>
-
+        protected void rbtnRegister_CheckedChanged(object sender, EventArgs e)
+        {
+            ddlCOption.Items[3].Enabled= true;
+           
+        }
+        protected void rbtnNonRegister_CheckedChanged(object sender, EventArgs e)
+        {
+            ddlCOption.Items[3].Enabled = false;
+          
+        }
 
     }
 

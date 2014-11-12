@@ -228,18 +228,24 @@
     </tr>
 </table>
 <table>
-    <tr>
-        <td>
+    <tr id="Register">
+        <td class="leftField" style="width: 20%">
+            <asp:Label ID="lbltype" runat="server" CssClass="FieldName" Text="Type:"></asp:Label>
         </td>
+        <td class="rightField">
+            <asp:RadioButton ID="rbtnRegister" runat="server" CssClass="txtField" Text="Registered"
+                GroupName="grpCustomerType" AutoPostBack="true" OnCheckedChanged="rbtnRegister_CheckedChanged" />
+            &nbsp;&nbsp;
+            <asp:RadioButton ID="rbtnNonRegister" runat="server" CssClass="txtField" Text="Non Registered"
+                GroupName="grpCustomerType" AutoPostBack="true" OnCheckedChanged="rbtnNonRegister_CheckedChanged" />
+    </tr>
+</table>
+<table>
+    <tr id="trSearchtype">
         <td align="right">
             <asp:Label ID="lblIskyc" runat="server" Text="Select:" CssClass="FieldName"></asp:Label>
         </td>
         <td>
-            <%--<asp:DropDownList ID="ddlIskyc" runat="server" CssClass="cmbField">
-                <asp:ListItem Text="Select" Value="Select" Selected="true" />
-                <asp:ListItem Text="Yes" Value="1" />
-                 <asp:ListItem Text="No" Value="0" />
-            </asp:DropDownList>--%>
             <asp:DropDownList ID="ddlCOption" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlCOption_SelectedIndexChanged"
                 AutoPostBack="true">
                 <asp:ListItem Text="Select" Value="Select" Selected="true" />
@@ -395,8 +401,8 @@
                                         <ItemStyle Width="140px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                                     </telerik:GridBoundColumn>
                                     <telerik:GridBoundColumn DataField="Group" UniqueName="ParentId" HeaderText="Group"
-                                        AutoPostBackOnFilter="true" SortExpression="Group"  Visible="false" ShowFilterIcon="false" AllowFiltering="true"
-                                        HeaderStyle-Width="145px">
+                                        AutoPostBackOnFilter="true" SortExpression="Group" Visible="false" ShowFilterIcon="false"
+                                        AllowFiltering="true" HeaderStyle-Width="145px">
                                         <ItemStyle Width="145px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                                         <%-- <FilterTemplate>
                                     <telerik:RadComboBox ID="RadComboGroup" AutoPostBack="true" AllowFiltering="true"
