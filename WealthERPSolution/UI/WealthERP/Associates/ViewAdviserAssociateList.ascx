@@ -126,10 +126,15 @@
                                                 AllowFiltering="true" HeaderText="Deputy Head" UniqueName="DeputyHead">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="true" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
+                                             <telerik:GridBoundColumn HeaderStyle-Width="130px" DataField="IsActive" SortExpression="IsActive"
+                                                AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
+                                                AllowFiltering="true" HeaderText="Is Active" UniqueName="IsActive">
+                                                <ItemStyle Width="" HorizontalAlign="left" Wrap="true" VerticalAlign="Top" />
+                                            </telerik:GridBoundColumn>
                                                <telerik:GridTemplateColumn UniqueName="Welcome" ItemStyle-Width="100Px" AllowFiltering="false">
                                                 <ItemTemplate>
                                                   <asp:LinkButton ID="lbtnWelcomeletter" OnClientClick="window.document.forms[0].target='_blank'; setTimeout(function(){window.document.forms[0].target='';}, 500);"
-                                                   runat="server"  OnClick="lbtnWelcomeletter_OnClick" Visible='<%# Eval("WelcomeNotePath") != DBNull.Value %>' >View WelcomeLetter</asp:LinkButton>
+                                                   runat="server"  OnClick="lbtnWelcomeletter_OnClick" Visible='<%# Eval("WelcomeNotePath") != DBNull.Value %>' >WelcomeLetter</asp:LinkButton>
                                                 </ItemTemplate>
                                             </telerik:GridTemplateColumn>
                                         </Columns>

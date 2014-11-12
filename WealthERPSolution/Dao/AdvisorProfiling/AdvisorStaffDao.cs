@@ -338,7 +338,7 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(createRMCmd, "@U_ModifiedBy", DbType.Int32, userId);
                 db.AddInParameter(createRMCmd, "@AR_EUIN", DbType.String, rmVo.EUIN);
                 db.AddInParameter(createRMCmd, "@AAC_AgentCode", DbType.String, rmVo.AAC_AgentCode);
-                db.AddInParameter(createRMCmd, "@AAC_AdviserAgentI", DbType.Int32, rmVo.AdviserAgentId);
+                db.AddInParameter(createRMCmd, "@AAC_AdviserAgentId", DbType.Int32, rmVo.AdviserAgentId);
                 db.AddInParameter(createRMCmd, "@AssociatesId", DbType.Int32, 0);
                 db.AddInParameter(createRMCmd, "@staffbranch", DbType.String, rmVo.StaffBranchAssociation);
                 if (isOpsIsChecked == true)
