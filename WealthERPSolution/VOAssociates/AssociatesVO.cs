@@ -114,14 +114,18 @@ namespace VOAssociates
         public int Departmrntid { get; set; }
         public int IsActive { get; set; }
         private string m_WelcomeNotePath;
-        private int categoryId { get; set; }
+        private int m_categoryId { get; set; }
         #endregion
 
         #region Properties
 
         
         //public string[] PermisionList { get; set; } 
-
+        public int categoryId
+        {
+            get { return m_categoryId; }
+            set { m_categoryId = value; }
+        }
         public int AdviserAssociateId
         {
             get { return m_AdviserAssociateId; }

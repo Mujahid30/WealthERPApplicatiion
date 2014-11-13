@@ -21,7 +21,20 @@ namespace WealthERP.Associates {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.ScriptManager scrptMgr;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlTable tblMessage;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl msgRecordStatus;
+        protected global::System.Web.UI.HtmlControls.HtmlTable tblCrosspondance;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl dvCrosspondance;
+        protected global::System.Web.UI.HtmlControls.HtmlTable tblOther;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl dvOther;
+        protected global::System.Web.UI.HtmlControls.HtmlTable tblBankDetails;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl dvBankDetails;
+        protected global::System.Web.UI.HtmlControls.HtmlTable tblNominee;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl dvNominee;
+        protected global::System.Web.UI.HtmlControls.HtmlTable tblCategory;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl dvCategory;
+        protected global::System.Web.UI.HtmlControls.HtmlTable tblBusinessDetails;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl dvBusinessDetails;
         /// <summary>
         /// head control.
         /// </summary>

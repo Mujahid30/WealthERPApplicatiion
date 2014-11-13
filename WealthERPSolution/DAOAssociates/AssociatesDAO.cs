@@ -326,7 +326,7 @@ namespace DAOAssociates
                     db.AddInParameter(UpdateAssociatesCmd, "@AA_Fax", DbType.Int32, associatesVo.ResFaxNumber);
                 else
                     db.AddInParameter(UpdateAssociatesCmd, "@AA_Fax", DbType.Int32, DBNull.Value);
-                if (!string.IsNullOrEmpty(associatesVo.CorrAdrLine1.ToString().Trim()))
+                if (!string.IsNullOrEmpty(associatesVo.CorrAdrLine1.ToString()))
                     db.AddInParameter(UpdateAssociatesCmd, "@AA_CorrAdrLine1", DbType.String, associatesVo.CorrAdrLine1);
                 else
                     db.AddInParameter(UpdateAssociatesCmd, "@AA_CorrAdrLine1", DbType.String, DBNull.Value);
@@ -532,7 +532,7 @@ namespace DAOAssociates
                 else
                     db.AddInParameter(UpdateAssociatesCmd, "@AA_NoOfClients", DbType.Int16, DBNull.Value);
                 db.AddInParameter(UpdateAssociatesCmd, "@command", DbType.String, command);
-                db.AddInParameter(UpdateAssociatesCmd, "@categoryId", DbType.Int16, associatesVo.AdviserCategory);
+                db.AddInParameter(UpdateAssociatesCmd, "@categoryId", DbType.Int16, associatesVo.categoryId);
                 db.ExecuteNonQuery(UpdateAssociatesCmd);
                 result = true;
             }

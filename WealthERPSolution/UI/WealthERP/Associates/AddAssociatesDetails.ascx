@@ -362,7 +362,7 @@
             <asp:Button ID="BtnSave" runat="server" Visible="true" Text="Submit" CssClass="PCGButton"
                 OnClick="btnSubmit_Click" ValidationGroup="SubmitDetails" />
             <asp:Button ID="btnAssociateUpdate" runat="server" Text="Update" CssClass="PCGButton"
-                OnClick="btnAssociateUpdate_OnClick" Visible="true" ValidationGroup="SubmitDetails" />
+                OnClick="btnAssociateUpdate_OnClick" Visible="false" ValidationGroup="SubmitDetails" />
         </td>
     </tr>
 </table>
@@ -403,9 +403,21 @@
                             </div>
                             <div class="divViewEdit" style="float: right; padding-right: 50px">
                                 <asp:LinkButton ID="lnkContactDetails" runat="server" Text="Edit" CssClass="LinkButtons"
-                                    OnClick="lnkContactDetails_OnClick"></asp:LinkButton>
+                                    OnClick="lnkContactDetails_OnClick" Visible="false"></asp:LinkButton>
                             </div>
                         </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <table id="tblMessage" width="100%" runat="server" visible="false" style="padding-top: 0px;">
+                            <tr id="trSumbitSuccess">
+                                <td align="center">
+                                    <div id="msgRecordStatus" class="success-msg" align="center" runat="server">
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
                     </td>
                 </tr>
                 <tr>
@@ -522,9 +534,9 @@
                 <tr>
                     <td>
                         <asp:Button ID="btnContactDetails" runat="server" CssClass="PCGButton" Text="Submit"
-                            OnClick="btnContactDetails_OnClick" />
+                            OnClick="btnContactDetails_OnClick" Visible="false"/>
                         <asp:Button ID="btnContactDetailsUpdate" runat="server" CssClass="PCGButton" Text="Update"
-                            OnClick="btnContactDetailsUpdate_OnClick" />
+                            OnClick="btnContactDetailsUpdate_OnClick" Visible="false" />
                     </td>
                 </tr>
             </table>
@@ -541,9 +553,21 @@
                             </div>
                             <div class="divViewEdit" style="float: right; padding-right: 50px">
                                 <asp:LinkButton ID="lnkCrossPondingAddress" runat="server" CssClass="LinkButtons"
-                                    Text="Edit" OnClick="lnkCrossPondingAddress_OnClick"></asp:LinkButton>
+                                    Text="Edit" OnClick="lnkCrossPondingAddress_OnClick" Visible="false"></asp:LinkButton>
                             </div>
                         </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <table id="tblCrosspondance" width="100%" runat="server" visible="false" style="padding-top: 0px;">
+                            <tr >
+                                <td align="center">
+                                    <div id="dvCrosspondance" class="success-msg" align="center" runat="server">
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
                     </td>
                 </tr>
                 <tr>
@@ -686,9 +710,9 @@
                 <tr>
                     <td>
                         <asp:Button ID="btnCrossPondence" runat="server" CssClass="PCGButton" Text="Submit"
-                            OnClick="btnCrossPondence_OnClick" />
+                            OnClick="btnCrossPondence_OnClick" Visible="false" />
                         <asp:Button ID="btnbtnCrossPondenceUpdate" runat="server" CssClass="PCGButton" Text="Update"
-                            OnClick="btnbtnCrossPondenceUpdate_OnClick" />
+                            OnClick="btnbtnCrossPondenceUpdate_OnClick" Visible="false" />
                     </td>
                 </tr>
             </table>
@@ -705,9 +729,20 @@
                             </div>
                             <div class="divViewEdit" style="float: right; padding-right: 50px">
                                 <asp:LinkButton ID="lnkOtherInformation" runat="server" CssClass="LinkButtons" Text="Edit"
-                                    OnClick="lnkOtherInformation_OnClick"></asp:LinkButton>
+                                    OnClick="lnkOtherInformation_OnClick" Visible="false"></asp:LinkButton>
                             </div>
                         </div>
+                    </td>
+                </tr>
+                  <td colspan="4">
+                        <table id="tblOther" width="100%" runat="server" visible="false" style="padding-top: 0px;">
+                            <tr >
+                                <td align="center">
+                                    <div id="dvOther" class="success-msg" align="center" runat="server">
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
                     </td>
                 </tr>
                 <tr>
@@ -759,9 +794,9 @@
                 <tr>
                     <td>
                         <asp:Button ID="OtherInformation" runat="server" CssClass="PCGButton" Text="Submit"
-                            OnClick="btnAssociateUpdaOtherInformation_OnClickte_OnClick" />
+                            OnClick="OtherInformation_OnClick" Visible="false"/>
                         <asp:Button ID="btnOtherInformationUpdate" runat="server" CssClass="PCGButton" Text="Update"
-                            OnClick="btnOtherInformationUpdate_OnClick" />
+                            OnClick="btnOtherInformationUpdate_OnClick" Visible="false" />
                     </td>
                 </tr>
             </table>
@@ -778,9 +813,21 @@
                             </div>
                             <div class="divViewEdit" style="float: right; padding-right: 50px">
                                 <asp:LinkButton ID="lnkBankDetails" runat="server" CssClass="LinkButtons" Text="Edit"
-                                    OnClick="lnkBankDetails_OnClick"></asp:LinkButton>
+                                    OnClick="lnkBankDetails_OnClick" Visible="false"></asp:LinkButton>
                             </div>
                         </div>
+                    </td>
+                </tr>
+                <tr>
+                <td colspan="4">
+                        <table id="tblBankDetails" width="100%" runat="server" visible="false" style="padding-top: 0px;">
+                            <tr >
+                                <td align="center">
+                                    <div id="dvBankDetails" class="success-msg" align="center" runat="server">
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
                     </td>
                 </tr>
                 <tr>
@@ -803,8 +850,8 @@
                         </asp:DropDownList>
                         <span id="Span1" class="spnRequiredField">*</span>
                         <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="ddlAccountType"
-                            ValidationGroup="btnBank" ErrorMessage="<br />Please select a Account Type"
-                            Operator="NotEqual" ValueToCompare="Select" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                            ValidationGroup="btnBank" ErrorMessage="<br />Please select a Account Type" Operator="NotEqual"
+                            ValueToCompare="Select" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
                     </td>
                 </tr>
                 <tr>
@@ -899,9 +946,9 @@
                 <tr>
                     <td>
                         <asp:Button ID="btnBankDetails" runat="server" CssClass="PCGButton" Text="Submit"
-                            OnClick="btnBankDetails_OnClick" ValidationGroup="btnBank"/>
+                            OnClick="btnBankDetails_OnClick" ValidationGroup="btnBank" Visible="false"/>
                         <asp:Button ID="btnBankDetailsUpdate" runat="server" CssClass="PCGButton" Text="Update"
-                            OnClick="btnBankDetailsUpdate_OnClick" ValidationGroup="btnBank"/>
+                            OnClick="btnBankDetailsUpdate_OnClick" ValidationGroup="btnBank" Visible="false" />
                     </td>
                 </tr>
             </table>
@@ -918,7 +965,7 @@
                             </div>
                             <div class="divViewEdit" style="float: right; padding-right: 50px">
                                 <asp:LinkButton ID="lnkRegistration" runat="server" CssClass="LinkButtons" Text="Edit"
-                                    OnClick="lnkRegistration_OnClick"></asp:LinkButton></div>
+                                    OnClick="lnkRegistration_OnClick" Visible="false"></asp:LinkButton></div>
                         </div>
                     </td>
                 </tr>
@@ -961,9 +1008,9 @@
                 <tr>
                     <td>
                         <asp:Button ID="btnRegistration" runat="server" CssClass="PCGButton" Text="Submit"
-                            OnClick="btnRegistration_OnClick" />
+                            OnClick="btnRegistration_OnClick" Visible="false"/>
                         <asp:Button ID="btnRegistrationUpdate" runat="server" CssClass="PCGButton" Text="Update"
-                            OnClick="btnRegistrationUpdate_OnClick" />
+                            OnClick="btnRegistrationUpdate_OnClick" Visible="false" />
                     </td>
                 </tr>
             </table>
@@ -980,8 +1027,20 @@
                             </div>
                             <div class="divViewEdit" style="float: right; padding-right: 50px">
                                 <asp:LinkButton ID="lnkNominee" runat="server" CssClass="LinkButtons" Text="Edit"
-                                    OnClick="lnkNominee_OnClick"></asp:LinkButton></div>
+                                    OnClick="lnkNominee_OnClick" Visible="false"></asp:LinkButton></div>
                         </div>
+                    </td>
+                </tr>
+                <tr>
+                <td colspan="4">
+                        <table id="tblNominee" width="100%" runat="server" visible="false" style="padding-top: 0px;">
+                            <tr >
+                                <td align="center">
+                                    <div id="dvNominee" class="success-msg" align="center" runat="server">
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
                     </td>
                 </tr>
                 <tr>
@@ -1049,9 +1108,9 @@
                 </tr>
                 <tr>
                     <td>
-                        <asp:Button ID="btnNominee" runat="server" CssClass="PCGButton" Text="Submit" OnClick="btnNominee_OnClick" />
+                        <asp:Button ID="btnNominee" runat="server" CssClass="PCGButton" Text="Submit" OnClick="btnNominee_OnClick" Visible="false" />
                         <asp:Button ID="btnNomineeUpdate" runat="server" CssClass="PCGButton" Text="Update"
-                            OnClick="btnNomineeUpdate_OnClick" />
+                            OnClick="btnNomineeUpdate_OnClick" Visible="false" />
                     </td>
                 </tr>
             </table>
@@ -1068,8 +1127,20 @@
                             </div>
                             <div class="divViewEdit" style="float: right; padding-right: 50px">
                                 <asp:LinkButton ID="lnkCategory" runat="server" CssClass="LinkButtons" Text="Edit"
-                                    OnClick="lnkCategory_OnClick"></asp:LinkButton></div>
+                                    OnClick="lnkCategory_OnClick" Visible="false"></asp:LinkButton></div>
                         </div>
+                    </td>
+                </tr>
+                 <tr>
+                <td colspan="4">
+                        <table id="tblCategory" width="100%" runat="server" visible="false" style="padding-top: 0px;">
+                            <tr >
+                                <td align="center">
+                                    <div id="dvCategory" class="success-msg" align="center" runat="server">
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
                     </td>
                 </tr>
                 <tr>
@@ -1085,9 +1156,9 @@
                 </tr>
                 <tr>
                     <td>
-                        <asp:Button ID="btnCategory" runat="server" CssClass="PCGButton" Text="Submit" OnClick="btnCategory_OnClick" />
+                        <asp:Button ID="btnCategory" runat="server" CssClass="PCGButton" Text="Submit" OnClick="btnCategory_OnClick" Visible="false"/>
                         <asp:Button ID="btnCategoryUpdate" runat="server" CssClass="PCGButton" Text="Update"
-                            OnClick="btnCategoryUpdate_OnClick" />
+                            OnClick="btnCategoryUpdate_OnClick" Visible="false" />
                     </td>
                 </tr>
             </table>
@@ -1104,9 +1175,21 @@
                             </div>
                             <div class="divViewEdit" style="float: right; padding-right: 50px">
                                 <asp:LinkButton ID="lnkBusinessDetails" runat="server" Text="Edit" CssClass="LinkButtons"
-                                    OnClick="lnkBusinessDetails_OnClick"></asp:LinkButton>
+                                    OnClick="lnkBusinessDetails_OnClick" Visible="false"></asp:LinkButton>
                             </div>
                         </div>
+                    </td>
+                </tr>
+                  <tr>
+                <td colspan="4">
+                        <table id="tblBusinessDetails" width="100%" runat="server" visible="false" style="padding-top: 0px;">
+                            <tr >
+                                <td align="center">
+                                    <div id="dvBusinessDetails" class="success-msg" align="center" runat="server">
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
                     </td>
                 </tr>
                 <tr>
@@ -1165,9 +1248,9 @@
                 <tr>
                     <td>
                         <asp:Button ID="btnBusinessDetails" runat="server" CssClass="PCGButton" Text="Submit"
-                            OnClick="btnBusinessDetails_OnClick" />
+                            OnClick="btnBusinessDetails_OnClick" Visible="false"/>
                         <asp:Button ID="btnBusinessDetailsUpdate" runat="server" CssClass="PCGButton" Text="Update"
-                            OnClick="btnBusinessDetailsUpdate_OnClick" />
+                            OnClick="btnBusinessDetailsUpdate_OnClick" Visible="false" />
                     </td>
                 </tr>
             </table>
@@ -1238,7 +1321,7 @@
         <td colspan="3">
             <asp:Button ID="btnSubmit" runat="server" Text="Update" CssClass="PCGButton" OnClick="Update_Click"
                 Visible="false" ValidationGroup="Submit" />
-            <asp:Button ID="btnPreviewSend" runat="server" Visible="false" target="_blank" Text="Preview and Send Welcome Letter"
+            <asp:Button ID="btnPreviewSend" runat="server" Visible="false" target="_blank" Text="View Welcome Letter"
                 CssClass="PCGButton" OnClick="btnPreviewSend_Click" />
         </td>
     </tr>
