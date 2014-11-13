@@ -3221,6 +3221,23 @@ namespace BoCustomerProfiling
             }
             return dtCustomerNames;
         }
+
+        public DataTable GetSubBrokerName(int agentId )
+        {
+            CustomerDao customerDao = new CustomerDao();
+
+            DataTable dtSubBrokerName = new DataTable();
+            try
+            {
+                dtSubBrokerName = customerDao.GetSubBrokerName(agentId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtSubBrokerName;
+
+        }
         public DataTable GetAssociateName(int adviserId, string agentcode)
         {
             CustomerDao customerDao = new CustomerDao();

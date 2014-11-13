@@ -439,9 +439,9 @@
             <table width="100%">
                 <tr>
                     <td align="right" style="width: 15%;">
-                        <asp:Label ID="lblsearch" runat="server" CssClass="FieldName" Text="Search for"></asp:Label>
+                        <asp:Label ID="lblsearch" runat="server" CssClass="FieldName" Text="Search for:"></asp:Label>
                     </td>
-                    <td style="width: 21.5%">
+                    <td style="width: 23.5%">
                         <asp:DropDownList ID="ddlsearch" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlsearch_Selectedindexchanged"
                             AutoPostBack="true" TabIndex="0">
                             <asp:ListItem Text="Select" Value="0"></asp:ListItem>
@@ -657,8 +657,8 @@
                             CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select a transaction type"
                             Operator="NotEqual" ValidationGroup="MFSubmit" ValueToCompare="Select"></asp:CompareValidator>
                     </td>
-                    <td align="right" style="width: 20%">
-                        <asp:Label ID="lblReceivedDate" runat="server" Text="Application Received Date: "
+                    <td align="right" style="width: 14.5%">
+                        <asp:Label ID="lblReceivedDate" runat="server" Text="App. Recv. Date:"
                             CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
@@ -776,7 +776,7 @@
                 <tr class="spaceUnder">
                     <%-- <td colspan="2">
                     </td>--%>
-                    <td align="right" style="vertical-align: top;" colspan="3">
+                    <td align="right" style="vertical-align: top;" colspan="4">
                         <table width="75%" class="SchemeInfoTable">
                             <tr class="SchemeInfoTable">
                                 <td align="left" style="vertical-align: top;">

@@ -245,7 +245,7 @@ namespace WealthERP.OPS
             //BindScheme(0);
             //Sflag = 0;
             BindAMC(0);
-            BindScheme(ddltransType.SelectedValue, Convert.ToInt32(ddlAMCList.SelectedValue));
+           // BindScheme(ddltransType.SelectedValue, Convert.ToInt32(ddlAMCList.SelectedValue));
 
             BindCategory();
             BindState();
@@ -2872,7 +2872,7 @@ namespace WealthERP.OPS
         {
             if (!string.IsNullOrEmpty(txtAgentId.Value.ToString().Trim()))
             {
-                Agentname = customerBo.GetAssociateName(advisorVo.advisorId, txtAssociateSearch.Text);
+                Agentname = customerBo.GetSubBrokerName(Convert.ToInt32(txtAgentId.Value));
                 if (Agentname.Rows.Count > 0)
                 {
                     lblAssociatetext.Text = Agentname.Rows[0][0].ToString();
@@ -3038,7 +3038,7 @@ namespace WealthERP.OPS
                     ddlAMCList.DataTextField = dtProductAMC.Columns["PA_AMCName"].ToString();
                     ddlAMCList.DataValueField = dtProductAMC.Columns["PA_AMCCode"].ToString();
                     ddlAMCList.DataBind();
-                    //ddlAMCList.Items.Insert(0, new ListItem("Select", "Select"));
+                    ddlAMCList.Items.Insert(0, new ListItem("Select", "0"));
                 }
                 else
                 {
@@ -3859,13 +3859,22 @@ namespace WealthERP.OPS
                 if (retVal == -2)
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('You have entered amount less than Minimum Initial amount allowed');", true); return;
+                
                 }
                 if (retVal == -1)
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('You should enter the amount in multiples of Subsequent amount ');", true); return;
+              
                 }
 
             }
+          
+                 if (string.IsNullOrEmpty(txtAgentId.Value))
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Enter a valid SubBroker Code.');", true);
+                return;
+            }
+
             if (string.IsNullOrEmpty(txtCustomerId.Value))
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Enter a valid Customer Name.');", true);
