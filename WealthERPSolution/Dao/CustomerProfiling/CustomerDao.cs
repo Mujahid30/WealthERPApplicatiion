@@ -6634,6 +6634,48 @@ namespace DaoCustomerProfiling
             return dsAssociateAudit;
 
         }
+        public DataSet GetSystematicAuditDetails(int systematicSetupId, DateTime fromModificationDate, DateTime toModificationDate, int advisorId)
+        {
+            Database db;
+            DbCommand cmdsSystematicAudit;
+            DataSet dsSystematicAudit;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //To retreive data from the table 
+                cmdsSystematicAudit = db.GetStoredProcCommand("SPROC_GetSystematicAudit");
+                db.AddInParameter(cmdsSystematicAudit, "@SystematicSetupId", DbType.Int32, systematicSetupId);
+                db.AddInParameter(cmdsSystematicAudit, "@FromModificationDate", DbType.DateTime, fromModificationDate);
+                db.AddInParameter(cmdsSystematicAudit, "@ToModificationDate", DbType.DateTime, toModificationDate);
+                db.AddInParameter(cmdsSystematicAudit, "@AdvisorId", DbType.Int32, advisorId);
+                dsSystematicAudit = db.ExecuteDataSet(cmdsSystematicAudit);
+
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerDao.cs:GetSystematicAuditDetails()");
+                object[] objects = new object[3];
+                objects[0] = systematicSetupId;
+                objects[1] = fromModificationDate;
+                objects[2] = advisorId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dsSystematicAudit;
+
+        }
         public DataTable GetRMStaffList(string prefixText, int herarchyId, int adviserId)
         {
 
@@ -6659,5 +6701,43 @@ namespace DaoCustomerProfiling
             return dtGetRMStaffList;
         }
      
+        public DataTable GetSystematicId(string prefixText, int Adviserid)
+        {
+
+            Database db;
+            DbCommand cmdGetSystematicId;
+            DataSet dsGetSystematicId;
+            DataTable dtGetSystematicId;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetSystematicId = db.GetStoredProcCommand("SP_GetSystematicId");
+                db.AddInParameter(cmdGetSystematicId, "@prefixText", DbType.String, prefixText);
+                db.AddInParameter(cmdGetSystematicId, "@A_AdviserId", DbType.Int32, Adviserid);
+                dsGetSystematicId = db.ExecuteDataSet(cmdGetSystematicId);
+                dtGetSystematicId = dsGetSystematicId.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerDao.cs:GetAssociateAuditDetail()");
+                object[] objects = new object[3];
+                objects[0] = prefixText;
+                objects[1] = Adviserid;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dtGetSystematicId;
+        }
     }
 }

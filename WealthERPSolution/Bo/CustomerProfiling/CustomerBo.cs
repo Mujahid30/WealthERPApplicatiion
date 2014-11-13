@@ -3609,6 +3609,40 @@ namespace BoCustomerProfiling
             }
             return dsAssociateAudit;
         }
+        public DataSet GetSystematicAuditDetails(int systematicSetupId, DateTime fromModificationDate, DateTime toModificationDate, int advisorId)
+        {
+            CustomerDao customerDao = new CustomerDao();
+
+            DataSet dsSystematicAudit = new DataSet();
+            try
+            {
+                dsSystematicAudit = customerDao.GetSystematicAuditDetails(systematicSetupId, fromModificationDate, toModificationDate, advisorId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerBo.cs:GetAssociateAuditDetail()");
+
+
+                object[] objects = new object[3];
+                objects[0] = systematicSetupId;
+                objects[1] = fromModificationDate;
+                objects[2] = advisorId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dsSystematicAudit;
+        }
         public DataTable GetRMStaffList(string prefixText, int herarchyId, int adviserId)
         {
             CustomerDao customerDao = new CustomerDao();
@@ -3636,6 +3670,38 @@ namespace BoCustomerProfiling
                 throw Ex;
             }
             return dtGetRMStaffList;
+        }
+        public DataTable GetSystematicId(string prefixText, int adviserId)
+        {
+            CustomerDao customerDao = new CustomerDao();
+
+            DataTable dtSystematicId = new DataTable();
+            try
+            {
+                dtSystematicId = customerDao.GetSystematicId(prefixText, adviserId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerBo.cs:GetSystematicId()");
+
+
+                object[] objects = new object[0];
+                objects[0] = prefixText;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dtSystematicId;
         }
     }
 

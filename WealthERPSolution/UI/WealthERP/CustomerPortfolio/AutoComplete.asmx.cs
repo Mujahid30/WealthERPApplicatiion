@@ -370,13 +370,13 @@ namespace WealthERP.CustomerPortfolio
             ProductMFBo productMFBo = new ProductMFBo();
             DataTable dtSchemePlans;
             List<string> names = new List<string>();
-            dtSchemePlans = productMFBo.GetSchemeNames(prefixText, int.Parse(contextKey)).Tables[0];
+            //dtSchemePlans = productMFBo.GetSchemeNames(prefixText, int.Parse(contextKey)).Tables[0];
 
 
-            foreach (DataRow dr in dtSchemePlans.Rows)
+            //foreach (DataRow dr in dtSchemePlans.Rows)
             {
-                string item = AjaxControlToolkit.AutoCompleteExtender.CreateAutoCompleteItem(dr["PASP_SchemePlanName"].ToString(), dr["PASP_SchemePlanCode"].ToString());
-                names.Add(item);
+                //string item = AjaxControlToolkit.AutoCompleteExtender.CreateAutoCompleteItem(dr["PASP_SchemePlanName"].ToString(), dr["PASP_SchemePlanCode"].ToString());
+                //names.Add(item);
 
             }
             return names.ToArray();
@@ -876,6 +876,28 @@ namespace WealthERP.CustomerPortfolio
 
                 string item = AjaxControlToolkit.AutoCompleteExtender.CreateAutoCompleteItem(dr["AAC_Agentcode"].ToString(), dr["AA_AdviserAssociateId"].ToString());
                 names.Add(item);
+            }
+            return names.ToArray();
+        }
+        [WebMethod]
+        public string[] GetSystematicId(string prefixText, int count, string contextKey)
+        {
+            CustomerBo customerBo = new CustomerBo();
+            DataTable dtSystematicId = new DataTable();
+            int i = 0;
+            List<string> names = new List<string>();
+
+            dtSystematicId = customerBo.GetSystematicId(prefixText, int.Parse(contextKey));
+            //string[] customerNameList = new string[dtCustomerName.Rows.Count];
+
+            foreach (DataRow dr in dtSystematicId.Rows)
+            {
+
+                string item = AjaxControlToolkit.AutoCompleteExtender.CreateAutoCompleteItem(dr["CMFSS_SystematicSetupId"].ToString(), dr["CMFSS_SystematicSetupId"].ToString());
+                names.Add(item);
+
+                //customerNameList[i] = dr["C_FirstName"].ToString() + "|" + dr["C_PANNum"].ToString();
+                //i++;
             }
             return names.ToArray();
         }

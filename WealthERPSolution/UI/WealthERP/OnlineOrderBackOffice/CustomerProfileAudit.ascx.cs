@@ -62,6 +62,8 @@ namespace WealthERP.OnlineOrderBackOffice
                 txtAssociateName_AutoCompleteExtender.ServiceMethod = "GetAssociateName";
                 txtSubBrokerCode_AutoCompleteExtender.ContextKey = adviserVo.advisorId.ToString();
                 txtSubBrokerCode_AutoCompleteExtender.ServiceMethod = "GetAgentCodeDetails";
+                txtSystematicID_AutoCompleteExtender.ContextKey = adviserVo.advisorId.ToString();
+                txtSystematicID_AutoCompleteExtender.ServiceMethod = "GetSystematicId";
             }
             else if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
             {
@@ -71,7 +73,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 txtStaffName_AutoCompleteExtender.ServiceMethod = "GetStaffName";
                 txtAssociateName_AutoCompleteExtender.ServiceMethod = "GetAssociateName";
                 txtSubBrokerCode_AutoCompleteExtender.ServiceMethod = "GetAgentCodeDetails";
-
+                txtSystematicID_AutoCompleteExtender.ServiceMethod = "GetSystematicId";
             }
             else if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
             {
@@ -81,6 +83,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 txtStaffName_AutoCompleteExtender.ServiceMethod = "GetStaffName";
                 txtAssociateName_AutoCompleteExtender.ServiceMethod = "GetAssociateName";
                 txtSubBrokerCode_AutoCompleteExtender.ServiceMethod = "GetAgentCodeDetails";
+                txtSystematicID_AutoCompleteExtender.ServiceMethod = "GetSystematicId";
             }
             else if (Session[SessionContents.CurrentUserRole].ToString() == "Associates")
             {
@@ -94,6 +97,8 @@ namespace WealthERP.OnlineOrderBackOffice
                 txtAssociateName_AutoCompleteExtender.ServiceMethod = "GetAssociateName";
                 txtSubBrokerCode_AutoCompleteExtender.ContextKey = adviserVo.advisorId.ToString();
                 txtSubBrokerCode_AutoCompleteExtender.ServiceMethod = "GetAgentCodeDetails";
+                txtSystematicID_AutoCompleteExtender.ContextKey = adviserVo.advisorId.ToString();
+                txtSystematicID_AutoCompleteExtender.ServiceMethod = "GetSystematicId";
 
             }
 
@@ -118,11 +123,49 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 GetStaffAuditDetail();
             }
-            else
+            else if (ddlType.SelectedValue == "AssociateDetails")
             {
                 GetAssociateAuditDetail();
             }
+            else
+            {
+                GetSystematicAuditDetails();
+            }
 
+        }
+        protected void GetSystematicAuditDetails()
+        {
+            DataTable dtGetSystematicAuditDetails = new DataTable();
+            DataSet dsGetSystematicAuditDetails = new DataSet();
+            dsGetSystematicAuditDetails = customerBo.GetSystematicAuditDetails((!string.IsNullOrEmpty(hdnSystematicId.Value)) ? int.Parse(hdnSystematicId.Value) : 0, rdpFromModificationDate.SelectedDate.Value, rdpToDate.SelectedDate.Value, adviserVo.advisorId);
+            dtGetSystematicAuditDetails = dsGetSystematicAuditDetails.Tables[0];
+            if (dtGetSystematicAuditDetails.Rows.Count > 0)
+            {
+                if (Cache["SystematicAudit" + userVo.UserId] == null)
+                {
+                    Cache.Insert("SystematicAudit" + userVo.UserId, dtGetSystematicAuditDetails);
+                }
+                else
+                {
+                    Cache.Remove("SystematicAudit" + userVo.UserId);
+                    Cache.Insert("SystematicAudit" + userVo.UserId, dtGetSystematicAuditDetails);
+                }
+                rdSystematicAudit.DataSource = dtGetSystematicAuditDetails;
+                rdSystematicAudit.DataBind();
+                //taSchemeAudit.Visible = true;
+                tbSystematicId.Visible = true;
+                rdSystematicAudit.Visible = true;
+                tblSystematicId.Visible = true;
+            }
+            else
+            {
+                rdSystematicAudit.DataSource = dtGetSystematicAuditDetails;
+                rdSystematicAudit.DataBind();
+                //taSchemeAudit.Visible = true;
+                tbSystematicId.Visible = true;
+                rdSystematicAudit.Visible = true;
+                tblSystematicId.Visible = true;
+            }
         }
         protected void GetAssociateAuditDetail()
         {
@@ -335,6 +378,11 @@ namespace WealthERP.OnlineOrderBackOffice
             DataTable dtrdAssociateAudit = (DataTable)Cache["AssociateAudit" + userVo.UserId];
             if (dtrdAssociateAudit != null) rdAssociateAudit.DataSource = dtrdAssociateAudit;
         }
+        protected void rdSystematicAudit_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        {
+            DataTable dtrdSystematicAudit = (DataTable)Cache["SystematicAudit" + userVo.UserId];
+            if (dtrdSystematicAudit != null) rdSystematicAudit.DataSource = dtrdSystematicAudit;
+        }
         protected void ddlType_OnSelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlType.SelectedValue == "CustomerProfile")
@@ -358,6 +406,9 @@ namespace WealthERP.OnlineOrderBackOffice
                 tblAssociateAudit.Visible = false;
                 tbAssociateAudit.Visible = false;
                 rdAssociateAudit.Visible = false;
+                trSystematicId.Visible = false;
+                tblSystematicId.Visible = false;
+                tbSystematicId.Visible = false;
             }
             else if (ddlType.SelectedValue == "Schemeplan")
             {
@@ -392,7 +443,9 @@ namespace WealthERP.OnlineOrderBackOffice
                 tbAssociateAudit.Visible = false;
                 rdAssociateAudit.Visible = false;
                 tblSchemePlan.Visible = false;
-            
+                trSystematicId.Visible = false;
+                tblSystematicId.Visible = false;
+                tbSystematicId.Visible = false;
             }
             else if (ddlType.SelectedValue == "StaffDetails")
             {
@@ -426,8 +479,11 @@ namespace WealthERP.OnlineOrderBackOffice
                 rdAssociateAudit.Visible = false;
                 tblSchemePlan.Visible = false;
                 taSchemeAudit.Visible = false;
+                trSystematicId.Visible = false;
+                tblSystematicId.Visible = false;
+                tbSystematicId.Visible = false;
             }
-            else
+            else if (ddlType.SelectedValue == "AssociateDetails")
             {
                 trAssociates.Visible = true;
                 tdTodate.Visible = true;
@@ -435,6 +491,43 @@ namespace WealthERP.OnlineOrderBackOffice
                 tdTodate1.Visible = true;
                 tdFromDate1.Visible = true;
                 tbAssociateAudit.Visible = true;
+                tbStaffAudit.Visible = false;
+                trStaff.Visible = false;
+                trCustomer.Visible = false;
+                //tdCustomer1.Visible = false;
+                tdCustomerAuditList.Visible = false;
+                btnSubmit.Visible = true;
+                tblProfileHeading.Visible = false;
+                rdCustomerProfile.Visible = false;
+                tblCustomerBankHeading.Visible = false;
+                tblCustomerBank.Visible = false;
+                rdCustomerBank.Visible = false;
+                tblCustomerDematHeading.Visible = false;
+                rdCustomerDemat.Visible = false;
+                tblCustomerDematAssociatesHeading.Visible = false;
+                tblCustomerDematAssociates.Visible = false;
+                rdCustomerDematAssociates.Visible = false;
+                tableCustomerTransaction.Visible = false;
+                tableTransaction.Visible = false;
+                rdTransaction.Visible = false;
+                trSchemePlan.Visible = false;
+                tblStaffAudit.Visible = false;
+                tblAssociateAudit.Visible = false;
+                tbAssociateAudit.Visible = false;
+                trSystematicId.Visible = false;
+                tblSystematicId.Visible = false;
+                tbSystematicId.Visible = false;
+            }
+            else
+            {
+                trSystematicId.Visible = true;
+                trAssociates.Visible = true;
+                tdTodate.Visible = true;
+                tdFromDate.Visible = true;
+                tdTodate1.Visible = true;
+                tdFromDate1.Visible = true;
+                trAssociates.Visible = false;
+                tbAssociateAudit.Visible = false;
                 tbStaffAudit.Visible = false;
                 trStaff.Visible = false;
                 trCustomer.Visible = false;
@@ -629,6 +722,16 @@ namespace WealthERP.OnlineOrderBackOffice
             rdAssociateAudit.ExportSettings.FileName = "Associate Details Audit";
             rdAssociateAudit.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
             rdAssociateAudit.MasterTableView.ExportToExcel();
+        }
+        protected void btnExportFilteredData_OnClick9(object sender, EventArgs e)
+        {
+            rdSystematicAudit.ExportSettings.OpenInNewWindow = true;
+            rdSystematicAudit.ExportSettings.IgnorePaging = true;
+            rdSystematicAudit.ExportSettings.HideStructureColumns = true;
+            rdSystematicAudit.ExportSettings.ExportOnlyData = true;
+            rdSystematicAudit.ExportSettings.FileName = "Systematic Audit Details";
+            rdSystematicAudit.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            rdSystematicAudit.MasterTableView.ExportToExcel();
         }
 
 

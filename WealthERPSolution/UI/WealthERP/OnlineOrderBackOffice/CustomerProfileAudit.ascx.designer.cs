@@ -70,6 +70,7 @@ namespace WealthERP.OnlineOrderBackOffice
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.TextBoxWatermarkExtender txtCustomerName_water;
+        protected global::AjaxControlToolkit.TextBoxWatermarkExtender txtSystematicID_water;
 
         /// <summary>
         /// txtCustomerName_autoCompleteExtender control.
@@ -83,6 +84,7 @@ namespace WealthERP.OnlineOrderBackOffice
         protected global::AjaxControlToolkit.AutoCompleteExtender txtStaffName_AutoCompleteExtender;
         protected global::AjaxControlToolkit.AutoCompleteExtender txtAssociateName_AutoCompleteExtender;
         protected global::AjaxControlToolkit.AutoCompleteExtender txtSubBrokerCode_AutoCompleteExtender;
+        protected global::AjaxControlToolkit.AutoCompleteExtender txtSystematicID_AutoCompleteExtender;
         /// <summary>
         /// RequiredFieldValidator2 control.
         /// </summary>
@@ -116,6 +118,7 @@ namespace WealthERP.OnlineOrderBackOffice
         protected global::System.Web.UI.WebControls.Panel pnlCustomerDemat;
         protected global::System.Web.UI.WebControls.HiddenField hdnStaffId;
         protected global::System.Web.UI.WebControls.HiddenField hdnAssociateId;
+        protected global::System.Web.UI.WebControls.HiddenField hdnSystematicId;
         /// <summary>
         /// rfvDOwnloadDate control.
         /// </summary>
@@ -137,6 +140,8 @@ namespace WealthERP.OnlineOrderBackOffice
         protected global::System.Web.UI.HtmlControls.HtmlTable tblStaffAudit;
         protected global::System.Web.UI.HtmlControls.HtmlTable tblAssociateAudit;
         protected global::System.Web.UI.HtmlControls.HtmlTable tbAssociateAudit;
+        protected global::System.Web.UI.HtmlControls.HtmlTable tbSystematicId;
+        protected global::System.Web.UI.HtmlControls.HtmlTable tblSystematicId;
         protected global::Telerik.Web.UI.RadGrid rdCustomerProfile;
         protected global::Telerik.Web.UI.RadGrid rdCustomerBank;
         protected global::Telerik.Web.UI.RadGrid rdCustomerDemat;
@@ -144,6 +149,7 @@ namespace WealthERP.OnlineOrderBackOffice
         protected global::Telerik.Web.UI.RadGrid rdSchemeAudit;
         protected global::Telerik.Web.UI.RadGrid rdStaffAudit;
         protected global::Telerik.Web.UI.RadGrid rdAssociateAudit;
+        protected global::Telerik.Web.UI.RadGrid rdSystematicAudit;
         protected global::System.Web.UI.WebControls.DropDownList ddlAuditType;
         protected global::System.Web.UI.WebControls.DropDownList ddlType;
         protected global::Telerik.Web.UI.RadGrid rdTransaction;
@@ -158,6 +164,7 @@ namespace WealthERP.OnlineOrderBackOffice
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trSchemePlan;
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trStaff;
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trAssociates;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trSystematicId; 
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trdate;
         protected global::System.Web.UI.WebControls.TextBox txtSchemeName;
         protected global::System.Web.UI.WebControls.Button btnSubmit;
