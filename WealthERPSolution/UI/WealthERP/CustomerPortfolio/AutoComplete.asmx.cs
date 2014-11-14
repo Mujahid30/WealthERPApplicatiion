@@ -370,13 +370,13 @@ namespace WealthERP.CustomerPortfolio
             ProductMFBo productMFBo = new ProductMFBo();
             DataTable dtSchemePlans;
             List<string> names = new List<string>();
-            //dtSchemePlans = productMFBo.GetSchemeNames(prefixText, int.Parse(contextKey)).Tables[0];
+            dtSchemePlans = productMFBo.GetSchemeNames(prefixText, int.Parse(contextKey)).Tables[0];
 
 
-            //foreach (DataRow dr in dtSchemePlans.Rows)
+            foreach (DataRow dr in dtSchemePlans.Rows)
             {
-                //string item = AjaxControlToolkit.AutoCompleteExtender.CreateAutoCompleteItem(dr["PASP_SchemePlanName"].ToString(), dr["PASP_SchemePlanCode"].ToString());
-                //names.Add(item);
+                string item = AjaxControlToolkit.AutoCompleteExtender.CreateAutoCompleteItem(dr["PASP_SchemePlanName"].ToString(), dr["PASP_SchemePlanCode"].ToString());
+                names.Add(item);
 
             }
             return names.ToArray();

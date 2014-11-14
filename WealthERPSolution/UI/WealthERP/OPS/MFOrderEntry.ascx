@@ -8,9 +8,22 @@
         <asp:ServiceReference Path="~/CustomerPortfolio/AutoComplete.asmx" />
     </Services>
 </asp:ScriptManager>
-
+<script type = "text/javascript">
+    function Confirm() {
+        var confirm_value = document.createElement("INPUT");
+        confirm_value.type = "hidden";
+        confirm_value.name = "confirm_value";
+        if (confirm("Do you want to save data?")) {
+            confirm_value.value = "Yes";
+        } else {
+            confirm_value.value = "No";
+        }
+        document.forms[0].appendChild(confirm_value);
+    }
+    </script>
 <script type="text/javascript" language="javascript">
 
+    
     function GetCustomerId(source, eventArgs) {
         isItemSelected = true;
         //         document.getElementById("lblgetPan").innerHTML = "";
@@ -755,9 +768,24 @@
                             CssClass="rfvPCG" ErrorMessage="<br />Please select Scheme" Display="Dynamic"
                             runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
                     </td>
+                     <td align="right">
+                        <asp:Label ID="lblDivType" runat="server" Text="Dividend Type:" CssClass="FieldName"></asp:Label>
+                    </td>
+                    <td>
+                        <asp:DropDownList ID="ddlDivType" runat="server" CssClass="cmbField">
+                            <asp:ListItem Text="Select" Value="0"></asp:ListItem>
+                            <asp:ListItem Text="Dividend Reinvestment" Value="DVR"></asp:ListItem>
+                            <asp:ListItem Text="Dividend Payout" Value="DVP"></asp:ListItem>
+                        </asp:DropDownList>
+                        <span id="Span29" class="spnRequiredField">*</span>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator24" runat="server" CssClass="rfvPCG"
+                            ErrorMessage="Please Select an Dividend Type" Display="Dynamic" ControlToValidate="ddlDivType"
+                            InitialValue="0" ValidationGroup="btnSubmit">
+                        </asp:RequiredFieldValidator>
+                    </td>
                 </tr>
                 <tr>
-                    <td align="right">
+                   <%-- <td align="right">
                         <asp:Label ID="lblDivType" runat="server" Text="Dividend Type:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
@@ -771,13 +799,13 @@
                             ErrorMessage="Please Select an Dividend Type" Display="Dynamic" ControlToValidate="ddlDivType"
                             InitialValue="0" ValidationGroup="btnSubmit">
                         </asp:RequiredFieldValidator>
-                    </td>
+                    </td>--%>
                 </tr>
                 <tr class="spaceUnder">
                     <%-- <td colspan="2">
                     </td>--%>
-                    <td align="right" style="vertical-align: top;" colspan="4">
-                        <table width="75%" class="SchemeInfoTable">
+                    <td  align="center" style="vertical-align: top; " colspan="5">
+                        <table width="70%" class="SchemeInfoTable">
                             <tr class="SchemeInfoTable">
                                 <td align="left" style="vertical-align: top;">
                                     <asp:Label ID="lblNav" runat="server" Text=" Last Recorded NAV (Rs):" CssClass="FieldName"></asp:Label>
@@ -1645,7 +1673,7 @@
     <tr id="trBtnSubmit" runat="server">
         <td align="left" colspan="3">
             <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="PCGButton" ValidationGroup="MFSubmit"
-              OnClientClick="return PreventClicks();"  OnClick="btnSubmit_Click" />
+               OnClick="btnSubmit_Click" />
             <asp:Button ID="btnAddMore" runat="server" Text="Save & Add More" CssClass="PCGMediumButton"
                 ValidationGroup="MFSubmit" OnClick="btnAddMore_Click" />
             <asp:Button ID="btnUpdate" runat="server" Text="Update" CssClass="PCGButton" ValidationGroup="MFSubmit"

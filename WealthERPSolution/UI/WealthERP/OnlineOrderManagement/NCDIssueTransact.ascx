@@ -4,6 +4,19 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 
+<script type = "text/javascript">
+    function Confirm() {
+        var confirm_value = document.createElement("INPUT");
+        confirm_value.type = "hidden";
+        confirm_value.name = "confirm_value";
+        if (confirm("Please note Order cannot be modified once submitted. Would you like to continue ?")) {
+            confirm_value.value = "Yes";
+        } else {
+            confirm_value.value = "No";
+        }
+        document.forms[0].appendChild(confirm_value);
+    }
+    </script>
 <script type="text/javascript">
     function isNumberKey(evt) { // Numbers only
         var charCode = (evt.which) ? evt.which : event.keyCode;
@@ -612,7 +625,7 @@
             <asp:CheckBox ID="chkTermsCondition" runat="server" Font-Bold="True" Font-Names="Shruti"
                 Enabled="false" Checked="false" ForeColor="#145765" Text="" ToolTip="Click 'Terms & Conditions' to proceed further"
                 CausesValidation="true" />
-            <asp:LinkButton ID="lnkTermsCondition" CausesValidation="false" Text="Terms & Conditions"
+            <asp:LinkButton ID="lnkTermsCondition" CausesValidation="false" Text="Terms & Conditions" 
                 runat="server" CssClass="txtField" OnClick="lnkTermsCondition_Click" ToolTip="Click here to accept terms & conditions"></asp:LinkButton>
             <span id="Span9" class="spnRequiredField">*</span>
         </td>
@@ -632,7 +645,7 @@
         <td id="tdsubmit" runat="server" align="left" style="width: 60%">
             <asp:Label ID="Label3" runat="server" Text="Confirm Your Order :" CssClass="FieldName"></asp:Label>
             <asp:Button ID="btnConfirmOrder" runat="server" Text="Submit" OnClick="btnConfirmOrder_Click"
-                CssClass="PCGButton" ValidationGroup="btnConfirmOrder" />
+               OnClientClick = "Confirm()"   CssClass="PCGButton" ValidationGroup="btnConfirmOrder" />
         </td>
         <td>
             <asp:LinkButton runat="server" ID="lnlBack" CssClass="LinkButtons" Text="Click here to view the issue list"
@@ -641,7 +654,7 @@
     </tr>
 </table>
 <table>
-    <tr id="trSubmit" runat="server" visible="false">
+    <tr id="trSubmit" runat="server" visible="false" >
         <%--<td id="tdsubmit" runat="server">
         <asp:Label ID="Label1" runat="server" Text="Confirm Your Order :" CssClass="FieldName"></asp:Label>
         <asp:Button ID="btnConfirmOrder" runat="server" Text="Submit" OnClick="btnConfirmOrder_Click"

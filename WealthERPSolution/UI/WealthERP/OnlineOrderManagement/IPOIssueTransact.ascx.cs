@@ -346,29 +346,30 @@ namespace WealthERP.OnlineOrderManagement
 
         protected void btnConfirmOrder_Click(object sender, EventArgs e)
         {
-            string errorMsg = string.Empty;
-            bool isBidsVallid = false;
-            Page.Validate();
-            if (Page.IsValid)
+            string confirmValue = Request.Form["confirm_value"];
+            if (confirmValue == "Yes")
             {
-                isBidsVallid = ValidateIPOBids(out errorMsg);
-                if (!isBidsVallid)
+                string errorMsg = string.Empty;
+                bool isBidsVallid = false;
+                Page.Validate();
+                if (Page.IsValid)
                 {
+                    isBidsVallid = ValidateIPOBids(out errorMsg);
+                    if (!isBidsVallid)
+                    {
 
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('" + errorMsg + "');", true);
-                    return;
-                }
-                else
-                {
-                    CreateIPOOrder();
-                    ControlsVisblity(true);
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('" + errorMsg + "');", true);
+                        return;
+                    }
+                    else
+                    {
+                        CreateIPOOrder();
+                        ControlsVisblity(true);
 
+                    }
                 }
+
             }
-
-
-
-
 
         }
 

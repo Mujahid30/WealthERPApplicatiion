@@ -20,6 +20,20 @@
 
 <script src="../Scripts/JScript.js" type="text/javascript"></script>
 
+<script type = "text/javascript">
+    function Confirm() {
+        var confirm_value = document.createElement("INPUT");
+        confirm_value.type = "hidden";
+        confirm_value.name = "confirm_value";
+        if (confirm("Please note Order cannot be modified once submitted. Would you like to continue ?")) {
+            confirm_value.value = "Yes";
+        } else {
+            confirm_value.value = "No";
+        }
+        document.forms[0].appendChild(confirm_value);
+    }
+    </script>
+    
 <script type="text/javascript">
     function ValidateTermsConditions(sender, args) {
 
@@ -336,7 +350,8 @@
                     <tr>
                         <td align="left" style="width: 10%">
                             <asp:Button ID="btnConfirmOrder" runat="server" Text="Confirm Order" OnClick="btnConfirmOrder_Click"
-                                CssClass="PCGMediumButton" ValidationGroup="btnConfirmOrder, btnTC" OnClientClick="return PreventClicks(); Validate();" />
+                               OnClientClick = "Confirm();return PreventClicks(); Validate();"   CssClass="PCGMediumButton" ValidationGroup="btnConfirmOrder, btnTC" 
+                                />
                         </td>
                         <td>
                             <asp:LinkButton runat="server" ID="lnlBack" CssClass="LinkButtons" Text="Click here to view the issue list"
@@ -395,3 +410,4 @@
     <Triggers>
     </Triggers>
 </asp:UpdatePanel>
+<%--OnClientClick="return PreventClicks(); Validate();"--%>

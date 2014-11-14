@@ -3839,6 +3839,9 @@ namespace WealthERP.OPS
         {
 
             List<int> OrderIds = new List<int>();
+
+           // string confirmValue = Request.Form["confirm_value"];
+            
             bool isvalidOfflineFolio = mfOrderBo.ChkOfflineValidFolio(txtFolioNumber.Text);
             if (string.IsNullOrEmpty(lblMintxt.Text))
             {
