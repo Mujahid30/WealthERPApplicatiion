@@ -1119,9 +1119,15 @@ namespace WealthERP.Advisor
                             //}
                         }
                     }
-                    else
+                    else if ((customerVo.Type == null || customerVo.Type.ToUpper().ToString() == "NIND"))
                     {
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewNonIndividualProfile", "loadcontrol('ViewNonIndividualProfile','none');", true);
+                        if (customerVo.IsProspect == 0)
+                        {
+                            Session.Remove("LinkAction");
+                            Session["action"] = "View";
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "EditCustomerNonIndividualProfile", "loadcontrol('EditCustomerNonIndividualProfile','none');", true);
+                        }
+                        //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewNonIndividualProfile", "loadcontrol('ViewNonIndividualProfile','none');", true);
                     }
                 }
                 else if (e.Item.Value == "Edit Profile")
@@ -1140,9 +1146,15 @@ namespace WealthERP.Advisor
                             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "EditCustomerIndividualProfile", "loadcontrol('EditCustomerIndividualProfile','none');", true);
                         }
                     }
-                    else
+                    else if(customerVo.Type == null || customerVo.Type.ToUpper().ToString() == "NIND" )
                     {
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "EditCustomerNonIndividualProfile", "loadcontrol('EditCustomerNonIndividualProfile','none');", true);
+                        if (customerVo.IsProspect == 0)
+                        {
+                            Session.Remove("LinkAction");
+                            Session["action"] = "Edit";
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "EditCustomerIndividualProfile", "loadcontrol('EditCustomerNonIndividualProfile','none');", true);
+                        }
+                        //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "EditCustomerNonIndividualProfile", "loadcontrol('EditCustomerNonIndividualProfile','none');", true);
                     }
                 }
                 else if (e.Item.Value == "Bank Details")

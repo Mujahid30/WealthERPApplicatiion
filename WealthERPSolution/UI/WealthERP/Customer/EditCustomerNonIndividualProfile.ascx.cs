@@ -32,7 +32,7 @@ namespace WealthERP.Customer
         DataTable dtCity = new DataTable();
         CommonLookupBo commonLookupBo = new CommonLookupBo();
         AdvisorVo advisorVo = new AdvisorVo();
-
+        string viewForm = string.Empty;
         protected void Page_Load(object sender, EventArgs e)
         {
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
@@ -41,13 +41,42 @@ namespace WealthERP.Customer
             try
             {
                 SessionBo.CheckSession();
-                //if (advisorVo.IsISASubscribed != true)
-                //{
-                //    RadTabStripCustomerProfile.Tabs[1].Visible = true;
-                //}
+                if (Session["LinkAction"] != null && Session["LinkAction"].ToString().Trim() == "ViewEditProfile")
+                {
+                    Session["action"] = "View";
+                    viewForm = Session["action"].ToString();
+                    SetControlstate(viewForm);
+                    rbtnIndividual.Visible = false;
+                }
+                else
+                {
+                    rbtnIndividual.Visible = true;
+                }
+                if (Session["LinkAction"] != null && Session["LinkAction"].ToString().Trim() == "AddEditProfile")
+                {
+                    
+                    Session["action"] = "Edit";
+                    rbtnIndividual.Visible = false;
+                }
+                else
+                {
+                    if (Session["action"] != null)
+                    {
+                        viewForm = Session["action"].ToString();
+                        SetControlstate(viewForm);
+
+                    }
+                }
                 if (!IsPostBack)
                 {
-
+                    if (Request.QueryString["action"] != null)
+                    {
+                        viewForm = Request.QueryString["action"].ToString();
+                        if (viewForm == "Edit")
+                            SetControlstate("Edit");
+                        else if (viewForm == "View")
+                            SetControlstate("View");
+                    }
                     BindDropDowns(path);
                     //Bind Adviser Branch List
                     BindListBranch(customerVo.RmId, "rm");
@@ -323,6 +352,17 @@ namespace WealthERP.Customer
                 ExceptionManager.Publish(exBase);
                 throw exBase;
 
+            }
+        }
+        private void SetControlstate(string action)
+        {
+            if (action == "View")
+            { 
+                btnEdit.Visible = false;
+             }
+            else if (action == "Edit")
+            {
+                btnEdit.Visible = true;
             }
         }
         private void BindDropDowns(string path)
@@ -739,13 +779,15 @@ namespace WealthERP.Customer
                     Session["CustomerVo"] = customerVo;
                     //ScriptManager.RegisterClientScriptBlock(this.Page,this.GetType(), "Message", "alert('Profile updated Succesfully');", true);
                     //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "CloseThePopUp", " CloseWindowsPopUp();", true);
-                    if (customerVo.Type.ToUpper().ToString() == "IND")
+                    if (customerVo.Type.ToUpper().ToString() == "NIND")
                     {
-                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('ViewCustomerIndividualProfile','none');", true);
+                        //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('ViewCustomerIndividualProfile','none');", true);
+                        viewForm = "View";
+                        SetControlstate(viewForm);
                     }
                     else
                     {
-                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('ViewNonIndividualProfile','none');", true);
+                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('ViewCustomerIndividualProfile','none');", true);
                     }
                 }
             }
