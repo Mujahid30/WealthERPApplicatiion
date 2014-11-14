@@ -502,20 +502,7 @@ namespace DAOAssociates
                     db.AddInParameter(UpdateAssociatesCmd, "@AA_GuardianRelationship", DbType.String, associatesVo.GuardianTelNo);
                 else
                     db.AddInParameter(UpdateAssociatesCmd, "@AA_GuardianRelationship", DbType.String, DBNull.Value);
-
-                if (associatesVo.ExpiryDate != DateTime.MinValue)
-                    db.AddInParameter(UpdateAssociatesCmd, "@AAAR_ExpiryDate", DbType.DateTime, associatesVo.ExpiryDate);
-                else
-                    db.AddInParameter(UpdateAssociatesCmd, "@AAAR_ExpiryDate", DbType.DateTime, DBNull.Value);
-                if (!string.IsNullOrEmpty(associatesVo.Registrationumber.ToString().Trim()))
-                    db.AddInParameter(UpdateAssociatesCmd, "@AAAR_Registrationumber", DbType.String, associatesVo.Registrationumber);
-                else
-                    db.AddInParameter(UpdateAssociatesCmd, "@AAAR_Registrationumber", DbType.String, DBNull.Value);
-                if (!string.IsNullOrEmpty(associatesVo.assetGroupCode.ToString().Trim()))
-                    db.AddInParameter(UpdateAssociatesCmd, "@assetGroupCodes", DbType.String, associatesVo.assetGroupCode);
-                else
-                    db.AddInParameter(UpdateAssociatesCmd, "@assetGroupCodes", DbType.String, DBNull.Value);
-               if(associatesVo.NoOfBranches !=0)
+                if (associatesVo.NoOfBranches != 0)
                     db.AddInParameter(UpdateAssociatesCmd, "@AA_NoOfBranches", DbType.Int16, associatesVo.NoOfBranches);
                 else
                     db.AddInParameter(UpdateAssociatesCmd, "@AA_NoOfBranches", DbType.Int16, DBNull.Value);
@@ -1310,8 +1297,8 @@ namespace DAOAssociates
                         associatesVo.AssociationExpairyDate = DateTime.Parse(dr["AA_ExpiryDate"].ToString());
                     if (bool.Parse(dr["AA_IsActive"].ToString().ToUpper()) != false)
                         associatesVo.IsActive = 1;
-                    if(!string.IsNullOrEmpty(dr["AC_CategoryId"].ToString()))
-                    associatesVo.AdviserCategory=dr["AC_CategoryId"].ToString();
+                    if (!string.IsNullOrEmpty(dr["AC_CategoryId"].ToString()))
+                        associatesVo.AdviserCategory = dr["AC_CategoryId"].ToString();
 
                 }
             }
@@ -2236,7 +2223,7 @@ namespace DAOAssociates
             }
             return bResult;
         }
-        public bool UpdateAssociateDetails( AssociatesVO associatesVo, int userId,int associateid,int agentcode)
+        public bool UpdateAssociateDetails(AssociatesVO associatesVo, int userId, int associateid, int agentcode)
         {
             bool bResult = false;
             Database db;
@@ -2259,8 +2246,69 @@ namespace DAOAssociates
                 db.AddInParameter(UpdateAssociateDetailsCmd, "@AgentId", DbType.Int32, agentcode);
                 db.AddInParameter(UpdateAssociateDetailsCmd, "@AA_ExpiryDate", DbType.DateTime, associatesVo.AssociationExpairyDate);
                 db.AddInParameter(UpdateAssociateDetailsCmd, "@AA_IsActive", DbType.Int32, associatesVo.IsActive);
-                 if (db.ExecuteNonQuery(UpdateAssociateDetailsCmd)!=0)
-                bResult = true;
+                if (db.ExecuteNonQuery(UpdateAssociateDetailsCmd) != 0)
+                    bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return bResult;
+        }
+        public DataTable AssetsGroup()
+        {
+            DataTable dtAssetsGroup;
+            DataSet dsAssetsGroup;
+            DbCommand cmdAssetsGroup;
+            Database db;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdAssetsGroup = db.GetStoredProcCommand("SPROC_AssetsGroup");
+                dsAssetsGroup = db.ExecuteDataSet(cmdAssetsGroup);
+                dtAssetsGroup = dsAssetsGroup.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return dtAssetsGroup;
+        }
+        public DataTable GetAssetsRegistration(int associateId)
+        {
+            DataTable dtGetAssetsRegistration;
+            DataSet dsGetAssetsRegistration;
+            DbCommand cmdGetAssetsRegistration;
+            Database db;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetAssetsRegistration = db.GetStoredProcCommand("SPROC_GetAssociateRegistration");
+                db.AddInParameter(cmdGetAssetsRegistration, "@associateId", DbType.Int32, associateId);
+                dsGetAssetsRegistration = db.ExecuteDataSet(cmdGetAssetsRegistration);
+                dtGetAssetsRegistration = dsGetAssetsRegistration.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return dtGetAssetsRegistration;
+        }
+        public bool AssociateRegistration(int associateId,DateTime registrationExp,int RegistrationNo,string assetsGroup)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand AssociateRegistrationCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                AssociateRegistrationCmd = db.GetStoredProcCommand("SPROC_AssociateUpdate");
+                db.AddInParameter(AssociateRegistrationCmd, "@associatId", DbType.Int32, associateId);
+                db.AddInParameter(AssociateRegistrationCmd, "@assetsGroup", DbType.String, assetsGroup);
+                db.AddInParameter(AssociateRegistrationCmd, "@registrationNo", DbType.Int32, RegistrationNo);
+                db.AddInParameter(AssociateRegistrationCmd, "@expiryDate", DbType.DateTime, registrationExp);
+                if (db.ExecuteNonQuery(AssociateRegistrationCmd) != 0)
+                    bResult = true;
             }
             catch (BaseApplicationException Ex)
             {

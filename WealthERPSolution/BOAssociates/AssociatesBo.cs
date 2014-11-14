@@ -921,5 +921,48 @@ namespace BOAssociates
             }
             return bResult;
         }
+        public DataTable AssetsGroup()
+        {
+            DataTable dtAssetsGroup;
+            try
+            {
+                dtAssetsGroup = associatesDao.AssetsGroup();
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtAssetsGroup;
+
+        }
+        public DataTable GetAssetsRegistration(int associateId)
+        {
+            DataTable dtGetAssetsRegistration;
+            try
+            {
+                dtGetAssetsRegistration = associatesDao.GetAssetsRegistration(associateId);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetAssetsRegistration;
+        }
+        public bool AssociateRegistration(int associateId, DateTime registrationExp, int RegistrationNo, string assetsGroup)
+        {
+            bool bResult = false;
+            try
+            {
+                bResult = associatesDao.AssociateRegistration(associateId, registrationExp, RegistrationNo, assetsGroup);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return bResult;
+        }
     }
 }

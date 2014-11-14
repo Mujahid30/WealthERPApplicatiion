@@ -534,7 +534,7 @@
                 <tr>
                     <td>
                         <asp:Button ID="btnContactDetails" runat="server" CssClass="PCGButton" Text="Submit"
-                            OnClick="btnContactDetails_OnClick" Visible="false"/>
+                            OnClick="btnContactDetails_OnClick" Visible="false" />
                         <asp:Button ID="btnContactDetailsUpdate" runat="server" CssClass="PCGButton" Text="Update"
                             OnClick="btnContactDetailsUpdate_OnClick" Visible="false" />
                     </td>
@@ -561,7 +561,7 @@
                 <tr>
                     <td colspan="4">
                         <table id="tblCrosspondance" width="100%" runat="server" visible="false" style="padding-top: 0px;">
-                            <tr >
+                            <tr>
                                 <td align="center">
                                     <div id="dvCrosspondance" class="success-msg" align="center" runat="server">
                                     </div>
@@ -734,16 +734,16 @@
                         </div>
                     </td>
                 </tr>
-                  <td colspan="4">
-                        <table id="tblOther" width="100%" runat="server" visible="false" style="padding-top: 0px;">
-                            <tr >
-                                <td align="center">
-                                    <div id="dvOther" class="success-msg" align="center" runat="server">
-                                    </div>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
+                <td colspan="4">
+                    <table id="tblOther" width="100%" runat="server" visible="false" style="padding-top: 0px;">
+                        <tr>
+                            <td align="center">
+                                <div id="dvOther" class="success-msg" align="center" runat="server">
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
                 </tr>
                 <tr>
                     <td class="leftField">
@@ -794,7 +794,7 @@
                 <tr>
                     <td>
                         <asp:Button ID="OtherInformation" runat="server" CssClass="PCGButton" Text="Submit"
-                            OnClick="OtherInformation_OnClick" Visible="false"/>
+                            OnClick="OtherInformation_OnClick" Visible="false" />
                         <asp:Button ID="btnOtherInformationUpdate" runat="server" CssClass="PCGButton" Text="Update"
                             OnClick="btnOtherInformationUpdate_OnClick" Visible="false" />
                     </td>
@@ -819,9 +819,9 @@
                     </td>
                 </tr>
                 <tr>
-                <td colspan="4">
+                    <td colspan="4">
                         <table id="tblBankDetails" width="100%" runat="server" visible="false" style="padding-top: 0px;">
-                            <tr >
+                            <tr>
                                 <td align="center">
                                     <div id="dvBankDetails" class="success-msg" align="center" runat="server">
                                     </div>
@@ -946,7 +946,7 @@
                 <tr>
                     <td>
                         <asp:Button ID="btnBankDetails" runat="server" CssClass="PCGButton" Text="Submit"
-                            OnClick="btnBankDetails_OnClick" ValidationGroup="btnBank" Visible="false"/>
+                            OnClick="btnBankDetails_OnClick" ValidationGroup="btnBank" Visible="false" />
                         <asp:Button ID="btnBankDetailsUpdate" runat="server" CssClass="PCGButton" Text="Update"
                             OnClick="btnBankDetailsUpdate_OnClick" ValidationGroup="btnBank" Visible="false" />
                     </td>
@@ -963,54 +963,110 @@
                             <div class="fltlft" style="width: 200px; float: left">
                                 &nbsp; Registration
                             </div>
-                            <div class="divViewEdit" style="float: right; padding-right: 50px">
-                                <asp:LinkButton ID="lnkRegistration" runat="server" CssClass="LinkButtons" Text="Edit"
-                                    OnClick="lnkRegistration_OnClick" Visible="false"></asp:LinkButton></div>
                         </div>
                     </td>
                 </tr>
                 <tr>
-                    <td class="leftField">
-                        <asp:Label ID="lblAssetCategory" CssClass="FieldName" runat="server" Text="Asset Category:"></asp:Label>
-                    </td>
-                    <td class="rightField">
-                        <asp:DropDownList ID="ddlCategory" runat="server" CssClass="cmbField">
-                        </asp:DropDownList>
-                    </td>
-                    <td class="leftField">
-                        <asp:Label ID="lblRegNo" CssClass="FieldName" runat="server" Text="Registration No:"></asp:Label>
-                    </td>
-                    <td class="rightField">
-                        <asp:TextBox ID="txtRegNo" runat="server" CssClass="txtField"></asp:TextBox>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="leftField">
-                        <asp:Label ID="Label4" runat="server" CssClass="FieldName" Text="Expiry Date:"></asp:Label>
-                    </td>
-                    <td class="rightField">
-                        <telerik:RadDatePicker ID="txtRegExpDate" CssClass="txtTo" runat="server" Culture="English (United States)"
-                            Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
-                            <Calendar ID="Calendar2" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
-                                ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
-                            </Calendar>
-                            <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                            <DateInput ID="DateInput2" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
-                            </DateInput>
-                        </telerik:RadDatePicker>
-                        <asp:CompareValidator ID="CompareValidator4" runat="server" ErrorMessage="<br/>Please enter a valid date."
-                            Type="Date" ControlToValidate="txtRegExpDate" CssClass="cvPCG" Operator="DataTypeCheck"
-                            ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
-                    </td>
-                    <td>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <asp:Button ID="btnRegistration" runat="server" CssClass="PCGButton" Text="Submit"
-                            OnClick="btnRegistration_OnClick" Visible="false"/>
-                        <asp:Button ID="btnRegistrationUpdate" runat="server" CssClass="PCGButton" Text="Update"
-                            OnClick="btnRegistrationUpdate_OnClick" Visible="false" />
+                    <td colspan="3">
+                        <telerik:RadGrid ID="gvRegistration" runat="server" CssClass="RadGrid" GridLines="Both"
+                            Width="90%" AllowPaging="True" PageSize="20" AllowSorting="True" AutoGenerateColumns="false"
+                            ShowStatusBar="true" AllowAutomaticDeletes="True" Skin="Telerik" OnItemCommand="gvRegistration_OnItemCommand"
+                            OnNeedDataSource="gvRegistration_OnNeedDataSource" OnItemDataBound="gvRegistration_OnItemDataBound">
+                            <MasterTableView DataKeyNames="" Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
+                                EditMode="EditForms" CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false"
+                                CommandItemSettings-AddNewRecordText="Add Registration">
+                                <%--   <mastertableview datakeynames="" allowfilteringbycolumn="true" width="70%" allowmulticolumnsorting="True">
+                                  autogeneratecolumns="false" commanditemdisplay="Top" editmode="PopUp">
+                                <CommandItemSettings ShowExportToWordButton="false" ShowExportToExcelButton="false"
+                                    AddNewRecordText="Add Registration" ShowExportToCsvButton="false" ShowAddNewRecordButton="true"
+                                    ShowRefreshButton="false" />--%>
+                                <Columns>
+                                    <telerik:GridBoundColumn DataField="PAG_assetGroupCode" HeaderStyle-Width="20px"
+                                        CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                        HeaderText="Asset Group" UniqueName="PAG_assetGroupCode" SortExpression="PAG_assetGroupCode"
+                                        AllowFiltering="true" Visible="true">
+                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                    </telerik:GridBoundColumn>
+                                    <telerik:GridBoundColumn DataField="AAAR_Registrationumber" HeaderStyle-Width="20px"
+                                        CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                        HeaderText="Registration Number" UniqueName="AAAR_Registrationumber" SortExpression="AAAR_Registrationumber"
+                                        AllowFiltering="true" Visible="true">
+                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                    </telerik:GridBoundColumn>
+                                    <telerik:GridBoundColumn DataField="AAAR_ExpiryDate" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
+                                        ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Expiry Date" UniqueName="AAAR_ExpiryDate"
+                                        SortExpression="AAAR_ExpiryDate" AllowFiltering="true" Visible="true">
+                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                    </telerik:GridBoundColumn>
+                                </Columns>
+                                <EditFormSettings EditFormType="Template" PopUpSettings-Height="220px" PopUpSettings-Width="350px"
+                                    CaptionFormatString="Add Registration">
+                                    <FormTemplate>
+                                        <table width="100%">
+                                            <tr>
+                                                <td align="right">
+                                                    <asp:Label ID="lblAssetCategory" runat="server" Text="Asset Category:" CssClass="FieldName"></asp:Label>
+                                                </td>
+                                                <td>
+                                                    <asp:DropDownList ID="ddlCategory" runat="server" CssClass="cmbField">
+                                                    </asp:DropDownList>
+                                                    <span id="Span3" class="spnRequiredField">*</span>
+                                                    <br />
+                                                    <asp:RequiredFieldValidator ID="ReqddlLevel" runat="server" CssClass="rfvPCG" ErrorMessage="Please Select Asset Category"
+                                                        Display="Dynamic" ControlToValidate="ddlCategory" ValidationGroup="btnOK" InitialValue="0">
+                                                    </asp:RequiredFieldValidator>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td align="right">
+                                                    <asp:Label ID="lblRegNo" runat="server" Text="Registration No:" CssClass="FieldName"></asp:Label>
+                                                </td>
+                                                <td>
+                                                    <telerik:RadDatePicker ID="txtRegNo" CssClass="txtTo" runat="server" Culture="English (United States)"
+                                                        Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                                                        <Calendar ID="Calendar1" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
+                                                            ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
+                                                        </Calendar>
+                                                        <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                                                        <DateInput ID="DateInput1" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                                                        </DateInput>
+                                                    </telerik:RadDatePicker>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td align="right">
+                                                    <asp:Label ID="Label4" runat="server" Text="Expiry Date:" CssClass="FieldName"></asp:Label>
+                                                </td>
+                                                <td>
+                                                    <telerik:RadDatePicker ID="txtRegExpDate" CssClass="txtTo" runat="server" Culture="English (United States)"
+                                                        Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                                                        <Calendar ID="Calendar2" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
+                                                            ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
+                                                        </Calendar>
+                                                        <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                                                        <DateInput ID="DateInput2" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                                                        </DateInput>
+                                                    </telerik:RadDatePicker>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td align="right">
+                                                    <asp:Button ID="btnOK" Text="Submit" runat="server" CssClass="PCGButton" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'
+                                                        CausesValidation="True" ValidationGroup="btnOK" />
+                                                </td>
+                                                <td class="rightData">
+                                                    <asp:Button ID="btnCancel" Text="Cancel" runat="server" CausesValidation="False"
+                                                        CssClass="PCGButton" CommandName="Cancel"></asp:Button>
+                                                </td>
+                                                <td class="rightData">
+                                                    &nbsp;
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </FormTemplate>
+                                </EditFormSettings>
+                            </MasterTableView>
+                        </telerik:RadGrid>
                     </td>
                 </tr>
             </table>
@@ -1032,9 +1088,9 @@
                     </td>
                 </tr>
                 <tr>
-                <td colspan="4">
+                    <td colspan="4">
                         <table id="tblNominee" width="100%" runat="server" visible="false" style="padding-top: 0px;">
-                            <tr >
+                            <tr>
                                 <td align="center">
                                     <div id="dvNominee" class="success-msg" align="center" runat="server">
                                     </div>
@@ -1108,7 +1164,8 @@
                 </tr>
                 <tr>
                     <td>
-                        <asp:Button ID="btnNominee" runat="server" CssClass="PCGButton" Text="Submit" OnClick="btnNominee_OnClick" Visible="false" />
+                        <asp:Button ID="btnNominee" runat="server" CssClass="PCGButton" Text="Submit" OnClick="btnNominee_OnClick"
+                            Visible="false" />
                         <asp:Button ID="btnNomineeUpdate" runat="server" CssClass="PCGButton" Text="Update"
                             OnClick="btnNomineeUpdate_OnClick" Visible="false" />
                     </td>
@@ -1131,10 +1188,10 @@
                         </div>
                     </td>
                 </tr>
-                 <tr>
-                <td colspan="4">
+                <tr>
+                    <td colspan="4">
                         <table id="tblCategory" width="100%" runat="server" visible="false" style="padding-top: 0px;">
-                            <tr >
+                            <tr>
                                 <td align="center">
                                     <div id="dvCategory" class="success-msg" align="center" runat="server">
                                     </div>
@@ -1156,7 +1213,8 @@
                 </tr>
                 <tr>
                     <td>
-                        <asp:Button ID="btnCategory" runat="server" CssClass="PCGButton" Text="Submit" OnClick="btnCategory_OnClick" Visible="false"/>
+                        <asp:Button ID="btnCategory" runat="server" CssClass="PCGButton" Text="Submit" OnClick="btnCategory_OnClick"
+                            Visible="false" />
                         <asp:Button ID="btnCategoryUpdate" runat="server" CssClass="PCGButton" Text="Update"
                             OnClick="btnCategoryUpdate_OnClick" Visible="false" />
                     </td>
@@ -1180,10 +1238,10 @@
                         </div>
                     </td>
                 </tr>
-                  <tr>
-                <td colspan="4">
+                <tr>
+                    <td colspan="4">
                         <table id="tblBusinessDetails" width="100%" runat="server" visible="false" style="padding-top: 0px;">
-                            <tr >
+                            <tr>
                                 <td align="center">
                                     <div id="dvBusinessDetails" class="success-msg" align="center" runat="server">
                                     </div>
@@ -1222,7 +1280,8 @@
                 </tr>
                 <tr>
                     <td class="leftField">
-                        <asp:Label ID="lblExpSelling" CssClass="FieldName" runat="server" Text="Experience in selling :"></asp:Label>
+                        <asp:Label ID="lblExpSelling" CssClass="FieldName" runat="server" Text="Experience in selling :"
+                            Visible="false"></asp:Label>
                     </td>
                     <td class="rightField" colspan="3">
                         <%--<asp:CheckBox ID="chkAssociates" runat="server" Text="Insurance" CssClass="cmbField"
@@ -1233,7 +1292,8 @@
                          <asp:CheckBox ID="chkEQ" runat="server" Text="EQ" CssClass="cmbField" value="EQ" />
                           <asp:CheckBox ID="chkDebt" runat="server" Text="Debt" CssClass="cmbField" value="Debt" />
                             <asp:CheckBox ID="chkPMS" runat="server" Text="PMS" CssClass="cmbField" value="PMS" />--%>
-                        <asp:CheckBoxList ID="chkModules" runat="server" CssClass="FieldName" RepeatDirection="Horizontal">
+                        <asp:CheckBoxList ID="chkModules" runat="server" CssClass="FieldName" RepeatDirection="Horizontal"
+                            Visible="false">
                             <asp:ListItem Text="MF" Value="MF"></asp:ListItem>
                             <asp:ListItem Text="IPO" Value="IP"></asp:ListItem>
                             <asp:ListItem Text="FD" Value="FD"></asp:ListItem>
@@ -1248,7 +1308,7 @@
                 <tr>
                     <td>
                         <asp:Button ID="btnBusinessDetails" runat="server" CssClass="PCGButton" Text="Submit"
-                            OnClick="btnBusinessDetails_OnClick" Visible="false"/>
+                            OnClick="btnBusinessDetails_OnClick" Visible="false" />
                         <asp:Button ID="btnBusinessDetailsUpdate" runat="server" CssClass="PCGButton" Text="Update"
                             OnClick="btnBusinessDetailsUpdate_OnClick" Visible="false" />
                     </td>
