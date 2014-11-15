@@ -517,7 +517,7 @@ namespace DaoOps
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                GetGetControlDetailsCmd = db.GetStoredProcCommand("SPROC_Onl_GetSchemeDetails");
+                GetGetControlDetailsCmd = db.GetStoredProcCommand("SPROC_OffLine_GetSchemeDetails");
                 db.AddInParameter(GetGetControlDetailsCmd, "@schemecode", DbType.Int32, Scheme);
                 if (!string.IsNullOrEmpty(folio))
                     db.AddInParameter(GetGetControlDetailsCmd, "@accountid", DbType.Int32, int.Parse(folio));
@@ -574,6 +574,30 @@ namespace DaoOps
             }
             return dsGetCustomerMFOrderDetails;
         }
+
+        public String GetFolio(int customerId, int schemePlanCode)
+        {
+
+            string folio = string.Empty;
+            Database db;
+            DbCommand createMFOrderTrackingCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                createMFOrderTrackingCmd = db.GetStoredProcCommand("SPROC_GetFolio");
+                db.AddInParameter(createMFOrderTrackingCmd, "@CustomerId", DbType.Int32, customerId);
+                db.AddInParameter(createMFOrderTrackingCmd, "@AMcCode", DbType.Int32, schemePlanCode);
+                folio = db.ExecuteScalar(createMFOrderTrackingCmd).ToString();
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+
+            return folio;
+        }
+
+
         public int MarkAsReject(int OrderID, string Remarks)
         {
             int IsMarked = 0;

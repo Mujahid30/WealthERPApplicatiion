@@ -191,6 +191,20 @@ namespace BoOps
                 throw (Ex);
             }
         }
+
+        public string GetFolio(int customerId, int schemePlanCode)
+        {
+            try
+            {
+                return mfOrderDao.GetFolio(customerId, schemePlanCode);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+        }
+ 
+
         public DataSet GetCustomerMFOrderDetails(int orderId)
         {
             DataSet dsGetCustomerMFOrderDetails;
@@ -301,6 +315,7 @@ namespace BoOps
             }
             return bResult;
         }
+
 
         public bool MFOrderAutoMatch(int OrderId, int SchemeCode, int AccountId, string TransType, int CustomerId, double Amount, DateTime OrderDate)
         {

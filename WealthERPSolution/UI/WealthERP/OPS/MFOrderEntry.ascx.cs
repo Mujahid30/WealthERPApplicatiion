@@ -245,7 +245,7 @@ namespace WealthERP.OPS
             //BindScheme(0);
             //Sflag = 0;
             BindAMC(0);
-           // BindScheme(ddltransType.SelectedValue, Convert.ToInt32(ddlAMCList.SelectedValue));
+            // BindScheme(ddltransType.SelectedValue, Convert.ToInt32(ddlAMCList.SelectedValue));
 
             BindCategory();
             BindState();
@@ -483,9 +483,9 @@ namespace WealthERP.OPS
                         ddlSchemeSwitch.SelectedValue = dr["PASP_SchemePlanSwitch"].ToString();
                     }
 
-                    txtPeriod.Text = dr["CMFSS_Tenure"].ToString();
+                    txtPeriod.Text = dr["CMFSS_TotalInstallment"].ToString();
                     txtSystematicdates.Text = dr["CMFSS_SystematicDate"].ToString();
-                    ddlPeriodSelection.SelectedValue = dr["CMFSS_TenureCycle"].ToString();
+                    ddlPeriodSelection.SelectedValue = dr["XF_FrequencyCode"].ToString();
 
                 }
             }
@@ -549,7 +549,9 @@ namespace WealthERP.OPS
             {
                 lnlBack.Visible = true;
                 lnkDelete.Visible = true;
+                //trBtnSubmit.Visible = true;
                 btnUpdate.Visible = true;
+                //btnSubmit.Visible = true;
                 //btnViewReport.Visible = true;
                 //btnViewInPDF.Visible = true;
             }
@@ -610,7 +612,7 @@ namespace WealthERP.OPS
                 parameters = string.Empty;
                 parameters = (amcCode + "/" + txtCustomerId.Value);
                 txtSearchScheme_autoCompleteExtender.ContextKey = parameters;
-                txtSearchScheme_autoCompleteExtender.ServiceMethod = "GetSchemeForOrderEntry";
+                txtSearchScheme_autoCompleteExtender.ServiceMethod = "GetSchemeForMFOrderEntry";
             }
             else
             {
@@ -774,9 +776,15 @@ namespace WealthERP.OPS
 
             if (!string.IsNullOrEmpty(txtSchemeCode.Value))
             {
+
                 SetControlDetails();
                 GetControlDetails(int.Parse(txtSchemeCode.Value), null);
 
+                if (ddltransType.SelectedValue != "BUY" || ddltransType.SelectedValue != "SIP")
+                {
+                    txtFolioNumber.Text = mfOrderBo.GetFolio(int.Parse(txtCustomerId.Value), int.Parse(ddlAMCList.SelectedValue));
+                }
+                 
             }
 
 
@@ -2514,51 +2522,35 @@ namespace WealthERP.OPS
 
         protected void ShowPaymentSectionBasedOnTransactionType(string transType, string mode)
         {
-            // bool enablement = false; ;
 
             pnl_BUY_ABY_SIP_PaymentSection.Visible = false;
             pnl_SIP_PaymentSection.Visible = false;
             pnl_SEL_PaymentSection.Visible = false;
             Tr1.Visible = true;
-            //if (mode == "View")
-            //{
-            //    enablement = false;
-            //}
-            //else if (mode == "Edit")
-            //{
-            //    enablement = true;
-            //}
+            txtFolioNumber.Enabled = true;
+            imgFolioAdd.Enabled = true;
 
             if (transType == "BUY" | transType == "ABY")
             {
-
-                // pnl_BUY_ABY_SIP_PaymentSection.Enabled = enablement;
                 pnl_BUY_ABY_SIP_PaymentSection.Visible = true;
                 if (transType == "BUY")
                 {
                     txtFolioNumber.Enabled = false;
                     imgFolioAdd.Enabled = false;
                 }
-
-
             }
             else if (transType == "Sel")
             {
                 pnl_SEL_PaymentSection.Visible = true;
                 trScheme.Visible = false;
-
             }
             else if (transType == "SIP")
             {
-                //pnl_BUY_ABY_SIP_PaymentSection.Enabled = enablement;
                 pnl_BUY_ABY_SIP_PaymentSection.Visible = true;
                 pnl_SIP_PaymentSection.Visible = true;
-                //pnl_SIP_PaymentSection.Enabled = enablement;
-
             }
             else if (transType == "SWP")
             {
-                //pnl_SEL_PaymentSection.Enabled = enablement;
                 pnl_SEL_PaymentSection.Visible = true;
                 trScheme.Visible = false;
                 pnl_SIP_PaymentSection.Visible = true;
@@ -2566,7 +2558,6 @@ namespace WealthERP.OPS
             }
             else if (transType == "STB")
             {
-                //pnl_SEL_PaymentSection.Enabled = enablement;
                 pnl_SEL_PaymentSection.Visible = true;
                 trScheme.Visible = true;
                 pnl_SIP_PaymentSection.Visible = true;
@@ -3840,8 +3831,8 @@ namespace WealthERP.OPS
 
             List<int> OrderIds = new List<int>();
 
-           // string confirmValue = Request.Form["confirm_value"];
-            
+            // string confirmValue = Request.Form["confirm_value"];
+
             bool isvalidOfflineFolio = mfOrderBo.ChkOfflineValidFolio(txtFolioNumber.Text);
             if (string.IsNullOrEmpty(lblMintxt.Text))
             {
@@ -3855,6 +3846,10 @@ namespace WealthERP.OPS
             {
                 lbltime.Text = DateTime.Now.ToString();
             }
+            if (ddltransType.SelectedValue == "Sel" || ddltransType.SelectedValue == "SWP")
+            {
+                txtAmount.Text = txtNewAmount.Text;
+            }
 
             int retVal = commonLookupBo.IsRuleCorrect(float.Parse(txtAmount.Text), float.Parse(lblMintxt.Text), float.Parse(txtAmount.Text), float.Parse(lblMulti.Text), DateTime.Parse(lbltime.Text));
             if (retVal != 0)
@@ -3862,17 +3857,17 @@ namespace WealthERP.OPS
                 if (retVal == -2)
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('You have entered amount less than Minimum Initial amount allowed');", true); return;
-                
+
                 }
                 if (retVal == -1)
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('You should enter the amount in multiples of Subsequent amount ');", true); return;
-              
+
                 }
 
             }
-          
-                 if (string.IsNullOrEmpty(txtAgentId.Value))
+
+            if (string.IsNullOrEmpty(txtAgentId.Value))
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Enter a valid SubBroker Code.');", true);
                 return;
@@ -4473,8 +4468,8 @@ namespace WealthERP.OPS
 
         protected void lnkBtnEdit_Click(object sender, EventArgs e)
         {
-            ButtonsEnablement("Edit");
             ControlsEnblity("Edit");
+            ButtonsEnablement("Edit");
             //SetEditViewMode(false);
             //ViewForm = "Edit";
             //lnkDelete.Visible = true;
