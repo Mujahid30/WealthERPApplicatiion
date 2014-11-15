@@ -21,7 +21,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.ScriptManager scriptmanager;
-        
+        protected global::System.Web.UI.WebControls.TextBox txtOrderNo;
         /// <summary>
         /// lbBack control.
         /// </summary>

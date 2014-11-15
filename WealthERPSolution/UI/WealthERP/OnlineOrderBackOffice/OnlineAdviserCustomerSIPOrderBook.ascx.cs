@@ -179,11 +179,11 @@ namespace WealthERP.OnlineOrderBackOffice
             //string OrderStatus = ViewState["OrderStatus"].ToString();
             if (ViewState["OrderStatus"] != null)
             {
-                dsSIPBookMIS = OnlineOrderMISBo.GetSIPBookMIS(advisorVo.advisorId, int.Parse(hdnAmc.Value), ViewState["OrderStatus"].ToString(), systematicId, fromDate, toDate);
+                dsSIPBookMIS = OnlineOrderMISBo.GetSIPBookMIS(advisorVo.advisorId, int.Parse(hdnAmc.Value), ViewState["OrderStatus"].ToString(), systematicId, fromDate, toDate, (!string.IsNullOrEmpty(txtOrderNo.Text)) ? int.Parse(txtOrderNo.Text) : 0);
             }
             else
             {
-                dsSIPBookMIS = OnlineOrderMISBo.GetSIPBookMIS(advisorVo.advisorId, int.Parse(hdnAmc.Value), hdnOrderStatus.Value, systematicId, fromDate, toDate);
+                dsSIPBookMIS = OnlineOrderMISBo.GetSIPBookMIS(advisorVo.advisorId, int.Parse(hdnAmc.Value), hdnOrderStatus.Value, systematicId, fromDate, toDate, (!string.IsNullOrEmpty(txtOrderNo.Text)) ? int.Parse(txtOrderNo.Text) :0);
             }
 
             dtSIPBookMIS = dsSIPBookMIS.Tables[0];
@@ -241,17 +241,51 @@ namespace WealthERP.OnlineOrderBackOffice
         }
         protected void gvSIPBookMIS_OnItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
         {
-            if (e.CommandName == "Edit")
+            //if (e.CommandName == "Edit")
+            //{
+            //    string orderId = gvSIPBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_OrderId"].ToString();
+            //    string customerId = gvSIPBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["C_CustomerId"].ToString();
+            //    string assetGroupCode = gvSIPBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["PAG_AssetGroupCode"].ToString();
+            //    if (assetGroupCode == "MF")
+            //    {
+            //        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('MFOrderSIPTransType','&orderId=" + orderId + "&customerId=" + customerId + "');", true);
+            //    }
+            //}
+            string strRemark = string.Empty;
+            int IsMarked = 0;
+            if (e.CommandName == RadGrid.UpdateCommandName)
             {
-                string orderId = gvSIPBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_OrderId"].ToString();
-                string customerId = gvSIPBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["C_CustomerId"].ToString();
-                string assetGroupCode = gvSIPBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["PAG_AssetGroupCode"].ToString();
-                if (assetGroupCode == "MF")
+                GridEditableItem editItem = e.Item as GridEditableItem;
+                TextBox txtRemark = (TextBox)e.Item.FindControl("txtRemark");
+                strRemark = txtRemark.Text;
+                LinkButton buttonEdit = editItem["MarkAsReject"].Controls[0] as LinkButton;
+                Int32 orderId = Convert.ToInt32(gvSIPBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_OrderId"].ToString());
+                IsMarked = mforderBo.MarkAsReject(orderId, txtRemark.Text);
+                if (txtFrom.SelectedDate != null)
+                    fromDate = DateTime.Parse(txtFrom.SelectedDate.ToString());
+                if (txtTo.SelectedDate != null)
+                    toDate = DateTime.Parse(txtTo.SelectedDate.ToString());
+                BindSIPBook(fromDate, toDate);
+
+            }
+        }
+        protected void gvSIPBookMIS_ItemDataBound(object sender, GridItemEventArgs e)
+        {
+
+            if (e.Item is GridDataItem)
+            {
+                GridDataItem dataItem = e.Item as GridDataItem;
+                LinkButton lbtnMarkAsReject = dataItem["MarkAsReject"].Controls[0] as LinkButton;
+                string OrderStepCode = Convert.ToString(gvSIPBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["XS_Status"]);
+                if (OrderStepCode == "INPROCESS" || OrderStepCode == "EXECUTED")
                 {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('MFOrderSIPTransType','&orderId=" + orderId + "&customerId=" + customerId + "');", true);
+                    lbtnMarkAsReject.Visible = true;
+                }
+                else
+                {
+                    lbtnMarkAsReject.Visible = false;
                 }
             }
-
         }
         //protected void ddlMenu_SelectedIndexChanged(object sender, EventArgs e)
         //{

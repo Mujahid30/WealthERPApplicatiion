@@ -15,7 +15,7 @@ namespace DaoOnlineOrderManagement
 {
     public class OnlineOrderMISDao
     {
-        public DataSet GetOrderBookMIS(int adviserId, int AmcCode, string OrderStatus, DateTime dtFrom, DateTime dtTo)
+        public DataSet GetOrderBookMIS(int adviserId, int AmcCode, string OrderStatus, DateTime dtFrom, DateTime dtTo,int orderNo)
         {
             DataSet dsOrderBookMIS;
             Database db;
@@ -35,6 +35,10 @@ namespace DaoOnlineOrderManagement
                     db.AddInParameter(GetOrderBookMISCmd, "@Status", DbType.String, DBNull.Value);
                 db.AddInParameter(GetOrderBookMISCmd, "@Fromdate", DbType.DateTime, dtFrom);
                 db.AddInParameter(GetOrderBookMISCmd, "@ToDate", DbType.DateTime, dtTo);
+                if(orderNo !=0)
+                    db.AddInParameter(GetOrderBookMISCmd, "@orderNo", DbType.Int32, orderNo);
+                else
+                    db.AddInParameter(GetOrderBookMISCmd, "@orderNo", DbType.Int32, 0);
                 GetOrderBookMISCmd.CommandTimeout = 60 * 60;
                 dsOrderBookMIS = db.ExecuteDataSet(GetOrderBookMISCmd);
 
@@ -56,7 +60,7 @@ namespace DaoOnlineOrderManagement
             }
             return dsOrderBookMIS;
         }
-        public DataSet GetSIPBookMIS(int adviserId, int AmcCode, string OrderStatus, int systematicId, DateTime dtFrom, DateTime dtTo)
+        public DataSet GetSIPBookMIS(int adviserId, int AmcCode, string OrderStatus, int systematicId, DateTime dtFrom, DateTime dtTo,int orderId)
         {
             DataSet dsSIPBookMIS;
             Database db;
@@ -80,6 +84,10 @@ namespace DaoOnlineOrderManagement
                     db.AddInParameter(GetSIPBookMISCmd, "@systematicId", DbType.Int32, 0);
                 db.AddInParameter(GetSIPBookMISCmd, "@Fromdate", DbType.DateTime, dtFrom);
                 db.AddInParameter(GetSIPBookMISCmd, "@ToDate", DbType.DateTime, dtTo);
+                if (orderId != 0)
+                    db.AddInParameter(GetSIPBookMISCmd, "@orderNo", DbType.Int32, orderId);
+                else
+                    db.AddInParameter(GetSIPBookMISCmd, "@orderNo", DbType.Int32, 0);
                 GetSIPBookMISCmd.CommandTimeout = 60 * 60;
                 dsSIPBookMIS = db.ExecuteDataSet(GetSIPBookMISCmd);
 

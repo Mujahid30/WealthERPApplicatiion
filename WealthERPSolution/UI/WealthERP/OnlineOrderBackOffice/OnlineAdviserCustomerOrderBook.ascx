@@ -105,8 +105,18 @@
                     Display="Dynamic">
                 </asp:CompareValidator>
             </td>
+            <td>
+            <asp:Label ID="lblOrderNo" runat="server" Text="Order No:" CssClass="FieldName"></asp:Label>
+            </td>
+            <td>
+            <asp:TextBox ID="txtOrderNo" runat="server" ></asp:TextBox>
+            </td>
+            
+            </tr>
+            <tr>
+            
             <td id="tdBtnOrder" runat="server">
-                <asp:Button ID="btnViewOrder" runat="server" CssClass="PCGButton" Text="Go" ValidationGroup="btnViewOrder"
+              &nbsp;&nbsp;&nbsp;&nbsp;  <asp:Button ID="btnViewOrder" runat="server" CssClass="PCGButton" Text="Go" ValidationGroup="btnViewOrder"
                     OnClick="btnViewOrder_Click" />
             </td>
         </tr>
