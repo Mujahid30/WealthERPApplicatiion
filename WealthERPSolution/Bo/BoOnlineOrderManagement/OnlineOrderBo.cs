@@ -37,15 +37,15 @@ namespace BoOnlineOrderManagement
                     onlineOrderDao.UpdateOrderRMSAccountDebitDetails(orderId, 1, string.Empty, "RMSREsponse:-" + Response);
                     result = true;
 
-                }
-                else if (Response.Contains("MSG_FAILURE"))
+                }               
+                else if (Response.Contains("FALSE"))
                 {
                     onlineOrderDao.UpdateOrderRMSAccountDebitDetails(orderId, 0, string.Empty, "RMSREsponse:-" + Response);
 
                 }
-                else if (Response.Contains("FALSE"))
+                else if (!Response.Contains("TRUE") || !Response.Contains("FALSE"))
                 {
-                    onlineOrderDao.UpdateOrderRMSAccountDebitDetails(orderId, 0, string.Empty, "RMSREsponse:-" + Response);
+                    onlineOrderDao.UpdateOrderRMSAccountDebitDetails(orderId, 2, string.Empty, "RMSREsponse:-" + Response);
 
                 }
 
