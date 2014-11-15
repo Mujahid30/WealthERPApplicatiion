@@ -241,7 +241,7 @@
     </tr>
 </table>
 <table>
-    <tr id="trSearchtype">
+    <tr id="trSearchtype" runat="server">
         <td align="right">
             <asp:Label ID="lblIskyc" runat="server" Text="Select:" CssClass="FieldName"></asp:Label>
         </td>

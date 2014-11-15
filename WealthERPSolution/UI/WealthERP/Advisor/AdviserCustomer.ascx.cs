@@ -68,6 +68,8 @@ namespace WealthERP.Advisor
             rmVo = (RMVo)Session["rmVo"];
             adviserVo = (AdvisorVo)Session["advisorVo"];
             associatesVo = (AssociatesVO)Session["associatesVo"];
+            ddlCOption.Items[5].Enabled = false;
+            
             //rbtnRegister.Checked = true;
             if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
             {
@@ -164,7 +166,7 @@ namespace WealthERP.Advisor
             #endregion
             if (!IsPostBack)
             {
-                
+                trSearchtype.Visible = false;
                 if (Request.QueryString["CustomerDeleteStatus"] != null)
                 {
                     CreationSuccessMessage.Visible = true;
@@ -1634,13 +1636,16 @@ namespace WealthERP.Advisor
         /// </summary>
         protected void rbtnRegister_CheckedChanged(object sender, EventArgs e)
         {
+            trSearchtype.Visible = true;
             ddlCOption.Items[3].Enabled= true;
-           
+            ddlCOption.Items[5].Enabled = false;
         }
         protected void rbtnNonRegister_CheckedChanged(object sender, EventArgs e)
         {
+            trSearchtype.Visible = true;
+            ddlCOption.Items[5].Enabled = false;
             ddlCOption.Items[3].Enabled = false;
-          
+            
         }
 
     }

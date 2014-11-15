@@ -90,6 +90,7 @@ namespace WealthERP.OffLineOrderManagement
             rwDematDetails.VisibleOnPageLoad = false;
             tblMessage.Visible = false;
             GetUserType();
+            rwTermsCondition.VisibleOnPageLoad = false;
             if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
             {
                 txtCustomerName_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
@@ -125,7 +126,7 @@ namespace WealthERP.OffLineOrderManagement
 
             if (!IsPostBack)
             {
-
+               
                 if (AgentCode != null)
                 {
                     txtAssociateSearch.Text = AgentCode;

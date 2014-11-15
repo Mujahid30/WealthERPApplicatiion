@@ -1031,9 +1031,9 @@
         </telerik:RadWindow>
     </Windows>
 </telerik:RadWindowManager>
-<telerik:RadWindow ID="rwDematDetails" runat="server" VisibleOnPageLoad="false" Height="200px"
+<telerik:RadWindow ID="rwDematDetails" runat="server" VisibleOnPageLoad="false" Height="220px"
     Width="800px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="Resize, Close, Move"
-    Title="Select Demat " RestrictionZoneID="radWindowZone">
+    Title="Select Demat " RestrictionZoneID="radWindowZone"  Top="20">
     <ContentTemplate>
         <table>
             <tr>
@@ -1042,7 +1042,7 @@
                 <td>
                     <telerik:RadGrid ID="gvDematDetailsTeleR" runat="server" AllowAutomaticInserts="false"
                         AllowFilteringByColumn="false" AllowPaging="true" AllowSorting="true" AutoGenerateColumns="False"
-                        EnableEmbeddedSkins="false" EnableHeaderContextMenu="true" Height="200px" fAllowAutomaticDeletes="false"
+                        EnableEmbeddedSkins="false" EnableHeaderContextMenu="true" Height="135px" fAllowAutomaticDeletes="false"
                         GridLines="none" ShowFooter="false" ShowStatusBar="false" Skin="Telerik">
                         <%--<HeaderContextMenu EnableEmbeddedSkins="False">
                                 </HeaderContextMenu>--%>

@@ -1173,7 +1173,7 @@
 </table>
 <telerik:RadWindow ID="rwDematDetails" runat="server" VisibleOnPageLoad="false" Height="200px"
     Width="800px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="Resize, Close, Move"
-    Title="Select Demat " RestrictionZoneID="radWindowZone" ShowOnTopWhenMaximized="true">
+    Title="Select Demat " RestrictionZoneID="radWindowZone" Top="20">
     <ContentTemplate>
         <table>
             <tr>
