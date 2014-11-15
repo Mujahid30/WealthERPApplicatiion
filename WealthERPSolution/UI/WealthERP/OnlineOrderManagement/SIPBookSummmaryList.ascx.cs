@@ -29,7 +29,7 @@ namespace WealthERP.OnlineOrderManagement
         MFOrderVo mforderVo = new MFOrderVo();
         OrderVo orderVo = new OrderVo();
         UserVo userVo;
-        string userType;
+        string userType; 
         int customerId = 0;
         DateTime fromDate;
         DateTime toDate;
