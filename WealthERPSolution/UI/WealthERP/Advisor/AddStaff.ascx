@@ -291,15 +291,15 @@
                 Staff Role and Code Details
             </div>
         </td>
-    </tr>
-    <tr>
+    </tr >
+    <tr id="trSubBrokerCode" runat="server" visible="true">
         <td class="leftField">
             <asp:Label ID="lb1StaffCode" runat="server" CssClass="FieldName" Text="Staff Code:"></asp:Label>
         </td>
         <td>
             <%--<asp:TextBox ID="txtStaffPrefix" Text="SSL" runat="server" ReadOnly="true" Width="35px"></asp:TextBox>--%>
             <asp:TextBox ID="txtStaffcode" runat="server" CssClass="txtField" Onblur="return assignValueToAgentCode()"></asp:TextBox>
-            <span id="Span10" class="spnRequiredField">*</span>
+            <span  runat="server" id="Span10" class="spnRequiredField">*</span>
             <br />
             <asp:RequiredFieldValidator ID="RequiredFieldValidator7"   ControlToValidate="txtStaffcode"
                 ErrorMessage="Please enter a StaffCode" Display="Dynamic" runat="server" ValidationGroup="btnSubmit"
@@ -327,7 +327,7 @@
                     <asp:ImageButton ID="imgBtnReferesh" ImageUrl="~/Images/refresh.png" AlternateText="Refresh"
                         runat="server" ToolTip="Click here to refresh agent code" OnClick="imgBtnReferesh_OnClick"
                         Height="15px" Width="25px"></asp:ImageButton>--%>
-        </td>
+        <%--</td>--%>
     </tr>
     <tr id="tr1" runat="server" visible="true">
         <td colspan="6" style="vertical-align: text-bottom; padding-top: 6px; padding-bottom: 6px">

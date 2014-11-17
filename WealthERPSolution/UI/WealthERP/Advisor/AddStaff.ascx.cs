@@ -65,7 +65,7 @@ namespace WealthERP.Advisor
             associatesVo = (AssociatesVO)Session["associatesVo"];
             HdnAdviserId.Value = advisorVo.advisorId.ToString();
             string action = string.Empty;
-           
+
             if (!Page.IsPostBack)
             {
                 if (Request.QueryString["RmId"] != null)
@@ -189,7 +189,7 @@ namespace WealthERP.Advisor
             }
             rmStaffVo.StaffBranchAssociation = AllBranchId.TrimEnd(',');
             rmStaffVo.roleIds = GetDepartmentRoleIds();
-            rmStaffVo.roleIds= rmStaffVo.roleIds.Remove(rmStaffVo.roleIds.Length - 1);
+            rmStaffVo.roleIds = rmStaffVo.roleIds.Remove(rmStaffVo.roleIds.Length - 1);
             return rmStaffVo;
         }
 
@@ -341,7 +341,7 @@ namespace WealthERP.Advisor
             ddlTeamList.DataTextField = dtAdviserTeamList.Columns["WHLM_Name"].ToString();
             ddlTeamList.DataBind();
             ddlTeamList.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
-            
+
         }
 
         private void BindTeamTitleDropList(int teamId)
@@ -401,10 +401,10 @@ namespace WealthERP.Advisor
                 ddlChannel.DataBind();
                 // ddlChannel.Enabled = false;
                 if (Request.QueryString["RmId"] != null)
-            {
-                ddlChannel.SelectedValue = "12";
-                ddlChannel.Enabled = false;
-            }
+                {
+                    ddlChannel.SelectedValue = "12";
+                    ddlChannel.Enabled = false;
+                }
             }
             else
             {
@@ -444,7 +444,7 @@ namespace WealthERP.Advisor
         {
             AgentCodesvalidation();
             BindTitleApplicableLevelAndChannel(Convert.ToInt32(ddlTitleList.SelectedValue));
-           
+
         }
 
         protected void AgentCodesvalidation()
@@ -476,12 +476,18 @@ namespace WealthERP.Advisor
             {
 
                 BindTeamTitleDropList(Convert.ToInt32(ddlTeamList.SelectedValue));
-                if (ddlTeamList.SelectedValue =="14")
+                if (ddlTeamList.SelectedValue == "14")
                 {
                     tdLb1Branch1.Visible = true;
                     tdDdl1Branch1.Visible = true;
                     tr4.Visible = false;
                     PLCustomer.Visible = false;
+                    
+                    RequiredFieldValidator7.Enabled = false;
+                    lblAgentCodeL.Visible = false;
+                    Span10.Visible = false;
+                    txtAgentCode.Visible = false;
+                    Span9.Visible = false;
                 }
                 else
                 {
@@ -489,6 +495,12 @@ namespace WealthERP.Advisor
                     PLCustomer.Visible = true;
                     tdLb1Branch1.Visible = false;
                     tdDdl1Branch1.Visible = false;
+
+                    RequiredFieldValidator7.Enabled = true;
+                    lblAgentCodeL.Visible = true;
+                    Span10.Visible = true;
+                    txtAgentCode.Visible = true;
+                    Span9.Visible = true;
                 }
 
             }
@@ -696,25 +708,25 @@ namespace WealthERP.Advisor
             return departmentRoleids;
         }
 
-        public void  SetDepartmentRoleIds(string  roleIds)
+        public void SetDepartmentRoleIds(string roleIds)
         {
-            
+
             string[] roleIs = roleIds.Split(',');
             if (roleIds == string.Empty)
                 return;
             for (int i = 0; i < roleIs.Length; i++)
             {
-            foreach (RadListBoxItem li in chkbldepart.Items)
-            {
-                if (li.Value == roleIs[i])
+                foreach (RadListBoxItem li in chkbldepart.Items)
                 {
-                    li.Checked = true;
-                }
+                    if (li.Value == roleIs[i])
+                    {
+                        li.Checked = true;
+                    }
 
-                   
+
+                }
             }
-            }
-           
+
         }
 
         protected bool ValidateStaffReportingManager()
@@ -830,6 +842,12 @@ namespace WealthERP.Advisor
                 tdDdl1Branch1.Visible = true;
                 tr4.Visible = false;
                 PLCustomer.Visible = false;
+               
+                RequiredFieldValidator7.Enabled = false;
+                lblAgentCodeL.Visible = false;
+                Span10.Visible = false;
+                txtAgentCode.Visible = false;
+                Span9.Visible = false;
             }
             else
             {
@@ -837,6 +855,12 @@ namespace WealthERP.Advisor
                 PLCustomer.Visible = true;
                 tdLb1Branch1.Visible = false;
                 tdDdl1Branch1.Visible = false;
+
+                RequiredFieldValidator7.Enabled = true;
+                lblAgentCodeL.Visible = true;
+                Span10.Visible = true;
+                txtAgentCode.Visible = true;
+                Span9.Visible = true;
             }
             ddlTitleList.SelectedValue = rmStaffVo.HierarchyTitleId.ToString();
             AgentCodesvalidation();
@@ -852,10 +876,10 @@ namespace WealthERP.Advisor
             }
             else
             {
-                ddlDepart.SelectedIndex  =2;                
+                ddlDepart.SelectedIndex = 2;
             }
             BindingDepartmentRoles(Convert.ToInt32(ddlDepart.SelectedValue));
-            SetDepartmentRoleIds(rmStaffVo.roleIds); 
+            SetDepartmentRoleIds(rmStaffVo.roleIds);
             if (rmStaffVo.OfficePhoneDirectIsd != 0)
                 txtPhDirectISD.Text = rmStaffVo.OfficePhoneDirectIsd.ToString();
             if (rmStaffVo.OfficePhoneDirectNumber != 0)
@@ -900,11 +924,11 @@ namespace WealthERP.Advisor
             {
                 DataSet ds = advisorStaffBo.GetStaffBranchAssociation(rmStaffVo.StaffBranchAssociation, advisorVo.advisorId);
                 RadListBoxDestination.DataSource = ds.Tables[0];
-                RadListBoxDestination.DataValueField = ds.Tables[0].Columns["StaffBranch"].ToString(); 
+                RadListBoxDestination.DataValueField = ds.Tables[0].Columns["StaffBranch"].ToString();
                 RadListBoxDestination.DataTextField = ds.Tables[0].Columns["AB_BranchName"].ToString();
                 RadListBoxDestination.DataBind();
                 LBStaffBranch.DataSource = ds.Tables[1];
-                LBStaffBranch.DataValueField = ds.Tables[1].Columns["AB_BranchId"].ToString(); 
+                LBStaffBranch.DataValueField = ds.Tables[1].Columns["AB_BranchId"].ToString();
                 LBStaffBranch.DataTextField = ds.Tables[1].Columns["AB_BranchName"].ToString();
                 LBStaffBranch.DataBind();
             }

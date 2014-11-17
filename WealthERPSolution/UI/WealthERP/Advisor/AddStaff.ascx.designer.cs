@@ -345,7 +345,7 @@ namespace WealthERP.Advisor {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow tr2;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trSubBrokerCode;  
         /// <summary>
         /// lb1StaffCode control.
         /// </summary>
@@ -399,6 +399,7 @@ namespace WealthERP.Advisor {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl Span9;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Span10;
         
         /// <summary>
         /// lblrg control.

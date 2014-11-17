@@ -1534,6 +1534,7 @@ namespace WealthERP.Receivable
         {
             if (enable)
             {
+                ddlCommissionype.Enabled = true;
                 ddlProductType.Enabled = true;
                 ddlCategory.Enabled = true;
                 rlbAssetSubCategory.Enabled = true;
@@ -1558,6 +1559,7 @@ namespace WealthERP.Receivable
             }
             else
             {
+                ddlCommissionype.Enabled = false;
                 ddlProductType.Enabled = false;
                 ddlCategory.Enabled = false;
                 rlbAssetSubCategory.Enabled = false;
