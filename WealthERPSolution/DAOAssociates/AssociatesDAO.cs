@@ -64,10 +64,23 @@ namespace DAOAssociates
                 db.AddOutParameter(completeAssociatesCmd, "@AAC_AdviserAgentId", DbType.Int32, 10);
                 db.AddOutParameter(completeAssociatesCmd, "@U_UserId", DbType.Int32, 10);
                 db.AddInParameter(completeAssociatesCmd, "@roleIds", DbType.String, associatesVo.Roleid);
+                if(!string.IsNullOrEmpty(associatesVo.AMFIregistrationNo))
                 db.AddInParameter(completeAssociatesCmd, "@AA_AMFIregistrationNo", DbType.Int32, associatesVo.AMFIregistrationNo);
+                else
+                    db.AddInParameter(completeAssociatesCmd, "@AA_AMFIregistrationNo", DbType.Int32, 0);
+                if(associatesVo.AssociationExpairyDate!=DateTime.MinValue)
                 db.AddInParameter(completeAssociatesCmd, "@AA_ExpiryDate", DbType.DateTime, associatesVo.AssociationExpairyDate);
+                else
+                    db.AddInParameter(completeAssociatesCmd, "@AA_ExpiryDate", DbType.DateTime, DBNull.Value);
+                if(associatesVo.StartDate!=DateTime.MinValue)
                 db.AddInParameter(completeAssociatesCmd, "@AA_StartDate", DbType.DateTime, associatesVo.StartDate);
+                else
+                    db.AddInParameter(completeAssociatesCmd, "@AA_StartDate", DbType.DateTime, DBNull.Value);
+                if(associatesVo.EndDate!=DateTime.MinValue)
                 db.AddInParameter(completeAssociatesCmd, "@AA_EndDate", DbType.DateTime, associatesVo.EndDate);
+                else
+                    db.AddInParameter(completeAssociatesCmd, "@AA_EndDate", DbType.DateTime, DBNull.Value);
+
                 db.AddInParameter(completeAssociatesCmd, "@AA_EUIN", DbType.String, associatesVo.EUIN);
                 db.AddInParameter(completeAssociatesCmd, "@XCT_CustomerTypeCode", DbType.String, associatesVo.AssociateType);
                 db.AddInParameter(completeAssociatesCmd, "@XCST_CustomerSubTypeCode", DbType.String, associatesVo.AssociateSubType);

@@ -1320,9 +1320,9 @@ namespace WealthERP.Associates
                 associatesVo.IsActive = 0;
             }
 
-            if (txtAssociateExpDate.SelectedDate == null)
-                associatesVo.AssociationExpairyDate = DateTime.MinValue;
-            else
+            //if (txtAssociateExpDate.SelectedDate == null)
+            //    associatesVo.AssociationExpairyDate = null;
+            //else
                 associatesVo.AssociationExpairyDate = Convert.ToDateTime(txtAssociateExpDate.SelectedDate);
             if (txtAMFINo.Text != null)
                 associatesVo.AMFIregistrationNo = txtAMFINo.Text;
@@ -1336,13 +1336,13 @@ namespace WealthERP.Associates
                 associatesVo.AssociateType = "NIND";
             if (ddlAssociateSubType.SelectedIndex != 0)
                 associatesVo.AssociateSubType = ddlAssociateSubType.SelectedValue;
-            if (txtStartDate.SelectedDate == null)
-                associatesVo.StartDate = DateTime.MinValue;
-            else
+            //if (txtStartDate.SelectedDate == null)
+            //    associatesVo.StartDate = DateTime.MinValue;
+            //else
                 associatesVo.StartDate = Convert.ToDateTime(txtStartDate.SelectedDate);
-            if (txtEndDate.SelectedDate == null)
-                associatesVo.EndDate = DateTime.MinValue;
-            else
+            //if (txtEndDate.SelectedDate == null)
+            //    associatesVo.EndDate = DateTime.MinValue;
+            //else
                 associatesVo.EndDate = Convert.ToDateTime(txtEndDate.SelectedDate);
             foreach (RadListBoxItem items in chkbldepart.Items)
             {

@@ -1,3 +1,24 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AddAssociatesDetails.ascx.cs"
     Inherits="WealthERP.Associates.AddAssociatesDetails" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
