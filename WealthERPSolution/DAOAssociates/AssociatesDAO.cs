@@ -2315,7 +2315,7 @@ namespace DAOAssociates
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                AssociateRegistrationCmd = db.GetStoredProcCommand("SPROC_AssociateUpdate");
+                AssociateRegistrationCmd = db.GetStoredProcCommand("SPROC_CreateAdviserAssociateRegistration");
                 db.AddInParameter(AssociateRegistrationCmd, "@associatId", DbType.Int32, associateId);
                 db.AddInParameter(AssociateRegistrationCmd, "@assetsGroup", DbType.String, assetsGroup);
                 db.AddInParameter(AssociateRegistrationCmd, "@registrationNo", DbType.Int32, RegistrationNo);

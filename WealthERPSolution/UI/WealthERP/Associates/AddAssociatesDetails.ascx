@@ -62,62 +62,9 @@
     }
 </style>
 
-<script type="text/javascript">
-    function chkPanExists() {
-        $("#<%= hidValidCheck.ClientID %>").val("0");
-        if ($("#<%=txtPan.ClientID %>").val() == "") {
-            $("#spnLoginStatus").html("");
-            return;
-        }
-        $("#spnLoginStatus").html("<img src='Images/loader.gif' />");
-        $.ajax({
-            type: "POST",
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            url: "ControlHost.aspx/CheckPANNoAvailabilityForAssociates",
-            data: "{ 'PanNumber': '" + $("#<%=txtPan.ClientID %>").val() + "','adviserId': '" + $("#<%=hdnAdviserID.ClientID %>").val() + "' }",
-            error: function(xhr, status, error) {
 
-            },
-            success: function(msg) {
 
-                if (msg.d) {
 
-                    $("#<%= hidValidCheck.ClientID %>").val("1");
-                    $("#spnLoginStatus").html("");
-                }
-                else {
-
-                    $("#<%= hidValidCheck.ClientID %>").val("0");
-                    $("#spnLoginStatus").removeClass();
-                    alert("Pan Number Already Exists");
-                    return false;
-                }
-
-            }
-        });
-    }
-</script>
-
-<script language="javascript" type="text/javascript">
-
-    function validateCheckBoxList(sender, args) {
-        var isAnyCheckBoxChecked = false;
-        var checkBoxes = document.getElementById("<%= chkbldepart.ClientID %>").getElementsByTagName("input");
-        for (var i = 0; i < checkBoxes.length; i++) {
-            if (checkBoxes[i].type == "checkbox") {
-                if (checkBoxes[i].checked) {
-                    isAnyCheckBoxChecked = true;
-                    break;
-                }
-            }
-        }
-        if (!isAnyCheckBoxChecked) {
-            alert("Please Select Role for the associates!!");
-        }
-        return isAnyCheckBoxChecked;
-    }
-</script>
 
 <table width="100%">
     <tr>
@@ -353,6 +300,10 @@
         </td>
         <td>
             <asp:CheckBox ID="chkIsActive" runat="server" Text="IsActive" CssClass="txtField" />
+        </td>
+        <td colspan="2">
+         <asp:Button ID="btnPreviewSend" runat="server" Visible="false" target="_blank" Text="View Welcome Letter"
+                CssClass="PCGButton" OnClick="btnPreviewSend_Click" />
         </td>
     </tr>
     <tr>
@@ -1043,15 +994,7 @@
                                                     <asp:Label ID="lblRegNo" runat="server" Text="Registration No:" CssClass="FieldName"></asp:Label>
                                                 </td>
                                                 <td>
-                                                    <telerik:RadDatePicker ID="txtRegNo" CssClass="txtTo" runat="server" Culture="English (United States)"
-                                                        Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
-                                                        <Calendar ID="Calendar1" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
-                                                            ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
-                                                        </Calendar>
-                                                        <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                                                        <DateInput ID="DateInput1" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
-                                                        </DateInput>
-                                                    </telerik:RadDatePicker>
+                                                    <asp:TextBox ID="txtRegNumber" runat="server"></asp:TextBox>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -1402,8 +1345,7 @@
         <td colspan="3">
             <asp:Button ID="btnSubmit" runat="server" Text="Update" CssClass="PCGButton" OnClick="Update_Click"
                 Visible="false" ValidationGroup="Submit" />
-            <asp:Button ID="btnPreviewSend" runat="server" Visible="false" target="_blank" Text="View Welcome Letter"
-                CssClass="PCGButton" OnClick="btnPreviewSend_Click" />
+           
         </td>
     </tr>
 </table>

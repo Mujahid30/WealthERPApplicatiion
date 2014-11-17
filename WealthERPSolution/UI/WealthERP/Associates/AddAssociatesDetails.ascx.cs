@@ -61,7 +61,7 @@ namespace WealthERP.Associates
                 //{
                 //    SetControls(associatesVo);
                 //}
-               // BindRegistration();
+                BindRegistration();
                 BindAccountType();
                 BindBankName();
                 BindState();
@@ -228,9 +228,9 @@ namespace WealthERP.Associates
 
                 txtMicr.Enabled = false;
                 txtIfsc.Enabled = false;
-                ddlCategory.Enabled = false;
-                txtRegNo.Enabled = false;
-                txtRegExpDate.Enabled = false;
+                //ddlCategory.Enabled = false;
+                //txtRegNo.Enabled = false;
+                //txtRegExpDate.Enabled = false;
 
 
                 txtNomineeName.Enabled = false;
@@ -493,10 +493,7 @@ namespace WealthERP.Associates
                 txtMicr.Text = associatesVo.MICR.ToString();
             if (associatesVo.IFSC != null)
                 txtIfsc.Text = associatesVo.IFSC;
-            if (associatesVo.assetGroupCode != null)
-                ddlCategory.SelectedValue = associatesVo.assetGroupCode;
-            if (associatesVo.Registrationumber != null)
-                txtRegNo.Text = associatesVo.Registrationumber;
+           
             if (associatesVo.ExpiryDate != DateTime.MinValue)
                 txtRegExpDate.SelectedDate = associatesVo.ExpiryDate;
 
@@ -1396,7 +1393,7 @@ namespace WealthERP.Associates
             userBo.CreateRoleAssociation(associatesVo.UserId, 1009);
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Associates Added successfully!!');", true);
             controlEnable(0);
-            BindRegistration();
+            //BindRegistration();
             btnBusinessDetails.Visible = true;
             btnCategory.Visible = true;
             btnNominee.Visible = true;
@@ -1755,7 +1752,18 @@ namespace WealthERP.Associates
         protected void lnkContactDetails_OnClick(object sender, EventArgs e)
         {
             btnContactDetailsUpdate.Visible = true;
-            tblMessage.Visible = false;
+            tblMessage.Visible = true;
+            txtResPhoneNoStd.Enabled = true;
+            txtResPhoneNo.Enabled = true;
+            txtResFaxStd.Enabled = true;
+            txtResFax.Enabled = true;
+            txtOfcPhoneNoStd.Enabled = true;
+            txtOfcPhoneNo.Enabled = true;
+            txtOfcFaxStd.Enabled = true;
+            txtOfcFax.Enabled = true;
+            txtMobile1.Enabled = true;
+            txtEmail.Enabled = true;
+
         }
         protected void btnContactDetails_OnClick(object sender, EventArgs e)
         {
@@ -1779,6 +1787,20 @@ namespace WealthERP.Associates
         {
             btnbtnCrossPondenceUpdate.Visible = true;
             dvCrosspondance.Visible = false;
+            txtCorLine1.Enabled = true;
+            txtCorLine2.Enabled = true;
+            txtCorLine3.Enabled = true;
+            txtCorCity.Enabled = true;
+            txtCorPin.Enabled = true;
+            ddlCorState.Enabled = true;
+            txtCorCountry.Enabled = true;
+            txtPermAdrLine1.Enabled = true;
+            txtPermAdrLine2.Enabled = true;
+            txtPermAdrLine3.Enabled = true;
+            txtPermAdrCity.Enabled = true;
+            txtPermAdrPinCode.Enabled = true;
+            ddlPermAdrState.Enabled = true;
+            txtPermAdrCountry.Enabled = true;
         }
         protected void btnCrossPondence_OnClick(object sender, EventArgs e)
         {
@@ -1803,6 +1825,10 @@ namespace WealthERP.Associates
         {
             btnOtherInformationUpdate.Visible = true;
             dvOther.Visible = false;
+            ddlMaritalStatus.Enabled = true;
+            ddlQualification.Enabled = true;
+            ddlGender.Enabled = true;
+            txtDOB.Enabled = true;
         }
         protected void OtherInformation_OnClick(object sender, EventArgs e)
         {
@@ -1826,6 +1852,20 @@ namespace WealthERP.Associates
         {
             btnBankDetailsUpdate.Visible = true;
             dvBankDetails.Visible = false;
+
+            ddlBankName.Enabled = true;
+            ddlAccountType.Enabled = true;
+            txtAccountNumber.Enabled = true;
+            txtBankAdrLine1.Enabled = true;
+            txtBankAdrLine2.Enabled = true;
+            txtBankAdrLine3.Enabled = true;
+            txtBankAdrCity.Enabled = true;
+            ddlBankAdrState.Enabled = true;
+            txtBankAdrPinCode.Enabled = true;
+            txtBankBranchName.Enabled = true;
+            txtMicr.Enabled = true;
+            txtIfsc.Enabled = true;
+            chkAddressChk.Enabled = true;
         }
         protected void btnBankDetails_OnClick(object sender, EventArgs e)
         {
@@ -1851,6 +1891,15 @@ namespace WealthERP.Associates
         {
             btnNomineeUpdate.Visible = true;
             dvNominee.Visible = false;
+
+            txtNomineeName.Enabled = true;
+            ddlNomineeRel.Enabled = true;
+            txtNomineeAdress.Enabled = true;
+            txtNomineePhone.Enabled = true;
+            txtGurdiannName.Enabled = true;
+            ddlGuardianRel.Enabled = true;
+            txtGuardianAdress.Enabled = true;
+            txtGurdianPhone.Enabled = true;
         }
         protected void btnNominee_OnClick(object sender, EventArgs e)
         {
@@ -1871,6 +1920,7 @@ namespace WealthERP.Associates
         {
             btnCategoryUpdate.Visible = true;
             dvCategory.Visible = false;
+            ddlAdviserCategory.Enabled = true;
         }
         private void ShowMessageCategory(string msg)
         {
@@ -1901,6 +1951,10 @@ namespace WealthERP.Associates
         {
             btnBusinessDetailsUpdate.Visible = true;
             dvBusinessDetails.Visible = false;
+            txtNoBranches.Enabled = true;
+            txtNoofSales.Enabled = true;
+            txtNoofSubBrokers.Enabled = true;
+            txtNoofClients.Enabled = true;
         }
         protected void btnBusinessDetails_OnClick(object sender, EventArgs e)
         {
@@ -1963,19 +2017,22 @@ namespace WealthERP.Associates
         {
             try
             {
+                int associateid = 0;
                 if (Request.QueryString["action"] != "" && Request.QueryString["action"] != null)
                 {
                     if (Request.QueryString["action"].Trim() == "Edit" || Request.QueryString["action"].Trim() == "View")
                     {
-                        associateId = associatesVo.AdviserAssociateId;
+                        associateid = associatesVo.AdviserAssociateId;
                       
                     }
                 }
                 else
                 {
-                    associateId = int.Parse(Session["AdviserAssociateIds"].ToString());
+                    if(Session["AdviserAssociateIds"]!=null)
+                    associateid = int.Parse(Session["AdviserAssociateIds"].ToString());
                 }
-                DataTable dtRegistration = associatesBo.GetAssetsRegistration(associateId);
+                DataTable dtRegistration = associatesBo.GetAssetsRegistration(associateid);
+              
                 if (dtRegistration.Rows.Count > 0)
                 {
                     if (Cache["Registration" + userVo.UserId] == null)
@@ -1993,6 +2050,8 @@ namespace WealthERP.Associates
                 }
                 else
                 {
+                    Cache.Remove("Registration" + userVo.UserId);
+                    Cache.Insert("Registration" + userVo.UserId, dtRegistration);
                     gvRegistration.DataSource = dtRegistration;
                     gvRegistration.DataBind();
                     gvRegistration.Visible = true;
@@ -2005,9 +2064,8 @@ namespace WealthERP.Associates
         }
         protected void gvRegistration_OnItemDataBound(object sender, GridItemEventArgs e)
         {
-            //if (e.Item is GridEditFormInsertItem && e.Item.OwnerTableView.IsItemInserted)
-            //{
-            if (e.Item is GridEditFormItem && e.Item.IsInEditMode)
+            
+            if (e.Item is GridEditFormInsertItem && e.Item.OwnerTableView.IsItemInserted)
             {
                 GridEditFormInsertItem item = (GridEditFormInsertItem)e.Item;
                 GridEditFormItem gefi = (GridEditFormItem)e.Item;
@@ -2023,21 +2081,32 @@ namespace WealthERP.Associates
             {
                 gvRegistration.DataSource = dtRegistration;
             }
-            bool isvalid = gvRegistration.Visible;
-           // bool isvalid1 = RadTabStripAssociatesDetails.Visible;
-
-            RadTab radTABChildCodes = RadTabStripAssociatesDetails.Tabs.FindTabByValue("Registration");
-            bool isvalid1 = radTABChildCodes.Visible;
-            
-            //bool isvalid1 = radTABChildCodes.Visible;
+          
         }
         protected void gvRegistration_OnItemCommand(object source, GridCommandEventArgs e)
         {
+            int associateid = 0;
+            if (Request.QueryString["action"] != "" && Request.QueryString["action"] != null)
+            {
+                if (Request.QueryString["action"].Trim() == "Edit" || Request.QueryString["action"].Trim() == "View")
+                {
+                    associateid = associatesVo.AdviserAssociateId;
 
+                }
+            }
+            else
+            {
+                if (Session["AdviserAssociateIds"] != null)
+                    associateid = int.Parse(Session["AdviserAssociateIds"].ToString());
+            }
             if (e.CommandName == RadGrid.PerformInsertCommandName)
             {
                 GridEditableItem gridEditableItem = (GridEditableItem)e.Item;
                 DropDownList ddlCategory = (DropDownList)e.Item.FindControl("ddlCategory");
+                RadDatePicker txtRegExpDate = (RadDatePicker)e.Item.FindControl("txtRegExpDate");
+                TextBox txtRegNumber = (TextBox)e.Item.FindControl("txtRegNumber");
+                associatesBo.AssociateRegistration(associateid, Convert.ToDateTime(txtRegExpDate.SelectedDate), int.Parse(txtRegNumber.Text), ddlCategory.SelectedValue);
+                BindRegistration();
             }
            
         }
