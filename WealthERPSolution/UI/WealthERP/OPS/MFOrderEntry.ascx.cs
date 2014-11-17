@@ -780,11 +780,11 @@ namespace WealthERP.OPS
                 SetControlDetails();
                 GetControlDetails(int.Parse(txtSchemeCode.Value), null);
 
-                if (ddltransType.SelectedValue != "BUY" || ddltransType.SelectedValue != "SIP")
+                if ((ddltransType.SelectedValue != "BUY") && (ddltransType.SelectedValue != "SIP") )
                 {
                     txtFolioNumber.Text = mfOrderBo.GetFolio(int.Parse(txtCustomerId.Value), int.Parse(ddlAMCList.SelectedValue));
                 }
-
+                BindDIvidendOptions(int.Parse(txtSchemeCode.Value));
 
             }
 
