@@ -784,10 +784,21 @@ namespace WealthERP.OPS
                 {
                     txtFolioNumber.Text = mfOrderBo.GetFolio(int.Parse(txtCustomerId.Value), int.Parse(ddlAMCList.SelectedValue));
                 }
-                 
+
+
             }
 
 
+        }
+
+        protected void BindDIvidendOptions(int schemPlanCode)
+        {
+            DataTable dtScheme = new DataTable();
+
+            dtScheme = commonLookupBo.GetMFSchemeDividentType(schemPlanCode);
+            ddlDivType.DataSource = dtScheme;
+            ddlDivType.DataValueField = "PSLV_LookupValueCode";
+            ddlDivType.DataTextField = "PSLV_LookupValue";
         }
 
         protected void GetControlDetails(int scheme, string folio)
@@ -2888,8 +2899,6 @@ namespace WealthERP.OPS
 
         protected void txtCustomerId_ValueChanged1(object sender, EventArgs e)
         {
-
-
             if (!string.IsNullOrEmpty(txtCustomerId.Value.ToString().Trim()))
             {
 
@@ -2908,10 +2917,6 @@ namespace WealthERP.OPS
                 BindPortfolioDropdown(customerId);
                 ddltransType.SelectedIndex = 0;
                 BindISAList();
-                //btnreport.Visible = true;
-                //btnpdfReport.Visible = true;
-
-                // ClearAllFields();
 
             }
         }

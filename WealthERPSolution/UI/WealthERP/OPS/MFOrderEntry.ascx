@@ -773,9 +773,9 @@
                     </td>
                     <td>
                         <asp:DropDownList ID="ddlDivType" runat="server" CssClass="cmbField">
-                            <asp:ListItem Text="Select" Value="0"></asp:ListItem>
+                            <%--<asp:ListItem Text="Select" Value="0"></asp:ListItem>
                             <asp:ListItem Text="Dividend Reinvestment" Value="DVR"></asp:ListItem>
-                            <asp:ListItem Text="Dividend Payout" Value="DVP"></asp:ListItem>
+                            <asp:ListItem Text="Dividend Payout" Value="DVP"></asp:ListItem>--%>
                         </asp:DropDownList>
                         <span id="Span29" class="spnRequiredField">*</span>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator24" runat="server" CssClass="rfvPCG"
