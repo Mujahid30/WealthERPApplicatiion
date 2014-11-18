@@ -1399,14 +1399,14 @@ namespace BoCustomerProfiling
         /// <param name="prefixText"></param>
         /// <param name="adviserId"></param>
         /// <returns></returns>
-        public DataTable GetAdviserCustomerPan(string prefixText, int adviserId)
+        public DataTable GetAdviserCustomerPan(string prefixText,int register, int adviserId)
         {
             CustomerDao customerDao = new CustomerDao();
 
             DataTable dtCustomerNames = new DataTable();
             try
             {
-                dtCustomerNames = customerDao.GetAdviserCustomerPan(prefixText, adviserId);
+                dtCustomerNames = customerDao.GetAdviserCustomerPan(prefixText,register, adviserId);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1464,7 +1464,38 @@ namespace BoCustomerProfiling
             }
             return dtCustomerNames;
         }
+        public DataTable GetAdviserAllCustomerName(string prefixText, int register, int adviserId)
+        {
+            CustomerDao customerDao = new CustomerDao();
 
+            DataTable dtCustomerNames = new DataTable();
+            try
+            {
+                dtCustomerNames = customerDao.GetAdviserAllCustomerName(prefixText, register, adviserId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerBo.cs:GetAdviserCustomerName()");
+
+
+                object[] objects = new object[0];
+                objects[0] = prefixText;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dtCustomerNames;
+        }
         /// <summary>
         /// Get Advisor Group Customer Names
         /// </summary>

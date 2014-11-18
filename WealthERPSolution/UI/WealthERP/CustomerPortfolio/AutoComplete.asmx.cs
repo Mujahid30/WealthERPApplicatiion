@@ -480,7 +480,30 @@ namespace WealthERP.CustomerPortfolio
             }
             return names.ToArray();
         }
+        [WebMethod]
+        public string[] GetAdviserAllCustomerName(string prefixText, int count, string contextKey)
+        {
+            string[] parts = contextKey.Split('/');
 
+            int register = Convert.ToInt32(parts[0]);
+            int adviserId = Convert.ToInt32(parts[1]);
+            CustomerBo customerBo = new CustomerBo();
+            DataTable dtCustomerName = new DataTable();
+            int i = 0;
+            List<string> names = new List<string>();
+
+
+            dtCustomerName = customerBo.GetAdviserAllCustomerName(prefixText, register, adviserId);
+            //string[] customerNameList = new string[dtCustomerName.Rows.Count];
+
+            foreach (DataRow dr in dtCustomerName.Rows)
+            {
+
+                string item = AjaxControlToolkit.AutoCompleteExtender.CreateAutoCompleteItem(dr["C_FirstName"].ToString(), dr["C_CustomerId"].ToString());
+                names.Add(item);
+            }
+            return names.ToArray();
+        }
         [WebMethod]
         public string[] GetStaffName(string prefixText, string contextKey)
         {
@@ -507,12 +530,16 @@ namespace WealthERP.CustomerPortfolio
         [WebMethod]
         public string[] GetAdviserCustomerPan(string prefixText, int count, string contextKey)
         {
+            string[] parts = contextKey.Split('/');
+
+            int register = Convert.ToInt32(parts[0]);
+            int adviserId = Convert.ToInt32(parts[1]);
             CustomerBo customerBo = new CustomerBo();
             DataTable dtCustomerName = new DataTable();
             int i = 0;
             List<string> names = new List<string>();
 
-            dtCustomerName = customerBo.GetAdviserCustomerPan(prefixText, int.Parse(contextKey));
+            dtCustomerName = customerBo.GetAdviserCustomerPan(prefixText, register, adviserId);
             //string[] customerNameList = new string[dtCustomerName.Rows.Count];
 
             foreach (DataRow dr in dtCustomerName.Rows)

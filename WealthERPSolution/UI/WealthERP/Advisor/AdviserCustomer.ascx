@@ -22,6 +22,13 @@
 
         var hdn = document.getElementById("<%=hdnIsSubscripted.ClientID%>").value;
     }
+    function GetRealInvester(source, eventArgs) {
+        isItemSelected = true;
+        //         document.getElementById("lblgetPan").innerHTML = "";
+        document.getElementById("<%= hdnIsRealInvester.ClientID %>").value = eventArgs.get_value();
+
+        return false;
+    }
 </script>
 
 <script type="text/javascript">
@@ -234,7 +241,7 @@
         </td>
         <td class="rightField">
             <asp:RadioButton ID="rbtnRegister" runat="server" CssClass="txtField" Text="Registered"
-                GroupName="grpCustomerType" AutoPostBack="true" OnCheckedChanged="rbtnRegister_CheckedChanged" />
+                GroupName="grpCustomerType" AutoPostBack="true" v  OnCheckedChanged="rbtnRegister_CheckedChanged" />
             &nbsp;&nbsp;
             <asp:RadioButton ID="rbtnNonRegister" runat="server" CssClass="txtField" Text="Non Registered"
                 GroupName="grpCustomerType" AutoPostBack="true" OnCheckedChanged="rbtnNonRegister_CheckedChanged" />
@@ -303,7 +310,7 @@
                 WatermarkText="Enter Three Characters of Customer" runat="server" EnableViewState="false">
             </cc1:TextBoxWatermarkExtender>
             <ajaxToolkit:AutoCompleteExtender ID="txtCustomerName_autoCompleteExtender" runat="server"
-                TargetControlID="txtCustomerName" ServiceMethod="GetCustomerName" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
+                TargetControlID="txtCustomerName" ServiceMethod="GetAdviserAllCustomerName" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
                 MinimumPrefixLength="3" EnableCaching="False" CompletionSetCount="5" CompletionInterval="100"
                 CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
                 CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
@@ -1110,3 +1117,5 @@
 <asp:HiddenField ID="hdnSystemAddDate" runat="server" />
 <asp:HiddenField ID="hdncustomerCategoryFilter" runat="server" />
 <asp:HiddenField ID="hdnPincode" runat="server" />
+<asp:HiddenField ID="hdnIsRealInvester" runat="server" />
+

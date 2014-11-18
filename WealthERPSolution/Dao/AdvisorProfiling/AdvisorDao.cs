@@ -3042,7 +3042,7 @@ namespace DaoAdvisorProfiling
         /// <param name="genDictRM"></param>
         /// <param name="genDictReassignRM"></param>
         /// <returns>will return the list of the customers from the data base accroding to the parameters assigned</returns>
-        public List<CustomerVo> GetStaffUserCustomerList(int adviserId, int rmId, int AgentId, string UserRole, int branchHeadId, string agentCode, string filterOn,int customerId, string customerCategoryFilter,string customerFilter,string custcodeFilter,string nameFilter, string parentFilter,string panFilter,string BranchFilter,string Rmfilter,string areaFilter,string cityFilter,string pincodeFilter,string IsProspectFilter,string isActiveFilter,string iskycavailableFilter,string processFilter,int pageSize,int pageindex, out Dictionary<string, string> genDictParent, out Dictionary<string, string> genDictRM, out Dictionary<string, string> genDictReassignRM,out int RowCount)
+        public List<CustomerVo> GetStaffUserCustomerList(int adviserId, int rmId, int AgentId, string UserRole, int branchHeadId, string agentCode,int rbtnReg, string filterOn,int customerId, string customerCategoryFilter,string customerFilter,string custcodeFilter,string nameFilter, string parentFilter,string panFilter,string BranchFilter,string Rmfilter,string areaFilter,string cityFilter,string pincodeFilter,string IsProspectFilter,string isActiveFilter,string iskycavailableFilter,string processFilter,int pageSize,int pageindex, out Dictionary<string, string> genDictParent, out Dictionary<string, string> genDictRM, out Dictionary<string, string> genDictReassignRM,out int RowCount)
         {
             List<CustomerVo> customerList = null;
             CustomerVo customerVo;
@@ -3064,6 +3064,7 @@ namespace DaoAdvisorProfiling
                     db.AddInParameter(getCustomerListCmd, "@AR_RMId", DbType.Int32, rmId);
                     db.AddInParameter(getCustomerListCmd, "@AAC_AdviserAgentId", DbType.Int32, AgentId);
                     db.AddInParameter(getCustomerListCmd, "@branchHeadId", DbType.Int32, branchHeadId);
+                    db.AddInParameter(getCustomerListCmd, "@Registration", DbType.Int32, rbtnReg);
                     if (customerId != 0)
                         db.AddInParameter(getCustomerListCmd, "@customerId", DbType.Int32, customerId);
                     else
@@ -3201,7 +3202,7 @@ namespace DaoAdvisorProfiling
                             customerVo.PANNum = dr["C_PANNum"].ToString();
                         customerVo.ResISDCode = int.Parse(dr["C_ResISDCode"].ToString());
                         customerVo.ResSTDCode = int.Parse(dr["C_ResSTDCode"].ToString());
-                        customerVo.ResPhoneNum = Convert.ToInt32(dr["C_ResPhoneNum"].ToString());
+                        customerVo.ResPhoneNum = Convert.ToInt64(dr["C_ResPhoneNum"].ToString());
                         customerVo.Email = dr["C_Email"].ToString();
                         customerVo.RmId = int.Parse(dr["AR_RMId"].ToString());
                         if (dr["WCMV_Name"].ToString() != string.Empty)
