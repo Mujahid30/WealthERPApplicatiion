@@ -1,24 +1,3 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AddAssociatesDetails.ascx.cs"
     Inherits="WealthERP.Associates.AddAssociatesDetails" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
@@ -61,11 +40,6 @@
         width: auto !important;
     }
 </style>
-
-
-
-
-
 <table width="100%">
     <tr>
         <td colspan="3" style="width: 100%;">
@@ -302,7 +276,7 @@
             <asp:CheckBox ID="chkIsActive" runat="server" Text="IsActive" CssClass="txtField" />
         </td>
         <td colspan="2">
-         <asp:Button ID="btnPreviewSend" runat="server" Visible="false" target="_blank" Text="View Welcome Letter"
+            <asp:Button ID="btnPreviewSend" runat="server" Visible="false" target="_blank" Text="View Welcome Letter"
                 CssClass="PCGButton" OnClick="btnPreviewSend_Click" />
         </td>
     </tr>
@@ -382,10 +356,10 @@
                 </tr>
                 <tr>
                     <td colspan="4">
-                        <table id="tblMessage" width="100%" runat="server" visible="false" style="padding-top: 0px;">
+                        <table id="tblMessage" width="100%" runat="server" visible="true" style="padding-top: 0px;">
                             <tr id="trSumbitSuccess">
                                 <td align="center">
-                                    <div id="msgRecordStatus" class="success-msg" align="center" runat="server">
+                                    <div id="msgRecordStatus" class="success-msg" align="center" runat="server" visible="false">
                                     </div>
                                 </td>
                             </tr>
@@ -995,6 +969,10 @@
                                                 </td>
                                                 <td>
                                                     <asp:TextBox ID="txtRegNumber" runat="server"></asp:TextBox>
+                                                    <asp:RegularExpressionValidator ID="RegularExpressionValidator11" ControlToValidate="txtRegNumber"
+                                                        runat="server" Display="Dynamic" ErrorMessage="Enter Numeric Value"
+                                                        CssClass="cvPCG" ValidationExpression="[0-9]\d*$" ValidationGroup="btnOK">     
+                                                    </asp:RegularExpressionValidator>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -1341,11 +1319,6 @@
 <table>
     <tr>
         <td>
-        </td>
-        <td colspan="3">
-            <asp:Button ID="btnSubmit" runat="server" Text="Update" CssClass="PCGButton" OnClick="Update_Click"
-                Visible="false" ValidationGroup="Submit" />
-           
         </td>
     </tr>
 </table>

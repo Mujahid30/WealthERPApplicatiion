@@ -2249,15 +2249,25 @@ namespace DAOAssociates
                 db.AddInParameter(UpdateAssociateDetailsCmd, "@AA_ContactPersonName", DbType.String, associatesVo.ContactPersonName);
                 db.AddInParameter(UpdateAssociateDetailsCmd, "@AA_AdviserAssociateId", DbType.Int32, associateid);
                 db.AddInParameter(UpdateAssociateDetailsCmd, "@AA_AMFIregistrationNo", DbType.String, associatesVo.AMFIregistrationNo);
+                if(associatesVo.StartDate!=DateTime.MinValue)
                 db.AddInParameter(UpdateAssociateDetailsCmd, "@AA_StartDate", DbType.DateTime, associatesVo.StartDate);
+                else
+                    db.AddInParameter(UpdateAssociateDetailsCmd, "@AA_StartDate", DbType.DateTime,DBNull.Value);
+                if(associatesVo.EndDate!=DateTime.MinValue)
                 db.AddInParameter(UpdateAssociateDetailsCmd, "@AA_EndDate", DbType.DateTime, associatesVo.EndDate);
+                else
+                    db.AddInParameter(UpdateAssociateDetailsCmd, "@AA_EndDate", DbType.DateTime, DBNull.Value);
+
                 db.AddInParameter(UpdateAssociateDetailsCmd, "@AA_EUIN", DbType.String, associatesVo.EUIN);
                 db.AddInParameter(UpdateAssociateDetailsCmd, "@XCT_CustomerTypeCode", DbType.String, associatesVo.AssociateType);
                 db.AddInParameter(UpdateAssociateDetailsCmd, "@XCST_CustomerSubTypeCode", DbType.String, associatesVo.AssociateSubType);
                 db.AddInParameter(UpdateAssociateDetailsCmd, "@AA_PAN", DbType.String, associatesVo.PanNo);
                 db.AddInParameter(UpdateAssociateDetailsCmd, "@AAC_AgentCode", DbType.String, associatesVo.AAC_AgentCode);
                 db.AddInParameter(UpdateAssociateDetailsCmd, "@AgentId", DbType.Int32, agentcode);
+                if(associatesVo.AssociationExpairyDate!=DateTime.MinValue)
                 db.AddInParameter(UpdateAssociateDetailsCmd, "@AA_ExpiryDate", DbType.DateTime, associatesVo.AssociationExpairyDate);
+                else
+                    db.AddInParameter(UpdateAssociateDetailsCmd, "@AA_ExpiryDate", DbType.DateTime, DBNull.Value);
                 db.AddInParameter(UpdateAssociateDetailsCmd, "@AA_IsActive", DbType.Int32, associatesVo.IsActive);
                 if (db.ExecuteNonQuery(UpdateAssociateDetailsCmd) != 0)
                     bResult = true;
