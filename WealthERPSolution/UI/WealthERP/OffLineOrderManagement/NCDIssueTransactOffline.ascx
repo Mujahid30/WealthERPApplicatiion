@@ -19,6 +19,11 @@
     </Services>
 </asp:ScriptManager>
 <script type="text/javascript">
+    function setCustomPosition(sender, args) {
+        sender.moveTo(sender.get_left(), sender.get_top());
+    }
+</script>s
+<script type="text/javascript">
     function HideLabel(tblMessage) {
         setTimeout("HideLabelHelper('" + tblMessage + "');", 5000);
     }
@@ -1173,7 +1178,7 @@
 </table>
 <telerik:RadWindow ID="rwDematDetails" runat="server" VisibleOnPageLoad="false" Height="200px"
     Width="800px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="Resize, Close, Move"
-    Title="Select Demat " RestrictionZoneID="radWindowZone" Top="20">
+    Title="Select Demat " RestrictionZoneID="radWindowZone" OnClientShow="setCustomPosition" Top="10"  Left="20">
     <ContentTemplate>
         <table>
             <tr>
@@ -1288,7 +1293,7 @@
 </telerik:RadWindow>
 <telerik:RadWindow ID="rwTermsCondition" runat="server" VisibleOnPageLoad="false"
     Width="1000px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="Move, Resize,Close"
-    Title="Terms & Conditions" EnableShadow="true" Left="580" Top="-8">
+    Title="Terms & Conditions" EnableShadow="true" OnClientShow="setCustomPosition" Top="10"  Left="20">
     <ContentTemplate>
         <div style="padding: 0px; width: 100%">
             <table width="100%" cellpadding="0" cellpadding="0">
