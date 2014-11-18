@@ -1519,6 +1519,13 @@
     <Compile Include="CommisionManagement\PayableStructureToAgentCategoryMapping.ascx.designer.cs">
       <DependentUpon>PayableStructureToAgentCategoryMapping.ascx</DependentUpon>
     </Compile>
+    <Compile Include="CommisionManagement\PayableStructureView.ascx.cs">
+      <DependentUpon>PayableStructureView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CommisionManagement\PayableStructureView.ascx.designer.cs">
+      <DependentUpon>PayableStructureView.ascx</DependentUpon>
+    </Compile>
     <Compile Include="CommisionManagement\ReceivableSetup.ascx.cs">
       <DependentUpon>ReceivableSetup.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2749,6 +2756,13 @@
     </Compile>
     <Compile Include="OffLineOrderManagement\OfflineCustomersIPOOrderBook.ascx.designer.cs">
       <DependentUpon>OfflineCustomersIPOOrderBook.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="OffLineOrderManagement\OfflineCustomerSIPOrderBook.ascx.cs">
+      <DependentUpon>OfflineCustomerSIPOrderBook.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OffLineOrderManagement\OfflineCustomerSIPOrderBook.ascx.designer.cs">
+      <DependentUpon>OfflineCustomerSIPOrderBook.ascx</DependentUpon>
     </Compile>
     <Compile Include="OffLineOrderManagement\OfflineCustomersNCDOrderBook.ascx.cs">
       <DependentUpon>OfflineCustomersNCDOrderBook.ascx</DependentUpon>
@@ -7687,6 +7701,7 @@
     <Content Include="CommisionManagement\CommissionStructureRuleGrid.ascx" />
     <Content Include="CommisionManagement\CommissionStructureToSchemeMapping.ascx" />
     <Content Include="CommisionManagement\PayableStructureToAgentCategoryMapping.ascx" />
+    <Content Include="CommisionManagement\PayableStructureView.ascx" />
     <Content Include="CommisionManagement\ReceivableSetup.ascx" />
     <Content Include="CommisionManagement\SchemeStructureRuleAssociation.ascx" />
     <Content Include="CommisionManagement\ViewSchemeStructureAssociation.ascx" />
@@ -8039,6 +8054,7 @@
     <Content Include="OffLineOrderManagement\MFOrderBuyTransTypeOffline.ascx" />
     <Content Include="OffLineOrderManagement\NCDIssueTransactOffline.ascx" />
     <Content Include="OffLineOrderManagement\OfflineCustomersIPOOrderBook.ascx" />
+    <Content Include="OffLineOrderManagement\OfflineCustomerSIPOrderBook.ascx" />
     <Content Include="OffLineOrderManagement\OfflineCustomersNCDOrderBook.ascx" />
     <Content Include="OnlineBottomHost.aspx" />
     <Content Include="OnlineMainHost.aspx" />

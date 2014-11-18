@@ -1993,4 +1993,12 @@
     <value>AdvsierPreferenceSettings//AdvisorCategoryConfiguration.ascx</value>
     <comment>AdvsierPreferenceSettings//AdvisorCategoryConfiguration.ascx</comment>
   </data>
+  <data name="OfflineCustomerSIPOrderBook" xml:space="preserve">
+    <value>OffLineOrderManagement//OfflineCustomerSIPOrderBook.ascx</value>
+    <comment>OffLineOrderManagement//OfflineCustomerSIPOrderBook.ascx</comment>
+  </data>
+  <data name="PayableStructureView" xml:space="preserve">
+    <value>CommisionManagement//PayableStructureView.ascx</value>
+    <comment>CommisionManagement//PayableStructureView.ascx</comment>
+  </data>
 </root>

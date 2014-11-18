@@ -2599,6 +2599,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OffLineOrderManagement//OfflineCustomerSIPOrderBook.ascx.
+        /// </summary>
+        internal static string OfflineCustomerSIPOrderBook {
+            get {
+                return ResourceManager.GetString("OfflineCustomerSIPOrderBook", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to OffLineOrderManagement//OfflineCustomersNCDOrderBook.ascx.
         /// </summary>
         internal static string OfflineCustomersNCDOrderBook {
@@ -2874,6 +2883,15 @@ namespace WealthERP {
         internal static string PayableStructureToAgentCategoryMapping {
             get {
                 return ResourceManager.GetString("PayableStructureToAgentCategoryMapping", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CommisionManagement//PayableStructureView.ascx.
+        /// </summary>
+        internal static string PayableStructureView {
+            get {
+                return ResourceManager.GetString("PayableStructureView", resourceCulture);
             }
         }
         
