@@ -11,6 +11,32 @@
     }
 </script>
 
+<script type="text/javascript">
+    function setCustomPosition(sender, args) {
+        sender.moveTo(sender.get_left(), sender.get_top());
+    }
+</script>
+
+<script type="text/javascript">
+    var crnt = 0;
+    function PreventClicks() {
+        if (typeof (Page_ClientValidate('btnChannelSubmit')) == 'function') {
+            Page_ClientValidate();
+        }
+
+        if (Page_IsValid) {
+            if (++crnt > 1) {
+                return false;
+            }
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+ 
+</script>
+
 <table width="100%">
     <tr>
         <td colspan="3" style="width: 100%;">
@@ -203,9 +229,9 @@
                                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" CssClass="rfvPCG"
                                                         ErrorMessage="Please enter a Seq No" Display="Dynamic" ValidationGroup="btnSubmit"
                                                         ControlToValidate="TxtSeq" />
-                                                        <br />
+                                                    <br />
                                                     <asp:RangeValidator ID="RNGVLD1" runat="server" CssClass="rfvPCG" Display="Dynamic"
-                                                         Type="Integer"  ValidationGroup="btnSubmit" MinimumValue="0" MaximumValue="1"
+                                                        Type="Integer" ValidationGroup="btnSubmit" MinimumValue="0" MaximumValue="1"
                                                         ControlToValidate="TxtSeq"></asp:RangeValidator>
                                                 </td>
                                             </tr>
@@ -301,7 +327,7 @@
                 </ClientSettings>
             </telerik:RadGrid>
             <telerik:RadWindow ID="radAplicationPopUp" runat="server" VisibleOnPageLoad="false"
-                Height="30%" Width="400px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false"
+                Height="30%" Width="400px" Modal="true" BackColor="#DADADA" Top="10"  Left="20" VisibleStatusbar="false"  OnClientShow="setCustomPosition"
                 Behaviors="close,Move" Title="Add New Channel">
                 <ContentTemplate>
                     <div style="padding: 20px">
@@ -323,7 +349,7 @@
                                 </td>
                                 <td class="rightField">
                                     <asp:Button ID="btnChannelSubmit" runat="server" Text="Insert" OnClick="btnChannelSubmit_Click"
-                                        CssClass="PCGButton" ValidationGroup="btnChannelSubmit" />
+                                        OnClientClick="return  PreventClicks();" CssClass="PCGButton" ValidationGroup="btnChannelSubmit" />
                                     <asp:Button ID="Button2" Text="Cancel" runat="server" CausesValidation="False" CssClass="PCGButton"
                                         CommandName="Cancel"></asp:Button>
                                 </td>
