@@ -185,7 +185,7 @@ namespace WealthERP.CustomerPortfolio
                     }
 
                     BindAMC();
-                    BindCategory();
+                    //BindCategory();
                     Bindscheme();
                     Cache.Remove("ViewTrailCommissionDetails" + advisorVo.advisorId);
                     trGroupHead.Visible = false;
@@ -1380,6 +1380,7 @@ namespace WealthERP.CustomerPortfolio
                 }
 
                 gvTrail.Visible = false;
+                ErrorMessage.Visible = true;
             }
             catch (Exception e)
             {
