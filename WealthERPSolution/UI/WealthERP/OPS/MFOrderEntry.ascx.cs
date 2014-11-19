@@ -200,14 +200,35 @@ namespace WealthERP.OPS
 
 
             }
-            if (!string.IsNullOrEmpty(ddlAMCList.SelectedValue))
+            SerachBoxes();
+
+        }
+
+        private void SerachBoxes()
+        {
+             if (!string.IsNullOrEmpty(ddlAMCList.SelectedValue))
                 BindScheme(ddltransType.SelectedValue, Convert.ToInt32(ddlAMCList.SelectedValue));
             else
                 BindScheme(ddltransType.SelectedValue, 0);
 
+             if (!string.IsNullOrEmpty(txtCustomerId.Value.ToString().Trim()))
+             {
+                 if (!string.IsNullOrEmpty(txtSchemeCode.Value.ToString().Trim()))
+                 {
+                     if (ddltransType.SelectedValue == "Sel" || ddltransType.SelectedValue == "STB" || ddltransType.SelectedValue == "SWP" || ddltransType.SelectedValue == "SWB")
+                     {
+
+                         BindFolioNumberSearch(0, 0);
+                     }
+                     else
+                     {
+                         BindFolioNumberSearch(1, 0);
+
+                     }
+                 }
+             }
+
         }
-
-
 
 
         public void GetUserType()
@@ -3124,19 +3145,6 @@ namespace WealthERP.OPS
 
                     if (ddlAMCList.SelectedValue != "Select")
                         amcCode = int.Parse(ddlAMCList.SelectedValue);
-                    // amcSchemePlanCode = int.Parse(txtSchemeCode.Value);//ddlAmcSchemeList.SelectedValue);
-                    parameters = string.Empty;
-                    parameters = txtCustomerId.Value + "/" + amcCode + "/" + amcSchemePlanCode + "/" + Fflag + "/" + isaAccount;
-                    txtFolioNumber_autoCompleteExtender.ContextKey = parameters;
-                    txtFolioNumber_autoCompleteExtender.ServiceMethod = "GetCustomerFolioAccount";
-
-
-                }
-                else
-                {
-
-                    if (ddlAMCList.SelectedValue != "Select")
-                        amcCode = int.Parse(ddlAMCList.SelectedValue);
                     amcSchemePlanCode = int.Parse(txtSchemeCode.Value);//ddlAmcSchemeList.SelectedValue);
                     parameters = string.Empty;
                     parameters = txtCustomerId.Value + "/" + amcCode + "/" + amcSchemePlanCode + "/" + Fflag + "/" + isaAccount;
@@ -3145,6 +3153,19 @@ namespace WealthERP.OPS
 
 
                 }
+                //else
+                //{
+
+                //    if (ddlAMCList.SelectedValue != "Select")
+                //        amcCode = int.Parse(ddlAMCList.SelectedValue);
+                //    amcSchemePlanCode = int.Parse(txtSchemeCode.Value);//ddlAmcSchemeList.SelectedValue);
+                //    parameters = string.Empty;
+                //    parameters = txtCustomerId.Value + "/" + amcCode + "/" + amcSchemePlanCode + "/" + Fflag + "/" + isaAccount;
+                //    txtFolioNumber_autoCompleteExtender.ContextKey = parameters;
+                //    txtFolioNumber_autoCompleteExtender.ServiceMethod = "GetCustomerFolioAccount";
+
+
+                //}
 
 
             }
@@ -3883,13 +3904,13 @@ namespace WealthERP.OPS
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Enter a valid Customer Name.');", true);
                 return;
             }
-            else if ((isvalidOfflineFolio) && (ddltransType.SelectedValue.ToUpper() == "ABY" || ddltransType.SelectedValue.ToUpper() == "SEL"))
+            else if ((!(isvalidOfflineFolio)) && (ddltransType.SelectedValue.ToUpper() == "ABY" || ddltransType.SelectedValue.ToUpper() == "SEL"))
             {
 
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Enter a valid Folio Number.');", true);
                 return;
             }
-            else if (ddltransType.SelectedValue.ToUpper() == "SIP" && (!string.IsNullOrEmpty(txtFolioNumber.Text)) && (isvalidOfflineFolio))
+            else if (ddltransType.SelectedValue.ToUpper() == "SIP" && (!string.IsNullOrEmpty(txtFolioNumber.Text)) && (!isvalidOfflineFolio))
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Enter a valid Folio Number.');", true);
                 return;
