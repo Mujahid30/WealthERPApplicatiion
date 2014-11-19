@@ -241,7 +241,7 @@
         </td>
         <td class="rightField">
             <asp:RadioButton ID="rbtnRegister" runat="server" CssClass="txtField" Text="Registered"
-                GroupName="grpCustomerType" AutoPostBack="true" v  OnCheckedChanged="rbtnRegister_CheckedChanged" />
+                GroupName="grpCustomerType" AutoPostBack="true" OnCheckedChanged="rbtnRegister_CheckedChanged" />
             &nbsp;&nbsp;
             <asp:RadioButton ID="rbtnNonRegister" runat="server" CssClass="txtField" Text="Non Registered"
                 GroupName="grpCustomerType" AutoPostBack="true" OnCheckedChanged="rbtnNonRegister_CheckedChanged" />
@@ -249,7 +249,7 @@
 </table>
 <table>
     <tr id="trSearchtype" runat="server">
-        <td align="right">
+        <td align="leftField">
             <asp:Label ID="lblIskyc" runat="server" Text="Select:" CssClass="FieldName"></asp:Label>
         </td>
         <td>
@@ -1118,4 +1118,3 @@
 <asp:HiddenField ID="hdncustomerCategoryFilter" runat="server" />
 <asp:HiddenField ID="hdnPincode" runat="server" />
 <asp:HiddenField ID="hdnIsRealInvester" runat="server" />
-

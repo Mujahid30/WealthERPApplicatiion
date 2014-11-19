@@ -162,7 +162,7 @@
         <td class="rightField" width="75%">
             <asp:TextBox ID="txtPanNumber" runat="server" CssClass="txtField" MaxLength="10"></asp:TextBox>
             <span id="Span6" class="spnRequiredField">*</span> &nbsp;
-            <asp:CheckBox ID="chkdummypan" runat="server" CssClass="txtField" Text="Dummy PAN"
+            <asp:CheckBox ID="chkdummypan" runat="server" Visible="false" CssClass="txtField" Text="Dummy PAN"
                 AutoPostBack="true" />
             <br />
             <asp:RequiredFieldValidator ID="rfvPanNumber" ControlToValidate="txtPanNumber" ErrorMessage="Please enter a PAN Number"

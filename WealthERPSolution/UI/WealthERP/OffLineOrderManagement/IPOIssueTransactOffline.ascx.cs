@@ -1286,7 +1286,7 @@ namespace WealthERP.OffLineOrderManagement
                 }
                 else
                 {
-                    LoadJScript();
+                    //LoadJScript();
                     CreateIPOOrder();
                     ControlsVisblity(true);
                  
@@ -1512,7 +1512,7 @@ namespace WealthERP.OffLineOrderManagement
                 }
                 else
                 {
-                    LoadJScript();
+                    //LoadJScript();
                     CreateIPOOrder();
                     //ControlsVisblity(true);
                     //Page.ClientScript.RegisterStartupScript(this.GetType(), "HideLabel", "<script type=\"text/javascript\">setTimeout(\"document.getElementById('" + tblMessage.ClientID + "').style.display='none'\",2000)</script>");

@@ -280,7 +280,10 @@ namespace WealthERP.Customer
                         {
                             txtFaxStd.Text = customerVo.STDFax.ToString();
                         }
-                        txtEmail.Text = customerVo.Email.ToString();
+                         if (customerVo.Email != null)
+                        {
+                            txtEmail.Text = customerVo.Email.ToString();
+                        }
                         if (customerVo.AltEmail != null)
                         {
                             txtAltEmail.Text = customerVo.AltEmail.ToString();
@@ -413,18 +416,14 @@ namespace WealthERP.Customer
                 ddlPermAdrCity.Items.Insert(0, new ListItem("--SELECT--", "0"));
 
 
-                if (customerVo.Type.ToUpper().ToString() == "IND")
+                if (customerVo.Type == null || customerVo.Type.ToUpper().ToString() == "IND")
                 {
-                    // dtCustomerSubType = XMLBo.GetCustomerSubType(path, "IND");
-                    // commonLookupBo.GetWERPLookupMasterValueList(2000, 1001);
-                    BinSubtypeDropdown(1001);
+                    dtCustomerSubType = XMLBo.GetCustomerSubType(path, "IND");
+
                 }
                 else
                 {
-                    BinSubtypeDropdown(1002);
-
-                    //commonLookupBo.GetWERPLookupMasterValueList(2000, 1002);
-                    //dtCustomerSubType = XMLBo.GetCustomerSubType(path, "NIND");
+                    dtCustomerSubType = XMLBo.GetCustomerSubType(path, "NIND");
                 }
                 //ddlCustomerSubType.DataSource = dtCustomerSubType;
                 //ddlCustomerSubType.DataTextField = "CustomerTypeName";

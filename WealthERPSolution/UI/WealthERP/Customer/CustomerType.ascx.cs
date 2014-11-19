@@ -66,6 +66,8 @@ namespace WealthERP.Customer
                     trBranchlist.Visible = false;
                     trRMlist.Visible = false;
                     btnCustomerProfile.Visible = false;
+                    lblClientCode.Visible = false;
+                    txtClientCode.Visible = false;
                     //  Session.Remove("AddMFCustLinkId");
                 }
                 if (!IsPostBack)
@@ -185,85 +187,85 @@ namespace WealthERP.Customer
             return bResult;
         }
 
-        public bool Validation()
-        {
-            bool result = true;
-            int adviserId = (int)Session["adviserId"];
-            try
-            {
-                if (customerBo.PANNumberDuplicateChild(adviserId, txtPanNumber.Text.ToString()))
-                {
-                    result = false;
-                    lblPanDuplicate.Visible = true;
-                }
+        //public bool Validation()
+        //{
+        //    bool result = true;
+        //    int adviserId = (int)Session["adviserId"];
+        //    try
+        //    {
+        //        if (customerBo.PANNumberDuplicateChild(adviserId, txtPanNumber.Text.ToString()))
+        //        {
+        //            result = false;
+        //            lblPanDuplicate.Visible = true;
+        //        }
 
-                //if (!ChkMailId(txtEmail.Text.ToString()))
-                //{
-                //    result = false;
-                //    lblEmail.CssClass = "Error";
-                //}
-                //if (txtFirstName.Text.ToString() == "" || txtLastName.Text.ToString() == "")
-                //{
-                //    lblName.CssClass = "Error";
-                //    result = false;
-                //}
-                //else
-                //{
-                //    lblName.CssClass = "FieldName";
-                //    result = true;
-                //}
-                //if (txtCompanyName.Text.ToString() == "")
-                //{
-                //    lblCompanyName.CssClass = "Error";
-                //    result = false;
-                //}
-                //else
-                //{
-                //    lblCompanyName.CssClass = "FieldName";
-                //    result = true;
-                //}
+        //        //if (!ChkMailId(txtEmail.Text.ToString()))
+        //        //{
+        //        //    result = false;
+        //        //    lblEmail.CssClass = "Error";
+        //        //}
+        //        //if (txtFirstName.Text.ToString() == "" || txtLastName.Text.ToString() == "")
+        //        //{
+        //        //    lblName.CssClass = "Error";
+        //        //    result = false;
+        //        //}
+        //        //else
+        //        //{
+        //        //    lblName.CssClass = "FieldName";
+        //        //    result = true;
+        //        //}
+        //        //if (txtCompanyName.Text.ToString() == "")
+        //        //{
+        //        //    lblCompanyName.CssClass = "Error";
+        //        //    result = false;
+        //        //}
+        //        //else
+        //        //{
+        //        //    lblCompanyName.CssClass = "FieldName";
+        //        //    result = true;
+        //        //}
 
-                //if (ddlCustomerSubType.SelectedItem.Value.ToString() == "")
-                //{
-                //    lblCustomerSubType.CssClass = "Error";
-                //    result = false;
-                //}
-                //else
-                //{
-                //    lblCustomerSubType.CssClass = "FieldName";
-                //    result = true;
-                //}
-                //if ((rbtnIndividual.Checked == false) && (rbtnNonIndividual.Checked == false))
-                //{
-                //    lblCustomerType.CssClass = "Error";
-                //    result = false;
-                //}
-                //else
-                //{
-                //    lblCustomerType.CssClass = "FieldName";
-                //    result = true;
-                //}
-            }
+        //        //if (ddlCustomerSubType.SelectedItem.Value.ToString() == "")
+        //        //{
+        //        //    lblCustomerSubType.CssClass = "Error";
+        //        //    result = false;
+        //        //}
+        //        //else
+        //        //{
+        //        //    lblCustomerSubType.CssClass = "FieldName";
+        //        //    result = true;
+        //        //}
+        //        //if ((rbtnIndividual.Checked == false) && (rbtnNonIndividual.Checked == false))
+        //        //{
+        //        //    lblCustomerType.CssClass = "Error";
+        //        //    result = false;
+        //        //}
+        //        //else
+        //        //{
+        //        //    lblCustomerType.CssClass = "FieldName";
+        //        //    result = true;
+        //        //}
+        //    }
 
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "CustomerType.ascx:Validation()");
-                object[] objects = new object[1];
-                objects[0] = result;
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
+        //        FunctionInfo.Add("Method", "CustomerType.ascx:Validation()");
+        //        object[] objects = new object[1];
+        //        objects[0] = result;
+        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+        //        exBase.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(exBase);
+        //        throw exBase;
 
-            }
-            return result;
-        }
+        //    }
+        //    return result;
+        //}
 
         protected void rbtnIndividual_CheckedChanged(object sender, EventArgs e)
         {
@@ -374,135 +376,140 @@ namespace WealthERP.Customer
                 lblPanDuplicate.Visible = false;
                 if (Validation())
                 {
-                    userVo = new UserVo();
-                    if (rbtnIndividual.Checked)
-                    {
-                        rmVo = (RMVo)Session["rmVo"];
-                        tempUserVo = (UserVo)Session["userVo"];
-                        //customerVo.RmId = rmVo.RMId;
-                        if (customerVo.RmId == rmVo.RMId)
+                    lblPanDuplicate.Visible = false;
+                        userVo = new UserVo();
+                        if (rbtnIndividual.Checked)
                         {
-                            customerVo.RmId = int.Parse(ddlAdviseRMList.SelectedValue.ToString());
+                            rmVo = (RMVo)Session["rmVo"];
+                            tempUserVo = (UserVo)Session["userVo"];
+                            //customerVo.RmId = rmVo.RMId;
+                            if (customerVo.RmId == rmVo.RMId)
+                            {
+                                customerVo.RmId = int.Parse(ddlAdviseRMList.SelectedValue.ToString());
+                            }
+                            else
+                            {
+                                customerVo.RmId = int.Parse(ddlAdviseRMList.SelectedValue);
+                            }
+                            customerVo.Type = "IND";
+
+                            customerVo.TaxStatusCustomerSubTypeId = Int16.Parse(ddlCustomerSubType.SelectedValue.ToString());
+                            customerVo.CustCode = txtClientCode.Text.Trim();
+                            customerVo.IsRealInvestor = chkRealInvestor.Checked;
+                            customerVo.FirstName = txtFirstName.Text.ToString();
+                            customerVo.MiddleName = txtMiddleName.Text.ToString();
+                            customerVo.LastName = txtLastName.Text.ToString();
+                            if (ddlSalutation.SelectedIndex == 0)
+                            {
+                                customerVo.Salutation = "";
+                            }
+                            else
+                            {
+                                customerVo.Salutation = ddlSalutation.SelectedValue.ToString();
+                            }
+
+                            userVo.FirstName = txtFirstName.Text.ToString();
+                            userVo.MiddleName = txtMiddleName.Text.ToString();
+                            userVo.LastName = txtLastName.Text.ToString();
+                        }
+                        else if (rbtnNonIndividual.Checked)
+                        {
+                            rmVo = (RMVo)Session["rmVo"];
+                            tempUserVo = (UserVo)Session["userVo"];
+                            //customerVo.RmId = rmVo.RMId;
+                            //customerVo.RmId = int.Parse(ddlAdviseRMList.SelectedValue.ToString());
+                            if (customerVo.RmId == rmVo.RMId)
+                            {
+                                customerVo.RmId = int.Parse(ddlAdviseRMList.SelectedValue.ToString());
+                            }
+                            else
+                            {
+                                customerVo.RmId = int.Parse(ddlAdviseRMList.SelectedValue);
+                            }
+                            customerVo.Type = "NIND";
+
+                            customerVo.TaxStatusCustomerSubTypeId = Int16.Parse(ddlCustomerSubType.SelectedValue.ToString());
+                            customerVo.CustCode = txtClientCode.Text.Trim();
+                            customerVo.IsRealInvestor = chkRealInvestor.Checked;
+                            customerVo.CompanyName = txtCompanyName.Text.ToString();
+                            customerVo.FirstName = txtCompanyName.Text.ToString();
+                            userVo.FirstName = txtCompanyName.Text.ToString();
+                        }
+                        if (customerVo.BranchId == rmVo.BranchId)
+                        {
+                            customerVo.BranchId = int.Parse(ddlAdviserBranchList.SelectedValue);
                         }
                         else
                         {
-                            customerVo.RmId = int.Parse(ddlAdviseRMList.SelectedValue);
+                            customerVo.BranchId = int.Parse(ddlAdviserBranchList.SelectedValue);
                         }
-                        customerVo.Type = "IND";
 
-                        customerVo.TaxStatusCustomerSubTypeId = Int16.Parse(ddlCustomerSubType.SelectedValue.ToString());
-                        customerVo.CustCode = txtClientCode.Text.Trim();
-                        customerVo.IsRealInvestor = chkRealInvestor.Checked;
-                        customerVo.FirstName = txtFirstName.Text.ToString();
-                        customerVo.MiddleName = txtMiddleName.Text.ToString();
-                        customerVo.LastName = txtLastName.Text.ToString();
-                        if (ddlSalutation.SelectedIndex == 0)
+                        //if (chkprospect.Checked)
+                        //{
+                        //    customerVo.IsProspect = 1;
+                        //}
+                        //else
+                        //{
+                        //    customerVo.IsProspect = 0;
+                        //}
+
+                        //customerVo.SubType = ddlCustomerSubType.SelectedItem.Value;
+                        customerVo.Email = txtEmail.Text.ToString();
+                        customerVo.PANNum = txtPanNumber.Text.ToString();
+                        if (!string.IsNullOrEmpty(txtMobileNumber.Text.ToString()))
                         {
-                            customerVo.Salutation = "";
+                            customerVo.Mobile1 = Convert.ToInt64(txtMobileNumber.Text.ToString());
                         }
                         else
+                            customerVo.Mobile1 = 0;
+                        customerVo.Dob = DateTime.MinValue;
+                        customerVo.RBIApprovalDate = DateTime.MinValue;
+                        customerVo.CommencementDate = DateTime.MinValue;
+                        customerVo.RegistrationDate = DateTime.MinValue;
+                        customerVo.Adr1State = null;
+                        customerVo.Adr2State = null;
+                        customerVo.ProfilingDate = DateTime.Today;
+                        customerVo.UserId = userVo.UserId;
+                        userVo.Email = txtEmail.Text.ToString();
+                        customerPortfolioVo.IsMainPortfolio = 1;
+                        customerPortfolioVo.PortfolioTypeCode = "RGL";
+                        customerPortfolioVo.PortfolioName = "MyPortfolio";
+                        customerVo.ViaSMS = 1;
+                        customerIds = customerBo.CreateCompleteCustomer(customerVo, userVo, customerPortfolioVo, tempUserVo.UserId);
+                        Session["Customer"] = "Customer";
+
+                        if (customerIds != null)
                         {
-                            customerVo.Salutation = ddlSalutation.SelectedValue.ToString();
+                            CustomerFamilyVo familyVo = new CustomerFamilyVo();
+                            CustomerFamilyBo familyBo = new CustomerFamilyBo();
+                            familyVo.AssociateCustomerId = customerIds[1];
+                            familyVo.CustomerId = customerIds[1];
+                            familyVo.Relationship = "SELF";
+                            familyBo.CreateCustomerFamily(familyVo, customerIds[1], userVo.UserId);
+
+                            if (page == "Entry")
+                            {
+                                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('OrderEntry','?CustomerId=" + familyVo.CustomerId + " ');", true);
+
+                            }
+                            else
+                                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Customer Added Successfully!!');", true);
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('AdviserCustomer','none');", true);
+                            //trSumbitSuccess.Visible = true;
+                            MakeReadonlyControls();
+                            if (Request.QueryString["AddMFCustLinkId"] != null)
+                            {
+                                lblPanDuplicate.Visible = false;
+                                MakeReadonlyControls();
+                                Response.Write("<script>alert('Customer has been successfully added');</script>");
+                                Response.Write("<script>window.close();</" + "script>");
+                            }
                         }
-
-                        userVo.FirstName = txtFirstName.Text.ToString();
-                        userVo.MiddleName = txtMiddleName.Text.ToString();
-                        userVo.LastName = txtLastName.Text.ToString();
+                        
+                       
                     }
-                    else if (rbtnNonIndividual.Checked)
-                    {
-                        rmVo = (RMVo)Session["rmVo"];
-                        tempUserVo = (UserVo)Session["userVo"];
-                        //customerVo.RmId = rmVo.RMId;
-                        //customerVo.RmId = int.Parse(ddlAdviseRMList.SelectedValue.ToString());
-                        if (customerVo.RmId == rmVo.RMId)
-                        {
-                            customerVo.RmId = int.Parse(ddlAdviseRMList.SelectedValue.ToString());
-                        }
-                        else
-                        {
-                            customerVo.RmId = int.Parse(ddlAdviseRMList.SelectedValue);
-                        }
-                        customerVo.Type = "NIND";
-
-                        customerVo.TaxStatusCustomerSubTypeId = Int16.Parse(ddlCustomerSubType.SelectedValue.ToString());
-                        customerVo.CustCode = txtClientCode.Text.Trim();
-                        customerVo.IsRealInvestor = chkRealInvestor.Checked;
-                        customerVo.CompanyName = txtCompanyName.Text.ToString();
-                        customerVo.FirstName = txtCompanyName.Text.ToString();
-                        userVo.FirstName = txtCompanyName.Text.ToString();
-                    }
-                    if (customerVo.BranchId == rmVo.BranchId)
-                    {
-                        customerVo.BranchId = int.Parse(ddlAdviserBranchList.SelectedValue);
-                    }
-                    else
-                    {
-                        customerVo.BranchId = int.Parse(ddlAdviserBranchList.SelectedValue);
-                    }
-
-                    //if (chkprospect.Checked)
-                    //{
-                    //    customerVo.IsProspect = 1;
-                    //}
-                    //else
-                    //{
-                    //    customerVo.IsProspect = 0;
-                    //}
-
-                    //customerVo.SubType = ddlCustomerSubType.SelectedItem.Value;
-                    customerVo.Email = txtEmail.Text.ToString();
-                    customerVo.PANNum = txtPanNumber.Text.ToString();
-                    if (!string.IsNullOrEmpty(txtMobileNumber.Text.ToString()))
-                    {
-                        customerVo.Mobile1 = Convert.ToInt64(txtMobileNumber.Text.ToString());
-                    }
-                    else
-                        customerVo.Mobile1 = 0;
-                    customerVo.Dob = DateTime.MinValue;
-                    customerVo.RBIApprovalDate = DateTime.MinValue;
-                    customerVo.CommencementDate = DateTime.MinValue;
-                    customerVo.RegistrationDate = DateTime.MinValue;
-                    customerVo.Adr1State = null;
-                    customerVo.Adr2State = null;
-                    customerVo.ProfilingDate = DateTime.Today;
-                    customerVo.UserId = userVo.UserId;
-                    userVo.Email = txtEmail.Text.ToString();
-                    customerPortfolioVo.IsMainPortfolio = 1;
-                    customerPortfolioVo.PortfolioTypeCode = "RGL";
-                    customerPortfolioVo.PortfolioName = "MyPortfolio";
-                    customerVo.ViaSMS = 1;
-                    customerIds = customerBo.CreateCompleteCustomer(customerVo, userVo, customerPortfolioVo, tempUserVo.UserId);
-                    Session["Customer"] = "Customer";
-
-                    if (customerIds != null)
-                    {
-                        CustomerFamilyVo familyVo = new CustomerFamilyVo();
-                        CustomerFamilyBo familyBo = new CustomerFamilyBo();
-                        familyVo.AssociateCustomerId = customerIds[1];
-                        familyVo.CustomerId = customerIds[1];
-                        familyVo.Relationship = "SELF";
-                        familyBo.CreateCustomerFamily(familyVo, customerIds[1], userVo.UserId);
-
-                        if (page == "Entry")
-                        {
-                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('OrderEntry','?CustomerId=" + familyVo.CustomerId + " ');", true);
-
-                        }
-                        else
-                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Customer Added Successfully!!');", true);
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('AdviserCustomer','none');", true);
-                        //trSumbitSuccess.Visible = true;
-                        MakeReadonlyControls();
-
-                    }
-
-
-                }
-                if (Request.QueryString["AddMFCustLinkId"] != null)
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "closePage", "window.close();", true);
-                }
+                
+               
 
             }
             catch (BaseApplicationException Ex)
@@ -764,12 +771,12 @@ namespace WealthERP.Customer
                         ddlAdviseRMList.DataSource = ds.Tables[0];
                         ddlAdviseRMList.DataValueField = ds.Tables[0].Columns["RmID"].ToString();
                         ddlAdviseRMList.DataTextField = ds.Tables[0].Columns["RMName"].ToString();
-                       // ddlAdviseRMList.SelectedValue = "4682";
+                        // ddlAdviseRMList.SelectedValue = "4682";
                         ddlAdviseRMList.DataBind();
-                        ddlAdviseRMList.Items.Remove("No RM Available");
-                        ddlAdviseRMList.Items.Insert(0, new ListItem("Select", "Select"));
-                        CompareValidator2.ValueToCompare = "Select";
-                        CompareValidator2.ErrorMessage = "Please select a RM";
+                        //ddlAdviseRMList.Items.Remove("No RM Available");
+                        //ddlAdviseRMList.Items.Insert(0, new ListItem("Select", "Select"));
+                        //CompareValidator2.ValueToCompare = "Select";
+                        //CompareValidator2.ErrorMessage = "Please select a RM";
                     }
                     else
                     {
@@ -880,7 +887,42 @@ namespace WealthERP.Customer
 
             }
         }
+        public bool Validation()
+        {
+            bool result = true;
+            int adviserId = ((AdvisorVo)Session["advisorVo"]).advisorId;
+            try
+            {
+                if (customerBo.PANNumberDuplicateCheck(adviserId, txtPanNumber.Text.ToString(), customerVo.CustomerId))
+                {
+                    result = false;
+                    lblPanDuplicate.Visible = true;
+                }
+                else
+                {
+                    lblPanDuplicate.Visible = false;
+                }
+            }
 
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerType.ascx:Validation()");
+                object[] objects = new object[1];
+                objects[0] = result;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return result;
+        }
 
     }
 }

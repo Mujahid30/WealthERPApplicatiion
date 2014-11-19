@@ -15,7 +15,7 @@
 </script>
 <script type="text/javascript">
     function HideLabel(tblMessage) {
-        setTimeout("HideLabelHelper('" + tblMessage + "');", 5000);
+        setTimeout("HideLabelHelper('" + tblMessage + "');", 50000);
     }
     function HideLabelHelper(tblMessage) {
         document.getElementById(tblMessage).style.display = "none";

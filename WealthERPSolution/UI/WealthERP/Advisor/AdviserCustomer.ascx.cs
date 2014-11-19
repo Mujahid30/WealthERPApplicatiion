@@ -1663,6 +1663,7 @@ namespace WealthERP.Advisor
             trSearchtype.Visible = true;
             ddlCOption.Items[5].Enabled = false;
             ddlCOption.Items[3].Enabled = false;
+            tdtxtClientCode.Visible = false;
             
         }
 
