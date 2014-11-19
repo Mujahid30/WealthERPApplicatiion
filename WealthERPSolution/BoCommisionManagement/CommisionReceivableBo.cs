@@ -1029,5 +1029,31 @@ namespace BoCommisionManagement
             CommisionReceivableDao daoCommRec = new CommisionReceivableDao();
             return daoCommRec.hasRule(commRule.AdviserId, ruleHash);
         }
+        public DataSet PaybleStructureViewWithAssociateDetails(int adviserId, int isCategory, int categoryId)
+        {
+            CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
+            DataSet ds = new DataSet();
+            try
+            {
+                ds = commisionReceivableDao.PaybleStructureViewWithAssociateDetails(adviserId, isCategory, categoryId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommisionReceivableBo.cs:deleteStructureToSchemeMapping(int setupId)");
+                object[] objects = new object[1];
+                objects[0] = adviserId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return ds;
+        }
     }
 }

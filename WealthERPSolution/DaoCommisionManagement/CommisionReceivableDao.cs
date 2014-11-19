@@ -1453,5 +1453,40 @@ namespace DaoCommisionManagement
             else
                 return false;
         }
+
+        public DataSet PaybleStructureViewWithAssociateDetails(int adviserId, int isCategory, int categoryId)
+        {
+            Database db;
+            DbCommand cmdPaybleStructureViewWithAssociateDetails;
+            DataSet ds = null;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdPaybleStructureViewWithAssociateDetails = db.GetStoredProcCommand("SP_PaybleStructureViewWithAssociateDetails");
+                db.AddInParameter(cmdPaybleStructureViewWithAssociateDetails, "@AdviserId", DbType.Int32, adviserId);
+                db.AddInParameter(cmdPaybleStructureViewWithAssociateDetails, "@CategoryId", DbType.Int32, categoryId);
+                db.AddInParameter(cmdPaybleStructureViewWithAssociateDetails, "@IsCategoryWise", DbType.Int32, isCategory);
+
+                ds = db.ExecuteDataSet(cmdPaybleStructureViewWithAssociateDetails);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommisionReceivableDao.cs:GetCommissionSchemeStructureRuleList(int adviserId)");
+                object[] objects = new object[1];
+                objects[0] = adviserId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return ds;
+        }
     }
 }
