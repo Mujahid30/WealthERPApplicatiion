@@ -61,7 +61,7 @@ namespace WealthERP.CommisionManagement
                 gvStructureView.DataSource = dscategoryDetails.Tables[0];
                 gvStructureView.DataBind();
                 Cache.Insert(userVo.UserId.ToString() + "StructureView", dscategoryDetails);
-                tblCommissionStructureRuleView.Visible = true;
+                Panel2.Visible = true;
 
             }
 

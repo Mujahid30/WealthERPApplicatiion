@@ -464,8 +464,14 @@ namespace WealthERP.Uploads
             {
                 int ReqId = 0;
                 msgUploadComplete.Visible = true;
+               
                 string uploadFilePath = ConfigurationManager.AppSettings["ADVISOR_UPLOAD_PATH"].ToString() + "\\" + adviserVo.advisorId.ToString() + "\\";
                 string newFileName = SaveFileIntoServer(FileUpload, uploadFilePath);
+
+
+               
+              
+
                 newFileName = uploadFilePath + newFileName;
                 //   packagePath = Server.MapPath("\\UploadPackages\\Integration Services Project1\\Integration Services Project1\\Package9.dtsx");
                 werpTaskRequestManagementBo.CreateTaskRequestForRecon(5, userVo.UserId, out ReqId, newFileName, adviserVo.advisorId, ddlListCompany.SelectedValue, txtMfRecon.Text);
@@ -4780,7 +4786,7 @@ namespace WealthERP.Uploads
                 }
             }
         }
-
+        
         protected void ddlUploadType_SelectedIndexChanged(object sender, EventArgs e)
         {
             //Label6.Visible = true;
@@ -4811,10 +4817,13 @@ namespace WealthERP.Uploads
                 trListBranch.Visible = false;
                 trRM.Visible = false;
                 trMfRecon.Visible = true;
-
+                RegularExpressionValidator1.ErrorMessage = @"Only .xls and.xlsx File allowed";
+                RegularExpressionValidator1.ValidationExpression=@"^.*\.((x|X)(l|L)(s|S)|(x|X)(l|L)(s|S)(x|X))$";
             }
             else
             {
+                RegularExpressionValidator1.ErrorMessage = @"Only .dbf, .xls and.xlsx File allowed";
+                RegularExpressionValidator1.ValidationExpression = @"^.*\.((x|X)(l|L)(s|S)|(x|X)(l|L)(s|S)(x|X)|(d|D)(b|B)(f|F)|(t|T)(x|X)(t|T))$";
                 trListBranch.Visible = true;
                 trRM.Visible = true;
                 trMfRecon.Visible = false;
