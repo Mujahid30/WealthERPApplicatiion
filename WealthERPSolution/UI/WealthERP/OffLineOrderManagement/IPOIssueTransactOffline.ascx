@@ -956,8 +956,8 @@
                     </telerik:RadGrid>
                 </td>
             </tr>
-            <tr class="spaceUnder" id="trTermsCondition" runat="server">
-                <td align="left" style="width: 100%" colspan="4">
+            <tr class="spaceUnder" id="trTermsCondition" visible="false" runat="server">
+                <td align="left" style="width: 100%" visible="false" colspan="4">
                     <asp:CheckBox ID="chkTermsCondition" runat="server" Font-Bold="True" Font-Names="Shruti"
                         Enabled="false" Checked="false" ForeColor="#145765" Text="" ToolTip="Click 'Terms & Conditions' to proceed further"
                         CausesValidation="true" />

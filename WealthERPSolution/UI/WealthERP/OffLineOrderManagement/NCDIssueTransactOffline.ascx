@@ -18,11 +18,13 @@
         <asp:ServiceReference Path="~/CustomerPortfolio/AutoComplete.asmx" />
     </Services>
 </asp:ScriptManager>
+
 <script type="text/javascript">
     function setCustomPosition(sender, args) {
         sender.moveTo(sender.get_left(), sender.get_top());
     }
 </script>
+
 <script type="text/javascript">
     function HideLabel(tblMessage) {
         setTimeout("HideLabelHelper('" + tblMessage + "');", 5000);
@@ -30,7 +32,8 @@
     function HideLabelHelper(tblMessage) {
         document.getElementById(tblMessage).style.display = "none";
     }
-    </script>
+</script>
+
 <script type="text/javascript">
     var TargetBaseControl = null;
     var TragetBaseControl2 = null;
@@ -576,7 +579,7 @@
                 <asp:CompareValidator ID="CompareValidator14" runat="server" ErrorMessage="<br/>Please enter a valid date."
                     Type="Date" ControlToValidate="txtPaymentInstDate" CssClass="cvPCG" Operator="DataTypeCheck"
                     ValueToCompare="" Display="Dynamic" ValidationGroup="btnConfirmOrder" Enabled="true"></asp:CompareValidator>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator10" ControlToValidate="txtPaymentInstDate"
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator10" ControlToValidate="txtPaymentInstDate"
                     ErrorMessage="<br />Please Enter Cheque Date." Display="Dynamic" runat="server"
                     CssClass="rfvPCG" ValidationGroup="btnConfirmOrder"></asp:RequiredFieldValidator>
             </td>
@@ -662,8 +665,8 @@
                 <asp:Label ID="lblDpClientId" runat="server" Text="Beneficiary Acct No:" CssClass="FieldName"></asp:Label>
             </td>
             <td class="rightField" style="width: 20%">
-                <asp:TextBox ID="txtDematid" Enabled="false" onkeydown="return (event.keyCode!=13);" runat="server"
-                    CssClass="txtField"></asp:TextBox>
+                <asp:TextBox ID="txtDematid" Enabled="false" onkeydown="return (event.keyCode!=13);"
+                    runat="server" CssClass="txtField"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator6" ControlToValidate="txtDematid"
                     ErrorMessage="<br />Please Select Demat from the List" Display="Dynamic" runat="server"
                     CssClass="rfvPCG" ValidationGroup="btnConfirmOrder"></asp:RequiredFieldValidator>
@@ -1126,8 +1129,8 @@
     <asp:Label ID="lb1AvailbleCat" runat="server" CssClass="FieldName" Visible="false"></asp:Label></div>
 <%--</div>--%>
 <table>
-    <tr class="spaceUnder" id="trTermsCondition" runat="server" visible="false">
-        <td align="left" style="width: 35%">
+    <tr class="spaceUnder" id="trTermsCondition"  runat="server" visible="false">
+        <td align="left" style="width: 35%" visible="false">
             <asp:CheckBox ID="chkTermsCondition" runat="server" Font-Bold="True" Font-Names="Shruti"
                 Enabled="false" Checked="false" ForeColor="#145765" Text="" ToolTip="Click 'Terms & Conditions' to proceed further"
                 CausesValidation="true" />
@@ -1178,7 +1181,8 @@
 </table>
 <telerik:RadWindow ID="rwDematDetails" runat="server" VisibleOnPageLoad="false" Height="200px"
     Width="800px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="Resize, Close, Move"
-    Title="Select Demat " RestrictionZoneID="radWindowZone" OnClientShow="setCustomPosition" Top="10"  Left="20">
+    Title="Select Demat " RestrictionZoneID="radWindowZone" OnClientShow="setCustomPosition"
+    Top="10" Left="20">
     <ContentTemplate>
         <table>
             <tr>
@@ -1293,7 +1297,8 @@
 </telerik:RadWindow>
 <telerik:RadWindow ID="rwTermsCondition" runat="server" VisibleOnPageLoad="false"
     Width="1000px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="Move, Resize,Close"
-    Title="Terms & Conditions" EnableShadow="true" OnClientShow="setCustomPosition" Top="10"  Left="20">
+    Title="Terms & Conditions" EnableShadow="true" OnClientShow="setCustomPosition"
+    Top="10" Left="20">
     <ContentTemplate>
         <div style="padding: 0px; width: 100%">
             <table width="100%" cellpadding="0" cellpadding="0">
