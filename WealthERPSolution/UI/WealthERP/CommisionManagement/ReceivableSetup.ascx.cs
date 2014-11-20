@@ -603,16 +603,21 @@ namespace WealthERP.Receivable
             System.Web.UI.HtmlControls.HtmlTableRow trMinMaxAge = new System.Web.UI.HtmlControls.HtmlTableRow(); ;
             System.Web.UI.HtmlControls.HtmlTableCell tdlb1MinNumberOfApplication = new System.Web.UI.HtmlControls.HtmlTableCell(); ;
             System.Web.UI.HtmlControls.HtmlTableCell tdtxtMinNumberOfApplication = new System.Web.UI.HtmlControls.HtmlTableCell(); ;
+            System.Web.UI.HtmlControls.HtmlTableCell tdlb1MaxNumberOfApplication = new System.Web.UI.HtmlControls.HtmlTableCell(); ;
+            System.Web.UI.HtmlControls.HtmlTableCell tdtxtMaxNumberOfApplication = new System.Web.UI.HtmlControls.HtmlTableCell(); ;
+            System.Web.UI.HtmlControls.HtmlTableRow trMinAndMaxNumberOfApplication = new System.Web.UI.HtmlControls.HtmlTableRow(); ;
             System.Web.UI.HtmlControls.HtmlTableCell tdlb1SipFreq = new System.Web.UI.HtmlControls.HtmlTableCell(); ;
             System.Web.UI.HtmlControls.HtmlTableCell tdddlSipFreq = new System.Web.UI.HtmlControls.HtmlTableCell(); ;
             Label lblTransactionType = new Label();
             CheckBoxList chkListTtansactionType = new CheckBoxList();
             Label lblMinNumberOfApplication = new Label();
+            Label lblMaxNumberOfApplication = new Label();
             Label lblSIPFrequency = new Label();
             DropDownList ddlSIPFrequency = new DropDownList();
             DropDownList ddlTransaction = new DropDownList();
             DropDownList ddlCommisionCalOn = new DropDownList();
             TextBox txtMinNumberOfApplication = new TextBox();
+            TextBox txtMaxNumberOfApplication = new TextBox();
             DropDownList ddlCommissionApplicableLevel = new DropDownList();
 
             if (ddlCommissionType.NamingContainer is Telerik.Web.UI.GridEditFormItem)
@@ -623,8 +628,10 @@ namespace WealthERP.Receivable
                 lblTransactionType = (Label)gdi.FindControl("lblTransactionType");
                 chkListTtansactionType = (CheckBoxList)gdi.FindControl("chkListTtansactionType");
                 lblMinNumberOfApplication = (Label)gdi.FindControl("lblMinNumberOfApplication");
+                lblMaxNumberOfApplication = (Label)gdi.FindControl("lblMaxNumberOfApplication");
                 lblSIPFrequency = (Label)gdi.FindControl("lblSIPFrequency");
                 txtMinNumberOfApplication = (TextBox)gdi.FindControl("txtMinNumberOfApplication");
+                txtMaxNumberOfApplication = (TextBox)gdi.FindControl("txtMaxNumberOfApplication");
                 ddlSIPFrequency = (DropDownList)gdi.FindControl("ddlSIPFrequency");
                 ddlTransaction = (DropDownList)gdi.FindControl("ddlTransaction");
                 ddlCommisionCalOn = (DropDownList)gdi.FindControl("ddlCommisionCalOn");
@@ -636,6 +643,9 @@ namespace WealthERP.Receivable
                 trMinMaxAge = (System.Web.UI.HtmlControls.HtmlTableRow)gdi.FindControl("trMinMaxAge");
                 tdlb1MinNumberOfApplication = (System.Web.UI.HtmlControls.HtmlTableCell)gdi.FindControl("tdlb1MinNumberOfApplication");
                 tdtxtMinNumberOfApplication = (System.Web.UI.HtmlControls.HtmlTableCell)gdi.FindControl("tdtxtMinNumberOfApplication");
+                tdlb1MaxNumberOfApplication = (System.Web.UI.HtmlControls.HtmlTableCell)gdi.FindControl("tdlb1MaxNumberOfApplication");
+                tdtxtMaxNumberOfApplication = (System.Web.UI.HtmlControls.HtmlTableCell)gdi.FindControl("tdtxtMaxNumberOfApplication");
+                trMinAndMaxNumberOfApplication = (System.Web.UI.HtmlControls.HtmlTableRow)gdi.FindControl("trMinAndMaxNumberOfApplication");
                 tdlb1SipFreq = (System.Web.UI.HtmlControls.HtmlTableCell)gdi.FindControl("tdlb1SipFreq");
                 tdddlSipFreq = (System.Web.UI.HtmlControls.HtmlTableCell)gdi.FindControl("tdddlSipFreq");
 
@@ -647,8 +657,10 @@ namespace WealthERP.Receivable
                 lblTransactionType = (Label)gdi.FindControl("lblTransactionType");
                 chkListTtansactionType = (CheckBoxList)gdi.FindControl("chkListTtansactionType");
                 lblMinNumberOfApplication = (Label)gdi.FindControl("lblMinNumberOfApplication");
+                lblMaxNumberOfApplication = (Label)gdi.FindControl("lblMaxNumberOfApplication");
                 lblSIPFrequency = (Label)gdi.FindControl("lblSIPFrequency");
                 txtMinNumberOfApplication = (TextBox)gdi.FindControl("txtMinNumberOfApplication");
+                txtMaxNumberOfApplication = (TextBox)gdi.FindControl("txtMaxNumberOfApplication");
                 ddlTransaction = (DropDownList)gdi.FindControl("ddlTransaction");
                 ddlCommisionCalOn = (DropDownList)gdi.FindControl("ddlCommisionCalOn");
                 ddlCommissionApplicableLevel = (DropDownList)gdi.FindControl("ddlCommissionApplicableLevel");
@@ -660,6 +672,9 @@ namespace WealthERP.Receivable
                 trMinMaxAge = (System.Web.UI.HtmlControls.HtmlTableRow)gdi.FindControl("trMinMaxAge");
                 tdlb1MinNumberOfApplication = (System.Web.UI.HtmlControls.HtmlTableCell)gdi.FindControl("tdlb1MinNumberOfApplication");
                 tdtxtMinNumberOfApplication = (System.Web.UI.HtmlControls.HtmlTableCell)gdi.FindControl("tdtxtMinNumberOfApplication");
+                tdlb1MaxNumberOfApplication = (System.Web.UI.HtmlControls.HtmlTableCell)gdi.FindControl("tdlb1MaxNumberOfApplication");
+                tdtxtMaxNumberOfApplication = (System.Web.UI.HtmlControls.HtmlTableCell)gdi.FindControl("tdtxtMaxNumberOfApplication");
+                trMinAndMaxNumberOfApplication = (System.Web.UI.HtmlControls.HtmlTableRow)gdi.FindControl("trMinAndMaxNumberOfApplication");
                 tdlb1SipFreq = (System.Web.UI.HtmlControls.HtmlTableCell)gdi.FindControl("tdlb1SipFreq");
                 tdddlSipFreq = (System.Web.UI.HtmlControls.HtmlTableCell)gdi.FindControl("tdddlSipFreq");
 
@@ -677,7 +692,8 @@ namespace WealthERP.Receivable
 
 
             ShowAndHideSTructureRuleControlsBasedOnProductAndCommisionType(lblReceivableFrequency, ddlReceivableFrequency, trTransactionTypeSipFreq, tdlb1SipFreq, tdddlSipFreq, trMinMaxTenure, trMinMaxAge, tdlb1MinNumberOfApplication, tdtxtMinNumberOfApplication, ddlProductType.SelectedValue, ddlCommissionType.SelectedValue
-                 , lblMinNumberOfApplication, txtMinNumberOfApplication, lblSIPFrequency, ddlSIPFrequency, ddlTransaction, chkListTtansactionType, lblTransactionType, ddlCommisionCalOn, ddlCommissionApplicableLevel);
+                 , lblMinNumberOfApplication, txtMinNumberOfApplication, lblSIPFrequency, ddlSIPFrequency, ddlTransaction, chkListTtansactionType, lblTransactionType, ddlCommisionCalOn, ddlCommissionApplicableLevel,
+                 lblMaxNumberOfApplication, tdlb1MaxNumberOfApplication, tdtxtMaxNumberOfApplication, txtMaxNumberOfApplication, trMinAndMaxNumberOfApplication);
         }
 
 
@@ -705,10 +721,12 @@ namespace WealthERP.Receivable
                 DropDownList ddlInvestorType = (DropDownList)editform.FindControl("ddlInvestorType");
 
                 Label lblMinNumberOfApplication = (Label)editform.FindControl("lblMinNumberOfApplication");
+                Label lblMaxNumberOfApplication = (Label)editform.FindControl("lblMaxNumberOfApplication");
                 Label lblSIPFrequency = (Label)editform.FindControl("lblSIPFrequency");
                 Label lblTransactionType = (Label)editform.FindControl("lblTransactionType");
                 CheckBoxList chkListTtansactionType = (CheckBoxList)editform.FindControl("chkListTtansactionType");
                 TextBox txtMinNumberOfApplication = (TextBox)editform.FindControl("txtMinNumberOfApplication");
+                TextBox txtMaxNumberOfApplication = (TextBox)editform.FindControl("txtMaxNumberOfApplication");
 
                 DropDownList ddlTenureFrequency = (DropDownList)editform.FindControl("ddlTenureFrequency");
                 DropDownList ddlInvestAgeTenure = (DropDownList)editform.FindControl("ddlInvestAgeTenure");
@@ -723,14 +741,18 @@ namespace WealthERP.Receivable
                 DropDownList ddlReceivableFrequency = (DropDownList)e.Item.FindControl("ddlReceivableFrequency");
                 DropDownList ddlCommissionApplicableLevel = (DropDownList)e.Item.FindControl("ddlCommissionApplicableLevel");
                 CheckBoxList chkListApplyTax = (CheckBoxList)editform.FindControl("chkListApplyTax");
+                TextBox txtTaxValue = (TextBox)editform.FindControl("txtTaxValue");
                 Label lblReceivableFrequency = (Label)editform.FindControl("lblReceivableFrequency");
                 System.Web.UI.HtmlControls.HtmlTableRow trTransactionTypeSipFreq = (System.Web.UI.HtmlControls.HtmlTableRow)editform.FindControl("trTransactionTypeSipFreq");
                 System.Web.UI.HtmlControls.HtmlTableRow trMinMaxTenure = (System.Web.UI.HtmlControls.HtmlTableRow)editform.FindControl("trMinMaxTenure");
                 System.Web.UI.HtmlControls.HtmlTableRow trMinMaxAge = (System.Web.UI.HtmlControls.HtmlTableRow)editform.FindControl("trMinMaxAge");
                 System.Web.UI.HtmlControls.HtmlTableCell tdMinNumberOfApplication = (System.Web.UI.HtmlControls.HtmlTableCell)editform.FindControl("tdlb1MinNumberOfApplication");
+                System.Web.UI.HtmlControls.HtmlTableCell tdlb1MaxNumberOfApplication = (System.Web.UI.HtmlControls.HtmlTableCell)editform.FindControl("tdlb1MaxNumberOfApplication");
                 System.Web.UI.HtmlControls.HtmlTableCell tdlb1SipFreq = (System.Web.UI.HtmlControls.HtmlTableCell)editform.FindControl("tdlb1SipFreq");
                 System.Web.UI.HtmlControls.HtmlTableCell tdddlSipFreq = (System.Web.UI.HtmlControls.HtmlTableCell)editform.FindControl("tdddlSipFreq");
                 System.Web.UI.HtmlControls.HtmlTableCell tdtxtMinNumberOfApplication1 = (System.Web.UI.HtmlControls.HtmlTableCell)editform.FindControl("tdtxtMinNumberOfApplication");
+                System.Web.UI.HtmlControls.HtmlTableCell tdtxtMaxNumberOfApplication = (System.Web.UI.HtmlControls.HtmlTableCell)editform.FindControl("tdtxtMaxNumberOfApplication");
+                System.Web.UI.HtmlControls.HtmlTableRow trMinAndMaxNumberOfApplication = (System.Web.UI.HtmlControls.HtmlTableRow)editform.FindControl("trMinAndMaxNumberOfApplication");
                 if (dsCommissionLookup != null)
                 {
                     ddlCommissionApplicableLevel.DataSource = dsCommissionLookup.Tables[1];
@@ -825,7 +847,8 @@ namespace WealthERP.Receivable
 
                     ddlCommissionType.SelectedValue = strCommissionType;
                     ShowAndHideSTructureRuleControlsBasedOnProductAndCommisionType(lblReceivableFrequency, ddlReceivableFrequency, trTransactionTypeSipFreq, tdlb1SipFreq, tdddlSipFreq, trMinMaxTenure, trMinMaxAge, tdMinNumberOfApplication, tdtxtMinNumberOfApplication1, ddlProductType.SelectedValue, ddlCommissionType.SelectedValue
-                        , lblMinNumberOfApplication, txtMinNumberOfApplication, lblSIPFrequency, ddlSIPFrequency, ddlTransaction, chkListTtansactionType, lblTransactionType, ddlCommisionCalOn, ddlCommissionApplicableLevel);
+                        , lblMinNumberOfApplication, txtMinNumberOfApplication, lblSIPFrequency, ddlSIPFrequency, ddlTransaction, chkListTtansactionType, lblTransactionType, ddlCommisionCalOn, ddlCommissionApplicableLevel
+                        , lblMaxNumberOfApplication, tdlb1MaxNumberOfApplication, tdtxtMaxNumberOfApplication, txtMaxNumberOfApplication, trMinAndMaxNumberOfApplication);
 
 
                     ddlInvestorType.SelectedValue = strCustomerCategory;
@@ -1032,13 +1055,14 @@ namespace WealthERP.Receivable
                 //DropDownList ddlAUMFrequency = (DropDownList)e.Item.FindControl("ddlAUMFrequency");
 
                 TextBox txtMinNumberOfApplication = (TextBox)e.Item.FindControl("txtMinNumberOfApplication");
+                TextBox txtMaxNumberOfApplication = (TextBox)e.Item.FindControl("txtMaxNumberOfApplication");
                 TextBox txtStruRuleComment = (TextBox)e.Item.FindControl("txtStruRuleComment");
 
                 DropDownList ddlAppCityGroup = (DropDownList)e.Item.FindControl("ddlAppCityGroup");
                 DropDownList ddlReceivableFrequency = (DropDownList)e.Item.FindControl("ddlReceivableFrequency");
                 DropDownList ddlCommissionApplicableLevel = (DropDownList)e.Item.FindControl("ddlCommissionApplicableLevel");
                 CheckBoxList chkListApplyTax = (CheckBoxList)e.Item.FindControl("chkListApplyTax");
-
+                TextBox txtTaxValue = (TextBox)e.Item.FindControl("txtTaxValue");
 
                 commissionStructureRuleVo.CommissionStructureId = Convert.ToInt32(hidCommissionStructureName.Value);
                 commissionStructureRuleVo.CommissionType = ddlCommissionType.SelectedValue;
@@ -1105,6 +1129,11 @@ namespace WealthERP.Receivable
 
                 if (!string.IsNullOrEmpty(txtMinNumberOfApplication.Text.Trim()))
                     commissionStructureRuleVo.MinNumberofApplications = Convert.ToInt16(txtMinNumberOfApplication.Text.Trim());
+                if (!string.IsNullOrEmpty(txtMaxNumberOfApplication.Text.Trim()))
+                    commissionStructureRuleVo.MaxNumberofApplications = Convert.ToInt32(txtMaxNumberOfApplication.Text.Trim());
+
+                if (!string.IsNullOrEmpty(txtTaxValue.Text.Trim()))
+                    commissionStructureRuleVo.TaxValue = Convert.ToDecimal(txtTaxValue.Text.Trim());
 
                 if (!string.IsNullOrEmpty(txtStruRuleComment.Text.Trim()))
                     commissionStructureRuleVo.StructureRuleComment = txtStruRuleComment.Text.Trim();
@@ -1140,7 +1169,8 @@ namespace WealthERP.Receivable
         }
 
         private void ShowAndHideSTructureRuleControlsBasedOnProductAndCommisionType(Label lblReceivableFrequency, DropDownList ddlReceivableFrequency, System.Web.UI.HtmlControls.HtmlTableRow trTransactionTypeSipFreq, System.Web.UI.HtmlControls.HtmlTableCell tdlb1SipFreq, System.Web.UI.HtmlControls.HtmlTableCell tdddlSipFreq, System.Web.UI.HtmlControls.HtmlTableRow trMinMaxTenure, System.Web.UI.HtmlControls.HtmlTableRow trMinMaxAge, System.Web.UI.HtmlControls.HtmlTableCell tdMinNumberOfApplication, System.Web.UI.HtmlControls.HtmlTableCell tdtxtMinNumberOfApplication1, string product, string CommisionType
-            , Label lblMinNumberOfApplication, TextBox txtMinNumberOfApplication, Label lblSIPFrequency, DropDownList ddlSIPFrequency, DropDownList ddlTransaction, CheckBoxList chkListTtansactionType, Label lblTransactionType, DropDownList ddlCommisionCalOn, DropDownList ddlCommissionApplicableLevel)
+            , Label lblMinNumberOfApplication, TextBox txtMinNumberOfApplication, Label lblSIPFrequency, DropDownList ddlSIPFrequency, DropDownList ddlTransaction, CheckBoxList chkListTtansactionType, Label lblTransactionType, DropDownList ddlCommisionCalOn, DropDownList ddlCommissionApplicableLevel
+            , Label lblMaxNumberOfApplication, System.Web.UI.HtmlControls.HtmlTableCell tdlb1MaxNumberOfApplication, System.Web.UI.HtmlControls.HtmlTableCell tdtxtMaxNumberOfApplication, TextBox txtMaxNumberOfApplication, System.Web.UI.HtmlControls.HtmlTableRow trMinAndMaxNumberOfApplication)
         {
             bool enablement = false;
             lblSIPFrequency.Visible = enablement;
@@ -1156,32 +1186,44 @@ namespace WealthERP.Receivable
                 trMinMaxTenure.Visible = enablement;
                 tdMinNumberOfApplication.Visible = enablement;
                 trMinMaxAge.Visible = enablement;
-                lblMinNumberOfApplication.Visible = enablement;
+                //lblMinNumberOfApplication.Visible = enablement;
 
-                tdtxtMinNumberOfApplication1.Visible = enablement;
+                //tdtxtMinNumberOfApplication1.Visible = enablement;
+                //lblMaxNumberOfApplication.Visible = enablement;
+
+                //tdtxtMaxNumberOfApplication.Visible = enablement;
+                trMinAndMaxNumberOfApplication.Visible = enablement;
                 if (CommisionType == "UF")
                 {
                     ddlCommissionApplicableLevel.SelectedValue = "TR";
                     ddlCommissionApplicableLevel.Enabled = false;
 
                     ddlCommisionCalOn.Items[0].Enabled = false;
+                    
+
                 }
                 else if (CommisionType == "TC")
                 {
                     ddlCommissionApplicableLevel.Enabled = true;
                     tdMinNumberOfApplication.Visible = !enablement;
-                    lblMinNumberOfApplication.Visible = !enablement;
-                    tdtxtMinNumberOfApplication1.Visible = !enablement;
+                    //lblMinNumberOfApplication.Visible = !enablement;
+                    //tdtxtMinNumberOfApplication1.Visible = !enablement;
                     lblReceivableFrequency.Visible = !enablement;
                     ddlReceivableFrequency.Visible = !enablement;
+                    //lblMaxNumberOfApplication.Visible = !enablement;
+                    //tdtxtMaxNumberOfApplication.Visible = !enablement;
+                    trMinAndMaxNumberOfApplication.Visible = !enablement;
                 }
                 else if (CommisionType == "IN")
                 {
                     ddlCommissionApplicableLevel.SelectedValue = "AD";
                     ddlCommissionApplicableLevel.Enabled = false;
                     tdMinNumberOfApplication.Visible = !enablement;
-                    lblMinNumberOfApplication.Visible = !enablement;
-                    tdtxtMinNumberOfApplication1.Visible = !enablement;
+                    //lblMinNumberOfApplication.Visible = !enablement;
+                    //tdtxtMinNumberOfApplication1.Visible = !enablement;
+                    //lblMaxNumberOfApplication.Visible = !enablement;
+                    //tdtxtMaxNumberOfApplication.Visible = !enablement;
+                    trMinAndMaxNumberOfApplication.Visible = !enablement;
                 }
             }
             else if (product == "MF")
@@ -1189,9 +1231,10 @@ namespace WealthERP.Receivable
 
                 trMinMaxTenure.Visible = enablement;
                 trMinMaxAge.Visible = enablement;
-                tdMinNumberOfApplication.Visible = enablement;
-                lblMinNumberOfApplication.Visible = enablement;
-                tdtxtMinNumberOfApplication1.Visible = enablement;
+                //tdMinNumberOfApplication.Visible = enablement;
+                //lblMinNumberOfApplication.Visible = enablement;
+                //tdtxtMinNumberOfApplication1.Visible = enablement;
+                trMinAndMaxNumberOfApplication.Visible = enablement;
                 lblReceivableFrequency.Visible = enablement;
                 ddlReceivableFrequency.Visible = enablement;
                 if (CommisionType == "IN")
@@ -1200,10 +1243,13 @@ namespace WealthERP.Receivable
                     ddlCommissionApplicableLevel.Enabled = false;
                     trTransactionTypeSipFreq.Visible = !enablement;
                     trMinMaxTenure.Visible = !enablement;
-                    tdMinNumberOfApplication.Visible = !enablement;
-                    lblMinNumberOfApplication.Visible = !enablement;
-                    tdtxtMinNumberOfApplication1.Visible = !enablement;
-                    tdtxtMinNumberOfApplication1.Visible = !enablement;
+                    //tdMinNumberOfApplication.Visible = !enablement;
+                    //lblMinNumberOfApplication.Visible = !enablement;
+                    //lblMaxNumberOfApplication.Visible = !enablement;
+                    //tdtxtMaxNumberOfApplication.Visible = !enablement;
+                    //tdtxtMinNumberOfApplication1.Visible = !enablement;
+                    //tdtxtMaxNumberOfApplication.Visible = !enablement;
+                    trMinAndMaxNumberOfApplication.Visible = !enablement;
                     chkListTtansactionType.Visible = !enablement;
                     lblTransactionType.Visible = !enablement;
                     ddlTransaction.Visible = enablement;
@@ -1424,6 +1470,28 @@ namespace WealthERP.Receivable
                     if (commissionStructureRuleVo.MinNumberofApplications != 0 && String.IsNullOrEmpty(dr["ACSR_MinNumberOfApplications"].ToString()))
                     {
                         if (commissionStructureRuleVo.MinNumberofApplications == Convert.ToInt32(dr["ACSR_MinNumberOfApplications"].ToString()))
+                        {
+                            duplicateCheck.Add(true);
+                        }
+                    }
+                    else
+                    {
+                        duplicateCheck.Add(false);
+                    }
+                    if (commissionStructureRuleVo.MaxNumberofApplications != 0 && String.IsNullOrEmpty(dr["ACSR_MaxNumberOfApplications"].ToString()))
+                    {
+                        if (commissionStructureRuleVo.MaxNumberofApplications == Convert.ToInt32(dr["ACSR_MaxNumberOfApplications"].ToString()))
+                        {
+                            duplicateCheck.Add(true);
+                        }
+                    }
+                    else
+                    {
+                        duplicateCheck.Add(false);
+                    }
+                    if (commissionStructureRuleVo.TaxValue != 0 && String.IsNullOrEmpty(dr["ACSR_ReducedValue"].ToString()))
+                    {
+                        if (commissionStructureRuleVo.TaxValue == Convert.ToDecimal(dr["ACSR_ReducedValue"].ToString()))
                         {
                             duplicateCheck.Add(true);
                         }
@@ -1667,6 +1735,8 @@ namespace WealthERP.Receivable
             dtCommissionStructureRule.Columns.Add("ACSR_InvestmentAgeUnit");
             dtCommissionStructureRule.Columns.Add("ACSR_TransactionType");
             dtCommissionStructureRule.Columns.Add("ACSR_MinNumberOfApplications");
+            dtCommissionStructureRule.Columns.Add("ACSR_MaxNumberOfApplications");
+            dtCommissionStructureRule.Columns.Add("ACSR_ReducedValue");
             dtCommissionStructureRule.Columns.Add("ACSR_BrokerageValue");
             dtCommissionStructureRule.Columns.Add("WCU_Unit");
             dtCommissionStructureRule.Columns.Add("WCCO_CalculatedOn");

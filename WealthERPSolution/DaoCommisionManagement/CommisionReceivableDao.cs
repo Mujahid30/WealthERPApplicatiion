@@ -451,11 +451,15 @@ namespace DaoCommisionManagement
 
                 if (commissionStructureRuleVo.MinNumberofApplications != 0)
                     db.AddInParameter(cmdCreateCommissionStructureRule, "@ACSR_MinNumberOfApplications", DbType.Int32, commissionStructureRuleVo.MinNumberofApplications);
+                if (commissionStructureRuleVo.MaxNumberofApplications != 0)
+                    db.AddInParameter(cmdCreateCommissionStructureRule, "@ACSR_MaxNumberOfApplications", DbType.Int32, commissionStructureRuleVo.MaxNumberofApplications);
                 if (!string.IsNullOrEmpty(commissionStructureRuleVo.StructureRuleComment))
                     db.AddInParameter(cmdCreateCommissionStructureRule, "@ACSR_Comment", DbType.String, commissionStructureRuleVo.StructureRuleComment);
 
                 db.AddInParameter(cmdCreateCommissionStructureRule, "@UsetId", DbType.Int32, userId);
                 db.AddInParameter(cmdCreateCommissionStructureRule, "@ACSR_CommissionRuleHash", DbType.String, ruleHash);
+                db.AddInParameter(cmdCreateCommissionStructureRule, "@ACSR_ReducedValue", DbType.Decimal, commissionStructureRuleVo.TaxValue);
+               
 
                 db.ExecuteNonQuery(cmdCreateCommissionStructureRule);
 
@@ -905,11 +909,14 @@ namespace DaoCommisionManagement
 
                 if (commissionStructureRuleVo.MinNumberofApplications != 0)
                     db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_MinNumberOfApplications", DbType.Int32, commissionStructureRuleVo.MinNumberofApplications);
+                if (commissionStructureRuleVo.MaxNumberofApplications != 0)
+                    db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_MaxNumberOfApplications", DbType.Int32, commissionStructureRuleVo.MaxNumberofApplications);
                 if (!string.IsNullOrEmpty(commissionStructureRuleVo.StructureRuleComment))
                     db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_Comment", DbType.String, commissionStructureRuleVo.StructureRuleComment);
 
                 db.AddInParameter(cmdUpdateCommissionStructureRule, "@UsetId", DbType.Int32, userId);
                 db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_CommissionRuleHash", DbType.String, strRuleHash);
+                db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_ReducedValue", DbType.Decimal, commissionStructureRuleVo.TaxValue);
 
                 db.ExecuteNonQuery(cmdUpdateCommissionStructureRule);
 

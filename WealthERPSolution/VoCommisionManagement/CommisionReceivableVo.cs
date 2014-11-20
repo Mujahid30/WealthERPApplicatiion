@@ -13,19 +13,19 @@ namespace VoCommisionManagement
         public string ProductType { get; set; }
         //public bool IsMonetary { get; set; }
         public string AssetCategory { get; set; }
-        public string Issuer { get; set; }      
+        public string Issuer { get; set; }
 
         public DateTime ValidityStartDate { get; set; }
         public DateTime ValidityEndDate { get; set; }
-       
+
         public bool IsClawBackApplicable { get; set; }
 
         public bool IsArchived { get; set; }
-        public DateTime ArchivedOn { get; set; }    
+        public DateTime ArchivedOn { get; set; }
 
         public string CommissionStructureName { get; set; }
         public bool IsNonMonetaryReward { get; set; }
-       
+
         public string StructureNote { get; set; }
 
         public int StructureMasterCreatedBy { get; set; }
@@ -69,10 +69,12 @@ namespace VoCommisionManagement
         public string TransactionType { get; set; }
         public string SIPFrequency { get; set; }
         public Int32 MinNumberofApplications { get; set; }
+        public Int32 MaxNumberofApplications { get; set; }
+        public decimal TaxValue { get; set; }
 
         public decimal BrokerageValue { get; set; }
         public string BrokerageUnitCode { get; set; }
-        
+
         public string CalculatedOnCode { get; set; }
         public string AUMFrequency { get; set; }
         public decimal AUMMonth { get; set; }
@@ -88,5 +90,5 @@ namespace VoCommisionManagement
 
     }
 
-    
+
 }

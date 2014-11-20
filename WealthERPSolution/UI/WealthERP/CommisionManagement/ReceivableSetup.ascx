@@ -484,6 +484,10 @@
                                             DataField="ACSR_MinNumberOfApplications">
                                             <HeaderStyle></HeaderStyle>
                                         </telerik:GridBoundColumn>
+                                         <telerik:GridBoundColumn UniqueName="ACSR_MaxNumberOfApplications" HeaderText="Max No Applications"
+                                            DataField="ACSR_MaxNumberOfApplications">
+                                            <HeaderStyle></HeaderStyle>
+                                        </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn UniqueName="ACSR_BrokerageValue" HeaderText="Brokerage Value"
                                             DataField="ACSR_BrokerageValue" DataFormatString="{0:N2}">
                                         </telerik:GridBoundColumn>
@@ -572,6 +576,11 @@
                                                             <asp:ListItem Text="TDS" Value="TDS"></asp:ListItem>
                                                             <asp:ListItem Text="Others" Value="Others"></asp:ListItem>
                                                         </asp:CheckBoxList>
+                                                        <asp:TextBox ID="txtTaxValue" Text='<%# Bind( "ACSR_ReducedValue") %>' runat="server"
+                                                            CssClass="txtField"></asp:TextBox>
+                                                        <cc1:TextBoxWatermarkExtender ID="twtxtTaxValue" TargetControlID="txtTaxValue"
+                                                            WatermarkText="Enter the Value" runat="server" EnableViewState="false">
+                                                        </cc1:TextBoxWatermarkExtender>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -596,13 +605,12 @@
                                                             runat="server" CssClass="txtField"></asp:TextBox>
                                                         <span id="Span7" class="spnRequiredField" runat="server" visible="true">*</span>
                                                         <asp:RequiredFieldValidator runat="server" ID="rfvtxtMaxInvestmentAmount" ValidationGroup="btnSubmitRule"
-                                                            Display="Dynamic" ControlToValidate="txtMaxInvestmentAmount" ErrorMessage="Min Investment Amount is mandatory"
+                                                            Display="Dynamic" ControlToValidate="txtMaxInvestmentAmount" ErrorMessage="Max Investment Amount is mandatory"
                                                             Text="" />
                                                     </td>
                                                     <td class="leftLabel">
                                                     </td>
                                                 </tr>
-                                              
                                                 <tr id="trMinMaxAge" runat="server">
                                                     <td class="leftLabel">
                                                         <asp:Label ID="lblMinInvestAge" runat="server" Text="Min Investment age :" CssClass="FieldName"></asp:Label>
@@ -641,7 +649,6 @@
                                                         <asp:RequiredFieldValidator ID="rfvddlTransaction" runat="server" ErrorMessage="Please Select Transaction type"
                                                             Enabled="false" CssClass="rfvPCG" ControlToValidate="ddlTransaction" ValidationGroup="btnStrAddUpdate"
                                                             Display="Dynamic" InitialValue="0"></asp:RequiredFieldValidator><br />
-                                                       
                                                     </td>
                                                     <td class="leftLabel" runat="server" id="tdlb1SipFreq">
                                                         <asp:Label ID="lblSIPFrequency" runat="server" Text="SIP Frequency:" CssClass="FieldName"></asp:Label>
@@ -654,9 +661,10 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                <td></td>
-                                                <td>
-                                                 <asp:CheckBoxList ID="chkListTtansactionType" runat="server" CssClass="txtField"
+                                                    <td>
+                                                    </td>
+                                                    <td>
+                                                        <asp:CheckBoxList ID="chkListTtansactionType" runat="server" CssClass="txtField"
                                                             Visible="false" RepeatLayout="Flow" RepeatDirection="Horizontal">
                                                             <%--<asp:ListItem Text="Buy" Value="BUY"></asp:ListItem>
                                                         <asp:ListItem Text="SIP" Value="SIP"></asp:ListItem>
@@ -664,9 +672,9 @@
                                                         <asp:ListItem Text="Switch Buy" Value="SWITCHBUY"></asp:ListItem>
                                                         <asp:ListItem Text="Additional Purchase" Value="ADDPUR"></asp:ListItem>--%>
                                                         </asp:CheckBoxList>
-                                                </td>
+                                                    </td>
                                                 </tr>
-                                                  <tr id="trMinMaxTenure" runat="server">
+                                                <tr id="trMinMaxTenure" runat="server">
                                                     <td class="leftLabel">
                                                         <asp:Label ID="lblMinTenure" runat="server" Text="Min Tenure:" CssClass="FieldName"></asp:Label>
                                                     </td>
@@ -707,7 +715,7 @@
                                                     <td class="leftLabel">
                                                     </td>
                                                 </tr>
-                                                <tr>
+                                                <tr runat="server" id="trMinAndMaxNumberOfApplication">
                                                     <td class="leftLabel" runat="server" id="tdlb1MinNumberOfApplication">
                                                         <asp:Label ID="lblMinNumberOfApplication" runat="server" Text="Min number of applications:"
                                                             CssClass="FieldName"></asp:Label>
@@ -718,17 +726,24 @@
                                                         <asp:TextBox ID="txtMinNumberOfApplication" Text='<%# Bind( "ACSR_MinNumberOfApplications") %>'
                                                             runat="server" CssClass="txtField"></asp:TextBox>
                                                     </td>
-                                                    <td class="leftLabel">
-                                                        <asp:Label ID="lblCalculatedOn" runat="server" Text="Calculated On:" CssClass="FieldName"></asp:Label>
+                                                    <td class="leftLabel" runat="server" id="tdlb1MaxNumberOfApplication">
+                                                        <asp:Label ID="lblMaxNumberOfApplication" runat="server" Text="Max number of applications:"
+                                                            CssClass="FieldName"></asp:Label>
+                                                        <span id="Span13" class="spnRequiredField">&nbsp;</span>
                                                     </td>
-                                                    <td class="rightData" colspan="2">
-                                                        <asp:DropDownList ID="ddlCommisionCalOn" runat="server" CssClass="cmbField">
-                                                        </asp:DropDownList>
-                                                    </td>
-                                                    <td>
+                                                    <td class="rightData" runat="server" id="tdtxtMaxNumberOfApplication">
+                                                        <asp:TextBox ID="txtMaxNumberOfApplication" Text='<%# Bind( "ACSR_MaxNumberOfApplications") %>'
+                                                            runat="server" CssClass="txtField"></asp:TextBox>
                                                     </td>
                                                 </tr>
                                                 <tr>
+                                                    <td class="leftLabel">
+                                                        <asp:Label ID="lblCalculatedOn" runat="server" Text="Calculated On:" CssClass="FieldName"></asp:Label>
+                                                    </td>
+                                                    <td class="rightData">
+                                                        <asp:DropDownList ID="ddlCommisionCalOn" runat="server" CssClass="cmbField">
+                                                        </asp:DropDownList>
+                                                    </td>
                                                     <td class="leftLabel">
                                                         <asp:Label ID="lblRuleNote" runat="server" Text="Comment:" CssClass="FieldName"></asp:Label>
                                                     </td>
@@ -736,8 +751,10 @@
                                                         <asp:TextBox ID="txtStruRuleComment" runat="server" CssClass="txtField" Text='<%# Bind( "ACSR_Comment") %>'
                                                             TextMode="MultiLine"></asp:TextBox>
                                                     </td>
-                                                    <td>
+                                                    <td class="leftLabel">
                                                     </td>
+                                                </tr>
+                                                <tr>
                                                     <td class="rightData" colspan="2">
                                                         <asp:Button ID="btnSubmitRule" ValidationGroup="btnSubmitRule" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
                                                             CssClass="PCGButton" runat="server" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'
@@ -1018,15 +1035,15 @@
                                 <td class="rightData">
                                     <asp:Button ID="btnMapSchemes" CssClass="PCGButton" runat="server" Text="Map" OnClick="btnMapSchemes_Click" />
                                 </td>
-                                <td colspan="2">
-                                    <asp:RequiredFieldValidator ID="rfvMappingTo" runat="server" ErrorMessage="Please enter valid date(s)"
-                                        Display="Dynamic" CssClass="rfvPCG" ValidationGroup="mappingPeriod" ControlToValidate="rdpMappedTill"></asp:RequiredFieldValidator>
-                                    <asp:RequiredFieldValidator ID="rfvMappingFrom" runat="server" ErrorMessage="Please enter valid date(s)"
-                                        Display="Dynamic" CssClass="rfvPCG" ValidationGroup="mappingPeriod" ControlToValidate="rdpMappedFrom"></asp:RequiredFieldValidator>
-                                    <asp:CompareValidator ID="cmvMappingPeriod" runat="server" ErrorMessage="Please enter valid date(s)"
-                                        CssClass="rfvPCG" Display="Dynamic" ControlToCompare="rdpMappedFrom" ControlToValidate="rdpMappedTill"
-                                        Operator="GreaterThan"></asp:CompareValidator>
-                                </td>
+                        <td colspan="2">
+                            <asp:RequiredFieldValidator ID="rfvMappingTo" runat="server" ErrorMessage="Please enter valid date(s)"
+                                Display="Dynamic" CssClass="rfvPCG" ValidationGroup="mappingPeriod" ControlToValidate="rdpMappedTill"></asp:RequiredFieldValidator>
+                            <asp:RequiredFieldValidator ID="rfvMappingFrom" runat="server" ErrorMessage="Please enter valid date(s)"
+                                Display="Dynamic" CssClass="rfvPCG" ValidationGroup="mappingPeriod" ControlToValidate="rdpMappedFrom"></asp:RequiredFieldValidator>
+                            <asp:CompareValidator ID="cmvMappingPeriod" runat="server" ErrorMessage="Please enter valid date(s)"
+                                CssClass="rfvPCG" Display="Dynamic" ControlToCompare="rdpMappedFrom" ControlToValidate="rdpMappedTill"
+                                Operator="GreaterThan"></asp:CompareValidator>
+                        </td>
                     </tr>
                 </table>
             </asp:Panel>
@@ -1127,8 +1144,7 @@
                     </td>
                 </tr>
             </table>
-            
-              <table id="Table4" runat="server" width="100%" visible="false">
+            <table id="Table4" runat="server" width="100%" visible="false">
                 <tr id="tr3" runat="server">
                     <td class="tdSectionHeading">
                         <div class="divSectionHeading" style="vertical-align: text-bottom">
@@ -1189,8 +1205,8 @@
                     </td>
                 </tr>
             </table>
-            <asp:Panel ID="pnlIssueList"  visible="false" runat="server" class="Landscape" Width="80%" Height="80%"
-                ScrollBars="Both">
+            <asp:Panel ID="pnlIssueList" Visible="false" runat="server" class="Landscape" Width="80%"
+                Height="80%" ScrollBars="Both">
                 <table width="100%">
                     <tr>
                         <td>
