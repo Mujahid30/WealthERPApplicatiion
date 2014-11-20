@@ -213,6 +213,11 @@
             <asp:CompareValidator ID="CompareValidator6" runat="server" ErrorMessage="<br/>Please enter a valid date."
                 Type="Date" ControlToValidate="txtStartDate" CssClass="cvPCG" Operator="DataTypeCheck"
                 ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
+                 <span id="Span10" class="spnRequiredField">*</span>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtStartDate"
+                        ErrorMessage="<br />Please select Start Date" CssClass="cvPCG" Display="Dynamic"
+                        runat="server" InitialValue="" ValidationGroup="SubmitDetails">
+                    </asp:RequiredFieldValidator>
         </td>
         <td align="right">
             <asp:Label ID="lblEndDate" CssClass="FieldName" runat="server" Text="End Date:"></asp:Label>
@@ -323,7 +328,7 @@
         </telerik:RadTab>
         <telerik:RadTab runat="server" Text="Bank Details" Value="BankDetails" TabIndex="3">
         </telerik:RadTab>
-        <telerik:RadTab runat="server" Text="Registration" Value="Registration" TabIndex="4">
+        <telerik:RadTab runat="server" Text="Agent Qualification" Value="Registration" TabIndex="4">
         </telerik:RadTab>
         <telerik:RadTab runat="server" Text="Nominee" Value="Nominee" TabIndex="5">
         </telerik:RadTab>
@@ -907,7 +912,7 @@
                     <td colspan="4">
                         <div class="divSectionHeading" style="vertical-align: text-bottom">
                             <div class="fltlft" style="width: 200px; float: left">
-                                &nbsp; Registration
+                                &nbsp; Agent Qualification
                             </div>
                         </div>
                     </td>
@@ -920,12 +925,7 @@
                             OnNeedDataSource="gvRegistration_OnNeedDataSource" OnItemDataBound="gvRegistration_OnItemDataBound">
                             <MasterTableView DataKeyNames="" Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
                                 EditMode="EditForms" CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false"
-                                CommandItemSettings-AddNewRecordText="Add Registration">
-                                <%--   <mastertableview datakeynames="" allowfilteringbycolumn="true" width="70%" allowmulticolumnsorting="True">
-                                  autogeneratecolumns="false" commanditemdisplay="Top" editmode="PopUp">
-                                <CommandItemSettings ShowExportToWordButton="false" ShowExportToExcelButton="false"
-                                    AddNewRecordText="Add Registration" ShowExportToCsvButton="false" ShowAddNewRecordButton="true"
-                                    ShowRefreshButton="false" />--%>
+                                CommandItemSettings-AddNewRecordText="Add Agent Qualification">
                                 <Columns>
                                     <telerik:GridBoundColumn DataField="PAG_assetGroupCode" HeaderStyle-Width="20px"
                                         CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"

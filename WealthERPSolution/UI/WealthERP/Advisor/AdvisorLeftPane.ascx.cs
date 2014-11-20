@@ -548,10 +548,14 @@ namespace WealthERP.Advisor
             hdfSession.Value = "Admin";
             try
             {
-                
+
                 if (e.Item.Value == "Manage Lookups")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ManageLookups','login');", true);
+                }
+                else if (e.Item.Value == "View_Payable_Structure")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('PayableStructureView','login');", true);
                 }
                 else if (e.Item.Value == "SubBroker_Code_Cleansing")
                 {
@@ -654,7 +658,7 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "Set Theme")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('SetTheme','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OfflineCustomerSIPOrderBook','login');", true);
                 }
                 else if (e.Item.Value == "User_Role")
                 {
@@ -1806,6 +1810,10 @@ namespace WealthERP.Advisor
                 if (e.Item.Value == "Manage Lookups")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ManageLookups','login');", true);
+                }
+                else if (e.Item.Value == "View_Payable_Structure")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('PayableStructureView','login');", true);
                 }
                 else if (e.Item.Value == "NCD_IPO_Allotments")
                 {
@@ -3530,6 +3538,10 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('SalesDashBoard','login');", true);
                 }
+                else if (e.Item.Value == "View_Payable_Structure")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('PayableStructureView','login');", true);
+                }
                 else if (e.Item.Value == "NCD_IPO_Allotments")
                 {
                     Session["UserType"] = "Associates";
@@ -3791,6 +3803,40 @@ namespace WealthERP.Advisor
                 {
                     Session["UserType"] = "Associates";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MutualFundMIS','login');", true);
+                }
+                else if (e.Item.Value == "View_Receivable_structure")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CommissionStructureRuleGrid','none');", true);
+                }
+                else if (e.Item.Value == "Receivable_Strucrure_setup")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ReceivableSetup','none');", true);
+                }
+                else if (e.Item.Value == "View_Scheme_Structure_Association")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewSchemeStructureAssociation','none');", true);
+                }
+                else if (e.Item.Value == "Receivable_Scheme_Structure_Association")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('SchemeStructureRuleAssociation','none');", true);
+                }
+                else if (e.Item.Value == "View_Payable_Structure")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('','none');", true);
+                }
+                else if (e.Item.Value == "Payable_Structure_Setup")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('','none');", true);
+                }
+                else if (e.Item.Value == "Map_scheme")
+                {
+                    Session["UserType"] = "adviser";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CommissionStructureToSchemeMapping','login');", true);
+                }
+                else if (e.Item.Value == "Commission_Receivable_Recon")
+                {
+                    Session["UserType"] = "adviser";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CommissionReconMIS','login');", true);
                 }
                 else if (e.Item.Value == "Transactions")
                 {

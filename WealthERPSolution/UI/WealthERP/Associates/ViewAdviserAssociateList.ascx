@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ViewAdviserAssociateList.ascx.cs"
     Inherits="WealthERP.Associates.ViewAdviserAssociateList" %>
-<telerik:RadScriptManager ID="scptMgr" runat="server">
-</telerik:RadScriptManager>
+<telerik:radscriptmanager id="scptMgr" runat="server">
+</telerik:radscriptmanager>
 <table width="100%">
     <tr>
         <td colspan="3" style="width: 100%;">
@@ -22,24 +22,22 @@
         </td>
     </tr>
 </table>
-<table>
-    <tr>
-        <td>
-            <asp:Panel ID="pnlAdviserAssociateList" runat="server" ScrollBars="Both" Width="80%"
+
+            <asp:Panel ID="pnlAdviserAssociateList" runat="server" ScrollBars="Both" Width="98%"
                 Height="400Px" Visible="true">
-                <table width="90%">
+                <table width="80%">
                     <tr>
                         <td>
-                            <div runat="server" id="divAdviserAssociateList" style="width: 90%;">
-                                <telerik:RadGrid ID="gvAdviserAssociateList" runat="server" AllowAutomaticDeletes="false"
-                                    PageSize="10" EnableEmbeddedSkins="false" AllowFilteringByColumn="true" AutoGenerateColumns="False"
-                                    ShowStatusBar="false" ShowFooter="false" AllowPaging="true" AllowSorting="true"
-                                    GridLines="none" AllowAutomaticInserts="false" Skin="Telerik" EnableHeaderContextMenu="true"
-                                    OnNeedDataSource="gvAdviserAssociateList_OnNeedDataSource" OnItemDataBound="gvAdviserAssociateList_ItemDataBound" >
+                            <div runat="server" id="divAdviserAssociateList" style="width: 80%;">
+                                <telerik:radgrid id="gvAdviserAssociateList" runat="server" allowautomaticdeletes="false"
+                                    pagesize="10" enableembeddedskins="false" allowfilteringbycolumn="true" autogeneratecolumns="False"
+                                    showstatusbar="false" showfooter="false" allowpaging="true" allowsorting="true"
+                                    gridlines="none" allowautomaticinserts="false" skin="Telerik" enableheadercontextmenu="true"
+                                    onneeddatasource="gvAdviserAssociateList_OnNeedDataSource" onitemdatabound="gvAdviserAssociateList_ItemDataBound">
                                     <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="ViewAssociateList"
                                         Excel-Format="ExcelML">
                                     </ExportSettings>
-                                    <MasterTableView Width="100%" DataKeyNames="AA_AdviserAssociateId,WelcomeNotePath" AllowMultiColumnSorting="True"
+                                    <MasterTableView Width="80%" DataKeyNames="AA_AdviserAssociateId,WelcomeNotePath" AllowMultiColumnSorting="True"
                                         AutoGenerateColumns="false" CommandItemDisplay="None" GroupsDefaultExpanded="false"
                                         ExpandCollapseColumn-Groupable="true" GroupLoadMode="Client" ShowGroupFooter="true">
                                         <Columns>
@@ -131,7 +129,8 @@
                                                 AllowFiltering="true" HeaderText="Is Active" UniqueName="IsActive">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="true" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
-                                               <telerik:GridTemplateColumn UniqueName="Welcome" ItemStyle-Width="100Px" AllowFiltering="false">
+                                               <telerik:GridTemplateColumn UniqueName="Welcome" ItemStyle-Width="100Px" AllowFiltering="false" HeaderText="Welcome Letter">
+                                               
                                                 <ItemTemplate>
                                                   <asp:LinkButton ID="lbtnWelcomeletter" OnClientClick="window.document.forms[0].target='_blank'; setTimeout(function(){window.document.forms[0].target='';}, 500);"
                                                    runat="server"  OnClick="lbtnWelcomeletter_OnClick" Visible='<%# Eval("WelcomeNotePath") != DBNull.Value %>' >WelcomeLetter</asp:LinkButton>
@@ -142,12 +141,10 @@
                                     <ClientSettings>
                                         <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
                                     </ClientSettings>
-                                </telerik:RadGrid>
+                                </telerik:radgrid>
                             </div>
                         </td>
                     </tr>
                 </table>
             </asp:Panel>
-        </td>
-    </tr>
-</table>
+      

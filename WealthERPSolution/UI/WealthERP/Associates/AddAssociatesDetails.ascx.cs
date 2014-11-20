@@ -1808,6 +1808,7 @@ namespace WealthERP.Associates
             {
                 associateid = int.Parse(Session["AdviserAssociateIds"].ToString());
             }
+            string redirectPath = ConfigurationManager.AppSettings["WEL_COME_LETER_QUERY_STRING"].ToString();
             if (!string.IsNullOrEmpty(associatesVo.WelcomeNotePath))
             {
                 string targetPath = ConfigurationManager.AppSettings["Welcome_Note_PATH"].ToString();
@@ -1815,7 +1816,7 @@ namespace WealthERP.Associates
             }
             if (string.IsNullOrEmpty(associatesVo.WelcomeNotePath))
             {
-                Response.Redirect("~/Reports/Display.aspx?welcomeNote=1&associateId=" + associateid);
+                Response.Redirect(redirectPath + associateid);
                 //btnPreviewSend.PostBackUrl = "~/Reports/Display.aspx?welcomeNote=1&associateId=" + associateId.ToString();
             }
         }
