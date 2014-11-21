@@ -28,6 +28,7 @@ namespace VoOnlineOrderManagemnet
         public double Amount { get; set; }
         public int BankAccid { get; set; }
         public int applicationNo { get; set; }
+        public string Remarks { get; set; }
 
     }
 }

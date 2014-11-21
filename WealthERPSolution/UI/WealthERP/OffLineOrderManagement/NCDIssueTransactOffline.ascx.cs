@@ -1243,6 +1243,7 @@ namespace WealthERP.OffLineOrderManagement
             dt.Columns.Add("DematId");
             dt.Columns.Add("ChequeDate");
             dt.Columns.Add("ChequeNo");
+            dt.Columns.Add("Remarks");
 
             int rowNo = 0;
             int tableRow = 0;
@@ -1271,6 +1272,7 @@ namespace WealthERP.OffLineOrderManagement
                 OnlineBondVo.ApplicationNumber = txtApplicationNo.Text;
                 OnlineBondVo.PaymentMode = ddlPaymentMode.SelectedValue;
                 OnlineBondVo.BankBranchName = txtBranchName.Text;
+                OnlineBondVo.Remarks = txtRemarks.Text;
                 if (ddlPaymentMode.SelectedValue == "CQ")
                 {
                     OnlineBondVo.ChequeNumber = txtPaymentNumber.Text;
@@ -1307,6 +1309,7 @@ namespace WealthERP.OffLineOrderManagement
                         dt.Rows[tableRow]["BankName"] = ddlBankName.SelectedItem.Text;
                         dt.Rows[tableRow]["BranchName"] = OnlineBondVo.BankBranchName;
                         dt.Rows[tableRow]["DematId"] = dematAccountId;
+                        dt.Rows[tableRow]["Remarks"] = OnlineBondVo.Remarks;
                         if (ddlPaymentMode.SelectedValue == "CQ")
                         {
                             dt.Rows[tableRow]["ChequeDate"] = OnlineBondVo.PaymentDate.ToString("yyyy/MM/dd");
@@ -1536,6 +1539,7 @@ namespace WealthERP.OffLineOrderManagement
             dt.Columns.Add("DematId");
             dt.Columns.Add("ChequeDate");
             dt.Columns.Add("ChequeNo");
+            dt.Columns.Add("Remarks");
 
             int rowNo = 0;
             int tableRow = 0;
@@ -1564,6 +1568,7 @@ namespace WealthERP.OffLineOrderManagement
                 OnlineBondVo.ApplicationNumber = txtApplicationNo.Text;
                 OnlineBondVo.PaymentMode = ddlPaymentMode.SelectedValue;
                 OnlineBondVo.BankBranchName = txtBranchName.Text;
+                OnlineBondVo.Remarks = txtRemarks.Text;
                 if (ddlPaymentMode.SelectedValue == "CQ")
                 {
                     OnlineBondVo.ChequeNumber = txtPaymentNumber.Text;
@@ -1602,6 +1607,7 @@ namespace WealthERP.OffLineOrderManagement
                         dt.Rows[tableRow]["DematId"] = dematAccountId;
                         dt.Rows[tableRow]["ChequeDate"] = OnlineBondVo.PaymentDate.ToString("yyyy/MM/dd");
                         dt.Rows[tableRow]["ChequeNo"] = OnlineBondVo.ChequeNumber;
+                        dt.Rows[tableRow]["Remarks"] = OnlineBondVo.Remarks;
                         GridFooterItem footerItemAmount = (GridFooterItem)gvCommMgmt.MasterTableView.GetItems(GridItemType.Footer)[0];
                         Label lblSum = (Label)footerItemAmount.FindControl("lblAmount");
                         txtAmount.Text = OnlineBondVo.Amount.ToString();
@@ -1796,6 +1802,7 @@ namespace WealthERP.OffLineOrderManagement
             pnlNCDOOrder.Visible = false;
             pnlIssuList.Visible = false;
             pnlNCDTransact.Visible = false;
+            txtRemarks.Text = "";
         }
 
         public DataTable LoadNomineesJointHolder(string type)

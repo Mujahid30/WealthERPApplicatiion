@@ -47,7 +47,7 @@ namespace VoOps
         private string m_PanNo;
         private string m_ARNNo;
         private string m_DivOption;
-
+        private string m_Remarks;
         public int AssociateId { get; set; }
         public int BankBranchId { get; set; }
         #endregion
@@ -174,6 +174,11 @@ namespace VoOps
         {
             get { return m_Country; }
             set { m_Country = value; }
+        }
+        public string Remarks
+        {
+            get { return m_Remarks; }
+            set { m_Remarks = value; }
         }
         public string Pincode
         {

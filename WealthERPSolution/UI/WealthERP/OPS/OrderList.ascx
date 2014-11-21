@@ -331,7 +331,8 @@
                         <Columns>
                             <telerik:GridTemplateColumn ItemStyle-Width="120px" AllowFiltering="false">
                                 <ItemTemplate>
-                                    <asp:DropDownList ID="ddlMenu1" runat="server" CssClass="cmbField" Width="100px" OnSelectedIndexChanged="ddlMenu_SelectedIndexChanged" AutoPostBack="true">
+                                    <asp:DropDownList ID="ddlMenu1" runat="server" CssClass="cmbField" Width="100px"
+                                        OnSelectedIndexChanged="ddlMenu_SelectedIndexChanged" AutoPostBack="true">
                                         <asp:ListItem Text="Select" Value="0"></asp:ListItem>
                                         <asp:ListItem Text="View" Value="View"></asp:ListItem>
                                         <asp:ListItem Text="Edit" Value="Edit"></asp:ListItem>
@@ -545,6 +546,11 @@
                             <telerik:GridBoundColumn DataField="UserType" AllowFiltering="true" HeaderText="Type"
                                 Visible="true" UniqueName="UserType" SortExpression="UserType" ShowFilterIcon="false"
                                 CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="120px">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="CO_Remarks" AllowFiltering="true" HeaderText="Remarks"
+                                UniqueName="CO_Remarks" HeaderStyle-Width="160px" CurrentFilterFunction="Contains"
+                                ShowFilterIcon="false" SortExpression="CO_Remarks">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <%--<telerik:GridBoundColumn DataField="IS_SchemeName" AllowFiltering="false" HeaderText="Scheme Name"

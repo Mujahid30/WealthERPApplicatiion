@@ -259,6 +259,7 @@ namespace WealthERP.OPS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblPansearch;
+        protected global::System.Web.UI.WebControls.Label lblRemarks;
         
         /// <summary>
         /// txtPansearch control.
@@ -2850,5 +2851,6 @@ namespace WealthERP.OPS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidAmt;
+        protected global::System.Web.UI.WebControls.TextBox txtRemarks;
     }
 }

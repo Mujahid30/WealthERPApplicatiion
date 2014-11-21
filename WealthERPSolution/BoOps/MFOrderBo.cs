@@ -67,7 +67,7 @@ namespace BoOps
 
         public List<int> CreateOffLineMFSwitchOrderDetails(List<MFOrderVo> lsonlinemforder, int userId, int customerId)
         {
-            
+
             DataTable dtSwitchOrder = new DataTable();
             List<int> OrderIds = new List<int>();
 
@@ -222,7 +222,7 @@ namespace BoOps
         public DataSet GetControlDetails(int scheme, string folio)
         {
             DataSet ds = null;
-           
+
             try
             {
                 ds = mfOrderDao.GetControlDetails(scheme, folio);

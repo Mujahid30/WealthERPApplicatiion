@@ -452,8 +452,8 @@ namespace WealthERP.OPS
                         ddlBankName.SelectedValue = dr["CB_CustBankAccId"].ToString();
                     else
                         orderVo.CustBankAccId = 0;
-                    if (ddlBankName.SelectedValue != "Select")
-                        BankBranches(Convert.ToInt32(ddlBankName.SelectedValue));
+                    //if (ddlBankName.SelectedValue != "Select")
+                    //    BankBranches(Convert.ToInt32(ddlBankName.SelectedValue));
 
                     if (!string.IsNullOrEmpty(dr["BranchName"].ToString()))
                         ddlBranch.SelectedValue = dr["BranchName"].ToString();
@@ -507,6 +507,10 @@ namespace WealthERP.OPS
                     txtPeriod.Text = dr["CMFSS_TotalInstallment"].ToString();
                     txtSystematicdates.Text = dr["CMFSS_SystematicDate"].ToString();
                     ddlPeriodSelection.SelectedValue = dr["XF_FrequencyCode"].ToString();
+                    if (!string.IsNullOrEmpty(dr["CO_Remarks"].ToString()))
+                        txtRemarks.Text = dr["CO_Remarks"].ToString();
+                    else
+                        txtRemarks.Text = "";
 
                 }
             }
@@ -525,13 +529,16 @@ namespace WealthERP.OPS
             else if (type == "View")
             {
                 enableMent = false;
-
+                lblRemarks.Enabled = enableMent;
+                txtRemarks.Enabled = enableMent;
 
             }
             else if (type == "Edit")
             {
                 enableMent = true;
                 Order_OrderDetails_Sections_ReadOnly(false);
+                lblRemarks.Enabled = true;
+                txtRemarks.Enabled = true;
             }
 
             pnl_OrderSection.Enabled = enableMent;
@@ -539,6 +546,7 @@ namespace WealthERP.OPS
             pnl_BUY_ABY_SIP_PaymentSection.Enabled = enableMent;
             pnl_SIP_PaymentSection.Enabled = enableMent;
             pnl_SEL_PaymentSection.Enabled = enableMent;
+            
 
 
         }
@@ -3024,7 +3032,7 @@ namespace WealthERP.OPS
             lblGetCountry.Text = "";
 
             txtNewAmount.Text = "";
-
+            txtRemarks.Text = "";
 
 
 
@@ -4147,6 +4155,10 @@ namespace WealthERP.OPS
             else
                 mforderVo.Pincode = "";
             mforderVo.Country = ddlCorrAdrCountry.SelectedValue;
+            if (!string.IsNullOrEmpty(txtRemarks.Text.ToString().Trim()))
+                mforderVo.Remarks = txtRemarks.Text;
+            else
+                mforderVo.Remarks = "";
             //if (ddltransType.SelectedValue == "SIP")
             //{
             if (!string.IsNullOrEmpty((ddlFrequencySIP.SelectedValue).ToString().Trim()))
@@ -4782,6 +4794,10 @@ namespace WealthERP.OPS
                 systematicSetupVo.CeaseDate = DateTime.Parse(txtCeaseDate.Text.ToString());
             else
                 systematicSetupVo.CeaseDate = DateTime.MinValue;
+            if (!string.IsNullOrEmpty(txtRemarks.Text.ToString().Trim()))
+                mforderVo.Remarks = txtRemarks.Text;
+            else
+                mforderVo.Remarks = "";
 
         }
 

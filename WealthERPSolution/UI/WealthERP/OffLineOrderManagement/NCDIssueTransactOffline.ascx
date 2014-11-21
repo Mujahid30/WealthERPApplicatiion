@@ -1129,7 +1129,7 @@
     <asp:Label ID="lb1AvailbleCat" runat="server" CssClass="FieldName" Visible="false"></asp:Label></div>
 <%--</div>--%>
 <table>
-    <tr class="spaceUnder" id="trTermsCondition"  runat="server" visible="false">
+    <tr class="spaceUnder" id="trTermsCondition" runat="server" visible="false">
         <td align="left" style="width: 35%" visible="false">
             <asp:CheckBox ID="chkTermsCondition" runat="server" Font-Bold="True" Font-Names="Shruti"
                 Enabled="false" Checked="false" ForeColor="#145765" Text="" ToolTip="Click 'Terms & Conditions' to proceed further"
@@ -1138,7 +1138,7 @@
                 runat="server" CssClass="txtField" OnClick="lnkTermsCondition_Click" ToolTip="Click here to accept terms & conditions"></asp:LinkButton>
             <span id="Span9" class="spnRequiredField">*</span>
         </td>
-        <td colspan="3" style="width: 85%" align="left">
+        <td colspan="3" style="width: 85%" align="left" visible="false">
             <asp:CustomValidator ID="CustomValidator1" runat="server" ErrorMessage="Please read terms & conditions"
                 ClientValidationFunction="ValidateTermsConditions" EnableClientScript="true"
                 OnServerValidate="TermsConditionCheckBox" Display="Dynamic" ValidationGroup="btnConfirmOrder"
@@ -1157,15 +1157,28 @@
         </td>
     </tr>
 </table>
-<tr>
-    <td id="tdsubmit" runat="server" align="left" style="width: 60%">
-        <asp:Label ID="Label3" runat="server" Text="Confirm Your Order :" CssClass="FieldName"></asp:Label>
-        <asp:Button ID="btnConfirmOrder" runat="server" Text="Submit" OnClientClick="return  PreventClicks(); Validate(); "
-            OnClick="btnConfirmOrder_Click" CssClass="PCGButton" ValidationGroup="btnConfirmOrder" />
-        <asp:Button ID="btnAddMore" runat="server" Text="Save & AddMore" CssClass="PCGMediumButton"
-            ValidationGroup="btnConfirmOrder" OnClick="btnAddMore_Click" OnClientClick="return  PreventClicks(); Validate(); " />
-    </td>
-</tr>
+<table>
+    <tr>
+        <td class="leftField">
+            <asp:Label ID="lblRemarks" runat="server" Text="Remarks:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td class="rightField">
+            <asp:TextBox ID="txtRemarks" Width="400px" TextMode="MultiLine" MaxLength="300" Height="40px"
+                onkeydown="return (event.keyCode!=13);" runat="server" CssClass="txtField"></asp:TextBox>
+        </td>
+    </tr>
+    <tr>
+        <td id="tdsubmit" runat="server" class="leftField">
+            <asp:Label ID="Label3" runat="server" Text="Confirm Your Order :" CssClass="FieldName"></asp:Label>
+            <asp:Button ID="btnConfirmOrder" runat="server" Text="Submit" OnClientClick="return  PreventClicks(); Validate(); "
+                OnClick="btnConfirmOrder_Click" CssClass="PCGButton" ValidationGroup="btnConfirmOrder" />
+        </td>
+        <td id="tdAddMore" runat="server" class="rightField">
+            <asp:Button ID="btnAddMore" runat="server" Text="Save & AddMore" CssClass="PCGMediumButton"
+                ValidationGroup="btnConfirmOrder" OnClick="btnAddMore_Click" OnClientClick="return  PreventClicks(); Validate(); " />
+        </td>
+    </tr>
+</table>
 <table>
     <tr runat="server" visible="false">
         <%--<td id="tdsubmit" runat="server">

@@ -8,7 +8,8 @@
         <asp:ServiceReference Path="~/CustomerPortfolio/AutoComplete.asmx" />
     </Services>
 </asp:ScriptManager>
-<script type = "text/javascript">
+
+<script type="text/javascript">
     function Confirm() {
         var confirm_value = document.createElement("INPUT");
         confirm_value.type = "hidden";
@@ -20,10 +21,11 @@
         }
         document.forms[0].appendChild(confirm_value);
     }
-    </script>
+</script>
+
 <script type="text/javascript" language="javascript">
 
-    
+
     function GetCustomerId(source, eventArgs) {
         isItemSelected = true;
         //         document.getElementById("lblgetPan").innerHTML = "";
@@ -291,7 +293,7 @@
 </script>
 
 <asp:UpdatePanel ID="UpdatePanel1" UpdateMode="Always" runat="server">
-   <%-- <Triggers>
+    <%-- <Triggers>
         <asp:AsyncPostBackTrigger ControlID="btnSubmit" />
     </Triggers>--%>
     <ContentTemplate>
@@ -569,13 +571,13 @@
                             WatermarkText="Enter few chars of Sub Broker Code" runat="server" EnableViewState="false">
                         </cc1:TextBoxWatermarkExtender>
                         <ajaxToolkit:AutoCompleteExtender ID="AutoCompleteExtender2" runat="server" TargetControlID="txtAssociateSearch"
-                            ServiceMethod="GetCustomerName" ServicePath="~/CustomerPortfolio/AutoComplete.asmx" OnClientItemSelected="GeAgentId"
-                            MinimumPrefixLength="1" EnableCaching="False" CompletionSetCount="5" CompletionInterval="100"
-                            CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
-                            CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem" 
-                            UseContextKey="True" DelimiterCharacters="" Enabled="True"  ShowOnlyCurrentWordInCompletionListItem="true"/>
+                            ServiceMethod="GetCustomerName" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
+                            OnClientItemSelected="GeAgentId" MinimumPrefixLength="1" EnableCaching="False"
+                            CompletionSetCount="5" CompletionInterval="100" CompletionListCssClass="AutoCompleteExtender_CompletionList"
+                            CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem" CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
+                            UseContextKey="True" DelimiterCharacters="" Enabled="True" ShowOnlyCurrentWordInCompletionListItem="true" />
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtAssociateSearch"
-                            ErrorMessage="<br />Please Enter a Sub Broker Code" Display="Dynamic" runat="server" 
+                            ErrorMessage="<br />Please Enter a Sub Broker Code" Display="Dynamic" runat="server"
                             CssClass="rfvPCG" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
                     </td>
                     <td align="right">
@@ -671,8 +673,7 @@
                             Operator="NotEqual" ValidationGroup="MFSubmit" ValueToCompare="Select"></asp:CompareValidator>
                     </td>
                     <td align="right" style="width: 14.5%">
-                        <asp:Label ID="lblReceivedDate" runat="server" Text="App. Recv. Date:"
-                            CssClass="FieldName"></asp:Label>
+                        <asp:Label ID="lblReceivedDate" runat="server" Text="App. Recv. Date:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
                         <telerik:RadDatePicker ID="txtReceivedDate" CssClass="txtField" runat="server" Culture="English (United States)"
@@ -727,7 +728,7 @@
                     </td>
                     <td>
                         <asp:DropDownList ID="ddlAMCList" runat="server" CssClass="cmbLongField" AutoPostBack="true"
-                            OnSelectedIndexChanged="ddlAMCList_SelectedIndexChanged"  >
+                            OnSelectedIndexChanged="ddlAMCList_SelectedIndexChanged">
                         </asp:DropDownList>
                         <span id="spnAMC" runat="server" class="spnRequiredField">*</span>
                         <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="ddlAMCList"
@@ -735,7 +736,8 @@
                             Operator="NotEqual" ValidationGroup="MFSubmit" ValueToCompare="Select"></asp:CompareValidator>
                     </td>
                     <td align="right">
-                        <asp:Label ID="lblCategory" runat="server" Text="Category:" CssClass="FieldName" Visible="false"></asp:Label>
+                        <asp:Label ID="lblCategory" runat="server" Text="Category:" CssClass="FieldName"
+                            Visible="false"></asp:Label>
                     </td>
                     <td>
                         <asp:DropDownList ID="ddlCategory" runat="server" CssClass="cmbLongField" AutoPostBack="true"
@@ -759,8 +761,7 @@
                             TargetControlID="txtSearchScheme" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
                             ServiceMethod="GetSchemeName" MinimumPrefixLength="1" EnableCaching="false" CompletionSetCount="5"
                             CompletionInterval="100" CompletionListCssClass="AutoCompleteExtender_CompletionList"
-                            CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem" 
-                            CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
+                            CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem" CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
                             UseContextKey="true" OnClientItemSelected="GetSchemeCode" DelimiterCharacters="" />
                         <span id="Span9" class="spnRequiredField" runat="server">*<br />
                         </span>
@@ -768,7 +769,7 @@
                             CssClass="rfvPCG" ErrorMessage="<br />Please select Scheme" Display="Dynamic"
                             runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
                     </td>
-                     <td align="right">
+                    <td align="right">
                         <asp:Label ID="lblDivType" runat="server" Text="Dividend Type:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
@@ -785,7 +786,7 @@
                     </td>
                 </tr>
                 <tr>
-                   <%-- <td align="right">
+                    <%-- <td align="right">
                         <asp:Label ID="lblDivType" runat="server" Text="Dividend Type:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
@@ -804,7 +805,7 @@
                 <tr class="spaceUnder">
                     <%-- <td colspan="2">
                     </td>--%>
-                    <td  align="center" style="vertical-align: top; " colspan="5">
+                    <td align="center" style="vertical-align: top;" colspan="5">
                         <table width="70%" class="SchemeInfoTable">
                             <tr class="SchemeInfoTable">
                                 <td align="left" style="vertical-align: top;">
@@ -1666,14 +1667,26 @@
             </tr>
         </table>
     </ContentTemplate>
-     <Triggers>
+    <Triggers>
     </Triggers>
 </asp:UpdatePanel>
 <table runat="server">
+    <tr id="trRemarks" runat="server">
+        <td>
+            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;
+        </td>
+        <td class="leftField">
+            <asp:Label ID="lblRemarks" runat="server" Text="Remarks:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td class="rightField">
+            <asp:TextBox ID="txtRemarks" Width="250px" TextMode="MultiLine" MaxLength="300" Height="65px"
+                onkeydown="return (event.keyCode!=13);" runat="server" CssClass="txtField"></asp:TextBox>
+        </td>
+    </tr>
     <tr id="trBtnSubmit" runat="server">
         <td align="left" colspan="3">
             <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="PCGButton" ValidationGroup="MFSubmit"
-               OnClick="btnSubmit_Click" />
+                OnClick="btnSubmit_Click" />
             <asp:Button ID="btnAddMore" runat="server" Text="Save & Add More" CssClass="PCGMediumButton"
                 ValidationGroup="MFSubmit" OnClick="btnAddMore_Click" />
             <asp:Button ID="btnUpdate" runat="server" Text="Update" CssClass="PCGButton" ValidationGroup="MFSubmit"

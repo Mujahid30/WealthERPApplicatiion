@@ -293,7 +293,10 @@ namespace DaoOps
                     db.AddInParameter(createMFOrderTrackingCmd, "@DivOption", DbType.String, mforderVo.DivOption);
                 else
                     db.AddInParameter(createMFOrderTrackingCmd, "@DivOption", DbType.String, mforderVo.DivOption);
-
+                if (!string.IsNullOrEmpty(mforderVo.Remarks.ToString().Trim()))
+                    db.AddInParameter(createMFOrderTrackingCmd, "@CO_Remarks", DbType.String, mforderVo.Remarks);
+                else
+                    db.AddInParameter(createMFOrderTrackingCmd, "@CO_Remarks", DbType.String, DBNull.Value);
              
                 if (db.ExecuteNonQuery(createMFOrderTrackingCmd) != 0)
                 {
@@ -497,6 +500,10 @@ namespace DaoOps
                     db.AddInParameter(UpdateMFOrderTrackingCmd, "@CeaseDate", DbType.DateTime, systematicSetupVo.CeaseDate);
                 else
                     db.AddInParameter(UpdateMFOrderTrackingCmd, "@CeaseDate", DbType.DateTime, DBNull.Value);
+                if (mforderVo.Remarks != null && mforderVo.Remarks != "")
+                    db.AddInParameter(UpdateMFOrderTrackingCmd, "@CO_Remarks", DbType.String, mforderVo.Remarks);
+                else
+                    db.AddInParameter(UpdateMFOrderTrackingCmd, "@CO_Remarks", DbType.String, DBNull.Value);
 
                 db.ExecuteNonQuery(UpdateMFOrderTrackingCmd);
             }
