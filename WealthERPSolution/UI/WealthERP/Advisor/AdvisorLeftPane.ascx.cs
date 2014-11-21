@@ -553,9 +553,13 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ManageLookups','login');", true);
                 }
-                else if (e.Item.Value == "View_Payable_Structure")
+                else if (e.Item.Value == "View_Associate_Payable_Rule")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('PayableStructureView','login');", true);
+                }
+                else if (e.Item.Value == "SIP_Offline_Book")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OfflineCustomerSIPOrderBook','login');", true);
                 }
                 else if (e.Item.Value == "SubBroker_Code_Cleansing")
                 {
@@ -658,7 +662,7 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "Set Theme")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OfflineCustomerSIPOrderBook','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('SetTheme','login');", true);
                 }
                 else if (e.Item.Value == "User_Role")
                 {
@@ -1811,7 +1815,11 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ManageLookups','login');", true);
                 }
-                else if (e.Item.Value == "View_Payable_Structure")
+                else if (e.Item.Value == "SIP_Offline_Book")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OfflineCustomerSIPOrderBook','login');", true);
+                }
+                else if (e.Item.Value == "View_Associate_Payable_Rule")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('PayableStructureView','login');", true);
                 }
@@ -3538,7 +3546,7 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('SalesDashBoard','login');", true);
                 }
-                else if (e.Item.Value == "View_Payable_Structure")
+                else if (e.Item.Value == "View_Associate_Payable_Rule")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('PayableStructureView','login');", true);
                 }
