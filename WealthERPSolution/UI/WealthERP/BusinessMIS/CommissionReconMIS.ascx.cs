@@ -21,6 +21,7 @@ using System.Configuration;
 using BOAssociates;
 using BoCommisionManagement;
 using BoUser;
+using VOAssociates;
 
 
 
@@ -35,9 +36,10 @@ namespace WealthERP.BusinessMIS
         AdvisorMISBo adviserMFMIS = new AdvisorMISBo();
         AssociatesBo associatesBo = new AssociatesBo();
         CommisionReceivableBo commisionReceivableBo = new CommisionReceivableBo();
-
+        AssociatesUserHeirarchyVo associateuserheirarchyVo = new AssociatesUserHeirarchyVo();
         string categoryCode = string.Empty;
         int amcCode = 0;
+        string AgentCode = "0";
 
 
         protected void Page_load(object sender, EventArgs e)
@@ -53,10 +55,18 @@ namespace WealthERP.BusinessMIS
                 BindMonthsAndYear();
                 GetCommisionTypes();
                 int day = 1;
-                //txtFrom.SelectedDate = DateTime.Parse(day.ToString()+'/'+DateTime.Today.Month.ToString() + "/" + DateTime.Today.Year.ToString());
-                //txtTo.SelectedDate = DateTime.Now;
                 btnExportFilteredData.Visible = false;
+                associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
+                if (associateuserheirarchyVo!=null && associateuserheirarchyVo.AgentCode != null)
+                {
+                    AgentCode = associateuserheirarchyVo.AgentCode.ToString();
+                    ddlSearchType.Items.FindByText("Receivables").Enabled = false;
+                    ddlSelectMode.Items.FindByText("Both").Enabled = false;
+                    ddlSelectMode.Items.FindByText("Online").Enabled = false;
+                }  
             }
+             
+            
         }
         private void BindMonthsAndYear()
         {
@@ -302,7 +312,7 @@ namespace WealthERP.BusinessMIS
             //ds.ReadXml(Server.MapPath(@"\Sample.xml"));
             dvMfMIS.Visible = false;
             dvNCDIPOMIS.Visible = false;
-            ds = adviserMFMIS.GetCommissionReceivableRecon(ddlProduct.SelectedValue, int.Parse(ddlSelectMode.SelectedValue), advisorVo.advisorId, int.Parse(hdnschemeId.Value), int.Parse(hdnFromDate.Value), int.Parse(hdnToDate.Value), hdnCategory.Value, null, ddlCommType.SelectedValue, int.Parse(hdnSBbrokercode.Value), int.Parse(hdnIssueId.Value), Convert.ToInt32(ddlSearchType.SelectedValue),ddlOrderStatus.SelectedValue);
+            ds = adviserMFMIS.GetCommissionReceivableRecon(ddlProduct.SelectedValue, int.Parse(ddlSelectMode.SelectedValue), advisorVo.advisorId, int.Parse(hdnschemeId.Value), int.Parse(hdnFromDate.Value), int.Parse(hdnToDate.Value), hdnCategory.Value, null, ddlCommType.SelectedValue, int.Parse(hdnSBbrokercode.Value), int.Parse(hdnIssueId.Value), Convert.ToInt32(ddlSearchType.SelectedValue),ddlOrderStatus.SelectedValue,AgentCode);
             if (ds.Tables[0] != null)
             {
                 if (ddlProduct.SelectedValue.ToString() == "MF")
