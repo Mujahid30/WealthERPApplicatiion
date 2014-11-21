@@ -83,7 +83,7 @@ namespace WealthERP.OffLineOrderManagement
         BoDematAccount boDematAccount = new BoDematAccount();
         DataTable dtOnlineIPOIssueList;
         protected void Page_Load(object sender, EventArgs e)
-            {
+        {
 
             SessionBo.CheckSession();
 
@@ -1289,7 +1289,7 @@ namespace WealthERP.OffLineOrderManagement
                     //LoadJScript();
                     CreateIPOOrder();
                     ControlsVisblity(true);
-                 
+
                 }
             }
 
@@ -1334,6 +1334,7 @@ namespace WealthERP.OffLineOrderManagement
             dtIPOBidTransactionDettails.Columns.Add("DematId");
             dtIPOBidTransactionDettails.Columns.Add("ChequeDate");
             dtIPOBidTransactionDettails.Columns.Add("ChequeNo");
+            dtIPOBidTransactionDettails.Columns.Add("Remarks");
             DataRow drIPOBid;
             onlineIPOOrderVo.CustomerId = int.Parse(txtCustomerId.Value);
             onlineIPOOrderVo.IssueId = issueId;
@@ -1423,11 +1424,11 @@ namespace WealthERP.OffLineOrderManagement
                     if (!string.IsNullOrEmpty(txtPaymentNumber.Text.Trim()))
                         drIPOBid["ChequeNo"] = txtPaymentNumber.Text.Trim();
                     if (!string.IsNullOrEmpty(txtPaymentInstDate.SelectedDate.ToString()))
-                        drIPOBid["ChequeDate"] =txtPaymentInstDate.SelectedDate.Value.ToString("yyyy/MM/dd");
+                        drIPOBid["ChequeDate"] = txtPaymentInstDate.SelectedDate.Value.ToString("yyyy/MM/dd");
 
                 }
                 drIPOBid["DematId"] = dematAccountId;
-
+                drIPOBid["Remarks"] = txtRemarks.Text.Trim();
                 dtIPOBidTransactionDettails.Rows.Add(drIPOBid);
                 if (radgridRowNo < RadGridIPOBid.MasterTableView.Items.Count)
                     radgridRowNo++;
@@ -1472,7 +1473,7 @@ namespace WealthERP.OffLineOrderManagement
             userMessage = CreateUserMessage(orderId, accountDebitStatus, isCutOffTimeOver);
 
             ShowMessage(userMessage);
-            
+
 
         }
 
@@ -1494,10 +1495,10 @@ namespace WealthERP.OffLineOrderManagement
             return userMessage;
 
         }
-    
+
         public void btnAddMore_Click(object sender, EventArgs e)
         {
-           
+
             string errorMsg = string.Empty;
             bool isBidsVallid = false;
             Page.Validate();
@@ -1519,7 +1520,7 @@ namespace WealthERP.OffLineOrderManagement
                     ClearAllFields();
                     btnConfirmOrder.Visible = true;
 
-                    
+
                 }
 
 
@@ -1534,12 +1535,12 @@ namespace WealthERP.OffLineOrderManagement
                 script.RegisterStartupScript(this.GetType(), "HideLabel",
                 "<script type='text/javascript'>HideLabel('" + tblMessage.ClientID + "')</script>");
             }
-        } 
+        }
         public void ClearAllFields()
         {
-            txtCustomerName.Text= "";
+            txtCustomerName.Text = "";
             ddlsearch.SelectedIndex = -1;
-            txtCustomerName.Text =null;
+            txtCustomerName.Text = null;
             txtAssociateSearch.Text = "";
             lblgetPan.Text = "";
             lblGetBranch.Text = "";
@@ -1557,8 +1558,9 @@ namespace WealthERP.OffLineOrderManagement
             txtASBANO.Text = "";
             pnlIPOControlContainer.Visible = false;
             pnlJointHolderNominee.Visible = false;
-            
-           
+            txtRemarks.Text = "";
+
+
         }
         protected void lnkTermsCondition_Click(object sender, EventArgs e)
         {

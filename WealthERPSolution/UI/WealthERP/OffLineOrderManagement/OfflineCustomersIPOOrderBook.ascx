@@ -314,6 +314,11 @@
                                             HeaderStyle-Width="160px" HeaderText="User Type" UniqueName="UserType">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn DataField="CO_Remarks" AllowFiltering="true" HeaderText="Remarks"
+                                            UniqueName="CO_Remarks" HeaderStyle-Width="160px" CurrentFilterFunction="Contains"
+                                            ShowFilterIcon="false" SortExpression="CO_Remarks">
+                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
                                         <telerik:GridEditCommandColumn Visible="true" HeaderStyle-Width="60px" UniqueName="MarkAsReject"
                                             EditText="Cancel" CancelText="Cancel" UpdateText="OK" HeaderText="Cancel">
                                         </telerik:GridEditCommandColumn>

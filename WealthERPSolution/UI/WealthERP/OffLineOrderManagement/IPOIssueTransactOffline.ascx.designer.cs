@@ -75,6 +75,7 @@ namespace WealthERP.OffLineOrderManagement {
         protected global::System.Web.UI.WebControls.Panel pnlJointHolderNominee;
         protected global::Telerik.Web.UI.RadGrid gvAssociate;
         protected global::Telerik.Web.UI.RadWindow RadDepository;
+        protected global::System.Web.UI.WebControls.TextBox txtRemarks;
         
         /// <summary>
         /// trSumbitSuccess control.

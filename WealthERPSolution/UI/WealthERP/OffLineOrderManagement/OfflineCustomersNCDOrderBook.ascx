@@ -339,6 +339,11 @@
                                             UniqueName="CEDA_DPClientId">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn DataField="CO_Remarks" AllowFiltering="true" HeaderText="Remarks"
+                                            UniqueName="CO_Remarks" HeaderStyle-Width="160px" CurrentFilterFunction="Contains"
+                                            ShowFilterIcon="false" SortExpression="CO_Remarks">
+                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
                                         <%--  <telerik:GridBoundColumn DataField="WTS_TransactionStatusCode" AllowFiltering="false"
                                             HeaderText="Cancel" HeaderStyle-Width="70px" UniqueName="WTS_TransactionStatusCode"
                                             SortExpression="WTS_TransactionStatusCode" ShowFilterIcon="false" CurrentFilterFunction="Contains"

@@ -8,11 +8,13 @@
         <asp:ServiceReference Path="~/CustomerPortfolio/AutoComplete.asmx" />
     </Services>
 </asp:ScriptManager>
+
 <script type="text/javascript">
     function setCustomPosition(sender, args) {
         sender.moveTo(sender.get_left(), sender.get_top());
     }
 </script>
+
 <script type="text/javascript">
     function HideLabel(tblMessage) {
         setTimeout("HideLabelHelper('" + tblMessage + "');", 50000);
@@ -983,18 +985,35 @@
         </table>
     </div>
 </asp:Panel>
-<tr>
-    <td align="left" style="width: 10%">
-        <asp:Button ID="btnConfirmOrder" runat="server" Text="Confirm Order" OnClick="btnConfirmOrder_Click"
-            CssClass="PCGMediumButton" ValidationGroup="btnConfirmOrder, btnTC" OnClientClick="return  PreventClicks(); Validate(); " />
-        <asp:Button ID="btnAddMore" runat="server" Text="Save & AddMore" CssClass="PCGMediumButton"
-            ValidationGroup="btnConfirmOrder" onblur="HideLabel()" OnClientClick="return  PreventClicks();"
-            OnClick="btnAddMore_Click" />
-    </td>
-</tr>
+<table>
+    <tr>
+        <td>
+            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+        </td>
+        <td class="leftField">
+            <asp:Label ID="lblRemarks" runat="server" Text="Remarks:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td class="rightField">
+            <asp:TextBox ID="txtRemarks" Width="400px" TextMode="MultiLine" MaxLength="300" Height="40px"
+                onkeydown="return (event.keyCode!=13);" runat="server" CssClass="txtField"></asp:TextBox>
+        </td>
+    </tr>
+    <tr>
+        <td class="leftField">
+            <asp:Button ID="btnConfirmOrder" runat="server" Text="Confirm Order" OnClick="btnConfirmOrder_Click"
+                CssClass="PCGMediumButton" ValidationGroup="btnConfirmOrder, btnTC" OnClientClick="return  PreventClicks(); Validate(); " />
+        </td>
+        <td class="rightField">
+            <asp:Button ID="btnAddMore" runat="server" Text="Save & AddMore" CssClass="PCGMediumButton"
+                ValidationGroup="btnConfirmOrder" onblur="HideLabel()" OnClientClick="return  PreventClicks();"
+                OnClick="btnAddMore_Click" />
+        </td>
+    </tr>
+</table>
 <telerik:RadWindow ID="rwTermsCondition" runat="server" VisibleOnPageLoad="false"
     Width="1000px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="Move, Resize,Close"
-    Title="Terms & Conditions" EnableShadow="true" OnClientShow="setCustomPosition" Top="10"  Left="20">
+    Title="Terms & Conditions" EnableShadow="true" OnClientShow="setCustomPosition"
+    Top="10" Left="20">
     <ContentTemplate>
         <div style="padding: 0px; width: 100%">
             <table width="100%" cellpadding="0" cellpadding="0">
@@ -1037,7 +1056,8 @@
 </telerik:RadWindowManager>
 <telerik:RadWindow ID="rwDematDetails" runat="server" VisibleOnPageLoad="false" Height="220px"
     Width="800px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="Resize, Close, Move"
-    Title="Select Demat " RestrictionZoneID="radWindowZone"  OnClientShow="setCustomPosition" Top="10"  Left="20">
+    Title="Select Demat " RestrictionZoneID="radWindowZone" OnClientShow="setCustomPosition"
+    Top="10" Left="20">
     <ContentTemplate>
         <table>
             <tr>
