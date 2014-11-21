@@ -45,8 +45,9 @@ namespace WealthERP.OPS
         string AgentCode;
         string UserTitle;
         string customerType = string.Empty;
-        Hashtable mfParameters ;
+        Hashtable mfParameters;
         int btnConunt = 1;
+        int systematicId = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
@@ -54,7 +55,7 @@ namespace WealthERP.OPS
             userType = Session[SessionContents.CurrentUserRole].ToString();
             associatesVo = (AssociatesVO)Session["associatesVo"];
             userVo = (UserVo)Session["userVo"];
-           
+
             //else
             //{
             //    Session.Remove("mfParametersHT");
@@ -81,7 +82,7 @@ namespace WealthERP.OPS
             else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "associates")
             {
                 userType = "associates";
-                if (UserTitle =="SubBroker")
+                if (UserTitle == "SubBroker")
                 {
                     associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
                     if (associateuserheirarchyVo.AgentCode != null)
@@ -117,6 +118,7 @@ namespace WealthERP.OPS
                 txtToDate.SelectedDate = DateTime.Now;
                 if (userType == "advisor" || userType == "rm")
                 {
+                    BindLink();
                     BindBranchDropDown();
                     AgentCode = "0";
                     BindRMDropDown();
@@ -192,7 +194,7 @@ namespace WealthERP.OPS
             }
             if (Request.QueryString["Mfaction"] != null)
             {
-                if (Session["mfParametersHT"] != null )
+                if (Session["mfParametersHT"] != null)
                 {
                     btnConunt = 2;
                     SetMfParameters();
@@ -206,39 +208,39 @@ namespace WealthERP.OPS
         }
         private void SetMfParameters()
         {
-               mfParameters = new Hashtable();
+            mfParameters = new Hashtable();
 
-               mfParameters = (Hashtable)Session["mfParametersHT"];
-                ddlBranch.SelectedIndex = Convert.ToInt32(mfParameters["BranchId"]);
-                ddlRM.SelectedIndex = Convert.ToInt32(mfParameters["RMId"]);
+            mfParameters = (Hashtable)Session["mfParametersHT"];
+            ddlBranch.SelectedIndex = Convert.ToInt32(mfParameters["BranchId"]);
+            ddlRM.SelectedIndex = Convert.ToInt32(mfParameters["RMId"]);
 
-                txtFromDate.SelectedDate = Convert.ToDateTime(mfParameters["Fromdate"]);
-                txtToDate.SelectedDate = Convert.ToDateTime(mfParameters["Todate"]);
-                BindOrderStatus();
-                ddlOrderStatus.SelectedIndex = Convert.ToInt32(mfParameters["OrderStatus"]);
-              
-                
-                txtIndividualCustomer.Text = mfParameters["Custname"].ToString();
-                userType = mfParameters["userType"].ToString();
-           
-                hdnCustomerId.Value = mfParameters["CustId"].ToString();
-                if (userType == "associates")
-                {
-                    AgentCode = mfParameters["AgentCode"].ToString();
-                    BindSubBrokerAgentCode(AgentCode);
-                }
-                else
-                {
-                    BindSubBrokerCode(userType);
-                    trZCCS.Visible = false;
-                }
+            txtFromDate.SelectedDate = Convert.ToDateTime(mfParameters["Fromdate"]);
+            txtToDate.SelectedDate = Convert.ToDateTime(mfParameters["Todate"]);
+            BindOrderStatus();
+            ddlOrderStatus.SelectedIndex = Convert.ToInt32(mfParameters["OrderStatus"]);
 
-                //ddlBrokerCode.SelectedItem.Value = mfParameters["SubBrokerCodeAdv"].ToString();
-                ddlBrokerCode.SelectedIndex = Convert.ToInt32(mfParameters["SubBrokerCode"]);
-                //hdnAgentCode.Value = mfParameters["AgentCode"].ToString();
-                //hdnAgentId.Value = mfParameters["AgentId"].ToString();
-           
-                    }
+
+            txtIndividualCustomer.Text = mfParameters["Custname"].ToString();
+            userType = mfParameters["userType"].ToString();
+
+            hdnCustomerId.Value = mfParameters["CustId"].ToString();
+            if (userType == "associates")
+            {
+                AgentCode = mfParameters["AgentCode"].ToString();
+                BindSubBrokerAgentCode(AgentCode);
+            }
+            else
+            {
+                BindSubBrokerCode(userType);
+                trZCCS.Visible = false;
+            }
+
+            //ddlBrokerCode.SelectedItem.Value = mfParameters["SubBrokerCodeAdv"].ToString();
+            ddlBrokerCode.SelectedIndex = Convert.ToInt32(mfParameters["SubBrokerCode"]);
+            //hdnAgentCode.Value = mfParameters["AgentCode"].ToString();
+            //hdnAgentId.Value = mfParameters["AgentId"].ToString();
+
+        }
         private void BindBranchForBMDropDown()
         {
             try
@@ -272,6 +274,48 @@ namespace WealthERP.OPS
                 throw exBase;
             }
         }
+        protected void BindLink()
+        {
+            if (Request.QueryString["systematicId"] != null)
+            {
+            
+                 systematicId   = int.Parse(Request.QueryString["systematicId"].ToString());
+                ViewState["systematicId"] = int.Parse(systematicId.ToString());
+                string OrderStatus = string.Empty, transCode = string.Empty;
+                
+                if (Request.QueryString["OrderStatus"] != null)
+                {
+                    OrderStatus = Request.QueryString["OrderStatus"].ToString();
+                    ViewState["OrderStatus"] = OrderStatus;
+                }
+                else
+                {
+                    ViewState["OrderStatus"] = null;
+                }
+                if (Request.QueryString["transCode"] != null)
+                {
+                    transCode = Request.QueryString["transCode"].ToString();
+                    ViewState["transCode"] = transCode;
+                }
+                else
+                {
+                    ViewState["transCode"] = null;
+                }
+                if (Request.QueryString["FromDate"] != null)
+                {
+                    string fromdate = Request.QueryString["FromDate"].ToString();
+                    ViewState["FromDate"] = fromdate;
+                }
+                else
+                {
+                    ViewState["FromDate"] = null;
+                }
+               //  = Request.QueryString["FromDate"].ToString();
+                //txtFromDate.SelectedDate = DateTime.Parse(fromdate);
+                BindGvOrderList();
+
+            }
+        }
 
         private void BindOrderStatus()
         {
@@ -294,12 +338,12 @@ namespace WealthERP.OPS
             if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin")
             {
                 dtSubbrokerCode = orderbo.GetAllAgentListForOrder(advisorVo.advisorId, "admin");
-              
+
             }
             else if (userType == "rm" || userType == "bm")
             {
                 dtSubbrokerCode = orderbo.GetAllAgentListForOrder(advisorVo.advisorId, userType);
-              
+
                 //dtSubbrokerCode = orderbo.GetSubBrokerCode(advisorVo.advisorId, rmId, bmID, userType);
             }
             //else if (userType == "associates")
@@ -320,7 +364,7 @@ namespace WealthERP.OPS
         {
             DataTable dtSubbrokerCode = new DataTable();
 
-            dtSubbrokerCode = orderbo.GetSubBrokerAgentCode(advisorVo.advisorId,AgentCode);
+            dtSubbrokerCode = orderbo.GetSubBrokerAgentCode(advisorVo.advisorId, AgentCode);
 
             if (dtSubbrokerCode.Rows.Count > 0)
             {
@@ -329,7 +373,7 @@ namespace WealthERP.OPS
                 ddlBrokerCode.DataTextField = dtSubbrokerCode.Columns["AAC_AgentCode"].ToString();
                 ddlBrokerCode.DataBind();
             }
-             ddlBrokerCode.Items.Insert(0, new ListItem("All", "0"));
+            ddlBrokerCode.Items.Insert(0, new ListItem("All", "0"));
 
         }
         //protected void BindSubBrokerName()
@@ -410,15 +454,15 @@ namespace WealthERP.OPS
             Cache.Remove("OrderList" + advisorVo.advisorId);
             Cache.Remove("FIOrderList" + advisorVo.advisorId);
             Session.Remove("mfParametersHT");
-          //  SetParameters();
+            //  SetParameters();
             if (hdnOrderType.Value == "FI")
             {
-                
+
                 BindGvFiOrderList();
             }
             else
             {
-                pnlFiOrderList.Visible = false ;
+                pnlFiOrderList.Visible = false;
                 BindGvOrderList();
             }
 
@@ -433,7 +477,7 @@ namespace WealthERP.OPS
             SetParameters();
             SetParameterSubbroker();
             DataTable dtOrder = new DataTable();
-          //  dtOrder = fiorderBo.GetOrderList(advisorVo.advisorId, "", "", Convert.ToDateTime(hdnTodate.Value), Convert.ToDateTime(hdnFromdate.Value), "", hdnCustomerId.Value, "FI", userType, 0, "", "");
+            //  dtOrder = fiorderBo.GetOrderList(advisorVo.advisorId, "", "", Convert.ToDateTime(hdnTodate.Value), Convert.ToDateTime(hdnFromdate.Value), "", hdnCustomerId.Value, "FI", userType, 0, "", "");
 
             dtOrder = fiorderBo.GetOrderList(advisorVo.advisorId, hdnRMId.Value, hdnBranchId.Value, Convert.ToDateTime(hdnTodate.Value), Convert.ToDateTime(hdnFromdate.Value), hdnOrderStatus.Value, hdnCustomerId.Value, hdnOrderType.Value, userType, int.Parse(hdnAgentId.Value), hdnSubBrokerCode.Value, hdnAgentCode.Value);
             if (dtOrder.Rows.Count > 0)
@@ -448,14 +492,14 @@ namespace WealthERP.OPS
                     Cache.Remove("FIOrderList" + advisorVo.advisorId);
                     Cache.Insert("FIOrderList" + advisorVo.advisorId, dtOrder);
                 }
-                gvFIOrderList .DataSource = dtOrder;
+                gvFIOrderList.DataSource = dtOrder;
                 gvFIOrderList.DataBind();
                 gvFIOrderList.Visible = true;
                 pnlFiOrderList.Visible = true;
                 ErrorMessage.InnerText = "No Records Found...!";
                 //gvOrderList.Visible = true;
                 ErrorMessage.Visible = false;
-               tblMessage.Visible = false;
+                tblMessage.Visible = false;
                 //pnlOrderList.Visible = true;
                 //  btnExportFilteredDupData.Visible = true;
             }
@@ -468,31 +512,31 @@ namespace WealthERP.OPS
                 //ErrorMessage.InnerText = "No Records Found...!";
                 //pnlOrderList.Visible = false;
             }
-            
+
         }
         private void FillHashtable()
-    {
-        mfParameters = new Hashtable();
-        mfParameters.Add("BranchId", ddlBranch.SelectedIndex);
-        mfParameters.Add("RMId", ddlRM.SelectedIndex);
-        mfParameters.Add("Fromdate", txtFromDate.SelectedDate);
-        mfParameters.Add("Todate", txtToDate.SelectedDate);
-        mfParameters.Add("OrderStatus", ddlOrderStatus.SelectedIndex);
-        mfParameters.Add("SubBrokerCode", ddlBrokerCode.SelectedIndex);
-            
-        mfParameters.Add("SubBrokerCodeAdv", ddlBrokerCode.SelectedItem.Value);
-        mfParameters.Add("userType", userType);
+        {
+            mfParameters = new Hashtable();
+            mfParameters.Add("BranchId", ddlBranch.SelectedIndex);
+            mfParameters.Add("RMId", ddlRM.SelectedIndex);
+            mfParameters.Add("Fromdate", txtFromDate.SelectedDate);
+            mfParameters.Add("Todate", txtToDate.SelectedDate);
+            mfParameters.Add("OrderStatus", ddlOrderStatus.SelectedIndex);
+            mfParameters.Add("SubBrokerCode", ddlBrokerCode.SelectedIndex);
 
-        mfParameters.Add("AgentCode", AgentCode);
-        mfParameters.Add("Custname", txtIndividualCustomer.Text);
+            mfParameters.Add("SubBrokerCodeAdv", ddlBrokerCode.SelectedItem.Value);
+            mfParameters.Add("userType", userType);
 
-        mfParameters.Add("CustId", hdnCustomerId.Value);
-        //mfParameters.Add("AgentId", hdnAgentId.Value);
-        Session["mfParametersHT"] = mfParameters;
- 
-    }
+            mfParameters.Add("AgentCode", AgentCode);
+            mfParameters.Add("Custname", txtIndividualCustomer.Text);
 
- 
+            mfParameters.Add("CustId", hdnCustomerId.Value);
+            //mfParameters.Add("AgentId", hdnAgentId.Value);
+            Session["mfParametersHT"] = mfParameters;
+
+        }
+
+
 
         private void SetParameters()
         {
@@ -522,8 +566,8 @@ namespace WealthERP.OPS
             }
             else
             {
-               // hdnOrderStatus.Value = "OMIP";
-                hdnOrderStatus.Value =string.Empty;
+                // hdnOrderStatus.Value = "OMIP";
+                hdnOrderStatus.Value = string.Empty;
             }
         }
         private void SetParameterSubbroker()
@@ -532,7 +576,7 @@ namespace WealthERP.OPS
             {
                 hdnAgentCode.Value = "0";
                 hdnAgentId.Value = "0";
-                if (ddlBrokerCode.SelectedIndex != 0)
+                if (ddlBrokerCode.SelectedIndex != -1)
                 {
                     hdnSubBrokerCode.Value = ddlBrokerCode.SelectedItem.Value.ToString();
                     ViewState["SubBrokerCode"] = hdnSubBrokerCode.Value;
@@ -540,21 +584,21 @@ namespace WealthERP.OPS
                 else
                 {
                     hdnSubBrokerCode.Value = "0";
-                }               
+                }
             }
             else if (userType == "associates")
             {
-               
+
                 if (ddlBrokerCode.SelectedIndex != 0)
                 {
                     hdnAgentCode.Value = ddlBrokerCode.SelectedItem.ToString();
-                    hdnAgentId.Value = ddlBrokerCode.SelectedItem.Value.ToString(); 
-                    
+                    hdnAgentId.Value = ddlBrokerCode.SelectedItem.Value.ToString();
+
                 }
                 else
                 {
                     hdnAgentCode.Value = AgentCode;
-                    hdnAgentId.Value ="0";
+                    hdnAgentId.Value = "0";
                     //AgentId = int.Parse(ddlBrokerCode.SelectedItem.Value.ToString());
                 }
                 //AgentCode = ddlBrokerCode.SelectedValue.ToString();
@@ -589,7 +633,16 @@ namespace WealthERP.OPS
             SetParameterSubbroker();
             // }
             DataTable dtOrder = new DataTable();
-            dtOrder = orderbo.GetOrderList(advisorVo.advisorId, hdnRMId.Value, hdnBranchId.Value, Convert.ToDateTime(hdnTodate.Value), Convert.ToDateTime(hdnFromdate.Value), hdnOrderStatus.Value, hdnCustomerId.Value, hdnOrderType.Value, userType, int.Parse(hdnAgentId.Value), hdnSubBrokerCode.Value, hdnAgentCode.Value);
+            if (ViewState["OrderStatus"] != null)
+            {
+
+                dtOrder = orderbo.GetOrderList(systematicId,advisorVo.advisorId, hdnRMId.Value, hdnBranchId.Value, DateTime.Now, Convert.ToDateTime(ViewState["FromDate"].ToString()), ViewState["OrderStatus"].ToString(), hdnCustomerId.Value, ViewState["transCode"].ToString(), userType, int.Parse(hdnAgentId.Value), hdnSubBrokerCode.Value, hdnAgentCode.Value);
+            }
+            else
+            {
+                dtOrder = orderbo.GetOrderList(systematicId,advisorVo.advisorId, hdnRMId.Value, hdnBranchId.Value, Convert.ToDateTime(hdnTodate.Value), Convert.ToDateTime(hdnFromdate.Value), hdnOrderStatus.Value, hdnCustomerId.Value, hdnOrderType.Value, userType, int.Parse(hdnAgentId.Value), hdnSubBrokerCode.Value, hdnAgentCode.Value);
+
+            }
             if (dtOrder.Rows.Count > 0)
             {
                 trExportFilteredDupData.Visible = true;
@@ -608,7 +661,7 @@ namespace WealthERP.OPS
                 ErrorMessage.Visible = false;
                 tblMessage.Visible = false;
                 pnlOrderList.Visible = true;
-               btnExportFilteredDupData.Visible = true;
+                btnExportFilteredDupData.Visible = true;
             }
             else
             {
@@ -619,7 +672,7 @@ namespace WealthERP.OPS
                 ErrorMessage.InnerText = "No Records Found...!";
                 pnlOrderList.Visible = false;
             }
-            FillHashtable();
+            //FillHashtable();
         }
         protected void btnExportFilteredDupData_OnClick(object sender, ImageClickEventArgs e)
         {
@@ -677,11 +730,12 @@ namespace WealthERP.OPS
             rbcItem.Visible = false;
         }
 
-        protected void gvOrderList_ItemDataBound(object sender, GridItemEventArgs e) {
+        protected void gvOrderList_ItemDataBound(object sender, GridItemEventArgs e)
+        {
             if (userVo.UserType == "Advisor") return;
 
             if ((e.Item is GridDataItem) == false) return;
-            
+
             GridDataItem item = (GridDataItem)e.Item;
             DateTime orderDate = DateTime.Parse(gvOrderList.MasterTableView.DataKeyValues[item.ItemIndex]["CO_OrderDate"].ToString());
 
@@ -759,9 +813,9 @@ namespace WealthERP.OPS
 
         //    }
         //}
-       
-        
-        
+
+
+
         protected void ddlOrderType_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlOrderType.SelectedValue == "IN")
@@ -780,7 +834,7 @@ namespace WealthERP.OPS
             {
                 hdnOrderType.Value = "FI";
             }
-            
+
 
         }
 
@@ -825,11 +879,11 @@ namespace WealthERP.OPS
                 {
                     action = "View";
                     int fiOrderId = int.Parse(orderId);
-                    if (assetGroupCode == "FI")                         
-                           GetFIOrderDetails(fiOrderId);
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ProductOrderMaster", "loadcontrol('ProductOrderMaster','fiaction=View');", true);
+                    if (assetGroupCode == "FI")
+                        GetFIOrderDetails(fiOrderId);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ProductOrderMaster", "loadcontrol('ProductOrderMaster','fiaction=View');", true);
 
-                        //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "LifeInsuranceOrderEntry", "loadcontrol('LifeInsuranceOrderEntry','?strOrderId=" + orderId + "&strCustomerId=" + customerId + "&strAction=" + action + " ');", true);
+                    //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "LifeInsuranceOrderEntry", "loadcontrol('LifeInsuranceOrderEntry','?strOrderId=" + orderId + "&strCustomerId=" + customerId + "&strAction=" + action + " ');", true);
 
                     //else  if (assetGroupCode == "IN")
                     //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "LifeInsuranceOrderEntry", "loadcontrol('LifeInsuranceOrderEntry','?strOrderId=" + orderId + "&strCustomerId=" + customerId + "&strAction=" + action + " ');", true);
@@ -879,9 +933,9 @@ namespace WealthERP.OPS
                 string assetGroupCode = gvOrderList.MasterTableView.DataKeyValues[selectedRow - 1]["PAG_AssetGroupCode"].ToString();
 
 
-                if (assetGroupCode == "MF" && ddlAction.SelectedItem.Value!="0")
+                if (assetGroupCode == "MF" && ddlAction.SelectedItem.Value != "0")
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MFOrderEntry", "loadcontrol('MFOrderEntry','action=" + ddlAction.SelectedItem.Value.ToString() + "&orderId=" + orderId + "');", true);
-                                   
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -982,11 +1036,11 @@ namespace WealthERP.OPS
             {
                 foreach (DataRow dr in dsGetFIOrderDetails.Tables[0].Rows)
                 {
-                   
-                   
+
+
                     orderVo.OrderId = int.Parse(dr["CO_OrderId"].ToString());
                     orderVo.CustomerId = int.Parse(dr["C_CustomerId"].ToString());
-                    orderVo.AgentCode =  dr["AAC_AgentCode"].ToString() ;
+                    orderVo.AgentCode = dr["AAC_AgentCode"].ToString();
                     //fiorderVo.CustomerName = dr["Customer_Name"].ToString();
                     //fiorderVo.RMName = dr["RM_Name"].ToString();
                     //fiorderVo.BMName = dr["AB_BranchName"].ToString();
@@ -1000,12 +1054,12 @@ namespace WealthERP.OPS
 
                     fiorderVo.CODimage = dr["COD_image"].ToString();
 
-                    fiorderVo.OrderNumber = Convert.ToInt32 (dr["CFIOD_DetailsId"]);
+                    fiorderVo.OrderNumber = Convert.ToInt32(dr["CFIOD_DetailsId"]);
 
                     if (!string.IsNullOrEmpty(dr["PAIC_AssetInstrumentCategoryCode"].ToString().Trim()))
                         fiorderVo.AssetInstrumentCategoryCode = dr["PAIC_AssetInstrumentCategoryCode"].ToString();
                     if (!string.IsNullOrEmpty(dr["CFIOD_TransactionType"].ToString().Trim()))
-                        fiorderVo.TransactionType =  dr["CFIOD_TransactionType"].ToString() ;
+                        fiorderVo.TransactionType = dr["CFIOD_TransactionType"].ToString();
 
                     if (!string.IsNullOrEmpty(dr["CFIOD_ModeOfHolding"].ToString().Trim()))
                         fiorderVo.ModeOfHolding = dr["CFIOD_ModeOfHolding"].ToString();
@@ -1026,10 +1080,10 @@ namespace WealthERP.OPS
                         fiorderVo.ExisitingDepositreceiptno = dr["CFIOD_ExisitingDepositreceiptno"].ToString();
 
                     if (!string.IsNullOrEmpty(dr["CFIOD_RenewalAmount"].ToString().Trim()))
-                        fiorderVo.RenewalAmount =Convert.ToDouble ( dr["CFIOD_RenewalAmount"]) ;
+                        fiorderVo.RenewalAmount = Convert.ToDouble(dr["CFIOD_RenewalAmount"]);
 
                     if (!string.IsNullOrEmpty(dr["CFIOD_MaturityDate"].ToString().Trim()))
-                        fiorderVo.MaturityDate = Convert.ToDateTime (dr["CFIOD_MaturityDate"]);//.ToString();
+                        fiorderVo.MaturityDate = Convert.ToDateTime(dr["CFIOD_MaturityDate"]);//.ToString();
 
                     fiorderVo.OrderNumber = int.Parse(dr["CFIOD_OrderNO"].ToString());
 
@@ -1048,9 +1102,9 @@ namespace WealthERP.OPS
                     //    fiorderVo.accountid = int.Parse(dr["CMFA_accountid"].ToString());
                     //else
                     //    fiorderVo.accountid = 0;
-                   // fiorderVo.TransactionCode = dr["WMTT_TransactionClassificationCode"].ToString();
+                    // fiorderVo.TransactionCode = dr["WMTT_TransactionClassificationCode"].ToString();
                     orderVo.OrderDate = DateTime.Parse(dr["CO_OrderDate"].ToString());
-                  //  fiorderVo.IsImmediate = int.Parse(dr["CMFOD_IsImmediate"].ToString());
+                    //  fiorderVo.IsImmediate = int.Parse(dr["CMFOD_IsImmediate"].ToString());
                     orderVo.ApplicationNumber = dr["CO_ApplicationNumber"].ToString();
                     if (!string.IsNullOrEmpty(dr["CO_ApplicationReceivedDate"].ToString()))
                     {
@@ -1058,7 +1112,7 @@ namespace WealthERP.OPS
                     }
                     else
                         orderVo.ApplicationReceivedDate = DateTime.MinValue;
-                //    fiorderVo.portfolioId = int.Parse(dr["CP_portfolioId"].ToString());
+                    //    fiorderVo.portfolioId = int.Parse(dr["CP_portfolioId"].ToString());
                     orderVo.PaymentMode = dr["XPM_PaymentModeCode"].ToString();
                     if (!string.IsNullOrEmpty(dr["CO_ChequeNumber"].ToString()))
                         orderVo.ChequeNumber = dr["CO_ChequeNumber"].ToString();
@@ -1100,9 +1154,9 @@ namespace WealthERP.OPS
                     if (!string.IsNullOrEmpty(dr["CFIOD_DepCustBankAccId"].ToString()))
                         fiorderVo.DepCustBankAccId = int.Parse(dr["CFIOD_DepCustBankAccId"].ToString());
                     else
-                           fiorderVo.DepCustBankAccId = 0;
+                        fiorderVo.DepCustBankAccId = 0;
 
-                 
+
                     //if (!string.IsNullOrEmpty(dr["CMFOD_BankName"].ToString()))
                     //    fiorderVo.BankName = dr["CMFOD_BankName"].ToString();
                     //else
@@ -1118,7 +1172,7 @@ namespace WealthERP.OPS
                     //    orderVo.CustBankAccId = 0;
 
                     if (!string.IsNullOrEmpty(dr["PFISD_SeriesId"].ToString()))
-                        fiorderVo.SeriesId = Convert.ToInt32 (dr["PFISD_SeriesId"].ToString());
+                        fiorderVo.SeriesId = Convert.ToInt32(dr["PFISD_SeriesId"].ToString());
                     else
                         fiorderVo.SeriesId = 0;
 
@@ -1128,10 +1182,10 @@ namespace WealthERP.OPS
                         fiorderVo.SchemeId = 0;
 
                     if (!string.IsNullOrEmpty(dr["PFIIM_IssuerId"].ToString()))
-                        fiorderVo.IssuerId = dr["PFIIM_IssuerId"].ToString() ;
+                        fiorderVo.IssuerId = dr["PFIIM_IssuerId"].ToString();
                     else
-                        fiorderVo.IssuerId ="0";
-                     
+                        fiorderVo.IssuerId = "0";
+
                     //if (!string.IsNullOrEmpty(dr["CMFOD_AddrLine2"].ToString()))
                     //    fiorderVo.AddrLine2 = dr["CMFOD_AddrLine2"].ToString();
                     //else
@@ -1230,8 +1284,8 @@ namespace WealthERP.OPS
                     {
                         orderVo.ApplicationReceivedDate = DateTime.Parse(dr["CO_ApplicationReceivedDate"].ToString());
                     }
-                    else 
-                    orderVo.ApplicationReceivedDate = DateTime.MinValue;
+                    else
+                        orderVo.ApplicationReceivedDate = DateTime.MinValue;
                     mforderVo.portfolioId = int.Parse(dr["CP_portfolioId"].ToString());
                     orderVo.PaymentMode = dr["XPM_PaymentModeCode"].ToString();
                     if (!string.IsNullOrEmpty(dr["CO_ChequeNumber"].ToString()))

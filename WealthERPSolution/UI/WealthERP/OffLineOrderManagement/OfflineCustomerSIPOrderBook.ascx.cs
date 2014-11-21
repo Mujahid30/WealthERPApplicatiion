@@ -312,7 +312,8 @@ namespace WealthERP.OffLineOrderManagement
                 drSIPOrderBook["ReportingManagerName"] = drSIP["ReportingManagerName"].ToString();
                 drSIPOrderBook["UserType"] = drSIP["UserType"];
                 drSIPOrderBook["DeputyHead"] = drSIP["DeputyHead"];
-
+                drSIPOrderBook["WMTT_TransactionClassificationCode"] = drSIP["WMTT_TransactionClassificationCode"];
+                drSIPOrderBook["WMTT_TransactionClassificationName"] = drSIP["WMTT_TransactionClassificationName"];
                 //drSIPOrderBook["Unit"] = drSIP["Unit"];
                 dtFinalSIPOrderBook.Rows.Add(drSIPOrderBook);
             }
@@ -374,6 +375,8 @@ namespace WealthERP.OffLineOrderManagement
             dtSIPOrderBook.Columns.Add("ReportingManagerName");
             dtSIPOrderBook.Columns.Add("UserType");
             dtSIPOrderBook.Columns.Add("DeputyHead");
+            dtSIPOrderBook.Columns.Add("WMTT_TransactionClassificationCode");
+            dtSIPOrderBook.Columns.Add("WMTT_TransactionClassificationName");
             dtSIPOrderBook.Columns.Add("Unit", typeof(double));
             return dtSIPOrderBook;
 
@@ -425,26 +428,28 @@ namespace WealthERP.OffLineOrderManagement
                                 int schemeplanCode = int.Parse(gvr.GetDataKeyValue("PASP_SchemePlanCode").ToString());
                                 int IsSourceAA = int.Parse(gvr.GetDataKeyValue("CMFSS_IsSourceAA").ToString());
                                 int customerId = int.Parse(gvr.GetDataKeyValue("C_CustomerId").ToString());
+                                string transCode=gvr.GetDataKeyValue("WMTT_TransactionClassificationCode").ToString();
+                             
                                 if (e.CommandName == "Select")
                                 {
-                                    Response.Redirect("ControlHost.aspx?pageid=OnlineAdviserCustomerSIPOrderBook&systematicId=" + systematicId + "&AccountId=" + AccountId + "&schemeplanCode=" + schemeplanCode + "&IsSourceAA=" + IsSourceAA + "&customerId=" + customerId + "", false);
+                                    Response.Redirect("ControlHost.aspx?pageid=OrderList&systematicId=" + systematicId + "&AccountId=" + AccountId + "&schemeplanCode=" + schemeplanCode + "&IsSourceAA=" + IsSourceAA + "&customerId=" + customerId + "", false);
                                 }
                                 if (e.CommandName == "Accepted")
                                 {
-                                    Response.Redirect("ControlHost.aspx?pageid=OrderList&systematicId=" + systematicId + "&OrderStatus=PR", false);
+                                    Response.Redirect("ControlHost.aspx?pageid=OrderList&systematicId=" + systematicId + "&transCode=" + transCode + "&FromDate=" + txtOrderFrom.SelectedDate + "&OrderStatus=PR", false);
                                 }
                                 else if (e.CommandName == "In Process")
                                 {
-                                    Response.Redirect("ControlHost.aspx?pageid=OrderList&systematicId=" + systematicId + "&OrderStatus=AL", false);
+                                    Response.Redirect("ControlHost.aspx?pageid=OrderList&systematicId=" + systematicId + "&transCode=" + transCode + "&FromDate=" + txtOrderFrom.SelectedDate + "&OrderStatus=AL", false);
                                 }
                                 else if (e.CommandName == "Rejected")
                                 {
-                                    Response.Redirect("ControlHost.aspx?pageid=OrderList&systematicId=" + systematicId + "&OrderStatus=RJ", false);
+                                    Response.Redirect("ControlHost.aspx?pageid=OrderList&systematicId=" + systematicId + "&transCode=" + transCode + "&FromDate=" + txtOrderFrom.SelectedDate + "&OrderStatus=RJ", false);
 
                                 }
                                 else if (e.CommandName == "Executed")
                                 {
-                                    Response.Redirect("ControlHost.aspx?pageid=OrderList&systematicId=" + systematicId + "&OrderStatus=IP", false);
+                                    Response.Redirect("ControlHost.aspx?pageid=OrderList&systematicId=" + systematicId + "&transCode=" + transCode + "&FromDate=" + txtOrderFrom.SelectedDate + "&OrderStatus=IP", false);
 
                                 }
                             }
