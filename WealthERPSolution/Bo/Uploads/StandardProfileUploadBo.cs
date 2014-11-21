@@ -70,6 +70,36 @@ namespace BoUploads
             return UploadsCustomerList;
         }
 
+        public List<StandardProfileUploadVo> GetNewCustomers(int processId)
+        {
+            List<StandardProfileUploadVo> UploadsCustomerList = new List<StandardProfileUploadVo>();
+            StandardProfileUploadDao StandardProfileUploadDao = new StandardProfileUploadDao();
+            try
+            {
+                UploadsCustomerList = StandardProfileUploadDao.GetProfileNewCustomers(processId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "StandardProfileUploadBo.cs:GetProfileNewCustomers()");
+
+                object[] objects = new object[0];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return UploadsCustomerList;
+        }
+
         public bool UpdateProfileStagingIsCustomerNew(int adviserId, int processId,int branchId)
         {
             bool result = false;
@@ -337,6 +367,336 @@ namespace BoUploads
                 objects[0] = processId;
                 objects[1] = AdviserId;
                 objects[2] = Packagepath;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return IsProcessComplete;
+        }
+
+        public bool CreateCustomerDetails(int adviserId, int processId, int rmId, int branchId, string xmlPath, out int countCustCreated)
+        {
+            bool IsProcessComplete = false;
+            List<StandardProfileUploadVo> stdNewCustomerList = new List<StandardProfileUploadVo>();
+            Nullable<DateTime> dt = new DateTime();
+            StandardProfileUploadVo StandardProfileUploadVo = new StandardProfileUploadVo();
+            countCustCreated = 0;
+            DataSet getNewFoliosDs = new DataSet();
+            DataTable getNewFoliosDt = new DataTable();
+            userId = advisorStaffBo.GetUserId(rmId);
+            branchId = advisorStaffBo.GetCorporateBranchId(adviserId);
+            int lenPhoneNum = 0, lenFaxNum = 0;
+            string resIsdCode = "", resStdCode = "", resPhoneNum = "", offIsdCode = "", offStdCode = "", offPhoneNum = "";
+            string resFaxIsdCode = "", resFaxStdCode = "", resFaxNum = "", offFaxIsdCode = "", offFaxStdCode = "", offFaxNum = "";
+
+            try
+            {
+                stdNewCustomerList = GetNewCustomers(processId);
+                for (int i = 0; i < stdNewCustomerList.Count; i++)
+                {
+                    customerVo = new CustomerVo();
+                    userVo = new UserVo();
+                    StandardProfileUploadVo = new StandardProfileUploadVo();
+                    StandardProfileUploadVo = stdNewCustomerList[i];
+
+                    userVo.FirstName = StandardProfileUploadVo.FirstName;
+                    userVo.MiddleName = StandardProfileUploadVo.MiddleName;
+                    userVo.LastName = StandardProfileUploadVo.LastName;
+
+                    userVo.Email = StandardProfileUploadVo.Email;
+                    userVo.UserType = "Customer";
+
+                    customerVo.UserId = userId;
+                    customerVo.RmId = StandardProfileUploadsDao.GetBranchHeadId(branchId);
+                    customerVo.BranchId = branchId;
+                    customerVo.ProcessId = processId;
+                    customerVo.Adr1City = StandardProfileUploadVo.Adr1City;
+                    customerVo.Adr1Line1 = StandardProfileUploadVo.Adr1Line1;
+                    customerVo.Adr1Line2 = StandardProfileUploadVo.Adr1Line2;
+                    customerVo.Adr1Line3 = StandardProfileUploadVo.Adr1Line3;
+                    if (StandardProfileUploadVo.Adr1PinCode != "")
+                        customerVo.Adr1PinCode = Int32.Parse(StandardProfileUploadVo.Adr1PinCode);
+                    customerVo.Email = StandardProfileUploadVo.Email;
+                    customerVo.FirstName = StandardProfileUploadVo.FirstName;
+                    customerVo.MiddleName = StandardProfileUploadVo.MiddleName;
+                    customerVo.LastName = StandardProfileUploadVo.LastName;
+                    customerVo.Gender = StandardProfileUploadVo.Gender;
+                    customerVo.Salutation = StandardProfileUploadVo.Salutation;
+                    customerVo.Adr1City = StandardProfileUploadVo.Adr1City;
+                    customerVo.Adr1Country = StandardProfileUploadVo.Adr1Country;
+                    customerVo.Adr1State = XMLBo.GetStateCode(xmlPath, StandardProfileUploadVo.Adr1State);
+                    customerVo.Adr2City = StandardProfileUploadVo.Adr2City;
+                    customerVo.Adr2Country = StandardProfileUploadVo.Adr2Country;
+                    customerVo.Adr2Line1 = StandardProfileUploadVo.Adr2Line1;
+                    customerVo.Adr2Line2 = StandardProfileUploadVo.Adr2Line2;
+                    customerVo.Adr2Line3 = StandardProfileUploadVo.Adr2Line3;
+                    if (StandardProfileUploadVo.Adr2PinCode != "")
+                        customerVo.Adr2PinCode = Int32.Parse(StandardProfileUploadVo.Adr2PinCode);
+                    customerVo.Adr2State = StandardProfileUploadVo.Adr2State;
+                    customerVo.AltEmail = StandardProfileUploadVo.AltEmail;
+                    customerVo.AssignedRM = (customerVo.RmId).ToString();
+                    customerVo.CompanyName = StandardProfileUploadVo.CompanyName;
+                    customerVo.CompanyWebsite = StandardProfileUploadVo.CompanyWebsite;
+                    customerVo.ContactFirstName = StandardProfileUploadVo.ContactGuardianFirstName;
+                    customerVo.ContactMiddleName = StandardProfileUploadVo.ContactGuardianMiddleName;
+                    customerVo.ContactLastName = StandardProfileUploadVo.ContactGuardianLastName;
+                    if (!string.IsNullOrEmpty(StandardProfileUploadVo.GuardPANNum))
+                        customerVo.GuardPANNum = StandardProfileUploadVo.GuardPANNum;
+                    if (StandardProfileUploadVo.Mobile1 != "")
+                        customerVo.Mobile1 = Int64.Parse(StandardProfileUploadVo.Mobile1);
+                    if (StandardProfileUploadVo.Mobile2 != "")
+                        customerVo.Mobile2 = Int64.Parse(StandardProfileUploadVo.Mobile2);
+                    if (StandardProfileUploadVo.Nationality != "")
+                        customerVo.Nationality = StandardProfileUploadVo.Nationality;
+                    if (StandardProfileUploadVo.Occupation != "")
+                        customerVo.Occupation = StandardProfileUploadVo.Occupation;
+                    if (StandardProfileUploadVo.MaritalStatus != "")
+                        customerVo.MaritalStatus = StandardProfileUploadVo.MaritalStatus;
+                    if (StandardProfileUploadVo.Qualification != "")
+                        customerVo.Qualification = StandardProfileUploadVo.Qualification;
+
+
+                    customerVo.IsProspect = StandardProfileUploadVo.IsProspect;
+                    customerVo.OfcAdrCity = StandardProfileUploadVo.OfcAdrCity;
+                    customerVo.OfcAdrCountry = StandardProfileUploadVo.OfcAdrCountry;
+                    customerVo.OfcAdrLine1 = StandardProfileUploadVo.OfcAdrLine1;
+                    customerVo.OfcAdrLine2 = StandardProfileUploadVo.OfcAdrLine2;
+                    customerVo.OfcAdrLine3 = StandardProfileUploadVo.OfcAdrLine3;
+                    if (StandardProfileUploadVo.OfcAdrPinCode != "")
+                        customerVo.OfcAdrPinCode = Int32.Parse(StandardProfileUploadVo.OfcAdrPinCode);
+                    customerVo.OfcAdrState = StandardProfileUploadVo.OfcAdrState;
+                    if (StandardProfileUploadVo.RBIApprovalDate != "")
+                        customerVo.RBIApprovalDate = DateTime.Parse(StandardProfileUploadVo.RBIApprovalDate);
+
+                    customerVo.RBIRefNum = StandardProfileUploadVo.RBIRefNum;
+                    customerVo.RegistrationNum = StandardProfileUploadVo.RegistrationNum;
+                    //customerVo.LoginId = StandardProfileUploadVo.Email;
+
+                    if (StandardProfileUploadVo.Type != "")
+                        customerVo.Type = StandardProfileUploadVo.Type;
+                    if (StandardProfileUploadVo.SubType != "")
+                        customerVo.SubType = StandardProfileUploadVo.SubType;
+
+
+                    lenPhoneNum = StandardProfileUploadVo.OfcPhoneNum.Length;
+                    if (lenPhoneNum > 9)
+                    {
+                        if (lenPhoneNum >= 8)
+                        {
+                            offPhoneNum = StandardProfileUploadVo.OfcPhoneNum.Substring(lenPhoneNum - 8, 8);
+                            if (lenPhoneNum >= 11)
+                            {
+                                offStdCode = StandardProfileUploadVo.OfcPhoneNum.Substring(lenPhoneNum - 11, 3);
+                                if (lenPhoneNum >= 12)
+                                    offIsdCode = StandardProfileUploadVo.OfcPhoneNum.Substring(0, lenPhoneNum - 11);
+                            }
+                            else
+                                offStdCode = StandardProfileUploadVo.OfcPhoneNum.Substring(0, lenPhoneNum - 8);
+                        }
+                        else
+                            offPhoneNum = StandardProfileUploadVo.OfcPhoneNum;
+                        if (offIsdCode != "")
+                            customerVo.OfcISDCode = Int32.Parse(offIsdCode);
+                        else
+                            customerVo.OfcISDCode = 0;
+                        if (offStdCode != "")
+                            customerVo.OfcSTDCode = Int32.Parse(offStdCode);
+                        else
+                            customerVo.OfcSTDCode = 0;
+                        if (offPhoneNum != "")
+                            customerVo.OfcPhoneNum = Int32.Parse(offPhoneNum);
+                        else
+                            customerVo.OfcPhoneNum = 0;
+                    }
+                    else
+                    {
+                        if (StandardProfileUploadVo.OfcISDCode != "")
+                            customerVo.OfcISDCode = Int32.Parse(StandardProfileUploadVo.OfcISDCode);
+                        if (StandardProfileUploadVo.OfcSTDCode != "")
+                            customerVo.OfcSTDCode = Int32.Parse(StandardProfileUploadVo.OfcSTDCode);
+                        if (StandardProfileUploadVo.OfcPhoneNum != "")
+                            customerVo.OfcPhoneNum = Int32.Parse(StandardProfileUploadVo.OfcPhoneNum);
+                    }
+
+
+
+                    lenPhoneNum = StandardProfileUploadVo.ResPhoneNum.Length;
+                    if (lenPhoneNum > 9)
+                    {
+                        if (lenPhoneNum >= 8)
+                        {
+                            resPhoneNum = StandardProfileUploadVo.ResPhoneNum.Substring(lenPhoneNum - 8, 8);
+                            if (lenPhoneNum >= 11)
+                            {
+                                resStdCode = StandardProfileUploadVo.ResPhoneNum.Substring(lenPhoneNum - 11, 3);
+                                if (lenPhoneNum >= 12)
+                                    resIsdCode = StandardProfileUploadVo.ResPhoneNum.Substring(0, lenPhoneNum - 11);
+                            }
+                            else
+                                resStdCode = StandardProfileUploadVo.ResPhoneNum.Substring(0, lenPhoneNum - 8);
+                        }
+                        else
+                            resPhoneNum = StandardProfileUploadVo.ResPhoneNum;
+
+
+                        if (resIsdCode != "")
+                            customerVo.ResISDCode = Int32.Parse(resIsdCode);
+                        else
+                            customerVo.ResISDCode = 0;
+                        if (resStdCode != "")
+                            customerVo.ResSTDCode = Int32.Parse(resStdCode);
+                        else
+                            customerVo.ResSTDCode = 0;
+                        if (resPhoneNum != "")
+                            customerVo.ResPhoneNum = Int32.Parse(resPhoneNum);
+                        else
+                            customerVo.ResPhoneNum = 0;
+                    }
+                    else
+                    {
+
+                        if (StandardProfileUploadVo.ResISDCode != "")
+                            customerVo.ResISDCode = Int32.Parse(StandardProfileUploadVo.ResISDCode);
+                        if (StandardProfileUploadVo.ResSTDCode != "")
+                            customerVo.ResSTDCode = Int32.Parse(StandardProfileUploadVo.ResSTDCode);
+                        if (StandardProfileUploadVo.ResPhoneNum != "")
+                            customerVo.ResPhoneNum = Int32.Parse(StandardProfileUploadVo.ResPhoneNum);
+                    }
+
+                    lenFaxNum = StandardProfileUploadVo.OfcFax.Length;
+                    if (lenFaxNum > 9)
+                    {
+
+                        if (lenFaxNum >= 8)
+                        {
+                            offFaxNum = StandardProfileUploadVo.OfcFax.Substring(lenFaxNum - 8, 8);
+                            if (lenFaxNum >= 11)
+                            {
+                                offFaxStdCode = StandardProfileUploadVo.OfcFax.Substring(lenFaxNum - 11, 3);
+                                if (lenFaxNum >= 12)
+                                    offFaxIsdCode = StandardProfileUploadVo.OfcFax.Substring(0, lenFaxNum - 11);
+                            }
+                            else
+                                offFaxStdCode = StandardProfileUploadVo.OfcFax.Substring(0, lenFaxNum - 8);
+                        }
+                        else
+                            offFaxNum = StandardProfileUploadVo.OfcFax;
+                        if (offFaxIsdCode != "")
+                            customerVo.ISDFax = Int32.Parse(offFaxIsdCode);
+                        else
+                            customerVo.ISDFax = 0;
+                        if (offFaxStdCode != "")
+                            customerVo.STDFax = Int32.Parse(offFaxStdCode);
+                        else
+                            customerVo.STDFax = 0;
+                        if (offFaxNum != "")
+                            customerVo.Fax = Int32.Parse(offFaxNum);
+                        else
+                            customerVo.Fax = 0;
+                    }
+                    else
+                    {
+                        if (StandardProfileUploadVo.OfcFaxISD != "")
+                            customerVo.OfcISDFax = Int32.Parse(StandardProfileUploadVo.OfcFaxISD);
+                        if (StandardProfileUploadVo.OfcFaxSTD != "")
+                            customerVo.OfcSTDFax = Int32.Parse(StandardProfileUploadVo.OfcFaxSTD);
+                        if (StandardProfileUploadVo.OfcFax != "")
+                            customerVo.OfcFax = Int32.Parse(StandardProfileUploadVo.OfcFax);
+                    }
+
+
+                    lenFaxNum = StandardProfileUploadVo.Fax.Length;
+                    if (lenFaxNum > 9)
+                    {
+                        if (lenFaxNum >= 8)
+                        {
+                            resFaxNum = StandardProfileUploadVo.Fax.Substring(lenFaxNum - 8, 8);
+                            if (lenFaxNum >= 11)
+                            {
+                                resFaxStdCode = StandardProfileUploadVo.Fax.Substring(lenFaxNum - 11, 3);
+                                if (lenFaxNum >= 12)
+                                    resFaxIsdCode = StandardProfileUploadVo.Fax.Substring(0, lenFaxNum - 11);
+                            }
+                            else
+                                resFaxStdCode = StandardProfileUploadVo.Fax.Substring(0, lenFaxNum - 8);
+                        }
+                        else
+                            resFaxNum = StandardProfileUploadVo.Fax;
+                        if (resFaxIsdCode != "")
+                            customerVo.ISDFax = Int32.Parse(resFaxIsdCode);
+                        else
+                            customerVo.ISDFax = 0;
+                        if (offFaxStdCode != "")
+                            customerVo.STDFax = Int32.Parse(resFaxStdCode);
+                        else
+                            customerVo.STDFax = 0;
+                        if (offFaxNum != "")
+                            customerVo.Fax = Int32.Parse(resFaxNum);
+                        else
+                            customerVo.Fax = 0;
+                    }
+                    else
+                    {
+                        if (StandardProfileUploadVo.ISDFax != "")
+                            customerVo.OfcISDFax = Int32.Parse(StandardProfileUploadVo.ISDFax);
+                        if (StandardProfileUploadVo.STDFax != "")
+                            customerVo.OfcSTDFax = Int32.Parse(StandardProfileUploadVo.STDFax);
+                        if (StandardProfileUploadVo.Fax != "")
+                            customerVo.OfcFax = Int32.Parse(StandardProfileUploadVo.Fax);
+                    }
+
+
+                    customerVo.ViaSMS = 1;
+                    customerVo.PANNum = StandardProfileUploadVo.PANNum;
+                    customerVo.Password = id.Next(10000, 99999).ToString();
+                    if (StandardProfileUploadVo.DOB != "")
+                        customerVo.Dob = DateTime.Parse(StandardProfileUploadVo.DOB);
+                    customerVo.ProfilingDate = DateTime.Today;
+                    if (StandardProfileUploadVo.RegistrationDate != "")
+                        customerVo.RegistrationDate = DateTime.Parse(StandardProfileUploadVo.RegistrationDate);
+                    if (StandardProfileUploadVo.CommencementDate != "")
+                        customerVo.CommencementDate = DateTime.Parse(StandardProfileUploadVo.CommencementDate);
+
+                    customerPortfolioVo.IsMainPortfolio = 1;
+                    customerPortfolioVo.PortfolioTypeCode = "RGL";
+                    customerPortfolioVo.PortfolioName = "MyPortfolio";
+                    customerIds = customerBo.CreateCompleteCustomer(customerVo, userVo, customerPortfolioVo, userId);
+
+                    //Creating Customer Association
+                    if (customerIds != null)
+                    {
+                        CustomerFamilyVo familyVo = new CustomerFamilyVo();
+                        CustomerFamilyBo familyBo = new CustomerFamilyBo();
+                        familyVo.AssociateCustomerId = customerIds[1];
+                        familyVo.CustomerId = customerIds[1];
+                        familyVo.Relationship = "SELF";
+                        familyBo.CreateCustomerFamily(familyVo, customerIds[1], userVo.UserId);
+                    }
+
+                    countCustCreated++;
+
+                }
+
+                UpdateProfileStagingIsCustomerNew(adviserId, processId, branchId);
+                IsProcessComplete = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "StandardProfileUploadBo.cs:StdInsertCustomerDetails()");
+
+                object[] objects = new object[3];
+                objects[0] = adviserId;
+                objects[1] = processId;
+                objects[2] = rmId;
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;

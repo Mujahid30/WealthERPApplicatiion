@@ -205,6 +205,20 @@ namespace BoUploads
             return uploadlodvo;
         }
 
+        public void  GetRMBranch(int adviserId, out int branchId, int processid, out  int count)
+        {
+            bool updatedflag = false;
+            UploadsCommonDao uploadDAO = new UploadsCommonDao();
+            try
+            {
+                uploadDAO.GetRMBranch(adviserId,out  branchId, processid,out  count);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+        }
+
         public bool UpdateUploadProcessLog(UploadProcessLogVo processlogVo)
         {
             bool updatedflag = false;

@@ -727,6 +727,44 @@ namespace DaoAdvisorProfiling
             return rmList;
         }
 
+        public int GetCorporateBranchId(int adviserId)
+        {
+            int branchId = 0;
+            Database db;
+            DbCommand getbranchIdCmd;
+            DataSet getbranchIdDs;
+            DataRow dr;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getbranchIdCmd = db.GetSqlStringCommand("select  AB_BranchId  from AdviserBranch where AB_Iscorporatebranch=1 AND A_AdviserId =" + adviserId);
+                getbranchIdDs = db.ExecuteDataSet(getbranchIdCmd);
+                if (getbranchIdDs.Tables[0].Rows.Count > 0)
+                {
+                    dr = getbranchIdDs.Tables[0].Rows[0];
+                    branchId = int.Parse(dr["AB_BranchId"].ToString());
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorStaffDao.cs:GetbranchId()");
+                object[] objects = new object[1];
+                objects[0] = adviserId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return branchId;
+        }
+
+
         public int GetUserId(int rmId)
         {
             int userId = 0;

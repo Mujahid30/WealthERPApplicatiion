@@ -629,6 +629,35 @@ namespace DaoUploads
             return count;
         }
 
+        public void  GetRMBranch(int adviserId, out int branchId, int processId,out  int count )
+        {
+           
+
+            Database db;
+            DbCommand getCount;
+
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getCount = db.GetStoredProcCommand("SPROC_GetRMBranch");
+                db.AddInParameter(getCount, "@AdviserId", DbType.Int32, adviserId);
+                db.AddInParameter(getCount, "@ProcessId", DbType.Int32, processId);
+              
+
+
+                //db.AddOutParameter(getCount, "@TotalRejectedRecords", DbType.Int32, 5000);
+                //db.AddInParameter(getCount, "@BranchId", DbType.Int32, branchId);
+                db.ExecuteNonQuery(getCount);
+                count = Convert.ToInt32(db.GetParameterValue(getCount, "@Count"));
+                branchId = Convert.ToInt32(db.GetParameterValue(getCount, "@BranchId"));
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+        }
 
         //Get the count for number of transactions that are rejected for an Upload into WERP
         public int GetTransUploadRejectCount(int processID, string assetType)

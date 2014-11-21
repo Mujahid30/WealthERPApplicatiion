@@ -1631,7 +1631,9 @@ namespace WealthERP.Uploads
                                             processlogVo.IsInsertionToSecondStagingComplete = 1;
                                             processlogVo.EndTime = DateTime.Now;
                                             updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
-
+                                            //Creating Customer
+                                            StandardProfileUploadBo.CreateCustomerDetails(adviserId, UploadProcessId, rmId, 0, xmlPath, out countCustCreated);
+                                           
                                             packagePath = Server.MapPath("\\UploadPackages\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\ChecksCommonUploadPackage.dtsx");
                                             CommonTransChecks = uploadsCommonBo.TransCommonChecks(adviserId, UploadProcessId, packagePath, configPath, "CA", "CAMS");
 
@@ -3764,7 +3766,9 @@ namespace WealthERP.Uploads
                                                 processlogVo.IsInsertionToSecondStagingComplete = 1;
                                                 processlogVo.EndTime = DateTime.Now;
                                                 updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
-
+                                                //Creating Customer
+                                                StandardProfileUploadBo.CreateCustomerDetails(adviserId, UploadProcessId, rmId, 0, xmlPath, out countCustCreated);
+                                           
                                                 packagePath = Server.MapPath("\\UploadPackages\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\ChecksCommonUploadPackage.dtsx");
                                                 CommonTransChecks = uploadsCommonBo.TransCommonChecks(adviserId, UploadProcessId, packagePath, configPath, "KA", "Karvy");
 
@@ -4414,6 +4418,9 @@ namespace WealthERP.Uploads
 
                                                             if (updateProcessLog)
                                                             {
+                                                                //Creating Customer
+                                                                StandardProfileUploadBo.CreateCustomerDetails(adviserId, UploadProcessId, rmId, 0, xmlPath, out countCustCreated);
+                                           
                                                                 packagePath = Server.MapPath("\\UploadPackages\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\ChecksCommonUploadPackage.dtsx");
                                                                 CommonTransChecks = uploadsCommonBo.TransCommonChecks(adviserId, UploadProcessId, packagePath, configPath, "TN", "Templeton");
 

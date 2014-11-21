@@ -380,6 +380,35 @@ namespace BoAdvisorProfiling
         /// </summary>
         /// <param name="rmId"></param>
         /// <returns></returns>
+        /// 
+        public int GetCorporateBranchId(int adviserId)
+        {
+            int userId;
+            AdvisorStaffDao advisorStaffDao = new AdvisorStaffDao();
+            try
+            {
+                userId = advisorStaffDao.GetCorporateBranchId(adviserId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorStaffBo.cs:GetUserId()");
+                object[] objects = new object[1];
+                objects[0] = adviserId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return userId;
+        }
+
+
         public int GetUserId(int rmId)
         {
             int userId;
