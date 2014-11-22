@@ -1596,7 +1596,7 @@ namespace DaoOnlineOrderManagement
             return dsGetIssuerIssue;
         }
 
-        public DataSet GetUploadIssue(string product, int adviserId, string type)
+        public DataSet GetUploadIssue(string product, int adviserId, string type, int isOnline)
         {
             DataSet dsGetIssuerIssue;
             Microsoft.Practices.EnterpriseLibrary.Data.Database db;
@@ -1608,6 +1608,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(dbCommand, "@adviserId", DbType.Int32, adviserId);
                 db.AddInParameter(dbCommand, "@product", DbType.String, product);
                 db.AddInParameter(dbCommand, "Type", DbType.String, type);
+                db.AddInParameter(dbCommand, "@IsOnline", DbType.Int32, isOnline);
                 //@product
                 dsGetIssuerIssue = db.ExecuteDataSet(dbCommand);
             }
@@ -1661,7 +1662,7 @@ namespace DaoOnlineOrderManagement
             return dsGetSubCategory;
         }
 
-        public void GenereateNcdExtract(int AdviserId, int UserId, string SourceCode, string ProductAsset, int issueId, ref int isExtracted)
+        public void GenereateNcdExtract(int AdviserId, int UserId, string SourceCode, string ProductAsset, int issueId, ref int isExtracted, int isOnline)
         {
             Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand cmd;
@@ -1677,6 +1678,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(cmd, "@PAG_AssetGroupCode", DbType.String, ProductAsset);
                 db.AddInParameter(cmd, "@AIM_IssueId", DbType.Int32, issueId);
                 db.AddInParameter(cmd, "@isExtracted", DbType.Int32, issueId);
+                db.AddInParameter(cmd, "@IsOnline", DbType.Int32, isOnline);
 
                 dt = db.ExecuteDataSet(cmd);
                 isExtracted = int.Parse(db.GetParameterValue(cmd, "@isExtracted").ToString());

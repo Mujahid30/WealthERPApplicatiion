@@ -910,10 +910,10 @@ namespace BoOnlineOrderManagement
 
 
 
-        public void GenerateOnlineNcdExtract(int AdviserId, int UserId, string ExternalSource, string ProductAsset, int issueId, ref int isExtracted)
+        public void GenerateOnlineNcdExtract(int AdviserId, int UserId, string ExternalSource, string ProductAsset, int issueId, ref int isExtracted,int isOnline)
         {
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
-            onlineNCDBackOfficeDao.GenereateNcdExtract(AdviserId, UserId, ExternalSource, ProductAsset, issueId, ref isExtracted);
+            onlineNCDBackOfficeDao.GenereateNcdExtract(AdviserId, UserId, ExternalSource, ProductAsset, issueId, ref isExtracted, isOnline);
         }
 
         public DataTable GetAdviserNCDOrderBook(int adviserId, int issueNo, string status, DateTime dtFrom, DateTime dtTo)
@@ -1481,12 +1481,12 @@ namespace BoOnlineOrderManagement
 
 
 
-        public DataSet GetUploadIssue(string product, int adviserId,string type)
+        public DataSet GetUploadIssue(string product, int adviserId, string type, int isOnline)
         {
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
             try
             {
-                return onlineNCDBackOfficeDao.GetUploadIssue(product, adviserId,type);
+                return onlineNCDBackOfficeDao.GetUploadIssue(product, adviserId,type,isOnline);
             }
             catch (BaseApplicationException Ex)
             {
