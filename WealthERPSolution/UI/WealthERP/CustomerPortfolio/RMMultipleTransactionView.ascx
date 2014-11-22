@@ -1737,7 +1737,7 @@
             </tr>
             <tr>
                 <td>
-                    <table ID="ErrorMessage" runat="server" align="center">
+                    <table ID="ErrorMessage" runat="server" align="center" visible="false">
                         <tr>
                             <td>
                                 <div align="center" class="failure-msg">

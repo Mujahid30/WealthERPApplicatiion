@@ -1332,6 +1332,7 @@ namespace WealthERP.CustomerPortfolio
                             gvMFTransactions.Visible = true;
                             btnTrnxExport.Visible = true;
                             pnlMFTransactionWithoutAgentCode.Visible = false;
+                            
                         }
                         else
                         {
@@ -1380,7 +1381,16 @@ namespace WealthERP.CustomerPortfolio
                 }
 
                 gvTrail.Visible = false;
-                ErrorMessage.Visible = true;
+                if (mfTransactionList.Count == 0)
+                {
+                    ErrorMessage.Visible = true;
+                    gvMFTransactions.Visible = false;
+                    gvMFTransactionWithoutAgentCode.Visible = false;
+                    Panel2.Visible = false;
+                    pnlMFTransactionWithoutAgentCode.Visible = false;
+
+                }
+                
             }
             catch (Exception e)
             {

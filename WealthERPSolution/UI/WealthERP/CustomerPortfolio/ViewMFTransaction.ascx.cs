@@ -422,6 +422,7 @@ namespace WealthERP.CustomerPortfolio
                 if (mfTransactionVo != null)
                     customerTransactionBo.CancelMFTransaction(mfTransactionVo, userId);
                 btnCancel.Visible = false;
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Transaction Canceled Successfully!');", true);
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMMultipleTransactionView','none');", true);
 
             }
