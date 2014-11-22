@@ -27,7 +27,7 @@
 
 <script type="text/javascript">
     function HideLabel(tblMessage) {
-        setTimeout("HideLabelHelper('" + tblMessage + "');", 5000);
+        setTimeout("HideLabelHelper('" + tblMessage + "');", 50000);
     }
     function HideLabelHelper(tblMessage) {
         document.getElementById(tblMessage).style.display = "none";
@@ -1175,7 +1175,8 @@
         </td>
         <td id="tdAddMore" runat="server" class="rightField">
             <asp:Button ID="btnAddMore" runat="server" Text="Save & AddMore" CssClass="PCGMediumButton"
-                ValidationGroup="btnConfirmOrder" OnClick="btnAddMore_Click" OnClientClick="return  PreventClicks(); Validate(); " />
+                ValidationGroup="btnConfirmOrder" onblur="HideLabel()" OnClick="btnAddMore_Click"
+                OnClientClick="return  PreventClicks(); Validate(); " />
         </td>
     </tr>
 </table>

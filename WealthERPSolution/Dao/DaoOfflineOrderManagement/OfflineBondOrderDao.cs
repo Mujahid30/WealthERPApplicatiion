@@ -148,8 +148,8 @@ namespace DaoOfflineOrderManagement
                 db.AddInParameter(cmdOfflineBondTransact, "@AgentId", DbType.Int32, agentId);
                 db.AddInParameter(cmdOfflineBondTransact, "@AgentCode", DbType.String, agentCode);
                 db.AddInParameter(cmdOfflineBondTransact, "@UserId", DbType.Int32, userId);
-                db.AddOutParameter(cmdOfflineBondTransact, "@Order_Id", DbType.Int32, 1000000);
-                db.AddOutParameter(cmdOfflineBondTransact, "@application", DbType.Int32, 1000000);
+                db.AddOutParameter(cmdOfflineBondTransact, "@Order_Id", DbType.Int32, 10);
+                db.AddOutParameter(cmdOfflineBondTransact, "@application", DbType.Int32, 10);
                 db.AddOutParameter(cmdOfflineBondTransact, "@aplicationNoStatus", DbType.String, 10);
 
 
