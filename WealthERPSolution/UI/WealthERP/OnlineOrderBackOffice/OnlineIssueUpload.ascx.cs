@@ -57,7 +57,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 boNcdBackOff = new OnlineNCDBackOfficeBo();
 
 
-                dsIssuer = boNcdBackOff.GetUploadIssue(product, advisorVo.advisorId,"upload");
+                dsIssuer = boNcdBackOff.GetUploadIssue(product, advisorVo.advisorId,"upload",0);
                 if (dsIssuer.Tables[0].Rows.Count > 0)
                 {
                     ddlIssueName.DataSource = dsIssuer;

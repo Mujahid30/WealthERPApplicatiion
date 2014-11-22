@@ -118,7 +118,7 @@ namespace WealthERP.OnlineOrderBackOffice
             ddlExternalSource.SelectedValue = "IOPS";
             SetFileType(ddlExternalSource.SelectedValue);
 
-            boNcdBackOff.GenerateOnlineNcdExtract(adviserVo.advisorId, userVo.UserId, ddlExternalSource.SelectedValue, ddlProduct.SelectedValue, Convert.ToInt32(ddlIssueName.SelectedValue), ref isextracted);
+            boNcdBackOff.GenerateOnlineNcdExtract(adviserVo.advisorId, userVo.UserId, ddlExternalSource.SelectedValue, ddlProduct.SelectedValue, Convert.ToInt32(ddlIssueName.SelectedValue), ref isextracted, Convert.ToInt32(ddlType.SelectedValue));
             if (isextracted == 0)
                 ShowMessage("Extraction Done Only On Business Days");
             else
@@ -219,7 +219,7 @@ namespace WealthERP.OnlineOrderBackOffice
             boNcdBackOff = new OnlineNCDBackOfficeBo();
 
 
-            dsIssuer = boNcdBackOff.GetUploadIssue(product, adviserVo.advisorId,"Extract");
+            dsIssuer = boNcdBackOff.GetUploadIssue(product, adviserVo.advisorId, "Extract", Convert.ToInt32(ddlType.SelectedValue));
             if (dsIssuer.Tables[0].Rows.Count > 0)
             {
                 ddlIssueName.DataSource = dsIssuer;
