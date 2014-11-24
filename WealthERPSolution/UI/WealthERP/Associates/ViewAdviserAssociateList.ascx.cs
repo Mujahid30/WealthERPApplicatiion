@@ -183,7 +183,7 @@ namespace WealthERP.Associates
         protected void lbtnWelcomeletter_OnClick(object sender, EventArgs e)
         {
             GridDataItem grdrow = (GridDataItem)((LinkButton)sender).NamingContainer;
-            string WelcomeNotePath = gvAdviserAssociateList.MasterTableView.DataKeyValues[grdrow.RowIndex]["WelcomeNotePath"].ToString();
+            string WelcomeNotePath = gvAdviserAssociateList.MasterTableView.DataKeyValues[grdrow.ItemIndex]["WelcomeNotePath"].ToString();
             string targetPath = ConfigurationManager.AppSettings["Welcome_Note_PATH"].ToString();
             Response.Redirect(targetPath + WelcomeNotePath);
 
