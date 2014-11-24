@@ -7,6 +7,12 @@
 </asp:ScriptManager>
 
 <script type="text/javascript">
+    function setCustomPosition(sender, args) {
+        sender.moveTo(sender.get_left(), sender.get_top());
+    }
+</script>
+
+<script type="text/javascript">
     var popUp;
     function PopUpShowing(sender, eventArgs) {
         popUp = eventArgs.get_popUp();
@@ -250,10 +256,10 @@
         </div>
     </ContentTemplate>
 </telerik:RadWindow>
-
 <telerik:RadWindow ID="radIssuerPopUp" runat="server" VisibleOnPageLoad="false" Height="30%"
     Width="400px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="Resize, Close, Move"
-    Title="Add New Issuer" RestrictionZoneID="radWindowZone">
+    Title="Add New Issuer" RestrictionZoneID="radWindowZone" OnClientShow="setCustomPosition"
+    Top="10" Left="20">
     <ContentTemplate>
         <div style="padding: 20px">
             <table width="100%">
@@ -350,7 +356,6 @@
         </div>
     </ContentTemplate>
 </telerik:RadWindow>
-
 <table width="100%" runat="server" id="tbIssue">
     <tr>
         <td class="leftLabel">
@@ -1234,19 +1239,16 @@
         </td>
     </tr>
     <tr>
-    <%-- <td class="leftLabel">
+        <%-- <td class="leftLabel">
           
         </td>--%>
-    <td class="leftLabel">
-    <asp:Label ID="lblChnl" runat="server" Text="Bussiness Channel:" CssClass="FieldName"></asp:Label>
-    </td>
-    <td class="rightData">
-            <asp:DropDownList ID="ddlBssChnl" runat="server" CssClass="cmbField" AutoPostBack="true"
-                >
+        <td class="leftLabel">
+            <asp:Label ID="lblChnl" runat="server" Text="Bussiness Channel:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td class="rightData">
+            <asp:DropDownList ID="ddlBssChnl" runat="server" CssClass="cmbField" AutoPostBack="true">
             </asp:DropDownList>
-         
             <span id="Span42" class="spnRequiredField">*</span>
-          
             <br />
             <asp:RequiredFieldValidator ID="RequiredFieldValidator50" runat="server" CssClass="rfvPCG"
                 ErrorMessage="Please select Business Channel" Display="Dynamic" ControlToValidate="ddlBssChnl"
@@ -1354,7 +1356,6 @@
             &nbsp;
         </td>
     </tr>
-     
     <tr id="trBtnSubmit" runat="server">
         <td class="leftLabel">
             &nbsp;

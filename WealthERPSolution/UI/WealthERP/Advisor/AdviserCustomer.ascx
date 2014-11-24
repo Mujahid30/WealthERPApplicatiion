@@ -276,7 +276,7 @@
                 WatermarkText="Enter few characters of Pan" runat="server" EnableViewState="false">
             </cc1:TextBoxWatermarkExtender>
             <ajaxToolkit:AutoCompleteExtender ID="txtPansearch_autoCompleteExtender" runat="server"
-                TargetControlID="txtPansearch" ServiceMethod="GetAdviserCustomerPan" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
+                TargetControlID="txtPansearch" ServiceMethod="GetAdviserAllCustomerPan" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
                 MinimumPrefixLength="1" EnableCaching="False" CompletionSetCount="1" CompletionInterval="0"
                 CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
                 CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"

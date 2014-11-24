@@ -83,7 +83,7 @@ namespace WealthERP.Advisor
                 txtCustomerName_autoCompleteExtender.ContextKey = rbtnReg + "/" + adviserVo.advisorId.ToString();
                 txtCustomerName_autoCompleteExtender.ServiceMethod = "GetAdviserAllCustomerName";
                 txtPansearch_autoCompleteExtender.ContextKey = rbtnReg + "/" + adviserVo.advisorId.ToString();
-                txtPansearch_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerPan";
+                txtPansearch_autoCompleteExtender.ServiceMethod = "GetAdviserAllCustomerPan";
                 txtClientCode_autoCompleteExtender.ContextKey = adviserVo.advisorId.ToString();
                 txtClientCode_autoCompleteExtender.ServiceMethod = "GetCustCode";
 
@@ -104,7 +104,7 @@ namespace WealthERP.Advisor
                 txtCustomerName_autoCompleteExtender.ContextKey = rbtnReg + "/" + adviserVo.advisorId.ToString();
                 txtCustomerName_autoCompleteExtender.ServiceMethod = "GetAdviserAllCustomerName";
                 txtPansearch_autoCompleteExtender.ContextKey = adviserVo.advisorId.ToString();
-                txtPansearch_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerPan";
+                txtPansearch_autoCompleteExtender.ServiceMethod = "GetAdviserAllCustomerPan";
                 txtClientCode_autoCompleteExtender.ContextKey = adviserVo.advisorId.ToString();
                 txtClientCode_autoCompleteExtender.ServiceMethod = "GetCustCode";
 

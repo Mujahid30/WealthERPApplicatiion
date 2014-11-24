@@ -599,8 +599,8 @@
                 <asp:Label ID="lblASBANo" Text="ASBA Bank A/c NO:" runat="server" CssClass="FieldName"></asp:Label>
             </td>
             <td class="rightField">
-                <asp:TextBox ID="txtASBANO" onkeydown="return (event.keyCode!=13);" OnKeypress="javascript:return isNumberKey(event);"
-                    runat="server" CssClass="txtField"></asp:TextBox>
+                <asp:TextBox ID="txtASBANO" onkeydown="return (event.keyCode!=13);" runat="server"
+                    MaxLength="16" CssClass="txtField"></asp:TextBox>
                 <span id="Span5" class="spnRequiredField">*</span>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator9" ControlToValidate="txtASBANO"
                     ErrorMessage="<br />Please Enter Account No." Display="Dynamic" runat="server"
@@ -1054,10 +1054,10 @@
         </telerik:RadWindow>
     </Windows>
 </telerik:RadWindowManager>
-<telerik:RadWindow ID="rwDematDetails" runat="server" VisibleOnPageLoad="false" Height="220px"
+<telerik:RadWindow ID="rwDematDetails" runat="server" VisibleOnPageLoad="false" Height="230px"
     Width="800px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="Resize, Close, Move"
     Title="Select Demat " RestrictionZoneID="radWindowZone" OnClientShow="setCustomPosition"
-    Top="10" Left="20">
+    Top="120" Left="70">
     <ContentTemplate>
         <table>
             <tr>
@@ -1066,7 +1066,7 @@
                 <td>
                     <telerik:RadGrid ID="gvDematDetailsTeleR" runat="server" AllowAutomaticInserts="false"
                         AllowFilteringByColumn="false" AllowPaging="true" AllowSorting="true" AutoGenerateColumns="False"
-                        EnableEmbeddedSkins="false" EnableHeaderContextMenu="true" Height="135px" fAllowAutomaticDeletes="false"
+                        EnableEmbeddedSkins="false" EnableHeaderContextMenu="true" Height="150px" fAllowAutomaticDeletes="false"
                         GridLines="none" ShowFooter="false" ShowStatusBar="false" Skin="Telerik">
                         <%--<HeaderContextMenu EnableEmbeddedSkins="False">
                                 </HeaderContextMenu>--%>
