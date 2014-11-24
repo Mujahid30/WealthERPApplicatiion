@@ -241,7 +241,7 @@ namespace WealthERP.OffLineOrderManagement
                 drSIPOrderBook["CMFSS_DividendOption"] = drSIP["CMFSS_DividendOption"];
                 drSIPOrderBook["CMFSS_Amount"] = drSIP["CMFSS_Amount"];
                 drSIPOrderBook["XF_Frequency"] = drSIP["XF_Frequency"];
-                drSIPOrderBook["CMFSS_StartDate"] = DateTime.Parse(drSIP["CMFSS_StartDate"].ToString());
+               // drSIPOrderBook["CMFSS_StartDate"] = DateTime.Parse(drSIP["CMFSS_StartDate"].ToString());
                 drSIPOrderBook["CMFSS_EndDate"] = DateTime.Parse(drSIP["CMFSS_EndDate"].ToString());
                 if (!string.IsNullOrEmpty(drSIP["CMFSS_NextSIPDueDate"].ToString()))
                 {
@@ -286,11 +286,15 @@ namespace WealthERP.OffLineOrderManagement
                 drSIPOrderBook["CMFSS_IsSourceAA"] = drSIP["CMFSS_IsSourceAA"];
                 drSIPOrderBook["C_CustomerId"] = drSIP["C_CustomerId"];
                 drSIPOrderBook["U_UMId"] = drSIP["U_UMId"];
-                drSIPOrderBook["CMFSS_StartDate"] = DateTime.Parse(drSIP["CMFSS_StartDate"].ToString());
                 if (!string.IsNullOrEmpty(drSIP["CMFSS_RegistrationDate"].ToString()))
                 {
                     drSIPOrderBook["CMFSS_RegistrationDate"] = DateTime.Parse(drSIP["CMFSS_RegistrationDate"].ToString()).ToShortDateString();
 
+                }
+                if (!string.IsNullOrEmpty(drSIP["CMFSS_StartDate"].ToString()))
+                {
+                    drSIPOrderBook["CMFSS_StartDate"] = DateTime.Parse(drSIP["CMFSS_StartDate"].ToString());
+                  
                 }
                 drSIPOrderBook["CMFSS_CancelBy"] = drSIP["CMFSS_CancelBy"];
                 if (!string.IsNullOrEmpty(drSIP["CMFSS_CancelDate"].ToString()))
