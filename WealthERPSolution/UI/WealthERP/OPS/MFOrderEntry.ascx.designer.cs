@@ -42,6 +42,10 @@ namespace WealthERP.OPS {
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblAMCName;
         protected global::System.Web.UI.WebControls.TextBox txtBranchName;
+        protected global::System.Web.UI.WebControls.DropDownList ddlTotalInstallments;
+        protected global::System.Web.UI.WebControls.DropDownList ddlStartDate;
+
+
         /// <summary>
         /// lblFolioAMC control.
         /// </summary>

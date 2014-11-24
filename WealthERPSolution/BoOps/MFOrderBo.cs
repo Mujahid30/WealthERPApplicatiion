@@ -192,11 +192,12 @@ namespace BoOps
             }
         }
 
-        public string GetFolio(int customerId, int schemePlanCode)
+        public void GetFolio(int customerId, int schemePlanCode, out string folio, out int accountId)
+       
         {
             try
             {
-                return mfOrderDao.GetFolio(customerId, schemePlanCode);
+                  mfOrderDao.GetFolio(customerId, schemePlanCode, out folio, out accountId);
             }
             catch (BaseApplicationException Ex)
             {

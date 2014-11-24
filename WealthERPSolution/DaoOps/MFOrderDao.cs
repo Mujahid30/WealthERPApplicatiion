@@ -289,7 +289,7 @@ namespace DaoOps
                     db.AddInParameter(createMFOrderTrackingCmd, "@BranchLookUpId", DbType.Int32, mforderVo.BankBranchId);
                 else
                     db.AddInParameter(createMFOrderTrackingCmd, "@BranchLookUpId", DbType.Int32, DBNull.Value);
-                if (!string.IsNullOrEmpty( mforderVo.DivOption ))
+                if (!string.IsNullOrEmpty(mforderVo.DivOption))
                     db.AddInParameter(createMFOrderTrackingCmd, "@DivOption", DbType.String, mforderVo.DivOption);
                 else
                     db.AddInParameter(createMFOrderTrackingCmd, "@DivOption", DbType.String, mforderVo.DivOption);
@@ -297,7 +297,7 @@ namespace DaoOps
                     db.AddInParameter(createMFOrderTrackingCmd, "@CO_Remarks", DbType.String, mforderVo.Remarks);
                 else
                     db.AddInParameter(createMFOrderTrackingCmd, "@CO_Remarks", DbType.String, DBNull.Value);
-             
+
                 if (db.ExecuteNonQuery(createMFOrderTrackingCmd) != 0)
                 {
                     OrderId = Convert.ToInt32(db.GetParameterValue(createMFOrderTrackingCmd, "CO_OrderId").ToString());
@@ -582,10 +582,10 @@ namespace DaoOps
             return dsGetCustomerMFOrderDetails;
         }
 
-        public String GetFolio(int customerId, int schemePlanCode)
+        public void GetFolio(int customerId, int schemePlanCode, out string folio, out int accountId)
         {
 
-            string folio = string.Empty;
+
             Database db;
             DbCommand createMFOrderTrackingCmd;
             try
@@ -594,14 +594,22 @@ namespace DaoOps
                 createMFOrderTrackingCmd = db.GetStoredProcCommand("SPROC_GetFolio");
                 db.AddInParameter(createMFOrderTrackingCmd, "@CustomerId", DbType.Int32, customerId);
                 db.AddInParameter(createMFOrderTrackingCmd, "@AMcCode", DbType.Int32, schemePlanCode);
-                folio = db.ExecuteScalar(createMFOrderTrackingCmd).ToString();
+                db.ExecuteNonQuery(createMFOrderTrackingCmd);
+
+                folio = db.GetParameterValue(createMFOrderTrackingCmd, "@FolioNo").ToString();
+                if (!string.IsNullOrEmpty(db.GetParameterValue(createMFOrderTrackingCmd, "@accountId").ToString()))
+                    accountId = int.Parse(db.GetParameterValue(createMFOrderTrackingCmd, "@accountId").ToString());
+                else
+                    accountId = 0;
+
+
             }
             catch (BaseApplicationException Ex)
             {
                 throw (Ex);
             }
 
-            return folio;
+             
         }
 
 
@@ -733,7 +741,7 @@ namespace DaoOps
             }
             return bResult;
         }
-        
+
         //      public bool ChkOnlineOrder(int OrderId)
         //{
         //    Database db;
@@ -788,7 +796,7 @@ namespace DaoOps
         }
 
 
-        public bool ChkOfflineValidFolio(string  folioNo)
+        public bool ChkOfflineValidFolio(string folioNo)
         {
             Database db;
             DbCommand MFOrderAutoMatchCmd;
