@@ -115,7 +115,7 @@
                                 ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="true"
                                 AllowAutomaticInserts="false" Width="120%" OnItemDataBound="gvIPOOrderBook_ItemDataBound"
                                 OnUpdateCommand="gvIPOOrderBook_UpdateCommand">
-                                <MasterTableView DataKeyNames="CO_OrderId,AIM_IssueId,AIM_IssueName,Amount,WES_Code,C_CustCode,WOS_OrderStep,AIM_IsCancelAllowed"
+                                <MasterTableView DataKeyNames="CO_OrderId,AIM_IssueId,AIM_IssueName,Amount,WES_Code,C_CustCode,WOS_OrderStep,AIM_IsCancelAllowed,AgenId,AAC_AgentCode"
                                     Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None"
                                     EditMode="PopUp">
                                     <Columns>
@@ -138,11 +138,26 @@
                                                     Font-Bold="false" UniqueName="ViewDetailslink" Text="View" Visible="false"></asp:LinkButton>
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>
+                                        <%-- <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="Action" DataField="Action"
+                                            HeaderStyle-Width="110px">
+                                            <ItemTemplate>
+                                                <asp:DropDownList ID="ddlAction" CssClass="cmbField" runat="server" EnableEmbeddedSkins="false"
+                                                    AutoPostBack="true" OnSelectedIndexChanged="ddlAction_OnSelectedIndexChanged"
+                                                    Width="110px">
+                                                    <Items>
+                                                        <asp:ListItem Text="Select" Value="Select" Selected="true" />
+                                                        <asp:ListItem Text="View" Value="View" />
+                                                        <asp:ListItem Text="Edit" Value="Edit" />
+                                                    </Items>
+                                                </asp:DropDownList>
+                                            </ItemTemplate>
+                                        </telerik:GridTemplateColumn>--%>
                                         <telerik:GridBoundColumn DataField="CustomerName" SortExpression="CustomerName" AutoPostBackOnFilter="true"
                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="true"
                                             HeaderStyle-Width="160px" HeaderText="Customer Name" UniqueName="CustomerName">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
+                                       
                                         <telerik:GridBoundColumn DataField="AAC_AgentCode" SortExpression="AAC_AgentCode"
                                             AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
                                             AllowFiltering="true" HeaderStyle-Width="160px" HeaderText="SubBroker Code" UniqueName="AAC_AgentCode">

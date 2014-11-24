@@ -42,13 +42,13 @@ namespace BoOfflineOrderManagement
             }
             return dtIPOIssueList;
         }
-        public int CreateIPOBidOrderDetails(int adviserId, int userId, DataTable dtIPOBidList, OnlineIPOOrderVo onlineIPOOrderVo,int agentId,string agentCode)
+        public int CreateIPOBidOrderDetails(int adviserId, int userId, DataTable dtIPOBidList, OnlineIPOOrderVo onlineIPOOrderVo, int agentId, string agentCode)
         {
             int orderId = 0;
             OfflineIPOOrderDao OfflineIPOOrderDao = new OfflineIPOOrderDao();
             try
             {
-                orderId = OfflineIPOOrderDao.CreateIPOBidOrderDetails(adviserId, userId, dtIPOBidList, onlineIPOOrderVo,agentId,agentCode);
+                orderId = OfflineIPOOrderDao.CreateIPOBidOrderDetails(adviserId, userId, dtIPOBidList, onlineIPOOrderVo, agentId, agentCode);
 
             }
             catch (BaseApplicationException Ex)
@@ -69,6 +69,21 @@ namespace BoOfflineOrderManagement
                 throw exBase;
             }
             return orderId;
+        }
+        public DataSet GetIPOIssueOrderDetails(int orderId)
+        {
+            DataSet dsGetIPOIssueOrderDetails;
+            OfflineIPOOrderDao OfflineIPOOrderDao = new OfflineIPOOrderDao();
+
+            try
+            {
+                dsGetIPOIssueOrderDetails = OfflineIPOOrderDao.GetIPOIssueOrderDetails(orderId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsGetIPOIssueOrderDetails;
         }
     }
 }

@@ -344,5 +344,14 @@ namespace WealthERP.OffLineOrderManagement
             }
 
         }
+        //protected void ddlAction_OnSelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    DropDownList ddlAction = (DropDownList)sender;
+        //    GridDataItem gvr = (GridDataItem)ddlAction.NamingContainer;
+        //    Int32 orderId = Convert.ToInt32(gvIPOOrderBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["CO_OrderId"].ToString());
+        //    int associateid = Convert.ToInt32(gvIPOOrderBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["AgenId"].ToString());
+        //    string agentId = gvIPOOrderBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["AAC_AgentCode"].ToString();
+        //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "IPOIssueTransactOffline", "loadcontrol( 'IPOIssueTransactOffline','action=" + ddlAction.SelectedItem.Value.ToString() + "&orderId=" + orderId + "&associateid=" + associateid + "&agentId=" + agentId + "');", true);
+        //}
     }
 }

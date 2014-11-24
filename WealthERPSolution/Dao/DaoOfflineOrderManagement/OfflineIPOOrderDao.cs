@@ -52,7 +52,7 @@ namespace DaoOfflineOrderManagement
             }
             return dtIPOIssueList;
         }
-        public int CreateIPOBidOrderDetails(int adviserId, int userId, DataTable dtIPOBidList, OnlineIPOOrderVo onlineIPOOrderVo,int agentId,string agentCode)
+        public int CreateIPOBidOrderDetails(int adviserId, int userId, DataTable dtIPOBidList, OnlineIPOOrderVo onlineIPOOrderVo, int agentId, string agentCode)
         {
             int orderId = 0;
             Database db;
@@ -103,6 +103,24 @@ namespace DaoOfflineOrderManagement
             }
             return orderId;
 
+        }
+        public DataSet GetIPOIssueOrderDetails(int orderId)
+        {
+            Database db;
+            DbCommand GetGetIPOIssueOrderDetails;
+            DataSet dsGetIPOIssueOrderDetails;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetGetIPOIssueOrderDetails = db.GetStoredProcCommand("SPROC_ViewIPOOfflineOrderDetails");
+                db.AddInParameter(GetGetIPOIssueOrderDetails, "@orderId", DbType.Int32, orderId);
+                dsGetIPOIssueOrderDetails = db.ExecuteDataSet(GetGetIPOIssueOrderDetails);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsGetIPOIssueOrderDetails;
         }
     }
 }

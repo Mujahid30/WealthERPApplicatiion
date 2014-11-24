@@ -82,6 +82,7 @@ namespace WealthERP.OffLineOrderManagement
         OfflineIPOOrderBo OfflineIPOOrderBo = new OfflineIPOOrderBo();
         BoDematAccount boDematAccount = new BoDematAccount();
         DataTable dtOnlineIPOIssueList;
+        DataTable AgentId;
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -148,7 +149,14 @@ namespace WealthERP.OffLineOrderManagement
                     trIsa.Visible = false;
                 }
 
-
+                //if (Request.QueryString["action"] != null)
+                //{
+                //    int orderId = Convert.ToInt32(Request.QueryString["orderId"].ToString());
+                //    ViewOrderList(orderId);
+                //    //ShowPaymentSectionBasedOnTransactionType(ddltransType.SelectedValue, ViewForm);
+                //    //ButtonsEnablement(ViewForm);
+                //    // FrequencyEnablityForTransactionType(ddltransType.SelectedValue);
+                //}
 
                 if (Request.QueryString["CustomerId"] != null)
                 {
@@ -166,6 +174,98 @@ namespace WealthERP.OffLineOrderManagement
 
 
             }
+        }
+        private void ViewOrderList(int orderId)
+        {
+            //int agentId = 0;
+            //string agentCode = "";
+            //trCust.Visible = true;
+            //DataSet dsGetMFOrderDetails = OfflineIPOOrderBo.GetIPOIssueOrderDetails(orderId);
+            //if (dsGetMFOrderDetails.Tables[0].Rows.Count > 0)
+            //{
+            //    foreach (DataRow dr in dsGetMFOrderDetails.Tables[0].Rows)
+            //    {
+            //        if (!string.IsNullOrEmpty(dr["AAC_AdviserAgentId"].ToString()))
+            //        {
+            //            agentId = Convert.ToInt32(dr["AAC_AdviserAgentId"].ToString());
+            //        }
+
+            //        if (!string.IsNullOrEmpty(dr["AAC_AgentCode"].ToString()))
+            //        {
+            //            agentCode = dr["AAC_AgentCode"].ToString();
+            //        }
+            //         if (agentId != 0)
+            //        {
+            //            AgentId = customerBo.GetAgentId(advisorVo.advisorId, int.Parse(agentId.ToString()));
+            //            if (AgentId.Rows.Count > 0)
+            //            {
+            //                txtAssociateSearch.Text = AgentId.Rows[0][2].ToString();
+            //            }
+            //            else
+            //                txtAssociateSearch.Text = string.Empty;
+            //            Agentname = customerBo.GetAssociateName(advisorVo.advisorId, txtAssociateSearch.Text);
+            //            if (Agentname.Rows.Count > 0)
+            //            {
+            //                lblAssociatetext.Text = Agentname.Rows[0][0].ToString();
+            //            }
+            //            else
+            //                lblAssociatetext.Text = string.Empty;
+
+            //        }
+            //        ddlsearch.SelectedValue = "1";
+            //        txtCustomerId.Value = dr["C_CustomerId"].ToString();
+            //        ViewState["customerID"] = dr["C_CustomerId"].ToString();
+            //        txtCustomerName.Text = dr["Customer_Name"].ToString();
+            //        lblgetPan.Text = dr["C_PANNum"].ToString();
+            //        txtAssociateSearch.Text = dr["AAC_AgentCode"].ToString();
+            //        string i = dr["AIM_IssueId"].ToString(); 
+            //        BindIPOIssueList(i);
+            //        BindCustomerNCDIssueList();
+            //        ddlIssueList.SelectedValue = dr["AIM_IssueId"].ToString();
+            //        txtApplicationNo.Text = dr["CO_ApplicationNo"].ToString();
+            //        BindBank();
+            //        ddlBankName.SelectedItem.Text = dr["CO_BankName"].ToString();
+            //        txtBranchName.Text = dr["CO_BankBranchName"].ToString();
+            //        txtDematid.Text = dr["CEDA_BeneficiaryAccountNum"].ToString();
+            //        txtRemarks.Text = dr["CO_Remarks"].ToString();
+            //        if (dr["CO_ASBAAccNo"].ToString() != null || dr["CO_ASBAAccNo"].ToString() != "")
+            //        {
+            //            ddlPaymentMode.SelectedValue = "ES";
+            //            txtASBANO.Text = dr["CO_ASBAAccNo"].ToString();
+            //            trASBA.Visible = true;
+            //        }
+            //        else
+            //        {
+            //            ddlPaymentMode.SelectedValue = "CQ";
+            //            txtPaymentNumber.Text = dr["CO_ChequeNumber"].ToString();
+            //            txtPaymentInstDate.SelectedDate = Convert.ToDateTime(dr["CO_PaymentDate"].ToString());
+            //            trPINo.Visible = true;
+            //        }
+            //        gvAssociate.Visible = true;
+            //    }
+            //}
+            //        gvAssociate.DataSource = dsGetMFOrderDetails.Tables[1];
+            //        gvAssociate.DataBind();
+            //        pnlJointHolderNominee.Visible = true;
+            //        BindIPOBidGrid(3);
+            //        if (dsGetMFOrderDetails.Tables[2].Rows.Count > 0)
+            //        {
+            //        foreach (DataRow dr1 in dsGetMFOrderDetails.Tables[2].Rows)
+            //            {
+            //                if (dr1["COID_Price"].ToString() != "")
+            //                {
+            //                    foreach (GridDataItem gdi in RadGridIPOBid.Items)
+            //                    {
+            //                        TextBox txtBidQuantity = (TextBox)gdi.FindControl("txtBidQuantity");
+            //                        TextBox txtBidPrice = (TextBox)gdi.FindControl("txtBidPrice");
+
+            //                        txtBidQuantity.Text = dr1["COID_Price"].ToString();
+            //                        txtBidPrice.Text = dr1["COID_Quantity"].ToString();
+            //                        //break;
+            //                    }
+            //                }
+            //    }
+            //}
         }
         public void GetUserType()
         {
@@ -233,265 +333,17 @@ namespace WealthERP.OffLineOrderManagement
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerISARequest','');", true);
         }
 
-        //private void ShowHideFields(int flag)
-        //{
-        //    if (flag == 0)
-        //    {
-        //        //trTransactionType.Visible = false;
 
-        //        //rgvOrderSteps.Visible = false;
-        //        lnkBtnEdit.Visible = false;
-        //        lnlBack.Visible = false;
-        //        //btnUpdate.Visible = false;
-        //        lnkDelete.Visible = false;
-        //        btnViewReport.Visible = false;
-        //        btnViewInPDF.Visible = false;
-        //        btnViewInDOC.Visible = false;
-        //    }
-        //    else if (flag == 1)
-        //    {
-        //        //trTransactionType.Visible = true;
-        //        //trARDate.Visible = true;
-        //        //trAplNumber.Visible = true;
-        //        //trOrderDate.Visible = true;
-        //        //trOrderNo.Visible = true;
-        //        //trfutureDate.Visible = false;
-        //        //rgvOrderSteps.Visible = false;
-        //        lnkBtnEdit.Visible = false;
-        //        lnlBack.Visible = false;
-        //        //btnUpdate.Visible = false;
-        //        lnkDelete.Visible = false;
-        //        btnViewReport.Visible = false;
-        //        btnViewInPDF.Visible = false;
-        //        btnViewInDOC.Visible = false;
-        //    }
-        //}
 
         protected void ShowPaymentSectionBasedOnTransactionType(string transType, string mode)
         {
-            // bool enablement = false; ;
-
-            //pnl_BUY_ABY_SIP_PaymentSection.Visible = false;
-            //pnl_SIP_PaymentSection.Visible = false;
-            //pnl_SEL_PaymentSection.Visible = false;
-            //Tr1.Visible = true;
-
-            if (transType == "BUY" | transType == "ABY")
-            {
-
-                // pnl_BUY_ABY_SIP_PaymentSection.Enabled = enablement;
-                //pnl_BUY_ABY_SIP_PaymentSection.Visible = true;
-                //if (transType == "BUY")
-                //    //Tr1.Visible = false;
-
-            }
-            else if (transType == "Sel")
-            {
-                //pnl_SEL_PaymentSection.Visible = true;
-                //trScheme.Visible = false;
-
-            }
-            else if (transType == "SIP")
-            {
-                //pnl_BUY_ABY_SIP_PaymentSection.Enabled = enablement;
-                //pnl_BUY_ABY_SIP_PaymentSection.Visible = true;
-                //pnl_SIP_PaymentSection.Visible = true;
-                //pnl_SIP_PaymentSection.Enabled = enablement;
-
-            }
-            else if (transType == "SWP")
-            {
-                ////pnl_SEL_PaymentSection.Enabled = enablement;
-                //pnl_SEL_PaymentSection.Visible = true;
-                ////trScheme.Visible = false;
-                //pnl_SIP_PaymentSection.Visible = true;
-
-            }
-            else if (transType == "STB")
-            {
-                //pnl_SEL_PaymentSection.Enabled = enablement;
-                //pnl_SEL_PaymentSection.Visible = true;
-                //trScheme.Visible = true;
-                //pnl_SIP_PaymentSection.Visible = true;
-
-            }
-            else if (transType == "SWB")
-            {
-                //pnl_SEL_PaymentSection.Visible = true;
-                //trScheme.Visible = true;
-            }
 
         }
 
 
-        //protected void ShowTransactionType(int type)
-        //{
-        //    if (type == 0)
-        //    {
-        //        trAmount.Visible = false;
-        //        trPINo.Visible = false;
-        //        trBankName.Visible = false;
-        //        trFrequency.Visible = false;
-        //        trSIPStartDate.Visible = false;
-        //        trAddress6.Visible = false;
-
-        //        trSection2.Visible = false;
-
-        //        trGetAmount.Visible = false;
-        //        trRedeemed.Visible = false;
-        //        trScheme.Visible = false;
-        //        trFrequencySTP.Visible = false;
-        //        trSTPStart.Visible = false;
-
-        //        trSection3.Visible = false;
-
-        //        trAddress1.Visible = false;
-        //        trOldLine1.Visible = false;
-        //        trOldLine3.Visible = false;
-        //        trOldCity.Visible = false;
-        //        trOldPin.Visible = false;
-        //        trAddress6.Visible = false;
-        //        trNewLine1.Visible = false;
-        //        trNewLine3.Visible = false;
-        //        trNewCity.Visible = false;
-        //        trNewPin.Visible = false;
-
-
-
-        //        trBtnSubmit.Visible = false;
-        //    }
-        //    else if (type == 1)
-        //    {
-        //        trAmount.Visible = true;
-        //        trPINo.Visible = true;
-        //        trBankName.Visible = true;
-        //        trFrequency.Visible = true;
-        //        trSIPStartDate.Visible = true;
-        //        trAddress6.Visible = true;
-
-        //        trSection2.Visible = false;
-
-        //        trGetAmount.Visible = false;
-        //        trRedeemed.Visible = false;
-        //        trScheme.Visible = false;
-        //        trFrequencySTP.Visible = false;
-        //        trSTPStart.Visible = false;
-
-        //        trSection3.Visible = false;
-
-        //        trAddress1.Visible = false;
-        //        trOldLine1.Visible = false;
-        //        trOldLine3.Visible = false;
-        //        trOldCity.Visible = false;
-        //        trOldPin.Visible = false;
-        //        trAddress6.Visible = false;
-        //        trNewLine1.Visible = false;
-        //        trNewLine3.Visible = false;
-        //        trNewCity.Visible = false;
-        //        trNewPin.Visible = false;
-
-        //        trBtnSubmit.Visible = true;
-
-        //    }
-        //    else if (type == 2)
-        //    {
-        //        trAmount.Visible = false;
-        //        trPINo.Visible = false;
-        //        trBankName.Visible = false;
-        //        trFrequency.Visible = false;
-        //        trSIPStartDate.Visible = false;
-        //        trAddress6.Visible = false;
-
-        //        trSection2.Visible = false;
-
-        //        if (advisorVo.A_AgentCodeBased == 1)
-        //        {
-        //            trGetAmount.Visible = false;
-        //        }
-        //        else
-        //        {
-        //            trGetAmount.Visible = false;
-        //        }
-        //        trRedeemed.Visible = true;
-        //        //sai-D   trScheme.Visible = true;
-        //        //sai-D trFrequencySTP.Visible = true;
-        //        //sai-D   trSTPStart.Visible = true;
-
-        //        trSection3.Visible = false;
-
-        //        trAddress1.Visible = false;
-        //        trOldLine1.Visible = false;
-        //        trOldLine3.Visible = false;
-        //        trOldCity.Visible = false;
-        //        trOldPin.Visible = false;
-        //        trAddress6.Visible = false;
-        //        trNewLine1.Visible = false;
-        //        trNewLine3.Visible = false;
-        //        trNewCity.Visible = false;
-        //        trNewPin.Visible = false;
-
-        //        trBtnSubmit.Visible = true;
-
-        //    }
-        //    if (type == 3)
-        //    {
-        //        trAmount.Visible = false;
-        //        trPINo.Visible = false;
-        //        trBankName.Visible = false;
-        //        trFrequency.Visible = false;
-        //        trSIPStartDate.Visible = false;
-        //        trAddress6.Visible = false;
-
-        //        trSection2.Visible = false;
-
-        //        trGetAmount.Visible = false;
-        //        trRedeemed.Visible = false;
-        //        trScheme.Visible = false;
-        //        trFrequencySTP.Visible = false;
-        //        trSTPStart.Visible = false;
-
-        //        //sai    trSystematicDateChk1.Visible = false ;;
-
-
-        //        trSection3.Visible = false;
-
-        //        trAddress1.Visible = true;
-        //        trOldLine1.Visible = true;
-        //        trOldLine3.Visible = true;
-        //        trOldCity.Visible = true;
-        //        trOldPin.Visible = true;
-        //        trAddress6.Visible = true;
-        //        trNewLine1.Visible = true;
-        //        trNewLine3.Visible = true;
-        //        trNewCity.Visible = true;
-        //        trNewPin.Visible = true;
-
-        //        trBtnSubmit.Visible = true;
-        //    }
-
-        //}
         protected void ddlCustomerISAAccount_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //    DataTable GetHoldersName = new DataTable();
-            //    if (ddlCustomerISAAccount.SelectedItem.Value != "Select")
-            //    {
-            //        GetHoldersName = customerBo.GetholdersName(int.Parse(ddlCustomerISAAccount.SelectedItem.Value.ToString()));
-            //        if (GetHoldersName.Rows.Count > 0)
-            //        {
-            //            gvJointHoldersList.DataSource = GetHoldersName;
-            //            gvJointHoldersList.DataBind();
-            //            gvJointHoldersList.Visible = true;
-            //            //pnlJointholders.Visible = true;
-            //        }
-            //        else
-            //        {
-            //            gvJointHoldersList.Visible = false;
-            //        }
-            //    }
-            //    else
-            //    {
-            //        gvJointHoldersList.Visible = false;
-            //    }
+
         }
         private void BindISAList()
         {
@@ -717,7 +569,7 @@ namespace WealthERP.OffLineOrderManagement
             ddlBankName.DataValueField = dtBankName.Columns["WCMV_LookupId"].ToString();
             ddlBankName.DataTextField = dtBankName.Columns["WCMV_Name"].ToString();
             ddlBankName.DataBind();
-            ddlBankName.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
+            //ddlBankName.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
 
         }
         //private void BindPortfolioDropdown(int customerId)
@@ -897,7 +749,14 @@ namespace WealthERP.OffLineOrderManagement
         private void BindCustomerNCDIssueList()
         {
             DataTable dtIssueList = new DataTable();
-            dtIssueList = onlineNCDBackOfficeBO.GetIssueList(advisorVo.advisorId, 1, int.Parse(hdnCustomerId.Value), "IP");
+            //if (ViewState["customerID"] != null)
+            //{
+            //    dtIssueList = onlineNCDBackOfficeBO.GetIssueList(advisorVo.advisorId, 1, int.Parse(ViewState["customerID"].ToString()), "IP");
+            //}
+            //else
+            //{
+                dtIssueList = onlineNCDBackOfficeBO.GetIssueList(advisorVo.advisorId, 1, int.Parse(hdnCustomerId.Value), "IP");
+            //}
             ddlIssueList.DataTextField = dtIssueList.Columns["AIM_IssueName"].ToString();
             ddlIssueList.DataValueField = dtIssueList.Columns["AIM_IssueId"].ToString();
             ddlIssueList.DataSource = dtIssueList;
