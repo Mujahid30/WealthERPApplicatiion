@@ -295,11 +295,17 @@ namespace WealthERP.OPS
 
         protected void ddlTotalInstallments_SelectedIndexChanged(object sender, EventArgs e)
         {
+            CaliculateEndDate();
+           
+            //.ToString("dd-MMM-yyyy");
+        }
+
+        private void CaliculateEndDate()
+        {
             if (ddlTotalInstallments.SelectedIndex == 0 || ddlStartDate.SelectedIndex == 0 || ddlFrequencySIP.SelectedIndex == 0) return;
 
             DateTime dtEndDate = boOnlineOrder.GetSipEndDate(Convert.ToDateTime(ddlStartDate.SelectedValue), ddlFrequencySIP.SelectedValue, Convert.ToInt32(ddlTotalInstallments.SelectedValue) - 1);
             txtendDateSIP.SelectedDate = dtEndDate;
-            //.ToString("dd-MMM-yyyy");
         }
 
         //protected void ddlStartDate_SelectedIndexChanged(object sender, EventArgs e)
@@ -606,7 +612,24 @@ namespace WealthERP.OPS
                         BindSchemeSwitch();
                         ddlSchemeSwitch.SelectedValue = dr["PASP_SchemePlanSwitch"].ToString();
                     }
+                    BindStartDates();
+
+                
+                    if (!string.IsNullOrEmpty(dr["CMFSS_StartDate"].ToString()))
+                    {
+                        string startDates = Convert.ToDateTime(dr["CMFSS_StartDate"].ToString()).ToString("dd-MMM-yyyy");
+                        ddlStartDate.SelectedValue = startDates;
+                    }
+                    //else
+                    //    txtstartDateSIP.SelectedDate = txtstartDateSTP.MinDate;// DateTime.MinValue;
+                    BindTotalInstallments();
                     ddlTotalInstallments.SelectedValue = dr["CMFSS_TotalInstallment"].ToString();
+                    CaliculateEndDate();
+                    if (!string.IsNullOrEmpty(dr["CMFSS_EndDate"].ToString()))
+                        txtendDateSIP.SelectedDate = DateTime.Parse(dr["CMFSS_EndDate"].ToString());
+                    //else
+                    //    txtendDateSIP.SelectedDate = txtendDateSIP.MinDate; // DateTime.MinValue;
+
                     // txtPeriod.Text = dr["CMFSS_TotalInstallment"].ToString();
                     // txtSystematicdates.Text = dr["CMFSS_SystematicDate"].ToString();
                     ddlPeriodSelection.SelectedValue = dr["XF_FrequencyCode"].ToString();
@@ -929,6 +952,8 @@ namespace WealthERP.OPS
             if (ddltransType.SelectedValue == "SIP" | ddltransType.SelectedValue == "SWP" | ddltransType.SelectedValue == "STB")
             {
                 BindSipUiOnSchemeSelection(int.Parse(txtSchemeCode.Value));
+                
+
             }
 
             BindDIvidendOptions(int.Parse(txtSchemeCode.Value));
@@ -4314,7 +4339,7 @@ namespace WealthERP.OPS
             if (!string.IsNullOrEmpty((ddlFrequencySIP.SelectedValue).ToString().Trim()))
                 mforderVo.FrequencyCode = ddlFrequencySIP.SelectedValue;
 
-            if (!string.IsNullOrEmpty((txtstartDateSIP.SelectedDate).ToString().Trim()))
+            if (!string.IsNullOrEmpty(ddlStartDate.SelectedValue))
                 mforderVo.StartDate = DateTime.Parse(ddlStartDate.SelectedValue);
             //DateTime.Parse(txtstartDateSIP.SelectedDate.ToString());
             else
