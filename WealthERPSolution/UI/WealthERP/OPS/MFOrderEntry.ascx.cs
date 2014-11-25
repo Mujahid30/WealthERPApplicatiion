@@ -4339,8 +4339,12 @@ namespace WealthERP.OPS
             if (!string.IsNullOrEmpty((ddlFrequencySIP.SelectedValue).ToString().Trim()))
                 mforderVo.FrequencyCode = ddlFrequencySIP.SelectedValue;
 
-            if (!string.IsNullOrEmpty(ddlStartDate.SelectedValue))
+            if (!string.IsNullOrEmpty(ddlStartDate.SelectedValue)&&  ddlStartDate.SelectedValue != "0" )
+            {
+           
                 mforderVo.StartDate = DateTime.Parse(ddlStartDate.SelectedValue);
+                 
+            }
             //DateTime.Parse(txtstartDateSIP.SelectedDate.ToString());
             else
                 mforderVo.StartDate = DateTime.MinValue;

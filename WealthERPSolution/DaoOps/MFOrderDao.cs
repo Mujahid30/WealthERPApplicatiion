@@ -594,7 +594,15 @@ namespace DaoOps
                 createMFOrderTrackingCmd = db.GetStoredProcCommand("SPROC_GetFolio");
                 db.AddInParameter(createMFOrderTrackingCmd, "@CustomerId", DbType.Int32, customerId);
                 db.AddInParameter(createMFOrderTrackingCmd, "@AMcCode", DbType.Int32, schemePlanCode);
-                db.ExecuteNonQuery(createMFOrderTrackingCmd);
+                db.AddOutParameter(createMFOrderTrackingCmd, "@FolioNo", DbType.String, schemePlanCode);
+                db.AddOutParameter(createMFOrderTrackingCmd, "@accountId", DbType.Int32, schemePlanCode);
+
+
+
+
+
+                db.ExecuteDataSet(createMFOrderTrackingCmd);
+             
 
                 folio = db.GetParameterValue(createMFOrderTrackingCmd, "@FolioNo").ToString();
                 if (!string.IsNullOrEmpty(db.GetParameterValue(createMFOrderTrackingCmd, "@accountId").ToString()))
@@ -809,7 +817,7 @@ namespace DaoOps
                 db.AddOutParameter(MFOrderAutoMatchCmd, "@count", DbType.Int16, 0);
                 db.ExecuteDataSet(MFOrderAutoMatchCmd);
                 status = int.Parse(db.GetParameterValue(MFOrderAutoMatchCmd, "@count").ToString());
-                if (status == 1)
+                if (status >= 1)
                     return true;
                 else
                     return false;

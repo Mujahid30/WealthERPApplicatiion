@@ -90,7 +90,7 @@
 
             if (txtPanNumber.value != "") {
                 txtPanNumber.focus();
-                alert("Please select Pan Number from the Pan list only");
+                alert("Please select PAN from the PAN list only");
                 txtPanNumber.value = "";
                 returnValue = false;
             }
@@ -461,7 +461,7 @@
                             AutoPostBack="true" TabIndex="0">
                             <asp:ListItem Text="Select" Value="0"></asp:ListItem>
                             <asp:ListItem Text="Customer" Value="1"></asp:ListItem>
-                            <asp:ListItem Text="Pan" Value="2"></asp:ListItem>
+                            <asp:ListItem Text="PAN" Value="2"></asp:ListItem>
                         </asp:DropDownList>
                     </td>
                     <td align="right">
@@ -479,7 +479,7 @@
                 </tr>
                 <tr id="trpan" runat="server">
                     <td align="right">
-                        <asp:Label ID="lblPansearch" runat="server" Text="Pan Number:" CssClass="FieldName"></asp:Label>
+                        <asp:Label ID="lblPansearch" runat="server" Text="PAN:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
                         <asp:TextBox ID="txtPansearch" runat="server" CssClass="txtField" AutoComplete="Off"
@@ -497,7 +497,7 @@
                             UseContextKey="True" OnClientItemSelected="GetCustomerId" DelimiterCharacters=""
                             Enabled="True" />
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtPansearch"
-                            ErrorMessage="<br />Please Enter Pan number" Display="Dynamic" runat="server"
+                            ErrorMessage="<br />Please Enter PAN" Display="Dynamic" runat="server"
                             CssClass="rfvPCG" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
                     </td>
                     <td align="right" style="width: 15.4%;">
