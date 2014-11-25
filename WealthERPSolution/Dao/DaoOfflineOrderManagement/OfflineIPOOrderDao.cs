@@ -122,5 +122,33 @@ namespace DaoOfflineOrderManagement
             }
             return dsGetIPOIssueOrderDetails;
         }
+        public bool UpdateIPOBidOrderDetails( DataTable dtIPOBidTransactionDettails,int orderNo,string benificialAcc)
+        {
+            Database db;
+            DataSet dsIssueBidList = new DataSet(); ;
+            DbCommand cmdUpdateIPOBidOrderDetails;
+            bool bResult = false;
+            int count = 0;
+            try
+            {
+                dsIssueBidList.Tables.Add(dtIPOBidTransactionDettails.Copy());
+                dsIssueBidList.DataSetName = "IssueBidsDS";
+                dsIssueBidList.Tables[0].TableName = "IssueBidsDT";
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdUpdateIPOBidOrderDetails = db.GetStoredProcCommand("SPROC_OFF_UpdateIPOBidOrderDetails");
+                db.AddInParameter(cmdUpdateIPOBidOrderDetails, "@XMLIPOBids", DbType.Xml, dsIssueBidList.GetXml().ToString());
+                db.AddInParameter(cmdUpdateIPOBidOrderDetails, "@orderId", DbType.Int32, orderNo);
+                db.AddInParameter(cmdUpdateIPOBidOrderDetails, "@benificialAcc", DbType.String, benificialAcc);
+
+                if (db.ExecuteNonQuery(cmdUpdateIPOBidOrderDetails) != 0)
+                    bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+       
+            return bResult;
+        }
     }
 }

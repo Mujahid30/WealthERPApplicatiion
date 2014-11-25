@@ -138,7 +138,7 @@
                                                     Font-Bold="false" UniqueName="ViewDetailslink" Text="View" Visible="false"></asp:LinkButton>
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>
-                                        <%-- <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="Action" DataField="Action"
+                                        <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="Action" DataField="Action"
                                             HeaderStyle-Width="110px">
                                             <ItemTemplate>
                                                 <asp:DropDownList ID="ddlAction" CssClass="cmbField" runat="server" EnableEmbeddedSkins="false"
@@ -151,7 +151,7 @@
                                                     </Items>
                                                 </asp:DropDownList>
                                             </ItemTemplate>
-                                        </telerik:GridTemplateColumn>--%>
+                                        </telerik:GridTemplateColumn>
                                         <telerik:GridBoundColumn DataField="CustomerName" SortExpression="CustomerName" AutoPostBackOnFilter="true"
                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="true"
                                             HeaderStyle-Width="160px" HeaderText="Customer Name" UniqueName="CustomerName">

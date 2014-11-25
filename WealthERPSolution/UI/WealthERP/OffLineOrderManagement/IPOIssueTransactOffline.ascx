@@ -270,9 +270,14 @@
         <tr>
             <td colspan="4">
                 <div class="divSectionHeading" style="vertical-align: text-bottom">
-                    Customer Details
+                    <div class="fltlft" style="width: 200px; float: left">
+                        &nbsp; Customer Details
+                    </div>
+                    <div class="divViewEdit" style="float: right; padding-right: 50px">
+                        <asp:LinkButton ID="lnkEdit" runat="server" OnClick="lnkEdit_OnClick" CssClass="LinkButtons" Visible="true"></asp:LinkButton>
+                   
+                    </div>
                 </div>
-            </td>
         </tr>
         <tr>
             <td colspan="4">
@@ -1007,6 +1012,10 @@
             <asp:Button ID="btnAddMore" runat="server" Text="Save & AddMore" CssClass="PCGMediumButton"
                 ValidationGroup="btnConfirmOrder" onblur="HideLabel()" OnClientClick="return  PreventClicks();"
                 OnClick="btnAddMore_Click" />
+        </td>
+        <td>
+            <asp:Button ID="btnUpdate" runat="server" Text="Update" OnClick="btnUpdate_OnClick"
+                CssClass="PCGButton" Visible="false" />
         </td>
     </tr>
 </table>

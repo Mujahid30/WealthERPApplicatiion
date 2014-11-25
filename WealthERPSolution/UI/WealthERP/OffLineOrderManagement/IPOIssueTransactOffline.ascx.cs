@@ -149,14 +149,29 @@ namespace WealthERP.OffLineOrderManagement
                     trIsa.Visible = false;
                 }
 
-                //if (Request.QueryString["action"] != null)
-                //{
-                //    int orderId = Convert.ToInt32(Request.QueryString["orderId"].ToString());
-                //    ViewOrderList(orderId);
-                //    //ShowPaymentSectionBasedOnTransactionType(ddltransType.SelectedValue, ViewForm);
-                //    //ButtonsEnablement(ViewForm);
-                //    // FrequencyEnablityForTransactionType(ddltransType.SelectedValue);
-                //}
+                if (Request.QueryString["action"] != null)
+                {
+                    string action1 = Request.QueryString["action"];
+                    int orderId = Convert.ToInt32(Request.QueryString["orderId"].ToString());
+                    ViewOrderList(orderId);
+                    btnConfirmOrder.Visible = false;
+                    btnAddMore.Visible = false;
+                    controlvisiblity();
+                    if (action1 == "View")
+                    {
+                        btnUpdate.Visible = false;
+                        lnkBtnDemat.Enabled = false;
+                    }
+                    else
+                    {
+                        btnUpdate.Visible = true;
+                        lnkBtnDemat.Enabled = true;
+                    }
+
+                    //    //ShowPaymentSectionBasedOnTransactionType(ddltransType.SelectedValue, ViewForm);
+                    //    //ButtonsEnablement(ViewForm);
+                    //    // FrequencyEnablityForTransactionType(ddltransType.SelectedValue);
+                }
 
                 if (Request.QueryString["CustomerId"] != null)
                 {
@@ -175,97 +190,250 @@ namespace WealthERP.OffLineOrderManagement
 
             }
         }
+        private void controlvisiblity()
+        {
+            ddlsearch.Enabled = false;
+            txtCustomerName.Enabled = false;
+            txtAssociateSearch.Enabled = false;
+            ddlIssueList.Enabled = false;
+            txtApplicationNo.Enabled = false;
+            ddlPaymentMode.Enabled = false;
+            txtASBANO.Enabled = false;
+            ddlBankName.Enabled = false;
+            txtBranchName.Enabled = false;
+        }
+        protected void lnkEdit_OnClick(object sender, EventArgs e)
+        {
+            btnUpdate.Visible = true;
+            lnkBtnDemat.Enabled = true;
+        }
         private void ViewOrderList(int orderId)
         {
-            //int agentId = 0;
-            //string agentCode = "";
-            //trCust.Visible = true;
-            //DataSet dsGetMFOrderDetails = OfflineIPOOrderBo.GetIPOIssueOrderDetails(orderId);
-            //if (dsGetMFOrderDetails.Tables[0].Rows.Count > 0)
-            //{
-            //    foreach (DataRow dr in dsGetMFOrderDetails.Tables[0].Rows)
-            //    {
-            //        if (!string.IsNullOrEmpty(dr["AAC_AdviserAgentId"].ToString()))
-            //        {
-            //            agentId = Convert.ToInt32(dr["AAC_AdviserAgentId"].ToString());
-            //        }
+            int agentId = 0;
+            string agentCode = "";
+            trCust.Visible = true;
+            Panel1.Visible = true;
+            DataSet dsGetMFOrderDetails = OfflineIPOOrderBo.GetIPOIssueOrderDetails(orderId);
+            if (dsGetMFOrderDetails.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow dr in dsGetMFOrderDetails.Tables[0].Rows)
+                {
+                    //if (!string.IsNullOrEmpty(dr["AAC_AdviserAgentId"].ToString()))
+                    //{
+                    //    agentId = Convert.ToInt32(dr["AAC_AdviserAgentId"].ToString());
+                    //}
 
-            //        if (!string.IsNullOrEmpty(dr["AAC_AgentCode"].ToString()))
-            //        {
-            //            agentCode = dr["AAC_AgentCode"].ToString();
-            //        }
-            //         if (agentId != 0)
-            //        {
-            //            AgentId = customerBo.GetAgentId(advisorVo.advisorId, int.Parse(agentId.ToString()));
-            //            if (AgentId.Rows.Count > 0)
-            //            {
-            //                txtAssociateSearch.Text = AgentId.Rows[0][2].ToString();
-            //            }
-            //            else
-            //                txtAssociateSearch.Text = string.Empty;
-            //            Agentname = customerBo.GetAssociateName(advisorVo.advisorId, txtAssociateSearch.Text);
-            //            if (Agentname.Rows.Count > 0)
-            //            {
-            //                lblAssociatetext.Text = Agentname.Rows[0][0].ToString();
-            //            }
-            //            else
-            //                lblAssociatetext.Text = string.Empty;
+                    //if (!string.IsNullOrEmpty(dr["AAC_AgentCode"].ToString()))
+                    //{
+                    //    agentCode = dr["AAC_AgentCode"].ToString();
+                    //}
+                    //if (agentId != 0)
+                    //{
+                        //AgentId = customerBo.GetAgentId(advisorVo.advisorId, int.Parse(dr["AAC_AdviserAgentId"].ToString()));
+                        //if (AgentId.Rows.Count > 0)
+                        //{
+                        //    txtAssociateSearch.Text = AgentId.Rows[0][2].ToString();
+                        //}
+                        //else
+                        //    txtAssociateSearch.Text = string.Empty;
+                        Agentname = customerBo.GetAssociateName(advisorVo.advisorId, dr["AAC_AgentCode"].ToString());
+                        if (Agentname.Rows.Count > 0)
+                        {
+                            lblAssociatetext.Text = Agentname.Rows[0][0].ToString();
+                        }
+                        else
+                            lblAssociatetext.Text = string.Empty;
 
-            //        }
-            //        ddlsearch.SelectedValue = "1";
-            //        txtCustomerId.Value = dr["C_CustomerId"].ToString();
-            //        ViewState["customerID"] = dr["C_CustomerId"].ToString();
-            //        txtCustomerName.Text = dr["Customer_Name"].ToString();
-            //        lblgetPan.Text = dr["C_PANNum"].ToString();
-            //        txtAssociateSearch.Text = dr["AAC_AgentCode"].ToString();
-            //        string i = dr["AIM_IssueId"].ToString(); 
-            //        BindIPOIssueList(i);
-            //        BindCustomerNCDIssueList();
-            //        ddlIssueList.SelectedValue = dr["AIM_IssueId"].ToString();
-            //        txtApplicationNo.Text = dr["CO_ApplicationNo"].ToString();
-            //        BindBank();
-            //        ddlBankName.SelectedItem.Text = dr["CO_BankName"].ToString();
-            //        txtBranchName.Text = dr["CO_BankBranchName"].ToString();
-            //        txtDematid.Text = dr["CEDA_BeneficiaryAccountNum"].ToString();
-            //        txtRemarks.Text = dr["CO_Remarks"].ToString();
-            //        if (dr["CO_ASBAAccNo"].ToString() != null || dr["CO_ASBAAccNo"].ToString() != "")
-            //        {
-            //            ddlPaymentMode.SelectedValue = "ES";
-            //            txtASBANO.Text = dr["CO_ASBAAccNo"].ToString();
-            //            trASBA.Visible = true;
-            //        }
-            //        else
-            //        {
-            //            ddlPaymentMode.SelectedValue = "CQ";
-            //            txtPaymentNumber.Text = dr["CO_ChequeNumber"].ToString();
-            //            txtPaymentInstDate.SelectedDate = Convert.ToDateTime(dr["CO_PaymentDate"].ToString());
-            //            trPINo.Visible = true;
-            //        }
-            //        gvAssociate.Visible = true;
-            //    }
-            //}
-            //        gvAssociate.DataSource = dsGetMFOrderDetails.Tables[1];
-            //        gvAssociate.DataBind();
-            //        pnlJointHolderNominee.Visible = true;
-            //        BindIPOBidGrid(3);
-            //        if (dsGetMFOrderDetails.Tables[2].Rows.Count > 0)
-            //        {
-            //        foreach (DataRow dr1 in dsGetMFOrderDetails.Tables[2].Rows)
-            //            {
-            //                if (dr1["COID_Price"].ToString() != "")
-            //                {
-            //                    foreach (GridDataItem gdi in RadGridIPOBid.Items)
-            //                    {
-            //                        TextBox txtBidQuantity = (TextBox)gdi.FindControl("txtBidQuantity");
-            //                        TextBox txtBidPrice = (TextBox)gdi.FindControl("txtBidPrice");
+                   // }
+                        txtAssociateSearch.Text = dr["AAC_AgentCode"].ToString();
+                    ddlsearch.SelectedValue = "1";
+                    txtCustomerId.Value = dr["C_CustomerId"].ToString();
+                    ViewState["customerID"] = dr["C_CustomerId"].ToString();
+                    txtCustomerName.Text = dr["Customer_Name"].ToString();
+                    lblgetPan.Text = dr["C_PANNum"].ToString();
+                    txtAssociateSearch.Text = dr["AAC_AgentCode"].ToString();
+                    string issue = dr["AIM_IssueId"].ToString();
+                    BindIPOIssueList(issue);
+                    BindCustomerNCDIssueList();
+                    ddlIssueList.SelectedValue = dr["AIM_IssueId"].ToString();
+                    txtApplicationNo.Text = dr["CO_ApplicationNo"].ToString();
+                    BindBank();
+                    ddlBankName.SelectedItem.Text = dr["CO_BankName"].ToString();
+                    txtBranchName.Text = dr["CO_BankBranchName"].ToString();
+                    txtDematid.Text = dr["CEDA_DPClientId"].ToString();
+                    ViewState["BenificialAccountNo"] = dr["CEDA_DPClientId"].ToString();
+                    txtRemarks.Text = dr["CO_Remarks"].ToString();
+                    if (dr["CO_ASBAAccNo"].ToString() != "" || dr["CO_ASBAAccNo"].ToString() != null  )
+                    {
+                        ddlPaymentMode.SelectedValue = "ES";
+                        txtASBANO.Text = dr["CO_ASBAAccNo"].ToString();
+                        trASBA.Visible = true;
+                    }
+                    else
+                    {
+                        ddlPaymentMode.SelectedValue = "CQ";
+                        txtPaymentNumber.Text = dr["CO_ChequeNumber"].ToString();
+                        txtPaymentInstDate.SelectedDate = Convert.ToDateTime(dr["CO_PaymentDate"].ToString());
+                        trPINo.Visible = true;
+                    }
+                    gvAssociate.Visible = true;
+                }
+            }
+            gvAssociate.DataSource = dsGetMFOrderDetails.Tables[1];
+            gvAssociate.DataBind();
+            pnlJointHolderNominee.Visible = true;
+            BindIPOBidGrid(3);
 
-            //                        txtBidQuantity.Text = dr1["COID_Price"].ToString();
-            //                        txtBidPrice.Text = dr1["COID_Quantity"].ToString();
-            //                        //break;
-            //                    }
-            //                }
-            //    }
-            //}
+            if (dsGetMFOrderDetails.Tables[2].Rows.Count > 0)
+            {
+                ViewState["Detais"] = dsGetMFOrderDetails.Tables[2];
+                RadGridIPOBid.DataSource = dsGetMFOrderDetails.Tables[2];
+                RadGridIPOBid.DataBind();
+                foreach (DataRow dr1 in dsGetMFOrderDetails.Tables[2].Rows)
+                {
+                    foreach (GridFooterItem footeritem in RadGridIPOBid.MasterTableView.GetItems(GridItemType.Footer))
+                    {
+                        Label lblFinalBidAmountPayable = (Label)footeritem["BidAmountPayable"].FindControl("lblFinalBidAmountPayable");
+                        lblFinalBidAmountPayable.Text = dr1["payable"].ToString();
+                    }
+                }
+            }
+        }
+        protected void btnUpdate_OnClick(object sender, EventArgs e)
+        {
+            int orderNo=0;
+            if (Request.QueryString["action"] != "" && Request.QueryString["action"] != null)
+               orderNo = Convert.ToInt32(Request.QueryString["orderId"].ToString());
+                DataTable dtIPOBidTransactionDettails = CreateTable();
+                DataTable dtJntHld = new DataTable();
+                DataTable dtNominee = new DataTable();
+                dtJntHld.Columns.Add("AssociateId");
+                dtJntHld.Columns.Add("AssociateType");
+                string userMessage = String.Empty;
+                bool accountDebitStatus = false;
+                int orderId = 0;
+                double totalBidAmount = 0;
+                double totalBidAmountPayable = 0;
+                string applicationNo = String.Empty;
+                string apllicationNoStatus = String.Empty;
+                double maxPaybleBidAmount = 0;
+                DateTime cutOff = DateTime.Now;
+                bool isCutOffTimeOver = false;
+                int issueId = Convert.ToInt32(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIM_IssueId"].ToString());
+                if (!string.IsNullOrEmpty(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIM_CutOffTime"].ToString()))
+                    cutOff = Convert.ToDateTime(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIM_CutOffTime"].ToString());
+                DataRow drIPOBid;
+                onlineIPOOrderVo.CustomerId = int.Parse(txtCustomerId.Value);
+                onlineIPOOrderVo.IssueId = issueId;
+                onlineIPOOrderVo.AssetGroup = "IP";
+                onlineIPOOrderVo.IsOrderClosed = false;
+                onlineIPOOrderVo.IsOnlineOrder = false;
+                onlineIPOOrderVo.IsDeclarationAccepted = true;
+                onlineIPOOrderVo.OrderDate = DateTime.Now;
+                int radgridRowNo = 0;
+                int dematAccountId = 0;
+                foreach (GridDataItem gvr in gvDematDetailsTeleR.MasterTableView.Items)
+                {
+                    if (((CheckBox)gvr.FindControl("chkDematId")).Checked == true)
+                    {
+                        dematAccountId = int.Parse(gvDematDetailsTeleR.MasterTableView.DataKeyValues[gvr.ItemIndex]["CEDA_DematAccountId"].ToString());
+                        break;
+                    }
+
+                }
+                foreach (GridDataItem radItem in RadGridIPOBid.MasterTableView.Items)
+                {
+                    drIPOBid = dtIPOBidTransactionDettails.NewRow();
+
+                    CheckBox chkCutOff = (CheckBox)RadGridIPOBid.MasterTableView.Items[radgridRowNo]["CheckCutOff"].FindControl("cbCutOffCheck");
+                    TextBox txtBidQuantity = (TextBox)RadGridIPOBid.MasterTableView.Items[radgridRowNo]["BidQuantity"].FindControl("txtBidQuantity");
+                    TextBox txtBidPrice = (TextBox)RadGridIPOBid.MasterTableView.Items[radgridRowNo]["BidPrice"].FindControl("txtBidPrice");
+                    TextBox txtBidAmount = (TextBox)RadGridIPOBid.MasterTableView.Items[radgridRowNo]["BidAmount"].FindControl("txtBidAmount");
+                    TextBox txtBidAmountPayable = (TextBox)RadGridIPOBid.MasterTableView.Items[radgridRowNo]["BidAmountPayable"].FindControl("txtBidAmountPayable");
+                    drIPOBid["IssueBidNo"] = RadGridIPOBid.MasterTableView.DataKeyValues[radgridRowNo]["IssueBidNo"].ToString();
+                    drIPOBid["IsCutOffApplicable"] = chkCutOff.Checked ? true : false;
+
+                    if (!string.IsNullOrEmpty(txtBidQuantity.Text.Trim()))
+                        drIPOBid["IPOIssueBidQuantity"] = txtBidQuantity.Text.Trim();
+                    else
+                        drIPOBid["IPOIssueBidQuantity"] = DBNull.Value;
+
+                    if (!string.IsNullOrEmpty(txtBidPrice.Text.Trim()))
+                        drIPOBid["IPOIssueBidPrice"] = txtBidPrice.Text.Trim();
+                    else
+                        drIPOBid["IPOIssueBidPrice"] = DBNull.Value;
+
+                    if (!string.IsNullOrEmpty(txtBidAmount.Text.Trim()))
+                    {
+                        drIPOBid["IPOIssueBidAmount"] = txtBidAmount.Text.Trim();
+                        totalBidAmount += Convert.ToDouble(txtBidAmount.Text.Trim());
+                    }
+                    else
+                        drIPOBid["IPOIssueBidAmount"] = DBNull.Value;
+
+                    if (!string.IsNullOrEmpty(txtBidAmountPayable.Text.Trim()))
+                    {
+                        drIPOBid["IPOIssueBidAmountPayable"] = txtBidAmountPayable.Text.Trim();
+                        totalBidAmountPayable += Convert.ToDouble(txtBidAmountPayable.Text.Trim());
+                    }
+                    else
+                        drIPOBid["IPOIssueBidAmountPayable"] = DBNull.Value;
+
+
+                    if (!string.IsNullOrEmpty(txtBidAmount.Text.Trim()))
+                        drIPOBid["TransactionStatusCode"] = 1;
+                    else
+                        drIPOBid["TransactionStatusCode"] = 5;
+
+                    if (!string.IsNullOrEmpty(txtApplicationNo.Text.Trim()))
+                        drIPOBid["ApplicationNO"] = txtApplicationNo.Text.Trim();
+                    else
+                        drIPOBid["ApplicationNO"] = DBNull.Value;
+
+                    if (!string.IsNullOrEmpty(ddlPaymentMode.SelectedValue))
+                        drIPOBid["ModeOfPayment"] = ddlPaymentMode.SelectedValue;
+                    else
+                        drIPOBid["ModeOfPayment"] = DBNull.Value;
+                    if (!string.IsNullOrEmpty(txtASBANO.Text.Trim()))
+                        drIPOBid["ASBAAccNo"] = txtASBANO.Text.Trim();
+                    else
+                        drIPOBid["ASBAAccNo"] = DBNull.Value;
+
+                    drIPOBid["BankName"] = ddlBankName.SelectedItem.Text;
+
+                    if (!string.IsNullOrEmpty(txtBranchName.Text.Trim()))
+                        drIPOBid["BranchName"] = txtBranchName.Text.Trim();
+                    else
+                        drIPOBid["BranchName"] = DBNull.Value;
+
+                    if (ddlPaymentMode.SelectedValue == "CQ")
+                    {
+                        if (!string.IsNullOrEmpty(txtPaymentNumber.Text.Trim()))
+                            drIPOBid["ChequeNo"] = txtPaymentNumber.Text.Trim();
+                        if (!string.IsNullOrEmpty(txtPaymentInstDate.SelectedDate.ToString()))
+                            drIPOBid["ChequeDate"] = txtPaymentInstDate.SelectedDate.Value.ToString("yyyy/MM/dd");
+
+                    }
+                    drIPOBid["DematId"] = dematAccountId;
+                    drIPOBid["Remarks"] = txtRemarks.Text.Trim();
+                    DataTable dr= (DataTable)ViewState["Detais"];
+                    //foreach(DataRow dr1 in dr.Rows)
+                    drIPOBid["DetailsId"] = dr.Rows[radgridRowNo]["COID_DetailsId"].ToString();
+                    dtIPOBidTransactionDettails.Rows.Add(drIPOBid);
+                    if (radgridRowNo < RadGridIPOBid.MasterTableView.Items.Count)
+                        radgridRowNo++;
+                    else
+                        break;
+                }
+
+                foreach (GridFooterItem footeritem in RadGridIPOBid.MasterTableView.GetItems(GridItemType.Footer))
+                {
+                    Label lblBidHighestValue = (Label)footeritem["BidAmountPayable"].FindControl("lblFinalBidAmountPayable");
+                    maxPaybleBidAmount = Convert.ToDouble(lblBidHighestValue.Text.Trim());
+                }
+
+                OfflineIPOOrderBo.UpdateIPOBidOrderDetails(dtIPOBidTransactionDettails, orderNo, txtDematid.Text);
+           
         }
         public void GetUserType()
         {
@@ -749,14 +917,14 @@ namespace WealthERP.OffLineOrderManagement
         private void BindCustomerNCDIssueList()
         {
             DataTable dtIssueList = new DataTable();
-            //if (ViewState["customerID"] != null)
-            //{
-            //    dtIssueList = onlineNCDBackOfficeBO.GetIssueList(advisorVo.advisorId, 1, int.Parse(ViewState["customerID"].ToString()), "IP");
-            //}
-            //else
-            //{
+            if (ViewState["customerID"] != null)
+            {
+                dtIssueList = onlineNCDBackOfficeBO.GetIssueList(advisorVo.advisorId, 1, int.Parse(ViewState["customerID"].ToString()), "IP");
+            }
+            else
+            {
                 dtIssueList = onlineNCDBackOfficeBO.GetIssueList(advisorVo.advisorId, 1, int.Parse(hdnCustomerId.Value), "IP");
-            //}
+            }
             ddlIssueList.DataTextField = dtIssueList.Columns["AIM_IssueName"].ToString();
             ddlIssueList.DataValueField = dtIssueList.Columns["AIM_IssueId"].ToString();
             ddlIssueList.DataSource = dtIssueList;
@@ -1158,6 +1326,28 @@ namespace WealthERP.OffLineOrderManagement
 
         }
 
+        protected DataTable CreateTable()
+        {
+            DataTable dtIPOBidTransactionDettails = new DataTable();
+            dtIPOBidTransactionDettails.Columns.Add("IssueBidNo", typeof(Int16));
+            dtIPOBidTransactionDettails.Columns.Add("IsCutOffApplicable", typeof(Int16));
+            dtIPOBidTransactionDettails.Columns.Add("IPOIssueBidQuantity", typeof(Int64), null);
+            dtIPOBidTransactionDettails.Columns.Add("IPOIssueBidPrice", typeof(decimal), null);
+            dtIPOBidTransactionDettails.Columns.Add("IPOIssueBidAmount", typeof(decimal), null);
+            dtIPOBidTransactionDettails.Columns.Add("IPOIssueBidAmountPayable", typeof(decimal), null);
+            dtIPOBidTransactionDettails.Columns.Add("TransactionStatusCode", typeof(Int16));
+            dtIPOBidTransactionDettails.Columns.Add("ApplicationNO");
+            dtIPOBidTransactionDettails.Columns.Add("ModeOfPayment");
+            dtIPOBidTransactionDettails.Columns.Add("ASBAAccNo");
+            dtIPOBidTransactionDettails.Columns.Add("BankName");
+            dtIPOBidTransactionDettails.Columns.Add("BranchName");
+            dtIPOBidTransactionDettails.Columns.Add("DematId");
+            dtIPOBidTransactionDettails.Columns.Add("ChequeDate");
+            dtIPOBidTransactionDettails.Columns.Add("ChequeNo");
+            dtIPOBidTransactionDettails.Columns.Add("Remarks");
+            dtIPOBidTransactionDettails.Columns.Add("DetailsId",typeof(Int32),null);
+            return dtIPOBidTransactionDettails;
+        }
         private void CreateIPOOrder()
         {
             DataTable dtJntHld = new DataTable();
@@ -1177,23 +1367,7 @@ namespace WealthERP.OffLineOrderManagement
             int issueId = Convert.ToInt32(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIM_IssueId"].ToString());
             if (!string.IsNullOrEmpty(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIM_CutOffTime"].ToString()))
                 cutOff = Convert.ToDateTime(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIM_CutOffTime"].ToString());
-            DataTable dtIPOBidTransactionDettails = new DataTable();
-            dtIPOBidTransactionDettails.Columns.Add("IssueBidNo", typeof(Int16));
-            dtIPOBidTransactionDettails.Columns.Add("IsCutOffApplicable", typeof(Int16));
-            dtIPOBidTransactionDettails.Columns.Add("IPOIssueBidQuantity", typeof(Int64), null);
-            dtIPOBidTransactionDettails.Columns.Add("IPOIssueBidPrice", typeof(decimal), null);
-            dtIPOBidTransactionDettails.Columns.Add("IPOIssueBidAmount", typeof(decimal), null);
-            dtIPOBidTransactionDettails.Columns.Add("IPOIssueBidAmountPayable", typeof(decimal), null);
-            dtIPOBidTransactionDettails.Columns.Add("TransactionStatusCode", typeof(Int16));
-            dtIPOBidTransactionDettails.Columns.Add("ApplicationNO");
-            dtIPOBidTransactionDettails.Columns.Add("ModeOfPayment");
-            dtIPOBidTransactionDettails.Columns.Add("ASBAAccNo");
-            dtIPOBidTransactionDettails.Columns.Add("BankName");
-            dtIPOBidTransactionDettails.Columns.Add("BranchName");
-            dtIPOBidTransactionDettails.Columns.Add("DematId");
-            dtIPOBidTransactionDettails.Columns.Add("ChequeDate");
-            dtIPOBidTransactionDettails.Columns.Add("ChequeNo");
-            dtIPOBidTransactionDettails.Columns.Add("Remarks");
+            DataTable dtIPOBidTransactionDettails= CreateTable();
             DataRow drIPOBid;
             onlineIPOOrderVo.CustomerId = int.Parse(txtCustomerId.Value);
             onlineIPOOrderVo.IssueId = issueId;
@@ -1621,7 +1795,7 @@ namespace WealthERP.OffLineOrderManagement
         }
         protected void ImageddlSyndicate_Click(object sender, EventArgs e)
         {
-            RadDepository.VisibleOnPageLoad = true;
+          //  RadDepository.VisibleOnPageLoad = true;
 
         }
         protected void btnAddDemat_Click(object sender, EventArgs e)
