@@ -76,7 +76,7 @@ namespace BoUploads
             StandardProfileUploadDao StandardProfileUploadDao = new StandardProfileUploadDao();
             try
             {
-                UploadsCustomerList = StandardProfileUploadDao.GetProfileNewCustomers(processId);
+                UploadsCustomerList = StandardProfileUploadDao.GetNewCustomers(processId);
             }
             catch (BaseApplicationException Ex)
             {
