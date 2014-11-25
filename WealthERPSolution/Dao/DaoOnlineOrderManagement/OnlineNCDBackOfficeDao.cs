@@ -1671,7 +1671,7 @@ namespace DaoOnlineOrderManagement
             {
 
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                cmd = db.GetStoredProcCommand("SPROC_ONL_NCDOrderExtract");
+                cmd = db.GetStoredProcCommand("SPROC_ONL_AdviserIssueOrderExtract");
                 db.AddInParameter(cmd, "@A_AdviserId", DbType.Int32, AdviserId);
                 db.AddInParameter(cmd, "@U_UserId", DbType.Int32, UserId);
                 db.AddInParameter(cmd, "@XES_SourceCode", DbType.String, SourceCode);
@@ -1704,7 +1704,7 @@ namespace DaoOnlineOrderManagement
             }
         }
 
-        public DataSet GetOnlineNcdExtractPreview(DateTime Today, int AdviserId, int FileType, int issueId, string extSource, out int AID_SeriesCount)
+        public DataSet GetOnlineNcdExtractPreview(DateTime Today, int AdviserId, int FileType, int issueId, string extSource, string modificationType, int isOnline, out int AID_SeriesCount)
         {
             Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DataSet dsGetOnlineNCDExtractPreview;
@@ -1720,6 +1720,8 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(GetOnlineNCDExtractPreviewcmd, "@WIFT_Id", DbType.Int32, FileType);
                 db.AddInParameter(GetOnlineNCDExtractPreviewcmd, "@IssueId", DbType.Int32, issueId);
                 db.AddInParameter(GetOnlineNCDExtractPreviewcmd, "@ExtSource", DbType.String, extSource);
+                db.AddInParameter(GetOnlineNCDExtractPreviewcmd, "@ModificationType", DbType.String, modificationType);
+                db.AddInParameter(GetOnlineNCDExtractPreviewcmd, "@IsOnline", DbType.Int16, isOnline);
                 db.AddOutParameter(GetOnlineNCDExtractPreviewcmd, "@AID_SeriesCount", DbType.Int32, 1000);
                 GetOnlineNCDExtractPreviewcmd.CommandTimeout = 60 * 60;
                 if (db.ExecuteNonQuery(GetOnlineNCDExtractPreviewcmd) != 0)
@@ -2417,7 +2419,7 @@ namespace DaoOnlineOrderManagement
             return result;
         }
 
-        public int IPOUploadBidSuccessData(DataTable dtData, int issueId)
+        public int IPOUploadBidSuccessData(DataTable dtData, int issueId,int isOnline)
         {
             int result;
             try
@@ -2430,6 +2432,7 @@ namespace DaoOnlineOrderManagement
                 cmdProc.CommandType = CommandType.StoredProcedure;
                 cmdProc.Parameters.AddWithValue("@Details", dtData);
                 cmdProc.Parameters.AddWithValue("@issueId", issueId);
+              
                 cmdProc.CommandTimeout = 60 * 60;
                 result = cmdProc.ExecuteNonQuery();
 

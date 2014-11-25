@@ -138,6 +138,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlIssueName;
+        protected global::System.Web.UI.WebControls.DropDownList ddlTransactionType;
         
         /// <summary>
         /// RequiredFieldValidator1 control.
@@ -317,5 +318,13 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlType;
+
+
+
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblTransaction;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdddlTransactionType;
+       
+       
+
     }
 }

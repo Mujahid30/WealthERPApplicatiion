@@ -1037,7 +1037,7 @@ namespace BoOnlineOrderManagement
         }
 
 
-        public DataTable GetOnlineNcdExtractPreview(DateTime extractDate, int adviserId, int fileTypeId, string extSource, int issueId)
+        public DataTable GetOnlineNcdExtractPreview(DateTime extractDate, int adviserId, int fileTypeId, string extSource, int issueId,string modificationType,int isonline)
         {
 
             KeyValuePair<string, string>[] headers = GetHeaderMapping(fileTypeId, extSource);
@@ -1045,7 +1045,7 @@ namespace BoOnlineOrderManagement
             int AID_SeriesCount = 0;
             if (onlineNCDBackOfficeDao == null) onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
 
-            DataTable dtExtract = onlineNCDBackOfficeDao.GetOnlineNcdExtractPreview(extractDate, adviserId, fileTypeId, issueId, extSource, out AID_SeriesCount).Tables[0];
+            DataTable dtExtract = onlineNCDBackOfficeDao.GetOnlineNcdExtractPreview(extractDate, adviserId, fileTypeId, issueId, extSource, modificationType,isonline, out AID_SeriesCount).Tables[0];
 
             if (fileTypeId == 5)
             {
@@ -1818,7 +1818,7 @@ namespace BoOnlineOrderManagement
             return dtUploadAllotment;
 
         }
-        public int UploadCheckOrderFile(DataTable dtCheckOrder, int fileTypeId, int issueId, ref string isEligbleIssue, int adviserid, string source, ref string result, string product, string filePath, int userId)
+        public int UploadCheckOrderFile(DataTable dtCheckOrder, int fileTypeId, int issueId, ref string isEligbleIssue, int adviserid, string source, ref string result, string product, string filePath, int userId,int isOnline)
         {
 
             int nRows = 0;
@@ -1880,7 +1880,7 @@ namespace BoOnlineOrderManagement
                         }
                         else if (product == "IP")
                         {
-                            nRows = daoOnlNcdBackOff.IPOUploadBidSuccessData(dtCheckOrder, issueId);
+                            nRows = daoOnlNcdBackOff.IPOUploadBidSuccessData(dtCheckOrder, issueId,isOnline);
                         }
 
                     }

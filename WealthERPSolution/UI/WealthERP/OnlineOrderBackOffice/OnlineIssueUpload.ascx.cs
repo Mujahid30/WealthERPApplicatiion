@@ -251,7 +251,7 @@ namespace WealthERP.OnlineOrderBackOffice
             }
             else
             {
-                nRows = boNcdBackOff.UploadCheckOrderFile(dtUploadData, int.Parse(ddlFileType.SelectedValue), int.Parse(ddlIssueName.SelectedValue), ref isIssueAvailable, advisorVo.advisorId, ddlSource.SelectedValue, ref   result, ddlProduct.SelectedValue, hdnsavePath.Value, userVo.UserId);
+                nRows = boNcdBackOff.UploadCheckOrderFile(dtUploadData, int.Parse(ddlFileType.SelectedValue), int.Parse(ddlIssueName.SelectedValue), ref isIssueAvailable, advisorVo.advisorId, ddlSource.SelectedValue, ref   result, ddlProduct.SelectedValue, hdnsavePath.Value, userVo.UserId,int.Parse(ddlType.SelectedValue));
             }
             if (isIssueAvailable == "NotEligble")
             {

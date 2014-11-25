@@ -343,8 +343,8 @@ namespace WealthERP.OnlineOrderBackOffice
         private void GetExtractData()
         {
             DataTable dtExtractData = new DataTable();
-           
-                dtExtractData = boNcdBackOff.GetOnlineNcdExtractPreview(rdpDownloadDate.SelectedDate.Value, adviserVo.advisorId, int.Parse(ddlFileType.SelectedValue), ddlExternalSource.SelectedValue, int.Parse(ddlIssueName.SelectedValue));
+
+            dtExtractData = boNcdBackOff.GetOnlineNcdExtractPreview(rdpDownloadDate.SelectedDate.Value, adviserVo.advisorId, int.Parse(ddlFileType.SelectedValue), ddlExternalSource.SelectedValue, int.Parse(ddlIssueName.SelectedValue),ddlTransactionType.SelectedValue,int.Parse(ddlType.SelectedValue));
 
                 if (dtExtractData == null) return;
             if (Cache["IssueExtract" + userVo.UserId] != null) Cache.Remove("IssueExtract" + userVo.UserId);
@@ -371,6 +371,17 @@ namespace WealthERP.OnlineOrderBackOffice
                 btnIssueExtract.Enabled = false;
                 btnIssueExtract.ToolTip = "Today is not a valid business date";
             }
+        }
+        protected void ddlType_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            tdlblTransaction.Visible = false;
+            tdddlTransactionType.Visible = false;
+            if (ddlType.SelectedValue == "0")
+            {
+                tdlblTransaction.Visible = true;
+                tdddlTransactionType.Visible = true;
+            }
+
         }
         //protected void lnkClick_Click(object sender, EventArgs e)
         //{

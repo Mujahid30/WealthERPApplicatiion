@@ -164,7 +164,7 @@
                     <asp:Label ID="lblType" runat="server" CssClass="FieldName" Text="Select Type:"></asp:Label>
                 </td>
                 <td class="rightData">
-                    <asp:DropDownList ID="ddlType" runat="server" CssClass="cmbField">
+                    <asp:DropDownList ID="ddlType" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlType_OnSelectedIndexChanged" AutoPostBack="true">
                         <asp:ListItem Selected="True" Value="2">--SELECT--</asp:ListItem>
                         <asp:ListItem Text="Offline" Value="0" />
                         <asp:ListItem Text="Online" Value="1" />
@@ -229,7 +229,7 @@
                 </td>
             </tr>
             <tr>
-                <td class="leftLabel" style="width: 10%">
+                <td class="leftLabel" style="width:15%">
                     <asp:Label ID="lblDWNData" runat="server" CssClass="FieldName" Text="Download Data:"></asp:Label>
                 </td>
                 <td class="rightData">
@@ -245,7 +245,7 @@
                         ControlToValidate="ddlExternalSource" CssClass="rfvPCG" Display="Dynamic" InitialValue="0"
                         ValidationGroup="IssueExtract">Please select a download</asp:RequiredFieldValidator>
                 </td>
-                <td class="leftLabel" style="width: 9%">
+                <td class="leftLabel" >
                     <asp:Label ID="lblFileType" runat="server" CssClass="FieldName" Text="File Type:"></asp:Label>
                 </td>
                 <td class="rightData">
@@ -258,23 +258,24 @@
                         ControlToValidate="ddlFileType" CssClass="rfvPCG" Display="Dynamic" InitialValue="0"
                         ValidationGroup="IssueExtract">Please select a file type</asp:RequiredFieldValidator>
                 </td>
-                <td class="leftLabel" style="width: 12%">
-                    <asp:Label ID="Label3" runat="server" CssClass="FieldName" Text="Date:"></asp:Label>
+                 <td class="leftLabel" runat="server" visible="false" id="tdlblTransaction">
+                    <asp:Label ID="Label4" runat="server" CssClass="FieldName" Text="Transaction Type"></asp:Label>
                 </td>
-                <td class="rightData">
-                    <telerik:RadDatePicker ID="rdpDownloadDate" CssClass="txtField" runat="server" AutoPostBack="false"
-                        Skin="Telerik" EnableEmbeddedSkins="false">
-                        <Calendar ID="Calendar1" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
-                            ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
-                        </Calendar>
-                        <DateInput ID="DateInput1" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
-                        </DateInput>
-                    </telerik:RadDatePicker>
+                <td class="rightData" runat="server" visible="false" id="tdddlTransactionType">
+                <asp:DropDownList ID="ddlTransactionType" runat="server" CssClass="cmbField" >
+                        <asp:ListItem Selected="True" Value="-1">--SELECT--</asp:ListItem>
+                        <asp:ListItem Text="Both" Value="0">
+                        </asp:ListItem>
+                        <asp:ListItem Text="New" Value="N">
+                        </asp:ListItem>
+                        <asp:ListItem Text="Modified" Value="M,D"></asp:ListItem> 
+                    </asp:DropDownList>
                     <br />
-                    <asp:RequiredFieldValidator ID="rfvDOwnloadDate" runat="server" ErrorMessage="Please select a valid date"
-                        Display="Dynamic" ControlToValidate="rdpDownloadDate" Text="Please select a valid date"
-                        CssClass="rfvPCG" ValidationGroup="IssueExtract">Please select a valid date</asp:RequiredFieldValidator>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Please select a file type"
+                        ControlToValidate="ddlTransactionType" CssClass="rfvPCG" Display="Dynamic" InitialValue="-1"
+                        ValidationGroup="IssueExtract">Please select a file type</asp:RequiredFieldValidator>
                 </td>
+               
                 <%-- <td class="leftLabel" colspan="2">&nbsp;</td>--%>
             </tr>
             <tr>
@@ -297,6 +298,26 @@
                 <td>
                     &nbsp;
                 </td>--%>
+            </tr>
+            <tr>
+            <td colspan="4"></td>
+             <td class="leftLabel" >
+                    <asp:Label ID="Label3" runat="server" CssClass="FieldName" Text="Date:"></asp:Label>
+                </td>
+                <td class="rightData">
+                    <telerik:RadDatePicker ID="rdpDownloadDate" CssClass="txtField" runat="server" AutoPostBack="false"
+                        Skin="Telerik" EnableEmbeddedSkins="false">
+                        <Calendar ID="Calendar1" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
+                            ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
+                        </Calendar>
+                        <DateInput ID="DateInput1" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                        </DateInput>
+                    </telerik:RadDatePicker>
+                    <br />
+                    <asp:RequiredFieldValidator ID="rfvDOwnloadDate" runat="server" ErrorMessage="Please select a valid date"
+                        Display="Dynamic" ControlToValidate="rdpDownloadDate" Text="Please select a valid date"
+                        CssClass="rfvPCG" ValidationGroup="IssueExtract">Please select a valid date</asp:RequiredFieldValidator>
+                </td>
             </tr>
         </table>
         <table width="100%">
