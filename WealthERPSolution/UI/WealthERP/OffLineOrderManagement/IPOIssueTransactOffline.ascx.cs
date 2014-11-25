@@ -1400,7 +1400,7 @@ namespace WealthERP.OffLineOrderManagement
             txtCustomerName.Text = "";
             ddlsearch.SelectedIndex = -1;
             txtCustomerName.Text = null;
-            txtAssociateSearch.Text = "";
+            //txtAssociateSearch.Text = "";
             lblgetPan.Text = "";
             lblGetBranch.Text = "";
             txtAssociateSearch.Text = "";

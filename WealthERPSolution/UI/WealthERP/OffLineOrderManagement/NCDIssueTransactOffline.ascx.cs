@@ -126,7 +126,7 @@ namespace WealthERP.OffLineOrderManagement
 
             if (!IsPostBack)
             {
-               
+
                 if (AgentCode != null)
                 {
                     txtAssociateSearch.Text = AgentCode;
@@ -1509,7 +1509,6 @@ namespace WealthERP.OffLineOrderManagement
         }
         protected void btnAddMore_Click(object sender, EventArgs e)
         {
-
             int issueDetId = 0;
             int catId = 0;
             int agentId = 0;
@@ -1605,9 +1604,12 @@ namespace WealthERP.OffLineOrderManagement
                         dt.Rows[tableRow]["BankName"] = ddlBankName.SelectedItem.Text;
                         dt.Rows[tableRow]["BranchName"] = OnlineBondVo.BankBranchName;
                         dt.Rows[tableRow]["DematId"] = dematAccountId;
-                        dt.Rows[tableRow]["ChequeDate"] = OnlineBondVo.PaymentDate.ToString("yyyy/MM/dd");
-                        dt.Rows[tableRow]["ChequeNo"] = OnlineBondVo.ChequeNumber;
                         dt.Rows[tableRow]["Remarks"] = OnlineBondVo.Remarks;
+                        if (ddlPaymentMode.SelectedValue == "CQ")
+                        {
+                            dt.Rows[tableRow]["ChequeDate"] = OnlineBondVo.PaymentDate.ToString("yyyy/MM/dd");
+                            dt.Rows[tableRow]["ChequeNo"] = OnlineBondVo.ChequeNumber;
+                        }
                         GridFooterItem footerItemAmount = (GridFooterItem)gvCommMgmt.MasterTableView.GetItems(GridItemType.Footer)[0];
                         Label lblSum = (Label)footerItemAmount.FindControl("lblAmount");
                         txtAmount.Text = OnlineBondVo.Amount.ToString();
@@ -1616,7 +1618,7 @@ namespace WealthERP.OffLineOrderManagement
 
                         if (EligblecatId == 0)
                         {
-                            ShowMessage("Application amount is less than minimum Quantity.");
+                            ShowMessage("Application amount should be between Min Quantity and Max Quantity.");
                             return;
                         }
                         dt.Rows[tableRow]["CatId"] = catId;
@@ -1754,9 +1756,9 @@ namespace WealthERP.OffLineOrderManagement
                     message = CreateUserMessage(orderId, aplicationNoStatus);
                     ShowMessage(message);
                     ClearAllFields();
-                    
-                   
-                    
+
+
+
                 }
             }
             else
@@ -1774,17 +1776,16 @@ namespace WealthERP.OffLineOrderManagement
                 script.RegisterStartupScript(this.GetType(), "HideLabel",
                 "<script type='text/javascript'>HideLabel('" + tblMessage.ClientID + "')</script>");
             }
-        } 
+        }
         private void ClearAllFields()
         {
 
 
             ddlsearch.SelectedIndex = -1;
             txtCustomerName.Text = "";
-            txtAssociateSearch.Text = "";
             lblgetPan.Text = "";
             lblGetBranch.Text = "";
-            txtAssociateSearch.Text = "";
+            //txtAssociateSearch.Text = "";
             lblAssociatetext.Text = "";
             ddlIssueList.SelectedIndex = 0;
             txtApplicationNo.Text = "";
