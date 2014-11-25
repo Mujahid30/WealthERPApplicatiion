@@ -528,7 +528,10 @@ namespace WealthERP.Receivable
                     foreach (ListItem chkItems in chkListTtansactionType.Items)
                     {
                         if (chkItems.Value == "SIP" || chkItems.Value == "STB")
+                        {
                             chkItems.Enabled = true;
+                            chkItems.Selected = true;
+                        }
                         else
                         {
                             chkItems.Enabled = false;
@@ -539,17 +542,20 @@ namespace WealthERP.Receivable
                 else if (ddlTransaction.SelectedValue == "NonSIP")
                 {
                     trMinMaxTenure.Visible = false;
-                    ddlCommissionApplicableLevel.SelectedValue = "TR";
-                    ddlCommissionApplicableLevel.Enabled = false;
+                    //ddlCommissionApplicableLevel.SelectedValue = "TR";
+                    //ddlCommissionApplicableLevel.Enabled = false;
                     foreach (ListItem chkItems in chkListTtansactionType.Items)
                     {
-                        if (chkItems.Value == "SIP" || chkItems.Value == "STB")
-                        {
-                            chkItems.Enabled = false;
-                            chkItems.Selected = false;
-                        }
-                        else
+                        //if (chkItems.Value == "SIP" || chkItems.Value == "STB")
+                        //{
+                        //    chkItems.Enabled = false;
+                        //    chkItems.Selected = false;
+                        //}
+                        //else
+                        //{
                             chkItems.Enabled = true;
+                            chkItems.Selected = true;
+                        //}
                     }
                 }
             }
@@ -579,12 +585,13 @@ namespace WealthERP.Receivable
                     trMinMaxTenure.Visible = false;
                     foreach (ListItem chkItems in chkListTtansactionType.Items)
                     {
-                        if (chkItems.Value == "SIP" || chkItems.Value == "STB")
-                        {
-                            chkItems.Enabled = false;
-                            chkItems.Selected = false;
-                        }
-                        else
+                        //if (chkItems.Value == "SIP" || chkItems.Value == "STB")
+                        //{
+                        //    chkItems.Enabled = false;
+                        //    chkItems.Selected = false;
+                        //}
+                        //else
+                        chkItems.Selected = true;
                             chkItems.Enabled = true;
                     }
                 }
@@ -858,7 +865,7 @@ namespace WealthERP.Receivable
                     ddlCommisionCalOn.SelectedValue = strCalculatedOn;
                     chkListTtansactionType.Visible = true;
                     //ddlAUMFrequency.SelectedValue = strAUMFrequency;
-                    if (strCommissionType == "UP" && (strInvestmentTransactionType.Contains("SIP") || strInvestmentTransactionType.Contains("STB")))
+                    if (strCommissionType == "IN" && (strInvestmentTransactionType.Contains("SIP") || strInvestmentTransactionType.Contains("STB")))
                     {
                         ddlTransaction.Visible = true;
                         ddlTransaction.SelectedValue = "SIP";
@@ -871,14 +878,15 @@ namespace WealthERP.Receivable
                         }
 
                     }
-                    else if (strCommissionType == "UP")
+                    else if (strCommissionType == "IN")
                     {
                         foreach (ListItem chkItems in chkListTtansactionType.Items)
                         {
-                            if (chkItems.Value == "SIP" || chkItems.Value == "STB")
-                                chkItems.Enabled = false;
-                            else
+                            //if (chkItems.Value == "SIP" || chkItems.Value == "STB")
+                            //    chkItems.Enabled = false;
+                            //else
                                 chkItems.Enabled = true;
+                                chkItems.Selected = true;
                         }
                         ddlTransaction.Visible = true;
 
@@ -1239,8 +1247,8 @@ namespace WealthERP.Receivable
                 ddlReceivableFrequency.Visible = enablement;
                 if (CommisionType == "IN")
                 {
-                    ddlCommissionApplicableLevel.SelectedValue = "AD";
-                    ddlCommissionApplicableLevel.Enabled = false;
+                    //ddlCommissionApplicableLevel.SelectedValue = "AD";
+                    //ddlCommissionApplicableLevel.Enabled = false;
                     trTransactionTypeSipFreq.Visible = !enablement;
                     trMinMaxTenure.Visible = !enablement;
                     //tdMinNumberOfApplication.Visible = !enablement;
@@ -1250,9 +1258,9 @@ namespace WealthERP.Receivable
                     //tdtxtMinNumberOfApplication1.Visible = !enablement;
                     //tdtxtMaxNumberOfApplication.Visible = !enablement;
                     trMinAndMaxNumberOfApplication.Visible = !enablement;
-                    chkListTtansactionType.Visible = !enablement;
+                    chkListTtansactionType.Visible = enablement;
                     lblTransactionType.Visible = !enablement;
-                    ddlTransaction.Visible = enablement;
+                    ddlTransaction.Visible = !enablement;
                     foreach (ListItem chkItems in chkListTtansactionType.Items)
                     {
                         //if (chkItems.Value == "SIP" || chkItems.Value == "STB")
@@ -1277,6 +1285,8 @@ namespace WealthERP.Receivable
                     chkListTtansactionType.Visible = !enablement;
                     lblTransactionType.Visible = !enablement;
                     ddlTransaction.Visible = enablement;
+                    ddlCommisionCalOn.SelectedValue = "AGAM";
+                    ddlCommisionCalOn.Enabled = false;
                     foreach (ListItem chkItems in chkListTtansactionType.Items)
                     {
                         ////if (chkItems.Value == "SIP" || chkItems.Value == "STB")
@@ -1290,12 +1300,17 @@ namespace WealthERP.Receivable
                 }
                 else if (CommisionType == "UF")
                 {
-
+                    ddlCommisionCalOn.SelectedValue = "INAM";
+                    ddlCommisionCalOn.Enabled = false;
                     trTransactionTypeSipFreq.Visible = !enablement;
-                    chkListTtansactionType.Visible = enablement;
+                    chkListTtansactionType.Visible = !enablement;
                     lblTransactionType.Visible = !enablement;
-                    ddlTransaction.Visible = !enablement;
+                    ddlTransaction.Visible = enablement;
                     ddlCommissionApplicableLevel.Enabled = true;
+                    foreach (ListItem chkItems in chkListTtansactionType.Items)
+                    {
+                        chkItems.Selected = true;
+                    }
                 }
                 //else
                 //{

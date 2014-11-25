@@ -197,7 +197,7 @@
                             <table cellspacing="0" cellpadding="3" width="100%">
                                 <tr>
                                     <td align="left">
-                                        Commission Receivable Structure Setup
+                                        Add Brokerage Structure Set Up
                                     </td>
                                 </tr>
                             </table>
@@ -445,30 +445,30 @@
                                             <%--<HeaderStyle ForeColor="Silver"></HeaderStyle>--%>
                                             <%-- <ItemStyle ForeColor="Gray" />--%>
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn UniqueName="ACSR_MinInvestmentAmount" HeaderText="Min Invest Amount"
+                                        <telerik:GridBoundColumn UniqueName="ACSR_MinInvestmentAmount" HeaderText="Min. Invest Amount"
                                             DataField="ACSR_MinInvestmentAmount" DataFormatString="{0:N2}">
                                             <HeaderStyle></HeaderStyle>
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn UniqueName="ACSR_MaxInvestmentAmount" HeaderText="Max Invest Amount"
+                                        <telerik:GridBoundColumn UniqueName="ACSR_MaxInvestmentAmount" HeaderText="Max. Invest Amount"
                                             DataField="ACSR_MaxInvestmentAmount" DataFormatString="{0:N2}">
                                             <HeaderStyle></HeaderStyle>
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn UniqueName="ACSR_MinTenure" HeaderText="Min Tenure (SIP)"
+                                        <telerik:GridBoundColumn UniqueName="ACSR_MinTenure" HeaderText="Min. Tenure (SIP)"
                                             DataField="ACSR_MinTenure">
                                             <HeaderStyle></HeaderStyle>
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn UniqueName="ACSR_MaxTenure" HeaderText="Max Tenure (SIP)"
+                                        <telerik:GridBoundColumn UniqueName="ACSR_MaxTenure" HeaderText="Max. Tenure (SIP)"
                                             DataField="ACSR_MaxTenure">
                                             <HeaderStyle></HeaderStyle>
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn UniqueName="ACSR_TenureUnit" HeaderText="Tenure Unit" DataField="ACSR_TenureUnit">
                                             <HeaderStyle></HeaderStyle>
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn UniqueName="ACSR_MinInvestmentAge" HeaderText="Min Invest Age"
+                                        <telerik:GridBoundColumn UniqueName="ACSR_MinInvestmentAge" HeaderText="Min. Invest Age"
                                             DataField="ACSR_MinInvestmentAge">
                                             <HeaderStyle></HeaderStyle>
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn UniqueName="ACSR_MaxInvestmentAge" HeaderText="Max Invest Age"
+                                        <telerik:GridBoundColumn UniqueName="ACSR_MaxInvestmentAge" HeaderText="Max.Invest Age"
                                             DataField="ACSR_MaxInvestmentAge">
                                             <HeaderStyle></HeaderStyle>
                                         </telerik:GridBoundColumn>
@@ -480,11 +480,11 @@
                                             DataField="ACSR_TransactionType">
                                             <HeaderStyle></HeaderStyle>
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn UniqueName="ACSR_MinNumberOfApplications" HeaderText="Min No Applications"
+                                        <telerik:GridBoundColumn UniqueName="ACSR_MinNumberOfApplications" HeaderText="Min. No. of Applications"
                                             DataField="ACSR_MinNumberOfApplications">
                                             <HeaderStyle></HeaderStyle>
                                         </telerik:GridBoundColumn>
-                                         <telerik:GridBoundColumn UniqueName="ACSR_MaxNumberOfApplications" HeaderText="Max No Applications"
+                                        <telerik:GridBoundColumn UniqueName="ACSR_MaxNumberOfApplications" HeaderText="Max. No. of Applications"
                                             DataField="ACSR_MaxNumberOfApplications">
                                             <HeaderStyle></HeaderStyle>
                                         </telerik:GridBoundColumn>
@@ -578,14 +578,14 @@
                                                         </asp:CheckBoxList>
                                                         <asp:TextBox ID="txtTaxValue" Text='<%# Bind( "ACSR_ReducedValue") %>' runat="server"
                                                             CssClass="txtField"></asp:TextBox>
-                                                        <cc1:TextBoxWatermarkExtender ID="twtxtTaxValue" TargetControlID="txtTaxValue"
-                                                            WatermarkText="Enter the Value" runat="server" EnableViewState="false">
+                                                        <cc1:TextBoxWatermarkExtender ID="twtxtTaxValue" TargetControlID="txtTaxValue" WatermarkText="Enter the Value"
+                                                            runat="server" EnableViewState="false">
                                                         </cc1:TextBoxWatermarkExtender>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td class="leftLabel">
-                                                        <asp:Label ID="lblMinInvestmentAmount" runat="server" Text="Min Investment Amount:"
+                                                        <asp:Label ID="lblMinInvestmentAmount" runat="server" Text="Min. Investment Amount:"
                                                             CssClass="FieldName"></asp:Label>
                                                     </td>
                                                     <td class="rightData">
@@ -593,11 +593,11 @@
                                                             runat="server" CssClass="txtField"></asp:TextBox>
                                                         <span id="Span10" class="spnRequiredField" runat="server" visible="true">*</span>
                                                         <asp:RequiredFieldValidator runat="server" ID="rfvtxtMinInvestmentAmount" ValidationGroup="btnSubmitRule"
-                                                            Display="Dynamic" ControlToValidate="txtMinInvestmentAmount" ErrorMessage="Min Investment Amount is mandatory"
+                                                            Display="Dynamic" ControlToValidate="txtMinInvestmentAmount" ErrorMessage="<br />Min. Investment Amount is mandatory"
                                                             Text="" />
                                                     </td>
                                                     <td class="leftLabel">
-                                                        <asp:Label ID="lblMaxInvestmentAmount" runat="server" Text="Max Investment Amount:"
+                                                        <asp:Label ID="lblMaxInvestmentAmount" runat="server" Text="Max. Investment Amount:"
                                                             CssClass="FieldName"></asp:Label>
                                                     </td>
                                                     <td class="rightData">
@@ -605,7 +605,7 @@
                                                             runat="server" CssClass="txtField"></asp:TextBox>
                                                         <span id="Span7" class="spnRequiredField" runat="server" visible="true">*</span>
                                                         <asp:RequiredFieldValidator runat="server" ID="rfvtxtMaxInvestmentAmount" ValidationGroup="btnSubmitRule"
-                                                            Display="Dynamic" ControlToValidate="txtMaxInvestmentAmount" ErrorMessage="Max Investment Amount is mandatory"
+                                                            Display="Dynamic" ControlToValidate="txtMaxInvestmentAmount" ErrorMessage="<br />Max. Investment Amount is mandatory"
                                                             Text="" />
                                                     </td>
                                                     <td class="leftLabel">
@@ -613,14 +613,14 @@
                                                 </tr>
                                                 <tr id="trMinMaxAge" runat="server">
                                                     <td class="leftLabel">
-                                                        <asp:Label ID="lblMinInvestAge" runat="server" Text="Min Investment age :" CssClass="FieldName"></asp:Label>
+                                                        <asp:Label ID="lblMinInvestAge" runat="server" Text="Min. Investment age :" CssClass="FieldName"></asp:Label>
                                                     </td>
                                                     <td class="rightData">
                                                         <asp:TextBox ID="txtMinInvestAge" Text='<%# Bind( "ACSR_MinInvestmentAge") %>' runat="server"
                                                             CssClass="txtField"></asp:TextBox>
                                                     </td>
                                                     <td class="leftLabel">
-                                                        <asp:Label ID="lblMaxInvestAge" runat="server" Text="Max Investment age :" CssClass="FieldName"></asp:Label>
+                                                        <asp:Label ID="lblMaxInvestAge" runat="server" Text="Max. Investment age :" CssClass="FieldName"></asp:Label>
                                                     </td>
                                                     <td class="rightData" colspan="2">
                                                         <asp:TextBox ID="txtMaxInvestAge" Text='<%# Bind( "ACSR_MaxInvestmentAge") %>' runat="server"
@@ -643,10 +643,10 @@
                                                             </asp:ListItem>
                                                             <asp:ListItem Text="Systematic Transaction" Value="SIP">
                                                             </asp:ListItem>
-                                                            <asp:ListItem Text="Non Systematic Transaction" Value="NonSIP">
+                                                            <asp:ListItem Text="NonSystematic Transaction" Value="NonSIP">
                                                             </asp:ListItem>
                                                         </asp:DropDownList>
-                                                        <asp:RequiredFieldValidator ID="rfvddlTransaction" runat="server" ErrorMessage="Please Select Transaction type"
+                                                        <asp:RequiredFieldValidator ID="rfvddlTransaction" runat="server" ErrorMessage="<br />Please Select Transaction type"
                                                             Enabled="false" CssClass="rfvPCG" ControlToValidate="ddlTransaction" ValidationGroup="btnStrAddUpdate"
                                                             Display="Dynamic" InitialValue="0"></asp:RequiredFieldValidator><br />
                                                     </td>
@@ -676,14 +676,14 @@
                                                 </tr>
                                                 <tr id="trMinMaxTenure" runat="server">
                                                     <td class="leftLabel">
-                                                        <asp:Label ID="lblMinTenure" runat="server" Text="Min Tenure:" CssClass="FieldName"></asp:Label>
+                                                        <asp:Label ID="lblMinTenure" runat="server" Text="Min. Tenure:" CssClass="FieldName"></asp:Label>
                                                     </td>
                                                     <td class="rightData">
                                                         <asp:TextBox ID="txtMinTenure" Text='<%# Bind( "ACSR_MinTenure") %>' runat="server"
                                                             CssClass="txtField"></asp:TextBox>
                                                     </td>
                                                     <td class="leftLabel">
-                                                        <asp:Label ID="lblMaxTenure" runat="server" Text="Max Tenure:" CssClass="FieldName"></asp:Label>
+                                                        <asp:Label ID="lblMaxTenure" runat="server" Text="Max. Tenure:" CssClass="FieldName"></asp:Label>
                                                     </td>
                                                     <td class="rightData" colspan="2">
                                                         <asp:TextBox ID="txtMaxTenure" Text='<%# Bind( "ACSR_MaxTenure") %>' runat="server"
@@ -704,6 +704,9 @@
                                                         <asp:TextBox ID="txtBrokerageValue" Text='<%# Bind( "ACSR_BrokerageValue") %>' runat="server"
                                                             CssClass="txtField"></asp:TextBox>
                                                         <span id="Span8" class="spnRequiredField" runat="server" visible="true">*</span>
+                                                         <asp:RequiredFieldValidator runat="server" ID="reqName" ValidationGroup="btnSubmitRule"
+                                                            Display="Dynamic" ControlToValidate="txtBrokerageValue" ErrorMessage="<br />Brokerage value is mandatory"
+                                                            Text="" />
                                                     </td>
                                                     <td class="leftLabel">
                                                         <asp:Label ID="lblUnit" runat="server" Text="Brokerage Unit:" CssClass="FieldName"></asp:Label>
@@ -717,7 +720,7 @@
                                                 </tr>
                                                 <tr runat="server" id="trMinAndMaxNumberOfApplication">
                                                     <td class="leftLabel" runat="server" id="tdlb1MinNumberOfApplication">
-                                                        <asp:Label ID="lblMinNumberOfApplication" runat="server" Text="Min number of applications:"
+                                                        <asp:Label ID="lblMinNumberOfApplication" runat="server" Text="Min. no. of applications:"
                                                             CssClass="FieldName"></asp:Label>
                                                         <br />
                                                         <span id="Span4" class="spnRequiredField">&nbsp;</span>
@@ -727,7 +730,7 @@
                                                             runat="server" CssClass="txtField"></asp:TextBox>
                                                     </td>
                                                     <td class="leftLabel" runat="server" id="tdlb1MaxNumberOfApplication">
-                                                        <asp:Label ID="lblMaxNumberOfApplication" runat="server" Text="Max number of applications:"
+                                                        <asp:Label ID="lblMaxNumberOfApplication" runat="server" Text="Max. no. of applications:"
                                                             CssClass="FieldName"></asp:Label>
                                                         <span id="Span13" class="spnRequiredField">&nbsp;</span>
                                                     </td>
@@ -769,21 +772,19 @@
                                                         ControlToValidate="txtBrokerageValue" ClientValidationFunction="InvestmentAmountValidation"
                                                         ValidateEmptyText="true" ValidationGroup="btnSubmitRule" Display="Dynamic" SetFocusOnError="true">
                                                     </asp:CustomValidator>--%>
-                                                        <asp:CustomValidator ID="CustomValidator1" runat="server" Text="Min Invest Amount should be less than Max Invest"
+                                                        <asp:CustomValidator ID="CustomValidator1" runat="server" Text="Min. invest amount should be less than Max. invest"
                                                             ControlToValidate="txtMaxInvestmentAmount" ClientValidationFunction="InvestmentAmountValidation"
                                                             ValidateEmptyText="true" ValidationGroup="btnSubmitRule" Display="Dynamic" SetFocusOnError="true">
                                                         </asp:CustomValidator>
-                                                        <asp:CustomValidator ID="CustomValidator2" runat="server" Text="Min Tenure should be less than Max Tenure"
+                                                        <asp:CustomValidator ID="CustomValidator2" runat="server" Text="Min. Tenure should be less than Max. Tenure"
                                                             ControlToValidate="txtMaxTenure" ClientValidationFunction="TenureValidation"
                                                             ValidateEmptyText="true" ValidationGroup="btnSubmitRule" Display="Dynamic" SetFocusOnError="true">
                                                         </asp:CustomValidator>
-                                                        <asp:CustomValidator ID="CustomValidator3" runat="server" Text="Min Investment Age should be less than Max Investment Age"
+                                                        <asp:CustomValidator ID="CustomValidator3" runat="server" Text="Min. Investment Age should be less than Max. Investment Age"
                                                             ControlToValidate="txtMaxInvestAge" ClientValidationFunction="InvestmentAgeValidation"
                                                             ValidateEmptyText="true" ValidationGroup="btnSubmitRule" Display="Dynamic" SetFocusOnError="true">
                                                         </asp:CustomValidator>
-                                                        <asp:RequiredFieldValidator runat="server" ID="reqName" ValidationGroup="btnSubmitRule"
-                                                            Display="Dynamic" ControlToValidate="txtBrokerageValue" ErrorMessage="Brokerage value is mandatory"
-                                                            Text="" />
+                                                       
                                                         <%--  <asp:ValidationSummary ID="ValidationSummary1" runat="server" HeaderText="You must enter valid value in the following fields:"
                                                         ShowMessageBox="false" DisplayMode="BulletList" ShowSummary="true" Display="Dynamic"
                                                         ValidationGroup="btnSubmitRule" />--%>
@@ -1035,15 +1036,15 @@
                                 <td class="rightData">
                                     <asp:Button ID="btnMapSchemes" CssClass="PCGButton" runat="server" Text="Map" OnClick="btnMapSchemes_Click" />
                                 </td>
-                        <td colspan="2">
-                            <asp:RequiredFieldValidator ID="rfvMappingTo" runat="server" ErrorMessage="Please enter valid date(s)"
-                                Display="Dynamic" CssClass="rfvPCG" ValidationGroup="mappingPeriod" ControlToValidate="rdpMappedTill"></asp:RequiredFieldValidator>
-                            <asp:RequiredFieldValidator ID="rfvMappingFrom" runat="server" ErrorMessage="Please enter valid date(s)"
-                                Display="Dynamic" CssClass="rfvPCG" ValidationGroup="mappingPeriod" ControlToValidate="rdpMappedFrom"></asp:RequiredFieldValidator>
-                            <asp:CompareValidator ID="cmvMappingPeriod" runat="server" ErrorMessage="Please enter valid date(s)"
-                                CssClass="rfvPCG" Display="Dynamic" ControlToCompare="rdpMappedFrom" ControlToValidate="rdpMappedTill"
-                                Operator="GreaterThan"></asp:CompareValidator>
-                        </td>
+                                <td colspan="2">
+                                    <asp:RequiredFieldValidator ID="rfvMappingTo" runat="server" ErrorMessage="Please enter valid date(s)"
+                                        Display="Dynamic" CssClass="rfvPCG" ValidationGroup="mappingPeriod" ControlToValidate="rdpMappedTill"></asp:RequiredFieldValidator>
+                                    <asp:RequiredFieldValidator ID="rfvMappingFrom" runat="server" ErrorMessage="Please enter valid date(s)"
+                                        Display="Dynamic" CssClass="rfvPCG" ValidationGroup="mappingPeriod" ControlToValidate="rdpMappedFrom"></asp:RequiredFieldValidator>
+                                    <asp:CompareValidator ID="cmvMappingPeriod" runat="server" ErrorMessage="Please enter valid date(s)"
+                                        CssClass="rfvPCG" Display="Dynamic" ControlToCompare="rdpMappedFrom" ControlToValidate="rdpMappedTill"
+                                        Operator="GreaterThan"></asp:CompareValidator>
+                                </td>
                     </tr>
                 </table>
             </asp:Panel>
@@ -1266,3 +1267,18 @@
         </Triggers>
     </asp:UpdatePanel>
 </asp:Panel>
+<table>
+<tr>
+
+<td>
+
+  <asp:Label ID="Label12" runat="server" Text="Note:" CssClass="FieldName"></asp:Label>
+</td>
+
+<td>
+ <asp:Label ID="Label13" runat="server" Text="T15 cities : Ahmedabad, Bangalore, Baroda, Chandigarh, Chennai, Hyderabad (including Secunderabad), Jaipur, Kanpur, Kolkata,<br /> Lucknow, Mumbai(Including Thane & Navi Mumbai), New Delhi(including NCR), Panjim, Pune and Surat <br />
+ B15 cities : cities that are not in T15" CssClass="FieldName"></asp:Label>
+</td>
+<td></td>
+</tr>
+</table>
