@@ -188,7 +188,7 @@
     }
 </style>
 <asp:Panel ID="pnl1" runat="server">
-    <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+  <asp:UpdatePanel>
         <ContentTemplate>
             <table width="100%">
                 <tr>
@@ -806,6 +806,14 @@
                     </td>
                 </tr>
             </table>
+            <div style="float:left ;padding-right:10px;clear:both">
+                <asp:Label ID="Label13" runat="server" Text="Note:" Visible="false" CssClass="FieldName"></asp:Label>
+            </div>
+            
+            <div style="float:left ">
+                <asp:Label ID="Label12" runat="server" Visible="false" Text="T15 cities : Ahmedabad, Bangalore, Baroda, Chandigarh, Chennai, Hyderabad (including Secunderabad), Jaipur, Kanpur, Kolkata,<br /> Lucknow, Mumbai(Including Thane & Navi Mumbai), New Delhi(including NCR), Panjim, Pune and Surat <br /><br />
+ B15 cities : cities that are not in T15" CssClass="FieldName"></asp:Label>
+            </div>
             <table id="Table2" runat="server" width="100%" visible="false">
                 <tr id="tr1" runat="server">
                     <td class="tdSectionHeading">
@@ -1260,17 +1268,17 @@
                 <asp:HiddenField ID="hdnCategoryId" runat="server" />
                 <asp:HiddenField ID="hdnSubcategoryIds" runat="server" />
             </div>
-            <div style="float:left ;padding-right:10px">
+            <%--<div style="float:left ;padding-right:10px">
                 <asp:Label ID="Label12" runat="server" Text="Note:" Visible="false" CssClass="FieldName"></asp:Label>
             </div>
             
-            <div style="float:left">
+            <div style="float:left ">
                 <asp:Label ID="Label13" runat="server" Visible="false" Text="T15 cities : Ahmedabad, Bangalore, Baroda, Chandigarh, Chennai, Hyderabad (including Secunderabad), Jaipur, Kanpur, Kolkata,<br /> Lucknow, Mumbai(Including Thane & Navi Mumbai), New Delhi(including NCR), Panjim, Pune and Surat <br /><br />
  B15 cities : cities that are not in T15" CssClass="FieldName"></asp:Label>
-            </div>
+            </div>--%>
         </ContentTemplate>
         <Triggers>
             <asp:PostBackTrigger ControlID="imgexportButton" />
         </Triggers>
-    </asp:UpdatePanel>
+  </asp:UpdatePanel>
 </asp:Panel>

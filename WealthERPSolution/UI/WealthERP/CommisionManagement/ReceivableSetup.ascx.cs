@@ -1300,6 +1300,7 @@ namespace WealthERP.Receivable
                         //}
                         //else
                             chkItems.Enabled = true;
+                            chkItems.Selected = true;
                     }
                 }
                 else if (CommisionType == "UF")
