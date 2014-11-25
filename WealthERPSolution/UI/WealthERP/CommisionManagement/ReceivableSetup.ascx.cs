@@ -52,6 +52,8 @@ namespace WealthERP.Receivable
                     BindCommissionStructureRuleGrid(structureId);
 
                     //pnlAddSchemes.Visible = true;
+                    Label12.Visible = true;
+                    Label13.Visible = true;
                     if (ddlCommissionype.SelectedValue == "16019" && ddlProductType.SelectedValue == "MF")
                     {
                         pnlAddSchemesButton.Visible = true;
@@ -372,6 +374,8 @@ namespace WealthERP.Receivable
                 tblCommissionStructureRule.Visible = true;
                 tblCommissionStructureRule1.Visible = true;
                 MapPingLinksBasedOnCpmmissionTypes(ddlCommissionype.SelectedValue);
+                Label12.Visible = true;
+                Label13.Visible = true;
                 if (ddlCommissionype.SelectedValue == "16019" && ddlProductType.SelectedValue == "MF")
                 {
                     pnlAddSchemes.Visible = true;
@@ -2379,7 +2383,10 @@ namespace WealthERP.Receivable
 
                     }
                     GetControlsBasedOnType(ddlType.SelectedValue);
-                    ddlAdviserCategory.SelectedValue = row["AC_CategoryId"].ToString();
+                    if (!string.IsNullOrEmpty(row["AC_CategoryId"].ToString()))
+                    {
+                        ddlAdviserCategory.SelectedValue = row["AC_CategoryId"].ToString();
+                    }
                 }
 
 

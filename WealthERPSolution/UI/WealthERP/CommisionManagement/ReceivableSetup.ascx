@@ -187,7 +187,7 @@
         cursor: hand;
     }
 </style>
-<asp:Panel ID="pnl1" runat="server" Height="1000px">
+<asp:Panel ID="pnl1" runat="server">
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
         <ContentTemplate>
             <table width="100%">
@@ -704,7 +704,7 @@
                                                         <asp:TextBox ID="txtBrokerageValue" Text='<%# Bind( "ACSR_BrokerageValue") %>' runat="server"
                                                             CssClass="txtField"></asp:TextBox>
                                                         <span id="Span8" class="spnRequiredField" runat="server" visible="true">*</span>
-                                                         <asp:RequiredFieldValidator runat="server" ID="reqName" ValidationGroup="btnSubmitRule"
+                                                        <asp:RequiredFieldValidator runat="server" ID="reqName" ValidationGroup="btnSubmitRule"
                                                             Display="Dynamic" ControlToValidate="txtBrokerageValue" ErrorMessage="<br />Brokerage value is mandatory"
                                                             Text="" />
                                                     </td>
@@ -784,7 +784,6 @@
                                                             ControlToValidate="txtMaxInvestAge" ClientValidationFunction="InvestmentAgeValidation"
                                                             ValidateEmptyText="true" ValidationGroup="btnSubmitRule" Display="Dynamic" SetFocusOnError="true">
                                                         </asp:CustomValidator>
-                                                       
                                                         <%--  <asp:ValidationSummary ID="ValidationSummary1" runat="server" HeaderText="You must enter valid value in the following fields:"
                                                         ShowMessageBox="false" DisplayMode="BulletList" ShowSummary="true" Display="Dynamic"
                                                         ValidationGroup="btnSubmitRule" />--%>
@@ -1261,24 +1260,17 @@
                 <asp:HiddenField ID="hdnCategoryId" runat="server" />
                 <asp:HiddenField ID="hdnSubcategoryIds" runat="server" />
             </div>
+            <div style="float:left ;padding-right:10px">
+                <asp:Label ID="Label12" runat="server" Text="Note:" Visible="false" CssClass="FieldName"></asp:Label>
+            </div>
+            
+            <div style="float:left">
+                <asp:Label ID="Label13" runat="server" Visible="false" Text="T15 cities : Ahmedabad, Bangalore, Baroda, Chandigarh, Chennai, Hyderabad (including Secunderabad), Jaipur, Kanpur, Kolkata,<br /> Lucknow, Mumbai(Including Thane & Navi Mumbai), New Delhi(including NCR), Panjim, Pune and Surat <br /><br />
+ B15 cities : cities that are not in T15" CssClass="FieldName"></asp:Label>
+            </div>
         </ContentTemplate>
         <Triggers>
             <asp:PostBackTrigger ControlID="imgexportButton" />
         </Triggers>
     </asp:UpdatePanel>
 </asp:Panel>
-<table>
-<tr>
-
-<td>
-
-  <asp:Label ID="Label12" runat="server" Text="Note:" CssClass="FieldName"></asp:Label>
-</td>
-
-<td>
- <asp:Label ID="Label13" runat="server" Text="T15 cities : Ahmedabad, Bangalore, Baroda, Chandigarh, Chennai, Hyderabad (including Secunderabad), Jaipur, Kanpur, Kolkata,<br /> Lucknow, Mumbai(Including Thane & Navi Mumbai), New Delhi(including NCR), Panjim, Pune and Surat <br />
- B15 cities : cities that are not in T15" CssClass="FieldName"></asp:Label>
-</td>
-<td></td>
-</tr>
-</table>
