@@ -131,7 +131,7 @@ namespace WealthERP.OffLineOrderManagement
             {
                 for (int i = dtOrderStatus.Rows.Count - 1; i >= 0; i--)
                 {
-                    if (dtOrderStatus.Rows[i][1].ToString() == "INPROCESS" || dtOrderStatus.Rows[i][1].ToString() == "EXECUTED")
+                    if (dtOrderStatus.Rows[i][1].ToString() == "EXECUTED")
                         dtOrderStatus.Rows[i].Delete();
                 }
                 dtOrderStatus.AcceptChanges();
