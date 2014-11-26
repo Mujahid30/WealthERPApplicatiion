@@ -1516,7 +1516,10 @@ namespace WealthERP.OffLineOrderManagement
         protected void btnAddMore_Click(object sender, EventArgs e)
         {
             ClearAllFields();
-            btnConfirmOrder.Visible = false;
+            btnAddMore.Visible = false;
+            tdsubmit.Visible = true;
+            Label3.Visible = true;
+            btnConfirmOrder.Visible = true;
         }
         //internal void LoadJScript()
         //{
@@ -1556,6 +1559,7 @@ namespace WealthERP.OffLineOrderManagement
             pnlNCDTransact.Visible = false;
             txtRemarks.Text = "";
             trSumbitSuccess.Visible = false;
+
         }
 
         public DataTable LoadNomineesJointHolder(string type)

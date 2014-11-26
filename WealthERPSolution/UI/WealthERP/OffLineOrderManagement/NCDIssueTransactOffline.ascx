@@ -1177,7 +1177,7 @@
                     OnClick="btnConfirmOrder_Click" CssClass="PCGButton" ValidationGroup="btnConfirmOrder" />
             </td>
             <td id="tdAddMore" runat="server" class="rightField">
-                <asp:Button ID="btnAddMore" runat="server" Text="Save & AddMore" CssClass="PCGMediumButton"
+                <asp:Button ID="btnAddMore" runat="server" Text="Add Ncd Order" CssClass="PCGMediumButton"
                     ValidationGroup="btnConfirmOrder" OnClick="btnAddMore_Click" OnClientClick="return  PreventClicks(); Validate(); " />
             </td>
         </tr>
