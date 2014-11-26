@@ -109,7 +109,7 @@
                         <table width="100%">
                             <tr>
                                 <td align="left">
-                                    Receivable Structures
+                                   View Brokerage Structure
                                 </td>
                                 <td align="right">
                                     <asp:ImageButton ID="ibtExportSummary" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
