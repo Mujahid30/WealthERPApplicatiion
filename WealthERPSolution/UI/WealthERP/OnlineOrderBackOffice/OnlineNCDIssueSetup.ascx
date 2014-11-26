@@ -729,7 +729,6 @@
                 <asp:ListItem Value="Select">Select</asp:ListItem>
                 <asp:ListItem Value="Online">Online</asp:ListItem>
                 <asp:ListItem Value="Offline">Offline</asp:ListItem>
-                <asp:ListItem Value="Both">Both</asp:ListItem>
                 <%--       <asp:ListItem Value="Both">Both</asp:ListItem>--%>
             </asp:DropDownList>
             <span id="Span9" class="spnRequiredField">*</span>
@@ -756,7 +755,7 @@
                 <asp:ListItem Value="Select">Select</asp:ListItem>
                 <asp:ListItem Value="Online">Online</asp:ListItem>
                 <asp:ListItem Value="Offline">Offline</asp:ListItem>
-                <asp:ListItem Value="Both">Both</asp:ListItem>
+                <%--<asp:ListItem Value="Both">Both</asp:ListItem>--%>
             </asp:DropDownList>
             <span id="Span11" class="spnRequiredField">*</span>
             <br />
@@ -1243,11 +1242,11 @@
         <%-- <td class="leftLabel">
           
         </td>--%>
-        <td class="leftLabel" Visible="false">
-            <asp:Label ID="lblChnl" runat="server" Visible="false" Text="Bussiness Channel:" CssClass="FieldName"></asp:Label>
+        <td class="leftLabel">
+            <asp:Label ID="lblChnl" runat="server" Text="Bussiness Channel:" CssClass="FieldName"></asp:Label>
         </td>
-        <td class="rightData" Visible="false">
-            <asp:DropDownList ID="ddlBssChnl" Visible="false" runat="server" CssClass="cmbField" AutoPostBack="true">
+        <td class="rightData">
+            <asp:DropDownList ID="ddlBssChnl" runat="server" CssClass="cmbField" AutoPostBack="true">
             </asp:DropDownList>
             <span id="Span42" class="spnRequiredField">*</span>
             <br />
@@ -1258,7 +1257,7 @@
         </td>
         <td class="leftLabel" colspan="3">
             &nbsp;
-        </td>
+        </td>  
     </tr>
     <tr id="trMultipleApplicationAllowed" runat="server">
         <td>

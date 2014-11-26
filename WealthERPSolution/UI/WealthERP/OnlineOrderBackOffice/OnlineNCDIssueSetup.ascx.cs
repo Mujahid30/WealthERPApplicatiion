@@ -673,14 +673,14 @@ namespace WealthERP.OnlineOrderBackOffice
                     {
                         ddlBrokerCode.SelectedValue = "";
                     }
-                    //if (!string.IsNullOrEmpty(dr["WCMV_BussinessChannelId"].ToString()))
-                    //{
-                    //    ddlBssChnl.SelectedValue = dr["WCMV_BussinessChannelId"].ToString();
-                    //}
-                    //else
-                    //{
-                    //    ddlBssChnl.SelectedValue = "";
-                    //}
+                    if (!string.IsNullOrEmpty(dr["WCMV_BussinessChannelId"].ToString()))
+                    {
+                        ddlBssChnl.SelectedValue = dr["WCMV_BussinessChannelId"].ToString();
+                    }
+                    else
+                    {
+                        ddlBssChnl.SelectedValue = "";
+                    }
                     if (ddlIssuer.SelectedValue == "Select")
                         return;
                     SeriesAndCategoriesGridsVisiblity(Convert.ToInt32(ddlIssuer.SelectedValue), issueNo);
@@ -860,7 +860,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
             txtMinAplicSize.Enabled = value;
             txtIsPrefix.Enabled = value;
-            //ddlBssChnl.Enabled = value;
+            ddlBssChnl.Enabled = value;
             chkIsActive.Enabled = value;
             chkNomineeReQuired.Enabled = value;
             chkTradebleExchange.Enabled = value;
@@ -1351,8 +1351,8 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     onlineNCDBackOfficeVo.SBIRegistationNo = "";
                 }
-                //if (!string.IsNullOrEmpty(ddlBssChnl.SelectedValue.ToString()))
-                //    onlineNCDBackOfficeVo.BusinessChannelId = int.Parse(ddlBssChnl.SelectedValue);
+                if (!string.IsNullOrEmpty(ddlBssChnl.SelectedValue.ToString()))
+                    onlineNCDBackOfficeVo.BusinessChannelId = int.Parse(ddlBssChnl.SelectedValue);
 
                 onlineNCDBackOfficeVo.IssueId = Convert.ToInt32(txtIssueId.Text);
                 if (NSCEBSCEcode())
@@ -3387,8 +3387,8 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     onlineNCDBackOfficeVo.RtaSourceCode = 0;
                 }
-                //if (!string.IsNullOrEmpty(ddlBssChnl.SelectedValue.ToString()))
-                //    onlineNCDBackOfficeVo.BusinessChannelId = int.Parse(ddlBssChnl.SelectedValue);
+                if (!string.IsNullOrEmpty(ddlBssChnl.SelectedValue.ToString()))
+                    onlineNCDBackOfficeVo.BusinessChannelId = int.Parse(ddlBssChnl.SelectedValue);
                
                 if (!string.IsNullOrEmpty(ddllblSyndicatet.SelectedValue))
                 {
@@ -5494,14 +5494,13 @@ namespace WealthERP.OnlineOrderBackOffice
                 ddllblSyndicatet.DataTextField = dsSyndiacteAndBusinessChannel.Tables[0].Columns["WSM_SyndicateName"].ToString();
                 ddllblSyndicatet.DataBind();
                 ddllblSyndicatet.Items.Insert(0, new ListItem("Select", "0"));
-                //} if (dsSyndiacteAndBusinessChannel.Tables[1].Rows.Count > 0)
-                //{
-                //    ddlBssChnl.DataSource = dsSyndiacteAndBusinessChannel.Tables[1];
-                //    ddlBssChnl.DataValueField = dsSyndiacteAndBusinessChannel.Tables[1].Columns["WCMV_LookupId"].ToString();
-                //    ddlBssChnl.DataTextField = dsSyndiacteAndBusinessChannel.Tables[1].Columns["WCMV_Name"].ToString();
-                //    ddlBssChnl.DataBind();
-                //    ddlBssChnl.Items.Insert(0, new ListItem("Select", "0"));
-                //}
+            } if (dsSyndiacteAndBusinessChannel.Tables[1].Rows.Count > 0)
+            {
+                ddlBssChnl.DataSource = dsSyndiacteAndBusinessChannel.Tables[1];
+                ddlBssChnl.DataValueField = dsSyndiacteAndBusinessChannel.Tables[1].Columns["WCMV_LookupId"].ToString();
+                ddlBssChnl.DataTextField = dsSyndiacteAndBusinessChannel.Tables[1].Columns["WCMV_Name"].ToString();
+                ddlBssChnl.DataBind();
+                ddlBssChnl.Items.Insert(0, new ListItem("Select", "0"));
             }
         }
         private void BindBrokerCode()
