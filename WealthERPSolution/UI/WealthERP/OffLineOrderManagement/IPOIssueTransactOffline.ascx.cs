@@ -260,12 +260,12 @@ namespace WealthERP.OffLineOrderManagement
                     ddlIssueList.SelectedValue = dr["AIM_IssueId"].ToString();
                     txtApplicationNo.Text = dr["CO_ApplicationNo"].ToString();
                     BindBank();
-                    ddlBankName.SelectedItem.Text = dr["CO_BankName"].ToString();
+                    ddlBankName.SelectedValue = dr["CO_BankName"].ToString();
                     txtBranchName.Text = dr["CO_BankBranchName"].ToString();
                     txtDematid.Text = dr["CEDA_DPClientId"].ToString();
                     ViewState["BenificialAccountNo"] = dr["CEDA_DPClientId"].ToString();
                     txtRemarks.Text = dr["CO_Remarks"].ToString();
-                    if (dr["CO_ASBAAccNo"].ToString() != "" || dr["CO_ASBAAccNo"].ToString() != null  )
+                    if (dr["CO_ASBAAccNo"].ToString() != ""  )
                     {
                         ddlPaymentMode.SelectedValue = "ES";
                         txtASBANO.Text = dr["CO_ASBAAccNo"].ToString();
@@ -436,6 +436,7 @@ namespace WealthERP.OffLineOrderManagement
 
             OfflineIPOOrderBo.UpdateIPOBidOrderDetails(dtIPOBidTransactionDettails, orderNo, txtDematid.Text);
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('IPO Order Updated Successfully!!');", true);
+            btnUpdate.Visible = false;
         }
         public void GetUserType()
         {
@@ -747,7 +748,7 @@ namespace WealthERP.OffLineOrderManagement
             ddlBankName.DataValueField = dtBankName.Columns["WCMV_LookupId"].ToString();
             ddlBankName.DataTextField = dtBankName.Columns["WCMV_Name"].ToString();
             ddlBankName.DataBind();
-            ddlBankName.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
+           // ddlBankName.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
 
         }
         //private void BindPortfolioDropdown(int customerId)
