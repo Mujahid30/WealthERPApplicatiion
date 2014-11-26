@@ -128,7 +128,7 @@ namespace WealthERP.OffLineOrderManagement
 
             }
 
-            this.txtApplicationNo.Text = string.Empty;
+         
             if (!IsPostBack)
             {
                 btnAddMore.Visible = false;
@@ -162,6 +162,7 @@ namespace WealthERP.OffLineOrderManagement
                     {
                         btnUpdate.Visible = false;
                         lnkBtnDemat.Enabled = false;
+                        lnkEdit.Visible = true;
                     }
                     else
                     {
@@ -264,7 +265,7 @@ namespace WealthERP.OffLineOrderManagement
                     txtDematid.Text = dr["CEDA_DPClientId"].ToString();
                     ViewState["BenificialAccountNo"] = dr["CEDA_DPClientId"].ToString();
                     txtRemarks.Text = dr["CO_Remarks"].ToString();
-                    if (dr["CO_ASBAAccNo"].ToString() != "" || dr["CO_ASBAAccNo"].ToString() != null)
+                    if (dr["CO_ASBAAccNo"].ToString() != "" || dr["CO_ASBAAccNo"].ToString() != null  )
                     {
                         ddlPaymentMode.SelectedValue = "ES";
                         txtASBANO.Text = dr["CO_ASBAAccNo"].ToString();
@@ -434,7 +435,7 @@ namespace WealthERP.OffLineOrderManagement
             }
 
             OfflineIPOOrderBo.UpdateIPOBidOrderDetails(dtIPOBidTransactionDettails, orderNo, txtDematid.Text);
-
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('IPO Order Updated Successfully!!');", true);
         }
         public void GetUserType()
         {
@@ -685,6 +686,7 @@ namespace WealthERP.OffLineOrderManagement
         protected void ddlPaymentMode_SelectedIndexChanged(object sender, EventArgs e)
         {
             PaymentMode(ddlPaymentMode.SelectedValue);
+            BindBank();
         }
 
         private void PaymentMode(string type)
@@ -733,7 +735,14 @@ namespace WealthERP.OffLineOrderManagement
             CommonLookupBo commonLookupBo = new CommonLookupBo();
             ddlBankName.Items.Clear();
             DataTable dtBankName = new DataTable();
-            dtBankName = commonLookupBo.GetWERPLookupMasterValueList(7000, 0); ;
+            if (ddlPaymentMode.SelectedValue == "ES")
+            {
+                dtBankName = commonLookupBo.GetWERPLookupMasterValueList(7000, 1);
+            }
+            else
+            {
+                dtBankName = commonLookupBo.GetWERPLookupMasterValueList(7000, 0);
+            }
             ddlBankName.DataSource = dtBankName;
             ddlBankName.DataValueField = dtBankName.Columns["WCMV_LookupId"].ToString();
             ddlBankName.DataTextField = dtBankName.Columns["WCMV_Name"].ToString();
@@ -1745,6 +1754,10 @@ namespace WealthERP.OffLineOrderManagement
 
                             }
 
+                        }
+                        if (Request.QueryString["action"] != null)
+                        {
+                            RadGridIPOBid.MasterTableView.GetColumn("COID_ExchangeRefrenceNo").Visible = true;
                         }
 
 

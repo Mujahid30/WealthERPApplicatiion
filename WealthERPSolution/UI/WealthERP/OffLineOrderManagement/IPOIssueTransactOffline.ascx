@@ -222,6 +222,9 @@
         isValid = Page_ClientValidate('btnConfirmOrder');
         if (isValid) {
             isValid = Page_ClientValidate('btnTC');
+            
+            
+            
         }
 
         return isValid;
@@ -274,8 +277,8 @@
                         &nbsp; Customer Details
                     </div>
                     <div class="divViewEdit" style="float: right; padding-right: 50px">
-                        <asp:LinkButton ID="lnkEdit" runat="server" OnClick="lnkEdit_OnClick" CssClass="LinkButtons"
-                            Visible="true"></asp:LinkButton>
+                        <asp:LinkButton ID="lnkEdit" runat="server" OnClick="lnkEdit_OnClick" CssClass="LinkButtons" Text="Edit" Visible="false" ></asp:LinkButton>
+                   
                     </div>
                 </div>
         </tr>
@@ -959,6 +962,11 @@
                                             Text='<%# Bind("BidAmount")%>'></asp:TextBox>
                                     </ItemTemplate>
                                 </telerik:GridTemplateColumn>
+                                  <telerik:GridBoundColumn DataField="COID_ExchangeRefrenceNo" HeaderStyle-Width="120px" CurrentFilterFunction="Contains"
+                                    ShowFilterIcon="true" AutoPostBackOnFilter="true" HeaderText="ExchangeRefrenceNo"
+                                    UniqueName="COID_ExchangeRefrenceNo" SortExpression="COID_ExchangeRefrenceNo" Visible="false">
+                                    <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                </telerik:GridBoundColumn>
                             </Columns>
                         </MasterTableView>
                     </telerik:RadGrid>
@@ -1014,7 +1022,7 @@
             </td>
             <td>
                 <asp:Button ID="btnUpdate" runat="server" Text="Update" OnClick="btnUpdate_OnClick"
-                    CssClass="PCGButton" Visible="false" />
+                    CssClass="PCGButton" Visible="false" ValidationGroup="btnConfirmOrder"/>
             </td>
         </tr>
     </table>
