@@ -65,7 +65,7 @@
                                 TabIndex="2" PageViewID="RPVSIPBook">
                             </telerik:RadTab>
                             <telerik:RadTab runat="server" Text="SWP BOOK" Value="RTSMFOrderMenuBooksSWPBook"
-                                TabIndex="3" PageViewID="RPVSWPBook">
+                                TabIndex="3" PageViewID="RPVSWPBook" Visible="false">
                             </telerik:RadTab>
                             <telerik:RadTab runat="server" Text="DIVIDEND BOOK" Value="RTSMFOrderMenuBooksDividendBook"
                                 TabIndex="2" PageViewID="RPVDividendBook" Visible="false">
@@ -203,6 +203,24 @@
                     <telerik:RadMultiPage ID="RMPIPOOrderMenuBooks" EnableViewState="false" runat="server"
                         SelectedIndex="0" Width="100%">
                         <telerik:RadPageView ID="RPVIPOBook" runat="server" Style="margin-top: 20px">
+                        </telerik:RadPageView>
+                    </telerik:RadMultiPage>
+                </td>
+            </tr>
+            <tr id="trIPOOrderMenuHoldingsTab" runat="server" visible="false">
+                <td>
+                    <telerik:RadTabStrip ID="RTSIPOOrderMenuHoldingsIPO" runat="server" EnableTheming="True"
+                        Skin="Telerik" EnableEmbeddedSkins="False" MultiPageID="RMPIPOOrderMenuBooks"
+                        SelectedIndex="0" AutoPostBack="true" OnTabClick="RTSIPOOrderMenuHoldingsIPO_TabClick">
+                        <Tabs>
+                            <telerik:RadTab runat="server" Text="IPO HOLDINGS" Value="RTSIPOOrderMenuHoldingsIPOHolding"
+                                TabIndex="0" PageViewID="RPVIPOHoldings" Selected="True">
+                            </telerik:RadTab>
+                        </Tabs>
+                    </telerik:RadTabStrip>
+                    <telerik:RadMultiPage ID="RMPIPOOMenuHoldings" EnableViewState="false" runat="server"
+                        SelectedIndex="0" Width="100%">
+                        <telerik:RadPageView ID="RPVIPOHoldings" runat="server" Style="margin-top: 20px">
                         </telerik:RadPageView>
                     </telerik:RadMultiPage>
                 </td>

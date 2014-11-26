@@ -161,7 +161,17 @@ namespace WealthERP.OnlineOrder
             }
 
         }
+        protected void RTSIPOOrderMenuHoldingsIPO_TabClick(object sender, RadTabStripEventArgs e)
+        {
+            switch (e.Tab.Value)
+            {
+                case "RTSIPOOrderMenuHoldingsIPO": // add a new root tab
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('CustomerIPOHolding','login');", true);
+                    break;
 
+            }
+
+        }
 
 
 
@@ -235,9 +245,9 @@ namespace WealthERP.OnlineOrder
                             case "trIPOOrderMenuBooksTab":
                                 trIPOOrderMenuBooksTab.Visible = true;
                                 break;
-                            //case "trMFOrderMenuHoldingsTab":
-                            //    trMFOrderMenuHoldingsTab.Visible = true;
-                            //    break;
+                            case "trIPOOrderMenuHoldingsTab":
+                                trIPOOrderMenuHoldingsTab.Visible = true;
+                                break;
                         }
                         break;
                     }

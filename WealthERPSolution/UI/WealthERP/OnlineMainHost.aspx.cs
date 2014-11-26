@@ -474,12 +474,12 @@ namespace WealthERP
                                 defaultProductPageSetting.Add("ProductMenuItem", "RTSIPOOrderMenuBooksIPOBook");
                                 defaultProductPageSetting.Add("ProductMenuItemPage", "CustomerIPOOrderBook");
                                 break;
-                            //case "Hodings":
-                            //    defaultProductPageSetting.Add("ProductType", ProductType);
-                            //    defaultProductPageSetting.Add("ProductMenu", "trNCDOrderMenuHoldingsTab");
-                            //    defaultProductPageSetting.Add("ProductMenuItem", "RTSNCDOrderMenuHoldingsNCDHolding");
-                            //    defaultProductPageSetting.Add("ProductMenuItemPage", "NCDIssueHoldings");
-                            //    break;
+                            case "Hodings":
+                                defaultProductPageSetting.Add("ProductType", ProductType);
+                                defaultProductPageSetting.Add("ProductMenu", "trIPOOrderMenuHoldingsTab");
+                                defaultProductPageSetting.Add("ProductMenuItem", "RTSIPOOrderMenuHoldingsIPOHolding");
+                                defaultProductPageSetting.Add("ProductMenuItemPage", "CustomerIPOHolding");
+                                break;
                         }
                         break;
 
