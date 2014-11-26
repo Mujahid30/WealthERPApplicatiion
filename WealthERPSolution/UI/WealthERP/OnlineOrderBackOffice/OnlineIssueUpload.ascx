@@ -150,7 +150,7 @@
                 <table cellspacing="0" cellpadding="2" width="100%">
                     <tr>
                         <td align="left">
-                            Online Issue Upload
+                             Issue Upload
                         </td>
                     </tr>
                 </table>

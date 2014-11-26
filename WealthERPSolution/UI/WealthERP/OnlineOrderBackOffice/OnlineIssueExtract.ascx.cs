@@ -104,6 +104,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 ddlExternalSource.DataTextField = dsIssuer.Tables[0].Columns["XES_SourceCode"].ToString();
                 ddlExternalSource.DataBind();
             }
+            if (ddlType.SelectedValue=="0") ddlExternalSource.Items.FindByText("IOPS").Enabled = false;
             ddlExternalSource.Items.Insert(0, new ListItem("Select", "Select"));
         }
 
@@ -210,6 +211,11 @@ namespace WealthERP.OnlineOrderBackOffice
             ddlFileType.DataValueField = dtFileType.Columns["WEFT_Id"].ToString();
             ddlFileType.DataTextField = dtFileType.Columns["WEFT_FileType"].ToString();
             ddlFileType.DataBind();
+            if (ddlType.SelectedValue == "1")
+            {
+                ddlFileType.Items[1].Enabled = false;
+                ddlFileType.Items[2].Enabled = false;
+            }
         }
         private void BindIssue(string product)
         {
