@@ -15,14 +15,14 @@
     }
 </script>
 
-<script type="text/javascript">
+<%--<script type="text/javascript">
     function HideLabel(tblMessage) {
         setTimeout("HideLabelHelper('" + tblMessage + "');", 50000);
     }
     function HideLabelHelper(tblMessage) {
         document.getElementById(tblMessage).style.display = "none";
     }
-</script>
+</script>--%>
 
 <script type="text/javascript">
     var TargetBaseControl = null;
@@ -230,23 +230,6 @@
     
 </script>
 
-<asp:UpdatePanel ID="UpdatePanel1" runat="server">
-    <ContentTemplate>
-        <table id="tblMessage" width="100%" runat="server" visible="false" style="padding-top: 20px;">
-            <tr id="trSumbitSuccess">
-                <td align="center">
-                    <div id="msgRecordStatus" class="success-msg" align="center" runat="server">
-                    </div>
-                </td>
-            </tr>
-            <tr id="trinsufficentmessage" runat="server" visible="false">
-                <td align="center">
-                    <asp:Label ID="lblinsufficent" runat="server" ForeColor="Red" Text="Order cannot be processed due to insufficient balance"></asp:Label>
-                </td>
-            </tr>
-        </table>
-    </ContentTemplate>
-</asp:UpdatePanel>
 <table width="100%">
     <tr>
         <td colspan="5">
@@ -264,6 +247,23 @@
         </td>
     </tr>
 </table>
+<asp:UpdatePanel ID="UpdatePanel1" runat="server">
+    <ContentTemplate>
+        <table id="tblMessage" width="100%" runat="server" visible="false" style="padding-top: 20px;">
+            <tr id="trSumbitSuccess">
+                <td align="center">
+                    <div id="msgRecordStatus" class="success-msg" align="center" runat="server">
+                    </div>
+                </td>
+            </tr>
+            <tr id="trinsufficentmessage" runat="server" visible="false">
+                <td align="center">
+                    <asp:Label ID="lblinsufficent" runat="server" ForeColor="Red" Text="Order cannot be processed due to insufficient balance"></asp:Label>
+                </td>
+            </tr>
+        </table>
+    </ContentTemplate>
+</asp:UpdatePanel>
 <asp:Panel ID="pnl_OrderSection" runat="server" class="Landscape" Width="100%" Height="80%"
     ScrollBars="None">
     <table width="100%">
@@ -274,8 +274,8 @@
                         &nbsp; Customer Details
                     </div>
                     <div class="divViewEdit" style="float: right; padding-right: 50px">
-                        <asp:LinkButton ID="lnkEdit" runat="server" OnClick="lnkEdit_OnClick" CssClass="LinkButtons" Visible="true"></asp:LinkButton>
-                   
+                        <asp:LinkButton ID="lnkEdit" runat="server" OnClick="lnkEdit_OnClick" CssClass="LinkButtons"
+                            Visible="true"></asp:LinkButton>
                     </div>
                 </div>
         </tr>
@@ -285,14 +285,14 @@
         </tr>
         <tr>
             <td class="leftField" style="width: 20%">
-                <asp:Label ID="lblsearch" runat="server" CssClass="FieldName" Text="Search for"></asp:Label>
+                <asp:Label ID="lblsearch" runat="server" CssClass="FieldName" Text="Search for:"></asp:Label>
             </td>
             <td class="rightField" style="width: 20%">
                 <asp:DropDownList ID="ddlsearch" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlsearch_Selectedindexchanged"
                     AutoPostBack="true" TabIndex="0">
                     <asp:ListItem Text="Select" Value="0"></asp:ListItem>
                     <asp:ListItem Text="Customer Name" Value="1"></asp:ListItem>
-                    <asp:ListItem Text="Customer Pan" Value="2"></asp:ListItem>
+                    <asp:ListItem Text="Customer PAN" Value="2"></asp:ListItem>
                 </asp:DropDownList>
             </td>
             <%--<td class="leftField" style="width: 20%">
@@ -312,7 +312,7 @@
         </tr>
         <tr id="trpan" runat="server" visible="false">
             <td class="leftField" style="width: 20%">
-                <asp:Label ID="lblPansearch" runat="server" Text="Pan Number: " CssClass="FieldName"></asp:Label>
+                <asp:Label ID="lblPansearch" runat="server" Text="PAN: " CssClass="FieldName"></asp:Label>
             </td>
             <td class="rightField" style="width: 20%">
                 <asp:TextBox ID="txtPansearch" runat="server" CssClass="txtField" AutoComplete="Off"
@@ -320,7 +320,7 @@
                     OnTextChanged="OnAssociateTextchanged1" TabIndex="2">
                 </asp:TextBox><span id="Span1" class="spnRequiredField">*</span>
                 <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" TargetControlID="txtPansearch"
-                    WatermarkText="Enter few chars of Pan" runat="server" EnableViewState="false">
+                    WatermarkText="Enter few chars of PAN" runat="server" EnableViewState="false">
                 </cc1:TextBoxWatermarkExtender>
                 <ajaxToolkit:AutoCompleteExtender ID="AutoCompleteExtender1" runat="server" TargetControlID="txtPansearch"
                     ServiceMethod="GetAdviserCustomerPan" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
@@ -330,8 +330,8 @@
                     UseContextKey="True" OnClientItemSelected="GetCustomerId" DelimiterCharacters=""
                     Enabled="True" />
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtPansearch"
-                    ErrorMessage="<br />Please Enter Pan number" Display="Dynamic" runat="server"
-                    CssClass="rfvPCG" ValidationGroup="btnConfirmOrder"></asp:RequiredFieldValidator>
+                    ErrorMessage="<br />Please Enter PAN" Display="Dynamic" runat="server" CssClass="rfvPCG"
+                    ValidationGroup="btnConfirmOrder"></asp:RequiredFieldValidator>
             </td>
             <td class="leftField" style="width: 20%">
                 <asp:Label ID="label2" runat="server" Text="Customer Name: " CssClass="FieldName"></asp:Label>
@@ -369,7 +369,7 @@
                     CssClass="rfvPCG" ValidationGroup="btnConfirmOrder"></asp:RequiredFieldValidator>
             </td>
             <td class="leftField" style="width: 20%">
-                <asp:Label ID="lblPan" runat="server" Text="PAN No: " CssClass="FieldName"></asp:Label>
+                <asp:Label ID="lblPan" runat="server" Text="PAN: " CssClass="FieldName"></asp:Label>
             </td>
             <td class="rightField" style="width: 20%">
                 <asp:Label ID="lblgetPan" runat="server" Text="" CssClass="FieldName"></asp:Label>
@@ -455,10 +455,10 @@
             </td>
         </tr>
         <tr>
-            <td class="leftField">
+            <td class="leftField" style="width: 20%">
                 <asp:Label ID="lblIssueName" runat="server" Text="Select Issue Name:" CssClass="FieldName"></asp:Label>
             </td>
-            <td class="rightField" colspan="5">
+            <td class="rightField" colspan="5" style="width: 20%">
                 <asp:DropDownList ID="ddlIssueList" runat="server" AutoPostBack="true" CssClass="cmbExtraLongField"
                     OnSelectedIndexChanged="ddlIssueList_OnSelectedIndexChanged">
                 </asp:DropDownList>
@@ -469,7 +469,7 @@
         </tr>
         <tr>
             <td class="leftField" style="width: 20%">
-                <asp:Label ID="lblApplicationNo" runat="server" Text="Application No: " CssClass="FieldName"></asp:Label>
+                <asp:Label ID="lblApplicationNo" runat="server" Text="Application No.: " CssClass="FieldName"></asp:Label>
             </td>
             <td class="rightField" style="width: 20%">
                 <asp:TextBox ID="txtApplicationNo" MaxLength="9" onkeydown="return (event.keyCode!=13);"
@@ -478,6 +478,7 @@
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator5" ControlToValidate="txtApplicationNo"
                     ErrorMessage="<br />Please Enter Application No" Display="Dynamic" runat="server"
                     CssClass="rfvPCG" ValidationGroup="btnConfirmOrder"></asp:RequiredFieldValidator>
+                     <asp:Label ID="lblApplicationDuplicate" runat="server" CssClass="Error" Text="Application Number already exists"></asp:Label>
             </td>
             <td id="Td1" class="leftField" style="width: 20%" runat="server" visible="false">
                 <asp:Label ID="lblDepository" runat="server" Text="Depository Type: " CssClass="FieldName"></asp:Label>
@@ -555,10 +556,10 @@
                     CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select  Mode Of Payment"
                     Operator="NotEqual" ValidationGroup="btnConfirmOrder" ValueToCompare="Select"></asp:CompareValidator>
             </td>
-            <td id="Td3" class="leftField" runat="server" visible="false">
+            <td id="Td3" class="leftField" style="width: 20%" runat="server" visible="false">
                 <asp:Label ID="lblAmount" Text="Amount" runat="server" CssClass="FieldName"></asp:Label>
             </td>
-            <td id="Td4" class="rightField" runat="server" visible="false">
+            <td id="Td4" class="rightField" style="width: 20%" runat="server" visible="false">
                 <asp:TextBox ID="txtAmount" runat="server" CssClass="txtField" ReadOnly="true"></asp:TextBox>
             </td>
             <td>
@@ -600,10 +601,10 @@
             </td>
         </tr>
         <tr id="trASBA" runat="server" visible="false">
-            <td class="leftField">
+            <td class="leftField" style="width: 20%">
                 <asp:Label ID="lblASBANo" Text="ASBA Bank A/c NO:" runat="server" CssClass="FieldName"></asp:Label>
             </td>
-            <td class="rightField">
+            <td class="rightField" style="width: 20%">
                 <asp:TextBox ID="txtASBANO" onkeydown="return (event.keyCode!=13);" runat="server"
                     MaxLength="16" CssClass="txtField"></asp:TextBox>
                 <span id="Span5" class="spnRequiredField">*</span>
@@ -663,11 +664,11 @@
             </td>
         </tr>
         <tr id="tdlnkbtn" runat="server">
-            <td>
+            <td class="leftField" style="width: 20%">
                 <asp:LinkButton ID="lnkBtnDemat" runat="server" OnClick="lnkBtnDemat_onClick" CssClass="LinkButtons"
                     Text="Click to select Demat Details"></asp:LinkButton>
             </td>
-            <td id="Td5" align="right" colspan="2">
+            <td id="Td5" class="rightField" style="width: 20%" colspan="2">
                 <asp:ImageButton ID="ImageButton1" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
                     AlternateText="Add Demat Account" runat="server" ToolTip="Click here to Add Demat Account"
                     OnClientClick="return openpopupAddDematAccount()" Height="15px" Width="15px"
@@ -675,7 +676,7 @@
             </td>
         </tr>
         <tr>
-            <td class="leftField" style="width: 20%">
+            <td class="leftField" style="width: 25%">
                 <asp:Label ID="lblDpClientId" runat="server" Text="Beneficiary Acct No:" CssClass="FieldName"></asp:Label>
             </td>
             <td class="rightField" style="width: 20%">
@@ -990,35 +991,34 @@
         </table>
     </div>
 </asp:Panel>
-<table>
-    <tr>
-        <td>
-            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
-        </td>
-        <td class="leftField">
-            <asp:Label ID="lblRemarks" runat="server" Text="Remarks:" CssClass="FieldName"></asp:Label>
-        </td>
-        <td class="rightField">
-            <asp:TextBox ID="txtRemarks" Width="400px" TextMode="MultiLine" MaxLength="300" Height="40px"
-                onkeydown="return (event.keyCode!=13);" runat="server" CssClass="txtField"></asp:TextBox>
-        </td>
-    </tr>
-    <tr>
-        <td class="leftField">
-            <asp:Button ID="btnConfirmOrder" runat="server" Text="Confirm Order" OnClick="btnConfirmOrder_Click"
-                CssClass="PCGMediumButton" ValidationGroup="btnConfirmOrder, btnTC" OnClientClick="return  PreventClicks(); Validate(); " />
-        </td>
-        <td class="rightField">
-            <asp:Button ID="btnAddMore" runat="server" Text="Save & AddMore" CssClass="PCGMediumButton"
-                ValidationGroup="btnConfirmOrder" onblur="HideLabel()" OnClientClick="return  PreventClicks();"
-                OnClick="btnAddMore_Click" />
-        </td>
-        <td>
-            <asp:Button ID="btnUpdate" runat="server" Text="Update" OnClick="btnUpdate_OnClick"
-                CssClass="PCGButton" Visible="false" />
-        </td>
-    </tr>
-</table>
+<asp:Panel ID="PnlSubmit" runat="server" class="Landscape" Width="100%" Height="80%"
+    ScrollBars="None">
+    <table width="100%">
+        <tr>
+            <td class="leftField" style="width: 25%">
+                <asp:Label ID="lblRemarks" runat="server" Text="Remarks:" CssClass="FieldName"></asp:Label>
+            </td>
+            <td class="rightField" style="width: 25%">
+                <asp:TextBox ID="txtRemarks" Width="400px" TextMode="MultiLine" MaxLength="300" Height="40px"
+                    onkeydown="return (event.keyCode!=13);" runat="server" CssClass="txtField"></asp:TextBox>
+            </td>
+        </tr>
+        <tr>
+            <td class="leftField">
+                <asp:Button ID="btnConfirmOrder" runat="server" Text="Confirm Order" OnClick="btnConfirmOrder_Click"
+                    CssClass="PCGMediumButton" ValidationGroup="btnConfirmOrder, btnTC" OnClientClick="return  PreventClicks(); Validate(); " />
+            </td>
+            <td class="rightField">
+                <asp:Button ID="btnAddMore" runat="server" Text="Add Ipo Order" CssClass="PCGMediumButton"
+                    ValidationGroup="btnConfirmOrder" OnClientClick="return  PreventClicks();" OnClick="btnAddMore_Click" />
+            </td>
+            <td>
+                <asp:Button ID="btnUpdate" runat="server" Text="Update" OnClick="btnUpdate_OnClick"
+                    CssClass="PCGButton" Visible="false" />
+            </td>
+        </tr>
+    </table>
+</asp:Panel>
 <telerik:RadWindow ID="rwTermsCondition" runat="server" VisibleOnPageLoad="false"
     Width="1000px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="Move, Resize,Close"
     Title="Terms & Conditions" EnableShadow="true" OnClientShow="setCustomPosition"
@@ -1101,14 +1101,14 @@
                                     DataField="CEDA_DepositoryName" FilterControlWidth="120px" HeaderStyle-Width="140px"
                                     HeaderText="Depository Name" ShowFilterIcon="false" SortExpression="CEDA_DepositoryName"
                                     UniqueName="CEDA_DepositoryName">
-                                    <HeaderStyle Width="140px" />
+                                    <HeaderStyle Width="100px" />
                                     <ItemStyle HorizontalAlign="left" VerticalAlign="top" Width="67px" Wrap="false" />
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn AllowFiltering="true" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"
                                     DataField="CEDA_DPClientId" FilterControlWidth="50px" HeaderStyle-Width="67px"
                                     HeaderText="Beneficiary Acct No" ShowFilterIcon="false" SortExpression="CEDA_DPClientId"
                                     UniqueName="CEDA_DPClientId">
-                                    <HeaderStyle Width="80px" />
+                                    <HeaderStyle Width="120px" />
                                     <ItemStyle HorizontalAlign="left" VerticalAlign="top" Width="100px" Wrap="false" />
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn AllowFiltering="true" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"

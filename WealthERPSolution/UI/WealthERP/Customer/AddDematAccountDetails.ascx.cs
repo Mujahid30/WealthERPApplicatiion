@@ -74,6 +74,7 @@ namespace WealthERP.Customer
                     chk_isactive.Enabled = false;
                     lbtnBack2Button.Visible = false;
                     Session["DematDetailsView"] = "Add";
+                    lblTitle.Text = "Add Demat Account";
             }
 
             else if (Session["DematDetailsView"].ToString() == "View")

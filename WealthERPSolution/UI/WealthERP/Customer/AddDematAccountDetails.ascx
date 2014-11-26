@@ -110,6 +110,7 @@
             <asp:DropDownList ID="ddlDepositoryName" runat="server" CssClass="cmbField" AutoPostBack="true"
                 OnSelectedIndexChanged="ddlDepositoryName_SelectedIndexChanged">
             </asp:DropDownList>
+            <span id="Span4" class="spnRequiredField">*</span>
             <br />
             <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="ddlDepositoryName"
                 CssClass="rfvPCG" Display="Dynamic" ErrorMessage="Please select Depository Name"

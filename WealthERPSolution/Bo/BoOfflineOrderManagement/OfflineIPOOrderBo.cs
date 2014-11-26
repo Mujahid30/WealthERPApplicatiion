@@ -99,5 +99,33 @@ namespace BoOfflineOrderManagement
             }
             return bResult;
         }
+        public bool ApplicationDuplicateCheck(int issueId, int applicationNo)
+        {
+            bool bResult = false;
+            OfflineIPOOrderDao OfflineIPOOrderDao = new OfflineIPOOrderDao();
+            try
+            {
+                bResult = OfflineIPOOrderDao.ApplicationDuplicateCheck(issueId, applicationNo);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OfflineIPOOrderDao.cs:PANNumberDuplicateCheck()");
+                object[] objects = new object[2];
+                objects[0] = issueId;
+                objects[1] = applicationNo;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return bResult;
+        }
     }
 }

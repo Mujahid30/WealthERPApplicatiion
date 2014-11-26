@@ -150,5 +150,53 @@ namespace DaoOfflineOrderManagement
        
             return bResult;
         }
+        public bool ApplicationDuplicateCheck(int issueId, int applicationNo)
+        {
+            Database db;
+            DbCommand cmdApplicationDuplicateCheck;
+            bool bResult = false;
+            int count = 0;
+            DataSet ds;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //Adding Data to the table 
+                cmdApplicationDuplicateCheck = db.GetStoredProcCommand("SP_ApplicationDuplicateCheck");
+                db.AddInParameter(cmdApplicationDuplicateCheck, "@Application", DbType.Int32, applicationNo);
+                db.AddInParameter(cmdApplicationDuplicateCheck, "@AIM_IssueId", DbType.Int32,issueId);
+                db.AddOutParameter(cmdApplicationDuplicateCheck, "@Count", DbType.Int32, 100);
+                 db.ExecuteNonQuery(cmdApplicationDuplicateCheck);
+                int objCount = Convert.ToInt32(db.GetParameterValue(cmdApplicationDuplicateCheck, "Count").ToString());
+                if (objCount != 0)
+                    count = int.Parse(db.GetParameterValue(cmdApplicationDuplicateCheck, "@count").ToString());
+                else
+                    count = 0;
+                if (count > 0)
+                    bResult = true;
+                //res = Convert.ToInt32(db.ExecuteScalar(cmdApplicationDuplicateCheck).ToString());
+                //if (res > 0)
+                //    bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OfflineIPOOrderDao.cs:ApplicationDuplicateCheck()");
+                object[] objects = new object[2];
+                objects[0] = issueId;
+                objects[1] = applicationNo;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return bResult;
+        }
+
     }
 }

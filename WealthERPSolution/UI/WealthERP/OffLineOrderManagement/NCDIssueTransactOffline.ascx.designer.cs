@@ -75,6 +75,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblinsufficent;
+        protected global::System.Web.UI.WebControls.Label lblApplicationDuplicate;
         
         /// <summary>
         /// pnl_OrderSection control.
