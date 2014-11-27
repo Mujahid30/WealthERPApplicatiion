@@ -122,12 +122,15 @@
                             ShowStatusBar="true" AllowAutomaticDeletes="false" AllowAutomaticInserts="false"
                             OnItemCommand="gvChildCode_ItemCommand" OnItemDataBound="gvChildCode_ItemDataBound"
                             OnNeedDataSource="gvChildCode_OnNeedDataSource" Visible="false" AllowAutomaticUpdates="false"
-                            HorizontalAlign="NotSet" DataKeyNames="AAC_AdviserAgentId,AAC_AdviserAgentIdParent,AAC_AgentCode">
-                            <MasterTableView CommandItemDisplay="Top" EditMode="PopUp" DataKeyNames="AAC_AdviserAgentId,AAC_AdviserAgentIdParent,AAC_AgentCode"
+                            HorizontalAlign="NotSet" DataKeyNames="AAC_AdviserAgentId,AAC_AdviserAgentIdParent,AAC_AgentCode,U_UserId">
+                            <MasterTableView CommandItemDisplay="Top" EditMode="PopUp" DataKeyNames="AAC_AdviserAgentId,AAC_AdviserAgentIdParent,AAC_AgentCode,U_UserId"
                                 CommandItemSettings-ShowRefreshButton="false" CommandItemSettings-AddNewRecordText="Add child codes">
                                 <Columns>
-                                    <telerik:GridBoundColumn UniqueName="AAC_AgentCode" HeaderText="Child Code"
-                                        DataField="AAC_AgentCode">
+                                    <telerik:GridBoundColumn UniqueName="AAC_AgentCode" HeaderText="Child Code" DataField="AAC_AgentCode">
+                                    </telerik:GridBoundColumn>
+                                     <telerik:GridBoundColumn UniqueName="EmailId" HeaderText="EmailId" DataField="EmailId">
+                                    </telerik:GridBoundColumn>
+                                     <telerik:GridBoundColumn UniqueName="ChildName" HeaderText="Name" DataField="ChildName">
                                     </telerik:GridBoundColumn>
                                     <telerik:GridEditCommandColumn EditText="Update" UniqueName="editColumn" CancelText="Cancel"
                                         UpdateText="Edit">
@@ -156,6 +159,35 @@
                                                 <td>
                                                     <asp:RequiredFieldValidator ID="rfvChildcode" ControlToValidate="txtChildCode" ErrorMessage="<br />Please Enter Child Code "
                                                         Display="Dynamic" runat="server" CssClass="rfvPCG" ValidationGroup="Button1">
+                                                    </asp:RequiredFieldValidator>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="leftField">
+                                                    <asp:Label ID="lblChildName" runat="server" Text="Name:" CssClass="FieldName"></asp:Label>
+                                                </td>
+                                                <td class="rightField" onkeypress="return keyPress(this, event)">
+                                                    <asp:TextBox ID="txtChildName" CssClass="txtField" Text='<%# Bind( "ChildName") %>'
+                                                        runat="server"></asp:TextBox>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="leftField">
+                                                    <asp:Label ID="lblChildEmailId" runat="server" Text="EmailId:" CssClass="FieldName"></asp:Label>
+                                                </td>
+                                                <td class="rightField" onkeypress="return keyPress(this, event)">
+                                                    <asp:TextBox ID="txtChildEmailId" CssClass="txtField" Text='<%# Bind( "EmailId") %>'
+                                                        runat="server">
+                                                    </asp:TextBox><span id="Span3" class="spnRequiredField">*</span>
+                                                </td>
+                                                <td>
+                                                    <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="txtChildEmailId"
+                                                        ErrorMessage="<br />Please enter a valid EmailId" Display="Dynamic" runat="server"
+                                                        ValidationGroup="Button1" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"
+                                                        CssClass="revPCG"></asp:RegularExpressionValidator>
+                                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtChildEmailId"
+                                                        ErrorMessage="<br />Please Enter EmailId " Display="Dynamic" runat="server" CssClass="rfvPCG"
+                                                        ValidationGroup="Button1">
                                                     </asp:RequiredFieldValidator>
                                                 </td>
                                             </tr>

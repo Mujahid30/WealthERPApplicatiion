@@ -478,6 +478,8 @@ namespace WealthERP.Associates
             int PagentId = 0;
             int childAgentId = 0;
             string ChildCode = string.Empty;
+            string childName = string.Empty;
+            string childEmailId = string.Empty;
             AssociatesVO associatesVo = new AssociatesVO();
             if (Session["PagentId"] != null)
                 PagentId = (int)Session["PagentId"];
@@ -490,12 +492,17 @@ namespace WealthERP.Associates
             {
                 //strExternalCodeToBeEdited = Session["extCodeTobeEdited"].ToString();
                 associatesVo.AAC_AdviserAgentId = int.Parse(gvChildCode.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AAC_AdviserAgentId"].ToString());
+                int userId = int.Parse(gvChildCode.MasterTableView.DataKeyValues[e.Item.ItemIndex]["U_UserId"].ToString());
                 AdvisorBo advisorBo = new AdvisorBo();
                 bool isUpdated = false;
                 GridEditableItem gridEditableItem = (GridEditableItem)e.Item;
                 TextBox txtChildCode = (TextBox)e.Item.FindControl("txtChildCode");
+                TextBox txtChildName = (TextBox)e.Item.FindControl("txtChildName");
+                TextBox txtChildEmailId = (TextBox)e.Item.FindControl("txtChildEmailId");
                 ChildCode = txtChildCode.Text;
-                isUpdated = associatesBo.EditAddChildAgentCodeList(associatesVo, ChildCode, PagentId, 'U');
+                childName = txtChildName.Text;
+                childEmailId = txtChildEmailId.Text;
+                isUpdated = associatesBo.EditAddChildAgentCodeList(associatesVo, ChildCode, PagentId, 'U', childName, childEmailId, userId);
 
             }
             if (e.CommandName == RadGrid.DeleteCommandName)
@@ -515,10 +522,14 @@ namespace WealthERP.Associates
                 bool isInserted = false;
                 GridEditableItem gridEditableItem = (GridEditableItem)e.Item;
                 TextBox txtChildCode = (TextBox)e.Item.FindControl("txtChildCode");
+                TextBox txtChildName = (TextBox)e.Item.FindControl("txtChildName");
+                TextBox txtChildEmailId = (TextBox)e.Item.FindControl("txtChildEmailId");
                 ChildCode = txtChildCode.Text;
+                childName = txtChildName.Text;
+                childEmailId = txtChildEmailId.Text;
                 if (Validation(ChildCode))
                 {
-                    isInserted = associatesBo.EditAddChildAgentCodeList(associatesVo, ChildCode, PagentId, 'I');
+                    isInserted = associatesBo.EditAddChildAgentCodeList(associatesVo, ChildCode, PagentId, 'I', childName, childEmailId,0);
                 }
             }
             BindChildCodeGrid(PagentId);
