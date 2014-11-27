@@ -895,7 +895,7 @@
     </tr>
     <tr>
         <td class="leftLabel">
-            <asp:Label ID="Label21" runat="server" Text="Cut-Off Time:" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="Label21" runat="server" Text="Online Cut-Off Time:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightData">
             <asp:DropDownList ID="ddlCutOffTimeHours" runat="server" CssClass="cmbField" AutoPostBack="true"
@@ -922,12 +922,35 @@
                 runat="server" ControlToCompare="ddlCloseTimeHours" Display="Dynamic" ErrorMessage="<br/>Cut-Off TIme Should be Less Than Close Time"
                 Type="Integer" Operator="LessThanEqual" CssClass="cvPCG" ValidationGroup="SetUpSubmit"></asp:CompareValidator>
         </td>
-        <td align="right">
-            <asp:Label ID="lblSubBrokerCode" runat="server" Text="Sub Broker Code:" CssClass="FieldName"></asp:Label>
+        <td class="leftLabel">
+            <asp:Label ID="Label24" runat="server" Text="Offline Cut-Off Time:" CssClass="FieldName"></asp:Label>
         </td>
-        <td>
-            <asp:TextBox ID="txtSubBrokerCode" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
+        <td class="rightData">
+            <asp:DropDownList ID="ddlOffCutOffTimeHours" runat="server" CssClass="cmbField" AutoPostBack="true"
+                Width="60px" />
+            <asp:DropDownList ID="ddlOffCutOffTimeMinutes" runat="server" CssClass="cmbField" AutoPostBack="true"
+                Width="60px" />
+            <asp:DropDownList ID="ddlOffCutOffTimeSeconds" runat="server" CssClass="cmbField" AutoPostBack="true"
+                Width="60px" />
+            <span id="Span44" class="spnRequiredField">*</span>
+            <br />
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator54" runat="server" CssClass="rfvPCG"
+                ErrorMessage="Please Enter Time" Display="Dynamic" ControlToValidate="ddlOffCutOffTimeHours"
+                InitialValue="HH" ValidationGroup="SetUpSubmit">
+            </asp:RequiredFieldValidator>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator55" runat="server" CssClass="rfvPCG"
+                ErrorMessage="Please Enter Minutes" Display="Dynamic" ControlToValidate="ddlOffCutOffTimeMinutes"
+                InitialValue="MM" ValidationGroup="SetUpSubmit">
+            </asp:RequiredFieldValidator>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator56" runat="server" CssClass="rfvPCG"
+                ErrorMessage="Please Enter Seconds" Display="Dynamic" ControlToValidate="ddlOffCutOffTimeSeconds"
+                InitialValue="SS" ValidationGroup="SetUpSubmit">
+            </asp:RequiredFieldValidator>
+            <asp:CompareValidator ID="CompareValidator11" ControlToValidate="ddlOffCutOffTimeHours"
+                runat="server" ControlToCompare="ddlCloseTimeHours" Display="Dynamic" ErrorMessage="<br/>Cut-Off TIme Should be Less Than Close Time"
+                Type="Integer" Operator="LessThanEqual" CssClass="cvPCG" ValidationGroup="SetUpSubmit"></asp:CompareValidator>
         </td>
+        
     </tr>
     <%-- <tr>
         <td class="leftLabel">
@@ -1050,12 +1073,12 @@
                 runat="server" ControlToCompare="txtMaxQty" Display="Dynamic" ErrorMessage="<br/>Min Qty be Less Than Max Qty"
                 Type="Integer" Operator="LessThan" CssClass="cvPCG" ValidationGroup="SetUpSubmit"></asp:CompareValidator>
         </td>
-        <%--   <td class="leftLabel">
-            <asp:Label ID="lb1IsPrefix" runat="server" Text="Is Prefix:" CssClass="FieldName"></asp:Label>
+        <td align="right">
+            <asp:Label ID="lblSubBrokerCode" runat="server" Text="Sub Broker Code:" CssClass="FieldName"></asp:Label>
         </td>
-        <td class="rightData">
-            <asp:TextBox ID="txtIsPrefix" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
-        </td>--%>
+        <td>
+            <asp:TextBox ID="txtSubBrokerCode" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
+        </td>
     </tr>
     <tr runat="server" id="trMaxQty">
         <td class="leftLabel">

@@ -140,6 +140,8 @@ namespace WealthERP.OnlineOrderBackOffice
         protected global::System.Web.UI.WebControls.TextBox txtBrokercodeadd;
         protected global::System.Web.UI.WebControls.Label lblBrokerCode;
         protected global::System.Web.UI.WebControls.DropDownList ddlBrokerCode;
+        protected global::System.Web.UI.WebControls.DropDownList ddlOffCutOffTimeMinutes;
+        protected global::System.Web.UI.WebControls.DropDownList ddlOffCutOffTimeSeconds;
         /// <summary>
         /// ddlProduct control.
         /// </summary>
@@ -200,6 +202,7 @@ namespace WealthERP.OnlineOrderBackOffice
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlSubInstrCategory;
+        protected global::System.Web.UI.WebControls.DropDownList ddlOffCutOffTimeHours;
 
         /// <summary>
         /// RequiredFieldValidator1 control.

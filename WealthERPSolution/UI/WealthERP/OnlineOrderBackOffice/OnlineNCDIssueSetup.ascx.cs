@@ -347,6 +347,15 @@ namespace WealthERP.OnlineOrderBackOffice
 
                         //txtOpenTimes.Text = dr["AIM_OpenTime"].ToString(); ; //SelectedDate.Value.ToShortTimeString().ToString();
                     }
+                    if (!string.IsNullOrEmpty(dr["AIM_OfflineCutOffTime"].ToString()))
+                    {
+                        string CutOffTime = dr["AIM_OfflineCutOffTime"].ToString();
+                        ddlOffCutOffTimeHours.SelectedValue = CutOffTime.Substring(0, 2);
+                        ddlOffCutOffTimeMinutes.SelectedValue = CutOffTime.Substring(3, 2);
+                        ddlOffCutOffTimeSeconds.SelectedValue = CutOffTime.Substring(6, 2);
+
+                        //txtOpenTimes.Text = dr["AIM_OpenTime"].ToString(); ; //SelectedDate.Value.ToShortTimeString().ToString();
+                    }
                     if (!string.IsNullOrEmpty(dr["AIM_IssueRevisionDate"].ToString()))
                     {
                         txtRevisionDates.SelectedDate = Convert.ToDateTime(dr["AIM_IssueRevisionDate"].ToString());
@@ -840,6 +849,9 @@ namespace WealthERP.OnlineOrderBackOffice
             ddlCutOffTimeHours.Enabled = value;
             ddlCutOffTimeMinutes.Enabled = value;
             ddlCutOffTimeSeconds.Enabled = value;
+            ddlOffCutOffTimeHours.Enabled = value;
+            ddlOffCutOffTimeMinutes.Enabled = value;
+            ddlOffCutOffTimeSeconds.Enabled = value;
             ddllblSyndicatet.Enabled = value;
             txtTradingLot.Enabled = value;
             txtBiddingLot.Enabled = value;
@@ -986,10 +998,19 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     ddlCutOffTimeSeconds.SelectedValue = "00";
                 }
+                if (ddlOffCutOffTimeMinutes.SelectedValue == "MM")
+                {
+                    ddlOffCutOffTimeMinutes.SelectedValue = "00";
+                }
+                if (ddlOffCutOffTimeSeconds.SelectedValue == "SS")
+                {
+                    ddlOffCutOffTimeSeconds.SelectedValue = "00";
+                }
                 //string time = txtOpenTimes.SelectedDate.Value.ToShortTimeString().ToString();
                 onlineNCDBackOfficeVo.OpenTime = Convert.ToDateTime(ddlOpenTimeHours.SelectedValue + ":" + ddlOpenTimeMinutes.SelectedValue + ":" + ddlOpenTimeSeconds.SelectedValue); //SelectedDate.Value.ToShortTimeString().ToString();
                 onlineNCDBackOfficeVo.CloseTime = Convert.ToDateTime(ddlCloseTimeHours.SelectedValue + ":" + ddlCloseTimeMinutes.SelectedValue + ":" + ddlCloseTimeSeconds.SelectedValue);//SelectedDate.Value.ToShortTimeString().ToString();
                 onlineNCDBackOfficeVo.CutOffTime = Convert.ToDateTime(ddlCutOffTimeHours.SelectedValue + ":" + ddlCutOffTimeMinutes.SelectedValue + ":" + ddlCutOffTimeSeconds.SelectedValue);//SelectedDate.Value.ToShortTimeString().ToString();
+                onlineNCDBackOfficeVo.OfflineCutOffTime = Convert.ToDateTime(ddlOffCutOffTimeHours.SelectedValue + ":" + ddlOffCutOffTimeMinutes.SelectedValue + ":" + ddlOffCutOffTimeSeconds.SelectedValue);//SelectedDate.Value.ToShortTimeString().ToString();
 
 
                 if (!string.IsNullOrEmpty((txtRevisionDates.SelectedDate).ToString().Trim()))
@@ -3169,9 +3190,18 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     ddlCutOffTimeSeconds.SelectedValue = "00";
                 }
+                if (ddlOffCutOffTimeMinutes.SelectedValue == "MM")
+                {
+                    ddlOffCutOffTimeMinutes.SelectedValue = "00";
+                }
+
+                if (ddlOffCutOffTimeSeconds.SelectedValue == "SS")
+                {
+                    ddlOffCutOffTimeSeconds.SelectedValue = "00";
+                }
 
                 onlineNCDBackOfficeVo.CutOffTime = Convert.ToDateTime(ddlCutOffTimeHours.SelectedValue + ":" + ddlCutOffTimeMinutes.SelectedValue + ":" + ddlCutOffTimeSeconds.SelectedValue);//SelectedDate.Value.ToShortTimeString().ToString();
-
+                onlineNCDBackOfficeVo.OfflineCutOffTime = Convert.ToDateTime(ddlOffCutOffTimeHours.SelectedValue + ":" + ddlOffCutOffTimeMinutes.SelectedValue + ":" + ddlOffCutOffTimeSeconds.SelectedValue);
                 onlineNCDBackOfficeVo.OpenTime = Convert.ToDateTime(ddlOpenTimeHours.SelectedValue + ":" + ddlOpenTimeMinutes.SelectedValue + ":" + ddlOpenTimeSeconds.SelectedValue); //SelectedDate.Value.ToShortTimeString().ToString();
                 onlineNCDBackOfficeVo.CloseTime = Convert.ToDateTime(ddlCloseTimeHours.SelectedValue + ":" + ddlCloseTimeMinutes.SelectedValue + ":" + ddlCloseTimeSeconds.SelectedValue);//SelectedDate.Value.ToShortTimeString().ToString();
 
@@ -4501,10 +4531,17 @@ namespace WealthERP.OnlineOrderBackOffice
                 ddlCutOffTimeHours.DataTextField = dt.Columns["Hours"].ToString();
                 ddlCutOffTimeHours.DataBind();
 
+                ddlOffCutOffTimeHours.DataSource = dt;
+                ddlOffCutOffTimeHours.DataValueField = dt.Columns["Hours"].ToString();
+                ddlOffCutOffTimeHours.DataTextField = dt.Columns["Hours"].ToString();
+                ddlOffCutOffTimeHours.DataBind();
+                
+
             }
             ddlOpenTimeHours.Items.Insert(0, new ListItem("HH", "HH"));
             ddlCloseTimeHours.Items.Insert(0, new ListItem("HH", "HH"));
             ddlCutOffTimeHours.Items.Insert(0, new ListItem("HH", "HH"));
+            ddlOffCutOffTimeHours.Items.Insert(0, new ListItem("HH", "HH"));
 
         }
 
@@ -4641,6 +4678,16 @@ namespace WealthERP.OnlineOrderBackOffice
                 ddlCutOffTimeSeconds.DataTextField = dt.Columns["Minutes"].ToString();
                 ddlCutOffTimeSeconds.DataBind();
 
+                ddlOffCutOffTimeMinutes.DataSource = dt;
+                ddlOffCutOffTimeMinutes.DataValueField = dt.Columns["Minutes"].ToString();
+                ddlOffCutOffTimeMinutes.DataTextField = dt.Columns["Minutes"].ToString();
+                ddlOffCutOffTimeMinutes.DataBind();
+
+                ddlOffCutOffTimeSeconds.DataSource = dt;
+                ddlOffCutOffTimeSeconds.DataValueField = dt.Columns["Minutes"].ToString();
+                ddlOffCutOffTimeSeconds.DataTextField = dt.Columns["Minutes"].ToString();
+                ddlOffCutOffTimeSeconds.DataBind();
+
 
 
             }
@@ -4650,6 +4697,8 @@ namespace WealthERP.OnlineOrderBackOffice
             ddlCloseTimeSeconds.Items.Insert(0, new ListItem("SS", "SS"));
             ddlCutOffTimeMinutes.Items.Insert(0, new ListItem("MM", "MM"));
             ddlCutOffTimeSeconds.Items.Insert(0, new ListItem("SS", "SS"));
+            ddlOffCutOffTimeSeconds.Items.Insert(0, new ListItem("SS", "SS"));
+            ddlOffCutOffTimeMinutes.Items.Insert(0, new ListItem("MM", "MM"));
 
             //ddlOpenTimeMinutes.SelectedValue = "00";
             //ddlCloseTimeMinutes.SelectedValue = "00";
