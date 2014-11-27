@@ -213,8 +213,9 @@ namespace WealthERP.OnlineOrderBackOffice
             ddlFileType.DataBind();
             if (ddlType.SelectedValue == "1")
             {
-                ddlFileType.Items[1].Enabled = false;
-                ddlFileType.Items[2].Enabled = false;
+                ddlFileType.Items.FindByText("Bid Order File-ASBA").Enabled = false;
+                ddlFileType.Items.FindByText("Bid Order File-NASBA").Enabled = false;
+               
             }
         }
         private void BindIssue(string product)
