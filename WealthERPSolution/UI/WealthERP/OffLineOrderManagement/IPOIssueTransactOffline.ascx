@@ -222,9 +222,9 @@
         isValid = Page_ClientValidate('btnConfirmOrder');
         if (isValid) {
             isValid = Page_ClientValidate('btnTC');
-            
-            
-            
+
+
+
         }
 
         return isValid;
@@ -277,8 +277,8 @@
                         &nbsp; Customer Details
                     </div>
                     <div class="divViewEdit" style="float: right; padding-right: 50px">
-                        <asp:LinkButton ID="lnkEdit" runat="server" OnClick="lnkEdit_OnClick" CssClass="LinkButtons" Text="Edit" Visible="false" ></asp:LinkButton>
-                   
+                        <asp:LinkButton ID="lnkEdit" runat="server" OnClick="lnkEdit_OnClick" CssClass="LinkButtons"
+                            Text="Edit" Visible="false"></asp:LinkButton>
                     </div>
                 </div>
         </tr>
@@ -478,10 +478,14 @@
                 <asp:TextBox ID="txtApplicationNo" MaxLength="9" onkeydown="return (event.keyCode!=13);"
                     runat="server" CssClass="txtField" OnKeypress="javascript:return isNumberKey(event);"></asp:TextBox>
                 <span id="Span2" class="spnRequiredField">*</span>
+                <asp:RegularExpressionValidator ID="revPan" runat="server" Display="Dynamic" ValidationGroup="btnConfirmOrder"
+                    ErrorMessage="<br/>Please Enter Numeric" ControlToValidate="txtApplicationNo"
+                    CssClass="rfvPCG" ValidationExpression="^([0-9]*[1-9])\d*$">
+                </asp:RegularExpressionValidator>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator5" ControlToValidate="txtApplicationNo"
                     ErrorMessage="<br />Please Enter Application No" Display="Dynamic" runat="server"
                     CssClass="rfvPCG" ValidationGroup="btnConfirmOrder"></asp:RequiredFieldValidator>
-                     <asp:Label ID="lblApplicationDuplicate" runat="server" CssClass="Error" Text="Application Number already exists"></asp:Label>
+                <asp:Label ID="lblApplicationDuplicate" runat="server" CssClass="Error" Text="<br/>Application Number already exists"></asp:Label>
             </td>
             <td id="Td1" class="leftField" style="width: 20%" runat="server" visible="false">
                 <asp:Label ID="lblDepository" runat="server" Text="Depository Type: " CssClass="FieldName"></asp:Label>
@@ -570,12 +574,17 @@
         </tr>
         <tr id="trPINo" runat="server" visible="false">
             <td class="leftField" style="width: 20%">
-                <asp:Label ID="lblPaymentNumber" runat="server" Text="Cheque/Demand Draft NO: " CssClass="FieldName"></asp:Label>
+                <asp:Label ID="lblPaymentNumber" runat="server" Text="Cheque/Demand Draft No.: "
+                    CssClass="FieldName"></asp:Label>
             </td>
             <td class="rightField" style="width: 20%">
                 <asp:TextBox ID="txtPaymentNumber" onkeydown="return (event.keyCode!=13);" OnKeypress="javascript:return isNumberKey(event);"
                     runat="server" MaxLength="6" CssClass="txtField" TabIndex="16"></asp:TextBox>
                 <span id="Span12" class="spnRequiredField">*</span>
+                <asp:RegularExpressionValidator ID="revtxtPaymentNumber" runat="server" Display="Dynamic"
+                    ValidationGroup="btnConfirmOrder" ErrorMessage="<br/>Please Enter Numeric" ControlToValidate="txtPaymentNumber"
+                    CssClass="rfvPCG" ValidationExpression="^([0-9]*[1-9])\d*$">
+                </asp:RegularExpressionValidator>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator8" ControlToValidate="txtPaymentNumber"
                     ErrorMessage="<br />Please Enter Cheque/Demand Draft NO." Display="Dynamic" runat="server"
                     CssClass="rfvPCG" ValidationGroup="btnConfirmOrder"></asp:RequiredFieldValidator>
@@ -680,12 +689,12 @@
         </tr>
         <tr>
             <td class="leftField" style="width: 25%">
-                <asp:Label ID="lblDpClientId" runat="server" Text="Beneficiary Acct No:" CssClass="FieldName"></asp:Label>
+                <asp:Label ID="lblDpClientId" runat="server" Text="Beneficiary Acct No.:" CssClass="FieldName"></asp:Label>
             </td>
             <td class="rightField" style="width: 20%">
                 <asp:TextBox ID="txtDematid" Enabled="false" onkeydown="return (event.keyCode!=13);"
                     runat="server" CssClass="txtField"></asp:TextBox>
-                <asp:RequiredFieldValidator ID="RequiredFieldValidator6" ControlToValidate="txtApplicationNo"
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator6" ControlToValidate="txtDematid"
                     ErrorMessage="<br />Please Select Demat from the List" Display="Dynamic" runat="server"
                     CssClass="rfvPCG" ValidationGroup="btnConfirmOrder"></asp:RequiredFieldValidator>
             </td>
@@ -725,7 +734,7 @@
                                 SortExpression="AssociateType">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="CDAA_PanNum" HeaderText="PAN Number" UniqueName="CDAA_PanNum"
+                            <telerik:GridBoundColumn DataField="CDAA_PanNum" HeaderText="PAN" UniqueName="CDAA_PanNum"
                                 SortExpression="CDAA_PanNum">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
@@ -808,27 +817,27 @@
                                     ShowFilterIcon="false" UniqueName="AIM_MaxQty" Visible="true">
                                     <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                 </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn DataField="AIM_FloorPrice" HeaderStyle-Width="200px" HeaderText="Min Bid Price"
+                                <telerik:GridBoundColumn DataField="AIM_FloorPrice" HeaderStyle-Width="200px" HeaderText="Min. Bid Price"
                                     ShowFilterIcon="false" UniqueName="AIM_FloorPrice" Visible="true" DataType="System.Decimal"
                                     DataFormatString="{0:0.00}">
                                     <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                 </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn DataField="AIM_CapPrice" HeaderStyle-Width="200px" HeaderText="Max Bid Price"
+                                <telerik:GridBoundColumn DataField="AIM_CapPrice" HeaderStyle-Width="200px" HeaderText="Max. Bid Price"
                                     ShowFilterIcon="false" UniqueName="AIM_CapPrice" Visible="true" DataType="System.Decimal"
                                     DataFormatString="{0:0.00}">
                                     <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                 </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn DataField="AIM_FixedPrice" HeaderStyle-Width="200px" HeaderText="Max Bid Price"
+                                <telerik:GridBoundColumn DataField="AIM_FixedPrice" HeaderStyle-Width="200px" HeaderText="Max. Bid Price"
                                     Visible="false" ShowFilterIcon="false" UniqueName="AIM_FixedPrice">
                                     <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn DataField="AIIC_MInBidAmount" HeaderStyle-Width="200px"
-                                    HeaderText="Min Bid Amount" ShowFilterIcon="false" UniqueName="AIIC_MInBidAmount"
+                                    HeaderText="Min. Bid Amount" ShowFilterIcon="false" UniqueName="AIIC_MInBidAmount"
                                     Visible="true" DataType="System.Decimal" DataFormatString="{0:0.00}">
                                     <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn DataField="AIIC_MaxBidAmount" HeaderStyle-Width="200px"
-                                    HeaderText="Max Bid Amount" Visible="true" ShowFilterIcon="false" UniqueName="AIIC_MaxBidAmount">
+                                    HeaderText="Max. Bid Amount" Visible="true" ShowFilterIcon="false" UniqueName="AIIC_MaxBidAmount">
                                     <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn DataField="AIM_OpenDate" HeaderStyle-Width="200px" HeaderText="Open Date"
@@ -962,9 +971,10 @@
                                             Text='<%# Bind("BidAmount")%>'></asp:TextBox>
                                     </ItemTemplate>
                                 </telerik:GridTemplateColumn>
-                                  <telerik:GridBoundColumn DataField="COID_ExchangeRefrenceNo" HeaderStyle-Width="120px" CurrentFilterFunction="Contains"
-                                    ShowFilterIcon="true" AutoPostBackOnFilter="true" HeaderText="ExchangeRefrenceNo"
-                                    UniqueName="COID_ExchangeRefrenceNo" SortExpression="COID_ExchangeRefrenceNo" Visible="false">
+                                <telerik:GridBoundColumn DataField="COID_ExchangeRefrenceNo" HeaderStyle-Width="120px"
+                                    CurrentFilterFunction="Contains" ShowFilterIcon="true" AutoPostBackOnFilter="true"
+                                    HeaderText="ExchangeRefrenceNo" UniqueName="COID_ExchangeRefrenceNo" SortExpression="COID_ExchangeRefrenceNo"
+                                    Visible="false">
                                     <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                 </telerik:GridBoundColumn>
                             </Columns>
@@ -1013,7 +1023,7 @@
         </tr>
         <tr>
             <td class="leftField">
-                <asp:Button ID="btnConfirmOrder" runat="server" Text="Confirm Order" OnClick="btnConfirmOrder_Click"
+                <asp:Button ID="btnConfirmOrder" runat="server" Text="Submit Order" OnClick="btnConfirmOrder_Click"
                     CssClass="PCGMediumButton" ValidationGroup="btnConfirmOrder, btnTC" OnClientClick="return  PreventClicks(); Validate(); " />
             </td>
             <td class="rightField">
@@ -1022,7 +1032,7 @@
             </td>
             <td>
                 <asp:Button ID="btnUpdate" runat="server" Text="Update" OnClick="btnUpdate_OnClick"
-                    CssClass="PCGButton" Visible="false" ValidationGroup="btnConfirmOrder"/>
+                    CssClass="PCGButton" Visible="false" ValidationGroup="btnConfirmOrder" />
             </td>
         </tr>
     </table>
