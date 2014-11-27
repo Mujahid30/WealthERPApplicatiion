@@ -160,6 +160,12 @@ namespace WealthERP.CommisionManagement
 
         private int CreatePayableMapping()
         {
+            int ruleId = 0;
+            if (Request.QueryString["ruleId"] != null)
+                     
+                {
+                    ruleId = int.Parse(Request.QueryString["ruleId"].ToString());
+                }
 
             int mappingId = 0;
             string agentId = "";
@@ -176,7 +182,7 @@ namespace WealthERP.CommisionManagement
                 categoryId = ddlAdviserCategory.SelectedValue;
             }
 
-            commisionReceivableBo.CreatePayableAgentCodeMapping(Convert.ToInt32(hdnStructId.Value), ddlMapping.SelectedValue, categoryId, agentId, out mappingId);
+            commisionReceivableBo.CreateAdviserPayableRuleToAgentCategoryMapping(Convert.ToInt32(hdnStructId.Value), ddlMapping.SelectedValue, categoryId, agentId, out mappingId,  ruleId);
             return mappingId;
 
         }

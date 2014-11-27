@@ -143,13 +143,28 @@ namespace BoCommisionManagement
 
         }
 
-        public void CreatePayableAgentCodeMapping(int StructureId, string userType, string Category, string agentId, out Int32 mappingId)
+        public void CreateAdviserPayableRuleToAgentCategoryMapping(int StructureId, string userType, string Category, string agentId, out Int32 mappingId, int ruleId)
         {
             CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
 
             try
             {
-                commisionReceivableDao.CreatePayableAgentCodeMapping(StructureId, userType, Category, agentId, out   mappingId);
+                commisionReceivableDao.CreateAdviserPayableRuleToAgentCategoryMapping(StructureId, userType, Category, agentId, out   mappingId, ruleId);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+        }
+
+        public void CreatePayableAgentCodeMapping(int StructureId, string userType, string Category, string agentId, out Int32 mappingId )
+        {
+            CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
+
+            try
+            {
+                commisionReceivableDao.CreatePayableAgentCodeMapping(StructureId, userType, Category, agentId, out   mappingId );
 
             }
             catch (BaseApplicationException Ex)
@@ -339,6 +354,85 @@ namespace BoCommisionManagement
             return dsLookupData;
         }
 
+        public DataSet GetPayableCommissionTypeBrokerage(int structureId)
+        {
+            CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
+            DataSet dsLookupData;
+            try
+            {
+                dsLookupData = commisionReceivableDao.GetPayableCommissionTypeBrokerage(structureId);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommissionManagementBo.cs:GetProductType()");
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsLookupData;
+        }
+
+        public int CreateUpdateDeleteCommissionTypeBrokerage(int ruleId, int commissionType, string brokerageUnit, decimal brokeragageValue, string commandType, int structureRuleDetailsId)
+       
+        {
+            CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
+           
+            try
+            {
+                return commisionReceivableDao.CreateUpdateDeleteCommissionTypeBrokerage(ruleId, commissionType, brokerageUnit, brokeragageValue, commandType, structureRuleDetailsId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineNCDBackOfficeBo.cs:CreateUpdateDeleteIssuer()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
+
+
+        public DataSet GetCommissionTypeBrokerage( int ruleid  )
+        {
+            CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
+            DataSet dsLookupData;
+            try
+            {
+                dsLookupData = commisionReceivableDao.GetCommissionTypeBrokerage(ruleid);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommissionManagementBo.cs:GetCategories(string prodType)");
+                object[] objects = new object[1];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsLookupData;
+
+        }
         public DataSet GetCategories(String prodType)
         {
             CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();

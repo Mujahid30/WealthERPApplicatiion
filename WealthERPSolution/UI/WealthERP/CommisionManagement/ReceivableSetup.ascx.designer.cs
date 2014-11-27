@@ -21,6 +21,8 @@ namespace WealthERP.Receivable {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.ScriptManager scrptMgr;
+        protected global::Telerik.Web.UI.RadWindow RadWDCommissionTypeBrokerage;
+
         
         /// <summary>
         /// pnl1 control.
@@ -544,6 +546,12 @@ namespace WealthERP.Receivable {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid RadGridStructureRule;
+        protected global::Telerik.Web.UI.RadGrid rgCommissionTypeCaliculation;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trRuleDetailSection;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trPayableMapping;
+        protected global::System.Web.UI.HtmlControls.HtmlTable tb1;
+
+        
         
         /// <summary>
         /// Table2 control.
@@ -598,6 +606,8 @@ namespace WealthERP.Receivable {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlGrid;
+        protected global::System.Web.UI.WebControls.Panel PanelFirst;
+
         
         /// <summary>
         /// gvMappedSchemes control.
@@ -1120,6 +1130,8 @@ namespace WealthERP.Receivable {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid gvMappedIssueList;
+        protected global::Telerik.Web.UI.RadGrid rgPayableMapping;
+
         
         /// <summary>
         /// hidCommissionStructureName control.
@@ -1129,6 +1141,8 @@ namespace WealthERP.Receivable {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidCommissionStructureName;
+        protected global::System.Web.UI.WebControls.HiddenField HiddenField1;
+ 
         
         /// <summary>
         /// hdnProductId control.

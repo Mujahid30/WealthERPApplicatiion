@@ -31,7 +31,47 @@
             return false;
 
     }
+
+    function doOpen() {
+        $find("cpe")._doOpen();
+    }
+
+    function doClose() {
+        $find("cpe")._doClose();
+    }
+   
 </script>
+
+<%--<script type="text/javascript">
+    $(document).ready(function() {
+        $(".panel").show();
+
+        $(".flip").click(function() { $(".panel").slideToggle(); });
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(".panel1").show();
+
+        $(".flip1").click(function() { $(".panel1").slideToggle(); });
+    });
+</script>--%>
+<%--<script type="text/javascript">
+    $(document).ready(function() {
+        $(".panel1Hide").hide();
+        $(".flipHide").click(function() { $(".panel1Hide").slideUp("slow"); });
+
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(".panel2").show();
+
+        $(".flip2").click(function() { $(".panel2").slideToggle(); });
+    });
+</script>--%>
 
 <script language="JavaScript" type="text/jscript">
 
@@ -83,12 +123,188 @@
 
 </script>
 
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        //    alert($("#imgCEStepOne").attr('src'))
+        $(".panel").hide();
+        $("#img1").click(function() {
+            $(".panel").slideToggle(50);
+            var src = $(this).attr('src');
+            if (src == '../Images/Section-Expand.png') {
+                $("#img1").attr("src", "../Images/Section-Collapse.png");
+
+                if ($("#img1").attr('src') == '../Images/Section-Collapse.png') {
+                    $(".panel1").slideToggle(50);
+                    $("#img1").attr("src", "../Images/Section-Expand.png");
+                }
+                if ($("#imgCEStepThree").attr('src') == '../Images/Section-Collapse.png') {
+                    $(".StepThreeContentTable").slideToggle(50);
+                    $("#imgCEStepThree").attr("src", "../Images/Section-Expand.png");
+                }
+
+            }
+            else if (src == '../Images/Section-Collapse.png') {
+                $("#panel").attr("src", "../Images/Section-Expand.png");
+            }
+        });
+
+    });
+
+    //    $(document).ready(function() {
+    //    $(".panel1").hide();
+    //    $("#img2").click(function() {
+    //    $(".panel1").slideToggle(50);
+    //            var src = $(this).attr('src');
+    //            if (src == '../Images/Section-Expand.png') {
+    //                $("#img2").attr("src", "../Images/Section-Collapse.png");
+    //                if ($("#img2").attr('src') == '../Images/Section-Collapse.png') {
+    //                    $(".panel").slideToggle(50);
+    //                    $("#img2").attr("src", "../Images/Section-Expand.png");
+    //                }
+    //                if ($("#imgCEStepThree").attr('src') == '../Images/Section-Collapse.png') {
+    //                    $(".StepThreeContentTable").slideToggle(50);
+    //                    $("#imgCEStepThree").attr("src", "../Images/Section-Expand.png");
+    //                }
+
+    //            }
+    //            else if (src == '../Images/Section-Collapse.png')
+    //                $("#img2").attr("src", "../Images/Section-Expand.png");
+    //        });
+
+    //    });
+
+
+
+
+
+
+
+
+    $(document).ready(function() {
+        //    alert($("#imgCEStepOne").attr('src'))
+        $(".StepOneContentTable").hide();
+        $("#imgCEStepOne").click(function() {
+            $(".StepOneContentTable").slideToggle(50);
+            var src = $(this).attr('src');
+            if (src == '../Images/Section-Expand.png') {
+                $("#imgCEStepOne").attr("src", "../Images/Section-Collapse.png");
+
+                if ($("#imgCEStepTwo").attr('src') == '../Images/Section-Collapse.png') {
+                    $(".StepTwoContentTable").slideToggle(50);
+                    $("#imgCEStepTwo").attr("src", "../Images/Section-Expand.png");
+                }
+                if ($("#imgCEStepThree").attr('src') == '../Images/Section-Collapse.png') {
+                    $(".StepThreeContentTable").slideToggle(50);
+                    $("#imgCEStepThree").attr("src", "../Images/Section-Expand.png");
+                }
+
+            }
+            else if (src == '../Images/Section-Collapse.png') {
+                $("#imgCEStepOne").attr("src", "../Images/Section-Expand.png");
+            }
+        });
+
+    });
+
+
+    function keyPress(sender, args) {
+        if (args.keyCode == 13) {
+            return false;
+        }
+    }
+
+    $(document).ready(function() {
+        $(".StepTwoContentTable").hide();
+        $("#imgCEStepTwo").click(function() {
+            $(".StepTwoContentTable").slideToggle(50);
+            var src = $(this).attr('src');
+            if (src == '../Images/Section-Expand.png') {
+                $("#imgCEStepTwo").attr("src", "../Images/Section-Collapse.png");
+                if ($("#imgCEStepOne").attr('src') == '../Images/Section-Collapse.png') {
+                    $(".StepOneContentTable").slideToggle(50);
+                    $("#imgCEStepOne").attr("src", "../Images/Section-Expand.png");
+                }
+                if ($("#imgCEStepThree").attr('src') == '../Images/Section-Collapse.png') {
+                    $(".StepThreeContentTable").slideToggle(50);
+                    $("#imgCEStepThree").attr("src", "../Images/Section-Expand.png");
+                }
+
+            }
+            else if (src == '../Images/Section-Collapse.png')
+                $("#imgCEStepTwo").attr("src", "../Images/Section-Expand.png");
+        });
+
+    });
+
+    function keyPress(sender, args) {
+        if (args.keyCode == 13) {
+            return false;
+        }
+    }
+
+    $(document).ready(function() {
+        $(".StepThreeContentTable").hide();
+        $("#imgCEStepThree").click(function() {
+            $(".StepThreeContentTable").slideToggle(50);
+            var src = $(this).attr('src');
+            if (src == '../Images/Section-Expand.png') {
+                $("#imgCEStepThree").attr("src", "../Images/Section-Collapse.png");
+
+                if ($("#imgCEStepTwo").attr('src') == '../Images/Section-Collapse.png') {
+                    $(".StepTwoContentTable").slideToggle(50);
+                    $("#imgCEStepTwo").attr("src", "../Images/Section-Expand.png");
+                }
+                if ($("#imgCEStepOne").attr('src') == '../Images/Section-Collapse.png') {
+                    $(".StepOneContentTable").slideToggle(50);
+                    $("#imgCEStepOne").attr("src", "../Images/Section-Expand.png");
+                }
+
+            }
+            else if (src == '../Images/Section-Collapse.png')
+                $("#imgCEStepThree").attr("src", "../Images/Section-Expand.png");
+        });
+
+    });
+
+    function keyPress(sender, args) {
+        if (args.keyCode == 13) {
+            return false;
+        }
+    }
+
+
+    /*---SECTION FOR POSTBACK HANDEL--*/
+
+
+
+    
+</script>
+
 <asp:ScriptManager ID="scrptMgr" runat="server">
     <Services>
         <asp:ServiceReference Path="AutoComplete.asmx" />
     </Services>
 </asp:ScriptManager>
 <style type="text/css">
+    .imgCollapse
+    {
+        background: Url(../Images/Section-Expand.png);
+        cursor: pointer;
+        cursor: hand;
+    }
+    
+    
+    .divCollapseImage
+    {
+        float: left;
+        padding-left: 5px;
+        width: 2%;
+        float: right;
+        text-align: right;
+        cursor: pointer;
+        cursor: hand;
+    }
     .table
     {
         border: 1px solid orange;
@@ -133,6 +349,12 @@
         float: left;
         padding-left: 3px;
         width: 20%;
+    }
+    .fltlft1
+    {
+        float: left;
+        padding-left: 3px;
+        width: 30%;
     }
     .divCollapseImage
     {
@@ -186,9 +408,142 @@
         text-align: right;
         cursor: hand;
     }
+    .divTextCenter
+    {
+        text-align: right;
+        vertical-align: middle;
+        
+    }
 </style>
+<table width="100%">
+    <tr>
+        <td>
+            <telerik:RadWindow ID="RadWDCommissionTypeBrokerage" runat="server" VisibleOnPageLoad="false"
+                Height="30%" Width="400px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false"
+                Behaviors="Resize, Close, Move" Title="Add New Active Range">
+                <ContentTemplate>
+                    <div style="padding: 20px">
+                        <table width="100%">
+                            <tr>
+                                <td colspan="2">
+                                    <%-- <telerik:RadGrid ID="rgAplication" runat="server" AllowSorting="True" enableloadondemand="True"
+                                        PageSize="5" AutoGenerateColumns="False" EnableEmbeddedSkins="False" GridLines="None"
+                                        ShowFooter="True" PagerStyle-AlwaysVisible="true" AllowPaging="false" ShowStatusBar="True"
+                                        Skin="Telerik" AllowFilteringByColumn="true" OnNeedDataSource="rgAplication_OnNeedDataSource"
+                                        OnItemCommand="rgAplication_ItemCommand" OnItemDataBound="rgAplication_ItemDataBound">
+                                        <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="AIFR_Id"
+                                            AutoGenerateColumns="false" Width="100%" EditMode="PopUp" CommandItemSettings-AddNewRecordText="Create Active Range"
+                                            CommandItemDisplay="Top">
+                                            <Columns>
+                                                <telerik:GridEditCommandColumn EditText="Edit" UniqueName="editColumn" CancelText="Cancel"
+                                                    UpdateText="Update">
+                                                </telerik:GridEditCommandColumn>
+                                                <telerik:GridBoundColumn DataField="CSRD_StructureRuleDetailsId" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
+                                                    ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Issuer Name" UniqueName="CSRD_StructureRuleDetailsId"
+                                                    SortExpression="CSRD_StructureRuleDetailsId" AllowFiltering="true" Visible="false">
+                                                    <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                </telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn DataField="AIM_IssueId" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
+                                                    ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Issuer Name" UniqueName="AIM_IssueId"
+                                                    SortExpression="AIM_IssueId" AllowFiltering="true" Visible="false">
+                                                    <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                </telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn DataField="AIFR_From" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
+                                                    ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="From" UniqueName="AIFR_From"
+                                                    SortExpression="AIFR_From" AllowFiltering="true">
+                                                    <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                </telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn DataField="AIFR_To" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
+                                                    ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="To" UniqueName="AIFR_To"
+                                                    SortExpression="AIFR_To" AllowFiltering="true">
+                                                    <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                </telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn DataField="AIFR_IsActive" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
+                                                    ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Active" UniqueName="AIFR_IsActive"
+                                                    SortExpression="AIFR_IsActive" AllowFiltering="true">
+                                                    <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                </telerik:GridBoundColumn>
+                                                <telerik:GridButtonColumn UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete?"
+                                                    ConfirmDialogType="RadWindow" ConfirmTitle="Delete" ButtonType="LinkButton" CommandName="Delete"
+                                                    Text="Delete" Visible="false">
+                                                    <ItemStyle HorizontalAlign="Center" CssClass="MyImageButton" />
+                                                </telerik:GridButtonColumn>
+                                                
+                                            </Columns>
+                                            <EditFormSettings EditFormType="Template" PopUpSettings-Height="150px" PopUpSettings-Width="330px">
+                                                <FormTemplate>
+                                                    <table width="75%" cellspacing="2" cellpadding="2">
+                                                        <tr>
+                                                            <td class="leftLabel">
+                                                                <asp:Label ID="Label3" runat="server" Text="Pick CommissionType:" CssClass="FieldName"></asp:Label>
+                                                            </td>
+                                                            <td class="rightData">
+                                                                <asp:DropDownList ID="ddlCommissionype" runat="server" CssClass="cmbField" AutoPostBack="true">
+                                                                </asp:DropDownList>
+                                                                <br />
+                                                                <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" CssClass="rfvPCG"
+                                                                    ErrorMessage="Please Select CommissionType" Display="Dynamic" ControlToValidate="ddlCommissionype"
+                                                                    InitialValue="Select" ValidationGroup="vgOK">
+                                                                </asp:RequiredFieldValidator>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="leftLabel">
+                                                                <asp:Label ID="lblBrokerageValue" runat="server" Text="Brokerage Value:" CssClass="FieldName"></asp:Label>
+                                                            </td>
+                                                            <td class="rightData">
+                                                                <asp:TextBox ID="txtBrokerageValue" runat="server" CssClass="txtField"></asp:TextBox>
+                                                                <span id="Span8" class="spnRequiredField" runat="server" visible="true">*</span>
+                                                                <asp:RequiredFieldValidator runat="server" ID="reqName" ValidationGroup="btnSubmitRule"
+                                                                    Display="Dynamic" ControlToValidate="txtBrokerageValue" ErrorMessage="<br />Brokerage value is mandatory"
+                                                                    Text="" />
+                                                            </td>
+                                                            <td class="leftLabel">
+                                                                <asp:Label ID="lblUnit" runat="server" Text="Brokerage Unit:" CssClass="FieldName"></asp:Label>
+                                                            </td>
+                                                            <td class="rightData">
+                                                                <asp:DropDownList ID="ddlBrokerageUnit" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlBrokerageUnit_OnSelectedIndexChanged">
+                                                                </asp:DropDownList>
+                                                            </td>
+                                                            <td class="leftLabel">
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="leftLabel">
+                                                                <asp:Button ID="btnOK" runat="server" CssClass="PCGButton" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'
+                                                                    Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>' CausesValidation="True"
+                                                                    ValidationGroup="rgApllOk"></asp:Button>
+                                                            </td>
+                                                            <td class="rightData">
+                                                                <asp:Button ID="btnCancel" Text="Cancel" runat="server" CausesValidation="False"
+                                                                    CssClass="PCGButton" CommandName="Cancel"></asp:Button>
+                                                            </td>
+                                                            <td class="leftLabel" colspan="2">
+                                                                &nbsp;
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </FormTemplate>
+                                            </EditFormSettings>
+                                        </MasterTableView>
+                                    </telerik:RadGrid>--%>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="RightData">
+                                    <asp:Button ID="BtnActivRangeClose" runat="server" Text="Close" CssClass="PCGButton"
+                                        OnClick="BtnActivRangeClose_Click" />
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </ContentTemplate>
+            </telerik:RadWindow>
+        </td>
+    </tr>
+</table>
 <asp:Panel ID="pnl1" runat="server">
-  <asp:UpdatePanel>
+    <asp:UpdatePanel ID="UpdatePanel1">
         <ContentTemplate>
             <table width="100%">
                 <tr>
@@ -207,13 +562,17 @@
             </table>
             <table width="100%">
                 <%--***********************************************Commission receivable Structure setup********************************--%>
-                <tr id="trStepOneHeading" runat="server">
+                <tr id="trStepOneHeading" runat="server" class="SectionBody">
                     <td class="tdSectionHeading" colspan="5">
+                        <div class="divStepStatus">
+                            <asp:Image ID="imgStepOneStatus" ImageUrl="" alt="" runat="server" />
+                            &nbsp;
+                        </div>
                         <div class="divSectionHeading" style="vertical-align: text-bottom">
                             <div class="divSectionHeadingNumber fltlftStep">
                                 1
                             </div>
-                            <div class="fltlft">
+                            <div class="fltlft1">
                                 &nbsp;
                                 <asp:Label ID="Label2" runat="server" Text="Commission Structure"></asp:Label>
                             </div>
@@ -227,23 +586,15 @@
                                     OnClick="lnkEditStructure_Click">
                                 </asp:LinkButton>
                             </div>
-                        </div>
+                            <div class="divTextCenter">
+                                <asp:ImageButton ID="ImageButton3" runat="server" ImageUrl="../Images/Section-Expand.png"
+                                    alt="Collapse/Expand" OnClick="imgBuy_Click" />&nbsp;&nbsp;
+                                <%-- <img id="img1" src="../Images/Section-Expand.png" alt="Collapse/Expand" onclick="imgBuy_Click" />--%>
+                            </div>
                     </td>
                 </tr>
-                <tr>
-                    <td class="leftLabel">
-                        <asp:Label ID="Label3" runat="server" Text="Pick CommissionType:" CssClass="FieldName"></asp:Label>
-                    </td>
-                    <td class="rightData">
-                        <asp:DropDownList ID="ddlCommissionype" runat="server" CssClass="cmbField" AutoPostBack="true">
-                        </asp:DropDownList>
-                        <br />
-                        <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" CssClass="rfvPCG"
-                            ErrorMessage="Please Select CommissionType" Display="Dynamic" ControlToValidate="ddlCommissionype"
-                            InitialValue="Select" ValidationGroup="vgBtnSubmitStage2">
-                        </asp:RequiredFieldValidator>
-                    </td>
-                </tr>
+            </table>
+            <table width="100%" id="tb1" runat="server">
                 <tr>
                     <td class="leftLabel">
                         <asp:Label ID="lblStatusStage2" runat="server" Text="Pick Product:" CssClass="FieldName"></asp:Label>
@@ -387,10 +738,14 @@
                 </tr>
             </table>
             <table id="tblCommissionStructureRule" runat="server" width="100%">
-                <tr id="trStepTwoHeading" runat="server">
-                    <td class="tdSectionHeading">
+                <tr id="trStepTwoHeading" runat="server" class="SectionBody">
+                    <td class="tdSectionHeading" colspan="5">
+                        <div class="divStepStatus">
+                            <asp:Image ID="Image1" ImageUrl="" alt="" runat="server" />
+                            &nbsp;
+                        </div>
                         <div class="divSectionHeading" style="vertical-align: text-bottom">
-                            <div class="divSectionHeadingNumber fltlftStep">
+                            <div class="divSectionHeadingNumber1 fltlftStep">
                                 2
                             </div>
                             <div class="fltlft" style="width: 200px;">
@@ -408,6 +763,12 @@
                                     runat="server" CssClass="LinkButtons" OnClientClick="return confirm('Do you want to delete structure all rules? Click OK to proceed');"
                                     OnClick="lnkDeleteAllRule_Click">
                                 </asp:LinkButton>
+                            </div>
+                            <div class="divTextCenter">
+                                <%--<img id="img1" src="../Images/Section-Expand.png" alt="Collapse/Expand" class="imgCollapse" />--%>
+                                <%-- <img id="img2" src="../Images/Section-Expand.png" alt="Collapse/Expand" onclick="imgBuy1_Click" />--%>
+                                <asp:ImageButton ID="imgBuy1" runat="server" alt="Collapse/Expand" ImageUrl="../Images/Section-Expand.png"
+                                    OnClick="imgBuy1_Click" />
                             </div>
                         </div>
                     </td>
@@ -510,12 +871,12 @@
                                                 <tr>
                                                     <td colspan="5" class="tdSectionHeading">
                                                         <div class="divSectionHeading" style="vertical-align: text-bottom">
-                                                            <div class="divSectionHeadingNumber fltlftStep">
-                                                                3
+                                                            <div class="divSectionHeadingNumber" style="height:22px;width:22px">
+                                                                2.1
                                                             </div>
-                                                            <div class="fltlft" style="width: 200px;">
+                                                            <div class="fltlft" style="width: 250px;">
                                                                 &nbsp;
-                                                                <asp:Label ID="lblStage" runat="server" Text="Structure Rule Add"></asp:Label>
+                                                                <asp:Label ID="lblStage" runat="server" Text="Rule"></asp:Label>
                                                             </div>
                                                         </div>
                                                     </td>
@@ -696,7 +1057,7 @@
                                                         </asp:DropDownList>
                                                     </td>
                                                 </tr>
-                                                <tr>
+                                                <%-- <tr>
                                                     <td class="leftLabel">
                                                         <asp:Label ID="lblBrokerageValue" runat="server" Text="Brokerage Value:" CssClass="FieldName"></asp:Label>
                                                     </td>
@@ -717,7 +1078,7 @@
                                                     </td>
                                                     <td class="leftLabel">
                                                     </td>
-                                                </tr>
+                                                </tr>--%>
                                                 <tr runat="server" id="trMinAndMaxNumberOfApplication">
                                                     <td class="leftLabel" runat="server" id="tdlb1MinNumberOfApplication">
                                                         <asp:Label ID="lblMinNumberOfApplication" runat="server" Text="Min. no. of applications:"
@@ -766,6 +1127,141 @@
                                                             CommandName="Cancel"></asp:Button>
                                                     </td>
                                                 </tr>
+                                                <tr id="trRuleDetailSection" class="leftLabel" visible="false" runat="server">
+                                                    <td colspan="5" class="tdSectionHeading">
+                                                        <div class="divSectionHeading" style="vertical-align: text-bottom">
+                                                            <div class="divSectionHeadingNumber" style="height:22px;width:22px">
+                                                                2.2
+                                                            </div>
+                                                            <div class="fltlft" style="text-align: right;width: 250px;">
+                                                                 
+                                                                <asp:Label ID="Label14" runat="server" Text="Rule Detail"></asp:Label>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr runat="server" id="CommissionTypeCaliculation" class="rightData">
+                                                    <td colspan="4">
+                                                        <telerik:RadGrid ID="rgCommissionTypeCaliculation" runat="server" AllowSorting="True"
+                                                            enableloadondemand="True" PageSize="5" AutoGenerateColumns="False" EnableEmbeddedSkins="False"
+                                                            GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="true" AllowPaging="false"
+                                                            ShowStatusBar="True" Skin="Telerik" AllowFilteringByColumn="true" OnNeedDataSource="rgCommissionTypeCaliculation_OnNeedDataSource"
+                                                            OnItemCommand="rgCommissionTypeCaliculation_ItemCommand" OnItemDataBound="rgCommissionTypeCaliculation_ItemDataBound"
+                                                            Visible="false">
+                                                            <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" AutoGenerateColumns="false"
+                                                                Width="50%" EditMode="PopUp" CommandItemSettings-AddNewRecordText="Create Rule Details"
+                                                                CommandItemDisplay="Top" DataKeyNames="CSRD_StructureRuleDetailsId">
+                                                                <Columns>
+                                                                    <telerik:GridEditCommandColumn EditText="Edit" UniqueName="editColumn" CancelText="Cancel"
+                                                                        UpdateText="Update" HeaderStyle-Width="20px">
+                                                                    </telerik:GridEditCommandColumn>
+                                                                    <telerik:GridBoundColumn DataField="CSRD_StructureRuleDetailsId" HeaderStyle-Width="20px"
+                                                                        CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                                                        HeaderText="Issuer Name" UniqueName="CSRD_StructureRuleDetailsId" SortExpression="CSRD_StructureRuleDetailsId"
+                                                                        AllowFiltering="true" Visible="false">
+                                                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                                    </telerik:GridBoundColumn>
+                                                                    <telerik:GridBoundColumn DataField="ACSR_CommissionStructureRuleId" HeaderStyle-Width="20px"
+                                                                        CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                                                        HeaderText="Issuer Name" UniqueName="ACSR_CommissionStructureRuleId" SortExpression="ACSR_CommissionStructureRuleId"
+                                                                        AllowFiltering="true" Visible="false">
+                                                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                                    </telerik:GridBoundColumn>
+                                                                    <telerik:GridBoundColumn DataField="CSRD_WCMV_CommissionTypeId" HeaderStyle-Width="20px"
+                                                                        CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                                                        HeaderText="Commission Type" UniqueName="CSRD_WCMV_CommissionTypeId" SortExpression="CSRD_WCMV_CommissionTypeId"
+                                                                        AllowFiltering="true">
+                                                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                                    </telerik:GridBoundColumn>
+                                                                    <telerik:GridBoundColumn DataField="WCU_UnitCode" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
+                                                                        ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Brokage Unit"
+                                                                        UniqueName="WCU_UnitCode" SortExpression="WCU_UnitCode" AllowFiltering="true">
+                                                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                                    </telerik:GridBoundColumn>
+                                                                    <telerik:GridBoundColumn DataField="CSRD_BrokageValue" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
+                                                                        ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Brokage Value"
+                                                                        UniqueName="CSRD_BrokageValue" SortExpression="CSRD_BrokageValue" AllowFiltering="true">
+                                                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                                    </telerik:GridBoundColumn>
+                                                                    <telerik:GridButtonColumn UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete?"
+                                                                        ConfirmDialogType="RadWindow" ConfirmTitle="Delete" ButtonType="LinkButton" CommandName="Delete"
+                                                                        Text="Delete" Visible="false">
+                                                                        <ItemStyle HorizontalAlign="Center" CssClass="MyImageButton" />
+                                                                    </telerik:GridButtonColumn>
+                                                                </Columns>
+                                                                <EditFormSettings EditFormType="Template" PopUpSettings-Height="200px" PopUpSettings-Width="400px">
+                                                                    <FormTemplate>
+                                                                        <table width="100%" cellspacing="3" cellpadding="3">
+                                                                            <tr>
+                                                                                <td class="leftLabel">
+                                                                                    <asp:Label ID="Label3" runat="server" Text="Commission Type:" CssClass="FieldName"></asp:Label>
+                                                                                </td>
+                                                                                <td class="rightData">
+                                                                                    <asp:DropDownList ID="ddlCommissionype" runat="server" CssClass="cmbField" AutoPostBack="true">
+                                                                                    </asp:DropDownList>
+                                                                                    <br />
+                                                                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" CssClass="rfvPCG"
+                                                                                        ErrorMessage="Please Select CommissionType" Display="Dynamic" ControlToValidate="ddlCommissionype"
+                                                                                        InitialValue="Select" ValidationGroup="rgApllOk">
+                                                                                    </asp:RequiredFieldValidator>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td class="leftLabel">
+                                                                                    <asp:Label ID="lblBrokerageValue" runat="server" Text="Brokerage Value:" CssClass="FieldName"></asp:Label>
+                                                                                </td>
+                                                                                <td class="rightData">
+                                                                                    <asp:TextBox ID="txtBrokerageValue" runat="server" CssClass="txtField"></asp:TextBox>
+                                                                                    <span id="Span8" class="spnRequiredField" runat="server" visible="true">*</span>
+                                                                                    <asp:RequiredFieldValidator runat="server" ID="reqName" ValidationGroup="rgApllOk"
+                                                                                        Display="Dynamic" ControlToValidate="txtBrokerageValue" ErrorMessage="<br />Brokerage value is mandatory"
+                                                                                        Text="" />
+                                                                                    <asp:RangeValidator ID="RangeValidator1" Display="Dynamic" ValidationGroup="rgApllOk"
+                                                                                        runat="server" ErrorMessage="<br />Please enter a numeric value" ControlToValidate="txtBrokerageValue"
+                                                                                        MaximumValue="2147483647" MinimumValue="0" Type="Double" CssClass="cvPCG"></asp:RangeValidator>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td class="leftLabel">
+                                                                                    <asp:Label ID="lblUnit" runat="server" Text="Brokerage Unit:" CssClass="FieldName"></asp:Label>
+                                                                                </td>
+                                                                                <td class="rightData">
+                                                                                    <asp:DropDownList ID="ddlBrokerageUnit" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlBrokerageUnit_OnSelectedIndexChanged">
+                                                                                    </asp:DropDownList>
+                                                                                </td>
+                                                                                <td class="leftLabel">
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td class="leftLabel">
+                                                                                    <asp:Button ID="btnOK" runat="server" CssClass="PCGButton" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'
+                                                                                        Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>' CausesValidation="True"
+                                                                                        ValidationGroup="rgApllOk"></asp:Button>
+                                                                                </td>
+                                                                                <td class="rightData">
+                                                                                    <asp:Button ID="btnCancel" Text="Cancel" runat="server" CausesValidation="False"
+                                                                                        CssClass="PCGButton" CommandName="Cancel"></asp:Button>
+                                                                                </td>
+                                                                                <td class="leftLabel" colspan="2">
+                                                                                    &nbsp;
+                                                                                </td>
+                                                                            </tr>
+                                                                        </table>
+                                                                    </FormTemplate>
+                                                                </EditFormSettings>
+                                                            </MasterTableView>
+                                                        </telerik:RadGrid>
+                                                    </td>
+                                                </tr>
+                                                <%--  <tr>
+                                                    <td class="rightData" colspan="2">
+                                                        <asp:Button ID="btnSubmitRule" ValidationGroup="btnSubmitRule" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
+                                                            CssClass="PCGButton" runat="server" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'
+                                                            CausesValidation="true"></asp:Button>&nbsp;
+                                                        <asp:Button ID="Button2" CssClass="PCGButton" Text="Cancel" runat="server" CausesValidation="false"
+                                                            CommandName="Cancel"></asp:Button>
+                                                    </td>
+                                                </tr>--%>
                                                 <tr>
                                                     <td colspan="5">
                                                         <%--<asp:CustomValidator ID="CustomValidator4" runat="server" Text="At least one rule is required"
@@ -806,15 +1302,17 @@
                     </td>
                 </tr>
             </table>
-            <div style="float:left ;padding-right:10px;clear:both">
-                <asp:Label ID="Label13" runat="server" Text="Note:" Visible="false" CssClass="FieldName"></asp:Label>
-            </div>
-            
-            <div style="float:left ">
-                <asp:Label ID="Label12" runat="server" Visible="false" Text="T15 cities : Ahmedabad, Bangalore, Baroda, Chandigarh, Chennai, Hyderabad (including Secunderabad), Jaipur, Kanpur, Kolkata,<br /> Lucknow, Mumbai(Including Thane & Navi Mumbai), New Delhi(including NCR), Panjim, Pune and Surat <br /><br />
+            <div>
+                <div style="float: left; padding-right: 10px; clear: both">
+                    <asp:Label ID="Label13" runat="server" Text="Note:" Visible="false" CssClass="FieldName"></asp:Label>
+                </div>
+                <div style="float: left">
+                    <asp:Label ID="Label12" runat="server" Visible="false" Text="T15 cities : Ahmedabad, Bangalore, Baroda, Chandigarh, Chennai, Hyderabad (including Secunderabad), Jaipur, Kanpur, Kolkata,<br /> Lucknow, Mumbai(Including Thane & Navi Mumbai), New Delhi(including NCR), Panjim, Pune and Surat <br /><br />
  B15 cities : cities that are not in T15" CssClass="FieldName"></asp:Label>
+                </div>
             </div>
-            <table id="Table2" runat="server" width="100%" visible="false">
+            <br />
+            <table id="Table2" runat="server" width="100%" visible="false" style="clear: both">
                 <tr id="tr1" runat="server">
                     <td class="tdSectionHeading">
                         <div class="divSectionHeading" style="vertical-align: text-bottom">
@@ -830,12 +1328,18 @@
                                     Visible="false" runat="server" AlternateText="Excel" ToolTip="Export To Excel"
                                     OnClick="ibtExportSummary_OnClick" OnClientClick="setFormat('excel')" Height="22px"
                                     Width="25px"></asp:ImageButton>
+                               <%-- <div class="divTextCenter">
+                                    <asp:ImageButton ID="ImageButton4" runat="server" ImageUrl="../Images/Section-Expand.png"
+                                        alt="Collapse/Expand" OnClick="imgBuy3_Click" />&nbsp;&nbsp;
+                                </div>--%>
+                                <%-- <img src="../Images/Telerik/gp.gif" height="20px" width="20px" style="float: right;
+                                    cursor: hand;" class="flip" />--%>
                             </div>
                         </div>
                     </td>
                 </tr>
             </table>
-            <table id="Table1" runat="server" width="100%">
+            <table id="Table1" runat="server" width="100%"  >
                 <tr>
                     <td>
                         <asp:Panel ID="pnlGrid" runat="server" CssClass="Landscape" Width="100%" ScrollBars="None"
@@ -900,7 +1404,7 @@
                 </tr>
             </table>
             <asp:Panel ID="pnlAddSchemesButton" runat="server" Visible="false">
-                <table width="33%">
+                <table width="33%" style="clear: both">
                     <tr>
                         <td class="leftLabel">
                             <asp:Label ID="lblAddNewSchemes" runat="server" CssClass="FieldName" Text="Add Schemes"></asp:Label>
@@ -912,8 +1416,8 @@
                     </tr>
                 </table>
             </asp:Panel>
-            <asp:Panel ID="pnlAddSchemes" runat="server" Visible="false">
-                <table width="100%">
+            <asp:Panel ID="pnlAddSchemes" runat="server" Visible="false"  >
+                <table width="100%" style="clear: both">
                     <tr>
                         <td class="leftLabel">
                             <asp:Label ID="lblPeriodStart" runat="server" CssClass="FieldName" Text="Available Between: "></asp:Label>
@@ -1152,7 +1656,7 @@
                     </td>
                 </tr>
             </table>
-            <table id="Table4" runat="server" width="100%" visible="false">
+            <table id="Table4" runat="server" width="100%" visible="false" style="clear: both">
                 <tr id="tr3" runat="server">
                     <td class="tdSectionHeading">
                         <div class="divSectionHeading" style="vertical-align: text-bottom">
@@ -1259,6 +1763,79 @@
                     </tr>
                 </table>
             </asp:Panel>
+            <table id="Table5" runat="server" width="100%" style="float: left; padding-right: 10px;
+                clear: both">
+                <tr id="trPayableMapping" runat="server" visible="false">
+                    <td colspan="5" class="tdSectionHeading">
+                        <div class="divSectionHeading" style="vertical-align: text-bottom">
+                            <div class="divSectionHeadingNumber fltlftStep">
+                                4
+                            </div>
+                            <div class="fltlft" style="width: 200px;">
+                                &nbsp;
+                                <asp:Label ID="Label15" runat="server" Text="Payable Mapping"></asp:Label>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center">
+                        <telerik:RadGrid ID="rgPayableMapping" runat="server" AllowSorting="True" enableloadondemand="True"
+                            PageSize="5" AutoGenerateColumns="False" EnableEmbeddedSkins="False" GridLines="None"
+                            ShowFooter="True" PagerStyle-AlwaysVisible="true" AllowPaging="false" ShowStatusBar="True"
+                            Skin="Telerik" AllowFilteringByColumn="true" OnNeedDataSource="rgPayableMapping_OnNeedDataSource"
+                            Visible="false">
+                            <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" AutoGenerateColumns="false"
+                                Width="50%" DataKeyNames="CSRD_StructureRuleDetailsId,ACSR_CommissionStructureRuleId">
+                                <Columns>
+                                    <%-- <telerik:GridEditCommandColumn EditText="Edit" UniqueName="editColumn" CancelText="Cancel"
+                                        UpdateText="Update">--%>
+                                    <%--</telerik:GridEditCommandColumn>--%>
+                                    <telerik:GridBoundColumn DataField="CSRD_StructureRuleDetailsId" HeaderStyle-Width="10px"
+                                        CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                        HeaderText="Rule Detail Id" UniqueName="CSRD_StructureRuleDetailsId" SortExpression="CSRD_StructureRuleDetailsId"
+                                        AllowFiltering="true">
+                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="10px" Wrap="false" />
+                                    </telerik:GridBoundColumn>
+                                    <telerik:GridBoundColumn DataField="ACSR_CommissionStructureRuleId" HeaderStyle-Width="10px"
+                                        CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                        HeaderText="RuleId" UniqueName="ACSR_CommissionStructureRuleId" SortExpression="ACSR_CommissionStructureRuleId"
+                                        AllowFiltering="true">
+                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                    </telerik:GridBoundColumn>
+                                    <%--  <telerik:GridBoundColumn DataField="CSRD_WCMV_CommissionTypeId" HeaderStyle-Width="20px"
+                                        CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                        HeaderText="From" UniqueName="CSRD_WCMV_CommissionTypeId" SortExpression="CSRD_WCMV_CommissionTypeId"
+                                        AllowFiltering="true">
+                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                    </telerik:GridBoundColumn>--%>
+                                    <telerik:GridBoundColumn DataField="WCU_UnitCode" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
+                                        ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Brokage Unit"
+                                        UniqueName="WCU_UnitCode" SortExpression="WCU_UnitCode" AllowFiltering="true">
+                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                    </telerik:GridBoundColumn>
+                                    <telerik:GridBoundColumn DataField="CSRD_BrokageValue" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
+                                        ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Brokage Value"
+                                        UniqueName="CSRD_BrokageValue" SortExpression="CSRD_BrokageValue" AllowFiltering="true">
+                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                    </telerik:GridBoundColumn>
+                                    <telerik:GridTemplateColumn AllowFiltering="false" DataField="" HeaderStyle-Width="110px"
+                                        UniqueName="Action" HeaderText="Action">
+                                        <ItemTemplate>
+                                            <asp:LinkButton ID="llPurchase" runat="server" Text="MAP" OnClick="llPurchase_Click"></asp:LinkButton>
+                                        </ItemTemplate>
+                                    </telerik:GridTemplateColumn>
+                                    <telerik:GridButtonColumn UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete?"
+                                        ConfirmDialogType="RadWindow" ConfirmTitle="Delete" ButtonType="LinkButton" CommandName="Delete"
+                                        Text="Delete" Visible="false">
+                                        <ItemStyle HorizontalAlign="Center" CssClass="MyImageButton" />
+                                    </telerik:GridButtonColumn>
+                                </Columns>
+                            </MasterTableView>
+                        </telerik:RadGrid>
+                    </td>
+                </tr>
+            </table>
             <div>
                 <asp:HiddenField ID="hidCommissionStructureName" runat="server" />
                 <asp:HiddenField ID="hdnProductId" runat="server" />
@@ -1267,6 +1844,7 @@
                 <asp:HiddenField ID="hdnIssuerId" runat="server" />
                 <asp:HiddenField ID="hdnCategoryId" runat="server" />
                 <asp:HiddenField ID="hdnSubcategoryIds" runat="server" />
+                <asp:HiddenField ID="HiddenField1" runat="server" />
             </div>
             <%--<div style="float:left ;padding-right:10px">
                 <asp:Label ID="Label12" runat="server" Text="Note:" Visible="false" CssClass="FieldName"></asp:Label>
@@ -1280,5 +1858,5 @@
         <Triggers>
             <asp:PostBackTrigger ControlID="imgexportButton" />
         </Triggers>
-  </asp:UpdatePanel>
+    </asp:UpdatePanel>
 </asp:Panel>
