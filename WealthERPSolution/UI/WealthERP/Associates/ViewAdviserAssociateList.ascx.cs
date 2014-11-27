@@ -185,9 +185,10 @@ namespace WealthERP.Associates
             GridDataItem grdrow = (GridDataItem)((LinkButton)sender).NamingContainer;
             if (string.IsNullOrEmpty(gvAdviserAssociateList.MasterTableView.DataKeyValues[grdrow.ItemIndex]["WelcomeNotePath"].ToString()))
             {
+                
                 string redirectPath = ConfigurationManager.AppSettings["WEL_COME_LETER_QUERY_STRING"].ToString();
                 string associateid = gvAdviserAssociateList.MasterTableView.DataKeyValues[grdrow.ItemIndex]["AA_AdviserAssociateId"].ToString();
-                Response.Redirect(redirectPath + associateid);
+                Response.Redirect(redirectPath + associateid + "&associateList=1");
                 //btnPreviewSend.PostBackUrl = "~/Reports/Display.aspx?welcomeNote=1&associateId=" + associateId.ToString();
             }
             else if (!string.IsNullOrEmpty(gvAdviserAssociateList.MasterTableView.DataKeyValues[grdrow.ItemIndex]["WelcomeNotePath"].ToString()))

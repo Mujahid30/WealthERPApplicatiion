@@ -568,6 +568,25 @@ namespace WealthERP.Reports
                     crmain.ExportToDisk(ExportFormatType.PortableDocFormat, exportFilename);
                     //Response.Redirect( exportFilename);
                     //Response.Write(@"<script>window.open('" + @exportFilename + "','_blank');</script>");
+                    if (Request.QueryString["associateList"] == "1")
+                    {
+                        AssociatesBo associateBo = new AssociatesBo();
+                        string fileName = associateId.ToString() + ".pdf";
+                        string sourcePath = Server.MapPath("~/Reports/TempReports/ViewInPDF/");
+                        string targetPath = Server.MapPath("~/" + ConfigurationManager.AppSettings["Welcome_Note_PATH"].ToString());
+                       // string targetPath1 = ConfigurationManager.AppSettings["Welcome_Note_PATH"].ToString();
+                        // Use Path class to manipulate file and directory paths.
+                        string sourceFile = System.IO.Path.Combine(sourcePath, fileName);
+                        string destFile = System.IO.Path.Combine(targetPath, fileName);
+                        if (!System.IO.Directory.Exists(targetPath))
+                        {
+                            System.IO.Directory.CreateDirectory(targetPath);
+                        }
+
+                        System.IO.File.Copy(sourceFile, destFile, true);
+                        bool isupdated = associateBo.UpdateAssociateWelcomeNotePath(userVo.UserId, associateId, fileName);
+                        Response.Redirect("TempReports/ViewInPDF/WelcomeNote//" + fileName);
+                    }
                 }
             }
         }
