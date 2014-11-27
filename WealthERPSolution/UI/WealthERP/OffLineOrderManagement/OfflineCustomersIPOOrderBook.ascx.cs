@@ -230,8 +230,12 @@ namespace WealthERP.OffLineOrderManagement
             {
                 GridDataItem dataItem = e.Item as GridDataItem;
                 LinkButton lbtnMarkAsReject = dataItem["MarkAsReject"].Controls[0] as LinkButton;
+                    DropDownList ddlAction = (DropDownList)dataItem.FindControl("ddlAction");
+
                 string OrderStepCode = Convert.ToString(gvIPOOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WOS_OrderStep"]);
                 Boolean isCancel = Convert.ToBoolean(gvIPOOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIM_IsCancelAllowed"].ToString());
+                DateTime closeDateTime = Convert.ToDateTime(gvIPOOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIM_CloseDate"].ToString());
+             
                 if (OrderStepCode == "INPROCESS" && isCancel != false)
                 {
                     lbtnMarkAsReject.Visible = true;
@@ -239,6 +243,15 @@ namespace WealthERP.OffLineOrderManagement
                 else
                 {
                     lbtnMarkAsReject.Visible = false;
+                }
+                if (DateTime.Now < closeDateTime)
+                {
+                    ddlAction.Enabled = true;
+                }
+                else
+                {
+                    ddlAction.Items[1].Enabled = false;
+                    ddlAction.Items[2].Enabled = false;
                 }
             }
         }

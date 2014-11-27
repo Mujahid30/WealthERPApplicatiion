@@ -472,7 +472,7 @@
         </tr>
         <tr>
             <td class="leftField" style="width: 20%">
-                <asp:Label ID="lblApplicationNo" runat="server" Text="Application No.: " CssClass="FieldName"></asp:Label>
+                <asp:Label ID="lblApplicationNo" runat="server" Text="Application No.:" CssClass="FieldName"></asp:Label>
             </td>
             <td class="rightField" style="width: 20%">
                 <asp:TextBox ID="txtApplicationNo" MaxLength="9" onkeydown="return (event.keyCode!=13);"
@@ -485,7 +485,7 @@
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator5" ControlToValidate="txtApplicationNo"
                     ErrorMessage="<br />Please Enter Application No" Display="Dynamic" runat="server"
                     CssClass="rfvPCG" ValidationGroup="btnConfirmOrder"></asp:RequiredFieldValidator>
-                <asp:Label ID="lblApplicationDuplicate" runat="server" CssClass="Error" Text="<br/>Application Number already exists"></asp:Label>
+                     <asp:Label ID="lblApplicationDuplicate" runat="server" CssClass="Error" Text="Application Number already exists"></asp:Label>
             </td>
             <td id="Td1" class="leftField" style="width: 20%" runat="server" visible="false">
                 <asp:Label ID="lblDepository" runat="server" Text="Depository Type: " CssClass="FieldName"></asp:Label>
@@ -588,6 +588,7 @@
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator8" ControlToValidate="txtPaymentNumber"
                     ErrorMessage="<br />Please Enter Cheque/Demand Draft NO." Display="Dynamic" runat="server"
                     CssClass="rfvPCG" ValidationGroup="btnConfirmOrder"></asp:RequiredFieldValidator>
+                
             </td>
             <td class="leftField" style="width: 20%">
                 <asp:Label ID="lblPIDate" runat="server" Text="Cheque Date:" CssClass="FieldName"></asp:Label>
@@ -696,7 +697,7 @@
                     runat="server" CssClass="txtField"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator6" ControlToValidate="txtDematid"
                     ErrorMessage="<br />Please Select Demat from the List" Display="Dynamic" runat="server"
-                    CssClass="rfvPCG" ValidationGroup="btnConfirmOrder"></asp:RequiredFieldValidator>
+                    CssClass="rfvPCG" ValidationGroup="btnConfirmOrder" ></asp:RequiredFieldValidator>
             </td>
             <td>
             </td>

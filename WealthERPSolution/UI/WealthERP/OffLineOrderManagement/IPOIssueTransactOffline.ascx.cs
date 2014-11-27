@@ -132,6 +132,9 @@ namespace WealthERP.OffLineOrderManagement
          
             if (!IsPostBack)
             {
+                txtPaymentInstDate.MinDate = DateTime.Now.AddDays(-10);
+                txtPaymentInstDate.MaxDate = DateTime.Now.AddDays(10);
+
                 btnAddMore.Visible = false;
                 lblApplicationDuplicate.Visible = false;
                 if (AgentCode != null)
@@ -212,8 +215,6 @@ namespace WealthERP.OffLineOrderManagement
         }
         private void ViewOrderList(int orderId)
         {
-            int agentId = 0;
-            string agentCode = "";
             trCust.Visible = true;
             Panel1.Visible = true;
             DataSet dsGetMFOrderDetails = OfflineIPOOrderBo.GetIPOIssueOrderDetails(orderId);
@@ -255,6 +256,7 @@ namespace WealthERP.OffLineOrderManagement
                     txtCustomerName.Text = dr["Customer_Name"].ToString();
                     lblgetPan.Text = dr["C_PANNum"].ToString();
                     txtAssociateSearch.Text = dr["AAC_AgentCode"].ToString();
+                   // lblBranchName.Text = dr["AB_BranchName"].ToString();
                     string issue = dr["AIM_IssueId"].ToString();
                     BindIPOIssueList(issue);
                     BindCustomerNCDIssueList();
@@ -313,15 +315,12 @@ namespace WealthERP.OffLineOrderManagement
             dtJntHld.Columns.Add("AssociateId");
             dtJntHld.Columns.Add("AssociateType");
             string userMessage = String.Empty;
-            bool accountDebitStatus = false;
-            int orderId = 0;
             double totalBidAmount = 0;
             double totalBidAmountPayable = 0;
             string applicationNo = String.Empty;
             string apllicationNoStatus = String.Empty;
             double maxPaybleBidAmount = 0;
             DateTime cutOff = DateTime.Now;
-            bool isCutOffTimeOver = false;
             int issueId = Convert.ToInt32(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIM_IssueId"].ToString());
             if (!string.IsNullOrEmpty(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIM_CutOffTime"].ToString()))
                 cutOff = Convert.ToDateTime(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIM_CutOffTime"].ToString());
@@ -423,6 +422,17 @@ namespace WealthERP.OffLineOrderManagement
                 //foreach(DataRow dr1 in dr.Rows)
                 drIPOBid["DetailsId"] = dr.Rows[radgridRowNo]["COID_DetailsId"].ToString();
                 dtIPOBidTransactionDettails.Rows.Add(drIPOBid);
+                //foreach (GridDataItem radItem in RadGridIPOBid.MasterTableView.Items)
+                //{
+                    //Decimal bidoption1 = Convert.ToDecimal(dr.Rows[radgridRowNo]["BidAmountPayable"].ToString());
+                    ////TextBox txtBidAmountPayable = (TextBox)RadGridIPOBid.MasterTableView.Items[radgridRowNo]["BidAmountPayable"].FindControl("txtBidAmountPayable");
+                    //decimal payable = Convert.ToDecimal(txtBidAmountPayable.Text);
+                    //if (payable < bidoption1)
+                    //{
+                    //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('IPO!!');", true);
+                    //    return;
+                    //}
+                   
                 if (radgridRowNo < RadGridIPOBid.MasterTableView.Items.Count)
                     radgridRowNo++;
                 else
@@ -434,10 +444,20 @@ namespace WealthERP.OffLineOrderManagement
                 Label lblBidHighestValue = (Label)footeritem["BidAmountPayable"].FindControl("lblFinalBidAmountPayable");
                 maxPaybleBidAmount = Convert.ToDouble(lblBidHighestValue.Text.Trim());
             }
-
+            //validateBidAmount();
             OfflineIPOOrderBo.UpdateIPOBidOrderDetails(dtIPOBidTransactionDettails, orderNo, txtDematid.Text);
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('IPO Order Updated Successfully!!');", true);
             btnUpdate.Visible = false;
+        }
+        protected void validateBidAmount()
+        {
+            int radgridRowNo = 0;
+            DataTable dr = (DataTable)ViewState["Detais"];
+            //Decimal bidoption1 = Convert.ToDecimal( dr.Rows[0]["COID_DetailsId"].ToString());
+            //Decimal bidoption2 = Convert.ToDecimal(dr.Rows[1]["COID_DetailsId"].ToString());
+            //Decimal bidoption3 = Convert.ToDecimal(dr.Rows[2]["COID_DetailsId"].ToString());
+            
+
         }
         public void GetUserType()
         {
@@ -1458,7 +1478,11 @@ namespace WealthERP.OffLineOrderManagement
                     drIPOBid["ASBAAccNo"] = txtASBANO.Text.Trim();
                 else
                     drIPOBid["ASBAAccNo"] = DBNull.Value;
-
+                if (ddlPaymentMode.SelectedValue == "ES")
+                {
+                    drIPOBid["BankName"] = ddlBankName.SelectedValue;
+                }
+                else
                 drIPOBid["BankName"] = ddlBankName.SelectedItem.Text;
 
                 if (!string.IsNullOrEmpty(txtBranchName.Text.Trim()))
@@ -1536,7 +1560,7 @@ namespace WealthERP.OffLineOrderManagement
             if (orderId != 0)
             {
 
-                userMessage = "Order placed successfully, Order reference no is " + orderId.ToString();
+                userMessage = "Order placed successfully, Order reference no is " + orderId.ToString()+" and application no is "+txtApplicationNo.Text;
             }
 
             return userMessage;
@@ -1583,6 +1607,8 @@ namespace WealthERP.OffLineOrderManagement
             pnlJointHolderNominee.Visible = false;
             txtRemarks.Text = "";
             trSumbitSuccess.Visible = false;
+            txtPansearch.Text = "";
+            txtAssociateSearch.Text = "";
 
 
         }

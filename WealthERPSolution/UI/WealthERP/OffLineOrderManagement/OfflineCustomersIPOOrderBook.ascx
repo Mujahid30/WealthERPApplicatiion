@@ -109,13 +109,13 @@
             <td>
                 <table>
                     <tr>
-                        <td>
+                        <td> 
                             <telerik:RadGrid ID="gvIPOOrderBook" runat="server" GridLines="None" AutoGenerateColumns="False"
                                 PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" OnNeedDataSource="gvIPOOrderBook_OnNeedDataSource"
                                 ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="true"
                                 AllowAutomaticInserts="false" Width="120%" OnItemDataBound="gvIPOOrderBook_ItemDataBound"
                                 OnUpdateCommand="gvIPOOrderBook_UpdateCommand">
-                                <MasterTableView DataKeyNames="CO_OrderId,AIM_IssueId,AIM_IssueName,Amount,WES_Code,C_CustCode,WOS_OrderStep,AIM_IsCancelAllowed,AgenId,AAC_AgentCode"
+                                <MasterTableView DataKeyNames="CO_OrderId,AIM_IssueId,AIM_IssueName,Amount,WES_Code,C_CustCode,WOS_OrderStep,AIM_IsCancelAllowed,AgenId,AAC_AgentCode,AIM_CloseDate"
                                     Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None"
                                     EditMode="PopUp">
                                     <Columns>
