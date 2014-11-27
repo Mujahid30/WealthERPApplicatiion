@@ -183,11 +183,22 @@ namespace WealthERP.Associates
         protected void lbtnWelcomeletter_OnClick(object sender, EventArgs e)
         {
             GridDataItem grdrow = (GridDataItem)((LinkButton)sender).NamingContainer;
-            string WelcomeNotePath = gvAdviserAssociateList.MasterTableView.DataKeyValues[grdrow.ItemIndex]["WelcomeNotePath"].ToString();
-            string targetPath = ConfigurationManager.AppSettings["Welcome_Note_PATH"].ToString();
-            Response.Redirect(targetPath + WelcomeNotePath);
+            if (string.IsNullOrEmpty(gvAdviserAssociateList.MasterTableView.DataKeyValues[grdrow.ItemIndex]["WelcomeNotePath"].ToString()))
+            {
+                string redirectPath = ConfigurationManager.AppSettings["WEL_COME_LETER_QUERY_STRING"].ToString();
+                string associateid = gvAdviserAssociateList.MasterTableView.DataKeyValues[grdrow.ItemIndex]["AA_AdviserAssociateId"].ToString();
+                Response.Redirect(redirectPath + associateid);
+                //btnPreviewSend.PostBackUrl = "~/Reports/Display.aspx?welcomeNote=1&associateId=" + associateId.ToString();
+            }
+            else if (!string.IsNullOrEmpty(gvAdviserAssociateList.MasterTableView.DataKeyValues[grdrow.ItemIndex]["WelcomeNotePath"].ToString()))
+            {
+                string WelcomeNotePath = gvAdviserAssociateList.MasterTableView.DataKeyValues[grdrow.ItemIndex]["WelcomeNotePath"].ToString();
+                string targetPath = ConfigurationManager.AppSettings["Welcome_Note_PATH"].ToString();
+                Response.Redirect(targetPath + WelcomeNotePath);
+            }
+          
 
-
+            
         }
     }
 }

@@ -130,10 +130,11 @@
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="true" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
                                                <telerik:GridTemplateColumn UniqueName="Welcome" ItemStyle-Width="100Px" AllowFiltering="false" HeaderText="Welcome Letter">
-                                               
+                                         
                                                 <ItemTemplate>
                                                   <asp:LinkButton ID="lbtnWelcomeletter" OnClientClick="window.document.forms[0].target='_blank'; setTimeout(function(){window.document.forms[0].target='';}, 500);"
-                                                   runat="server"  OnClick="lbtnWelcomeletter_OnClick" Visible='<%# Eval("WelcomeNotePath") != DBNull.Value %>' >WelcomeLetter</asp:LinkButton>
+                                                   runat="server"  OnClick="lbtnWelcomeletter_OnClick" >WelcomeLetter</asp:LinkButton>
+                                                      <%--   Visible='<%# Eval("WelcomeNotePath") != DBNull.Value %>' --%>
                                                 </ItemTemplate>
                                             </telerik:GridTemplateColumn>
                                         </Columns>
