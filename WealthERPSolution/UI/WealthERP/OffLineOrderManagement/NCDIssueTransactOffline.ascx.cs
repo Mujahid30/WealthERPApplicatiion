@@ -119,7 +119,8 @@ namespace WealthERP.OffLineOrderManagement
                 txtCustomerName_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
                 AutoCompleteExtender1.ContextKey = advisorVo.advisorId.ToString();
                 AutoCompleteExtender1.ServiceMethod = "GetAdviserCustomerPan";
-                AutoCompleteExtender2.ContextKey = associateuserheirarchyVo.AgentCode;
+
+                AutoCompleteExtender2.ContextKey = associateuserheirarchyVo.AgentCode + "/" + advisorVo.advisorId.ToString();      
                 AutoCompleteExtender2.ServiceMethod = "GetAgentCodeAssociateDetailsForAssociates";
 
             }

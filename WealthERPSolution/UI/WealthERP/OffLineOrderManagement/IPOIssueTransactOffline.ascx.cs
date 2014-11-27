@@ -91,7 +91,7 @@ namespace WealthERP.OffLineOrderManagement
             associatesVo = (AssociatesVO)Session["associatesVo"];
             userVo = (UserVo)Session[SessionContents.UserVo];
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
-
+            
             rwDematDetails.VisibleOnPageLoad = false;
             GetUserType();
             tblMessage.Visible = false;
@@ -123,7 +123,8 @@ namespace WealthERP.OffLineOrderManagement
                 txtCustomerName_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
                 AutoCompleteExtender1.ContextKey = advisorVo.advisorId.ToString();
                 AutoCompleteExtender1.ServiceMethod = "GetAdviserCustomerPan";
-                AutoCompleteExtender2.ContextKey = associateuserheirarchyVo.AgentCode;
+
+                AutoCompleteExtender2.ContextKey = associateuserheirarchyVo.AgentCode+"/"+advisorVo.advisorId.ToString();               
                 AutoCompleteExtender2.ServiceMethod = "GetAgentCodeAssociateDetailsForAssociates";
 
             }
