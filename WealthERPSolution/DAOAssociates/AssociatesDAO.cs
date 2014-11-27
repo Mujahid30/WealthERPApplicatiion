@@ -1515,7 +1515,7 @@ namespace DAOAssociates
             }
             return dtChildCodeList;
         }
-        public bool EditAddChildAgentCodeList(AssociatesVO associatesVo, string ChildCode, int PagentId, char flag)
+        public bool EditAddChildAgentCodeList(AssociatesVO associatesVo, string ChildCode, int PagentId, char flag,string childName,string childEmailId,int userId)
         {
             bool result = false;
             Database db;
@@ -1531,6 +1531,9 @@ namespace DAOAssociates
                 db.AddInParameter(cmd, "@AAC_ModifiedBy", DbType.Int32, associatesVo.AAC_ModifiedBy);
                 db.AddInParameter(cmd, "@PagentId", DbType.Int32, PagentId);
                 db.AddInParameter(cmd, "@AdviserAgentId", DbType.Int32, associatesVo.AAC_AdviserAgentId);
+                db.AddInParameter(cmd, "@ChildName", DbType.String, childName);
+                db.AddInParameter(cmd, "@ChildEmailId", DbType.String, childEmailId);
+                db.AddInParameter(cmd, "@UserId", DbType.Int32, userId);
                 db.ExecuteNonQuery(cmd);
                 result = true;
             }

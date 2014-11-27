@@ -451,10 +451,10 @@ namespace BOAssociates
             }
             return dtChildCodeList;
         }
-        public bool EditAddChildAgentCodeList(AssociatesVO associatesVo, string ChildCode, int PagentId, char flag)
+        public bool EditAddChildAgentCodeList(AssociatesVO associatesVo, string ChildCode, int PagentId, char flag,string childName,string childEmailId,int userId)
         {
             bool result = false; ;
-            result = associatesDao.EditAddChildAgentCodeList(associatesVo, ChildCode, PagentId, flag);
+            result = associatesDao.EditAddChildAgentCodeList(associatesVo, ChildCode, PagentId, flag, childName, childEmailId, userId);
             return result;
         }
         public bool DeleteChildAgentCode(int childAgentId)
