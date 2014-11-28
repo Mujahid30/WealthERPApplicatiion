@@ -417,6 +417,8 @@ namespace DaoCommisionManagement
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmdCreateCommissionStructureRule = db.GetStoredProcCommand("SPROC_CreateCommissionStructureRule");
                 db.AddInParameter(cmdCreateCommissionStructureRule, "@ACSM_CommissionStructureId", DbType.Int64, commissionStructureRuleVo.CommissionStructureId);
+                db.AddInParameter(cmdCreateCommissionStructureRule, "@ACSM_CommissionStructureName", DbType.String, commissionStructureRuleVo.CommissionStructureRuleName);
+               
                 db.AddInParameter(cmdCreateCommissionStructureRule, "@WCT_CommissionTypeCode", DbType.String, commissionStructureRuleVo.CommissionType);
                 db.AddInParameter(cmdCreateCommissionStructureRule, "@XCC_CustomerCategoryCode", DbType.String, commissionStructureRuleVo.CustomerType);
 

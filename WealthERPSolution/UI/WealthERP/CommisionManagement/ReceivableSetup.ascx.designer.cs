@@ -483,6 +483,11 @@ namespace WealthERP.Receivable {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTable tblCommissionStructureRule;
+        protected global::System.Web.UI.HtmlControls.HtmlTable tbSchemeMapping;
+        protected global::System.Web.UI.HtmlControls.HtmlTable tbSchemeMapped;
+
+
+        
         
         /// <summary>
         /// trStepTwoHeading control.
