@@ -3766,6 +3766,15 @@ namespace BoCustomerProfiling
             }
             return dtSystematicId;
         }
+        public DataTable GetASBABankLocation(string prefixText)
+        {
+            CustomerDao customerDao = new CustomerDao();
+
+            DataTable dtGetASBABankLocation = new DataTable();
+            dtGetASBABankLocation = customerDao.GetASBABankLocation(prefixText);
+            return dtGetASBABankLocation;
+
+        }
     }
 
 }

@@ -6829,5 +6829,29 @@ namespace DaoCustomerProfiling
             }
             return dtGetSystematicId;
         }
+        public DataTable GetASBABankLocation(string prefixText)
+        {
+
+            Database db;
+            DbCommand cmdGetASBABankLocation;
+            DataSet dsGetASBABankLocation;
+            DataTable dtGetASBABankLocation;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //To retreive data from the table 
+                cmdGetASBABankLocation = db.GetStoredProcCommand("SPROC_GetASBAAllLocation");
+                db.AddInParameter(cmdGetASBABankLocation, "@prefixText", DbType.String, prefixText);
+                dsGetASBABankLocation = db.ExecuteDataSet(cmdGetASBABankLocation);
+                dtGetASBABankLocation = dsGetASBABankLocation.Tables[0];
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetASBABankLocation;
+        }
     }
 }

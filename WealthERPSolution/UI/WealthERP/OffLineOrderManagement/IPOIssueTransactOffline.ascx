@@ -485,7 +485,8 @@
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator5" ControlToValidate="txtApplicationNo"
                     ErrorMessage="<br />Please Enter Application No" Display="Dynamic" runat="server"
                     CssClass="rfvPCG" ValidationGroup="btnConfirmOrder"></asp:RequiredFieldValidator>
-                     <asp:Label ID="lblApplicationDuplicate" runat="server" CssClass="Error" Text="Application Number already exists"></asp:Label>
+                <br />
+                <asp:Label ID="lblApplicationDuplicate" runat="server" CssClass="Error" Text="Application Number already exists"></asp:Label>
             </td>
             <td id="Td1" class="leftField" style="width: 20%" runat="server" visible="false">
                 <asp:Label ID="lblDepository" runat="server" Text="Depository Type: " CssClass="FieldName"></asp:Label>
@@ -588,7 +589,6 @@
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator8" ControlToValidate="txtPaymentNumber"
                     ErrorMessage="<br />Please Enter Cheque/Demand Draft NO." Display="Dynamic" runat="server"
                     CssClass="rfvPCG" ValidationGroup="btnConfirmOrder"></asp:RequiredFieldValidator>
-                
             </td>
             <td class="leftField" style="width: 20%">
                 <asp:Label ID="lblPIDate" runat="server" Text="Cheque Date:" CssClass="FieldName"></asp:Label>
@@ -615,7 +615,7 @@
         </tr>
         <tr id="trASBA" runat="server" visible="false">
             <td class="leftField" style="width: 20%">
-                <asp:Label ID="lblASBANo" Text="ASBA Bank A/c NO:" runat="server" CssClass="FieldName"></asp:Label>
+                <asp:Label ID="lblASBANo" Text="ASBA Bank A/c No.:" runat="server" CssClass="FieldName"></asp:Label>
             </td>
             <td class="rightField" style="width: 20%">
                 <asp:TextBox ID="txtASBANO" onkeydown="return (event.keyCode!=13);" runat="server"
@@ -625,7 +625,25 @@
                     ErrorMessage="<br />Please Enter Account No." Display="Dynamic" runat="server"
                     CssClass="rfvPCG" ValidationGroup="btnConfirmOrder"></asp:RequiredFieldValidator>
             </td>
-            <td colspan="3">
+            <td class="leftField" style="width: 20%">
+                <asp:Label ID="lblASBALocation" runat="server" CssClass="FieldName" Text="Location:"></asp:Label>
+            </td>
+            <td class="rightField" style="width: 20%">
+                <asp:TextBox ID="txtASBALocation" onkeydown="return (event.keyCode!=13);" runat="server"
+                    CssClass="txtField" AutoComplete="Off" AutoPostBack="True" TabIndex="4">
+                </asp:TextBox><span id="Span6" class="spnRequiredField">*</span>
+                <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender3" TargetControlID="txtASBALocation"
+                    WatermarkText="Enter few chars of Location" runat="server" EnableViewState="false">
+                </cc1:TextBoxWatermarkExtender>
+                <ajaxToolkit:AutoCompleteExtender ID="txtASBALocation_AutoCompleteExtender3" runat="server"
+                    TargetControlID="txtASBALocation" ServiceMethod="GetASBALocation" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
+                    MinimumPrefixLength="1" EnableCaching="False" CompletionSetCount="5" CompletionInterval="100"
+                    CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
+                    CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
+                    UseContextKey="True" DelimiterCharacters="" Enabled="True" />
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator11" ControlToValidate="txtASBALocation"
+                    ErrorMessage="<br />Please Enter Location" Display="Dynamic" runat="server" CssClass="rfvPCG"
+                    ValidationGroup="btnConfirmOrder"></asp:RequiredFieldValidator>
             </td>
         </tr>
         <tr id="trBankName" runat="server">
@@ -653,15 +671,18 @@
                     runat="server" InitialValue="" ValidationGroup="btnConfirmOrder"></asp:RequiredFieldValidator>
             </td>
             <td class="leftField" style="width: 20%">
-                <asp:Label ID="lblBranchName" runat="server" Text="Bank BranchName:" CssClass="FieldName"></asp:Label>
+                <asp:Label ID="lblBranchName" runat="server" Text="Bank BranchName:" CssClass="FieldName"
+                    Visible="false"></asp:Label>
             </td>
-            <td class="rightField" style="width: 20%">
+            <td class="rightField" style="width: 20%" id="tdBankBranch">
                 <asp:TextBox ID="txtBranchName" onkeydown="return (event.keyCode!=13);" runat="server"
-                    CssClass="txtField"></asp:TextBox>
-                <span id="Span3" class="spnRequiredField">*</span>
+                    CssClass="txtField" Visible="false"></asp:TextBox>
+                <%--<span id="Span3" class="spnRequiredField" visible="false">*</span>--%>
+                <asp:Label ID="lblBankBranchName" runat="server" Text="*" class="spnRequiredField"
+                    Visible="false"></asp:Label>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator7" ControlToValidate="txtBranchName"
                     CssClass="rfvPCG" ErrorMessage="<br />Please Enter Bank Branch" Display="Dynamic"
-                    runat="server" InitialValue="" ValidationGroup="btnConfirmOrder"></asp:RequiredFieldValidator>
+                    runat="server" InitialValue="" ValidationGroup="btnConfirmOrder" Visible="false"></asp:RequiredFieldValidator>
             </td>
         </tr>
     </table>
@@ -697,7 +718,7 @@
                     runat="server" CssClass="txtField"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator6" ControlToValidate="txtDematid"
                     ErrorMessage="<br />Please Select Demat from the List" Display="Dynamic" runat="server"
-                    CssClass="rfvPCG" ValidationGroup="btnConfirmOrder" ></asp:RequiredFieldValidator>
+                    CssClass="rfvPCG" ValidationGroup="btnConfirmOrder"></asp:RequiredFieldValidator>
             </td>
             <td>
             </td>
@@ -875,7 +896,8 @@
                     <telerik:RadGrid ID="RadGridIPOBid" runat="server" AllowSorting="True" enableloadondemand="True"
                         PageSize="10" AllowPaging="false" AutoGenerateColumns="False" EnableEmbeddedSkins="False"
                         GridLines="None" ShowFooter="true" PagerStyle-AlwaysVisible="false" ShowStatusBar="True"
-                        Skin="Telerik" AllowFilteringByColumn="false" OnItemDataBound="RadGridIPOBid_ItemDataBound">
+                        Skin="Telerik" AllowFilteringByColumn="false" FooterStyle-BackColor="#2475C7"
+                        OnItemDataBound="RadGridIPOBid_ItemDataBound">
                         <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" AutoGenerateColumns="false"
                             DataKeyNames="IssueBidNo" Width="100%" PagerStyle-AlwaysVisible="false">
                             <Columns>

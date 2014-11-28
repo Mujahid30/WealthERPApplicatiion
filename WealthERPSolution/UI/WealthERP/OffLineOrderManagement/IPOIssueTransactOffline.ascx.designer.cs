@@ -48,7 +48,9 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trSumbitSuccess;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdBankBranch;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdtxtASBALocation;
+
         /// <summary>
         /// msgRecordStatus control.
         /// </summary>
@@ -76,6 +78,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblinsufficent;
         protected global::System.Web.UI.WebControls.Label lblApplicationDuplicate;
+        protected global::System.Web.UI.WebControls.Label lblBankBranchName;
         
         /// <summary>
         /// pnl_OrderSection control.
@@ -157,6 +160,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.AutoCompleteExtender AutoCompleteExtender1;
+        protected global::AjaxControlToolkit.AutoCompleteExtender txtASBALocation_AutoCompleteExtender3;
         
         /// <summary>
         /// RequiredFieldValidator1 control.
@@ -184,6 +188,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblgetcust;
+        protected global::System.Web.UI.WebControls.TextBox txtASBALocation;
         
         /// <summary>
         /// trCust control.

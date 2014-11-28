@@ -125,7 +125,7 @@
             <td>
                 <table>
                     <tr>
-                        <td> 
+                        <td>
                             <telerik:RadGrid ID="gvIPOOrderBook" runat="server" GridLines="None" AutoGenerateColumns="False"
                                 PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" OnNeedDataSource="gvIPOOrderBook_OnNeedDataSource"
                                 ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="true"
@@ -398,6 +398,15 @@
                                                                         </telerik:GridBoundColumn>
                                                                         <telerik:GridBoundColumn DataField="PriceDiscountType" AllowFiltering="false" SortExpression="PriceDiscountType"
                                                                             HeaderText="Discount Type" UniqueName="PriceDiscountType" HeaderStyle-Width="65px">
+                                                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                                                        </telerik:GridBoundColumn>
+                                                                        <telerik:GridBoundColumn DataField="COID_ExchangeRefrenceNo" AllowFiltering="false"
+                                                                            SortExpression="COID_ExchangeRefrenceNo" HeaderText="ExchangeRefrenceNo." UniqueName="COID_ExchangeRefrenceNo"
+                                                                            HeaderStyle-Width="65px">
+                                                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                                                        </telerik:GridBoundColumn>
+                                                                        <telerik:GridBoundColumn DataField="ModificationType" AllowFiltering="false" SortExpression="ModificationType"
+                                                                            HeaderText="Modification Type." UniqueName="ModificationType" HeaderStyle-Width="65px">
                                                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                                         </telerik:GridBoundColumn>
                                                                     </Columns>

@@ -244,6 +244,15 @@ namespace WealthERP.OffLineOrderManagement
                 {
                     lbtnMarkAsReject.Visible = false;
                 }
+                if (OrderStepCode == "CANCELLED")
+                {
+                    ddlAction.Items[1].Enabled = false;
+                    ddlAction.Items[2].Enabled = false;
+                }
+                else
+                {
+                    ddlAction.Enabled = true;
+                }
                 if (DateTime.Now < closeDateTime)
                 {
                     ddlAction.Enabled = true;
