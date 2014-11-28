@@ -108,6 +108,20 @@ namespace WealthERP.CommisionManagement
             GetControlsBasedOnType(ddlType.SelectedValue);
         }
 
+        protected void ddlMapping_Selectedindexchanged(object sender, EventArgs e)
+        {
+            if (ddlMapping.SelectedValue == "Staff")
+            {
+                ddlType.SelectedValue = "Custom";
+            }
+            else
+            {
+                ddlType.SelectedValue = "UserCategory";
+
+            }
+            GetControlsBasedOnType(ddlType.SelectedValue);
+        }
+        
         private void GetControlsBasedOnType(string type)
         {
             if (type == "Custom")

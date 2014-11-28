@@ -48,8 +48,8 @@
         </td>
     </tr>
 </table>
-<table width="100%">
-    <tr>
+<table width="100%" >
+    <tr runat="server" visible="false">
         <td class="leftLabel">
             <asp:Label ID="lblStructName" runat="server" Text="Structure:" CssClass="FieldName"></asp:Label>
         </td>
@@ -77,7 +77,7 @@
             </telerik:RadListBox>
         </td>
     </tr>
-    <tr>
+    <tr runat="server" visible="false">
         <td class="leftLabel">
             <asp:Label ID="lblCategory" runat="server" Text="Category: " CssClass="FieldName"></asp:Label>
         </td>
@@ -99,7 +99,7 @@
             &nbsp;
         </td>
     </tr>
-    <tr>
+    <tr runat="server" visible="false">
         <td class="leftLabel">
             <asp:Label ID="lblStructValidFrom" runat="server" Text="Validity From: " CssClass="FieldName"></asp:Label>
         </td>
@@ -121,7 +121,7 @@
             <asp:Label ID="Label1" runat="server" Text="Mapping For:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightData">
-            <asp:DropDownList ID="ddlMapping" runat="server" CssClass="cmbField" AutoPostBack="true">
+            <asp:DropDownList ID="ddlMapping" runat="server" CssClass="cmbField" AutoPostBack="true" OnSelectedIndexChanged="ddlMapping_Selectedindexchanged">
                 <asp:ListItem Text="Staff" Value="Staff"></asp:ListItem>
                 <asp:ListItem Text="Associate" Value="Associate"></asp:ListItem>
             </asp:DropDownList>
@@ -130,7 +130,7 @@
             <asp:Label ID="Label2" runat="server" Text="Type: " CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightData">
-            <asp:DropDownList ID="ddlType" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlType_Selectedindexchanged"
+            <asp:DropDownList ID="ddlType" runat="server" enabled="false" CssClass="cmbField" OnSelectedIndexChanged="ddlType_Selectedindexchanged"
                 AutoPostBack="true">
                 <asp:ListItem Text="Custom" Value="Custom"></asp:ListItem>
                 <asp:ListItem Text="UserCategory" Value="UserCategory"></asp:ListItem>

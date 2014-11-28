@@ -110,8 +110,6 @@ namespace WealthERP.Receivable
 
         protected void imgBuyMapping_Click(object sender, ImageClickEventArgs e)
         {
-
-
             if (ddlProductType.SelectedValue == "MF")
             {
                 if (pnlAddSchemes.Visible == true)
@@ -123,8 +121,8 @@ namespace WealthERP.Receivable
                 else
                 {
                     pnlAddSchemes.Visible = true;
-                    if(gvMappedSchemes.Items.Count>0)
-                    gvMappedSchemes.Visible = true;
+                    if (gvMappedSchemes.Items.Count > 0)
+                        gvMappedSchemes.Visible = true;
                     //Table2.Visible = true;
 
 
@@ -222,8 +220,13 @@ namespace WealthERP.Receivable
             GridDataItem item = (GridDataItem)lbButton.NamingContainer;
 
             int ruleId = int.Parse(rgPayableMapping.MasterTableView.DataKeyValues[rowindex]["CSRD_StructureRuleDetailsId"].ToString());
+            string structureId = hidCommissionStructureName.Value;
+            string myscript = "window.open('PopUp.aspx?ID=" + structureId + "&ruleId=" + ruleId + "&pageID=PayableStructureToAgentCategoryMapping&', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')";
+
+
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), Guid.NewGuid().ToString(), "<script>" + myscript + "</script>", false);
             //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TransactionPage", "loadcontrol('PayableStructureToAgentCategoryMapping','&ruleId=" + ruleId + "');", true);
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('PayableStructureToAgentCategoryMapping','ruleId=" + ruleId + "&ID=" + hidCommissionStructureName.Value + "&Product=" + ddlProductType.SelectedValue + "');", true);
+            // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('PayableStructureToAgentCategoryMapping','ruleId=" + ruleId + "&ID=" + hidCommissionStructureName.Value + "&Product=" + ddlProductType.SelectedValue + "');", true);
 
         }
 
@@ -1327,6 +1330,14 @@ namespace WealthERP.Receivable
             }
         }
 
+        protected void rgPayableMapping_ItemCommand(object source, GridCommandEventArgs e)
+        {
+            if (e.Item is GridEditFormInsertItem && e.Item.OwnerTableView.IsItemInserted)
+            {
+                object obj = e.CommandArgument;
+                string ID = obj.ToString();
+            }
+        }
         protected void RadGridStructureRule_InsertCommand(object source, GridCommandEventArgs e)
         {
             bool isPageValid = true;

@@ -101,7 +101,16 @@ namespace WealthERP
                 uc1.ID = "ctrl_" + pageID.Trim() + "-" + userType + "-" + rmId;
             }
 
+            if (pageID.Trim() == "PayableStructureToAgentCategoryMapping")
+            {
+                if (Request.QueryString["ruleId"] != null)
+                {
+                    string ruleId = Request.QueryString["ruleId"].ToString();
+                    string ID = Request.QueryString["ID"].ToString();
+                    uc1.ID = "ctrl_" + pageID.Trim() + "-" + ruleId + "-" + ID;
+                }
 
+            }
 
            
 

@@ -75,6 +75,11 @@
 
 <script language="JavaScript" type="text/jscript">
 
+    function openpopupAddCustomer() {
+        window.open('PopUp.aspx?AddPayableMapping=mf&pageID=PayableStructureToAgentCategoryMapping&', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')
+        return false;
+    }
+
     function InvestmentAmountValidation(source, args) {
         args.IsValid = false;
         var minValue = document.getElementById('ctrl_ReceivableSetup_RadGridStructureRule_ctl00_ctl02_ctl03_txtMinInvestmentAmount').value;
@@ -734,7 +739,6 @@
                     </td>
                 </tr>
             </table>
-            
             <table id="Table2" runat="server" width="100%" visible="false" style="clear: both">
                 <tr id="tr1" runat="server">
                     <td class="tdSectionHeading">
@@ -752,7 +756,6 @@
                                     OnClick="ibtExportSummary_OnClick" OnClientClick="setFormat('excel')" Height="22px"
                                     Width="25px"></asp:ImageButton>
                             </div>
-                            
                             <div class="divTextCenter">
                                 <asp:ImageButton ID="ImageButton4" runat="server" alt="Collapse/Expand" ImageUrl="../Images/Telerik/gp.gif"
                                     Height="20px" Width="20px" Style="float: right; cursor: hand;" OnClick="imgBuyMapping_Click" />
@@ -838,7 +841,7 @@
                 </table>
             </asp:Panel>
             <asp:Panel ID="pnlAddSchemes" runat="server" Visible="false">
-                <table width="100%" style="clear: both" runat="server"   ID="tbSchemeButton">
+                <table width="100%" style="clear: both" runat="server" id="tbSchemeButton">
                     <tr>
                         <td class="leftLabel">
                             <asp:Label ID="lblPeriodStart" runat="server" CssClass="FieldName" Text="Available Between: "></asp:Label>
@@ -885,7 +888,7 @@
                         </td>
                     </tr>
                 </table>
-                <table width="100%" runat="server" Visible="false" ID="tbSchemeMapping">
+                <table width="100%" runat="server" visible="false" id="tbSchemeMapping">
                     <tr>
                         <td>
                             &nbsp;
@@ -954,29 +957,31 @@
                         </td>
                     </tr>
                 </table>
-                <table width="100%" runat="server" Visible="false" ID="tbSchemeMapped">
+                <table width="100%" runat="server" visible="false" id="tbSchemeMapped">
                     <tr>
                         <td class="leftLabel">
                             <asp:Label ID="lblMappedFrom" runat="server" CssClass="FieldName" Text="Mapping Period: "></asp:Label>
                         </td>
                         <td class="rightData">
                             <telerik:RadDatePicker ID="rdpMappedFrom" runat="server">
-                            </telerik:RadDatePicker></td>
-                            <td class="leftLabel">
-                                <telerik:RadDatePicker ID="rdpMappedTill" runat="server">
-                                </telerik:RadDatePicker></td>
-                                <td class="rightData">
-                                    <asp:Button ID="btnMapSchemes" CssClass="PCGButton" runat="server" Text="Map" OnClick="btnMapSchemes_Click" />
-                                </td>
-                                <td colspan="2">
-                                    <asp:RequiredFieldValidator ID="rfvMappingTo" runat="server" ErrorMessage="Please enter valid date(s)"
-                                        Display="Dynamic" CssClass="rfvPCG" ValidationGroup="mappingPeriod" ControlToValidate="rdpMappedTill"></asp:RequiredFieldValidator>
-                                    <asp:RequiredFieldValidator ID="rfvMappingFrom" runat="server" ErrorMessage="Please enter valid date(s)"
-                                        Display="Dynamic" CssClass="rfvPCG" ValidationGroup="mappingPeriod" ControlToValidate="rdpMappedFrom"></asp:RequiredFieldValidator>
-                                    <asp:CompareValidator ID="cmvMappingPeriod" runat="server" ErrorMessage="Please enter valid date(s)"
-                                        CssClass="rfvPCG" Display="Dynamic" ControlToCompare="rdpMappedFrom" ControlToValidate="rdpMappedTill"
-                                        Operator="GreaterThan"></asp:CompareValidator>
-                                </td>
+                            </telerik:RadDatePicker>
+                        </td>
+                        <td class="leftLabel">
+                            <telerik:RadDatePicker ID="rdpMappedTill" runat="server">
+                            </telerik:RadDatePicker>
+                        </td>
+                        <td class="rightData">
+                            <asp:Button ID="btnMapSchemes" CssClass="PCGButton" runat="server" Text="Map" OnClick="btnMapSchemes_Click" />
+                        </td>
+                        <td colspan="2">
+                            <asp:RequiredFieldValidator ID="rfvMappingTo" runat="server" ErrorMessage="Please enter valid date(s)"
+                                Display="Dynamic" CssClass="rfvPCG" ValidationGroup="mappingPeriod" ControlToValidate="rdpMappedTill"></asp:RequiredFieldValidator>
+                            <asp:RequiredFieldValidator ID="rfvMappingFrom" runat="server" ErrorMessage="Please enter valid date(s)"
+                                Display="Dynamic" CssClass="rfvPCG" ValidationGroup="mappingPeriod" ControlToValidate="rdpMappedFrom"></asp:RequiredFieldValidator>
+                            <asp:CompareValidator ID="cmvMappingPeriod" runat="server" ErrorMessage="Please enter valid date(s)"
+                                CssClass="rfvPCG" Display="Dynamic" ControlToCompare="rdpMappedFrom" ControlToValidate="rdpMappedTill"
+                                Operator="GreaterThan"></asp:CompareValidator>
+                        </td>
                     </tr>
                 </table>
             </asp:Panel>
@@ -1077,7 +1082,7 @@
                     <td class="tdSectionHeading">
                         <div class="divSectionHeading" style="vertical-align: text-bottom">
                             <div class="divSectionHeadingNumber fltlftStep">
-                               2
+                                2
                             </div>
                             <div class="fltlft" style="width: 400px;">
                                 &nbsp;
@@ -1089,7 +1094,7 @@
                                     OnClick="ibtExportSummary_OnClick" OnClientClick="setFormat('excel')" Height="22px"
                                     Width="25px"></asp:ImageButton>
                             </div>
-                             <div class="divTextCenter">
+                            <div class="divTextCenter">
                                 <asp:ImageButton ID="ImageButton5" runat="server" alt="Collapse/Expand" ImageUrl="../Images/Telerik/gp.gif"
                                     Height="20px" Width="20px" Style="float: right; cursor: hand;" OnClick="imgNcd_Click" />
                             </div>
@@ -1180,7 +1185,6 @@
                     </tr>
                 </table>
             </asp:Panel>
-             
             <table id="tblCommissionStructureRule" runat="server" width="100%">
                 <tr id="trStepTwoHeading" runat="server" class="SectionBody">
                     <td class="tdSectionHeading" colspan="5">
@@ -1751,7 +1755,7 @@
                                     <telerik:GridBoundColumn DataField="CSRD_StructureRuleDetailsId" HeaderStyle-Width="10px"
                                         CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
                                         HeaderText="Rule Detail Id" UniqueName="CSRD_StructureRuleDetailsId" SortExpression="CSRD_StructureRuleDetailsId"
-                                        AllowFiltering="true" Visible="false">
+                                        AllowFiltering="true"  >
                                         <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="10px" Wrap="false" />
                                     </telerik:GridBoundColumn>
                                     <telerik:GridBoundColumn DataField="ACSR_CommissionStructureRuleId" HeaderStyle-Width="10px"
@@ -1795,7 +1799,25 @@
                                     </telerik:GridButtonColumn>--%>
                                 </Columns>
                             </MasterTableView>
+                            <ClientSettings>
+                                <ClientEvents OnRowClick="RadGrid1_OnRowClick" />
+                            </ClientSettings>
                         </telerik:RadGrid>
+                        <telerik:RadScriptBlock ID="RadScriptBlock1" runat="server">
+
+                            <script type="text/javascript">
+                                function RadGrid1_OnRowClick(sender, args) {
+                                    //changed code here
+                                    var grid = $find("<%= rgPayableMapping.ClientID %>");
+                                    var MasterTable = grid.get_masterTableView();
+                                    var row = MasterTable.get_dataItems()[eventArgs.get_itemIndexHierarchical()];
+                                    var key = MasterTable.getCellByColumnUniqueName(row, "CSRD_StructureRuleDetailsId");  // get the value by uniquecolumnname
+                                    var ID = key.innerHTML;
+                                    MasterTable.fireCommand("MyClick2", ID);
+                                } 
+                            </script>
+
+                        </telerik:RadScriptBlock>
                     </td>
                 </tr>
             </table>
