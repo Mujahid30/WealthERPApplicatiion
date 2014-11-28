@@ -46,7 +46,7 @@ namespace WealthERP.Associates
             }
             else
             {
-                Agentcode = associatesVo.AAC_AgentCode;   
+                Agentcode = associateuserheirarchyVo.AgentCode;   
             }
 
               //  Agentcode = associateuserheirarchyVo.AgentCode;

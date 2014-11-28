@@ -123,14 +123,14 @@
                             OnItemCommand="gvChildCode_ItemCommand" OnItemDataBound="gvChildCode_ItemDataBound"
                             OnNeedDataSource="gvChildCode_OnNeedDataSource" Visible="false" AllowAutomaticUpdates="false"
                             HorizontalAlign="NotSet" DataKeyNames="AAC_AdviserAgentId,AAC_AdviserAgentIdParent,AAC_AgentCode,U_UserId">
-                            <MasterTableView CommandItemDisplay="Top" EditMode="PopUp" DataKeyNames="AAC_AdviserAgentId,AAC_AdviserAgentIdParent,AAC_AgentCode,U_UserId"
+                            <MasterTableView CommandItemDisplay="Top" EditMode="PopUp" DataKeyNames="AAC_AdviserAgentId,AAC_AdviserAgentIdParent,AAC_AgentCode,U_UserId,RoleIds"
                                 CommandItemSettings-ShowRefreshButton="false" CommandItemSettings-AddNewRecordText="Add child codes">
                                 <Columns>
                                     <telerik:GridBoundColumn UniqueName="AAC_AgentCode" HeaderText="Child Code" DataField="AAC_AgentCode">
                                     </telerik:GridBoundColumn>
-                                     <telerik:GridBoundColumn UniqueName="EmailId" HeaderText="EmailId" DataField="EmailId">
+                                    <telerik:GridBoundColumn UniqueName="EmailId" HeaderText="EmailId" DataField="EmailId">
                                     </telerik:GridBoundColumn>
-                                     <telerik:GridBoundColumn UniqueName="ChildName" HeaderText="Name" DataField="ChildName">
+                                    <telerik:GridBoundColumn UniqueName="ChildName" HeaderText="Name" DataField="ChildName">
                                     </telerik:GridBoundColumn>
                                     <telerik:GridEditCommandColumn EditText="Update" UniqueName="editColumn" CancelText="Cancel"
                                         UpdateText="Edit">
@@ -143,8 +143,8 @@
                                 </Columns>
                                 <EditFormSettings InsertCaption="Add" FormTableStyle-HorizontalAlign="Center" CaptionFormatString="Edit"
                                     FormCaptionStyle-CssClass="TableBackground" PopUpSettings-Modal="true" PopUpSettings-ZIndex="20"
-                                    EditFormType="Template" FormCaptionStyle-Width="100%" PopUpSettings-Height="150px"
-                                    PopUpSettings-Width="300px">
+                                    EditFormType="Template" FormCaptionStyle-Width="100%" PopUpSettings-Height="250px"
+                                    PopUpSettings-Width="700px">
                                     <FormTemplate>
                                         <table>
                                             <tr id="trRiskClassTxt" runat="server">
@@ -189,6 +189,22 @@
                                                         ErrorMessage="<br />Please Enter EmailId " Display="Dynamic" runat="server" CssClass="rfvPCG"
                                                         ValidationGroup="Button1">
                                                     </asp:RequiredFieldValidator>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td align="right">
+                                                    <asp:Label ID="Label3" runat="server" Text="Privilege Role:" CssClass="FieldName"></asp:Label>
+                                                </td>
+                                                <td class="rightData" colspan="5">
+                                                  
+                                                        <telerik:RadListBox ID="chkbldepart" runat="server" CheckBoxes="true" AutoPostBack="true"
+                                                            CssClass="horizontalListbox">
+                                                        </telerik:RadListBox>
+                                                        <span id="Span12" class="spnRequiredField">*</span>
+                                                        <%--<asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator8" ErrorMessage="Select a role!"
+                                                            ControlToValidate="chkbldepart" ValidationGroup="Button1" Display="Dynamic" 
+                                                            CssClass="rfvPCG" />--%>
+                                                    
                                                 </td>
                                             </tr>
                                             <tr>

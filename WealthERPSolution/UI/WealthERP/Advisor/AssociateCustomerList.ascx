@@ -104,7 +104,7 @@
                             HeaderStyle-Width="140px" FilterControlWidth="90px" CurrentFilterFunction="Contains">
                             <ItemStyle Width="90px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="ReportingManagerName" UniqueName="ReportingManagerName" HeaderText="Channel Manager"
+                        <telerik:GridBoundColumn DataField="ReportingManagerName" UniqueName="ReportingManagerName" HeaderText="Reporting Manager"
                             AutoPostBackOnFilter="true" SortExpression="ReportingManagerName" ShowFilterIcon="false" AllowFiltering="true"
                             HeaderStyle-Width="140px" FilterControlWidth="90px" CurrentFilterFunction="Contains">
                             <ItemStyle Width="90px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />

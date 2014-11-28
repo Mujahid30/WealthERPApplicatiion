@@ -26,8 +26,9 @@ namespace WealthERP.Associates
         UserVo userVo = new UserVo();
         RMVo rmVo = new RMVo();
         String userType;
-
+        AdvisorStaffBo advisorStaffBo = new AdvisorStaffBo();
         string agentCode = string.Empty;
+        string roleIds = string.Empty;
         int agentId = 0;
         int associationId;
         protected void Page_Load(object sender, EventArgs e)
@@ -480,6 +481,7 @@ namespace WealthERP.Associates
             string ChildCode = string.Empty;
             string childName = string.Empty;
             string childEmailId = string.Empty;
+            string roleIds = string.Empty;
             AssociatesVO associatesVo = new AssociatesVO();
             if (Session["PagentId"] != null)
                 PagentId = (int)Session["PagentId"];
@@ -487,7 +489,7 @@ namespace WealthERP.Associates
             associatesVo.AAC_UserType = "Associates";
             associatesVo.AAC_CreatedBy = userVo.UserId;
             associatesVo.AAC_ModifiedBy = userVo.UserId;
-
+            BindAdviserrole();
             if (e.CommandName == RadGrid.UpdateCommandName)
             {
                 //strExternalCodeToBeEdited = Session["extCodeTobeEdited"].ToString();
@@ -499,10 +501,21 @@ namespace WealthERP.Associates
                 TextBox txtChildCode = (TextBox)e.Item.FindControl("txtChildCode");
                 TextBox txtChildName = (TextBox)e.Item.FindControl("txtChildName");
                 TextBox txtChildEmailId = (TextBox)e.Item.FindControl("txtChildEmailId");
+                RadListBox chkbldepart = (RadListBox)e.Item.FindControl("chkbldepart");
                 ChildCode = txtChildCode.Text;
                 childName = txtChildName.Text;
                 childEmailId = txtChildEmailId.Text;
-                isUpdated = associatesBo.EditAddChildAgentCodeList(associatesVo, ChildCode, PagentId, 'U', childName, childEmailId, userId);
+                
+                foreach (RadListBoxItem items in chkbldepart.Items)
+                {
+                    if (items.Checked == true)
+                        roleIds = roleIds + items.Value.ToString() + ",";
+                }
+                if (!string.IsNullOrEmpty(roleIds))
+                {
+                    roleIds = roleIds.Remove(roleIds.Length - 1);
+                }
+                isUpdated = associatesBo.EditAddChildAgentCodeList(associatesVo, ChildCode, PagentId, 'U', childName, childEmailId, userId, roleIds);
 
             }
             if (e.CommandName == RadGrid.DeleteCommandName)
@@ -524,12 +537,23 @@ namespace WealthERP.Associates
                 TextBox txtChildCode = (TextBox)e.Item.FindControl("txtChildCode");
                 TextBox txtChildName = (TextBox)e.Item.FindControl("txtChildName");
                 TextBox txtChildEmailId = (TextBox)e.Item.FindControl("txtChildEmailId");
+                RadListBox chkbldepart = (RadListBox)e.Item.FindControl("chkbldepart");
                 ChildCode = txtChildCode.Text;
                 childName = txtChildName.Text;
                 childEmailId = txtChildEmailId.Text;
+
+                foreach (RadListBoxItem items in chkbldepart.Items)
+                {
+                    if (items.Checked == true)
+                        roleIds = roleIds + items.Value.ToString() + ",";
+                }
+                if (!string.IsNullOrEmpty(roleIds))
+                {
+                    roleIds = roleIds.Remove(roleIds.Length - 1);
+                }
                 if (Validation(ChildCode))
                 {
-                    isInserted = associatesBo.EditAddChildAgentCodeList(associatesVo, ChildCode, PagentId, 'I', childName, childEmailId,0);
+                    isInserted = associatesBo.EditAddChildAgentCodeList(associatesVo, ChildCode, PagentId, 'I', childName, childEmailId, 0, roleIds);
                 }
             }
             BindChildCodeGrid(PagentId);
@@ -537,24 +561,72 @@ namespace WealthERP.Associates
 
         protected void gvChildCode_ItemDataBound(object sender, GridItemEventArgs e)
         {
-            if (e.Item is GridEditFormInsertItem && e.Item.OwnerTableView.IsItemInserted)
+            if ((e.Item is GridEditFormItem) && (e.Item.IsInEditMode))
             {
+                RadListBox chkbldepart = new RadListBox();
+                if (e.Item is GridEditFormInsertItem && e.Item.OwnerTableView.IsItemInserted)
+                {
 
-                GridEditFormInsertItem item = (GridEditFormInsertItem)e.Item;
-                TextBox txtChildCode = (TextBox)item.FindControl("txtChildCode");
-            }
-            if (e.Item is GridDataItem)
-            {
-                GridDataItem dataItem = e.Item as GridDataItem;
-                LinkButton buttonEdit = dataItem["editColumn"].Controls[0] as LinkButton;
-                LinkButton buttonDelete = dataItem["deleteColumn"].Controls[0] as LinkButton;
-            }
 
-            if (e.Item is GridEditFormItem && e.Item.IsInEditMode && e.Item.ItemIndex != -1)
-            {
-                string strExtType = gvChildCode.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AAC_AgentCode"].ToString();
-                GridEditFormItem editedItem = (GridEditFormItem)e.Item;
+
+                    GridEditFormInsertItem item = (GridEditFormInsertItem)e.Item;
+                    TextBox txtChildCode = (TextBox)item.FindControl("txtChildCode");
+                    chkbldepart = (RadListBox)item.FindControl("chkbldepart");
+                }
+                if (e.Item is GridDataItem)
+                {
+                    GridDataItem dataItem = e.Item as GridDataItem;
+                    LinkButton buttonEdit = dataItem["editColumn"].Controls[0] as LinkButton;
+                    LinkButton buttonDelete = dataItem["deleteColumn"].Controls[0] as LinkButton;
+                    //chkbldepart = dataItem["chkbldepart"].Controls[0] as RadListBox;
+                }
+
+                if (e.Item is GridEditFormItem && e.Item.IsInEditMode && e.Item.ItemIndex != -1)
+                {
+                    string strExtType = gvChildCode.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AAC_AgentCode"].ToString();
+                    GridEditFormItem editedItem = (GridEditFormItem)e.Item;
+                    chkbldepart = (RadListBox)e.Item.FindControl("chkbldepart");
+                }
+                DataSet dsDepartmentlist = new DataSet();
+                dsDepartmentlist = associatesBo.GetDepartment(advisorVo.advisorId);
+                int departmentId = Convert.ToInt32(dsDepartmentlist.Tables[0].Rows[0]["AD_DepartmentId"].ToString());
+                DataTable dtBindAdvisor = new DataTable();
+                dtBindAdvisor = advisorStaffBo.GetUserRoleDepartmentWise(departmentId, advisorVo.advisorId);
+                chkbldepart.DataSource = dtBindAdvisor;
+                chkbldepart.DataTextField = dtBindAdvisor.Columns["AR_Role"].ToString();
+                chkbldepart.DataValueField = dtBindAdvisor.Columns["AR_RoleId"].ToString();
+                chkbldepart.DataBind();
+                if (e.Item.RowIndex != -1)
+                {
+                    string roleIds = gvChildCode.MasterTableView.DataKeyValues[e.Item.ItemIndex]["RoleIds"].ToString();
+                    string[] RoleIds = roleIds.Split(',');
+                    for (int i = 0; i < RoleIds.Length; i++)
+                    {
+                        foreach (RadListBoxItem li in chkbldepart.Items)
+                        {
+                            if (RoleIds[i] == li.Value.ToString())
+                            {
+                                li.Checked = true;
+                            }
+                        }
+                    }
+                }
             }
+        }
+        private void BindAdviserrole()
+        {
+          
+            //DataSet dsDepartmentlist = new DataSet();
+              
+            //dsDepartmentlist = associatesBo.GetDepartment(advisorVo.advisorId);
+            //int departmentId =Convert.ToInt32( dsDepartmentlist.Tables[0].Rows[0]["AD_DepartmentId"].ToString());
+            //DataTable dtBindAdvisor = new DataTable();
+            //dtBindAdvisor = advisorStaffBo.GetUserRoleDepartmentWise(departmentId, advisorVo.advisorId);
+            //chkbldepart.DataSource = dtBindAdvisor;
+            //chkbldepart.DataTextField = dtBindAdvisor.Columns["AR_Role"].ToString();
+            //chkbldepart.DataValueField = dtBindAdvisor.Columns["AR_RoleId"].ToString();
+            //chkbldepart.DataBind();
+
         }
     }
 }

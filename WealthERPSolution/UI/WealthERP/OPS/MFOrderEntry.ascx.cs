@@ -3079,7 +3079,7 @@ namespace WealthERP.OPS
 
         private void GetAgentName(int agentId)
         {
-            Agentname = customerBo.GetSubBrokerName(Convert.ToInt32(txtAgentId.Value));
+            Agentname = customerBo.GetSubBrokerName(agentId);
             if (Agentname.Rows.Count > 0)
             {
                 lblAssociatetext.Text = Agentname.Rows[0][0].ToString();
