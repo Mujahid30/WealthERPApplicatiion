@@ -164,7 +164,7 @@ namespace WealthERP.OffLineOrderManagement
                 toDate = DateTime.Parse(txtOrderTo.SelectedDate.ToString());
             userType = Session[SessionContents.CurrentUserRole].ToString();
             DataTable dtIPOOrder;
-            dtIPOOrder = OfflineIPOBackOfficeBo.GetOfflineIPOOrderBook(advisorVo.advisorId, Convert.ToInt32(ddlIssueName.SelectedValue.ToString()), ddlOrderStatus.SelectedValue, fromDate, toDate, orderId, userType, agentCode);
+            dtIPOOrder = OfflineIPOBackOfficeBo.GetOfflineIPOOrderBook(advisorVo.advisorId, Convert.ToInt32(ddlIssueName.SelectedValue.ToString()), ddlOrderStatus.SelectedValue, fromDate, toDate, orderId, userType, agentCode,ddlBidType.SelectedValue);
             if (dtIPOOrder.Rows.Count >= 0)
             {
                 if (Cache["IPOBookList" + userVo.UserId.ToString()] == null)

@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="OfflineCustomersIPOOrderBook.ascx.cs"
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="OfflineCustomersIPOOrderBook.ascx.cs"
     Inherits="WealthERP.OffLineOrderManagement.OfflineCustomersIPOOrderBook" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
@@ -32,20 +32,36 @@
 <div id="divConditional" runat="server" style="padding-top: 4px">
     <table class="TableBackground" cellpadding="2">
         <tr>
-            <td id="td1" runat="server">
+            <td id="td1" runat="server" align="right">
                 <asp:Label runat="server" class="FieldName" Text="Order Status:" ID="Label1"></asp:Label>
+            </td>
+            <td align="left">
                 <asp:DropDownList CssClass="cmbField" ID="ddlOrderStatus" runat="server" AutoPostBack="false">
                 </asp:DropDownList>
             </td>
             <td>
                 <asp:Label ID="lblIssueName" runat="server" class="FieldName" Text="Issue Name:"></asp:Label>
+            </td>
+            <td>
                 <asp:DropDownList CssClass="cmbField" ID="ddlIssueName" runat="server">
                 </asp:DropDownList>
             </td>
+            <td>
+                <asp:Label runat="server" class="FieldName" Text="Bid Order Status:" ID="Label3"></asp:Label>
+            </td>
+            <td>
+                <asp:DropDownList CssClass="cmbField" ID="ddlBidType" runat="server" AutoPostBack="false">
+                    <asp:ListItem Text="All" Value="0"></asp:ListItem>
+                    <asp:ListItem Text="New" Value="N"></asp:ListItem>
+                    <asp:ListItem Text="Modified" Value="M"></asp:ListItem>
+                </asp:DropDownList>
+            </td>
+        </tr>
+        <tr>
             <td id="tdlblFromDate" runat="server" align="right">
                 <asp:Label class="FieldName" ID="lblFromTran" Text="From :" runat="server" />
-            </td>
-            <td id="tdTxtFromDate" runat="server">
+                </td>
+                <td>
                 <telerik:RadDatePicker ID="txtOrderFrom" CssClass="txtField" runat="server" Culture="English (United States)"
                     Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
                     <Calendar ID="Calendar1" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
@@ -66,10 +82,10 @@
                         Display="Dynamic"></asp:CompareValidator>
                 </div>
             </td>
-            <td id="tdlblToDate" runat="server">
+            <td id="tdlblToDate" runat="server" align="right">
                 <asp:Label ID="lblToTran" Text="To :" CssClass="FieldName" runat="server" />
-            </td>
-            <td id="tdTxtToDate" runat="server">
+                </td>
+                <td>
                 <telerik:RadDatePicker ID="txtOrderTo" CssClass="txtField" runat="server" Culture="English (United States)"
                     Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
                     <Calendar ID="Calendar2" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
