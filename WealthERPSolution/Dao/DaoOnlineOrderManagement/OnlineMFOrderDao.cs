@@ -525,7 +525,7 @@ namespace DaoOnlineOrderManagement
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                cmd = db.GetStoredProcCommand("SPROC_ONL_CreateAutoSipOrder");
+                cmd = db.GetStoredProcCommand("SPROC_ONL_CreateAutoSystematicOrder");
                 db.ExecuteNonQuery(cmd);
             }
             catch (BaseApplicationException Ex)
