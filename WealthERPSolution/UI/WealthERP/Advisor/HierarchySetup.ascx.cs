@@ -428,7 +428,7 @@ namespace WealthERP.Advisor
 
                     //  Convert.ToInt32(rcbTitles.SelectedValue)
 
-                    isInserted = PSBo.HierarchyDetailsAddEditDelete(advisorVo.advisorId, 0, txtHierarchy.Text.ToUpper(), 0, rcbTeamm.Text, RTeamid, Rid, rcbReportingTo.Text, rcbChanel.Text, RChanelid, Convert.ToInt32(TxtSeq.Text), rcbSetup.Text, Convert.ToInt32(chkIsSeqChange.Checked), e.CommandName);
+                    isInserted = PSBo.HierarchyDetailsAddEditDelete(advisorVo.advisorId, 0, txtHierarchy.Text, 0, rcbTeamm.Text, RTeamid, Rid, rcbReportingTo.Text, rcbChanel.Text, RChanelid, Convert.ToInt32(TxtSeq.Text), rcbSetup.Text, Convert.ToInt32(chkIsSeqChange.Checked), e.CommandName);
                     if (isInserted == false)
                         Response.Write(@"<script language='javascript'>alert('Error inserting records');</script>");
                     else

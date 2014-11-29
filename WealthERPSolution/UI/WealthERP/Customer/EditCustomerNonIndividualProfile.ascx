@@ -31,7 +31,7 @@
                 <table cellspacing="0" cellpadding="3" width="100%">
                     <tr>
                         <td align="left">
-                            Edit Profile
+                            Complete Profile
                         </td>
                     </tr>
                 </table>
@@ -194,7 +194,16 @@
                     <td class="rightField">
                         <asp:TextBox ID="txtPanNumber" runat="server" CssClass="txtField"></asp:TextBox>
                         <asp:CheckBox ID="chkdummypan" runat="server" CssClass="txtField" Text="Dummy PAN"
-                            AutoPostBack="true" />
+                            OnCheckedChanged="chkdummypan_click" AutoPostBack="true" />
+                        <br />
+                        <asp:RequiredFieldValidator ID="rfvPanNumber" ControlToValidate="txtPanNumber" ErrorMessage="Please enter a PAN Number"
+                            Display="Dynamic" runat="server" CssClass="rfvPCG" ValidationGroup="btnEdit">
+                        </asp:RequiredFieldValidator>
+                        <asp:RegularExpressionValidator ID="revPan" runat="server" Display="Dynamic" ValidationGroup="btnEdit"
+                            ErrorMessage="Please check PAN Format" ControlToValidate="txtPanNumber" CssClass="rfvPCG"
+                            ValidationExpression="[A-Za-z]{5}\d{4}[A-Za-z]{1}">
+                        </asp:RegularExpressionValidator>
+                        <asp:Label ID="lblPanDuplicate" runat="server" CssClass="Error" Text="PAN Number already exists"></asp:Label>
                     </td>
                 </tr>
                 <tr>
@@ -243,7 +252,7 @@
                                     <asp:Label ID="Label19" runat="server" Text="Line1(House No./Building):" CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td class="rightField">
-                                    <asp:TextBox ID="txtCorrAdrLine1" runat="server" CssClass="txtField" Style="width: 30%"></asp:TextBox>
+                                    <asp:TextBox ID="txtCorrAdrLine1" runat="server" CssClass="txtField" Style="width: 70%"></asp:TextBox>
                                     <span id="spBranchName" class="spnRequiredField">*</span>
                                     <asp:RequiredFieldValidator ID="reqtxtCorrAdrLine1" runat="server" ControlToValidate="txtCorrAdrLine1"
                                         ValidationGroup="btnEdit" Enabled="false" InitialValue="" Display="Dynamic" ErrorMessage="Please fill address line1"
@@ -255,7 +264,7 @@
                                     <asp:Label ID="Label20" runat="server" Text="Line2(Street):" CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td class="rightField">
-                                    <asp:TextBox ID="txtCorrAdrLine2" runat="server" CssClass="txtField" Style="width: 30%"></asp:TextBox>
+                                    <asp:TextBox ID="txtCorrAdrLine2" runat="server" CssClass="txtField" Style="width: 70%"></asp:TextBox>
                                 </td>
                             </tr>
                             <tr>
@@ -263,7 +272,7 @@
                                     <asp:Label ID="Label21" runat="server" Text="Line3(Area):" CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td class="rightField">
-                                    <asp:TextBox ID="txtCorrAdrLine3" runat="server" CssClass="txtField" Style="width: 30%"></asp:TextBox>
+                                    <asp:TextBox ID="txtCorrAdrLine3" runat="server" CssClass="txtField" Style="width: 70%"></asp:TextBox>
                                 </td>
                             </tr>
                             <tr>
@@ -330,7 +339,7 @@
                                     <asp:Label ID="Label27" runat="server" Text="Line1(House No./Building):" CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td class="rightField">
-                                    <asp:TextBox ID="txtPermAdrLine1" runat="server" CssClass="txtField" Style="width: 30%"></asp:TextBox>
+                                    <asp:TextBox ID="txtPermAdrLine1" runat="server" CssClass="txtField" Style="width: 70%"></asp:TextBox>
                                 </td>
                                 <td>
                                     &nbsp;
@@ -344,7 +353,7 @@
                                     <asp:Label ID="Label28" runat="server" Text="Line2(Street):" CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td class="rightField">
-                                    <asp:TextBox ID="txtPermAdrLine2" runat="server" CssClass="txtField" Style="width: 30%"></asp:TextBox>
+                                    <asp:TextBox ID="txtPermAdrLine2" runat="server" CssClass="txtField" Style="width: 70%"></asp:TextBox>
                                 </td>
                             </tr>
                             <tr>
@@ -352,7 +361,7 @@
                                     <asp:Label ID="Label29" runat="server" Text="Line3(Area):" CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td class="rightField">
-                                    <asp:TextBox ID="txtPermAdrLine3" runat="server" CssClass="txtField" Style="width: 30%"></asp:TextBox>
+                                    <asp:TextBox ID="txtPermAdrLine3" runat="server" CssClass="txtField" Style="width: 70%"></asp:TextBox>
                                 </td>
                             </tr>
                             <tr>
