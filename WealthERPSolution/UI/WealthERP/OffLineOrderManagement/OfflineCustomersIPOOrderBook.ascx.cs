@@ -33,7 +33,7 @@ namespace WealthERP.OffLineOrderManagement
         OfflineNCDIPOBackOfficeBo onlineNCDIPOBackOfficeBo = new OfflineNCDIPOBackOfficeBo();
         OfflineIPOBackOfficeBo OfflineIPOBackOfficeBo = new OfflineIPOBackOfficeBo();
         AssociatesUserHeirarchyVo associateuserheirarchyVo = new AssociatesUserHeirarchyVo();
-       
+
         protected void Page_Load(object sender, EventArgs e)
         {
             userVo = (UserVo)Session[SessionContents.UserVo];
@@ -68,15 +68,15 @@ namespace WealthERP.OffLineOrderManagement
                         AgentCode = "0";
                 }
             }
-                if (!IsPostBack)
-                {
-                    fromDate = DateTime.Now.AddMonths(-1);
-                    txtOrderFrom.SelectedDate = fromDate.Date;
-                    txtOrderTo.SelectedDate = DateTime.Now;
-                    BindOrderStatus();
-                    BindIssueName();
-                }
-            
+            if (!IsPostBack)
+            {
+                fromDate = DateTime.Now.AddMonths(-1);
+                txtOrderFrom.SelectedDate = fromDate.Date;
+                txtOrderTo.SelectedDate = DateTime.Now;
+                BindOrderStatus();
+                BindIssueName();
+            }
+
             if (!IsPostBack)
             {
                 if (Request.QueryString["AIMissueId"] != null && Request.QueryString["orderId"] != null && Request.QueryString["fromDate"] != null && Request.QueryString["toDate"] != null)
@@ -129,11 +129,6 @@ namespace WealthERP.OffLineOrderManagement
             dtOrderStatus = dsOrderStatus.Tables[0];
             if (dtOrderStatus.Rows.Count > 0)
             {
-                for (int i = dtOrderStatus.Rows.Count - 1; i >= 0; i--)
-                {
-                    if (dtOrderStatus.Rows[i][1].ToString() == "EXECUTED")
-                        dtOrderStatus.Rows[i].Delete();
-                }
                 dtOrderStatus.AcceptChanges();
                 ddlOrderStatus.DataSource = dtOrderStatus;
                 ddlOrderStatus.DataTextField = dtOrderStatus.Columns["WOS_OrderStep"].ToString();
@@ -164,7 +159,7 @@ namespace WealthERP.OffLineOrderManagement
                 toDate = DateTime.Parse(txtOrderTo.SelectedDate.ToString());
             userType = Session[SessionContents.CurrentUserRole].ToString();
             DataTable dtIPOOrder;
-            dtIPOOrder = OfflineIPOBackOfficeBo.GetOfflineIPOOrderBook(advisorVo.advisorId, Convert.ToInt32(ddlIssueName.SelectedValue.ToString()), ddlOrderStatus.SelectedValue, fromDate, toDate, orderId, userType, agentCode,ddlBidType.SelectedValue);
+            dtIPOOrder = OfflineIPOBackOfficeBo.GetOfflineIPOOrderBook(advisorVo.advisorId, Convert.ToInt32(ddlIssueName.SelectedValue.ToString()), ddlOrderStatus.SelectedValue, fromDate, toDate, orderId, userType, agentCode, ddlBidType.SelectedValue);
             if (dtIPOOrder.Rows.Count >= 0)
             {
                 if (Cache["IPOBookList" + userVo.UserId.ToString()] == null)
@@ -230,12 +225,12 @@ namespace WealthERP.OffLineOrderManagement
             {
                 GridDataItem dataItem = e.Item as GridDataItem;
                 LinkButton lbtnMarkAsReject = dataItem["MarkAsReject"].Controls[0] as LinkButton;
-                    DropDownList ddlAction = (DropDownList)dataItem.FindControl("ddlAction");
+                DropDownList ddlAction = (DropDownList)dataItem.FindControl("ddlAction");
 
                 string OrderStepCode = Convert.ToString(gvIPOOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WOS_OrderStep"]);
                 Boolean isCancel = Convert.ToBoolean(gvIPOOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIM_IsCancelAllowed"].ToString());
                 DateTime closeDateTime = Convert.ToDateTime(gvIPOOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIM_CloseDate"].ToString());
-             
+
                 if (OrderStepCode == "INPROCESS" && isCancel != false)
                 {
                     lbtnMarkAsReject.Visible = true;
