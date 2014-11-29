@@ -695,11 +695,12 @@ namespace WealthERP.Advisor
                             advisorBranchBo.AddBranchTerminal(advisorBranchVo.BranchId, terminalId[i], userId);
                         }
                     }
-
+                    btnSubmit.Visible = false;
+                    Response.Write("<script>alert('Branch has been added successfully ');</script>");
                     Session.Remove("terminalId");
                     Session.Remove("table");
                     Session.Remove("count");
-                    btnSubmit.Enabled = false;
+                  
                     // trAddBranchCode.Visible = true;
                     // BtnBranchCode_Click(this, null);
                     //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewBranches','none');", true);
