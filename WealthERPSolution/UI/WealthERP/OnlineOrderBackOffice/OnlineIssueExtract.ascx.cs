@@ -211,7 +211,7 @@ namespace WealthERP.OnlineOrderBackOffice
             ddlFileType.DataValueField = dtFileType.Columns["WEFT_Id"].ToString();
             ddlFileType.DataTextField = dtFileType.Columns["WEFT_FileType"].ToString();
             ddlFileType.DataBind();
-            if (ddlType.SelectedValue == "1")
+            if (ddlType.SelectedValue == "1" && externalSource!="IOPS")
             {
                 ddlFileType.Items.FindByText("Bid Order File-ASBA").Enabled = false;
                 ddlFileType.Items.FindByText("Bid Order File-NASBA").Enabled = false;
