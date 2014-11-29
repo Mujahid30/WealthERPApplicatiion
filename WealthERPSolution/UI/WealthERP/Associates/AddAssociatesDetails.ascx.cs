@@ -106,6 +106,8 @@ namespace WealthERP.Associates
                         BindChildCodeLabel(associatesVo.AAC_AdviserAgentId);
                         associateId = associatesVo.AdviserAssociateId;
                         btnPreviewSend.Visible = true;
+                        if (!string.IsNullOrEmpty(associatesVo.WelcomeNotePath))
+                            lbtnPreviewSend.Visible = true;
 
 
                     }
@@ -123,9 +125,11 @@ namespace WealthERP.Associates
                         lnkBtnEdit.Visible = false;
                         lnlBack.Visible = true;
                         //btnSubmit.Visible = true;
+                        btnPreviewSend.Visible = true;
                         radTABChildCodes.Visible = true;
                         lbkbtnAddChildCodes.Enabled = true;
-                        btnPreviewSend.Visible = true;
+                        if (!string.IsNullOrEmpty(associatesVo.WelcomeNotePath))
+                            lbtnPreviewSend.Visible = true;
                         btnContactDetailsUpdate.Visible = true;
                         btnOtherInformationUpdate.Visible = true;
                         btnbtnCrossPondenceUpdate.Visible = true;
@@ -247,7 +251,7 @@ namespace WealthERP.Associates
                 txtNoofSubBrokers.Enabled = false;
                 txtNoofClients.Enabled = false;
 
-               
+
                 chkModules.Enabled = false;
                 txtEUIN.Enabled = false;
                 ddlAssociateSubType.Enabled = false;
@@ -264,7 +268,7 @@ namespace WealthERP.Associates
             else
             {
 
-            
+
                 txtAMFINo.Enabled = true;
                 txtStartDate.Enabled = true;
                 txtEndDate.Enabled = true;
@@ -333,7 +337,7 @@ namespace WealthERP.Associates
                 txtNoofSubBrokers.Enabled = true;
                 txtNoofClients.Enabled = true;
 
-             
+
                 chkModules.Enabled = true;
                 txtEUIN.Enabled = true;
                 ddlAssociateSubType.Enabled = true;
@@ -483,7 +487,7 @@ namespace WealthERP.Associates
                 txtMicr.Text = associatesVo.MICR.ToString();
             if (associatesVo.IFSC != null)
                 txtIfsc.Text = associatesVo.IFSC;
-           
+
             if (associatesVo.ExpiryDate != DateTime.MinValue)
                 txtRegExpDate.SelectedDate = associatesVo.ExpiryDate;
 
@@ -543,13 +547,13 @@ namespace WealthERP.Associates
                         if (chkModules.Items[i].Value == word)
                             chkModules.Items[i].Selected = true;
                     }
-                
+
                 }
 
 
             }
 
-           
+
         }
 
         private void BindRelationship()
@@ -627,7 +631,7 @@ namespace WealthERP.Associates
             ddlPermAdrState.Items.Insert(0, new ListItem("Select", "Select"));
         }
 
-       
+
         private void BindBankName()
         {
             DataTable dtBankName = new DataTable();
@@ -646,7 +650,7 @@ namespace WealthERP.Associates
             txtAssociateName.Text = associatesVo.ContactPersonName;
             txtEmail.Text = associatesVo.Email;
         }
-      
+
         private void Updatedepartment()
         {
             bool result = false;
@@ -672,7 +676,7 @@ namespace WealthERP.Associates
             roleIds = roleIds.Remove(roleIds.Length - 1);
             result = associatesBo.UpdateUserrole(userid, roleIds);
         }
-        
+
         private string GetAssetGroup()
         {
             string assetGroupCodes = "";
@@ -743,7 +747,7 @@ namespace WealthERP.Associates
             }
         }
 
-     
+
         protected void rbtnIndividual_CheckedChanged(object sender, EventArgs e)
         {
             BindSubTypeDropDown("IND");
@@ -833,7 +837,7 @@ namespace WealthERP.Associates
             //if (txtAssociateExpDate.SelectedDate == null)
             //    associatesVo.AssociationExpairyDate = null;
             //else
-                associatesVo.AssociationExpairyDate = Convert.ToDateTime(txtAssociateExpDate.SelectedDate);
+            associatesVo.AssociationExpairyDate = Convert.ToDateTime(txtAssociateExpDate.SelectedDate);
             if (txtAMFINo.Text != null)
                 associatesVo.AMFIregistrationNo = txtAMFINo.Text;
             else
@@ -849,11 +853,11 @@ namespace WealthERP.Associates
             //if (txtStartDate.SelectedDate == null)
             //    associatesVo.StartDate = DateTime.MinValue;
             //else
-                associatesVo.StartDate = Convert.ToDateTime(txtStartDate.SelectedDate);
+            associatesVo.StartDate = Convert.ToDateTime(txtStartDate.SelectedDate);
             //if (txtEndDate.SelectedDate == null)
             //    associatesVo.EndDate = DateTime.MinValue;
             //else
-                associatesVo.EndDate = Convert.ToDateTime(txtEndDate.SelectedDate);
+            associatesVo.EndDate = Convert.ToDateTime(txtEndDate.SelectedDate);
             foreach (RadListBoxItem items in chkbldepart.Items)
             {
                 if (items.Checked == true)
@@ -914,10 +918,11 @@ namespace WealthERP.Associates
             OtherInformation.Visible = true;
             btnCrossPondence.Visible = true;
             btnContactDetails.Visible = true;
-            btnPreviewSend.PostBackUrl = "~/Reports/Display.aspx?&welcomeNote=1&associateId=" + associateId.ToString();
-            btnPreviewSend.OnClientClick = "window.document.forms[0].target='_blank'; setTimeout(function(){window.document.forms[0].target='';}, 500);";
-            Session["associatesVo"] = null;
             btnPreviewSend.Visible = true;
+            //btnPreviewSend.PostBackUrl = "~/Reports/Display.aspx?&welcomeNote=1&associateId=" + associateId.ToString();
+            //btnPreviewSend.OnClientClick = "window.document.forms[0].target='_blank'; setTimeout(function(){window.document.forms[0].target='';}, 500);";
+            Session["associatesVo"] = null;
+            
         }
         protected void btnAssociateUpdate_OnClick(object sender, EventArgs e)
         {
@@ -1328,7 +1333,7 @@ namespace WealthERP.Associates
         {
             UpdateContact("CA");
             btnbtnCrossPondenceUpdate.Visible = false;
-            ShowMessagecross("CrossPondence Details Updated Successfully");
+            ShowMessagecross("Correspondence Details Updated Successfully");
             lnkCrossPondingAddress.Visible = true;
 
         }
@@ -1528,6 +1533,7 @@ namespace WealthERP.Associates
                 txtEndDate.Enabled = true;
                 chkbldepart.Enabled = true;
                 btnAssociateUpdate.Visible = true;
+                lbkbtnAddChildCodes.Enabled = true;
             }
         }
         protected void BindRegistration()
@@ -1540,16 +1546,16 @@ namespace WealthERP.Associates
                     if (Request.QueryString["action"].Trim() == "Edit" || Request.QueryString["action"].Trim() == "View")
                     {
                         associateid = associatesVo.AdviserAssociateId;
-                      
+
                     }
                 }
                 else
                 {
-                    if(Session["AdviserAssociateIds"]!=null)
-                    associateid = int.Parse(Session["AdviserAssociateIds"].ToString());
+                    if (Session["AdviserAssociateIds"] != null)
+                        associateid = int.Parse(Session["AdviserAssociateIds"].ToString());
                 }
                 DataTable dtRegistration = associatesBo.GetAssetsRegistration(associateid);
-              
+
                 if (dtRegistration.Rows.Count > 0)
                 {
                     if (Cache["Registration" + userVo.UserId] == null)
@@ -1581,7 +1587,7 @@ namespace WealthERP.Associates
         }
         protected void gvRegistration_OnItemDataBound(object sender, GridItemEventArgs e)
         {
-            
+
             if (e.Item is GridEditFormInsertItem && e.Item.OwnerTableView.IsItemInserted)
             {
                 GridEditFormInsertItem item = (GridEditFormInsertItem)e.Item;
@@ -1598,7 +1604,7 @@ namespace WealthERP.Associates
             {
                 gvRegistration.DataSource = dtRegistration;
             }
-          
+
         }
         protected void gvRegistration_OnItemCommand(object source, GridCommandEventArgs e)
         {
@@ -1625,7 +1631,7 @@ namespace WealthERP.Associates
                 associatesBo.AssociateRegistration(associateid, Convert.ToDateTime(txtRegExpDate.SelectedDate), int.Parse(txtRegNumber.Text), ddlCategory.SelectedValue);
                 BindRegistration();
             }
-           
+
         }
         protected void BindAssetsgroup(DropDownList ddlCategory)
         {
@@ -1808,17 +1814,30 @@ namespace WealthERP.Associates
             {
                 associateid = int.Parse(Session["AdviserAssociateIds"].ToString());
             }
-            string redirectPath = ConfigurationManager.AppSettings["WEL_COME_LETER_QUERY_STRING"].ToString();
+            
             if (!string.IsNullOrEmpty(associatesVo.WelcomeNotePath))
             {
                 string targetPath = ConfigurationManager.AppSettings["Welcome_Note_PATH"].ToString();
                 Response.Redirect(targetPath + associatesVo.WelcomeNotePath);
             }
-            if (string.IsNullOrEmpty(associatesVo.WelcomeNotePath))
+           
+        }
+        protected void lbtnPreviewSend_Click(object sender, EventArgs e)
+        {
+            int associateid = 0;
+            if (Request.QueryString["action"] != "" && Request.QueryString["action"] != null)
             {
-                Response.Redirect(redirectPath + associateid);
-                //btnPreviewSend.PostBackUrl = "~/Reports/Display.aspx?welcomeNote=1&associateId=" + associateId.ToString();
+                if (Request.QueryString["action"].Trim() == "Edit" || Request.QueryString["action"].Trim() == "View")
+                {
+                    associateid = associatesVo.AdviserAssociateId;
+                }
             }
+            else
+            {
+                associateid = int.Parse(Session["AdviserAssociateIds"].ToString());
+            }
+            string redirectPath = ConfigurationManager.AppSettings["WEL_COME_LETER_QUERY_STRING"].ToString();
+            Response.Redirect(redirectPath + associateid);
         }
     }
 }

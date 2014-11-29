@@ -213,11 +213,11 @@
             <asp:CompareValidator ID="CompareValidator6" runat="server" ErrorMessage="<br/>Please enter a valid date."
                 Type="Date" ControlToValidate="txtStartDate" CssClass="cvPCG" Operator="DataTypeCheck"
                 ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
-                 <span id="Span10" class="spnRequiredField">*</span>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtStartDate"
-                        ErrorMessage="<br />Please select Start Date" CssClass="cvPCG" Display="Dynamic"
-                        runat="server" InitialValue="" ValidationGroup="SubmitDetails">
-                    </asp:RequiredFieldValidator>
+            <span id="Span10" class="spnRequiredField">*</span>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtStartDate"
+                ErrorMessage="<br />Please select Start Date" CssClass="cvPCG" Display="Dynamic"
+                runat="server" InitialValue="" ValidationGroup="SubmitDetails">
+            </asp:RequiredFieldValidator>
         </td>
         <td align="right">
             <asp:Label ID="lblEndDate" CssClass="FieldName" runat="server" Text="End Date:"></asp:Label>
@@ -281,8 +281,12 @@
             <asp:CheckBox ID="chkIsActive" runat="server" Text="IsActive" CssClass="txtField" />
         </td>
         <td colspan="2">
-            <asp:Button ID="btnPreviewSend" runat="server" Visible="false" target="_blank" Text="View Welcome Letter"
-                CssClass="PCGButton" OnClick="btnPreviewSend_Click" />
+            <asp:Button ID="btnPreviewSend" runat="server" Visible="false" target="_blank" Text="Generate & Mail Welcome letter"
+                CssClass="PCGButton" OnClick="lbtnPreviewSend_Click" />
+                <br />
+                 <br />
+            <asp:LinkButton ID="lbtnPreviewSend" CssClass="LinkButtons" Visible="false" OnClientClick="window.document.forms[0].target='_blank'; setTimeout(function(){window.document.forms[0].target='';}, 500);"
+                runat="server" OnClick="btnPreviewSend_Click">View Welcome Letter</asp:LinkButton>
         </td>
     </tr>
     <tr>
@@ -306,6 +310,8 @@
                 <%--<asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator8" ErrorMessage="Select a role!" ControlToValidate="chkbldepart" 
      ValidationGroup="btnSubmit" Display="Dynamic" CssClass="rfvPCG" />--%>
             </asp:Panel>
+        </td>
+        <td colspan="2">
         </td>
     </tr>
     <tr>
@@ -970,8 +976,8 @@
                                                 <td>
                                                     <asp:TextBox ID="txtRegNumber" runat="server"></asp:TextBox>
                                                     <asp:RegularExpressionValidator ID="RegularExpressionValidator11" ControlToValidate="txtRegNumber"
-                                                        runat="server" Display="Dynamic" ErrorMessage="Enter Numeric Value"
-                                                        CssClass="cvPCG" ValidationExpression="[0-9]\d*$" ValidationGroup="btnOK">     
+                                                        runat="server" Display="Dynamic" ErrorMessage="Enter Numeric Value" CssClass="cvPCG"
+                                                        ValidationExpression="[0-9]\d*$" ValidationGroup="btnOK">     
                                                     </asp:RegularExpressionValidator>
                                                 </td>
                                             </tr>
