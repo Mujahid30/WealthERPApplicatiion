@@ -3,12 +3,90 @@
 <meta http-equiv="cache-control" content="no-cache" />
 <meta http-equiv="expires" content="0" />
 <meta http-equiv="pragma" content="no-cache" />
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <asp:ScriptManager runat="server">
 </asp:ScriptManager>
+<style type="text/css">
+    .button
+    {
+        width: 100px;
+        background: #3399cc;
+        display: block;
+        margin: 0 auto;
+        margin-top: 1%;
+        padding: 10px;
+        text-align: center;
+        text-decoration: none;
+        color: #fff;
+        cursor: pointer;
+        transition: background .3s;
+        -webkit-transition: background .3s;
+    }
+    .button:hover
+    {
+        background: #2288bb;
+    }
+    #login
+    {
+        width: 400px;
+        margin: 0 auto;
+        margin-top: 8px;
+        margin-bottom: 2%;
+        transition: opacity 1s;
+        -webkit-transition: opacity 1s;
+    }
+    #login h1
+    {
+        background: #3399cc;
+        padding: 20px 0;
+        font-size: 140%;
+        font-weight: 300;
+        text-align: center;
+        color: #fff;
+    }
+    .input
+    {
+        background: #fff;
+        margin-bottom: .5%;
+       /* border: 1px solid #ccc;*/
+        padding: .5%;
+        font-family: Times New Roman;
+        font-size: 18PX;
+        color: #555;
+    }
+    input[type="submit"]
+    {
+        width: 150px;
+        background: #3399cc;
+        border: 0;
+        padding: .5%;
+        font-family: Times New Roman;
+        font-size: 25px;
+        color: #fff;
+        cursor: pointer;
+        transition: background .3s;
+        -webkit-transition: background .3s;
+    }
+    input[type="submit"]:hover
+    {
+        background: #2288bb;
+    }
+    .divshadow
+    {
+        -moz-box-shadow: 10px 10px 5px #888;
+        -webkit-box-shadow: 10px 10px 5px #888;
+        box-shadow: 10px 10px 5px #888;
+    }
+    .LABEL
+    {
+        color: #3399cc;
+        margin-bottom: 1px;
+    }
+</style>
 <table width="100%" style="height: 347px" class="TableBackground">
     <tr id="trWealthERP" runat="server">
         <td align="center" style="font-weight: bold; text-decoration: underline">
-            <asp:Label ID="lblCompanyName" runat="server" ForeColor="#5D7B9D"></asp:Label>
         </td>
     </tr>
     <tr id="trAdvisorLogo" runat="server">
@@ -18,57 +96,43 @@
     </tr>
     <tr>
         <td valign="top">
-            <table width="100%">
+            <table width="100%" style="padding-top: 50px;">
                 <tr>
-                    <td width="60%" align="justify" runat="server" id="dynamicLoginContent">
-                        <ul class="Field">
-                            <asp:Label ID="lblUserLoginContent" runat="server"></asp:Label>
-                        </ul>
-                    </td>
-                    <td width="60%" class="Field" runat="server" id="MT_LoginContent">
-                        <ul class="Field">
-                            <p>
-                                Welcome to the world of Moneytouch 360 &deg, your on-demand, multi-asset, multi-partner
-                                integrated technology platform. Alongwith our <a href="http://www.moneytouch.in/"
-                                    target="_blank">Moneytouch.in</a> website you are assured of tremendous benefits
-                                like:
-                            </p>
-                            <ul class="Field" style="list-style-image: url(../Images/securedownload.jpg);">
-                                <li>Access to Financial planning tools, calculators </li>
-                                <li>Consolidated statements for your clients </li>
-                                <li>Research reports across asset classes </li>
-                                <li>Multiple portfolios can be tracked in one place </li>
-                                <li>Alerts can be personalised to each customer </li>
-                                <li>Enable decision making with comparative tools </li>
-                                <li>Generating additional revenues by increasing product penetration </li>
-                            </ul>
-                            <p>
-                                So, login and use the platform to the maximum benefit for yourself, your clients
-                                and give a tough fight to your competitors
-                            </p>
-                        </ul>
-                    </td>
-                    <td valign="top">
-                        <table align="center" border="0">
-                            <tr>
-                                <td align="right" width="50%">
-                                    <span class="FieldName">UserName:</span>
-                                </td>
-                                <td align="left">
-                                    <asp:TextBox ID="txtLoginId" CssClass="Field" Width="160" runat="server"></asp:TextBox>
+                    <td width="100%" align="center" runat="server" id="dynamicLoginContent">
+                        <table border="0" style="width: 35%; float: inherit; border-color: black; border-width: thin;
+                            border-style: solid;">
+                            <tr style="border: 1px solid black;">
+                                <td align="center">
+                                    <asp:Label ID="lblCompanyName" runat="server" ForeColor="#5D7B9D" Font-Bold="true"></asp:Label>
                                 </td>
                             </tr>
                             <tr>
-                                <td align="right" width="50%">
-                                    <span class="FieldName">Password:</span>
+                                <td align="left" style="font-weight: bold; padding-left: 60px;" width="60%">
+                                    <%--<span style="color:#3399cc;margin-bottom:0px;">--%>
+                                    <asp:Label ID="lblUserName" runat="server" CssClass="LABEL">UserName:</asp:Label>
+                                    <%--   <h4>
+                                            UserName:</h4>
+                                    </span>--%>
+                                    <asp:TextBox ID="txtLoginId" runat="server" CssClass="input" Height="20px" Width="82%"></asp:TextBox>
+                                    <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" TargetControlID="txtLoginId"
+                                        WatermarkText="UserName" runat="server" EnableViewState="false" WatermarkCssClass="input">
+                                    </cc1:TextBoxWatermarkExtender>
                                 </td>
-                                <td align="left">
-                                    <asp:TextBox ID="txtPassword" TextMode="password" CssClass="Field" Width="160" MaxLength="20"
+                            </tr>
+                            <tr>
+                                <td align="left" style="font-weight: bold; padding-left: 60px;" width="60%">
+                                   <%-- <span style="color: #3399cc;">
+                                        <h4></h4> </span>--%>
+                                         <asp:Label ID="lblPAssword" runat="server" CssClass="LABEL">Password:</asp:Label>
+                                    <asp:TextBox ID="txtPassword" TextMode="Password" CssClass="input" Width="82%" MaxLength="20"
                                         runat="server"></asp:TextBox>
+                                    <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" TargetControlID="txtPassword"
+                                        WatermarkText="Password" runat="server" EnableViewState="false" WatermarkCssClass="input">
+                                    </cc1:TextBoxWatermarkExtender>
                                 </td>
                             </tr>
                             <tr>
-                                <td align="right" colspan="2">
+                                <td align="left" colspan="2" style="font-weight: bold; padding-left: 60px;">
                                     <asp:Button ID="btnSignIn" runat="server" Text="Login" OnClick="btnSignIn_Click"
                                         CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_Userlogin_btnSignIn', 'S');"
                                         onmouseout="javascript:ChangeButtonCss('out', 'ctrl_Userlogin_btnSignIn', 'S');" />
@@ -105,6 +169,11 @@
                                 </td>
                             </tr>--%>
                         </table>
+                        <asp:Label ID="lblUserLoginContent" runat="server"></asp:Label>
+                    </td>
+                    <td width="60%" class="Field" runat="server" id="MT_LoginContent">
+                    </td>
+                    <td valign="top">
                     </td>
                 </tr>
             </table>

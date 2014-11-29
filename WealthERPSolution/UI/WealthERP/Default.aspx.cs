@@ -121,7 +121,7 @@ namespace WealthERP
             try
             {
                 lblDate.Text = DateTime.Now.ToLongDateString();
-                imgLeftPlaceHolder.Style.Add("display", "none");
+                //imgLeftPlaceHolder.Style.Add("display", "none");
                 imgCenterPlaceholder.Style.Add("display", "none");
                 imgRightPlaceholder.Style.Add("display", "none");
                 imgIFABanner.Style.Add("display", "none");                
@@ -132,6 +132,7 @@ namespace WealthERP
 
                     if (!IsPostBack)
                     {
+                        imgLeftPlaceHolder.Src = "~/Images/LogoSBICAPSEC.jpg";
                         if (!string.IsNullOrEmpty(generalconfigurationvo.HostLogoPlacement))
                         {
                             if (generalconfigurationvo.HostLogoPlacement == "TopLeftCorner")

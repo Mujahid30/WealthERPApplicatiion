@@ -148,11 +148,11 @@ namespace WealthERP.General
                     generalconfigurationvo = (GeneralConfigurationVo)Session[SessionContents.SAC_HostGeneralDetails];
                     if (!string.IsNullOrEmpty(generalconfigurationvo.LoginPageContent))
                     {
-                        lblUserLoginContent.Text = generalconfigurationvo.LoginPageContent;
+                        //lblUserLoginContent.Text = generalconfigurationvo.LoginPageContent;
                     }
                     if (!string.IsNullOrEmpty(generalconfigurationvo.ApplicationName))
                     {
-                        lblCompanyName.Text = generalconfigurationvo.ApplicationName + " Login";
+                        lblCompanyName.Text = "Partners Login";
                     }
                 }
                 if (Request.ServerVariables["HTTPS"].ToString() == "")

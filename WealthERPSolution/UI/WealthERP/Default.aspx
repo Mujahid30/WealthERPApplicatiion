@@ -6,19 +6,16 @@
 <%@ Register Src="General/UserLogin.ascx" TagName="GeneralHome" TagPrefix="uc4" %>
 <%@ Register Src="Advisor/AdvisorLeftPane.ascx" TagName="AdvisorLeftPane" TagPrefix="uc5" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
- <%--<asp:ScriptManager ID="ScriptManager" runat="server" EnablePageMethods="true" ></asp:ScriptManager>--%>
+<%--<asp:ScriptManager ID="ScriptManager" runat="server" EnablePageMethods="true" ></asp:ScriptManager>--%>
 <head id="Head1" runat="server">
-    
     <%-- <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" >--%>
     <title></title>
     <%-- <link href="CSS/ControlsStyleSheet.css" rel="stylesheet" type="text/css" />
     <link href="CSS/StyleSheet.css" rel="stylesheet" type="text/css" />--%>
     <link id="lnkBrowserIcon" rel="Shortcut Icon" type="image/x-icon" runat="server" />
-    
+
     <script src="/Scripts/jquery.js" type="text/javascript"></script>
 
     <script src="/Scripts/jquery.colorbox-min.js" type="text/javascript"></script>
@@ -28,7 +25,7 @@
     <script language="javascript" type="text/javascript" src="Scripts/JScript.js"></script>
 
     <script language="javascript" type="text/javascript">
-    
+
         function loadCB() {
             $(document).ready(function() {
                 $(".loadmediv").colorbox({ overlayClose: false, inline: true, open: true, href: "#LoadImage", opacity: 1 });
@@ -70,7 +67,7 @@
                 }
 
                 //if (timerEvent != null) window.clearInterval(timerEvent);
-//                timerEvent = window.setTimeout("calc('" + iframe_id + "')", 1000);
+                //                timerEvent = window.setTimeout("calc('" + iframe_id + "')", 1000);
             }
             catch (e) { }
         }
@@ -147,8 +144,8 @@
 </head>
 <body>
     <form id="MainForm" runat="server">
-     <telerik:RadScriptManager ID="ScriptManager" runat="server" EnablePageMethods="true"></telerik:RadScriptManager> 
-
+    <telerik:RadScriptManager ID="ScriptManager" runat="server" EnablePageMethods="true">
+    </telerik:RadScriptManager>
     <asp:HiddenField ID="hidUserLogOutPageUrl" Value="" runat="server" />
     <div>
         <%--<asp:ScriptManager ID="ScriptManager" runat="server" EnablePageMethods="true" />--%>
@@ -187,9 +184,7 @@
                                         cellpadding="1" cellspacing="1">
                                         <tr>
                                             <td id="tdUserSession" runat="server">
-                                                <asp:LinkButton ID="lnkUserSession" runat="server" Text="User Session" OnClientClick="javascript:loadcontrol('UserSessionManager','none'); return false;"
-                                                    CssClass="LinkButtons" Style="text-decoration: none"></asp:LinkButton>
-                                                &nbsp;
+                                               
                                             </td>
                                             <td id="tdSettings" style="vertical-align: baseline" runat="server">
                                                 <a id="LinkButtonUserSettings" onclick="javascript:loadcontrol('UserSettings','none'); return false;"
@@ -318,7 +313,7 @@
                                                                 Value="Price List" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
                                                             <%--<asp:MenuItem NavigateUrl="javascript:loadfrommenu('Calculators','login');" Text="Calculators"
                                                                 Value="Calculators"></asp:MenuItem>--%>
-                                                             <%--<asp:MenuItem NavigateUrl="javascript:loadfrommenu('InterestCalculator','login');"
+                                                            <%--<asp:MenuItem NavigateUrl="javascript:loadfrommenu('InterestCalculator','login');"
                                                                 Text="Interest Calculator" Value="Interest Calculator"></asp:MenuItem>--%>
                                                             <%--https://calculator.wealtherp.com/--%>
                                                         </Items>
@@ -353,7 +348,7 @@
                                                                 Value="Price List" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
                                                             <%--<asp:MenuItem NavigateUrl="javascript:loadfrommenu('Calculators','login');" Text="Calculators"
                                                                 Value="Calculators" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>--%>
-                                                          <%--  <asp:MenuItem NavigateUrl="https://calculator.wealtherp.com/" Target="_blank" Text="Interest Calculator"
+                                                            <%--  <asp:MenuItem NavigateUrl="https://calculator.wealtherp.com/" Target="_blank" Text="Interest Calculator"
                                                                 Value="Interest Calculator"></asp:MenuItem>--%>
                                                         </Items>
                                                     </asp:Menu>
@@ -387,7 +382,7 @@
                                                                 Value="Price List" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
                                                             <%--<asp:MenuItem NavigateUrl="javascript:loadfrommenu('Calculators','login');" Text="Calculators"
                                                                 Value="Calculators" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>--%>
-                                                           <%-- <asp:MenuItem NavigateUrl="https://calculator.wealtherp.com/" Target="_blank" Text="Interest Calculator"
+                                                            <%-- <asp:MenuItem NavigateUrl="https://calculator.wealtherp.com/" Target="_blank" Text="Interest Calculator"
                                                                 Value="Interest Calculator"></asp:MenuItem--%>
                                                         </Items>
                                                     </asp:Menu>
@@ -418,9 +413,9 @@
                                                             </asp:MenuItem>--%>
                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('AdminPriceList','login');" Text="Price List"
                                                                 Value="Price List" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
-                                                          <%--  <asp:MenuItem NavigateUrl="javascript:loadfrommenu('Calculators','login');" Text="Calculators"
+                                                            <%--  <asp:MenuItem NavigateUrl="javascript:loadfrommenu('Calculators','login');" Text="Calculators"
                                                                 Value="Calculators" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>--%>
-                                                           <%-- <asp:MenuItem NavigateUrl="https://calculator.wealtherp.com/" Target="_blank" Text="Interest Calculator"
+                                                            <%-- <asp:MenuItem NavigateUrl="https://calculator.wealtherp.com/" Target="_blank" Text="Interest Calculator"
                                                                 Value="Interest Calculator"></asp:MenuItem>--%>
                                                             <%--<asp:MenuItem NavigateUrl="javascript:loadfrommenu('FinancialPlanning','login');"
                                                                 Text="Financial Planning" Value="FinancialPlanning"></asp:MenuItem>--%>
@@ -492,7 +487,7 @@
                                                                 Value="Price List" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
                                                             <%--<asp:MenuItem NavigateUrl="javascript:loadfrommenu('Calculators','login');" Text="Calculators"
                                                                 Value="Calculators" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>--%>
-                                                           <%-- <asp:MenuItem NavigateUrl="https://calculator.wealtherp.com/" Target="_blank" Text="Interest Calculator"
+                                                            <%-- <asp:MenuItem NavigateUrl="https://calculator.wealtherp.com/" Target="_blank" Text="Interest Calculator"
                                                                 Value="Interest Calculator"></asp:MenuItem>--%>
                                                         </Items>
                                                     </asp:Menu>
@@ -525,7 +520,7 @@
                                                                 Value="Price List" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
                                                             <%--<asp:MenuItem NavigateUrl="javascript:loadfrommenu('Calculators','login');" Text="Calculators"
                                                                 Value="Calculators" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>--%>
-                                           <%--                 <asp:MenuItem NavigateUrl="https://calculator.wealtherp.com/" Target="_blank" Text="Interest Calculator"
+                                                            <%--                 <asp:MenuItem NavigateUrl="https://calculator.wealtherp.com/" Target="_blank" Text="Interest Calculator"
                                                                 Value="Interest Calculator"></asp:MenuItem>--%>
                                                         </Items>
                                                     </asp:Menu>
@@ -676,8 +671,8 @@
                     <table width="100%">
                         <tr>
                             <td>
-                                <asp:Label ID="lblBestViewed" Text="Best Viewed in Mozilla Firefox Version 8.0 and above"
-                                    runat="server" CssClass="PCGWhiteText" Font-Size="X-Small"></asp:Label>
+                                <asp:ImageButton ID="imgSessionOut" runat="server" ImageUrl="~/Images/SessionOut.png"
+                                    OnClientClick="javascript:loadcontrol('UserSessionManager','none'); return false;" />
                             </td>
                             <%--<td>
                              <asp:LinkButton ID="lnkIECompatibilityView" target="_blank" href="Images/IECompatibility.jpg" CssClass="LinkButtons" runat="server" Text="For IE Click here">
@@ -698,7 +693,7 @@
                             <td align="right">
                                 <%--                            <span id="siteseal"><script type="text/javascript" src="https://seal.godaddy.com/getSeal?sealID=OWPyWbNsq7qPWzrss8sCH3weSSj3SjP21EhheOl4L7s2vBTlMzf"></script><br/><a style="font-family: arial; font-size: 9px" href="https://www.godaddy.com" target="_blank">Best Web Hosting</a></span>
 --%>
-                                <asp:Label ID="PCGLabel" Text="2010 @ Ampsys Consulting Pvt. Ltd." runat="server"
+                                <asp:Label ID="PCGLabel" Text="2014 @ Ampsys Consulting Pvt. Ltd." runat="server"
                                     CssClass="PCGWhiteText"></asp:Label>
                             </td>
                         </tr>
