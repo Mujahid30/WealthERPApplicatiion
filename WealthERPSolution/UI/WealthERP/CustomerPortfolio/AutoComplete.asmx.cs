@@ -948,7 +948,21 @@ namespace WealthERP.CustomerPortfolio
             }
             return names.ToArray();
         }
+        [WebMethod]
+        public string[] GetASBALocation(string prefixText)
+        {
+            CustomerBo customerBo = new CustomerBo();
+            DataTable dtGetASBALocation = new DataTable();
+            List<string> allASBALocation = new List<string>();
 
+            dtGetASBALocation = customerBo.GetASBABankLocation( prefixText);
+            foreach (DataRow dr in dtGetASBALocation.Rows)
+            {
+                string item = AjaxControlToolkit.AutoCompleteExtender.CreateAutoCompleteItem(dr["WCMV_Name"].ToString(), dr["WCMV_LookupId"].ToString());
+                allASBALocation.Add(item);
+            }
+            return allASBALocation.ToArray();
+        }
     }
 
 }
