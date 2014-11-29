@@ -470,7 +470,7 @@ namespace WealthERP.OffLineOrderManagement
             }
             if (Page.IsValid )
             {
-                isBidsVallid = ValidateIPOBids(out errorMsg);
+                isBidsVallid = ValidateIPOBids(out errorMsg,1);
 
                 if (!isBidsVallid)
                 {
@@ -1380,7 +1380,7 @@ namespace WealthERP.OffLineOrderManagement
             Page.Validate();
             if (Page.IsValid && Validation())
             {
-                isBidsVallid = ValidateIPOBids(out errorMsg);
+                isBidsVallid = ValidateIPOBids(out errorMsg,0);
 
                 if (!isBidsVallid)
                 {
@@ -1708,7 +1708,7 @@ namespace WealthERP.OffLineOrderManagement
 
         }
 
-        private bool ValidateIPOBids(out string msg)
+        private bool ValidateIPOBids(out string msg, int typeOfvalidation)
         {
             bool isBidValid = true;
             msg = string.Empty;
@@ -1743,24 +1743,26 @@ namespace WealthERP.OffLineOrderManagement
                 isBidValid = false;
                 return isBidValid;
             }
-            if (maxPaybleAmount > 0)
-            {
-                if (minBidAmount > maxPaybleAmount || maxBidAmount < maxPaybleAmount)
+            
+                if (maxPaybleAmount > 0)
                 {
-                    msg = "Bid Value (Amount Payable) should be greater than the Min bid amount and less than the Max bid amount";
-                    isBidValid = false;
-                    return isBidValid;
+                    if (minBidAmount > maxPaybleAmount || maxBidAmount < maxPaybleAmount)
+                    {
+                        msg = "Bid Value (Amount Payable) should be greater than the Min bid amount and less than the Max bid amount";
+                        isBidValid = false;
+                        return isBidValid;
+                    }
                 }
-            }
-            else
-            {
-                if (minBidAmount > maxPaybleAmount1 || maxBidAmount < maxPaybleAmount1)
+                else if (typeOfvalidation!=1 && maxPaybleAmount < 0)
                 {
-                    msg = "Bid Value (Amount Payable) should be greater than the Min bid amount and less than the Max bid amount";
-                    isBidValid = false;
-                    return isBidValid;
+                    if (minBidAmount > maxPaybleAmount1 || maxBidAmount < maxPaybleAmount1)
+                    {
+                        msg = "Bid Value (Amount Payable) should be greater than the Min bid amount and less than the Max bid amount";
+                        isBidValid = false;
+                        return isBidValid;
+                    }
                 }
-            }
+            
             if (!string.IsNullOrEmpty(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIM_TradingInMultipleOf"].ToString()))
                 issueQtyMultiple = Convert.ToInt16(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIM_TradingInMultipleOf"].ToString());
             if (!string.IsNullOrEmpty(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIM_MInQty"].ToString()))
@@ -1792,7 +1794,7 @@ namespace WealthERP.OffLineOrderManagement
                 if (bidAmountPayble > 0)
                     validBidSum += int.Parse(item.GetDataKeyValue("IssueBidNo").ToString());
 
-                if (bidAmountPayble <= 0 && int.Parse(item.GetDataKeyValue("IssueBidNo").ToString()) == 1)
+                if (bidAmountPayble <= 0 && int.Parse(item.GetDataKeyValue("IssueBidNo").ToString()) == 1 && typeOfvalidation!=1)
                 {
                     msg = "Bid found missing.Please enter the bids in sequence starting from the top!";
                     isBidValid = false;
