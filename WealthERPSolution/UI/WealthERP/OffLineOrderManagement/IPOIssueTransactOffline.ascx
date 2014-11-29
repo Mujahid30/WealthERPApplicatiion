@@ -24,51 +24,7 @@
     }
 </script>--%>
 
-<script type="text/javascript">
-    var TargetBaseControl = null;
-    var TragetBaseControl2 = null;
 
-    window.onload = function() {
-        try {
-            //get target base control.
-            TargetBaseControl =
-           document.getElementById('<%=this.gvDematDetailsTeleR.ClientID %>');
-
-        }
-        catch (err) {
-            TargetBaseControl = null;
-        }
-    }
-
-    function TestCheckBox() {
-        if (TargetBaseControl == null) return false;
-
-        //get target child control.
-        var TargetChildControl = "chkDematId";
-        var Count = 0;
-        //get all the control of the type INPUT in the base control.
-        var Inputs = TargetBaseControl.getElementsByTagName("input");
-
-        for (var n = 0; n < Inputs.length; ++n)
-            if (Inputs[n].type == 'checkbox' &&
-            Inputs[n].id.indexOf(TargetChildControl, 0) >= 0 &&
-            Inputs[n].checked)
-            Count++;
-        if (Count > 1) {
-            alert('Please Select One Demat!');
-            return false;
-        }
-        else if (Count == 0) {
-            alert('Please Select Aleast One Demat!');
-            return false;
-        }
-
-        return true;
-
-
-    }
-    
-</script>
 
 <script type="text/javascript" language="javascript">
 
@@ -232,6 +188,51 @@
    
     
 </script>
+<script type="text/javascript">
+    var TargetBaseControl = null;
+    var TragetBaseControl2 = null;
+
+    window.onload = function() {
+        try {
+            //get target base control.
+            TargetBaseControl =
+           document.getElementById('<%=this.gvDematDetailsTeleR.ClientID %>');
+
+        }
+        catch (err) {
+            TargetBaseControl = null;
+        }
+    }
+
+    function TestCheckBox() {
+        if (TargetBaseControl == null) return false;
+
+        //get target child control.
+        var TargetChildControl = "chkDematId";
+        var Count = 0;
+        //get all the control of the type INPUT in the base control.
+        var Inputs = TargetBaseControl.getElementsByTagName("input");
+
+        for (var n = 0; n < Inputs.length; ++n)
+            if (Inputs[n].type == 'checkbox' &&
+            Inputs[n].id.indexOf(TargetChildControl, 0) >= 0 &&
+            Inputs[n].checked)
+            Count++;
+        if (Count > 1) {
+            alert('Please Select One Demat!');
+            return false;
+        }
+        else if (Count == 0) {
+            alert('Please Select Aleast One Demat!');
+            return false;
+        }
+
+        return true;
+
+
+    }
+    
+</script>
 
 <table width="100%">
     <tr>
@@ -267,6 +268,9 @@
         </table>
     </ContentTemplate>
 </asp:UpdatePanel>
+<%--<asp:UpdatePanel ID="UpdatePanel2" UpdateMode="Always" runat="server">
+<ContentTemplate>--%>
+
 <asp:Panel ID="pnl_OrderSection" runat="server" class="Landscape" Width="100%" Height="80%"
     ScrollBars="None">
     <table width="100%">
@@ -565,13 +569,13 @@
                     Operator="NotEqual" ValidationGroup="btnConfirmOrder" ValueToCompare="Select"></asp:CompareValidator>
             </td>
             <td id="Td3" class="leftField" style="width: 20%" runat="server" visible="false">
-                <asp:Label ID="lblAmount" Text="Amount" runat="server" CssClass="FieldName"></asp:Label>
+                <asp:Label ID="lblBankAccount" Text="Bank Account No." runat="server" CssClass="FieldName"></asp:Label>
             </td>
             <td id="Td4" class="rightField" style="width: 20%" runat="server" visible="false">
-                <asp:TextBox ID="txtAmount" runat="server" CssClass="txtField" ReadOnly="true"></asp:TextBox>
+                <asp:TextBox ID="txtBankAccount" runat="server" CssClass="txtField" onkeydown="return (event.keyCode!=13);" OnKeypress="javascript:return isNumberKey(event);" MaxLength="9"></asp:TextBox>
+                 
             </td>
-            <td>
-            </td>
+          
         </tr>
         <tr id="trPINo" runat="server" visible="false">
             <td class="leftField" style="width: 20%">
@@ -1050,7 +1054,7 @@
                     CssClass="PCGMediumButton" ValidationGroup="btnConfirmOrder, btnTC" OnClientClick="return  PreventClicks(); Validate(); " />
             </td>
             <td class="rightField">
-                <asp:Button ID="btnAddMore" runat="server" Text="Add Ipo Order" CssClass="PCGMediumButton"
+                <asp:Button ID="btnAddMore" runat="server" Text="Add More IPO Order" CssClass="PCGMediumButton"
                     ValidationGroup="btnConfirmOrder" OnClientClick="return  PreventClicks();" OnClick="btnAddMore_Click" />
             </td>
             <td>
@@ -1203,6 +1207,7 @@
     <Triggers>
     </Triggers>
 </asp:UpdatePanel>--%>
+
 <asp:HiddenField ID="txtTotAmt" runat="server" />
 <asp:HiddenField ID="txtCustomerId" runat="server" OnValueChanged="txtCustomerId_ValueChanged1" />
 <asp:HiddenField ID="hdnCustomerId" runat="server" />

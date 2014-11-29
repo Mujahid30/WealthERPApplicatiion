@@ -297,6 +297,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblAssociateSearch;
+        protected global::System.Web.UI.WebControls.Label lblSpan;
         
         /// <summary>
         /// txtAssociateSearch control.
@@ -945,6 +946,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblRemarks;
+         protected global::System.Web.UI.WebControls.Label lblBankAccount;
         
         /// <summary>
         /// txtRemarks control.
@@ -954,6 +956,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtRemarks;
+        protected global::System.Web.UI.WebControls.TextBox txtBankAccount;
         
         /// <summary>
         /// btnConfirmOrder control.

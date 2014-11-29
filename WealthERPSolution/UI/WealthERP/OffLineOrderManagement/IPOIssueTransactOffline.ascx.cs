@@ -214,6 +214,8 @@ namespace WealthERP.OffLineOrderManagement
             txtASBANO.Enabled = false;
             ddlBankName.Enabled = false;
             txtBranchName.Enabled = false;
+            txtBankAccount.Enabled = false;
+            txtPaymentNumber.Enabled = false;
         }
         protected void lnkEdit_OnClick(object sender, EventArgs e)
         {
@@ -290,10 +292,14 @@ namespace WealthERP.OffLineOrderManagement
                         ddlPaymentMode.SelectedValue = "CQ";
                         txtPaymentNumber.Text = dr["CO_ChequeNumber"].ToString();
                         txtPaymentInstDate.SelectedDate = Convert.ToDateTime(dr["CO_PaymentDate"].ToString());
+                        txtBankAccount.Text = dr["COID_DepCustBankAccId"].ToString();
                         trPINo.Visible = true;
+                        Td3.Visible = true;
+                        Td4.Visible = true;
                     }
                     BindBank();
                     ddlBankName.SelectedValue = dr["CO_BankName"].ToString();
+                    
                     gvAssociate.Visible = true;
                 }
             }
@@ -737,6 +743,8 @@ namespace WealthERP.OffLineOrderManagement
         {
             trPINo.Visible = false;
             trASBA.Visible = false;
+            Td3.Visible = false;
+            Td4.Visible = false;
             RequiredFieldValidator8.Enabled = false;
             CompareValidator14.Enabled = false;
             RequiredFieldValidator9.Enabled = false;
@@ -749,7 +757,9 @@ namespace WealthERP.OffLineOrderManagement
                 txtBranchName.Visible = true;
                 lblBankBranchName.Visible = true;
                 RequiredFieldValidator7.Enabled = true;
-
+                Td3.Visible = true;
+                Td4.Visible = true;
+               
                 //tdBankBranch.Visible = true;
 
             }
@@ -1413,6 +1423,7 @@ namespace WealthERP.OffLineOrderManagement
             dtIPOBidTransactionDettails.Columns.Add("ChequeDate");
             dtIPOBidTransactionDettails.Columns.Add("ChequeNo");
             dtIPOBidTransactionDettails.Columns.Add("Remarks");
+            dtIPOBidTransactionDettails.Columns.Add("BankAccountNo");
             dtIPOBidTransactionDettails.Columns.Add("DetailsId", typeof(Int32), null);
             return dtIPOBidTransactionDettails;
         }
@@ -1444,6 +1455,7 @@ namespace WealthERP.OffLineOrderManagement
             onlineIPOOrderVo.IsOnlineOrder = false;
             onlineIPOOrderVo.IsDeclarationAccepted = true;
             onlineIPOOrderVo.OrderDate = DateTime.Now;
+            //onlineIPOOrderVo.CustBankAccId = int.Parse(txtBankAccount.Text);
             int radgridRowNo = 0;
             int dematAccountId = 0;
             foreach (GridDataItem gvr in gvDematDetailsTeleR.MasterTableView.Items)
@@ -1530,6 +1542,8 @@ namespace WealthERP.OffLineOrderManagement
                         drIPOBid["ChequeNo"] = txtPaymentNumber.Text.Trim();
                     if (!string.IsNullOrEmpty(txtPaymentInstDate.SelectedDate.ToString()))
                         drIPOBid["ChequeDate"] = txtPaymentInstDate.SelectedDate.Value.ToString("yyyy/MM/dd");
+                    if (!string.IsNullOrEmpty(txtBankAccount.Text.Trim()))
+                        drIPOBid["BankAccountNo"] = txtBankAccount.Text.Trim();
 
                 }
                 drIPOBid["DematId"] = dematAccountId;
@@ -1639,7 +1653,7 @@ namespace WealthERP.OffLineOrderManagement
             ddlPaymentMode.SelectedIndex = 0;
             ddlBankName.SelectedIndex = -1;
             txtBranchName.Text = "";
-            txtAmount.Text = "";
+            txtBankAccount.Text= "";
             txtPaymentNumber.Text = "";
             txtPaymentInstDate.SelectedDate = null;
             txtDematid.Text = string.Empty;
@@ -1650,6 +1664,12 @@ namespace WealthERP.OffLineOrderManagement
             trSumbitSuccess.Visible = false;
             txtPansearch.Text = "";
             txtAssociateSearch.Text = "";
+            ddlPaymentMode.SelectedIndex = 0;
+            txtASBALocation.Text = "";
+            trPINo.Visible = false;
+            trASBA.Visible = false;
+            Td3.Visible = false;
+            Td4.Visible = false;
 
 
         }
