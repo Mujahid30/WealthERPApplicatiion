@@ -1794,7 +1794,7 @@ namespace WealthERP.OffLineOrderManagement
                 if (bidAmountPayble > 0)
                     validBidSum += int.Parse(item.GetDataKeyValue("IssueBidNo").ToString());
 
-                if (bidAmountPayble <= 0 && int.Parse(item.GetDataKeyValue("IssueBidNo").ToString()) == 1 && typeOfvalidation!=1)
+                if (bidAmountPayble <= 0 && int.Parse(item.GetDataKeyValue("IssueBidNo").ToString()) == 1 )
                 {
                     msg = "Bid found missing.Please enter the bids in sequence starting from the top!";
                     isBidValid = false;
