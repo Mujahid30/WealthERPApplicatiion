@@ -1333,7 +1333,7 @@
             &nbsp;
         </td>
         <td class="rightData">
-            <asp:CheckBox ID="chkIsActive" runat="server" CssClass="txtField" Text="Online Enablement"
+            <asp:CheckBox ID="chkIsActive" runat="server" CssClass="txtField" Text="Activate"
                 OnCheckedChanged="chkOnlineEnablement_changed" AutoPostBack="true"></asp:CheckBox>
             <%--<asp:RequiredFieldValidator ID="rfvIsActive" ControlToValidate="chkIsActive"
                   ErrorMessage="Please check" Display="Dynamic" runat="server"
