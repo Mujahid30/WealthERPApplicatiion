@@ -1123,6 +1123,7 @@ namespace WealthERP.OffLineOrderManagement
             dtIPOBid.Columns.Add("BidQty");
             dtIPOBid.Columns.Add("BidAmountPayable", typeof(double));
             dtIPOBid.Columns.Add("BidAmount", typeof(double));
+            dtIPOBid.Columns.Add("COID_TransactionType");
 
             for (int i = 1; i <= noOfBid; i++)
             {
@@ -1134,6 +1135,7 @@ namespace WealthERP.OffLineOrderManagement
                 drIPOBid["BidQty"] = null;
                 drIPOBid["BidAmountPayable"] = 0;
                 drIPOBid["BidAmount"] = 0;
+                drIPOBid["COID_TransactionType"] = "N";
                 dtIPOBid.Rows.Add(drIPOBid);
 
             }
@@ -1788,7 +1790,7 @@ namespace WealthERP.OffLineOrderManagement
                     {
                         msg = "Please enter Quantity in multiples permissibile for this issue";
                         isBidValid = false;
-                        return isBidValid;
+                        return isBidValid;  
                     }
                 }
                 if (bidAmountPayble > 0)
@@ -1833,7 +1835,7 @@ namespace WealthERP.OffLineOrderManagement
                     int maxQuantity = 0;
                     double minBidPrice = 0;
                     double maxBidPrice = 0;
-
+                    
                     {
                         int.TryParse(dtOnlineIPOIssueList.Rows[0]["AIM_MInQty"].ToString(), out minQuantity);
                         int.TryParse(dtOnlineIPOIssueList.Rows[0]["AIM_MaxQty"].ToString(), out maxQuantity);
@@ -1860,21 +1862,11 @@ namespace WealthERP.OffLineOrderManagement
                             }
 
                         }
-                        if (Request.QueryString["action"] != null)
+                        if (Request.QueryString["action"] != null && (e.Item.ItemIndex != -1))
                         {
                             RadGridIPOBid.MasterTableView.GetColumn("COID_ExchangeRefrenceNo").Visible = true;
+                            
                         }
-
-
-
-
-                        //else if (e.Item is GridFooterItem)
-                        //{
-                        //    GridFooterItem footerItem = (GridFooterItem)e.Item;
-                        //    CompareValidator cmpMaxBidAmount = (CompareValidator)footerItem.FindControl("cmpFinalBidAmountPayable");
-
-                        //    cmpMaxBidAmount.ValueToCompare = 0.ToString();
-                        //}
                     }
                 }
             }

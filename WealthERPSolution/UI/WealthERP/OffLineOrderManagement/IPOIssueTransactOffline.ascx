@@ -903,7 +903,7 @@
                         Skin="Telerik" AllowFilteringByColumn="false" FooterStyle-BackColor="#2475C7"
                         OnItemDataBound="RadGridIPOBid_ItemDataBound">
                         <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" AutoGenerateColumns="false"
-                            DataKeyNames="IssueBidNo" Width="100%" PagerStyle-AlwaysVisible="false">
+                            DataKeyNames="IssueBidNo,COID_TransactionType" Width="100%" PagerStyle-AlwaysVisible="false">
                             <Columns>
                                 <telerik:GridBoundColumn DataField="BidOptions" HeaderStyle-Width="120px" CurrentFilterFunction="Contains"
                                     ShowFilterIcon="true" AutoPostBackOnFilter="true" HeaderText="Bidding Options"
@@ -929,8 +929,12 @@
                                     UniqueName="BidQuantity" HeaderText="Quantity" FooterAggregateFormatString="{0:N2}"
                                     ItemStyle-HorizontalAlign="Center" HeaderStyle-HorizontalAlign="Center">
                                     <ItemTemplate>
-                                        <asp:TextBox ID="txtBidQuantity" runat="server" Text='<%# Bind("BidQty")%>' CssClass="txtField"
-                                            OnTextChanged="BidQuantity_TextChanged" AutoPostBack="true" onkeypress="return isNumberKey(event)"> </asp:TextBox>
+                                        <asp:TextBox ID="txtBidQuantity" runat="server" Text='<%# Bind("BidQty")%>' CssClass='<% #(Convert.ToString(Eval("COID_TransactionType"))=="D") ? "txtDisableField" : "txtField" %>' 
+                                            OnTextChanged="BidQuantity_TextChanged" AutoPostBack="true" onkeypress="return isNumberKey(event)" ReadOnly='<% #(Convert.ToString(Eval("COID_TransactionType"))=="D") ? true : false %>'
+                                            ToolTip='<% #(Convert.ToString(Eval("COID_TransactionType"))=="D") ? "The bid Cannot be edited because it was Cancelled previously" : "" %>'
+                                            >
+                                            
+                                             </asp:TextBox>
                                         <a href="#" class="popper" data-popbox="divBidQuantity" style="display: none">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
                                         <div id="divBidQuantity" class="popbox">
                                             <h2>
@@ -955,8 +959,8 @@
                                     FooterText="" UniqueName="BidPrice" HeaderText="Price" FooterAggregateFormatString="{0:N2}"
                                     ItemStyle-HorizontalAlign="Center" HeaderStyle-HorizontalAlign="Center" FooterStyle-HorizontalAlign="Center">
                                     <ItemTemplate>
-                                        <asp:TextBox ID="txtBidPrice" runat="server" CssClass="txtField" Text='<%# Bind("BidPrice")%>'
-                                            AutoPostBack="true" OnTextChanged="BidPrice_TextChanged" onkeypress="return isNumberKey(event)"> </asp:TextBox>
+                                        <asp:TextBox ID="txtBidPrice" runat="server" Text='<%# Bind("BidPrice")%>' CssClass='<% #(Convert.ToString(Eval("COID_TransactionType"))=="D") ? "txtDisableField" : "txtField" %>' 
+                                            AutoPostBack="true" OnTextChanged="BidPrice_TextChanged" onkeypress="return isNumberKey(event)" ReadOnly='<% #(Convert.ToString(Eval("COID_TransactionType"))=="D") ? true : false %>' ToolTip='<% #(Convert.ToString(Eval("COID_TransactionType"))=="D") ? "The bid Cannot be edited because it was Cancelled previously" : "" %>'> </asp:TextBox>
                                         <a href="#" class="popper" data-popbox="divBidPrice" style="display: none">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
                                         <div id="divBidPrice" class="popbox">
                                             <h2>
