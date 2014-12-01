@@ -1739,6 +1739,18 @@ namespace WealthERP.BusinessMIS
                 {
                     lbtnMarkAsReject.Enabled = false;
                     lbtnMarkAsReject.ForeColor = Color.Black;
+                    gvFolioWiseAUM.MasterTableView.GetColumn("CMFA_SubBrokerCode").Visible = false;
+                    gvFolioWiseAUM.MasterTableView.GetColumn("AssociatesName").Visible = false;
+                    gvFolioWiseAUM.MasterTableView.GetColumn("Titles").Visible = false;
+                    gvFolioWiseAUM.MasterTableView.GetColumn("ReportingManagerName").Visible = false;
+                    gvFolioWiseAUM.MasterTableView.GetColumn("UserType").Visible = false;
+                    gvFolioWiseAUM.MasterTableView.GetColumn("ChannelName").Visible = false;
+                    gvFolioWiseAUM.MasterTableView.GetColumn("ClusterManager").Visible = false;
+                    gvFolioWiseAUM.MasterTableView.GetColumn("AreaManager").Visible = false;
+                    gvFolioWiseAUM.MasterTableView.GetColumn("ZonalManagerName").Visible = false;
+                    gvFolioWiseAUM.MasterTableView.GetColumn("DeputyHead").Visible = false;
+
+
                 }
             }
         }

@@ -406,11 +406,11 @@ namespace WealthERP.BusinessMIS
         {
             if (ddlSelectCustomer.SelectedItem.Value == "All Customer")
             {
-                ddlCustomerType.Visible = false;
-                lblSelectTypeOfCustomer.Visible = false;
-                trCustomerSearch.Visible = false;
-                rquiredFieldValidatorIndivudialCustomer.Visible = false;
-                ddlCustomerType.SelectedIndex = 0;
+                //ddlCustomerType.Visible = false;
+                //lblSelectTypeOfCustomer.Visible = false;
+                //trCustomerSearch.Visible = false;
+                //rquiredFieldValidatorIndivudialCustomer.Visible = false;
+                //ddlCustomerType.SelectedIndex = 0;
 
             }
             if (ddlSelectCustomer.SelectedItem.Value == "Pick Customer")

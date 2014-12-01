@@ -75,14 +75,19 @@
     <ContentTemplate>--%>
     <tr>
         <td class="leftField" style="width: 15%">
-            <asp:Label ID="lblGrpOrInd" runat="server" CssClass="FieldName" Text="MIS for :"></asp:Label>
+            <asp:Label ID="lblGrpOrInd" runat="server" CssClass="FieldName" Text="MIS:"></asp:Label>
         </td>
         <td class="rightField" style="width: 15%">
             <asp:DropDownList ID="ddlSelectCustomer" runat="server" CssClass="cmbField" Style="vertical-align: middle"
                 AutoPostBack="true" OnSelectedIndexChanged="ddlSelectCustomer_SelectedIndexChanged">
-                <asp:ListItem Value="All Customer" Text="All Customer"></asp:ListItem>
+                <asp:ListItem Value="All Customer" Text="All Customer" Enabled="false"></asp:ListItem>
+                  <asp:ListItem Value="Select" Text="Select" Enabled="true"></asp:ListItem>
                 <asp:ListItem Value="Pick Customer" Text="Pick Customer"></asp:ListItem>
             </asp:DropDownList>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" Display="Dynamic"
+                ControlToValidate="ddlSelectCustomer" CssClass="rfvPCG" ErrorMessage="<br />Please select the MIS"
+                runat="server" ValidationGroup="CustomerValidation" InitialValue="Select">
+            </asp:RequiredFieldValidator>
             <%--<asp:RadioButton runat="server" ID="rdoAllCustomer" Text="All Customers" AutoPostBack="true"
               Class="cmbField" GroupName="SelectCustomer" Checked="True" oncheckedchanged="rdoAllCustomer_CheckedChanged"/> --%>
         </td>
