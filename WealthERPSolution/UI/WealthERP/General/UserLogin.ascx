@@ -45,43 +45,44 @@
         text-align: center;
         color: #fff;
     }
-    .input
+    .textbox
     {
-        background: #fff;
-        margin-bottom: .5%;
-       /* border: 1px solid #ccc;*/
-        padding: .5%;
-        font-family: Times New Roman;
-        font-size: 18PX;
-        color: #555;
+        -webkit-transition: all 0.30s ease-in-out;
+        -moz-transition: all 0.30s ease-in-out;
+        -ms-transition: all 0.30s ease-in-out;
+        -o-transition: all 0.30s ease-in-out;
+        outline: none;
+        padding: 3px 0px 3px 3px;
+        margin: 5px 1px 3px 0px;
+        border: 1px solid #DDDDDD;
     }
-    input[type="submit"]
+    .textbox:focus
     {
-        width: 150px;
-        background: #3399cc;
-        border: 0;
-        padding: .5%;
-        font-family: Times New Roman;
-        font-size: 25px;
-        color: #fff;
-        cursor: pointer;
-        transition: background .3s;
-        -webkit-transition: background .3s;
+        box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+        padding: 3px 0px 3px 3px;
+        margin: 5px 1px 3px 0px;
+        border: 1px solid rgba(81, 203, 238, 1);
     }
-    input[type="submit"]:hover
-    {
-        background: #2288bb;
-    }
-    .divshadow
-    {
-        -moz-box-shadow: 10px 10px 5px #888;
-        -webkit-box-shadow: 10px 10px 5px #888;
-        box-shadow: 10px 10px 5px #888;
-    }
+   
+  
     .LABEL
     {
         color: #3399cc;
         margin-bottom: 1px;
+        font-family: Times New Roman;
+    }
+    .table
+    {
+        width: 35%;
+        height: 45%;
+        float: inherit;
+        border-color: black;
+        border-width: thin;
+        border-style: solid;
+        -webkit-transition: all 0.30s ease-in-out;
+        -moz-transition: all 0.30s ease-in-out;
+        -ms-transition: all 0.30s ease-in-out;
+        -o-transition: all 0.30s ease-in-out;
     }
 </style>
 <table width="100%" style="height: 347px" class="TableBackground">
@@ -99,11 +100,16 @@
             <table width="100%" style="padding-top: 50px;">
                 <tr>
                     <td width="100%" align="center" runat="server" id="dynamicLoginContent">
-                        <table border="0" style="width: 35%; float: inherit; border-color: black; border-width: thin;
-                            border-style: solid;">
-                            <tr style="border: 1px solid black;">
+                        <table border="0" class="table">
+                            <tr>
                                 <td align="center">
-                                    <asp:Label ID="lblCompanyName" runat="server" ForeColor="#5D7B9D" Font-Bold="true"></asp:Label>
+                                    <asp:Label ID="lblCompanyName" runat="server" ForeColor="#5D7B9D" Font-Bold="true"
+                                        Font-Size="X-Large"></asp:Label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center">
+                                    <asp:Image ID="imglogin" runat="server" Height="70" ImageUrl="~/Images/loginLogog.png" />
                                 </td>
                             </tr>
                             <tr>
@@ -113,26 +119,26 @@
                                     <%--   <h4>
                                             UserName:</h4>
                                     </span>--%>
-                                    <asp:TextBox ID="txtLoginId" runat="server" CssClass="input" Height="20px" Width="82%"></asp:TextBox>
-                                    <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" TargetControlID="txtLoginId"
+                                    <asp:TextBox ID="txtLoginId" runat="server" CssClass="textbox" Height="20px" Width="82%"></asp:TextBox>
+                                    <%--<cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" TargetControlID="txtLoginId"
                                         WatermarkText="UserName" runat="server" EnableViewState="false" WatermarkCssClass="input">
-                                    </cc1:TextBoxWatermarkExtender>
+                                    </cc1:TextBoxWatermarkExtender>--%>
                                 </td>
                             </tr>
                             <tr>
                                 <td align="left" style="font-weight: bold; padding-left: 60px;" width="60%">
-                                   <%-- <span style="color: #3399cc;">
+                                    <%-- <span style="color: #3399cc;">
                                         <h4></h4> </span>--%>
-                                         <asp:Label ID="lblPAssword" runat="server" CssClass="LABEL">Password:</asp:Label>
-                                    <asp:TextBox ID="txtPassword" TextMode="Password" CssClass="input" Width="82%" MaxLength="20"
-                                        runat="server"></asp:TextBox>
-                                    <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" TargetControlID="txtPassword"
+                                    <asp:Label ID="lblPAssword" runat="server" CssClass="LABEL">Password:</asp:Label>
+                                    <asp:TextBox ID="txtPassword" TextMode="Password" CssClass="textbox" Width="82%"
+                                        MaxLength="20" runat="server" Height="20px"></asp:TextBox>
+                                    <%-- <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" TargetControlID="txtPassword"
                                         WatermarkText="Password" runat="server" EnableViewState="false" WatermarkCssClass="input">
-                                    </cc1:TextBoxWatermarkExtender>
+                                    </cc1:TextBoxWatermarkExtender>--%>
                                 </td>
                             </tr>
                             <tr>
-                                <td align="left" colspan="2" style="font-weight: bold; padding-left: 60px;">
+                                <td align="left" style="padding-left:60px; height:30px;" >
                                     <asp:Button ID="btnSignIn" runat="server" Text="Login" OnClick="btnSignIn_Click"
                                         CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_Userlogin_btnSignIn', 'S');"
                                         onmouseout="javascript:ChangeButtonCss('out', 'ctrl_Userlogin_btnSignIn', 'S');" />
@@ -143,6 +149,8 @@
                                     <asp:Label ID="lblIllegal" Text="" runat="server" CssClass="Error" />
                                 </td>
                             </tr>
+                            </table>
+                            <table>
                             <tr>
                                 <td colspan="2">
                                     <span class="FieldName">

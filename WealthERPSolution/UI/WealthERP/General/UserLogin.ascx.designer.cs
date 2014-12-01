@@ -59,6 +59,15 @@ namespace WealthERP.General {
         protected global::System.Web.UI.WebControls.Label lblCompanyName;
         
         /// <summary>
+        /// imglogin control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image imglogin;
+        
+        /// <summary>
         /// lblUserName control.
         /// </summary>
         /// <remarks>
@@ -77,15 +86,6 @@ namespace WealthERP.General {
         protected global::System.Web.UI.WebControls.TextBox txtLoginId;
         
         /// <summary>
-        /// TextBoxWatermarkExtender1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.TextBoxWatermarkExtender TextBoxWatermarkExtender1;
-        
-        /// <summary>
         /// lblPAssword control.
         /// </summary>
         /// <remarks>
@@ -102,15 +102,6 @@ namespace WealthERP.General {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtPassword;
-        
-        /// <summary>
-        /// TextBoxWatermarkExtender2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.TextBoxWatermarkExtender TextBoxWatermarkExtender2;
         
         /// <summary>
         /// btnSignIn control.
