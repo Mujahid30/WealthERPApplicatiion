@@ -2767,7 +2767,7 @@
                            HAC_HostLogoPlacement="NoLogo"
                            HAC_HostLogo="wealth_erp_logo.jpg"
                            HAC_AdviserLogoPlacement="TopLeftCorner"
-                           HAC_DefaultTheme ="Maroon"
+                           HAC_DefaultTheme ="SBIOnLine"
                            HAC_ContactPersonName="Pramoda Sahoo"
                            HAC_TelephoneNumber="8050567008"
                            HAC_LoginPageContent="WERP is an on-demand wealth management cum financial services platform for wealth advisors and financial planners and distributors. The platform covers multiple asset classes and allows advisors to plan, manage and analyze investments across assets and have a 360 Degree view of their client’s investment portfolio. WERP’s key differentiators are integrated investment management with a process driven ERP approach which comes loaded with knowledge based investment tools and financial planning models."
