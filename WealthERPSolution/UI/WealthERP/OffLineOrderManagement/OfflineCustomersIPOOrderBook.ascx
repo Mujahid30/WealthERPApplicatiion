@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="OfflineCustomersIPOOrderBook.ascx.cs"
+<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="OfflineCustomersIPOOrderBook.ascx.cs"
     Inherits="WealthERP.OffLineOrderManagement.OfflineCustomersIPOOrderBook" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
@@ -171,12 +171,12 @@
                                         <telerik:GridBoundColumn DataField="CO_OrderDate" DataFormatString="{0:dd/MM/yyyy HH:mm:ss}"
                                             AllowFiltering="true" HeaderText="Transaction Date" UniqueName="CO_OrderDate"
                                             SortExpression="CO_OrderDate" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                            AutoPostBackOnFilter="true" HeaderStyle-Width="120px" FilterControlWidth="60px">
+                                            AutoPostBackOnFilter="true" HeaderStyle-Width="120px" FilterControlWidth="60px" >
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="CO_OrderId" HeaderText="Transaction No." SortExpression="CO_OrderId"
-                                            ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
-                                            UniqueName="CO_OrderId" FooterStyle-HorizontalAlign="Left">
+                                            ShowFilterIcon="false" CurrentFilterFunction="EqualTo" AutoPostBackOnFilter="true"
+                                            UniqueName="CO_OrderId" FooterStyle-HorizontalAlign="Left" DataType="System.Double">
                                             <ItemStyle Width="60px" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="CO_ApplicationNumber" AllowFiltering="true" HeaderText="Application No."
