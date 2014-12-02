@@ -152,7 +152,7 @@ namespace WealthERP.General
                     }
                     if (!string.IsNullOrEmpty(generalconfigurationvo.ApplicationName))
                     {
-                        lblCompanyName.Text = "Partners Login";
+                        lblCompanyName.Text = "Partner Login";
                     }
                 }
                 if (Request.ServerVariables["HTTPS"].ToString() == "")

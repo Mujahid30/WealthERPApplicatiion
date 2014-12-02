@@ -100,10 +100,10 @@
             <table width="100%" style="padding-top: 50px;">
                 <tr>
                     <td width="100%" align="center" runat="server" id="dynamicLoginContent">
-                        <table border="0" class="table">
+                        <table  class="table">
                             <tr>
                                 <td align="center">
-                                    <asp:Label ID="lblCompanyName" runat="server" ForeColor="#5D7B9D" Font-Bold="true"
+                                    <asp:Label ID="lblCompanyName" runat="server" ForeColor="#1F71C4" Font-Bold="true"
                                         Font-Size="X-Large"></asp:Label>
                                 </td>
                             </tr>

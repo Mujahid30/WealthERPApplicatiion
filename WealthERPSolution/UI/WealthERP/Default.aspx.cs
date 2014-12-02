@@ -194,6 +194,7 @@ namespace WealthERP
                         
                         lblSignOut.Text = "SignOut";
                         LinkButtonSignIn.Text = "";
+                        imgSessionOut.Visible = false;
                         if (Session[SessionContents.LogoPath] != null)
                             logoPath = (Session[SessionContents.LogoPath].ToString());
                         else
