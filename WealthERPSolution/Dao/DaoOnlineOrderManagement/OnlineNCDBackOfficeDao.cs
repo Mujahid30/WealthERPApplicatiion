@@ -2343,27 +2343,8 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(cmdAllotmentUpload, "@createdBy", DbType.Int32, userId);
                 db.AddInParameter(cmdAllotmentUpload, "@product", DbType.String, product);
                 db.AddInParameter(cmdAllotmentUpload, "@IsOnline", DbType.String, isOnline);
+                cmdAllotmentUpload.CommandTimeout = 60 * 60;
                 dtAllotmentUploadData = db.ExecuteDataSet(cmdAllotmentUpload).Tables[0];
-
-                //isValidated = cmdProc.ExecuteScalar().ToString();
-                //if (isValidated == string.Empty)
-                //{
-                //    SqlCommand cmdProcAllot = new SqlCommand("SPROC_UploadIssueAllotmentDetails_Dynamic", sqlCon);
-                //    cmdProcAllot.CommandType = CommandType.StoredProcedure;
-                //    cmdProcAllot.Parameters.AddWithValue("@issueId", issueId);
-                //    cmdProcAllot.Parameters.AddWithValue("@product", product);
-
-                //    //cmdProcAllot.Parameters.AddWithValue("@result", string.Empty);
-
-                //    result = cmdProcAllot.ExecuteNonQuery();
-
-                //}
-                //else
-                //{
-                //    result = 0;
-                //}
-
-                //dt = dsGetIssuerid.Tables[0];
             }
             catch (BaseApplicationException Ex)
             {
