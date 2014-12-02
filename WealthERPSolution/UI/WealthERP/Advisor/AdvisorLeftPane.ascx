@@ -226,7 +226,7 @@
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="IPO Order Book" Value="IPO_Offline_Order_Book">
                                                     </telerik:RadPanelItem>
-                                                     <telerik:RadPanelItem runat="server" Text="SIP Offline Book" Value="SIP_Offline_Book">
+                                                    <telerik:RadPanelItem runat="server" Text="SIP Offline Book" Value="SIP_Offline_Book">
                                                     </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>
@@ -347,17 +347,17 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="NCD/IPO Allotment" Value="NCD_IPO_Allotments">
                                             </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="MF Folio Accounts" Value="MF Folios">
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="Transactions" Value="MFT">
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="MF SIP MIS" Value="MF systematic MIS">
+                                            </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Queries" Value="Queries">
                                                 <Items>
-                                                    <telerik:RadPanelItem runat="server" Text="MF Folio Accounts" Value="MF Folios">
-                                                    </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" Text="Transactions" Value="MFT">
-                                                    </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="NCD Allotments" Value="NCD_Allotments">
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="IPO Allotments" Value="IPO_Allotments">
-                                                    </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" Text="MF SIP MIS" Value="MF systematic MIS">
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="Client Net worth" Value="Prospect List"
                                                         Visible="false">
@@ -1059,17 +1059,17 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="NCD/IPO Allotment" Value="NCD_IPO_Allotments">
                                             </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="MF Folio Accounts" Value="MF Folios">
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="Transactionss" Value="MFT">
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="MF SIP MIS" Value="MF systematic MIS">
+                                            </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Queries" Value="Queries">
                                                 <Items>
-                                                    <telerik:RadPanelItem runat="server" Text="MF Folio Accounts" Value="MF Folios">
-                                                    </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" Text="Transactionss" Value="MFT">
-                                                    </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="NCD Allotments" Value="NCD_Allotments">
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="IPO Allotments" Value="IPO_Allotments">
-                                                    </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" Text="MF SIP MIS" Value="MF systematic MIS">
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="Client Net worth" Value="Prospect List"
                                                         Visible="false">
@@ -1513,14 +1513,14 @@
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text="NCD/IPO Allotment" Value="NCD_IPO_Allotments">
                                             </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="MF Folio Accounts" Value="MF Folios">
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="Transactionss" Value="MFT">
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="MF SIP MIS" Value="MF systematic MIS">
+                                            </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Queries" Value="Queries">
                                                 <Items>
-                                                    <telerik:RadPanelItem runat="server" Text="MF Folio Accounts" Value="MF Folios">
-                                                    </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" Text="Transactionss" Value="MFT">
-                                                    </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" Text="MF SIP MIS" Value="MF systematic MIS">
-                                                    </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="Client Net worth" Value="Prospect List"
                                                         Visible="false">
                                                     </telerik:RadPanelItem>
