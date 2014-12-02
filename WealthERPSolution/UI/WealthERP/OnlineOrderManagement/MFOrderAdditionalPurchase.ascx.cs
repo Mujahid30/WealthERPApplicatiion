@@ -307,8 +307,10 @@ namespace WealthERP.OnlineOrderManagement
                 ddlScheme.DataValueField = dtScheme.Columns["PASP_SchemePlanCode"].ToString();
                 ddlScheme.DataTextField = dtScheme.Columns["PASP_SchemePlanName"].ToString();
                 ddlScheme.DataBind();
-                ddlScheme.Items.Insert(0, new ListItem("Select", "0"));
+                ddlScheme.Items.Insert(0, new ListItem("--SELECT--", "0"));
             }
+            else
+                ddlScheme.Items.Insert(0, new ListItem("--SELECT--", "0"));
         }
         protected void ResetControlDetails(object sender, EventArgs e)
         {
