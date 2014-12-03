@@ -156,13 +156,13 @@ namespace DaoCustomerPortfolio
             }
             return dsTradeAccount;
         }
-        public bool AddDematDetails(int customerId, int portfolioId, DematAccountVo demataccountvo, RMVo rmvo)
+        public int AddDematDetails(int customerId, int portfolioId, DematAccountVo demataccountvo, RMVo rmvo)
         {
-            bool result = false;
+            //bool result = false;
+            int result = 0;
             Database db;
             DbCommand dbDematDetails;
-            DbCommand dbAssociationTypes=null;
-            DbCommand dbTradeAccount=null;
+            
             int dematAccountId=0;
             try
             {
@@ -185,11 +185,14 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(dbDematDetails,"@CEDA_CreatedBy",DbType.Int32,rmvo.RMId);
                 db.AddInParameter(dbDematDetails,"@CEDA_ModifiedBy",DbType.Int32,rmvo.RMId);
                 db.AddInParameter(dbDematDetails,"@C_CustomerId",DbType.Int32,customerId);
-                
-                if ((db.ExecuteNonQuery(dbDematDetails))!=0)
-                {
-                    result = true;
-                }
+                db.AddOutParameter(dbDematDetails, "@CEDA_DematAccountId", DbType.Int32, 1000);
+
+                if (db.ExecuteNonQuery(dbDematDetails) != 0)
+                    result = Convert.ToInt32(db.GetParameterValue(dbDematDetails, "@CEDA_DematAccountId").ToString()); ;
+                //if ((db.ExecuteNonQuery(dbDematDetails))!=0)
+                //{
+                //    result = true;
+                //}
                 
             }
             catch (BaseApplicationException ex)

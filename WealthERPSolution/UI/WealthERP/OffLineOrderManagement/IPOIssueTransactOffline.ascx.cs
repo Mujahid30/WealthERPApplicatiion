@@ -34,6 +34,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Timers;
 using VoCustomerProfiling;
+using System.Collections;
 
 namespace WealthERP.OffLineOrderManagement
 {
@@ -45,6 +46,8 @@ namespace WealthERP.OffLineOrderManagement
         CustomerAccountBo customerAccountBo = new CustomerAccountBo();
         CustomerBo customerBo = new CustomerBo();
         AdvisorVo advisorVo;
+        DematAccountVo demataccountvo = new DematAccountVo();
+        BoCustomerPortfolio.BoDematAccount bodemataccount = new BoDematAccount();
         OnlineBondOrderVo OnlineBondVo = new OnlineBondOrderVo();
         OperationBo operationBo = new OperationBo();
         MFOrderBo mfOrderBo = new MFOrderBo();
@@ -89,12 +92,13 @@ namespace WealthERP.OffLineOrderManagement
         BoDematAccount boDematAccount = new BoDematAccount();
         DataTable dtOnlineIPOIssueList;
         DataTable AgentId;
+        CustomerPortfolioVo customerportfoliovo = new CustomerPortfolioVo();
         protected void Page_Load(object sender, EventArgs e)
         {
-          
+
             SessionBo.CheckSession();
             associatesVo = (AssociatesVO)Session["associatesVo"];
-          
+
             userVo = (UserVo)Session[SessionContents.UserVo];
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
 
@@ -102,6 +106,7 @@ namespace WealthERP.OffLineOrderManagement
             GetUserType();
             tblMessage.Visible = false;
             rwTermsCondition.VisibleOnPageLoad = false;
+           
             if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
             {
                 txtCustomerName_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
@@ -141,10 +146,11 @@ namespace WealthERP.OffLineOrderManagement
 
             }
 
-           
+
             if (!IsPostBack)
             {
-                
+                RadWindow1.VisibleOnPageLoad = false;
+                RadDemateAdd.VisibleOnPageLoad = false;
                 txtPaymentInstDate.MinDate = DateTime.Now.AddDays(-10);
                 txtPaymentInstDate.MaxDate = DateTime.Now.AddDays(10);
 
@@ -305,7 +311,7 @@ namespace WealthERP.OffLineOrderManagement
                     }
                     BindBank();
                     ddlBankName.SelectedValue = dr["CO_BankName"].ToString();
-                    
+
                     gvAssociate.Visible = true;
                 }
             }
@@ -474,9 +480,9 @@ namespace WealthERP.OffLineOrderManagement
                 Label lblBidHighestValue = (Label)footeritem["BidAmountPayable"].FindControl("lblFinalBidAmountPayable");
                 maxPaybleBidAmount = Convert.ToDouble(lblBidHighestValue.Text.Trim());
             }
-            if (Page.IsValid )
+            if (Page.IsValid)
             {
-                isBidsVallid = ValidateIPOBids(out errorMsg,1);
+                isBidsVallid = ValidateIPOBids(out errorMsg, 1);
 
                 if (!isBidsVallid)
                 {
@@ -492,7 +498,7 @@ namespace WealthERP.OffLineOrderManagement
                 }
             }
         }
-      
+
         public void GetUserType()
         {
 
@@ -760,7 +766,7 @@ namespace WealthERP.OffLineOrderManagement
                 trPINo.Visible = true;
                 RequiredFieldValidator8.Enabled = true;
                 CompareValidator14.Enabled = true;
-               
+
                 txtBranchName.Visible = true;
                 lblBankBranchName.Visible = true;
                 RequiredFieldValidator7.Enabled = true;
@@ -780,7 +786,7 @@ namespace WealthERP.OffLineOrderManagement
                 RequiredFieldValidator7.Enabled = false;
                 //tdBankBranch.Visible = false;
             }
-            
+
 
         }
         //protected void ddlBankName_SelectedIndexChanged(object sender, EventArgs e)
@@ -1386,10 +1392,10 @@ namespace WealthERP.OffLineOrderManagement
         {
             string errorMsg = string.Empty;
             bool isBidsVallid = false;
-            Page.Validate();
-            if (Page.IsValid && Validation())
+            Page.Validate("btnConfirmOrder");
+            if ( Validation() && Page.IsValid)
             {
-                isBidsVallid = ValidateIPOBids(out errorMsg,0);
+                isBidsVallid = ValidateIPOBids(out errorMsg, 0);
 
                 if (!isBidsVallid)
                 {
@@ -1662,7 +1668,7 @@ namespace WealthERP.OffLineOrderManagement
             ddlPaymentMode.SelectedIndex = 0;
             ddlBankName.SelectedIndex = -1;
             txtBranchName.Text = "";
-            txtBankAccount.Text= "";
+            txtBankAccount.Text = "";
             txtPaymentNumber.Text = "";
             txtPaymentInstDate.SelectedDate = null;
             txtDematid.Text = string.Empty;
@@ -1679,7 +1685,7 @@ namespace WealthERP.OffLineOrderManagement
             trASBA.Visible = false;
             Td3.Visible = false;
             Td4.Visible = false;
-
+          
 
         }
         protected void lnkTermsCondition_Click(object sender, EventArgs e)
@@ -1732,8 +1738,8 @@ namespace WealthERP.OffLineOrderManagement
             decimal maxBidAmount = Convert.ToDecimal(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIIC_MaxBidAmount"].ToString());
             GridFooterItem footerItem = (GridFooterItem)RadGridIPOBid.MasterTableView.GetItems(GridItemType.Footer)[0];
             Label lblFinalBidAmountPayable = (Label)footerItem["BidAmountPayable"].FindControl("lblFinalBidAmountPayable");
-            decimal maxPaybleAmount1 =Convert.ToDecimal( lblFinalBidAmountPayable.Text);
-            decimal maxPaybleAmount =Convert.ToDecimal(((TextBox)footerItem.FindControl("txtFinalBidValue")).Text);//accessing Button inside 
+            decimal maxPaybleAmount1 = Convert.ToDecimal(lblFinalBidAmountPayable.Text);
+            decimal maxPaybleAmount = Convert.ToDecimal(((TextBox)footerItem.FindControl("txtFinalBidValue")).Text);//accessing Button inside 
             Boolean isMultipleApplicationAllowed = Convert.ToBoolean(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIM_IsMultipleApplicationsallowed"].ToString());
             int issueId = int.Parse(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIM_IssueId"].ToString());
             if (isMultipleApplicationAllowed == false)
@@ -1752,26 +1758,26 @@ namespace WealthERP.OffLineOrderManagement
                 isBidValid = false;
                 return isBidValid;
             }
-            
-                if (maxPaybleAmount > 0)
+
+            if (maxPaybleAmount > 0)
+            {
+                if (minBidAmount > maxPaybleAmount || maxBidAmount < maxPaybleAmount)
                 {
-                    if (minBidAmount > maxPaybleAmount || maxBidAmount < maxPaybleAmount)
-                    {
-                        msg = "Bid Value (Amount Payable) should be greater than the Min bid amount and less than the Max bid amount";
-                        isBidValid = false;
-                        return isBidValid;
-                    }
+                    msg = "Bid Value (Amount Payable) should be greater than the Min bid amount and less than the Max bid amount";
+                    isBidValid = false;
+                    return isBidValid;
                 }
-                else if (typeOfvalidation!=1 && maxPaybleAmount < 0)
+            }
+            else if (typeOfvalidation != 1 && maxPaybleAmount < 0)
+            {
+                if (minBidAmount > maxPaybleAmount1 || maxBidAmount < maxPaybleAmount1)
                 {
-                    if (minBidAmount > maxPaybleAmount1 || maxBidAmount < maxPaybleAmount1)
-                    {
-                        msg = "Bid Value (Amount Payable) should be greater than the Min bid amount and less than the Max bid amount";
-                        isBidValid = false;
-                        return isBidValid;
-                    }
+                    msg = "Bid Value (Amount Payable) should be greater than the Min bid amount and less than the Max bid amount";
+                    isBidValid = false;
+                    return isBidValid;
                 }
-            
+            }
+
             if (!string.IsNullOrEmpty(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIM_TradingInMultipleOf"].ToString()))
                 issueQtyMultiple = Convert.ToInt16(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIM_TradingInMultipleOf"].ToString());
             if (!string.IsNullOrEmpty(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIM_MInQty"].ToString()))
@@ -1797,13 +1803,13 @@ namespace WealthERP.OffLineOrderManagement
                     {
                         msg = "Please enter Quantity in multiples permissibile for this issue";
                         isBidValid = false;
-                        return isBidValid;  
+                        return isBidValid;
                     }
                 }
                 if (bidAmountPayble > 0)
                     validBidSum += int.Parse(item.GetDataKeyValue("IssueBidNo").ToString());
 
-                if (bidAmountPayble <= 0 && int.Parse(item.GetDataKeyValue("IssueBidNo").ToString()) == 1 )
+                if (bidAmountPayble <= 0 && int.Parse(item.GetDataKeyValue("IssueBidNo").ToString()) == 1)
                 {
                     msg = "Bid found missing.Please enter the bids in sequence starting from the top!";
                     isBidValid = false;
@@ -1842,7 +1848,7 @@ namespace WealthERP.OffLineOrderManagement
                     int maxQuantity = 0;
                     double minBidPrice = 0;
                     double maxBidPrice = 0;
-                    
+
                     {
                         int.TryParse(dtOnlineIPOIssueList.Rows[0]["AIM_MInQty"].ToString(), out minQuantity);
                         int.TryParse(dtOnlineIPOIssueList.Rows[0]["AIM_MaxQty"].ToString(), out maxQuantity);
@@ -1872,7 +1878,7 @@ namespace WealthERP.OffLineOrderManagement
                         if (Request.QueryString["action"] != null && (e.Item.ItemIndex != -1))
                         {
                             RadGridIPOBid.MasterTableView.GetColumn("COID_ExchangeRefrenceNo").Visible = true;
-                            
+
                         }
                     }
                 }
@@ -1932,6 +1938,7 @@ namespace WealthERP.OffLineOrderManagement
         {
             GetDematAccountDetails(int.Parse(txtCustomerId.Value));
             rwDematDetails.VisibleOnPageLoad = true;
+            RadDemateAdd.VisibleOnPageLoad = false;
         }
 
         protected void LinkButton1_onClick(object sender, EventArgs e)
@@ -1985,152 +1992,152 @@ namespace WealthERP.OffLineOrderManagement
             BindSubTypeDropDown(1001);
             trSalutation.Visible = true;
         }
-         protected void rbtnNonIndividual_CheckedChanged(object sender, EventArgs e)
-        {
-           
-
-                BindSubTypeDropDown(1002);
-                ddlAdviserBranchList.Items.Clear();
-                ddlAdviseRMList.Items.Clear();
-                BindListBranch();
-                BindRMforBranchDropdown(0, 0);
-                trIndividualName.Visible = false;
-                trNonIndividualName.Visible = true;
-                trSalutation.Visible = false;
-            }
-         private void BindListBranch()
-         {
-             if (advisorVo.A_AgentCodeBased != 1)
-             {
-                 UploadCommonBo uploadCommonBo = new UploadCommonBo();
-                 DataSet ds = uploadCommonBo.GetAdviserBranchList(advisorVo.advisorId, "adviser");
-                 if (ds != null && ds.Tables[0].Rows.Count > 0)
-                 {
-                     ddlAdviserBranchList.DataSource = ds.Tables[0];
-                     ddlAdviserBranchList.DataTextField = "AB_BranchName";
-                     ddlAdviserBranchList.DataValueField = "AB_BranchId";
-                     //ddlAdviserBranchList.SelectedValue = "1339";
-                     ddlAdviserBranchList.DataBind();
-                     ddlAdviserBranchList.Items.Insert(0, new ListItem("Select", "Select"));
-                 }
-                 else
-                 {
-                     ddlAdviserBranchList.Items.Insert(0, new ListItem("No Branches Available to Associate", "No Branches Available to Associate"));
-                     ddlAdviserBranchList_CompareValidator2.ValueToCompare = "No Branches Available to Associate";
-                     ddlAdviserBranchList_CompareValidator2.ErrorMessage = "Cannot Add Customer Without a Branch";
-                 }
-             }
-             else
-             {
-                 DataSet BMDs = new DataSet();
-                 DataTable BMList = new DataTable();
-                 //BMList.Columns.Add("AB_BranchId");
-                 //BMList.Columns.Add("AB_BranchName");
-                 BMDs = advisorBranchBo.GetBMRoleForAgentBased(advisorVo.advisorId);
-
-                 if (BMDs.Tables[0].Rows.Count > 0)
-                 {
-                     ddlAdviserBranchList.DataSource = BMDs;
-                     ddlAdviserBranchList.DataValueField = BMDs.Tables[0].Columns["AB_BranchId"].ToString();
-                     ddlAdviserBranchList.DataTextField = BMDs.Tables[0].Columns["AB_BranchName"].ToString();
-                     ddlAdviserBranchList.DataBind();
-                     ddlAdviserBranchList.Enabled = false;
-                 }
-                 else
-                 {
-                     ddlAdviseRMList.Enabled = false;
-                 }
-
-             }
-         }
-        private void BindRMforBranchDropdown(int branchId, int branchHeadId)
+        protected void rbtnNonIndividual_CheckedChanged(object sender, EventArgs e)
         {
 
-          
-                if (advisorVo.A_AgentCodeBased != 1)
+
+            BindSubTypeDropDown(1002);
+            ddlAdviserBranchList.Items.Clear();
+            ddlAdviseRMList.Items.Clear();
+            BindListBranch();
+            BindRMforBranchDropdown(0, 0);
+            trIndividualName.Visible = false;
+            trNonIndividualName.Visible = true;
+            trSalutation.Visible = false;
+        }
+        private void BindListBranch()
+        {
+            if (advisorVo.A_AgentCodeBased != 1)
+            {
+                UploadCommonBo uploadCommonBo = new UploadCommonBo();
+                DataSet ds = uploadCommonBo.GetAdviserBranchList(advisorVo.advisorId, "adviser");
+                if (ds != null && ds.Tables[0].Rows.Count > 0)
                 {
-                    DataSet ds = advisorBranchBo.GetAllRMsWithOutBMRole(branchId, branchHeadId);
-                    if (ds.Tables[0].Rows.Count > 0)
-                    {
-                        ddlAdviseRMList.DataSource = ds.Tables[0];
-                        ddlAdviseRMList.DataValueField = ds.Tables[0].Columns["RmID"].ToString();
-                        ddlAdviseRMList.DataTextField = ds.Tables[0].Columns["RMName"].ToString();
-                        ddlAdviseRMList.DataBind();
-                        
-                    }
-                    else
-                    {
-                        if (!IsPostBack)
-                        {
-                            ddlAdviseRMList.Items.Insert(0, new ListItem("Select", "Select"));
-                            CompareValidator2.ValueToCompare = "Select";
-                            CompareValidator2.ErrorMessage = "Please select a RM";
-
-                        }
-                        else
-                        {
-                            if (rbtnNonIndividual.Checked == true)
-                            {
-                                if ((IsPostBack) && (ddlAdviserBranchList.SelectedIndex == 0))
-                                {
-                                    ddlAdviseRMList.Items.Clear();
-                                    ddlAdviseRMList.Items.Insert(0, new ListItem("Select", "Select"));
-                                    CompareValidator2.ValueToCompare = "Select";
-                                    CompareValidator2.ErrorMessage = "Please select a RM";
-                                }
-                                else
-                                {
-                                    ddlAdviseRMList.Items.Clear();
-                                    ddlAdviseRMList.Items.Remove("Select");
-                                    ddlAdviseRMList.Items.Insert(0, new ListItem("No RM Available", "No RM Available"));
-                                    CompareValidator2.ValueToCompare = "No RM Available";
-                                    CompareValidator2.ErrorMessage = "Cannot Add Customer Without a RM";
-
-
-                                }
-                            }
-                            else
-                            {
-                                if ((IsPostBack) && (ddlAdviserBranchList.SelectedIndex == 0))
-                                {
-                                    ddlAdviseRMList.Items.Clear();
-                                    ddlAdviseRMList.Items.Insert(0, new ListItem("Select", "Select"));
-                                    CompareValidator2.ValueToCompare = "Select";
-                                    CompareValidator2.ErrorMessage = "Please select a RM";
-                                }
-                                else
-                                {
-                                    ddlAdviseRMList.Items.Clear();
-                                    ddlAdviseRMList.Items.Remove("Select");
-                                    ddlAdviseRMList.Items.Insert(0, new ListItem("No RM Available", "No RM Available"));
-                                    CompareValidator2.ValueToCompare = "No RM Available";
-                                    CompareValidator2.ErrorMessage = "Cannot Add Customer Without a RM";
-                                }
-                            }
-                        }
-                    }
+                    ddlAdviserBranchList.DataSource = ds.Tables[0];
+                    ddlAdviserBranchList.DataTextField = "AB_BranchName";
+                    ddlAdviserBranchList.DataValueField = "AB_BranchId";
+                    //ddlAdviserBranchList.SelectedValue = "1339";
+                    ddlAdviserBranchList.DataBind();
+                    ddlAdviserBranchList.Items.Insert(0, new ListItem("Select", "Select"));
                 }
                 else
                 {
-                    DataSet Rmds = new DataSet();
-                    
-                    Rmds = advisorBranchBo.GetRMRoleForAgentBased(advisorVo.advisorId);
+                    ddlAdviserBranchList.Items.Insert(0, new ListItem("No Branches Available to Associate", "No Branches Available to Associate"));
+                    ddlAdviserBranchList_CompareValidator2.ValueToCompare = "No Branches Available to Associate";
+                    ddlAdviserBranchList_CompareValidator2.ErrorMessage = "Cannot Add Customer Without a Branch";
+                }
+            }
+            else
+            {
+                DataSet BMDs = new DataSet();
+                DataTable BMList = new DataTable();
+                //BMList.Columns.Add("AB_BranchId");
+                //BMList.Columns.Add("AB_BranchName");
+                BMDs = advisorBranchBo.GetBMRoleForAgentBased(advisorVo.advisorId);
 
-                    if (Rmds.Tables[0].Rows.Count > 0)
-                    {
-                        ddlAdviseRMList.DataSource = Rmds;
-                        ddlAdviseRMList.DataValueField = Rmds.Tables[0].Columns["RmID"].ToString();
-                        ddlAdviseRMList.DataTextField = Rmds.Tables[0].Columns["RMName"].ToString();
-                        ddlAdviseRMList.DataBind();
-                        ddlAdviseRMList.Enabled = false;
-                    }
-                    else
-                    {
-                        ddlAdviseRMList.Enabled = false;
-                    }
+                if (BMDs.Tables[0].Rows.Count > 0)
+                {
+                    ddlAdviserBranchList.DataSource = BMDs;
+                    ddlAdviserBranchList.DataValueField = BMDs.Tables[0].Columns["AB_BranchId"].ToString();
+                    ddlAdviserBranchList.DataTextField = BMDs.Tables[0].Columns["AB_BranchName"].ToString();
+                    ddlAdviserBranchList.DataBind();
+                    ddlAdviserBranchList.Enabled = false;
+                }
+                else
+                {
+                    ddlAdviseRMList.Enabled = false;
                 }
 
             }
+        }
+        private void BindRMforBranchDropdown(int branchId, int branchHeadId)
+        {
+
+
+            if (advisorVo.A_AgentCodeBased != 1)
+            {
+                DataSet ds = advisorBranchBo.GetAllRMsWithOutBMRole(branchId, branchHeadId);
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    ddlAdviseRMList.DataSource = ds.Tables[0];
+                    ddlAdviseRMList.DataValueField = ds.Tables[0].Columns["RmID"].ToString();
+                    ddlAdviseRMList.DataTextField = ds.Tables[0].Columns["RMName"].ToString();
+                    ddlAdviseRMList.DataBind();
+
+                }
+                else
+                {
+                    if (!IsPostBack)
+                    {
+                        ddlAdviseRMList.Items.Insert(0, new ListItem("Select", "Select"));
+                        CompareValidator2.ValueToCompare = "Select";
+                        CompareValidator2.ErrorMessage = "Please select a RM";
+
+                    }
+                    else
+                    {
+                        if (rbtnNonIndividual.Checked == true)
+                        {
+                            if ((IsPostBack) && (ddlAdviserBranchList.SelectedIndex == 0))
+                            {
+                                ddlAdviseRMList.Items.Clear();
+                                ddlAdviseRMList.Items.Insert(0, new ListItem("Select", "Select"));
+                                CompareValidator2.ValueToCompare = "Select";
+                                CompareValidator2.ErrorMessage = "Please select a RM";
+                            }
+                            else
+                            {
+                                ddlAdviseRMList.Items.Clear();
+                                ddlAdviseRMList.Items.Remove("Select");
+                                ddlAdviseRMList.Items.Insert(0, new ListItem("No RM Available", "No RM Available"));
+                                CompareValidator2.ValueToCompare = "No RM Available";
+                                CompareValidator2.ErrorMessage = "Cannot Add Customer Without a RM";
+
+
+                            }
+                        }
+                        else
+                        {
+                            if ((IsPostBack) && (ddlAdviserBranchList.SelectedIndex == 0))
+                            {
+                                ddlAdviseRMList.Items.Clear();
+                                ddlAdviseRMList.Items.Insert(0, new ListItem("Select", "Select"));
+                                CompareValidator2.ValueToCompare = "Select";
+                                CompareValidator2.ErrorMessage = "Please select a RM";
+                            }
+                            else
+                            {
+                                ddlAdviseRMList.Items.Clear();
+                                ddlAdviseRMList.Items.Remove("Select");
+                                ddlAdviseRMList.Items.Insert(0, new ListItem("No RM Available", "No RM Available"));
+                                CompareValidator2.ValueToCompare = "No RM Available";
+                                CompareValidator2.ErrorMessage = "Cannot Add Customer Without a RM";
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                DataSet Rmds = new DataSet();
+
+                Rmds = advisorBranchBo.GetRMRoleForAgentBased(advisorVo.advisorId);
+
+                if (Rmds.Tables[0].Rows.Count > 0)
+                {
+                    ddlAdviseRMList.DataSource = Rmds;
+                    ddlAdviseRMList.DataValueField = Rmds.Tables[0].Columns["RmID"].ToString();
+                    ddlAdviseRMList.DataTextField = Rmds.Tables[0].Columns["RMName"].ToString();
+                    ddlAdviseRMList.DataBind();
+                    ddlAdviseRMList.Enabled = false;
+                }
+                else
+                {
+                    ddlAdviseRMList.Enabled = false;
+                }
+            }
+
+        }
         private void BindSubTypeDropDown(int lookupParentId)
         {
             DataTable dtCustomerTaxSubTypeLookup = new DataTable();
@@ -2140,6 +2147,7 @@ namespace WealthERP.OffLineOrderManagement
             ddlCustomerSubType.DataTextField = "WCMV_Name";
             ddlCustomerSubType.DataValueField = "WCMV_LookupId";
             ddlCustomerSubType.DataBind();
+            if(rbtnIndividual.Checked==true)
             ddlCustomerSubType.SelectedValue = "2017";
             //ddlCustomerSubType.Items.Insert(0, new ListItem("--SELECT--", "0"));
         }
@@ -2149,7 +2157,7 @@ namespace WealthERP.OffLineOrderManagement
             List<int> customerIds = null;
             try
             {
-                
+
                 Nullable<DateTime> dt = new DateTime();
                 customerIds = new List<int>();
                 lblPanDuplicate.Visible = false;
@@ -2270,14 +2278,6 @@ namespace WealthERP.OffLineOrderManagement
                         familyVo.Relationship = "SELF";
                         familyBo.CreateCustomerFamily(familyVo, customerIds[1], userVo.UserId);
 
-                        //if (page == "Entry")
-                        //{
-                        //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('OrderEntry','?CustomerId=" + familyVo.CustomerId + " ');", true);
-
-                        //}
-                        //else
-                        //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Customer Added Successfully!!');", true);
-                        ////trSumbitSuccess.Visible = true;
                         MakeReadonlyControls();
                         RadWindow1.VisibleOnPageLoad = false;
                         //DataTable dtcustomer = OfflineIPOOrderBo.GetAddedCustomer(customerid);
@@ -2364,7 +2364,131 @@ namespace WealthERP.OffLineOrderManagement
             //BindListBranch(rmVo.RMId, "rm");
             BindSubTypeDropDown(1001);
             RadWindow1.VisibleOnPageLoad = true;
+            txtPanNumber.Text = "";
+            txtFirstName.Text = "";
+            txtMiddleName.Text = "";
+            txtLastName.Text = "";
+            txtEmail.Text = "";
+            txtMobileNumber.Text = "";
         }
-        
+        public void ImageButton1_OnClick(object sender, ImageClickEventArgs e)
+        {
+            RadDemateAdd.VisibleOnPageLoad = true;
+            BindDepositoryType();
+            BindModeofHolding();
+            txtDpClientId.Text = "";
+            txtDPId.Text = "";
+            txtDpName.Text = "";
+           
+        }
+        protected void ddlModeOfHolding_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+        protected void DematebtnSubmit_Click(object sender, EventArgs e)
+        {
+            int result = 0;
+            string accountopeningdate = txtAccountOpeningDate.SelectedDate.ToString();
+            int customerId = 0;
+            if(ViewState["customerID"]!=null)
+                customerId=int.Parse(ViewState["customerID"].ToString());
+            else
+                customerVo = (CustomerVo)Session["customerVo"];
+            customerId = customerVo.CustomerId;
+            if (Page.IsValid)
+            {
+
+                try
+                {
+                    
+                        if (!string.IsNullOrEmpty(accountopeningdate.Trim()))
+                            demataccountvo.AccountOpeningDate = DateTime.Parse(accountopeningdate);
+                        demataccountvo.DpclientId = txtDpClientId.Text;
+                        demataccountvo.DpId = txtDPId.Text;
+                        demataccountvo.DpName = txtDpName.Text;
+                        demataccountvo.DepositoryName = ddlDepositoryName.SelectedValue;
+                        if (rbtnYes.Checked == true)
+                            demataccountvo.IsHeldJointly = 1;
+                        else
+                            demataccountvo.IsHeldJointly = 0;
+                        demataccountvo.ModeOfHolding = ddlModeOfHolding.SelectedValue.ToString();
+                        result = bodemataccount.AddDematDetails(customerId, int.Parse(hdnPortfolioId.Value), demataccountvo, rmVo);
+                        txtDematid.Text = txtDpClientId.Text;
+                        ViewState["demateId"] = result;
+                        BindgvFamilyAssociate(result);
+                        GetDematAccountDetails(customerId);
+                    RadDemateAdd.VisibleOnPageLoad = false;
+                    }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+        }
+        protected void rbtnNo_CheckChanged(object sender, EventArgs e)
+        {
+            ddlModeOfHolding.SelectedIndex = 8;
+            ddlModeOfHolding.Enabled = false;
+
+        }
+        protected void RadioButton_CheckChanged(object sender, EventArgs e)
+        {
+            if (rbtnYes.Checked && !(rbtnNo.Checked))
+            {
+                ddlModeOfHolding.SelectedIndex = 4;
+
+                ddlModeOfHolding.Enabled = true;
+            }
+        }
+        protected void ddlDepositoryName_SelectedIndexChanged(object sender, EventArgs e)
+        {
+             if (ddlDepositoryName.SelectedItem.Text == "NSDL")
+                {
+                    txtDPId.Enabled = true;
+                }
+                else if (ddlDepositoryName.SelectedItem.Text == "CDSL")
+                {
+                    txtDPId.Enabled = false;
+                }
+          
+        }
+        protected void BindDepositoryType()
+        {
+            DataTable DsDepositoryNames = new DataTable();
+            DsDepositoryNames = bodemataccount.GetDepositoryName();
+            ddlDepositoryName.DataSource = DsDepositoryNames;
+            if (DsDepositoryNames.Rows.Count > 0)
+            {
+                ddlDepositoryName.DataTextField = "WCMV_Code";
+                ddlDepositoryName.DataValueField = "WCMV_Code";
+                ddlDepositoryName.DataBind();
+            }
+            ddlDepositoryName.Items.Insert(0, new ListItem("Select", "Select"));
+
+        }
+        protected void BindModeofHolding()
+        {
+            DataSet dsModeOfHolding = bodemataccount.GetXmlModeOfHolding();
+            ddlModeOfHolding.DataSource = dsModeOfHolding;
+            ddlModeOfHolding.DataTextField = "XMOH_ModeOfHolding";
+            ddlModeOfHolding.DataValueField = "XMOH_ModeOfHoldingCode";
+            ddlModeOfHolding.DataBind();
+            ddlModeOfHolding.SelectedIndex = 8;
+        }
+        protected void gvDematDetailsTeleR_OnItemDataBound(object sender, GridItemEventArgs e)
+        {
+            CheckBox chk=(CheckBox)e.Item.FindControl("chkDematId");
+            if (e.Item is GridDataItem)
+            {
+                int dpid =int.Parse(gvDematDetailsTeleR.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CEDA_DematAccountId"].ToString());
+                if (ViewState["demateId"] != null)
+                {
+                    if (dpid == int.Parse(ViewState["demateId"].ToString()))
+                    {
+                        chk.Checked = true;
+                    }
+                }
+            }
+        }
     }
 }

@@ -15,7 +15,17 @@
         sender.moveTo(sender.get_left(), sender.get_top());
     }
 </script>
-
+<script runat="server">
+  
+    protected void rbtnNo_Load(object sender, EventArgs e)
+    {
+        if (rbtnNo.Checked)
+        {
+            ddlModeOfHolding.Enabled = false;
+        }
+    }
+   
+</script>
 <%--<script type="text/javascript">
     function HideLabel(tblMessage) {
         setTimeout("HideLabelHelper('" + tblMessage + "');", 50000);
@@ -42,23 +52,23 @@
         return true;
     }
 
-    function openpopupAddCustomer() {
-        window.open('PopUp.aspx?AddMFCustLinkId=mf&pageID=CustomerType&', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')
-        return true;
+//    function openpopupAddCustomer() {
+//        window.open('PopUp.aspx?AddMFCustLinkId=mf&pageID=CustomerType&', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')
+//        return true;
 
-    }
-    function openpopupAddDematAccount() {
+//    }
+//    function openpopupAddDematAccount() {
 
-        var customerId = document.getElementById("<%=txtCustomerId.ClientID %>").value;
-        var customerPortfolioId = document.getElementById("<%=hdnPortfolioId.ClientID %>").value;
-        if (customerId != 0) {
-            window.open('PopUp.aspx?PageId=AddDematAccountDetails&CustomerId=' + customerId + '&CustomerPortfolioId=' + customerPortfolioId, 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')
+//        var customerId = document.getElementById("<%=txtCustomerId.ClientID %>").value;
+//        var customerPortfolioId = document.getElementById("<%=hdnPortfolioId.ClientID %>").value;
+//        if (customerId != 0) {
+//            window.open('PopUp.aspx?PageId=AddDematAccountDetails&CustomerId=' + customerId + '&CustomerPortfolioId=' + customerPortfolioId, 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')
 
-        }
-        else {
-            alert("Please Select the Customer From Search")
-        }
-    }
+//        }
+//        else {
+//            alert("Please Select the Customer From Search")
+//        }
+//    }
     
    
 </script>
@@ -357,12 +367,9 @@
             
                  
                 </asp:TextBox><span id="spnCustomer" class="spnRequiredField">*</span>
-              
                 <asp:ImageButton ID="btnImgAddCustomer" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
                     AlternateText="Add" runat="server" ToolTip="Click here to Add Customer" OnClick="btnImgAddCustomer_OnClick"
                     Height="15px" Width="15px" TabIndex="3" CausesValidation="false"></asp:ImageButton>
-                    
-                    
                 <cc1:TextBoxWatermarkExtender ID="txtCustomer_water" TargetControlID="txtCustomerName"
                     WatermarkText="Enter few chars of Customer" runat="server" EnableViewState="false">
                 </cc1:TextBoxWatermarkExtender>
@@ -498,15 +505,15 @@
                 <asp:Label ID="lblDepository" runat="server" Text="Depository Type: " CssClass="FieldName"></asp:Label>
             </td>
             <td id="Td2" class="rightField" style="width: 20%" runat="server" visible="false">
-                <asp:DropDownList ID="ddlDepositoryName" runat="server" CssClass="cmbField" AutoPostBack="true">
-                </asp:DropDownList>
+               <%-- <asp:DropDownList ID="ddlDepositoryName" runat="server" CssClass="cmbField" AutoPostBack="true">
+                </asp:DropDownList>--%>
                 <asp:ImageButton ID="ImageddlSyndicate" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
                     AlternateText="Add" runat="server" ToolTip="Click here to Add Depository Type"
                     OnClick="ImageddlSyndicate_Click" Height="15px" Width="15px"></asp:ImageButton>
                 <br />
-                <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="ddlDepositoryName"
+                <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="ddlDepositoryName"
                     ErrorMessage="<br />Please Enter Depository Name" Display="Dynamic" runat="server"
-                    CssClass="rfvPCG" ValidationGroup="btnConfirmOrder"></asp:RequiredFieldValidator>
+                    CssClass="rfvPCG" ValidationGroup="btnConfirmOrder"></asp:RequiredFieldValidator>--%>
             </td>
         </tr>
         <%--<tr>
@@ -705,13 +712,13 @@
         <tr id="tdlnkbtn" runat="server">
             <td class="leftField" style="width: 20%">
                 <asp:LinkButton ID="lnkBtnDemat" runat="server" OnClick="lnkBtnDemat_onClick" CssClass="LinkButtons"
-                    Text="Click to select Demat Details"></asp:LinkButton>
+                    Text="Click to select Demat Details" CausesValidation="false"></asp:LinkButton>
             </td>
             <td id="Td5" class="rightField" style="width: 20%" colspan="2">
                 <asp:ImageButton ID="ImageButton1" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
                     AlternateText="Add Demat Account" runat="server" ToolTip="Click here to Add Demat Account"
-                    OnClientClick="return openpopupAddDematAccount()" Height="15px" Width="15px"
-                    TabIndex="3"></asp:ImageButton>
+                    OnClick="ImageButton1_OnClick" Height="15px" Width="15px"
+                    TabIndex="3" CausesValidation="false"></asp:ImageButton>
             </td>
         </tr>
         <tr>
@@ -1128,7 +1135,7 @@
                     <telerik:RadGrid ID="gvDematDetailsTeleR" runat="server" AllowAutomaticInserts="false"
                         AllowFilteringByColumn="false" AllowPaging="true" AllowSorting="true" AutoGenerateColumns="False"
                         EnableEmbeddedSkins="false" EnableHeaderContextMenu="true" Height="150px" fAllowAutomaticDeletes="false"
-                        GridLines="none" ShowFooter="false" ShowStatusBar="false" Skin="Telerik">
+                        GridLines="none" ShowFooter="false" ShowStatusBar="false" Skin="Telerik" OnItemDataBound="gvDematDetailsTeleR_OnItemDataBound">
                         <%--<HeaderContextMenu EnableEmbeddedSkins="False">
                                 </HeaderContextMenu>--%>
                         <ExportSettings HideStructureColumns="true">
@@ -1206,7 +1213,7 @@
 </telerik:RadWindow>
 <telerik:RadWindow ID="RadWindow1" runat="server" VisibleOnPageLoad="false" Width="1000px"
     Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="Move, Resize,Close"
-    Title="Terms & Conditions" EnableShadow="true" OnClientShow="setCustomPosition"
+    Title="Add Customer" EnableShadow="true" OnClientShow="setCustomPosition"
     Top="10" Left="20">
     <ContentTemplate>
         <table width="100%" cellpadding="0" cellpadding="0">
@@ -1228,14 +1235,13 @@
                         <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Branch Name:"></asp:Label>
                     </td>
                     <td>
-                        <asp:DropDownList ID="ddlAdviserBranchList" AutoPostBack="true" runat="server" CssClass="cmbField"
-                            >
+                        <asp:DropDownList ID="ddlAdviserBranchList" AutoPostBack="true" runat="server" CssClass="cmbField">
                         </asp:DropDownList>
                         <span id="Span3" class="spnRequiredField">*</span>
                         <br />
                         <asp:CompareValidator ID="ddlAdviserBranchList_CompareValidator2" runat="server"
                             ControlToValidate="ddlAdviserBranchList" ErrorMessage="Please select a Branch"
-                            Operator="NotEqual" ValueToCompare="Select" CssClass="cvPCG" Display="Dynamic">
+                            Operator="NotEqual" ValueToCompare="Select" CssClass="cvPCG" Display="Dynamic" >
                         </asp:CompareValidator>
                     </td>
                 </tr>
@@ -1272,7 +1278,7 @@
                 </tr>
                 <tr>
                     <td class="leftField">
-                        <asp:Label ID="lblPanNum" runat="server" CssClass="FieldName" Text="PAN Number:"></asp:Label>
+                        <asp:Label ID="lblPanNum" runat="server" CssClass="FieldName" Text="PAN:"></asp:Label>
                     </td>
                     <td class="rightField" width="75%">
                         <asp:TextBox ID="txtPanNumber" runat="server" CssClass="txtField" MaxLength="10"></asp:TextBox>
@@ -1281,7 +1287,7 @@
                             Text="Dummy PAN" AutoPostBack="true" />
                         <br />
                         <asp:RequiredFieldValidator ID="rfvPanNumber" ControlToValidate="txtPanNumber" ErrorMessage="Please enter a PAN Number"
-                            Display="Dynamic" runat="server" CssClass="rfvPCG">
+                            Display="Dynamic" runat="server" CssClass="rfvPCG" ValidationGroup="CustomerProfileSubmit">
                         </asp:RequiredFieldValidator>
                         <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" Display="Dynamic"
                             CssClass="rfvPCG" ErrorMessage="Please check PAN Format" ControlToValidate="txtPanNumber"
@@ -1290,7 +1296,6 @@
                         <asp:Label ID="lblPanDuplicate" runat="server" CssClass="Error" Text="PAN Number already exists"></asp:Label>
                     </td>
                 </tr>
-             
                 <tr id="trSalutation" runat="server">
                     <td class="leftField">
                         <asp:Label ID="lblSalutation" runat="server" CssClass="FieldName" Text="Salutation:"></asp:Label>
@@ -1327,7 +1332,7 @@
                         </cc1:TextBoxWatermarkExtender>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator12" ControlToValidate="txtFirstName"
                             ErrorMessage="<br />Please enter the First Name" Display="Dynamic" runat="server"
-                            CssClass="rfvPCG">
+                            CssClass="rfvPCG" ValidationGroup="CustomerProfileSubmit">
                         </asp:RequiredFieldValidator>
                     </td>
                 </tr>
@@ -1341,7 +1346,7 @@
                         <br />
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator13" ControlToValidate="txtCompanyName"
                             ErrorMessage="Please enter the Company Name" Display="Dynamic" runat="server"
-                            CssClass="rfvPCG">
+                            CssClass="rfvPCG" ValidationGroup="CustomerProfileSubmit">
                         </asp:RequiredFieldValidator>
                     </td>
                 </tr>
@@ -1381,7 +1386,117 @@
                 </td>
                 <td class="SubmitCell">
                     <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="btnSubmit_Click"
-                        CssClass="PCGButton"  /><%----%>
+                        CssClass="PCGButton" ValidationGroup="CustomerProfileSubmit" /><%----%>
+                </td>
+            </tr>
+        </table>
+    </ContentTemplate>
+</telerik:RadWindow>
+<telerik:RadWindow ID="RadDemateAdd" runat="server" VisibleOnPageLoad="false" Width="1000px" Height="200px"
+    Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="Move, Resize,Close"
+    Title="Add Demate Account" EnableShadow="true" OnClientShow="setCustomPosition"
+    Top="10" Left="20">
+    <ContentTemplate>
+        <table class="TableBackground" width="100%">
+        <tr>
+        </tr>
+        <tr></tr>
+            <tr>
+                <td class="leftField" style="width: 150px;">
+                    <asp:Label ID="lblDpName" runat="server" Text="DP Name:" CssClass="FieldName"></asp:Label>
+                </td>
+                <td class="rightField">
+                    <asp:TextBox ID="txtDpName" runat="server" CssClass="txtField" Width="250px"></asp:TextBox>
+                    <span id="Span16" class="spnRequiredField">*</span>
+                </td>
+                <td class="leftField" style="width: 150px;">
+                    &nbsp;<asp:Label ID="lblDPId" runat="server" Text="DP Id:" CssClass="FieldName"></asp:Label>
+                </td>
+                <td class="rightField">
+                    <asp:TextBox ID="txtDPId" runat="server" CssClass="txtField"></asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td class="leftField">
+                    <asp:Label ID="Label4" runat="server" Text="Beneficiary Acct No:" CssClass="FieldName"></asp:Label>
+                </td>
+                <td class="rightField">
+                    <asp:TextBox ID="txtDpClientId" runat="server" CssClass="txtField"></asp:TextBox>
+                    <span id="Span17" class="spnRequiredField">*</span>
+                    <asp:RegularExpressionValidator ID="rev" runat="server" ControlToValidate="txtDpClientId"
+                        ValidationGroup="btnsubmit" ErrorMessage="Special Character are not allowed!"
+                        CssClass="cvPCG" Display="Dynamic" ValidationExpression="^[a-zA-Z0-9]+(?:--?[a-zA-Z0-9]+)*$" />
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator14" runat="server" ControlToValidate="txtDpClientId"
+                        ErrorMessage="Client Id Required" CssClass="cvPCG" ValidationGroup="btnsubmitdemate"
+                        Display="Dynamic"></asp:RequiredFieldValidator>
+                </td>
+                <td class="leftField">
+                    &nbsp;<asp:Label ID="lblAccountOpeningDate" runat="server" Text="Account Opening Date:"
+                        CssClass="FieldName"></asp:Label>
+                </td>
+                <td class="rightField">
+                    <!-- calAccountOpeningDate -->
+                    <telerik:RadDatePicker ID="txtAccountOpeningDate" CssClass="txtTo" runat="server"
+                        Culture="English (United States)" Skin="Telerik" EnableEmbeddedSkins="false"
+                        ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                        <Calendar ID="Calendar1" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
+                            ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
+                        </Calendar>
+                        <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                        <DateInput ID="DateInput1" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                        </DateInput>
+                    </telerik:RadDatePicker>
+                    <asp:CompareValidator ID="CompareValidator3" runat="server" ControlToValidate="txtAccountOpeningDate"
+                        Type="Date" Operator="DataTypeCheck" ErrorMessage="Please Enter a Valid Date"
+                        Display="Dynamic" CssClass="cvPCG" />
+                </td>
+            </tr>
+            <tr>
+                <td class="leftField">
+                    <asp:Label ID="lblIsHeldJointly" runat="server" Text="Is Held Jointly:" CssClass="FieldName"></asp:Label>
+                </td>
+                <td class="rightField">
+                    <asp:RadioButton ID="rbtnYes" runat="server" Text="Yes" GroupName="IsHeldJointly"
+                        CssClass="txtField" AutoPostBack="True" OnCheckedChanged="RadioButton_CheckChanged" />
+                    <asp:RadioButton ID="rbtnNo" runat="server" Text="No" GroupName="IsHeldJointly" CssClass="txtField"
+                        AutoPostBack="True" OnCheckedChanged="rbtnNo_CheckChanged" OnLoad="rbtnNo_Load"
+                        Checked="true" />
+                </td>
+                <td class="leftField">
+                    &nbsp;<asp:Label ID="lblDepositoryName" runat="server" Text="Depository Name:" CssClass="FieldName"></asp:Label>
+                </td>
+                <td class="rightField">
+                    <asp:DropDownList ID="ddlDepositoryName" runat="server" CssClass="cmbField" AutoPostBack="true"
+                        OnSelectedIndexChanged="ddlDepositoryName_SelectedIndexChanged">
+                    </asp:DropDownList>
+                    <span id="Span18" class="spnRequiredField">*</span>
+                    <br />
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator15" runat="server" ControlToValidate="ddlDepositoryName"
+                        CssClass="rfvPCG" Display="Dynamic" ErrorMessage="Please select Depository Name"
+                        InitialValue="Select" ValidationGroup="btnsubmitdemate">
+                    </asp:RequiredFieldValidator>
+                </td>
+            </tr>
+            <tr>
+                <td class="leftField">
+                    &nbsp;<asp:Label ID="lblModeOfHolding" runat="server" Text="Mode Of Holding:" CssClass="FieldName"></asp:Label>
+                </td>
+                <td class="rightField">
+                    <asp:DropDownList ID="ddlModeOfHolding" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlModeOfHolding_SelectedIndexChanged"
+                        CssClass="cmbField">
+                    </asp:DropDownList>
+                </td>
+                <td class="leftField">
+                </td>
+                <td>
+                </td>
+            </tr>
+            <tr>
+                <td class="leftField">
+                </td>
+                <td class="rightField">
+                    <asp:Button ID="btnDemateDetails" runat="server" Text="Submit" OnClick="DematebtnSubmit_Click" CssClass="PCGButton"
+                         ValidationGroup="btnsubmitdemate" />
                 </td>
             </tr>
         </table>

@@ -298,7 +298,7 @@ namespace WealthERP.Customer
        
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
-            bool result = false;
+            int result = 0;
             int portfolioid = 0;
             customervo = (CustomerVo)Session["CustomerVo"];
             int customerId = customervo.CustomerId;
@@ -354,7 +354,7 @@ namespace WealthERP.Customer
 
 
                        result= bodemataccount.AddDematDetails(customerId, portfolioid, demataccountvo, rmvo);
-                       if (result=true)
+                       if (result!=0)
                        {
                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('DematAccountDetails','none');", true);
                           Response.Write("<script>alert('DematDeatails has been successfully added');</script>");

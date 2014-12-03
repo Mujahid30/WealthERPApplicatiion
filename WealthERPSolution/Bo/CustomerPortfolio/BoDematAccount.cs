@@ -34,9 +34,9 @@ namespace BoCustomerPortfolio
         {
             return demataccountdao.GetXmlModeOfHolding();
         }
-        public bool AddDematDetails(int customerId, int portfolioId, DematAccountVo demataccountvo, RMVo rmvo)
+        public int AddDematDetails(int customerId, int portfolioId, DematAccountVo demataccountvo, RMVo rmvo)
         {
-            bool result = false;
+            int result = 0;
             result=demataccountdao.AddDematDetails(customerId, portfolioId, demataccountvo, rmvo);
             return result;
         }
