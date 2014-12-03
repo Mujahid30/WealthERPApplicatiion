@@ -3775,6 +3775,54 @@ namespace BoCustomerProfiling
             return dtGetASBABankLocation;
 
         }
+        public DataSet GetNcdIssueSetUp(int issueId, DateTime fromModificationDate, DateTime toModificationDate, int advisorId, string TypeofAudit)
+        {
+            CustomerDao customerDao = new CustomerDao();
+
+            DataSet dsNcdIssueAudit = new DataSet();
+            try
+            {
+                dsNcdIssueAudit = customerDao.GetNcdIssueSetUp(issueId, fromModificationDate, toModificationDate, advisorId, TypeofAudit);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerBo.cs:GetCustomerProfileAuditDetails()");
+
+
+                object[] objects = new object[3];
+                objects[0] = issueId;
+                objects[1] = fromModificationDate;
+                objects[2] = advisorId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dsNcdIssueAudit;
+        }
+        public DataTable GetNcdIssuenameDetails(string prefixText, int adviserId)
+        {
+            CustomerDao customerDao = new CustomerDao();
+            DataTable dtNcdIssuenameDetails;
+            try
+            {
+                dtNcdIssuenameDetails = customerDao.GetNcdIssuenameDetails(prefixText, adviserId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtNcdIssuenameDetails;
+        }
     }
 
 }

@@ -119,6 +119,7 @@ namespace WealthERP.OnlineOrderBackOffice
         protected global::System.Web.UI.WebControls.HiddenField hdnStaffId;
         protected global::System.Web.UI.WebControls.HiddenField hdnAssociateId;
         protected global::System.Web.UI.WebControls.HiddenField hdnSystematicId;
+        protected global::System.Web.UI.WebControls.HiddenField hdnIssueId;
         /// <summary>
         /// rfvDOwnloadDate control.
         /// </summary>
@@ -178,6 +179,23 @@ namespace WealthERP.OnlineOrderBackOffice
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdtxtClientCode;
         protected global::AjaxControlToolkit.AutoCompleteExtender txtPansearch_autoCompleteExtender;
         protected global::AjaxControlToolkit.AutoCompleteExtender txtClientCode_autoCompleteExtender;
+        protected global::System.Web.UI.WebControls.DropDownList ddlNcdOption;
+        protected global::System.Web.UI.WebControls.DropDownList ddlNcdIssueSetup;
+        protected global::AjaxControlToolkit.AutoCompleteExtender txtNcdIssueSetup_AutoCompleteExtender;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trNcdIssueSetup;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdtxtNcdIssueSetup;
+        protected global::System.Web.UI.HtmlControls.HtmlTable tblNcdIssueId;
+        protected global::System.Web.UI.HtmlControls.HtmlTable tbNcdIssueId;
+        protected global::Telerik.Web.UI.RadGrid rdNcdIssueAudit;
+        protected global::System.Web.UI.HtmlControls.HtmlTable tblNcdCategory;
+        protected global::System.Web.UI.HtmlControls.HtmlTable tbNcdCategoryAudit;
+        protected global::Telerik.Web.UI.RadGrid rdNcdCategoryAudit;
+        protected global::System.Web.UI.HtmlControls.HtmlTable tblNcdIssueSeries;
+        protected global::System.Web.UI.HtmlControls.HtmlTable tbNcdIssueSeries;
+        protected global::Telerik.Web.UI.RadGrid rdNcdIssueSeries;
+        protected global::System.Web.UI.HtmlControls.HtmlTable tblNcdSubCategory;
+        protected global::System.Web.UI.HtmlControls.HtmlTable tbNcdSubCategory;
+        protected global::Telerik.Web.UI.RadGrid rdNcdSubCategoryAudit;
 
     }
 }

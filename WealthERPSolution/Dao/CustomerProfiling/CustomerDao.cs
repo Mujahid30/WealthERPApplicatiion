@@ -6853,5 +6853,71 @@ namespace DaoCustomerProfiling
             }
             return dtGetASBABankLocation;
         }
+        public DataSet GetNcdIssueSetUp(int issueId, DateTime fromModificationDate, DateTime toModificationDate, int advisorId, string TypeofAudit)
+        {
+            Database db;
+            DbCommand cmdNdcissueListAudit;
+            DataSet dsNcdIssueListAudit;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //To retreive data from the table 
+                cmdNdcissueListAudit = db.GetStoredProcCommand("SPROC_ONL_GetNcdIssueSetUpAuditDetails");
+                db.AddInParameter(cmdNdcissueListAudit, "@IssueID", DbType.Int32, issueId);
+                db.AddInParameter(cmdNdcissueListAudit, "@FromModificationDate", DbType.DateTime, fromModificationDate);
+                db.AddInParameter(cmdNdcissueListAudit, "@ToModificationDate", DbType.DateTime, toModificationDate);
+                db.AddInParameter(cmdNdcissueListAudit, "@TypeofAudit", DbType.String, TypeofAudit);
+                db.AddInParameter(cmdNdcissueListAudit, "@AdvisorId", DbType.Int32, advisorId);
+                dsNcdIssueListAudit = db.ExecuteDataSet(cmdNdcissueListAudit);
+
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerDao.cs:GetCustomerProfileAuditDetails()");
+                object[] objects = new object[3];
+                objects[0] = issueId;
+                objects[1] = fromModificationDate;
+                objects[2] = advisorId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dsNcdIssueListAudit;
+
+        }
+        public DataTable GetNcdIssuenameDetails(string prefixText, int adviserId)
+        {
+
+            Database db;
+            DbCommand cmdGetNcdIssuenameDetails;
+            DataSet dsGetNcdIssuenameDetails;
+            DataTable dtGetNcdIssuenameDetails;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetNcdIssuenameDetails = db.GetStoredProcCommand("SPROC_GetNcdIssueName");
+                db.AddInParameter(cmdGetNcdIssuenameDetails, "@prefixText", DbType.String, prefixText);
+                db.AddInParameter(cmdGetNcdIssuenameDetails, "@adviserId", DbType.Int32, adviserId);
+                dsGetNcdIssuenameDetails = db.ExecuteDataSet(cmdGetNcdIssuenameDetails);
+                dtGetNcdIssuenameDetails = dsGetNcdIssuenameDetails.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetNcdIssuenameDetails;
+        }
     }
 }

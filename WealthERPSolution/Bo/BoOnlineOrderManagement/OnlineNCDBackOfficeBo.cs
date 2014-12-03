@@ -120,12 +120,12 @@ namespace BoOnlineOrderManagement
             }
         }
 
-        public int UpdateIssue(VoOnlineOrderManagemnet.OnlineNCDBackOfficeVo onlineNCDBackOfficeVo)
+        public int UpdateIssue(VoOnlineOrderManagemnet.OnlineNCDBackOfficeVo onlineNCDBackOfficeVo,int userID)
         {
             try
             {
                 onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
-                return onlineNCDBackOfficeDao.UpdateIssue(onlineNCDBackOfficeVo);
+                return onlineNCDBackOfficeDao.UpdateIssue(onlineNCDBackOfficeVo, userID);
             }
             catch (BaseApplicationException Ex)
             {
@@ -535,12 +535,12 @@ namespace BoOnlineOrderManagement
             }
         }
 
-        public int CreateIssue(VoOnlineOrderManagemnet.OnlineNCDBackOfficeVo onlineNCDBackOfficeVo, int adviserId)
+        public int CreateIssue(VoOnlineOrderManagemnet.OnlineNCDBackOfficeVo onlineNCDBackOfficeVo, int adviserId, int userID)
         {
             try
             {
                 onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
-                return onlineNCDBackOfficeDao.CreateIssue(onlineNCDBackOfficeVo, adviserId);
+                return onlineNCDBackOfficeDao.CreateIssue(onlineNCDBackOfficeVo, adviserId, userID);
             }
             catch (BaseApplicationException Ex)
             {

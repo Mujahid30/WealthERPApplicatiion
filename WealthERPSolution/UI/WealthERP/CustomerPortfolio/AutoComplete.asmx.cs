@@ -949,6 +949,25 @@ namespace WealthERP.CustomerPortfolio
             return names.ToArray();
         }
         [WebMethod]
+        public string[] GetNcdIssueName(string prefixText, int count, string contextKey)
+        {
+            CustomerBo customerBo = new CustomerBo();
+            DataTable dtNcdIssueName = new DataTable();
+            int i = 0;
+            List<string> names = new List<string>();
+
+            dtNcdIssueName = customerBo.GetNcdIssuenameDetails(prefixText, int.Parse(contextKey));
+            //string[] customerNameList = new string[dtCustomerName.Rows.Count];
+
+            foreach (DataRow dr in dtNcdIssueName.Rows)
+            {
+
+                string item = AjaxControlToolkit.AutoCompleteExtender.CreateAutoCompleteItem(dr["AIM_IssueName"].ToString(), dr["AIM_IssueId"].ToString());
+                names.Add(item);
+            }
+            return names.ToArray();
+        }
+        [WebMethod]
         public string[] GetASBALocation(string prefixText)
         {
             CustomerBo customerBo = new CustomerBo();
@@ -963,6 +982,7 @@ namespace WealthERP.CustomerPortfolio
             }
             return allASBALocation.ToArray();
         }
+       
     }
 
 }

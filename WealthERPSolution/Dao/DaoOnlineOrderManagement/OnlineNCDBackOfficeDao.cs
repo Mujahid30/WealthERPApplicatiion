@@ -462,7 +462,7 @@ namespace DaoOnlineOrderManagement
             return result;
         }
 
-        public int UpdateIssue(OnlineNCDBackOfficeVo onlineNCDBackOfficeVo)
+        public int UpdateIssue(OnlineNCDBackOfficeVo onlineNCDBackOfficeVo, int userID)
         {
             int issueId;
             Microsoft.Practices.EnterpriseLibrary.Data.Database db;
@@ -552,6 +552,8 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(createCmd, "@Broker", DbType.Int32, onlineNCDBackOfficeVo.broker);
                 db.AddInParameter(createCmd, "@BusinessId", DbType.Int32, onlineNCDBackOfficeVo.BusinessChannelId);
                 db.AddInParameter(createCmd, "@OfflineCutOffTime", DbType.Time, onlineNCDBackOfficeVo.OfflineCutOffTime);
+                db.AddInParameter(createCmd, "@ModifiedBy", DbType.Int32, userID);
+                db.AddInParameter(createCmd, "@CreatedBy", DbType.Int32, userID);
                 issueId = db.ExecuteNonQuery(createCmd);
             }
             catch (BaseApplicationException Ex)
@@ -817,7 +819,7 @@ namespace DaoOnlineOrderManagement
             }
         }
 
-        public int CreateIssue(OnlineNCDBackOfficeVo onlineNCDBackOfficeVo, int adviserId)
+        public int CreateIssue(OnlineNCDBackOfficeVo onlineNCDBackOfficeVo, int adviserId, int userID)
         {
             int issueId;
             Microsoft.Practices.EnterpriseLibrary.Data.Database db;
@@ -912,6 +914,8 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(createCmd, "@Broker", DbType.Int32, onlineNCDBackOfficeVo.broker);
                 db.AddInParameter(createCmd, "@BusinessId", DbType.Int32, onlineNCDBackOfficeVo.BusinessChannelId);
                 db.AddInParameter(createCmd, "@OfflineCutOffTime", DbType.Time, onlineNCDBackOfficeVo.OfflineCutOffTime);
+                db.AddInParameter(createCmd, "@ModifiedBy", DbType.Int32, userID);
+                db.AddInParameter(createCmd, "@CreatedBy", DbType.Int32, userID);
                 if (db.ExecuteNonQuery(createCmd) != 0)
                 {
                     issueId = Convert.ToInt32(db.GetParameterValue(createCmd, "AIM_IssueId").ToString());
@@ -950,6 +954,8 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(createCmd, "@LockinApplicable", DbType.Int32, onlineNCDBackOfficeVo.LockInApplicable);
                 db.AddInParameter(createCmd, "@TenureUnits", DbType.String, onlineNCDBackOfficeVo.TenureUnits);
                 db.AddInParameter(createCmd, "@seriesFaceValue", DbType.Double, onlineNCDBackOfficeVo.SeriesFaceValue);
+                db.AddInParameter(createCmd, "@ModifiedBy", DbType.Int32, userID);
+                db.AddInParameter(createCmd, "@CreatedBy", DbType.Int32, userID);
                 if (db.ExecuteNonQuery(createCmd) != 0)
                 {
                     seriesId = Convert.ToInt32(db.GetParameterValue(createCmd, "SeriesId").ToString());
@@ -1275,7 +1281,8 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(createCmd, "@MaxBidAmount", DbType.Double, onlineNCDBackOfficeVo.MaxBidAmount);
                 db.AddInParameter(createCmd, "@PriceDiscountType", DbType.String, onlineNCDBackOfficeVo.DiscuountType);
                 db.AddInParameter(createCmd, "@PriceDiscountValue", DbType.Decimal, onlineNCDBackOfficeVo.DiscountValue);
-
+                db.AddInParameter(createCmd, "@ModifiedBy", DbType.Int32, userID);
+                db.AddInParameter(createCmd, "@CreatedBy", DbType.Int32, userID);
 
                 if (db.ExecuteNonQuery(createCmd) != 0)
                 {
@@ -1344,6 +1351,8 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(createCmd, "@MaxBidAmount", DbType.Double, onlineNCDBackOfficeVo.MaxBidAmount);
                 db.AddInParameter(createCmd, "@PriceDiscountValue", DbType.Double, onlineNCDBackOfficeVo.DiscountValue);
                 db.AddInParameter(createCmd, "@DiscuountType", DbType.String, onlineNCDBackOfficeVo.DiscuountType);
+                db.AddInParameter(createCmd, "@ModifiedBy", DbType.Int32, userID);
+                db.AddInParameter(createCmd, "@CreatedBy", DbType.Int32, userID);
                 categoryId = db.ExecuteNonQuery(createCmd);
             }
             catch (BaseApplicationException Ex)
@@ -1367,7 +1376,8 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(createCmd, "@InvestorSubTypeCode", DbType.String, onlineNCDBackOfficeVo.SubCatgeoryTypeCode);
                 db.AddInParameter(createCmd, "@MinInvestmentAmount", DbType.Double, onlineNCDBackOfficeVo.MinInvestmentAmount);
                 db.AddInParameter(createCmd, "@MaxInvestmentAmount", DbType.Double, onlineNCDBackOfficeVo.MaxInvestmentAmount);
-
+                db.AddInParameter(createCmd, "@ModifiedBy", DbType.Int32, userID);
+                db.AddInParameter(createCmd, "@CreatedBy", DbType.Int32, userID);
                 if (db.ExecuteNonQuery(createCmd) != 0)
                     bResult = true;
             }
@@ -1395,8 +1405,8 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(createCmd, "@MinInvestmentAmount", DbType.Double, onlineNCDBackOfficeVo.MinInvestmentAmount);
                 db.AddInParameter(createCmd, "@MaxInvestmentAmount", DbType.Double, onlineNCDBackOfficeVo.MaxInvestmentAmount);
                 db.AddInParameter(createCmd, "@SubCategoryId", DbType.Double, onlineNCDBackOfficeVo.SubCatgeoryId);
-
-
+                db.AddInParameter(createCmd, "@ModifiedBy", DbType.Int32, userID);
+                db.AddInParameter(createCmd, "@CreatedBy", DbType.Int32, userID);
 
                 if (db.ExecuteNonQuery(createCmd) != 0)
                     bResult = true;
@@ -1458,7 +1468,8 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(updateCmd, "@LockinApplicable", DbType.Int32, onlineNCDBackOfficeVo.LockInApplicable);
                 db.AddInParameter(updateCmd, "@TenureUnits", DbType.String, onlineNCDBackOfficeVo.TenureUnits);
                 db.AddInParameter(updateCmd, "@seriesFaceValue", DbType.Double, onlineNCDBackOfficeVo.SeriesFaceValue);
-
+                db.AddInParameter(updateCmd, "@ModifiedBy", DbType.Int32, userID);
+                db.AddInParameter(updateCmd, "@CreatedBy", DbType.Int32, userID);
                 seriesId = db.ExecuteNonQuery(updateCmd);
             }
             catch (BaseApplicationException Ex)

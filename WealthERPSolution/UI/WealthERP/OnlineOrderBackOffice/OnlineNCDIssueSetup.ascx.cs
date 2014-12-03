@@ -1378,7 +1378,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 onlineNCDBackOfficeVo.IssueId = Convert.ToInt32(txtIssueId.Text);
                 if (NSCEBSCEcode())
                 {
-                    issueId = onlineNCDBackOfficeBo.UpdateIssue(onlineNCDBackOfficeVo);
+                    issueId = onlineNCDBackOfficeBo.UpdateIssue(onlineNCDBackOfficeVo,userVo.UserId);
                     if (issueId > 0)
                     {
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Issue Updated successfully.');", true);
@@ -3585,7 +3585,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 }
                 if (NSCEBSCEcode())
                 {
-                    issueId = onlineNCDBackOfficeBo.CreateIssue(onlineNCDBackOfficeVo, advisorVo.advisorId);
+                    issueId = onlineNCDBackOfficeBo.CreateIssue(onlineNCDBackOfficeVo, advisorVo.advisorId,userVo.UserId);
                     if (issueId > 0)
                     {
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Issue added successfully.');", true);
