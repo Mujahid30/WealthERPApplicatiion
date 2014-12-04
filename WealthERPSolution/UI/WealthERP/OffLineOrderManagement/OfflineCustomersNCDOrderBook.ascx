@@ -153,6 +153,31 @@
                                             HeaderStyle-Width="160px" HeaderText="PAN Num" UniqueName="C_PANNum">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
+                                           <telerik:GridBoundColumn DataField="CO_CreatedBy" SortExpression="CO_CreatedBy" AutoPostBackOnFilter="true"
+                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="true"
+                                            HeaderStyle-Width="160px" HeaderText="Created By" UniqueName="CO_CreatedBy">
+                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn DataField="CO_CreatedOn" SortExpression="CO_CreatedOn" AutoPostBackOnFilter="true"
+                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="true"
+                                            HeaderStyle-Width="160px" HeaderText="Created On" UniqueName="CO_CreatedOn">
+                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn DataField="CO_ModifiedBy" SortExpression="CO_ModifiedBy"
+                                            AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
+                                            AllowFiltering="true" HeaderStyle-Width="160px" HeaderText="Modified By" UniqueName="CO_ModifiedBy">
+                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn DataField="CO_ModifiedOn" SortExpression="CO_ModifiedOn"
+                                            AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
+                                            AllowFiltering="true" HeaderStyle-Width="160px" HeaderText="Modified On" UniqueName="CO_ModifiedOn">
+                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn DataField="CustomerAssociate" SortExpression="CustomerAssociate"
+                                            AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
+                                            AllowFiltering="true" HeaderStyle-Width="160px" HeaderText="User Type" UniqueName="CustomerAssociate">
+                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="CO_BankName" SortExpression="CO_BankName" AutoPostBackOnFilter="true"
                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="true"
                                             HeaderStyle-Width="160px" HeaderText="Bank Name" UniqueName="CO_BankName">
@@ -236,6 +261,7 @@
                                             AutoPostBackOnFilter="true" HeaderStyle-Width="80px" FilterControlWidth="75px">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
+                                        
                                         <telerik:GridBoundColumn DataField="AIM_MaxApplNo" AllowFiltering="true" HeaderText="Application No."
                                             UniqueName="AIM_MaxApplNo" SortExpression="AIM_MaxApplNo" ShowFilterIcon="false"
                                             CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="80px"

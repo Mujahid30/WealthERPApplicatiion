@@ -453,6 +453,7 @@ namespace WealthERP.OnlineOrderManagement
                 dt.Columns.Add("Amount");
                 dt.Columns.Add("CatId");
                 dt.Columns.Add("AcceptableCatId");
+                dt.Columns.Add("userId");
                 int rowNo = 0;
                 int tableRow = 0;
                 foreach (GridDataItem CBOrder in gvCommMgmt.MasterTableView.Items)
@@ -491,7 +492,7 @@ namespace WealthERP.OnlineOrderManagement
                             dt.Rows[tableRow]["AIM_IssueId"] = OnlineBondVo.IssueId;
                             dt.Rows[tableRow]["Qty"] = OnlineBondVo.Qty;
                             dt.Rows[tableRow]["Amount"] = OnlineBondVo.Amount;
-
+                            dt.Rows[tableRow]["userid"] = userVo.UserId;
                             GridFooterItem footerItemAmount = (GridFooterItem)gvCommMgmt.MasterTableView.GetItems(GridItemType.Footer)[0];
                             Label lblSum = (Label)footerItemAmount.FindControl("lblAmount");
 
