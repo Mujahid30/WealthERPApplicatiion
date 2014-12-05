@@ -81,7 +81,7 @@
                     <table cellspacing="0" cellpadding="2" width="100%">
                         <tr>
                             <td align="left">
-                                Customer Profile Audit
+                                Audit Profile
                             </td>
                         </tr>
                     </table>
@@ -103,7 +103,7 @@
                     <asp:ListItem Text="Staff" Value="StaffDetails"></asp:ListItem>
                     <asp:ListItem Text="Associate" Value="AssociateDetails"></asp:ListItem>
                     <asp:ListItem Text="Systematic Setup" Value="SystematicSetup"></asp:ListItem>
-                    <asp:ListItem Text="NCD Issue Setup" Value="NCDIssueSetup"></asp:ListItem>
+                    <asp:ListItem Text="Issue Setup" Value="NCDIssueSetup"></asp:ListItem>
                 </asp:DropDownList>
             </td>
         </tr>
@@ -270,9 +270,9 @@
             <td class="rightField" width="30%">
                 <asp:DropDownList ID="ddlNcdIssueSetup" runat="server" CssClass="cmbField" Width="235px">
                     <asp:ListItem Text="Select" Value="select"></asp:ListItem>
-                    <asp:ListItem Text="NCD Issue SetUp" Value="NIS"></asp:ListItem>
-                    <asp:ListItem Text="InvesterCategory" Value="IC"></asp:ListItem>
-                    <asp:ListItem Text="NewSeries" Value="NS"></asp:ListItem>
+                    <asp:ListItem Text="Issue SetUp" Value="NIS"></asp:ListItem>
+                    <asp:ListItem Text="Issue SetUp Category" Value="IC"></asp:ListItem>
+                    <asp:ListItem Text="Issue New Series" Value="NS"></asp:ListItem>
                 </asp:DropDownList>
                 <span id="Span7" class="spnRequiredField">*</span>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator14" runat="server" ErrorMessage="Please select a Type Audit"
@@ -1523,10 +1523,10 @@
                     <table width="100%">
                         <tr>
                             <td align="left">
-                                <asp:Label ID="Label8" runat="server" Text="Ncd Issue Audit Details"></asp:Label>
+                                <asp:Label ID="Label12" runat="server" Text="Issue SetUp Audit"></asp:Label>
                             </td>
                             <td align="right" style="width: 10px">
-                                <asp:ImageButton Visible="true" ID="ImageButton1" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                                <asp:ImageButton Visible="true" ID="ImageButton5" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                                     runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick10"
                                     OnClientClick="setFormat('excel')" Height="20px" Width="25px"></asp:ImageButton>
                             </td>
@@ -1645,7 +1645,7 @@
                     <table width="100%">
                         <tr>
                             <td align="left">
-                                <asp:Label ID="Label9" runat="server" Text="NCD Category Audit Details"></asp:Label>
+                                <asp:Label ID="Label9" runat="server" Text="Issue SetUp Category Audit"></asp:Label>
                             </td>
                             <td align="right" style="width: 10px">
                                 <asp:ImageButton Visible="true" ID="ImageButton2" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
@@ -1677,12 +1677,12 @@
                                     HeaderText=" Audit Status" UniqueName="Status" HeaderStyle-Width="15px">
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                 <telerik:GridBoundColumn DataField="AIM_IssueId" SortExpression="AIM_IssueId"
-                                    UniqueName="AIM_IssueId" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"
-                                    ShowFilterIcon="false" HeaderText="Issue Id" HeaderStyle-Width="15px">
+                                <telerik:GridBoundColumn DataField="AIM_IssueId" SortExpression="AIM_IssueId" UniqueName="AIM_IssueId"
+                                    AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
+                                    HeaderText="Issue Id" HeaderStyle-Width="15px">
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                 <telerik:GridBoundColumn DataField="AIIC_InvestorCatgeoryName" SortExpression="AIIC_InvestorCatgeoryName"
+                                <telerik:GridBoundColumn DataField="AIIC_InvestorCatgeoryName" SortExpression="AIIC_InvestorCatgeoryName"
                                     UniqueName="AIIC_InvestorCatgeoryName" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"
                                     ShowFilterIcon="false" HeaderText="Investor Catgeory Name" HeaderStyle-Width="15px">
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
@@ -1737,7 +1737,7 @@
                     <table width="100%">
                         <tr>
                             <td align="left">
-                                <asp:Label ID="Label11" runat="server" Text="NCD Sub Category Audit Details"></asp:Label>
+                                <asp:Label ID="Label11" runat="server" Text="Issue SetUP Sub Category Audit"></asp:Label>
                             </td>
                             <td align="right" style="width: 10px">
                                 <asp:ImageButton Visible="true" ID="ImageButton4" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
@@ -1759,7 +1759,7 @@
                         AllowPaging="true" AllowSorting="true" Skin="Telerik" EnableHeaderContextMenu="true"
                         GridLines="Both" EnableEmbeddedSkins="false" Width="100%" ShowFooter="true" PagerStyle-AlwaysVisible="true"
                         EnableViewState="true" ShowStatusBar="true" AllowFilteringByColumn="true" PageSize="10"
-                        OnNeedDataSource="rdNcdCategoryAudit_OnNeedDataSource">
+                        OnNeedDataSource="rdNcdSubCategoryAudit_OnNeedDataSource">
                         <ExportSettings HideStructureColumns="true">
                         </ExportSettings>
                         <MasterTableView Width="110%" AllowMultiColumnSorting="True" AutoGenerateColumns="false">
@@ -1769,10 +1769,9 @@
                                     HeaderText=" Audit Status" UniqueName="Status" HeaderStyle-Width="15px">
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn DataField="AIICST_Id" SortExpression="AIICST_Id"
-                                    AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
-                                    AllowFiltering="false" HeaderText="Investor SubType Id" UniqueName="AIICST_Id"
-                                    HeaderStyle-Width="20px">
+                                <telerik:GridBoundColumn DataField="AIICST_Id" SortExpression="AIICST_Id" AutoPostBackOnFilter="true"
+                                    CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="false"
+                                    HeaderText="Investor SubType Id" UniqueName="AIICST_Id" HeaderStyle-Width="20px">
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn DataField="AIICST_InvestorSubTypeCode" SortExpression="AIICST_InvestorSubTypeCode"
@@ -1827,7 +1826,7 @@
                     <table width="100%">
                         <tr>
                             <td align="left">
-                                <asp:Label ID="Label10" runat="server" Text="Ncd Issue Series Audit Details"></asp:Label>
+                                <asp:Label ID="Label10" runat="server" Text="Issue SetUp Series Audit"></asp:Label>
                             </td>
                             <td align="right" style="width: 10px">
                                 <asp:ImageButton Visible="true" ID="ImageButton3" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
@@ -1859,12 +1858,12 @@
                                     HeaderText=" Audit Status" UniqueName="Status" HeaderStyle-Width="15px">
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                 <telerik:GridBoundColumn DataField="AID_IssueDetailId" SortExpression="AID_IssueDetailId"
+                                <telerik:GridBoundColumn DataField="AID_IssueDetailId" SortExpression="AID_IssueDetailId"
                                     UniqueName="AID_IssueDetailId" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"
                                     ShowFilterIcon="false" HeaderText="Series Issue Id" HeaderStyle-Width="25px">
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                  <telerik:GridBoundColumn DataField="AID_IssueDetailName" SortExpression="AID_IssueDetailName"
+                                <telerik:GridBoundColumn DataField="AID_IssueDetailName" SortExpression="AID_IssueDetailName"
                                     UniqueName="AID_IssueDetailName" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"
                                     ShowFilterIcon="false" HeaderText="Series Name" HeaderStyle-Width="25px">
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />

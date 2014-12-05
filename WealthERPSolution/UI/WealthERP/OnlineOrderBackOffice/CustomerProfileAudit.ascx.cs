@@ -297,16 +297,16 @@ namespace WealthERP.OnlineOrderBackOffice
                     tblProfileHeading.Visible = true;
                     tblProfileData.Visible = true;
                     rdCustomerProfile.Visible = true;
-                    if (Cache["CustomerProfile" + adviserVo.advisorId] != null) Cache.Remove("CustomerProfile" + adviserVo.advisorId);
-                    Cache.Insert("CustomerProfile" + adviserVo.advisorId, dsGetCustomerProfileAuditData.Tables[0]);
+                    if (Cache["CustomerProfile" + userVo.UserId] != null) Cache.Remove("CustomerProfile" + userVo.UserId);
+                    Cache.Insert("CustomerProfile" + userVo.UserId, dsGetCustomerProfileAuditData.Tables[0]);
                     break;
                 case "CB": rdCustomerBank.DataSource = dsGetCustomerProfileAuditData.Tables[0];
                     rdCustomerBank.DataBind();
                     tblCustomerBank.Visible = true;
                     tblCustomerBankHeading.Visible = true;
                     rdCustomerBank.Visible = true;
-                    if (Cache["CustomerBank" + adviserVo.advisorId] != null) Cache.Remove("CustomerBank" + adviserVo.advisorId);
-                    Cache.Insert("CustomerBank" + adviserVo.advisorId, dsGetCustomerProfileAuditData.Tables[0]);
+                    if (Cache["CustomerBank" + userVo.UserId] != null) Cache.Remove("CustomerBank" + userVo.UserId);
+                    Cache.Insert("CustomerBank" + userVo.UserId, dsGetCustomerProfileAuditData.Tables[0]);
                     break;
                 case "CD": rdCustomerDemat.DataSource = dsGetCustomerProfileAuditData.Tables[0];
                     rdCustomerDemat.DataBind();
@@ -314,24 +314,24 @@ namespace WealthERP.OnlineOrderBackOffice
                     pnlCustomerDemat.Visible = true;
                     tblCustomerDematHeading.Visible = true;
                     rdCustomerDemat.Visible = true;
-                    if (Cache["CustomerDemat" + adviserVo.advisorId] != null) Cache.Remove("CustomerDemat" + adviserVo.advisorId);
-                    Cache.Insert("CustomerDemat" + adviserVo.advisorId, dsGetCustomerProfileAuditData.Tables[0]);
+                    if (Cache["CustomerDemat" + userVo.UserId] != null) Cache.Remove("CustomerDemat" + userVo.UserId);
+                    Cache.Insert("CustomerDemat" + userVo.UserId, dsGetCustomerProfileAuditData.Tables[0]);
                     break;
                 case "CDA": rdCustomerDematAssociates.DataSource = dsGetCustomerProfileAuditData.Tables[0];
                     rdCustomerDematAssociates.DataBind();
                     tblCustomerDematAssociates.Visible = true;
                     tblCustomerDematAssociatesHeading.Visible = true;
                     rdCustomerDematAssociates.Visible = true;
-                    if (Cache["CustomerDematAssociate" + adviserVo.advisorId] != null) Cache.Remove("CustomerDematAssociate" + adviserVo.advisorId);
-                    Cache.Insert("CustomerDematAssociate" + adviserVo.advisorId, dsGetCustomerProfileAuditData.Tables[0]);
+                    if (Cache["CustomerDematAssociate" + adviserVo.advisorId] != null) Cache.Remove("CustomerDematAssociate" + userVo.UserId);
+                    Cache.Insert("CustomerDematAssociate" + userVo.UserId, dsGetCustomerProfileAuditData.Tables[0]);
                     break;
                 case "CTA": rdTransaction.DataSource = dsGetCustomerProfileAuditData.Tables[0];
                     rdTransaction.DataBind();
                     tableTransaction.Visible = true;
                     tableCustomerTransaction.Visible = true;
                     rdTransaction.Visible = true;
-                    if (Cache["CustomerTransaction" + adviserVo.advisorId] != null) Cache.Remove("CustomerTransaction" + adviserVo.advisorId);
-                    Cache.Insert("CustomerTransaction" + adviserVo.advisorId, dsGetCustomerProfileAuditData.Tables[0]);
+                    if (Cache["CustomerTransaction" + userVo.UserId] != null) Cache.Remove("CustomerTransaction" + userVo.UserId);
+                    Cache.Insert("CustomerTransaction" + userVo.UserId, dsGetCustomerProfileAuditData.Tables[0]);
                     break;
                 //if (ddlType.SelectedValue == "CustomerProfile")
                 //{
@@ -358,8 +358,8 @@ namespace WealthERP.OnlineOrderBackOffice
                     tblNcdIssueId.Visible = true;
                     tbNcdIssueId.Visible = true;
                     rdNcdIssueAudit.Visible = true;
-                    if (Cache["NcdIssueAudit" + adviserVo.advisorId] != null) Cache.Remove("NcdIssueAudit" + adviserVo.advisorId);
-                    Cache.Insert("NcdIssueAudit" + adviserVo.advisorId, dsGetNcdIssueSetupData.Tables[0]);
+                    if (Cache["NcdIssueAudit" + userVo.UserId] != null) Cache.Remove("NcdIssueAudit" + userVo.UserId);
+                    Cache.Insert("NcdIssueAudit" + userVo.UserId, dsGetNcdIssueSetupData.Tables[0]);
                     break;
                 case "IC": rdNcdCategoryAudit.DataSource = dsGetNcdIssueSetupData.Tables[0];
                     rdNcdCategoryAudit.DataBind();
@@ -371,16 +371,18 @@ namespace WealthERP.OnlineOrderBackOffice
                     tblNcdSubCategory.Visible = true;
                     tbNcdSubCategory.Visible = true;
                     rdNcdSubCategoryAudit.Visible = true;
-                    if (Cache["NcdCategoryAudit" + adviserVo.advisorId] != null) Cache.Remove("NcdCategoryAudit" + adviserVo.advisorId);
-                    Cache.Insert("NcdCategoryAudit" + adviserVo.advisorId, dsGetNcdIssueSetupData.Tables[0]);
+                    if (Cache["NcdCategoryAudit" + userVo.UserId] != null) Cache.Remove("NcdCategoryAudit" + userVo.UserId);
+                    Cache.Insert("NcdCategoryAudit" + userVo.UserId, dsGetNcdIssueSetupData.Tables[0]);
+                    if (Cache["NcdSubCategoryAudit" + userVo.UserId] != null) Cache.Remove("NcdSubCategoryAudit" + userVo.UserId);
+                    Cache.Insert("NcdSubCategoryAudit" + userVo.UserId, dsGetNcdIssueSetupData.Tables[1]);
                     break;
                 case "NS": rdNcdIssueSeries.DataSource = dsGetNcdIssueSetupData.Tables[0];
                     rdNcdIssueSeries.DataBind();
                     tblNcdIssueSeries.Visible = true;
                     tbNcdIssueSeries.Visible = true;
                     rdNcdIssueSeries.Visible = true;
-                    if (Cache["NcdIssueSeries" + adviserVo.advisorId] != null) Cache.Remove("NcdIssueSeries" + adviserVo.advisorId);
-                    Cache.Insert("NcdIssueSeries" + adviserVo.advisorId, dsGetNcdIssueSetupData.Tables[0]);
+                    if (Cache["NcdIssueSeries" + userVo.UserId] != null) Cache.Remove("NcdIssueSeries" + userVo.UserId);
+                    Cache.Insert("NcdIssueSeries" + userVo.UserId, dsGetNcdIssueSetupData.Tables[0]);
                     break;
 
             }
@@ -389,31 +391,31 @@ namespace WealthERP.OnlineOrderBackOffice
         }
         protected void rdCustomerProfile_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
-            DataTable dtCustomerProfile = (DataTable)Cache["CustomerProfile" + adviserVo.advisorId];
+            DataTable dtCustomerProfile = (DataTable)Cache["CustomerProfile" + userVo.UserId];
 
             if (dtCustomerProfile != null) rdCustomerProfile.DataSource = dtCustomerProfile;
         }
         protected void rdCustomerBank_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
-            DataTable dtCustomerBank = (DataTable)Cache["CustomerBank" + adviserVo.advisorId];
+            DataTable dtCustomerBank = (DataTable)Cache["CustomerBank" + userVo.UserId];
 
             if (dtCustomerBank != null) rdCustomerBank.DataSource = dtCustomerBank;
         }
         protected void rdCustomerDemat_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
-            DataTable dtCustomerDemat = (DataTable)Cache["CustomerDemat" + adviserVo.advisorId];
+            DataTable dtCustomerDemat = (DataTable)Cache["CustomerDemat" + userVo.UserId];
 
             if (dtCustomerDemat != null) rdCustomerDemat.DataSource = dtCustomerDemat;
         }
         protected void rdCustomerDematAssociates_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
-            DataTable dtCustomerDematAssociates = (DataTable)Cache["CustomerDematAssociate" + adviserVo.advisorId];
+            DataTable dtCustomerDematAssociates = (DataTable)Cache["CustomerDematAssociate" + userVo.UserId];
 
             if (dtCustomerDematAssociates != null) rdCustomerDematAssociates.DataSource = dtCustomerDematAssociates;
         }
         protected void rdTransaction_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
-            DataTable dtCustomerTransaction = (DataTable)Cache["CustomerTransaction" + adviserVo.advisorId];
+            DataTable dtCustomerTransaction = (DataTable)Cache["CustomerTransaction" + userVo.UserId];
 
             if (dtCustomerTransaction != null) rdTransaction.DataSource = dtCustomerTransaction;
         }
@@ -446,6 +448,11 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             DataTable dtrdNcdCategoryAudit = (DataTable)Cache["NcdCategoryAudit" + userVo.UserId];
             if (dtrdNcdCategoryAudit != null) rdNcdCategoryAudit.DataSource = dtrdNcdCategoryAudit;
+        }
+        protected void rdNcdSubCategoryAudit_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        {
+            DataTable dtrdNcdSubCategoryAudit = (DataTable)Cache["NcdSubCategoryAudit" + userVo.UserId];
+            if (dtrdNcdSubCategoryAudit != null) rdNcdSubCategoryAudit.DataSource = dtrdNcdSubCategoryAudit;
         }
         protected void rdNcdIssueSeries_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
@@ -644,7 +651,6 @@ namespace WealthERP.OnlineOrderBackOffice
                 trSystematicId.Visible = false;
                 tblSystematicId.Visible = false;
                 tbSystematicId.Visible = false;
-                trNcdIssueSetup.Visible = false;
                 trAssociates.Visible = false;
                 tbAssociateAudit.Visible = false;
                 tbStaffAudit.Visible = false;
@@ -914,7 +920,7 @@ namespace WealthERP.OnlineOrderBackOffice
             rdNcdIssueAudit.ExportSettings.IgnorePaging = true;
             rdNcdIssueAudit.ExportSettings.HideStructureColumns = true;
             rdNcdIssueAudit.ExportSettings.ExportOnlyData = true;
-            rdNcdIssueAudit.ExportSettings.FileName = "NCD Issue SetUp Audit Details";
+            rdNcdIssueAudit.ExportSettings.FileName = "Issue SetUp Audit Details";
             rdNcdIssueAudit.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
             rdNcdIssueAudit.MasterTableView.ExportToExcel();
         }
@@ -924,7 +930,7 @@ namespace WealthERP.OnlineOrderBackOffice
             rdNcdCategoryAudit.ExportSettings.IgnorePaging = true;
             rdNcdCategoryAudit.ExportSettings.HideStructureColumns = true;
             rdNcdCategoryAudit.ExportSettings.ExportOnlyData = true;
-            rdNcdCategoryAudit.ExportSettings.FileName = "NCD ICategory Audit Details";
+            rdNcdCategoryAudit.ExportSettings.FileName = "Issue Category Audit Details";
             rdNcdCategoryAudit.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
             rdNcdCategoryAudit.MasterTableView.ExportToExcel();
         }
@@ -934,7 +940,7 @@ namespace WealthERP.OnlineOrderBackOffice
             rdNcdSubCategoryAudit.ExportSettings.IgnorePaging = true;
             rdNcdSubCategoryAudit.ExportSettings.HideStructureColumns = true;
             rdNcdSubCategoryAudit.ExportSettings.ExportOnlyData = true;
-            rdNcdSubCategoryAudit.ExportSettings.FileName = "NCD ICategory Audit Details";
+            rdNcdSubCategoryAudit.ExportSettings.FileName = "Issue SubCategory Audit Details";
             rdNcdSubCategoryAudit.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
             rdNcdSubCategoryAudit.MasterTableView.ExportToExcel();
         }
@@ -944,7 +950,7 @@ namespace WealthERP.OnlineOrderBackOffice
             rdNcdIssueSeries.ExportSettings.IgnorePaging = true;
             rdNcdIssueSeries.ExportSettings.HideStructureColumns = true;
             rdNcdIssueSeries.ExportSettings.ExportOnlyData = true;
-            rdNcdIssueSeries.ExportSettings.FileName = "NCD ICategory Audit Details";
+            rdNcdIssueSeries.ExportSettings.FileName = "Issue Series Audit Details";
             rdNcdIssueSeries.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
             rdNcdIssueSeries.MasterTableView.ExportToExcel();
         }
