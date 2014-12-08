@@ -70,10 +70,11 @@
                     </td>
                     <td class="style1">
                         <asp:RadioButton ID="rbtnPickDate" Class="cmbFielde" Checked="True" runat="server"
-                            AutoPostBack="true" Text="Pick a Date" GroupName="Date" OnCheckedChanged="RadioButtonClick" />
+                            AutoPostBack="true" Text="Pick a Date" GroupName="Date" OnCheckedChanged="RadioButtonClick"
+                            Visible="false" />
                         &nbsp;&nbsp;
                         <asp:RadioButton ID="rbtnPickPeriod" Class="cmbFielde" runat="server" Text="Pick a Period"
-                            AutoPostBack="true" GroupName="Date" OnCheckedChanged="RadioButtonClick" />
+                            AutoPostBack="true" GroupName="Date" OnCheckedChanged="RadioButtonClick" Visible="false" />
                     </td>
                     <td>
                     </td>
@@ -136,7 +137,7 @@
                         <asp:Label ID="lblPeriod" runat="server" Text="Period:" CssClass="FieldName"> </asp:Label>
                     </td>
                     <td>
-                        <asp:DropDownList ID="ddlPeriod" runat="server"  Width="120px" CssClass="cmbFielde">
+                        <asp:DropDownList ID="ddlPeriod" runat="server" Width="120px" CssClass="cmbFielde">
                         </asp:DropDownList>
                     </td>
                     <td>
@@ -261,12 +262,14 @@
             <telerik:RadGrid ID="gvCommissionMIS" Visible="false" runat="server" GridLines="None"
                 AutoGenerateColumns="False" PageSize="10" AllowSorting="true" AllowPaging="True"
                 ShowStatusBar="True" ShowFooter="true" EnableViewState="false" Skin="Telerik"
-                OnNeedDataSource="gvCommissionMIS_OnNeedDataSource" EnableEmbeddedSkins="false" OnItemCommand="gvCommissionMIS_OnItemCommand"
-                Width="80%" AllowFilteringByColumn="true" AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true">
+                OnNeedDataSource="gvCommissionMIS_OnNeedDataSource" EnableEmbeddedSkins="false"
+                OnItemCommand="gvCommissionMIS_OnItemCommand" Width="80%" AllowFilteringByColumn="true"
+                AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true">
                 <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
                     FileName="MF Commission MIS Category Wise" Excel-Format="ExcelML">
                 </ExportSettings>
-                <MasterTableView  DataKeyNames="CategoryCode" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="none">
+                <MasterTableView DataKeyNames="CategoryCode" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
+                    CommandItemDisplay="none">
                     <%--<CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true"
                         ShowExportToCsvButton="true" ShowAddNewRecordButton="false" ShowRefreshButton="true" />--%>
                     <Columns>
@@ -305,7 +308,8 @@
                         <telerik:GridTemplateColumn AllowFiltering="false" DataField="Brokerage" AutoPostBackOnFilter="true"
                             HeaderText="Brokerage Amount" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                             Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
-                            <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />                            <ItemTemplate>
+                            <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
+                            <ItemTemplate>
                                 <asp:LinkButton ID="lnkprAmcB" runat="server" CommandName="SelectAmt" Text='<%# Eval("Brokerage")%>' />
                             </ItemTemplate>
                         </telerik:GridTemplateColumn>
@@ -364,9 +368,9 @@
                                     AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn HeaderText="RNT" HeaderTooltip="RNT" DataField="RNT"
-                                    HeaderStyle-Width="120px" UniqueName="RNT" SortExpression="RNT"
-                                    AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                <telerik:GridBoundColumn HeaderText="RNT" HeaderTooltip="RNT" DataField="RNT" HeaderStyle-Width="120px"
+                                    UniqueName="RNT" SortExpression="RNT" AutoPostBackOnFilter="true" AllowFiltering="true"
+                                    ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn HeaderText="Transaction Classification" HeaderTooltip="Transaction Classification Name"
@@ -502,12 +506,14 @@
                         GridLines="None" AutoGenerateColumns="False" AllowSorting="true" ShowStatusBar="True"
                         ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
                         OnNeedDataSource="gvZoneClusterWiseCommissionMIS_OnNeedDataSource" EnableHeaderContextMenu="true"
-                        EnableHeaderContextFilterMenu="true" AllowAutomaticInserts="false" enab ExportSettings-ExportOnlyData="true">
+                        EnableHeaderContextFilterMenu="true" AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true"
+                        OnItemDataBound="gvZoneClusterWiseCommissionMIS_OnItemDataBound">
                         <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
                             FileName="Zone/Cluster Commission MIS Details" Excel-Format="ExcelML">
                         </ExportSettings>
                         <MasterTableView GroupsDefaultExpanded="false" ExpandCollapseColumn-Groupable="true"
                             GroupLoadMode="Client" EditMode="EditForms" ShowGroupFooter="true" Width="100%"
+                            GroupHeaderItemStyle-ForeColor="Black"
                             AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
                             <GroupByExpressions>
                                 <telerik:GridGroupByExpression>
@@ -515,7 +521,7 @@
                                         <telerik:GridGroupByField FieldName="ZoneName" />
                                     </GroupByFields>
                                     <SelectFields>
-                                        <telerik:GridGroupByField FieldName="ZoneName" FieldAlias="Zone" />
+                                        <telerik:GridGroupByField FieldName="ZoneName" FieldAlias="Zone"/>
                                     </SelectFields>
                                 </telerik:GridGroupByExpression>
                             </GroupByExpressions>

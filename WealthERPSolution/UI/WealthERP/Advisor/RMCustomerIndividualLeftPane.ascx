@@ -14,6 +14,18 @@
             loadsearchcontrol('BMCustomer', 'BMCustomer', searchstring);
 
     }
+    function buttonCliclMF() {
+
+        document.getElementById('<%= btnOnlineOrder.ClientID %>').click();
+    }
+    function buttonCliclNCD() {
+
+        document.getElementById('<%= btnNCDOnline.ClientID %>').click();
+    }
+    function buttonCliclIPO() {
+
+        document.getElementById('<%= btnIPOOnline.ClientID %>').click();
+    }
 </script>
 
 <style type="text/css">
@@ -70,12 +82,9 @@
                     <asp:Label ID="lblMobileValue" Text="" runat="server" CssClass="Field"></asp:Label>
                 </td>
             </tr>
-            <tr>
-                <td colspan="2" align="right">
-                    <asp:Button ID="btnOnlineOrder" runat="server" CssClass="OnlineOrder" OnClientClick="window.document.forms[0].target='_blank'; setTimeout(function(){window.document.forms[0].target='';}, 500);" />
-                    <asp:Button ID="btnNCDOnline" runat="server" CssClass="OnlineOrder" OnClientClick="window.document.forms[0].target='_blank'; setTimeout(function(){window.document.forms[0].target='';}, 500);" />
-                    <asp:Button ID="btnIPOOnline" runat="server" CssClass="OnlineOrder" OnClientClick="window.document.forms[0].target='_blank'; setTimeout(function(){window.document.forms[0].target='';}, 500);" />
-                    <hr />
+            <tr visible="false">
+                <td colspan="2" align="right" visible="false">
+                  
                 </td>
             </tr>
         </table>
@@ -86,7 +95,7 @@
                         ExpandAnimation-Type="InCubic" Skin="Telerik" Width="100%" OnItemClick="RadPanelBar1_ItemClick"
                         AllowCollapseAllItems="True" ExpandMode="SingleExpandedItem">
                         <Items>
-                            <telerik:RadPanelItem runat="server" Text="Home" Value="Home">
+                            <telerik:RadPanelItem runat="server" Text="Home" Value="Home" o>
                             </telerik:RadPanelItem>
                             <telerik:RadPanelItem runat="server" Text="Home" Value="CusHome">
                             </telerik:RadPanelItem>
@@ -344,9 +353,9 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="NFO" Value="NFO">
                                             </telerik:RadPanelItem>
-                                              <telerik:RadPanelItem runat="server" Text="Switch" Value="MF_Switch">
+                                            <telerik:RadPanelItem runat="server" Text="Switch" Value="MF_Switch">
                                             </telerik:RadPanelItem>
-                                              <telerik:RadPanelItem runat="server" Text="SWP" Value="MF_SWP">
+                                            <telerik:RadPanelItem runat="server" Text="SWP" Value="MF_SWP">
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
@@ -358,7 +367,7 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="SIP Book" Value="SIPBook">
                                             </telerik:RadPanelItem>
-                                                <telerik:RadPanelItem runat="server" Text="SWPBook" Value="SWP_Book">
+                                            <telerik:RadPanelItem runat="server" Text="SWPBook" Value="SWP_Book">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="SIP Book" Value="SIPSumBook" Visible="false">
                                             </telerik:RadPanelItem>
@@ -406,6 +415,20 @@
                                             <telerik:RadPanelItem runat="server" Text="IPO Issue Book" Value="IPOIssueBook">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="IPO Holding" Value="IPOHolding">
+                                            </telerik:RadPanelItem>
+                                        </Items>
+                                    </telerik:RadPanelItem>
+                                </Items>
+                            </telerik:RadPanelItem>
+                            <telerik:RadPanelItem runat="server" Text="Investor Online Order" Value="INVESTOR_ONLINE_ORDER">
+                                <Items>
+                                    <telerik:RadPanelItem runat="server" Text="Online Investor Page" Value="ONLINE_INVESTOR_PAGE">
+                                        <Items>
+                                            <telerik:RadPanelItem runat="server" Text="MF Order" Value="MF_Order_Investor">
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="NCD Order" Value="NCD_Order_Investor">
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="IPO Order" Value="IPO_Order_Investor">
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
@@ -524,6 +547,16 @@
                 </td>
             </tr>
         </table>
+          <table>
+                        <tr>
+                            <td style="visibility:hidden;">
+                                <asp:Button ID="btnOnlineOrder" runat="server" OnClientClick="window.document.forms[0].target='_blank'; setTimeout(function(){window.document.forms[0].target='';}, 500);" />
+                                <asp:Button ID="btnNCDOnline" runat="server" OnClientClick="window.document.forms[0].target='_blank'; setTimeout(function(){window.document.forms[0].target='';}, 500);" />
+                                <asp:Button ID="btnIPOOnline" runat="server" OnClientClick="window.document.forms[0].target='_blank'; setTimeout(function(){window.document.forms[0].target='';}, 500);" />
+                                <hr />
+                            </td>
+                        </tr>
+                    </table>
     </ContentTemplate>
 </asp:UpdatePanel>
 <asp:HiddenField ID="hdnUserRole" runat="server" Visible="true" EnableViewState="true" />

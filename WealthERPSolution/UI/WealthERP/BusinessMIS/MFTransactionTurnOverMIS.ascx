@@ -999,7 +999,7 @@
                         PageSize="15" AllowPaging="True" AllowSorting="true" ShowStatusBar="true" ShowFooter="true"
                         Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
                         AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true" EnableHeaderContextMenu="true"
-                        EnableHeaderContextFilterMenu="true" OnNeedDataSource="gvMember_OnNeedDataSource">
+                        EnableHeaderContextFilterMenu="true" OnNeedDataSource="gvMember_OnNeedDataSource" OnItemDataBound="gvMember_OnItemDataBound>
                         <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
                             FileName="Member Details" Excel-Format="ExcelML">
                         </ExportSettings>

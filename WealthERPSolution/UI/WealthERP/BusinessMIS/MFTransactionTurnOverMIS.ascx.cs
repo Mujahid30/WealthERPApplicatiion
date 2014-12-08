@@ -1716,6 +1716,24 @@ namespace WealthERP.BusinessMIS
 
             }
         }
+        protected void gvMember_ItemDataBound(object sender, GridItemEventArgs e)
+        {
+            if(e.Item is GridDataItem)
+            {
+                if (ddlFilter.SelectedValue == "1")
+                {
+                    gvMember.MasterTableView.GetColumn("SubBrokerCode").Visible = false;
+                    gvMember.MasterTableView.GetColumn("AssociatesName").Visible = false;
+                    gvMember.MasterTableView.GetColumn("Folio").Visible = false;
+                    gvMember.MasterTableView.GetColumn("ChannelName").Visible = false;
+                    gvMember.MasterTableView.GetColumn("Titles").Visible = false;
+                    gvMember.MasterTableView.GetColumn("ClusterManager").Visible = false;
+                    gvMember.MasterTableView.GetColumn("AreaManager").Visible = false;
+                    gvMember.MasterTableView.GetColumn("ZonalManagerName").Visible = false;
+                    gvMember.MasterTableView.GetColumn("DeputyHead").Visible = false;
+                }
+            }
+        }
         protected void gvOrganization_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
             DataTable dtGetOrganizationDetailFromMFOrder = new DataTable();

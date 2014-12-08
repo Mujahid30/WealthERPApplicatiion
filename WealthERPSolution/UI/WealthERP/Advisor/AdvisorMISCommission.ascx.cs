@@ -31,6 +31,7 @@ using Telerik.Web.UI;
 using VoUser;
 using System.Web.UI.WebControls;
 using BoWerpAdmin;
+using System.Drawing;
 
 namespace WealthERP.Advisor
 {
@@ -39,7 +40,7 @@ namespace WealthERP.Advisor
         AdvisorMISBo advisorMISBo = new AdvisorMISBo();
         ProductMFBo productMFBo = new ProductMFBo();
         string path = string.Empty;
-        DataSet dsMISCommission=new DataSet();
+        DataSet dsMISCommission = new DataSet();
         UserVo userVo = new UserVo();
         DateBo dtBo = new DateBo();
         DateTime dtTo = new DateTime();
@@ -63,7 +64,7 @@ namespace WealthERP.Advisor
             {
                 if (!Convert.ToBoolean(advisorVo.MultiBranch))
                 {
-                    ddlMISType.Items.Remove(0);                    
+                    ddlMISType.Items.Remove(0);
                 }
 
                 BindPeriodDropDown();
@@ -100,7 +101,7 @@ namespace WealthERP.Advisor
         /// Binding Period Dropdown From Xml File
         /// </summary>        
         private void BindPeriodDropDown()
-        {            
+        {
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
             DataTable dtPeriod;
             dtPeriod = XMLBo.GetDatePeriod(path);
@@ -191,51 +192,51 @@ namespace WealthERP.Advisor
         protected void ddlSelectMutualFund_OnSelectedIndexChanged(object sender, EventArgs e)
         {
             LoadAllSchemeNAV();
-         //   tdscheme.Visible = true;
+            //   tdscheme.Visible = true;
             //gvMFRecord.DataSource = null;
             //gvMFRecord.DataBind();
         }
         public void LoadAllSchemeNAV()
         {
-            
-                PriceBo priceBo = new PriceBo();
-                DataSet dsLoadAllSchemeNAV;
-                DataTable dtLoadAllSchemeNAV = new DataTable();
-                int amcCode;
-                string categoryCode;
-                //if (ddlSelectMutualFund.SelectedIndex != 0 && ddlNAVCategory.SelectedIndex == 0)
-                //{
-                amcCode = int.Parse(ddlSelectMutualFund.SelectedValue.ToString());
-                categoryCode = ddlNAVCategory.SelectedValue;
-                dsLoadAllSchemeNAV = priceBo.GetSchemeListCategoryConcatenation(amcCode,"ALL");
-                dtLoadAllSchemeNAV = dsLoadAllSchemeNAV.Tables[0];
 
-                //    }
-                // if (ddlSelectMutualFund.SelectedIndex != 0 && ddlNAVCategory.SelectedIndex != 0)
-                //{
-                //    amcCode = int.Parse(ddlSelectMutualFund.SelectedValue.ToString());
-                //    categoryCode = ddlNAVCategory.SelectedValue;
-                //    //subCategory = ddlNAVSubCategory.SelectedValue;
-                //    dsLoadAllSchemeNAV = priceBo.GetSchemeListCategoryConcatenation(amcCode, categoryCode);
-                //    dtLoadAllSchemeNAV = dsLoadAllSchemeNAV.Tables[0];
-                //}
-                if (dtLoadAllSchemeNAV.Rows.Count > 0)
-                {
-                    ddlSelectSchemeNAV.DataSource = dtLoadAllSchemeNAV;
-                    ddlSelectSchemeNAV.DataTextField = dtLoadAllSchemeNAV.Columns["PASP_SchemePlanName"].ToString();
-                    ddlSelectSchemeNAV.DataValueField = dtLoadAllSchemeNAV.Columns["PASP_SchemePlanCode"].ToString();
-                    ddlSelectSchemeNAV.DataBind();
-                    ddlSelectSchemeNAV.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All Scheme", "0"));
-                }
-                else
-                {
-                    ddlSelectSchemeNAV.Items.Clear();
-                    ddlSelectSchemeNAV.DataSource = null;
-                    ddlSelectSchemeNAV.DataBind();
-                    ddlSelectSchemeNAV.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "0"));
-                }
-                //ddlSelectSchemeNAV.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "0"));
-           
+            PriceBo priceBo = new PriceBo();
+            DataSet dsLoadAllSchemeNAV;
+            DataTable dtLoadAllSchemeNAV = new DataTable();
+            int amcCode;
+            string categoryCode;
+            //if (ddlSelectMutualFund.SelectedIndex != 0 && ddlNAVCategory.SelectedIndex == 0)
+            //{
+            amcCode = int.Parse(ddlSelectMutualFund.SelectedValue.ToString());
+            categoryCode = ddlNAVCategory.SelectedValue;
+            dsLoadAllSchemeNAV = priceBo.GetSchemeListCategoryConcatenation(amcCode, "ALL");
+            dtLoadAllSchemeNAV = dsLoadAllSchemeNAV.Tables[0];
+
+            //    }
+            // if (ddlSelectMutualFund.SelectedIndex != 0 && ddlNAVCategory.SelectedIndex != 0)
+            //{
+            //    amcCode = int.Parse(ddlSelectMutualFund.SelectedValue.ToString());
+            //    categoryCode = ddlNAVCategory.SelectedValue;
+            //    //subCategory = ddlNAVSubCategory.SelectedValue;
+            //    dsLoadAllSchemeNAV = priceBo.GetSchemeListCategoryConcatenation(amcCode, categoryCode);
+            //    dtLoadAllSchemeNAV = dsLoadAllSchemeNAV.Tables[0];
+            //}
+            if (dtLoadAllSchemeNAV.Rows.Count > 0)
+            {
+                ddlSelectSchemeNAV.DataSource = dtLoadAllSchemeNAV;
+                ddlSelectSchemeNAV.DataTextField = dtLoadAllSchemeNAV.Columns["PASP_SchemePlanName"].ToString();
+                ddlSelectSchemeNAV.DataValueField = dtLoadAllSchemeNAV.Columns["PASP_SchemePlanCode"].ToString();
+                ddlSelectSchemeNAV.DataBind();
+                ddlSelectSchemeNAV.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All Scheme", "0"));
+            }
+            else
+            {
+                ddlSelectSchemeNAV.Items.Clear();
+                ddlSelectSchemeNAV.DataSource = null;
+                ddlSelectSchemeNAV.DataBind();
+                ddlSelectSchemeNAV.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "0"));
+            }
+            //ddlSelectSchemeNAV.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "0"));
+
         }
 
         public void BindCommissionMISGridCategoryWise()
@@ -243,12 +244,12 @@ namespace WealthERP.Advisor
             DataTable dtMIS;
             //string misType = null;
             //ddlMISType.SelectedValue = misType;
-            userVo=(UserVo)Session["userVo"];
+            userVo = (UserVo)Session["userVo"];
             double sumTotal;
             if (hdnCurrentPage.Value.ToString() != "")
             {
             }
-            dsMISCommission = advisorMISBo.GetMFMISCommission(advisorVo.advisorId, hdnMISType.Value.ToString(), DateTime.Parse(hdnFromDate.Value.ToString()), DateTime.Parse(hdnToDate.Value.ToString()), out sumTotal);            
+            dsMISCommission = advisorMISBo.GetMFMISCommission(advisorVo.advisorId, hdnMISType.Value.ToString(), DateTime.Parse(hdnFromDate.Value.ToString()), DateTime.Parse(hdnToDate.Value.ToString()), out sumTotal);
             if (dsMISCommission.Tables[0].Rows.Count > 0)
             {
                 imgMISCommission.Visible = true;
@@ -256,14 +257,14 @@ namespace WealthERP.Advisor
                 btnCommissionMIS.Visible = false;
                 //trCommissionMIS.Visible = true;
                 dtMIS = dsMISCommission.Tables[0];
-                string misType = hdnMISType.Value.ToString();                
+                string misType = hdnMISType.Value.ToString();
                 tblMessage.Visible = false;
                 ErrorMessage.Visible = false;
                 Label lblHeaderText = new Label();
                 GridBoundColumn ghItem = gvCommissionMIS.MasterTableView.Columns.FindByUniqueName("MISType") as GridBoundColumn;
                 GridBoundColumn ghItem1 = gvCommissionMIS.MasterTableView.Columns.FindByUniqueName("CustomerName") as GridBoundColumn;
                 GridBoundColumn ghItem2 = gvCommissionMIS.MasterTableView.Columns.FindByUniqueName("RM_Name") as GridBoundColumn;
-                GridBoundColumn ghItem3 = gvCommissionMIS.MasterTableView.Columns.FindByUniqueName("AB_BranchName") as GridBoundColumn; 
+                GridBoundColumn ghItem3 = gvCommissionMIS.MasterTableView.Columns.FindByUniqueName("AB_BranchName") as GridBoundColumn;
                 switch (misType)
                 {
                     case "Folio Wise":
@@ -305,14 +306,14 @@ namespace WealthERP.Advisor
                         break;
                 }
 
-              
+
 
                 gvCommissionMIS.DataSource = dtMIS;
-                gvCommissionMIS.CurrentPageIndex = 0;                
+                gvCommissionMIS.CurrentPageIndex = 0;
                 gvCommissionMIS.DataBind();
                 gvCommissionMIS.Visible = true;
 
-                if (Cache["MIS"+ advisorVo.advisorId] == null)
+                if (Cache["MIS" + advisorVo.advisorId] == null)
                 {
                     Cache.Insert("MIS" + advisorVo.advisorId, dtMIS);
                 }
@@ -326,11 +327,11 @@ namespace WealthERP.Advisor
             }
             else
             {
-                gvCommissionMIS.Visible = false;                
+                gvCommissionMIS.Visible = false;
                 tblMessage.Visible = true;
                 ErrorMessage.Visible = true;
                 ErrorMessage.InnerText = "No Records Found...!";
-            }           
+            }
         }
 
 
@@ -372,16 +373,16 @@ namespace WealthERP.Advisor
         }
         public void BindMISCommissionGrid()
         {
-           //SetParameter();
-           DataSet dsALLMISCommission = advisorMISBo.GetCommissionMIS(advisorVo.advisorId, hdnMISType.Value.ToString(), DateTime.Parse(hdnFromDate.Value.ToString()), DateTime.Parse(hdnToDate.Value.ToString()), Convert.ToInt32(ddlSelectMutualFund.SelectedValue), Convert.ToInt32(ddlSelectSchemeNAV.SelectedValue));
-           if (dsALLMISCommission.Tables[0].Rows.Count > 0)
+            //SetParameter();
+            DataSet dsALLMISCommission = advisorMISBo.GetCommissionMIS(advisorVo.advisorId, hdnMISType.Value.ToString(), DateTime.Parse(hdnFromDate.Value.ToString()), DateTime.Parse(hdnToDate.Value.ToString()), Convert.ToInt32(ddlSelectMutualFund.SelectedValue), Convert.ToInt32(ddlSelectSchemeNAV.SelectedValue));
+            if (dsALLMISCommission.Tables[0].Rows.Count > 0)
             {
                 imgMISCommission.Visible = false;
                 imgZoneClusterCommissionMIS.Visible = false;
                 btnCommissionMIS.Visible = true;
 
                 //trCommissionMIS.Visible = true;
-              
+
                 string misType = hdnMISType.Value.ToString();
                 tblMessage.Visible = false;
                 ErrorMessage.Visible = false;
@@ -456,14 +457,26 @@ namespace WealthERP.Advisor
                 ErrorMessage.InnerText = "No Records Found...!";
             }
         }
+        protected void gvZoneClusterWiseCommissionMIS_OnItemDataBound(object sender, GridItemEventArgs e)
+        {
+
+            if (e.Item is GridDataItem)
+            {
+
+                //GridDataItem item = (GridDataItem)e.Item;
+                //item["ZoneName"].BackColor = System.Drawing.Color.Red;
+
+            }
+
+        }
         protected void btnView_Click(object sender, EventArgs e)
         {
             hdnMISType.Value = ddlMISType.SelectedValue.ToString();
             CalculateDateRange(out dtFrom, out dtTo);
             hdnFromDate.Value = dtFrom.ToString();
             hdnToDate.Value = dtTo.ToString();
-           
-            
+
+
             if (hdnMISType.Value == "AMC_Folio_Type_AllMIS")
             {
                 pnlCommissionMIS.Visible = true;
@@ -471,7 +484,7 @@ namespace WealthERP.Advisor
                 tblZoneClusterWiseMIS.Visible = false;
                 trAMCSelection.Visible = true;
                 BindMISCommissionGrid();
-                
+
                 gvCommissionMIS.Visible = false;
             }
             else if (hdnMISType.Value == "Category Wise")
@@ -495,7 +508,7 @@ namespace WealthERP.Advisor
                 tblZoneClusterWiseMIS.Visible = false;
                 //tdCategoryWise.Visible = true;
                 //trCommissionMIS.Visible = false;
-               // BindCommissionMISGridCategoryWise();
+                // BindCommissionMISGridCategoryWise();
 
             }
             else if (hdnMISType.Value == "Zone_Cluster_Wise")
@@ -539,7 +552,7 @@ namespace WealthERP.Advisor
                 toDate = DateTime.MinValue;
             }
         }
-        
+
         public void RadioButtonClick(object sender, EventArgs e)
         {
             if (rbtnPickPeriod.Checked)
@@ -554,7 +567,7 @@ namespace WealthERP.Advisor
                 PickAPeriodValidation.Visible = true;
             }
             else if (rbtnPickDate.Checked)
-            {             
+            {
                 lblPeriod.Visible = false;
                 ddlPeriod.Visible = false;
                 lblFromDate.Visible = true;
@@ -576,7 +589,7 @@ namespace WealthERP.Advisor
             gvCommissionMIS.MasterTableView.ExportToExcel();
         }
 
-          protected void btnCommissionMIS_OnClick(object sender, ImageClickEventArgs e)
+        protected void btnCommissionMIS_OnClick(object sender, ImageClickEventArgs e)
         {
             gvMISCommission.ExportSettings.OpenInNewWindow = true;
             gvMISCommission.ExportSettings.IgnorePaging = true;
@@ -587,7 +600,7 @@ namespace WealthERP.Advisor
             gvMISCommission.MasterTableView.ExportToExcel();
         }
 
-        
+
         protected void btnZoneCLusterMISCommission_OnClick(object sender, ImageClickEventArgs e)
         {
             gvZoneClusterWiseCommissionMIS.ExportSettings.OpenInNewWindow = true;
@@ -647,11 +660,11 @@ namespace WealthERP.Advisor
                                 int selectedRow = gvr.ItemIndex + 1;
                                 int folio = int.Parse(gvr.GetDataKeyValue("AccountId").ToString());
                                 int SchemePlanCode = int.Parse(gvr.GetDataKeyValue("schemeCode").ToString());
-                                
+
                                 if (e.CommandName == "Select1")
                                 {
                                     string name = "Select1";
-                                    Response.Redirect("ControlHost.aspx?pageid=RMMultipleTransactionView&folionum=" + folio + "&SchemePlanCode=" + SchemePlanCode +"&name=" + name +"", false);
+                                    Response.Redirect("ControlHost.aspx?pageid=RMMultipleTransactionView&folionum=" + folio + "&SchemePlanCode=" + SchemePlanCode + "&name=" + name + "", false);
                                 }
                                 if (e.CommandName == "Select2")
                                 {
@@ -700,7 +713,7 @@ namespace WealthERP.Advisor
                                 if (e.CommandName == "SelectAmt")
                                 {
                                     string name = "SelectAmt";
-                                    Response.Redirect("ControlHost.aspx?pageid=RMMultipleTransactionView&CategoryCode=" + CategoryCode +  "&name=" + name + "", false);
+                                    Response.Redirect("ControlHost.aspx?pageid=RMMultipleTransactionView&CategoryCode=" + CategoryCode + "&name=" + name + "", false);
                                 }
                                 if (e.CommandName == "SelectTrail")
                                 {

@@ -66,8 +66,8 @@
                 </asp:DropDownList>
             </td>
         </tr>
-    </table>
-    <table>
+   <%-- </table>
+    <table>--%>
         <tr>
             <td id="tdlblFromDate">
                 <asp:Label class="FieldName" ID="lblFromTran" Text="From :" runat="server" />
@@ -92,8 +92,8 @@
                     Type="Date" ControlToValidate="rdpFromDate" CssClass="cvPCG" Operator="DataTypeCheck"
                     Display="Dynamic"></asp:CompareValidator>
             </td>
-            <td id="tdlblToDate" runat="server">
-                <asp:Label ID="lblToTran" Text="To :" CssClass="FieldName" runat="server" />
+            <td id="tdlblToDate" runat="server" align="right">
+                <asp:Label ID="lblToTran" Text="To:" CssClass="FieldName" runat="server" />
             </td>
             <td id="tdTxtToDate">
                 <telerik:RadDatePicker ID="rdpToDate" CssClass="txtField" runat="server" Culture="English (United States)"
@@ -362,8 +362,8 @@
                                         CommandItemDisplay="None" GroupsDefaultExpanded="false" ExpandCollapseColumn-Groupable="true"
                                         GroupLoadMode="Client" ShowGroupFooter="true">
                                         <Columns>
-                                            <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="SubBrokerCode" DataField="SubBrokerCode"
-                                                HeaderStyle-HorizontalAlign="Right" UniqueName="SubBrokerCode" SortExpression="SubBrokerCode"
+                                            <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="SubBrokerCode" DataField="CMFSS_SubBrokerCode"
+                                                HeaderStyle-HorizontalAlign="Right" UniqueName="CMFSS_SubBrokerCode" SortExpression="CMFSS_SubBrokerCode"
                                                 AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                                 FooterStyle-HorizontalAlign="Right">
                                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />

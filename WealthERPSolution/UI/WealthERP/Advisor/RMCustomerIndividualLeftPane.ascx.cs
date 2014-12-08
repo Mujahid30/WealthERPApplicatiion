@@ -1575,6 +1575,18 @@ namespace WealthERP.Advisor
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "SIPBookSummmaryList", "loadcontrol('SIPBookSummmaryList','?systematicType=" + "SWP" + "');", true);
                     // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerFIAlerts", "loadcontrol('CustomerSIPBookList','none');", true);
                 }
+                else if (e.Item.Value == "MF_Order_Investor")
+                {
+                    ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "script", "<script type='text/javascript'>buttonCliclMF();</script>", false);
+                }
+                else if (e.Item.Value == "NCD_Order_Investor")
+                {
+                    ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "script", "<script type='text/javascript'>buttonCliclNCD();</script>", false);
+                }
+                else if (e.Item.Value == "IPO_Order_Investor")
+                {
+                    ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "script", "<script type='text/javascript'>buttonCliclIPO();</script>", false);
+                }
                 else if (e.Item.Value == "Bond_Order")
                 {
                 }

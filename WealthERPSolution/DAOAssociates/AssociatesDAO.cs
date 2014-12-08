@@ -1858,6 +1858,7 @@ namespace DAOAssociates
                     db.AddInParameter(GetMemberDetailFromTrnxCmd, "@agentcode", DbType.String, agentcode);
                 else
                     db.AddInParameter(GetMemberDetailFromTrnxCmd, "@agentcode", DbType.String, DBNull.Value);
+                GetMemberDetailFromTrnxCmd.CommandTimeout = 60 * 60;
                 dsGetMemberDetailFromTranx = db.ExecuteDataSet(GetMemberDetailFromTrnxCmd);
             }
             catch (BaseApplicationException Ex)
