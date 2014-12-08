@@ -515,6 +515,39 @@ namespace DaoOps
 
         }
 
+        public DataSet GetSipControlDetails(int Scheme )
+        {
+            DataSet dsGetControlDetails;
+            Database db;
+            DbCommand GetGetControlDetailsCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetGetControlDetailsCmd = db.GetStoredProcCommand("SPROC_Offline_SipDetails");
+                db.AddInParameter(GetGetControlDetailsCmd, "@schemecode", DbType.Int32, Scheme);
+                
+
+                dsGetControlDetails = db.ExecuteDataSet(GetGetControlDetailsCmd);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OperationDao.cs:GetFolioAccount()");
+                object[] objects = new object[10];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetControlDetails;
+        }
+
 
         public DataSet GetControlDetails(int Scheme, string folio)
         {

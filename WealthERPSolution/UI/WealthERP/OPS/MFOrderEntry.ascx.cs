@@ -271,6 +271,7 @@ namespace WealthERP.OPS
         {
             BindTotalInstallments();
             BindStartDates();
+
         }
 
         //protected void BindFrequency()
@@ -941,6 +942,7 @@ namespace WealthERP.OPS
             string folioNo = string.Empty;
             int accountid = 0;
             SetControlDetails();
+
             GetControlDetails(int.Parse(txtSchemeCode.Value), null);
 
             if ((ddltransType.SelectedValue != "BUY") && (ddltransType.SelectedValue != "SIP"))
@@ -1003,7 +1005,15 @@ namespace WealthERP.OPS
         protected void GetControlDetails(int scheme, string folio)
         {
             DataSet ds = new DataSet();
-            ds = mfOrderBo.GetControlDetails(scheme, folio);
+
+            if (ddltransType.SelectedValue == "SIP")
+            {
+                ds = mfOrderBo.GetSipControlDetails(scheme );
+
+            }
+            {
+                ds = mfOrderBo.GetControlDetails(scheme, folio);
+            }
             DataTable dt = ds.Tables[0];
             if (dt.Rows.Count > -1)
             {
