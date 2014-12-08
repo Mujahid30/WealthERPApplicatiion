@@ -1347,6 +1347,11 @@
                                                         <asp:DropDownList ID="ddlCommissionType" runat="server" CssClass="cmbField" AutoPostBack="true"
                                                             OnSelectedIndexChanged="ddlCommissionType_Selectedindexchanged">
                                                         </asp:DropDownList>
+                                                        <span id="Span12" class="spnRequiredField">*</span>
+                                                        <br />
+                                                        <asp:RequiredFieldValidator runat="server" ID="rfvCommissionType" ValidationGroup="btnSubmitRule"
+                                                            Display="Dynamic" ControlToValidate="ddlCommissionType" Visible="true" ErrorMessage="Please Select Commission Type"
+                                                            InitialValue="0" />
                                                     </td>
                                                     <td class="leftLabel">
                                                         <asp:Label ID="lblInvestorType" runat="server" Text="Investor type:" CssClass="FieldName"></asp:Label>
@@ -1486,6 +1491,7 @@
                                                         <asp:CheckBoxList ID="chkListTtansactionType" runat="server" CssClass="txtField"
                                                             Visible="false" RepeatLayout="Flow" RepeatDirection="Horizontal">
                                                         </asp:CheckBoxList>
+                                                       
                                                     </td>
                                                 </tr>
                                                 <tr id="trMinMaxTenure" runat="server">
@@ -1755,7 +1761,7 @@
                                     <telerik:GridBoundColumn DataField="CSRD_StructureRuleDetailsId" HeaderStyle-Width="10px"
                                         CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
                                         HeaderText="Rule Detail Id" UniqueName="CSRD_StructureRuleDetailsId" SortExpression="CSRD_StructureRuleDetailsId"
-                                        AllowFiltering="true"  >
+                                        AllowFiltering="true">
                                         <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="10px" Wrap="false" />
                                     </telerik:GridBoundColumn>
                                     <telerik:GridBoundColumn DataField="ACSR_CommissionStructureRuleId" HeaderStyle-Width="10px"
