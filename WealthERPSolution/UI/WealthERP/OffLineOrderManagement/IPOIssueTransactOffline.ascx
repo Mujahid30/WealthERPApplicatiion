@@ -1241,7 +1241,7 @@
                         <br />
                         <asp:CompareValidator ID="ddlAdviserBranchList_CompareValidator2" runat="server"
                             ControlToValidate="ddlAdviserBranchList" ErrorMessage="Please select a Branch"
-                            Operator="NotEqual" ValueToCompare="Select" CssClass="cvPCG" Display="Dynamic" >
+                            Operator="NotEqual" ValueToCompare="Select" CssClass="cvPCG" Display="Dynamic" ValidationGroup="CustomerProfileSubmit">
                         </asp:CompareValidator>
                     </td>
                 </tr>
@@ -1256,7 +1256,7 @@
                         <br />
                         <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="ddlAdviseRMList"
                             ErrorMessage=" " Operator="NotEqual" ValueToCompare="Select" CssClass="cvPCG"
-                            Display="Dynamic">
+                            Display="Dynamic" ValidationGroup="CustomerProfileSubmit">
                         </asp:CompareValidator>
                     </td>
                 </tr>
@@ -1273,7 +1273,7 @@
                         <br />
                         <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="ddlCustomerSubType"
                             ErrorMessage="Please select a Customer Sub-Type" Operator="NotEqual" ValueToCompare="Select"
-                            CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                            CssClass="cvPCG" Display="Dynamic" ValidationGroup="CustomerProfileSubmit" ></asp:CompareValidator>
                     </td>
                 </tr>
                 <tr>
@@ -1291,7 +1291,7 @@
                         </asp:RequiredFieldValidator>
                         <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" Display="Dynamic"
                             CssClass="rfvPCG" ErrorMessage="Please check PAN Format" ControlToValidate="txtPanNumber"
-                            ValidationExpression="[A-Za-z]{5}\d{4}[A-Za-z]{1}">
+                            ValidationExpression="[A-Za-z]{5}\d{4}[A-Za-z]{1}" ValidationGroup="CustomerProfileSubmit">
                         </asp:RegularExpressionValidator>
                         <asp:Label ID="lblPanDuplicate" runat="server" CssClass="Error" Text="PAN Number already exists"></asp:Label>
                     </td>
@@ -1358,7 +1358,7 @@
                         <asp:TextBox ID="txtEmail" runat="server" Style="width: 30%" CssClass="txtField"></asp:TextBox>
                         <asp:RegularExpressionValidator ID="RegularExpressionValidator2" ControlToValidate="txtEmail"
                             ErrorMessage="Please enter a valid Email ID" Display="Dynamic" runat="server"
-                            ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" CssClass="revPCG"></asp:RegularExpressionValidator>
+                            ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" CssClass="revPCG" ValidationGroup="CustomerProfileSubmit"></asp:RegularExpressionValidator>
                     </td>
                 </tr>
                 <tr>
@@ -1369,7 +1369,7 @@
                         <asp:TextBox ID="txtMobileNumber" runat="server" CssClass="txtField" MaxLength="10"></asp:TextBox>
                         <asp:RegularExpressionValidator ID="RegularExpressionValidator14" ControlToValidate="txtMobileNumber"
                             Display="Dynamic" runat="server" CssClass="rfvPCG" ErrorMessage="Not acceptable format"
-                            ValidationExpression="^\d{10,10}$">
+                            ValidationExpression="^\d{10,10}$" ValidationGroup="CustomerProfileSubmit">
                         </asp:RegularExpressionValidator>
                     </td>
                 </tr>
@@ -1448,7 +1448,7 @@
                     </telerik:RadDatePicker>
                     <asp:CompareValidator ID="CompareValidator3" runat="server" ControlToValidate="txtAccountOpeningDate"
                         Type="Date" Operator="DataTypeCheck" ErrorMessage="Please Enter a Valid Date"
-                        Display="Dynamic" CssClass="cvPCG" />
+                        Display="Dynamic" CssClass="cvPCG"  ValidationGroup="btnsubmitdemate"/>
                 </td>
             </tr>
             <tr>
