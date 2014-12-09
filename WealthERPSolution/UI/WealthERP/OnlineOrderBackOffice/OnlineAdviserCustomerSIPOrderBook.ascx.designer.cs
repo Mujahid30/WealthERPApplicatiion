@@ -22,6 +22,8 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// </remarks>
         protected global::System.Web.UI.ScriptManager scriptmanager;
         protected global::System.Web.UI.WebControls.TextBox txtOrderNo;
+        protected global::System.Web.UI.WebControls.Label lblOrderNo;
+        protected global::System.Web.UI.WebControls.DropDownList ddlType;
         /// <summary>
         /// lbBack control.
         /// </summary>

@@ -353,7 +353,34 @@ namespace WealthERP.BusinessMIS
                 }
             }
         }
-
+        protected void gvMember_ItemDataBound(object sender, GridItemEventArgs e)
+        {
+            if (e.Item is GridDataItem)
+            {
+                if (ddlFilter.SelectedValue == "1")
+                {
+                    gvMember.MasterTableView.GetColumn("SubBrokerCode").Visible = false;
+                    gvMember.MasterTableView.GetColumn("SubBrokerName").Visible = false;
+                    gvMember.MasterTableView.GetColumn("ChannelName").Visible = false;
+                    gvMember.MasterTableView.GetColumn("Titles").Visible = false;
+                    gvMember.MasterTableView.GetColumn("ClusterManager").Visible = false;
+                    gvMember.MasterTableView.GetColumn("AreaManager").Visible = false;
+                    gvMember.MasterTableView.GetColumn("ZonalManagerName").Visible = false;
+                    gvMember.MasterTableView.GetColumn("DeputyHead").Visible = false;
+                }
+                else
+                {
+                    gvMember.MasterTableView.GetColumn("SubBrokerCode").Visible = true;
+                    gvMember.MasterTableView.GetColumn("SubBrokerName").Visible = true;
+                    gvMember.MasterTableView.GetColumn("ChannelName").Visible = true;
+                    gvMember.MasterTableView.GetColumn("Titles").Visible = true;
+                    gvMember.MasterTableView.GetColumn("ClusterManager").Visible = true;
+                    gvMember.MasterTableView.GetColumn("AreaManager").Visible = true;
+                    gvMember.MasterTableView.GetColumn("ZonalManagerName").Visible = true;
+                    gvMember.MasterTableView.GetColumn("DeputyHead").Visible = true;
+                }
+            }
+        }
         protected void lnkBtnOrganization_Click(object sender, EventArgs e)
         {
             if (ddlFilter.SelectedValue == "S")
@@ -581,7 +608,30 @@ namespace WealthERP.BusinessMIS
 
             }
         }
-
+        protected void gvOrganization_OnItemDataBound(object sender, GridItemEventArgs e)
+        {
+            if (e.Item is GridDataItem)
+            {
+                if (ddlFilter.SelectedValue == "1")
+                {
+                    gvOrganization.MasterTableView.GetColumn("ChannelMgr").Visible = false;
+                    gvOrganization.MasterTableView.GetColumn("ClusterManager").Visible = false;
+                    gvOrganization.MasterTableView.GetColumn("AreaManager").Visible = false;
+                    gvOrganization.MasterTableView.GetColumn("ZonalManagerName").Visible = false;
+                    gvOrganization.MasterTableView.GetColumn("DeputyHead").Visible = false;
+                    
+                }
+                else
+                {
+                    gvOrganization.MasterTableView.GetColumn("ChannelMgr").Visible = true;
+                    gvOrganization.MasterTableView.GetColumn("ClusterManager").Visible = true;
+                    gvOrganization.MasterTableView.GetColumn("AreaManager").Visible = true;
+                    gvOrganization.MasterTableView.GetColumn("ZonalManagerName").Visible = true;
+                    gvOrganization.MasterTableView.GetColumn("DeputyHead").Visible = true;
+                    
+                }
+            }
+        }
         protected void lnkBtnProduct_Click(object sender, EventArgs e)
         {
             if (ddlFilter.SelectedValue == "S")

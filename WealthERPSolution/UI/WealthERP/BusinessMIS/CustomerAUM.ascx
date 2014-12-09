@@ -190,7 +190,7 @@
                         </telerik:GridBoundColumn>
                         
                         <telerik:GridBoundColumn Aggregate="Sum" UniqueName="Equity" HeaderText="Equity" DataField="Equity"
-                            DataFormatString="{0:N0}" HtmlEncode="false" FooterStyle-HorizontalAlign="Right">
+                            DataFormatString="{0:N0}" HtmlEncode="false" FooterStyle-HorizontalAlign="Right" Visible="false">
                             <ItemStyle HorizontalAlign="Right" />
                         </telerik:GridBoundColumn>
                         <telerik:GridTemplateColumn UniqueName="Mutual_Fund" HeaderText="Mutual Fund" Groupable="False"
@@ -202,36 +202,36 @@
                             </ItemTemplate>
                         </telerik:GridTemplateColumn>
                         <telerik:GridBoundColumn Aggregate="Sum" UniqueName="Fixed_Income" HeaderText="Fixed Income" DataField="Fixed_Income"
-                            DataFormatString="{0:N0}" HtmlEncode="false" FooterStyle-HorizontalAlign="Right">
+                            DataFormatString="{0:N0}" HtmlEncode="false" FooterStyle-HorizontalAlign="Right" Visible="false">
                             <ItemStyle HorizontalAlign="Right" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn Aggregate="Sum" UniqueName="Government_Savings" HeaderText="Government Savings"
-                            DataField="Government_Savings" DataFormatString="{0:N0}" HtmlEncode="false" FooterStyle-HorizontalAlign="Right">
+                            DataField="Government_Savings" DataFormatString="{0:N0}" HtmlEncode="false" FooterStyle-HorizontalAlign="Right" Visible="false">
                             <ItemStyle HorizontalAlign="Right" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn Aggregate="Sum" UniqueName="Property" HeaderText="Property" DataField="Property"
-                            DataFormatString="{0:N0}" HtmlEncode="false" FooterStyle-HorizontalAlign="Right">
+                            DataFormatString="{0:N0}" HtmlEncode="false" FooterStyle-HorizontalAlign="Right" Visible="false">
                             <ItemStyle HorizontalAlign="Right" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn Aggregate="Sum" UniqueName="Pension_and_Gratuity" HeaderText="Pension and Gratuity"
-                            DataField="Pension_and_Gratuity" DataFormatString="{0:N0}" HtmlEncode="false" FooterStyle-HorizontalAlign="Right">
+                            DataField="Pension_and_Gratuity" DataFormatString="{0:N0}" HtmlEncode="false" FooterStyle-HorizontalAlign="Right" Visible="false">
                             <ItemStyle HorizontalAlign="Right" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn Aggregate="Sum" UniqueName="Personal_Assets" HeaderText="Personal Assets"
-                            DataField="Personal_Assets" DataFormatString="{0:N0}" HtmlEncode="false" FooterStyle-HorizontalAlign="Right">
+                            DataField="Personal_Assets" DataFormatString="{0:N0}" HtmlEncode="false" FooterStyle-HorizontalAlign="Right" Visible="false">
                             <ItemStyle HorizontalAlign="Right" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn Aggregate="Sum" UniqueName="Gold_Assets" HeaderText="Gold Assets" DataField="Gold_Assets"
-                            DataFormatString="{0:N0}" HtmlEncode="false" FooterStyle-HorizontalAlign="Right">
+                            DataFormatString="{0:N0}" HtmlEncode="false" FooterStyle-HorizontalAlign="Right" Visible="false">
                             <ItemStyle HorizontalAlign="Right" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn Aggregate="Sum" UniqueName="Collectibles" HeaderText="Collectibles" DataField="Collectibles"
-                            DataFormatString="{0:N0}" HtmlEncode="false" FooterStyle-HorizontalAlign="Right">
+                            DataFormatString="{0:N0}" HtmlEncode="false" FooterStyle-HorizontalAlign="Right" Visible="false">
                             <ItemStyle HorizontalAlign="Right" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn Aggregate="Sum" UniqueName="Cash_and_Savings" HeaderText="Cash and Savings"
                             DataField="Cash_and_Savings" DataFormatString="{0:N0}" HtmlEncode="false"
-                            FooterStyle-HorizontalAlign="Right">
+                            FooterStyle-HorizontalAlign="Right" Visible="false">
                             <ItemStyle HorizontalAlign="Right"/>
                         </telerik:GridBoundColumn>
                         

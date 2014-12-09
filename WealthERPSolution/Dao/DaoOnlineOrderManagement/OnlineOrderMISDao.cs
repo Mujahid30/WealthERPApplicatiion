@@ -33,8 +33,14 @@ namespace DaoOnlineOrderManagement
                     db.AddInParameter(GetOrderBookMISCmd, "@Status", DbType.String, OrderStatus);
                 else
                     db.AddInParameter(GetOrderBookMISCmd, "@Status", DbType.String, DBNull.Value);
+                if(dtFrom!=DateTime.MinValue)
                 db.AddInParameter(GetOrderBookMISCmd, "@Fromdate", DbType.DateTime, dtFrom);
+                else
+                    db.AddInParameter(GetOrderBookMISCmd, "@Fromdate", DbType.DateTime, DBNull.Value);
+                if (dtTo != DateTime.MinValue)
                 db.AddInParameter(GetOrderBookMISCmd, "@ToDate", DbType.DateTime, dtTo);
+                else
+                    db.AddInParameter(GetOrderBookMISCmd, "@ToDate", DbType.DateTime, DBNull.Value);
                 if(orderNo !=0)
                     db.AddInParameter(GetOrderBookMISCmd, "@orderNo", DbType.Int32, orderNo);
                 else
@@ -82,8 +88,14 @@ namespace DaoOnlineOrderManagement
                     db.AddInParameter(GetSIPBookMISCmd, "@systematicId", DbType.Int32, systematicId);
                 else
                     db.AddInParameter(GetSIPBookMISCmd, "@systematicId", DbType.Int32, 0);
+                if(dtFrom!=DateTime.MinValue)
                 db.AddInParameter(GetSIPBookMISCmd, "@Fromdate", DbType.DateTime, dtFrom);
+                else
+                    db.AddInParameter(GetSIPBookMISCmd, "@Fromdate", DbType.DateTime, DBNull.Value);
+                if (dtTo != DateTime.MinValue)
                 db.AddInParameter(GetSIPBookMISCmd, "@ToDate", DbType.DateTime, dtTo);
+                else
+                    db.AddInParameter(GetSIPBookMISCmd, "@ToDate", DbType.DateTime, DBNull.Value);
                 if (orderId != 0)
                     db.AddInParameter(GetSIPBookMISCmd, "@orderNo", DbType.Int32, orderId);
                 else

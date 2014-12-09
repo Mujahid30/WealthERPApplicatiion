@@ -193,6 +193,11 @@
                         Aggregate="Sum" DataFormatString="{0:N0}" ItemStyle-HorizontalAlign="Right">
                         <HeaderStyle></HeaderStyle>
                     </telerik:GridBoundColumn>--%>
+                     <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="TotalCustomer" DataField="CustCount"
+                                                HeaderStyle-HorizontalAlign="Right" UniqueName="CustCount" SortExpression="CustCount"
+                                                AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                            </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="SubBrokerCode" DataField="SubBrokerCode"
                                                 HeaderStyle-HorizontalAlign="Right" UniqueName="SubBrokerCode" SortExpression="SubBrokerCode"
                                                 AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
@@ -236,11 +241,7 @@
                                                 FooterStyle-HorizontalAlign="Right">
                                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="TotalCustomer" DataField="CustCount"
-                                                HeaderStyle-HorizontalAlign="Right" UniqueName="CustCount" SortExpression="CustCount"
-                                                AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
-                                            </telerik:GridBoundColumn>
+                                           
                                         </Columns>
                                     </MasterTableView>
                                     <ClientSettings ReorderColumnsOnClient="True" AllowColumnsReorder="True" EnableRowHoverStyle="true">
@@ -277,6 +278,12 @@
                                         CommandItemDisplay="None" GroupsDefaultExpanded="false" ExpandCollapseColumn-Groupable="true"
                                         GroupLoadMode="Client" ShowGroupFooter="true">
                                         <Columns>
+                                         <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="TotalFolio" DataField="TotalFolio"
+                                                HeaderStyle-HorizontalAlign="Right" UniqueName="TotalFolio" SortExpression="TotalFolio"
+                                                AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                                FooterStyle-HorizontalAlign="Right">
+                                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                            </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="SubBrokerCode" DataField="SubBrokerCode"
                                                 HeaderStyle-HorizontalAlign="Right" UniqueName="SubBrokerCode" SortExpression="SubBrokerCode"
                                                 AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
@@ -320,12 +327,7 @@
                                                 FooterStyle-HorizontalAlign="Right">
                                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="TotalFolio" DataField="TotalFolio"
-                                                HeaderStyle-HorizontalAlign="Right" UniqueName="TotalFolio" SortExpression="TotalFolio"
-                                                AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                                FooterStyle-HorizontalAlign="Right">
-                                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
-                                            </telerik:GridBoundColumn>
+                                           
                                         </Columns>
                                     </MasterTableView>
                                     <HeaderStyle Width="150px" />
@@ -362,6 +364,12 @@
                                         CommandItemDisplay="None" GroupsDefaultExpanded="false" ExpandCollapseColumn-Groupable="true"
                                         GroupLoadMode="Client" ShowGroupFooter="true">
                                         <Columns>
+                                         <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="TotalSIP" DataField="TotalSIP"
+                                                HeaderStyle-HorizontalAlign="Right" UniqueName="TotalSIP" SortExpression="TotalSIP"
+                                                AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                                FooterStyle-HorizontalAlign="Right">
+                                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                            </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="SubBrokerCode" DataField="CMFSS_SubBrokerCode"
                                                 HeaderStyle-HorizontalAlign="Right" UniqueName="CMFSS_SubBrokerCode" SortExpression="CMFSS_SubBrokerCode"
                                                 AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
@@ -405,12 +413,7 @@
                                                 FooterStyle-HorizontalAlign="Right">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="TotalSIP" DataField="TotalSIP"
-                                                HeaderStyle-HorizontalAlign="Right" UniqueName="TotalSIP" SortExpression="TotalSIP"
-                                                AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                                FooterStyle-HorizontalAlign="Right">
-                                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                                            </telerik:GridBoundColumn>
+                                           
                                         </Columns>
                                     </MasterTableView>
                                     <HeaderStyle Width="150px" />

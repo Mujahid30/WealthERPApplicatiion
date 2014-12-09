@@ -1718,19 +1718,29 @@ namespace WealthERP.BusinessMIS
         }
         protected void gvMember_ItemDataBound(object sender, GridItemEventArgs e)
         {
-            if(e.Item is GridDataItem)
+            if (e.Item is GridDataItem)
             {
                 if (ddlFilter.SelectedValue == "1")
                 {
                     gvMember.MasterTableView.GetColumn("SubBrokerCode").Visible = false;
                     gvMember.MasterTableView.GetColumn("AssociatesName").Visible = false;
-                    gvMember.MasterTableView.GetColumn("Folio").Visible = false;
                     gvMember.MasterTableView.GetColumn("ChannelName").Visible = false;
                     gvMember.MasterTableView.GetColumn("Titles").Visible = false;
                     gvMember.MasterTableView.GetColumn("ClusterManager").Visible = false;
                     gvMember.MasterTableView.GetColumn("AreaManager").Visible = false;
                     gvMember.MasterTableView.GetColumn("ZonalManagerName").Visible = false;
                     gvMember.MasterTableView.GetColumn("DeputyHead").Visible = false;
+                }
+                else
+                {
+                    gvMember.MasterTableView.GetColumn("SubBrokerCode").Visible = true;
+                    gvMember.MasterTableView.GetColumn("AssociatesName").Visible = true;
+                    gvMember.MasterTableView.GetColumn("ChannelName").Visible = true;
+                    gvMember.MasterTableView.GetColumn("Titles").Visible = true;
+                    gvMember.MasterTableView.GetColumn("ClusterManager").Visible = true;
+                    gvMember.MasterTableView.GetColumn("AreaManager").Visible = true;
+                    gvMember.MasterTableView.GetColumn("ZonalManagerName").Visible = true;
+                    gvMember.MasterTableView.GetColumn("DeputyHead").Visible = true;
                 }
             }
         }

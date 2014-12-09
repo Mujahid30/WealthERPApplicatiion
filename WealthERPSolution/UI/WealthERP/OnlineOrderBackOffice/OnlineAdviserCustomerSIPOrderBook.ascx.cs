@@ -52,6 +52,13 @@ namespace WealthERP.OnlineOrderBackOffice
                 fromDate = DateTime.Now;
                 txtFrom.SelectedDate = fromDate.Date;
                 txtTo.SelectedDate = DateTime.Now;
+                if (ddlType.SelectedValue != "ON")
+                {
+                    divConditional.Visible = true;
+                    lblOrderNo.Visible = false;
+                    txtOrderNo.Visible = false;
+                    txtOrderNo.Text = "";
+                }
 
             }
 
@@ -80,7 +87,24 @@ namespace WealthERP.OnlineOrderBackOffice
 
             }
         }
+        protected void ddlType_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlType.SelectedValue == "ON")
+            {
+                lblOrderNo.Visible = true;
+                txtOrderNo.Visible = true;
+                divConditional.Visible = false;
+            }
+            else
+            {
+                divConditional.Visible = true;
+                lblOrderNo.Visible = false;
+                txtOrderNo.Visible = false;
+                txtOrderNo.Text = "";
+            }
 
+
+        }
         protected void btnViewOrder_Click(object sender, EventArgs e)
         {
             SetParameter();
@@ -171,10 +195,13 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             DataSet dsSIPBookMIS = new DataSet();
             DataTable dtSIPBookMIS = new DataTable();
-            //if (txtFrom.SelectedDate != null)
-            //    fromDate = DateTime.Parse(txtFrom.SelectedDate.ToString());
-            //if (txtTo.SelectedDate != null)
-            //    toDate = DateTime.Parse(txtTo.SelectedDate.ToString());
+            if (ddlType.SelectedValue != "ON")
+            {
+                if (txtFrom.SelectedDate != null)
+                    fromDate = DateTime.Parse(txtFrom.SelectedDate.ToString());
+                if (txtTo.SelectedDate != null)
+                    toDate = DateTime.Parse(txtTo.SelectedDate.ToString());
+            }
             systematicId = Convert.ToInt32(ViewState["systematicId"]);
             //string OrderStatus = ViewState["OrderStatus"].ToString();
             if (ViewState["OrderStatus"] != null)

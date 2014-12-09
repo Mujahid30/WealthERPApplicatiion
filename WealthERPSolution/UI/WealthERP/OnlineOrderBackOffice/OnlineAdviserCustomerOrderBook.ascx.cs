@@ -49,15 +49,40 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 BindAmc();
                 BindOrderStatus();
-                Cache.Remove("OrderList" + advisorVo.advisorId);               
-                fromDate = DateTime.Now;
-                txtOrderFrom.SelectedDate = fromDate.Date;
-                txtOrderTo.SelectedDate = DateTime.Now;
+                Cache.Remove("OrderList" + advisorVo.advisorId);
+               
+                    fromDate = DateTime.Now;
+                    txtOrderFrom.SelectedDate = fromDate.Date;
+                    txtOrderTo.SelectedDate = DateTime.Now;
+                    if (ddlType.SelectedValue != "ON")
+                    {
+                        divConditional.Visible = true;
+                        lblOrderNo.Visible = false;
+                        txtOrderNo.Visible = false;
+                        txtOrderNo.Text = "";
+                    }
                 
             }
            
         }
+        protected void ddlType_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlType.SelectedValue == "ON")
+            {
+                lblOrderNo.Visible = true;
+                txtOrderNo.Visible = true;
+                divConditional.Visible = false;
+            }
+            else
+            {
+                divConditional.Visible = true;
+                lblOrderNo.Visible = false;
+                txtOrderNo.Visible = false;
+                txtOrderNo.Text = "";
+            }
 
+
+        }
         protected void btnViewOrder_Click(object sender, EventArgs e)
         {
             SetParameter();
@@ -144,11 +169,13 @@ namespace WealthERP.OnlineOrderBackOffice
         {
              DataSet dsOrderBookMIS = new DataSet();
              DataTable dtOrderBookMIS = new DataTable();
-             if (txtOrderFrom.SelectedDate != null)
-                 fromDate = DateTime.Parse(txtOrderFrom.SelectedDate.ToString());
-             if (txtOrderTo.SelectedDate != null)
-                 toDate = DateTime.Parse(txtOrderTo.SelectedDate.ToString());
-
+             if (ddlType.SelectedValue != "ON")
+             {
+                 if (txtOrderFrom.SelectedDate != null)
+                     fromDate = DateTime.Parse(txtOrderFrom.SelectedDate.ToString());
+                 if (txtOrderTo.SelectedDate != null)
+                     toDate = DateTime.Parse(txtOrderTo.SelectedDate.ToString());
+             }
              dsOrderBookMIS = OnlineOrderMISBo.GetOrderBookMIS(advisorVo.advisorId, int.Parse(hdnAmc.Value), hdnOrderStatus.Value, fromDate, toDate, (!string.IsNullOrEmpty(txtOrderNo.Text)) ? int.Parse(txtOrderNo.Text) :0);
             dtOrderBookMIS = dsOrderBookMIS.Tables[0];
             if (dtOrderBookMIS.Rows.Count > 0)

@@ -99,7 +99,7 @@
                 <asp:ListItem Value="S">Select</asp:ListItem>
                 <asp:ListItem Value="1">Online</asp:ListItem>
                 <asp:ListItem Value="0">Offline</asp:ListItem>
-                <asp:ListItem Value="2">All</asp:ListItem>
+                <%--<asp:ListItem Value="2">All</asp:ListItem>--%>
             </asp:DropDownList>
             <span id="Span1" class="spnRequiredField">*</span>
             <asp:Label ID="lblErrorFilter" Text="Please Select a Filter" CssClass="rfvPCG" Visible="false"
@@ -318,7 +318,7 @@
                         PageSize="15" AllowPaging="True" AllowSorting="true" ShowStatusBar="true" ShowFooter="true"
                         Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
                         AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true" EnableHeaderContextMenu="true"
-                        EnableHeaderContextFilterMenu="true" OnNeedDataSource="gvOrganization_OnNeedDataSource">
+                        EnableHeaderContextFilterMenu="true" OnNeedDataSource="gvOrganization_OnNeedDataSource" OnItemDataBound="gvOrganization_OnItemDataBound">
                         <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
                             FileName="Organization Details" Excel-Format="ExcelML">
                         </ExportSettings>
@@ -512,7 +512,7 @@
                         PageSize="15" AllowPaging="True" AllowSorting="true" ShowStatusBar="true" ShowFooter="true"
                         Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
                         AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true" EnableHeaderContextMenu="true"
-                        EnableHeaderContextFilterMenu="true" OnNeedDataSource="gvMember_OnNeedDataSource">
+                        EnableHeaderContextFilterMenu="true" OnNeedDataSource="gvMember_OnNeedDataSource" OnItemDataBound="gvMember_ItemDataBound"> 
                         <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
                             FileName="Member Details" Excel-Format="ExcelML">
                         </ExportSettings>

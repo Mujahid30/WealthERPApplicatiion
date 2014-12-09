@@ -32,11 +32,32 @@
         </td>
     </tr>
 </table>
-<div id="divConditional" runat="server" style="padding-top: 4px">
-    <table class="TableBackground" cellpadding="2">
-        <tr>
-            <td id="tdlblRejectReason" runat="server" style="padding-right: 20px">
+<table>
+    <tr>
+        <td align="right">
+            <asp:Label ID="lblType" runat="server" CssClass="FieldName" Text="Search Type:"></asp:Label>
+        </td>
+        <td>
+            <asp:DropDownList ID="ddlType" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlType_OnSelectedIndexChanged" AutoPostBack="true">
+               
+                <asp:ListItem Text="Order No." Value="ON"></asp:ListItem>
+                <asp:ListItem Text="Without Order No." Value="WON" Selected="True"></asp:ListItem>
+            </asp:DropDownList>
+              <span id="Span3" class="spnRequiredField">*</span>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="ddlType"
+                        ErrorMessage="<br />Please select search type" CssClass="cvPCG" Display="Dynamic"
+                        runat="server" InitialValue="Select" ValidationGroup="btnViewOrder">
+                    </asp:RequiredFieldValidator>
+        </td>
+    </tr>
+</table>
+<div id="divConditional" runat="server" style="padding-top: 4px" visible="false">
+    <table>
+        <tr >
+            <td id="tdlblRejectReason" runat="server" align="right" style="padding-left:45px;">
                 <asp:Label runat="server" class="FieldName" Text="AMC:" ID="lblAccount"></asp:Label>
+                </td>
+                <td>
                 <asp:DropDownList CssClass="cmbField" ID="ddlAmc" runat="server" AutoPostBack="false">
                 </asp:DropDownList>
             </td>
@@ -44,8 +65,10 @@
                
             </td>
            &nbsp--%>
-            <td id="td1" runat="server">
+            <td id="td1" runat="server" align="right">
                 <asp:Label runat="server" class="FieldName" Text="Order Status:" ID="Label1"></asp:Label>
+                 </td>
+                <td>
                 <asp:DropDownList CssClass="cmbField" ID="ddlOrderStatus" runat="server" AutoPostBack="false">
                 </asp:DropDownList>
             </td>
@@ -105,23 +128,26 @@
                     Display="Dynamic">
                 </asp:CompareValidator>
             </td>
-            <td>
-            <asp:Label ID="lblOrderNo" runat="server" Text="Order No:" CssClass="FieldName"></asp:Label>
-            </td>
-            <td>
-            <asp:TextBox ID="txtOrderNo" runat="server" ></asp:TextBox>
-            </td>
-            
-            </tr>
-            <tr>
-            
-            <td id="tdBtnOrder" runat="server">
-              &nbsp;&nbsp;&nbsp;&nbsp;  <asp:Button ID="btnViewOrder" runat="server" CssClass="PCGButton" Text="Go" ValidationGroup="btnViewOrder"
-                    OnClick="btnViewOrder_Click" />
-            </td>
         </tr>
     </table>
 </div>
+<table>
+    <tr>
+        <td align="right">
+            <asp:Label ID="lblOrderNo" runat="server" Text="Order No:" CssClass="FieldName" Visible="false"></asp:Label>
+        </td>
+        <td>
+            <asp:TextBox ID="txtOrderNo" runat="server" Visible="false"></asp:TextBox>
+        </td>
+    </tr>
+    <tr>
+        <td id="tdBtnOrder" runat="server">
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <asp:Button ID="btnViewOrder" runat="server" CssClass="PCGButton" Text="Go" ValidationGroup="btnViewOrder"
+                OnClick="btnViewOrder_Click" />
+        </td>
+    </tr>
+</table>
 <table style="width: 100%" class="TableBackground">
     <tr id="trNoRecords" runat="server" visible="false">
         <td align="center">
@@ -349,7 +375,7 @@
                                 CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                           <%-- <telerik:GridTemplateColumn ItemStyle-Width="60px" AllowFiltering="false" HeaderText="Action"
+                            <%-- <telerik:GridTemplateColumn ItemStyle-Width="60px" AllowFiltering="false" HeaderText="Action"
                                 Visible="false">
                                 <ItemTemplate>
                                     <asp:ImageButton ID="ImageButton1" runat="server" CommandName="Edit" ImageUrl="~/Images/Buy-Button.png" />
