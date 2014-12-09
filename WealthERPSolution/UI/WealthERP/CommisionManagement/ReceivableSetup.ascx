@@ -1220,7 +1220,7 @@
                     </td>
                 </tr>
             </table>
-            <table id="tblCommissionStructureRule1" runat="server" width="99%">
+            <table id="tblCommissionStructureRule1" runat="server" width="120%">
                 <tr>
                     <td>
                         <asp:Panel ID="Panel2" runat="server" class="Landscape" Width="90%" ScrollBars="Horizontal">
@@ -1230,7 +1230,7 @@
                                 AllowAutomaticUpdates="false" Skin="Telerik" OnItemDataBound="RadGridStructureRule_ItemDataBound"
                                 OnNeedDataSource="RadGridStructureRule_NeedDataSource" OnInsertCommand="RadGridStructureRule_InsertCommand"
                                 OnItemCommand="RadGridStructureRule_ItemCommand" OnDeleteCommand="RadGridStructureRule_DeleteCommand"
-                                OnUpdateCommand="RadGridStructureRule_UpdateCommand" Width="100%">
+                                OnUpdateCommand="RadGridStructureRule_UpdateCommand" Width="90%">
                                 <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="CommissionStructureRule">
                                 </ExportSettings>
                                 <MasterTableView CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false"
@@ -1491,7 +1491,6 @@
                                                         <asp:CheckBoxList ID="chkListTtansactionType" runat="server" CssClass="txtField"
                                                             Visible="false" RepeatLayout="Flow" RepeatDirection="Horizontal">
                                                         </asp:CheckBoxList>
-                                                       
                                                     </td>
                                                 </tr>
                                                 <tr id="trMinMaxTenure" runat="server">
@@ -1746,14 +1745,14 @@
                     </td>
                 </tr>
                 <tr>
-                    <td align="center">
+                    <td align="left">
                         <telerik:RadGrid ID="rgPayableMapping" runat="server" AllowSorting="True" enableloadondemand="True"
                             PageSize="5" AutoGenerateColumns="False" EnableEmbeddedSkins="False" GridLines="None"
                             ShowFooter="True" PagerStyle-AlwaysVisible="true" AllowPaging="false" ShowStatusBar="True"
                             Skin="Telerik" AllowFilteringByColumn="true" OnNeedDataSource="rgPayableMapping_OnNeedDataSource"
                             Visible="false">
                             <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" AutoGenerateColumns="false"
-                                Width="50%" DataKeyNames="CSRD_StructureRuleDetailsId,ACSR_CommissionStructureRuleId">
+                                Width="60%" DataKeyNames="CSRD_StructureRuleDetailsId,ACSR_CommissionStructureRuleId">
                                 <Columns>
                                     <%-- <telerik:GridEditCommandColumn EditText="Edit" UniqueName="editColumn" CancelText="Cancel"
                                         UpdateText="Update">--%>
