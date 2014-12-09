@@ -130,7 +130,7 @@
             <asp:Label ID="Label2" runat="server" Text="Type: " CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightData">
-            <asp:DropDownList ID="ddlType" runat="server" enabled="false" CssClass="cmbField" OnSelectedIndexChanged="ddlType_Selectedindexchanged"
+            <asp:DropDownList ID="ddlType" runat="server"   CssClass="cmbField" OnSelectedIndexChanged="ddlType_Selectedindexchanged"
                 AutoPostBack="true">
                 <asp:ListItem Text="Custom" Value="Custom"></asp:ListItem>
                 <asp:ListItem Text="UserCategory" Value="UserCategory"></asp:ListItem>
