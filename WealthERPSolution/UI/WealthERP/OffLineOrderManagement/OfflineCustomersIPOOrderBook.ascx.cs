@@ -226,11 +226,10 @@ namespace WealthERP.OffLineOrderManagement
                 GridDataItem dataItem = e.Item as GridDataItem;
                 LinkButton lbtnMarkAsReject = dataItem["MarkAsReject"].Controls[0] as LinkButton;
                 DropDownList ddlAction = (DropDownList)dataItem.FindControl("ddlAction");
-
+                ddlAction.Enabled = true;
                 string OrderStepCode = Convert.ToString(gvIPOOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WOS_OrderStep"]);
                 Boolean isCancel = Convert.ToBoolean(gvIPOOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIM_IsCancelAllowed"].ToString());
                 DateTime closeDateTime = Convert.ToDateTime(gvIPOOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIM_CloseDate"].ToString());
-
                 if (OrderStepCode == "INPROCESS" && isCancel != false)
                 {
                     lbtnMarkAsReject.Visible = true;
@@ -244,9 +243,11 @@ namespace WealthERP.OffLineOrderManagement
                     ddlAction.Items[1].Enabled = false;
                     ddlAction.Items[2].Enabled = false;
                 }
-                else
+                if (OrderStepCode == "EXECUTED")
                 {
-                    ddlAction.Enabled = true;
+                    ddlAction.Items[1].Enabled = false;
+                    ddlAction.Items[2].Enabled = false;
+                    ddlAction.ToolTip = "Order Cannot Be Modified in Executed Status";
                 }
                 if (DateTime.Now < closeDateTime)
                 {
