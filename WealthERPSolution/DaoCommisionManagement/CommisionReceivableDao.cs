@@ -1254,6 +1254,26 @@ namespace DaoCommisionManagement
             }
         }
 
+        public DataSet  GetPayableMappings(int ruleDetID)
+        {
+            Database db;
+            DbCommand cmdGetStructDet;
+            DataSet ds = null;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetStructDet = db.GetStoredProcCommand("SPROC_GetPayableMappings");
+                db.AddInParameter(cmdGetStructDet, "@RuleDetId", DbType.Int32, ruleDetID);                
+                ds = db.ExecuteDataSet(cmdGetStructDet);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return ds;
+        }
+
         public DataSet GetStructureDetails(int adviserId, int structureId)
         {
             Database db;

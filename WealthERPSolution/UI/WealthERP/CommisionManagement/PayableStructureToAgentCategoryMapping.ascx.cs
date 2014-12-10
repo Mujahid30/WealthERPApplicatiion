@@ -36,6 +36,7 @@ namespace WealthERP.CommisionManagement
             isRedirect = false;
             if (!IsPostBack)
             {
+               
                 if (Request.QueryString["ID"] != null)
                 {
                     isRedirect = true;
@@ -52,7 +53,58 @@ namespace WealthERP.CommisionManagement
                     getAllStructures();
                     ddlStructs.Visible = true;
                 }
+                if (Request.QueryString["Action"] != null)
+                {
+                    if (Request.QueryString["Action"] == "VIEW")
+                    {
+                        trMappings.Visible = false;
+                        trListControls.Visible = false;
+                        btnGo.Visible = false;
+
+                    }
+                    else
+                    {
+                        trMappings.Visible = true;
+                        trListControls.Visible = false;
+                        btnGo.Visible = true;
+
+                    }
+
+                }
+                BindPayableGrid();
+                 
             }
+        }
+
+
+        protected void gvPayaMapping_NeedDataSource(object source, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        {
+            DataSet dsCommissionPayable = new DataSet();
+            if (Cache[userVo.UserId.ToString() + "CommissionPayable"] != null)
+            {
+                dsCommissionPayable = (DataSet)Cache[userVo.UserId.ToString() + "CommissionPayable"];
+                gvPayaMapping.DataSource = dsCommissionPayable.Tables[0];
+            }
+        }
+
+        private void BindPayableGrid()
+        {
+            int ruleId = 0;
+            if (Request.QueryString["ruleId"] != null)
+            {
+                ruleId = int.Parse(Request.QueryString["ruleId"].ToString());
+            }
+
+            DataSet dsPayable = new DataSet();
+            dsPayable = commisionReceivableBo.GetPayableMappings(ruleId);
+
+            gvPayaMapping.DataSource = dsPayable;
+            gvPayaMapping.DataBind();
+
+            if (Cache[userVo.UserId.ToString() + "CommissionPayable"] != null)
+                Cache.Remove(userVo.UserId.ToString() + "CommissionPayable");
+            Cache.Insert(userVo.UserId.ToString() + "CommissionPayable", dsPayable);
+ 
         }
 
         private void DefaultAssignments()
@@ -206,6 +258,7 @@ namespace WealthERP.CommisionManagement
             int mappingId = CreatePayableMapping();
             if (mappingId > 0)
             {
+                BindPayableGrid();
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Mapping Created SuccessFully');", true);
 
             }
@@ -221,6 +274,9 @@ namespace WealthERP.CommisionManagement
             LBAgentCodes.DataBind();
 
         }
+
+      
+
         private void SetStructureDetails()
         {
             DataSet dsStructDet;

@@ -1329,7 +1329,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td class="leftLabel">
-                                                        <asp:Label ID="lb1RuleName" runat="server" Text="RuleName" CssClass="FieldName"></asp:Label>
+                                                        <asp:Label ID="lb1RuleName" runat="server" Text="Rule Name" CssClass="FieldName"></asp:Label>
                                                     </td>
                                                     <td class="rightData">
                                                         <asp:TextBox ID="TxtRuleName" runat="server" CssClass="txtField"></asp:TextBox>
@@ -1794,7 +1794,13 @@
                                     <telerik:GridTemplateColumn AllowFiltering="false" DataField="" HeaderStyle-Width="110px"
                                         UniqueName="Action" HeaderText="Action">
                                         <ItemTemplate>
-                                            <asp:LinkButton ID="llPurchase" runat="server" Text="MAP" OnClick="llPurchase_Click"></asp:LinkButton>
+                                            <asp:LinkButton ID="llPurchase" runat="server" Text="Map" OnClick="llPurchase_Click"></asp:LinkButton>
+                                        </ItemTemplate>
+                                    </telerik:GridTemplateColumn>
+                                      <telerik:GridTemplateColumn AllowFiltering="false" DataField="" HeaderStyle-Width="110px"
+                                        UniqueName="Action" HeaderText="Action">
+                                        <ItemTemplate>
+                                            <asp:LinkButton ID="llView" runat="server" Text="View" OnClick="llView_Click"></asp:LinkButton>
                                         </ItemTemplate>
                                     </telerik:GridTemplateColumn>
                                     <%-- <telerik:GridButtonColumn UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete?"

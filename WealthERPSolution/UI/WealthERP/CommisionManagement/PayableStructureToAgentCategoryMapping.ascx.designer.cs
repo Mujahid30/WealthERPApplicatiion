@@ -266,7 +266,7 @@ namespace WealthERP.CommisionManagement
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadGrid gvMappedSchemes;
+        protected global::Telerik.Web.UI.RadGrid gvPayaMapping;
 
         /// <summary>
         /// pnlAddSchemesButton control.
@@ -420,6 +420,8 @@ namespace WealthERP.CommisionManagement
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblMappedFrom;
+        protected global::System.Web.UI.WebControls.Button btnGo;
+
 
         /// <summary>
         /// rdpMappedFrom control.
@@ -469,8 +471,10 @@ namespace WealthERP.CommisionManagement
         protected global::Telerik.Web.UI.RadListBox LBAgentCodes;
         protected global::Telerik.Web.UI.RadListBox RadListBoxSelectedAgentCodes;
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trListControls;
+        protected global::System.Web.UI.HtmlControls.HtmlTable tblPayableRule;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trMappings;
 
-
+        
 
         /// <summary>
         /// cmvMappingPeriod control.

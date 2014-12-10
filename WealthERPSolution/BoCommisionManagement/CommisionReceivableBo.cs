@@ -785,7 +785,22 @@ namespace BoCommisionManagement
         /**
          * CommissionStructureToSchemeMapping - 
          */
+        public DataSet GetPayableMappings(int ruleDetID)
+        {
+            CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
+            DataSet dsStructList;
+            try
+            {
+                dsStructList = commisionReceivableDao.GetPayableMappings(ruleDetID);
 
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsStructList;
+
+        }
         public DataSet GetStructureDetails(int adviserId, int structureId)
         {
             CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();

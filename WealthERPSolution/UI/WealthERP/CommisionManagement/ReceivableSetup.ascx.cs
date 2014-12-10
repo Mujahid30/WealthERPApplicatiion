@@ -231,6 +231,26 @@ namespace WealthERP.Receivable
 
         }
 
+
+
+        protected void llView_Click(object sender, EventArgs e)
+        {
+            int rowindex1 = ((GridDataItem)((LinkButton)sender).NamingContainer).RowIndex;
+            int rowindex = (rowindex1 / 2) - 1;
+            LinkButton lbButton = (LinkButton)sender;
+            GridDataItem item = (GridDataItem)lbButton.NamingContainer;
+
+            int ruleId = int.Parse(rgPayableMapping.MasterTableView.DataKeyValues[rowindex]["CSRD_StructureRuleDetailsId"].ToString());
+            string structureId = hidCommissionStructureName.Value;
+            string myscript = "window.open('PopUp.aspx?ID=" + structureId + "&ruleId=" + ruleId + "&Action=VIEW&pageID=PayableStructureToAgentCategoryMapping&', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')";
+
+
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), Guid.NewGuid().ToString(), "<script>" + myscript + "</script>", false);
+            //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TransactionPage", "loadcontrol('PayableStructureToAgentCategoryMapping','&ruleId=" + ruleId + "');", true);
+            // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('PayableStructureToAgentCategoryMapping','ruleId=" + ruleId + "&ID=" + hidCommissionStructureName.Value + "&Product=" + ddlProductType.SelectedValue + "');", true);
+
+        }
+
         private void BindRuleDetGrid(RadGrid rgCommissionTypeCaliculation, int ruleId)
         {
             DataSet dsLookupData;
