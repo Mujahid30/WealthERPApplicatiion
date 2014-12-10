@@ -2209,5 +2209,34 @@ namespace BoOnlineOrderManagement
             }
             return bResult;
         }
+        public int SchemeCode(string externalcode, int AMCCode)
+        {
+            int result = 0;
+            OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
+            try
+            {
+                result = OnlineOrderBackOfficeDao.SchemeCode(externalcode, AMCCode);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return result;
+        }
+        public string GetExternalCode(int AMCCode)
+        {
+            OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
+            string extCode = string.Empty;
+            try
+            {
+                extCode = OnlineOrderBackOfficeDao.GetExternalCode(AMCCode);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return extCode;
+        }
+
     }
 }

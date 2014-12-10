@@ -60,7 +60,7 @@ namespace WealthERP.BusinessMIS
             if (userType == "associates")
             {
                 ddlFilter.Items[1].Enabled = false;
-                ddlFilter.Items[3].Enabled = false;
+
             }
             associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
             if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops"

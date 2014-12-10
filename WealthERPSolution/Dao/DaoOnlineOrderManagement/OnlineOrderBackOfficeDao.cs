@@ -2646,6 +2646,57 @@ namespace DaoOnlineOrderManagement
             }
             return bResult;
         }
-      
+        public int SchemeCode(string externalcode, int AMCCode)
+        {
+            Database db;
+            DataSet ds;
+            DbCommand cmdSchemeCode;
+            int count = 0;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //checking year
+                cmdSchemeCode = db.GetStoredProcCommand("SPROC_GetSchemeCodeOnlineOffline");
+                db.AddInParameter(cmdSchemeCode, "@Externalcode", DbType.String, externalcode);
+                db.AddInParameter(cmdSchemeCode, "@AMCCode", DbType.Int32, AMCCode);
+                db.AddOutParameter(cmdSchemeCode, "@count", DbType.Int32, 0);
+
+                ds = db.ExecuteDataSet(cmdSchemeCode);
+                if (db.ExecuteNonQuery(cmdSchemeCode) != 0)
+                {
+                    count = Convert.ToInt32(db.GetParameterValue(cmdSchemeCode, "count").ToString());
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return count;
+        }
+        public string GetExternalCode(int AMCCode)
+        {
+            Database db;
+            DataSet ds;
+            DbCommand cmdGetExternalCode;
+            string extCode = string.Empty;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //checking year
+                cmdGetExternalCode = db.GetStoredProcCommand("SPROC_GetSchemeCode");
+                db.AddInParameter(cmdGetExternalCode, "@AMCCode", DbType.Int32, AMCCode);
+                db.AddOutParameter(cmdGetExternalCode, "@PASC_AMC_ExternalCode", DbType.String, 20);
+                ds = db.ExecuteDataSet(cmdGetExternalCode);
+                if (db.ExecuteNonQuery(cmdGetExternalCode) != 0)
+                {
+                    extCode = db.GetParameterValue(cmdGetExternalCode, "PASC_AMC_ExternalCode").ToString();
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return extCode;
+        }
     }
 }

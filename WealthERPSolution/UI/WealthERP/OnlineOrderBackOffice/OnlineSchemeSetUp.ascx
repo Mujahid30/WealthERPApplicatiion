@@ -22,7 +22,9 @@
 
         return false;
     }
-   
+    function setCustomPosition(sender, args) {
+        sender.moveTo(sender.get_left(), sender.get_top());
+    }
 </script>
 
 <script type="text/javascript" language="javascript">
@@ -1337,8 +1339,8 @@
         </ContentTemplate>
     </telerik:RadWindow>
     <telerik:RadWindow ID="radproductcode" runat="server" VisibleOnPageLoad="false" Height="380px"
-        Width="300px" Modal="true" BackColor="#4B4726" VisibleStatusbar="false" Behaviors="None"
-        Title="Add Productcode" Left="20" Top="20" Expanded="true" Visible="true">
+        Width="300px" Modal="true" BackColor="#4B4726" VisibleStatusbar="false" Behaviors="Move"
+        Title="Add Productcode" Left="80" Top="50" Expanded="true" Visible="true" OnClientShow="setCustomPosition">
         <ContentTemplate>
             <table>
                 <tr>
