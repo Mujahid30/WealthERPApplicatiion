@@ -2729,6 +2729,20 @@
     <Compile Include="Messages\MessageOutbox.ascx.designer.cs">
       <DependentUpon>MessageOutbox.ascx</DependentUpon>
     </Compile>
+    <Compile Include="OffLineOrderManagement\FixedIncome54ECOrderBook.ascx.cs">
+      <DependentUpon>FixedIncome54ECOrderBook.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OffLineOrderManagement\FixedIncome54ECOrderBook.ascx.designer.cs">
+      <DependentUpon>FixedIncome54ECOrderBook.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="OffLineOrderManagement\FixedIncome54ECOrderEntry.ascx.cs">
+      <DependentUpon>FixedIncome54ECOrderEntry.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OffLineOrderManagement\FixedIncome54ECOrderEntry.ascx.designer.cs">
+      <DependentUpon>FixedIncome54ECOrderEntry.ascx</DependentUpon>
+    </Compile>
     <Compile Include="OffLineOrderManagement\IPOIssueTransactOffline.ascx.cs">
       <DependentUpon>IPOIssueTransactOffline.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -8058,6 +8072,8 @@
     <Content Include="Messages\MessageCompose.ascx" />
     <Content Include="Messages\MessageInbox.ascx" />
     <Content Include="Messages\MessageOutbox.ascx" />
+    <Content Include="OffLineOrderManagement\FixedIncome54ECOrderBook.ascx" />
+    <Content Include="OffLineOrderManagement\FixedIncome54ECOrderEntry.ascx" />
     <Content Include="OffLineOrderManagement\IPOIssueTransactOffline.ascx" />
     <Content Include="OffLineOrderManagement\MFOrderBuyTransTypeOffline.ascx" />
     <Content Include="OffLineOrderManagement\NCDIssueTransactOffline.ascx" />

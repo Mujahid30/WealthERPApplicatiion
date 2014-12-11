@@ -2005,4 +2005,12 @@
     <value>OnlineOrderBackOffice//ProductOrderSearch.ascx</value>
     <comment>OnlineOrderBackOffice//ProductOrderSearch.ascx</comment>
   </data>
+  <data name="FixedIncome54ECOrderBook" xml:space="preserve">
+    <value>OffLineOrderManagement//FixedIncome54ECOrderBook.ascx</value>
+    <comment>OffLineOrderManagement//FixedIncome54ECOrderBook.ascx</comment>
+  </data>
+  <data name="FixedIncome54ECOrderEntry" xml:space="preserve">
+    <value>OffLineOrderManagement//FixedIncome54ECOrderEntry.ascx</value>
+    <comment>OffLineOrderManagement//FixedIncome54ECOrderEntry.ascx</comment>
+  </data>
 </root>

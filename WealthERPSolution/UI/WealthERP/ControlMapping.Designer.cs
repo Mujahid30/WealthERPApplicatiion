@@ -1816,6 +1816,24 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OffLineOrderManagement//FixedIncome54ECOrderBook.ascx.
+        /// </summary>
+        internal static string FixedIncome54ECOrderBook {
+            get {
+                return ResourceManager.GetString("FixedIncome54ECOrderBook", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OffLineOrderManagement//FixedIncome54ECOrderEntry.ascx.
+        /// </summary>
+        internal static string FixedIncome54ECOrderEntry {
+            get {
+                return ResourceManager.GetString("FixedIncome54ECOrderEntry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to OPS//FixedIncomeOrderEntry.ascx.
         /// </summary>
         internal static string FixedIncomeOrderEntry {
