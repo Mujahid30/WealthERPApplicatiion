@@ -2001,4 +2001,8 @@
     <value>CommisionManagement//PayableStructureView.ascx</value>
     <comment>CommisionManagement//PayableStructureView.ascx</comment>
   </data>
+  <data name="ProductOrderSearch" xml:space="preserve">
+    <value>OnlineOrderBackOffice//ProductOrderSearch.ascx</value>
+    <comment>OnlineOrderBackOffice//ProductOrderSearch.ascx</comment>
+  </data>
 </root>

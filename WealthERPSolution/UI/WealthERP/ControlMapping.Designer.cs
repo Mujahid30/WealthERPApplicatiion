@@ -3157,6 +3157,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OnlineOrderBackOffice//ProductOrderSearch.ascx.
+        /// </summary>
+        internal static string ProductOrderSearch {
+            get {
+                return ResourceManager.GetString("ProductOrderSearch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to FP//ProspectList.ascx.
         /// </summary>
         internal static string ProspectList {
