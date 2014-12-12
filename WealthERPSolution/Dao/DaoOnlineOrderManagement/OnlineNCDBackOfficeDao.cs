@@ -1802,7 +1802,7 @@ namespace DaoOnlineOrderManagement
 
 
 
-        public DataTable GetAdviserNCDOrderBook(int adviserId, int issueNo, string status, DateTime dtFrom, DateTime dtTo)
+        public DataTable GetAdviserNCDOrderBook(int adviserId, int issueNo, string status, DateTime dtFrom, DateTime dtTo, int orderNo)
         {
             Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DataSet dsNCDOrder;
@@ -1818,8 +1818,18 @@ namespace DaoOnlineOrderManagement
                 else
                     db.AddInParameter(cmd, "@Status", DbType.String, DBNull.Value);
                 db.AddInParameter(cmd, "@AIMissue", DbType.Int32, issueNo);
-                db.AddInParameter(cmd, "@Fromdate", DbType.DateTime, dtFrom);
-                db.AddInParameter(cmd, "@ToDate", DbType.DateTime, dtTo);
+                if (dtFrom != DateTime.MinValue)
+                    db.AddInParameter(cmd, "@Fromdate", DbType.DateTime, dtFrom);
+                else
+                    db.AddInParameter(cmd, "@Fromdate", DbType.DateTime, DBNull.Value);
+                if (dtTo != DateTime.MinValue)
+                    db.AddInParameter(cmd, "@ToDate", DbType.DateTime, dtTo);
+                else
+                    db.AddInParameter(cmd, "@ToDate", DbType.DateTime, DBNull.Value);
+                if (orderNo != 0)
+                    db.AddInParameter(cmd, "@orderNo", DbType.Int32, orderNo);
+                else
+                    db.AddInParameter(cmd, "@orderNo", DbType.Int32, 0);
                 dsNCDOrder = db.ExecuteDataSet(cmd);
                 dtNCDOrder = dsNCDOrder.Tables[0];
             }

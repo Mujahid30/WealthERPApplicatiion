@@ -95,6 +95,42 @@ namespace WealthERP.Advisor {
         protected global::Telerik.Web.UI.RadPanelBar RadPanelBar6;
         
         /// <summary>
+        /// lblSearchType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSearchType;
+        
+        /// <summary>
+        /// ddlSearchtype control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlSearchtype;
+        
+        /// <summary>
+        /// txtOrderNo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtOrderNo;
+        
+        /// <summary>
+        /// imgButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton imgButton;
+        
+        /// <summary>
         /// txtFindRM control.
         /// </summary>
         /// <remarks>

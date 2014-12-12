@@ -124,5 +124,33 @@ namespace BoOfflineOrderManagement
             }
             return OrderIds;
         }
+        public DataTable GetFDIddueList()
+        {
+            DataTable dt;
+            OfflineBondOrderDao offlineBondDao = new OfflineBondOrderDao();
+            try
+            {
+                dt = offlineBondDao.GetFDIddueList();
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dt;
+        }
+        public DataTable GetFD54IssueOrder(int adviserId, DateTime fromDate, DateTime toDate, int issueId)
+        {
+            DataTable dt;
+            OfflineBondOrderDao offlineBondDao = new OfflineBondOrderDao();
+            try
+            {
+                dt = offlineBondDao.GetFD54IssueOrder(adviserId, fromDate, toDate, issueId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dt;
+        }
     }
 }

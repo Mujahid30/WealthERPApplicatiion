@@ -60,7 +60,7 @@ namespace WealthERP.OPS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblFromDate;
-        
+       protected global::System.Web.UI.HtmlControls.HtmlTable tblOrder;
         /// <summary>
         /// txtFromDate control.
         /// </summary>

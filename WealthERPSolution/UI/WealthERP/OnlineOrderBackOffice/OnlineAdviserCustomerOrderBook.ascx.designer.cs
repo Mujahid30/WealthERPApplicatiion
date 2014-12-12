@@ -50,6 +50,8 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblRejectReason;
+        protected global::System.Web.UI.HtmlControls.HtmlTable tblField;
+        protected global::System.Web.UI.HtmlControls.HtmlTable tblOrder;
         
         /// <summary>
         /// lblAccount control.

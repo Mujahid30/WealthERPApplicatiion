@@ -43,5 +43,6 @@ namespace WealthERP.OffLineOrderManagement
         protected global::Telerik.Web.UI.RadDatePicker txtOrderFrom;
         protected global::System.Web.UI.WebControls.DropDownList ddlIssueName;
         protected global::System.Web.UI.WebControls.DropDownList ddlBidType;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divConditional;
     }
 }

@@ -60,7 +60,7 @@
         </td>
     </tr>
 </table>
-<table width="80%" cellspacing="0" cellpadding="3" onkeypress="return keyPress(this, event)">
+<table width="80%" cellspacing="0" cellpadding="3" onkeypress="return keyPress(this, event)" id="tblOrder" runat="server">
     <tr>
         <td class="leftField">
             <asp:Label ID="lblOrderType" runat="server" CssClass="FieldName" Text="Order Type:"></asp:Label>

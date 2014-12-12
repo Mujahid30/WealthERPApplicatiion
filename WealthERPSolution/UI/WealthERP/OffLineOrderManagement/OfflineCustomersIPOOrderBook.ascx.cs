@@ -38,9 +38,9 @@ namespace WealthERP.OffLineOrderManagement
         {
             userVo = (UserVo)Session[SessionContents.UserVo];
             advisorVo = (AdvisorVo)Session["advisorVo"];
-            fromDate = DateTime.Now.AddMonths(-1);
-            txtOrderFrom.SelectedDate = fromDate.Date;
-            txtOrderTo.SelectedDate = DateTime.Now;
+            //fromDate = DateTime.Now.AddMonths(-1);
+            //txtOrderFrom.SelectedDate = fromDate.Date;
+            //txtOrderTo.SelectedDate = DateTime.Now;
             BindOrderStatus();
             BindIssueName();
             associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
@@ -70,9 +70,12 @@ namespace WealthERP.OffLineOrderManagement
             }
             if (!IsPostBack)
             {
-                fromDate = DateTime.Now.AddMonths(-1);
-                txtOrderFrom.SelectedDate = fromDate.Date;
-                txtOrderTo.SelectedDate = DateTime.Now;
+                if (Request.QueryString["orderId"] == null)
+                {
+                    fromDate = DateTime.Now.AddMonths(-1);
+                    txtOrderFrom.SelectedDate = fromDate.Date;
+                    txtOrderTo.SelectedDate = DateTime.Now;
+                }
                 BindOrderStatus();
                 BindIssueName();
             }
@@ -91,6 +94,12 @@ namespace WealthERP.OffLineOrderManagement
                     ddlIssueName.SelectedValue = AIMissueId.ToString();
                     //hdnOrderStatus.Value = "PR";
                     BindAdviserNCCOrderBook();
+                }
+                if (Request.QueryString["orderId"] != null)
+                {
+                   ViewState["OrderId"]  = int.Parse(Request.QueryString["orderId"].ToString());
+                    BindAdviserNCCOrderBook();
+                    divConditional.Visible = false;
                 }
             }
         }
@@ -153,14 +162,21 @@ namespace WealthERP.OffLineOrderManagement
             {
                 agentCode = associateuserheirarchyVo.AgentCode;
             }
-            if (txtOrderFrom.SelectedDate != null)
-                fromDate = DateTime.Parse(txtOrderFrom.SelectedDate.ToString());
-            if (txtOrderTo.SelectedDate != null)
-                toDate = DateTime.Parse(txtOrderTo.SelectedDate.ToString());
             userType = Session[SessionContents.CurrentUserRole].ToString();
             DataTable dtIPOOrder;
-            dtIPOOrder = OfflineIPOBackOfficeBo.GetOfflineIPOOrderBook(advisorVo.advisorId, Convert.ToInt32(ddlIssueName.SelectedValue.ToString()), ddlOrderStatus.SelectedValue, fromDate, toDate, orderId, userType, agentCode, ddlBidType.SelectedValue);
-            if (dtIPOOrder.Rows.Count >= 0)
+            if (Request.QueryString["orderId"] != null)
+            {
+                dtIPOOrder = OfflineIPOBackOfficeBo.GetOfflineIPOOrderBook(advisorVo.advisorId, 0, "0", fromDate, toDate, int.Parse(  ViewState["OrderId"].ToString()), userType, agentCode, ddlBidType.SelectedValue);
+            }
+            else
+            {
+                if (txtOrderFrom.SelectedDate != null)
+                    fromDate = DateTime.Parse(txtOrderFrom.SelectedDate.ToString());
+                if (txtOrderTo.SelectedDate != null)
+                    toDate = DateTime.Parse(txtOrderTo.SelectedDate.ToString());
+                dtIPOOrder = OfflineIPOBackOfficeBo.GetOfflineIPOOrderBook(advisorVo.advisorId, Convert.ToInt32(ddlIssueName.SelectedValue.ToString()), ddlOrderStatus.SelectedValue, fromDate, toDate, orderId, userType, agentCode, ddlBidType.SelectedValue);
+            }
+                if (dtIPOOrder.Rows.Count >= 0)
             {
                 if (Cache["IPOBookList" + userVo.UserId.ToString()] == null)
                 {

@@ -524,7 +524,7 @@ namespace DaoOps
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 GetGetControlDetailsCmd = db.GetStoredProcCommand("SPROC_Offline_SipDetails");
-                db.AddInParameter(GetGetControlDetailsCmd, "@schemecode", DbType.Int32, Scheme);
+                db.AddInParameter(GetGetControlDetailsCmd, "@PASP_SchemePlanCode", DbType.Int32, Scheme);
                 
 
                 dsGetControlDetails = db.ExecuteDataSet(GetGetControlDetailsCmd);

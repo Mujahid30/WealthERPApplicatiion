@@ -197,6 +197,35 @@ namespace DaoOfflineOrderManagement
             }
             return bResult;
         }
+        public DataTable GetAddedCustomer(int customerId)
+        {
+            DataTable dtGetAddedCustomer;
+            Database db;
+            DbCommand GetAddedCustomertCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetAddedCustomertCmd = db.GetStoredProcCommand("SPROC_GetNewAddedCustomer");
+                db.AddInParameter(GetAddedCustomertCmd, "@customerId", DbType.Int32, customerId);
+                dtGetAddedCustomer = db.ExecuteDataSet(GetAddedCustomertCmd).Tables[0];
 
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "DaoOfflineOrderManagement.cs:GetIPOIssueList(int adviserId)");
+                object[] objects = new object[1];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtGetAddedCustomer;
+        }
     }
 }

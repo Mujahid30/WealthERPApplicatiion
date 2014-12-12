@@ -20,7 +20,7 @@ namespace DaoOfflineOrderManagement
     {
         string allotmentDataTable;
 
-        public DataTable GetOfflineCustomerNCDOrderBook(int adviserId, int issueNo, string status, DateTime dtFrom, DateTime dtTo, string userType, string agentCode)
+        public DataTable GetOfflineCustomerNCDOrderBook(int adviserId, int issueNo, string status, DateTime dtFrom, DateTime dtTo, string userType, string agentCode, int orderNo)
         {
             Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DataSet dsNCDOrder;
@@ -36,8 +36,18 @@ namespace DaoOfflineOrderManagement
                 else
                     db.AddInParameter(cmd, "@Status", DbType.String, DBNull.Value);
                 db.AddInParameter(cmd, "@AIMissue", DbType.Int32, issueNo);
-                db.AddInParameter(cmd, "@Fromdate", DbType.DateTime, dtFrom);
-                db.AddInParameter(cmd, "@ToDate", DbType.DateTime, dtTo);
+                if (dtFrom != DateTime.MinValue)
+                    db.AddInParameter(cmd, "@Fromdate", DbType.DateTime, dtFrom);
+                else
+                    db.AddInParameter(cmd, "@Fromdate", DbType.DateTime, DBNull.Value);
+                if (dtTo != DateTime.MinValue)
+                    db.AddInParameter(cmd, "@ToDate", DbType.DateTime, dtTo);
+                else
+                    db.AddInParameter(cmd, "@ToDate", DbType.DateTime, DBNull.Value);
+                if (orderNo != 0)
+                    db.AddInParameter(cmd, "@OrderId", DbType.Int32, orderNo);
+                else
+                    db.AddInParameter(cmd, "@OrderId", DbType.Int32, 0);
                 if (userType != "0")
                     db.AddInParameter(cmd, "@UserType", DbType.String, userType);
                 else

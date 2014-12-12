@@ -139,7 +139,7 @@
         </td>
     </tr> 
     <tr id="trWrongCustomer" runat="server">
-        <td align="center">
+        <td align="center" colspan="4">
             <asp:Label ID="lblWrongCustomer" runat="server" CssClass="failure-msg" Visible="false"></asp:Label>
         </td>
     </tr>   

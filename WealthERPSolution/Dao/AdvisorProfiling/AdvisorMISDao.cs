@@ -1190,12 +1190,12 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(getLoanMICmd, "@A_AdviserId", DbType.Int32, adviserid);
                 if (branchid != 0)
                     db.AddInParameter(getLoanMICmd, "@AB_BranchId", DbType.Int32, branchid);
-                else
-                    db.AddInParameter(getLoanMICmd, "@AB_BranchId", DbType.Int32, DBNull.Value);
+                //else
+                //    db.AddInParameter(getLoanMICmd, "@AB_BranchId", DbType.Int32, 0);
                 if (rmid != 0)
                     db.AddInParameter(getLoanMICmd, "@RMId", DbType.Int32, rmid);
-                else
-                    db.AddInParameter(getLoanMICmd, "@RMId", DbType.Int32, DBNull.Value);
+                //else
+                //    db.AddInParameter(getLoanMICmd, "@RMId", DbType.Int32, 0);
 
                 db.AddInParameter(getLoanMICmd, "@Valuation_Date", DbType.DateTime, valuationDate.ToString("dd/MM/yyyy"));
                 db.AddInParameter(getLoanMICmd, "@online", DbType.Int32, type);

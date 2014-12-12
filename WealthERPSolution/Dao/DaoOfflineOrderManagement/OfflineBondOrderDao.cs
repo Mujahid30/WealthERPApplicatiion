@@ -181,5 +181,47 @@ namespace DaoOfflineOrderManagement
             }
             return OrderIds;
         }
+        public DataTable GetFDIddueList()
+        {
+            Database db;
+            DbCommand cmdGetFDIddueList;
+            DataSet ds = null;
+            DataTable dtGetFDIddueList;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetFDIddueList = db.GetStoredProcCommand("SPROC_GetFDIsssue");
+                ds = db.ExecuteDataSet(cmdGetFDIddueList);
+                dtGetFDIddueList = ds.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetFDIddueList;
+        }
+        public DataTable GetFD54IssueOrder(int adviserId, DateTime fromDate, DateTime toDate, int issueId)
+        {
+            Database db;
+            DbCommand cmdGetFD54IssueOrder;
+            DataSet ds = null;
+            DataTable dtGetFD54IssueOrder;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetFD54IssueOrder = db.GetStoredProcCommand("SPROC_Get54ECOrderBook");
+                db.AddInParameter(cmdGetFD54IssueOrder, "@issueId", DbType.Int32, issueId);
+                db.AddInParameter(cmdGetFD54IssueOrder, "@AdviserID", DbType.Int32, adviserId);
+                db.AddInParameter(cmdGetFD54IssueOrder, "@Fromdate", DbType.DateTime, fromDate);
+                db.AddInParameter(cmdGetFD54IssueOrder, "@Todate", DbType.DateTime, toDate);
+                ds = db.ExecuteDataSet(cmdGetFD54IssueOrder);
+                dtGetFD54IssueOrder = ds.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetFD54IssueOrder;
+        }
     }
 }

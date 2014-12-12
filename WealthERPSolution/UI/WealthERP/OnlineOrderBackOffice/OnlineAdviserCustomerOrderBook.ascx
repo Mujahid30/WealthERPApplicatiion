@@ -32,7 +32,7 @@
         </td>
     </tr>
 </table>
-<table>
+<table id="tblField" runat="server">
     <tr>
         <td align="right">
             <asp:Label ID="lblType" runat="server" CssClass="FieldName" Text="Search Type:"></asp:Label>
@@ -131,7 +131,7 @@
         </tr>
     </table>
 </div>
-<table>
+<table id="tblOrder" runat="server">
     <tr>
         <td align="right">
             <asp:Label ID="lblOrderNo" runat="server" Text="Order No:" CssClass="FieldName" Visible="false"></asp:Label>

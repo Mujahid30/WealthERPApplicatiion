@@ -2698,5 +2698,25 @@ namespace DaoOnlineOrderManagement
             }
             return extCode;
         }
+        public DataTable SearchOnPRoduct(int orderNo)
+        {
+            DataSet dsSearchOnPRoduct;
+            DataTable dtSearchOnPRoduct;
+            Database db;
+            DbCommand cmdSearchOnPRoduct;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdSearchOnPRoduct = db.GetStoredProcCommand("SPROC_ProductWiseSearch");
+                db.AddInParameter(cmdSearchOnPRoduct, "@OrderNo", DbType.Int32, orderNo);
+                dsSearchOnPRoduct = db.ExecuteDataSet(cmdSearchOnPRoduct);
+                dtSearchOnPRoduct = dsSearchOnPRoduct.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtSearchOnPRoduct;
+        }
     }
 }

@@ -27,11 +27,20 @@ namespace WealthERP.OnlineOrderBackOffice
             advisorVo = (AdvisorVo)Session["advisorVo"];
             if (!IsPostBack)
             {
-                fromDate = DateTime.Now.AddMonths(-1);
-                txtOrderFrom.SelectedDate = fromDate.Date;
-                txtOrderTo.SelectedDate = DateTime.Now;
+                if (Request.QueryString["orderId"] == null)
+                {
+                    fromDate = DateTime.Now.AddMonths(-1);
+                    txtOrderFrom.SelectedDate = fromDate.Date;
+                    txtOrderTo.SelectedDate = DateTime.Now;
+                }
                 BindOrderStatus();
                 BindIssueName();
+                if (Request.QueryString["orderId"] != null)
+                {
+                    ViewState["OrderId"] = int.Parse(Request.QueryString["orderId"].ToString());
+                    BindAdviserNCCOrderBook();
+                    divConditional.Visible = false;
+                }
             }
         }
         protected void BindIssueName()
@@ -83,12 +92,21 @@ namespace WealthERP.OnlineOrderBackOffice
         }
         protected void BindAdviserNCCOrderBook()
         {
-            if (txtOrderFrom.SelectedDate != null)
-                fromDate = DateTime.Parse(txtOrderFrom.SelectedDate.ToString());
-            if (txtOrderTo.SelectedDate != null)
-                toDate = DateTime.Parse(txtOrderTo.SelectedDate.ToString());
-            DataTable dtNCDOrder=new DataTable();
-            dtNCDOrder = onlineNCDBackOfficeBo.GetAdviserNCDOrderBook(advisorVo.advisorId,Convert.ToInt32(ddlIssueName.SelectedValue.ToString()), hdnOrderStatus.Value, fromDate, toDate);
+            DataTable dtNCDOrder = new DataTable();
+            if (Request.QueryString["orderId"] != null)
+            {
+
+                dtNCDOrder = onlineNCDBackOfficeBo.GetAdviserNCDOrderBook(advisorVo.advisorId, 0, "0", fromDate, toDate, int.Parse(ViewState["OrderId"].ToString()));
+
+            }
+            else
+            {
+                if (txtOrderFrom.SelectedDate != null)
+                    fromDate = DateTime.Parse(txtOrderFrom.SelectedDate.ToString());
+                if (txtOrderTo.SelectedDate != null)
+                    toDate = DateTime.Parse(txtOrderTo.SelectedDate.ToString());
+                dtNCDOrder = onlineNCDBackOfficeBo.GetAdviserNCDOrderBook(advisorVo.advisorId, Convert.ToInt32(ddlIssueName.SelectedValue.ToString()), hdnOrderStatus.Value, fromDate, toDate,0);
+            }
             if (dtNCDOrder.Rows.Count >= 0)
             {
                 if (Cache["NCDBookList" + userVo.UserId.ToString()] == null)

@@ -2237,6 +2237,19 @@ namespace BoOnlineOrderManagement
             }
             return extCode;
         }
-
+        public DataTable SearchOnPRoduct(int orderNo)
+        {
+            OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
+            DataTable dtSearchOnPRoduct;
+            try
+            {
+                dtSearchOnPRoduct = OnlineOrderBackOfficeDao.SearchOnPRoduct(orderNo);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtSearchOnPRoduct;
+        }
     }
 }

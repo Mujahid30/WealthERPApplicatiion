@@ -15,7 +15,7 @@ using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections.Specialized;
 using System.Data;
 using System.Configuration;
-
+using BoOnlineOrderManagement;
 namespace WealthERP.Advisor
 {
     public partial class AdvisorLeftPane : UserControl
@@ -548,10 +548,14 @@ namespace WealthERP.Advisor
             hdfSession.Value = "Admin";
             try
             {
-
+                
                 if (e.Item.Value == "Manage Lookups")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ManageLookups','login');", true);
+                }
+                else if (e.Item.Value == "54EC_ORDER_bOOK")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('FixedIncome54ECOrderBook','login');", true);
                 }
                 else if (e.Item.Value == "View_Associate_Payable_Rule")
                 {
@@ -1814,6 +1818,10 @@ namespace WealthERP.Advisor
                 if (e.Item.Value == "Manage Lookups")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ManageLookups','login');", true);
+                }
+                else if (e.Item.Value == "54EC_ORDER_bOOK")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('FixedIncome54ECOrderBook','login');", true);
                 }
                 else if (e.Item.Value == "SIP_Offline_Book")
                 {
@@ -3546,6 +3554,10 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('SalesDashBoard','login');", true);
                 }
+                else if (e.Item.Value == "54EC_ORDER_bOOK")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('FixedIncome54ECOrderBook','login');", true);
+                }
                 else if (e.Item.Value == "View_Associate_Payable_Rule")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('PayableStructureView','login');", true);
@@ -3902,6 +3914,49 @@ namespace WealthERP.Advisor
                 throw exBase;
             }
 
+        }
+        public void imgButton_OnClick(object sender, ImageClickEventArgs e)
+        {
+            int orderId=0,isonline=0;string productcode=string.Empty;
+            OnlineOrderBackOfficeBo OnlineOrderBackOfficeBo=new OnlineOrderBackOfficeBo();
+            DataTable dtOrderNo = OnlineOrderBackOfficeBo.SearchOnPRoduct(int.Parse(txtOrderNo.Text));
+            foreach (DataRow dr in dtOrderNo.Rows)
+            {
+                orderId = int.Parse(dr["CO_OrderId"].ToString());
+                isonline = int.Parse(dr["CO_IsOnline"].ToString());
+                productcode = dr["PAG_AssetGroupCode"].ToString();
+            }
+
+            if (productcode == "MF" && isonline == 1)
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineAdviserCustomerOrderBook", "loadcontrol('OnlineAdviserCustomerOrderBook','?orderId=" + orderId + "');", true);
+
+            }
+            if (productcode == "FI" && isonline == 1)
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineAdviserNCDOrderBook", "loadcontrol('OnlineAdviserNCDOrderBook','?orderId=" + orderId + "');", true);
+
+            }
+            if (productcode == "IP" && isonline == 1)
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineAdviserCustomerIPOOrderBook", "loadcontrol('OnlineAdviserCustomerIPOOrderBook','?orderId=" + orderId + "');", true);
+
+            }
+            if (productcode == "MF" && isonline == 0)
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OrderList", "loadcontrol('OrderList','?orderId=" + orderId + "');", true);
+
+            }
+            if (productcode == "FI" && isonline == 0)
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OfflineCustomersNCDOrderBook", "loadcontrol('OfflineCustomersNCDOrderBook','?orderId=" + orderId + "');", true);
+
+            }
+            if (productcode == "IP" && isonline == 0)
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OfflineCustomersIPOOrderBook", "loadcontrol('OfflineCustomersIPOOrderBook','?orderId=" + orderId + "');", true);
+
+            }
         }
 
     }

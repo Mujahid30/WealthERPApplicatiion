@@ -30,6 +30,7 @@ namespace WealthERP.OffLineOrderManagement
         string UserTitle;
          string AgentCode;
          string agentCode;
+         int orderno = 0;
         BoOnlineOrderManagement.OnlineBondOrderBo BoOnlineBondOrder = new BoOnlineOrderManagement.OnlineBondOrderBo();
         OnlineNCDBackOfficeBo onlineNCDBackOfficeBo = new OnlineNCDBackOfficeBo();
         OfflineNCDIPOBackOfficeBo offlineNCDBackOfficeBo = new OfflineNCDIPOBackOfficeBo();
@@ -90,11 +91,21 @@ namespace WealthERP.OffLineOrderManagement
           
                   if (!IsPostBack)
                   {
-                      fromDate = DateTime.Now.AddMonths(-1);
-                      txtOrderFrom.SelectedDate = fromDate.Date;
-                      txtOrderTo.SelectedDate = DateTime.Now;
+                      if (Request.QueryString["orderId"] == null)
+                      {
+                          fromDate = DateTime.Now.AddMonths(-1);
+                          txtOrderFrom.SelectedDate = fromDate.Date;
+                          txtOrderTo.SelectedDate = DateTime.Now;
+                      }
                       BindOrderStatus();
                       BindIssueName();
+                      if (Request.QueryString["orderId"] != null)
+                      {
+                          orderno = int.Parse(Request.QueryString["orderId"].ToString());
+                          ViewState["OrderId"] = orderno;
+                          BindAdviserNCCOrderBook();
+                          divConditional.Visible = false;
+                      }
                   }
               
           }
@@ -159,14 +170,23 @@ namespace WealthERP.OffLineOrderManagement
         }
         protected void BindAdviserNCCOrderBook()
         {
-            if (txtOrderFrom.SelectedDate != null)
-                fromDate = DateTime.Parse(txtOrderFrom.SelectedDate.ToString());
-            if (txtOrderTo.SelectedDate != null)
-                toDate = DateTime.Parse(txtOrderTo.SelectedDate.ToString());
-            userType = Session[SessionContents.CurrentUserRole].ToString();
             DataTable dtNCDOrder = new DataTable();
-            dtNCDOrder = offlineNCDBackOfficeBo.GetOfflineCustomerNCDOrderBook(advisorVo.advisorId, Convert.ToInt32(ddlIssueName.SelectedValue.ToString()), hdnOrderStatus.Value, fromDate, toDate, userType, AgentCode);
-            if (dtNCDOrder.Rows.Count >= 0)
+            userType = Session[SessionContents.CurrentUserRole].ToString();
+            if (Request.QueryString["orderId"] != null)
+            {
+
+                dtNCDOrder = offlineNCDBackOfficeBo.GetOfflineCustomerNCDOrderBook(advisorVo.advisorId,0, "0", fromDate, toDate, userType, AgentCode, int.Parse(ViewState["OrderId"].ToString()));
+
+            }
+            else
+            {
+                if (txtOrderFrom.SelectedDate != null)
+                    fromDate = DateTime.Parse(txtOrderFrom.SelectedDate.ToString());
+                if (txtOrderTo.SelectedDate != null)
+                    toDate = DateTime.Parse(txtOrderTo.SelectedDate.ToString());
+                dtNCDOrder = offlineNCDBackOfficeBo.GetOfflineCustomerNCDOrderBook(advisorVo.advisorId, Convert.ToInt32(ddlIssueName.SelectedValue.ToString()), hdnOrderStatus.Value, fromDate, toDate, userType, AgentCode, 0);
+            }
+                if (dtNCDOrder.Rows.Count >= 0)
             {
                 if (Cache["NCDBookList" + userVo.UserId.ToString()] == null)
                 {

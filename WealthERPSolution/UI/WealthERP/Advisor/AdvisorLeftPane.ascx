@@ -226,6 +226,8 @@
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="IPO Order Book" Value="IPO_Offline_Order_Book">
                                                     </telerik:RadPanelItem>
+                                                     <telerik:RadPanelItem runat="server" Text="54EC Order Book" Value="54EC_ORDER_bOOK">
+                                                    </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="SIP Offline Book" Value="SIP_Offline_Book">
                                                     </telerik:RadPanelItem>
                                                 </Items>
@@ -948,6 +950,8 @@
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="IPO Order Book" Value="IPO_Offline_Order_Book">
                                                     </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="54EC Order Book" Value="54EC_ORDER_bOOK">
+                                                    </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="SIP Offline Book" Value="SIP_Offline_Book">
                                                     </telerik:RadPanelItem>
                                                 </Items>
@@ -1483,6 +1487,8 @@
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="IPO Order Book" Value="IPO_Offline_Order_Book">
                                                     </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="54EC Order Book" Value="54EC_ORDER_bOOK">
+                                                    </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>
                                         </Items>
@@ -1688,6 +1694,27 @@
             </tr>
             <tr>
                 <td>
+                </td>
+            </tr>
+        </table>
+        <table style="padding-left:20px;">
+            <tr>
+                <td>
+                    <asp:Label ID="lblSearchType" runat="server" Text="Search Type:" CssClass="FieldName"></asp:Label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:DropDownList ID="ddlSearchtype" runat="server" CssClass="cmbField">
+                    <asp:ListItem Text="Order No." Value="ON"></asp:ListItem>
+                    </asp:DropDownList>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:TextBox ID="txtOrderNo" runat="server"></asp:TextBox>
+                    <asp:ImageButton ID="imgButton" runat="server" ImageUrl="~/Images/searchicon.jpg"
+                        Height="17px" Width="20px" OnClick="imgButton_OnClick"/>
                 </td>
             </tr>
         </table>

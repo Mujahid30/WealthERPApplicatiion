@@ -29,8 +29,14 @@ namespace DaoOnlineOrderManagement
                 else
                     db.AddInParameter(cmd, "@Status", DbType.String, DBNull.Value);
                 db.AddInParameter(cmd, "@AIMissue", DbType.Int32, issueId);
-                db.AddInParameter(cmd, "@Fromdate", DbType.DateTime, dtFrom);
-                db.AddInParameter(cmd, "@ToDate", DbType.DateTime, dtTo);
+                if (dtFrom != DateTime.MinValue)
+                    db.AddInParameter(cmd, "@Fromdate", DbType.DateTime, dtFrom);
+                else
+                    db.AddInParameter(cmd, "@Fromdate", DbType.DateTime, DBNull.Value);
+                if (dtTo != DateTime.MinValue)
+                    db.AddInParameter(cmd, "@ToDate", DbType.DateTime, dtTo);
+                else
+                    db.AddInParameter(cmd, "@ToDate", DbType.DateTime, DBNull.Value);
                 if(orderId !=0)
                     db.AddInParameter(cmd, "@OrderId", DbType.Int32, orderId);
                 dsIPOOrder = db.ExecuteDataSet(cmd);
