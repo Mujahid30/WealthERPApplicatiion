@@ -256,6 +256,9 @@
                 <td align="center">
                     <asp:Button ID="btnAddDemat" runat="server" Text="Accept" CssClass="PCGButton" OnClick="btnAddDemat_Click"
                         CausesValidation="false" OnClientClick="javascript:return  TestCheckBox();" />
+                        
+                        <asp:Button ID="btnClose" runat="server" Text="Accept" CssClass="PCGButton" OnClick="btnClose_Click"
+                        CausesValidation="false"  />
                 </td>
             </tr>
         </table>

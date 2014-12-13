@@ -1643,6 +1643,11 @@ namespace WealthERP.OPS {
          protected global::System.Web.UI.WebControls.Button btnViewInDOC;
          protected global::System.Web.UI.WebControls.Button btnViewInPDFNew;
          protected global::System.Web.UI.WebControls.Button btnViewInDOCNew;
+         protected global::System.Web.UI.WebControls.Button btnClose;
+
+
+
+        
         /// <summary>
         /// hdnSchemeCode control.
         /// </summary>

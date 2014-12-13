@@ -3450,10 +3450,10 @@ namespace WealthERP.OPS
             AddcLick();
             SetFICOntrolsEnablity(false);
             SetFICOntrols();
-           
+
             btnSubmit.Visible = false;
             btnAddMore.Visible = false;
-           
+
 
             btnUpdate.Visible = false;
             lnkBtnFIEdit.Visible = true;
@@ -3464,7 +3464,7 @@ namespace WealthERP.OPS
             btnViewInDOC.Visible = false;
             btnViewInPDF.Visible = false;
             btnViewReport.Visible = false;
-             
+
         }
         private void SetFICOntrolsEnablity(bool Val)
         {
@@ -3653,7 +3653,7 @@ namespace WealthERP.OPS
 
             UserControl FIControls = (UserControl)this.FindControl("FixedIncomeOrder");
 
- 
+
 
             DropDownList ddlCategory = (DropDownList)FIControls.FindControl("ddlCategory");//ddlIssuer
             DropDownList ddlIssuer = (DropDownList)FIControls.FindControl("ddlIssuer");
@@ -3695,7 +3695,7 @@ namespace WealthERP.OPS
             Label lblError = (Label)FIControls.FindControl("lblError");
             GridView gvNominees = (GridView)FIControls.FindControl("gvNominees");
             DropDownList ddlProof = (DropDownList)FIControls.FindControl("ddlProof");
- 
+
             Label lblOrderNumber = (Label)FIControls.FindControl("lblOrderNumber");
 
             orderVo.CustomerId = int.Parse(txtCustomerId.Value);
@@ -3728,14 +3728,14 @@ namespace WealthERP.OPS
             else
                 fiorderVo.AgentId = 0;
 
-           
+
             if (ddlDepoBank.SelectedValue != "Select")
                 fiorderVo.DepCustBankAccId = int.Parse(ddlDepoBank.SelectedValue);
 
 
             hdnFromdate.Value = txtOrderDate.SelectedDate.ToString();
             hdnTodate.Value = txtApplicationDate.SelectedDate.ToString();
-             
+
             if (!string.IsNullOrEmpty(lblGetOrderNo.Text))
                 orderVo.OrderNumber = Convert.ToInt32(lblGetOrderNo.Text);
             if (ChkSeniorcitizens.Checked == true)
@@ -3813,7 +3813,7 @@ namespace WealthERP.OPS
             }
 
 
-             
+
             List<int> OrderIds = new List<int>();
             if (hdnButtonAction.Value == "Submit")
             {
@@ -3834,7 +3834,8 @@ namespace WealthERP.OPS
 
             }
 
- 
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Your order added successfully.');", true);
+
             Session["CO_OrderId"] = orderId;
             orderVo.OrderId = orderId;
             int rowNodt = 0;
@@ -3892,7 +3893,7 @@ namespace WealthERP.OPS
             //    }
             //}
 
-            
+
 
             //BindOrderStepsGrid();
 
@@ -5418,7 +5419,6 @@ namespace WealthERP.OPS
                 {
                     dematAccountId = int.Parse(gvDematDetailsTeleR.MasterTableView.DataKeyValues[gvr.ItemIndex]["CEDA_DematAccountId"].ToString());
                     txtDematid.Text = gvDematDetailsTeleR.MasterTableView.DataKeyValues[gvr.ItemIndex]["CEDA_DPClientId"].ToString();
-                    rwDematDetails.VisibleOnPageLoad = false;
                     break;
                 }
 
@@ -5427,6 +5427,12 @@ namespace WealthERP.OPS
 
         }
 
+
+        protected void btnClose_Click(object sender, EventArgs e)
+        {
+            rwDematDetails.VisibleOnPageLoad = false;
+
+        }
         private void BindgvFamilyAssociate(int demataccountid)
         {
             gvAssociate.Visible = true;
@@ -5511,7 +5517,7 @@ namespace WealthERP.OPS
             }
 
         }
-        
+
 
 
 
