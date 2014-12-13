@@ -257,7 +257,7 @@
     </ContentTemplate>
 </telerik:RadWindow>
 <telerik:RadWindow ID="radIssuerPopUp" runat="server" VisibleOnPageLoad="false" Height="30%"
-    Width="400px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="Resize, Close, Move"
+    Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="Resize, Close, Move"
     Title="Add New Issuer" RestrictionZoneID="radWindowZone" OnClientShow="setCustomPosition"
     Top="10" Left="20">
     <ContentTemplate>
@@ -271,7 +271,7 @@
                             Skin="Telerik" AllowFilteringByColumn="true" OnNeedDataSource="rgIssuer_OnNeedDataSource"
                             OnItemCommand="rgIssuer_ItemCommand" OnItemDataBound="rgIssuer_ItemDataBound">
                             <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="PI_IssuerId"
-                                AutoGenerateColumns="false" Width="100%" EditMode="PopUp" CommandItemSettings-AddNewRecordText="Create Issuer"
+                                AutoGenerateColumns="false" Width="100%"  CommandItemSettings-AddNewRecordText="Create Issuer"
                                 CommandItemDisplay="Top">
                                 <Columns>
                                     <telerik:GridEditCommandColumn EditText="Edit" UniqueName="editColumn" CancelText="Cancel"
@@ -324,6 +324,20 @@
                                                     </asp:RequiredFieldValidator>
                                                 </td>
                                             </tr>
+                                           <%-- <tr>
+                                                <td class="leftField" style="width: 10%">
+                                                    <asp:Label ID="Label23" runat="server" Text="SubCategory: " CssClass="FieldName"></asp:Label>
+                                                </td>
+                                                <td class="rightField" style="width: 25%">
+                                                    <asp:DropDownList ID="ddlNcdSubCategory" runat="server" CssClass="cmbLongField" AutoPostBack="true"
+                                                        Width="200px">
+                                                    </asp:DropDownList>
+                                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator51" ControlToValidate="txtIssuerCode"
+                                                        ErrorMessage="Please Select SubCategory" ValidationGroup="rgIssuerOk" Display="Dynamic"
+                                                        runat="server" CssClass="rfvPCG">
+                                                    </asp:RequiredFieldValidator>
+                                                </td>
+                                            </tr>--%>
                                             <tr>
                                                 <td class="leftLabel">
                                                     <asp:Button ID="btnOK" runat="server" CssClass="PCGButton" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'
@@ -386,8 +400,10 @@
             </asp:DropDownList>
             <span id="Span4" class="spnRequiredField">*</span>
             <br />
+            <asp:Label ID="lblcategoryerror" runat="server" Text="Please Select Category" Visible="false"
+                CssClass="Error"></asp:Label>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Please Select Category"
-                CssClass="rfvPCG" ControlToValidate="ddlProduct" ValidationGroup="SetUpSubmit"
+                CssClass="rfvPCG" ControlToValidate="ddlSubInstrCategory" ValidationGroup="SetUpSubmit"
                 Display="Dynamic" InitialValue="Select"></asp:RequiredFieldValidator>
             <asp:DropDownList ID="ddlInstrCat" runat="server" CssClass="cmbLongField" Width="500px"
                 Visible="false">
@@ -423,7 +439,7 @@
                 Display="Dynamic" InitialValue="Select"></asp:RequiredFieldValidator>
         </td>
     </tr>
-    <tr>
+    <tr id="trRange">
         <td class="leftLabel">
             <asp:Label ID="lb1ActiveFormRange" runat="server" Text="Form No-Starting Series No:"
                 CssClass="FieldName"></asp:Label>
@@ -894,10 +910,10 @@
         </td>
     </tr>
     <tr>
-        <td class="leftLabel">
+        <td class="leftLabel" id="tdLabel21">
             <asp:Label ID="Label21" runat="server" Text="Online Cut-Off Time:" CssClass="FieldName"></asp:Label>
         </td>
-        <td class="rightData">
+        <td class="rightData" id="tdcuttoffonline">
             <asp:DropDownList ID="ddlCutOffTimeHours" runat="server" CssClass="cmbField" AutoPostBack="true"
                 Width="60px" />
             <asp:DropDownList ID="ddlCutOffTimeMinutes" runat="server" CssClass="cmbField" AutoPostBack="true"
@@ -922,16 +938,16 @@
                 runat="server" ControlToCompare="ddlCloseTimeHours" Display="Dynamic" ErrorMessage="<br/>Cut-Off TIme Should be Less Than Close Time"
                 Type="Integer" Operator="LessThanEqual" CssClass="cvPCG" ValidationGroup="SetUpSubmit"></asp:CompareValidator>
         </td>
-        <td class="leftLabel">
+        <td class="leftLabel" id="tdLabel24">
             <asp:Label ID="Label24" runat="server" Text="Offline Cut-Off Time:" CssClass="FieldName"></asp:Label>
         </td>
-        <td class="rightData">
+        <td class="rightData" id="tdcuttoffonffine">
             <asp:DropDownList ID="ddlOffCutOffTimeHours" runat="server" CssClass="cmbField" AutoPostBack="true"
                 Width="60px" />
-            <asp:DropDownList ID="ddlOffCutOffTimeMinutes" runat="server" CssClass="cmbField" AutoPostBack="true"
-                Width="60px" />
-            <asp:DropDownList ID="ddlOffCutOffTimeSeconds" runat="server" CssClass="cmbField" AutoPostBack="true"
-                Width="60px" />
+            <asp:DropDownList ID="ddlOffCutOffTimeMinutes" runat="server" CssClass="cmbField"
+                AutoPostBack="true" Width="60px" />
+            <asp:DropDownList ID="ddlOffCutOffTimeSeconds" runat="server" CssClass="cmbField"
+                AutoPostBack="true" Width="60px" />
             <span id="Span44" class="spnRequiredField">*</span>
             <br />
             <asp:RequiredFieldValidator ID="RequiredFieldValidator54" runat="server" CssClass="rfvPCG"
@@ -950,7 +966,6 @@
                 runat="server" ControlToCompare="ddlCloseTimeHours" Display="Dynamic" ErrorMessage="<br/>Cut-Off TIme Should be Less Than Close Time"
                 Type="Integer" Operator="LessThanEqual" CssClass="cvPCG" ValidationGroup="SetUpSubmit"></asp:CompareValidator>
         </td>
-        
     </tr>
     <%-- <tr>
         <td class="leftLabel">
@@ -1186,7 +1201,7 @@
             </asp:DropDownList>
         </td>
     </tr>
-    <tr>
+    <tr id="trRevisionDate">
         <td class="leftLabel">
             <asp:Label ID="lb1RevisionDate" runat="server" Text="Revision Date:" CssClass="FieldName"></asp:Label>
         </td>
@@ -1280,7 +1295,7 @@
         </td>
         <td class="leftLabel" colspan="3">
             &nbsp;
-        </td>  
+        </td>
     </tr>
     <tr id="trMultipleApplicationAllowed" runat="server">
         <td>

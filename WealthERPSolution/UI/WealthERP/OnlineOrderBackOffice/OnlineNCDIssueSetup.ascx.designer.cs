@@ -128,6 +128,7 @@ namespace WealthERP.OnlineOrderBackOffice
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lb1Product;
+        protected global::System.Web.UI.WebControls.Label lblcategoryerror;
         protected global::System.Web.UI.WebControls.Label lblSyndicatet;
         protected global::System.Web.UI.WebControls.Label lblSyndicate;
         protected global::System.Web.UI.WebControls.TextBox txtSyndicate;
@@ -1885,5 +1886,14 @@ namespace WealthERP.OnlineOrderBackOffice
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid rgSeries;
         protected global::System.Web.UI.WebControls.DropDownList  ddlBssChnl;
+        protected global::System.Web.UI.WebControls.DropDownList ddlNcdSubCategory;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trRange;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trbank;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdLabel21;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdcuttoffonline;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdLabel24;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdcuttoffonffine;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trRevisionDate;
+
     }
 }

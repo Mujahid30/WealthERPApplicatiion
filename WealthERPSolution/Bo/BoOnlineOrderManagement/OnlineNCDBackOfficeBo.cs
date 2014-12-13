@@ -313,6 +313,31 @@ namespace BoOnlineOrderManagement
             }
 
         }
+        //public DataSet BindNcdSubCategory(string type)
+        //{
+        //    onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
+        //    try
+        //    {
+        //        return onlineNCDBackOfficeDao.BindNcdSubCategory(type);
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
+        //        FunctionInfo.Add("Method", "OnlineNCDBackOfficeBo.cs:BindNcdCategory()");
+        //        object[] objects = new object[0];
+        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+        //        exBase.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(exBase);
+        //        throw exBase;
+        //    }
+
+        //}
+
 
         public DataSet BindRta()
         {
