@@ -300,6 +300,31 @@ namespace BoOps
 
 
         }
+
+
+        public Int64 GetFaceValue(int issueId)
+        {
+
+
+            Int64 Facevalue = 0;
+            try
+            {
+                Facevalue = fiOrderDao.GetFaceValue(issueId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+             
+
+ 
+
+            return Facevalue;
+        }
+
+
+
+
         public bool DeleteFIOrder(int orderId)
         {
             bool bResult = false;

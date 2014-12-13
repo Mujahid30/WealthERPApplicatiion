@@ -1769,5 +1769,18 @@ namespace WealthERP.OPS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid gvOrderList;
+        protected global::System.Web.UI.WebControls.Panel pnlJointHolderNominee;
+
+
+        protected global::Telerik.Web.UI.RadWindow rwDematDetails;
+
+
+        protected global::Telerik.Web.UI.RadGrid gvDematDetailsTeleR;
+        protected global::Telerik.Web.UI.RadGrid gvAssociate;
+
+        protected global::System.Web.UI.WebControls.Panel Panel1;
+        protected global::System.Web.UI.WebControls.TextBox txtDematid;
+
+
     }
 }

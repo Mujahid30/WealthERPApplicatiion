@@ -30,8 +30,79 @@
         window.open('PopUp.aspx?PageId=AddBankAccount', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')
         return false;
     }
-</script>
 
+
+    function openpopupAddDematAccount() {
+
+        var customerId = document.getElementById("<%=txtCustomerId.ClientID %>").value;
+        var customerPortfolioId = document.getElementById("<%=hdnPortfolioId.ClientID %>").value;
+        if (customerId != 0) {
+            window.open('PopUp.aspx?PageId=AddDematAccountDetails&CustomerId=' + customerId + '&CustomerPortfolioId=' + customerPortfolioId, 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')
+
+        }
+        else {
+            alert("Please Select the Customer From Search")
+        }
+    }
+    
+    
+
+</script>
+<script type="text/javascript">
+    function setCustomPosition(sender, args) {
+        sender.moveTo(sender.get_left(), sender.get_top());
+    }
+</script>
+<script type="text/javascript">
+    var TargetBaseControl = null;
+    var TragetBaseControl2 = null;
+
+    window.onload = function() {
+        try {
+            //get target base control.
+            TargetBaseControl =
+           document.getElementById('<%=this.gvDematDetailsTeleR.ClientID %>');
+
+        }
+        catch (err) {
+            TargetBaseControl = null;
+        }
+    }
+
+    function TestCheckBox() {
+        if (TargetBaseControl == null) return false;
+
+        //get target child control.
+        var TargetChildControl = "chkDematId";
+        var Count = 0;
+        //get all the control of the type INPUT in the base control.
+        var Inputs = TargetBaseControl.getElementsByTagName("input");
+
+        for (var n = 0; n < Inputs.length; ++n)
+            if (Inputs[n].type == 'checkbox' &&
+            Inputs[n].id.indexOf(TargetChildControl, 0) >= 0 &&
+            Inputs[n].checked)
+            Count++;
+        if (Count > 1) {
+            alert('Please Select One Demat!');
+            return false;
+        }
+        else if (Count == 0) {
+            alert('Please Select Aleast One Demat!');
+            return false;
+        }
+
+        return true;
+
+
+    }
+    function TriggeredKey(e) {
+        var keycode;
+        if (window.event) keycode = window.event.keyCode;
+        if (window.event.keyCode = 13) return false;
+    }
+    
+</script>
 <script type="text/javascript">
     function CustomerValidate(type) {
         if (type == 'pdf') {
@@ -102,7 +173,96 @@
             return false;
         }
 --%>
-
+ 
+       <%--<telerik:RadWindow ID="rwDematDetails" runat="server" VisibleOnPageLoad="false" Height="230px"  
+    Width="800px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="Resize, Close, Move"
+    Title="Select Demat " RestrictionZoneID="radWindowZone" OnClientShow="setCustomPosition"
+    Top="120" Left="70">--%>
+    <telerik:RadWindow ID="rwDematDetails" runat="server" VisibleOnPageLoad="false" Height="30%"
+            Width="400px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="None"
+            Title="Select Demat" Top="120" Left="70" RestrictionZoneID="radWindowZone" OnClientShow="setCustomPosition">
+    <ContentTemplate>
+        <table>
+             
+            <tr>
+                <td>
+                    <telerik:RadGrid ID="gvDematDetailsTeleR" runat="server" AllowAutomaticInserts="false"
+                        AllowPaging="true" AllowSorting="true" AutoGenerateColumns="False" Height="150px"
+                        EnableEmbeddedSkins="false" EnableHeaderContextMenu="true" fAllowAutomaticDeletes="false"
+                        GridLines="none" ShowFooter="false" ShowStatusBar="false" Skin="Telerik">
+                         
+                        <ExportSettings HideStructureColumns="true">
+                        </ExportSettings>
+                        <MasterTableView AllowMultiColumnSorting="True" AutoGenerateColumns="false" DataKeyNames="CEDA_DematAccountId,CEDA_DPClientId"
+                            Width="99%">
+                            <CommandItemSettings ExportToPdfText="Export to Pdf" />
+                            <Columns>
+                                <telerik:GridTemplateColumn AllowFiltering="false" DataField="Action" HeaderStyle-Width="30px"
+                                    UniqueName="Action">
+                                    <ItemTemplate>
+                                        <asp:CheckBox ID="chkDematId" runat="server" />
+                                    </ItemTemplate>
+                                </telerik:GridTemplateColumn>
+                                <telerik:GridBoundColumn AutoPostBackOnFilter="true" DataField="CEDA_DPName" HeaderStyle-Width="67px"
+                                    HeaderText="DP Name" ShowFilterIcon="false" SortExpression="CEDA_DPName" UniqueName="CEDA_DPName">
+                                    <HeaderStyle Width="67px" />
+                                    <ItemStyle HorizontalAlign="left" VerticalAlign="top" Width="100px" Wrap="false" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"
+                                    DataField="CEDA_DepositoryName" HeaderStyle-Width="140px" HeaderText="Depository Name"
+                                    ShowFilterIcon="false" SortExpression="CEDA_DepositoryName" UniqueName="CEDA_DepositoryName">
+                                    <HeaderStyle Width="100px" />
+                                    <ItemStyle HorizontalAlign="left" VerticalAlign="top" Width="67px" Wrap="false" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"
+                                    DataField="CEDA_DPClientId" HeaderStyle-Width="67px" HeaderText="Beneficiary Acct No"
+                                    ShowFilterIcon="false" SortExpression="CEDA_DPClientId" UniqueName="CEDA_DPClientId">
+                                    <HeaderStyle Width="120px" />
+                                    <ItemStyle HorizontalAlign="left" VerticalAlign="top" Width="100px" Wrap="false" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"
+                                    DataField="CEDA_DPId" HeaderStyle-Width="67px" HeaderText="DP Id" ShowFilterIcon="false"
+                                    SortExpression="CEDA_DPId" UniqueName="CEDA_DPId">
+                                    <HeaderStyle Width="140px" />
+                                    <ItemStyle HorizontalAlign="left" VerticalAlign="top" Width="140px" Wrap="false" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn AutoPostBackOnFilter="true" DataField="XMOH_ModeOfHolding"
+                                    HeaderStyle-Width="145px" HeaderText="Mode of holding" ShowFilterIcon="false"
+                                    SortExpression="XMOH_ModeOfHolding" UniqueName="XMOH_ModeOfHolding">
+                                    <HeaderStyle Width="145px" />
+                                    <ItemStyle HorizontalAlign="left" VerticalAlign="top" Width="145px" Wrap="false" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn AutoPostBackOnFilter="true" DataField="CEDA_AccountOpeningDate"
+                                    DataFormatString="{0:dd/MM/yyyy}" HeaderStyle-Width="145px" HeaderText="Account Opening Date"
+                                    ShowFilterIcon="false" SortExpression="CEDA_AccountOpeningDate" UniqueName="CEDA_AccountOpeningDate"
+                                    Visible="false">
+                                    <HeaderStyle Width="145px" />
+                                    <ItemStyle HorizontalAlign="left" VerticalAlign="top" Width="145px" Wrap="false" />
+                                </telerik:GridBoundColumn>
+                            </Columns>
+                            <EditFormSettings>
+                                <EditColumn CancelImageUrl="Cancel.gif" EditImageUrl="Edit.gif" InsertImageUrl="Update.gif"
+                                    UpdateImageUrl="Update.gif">
+                                </EditColumn>
+                            </EditFormSettings>
+                        </MasterTableView>
+                        <ClientSettings>
+                            <Scrolling AllowScroll="true" ScrollHeight="70px" UseStaticHeaders="True" />
+                        </ClientSettings>
+                    </telerik:RadGrid>
+                </td>
+            </tr>
+            <tr>
+                <td align="center">
+                    <asp:Button ID="btnAddDemat" runat="server" Text="Accept" CssClass="PCGButton" OnClick="btnAddDemat_Click"
+                        CausesValidation="false" OnClientClick="javascript:return  TestCheckBox();" />
+                </td>
+            </tr>
+        </table>
+    </ContentTemplate>
+</telerik:RadWindow>
+    
+    
 
   <table width="100%">
    
@@ -178,14 +338,14 @@
       </table>
 <table width="100%">
    
-    <tr>
+    <tr Visible="false" runat="server">
     <td align="center" >
   <%--  class="divSectionHeading"--%>
       <div  style="vertical-align: text-bottom">
        <asp:Label ID="Label1" runat="server" Text="Select Product:" CssClass="FieldName">
     </asp:Label> 
       <asp:DropDownList ID="DdlLoad" runat="server" CssClass="cmbField" OnSelectedIndexChanged="DdlLoad_Selectedindexchanged"
-                AutoPostBack="true">
+                AutoPostBack="true" Visible="false">
                 <asp:ListItem Text="Select" Value="0"></asp:ListItem>
                 <asp:ListItem Text="MutualFund" Value="1" Enabled="false" ></asp:ListItem>
                 <asp:ListItem Text="FixedIncome" Value="2"></asp:ListItem>
@@ -253,7 +413,7 @@
         </td>
         <td class="rightField" style="width: 20%">
             <asp:TextBox ID="txtPansearch" runat="server" CssClass="txtField" AutoComplete="Off"
-                AutoPostBack="True" onclientClick="ShowIsa()" >
+                AutoPostBack="True"   >
             </asp:TextBox><span id="Span1" class="spnRequiredField">*</span>
             <%--<asp:Button ID="btnAddCustomer" runat="server" Text="Add a Customer" CssClass="PCGMediumButton"
                 CausesValidation="true" onmouseover="javascritxtBranchNamept:ChangeButtonCss('hover', 'ctrl_OrderEntry_btnAddCustomer','S');"
@@ -270,6 +430,8 @@
                 CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
                 UseContextKey="True" OnClientItemSelected="GetCustomerId" DelimiterCharacters=""
                 Enabled="True" />
+                
+               
             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtPansearch"
                 ErrorMessage="<br />Please Enter Pan number" Display="Dynamic" runat="server"
                 CssClass="rfvPCG"  ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
@@ -656,6 +818,215 @@
 
 
  </table>
+  <table id="Table1" width="100%" runat="server">
+   <tr>
+     <td>
+     
+     <asp:Panel ID="Panel1" runat="server" class="Landscape" Width="100%" Height="100%"
+    ScrollBars="None" Visible="false">
+    <table width="100%" cellspacing="10">
+        <tr>
+            <td colspan="3">
+                <div class="divSectionHeading" style="vertical-align: text-bottom">
+                    Demat Details
+                </div>
+            </td>
+        </tr>
+        <tr id="tdlnkbtn" runat="server">
+            <td class="leftField" style="width: 20%">
+                <asp:LinkButton ID="lnkBtnDemat" runat="server" OnClick="lnkBtnDemat_onClick" CssClass="LinkButtons"
+                    Text="Click to select Demat Details" CausesValidation="false"></asp:LinkButton>
+            </td>
+            <td id="Td1" class="rightField" style="width: 20%" colspan="2">
+                <asp:ImageButton ID="ImageButton1" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
+                    AlternateText="Add Demat Account" runat="server" ToolTip="Click here to Add Demat Account"
+                    OnClientClick="return openpopupAddDematAccount()" Height="15px" Width="15px"
+                    TabIndex="3"></asp:ImageButton>
+            </td>
+        </tr>
+        <tr>
+            <td class="leftField" style="width: 25%">
+                <asp:Label ID="lblDpClientId" runat="server" Text="Beneficiary Acct No:" CssClass="FieldName"></asp:Label>
+            </td>
+            <td class="rightField" style="width: 20%">
+                <asp:TextBox ID="txtDematid" Enabled="false" onkeydown="return (event.keyCode!=13);"
+                    runat="server" CssClass="txtField"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator6" ControlToValidate="txtDematid"
+                    ErrorMessage="<br />Please Select Demat from the List" Display="Dynamic" runat="server"
+                    CssClass="rfvPCG" ValidationGroup="btnConfirmOrder"></asp:RequiredFieldValidator>
+            </td>
+            <td>
+            </td>
+        </tr>
+    </table>
+</asp:Panel>
+<asp:Panel ID="pnlJointHolderNominee" runat="server" class="Landscape" Width="100%"
+    Height="80%" ScrollBars="None" Visible="false">
+    <table width="100%" cellspacing="10">
+        <tr>
+            <td>
+                <div class="divSectionHeading" style="vertical-align: text-bottom">
+                    Joint Holder/Nominee Details
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <telerik:RadGrid ID="gvAssociate" runat="server" CssClass="RadGrid" GridLines="Both"
+                    Visible="false" Width="90%" AllowPaging="True" PageSize="20" AllowSorting="True"
+                    AutoGenerateColumns="false" ShowStatusBar="true" Skin="Telerik">
+                    <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
+                        FileName="Family Associates" Excel-Format="ExcelML">
+                    </ExportSettings>
+                    <%--<MasterTableView Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
+                                        CommandItemDisplay="None">--%>
+                    <MasterTableView DataKeyNames="CDAA_Id,CEDA_DematAccountId,CDAA_Name,CDAA_PanNum,Sex,CDAA_DOB,RelationshipName,AssociateType,CDAA_AssociateTypeNo,CDAA_IsKYC,SexShortName,CDAA_AssociateType,XR_RelationshipCode"
+                        Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemSettings-ShowRefreshButton="false">
+                        <Columns>
+                            <telerik:GridBoundColumn DataField="CDAA_Name" HeaderText="Member name" UniqueName="AssociateName"
+                                SortExpression="AssociateName">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="AssociateType" HeaderText="Associate Type" UniqueName="AssociateType"
+                                SortExpression="AssociateType">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="CDAA_PanNum" HeaderText="PAN Number" UniqueName="CDAA_PanNum"
+                                SortExpression="CDAA_PanNum">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="CDAA_IsKYC" HeaderText="IsKYC" UniqueName="CDAA_IsKYC"
+                                SortExpression="CDAA_IsKYC">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="Sex" HeaderText="Gender" UniqueName="Sex" SortExpression="Sex">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="CDAA_DOB" HeaderText="Date Of Birth" UniqueName="CDAA_DOB"
+                                SortExpression="CDAA_DOB" DataFormatString="{0:d}">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="RelationshipName" HeaderText="Relationship" AllowFiltering="false"
+                                UniqueName="RelationshipName" SortExpression="RelationshipName">
+                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                        </Columns>
+                    </MasterTableView>
+                    <ClientSettings>
+                        <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+                    </ClientSettings>
+                </telerik:RadGrid>
+            </td>
+        </tr>
+    </table>
+</asp:Panel>
+     
+     
+     
+     
+     </td>
+    </tr>
+    </table>
+    <table runat="server">
+    <tr runat="server">
+    <%--<td runat="server">
+       <telerik:RadWindow ID="rwDematDetails" runat="server" VisibleOnPageLoad="false" Height="230px"
+    Width="800px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="Resize, Close, Move"
+    Title="Select Demat " RestrictionZoneID="radWindowZone" OnClientShow="setCustomPosition"
+    Top="120" Left="70">
+    <ContentTemplate>
+        <table>
+            <tr>
+            <td>
+             <div class="divSectionHeading" style="vertical-align: text-bottom">
+                Order Section Details
+            </div>
+            </td>
+            </tr>
+            <tr>
+                <td>
+                    <telerik:RadGrid ID="gvDematDetailsTeleR" runat="server" AllowAutomaticInserts="false"
+                        AllowPaging="true" AllowSorting="true" AutoGenerateColumns="False" Height="150px"
+                        EnableEmbeddedSkins="false" EnableHeaderContextMenu="true" fAllowAutomaticDeletes="false"
+                        GridLines="none" ShowFooter="false" ShowStatusBar="false" Skin="Telerik">
+                         
+                        <ExportSettings HideStructureColumns="true">
+                        </ExportSettings>
+                        <MasterTableView AllowMultiColumnSorting="True" AutoGenerateColumns="false" DataKeyNames="CEDA_DematAccountId,CEDA_DPClientId"
+                            Width="99%">
+                            <CommandItemSettings ExportToPdfText="Export to Pdf" />
+                            <Columns>
+                                <telerik:GridTemplateColumn AllowFiltering="false" DataField="Action" HeaderStyle-Width="30px"
+                                    UniqueName="Action">
+                                    <ItemTemplate>
+                                        <asp:CheckBox ID="chkDematId" runat="server" />
+                                    </ItemTemplate>
+                                </telerik:GridTemplateColumn>
+                                <telerik:GridBoundColumn AutoPostBackOnFilter="true" DataField="CEDA_DPName" HeaderStyle-Width="67px"
+                                    HeaderText="DP Name" ShowFilterIcon="false" SortExpression="CEDA_DPName" UniqueName="CEDA_DPName">
+                                    <HeaderStyle Width="67px" />
+                                    <ItemStyle HorizontalAlign="left" VerticalAlign="top" Width="100px" Wrap="false" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"
+                                    DataField="CEDA_DepositoryName" HeaderStyle-Width="140px" HeaderText="Depository Name"
+                                    ShowFilterIcon="false" SortExpression="CEDA_DepositoryName" UniqueName="CEDA_DepositoryName">
+                                    <HeaderStyle Width="100px" />
+                                    <ItemStyle HorizontalAlign="left" VerticalAlign="top" Width="67px" Wrap="false" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"
+                                    DataField="CEDA_DPClientId" HeaderStyle-Width="67px" HeaderText="Beneficiary Acct No"
+                                    ShowFilterIcon="false" SortExpression="CEDA_DPClientId" UniqueName="CEDA_DPClientId">
+                                    <HeaderStyle Width="120px" />
+                                    <ItemStyle HorizontalAlign="left" VerticalAlign="top" Width="100px" Wrap="false" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"
+                                    DataField="CEDA_DPId" HeaderStyle-Width="67px" HeaderText="DP Id" ShowFilterIcon="false"
+                                    SortExpression="CEDA_DPId" UniqueName="CEDA_DPId">
+                                    <HeaderStyle Width="140px" />
+                                    <ItemStyle HorizontalAlign="left" VerticalAlign="top" Width="140px" Wrap="false" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn AutoPostBackOnFilter="true" DataField="XMOH_ModeOfHolding"
+                                    HeaderStyle-Width="145px" HeaderText="Mode of holding" ShowFilterIcon="false"
+                                    SortExpression="XMOH_ModeOfHolding" UniqueName="XMOH_ModeOfHolding">
+                                    <HeaderStyle Width="145px" />
+                                    <ItemStyle HorizontalAlign="left" VerticalAlign="top" Width="145px" Wrap="false" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn AutoPostBackOnFilter="true" DataField="CEDA_AccountOpeningDate"
+                                    DataFormatString="{0:dd/MM/yyyy}" HeaderStyle-Width="145px" HeaderText="Account Opening Date"
+                                    ShowFilterIcon="false" SortExpression="CEDA_AccountOpeningDate" UniqueName="CEDA_AccountOpeningDate"
+                                    Visible="false">
+                                    <HeaderStyle Width="145px" />
+                                    <ItemStyle HorizontalAlign="left" VerticalAlign="top" Width="145px" Wrap="false" />
+                                </telerik:GridBoundColumn>
+                            </Columns>
+                            <EditFormSettings>
+                                <EditColumn CancelImageUrl="Cancel.gif" EditImageUrl="Edit.gif" InsertImageUrl="Update.gif"
+                                    UpdateImageUrl="Update.gif">
+                                </EditColumn>
+                            </EditFormSettings>
+                        </MasterTableView>
+                        <ClientSettings>
+                            <Scrolling AllowScroll="true" ScrollHeight="70px" UseStaticHeaders="True" />
+                        </ClientSettings>
+                    </telerik:RadGrid>
+                </td>
+            </tr>
+            <tr>
+                <td align="center">
+                    <asp:Button ID="btnAddDemat" runat="server" Text="Accept" CssClass="PCGButton" OnClick="btnAddDemat_Click"
+                        CausesValidation="false" OnClientClick="javascript:return  TestCheckBox();" />
+                </td>
+            </tr>
+        </table>
+    </ContentTemplate>
+</telerik:RadWindow>
+    
+    </td>--%>
+    </tr>
+    
+    
+  </table>
+ 
  <table width="100%" runat="server">
   <tr id="trSection1" runat="server">
         <td colspan="5">
@@ -1143,7 +1514,7 @@
     </tr>
     <tr id="trBtnSubmit" runat="server">
         <td align="left" colspan="3">
-            <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="PCGButton" ValidationGroup="MFSubmit"
+            <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="PCGButton"  
                 OnClick="btnSubmit_Click" />
             <asp:Button ID="btnAddMore" runat="server" Text="Save & AddMore" CssClass="PCGMediumButton" Visible="false" 
                 ValidationGroup="MFSubmit" OnClick="btnAddMore_Click" />

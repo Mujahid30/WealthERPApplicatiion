@@ -813,6 +813,12 @@ namespace WealthERP.OPS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtMatAmt;
+
+        
+
+        protected global::System.Web.UI.WebControls.TextBox txtQty;
+        protected global::System.Web.UI.WebControls.TextBox TxtPurAmt;
+
         
         /// <summary>
         /// Label2 control.
@@ -849,7 +855,19 @@ namespace WealthERP.OPS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label14;
-        
+        protected global::Telerik.Web.UI.RadWindow rwDematDetails;
+
+
+        protected global::Telerik.Web.UI.RadGrid gvDematDetailsTeleR;
+        protected global::Telerik.Web.UI.RadGrid gvAssociate;
+
+        protected global::System.Web.UI.WebControls.Panel pnlJointHolderNominee;
+        protected global::System.Web.UI.WebControls.Panel Panel1;
+
+        protected global::System.Web.UI.WebControls.TextBox txtDematid;
+        protected global::System.Web.UI.WebControls.HiddenField hdnPortfolioId;
+
+
         /// <summary>
         /// ddlModeofHOlding control.
         /// </summary>

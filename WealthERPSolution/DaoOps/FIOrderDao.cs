@@ -31,7 +31,7 @@ namespace DaoOps
                 dsOrderNumber = db.ExecuteDataSet(getTaxStatuscmd);
                 dtTaxStatus = dsOrderNumber.Tables[0];
                 if (dtTaxStatus.Rows.Count > 0)
-                    TaxStatus =  dtTaxStatus.Rows[0]["CPS_SubType"].ToString() ;
+                    TaxStatus =  dtTaxStatus.Rows[0]["WCMV_Name"].ToString() ;
                  
             }
             catch (BaseApplicationException Ex)
@@ -51,6 +51,36 @@ namespace DaoOps
             }
             return TaxStatus;
         }
+
+        public Int64  GetFaceValue(int issueId)
+        {
+            DataSet dsOrderNumber;
+            DataTable dtTaxStatus;
+            Database db;
+            DbCommand getTaxStatuscmd;
+            Int64 Facevalue = 0;
+            string Fv="0";
+            double f1 = 0;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getTaxStatuscmd = db.GetStoredProcCommand("SPROC_GetFaceValue");
+                db.AddInParameter(getTaxStatuscmd, "@issueId", DbType.Int32, issueId);
+
+                dsOrderNumber = db.ExecuteDataSet(getTaxStatuscmd);
+                dtTaxStatus = dsOrderNumber.Tables[0];
+                if (dtTaxStatus.Rows.Count > 0)                    
+                f1 = Convert.ToDouble(dtTaxStatus.Rows[0]["AIM_Facevalue"].ToString());
+                Facevalue = Convert.ToInt64(f1);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+
+            return Facevalue;
+        }
+
         public bool UpdateFITransactionForSynch(int gvOrderId, String gvSchemeCode, int gvaccountId, string gvTrxType, int gvPortfolioId, double gvAmount, out bool status, DateTime gvOrderDate)
         {
             Database db;

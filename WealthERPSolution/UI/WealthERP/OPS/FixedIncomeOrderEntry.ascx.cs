@@ -71,8 +71,10 @@ namespace WealthERP.OPS
         AdvisorVo advisorVo;
         UserVo userVo;
         RMVo rmVo = new RMVo();
-        FIOrderVo fiorderVo= new FIOrderVo();
-        FIOrderBo fiorderBo = new FIOrderBo ();
+        FIOrderVo fiorderVo = new FIOrderVo();
+        FIOrderBo fiorderBo = new FIOrderBo();
+        BoDematAccount boDematAccount = new BoDematAccount();
+
         int orderId;
         int orderNumber = 0;
         int customerid;
@@ -81,57 +83,98 @@ namespace WealthERP.OPS
         int ReqCount = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
-           
+
             userVo = (UserVo)Session[SessionContents.UserVo];
             repoBo = new RepositoryBo();
-          //  DifferenceBetDates();
+            //  DifferenceBetDates();
             if (!string.IsNullOrEmpty(Session["advisorVo"].ToString()))
                 advisorVo = (AdvisorVo)Session["advisorVo"];
             if (!string.IsNullOrEmpty(Session[SessionContents.RmVo].ToString()))
                 rmVo = (RMVo)Session[SessionContents.RmVo];
-           
+
             if (Session["customerid"] != null)
             {
                 customerid = Convert.ToInt32(Session["customerid"]);
-                LoadNominees();
-                GetCustomerAssociates(customerid);
+                GetcustomerDetails();
+
+                //LoadNominees();
+                //GetCustomerAssociates(customerid);
 
             }
             if (!IsPostBack)
             {
-                FICategory();
-               // orderNumber = fiorderBo.GetOrderNumber();
-                orderNumber = orderNumber + 1;
-                lblGetOrderNo.Text = orderNumber.ToString();
 
-               // FIIssuer(advisorVo.advisorId);
+                FICategory();
+                SetEnabilityControls();
+                FIScheme(advisorVo.advisorId, "0");
+
                 GetFIModeOfHolding();
                 BindProofTypeDP();
-                //fStorageBalance = repoBo.GetAdviserStorageValues(advisorVo.advisorId, out fMaxStorage);
 
-            
-           
-            if (Request.QueryString["fiaction"] != null )
-            {
-                ReqCount = 1;
-                Action = Request.QueryString["fiaction"].ToString();
-                if (Action == "View")
+
+                if (Request.QueryString["fiaction"] != null)
                 {
-                    SetControls(false);
-                   
+                    ReqCount = 1;
+                    Action = Request.QueryString["fiaction"].ToString();
+                    if (Action == "View")
+                    {
+                        SetControls(false);
+
+                    }
+                    else if (Action == "Edit")
+                    {
+                        SetControls(true);
+
+                    }
+                    // this.Request.QueryString["fiaction"];
+                    //  Request.QueryString.Remove("fiaction");
+                    //      Request.QueryString.Clear();
+
                 }
-                else if (Action == "Edit")
-                {
-                    SetControls(true);
-                 
-                }
-               // this.Request.QueryString["fiaction"];
-               //  Request.QueryString.Remove("fiaction");
-          //      Request.QueryString.Clear();
-               
-            }
             }
 
+
+        }
+
+
+
+        protected void GetcustomerDetails()
+        {
+            CustomerPortfolioVo customerPortfolioVo = new CustomerPortfolioVo();
+            PortfolioBo portfolioBo = new PortfolioBo();
+
+            //customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(int.Parse(txtCustomerId.Value));
+            //customerVo = customerBo.GetCustomer(int.Parse(txtCustomerId.Value));
+            //Session["customerVo"] = customerVo;
+            //lblGetBranch.Text = customerVo.BranchName;
+            //lblgetPan.Text = customerVo.PANNum;
+            //hdnCustomerId.Value = txtCustomerId.Value;
+            // hdnPortfolioId.Value = customerPortfolioVo.PortfolioId.ToString();
+            //customerId = int.Parse(txtCustomerId.Value);
+            //if (ddlsearch.SelectedItem.Value == "2")
+            //    lblgetcust.Text = customerVo.FirstName + ' ' + customerVo.MiddleName + ' ' + customerVo.LastName;
+            //BindBank();
+            //BindISAList();
+            //BindCustomerNCDIssueList();
+            //BindJointHolderNominee();
+            //GetFIModeOfHolding();
+            //BindDepositoryType();
+            //Panel1.Visible = true;
+
+        }
+
+        protected void BindDepositoryType()
+        {
+            DataTable DsDepositoryNames = new DataTable();
+            // DsDepositoryNames = boDematAccount.GetDepositoryName();
+            //ddlDepositoryName.DataSource = DsDepositoryNames;
+            //if (DsDepositoryNames.Rows.Count > 0)
+            //{
+            //    ddlDepositoryName.DataTextField = "WCMV_Code";
+            //    ddlDepositoryName.DataValueField = "WCMV_Code";
+            //    ddlDepositoryName.DataBind();
+            //}
+            //ddlDepositoryName.Items.Insert(0, new ListItem("Select", "Select"));
 
         }
         public void SetControlsEnablity()
@@ -157,7 +200,7 @@ namespace WealthERP.OPS
             ddlFrequency.Enabled = true;
         }
 
-        private  void SetControls(bool Val)
+        private void SetControls(bool Val)
         {
             ddlModeofHOldingFI.Enabled = Val;
             txtOrderDate.Enabled = Val;
@@ -191,18 +234,18 @@ namespace WealthERP.OPS
 
             ddlIssuer.SelectedValue = fiorderVo.IssuerId;
             ddlIssuer_SelectedIndexChanged(this, null);
-         
+
             ddlScheme.SelectedValue = fiorderVo.SchemeId.ToString();
             ddlScheme_SelectedIndexChanged(this, null);
-           
-           
+
+
 
             ddlSeries.SelectedValue = fiorderVo.SeriesId.ToString();
             ddlSeries_SelectedIndexChanged(this, null);
-           
-           
-           
-         //   lblGetOrderNo.Text = orderVo.OrderNumber.ToString();//= Convert.ToInt32();
+
+
+
+            //   lblGetOrderNo.Text = orderVo.OrderNumber.ToString();//= Convert.ToInt32();
             if (fiorderVo.Privilidge == "Seniorcitizens")
             {
                 ChkSeniorcitizens.Checked = true;
@@ -247,12 +290,12 @@ namespace WealthERP.OPS
             //   txtApplicationDate.FocusedDate =  orderVo.ApplicationReceivedDate; //= Convert.ToDateTime();
             txtApplicationNumber.Text = orderVo.ApplicationNumber;//=;
 
-          //  txtSeries.Text = fiorderVo.SeriesDetails;
+            //  txtSeries.Text = fiorderVo.SeriesDetails;
             ddlTranstype.SelectedValue = fiorderVo.TransactionType;
             ddlTranstype_SelectedIndexChanged(this, null);
 
             ddlModeofHOldingFI.SelectedValue = fiorderVo.ModeOfHolding;
-           
+
             txtExistDepositreceiptno.Text = fiorderVo.ExisitingDepositreceiptno;
 
             if (!string.IsNullOrEmpty(fiorderVo.RenewalAmount.ToString()))
@@ -268,17 +311,17 @@ namespace WealthERP.OPS
 
             // txtMaturDate.FocusedDate =fiorderVo.MaturityDate ;
 
-           // if (!string.IsNullOrEmpty(fiorderVo.MaturityAmount))
-                txtMatAmt.Text = fiorderVo.MaturityAmount.ToString();
-          //  else
+            // if (!string.IsNullOrEmpty(fiorderVo.MaturityAmount))
+            txtMatAmt.Text = fiorderVo.MaturityAmount.ToString();
+            //  else
             //    txtMatAmt.Text = " 0";
 
-           
-           
+
+
             //if (!string.IsNullOrEmpty(txtPayAmt.Text))
-                txtPayAmt.Text = Convert.ToDouble(fiorderVo.AmountPayable).ToString();
-          //  else
-              //  txtPayAmt.Text = "0";
+            txtPayAmt.Text = Convert.ToDouble(fiorderVo.AmountPayable).ToString();
+            //  else
+            //  txtPayAmt.Text = "0";
 
             //ddlModeofHOlding.SelectedValue = "0";// fiorderVo.ModeOfHolding;
 
@@ -306,7 +349,7 @@ namespace WealthERP.OPS
 
 
         }
-         
+
         protected void txtMaturDate_DateChanged(object sender, EventArgs e)
         {
             //int minTenure = 0;
@@ -315,14 +358,14 @@ namespace WealthERP.OPS
             //    fiorderBo.GetTenure(Convert.ToInt32(ddlSeries.SelectedValue), out minTenure, out maxTenure);
             if (hdnMintenure.Value != hdnMaxtenure.Value)
             {
-               // txtMaturDate.Enabled = false;
+                // txtMaturDate.Enabled = false;
                 DateTime dt = txtOrderDate.SelectedDate.Value;
                 dt = dt.AddMonths(Convert.ToInt32(hdnMaxtenure.Value));
                 if (txtMaturDate.SelectedDate.Value > dt.Date)
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('You cant select more than.' );" + dt.Date, true);
                     //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "FIxedIncomeOrderEntry", "alert('You cant select more than'  + dt.Date);", true);
-                   // txtMaturDate.SelectedDate = "01 / 01 / 0001";
+                    // txtMaturDate.SelectedDate = "01 / 01 / 0001";
                 }
 
             }
@@ -381,44 +424,44 @@ namespace WealthERP.OPS
         //    }
 
         //}
-        protected void btnUploadImg_Click (object sender, EventArgs e)
+        protected void btnUploadImg_Click(object sender, EventArgs e)
         {
-           // bool blResult = false;
-           // bool blZeroBalance = false;
-           // bool blFileSizeExceeded = false;
-           // fStorageBalance = repoBo.GetAdviserStorageValues(advisorVo.advisorId, out fMaxStorage);
-           //if (fStorageBalance > 0)
-           //     blResult = UploadFile(out blZeroBalance, out blFileSizeExceeded);
-           //else
-           //    blZeroBalance = false ;
+            // bool blResult = false;
+            // bool blZeroBalance = false;
+            // bool blFileSizeExceeded = false;
+            // fStorageBalance = repoBo.GetAdviserStorageValues(advisorVo.advisorId, out fMaxStorage);
+            //if (fStorageBalance > 0)
+            //     blResult = UploadFile(out blZeroBalance, out blFileSizeExceeded);
+            //else
+            //    blZeroBalance = false ;
 
-             
 
-           // if (blZeroBalance)
-           //   ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "FIxedIncomeOrderEntry", "alert('You do not have enough space. You have only " + fStorageBalance + " MB left in your account!');", true);
-           // else
-           // {
-           //     if (blResult)
-           //     {
 
-           //         // ResetControls();
-           //         //  if (string.IsNullOrEmpty(linkAction))
-           //         // {
-                   
-           //         // }
-           //    //  ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewCustomerProofs", "alert('Document uploaded Successfully!');", true);
-           //         // ScriptManager.RegisterStartupScript(Page, Page.GetType(), "CloseThePopUp", " CloseWindowsPopUp();", true);
-           //     }
-           //     else
-           //     {
-           //         //if (blFileSizeExceeded)
-           //         //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewCustomerProofs", "alert('Sorry your Document file size exceeds the allowable 2 MB limit!');", true);
-           //         //else
-           //         //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewCustomerProofs", "alert('Error in uploading Document!');", true);
-           //     }
-           // }
+            // if (blZeroBalance)
+            //   ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "FIxedIncomeOrderEntry", "alert('You do not have enough space. You have only " + fStorageBalance + " MB left in your account!');", true);
+            // else
+            // {
+            //     if (blResult)
+            //     {
 
-            
+            //         // ResetControls();
+            //         //  if (string.IsNullOrEmpty(linkAction))
+            //         // {
+
+            //         // }
+            //    //  ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewCustomerProofs", "alert('Document uploaded Successfully!');", true);
+            //         // ScriptManager.RegisterStartupScript(Page, Page.GetType(), "CloseThePopUp", " CloseWindowsPopUp();", true);
+            //     }
+            //     else
+            //     {
+            //         //if (blFileSizeExceeded)
+            //         //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewCustomerProofs", "alert('Sorry your Document file size exceeds the allowable 2 MB limit!');", true);
+            //         //else
+            //         //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewCustomerProofs", "alert('Error in uploading Document!');", true);
+            //     }
+            // }
+
+
         }
         public void LoadNominees()
         {
@@ -484,18 +527,38 @@ namespace WealthERP.OPS
         private void TaxStatus()
         {
 
-           
+
         }
         private double SimpleInterest(double principal, double interestRate, double years)
         {
             //A = P(1 + rt)
 
             //    double body = 1 + (interestRate / timesPerYear);
-             double i = Convert.ToDouble(years / 12);
-             double a =principal*(1+interestRate*i); //* System.Math.Pow(body, exponent);
-             return a;
+            double i = Convert.ToDouble(years / 12);
+            double a = principal * (1 + interestRate * i); //* System.Math.Pow(body, exponent);
+            return a;
 
         }
+
+        private Int64 GetFaceValue()
+        {
+            Int64 faceValue = 0;
+            if (!string.IsNullOrEmpty(ddlScheme.SelectedValue))
+            {
+
+                faceValue = fiorderBo.GetFaceValue(Convert.ToInt32(ddlScheme.SelectedValue));
+            }
+            return faceValue;
+        }
+
+        protected void OnQtytchanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtQty.Text))
+            {
+                TxtPurAmt.Text = (Convert.ToInt32(txtQty.Text) * GetFaceValue()).ToString();
+            }
+        }
+
         protected void OnPayAmtTextchanged(object sender, EventArgs e)
         {
             double Maturityvalue;
@@ -517,19 +580,19 @@ namespace WealthERP.OPS
                 {
                     Label11.Visible = true;
                 }
-               
+
                 if (!string.IsNullOrEmpty(txtPayAmt.Text) & txtPayAmt.Visible == true & Label18.Visible == true)
                 {
-                      Maturityvalue = CompoundInterest(Convert.ToDouble(txtPayAmt.Text), Convert.ToDouble(hdnDefaulteInteresRate.Value) / 100, Convert.ToInt32(hdnFrequency.Value), SchemePeriod);
-                      Maturityvalue = Math.Round(Maturityvalue, 3);
+                    Maturityvalue = CompoundInterest(Convert.ToDouble(txtPayAmt.Text), Convert.ToDouble(hdnDefaulteInteresRate.Value) / 100, Convert.ToInt32(hdnFrequency.Value), SchemePeriod);
+                    Maturityvalue = Math.Round(Maturityvalue, 3);
                     //Convert.ToDouble(Math.Round (SchemePeriod / 12,5))
                     txtMatAmt.Text = Maturityvalue.ToString(); //
-                    Label11.Text =ddlFrequency.SelectedValue +"-Earned Interest" +(Convert.ToDouble(txtPayAmt.Text) - Maturityvalue).ToString();
+                    Label11.Text = ddlFrequency.SelectedValue + "-Earned Interest" + (Convert.ToDouble(txtPayAmt.Text) - Maturityvalue).ToString();
                 }
                 else if (!string.IsNullOrEmpty(txtRenAmt.Text) & txtPayAmt.Visible == false & Label18.Visible == false)
                 {
-                      Maturityvalue = CompoundInterest(Convert.ToDouble(txtRenAmt.Text), Convert.ToDouble(hdnDefaulteInteresRate.Value) / 100, Convert.ToInt32(hdnFrequency.Value), SchemePeriod);
-                      Maturityvalue = Math.Round(Maturityvalue, 3);
+                    Maturityvalue = CompoundInterest(Convert.ToDouble(txtRenAmt.Text), Convert.ToDouble(hdnDefaulteInteresRate.Value) / 100, Convert.ToInt32(hdnFrequency.Value), SchemePeriod);
+                    Maturityvalue = Math.Round(Maturityvalue, 3);
 
                     txtMatAmt.Text = Maturityvalue.ToString();
                     Label11.Text = ddlFrequency.SelectedValue + "-Earned Interest" + (Convert.ToDouble(txtRenAmt.Text) - Maturityvalue).ToString();
@@ -542,15 +605,15 @@ namespace WealthERP.OPS
                 double i = Convert.ToDouble(SchemePeriod / 12);
                 if (!string.IsNullOrEmpty(txtPayAmt.Text) & txtPayAmt.Visible == true & Label18.Visible == true)
                 {
-                  //  Maturityvalue = Convert.ToString(Convert.ToDouble(txtPayAmt.Text) + (Convert.ToDouble(txtPayAmt.Text) * (Convert.ToDouble(hdnDefaulteInteresRate.Value) / 100) * (i)));
-                   Maturityvalue= SimpleInterest(Convert.ToDouble(txtPayAmt.Text), (Convert.ToDouble(hdnDefaulteInteresRate.Value) / 100), SchemePeriod);
+                    //  Maturityvalue = Convert.ToString(Convert.ToDouble(txtPayAmt.Text) + (Convert.ToDouble(txtPayAmt.Text) * (Convert.ToDouble(hdnDefaulteInteresRate.Value) / 100) * (i)));
+                    Maturityvalue = SimpleInterest(Convert.ToDouble(txtPayAmt.Text), (Convert.ToDouble(hdnDefaulteInteresRate.Value) / 100), SchemePeriod);
 
                     Maturityvalue = Math.Round(Maturityvalue, 3);
                     txtMatAmt.Text = Maturityvalue.ToString();
                     Label11.Text = ddlFrequency.SelectedValue + "-Earned Interest" + (Convert.ToDouble(txtPayAmt.Text) - Maturityvalue).ToString();
 
                 }
-                else if (!string.IsNullOrEmpty(txtRenAmt.Text) & txtPayAmt.Visible == false  & Label18.Visible == false)
+                else if (!string.IsNullOrEmpty(txtRenAmt.Text) & txtPayAmt.Visible == false & Label18.Visible == false)
                 {
                     Maturityvalue = SimpleInterest(Convert.ToDouble(txtRenAmt.Text), (Convert.ToDouble(hdnDefaulteInteresRate.Value) / 100), SchemePeriod);
 
@@ -558,11 +621,11 @@ namespace WealthERP.OPS
                     txtMatAmt.Text = Maturityvalue.ToString();
                     Label11.Text = ddlFrequency.SelectedValue + "-Earned Interest" + (Convert.ToDouble(txtRenAmt.Text) - Maturityvalue).ToString();
 
-                 // txtRenAmt.Text=  Convert.ToString(Convert.ToDouble(txtRenAmt.Text) + (Convert.ToDouble(txtRenAmt.Text) * Convert.ToDouble(hdnDefaulteInteresRate.Value) / 100));
+                    // txtRenAmt.Text=  Convert.ToString(Convert.ToDouble(txtRenAmt.Text) + (Convert.ToDouble(txtRenAmt.Text) * Convert.ToDouble(hdnDefaulteInteresRate.Value) / 100));
 
                 }
             }
-            
+
 
         }
         private int SchemePlan()
@@ -575,7 +638,7 @@ namespace WealthERP.OPS
 
             //string a = SchemePeriod[1];
             string b = string.Empty;
-            int val=0;
+            int val = 0;
             for (int i = 0; i < a.Length; i++)
             {
                 if (Char.IsDigit(a[i]))
@@ -587,22 +650,22 @@ namespace WealthERP.OPS
 
 
 
-          // int a = Convert.ToInt32(SchemePeriod[1]);
+            // int a = Convert.ToInt32(SchemePeriod[1]);
 
-          //  int b = Convert.ToInt32(SchemePeriod[1]);
+            //  int b = Convert.ToInt32(SchemePeriod[1]);
 
-          //int c=  SchemePeriod[1].Substring(0, 2);
+            //int c=  SchemePeriod[1].Substring(0, 2);
 
-       
-          //  int c;
-          //  if (b != 0)
-          //      // for 18-24
-          //      c = a - b;
-          //  else
-          //      c = a;
+
+            //  int c;
+            //  if (b != 0)
+            //      // for 18-24
+            //      c = a - b;
+            //  else
+            //      c = a;
 
             return val;
-            
+
 
         }
         private double CompoundInterest(double principal, double interestRate, int timesPerYear, double years)
@@ -610,12 +673,12 @@ namespace WealthERP.OPS
             //timesPerYear = 2; // Half yearly 2 // Monthly 12 //yearly 
             // (1 + r/n)
             double body = 1 + (interestRate / timesPerYear);
-           // body = Math.Round(body, 4);
+            // body = Math.Round(body, 4);
             double i = Convert.ToDouble(years / 12);
-           
+
             // nt
-            double exponent = timesPerYear * i ;
-            double a =principal * System.Math.Pow(body, exponent);
+            double exponent = timesPerYear * i;
+            double a = principal * System.Math.Pow(body, exponent);
             // P(1 + r/n)^nt
             return a;
         }
@@ -687,7 +750,7 @@ namespace WealthERP.OPS
         //                        CPUVo.ProofCode = Convert.ToInt32(ddlProof.SelectedValue);
         //                        //CPUVo.ProofCopyTypeCode = ddlProofCopyType.SelectedValue;
         //                        CPUVo.ProofImage = imgPath + "\\" + newFileName;
-                               
+
         //                            blResult = CreateDBReferrenceForProofUploads(CPUVo);
 
         //                        if (blResult)
@@ -991,7 +1054,7 @@ namespace WealthERP.OPS
             //    }
 
 
-              //  #endregion
+            //  #endregion
 
             //    repProofImages.DataSource = dtBindImages;
             //    repProofImages.DataBind();
@@ -1174,22 +1237,22 @@ namespace WealthERP.OPS
         //    //DataSet dsAssociates = fiorderBo.GetCustomerAssociates(customerid);
         //    //this.rgvCustGrid.DataSource = dsAssociates.Tables[0];
         ////}
-        private void FICategory( )
+        private void FICategory()
         {
             DataSet dsBankName = fiorderBo.GetFICategory();
 
-    
+
 
 
             if (dsBankName.Tables[0].Rows.Count > 0)
             {
-                 
-                    ddlCategory.DataSource = dsBankName;
-                    ddlCategory.DataValueField = dsBankName.Tables[0].Columns["PAIC_AssetInstrumentCategoryCode"].ToString();
-                    ddlCategory.DataTextField = dsBankName.Tables[0].Columns["PAIC_AssetInstrumentCategoryName"].ToString();
-                    ddlCategory.DataBind();
-                 
-                ddlCategory.Items.Insert(0, new ListItem("Select", "Select"));
+
+                ddlCategory.DataSource = dsBankName;
+                ddlCategory.DataValueField = dsBankName.Tables[0].Columns["PAIC_AssetInstrumentCategoryCode"].ToString();
+                ddlCategory.DataTextField = dsBankName.Tables[0].Columns["PAIC_AssetInstrumentCategoryName"].ToString();
+                ddlCategory.DataBind();
+
+                //  ddlCategory.Items.Insert(0, new ListItem("Select", "Select"));
 
             }
             else
@@ -1227,12 +1290,12 @@ namespace WealthERP.OPS
             }
         }
 
-        private void  FIIssuer(int AdviserId)
+        private void FIIssuer(int AdviserId)
         {
-            DataSet dsIssuer = fiorderBo.GetFIIssuer(AdviserId,ddlCategory.SelectedValue );
+            DataSet dsIssuer = fiorderBo.GetFIIssuer(AdviserId, ddlCategory.SelectedValue);
             if (dsIssuer.Tables[0].Rows.Count > 0)
             {
-                ddlIssuer .DataSource = dsIssuer;
+                ddlIssuer.DataSource = dsIssuer;
                 ddlIssuer.DataValueField = dsIssuer.Tables[0].Columns["PFIIM_IssuerId"].ToString();
                 ddlIssuer.DataTextField = dsIssuer.Tables[0].Columns["PFIIM_IssuerName"].ToString();
                 ddlIssuer.DataBind();
@@ -1347,25 +1410,25 @@ namespace WealthERP.OPS
             DataTable dtSeriesDetails = dsScheme.Tables[0];
             string Tenure;
             string CouponType;
-            
+
             if (dtSeriesDetails.Rows.Count > 0)
             {
                 foreach (DataRow dr in dtSeriesDetails.Rows)
                 {
                     Tenure = dr["PFISD_Tenure"].ToString();
-                    hdnDefaulteInteresRate.Value  = dr["PFISD_defaultInterestRate"].ToString();
-                  CouponType = dr["PFISD_CouponType"].ToString();
-                  txtSeries.Text = "Tenure-" + Tenure + "/" + "InterestRate-" + hdnDefaulteInteresRate.Value + "/" + "InterestType-" + CouponType;
-                  Label10.Text = txtSeries.Text;
+                    hdnDefaulteInteresRate.Value = dr["PFISD_defaultInterestRate"].ToString();
+                    CouponType = dr["PFISD_CouponType"].ToString();
+                    txtSeries.Text = "Tenure-" + Tenure + "/" + "InterestRate-" + hdnDefaulteInteresRate.Value + "/" + "InterestType-" + CouponType;
+                    Label10.Text = txtSeries.Text;
                 }
-                               
-               
-                
+
+
+
             }
-            
+
 
         }
-        private void FISeries(int  SeriesID)
+        private void FISeries(int SeriesID)
         {
             DataSet dsScheme = fiorderBo.GetFISeries(SeriesID);
             if (dsScheme.Tables[0].Rows.Count > 0)
@@ -1374,7 +1437,7 @@ namespace WealthERP.OPS
                 ddlSeries.DataValueField = dsScheme.Tables[0].Columns["PFISD_SeriesId"].ToString();
                 ddlSeries.DataTextField = dsScheme.Tables[0].Columns["PFISD_SeriesName"].ToString();
                 ddlSeries.DataBind();
-                ddlSeries.Items.Insert(0, new ListItem("Select", "Select"));
+                //ddlSeries.Items.Insert(0, new ListItem("Select", "Select"));
             }
             else
             {
@@ -1403,45 +1466,46 @@ namespace WealthERP.OPS
             //    ddlBankName.Items.Insert(0, new ListItem("Select", "Select"));
             //}
         }
-         
+
         protected void ddlSchemeOption_SelectedIndexChanged(object sender, EventArgs e)
         {
             ddlFrequency.SelectedIndex = 3;
-           
-         if (ddlSchemeOption.SelectedValue == "NonCummulative")
+
+            if (ddlSchemeOption.SelectedValue == "NonCummulative")
             {
-                ddlFrequency.Enabled = true ;
+                ddlFrequency.Enabled = true;
 
             }
             else
             {
                 ddlFrequency.Enabled = false;
-                
+
             }
-         OnPayAmtTextchanged(this, null);
+            OnPayAmtTextchanged(this, null);
         }
-       
+
         protected void ddlFrequency_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Half yearly 2 // Monthly 12 //yearly 
-            int Val=0 ;
+            int Val = 0;
             if (ddlFrequency.SelectedValue == "Monthly")
             {
-              Val = 12;
+                Val = 12;
 
             }
             else if (ddlFrequency.SelectedValue == "Quarterly")
             {
                 Val = 4;
             }
-             else if (ddlFrequency.SelectedValue == "Yearly")
+            else if (ddlFrequency.SelectedValue == "Yearly")
             {
-                  Val = 1;
+                Val = 1;
             }
-            else if (ddlFrequency.SelectedValue == "Hfyearly"){
-                  Val = 2;
+            else if (ddlFrequency.SelectedValue == "Hfyearly")
+            {
+                Val = 2;
 
-             }
+            }
             hdnFrequency.Value = Val.ToString();
             OnPayAmtTextchanged(this, null);
         }
@@ -1452,9 +1516,9 @@ namespace WealthERP.OPS
             {
                 trDepRen.Visible = false;
                 //trPayAmt.Visible = false;
-                txtPayAmt.Visible =false ;
+                txtPayAmt.Visible = false;
                 Label18.Visible = false;
-                
+
             }
             else if (ddlTranstype.SelectedValue == "Renewal")
             {
@@ -1468,14 +1532,14 @@ namespace WealthERP.OPS
                 txtPayAmt.Visible = true;
                 Label18.Visible = true;
                 //trPayAmt.Visible = true;
-                trDepRen.Visible = false ;
+                trDepRen.Visible = false;
             }
 
         }
         protected void ddlCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlCategory.SelectedIndex != 0)
-                FIIssuer(advisorVo.advisorId );
+                FIIssuer(advisorVo.advisorId);
             if (ddlCategory.SelectedValue == "FICG")
             {
                 trSchemeOpFreq.Visible = false;
@@ -1492,18 +1556,48 @@ namespace WealthERP.OPS
 
         protected void SetEnabilityControls()
         {
-
+            if (ddlCategory.SelectedIndex != 0)
+                FIIssuer(advisorVo.advisorId);
+            if (ddlCategory.SelectedValue == "FICG")
+            {
+                trSchemeOpFreq.Visible = false;
+                trDepPaypriv.Visible = false;
+                Label8.Text = "Capital Amount";
+            }
+            else
+            {
+                trSchemeOpFreq.Visible = true;
+                trDepPaypriv.Visible = true;
+                Label8.Text = "FD Amount";
+            }
         }
-        
+
         protected void ddlIssuer_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (ddlIssuer.SelectedIndex !=0)
-            FIScheme(advisorVo.advisorId,  ddlIssuer.SelectedValue);
+            if (ddlIssuer.SelectedIndex != 0)
+                FIScheme(advisorVo.advisorId, ddlIssuer.SelectedValue);
         }
         protected void ddlScheme_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (ddlScheme.SelectedIndex >= 0)
+            if (ddlScheme.SelectedValue != "Select")
                 FISeries(Convert.ToInt32(ddlScheme.SelectedValue));
+
+
+            int minTenure = 0;
+            int maxTenure = 0;
+
+            if (ddlSeries.SelectedValue != "0")
+            {
+                FISeriesDetails(Convert.ToInt32(ddlSeries.SelectedValue));
+
+
+                if (ddlSeries.SelectedValue != "0")
+                    fiorderBo.GetTenure(Convert.ToInt32(ddlSeries.SelectedValue), out minTenure, out maxTenure);
+
+                hdnMintenure.Value = minTenure.ToString();
+                hdnMaxtenure.Value = maxTenure.ToString();
+            }
+            OnPayAmtTextchanged(this, null);
         }
 
         protected void ddlSeries_SelectedIndexChanged(object sender, EventArgs e)
@@ -1567,18 +1661,18 @@ namespace WealthERP.OPS
         }
         protected void txtOrderDate_DateChanged(object sender, EventArgs e)
         {
-            
+
 
             if (hdnMintenure.Value == hdnMaxtenure.Value)
             {
                 txtMaturDate.Enabled = false;
                 DateTime dt = txtOrderDate.SelectedDate.Value;
-                dt = dt.AddMonths(Convert.ToInt32 (hdnMaxtenure.Value));
+                dt = dt.AddMonths(Convert.ToInt32(hdnMaxtenure.Value));
                 txtMaturDate.SelectedDate = dt.Date;
             }
             else
             {
-               
+
 
                 txtMaturDate.Enabled = true;
             }
@@ -1594,7 +1688,7 @@ namespace WealthERP.OPS
                 //trJointHoldersList.Visible = false;
                 //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "confirm", " ShowIsa();", true);
                 //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "confirm", " ShowIsa();", true);
-               // ddlAMCList.Enabled = true;
+                // ddlAMCList.Enabled = true;
                 customerVo = customerBo.GetCustomer(int.Parse(txtCustomerId.Value));
                 Session["customerVo"] = customerVo;
                 //txtBranch.Text = customerVo.BranchName;
@@ -1602,16 +1696,74 @@ namespace WealthERP.OPS
                 //txtPanSearch.Text = customerVo.PANNum;
                 //hdnCustomerId.Value = txtCustomerId.Value;
                 //customerId = int.Parse(txtCustomerId.Value);
-               // if (ddlsearch.SelectedItem.Value == "2")
-               //     lblgetcust.Text = customerVo.FirstName + ' ' + customerVo.MiddleName + ' ' + customerVo.LastName;
+                // if (ddlsearch.SelectedItem.Value == "2")
+                //     lblgetcust.Text = customerVo.FirstName + ' ' + customerVo.MiddleName + ' ' + customerVo.LastName;
 
                 //= rmVo.FirstName + ' ' + rmVo.MiddleName + ' ' + rmVo.LastName;
-               // BindBank(customerId);
+                // BindBank(customerId);
                 //BindPortfolioDropdown(customerId);
-               // ddltransType.SelectedIndex = 0;
-              //  BindISAList();
+                // ddltransType.SelectedIndex = 0;
+                //  BindISAList();
             }
         }
 
+
+        protected void lnkBtnDemat_onClick(object sender, EventArgs e)
+        {
+            customerid = Convert.ToInt32(Session["customerid"]);
+
+            GetDematAccountDetails(customerid);
+            rwDematDetails.VisibleOnPageLoad = true;
+
+        }
+
+        protected void btnAddDemat_Click(object sender, EventArgs e)
+        {
+            int dematAccountId = 0;
+            foreach (GridDataItem gvr in gvDematDetailsTeleR.MasterTableView.Items)
+            {
+                if (((CheckBox)gvr.FindControl("chkDematId")).Checked == true)
+                {
+                    dematAccountId = int.Parse(gvDematDetailsTeleR.MasterTableView.DataKeyValues[gvr.ItemIndex]["CEDA_DematAccountId"].ToString());
+                    txtDematid.Text = gvDematDetailsTeleR.MasterTableView.DataKeyValues[gvr.ItemIndex]["CEDA_DPClientId"].ToString();
+                    break;
+                }
+
+            }
+            BindgvFamilyAssociate(dematAccountId);
+
+        }
+        private void BindgvFamilyAssociate(int demataccountid)
+        {
+            gvAssociate.Visible = true;
+            DataSet dsAssociate = boDematAccount.GetCustomerDematAccountAssociates(demataccountid);
+            gvAssociate.DataSource = dsAssociate;
+            gvAssociate.DataBind();
+            pnlJointHolderNominee.Visible = true;
+            if (Cache["gvAssociate" + userVo.UserId] == null)
+            {
+                Cache.Insert("gvAssociate" + userVo.UserId, dsAssociate);
+            }
+            else
+            {
+                Cache.Remove("gvAssociate" + userVo.UserId);
+                Cache.Insert("gvAssociate" + userVo.UserId, dsAssociate);
+            }
+        }
+        private void GetDematAccountDetails(int customerId)
+        {
+            try
+            {
+                DataSet dsDematDetails = boDematAccount.GetDematAccountHolderDetails(customerId);
+                gvDematDetailsTeleR.Visible = true;
+                gvDematDetailsTeleR.DataSource = dsDematDetails.Tables[0];
+                gvDematDetailsTeleR.DataBind();
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }
