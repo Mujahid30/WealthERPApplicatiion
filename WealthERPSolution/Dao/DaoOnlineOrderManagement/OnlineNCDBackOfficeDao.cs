@@ -897,7 +897,10 @@ namespace DaoOnlineOrderManagement
                 //db.AddInParameter(createCmd, "@BSECode", DbType.String, onlineNCDBackOfficeVo.BSECode);
                 db.AddInParameter(createCmd, "@adviserId", DbType.Int32, adviserId);
                 db.AddInParameter(createCmd, "@Tradableexchane", DbType.Int32, onlineNCDBackOfficeVo.TradableExchange);
-                db.AddInParameter(createCmd, "@CutOffTime", DbType.Time, onlineNCDBackOfficeVo.CutOffTime);
+                if (onlineNCDBackOfficeVo.CutOffTime==DateTime.MinValue)
+                    db.AddInParameter(createCmd, "@CutOffTime", DbType.Time, DBNull.Value);
+                else
+                    db.AddInParameter(createCmd, "@CutOffTime", DbType.Time, onlineNCDBackOfficeVo.CutOffTime);
                 db.AddInParameter(createCmd, "@Subbrokercode", DbType.String, onlineNCDBackOfficeVo.Subbrokercode);
 
                 db.AddInParameter(createCmd, "@RegistrarAddress", DbType.String, onlineNCDBackOfficeVo.RegistrarAddress);
@@ -913,7 +916,10 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(createCmd, "@Syndicateid", DbType.Int32, onlineNCDBackOfficeVo.syndicateId);
                 db.AddInParameter(createCmd, "@Broker", DbType.Int32, onlineNCDBackOfficeVo.broker);
                 db.AddInParameter(createCmd, "@BusinessId", DbType.Int32, onlineNCDBackOfficeVo.BusinessChannelId);
-                db.AddInParameter(createCmd, "@OfflineCutOffTime", DbType.Time, onlineNCDBackOfficeVo.OfflineCutOffTime);
+                if (onlineNCDBackOfficeVo.OfflineCutOffTime==DateTime.MinValue)
+                    db.AddInParameter(createCmd, "@OfflineCutOffTime", DbType.Time, DBNull.Value);
+                else
+                    db.AddInParameter(createCmd, "@OfflineCutOffTime", DbType.Time, onlineNCDBackOfficeVo.OfflineCutOffTime);
                 db.AddInParameter(createCmd, "@ModifiedBy", DbType.Int32, userID);
                 db.AddInParameter(createCmd, "@CreatedBy", DbType.Int32, userID);
                 if (db.ExecuteNonQuery(createCmd) != 0)

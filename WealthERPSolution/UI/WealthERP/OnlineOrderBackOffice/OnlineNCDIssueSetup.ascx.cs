@@ -288,7 +288,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     //ddlProduct.SelectedValue =dr["PAIC_AssetInstrumentCategoryCode"].ToString();
                     EnablityOfControlsonProductAndIssueTypeSelection(ddlProduct.SelectedValue);
                     EnablityOfControlsonIssueTypeSelection(ddlIssueType.SelectedValue);
-
+                    EnablityOfControlsonCategoryTypeSelection(ddlSubInstrCategory.SelectedValue);
                     // ddlSubInstrCategory.SelectedValue = "NCD";
                     txtName.Text = dr["AIM_IssueName"].ToString();
                     ddlIssuer.SelectedValue = dr["PI_issuerId"].ToString();
@@ -2844,10 +2844,12 @@ namespace WealthERP.OnlineOrderBackOffice
                     }
                     if (ddlSubInstrCategory.SelectedValue != "FICGCG")
                     {
-                        BindFrequency(ddlInterestFrequency);
+                       
                         BindCategory(rgSeriesCat, Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text));
-                        FillSeriesPopupControlsForUpdate(seriesId, txtSereiesName, txtTenure, ddlInterestFrequency, chkBuyAvailability, chkredemptiondate, chkLockinperiod, txtSequence, ddlInterestType, ddlTenureUnits, txtseriesFacevalue, rgSeriesCat);
+                       
                     }
+                    BindFrequency(ddlInterestFrequency);
+                    FillSeriesPopupControlsForUpdate(seriesId, txtSereiesName, txtTenure, ddlInterestFrequency, chkBuyAvailability, chkredemptiondate, chkLockinperiod, txtSequence, ddlInterestType, ddlTenureUnits, txtseriesFacevalue, rgSeriesCat);
                 }
 
 
