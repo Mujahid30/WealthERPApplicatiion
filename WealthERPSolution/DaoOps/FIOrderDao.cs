@@ -52,6 +52,30 @@ namespace DaoOps
             return TaxStatus;
         }
 
+        public DataSet GetTaxStatus1(int customerId)
+        {
+            DataSet dsOrderNumber;
+            DataTable dtTaxStatus;
+            Database db;
+            DbCommand getTaxStatuscmd;
+            string TaxStatus = "";
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getTaxStatuscmd = db.GetStoredProcCommand("Sp_GetTaxStatus");
+                db.AddInParameter(getTaxStatuscmd, "@CustID", DbType.Int32, customerId);
+
+                dsOrderNumber = db.ExecuteDataSet(getTaxStatuscmd);
+                
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return dsOrderNumber;
+
+        }
         public Int64  GetFaceValue(int issueId)
         {
             DataSet dsOrderNumber;

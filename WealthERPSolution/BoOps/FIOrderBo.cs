@@ -302,6 +302,24 @@ namespace BoOps
         }
 
 
+        public DataSet  GetTaxStatus1(int customerId)
+        {
+
+            DataSet StrTaxStatus;
+            try
+            {
+                StrTaxStatus = fiOrderDao.GetTaxStatus1(customerId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return StrTaxStatus;
+
+
+
+        }
+
         public Int64 GetFaceValue(int issueId)
         {
 
