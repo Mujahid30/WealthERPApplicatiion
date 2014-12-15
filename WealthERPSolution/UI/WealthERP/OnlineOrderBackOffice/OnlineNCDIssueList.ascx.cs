@@ -81,6 +81,10 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             try
             {
+                if (ddlProduct.SelectedValue == "Bonds")
+                    product = ddlCategory.SelectedValue;
+                else
+                    product = "FIFIIP";
                 DataTable dtIssueList = new DataTable();
                 dtIssueList = onlineNCDBackOfficeBo.GetAdviserIssueList(DateTime.Now, type, product, advisorVo.advisorId).Tables[0];
                 gvIssueList.DataSource = dtIssueList;
@@ -133,11 +137,40 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             LinkButton lnkOrderNo = (LinkButton)sender;
             GridDataItem gdi;
+            string producttype = string.Empty;
             gdi = (GridDataItem)lnkOrderNo.NamingContainer;
             int selectedRow = gdi.ItemIndex + 1;
             int issueNo = int.Parse((gvIssueList.MasterTableView.DataKeyValues[selectedRow - 1]["AIM_IssueId"].ToString()));
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineNCDIssueSetup", "loadcontrol('OnlineNCDIssueSetup','action=viewIsssueList&issueNo=" + issueNo + "&type=" + ddlType.SelectedValue + "&date=" + DateTime.Now + "&product=" + ddlProduct.SelectedValue + "');", true);
+             if (ddlProduct.SelectedValue == "Bonds")
+                    producttype = ddlCategory.SelectedValue;
+                else
+                 producttype = "FIFIIP";
+             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineNCDIssueSetup", "loadcontrol('OnlineNCDIssueSetup','action=viewIsssueList&issueNo=" + issueNo + "&type=" + ddlType.SelectedValue + "&date=" + DateTime.Now + "&product=" + producttype + "');", true);
 
+        }
+        private void BindNcdCategory()
+        {
+            DataTable dtCategory = new DataTable();
+            dtCategory = onlineNCDBackOfficeBo.BindNcdCategory("SubInstrumentCat", "").Tables[0];
+            if (dtCategory.Rows.Count > 0)
+            {
+                ddlCategory.DataSource = dtCategory;
+                ddlCategory.DataValueField = dtCategory.Columns["PAISC_AssetInstrumentSubCategoryCode"].ToString();
+                ddlCategory.DataTextField = dtCategory.Columns["PAISC_AssetInstrumentSubCategoryName"].ToString();
+                ddlCategory.DataBind();
+            }
+            ddlCategory.Items.Insert(0, new ListItem("Select", "Select"));
+        }
+        protected void ddlProduct_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            tdCategorydropdown.Visible = false;
+            tdcategory.Visible = false;
+            if (ddlProduct.SelectedValue == "Bonds")
+            {
+                tdCategorydropdown.Visible = true;
+                tdcategory.Visible = true;
+                BindNcdCategory();
+            }
         }
     }
 }

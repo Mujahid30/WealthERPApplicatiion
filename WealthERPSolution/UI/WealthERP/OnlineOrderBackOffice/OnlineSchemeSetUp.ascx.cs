@@ -53,7 +53,7 @@ namespace WealthERP.OnlineOrderBackOffice
             //{
             //    lnkProductcode.Text = ViewState["newproductcode"].ToString(); ;
             //}
-            radproductcode.VisibleOnPageLoad = false;
+            //radproductcode.VisibleOnPageLoad = false;
             if (!IsPostBack)
             {
                 BindAMC();
@@ -85,7 +85,7 @@ namespace WealthERP.OnlineOrderBackOffice
                         lnkMargeScheme.Visible = true;
                         lblAllproductcode.Visible = true;
                         lnkProductcode.Visible = true;
-                       
+
                         ddlMargeScheme.Enabled = true;
                         lblSchemeplancode.Visible = true;
                         lblschemeplanecodetext.Visible = true;
@@ -1708,7 +1708,7 @@ namespace WealthERP.OnlineOrderBackOffice
             if (count1 >= 1 && txtAMFI.Text != string.Empty)
             {
 
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please Enter Unique AMFI Code. You Can Use Combination of 0-9 and a-z');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please Enter Unique AMFI Code.');", true);
                 return;
             }
 
@@ -1728,7 +1728,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 int countSchemeOpen = OnlineOrderBackOfficeBo.BussinessDateCheck(Convert.ToDateTime(txtSchemeStartDate.SelectedDate));
                 if (countSchemeOpen == 0)
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Select Bussiness Date For NFO RE-Open Date!!');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Select Bussiness Date For Scheme Start Date!!');", true);
                     return;
                 }
             }
@@ -1750,7 +1750,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     //if (chkonline.Checked == true)
                     //{
                     //    schemedetails.Visible = true;
-                        btnsubmit.Visible = true;
+                    btnsubmit.Visible = true;
                     //}
                     lblAllproductcode.Visible = true;
                     lnkProductcode.Visible = true;
@@ -1768,8 +1768,8 @@ namespace WealthERP.OnlineOrderBackOffice
                 btnBasicDSubmit.Visible = false;
                 //if (chkonline.Checked == true)
                 //{
-                    schemedetails.Visible = true;
-                    btnsubmit.Visible = true;
+                schemedetails.Visible = true;
+                btnsubmit.Visible = true;
                 //}
                 lblAllproductcode.Visible = true;
                 lnkProductcode.Visible = true;
@@ -1786,8 +1786,26 @@ namespace WealthERP.OnlineOrderBackOffice
                 if (count >= 1)
                 {
 
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please Enter Unique External System Scheme Code. You Can Use Combination of 0-9 and a-z');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please Enter Unique External System Scheme Code.');", true);
                     return;
+                }
+                else
+                {
+                    if (count == 0)
+                    {
+                        SaveSchemeDetails();
+
+                        //if (AMFIValidation(txtAMFI.Text))
+                        //{
+                        OnlineOrderBackOfficeBo.CreateOnlineSchemeSetupPlanDetails(mfProductAMCSchemePlanDetailsVo, userVo.UserId);
+                        // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Scheme Submit Successfully!!');", true);
+                        string msg = "Scheme Submit Successfully!!";
+                        ShowMessage(msg);
+                        Clearallcontrols(false);
+                        lnkEdit.Visible = true;
+                        btnupdate.Visible = false;
+                        lblddlDFrequency.Visible = false;
+                    }
                 }
             }
             else
@@ -1952,7 +1970,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
                 if (count1 >= 1 && txtAMFI.Text != string.Empty)
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please Enter Unique AMFI Code. You Can Use Combination of 0-9 and a-z');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please Enter Unique AMFI Code.');", true);
                     return;
                 }
             }
@@ -2396,7 +2414,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
                         if (count >= 1 && txtESSchemecode.Text != string.Empty)
                         {
-                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please Enter Unique External System Scheme Code. You Can Use Combination of 0-9 and a-z');", true);
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please Enter Unique External System Scheme Code.');", true);
                             return;
                         }
                         else if (count == 0)
@@ -3132,7 +3150,7 @@ namespace WealthERP.OnlineOrderBackOffice
         protected void gvproductcode_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
             DataTable dtBindProductcode = new DataTable();
-             dtBindProductcode = (DataTable)Cache[advisorVo.advisorId.ToString() + "Productcodelist"];
+            dtBindProductcode = (DataTable)Cache[advisorVo.advisorId.ToString() + "Productcodelist"];
             if (dtBindProductcode != null)
             {
                 gvproductcode.DataSource = dtBindProductcode;
@@ -3168,8 +3186,11 @@ namespace WealthERP.OnlineOrderBackOffice
                     if (count >= 1)
                     {
 
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please Enter Unique Product Code. You Can Use Combination of 0-9 and a-z');", true);
+
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please Enter Unique Product Code.');", true);
+                        BindProductcode();
                         return;
+
                     }
                     else if (count == 0)
                     {
@@ -3179,7 +3200,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
                 }
                 else
-                iscreate = OnlineOrderBackOfficeBo.Createproductcode(schemeplancode, txtgproductcode.Text, ddlRT.SelectedItem.Text, externalcode, userVo.UserId);
+                    iscreate = OnlineOrderBackOfficeBo.Createproductcode(schemeplancode, txtgproductcode.Text, ddlRT.SelectedItem.Text, externalcode, userVo.UserId);
 
             }
             if (e.CommandName == RadGrid.UpdateCommandName)
@@ -3196,7 +3217,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
                         if (count >= 1 && txtESSchemecode.Text != string.Empty)
                         {
-                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please Enter Unique Product Code. You Can Use Combination of 0-9 and a-z');", true);
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please Enter Unique Product Code.');", true);
                             return;
                         }
                         else if (count == 0)

@@ -391,17 +391,17 @@
         <td class="leftLabel" id="tdlblCategory" runat="server">
             <asp:Label ID="lblCategory" runat="server" Text="Category:" CssClass="FieldName"></asp:Label>
         </td>
-        <td align="rightData" id="tdddlCategory" runat="server">
+        <td align="rightData" id="tdddlCategory" runat="server" >
             <asp:DropDownList ID="ddlSubInstrCategory" runat="server" CssClass="cmbLongField"
                 AutoPostBack="true" Width="500px" OnSelectedIndexChanged="ddlSubInstrCategory_Selectedindexchanged">
                 <%-- <asp:ListItem Value="Select">Select</asp:ListItem>
                 <asp:ListItem Value="NCD">NCD</asp:ListItem>
                 <asp:ListItem Value="IB">Infrastructure bonds</asp:ListItem>--%>
             </asp:DropDownList>
-            <span id="Span4" class="spnRequiredField">*</span>
-            <br />
-            <asp:Label ID="lblcategoryerror" runat="server" Text="Please Select Category" Visible="false"
-                CssClass="Error"></asp:Label>
+        <%--    <span id="Span4" class="spnRequiredField">*</span>--%>
+            
+            <asp:Label ID="lblcategoryerror" runat="server" Text="*" Visible="true"
+                CssClass="Error"></asp:Label><br />
             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Please Select Category"
                 CssClass="rfvPCG" ControlToValidate="ddlSubInstrCategory" ValidationGroup="SetUpSubmit"
                 Display="Dynamic" InitialValue="Select"></asp:RequiredFieldValidator>
@@ -1829,10 +1829,10 @@
                                      Add this Customer</asp:LinkButton>
                                     </CommandItemTemplate>--%>
                                     <Columns>
-                                        <telerik:GridTemplateColumn AllowFiltering="false">
+                                        <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="Detailslink">
                                             <ItemTemplate>
                                                 <asp:LinkButton ID="lbDetails" runat="server" CommandName="ExpandCollapse" Font-Underline="False"
-                                                    Font-Bold="true" UniqueName="Detailslink" OnClick="btnExpandAll_Click" Font-Size="Medium">+</asp:LinkButton>
+                                                    Font-Bold="true"  OnClick="btnExpandAll_Click" Font-Size="Medium">+</asp:LinkButton>
                                             </ItemTemplate>
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="20px" Wrap="false" />
                                         </telerik:GridTemplateColumn>

@@ -124,9 +124,9 @@
         </td>
         <td class="rightData">
             <asp:DropDownList ID="ddlProduct" runat="server" CssClass="cmbField" AutoPostBack="true"
-                Width="205px">
+                Width="105px" OnSelectedIndexChanged="ddlProduct_OnSelectedIndexChanged">
                 <asp:ListItem Value="Select">Select</asp:ListItem>
-                <asp:ListItem Value="NCD">NCD</asp:ListItem>
+                <asp:ListItem Value="Bonds">Bonds</asp:ListItem>
                 <asp:ListItem Value="IP">IPO</asp:ListItem>
             </asp:DropDownList>
             <span id="Span2" class="spnRequiredField">*</span>
@@ -134,6 +134,13 @@
             <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="Please Select Product Type"
                 CssClass="rfvPCG" ControlToValidate="ddlProduct" ValidationGroup="btnGo" Display="Dynamic"
                 InitialValue="Select"></asp:RequiredFieldValidator>
+        </td>
+        <td align="right" id="tdcategory" runat="server" visible="false">
+        <asp:Label ID="lblCategory" runat="server" CssClass="FieldName" Text="Category"></asp:Label>
+        </td>
+        <td id="tdCategorydropdown" runat="server" Visible="false">
+        <asp:DropDownList ID="ddlCategory" runat="server" CssClass="cmbField"  >
+        </asp:DropDownList>
         </td>
         <td class="leftLabel">
             <asp:Label ID="lb1Type" runat="server" Text="Type:" CssClass="FieldName"></asp:Label>

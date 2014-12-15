@@ -544,14 +544,21 @@ namespace DaoOnlineOrderManagement
                 {
                     db.AddInParameter(createCmd, "@RevisionDate", DbType.Date, DBNull.Value);
                 }
+                if (onlineNCDBackOfficeVo.CutOffTime != DateTime.MinValue)
+                    db.AddInParameter(createCmd, "@CutOffTime", DbType.Time, onlineNCDBackOfficeVo.CutOffTime);
+                else
+                    db.AddInParameter(createCmd, "@CutOffTime", DbType.Time, DBNull.Value);
 
-                db.AddInParameter(createCmd, "@CutOffTime", DbType.Time, onlineNCDBackOfficeVo.CutOffTime);
                 db.AddInParameter(createCmd, "@MultipleApplicationAllowed", DbType.Int32, onlineNCDBackOfficeVo.MultipleApplicationAllowed);
                 db.AddInParameter(createCmd, "@IsCancelAllowed", DbType.Int32, onlineNCDBackOfficeVo.IsCancelAllowed);
                 db.AddInParameter(createCmd, "@Syndicateid", DbType.Int32, onlineNCDBackOfficeVo.syndicateId);
                 db.AddInParameter(createCmd, "@Broker", DbType.Int32, onlineNCDBackOfficeVo.broker);
                 db.AddInParameter(createCmd, "@BusinessId", DbType.Int32, onlineNCDBackOfficeVo.BusinessChannelId);
-                db.AddInParameter(createCmd, "@OfflineCutOffTime", DbType.Time, onlineNCDBackOfficeVo.OfflineCutOffTime);
+                if (onlineNCDBackOfficeVo.OfflineCutOffTime != DateTime.MinValue)
+                    db.AddInParameter(createCmd, "@OfflineCutOffTime", DbType.Time, onlineNCDBackOfficeVo.OfflineCutOffTime);
+                else
+                    db.AddInParameter(createCmd, "@OfflineCutOffTime", DbType.Time, DBNull.Value);
+                 
                 db.AddInParameter(createCmd, "@ModifiedBy", DbType.Int32, userID);
                 db.AddInParameter(createCmd, "@CreatedBy", DbType.Int32, userID);
                 issueId = db.ExecuteNonQuery(createCmd);

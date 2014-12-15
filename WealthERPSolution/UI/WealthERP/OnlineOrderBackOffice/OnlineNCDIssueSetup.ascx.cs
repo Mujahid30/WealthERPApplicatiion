@@ -220,14 +220,15 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 DataTable dtSeries = new DataTable();
                 dtSeries = onlineNCDBackOfficeBo.GetIssueDetails(issueNo, adviserId).Tables[0];
-
+               
+               
                 foreach (DataRow dr in dtSeries.Rows)
                 {
                     txtIssueId.Text = issueNo.ToString();
                     //BindSyndicate();
 
 
-                    if (product == "NCD")
+                    if (product == "FICGCG" || product == "FISDSD")
                     {
                         ddlSubInstrCategory.SelectedValue = dr["PAISC_AssetInstrumentSubCategoryCode"].ToString();
                         BindInstCate(ddlSubInstrCategory.SelectedValue);
@@ -235,9 +236,14 @@ namespace WealthERP.OnlineOrderBackOffice
                         ddlProduct.SelectedValue = "NCD";
                         // ddlInstrCat.SelectedValue=
                     }
-                    else if (product == "IP")
+                    else if (product == "FIFIIP")
                     {
                         ddlProduct.SelectedValue = "IP";
+                        ddlSubInstrCategory.Visible=false;
+                        lblcategoryerror.Visible = false;
+                        lblCategory.Visible = false;
+                        RequiredFieldValidator1.Visible = false;
+
                         if (Convert.ToInt32(dr["AIM_IsBookBuilding"].ToString()) == 1)
                         {
                             ddlIssueType.SelectedValue = "BookBuilding";
@@ -439,10 +445,10 @@ namespace WealthERP.OnlineOrderBackOffice
                     }
 
 
-                    if (int.Parse(dr["AIM_IsNominationRequired"].ToString()) != 0)
-                    {
-                        chkNomineeReQuired.Checked = true;
-                    }
+                    //if (int.Parse(dr["AIM_IsNominationRequired"].ToString()) != 0 ||dr["AIM_IsNominationRequired"].ToString() != "")
+                    //{
+                    //    chkNomineeReQuired.Checked = true;
+                    //}
                     if (!string.IsNullOrEmpty(dr["AIM_MinQty"].ToString()))
                     {
                         txtMinAplicSize.Text = dr["AIM_MinQty"].ToString();
@@ -1014,9 +1020,17 @@ namespace WealthERP.OnlineOrderBackOffice
                 //string time = txtOpenTimes.SelectedDate.Value.ToShortTimeString().ToString();
                 onlineNCDBackOfficeVo.OpenTime = Convert.ToDateTime(ddlOpenTimeHours.SelectedValue + ":" + ddlOpenTimeMinutes.SelectedValue + ":" + ddlOpenTimeSeconds.SelectedValue); //SelectedDate.Value.ToShortTimeString().ToString();
                 onlineNCDBackOfficeVo.CloseTime = Convert.ToDateTime(ddlCloseTimeHours.SelectedValue + ":" + ddlCloseTimeMinutes.SelectedValue + ":" + ddlCloseTimeSeconds.SelectedValue);//SelectedDate.Value.ToShortTimeString().ToString();
-                onlineNCDBackOfficeVo.CutOffTime = Convert.ToDateTime(ddlCutOffTimeHours.SelectedValue + ":" + ddlCutOffTimeMinutes.SelectedValue + ":" + ddlCutOffTimeSeconds.SelectedValue);//SelectedDate.Value.ToShortTimeString().ToString();
-                onlineNCDBackOfficeVo.OfflineCutOffTime = Convert.ToDateTime(ddlOffCutOffTimeHours.SelectedValue + ":" + ddlOffCutOffTimeMinutes.SelectedValue + ":" + ddlOffCutOffTimeSeconds.SelectedValue);//SelectedDate.Value.ToShortTimeString().ToString();
-
+                
+                if (ddlCutOffTimeHours.SelectedValue != "HH")
+                    onlineNCDBackOfficeVo.CutOffTime = Convert.ToDateTime(ddlCutOffTimeHours.SelectedValue + ":" + ddlCutOffTimeMinutes.SelectedValue + ":" + ddlCutOffTimeSeconds.SelectedValue);//SelectedDate.Value.ToShortTimeString().ToString();
+                else
+                    onlineNCDBackOfficeVo.CutOffTime = DateTime.MinValue;
+                if (ddlOffCutOffTimeHours.SelectedValue != "HH")
+                    onlineNCDBackOfficeVo.OfflineCutOffTime = Convert.ToDateTime(ddlOffCutOffTimeHours.SelectedValue + ":" + ddlOffCutOffTimeMinutes.SelectedValue + ":" + ddlOffCutOffTimeSeconds.SelectedValue);
+                else
+                {
+                    onlineNCDBackOfficeVo.OfflineCutOffTime = DateTime.MinValue;
+                }
 
                 if (!string.IsNullOrEmpty((txtRevisionDates.SelectedDate).ToString().Trim()))
                     onlineNCDBackOfficeVo.IssueRevis = DateTime.Parse(txtRevisionDates.SelectedDate.ToString());
@@ -1381,8 +1395,11 @@ namespace WealthERP.OnlineOrderBackOffice
                     onlineNCDBackOfficeVo.BusinessChannelId = int.Parse(ddlBssChnl.SelectedValue);
 
                 onlineNCDBackOfficeVo.IssueId = Convert.ToInt32(txtIssueId.Text);
-                if (NSCEBSCEcode())
+               
+               if (!NSCEBSCEcode() && ddlSubInstrCategory.SelectedValue != "FICGCG")
                 {
+                    return 0;
+                }
                     issueId = onlineNCDBackOfficeBo.UpdateIssue(onlineNCDBackOfficeVo, userVo.UserId);
                     if (issueId > 0)
                     {
@@ -1393,7 +1410,7 @@ namespace WealthERP.OnlineOrderBackOffice
                         lnlBack.Visible = true;
 
                     }
-                }
+                
             }
 
             catch (BaseApplicationException Ex)
@@ -1429,8 +1446,24 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             RadGrid rgSeriesCategories1 = (RadGrid)sender; // Get reference to grid 
             DataTable dtCategory = new DataTable();
-            dtCategory = onlineNCDBackOfficeBo.GetCategory(Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text)).Tables[0];
-            rgSeriesCategories1.DataSource = dtCategory;
+            if (ddlSubInstrCategory.SelectedValue != "FICGCG")
+            {
+                dtCategory = onlineNCDBackOfficeBo.GetCategory(Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text)).Tables[0];
+                rgSeriesCategories1.DataSource = dtCategory;
+            }
+            else
+            {
+                DataTable dt = new DataTable();
+                dt.Columns.Add("AIIC_InvestorCatgeoryId");
+                dt.Columns.Add("AIIC_InvestorCatgeoryName");
+                DataRow dr = dt.NewRow();
+                dr["AIIC_InvestorCatgeoryId"] = 0;
+                dr["AIIC_InvestorCatgeoryName"] = "N/A";
+                dt.Rows.Add(dr);
+                rgSeriesCategories1.DataSource = dt;
+                //rgSeriesCategories1.DataBind();
+            }
+           
         }
 
         //protected void rgSeries_UpdateCommand(object source, GridCommandEventArgs e)
@@ -1640,7 +1673,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 }
 
                 onlineNCDBackOfficeBo.IsSameSubTypeCatAttchedtoSeries(attachedCatId, Convert.ToInt32(txtIssueId.Text), ref attachedCatId);
-                if (attachedCatId != String.Empty)
+                if (attachedCatId != String.Empty && ddlSubInstrCategory.SelectedValue != "FICGCG")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert( '" + attachedCatId + "');", true);
                     e.Canceled = true;
@@ -1790,7 +1823,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 }
 
                 onlineNCDBackOfficeBo.IsSameSubTypeCatAttchedtoSeries(attachedCatId, Convert.ToInt32(txtIssueId.Text), ref attachedCatId);
-                if (attachedCatId != String.Empty)
+                if (attachedCatId != String.Empty && ddlSubInstrCategory.SelectedValue != "FICGCG")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert( '" + attachedCatId + "');", true);
                     e.Canceled = true;
@@ -2784,12 +2817,37 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             try
             {
+                if (e.Item is GridDataItem)
+                {
+                    GridDataItem item = (GridDataItem)e.Item;
+                    LinkButton lbDetails = (LinkButton)item.FindControl("lbDetails");
+                    if (ddlSubInstrCategory.SelectedValue == "FICGCG")
+
+                    lbDetails.Visible = false;
+                    else
+                        lbDetails.Visible = true;
+                }
                 if (e.Item is GridEditFormInsertItem && e.Item.OwnerTableView.IsItemInserted)
                 {
                     GridEditFormItem editform = (GridEditFormItem)e.Item;
                     RadGrid rgSeriesCat = (RadGrid)editform.FindControl("rgSeriesCat");
-                    if(ddlSubInstrCategory.SelectedValue != "FICGCG")
+                    LinkButton Detailslink = (LinkButton)editform.FindControl("Detailslink");
+                    if (ddlSubInstrCategory.SelectedValue != "FICGCG")
                         BindCategory(rgSeriesCat, Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text));
+                    else
+                    {
+                        DataTable dt = new DataTable();
+                        dt.Columns.Add("AIIC_InvestorCatgeoryId");
+                        dt.Columns.Add("AIIC_InvestorCatgeoryName");
+                        DataRow dr = dt.NewRow();
+                        dr["AIIC_InvestorCatgeoryId"] = 0; 
+                        dr["AIIC_InvestorCatgeoryName"] = "N/A"; 
+                        dt.Rows.Add(dr);
+                        rgSeriesCat.DataSource = dt;
+                        rgSeriesCat.DataBind();
+                        //lbDetails.Visible = false;
+                        rgSeries.MasterTableView.GetColumn("Detailslink").Visible = false;
+                    }
                     TextBox txtSequence = (TextBox)e.Item.FindControl("txtSequence");
                     DropDownList ddlInterestFrequency = (DropDownList)e.Item.FindControl("ddlInterestFrequency");
                     CheckBox chkBuyAvailability = (CheckBox)e.Item.FindControl("chkBuyAvailability");
@@ -2848,8 +2906,21 @@ namespace WealthERP.OnlineOrderBackOffice
                         BindCategory(rgSeriesCat, Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text));
                        
                     }
+                    else
+                    {
+                        DataTable dt = new DataTable();
+                        dt.Columns.Add("AIIC_InvestorCatgeoryId");
+                        dt.Columns.Add("AIIC_InvestorCatgeoryName");
+                        DataRow dr = dt.NewRow();
+                        dr["AIIC_InvestorCatgeoryId"] = 0;
+                        dr["AIIC_InvestorCatgeoryName"] = "N/A";
+                        dt.Rows.Add(dr);
+                        rgSeriesCat.DataSource = dt;
+                        rgSeriesCat.DataBind();
+                    }
                     BindFrequency(ddlInterestFrequency);
                     FillSeriesPopupControlsForUpdate(seriesId, txtSereiesName, txtTenure, ddlInterestFrequency, chkBuyAvailability, chkredemptiondate, chkLockinperiod, txtSequence, ddlInterestType, ddlTenureUnits, txtseriesFacevalue, rgSeriesCat);
+
                 }
 
 
@@ -5387,13 +5458,18 @@ namespace WealthERP.OnlineOrderBackOffice
             categoryGridcount = rgEligibleInvestorCategories.Items.Count;
             serisecount = rgSeries.Items.Count;
 
-            if ((categoryGridcount == 0 || serisecount == 0) && ddlProduct.SelectedValue == "NCD")
+            if ((categoryGridcount == 0 || serisecount == 0) && ddlSubInstrCategory.SelectedValue == "FISDSD")
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please Fill All The series.');", true);
                 chkIsActive.Checked = false;
                 // 
             }
             else if (ddlProduct.SelectedValue == "IP" && categoryGridcount == 0)
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please Fill All The series.');", true);
+                chkIsActive.Checked = false;
+            }
+            else if (serisecount == 0 && ddlSubInstrCategory.SelectedValue == "FICGCG")
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please Fill All The series.');", true);
                 chkIsActive.Checked = false;
