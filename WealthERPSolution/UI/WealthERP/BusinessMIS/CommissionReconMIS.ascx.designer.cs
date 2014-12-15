@@ -30,6 +30,7 @@ namespace WealthERP.BusinessMIS {
         protected global::System.Web.UI.WebControls.HiddenField hdnCategory;
         protected global::System.Web.UI.WebControls.HiddenField hdnSBbrokercode;
         protected global::System.Web.UI.WebControls.HiddenField hdnIssueId;
+        protected global::System.Web.UI.WebControls.HiddenField hdnProductCategory;
 
         protected global::Telerik.Web.UI.RadStyleSheetManager RadStyleSheetManager1;
         
@@ -181,6 +182,8 @@ namespace WealthERP.BusinessMIS {
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdToDate;
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdFrom;
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdTolbl;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdDdlCategory;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdCategory;
         protected global::System.Web.UI.WebControls.CompareValidator cvddlIssueType;
         
         /// <summary>
@@ -234,6 +237,7 @@ namespace WealthERP.BusinessMIS {
         protected global::System.Web.UI.WebControls.DropDownList ddlSelectMode;
         protected global::System.Web.UI.WebControls.DropDownList ddlIssueName;
         protected global::System.Web.UI.WebControls.DropDownList ddlIssueType;
+        protected global::System.Web.UI.WebControls.DropDownList ddlProductCategory;
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl dvMfMIS;
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl dvNCDIPOMIS;
 

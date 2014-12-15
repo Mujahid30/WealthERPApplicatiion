@@ -22,6 +22,7 @@ using BOAssociates;
 using BoCommisionManagement;
 using BoUser;
 using VOAssociates;
+using BoOnlineOrderManagement;
 
 
 
@@ -155,6 +156,8 @@ namespace WealthERP.BusinessMIS
         }
         private void ShowHideControlsBasedOnProduct(string asset)
         {
+            tdCategory.Visible = false;
+            tdDdlCategory.Visible = false;
             
             if (asset == "MF")
             {
@@ -178,6 +181,13 @@ namespace WealthERP.BusinessMIS
                 ddlIssueName.Items.Clear();
                 ddlIssueName.DataBind();
                 cvddlIssueType.Enabled = true;
+
+            }
+            if (asset == "FI")
+            {
+                BindBondCategories();
+                tdCategory.Visible = true;
+                tdDdlCategory.Visible = true;
 
             }
            
@@ -252,6 +262,10 @@ namespace WealthERP.BusinessMIS
                     hdnIssueId.Value = ddlIssueName.SelectedValue.ToString();
                 else
                     hdnIssueId.Value = "0";
+                if (ddlProductCategory.SelectedValue.ToString() != "Select")
+                    hdnProductCategory.Value = ddlProductCategory.SelectedValue.ToString();
+                else
+                    hdnProductCategory.Value = "0";
              
             //}
 
@@ -312,7 +326,7 @@ namespace WealthERP.BusinessMIS
             //ds.ReadXml(Server.MapPath(@"\Sample.xml"));
             dvMfMIS.Visible = false;
             dvNCDIPOMIS.Visible = false;
-            ds = adviserMFMIS.GetCommissionReceivableRecon(ddlProduct.SelectedValue, int.Parse(ddlSelectMode.SelectedValue), advisorVo.advisorId, int.Parse(hdnschemeId.Value), int.Parse(hdnFromDate.Value), int.Parse(hdnToDate.Value), hdnCategory.Value, null, ddlCommType.SelectedValue, int.Parse(hdnSBbrokercode.Value), int.Parse(hdnIssueId.Value), Convert.ToInt32(ddlSearchType.SelectedValue),ddlOrderStatus.SelectedValue,AgentCode);
+            ds = adviserMFMIS.GetCommissionReceivableRecon(ddlProduct.SelectedValue, int.Parse(ddlSelectMode.SelectedValue), advisorVo.advisorId, int.Parse(hdnschemeId.Value), int.Parse(hdnFromDate.Value), int.Parse(hdnToDate.Value), hdnCategory.Value, null, ddlCommType.SelectedValue, int.Parse(hdnSBbrokercode.Value), int.Parse(hdnIssueId.Value), Convert.ToInt32(ddlSearchType.SelectedValue),ddlOrderStatus.SelectedValue,AgentCode,ddlCategory.SelectedValue);
             if (ds.Tables[0] != null)
             {
                 if (ddlProduct.SelectedValue.ToString() == "MF")
@@ -395,6 +409,21 @@ namespace WealthERP.BusinessMIS
             ddlSearchType.DataTextField = "WCMV_Name";
             ddlSearchType.DataBind();
             ddlSearchType.Items.Insert(0, new ListItem("Select", "Select"));
+        }
+        private void BindBondCategories()
+        {
+            OnlineNCDBackOfficeBo onlineNCDBackOfficeBo = new OnlineNCDBackOfficeBo();
+            DataTable dtCategory = new DataTable();
+            dtCategory = onlineNCDBackOfficeBo.BindNcdCategory("SubInstrumentCat", "").Tables[0];
+            if (dtCategory.Rows.Count > 0)
+            {
+                ddlProductCategory.DataSource = dtCategory;
+                ddlProductCategory.DataValueField = dtCategory.Columns["PAISC_AssetInstrumentSubCategoryCode"].ToString();
+                ddlProductCategory.DataTextField = dtCategory.Columns["PAISC_AssetInstrumentSubCategoryName"].ToString();
+                ddlProductCategory.DataBind();
+            }
+            ddlProductCategory.Items.Insert(0, new ListItem("Select", "Select"));
+
         }
     }
 }

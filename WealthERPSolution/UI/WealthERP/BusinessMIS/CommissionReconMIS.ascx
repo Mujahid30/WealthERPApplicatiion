@@ -47,6 +47,17 @@
                 CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select an Product type"
                 Operator="NotEqual" ValidationGroup="vgbtnSubmit" ValueToCompare="Select"></asp:CompareValidator>
         </td>
+        <td align="left" class="leftField" width="20%" id="tdCategory" runat="server" visible="false">
+        <asp:Label ID="lblCategory" runat="server" Text="Category:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td align="right" id="tdDdlCategory" runat="server" visible="false">
+        <asp:DropDownList ID="ddlProductCategory" runat="server" AutoPostBack="false" CssClass="cmbField">
+        </asp:DropDownList>
+        <asp:CompareValidator ID="CompareValidator7" runat="server" ControlToValidate="ddlCategory"
+                CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select an Category type"
+                Operator="NotEqual" ValidationGroup="vgbtnSubmit" ValueToCompare="Select"></asp:CompareValidator>
+
+        </td>
     </tr>
     <tr id="trSelectProduct" runat="server">
        <td align="left" class="leftField" width="20%">
@@ -393,3 +404,4 @@
 <asp:HiddenField ID="hdnToDate" runat="server" />
 <asp:HiddenField ID="hdnSBbrokercode" runat="server" />
 <asp:HiddenField ID="hdnIssueId" runat="server" />
+<asp:HiddenField ID="hdnProductCategory" runat="server" />
