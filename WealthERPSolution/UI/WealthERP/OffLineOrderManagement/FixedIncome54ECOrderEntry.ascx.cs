@@ -618,6 +618,20 @@ namespace WealthERP.OffLineOrderManagement
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
+            if (Convert.ToDouble(txtQty.Text) > Convert.ToDouble(hdnMaxQty.Value) &&
+                Convert.ToDouble(txtQty.Text) < Convert.ToDouble(hdnMinQty.Value))
+            {
+
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Order cannot be processed.Please enter quantity less than or equal to maximum quantity allowed for this issue')", true);
+                return;
+            }
+
+
+
+
+
+
+                
             orderVo.CustomerId = int.Parse(txtCustomerId.Value);
             //if (DdlLoad.SelectedIndex == 1)
             //{
@@ -788,14 +802,14 @@ namespace WealthERP.OffLineOrderManagement
             fiorderVo.MaturityDate = Convert.ToDateTime(txtMaturDate.FocusedDate);
 
             if (!string.IsNullOrEmpty(txtMatAmt.Text))
-                fiorderVo.MaturityAmount = Convert.ToDouble(txtMatAmt.Text);
+                fiorderVo.MaturityAmount = Convert.ToDouble(txtQty.Text);
             else
                 fiorderVo.MaturityAmount = 0;
 
             fiorderVo.SchemeId = Convert.ToInt32(ddlScheme.SelectedValue);
             fiorderVo.SeriesId = Convert.ToInt32(ddlSeries.SelectedValue);
             if (!string.IsNullOrEmpty(txtPayAmt.Text))
-                fiorderVo.AmountPayable = Convert.ToDouble(txtPayAmt.Text);
+                fiorderVo.AmountPayable = Convert.ToDouble(TxtPurAmt.Text);
             else
                 fiorderVo.AmountPayable = 0;
 
@@ -807,7 +821,7 @@ namespace WealthERP.OffLineOrderManagement
                 fiorderVo.ExisitingDepositreceiptno = "";
 
             fiorderVo.Frequency = ddlFrequency.SelectedValue;
-             
+            
 
 
             List<int> OrderIds = new List<int>();
@@ -933,10 +947,13 @@ namespace WealthERP.OffLineOrderManagement
                 foreach (DataRow dr in dtSeriesDetails.Rows)
                 {
                     Tenure = dr["PFISD_Tenure"].ToString();
-                    hdnDefaulteInteresRate.Value = dr["PFISD_defaultInterestRate"].ToString();
-                    CouponType = dr["PFISD_CouponType"].ToString();
-                    txtSeries.Text = "Tenure-" + Tenure + "/" + "InterestRate-" + hdnDefaulteInteresRate.Value + "/" + "InterestType-" + CouponType;
-                    Label12.Text = txtSeries.Text;
+                    hdnSeriesDetails.Value = dr["SeriesDetails"].ToString();
+                    hdnMinQty.Value = dr["MinQty"].ToString();
+                    hdnMaxQty.Value = dr["MaxQty"].ToString();
+
+                    //CouponType = dr["PFISD_CouponType"].ToString();
+                    //txtSeries.Text = "Tenure-" + Tenure + "/" + "InterestRate-" + hdnDefaulteInteresRate.Value + "/" + "InterestType-" + CouponType;
+                    Label12.Text = hdnSeriesDetails.Value;
                     
                 }
 

@@ -1668,6 +1668,12 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField txtCustomerId;
+        protected global::System.Web.UI.WebControls.HiddenField hdnSeriesDetails;
+
+        protected global::System.Web.UI.WebControls.HiddenField hdnMinQty;
+
+        protected global::System.Web.UI.WebControls.HiddenField hdnMaxQty;
+
         
         /// <summary>
         /// txtAgentId control.

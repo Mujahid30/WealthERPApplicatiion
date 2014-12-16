@@ -1357,4 +1357,8 @@
 <asp:HiddenField ID="txtCustomerId" runat="server" OnValueChanged="txtCustomerId_ValueChanged1" />
 <asp:HiddenField ID="txtAgentId" runat="server" />
 <asp:HiddenField ID="hdnDefaulteInteresRate" runat="server" />
+<asp:HiddenField ID="hdnSeriesDetails" runat="server" />
+<asp:HiddenField ID="hdnMinQty" runat="server" />
+
+<asp:HiddenField ID="hdnMaxQty" runat="server" />
 
