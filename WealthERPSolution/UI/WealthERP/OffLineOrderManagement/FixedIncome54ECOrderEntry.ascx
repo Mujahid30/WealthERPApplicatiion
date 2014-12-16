@@ -1074,7 +1074,7 @@
                 AutoPostBack="true" AllowedFileExtensions=".jpg,.jpeg,.bmp,.png,.pdf" Skin="Telerik"
                 EnableEmbeddedSkins="true">
             </telerik:RadUpload>
-            <asp:Label ID="lblFileUploaded" runat="server" CssClass="cmbField" Text=""></asp:Label>
+            <asp:Label ID="lblFileUploaded" runat="server" CssClass="FieldName" Text="" Visible="false"></asp:Label>
         </td>
     </tr>
     <tr>
@@ -1085,7 +1085,7 @@
     </tr>
 </table>
 <asp:HiddenField ID="txtCustomerId" runat="server" OnValueChanged="txtCustomerId_ValueChanged1" />
-<asp:HiddenField ID="txtAgentId" runat="server" />
+<asp:HiddenField ID="txtAgentId" runat="server" OnValueChanged="txtAgentId_ValueChanged1"/>
 <asp:HiddenField ID="hdnDefaulteInteresRate" runat="server" />
 <asp:HiddenField ID="hdnSeriesDetails" runat="server" />
 <asp:HiddenField ID="hdnMinQty" runat="server" />

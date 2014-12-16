@@ -173,7 +173,7 @@ namespace WealthERP.OffLineOrderManagement
                 FIScheme(advisorVo.advisorId, "0");
                 BindARNNo(advisorVo.advisorId);
                 BindProofTypeDP();
-
+                
             }
             repoBo = new RepositoryBo();
 
@@ -181,8 +181,15 @@ namespace WealthERP.OffLineOrderManagement
 
  
         }
+        protected void txtAgentId_ValueChanged1(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtAgentId.Value.ToString().Trim()))
+            {
+                GetAgentName(int.Parse(txtAgentId.Value));
+            }
+        }
 
-
+       
         protected void txtCustomerId_ValueChanged1(object sender, EventArgs e)
         {
 
@@ -4016,9 +4023,9 @@ namespace WealthERP.OffLineOrderManagement
         protected void lnkBtnDemat_onClick(object sender, EventArgs e)
         {
 
+            rwDematDetails.VisibleOnPageLoad = true;
 
             GetDematAccountDetails(Convert.ToInt32(txtCustomerId.Value));
-            rwDematDetails.VisibleOnPageLoad = true;
 
         }
 
@@ -4031,6 +4038,8 @@ namespace WealthERP.OffLineOrderManagement
                 {
                     dematAccountId = int.Parse(gvDematDetailsTeleR.MasterTableView.DataKeyValues[gvr.ItemIndex]["CEDA_DematAccountId"].ToString());
                     txtDematid.Text = gvDematDetailsTeleR.MasterTableView.DataKeyValues[gvr.ItemIndex]["CEDA_DPClientId"].ToString();
+                    rwDematDetails.VisibleOnPageLoad = false;
+                   
                     break;
                 }
 
