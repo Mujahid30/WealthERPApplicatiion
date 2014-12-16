@@ -513,14 +513,7 @@ namespace DaoOps
                 else
                     db.AddInParameter(createFIOrderTrackingCmd, "@ApplicationReceivedDate", DbType.DateTime, DBNull.Value);
 
-             //   db.AddInParameter(createFIOrderTrackingCmd, "@ApplicationReceivedDate", DbType.DateTime, orderVo.ApplicationReceivedDate);
-                //db.AddInParameter(createFIOrderTrackingCmd, "@statusCode", DbType.String, orderVo.OrderStatusCode);
-                //db.AddInParameter(createFIOrderTrackingCmd, "@StatusReasonCode", DbType.String, orderVo.ReasonCode);
-                //if (FIorderVo.accountid != 0)
-                //    db.AddInParameter(createFIOrderTrackingCmd, "@CFIA_accountid", DbType.Int32, FIorderVo.accountid);
-                //else
-                //    db.AddInParameter(createFIOrderTrackingCmd, "@CFIA_accountid", DbType.Int32, 0);
-
+             
                 db.AddInParameter(createFIOrderTrackingCmd, "@ChequeNumber", DbType.String, orderVo.ChequeNumber);
                 if (orderVo.PaymentDate != DateTime.MinValue)
                     db.AddInParameter(createFIOrderTrackingCmd, "@PaymentDate", DbType.DateTime, orderVo.PaymentDate);
@@ -528,7 +521,6 @@ namespace DaoOps
                     db.AddInParameter(createFIOrderTrackingCmd, "@PaymentDate", DbType.DateTime, DBNull.Value);
 
                 
-                //db.AddInParameter(createFIOrderTrackingCmd, "@PaymentDate", DbType.DateTime, orderVo.PaymentDate );
                 db.AddInParameter(createFIOrderTrackingCmd, "@CustBankAccId", DbType.Int32, orderVo.CustBankAccId);
 
                 db.AddInParameter(createFIOrderTrackingCmd, "@AA_AdviserAssociateId", DbType.Int32, orderVo.AssociationId);
@@ -565,109 +557,11 @@ namespace DaoOps
 
                 db.AddInParameter(createFIOrderTrackingCmd, "@AgentId", DbType.Int32, FIorderVo.AgentId);
                 db.AddInParameter(createFIOrderTrackingCmd, "@UserId", DbType.Int32, userId );
+
+                db.AddInParameter(createFIOrderTrackingCmd, "@DematAcntId", DbType.Int32, FIorderVo.DematAccountId);
+                db.AddInParameter(createFIOrderTrackingCmd, "@Qty", DbType.Double, FIorderVo.Qty);
+                db.AddInParameter(createFIOrderTrackingCmd, "@BranchName", DbType.String, orderVo.BankBranchName);
                 
-                //CFIOD_AmountPayable
-                //db.AddInParameter(createFIOrderTrackingCmd, "@SourceCode", DbType.String, operationVo.SourceCode);
-                //if (!string.IsNullOrEmpty(FIorderVo.FutureTriggerCondition.ToString().Trim()))
-                //    db.AddInParameter(createFIOrderTrackingCmd, "@CFIOD_FutureTriggerCondition", DbType.String, FIorderVo.FutureTriggerCondition);
-                //else
-                //    db.AddInParameter(createFIOrderTrackingCmd, "@CFIOD_FutureTriggerCondition", DbType.String, DBNull.Value);
-                //db.AddInParameter(createFIOrderTrackingCmd, "@ApplicationNumber", DbType.String, orderVo.ApplicationNumber);
-                ////db.AddInParameter(createFIOrderTrackingCmd, "@ApplicationReceivedDate", DbType.DateTime, orderVo.ApplicationReceivedDate);
-                //if (orderVo.ApplicationReceivedDate != DateTime.MinValue)
-                //    db.AddInParameter(createFIOrderTrackingCmd, "@ApplicationReceivedDate", DbType.DateTime, orderVo.ApplicationReceivedDate);
-                //else
-                //    db.AddInParameter(createFIOrderTrackingCmd, "@ApplicationReceivedDate", DbType.DateTime, DBNull.Value);
-
-                //db.AddInParameter(createFIOrderTrackingCmd, "@CP_portfolioId", DbType.Int32, FIorderVo.portfolioId);
-                //db.AddInParameter(createFIOrderTrackingCmd, "@PaymentMode", DbType.String, orderVo.PaymentMode);
-                //if (!string.IsNullOrEmpty(orderVo.ChequeNumber.ToString().Trim()))
-                //    db.AddInParameter(createFIOrderTrackingCmd, "@ChequeNumber", DbType.String, orderVo.ChequeNumber);
-                //else
-                //    db.AddInParameter(createFIOrderTrackingCmd, "@ChequeNumber", DbType.String, DBNull.Value);
-                //if (orderVo.PaymentDate != DateTime.MinValue)
-                //    db.AddInParameter(createFIOrderTrackingCmd, "@PaymentDate", DbType.DateTime, orderVo.PaymentDate);
-                //else
-                //    db.AddInParameter(createFIOrderTrackingCmd, "@PaymentDate", DbType.DateTime, DBNull.Value);
-                //if (FIorderVo.FutureExecutionDate != DateTime.MinValue)
-                //    db.AddInParameter(createFIOrderTrackingCmd, "@CFIOD_FutureExecutionDate", DbType.DateTime, FIorderVo.FutureExecutionDate);
-                //else
-                //    db.AddInParameter(createFIOrderTrackingCmd, "@CFIOD_FutureExecutionDate", DbType.DateTime, DBNull.Value);
-                //if (FIorderVo.SchemePlanSwitch != 0)
-                //    db.AddInParameter(createFIOrderTrackingCmd, "@PASP_SchemePlanSwitch", DbType.Int32, FIorderVo.SchemePlanSwitch);
-                //else
-                //    db.AddInParameter(createFIOrderTrackingCmd, "@PASP_SchemePlanSwitch", DbType.Int32, DBNull.Value);
-                //if (!string.IsNullOrEmpty(FIorderVo.BankName.ToString().Trim()))
-                //    db.AddInParameter(createFIOrderTrackingCmd, "@FIOD_BankName", DbType.String, FIorderVo.BankName);
-                //else
-                //    db.AddInParameter(createFIOrderTrackingCmd, "@FIOD_BankName", DbType.String, DBNull.Value);
-                //if (!string.IsNullOrEmpty(FIorderVo.BranchName.ToString().Trim()))
-                //    db.AddInParameter(createFIOrderTrackingCmd, "@CFIOD_BranchName", DbType.String, FIorderVo.BranchName);
-                //else
-                //    db.AddInParameter(createFIOrderTrackingCmd, "@CFIOD_BranchName", DbType.String, DBNull.Value);
-                //if (!string.IsNullOrEmpty(FIorderVo.AddrLine1.ToString().Trim()))
-                //    db.AddInParameter(createFIOrderTrackingCmd, "@CFIOD_AddrLine1", DbType.String, FIorderVo.AddrLine1);
-                //else
-                //    db.AddInParameter(createFIOrderTrackingCmd, "@CFIOD_AddrLine1", DbType.String, DBNull.Value);
-                //if (FIorderVo.AddrLine2 != null)
-                //    db.AddInParameter(createFIOrderTrackingCmd, "@CFIOD_AddrLine2", DbType.String, FIorderVo.AddrLine2);
-                //else
-                //    db.AddInParameter(createFIOrderTrackingCmd, "@CFIOD_AddrLine2", DbType.String, DBNull.Value);
-                //if (!string.IsNullOrEmpty(FIorderVo.AddrLine3.ToString().Trim()))
-                //    db.AddInParameter(createFIOrderTrackingCmd, "@CFIOD_AddrLine3", DbType.String, FIorderVo.AddrLine3);
-                //else
-                //    db.AddInParameter(createFIOrderTrackingCmd, "@CFIOD_AddrLine3", DbType.String, DBNull.Value);
-                //if (!string.IsNullOrEmpty(FIorderVo.City.ToString().Trim()))
-                //    db.AddInParameter(createFIOrderTrackingCmd, "@CFIOD_City", DbType.String, FIorderVo.City);
-                //else
-                //    db.AddInParameter(createFIOrderTrackingCmd, "@CFIOD_City", DbType.String, DBNull.Value);
-                //if (!string.IsNullOrEmpty(FIorderVo.State.ToString().Trim()))
-                //    db.AddInParameter(createFIOrderTrackingCmd, "@CFIOD_State", DbType.String, FIorderVo.State);
-                //else
-                //    db.AddInParameter(createFIOrderTrackingCmd, "@CFIOD_State", DbType.String, DBNull.Value);
-                //if (!string.IsNullOrEmpty(FIorderVo.Country.ToString().Trim()))
-                //    db.AddInParameter(createFIOrderTrackingCmd, "@CFIOD_Country", DbType.String, FIorderVo.Country);
-                //else
-                //    db.AddInParameter(createFIOrderTrackingCmd, "@CFIOD_Country", DbType.String, DBNull.Value);
-                //if (!string.IsNullOrEmpty(FIorderVo.Pincode.ToString().Trim()))
-                //    db.AddInParameter(createFIOrderTrackingCmd, "@CFIOD_PinCode", DbType.String, FIorderVo.Pincode);
-                //else
-                //    db.AddInParameter(createFIOrderTrackingCmd, "@CFIOD_PinCode", DbType.String, DBNull.Value);
-                //if (FIorderVo.LivingSince != DateTime.MinValue)
-                //    db.AddInParameter(createFIOrderTrackingCmd, "@CFIOD_LivingScince", DbType.DateTime, FIorderVo.LivingSince);
-                //else
-                //    db.AddInParameter(createFIOrderTrackingCmd, "@CFIOD_LivingScince", DbType.DateTime, DBNull.Value);
-                //db.AddInParameter(createFIOrderTrackingCmd, "@CFIOD_IsExecuted ", DbType.Int32, FIorderVo.IsExecuted);
-                //if (FIorderVo.FrequencyCode != null && FIorderVo.FrequencyCode != "")
-                //    db.AddInParameter(createFIOrderTrackingCmd, "@XF_FrequencyCode", DbType.String, FIorderVo.FrequencyCode);
-                //else
-                //    db.AddInParameter(createFIOrderTrackingCmd, "@XF_FrequencyCode", DbType.String, DBNull.Value);
-                //if (FIorderVo.StartDate != DateTime.MinValue)
-                //    db.AddInParameter(createFIOrderTrackingCmd, "@CFIOD_StartDate", DbType.DateTime, FIorderVo.StartDate);
-                //else
-                //    db.AddInParameter(createFIOrderTrackingCmd, "@CFIOD_StartDate", DbType.DateTime, DBNull.Value);
-                //if (FIorderVo.EndDate != DateTime.MinValue)
-                //    db.AddInParameter(createFIOrderTrackingCmd, "@CFIOD_EndDate", DbType.DateTime, FIorderVo.EndDate);
-                //else
-                //    db.AddInParameter(createFIOrderTrackingCmd, "@CFIOD_EndDate", DbType.DateTime, DBNull.Value);
-                //if (FIorderVo.Units != 0)
-                //    db.AddInParameter(createFIOrderTrackingCmd, "@CFIOD_Units", DbType.Double, FIorderVo.Units);
-                //else
-                //    db.AddInParameter(createFIOrderTrackingCmd, "@CFIOD_Units", DbType.Double, DBNull.Value);
-
-                //if (!string.IsNullOrEmpty(FIorderVo.ARNNo.ToString().Trim()))
-                //    db.AddInParameter(createFIOrderTrackingCmd, "@CFIOD_ARNNo", DbType.String, FIorderVo.ARNNo);
-                //else
-                //    db.AddInParameter(createFIOrderTrackingCmd, "@CFIOD_ARNNo", DbType.String, DBNull.Value);
-
-                //db.AddOutParameter(createFIOrderTrackingCmd, "@CO_OrderId", DbType.Int32, 10);
-
-                //if (FIorderVo.AgentId != 0)
-                //    db.AddInParameter(createFIOrderTrackingCmd, "@AgentId", DbType.Int32, FIorderVo.AgentId);
-                //else
-                //    db.AddInParameter(createFIOrderTrackingCmd, "@AgentId", DbType.Int32, DBNull.Value);
-
-                //db.AddInParameter(createFIOrderTrackingCmd, "@UserId", DbType.Int32, userId);
 
                 if (db.ExecuteNonQuery(createFIOrderTrackingCmd) != 0)
                 {

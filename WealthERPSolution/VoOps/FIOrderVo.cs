@@ -150,7 +150,10 @@ namespace VoOps
             get { return m_CODimage; }
             set { m_CODimage = value; }
         }
-     
+
+        public Int64 DematAccountId { get; set; }
+        public double Qty { get; set; }
+        public string  BranchName { get; set; }
 
         //private int m_OrderId;
 
