@@ -3657,7 +3657,7 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "ProductOrderMaster")
                 {
                     Session["UserType"] = "adviser";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ProductOrderMaster','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('FixedIncome54ECOrderEntry','login');", true);
                 }
                 else if (e.Item.Value == "LI_Order")
                 {
