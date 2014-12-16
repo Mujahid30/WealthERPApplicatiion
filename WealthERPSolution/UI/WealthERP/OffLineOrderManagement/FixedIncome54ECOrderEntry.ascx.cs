@@ -220,7 +220,7 @@ namespace WealthERP.OffLineOrderManagement
                 if (ddlsearch.SelectedItem.Value == "2")
                     lblgetcust.Text = customerVo.FirstName + ' ' + customerVo.MiddleName + ' ' + customerVo.LastName;
                 OnTaxStatus();
-                BindBank (customerId);
+                BindBanks (customerId);
                 //BindDepositedBank(customerId);
                 // BindPortfolioDropdown(customerId);
 
