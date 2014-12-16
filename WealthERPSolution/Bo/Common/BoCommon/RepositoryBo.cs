@@ -84,6 +84,22 @@ namespace BoCommon
             }
         }
 
+        public bool AddOrderDocument(RepositoryVo repoVo, int issueId)
+        {
+            RepositoryDao repoDao = new RepositoryDao();
+            bool blResult = false;
+
+            try
+            {
+                blResult = repoDao.AddOrderDocument(repoVo, issueId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return blResult;
+
+        }
         public bool AddRepositoryItem(RepositoryVo repoVo,int issueId)
         {
             RepositoryDao repoDao = new RepositoryDao();

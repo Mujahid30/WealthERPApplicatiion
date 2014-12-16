@@ -155,6 +155,34 @@ namespace DaoCommon
             return blResult;
         }
 
+        public bool AddOrderDocument(RepositoryVo repoVo, int orderid)
+        {
+            Database db;
+            DbCommand cmdAddRepository;
+            bool blResult = false;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdAddRepository = db.GetStoredProcCommand("Sp_CreateCustomerOrderDocument");
+                db.AddInParameter(cmdAddRepository, "@orderid", DbType.Int32, orderid);
+                db.AddInParameter(cmdAddRepository, "@ProofTypeCode", DbType.Int32, repoVo.CategoryCode);
+                db.AddInParameter(cmdAddRepository, "@ProofCode", DbType.String, repoVo.HeadingText);
+                db.AddInParameter(cmdAddRepository, "@image", DbType.String, repoVo.Description);
+                
+                
+
+                db.ExecuteNonQuery(cmdAddRepository);
+                blResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return blResult;
+
+        }
+
         public DataSet GetAdviserRepositoryView(int intAdviserId)
         {
             Database db;

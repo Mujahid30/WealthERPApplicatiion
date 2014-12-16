@@ -1079,8 +1079,8 @@
     </tr>
     <tr>
         <td>
-            <asp:Button ID="BtnFileupload" runat="server" Text="Update" CssClass="PCGButton"
-                ValidationGroup="MFSubmit" Visible="false" OnClick="BtnFileupload_Click" />
+            <asp:Button ID="BtnFileupload" runat="server" Text="Upload Documents" CssClass="PCGButton"
+                ValidationGroup="MFSubmit"   OnClick="BtnFileupload_Click" Visible="false" />
         </td>
     </tr>
 </table>

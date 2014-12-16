@@ -31,7 +31,7 @@ using System.IO;
 using System.Resources;
 using System.Web.UI.HtmlControls;
 using System.Transactions;
-
+using VoCommon;
 using BoOfflineOrderManagement;
 
 namespace WealthERP.OffLineOrderManagement
@@ -60,6 +60,7 @@ namespace WealthERP.OffLineOrderManagement
         CustomerPortfolioBo customerPortfolioBo = new CustomerPortfolioBo();
         AssociatesUserHeirarchyVo associateuserheirarchyVo = new AssociatesUserHeirarchyVo();
         CustomerAccountsVo customerAccountsVo = new CustomerAccountsVo();
+        RepositoryVo repoVo;
 
         BoDematAccount boDematAccount = new BoDematAccount();
 
@@ -88,7 +89,9 @@ namespace WealthERP.OffLineOrderManagement
         DataTable AgentId = new DataTable();
         DataTable Agentname;
         String TransType;
+        string fileExtension = string.Empty;
 
+        string strRepositoryPath = string.Empty;
 
 
         string imgPath = "";
@@ -172,6 +175,10 @@ namespace WealthERP.OffLineOrderManagement
                 BindProofTypeDP();
 
             }
+            repoBo = new RepositoryBo();
+
+            fStorageBalance = repoBo.GetAdviserStorageValues(advisorVo.advisorId, out fMaxStorage);
+
  
         }
 
@@ -526,7 +533,7 @@ namespace WealthERP.OffLineOrderManagement
 
         protected void BtnFileupload_Click(object sender, EventArgs e)
         {
-
+            AddClick();
         }
 
 
@@ -544,7 +551,7 @@ namespace WealthERP.OffLineOrderManagement
             orderVo.CustomerId = int.Parse(txtCustomerId.Value);
 
             GetFICOntrolsValues();
-            //AddcLick();
+        
             SetFICOntrolsEnablity(false);
             //SetFICOntrols();
 
@@ -552,7 +559,7 @@ namespace WealthERP.OffLineOrderManagement
             btnAddMore.Visible = false;
             lnkBtnFIEdit.Visible = true;
 
-
+            BtnFileupload.Visible = true;
             btnUpdate.Visible = true;
             //lnkBtnFIEdit.Visible = true;
             //lnlFIBack.Visible = false;
@@ -826,6 +833,152 @@ namespace WealthERP.OffLineOrderManagement
             {
                 TxtPurAmt.Text = (Convert.ToInt32(txtQty.Text) * GetFaceValue()).ToString();
             }
+        }
+
+
+        private void AddClick()
+        {
+            bool blResult = false;
+            bool blZeroBalance = false;
+            bool blFileSizeExceeded = false;
+            AddFile(out blZeroBalance, out blFileSizeExceeded);
+            //if (ddlUploadDataType.SelectedValue.Equals(Constants.F.ToString()))
+            //{
+            //    if (fStorageBalance > 0)
+            //        blResult = AddFile(out blZeroBalance, out blFileSizeExceeded);
+            //    else
+            //        blZeroBalance = true;
+            //}
+            //else if (ddlUploadDataType.SelectedValue.Equals(Constants.L.ToString()))
+            //{
+            //    blResult = AddLink();
+            //}
+
+            //if (blZeroBalance)
+            //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ManageRepository", "alert('You do not have enough space. You have only " + fStorageBalance + " MB left in your account!');", true);
+            //else
+            //{
+            //    if (blResult)
+            //    {
+            //        ResetControls();
+            //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ManageRepository", "alert('Repository Item added successfully!');", true);
+            //    }
+            //    else
+            //    {
+            //        if (blFileSizeExceeded)
+            //            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ManageRepository", "alert('Sorry your file size exceeds the allowable 2 MB limit!');", true);
+            //        else
+            //            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ManageRepository", "alert('Error adding repository item!');", true);
+            //    }
+            //}
+        }
+
+        private bool AddFile(out bool blZeroBalance, out bool blFileSizeExceeded)
+        {
+            // If the upload type is file
+            // We need to see if the adviser has a folder in Repository folder
+            // Case 1: If not, then encode the adviser id and create a folder with the encoded id
+            // then create a folder for the repository category within the encoded folder
+            // then store the encoded adviserID + GUID + file name
+            // Case 2: If folder exists, check if the category folder exists. 
+            // If not then, create a folder with the category code and store the file as done above.
+            // If yes, then just store the file as done above.
+            // Once this is done, store the info in the DB with the file path.
+            strRepositoryPath = Server.MapPath(strRepositoryPath) + "\\advisor_" + advisorVo.advisorId + "\\54EC_OrderDocuments";
+            AdvisorBo advBo = new AdvisorBo();
+            repoBo = new RepositoryBo();
+            bool blResult = false;
+            blZeroBalance = false;
+            blFileSizeExceeded = false;
+
+            try
+            {
+                // Reading File Upload Control
+                if (radUploadProof.UploadedFiles.Count != 0)
+                {
+                    // Put this part under a transaction scope
+                    //using (TransactionScope scope1 = new TransactionScope())
+                    //{
+                        UploadedFile file = radUploadProof.UploadedFiles[0];
+                        float fileSize = float.Parse(file.ContentLength.ToString()) / 1048576; // Converting bytes to MB
+
+                        // If space is there to upload file
+                        if (fStorageBalance >= fileSize)
+                        {
+                            if (fileSize <= 10)   // If upload file size is less than 10 MB then upload
+                            {
+                                // Check if directory for advisor exists, and if not then create a new directoty
+                                if (!Directory.Exists(strRepositoryPath))
+                                {
+                                    Directory.CreateDirectory(strRepositoryPath);
+                                }
+                                strGuid = Guid.NewGuid().ToString();
+                                string newFileName = SaveFileIntoServer(file, strGuid, strRepositoryPath);
+                                repoVo = new RepositoryVo();
+                                repoVo.AdviserId = advisorVo.advisorId;
+                                repoVo.CategoryCode = ddlProofType.SelectedValue;
+                                repoVo.Description = newFileName ;
+                                //repoVo.HeadingText = txtHeadingText.Text.Trim();
+                               // repoVo.IsFile = true;
+                              //  repoVo.Link = newFileName;
+                                //if (Request.QueryString["NCDProspect"] != null)
+                                //{
+                                //    issueId = Convert.ToInt32(Request.QueryString["issueId"].ToString());
+                                //}
+                                blResult = repoBo.AddOrderDocument(repoVo, Convert.ToInt32(lblGetOrderNo.Text) );
+
+                                if (blResult)
+                                {
+                                    // Once the adding of repository is a success, then update the balance storage in advisor subscription table
+                                    fStorageBalance = UpdateAdvisorStorageBalance(fileSize, 0, fStorageBalance);
+                                }
+                            }
+                            else
+                            {
+                                blFileSizeExceeded = true;
+                            }
+                        }
+                        else
+                        {
+                            blZeroBalance = true;
+                        }
+
+                       // scope1.Complete();   // Commit the transaction scope if no errors
+                    //}
+                }
+                else
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select a file to upload!');", true);
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            
+            return blResult;
+        }
+
+        private float UpdateAdvisorStorageBalance(float fileSize, float oldFileSize, float fStorageBalance)
+        {
+            AdvisorBo advBo = new AdvisorBo();
+            fStorageBalance -= (fileSize - oldFileSize);
+            advBo.UpdateAdviserStorageBalance(advisorVo.advisorId, fStorageBalance);
+            advisorVo.SubscriptionVo.StorageBalance = fStorageBalance;
+            Session[SessionContents.AdvisorVo] = advisorVo;
+            return fStorageBalance;
+        }
+
+        private string SaveFileIntoServer(UploadedFile file, string strGuid, string strPath)
+        {
+            fileExtension = file.GetExtension();
+            string strRenameFilename = file.GetName();
+            strRenameFilename = strRenameFilename.Replace(' ', '_');
+            //string newFileName = advisorVo.advisorId + "_" + strGuid + "_" + strRenameFilename;
+            string newFileName = strRenameFilename;
+            // Save adviser repository file in the path
+            file.SaveAs(strPath + "\\" + newFileName);
+            return newFileName;
         }
 
         protected void ddlSchemeOption_SelectedIndexChanged(object sender, EventArgs e)
