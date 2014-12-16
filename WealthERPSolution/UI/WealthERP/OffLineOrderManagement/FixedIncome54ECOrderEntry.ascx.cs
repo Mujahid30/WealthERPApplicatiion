@@ -533,7 +533,17 @@ namespace WealthERP.OffLineOrderManagement
 
         protected void BtnFileupload_Click(object sender, EventArgs e)
         {
-            AddClick();
+
+            if (Convert.ToInt32(lblGetOrderNo.Text) > 0)
+            {
+
+                AddClick();
+            }
+            else
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Create Order Details Then Try again')", true);
+                return;
+            }
         }
 
 
@@ -928,7 +938,10 @@ namespace WealthERP.OffLineOrderManagement
                                 blResult = repoBo.AddOrderDocument(repoVo, Convert.ToInt32(lblGetOrderNo.Text) );
 
                                 if (blResult)
+
                                 {
+                                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Document Uploaded Successfully')", true);
+
                                     // Once the adding of repository is a success, then update the balance storage in advisor subscription table
                                     fStorageBalance = UpdateAdvisorStorageBalance(fileSize, 0, fStorageBalance);
                                 }

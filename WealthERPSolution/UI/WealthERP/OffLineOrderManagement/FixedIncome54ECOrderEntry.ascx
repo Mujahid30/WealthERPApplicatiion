@@ -858,7 +858,7 @@
                                 runat="server" CssClass="txtField"></asp:TextBox>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator6" ControlToValidate="txtDematid"
                                 ErrorMessage="<br />Please Select Demat from the List" Display="Dynamic" runat="server"
-                                CssClass="rfvPCG" ValidationGroup="btnConfirmOrder"></asp:RequiredFieldValidator>
+                                CssClass="rfvPCG"   ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
                         </td>
                         <td>
                         </td>
