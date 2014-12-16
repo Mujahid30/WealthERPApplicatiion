@@ -270,8 +270,8 @@
                             ShowFooter="True" PagerStyle-AlwaysVisible="true" AllowPaging="true" ShowStatusBar="True"
                             Skin="Telerik" AllowFilteringByColumn="true" OnNeedDataSource="rgIssuer_OnNeedDataSource"
                             OnItemCommand="rgIssuer_ItemCommand" OnItemDataBound="rgIssuer_ItemDataBound">
-                            <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="PI_IssuerId"
-                                AutoGenerateColumns="false" Width="100%"  CommandItemSettings-AddNewRecordText="Create Issuer"
+                            <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="PI_IssuerId,PAISC_AssetInstrumentSubCategoryCode"
+                                AutoGenerateColumns="false" Width="100%" CommandItemSettings-AddNewRecordText="Create Issuer"
                                 CommandItemDisplay="Top">
                                 <Columns>
                                     <telerik:GridEditCommandColumn EditText="Edit" UniqueName="editColumn" CancelText="Cancel"
@@ -284,7 +284,13 @@
                                     </telerik:GridBoundColumn>
                                     <telerik:GridBoundColumn DataField="PI_IssuerCode" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
                                         ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Issuer Code" UniqueName="PI_IssuerCode"
-                                        SortExpression="PI_IssuerCode" AllowFiltering="true">
+                                        SortExpression="PI_IssuerCode" AllowFiltering="true" Visible="false">
+                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                    </telerik:GridBoundColumn>
+                                    <telerik:GridBoundColumn DataField="PAISC_AssetInstrumentSubCategoryCodes" HeaderStyle-Width="20px"
+                                        CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                        HeaderText="Category" UniqueName="PAISC_AssetInstrumentSubCategoryCodes" SortExpression="PAISC_AssetInstrumentSubCategoryCodes"
+                                        AllowFiltering="true">
                                         <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                     </telerik:GridBoundColumn>
                                     <telerik:GridButtonColumn UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete?"
@@ -314,17 +320,19 @@
                                             </tr>
                                             <tr>
                                                 <td class="leftField" style="width: 10%">
-                                                    <asp:Label ID="lb1IssuerCode" runat="server" Text="Code: " CssClass="FieldName"></asp:Label>
+                                                    <asp:Label ID="lb1IssuerCode" runat="server" Text="Category:" CssClass="FieldName"></asp:Label>
                                                 </td>
                                                 <td class="rightField" style="width: 25%">
-                                                    <asp:TextBox ID="txtIssuerCode" runat="server" CssClass="txtField"></asp:TextBox><br />
+                                                    <asp:DropDownList ID="ddlCategory" runat="server" CssClass="cmbField">
+                                                    </asp:DropDownList>
+                                                    <asp:TextBox ID="txtIssuerCode" runat="server" CssClass="txtField" Visible="false"></asp:TextBox><br />
                                                     <span id="spnNewFolioValidation"></span>
-                                                    <asp:RequiredFieldValidator ID="rfvName" ControlToValidate="txtIssuerCode" ErrorMessage="Please enter Issuer Code"
+                                                    <asp:RequiredFieldValidator ID="rfvName" ControlToValidate="ddlCategory" ErrorMessage="Please Select Category"
                                                         ValidationGroup="rgIssuerOk" Display="Dynamic" runat="server" CssClass="rfvPCG">
                                                     </asp:RequiredFieldValidator>
                                                 </td>
                                             </tr>
-                                           <%-- <tr>
+                                            <%-- <tr>
                                                 <td class="leftField" style="width: 10%">
                                                     <asp:Label ID="Label23" runat="server" Text="SubCategory: " CssClass="FieldName"></asp:Label>
                                                 </td>
@@ -391,17 +399,15 @@
         <td class="leftLabel" id="tdlblCategory" runat="server">
             <asp:Label ID="lblCategory" runat="server" Text="Category:" CssClass="FieldName"></asp:Label>
         </td>
-        <td align="rightData" id="tdddlCategory" runat="server" >
+        <td align="rightData" id="tdddlCategory" runat="server">
             <asp:DropDownList ID="ddlSubInstrCategory" runat="server" CssClass="cmbLongField"
                 AutoPostBack="true" Width="500px" OnSelectedIndexChanged="ddlSubInstrCategory_Selectedindexchanged">
                 <%-- <asp:ListItem Value="Select">Select</asp:ListItem>
                 <asp:ListItem Value="NCD">NCD</asp:ListItem>
                 <asp:ListItem Value="IB">Infrastructure bonds</asp:ListItem>--%>
             </asp:DropDownList>
-        <%--    <span id="Span4" class="spnRequiredField">*</span>--%>
-            
-            <asp:Label ID="lblcategoryerror" runat="server" Text="*" Visible="true"
-                CssClass="Error"></asp:Label><br />
+            <%--    <span id="Span4" class="spnRequiredField">*</span>--%>
+            <asp:Label ID="lblcategoryerror" runat="server" Text="*" Visible="true" CssClass="Error"></asp:Label><br />
             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Please Select Category"
                 CssClass="rfvPCG" ControlToValidate="ddlSubInstrCategory" ValidationGroup="SetUpSubmit"
                 Display="Dynamic" InitialValue="Select"></asp:RequiredFieldValidator>
@@ -1281,7 +1287,7 @@
           
         </td>--%>
         <td class="leftLabel">
-            <asp:Label ID="lblChnl" runat="server" Text="Bussiness Channel:" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="lblChnl" runat="server" Text="Business Channel:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightData">
             <asp:DropDownList ID="ddlBssChnl" runat="server" CssClass="cmbField" AutoPostBack="true">
@@ -1832,7 +1838,7 @@
                                         <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="Detailslink">
                                             <ItemTemplate>
                                                 <asp:LinkButton ID="lbDetails" runat="server" CommandName="ExpandCollapse" Font-Underline="False"
-                                                    Font-Bold="true"  OnClick="btnExpandAll_Click" Font-Size="Medium">+</asp:LinkButton>
+                                                    Font-Bold="true" OnClick="btnExpandAll_Click" Font-Size="Medium">+</asp:LinkButton>
                                             </ItemTemplate>
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="20px" Wrap="false" />
                                         </telerik:GridTemplateColumn>
@@ -2009,7 +2015,6 @@
                                                     </td>
                                                     <td width="20%" align="left">
                                                         <asp:DropDownList ID="ddlInterestType" runat="server" CssClass="cmbField" Width="104px">
-                                                            <asp:ListItem Value="Select">Select</asp:ListItem>
                                                             <asp:ListItem Value="Fixed">Fixed</asp:ListItem>
                                                             <asp:ListItem Value="Floating">Floating</asp:ListItem>
                                                         </asp:DropDownList>

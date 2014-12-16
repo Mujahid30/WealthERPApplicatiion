@@ -204,7 +204,7 @@ namespace WealthERP.OnlineOrderBackOffice
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlSubInstrCategory;
         protected global::System.Web.UI.WebControls.DropDownList ddlOffCutOffTimeHours;
-
+        protected global::System.Web.UI.WebControls.DropDownList ddlCategory;
         /// <summary>
         /// RequiredFieldValidator1 control.
         /// </summary>

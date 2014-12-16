@@ -4326,17 +4326,46 @@ namespace WealthERP.OnlineOrderBackOffice
             }
 
         }
-
+        protected void BindCategory(DropDownList ddlCategory)
+        {
+            DataTable dtCategory = new DataTable();
+            dtCategory = onlineNCDBackOfficeBo.BindNcdCategory("SubInstrumentCat", "").Tables[0];
+            if (dtCategory.Rows.Count > 0)
+            {
+                ddlCategory.DataSource = dtCategory;
+                ddlCategory.DataValueField = dtCategory.Columns["PAISC_AssetInstrumentSubCategoryCode"].ToString();
+                ddlCategory.DataTextField = dtCategory.Columns["PAISC_AssetInstrumentSubCategoryName"].ToString();
+                ddlCategory.DataBind();
+            }
+            ddlCategory.Items.Insert(0, new ListItem("Select", "Select"));
+        }
         protected void rgIssuer_ItemDataBound(object sender, GridItemEventArgs e)
         {
 
-
+            if (e.Item is GridEditFormInsertItem && e.Item.OwnerTableView.IsItemInserted)
+            {
+                GridEditFormInsertItem item = (GridEditFormInsertItem)e.Item;
+                GridEditFormItem gefi = (GridEditFormItem)e.Item;
+                //GridDataItem form = (GridDataItem)e.Item;
+                DropDownList ddlCategory = (DropDownList)gefi.FindControl("ddlCategory");
+                BindCategory(ddlCategory);
+            }
             if ((e.Item is GridEditFormItem) && (e.Item.IsInEditMode) && e.Item.ItemIndex != -1)
             {
                 radIssuerPopUp.VisibleOnPageLoad = true;
 
                 GridEditFormItem editform = (GridEditFormItem)e.Item;
                 string issuerId = rgIssuer.MasterTableView.DataKeyValues[e.Item.ItemIndex]["PI_IssuerId"].ToString();
+                DropDownList ddlCategory = (DropDownList)editform.FindControl("ddlCategory");
+                DataTable dtCategory = new DataTable();
+                dtCategory = onlineNCDBackOfficeBo.BindNcdCategory("SubInstrumentCat", "").Tables[0];
+                ddlCategory.DataSource = dtCategory;
+                ddlCategory.DataValueField = dtCategory.Columns["PAISC_AssetInstrumentSubCategoryCode"].ToString();
+                ddlCategory.DataTextField = dtCategory.Columns["PAISC_AssetInstrumentSubCategoryName"].ToString();
+                ddlCategory.DataBind();
+
+                if (ddlCategory.Items.Count > 0)
+                    ddlCategory.SelectedValue = rgIssuer.MasterTableView.DataKeyValues[e.Item.ItemIndex]["PAISC_AssetInstrumentSubCategoryCode"].ToString();
 
                 TextBox txtIssuerName = (TextBox)editform.FindControl("txtIssuerName");
                 TextBox txtIssuerCode = (TextBox)editform.FindControl("txtIssuerCode");
@@ -4709,6 +4738,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 return;
             }
+
             BindInstCate(ddlSubInstrCategory.SelectedValue);
             EnablityOfControlsonCategoryTypeSelection(ddlSubInstrCategory.SelectedValue);
         }
@@ -5211,8 +5241,8 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 TextBox txtIssuerCode = (TextBox)e.Item.FindControl("txtIssuerCode");
                 TextBox txtIssuername = (TextBox)e.Item.FindControl("txtIssuername");
-
-                CreateUpdateDeleteIssuer(0, txtIssuerCode.Text, txtIssuername.Text, "INSERT");
+                DropDownList ddlCategory=(DropDownList)e.Item.FindControl("ddlCategory");
+                CreateUpdateDeleteIssuer(0, ddlCategory.SelectedValue, txtIssuername.Text, "INSERT");
             }
             else if (e.CommandName == RadGrid.UpdateCommandName)
             {
@@ -5220,7 +5250,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 TextBox txtIssuerCode = (TextBox)e.Item.FindControl("txtIssuerCode");
                 TextBox txtIssuername = (TextBox)e.Item.FindControl("txtIssuername");
 
-                CreateUpdateDeleteIssuer(issuerId, txtIssuerCode.Text, txtIssuername.Text, "UPDATE");
+                CreateUpdateDeleteIssuer(issuerId, ddlCategory.SelectedValue, txtIssuername.Text, "UPDATE");
 
             }
             else if (e.CommandName == RadGrid.DeleteCommandName)
@@ -5325,7 +5355,7 @@ namespace WealthERP.OnlineOrderBackOffice
             radIssuerPopUp.VisibleOnPageLoad = false;
             //BindIssuer();
 
-            BindIssuerGrid();
+            //BindIssuerGrid();
         }
 
         protected void btnImageActivRange_Click(object sender, ImageClickEventArgs e)
@@ -5856,5 +5886,6 @@ namespace WealthERP.OnlineOrderBackOffice
             }
 
         }
+      
     }
 }
