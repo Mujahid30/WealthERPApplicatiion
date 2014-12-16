@@ -21,13 +21,13 @@ namespace BoCommon
         /// <param name="subreportype"></param>
         /// <param name="fromDate"></param>
         /// <returns></returns>
-        public void CreateTaskRequest(int taskId, int userId, out int taskRequestId, string filePath, int adviserId, int rmId, int branchId, string uploadType)
+        public void CreateTaskRequest(int taskId, int userId, out int taskRequestId, string filePath, int adviserId, int rmId, int branchId, string uploadType, int xmlFileTypeId)
         {
             WERPTaskRequestManagementDao requestManagementDao = new WERPTaskRequestManagementDao();
 
             try
             {
-                requestManagementDao.CreateTaskRequest(taskId, userId, out taskRequestId, filePath, adviserId, rmId, branchId, uploadType);
+                requestManagementDao.CreateTaskRequest(taskId, userId, out taskRequestId, filePath, adviserId, rmId, branchId, uploadType, xmlFileTypeId);
 
             }
             catch (BaseApplicationException ex)
