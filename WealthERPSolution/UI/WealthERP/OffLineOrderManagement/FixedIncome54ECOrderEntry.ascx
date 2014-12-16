@@ -357,7 +357,8 @@
         </td>
     </tr>
     <tr id="trCustSearch" runat="server">
-        <td style="width: 15%;">
+    
+        <td align="right">
             <asp:Label ID="lblsearch" runat="server" CssClass="FieldName" Text="Search for:"></asp:Label>
         </td>
         <td style="width: 23.5%">
@@ -750,7 +751,7 @@
         <td style="width: 5%">
         </td>
         <td colspan="2" style="width: 35%" align="center">
-            <asp:Label ID="LabelMsg" runat="server" Style="color: red"></asp:Label>
+            <asp:Label ID="LabelMsg" runat="server" Style="color: red;"></asp:Label>
         </td>
     </tr>
     <tr id="trDepRen" runat="server" visible="false">
@@ -935,7 +936,7 @@
         </td>
     </tr>
     <tr>
-        <td colspan="5">
+        <td >
         </td>
     </tr>
     <tr id="trAmount" runat="server">

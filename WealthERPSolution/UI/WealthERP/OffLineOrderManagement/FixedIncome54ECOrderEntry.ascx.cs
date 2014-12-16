@@ -166,7 +166,104 @@ namespace WealthERP.OffLineOrderManagement
 
             }
 
- 
+
+          //  //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "confirm", " ShowIsa();", true);
+          //  SessionBo.CheckSession();
+          //  repoBo = new RepositoryBo();
+          //  associatesVo = (AssociatesVO)Session["associatesVo"];
+          //  userVo = (UserVo)Session[SessionContents.UserVo];
+          //  path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
+
+          //  if (!string.IsNullOrEmpty(Session["advisorVo"].ToString()))
+          //      advisorVo = (AdvisorVo)Session["advisorVo"];
+          //  if (!string.IsNullOrEmpty(Session[SessionContents.RmVo].ToString()))
+          //      rmVo = (RMVo)Session[SessionContents.RmVo];
+          //  if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
+          //      userType = "advisor";
+          //  else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "bm")
+          //      userType = "bm";
+          //  else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "rm")
+          //      userType = "rm";
+          //  else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "associates")
+          //  {
+          //      userType = "associates";
+          //      associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
+          //      if (associateuserheirarchyVo.AgentCode != null)
+          //      {
+          //          AgentCode = associateuserheirarchyVo.AgentCode.ToString();
+          //      }
+          //      else
+          //          AgentCode = "0";
+          //  }
+          //  //if (Session["mforderVo"] != null && Session["orderVo"] != null)
+          //  //{
+          //  //    mforderVo = (MFOrderVo)Session["mforderVo"];
+          //  //    orderVo = (OrderVo)Session["orderVo"];
+          //  //}
+          //  //lblGetBranch.Visible = false;
+          //  //lblBranch.Visible = false;
+          //  //lblRM.Visible = false;
+          //  //lblGetRM.Visible = false;
+
+
+          //  //gvJointHoldersList.Visible = false;
+          //  //BindARNNo(advisorVo.advisorId);
+          //  //LinkButtonsVisblity();
+
+          // // ScriptManager.RegisterStartupScript(Page, Page.GetType(), "confirm", " ShowInitialIsa();", true);
+
+
+          //  //if (Request.QueryString["action"] != null)
+          //  //{
+
+          //  //    ViewForm = Request.QueryString["action"].ToString();
+
+          //  //}
+
+          //  if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
+          //  {
+          //      txtCustomerName_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+          //      txtCustomerName_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
+          //      AutoCompleteExtender1.ContextKey = advisorVo.advisorId.ToString();
+          //      AutoCompleteExtender1.ServiceMethod = "GetAdviserCustomerPan";
+          //      AutoCompleteExtender2.ContextKey = advisorVo.advisorId.ToString();
+          //      AutoCompleteExtender2.ServiceMethod = "GetAgentCodeAssociateDetails";
+          //  }
+          //  else if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
+          //  {
+          //      txtCustomerName_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+          //      txtCustomerName_autoCompleteExtender.ServiceMethod = "GetBMIndividualCustomerNames";
+
+          //  }
+          //  else if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
+          //  {
+          //      txtCustomerName_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+          //      txtCustomerName_autoCompleteExtender.ServiceMethod = "GetMemberCustomerName";
+          //  }
+          //  else if (Session[SessionContents.CurrentUserRole].ToString() == "Associates")
+          //  {
+          //      txtCustomerName_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+          //      txtCustomerName_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
+          //      AutoCompleteExtender1.ContextKey = advisorVo.advisorId.ToString();
+          //      AutoCompleteExtender1.ServiceMethod = "GetAdviserCustomerPan";
+          //      AutoCompleteExtender2.ContextKey = associateuserheirarchyVo.AgentCode;
+          //      AutoCompleteExtender2.ServiceMethod = "GetAgentCodeAssociateDetailsForAssociates";
+
+          //  }
+          ////  if (Request.QueryString["CustomerId"] != null)
+          ////  {
+          ////      customerId = Convert.ToInt32(Request.QueryString["CustomerId"]);
+          ////      customerVo = customerBo.GetCustomer(customerId);
+
+          ////      hdnCustomerId.Value = customerVo.CustomerId.ToString();
+          ////      txtCustomerName.Text = customerVo.FirstName + customerVo.MiddleName + customerVo.LastName;
+          ////      lblGetBranch.Text = customerVo.BranchName;
+          ////      lblGetRM.Text = customerVo.RMName;
+          ////      lblgetPan.Text = customerVo.PANNum;
+          ////      BindPortfolioDropdown(customerId);
+          ////  }
+
+
             if (!IsPostBack)
             {
                 FICategory();
@@ -174,6 +271,17 @@ namespace WealthERP.OffLineOrderManagement
                 BindARNNo(advisorVo.advisorId);
                 BindProofTypeDP();
                 
+
+                if (Request.QueryString["action"] != null)
+                {
+                    int orderId = int.Parse(Request.QueryString["orderId"].ToString());
+                    txtCustomerId.Value = Request.QueryString["customeId"].ToString();
+                    lblAssociatetext.Text = Request.QueryString["associatename"].ToString();
+                    txtAssociateSearch.Text = Request.QueryString["agentcode"].ToString();
+                    GetcustomerDetails();
+                    View54ECOrderDetails(orderId);
+                }
+
             }
             repoBo = new RepositoryBo();
 
@@ -233,8 +341,8 @@ namespace WealthERP.OffLineOrderManagement
                     ddlTax.DataTextField = dtDpProofTypes.Tables[0].Columns["WCMV_Name"].ToString();
                     ddlTax.DataBind();
                 }
-                ddlTax.Items.Insert(0, new ListItem("Select", "Select"));
-
+                //ddlTax.Items.Insert(0, new ListItem("Select", "Select"));
+                
                 //ddlTax.Text = fiorderBo.GetTaxStatus(Convert.ToInt32(txtCustomerId.Value));
             }
         }
@@ -490,10 +598,6 @@ namespace WealthERP.OffLineOrderManagement
         private void FICategory()
         {
             DataSet dsBankName = fiorderBo.GetFICategory();
-
-
-
-
             if (dsBankName.Tables[0].Rows.Count > 0)
             {
 
@@ -501,9 +605,6 @@ namespace WealthERP.OffLineOrderManagement
                 ddlCategory.DataValueField = dsBankName.Tables[0].Columns["PAIC_AssetInstrumentCategoryCode"].ToString();
                 ddlCategory.DataTextField = dsBankName.Tables[0].Columns["PAIC_AssetInstrumentCategoryName"].ToString();
                 ddlCategory.DataBind();
-
-                //  ddlCategory.Items.Insert(0, new ListItem("Select", "Select"));
-
             }
             else
             {
@@ -1073,70 +1174,7 @@ namespace WealthERP.OffLineOrderManagement
 
         protected void OnPayAmtTextchanged(object sender, EventArgs e)
         {
-            //double Maturityvalue;
-            //if (hdnMaxtenure.Value == "")
-            //    return;
-            //int SchemePeriod = Convert.ToInt32(hdnMaxtenure.Value);
-            //if (ddlSchemeOption.SelectedValue == "NonCummulative")
-            //{
 
-
-            //    if (hdnFrequency.Value == "0" | hdnFrequency.Value == "")
-            //    {
-            //        txtPayAmt.Text = "";
-            //        txtMatAmt.Text = "";
-            //        Label11.Visible = false;
-            //        return;
-            //    }
-            //    else
-            //    {
-            //        Label11.Visible = true;
-            //    }
-
-            //    if (!string.IsNullOrEmpty(txtPayAmt.Text) & txtPayAmt.Visible == true & Label18.Visible == true)
-            //    {
-            //        Maturityvalue = CompoundInterest(Convert.ToDouble(txtPayAmt.Text), Convert.ToDouble(hdnDefaulteInteresRate.Value) / 100, Convert.ToInt32(hdnFrequency.Value), SchemePeriod);
-            //        Maturityvalue = Math.Round(Maturityvalue, 3);
-            //        //Convert.ToDouble(Math.Round (SchemePeriod / 12,5))
-            //        txtMatAmt.Text = Maturityvalue.ToString(); //
-            //        Label11.Text = ddlFrequency.SelectedValue + "-Earned Interest" + (Convert.ToDouble(txtPayAmt.Text) - Maturityvalue).ToString();
-            //    }
-            //    else if (!string.IsNullOrEmpty(txtRenAmt.Text) & txtPayAmt.Visible == false & Label18.Visible == false)
-            //    {
-            //        Maturityvalue = CompoundInterest(Convert.ToDouble(txtRenAmt.Text), Convert.ToDouble(hdnDefaulteInteresRate.Value) / 100, Convert.ToInt32(hdnFrequency.Value), SchemePeriod);
-            //        Maturityvalue = Math.Round(Maturityvalue, 3);
-
-            //        txtMatAmt.Text = Maturityvalue.ToString();
-            //        Label11.Text = ddlFrequency.SelectedValue + "-Earned Interest" + (Convert.ToDouble(txtRenAmt.Text) - Maturityvalue).ToString();
-
-            //        // Convert.ToString(Convert.ToDouble(txtRenAmt.Text) + (Convert.ToDouble(txtRenAmt.Text) * Convert.ToDouble(hdnDefaulteInteresRate.Value) / 100));
-            //    }
-            //}
-            //if (ddlSchemeOption.SelectedValue == "Cummulative")
-            //{
-            //    double i = Convert.ToDouble(SchemePeriod / 12);
-            //    if (!string.IsNullOrEmpty(txtPayAmt.Text) & txtPayAmt.Visible == true & Label18.Visible == true)
-            //    {
-            //        //  Maturityvalue = Convert.ToString(Convert.ToDouble(txtPayAmt.Text) + (Convert.ToDouble(txtPayAmt.Text) * (Convert.ToDouble(hdnDefaulteInteresRate.Value) / 100) * (i)));
-            //        Maturityvalue = SimpleInterest(Convert.ToDouble(txtPayAmt.Text), (Convert.ToDouble(hdnDefaulteInteresRate.Value) / 100), SchemePeriod);
-
-            //        Maturityvalue = Math.Round(Maturityvalue, 3);
-            //        txtMatAmt.Text = Maturityvalue.ToString();
-            //        Label11.Text = ddlFrequency.SelectedValue + "-Earned Interest" + (Convert.ToDouble(txtPayAmt.Text) - Maturityvalue).ToString();
-
-            //    }
-            //    else if (!string.IsNullOrEmpty(txtRenAmt.Text) & txtPayAmt.Visible == false & Label18.Visible == false)
-            //    {
-            //        Maturityvalue = SimpleInterest(Convert.ToDouble(txtRenAmt.Text), (Convert.ToDouble(hdnDefaulteInteresRate.Value) / 100), SchemePeriod);
-
-            //        Maturityvalue = Math.Round(Maturityvalue, 3);
-            //        txtMatAmt.Text = Maturityvalue.ToString();
-            //        Label11.Text = ddlFrequency.SelectedValue + "-Earned Interest" + (Convert.ToDouble(txtRenAmt.Text) - Maturityvalue).ToString();
-
-            //        // txtRenAmt.Text=  Convert.ToString(Convert.ToDouble(txtRenAmt.Text) + (Convert.ToDouble(txtRenAmt.Text) * Convert.ToDouble(hdnDefaulteInteresRate.Value) / 100));
-
-            //    }
-            //}
 
 
         }
@@ -1144,7 +1182,7 @@ namespace WealthERP.OffLineOrderManagement
         //private void LinkButtonsVisblity()
         //{
 
-
+             
 
         //}
 
@@ -1153,7 +1191,7 @@ namespace WealthERP.OffLineOrderManagement
         //    if (Request.QueryString["fiaction"] != null)
         //    {
         //        ViewForm = Request.QueryString["fiaction"].ToString();
-
+             
         //        btnUpdate.Visible = true;
         //        btnSubmit.Visible = false;
 
@@ -1169,7 +1207,7 @@ namespace WealthERP.OffLineOrderManagement
         //            //SetFICOntrolsEnablity(false);
         //            //SetFICOntrols();
         //            btnAddMore.Visible = false;
-
+                  
         //            lnkBtnFIEdit.Visible = true;
         //            lnlFIBack.Visible = true;
         //            lnkDelete.Visible = false;
@@ -1253,14 +1291,14 @@ namespace WealthERP.OffLineOrderManagement
         //    //{
         //    //    trCustSect.Visible = true;
         //    //    trCustSearch.Visible = true;
-
+               
         //    //    trAssociateSearch.Visible = true;
         //    //    trOrderSection.Visible = true;
         //    //    trProofType.Visible = true;
         //    //    trProof.Visible = true;
         //    //    trUpload.Visible = true;
         //    //    trDocumentSec.Visible = true;
-
+               
         //    //    ShowTransactionType(1);
         //    //    if (DdlLoad.SelectedValue == "1")
         //    //    {
@@ -1513,7 +1551,7 @@ namespace WealthERP.OffLineOrderManagement
 
         //protected void ddlProofType_SelectedIndexChanged(object sender, EventArgs e)
         //{
-
+           
 
         //}
 
@@ -1648,7 +1686,7 @@ namespace WealthERP.OffLineOrderManagement
         //    ddlARNNo.Items.Insert(0, new ListItem("Select", "Select"));
         //}
 
-
+         
 
         //protected void imgBtnRefereshBank_OnClick(object sender, EventArgs e)
         //{
@@ -1664,9 +1702,9 @@ namespace WealthERP.OffLineOrderManagement
         //        if (mforderVo != null && orderVo != null)
         //        {
         //            SetEditViewMode(false);
-
+                   
         //            txtCustomerName.Text = "";
-
+                    
         //            txtAmount.Text = "";
         //            ddlPaymentMode.SelectedIndex = 0;
         //            txtPaymentNumber.Text = "";
@@ -1731,13 +1769,13 @@ namespace WealthERP.OffLineOrderManagement
         //            lblGetBranch.Text = mforderVo.BMName;
         //            lblGetRM.Text = mforderVo.RMName;
         //            lblgetPan.Text = mforderVo.PanNo;
-
+                   
 
         //            hdnType.Value = mforderVo.TransactionCode;
 
         //            if (TransType == "CAF")
         //            {
-
+                       
 
         //                if (customerVo != null)
         //                {
@@ -2279,9 +2317,9 @@ namespace WealthERP.OffLineOrderManagement
         //        if (mforderVo != null && orderVo != null)
         //        {
         //            SetEditViewMode(false);
-
+                    
         //            txtCustomerName.Text = "";
-
+                    
         //            txtAmount.Text = "";
         //            ddlPaymentMode.SelectedIndex = 0;
         //            txtPaymentNumber.Text = "";
@@ -2346,12 +2384,12 @@ namespace WealthERP.OffLineOrderManagement
         //            lblGetBranch.Text = mforderVo.BMName;
         //            lblGetRM.Text = mforderVo.RMName;
         //            lblgetPan.Text = mforderVo.PanNo;
-
+                    
         //            hdnType.Value = mforderVo.TransactionCode;
 
         //            if (TransType == "CAF")
         //            {
-
+                        
         //                if (customerVo != null)
         //                {
         //                    lblGetLine1.Text = customerVo.Adr1Line1;
@@ -2883,12 +2921,12 @@ namespace WealthERP.OffLineOrderManagement
         //        }
         //    }
         //}
-
+        
         //private void BindCategory()
         //{
         //    try
         //    {
-
+               
         //    }
         //    catch (BaseApplicationException Ex)
         //    {
@@ -2909,7 +2947,7 @@ namespace WealthERP.OffLineOrderManagement
 
         //private void BindFrequency()
         //{
-
+       
         //}
 
         //public void ISA_Onclick(object obj, EventArgs e)
@@ -2918,7 +2956,7 @@ namespace WealthERP.OffLineOrderManagement
 
         //private void ShowHideFields(int flag)
         //{
-
+           
         //}
 
         //protected void ShowTransactionType(int type)
@@ -3085,7 +3123,7 @@ namespace WealthERP.OffLineOrderManagement
         //}
         //private void BindISAList()
         //{
-
+            
 
         //}
         //protected void OnAssociateTextchanged(object sender, EventArgs e)
@@ -3242,50 +3280,30 @@ namespace WealthERP.OffLineOrderManagement
         //        BindBank(customerId);
         //        BindDepositedBank(customerId);
         //        BindPortfolioDropdown(customerId);
-
+                
 
         //    }
         //}
 
-        private void BindBanks(int customerId)
-        {
-            DataSet dsBankName = mfOrderBo.GetCustomerBanks(customerId);
-            if (dsBankName.Tables[0].Rows.Count > 0)
-            {
-                ddlBankName.DataSource = dsBankName;
-                ddlBankName.DataValueField = dsBankName.Tables[0].Columns["WCMV_LookupId"].ToString();
-                ddlBankName.DataTextField = dsBankName.Tables[0].Columns["WCMV_Name"].ToString();
-                ddlBankName.DataBind();
-                ddlBankName.Items.Insert(0, new ListItem("Select", "Select"));
-            }
-            else
-            {
-                ddlBankName.Items.Clear();
-                ddlBankName.DataSource = null;
-                ddlBankName.DataBind();
-                ddlBankName.Items.Insert(0, new ListItem("Select", "Select"));
-            }
-        }
-
-        private void BindBank(int customerId)
-        {
-            DataSet dsBankName = mfOrderBo.GetCustomerBank(customerId);
-            if (dsBankName.Tables[0].Rows.Count > 0)
-            {
-                ddlBankName.DataSource = dsBankName;
-                ddlBankName.DataValueField = dsBankName.Tables[0].Columns["CB_CustBankAccId"].ToString();
-                ddlBankName.DataTextField = dsBankName.Tables[0].Columns["WERPBM_BankName"].ToString();
-                ddlBankName.DataBind();
-                ddlBankName.Items.Insert(0, new ListItem("Select", "Select"));
-            }
-            else
-            {
-                ddlBankName.Items.Clear();
-                ddlBankName.DataSource = null;
-                ddlBankName.DataBind();
-                ddlBankName.Items.Insert(0, new ListItem("Select", "Select"));
-            }
-        }
+        //private void BindBank(int customerId)
+        //{
+        //    DataSet dsBankName = mfOrderBo.GetCustomerBank(customerId);
+        //    if (dsBankName.Tables[0].Rows.Count > 0)
+        //    {
+        //        ddlBankName.DataSource = dsBankName;
+        //        ddlBankName.DataValueField = dsBankName.Tables[0].Columns["CB_CustBankAccId"].ToString();
+        //        ddlBankName.DataTextField = dsBankName.Tables[0].Columns["WERPBM_BankName"].ToString();
+        //        ddlBankName.DataBind();
+        //        ddlBankName.Items.Insert(0, new ListItem("Select", "Select"));
+        //    }
+        //    else
+        //    {
+        //        ddlBankName.Items.Clear();
+        //        ddlBankName.DataSource = null;
+        //        ddlBankName.DataBind();
+        //        ddlBankName.Items.Insert(0, new ListItem("Select", "Select"));
+        //    }
+        //}
         //private void BindDepositedBank(int customerId)
         //{
         //    DataSet dsBankName = mfOrderBo.GetCustomerBank(customerId);
@@ -3308,7 +3326,7 @@ namespace WealthERP.OffLineOrderManagement
 
         //private void BindPortfolioDropdown(int customerId)
         //{
-
+           
 
         //}
 
@@ -3323,7 +3341,7 @@ namespace WealthERP.OffLineOrderManagement
         //private void ClearAllFields()
         //{
 
-
+           
 
         //}
 
@@ -3334,7 +3352,7 @@ namespace WealthERP.OffLineOrderManagement
 
         //    try
         //    {
-
+                
 
         //    }
         //    catch (BaseApplicationException Ex)
@@ -3351,14 +3369,14 @@ namespace WealthERP.OffLineOrderManagement
         //        DataSet dsScheme = new DataSet();
         //        DataTable dtScheme;
 
-
+               
         //    }
         //    catch (BaseApplicationException Ex)
         //    {
         //        throw (Ex);
         //    }
         //}
-
+        
 
         //protected void rgvOrderSteps_ItemCreated(object sender, Telerik.Web.UI.GridItemEventArgs e)
         //{
@@ -3399,7 +3417,7 @@ namespace WealthERP.OffLineOrderManagement
         //    if (e.Item is GridDataItem)
         //    {
         //        GridDataItem dataItem = e.Item as GridDataItem;
-
+                
         //        TemplateColumn tm = new TemplateColumn();
         //        Label lblStatusCode = new Label();
         //        Label lblOrderStep = new Label();
@@ -3452,7 +3470,7 @@ namespace WealthERP.OffLineOrderManagement
         //            editButton.Text = "";
         //        }
 
-
+                 
         //    }
         //}
 
@@ -3460,7 +3478,7 @@ namespace WealthERP.OffLineOrderManagement
 
 
 
-
+        
 
         //protected void ddlsearch_Selectedindexchanged(object sender, EventArgs e)
         //{
@@ -3539,7 +3557,7 @@ namespace WealthERP.OffLineOrderManagement
         //}
         //private void BindSchemeSwitch()
         //{
-
+            
         //}
         //protected string Getpagepath(string pageID)
         //{
@@ -3562,7 +3580,7 @@ namespace WealthERP.OffLineOrderManagement
         //        PlaceHolder1.Visible = true;
         //        FixedIncomePlaceHolder.Visible = false;
         //        Tr1.Visible = false;
-
+                 
 
         //    }
 
@@ -3574,7 +3592,7 @@ namespace WealthERP.OffLineOrderManagement
         //        Tr1.Visible = true;
 
         //        Label6.Text = "Fixed Income order Entry";
-
+                
 
 
         //    }
@@ -3584,13 +3602,13 @@ namespace WealthERP.OffLineOrderManagement
 
         //private void ChildControls(String pageID)
         //{
-
+            
 
         //}
 
 
 
-
+        
 
         //protected void btnView_Click(object sender, EventArgs e)
         //{
@@ -3630,7 +3648,7 @@ namespace WealthERP.OffLineOrderManagement
         //    btnViewInDOC.Visible = false;
         //    btnViewInPDF.Visible = false;
         //    btnViewReport.Visible = false;
-
+            
         //}
         //private void SetFICOntrolsEnablity(bool Val)
         //{
@@ -3650,7 +3668,7 @@ namespace WealthERP.OffLineOrderManagement
         //private void SetFICOntrols()
         //{
         //    string UploadedImage;
-
+            
 
         //    ddlsearch.SelectedIndex = 1;
         //    ddlsearch_Selectedindexchanged(this, null);
@@ -3672,9 +3690,9 @@ namespace WealthERP.OffLineOrderManagement
         //    orderVo.AssetGroup = "FI";
 
         //    UploadedImage = fiorderVo.CODimage;
-
+            
         //    UploadedImage = Path.GetFileName(UploadedImage);
-
+            
 
         //    if (orderVo.PaymentDate != DateTime.MinValue)
         //        txtPaymentInstDate.SelectedDate = orderVo.PaymentDate;
@@ -3685,14 +3703,14 @@ namespace WealthERP.OffLineOrderManagement
         //    {
         //        if (ddlBankName.SelectedValue != "Select")
         //            ddlBankName.SelectedValue = orderVo.CustBankAccId.ToString();
-
+                
         //    }
         //    else
         //        orderVo.CustBankAccId = 0;
         //    ddlBankName_SelectedIndexChanged(this, null);
         //    if (fiorderVo.DepCustBankAccId.ToString() != "0")
         //        ddlDepoBank.SelectedValue = fiorderVo.DepCustBankAccId.ToString();
-
+            
 
         //    if (!String.IsNullOrEmpty(txtAssociateSearch.Text))
         //        AgentId = customerBo.GetAssociateName(advisorVo.advisorId, txtAssociateSearch.Text);
@@ -3702,14 +3720,14 @@ namespace WealthERP.OffLineOrderManagement
         //    }
         //    else
         //        fiorderVo.AgentId = 0;
-
+ 
         //    if (fiorderVo.DepCustBankAccId.ToString() != "0")
         //    {
         //        ddlDepoBank.SelectedValue = fiorderVo.DepCustBankAccId.ToString();
         //        ddlDepoBank_SelectedIndexChanged(this, null);
         //    }
 
-
+           
         //}
 
         //private void GetFICOntrolsValues()
@@ -3722,7 +3740,7 @@ namespace WealthERP.OffLineOrderManagement
         //    //UserControl FIControls = (UserControl)this.FindControl("FixedIncomeOrder");
 
 
-
+            
 
         //    //DropDownList ddlCategory = (DropDownList)FIControls.FindControl("ddlCategory");//ddlIssuer
         //    //DropDownList ddlIssuer = (DropDownList)FIControls.FindControl("ddlIssuer");
@@ -3887,7 +3905,7 @@ namespace WealthERP.OffLineOrderManagement
         //    }
 
 
-
+            
         //    List<int> OrderIds = new List<int>();
         //    if (hdnButtonAction.Value == "Submit")
         //    {
@@ -3940,7 +3958,7 @@ namespace WealthERP.OffLineOrderManagement
         //    //    }
         //    //}
 
-
+            
 
         //    BindOrderStepsGrid();
 
@@ -4026,7 +4044,7 @@ namespace WealthERP.OffLineOrderManagement
             rwDematDetails.VisibleOnPageLoad = true;
 
             GetDematAccountDetails(Convert.ToInt32(txtCustomerId.Value));
-
+             
         }
 
         protected void btnAddDemat_Click(object sender, EventArgs e)
@@ -6885,24 +6903,50 @@ namespace WealthERP.OffLineOrderManagement
         ////        //  BindISAList();
         ////    }
         ////}
+        protected void View54ECOrderDetails(int orderid)
+        {
+            DataTable dtView54ECOrderDetails = fiorderBo.Get54ECOrderDetails(orderid);
+            foreach (DataRow dr in dtView54ECOrderDetails.Rows)
+            {
+                FICategory();
+                ddlCategory.SelectedValue = dr["PAIC_AssetInstrumentCategoryCode"].ToString();
+                ddlScheme.SelectedValue=dr["AIM_IssueId"].ToString();
+                FISeries(int.Parse(dr["AIM_IssueId"].ToString()));
+                ddlTranstype.SelectedValue = dr["CFIOD_TransactionType"].ToString();
+                txtApplicationNumber.Text = dr["CO_ApplicationNo"].ToString();
+                txtApplicationDate.SelectedDate =Convert.ToDateTime(dr["CO_ApplicationReceivedDate"].ToString());
+                txtQty.Text = dr["CFIOD_Quantity"].ToString();
+                TxtPurAmt.Text = dr["CFIOD_AmountPayable"].ToString();
+                ddlPaymentMode.SelectedValue = dr["XPM_PaymentModeCode"].ToString();
+                txtPaymentNumber.Text = dr["CO_ChequeNumber"].ToString();
+                FISeriesDetails(int.Parse(dr["AIM_IssueId"].ToString()));
+     
+                //txtPaymentInstDate.SelectedDate = Convert.ToDateTime(dr["CO_PaymentDate"].ToString());
+                txtDematid.Text = dr["CEDA_DPClientId"].ToString();
+                BindgvFamilyAssociate(int.Parse(dr["CEDA_DematAccountId"].ToString()));
+                FIIssuer(advisorVo.advisorId);
+            }
+          
+        }
+        protected void GetcustomerDetails()
+        {
+            CustomerPortfolioVo customerPortfolioVo = new CustomerPortfolioVo();
+            customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(int.Parse(txtCustomerId.Value));
+            customerVo = customerBo.GetCustomer(int.Parse(txtCustomerId.Value));
+            Session["customerVo"] = customerVo;
+            lblGetBranch.Text = customerVo.BranchName;
+            lblgetPan.Text = customerVo.PANNum;
+            ddlsearch.SelectedValue = "1";
+            trCust.Visible = true;
+            txtCustomerName.Text = customerVo.FirstName + ' ' + customerVo.MiddleName + ' ' + customerVo.LastName;
+            customerId = int.Parse(txtCustomerId.Value);
+            //if (ddlsearch.SelectedItem.Value == "2")
+            //    lblgetcust.Text = customerVo.FirstName + ' ' + customerVo.MiddleName + ' ' + customerVo.LastName;
+            OnTaxStatus();
+            //ddlTax.SelectedValue = int.Parse(customerVo.TaxStatusCustomerSubTypeId.ToString());
+            GetDematAccountDetails(int.Parse(txtCustomerId.Value));
+            Panel1.Visible = true;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        }
     }
 }

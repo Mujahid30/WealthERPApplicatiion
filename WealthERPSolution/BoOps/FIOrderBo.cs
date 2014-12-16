@@ -383,6 +383,18 @@ namespace BoOps
             }
             return orderIds;
         }
-
+        public DataTable Get54ECOrderDetails(int orderId)
+        {
+            DataTable dt;
+            try
+            {
+                dt = fiOrderDao.Get54ECOrderDetails(orderId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dt;
+        }
     }
 }

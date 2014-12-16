@@ -105,5 +105,15 @@ namespace WealthERP.OffLineOrderManagement
             gv54FDOrderBook.MasterTableView.ExportToExcel();
 
         }
+        protected void ddlAction_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            DropDownList ddlAction = (DropDownList)sender;
+            GridDataItem gvr = (GridDataItem)ddlAction.NamingContainer;
+            Int32 orderId = Convert.ToInt32(gv54FDOrderBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["CO_OrderId"].ToString());
+            Int32 customeId = Convert.ToInt32(gv54FDOrderBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["C_CustomerId"].ToString());
+            string agentcode = gv54FDOrderBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["AAC_AgentCode"].ToString();
+            string associatename = gv54FDOrderBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["AssociatesName"].ToString();
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "FixedIncome54ECOrderEntry", "loadcontrol( 'FixedIncome54ECOrderEntry','action=" + ddlAction.SelectedItem.Value.ToString() + "&orderId=" + orderId + "&customeId=" + customeId + "&agentcode=" + agentcode + "&associatename=" + associatename + "');", true);
+        }
     }
 }

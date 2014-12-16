@@ -105,9 +105,23 @@
                                 PageSize="10" AllowPaging="True" AutoGenerateColumns="False" EnableEmbeddedSkins="False"
                                 GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="true" ShowStatusBar="True"
                                 Skin="Telerik" AllowFilteringByColumn="false" OnNeedDataSource="gv54FDOrderBook_OnNeedDataSource">
-                                <MasterTableView DataKeyNames="CO_OrderId,AIM_IssueId" Width="100%" AllowMultiColumnSorting="True"
+                                <MasterTableView DataKeyNames="CO_OrderId,AIM_IssueId,C_CustomerId,AAC_AgentCode,AssociatesName" Width="100%" AllowMultiColumnSorting="True"
                                     AutoGenerateColumns="false" AllowFilteringByColumn="true">
                                     <Columns>
+                                        <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="Action" DataField="Action"
+                                            HeaderStyle-Width="110px">
+                                            <ItemTemplate>
+                                                <asp:DropDownList ID="ddlAction" CssClass="cmbField" runat="server" EnableEmbeddedSkins="false"
+                                                    AutoPostBack="true" OnSelectedIndexChanged="ddlAction_OnSelectedIndexChanged"
+                                                    Width="110px">
+                                                    <Items>
+                                                        <asp:ListItem Text="Select" Value="Select" Selected="true" />
+                                                        <asp:ListItem Text="View" Value="View" />
+                                                        <asp:ListItem Text="Edit" Value="Edit" Enabled="false"/>
+                                                    </Items>
+                                                </asp:DropDownList>
+                                            </ItemTemplate>
+                                        </telerik:GridTemplateColumn>
                                         <telerik:GridBoundColumn DataField="NAME" SortExpression="NAME" AutoPostBackOnFilter="true"
                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="true"
                                             HeaderStyle-Width="160px" HeaderText="Customer Name" UniqueName="NAME">

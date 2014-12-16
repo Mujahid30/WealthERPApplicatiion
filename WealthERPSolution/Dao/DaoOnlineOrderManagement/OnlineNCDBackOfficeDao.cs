@@ -2310,7 +2310,7 @@ namespace DaoOnlineOrderManagement
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                GetIssueridCmd = db.GetStoredProcCommand("SPROC_GetFrequency");
+                GetIssueridCmd = db.GetStoredProcCommand("SPROC_GetProductWiseFrequency");
                 dsGetIssuerid = db.ExecuteDataSet(GetIssueridCmd);
                 dt = dsGetIssuerid.Tables[0];
             }
