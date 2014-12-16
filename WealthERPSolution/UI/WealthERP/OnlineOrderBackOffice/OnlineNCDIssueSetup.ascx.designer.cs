@@ -1894,6 +1894,9 @@ namespace WealthERP.OnlineOrderBackOffice
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdLabel24;
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdcuttoffonffine;
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trRevisionDate;
-
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblSyndicatet;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdddllblSyndicatet;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell td1lb1ISINNo;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell td1txtISINNo;
     }
 }

@@ -5030,7 +5030,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 tdtxtSBIRegistationNo.Visible = false;
                 trlblSyndicatet.Visible = false;
                 lb1Rating.Text = "Rating:";
-
+                EnablityOfControlsonCategoryTypeSelection(ddlSubInstrCategory.SelectedValue);
             }
             else if (product == "IP")
             {
@@ -5059,6 +5059,8 @@ namespace WealthERP.OnlineOrderBackOffice
                 lb1Rating.Text = "Grading:";
                 lb1InitialCqNo.Visible = true;
                 txtInitialCqNo.Visible = true;
+                trIsCancelAllowed.Visible = true;
+                chkPutCallOption.Visible = true;
             }
 
         }
@@ -5759,7 +5761,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
             if (category == "FICGCG")
             {
-                trNomineeReQuired.Visible = true;
+              
                 trMultipleApplicationAllowed.Visible = false;
                 trRatingAndModeofTrading.Visible = false;
                 trModeofIssue.Visible = false;
@@ -5801,6 +5803,13 @@ namespace WealthERP.OnlineOrderBackOffice
                 trNomineeReQuired.Visible = false;
                 chkPutCallOption.Visible = false;
                 rgEligibleInvestorCategories.Visible = false;
+                tdlblSyndicatet.Visible = false;
+                tdddllblSyndicatet.Visible = false;
+                trRegistrarAndNoofBidsAlloweds.Visible = true;
+                Td5.Visible = true;
+                Td6.Visible = true;
+                Td7.Visible = false;
+                Td8.Visible = false;
             }
             else
             {

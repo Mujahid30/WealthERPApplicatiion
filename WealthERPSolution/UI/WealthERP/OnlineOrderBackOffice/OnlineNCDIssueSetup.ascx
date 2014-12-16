@@ -1006,7 +1006,7 @@
         <td class="rightData">
             <asp:TextBox ID="txtIssueSizeQty" runat="server" CssClass="txtField" Width="200px"
                 MaxLength="9"></asp:TextBox>
-            <span id="Span31" class="spnRequiredField">*</span>
+           <%-- <span id="Span31" class="spnRequiredField">*</span>--%>
             <br />
             <asp:RequiredFieldValidator ID="RequiredFieldValidator39" runat="server" CssClass="rfvPCG"
                 ErrorMessage="Please Enter Issue Size Qty" Display="Dynamic" ControlToValidate="txtIssueSizeQty"
@@ -1243,10 +1243,10 @@
         </td>
     </tr>
     <tr id="trlblSyndicatet" runat="server">
-        <td align="right">
+        <td align="right" id="tdlblSyndicatet">
             <asp:Label ID="lblSyndicatet" runat="server" Text="Syndicate:" CssClass="FieldName"></asp:Label>
         </td>
-        <td>
+        <td id="tdddllblSyndicatet">
             <asp:DropDownList ID="ddllblSyndicatet" runat="server" CssClass="cmbField">
             </asp:DropDownList>
             <span id="Span40" class="spnRequiredField">*</span>
@@ -2557,7 +2557,7 @@
 </telerik:RadWindow>
 <telerik:RadWindow ID="RadBroker" runat="server" VisibleOnPageLoad="false" Height="30%"
     Width="400px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="Resize, Close, Move"
-    Title="Add New Broker" RestrictionZoneID="radWindowZone">
+    Title="Add New Broker" RestrictionZoneID="radWindowZone" >
     <ContentTemplate>
         <table>
             <tr>
