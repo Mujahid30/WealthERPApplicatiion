@@ -130,6 +130,7 @@ namespace WealthERP.OffLineOrderManagement
 
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
 
+            strRepositoryPath = string.Empty;
             advisorVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
             GetUserType();
             if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
@@ -166,109 +167,12 @@ namespace WealthERP.OffLineOrderManagement
 
             }
 
-
-          //  //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "confirm", " ShowIsa();", true);
-          //  SessionBo.CheckSession();
-          //  repoBo = new RepositoryBo();
-          //  associatesVo = (AssociatesVO)Session["associatesVo"];
-          //  userVo = (UserVo)Session[SessionContents.UserVo];
-          //  path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
-
-          //  if (!string.IsNullOrEmpty(Session["advisorVo"].ToString()))
-          //      advisorVo = (AdvisorVo)Session["advisorVo"];
-          //  if (!string.IsNullOrEmpty(Session[SessionContents.RmVo].ToString()))
-          //      rmVo = (RMVo)Session[SessionContents.RmVo];
-          //  if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
-          //      userType = "advisor";
-          //  else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "bm")
-          //      userType = "bm";
-          //  else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "rm")
-          //      userType = "rm";
-          //  else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "associates")
-          //  {
-          //      userType = "associates";
-          //      associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
-          //      if (associateuserheirarchyVo.AgentCode != null)
-          //      {
-          //          AgentCode = associateuserheirarchyVo.AgentCode.ToString();
-          //      }
-          //      else
-          //          AgentCode = "0";
-          //  }
-          //  //if (Session["mforderVo"] != null && Session["orderVo"] != null)
-          //  //{
-          //  //    mforderVo = (MFOrderVo)Session["mforderVo"];
-          //  //    orderVo = (OrderVo)Session["orderVo"];
-          //  //}
-          //  //lblGetBranch.Visible = false;
-          //  //lblBranch.Visible = false;
-          //  //lblRM.Visible = false;
-          //  //lblGetRM.Visible = false;
-
-
-          //  //gvJointHoldersList.Visible = false;
-          //  //BindARNNo(advisorVo.advisorId);
-          //  //LinkButtonsVisblity();
-
-          // // ScriptManager.RegisterStartupScript(Page, Page.GetType(), "confirm", " ShowInitialIsa();", true);
-
-
-          //  //if (Request.QueryString["action"] != null)
-          //  //{
-
-          //  //    ViewForm = Request.QueryString["action"].ToString();
-
-          //  //}
-
-          //  if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
-          //  {
-          //      txtCustomerName_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
-          //      txtCustomerName_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
-          //      AutoCompleteExtender1.ContextKey = advisorVo.advisorId.ToString();
-          //      AutoCompleteExtender1.ServiceMethod = "GetAdviserCustomerPan";
-          //      AutoCompleteExtender2.ContextKey = advisorVo.advisorId.ToString();
-          //      AutoCompleteExtender2.ServiceMethod = "GetAgentCodeAssociateDetails";
-          //  }
-          //  else if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
-          //  {
-          //      txtCustomerName_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
-          //      txtCustomerName_autoCompleteExtender.ServiceMethod = "GetBMIndividualCustomerNames";
-
-          //  }
-          //  else if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
-          //  {
-          //      txtCustomerName_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
-          //      txtCustomerName_autoCompleteExtender.ServiceMethod = "GetMemberCustomerName";
-          //  }
-          //  else if (Session[SessionContents.CurrentUserRole].ToString() == "Associates")
-          //  {
-          //      txtCustomerName_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
-          //      txtCustomerName_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
-          //      AutoCompleteExtender1.ContextKey = advisorVo.advisorId.ToString();
-          //      AutoCompleteExtender1.ServiceMethod = "GetAdviserCustomerPan";
-          //      AutoCompleteExtender2.ContextKey = associateuserheirarchyVo.AgentCode;
-          //      AutoCompleteExtender2.ServiceMethod = "GetAgentCodeAssociateDetailsForAssociates";
-
-          //  }
-          ////  if (Request.QueryString["CustomerId"] != null)
-          ////  {
-          ////      customerId = Convert.ToInt32(Request.QueryString["CustomerId"]);
-          ////      customerVo = customerBo.GetCustomer(customerId);
-
-          ////      hdnCustomerId.Value = customerVo.CustomerId.ToString();
-          ////      txtCustomerName.Text = customerVo.FirstName + customerVo.MiddleName + customerVo.LastName;
-          ////      lblGetBranch.Text = customerVo.BranchName;
-          ////      lblGetRM.Text = customerVo.RMName;
-          ////      lblgetPan.Text = customerVo.PANNum;
-          ////      BindPortfolioDropdown(customerId);
-          ////  }
-
-
+ 
             if (!IsPostBack)
             {
                 FICategory();
                 FIScheme(advisorVo.advisorId, "0");
-                BindARNNo(advisorVo.advisorId);
+               // BindARNNo(advisorVo.advisorId);
                 BindProofTypeDP();
                 
 
@@ -287,7 +191,7 @@ namespace WealthERP.OffLineOrderManagement
 
             fStorageBalance = repoBo.GetAdviserStorageValues(advisorVo.advisorId, out fMaxStorage);
 
- 
+
         }
         protected void txtAgentId_ValueChanged1(object sender, EventArgs e)
         {
@@ -297,7 +201,7 @@ namespace WealthERP.OffLineOrderManagement
             }
         }
 
-       
+
         protected void txtCustomerId_ValueChanged1(object sender, EventArgs e)
         {
 
@@ -316,15 +220,34 @@ namespace WealthERP.OffLineOrderManagement
                 if (ddlsearch.SelectedItem.Value == "2")
                     lblgetcust.Text = customerVo.FirstName + ' ' + customerVo.MiddleName + ' ' + customerVo.LastName;
                 OnTaxStatus();
-                BindBank(customerId);
+                BindBank (customerId);
                 //BindDepositedBank(customerId);
-               // BindPortfolioDropdown(customerId);
+                // BindPortfolioDropdown(customerId);
 
                 Table3.Visible = true;
                 Panel1.Visible = true;
             }
         }
 
+        private void BindBanks(int customerId)
+        {
+            DataSet dsBankName = mfOrderBo.GetCustomerBanks(customerId);
+            if (dsBankName.Tables[0].Rows.Count > 0)
+            {
+                ddlBankName.DataSource = dsBankName;
+                ddlBankName.DataValueField = dsBankName.Tables[0].Columns["WCMV_LookupId"].ToString();
+                ddlBankName.DataTextField = dsBankName.Tables[0].Columns["WCMV_Name"].ToString();
+                ddlBankName.DataBind();
+                ddlBankName.Items.Insert(0, new ListItem("Select", "Select"));
+            }
+            else
+            {
+                ddlBankName.Items.Clear();
+                ddlBankName.DataSource = null;
+                ddlBankName.DataBind();
+                ddlBankName.Items.Insert(0, new ListItem("Select", "Select"));
+            }
+        }
         private void OnTaxStatus()
         {
 
@@ -522,7 +445,7 @@ namespace WealthERP.OffLineOrderManagement
         }
         protected void ddlScheme_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+
 
             if (ddlScheme.SelectedValue != "Select")
                 FISeries(Convert.ToInt32(ddlScheme.SelectedValue));
@@ -631,10 +554,37 @@ namespace WealthERP.OffLineOrderManagement
 
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
-            hdnButtonAction.Value = "Submit";
-            GetFICOntrolsValues();
-            btnUpdate.Visible = false;
-            lnkBtnFIEdit.Visible = true;
+            bool result = false; ;
+
+            if ((Convert.ToDouble(txtQty.Text) <= Convert.ToDouble(hdnMaxQty.Value)))
+            {
+                result = true;
+            }
+            if (result == true)
+            {
+                if ((Convert.ToDouble(txtQty.Text) >= Convert.ToDouble(hdnMinQty.Value)))
+                {
+                    result = true;
+
+                }
+                else
+                {
+                    result = false;
+                }
+            }
+
+            if (result == true)
+            {
+                hdnButtonAction.Value = "Update";
+                GetFICOntrolsValues();
+                btnUpdate.Visible = false;
+                lnkBtnFIEdit.Visible = true;
+            }
+            else
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Order cannot be processed.Please enter quantity less than or equal to maximum quantity allowed for this issue')", true);
+                return;
+            }
 
         }
 
@@ -657,36 +607,45 @@ namespace WealthERP.OffLineOrderManagement
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
-            if (Convert.ToDouble(txtQty.Text) > Convert.ToDouble(hdnMaxQty.Value) &&
-                Convert.ToDouble(txtQty.Text) < Convert.ToDouble(hdnMinQty.Value))
-            {
+             bool result = false; ;
 
+            if ((Convert.ToDouble(txtQty.Text) <= Convert.ToDouble(hdnMaxQty.Value)))
+            {
+                result = true;
+            }
+            if (result == true)
+            {
+                if ((Convert.ToDouble(txtQty.Text) >= Convert.ToDouble(hdnMinQty.Value)))
+                {
+                    result = true;
+
+                }
+                else
+                {
+                    result = false;
+                }
+            }
+
+            
+            if (result == true)
+            {
+                hdnButtonAction.Value = "Submit";
+                orderVo.CustomerId = int.Parse(txtCustomerId.Value);
+                GetFICOntrolsValues();
+                SetFICOntrolsEnablity(false);
+                btnSubmit.Visible = false;
+                btnAddMore.Visible = false;
+                lnkBtnFIEdit.Visible = true;
+
+                BtnFileupload.Visible = true;
+                btnUpdate.Visible = true;
+            }
+            else
+            {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Order cannot be processed.Please enter quantity less than or equal to maximum quantity allowed for this issue')", true);
                 return;
             }
-            hdnButtonAction.Value = "Submit";
 
-            orderVo.CustomerId = int.Parse(txtCustomerId.Value);
-
-            GetFICOntrolsValues();
-        
-            SetFICOntrolsEnablity(false);
-            //SetFICOntrols();
-
-            btnSubmit.Visible = false;
-            btnAddMore.Visible = false;
-            lnkBtnFIEdit.Visible = true;
-
-            BtnFileupload.Visible = true;
-            btnUpdate.Visible = true;
-            //lnkBtnFIEdit.Visible = true;
-            //lnlFIBack.Visible = false;
-            //lnkDelete.Visible = false;
-            //btnViewInPDFNew.Visible = false;
-            //btnViewInDOCNew.Visible = false;
-            //btnViewInDOC.Visible = false;
-            //btnViewInPDF.Visible = false;
-            //btnViewReport.Visible = false;
 
         }
 
@@ -756,7 +715,7 @@ namespace WealthERP.OffLineOrderManagement
             orderVo.CustomerId = int.Parse(txtCustomerId.Value);
 
             orderVo.AssetGroup = "FI";
-           
+
 
             if (!String.IsNullOrEmpty(txtAssociateSearch.Text))
                 AgentId = customerBo.GetAssociateName(advisorVo.advisorId, txtAssociateSearch.Text);
@@ -835,7 +794,7 @@ namespace WealthERP.OffLineOrderManagement
 
             fiorderVo.Frequency = ddlFrequency.SelectedValue;
             fiorderVo.Qty = Convert.ToDouble(txtQty.Text);
-           
+
             if (ddlPaymentMode.SelectedIndex != 0)
                 orderVo.PaymentMode = ddlPaymentMode.SelectedValue;
             else
@@ -859,7 +818,7 @@ namespace WealthERP.OffLineOrderManagement
             else
                 orderVo.CustBankAccId = 0;
 
-            
+
             if (!string.IsNullOrEmpty(txtBranchName.Text))
                 orderVo.BankBranchName = txtBranchName.Text;
             else
@@ -873,7 +832,7 @@ namespace WealthERP.OffLineOrderManagement
                 {
                     dematAccountId = int.Parse(gvDematDetailsTeleR.MasterTableView.DataKeyValues[gvr.ItemIndex]["CEDA_DematAccountId"].ToString());
                     fiorderVo.DematAccountId = dematAccountId;
-                  
+
                     break;
                 }
 
@@ -887,6 +846,8 @@ namespace WealthERP.OffLineOrderManagement
                 orderId = int.Parse(OrderIds[0].ToString());
                 lblGetOrderNo.Text = orderId.ToString();
                 lblOrderNumber.Text = "Order No.";
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Your order added successfully.');", true);
+
             }
             else
             {
@@ -894,10 +855,11 @@ namespace WealthERP.OffLineOrderManagement
                 OrderIds = fiorderBo.CreateOrderFIDetails(orderVo, fiorderVo, userVo.UserId, "Update");
                 orderId = fiorderVo.OrderNumber;
                 lblOrderNumber.Text = "Order No.";
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Your order updated successfully.');", true);
+
 
             }
 
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Your order added successfully.');", true);
 
             Session["CO_OrderId"] = orderId;
             orderVo.OrderId = orderId;
@@ -960,35 +922,30 @@ namespace WealthERP.OffLineOrderManagement
             bool blZeroBalance = false;
             bool blFileSizeExceeded = false;
             AddFile(out blZeroBalance, out blFileSizeExceeded);
-            //if (ddlUploadDataType.SelectedValue.Equals(Constants.F.ToString()))
-            //{
-            //    if (fStorageBalance > 0)
-            //        blResult = AddFile(out blZeroBalance, out blFileSizeExceeded);
-            //    else
-            //        blZeroBalance = true;
-            //}
-            //else if (ddlUploadDataType.SelectedValue.Equals(Constants.L.ToString()))
-            //{
-            //    blResult = AddLink();
-            //}
+             
+                if (fStorageBalance > 0)
+                    blResult = AddFile(out blZeroBalance, out blFileSizeExceeded);
+                else
+                    blZeroBalance = true;
+            
 
-            //if (blZeroBalance)
-            //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ManageRepository", "alert('You do not have enough space. You have only " + fStorageBalance + " MB left in your account!');", true);
-            //else
-            //{
-            //    if (blResult)
-            //    {
-            //        ResetControls();
-            //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ManageRepository", "alert('Repository Item added successfully!');", true);
-            //    }
-            //    else
-            //    {
-            //        if (blFileSizeExceeded)
-            //            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ManageRepository", "alert('Sorry your file size exceeds the allowable 2 MB limit!');", true);
-            //        else
-            //            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ManageRepository", "alert('Error adding repository item!');", true);
-            //    }
-            //}
+            if (blZeroBalance)
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ManageRepository", "alert('You do not have enough space. You have only " + fStorageBalance + " MB left in your account!');", true);
+            else
+            {
+                if (blResult)
+                {
+                   // ResetControls();
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ManageRepository", "alert('Repository Item added successfully!');", true);
+                }
+                else
+                {
+                    if (blFileSizeExceeded)
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ManageRepository", "alert('Sorry your file size exceeds the allowable 2 MB limit!');", true);
+                    else
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ManageRepository", "alert('Error adding repository item!');", true);
+                }
+            }
         }
 
         private bool AddFile(out bool blZeroBalance, out bool blFileSizeExceeded)
@@ -1002,6 +959,7 @@ namespace WealthERP.OffLineOrderManagement
             // If not then, create a folder with the category code and store the file as done above.
             // If yes, then just store the file as done above.
             // Once this is done, store the info in the DB with the file path.
+            strRepositoryPath = string.Empty;
             strRepositoryPath = Server.MapPath(strRepositoryPath) + "\\advisor_" + advisorVo.advisorId + "\\54EC_OrderDocuments";
             AdvisorBo advBo = new AdvisorBo();
             repoBo = new RepositoryBo();
@@ -1017,54 +975,53 @@ namespace WealthERP.OffLineOrderManagement
                     // Put this part under a transaction scope
                     //using (TransactionScope scope1 = new TransactionScope())
                     //{
-                        UploadedFile file = radUploadProof.UploadedFiles[0];
-                        float fileSize = float.Parse(file.ContentLength.ToString()) / 1048576; // Converting bytes to MB
+                    UploadedFile file = radUploadProof.UploadedFiles[0];
+                    float fileSize = float.Parse(file.ContentLength.ToString()) / 1048576; // Converting bytes to MB
 
-                        // If space is there to upload file
-                        if (fStorageBalance >= fileSize)
+                    // If space is there to upload file
+                    if (fStorageBalance >= fileSize)
+                    {
+                        if (fileSize <= 10)   // If upload file size is less than 10 MB then upload
                         {
-                            if (fileSize <= 10)   // If upload file size is less than 10 MB then upload
+                            // Check if directory for advisor exists, and if not then create a new directoty
+                            if (!Directory.Exists(strRepositoryPath))
                             {
-                                // Check if directory for advisor exists, and if not then create a new directoty
-                                if (!Directory.Exists(strRepositoryPath))
-                                {
-                                    Directory.CreateDirectory(strRepositoryPath);
-                                }
-                                strGuid = Guid.NewGuid().ToString();
-                                string newFileName = SaveFileIntoServer(file, strGuid, strRepositoryPath);
-                                repoVo = new RepositoryVo();
-                                repoVo.AdviserId = advisorVo.advisorId;
-                                repoVo.CategoryCode = ddlProofType.SelectedValue;
-                                repoVo.Description = newFileName ;
-                                //repoVo.HeadingText = txtHeadingText.Text.Trim();
-                               // repoVo.IsFile = true;
-                              //  repoVo.Link = newFileName;
-                                //if (Request.QueryString["NCDProspect"] != null)
-                                //{
-                                //    issueId = Convert.ToInt32(Request.QueryString["issueId"].ToString());
-                                //}
-                                blResult = repoBo.AddOrderDocument(repoVo, Convert.ToInt32(lblGetOrderNo.Text) );
-
-                                if (blResult)
-
-                                {
-                                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Document Uploaded Successfully')", true);
-
-                                    // Once the adding of repository is a success, then update the balance storage in advisor subscription table
-                                    fStorageBalance = UpdateAdvisorStorageBalance(fileSize, 0, fStorageBalance);
-                                }
+                                Directory.CreateDirectory(strRepositoryPath);
                             }
-                            else
+                            strGuid = Guid.NewGuid().ToString();
+                            string newFileName = SaveFileIntoServer(file, strGuid, strRepositoryPath);
+                            repoVo = new RepositoryVo();
+                            repoVo.AdviserId = advisorVo.advisorId;
+                            repoVo.CategoryCode = ddlProofType.SelectedValue;
+                            repoVo.Description = newFileName;
+                            //repoVo.HeadingText = txtHeadingText.Text.Trim();
+                            // repoVo.IsFile = true;
+                            //  repoVo.Link = newFileName;
+                            //if (Request.QueryString["NCDProspect"] != null)
+                            //{
+                            //    issueId = Convert.ToInt32(Request.QueryString["issueId"].ToString());
+                            //}
+                            blResult = repoBo.AddOrderDocument(repoVo, Convert.ToInt32(lblGetOrderNo.Text));
+
+                            if (blResult)
                             {
-                                blFileSizeExceeded = true;
+                                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Document Uploaded Successfully')", true);
+
+                                // Once the adding of repository is a success, then update the balance storage in advisor subscription table
+                                fStorageBalance = UpdateAdvisorStorageBalance(fileSize, 0, fStorageBalance);
                             }
                         }
                         else
                         {
-                            blZeroBalance = true;
+                            blFileSizeExceeded = true;
                         }
+                    }
+                    else
+                    {
+                        blZeroBalance = true;
+                    }
 
-                       // scope1.Complete();   // Commit the transaction scope if no errors
+                    // scope1.Complete();   // Commit the transaction scope if no errors
                     //}
                 }
                 else
@@ -1076,7 +1033,7 @@ namespace WealthERP.OffLineOrderManagement
             {
                 throw Ex;
             }
-            
+
             return blResult;
         }
 
@@ -1098,6 +1055,7 @@ namespace WealthERP.OffLineOrderManagement
             //string newFileName = advisorVo.advisorId + "_" + strGuid + "_" + strRenameFilename;
             string newFileName = strRenameFilename;
             // Save adviser repository file in the path
+             
             file.SaveAs(strPath + "\\" + newFileName);
             return newFileName;
         }
@@ -4057,7 +4015,7 @@ namespace WealthERP.OffLineOrderManagement
                     dematAccountId = int.Parse(gvDematDetailsTeleR.MasterTableView.DataKeyValues[gvr.ItemIndex]["CEDA_DematAccountId"].ToString());
                     txtDematid.Text = gvDematDetailsTeleR.MasterTableView.DataKeyValues[gvr.ItemIndex]["CEDA_DPClientId"].ToString();
                     rwDematDetails.VisibleOnPageLoad = false;
-                   
+
                     break;
                 }
 

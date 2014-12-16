@@ -374,12 +374,12 @@
         </td>
         <td>
             <asp:DropDownList ID="ddlARNNo" runat="server" CssClass="cmbField" AutoPostBack="false"
-                TabIndex="1">
+                TabIndex="1" Visible="false">
             </asp:DropDownList>
             <span id="Span14" class="spnRequiredField">*</span>
             <asp:CompareValidator ID="CompareValidator12" runat="server" ControlToValidate="ddlARNNo"
                 CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select an ARN"
-                Operator="NotEqual" ValidationGroup="MFSubmit" ValueToCompare="Select"></asp:CompareValidator>
+                Operator="NotEqual" ValidationGroup="MFSubmit" ValueToCompare=""></asp:CompareValidator>
         </td>
     </tr>
     <tr id="trpan" runat="server" visible="false">
