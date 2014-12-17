@@ -171,8 +171,7 @@ namespace WealthERP.OffLineOrderManagement
             if (!IsPostBack)
             {
                 FICategory();
-                FIScheme(advisorVo.advisorId, "0");
-                // BindARNNo(advisorVo.advisorId);
+                FIScheme(advisorVo.advisorId, "0");                
                 BindProofTypeDP();
                 BindBanks(0);
 
@@ -205,8 +204,6 @@ namespace WealthERP.OffLineOrderManagement
 
         protected void txtCustomerId_ValueChanged1(object sender, EventArgs e)
         {
-
-
             if (!string.IsNullOrEmpty(txtCustomerId.Value.ToString().Trim()))
             {
                 Session["customerid"] = txtCustomerId.Value.ToString();
@@ -214,16 +211,12 @@ namespace WealthERP.OffLineOrderManagement
                 customerVo = customerBo.GetCustomer(int.Parse(txtCustomerId.Value));
                 Session["customerVo"] = customerVo;
                 lblGetBranch.Text = customerVo.BranchName;
-                //lblGetRM.Text = customerVo.RMName;
                 lblgetPan.Text = customerVo.PANNum;
-                // hdnCustomerId.Value = txtCustomerId.Value;
                 customerId = int.Parse(txtCustomerId.Value);
                 if (ddlsearch.SelectedItem.Value == "2")
                     lblgetcust.Text = customerVo.FirstName + ' ' + customerVo.MiddleName + ' ' + customerVo.LastName;
                 OnTaxStatus();
                 BindBanks(customerId);
-                //BindDepositedBank(customerId);
-                // BindPortfolioDropdown(customerId);
 
                 Table3.Visible = true;
                 Panel1.Visible = true;
@@ -278,7 +271,6 @@ namespace WealthERP.OffLineOrderManagement
             txtCustomerName.Text = "";
             txtPansearch.Text = "";
             lblgetcust.Text = "";
-            //            txtCustomerId_ValueChanged1( );
         }
         protected void ddlsearch_Selectedindexchanged(object sender, EventArgs e)
         {
@@ -319,7 +311,6 @@ namespace WealthERP.OffLineOrderManagement
                 if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
                 {
                     AutoCompleteExtender1.ContextKey = advisorVo.advisorId.ToString();
-                    //txtCustomerName_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
                     AutoCompleteExtender1.ServiceMethod = "GetAdviserCustomerPan";
 
                 }
@@ -502,25 +493,13 @@ namespace WealthERP.OffLineOrderManagement
         }
         protected void ddlProofType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //  if (ddlProofType.SelectedIndex != 0)
-            //  BindddlProof(Convert.ToInt32(ddlProofType.SelectedValue));
+            
         }
 
         protected void BindddlProof(int proofTypeSelectedValue)
         {
             DataTable dtDpProofsForTypes = new DataTable();
-            dtDpProofsForTypes = customerBo.GetCustomerProofsForTypes(proofTypeSelectedValue);
-
-            //ddlProof.Items.Clear();
-            //ddlProof.SelectedValue = null;
-            //if (dtDpProofsForTypes.Rows.Count > 0)
-            //{
-            //    ddlProof.DataSource = dtDpProofsForTypes;
-            //    ddlProof.DataValueField = dtDpProofsForTypes.Columns["XP_ProofCode"].ToString();
-            //    ddlProof.DataTextField = dtDpProofsForTypes.Columns["XP_ProofName"].ToString();
-            //    ddlProof.DataBind();
-            //}
-            //ddlProof.Items.Insert(0, new ListItem("Select", "Select"));
+            dtDpProofsForTypes = customerBo.GetCustomerProofsForTypes(proofTypeSelectedValue);            
         }
         private void FICategory()
         {
@@ -596,21 +575,21 @@ namespace WealthERP.OffLineOrderManagement
 
         protected void BtnFileupload_Click(object sender, EventArgs e)
         {
-                 
 
-                    if (!string.IsNullOrEmpty(lblGetOrderNo.Text))
-                    {
-                        if (Convert.ToInt32(lblGetOrderNo.Text) > 0)
-                        {
 
-                            AddClick();
-                        }
-                    }
-                    else
-                    {
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Create Order Details Then Try again')", true);
-                        return;
-                    }
+            if (!string.IsNullOrEmpty(lblGetOrderNo.Text))
+            {
+                if (Convert.ToInt32(lblGetOrderNo.Text) > 0)
+                {
+
+                    AddClick();
+                }
+            }
+            else
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Create Order Details Then Try again')", true);
+                return;
+            }
         }
 
 
@@ -861,7 +840,7 @@ namespace WealthERP.OffLineOrderManagement
                 OrderIds = fiorderBo.CreateOrderFIDetails(orderVo, fiorderVo, userVo.UserId, "Update");
                 orderId = fiorderVo.OrderNumber;
                 lblOrderNumber.Text = "Order No.";
-                
+
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Your order updated successfully.');", true);
 
 
@@ -6921,7 +6900,7 @@ namespace WealthERP.OffLineOrderManagement
                     txtApplicationNumber.Text = dr["CO_ApplicationNumber"].ToString();
 
                 }
-                 if (!string.IsNullOrEmpty(dr["Co_OrderId"].ToString()))
+                if (!string.IsNullOrEmpty(dr["Co_OrderId"].ToString()))
                 {
                     lblGetOrderNo.Text = dr["Co_OrderId"].ToString();
                 }
