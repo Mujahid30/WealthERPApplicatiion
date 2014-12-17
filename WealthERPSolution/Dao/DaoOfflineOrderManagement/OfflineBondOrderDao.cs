@@ -200,7 +200,7 @@ namespace DaoOfflineOrderManagement
             }
             return dtGetFDIddueList;
         }
-        public DataTable GetFD54IssueOrder(int adviserId, DateTime fromDate, DateTime toDate, int issueId)
+        public DataTable GetFD54IssueOrder(int adviserId, DateTime fromDate, DateTime toDate, int issueId,string usrtype,string agentcode)
         {
             Database db;
             DbCommand cmdGetFD54IssueOrder;
@@ -214,6 +214,8 @@ namespace DaoOfflineOrderManagement
                 db.AddInParameter(cmdGetFD54IssueOrder, "@AdviserID", DbType.Int32, adviserId);
                 db.AddInParameter(cmdGetFD54IssueOrder, "@Fromdate", DbType.DateTime, fromDate);
                 db.AddInParameter(cmdGetFD54IssueOrder, "@Todate", DbType.DateTime, toDate);
+                db.AddInParameter(cmdGetFD54IssueOrder, "@UserType", DbType.String, usrtype);
+                db.AddInParameter(cmdGetFD54IssueOrder, "@AgentCode", DbType.String, agentcode);
                 ds = db.ExecuteDataSet(cmdGetFD54IssueOrder);
                 dtGetFD54IssueOrder = ds.Tables[0];
             }

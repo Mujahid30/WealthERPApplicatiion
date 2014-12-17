@@ -78,10 +78,7 @@ namespace WealthERP.OffLineOrderManagement
                 }
                 BindOrderStatus();
                 BindIssueName();
-            }
-
-            if (!IsPostBack)
-            {
+           
                 if (Request.QueryString["AIMissueId"] != null && Request.QueryString["orderId"] != null && Request.QueryString["fromDate"] != null && Request.QueryString["toDate"] != null)
                 {
                     AIMissueId = int.Parse(Request.QueryString["AIMissueId"].ToString());

@@ -49,13 +49,14 @@ namespace WealthERP.OnlineOrderBackOffice
             {
 
                 radIssuerPopUp.VisibleOnPageLoad = false;
-               
+
                 if (Cache[userVo.UserId.ToString() + "SubCat"] != null)
                     Cache.Remove(userVo.UserId.ToString() + "SubCat");
                 DefaultBindings();
                 IsPrefixEnablement(false);
 
             }
+
             //if (Request.QueryString["IssueId"] != "" && Request.QueryString["IssueId"] != null)
             //{
             //    string product = Request.QueryString["product"].ToString();
@@ -72,7 +73,7 @@ namespace WealthERP.OnlineOrderBackOffice
         {
 
             txtOpenDate.SelectedDate = DateTime.Now;
-            BindIssuer();
+            //BindIssuer();
             BindRTA();
             pnlSeries.Visible = false;
             pnlCategory.Visible = false;
@@ -220,8 +221,8 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 DataTable dtSeries = new DataTable();
                 dtSeries = onlineNCDBackOfficeBo.GetIssueDetails(issueNo, adviserId).Tables[0];
-               
-               
+
+
                 foreach (DataRow dr in dtSeries.Rows)
                 {
                     txtIssueId.Text = issueNo.ToString();
@@ -234,12 +235,14 @@ namespace WealthERP.OnlineOrderBackOffice
                         BindInstCate(ddlSubInstrCategory.SelectedValue);
                         ddlInstrCat.SelectedValue = dr["PAIC_AssetInstrumentCategoryCode"].ToString();
                         ddlProduct.SelectedValue = "NCD";
+                        BindIssuer(product);
                         // ddlInstrCat.SelectedValue=
                     }
                     else if (product == "FIFIIP")
                     {
+                        BindIssuer(product);
                         ddlProduct.SelectedValue = "IP";
-                        ddlSubInstrCategory.Visible=false;
+                        ddlSubInstrCategory.Visible = false;
                         lblcategoryerror.Visible = false;
                         lblCategory.Visible = false;
                         RequiredFieldValidator1.Visible = false;
@@ -301,6 +304,10 @@ namespace WealthERP.OnlineOrderBackOffice
                     txtFormRange.Text = dr["AIFR_From"].ToString();
                     txtToRange.Text = dr["AIFR_To"].ToString();
                     txtInitialCqNo.Text = dr["AIM_InitialChequeNo"].ToString();
+                    if (!string.IsNullOrEmpty(dr["AIM_ApplicationDepositeBank"].ToString()))
+                    {
+                        txtBankName.Text = dr["AIM_ApplicationDepositeBank"].ToString();
+                    }
                     if (!string.IsNullOrEmpty(dr["AIM_ModeOfIssue"].ToString()))
                     {
                         ddlModeofIssue.SelectedValue = dr["AIM_ModeOfIssue"].ToString();
@@ -1020,7 +1027,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 //string time = txtOpenTimes.SelectedDate.Value.ToShortTimeString().ToString();
                 onlineNCDBackOfficeVo.OpenTime = Convert.ToDateTime(ddlOpenTimeHours.SelectedValue + ":" + ddlOpenTimeMinutes.SelectedValue + ":" + ddlOpenTimeSeconds.SelectedValue); //SelectedDate.Value.ToShortTimeString().ToString();
                 onlineNCDBackOfficeVo.CloseTime = Convert.ToDateTime(ddlCloseTimeHours.SelectedValue + ":" + ddlCloseTimeMinutes.SelectedValue + ":" + ddlCloseTimeSeconds.SelectedValue);//SelectedDate.Value.ToShortTimeString().ToString();
-                
+
                 if (ddlCutOffTimeHours.SelectedValue != "HH")
                     onlineNCDBackOfficeVo.CutOffTime = Convert.ToDateTime(ddlCutOffTimeHours.SelectedValue + ":" + ddlCutOffTimeMinutes.SelectedValue + ":" + ddlCutOffTimeSeconds.SelectedValue);//SelectedDate.Value.ToShortTimeString().ToString();
                 else
@@ -1395,22 +1402,24 @@ namespace WealthERP.OnlineOrderBackOffice
                     onlineNCDBackOfficeVo.BusinessChannelId = int.Parse(ddlBssChnl.SelectedValue);
 
                 onlineNCDBackOfficeVo.IssueId = Convert.ToInt32(txtIssueId.Text);
-               
-               if (!NSCEBSCEcode() && ddlSubInstrCategory.SelectedValue != "FICGCG")
+                if (!string.IsNullOrEmpty(txtBankName.Text))
+                    onlineNCDBackOfficeVo.applicationBank = txtBankName.Text;
+                if (ddlSubInstrCategory.SelectedValue != "FICGCG")
                 {
-                    return 0;
+                    if (!NSCEBSCEcode())
+                        return 0;
                 }
-                    issueId = onlineNCDBackOfficeBo.UpdateIssue(onlineNCDBackOfficeVo, userVo.UserId);
-                    if (issueId > 0)
-                    {
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Issue Updated successfully.');", true);
-                        VisblityAndEnablityOfScreen("AfterUpdate");
-                        btnSetUpSubmit.Visible = false;
-                        lnkBtnEdit.Visible = true;
-                        lnlBack.Visible = true;
+                issueId = onlineNCDBackOfficeBo.UpdateIssue(onlineNCDBackOfficeVo, userVo.UserId);
+                if (issueId > 0)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Issue Updated successfully.');", true);
+                    VisblityAndEnablityOfScreen("AfterUpdate");
+                    btnSetUpSubmit.Visible = false;
+                    lnkBtnEdit.Visible = true;
+                    lnlBack.Visible = true;
 
-                    }
-                
+                }
+
             }
 
             catch (BaseApplicationException Ex)
@@ -1461,9 +1470,10 @@ namespace WealthERP.OnlineOrderBackOffice
                 dr["AIIC_InvestorCatgeoryName"] = "N/A";
                 dt.Rows.Add(dr);
                 rgSeriesCategories1.DataSource = dt;
+               
                 //rgSeriesCategories1.DataBind();
             }
-           
+
         }
 
         //protected void rgSeries_UpdateCommand(object source, GridCommandEventArgs e)
@@ -2805,12 +2815,7 @@ namespace WealthERP.OnlineOrderBackOffice
         protected void rgSeriesCat_ItemDataBound(object sender, GridItemEventArgs e)
         {
 
-            if (e.Item is GridDataItem && e.Item.ItemIndex != -1)
-            {
-
-
-            }
-
+           
         }
 
         protected void rgSeries_ItemDataBound(object sender, GridItemEventArgs e)
@@ -2823,7 +2828,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     LinkButton lbDetails = (LinkButton)item.FindControl("lbDetails");
                     if (ddlSubInstrCategory.SelectedValue == "FICGCG")
 
-                    lbDetails.Visible = false;
+                        lbDetails.Visible = false;
                     else
                         lbDetails.Visible = true;
                 }
@@ -2840,13 +2845,16 @@ namespace WealthERP.OnlineOrderBackOffice
                         dt.Columns.Add("AIIC_InvestorCatgeoryId");
                         dt.Columns.Add("AIIC_InvestorCatgeoryName");
                         DataRow dr = dt.NewRow();
-                        dr["AIIC_InvestorCatgeoryId"] = 0; 
-                        dr["AIIC_InvestorCatgeoryName"] = "N/A"; 
+                        dr["AIIC_InvestorCatgeoryId"] = 0;
+                        dr["AIIC_InvestorCatgeoryName"] = "N/A";
                         dt.Rows.Add(dr);
                         rgSeriesCat.DataSource = dt;
                         rgSeriesCat.DataBind();
                         //lbDetails.Visible = false;
                         rgSeries.MasterTableView.GetColumn("Detailslink").Visible = false;
+                        rgSeriesCat.MasterTableView.GetColumn("AIIC_InvestorCatgeoryName").Display = false;
+                        rgSeriesCat.MasterTableView.GetColumn("AIIC_InvestorCatgeoryId").Display = false;
+
                     }
                     TextBox txtSequence = (TextBox)e.Item.FindControl("txtSequence");
                     DropDownList ddlInterestFrequency = (DropDownList)e.Item.FindControl("ddlInterestFrequency");
@@ -2898,13 +2906,13 @@ namespace WealthERP.OnlineOrderBackOffice
                         else
                         {
                             column.Visible = true;
-                        }
+                      }
                     }
                     if (ddlSubInstrCategory.SelectedValue != "FICGCG")
                     {
-                       
+
                         BindCategory(rgSeriesCat, Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text));
-                       
+
                     }
                     else
                     {
@@ -2917,7 +2925,7 @@ namespace WealthERP.OnlineOrderBackOffice
                         dt.Rows.Add(dr);
                         rgSeriesCat.DataSource = dt;
                         rgSeriesCat.DataBind();
-                    }
+                      }
                     BindFrequency(ddlInterestFrequency);
                     FillSeriesPopupControlsForUpdate(seriesId, txtSereiesName, txtTenure, ddlInterestFrequency, chkBuyAvailability, chkredemptiondate, chkLockinperiod, txtSequence, ddlInterestType, ddlTenureUnits, txtseriesFacevalue, rgSeriesCat);
 
@@ -2997,7 +3005,8 @@ namespace WealthERP.OnlineOrderBackOffice
                         {
                             int grdcategoryId = Convert.ToInt32(gdi["AIIC_InvestorCatgeoryId"].Text);
                             rgSeriesCat.MasterTableView.GetColumn("AIIC_InvestorCatgeoryId").Visible = false;
-
+                            if (ddlSubInstrCategory.SelectedValue == "FICGCG")
+                            rgSeriesCat.MasterTableView.GetColumn("AIIC_InvestorCatgeoryName").Visible = false;
 
                             if (seriesCategoryId == grdcategoryId)
                             {
@@ -3093,19 +3102,17 @@ namespace WealthERP.OnlineOrderBackOffice
 
             }
 
-            if (string.IsNullOrEmpty(txtIssueId.Text))
+            if (string.IsNullOrEmpty(txtIssueId.Text) || int.Parse(txtIssueId.Text) == 0)
             {
-                
-                if (!NSCEBSCEcode() && ddlSubInstrCategory.SelectedValue != "FICGCG")
+                txtIssueId.Text = CreateIssue().ToString();
+                if (int.Parse(txtIssueId.Text) != 0)
                 {
-                    return;
-                }
-                    txtIssueId.Text = CreateIssue().ToString();             
                     SeriesAndCategoriesGridsVisiblity(Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text));
                     VisblityAndEnablityOfScreen("Submited");
                     btnSetUpSubmit.Enabled = true;
-               
-                
+                }
+
+
 
             }
 
@@ -3673,17 +3680,22 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     onlineNCDBackOfficeVo.IsCancelAllowed = 0;
                 }
-                if (!NSCEBSCEcode() && ddlSubInstrCategory.SelectedValue != "FICGCG")
-                {
-                    return 0;
-                }
-                    issueId = onlineNCDBackOfficeBo.CreateIssue(onlineNCDBackOfficeVo, advisorVo.advisorId, userVo.UserId);
-                    if (issueId > 0)
-                    {
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Issue added successfully.');", true);
+                if (!string.IsNullOrEmpty(txtBankName.Text))
+                    onlineNCDBackOfficeVo.applicationBank = txtBankName.Text;
 
-                    }
-                
+                if (ddlSubInstrCategory.SelectedValue != "FICGCG")
+                {
+                    if (!NSCEBSCEcode())
+                        return 0;
+
+                }
+                issueId = onlineNCDBackOfficeBo.CreateIssue(onlineNCDBackOfficeVo, advisorVo.advisorId, userVo.UserId);
+                if (issueId > 0)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Issue added successfully.');", true);
+
+                }
+
             }
 
             catch (BaseApplicationException Ex)
@@ -3715,7 +3727,11 @@ namespace WealthERP.OnlineOrderBackOffice
                 issuCheck = Convert.ToInt32(txtIssueId.Text);
 
             if (string.IsNullOrEmpty(txtNSECode.Text) && string.IsNullOrEmpty(txtBSECode.Text))
-                isBool = false;
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please Fill One Of The Fields NSE or BSE Code.');", true);
+                //isBool = false;
+                return false;
+            }
 
             //if (txtNSECode.Text == txtBSECode.Text)
             //{
@@ -4121,39 +4137,6 @@ namespace WealthERP.OnlineOrderBackOffice
             }
         }
 
-        private void BindIssuer()
-        {
-            try
-            {
-                DataSet dsIssuer = new DataSet();
-                dsIssuer = onlineNCDBackOfficeBo.GetIssuer();
-                if (dsIssuer.Tables[0].Rows.Count > 0)
-                {
-                    ddlIssuer.DataSource = dsIssuer;
-                    ddlIssuer.DataValueField = dsIssuer.Tables[0].Columns["PI_issuerId"].ToString();
-                    ddlIssuer.DataTextField = dsIssuer.Tables[0].Columns["PI_IssuerName"].ToString();
-                    ddlIssuer.DataBind();
-                }
-                ddlIssuer.Items.Insert(0, new ListItem("Select", "Select"));
-
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "NCDIssuesetup.ascx.cs:BindIssuer()");
-                object[] objects = new object[0];
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
-
-        }
 
         //private void BindFilterIssuer()
         //{
@@ -4348,7 +4331,12 @@ namespace WealthERP.OnlineOrderBackOffice
                 GridEditFormItem gefi = (GridEditFormItem)e.Item;
                 //GridDataItem form = (GridDataItem)e.Item;
                 DropDownList ddlCategory = (DropDownList)gefi.FindControl("ddlCategory");
+                System.Web.UI.HtmlControls.HtmlTableRow trcategory = (System.Web.UI.HtmlControls.HtmlTableRow)gefi.FindControl("trcategory");
                 BindCategory(ddlCategory);
+                if (ddlProduct.SelectedValue == "IP")
+                {
+                    trcategory.Visible = false;
+                }
             }
             if ((e.Item is GridEditFormItem) && (e.Item.IsInEditMode) && e.Item.ItemIndex != -1)
             {
@@ -4363,24 +4351,27 @@ namespace WealthERP.OnlineOrderBackOffice
                 ddlCategory.DataValueField = dtCategory.Columns["PAISC_AssetInstrumentSubCategoryCode"].ToString();
                 ddlCategory.DataTextField = dtCategory.Columns["PAISC_AssetInstrumentSubCategoryName"].ToString();
                 ddlCategory.DataBind();
-
                 if (ddlCategory.Items.Count > 0)
                     ddlCategory.SelectedValue = rgIssuer.MasterTableView.DataKeyValues[e.Item.ItemIndex]["PAISC_AssetInstrumentSubCategoryCode"].ToString();
-
+                if (ddlProduct.SelectedValue == "IP")
+                {
+                    trcategory.Visible = false;
+                }
                 TextBox txtIssuerName = (TextBox)editform.FindControl("txtIssuerName");
                 TextBox txtIssuerCode = (TextBox)editform.FindControl("txtIssuerCode");
                 DataTable dtIssuer = new DataTable();
-                dtIssuer = onlineNCDBackOfficeBo.GetIssuer().Tables[0];
-                DataTable tbl = (from DataRow dr in dtIssuer.Rows
-                                 where dr["PI_IssuerId"].ToString() == issuerId
-                                 select dr).CopyToDataTable();
+                txtIssuerName.Text = rgIssuer.MasterTableView.DataKeyValues[e.Item.ItemIndex]["PI_IssuerName"].ToString();
+                //dtIssuer = onlineNCDBackOfficeBo.GetIssuer().Tables[0];
+                //DataTable tbl = (from DataRow dr in dtIssuer.Rows
+                //                 where dr["PI_IssuerId"].ToString() == issuerId
+                //                 select dr).CopyToDataTable();
 
 
-                foreach (DataRow dr in tbl.Rows)
-                {
-                    txtIssuerName.Text = dr["PI_IssuerName"].ToString();
-                    txtIssuerCode.Text = dr["PI_IssuerCode"].ToString();
-                }
+                //foreach (DataRow dr in tbl.Rows)
+                //{
+                //    txtIssuerName.Text = dr["PI_IssuerName"].ToString();
+                //    txtIssuerCode.Text = dr["PI_IssuerCode"].ToString();
+                //}
 
 
             }
@@ -4738,10 +4729,48 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 return;
             }
-
+            if (ddlProduct.SelectedValue == "NCD")
+            {
+                BindIssuer(ddlSubInstrCategory.SelectedValue);
+            }
+            imgIssuer.Visible = true;
             BindInstCate(ddlSubInstrCategory.SelectedValue);
             EnablityOfControlsonCategoryTypeSelection(ddlSubInstrCategory.SelectedValue);
         }
+
+        private void BindIssuer(string category)
+        {
+            try
+            {
+                DataTable dtissuer = onlineNCDBackOfficeBo.GetIssuercategorywise(category);
+                if (dtissuer.Rows.Count > 0)
+                {
+                    ddlIssuer.DataSource = dtissuer;
+                    ddlIssuer.DataValueField = dtissuer.Columns["PI_issuerId"].ToString();
+                    ddlIssuer.DataTextField = dtissuer.Columns["PI_IssuerName"].ToString();
+                    ddlIssuer.DataBind();
+                }
+                ddlIssuer.Items.Insert(0, new ListItem("Select", "Select"));
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "NCDIssuesetup.ascx.cs:BindIssuer()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+        }
+
         private void BindInstCate(string subInstCat)
         {
             DataTable dtCategory = new DataTable();
@@ -4967,6 +4996,9 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 return;
             }
+            if (ddlProduct.SelectedValue == "IP")
+                imgIssuer.Visible = true;
+            BindIssuer("FIFIIP");
             EnablityOfControlsonProductAndIssueTypeSelection(ddlProduct.SelectedValue);
         }
 
@@ -5070,6 +5102,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 tdddlCategory.Visible = false;
                 trMaxQty.Visible = true;
                 txtMaxQty.Visible = true;
+
                 Label15.Visible = true;
                 trExchangeCode.Visible = true;
                 trTradinglotBidding.Visible = true;
@@ -5236,21 +5269,32 @@ namespace WealthERP.OnlineOrderBackOffice
 
         protected void rgIssuer_ItemCommand(object source, GridCommandEventArgs e)
         {
-            int issuerId;
+            int issuerId; string category = string.Empty;
             if (e.CommandName == RadGrid.PerformInsertCommandName)
             {
                 TextBox txtIssuerCode = (TextBox)e.Item.FindControl("txtIssuerCode");
                 TextBox txtIssuername = (TextBox)e.Item.FindControl("txtIssuername");
-                DropDownList ddlCategory=(DropDownList)e.Item.FindControl("ddlCategory");
-                CreateUpdateDeleteIssuer(0, ddlCategory.SelectedValue, txtIssuername.Text, "INSERT");
+                DropDownList ddlCategory = (DropDownList)e.Item.FindControl("ddlCategory");
+                if (ddlProduct.SelectedValue == "IP")
+                {
+                    category = "FIFIIP";
+                }
+                else
+                    category = ddlCategory.SelectedValue;
+                CreateUpdateDeleteIssuer(0, category, txtIssuername.Text, "INSERT");
             }
             else if (e.CommandName == RadGrid.UpdateCommandName)
             {
                 issuerId = Convert.ToInt32(rgIssuer.MasterTableView.DataKeyValues[e.Item.ItemIndex]["PI_IssuerId"].ToString());
                 TextBox txtIssuerCode = (TextBox)e.Item.FindControl("txtIssuerCode");
                 TextBox txtIssuername = (TextBox)e.Item.FindControl("txtIssuername");
-
-                CreateUpdateDeleteIssuer(issuerId, ddlCategory.SelectedValue, txtIssuername.Text, "UPDATE");
+                if (ddlProduct.SelectedValue == "IP")
+                {
+                    category = "FIFIIP";
+                }
+                else
+                    category = ddlCategory.SelectedValue;
+                CreateUpdateDeleteIssuer(issuerId, category, txtIssuername.Text, "UPDATE");
 
             }
             else if (e.CommandName == RadGrid.DeleteCommandName)
@@ -5260,7 +5304,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
             }
             BindIssuerGrid();
-            BindIssuer();
+            BindIssuer(category);
 
         }
         //rgAplication_ItemCommand
@@ -5381,10 +5425,15 @@ namespace WealthERP.OnlineOrderBackOffice
         }
         private void BindIssuerGrid()
         {
+            string category = string.Empty;
             try
             {
+                if (ddlProduct.SelectedValue == "IP")
+                    category = "FIFIIP";
+                else
+                    category = ddlSubInstrCategory.SelectedValue;
                 DataTable dtIssuer = new DataTable();
-                dtIssuer = onlineNCDBackOfficeBo.GetIssuer().Tables[0];
+                dtIssuer = onlineNCDBackOfficeBo.GetIssuer(category).Tables[0];
                 rgIssuer.DataSource = dtIssuer;
                 rgIssuer.DataBind();
                 if (Cache[userVo.UserId.ToString() + "Issuer"] != null)
@@ -5791,7 +5840,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
             if (category == "FICGCG")
             {
-              
+
                 trMultipleApplicationAllowed.Visible = false;
                 trRatingAndModeofTrading.Visible = true;
                 trModeofIssue.Visible = false;
@@ -5840,10 +5889,6 @@ namespace WealthERP.OnlineOrderBackOffice
                 Td6.Visible = true;
                 Td7.Visible = false;
                 Td8.Visible = false;
-                tdlb1Rating.Visible = true;
-                tdlb1Rating.Visible = true;
-                tdlb1ModeofTrading.Visible = false;
-                tdtxtModeofTrading.Visible = false;
             }
             else
             {
@@ -5887,9 +5932,13 @@ namespace WealthERP.OnlineOrderBackOffice
                 trNomineeReQuired.Visible = true;
                 chkPutCallOption.Visible = true;
                 rgEligibleInvestorCategories.Visible = true;
+                lblAssetsApplication.Visible = false;
+                txtBankName.Visible = false;
+                lb1BankName.Visible = true;
+                ddlBankName.Visible = true;
             }
 
         }
-      
+
     }
 }

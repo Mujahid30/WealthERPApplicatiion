@@ -111,6 +111,7 @@ namespace WealthERP.OnlineOrderBackOffice
         protected global::System.Web.UI.WebControls.CheckBox chkIsCancelNotAllowed;
         protected global::System.Web.UI.WebControls.CheckBox chkIScancelAllowed;
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trIsCancelAllowed;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trcategory;
         /// <summary>
         /// tbIssue control.
         /// </summary>
@@ -294,7 +295,7 @@ namespace WealthERP.OnlineOrderBackOffice
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lb1ActiveFormRange;
-
+        protected global::System.Web.UI.WebControls.Label lblAssetsApplication;
         /// <summary>
         /// txtFormRange control.
         /// </summary>

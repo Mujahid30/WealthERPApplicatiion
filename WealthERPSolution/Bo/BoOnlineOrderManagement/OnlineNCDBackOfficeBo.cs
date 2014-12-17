@@ -488,12 +488,12 @@ namespace BoOnlineOrderManagement
                 throw exBase;
             }
         }
-        public DataSet GetIssuer()
+        public DataSet GetIssuer(string category)
         {
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
             try
             {
-                return onlineNCDBackOfficeDao.GetIssuer();
+                return onlineNCDBackOfficeDao.GetIssuer(category);
             }
             catch (BaseApplicationException Ex)
             {
@@ -511,7 +511,22 @@ namespace BoOnlineOrderManagement
                 throw exBase;
             }
         }
-        public DataTable GetFrequency()
+        public DataTable GetIssuercategorywise(string category)
+        {
+            DataTable dt;
+            try
+            {
+                onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
+                dt = onlineNCDBackOfficeDao.GetIssuercategorywise(category);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dt;
+        }
+
+         public DataTable GetFrequency()
         {
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
             try

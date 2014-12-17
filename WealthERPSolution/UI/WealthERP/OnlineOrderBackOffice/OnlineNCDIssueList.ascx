@@ -30,7 +30,7 @@
                 <table cellspacing="0" cellpadding="3" width="100%">
                     <tr>
                         <td align="left">
-                            NCD and IPO Issue List
+                           Issue List
                         </td>
                         <td>
                         <asp:ImageButton ID="btnNcdIpoExport" runat="server" ImageUrl="~/Images/Export_Excel.png"

@@ -14,6 +14,7 @@ using VoUser;
 using System.Web.UI.HtmlControls;
 using Telerik.Web.UI;
 using BoOfflineOrderManagement;
+using VOAssociates;
 namespace WealthERP.OffLineOrderManagement
 {
     public partial class FixedIncome54ECOrderBook : System.Web.UI.UserControl
@@ -24,7 +25,9 @@ namespace WealthERP.OffLineOrderManagement
         string userType;
         OfflineBondOrderBo OfflineBondOrderBo = new OfflineBondOrderBo();
         DateTime fromDate, toDate;
-
+        AssociatesUserHeirarchyVo associateuserheirarchyVo;
+        string UserTitle;
+        string AgentCode;
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
@@ -36,6 +39,31 @@ namespace WealthERP.OffLineOrderManagement
             txtOrderFrom.SelectedDate = fromDate.Date;
             txtOrderTo.SelectedDate = DateTime.Now;
             BindIssue();
+            associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
+            if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "associates")
+            {
+                userType = "associates";
+                if (UserTitle == "SubBroker")
+                {
+                    associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
+                    if (associateuserheirarchyVo.AgentCode != null)
+                    {
+                        AgentCode = associateuserheirarchyVo.AgentCode.ToString();
+                    }
+                    else
+                        AgentCode = "0";
+                }
+                else
+                {
+                    associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
+                    if (associateuserheirarchyVo.AgentCode != null)
+                    { 
+                        AgentCode = associateuserheirarchyVo.AgentCode.ToString();
+                    }
+                    else
+                        AgentCode = "0";
+                }
+            }
 
         }
         protected void BindIssue()
@@ -55,7 +83,7 @@ namespace WealthERP.OffLineOrderManagement
         protected void BindAdviserFDrderBook()
         {
 
-            DataTable dt54FDOrderBook = OfflineBondOrderBo.GetFD54IssueOrder(advisorVo.advisorId,fromDate,Convert.ToDateTime(txtOrderTo.SelectedDate), int.Parse(ddlIssue.SelectedValue));
+            DataTable dt54FDOrderBook = OfflineBondOrderBo.GetFD54IssueOrder(advisorVo.advisorId,fromDate,Convert.ToDateTime(txtOrderTo.SelectedDate), int.Parse(ddlIssue.SelectedValue),userType, AgentCode);
 
             if (dt54FDOrderBook.Rows.Count >= 0)
             {

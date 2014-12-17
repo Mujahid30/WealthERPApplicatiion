@@ -138,13 +138,13 @@ namespace BoOfflineOrderManagement
             }
             return dt;
         }
-        public DataTable GetFD54IssueOrder(int adviserId, DateTime fromDate, DateTime toDate, int issueId)
+        public DataTable GetFD54IssueOrder(int adviserId, DateTime fromDate, DateTime toDate, int issueId, string userType, string AgentCode)
         {
             DataTable dt;
             OfflineBondOrderDao offlineBondDao = new OfflineBondOrderDao();
             try
             {
-                dt = offlineBondDao.GetFD54IssueOrder(adviserId, fromDate, toDate, issueId);
+                dt = offlineBondDao.GetFD54IssueOrder(adviserId, fromDate, toDate, issueId, userType, AgentCode);
             }
             catch (BaseApplicationException Ex)
             {

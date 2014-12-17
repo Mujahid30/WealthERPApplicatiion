@@ -561,6 +561,7 @@ namespace DaoOnlineOrderManagement
                  
                 db.AddInParameter(createCmd, "@ModifiedBy", DbType.Int32, userID);
                 db.AddInParameter(createCmd, "@CreatedBy", DbType.Int32, userID);
+                db.AddInParameter(createCmd, "@applicationBank", DbType.String, onlineNCDBackOfficeVo.applicationBank);
                 issueId = db.ExecuteNonQuery(createCmd);
             }
             catch (BaseApplicationException Ex)
@@ -633,7 +634,7 @@ namespace DaoOnlineOrderManagement
             return dsGetAplRanges;
         }
 
-        public DataSet GetIssuer()
+        public DataSet GetIssuer(string category)
         {
             DataSet dsGetIssuer;
             Microsoft.Practices.EnterpriseLibrary.Data.Database db;
@@ -642,6 +643,7 @@ namespace DaoOnlineOrderManagement
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 dbCommand = db.GetStoredProcCommand("SPROC_GetIssuer");
+                db.AddInParameter(dbCommand, "@category", DbType.String, category);
                 dsGetIssuer = db.ExecuteDataSet(dbCommand);
             }
             catch (BaseApplicationException Ex)
@@ -929,6 +931,7 @@ namespace DaoOnlineOrderManagement
                     db.AddInParameter(createCmd, "@OfflineCutOffTime", DbType.Time, onlineNCDBackOfficeVo.OfflineCutOffTime);
                 db.AddInParameter(createCmd, "@ModifiedBy", DbType.Int32, userID);
                 db.AddInParameter(createCmd, "@CreatedBy", DbType.Int32, userID);
+                db.AddInParameter(createCmd, "@applicationBank", DbType.String, onlineNCDBackOfficeVo.applicationBank);
                 if (db.ExecuteNonQuery(createCmd) != 0)
                 {
                     issueId = Convert.ToInt32(db.GetParameterValue(createCmd, "AIM_IssueId").ToString());
@@ -3607,6 +3610,26 @@ namespace DaoOnlineOrderManagement
                 throw Ex;
             }
             return bResult;
+        }
+        public DataTable GetIssuercategorywise(string category)
+        {
+            DataTable dtGetIssuercategorywise;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DbCommand dbGetIssuercategorywise;
+            DataSet dsGetIssuercategorywise;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbGetIssuercategorywise = db.GetStoredProcCommand("SPROC_GetIssuercategorywise");
+                db.AddInParameter(dbGetIssuercategorywise, "@subCategoryCode", DbType.String, category);
+                dsGetIssuercategorywise = db.ExecuteDataSet(dbGetIssuercategorywise);
+                dtGetIssuercategorywise = dsGetIssuercategorywise.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetIssuercategorywise;
         }
     }
 }
