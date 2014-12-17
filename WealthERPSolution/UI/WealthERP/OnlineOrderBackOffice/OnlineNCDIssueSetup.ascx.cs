@@ -296,8 +296,8 @@ namespace WealthERP.OnlineOrderBackOffice
 
                     //ddlProduct.SelectedValue =dr["PAIC_AssetInstrumentCategoryCode"].ToString();
                     EnablityOfControlsonProductAndIssueTypeSelection(ddlProduct.SelectedValue);
-                    EnablityOfControlsonIssueTypeSelection(ddlIssueType.SelectedValue);
-                    EnablityOfControlsonCategoryTypeSelection(ddlSubInstrCategory.SelectedValue);
+                    //EnablityOfControlsonIssueTypeSelection(ddlIssueType.SelectedValue);
+                    //EnablityOfControlsonCategoryTypeSelection(ddlSubInstrCategory.SelectedValue);
                     // ddlSubInstrCategory.SelectedValue = "NCD";
                     txtName.Text = dr["AIM_IssueName"].ToString();
                     ddlIssuer.SelectedValue = dr["PI_issuerId"].ToString();
@@ -1470,7 +1470,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 dr["AIIC_InvestorCatgeoryName"] = "N/A";
                 dt.Rows.Add(dr);
                 rgSeriesCategories1.DataSource = dt;
-               
+
                 //rgSeriesCategories1.DataBind();
             }
 
@@ -2815,7 +2815,7 @@ namespace WealthERP.OnlineOrderBackOffice
         protected void rgSeriesCat_ItemDataBound(object sender, GridItemEventArgs e)
         {
 
-           
+
         }
 
         protected void rgSeries_ItemDataBound(object sender, GridItemEventArgs e)
@@ -2906,7 +2906,7 @@ namespace WealthERP.OnlineOrderBackOffice
                         else
                         {
                             column.Visible = true;
-                      }
+                        }
                     }
                     if (ddlSubInstrCategory.SelectedValue != "FICGCG")
                     {
@@ -2925,7 +2925,7 @@ namespace WealthERP.OnlineOrderBackOffice
                         dt.Rows.Add(dr);
                         rgSeriesCat.DataSource = dt;
                         rgSeriesCat.DataBind();
-                      }
+                    }
                     BindFrequency(ddlInterestFrequency);
                     FillSeriesPopupControlsForUpdate(seriesId, txtSereiesName, txtTenure, ddlInterestFrequency, chkBuyAvailability, chkredemptiondate, chkLockinperiod, txtSequence, ddlInterestType, ddlTenureUnits, txtseriesFacevalue, rgSeriesCat);
 
@@ -3006,7 +3006,7 @@ namespace WealthERP.OnlineOrderBackOffice
                             int grdcategoryId = Convert.ToInt32(gdi["AIIC_InvestorCatgeoryId"].Text);
                             rgSeriesCat.MasterTableView.GetColumn("AIIC_InvestorCatgeoryId").Visible = false;
                             if (ddlSubInstrCategory.SelectedValue == "FICGCG")
-                            rgSeriesCat.MasterTableView.GetColumn("AIIC_InvestorCatgeoryName").Visible = false;
+                                rgSeriesCat.MasterTableView.GetColumn("AIIC_InvestorCatgeoryName").Visible = false;
 
                             if (seriesCategoryId == grdcategoryId)
                             {
@@ -5019,7 +5019,7 @@ namespace WealthERP.OnlineOrderBackOffice
             trFloorAndFixedPrices.Visible = true;
             //trBookBuildingAndCapprices.Visible = true;      
             //trSyndicateAndMemberCodes.Visible = true;
-            trRegistrarAndNoofBidsAlloweds.Visible = true;
+            //trRegistrarAndNoofBidsAlloweds.Visible = true;
             if (issueType == "FixedPrice")
             {
                 tdLbFixedPrice.Visible = true;
@@ -5045,7 +5045,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
             //Ncd
             trNomineeReQuired.Visible = false;
-            trModeofIssue.Visible = false;
+            
             trMaxQty.Visible = true;
             txtMaxQty.Visible = false;
             Label15.Visible = false;
@@ -5066,7 +5066,7 @@ namespace WealthERP.OnlineOrderBackOffice
             //both
             //trFloorAndFixedPrices.Visible = true;
             trExchangeCode.Visible = false;
-            trRatingAndModeofTrading.Visible = true;
+            //trRatingAndModeofTrading.Visible = true;
             trSBIRegistationNoAndISINNumber.Visible = true;
 
 
@@ -5096,16 +5096,19 @@ namespace WealthERP.OnlineOrderBackOffice
             }
             else if (product == "IP")
             {
+                trModeofIssue.Visible = false;
                 trMultipleApplicationAllowed.Visible = true;
                 trIssueTypes.Visible = true;
                 tdlblCategory.Visible = false;
                 tdddlCategory.Visible = false;
                 trMaxQty.Visible = true;
                 txtMaxQty.Visible = true;
-
+                trFloorAndFixedPrices.Visible = false;
                 Label15.Visible = true;
                 trExchangeCode.Visible = true;
                 trTradinglotBidding.Visible = true;
+                lb1Rating.Visible = true;
+                txtRating.Visible = true;
                 trIssueqtySize.Visible = true;
                 tdlb1MinQty.Visible = true;
                 tdltxtMinQty.Visible = true;
@@ -5124,6 +5127,8 @@ namespace WealthERP.OnlineOrderBackOffice
                 txtInitialCqNo.Visible = true;
                 trIsCancelAllowed.Visible = true;
                 chkPutCallOption.Visible = true;
+                ddlModeOfTrading.Visible=false;
+                lb1ModeOfTrading.Visible = false;
             }
 
         }
@@ -5813,7 +5818,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
             //Ncd
             trNomineeReQuired.Visible = false;
-            trModeofIssue.Visible = false;
+            
             trMaxQty.Visible = true;
             txtMaxQty.Visible = false;
             Label15.Visible = false;
@@ -5834,7 +5839,7 @@ namespace WealthERP.OnlineOrderBackOffice
             //both
             //trFloorAndFixedPrices.Visible = true;
             trExchangeCode.Visible = false;
-            trRatingAndModeofTrading.Visible = true;
+            //trRatingAndModeofTrading.Visible = true;
             trSBIRegistationNoAndISINNumber.Visible = true;
 
 
@@ -5889,53 +5894,66 @@ namespace WealthERP.OnlineOrderBackOffice
                 Td6.Visible = true;
                 Td7.Visible = false;
                 Td8.Visible = false;
+                tdtxtModeofTrading.Visible = false;
+                lb1ModeOfTrading.Visible = false;
+
+                lblAssetsApplication.Visible = true;
+
+                lb1BankName.Visible = false;
+
+                txtBankName.Visible = true;
+                ddlBankName.Visible = false;
+
             }
             else
             {
-                trNomineeReQuired.Visible = true;
-                trMultipleApplicationAllowed.Visible = false;
-                trRatingAndModeofTrading.Visible = true;
-                trModeofIssue.Visible = true;
-                trFloorAndFixedPrices.Visible = false;
-                txtMaxQty.Visible = false;
-                Label15.Visible = false;
-                //chkIsActive.Enabled = false;
-                trExchangeCode.Visible = true;
-                tdlblCategory.Visible = true;
-                tdddlCategory.Visible = true;
-                txtIsPrefix.Visible = true;
-                tdlb1MinQty.Visible = false;
-                tdltxtMinQty.Visible = false;
-                tdlb1ModeofTrading.Visible = true;
-                tdtxtModeofTrading.Visible = true;
-                tdlb1SBIRegistationNo.Visible = false;
-                tdtxtSBIRegistationNo.Visible = false;
-                trlblSyndicatet.Visible = false;
-                lb1Rating.Text = "Rating:";
-                trRange.Visible = true;
-                trSBIRegistationNoAndISINNumber.Visible = true;
-                lb1InitialCqNo.Visible = true;
-                txtInitialCqNo.Visible = true;
-                trIssueqtySize.Visible = false;
-                tdLabel21.Visible = true;
-                tdcuttoffonline.Visible = true;
-                tdLabel24.Visible = true;
-                tdcuttoffonffine.Visible = true;
-                Label15.Visible = false;
-                txtMaxQty.Visible = false;
-                lb1Trading.Visible = true;
-                txtTradingInMultipleOf.Visible = true;
-                trExchangeCode.Visible = true;
-                trRevisionDate.Visible = true;
-                trlblSyndicatet.Visible = false;
-                trIsCancelAllowed.Visible = true;
-                trNomineeReQuired.Visible = true;
-                chkPutCallOption.Visible = true;
-                rgEligibleInvestorCategories.Visible = true;
+                //trNomineeReQuired.Visible = true;
+                //trMultipleApplicationAllowed.Visible = false;
+                //trRatingAndModeofTrading.Visible = false;
+                
+                //trFloorAndFixedPrices.Visible = false;
+                //txtMaxQty.Visible = false;
+                //Label15.Visible = false;
+                ////chkIsActive.Enabled = false;
+                //trExchangeCode.Visible = true;
+                //tdlblCategory.Visible = true;
+                //tdddlCategory.Visible = true;
+                //txtIsPrefix.Visible = true;
+                //tdlb1MinQty.Visible = false;
+                //tdltxtMinQty.Visible = false;
+                //tdlb1ModeofTrading.Visible = true;
+                //tdtxtModeofTrading.Visible = true;
+                //tdlb1SBIRegistationNo.Visible = false;
+                //tdtxtSBIRegistationNo.Visible = false;
+                //trlblSyndicatet.Visible = false;
+                //lb1Rating.Text = "Rating:";
+                //trRange.Visible = true;
+                //trSBIRegistationNoAndISINNumber.Visible = true;
+                //lb1InitialCqNo.Visible = true;
+                //txtInitialCqNo.Visible = true;
+                //trIssueqtySize.Visible = false;
+                //tdLabel21.Visible = true;
+                //tdcuttoffonline.Visible = true;
+                //tdLabel24.Visible = true;
+                //tdcuttoffonffine.Visible = true;
+                //Label15.Visible = false;
+                //txtMaxQty.Visible = false;
+                //lb1Trading.Visible = true;
+                //txtTradingInMultipleOf.Visible = true;
+                //trExchangeCode.Visible = true;
+                //trRevisionDate.Visible = true;
+                //trlblSyndicatet.Visible = false;
+                //trIsCancelAllowed.Visible = true;
+                //trNomineeReQuired.Visible = true;
+                //chkPutCallOption.Visible = true;
+                //rgEligibleInvestorCategories.Visible = true;
                 lblAssetsApplication.Visible = false;
                 txtBankName.Visible = false;
                 lb1BankName.Visible = true;
                 ddlBankName.Visible = true;
+                trExchangeCode.Visible = true;
+                //lb1ddlModeofIssue.Visible = true;
+                //ddlModeofIssue.Visible = false;
             }
 
         }
