@@ -1014,14 +1014,14 @@
                 MaxLength="9"></asp:TextBox>
            <%-- <span id="Span31" class="spnRequiredField">*</span>--%>
             <br />
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator39" runat="server" CssClass="rfvPCG"
+          <%--  <asp:RequiredFieldValidator ID="RequiredFieldValidator39" runat="server" CssClass="rfvPCG"
                 ErrorMessage="Please Enter Issue Size Qty" Display="Dynamic" ControlToValidate="txtIssueSizeQty"
                 InitialValue="" ValidationGroup="SetUpSubmit">
             </asp:RequiredFieldValidator>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator3" ControlToValidate="txtIssueSizeQty"
                 runat="server" Display="Dynamic" ErrorMessage="Please Enter Numeric Value" CssClass="cvPCG"
                 ValidationExpression="[1-9]\d*$" ValidationGroup="SetUpSubmit">     
-            </asp:RegularExpressionValidator>
+            </asp:RegularExpressionValidator>--%>
         </td>
         <td class="leftLabel">
             <asp:Label ID="Label17" runat="server" Text="Issue Size Amt:" CssClass="FieldName"></asp:Label>

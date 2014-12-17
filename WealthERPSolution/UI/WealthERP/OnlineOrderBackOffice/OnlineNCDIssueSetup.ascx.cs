@@ -5793,7 +5793,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
               
                 trMultipleApplicationAllowed.Visible = false;
-                trRatingAndModeofTrading.Visible = false;
+                trRatingAndModeofTrading.Visible = true;
                 trModeofIssue.Visible = false;
                 trFloorAndFixedPrices.Visible = false;
                 trMinQty.Visible = true;
@@ -5840,6 +5840,10 @@ namespace WealthERP.OnlineOrderBackOffice
                 Td6.Visible = true;
                 Td7.Visible = false;
                 Td8.Visible = false;
+                tdlb1Rating.Visible = true;
+                tdlb1Rating.Visible = true;
+                tdlb1ModeofTrading.Visible = false;
+                tdtxtModeofTrading.Visible = false;
             }
             else
             {
