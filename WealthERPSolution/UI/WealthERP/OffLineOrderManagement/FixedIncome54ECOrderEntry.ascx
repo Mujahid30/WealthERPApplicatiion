@@ -369,7 +369,7 @@
                 <asp:ListItem Text="PAN" Value="2"></asp:ListItem>
             </asp:DropDownList>
         </td>
-        <td align="right">
+        <td align="right" runat="server"  Visible="false">
             <asp:Label ID="lblARNNo" runat="server" CssClass="FieldName" Text="ARN No:"></asp:Label>
         </td>
         <td>
@@ -521,7 +521,7 @@
         </td>
         <td style="width: 20%">
             <asp:DropDownList ID="ddlCategory" runat="server" CssClass="cmbField" AutoPostBack="true"
-                OnSelectedIndexChanged="ddlCategory_SelectedIndexChanged">
+                OnSelectedIndexChanged="ddlCategory_SelectedIndexChanged" Enabled="false">
             </asp:DropDownList>
             <span id="SpanddlCategory" runat="server" class="spnRequiredField">*</span>
             <asp:CompareValidator ID="CompareValidatorddlCategory" runat="server" ControlToValidate="ddlCategory"
@@ -857,6 +857,7 @@
                         <td class="rightField" style="width: 20%">
                             <asp:TextBox ID="txtDematid" Enabled="false" onkeydown="return (event.keyCode!=13);"
                                 runat="server" CssClass="txtField"></asp:TextBox>
+                                
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator6" ControlToValidate="txtDematid"
                                 ErrorMessage="<br />Please Select Demat from the List" Display="Dynamic" runat="server"
                                 CssClass="rfvPCG"   ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
@@ -950,10 +951,10 @@
                 <asp:ListItem Text="ECS" Value="ES"></asp:ListItem>
             </asp:DropDownList>
         </td>
-        <td class="leftField" style="width: 20%">
+        <td class="leftField" style="width: 20%" visible="false" runat="server">
             <asp:Label ID="lblAmount" runat="server" Text="Amount:" CssClass="FieldName"></asp:Label>
         </td>
-        <td class="rightField" style="width: 20%">
+        <td class="rightField" style="width: 20%" visible="false" runat="server">
             <asp:TextBox ID="txtAmount" runat="server" CssClass="txtField"></asp:TextBox>
         </td>
     </tr>
