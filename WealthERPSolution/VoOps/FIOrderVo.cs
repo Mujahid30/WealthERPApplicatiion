@@ -154,6 +154,7 @@ namespace VoOps
         public Int64 DematAccountId { get; set; }
         public double Qty { get; set; }
         public string  BranchName { get; set; }
+        public string AssetInstrumentCategory { get; set; }
 
         //private int m_OrderId;
 

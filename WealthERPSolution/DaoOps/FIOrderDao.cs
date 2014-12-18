@@ -368,7 +368,7 @@ namespace DaoOps
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getFIIssuercmd = db.GetStoredProcCommand("Sp_FIScheme");
                 db.AddInParameter(getFIIssuercmd, "@AdviserID", DbType.Int32, AdviserID);
-                db.AddInParameter(getFIIssuercmd, "@IssuerID", DbType.String, IssuerID);
+                db.AddInParameter(getFIIssuercmd, "@Category", DbType.String, IssuerID);
                 dsGetFIIssuer = db.ExecuteDataSet(getFIIssuercmd);
             }
             catch (BaseApplicationException Ex)
@@ -503,7 +503,6 @@ namespace DaoOps
                     db.AddInParameter(createFIOrderTrackingCmd, "@CO_OrderDate", DbType.DateTime, orderVo.OrderDate);
                 else
                     db.AddInParameter(createFIOrderTrackingCmd, "@CO_OrderDate", DbType.DateTime, DBNull.Value);
-
                 //db.AddInParameter(createFIOrderTrackingCmd, "@CO_OrderDate", DbType.DateTime, orderVo.OrderDate );
                 db.AddInParameter(createFIOrderTrackingCmd, "@CustomerId", DbType.Int32, orderVo.CustomerId);
                 db.AddInParameter(createFIOrderTrackingCmd, "@WOSR_SourceCode", DbType.String, "");
@@ -561,6 +560,8 @@ namespace DaoOps
                 db.AddInParameter(createFIOrderTrackingCmd, "@DematAcntId", DbType.Int32, FIorderVo.DematAccountId);
                 db.AddInParameter(createFIOrderTrackingCmd, "@Qty", DbType.Double, FIorderVo.Qty);
                 db.AddInParameter(createFIOrderTrackingCmd, "@BranchName", DbType.String, orderVo.BankBranchName);
+
+                db.AddInParameter(createFIOrderTrackingCmd, "@AssetInstrumentCategory", DbType.String, FIorderVo.AssetInstrumentCategory);
                 
 
                 if (db.ExecuteNonQuery(createFIOrderTrackingCmd) != 0)
