@@ -521,7 +521,7 @@
         </td>
         <td style="width: 20%">
             <asp:DropDownList ID="ddlCategory" runat="server" CssClass="cmbField" AutoPostBack="true"
-                OnSelectedIndexChanged="ddlCategory_SelectedIndexChanged" Enabled="false">
+                OnSelectedIndexChanged="ddlCategory_SelectedIndexChanged" Enabled="true">
             </asp:DropDownList>
             <span id="SpanddlCategory" runat="server" class="spnRequiredField">*</span>
             <asp:CompareValidator ID="CompareValidatorddlCategory" runat="server" ControlToValidate="ddlCategory"
