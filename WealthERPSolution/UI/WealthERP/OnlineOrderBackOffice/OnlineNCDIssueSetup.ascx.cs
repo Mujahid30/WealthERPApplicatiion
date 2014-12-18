@@ -5941,11 +5941,15 @@ namespace WealthERP.OnlineOrderBackOffice
                 tdBroker.Visible = false;
                 tdlb1ModeofTrading.Visible = true;
                 tdtxtModeofTrading.Visible = true;
+                lb1Trading.Visible = true;
+                ddlModeOfTrading.Visible = true;
+                lb1ModeOfTrading.Visible = true;
                 //tdlb1SBIRegistationNo.Visible = false;
                 //tdtxtSBIRegistationNo.Visible = false;
                 //trlblSyndicatet.Visible = false;
                 //lb1Rating.Text = "Rating:";
                 trRange.Visible = true;
+                trModeofIssue.Visible = true;
                 lblBrokerCode.Visible = false;
                 //trSBIRegistationNoAndISINNumber.Visible = true;
                 lb1InitialCqNo.Visible = true;
