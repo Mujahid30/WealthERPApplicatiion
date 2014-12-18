@@ -171,7 +171,7 @@ namespace WealthERP.OffLineOrderManagement
             if (!IsPostBack)
             {
                 FICategory();
-               //  FIScheme(advisorVo.advisorId, "0");                
+                //  FIScheme(advisorVo.advisorId, "0");                
                 BindProofTypeDP();
                 BindBanks(0);
 
@@ -383,7 +383,7 @@ namespace WealthERP.OffLineOrderManagement
             if (ddlCategory.SelectedIndex != 0)
                 FIScheme(advisorVo.advisorId, ddlCategory.SelectedValue);
 
-               // FIIssuer(advisorVo.advisorId);
+            // FIIssuer(advisorVo.advisorId);
             if (ddlCategory.SelectedValue == "FICG")
             {
                 trSchemeOpFreq.Visible = false;
@@ -393,8 +393,8 @@ namespace WealthERP.OffLineOrderManagement
             else
             {
                 //for fd 
-               // trSchemeOpFreq.Visible = true;
-               // trDepPaypriv.Visible = true;
+                // trSchemeOpFreq.Visible = true;
+                // trDepPaypriv.Visible = true;
                 Label8.Text = "FD Amount";
             }
         }
@@ -477,7 +477,7 @@ namespace WealthERP.OffLineOrderManagement
 
         private void TransactionTypeChanges(string transactionType)
         {
-            if (transactionType== "Select")
+            if (transactionType == "Select")
             {
                 trDepRen.Visible = false;
                 //trPayAmt.Visible = false;
@@ -485,14 +485,14 @@ namespace WealthERP.OffLineOrderManagement
                 // Label18.Visible = false;
 
             }
-            else if (transactionType== "Renewal")
+            else if (transactionType == "Renewal")
             {
                 trDepRen.Visible = true;
                 ////trPayAmt.Visible = false;
                 txtPayAmt.Visible = false;
                 // Label18.Visible = false;
             }
-            else if (transactionType== "New")
+            else if (transactionType == "New")
             {
                 txtPayAmt.Visible = true;
                 // Label18.Visible = true;
@@ -504,13 +504,13 @@ namespace WealthERP.OffLineOrderManagement
 
         protected void ddlProofType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         protected void BindddlProof(int proofTypeSelectedValue)
         {
             DataTable dtDpProofsForTypes = new DataTable();
-            dtDpProofsForTypes = customerBo.GetCustomerProofsForTypes(proofTypeSelectedValue);            
+            dtDpProofsForTypes = customerBo.GetCustomerProofsForTypes(proofTypeSelectedValue);
         }
         private void FICategory()
         {
@@ -519,8 +519,8 @@ namespace WealthERP.OffLineOrderManagement
             {
 
                 ddlCategory.DataSource = dsBankName;
-                ddlCategory.DataValueField = dsBankName.Tables[0].Columns["PAIC_AssetInstrumentCategoryCode"].ToString();
-                ddlCategory.DataTextField = dsBankName.Tables[0].Columns["PAIC_AssetInstrumentCategoryName"].ToString();
+                ddlCategory.DataValueField = dsBankName.Tables[0].Columns["PAISC_AssetInstrumentSubCategoryCode"].ToString();
+                ddlCategory.DataTextField = dsBankName.Tables[0].Columns["PAISC_AssetInstrumentSubCategoryName"].ToString();
                 ddlCategory.DataBind();
                 ddlCategory.Items.Insert(0, new ListItem("Select", "Select"));
 
@@ -920,7 +920,7 @@ namespace WealthERP.OffLineOrderManagement
             bool blResult = false;
             bool blZeroBalance = false;
             bool blFileSizeExceeded = false;
-          //  AddFile(out blZeroBalance, out blFileSizeExceeded);
+            //  AddFile(out blZeroBalance, out blFileSizeExceeded);
 
             if (fStorageBalance > 0)
                 blResult = AddFile(out blZeroBalance, out blFileSizeExceeded);
@@ -994,7 +994,7 @@ namespace WealthERP.OffLineOrderManagement
                             repoVo.AdviserId = advisorVo.advisorId;
                             repoVo.CategoryCode = ddlProofType.SelectedValue;
                             repoVo.Description = newFileName;
-                             
+
                             blResult = repoBo.AddOrderDocument(repoVo, Convert.ToInt32(lblGetOrderNo.Text));
 
                             if (blResult)
@@ -1131,7 +1131,7 @@ namespace WealthERP.OffLineOrderManagement
 
         }
 
-        
+
 
         protected void lnkBtnDemat_onClick(object sender, EventArgs e)
         {
@@ -4057,7 +4057,7 @@ namespace WealthERP.OffLineOrderManagement
                 if (!string.IsNullOrEmpty(dr["Co_OrderId"].ToString()))
                 {
                     //Order No.
-                    lblOrderNumber.Text = "Order No.";                   
+                    lblOrderNumber.Text = "Order No.";
                     lblGetOrderNo.Text = dr["Co_OrderId"].ToString();
                 }
             }
