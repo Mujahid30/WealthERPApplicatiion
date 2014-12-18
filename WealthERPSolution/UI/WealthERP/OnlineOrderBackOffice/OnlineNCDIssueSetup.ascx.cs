@@ -229,7 +229,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     //BindSyndicate();
 
 
-                    if (product == "FICGCG" || product == "FISDSD")
+                    if (product == "FICGCG" || product == "FISDSD" || product == "FINPNP" || product == "FICDCD")
                     {
                         ddlSubInstrCategory.SelectedValue = dr["PAISC_AssetInstrumentSubCategoryCode"].ToString();
                         BindInstCate(ddlSubInstrCategory.SelectedValue);
@@ -1404,7 +1404,8 @@ namespace WealthERP.OnlineOrderBackOffice
                 onlineNCDBackOfficeVo.IssueId = Convert.ToInt32(txtIssueId.Text);
                 if (!string.IsNullOrEmpty(txtBankName.Text))
                     onlineNCDBackOfficeVo.applicationBank = txtBankName.Text;
-                if (ddlSubInstrCategory.SelectedValue != "FICGCG")
+                if (ddlSubInstrCategory.SelectedValue != "FICGCG" && ddlSubInstrCategory.SelectedValue != "FINPNP" && ddlSubInstrCategory.SelectedValue != "FICDCD")
+                
                 {
                     if (!NSCEBSCEcode())
                         return 0;
@@ -3096,7 +3097,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     {
                         UpdateOnlineEnblement(int.Parse(txtIssueId.Text));
                         chkIsActive.Checked = true;
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Online Enablement done successfully.');", true);
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Issue Activate successfully.');", true);
                     }
                 }
 
@@ -3200,7 +3201,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 if (ddlProduct.SelectedValue == "IP")
                 {
                     onlineNCDBackOfficeVo.AssetInstrumentCategoryCode = "FIIP";
-                    onlineNCDBackOfficeVo.AssetInstrumentSubCategoryCode = "FIIP";
+                    onlineNCDBackOfficeVo.AssetInstrumentSubCategoryCode = "FIFIIP";
                 }
                 else
                 {
@@ -3683,7 +3684,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 if (!string.IsNullOrEmpty(txtBankName.Text))
                     onlineNCDBackOfficeVo.applicationBank = txtBankName.Text;
 
-                if (ddlSubInstrCategory.SelectedValue != "FICGCG")
+                if (ddlSubInstrCategory.SelectedValue != "FICGCG" && ddlSubInstrCategory.SelectedValue != "FINPNP" && ddlSubInstrCategory.SelectedValue != "FICDCD")
                 {
                     if (!NSCEBSCEcode())
                         return 0;
@@ -4735,7 +4736,8 @@ namespace WealthERP.OnlineOrderBackOffice
             }
             imgIssuer.Visible = true;
             BindInstCate(ddlSubInstrCategory.SelectedValue);
-            EnablityOfControlsonCategoryTypeSelection(ddlSubInstrCategory.SelectedValue);
+            
+           EnablityOfControlsonCategoryTypeSelection(ddlSubInstrCategory.SelectedValue);
         }
 
         private void BindIssuer(string category)
@@ -5000,6 +5002,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 imgIssuer.Visible = true;
             BindIssuer("FIFIIP");
             EnablityOfControlsonProductAndIssueTypeSelection(ddlProduct.SelectedValue);
+           // EnablityOfControlsonProductAndIssueTypeSelection(ddlProduct.SelectedValue);
         }
 
         protected void ddlIssueType_Selectedindexchanged(object sender, EventArgs e)
@@ -5045,9 +5048,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
             //Ncd
             trNomineeReQuired.Visible = false;
-            
-            trMaxQty.Visible = true;
-            txtMaxQty.Visible = false;
+          
             Label15.Visible = false;
             trIssueqtySize.Visible = false;
             trTradinglotBidding.Visible = false;
@@ -5077,7 +5078,10 @@ namespace WealthERP.OnlineOrderBackOffice
                 trRatingAndModeofTrading.Visible = true;
                 trModeofIssue.Visible = true;
                 trFloorAndFixedPrices.Visible = false;
+               
                 txtMaxQty.Visible = false;
+                lblMaxError.Visible = false;
+
                 Label15.Visible = false;
                 //chkIsActive.Enabled = false;
                 trExchangeCode.Visible = true;
@@ -5102,7 +5106,12 @@ namespace WealthERP.OnlineOrderBackOffice
                 tdlblCategory.Visible = false;
                 tdddlCategory.Visible = false;
                 trMaxQty.Visible = true;
-                txtMaxQty.Visible = true;
+               tdlblSyndicatet.Visible = true;
+               tdddllblSyndicatet.Visible = true;
+               lblBrokerCode.Visible = true;
+               
+                lblMaxError.Visible = true;
+                tdBroker.Visible = true;
                 trFloorAndFixedPrices.Visible = false;
                 Label15.Visible = true;
                 trExchangeCode.Visible = true;
@@ -5129,6 +5138,8 @@ namespace WealthERP.OnlineOrderBackOffice
                 chkPutCallOption.Visible = true;
                 ddlModeOfTrading.Visible=false;
                 lb1ModeOfTrading.Visible = false;
+                lb1Trading.Visible = true;
+                txtTradingInMultipleOf.Visible = true;
             }
 
         }
@@ -5544,7 +5555,7 @@ namespace WealthERP.OnlineOrderBackOffice
             categoryGridcount = rgEligibleInvestorCategories.Items.Count;
             serisecount = rgSeries.Items.Count;
 
-            if ((categoryGridcount == 0 || serisecount == 0) && ddlSubInstrCategory.SelectedValue == "FISDSD")
+            if ((categoryGridcount == 0 || serisecount == 0) && ddlSubInstrCategory.SelectedValue == "FISDSD" || ddlSubInstrCategory.SelectedValue == "FICDCD" || ddlSubInstrCategory.SelectedValue == "FINPNP")
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please Fill All The series.');", true);
                 chkIsActive.Checked = false;
@@ -5817,10 +5828,12 @@ namespace WealthERP.OnlineOrderBackOffice
         {
 
             //Ncd
-            trNomineeReQuired.Visible = false;
-            
-            trMaxQty.Visible = true;
-            txtMaxQty.Visible = false;
+            chkNomineeReQuired.Visible = false;
+
+
+           txtMaxQty.Visible = false;
+           lblMaxError.Visible = false;
+
             Label15.Visible = false;
             trIssueqtySize.Visible = false;
             trTradinglotBidding.Visible = false;
@@ -5838,12 +5851,12 @@ namespace WealthERP.OnlineOrderBackOffice
 
             //both
             //trFloorAndFixedPrices.Visible = true;
-            trExchangeCode.Visible = false;
+            
             //trRatingAndModeofTrading.Visible = true;
             trSBIRegistationNoAndISINNumber.Visible = true;
 
 
-            if (category == "FICGCG")
+            if (category == "FICGCG" || category == "FICDCD" || category == "FINPNP")
             {
 
                 trMultipleApplicationAllowed.Visible = false;
@@ -5852,13 +5865,15 @@ namespace WealthERP.OnlineOrderBackOffice
                 trFloorAndFixedPrices.Visible = false;
                 trMinQty.Visible = true;
                 trMaxQty.Visible = true;
+                lblBrokerCode.Visible = true;
+                tdBroker.Visible = true;
                 //chkIsActive.Enabled = false;
                 trExchangeCode.Visible = true;
                 tdlblCategory.Visible = true;
                 tdddlCategory.Visible = true;
                 txtIsPrefix.Visible = true;
-                tdlb1MinQty.Visible = false;
-                tdltxtMinQty.Visible = false;
+                //tdlb1MinQty.Visible = false;
+                //tdltxtMinQty.Visible = false;
                 tdlb1ModeofTrading.Visible = true;
                 tdtxtModeofTrading.Visible = true;
                 tdlb1SBIRegistationNo.Visible = false;
@@ -5877,7 +5892,9 @@ namespace WealthERP.OnlineOrderBackOffice
                 tdLabel24.Visible = false;
                 tdcuttoffonffine.Visible = false;
                 Label15.Visible = true;
-                txtMaxQty.Visible = true;
+              txtMaxQty.Visible = true;
+              lblMaxError.Visible = true;
+
                 lb1Trading.Visible = false;
                 txtTradingInMultipleOf.Visible = false;
                 trExchangeCode.Visible = false;
@@ -5921,37 +5938,42 @@ namespace WealthERP.OnlineOrderBackOffice
                 //txtIsPrefix.Visible = true;
                 //tdlb1MinQty.Visible = false;
                 //tdltxtMinQty.Visible = false;
-                //tdlb1ModeofTrading.Visible = true;
-                //tdtxtModeofTrading.Visible = true;
+                tdBroker.Visible = false;
+                tdlb1ModeofTrading.Visible = true;
+                tdtxtModeofTrading.Visible = true;
                 //tdlb1SBIRegistationNo.Visible = false;
                 //tdtxtSBIRegistationNo.Visible = false;
                 //trlblSyndicatet.Visible = false;
                 //lb1Rating.Text = "Rating:";
-                //trRange.Visible = true;
+                trRange.Visible = true;
+                lblBrokerCode.Visible = false;
                 //trSBIRegistationNoAndISINNumber.Visible = true;
-                //lb1InitialCqNo.Visible = true;
-                //txtInitialCqNo.Visible = true;
+                lb1InitialCqNo.Visible = true;
+                txtInitialCqNo.Visible = true;
                 //trIssueqtySize.Visible = false;
-                //tdLabel21.Visible = true;
-                //tdcuttoffonline.Visible = true;
-                //tdLabel24.Visible = true;
-                //tdcuttoffonffine.Visible = true;
+                tdLabel21.Visible = true;
+                tdcuttoffonline.Visible = true;
+                tdLabel24.Visible = true;
+                tdcuttoffonffine.Visible = true;
                 //Label15.Visible = false;
                 //txtMaxQty.Visible = false;
-                //lb1Trading.Visible = true;
-                //txtTradingInMultipleOf.Visible = true;
+                lb1Trading.Visible = true;
+                txtTradingInMultipleOf.Visible = true;
                 //trExchangeCode.Visible = true;
-                //trRevisionDate.Visible = true;
+                trRevisionDate.Visible = true;
+                chkTradebleExchange.Visible = true;
                 //trlblSyndicatet.Visible = false;
-                //trIsCancelAllowed.Visible = true;
+                trIsCancelAllowed.Visible = true;
                 //trNomineeReQuired.Visible = true;
-                //chkPutCallOption.Visible = true;
+                chkPutCallOption.Visible = true;
                 //rgEligibleInvestorCategories.Visible = true;
                 lblAssetsApplication.Visible = false;
                 txtBankName.Visible = false;
                 lb1BankName.Visible = true;
                 ddlBankName.Visible = true;
                 trExchangeCode.Visible = true;
+                tdlb1MinQty.Visible = false;
+                tdltxtMinQty.Visible = false;
                 //lb1ddlModeofIssue.Visible = true;
                 //ddlModeofIssue.Visible = false;
             }

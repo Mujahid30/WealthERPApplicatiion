@@ -809,7 +809,7 @@
                 <td class="rightData">
                     <telerik:RadDatePicker ID="txtOpenDate" CssClass="txtField" runat="server" Culture="English (United States)"
                         Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01"
-                        TabIndex="17" Width="200px" AutoPostBack="true">
+                        TabIndex="17" Width="206px" AutoPostBack="true">
                         <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
                             Skin="Telerik" EnableEmbeddedSkins="false">
                         </Calendar>
@@ -833,7 +833,7 @@
                 <td class="rightData">
                     <telerik:RadDatePicker ID="txtCloseDate" CssClass="txtField" runat="server" Culture="English (United States)"
                         Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01"
-                        Width="200px" TabIndex="17">
+                        Width="206px" TabIndex="17">
                         <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
                             Skin="Telerik" EnableEmbeddedSkins="false">
                         </Calendar>
@@ -861,11 +861,11 @@
                 Width="200px">
             </telerik:RadTimePicker>--%>
                     <asp:DropDownList ID="ddlOpenTimeHours" runat="server" CssClass="cmbField" AutoPostBack="true"
-                        Width="60px" />
+                        Width="64px" />
                     <asp:DropDownList ID="ddlOpenTimeMinutes" runat="server" CssClass="cmbField" AutoPostBack="true"
-                        Width="60px" />
+                        Width="64px" />
                     <asp:DropDownList ID="ddlOpenTimeSeconds" runat="server" CssClass="cmbField" AutoPostBack="true"
-                        Width="60px" />
+                        Width="64px" />
                     <%-- <asp:TextBox ID="txtOpenTimes" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>--%>
                     <span id="Span20" class="spnRequiredField">*</span>
                     <br />
@@ -898,11 +898,11 @@
                 </td>
                 <td class="rightData">
                     <asp:DropDownList ID="ddlCloseTimeHours" runat="server" CssClass="cmbField" AutoPostBack="true"
-                        Width="60px" />
+                        Width="64px" />
                     <asp:DropDownList ID="ddlCloseTimeMinutes" runat="server" CssClass="cmbField" AutoPostBack="true"
-                        Width="60px" />
+                        Width="64px" />
                     <asp:DropDownList ID="ddlCloseTimeSeconds" runat="server" CssClass="cmbField" AutoPostBack="true"
-                        Width="60px" />
+                        Width="64px" />
                     <span id="Span35" class="spnRequiredField">*</span>
                     <br />
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator30" runat="server" CssClass="rfvPCG"
@@ -936,11 +936,11 @@
                 </td>
                 <td class="rightData" id="tdcuttoffonline">
                     <asp:DropDownList ID="ddlCutOffTimeHours" runat="server" CssClass="cmbField" AutoPostBack="true"
-                        Width="60px" />
+                        Width="64px" />
                     <asp:DropDownList ID="ddlCutOffTimeMinutes" runat="server" CssClass="cmbField" AutoPostBack="true"
-                        Width="60px" />
+                        Width="64px" />
                     <asp:DropDownList ID="ddlCutOffTimeSeconds" runat="server" CssClass="cmbField" AutoPostBack="true"
-                        Width="60px" />
+                        Width="64px" />
                     <span id="Span36" class="spnRequiredField">*</span>
                     <br />
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator18" runat="server" CssClass="rfvPCG"
@@ -964,11 +964,11 @@
                 </td>
                 <td class="rightData" id="tdcuttoffonffine">
                     <asp:DropDownList ID="ddlOffCutOffTimeHours" runat="server" CssClass="cmbField" AutoPostBack="true"
-                        Width="60px" />
+                        Width="64px" />
                     <asp:DropDownList ID="ddlOffCutOffTimeMinutes" runat="server" CssClass="cmbField"
-                        AutoPostBack="true" Width="60px" />
+                        AutoPostBack="true" Width="64px" />
                     <asp:DropDownList ID="ddlOffCutOffTimeSeconds" runat="server" CssClass="cmbField"
-                        AutoPostBack="true" Width="60px" />
+                        AutoPostBack="true" Width="64px" />
                     <span id="Span44" class="spnRequiredField">*</span>
                     <br />
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator54" runat="server" CssClass="rfvPCG"
@@ -1035,7 +1035,7 @@
             </asp:RequiredFieldValidator>--%>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator3" ControlToValidate="txtIssueSizeQty"
                 runat="server" Display="Dynamic" ErrorMessage="Please Enter Numeric Value" CssClass="cvPCG"
-                ValidationExpression="[1-9]\d*$" ValidationGroup="SetUpSubmit">     
+                ValidationExpression="[0-9]\d*$" ValidationGroup="SetUpSubmit">     
             </asp:RegularExpressionValidator>
         </td>
         <td class="leftLabel">
@@ -1043,12 +1043,12 @@
         </td>
         <td class="rightData">
             <asp:TextBox ID="txtIssueSizeAmt" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
-            <span id="Span33" class="spnRequiredField">*</span>
+            <%--<span id="Span33" class="spnRequiredField">*</span>--%>
             <br />
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator41" runat="server" CssClass="rfvPCG"
+        <%--    <asp:RequiredFieldValidator ID="RequiredFieldValidator41" runat="server" CssClass="rfvPCG"
                 ErrorMessage="Please Enter Issue Size Amt" Display="Dynamic" ControlToValidate="txtIssueSizeAmt"
                 InitialValue="" ValidationGroup="SetUpSubmit">
-            </asp:RequiredFieldValidator>
+            </asp:RequiredFieldValidator>--%>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator4" ControlToValidate="txtIssueSizeAmt"
                 runat="server" Display="Dynamic" ErrorMessage="Please Enter Integer Type" CssClass="cvPCG"
                 ValidationExpression="[0-9]\d*$" ValidationGroup="SetUpSubmit">     
@@ -1120,9 +1120,9 @@
         <td class="leftLabel">
             <asp:Label ID="Label15" runat="server" Text="Max Qty:" CssClass="FieldName"></asp:Label>
         </td>
-        <td class="rightData">
+        <td id="tdmaxqty" runat="server">
             <asp:TextBox ID="txtMaxQty" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
-            <span id="Span30" class="spnRequiredField" visible="false"></span>
+            <asp:Label ID="lblMaxError" runat="server" CssClass="spnRequiredField" Text="*"></asp:Label></span>
             <br />
             <asp:RegularExpressionValidator ID="RegularExpressionValidator10" ControlToValidate="txtMaxQty"
                 runat="server" Display="Dynamic" ErrorMessage="Please Enter Integer Value" CssClass="cvPCG"
@@ -1143,7 +1143,7 @@
         <td class="rightData">
             <asp:CheckBox ID="chkIsPrefix" runat="server" CssClass="txtField" Text="" OnCheckedChanged="chkIsPrefix_changed"
                 AutoPostBack="true"></asp:CheckBox>
-            <asp:TextBox ID="txtIsPrefix" runat="server" CssClass="txtField" Width="170px"></asp:TextBox>
+            <asp:TextBox ID="txtIsPrefix" runat="server" CssClass="txtField" Width="170px" Visible="false"></asp:TextBox>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator17" ControlToValidate="txtIsPrefix"
                 runat="server" Display="Dynamic" ErrorMessage="<br/>Please Enter Integer Value"
                 CssClass="cvPCG" ValidationExpression="[0-9]\d*$" ValidationGroup="SetUpSubmit">                     
@@ -1154,10 +1154,10 @@
         <td class="leftLabel">
             <asp:Label ID="lb1Trading" runat="server" Text="Multiples of:" CssClass="FieldName"></asp:Label>
         </td>
-        <td class="rightData">
+        <td class="rightData" id="tdTradingMultipleOF" runat="server">
             <asp:TextBox ID="txtTradingInMultipleOf" runat="server" CssClass="txtField" Width="200px"
                 Text="1" Enabled="true"></asp:TextBox>
-            <span id="Span15" class="spnRequiredField">*</span>
+            <span id="Span15" class="spnRequiredField"></span>
             <br />
             <asp:RequiredFieldValidator ID="RequiredFieldValidator27" runat="server" CssClass="rfvPCG"
                 ErrorMessage="Please Enter Trading In Multiple Of" Display="Dynamic" ControlToValidate="txtTradingInMultipleOf"
@@ -1231,7 +1231,7 @@
                 <td class="rightData">
                     <telerik:RadDatePicker ID="txtRevisionDates" CssClass="txtField" runat="server" Culture="English (United States)"
                         Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01"
-                        Width="200px" TabIndex="17">
+                        Width="208px" TabIndex="17">
                         <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
                             Skin="Telerik" EnableEmbeddedSkins="false">
                         </Calendar>
@@ -1252,7 +1252,7 @@
                 <td class="rightData">
                     <telerik:RadDatePicker ID="txtAllotmentDate" CssClass="txtField" runat="server" Culture="English (United States)"
                         Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01"
-                        Width="200px" TabIndex="17">
+                        Width="208px" TabIndex="17">
                         <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
                             Skin="Telerik" EnableEmbeddedSkins="false">
                         </Calendar>
@@ -1270,7 +1270,7 @@
                     <asp:Label ID="lblSyndicatet" runat="server" Text="Syndicate:" CssClass="FieldName"></asp:Label>
                 </td>
                 <td id="tdddllblSyndicatet">
-                    <asp:DropDownList ID="ddllblSyndicatet" runat="server" CssClass="cmbField">
+                    <asp:DropDownList ID="ddllblSyndicatet" runat="server" CssClass="cmbField" Width="165px">
                     </asp:DropDownList>
                     <span id="Span40" class="spnRequiredField">*</span>
                     <asp:ImageButton ID="ImageddlSyndicate" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
@@ -1285,8 +1285,8 @@
                 <td align="right">
                     <asp:Label ID="lblBrokerCode" runat="server" CssClass="FieldName" Text="Broker:"></asp:Label>
                 </td>
-                <td>
-                    <asp:DropDownList ID="ddlBrokerCode" runat="server" CssClass="cmbField">
+                <td id="tdBroker" runat="server">
+                    <asp:DropDownList ID="ddlBrokerCode" runat="server" CssClass="cmbField" Width="165px">
                     </asp:DropDownList>
                     <span id="Span41" class="spnRequiredField">*</span>
                     <asp:ImageButton ID="ImagddlBrokerCode" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
@@ -1307,7 +1307,7 @@
                     <asp:Label ID="lblChnl" runat="server" Text="Business Channel:" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightData">
-                    <asp:DropDownList ID="ddlBssChnl" runat="server" CssClass="cmbField" AutoPostBack="true">
+                    <asp:DropDownList ID="ddlBssChnl" runat="server" CssClass="cmbField" AutoPostBack="true" Width="205px">
                     </asp:DropDownList>
                     <span id="Span42" class="spnRequiredField">*</span>
                     <br />

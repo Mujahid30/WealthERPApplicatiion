@@ -176,6 +176,9 @@ namespace WealthERP.OnlineOrderBackOffice
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdtxtModeofTrading;
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trMultipleApplicationAllowed;
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trlblSyndicatet;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdmaxqty;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdBroker;
+       protected global::System.Web.UI.WebControls.Label lblMaxError;
         /// <summary>
         /// lblCategory control.
         /// </summary>

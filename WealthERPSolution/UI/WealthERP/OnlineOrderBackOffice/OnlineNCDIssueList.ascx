@@ -30,13 +30,12 @@
                 <table cellspacing="0" cellpadding="3" width="100%">
                     <tr>
                         <td align="left">
-                           Issue List
+                            Issue List
                         </td>
                         <td>
-                        <asp:ImageButton ID="btnNcdIpoExport" runat="server" ImageUrl="~/Images/Export_Excel.png"
+                            <asp:ImageButton ID="btnNcdIpoExport" runat="server" ImageUrl="~/Images/Export_Excel.png"
                                 AlternateText="Excel" ToolTip="Export To Excel" Visible="false" OnClientClick="setFormat('excel')"
                                 Height="25px" Width="25px" OnClick="btnNcdIpoExport_Click"></asp:ImageButton>
-                        
                         </td>
                     </tr>
                 </table>
@@ -44,7 +43,7 @@
         </td>
     </tr>
 </table>
-<table width="60%" runat="server" id="tbNcdIssueList">
+<table width="100%" runat="server" id="tbNcdIssueList">
     <tr runat="server" visible="false">
         <td class="leftLabel" runat="server" visible="false">
             <asp:Label ID="lb1date" runat="server" Text="Date:" CssClass="FieldName"></asp:Label>
@@ -118,13 +117,15 @@
                     InitialValue="Select"></asp:RequiredFieldValidator>
             </td>--%>
     </tr>
+</table>
+<table>
     <tr>
-        <td class="leftLabel">
+        <td align="right" style="padding-left:10px;">
             <asp:Label ID="Label2" runat="server" Text="Product:" CssClass="FieldName"></asp:Label>
         </td>
-        <td class="rightData">
+        <td>
             <asp:DropDownList ID="ddlProduct" runat="server" CssClass="cmbField" AutoPostBack="true"
-                Width="105px" OnSelectedIndexChanged="ddlProduct_OnSelectedIndexChanged">
+                Width="180px" OnSelectedIndexChanged="ddlProduct_OnSelectedIndexChanged">
                 <asp:ListItem Value="Select">Select</asp:ListItem>
                 <asp:ListItem Value="Bonds">Bonds</asp:ListItem>
                 <asp:ListItem Value="IP">IPO</asp:ListItem>
@@ -135,19 +136,24 @@
                 CssClass="rfvPCG" ControlToValidate="ddlProduct" ValidationGroup="btnGo" Display="Dynamic"
                 InitialValue="Select"></asp:RequiredFieldValidator>
         </td>
-        <td align="right" id="tdcategory" runat="server" visible="false">
-        <asp:Label ID="lblCategory" runat="server" CssClass="FieldName" Text="Category"></asp:Label>
+        <td align="right" id="tdcategory" runat="server" visible="false" style="padding-left:10px;">
+            <asp:Label ID="lblCategory" runat="server" CssClass="FieldName" Text="Category:"></asp:Label>
         </td>
-        <td id="tdCategorydropdown" runat="server" Visible="false">
-        <asp:DropDownList ID="ddlCategory" runat="server" CssClass="cmbField"  >
-        </asp:DropDownList>
+        <td id="tdCategorydropdown" runat="server" visible="false">
+            <asp:DropDownList ID="ddlCategory" runat="server" CssClass="cmbField" Width="200px">
+            </asp:DropDownList>
+             <span id="Span1" class="spnRequiredField">*</span>
+            <br />
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Please Select Category"
+                CssClass="rfvPCG" ControlToValidate="ddlCategory" ValidationGroup="btnGo" Display="Dynamic"
+                InitialValue="Select"></asp:RequiredFieldValidator>
         </td>
-        <td class="leftLabel">
+        <td align="right" style="padding-left:10px;">
             <asp:Label ID="lb1Type" runat="server" Text="Type:" CssClass="FieldName"></asp:Label>
         </td>
-        <td class="rightData">
+        <td>
             <asp:DropDownList ID="ddlType" runat="server" CssClass="cmbField" AutoPostBack="true"
-                Width="205px">
+                Width="180px">
                 <asp:ListItem Value="Select">Select</asp:ListItem>
                 <asp:ListItem Value="Curent">Current Issues</asp:ListItem>
                 <asp:ListItem Value="Closed">Closed Issues</asp:ListItem>
@@ -159,21 +165,12 @@
                 CssClass="rfvPCG" ControlToValidate="ddlType" ValidationGroup="btnGo" Display="Dynamic"
                 InitialValue="Select"></asp:RequiredFieldValidator>
         </td>
-    </tr>
-    <tr id="trBtnSubmit" runat="server">
-        <td class="leftLabel">
+        <td align="right" style="padding-left:10px;">
             <asp:Button ID="btnGo" runat="server" Text="Go" CssClass="PCGButton" ValidationGroup="btnGo"
                 OnClick="btnGo_Click" />
         </td>
-        <td class="rightData">
-            &nbsp;
-        </td>
-        <td class="leftLabel">
-            &nbsp;
-        </td>
-        <td class="rightData">
-            &nbsp;
-        </td>
+    </tr>
+    <tr id="trBtnSubmit" runat="server">
     </tr>
 </table>
 <asp:Panel ID="pnlIssueList" runat="server" class="Landscape" Width="80%" Height="80%"
@@ -184,7 +181,7 @@
                 <div id="dvIssueList" runat="server" style="width: auto;">
                     <telerik:RadGrid ID="gvIssueList" runat="server" GridLines="None" AutoGenerateColumns="False"
                         PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
-                        Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" AllowFilteringByColumn="true"
+                        Skin="Telerik" EnableEmbeddedSkins="false"  AllowFilteringByColumn="true"
                         AllowAutomaticInserts="false" ExportSettings-FileName="Issue List" OnNeedDataSource="gvIssueList_OnNeedDataSource">
                         <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
                             FileName="MF Order Recon" Excel-Format="ExcelML">
