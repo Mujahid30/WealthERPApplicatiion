@@ -2856,5 +2856,8 @@ namespace WealthERP.OPS {
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidAmt;
         protected global::System.Web.UI.WebControls.TextBox txtRemarks;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblDivType;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdddlDivType;
+
     }
 }

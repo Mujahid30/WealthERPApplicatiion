@@ -769,10 +769,10 @@
                             CssClass="rfvPCG" ErrorMessage="<br />Please select Scheme" Display="Dynamic"
                             runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
                     </td>
-                    <td align="right">
+                    <td align="right" id="tdlblDivType">
                         <asp:Label ID="lblDivType" runat="server" Text="Dividend Type:" CssClass="FieldName"></asp:Label>
                     </td>
-                    <td>
+                    <td  id="tdddlDivType">
                         <asp:DropDownList ID="ddlDivType" runat="server" CssClass="cmbField">
                             <%--<asp:ListItem Text="Select" Value="0"></asp:ListItem>
                             <asp:ListItem Text="Dividend Reinvestment" Value="DVR"></asp:ListItem>
@@ -803,9 +803,9 @@
                     </td>--%>
                 </tr>
                 <tr class="spaceUnder">
-                    <%-- <td colspan="2">
-                    </td>--%>
-                    <td align="center" style="vertical-align: top;" colspan="5">
+                     <td>
+                    </td>
+                    <td align="left" style="vertical-align: top;" colspan="5">
                         <table width="70%" class="SchemeInfoTable">
                             <tr class="SchemeInfoTable">
                                 <td align="left" style="vertical-align: top;">
@@ -1688,6 +1688,7 @@
         </table>
     </ContentTemplate>
     <Triggers>
+     <asp:PostBackTrigger ControlID="lnkBtnEdit" />
     </Triggers>
 </asp:UpdatePanel>
 <asp:Panel ID="Panel1" runat="server" class="Landscape" Width="100%" Height="600px"
@@ -1705,7 +1706,7 @@
                     onkeydown="return (event.keyCode!=13);" runat="server" CssClass="txtField"></asp:TextBox>
             </td>
         </tr>
-        <tr id="trBtnSubmit" runat="server">
+       <tr id="trBtnSubmit" runat="server">
             <td align="left" colspan="3">
                 <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="PCGButton" ValidationGroup="MFSubmit"
                     OnClick="btnSubmit_Click" />
@@ -1721,8 +1722,14 @@
                     Font-Size="Small" CssClass="cmbFielde" Visible="false"></asp:Label>
             </td>
         </tr>
+        
+        
     </table>
 </asp:Panel>
+
+<table>
+ 
+</table>
 <asp:Panel ID="pnlOrderSteps" runat="server" Width="100%" Height="80%" Visible="false">
     <table width="100%">
         <tr>

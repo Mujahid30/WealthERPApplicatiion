@@ -780,6 +780,8 @@ namespace WealthERP.OPS
                 //txtSearchScheme_autoCompleteExtender.ContextKey = parameters;
                 //txtSearchScheme_autoCompleteExtender.ServiceMethod = "GetSchemeName";
             }
+          
+
         }
 
         private void bindSearchScheme()
@@ -1000,12 +1002,14 @@ namespace WealthERP.OPS
             ddlDivType.DataSource = dtScheme;
             ddlDivType.DataValueField = "PSLV_LookupValueCode";
             ddlDivType.DataTextField = "PSLV_LookupValue";
+            ddlDivType.DataBind();
+            ddlDivType.Items.Insert(0, new ListItem("Select", "0"));
         }
 
         protected void GetControlDetails(int scheme, string folio)
         {
             DataSet ds = new DataSet();
-
+            string lookUpValue=string.Empty;
             if (ddltransType.SelectedValue == "SIP")
             {
                 ds = mfOrderBo.GetSipControlDetails(scheme );
@@ -1014,6 +1018,7 @@ namespace WealthERP.OPS
             {
                 ds = mfOrderBo.GetControlDetails(scheme, folio);
             }
+          
             DataTable dt = ds.Tables[0];
             if (dt.Rows.Count > -1)
             {
@@ -1022,7 +1027,7 @@ namespace WealthERP.OPS
                 {
                     if (!string.IsNullOrEmpty(dr["PSLV_LookupValue"].ToString()))
                     {
-                        //  lblDividendType.Text = dr["PSLV_LookupValue"].ToString();
+                        lookUpValue = dr["PSLV_LookupValue"].ToString();
                     }
                     if (!string.IsNullOrEmpty(dr["MinAmt"].ToString()))
                     {
@@ -1054,6 +1059,16 @@ namespace WealthERP.OPS
                 {
                     string date = Convert.ToDateTime(dsNav.Tables[0].Rows[0][0]).ToString("dd-MMM-yyyy");
                     lblNavDisplay.Text = dsNav.Tables[0].Rows[0][1] + " " + "As On " + " " + date;
+                }
+                if (lookUpValue == "Growth")
+                {
+                    tdlblDivType.Visible = false;
+                    tdddlDivType.Visible = false;
+                }
+                else
+                {
+                    tdlblDivType.Visible = true;
+                    tdddlDivType.Visible = true;
                 }
             }
 
@@ -3941,6 +3956,7 @@ namespace WealthERP.OPS
             //}
 
             //bindSearchScheme();
+          
         }
 
         protected void ddlCategory_SelectedIndexChanged(object sender, EventArgs e)
