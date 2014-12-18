@@ -123,7 +123,7 @@ namespace WealthERP.Receivable {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlProductType;
-        
+        protected global::System.Web.UI.WebControls.DropDownList ddlSubInstrCategory;
         /// <summary>
         /// RequiredFieldValidator1 control.
         /// </summary>
@@ -883,7 +883,9 @@ namespace WealthERP.Receivable {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label5;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblCategory;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdddlCategory;
+
         /// <summary>
         /// ddlMapping control.
         /// </summary>

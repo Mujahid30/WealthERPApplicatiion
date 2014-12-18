@@ -1104,12 +1104,29 @@
             </table>
             <table runat="server" id="tbNcdIssueList" visible="false">
                 <tr>
+                 <td class="leftLabel" id="tdlblCategory" runat="server" visible="false">
+            <asp:Label ID="Label16" runat="server" Text="Category:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td align="rightData" id="tdddlCategory" runat="server"  visible="false" >
+            <asp:DropDownList ID="ddlSubInstrCategory" runat="server" CssClass="cmbField"
+                AutoPostBack="true" Width="205px" >
+            </asp:DropDownList>
+            <asp:Label ID="lblcategoryerror" runat="server" Text="*" Visible="false"
+                CssClass="Error"></asp:Label><br />
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator10" runat="server" ErrorMessage="Please Select Category"
+                CssClass="rfvPCG" ControlToValidate="ddlSubInstrCategory" ValidationGroup="SetUpSubmit"
+                Display="Dynamic" InitialValue="Select"></asp:RequiredFieldValidator>
+            <asp:DropDownList ID="ddlInstrCat" runat="server" CssClass="cmbLongField" Width="500px"
+                Visible="false">
+            </asp:DropDownList>
+        </td>
                     <td align="right">
                         <asp:Label ID="Label9" runat="server" Text="Issue type:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
                         <asp:DropDownList ID="ddlIssueType" runat="server" CssClass="cmbField" AutoPostBack="true"
                             Width="205px" OnSelectedIndexChanged="ddlIssueType_Selectedindexchanged">
+                             <asp:ListItem Value="Select">Select</asp:ListItem>
                             <asp:ListItem Value="OpenIssue">Open Issue</asp:ListItem>
                             <asp:ListItem Value="ClosedIssue">Closed Issue</asp:ListItem>
                             <asp:ListItem Value="FutureIssue">Future Issue</asp:ListItem>

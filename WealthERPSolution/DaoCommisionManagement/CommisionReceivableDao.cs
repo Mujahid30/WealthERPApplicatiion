@@ -107,7 +107,7 @@ namespace DaoCommisionManagement
             return ds;
         }
 
-        public DataSet GetIssuesStructureMapings(int adviserId, string mappedType, string issueType, string product, int IsOnlineIssue, int structureId)
+        public DataSet GetIssuesStructureMapings(int adviserId, string mappedType, string issueType, string product, int IsOnlineIssue, int structureId, string SubCategoryCode)
         {
             Database db;
             DbCommand cmdIssueMap;
@@ -122,9 +122,9 @@ namespace DaoCommisionManagement
                 db.AddInParameter(cmdIssueMap, "@issueType", DbType.String, issueType);
                 db.AddInParameter(cmdIssueMap, "@product", DbType.String, product);
                 db.AddInParameter(cmdIssueMap, "@structureId", DbType.Int32, structureId);
-
-
                 db.AddInParameter(cmdIssueMap, "@IsOnlineIssue", DbType.Int16, IsOnlineIssue);
+                db.AddInParameter(cmdIssueMap, "@PAISC_AssetInstrumentSubCategoryCode", DbType.String, SubCategoryCode);
+               
                 ds = db.ExecuteDataSet(cmdIssueMap);
             }
             catch (BaseApplicationException Ex)

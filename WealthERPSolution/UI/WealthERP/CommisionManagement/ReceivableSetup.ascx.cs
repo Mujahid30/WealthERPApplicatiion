@@ -16,6 +16,8 @@ using System.Collections.Specialized;
 using Telerik.Web.UI;
 using System.Text;
 using BoAdvisorProfiling;
+using BoOnlineOrderManagement;
+
 
 namespace WealthERP.Receivable
 {
@@ -445,7 +447,8 @@ namespace WealthERP.Receivable
 
         private void ShowHideControlsBasedOnProduct(string asset)
         {
-
+            ddlSubInstrCategory.Items.Clear();
+            ddlSubInstrCategory.DataBind();
             if (asset == "MF")
             {
                 trIssuer.Visible = true;
@@ -464,6 +467,8 @@ namespace WealthERP.Receivable
                 lblSubCategory.Visible = false;
                 SpanCategory.Visible = false;
                 SpanSubCategory.Visible = false;
+                tdlblCategory.Visible = true;
+                tdddlCategory.Visible = true;
               
             }
             else if (asset == "IP")
@@ -474,6 +479,8 @@ namespace WealthERP.Receivable
                 lblSubCategory.Visible = false;
                 SpanCategory.Visible = false;
                 SpanSubCategory.Visible = false;
+                tdlblCategory.Visible = false;
+                tdddlCategory.Visible = false;
               
             }
 
@@ -705,6 +712,7 @@ namespace WealthERP.Receivable
                     GetUnamppedIssues(ddlIssueType.SelectedValue);
                     Table4.Visible = true;
                     tbNcdIssueList.Visible = true;
+                    BindBondCategories();
                 }
 
                 ShowAndHideVisible_FirstSection();
@@ -719,6 +727,21 @@ namespace WealthERP.Receivable
                 //pnlAddSchemesButton.Visible = true;
             }
 
+
+        }
+        private void BindBondCategories()
+        {
+            OnlineNCDBackOfficeBo onlineNCDBackOfficeBo = new OnlineNCDBackOfficeBo();
+            DataTable dtCategory = new DataTable();
+            dtCategory = onlineNCDBackOfficeBo.BindNcdCategory("SubInstrumentCat", "").Tables[0];
+            if (dtCategory.Rows.Count > 0)
+            {
+                ddlSubInstrCategory.DataSource = dtCategory;
+                ddlSubInstrCategory.DataValueField = dtCategory.Columns["PAISC_AssetInstrumentSubCategoryCode"].ToString();
+                ddlSubInstrCategory.DataTextField = dtCategory.Columns["PAISC_AssetInstrumentSubCategoryName"].ToString();
+                ddlSubInstrCategory.DataBind();
+            }
+            ddlSubInstrCategory.Items.Insert(0, new ListItem("Select", "Select"));
 
         }
 
@@ -2857,11 +2880,13 @@ namespace WealthERP.Receivable
         public void GetMapped_Unmapped_Issues(string type, string issueType)
         {
             DataTable dtmappedIssues = new DataTable();
+            ddlUnMappedIssues.Items.Clear();
+            ddlUnMappedIssues.DataBind();
             string product = string.Empty;
             int structureId = 0;
             product = hdnProductId.Value.ToString();
             structureId = Convert.ToInt32(hidCommissionStructureName.Value);
-            dtmappedIssues = commisionReceivableBo.GetIssuesStructureMapings(advisorVo.advisorId, type, issueType, product, 0, structureId).Tables[0];
+            dtmappedIssues = commisionReceivableBo.GetIssuesStructureMapings(advisorVo.advisorId, type, issueType, product, 0, structureId, (ddlSubInstrCategory.SelectedValue == "" || ddlSubInstrCategory.SelectedValue == "Select") ? "FIFIIP" : ddlSubInstrCategory.SelectedValue).Tables[0];
             if (dtmappedIssues == null)
                 return;
             if (dtmappedIssues.Rows.Count == 0)
@@ -2879,7 +2904,7 @@ namespace WealthERP.Receivable
             }
             else if (type == "UnMapped")
             {
-                ddlUnMappedIssues.Items.Clear();
+                
                 ddlUnMappedIssues.DataSource = dtmappedIssues;
                 ddlUnMappedIssues.DataTextField = "AIM_IssueName";
                 ddlUnMappedIssues.DataValueField = "AIM_IssueId";

@@ -81,7 +81,7 @@ namespace WealthERP.BusinessMIS
             ddlMnthQtr.Items.Add(new ListItem("FY-3", "15"));
             ddlMnthQtr.Items.Add(new ListItem("FY-4", "16"));
             ddlMnthQtr.Items.Insert(0, new ListItem("Select", "0"));
-            for (int i = 1980; i <=2030; i++)
+            for (int i = 2004; i <=2030; i++)
             {
                 ddlYear.Items.Add(new ListItem(i.ToString(), i.ToString()));
             }
@@ -108,13 +108,13 @@ namespace WealthERP.BusinessMIS
             {
                 ddlIssueName.Items.Clear();
                 ddlIssueName.DataBind();
-                BindMappedIssues(ddlIssueType.SelectedValue,ddlProduct.SelectedValue,int.Parse(ddlSelectMode.SelectedValue));
+                BindMappedIssues(ddlIssueType.SelectedValue,ddlProduct.SelectedValue,int.Parse(ddlSelectMode.SelectedValue),(ddlProductCategory.SelectedValue=="")?"FIFIIP":ddlProductCategory.SelectedValue);
                 
             }
         }
-        private void BindMappedIssues(string ModeOfIssue, string productType, int isOnlineIssue)
+        private void BindMappedIssues(string ModeOfIssue, string productType, int isOnlineIssue, string SubCategoryCode)
         {
-            DataSet dsCommissionReceivable = commisionReceivableBo.GetIssuesStructureMapings(advisorVo.advisorId, "MappedIssue", ModeOfIssue, productType, isOnlineIssue,0);
+            DataSet dsCommissionReceivable = commisionReceivableBo.GetIssuesStructureMapings(advisorVo.advisorId, "MappedIssue", ModeOfIssue, productType, isOnlineIssue, 0, SubCategoryCode);
             if (dsCommissionReceivable.Tables[0].Rows.Count > 0)
             {
                 ddlIssueName.DataSource = dsCommissionReceivable.Tables[0];
@@ -158,7 +158,8 @@ namespace WealthERP.BusinessMIS
         {
             tdCategory.Visible = false;
             tdDdlCategory.Visible = false;
-            
+            ddlProductCategory.Items.Clear();
+            ddlProductCategory.DataBind();
             if (asset == "MF")
             {
                 trSelectMutualFund.Visible = true;
@@ -188,6 +189,7 @@ namespace WealthERP.BusinessMIS
                 BindBondCategories();
                 tdCategory.Visible = true;
                 tdDdlCategory.Visible = true;
+               
 
             }
            
