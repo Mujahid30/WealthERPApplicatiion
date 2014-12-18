@@ -124,13 +124,13 @@ namespace BoOfflineOrderManagement
             }
             return OrderIds;
         }
-        public DataTable GetFDIddueList()
+        public DataTable GetFDIddueList(string Category)
         {
             DataTable dt;
             OfflineBondOrderDao offlineBondDao = new OfflineBondOrderDao();
             try
             {
-                dt = offlineBondDao.GetFDIddueList();
+                dt = offlineBondDao.GetFDIddueList(Category);
             }
             catch (BaseApplicationException Ex)
             {
@@ -138,13 +138,13 @@ namespace BoOfflineOrderManagement
             }
             return dt;
         }
-        public DataTable GetFD54IssueOrder(int adviserId, DateTime fromDate, DateTime toDate, int issueId, string userType, string AgentCode)
+        public DataTable GetFD54IssueOrder(int adviserId, DateTime fromDate, DateTime toDate, int issueId, string userType, string AgentCode,string category)
         {
             DataTable dt;
             OfflineBondOrderDao offlineBondDao = new OfflineBondOrderDao();
             try
             {
-                dt = offlineBondDao.GetFD54IssueOrder(adviserId, fromDate, toDate, issueId, userType, AgentCode);
+                dt = offlineBondDao.GetFD54IssueOrder(adviserId, fromDate, toDate, issueId, userType, AgentCode, category);
             }
             catch (BaseApplicationException Ex)
             {

@@ -181,7 +181,7 @@ namespace DaoOfflineOrderManagement
             }
             return OrderIds;
         }
-        public DataTable GetFDIddueList()
+        public DataTable GetFDIddueList(string Category)
         {
             Database db;
             DbCommand cmdGetFDIddueList;
@@ -191,6 +191,7 @@ namespace DaoOfflineOrderManagement
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmdGetFDIddueList = db.GetStoredProcCommand("SPROC_GetFDIsssue");
+                db.AddInParameter(cmdGetFDIddueList, "@AssetInstrumentSubCategoryCode", DbType.String, Category);
                 ds = db.ExecuteDataSet(cmdGetFDIddueList);
                 dtGetFDIddueList = ds.Tables[0];
             }
@@ -200,7 +201,7 @@ namespace DaoOfflineOrderManagement
             }
             return dtGetFDIddueList;
         }
-        public DataTable GetFD54IssueOrder(int adviserId, DateTime fromDate, DateTime toDate, int issueId,string usrtype,string agentcode)
+        public DataTable GetFD54IssueOrder(int adviserId, DateTime fromDate, DateTime toDate, int issueId,string usrtype,string agentcode,string category)
         {
             Database db;
             DbCommand cmdGetFD54IssueOrder;
@@ -216,6 +217,8 @@ namespace DaoOfflineOrderManagement
                 db.AddInParameter(cmdGetFD54IssueOrder, "@Todate", DbType.DateTime, toDate);
                 db.AddInParameter(cmdGetFD54IssueOrder, "@UserType", DbType.String, usrtype);
                 db.AddInParameter(cmdGetFD54IssueOrder, "@AgentCode", DbType.String, agentcode);
+                db.AddInParameter(cmdGetFD54IssueOrder, "@category", DbType.String, category);
+                
                 ds = db.ExecuteDataSet(cmdGetFD54IssueOrder);
                 dtGetFD54IssueOrder = ds.Tables[0];
             }

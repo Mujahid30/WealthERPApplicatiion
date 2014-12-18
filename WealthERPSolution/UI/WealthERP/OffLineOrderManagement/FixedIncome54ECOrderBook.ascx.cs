@@ -14,6 +14,7 @@ using VoUser;
 using System.Web.UI.HtmlControls;
 using Telerik.Web.UI;
 using BoOfflineOrderManagement;
+using BoOnlineOrderManagement;
 using VOAssociates;
 namespace WealthERP.OffLineOrderManagement
 {
@@ -38,7 +39,8 @@ namespace WealthERP.OffLineOrderManagement
             fromDate = DateTime.Now.AddMonths(-1);
             txtOrderFrom.SelectedDate = fromDate.Date;
             txtOrderTo.SelectedDate = DateTime.Now;
-            BindIssue();
+            //BindIssue();
+            BindNcdCategory();
             associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
             if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "associates")
             {
@@ -66,14 +68,39 @@ namespace WealthERP.OffLineOrderManagement
             }
 
         }
-        protected void BindIssue()
+        protected void BindIssue(string Category)
         {
-            DataTable dt = OfflineBondOrderBo.GetFDIddueList();
+            DataTable dt = OfflineBondOrderBo.GetFDIddueList(Category);
             ddlIssue.DataSource = dt;
             ddlIssue.DataValueField = "AIM_IssueId";
             ddlIssue.DataTextField = "AIM_IssueName";
             ddlIssue.DataBind();
             ddlIssue.Items.Insert(0, new ListItem("All", "0"));
+        }
+        private void BindNcdCategory()
+        {
+            DataTable dtCategory = new DataTable();
+            OnlineNCDBackOfficeBo onlineNCDBackOfficeBo = new OnlineNCDBackOfficeBo();
+            dtCategory = onlineNCDBackOfficeBo.BindNcdCategory("SubInstrumentCat", "").Tables[0];
+            if (dtCategory.Rows.Count > 0)
+            {
+                ddlCategory.DataSource = dtCategory;
+                ddlCategory.DataValueField = dtCategory.Columns["PAISC_AssetInstrumentSubCategoryCode"].ToString();
+                ddlCategory.DataTextField = dtCategory.Columns["PAISC_AssetInstrumentSubCategoryName"].ToString();
+                ddlCategory.DataBind();
+                ddlCategory.Items.FindByText("NCD").Enabled = false;
+            }
+            ddlCategory.Items.Insert(0, new ListItem("Select", "Select"));
+
+        }
+        protected void ddlCategory_Selectedindexchanged(object sender, EventArgs e)
+        {
+            if (ddlCategory.SelectedValue != "Select")
+            {
+                lblIssue.Visible = true;
+                ddlIssue.Visible = true;
+                BindIssue(ddlCategory.SelectedValue);
+            }
         }
         protected void btnGo_OnClick(object sender, EventArgs e)
         {
@@ -83,7 +110,7 @@ namespace WealthERP.OffLineOrderManagement
         protected void BindAdviserFDrderBook()
         {
 
-            DataTable dt54FDOrderBook = OfflineBondOrderBo.GetFD54IssueOrder(advisorVo.advisorId,fromDate,Convert.ToDateTime(txtOrderTo.SelectedDate), int.Parse(ddlIssue.SelectedValue),userType, AgentCode);
+            DataTable dt54FDOrderBook = OfflineBondOrderBo.GetFD54IssueOrder(advisorVo.advisorId,fromDate,Convert.ToDateTime(txtOrderTo.SelectedDate), int.Parse(ddlIssue.SelectedValue),userType, AgentCode,ddlCategory.SelectedValue);
 
             if (dt54FDOrderBook.Rows.Count >= 0)
             {

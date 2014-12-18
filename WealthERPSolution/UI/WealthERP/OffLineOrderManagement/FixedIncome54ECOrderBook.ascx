@@ -11,7 +11,7 @@
                 <table cellspacing="0" cellpadding="2" width="100%">
                     <tr>
                         <td align="left">
-                            54EC Orde Book
+                          FD/54EC & NPS Order Book
                         </td>
                         <td align="right" style="width: 10px">
                             <asp:ImageButton ID="imgexportButton" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
@@ -28,10 +28,17 @@
 <table>
     <tr>
         <td align="right">
-            <asp:Label ID="lblIssue" runat="server" Text="Issue Name:" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="lblCategory" runat="server" Text="Product Category:" CssClass="FieldName"></asp:Label>
         </td>
         <td>
-            <asp:DropDownList ID="ddlIssue" runat="server" CssClass="cmbField">
+            <asp:DropDownList ID="ddlCategory" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlCategory_Selectedindexchanged" AutoPostBack="true">
+            </asp:DropDownList>
+        </td>
+        <td align="right">
+            <asp:Label ID="lblIssue" runat="server" Text="Issue Name:" CssClass="FieldName" Visible="false"></asp:Label>
+        </td>
+        <td>
+            <asp:DropDownList ID="ddlIssue" runat="server" CssClass="cmbField" Visible="false">
             </asp:DropDownList>
         </td>
         <td align="right">
@@ -105,8 +112,8 @@
                                 PageSize="10" AllowPaging="True" AutoGenerateColumns="False" EnableEmbeddedSkins="False"
                                 GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="true" ShowStatusBar="True"
                                 Skin="Telerik" AllowFilteringByColumn="false" OnNeedDataSource="gv54FDOrderBook_OnNeedDataSource">
-                                <MasterTableView DataKeyNames="CO_OrderId,AIM_IssueId,C_CustomerId,AAC_AgentCode,AssociatesName" Width="100%" AllowMultiColumnSorting="True"
-                                    AutoGenerateColumns="false" AllowFilteringByColumn="true">
+                                <MasterTableView DataKeyNames="CO_OrderId,AIM_IssueId,C_CustomerId,AAC_AgentCode,AssociatesName"
+                                    Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" AllowFilteringByColumn="true">
                                     <Columns>
                                         <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="Action" DataField="Action"
                                             HeaderStyle-Width="110px">
@@ -117,7 +124,7 @@
                                                     <Items>
                                                         <asp:ListItem Text="Select" Value="Select" Selected="true" />
                                                         <asp:ListItem Text="View" Value="View" />
-                                                        <asp:ListItem Text="Edit" Value="Edit" Enabled="false"/>
+                                                        <asp:ListItem Text="Edit" Value="Edit" Enabled="false" />
                                                     </Items>
                                                 </asp:DropDownList>
                                             </ItemTemplate>
@@ -188,9 +195,10 @@
                                             AutoPostBackOnFilter="true" HeaderStyle-Width="80px" FilterControlWidth="75px">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
-                                         <telerik:GridBoundColumn DataField="CO_ApplicationNumber" AllowFiltering="true" HeaderText="Application No."
-                                            UniqueName="CO_ApplicationNumber" SortExpression="CO_ApplicationNumber" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                            AutoPostBackOnFilter="true" HeaderStyle-Width="80px" FilterControlWidth="75px">
+                                        <telerik:GridBoundColumn DataField="CO_ApplicationNumber" AllowFiltering="true" HeaderText="Application No."
+                                            UniqueName="CO_ApplicationNumber" SortExpression="CO_ApplicationNumber" ShowFilterIcon="false"
+                                            CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="80px"
+                                            FilterControlWidth="75px">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="Orderstep" AllowFiltering="true" HeaderText="Status"

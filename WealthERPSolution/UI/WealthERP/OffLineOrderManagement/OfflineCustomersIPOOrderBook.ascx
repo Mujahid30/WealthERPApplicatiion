@@ -310,11 +310,6 @@
                                             Visible="false">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="COS_Reason" AllowFiltering="false" HeaderText="Reject Reason"
-                                            HeaderStyle-Width="70px" UniqueName="COS_Reason" SortExpression="COS_Reason"
-                                            ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
-                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                        </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="DeputyHead" SortExpression="DeputyHead" AutoPostBackOnFilter="true"
                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="true"
                                             HeaderStyle-Width="160px" HeaderText="Deputy Manager" UniqueName="DeputyHead">
@@ -369,9 +364,9 @@
                                             HeaderStyle-Width="160px" HeaderText="User Type" UniqueName="UserType">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="CO_Remarks" AllowFiltering="true" HeaderText="Remarks"
-                                            UniqueName="CO_Remarks" HeaderStyle-Width="160px" CurrentFilterFunction="Contains"
-                                            ShowFilterIcon="false" SortExpression="CO_Remarks">
+                                        <telerik:GridBoundColumn DataField="COS_Reason" AllowFiltering="false" HeaderText="Remarks"
+                                            HeaderStyle-Width="70px" UniqueName="COS_Reason" SortExpression="COS_Reason"
+                                            ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridEditCommandColumn Visible="true" HeaderStyle-Width="60px" UniqueName="MarkAsReject"
