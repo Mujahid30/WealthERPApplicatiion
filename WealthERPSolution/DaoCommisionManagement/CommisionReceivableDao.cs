@@ -201,11 +201,11 @@ namespace DaoCommisionManagement
                 db.AddInParameter(cmdCreateCommissionStructure, "@UserType", DbType.String, userType);
                 if (!string.IsNullOrEmpty(Category))
                 {
-                    db.AddInParameter(cmdCreateCommissionStructure, "@StaffCategory", DbType.Int64, Category);
+                    db.AddInParameter(cmdCreateCommissionStructure, "@StaffCategory", DbType.String, Category);
                 }
                 else
                 {
-                    db.AddInParameter(cmdCreateCommissionStructure, "@StaffCategory", DbType.Int64, 0);
+                    db.AddInParameter(cmdCreateCommissionStructure, "@StaffCategory", DbType.String, 0);
 
                 }
                 db.AddInParameter(cmdCreateCommissionStructure, "@AgentId", DbType.String, agentId);
@@ -594,7 +594,7 @@ namespace DaoCommisionManagement
             }
             return ds;
         }
-        public int CreateUpdateDeleteCommissionTypeBrokerage(int ruleId, int commissionType, string brokerageUnit, decimal brokeragageValue, string commandType, int structureRuleDetailsId)
+        public int CreateUpdateDeleteCommissionTypeBrokerage(int ruleId, int commissionType, string brokerageUnit, decimal brokeragageValue, string commandType,int RuleDetailsId, int structureRuleDetailsId)
             //string issuerName, string commandType)
         {
            
@@ -610,6 +610,7 @@ namespace DaoCommisionManagement
                 db.AddInParameter(createCmd, "@brokerageUnit", DbType.String, brokerageUnit);
                 db.AddInParameter(createCmd, "@brokeragageValue", DbType.Decimal, brokeragageValue);
                 db.AddInParameter(createCmd, "@commandType", DbType.String, commandType);
+                db.AddInParameter(createCmd, "@RuleDetailsId", DbType.String, RuleDetailsId);
                 db.AddOutParameter(createCmd, "@structureRuleDetailsId", DbType.Int32, structureRuleDetailsId);
 
                 
@@ -668,6 +669,40 @@ namespace DaoCommisionManagement
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmdGetCatCm = db.GetStoredProcCommand("SPROC_GetCommissionTypeBrokerage");
+                db.AddInParameter(cmdGetCatCm, "@ruleId", DbType.Int32, ruleId);
+
+                ds = db.ExecuteDataSet(cmdGetCatCm);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommissionManagementDao.cs:GetCategories(string prodType)");
+                object[] objects = new object[1];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return ds;
+
+
+        }
+
+        public DataSet GetCommissionTypeAndBrokerage(int ruleId)
+        {
+            Database db;
+            DbCommand cmdGetCatCm;
+            DataSet ds = null;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetCatCm = db.GetStoredProcCommand("SP_GetCommissionTypeAndBrokerage");
                 db.AddInParameter(cmdGetCatCm, "@ruleId", DbType.Int32, ruleId);
 
                 ds = db.ExecuteDataSet(cmdGetCatCm);

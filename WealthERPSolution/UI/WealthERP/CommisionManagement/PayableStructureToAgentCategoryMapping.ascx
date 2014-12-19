@@ -220,6 +220,10 @@
         <td class="rightData">
             <asp:DropDownList ID="ddlAdviserCategory" runat="server" CssClass="cmbField">
             </asp:DropDownList>
+             <br />
+            <asp:RequiredFieldValidator ID="rfvddlAdviserCategory" ControlToValidate="ddlAdviserCategory" ErrorMessage="Please Select Category"
+                ValidationGroup="btnSubmitRule" Display="Dynamic" InitialValue="Select" runat="server" CssClass="rfvPCG">
+            </asp:RequiredFieldValidator>
         </td>
     </tr>
 </table>

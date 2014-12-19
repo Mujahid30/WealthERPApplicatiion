@@ -305,7 +305,7 @@ namespace WealthERP.Receivable
                 DropDownList ddlBrokerageUnit = (DropDownList)e.Item.FindControl("ddlBrokerageUnit");
 
 
-                commisionReceivableBo.CreateUpdateDeleteCommissionTypeBrokerage(ruleId, Convert.ToInt32(ddlCommissionype.SelectedValue), ddlBrokerageUnit.SelectedValue, Convert.ToDecimal(txtBrokerageValue.Text), "INSERT", 0);
+                commisionReceivableBo.CreateUpdateDeleteCommissionTypeBrokerage(ruleId, Convert.ToInt32(ddlCommissionype.SelectedValue), ddlBrokerageUnit.SelectedValue, Convert.ToDecimal(txtBrokerageValue.Text), "INSERT",0,0);
 
                 BindRuleDetGrid(rgCommissionTypeCaliculation, ruleId);
                 BindPayableGrid(Convert.ToInt32(hidCommissionStructureName.Value));
@@ -313,14 +313,14 @@ namespace WealthERP.Receivable
             else if (e.CommandName == RadGrid.UpdateCommandName)
             {
                 RadGrid rgCommissionTypeCaliculation = (RadGrid)source;
-                ruledetId = Convert.ToInt32(HiddenField1.Value);
-                ruleId = Convert.ToInt32(rgCommissionTypeCaliculation.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_CommissionStructureRuleId"].ToString());
+                ruleId  = Convert.ToInt32(HiddenField1.Value);
+                ruledetId = Convert.ToInt32(e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["CSRD_StructureRuleDetailsId"].ToString());
 
                 TextBox txtBrokerageValue = (TextBox)e.Item.FindControl("txtBrokerageValue");
                 DropDownList ddlCommissionype = (DropDownList)e.Item.FindControl("ddlCommissionype");
                 DropDownList ddlBrokerageUnit = (DropDownList)e.Item.FindControl("ddlBrokerageUnit");
 
-                commisionReceivableBo.CreateUpdateDeleteCommissionTypeBrokerage(ruleId, Convert.ToInt32(ddlCommissionype.SelectedValue), ddlBrokerageUnit.SelectedValue, Convert.ToDecimal(txtBrokerageValue.Text), "INSERT", 0);
+                commisionReceivableBo.CreateUpdateDeleteCommissionTypeBrokerage(ruleId, Convert.ToInt32(ddlCommissionype.SelectedValue), ddlBrokerageUnit.SelectedValue, Convert.ToDecimal(txtBrokerageValue.Text), "UPDATE", ruledetId,0);
 
                 BindRuleDetGrid(rgCommissionTypeCaliculation, ruleId);
                 BindPayableGrid(Convert.ToInt32(hidCommissionStructureName.Value));
@@ -369,22 +369,34 @@ namespace WealthERP.Receivable
             }
             else if ((e.Item is GridEditFormItem) && (e.Item.IsInEditMode) && e.Item.ItemIndex != -1)
             {
-                //GridEditFormItem editform = (GridEditFormItem)e.Item;
-                //int formrangeId = Convert.ToInt32(rgAplication.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIFR_Id"].ToString());
-
-                //TextBox txtFrom = (TextBox)editform.FindControl("txtFrom");
-                //TextBox txtTo = (TextBox)editform.FindControl("txtTo");
-                //DataTable dtIssuer = new DataTable();
-                //dtIssuer = onlineNCDBackOfficeBo.GetActiveRange(advisorVo.advisorId, Convert.ToInt32(txtIssueId.Text)).Tables[0];
-                //DataTable tbl = (from DataRow dr in dtIssuer.Rows
-                //                 where dr["AIFR_Id"].ToString() == formrangeId.ToString()
-                //                 select dr).CopyToDataTable();
-
-                //foreach (DataRow dr in tbl.Rows)
-                //{
-                //    txtFrom.Text = dr["AIFR_From"].ToString();
-                //    txtTo.Text = dr["AIFR_To"].ToString();
-                //}
+                 
+                GridEditFormItem editFormItem = e.Item as GridEditFormItem;
+                GridDataItem parentItem = editFormItem.ParentItem;
+                int ruleID = Convert.ToInt32(e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["CSRD_StructureRuleDetailsId"].ToString());
+                DataSet dsCommissionTypesAndBrokerage;
+                dsCommissionTypesAndBrokerage = commisionReceivableBo.GetCommissionTypeAndBrokerage(ruleID);
+                DropDownList ddlCommissionype = (DropDownList)editFormItem.FindControl("ddlCommissionype");
+                DropDownList ddlBrokerageUnit = (DropDownList)editFormItem.FindControl("ddlBrokerageUnit");
+                TextBox txtBrokerageValue = editFormItem.FindControl("txtBrokerageValue") as TextBox;
+                txtBrokerageValue.Text = parentItem["CSRD_BrokageValue"].Text;          
+                //Commission Type Bind
+                DataSet dscommissionTypes;
+                dscommissionTypes = commisionReceivableBo.GetCommisionTypes();
+                ddlCommissionype.DataSource = dscommissionTypes.Tables[0];
+                ddlCommissionype.DataValueField = "WCMV_LookupId";
+                ddlCommissionype.DataTextField = "WCMV_Name";
+                ddlCommissionype.DataBind();
+                ddlCommissionype.SelectedValue = dsCommissionTypesAndBrokerage.Tables[0].Rows[0].ItemArray[4].ToString();
+                //Brokerage Bind
+                DataSet dsCommissionLookup;
+                dsCommissionLookup = (DataSet)Session["CommissionLookUpData"];
+                ddlBrokerageUnit.DataSource = dsCommissionLookup.Tables[3];
+                ddlBrokerageUnit.DataValueField = dsCommissionLookup.Tables[3].Columns["WCU_UnitCode"].ToString();
+                ddlBrokerageUnit.DataTextField = dsCommissionLookup.Tables[3].Columns["WCU_Unit"].ToString();
+                ddlBrokerageUnit.DataBind();
+                ddlBrokerageUnit.SelectedValue = "PER";
+                ddlBrokerageUnit.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
+                ddlBrokerageUnit.SelectedValue = dsCommissionTypesAndBrokerage.Tables[0].Rows[0].ItemArray[2].ToString();
             }
 
         }

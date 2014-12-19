@@ -379,14 +379,14 @@ namespace BoCommisionManagement
             return dsLookupData;
         }
 
-        public int CreateUpdateDeleteCommissionTypeBrokerage(int ruleId, int commissionType, string brokerageUnit, decimal brokeragageValue, string commandType, int structureRuleDetailsId)
+        public int CreateUpdateDeleteCommissionTypeBrokerage(int ruleId, int commissionType, string brokerageUnit, decimal brokeragageValue, string commandType, int RuleDetailsId, int structureRuleDetailsId)
        
         {
             CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
            
             try
             {
-                return commisionReceivableDao.CreateUpdateDeleteCommissionTypeBrokerage(ruleId, commissionType, brokerageUnit, brokeragageValue, commandType, structureRuleDetailsId);
+                return commisionReceivableDao.CreateUpdateDeleteCommissionTypeBrokerage(ruleId, commissionType, brokerageUnit, brokeragageValue, commandType,RuleDetailsId, structureRuleDetailsId);
             }
             catch (BaseApplicationException Ex)
             {
@@ -413,6 +413,33 @@ namespace BoCommisionManagement
             try
             {
                 dsLookupData = commisionReceivableDao.GetCommissionTypeBrokerage(ruleid);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommissionManagementBo.cs:GetCategories(string prodType)");
+                object[] objects = new object[1];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsLookupData;
+
+        }
+        public DataSet GetCommissionTypeAndBrokerage(int ruleid)
+        {
+            CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
+            DataSet dsLookupData;
+            try
+            {
+                dsLookupData = commisionReceivableDao.GetCommissionTypeAndBrokerage(ruleid);
 
             }
             catch (BaseApplicationException Ex)
