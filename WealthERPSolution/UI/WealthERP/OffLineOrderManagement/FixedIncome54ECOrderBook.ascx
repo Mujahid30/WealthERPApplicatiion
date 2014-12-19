@@ -33,12 +33,18 @@
         <td>
             <asp:DropDownList ID="ddlCategory" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlCategory_Selectedindexchanged" AutoPostBack="true">
             </asp:DropDownList>
+             <span id="Span3" class="spnRequiredField">*</span>
+             <br />
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="ddlCategory"
+                    ErrorMessage="<br />Please select Product Category" CssClass="cvPCG" Display="Dynamic"
+                    runat="server" InitialValue="Select" ValidationGroup="btnViewOrder">
+                </asp:RequiredFieldValidator>
         </td>
         <td align="right">
             <asp:Label ID="lblIssue" runat="server" Text="Issue Name:" CssClass="FieldName" Visible="false"></asp:Label>
         </td>
         <td>
-            <asp:DropDownList ID="ddlIssue" runat="server" CssClass="cmbField" Visible="false">
+            <asp:DropDownList ID="ddlIssue" runat="server" CssClass="cmbField" Visible="false" >
             </asp:DropDownList>
         </td>
         <td align="right">

@@ -40,33 +40,35 @@ namespace WealthERP.OffLineOrderManagement
             txtOrderFrom.SelectedDate = fromDate.Date;
             txtOrderTo.SelectedDate = DateTime.Now;
             //BindIssue();
-            BindNcdCategory();
-            associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
-            if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "associates")
+            if (!IsPostBack)
             {
-                userType = "associates";
-                if (UserTitle == "SubBroker")
+                BindNcdCategory();
+                associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
+                if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "associates")
                 {
-                    associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
-                    if (associateuserheirarchyVo.AgentCode != null)
+                    userType = "associates";
+                    if (UserTitle == "SubBroker")
                     {
-                        AgentCode = associateuserheirarchyVo.AgentCode.ToString();
+                        associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
+                        if (associateuserheirarchyVo.AgentCode != null)
+                        {
+                            AgentCode = associateuserheirarchyVo.AgentCode.ToString();
+                        }
+                        else
+                            AgentCode = "0";
                     }
                     else
-                        AgentCode = "0";
-                }
-                else
-                {
-                    associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
-                    if (associateuserheirarchyVo.AgentCode != null)
-                    { 
-                        AgentCode = associateuserheirarchyVo.AgentCode.ToString();
+                    {
+                        associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
+                        if (associateuserheirarchyVo.AgentCode != null)
+                        {
+                            AgentCode = associateuserheirarchyVo.AgentCode.ToString();
+                        }
+                        else
+                            AgentCode = "0";
                     }
-                    else
-                        AgentCode = "0";
                 }
             }
-
         }
         protected void BindIssue(string Category)
         {

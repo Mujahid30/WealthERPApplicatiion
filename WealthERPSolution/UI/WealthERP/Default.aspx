@@ -46,7 +46,7 @@
                 var mainframe_height = document.getElementById('mainframe').contentWindow.document.body.scrollHeight;
                 var the_height = (leftframe_height > mainframe_height) ? leftframe_height : mainframe_height;
                 if (the_height > 600) {
-                    var newHeight = the_height + 250;
+                    var newHeight = the_height + 450;
                     if (document.getElementById('leftframe').height != newHeight)
                         document.getElementById('leftframe').height = newHeight;
                     if (document.getElementById('mainframe').height != newHeight)
