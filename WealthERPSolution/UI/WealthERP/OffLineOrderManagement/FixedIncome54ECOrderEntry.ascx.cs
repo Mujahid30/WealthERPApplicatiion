@@ -179,6 +179,7 @@ namespace WealthERP.OffLineOrderManagement
                 {
                     int orderId = int.Parse(Request.QueryString["orderId"].ToString());
                     txtCustomerId.Value = Request.QueryString["customeId"].ToString();
+                    lblAssociate.Visible = true;
                     lblAssociatetext.Text = Request.QueryString["associatename"].ToString();
                     txtAssociateSearch.Text = Request.QueryString["agentcode"].ToString();
                     GetcustomerDetails();
@@ -4022,7 +4023,14 @@ namespace WealthERP.OffLineOrderManagement
                 {
                     txtQty.Text = dr["CFIOD_Quantity"].ToString();
                 }
-
+                if (!string.IsNullOrEmpty(dr["CFIOD_ExisitingDepositreceiptno"].ToString()))
+                {
+                    txtExistDepositreceiptno.Text = dr["CFIOD_ExisitingDepositreceiptno"].ToString();
+                 }
+                if (!string.IsNullOrEmpty(dr["CFIOD_RenewalAmount"].ToString()))
+                {
+                    txtRenAmt.Text = dr["CFIOD_RenewalAmount"].ToString();
+                }
                 TxtPurAmt.Text = dr["CFIOD_AmountPayable"].ToString();
                 if (!string.IsNullOrEmpty(dr["XPM_PaymentModeCode"].ToString()))
                 {

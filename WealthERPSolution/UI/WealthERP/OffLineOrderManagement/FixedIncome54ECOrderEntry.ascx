@@ -23,6 +23,51 @@
     }
 </script>
 
+<script type="text/javascript">
+    var TargetBaseControl = null;
+    var TragetBaseControl2 = null;
+
+    window.onload = function() {
+        try {
+            //get target base control.
+            TargetBaseControl =
+           document.getElementById('<%=this.gvDematDetailsTeleR.ClientID %>');
+
+        }
+        catch (err) {
+            TargetBaseControl = null;
+        }
+    }
+
+    function TestCheckBox() {
+        if (TargetBaseControl == null) return false;
+
+        //get target child control.
+        var TargetChildControl = "chkDematId";
+        var Count = 0;
+        //get all the control of the type INPUT in the base control.
+        var Inputs = TargetBaseControl.getElementsByTagName("input");
+
+        for (var n = 0; n < Inputs.length; ++n)
+            if (Inputs[n].type == 'checkbox' &&
+            Inputs[n].id.indexOf(TargetChildControl, 0) >= 0 &&
+            Inputs[n].checked)
+            Count++;
+        if (Count > 1) {
+            alert('Please Select One Demat!');
+            return false;
+        }
+        else if (Count == 0) {
+            alert('Please Select Aleast One Demat!');
+            return false;
+        }
+
+        return true;
+
+
+    }
+    
+</script>
 <script type="text/javascript" language="javascript">
 
 
@@ -206,7 +251,7 @@
                 <table cellspacing="0" cellpadding="3" width="100%">
                     <tr id="Tr1" runat="server">
                         <td align="left">
-                            Order Entry
+                          FD/54EC & NPS Order Entry
                         </td>
                         <td align="right">
                             <%--   <asp:LinkButton ID="LinkButton1" runat="server"  CausesValidation="false"  Text="test"   OnClick ="lnlFIBack_Click"/>
@@ -486,7 +531,7 @@
                 CssClass="rfvPCG" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
         </td>
         <td align="right">
-            <asp:Label ID="lblAssociate" runat="server" CssClass="FieldName" Text="Associate:"></asp:Label>
+            <asp:Label ID="lblAssociate" runat="server" CssClass="FieldName" Text="Associate:" Visible="false"></asp:Label>
         </td>
         <td>
             <asp:Label ID="lblAssociatetext" runat="server" CssClass="FieldName" Enabled="false"></asp:Label>
