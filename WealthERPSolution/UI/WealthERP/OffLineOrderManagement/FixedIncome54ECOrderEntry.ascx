@@ -86,7 +86,24 @@
 
 
 
+    function openpopupAddCustomer() {
 
+        window.open('PopUp.aspx?AddMFCustLinkId=mf&pageID=CustomerType&', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')
+
+
+    }
+    function openpopupAddDematAccount() {
+
+        var customerId = document.getElementById("<%=txtCustomerId.ClientID %>").value;
+        var customerPortfolioId = document.getElementById("<%=hdnPortfolioId.ClientID %>").value;
+        if (customerId != 0) {
+            window.open('PopUp.aspx?PageId=AddDematAccountDetails&CustomerId=' + customerId + '&CustomerPortfolioId=' + customerPortfolioId, 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')
+
+        }
+        else {
+            alert("Please Select the Customer From Search")
+        }
+    }
 
     function ValidateAssociateName() {
         document.getElementById("<%=  lblAssociatetext.ClientID %>").value = eventArgs.get_value();
@@ -1138,3 +1155,4 @@
 <asp:HiddenField ID="hdnMinQty" runat="server" />
 <asp:HiddenField ID="hdnButtonAction" runat="server" />
 <asp:HiddenField ID="hdnMaxQty" runat="server" />
+<asp:HiddenField ID="hdnPortfolioId" runat="server" />

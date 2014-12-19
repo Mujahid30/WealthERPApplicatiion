@@ -180,6 +180,7 @@ namespace WealthERP.OffLineOrderManagement
                     int orderId = int.Parse(Request.QueryString["orderId"].ToString());
                     txtCustomerId.Value = Request.QueryString["customeId"].ToString();
                     lblAssociate.Visible = true;
+                   
                     lblAssociatetext.Text = Request.QueryString["associatename"].ToString();
                     txtAssociateSearch.Text = Request.QueryString["agentcode"].ToString();
                     GetcustomerDetails();
@@ -219,6 +220,10 @@ namespace WealthERP.OffLineOrderManagement
                     lblgetcust.Text = customerVo.FirstName + ' ' + customerVo.MiddleName + ' ' + customerVo.LastName;
                 OnTaxStatus();
                 BindBanks(customerId);
+                lblAssociate.Visible = true;
+                CustomerPortfolioVo customerPortfolioVo = new CustomerPortfolioVo();
+
+                hdnPortfolioId.Value = customerPortfolioVo.PortfolioId.ToString();
 
                 Table3.Visible = true;
                 Panel1.Visible = true;
