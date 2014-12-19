@@ -53,7 +53,7 @@
         <td align="right" id="tdDdlCategory" runat="server" visible="false">
         <asp:DropDownList ID="ddlProductCategory" runat="server" AutoPostBack="false" CssClass="cmbField">
         </asp:DropDownList>
-        <asp:CompareValidator ID="CompareValidator7" runat="server" ControlToValidate="ddlCategory"
+        <asp:CompareValidator ID="CompareValidator7" runat="server" ControlToValidate="ddlProductCategory"
                 CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select an Category type"
                 Operator="NotEqual" ValidationGroup="vgbtnSubmit" ValueToCompare="Select"></asp:CompareValidator>
 

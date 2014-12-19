@@ -328,7 +328,7 @@ namespace WealthERP.BusinessMIS
             //ds.ReadXml(Server.MapPath(@"\Sample.xml"));
             dvMfMIS.Visible = false;
             dvNCDIPOMIS.Visible = false;
-            ds = adviserMFMIS.GetCommissionReceivableRecon(ddlProduct.SelectedValue, int.Parse(ddlSelectMode.SelectedValue), advisorVo.advisorId, int.Parse(hdnschemeId.Value), int.Parse(hdnFromDate.Value), int.Parse(hdnToDate.Value), hdnCategory.Value, null, ddlCommType.SelectedValue, int.Parse(hdnSBbrokercode.Value), int.Parse(hdnIssueId.Value), Convert.ToInt32(ddlSearchType.SelectedValue),ddlOrderStatus.SelectedValue,AgentCode,ddlCategory.SelectedValue);
+            ds = adviserMFMIS.GetCommissionReceivableRecon(ddlProduct.SelectedValue, int.Parse(ddlSelectMode.SelectedValue), advisorVo.advisorId, int.Parse(hdnschemeId.Value), int.Parse(hdnFromDate.Value), int.Parse(hdnToDate.Value), hdnCategory.Value, null, ddlCommType.SelectedValue, int.Parse(hdnSBbrokercode.Value), int.Parse(hdnIssueId.Value), Convert.ToInt32(ddlSearchType.SelectedValue), ddlOrderStatus.SelectedValue, AgentCode, hdnProductCategory.Value);
             if (ds.Tables[0] != null)
             {
                 if (ddlProduct.SelectedValue.ToString() == "MF")
