@@ -907,7 +907,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
             btnSetUpSubmit.Visible = !boolBtnsVisblity;
             btnUpdate.Visible = boolBtnsVisblity;
-            lnkBtnEdit.Visible = boolBtnsVisblity;
+            lnkBtnEdit.Visible = true;
             lnlBack.Visible = boolBtnsVisblity;
             //lnkDelete.Visible = boolBtnsVisblity;
 
@@ -3140,7 +3140,7 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             int result = UpdateIssue();
             SeriesAndCategoriesGridsVisiblity(Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text));
-
+            lnkBtnEdit.Visible = true;
         }
 
         protected void lnkBtnEdit_Click(object sender, EventArgs e)
@@ -5580,7 +5580,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please Fill All The series.');", true);
                 chkIsActive.Checked = false;
             }
-            else if (serisecount == 0 && ddlSubInstrCategory.SelectedValue == "FICGCG" || ddlSubInstrCategory.SelectedValue == "FICDCD" || ddlSubInstrCategory.SelectedValue == "FINPNP")
+            else if (serisecount == 0 && (ddlSubInstrCategory.SelectedValue == "FICGCG" || ddlSubInstrCategory.SelectedValue == "FICDCD" || ddlSubInstrCategory.SelectedValue == "FINPNP"))
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please Fill All The series.');", true);
                 chkIsActive.Checked = false;
