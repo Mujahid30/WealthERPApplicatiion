@@ -617,6 +617,7 @@ namespace WealthERP.OnlineOrderManagement
             lblMutiplesThereAfterDisplay.Text = Math.Round(Convert.ToDecimal(dtSipDet["PASPSD_MultipleAmount"].ToString()), 2).ToString();
             lblCutOffTimeDisplay.Text = dtSipDet["PASPD_CutOffTime"].ToString();
             lblUnitHeldDisplay.Text = "0.00";
+          
         }
         protected void hidFolioNumber_ValueChanged(object sender, EventArgs e)
         {
@@ -706,6 +707,19 @@ namespace WealthERP.OnlineOrderManagement
                 lblCutOffTimeDisplay.Text = dtGetAllSIPDataForOrder.Rows[0]["PASPD_CutOffTime"].ToString();
                 ShowSipDates(dtGetAllSIPDataForOrder.Rows[0]["PASPSD_StatingDates"].ToString());
                 lblEndDateDisplay.Text = string.Empty;
+
+                if (!string.IsNullOrEmpty(dtGetAllSIPDataForOrder.Rows[0]["AVSD_ExpiryDtae"].ToString()) && Convert.ToDateTime(dtGetAllSIPDataForOrder.Rows[0]["AVSD_ExpiryDtae"].ToString()) > DateTime.Now && !string.IsNullOrEmpty(dtGetAllSIPDataForOrder.Rows[0]["PMFRD_RatingOverall"].ToString()))
+                {
+                    trSchemeRating.Visible = true;
+                    imgSchemeRating.ImageUrl = @"../Images/MorningStarRating/PMFRD_RatingOverall/" + dtGetAllSIPDataForOrder.Rows[0]["PMFRD_RatingOverall"].ToString() + ".png";
+                    //imgSchemeRating.ImageUrl = @"../Images/msgUnRead.png";
+                }
+                else
+                {
+                    trSchemeRating.Visible = false;
+
+                }
+
             }
         }
 

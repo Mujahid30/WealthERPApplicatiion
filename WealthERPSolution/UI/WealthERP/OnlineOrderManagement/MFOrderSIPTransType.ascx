@@ -83,7 +83,7 @@
                 <td>
                     <div class="divOnlinePageHeading">
                         <div class="divClientAccountBalance" id="divClientAccountBalance" runat="server">
-                           <asp:Label ID="lblUserAccount" runat="server" Text="" CssClass="BalanceAmount"></asp:Label>
+                            <asp:Label ID="lblUserAccount" runat="server" Text="" CssClass="BalanceAmount"></asp:Label>
                             <asp:Label ID="lblTest" runat="server" Text="" CssClass="BalanceAmount"></asp:Label>
                             <asp:Label ID="Label1" runat="server" Text="Available Limits:" CssClass="BalanceLabel"> </asp:Label>
                             <asp:Label ID="lblAvailableLimits" runat="server" Text="" CssClass="BalanceAmount"></asp:Label>
@@ -194,6 +194,9 @@
                                 <td>
                                     <asp:Label ID="lblMinAmountrequiredDisplay" runat="server" CssClass="readOnlyField"></asp:Label>
                                 </td>
+                               <td rowspan="4">
+                                    <asp:Image runat="server" ID="imgSchemeRating" AlternateText="SchemeRating" />
+                               </td>
                             </tr>
                             <tr class="SchemeInfoTable">
                                 <td align="left">
@@ -205,10 +208,17 @@
                                 <td style="vertical-align: top;" align="left">
                                     <asp:Label ID="lblMutiplesThereAfter" runat="server" CssClass="FieldName" Text="Subsequent Amount:</br>(In Multiples Of)"></asp:Label>
                                 </td>
-                                <td>
+                                <td >
                                     <asp:Label ID="lblMutiplesThereAfterDisplay" runat="server" CssClass="readOnlyField"></asp:Label>
-                                </td>
+                                </td>    
+                                                   
                             </tr>
+                            
+                            <tr runat="server" id="trSchemeRating">
+                              
+                              
+                            </tr>
+                            
                         </table>
                     </td>
                 </tr>
