@@ -818,7 +818,6 @@ namespace WealthERP.OnlineOrderManagement
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trSchemeRating;
 
         
-
         /// <summary>
         /// imgRatingDetails control.
         /// </summary>
