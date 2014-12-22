@@ -177,18 +177,36 @@ namespace WealthERP.OffLineOrderManagement
 
                 if (Request.QueryString["action"] != null)
                 {
-                    int orderId = int.Parse(Request.QueryString["orderId"].ToString());
-                    txtCustomerId.Value = Request.QueryString["customeId"].ToString();
-                    lblAssociate.Visible = true;
+                    if (Request.QueryString["action"].Trim() == "Edit")
+                    {
+                        int orderId = int.Parse(Request.QueryString["orderId"].ToString());
+                        txtCustomerId.Value = Request.QueryString["customeId"].ToString();
+                        lblAssociate.Visible = true;
 
-                    lblAssociatetext.Text = Request.QueryString["associatename"].ToString();
-                    txtAssociateSearch.Text = Request.QueryString["agentcode"].ToString();
-                    GetcustomerDetails();
-                    View54ECOrderDetails(orderId);
-                    lnkBtnEdit();
-                    btnUpdate.Visible = false;
+                        lblAssociatetext.Text = Request.QueryString["associatename"].ToString();
+                        txtAssociateSearch.Text = Request.QueryString["agentcode"].ToString();
+                        GetcustomerDetails();
+                        View54ECOrderDetails(orderId);
+                        lnkBtnEdit();
+                        btnUpdate.Visible = true;
+                        lnkBtnFIEdit.Visible = false;
+                    }
+
+                    else
+                    {
+                        int orderId = int.Parse(Request.QueryString["orderId"].ToString());
+                        txtCustomerId.Value = Request.QueryString["customeId"].ToString();
+                        lblAssociate.Visible = true;
+
+                        lblAssociatetext.Text = Request.QueryString["associatename"].ToString();
+                        txtAssociateSearch.Text = Request.QueryString["agentcode"].ToString();
+                        GetcustomerDetails();
+                        View54ECOrderDetails(orderId);
+                        lnkBtnEdit();
+                        btnUpdate.Visible = false;
+                    }
+
                 }
-
             }
             repoBo = new RepositoryBo();
 
@@ -717,7 +735,7 @@ namespace WealthERP.OffLineOrderManagement
 
         protected void lnkBtnEdit()
         {
-            lnkBtnFIEdit.Visible = true;
+            //lnkBtnFIEdit.Visible = true;
             btnUpdate.Visible = true;
             ViewForm = "Edit";
             SetFICOntrolsEnablity(true);

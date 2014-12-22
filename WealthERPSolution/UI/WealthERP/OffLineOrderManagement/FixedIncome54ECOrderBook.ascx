@@ -32,7 +32,7 @@
         </td>
         <td>
             <asp:DropDownList ID="ddlCategory" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlCategory_Selectedindexchanged"
-                AutoPostBack="true">
+                AutoPostBack="true" Width="210px">
             </asp:DropDownList>
             <span id="Span3" class="spnRequiredField">*</span>
             <br />
@@ -131,7 +131,7 @@
                                                     <Items>
                                                         <asp:ListItem Text="Select" Value="Select" Selected="true" />
                                                         <asp:ListItem Text="View" Value="View" />
-                                                        <asp:ListItem Text="Edit" Value="Edit" Enabled="false" />
+                                                        <asp:ListItem Text="Edit" Value="Edit" />
                                                     </Items>
                                                 </asp:DropDownList>
                                             </ItemTemplate>

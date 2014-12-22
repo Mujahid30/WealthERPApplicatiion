@@ -44,11 +44,19 @@ namespace WealthERP.OnlineOrderBackOffice
                     type = Request.QueryString["type"].ToString();
                     product = Request.QueryString["product"].ToString();
                     date = Convert.ToDateTime(Request.QueryString["date"].ToString());
+                    string category = Request.QueryString["category"].ToString();
                     ddlType.SelectedValue = type;
+                    if (ddlType.SelectedValue == "Bonds")
+                    {
+                        tdCategorydropdown.Visible = true;
+                        tdcategory.Visible = true;
+                    }
                     txtDate.SelectedDate = DateTime.Now;
-                    ddlProduct.SelectedValue = product;
+                    ddlProduct.SelectedValue = category;
+                    BindNcdCategory();
+                    ddlCategory.SelectedValue = product;
                     pnlIssueList.Visible = true;
-                    BindViewListGrid(GetType(type), date, product);
+                    BindViewListGrid(GetType(type), date, category);
                 }
 
             }
@@ -145,7 +153,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     producttype = ddlCategory.SelectedValue;
                 else
                  producttype = "FIFIIP";
-             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineNCDIssueSetup", "loadcontrol('OnlineNCDIssueSetup','action=viewIsssueList&issueNo=" + issueNo + "&type=" + ddlType.SelectedValue + "&date=" + DateTime.Now + "&product=" + producttype + "');", true);
+             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineNCDIssueSetup", "loadcontrol('OnlineNCDIssueSetup','action=viewIsssueList&issueNo=" + issueNo + "&type=" + ddlType.SelectedValue + "&date=" + DateTime.Now + "&product=" + producttype + "&category=" + ddlProduct.SelectedValue + "');", true);
 
         }
         private void BindNcdCategory()

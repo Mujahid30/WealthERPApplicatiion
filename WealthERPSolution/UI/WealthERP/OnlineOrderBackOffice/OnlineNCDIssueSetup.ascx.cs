@@ -3169,13 +3169,15 @@ namespace WealthERP.OnlineOrderBackOffice
             string type = "";
             string date = "";
             string product = "";
+            string category = "";
             if (Request.QueryString["action"] != null)
             {
                 type = Request.QueryString["type"].ToString();
                 date = Request.QueryString["date"].ToString();
                 product = Request.QueryString["product"].ToString();
+                category = Request.QueryString["category"].ToString();
             }
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineNCDIssueList", "loadcontrol('OnlineNCDIssueList','action=viewIsssueList&type=" + type + "&date=" + date + "&product=" + product + "');", true);
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineNCDIssueList", "loadcontrol('OnlineNCDIssueList','action=viewIsssueList&type=" + type + "&date=" + date + "&product=" + product + "&category=" + category + "');", true);
         }
 
         private void SeriesAndCategoriesGridsVisiblity(int issuerId, int issueId)
@@ -5425,9 +5427,11 @@ namespace WealthERP.OnlineOrderBackOffice
         protected void btnIssuerPopClose_Click(object sender, EventArgs e)
         {
             radIssuerPopUp.VisibleOnPageLoad = false;
-            //BindIssuer();
+            if (ddlProduct.SelectedValue == "IP")
+                BindIssuer("FIFIIP");
+            else
+                BindIssuer(ddlSubInstrCategory.SelectedValue);
 
-            //BindIssuerGrid();
         }
 
         protected void btnImageActivRange_Click(object sender, ImageClickEventArgs e)
