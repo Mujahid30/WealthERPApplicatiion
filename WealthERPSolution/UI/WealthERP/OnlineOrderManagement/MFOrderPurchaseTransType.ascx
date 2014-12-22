@@ -40,6 +40,84 @@
     }
 </script>
 
+<script type="text/jscript">
+    Sys.WebForms.PageRequestManager.getInstance().add_endRequest(EndRequestHandler);
+    function EndRequestHandler(sender, args) {
+        if (args.get_error() == undefined) {
+            jQuery(document).ready(function($) {
+
+                $('[data-popup-target]').click(function() {
+                    $('html').addClass('overlay');
+                    var activePopup = $(this).attr('data-popup-target');
+                    $(activePopup).addClass('visible');
+
+                });
+
+                $(document).keyup(function(e) {
+                    if (e.keyCode == 27 && $('html').hasClass('overlay')) {
+                        clearPopup();
+                    }
+                });
+
+                $('.popup-exit').click(function() {
+                    clearPopup();
+
+                });
+
+                $('.popup-overlay').click(function() {
+                    clearPopup();
+                });
+
+                function clearPopup() {
+                    $('.popup.visible').addClass('transitioning').removeClass('visible');
+                    $('html').removeClass('overlay');
+
+                    setTimeout(function() {
+                        $('.popup').removeClass('transitioning');
+                    }, 200);
+                }
+
+            });
+        }
+    }
+
+    jQuery(document).ready(function($) {
+        $('[data-popup-target]').click(function() {
+            $('html').addClass('overlay');
+            var activePopup = $(this).attr('data-popup-target');
+            $(activePopup).addClass('visible');
+
+        });
+
+        $(document).keyup(function(e) {
+            if (e.keyCode == 27 && $('html').hasClass('overlay')) {
+                clearPopup();
+            }
+        });
+
+        $('.popup-exit').click(function() {
+            clearPopup();
+
+        });
+
+        $('.popup-overlay').click(function() {
+            clearPopup();
+        });
+
+        function clearPopup() {
+            $('.popup.visible').addClass('transitioning').removeClass('visible');
+            $('html').removeClass('overlay');
+
+            setTimeout(function() {
+                $('.popup').removeClass('transitioning');
+            }, 200);
+        }
+
+    });
+
+    
+</script>
+
 <script language="javascript" type="text/javascript">
     var crnt = 0;
     function PreventClicks() {
@@ -166,6 +244,9 @@
                                 <td>
                                     <asp:Label ID="lblMintxt" runat="server" CssClass="readOnlyField"></asp:Label>
                                 </td>
+                                <td rowspan="4">
+                                    <asp:Image runat="server" ID="imgSchemeRating" data-popup-target="#Rating-popup" />
+                                </td>
                             </tr>
                             <tr>
                                 <td align="left" style="vertical-align: top;">
@@ -175,17 +256,44 @@
                                     <asp:Label ID="lbltime" runat="server" Text="" CssClass="readOnlyField"></asp:Label>
                                 </td>
                                 <td align="left" style="vertical-align: top;">
-                                    <asp:Label ID="lblMultiple" runat="server" Text="Subsequent Amount:</br>(In Multiples Of)" CssClass="FieldName"></asp:Label>
+                                    <asp:Label ID="lblMultiple" runat="server" Text="Subsequent Amount:</br>(In Multiples Of)"
+                                        CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td>
                                     <asp:Label ID="lblMulti" runat="server" CssClass="readOnlyField"></asp:Label>
                                 </td>
-                                
+                            </tr>
+                            <tr runat="server" id="trSchemeRating">
+                                <td colspan="5">
+                                    <div id="Rating-popup" class="popup">
+                                        <div class="popup-body">
+                                            <span class="popup-exit"></span>
+                                            <div class="popup-content">
+                                                <h2 class="popup-title">
+                                                    <asp:Image runat="server" ID="imgRatingDetails" />
+                                                </h2>
+                                                <p>
+                                                    ©2014 Morningstar. All Rights Reserved. The information, data, analyses and opinions
+                                                    (“Information”) contained herein: (1) include the proprietary information of Morningstar
+                                                    and its content providers; (2) may not be copied or redistributed except as specifically
+                                                    authorised; (3) do not constitute investment advice; (4) are provided solely for
+                                                    informational purposes; (5) are not warranted to be complete, accurate or timely;
+                                                    and (6) may be drawn from fund data published on various dates. Morningstar is not
+                                                    responsible for any trading decisions, damages or other losses related to the Information
+                                                    or its use. Please verify all of the Information before using it and don’t make
+                                                    any investment decision except upon the advice of a professional financial adviser.
+                                                    Past performance is no guarantee of future results. The value and income derived
+                                                    from investments may go down as well as up.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="popup-overlay">
+                                    </div>
+                                </td>
                             </tr>
                         </table>
                     </td>
                 </tr>
-                
                 <tr class="spaceUnder">
                     <td>
                     </td>

@@ -167,6 +167,20 @@ namespace WealthERP.OnlineOrderManagement
                     {
                         lnkFactSheet.PostBackUrl = dr["url"].ToString();
                     }
+
+                    if (!string.IsNullOrEmpty(dr["AVSD_ExpiryDtae"].ToString()) && Convert.ToDateTime(dr["AVSD_ExpiryDtae"].ToString()) > DateTime.Now && !string.IsNullOrEmpty(dr["PMFRD_RatingOverall"].ToString()))
+                    {
+                        trSchemeRating.Visible = true;
+                        imgSchemeRating.ImageUrl = @"../Images/MorningStarRating/PMFRD_RatingOverall/" + dr["PMFRD_RatingOverall"].ToString() + ".png";
+                        //imgSchemeRating.ImageUrl = @"../Images/msgUnRead.png";
+                        imgRatingDetails.ImageUrl = @"../Images/MorningStarRating/RatingOverall/" + dr["PMFRD_RatingOverall"].ToString() + ".png";
+                    }
+                    else
+                    {
+                        trSchemeRating.Visible = false;
+
+                    }
+                
                 }
                 DataSet dsNav = commonLookupBo.GetLatestNav(int.Parse(ddlScheme.SelectedValue));
                 if (dsNav.Tables[0].Rows.Count > 0)
