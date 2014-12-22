@@ -713,6 +713,7 @@ namespace WealthERP.OnlineOrderManagement
                     trSchemeRating.Visible = true;
                     imgSchemeRating.ImageUrl = @"../Images/MorningStarRating/PMFRD_RatingOverall/" + dtGetAllSIPDataForOrder.Rows[0]["PMFRD_RatingOverall"].ToString() + ".png";
                     //imgSchemeRating.ImageUrl = @"../Images/msgUnRead.png";
+                    imgRatingDetails.ImageUrl = @"../Images/MorningStarRating/RatingOverall/" + dtGetAllSIPDataForOrder.Rows[0]["PMFRD_RatingOverall"].ToString() + ".png";
                 }
                 else
                 {
