@@ -180,7 +180,7 @@ namespace WealthERP.OffLineOrderManagement
                     int orderId = int.Parse(Request.QueryString["orderId"].ToString());
                     txtCustomerId.Value = Request.QueryString["customeId"].ToString();
                     lblAssociate.Visible = true;
-                   
+
                     lblAssociatetext.Text = Request.QueryString["associatename"].ToString();
                     txtAssociateSearch.Text = Request.QueryString["agentcode"].ToString();
                     GetcustomerDetails();
@@ -222,6 +222,7 @@ namespace WealthERP.OffLineOrderManagement
                 BindBanks(customerId);
                 lblAssociate.Visible = true;
                 CustomerPortfolioVo customerPortfolioVo = new CustomerPortfolioVo();
+                customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(int.Parse(txtCustomerId.Value));
 
                 hdnPortfolioId.Value = customerPortfolioVo.PortfolioId.ToString();
 
@@ -249,6 +250,7 @@ namespace WealthERP.OffLineOrderManagement
                 ddlBankName.Items.Insert(0, new ListItem("Select", "Select"));
             }
         }
+
         private void OnTaxStatus()
         {
 
@@ -271,7 +273,6 @@ namespace WealthERP.OffLineOrderManagement
             }
         }
 
-
         public void clearPancustomerDetails()
         {
             lblgetPan.Text = "";
@@ -279,6 +280,7 @@ namespace WealthERP.OffLineOrderManagement
             txtPansearch.Text = "";
             lblgetcust.Text = "";
         }
+
         protected void ddlsearch_Selectedindexchanged(object sender, EventArgs e)
         {
 
@@ -339,6 +341,7 @@ namespace WealthERP.OffLineOrderManagement
 
             }
         }
+
         private void GetAgentName(int agentId)
         {
             Agentname = customerBo.GetSubBrokerName(agentId);
@@ -386,8 +389,14 @@ namespace WealthERP.OffLineOrderManagement
 
         protected void ddlCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
+            DataTable dt = new DataTable();
+            ddlSeries.DataSource = dt;
+
             if (ddlCategory.SelectedIndex != 0)
+            {
+
                 FIScheme(advisorVo.advisorId, ddlCategory.SelectedValue);
+            }
 
             // FIIssuer(advisorVo.advisorId);
             if (ddlCategory.SelectedValue == "FICG")
@@ -445,6 +454,7 @@ namespace WealthERP.OffLineOrderManagement
                 ddlSeries.Items.Insert(0, new ListItem("Select", "Select"));
             }
         }
+
         protected void ddlScheme_SelectedIndexChanged(object sender, EventArgs e)
         {
 
@@ -475,6 +485,7 @@ namespace WealthERP.OffLineOrderManagement
             }
             OnPayAmtTextchanged(this, null);
         }
+
         protected void ddlTranstype_SelectedIndexChanged(object sender, EventArgs e)
         {
             TransactionTypeChanges(ddlTranstype.SelectedValue);
@@ -513,11 +524,13 @@ namespace WealthERP.OffLineOrderManagement
 
         }
 
+
         protected void BindddlProof(int proofTypeSelectedValue)
         {
             DataTable dtDpProofsForTypes = new DataTable();
             dtDpProofsForTypes = customerBo.GetCustomerProofsForTypes(proofTypeSelectedValue);
         }
+
         private void FICategory()
         {
             DataSet dsBankName = fiorderBo.GetFICategory();
@@ -701,6 +714,7 @@ namespace WealthERP.OffLineOrderManagement
             lnkBtnEdit();
 
         }
+
         protected void lnkBtnEdit()
         {
             lnkBtnFIEdit.Visible = true;
@@ -799,10 +813,10 @@ namespace WealthERP.OffLineOrderManagement
             fiorderVo.Frequency = ddlFrequency.SelectedValue;
             fiorderVo.Qty = Convert.ToDouble(txtQty.Text);
 
-            if (ddlPaymentMode.SelectedIndex != 0)
-                orderVo.PaymentMode = ddlPaymentMode.SelectedValue;
-            else
-                orderVo.PaymentMode = "ES";
+            //if (ddlPaymentMode.SelectedIndex != 0)
+            orderVo.PaymentMode = ddlPaymentMode.SelectedValue;
+            //else
+            //    orderVo.PaymentMode = "ES";
 
             if (!string.IsNullOrEmpty(txtPaymentNumber.Text.ToString().Trim()))
                 orderVo.ChequeNumber = txtPaymentNumber.Text;
@@ -912,6 +926,7 @@ namespace WealthERP.OffLineOrderManagement
             }
             return faceValue;
         }
+
         protected void OnQtytchanged(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(txtQty.Text))
@@ -1095,6 +1110,7 @@ namespace WealthERP.OffLineOrderManagement
             }
             OnPayAmtTextchanged(this, null);
         }
+
         private void FISeriesDetails(int SeriesID)
         {
             DataSet dsScheme = fiorderBo.GetFISeriesDetailssDetails(SeriesID);
@@ -1173,6 +1189,7 @@ namespace WealthERP.OffLineOrderManagement
             rwDematDetails.VisibleOnPageLoad = false;
 
         }
+
         private void BindgvFamilyAssociate(int demataccountid)
         {
             gvAssociate.Visible = true;
@@ -1190,6 +1207,7 @@ namespace WealthERP.OffLineOrderManagement
                 Cache.Insert("gvAssociate" + userVo.UserId, dsAssociate);
             }
         }
+
         private void GetDematAccountDetails(int customerId)
         {
             try
@@ -1208,7 +1226,10 @@ namespace WealthERP.OffLineOrderManagement
 
         private void FIScheme(int AdviserId, string category)
         {
-            DataSet dsScheme = fiorderBo.GetFIScheme(AdviserId, category);
+            DataSet dsScheme = new DataSet();
+            ddlScheme.DataSource = dsScheme;
+            Label12.Text = string.Empty;
+            dsScheme = fiorderBo.GetFIScheme(AdviserId, category);
             if (dsScheme.Tables[0].Rows.Count > 0)
             {
                 ddlScheme.DataSource = dsScheme;
@@ -3938,6 +3959,7 @@ namespace WealthERP.OffLineOrderManagement
         ////    //}
         ////    //ddlProof.Items.Insert(0, new ListItem("Select", "Select"));
         ////}
+
         private void BindProofTypeDP()
         {
             DataTable dtDpProofTypes = new DataTable();
@@ -4004,6 +4026,7 @@ namespace WealthERP.OffLineOrderManagement
         ////        //  BindISAList();
         ////    }
         ////}
+
         protected void View54ECOrderDetails(int orderid)
         {
             DataTable dtView54ECOrderDetails = fiorderBo.Get54ECOrderDetails(orderid);
@@ -4031,7 +4054,7 @@ namespace WealthERP.OffLineOrderManagement
                 if (!string.IsNullOrEmpty(dr["CFIOD_ExisitingDepositreceiptno"].ToString()))
                 {
                     txtExistDepositreceiptno.Text = dr["CFIOD_ExisitingDepositreceiptno"].ToString();
-                 }
+                }
                 if (!string.IsNullOrEmpty(dr["CFIOD_RenewalAmount"].ToString()))
                 {
                     txtRenAmt.Text = dr["CFIOD_RenewalAmount"].ToString();
@@ -4076,6 +4099,7 @@ namespace WealthERP.OffLineOrderManagement
             }
 
         }
+
         protected void GetcustomerDetails()
         {
             CustomerPortfolioVo customerPortfolioVo = new CustomerPortfolioVo();

@@ -68,6 +68,7 @@
     }
     
 </script>
+
 <script type="text/javascript" language="javascript">
 
 
@@ -268,7 +269,7 @@
                 <table cellspacing="0" cellpadding="3" width="100%">
                     <tr id="Tr1" runat="server">
                         <td align="left">
-                          FD/54EC & NPS Order Entry
+                            FD/54EC & NPS Order Entry
                         </td>
                         <td align="right">
                             <%--   <asp:LinkButton ID="LinkButton1" runat="server"  CausesValidation="false"  Text="test"   OnClick ="lnlFIBack_Click"/>
@@ -419,7 +420,6 @@
         </td>
     </tr>
     <tr id="trCustSearch" runat="server">
-    
         <td align="right">
             <asp:Label ID="lblsearch" runat="server" CssClass="FieldName" Text="Search for:"></asp:Label>
         </td>
@@ -430,15 +430,17 @@
                 <asp:ListItem Text="Customer" Value="1"></asp:ListItem>
                 <asp:ListItem Text="PAN" Value="2"></asp:ListItem>
             </asp:DropDownList>
+             <span id="Span14" class="spnRequiredField">*</span>
         </td>
-        <td align="right" runat="server"  Visible="false">
+           
+        
+        <td align="right" runat="server" visible="false">
             <asp:Label ID="lblARNNo" runat="server" CssClass="FieldName" Text="ARN No:"></asp:Label>
         </td>
         <td>
             <asp:DropDownList ID="ddlARNNo" runat="server" CssClass="cmbField" AutoPostBack="false"
                 TabIndex="1" Visible="false">
             </asp:DropDownList>
-            <span id="Span14" class="spnRequiredField">*</span>
             <asp:CompareValidator ID="CompareValidator12" runat="server" ControlToValidate="ddlARNNo"
                 CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select an ARN"
                 Operator="NotEqual" ValidationGroup="MFSubmit" ValueToCompare=""></asp:CompareValidator>
@@ -548,7 +550,8 @@
                 CssClass="rfvPCG" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
         </td>
         <td align="right">
-            <asp:Label ID="lblAssociate" runat="server" CssClass="FieldName" Text="Associate:" Visible="false"></asp:Label>
+            <asp:Label ID="lblAssociate" runat="server" CssClass="FieldName" Text="Associate:"
+                Visible="false"></asp:Label>
         </td>
         <td>
             <asp:Label ID="lblAssociatetext" runat="server" CssClass="FieldName" Enabled="false"></asp:Label>
@@ -919,10 +922,9 @@
                         <td class="rightField" style="width: 20%">
                             <asp:TextBox ID="txtDematid" Enabled="false" onkeydown="return (event.keyCode!=13);"
                                 runat="server" CssClass="txtField"></asp:TextBox>
-                                
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator6" ControlToValidate="txtDematid"
                                 ErrorMessage="<br />Please Select Demat from the List" Display="Dynamic" runat="server"
-                                CssClass="rfvPCG"   ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
+                                CssClass="rfvPCG" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
                         </td>
                         <td>
                         </td>
@@ -999,7 +1001,7 @@
         </td>
     </tr>
     <tr>
-        <td >
+        <td>
         </td>
     </tr>
     <tr id="trAmount" runat="server">
@@ -1051,9 +1053,14 @@
             <asp:Label ID="lblBankName" runat="server" Text="Bank Name:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField" style="width: 20%">
-            <asp:DropDownList ID="ddlBankName" runat="server" CssClass="cmbField" AutoPostBack="true">
+            <asp:DropDownList ID="ddlBankName" runat="server" CssClass="cmbField" AutoPostBack="true"
+                CausesValidation="true" >
             </asp:DropDownList>
             <span id="Span4" class="spnRequiredField">*</span>
+            
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator7" ControlToValidate="ddlBankName"
+                ErrorMessage="<br />Please Select Bank from the List" Display="Dynamic" runat="server"
+                CssClass="rfvPCG" InitialValue="Select" ValidationGroup="MFSubmit" ></asp:RequiredFieldValidator>
             <asp:ImageButton ID="imgAddBank" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
                 AlternateText="Add" runat="server" ToolTip="Click here to Add Bank" OnClientClick="return openpopupAddBank()"
                 Height="15px" Width="15px" Visible="false"></asp:ImageButton>
@@ -1144,12 +1151,12 @@
     <tr>
         <td>
             <asp:Button ID="BtnFileupload" runat="server" Text="Upload Documents" CssClass="PCGButton"
-                ValidationGroup="MFSubmit"   OnClick="BtnFileupload_Click" Visible="false" />
+                ValidationGroup="MFSubmit" OnClick="BtnFileupload_Click" Visible="false" />
         </td>
     </tr>
 </table>
 <asp:HiddenField ID="txtCustomerId" runat="server" OnValueChanged="txtCustomerId_ValueChanged1" />
-<asp:HiddenField ID="txtAgentId" runat="server" OnValueChanged="txtAgentId_ValueChanged1"/>
+<asp:HiddenField ID="txtAgentId" runat="server" OnValueChanged="txtAgentId_ValueChanged1" />
 <asp:HiddenField ID="hdnDefaulteInteresRate" runat="server" />
 <asp:HiddenField ID="hdnSeriesDetails" runat="server" />
 <asp:HiddenField ID="hdnMinQty" runat="server" />
