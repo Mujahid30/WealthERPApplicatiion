@@ -146,6 +146,8 @@ namespace WealthERP.OnlineOrderManagement
             dtMFUnitHolding.Columns.Add("IsSchemeSIPType");
             dtMFUnitHolding.Columns.Add("IsSchemePurchege");
             dtMFUnitHolding.Columns.Add("IsSchemeRedeem");
+            dtMFUnitHolding.Columns.Add("SchemeRatingOverall");
+            dtMFUnitHolding.Columns.Add("SchemeRatingSubscriptionExpiryDtae");
 
             return dtMFUnitHolding;
         }
@@ -287,6 +289,9 @@ namespace WealthERP.OnlineOrderManagement
                     drMFUnitHoplding["IsSchemeSIPType"] = mfPortfolioVo.IsSchemeSIPType;
                     drMFUnitHoplding["IsSchemePurchege"] = mfPortfolioVo.IsSchemePurchege;
                     drMFUnitHoplding["IsSchemeRedeem"] = mfPortfolioVo.IsSchemeRedeem;
+                    drMFUnitHoplding["SchemeRatingOverall"] = mfPortfolioVo.SchemeRatingOverall;
+                    drMFUnitHoplding["SchemeRatingSubscriptionExpiryDtae"] = mfPortfolioVo.SchemeRatingSubscriptionExpiryDtae;
+
                     dtMFUnitHoplding.Rows.Add(drMFUnitHoplding);
                 }
                 if (dtMFUnitHoplding.Rows.Count > 0)
@@ -460,6 +465,9 @@ namespace WealthERP.OnlineOrderManagement
 
                 Label lblSIPSchemeFlag = (Label)e.Item.FindControl("lblSIPSchemeFlag");
                 Label lblIsPurcheseFlag = (Label)e.Item.FindControl("lblIsPurcheseFlag");
+                Label lblSchemeRating = (Label)e.Item.FindControl("lblSchemeRating");
+                System.Web.UI.WebControls.Image imgSchemeRating = (System.Web.UI.WebControls.Image)e.Item.FindControl("imgSchemeRating");
+                System.Web.UI.WebControls.Image imgRatingDetails = (System.Web.UI.WebControls.Image)e.Item.FindControl("imgSchemeRating");
                 if (lblSIPSchemeFlag.Text.Trim().ToLower() == "false")
                 {
                     ImageButton imgSIP = (ImageButton)e.Item.FindControl("imgSip");
@@ -481,6 +489,13 @@ namespace WealthERP.OnlineOrderManagement
                 lblISRedeemFlag.Visible = false;
                 lblIsPurcheseFlag.Visible = false;
                 lblSIPSchemeFlag.Visible = false;
+
+
+                imgSchemeRating.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + lblSchemeRating.Text.Trim() + ".png";
+                 //imgSchemeRating.ImageUrl = @"../Images/msgUnRead.png";
+                ////imgRatingDetails.ImageUrl = @"../Images/MorningStarRating/RatingOverall/" + lblSchemeRating.Text.Trim() + ".png";
+             
+
             }
 
         }

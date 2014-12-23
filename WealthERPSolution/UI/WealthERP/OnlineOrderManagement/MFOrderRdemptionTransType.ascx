@@ -20,17 +20,14 @@
 
 <script src="../Scripts/JScript.js" type="text/javascript"></script>
 
-
 <asp:ScriptManager ID="ScriptManager1" runat="server">
 </asp:ScriptManager>
-
 <style>
     tr.spaceUnder > td
     {
         padding-bottom: .5em;
     }
 </style>
-
 <%--
     function Startblink() {
         alert(hello);
@@ -72,11 +69,6 @@
     }
 </script>
 
-
-
-
-
-
 <script language="javascript" type="text/javascript">
     var crnt = 0;
     function PreventClicks() {
@@ -103,13 +95,92 @@
     
 </script>
 
+<script type="text/jscript">
+    Sys.WebForms.PageRequestManager.getInstance().add_endRequest(EndRequestHandler);
+    function EndRequestHandler(sender, args) {
+        if (args.get_error() == undefined) {
+            jQuery(document).ready(function($) {
+
+                $('[data-popup-target]').click(function() {
+                    $('html').addClass('overlay');
+                    var activePopup = $(this).attr('data-popup-target');
+                    $(activePopup).addClass('visible');
+
+                });
+
+                $(document).keyup(function(e) {
+                    if (e.keyCode == 27 && $('html').hasClass('overlay')) {
+                        clearPopup();
+                    }
+                });
+
+                $('.popup-exit').click(function() {
+                    clearPopup();
+
+                });
+
+                $('.popup-overlay').click(function() {
+                    clearPopup();
+                });
+
+                function clearPopup() {
+                    $('.popup.visible').addClass('transitioning').removeClass('visible');
+                    $('html').removeClass('overlay');
+
+                    setTimeout(function() {
+                        $('.popup').removeClass('transitioning');
+                    }, 200);
+                }
+
+            });
+        }
+    }
+
+    jQuery(document).ready(function($) {
+        $('[data-popup-target]').click(function() {
+            $('html').addClass('overlay');
+            var activePopup = $(this).attr('data-popup-target');
+            $(activePopup).addClass('visible');
+
+        });
+
+        $(document).keyup(function(e) {
+            if (e.keyCode == 27 && $('html').hasClass('overlay')) {
+                clearPopup();
+            }
+        });
+
+        $('.popup-exit').click(function() {
+            clearPopup();
+
+        });
+
+        $('.popup-overlay').click(function() {
+            clearPopup();
+        });
+
+        function clearPopup() {
+            $('.popup.visible').addClass('transitioning').removeClass('visible');
+            $('html').removeClass('overlay');
+
+            setTimeout(function() {
+                $('.popup').removeClass('transitioning');
+            }, 200);
+        }
+
+    });
+
+    
+</script>
+
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
     <ContentTemplate>
         <table class="tblMessage" cellpadding="0" cellspacing="0">
             <tr>
                 <td>
                     <div class="divOnlinePageHeading">
-                        <div class="divClientAccountBalance" id="divClientAccountBalance" runat="server" visible="false">
+                        <div class="divClientAccountBalance" id="divClientAccountBalance" runat="server"
+                            visible="false">
                             <asp:Label ID="Label1" runat="server" Text="Available Limits:" CssClass="BalanceLabel"> </asp:Label>
                             <asp:Label ID="lblAvailableLimits" runat="server" Text="" CssClass="BalanceAmount"></asp:Label>
                         </div>
@@ -196,11 +267,14 @@
                                 <td>
                                     <asp:Label ID="lblNavDisplay" runat="server" CssClass="readOnlyField"></asp:Label>
                                 </td>
-                                <td align="left" style="width:25%";>
-                                    <asp:Label ID="lblMinAmount" runat="server" Text="Minimum Amount(Rs):"  CssClass="FieldName"></asp:Label>
+                                <td align="left" style="width: 25%">
+                                    <asp:Label ID="lblMinAmount" runat="server" Text="Minimum Amount(Rs):" CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td>
                                     <asp:Label ID="lblMinAmountValue" runat="server" Text="" CssClass="FieldName"></asp:Label>
+                                </td>
+                                <td rowspan="4">
+                                    <asp:Image runat="server" ID="imgSchemeRating" data-popup-target="#Rating-popup" />
                                 </td>
                             </tr>
                             <tr class="SchemeInfoTable">
@@ -215,6 +289,34 @@
                                 </td>
                                 <td>
                                     <asp:Label ID="lblMinUnitValue" runat="server" Text="" CssClass="FieldName"></asp:Label>
+                                </td>
+                            </tr>
+                            <tr runat="server" id="trSchemeRating">
+                                <td colspan="5">
+                                    <div id="Rating-popup" class="popup">
+                                        <div class="popup-body">
+                                            <span class="popup-exit"></span>
+                                            <div class="popup-content">
+                                                <h2 class="popup-title">
+                                                    <asp:Image runat="server" ID="imgRatingDetails" />
+                                                </h2>
+                                                <p>
+                                                    ©2014 Morningstar. All Rights Reserved. The information, data, analyses and opinions
+                                                    (“Information”) contained herein: (1) include the proprietary information of Morningstar
+                                                    and its content providers; (2) may not be copied or redistributed except as specifically
+                                                    authorised; (3) do not constitute investment advice; (4) are provided solely for
+                                                    informational purposes; (5) are not warranted to be complete, accurate or timely;
+                                                    and (6) may be drawn from fund data published on various dates. Morningstar is not
+                                                    responsible for any trading decisions, damages or other losses related to the Information
+                                                    or its use. Please verify all of the Information before using it and don’t make
+                                                    any investment decision except upon the advice of a professional financial adviser.
+                                                    Past performance is no guarantee of future results. The value and income derived
+                                                    from investments may go down as well as up.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="popup-overlay">
+                                    </div>
                                 </td>
                             </tr>
                         </table>
@@ -270,21 +372,20 @@
                     <td>
                         <asp:Label ID="lblUnitsheldDisplay" runat="server" CssClass="readOnlyField"></asp:Label>
                     </td>
-                    
-                    <td colspan="2"> 
-<%--                    <asp:Label ID="lblMsg" runat="server" Visible="false" Text="Units under lock in period" CssClass="FieldName"></asp:Label>
---%>                    </td>
+                    <td colspan="2">
+                        <%--                    <asp:Label ID="lblMsg" runat="server" Visible="false" Text="Units under lock in period" CssClass="FieldName"></asp:Label>
+--%>
+                    </td>
                 </tr>
-                      <tr class="spaceUnder">
+                <tr class="spaceUnder">
                     <td>
                     </td>
                     <td style="vertical-align: top;">
-                        
                     </td>
                     <td>
-                    <%--<labe id="lblblink" runat="server" visible="false" CssClass="FieldName">Text to blink here</blink>--%>
-                   <blink><asp:Label ID="lblMsg" runat="server" Visible="false"  
-                                     Text="Units under lock in period"  CssClass="FieldName"></asp:Label></blink> 
+                        <%--<labe id="lblblink" runat="server" visible="false" CssClass="FieldName">Text to blink here</blink>--%>
+                        <blink><asp:Label ID="lblMsg" runat="server" Visible="false"  
+                                     Text="Units under lock in period"  CssClass="FieldName"></asp:Label></blink>
                     </td>
                     <td colspan="2">
                     </td>
@@ -377,9 +478,7 @@
                             ValidationGroup="btnSubmit" Type="Double" CssClass="rfvPCG" Display="Dynamic"
                             runat="server" />
                         <asp:CompareValidator runat="server" ID="cmpMinAmountUnits" ControlToValidate="txtRedeemTypeValue"
-                             Operator="GreaterThanEqual" Type="Double" CssClass="rfvPCG"
-                             ValidationGroup="btnSubmit" /><br />
-                        
+                            Operator="GreaterThanEqual" Type="Double" CssClass="rfvPCG" ValidationGroup="btnSubmit" /><br />
                     </td>
                     <td colspan="2">
                     </td>
@@ -507,7 +606,6 @@
             </Windows>
         </telerik:RadWindowManager>
         <div style="float: inherit;">
-           
         </div>
     </ContentTemplate>
     <Triggers>

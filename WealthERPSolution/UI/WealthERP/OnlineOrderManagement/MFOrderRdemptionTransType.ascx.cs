@@ -95,7 +95,7 @@ namespace WealthERP.OnlineOrderManagement
             ddlAmc.Items.Clear();
             DataSet ds = new DataSet();
             DataTable dtAmc = new DataTable();
-            ds = onlineMforderBo.GetCustomerHoldingAMCList(customerVo.CustomerId,'R');
+            ds = onlineMforderBo.GetCustomerHoldingAMCList(customerVo.CustomerId, 'R');
             dtAmc = ds.Tables[0];
             if (dtAmc.Rows.Count > 0)
             {
@@ -276,6 +276,20 @@ namespace WealthERP.OnlineOrderManagement
                     {
                         subcategory = dr["PAISC_AssetInstrumentSubCategoryCode"].ToString();
                     }
+
+                    if (!string.IsNullOrEmpty(dr["AVSD_ExpiryDtae"].ToString()) && Convert.ToDateTime(dr["AVSD_ExpiryDtae"].ToString()) > DateTime.Now && !string.IsNullOrEmpty(dr["PMFRD_RatingOverall"].ToString()))
+                    {
+                        trSchemeRating.Visible = true;
+                        imgSchemeRating.ImageUrl = @"../Images/MorningStarRating/PMFRD_RatingOverall/" + dr["PMFRD_RatingOverall"].ToString() + ".png";
+                        //imgSchemeRating.ImageUrl = @"../Images/msgUnRead.png";
+                        imgRatingDetails.ImageUrl = @"../Images/MorningStarRating/RatingOverall/" + dr["PMFRD_RatingOverall"].ToString() + ".png";
+                    }
+                    else
+                    {
+                        trSchemeRating.Visible = false;
+
+                    }
+
                 }
             }
             DataSet dsNav = commonLookupBo.GetLatestNav(scheme);
@@ -302,8 +316,8 @@ namespace WealthERP.OnlineOrderManagement
 
             }
 
-        
-           
+
+
         }
         public void SetControlsState(bool isEnable)
         {
@@ -329,7 +343,7 @@ namespace WealthERP.OnlineOrderManagement
 
         }
 
-       
+
 
         protected void BindAmcForDrillDown()
         {
@@ -418,7 +432,7 @@ namespace WealthERP.OnlineOrderManagement
         {
             ddlScheme.Items.Clear();
             DataTable dtScheme = new DataTable();
-            dtScheme = commonLookupBo.GetAmcSchemeList(amccode, category, customerid,'R');
+            dtScheme = commonLookupBo.GetAmcSchemeList(amccode, category, customerid, 'R');
             if (dtScheme.Rows.Count > 0)
             {
                 ddlScheme.DataSource = dtScheme;
