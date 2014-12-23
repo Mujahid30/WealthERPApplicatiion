@@ -2359,7 +2359,13 @@ namespace DaoCustomerPortfolio
                         mfPortfNetPositionVo.IsSchemeSIPType = Convert.ToBoolean(dr["PASPD_IsSIPAvailable"]);
                         mfPortfNetPositionVo.IsSchemePurchege = Convert.ToBoolean(dr["PASPD_IsPurchaseAvailable"]);
                         mfPortfNetPositionVo.IsSchemeRedeem = Convert.ToBoolean(dr["PASPD_IsRedeemAvailable"]);
-                        mfPortfolioNetPositionList.Add(mfPortfNetPositionVo);
+
+                        if (!string.IsNullOrEmpty(dr["PMFRD_RatingOverall"].ToString()))
+                            mfPortfNetPositionVo.SchemeRatingOverall = Convert.ToInt16(dr["PMFRD_RatingOverall"].ToString());
+                        if (!string.IsNullOrEmpty(dr["AVSD_ExpiryDtae"].ToString()))
+                            mfPortfNetPositionVo.SchemeRatingSubscriptionExpiryDtae = Convert.ToDateTime(dr["AVSD_ExpiryDtae"].ToString());
+
+                          mfPortfolioNetPositionList.Add(mfPortfNetPositionVo);
                     }
                 }
             }

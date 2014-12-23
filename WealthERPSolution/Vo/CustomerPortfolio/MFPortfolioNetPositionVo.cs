@@ -65,6 +65,8 @@ namespace VoCustomerPortfolio
         public bool IsSchemeSIPType { get; set; }
         public bool IsSchemePurchege { get; set; }
         public bool IsSchemeRedeem { get; set; }
+        public int SchemeRatingOverall { get; set; }
+        public DateTime SchemeRatingSubscriptionExpiryDtae { get; set; }
         
     }
 }
