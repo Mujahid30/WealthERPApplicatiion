@@ -46,13 +46,14 @@ namespace WealthERP.OnlineOrderBackOffice
                     date = Convert.ToDateTime(Request.QueryString["date"].ToString());
                     string category = Request.QueryString["category"].ToString();
                     ddlType.SelectedValue = type;
-                    if (ddlType.SelectedValue == "Bonds")
+                    ddlProduct.SelectedValue = category;
+                    if (ddlProduct.SelectedValue == "Bonds")
                     {
                         tdCategorydropdown.Visible = true;
                         tdcategory.Visible = true;
                     }
                     txtDate.SelectedDate = DateTime.Now;
-                    ddlProduct.SelectedValue = category;
+                  
                     BindNcdCategory();
                     ddlCategory.SelectedValue = product;
                     pnlIssueList.Visible = true;
