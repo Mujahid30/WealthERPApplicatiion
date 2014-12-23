@@ -256,6 +256,7 @@ namespace WealthERP.OnlineOrderBackOffice
                         {
                             txtCapPrice.Text = "";
                             ddlIssueType.SelectedValue = "FixedPrice";
+                            trFloorAndFixedPrices.Visible = true;
                         }
 
                     }
@@ -296,7 +297,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
                     //ddlProduct.SelectedValue =dr["PAIC_AssetInstrumentCategoryCode"].ToString();
                     EnablityOfControlsonProductAndIssueTypeSelection(ddlProduct.SelectedValue);
-                    //EnablityOfControlsonIssueTypeSelection(ddlIssueType.SelectedValue);
+                    EnablityOfControlsonIssueTypeSelection(ddlIssueType.SelectedValue);
                     //EnablityOfControlsonCategoryTypeSelection(ddlSubInstrCategory.SelectedValue);
                     // ddlSubInstrCategory.SelectedValue = "NCD";
                     txtName.Text = dr["AIM_IssueName"].ToString();
@@ -5124,7 +5125,7 @@ namespace WealthERP.OnlineOrderBackOffice
                RequiredFieldValidator38.Visible = true;
                 lblMaxError.Visible = true;
                 tdBroker.Visible = true;
-                trFloorAndFixedPrices.Visible = false;
+              
                 Label15.Visible = true;
                 trExchangeCode.Visible = true;
                 trTradinglotBidding.Visible = true;
