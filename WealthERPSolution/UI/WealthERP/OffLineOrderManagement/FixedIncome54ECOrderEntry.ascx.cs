@@ -203,6 +203,7 @@ namespace WealthERP.OffLineOrderManagement
                         GetcustomerDetails();
                         View54ECOrderDetails(orderId);
                         lnkBtnEdit();
+                        lnkBtnFIEdit.Visible = true;
                         btnUpdate.Visible = false;
                     }
 
@@ -887,7 +888,7 @@ namespace WealthERP.OffLineOrderManagement
             }
             else
             {
-
+                 orderId = fiorderVo.OrderNumber;
                 OrderIds = fiorderBo.CreateOrderFIDetails(orderVo, fiorderVo, userVo.UserId, "Update");
                 orderId = fiorderVo.OrderNumber;
                 lblOrderNumber.Text = "Order No.";
@@ -4094,6 +4095,7 @@ namespace WealthERP.OffLineOrderManagement
                 {
                     txtDematid.Text = dr["CEDA_DPClientId"].ToString();
                 }
+                if (!string.IsNullOrEmpty(dr["CEDA_DematAccountId"].ToString()))
                 BindgvFamilyAssociate(int.Parse(dr["CEDA_DematAccountId"].ToString()));
                 if (!string.IsNullOrEmpty(dr["CB_CustBankAccId"].ToString()))
                 {

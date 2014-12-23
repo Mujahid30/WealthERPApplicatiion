@@ -40,10 +40,7 @@ namespace WealthERP.OffLineOrderManagement
             txtOrderFrom.SelectedDate = fromDate.Date;
             txtOrderTo.SelectedDate = DateTime.Now;
             //BindIssue();
-            if (!IsPostBack)
-            {
-                BindNcdCategory();
-                associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
+             associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
                 if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "associates")
                 {
                     userType = "associates";
@@ -68,7 +65,11 @@ namespace WealthERP.OffLineOrderManagement
                             AgentCode = "0";
                     }
                 }
-            }
+
+                if (!IsPostBack)
+                {
+                    BindNcdCategory();
+                }
         }
         protected void BindIssue(string Category)
         {

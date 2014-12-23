@@ -495,7 +495,7 @@ namespace DaoOps
                 else
                 {
                     createFIOrderTrackingCmd = db.GetStoredProcCommand("SP_UpdateCustomerFIOrderDetails");
-                    db.AddInParameter(createFIOrderTrackingCmd, "@CO_OrderId", DbType.Int32, orderVo.OrderId);
+                    db.AddInParameter(createFIOrderTrackingCmd, "@CO_OrderId", DbType.Int32, orderVo.OrderNumber);
 
                 }
 
@@ -556,7 +556,7 @@ namespace DaoOps
 
                 db.AddInParameter(createFIOrderTrackingCmd, "@AgentId", DbType.Int32, FIorderVo.AgentId);
                 db.AddInParameter(createFIOrderTrackingCmd, "@UserId", DbType.Int32, userId );
-
+                if(FIorderVo.DematAccountId!=0)
                 db.AddInParameter(createFIOrderTrackingCmd, "@DematAcntId", DbType.Int32, FIorderVo.DematAccountId);
                 db.AddInParameter(createFIOrderTrackingCmd, "@Qty", DbType.Double, FIorderVo.Qty);
                 db.AddInParameter(createFIOrderTrackingCmd, "@BranchName", DbType.String, orderVo.BankBranchName);
