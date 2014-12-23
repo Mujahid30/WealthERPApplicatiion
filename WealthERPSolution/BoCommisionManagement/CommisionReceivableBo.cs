@@ -201,13 +201,13 @@ namespace BoCommisionManagement
 
         }
 
-        public DataSet GetAdviserAgentCodes(int adviserId)
+        public DataSet GetAdviserAgentCodes(int adviserId, string mappingType)
         {
             CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
             DataSet dsAgentCodes;
             try
             {
-                dsAgentCodes = commisionReceivableDao.GetAdviserAgentCodes(adviserId);
+                dsAgentCodes = commisionReceivableDao.GetAdviserAgentCodes(adviserId, mappingType);
 
             }
             catch (BaseApplicationException Ex)

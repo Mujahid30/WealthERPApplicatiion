@@ -205,11 +205,18 @@ namespace DaoCommisionManagement
                 }
                 else
                 {
-                    db.AddInParameter(cmdCreateCommissionStructure, "@StaffCategory", DbType.String, 0);
+                    db.AddInParameter(cmdCreateCommissionStructure, "@StaffCategory", DbType.String, DBNull.Value);
 
                 }
-                db.AddInParameter(cmdCreateCommissionStructure, "@AgentId", DbType.String, agentId);
+                if (!string.IsNullOrEmpty(agentId))
+                {
+                    db.AddInParameter(cmdCreateCommissionStructure, "@AgentId", DbType.String, agentId);
+                }
+                else
+                {
+                    db.AddInParameter(cmdCreateCommissionStructure, "@AgentId", DbType.String, DBNull.Value);
 
+                }
                 db.AddOutParameter(cmdCreateCommissionStructure, "@id", DbType.Int64, 1000000);
                 db.AddInParameter(cmdCreateCommissionStructure, "@RuleId", DbType.Int32, ruleId);
 
@@ -321,7 +328,7 @@ namespace DaoCommisionManagement
         }
 
 
-        public DataSet GetAdviserAgentCodes(int adviserId)
+        public DataSet GetAdviserAgentCodes(int adviserId, string mappingType)
         {
             Database db;
             DbCommand cmdGetCommissionStructureRules;
@@ -332,6 +339,7 @@ namespace DaoCommisionManagement
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmdGetCommissionStructureRules = db.GetStoredProcCommand("SP_GetAdviserWiseAgentCodes");
                 db.AddInParameter(cmdGetCommissionStructureRules, "@A_AdviserId", DbType.Int32, adviserId);
+                db.AddInParameter(cmdGetCommissionStructureRules, "@MappingType", DbType.String, mappingType);
                 ds = db.ExecuteDataSet(cmdGetCommissionStructureRules);
             }
             catch (BaseApplicationException Ex)

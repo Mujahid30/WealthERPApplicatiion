@@ -1221,5 +1221,6 @@ namespace WealthERP.Receivable {
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvchkListTtansactionType;
         protected global::System.Web.UI.WebControls.CustomValidator CustomValidator4;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trCommissionType;
     }
 }

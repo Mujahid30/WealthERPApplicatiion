@@ -484,5 +484,6 @@ namespace WealthERP.CommisionManagement
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator cmvMappingPeriod;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvddlAdviserCategory;
     }
 }

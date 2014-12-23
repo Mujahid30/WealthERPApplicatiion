@@ -90,9 +90,9 @@
                                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="400px" Wrap="false" />
                                             </telerik:GridBoundColumn>
                                             
-                                               <telerik:GridBoundColumn DataField="ACC_customerCategoryName" HeaderStyle-Width="80px"
+                                               <telerik:GridBoundColumn DataField="AC_CategoryName" HeaderStyle-Width="80px"
                                                 CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true" 
-                                                HeaderText="Category Name" UniqueName="ACC_customerCategoryName" ReadOnly="true">
+                                                HeaderText="Category Name" UniqueName="AC_CategoryName" ReadOnly="true">
                                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="400px" Wrap="false" />
                                             </telerik:GridBoundColumn>
                                             

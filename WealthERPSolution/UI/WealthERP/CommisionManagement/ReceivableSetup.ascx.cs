@@ -2821,7 +2821,7 @@ namespace WealthERP.Receivable
         private void BindAgentCodes()
         {
             DataSet dsAdviserBranchList = new DataSet();
-            dsAdviserBranchList = commisionReceivableBo.GetAdviserAgentCodes(advisorVo.advisorId);
+            dsAdviserBranchList = commisionReceivableBo.GetAdviserAgentCodes(advisorVo.advisorId,ddlMapping.SelectedValue);
             LBAgentCodes.DataSource = dsAdviserBranchList;
             LBAgentCodes.DataValueField = "AgentId";
             LBAgentCodes.DataTextField = "AgentCodeWithName";
