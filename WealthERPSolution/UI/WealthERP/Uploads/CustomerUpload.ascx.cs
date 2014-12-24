@@ -234,6 +234,7 @@ namespace WealthERP.Uploads
                 ddlUploadType.Items[7].Enabled = true;
                 ddlUploadType.Items[8].Enabled = true;
                 ddlUploadType.Items[10].Enabled = true;
+                ddlUploadType.Items[9].Enabled = true;
               
             }
             else
