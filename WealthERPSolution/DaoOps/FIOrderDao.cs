@@ -787,5 +787,25 @@ namespace DaoOps
             }
             return dtGet54ECOrderDetails;
         }
+        public DataTable GetDocumentDetails(int orderId)
+        {
+            DataSet dsGetDocumentDetails;
+            Database db;
+            DbCommand getGet54ECOrderDetails;
+            DataTable dtGetDocumentDetails;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getGet54ECOrderDetails = db.GetStoredProcCommand("SPROC_GetDocumentDetails");
+                db.AddInParameter(getGet54ECOrderDetails, "@orderId", DbType.Int32, orderId);
+                dsGetDocumentDetails = db.ExecuteDataSet(getGet54ECOrderDetails);
+                dtGetDocumentDetails = dsGetDocumentDetails.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return dtGetDocumentDetails;
+        }
     }
 }

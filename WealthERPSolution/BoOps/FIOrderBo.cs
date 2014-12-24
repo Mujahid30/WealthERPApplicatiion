@@ -396,5 +396,18 @@ namespace BoOps
             }
             return dt;
         }
+         public DataTable GetDocumentDetails(int orderId)
+        {
+            DataTable dt;
+            try
+            {
+                dt = fiOrderDao.GetDocumentDetails(orderId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dt;
+        }
     }
 }

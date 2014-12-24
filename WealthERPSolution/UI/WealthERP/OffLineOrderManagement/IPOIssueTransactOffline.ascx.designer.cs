@@ -50,7 +50,7 @@ namespace WealthERP.OffLineOrderManagement {
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trSumbitSuccess;
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdBankBranch;
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdtxtASBALocation;
-
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdDemate;
         /// <summary>
         /// msgRecordStatus control.
         /// </summary>
@@ -68,7 +68,8 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trinsufficentmessage;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trPanExist;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trCustomerAdd;
         /// <summary>
         /// lblinsufficent control.
         /// </summary>
@@ -79,6 +80,7 @@ namespace WealthERP.OffLineOrderManagement {
         protected global::System.Web.UI.WebControls.Label lblinsufficent;
         protected global::System.Web.UI.WebControls.Label lblApplicationDuplicate;
         protected global::System.Web.UI.WebControls.Label lblBankBranchName;
+        protected global::System.Web.UI.WebControls.Label lblPANNotExist;
         
         /// <summary>
         /// pnl_OrderSection control.

@@ -106,7 +106,7 @@ namespace WealthERP.OffLineOrderManagement
             GetUserType();
             tblMessage.Visible = false;
             rwTermsCondition.VisibleOnPageLoad = false;
-           
+
             if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
             {
                 txtCustomerName_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
@@ -621,10 +621,18 @@ namespace WealthERP.OffLineOrderManagement
         }
         protected void OnAssociateTextchanged1(object sender, EventArgs e)
         {
-            if (ddlsearch.SelectedValue == "2")
+            if (txtPansearch.Text != "" && txtCustomerId.Value != "")
             {
-                lblgetcust.Text = "";
+                trPanExist.Visible = false;
+                GetcustomerDetails();
+                GetDematAccountDetails(int.Parse(txtCustomerId.Value));
+            }
+            else
+            {
 
+                trPanExist.Visible = true;
+                lblPANNotExist.Text = "Entered PAN not found.";
+                //txtPansearch.Text = "";
             }
         }
 
@@ -705,8 +713,9 @@ namespace WealthERP.OffLineOrderManagement
             txtCustomerName.Text = customerVo.FirstName + ' ' + customerVo.MiddleName + ' ' + customerVo.LastName;
             hdnPortfolioId.Value = customerPortfolioVo.PortfolioId.ToString();
             customerId = int.Parse(txtCustomerId.Value);
-            if (ddlsearch.SelectedItem.Value == "2")
-                lblgetcust.Text = customerVo.FirstName + ' ' + customerVo.MiddleName + ' ' + customerVo.LastName;
+            //if (ddlsearch.SelectedItem.Value == "2")
+            txtPansearch.Text = customerVo.PANNum;
+            lblgetcust.Text = customerVo.FirstName + ' ' + customerVo.MiddleName + ' ' + customerVo.LastName;
             BindBank();
             BindISAList();
             BindCustomerNCDIssueList();
@@ -716,12 +725,14 @@ namespace WealthERP.OffLineOrderManagement
         }
         protected void txtCustomerId_ValueChanged1(object sender, EventArgs e)
         {
-
-
-            if (!string.IsNullOrEmpty(txtCustomerId.Value.ToString().Trim()))
+            if (txtPansearch.Text != "" && hdnCustomerId.Value == "")
             {
 
-                GetcustomerDetails();
+                if (!string.IsNullOrEmpty(txtCustomerId.Value.ToString().Trim()))
+                {
+
+                    GetcustomerDetails();
+                }
             }
         }
 
@@ -894,74 +905,74 @@ namespace WealthERP.OffLineOrderManagement
 
 
 
-        private void Pan_Cust_Search(string seacrch)
-        {
-            if (seacrch == "2")
-                seacrch = "Pan";
-            else
-                seacrch = "Customer";
+        //private void Pan_Cust_Search(string seacrch)
+        //{
+        //    if (seacrch == "2")
+        //        seacrch = "Pan";
+        //    else
+        //        seacrch = "Customer";
 
-            if (seacrch == "Customer")
-            {
-                clearPancustomerDetails();
-                trCust.Visible = true;
-                trpan.Visible = false;
-                if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
-                {
-                    txtCustomerName_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
-                    txtCustomerName_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
+        //    if (seacrch == "Customer")
+        //    {
+        //        clearPancustomerDetails();
+        //        trCust.Visible = true;
+        //        trpan.Visible = false;
+        //        if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
+        //        {
+        //            txtCustomerName_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+        //            txtCustomerName_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
 
-                }
-                else if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
-                {
-                    txtCustomerName_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
-                    txtCustomerName_autoCompleteExtender.ServiceMethod = "GetBMIndividualCustomerNames";
-                }
-                else if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
-                {
-                    txtCustomerName_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
-                    txtCustomerName_autoCompleteExtender.ServiceMethod = "GetMemberCustomerName";
-                }
-                else if (Session[SessionContents.CurrentUserRole].ToString() == "Associates")
-                {
-                    txtCustomerName_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
-                    txtCustomerName_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
-                }
+        //        }
+        //        else if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
+        //        {
+        //            txtCustomerName_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+        //            txtCustomerName_autoCompleteExtender.ServiceMethod = "GetBMIndividualCustomerNames";
+        //        }
+        //        else if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
+        //        {
+        //            txtCustomerName_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+        //            txtCustomerName_autoCompleteExtender.ServiceMethod = "GetMemberCustomerName";
+        //        }
+        //        else if (Session[SessionContents.CurrentUserRole].ToString() == "Associates")
+        //        {
+        //            txtCustomerName_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+        //            txtCustomerName_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
+        //        }
 
-            }
-            else if (seacrch == "Pan")
-            {
-                clearPancustomerDetails();
-                trCust.Visible = false;
-                trpan.Visible = true;
-                if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
-                {
-                    AutoCompleteExtender1.ContextKey = advisorVo.advisorId.ToString();
-                    AutoCompleteExtender1.ServiceMethod = "GetAdviserCustomerPan";
+        //    }
+        //    else if (seacrch == "Pan")
+        //    {
+        //        clearPancustomerDetails();
+        //        trCust.Visible = false;
+        //        trpan.Visible = true;
+        //        if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
+        //        {
+        //            AutoCompleteExtender1.ContextKey = advisorVo.advisorId.ToString();
+        //            AutoCompleteExtender1.ServiceMethod = "GetAdviserCustomerPan";
 
-                }
-                else if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
-                {
-                    txtCustomerName_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
-                    txtCustomerName_autoCompleteExtender.ServiceMethod = "GetBMIndividualCustomerNames";
-                }
-                else if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
-                {
-                    txtCustomerName_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
-                    txtCustomerName_autoCompleteExtender.ServiceMethod = "GetMemberCustomerName";
-                }
-                else if (Session[SessionContents.CurrentUserRole].ToString() == "Associates")
-                {
-                    txtCustomerName_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
-                    txtCustomerName_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
-                }
+        //        }
+        //        else if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
+        //        {
+        //            txtCustomerName_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+        //            txtCustomerName_autoCompleteExtender.ServiceMethod = "GetBMIndividualCustomerNames";
+        //        }
+        //        else if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
+        //        {
+        //            txtCustomerName_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+        //            txtCustomerName_autoCompleteExtender.ServiceMethod = "GetMemberCustomerName";
+        //        }
+        //        else if (Session[SessionContents.CurrentUserRole].ToString() == "Associates")
+        //        {
+        //            txtCustomerName_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+        //            txtCustomerName_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
+        //        }
 
-            }
-        }
-        protected void ddlsearch_Selectedindexchanged(object sender, EventArgs e)
-        {
-            Pan_Cust_Search(ddlsearch.SelectedValue);
-        }
+        //    }
+        //}
+        //protected void ddlsearch_Selectedindexchanged(object sender, EventArgs e)
+        //{
+        //    Pan_Cust_Search(ddlsearch.SelectedValue);
+        //}
 
 
 
@@ -1393,7 +1404,7 @@ namespace WealthERP.OffLineOrderManagement
             string errorMsg = string.Empty;
             bool isBidsVallid = false;
             Page.Validate("btnConfirmOrder");
-            if ( Validation() && Page.IsValid)
+            if (Validation() && Page.IsValid)
             {
                 isBidsVallid = ValidateIPOBids(out errorMsg, 0);
 
@@ -1685,7 +1696,7 @@ namespace WealthERP.OffLineOrderManagement
             trASBA.Visible = false;
             Td3.Visible = false;
             Td4.Visible = false;
-          
+
 
         }
         protected void lnkTermsCondition_Click(object sender, EventArgs e)
@@ -1809,7 +1820,7 @@ namespace WealthERP.OffLineOrderManagement
                 if (bidAmountPayble > 0)
                     validBidSum += int.Parse(item.GetDataKeyValue("IssueBidNo").ToString());
 
-                if (typeOfvalidation != 1 &&  bidAmountPayble <= 0 && int.Parse(item.GetDataKeyValue("IssueBidNo").ToString()) == 1)
+                if (typeOfvalidation != 1 && bidAmountPayble <= 0 && int.Parse(item.GetDataKeyValue("IssueBidNo").ToString()) == 1)
                 {
                     msg = "Bid found missing.Please enter the bids in sequence starting from the top!";
                     isBidValid = false;
@@ -1912,7 +1923,8 @@ namespace WealthERP.OffLineOrderManagement
                     txtDematid.Text = gvDematDetailsTeleR.MasterTableView.DataKeyValues[gvr.ItemIndex]["CEDA_DPClientId"].ToString();
                     break;
                 }
-
+                else
+                    txtDematid.Text = "";
             }
             BindgvFamilyAssociate(dematAccountId);
 
@@ -1990,7 +2002,9 @@ namespace WealthERP.OffLineOrderManagement
             BindListBranch();
             BindRMforBranchDropdown(0, 0);
             BindSubTypeDropDown(1001);
-            trSalutation.Visible = true;
+            trIndividualName.Visible = true;
+            trNonIndividualName.Visible = false;
+
         }
         protected void rbtnNonIndividual_CheckedChanged(object sender, EventArgs e)
         {
@@ -2003,7 +2017,7 @@ namespace WealthERP.OffLineOrderManagement
             BindRMforBranchDropdown(0, 0);
             trIndividualName.Visible = false;
             trNonIndividualName.Visible = true;
-            trSalutation.Visible = false;
+
         }
         private void BindListBranch()
         {
@@ -2147,8 +2161,8 @@ namespace WealthERP.OffLineOrderManagement
             ddlCustomerSubType.DataTextField = "WCMV_Name";
             ddlCustomerSubType.DataValueField = "WCMV_LookupId";
             ddlCustomerSubType.DataBind();
-            if(rbtnIndividual.Checked==true)
-            ddlCustomerSubType.SelectedValue = "2017";
+            if (rbtnIndividual.Checked == true)
+                ddlCustomerSubType.SelectedValue = "2017";
             //ddlCustomerSubType.Items.Insert(0, new ListItem("--SELECT--", "0"));
         }
 
@@ -2181,22 +2195,22 @@ namespace WealthERP.OffLineOrderManagement
                         customerVo.Type = "IND";
 
                         customerVo.TaxStatusCustomerSubTypeId = Int16.Parse(ddlCustomerSubType.SelectedValue.ToString());
-                        customerVo.IsRealInvestor = chkRealInvestor.Checked;
+                        //customerVo.IsRealInvestor = chkRealInvestor.Checked;
                         customerVo.FirstName = txtFirstName.Text.ToString();
-                        customerVo.MiddleName = txtMiddleName.Text.ToString();
-                        customerVo.LastName = txtLastName.Text.ToString();
-                        if (ddlSalutation.SelectedIndex == 0)
-                        {
-                            customerVo.Salutation = "";
-                        }
-                        else
-                        {
-                            customerVo.Salutation = ddlSalutation.SelectedValue.ToString();
-                        }
+                        //customerVo.MiddleName = txtMiddleName.Text.ToString();
+                        //customerVo.LastName = txtLastName.Text.ToString();
+                        //if (ddlSalutation.SelectedIndex == 0)
+                        //{
+                        //    customerVo.Salutation = "";
+                        //}
+                        //else
+                        //{
+                        //    customerVo.Salutation = ddlSalutation.SelectedValue.ToString();
+                        //}
 
                         userVo.FirstName = txtFirstName.Text.ToString();
-                        userVo.MiddleName = txtMiddleName.Text.ToString();
-                        userVo.LastName = txtLastName.Text.ToString();
+                        //userVo.MiddleName = txtMiddleName.Text.ToString();
+                        //userVo.LastName = txtLastName.Text.ToString();
                     }
                     else if (rbtnNonIndividual.Checked)
                     {
@@ -2215,7 +2229,7 @@ namespace WealthERP.OffLineOrderManagement
                         customerVo.Type = "NIND";
 
                         customerVo.TaxStatusCustomerSubTypeId = Int16.Parse(ddlCustomerSubType.SelectedValue.ToString());
-                        customerVo.IsRealInvestor = chkRealInvestor.Checked;
+                        //customerVo.IsRealInvestor = chkRealInvestor.Checked;
                         customerVo.CompanyName = txtCompanyName.Text.ToString();
                         customerVo.FirstName = txtCompanyName.Text.ToString();
                         userVo.FirstName = txtCompanyName.Text.ToString();
@@ -2239,14 +2253,9 @@ namespace WealthERP.OffLineOrderManagement
                     //}
 
                     //customerVo.SubType = ddlCustomerSubType.SelectedItem.Value;
-                    customerVo.Email = txtEmail.Text.ToString();
+                    //customerVo.Email = txtEmail.Text.ToString();
                     customerVo.PANNum = txtPanNumber.Text.ToString();
-                    if (!string.IsNullOrEmpty(txtMobileNumber.Text.ToString()))
-                    {
-                        customerVo.Mobile1 = Convert.ToInt64(txtMobileNumber.Text.ToString());
-                    }
-                    else
-                        customerVo.Mobile1 = 0;
+
                     customerVo.Dob = DateTime.MinValue;
                     customerVo.RBIApprovalDate = DateTime.MinValue;
                     customerVo.CommencementDate = DateTime.MinValue;
@@ -2255,7 +2264,7 @@ namespace WealthERP.OffLineOrderManagement
                     customerVo.Adr2State = null;
                     customerVo.ProfilingDate = DateTime.Today;
                     customerVo.UserId = userVo.UserId;
-                    userVo.Email = txtEmail.Text.ToString();
+                    //userVo.Email = txtEmail.Text.ToString();
                     customerPortfolioVo.IsMainPortfolio = 1;
                     customerPortfolioVo.PortfolioTypeCode = "RGL";
                     customerPortfolioVo.PortfolioName = "MyPortfolio";
@@ -2277,9 +2286,7 @@ namespace WealthERP.OffLineOrderManagement
                         familyVo.CustomerId = customerIds[1];
                         familyVo.Relationship = "SELF";
                         familyBo.CreateCustomerFamily(familyVo, customerIds[1], userVo.UserId);
-
-                        MakeReadonlyControls();
-                        RadWindow1.VisibleOnPageLoad = false;
+                        trCustomerAdd.Visible = false;
                         //DataTable dtcustomer = OfflineIPOOrderBo.GetAddedCustomer(customerid);
                         //foreach (DataRow dr in dtcustomer.Rows)
                         //{
@@ -2373,13 +2380,13 @@ namespace WealthERP.OffLineOrderManagement
         }
         public void ImageButton1_OnClick(object sender, ImageClickEventArgs e)
         {
-            RadDemateAdd.VisibleOnPageLoad = true;
+            tdDemate.Visible = true;
             BindDepositoryType();
             BindModeofHolding();
             txtDpClientId.Text = "";
             txtDPId.Text = "";
             txtDpName.Text = "";
-           
+
         }
         protected void ddlModeOfHolding_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -2390,35 +2397,39 @@ namespace WealthERP.OffLineOrderManagement
             int result = 0;
             string accountopeningdate = txtAccountOpeningDate.SelectedDate.ToString();
             int customerId = 0;
-            if(ViewState["customerID"]!=null)
-                customerId=int.Parse(ViewState["customerID"].ToString());
+            if (ViewState["customerID"] != null)
+            {
+                customerId = int.Parse(ViewState["customerID"].ToString());
+            }
             else
+            {
                 customerVo = (CustomerVo)Session["customerVo"];
-            customerId = customerVo.CustomerId;
+                customerId = customerVo.CustomerId;
+            }
             if (Page.IsValid)
             {
 
                 try
                 {
-                    
-                        if (!string.IsNullOrEmpty(accountopeningdate.Trim()))
-                            demataccountvo.AccountOpeningDate = DateTime.Parse(accountopeningdate);
-                        demataccountvo.DpclientId = txtDpClientId.Text;
-                        demataccountvo.DpId = txtDPId.Text;
-                        demataccountvo.DpName = txtDpName.Text;
-                        demataccountvo.DepositoryName = ddlDepositoryName.SelectedValue;
-                        if (rbtnYes.Checked == true)
-                            demataccountvo.IsHeldJointly = 1;
-                        else
-                            demataccountvo.IsHeldJointly = 0;
-                        demataccountvo.ModeOfHolding = ddlModeOfHolding.SelectedValue.ToString();
-                        result = bodemataccount.AddDematDetails(customerId, int.Parse(hdnPortfolioId.Value), demataccountvo, rmVo);
-                        txtDematid.Text = txtDpClientId.Text;
-                        ViewState["demateId"] = result;
-                        BindgvFamilyAssociate(result);
-                        GetDematAccountDetails(customerId);
-                    RadDemateAdd.VisibleOnPageLoad = false;
-                    }
+
+                    if (!string.IsNullOrEmpty(accountopeningdate.Trim()))
+                        demataccountvo.AccountOpeningDate = DateTime.Parse(accountopeningdate);
+                    demataccountvo.DpclientId = txtDpClientId.Text;
+                    demataccountvo.DpId = txtDPId.Text;
+                    demataccountvo.DpName = txtDpName.Text;
+                    demataccountvo.DepositoryName = ddlDepositoryName.SelectedValue;
+                    if (rbtnYes.Checked == true)
+                        demataccountvo.IsHeldJointly = 1;
+                    else
+                        demataccountvo.IsHeldJointly = 0;
+                    demataccountvo.ModeOfHolding = ddlModeOfHolding.SelectedValue.ToString();
+                    result = bodemataccount.AddDematDetails(customerId, int.Parse(hdnPortfolioId.Value), demataccountvo, rmVo);
+                    txtDematid.Text = txtDpClientId.Text;
+                    ViewState["demateId"] = result;
+                    BindgvFamilyAssociate(result);
+                    GetDematAccountDetails(customerId);
+                    tdDemate.Visible = false;
+                }
                 catch (Exception ex)
                 {
                     throw ex;
@@ -2442,15 +2453,15 @@ namespace WealthERP.OffLineOrderManagement
         }
         protected void ddlDepositoryName_SelectedIndexChanged(object sender, EventArgs e)
         {
-             if (ddlDepositoryName.SelectedItem.Text == "NSDL")
-                {
-                    txtDPId.Enabled = true;
-                }
-                else if (ddlDepositoryName.SelectedItem.Text == "CDSL")
-                {
-                    txtDPId.Enabled = false;
-                }
-          
+            if (ddlDepositoryName.SelectedItem.Text == "NSDL")
+            {
+                txtDPId.Enabled = true;
+            }
+            else if (ddlDepositoryName.SelectedItem.Text == "CDSL")
+            {
+                txtDPId.Enabled = false;
+            }
+
         }
         protected void BindDepositoryType()
         {
@@ -2477,10 +2488,10 @@ namespace WealthERP.OffLineOrderManagement
         }
         protected void gvDematDetailsTeleR_OnItemDataBound(object sender, GridItemEventArgs e)
         {
-            CheckBox chk=(CheckBox)e.Item.FindControl("chkDematId");
+            CheckBox chk = (CheckBox)e.Item.FindControl("chkDematId");
             if (e.Item is GridDataItem)
             {
-                int dpid =int.Parse(gvDematDetailsTeleR.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CEDA_DematAccountId"].ToString());
+                int dpid = int.Parse(gvDematDetailsTeleR.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CEDA_DematAccountId"].ToString());
                 if (ViewState["demateId"] != null)
                 {
                     if (dpid == int.Parse(ViewState["demateId"].ToString()))
@@ -2489,6 +2500,21 @@ namespace WealthERP.OffLineOrderManagement
                     }
                 }
             }
+        }
+        protected void lnkAddcustomer_OnClick(object sender, EventArgs e)
+        {
+            trCustomerAdd.Visible = true;
+            lblPanDuplicate.Visible = false;
+            rbtnIndividual.Checked = true;
+            trNonIndividualName.Visible = false;
+            BindListBranch();
+            BindRMforBranchDropdown(0, 0);
+            //BindListBranch(rmVo.RMId, "rm");
+            BindSubTypeDropDown(1001);
+            txtPanNumber.Text = "";
+            txtFirstName.Text = "";
+            txtPanNumber.Text = txtPansearch.Text;
+            trPanExist.Visible = false;
         }
     }
 }

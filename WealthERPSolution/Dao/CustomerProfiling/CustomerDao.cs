@@ -2012,7 +2012,11 @@ namespace DaoCustomerProfiling
                     db.AddInParameter(createCustomerCmd, "@U_LastName", DbType.String, userVo.LastName);
                 else
                     db.AddInParameter(createCustomerCmd, "@U_LastName", DbType.String, DBNull.Value);
+                if(userVo.Email!=null)
                 db.AddInParameter(createCustomerCmd, "@U_Email", DbType.String, userVo.Email.ToString());
+                else
+                    db.AddInParameter(createCustomerCmd, "@U_Email", DbType.String, DBNull.Value);
+
                 db.AddInParameter(createCustomerCmd, "@U_UserType", DbType.String, "Customer");
                 db.AddInParameter(createCustomerCmd, "@U_LoginId", DbType.String, userVo.LoginId);
 

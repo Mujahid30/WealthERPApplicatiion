@@ -39,7 +39,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid gvDematDetailsTeleR;
-        
+        protected global::Telerik.Web.UI.RadGrid gvUploadDocument;
         /// <summary>
         /// btnAddDemat control.
         /// </summary>

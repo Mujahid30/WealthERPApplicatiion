@@ -14,7 +14,14 @@
     function setCustomPosition(sender, args) {
         sender.moveTo(sender.get_left(), sender.get_top());
     }
+    $('input[type="checkbox"]').click(function(event) {
+        if (this.checked && $('input:checked').length > 1) {
+            event.preventDefault();
+            alert('You\'re not allowed to choose more than 3 boxes');
+        }
+    });
 </script>
+
 <script runat="server">
   
     protected void rbtnNo_Load(object sender, EventArgs e)
@@ -26,6 +33,7 @@
     }
    
 </script>
+
 <%--<script type="text/javascript">
     function HideLabel(tblMessage) {
         setTimeout("HideLabelHelper('" + tblMessage + "');", 50000);
@@ -52,23 +60,23 @@
         return true;
     }
 
-//    function openpopupAddCustomer() {
-//        window.open('PopUp.aspx?AddMFCustLinkId=mf&pageID=CustomerType&', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')
-//        return true;
+    //    function openpopupAddCustomer() {
+    //        window.open('PopUp.aspx?AddMFCustLinkId=mf&pageID=CustomerType&', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')
+    //        return true;
 
-//    }
-//    function openpopupAddDematAccount() {
+    //    }
+    //    function openpopupAddDematAccount() {
 
-//        var customerId = document.getElementById("<%=txtCustomerId.ClientID %>").value;
-//        var customerPortfolioId = document.getElementById("<%=hdnPortfolioId.ClientID %>").value;
-//        if (customerId != 0) {
-//            window.open('PopUp.aspx?PageId=AddDematAccountDetails&CustomerId=' + customerId + '&CustomerPortfolioId=' + customerPortfolioId, 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')
+    //        var customerId = document.getElementById("<%=txtCustomerId.ClientID %>").value;
+    //        var customerPortfolioId = document.getElementById("<%=hdnPortfolioId.ClientID %>").value;
+    //        if (customerId != 0) {
+    //            window.open('PopUp.aspx?PageId=AddDematAccountDetails&CustomerId=' + customerId + '&CustomerPortfolioId=' + customerPortfolioId, 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')
 
-//        }
-//        else {
-//            alert("Please Select the Customer From Search")
-//        }
-//    }
+    //        }
+    //        else {
+    //            alert("Please Select the Customer From Search")
+    //        }
+    //    }
     
    
 </script>
@@ -299,7 +307,7 @@
             <td colspan="4">
             </td>
         </tr>
-        <tr>
+        <%--<tr>
             <td class="leftField" style="width: 20%">
                 <asp:Label ID="lblsearch" runat="server" CssClass="FieldName" Text="Search for:"></asp:Label>
             </td>
@@ -322,18 +330,18 @@
             <asp:CompareValidator ID="CompareValidator12" runat="server" ControlToValidate="ddlARNNo"
                 CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select an ARN"
                 Operator="NotEqual" ValidationGroup="btnConfirmOrder" ValueToCompare="Select"></asp:CompareValidator>
-        </td>--%>
+        </td>
             <td colspan="2">
             </td>
-        </tr>
-        <tr id="trpan" runat="server" visible="false">
+        </tr>--%>
+        <tr id="trpan" runat="server" visible="true">
             <td class="leftField" style="width: 20%">
-                <asp:Label ID="lblPansearch" runat="server" Text="PAN: " CssClass="FieldName"></asp:Label>
+                <asp:Label ID="lblPansearch" runat="server" Text="Search PAN: " CssClass="FieldName"></asp:Label>
             </td>
             <td class="rightField" style="width: 20%">
                 <asp:TextBox ID="txtPansearch" runat="server" CssClass="txtField" AutoComplete="Off"
-                    AutoPostBack="True" onclientClick="ShowIsa()" onblur="return checkItemSelected(this)"
-                    OnTextChanged="OnAssociateTextchanged1" TabIndex="2">
+                    AutoPostBack="True" onclientClick="ShowIsa()" OnTextChanged="OnAssociateTextchanged1"
+                    TabIndex="2">
                 </asp:TextBox><span id="Span1" class="spnRequiredField">*</span>
                 <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" TargetControlID="txtPansearch"
                     WatermarkText="Enter few chars of PAN" runat="server" EnableViewState="false">
@@ -354,6 +362,134 @@
             </td>
             <td class="rightField" style="width: 20%">
                 <asp:Label ID="lblgetcust" runat="server" Text="" CssClass="FieldName" onclientClick="CheckPanno()"></asp:Label>
+            </td>
+        </tr>
+        <tr id="trPanExist" runat="server" visible="false">
+            <td colspan="2" align="center">
+                <asp:Label ID="lblPANNotExist" runat="server" CssClass="cvPCG" ForeColor="Red"></asp:Label>
+                <asp:LinkButton ID="lnkAddcustomer" runat="server" CssClass="FieldName" Text="Add Customer"
+                    OnClick="lnkAddcustomer_OnClick"></asp:LinkButton>
+            </td>
+        </tr>
+        <tr id="trCustomerAdd" runat="server" visible="false">
+            <td colspan="4" style="padding-left: 114px">
+                <table>
+                    <tr>
+                        <td align="right" style="width: 20%;">
+                            <asp:Label ID="lblCustomerType" runat="server" CssClass="FieldName" Text="Customer Type:"></asp:Label>
+                        </td>
+                        <td>
+                            <asp:RadioButton ID="rbtnIndividual" runat="server" CssClass="txtField" Text="Individual"
+                                GroupName="grpCustomerType" AutoPostBack="true" OnCheckedChanged="rbtnIndividual_CheckedChanged" />
+                            &nbsp;&nbsp;
+                            <asp:RadioButton ID="rbtnNonIndividual" runat="server" CssClass="txtField" Text="Non Individual"
+                                GroupName="grpCustomerType" AutoPostBack="true" OnCheckedChanged="rbtnNonIndividual_CheckedChanged" />
+                        </td>
+                        <td>
+                            <asp:Label ID="lblCustomerSubType" runat="server" CssClass="FieldName" Text="Customer Sub Type:"></asp:Label>
+                        </td>
+                        <td>
+                            <asp:DropDownList ID="ddlCustomerSubType" runat="server" CssClass="cmbField">
+                            </asp:DropDownList>
+                            <span id="Span19" class="spnRequiredField">*</span> &nbsp;
+                            <br />
+                            <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="ddlCustomerSubType"
+                                ErrorMessage="Please select a Customer Sub-Type" Operator="NotEqual" ValueToCompare="Select"
+                                CssClass="cvPCG" Display="Dynamic" ValidationGroup="CustomerProfileSubmit"></asp:CompareValidator>
+                        </td>
+                    </tr>
+                    <tr id="trBranchlist" runat="server" visible="false">
+                        <td>
+                            <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Branch Name:"></asp:Label>
+                        </td>
+                        <td>
+                            <asp:DropDownList ID="ddlAdviserBranchList" AutoPostBack="true" runat="server" CssClass="cmbField">
+                            </asp:DropDownList>
+                            <span id="Span3" class="spnRequiredField">*</span>
+                            <br />
+                            <asp:CompareValidator ID="ddlAdviserBranchList_CompareValidator2" runat="server"
+                                ControlToValidate="ddlAdviserBranchList" ErrorMessage="Please select a Branch"
+                                Operator="NotEqual" ValueToCompare="Select" CssClass="cvPCG" Display="Dynamic"
+                                ValidationGroup="CustomerProfileSubmit">
+                            </asp:CompareValidator>
+                        </td>
+                    </tr>
+                    <tr id="trRMlist" runat="server" visible="false">
+                        <td>
+                            <asp:Label ID="lblRMName" runat="server" CssClass="FieldName" Text="Select RM:"></asp:Label>
+                        </td>
+                        <td>
+                            <asp:DropDownList ID="ddlAdviseRMList" runat="server" CssClass="cmbField">
+                            </asp:DropDownList>
+                            <span id="Span8" class="spnRequiredField">*</span>
+                            <br />
+                            <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="ddlAdviseRMList"
+                                ErrorMessage=" " Operator="NotEqual" ValueToCompare="Select" CssClass="cvPCG"
+                                Display="Dynamic" ValidationGroup="CustomerProfileSubmit">
+                            </asp:CompareValidator>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right" style="width: 20%;">
+                            <asp:Label ID="lblPanNum" runat="server" CssClass="FieldName" Text="PAN:"></asp:Label>
+                        </td>
+                        <td class="rightField" width="51%">
+                            <asp:TextBox ID="txtPanNumber" runat="server" CssClass="txtField" MaxLength="10"></asp:TextBox>
+                            <span id="Span13" class="spnRequiredField">*</span> &nbsp;
+                            <asp:CheckBox ID="chkdummypan" runat="server" Visible="false" CssClass="txtField"
+                                Text="Dummy PAN" AutoPostBack="true" />
+                            <br />
+                            <asp:RequiredFieldValidator ID="rfvPanNumber" ControlToValidate="txtPanNumber" ErrorMessage="Please enter a PAN Number"
+                                Display="Dynamic" runat="server" CssClass="rfvPCG" ValidationGroup="CustomerProfileSubmit">
+                            </asp:RequiredFieldValidator>
+                            <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" Display="Dynamic"
+                                CssClass="rfvPCG" ErrorMessage="Please check PAN Format" ControlToValidate="txtPanNumber"
+                                ValidationExpression="[A-Za-z]{5}\d{4}[A-Za-z]{1}" ValidationGroup="CustomerProfileSubmit">
+                            </asp:RegularExpressionValidator>
+                            <asp:Label ID="lblPanDuplicate" runat="server" CssClass="Error" Text="PAN Number already exists"></asp:Label>
+                        </td>
+                        <td colspan="2">
+                            <table>
+                                <tr id="trIndividualName" runat="server">
+                                    <td align="right" style="width: 41%;">
+                                        <asp:Label ID="lblName" runat="server" CssClass="FieldName" Text="Name:"></asp:Label>
+                                    </td>
+                                    <td>
+                                        <asp:TextBox ID="txtFirstName" runat="server" MaxLength="75" CssClass="txtField"></asp:TextBox>
+                                        <span id="Span14" class="spnRequiredField">*</span>
+                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator12" ControlToValidate="txtFirstName"
+                                            ErrorMessage="<br />Please enter the First Name" Display="Dynamic" runat="server"
+                                            CssClass="rfvPCG" ValidationGroup="CustomerProfileSubmit">
+                                        </asp:RequiredFieldValidator>
+                                    </td>
+                                </tr>
+                                <tr id="trNonIndividualName" runat="server">
+                                    <td align="right" style="width: 41%;">
+                                        <asp:Label ID="lblCompanyName" runat="server" CssClass="FieldName" Text="Company Name:"></asp:Label>
+                                    </td>
+                                    <td>
+                                        <asp:TextBox ID="txtCompanyName" CssClass="txtField" runat="server"></asp:TextBox>
+                                        <span id="Span15" class="spnRequiredField">*</span>
+                                        <br />
+                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator13" ControlToValidate="txtCompanyName"
+                                            ErrorMessage="Please enter the Company Name" Display="Dynamic" runat="server"
+                                            CssClass="rfvPCG" ValidationGroup="CustomerProfileSubmit">
+                                        </asp:RequiredFieldValidator>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                        <td >
+                            <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="btnSubmit_Click"
+                                BackColor="#2475C7" ForeColor="White" Font-Bold="true"  ValidationGroup="CustomerProfileSubmit" />
+                        </td>
+                    </tr>
+                </table>
             </td>
         </tr>
         <tr id="trCust" runat="server" visible="false">
@@ -456,6 +592,274 @@
         </tr>
     </table>
 </asp:Panel>
+<asp:Panel ID="Panel1" runat="server" class="Landscape" Width="100%" Height="80%"
+    ScrollBars="None" Visible="false">
+    <table width="100%" cellspacing="10">
+        <tr>
+            <td colspan="3">
+                <div class="divSectionHeading" style="vertical-align: text-bottom">
+                    Demat Details
+                </div>
+            </td>
+        </tr>
+        <tr id="tdlnkbtn" runat="server">
+            <td class="leftField" style="width: 20%; visibility: hidden;">
+                <asp:LinkButton ID="lnkBtnDemat" runat="server" OnClick="lnkBtnDemat_onClick" CssClass="LinkButtons"
+                    Text="Click to select Demat Details" CausesValidation="false"></asp:LinkButton>
+            </td>
+            <td id="Td5" class="rightField" style="width: 20%" colspan="2">
+                <asp:ImageButton ID="ImageButton1" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
+                    AlternateText="Add Demat Account" runat="server" ToolTip="Click here to Add Demat Account"
+                    OnClick="ImageButton1_OnClick" Height="15px" Width="15px" TabIndex="3" CausesValidation="false">
+                </asp:ImageButton>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4" style="padding-left: 154px" id="tdDemate" runat="server" visible="false">
+                <table>
+                    <tr>
+                        <td class="leftField" style="width: 150px;">
+                            <asp:Label ID="lblDpName" runat="server" Text="DP Name:" CssClass="FieldName"></asp:Label>
+                        </td>
+                        <td class="rightField" width="51%">
+                            <asp:TextBox ID="txtDpName" runat="server" CssClass="txtField" Width="250px"></asp:TextBox>
+                            <span id="Span16" class="spnRequiredField">*</span>
+                        </td>
+                        <td class="leftField" style="width: 150px;">
+                            &nbsp;<asp:Label ID="lblDPId" runat="server" Text="DP Id:" CssClass="FieldName"></asp:Label>
+                        </td>
+                        <td class="rightField">
+                            <asp:TextBox ID="txtDPId" runat="server" CssClass="txtField"></asp:TextBox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="leftField">
+                            <asp:Label ID="Label4" runat="server" Text="Beneficiary Acct No:" CssClass="FieldName"></asp:Label>
+                        </td>
+                        <td class="rightField">
+                            <asp:TextBox ID="txtDpClientId" runat="server" CssClass="txtField"></asp:TextBox>
+                            <span id="Span17" class="spnRequiredField">*</span>
+                            <asp:RegularExpressionValidator ID="rev" runat="server" ControlToValidate="txtDpClientId"
+                                ValidationGroup="btnsubmit" ErrorMessage="Special Character are not allowed!"
+                                CssClass="cvPCG" Display="Dynamic" ValidationExpression="^[a-zA-Z0-9]+(?:--?[a-zA-Z0-9]+)*$" />
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator14" runat="server" ControlToValidate="txtDpClientId"
+                                ErrorMessage="Client Id Required" CssClass="cvPCG" ValidationGroup="btnsubmitdemate"
+                                Display="Dynamic"></asp:RequiredFieldValidator>
+                        </td>
+                        <td class="leftField">
+                            &nbsp;<asp:Label ID="lblAccountOpeningDate" runat="server" Text="Account Opening Date:"
+                                CssClass="FieldName"></asp:Label>
+                        </td>
+                        <td class="rightField">
+                            <!-- calAccountOpeningDate -->
+                            <telerik:RadDatePicker ID="txtAccountOpeningDate" CssClass="txtTo" runat="server"
+                                Culture="English (United States)" Skin="Telerik" EnableEmbeddedSkins="false"
+                                ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                                <Calendar ID="Calendar1" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
+                                    ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
+                                </Calendar>
+                                <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                                <DateInput ID="DateInput1" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                                </DateInput>
+                            </telerik:RadDatePicker>
+                            <asp:CompareValidator ID="CompareValidator3" runat="server" ControlToValidate="txtAccountOpeningDate"
+                                Type="Date" Operator="DataTypeCheck" ErrorMessage="Please Enter a Valid Date"
+                                Display="Dynamic" CssClass="cvPCG" ValidationGroup="btnsubmitdemate" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="leftField">
+                            <asp:Label ID="lblIsHeldJointly" runat="server" Text="Is Held Jointly:" CssClass="FieldName"></asp:Label>
+                        </td>
+                        <td class="rightField">
+                            <asp:RadioButton ID="rbtnYes" runat="server" Text="Yes" GroupName="IsHeldJointly"
+                                CssClass="txtField" AutoPostBack="True" OnCheckedChanged="RadioButton_CheckChanged" />
+                            <asp:RadioButton ID="rbtnNo" runat="server" Text="No" GroupName="IsHeldJointly" CssClass="txtField"
+                                AutoPostBack="True" OnCheckedChanged="rbtnNo_CheckChanged" OnLoad="rbtnNo_Load"
+                                Checked="true" />
+                        </td>
+                        <td class="leftField">
+                            &nbsp;<asp:Label ID="lblDepositoryName" runat="server" Text="Depository Name:" CssClass="FieldName"></asp:Label>
+                        </td>
+                        <td class="rightField">
+                            <asp:DropDownList ID="ddlDepositoryName" runat="server" CssClass="cmbField" AutoPostBack="true"
+                                OnSelectedIndexChanged="ddlDepositoryName_SelectedIndexChanged">
+                            </asp:DropDownList>
+                            <span id="Span18" class="spnRequiredField">*</span>
+                            <br />
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator15" runat="server" ControlToValidate="ddlDepositoryName"
+                                CssClass="rfvPCG" Display="Dynamic" ErrorMessage="Please select Depository Name"
+                                InitialValue="Select" ValidationGroup="btnsubmitdemate">
+                            </asp:RequiredFieldValidator>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="leftField">
+                            &nbsp;<asp:Label ID="lblModeOfHolding" runat="server" Text="Mode Of Holding:" CssClass="FieldName"></asp:Label>
+                        </td>
+                        <td class="rightField">
+                            <asp:DropDownList ID="ddlModeOfHolding" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlModeOfHolding_SelectedIndexChanged"
+                                CssClass="cmbField">
+                            </asp:DropDownList>
+                        </td>
+                        <td></td>
+                        <td class="rightField">
+                            <asp:Button ID="btnDemateDetails" runat="server" Text="Submit" OnClick="DematebtnSubmit_Click"
+                                ValidationGroup="btnsubmitdemate" BackColor="#2475C7" ForeColor="White" Font-Bold="true" />
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <tr>
+                <td colspan="4">
+                    <telerik:RadGrid ID="gvDematDetailsTeleR" runat="server" AllowAutomaticInserts="false"
+                        AllowFilteringByColumn="false" AllowPaging="true" AllowSorting="true" AutoGenerateColumns="False"
+                        EnableEmbeddedSkins="false" EnableHeaderContextMenu="true" fAllowAutomaticDeletes="false"
+                        GridLines="none" ShowFooter="true" ShowStatusBar="false" Skin="Telerik" OnItemDataBound="gvDematDetailsTeleR_OnItemDataBound"
+                        FooterStyle-BackColor="#2475C7">
+                        <%--<HeaderContextMenu EnableEmbeddedSkins="False">
+                                </HeaderContextMenu>--%>
+                        <ExportSettings HideStructureColumns="true">
+                        </ExportSettings>
+                        <MasterTableView AllowMultiColumnSorting="True" AutoGenerateColumns="false" DataKeyNames="CEDA_DematAccountId,CEDA_DPClientId"
+                            Width="99%">
+                            <CommandItemSettings ExportToPdfText="Export to Pdf" />
+                            <Columns>
+                                <telerik:GridTemplateColumn AllowFiltering="false" DataField="Action" HeaderStyle-Width="30px"
+                                    UniqueName="Action">
+                                    <ItemTemplate>
+                                        <asp:CheckBox ID="chkDematId" runat="server" OnCheckedChanged="btnAddDemat_Click"
+                                            AutoPostBack="true" />
+                                    </ItemTemplate>
+                                </telerik:GridTemplateColumn>
+                                <telerik:GridBoundColumn AllowFiltering="true" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"
+                                    DataField="CEDA_DPName" FilterControlWidth="50px" HeaderStyle-Width="67px" HeaderText="DP Name"
+                                    ShowFilterIcon="false" SortExpression="CEDA_DPName" UniqueName="CEDA_DPName">
+                                    <HeaderStyle Width="67px" />
+                                    <ItemStyle HorizontalAlign="left" VerticalAlign="top" Width="100px" Wrap="false" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn AllowFiltering="true" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"
+                                    DataField="CEDA_DepositoryName" FilterControlWidth="120px" HeaderStyle-Width="140px"
+                                    HeaderText="Depository Name" ShowFilterIcon="false" SortExpression="CEDA_DepositoryName"
+                                    UniqueName="CEDA_DepositoryName">
+                                    <HeaderStyle Width="100px" />
+                                    <ItemStyle HorizontalAlign="left" VerticalAlign="top" Width="67px" Wrap="false" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn AllowFiltering="true" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"
+                                    DataField="CEDA_DPClientId" FilterControlWidth="50px" HeaderStyle-Width="67px"
+                                    HeaderText="Beneficiary Acct No" ShowFilterIcon="false" SortExpression="CEDA_DPClientId"
+                                    UniqueName="CEDA_DPClientId">
+                                    <HeaderStyle Width="120px" />
+                                    <ItemStyle HorizontalAlign="left" VerticalAlign="top" Width="100px" Wrap="false" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn AllowFiltering="true" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"
+                                    DataField="CEDA_DPId" FilterControlWidth="50px" HeaderStyle-Width="67px" HeaderText="DP Id"
+                                    ShowFilterIcon="false" SortExpression="CEDA_DPId" UniqueName="CEDA_DPId">
+                                    <HeaderStyle Width="140px" />
+                                    <ItemStyle HorizontalAlign="left" VerticalAlign="top" Width="140px" Wrap="false" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn AllowFiltering="true" AutoPostBackOnFilter="true" DataField="XMOH_ModeOfHolding"
+                                    HeaderStyle-Width="145px" HeaderText="Mode of holding" ShowFilterIcon="false"
+                                    SortExpression="XMOH_ModeOfHolding" UniqueName="XMOH_ModeOfHolding">
+                                    <HeaderStyle Width="145px" />
+                                    <ItemStyle HorizontalAlign="left" VerticalAlign="top" Width="145px" Wrap="false" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn AllowFiltering="true" AutoPostBackOnFilter="true" DataField="CEDA_AccountOpeningDate"
+                                    DataFormatString="{0:dd/MM/yyyy}" HeaderStyle-Width="145px" HeaderText="Account Opening Date"
+                                    ShowFilterIcon="false" SortExpression="CEDA_AccountOpeningDate" UniqueName="CEDA_AccountOpeningDate"
+                                    Visible="false">
+                                    <HeaderStyle Width="145px" />
+                                    <ItemStyle HorizontalAlign="left" VerticalAlign="top" Width="145px" Wrap="false" />
+                                </telerik:GridBoundColumn>
+                            </Columns>
+                            <EditFormSettings>
+                                <EditColumn CancelImageUrl="Cancel.gif" EditImageUrl="Edit.gif" InsertImageUrl="Update.gif"
+                                    UpdateImageUrl="Update.gif">
+                                </EditColumn>
+                            </EditFormSettings>
+                        </MasterTableView>
+                        <ClientSettings>
+                            <Scrolling AllowScroll="true" ScrollHeight="70px" UseStaticHeaders="True" />
+                        </ClientSettings>
+                    </telerik:RadGrid>
+                </td>
+            </tr>
+            <tr>
+                <td class="leftField" style="width: 25%">
+                    <asp:Label ID="lblDpClientId" runat="server" Text="Beneficiary Acct No.:" CssClass="FieldName"></asp:Label>
+                </td>
+                <td class="rightField" style="width: 20%">
+                    <asp:TextBox ID="txtDematid" Enabled="false" onkeydown="return (event.keyCode!=13);"
+                        runat="server" CssClass="txtField"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator6" ControlToValidate="txtDematid"
+                        ErrorMessage="<br />Please Select Demat from the List" Display="Dynamic" runat="server"
+                        CssClass="rfvPCG" ValidationGroup="btnConfirmOrder"></asp:RequiredFieldValidator>
+                </td>
+                <td>
+                </td>
+            </tr>
+    </table>
+</asp:Panel>
+<asp:Panel ID="pnlJointHolderNominee" runat="server" class="Landscape" Width="100%"
+    Height="80%" ScrollBars="None" Visible="false">
+    <table width="100%" cellspacing="10">
+        <tr>
+            <td>
+                <div class="divSectionHeading" style="vertical-align: text-bottom">
+                    Joint Holder/Nominee Details
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <telerik:RadGrid ID="gvAssociate" runat="server" CssClass="RadGrid" GridLines="Both"
+                    Visible="false" Width="90%" AllowPaging="True" PageSize="20" AllowSorting="True"
+                    AutoGenerateColumns="false" ShowStatusBar="true" Skin="Telerik">
+                    <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
+                        FileName="Family Associates" Excel-Format="ExcelML">
+                    </ExportSettings>
+                    <%--<MasterTableView Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
+                                        CommandItemDisplay="None">--%>
+                    <MasterTableView DataKeyNames="CDAA_Id,CEDA_DematAccountId,CDAA_Name,CDAA_PanNum,Sex,CDAA_DOB,RelationshipName,AssociateType,CDAA_AssociateTypeNo,CDAA_IsKYC,SexShortName,CDAA_AssociateType,XR_RelationshipCode"
+                        Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemSettings-ShowRefreshButton="false">
+                        <Columns>
+                            <telerik:GridBoundColumn DataField="CDAA_Name" HeaderText="Member name" UniqueName="AssociateName"
+                                SortExpression="AssociateName">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="AssociateType" HeaderText="Associate Type" UniqueName="AssociateType"
+                                SortExpression="AssociateType">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="CDAA_PanNum" HeaderText="PAN" UniqueName="CDAA_PanNum"
+                                SortExpression="CDAA_PanNum">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="CDAA_IsKYC" HeaderText="IsKYC" UniqueName="CDAA_IsKYC"
+                                SortExpression="CDAA_IsKYC">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="Sex" HeaderText="Gender" UniqueName="Sex" SortExpression="Sex">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="CDAA_DOB" HeaderText="Date Of Birth" UniqueName="CDAA_DOB"
+                                SortExpression="CDAA_DOB" DataFormatString="{0:d}">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="RelationshipName" HeaderText="Relationship" AllowFiltering="false"
+                                UniqueName="RelationshipName" SortExpression="RelationshipName">
+                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                        </Columns>
+                    </MasterTableView>
+                    <ClientSettings>
+                        <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+                    </ClientSettings>
+                </telerik:RadGrid>
+            </td>
+        </tr>
+    </table>
+</asp:Panel>
 <asp:Panel ID="PnlNCDApplicationDetails" runat="server" class="Landscape" Width="100%"
     Height="80%" ScrollBars="None">
     <table width="100%">
@@ -505,7 +909,7 @@
                 <asp:Label ID="lblDepository" runat="server" Text="Depository Type: " CssClass="FieldName"></asp:Label>
             </td>
             <td id="Td2" class="rightField" style="width: 20%" runat="server" visible="false">
-               <%-- <asp:DropDownList ID="ddlDepositoryName" runat="server" CssClass="cmbField" AutoPostBack="true">
+                <%-- <asp:DropDownList ID="ddlDepositoryName" runat="server" CssClass="cmbField" AutoPostBack="true">
                 </asp:DropDownList>--%>
                 <asp:ImageButton ID="ImageddlSyndicate" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
                     AlternateText="Add" runat="server" ToolTip="Click here to Add Depository Type"
@@ -695,104 +1099,6 @@
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator7" ControlToValidate="txtBranchName"
                     CssClass="rfvPCG" ErrorMessage="<br />Please Enter Bank Branch" Display="Dynamic"
                     runat="server" InitialValue="" ValidationGroup="btnConfirmOrder" Visible="false"></asp:RequiredFieldValidator>
-            </td>
-        </tr>
-    </table>
-</asp:Panel>
-<asp:Panel ID="Panel1" runat="server" class="Landscape" Width="100%" Height="80%"
-    ScrollBars="None" Visible="false">
-    <table width="100%" cellspacing="10">
-        <tr>
-            <td colspan="3">
-                <div class="divSectionHeading" style="vertical-align: text-bottom">
-                    Demat Details
-                </div>
-            </td>
-        </tr>
-        <tr id="tdlnkbtn" runat="server">
-            <td class="leftField" style="width: 20%">
-                <asp:LinkButton ID="lnkBtnDemat" runat="server" OnClick="lnkBtnDemat_onClick" CssClass="LinkButtons"
-                    Text="Click to select Demat Details" CausesValidation="false"></asp:LinkButton>
-            </td>
-            <td id="Td5" class="rightField" style="width: 20%" colspan="2">
-                <asp:ImageButton ID="ImageButton1" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
-                    AlternateText="Add Demat Account" runat="server" ToolTip="Click here to Add Demat Account"
-                    OnClick="ImageButton1_OnClick" Height="15px" Width="15px"
-                    TabIndex="3" CausesValidation="false"></asp:ImageButton>
-            </td>
-        </tr>
-        <tr>
-            <td class="leftField" style="width: 25%">
-                <asp:Label ID="lblDpClientId" runat="server" Text="Beneficiary Acct No.:" CssClass="FieldName"></asp:Label>
-            </td>
-            <td class="rightField" style="width: 20%">
-                <asp:TextBox ID="txtDematid" Enabled="false" onkeydown="return (event.keyCode!=13);"
-                    runat="server" CssClass="txtField"></asp:TextBox>
-                <asp:RequiredFieldValidator ID="RequiredFieldValidator6" ControlToValidate="txtDematid"
-                    ErrorMessage="<br />Please Select Demat from the List" Display="Dynamic" runat="server"
-                    CssClass="rfvPCG" ValidationGroup="btnConfirmOrder"></asp:RequiredFieldValidator>
-            </td>
-            <td>
-            </td>
-        </tr>
-    </table>
-</asp:Panel>
-<asp:Panel ID="pnlJointHolderNominee" runat="server" class="Landscape" Width="100%"
-    Height="80%" ScrollBars="None" Visible="false">
-    <table width="100%" cellspacing="10">
-        <tr>
-            <td>
-                <div class="divSectionHeading" style="vertical-align: text-bottom">
-                    Joint Holder/Nominee Details
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <telerik:RadGrid ID="gvAssociate" runat="server" CssClass="RadGrid" GridLines="Both"
-                    Visible="false" Width="90%" AllowPaging="True" PageSize="20" AllowSorting="True"
-                    AutoGenerateColumns="false" ShowStatusBar="true" Skin="Telerik">
-                    <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
-                        FileName="Family Associates" Excel-Format="ExcelML">
-                    </ExportSettings>
-                    <%--<MasterTableView Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
-                                        CommandItemDisplay="None">--%>
-                    <MasterTableView DataKeyNames="CDAA_Id,CEDA_DematAccountId,CDAA_Name,CDAA_PanNum,Sex,CDAA_DOB,RelationshipName,AssociateType,CDAA_AssociateTypeNo,CDAA_IsKYC,SexShortName,CDAA_AssociateType,XR_RelationshipCode"
-                        Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemSettings-ShowRefreshButton="false">
-                        <Columns>
-                            <telerik:GridBoundColumn DataField="CDAA_Name" HeaderText="Member name" UniqueName="AssociateName"
-                                SortExpression="AssociateName">
-                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="AssociateType" HeaderText="Associate Type" UniqueName="AssociateType"
-                                SortExpression="AssociateType">
-                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="CDAA_PanNum" HeaderText="PAN" UniqueName="CDAA_PanNum"
-                                SortExpression="CDAA_PanNum">
-                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="CDAA_IsKYC" HeaderText="IsKYC" UniqueName="CDAA_IsKYC"
-                                SortExpression="CDAA_IsKYC">
-                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="Sex" HeaderText="Gender" UniqueName="Sex" SortExpression="Sex">
-                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="CDAA_DOB" HeaderText="Date Of Birth" UniqueName="CDAA_DOB"
-                                SortExpression="CDAA_DOB" DataFormatString="{0:d}">
-                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="RelationshipName" HeaderText="Relationship" AllowFiltering="false"
-                                UniqueName="RelationshipName" SortExpression="RelationshipName">
-                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>
-                        </Columns>
-                    </MasterTableView>
-                    <ClientSettings>
-                        <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
-                    </ClientSettings>
-                </telerik:RadGrid>
             </td>
         </tr>
     </table>
@@ -1065,7 +1371,7 @@
         <tr>
             <td class="leftField">
                 <asp:Button ID="btnConfirmOrder" runat="server" Text="Submit Order" OnClick="btnConfirmOrder_Click"
-                    CssClass="PCGMediumButton" ValidationGroup="btnConfirmOrder, btnTC" OnClientClick="return  PreventClicks(); Validate(); " />
+                    CssClass="PCGMediumButton" ValidationGroup="btnConfirmOrder, btnTC" OnClientClick="javascript:return  TestCheckBox();return  PreventClicks(); Validate(); " />
             </td>
             <td class="rightField">
                 <asp:Button ID="btnAddMore" runat="server" Text="Add More IPO Order" CssClass="PCGMediumButton"
@@ -1132,80 +1438,11 @@
             </tr>
             <tr>
                 <td>
-                    <telerik:RadGrid ID="gvDematDetailsTeleR" runat="server" AllowAutomaticInserts="false"
-                        AllowFilteringByColumn="false" AllowPaging="true" AllowSorting="true" AutoGenerateColumns="False"
-                        EnableEmbeddedSkins="false" EnableHeaderContextMenu="true" Height="150px" fAllowAutomaticDeletes="false"
-                        GridLines="none" ShowFooter="false" ShowStatusBar="false" Skin="Telerik" OnItemDataBound="gvDematDetailsTeleR_OnItemDataBound">
-                        <%--<HeaderContextMenu EnableEmbeddedSkins="False">
-                                </HeaderContextMenu>--%>
-                        <ExportSettings HideStructureColumns="true">
-                        </ExportSettings>
-                        <MasterTableView AllowMultiColumnSorting="True" AutoGenerateColumns="false" DataKeyNames="CEDA_DematAccountId,CEDA_DPClientId"
-                            Width="99%">
-                            <CommandItemSettings ExportToPdfText="Export to Pdf" />
-                            <Columns>
-                                <telerik:GridTemplateColumn AllowFiltering="false" DataField="Action" HeaderStyle-Width="30px"
-                                    UniqueName="Action">
-                                    <ItemTemplate>
-                                        <asp:CheckBox ID="chkDematId" runat="server" />
-                                    </ItemTemplate>
-                                </telerik:GridTemplateColumn>
-                                <telerik:GridBoundColumn AllowFiltering="true" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"
-                                    DataField="CEDA_DPName" FilterControlWidth="50px" HeaderStyle-Width="67px" HeaderText="DP Name"
-                                    ShowFilterIcon="false" SortExpression="CEDA_DPName" UniqueName="CEDA_DPName">
-                                    <HeaderStyle Width="67px" />
-                                    <ItemStyle HorizontalAlign="left" VerticalAlign="top" Width="100px" Wrap="false" />
-                                </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn AllowFiltering="true" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"
-                                    DataField="CEDA_DepositoryName" FilterControlWidth="120px" HeaderStyle-Width="140px"
-                                    HeaderText="Depository Name" ShowFilterIcon="false" SortExpression="CEDA_DepositoryName"
-                                    UniqueName="CEDA_DepositoryName">
-                                    <HeaderStyle Width="100px" />
-                                    <ItemStyle HorizontalAlign="left" VerticalAlign="top" Width="67px" Wrap="false" />
-                                </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn AllowFiltering="true" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"
-                                    DataField="CEDA_DPClientId" FilterControlWidth="50px" HeaderStyle-Width="67px"
-                                    HeaderText="Beneficiary Acct No" ShowFilterIcon="false" SortExpression="CEDA_DPClientId"
-                                    UniqueName="CEDA_DPClientId">
-                                    <HeaderStyle Width="120px" />
-                                    <ItemStyle HorizontalAlign="left" VerticalAlign="top" Width="100px" Wrap="false" />
-                                </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn AllowFiltering="true" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"
-                                    DataField="CEDA_DPId" FilterControlWidth="50px" HeaderStyle-Width="67px" HeaderText="DP Id"
-                                    ShowFilterIcon="false" SortExpression="CEDA_DPId" UniqueName="CEDA_DPId">
-                                    <HeaderStyle Width="140px" />
-                                    <ItemStyle HorizontalAlign="left" VerticalAlign="top" Width="140px" Wrap="false" />
-                                </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn AllowFiltering="true" AutoPostBackOnFilter="true" DataField="XMOH_ModeOfHolding"
-                                    HeaderStyle-Width="145px" HeaderText="Mode of holding" ShowFilterIcon="false"
-                                    SortExpression="XMOH_ModeOfHolding" UniqueName="XMOH_ModeOfHolding">
-                                    <HeaderStyle Width="145px" />
-                                    <ItemStyle HorizontalAlign="left" VerticalAlign="top" Width="145px" Wrap="false" />
-                                </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn AllowFiltering="true" AutoPostBackOnFilter="true" DataField="CEDA_AccountOpeningDate"
-                                    DataFormatString="{0:dd/MM/yyyy}" HeaderStyle-Width="145px" HeaderText="Account Opening Date"
-                                    ShowFilterIcon="false" SortExpression="CEDA_AccountOpeningDate" UniqueName="CEDA_AccountOpeningDate"
-                                    Visible="false">
-                                    <HeaderStyle Width="145px" />
-                                    <ItemStyle HorizontalAlign="left" VerticalAlign="top" Width="145px" Wrap="false" />
-                                </telerik:GridBoundColumn>
-                            </Columns>
-                            <EditFormSettings>
-                                <EditColumn CancelImageUrl="Cancel.gif" EditImageUrl="Edit.gif" InsertImageUrl="Update.gif"
-                                    UpdateImageUrl="Update.gif">
-                                </EditColumn>
-                            </EditFormSettings>
-                        </MasterTableView>
-                        <ClientSettings>
-                            <Scrolling AllowScroll="true" ScrollHeight="70px" UseStaticHeaders="True" />
-                        </ClientSettings>
-                    </telerik:RadGrid>
                 </td>
             </tr>
             <tr>
                 <td align="center">
-                    <asp:Button ID="btnAddDemat" runat="server" Text="Accept" CssClass="PCGButton" OnClick="btnAddDemat_Click"
-                        CausesValidation="false" OnClientClick="javascript:return  TestCheckBox();" />
+                    <asp:Button ID="btnAddDemat" runat="server" Text="Accept" CssClass="PCGButton" CausesValidation="false" />
                 </td>
             </tr>
         </table>
@@ -1213,165 +1450,12 @@
 </telerik:RadWindow>
 <telerik:RadWindow ID="RadWindow1" runat="server" VisibleOnPageLoad="false" Width="1000px"
     Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="Move, Resize,Close"
-    Title="Add Customer" EnableShadow="true" OnClientShow="setCustomPosition"
-    Top="10" Left="20">
+    Title="Add Customer" EnableShadow="true" OnClientShow="setCustomPosition" Top="10"
+    Left="20">
     <ContentTemplate>
         <table width="100%" cellpadding="0" cellpadding="0">
             <tr>
                 <tr>
-                    <td class="leftField" style="width: 20%">
-                        <asp:Label ID="lblCustomerType" runat="server" CssClass="FieldName" Text="Customer Type:"></asp:Label>
-                    </td>
-                    <td class="rightField">
-                        <asp:RadioButton ID="rbtnIndividual" runat="server" CssClass="txtField" Text="Individual"
-                            GroupName="grpCustomerType" AutoPostBack="true" OnCheckedChanged="rbtnIndividual_CheckedChanged" />
-                        &nbsp;&nbsp;
-                        <asp:RadioButton ID="rbtnNonIndividual" runat="server" CssClass="txtField" Text="Non Individual"
-                            GroupName="grpCustomerType" AutoPostBack="true" OnCheckedChanged="rbtnNonIndividual_CheckedChanged" />
-                    </td>
-                </tr>
-                <tr id="trBranchlist" runat="server" visible="false">
-                    <td class="leftField">
-                        <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Branch Name:"></asp:Label>
-                    </td>
-                    <td>
-                        <asp:DropDownList ID="ddlAdviserBranchList" AutoPostBack="true" runat="server" CssClass="cmbField">
-                        </asp:DropDownList>
-                        <span id="Span3" class="spnRequiredField">*</span>
-                        <br />
-                        <asp:CompareValidator ID="ddlAdviserBranchList_CompareValidator2" runat="server"
-                            ControlToValidate="ddlAdviserBranchList" ErrorMessage="Please select a Branch"
-                            Operator="NotEqual" ValueToCompare="Select" CssClass="cvPCG" Display="Dynamic" ValidationGroup="CustomerProfileSubmit">
-                        </asp:CompareValidator>
-                    </td>
-                </tr>
-                <tr id="trRMlist" runat="server" visible="false">
-                    <td class="leftField">
-                        <asp:Label ID="lblRMName" runat="server" CssClass="FieldName" Text="Select RM:"></asp:Label>
-                    </td>
-                    <td>
-                        <asp:DropDownList ID="ddlAdviseRMList" runat="server" CssClass="cmbField">
-                        </asp:DropDownList>
-                        <span id="Span8" class="spnRequiredField">*</span>
-                        <br />
-                        <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="ddlAdviseRMList"
-                            ErrorMessage=" " Operator="NotEqual" ValueToCompare="Select" CssClass="cvPCG"
-                            Display="Dynamic" ValidationGroup="CustomerProfileSubmit">
-                        </asp:CompareValidator>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="leftField">
-                        <asp:Label ID="lblCustomerSubType" runat="server" CssClass="FieldName" Text="Customer Sub Type:"></asp:Label>
-                    </td>
-                    <td>
-                        <asp:DropDownList ID="ddlCustomerSubType" runat="server" CssClass="cmbField">
-                        </asp:DropDownList>
-                        <span id="Span8" class="spnRequiredField">*</span> &nbsp;
-                        <asp:CheckBox ID="chkRealInvestor" runat="server" CssClass="txtField" Text="Investor"
-                            AutoPostBack="false" Checked="true" onclick="javascript:ShowSubmitAndSave();" />
-                        <br />
-                        <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="ddlCustomerSubType"
-                            ErrorMessage="Please select a Customer Sub-Type" Operator="NotEqual" ValueToCompare="Select"
-                            CssClass="cvPCG" Display="Dynamic" ValidationGroup="CustomerProfileSubmit" ></asp:CompareValidator>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="leftField">
-                        <asp:Label ID="lblPanNum" runat="server" CssClass="FieldName" Text="PAN:"></asp:Label>
-                    </td>
-                    <td class="rightField" width="75%">
-                        <asp:TextBox ID="txtPanNumber" runat="server" CssClass="txtField" MaxLength="10"></asp:TextBox>
-                        <span id="Span13" class="spnRequiredField">*</span> &nbsp;
-                        <asp:CheckBox ID="chkdummypan" runat="server" Visible="false" CssClass="txtField"
-                            Text="Dummy PAN" AutoPostBack="true" />
-                        <br />
-                        <asp:RequiredFieldValidator ID="rfvPanNumber" ControlToValidate="txtPanNumber" ErrorMessage="Please enter a PAN Number"
-                            Display="Dynamic" runat="server" CssClass="rfvPCG" ValidationGroup="CustomerProfileSubmit">
-                        </asp:RequiredFieldValidator>
-                        <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" Display="Dynamic"
-                            CssClass="rfvPCG" ErrorMessage="Please check PAN Format" ControlToValidate="txtPanNumber"
-                            ValidationExpression="[A-Za-z]{5}\d{4}[A-Za-z]{1}" ValidationGroup="CustomerProfileSubmit">
-                        </asp:RegularExpressionValidator>
-                        <asp:Label ID="lblPanDuplicate" runat="server" CssClass="Error" Text="PAN Number already exists"></asp:Label>
-                    </td>
-                </tr>
-                <tr id="trSalutation" runat="server">
-                    <td class="leftField">
-                        <asp:Label ID="lblSalutation" runat="server" CssClass="FieldName" Text="Salutation:"></asp:Label>
-                    </td>
-                    <td class="rightField" width="75%">
-                        <asp:DropDownList ID="ddlSalutation" runat="server" CssClass="cmbField">
-                            <asp:ListItem>Select a Salutation</asp:ListItem>
-                            <asp:ListItem>Mr.</asp:ListItem>
-                            <asp:ListItem>Mrs.</asp:ListItem>
-                            <asp:ListItem>Ms.</asp:ListItem>
-                            <asp:ListItem>M/S.</asp:ListItem>
-                            <asp:ListItem>Dr.</asp:ListItem>
-                        </asp:DropDownList>
-                    </td>
-                </tr>
-                <tr id="trIndividualName" runat="server">
-                    <td class="leftField">
-                        <asp:Label ID="lblName" runat="server" CssClass="FieldName" Text="Name:"></asp:Label>
-                    </td>
-                    <td class="rightField">
-                        <asp:TextBox ID="txtFirstName" runat="server" MaxLength="75" Style="width: 30%" CssClass="txtField"></asp:TextBox>
-                        <cc1:TextBoxWatermarkExtender ID="txtFirstName_TextBoxWatermarkExtender" runat="server"
-                            Enabled="True" TargetControlID="txtFirstName" WatermarkText="FirstName">
-                        </cc1:TextBoxWatermarkExtender>
-                        <span id="Span14" class="spnRequiredField">*</span>
-                        <asp:TextBox ID="txtMiddleName" runat="server" MaxLength="25" Style="width: 30%"
-                            CssClass="txtField"></asp:TextBox>
-                        <cc1:TextBoxWatermarkExtender ID="txtMiddleName_TextBoxWatermarkExtender" runat="server"
-                            Enabled="True" TargetControlID="txtMiddleName" WatermarkText="MiddleName">
-                        </cc1:TextBoxWatermarkExtender>
-                        <asp:TextBox ID="txtLastName" runat="server" MaxLength="75" Style="width: 30%" CssClass="txtField"></asp:TextBox>
-                        <cc1:TextBoxWatermarkExtender ID="txtLastName_TextBoxWatermarkExtender" runat="server"
-                            Enabled="True" TargetControlID="txtLastName" WatermarkText="LastName">
-                        </cc1:TextBoxWatermarkExtender>
-                        <asp:RequiredFieldValidator ID="RequiredFieldValidator12" ControlToValidate="txtFirstName"
-                            ErrorMessage="<br />Please enter the First Name" Display="Dynamic" runat="server"
-                            CssClass="rfvPCG" ValidationGroup="CustomerProfileSubmit">
-                        </asp:RequiredFieldValidator>
-                    </td>
-                </tr>
-                <tr id="trNonIndividualName" runat="server">
-                    <td class="leftField">
-                        <asp:Label ID="lblCompanyName" runat="server" CssClass="FieldName" Text="Company Name:"></asp:Label>
-                    </td>
-                    <td>
-                        <asp:TextBox ID="txtCompanyName" CssClass="txtField" Style="width: 30%" runat="server"></asp:TextBox>
-                        <span id="Span15" class="spnRequiredField">*</span>
-                        <br />
-                        <asp:RequiredFieldValidator ID="RequiredFieldValidator13" ControlToValidate="txtCompanyName"
-                            ErrorMessage="Please enter the Company Name" Display="Dynamic" runat="server"
-                            CssClass="rfvPCG" ValidationGroup="CustomerProfileSubmit">
-                        </asp:RequiredFieldValidator>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="leftField">
-                        <asp:Label ID="lblEmail" runat="server" CssClass="FieldName" Text="Email Id:"></asp:Label>
-                    </td>
-                    <td>
-                        <asp:TextBox ID="txtEmail" runat="server" Style="width: 30%" CssClass="txtField"></asp:TextBox>
-                        <asp:RegularExpressionValidator ID="RegularExpressionValidator2" ControlToValidate="txtEmail"
-                            ErrorMessage="Please enter a valid Email ID" Display="Dynamic" runat="server"
-                            ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" CssClass="revPCG" ValidationGroup="CustomerProfileSubmit"></asp:RegularExpressionValidator>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="leftField">
-                        <asp:Label ID="Label3" runat="server" CssClass="FieldName" Text="Mobile No:"></asp:Label>
-                    </td>
-                    <td class="rightField" colspan="3">
-                        <asp:TextBox ID="txtMobileNumber" runat="server" CssClass="txtField" MaxLength="10"></asp:TextBox>
-                        <asp:RegularExpressionValidator ID="RegularExpressionValidator14" ControlToValidate="txtMobileNumber"
-                            Display="Dynamic" runat="server" CssClass="rfvPCG" ErrorMessage="Not acceptable format"
-                            ValidationExpression="^\d{10,10}$" ValidationGroup="CustomerProfileSubmit">
-                        </asp:RegularExpressionValidator>
-                    </td>
                 </tr>
                 <tr>
                     <td colspan="2">
@@ -1385,119 +1469,21 @@
                     &nbsp;
                 </td>
                 <td class="SubmitCell">
-                    <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="btnSubmit_Click"
-                        CssClass="PCGButton" ValidationGroup="CustomerProfileSubmit" /><%----%>
+                    <%----%>
                 </td>
             </tr>
         </table>
     </ContentTemplate>
 </telerik:RadWindow>
-<telerik:RadWindow ID="RadDemateAdd" runat="server" VisibleOnPageLoad="false" Width="1000px" Height="200px"
-    Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="Move, Resize,Close"
+<telerik:RadWindow ID="RadDemateAdd" runat="server" VisibleOnPageLoad="false" Width="1000px"
+    Height="200px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="Move, Resize,Close"
     Title="Add Demate Account" EnableShadow="true" OnClientShow="setCustomPosition"
     Top="10" Left="20">
     <ContentTemplate>
         <table class="TableBackground" width="100%">
-        <tr>
-        </tr>
-        <tr></tr>
             <tr>
-                <td class="leftField" style="width: 150px;">
-                    <asp:Label ID="lblDpName" runat="server" Text="DP Name:" CssClass="FieldName"></asp:Label>
-                </td>
-                <td class="rightField">
-                    <asp:TextBox ID="txtDpName" runat="server" CssClass="txtField" Width="250px"></asp:TextBox>
-                    <span id="Span16" class="spnRequiredField">*</span>
-                </td>
-                <td class="leftField" style="width: 150px;">
-                    &nbsp;<asp:Label ID="lblDPId" runat="server" Text="DP Id:" CssClass="FieldName"></asp:Label>
-                </td>
-                <td class="rightField">
-                    <asp:TextBox ID="txtDPId" runat="server" CssClass="txtField"></asp:TextBox>
-                </td>
             </tr>
             <tr>
-                <td class="leftField">
-                    <asp:Label ID="Label4" runat="server" Text="Beneficiary Acct No:" CssClass="FieldName"></asp:Label>
-                </td>
-                <td class="rightField">
-                    <asp:TextBox ID="txtDpClientId" runat="server" CssClass="txtField"></asp:TextBox>
-                    <span id="Span17" class="spnRequiredField">*</span>
-                    <asp:RegularExpressionValidator ID="rev" runat="server" ControlToValidate="txtDpClientId"
-                        ValidationGroup="btnsubmit" ErrorMessage="Special Character are not allowed!"
-                        CssClass="cvPCG" Display="Dynamic" ValidationExpression="^[a-zA-Z0-9]+(?:--?[a-zA-Z0-9]+)*$" />
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator14" runat="server" ControlToValidate="txtDpClientId"
-                        ErrorMessage="Client Id Required" CssClass="cvPCG" ValidationGroup="btnsubmitdemate"
-                        Display="Dynamic"></asp:RequiredFieldValidator>
-                </td>
-                <td class="leftField">
-                    &nbsp;<asp:Label ID="lblAccountOpeningDate" runat="server" Text="Account Opening Date:"
-                        CssClass="FieldName"></asp:Label>
-                </td>
-                <td class="rightField">
-                    <!-- calAccountOpeningDate -->
-                    <telerik:RadDatePicker ID="txtAccountOpeningDate" CssClass="txtTo" runat="server"
-                        Culture="English (United States)" Skin="Telerik" EnableEmbeddedSkins="false"
-                        ShowAnimation-Type="Fade" MinDate="1900-01-01">
-                        <Calendar ID="Calendar1" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
-                            ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
-                        </Calendar>
-                        <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                        <DateInput ID="DateInput1" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
-                        </DateInput>
-                    </telerik:RadDatePicker>
-                    <asp:CompareValidator ID="CompareValidator3" runat="server" ControlToValidate="txtAccountOpeningDate"
-                        Type="Date" Operator="DataTypeCheck" ErrorMessage="Please Enter a Valid Date"
-                        Display="Dynamic" CssClass="cvPCG"  ValidationGroup="btnsubmitdemate"/>
-                </td>
-            </tr>
-            <tr>
-                <td class="leftField">
-                    <asp:Label ID="lblIsHeldJointly" runat="server" Text="Is Held Jointly:" CssClass="FieldName"></asp:Label>
-                </td>
-                <td class="rightField">
-                    <asp:RadioButton ID="rbtnYes" runat="server" Text="Yes" GroupName="IsHeldJointly"
-                        CssClass="txtField" AutoPostBack="True" OnCheckedChanged="RadioButton_CheckChanged" />
-                    <asp:RadioButton ID="rbtnNo" runat="server" Text="No" GroupName="IsHeldJointly" CssClass="txtField"
-                        AutoPostBack="True" OnCheckedChanged="rbtnNo_CheckChanged" OnLoad="rbtnNo_Load"
-                        Checked="true" />
-                </td>
-                <td class="leftField">
-                    &nbsp;<asp:Label ID="lblDepositoryName" runat="server" Text="Depository Name:" CssClass="FieldName"></asp:Label>
-                </td>
-                <td class="rightField">
-                    <asp:DropDownList ID="ddlDepositoryName" runat="server" CssClass="cmbField" AutoPostBack="true"
-                        OnSelectedIndexChanged="ddlDepositoryName_SelectedIndexChanged">
-                    </asp:DropDownList>
-                    <span id="Span18" class="spnRequiredField">*</span>
-                    <br />
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator15" runat="server" ControlToValidate="ddlDepositoryName"
-                        CssClass="rfvPCG" Display="Dynamic" ErrorMessage="Please select Depository Name"
-                        InitialValue="Select" ValidationGroup="btnsubmitdemate">
-                    </asp:RequiredFieldValidator>
-                </td>
-            </tr>
-            <tr>
-                <td class="leftField">
-                    &nbsp;<asp:Label ID="lblModeOfHolding" runat="server" Text="Mode Of Holding:" CssClass="FieldName"></asp:Label>
-                </td>
-                <td class="rightField">
-                    <asp:DropDownList ID="ddlModeOfHolding" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlModeOfHolding_SelectedIndexChanged"
-                        CssClass="cmbField">
-                    </asp:DropDownList>
-                </td>
-                <td class="leftField">
-                </td>
-                <td>
-                </td>
-            </tr>
-            <tr>
-                <td class="leftField">
-                </td>
-                <td class="rightField">
-                    <asp:Button ID="btnDemateDetails" runat="server" Text="Submit" OnClick="DematebtnSubmit_Click" CssClass="PCGButton"
-                         ValidationGroup="btnsubmitdemate" />
-                </td>
             </tr>
         </table>
     </ContentTemplate>
@@ -1505,7 +1491,8 @@
 <tr>
     <td colspan="4">
         <asp:ValidationSummary ID="vsSummary" runat="server" CssClass="rfvPCG" Visible="true"
-            ValidationGroup="btnConfirmOrder" ShowSummary="true" DisplayMode="BulletList" />
+            ValidationGroup="btnConfirmOrder" ShowSummary="true" DisplayMode="BulletList"
+            OnClientClick="javascript:return  TestCheckBox();" />
     </td>
 </tr>
 <%--</ContentTemplate>

@@ -430,10 +430,8 @@
                 <asp:ListItem Text="Customer" Value="1"></asp:ListItem>
                 <asp:ListItem Text="PAN" Value="2"></asp:ListItem>
             </asp:DropDownList>
-             <span id="Span14" class="spnRequiredField">*</span>
+            <span id="Span14" class="spnRequiredField">*</span>
         </td>
-           
-        
         <td align="right" runat="server" visible="false">
             <asp:Label ID="lblARNNo" runat="server" CssClass="FieldName" Text="ARN No:"></asp:Label>
         </td>
@@ -922,7 +920,7 @@
                         <td class="rightField" style="width: 20%">
                             <asp:TextBox ID="txtDematid" Enabled="false" onkeydown="return (event.keyCode!=13);"
                                 runat="server" CssClass="txtField"></asp:TextBox>
-                           <%-- <asp:RequiredFieldValidator ID="RequiredFieldValidator6" ControlToValidate="txtDematid"
+                            <%-- <asp:RequiredFieldValidator ID="RequiredFieldValidator6" ControlToValidate="txtDematid"
                                 ErrorMessage="<br />Please Select Demat from the List" Display="Dynamic" runat="server"
                                 CssClass="rfvPCG" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>--%>
                         </td>
@@ -1062,13 +1060,12 @@
         </td>
         <td class="rightField" style="width: 20%">
             <asp:DropDownList ID="ddlBankName" runat="server" CssClass="cmbField" AutoPostBack="true"
-                CausesValidation="true" >
+                CausesValidation="true">
             </asp:DropDownList>
             <span id="Span4" class="spnRequiredField">*</span>
-            
             <asp:RequiredFieldValidator ID="RequiredFieldValidator7" ControlToValidate="ddlBankName"
                 ErrorMessage="<br />Please Select Bank from the List" Display="Dynamic" runat="server"
-                CssClass="rfvPCG" InitialValue="Select" ValidationGroup="MFSubmit" ></asp:RequiredFieldValidator>
+                CssClass="rfvPCG" InitialValue="Select" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
             <asp:ImageButton ID="imgAddBank" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
                 AlternateText="Add" runat="server" ToolTip="Click here to Add Bank" OnClientClick="return openpopupAddBank()"
                 Height="15px" Width="15px" Visible="false"></asp:ImageButton>
@@ -1130,9 +1127,6 @@
             </label>
         </td>
         <td align="left">
-            <asp:DropDownList ID="ddlProofType" AutoPostBack="true" runat="server" CssClass="cmbField"
-                OnSelectedIndexChanged="ddlProofType_SelectedIndexChanged">
-            </asp:DropDownList>
         </td>
     </tr>
     <tr id="trProof" runat="server" visible="false">
@@ -1148,11 +1142,6 @@
             </label>
         </td>
         <td align="left" style="vertical-align: middle">
-            <span style="font-size: xx-small">(Allowed extensions are: .jpg,.jpeg,.bmp,.png,.pdf)</span>
-            <telerik:RadUpload ID="radUploadProof" runat="server" ControlObjectsVisibility="None"
-                AutoPostBack="true" AllowedFileExtensions=".jpg,.jpeg,.bmp,.png,.pdf" Skin="Telerik"
-                EnableEmbeddedSkins="true">
-            </telerik:RadUpload>
             <asp:Label ID="lblFileUploaded" runat="server" CssClass="FieldName" Text="" Visible="false"></asp:Label>
         </td>
     </tr>
@@ -1160,6 +1149,98 @@
         <td>
             <asp:Button ID="BtnFileupload" runat="server" Text="Upload Documents" CssClass="PCGButton"
                 ValidationGroup="MFSubmit" OnClick="BtnFileupload_Click" Visible="false" />
+        </td>
+    </tr>
+</table>
+<table width="68%" id="tbUploadDocument" runat="server" visible="false">
+    <tr>
+        <td>
+            <telerik:RadGrid ID="gvUploadDocument" runat="server" AllowSorting="True" enableloadondemand="True"
+                PageSize="5" AutoGenerateColumns="False" EnableEmbeddedSkins="False" GridLines="None"
+                ShowFooter="True" PagerStyle-AlwaysVisible="true" AllowPaging="true" ShowStatusBar="True"
+                Skin="Telerik" AllowFilteringByColumn="true" OnItemCommand="gvUploadDocument_OnItemCommand"
+                OnNeedDataSource="gvUploadDocument_OnNeedDataSource" OnItemDataBound="gvUploadDocument_OnItemDataBound">
+                <MasterTableView DataKeyNames="" AllowFilteringByColumn="true" Width="100%" AllowMultiColumnSorting="True"
+                    AutoGenerateColumns="false" CommandItemDisplay="Top" EditMode="PopUp">
+                    <CommandItemSettings ShowExportToWordButton="false" ShowExportToExcelButton="false"
+                        AddNewRecordText="Add Alert Setup" ShowExportToCsvButton="false" ShowAddNewRecordButton="true"
+                        ShowRefreshButton="false" />
+                    <Columns>
+                        <%-- <telerik:GridEditCommandColumn UniqueName="EditCommandColumn" Visible="false">
+                        </telerik:GridEditCommandColumn>--%>
+                        <telerik:GridEditCommandColumn EditText="Edit" UniqueName="editColumn" CancelText="Cancel"
+                            UpdateText="Update" HeaderStyle-Width="80px" Visible="false">
+                        </telerik:GridEditCommandColumn>
+                        <telerik:GridBoundColumn DataField="AES_EventSetupID" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
+                            ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Event SetupId"
+                            UniqueName="AES_EventSetupID" SortExpression="AES_EventSetupID" AllowFiltering="true"
+                            Visible="false">
+                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn DataField="CMFSS_SystematicSetupId" HeaderStyle-Width="20px"
+                            CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                            HeaderText="Request Id" UniqueName="CMFSS_SystematicSetupId" SortExpression="CMFSS_SystematicSetupId"
+                            AllowFiltering="true">
+                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridButtonColumn UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete?"
+                            ConfirmDialogType="RadWindow" ConfirmTitle="Delete" ButtonType="LinkButton" CommandName="Delete"
+                            Text="Delete">
+                            <ItemStyle HorizontalAlign="Center" CssClass="MyImageButton" Width="70px" />
+                        </telerik:GridButtonColumn>
+                    </Columns>
+                    <EditFormSettings EditFormType="Template" PopUpSettings-Height="180px" PopUpSettings-Width="500px"
+                        CaptionFormatString="Upload Document">
+                        <FormTemplate>
+                            <table width="100%">
+                                <tr>
+                                    <td align="right">
+                                        <asp:Label ID="lblProoftype" runat="server" Text="Proof Type:" CssClass="FieldName"></asp:Label>
+                                    </td>
+                                    <td>
+                                        <asp:DropDownList ID="ddlProofType" AutoPostBack="true" runat="server" CssClass="cmbField"
+                                            OnSelectedIndexChanged="ddlProofType_SelectedIndexChanged">
+                                        </asp:DropDownList>
+                                        <span id="Span3" class="spnRequiredField">*</span>
+                                        <br />
+                                        <asp:RequiredFieldValidator ID="ReqddlLevel" runat="server" CssClass="rfvPCG" ErrorMessage="Please Select Proof Type"
+                                            Display="Dynamic" ControlToValidate="ddlProofType" ValidationGroup="btnOK"
+                                            InitialValue="0">
+                                        </asp:RequiredFieldValidator>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="right">
+                                        <asp:Label ID="lblUpload" runat="server" Text="Upload:" CssClass="FieldName"></asp:Label>
+                                    </td>
+                                    <td>
+                                        <span style="font-size: xx-small">(Allowed extensions are: .jpg,.jpeg,.bmp,.png,.pdf)</span>
+                                        <telerik:RadUpload ID="radUploadProof" runat="server" ControlObjectsVisibility="None"
+                                            AutoPostBack="true" AllowedFileExtensions=".jpg,.jpeg,.bmp,.png,.pdf" Skin="Telerik"
+                                            EnableEmbeddedSkins="true">
+                                        </telerik:RadUpload>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="right">
+                                        <asp:Button ID="btnOK" Text="Submit" runat="server" CssClass="PCGButton" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'
+                                            CausesValidation="True" ValidationGroup="btnOK" />
+                                    </td>
+                                    <td class="rightData">
+                                        <asp:Button ID="btnCancel" Text="Cancel" runat="server" CausesValidation="False"
+                                            CssClass="PCGButton" CommandName="Cancel"></asp:Button>
+                                    </td>
+                                </tr>
+                            </table>
+                        </FormTemplate>
+                    </EditFormSettings>
+                </MasterTableView>
+                <ClientSettings>
+                    <ClientEvents OnRowContextMenu="RowContextMenu" />
+                    <Selecting AllowRowSelect="true" />
+                    <Scrolling AllowScroll="false"></Scrolling>
+                </ClientSettings>
+            </telerik:RadGrid>
         </td>
     </tr>
 </table>

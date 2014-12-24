@@ -187,6 +187,7 @@ namespace WealthERP.OffLineOrderManagement
                         GetcustomerDetails();
                         View54ECOrderDetails(orderId);
                         lnkBtnEdit();
+                        BindDocument(orderId);
                         btnUpdate.Visible = true;
                         lnkBtnFIEdit.Visible = false;
                         SetFICOntrolsEnablity(true);
@@ -202,6 +203,7 @@ namespace WealthERP.OffLineOrderManagement
                         lblAssociatetext.Text = Request.QueryString["associatename"].ToString();
                         txtAssociateSearch.Text = Request.QueryString["agentcode"].ToString();
                         GetcustomerDetails();
+                        BindDocument(orderId);
                         View54ECOrderDetails(orderId);
                         lnkBtnEdit();
                         lnkBtnFIEdit.Visible = true;
@@ -910,7 +912,7 @@ namespace WealthERP.OffLineOrderManagement
             }
             else
             {
-                 orderId = fiorderVo.OrderNumber;
+                orderId = fiorderVo.OrderNumber;
                 OrderIds = fiorderBo.CreateOrderFIDetails(orderVo, fiorderVo, userVo.UserId, "Update");
                 orderId = fiorderVo.OrderNumber;
                 lblOrderNumber.Text = "Order No.";
@@ -4118,7 +4120,7 @@ namespace WealthERP.OffLineOrderManagement
                     txtDematid.Text = dr["CEDA_DPClientId"].ToString();
                 }
                 if (!string.IsNullOrEmpty(dr["CEDA_DematAccountId"].ToString()))
-                BindgvFamilyAssociate(int.Parse(dr["CEDA_DematAccountId"].ToString()));
+                    BindgvFamilyAssociate(int.Parse(dr["CEDA_DematAccountId"].ToString()));
                 if (!string.IsNullOrEmpty(dr["CB_CustBankAccId"].ToString()))
                 {
                     ddlBankName.SelectedValue = dr["CB_CustBankAccId"].ToString();
@@ -4162,5 +4164,40 @@ namespace WealthERP.OffLineOrderManagement
             Panel1.Visible = true;
 
         }
+        protected void BindDocument(int orderid)
+        {
+
+            DataTable dtBindDocument = fiorderBo.GetDocumentDetails(orderid);
+            if (dtBindDocument.Rows.Count > 0)
+            {
+                if (Cache["CustomerSIPAlert" + advisorVo.advisorId] == null)
+                {
+                    Cache.Insert("CustomerSIPAlert" + advisorVo.advisorId, dtBindDocument);
+                }
+                else
+                {
+                    Cache.Remove("CustomerSIPAlert" + advisorVo.advisorId);
+                    Cache.Insert("CustomerSIPAlert" + advisorVo.advisorId, dtBindDocument);
+                }
+                gvUploadDocument.DataSource = dtBindDocument;
+                gvUploadDocument.DataBind();
+            }
+            else
+            {
+                gvUploadDocument.DataSource = dtBindDocument;
+                gvUploadDocument.DataBind();
+            }
+
+        }
+        protected void gvUploadDocument_OnItemDataBound(object sender, GridItemEventArgs e)
+        {
+        }
+        protected void gvUploadDocument_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        {
+        }
+        protected void gvUploadDocument_OnItemCommand(object source, GridCommandEventArgs e)
+        {
+        }
+
     }
 }
