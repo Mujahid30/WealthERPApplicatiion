@@ -1009,7 +1009,7 @@
             <asp:Label ID="lblMode" runat="server" Text="Mode Of Payment:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField" style="width: 20%">
-            <asp:DropDownList ID="ddlPaymentMode" runat="server" CssClass="cmbField">
+            <asp:DropDownList ID="ddlPaymentMode" runat="server" AutoPostBack="true" CssClass="cmbField" OnSelectedIndexChanged="ddlPaymentMode_SelectedIndexChanged">
                 <asp:ListItem Text="Cheque" Value="CQ" Selected="True"></asp:ListItem>
                 <asp:ListItem Text="Draft" Value="DF"></asp:ListItem>
                 <asp:ListItem Text="ECS" Value="ES"></asp:ListItem>
@@ -1028,6 +1028,10 @@
         </td>
         <td class="rightField" style="width: 20%">
             <asp:TextBox ID="txtPaymentNumber" runat="server" MaxLength="6" CssClass="txtField"></asp:TextBox>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator6" ControlToValidate="txtPaymentNumber"
+                ErrorMessage="<br />Please Enter Instrument Number" Display="Dynamic" runat="server"
+                CssClass="rfvPCG" InitialValue="" ValidationGroup="MFSubmit" ></asp:RequiredFieldValidator>
+           
         </td>
         <td class="leftField" style="width: 20%">
             <asp:Label ID="lblPIDate" runat="server" Text="Payment Instrument Date:" CssClass="FieldName"></asp:Label>
@@ -1043,6 +1047,10 @@
                 <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
                 </DateInput>
             </telerik:RadDatePicker>
+             <asp:RequiredFieldValidator ID="RequiredFieldValidator8" ControlToValidate="txtPaymentInstDate"
+                ErrorMessage="<br />Please Enter Instrument Date" Display="Dynamic" runat="server"
+                CssClass="rfvPCG" InitialValue="" ValidationGroup="MFSubmit" ></asp:RequiredFieldValidator>
+                
             <asp:CompareValidator ID="CVPaymentDate" runat="server" ErrorMessage="<br/>Please enter a valid date."
                 Type="Date" ControlToValidate="txtPaymentInstDate" CssClass="cvPCG" Operator="DataTypeCheck"
                 ValueToCompare="" Display="Dynamic"></asp:CompareValidator>

@@ -174,7 +174,6 @@ namespace WealthERP.OffLineOrderManagement
                 //  FIScheme(advisorVo.advisorId, "0");                
                 BindProofTypeDP();
                 BindBanks(0);
-
                 if (Request.QueryString["action"] != null)
                 {
                     if (Request.QueryString["action"].Trim() == "Edit")
@@ -190,6 +189,8 @@ namespace WealthERP.OffLineOrderManagement
                         lnkBtnEdit();
                         btnUpdate.Visible = true;
                         lnkBtnFIEdit.Visible = false;
+                        SetFICOntrolsEnablity(true);
+
                     }
 
                     else
@@ -205,6 +206,8 @@ namespace WealthERP.OffLineOrderManagement
                         lnkBtnEdit();
                         lnkBtnFIEdit.Visible = true;
                         btnUpdate.Visible = false;
+                        SetFICOntrolsEnablity(false);
+
                     }
 
                 }
@@ -239,7 +242,7 @@ namespace WealthERP.OffLineOrderManagement
                     lblgetcust.Text = customerVo.FirstName + ' ' + customerVo.MiddleName + ' ' + customerVo.LastName;
                 OnTaxStatus();
                 BindBanks(customerId);
-                lblAssociate.Visible = true;
+                
                 CustomerPortfolioVo customerPortfolioVo = new CustomerPortfolioVo();
                 customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(int.Parse(txtCustomerId.Value));
 
@@ -363,6 +366,8 @@ namespace WealthERP.OffLineOrderManagement
 
         private void GetAgentName(int agentId)
         {
+            // Admin after selecting agent code and sales login default 
+            lblAssociate.Visible = true;
             Agentname = customerBo.GetSubBrokerName(agentId);
             if (Agentname.Rows.Count > 0)
             {
@@ -677,7 +682,7 @@ namespace WealthERP.OffLineOrderManagement
                 lnkBtnFIEdit.Visible = true;
 
                 BtnFileupload.Visible = true;
-                btnUpdate.Visible = true;
+               // btnUpdate.Visible = true;
             }
             else
             {
@@ -722,14 +727,15 @@ namespace WealthERP.OffLineOrderManagement
             txtMaturDate.Enabled = Val;
             txtMatAmt.Enabled = Val;
             txtPayAmt.Enabled = Val;
-
-
+            txtQty.Enabled = Val;
+            TxtPurAmt.Enabled = Val;
             txtMatAmt.Enabled = Val;
             txtPayAmt.Enabled = Val;
         }
 
         protected void lnkBtnFIEdit_Click(object sender, EventArgs e)
         {
+            lnkBtnFIEdit.Visible = false;
             lnkBtnEdit();
 
         }
@@ -743,7 +749,23 @@ namespace WealthERP.OffLineOrderManagement
             btnUpdate.Visible = true;
             btnSubmit.Visible = false;
         }
+        protected void ddlPaymentMode_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            PaymentMode(ddlPaymentMode.SelectedValue);
+        }
 
+        private void PaymentMode(string type)
+        {
+            if (type == "CQ" || type == "DF")
+            {
+                trPINo.Visible = true;
+                txtPaymentInstDate.MaxDate = txtOrderDate.MaxDate;
+            }
+            else
+            {
+                trPINo.Visible = false;
+            }
+        }
         private void GetFICOntrolsValues()
         {
             int i = 0;
