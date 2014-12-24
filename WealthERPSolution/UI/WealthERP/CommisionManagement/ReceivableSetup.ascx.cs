@@ -192,6 +192,7 @@ namespace WealthERP.Receivable
             BindAllDropdown();
             ShowHideControlsBasedOnProduct(ddlProductType.SelectedValue);
             GetCategory(ddlProductType.SelectedValue);
+           
 
         }
 
@@ -481,7 +482,7 @@ namespace WealthERP.Receivable
                 SpanSubCategory.Visible = false;
                 tdlblCategory.Visible = true;
                 tdddlCategory.Visible = true;
-              
+                BindBondCategories();
             }
             else if (asset == "IP")
             {
@@ -662,7 +663,7 @@ namespace WealthERP.Receivable
                 }
                 else if (ddlProductType.SelectedValue == "FI")
                 {
-                    strSubCategoryCode.Append("FISDSD");
+                    strSubCategoryCode.Append(ddlSubInstrCategory.SelectedValue);
                     commissionStructureMasterVo.AssetSubCategory = strSubCategoryCode;
                 }
                 string subcategoryIds = commissionStructureMasterVo.AssetSubCategory.ToString();
@@ -2044,7 +2045,7 @@ namespace WealthERP.Receivable
 
                 }
                 ddlIssuer.SelectedValue = commissionStructureMasterVo.Issuer;
-
+              
                 txtValidityFrom.Text = commissionStructureMasterVo.ValidityStartDate.ToShortDateString();
                 txtValidityTo.Text = commissionStructureMasterVo.ValidityEndDate.ToShortDateString();
                 txtStructureName.Text = commissionStructureMasterVo.CommissionStructureName;
@@ -2066,6 +2067,8 @@ namespace WealthERP.Receivable
                 string subcategoryIds = commissionStructureMasterVo.AssetSubCategory.ToString();
                 subcategoryIds = subcategoryIds.Replace("~", ",");
                 hdnSubcategoryIds.Value = subcategoryIds;
+                BindBondCategories();
+                  ddlSubInstrCategory.SelectedValue = commissionStructureMasterVo.AssetSubCategory.ToString();
             }
             catch (BaseApplicationException Ex)
             {

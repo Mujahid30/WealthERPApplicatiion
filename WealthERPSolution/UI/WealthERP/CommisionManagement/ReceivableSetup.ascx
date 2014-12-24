@@ -611,6 +611,21 @@
                             InitialValue="Select" ValidationGroup="vgBtnSubmitStage2">
                         </asp:RequiredFieldValidator>
                     </td>
+                     <td class="leftLabel" id="tdlblCategory" runat="server" visible="false">
+                        <asp:Label ID="Label16" runat="server" Text="Category:" CssClass="FieldName"></asp:Label>
+                    </td>
+                    <td align="rightData" id="tdddlCategory" runat="server" visible="false">
+                        <asp:DropDownList ID="ddlSubInstrCategory" runat="server" CssClass="cmbField" AutoPostBack="true"
+                            Width="205px">
+                        </asp:DropDownList>
+                        <asp:Label ID="lblcategoryerror" runat="server" Text="*" Visible="false" CssClass="Error"></asp:Label><br />
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator10" runat="server" ErrorMessage="Please Select Category"
+                            CssClass="rfvPCG" ControlToValidate="ddlSubInstrCategory" ValidationGroup="SetUpSubmit"
+                            Display="Dynamic" InitialValue="Select"></asp:RequiredFieldValidator>
+                        <asp:DropDownList ID="ddlInstrCat" runat="server" CssClass="cmbLongField" Width="500px"
+                            Visible="false">
+                        </asp:DropDownList>
+                    </td>
                     <td class="leftLabel">
                         <asp:Label ID="lblCategory" runat="server" Text="Category:" CssClass="FieldName"></asp:Label>
                     </td>
@@ -623,6 +638,7 @@
                             CssClass="rfvPCG" ControlToValidate="ddlCategory" ValidationGroup="btnStrAddUpdate"
                             Display="Dynamic" InitialValue="0"></asp:RequiredFieldValidator>
                     </td>
+                   
                     <td align="left">
                         <asp:Label ID="lblSubCategory" runat="server" Text="Sub Category:" CssClass="FieldName"></asp:Label>
                         <span id="SpanSubCategory" class="spnRequiredField" runat="server">*</span>
@@ -1104,21 +1120,7 @@
             </table>
             <table runat="server" id="tbNcdIssueList" visible="false">
                 <tr>
-                    <td class="leftLabel" id="tdlblCategory" runat="server" visible="false">
-                        <asp:Label ID="Label16" runat="server" Text="Category:" CssClass="FieldName"></asp:Label>
-                    </td>
-                    <td align="rightData" id="tdddlCategory" runat="server" visible="false">
-                        <asp:DropDownList ID="ddlSubInstrCategory" runat="server" CssClass="cmbField" AutoPostBack="true"
-                            Width="205px">
-                        </asp:DropDownList>
-                        <asp:Label ID="lblcategoryerror" runat="server" Text="*" Visible="false" CssClass="Error"></asp:Label><br />
-                        <asp:RequiredFieldValidator ID="RequiredFieldValidator10" runat="server" ErrorMessage="Please Select Category"
-                            CssClass="rfvPCG" ControlToValidate="ddlSubInstrCategory" ValidationGroup="SetUpSubmit"
-                            Display="Dynamic" InitialValue="Select"></asp:RequiredFieldValidator>
-                        <asp:DropDownList ID="ddlInstrCat" runat="server" CssClass="cmbLongField" Width="500px"
-                            Visible="false">
-                        </asp:DropDownList>
-                    </td>
+                    
                     <td align="right">
                         <asp:Label ID="Label9" runat="server" Text="Issue type:" CssClass="FieldName"></asp:Label>
                     </td>
