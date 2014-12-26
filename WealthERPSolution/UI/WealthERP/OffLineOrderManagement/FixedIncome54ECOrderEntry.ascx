@@ -1026,6 +1026,8 @@
         </td>
         <td class="rightField" style="width: 20%">
             <asp:TextBox ID="txtPaymentNumber" runat="server" MaxLength="6" CssClass="txtField"></asp:TextBox>
+            <span id="Span5" class="spnRequiredField">*</span>
+            
             <asp:RequiredFieldValidator ID="RequiredFieldValidator6" ControlToValidate="txtPaymentNumber"
                 ErrorMessage="<br />Please Enter Instrument Number" Display="Dynamic" runat="server"
                 CssClass="rfvPCG" InitialValue="" ValidationGroup="MFSubmit" ></asp:RequiredFieldValidator>
@@ -1045,6 +1047,8 @@
                 <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
                 </DateInput>
             </telerik:RadDatePicker>
+            <span id="Span6" class="spnRequiredField">*</span>
+            
              <asp:RequiredFieldValidator ID="RequiredFieldValidator8" ControlToValidate="txtPaymentInstDate"
                 ErrorMessage="<br />Please Enter Instrument Date" Display="Dynamic" runat="server"
                 CssClass="rfvPCG" InitialValue="" ValidationGroup="MFSubmit" ></asp:RequiredFieldValidator>

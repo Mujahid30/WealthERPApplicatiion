@@ -244,7 +244,7 @@ namespace WealthERP.OffLineOrderManagement
                     lblgetcust.Text = customerVo.FirstName + ' ' + customerVo.MiddleName + ' ' + customerVo.LastName;
                 OnTaxStatus();
                 BindBanks(customerId);
-                
+
                 CustomerPortfolioVo customerPortfolioVo = new CustomerPortfolioVo();
                 customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(int.Parse(txtCustomerId.Value));
 
@@ -621,6 +621,8 @@ namespace WealthERP.OffLineOrderManagement
                 btnUpdate.Visible = false;
                 lnkBtnFIEdit.Visible = true;
                 BtnFileupload.Visible = true;
+                SetFICOntrolsEnablity(false);
+
             }
             else
             {
@@ -684,7 +686,7 @@ namespace WealthERP.OffLineOrderManagement
                 lnkBtnFIEdit.Visible = true;
 
                 BtnFileupload.Visible = true;
-               // btnUpdate.Visible = true;
+                // btnUpdate.Visible = true;
             }
             else
             {
