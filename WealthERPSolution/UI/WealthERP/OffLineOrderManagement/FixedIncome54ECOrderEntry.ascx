@@ -1007,7 +1007,8 @@
             <asp:Label ID="lblMode" runat="server" Text="Mode Of Payment:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField" style="width: 20%">
-            <asp:DropDownList ID="ddlPaymentMode" runat="server" AutoPostBack="true" CssClass="cmbField" OnSelectedIndexChanged="ddlPaymentMode_SelectedIndexChanged">
+            <asp:DropDownList ID="ddlPaymentMode" runat="server" AutoPostBack="true" CssClass="cmbField"
+                OnSelectedIndexChanged="ddlPaymentMode_SelectedIndexChanged">
                 <asp:ListItem Text="Cheque" Value="CQ" Selected="True"></asp:ListItem>
                 <asp:ListItem Text="Draft" Value="DF"></asp:ListItem>
                 <asp:ListItem Text="ECS" Value="ES"></asp:ListItem>
@@ -1030,8 +1031,7 @@
             
             <asp:RequiredFieldValidator ID="RequiredFieldValidator6" ControlToValidate="txtPaymentNumber"
                 ErrorMessage="<br />Please Enter Instrument Number" Display="Dynamic" runat="server"
-                CssClass="rfvPCG" InitialValue="" ValidationGroup="MFSubmit" ></asp:RequiredFieldValidator>
-           
+                CssClass="rfvPCG" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
         </td>
         <td class="leftField" style="width: 20%">
             <asp:Label ID="lblPIDate" runat="server" Text="Payment Instrument Date:" CssClass="FieldName"></asp:Label>
@@ -1047,12 +1047,9 @@
                 <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
                 </DateInput>
             </telerik:RadDatePicker>
-            <span id="Span6" class="spnRequiredField">*</span>
-            
              <asp:RequiredFieldValidator ID="RequiredFieldValidator8" ControlToValidate="txtPaymentInstDate"
                 ErrorMessage="<br />Please Enter Instrument Date" Display="Dynamic" runat="server"
-                CssClass="rfvPCG" InitialValue="" ValidationGroup="MFSubmit" ></asp:RequiredFieldValidator>
-                
+                CssClass="rfvPCG" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
             <asp:CompareValidator ID="CVPaymentDate" runat="server" ErrorMessage="<br/>Please enter a valid date."
                 Type="Date" ControlToValidate="txtPaymentInstDate" CssClass="cvPCG" Operator="DataTypeCheck"
                 ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
@@ -1124,36 +1121,12 @@
             </div>
         </td>
     </tr>
-    <tr id="trProofType" runat="server">
-        <td align="right">
-            <label class="FieldName">
-                Proof type:
-            </label>
-        </td>
-        <td align="left">
-        </td>
-    </tr>
-    <tr id="trProof" runat="server" visible="false">
-        <td align="right">
-        </td>
-        <td align="left">
-        </td>
-    </tr>
-    <tr id="trUpload" runat="server">
-        <td align="right" style="vertical-align: middle">
-            <label class="FieldName">
-                Upload:
-            </label>
-        </td>
-        <td align="left" style="vertical-align: middle">
-            <asp:Label ID="lblFileUploaded" runat="server" CssClass="FieldName" Text="" Visible="false"></asp:Label>
-        </td>
-    </tr>
+  
     <tr>
-        <td>
+      <%--  <td>
             <asp:Button ID="BtnFileupload" runat="server" Text="Upload Documents" CssClass="PCGButton"
                 ValidationGroup="MFSubmit" OnClick="BtnFileupload_Click" Visible="false" />
-        </td>
+        </td>--%>
     </tr>
 </table>
 <table width="68%" id="tbUploadDocument" runat="server" visible="false">
@@ -1164,10 +1137,11 @@
                 ShowFooter="True" PagerStyle-AlwaysVisible="true" AllowPaging="true" ShowStatusBar="True"
                 Skin="Telerik" AllowFilteringByColumn="true" OnItemCommand="gvUploadDocument_OnItemCommand"
                 OnNeedDataSource="gvUploadDocument_OnNeedDataSource" OnItemDataBound="gvUploadDocument_OnItemDataBound">
-                <MasterTableView DataKeyNames="" AllowFilteringByColumn="true" Width="100%" AllowMultiColumnSorting="True"
-                    AutoGenerateColumns="false" CommandItemDisplay="Top" EditMode="PopUp">
+                <MasterTableView DataKeyNames="COD_DocumentId,COD_image,XPRT_ProofTypeCode,XPRT_ProofType" AllowFilteringByColumn="true"
+                    Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="Top"
+                    EditMode="PopUp">
                     <CommandItemSettings ShowExportToWordButton="false" ShowExportToExcelButton="false"
-                        AddNewRecordText="Add Alert Setup" ShowExportToCsvButton="false" ShowAddNewRecordButton="true"
+                        AddNewRecordText="Add Document" ShowExportToCsvButton="false" ShowAddNewRecordButton="true"
                         ShowRefreshButton="false" />
                     <Columns>
                         <%-- <telerik:GridEditCommandColumn UniqueName="EditCommandColumn" Visible="false">
@@ -1175,18 +1149,24 @@
                         <telerik:GridEditCommandColumn EditText="Edit" UniqueName="editColumn" CancelText="Cancel"
                             UpdateText="Update" HeaderStyle-Width="80px" Visible="false">
                         </telerik:GridEditCommandColumn>
-                        <telerik:GridBoundColumn DataField="AES_EventSetupID" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
-                            ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Event SetupId"
-                            UniqueName="AES_EventSetupID" SortExpression="AES_EventSetupID" AllowFiltering="true"
-                            Visible="false">
+                        <telerik:GridBoundColumn DataField="COD_DocumentId" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
+                            ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="DocumentId" UniqueName="COD_DocumentId"
+                            SortExpression="COD_DocumentId" AllowFiltering="true" Visible="false">
                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="CMFSS_SystematicSetupId" HeaderStyle-Width="20px"
-                            CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                            HeaderText="Request Id" UniqueName="CMFSS_SystematicSetupId" SortExpression="CMFSS_SystematicSetupId"
-                            AllowFiltering="true">
+                        <telerik:GridBoundColumn DataField="XPRT_ProofType" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
+                            ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Proof Type" UniqueName="XPRT_ProofType"
+                            SortExpression="XPRT_ProofType" AllowFiltering="true">
                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                         </telerik:GridBoundColumn>
+                        <telerik:GridTemplateColumn DataField="COD_image" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
+                            ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="File" UniqueName="COD_image"
+                            SortExpression="COD_image" AllowFiltering="true">
+                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                            <ItemTemplate>
+                                <asp:LinkButton ID="lnkDownload" runat="server" CommandName="download_file" Text='<%#Eval("COD_image") %>'></asp:LinkButton>
+                            </ItemTemplate>
+                        </telerik:GridTemplateColumn>
                         <telerik:GridButtonColumn UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete?"
                             ConfirmDialogType="RadWindow" ConfirmTitle="Delete" ButtonType="LinkButton" CommandName="Delete"
                             Text="Delete">
@@ -1208,8 +1188,7 @@
                                         <span id="Span3" class="spnRequiredField">*</span>
                                         <br />
                                         <asp:RequiredFieldValidator ID="ReqddlLevel" runat="server" CssClass="rfvPCG" ErrorMessage="Please Select Proof Type"
-                                            Display="Dynamic" ControlToValidate="ddlProofType" ValidationGroup="btnOK"
-                                            InitialValue="0">
+                                            Display="Dynamic" ControlToValidate="ddlProofType" ValidationGroup="btnOK" InitialValue="0">
                                         </asp:RequiredFieldValidator>
                                     </td>
                                 </tr>
@@ -1239,11 +1218,6 @@
                         </FormTemplate>
                     </EditFormSettings>
                 </MasterTableView>
-                <ClientSettings>
-                    <ClientEvents OnRowContextMenu="RowContextMenu" />
-                    <Selecting AllowRowSelect="true" />
-                    <Scrolling AllowScroll="false"></Scrolling>
-                </ClientSettings>
             </telerik:RadGrid>
         </td>
     </tr>

@@ -172,13 +172,13 @@ namespace WealthERP.OffLineOrderManagement
             {
                 FICategory();
                 //  FIScheme(advisorVo.advisorId, "0");                
-                BindProofTypeDP();
+
                 BindBanks(0);
                 if (Request.QueryString["action"] != null)
                 {
                     if (Request.QueryString["action"].Trim() == "Edit")
                     {
-                        int orderId = int.Parse(Request.QueryString["orderId"].ToString());
+                        orderId = int.Parse(Request.QueryString["orderId"].ToString());
                         txtCustomerId.Value = Request.QueryString["customeId"].ToString();
                         lblAssociate.Visible = true;
 
@@ -187,6 +187,7 @@ namespace WealthERP.OffLineOrderManagement
                         GetcustomerDetails();
                         View54ECOrderDetails(orderId);
                         lnkBtnEdit();
+                        tbUploadDocument.Visible = true;
                         BindDocument(orderId);
                         btnUpdate.Visible = true;
                         lnkBtnFIEdit.Visible = false;
@@ -196,7 +197,7 @@ namespace WealthERP.OffLineOrderManagement
 
                     else
                     {
-                        int orderId = int.Parse(Request.QueryString["orderId"].ToString());
+                        orderId = int.Parse(Request.QueryString["orderId"].ToString());
                         txtCustomerId.Value = Request.QueryString["customeId"].ToString();
                         lblAssociate.Visible = true;
 
@@ -206,6 +207,7 @@ namespace WealthERP.OffLineOrderManagement
                         BindDocument(orderId);
                         View54ECOrderDetails(orderId);
                         lnkBtnEdit();
+                        tbUploadDocument.Visible = true;
                         lnkBtnFIEdit.Visible = true;
                         btnUpdate.Visible = false;
                         SetFICOntrolsEnablity(false);
@@ -620,7 +622,8 @@ namespace WealthERP.OffLineOrderManagement
                 GetFICOntrolsValues();
                 btnUpdate.Visible = false;
                 lnkBtnFIEdit.Visible = true;
-                BtnFileupload.Visible = true;
+                //BtnFileupload.Visible = true;
+                
                 SetFICOntrolsEnablity(false);
 
             }
@@ -642,7 +645,7 @@ namespace WealthERP.OffLineOrderManagement
                 if (Convert.ToInt32(lblGetOrderNo.Text) > 0)
                 {
 
-                    AddClick();
+                    //AddClick();
                 }
             }
             else
@@ -685,7 +688,7 @@ namespace WealthERP.OffLineOrderManagement
                 btnAddMore.Visible = false;
                 lnkBtnFIEdit.Visible = true;
 
-                BtnFileupload.Visible = true;
+                //BtnFileupload.Visible = true;
                 // btnUpdate.Visible = true;
             }
             else
@@ -909,7 +912,10 @@ namespace WealthERP.OffLineOrderManagement
                 orderId = int.Parse(OrderIds[0].ToString());
                 lblGetOrderNo.Text = orderId.ToString();
                 lblOrderNumber.Text = "Order No.";
+                ViewState["orderno"] = orderId;
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Your order added successfully.');", true);
+                tbUploadDocument.Visible = true;
+                BindDocument(orderId);
 
             }
             else
@@ -917,11 +923,11 @@ namespace WealthERP.OffLineOrderManagement
                 orderId = fiorderVo.OrderNumber;
                 OrderIds = fiorderBo.CreateOrderFIDetails(orderVo, fiorderVo, userVo.UserId, "Update");
                 orderId = fiorderVo.OrderNumber;
+                BindDocument(orderId);
+                tbUploadDocument.Visible = true;
                 lblOrderNumber.Text = "Order No.";
-
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Your order updated successfully.');", true);
-
-
+                tbUploadDocument.Visible = true;
             }
 
 
@@ -981,7 +987,7 @@ namespace WealthERP.OffLineOrderManagement
         }
 
 
-        private void AddClick()
+        private void AddClick(RadUpload radUploadProof, DropDownList ddlProofType)
         {
             bool blResult = false;
             bool blZeroBalance = false;
@@ -989,7 +995,7 @@ namespace WealthERP.OffLineOrderManagement
             //  AddFile(out blZeroBalance, out blFileSizeExceeded);
 
             if (fStorageBalance > 0)
-                blResult = AddFile(out blZeroBalance, out blFileSizeExceeded);
+                blResult = AddFile(out blZeroBalance, out blFileSizeExceeded, radUploadProof, ddlProofType);
             else
                 blZeroBalance = true;
 
@@ -1014,7 +1020,7 @@ namespace WealthERP.OffLineOrderManagement
             }
         }
 
-        private bool AddFile(out bool blZeroBalance, out bool blFileSizeExceeded)
+        private bool AddFile(out bool blZeroBalance, out bool blFileSizeExceeded, RadUpload radUploadProof, DropDownList ddlProofType)
         {
             // If the upload type is file
             // We need to see if the adviser has a folder in Repository folder
@@ -1027,6 +1033,7 @@ namespace WealthERP.OffLineOrderManagement
             // Once this is done, store the info in the DB with the file path.
             strRepositoryPath = string.Empty;
             strRepositoryPath = Server.MapPath(strRepositoryPath) + "\\advisor_" + advisorVo.advisorId + "\\54EC_OrderDocuments";
+            //File.Delete(filePath);
             AdvisorBo advBo = new AdvisorBo();
             repoBo = new RepositoryBo();
             bool blResult = false;
@@ -4005,19 +4012,19 @@ namespace WealthERP.OffLineOrderManagement
         ////    //ddlProof.Items.Insert(0, new ListItem("Select", "Select"));
         ////}
 
-        private void BindProofTypeDP()
+        private void BindProofTypeDP(DropDownList ddlProofType)
         {
             DataTable dtDpProofTypes = new DataTable();
             dtDpProofTypes = customerBo.GetCustomerProofTypes();
 
-            if (dtDpProofTypes.Rows.Count > 0)
-            {
-                ddlProofType.DataSource = dtDpProofTypes;
-                ddlProofType.DataValueField = dtDpProofTypes.Columns["XPRT_ProofTypeCode"].ToString();
-                ddlProofType.DataTextField = dtDpProofTypes.Columns["XPRT_ProofType"].ToString();
-                ddlProofType.DataBind();
-            }
-            ddlProofType.Items.Insert(0, new ListItem("Select", "Select"));
+            //if (dtDpProofTypes.Rows.Count > 0)
+            //{
+            ddlProofType.DataSource = dtDpProofTypes;
+            ddlProofType.DataValueField = dtDpProofTypes.Columns["XPRT_ProofTypeCode"].ToString();
+            ddlProofType.DataTextField = dtDpProofTypes.Columns["XPRT_ProofType"].ToString();
+            ddlProofType.DataBind();
+            //}
+            //ddlProofType.Items.Insert(0, new ListItem("Select", "Select"));
         }
 
         ////protected void ddlBankName_SelectedIndexChanged(object sender, EventArgs e)
@@ -4168,24 +4175,27 @@ namespace WealthERP.OffLineOrderManagement
         }
         protected void BindDocument(int orderid)
         {
-
+            if (Request.QueryString["action"] != null)
+                orderid = int.Parse(Request.QueryString["orderId"].ToString());
             DataTable dtBindDocument = fiorderBo.GetDocumentDetails(orderid);
             if (dtBindDocument.Rows.Count > 0)
             {
-                if (Cache["CustomerSIPAlert" + advisorVo.advisorId] == null)
+                if (Cache["DocumentUpload" + advisorVo.advisorId] == null)
                 {
-                    Cache.Insert("CustomerSIPAlert" + advisorVo.advisorId, dtBindDocument);
+                    Cache.Insert("DocumentUpload" + advisorVo.advisorId, dtBindDocument);
                 }
                 else
                 {
-                    Cache.Remove("CustomerSIPAlert" + advisorVo.advisorId);
-                    Cache.Insert("CustomerSIPAlert" + advisorVo.advisorId, dtBindDocument);
+                    Cache.Remove("DocumentUpload" + advisorVo.advisorId);
+                    Cache.Insert("DocumentUpload" + advisorVo.advisorId, dtBindDocument);
                 }
                 gvUploadDocument.DataSource = dtBindDocument;
                 gvUploadDocument.DataBind();
             }
             else
             {
+                Cache.Remove("DocumentUpload" + advisorVo.advisorId);
+                Cache.Insert("DocumentUpload" + advisorVo.advisorId, dtBindDocument);
                 gvUploadDocument.DataSource = dtBindDocument;
                 gvUploadDocument.DataBind();
             }
@@ -4193,13 +4203,72 @@ namespace WealthERP.OffLineOrderManagement
         }
         protected void gvUploadDocument_OnItemDataBound(object sender, GridItemEventArgs e)
         {
+            if (e.Item is GridEditFormInsertItem && e.Item.OwnerTableView.IsItemInserted)
+            {
+                GridEditFormInsertItem item = (GridEditFormInsertItem)e.Item;
+                GridEditFormItem gefi = (GridEditFormItem)e.Item;
+                DropDownList ddlProofType = (DropDownList)gefi.FindControl("ddlProofType");
+                RadUpload radUploadProof = (RadUpload)gefi.FindControl("radUploadProof");
+                BindProofTypeDP(ddlProofType);
+                //BindCustomerSIPRule(ddlAlert);
+            }
+            if (e.Item is GridEditFormItem && e.Item.IsInEditMode && e.Item.ItemIndex != -1)
+            {
+                //GridEditFormItem editedItem = (GridEditFormItem)e.Item;
+                //DropDownList ddlProofType = (DropDownList)editedItem.FindControl("ddlProofType");
+                //RadUpload radUploadProof = (RadUpload)editedItem.FindControl("radUploadProof");
+
+                //BindProofTypeDP(ddlProofType);
+                //string filename = gvUploadDocument.MasterTableView.DataKeyValues[e.Item.ItemIndex]["COD_image"].ToString();
+                ////radUploadProof.t
+                //if (ddlProofType.Items.Count > 0)
+                //    ddlProofType.SelectedItem.Text = gvUploadDocument.MasterTableView.DataKeyValues[e.Item.ItemIndex]["XPRT_ProofType"].ToString();
+            }
         }
         protected void gvUploadDocument_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
+            DataTable dtBindDocument = new DataTable();
+            dtBindDocument = (DataTable)Cache["DocumentUpload" + advisorVo.advisorId];
+            if (dtBindDocument != null)
+            {
+                gvUploadDocument.DataSource = dtBindDocument;
+            }
         }
         protected void gvUploadDocument_OnItemCommand(object source, GridCommandEventArgs e)
         {
-        }
+            if (e.CommandName == RadGrid.PerformInsertCommandName)
+            {
+                GridEditableItem gridEditableItem = (GridEditableItem)e.Item;
+                DropDownList ddlProofType = (DropDownList)gridEditableItem.FindControl("ddlProofType");
+                RadUpload radUploadProof = (RadUpload)gridEditableItem.FindControl("radUploadProof");
+                AddClick(radUploadProof, ddlProofType);
+            }
+            if (e.CommandName == "download_file" & e.Item is GridDataItem && e.Item.ItemIndex != -1)
+            {
+                string filename = gvUploadDocument.MasterTableView.DataKeyValues[e.Item.ItemIndex]["COD_image"].ToString();
+                if (filename == string.Empty)
+                    return;
+                string path = Server.MapPath(strRepositoryPath) + "\\advisor_" + advisorVo.advisorId + "\\54EC_OrderDocuments" + "\\" + filename;
+                byte[] bts = System.IO.File.ReadAllBytes(path);
+                Response.Clear();
+                Response.ClearHeaders();
+                Response.AddHeader("Content-Type", "Application/octet-stream");
+                Response.AddHeader("Content-Length", bts.Length.ToString());
+                Response.AddHeader("Content-Disposition", "attachment; filename=" + filename);
+                Response.BinaryWrite(bts);
+                Response.Flush();
+                Response.End();
+            }
+            if (e.CommandName == RadGrid.DeleteCommandName)
+            {
+                int documentsID = int.Parse(gvUploadDocument.MasterTableView.DataKeyValues[e.Item.ItemIndex]["COD_DocumentId"].ToString());
+                fiorderBo.DeleteDocuments(documentsID);
+            }
+            if (ViewState["orderno"] != null)
+                BindDocument(int.Parse(ViewState["orderno"].ToString()));
+            else
+                BindDocument(orderId);
 
+        }
     }
 }

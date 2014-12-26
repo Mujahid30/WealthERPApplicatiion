@@ -409,5 +409,13 @@ namespace BoOps
             }
             return dt;
         }
+         public bool DeleteDocuments(int documentId)
+         {
+             bool bResult = false;
+             {
+                 fiOrderDao.DeleteDocuments(documentId);
+             }
+             return bResult;
+         }
     }
 }

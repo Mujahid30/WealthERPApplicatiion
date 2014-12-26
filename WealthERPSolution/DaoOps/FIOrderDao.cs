@@ -807,5 +807,25 @@ namespace DaoOps
             }
             return dtGetDocumentDetails;
         }
+        public bool DeleteDocuments(int documentId)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand createFIOrderTrackingCmd;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                createFIOrderTrackingCmd = db.GetStoredProcCommand("SPRO_DeleteDocuments");
+                db.AddInParameter(createFIOrderTrackingCmd, "@documentsId", DbType.Int32, documentId);
+                if (db.ExecuteNonQuery(createFIOrderTrackingCmd) != 0)
+                    bResult = true;
+            }
+            catch (BaseApplicationException ex)
+            {
+                throw ex;
+            }
+            return bResult;
+        }
     }
 }

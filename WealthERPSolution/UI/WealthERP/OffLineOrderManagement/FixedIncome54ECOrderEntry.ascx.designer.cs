@@ -129,6 +129,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trpan;
+        protected global::System.Web.UI.HtmlControls.HtmlTable tbUploadDocument;
         
         /// <summary>
         /// lblPansearch control.
