@@ -447,16 +447,18 @@ namespace DaoCommisionManagement
                     db.AddInParameter(cmdCreateCommissionStructureRule, "@ACSR_MaxInvestmentAmount", DbType.Decimal, commissionStructureRuleVo.MaxInvestmentAmount);
                 }
 
-
+                if (commissionStructureRuleVo.TenureMin != 0)
                 db.AddInParameter(cmdCreateCommissionStructureRule, "@ACSR_MinTenure", DbType.Int32, commissionStructureRuleVo.TenureMin);
-
-                if (commissionStructureRuleVo.TenureMin > 0 && commissionStructureRuleVo.TenureMax == 0)
+                else
+                    db.AddInParameter(cmdCreateCommissionStructureRule, "@ACSR_MinTenure", DbType.Int32, DBNull.Value);
+                if (commissionStructureRuleVo.TenureMin > 0 && commissionStructureRuleVo.TenureMax != 0)
                 {
-                    db.AddInParameter(cmdCreateCommissionStructureRule, "@ACSR_MaxTenure", DbType.Int32, DBNull.Value);
+                    db.AddInParameter(cmdCreateCommissionStructureRule, "@ACSR_MaxTenure", DbType.Int32, commissionStructureRuleVo.TenureMax);
+                  
                 }
                 else
                 {
-                    db.AddInParameter(cmdCreateCommissionStructureRule, "@ACSR_MaxTenure", DbType.Int32, commissionStructureRuleVo.TenureMax);
+                    db.AddInParameter(cmdCreateCommissionStructureRule, "@ACSR_MaxTenure", DbType.Int32, DBNull.Value);
                 }
 
 

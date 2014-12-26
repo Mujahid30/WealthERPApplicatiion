@@ -754,7 +754,7 @@ namespace WealthERP.Receivable
                 ddlSubInstrCategory.DataTextField = dtCategory.Columns["PAISC_AssetInstrumentSubCategoryName"].ToString();
                 ddlSubInstrCategory.DataBind();
             }
-            ddlSubInstrCategory.Items.Insert(0, new ListItem("Select", "Select"));
+            ddlSubInstrCategory.Items.Insert(0, new ListItem("Select", "0"));
 
         }
 
@@ -1307,6 +1307,26 @@ namespace WealthERP.Receivable
                     ddlSIPFrequency.SelectedValue = strSIPFrequency;
                 }
             }
+            //if (e.Item is GridEditFormItem && e.Item.IsInEditMode && e.Item.ItemIndex != -1)
+            //{
+            //    GridEditCommandColumn Edit=new GridEditCommandColumn();
+            //    if (Edit.EditText=="Rates")
+            //    {
+            //        System.Web.UI.HtmlControls.HtmlTableRow trRule = (System.Web.UI.HtmlControls.HtmlTableRow)e.Item.FindControl("trRule");
+            //        System.Web.UI.HtmlControls.HtmlTableRow trRuleDetailSection = (System.Web.UI.HtmlControls.HtmlTableRow)e.Item.FindControl("trRuleDetailSection");
+            //        RadGrid rgCommissionTypeCaliculation = (RadGrid)e.Item.FindControl("rgCommissionTypeCaliculation");
+            //        trRule.Visible = false;
+            //        trRuleDetailSection.Visible = true;
+            //        rgCommissionTypeCaliculation.Visible = true;
+            //    }
+            //    else
+            //    {
+            //        trRule.Visible = false;
+            //        trRuleDetailSection.Visible = true;
+            //        rgCommissionTypeCaliculation.Visible = true;
+            //    }
+            //}
+           
         }
 
         protected void RadGridStructureRule_DeleteCommand(object source, GridCommandEventArgs e)
@@ -1406,10 +1426,7 @@ namespace WealthERP.Receivable
 
         protected void RadGridStructureRule_ItemCommand(object source, GridCommandEventArgs e)
         {
-            if (e.Item is GridEditFormInsertItem && e.Item.OwnerTableView.IsItemInserted)
-            {
-                
-            }
+        
         }
 
         protected void rgPayableMapping_ItemCommand(object source, GridCommandEventArgs e)
@@ -2068,6 +2085,7 @@ namespace WealthERP.Receivable
                 subcategoryIds = subcategoryIds.Replace("~", ",");
                 hdnSubcategoryIds.Value = subcategoryIds;
                 BindBondCategories();
+                if (ddlSubInstrCategory.SelectedValue != "0")
                   ddlSubInstrCategory.SelectedValue = commissionStructureMasterVo.AssetSubCategory.ToString();
             }
             catch (BaseApplicationException Ex)

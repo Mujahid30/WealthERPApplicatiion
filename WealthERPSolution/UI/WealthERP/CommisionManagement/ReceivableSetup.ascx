@@ -611,7 +611,7 @@
                             InitialValue="Select" ValidationGroup="vgBtnSubmitStage2">
                         </asp:RequiredFieldValidator>
                     </td>
-                     <td class="leftLabel" id="tdlblCategory" runat="server" visible="false">
+                    <td class="leftLabel" id="tdlblCategory" runat="server" visible="false">
                         <asp:Label ID="Label16" runat="server" Text="Category:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td align="rightData" id="tdddlCategory" runat="server" visible="false">
@@ -638,7 +638,6 @@
                             CssClass="rfvPCG" ControlToValidate="ddlCategory" ValidationGroup="btnStrAddUpdate"
                             Display="Dynamic" InitialValue="0"></asp:RequiredFieldValidator>
                     </td>
-                   
                     <td align="left">
                         <asp:Label ID="lblSubCategory" runat="server" Text="Sub Category:" CssClass="FieldName"></asp:Label>
                         <span id="SpanSubCategory" class="spnRequiredField" runat="server">*</span>
@@ -1120,7 +1119,6 @@
             </table>
             <table runat="server" id="tbNcdIssueList" visible="false">
                 <tr>
-                    
                     <td align="right">
                         <asp:Label ID="Label9" runat="server" Text="Issue type:" CssClass="FieldName"></asp:Label>
                     </td>
@@ -1257,7 +1255,7 @@
                                 ACSR_TransactionType,WCU_UnitCode,WCCO_CalculatedOnCode,ACSM_AUMFrequency,ACSR_MaxTenure,ACSR_SIPFrequency,ACG_CityGroupID,
                                 ACSR_ReceivableRuleFrequency,WCAL_ApplicableLevelCode,ACSR_IsServiceTaxReduced,ACSR_IsTDSReduced,ACSM_IsOtherTaxReduced">
                                     <Columns>
-                                        <telerik:GridEditCommandColumn EditText="Rates">
+                                        <telerik:GridEditCommandColumn EditText="Rates" UniqueName="raj">
                                         </telerik:GridEditCommandColumn>
                                         <telerik:GridButtonColumn CommandName="Delete" Text="Delete" ConfirmText="Do you want to delete this rule? Click OK to proceed"
                                             UniqueName="column">
@@ -1329,9 +1327,11 @@
                                         <telerik:GridBoundColumn UniqueName="ACSR_AUMMonth" HeaderText="AUM Month" DataField="ACSR_AUMMonth">
                                         </telerik:GridBoundColumn>
                                     </Columns>
-                                  
-                                        <editformsettings editformtype="Template">
+                                    <EditFormSettings EditFormType="Template">
                                         <FormTemplate>
+                                            <%-- <table>
+                                                <tr id="trRule" runat="server">
+                                                    <td id="tdRule" runat="server">--%>
                                             <table cellspacing="2" cellpadding="2" width="100%">
                                                 <tr>
                                                     <td colspan="5" class="tdSectionHeading">
@@ -1351,11 +1351,12 @@
                                                         <asp:Label ID="lb1RuleName" runat="server" Text="Rule Name" CssClass="FieldName"></asp:Label>
                                                     </td>
                                                     <td class="rightData">
-                                                        <asp:TextBox ID="TxtRuleName" runat="server" CssClass="txtField"></asp:TextBox>
+                                                        <asp:TextBox ID="TxtRuleName" runat="server" Text='<%# Bind( "ACSR_CommissionStructureRuleName") %>'
+                                                            CssClass="txtField"></asp:TextBox>
                                                         <span id="Span14" class="spnRequiredField" runat="server" visible="true">*</span>
-                                                        <%--  <asp:RequiredFieldValidator runat="server" ID="ReqRuleName" ValidationGroup="btnSubmitRule"
+                                                        <asp:RequiredFieldValidator runat="server" ID="ReqRuleName" ValidationGroup="btnSubmitRule"
                                                             Display="Dynamic" ControlToValidate="TxtRuleName" ErrorMessage="<br />Enter Rule Name"
-                                                            Text="" />--%>
+                                                            Text="" />
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -1596,152 +1597,159 @@
                                                         <br />
                                                     </td>
                                                 </tr>
-                                    <tr id="trRuleDetailSection" class="leftLabel" visible="false" runat="server">
-                                        <td colspan="5" class="tdSectionHeading">
-                                            <div class="divSectionHeading" style="vertical-align: text-bottom">
-                                                <div class="divSectionHeadingNumber" style="height: 22px; width: 22px">
-                                                    3.2
-                                                </div>
-                                                <div class="fltlft" style="text-align: right; width: 250px;">
-                                                    <asp:Label ID="Label14" runat="server" Text="Add Receivable/Payable Rates"></asp:Label>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr runat="server" id="CommissionTypeCaliculation" class="rightData">
-                                        <td colspan="4">
-                                            <telerik:RadGrid ID="rgCommissionTypeCaliculation" runat="server" AllowSorting="True"
-                                                enableloadondemand="True" PageSize="5" AutoGenerateColumns="False" EnableEmbeddedSkins="False"
-                                                GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="true" AllowPaging="false"
-                                                ShowStatusBar="True" Skin="Telerik" AllowFilteringByColumn="true" OnNeedDataSource="rgCommissionTypeCaliculation_OnNeedDataSource"
-                                                OnItemCommand="rgCommissionTypeCaliculation_ItemCommand" OnItemDataBound="rgCommissionTypeCaliculation_ItemDataBound"
-                                                Visible="false">
-                                                <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" AutoGenerateColumns="false"
-                                                    Width="50%" EditMode="PopUp" CommandItemSettings-AddNewRecordText="Add Receivable/Payable Rates"
-                                                    CommandItemDisplay="Top" DataKeyNames="CSRD_StructureRuleDetailsId">
-                                                    <Columns>
-                                                        <telerik:GridEditCommandColumn EditText="Edit" UniqueName="editColumn" CancelText="Cancel"
-                                                            UpdateText="Update" HeaderStyle-Width="20px">
-                                                        </telerik:GridEditCommandColumn>
-                                                        <telerik:GridBoundColumn DataField="CSRD_StructureRuleDetailsId" HeaderStyle-Width="20px"
-                                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                                            HeaderText="Issuer Name" UniqueName="CSRD_StructureRuleDetailsId" SortExpression="CSRD_StructureRuleDetailsId"
-                                                            AllowFiltering="true" Visible="false">
-                                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
-                                                        </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn DataField="ACSR_CommissionStructureRuleId" HeaderStyle-Width="20px"
-                                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                                            HeaderText="Issuer Name" UniqueName="ACSR_CommissionStructureRuleId" SortExpression="ACSR_CommissionStructureRuleId"
-                                                            AllowFiltering="true" Visible="false">
-                                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
-                                                        </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn DataField="CSRD_WCMV_CommissionTypeId" HeaderStyle-Width="20px"
-                                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                                            HeaderText="Commission Type" UniqueName="CSRD_WCMV_CommissionTypeId" SortExpression="CSRD_WCMV_CommissionTypeId"
-                                                            AllowFiltering="true">
-                                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
-                                                        </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn DataField="CSRD_BrokageValue" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
-                                                            ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Brokrage Value"
-                                                            UniqueName="CSRD_BrokageValue" SortExpression="CSRD_BrokageValue" AllowFiltering="true">
-                                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
-                                                        </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn DataField="WCU_UnitCode" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
-                                                            ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Brokrage Unit"
-                                                            UniqueName="WCU_UnitCode" SortExpression="WCU_UnitCode" AllowFiltering="true">
-                                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
-                                                        </telerik:GridBoundColumn>
-                                                        <telerik:GridButtonColumn UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete?"
-                                                            ConfirmDialogType="RadWindow" ConfirmTitle="Delete" ButtonType="LinkButton" CommandName="Delete"
-                                                            Text="Delete" Visible="false">
-                                                            <ItemStyle HorizontalAlign="Center" CssClass="MyImageButton" />
-                                                        </telerik:GridButtonColumn>
-                                                    </Columns>
-                                                    <EditFormSettings EditFormType="Template" PopUpSettings-Height="200px" PopUpSettings-Width="400px">
-                                                        <FormTemplate>
-                                                            <table width="100%" cellspacing="3" cellpadding="3">
-                                                                <tr>
-                                                                    <td class="leftLabel">
-                                                                        <asp:Label ID="Label3" runat="server" Text="Commission Type:" CssClass="FieldName"></asp:Label>
-                                                                    </td>
-                                                                    <td class="rightData">
-                                                                        <asp:DropDownList ID="ddlCommissionype" runat="server" CssClass="cmbField" AutoPostBack="true">
-                                                                        </asp:DropDownList>
-                                                                        <br />
-                                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" CssClass="rfvPCG"
-                                                                            ErrorMessage="Please Select CommissionType" Display="Dynamic" ControlToValidate="ddlCommissionype"
-                                                                            InitialValue="Select" ValidationGroup="rgApllOk">
-                                                                        </asp:RequiredFieldValidator>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td class="leftLabel">
-                                                                        <asp:Label ID="lblBrokerageValue" runat="server" Text="Brokerage Value:" CssClass="FieldName"></asp:Label>
-                                                                    </td>
-                                                                    <td class="rightData">
-                                                                        <asp:TextBox ID="txtBrokerageValue" runat="server" CssClass="txtField"></asp:TextBox>
-                                                                        <span id="Span8" class="spnRequiredField" runat="server" visible="true">*</span>
-                                                                        <asp:RequiredFieldValidator runat="server" ID="reqName" ValidationGroup="rgApllOk"
-                                                                            Display="Dynamic" ControlToValidate="txtBrokerageValue" ErrorMessage="<br />Brokerage value is mandatory"
-                                                                            Text="" />
-                                                                        <asp:RangeValidator ID="RangeValidator1" Display="Dynamic" ValidationGroup="rgApllOk"
-                                                                            runat="server" ErrorMessage="<br />Please enter a numeric value" ControlToValidate="txtBrokerageValue"
-                                                                            MaximumValue="2147483647" MinimumValue="0" Type="Double" CssClass="cvPCG"></asp:RangeValidator>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td class="leftLabel">
-                                                                        <asp:Label ID="lblUnit" runat="server" Text="Brokerage Unit:" CssClass="FieldName"></asp:Label>
-                                                                    </td>
-                                                                    <td class="rightData">
-                                                                        <asp:DropDownList ID="ddlBrokerageUnit" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlBrokerageUnit_OnSelectedIndexChanged">
-                                                                        </asp:DropDownList>
-                                                                    </td>
-                                                                    <td class="leftLabel">
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td class="leftLabel">
-                                                                        <asp:Button ID="btnOK" runat="server" CssClass="PCGButton" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'
-                                                                            Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>' CausesValidation="True"
-                                                                            ValidationGroup="rgApllOk"></asp:Button>
-                                                                    </td>
-                                                                    <td class="rightData">
-                                                                        <asp:Button ID="btnCancel" Text="Cancel" runat="server" CausesValidation="False"
-                                                                            CssClass="PCGButton" CommandName="Cancel"></asp:Button>
-                                                                    </td>
-                                                                    <td class="leftLabel" colspan="2">
-                                                                        &nbsp;
-                                                                    </td>
-                                                                </tr>
-                                                            </table>
-                                                        </FormTemplate>
-                                                    </EditFormSettings>
-                                                </MasterTableView>
-                                            </telerik:RadGrid>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="5">
-                                            <asp:CustomValidator ID="CustomValidator1" runat="server" Text="Min. invest amount should be less than Max. invest"
-                                                ControlToValidate="txtMaxInvestmentAmount" ClientValidationFunction="InvestmentAmountValidation"
-                                                ValidateEmptyText="true" ValidationGroup="btnSubmitRule" Display="Dynamic" SetFocusOnError="true">
-                                            </asp:CustomValidator>
-                                            <asp:CustomValidator ID="CustomValidator2" runat="server" Text="Min. Tenure should be less than Max. Tenure"
-                                                ControlToValidate="txtMaxTenure" ClientValidationFunction="TenureValidation"
-                                                ValidateEmptyText="true" ValidationGroup="btnSubmitRule" Display="Dynamic" SetFocusOnError="true">
-                                            </asp:CustomValidator>
-                                            <asp:CustomValidator ID="CustomValidator3" runat="server" Text="Min. Investment Age should be less than Max. Investment Age"
-                                                ControlToValidate="txtMaxInvestAge" ClientValidationFunction="InvestmentAgeValidation"
-                                                ValidateEmptyText="true" ValidationGroup="btnSubmitRule" Display="Dynamic" SetFocusOnError="true">
-                                            </asp:CustomValidator>
-                                        </td>
-                                    </tr>
+                                                <%--<td id="tdRuleDetails" runat="server">--%>
+                                                <tr id="trRuleDetailSection" class="leftLabel" visible="false" runat="server">
+                                                    <td colspan="5" class="tdSectionHeading">
+                                                        <div class="divSectionHeading" style="vertical-align: text-bottom">
+                                                            <div class="divSectionHeadingNumber" style="height: 22px; width: 22px">
+                                                                3.2
+                                                            </div>
+                                                            <div class="fltlft" style="text-align: right; width: 250px;">
+                                                                <asp:Label ID="Label14" runat="server" Text="Add Receivable/Payable Rates"></asp:Label>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr runat="server" id="CommissionTypeCaliculation" class="rightData">
+                                                    <td colspan="4">
+                                                        <telerik:RadGrid ID="rgCommissionTypeCaliculation" runat="server" AllowSorting="True"
+                                                            enableloadondemand="True" PageSize="5" AutoGenerateColumns="False" EnableEmbeddedSkins="False"
+                                                            GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="true" AllowPaging="false"
+                                                            ShowStatusBar="True" Skin="Telerik" AllowFilteringByColumn="true" OnNeedDataSource="rgCommissionTypeCaliculation_OnNeedDataSource"
+                                                            OnItemCommand="rgCommissionTypeCaliculation_ItemCommand" OnItemDataBound="rgCommissionTypeCaliculation_ItemDataBound"
+                                                            Visible="false">
+                                                            <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" AutoGenerateColumns="false"
+                                                                Width="50%" EditMode="PopUp" CommandItemSettings-AddNewRecordText="Add Receivable/Payable Rates"
+                                                                CommandItemDisplay="Top" DataKeyNames="CSRD_StructureRuleDetailsId">
+                                                                <Columns>
+                                                                    <telerik:GridEditCommandColumn EditText="Edit" UniqueName="editColumn" CancelText="Cancel"
+                                                                        UpdateText="Update" HeaderStyle-Width="20px">
+                                                                    </telerik:GridEditCommandColumn>
+                                                                    <telerik:GridBoundColumn DataField="CSRD_StructureRuleDetailsId" HeaderStyle-Width="20px"
+                                                                        CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                                                        HeaderText="Issuer Name" UniqueName="CSRD_StructureRuleDetailsId" SortExpression="CSRD_StructureRuleDetailsId"
+                                                                        AllowFiltering="true" Visible="false">
+                                                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                                    </telerik:GridBoundColumn>
+                                                                    <telerik:GridBoundColumn DataField="ACSR_CommissionStructureRuleId" HeaderStyle-Width="20px"
+                                                                        CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                                                        HeaderText="Issuer Name" UniqueName="ACSR_CommissionStructureRuleId" SortExpression="ACSR_CommissionStructureRuleId"
+                                                                        AllowFiltering="true" Visible="false">
+                                                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                                    </telerik:GridBoundColumn>
+                                                                    <telerik:GridBoundColumn DataField="CSRD_WCMV_CommissionTypeId" HeaderStyle-Width="20px"
+                                                                        CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                                                        HeaderText="Commission Type" UniqueName="CSRD_WCMV_CommissionTypeId" SortExpression="CSRD_WCMV_CommissionTypeId"
+                                                                        AllowFiltering="true">
+                                                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                                    </telerik:GridBoundColumn>
+                                                                    <telerik:GridBoundColumn DataField="CSRD_BrokageValue" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
+                                                                        ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Brokrage Value"
+                                                                        UniqueName="CSRD_BrokageValue" SortExpression="CSRD_BrokageValue" AllowFiltering="true">
+                                                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                                    </telerik:GridBoundColumn>
+                                                                    <telerik:GridBoundColumn DataField="WCU_UnitCode" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
+                                                                        ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Brokrage Unit"
+                                                                        UniqueName="WCU_UnitCode" SortExpression="WCU_UnitCode" AllowFiltering="true">
+                                                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                                    </telerik:GridBoundColumn>
+                                                                    <telerik:GridButtonColumn UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete?"
+                                                                        ConfirmDialogType="RadWindow" ConfirmTitle="Delete" ButtonType="LinkButton" CommandName="Delete"
+                                                                        Text="Delete" Visible="false">
+                                                                        <ItemStyle HorizontalAlign="Center" CssClass="MyImageButton" />
+                                                                    </telerik:GridButtonColumn>
+                                                                </Columns>
+                                                                <EditFormSettings EditFormType="Template" PopUpSettings-Height="200px" PopUpSettings-Width="400px">
+                                                                    <FormTemplate>
+                                                                        <table width="100%" cellspacing="3" cellpadding="3">
+                                                                            <tr>
+                                                                                <td class="leftLabel">
+                                                                                    <asp:Label ID="Label3" runat="server" Text="Commission Type:" CssClass="FieldName"></asp:Label>
+                                                                                </td>
+                                                                                <td class="rightData">
+                                                                                    <asp:DropDownList ID="ddlCommissionype" runat="server" CssClass="cmbField" AutoPostBack="true">
+                                                                                    </asp:DropDownList>
+                                                                                    <br />
+                                                                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" CssClass="rfvPCG"
+                                                                                        ErrorMessage="Please Select CommissionType" Display="Dynamic" ControlToValidate="ddlCommissionype"
+                                                                                        InitialValue="Select" ValidationGroup="rgApllOk">
+                                                                                    </asp:RequiredFieldValidator>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td class="leftLabel">
+                                                                                    <asp:Label ID="lblBrokerageValue" runat="server" Text="Brokerage Value:" CssClass="FieldName"></asp:Label>
+                                                                                </td>
+                                                                                <td class="rightData">
+                                                                                    <asp:TextBox ID="txtBrokerageValue" runat="server" CssClass="txtField"></asp:TextBox>
+                                                                                    <span id="Span8" class="spnRequiredField" runat="server" visible="true">*</span>
+                                                                                    <asp:RequiredFieldValidator runat="server" ID="reqName" ValidationGroup="rgApllOk"
+                                                                                        Display="Dynamic" ControlToValidate="txtBrokerageValue" ErrorMessage="<br />Brokerage value is mandatory"
+                                                                                        Text="" />
+                                                                                    <asp:RangeValidator ID="RangeValidator1" Display="Dynamic" ValidationGroup="rgApllOk"
+                                                                                        runat="server" ErrorMessage="<br />Please enter a numeric value" ControlToValidate="txtBrokerageValue"
+                                                                                        MaximumValue="2147483647" MinimumValue="0" Type="Double" CssClass="cvPCG"></asp:RangeValidator>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td class="leftLabel">
+                                                                                    <asp:Label ID="lblUnit" runat="server" Text="Brokerage Unit:" CssClass="FieldName"></asp:Label>
+                                                                                </td>
+                                                                                <td class="rightData">
+                                                                                    <asp:DropDownList ID="ddlBrokerageUnit" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlBrokerageUnit_OnSelectedIndexChanged">
+                                                                                    </asp:DropDownList>
+                                                                                </td>
+                                                                                <td class="leftLabel">
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td class="leftLabel">
+                                                                                    <asp:Button ID="btnOK" runat="server" CssClass="PCGButton" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'
+                                                                                        Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>' CausesValidation="True"
+                                                                                        ValidationGroup="rgApllOk"></asp:Button>
+                                                                                </td>
+                                                                                <td class="rightData">
+                                                                                    <asp:Button ID="btnCancel" Text="Cancel" runat="server" CausesValidation="False"
+                                                                                        CssClass="PCGButton" CommandName="Cancel"></asp:Button>
+                                                                                </td>
+                                                                                <td class="leftLabel" colspan="2">
+                                                                                    &nbsp;
+                                                                                </td>
+                                                                            </tr>
+                                                                    </FormTemplate>
+                                                                </EditFormSettings>
+                                                            </MasterTableView>
+                                                        </telerik:RadGrid>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="5">
+                                                        <asp:CustomValidator ID="CustomValidator1" runat="server" Text="Min. invest amount should be less than Max. invest"
+                                                            ControlToValidate="txtMaxInvestmentAmount" ClientValidationFunction="InvestmentAmountValidation"
+                                                            ValidateEmptyText="true" ValidationGroup="btnSubmitRule" Display="Dynamic" SetFocusOnError="true">
+                                                        </asp:CustomValidator>
+                                                        <asp:CustomValidator ID="CustomValidator2" runat="server" Text="Min. Tenure should be less than Max. Tenure"
+                                                            ControlToValidate="txtMaxTenure" ClientValidationFunction="TenureValidation"
+                                                            ValidateEmptyText="true" ValidationGroup="btnSubmitRule" Display="Dynamic" SetFocusOnError="true">
+                                                        </asp:CustomValidator>
+                                                        <asp:CustomValidator ID="CustomValidator3" runat="server" Text="Min. Investment Age should be less than Max. Investment Age"
+                                                            ControlToValidate="txtMaxInvestAge" ClientValidationFunction="InvestmentAgeValidation"
+                                                            ValidateEmptyText="true" ValidationGroup="btnSubmitRule" Display="Dynamic" SetFocusOnError="true">
+                                                        </asp:CustomValidator>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            </td> </tr> </table>
+                                        </FormTemplate>
+                                    </EditFormSettings>
+                                </MasterTableView>
+                                <ClientSettings>
+                                </ClientSettings>
+                            </telerik:RadGrid>
+                        </asp:Panel>
+                    </td>
+                </tr>
             </table>
-            </FormTemplate> </EditFormSettings> </MasterTableView>
-            <clientsettings>
-                                </clientsettings>
-            </telerik:RadGrid> </asp:Panel> </td> </tr> </table>
             <table id="Table5" runat="server" width="100%" style="float: left; padding-right: 10px;
                 clear: both">
                 <tr id="trPayableMapping" runat="server" visible="false">

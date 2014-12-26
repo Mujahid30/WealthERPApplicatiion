@@ -40,7 +40,7 @@
                         <td align="right">
                             <asp:ImageButton ID="ibtExportSummary" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                                 runat="server" AlternateText="Excel" ToolTip="Export To Excel" Height="25px"
-                                Width="25px" Visible="false"/>
+                                Width="25px" Visible="false" />
                         </td>
                     </tr>
                 </table>
@@ -48,76 +48,70 @@
         </td>
     </tr>
 </table>
-<table id="tblPayableRule" runat="server" width="100%" >
-        <tr>
-            <td>
-                <asp:Panel ID="pnlGrid" runat="server" CssClass="Landscape" Width="100%"  ScrollBars="None"  >
-                    <table width="100%">
-                        <tr> 
-                            <td>
-                                <telerik:RadGrid ID="gvPayaMapping" AllowSorting="false" runat="server" AllowAutomaticInserts="false" 
-                                    AllowPaging="True" AutoGenerateColumns="False" AllowFilteringByColumn="true" enableloadondemand="true"
-                                    EnableEmbeddedSkins="false" GridLines="none" ShowFooter="true" PagerStyle-AlwaysVisible="true"
-                                    EnableViewState="true" ShowStatusBar="true" Skin="Telerik"  
-                                    OnNeedDataSource="gvPayaMapping_NeedDataSource"     >                                 
-                                    
-                                 
-                                    <HeaderContextMenu EnableEmbeddedSkins="False"></HeaderContextMenu>
-
-                                    <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="PayableMapping"
-                                    IgnorePaging="true" ></ExportSettings>
+<table id="tblPayableRule" runat="server" width="100%">
+    <tr>
+        <td>
+            <asp:Panel ID="pnlGrid" runat="server" CssClass="Landscape" Width="100%" ScrollBars="None">
+                <table width="100%">
+                    <tr>
+                        <td>
+                            <telerik:RadGrid ID="gvPayaMapping" AllowSorting="false" runat="server" AllowAutomaticInserts="false"
+                                AllowPaging="True" AutoGenerateColumns="False" AllowFilteringByColumn="true"
+                                enableloadondemand="true" EnableEmbeddedSkins="false" GridLines="none" ShowFooter="true"
+                                PagerStyle-AlwaysVisible="true" EnableViewState="true" ShowStatusBar="true" Skin="Telerik"
+                                OnNeedDataSource="gvPayaMapping_NeedDataSource">
+                                <HeaderContextMenu EnableEmbeddedSkins="False">
+                                </HeaderContextMenu>
+                                <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="PayableMapping"
+                                    IgnorePaging="true">
+                                </ExportSettings>
+                                <PagerStyle AlwaysVisible="True" />
+                                <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" AutoGenerateColumns="false"
+                                    Width="100%">
+                                    <CommandItemSettings ExportToExcelText="Export to excel" />
+                                    <Columns>
+                                        <telerik:GridBoundColumn DataField="CSRD_StructureRuleDetailsId" HeaderStyle-Width="70px"
+                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                            HeaderText="Rule Det. Id" UniqueName="CSRD_StructureRuleDetailsId" ReadOnly="true">
+                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="40px" Wrap="false" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn DataField="ACC_UserType" HeaderStyle-Width="70px" CurrentFilterFunction="Contains"
+                                            ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="User Type" UniqueName="ACC_UserType"
+                                            ReadOnly="true">
+                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="40px" Wrap="false" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn DataField="AAC_AgentCode" HeaderStyle-Width="70px" CurrentFilterFunction="Contains"
+                                            ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Agent Code" UniqueName="AAC_AgentCode"
+                                            ReadOnly="true">
+                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="400px" Wrap="false" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn DataField="AC_CategoryName" HeaderStyle-Width="80px" CurrentFilterFunction="Contains"
+                                            ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Category Name"
+                                            UniqueName="AC_CategoryName" ReadOnly="true">
+                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="400px" Wrap="false" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridButtonColumn ButtonType="LinkButton" Text="Delete" ConfirmText="Do you want to delete the mapping?"
+                                            CommandName="Delete" UniqueName="DeleteCommandColumn" HeaderStyle-Width="50px"
+                                            Visible="false">
+                                            <ItemStyle HorizontalAlign="Center" VerticalAlign="Top" Width="50px" Wrap="false" />
+                                        </telerik:GridButtonColumn>
+                                    </Columns>
                                     <PagerStyle AlwaysVisible="True" />
-                                    <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" 
-                                        AutoGenerateColumns="false" Width="100%" >
-                                        <CommandItemSettings ExportToExcelText="Export to excel" />
-                                        <Columns>
-                                         
-                                            <telerik:GridBoundColumn DataField="CSRD_StructureRuleDetailsId" HeaderStyle-Width="70px"
-                                                CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true" 
-                                                HeaderText="Rule Det. Id" UniqueName="CSRD_StructureRuleDetailsId" ReadOnly="true">
-                                                <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="40px" Wrap="false" />
-                                            </telerik:GridBoundColumn>
-                                            
-                                            <telerik:GridBoundColumn DataField="ACC_UserType" HeaderStyle-Width="70px"
-                                                CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true" 
-                                                HeaderText="User Type" UniqueName="ACC_UserType" ReadOnly="true">
-                                                <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="40px" Wrap="false" />
-                                            </telerik:GridBoundColumn>
-                                            
-                                            <telerik:GridBoundColumn DataField="AAC_AgentCode" HeaderStyle-Width="70px"
-                                                CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true" 
-                                                HeaderText="Agent Code" UniqueName="AAC_AgentCode" ReadOnly="true">
-                                                <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="400px" Wrap="false" />
-                                            </telerik:GridBoundColumn>
-                                            
-                                               <telerik:GridBoundColumn DataField="AC_CategoryName" HeaderStyle-Width="80px"
-                                                CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true" 
-                                                HeaderText="Category Name" UniqueName="AC_CategoryName" ReadOnly="true">
-                                                <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="400px" Wrap="false" />
-                                            </telerik:GridBoundColumn>
-                                            
-                                             <telerik:GridButtonColumn ButtonType="LinkButton" Text="Delete" 
-                                             ConfirmText="Do you want to delete the mapping?" CommandName="Delete"
-                                             UniqueName="DeleteCommandColumn" HeaderStyle-Width="50px" Visible="false">
-                                                <ItemStyle HorizontalAlign="Center" VerticalAlign="Top" Width="50px" Wrap="false" />
-                                            </telerik:GridButtonColumn>
-                                        </Columns>
-                                        <PagerStyle AlwaysVisible="True" />
-                                    </MasterTableView>                                        
-                                    <ClientSettings>
-                                        <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
-                                        <Resizing AllowColumnResize="true" />                                          
-                                    </ClientSettings>
-                                    <%--<FilterMenu EnableEmbeddedSkins="False"></FilterMenu>--%>
-                                </telerik:RadGrid>
-                            </td>
-                        </tr>
-                    </table>
-                </asp:Panel>
-            </td>
-        </tr>
-    </table>
-<table width="100%" >
+                                </MasterTableView>
+                                <ClientSettings>
+                                    <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+                                    <Resizing AllowColumnResize="true" />
+                                </ClientSettings>
+                                <%--<FilterMenu EnableEmbeddedSkins="False"></FilterMenu>--%>
+                            </telerik:RadGrid>
+                        </td>
+                    </tr>
+                </table>
+            </asp:Panel>
+        </td>
+    </tr>
+</table>
+<table width="100%">
     <tr runat="server" visible="false">
         <td class="leftLabel">
             <asp:Label ID="lblStructName" runat="server" Text="Structure:" CssClass="FieldName"></asp:Label>
@@ -185,12 +179,13 @@
     </tr>
     <%--</table>
 <table width="100%">--%>
-    <tr runat="server" id="trMappings" >
+    <tr runat="server" id="trMappings">
         <td class="leftLabel">
             <asp:Label ID="Label1" runat="server" Text="Mapping For:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightData">
-            <asp:DropDownList ID="ddlMapping" runat="server" CssClass="cmbField" AutoPostBack="true" OnSelectedIndexChanged="ddlMapping_Selectedindexchanged">
+            <asp:DropDownList ID="ddlMapping" runat="server" CssClass="cmbField" AutoPostBack="true"
+                OnSelectedIndexChanged="ddlMapping_Selectedindexchanged">
                 <asp:ListItem Text="Staff" Value="Staff"></asp:ListItem>
                 <asp:ListItem Text="Associate" Value="Associate"></asp:ListItem>
             </asp:DropDownList>
@@ -199,7 +194,7 @@
             <asp:Label ID="Label2" runat="server" Text="Type: " CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightData">
-            <asp:DropDownList ID="ddlType" runat="server"   CssClass="cmbField" OnSelectedIndexChanged="ddlType_Selectedindexchanged"
+            <asp:DropDownList ID="ddlType" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlType_Selectedindexchanged"
                 AutoPostBack="true">
                 <asp:ListItem Text="Custom" Value="Custom"></asp:ListItem>
                 <asp:ListItem Text="UserCategory" Value="UserCategory"></asp:ListItem>
@@ -213,16 +208,17 @@
             </asp:DropDownList>
         </td>--%>
     </tr>
-    <tr>
+    <tr id=trAssetCategory runat="server">
         <td class="leftLabel">
             <asp:Label ID="lblAssetCategory" CssClass="FieldName" runat="server" Text="Associate Category:"></asp:Label>
         </td>
         <td class="rightData">
             <asp:DropDownList ID="ddlAdviserCategory" runat="server" CssClass="cmbField">
             </asp:DropDownList>
-             <br />
-            <asp:RequiredFieldValidator ID="rfvddlAdviserCategory" ControlToValidate="ddlAdviserCategory" ErrorMessage="Please Select Category"
-                ValidationGroup="btnSubmitRule" Display="Dynamic" InitialValue="Select" runat="server" CssClass="rfvPCG">
+            <br />
+            <asp:RequiredFieldValidator ID="rfvddlAdviserCategory" ControlToValidate="ddlAdviserCategory"
+                ErrorMessage="Please Select Category" ValidationGroup="btnSubmitRule" Display="Dynamic"
+                InitialValue="Select" runat="server" Visible="true" CssClass="rfvPCG">
             </asp:RequiredFieldValidator>
         </td>
     </tr>

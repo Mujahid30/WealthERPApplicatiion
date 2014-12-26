@@ -72,6 +72,7 @@ namespace WealthERP.CommisionManagement
 
                 }
                 BindPayableGrid();
+              
                  
             }
         }
@@ -170,12 +171,14 @@ namespace WealthERP.CommisionManagement
             }
             else 
             {
+                
                 if (ddlType.SelectedValue == "Custom")
                 {
-                    rfvddlAdviserCategory.Visible = false;
+                    //rfvddlAdviserCategory.Visible = false;
                     RadListBoxSelectedAgentCodes.Items.Clear();
                 }
                 ddlType.SelectedValue = "UserCategory";
+               
 
             }
             GetControlsBasedOnType(ddlType.SelectedValue);
@@ -186,16 +189,13 @@ namespace WealthERP.CommisionManagement
             if (type == "Custom")
             {
                 trListControls.Visible = true;
-                ddlAdviserCategory.Visible = false;
-                lblAssetCategory.Visible = false;
+                trAssetCategory.Visible = false;
                 BindAgentCodes();
             }
             else
             {
                 trListControls.Visible = false;
-                ddlAdviserCategory.Visible = true;
-                lblAssetCategory.Visible = true;
-
+                trAssetCategory.Visible = true;
                 BindClassification();
             }
         }

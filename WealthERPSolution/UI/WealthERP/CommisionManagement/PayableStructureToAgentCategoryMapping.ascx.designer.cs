@@ -473,7 +473,7 @@ namespace WealthERP.CommisionManagement
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trListControls;
         protected global::System.Web.UI.HtmlControls.HtmlTable tblPayableRule;
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trMappings;
-
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trAssetCategory;
         
 
         /// <summary>
