@@ -616,6 +616,12 @@ namespace WealthERP.OffLineOrderManagement
                 }
             }
 
+            if (string.IsNullOrEmpty(txtCustomerId.Value.ToString().Trim()))
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please select Customer Name.');", true);
+                return;
+            }
+
             if (result == true)
             {
                 hdnButtonAction.Value = "Update";
@@ -676,8 +682,20 @@ namespace WealthERP.OffLineOrderManagement
                     result = false;
                 }
             }
+            if (!String.IsNullOrEmpty(txtApplicationNumber.Text))
+            {
+                if (CheckApllicationNo() > 0)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Application number already used.');", true);
+                    return;
+                }
+            }
 
-
+            if ( string.IsNullOrEmpty(txtCustomerId.Value.ToString().Trim()))
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please select Customer Name.');", true);
+                return;
+            }
             if (result == true)
             {
                 hdnButtonAction.Value = "Submit";
@@ -781,7 +799,7 @@ namespace WealthERP.OffLineOrderManagement
             orderVo.CustomerId = int.Parse(txtCustomerId.Value);
 
             orderVo.AssetGroup = "FI";
-
+           
 
             if (!String.IsNullOrEmpty(txtAssociateSearch.Text))
                 AgentId = customerBo.GetAssociateName(advisorVo.advisorId, txtAssociateSearch.Text);
@@ -960,11 +978,20 @@ namespace WealthERP.OffLineOrderManagement
 
                 offlineBondBo.CreateOfflineCustomerOrderAssociation(dtJntHld, userVo.UserId, orderId);
             }
+ 
 
+        }
 
+        private int CheckApllicationNo()
+        {
+            int isUniqueApplicationNo = 0;
+            
+            if (!string.IsNullOrEmpty(ddlScheme.SelectedValue))
+            {
 
-
-
+               isUniqueApplicationNo= fiorderBo.CheckApplicationNo(Convert.ToInt32(ddlScheme.SelectedValue),txtApplicationNumber.Text,ddlCategory.SelectedValue);
+            }
+            return isUniqueApplicationNo;
         }
 
         private Int64 GetFaceValue()
@@ -978,15 +1005,24 @@ namespace WealthERP.OffLineOrderManagement
             return faceValue;
         }
 
-        protected void OnQtytchanged(object sender, EventArgs e)
+        protected void OnAmtchanged(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(txtQty.Text))
+            if (!string.IsNullOrEmpty(TxtPurAmt.Text))
             {
-                TxtPurAmt.Text = (Convert.ToInt32(txtQty.Text) * GetFaceValue()).ToString();
+                txtQty.Text = string.Empty;
+                txtQty.Text  = (Convert.ToInt32(TxtPurAmt.Text) / GetFaceValue()).ToString();
             }
         }
 
-
+        protected void OnQtychanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtQty.Text))
+            {
+                TxtPurAmt.Text = string.Empty;
+                TxtPurAmt.Text = (Convert.ToInt32(txtQty.Text) * GetFaceValue()).ToString();
+            }
+        }
+        
         private void AddClick(RadUpload radUploadProof, DropDownList ddlProofType)
         {
             bool blResult = false;

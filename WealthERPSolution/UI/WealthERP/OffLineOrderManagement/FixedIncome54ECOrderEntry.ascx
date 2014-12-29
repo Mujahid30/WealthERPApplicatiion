@@ -66,6 +66,11 @@
 
 
     }
+    function TriggeredKey(e) {
+        var keycode;
+        if (window.event) keycode = window.event.keyCode;
+        if (window.event.keyCode = 13) return false;
+    }
     
 </script>
 
@@ -497,7 +502,7 @@
                 Enabled="True" />
             <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtCustomerName"
                 ErrorMessage="<br />Please Enter Customer Name" Display="Dynamic" runat="server"
-                CssClass="rfvPCG" ValidationGroup="Submit"></asp:RequiredFieldValidator>
+                CssClass="rfvPCG" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
         </td>
         <td align="right" style="width: 15.4%;">
             <asp:Label ID="lblPan" runat="server" Text="PAN No: " CssClass="FieldName"></asp:Label>
@@ -761,7 +766,11 @@
             <asp:Label ID="lblApplicationNumber" runat="server" Text="Application No.:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField" style="width: 20%">
-            <asp:TextBox ID="txtApplicationNumber" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtApplicationNumber" runat="server" CssClass="txtField" AutoPostBack="true"
+                MaxLength="8"></asp:TextBox>
+            <%--<asp:RegularExpressionValidator ID="regFrom" ControlToValidate="txtApplicationNumber"
+                runat="server" Display="Dynamic" ErrorMessage="<br/>Enter Numeric Value Between 8  Digit"
+                CssClass="cvPCG" ValidationExpression="[A-Z]{1,8}$" ValidationGroup="MFSubmit" />--%>
         </td>
         <td style="width: 5%">
         </td>
@@ -842,14 +851,18 @@
             </asp:Label>
         </td>
         <td class="rightField" style="width: 20%">
-            <asp:TextBox ID="txtQty" runat="server" CssClass="txtField" AutoPostBack="True" OnTextChanged="OnQtytchanged" />
-            <span id="Span3" runat="server" class="spnRequiredField">*</span>
+            <asp:TextBox ID="txtQty" runat="server" CssClass="txtField" AutoPostBack="True" OnTextChanged="OnQtychanged" />
+            <asp:RegularExpressionValidator ID="RegularExpressionValidator2" ControlToValidate="txtQty"
+                runat="server" Display="Dynamic" ErrorMessage="Please Enter Integer Value" CssClass="cvPCG"
+                ValidationExpression="[1-9]\d*$" ValidationGroup="MFSubmit">     
+            </asp:RegularExpressionValidator>
+            <span id="Span8" runat="server" class="spnRequiredField">*</span>
             <%--<asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="txtPayAmt"
                 CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please Enter FD Amount"
                 Operator="NotEqual" ValidationGroup="MFSubmit" ValueToCompare="Select"></asp:CompareValidator>--%>
-            <asp:RequiredFieldValidator ID="ReqQty" ControlToValidate="txtQty" CssClass="rfvPCG"
+            <%-- <asp:RequiredFieldValidator ID="ReqQty" ControlToValidate="txtQty" CssClass="rfvPCG"
                 ErrorMessage="<br />Please Enter Qty" Display="Dynamic" runat="server" InitialValue=""
-                ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
+                ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>--%>
         </td>
         <td style="width: 5%">
         </td>
@@ -858,7 +871,15 @@
         </td>
         <td style="width: 30%">
             <asp:TextBox ID="TxtPurAmt" runat="server" CssClass="txtField" AutoComplete="Off"
-                AutoPostBack="True" />
+                AutoPostBack="True" OnTextChanged="OnAmtchanged" />
+            <span id="Span3" runat="server" class="spnRequiredField">*</span>
+            <asp:RequiredFieldValidator ID="ReqQty" ControlToValidate="txtQty" CssClass="rfvPCG"
+                ErrorMessage="<br />Please Enter Qty" Display="Dynamic" runat="server" InitialValue=""
+                ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
+            <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="TxtPurAmt"
+                runat="server" Display="Dynamic" ErrorMessage="Please Enter Integer Value" CssClass="cvPCG"
+                ValidationExpression="[1-9]\d*$" ValidationGroup="MFSubmit">     
+            </asp:RegularExpressionValidator>
         </td>
     </tr>
     <tr id="trMatAmtDate" runat="server" visible="false">
@@ -1028,7 +1049,6 @@
         <td class="rightField" style="width: 20%">
             <asp:TextBox ID="txtPaymentNumber" runat="server" MaxLength="6" CssClass="txtField"></asp:TextBox>
             <span id="Span5" class="spnRequiredField">*</span>
-            
             <asp:RequiredFieldValidator ID="RequiredFieldValidator6" ControlToValidate="txtPaymentNumber"
                 ErrorMessage="<br />Please Enter Instrument Number" Display="Dynamic" runat="server"
                 CssClass="rfvPCG" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
@@ -1047,7 +1067,8 @@
                 <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
                 </DateInput>
             </telerik:RadDatePicker>
-             <asp:RequiredFieldValidator ID="RequiredFieldValidator8" ControlToValidate="txtPaymentInstDate"
+            <span id="Span6" class="spnRequiredField">*</span>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator8" ControlToValidate="txtPaymentInstDate"
                 ErrorMessage="<br />Please Enter Instrument Date" Display="Dynamic" runat="server"
                 CssClass="rfvPCG" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
             <asp:CompareValidator ID="CVPaymentDate" runat="server" ErrorMessage="<br/>Please enter a valid date."
@@ -1121,9 +1142,8 @@
             </div>
         </td>
     </tr>
-  
     <tr>
-      <%--  <td>
+        <%--  <td>
             <asp:Button ID="BtnFileupload" runat="server" Text="Upload Documents" CssClass="PCGButton"
                 ValidationGroup="MFSubmit" OnClick="BtnFileupload_Click" Visible="false" />
         </td>--%>
@@ -1137,9 +1157,9 @@
                 ShowFooter="True" PagerStyle-AlwaysVisible="true" AllowPaging="true" ShowStatusBar="True"
                 Skin="Telerik" AllowFilteringByColumn="true" OnItemCommand="gvUploadDocument_OnItemCommand"
                 OnNeedDataSource="gvUploadDocument_OnNeedDataSource" OnItemDataBound="gvUploadDocument_OnItemDataBound">
-                <MasterTableView DataKeyNames="COD_DocumentId,COD_image,XPRT_ProofTypeCode,XPRT_ProofType" AllowFilteringByColumn="true"
-                    Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="Top"
-                    EditMode="PopUp">
+                <MasterTableView DataKeyNames="COD_DocumentId,COD_image,XPRT_ProofTypeCode,XPRT_ProofType"
+                    AllowFilteringByColumn="true" Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
+                    CommandItemDisplay="Top" EditMode="PopUp">
                     <CommandItemSettings ShowExportToWordButton="false" ShowExportToExcelButton="false"
                         AddNewRecordText="Add Document" ShowExportToCsvButton="false" ShowAddNewRecordButton="true"
                         ShowRefreshButton="false" />

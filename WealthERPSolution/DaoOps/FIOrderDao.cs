@@ -105,6 +105,33 @@ namespace DaoOps
             return Facevalue;
         }
 
+        public int CheckApplicationNo(int issueId, string applicationNo, string category)
+        {
+            
+            Database db;
+            DbCommand getApplicationNocmd;
+            int Isunique = 0;
+             
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getApplicationNocmd = db.GetStoredProcCommand("SPROC_CheckApplicationNo");
+                db.AddInParameter(getApplicationNocmd, "@issueId", DbType.Int32, issueId);
+                db.AddInParameter(getApplicationNocmd, "@applicationNo", DbType.String, applicationNo);
+                db.AddInParameter(getApplicationNocmd, "@category", DbType.String, category);
+
+                Isunique = Convert.ToInt32(db.ExecuteScalar(getApplicationNocmd));
+
+                 
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return Isunique;
+            
+        }
+
         public bool UpdateFITransactionForSynch(int gvOrderId, String gvSchemeCode, int gvaccountId, string gvTrxType, int gvPortfolioId, double gvAmount, out bool status, DateTime gvOrderDate)
         {
             Database db;
@@ -476,6 +503,7 @@ namespace DaoOps
             }
             return bResult;
         }
+
         public List<int> CreateOrderFIDetails(OrderVo orderVo, FIOrderVo FIorderVo, int userId, string Mode)
         {
             List<int> orderIds = new List<int>();
@@ -490,13 +518,11 @@ namespace DaoOps
                 {
                     createFIOrderTrackingCmd = db.GetStoredProcCommand("[SP_CreateCustomerFIOrderDetails]");
                     db.AddOutParameter(createFIOrderTrackingCmd, "@CO_OrderId", DbType.Int32, orderVo.OrderId);
-
                 }
                 else
                 {
                     createFIOrderTrackingCmd = db.GetStoredProcCommand("SP_UpdateCustomerFIOrderDetails");
                     db.AddInParameter(createFIOrderTrackingCmd, "@CO_OrderId", DbType.Int32, orderVo.OrderNumber);
-
                 }
 
                 if (orderVo.OrderDate != DateTime.MinValue)

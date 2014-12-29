@@ -340,6 +340,19 @@ namespace BoOps
             return Facevalue;
         }
 
+        public int CheckApplicationNo(int issueId, string applicationNo, string category)
+        {
+
+            try
+            {
+                return fiOrderDao.CheckApplicationNo(issueId, applicationNo, category);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            
+        }
 
 
 
