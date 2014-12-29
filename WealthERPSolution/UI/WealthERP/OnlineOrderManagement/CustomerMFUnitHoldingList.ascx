@@ -253,9 +253,8 @@
                                 FooterStyle-HorizontalAlign="Right">
                                 <ItemStyle HorizontalAlign="Right" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridTemplateColumn ItemStyle-Width="250px" AllowFiltering="false" HeaderText="Scheme Rating" HeaderStyle-Width="125px"
-                                ItemStyle-Wrap="false" >
-                               
+                            <telerik:GridTemplateColumn ItemStyle-Width="250px" AllowFiltering="false" HeaderText="Scheme Rating"
+                                HeaderStyle-Width="125px" ItemStyle-Wrap="false" >
                                 <ItemTemplate>
 
                                     <script type="text/jscript">
@@ -295,8 +294,19 @@
 
     
                                     </script>
-
-                                    <asp:Image ID="imgSchemeRating" runat="server" CommandName="MorningStarRating" data-popup-target="#Rating-popup" />
+                                    <asp:Image ID="imgSchemeRating" runat="server" CommandName="MorningStarRating" data-popup-target="#Rating-popup"
+                                        ToolTip="©2014 Morningstar. All Rights Reserved. The information,data, analyses and opinions
+(“Information”) contained herein: (1) include the proprietary information of Morningstar
+and its content providers; (2) may not be copied or redistributed except as specifically
+authorised; (3) do not  constitute  investment advice; (4) are  provided  solely  for 
+informational purposes; (5) are not warranted to be  complete,  accurate  or  timely; 
+(6) may be drawn from fund data  published on  various  dates.  Morningstar  is  not  
+responsible  for  any trading decisions, damages or  other  losses  related  to  the 
+Information or its use.Please verify all of the Information before using it and don’t
+make any  investment  decision except upon the  advice of  a  professional  financial  
+adviser. Past  performance  is  no guarantee of future results.The value  and  income 
+derived  from  investments  may  go down as well as up."
+ />
                                     <asp:Label ID="lblSchemeRating" runat="server" CssClass="cmbField" Text='<%# Eval("SchemeRatingOverall") %>'
                                         Visible="false">
                                     </asp:Label>

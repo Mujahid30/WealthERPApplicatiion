@@ -629,7 +629,7 @@ namespace WealthERP.OffLineOrderManagement
                 btnUpdate.Visible = false;
                 lnkBtnFIEdit.Visible = true;
                 //BtnFileupload.Visible = true;
-                
+
                 SetFICOntrolsEnablity(false);
 
             }
@@ -1203,21 +1203,22 @@ namespace WealthERP.OffLineOrderManagement
         {
             DataSet dsScheme = fiorderBo.GetFISeriesDetailssDetails(SeriesID);
             DataTable dtSeriesDetails = dsScheme.Tables[0];
-            string Tenure;
-            string CouponType;
-
+          
             if (dtSeriesDetails.Rows.Count > 0)
             {
                 foreach (DataRow dr in dtSeriesDetails.Rows)
                 {
-                    Tenure = dr["PFISD_Tenure"].ToString();
-                    hdnSeriesDetails.Value = dr["SeriesDetails"].ToString();
+                    lblTenureRate.Text = dr["PFISD_Tenure"].ToString();
+                    //hdnSeriesDetails.Value = dr["SeriesDetails"].ToString();
                     hdnMinQty.Value = dr["MinQty"].ToString();
                     hdnMaxQty.Value = dr["MaxQty"].ToString();
-
-                    //CouponType = dr["PFISD_CouponType"].ToString();
-                    //txtSeries.Text = "Tenure-" + Tenure + "/" + "InterestRate-" + hdnDefaulteInteresRate.Value + "/" + "InterestType-" + CouponType;
-                    Label12.Text = hdnSeriesDetails.Value;
+                    lblCoupenRate.Text = dr["CouponRate"].ToString();
+                    lblMinQuentity.Text = dr["MinQty"].ToString();
+                    lblMaxQuentity.Text = dr["MaxQty"].ToString();
+                    lblFaceValue.Text = dr["AID_SeriesFaceValue"].ToString();
+                    ////CouponType = dr["PFISD_CouponType"].ToString();
+                    ////txtSeries.Text = "Tenure-" + Tenure + "/" + "InterestRate-" + hdnDefaulteInteresRate.Value + "/" + "InterestType-" + CouponType;
+                    //Label12.Text = hdnSeriesDetails.Value;
 
                 }
 

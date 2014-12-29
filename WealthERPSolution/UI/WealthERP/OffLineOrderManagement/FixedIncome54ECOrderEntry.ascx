@@ -505,7 +505,7 @@
                 CssClass="rfvPCG" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
         </td>
         <td align="right" style="width: 15.4%;">
-            <asp:Label ID="lblPan" runat="server" Text="PAN No: " CssClass="FieldName"></asp:Label>
+            <asp:Label ID="lblPan" runat="server" Text="PAN:" CssClass="FieldName"></asp:Label>
         </td>
         <td>
             <asp:Label ID="lblgetPan" runat="server" Text="" CssClass="FieldName"></asp:Label>
@@ -589,7 +589,7 @@
         </td>
         <td style="width: 20%">
             <asp:DropDownList ID="ddlCategory" runat="server" CssClass="cmbField" AutoPostBack="true"
-                OnSelectedIndexChanged="ddlCategory_SelectedIndexChanged" Enabled="true">
+                OnSelectedIndexChanged="ddlCategory_SelectedIndexChanged" Enabled="true" Width="200px">
             </asp:DropDownList>
             <span id="SpanddlCategory" runat="server" class="spnRequiredField">*</span>
             <asp:CompareValidator ID="CompareValidatorddlCategory" runat="server" ControlToValidate="ddlCategory"
@@ -599,7 +599,7 @@
         <td style="width: 5%">
         </td>
         <td id="Td2" align="right" style="width: 15%" runat="server" visible="false">
-            <asp:Label ID="Label8" runat="server" Text="Issuer: " CssClass="FieldName"></asp:Label>
+            <asp:Label ID="Label8" runat="server" Text="Issuer:" CssClass="FieldName"></asp:Label>
         </td>
         <td id="Td3" style="width: 50%" align="left" runat="server" visible="false">
             <asp:DropDownList ID="ddlIssuer" runat="server" CssClass="cmbField" AutoPostBack="true"
@@ -617,7 +617,7 @@
         </td>
         <td class="rightField" colspan="4">
             <asp:DropDownList ID="ddlScheme" runat="server" CssClass="cmbField" AutoPostBack="true"
-                OnSelectedIndexChanged="ddlScheme_SelectedIndexChanged" Width="300px">
+                OnSelectedIndexChanged="ddlScheme_SelectedIndexChanged" Width="600px">
             </asp:DropDownList>
             <span id="SpanddlScheme" runat="server" class="spnRequiredField">*</span>
             <asp:CompareValidator ID="CompareValidator6" runat="server" ControlToValidate="ddlScheme"
@@ -627,10 +627,10 @@
     </tr>
     <tr>
         <td align="right" style="width: 10%">
-            <asp:Label ID="Label10" runat="server" Text="Series: " CssClass="FieldName"></asp:Label>
+            <asp:Label ID="Label10" runat="server" Text="Series:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField" style="width: 35%">
-            <asp:DropDownList ID="ddlSeries" runat="server" CssClass="Field" AutoPostBack="true"
+            <asp:DropDownList ID="ddlSeries" runat="server" CssClass="cmbField" AutoPostBack="true"
                 Width="150px" OnSelectedIndexChanged="ddlSeries_SelectedIndexChanged">
             </asp:DropDownList>
             <span id="SpanddlSeries" runat="server" class="spnRequiredField">*</span>
@@ -638,12 +638,12 @@
                 CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select an Series"
                 Operator="NotEqual" ValidationGroup="MFSubmit" ValueToCompare="Select"></asp:CompareValidator>
         </td>
-    </tr>
-    <tr id="TRTransSer" runat="server">
-        <td class="leftField" style="width: 20%">
+        <td style="width: 5%">
+        </td>
+        <td class="leftField" style="width: 10%">
             <asp:Label ID="Label11" runat="server" Text="Transaction Type: " CssClass="FieldName"></asp:Label>
         </td>
-        <td style="width: 20%">
+        <td style="width: 35%">
             <asp:DropDownList ID="ddlTranstype" runat="server" CssClass="cmbField" AutoPostBack="true"
                 OnSelectedIndexChanged="ddlTranstype_SelectedIndexChanged">
                 <asp:ListItem Text="Select" Value="Select" Selected="true"></asp:ListItem>
@@ -655,12 +655,48 @@
                 CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select an Transaction Type"
                 Operator="NotEqual" ValidationGroup="MFSubmit" ValueToCompare="Select"></asp:CompareValidator>
         </td>
-        <td style="width: 5%">
-        </td>
-        <td class="leftField" style="width: 10%">
+    </tr>
+    <tr id="TRTransSer" runat="server">
+        <td align="right" style="width: 10%">
             <asp:Label ID="Label15" runat="server" Text="Series Details: " CssClass="FieldName"></asp:Label>
         </td>
-        <td style="width: 35%">
+        <td class="rightField" colspan="2">
+            <table class="SchemeInfoTable" width="100%">
+                <tr style="width: 100%;">
+                    <td align="right">
+                        <asp:Label ID="lblTenure" runat="server" CssClass="FieldName" Text="Tenure:"></asp:Label>
+                    </td>
+                    <td>
+                        <asp:Label ID="lblTenureRate" runat="server" CssClass="FieldName"></asp:Label>
+                    </td>
+                    <td align="right">
+                        <asp:Label ID="lblCoupen" runat="server" CssClass="FieldName" Text="Coupon Rate:"></asp:Label>
+                    </td>
+                    <td>
+                        <asp:Label ID="lblCoupenRate" runat="server" CssClass="FieldName"></asp:Label>
+                    </td>
+                    <td align="right">
+                        <asp:Label ID="lblFace" runat="server" CssClass="FieldName" Text="Face Value:"></asp:Label>
+                    </td>
+                    <td>
+                        <asp:Label ID="lblFaceValue" runat="server" CssClass="FieldName"></asp:Label>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">
+                        <asp:Label ID="lblMinQty" runat="server" CssClass="FieldName" Text="Min. Qty:"></asp:Label>
+                    </td>
+                    <td>
+                        <asp:Label ID="lblMinQuentity" runat="server" CssClass="FieldName"></asp:Label>
+                    </td>
+                    <td align="right">
+                        <asp:Label ID="lblMaxQty" runat="server" CssClass="FieldName" Text="Max. Qty:"></asp:Label>
+                    </td>
+                    <td>
+                        <asp:Label ID="lblMaxQuentity" runat="server" CssClass="FieldName"></asp:Label>
+                    </td>
+                </tr>
+            </table>
             <asp:TextBox ID="txtSeries" runat="server" CssClass="txtField" ReadOnly="true" Visible="false"></asp:TextBox>
             <asp:Label ID="Label12" runat="server" CssClass="txtField"></asp:Label>
         </td>
@@ -837,7 +873,7 @@
         <td style="width: 5%">
         </td>
         <td class="leftField" style="width: 10%">
-            <asp:Label ID="Label17" runat="server" Text="Renewal Amount: " CssClass="FieldName"
+            <asp:Label ID="Label17" runat="server" Text="Renewal Amount:" CssClass="FieldName"
                 OnTextChanged="OnPayAmtTextchanged"></asp:Label>
         </td>
         <td style="width: 35%">
