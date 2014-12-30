@@ -831,7 +831,7 @@ namespace DaoCustomerProfiling
                     if (!string.IsNullOrEmpty(dr["C_ResSTDCode"].ToString()))
                         customerVo.ResSTDCode = int.Parse(dr["C_ResSTDCode"].ToString());
                     if (!string.IsNullOrEmpty(dr["C_ResPhoneNum"].ToString()))
-                        customerVo.ResPhoneNum = int.Parse(dr["C_ResPhoneNum"].ToString());
+                        customerVo.ResPhoneNum = Int64.Parse(dr["C_ResPhoneNum"].ToString());
                     if (!string.IsNullOrEmpty(dr["C_OfcISDCode"].ToString()))
                         customerVo.OfcISDCode = int.Parse(dr["C_OfcISDCode"].ToString());
                     if (!string.IsNullOrEmpty(dr["C_OfcSTDCode"].ToString()))
