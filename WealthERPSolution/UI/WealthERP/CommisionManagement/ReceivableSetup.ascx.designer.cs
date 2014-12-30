@@ -1225,5 +1225,11 @@ namespace WealthERP.Receivable {
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trRule;
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdRule;
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdRuleDetails;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblIssuetype;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdddlIssuetype;
+        protected global::System.Web.UI.WebControls.HiddenField hdnMappedIssue;
+        protected global::System.Web.UI.WebControls.CheckBoxList chkListTtansactionType;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdchkListTtansactionType;
+        protected global::System.Web.UI.WebControls.HiddenField hdnRuleName;
     }
 }

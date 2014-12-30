@@ -50,15 +50,15 @@ namespace WealthERP.Receivable
 
                 if (structureId != 0)
                 {
+                   
                     BindAllDropdown();
                     LoadStructureDetails(structureId);
                     BindCommissionStructureRuleGrid(structureId);
                     trPayableMapping.Visible = true;
                     BindPayableGrid(structureId);
                     rgPayableMapping.Visible = true;
-                    //pnlAddSchemes.Visible = true;
-                    // Label12.Visible = true;
-                    //Label13.Visible = true;
+                    tbNcdIssueList.Visible = false;
+                   
                     if (ddlProductType.SelectedValue == "MF")
                     {
                         pnlAddSchemesButton.Visible = true;
@@ -71,7 +71,15 @@ namespace WealthERP.Receivable
                         GetMapped_Unmapped_Issues("Mapped", "");
                         GetUnamppedIssues(ddlIssueType.SelectedValue);
                         Table4.Visible = true;
-                        tbNcdIssueList.Visible = true;
+                        tbNcdIssueList.Visible = false;
+                        pnlIssueList.Visible = true;
+
+                    }
+                    else if (ddlProductType.SelectedValue != "FI")
+                    {
+                        CheckBoxList chkListTtansactionType = (CheckBoxList)FindControl("chkListTtansactionType");
+                        tbNcdIssueList.Visible = false;
+                        chkListTtansactionType.Visible = false;
                     }
                     //else if (ddlCommissionype.SelectedValue == "16020")
                     //{
@@ -470,7 +478,8 @@ namespace WealthERP.Receivable
                 lblSubCategory.Visible = true;
                 SpanCategory.Visible = true;
                 SpanSubCategory.Visible = true;
-               
+                tdlblCategory.Visible = false;
+                tdddlCategory.Visible = false;
             }
             else if (asset == "FI")
             {
@@ -1096,7 +1105,7 @@ namespace WealthERP.Receivable
                     HiddenField1.Value = RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_CommissionStructureRuleId"].ToString();
                     RadGrid rgCommissionTypeCaliculation = (RadGrid)e.Item.FindControl("rgCommissionTypeCaliculation");
                     System.Web.UI.HtmlControls.HtmlTableRow trRuleDetailSection = (System.Web.UI.HtmlControls.HtmlTableRow)e.Item.FindControl("trRuleDetailSection");
-
+                    hdnRuleName.Value = RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_CommissionStructureRuleName"].ToString();
                     rgCommissionTypeCaliculation.Visible = true;
                     trRuleDetailSection.Visible = true;
                     DataSet dsLookupData;
@@ -1137,6 +1146,7 @@ namespace WealthERP.Receivable
                 CheckBoxList chkListTtansactionType = (CheckBoxList)editform.FindControl("chkListTtansactionType");
                 TextBox txtMinNumberOfApplication = (TextBox)editform.FindControl("txtMinNumberOfApplication");
                 TextBox txtMaxNumberOfApplication = (TextBox)editform.FindControl("txtMaxNumberOfApplication");
+                TextBox TxtRuleName = (TextBox)editform.FindControl("TxtRuleName");
                
                 DropDownList ddlTenureFrequency = (DropDownList)editform.FindControl("ddlTenureFrequency");
                 DropDownList ddlInvestAgeTenure = (DropDownList)editform.FindControl("ddlInvestAgeTenure");
@@ -1220,6 +1230,7 @@ namespace WealthERP.Receivable
                     chkListTtansactionType.DataTextField = dsCommissionLookup.Tables[10].Columns["WMTT_TransactionClassificationName"].ToString();
                     chkListTtansactionType.DataBind();
                 }
+              
                 if (e.Item.RowIndex != -1)
                 {
 
@@ -1240,7 +1251,7 @@ namespace WealthERP.Receivable
                     string strIsServiceTaxReduced = RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_IsServiceTaxReduced"].ToString();
                     string strIsTDSReduced = RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_IsTDSReduced"].ToString();
                     string strIsOtherTaxReduced = RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSM_IsOtherTaxReduced"].ToString();
-
+                  
 
 
                     ddlAppCityGroup.SelectedValue = strCityGroupID;
@@ -1272,6 +1283,7 @@ namespace WealthERP.Receivable
                     ddlCommisionCalOn.SelectedValue = strCalculatedOn;
                     chkListTtansactionType.Visible = true;
                     //ddlAUMFrequency.SelectedValue = strAUMFrequency;
+                    TxtRuleName.Text = hdnRuleName.Value;
                     if (strCommissionType == "IN" && (strInvestmentTransactionType.Contains("SIP") || strInvestmentTransactionType.Contains("STB")))
                     {
                         ddlTransaction.Visible = true;
@@ -1305,6 +1317,11 @@ namespace WealthERP.Receivable
                             chkItems.Selected = true;
                     }
                     ddlSIPFrequency.SelectedValue = strSIPFrequency;
+                    if (Request.QueryString["StructureId"] != null)
+                    {
+
+                        chkListTtansactionType.Visible = false;
+                    }
                 }
             }
             //if (e.Item is GridEditFormItem && e.Item.IsInEditMode && e.Item.ItemIndex != -1)
@@ -1338,6 +1355,7 @@ namespace WealthERP.Receivable
 
         protected void BindCommissionStructureRuleGrid(int structureId)
         {
+          
             DataSet dsStructureRules = commisionReceivableBo.GetAdviserCommissionStructureRules(advisorVo.advisorId, structureId);
             RadGridStructureRule.DataSource = dsStructureRules.Tables[0];
             RadGridStructureRule.DataBind();
@@ -1426,7 +1444,7 @@ namespace WealthERP.Receivable
 
         protected void RadGridStructureRule_ItemCommand(object source, GridCommandEventArgs e)
         {
-        
+           
         }
 
         protected void rgPayableMapping_ItemCommand(object source, GridCommandEventArgs e)
@@ -1653,6 +1671,7 @@ namespace WealthERP.Receivable
                 dsCommissionStructureRule = (DataSet)Cache[userVo.UserId.ToString() + "CommissionStructureRule"];
                 RadGridStructureRule.DataSource = dsCommissionStructureRule.Tables[0];
             }
+          
         }
 
         private void ShowAndHideSTructureRuleControlsBasedOnProductAndCommisionType(Label lblReceivableFrequency, DropDownList ddlReceivableFrequency, System.Web.UI.HtmlControls.HtmlTableRow trTransactionTypeSipFreq, System.Web.UI.HtmlControls.HtmlTableCell tdlb1SipFreq, System.Web.UI.HtmlControls.HtmlTableCell tdddlSipFreq, System.Web.UI.HtmlControls.HtmlTableRow trMinMaxTenure, System.Web.UI.HtmlControls.HtmlTableRow trMinMaxAge, System.Web.UI.HtmlControls.HtmlTableCell tdMinNumberOfApplication, System.Web.UI.HtmlControls.HtmlTableCell tdtxtMinNumberOfApplication1, string product, string CommisionType
@@ -2085,8 +2104,11 @@ namespace WealthERP.Receivable
                 subcategoryIds = subcategoryIds.Replace("~", ",");
                 hdnSubcategoryIds.Value = subcategoryIds;
                 BindBondCategories();
-                if (ddlSubInstrCategory.SelectedValue != "0")
+                if (subcategoryIds != "0")
                   ddlSubInstrCategory.SelectedValue = commissionStructureMasterVo.AssetSubCategory.ToString();
+                GetMapped_Unmapped_Issues("Mapped", "");
+                //ddlUnMappedIssues.Enabled = false;
+                
             }
             catch (BaseApplicationException Ex)
             {
@@ -2919,6 +2941,7 @@ namespace WealthERP.Receivable
             int structureId = 0;
             product = hdnProductId.Value.ToString();
             structureId = Convert.ToInt32(hidCommissionStructureName.Value);
+            ddlSubInstrCategory.SelectedValue = hdnSubcategoryIds.Value;
             dtmappedIssues = commisionReceivableBo.GetIssuesStructureMapings(advisorVo.advisorId, type, issueType, product, 0, structureId, (ddlSubInstrCategory.SelectedValue == "" || ddlSubInstrCategory.SelectedValue == "Select") ? "FIFIIP" : ddlSubInstrCategory.SelectedValue).Tables[0];
             if (dtmappedIssues == null)
                 return;
@@ -2930,10 +2953,20 @@ namespace WealthERP.Receivable
                 gvMappedIssueList.DataSource = dtmappedIssues;
                 gvMappedIssueList.DataBind();
                 pnlIssueList.Visible = true;
-                if (Cache[userVo.UserId.ToString() + "MappedIssueList"] != null)
-                    Cache.Remove(userVo.UserId.ToString() + "MappedIssueList");
-
-                Cache.Insert(userVo.UserId.ToString() + "MappedIssueList", dtmappedIssues);
+                //if (Cache[userVo.UserId.ToString() + "MappedIssueList"] != null)
+                //    Cache.Remove(userVo.UserId.ToString() + "MappedIssueList");
+                //else
+                //    Cache.Remove(userVo.UserId.ToString() + "MappedIssueList");
+                //Cache.Insert(userVo.UserId.ToString() + "MappedIssueList", dtmappedIssues);
+                if (Request.QueryString["StructureId"] != null)
+                {
+                    ddlUnMappedIssues.DataSource = dtmappedIssues;
+                    ddlUnMappedIssues.DataTextField = "AIM_IssueName";
+                    ddlUnMappedIssues.DataValueField = "AIM_IssueId";
+                    ddlUnMappedIssues.DataBind();
+                    ddlUnMappedIssues.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
+                 
+                }
             }
             else if (type == "UnMapped")
             {
@@ -2962,7 +2995,7 @@ namespace WealthERP.Receivable
         {
             DataTable dtIssues = (DataTable)Cache[userVo.UserId.ToString() + "MappedIssueList"];
             if (dtIssues != null) gvMappedIssueList.DataSource = dtIssues;
-
+           
         }
 
         protected void gvMappedIssueList_ItemCommand(object source, GridCommandEventArgs e)

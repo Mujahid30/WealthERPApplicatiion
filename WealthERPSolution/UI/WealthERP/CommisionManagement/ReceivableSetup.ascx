@@ -1119,10 +1119,10 @@
             </table>
             <table runat="server" id="tbNcdIssueList" visible="false">
                 <tr>
-                    <td align="right">
+                    <td align="right" runat="server" id="tdlblIssuetype">
                         <asp:Label ID="Label9" runat="server" Text="Issue type:" CssClass="FieldName"></asp:Label>
                     </td>
-                    <td>
+                    <td runat="server" id="tdddlIssuetype">
                         <asp:DropDownList ID="ddlIssueType" runat="server" CssClass="cmbField" AutoPostBack="true"
                             Width="205px" OnSelectedIndexChanged="ddlIssueType_Selectedindexchanged">
                             <asp:ListItem Value="Select">Select</asp:ListItem>
@@ -1251,11 +1251,11 @@
                                 </ExportSettings>
                                 <MasterTableView CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false"
                                     EditMode="EditForms" CommandItemSettings-AddNewRecordText="Create New Commission Structure Rule"
-                                    DataKeyNames="ACSR_CommissionStructureRuleId,ACSR_MinTenure,WCT_CommissionTypeCode,XCT_CustomerTypeCode,ACSR_TenureUnit,
+                                    DataKeyNames="ACSR_CommissionStructureRuleName,ACSR_CommissionStructureRuleId,ACSR_MinTenure,WCT_CommissionTypeCode,XCT_CustomerTypeCode,ACSR_TenureUnit,
                                 ACSR_TransactionType,WCU_UnitCode,WCCO_CalculatedOnCode,ACSM_AUMFrequency,ACSR_MaxTenure,ACSR_SIPFrequency,ACG_CityGroupID,
-                                ACSR_ReceivableRuleFrequency,WCAL_ApplicableLevelCode,ACSR_IsServiceTaxReduced,ACSR_IsTDSReduced,ACSM_IsOtherTaxReduced">
+                                ACSR_ReceivableRuleFrequency,WCAL_ApplicableLevelCode,ACSR_IsServiceTaxReduced,ACSR_IsTDSReduced,ACSM_IsOtherTaxReduced,PaybleValue,PaybleUnit,RecievableValue,RecievableUnit">
                                     <Columns>
-                                        <telerik:GridEditCommandColumn EditText="Rates" UniqueName="raj">
+                                        <telerik:GridEditCommandColumn EditText="Edit">
                                         </telerik:GridEditCommandColumn>
                                         <telerik:GridButtonColumn CommandName="Delete" Text="Delete" ConfirmText="Do you want to delete this rule? Click OK to proceed"
                                             UniqueName="column">
@@ -1313,10 +1313,17 @@
                                             DataField="ACSR_MaxNumberOfApplications">
                                             <HeaderStyle></HeaderStyle>
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn UniqueName="ACSR_BrokerageValue" HeaderText="Brokerage Value"
-                                            DataField="ACSR_BrokerageValue" DataFormatString="{0:N2}">
+                                        <telerik:GridBoundColumn UniqueName="PaybleValue" HeaderText="Payable Brokerage Value"
+                                            DataField="PaybleValue" DataFormatString="{0:N2}">
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn UniqueName="WCU_Unit" HeaderText="Unit" DataField="WCU_Unit">
+                                        <telerik:GridBoundColumn UniqueName="PaybleUnit" HeaderText="Payable Brokerage Unit"
+                                            DataField="PaybleUnit">
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn UniqueName="RecievableValue" HeaderText="Recievable Brokerage Value"
+                                            DataField="RecievableValue" DataFormatString="{0:N2}">
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn UniqueName="RecievableUnit" HeaderText="Recievable Brokerage Unit"
+                                            DataField="RecievableUnit">
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn UniqueName="WCCO_CalculatedOn" HeaderText="Calculated On"
                                             DataField="WCCO_CalculatedOn">
@@ -1351,8 +1358,7 @@
                                                         <asp:Label ID="lb1RuleName" runat="server" Text="Rule Name" CssClass="FieldName"></asp:Label>
                                                     </td>
                                                     <td class="rightData">
-                                                        <asp:TextBox ID="TxtRuleName" runat="server" Text='<%# Bind( "ACSR_CommissionStructureRuleName") %>'
-                                                            CssClass="txtField"></asp:TextBox>
+                                                        <asp:TextBox ID="TxtRuleName" runat="server" CssClass="txtField"></asp:TextBox>
                                                         <span id="Span14" class="spnRequiredField" runat="server" visible="true">*</span>
                                                         <asp:RequiredFieldValidator runat="server" ID="ReqRuleName" ValidationGroup="btnSubmitRule"
                                                             Display="Dynamic" ControlToValidate="TxtRuleName" ErrorMessage="<br />Enter Rule Name"
@@ -1507,7 +1513,7 @@
                                                 <tr>
                                                     <td>
                                                     </td>
-                                                    <td>
+                                                    <td id="tdchkListTtansactionType" runat="server">
                                                         <asp:CheckBoxList ID="chkListTtansactionType" runat="server" CssClass="txtField"
                                                             Visible="false" RepeatLayout="Flow" RepeatDirection="Horizontal">
                                                         </asp:CheckBoxList>
@@ -1862,6 +1868,9 @@
                 <asp:HiddenField ID="hdnCategoryId" runat="server" />
                 <asp:HiddenField ID="hdnSubcategoryIds" runat="server" />
                 <asp:HiddenField ID="HiddenField1" runat="server" />
+                <asp:HiddenField ID="hdnMappedIssue" runat="server" />
+                <asp:HiddenField ID="hdnRuleName" runat="server" />
+                <asp:HiddenField ID="hdnRuleId" runat="server" />
             </div>
             <%--<div style="float:left ;padding-right:10px">
                 <asp:Label ID="Label12" runat="server" Text="Note:" Visible="false" CssClass="FieldName"></asp:Label>

@@ -160,6 +160,14 @@ namespace WealthERP.CommisionManagement
 
             gvCommMgmt.DataSource = dsStructureRules.Tables[0];
             gvCommMgmt.DataBind();
+            if (ddProduct.SelectedValue == "FI")
+            {
+                gvCommMgmt.MasterTableView.GetColumn("cmCategory").Display = false;
+            }
+            else
+            {
+                gvCommMgmt.MasterTableView.GetColumn("cmCategory").Display = true;
+            }
             Cache.Insert(userVo.UserId.ToString() + "CommissionStructureRule", dsStructureRules.Tables[0]);
         }
 
