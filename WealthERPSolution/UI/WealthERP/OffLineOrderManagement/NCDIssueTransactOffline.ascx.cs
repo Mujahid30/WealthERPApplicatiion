@@ -525,7 +525,7 @@ namespace WealthERP.OffLineOrderManagement
             BindISAList();
             BindCustomerNCDIssueList();
             GetDematAccountDetails(int.Parse(txtCustomerId.Value));
-            Panel1.Visible = true;
+            //Panel1.Visible = true;
             Panel2.Visible = true;
         }
 

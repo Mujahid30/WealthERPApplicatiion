@@ -828,7 +828,7 @@
         </tr>
     </table>
 </asp:Panel>
-<asp:Panel ID="Panel1" runat="server" class="Landscape" Width="100%"
+<%--<asp:Panel ID="Panel1" runat="server" class="Landscape" Width="100%"
     Height="80%" ScrollBars="None">
     <table width="100%">
         <tr>
@@ -871,7 +871,7 @@
                     ErrorMessage="<br />Please Enter Application No" Display="Dynamic" runat="server"
                     CssClass="rfvPCG" ValidationGroup="btnConfirmOrder"></asp:RequiredFieldValidator>
                 <br />
-                <asp:Label ID="Label8" runat="server" CssClass="Error" Text="Application Number already exists"></asp:Label>
+                <asp:Label ID="Label8" runat="server" Visible="false" CssClass="Error" Text="Application Number already exists"></asp:Label>
             </td>
             <td id="Td1" class="leftField" style="width: 20%" runat="server" visible="false">
                 <asp:Label ID="Label9" runat="server" Text="Depository Type: " CssClass="FieldName"></asp:Label>
@@ -879,15 +879,14 @@
             <td id="Td2" class="rightField" style="width: 20%" runat="server" visible="false">
                 <%-- <asp:DropDownList ID="ddlDepositoryName" runat="server" CssClass="cmbField" AutoPostBack="true">
                 </asp:DropDownList>--%>
-                <asp:ImageButton ID="ImageButton1" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
+                <%--<asp:ImageButton ID="ImageButton1" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
                     AlternateText="Add" runat="server" ToolTip="Click here to Add Depository Type"
                     OnClick="ImageddlSyndicate_Click" Height="15px" Width="15px"></asp:ImageButton>
-                <br />
+                <br />--%>
                 <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="ddlDepositoryName"
                     ErrorMessage="<br />Please Enter Depository Name" Display="Dynamic" runat="server"
                     CssClass="rfvPCG" ValidationGroup="btnConfirmOrder"></asp:RequiredFieldValidator>--%>
-            </td>
-        </tr>
+           
         <%--<tr>
     <td class="leftField" style="width: 20%">
             <asp:Label ID="lblApplicationNo" runat="server" Text="Application No: "
@@ -933,7 +932,7 @@
         <asp:TextBox ID="txtDPIDClientId" runat="server" CssClass="txtField"></asp:TextBox>
         </td>
     </tr>--%>
-        <tr>
+     <%--   <tr>
             <td class="leftField" style="width: 20%">
                 <asp:Label ID="Label10" runat="server" Text="Mode of Payment:" CssClass="FieldName"></asp:Label>
             </td>
@@ -1043,7 +1042,7 @@
                     AlternateText="Add" runat="server" ToolTip="Click here to Add Bank" OnClientClick="return openpopupAddBank()"
                     Height="15px" Width="15px" Visible="false"></asp:ImageButton>
                 <%-- --%>
-                <asp:ImageButton ID="ImageButton3" ImageUrl="~/Images/refresh.png" AlternateText="Refresh"
+            <%--    <asp:ImageButton ID="ImageButton3" ImageUrl="~/Images/refresh.png" AlternateText="Refresh"
                     runat="server" ToolTip="Click here to refresh Bank List" OnClick="imgBtnRefereshBank_OnClick"
                     OnClientClick="return closepopupAddBank()" Height="15px" Width="25px" TabIndex="19"
                     Visible="false"></asp:ImageButton>
@@ -1062,7 +1061,7 @@
                 <asp:TextBox ID="TextBox4" onkeydown="return (event.keyCode!=13);" runat="server"
                     CssClass="txtField" Visible="false"></asp:TextBox>
                 <%--<span id="Span3" class="spnRequiredField" visible="false">*</span>--%>
-                <asp:Label ID="lblBankBranchName" runat="server" Text="*" class="spnRequiredField"
+           <%--     <asp:Label ID="lblBankBranchName" runat="server" Text="*" class="spnRequiredField"
                     Visible="false"></asp:Label>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator19" ControlToValidate="txtBranchName"
                     CssClass="rfvPCG" ErrorMessage="<br />Please Enter Bank Branch" Display="Dynamic"
@@ -1070,7 +1069,7 @@
             </td>
         </tr>
     </table>
-</asp:Panel>
+</asp:Panel>--%>
 <asp:Panel ID="PnlNCDApplicationDetails" runat="server" class="Landscape" Width="100%"
     Height="80%" ScrollBars="None">
     <table width="100%">
