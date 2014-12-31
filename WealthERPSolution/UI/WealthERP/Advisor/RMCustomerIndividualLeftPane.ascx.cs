@@ -207,7 +207,7 @@ namespace WealthERP.Advisor
                         trCustRMDetailsDivider.Visible = false;
                         trMobileDetails.Visible = false;
                         lblClientInfo.Text = "Customer Contact Info";
-
+                        lblAccountID.Text = customerVo.CustCode;
                         if (Middle != "")
                         {
                             lblNameValue.Text = customerVo.FirstName.ToString() + " " + customerVo.MiddleName.ToString() + " " + customerVo.LastName.ToString();

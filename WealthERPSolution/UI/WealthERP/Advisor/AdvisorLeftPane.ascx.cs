@@ -937,7 +937,7 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "MFT")
                 {
                     Session["UserType"] = "adviser";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('TransactionDashBoard','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMMultipleTransactionView','login');", true);
                 }
                 else if (e.Item.Value == "Client_Initial_Order")
                 {
@@ -1504,7 +1504,7 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "Transactions")
                 {
                     Session["UserType"] = "rm";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('TransactionDashBoard','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMMultipleTransactionView','login');", true);
                 }
                 else if (e.Item.Value == "Customer Report")
                 {
@@ -1725,7 +1725,7 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "Transactions")
                 {
                     Session["UserType"] = "bm";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('TransactionDashBoard','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMMultipleTransactionView','login');", true);
                 }
                 //else if (e.Item.Value == "Multi Asset Report")
                 //{
@@ -2206,7 +2206,7 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "Transactions")
                 {
                     Session["UserType"] = "adviser";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('TransactionDashBoard','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMMultipleTransactionView','login');", true);
                 }
                 //else if (e.Item.Value == "Upload")
                 //{
@@ -2252,7 +2252,7 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "MFT")
                 {
                     Session["UserType"] = "adviser";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('TransactionDashBoard','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMMultipleTransactionView','login');", true);
                 }
                 else if (e.Item.Value == "Trail_Commission_Exception")
                 {
@@ -3590,7 +3590,7 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "MFT")
                 {
                     Session["UserType"] = "Associates";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('TransactionDashBoard','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMMultipleTransactionView','login');", true);
                 }
                 else if (e.Item.Value == "ViewAssociates")
                 {
@@ -3861,7 +3861,7 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "Transactions")
                 {
                     Session["UserType"] = "Associates";
-                    //  ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('TransactionDashBoard','login');", true);
+                    //  ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMMultipleTransactionView','login');", true);
                 }
                 else if (e.Item.Value == "Multi Asset Report")
                 {

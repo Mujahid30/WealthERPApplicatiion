@@ -56,7 +56,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     ddlAMC.DataTextField = dtBindAMC.Columns["PA_AMCName"].ToString();
                     ddlAMC.DataValueField = dtBindAMC.Columns["PA_AMCCode"].ToString();
                     ddlAMC.DataBind();
-                    ddlAMC.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "0"));
+                    //ddlAMC.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "0"));
                 }
             }
             catch (BaseApplicationException Ex)

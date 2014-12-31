@@ -59,11 +59,19 @@
                 </td>
             </tr>
             <tr>
-                <td>
+                <td align="right">
                     <asp:Label ID="lblName" Text="Name:" runat="server" CssClass="FieldName"></asp:Label>
                 </td>
                 <td>
                     <asp:Label ID="lblNameValue" Text="" runat="server" CssClass="Field"></asp:Label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblclientId" runat="server" CssClass="FieldName" Text="Client Id:"></asp:Label>
+                </td>
+                <td>
+                    <asp:Label ID="lblAccountID" runat="server" CssClass="Field"></asp:Label>
                 </td>
             </tr>
             <tr>
@@ -84,7 +92,6 @@
             </tr>
             <tr visible="false">
                 <td colspan="2" align="right" visible="false">
-                  
                 </td>
             </tr>
         </table>
@@ -547,16 +554,16 @@
                 </td>
             </tr>
         </table>
-          <table>
-                        <tr>
-                            <td style="visibility:hidden;">
-                                <asp:Button ID="btnOnlineOrder" runat="server" OnClientClick="window.document.forms[0].target='_blank'; setTimeout(function(){window.document.forms[0].target='';}, 500);" />
-                                <asp:Button ID="btnNCDOnline" runat="server" OnClientClick="window.document.forms[0].target='_blank'; setTimeout(function(){window.document.forms[0].target='';}, 500);" />
-                                <asp:Button ID="btnIPOOnline" runat="server" OnClientClick="window.document.forms[0].target='_blank'; setTimeout(function(){window.document.forms[0].target='';}, 500);" />
-                                <hr />
-                            </td>
-                        </tr>
-                    </table>
+        <table>
+            <tr>
+                <td style="visibility: hidden;">
+                    <asp:Button ID="btnOnlineOrder" runat="server" OnClientClick="window.document.forms[0].target='_blank'; setTimeout(function(){window.document.forms[0].target='';}, 500);" />
+                    <asp:Button ID="btnNCDOnline" runat="server" OnClientClick="window.document.forms[0].target='_blank'; setTimeout(function(){window.document.forms[0].target='';}, 500);" />
+                    <asp:Button ID="btnIPOOnline" runat="server" OnClientClick="window.document.forms[0].target='_blank'; setTimeout(function(){window.document.forms[0].target='';}, 500);" />
+                    <hr />
+                </td>
+            </tr>
+        </table>
     </ContentTemplate>
 </asp:UpdatePanel>
 <asp:HiddenField ID="hdnUserRole" runat="server" Visible="true" EnableViewState="true" />

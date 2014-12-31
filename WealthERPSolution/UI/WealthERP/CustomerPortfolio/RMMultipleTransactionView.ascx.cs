@@ -428,6 +428,8 @@ namespace WealthERP.CustomerPortfolio
                 ddlOptionSearch.Visible = true;
                 lblGroupHead.Visible = false;
                 lblCustomerSearch.Visible = true;
+                txtcustomerName.Text = "";
+                txtCustCode.Text = "";
             }
             else
             {
@@ -1163,8 +1165,11 @@ namespace WealthERP.CustomerPortfolio
             //Convert.ToString(categorycode).ToString();
             if (!string.IsNullOrEmpty(txtParentCustomerId.Value.ToString().Trim()))
                 customerId = int.Parse(txtParentCustomerId.Value);
-            if (!string.IsNullOrEmpty(txtcustomerId.Value.ToString().Trim()))
-                customerId = int.Parse(txtcustomerId.Value);
+            if (ddlsearchcustomertype.SelectedValue != "All")
+            {
+                if (!string.IsNullOrEmpty(txtcustomerId.Value.ToString().Trim()))
+                    customerId = int.Parse(txtcustomerId.Value);
+            }
             if (!string.IsNullOrEmpty(txtCustCode.Text))
             {
                 string custCode = txtCustCode.Text;
@@ -1179,7 +1184,7 @@ namespace WealthERP.CustomerPortfolio
             //}
             try
             {//pramod if (rbtnGroup.Checked || rbtnIndividual.Checked)
-                if (ddlsearchcustomertype.SelectedValue == "All" || ddlsearchcustomertype.SelectedValue == "Individual")
+                if (ddlsearchcustomertype.SelectedValue != "All" && ddlsearchcustomertype.SelectedValue != "Individual")
                 {
                     mfTransactionList = customerTransactionBo.GetRMCustomerMFTransactions(rmID, AdviserId, customerId, IsfolioOnline, convertedFromDate, convertedToDate, 1, PasssedFolioValue, false, schemePlanCode, int.Parse(hdnAMC.Value), hdnCategory.Value, advisorVo.A_AgentCodeBased, hdnAgentCode.Value, userType, int.Parse(ddlAgentCode.SelectedValue));
                 }
@@ -1190,7 +1195,7 @@ namespace WealthERP.CustomerPortfolio
                 }
                 else
                 {
-                    mfTransactionList = customerTransactionBo.GetRMCustomerMFTransactions(rmID, AdviserId, 0, IsfolioOnline, convertedFromDate, convertedToDate, 1, PasssedFolioValue, false, schemePlanCode, int.Parse(hdnAMC.Value), hdnCategory.Value, advisorVo.A_AgentCodeBased, hdnAgentCode.Value, userType, int.Parse(ddlAgentCode.SelectedValue));
+                    mfTransactionList = customerTransactionBo.GetRMCustomerMFTransactions(rmID, AdviserId, customerId, IsfolioOnline, convertedFromDate, convertedToDate, 1, PasssedFolioValue, false, schemePlanCode, int.Parse(hdnAMC.Value), hdnCategory.Value, advisorVo.A_AgentCodeBased, hdnAgentCode.Value, userType, int.Parse(ddlAgentCode.SelectedValue));
                 }
 
                 if (mfTransactionList.Count != 0)
