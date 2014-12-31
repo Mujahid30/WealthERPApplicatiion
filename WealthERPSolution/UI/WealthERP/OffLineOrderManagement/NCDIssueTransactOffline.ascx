@@ -9,7 +9,7 @@
         width: 49%;
     }
     .cmbField
-    {
+    { 
         margin-left: 0px;
     }
 </style>
