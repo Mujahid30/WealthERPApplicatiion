@@ -296,17 +296,18 @@ namespace BoOnlineOrderManagement
 
         private string GetCsvColumnList(DataColumnCollection ColumnsCollection)
         {
-            string colList = "";
+            StringBuilder colList = new StringBuilder();
 
             int cCols = ColumnsCollection.Count;
             foreach (DataColumn col in ColumnsCollection)
             {
-                colList += col.ColumnName;
+                colList.Append(col.ColumnName);
+                //colList += col.ColumnName;
                 --cCols;
-                if (cCols > 0) colList += ",";
+                if (cCols > 0) colList.Append(","); 
             }
 
-            return colList;
+            return colList.ToString();
         }
 
         public string GetFileName(string ExtractType, string AmcName, int RowCount)
@@ -390,6 +391,7 @@ namespace BoOnlineOrderManagement
 
             try
             {
+                
                 daRead.SelectCommand = cmdSel;
                 daRead.DeleteCommand = cmdDel;
 
