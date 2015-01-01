@@ -8678,7 +8678,15 @@
     <None Include="MarketDataDownloadFiles\BseEquities.CSV" />
     <None Include="MarketDataDownloadFiles\BseEquitiesFiltered.csv" />
     <None Include="ReferenceFiles\RTAExtractSampleFiles\amcbank.dbf" />
+    <None Include="ReferenceFiles\RTAExtractSampleFiles\CA.dbf" />
+    <None Include="ReferenceFiles\RTAExtractSampleFiles\CA_FATCA.dbf" />
+    <None Include="ReferenceFiles\RTAExtractSampleFiles\KA.dbf" />
+    <None Include="ReferenceFiles\RTAExtractSampleFiles\KA_FATCA.dbf" />
     <None Include="ReferenceFiles\RTAExtractSampleFiles\sipbook.dbf" />
+    <None Include="ReferenceFiles\RTAExtractSampleFiles\SU.dbf" />
+    <None Include="ReferenceFiles\RTAExtractSampleFiles\SU_FATCA.dbf" />
+    <None Include="ReferenceFiles\RTAExtractSampleFiles\TN.dbf" />
+    <None Include="ReferenceFiles\RTAExtractSampleFiles\TN_FATCA.dbf" />
     <None Include="Reports\CapitalGainDetailsDs.xsc">
       <DependentUpon>CapitalGainDetailsDs.xsd</DependentUpon>
     </None>
