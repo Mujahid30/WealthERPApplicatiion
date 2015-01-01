@@ -47,6 +47,7 @@ namespace WealthERP.BusinessMIS
         {
             advisorVo = (AdvisorVo)Session["advisorVo"];
             SessionBo.CheckSession();
+           
             if (!IsPostBack)
             {
                 BindMutualFundDropDowns();

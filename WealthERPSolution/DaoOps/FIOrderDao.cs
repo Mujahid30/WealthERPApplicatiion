@@ -842,7 +842,7 @@ namespace DaoOps
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                createFIOrderTrackingCmd = db.GetStoredProcCommand("SPRO_DeleteDocuments");
+                createFIOrderTrackingCmd = db.GetStoredProcCommand("SPROC_DeleteDocuments");
                 db.AddInParameter(createFIOrderTrackingCmd, "@documentsId", DbType.Int32, documentId);
                 if (db.ExecuteNonQuery(createFIOrderTrackingCmd) != 0)
                     bResult = true;
