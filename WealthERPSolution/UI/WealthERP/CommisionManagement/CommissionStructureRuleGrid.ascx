@@ -153,7 +153,7 @@
                 <td class="leftLabel">
                     <asp:Label ID="lblCategory" runat="server" Text="Category:" CssClass="FieldName"></asp:Label>
                 </td>
-                <td class="rightData">
+                <td class="rightData" >
                     <asp:DropDownList ID="ddCategory" runat="server" CssClass="cmbField" AutoPostBack="true"
                         OnSelectedIndexChanged="ddCategory_OnSelectedIndexChanged">
                     </asp:DropDownList>
@@ -163,23 +163,23 @@
                         InitialValue="Select" ValidationGroup="vgBtnSubmitStage2">
                     </asp:RequiredFieldValidator>
                 </td>
-                <td class="leftLabel">
+                <td class="leftLabel" id="tdlblSubCategory" runat="server" visible="false">
                     <asp:Label ID="lblSubCategory" runat="server" Text="Sub Category" CssClass="FieldName"
                         Visible="true"></asp:Label>
                 </td>
-                <td class="rightData">
+                <td class="rightData" id="tdddSubCategory" runat="server" visible="false">
                     <asp:DropDownList ID="ddSubCategory" runat="server" CssClass="cmbField" AutoPostBack="false"
                         Enabled="False" Visible="true">
                         <asp:ListItem>All</asp:ListItem>
                     </asp:DropDownList>
                 </td>
-                <td class="leftLabel">
+                <td class="leftLabel" id="tdlblStatus" runat="server" visible="false">
                     <asp:Label ID="lblStatus" runat="server" Text="Status" CssClass="FieldName"></asp:Label>
                 </td>
-                <td class="rightData">
+                <td class="rightData" id="tdddStatus" runat="server" visible="false">
                     <asp:DropDownList ID="ddStatus" runat="server" CssClass="cmbField" AutoPostBack="false">
                         <asp:ListItem Value="All">All</asp:ListItem>
-                        <asp:ListItem Value="Active">Active</asp:ListItem>
+                        <asp:ListItem Value="Active" Selected="True">Active</asp:ListItem>
                         <asp:ListItem Value="Inactive">Inactive</asp:ListItem>
                     </asp:DropDownList>
                 </td>

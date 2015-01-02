@@ -15,6 +15,7 @@ using System.Collections.Specialized;
 using Telerik.Web.UI;
 using System.Text;
 using System.Data;
+using BoOnlineOrderManagement;
 
 namespace WealthERP.CommisionManagement
 {
@@ -53,19 +54,27 @@ namespace WealthERP.CommisionManagement
         }
         private void ShowHideControlsBasedOnProduct(string asset)
         {
-
+            tdlblSubCategory.Visible = false;
+            tdddSubCategory.Visible = false;
+            tdlblStatus.Visible = false;
+            tdddStatus.Visible = false;
             if (asset == "MF")
             {
                 trCategory.Visible = true;
                 ddIssuer.Visible = true;
                 lblIssuer.Visible = true;
-               
+                tdlblSubCategory.Visible = true;
+                tdddSubCategory.Visible = true;
+                tdlblStatus.Visible = true;
+                tdddStatus.Visible = true;
             }
             else if (asset == "FI")
             {
-                trCategory.Visible = false;
+                trCategory.Visible = true;
                 ddIssuer.Visible = false;
                 lblIssuer.Visible = false;
+               
+
                               
             }
             else if (asset == "IP")
@@ -93,22 +102,40 @@ namespace WealthERP.CommisionManagement
         }
 
         private void BindCategoryDropdown(string prodType)
-        {
-            DataSet dsLookupData = commisionReceivableBo.GetCategories(prodType);
 
-            //Populating the categories dropdown
-            DataRow drProduct = dsLookupData.Tables[0].NewRow();
-            drProduct["PAIC_AssetInstrumentCategoryCode"] = "All";
-            drProduct["PAIC_AssetInstrumentCategoryName"] = "All";
-            dsLookupData.Tables[0].Rows.InsertAt(drProduct, 0);
-            ddCategory.DataSource = dsLookupData.Tables[0];
-            ddCategory.DataValueField = dsLookupData.Tables[0].Columns["PAIC_AssetInstrumentCategoryCode"].ToString();
-            ddCategory.DataTextField = dsLookupData.Tables[0].Columns["PAIC_AssetInstrumentCategoryName"].ToString();
-            ddCategory.DataBind();
+        {
+            if (prodType == "MF")
+            {
+                DataSet dsLookupData = commisionReceivableBo.GetCategories(prodType);
+
+                ////Populating the categories dropdown
+                DataRow drProduct = dsLookupData.Tables[0].NewRow();
+                drProduct["PAIC_AssetInstrumentCategoryCode"] = "All";
+                drProduct["PAIC_AssetInstrumentCategoryName"] = "All";
+                dsLookupData.Tables[0].Rows.InsertAt(drProduct, 0);
+                ddCategory.DataSource = dsLookupData.Tables[0];
+                ddCategory.DataValueField = dsLookupData.Tables[0].Columns["PAIC_AssetInstrumentCategoryCode"].ToString();
+                ddCategory.DataTextField = dsLookupData.Tables[0].Columns["PAIC_AssetInstrumentCategoryName"].ToString();
+                ddCategory.DataBind();
+            }
+            else
+            {
+                OnlineNCDBackOfficeBo onlineNCDBackOfficeBo = new OnlineNCDBackOfficeBo();
+                DataTable dtCategory = new DataTable();
+                dtCategory = onlineNCDBackOfficeBo.BindNcdCategory("SubInstrumentCat", "").Tables[0];
+                if (dtCategory.Rows.Count > 0)
+                {
+                    ddCategory.DataSource = dtCategory;
+                    ddCategory.DataValueField = dtCategory.Columns["PAISC_AssetInstrumentSubCategoryCode"].ToString();
+                    ddCategory.DataTextField = dtCategory.Columns["PAISC_AssetInstrumentSubCategoryName"].ToString();
+                    ddCategory.DataBind();
+                }
+                ddCategory.Items.Insert(0, new ListItem("Select", "0"));
+            }
         }
 
         private void BindSubCategoryDropdown(string cat)
-        {
+        {   
             DataSet dsLookupData = commisionReceivableBo.GetSubCategories(cat);
 
             //Populating the categories dropdown

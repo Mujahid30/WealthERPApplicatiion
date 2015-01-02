@@ -778,7 +778,7 @@ namespace DaoCommisionManagement
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmdGetSubCatCm = db.GetStoredProcCommand("SPROC_GetSubCategoryCM");
-                db.AddInParameter(cmdGetSubCatCm, "@Category", DbType.String, cat);
+                db.AddInParameter(cmdGetSubCatCm, "@PAIC_AssetInstrumentCategoryCode", DbType.String, cat);
                 ds = db.ExecuteDataSet(cmdGetSubCatCm);
             }
             catch (BaseApplicationException Ex)
