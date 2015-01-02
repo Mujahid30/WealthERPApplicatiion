@@ -668,6 +668,7 @@ namespace WealthERP.OffLineOrderManagement
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
+            btnSubmit.Enabled = false;
             bool result = false; ;
 
             if ((Convert.ToDouble(txtQty.Text) <= Convert.ToDouble(hdnMaxQty.Value)))
@@ -691,6 +692,8 @@ namespace WealthERP.OffLineOrderManagement
                 if (CheckApllicationNo() > 0)
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Application number already used.');", true);
+                    btnSubmit.Enabled = true;
+                   
                     return;
                 }
             }
@@ -698,6 +701,15 @@ namespace WealthERP.OffLineOrderManagement
             if ( string.IsNullOrEmpty(txtCustomerId.Value.ToString().Trim()))
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please select Customer Name.');", true);
+                btnSubmit.Enabled = true;
+              
+                return;
+            }
+            if (string.IsNullOrEmpty(txtAgentId.Value.ToString().Trim()))
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please select Customer Name.');", true);
+                btnSubmit.Enabled = true;
+               
                 return;
             }
             if (result == true)
@@ -709,6 +721,7 @@ namespace WealthERP.OffLineOrderManagement
                 btnSubmit.Visible = false;
                 btnAddMore.Visible = false;
                 lnkBtnFIEdit.Visible = true;
+                btnSubmit.Enabled = true;
 
                 //BtnFileupload.Visible = true;
                 // btnUpdate.Visible = true;
@@ -716,6 +729,7 @@ namespace WealthERP.OffLineOrderManagement
             else
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Order cannot be processed.Please enter quantity less than or equal to maximum quantity allowed for this issue')", true);
+                btnSubmit.Enabled = true;               
                 return;
             }
 
@@ -805,16 +819,18 @@ namespace WealthERP.OffLineOrderManagement
             orderVo.AssetGroup = "FI";
            
 
-            if (!String.IsNullOrEmpty(txtAssociateSearch.Text))
-                AgentId = customerBo.GetAssociateName(advisorVo.advisorId, txtAssociateSearch.Text);
-            if (AgentId.Rows.Count > 0)
-            {
-                fiorderVo.AgentId = int.Parse(AgentId.Rows[0][1].ToString());
-            }
-            else
-                fiorderVo.AgentId = 0;
+            //if (!String.IsNullOrEmpty(txtAssociateSearch.Text))
+            //    AgentId = customerBo.GetAssociateName(advisorVo.advisorId, txtAssociateSearch.Text);
+            //if (AgentId.Rows.Count > 0)
+            //{
+            //    fiorderVo.AgentId = int.Parse(AgentId.Rows[0][1].ToString());
+            //}
+            //else
+            //    fiorderVo.AgentId = 0;
 
-
+          
+ 
+            fiorderVo.AgentId = int.Parse(txtAgentId.Value);
 
             if (!string.IsNullOrEmpty(lblGetOrderNo.Text))
                 orderVo.OrderNumber = Convert.ToInt32(lblGetOrderNo.Text);
@@ -4156,7 +4172,9 @@ namespace WealthERP.OffLineOrderManagement
                 if (!string.IsNullOrEmpty(dr["XPM_PaymentModeCode"].ToString()))
                 {
                     ddlPaymentMode.SelectedValue = dr["XPM_PaymentModeCode"].ToString();
+                    PaymentMode(ddlPaymentMode.SelectedValue);
                 }
+               
                 if (!string.IsNullOrEmpty(dr["CO_ChequeNumber"].ToString()))
                 {
                     txtPaymentNumber.Text = dr["CO_ChequeNumber"].ToString();
@@ -4183,6 +4201,10 @@ namespace WealthERP.OffLineOrderManagement
                 {
                     txtApplicationNumber.Text = dr["CO_ApplicationNumber"].ToString();
 
+                }
+                if (!string.IsNullOrEmpty(dr["AAC_AgentId"].ToString()))
+                {
+                    txtAgentId.Value = dr["AAC_AgentId"].ToString(); ;
                 }
                 if (!string.IsNullOrEmpty(dr["Co_OrderId"].ToString()))
                 {
