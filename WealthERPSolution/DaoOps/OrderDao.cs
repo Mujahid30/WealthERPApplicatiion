@@ -1410,6 +1410,35 @@ namespace DaoOps
             }
             return dsTradeDate.Tables[0];
         }
+        public DataTable GetTradeDateList(DateTime date)
+        {
+            DataSet dsTradeDate = null;
+            Database db;
+            DbCommand cmdTradeDate;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdTradeDate = db.GetStoredProcCommand("SPROC_GetTradeDateList");
+                db.AddInParameter(cmdTradeDate, "@Date", DbType.Date, date);
+                dsTradeDate = db.ExecuteDataSet(cmdTradeDate);
+            }
+            catch (BaseApplicationException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(ex.Message, ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OrderDao.cs:GetTradeDateListForOrder(DateTime date, int isPastDateList, int noOfDaysReq))");
+                object[] objects = new object[3];
+                objects[0] = date;
+                exBase.AdditionalInformation = FunctionInfo;
+            
+                throw exBase;
+            }
+            return dsTradeDate.Tables[0];
+        }
 
 
 

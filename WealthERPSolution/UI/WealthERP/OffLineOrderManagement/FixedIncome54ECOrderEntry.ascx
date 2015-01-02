@@ -1095,9 +1095,9 @@
         <td class="rightField" style="width: 20%">
             <telerik:RadDatePicker ID="txtPaymentInstDate" CssClass="txtField" runat="server"
                 Culture="English (United States)" Skin="Telerik" EnableEmbeddedSkins="false"
-                ShowAnimation-Type="Fade" MinDate="1900-01-01">
-                <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
-                    Skin="Telerik" EnableEmbeddedSkins="false">
+                ShowAnimation-Type="Fade" MinDate="1900-01-01" AutoPostBack="true" OnSelectedDateChanged="txtPaymentInstDate_SelectedDateChanged">
+                <Calendar ID="cldPaymentInstDate" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
+                    ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false" TargetControlID="txtPaymentInstDate">
                 </Calendar>
                 <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
                 <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">

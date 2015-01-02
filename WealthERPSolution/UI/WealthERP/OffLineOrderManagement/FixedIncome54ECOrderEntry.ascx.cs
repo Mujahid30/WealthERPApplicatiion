@@ -167,12 +167,15 @@ namespace WealthERP.OffLineOrderManagement
 
             }
 
+            
 
             if (!IsPostBack)
             {
+                   if (string.IsNullOrEmpty(ViewForm))
+                RadDateControlBusinessDateValidation(ref txtPaymentInstDate, DateTime.Now);
                 FICategory();
                 //  FIScheme(advisorVo.advisorId, "0");                
-
+             
                 BindBanks(0);
                 if (Request.QueryString["action"] != null)
                 {
@@ -215,6 +218,7 @@ namespace WealthERP.OffLineOrderManagement
                     }
 
                 }
+
             }
             repoBo = new RepositoryBo();
 
@@ -4307,5 +4311,44 @@ namespace WealthERP.OffLineOrderManagement
                 BindDocument(orderId);
 
         }
+        private void RadDateControlBusinessDateValidation(ref RadDatePicker rdtp, DateTime dtDate)
+        {
+            DataTable dtTradaDate = mfOrderBo.GetTradeDateList(dtDate);
+
+            DateTime dtMinDate = Convert.ToDateTime(dtTradaDate.Compute("min(WTD_Date)", string.Empty));
+            DateTime dtMaxDate = Convert.ToDateTime(dtTradaDate.Compute("max(WTD_Date)", string.Empty));
+
+            rdtp.MinDate = dtMinDate;
+            rdtp.MaxDate = dtMaxDate;
+            DateTime dtTempIncrement;
+
+            while (dtMinDate < dtMaxDate)
+            {
+                dtTempIncrement = dtMinDate.AddDays(1);
+
+                DataRow[] foundRows = dtTradaDate.Select(String.Format("WTD_Date='{0}'", dtTempIncrement.ToString("O")));
+                //dtTradaDate.Select("CONVERT(VARCHAR,WTD_Date,103)='" + dtTempIncrement.ToShortDateString() + "'");
+                if (foundRows.Count() == 0)
+                {
+                    RadCalendarDay holiday = new RadCalendarDay();
+                    holiday.Date = dtTempIncrement.Date;
+                    holiday.IsSelectable = false;
+                    holiday.IsDisabled = true;
+                    rdtp.Calendar.SpecialDays.Add(holiday);
+                }
+
+                dtMinDate = dtTempIncrement;
+            }
+
+        }
+        protected void txtPaymentInstDate_SelectedDateChanged(object sender, Telerik.Web.UI.Calendar.SelectedDateChangedEventArgs e)
+        {
+
+            if (!string.IsNullOrEmpty(txtPaymentInstDate.SelectedDate.ToString()))
+            {
+                RadDateControlBusinessDateValidation(ref txtOrderDate,  DateTime.Parse(txtPaymentInstDate.SelectedDate.ToString()));
+            }
+        }
+
     }
 }
