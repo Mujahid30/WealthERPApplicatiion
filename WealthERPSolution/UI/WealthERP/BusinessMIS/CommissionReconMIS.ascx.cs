@@ -374,8 +374,20 @@ namespace WealthERP.BusinessMIS
         {
             if(ddlProduct.SelectedValue!="Select")
             {
+                if (ddlProduct.SelectedValue == "MF")
+                {
+                    ddlOrderStatus.Items[2].Enabled = false;
+                    ddlOrderStatus.Items[1].Enabled = true;
+                }
+                else
+                {
+                    ddlOrderStatus.Items[1].Enabled = false;
+                    ddlOrderStatus.Items[2].Enabled = true;
+
+                }
                 ShowHideControlsBasedOnProduct(ddlProduct.SelectedValue);
             }
+            
         }
         protected void gvCommissionReceiveRecon_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {

@@ -39,7 +39,7 @@
         <td align="left" class="leftField" width="20%">
             <asp:Label ID="lblSelectProduct" runat="server" Text="Select product:" CssClass="FieldName"></asp:Label>
         </td>
-        <td >
+        <td>
             <asp:DropDownList ID="ddlProduct" runat="server" AutoPostBack="true" CssClass="cmbField"
                 OnSelectedIndexChanged="ddlProduct_SelectedIndexChanged">
             </asp:DropDownList>
@@ -65,7 +65,8 @@
         <td>
             <asp:DropDownList ID="ddlOrderStatus" runat="server" CssClass="cmbField">
                 <asp:ListItem Text="Select" Value="Select"></asp:ListItem>
-                <asp:ListItem Text="EXECUTED/ORDERED" Value="IP"> </asp:ListItem>
+                <asp:ListItem Text="EXECUTED" Value="IP"> </asp:ListItem>
+                <asp:ListItem Text="ORDERED" Value="IP"> </asp:ListItem>
                 <asp:ListItem Text="ACCEPTED" Value="OR"></asp:ListItem>
             </asp:DropDownList>
             <asp:CompareValidator ID="CompareValidator6" runat="server" ControlToValidate="ddlOrderStatus"
@@ -75,7 +76,7 @@
         <td class="leftField" width="16%">
             <asp:Label ID="lblOffline" runat="server" Text="Select Transaction Type:" CssClass="FieldName"></asp:Label>
         </td>
-        <td >
+        <td>
             <asp:DropDownList ID="ddlSelectMode" runat="server" CssClass="cmbField">
                 <asp:ListItem Text="Both" Value="2">
                 </asp:ListItem>
@@ -86,7 +87,7 @@
         <td align="left" class="leftField" width="16%">
             <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Select Commission Type:"></asp:Label>
         </td>
-        <td >
+        <td>
             <asp:DropDownList ID="ddlCommType" runat="server" CssClass="cmbField" AutoPostBack="true">
                 <asp:ListItem Text="Select" Value="Select"></asp:ListItem>
                 <asp:ListItem Text="Upfront" Value="UF"></asp:ListItem>
@@ -102,7 +103,7 @@
         <td align="left" class="leftField">
             <asp:Label ID="lblIssueType" runat="server" CssClass="FieldName" Text="Select Issue Type:"></asp:Label>
         </td>
-        <td align="right">
+        <td>
             <asp:DropDownList ID="ddlIssueType" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlIssueType_OnSelectedIndexChanged"
                 AutoPostBack="true">
                 <asp:ListItem Text="Select" Value="Select"></asp:ListItem>
@@ -116,7 +117,7 @@
         <td align="left" class="leftField">
             <asp:Label ID="lblIssueName" runat="server" CssClass="FieldName" Text="Select Issue Name"></asp:Label>
         </td>
-        <td align="right">
+        <td>
             <asp:DropDownList ID="ddlIssueName" runat="server" CssClass="cmbField">
             </asp:DropDownList>
         </td>
@@ -128,7 +129,7 @@
                 CssClass="cvPCG" Display="Dynamic" ErrorMessage="Please Select AMC Code" Operator="NotEqual"
                 ValidationGroup="vgbtnSubmit" ValueToCompare="Select Product Type"></asp:CompareValidator>
         </td>
-        <td align="right">
+        <td>
             <asp:DropDownList ID="ddlIssuer" runat="server" AutoPostBack="true" CssClass="cmbField"
                 OnSelectedIndexChanged="ddlIssuer_SelectedIndexChanged">
             </asp:DropDownList>
@@ -139,7 +140,7 @@
         <td align="left" class="leftField">
             <asp:Label ID="lblNAVCategory" runat="server" CssClass="FieldName" Text="Category:"></asp:Label>
         </td>
-        <td align="right">
+        <td>
             <asp:DropDownList ID="ddlCategory" runat="server" AutoPostBack="true" CssClass="cmbField"
                 OnSelectedIndexChanged="ddlCategory_SelectedIndexChanged">
             </asp:DropDownList>
@@ -147,7 +148,7 @@
         <td align="left" class="leftField">
             <asp:Label ID="lblSelectSchemeNAV" runat="server" CssClass="FieldName" Text="Scheme:"></asp:Label>
         </td>
-        <td align="right">
+        <td>
             <asp:DropDownList ID="ddlScheme" runat="server" CssClass="cmbField">
             </asp:DropDownList>
             <asp:CompareValidator ID="CompareValidator3" runat="server" ControlToValidate="ddlScheme"
