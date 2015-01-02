@@ -620,8 +620,8 @@
                         </asp:DropDownList>
                         <asp:Label ID="lblcategoryerror" runat="server" Text="*" Visible="false" CssClass="Error"></asp:Label><br />
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator10" runat="server" ErrorMessage="Please Select Category"
-                            CssClass="rfvPCG" ControlToValidate="ddlSubInstrCategory" ValidationGroup="SetUpSubmit"
-                            Display="Dynamic" InitialValue="Select"></asp:RequiredFieldValidator>
+                            CssClass="rfvPCG" ControlToValidate="ddlSubInstrCategory" ValidationGroup="btnStrAddUpdate"
+                            Display="Dynamic" InitialValue="0"></asp:RequiredFieldValidator>
                         <asp:DropDownList ID="ddlInstrCat" runat="server" CssClass="cmbLongField" Width="500px"
                             Visible="false">
                         </asp:DropDownList>
@@ -1163,6 +1163,10 @@
                 <table width="100%">
                     <tr>
                         <td>
+                            <asp:Label ID="lblNoRecordFound" runat="server" ForeColor="Black" CssClass="Error" Text=""
+                                Visible="false"></asp:Label>
+                        </td>
+                        <td>
                             <div id="dvIssueList" runat="server" style="width: auto;">
                                 <telerik:RadGrid ID="gvMappedIssueList" runat="server" GridLines="None" AutoGenerateColumns="False"
                                     PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
@@ -1239,7 +1243,7 @@
             <table id="tblCommissionStructureRule1" runat="server" width="120%">
                 <tr>
                     <td>
-                        <asp:Panel ID="Panel2" runat="server" class="Landscape" Width="90%" ScrollBars="Horizontal">
+                        <asp:Panel ID="Panel2" runat="server" class="Landscape" Width="82%" ScrollBars="Horizontal">
                             <telerik:RadGrid ID="RadGridStructureRule" runat="server" CssClass="RadGrid" GridLines="Both"
                                 AllowPaging="True" PageSize="20" AllowSorting="True" AutoGenerateColumns="false"
                                 ShowStatusBar="true" AllowAutomaticDeletes="True" AllowAutomaticInserts="false"
@@ -1749,8 +1753,6 @@
                                         </FormTemplate>
                                     </EditFormSettings>
                                 </MasterTableView>
-                                <ClientSettings>
-                                </ClientSettings>
                             </telerik:RadGrid>
                         </asp:Panel>
                     </td>
