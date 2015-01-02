@@ -64,24 +64,24 @@ namespace WealthERP.Receivable
                         pnlAddSchemesButton.Visible = true;
                         Table2.Visible = true;
                         CreateMappedSchemeGrid();
-                        pnlIssueList.Visible = false;
+                        
                     }
                     else if (ddlProductType.SelectedValue != "MF")
                     {
 
                         GetMapped_Unmapped_Issues("Mapped", "");
-                        //GetUnamppedIssues(ddlIssueType.SelectedValue);
+                        GetUnamppedIssues(ddlIssueType.SelectedValue);
                         Table4.Visible = true;
                         tbNcdIssueList.Visible = false;
-                        //pnlIssueList.Visible = true;
+                        pnlIssueList.Visible = true;
 
                     }
-                    else if (ddlProductType.SelectedValue != "FI")
-                    {
-                        CheckBoxList chkListTtansactionType = (CheckBoxList)FindControl("chkListTtansactionType");
-                        tbNcdIssueList.Visible = false;
-                        chkListTtansactionType.Visible = false;
-                    }
+                    ////else if (ddlProductType.SelectedValue != "FI")
+                    ////{
+                    ////    CheckBoxList chkListTtansactionType = (CheckBoxList)FindControl("chkListTtansactionType");
+                    ////    tbNcdIssueList.Visible = false;
+                    ////    chkListTtansactionType.Visible = false;
+                    ////}
                     //else if (ddlCommissionype.SelectedValue == "16020")
                     //{
                     //    Table3.Visible = true;
@@ -336,7 +336,6 @@ namespace WealthERP.Receivable
                 BindRuleDetGrid(rgCommissionTypeCaliculation, ruleId);
                 BindPayableGrid(Convert.ToInt32(hidCommissionStructureName.Value));
                 BindCommissionStructureRuleGrid(Convert.ToInt32(hidCommissionStructureName.Value));
-
             }
             else if (e.CommandName == RadGrid.DeleteCommandName)
             {
@@ -348,7 +347,7 @@ namespace WealthERP.Receivable
                 //BindApplGrid();
 
             }
-           
+
         }
 
         protected void rgCommissionTypeCaliculation_ItemDataBound(object sender, GridItemEventArgs e)
@@ -1148,8 +1147,13 @@ namespace WealthERP.Receivable
                     dsLookupData = commisionReceivableBo.GetCommissionTypeBrokerage(Convert.ToInt32(HiddenField1.Value));
                     rgCommissionTypeCaliculation.DataSource = dsLookupData;
                     rgCommissionTypeCaliculation.DataBind();
-                  
-                }  
+                 //if (ddlProductType.SelectedValue != "FI")
+                 //   {
+                 //       CheckBoxList chkListTtansactionType = (CheckBoxList)FindControl("chkListTtansactionType");
+                 //       tbNcdIssueList.Visible = false;
+                 //       chkListTtansactionType.Visible = false;
+                 //   }
+                } //
                 else
                 {
                     if (string.IsNullOrEmpty(HiddenField1.Value))
@@ -1352,16 +1356,27 @@ namespace WealthERP.Receivable
                             chkItems.Selected = true;
                     }
                     ddlSIPFrequency.SelectedValue = strSIPFrequency;
+                    //if (Request.QueryString["StructureId"] != null)
+                    //{
+
+                    //    chkListTtansactionType.Visible = false;
+                    //}
                     if (Request.QueryString["StructureId"] != null)
                     {
+                        if (ddlProductType.SelectedValue == "FI" || ddlProductType.SelectedValue == "IP")
+                        {
 
-                        chkListTtansactionType.Visible = false;
+                            tbNcdIssueList.Visible = false;
+                            chkListTtansactionType.Visible = false;
+                        }
+                        else
+                        {
+                            chkListTtansactionType.Visible = true;
+                        }
                     }
-                    if(ddlProductType.SelectedValue=="FI")
+                    if (ddlProductType.SelectedValue == "FI" || ddlProductType.SelectedValue == "IP")
                     {
-                        //CheckBoxList chkListTtansactionType = (CheckBoxList)FindControl("chkListTtansactionType");
-                      tbNcdIssueList.Visible = false;
-                     chkListTtansactionType.Visible = false;
+                        chkListTtansactionType.Visible = false;
                     }
                 }
             }
@@ -2804,10 +2819,14 @@ namespace WealthERP.Receivable
             trMinMaxTenure.Visible = flag;
             trMinMaxAge.Visible = flag;
             //trTransaction.Visible = flag;
-             
+
+
+
+
+
+
 
         }
-
         private void DefaultAssignments()
         {
             ddlMapping.SelectedValue = "Associate";
@@ -2983,18 +3002,6 @@ namespace WealthERP.Receivable
             structureId = Convert.ToInt32(hidCommissionStructureName.Value);
             ddlSubInstrCategory.SelectedValue = hdnSubcategoryIds.Value;
             dtmappedIssues = commisionReceivableBo.GetIssuesStructureMapings(advisorVo.advisorId, type, issueType, product, 0, structureId, (ddlSubInstrCategory.SelectedValue == "" || ddlSubInstrCategory.SelectedValue == "Select") ? "FIFIIP" : ddlSubInstrCategory.SelectedValue).Tables[0];
-            if (dtmappedIssues.Rows.Count == 0)
-            {
-                pnlIssueList.Visible = true;
-                gvMappedIssueList.Visible = false;
-                lblNoRecordFound.Visible = true;
-                lblNoRecordFound.Text = "No Records Found";
-            }
-            else
-            {
-                
-                lblNoRecordFound.Visible = false;
-            }
             if (dtmappedIssues == null)
                 return;
             if (dtmappedIssues.Rows.Count == 0)
@@ -3002,28 +3009,27 @@ namespace WealthERP.Receivable
 
             if (type == "Mapped")
             {
-               
-                    gvMappedIssueList.DataSource = dtmappedIssues;
-                    gvMappedIssueList.DataBind();
-                    pnlIssueList.Visible = true;
-                    //if (Cache[userVo.UserId.ToString() + "MappedIssueList"] != null)
-                    //    Cache.Remove(userVo.UserId.ToString() + "MappedIssueList");
-                    //else
-                    //    Cache.Remove(userVo.UserId.ToString() + "MappedIssueList");
-                    //Cache.Insert(userVo.UserId.ToString() + "MappedIssueList", dtmappedIssues);
-                    if (Request.QueryString["StructureId"] != null)
-                    {
-                        ddlUnMappedIssues.DataSource = dtmappedIssues;
-                        ddlUnMappedIssues.DataTextField = "AIM_IssueName";
-                        ddlUnMappedIssues.DataValueField = "AIM_IssueId";
-                        ddlUnMappedIssues.DataBind();
-                        ddlUnMappedIssues.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
-
-                    }
-                
+                gvMappedIssueList.DataSource = dtmappedIssues;
+                gvMappedIssueList.DataBind();
+                pnlIssueList.Visible = true;
+                //if (Cache[userVo.UserId.ToString() + "MappedIssueList"] != null)
+                //    Cache.Remove(userVo.UserId.ToString() + "MappedIssueList");
+                //else
+                //    Cache.Remove(userVo.UserId.ToString() + "MappedIssueList");
+                //Cache.Insert(userVo.UserId.ToString() + "MappedIssueList", dtmappedIssues);
+                if (Request.QueryString["StructureId"] != null)
+                {
+                    ddlUnMappedIssues.DataSource = dtmappedIssues;
+                    ddlUnMappedIssues.DataTextField = "AIM_IssueName";
+                    ddlUnMappedIssues.DataValueField = "AIM_IssueId";
+                    ddlUnMappedIssues.DataBind();
+                    ddlUnMappedIssues.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
+                 
+                }
             }
             else if (type == "UnMapped")
             {
+                
                 ddlUnMappedIssues.DataSource = dtmappedIssues;
                 ddlUnMappedIssues.DataTextField = "AIM_IssueName";
                 ddlUnMappedIssues.DataValueField = "AIM_IssueId";
