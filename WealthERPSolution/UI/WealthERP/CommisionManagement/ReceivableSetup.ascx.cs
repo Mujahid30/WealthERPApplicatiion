@@ -482,6 +482,7 @@ namespace WealthERP.Receivable
                 SpanSubCategory.Visible = true;
                 tdlblCategory.Visible = false;
                 tdddlCategory.Visible = false;
+                
             }
             else if (asset == "FI")
             {
@@ -729,7 +730,7 @@ namespace WealthERP.Receivable
                     pnlAddSchemes.Visible = true;
                     Table2.Visible = true;
                 }
-                else if (ddlProductType.SelectedValue != "MF")
+                else if (ddlProductType.SelectedValue == "FI")
                 {
 
                     GetMapped_Unmapped_Issues("Mapped", "");
@@ -737,6 +738,15 @@ namespace WealthERP.Receivable
                     Table4.Visible = true;
                     tbNcdIssueList.Visible = true;
                     BindBondCategories();
+                }
+                else if (ddlProductType.SelectedValue == "IP")
+                {
+
+                    GetMapped_Unmapped_Issues("Mapped", "");
+                    GetUnamppedIssues(ddlIssueType.SelectedValue);
+                    Table4.Visible = true;
+                    tbNcdIssueList.Visible = true;
+                    //BindBondCategories();
                 }
 
                 ShowAndHideVisible_FirstSection();
@@ -761,8 +771,8 @@ namespace WealthERP.Receivable
             if (dtCategory.Rows.Count > 0)
             {
                 ddlSubInstrCategory.DataSource = dtCategory;
-                ddlSubInstrCategory.DataValueField = dtCategory.Columns["PAISC_AssetInstrumentSubCategoryCode"].ToString();
-                ddlSubInstrCategory.DataTextField = dtCategory.Columns["PAISC_AssetInstrumentSubCategoryName"].ToString();
+                ddlSubInstrCategory.DataValueField = dtCategory.Columns["PAISC_AssetInstrumentSubCategoryCode"].ToString().Trim();
+                ddlSubInstrCategory.DataTextField = dtCategory.Columns["PAISC_AssetInstrumentSubCategoryName"].ToString().Trim();
                 ddlSubInstrCategory.DataBind();
             }
             ddlSubInstrCategory.Items.Insert(0, new ListItem("Select", "0"));
@@ -1074,8 +1084,7 @@ namespace WealthERP.Receivable
                  , lblMinNumberOfApplication, txtMinNumberOfApplication, lblSIPFrequency, ddlSIPFrequency, ddlTransaction, chkListTtansactionType, lblTransactionType, ddlCommisionCalOn, ddlCommissionApplicableLevel,
                  lblMaxNumberOfApplication, tdlb1MaxNumberOfApplication, tdtxtMaxNumberOfApplication, txtMaxNumberOfApplication, trMinAndMaxNumberOfApplication);
         }
-
-
+    
         protected void RadGridStructureRule_ItemDataBound(object sender, GridItemEventArgs e)
         {
             if (e.Item is GridDataItem && e.Item.ItemIndex != -1)
@@ -1090,8 +1099,9 @@ namespace WealthERP.Receivable
                     RadGridStructureRule.MasterTableView.GetColumn("ACSM_AUMFrequency").Visible = false;
                     RadGridStructureRule.MasterTableView.GetColumn("ACSR_AUMMonth").Visible = false;
                     RadGridStructureRule.MasterTableView.GetColumn("ACSR_InvestmentAgeUnit").Visible = false;
+                    RadGridStructureRule.MasterTableView.GetColumn("WCCO_CalculatedOn").HeaderStyle.Width = Unit.Pixel(500);
 
-                    
+
                 }
                 else
                 {
@@ -1103,6 +1113,7 @@ namespace WealthERP.Receivable
                     RadGridStructureRule.MasterTableView.GetColumn("ACSM_AUMFrequency").Visible = true;
                     RadGridStructureRule.MasterTableView.GetColumn("ACSR_AUMMonth").Visible = true;
                     RadGridStructureRule.MasterTableView.GetColumn("ACSR_InvestmentAgeUnit").Visible = true;
+                    
 
 
                 }
@@ -1374,10 +1385,15 @@ namespace WealthERP.Receivable
                             chkListTtansactionType.Visible = true;
                         }
                     }
-                    if (ddlProductType.SelectedValue == "FI" || ddlProductType.SelectedValue == "IP")
-                    {
-                        chkListTtansactionType.Visible = false;
-                    }
+                    
+                }
+                if (ddlProductType.SelectedValue == "FI" || ddlProductType.SelectedValue == "IP")
+                {
+                    chkListTtansactionType.Visible = false;
+                }
+                else
+                {
+                    chkListTtansactionType.Visible = true;
                 }
             }
             //if (e.Item is GridEditFormItem && e.Item.IsInEditMode && e.Item.ItemIndex != -1)

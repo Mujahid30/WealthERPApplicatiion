@@ -1240,17 +1240,17 @@
                     </td>
                 </tr>
             </table>
-            <table id="tblCommissionStructureRule1" runat="server" width="120%">
+            <table id="tblCommissionStructureRule1" runat="server" width="140%">
                 <tr>
                     <td>
-                        <asp:Panel ID="Panel2" runat="server" class="Landscape" Width="82%" ScrollBars="Horizontal">
+                        <asp:Panel ID="Panel2" runat="server" class="Landscape" Width="75%" ScrollBars="Horizontal">
                             <telerik:RadGrid ID="RadGridStructureRule" runat="server" CssClass="RadGrid" GridLines="Both"
                                 AllowPaging="True" PageSize="20" AllowSorting="True" AutoGenerateColumns="false"
                                 ShowStatusBar="true" AllowAutomaticDeletes="True" AllowAutomaticInserts="false"
                                 AllowAutomaticUpdates="false" Skin="Telerik" OnItemDataBound="RadGridStructureRule_ItemDataBound"
                                 OnNeedDataSource="RadGridStructureRule_NeedDataSource" OnInsertCommand="RadGridStructureRule_InsertCommand"
-                                OnItemCommand="RadGridStructureRule_ItemCommand" OnDeleteCommand="RadGridStructureRule_DeleteCommand"
-                                OnUpdateCommand="RadGridStructureRule_UpdateCommand" Width="90%">
+                                OnItemCommand="RadGridStructureRule_ItemCommand" OnDeleteCommand="RadGridStructureRule_DeleteCommand" 
+                                OnUpdateCommand="RadGridStructureRule_UpdateCommand" Width="100%">
                                 <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="CommissionStructureRule">
                                 </ExportSettings>
                                 <MasterTableView CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false"
@@ -1330,7 +1330,7 @@
                                             DataField="RecievableUnit">
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn UniqueName="WCCO_CalculatedOn" HeaderText="Calculated On"
-                                            DataField="WCCO_CalculatedOn">
+                                            DataField="WCCO_CalculatedOn" >
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn UniqueName="ACSM_AUMFrequency" HeaderText="AUM Frequency"
                                             DataField="ACSM_AUMFrequency">
