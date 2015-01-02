@@ -1079,8 +1079,39 @@ namespace WealthERP.Receivable
 
         protected void RadGridStructureRule_ItemDataBound(object sender, GridItemEventArgs e)
         {
+            if (e.Item is GridDataItem && e.Item.ItemIndex != -1)
+            {
+                if (ddlProductType.SelectedValue != "MF")
+                {
+                    RadGridStructureRule.MasterTableView.GetColumn("ACSR_MinTenure").Visible = false;
+                    RadGridStructureRule.MasterTableView.GetColumn("ACSR_MaxTenure").Visible = false;
+                    RadGridStructureRule.MasterTableView.GetColumn("ACSR_TenureUnit").Visible = false;
+                    RadGridStructureRule.MasterTableView.GetColumn("ACSR_MinInvestmentAge").Visible = false;
+                    RadGridStructureRule.MasterTableView.GetColumn("ACSR_MaxInvestmentAge").Visible = false;
+                    RadGridStructureRule.MasterTableView.GetColumn("ACSM_AUMFrequency").Visible = false;
+                    RadGridStructureRule.MasterTableView.GetColumn("ACSR_AUMMonth").Visible = false;
+                    RadGridStructureRule.MasterTableView.GetColumn("ACSR_InvestmentAgeUnit").Visible = false;
+
+                    
+                }
+                else
+                {
+                    RadGridStructureRule.MasterTableView.GetColumn("ACSR_MinTenure").Visible = true;
+                    RadGridStructureRule.MasterTableView.GetColumn("ACSR_MaxTenure").Visible = true;
+                    RadGridStructureRule.MasterTableView.GetColumn("ACSR_TenureUnit").Visible = true;
+                    RadGridStructureRule.MasterTableView.GetColumn("ACSR_MinInvestmentAge").Visible = true;
+                    RadGridStructureRule.MasterTableView.GetColumn("ACSR_MaxInvestmentAge").Visible = true;
+                    RadGridStructureRule.MasterTableView.GetColumn("ACSM_AUMFrequency").Visible = true;
+                    RadGridStructureRule.MasterTableView.GetColumn("ACSR_AUMMonth").Visible = true;
+                    RadGridStructureRule.MasterTableView.GetColumn("ACSR_InvestmentAgeUnit").Visible = true;
 
 
+                }
+
+            
+            }
+
+           
 
             if ((e.Item is GridEditFormItem) && (e.Item.IsInEditMode) && e.Item.ItemIndex > 0)
             {
@@ -1117,13 +1148,8 @@ namespace WealthERP.Receivable
                     dsLookupData = commisionReceivableBo.GetCommissionTypeBrokerage(Convert.ToInt32(HiddenField1.Value));
                     rgCommissionTypeCaliculation.DataSource = dsLookupData;
                     rgCommissionTypeCaliculation.DataBind();
-                 //if (ddlProductType.SelectedValue != "FI")
-                 //   {
-                 //       CheckBoxList chkListTtansactionType = (CheckBoxList)FindControl("chkListTtansactionType");
-                 //       tbNcdIssueList.Visible = false;
-                 //       chkListTtansactionType.Visible = false;
-                 //   }
-                } //
+                  
+                }  
                 else
                 {
                     if (string.IsNullOrEmpty(HiddenField1.Value))
@@ -2745,6 +2771,7 @@ namespace WealthERP.Receivable
             //gvMappedSchemes.MasterTableView.ExportToExcel();
             //CreateMappedSchemeGrid();
         }
+
         private void ShowHideControlsForRulesBasedOnProduct(bool flag, GridItemEventArgs e)
         {
             GridEditFormItem editform = (GridEditFormItem)e.Item;
@@ -2760,6 +2787,12 @@ namespace WealthERP.Receivable
             //System.Web.UI.HtmlControls.HtmlTableRow trTransaction = (System.Web.UI.HtmlControls.HtmlTableRow)editform.FindControl("trTransaction");
             System.Web.UI.HtmlControls.HtmlTableRow trMinMaxTenure = (System.Web.UI.HtmlControls.HtmlTableRow)editform.FindControl("trMinMaxTenure");
             System.Web.UI.HtmlControls.HtmlTableRow trMinMaxAge = (System.Web.UI.HtmlControls.HtmlTableRow)editform.FindControl("trMinMaxAge");
+            
+
+
+             
+
+            //RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_MinTenure"].ToString();
 
             lblInvestorType1.Visible = flag;
             lblAppCityGroup.Visible = flag;
@@ -2771,25 +2804,17 @@ namespace WealthERP.Receivable
             trMinMaxTenure.Visible = flag;
             trMinMaxAge.Visible = flag;
             //trTransaction.Visible = flag;
-
-
-
-
-
-
+             
 
         }
+
         private void DefaultAssignments()
         {
             ddlMapping.SelectedValue = "Associate";
             ddlType.SelectedValue = "UserCategory";
             GetControlsBasedOnType(ddlType.SelectedValue);
         }
-
-
-
-
-
+ 
 
         protected void ddlType_Selectedindexchanged(object sender, EventArgs e)
         {

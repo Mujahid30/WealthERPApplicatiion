@@ -1163,8 +1163,8 @@
                 <table width="100%">
                     <tr>
                         <td>
-                            <asp:Label ID="lblNoRecordFound" runat="server" ForeColor="Black" CssClass="Error" Text=""
-                                Visible="false"></asp:Label>
+                            <asp:Label ID="lblNoRecordFound" runat="server" ForeColor="Black" CssClass="Error"
+                                Text="" Visible="false"></asp:Label>
                         </td>
                         <td>
                             <div id="dvIssueList" runat="server" style="width: auto;">
@@ -1593,7 +1593,7 @@
                                                             CommandName="Cancel"></asp:Button>
                                                     </td>
                                                 </tr>
-                                                <tr>
+                                                <tr runat="server" visible="false">
                                                     <td colspan="4">
                                                         <div>
                                                             <div style="float: left; padding-right: 10px; clear: both">
