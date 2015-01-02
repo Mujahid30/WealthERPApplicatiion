@@ -136,7 +136,7 @@ namespace DaoOnlineOrderManagement
             return dsGetMfOrderExtract;
         }
 
-        public DataSet GetOrderExtractHeaderMapping(string RtaIdentifier)
+        public DataSet GetOrderExtractHeaderMapping(string RtaIdentifier, bool isFatca)
         {
             DataSet dsHeaderMapping;
             Database db;
@@ -146,6 +146,7 @@ namespace DaoOnlineOrderManagement
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmd = db.GetStoredProcCommand("SPROC_OrderExtractHeaderMapping");
                 db.AddInParameter(cmd, "@XES_SourceCode", DbType.String, RtaIdentifier);
+                db.AddInParameter(cmd, "@IsFatca", DbType.Boolean, isFatca);
 
                 dsHeaderMapping = db.ExecuteDataSet(cmd);
             }
