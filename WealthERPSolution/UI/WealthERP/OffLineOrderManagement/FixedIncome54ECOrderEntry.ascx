@@ -329,8 +329,8 @@
     <tr>
     </tr>
 </table>
-<asp:UpdatePanel ID="UpdatePanel1" UpdateMode="Always" runat="server">
-    <ContentTemplate>
+<%--<asp:UpdatePanel ID="UpdatePanel1" UpdateMode="Always" runat="server">
+    <ContentTemplate>--%>
         <asp:Panel ID="Panel2" runat="server" class="Landscape" Width="100%" Height="700px"
             ScrollBars="None">
             <telerik:RadWindow ID="rwDematDetails" runat="server" VisibleOnPageLoad="false" Height="30%"
@@ -1291,5 +1291,5 @@
             <asp:HiddenField ID="hdnMaxQty" runat="server" />
             <asp:HiddenField ID="hdnPortfolioId" runat="server" />
         </asp:Panel>
-    </ContentTemplate>
-</asp:UpdatePanel>
+ <%--   </ContentTemplate>
+</asp:UpdatePanel>--%>
