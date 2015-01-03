@@ -1184,14 +1184,14 @@
                                                 UniqueName="AIM_IssueName" FooterStyle-HorizontalAlign="Left">
                                                 <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="ValidityFrom" HeaderText="Validity From" SortExpression="ValidityFrom"
+                                            <telerik:GridBoundColumn DataField="ACSTSM_ValidityStart" HeaderText="Validity From" SortExpression="ValidityFrom"
                                                 ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
-                                                DataFormatString="{0:d}" UniqueName="ValidityFrom" FooterStyle-HorizontalAlign="Left">
+                                                DataFormatString="{0:d}" UniqueName="ACSTSM_ValidityStart" FooterStyle-HorizontalAlign="Left">
                                                 <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="ValidityTo" HeaderText="Validity To" SortExpression="ValidityTo"
+                                            <telerik:GridBoundColumn DataField="ACSTSM_ValidityEnd" HeaderText="Validity To" SortExpression="ValidityTo"
                                                 ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
-                                                DataFormatString="{0:d}" UniqueName="ValidityTo" FooterStyle-HorizontalAlign="Left">
+                                                DataFormatString="{0:d}" UniqueName="ACSTSM_ValidityEnd" FooterStyle-HorizontalAlign="Left">
                                                 <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
                                         </Columns>
@@ -1240,17 +1240,17 @@
                     </td>
                 </tr>
             </table>
-            <table id="tblCommissionStructureRule1" runat="server" width="140%">
+            <table id="tblCommissionStructureRule1" runat="server" width="120%">
                 <tr>
                     <td>
-                        <asp:Panel ID="Panel2" runat="server" class="Landscape" Width="75%" ScrollBars="Horizontal">
+                        <asp:Panel ID="Panel2" runat="server" class="Landscape" Width="82%" ScrollBars="Horizontal">
                             <telerik:RadGrid ID="RadGridStructureRule" runat="server" CssClass="RadGrid" GridLines="Both"
                                 AllowPaging="True" PageSize="20" AllowSorting="True" AutoGenerateColumns="false"
                                 ShowStatusBar="true" AllowAutomaticDeletes="True" AllowAutomaticInserts="false"
                                 AllowAutomaticUpdates="false" Skin="Telerik" OnItemDataBound="RadGridStructureRule_ItemDataBound"
                                 OnNeedDataSource="RadGridStructureRule_NeedDataSource" OnInsertCommand="RadGridStructureRule_InsertCommand"
                                 OnItemCommand="RadGridStructureRule_ItemCommand" OnDeleteCommand="RadGridStructureRule_DeleteCommand" 
-                                OnUpdateCommand="RadGridStructureRule_UpdateCommand" Width="100%">
+                                OnUpdateCommand="RadGridStructureRule_UpdateCommand" Width="90%">
                                 <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="CommissionStructureRule">
                                 </ExportSettings>
                                 <MasterTableView CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false"

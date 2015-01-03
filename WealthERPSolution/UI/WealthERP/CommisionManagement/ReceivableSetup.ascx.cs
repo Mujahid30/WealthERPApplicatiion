@@ -74,22 +74,9 @@ namespace WealthERP.Receivable
                         Table4.Visible = true;
                         tbNcdIssueList.Visible = false;
                         pnlIssueList.Visible = true;
-
+                        RadGridStructureRule.MasterTableView.GetColumn("ACSR_TransactionType").Visible = false;
                     }
-                    ////else if (ddlProductType.SelectedValue != "FI")
-                    ////{
-                    ////    CheckBoxList chkListTtansactionType = (CheckBoxList)FindControl("chkListTtansactionType");
-                    ////    tbNcdIssueList.Visible = false;
-                    ////    chkListTtansactionType.Visible = false;
-                    ////}
-                    //else if (ddlCommissionype.SelectedValue == "16020")
-                    //{
-                    //    Table3.Visible = true;
-                    //    tblMapping.Visible = true;
-                    //    btnPaybleMapping.Visible = true;
-                    //    SetStructureDetails();
-                    //    DefaultAssignments();
-                    //}
+                   
                 }
                 else
                 {
@@ -495,6 +482,7 @@ namespace WealthERP.Receivable
                 tdlblCategory.Visible = true;
                 tdddlCategory.Visible = true;
                 BindBondCategories();
+                RadGridStructureRule.MasterTableView.GetColumn("ACSR_TransactionType").Visible = false;
             }
             else if (asset == "IP")
             {
@@ -506,7 +494,7 @@ namespace WealthERP.Receivable
                 SpanSubCategory.Visible = false;
                 tdlblCategory.Visible = false;
                 tdddlCategory.Visible = false;
-              
+                RadGridStructureRule.MasterTableView.GetColumn("ACSR_TransactionType").Visible = false;
             }
 
 
@@ -1089,34 +1077,34 @@ namespace WealthERP.Receivable
         {
             if (e.Item is GridDataItem && e.Item.ItemIndex != -1)
             {
-                if (ddlProductType.SelectedValue != "MF")
-                {
-                    RadGridStructureRule.MasterTableView.GetColumn("ACSR_MinTenure").Visible = false;
-                    RadGridStructureRule.MasterTableView.GetColumn("ACSR_MaxTenure").Visible = false;
-                    RadGridStructureRule.MasterTableView.GetColumn("ACSR_TenureUnit").Visible = false;
-                    RadGridStructureRule.MasterTableView.GetColumn("ACSR_MinInvestmentAge").Visible = false;
-                    RadGridStructureRule.MasterTableView.GetColumn("ACSR_MaxInvestmentAge").Visible = false;
-                    RadGridStructureRule.MasterTableView.GetColumn("ACSM_AUMFrequency").Visible = false;
-                    RadGridStructureRule.MasterTableView.GetColumn("ACSR_AUMMonth").Visible = false;
-                    RadGridStructureRule.MasterTableView.GetColumn("ACSR_InvestmentAgeUnit").Visible = false;
-                    RadGridStructureRule.MasterTableView.GetColumn("WCCO_CalculatedOn").HeaderStyle.Width = Unit.Pixel(500);
+                //if (ddlProductType.SelectedValue != "MF")
+                //{
+                //    RadGridStructureRule.MasterTableView.GetColumn("ACSR_MinTenure").Visible = false;
+                //    RadGridStructureRule.MasterTableView.GetColumn("ACSR_MaxTenure").Visible = false;
+                //    RadGridStructureRule.MasterTableView.GetColumn("ACSR_TenureUnit").Visible = false;
+                //    RadGridStructureRule.MasterTableView.GetColumn("ACSR_MinInvestmentAge").Visible = false;
+                //    RadGridStructureRule.MasterTableView.GetColumn("ACSR_MaxInvestmentAge").Visible = false;
+                //    RadGridStructureRule.MasterTableView.GetColumn("ACSM_AUMFrequency").Visible = false;
+                //    RadGridStructureRule.MasterTableView.GetColumn("ACSR_AUMMonth").Visible = false;
+                //    RadGridStructureRule.MasterTableView.GetColumn("ACSR_InvestmentAgeUnit").Visible = false;
+                //    RadGridStructureRule.MasterTableView.GetColumn("WCCO_CalculatedOn").HeaderStyle.Width = Unit.Pixel(500);
 
 
-                }
-                else
-                {
-                    RadGridStructureRule.MasterTableView.GetColumn("ACSR_MinTenure").Visible = true;
-                    RadGridStructureRule.MasterTableView.GetColumn("ACSR_MaxTenure").Visible = true;
-                    RadGridStructureRule.MasterTableView.GetColumn("ACSR_TenureUnit").Visible = true;
-                    RadGridStructureRule.MasterTableView.GetColumn("ACSR_MinInvestmentAge").Visible = true;
-                    RadGridStructureRule.MasterTableView.GetColumn("ACSR_MaxInvestmentAge").Visible = true;
-                    RadGridStructureRule.MasterTableView.GetColumn("ACSM_AUMFrequency").Visible = true;
-                    RadGridStructureRule.MasterTableView.GetColumn("ACSR_AUMMonth").Visible = true;
-                    RadGridStructureRule.MasterTableView.GetColumn("ACSR_InvestmentAgeUnit").Visible = true;
+                //}
+                //else
+                //{
+                //    RadGridStructureRule.MasterTableView.GetColumn("ACSR_MinTenure").Visible = true;
+                //    RadGridStructureRule.MasterTableView.GetColumn("ACSR_MaxTenure").Visible = true;
+                //    RadGridStructureRule.MasterTableView.GetColumn("ACSR_TenureUnit").Visible = true;
+                //    RadGridStructureRule.MasterTableView.GetColumn("ACSR_MinInvestmentAge").Visible = true;
+                //    RadGridStructureRule.MasterTableView.GetColumn("ACSR_MaxInvestmentAge").Visible = true;
+                //    RadGridStructureRule.MasterTableView.GetColumn("ACSM_AUMFrequency").Visible = true;
+                //    RadGridStructureRule.MasterTableView.GetColumn("ACSR_AUMMonth").Visible = true;
+                //    RadGridStructureRule.MasterTableView.GetColumn("ACSR_InvestmentAgeUnit").Visible = true;
                     
 
 
-                }
+                //}
 
             
             }
