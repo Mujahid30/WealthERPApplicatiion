@@ -104,7 +104,6 @@ namespace WealthERP.CommisionManagement
                 RadGridIssueStructureRule.DataSource = dsSchemeStructureRule.Tables[0];
             }
         }
-
         protected void ibtExport_OnClick(object sender, ImageClickEventArgs e)
         {
             RadGridSchemeRule.ExportSettings.OpenInNewWindow = true;
@@ -114,8 +113,13 @@ namespace WealthERP.CommisionManagement
             RadGridSchemeRule.ExportSettings.FileName = "ViewSchemeRule";
             RadGridSchemeRule.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
             RadGridSchemeRule.MasterTableView.ExportToExcel();
-
         }
-
+        protected void lbtStruct_Click(object sender, EventArgs e)
+        {
+            LinkButton lnkStruct = (LinkButton)sender;
+            GridDataItem item = (GridDataItem)lnkStruct.NamingContainer;
+            int structureId = int.Parse(RadGridSchemeRule.MasterTableView.DataKeyValues[item.ItemIndex]["ACSM_CommissionStructureId"].ToString());
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('ReceivableSetup','StructureId=" + structureId + "');", true);
+        }
     }
 }
