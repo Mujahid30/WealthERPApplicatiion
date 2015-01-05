@@ -204,18 +204,24 @@
         </ExportSettings>
         <MasterTableView Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
             CommandItemDisplay="None" GroupsDefaultExpanded="false" ExpandCollapseColumn-Groupable="true"
-            GroupLoadMode="Client" ShowGroupFooter="true" HeaderStyle-Wrap="false">
+            GroupLoadMode="Client" ShowGroupFooter="true" HeaderStyle-Wrap="false" DataKeyNames="ACSM_CommissionStructureId">
             <Columns>
                 <telerik:GridBoundColumn HeaderStyle-Width="180px" HeaderText="Issue Name" DataField="AIM_Issuename"
                     UniqueName="AIM_Issuename" SortExpression="AIM_Issuename" AutoPostBackOnFilter="true"
                     AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Structure Name" DataField="ACSM_CommissionStructureName"
-                    UniqueName="ACSM_CommissionStructureName" SortExpression="ACSM_CommissionStructureName"
-                    AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                <telerik:GridTemplateColumn HeaderStyle-Width="150px" HeaderText="Structure Name"
+                    DataField="ACSM_CommissionStructureName" UniqueName="ACSM_CommissionStructureName"
+                    SortExpression="ACSM_CommissionStructureName" AutoPostBackOnFilter="true" AllowFiltering="true"
+                    ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
+                    <ItemTemplate>
+                        <asp:LinkButton ID="lbtStructs" runat="server" OnClick="lbtStructs_Click" AutoPostBack="true"
+                            CssClass="" Width="300px" EnableEmbeddedSkins="false" Text='<%#Eval("ACSM_CommissionStructureName") %>'>                            
+                        </asp:LinkButton>
+                    </ItemTemplate>
+                </telerik:GridTemplateColumn>
                 <telerik:GridBoundColumn HeaderStyle-Width="120px" HeaderText="Validity Start Date"
                     DataField="ACSTSM_ValidityStart" UniqueName="ACSTSM_ValidityStart" DataFormatString="{0:dd/MM/yyyy}"
                     SortExpression="ACSTSM_ValidityStart" AutoPostBackOnFilter="true" AllowFiltering="true"
