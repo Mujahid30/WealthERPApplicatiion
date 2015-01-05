@@ -199,9 +199,7 @@
                 ValidationGroup="FileType">
             </asp:RequiredFieldValidator>
             </td>
-    </tr>
-    <tr>
-        <td class="leftLabel">
+             <td class="leftLabel">
             <asp:Label ID="lblProduct" runat="server" CssClass="FieldName" Text="Select Product:"></asp:Label>
         </td>
         <td class="rightData">
@@ -217,6 +215,18 @@
                 ValidationGroup="FileType">
             </asp:RequiredFieldValidator>
         </td>
+    </tr>
+    <tr>
+        <td class="leftLabel" id="tdlblSubCategory" runat="server"  visible="false" >
+                    <asp:Label ID="lblSubCategory" runat="server" Text="Sub Category:" CssClass="FieldName"
+                        Visible="true"></asp:Label>
+                </td>
+                <td class="rightData" id="tdddSubCategory" runat="server" visible="false" >
+                    <asp:DropDownList ID="ddSubCategory" runat="server" CssClass="cmbField" AutoPostBack="true"
+                         Visible="true" OnSelectedIndexChanged="ddSubCategory_OnSelectedIndexChanged">
+                        <asp:ListItem>All</asp:ListItem>
+                    </asp:DropDownList>
+                </td>
         <td class="leftLabel">
             <asp:Label ID="lblSource" runat="server" CssClass="FieldName" Text="Source Data:"></asp:Label>
         </td>
@@ -390,6 +400,8 @@
     </tr>
 </table>
 <asp:HiddenField ID="hdnsavePath" runat="server"  />
+<asp:HiddenField ID="hdnddlSubCategory" runat="server" />
+
 <%--    </ContentTemplate>
     <Triggers>
         <asp:PostBackTrigger ControlID="FileUpload" />

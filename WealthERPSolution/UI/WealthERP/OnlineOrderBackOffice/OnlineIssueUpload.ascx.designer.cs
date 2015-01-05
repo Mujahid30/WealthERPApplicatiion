@@ -280,6 +280,7 @@ namespace WealthERP.OnlineOrderBackOffice
         protected global::System.Web.UI.WebControls.Button btnUploadData;
 
         protected global::System.Web.UI.WebControls.DropDownList ddlAlltmntTyp;
+        protected global::System.Web.UI.WebControls.DropDownList ddSubCategory;
 
         protected global::System.Web.UI.WebControls.DropDownList ddlRgsttype;
 
@@ -288,5 +289,8 @@ namespace WealthERP.OnlineOrderBackOffice
         protected global::System.Web.UI.WebControls.Label lblAllotementType;
 
         protected global::System.Web.UI.WebControls.HiddenField hdnsavePath;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblSubCategory;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdddSubCategory;
+        protected global::System.Web.UI.WebControls.HiddenField hdnddlSubCategory;
     }
 }

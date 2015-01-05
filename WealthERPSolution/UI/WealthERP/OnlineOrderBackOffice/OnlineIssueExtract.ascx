@@ -163,7 +163,7 @@
                 <td class="leftLabel">
                     <asp:Label ID="lblType" runat="server" CssClass="FieldName" Text="Select Type:"></asp:Label>
                 </td>
-                <td class="rightData">
+                <td style="width:100px;">
                     <asp:DropDownList ID="ddlType" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlType_OnSelectedIndexChanged" AutoPostBack="true">
                         <asp:ListItem Selected="True" Value="2">--SELECT--</asp:ListItem>
                         <asp:ListItem Text="Offline" Value="0" />
@@ -175,12 +175,10 @@
                         ValidationGroup="FileType">
                     </asp:RequiredFieldValidator>
                 </td>
-            </tr>
-            <tr>
-                <td class="leftLabel" style="width: 15.5%">
+                 <td align="right"  style="width:20%" >
                     <asp:Label ID="lblproduct" runat="server" CssClass="FieldName" Text="Select Product:"></asp:Label>
                 </td>
-                <td class="rightData">
+                <td >
                     <asp:DropDownList ID="ddlProduct" runat="server" CssClass="cmbField" AutoPostBack="True"
                         OnSelectedIndexChanged="ddlProduct_SelectedIndexChanged">
                         <asp:ListItem Selected="True" Value="0">--SELECT--</asp:ListItem>
@@ -193,6 +191,18 @@
                     <asp:RequiredFieldValidator ID="rfvProductFileType" runat="server" CssClass="rfvPCG"
                         ErrorMessage="Please select a product" ControlToValidate="ddlProduct" Display="Dynamic"
                         InitialValue="0" ValidationGroup="onlineIssueExtract">Please select a product</asp:RequiredFieldValidator>
+                </td>
+            </tr>
+            <tr>
+                <td class="leftLabel" id="tdlblSubCategory" runat="server"  visible="false" >
+                    <asp:Label ID="lblSubCategory" runat="server" Text="Sub Category:" CssClass="FieldName"
+                        Visible="true"></asp:Label>
+                </td>
+                <td class="rightData" id="tdddSubCategory" runat="server" visible="false" >
+                    <asp:DropDownList ID="ddSubCategory" runat="server" CssClass="cmbField" AutoPostBack="true"
+                         Visible="true" OnSelectedIndexChanged="ddSubCategory_OnSelectedIndexChanged">
+                        <asp:ListItem>All</asp:ListItem>
+                    </asp:DropDownList>
                 </td>
                 <td class="leftLabel" style="width: 15%">
                     <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="Select Issue:"></asp:Label>
@@ -389,3 +399,6 @@
         <asp:PostBackTrigger ControlID="btnDownload" />
     </Triggers>
 </asp:UpdatePanel>
+<asp:HiddenField ID="hdnddlSubCategory" runat="server" />
+
+

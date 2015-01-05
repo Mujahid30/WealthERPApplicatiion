@@ -1653,7 +1653,7 @@ namespace DaoOnlineOrderManagement
             return dsGetIssuerIssue;
         }
 
-        public DataSet GetUploadIssue(string product, int adviserId, string type, int isOnline)
+        public DataSet GetUploadIssue(string productCategory, int adviserId, string type, int isOnline)
         {
             DataSet dsGetIssuerIssue;
             Microsoft.Practices.EnterpriseLibrary.Data.Database db;
@@ -1663,7 +1663,7 @@ namespace DaoOnlineOrderManagement
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 dbCommand = db.GetStoredProcCommand("SPROC_GetUploadIssue");
                 db.AddInParameter(dbCommand, "@adviserId", DbType.Int32, adviserId);
-                db.AddInParameter(dbCommand, "@product", DbType.String, product);
+                db.AddInParameter(dbCommand, "@PAISC_AssetInstrumentSubCategoryCode", DbType.String, productCategory);
                 db.AddInParameter(dbCommand, "Type", DbType.String, type);
                 db.AddInParameter(dbCommand, "@IsOnline", DbType.Int32, isOnline);
                 //@product
@@ -1679,7 +1679,7 @@ namespace DaoOnlineOrderManagement
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "OnlineNCDBackOfficeDao.cs:GetUploadIssue()");
                 object[] objects = new object[1];
-                objects[1] = product;
+                objects[1] = productCategory;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -2390,7 +2390,7 @@ namespace DaoOnlineOrderManagement
             }
             return result;
         }
-        public DataTable UploadAllotmentIssueDataDynamic(DataTable dtData, int issueId, ref string isValidated, string product, string filePath, int userId, int isOnline)
+        public DataTable UploadAllotmentIssueDataDynamic(DataTable dtData, int issueId, ref string isValidated, string product, string filePath, int userId, int isOnline,string subCategoryCode)
         {
             int result = 0;
             UploadData(dtData);
@@ -2402,13 +2402,14 @@ namespace DaoOnlineOrderManagement
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                cmdAllotmentUpload = db.GetStoredProcCommand("SPROC_ValidateUploadIssueAllotmentDetails_Dynamic");
+                cmdAllotmentUpload = db.GetStoredProcCommand("SPROC_ONL_AdviserIssueAllotmentUpload");
                 db.AddInParameter(cmdAllotmentUpload, "@issueId", DbType.Int32, issueId);
                 db.AddInParameter(cmdAllotmentUpload, "@tableName", DbType.String, allotmentDataTable);
                 db.AddInParameter(cmdAllotmentUpload, "@filePath", DbType.String, filePath);
                 db.AddInParameter(cmdAllotmentUpload, "@createdBy", DbType.Int32, userId);
                 db.AddInParameter(cmdAllotmentUpload, "@product", DbType.String, product);
                 db.AddInParameter(cmdAllotmentUpload, "@IsOnline", DbType.String, isOnline);
+                db.AddInParameter(cmdAllotmentUpload, "@subCategoryCode", DbType.String, subCategoryCode);
                 cmdAllotmentUpload.CommandTimeout = 60 * 60;
                 dtAllotmentUploadData = db.ExecuteDataSet(cmdAllotmentUpload).Tables[0];
             }

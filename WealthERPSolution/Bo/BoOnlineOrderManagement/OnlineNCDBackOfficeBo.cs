@@ -1521,12 +1521,12 @@ namespace BoOnlineOrderManagement
 
 
 
-        public DataSet GetUploadIssue(string product, int adviserId, string type, int isOnline)
+        public DataSet GetUploadIssue(string productCategory, int adviserId, string type, int isOnline)
         {
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
             try
             {
-                return onlineNCDBackOfficeDao.GetUploadIssue(product, adviserId,type,isOnline);
+                return onlineNCDBackOfficeDao.GetUploadIssue(productCategory, adviserId, type, isOnline);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1720,7 +1720,7 @@ namespace BoOnlineOrderManagement
         {
             DataColumn serialNo = new DataColumn("SN", System.Type.GetType("System.Int32"));
             DataColumn errorCol = new DataColumn("Remarks", System.Type.GetType("System.String"), "");
-            if (fileTypeId == 27 || fileTypeId == 28 || fileTypeId == 29 || fileTypeId == 30)
+            if (fileTypeId == 27 || fileTypeId == 28 || fileTypeId == 29 || fileTypeId == 30 || fileTypeId == 54)
             {
                 DataColumn Status = new DataColumn("Status", System.Type.GetType("System.String"), "");
                 DataColumn processId = new DataColumn("ProcessId", System.Type.GetType("System.Int32"));
@@ -1823,7 +1823,7 @@ namespace BoOnlineOrderManagement
             }
             return result;
         }
-        public DataTable UploadAllotmentFile(DataTable dtCheckOrder, int fileTypeId, int issueId, ref string isEligbleIssue, int adviserid, string source, ref string result, string product, string filePath, int userId,int isOnline)
+        public DataTable UploadAllotmentFile(DataTable dtCheckOrder, int fileTypeId, int issueId, ref string isEligbleIssue, int adviserid, string source, ref string result, string product, string filePath, int userId,int isOnline,string SubCategoryCode)
         {
             DataTable dtUploadAllotment = new DataTable();
             try
@@ -1834,7 +1834,7 @@ namespace BoOnlineOrderManagement
 
                 daoOnlNcdBackOff.IsIssueAlloted(issueId, ref   result);
                 if (result != string.Empty && result != "0")
-                    dtUploadAllotment = daoOnlNcdBackOff.UploadAllotmentIssueDataDynamic(dtCheckOrder, issueId, ref  result, product, filePath, userId, isOnline);
+                    dtUploadAllotment = daoOnlNcdBackOff.UploadAllotmentIssueDataDynamic(dtCheckOrder, issueId, ref  result, product, filePath, userId, isOnline, SubCategoryCode);
                 else
                 {
                     result = "Pls Fill Allotment Date";

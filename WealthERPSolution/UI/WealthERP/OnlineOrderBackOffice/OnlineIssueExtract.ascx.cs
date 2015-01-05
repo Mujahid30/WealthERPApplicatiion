@@ -367,8 +367,40 @@ namespace WealthERP.OnlineOrderBackOffice
                 ShowMessage("Please check all required fields");
                 return;
             }
-            // SetFileType();
-            BindIssue(ddlProduct.SelectedValue);
+            tdlblSubCategory.Visible = false;
+            tdddSubCategory.Visible = false;
+            hdnddlSubCategory.Value = "FIFIIP";
+            if (ddlProduct.SelectedValue == "FI")
+            {
+                SubCategory();
+                tdlblSubCategory.Visible = true;
+                tdddSubCategory.Visible = true;
+            }
+            else
+            {
+                BindIssue(hdnddlSubCategory.Value);
+            }
+        }
+        private void SubCategory()
+        {
+            DataTable dtCategory = new DataTable();
+            dtCategory = boNcdBackOff.BindNcdCategory("SubInstrumentCat", "").Tables[0];
+            if (dtCategory.Rows.Count > 0)
+            {
+                ddSubCategory.DataSource = dtCategory;
+                ddSubCategory.DataValueField = dtCategory.Columns["PAISC_AssetInstrumentSubCategoryCode"].ToString();
+                ddSubCategory.DataTextField = dtCategory.Columns["PAISC_AssetInstrumentSubCategoryName"].ToString();
+                ddSubCategory.DataBind();
+            }
+            ddSubCategory.Items.Insert(0, new ListItem("Select", "0"));
+        }
+        protected void ddSubCategory_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddSubCategory.SelectedValue != "0")
+            {
+                hdnddlSubCategory.Value = ddSubCategory.SelectedValue;
+                BindIssue(hdnddlSubCategory.Value);
+            }
         }
         private void CheckForBusinessDate()
         {

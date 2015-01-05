@@ -323,6 +323,10 @@ namespace WealthERP.OnlineOrderBackOffice {
 
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblTransaction;
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdddlTransactionType;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblSubCategory;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdddSubCategory;
+        protected global::System.Web.UI.WebControls.HiddenField hdnddlSubCategory;
+        protected global::System.Web.UI.WebControls.DropDownList ddSubCategory;
        
        
 

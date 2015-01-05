@@ -49,7 +49,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
         }
 
-        private void BindIssuerIssue(string product)
+        private void BindIssuerIssue(string productCategory)
         {
             try
             {
@@ -57,7 +57,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 boNcdBackOff = new OnlineNCDBackOfficeBo();
 
 
-                dsIssuer = boNcdBackOff.GetUploadIssue(product, advisorVo.advisorId,"upload",0);
+                dsIssuer = boNcdBackOff.GetUploadIssue(productCategory, advisorVo.advisorId, "upload", 0);
                 if (dsIssuer.Tables[0].Rows.Count > 0)
                 {
                     ddlIssueName.DataSource = dsIssuer;
@@ -243,7 +243,7 @@ namespace WealthERP.OnlineOrderBackOffice
             dtUploadData = CheckHeaders(dtUploadData);
             if (IsAllotmentUpload)
             {
-                dtAllotmentUpload = boNcdBackOff.UploadAllotmentFile(dtUploadData, int.Parse(ddlFileType.SelectedValue), int.Parse(ddlIssueName.SelectedValue), ref isIssueAvailable, advisorVo.advisorId, ddlSource.SelectedValue, ref result, ddlProduct.SelectedValue, hdnsavePath.Value, userVo.UserId, Convert.ToInt32(ddlType.SelectedValue));
+                dtAllotmentUpload = boNcdBackOff.UploadAllotmentFile(dtUploadData, int.Parse(ddlFileType.SelectedValue), int.Parse(ddlIssueName.SelectedValue), ref isIssueAvailable, advisorVo.advisorId, ddlSource.SelectedValue, ref result, ddlProduct.SelectedValue, hdnsavePath.Value, userVo.UserId, Convert.ToInt32(ddlType.SelectedValue),hdnddlSubCategory.Value.ToString());
                 if (dtAllotmentUpload.Rows.Count > 0)
                 {
                     GetUploadData(dtAllotmentUpload);
@@ -282,17 +282,50 @@ namespace WealthERP.OnlineOrderBackOffice
             //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "wsedrftgyhjukloghjnnnghj", " showMsg('" + msg + "','W');", true);
             ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "mykey", "hide();", true);
         }
+        protected void ddSubCategory_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddSubCategory.SelectedValue != "0")
+            {
+                hdnddlSubCategory.Value = ddSubCategory.SelectedValue;
+                BindIssuerIssue(hdnddlSubCategory.Value);
+            }
+        }
 
 
         protected void ddlProduct_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+            tdlblSubCategory.Visible = false;
+            tdddSubCategory.Visible = false;
+            hdnddlSubCategory.Value = "FIFIIP";
             if (ddlProduct.SelectedValue == "0")
                 return;
             SetFileType();
-            BindIssuerIssue(ddlProduct.SelectedValue);
+            if (ddlProduct.SelectedValue == "FI")
+            {
+                SubCategory();
+                tdlblSubCategory.Visible = true;
+                tdddSubCategory.Visible = true;
+            }
+            else
+            {
+                BindIssuerIssue(hdnddlSubCategory.Value);
+            }
+            
+           
         }
-
+        private void SubCategory()
+        {
+            DataTable dtCategory = new DataTable();
+            dtCategory = boNcdBackOff.BindNcdCategory("SubInstrumentCat", "").Tables[0];
+            if (dtCategory.Rows.Count > 0)
+            {
+                ddSubCategory.DataSource = dtCategory;
+                ddSubCategory.DataValueField = dtCategory.Columns["PAISC_AssetInstrumentSubCategoryCode"].ToString();
+                ddSubCategory.DataTextField = dtCategory.Columns["PAISC_AssetInstrumentSubCategoryName"].ToString();
+                ddSubCategory.DataBind();
+            }
+            ddSubCategory.Items.Insert(0, new ListItem("Select", "0"));
+        }
         protected void ddlSource_SelectedIndexChanged(object sender, EventArgs e)
         {
             Page.Validate("FileType");
@@ -331,6 +364,7 @@ namespace WealthERP.OnlineOrderBackOffice
             ddlFileType.DataValueField = dtFileType.Columns["WEFT_Id"].ToString();
             ddlFileType.DataTextField = dtFileType.Columns["WEFT_FileType"].ToString();
             ddlFileType.DataBind();
+
         }
 
         private void GetExtractData(DataTable dtUploadFile)
@@ -510,7 +544,7 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             if (ddlAlltmntTyp.SelectedValue != "select")
             {
-                BindAllotmentFileType(ddlAlltmntTyp.SelectedValue, ddlProduct.SelectedValue);
+                BindAllotmentFileType(ddlAlltmntTyp.SelectedValue, hdnddlSubCategory.Value.ToString());
             }
         }
         protected void BindAllotmentFileType(string fileType, string productType)
