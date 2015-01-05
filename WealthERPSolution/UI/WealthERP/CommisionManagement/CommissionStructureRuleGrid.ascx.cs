@@ -284,16 +284,13 @@ namespace WealthERP.CommisionManagement
 
         protected void gvCommMgmt_ItemDataBound(object sender, GridItemEventArgs e)
         {
-            //if (e.Item is GridDataItem)
-            //{
-            //    GridDataItem item = e.Item as GridDataItem;
-            //    DropDownList myDD = item.FindControl("ddAction") as DropDownList;
-            //    string itemVal = ((DataRowView)e.Item.DataItem).Row["StructureId"].ToString();
-            //    myDD.Items.Insert(0, "Action");
-            //    myDD.Items.Insert(1, new ListItem("View Details", itemVal));
-            //    myDD.Items.Insert(2, new ListItem("View Mapped Schemes", itemVal));
-            //    myDD.SelectedIndexChanged += new EventHandler(ddAction_OnSelectedIndexChanged);
-            //}
+            if (e.Item is GridDataItem)
+            {
+                GridDataItem item = e.Item as GridDataItem;
+                DropDownList myDD = item.FindControl("ddAction") as DropDownList;
+                if (ddProduct.SelectedValue == "MF")
+                    myDD.Items[2].Enabled = true;
+            }
         }
     }
 }

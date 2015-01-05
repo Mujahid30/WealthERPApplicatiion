@@ -227,7 +227,7 @@
                                                 <Items>
                                                     <asp:ListItem Selected="true" Text="Select" Value="Select" />
                                                     <asp:ListItem Text="View Details" Value="ViewSTDetails" />
-                                                    <asp:ListItem Text="View Mapped Schemes" Value="ManageSchemeMapping" />
+                                                    <asp:ListItem Text="View Mapped Schemes" Value="ManageSchemeMapping" Enabled="false"/>
                                                 </Items>
                                             </asp:DropDownList>
                                         </ItemTemplate>
