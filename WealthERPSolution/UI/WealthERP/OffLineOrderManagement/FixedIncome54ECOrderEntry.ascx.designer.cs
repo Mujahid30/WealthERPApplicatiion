@@ -21,6 +21,9 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.ScriptManager scrptMgr;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trSumbitSuccess;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl msgRecordStatus;
+
         
         /// <summary>
         /// Tr1 control.
@@ -30,6 +33,8 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow Tr1;
+        protected global::System.Web.UI.HtmlControls.HtmlTable tblMessage;
+
         
         /// <summary>
         /// lnkBtnFIEdit control.

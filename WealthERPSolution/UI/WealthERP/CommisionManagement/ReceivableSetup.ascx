@@ -1186,12 +1186,12 @@
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn DataField="ACSTSM_ValidityStart" HeaderText="Validity From" SortExpression="ValidityFrom"
                                                 ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
-                                                DataFormatString="{0:d}" UniqueName="ACSTSM_ValidityStart" FooterStyle-HorizontalAlign="Left">
+                                                DataFormatString="{0:d}" UniqueName="ACSTSM_ValidityStart" FooterStyle-HorizontalAlign="Left" Visible="false">
                                                 <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn DataField="ACSTSM_ValidityEnd" HeaderText="Validity To" SortExpression="ValidityTo"
                                                 ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
-                                                DataFormatString="{0:d}" UniqueName="ACSTSM_ValidityEnd" FooterStyle-HorizontalAlign="Left">
+                                                DataFormatString="{0:d}" UniqueName="ACSTSM_ValidityEnd" FooterStyle-HorizontalAlign="Left" Visible="false">
                                                 <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
                                         </Columns>
@@ -1407,7 +1407,7 @@
                                                     <td class="rightData">
                                                         <asp:DropDownList ID="ddlReceivableFrequency" runat="server" CssClass="cmbField">
                                                         </asp:DropDownList>
-                                                        <span id="Span5" class="spnRequiredField">*</span>
+                                                        <span id="Span5" class="spnRequiredField" runat="server" visible="false" >*</span>
                                                     </td>
                                                 </tr>
                                                 <tr>

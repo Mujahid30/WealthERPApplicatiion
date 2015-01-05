@@ -263,7 +263,14 @@
         sender.moveTo(sender.get_left(), sender.get_top());
     }
 </script>
-
+ <table id="tblMessage" width="100%" runat="server" visible="false" style="padding-top: 20px;">
+            <tr id="trSumbitSuccess" >
+                <td align="center">
+                    <div id="msgRecordStatus" class="success-msg" align="center" runat="server">
+                    </div>
+                </td>
+            </tr>
+            </table>
 <table width="100%">
     <tr>
         <td align="left">
@@ -914,7 +921,7 @@
                             AutoPostBack="True" OnTextChanged="OnAmtchanged" />
                         <span id="Span3" runat="server" class="spnRequiredField">*</span>
                         <asp:RequiredFieldValidator ID="ReqQty" ControlToValidate="txtQty" CssClass="rfvPCG"
-                            ErrorMessage="<br />Please Enter Qty" Display="Dynamic" runat="server" InitialValue=""
+                            ErrorMessage="<br />Please Enter Amount" Display="Dynamic" runat="server" InitialValue=""
                             ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
                         <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="TxtPurAmt"
                             runat="server" Display="Dynamic" ErrorMessage="Please Enter Integer Value" CssClass="cvPCG"

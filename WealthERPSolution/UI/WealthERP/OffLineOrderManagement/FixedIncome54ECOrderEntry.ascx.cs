@@ -226,6 +226,11 @@ namespace WealthERP.OffLineOrderManagement
 
 
         }
+        private void ShowMessage(string msg)
+        {
+            tblMessage.Visible = true;
+            msgRecordStatus.InnerText = msg;
+        }
         protected void txtAgentId_ValueChanged1(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(txtAgentId.Value.ToString().Trim()))
@@ -951,7 +956,9 @@ namespace WealthERP.OffLineOrderManagement
                 lblGetOrderNo.Text = orderId.ToString();
                 lblOrderNumber.Text = "Order No.";
                 ViewState["orderno"] = orderId;
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Your order added successfully.');", true);
+                ShowMessage(orderId + "Your order added successfully.");
+
+             //   ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Your order added successfully.');", true);
                 tbUploadDocument.Visible = true;
                 BindDocument(orderId);
 
@@ -964,7 +971,9 @@ namespace WealthERP.OffLineOrderManagement
                 BindDocument(orderId);
                 tbUploadDocument.Visible = true;
                 lblOrderNumber.Text = "Order No.";
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Your order updated successfully.');", true);
+                ShowMessage(orderId+"Your order updated successfully.");
+
+             //   ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Your order updated successfully.');", true);
                 tbUploadDocument.Visible = true;
             }
 
