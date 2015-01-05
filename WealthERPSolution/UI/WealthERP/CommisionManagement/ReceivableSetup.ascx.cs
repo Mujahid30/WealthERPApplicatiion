@@ -1463,7 +1463,7 @@ namespace WealthERP.Receivable
 
                 }
             }
-            if (string.IsNullOrEmpty(chkItemType))
+            //if (string.IsNullOrEmpty(chkItemType))
               // sai  //sai CustomValidator4.Enabled = true;  
             //if (ddlProductType.SelectedValue == "MF")
             //{
