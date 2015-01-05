@@ -166,13 +166,23 @@
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Receivable Brokerage Value" DataField="ACSR_BrokerageValue"
-                    UniqueName="ACSR_BrokerageValue" SortExpression="ACSR_BrokerageValue" AutoPostBackOnFilter="true"
+                <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Receivable Brokerage Value" DataField="RecievableValue"
+                    UniqueName="RecievableValue" SortExpression="RecievableValue" AutoPostBackOnFilter="true"
                     AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="EqualTo">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Receivable Brokerage Unit" DataField="WCU_Unit"
-                    UniqueName="WCU_Unit" SortExpression="WCU_Unit" AutoPostBackOnFilter="true" AllowFiltering="true"
+                <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Receivable Brokerage Unit" DataField="RecievableUnits"
+                    UniqueName="RecievableUnits" SortExpression="RecievableUnits" AutoPostBackOnFilter="true" AllowFiltering="true"
+                    ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Payable Brokerage Value" DataField="PaybleValue"
+                    UniqueName="PaybleValue" SortExpression="PaybleValue" AutoPostBackOnFilter="true"
+                    AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="EqualTo">
+                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Payable Brokerage Unit" DataField="PaybleUnits"
+                    UniqueName="PaybleUnits" SortExpression="PaybleUnits" AutoPostBackOnFilter="true" AllowFiltering="true"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
@@ -234,13 +244,23 @@
                     ShowFilterIcon="false" CurrentFilterFunction="EqualTo">
                     <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="120px" HeaderText="Brokerage Value" DataField="ACSR_BrokerageValue"
-                    UniqueName="ACSR_BrokerageValue" SortExpression="ACSR_BrokerageValue" AutoPostBackOnFilter="true"
+                <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Receivable Brokerage Value" DataField="RecievableValue"
+                    UniqueName="RecievableValue" SortExpression="RecievableValue" AutoPostBackOnFilter="true"
                     AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="EqualTo">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="120px" HeaderText="Brokerage Unit" DataField="WCU_Unit"
-                    UniqueName="WCU_Unit" SortExpression="WCU_Unit" AutoPostBackOnFilter="true" AllowFiltering="true"
+                <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Receivable Brokerage Unit" DataField="RecievableUnits"
+                    UniqueName="RecievableUnits" SortExpression="RecievableUnits" AutoPostBackOnFilter="true" AllowFiltering="true"
+                    ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Payable Brokerage Value" DataField="PaybleValue"
+                    UniqueName="PaybleValue" SortExpression="PaybleValue" AutoPostBackOnFilter="true"
+                    AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="EqualTo">
+                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Payable Brokerage Unit" DataField="PaybleUnits"
+                    UniqueName="PaybleUnits" SortExpression="PaybleUnits" AutoPostBackOnFilter="true" AllowFiltering="true"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
