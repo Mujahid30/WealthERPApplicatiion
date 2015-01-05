@@ -318,5 +318,8 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnMannualMatch;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdSubCategory;
+        protected global::System.Web.UI.WebControls.DropDownList ddlSubCategory;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblSubCategory;
     }
 }

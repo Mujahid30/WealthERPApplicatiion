@@ -1544,12 +1544,12 @@ namespace BoOnlineOrderManagement
                 throw exBase;
             }
         }
-        public DataSet GetAdviserOrders(int IssueId, string Product, int adviserid, int BusinessChannel,string userType,string agentCode)
+        public DataSet GetAdviserOrders(int IssueId, string Product, int adviserid, int BusinessChannel,string userType,string agentCode,string category)
         {
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
             try
             {
-                return onlineNCDBackOfficeDao.GetAdviserOrders(IssueId, Product, adviserid, BusinessChannel, userType, agentCode);
+                return onlineNCDBackOfficeDao.GetAdviserOrders(IssueId, Product, adviserid, BusinessChannel, userType, agentCode, category);
             }
             catch (BaseApplicationException Ex)
             {

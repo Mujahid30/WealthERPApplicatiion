@@ -2165,7 +2165,7 @@ namespace DaoOnlineOrderManagement
             return ds;
         }
 
-        public DataSet GetAdviserOrders(int IssueId, string Product, int adviserid, int BusinessChannel, string userType,string AgentCode)
+        public DataSet GetAdviserOrders(int IssueId, string Product, int adviserid, int BusinessChannel, string userType, string AgentCode, string category)
         {
             DataSet dsOrders;
             Microsoft.Practices.EnterpriseLibrary.Data.Database db;
@@ -2180,6 +2180,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(dbCommand, "@BusinessChannel", DbType.Int32, BusinessChannel);
                 db.AddInParameter(dbCommand, "@userType", DbType.String, userType);
                 db.AddInParameter(dbCommand, "@AgentCode", DbType.String, AgentCode);
+                db.AddInParameter(dbCommand, "@Category", DbType.String, category);
                 dsOrders = db.ExecuteDataSet(dbCommand);
             }
             catch (BaseApplicationException Ex)

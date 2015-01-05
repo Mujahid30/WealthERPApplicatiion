@@ -93,6 +93,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                // BindOrderStatus();
                 BindBusinessChannel();
+                BindCategory();
                 if (userType == "associates")
                 {
                     ddlBChannnel.Items[2].Enabled = false;
@@ -382,7 +383,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 if (ddlType.SelectedValue == "2")
                 {
                     pnlGrid.Visible = false;
-                    dtOrdersMatch = onlineNCDBackOfficeBo.GetAdviserOrders(int.Parse(ddlIssue.SelectedValue), ddlProduct.SelectedValue, advisorVo.advisorId, 2, userType, AgentCode).Tables[0];
+                    dtOrdersMatch = onlineNCDBackOfficeBo.GetAdviserOrders(int.Parse(ddlIssue.SelectedValue), ddlProduct.SelectedValue, advisorVo.advisorId, 2, userType, AgentCode, ddlSubCategory.SelectedValue).Tables[0];
                     gvOfflineAllotment.DataSource = dtOrdersMatch;
                     gvOfflineAllotment.DataBind();
                     pnlOfflineNCDIPO.Visible = true;
@@ -392,7 +393,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 }
                 else
                 {
-                    dtOrdersMatch = onlineNCDBackOfficeBo.GetAdviserOrders(int.Parse(ddlIssue.SelectedValue), ddlProduct.SelectedValue, advisorVo.advisorId,1, userType, AgentCode).Tables[0];
+                    dtOrdersMatch = onlineNCDBackOfficeBo.GetAdviserOrders(int.Parse(ddlIssue.SelectedValue), ddlProduct.SelectedValue, advisorVo.advisorId, 1, userType, AgentCode, ddlSubCategory.SelectedValue).Tables[0];
                     gvOrders.DataSource = dtOrdersMatch;
                     gvOrders.DataBind();
                     pnlGrid.Visible = true;
@@ -457,9 +458,18 @@ namespace WealthERP.OnlineOrderBackOffice
 
         protected void ddlProduct_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //if (ddlProduct.SelectedValue != "Select")
+            if (ddlProduct.SelectedValue == "FI")
+            {
+                tdSubCategory.Visible = true;
+                tdlblSubCategory.Visible=true;
+            }
+            else
+            {
+                tdSubCategory.Visible = false;
+                tdlblSubCategory.Visible = false;
+            }
 
-            //    BindIssuerIssue();
+           
 
         }
 
@@ -594,6 +604,21 @@ namespace WealthERP.OnlineOrderBackOffice
             }
 
             return result;
+        }
+        private void BindCategory()
+        {
+
+            DataTable dtBindCategory;
+            dtBindCategory = onlineNCDBackOfficeBo.BindNcdCategory("SubInstrumentCat", "").Tables[0];
+
+            if (dtBindCategory.Rows.Count > 0)
+            {
+                ddlSubCategory.DataSource = dtBindCategory;
+                ddlSubCategory.DataValueField = dtBindCategory.Columns["PAISC_AssetInstrumentSubCategoryCode"].ToString();
+                ddlSubCategory.DataTextField = dtBindCategory.Columns["PAISC_AssetInstrumentSubCategoryName"].ToString();
+                ddlSubCategory.DataBind();
+            }
+            ddlSubCategory.Items.Insert(0, new ListItem("Select", "Select"));
         }
 
         protected void btnAutoMatch_Click(object sender, EventArgs e)

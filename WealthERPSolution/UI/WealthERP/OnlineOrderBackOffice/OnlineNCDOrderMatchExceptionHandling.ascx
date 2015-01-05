@@ -108,7 +108,7 @@
             <asp:DropDownList ID="ddlProduct" runat="server" CssClass="cmbField" AutoPostBack="true"
                 OnSelectedIndexChanged="ddlProduct_SelectedIndexChanged">
                 <asp:ListItem Value="Select">Select</asp:ListItem>
-                <asp:ListItem Value="FI">NCD</asp:ListItem>
+                <asp:ListItem Value="FI">BOND</asp:ListItem>
                 <asp:ListItem Value="IP">IPO</asp:ListItem>
             </asp:DropDownList>
             <span id="Span2" class="spnRequiredField">*</span>
@@ -135,14 +135,27 @@
                 InitialValue="Select"></asp:RequiredFieldValidator>
         </td>
         <td>
-        <asp:Label ID="lblType" runat="server" Text="Select Type" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="lblType" runat="server" Text="Select Type" CssClass="FieldName"></asp:Label>
         </td>
         <td>
-        <asp:DropDownList ID="ddlType" runat="server" CssClass="cmbField">
-        <asp:ListItem Text="Online" Value="1"></asp:ListItem>
-        <asp:ListItem Text="Offline" Value="2"></asp:ListItem>
-        </asp:DropDownList>
-        
+            <asp:DropDownList ID="ddlType" runat="server" CssClass="cmbField">
+                <asp:ListItem Text="Online" Value="1"></asp:ListItem>
+                <asp:ListItem Text="Offline" Value="2"></asp:ListItem>
+            </asp:DropDownList>
+        </td>
+          <td id="tdlblSubCategory">
+            <asp:Label ID="Label1" runat="server" Text="Select Category" CssClass="FieldName"></asp:Label>
+        </td>
+        <td id="tdSubCategory" runat="server" visible="false">
+            <asp:DropDownList ID="ddlSubCategory" runat="server" CssClass="cmbLongField" AutoPostBack="true"
+                Width="150px">
+            </asp:DropDownList>
+            <%-- <span id="Span10" class="spnRequiredField">*</span>--%>
+            <span id="Span6" class="spnRequiredField">*</span>
+            <br />
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ErrorMessage="Please Select Category"
+                CssClass="rfvPCG" ControlToValidate="ddlSubCategory" ValidationGroup="btnGo" Display="Dynamic"
+                InitialValue="Select"></asp:RequiredFieldValidator>
         </td>
         <td align="right">
             &nbsp;&nbsp
@@ -290,6 +303,11 @@
                             <telerik:GridBoundColumn DataField="AllotmentAmt" HeaderText="Alloted Amt" SortExpression="AllotmentAmt"
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
                                 UniqueName="AllotmentAmt" FooterStyle-HorizontalAlign="Left">
+                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                             <telerik:GridBoundColumn DataField="COAD_CertificateNo" HeaderText="Certificate No" SortExpression="COAD_CertificateNo"
+                                ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                UniqueName="COAD_CertificateNo" FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <%--<telerik:GridEditCommandColumn Visible="true" HeaderStyle-Width="60px" UniqueName="Match"
