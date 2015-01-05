@@ -956,8 +956,8 @@ namespace WealthERP.OffLineOrderManagement
                 lblGetOrderNo.Text = orderId.ToString();
                 lblOrderNumber.Text = "Order No.";
                 ViewState["orderno"] = orderId;
-                ShowMessage(orderId + "Your order added successfully.");
-
+              
+                  ShowMessage("Order placed successfully, Order reference no is " + lblGetOrderNo.Text);
              //   ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Your order added successfully.');", true);
                 tbUploadDocument.Visible = true;
                 BindDocument(orderId);
@@ -971,7 +971,8 @@ namespace WealthERP.OffLineOrderManagement
                 BindDocument(orderId);
                 tbUploadDocument.Visible = true;
                 lblOrderNumber.Text = "Order No.";
-                ShowMessage(orderId+"Your order updated successfully.");
+                 
+                ShowMessage("Order updated successfully, Order reference no is " + lblGetOrderNo.Text);
 
              //   ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Your order updated successfully.');", true);
                 tbUploadDocument.Visible = true;

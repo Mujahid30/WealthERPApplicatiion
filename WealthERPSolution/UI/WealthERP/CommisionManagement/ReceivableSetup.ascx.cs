@@ -1244,6 +1244,9 @@ namespace WealthERP.Receivable
                     ddlCommissionType.DataBind();
                     ddlCommissionType.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
 
+                    if (ddlSubInstrCategory.SelectedValue == "FICGCG")
+                        ddlCommissionType.Items[2].Enabled = false;
+
                     //ddlBrokerageUnit.DataSource = dsCommissionLookup.Tables[3];
                     //ddlBrokerageUnit.DataValueField = dsCommissionLookup.Tables[3].Columns["WCU_UnitCode"].ToString();
                     //ddlBrokerageUnit.DataTextField = dsCommissionLookup.Tables[3].Columns["WCU_Unit"].ToString();
@@ -1302,11 +1305,21 @@ namespace WealthERP.Receivable
                     foreach (ListItem chkItems in chkListApplyTax.Items)
                     {
                         if (chkItems.Value == "ServiceTax" & strIsServiceTaxReduced == "1")
+                        {
                             chkItems.Selected = true;
+                            break;
+                        }
                         else if (chkItems.Value == "TDS" & strIsTDSReduced == "1")
+                        {
                             chkItems.Selected = true;
+                            break;
+
+                        }
                         else if (chkItems.Value == "Others" & strIsOtherTaxReduced == "1")
+                        {
                             chkItems.Selected = true;
+                            break;
+                        }
                     }
 
 
@@ -3077,13 +3090,19 @@ namespace WealthERP.Receivable
 
         protected void btnMAP_Click(object sender, EventArgs e)
         {
+
             int mappingId;
             if (string.IsNullOrEmpty(ddlUnMappedIssues.SelectedValue))
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select Issue');", true);
                 return;
             }
-
+            if (gvMappedIssueList.Items.Count > 0 && ddlCategory.SelectedValue=="FICGCG")
+            {
+               // tbNcdIssueList.Visible
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('One issue can map to structure');", true);
+                return;
+            }
             commissionStructureRuleVo.CommissionStructureId = Convert.ToInt32(hidCommissionStructureName.Value);
 
             commissionStructureRuleVo.IssueId = Convert.ToInt32(ddlUnMappedIssues.SelectedValue);

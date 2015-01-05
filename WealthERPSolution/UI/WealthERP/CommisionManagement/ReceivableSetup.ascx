@@ -1259,10 +1259,10 @@
                                 ACSR_TransactionType,WCU_UnitCode,WCCO_CalculatedOnCode,ACSM_AUMFrequency,ACSR_MaxTenure,ACSR_SIPFrequency,ACG_CityGroupID,
                                 ACSR_ReceivableRuleFrequency,WCAL_ApplicableLevelCode,ACSR_IsServiceTaxReduced,ACSR_IsTDSReduced,ACSM_IsOtherTaxReduced,PaybleValue,PaybleUnit,RecievableValue,RecievableUnit">
                                     <Columns>
-                                        <telerik:GridEditCommandColumn EditText="Edit">
+                                        <telerik:GridEditCommandColumn EditText="Edit"     UniqueName="Edit">
                                         </telerik:GridEditCommandColumn>
                                         <telerik:GridButtonColumn CommandName="Delete" Text="Delete" ConfirmText="Do you want to delete this rule? Click OK to proceed"
-                                            UniqueName="column">
+                                            UniqueName="Delete">
                                         </telerik:GridButtonColumn>
                                         <telerik:GridBoundColumn UniqueName="ACSR_CommissionStructureRuleName" HeaderText="Rule Name"
                                             DataField="ACSR_CommissionStructureRuleName">
@@ -1324,10 +1324,10 @@
                                             DataField="PaybleUnit">
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn UniqueName="RecievableValue" HeaderText="Recievable Brokerage Value"
-                                            DataField="RecievableValue" DataFormatString="{0:N2}">
+                                            DataField="ReceivableValue" DataFormatString="{0:N2}">
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn UniqueName="RecievableUnit" HeaderText="Recievable Brokerage Unit"
-                                            DataField="RecievableUnit">
+                                            DataField="ReceivableUnit">
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn UniqueName="WCCO_CalculatedOn" HeaderText="Calculated On"
                                             DataField="WCCO_CalculatedOn" >

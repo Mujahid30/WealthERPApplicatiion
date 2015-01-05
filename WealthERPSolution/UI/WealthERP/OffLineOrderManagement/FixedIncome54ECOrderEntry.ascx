@@ -263,14 +263,7 @@
         sender.moveTo(sender.get_left(), sender.get_top());
     }
 </script>
- <table id="tblMessage" width="100%" runat="server" visible="false" style="padding-top: 20px;">
-            <tr id="trSumbitSuccess" >
-                <td align="center">
-                    <div id="msgRecordStatus" class="success-msg" align="center" runat="server">
-                    </div>
-                </td>
-            </tr>
-            </table>
+  
 <table width="100%">
     <tr>
         <td align="left">
@@ -336,6 +329,14 @@
     <tr>
     </tr>
 </table>
+<table id="tblMessage" width="100%" runat="server" visible="false" style="padding-top: 20px;">
+            <tr id="trSumbitSuccess" >
+                <td align="center">
+                    <div id="msgRecordStatus" class="success-msg" align="center" runat="server">
+                    </div>
+                </td>
+            </tr>
+            </table>
 <%--<asp:UpdatePanel ID="UpdatePanel1" UpdateMode="Always" runat="server">
     <ContentTemplate>--%>
         <asp:Panel ID="Panel2" runat="server" class="Landscape" Width="100%" Height="700px"
