@@ -1464,7 +1464,7 @@ namespace WealthERP.Receivable
                 }
             }
             if (string.IsNullOrEmpty(chkItemType))
-              // sai  CustomValidator4.Enabled = true;  
+              // sai  //sai CustomValidator4.Enabled = true;  
             //if (ddlProductType.SelectedValue == "MF")
             //{
             //    ShowHideControlsForRules(true, e);
@@ -1476,8 +1476,8 @@ namespace WealthERP.Receivable
 
             /*******************UI VALIDATION********************/
             //isPageValid = ValidatePage(commissionStructureRuleVo);
-            if (!string.IsNullOrEmpty(chkItemType))
-            {
+            //if (!string.IsNullOrEmpty(chkItemType))
+            //{
                 if (isPageValid)
                 {
 
@@ -1498,11 +1498,11 @@ namespace WealthERP.Receivable
                     e.Canceled = true;
                     return;
                 }
-            }
-            else
-            {
-                CustomValidator4.Enabled = true;  
-            }
+            //}
+            //else
+            //{
+            //    //sai CustomValidator4.Enabled = true;  
+            //}
         }
 
         protected void RadGridStructureRule_ItemCommand(object source, GridCommandEventArgs e)
