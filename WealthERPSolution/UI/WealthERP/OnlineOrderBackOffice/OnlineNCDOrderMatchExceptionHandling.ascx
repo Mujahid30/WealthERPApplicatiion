@@ -148,7 +148,7 @@
         </td>
         <td id="tdSubCategory" runat="server" visible="false">
             <asp:DropDownList ID="ddlSubCategory" runat="server" CssClass="cmbLongField" AutoPostBack="true"
-                Width="150px">
+                Width="150px" OnSelectedIndexChanged="ddlSubCategory_OnSelectedIndexChanged">
             </asp:DropDownList>
             <%-- <span id="Span10" class="spnRequiredField">*</span>--%>
             <span id="Span6" class="spnRequiredField">*</span>
@@ -430,7 +430,7 @@
                 <telerik:RadGrid ID="gvOfflineAllotment" runat="server" GridLines="None" AutoGenerateColumns="False"
                     PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                     Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="true" AllowAutomaticInserts="false"
-                    OnNeedDataSource="gvOfflineAllotment_OnNeedDataSource">
+                    OnNeedDataSource="gvOfflineAllotment_OnNeedDataSource" OnItemDataBound="gvOfflineAllotment_OnItemDataBound">
                     <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
                         FileName="Order" Excel-Format="ExcelML">
                     </ExportSettings>
@@ -501,6 +501,11 @@
                             <telerik:GridBoundColumn DataField="AllotmentAmt" HeaderText="Alloted Amt" SortExpression="AllotmentAmt"
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
                                 UniqueName="AllotmentAmt" FooterStyle-HorizontalAlign="Left">
+                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="COAD_CertificateNo" HeaderText="CertificateNo" SortExpression="COAD_CertificateNo"
+                                ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                UniqueName="COAD_CertificateNo" FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="CMFT_SubBrokerCode" HeaderText="Sub-Broker Code"

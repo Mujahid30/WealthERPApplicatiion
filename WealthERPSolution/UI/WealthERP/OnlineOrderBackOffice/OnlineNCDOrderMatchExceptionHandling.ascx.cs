@@ -118,7 +118,19 @@ namespace WealthERP.OnlineOrderBackOffice
             BindOrdersGrid();
         }
 
+        protected void gvOfflineAllotment_OnItemDataBound(object sender, GridItemEventArgs e)
+        {
+            if (e.Item is GridDataItem)
+            {
+                gvOfflineAllotment.MasterTableView.GetColumn("COAD_CertificateNo").Visible = false;
+                if (ddlSubCategory.SelectedValue == "FICGCG")
+                {
+                    gvOfflineAllotment.MasterTableView.GetColumn("COAD_CertificateNo").Visible = true;
 
+                }
+                
+            }
+        }
         //protected void cbOrderSelect_changed(object sender, EventArgs e)
         //{
         //    CheckBox cb = (CheckBox)sender;
@@ -447,7 +459,8 @@ namespace WealthERP.OnlineOrderBackOffice
 
         protected void ddlBChannnel_SelectedIndexChanged(object sender, EventArgs e)
         {
-            BindIssue();
+            if (ddlBChannnel.SelectedValue != "Select")
+                BindIssue();
 
         }
         protected void ddlOrderStatus_SelectedIndexChanged(object sender, EventArgs e)
@@ -473,13 +486,13 @@ namespace WealthERP.OnlineOrderBackOffice
 
         }
 
-        private void BindIssue(   )
+        private void BindIssue()
         {
             try
             {
                 ddlIssue.Items.Clear();
                 DataSet dsIssuer = new DataSet();
-                dsIssuer = onlineNCDBackOfficeBo.GetIssuerIssue(advisorVo.advisorId, ddlProduct.SelectedValue,Convert.ToInt32(ddlBChannnel.SelectedValue),"PR");
+                dsIssuer = onlineNCDBackOfficeBo.GetIssuerIssue(advisorVo.advisorId, ddlProduct.SelectedValue,Convert.ToInt32(ddlBChannnel.SelectedValue),"PR",ddlSubCategory.SelectedValue);
                 if (dsIssuer.Tables[0].Rows.Count > 0)
                 {
                     ddlIssue.DataSource = dsIssuer;
@@ -536,7 +549,11 @@ namespace WealthERP.OnlineOrderBackOffice
             //}
 
         }
-
+        protected void ddlSubCategory_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlSubCategory.SelectedValue != "Select")
+                BindIssue();
+        }
         private void BindIssuerIssue()
         {
             try

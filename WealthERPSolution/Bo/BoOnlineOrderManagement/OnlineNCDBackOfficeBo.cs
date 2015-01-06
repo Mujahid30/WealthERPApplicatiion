@@ -829,12 +829,12 @@ namespace BoOnlineOrderManagement
 
         }
 
-        public DataSet GetIssuerIssue(int advisorId, string product,int businessChannel,string orderStatus)
+        public DataSet GetIssuerIssue(int advisorId, string product,int businessChannel,string orderStatus,string subCategoryCode)
         {
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
             try
             {
-                return onlineNCDBackOfficeDao.GetIssuerIssue(advisorId, product,  businessChannel,  orderStatus);
+                return onlineNCDBackOfficeDao.GetIssuerIssue(advisorId, product, businessChannel, orderStatus, subCategoryCode);
             }
             catch (BaseApplicationException Ex)
             {

@@ -1618,7 +1618,7 @@ namespace DaoOnlineOrderManagement
             return dsGetSubCategory;
         }
 
-        public DataSet GetIssuerIssue(int advisorId, string product, int businessChannel, string orderStatus)
+        public DataSet GetIssuerIssue(int advisorId, string product, int businessChannel, string orderStatus,string subCategoryCode)
         {
             DataSet dsGetIssuerIssue;
             Microsoft.Practices.EnterpriseLibrary.Data.Database db;
@@ -1630,8 +1630,8 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(dbCommand, "@adviserId", DbType.Int32, advisorId);
                 db.AddInParameter(dbCommand, "@product", DbType.String, product);
                 db.AddInParameter(dbCommand, "@businessChannel", DbType.Int32, businessChannel);
-              //  db.AddInParameter(dbCommand, "@orderStatus", DbType.String, orderStatus);
-
+                if(subCategoryCode!="0")
+                    db.AddInParameter(dbCommand, "@subCategoryCode", DbType.String, subCategoryCode);
                 dsGetIssuerIssue = db.ExecuteDataSet(dbCommand);
             }
             catch (BaseApplicationException Ex)
