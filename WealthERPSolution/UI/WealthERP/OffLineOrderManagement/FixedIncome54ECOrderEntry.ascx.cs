@@ -162,6 +162,7 @@ namespace WealthERP.OffLineOrderManagement
                 AutoCompleteExtender1.ServiceMethod = "GetAdviserCustomerPan";
                 txtAssociateSearch.Text = associateuserheirarchyVo.AgentCode;
                 GetAgentName(associateuserheirarchyVo.AdviserAgentId);
+                txtAgentId.Value = associateuserheirarchyVo.AdviserAgentId.ToString();
                 AutoCompleteExtender2.ContextKey = associateuserheirarchyVo.AgentCode + "/" + advisorVo.advisorId.ToString();
                 AutoCompleteExtender2.ServiceMethod = "GetAgentCodeAssociateDetailsForAssociates";
 
@@ -712,7 +713,7 @@ namespace WealthERP.OffLineOrderManagement
             }
             if (string.IsNullOrEmpty(txtAgentId.Value.ToString().Trim()))
             {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please select Customer Name.');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please select Agent Name.');", true);
                 btnSubmit.Enabled = true;
                
                 return;

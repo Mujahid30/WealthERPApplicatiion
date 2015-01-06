@@ -1240,7 +1240,7 @@
                     </td>
                 </tr>
             </table>
-            <table id="tblCommissionStructureRule1" runat="server" width="120%">
+            <table id="tblCommissionStructureRule1" runat="server" width="120%" >
                 <tr>
                     <td>
                         <asp:Panel ID="Panel2" runat="server" class="Landscape" Width="82%" ScrollBars="Horizontal">
@@ -1323,10 +1323,10 @@
                                         <telerik:GridBoundColumn UniqueName="PaybleUnit" HeaderText="Payable Brokerage Unit"
                                             DataField="PaybleUnit">
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn UniqueName="RecievableValue" HeaderText="Recievable Brokerage Value"
+                                        <telerik:GridBoundColumn UniqueName="ReceivableValue" HeaderText="Recievable Brokerage Value"
                                             DataField="RecievableValue" DataFormatString="{0:N2}">
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn UniqueName="RecievableUnit" HeaderText="Recievable Brokerage Unit"
+                                        <telerik:GridBoundColumn UniqueName="ReceivableUnit" HeaderText="Recievable Brokerage Unit"
                                             DataField="RecievableUnit">
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn UniqueName="WCCO_CalculatedOn" HeaderText="Calculated On"
@@ -1438,6 +1438,15 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
+                                                  <td class="leftLabel">
+                                                        <asp:Label ID="lblCalculatedOn" runat="server" Text="Calculated On:" CssClass="FieldName"></asp:Label>
+                                                    </td>
+                                                    <td class="rightData">
+                                                        <asp:DropDownList ID="ddlCommisionCalOn" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlCommisionCalOn_Selectedindexchanged" AutoPostBack="true">
+                                                        </asp:DropDownList>
+                                                    </td>
+                                                </tr>
+                                                <tr runat="server" id="trMinMAxInvAmount" visible="false">
                                                     <td class="leftLabel">
                                                         <asp:Label ID="lblMinInvestmentAmount" runat="server" Text="Min. Investment Amount:"
                                                             CssClass="FieldName"></asp:Label>
@@ -1545,7 +1554,7 @@
                                                         </asp:DropDownList>
                                                     </td>
                                                 </tr>
-                                                <tr runat="server" id="trMinAndMaxNumberOfApplication">
+                                                <tr runat="server" id="trMinAndMaxNumberOfApplication" visible="false">
                                                     <td class="leftLabel" runat="server" id="tdlb1MinNumberOfApplication">
                                                         <asp:Label ID="lblMinNumberOfApplication" runat="server" Text="Min. no. of applications:"
                                                             CssClass="FieldName"></asp:Label>
@@ -1567,13 +1576,7 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="leftLabel">
-                                                        <asp:Label ID="lblCalculatedOn" runat="server" Text="Calculated On:" CssClass="FieldName"></asp:Label>
-                                                    </td>
-                                                    <td class="rightData">
-                                                        <asp:DropDownList ID="ddlCommisionCalOn" runat="server" CssClass="cmbField">
-                                                        </asp:DropDownList>
-                                                    </td>
+                                                  
                                                     <td class="leftLabel">
                                                         <asp:Label ID="lblRuleNote" runat="server" Text="Comment:" CssClass="FieldName"></asp:Label>
                                                     </td>
@@ -1726,14 +1729,15 @@
                                                                                     &nbsp;
                                                                                 </td>
                                                                             </tr>
+                                                                            </table>
                                                                     </FormTemplate>
                                                                 </EditFormSettings>
                                                             </MasterTableView>
                                                         </telerik:RadGrid>
                                                     </td>
                                                 </tr>
-                                                <tr>
-                                                    <td colspan="5">
+                                                <%--<tr>
+                                                 <%--   <td colspan="5">
                                                         <asp:CustomValidator ID="CustomValidator1" runat="server" Text="Min. invest amount should be less than Max. invest"
                                                             ControlToValidate="txtMaxInvestmentAmount" ClientValidationFunction="InvestmentAmountValidation"
                                                             ValidateEmptyText="true" ValidationGroup="btnSubmitRule" Display="Dynamic" SetFocusOnError="true">
@@ -1746,10 +1750,10 @@
                                                             ControlToValidate="txtMaxInvestAge" ClientValidationFunction="InvestmentAgeValidation"
                                                             ValidateEmptyText="true" ValidationGroup="btnSubmitRule" Display="Dynamic" SetFocusOnError="true">
                                                         </asp:CustomValidator>
-                                                    </td>
-                                                </tr>
+                                                    </td>--%>
+                                              <%--  </tr> --%>
                                             </table>
-                                            </td> </tr> </table>
+                                             
                                         </FormTemplate>
                                     </EditFormSettings>
                                 </MasterTableView>
@@ -1830,6 +1834,12 @@
                                         UniqueName="Action" HeaderText="Action">
                                         <ItemTemplate>
                                             <asp:LinkButton ID="llView" runat="server" Text="View" OnClick="llView_Click"></asp:LinkButton>
+                                        </ItemTemplate>
+                                    </telerik:GridTemplateColumn>
+                                     <telerik:GridTemplateColumn AllowFiltering="false" DataField="" HeaderStyle-Width="110px"
+                                        UniqueName="Action" HeaderText="Action" Visible="false">
+                                        <ItemTemplate>
+                                            <asp:LinkButton ID="llViewUnMapping" runat="server" Text="UNMAP" OnClick="llViewUnMapping_Click"></asp:LinkButton>
                                         </ItemTemplate>
                                     </telerik:GridTemplateColumn>
                                     <%-- <telerik:GridButtonColumn UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete?"
