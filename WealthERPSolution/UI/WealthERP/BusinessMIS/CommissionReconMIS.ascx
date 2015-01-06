@@ -68,6 +68,7 @@
                 <asp:ListItem Text="EXECUTED" Value="IP"> </asp:ListItem>
                 <asp:ListItem Text="ORDERED" Value="IP"> </asp:ListItem>
                 <asp:ListItem Text="ACCEPTED" Value="OR"></asp:ListItem>
+                <asp:ListItem Text="ALLOTTED" Value="OR"></asp:ListItem>
             </asp:DropDownList>
             <asp:CompareValidator ID="CompareValidator6" runat="server" ControlToValidate="ddlOrderStatus"
                 CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select Order Status"
