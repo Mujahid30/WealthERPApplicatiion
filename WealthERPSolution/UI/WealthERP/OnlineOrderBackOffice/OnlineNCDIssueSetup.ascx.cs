@@ -5913,11 +5913,12 @@ namespace WealthERP.OnlineOrderBackOffice
                 Label15.Visible = true;
               txtMaxQty.Visible = true;
               lblMaxError.Visible = true;
-
+              lb1RevisionDate.Visible = false;
+              txtRevisionDates.Visible = false;
                 lb1Trading.Visible = false;
                 txtTradingInMultipleOf.Visible = false;
                 trExchangeCode.Visible = false;
-                trRevisionDate.Visible = false;
+                //trRevisionDate.Visible = false;
                 trlblSyndicatet.Visible = true;
                 trIsCancelAllowed.Visible = false;
                 trNomineeReQuired.Visible = false;
@@ -5936,7 +5937,11 @@ namespace WealthERP.OnlineOrderBackOffice
                 lblAssetsApplication.Visible = true;
 
                 lb1BankName.Visible = false;
-
+                lblSubBrokerCode.Visible = false;
+                txtSubBrokerCode.Visible = false;
+                lb1IsPrefix.Visible = false;
+                chkIsPrefix.Visible = false;
+                txtIsPrefix.Visible = false;
                 txtBankName.Visible = true;
                 ddlBankName.Visible = false;
 
@@ -5946,7 +5951,8 @@ namespace WealthERP.OnlineOrderBackOffice
                 //trNomineeReQuired.Visible = true;
                 //trMultipleApplicationAllowed.Visible = false;
                 //trRatingAndModeofTrading.Visible = false;
-                
+                lb1RevisionDate.Visible = true;
+                txtRevisionDates.Visible = true;
                 //trFloorAndFixedPrices.Visible = false;
                 //txtMaxQty.Visible = false;
                 //Label15.Visible = false;
@@ -5957,6 +5963,11 @@ namespace WealthERP.OnlineOrderBackOffice
                 //txtIsPrefix.Visible = true;
                 //tdlb1MinQty.Visible = false;
                 //tdltxtMinQty.Visible = false;
+                lblSubBrokerCode.Visible = true;
+                txtSubBrokerCode.Visible = true;
+                lb1IsPrefix.Visible = true;
+                chkIsPrefix.Visible = true;
+                txtIsPrefix.Visible = true;
                 tdBroker.Visible = false;
                 tdlb1ModeofTrading.Visible = true;
                 tdtxtModeofTrading.Visible = true;

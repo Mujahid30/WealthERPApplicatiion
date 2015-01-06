@@ -94,6 +94,17 @@
             return false;
         }
     }
+    function Calculate() {
+        var facevalue = document.getElementById('<%=txtFaceValue.ClientID %>').value;
+        var Qty = document.getElementById('<%=txtIssueSizeQty.ClientID %>').value;
+        if (Qty != "" && Qty != 0) {
+            document.getElementById('<%=txtIssueSizeAmt.ClientID %>').value = facevalue * Qty;
+
+        }
+        else {
+            document.getElementById('<%=txtIssueSizeAmt.ClientID %>').value = "";
+        }
+    }
 </script>
 
 <style type="text/css">
@@ -1026,7 +1037,7 @@
                 </td>
                 <td class="rightData">
                     <asp:TextBox ID="txtIssueSizeQty" runat="server" CssClass="txtField" Width="200px"
-                        MaxLength="9"></asp:TextBox>
+                        MaxLength="9" onblur="Calculate();"></asp:TextBox>
                     <%-- <span id="Span31" class="spnRequiredField">*</span>--%>
                     <br />
                     <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator39" runat="server" CssClass="rfvPCG"
@@ -1429,7 +1440,7 @@
         <td class="rightData">--%>
                     <asp:Button ID="btnUpdate" runat="server" Text="Update" CssClass="PCGButton" ValidationGroup="SetUpSubmit"
                         OnClick="btnUpdate_Click" />
-                    <asp:Button ID="btnProspect" runat="server" Text="Prospect" CssClass="PCGButton"
+                    <asp:Button ID="btnProspect" runat="server" Text="Prospectus" CssClass="PCGButton"
                         OnClick="btnProspect_Click" />
                     <%-- ValidationGroup="SetUpSubmit"--%>
                 </td>
