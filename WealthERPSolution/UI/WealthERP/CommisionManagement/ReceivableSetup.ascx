@@ -1324,10 +1324,10 @@
                                             DataField="PaybleUnit">
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn UniqueName="RecievableValue" HeaderText="Recievable Brokerage Value"
-                                            DataField="ReceivableValue" DataFormatString="{0:N2}">
+                                            DataField="RecievableValue" DataFormatString="{0:N2}">
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn UniqueName="RecievableUnit" HeaderText="Recievable Brokerage Unit"
-                                            DataField="ReceivableUnit">
+                                            DataField="RecievableUnit">
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn UniqueName="WCCO_CalculatedOn" HeaderText="Calculated On"
                                             DataField="WCCO_CalculatedOn" >

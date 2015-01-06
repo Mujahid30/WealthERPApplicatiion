@@ -1433,7 +1433,7 @@ namespace WealthERP.Receivable
         {
           
             DataSet dsStructureRules = commisionReceivableBo.GetAdviserCommissionStructureRules(advisorVo.advisorId, structureId);
-            RadGridStructureRule.DataSource = dsStructureRules.Tables[0];
+            RadGridStructureRule.DataSource = dsStructureRules;
             RadGridStructureRule.DataBind();
             Cache.Insert(userVo.UserId.ToString() + "CommissionStructureRule", dsStructureRules);
 
