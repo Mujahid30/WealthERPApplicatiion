@@ -143,7 +143,7 @@
                 <asp:ListItem Text="Offline" Value="2"></asp:ListItem>
             </asp:DropDownList>
         </td>
-          <td id="tdlblSubCategory">
+          <td id="tdlblSubCategory" runat="server" visible="false">
             <asp:Label ID="Label1" runat="server" Text="Select Category" CssClass="FieldName"></asp:Label>
         </td>
         <td id="tdSubCategory" runat="server" visible="false">
