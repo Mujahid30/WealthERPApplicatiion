@@ -240,6 +240,8 @@ namespace WealthERP.BusinessMIS {
         protected global::System.Web.UI.WebControls.DropDownList ddlProductCategory;
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl dvMfMIS;
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl dvNCDIPOMIS;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl msgReconComplete;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl msgReconClosed;
 
     }
 }

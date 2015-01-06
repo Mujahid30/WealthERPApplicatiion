@@ -103,6 +103,9 @@ namespace WealthERP.BusinessMIS
 
 
         }
+        //protected void btnUpload_click(object sender, EventArgs e)
+        //{
+        //}
         protected void ddlIssueType_OnSelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlIssueType.SelectedIndex != 0)
@@ -278,22 +281,26 @@ namespace WealthERP.BusinessMIS
         {
             if (e.Item is GridDataItem)
             {
-                if (ddlCommType.SelectedValue != "TC")
-                {
-                    gvCommissionReceiveRecon.MasterTableView.GetColumn("totalNAV").Visible = false;
-                    gvCommissionReceiveRecon.MasterTableView.GetColumn("PerDayAssets").Visible = false;
-                    gvCommissionReceiveRecon.MasterTableView.GetColumn("perDayTrail").Visible = false;
-                    gvCommissionReceiveRecon.MasterTableView.GetColumn("Age").Visible = false;
-
-                }
-                else
+                gvCommissionReceiveRecon.MasterTableView.GetColumn("totalNAV").Visible = false;
+                gvCommissionReceiveRecon.MasterTableView.GetColumn("PerDayAssets").Visible = false;
+                gvCommissionReceiveRecon.MasterTableView.GetColumn("perDayTrail").Visible = false;
+                gvCommissionReceiveRecon.MasterTableView.GetColumn("Age").Visible = false;
+                gvCommissionReceiveRecon.MasterTableView.GetColumn("action").Visible = false;
+                gvCommissionReceiveRecon.MasterTableView.GetColumn("CMFT_ReceivedCommissionAdjustment").Visible = false;
+                gvCommissionReceiveRecon.MasterTableView.GetColumn("UpdatedExpectedAmount").Visible = false;
+                if (ddlCommType.SelectedValue == "TC")
                 {
                     gvCommissionReceiveRecon.MasterTableView.GetColumn("totalNAV").Visible = true;
                     gvCommissionReceiveRecon.MasterTableView.GetColumn("PerDayAssets").Visible = true;
                     gvCommissionReceiveRecon.MasterTableView.GetColumn("perDayTrail").Visible = true;
-                    gvCommissionReceiveRecon.MasterTableView.GetColumn("Age").Visible =true;
+                    gvCommissionReceiveRecon.MasterTableView.GetColumn("Age").Visible = true;
 
-
+                }
+                if (ddlOrderStatus.SelectedValue =="OR")
+                {
+                    gvCommissionReceiveRecon.MasterTableView.GetColumn("action").Visible = true;
+                    gvCommissionReceiveRecon.MasterTableView.GetColumn("CMFT_ReceivedCommissionAdjustment").Visible = true;
+                    gvCommissionReceiveRecon.MasterTableView.GetColumn("UpdatedExpectedAmount").Visible = true;
                 }
             }
 
@@ -444,5 +451,59 @@ namespace WealthERP.BusinessMIS
             ddlProductCategory.Items.Insert(0, new ListItem("Select", "Select"));
 
         }
+        protected void btnSave_Click(object sender, EventArgs e)
+        {
+            string adjustValue = string.Empty;
+
+            string UpdatedExpectedAmt = string.Empty;
+
+
+            GridFooterItem footerRow = (GridFooterItem)gvCommissionReceiveRecon.MasterTableView.GetItems(GridItemType.Footer)[0];
+            foreach (GridDataItem dr in gvCommissionReceiveRecon.Items)
+            {
+                if (dr["ReconStatus"].Text == "closed")
+                {
+                    msgReconClosed.Visible = true;
+                }
+                else
+                {
+                    if (((TextBox)footerRow.FindControl("txtAdjustAmountMultiple")).Text.Trim() == "")
+                    {
+                        adjustValue = ((TextBox)dr.FindControl("txtAdjustAmount")).Text;
+
+                    }
+                    else
+                    {
+                        adjustValue = ((TextBox)footerRow.FindControl("txtAdjustAmountMultiple")).Text;
+
+                    }
+                    CheckBox checkBox = (CheckBox)dr.FindControl("chkId");
+                    if (checkBox.Checked)
+                    {
+                        if (!(string.IsNullOrEmpty(dr["expectedamount"].Text)) & !string.IsNullOrEmpty(adjustValue))
+                        {
+                            UpdatedExpectedAmt = (double.Parse(dr["expectedamount"].Text) + double.Parse(adjustValue)).ToString();
+                            dr["UpdatedExpectedAmount"].Text = UpdatedExpectedAmt;
+                        }
+                        else if (!(string.IsNullOrEmpty(dr["expectedamount"].Text)))
+                        {
+                            UpdatedExpectedAmt = (double.Parse(dr["expectedamount"].Text)).ToString();
+                            dr["UpdatedExpectedAmount"].Text = UpdatedExpectedAmt;
+
+                        }
+                        else if (!string.IsNullOrEmpty(adjustValue))
+                        {
+                            UpdatedExpectedAmt = (double.Parse(adjustValue)).ToString();
+                            dr["UpdatedExpectedAmount"].Text = UpdatedExpectedAmt;
+                        }
+                    }
+
+
+                }
+
+            }
+
+        }
+
     }
 }

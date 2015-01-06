@@ -4,6 +4,30 @@
 <telerik:RadStyleSheetManager ID="RadStyleSheetManager1" runat="server" />
 <telerik:RadScriptManager ID="scptMgr" runat="server">
 </telerik:RadScriptManager>
+<script language="javascript" type="text/javascript">
+    function checkAllBoxes() {
+
+        //get total number of rows in the gridview and do whatever
+        //you want with it..just grabbing it just cause
+        var gvControl = document.getElementById('<%= gvCommissionReceiveRecon.ClientID %>');
+
+        //this is the checkbox in the item template...this has to be the same name as the ID of it
+        var gvChkBoxControl = "chkId";
+
+        //this is the checkbox in the header template
+        var mainChkBox = document.getElementById("chkIdAll");
+
+        //get an array of input types in the gridview
+        var inputTypes = gvControl.getElementsByTagName("input");
+
+        for (var i = 0; i < inputTypes.length; i++) {
+            //if the input type is a checkbox and the id of it is what we set above
+            //then check or uncheck according to the main checkbox in the header template
+            if (inputTypes[i].type == 'checkbox' && inputTypes[i].id.indexOf(gvChkBoxControl, 0) >= 0)
+                inputTypes[i].checked = mainChkBox.checked;
+        }
+    }
+</script>
 <table width="100%">
     <tr>
         <td>
@@ -20,6 +44,24 @@
                         </td>
                     </tr>
                 </table>
+            </div>
+        </td>
+    </tr>
+</table>
+<table width="100%">
+    <tr>
+        <td align="center">
+            <div id="msgReconComplete" runat="server" class="success-msg" align="center" visible="false">
+                Recon Status Marked closed
+            </div>
+        </td>
+    </tr>
+</table>
+<table width="100%">
+    <tr>
+        <td align="center">
+            <div id="msgReconClosed" runat="server" class="failure-msg" align="center" visible="false">
+                Recon staus Closed,So can't save changes
             </div>
         </td>
     </tr>
@@ -59,8 +101,8 @@
         </td>
     </tr>
     <tr id="trSelectProduct" runat="server">
-        <td align="left" class="leftField" width="20%">
-            <asp:Label ID="Label2" runat="server" Text="Order Status:" CssClass="FieldName"></asp:Label>
+       <td align="left" class="leftField" width="20%">
+            <asp:Label ID="Label2" runat="server" Text="Order Status" CssClass="FieldName"></asp:Label>
         </td>
         <td>
             <asp:DropDownList ID="ddlOrderStatus" runat="server" CssClass="cmbField">
@@ -207,18 +249,28 @@
 <div style="width: 100%; overflow: scroll;" runat="server" visible="false" id="dvMfMIS">
     <telerik:RadGrid ID="gvCommissionReceiveRecon" runat="server" GridLines="None" AutoGenerateColumns="False"
         PageSize="15" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
-        Skin="Telerik" EnableViewState="true" EnableEmbeddedSkins="false" Width="150%"
+        Skin="Telerik" EnableViewState="true" EnableEmbeddedSkins="false" Width="200%"
         AllowFilteringByColumn="true" AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true"
         EnableHeaderContextMenu="true" OnItemDataBound="gvWERPTrans_ItemDataBound" EnableHeaderContextFilterMenu="true"
         OnNeedDataSource="gvCommissionReceiveRecon_OnNeedDataSource">
-        <%--<exportsettings hidestructurecolumns="true" exportonlydata="true" ignorepaging="true"
-                    filename="Company/Sector" excel-format="ExcelML">--%>
-        <%-- </exportsettings>--%>
         <MasterTableView Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
             CommandItemDisplay="None" GroupsDefaultExpanded="false" ExpandCollapseColumn-Groupable="true"
             GroupLoadMode="Client" ShowGroupFooter="true" DataKeyNames="CMFT_MFTransId,totalNAV,perDayTrail,PerDayAssets">
             <Columns>
-                <telerik:GridBoundColumn HeaderStyle-Width="10%" HeaderText="Sub Broker Code" DataField="CMFT_SubBrokerCode"
+            <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="action" DataField="action" HeaderStyle-Width="10%" Visible="false">
+                    <HeaderTemplate>
+                        <input id="chkIdAll" name="chkIdAll" type="checkbox" onclick="checkAllBoxes()" />
+                    </HeaderTemplate>
+                    <ItemTemplate>
+                        <asp:CheckBox ID="chkId" runat="server" />
+                        <asp:HiddenField ID="hdnchkBx" runat="server" Value='<%# Eval("CMFT_MFTransId").ToString()%>' />
+                    </ItemTemplate>
+                    <FooterTemplate>
+                        <asp:Button ID="btnSave" CssClass="FieldName"  runat="server"
+                            Text="Update Expected Amt"  OnClick="btnSave_Click"/>
+                    </FooterTemplate>
+                </telerik:GridTemplateColumn>
+                <telerik:GridBoundColumn HeaderStyle-Width="8%" HeaderText="Sub Broker Code" DataField="CMFT_SubBrokerCode"
                     HeaderStyle-HorizontalAlign="Right" UniqueName="CMFT_SubBrokerCode" SortExpression="CMFT_SubBrokerCode"
                     AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                     FooterStyle-HorizontalAlign="Right">
@@ -264,26 +316,26 @@
                     FooterStyle-HorizontalAlign="Right" Visible="false">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="60px" HeaderText="Commission Amount Received"
+                <telerik:GridBoundColumn HeaderStyle-Width="10%" HeaderText="Commission Amount Received"
                     DataField="receivedamount" HeaderStyle-HorizontalAlign="Right" UniqueName="receivedamount"
                     SortExpression="receivedamount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains" FooterStyle-HorizontalAlign="Right"
                     Visible="false">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="20px" HeaderText="Cumulative Nav" DataField="totalNAV"
+                <telerik:GridBoundColumn HeaderStyle-Width="10%" HeaderText="Cumulative Nav" DataField="totalNAV"
                     HeaderStyle-HorizontalAlign="Right" UniqueName="totalNAV" SortExpression="totalNAV"
                     AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                     FooterStyle-HorizontalAlign="Right" DataType="System.Decimal">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="20px" HeaderText="PerDayAssets" DataField="PerDayAssets"
+                <telerik:GridBoundColumn HeaderStyle-Width="10%" HeaderText="PerDayAssets" DataField="PerDayAssets"
                     HeaderStyle-HorizontalAlign="Right" UniqueName="PerDayAssets" SortExpression="PerDayAssets"
                     AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                     FooterStyle-HorizontalAlign="Right" DataType="System.Decimal">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="20px" HeaderText="PerDayTrail" DataField="perDayTrail"
+                <telerik:GridBoundColumn HeaderStyle-Width="10%" HeaderText="PerDayTrail" DataField="perDayTrail"
                     HeaderStyle-HorizontalAlign="Right" UniqueName="perDayTrail" SortExpression="perDayTrail"
                     AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                     FooterStyle-HorizontalAlign="Right" DataType="System.Decimal">
@@ -295,9 +347,9 @@
                     ShowFilterIcon="false" CurrentFilterFunction="Contains" FooterStyle-HorizontalAlign="Right">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridTemplateColumn HeaderStyle-Width="160px" HeaderText="Commission Adjustment Amount"
+                <telerik:GridTemplateColumn HeaderStyle-Width="10%" HeaderText="Commission Adjustment Amount"
                     DataField="CMFT_ReceivedCommissionAdjustment" SortExpression="CMFT_ReceivedCommissionAdjustment"
-                    AutoPostBackOnFilter="true" ShowFilterIcon="false" Visible="false">
+                    AutoPostBackOnFilter="true" ShowFilterIcon="false" Visible="false" UniqueName="CMFT_ReceivedCommissionAdjustment">
                     <ItemTemplate>
                         <asp:TextBox ID="txtAdjustAmount" CssClass="txtField" runat="server" Text='<%# Eval("adjust").ToString()%>'></asp:TextBox>
                     </ItemTemplate>
@@ -311,11 +363,11 @@
                     FooterStyle-HorizontalAlign="Right" Visible="false">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="Commission Updated Expected Amount"
+                <telerik:GridBoundColumn HeaderStyle-Width="10%" HeaderText="Commission Updated Expected Amount"
                     DataField="UpdatedExpectedAmount" HeaderStyle-HorizontalAlign="Right" UniqueName="UpdatedExpectedAmount"
                     SortExpression="UpdatedExpectedAmount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains" FooterStyle-HorizontalAlign="Right"
-                    Visible="false">
+                   >
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="Recon Status" DataField="ReconStatus"
@@ -353,7 +405,7 @@
         <%--<exportsettings hidestructurecolumns="true" exportonlydata="true" ignorepaging="true"
                     filename="Company/Sector" excel-format="ExcelML">--%>
         <%-- </exportsettings>--%>
-        <MasterTableView Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
+        <MasterTableView Width="150%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
             CommandItemDisplay="None" GroupsDefaultExpanded="false" ExpandCollapseColumn-Groupable="true"
             GroupLoadMode="Client" ShowGroupFooter="true">
             <Columns>
@@ -433,6 +485,12 @@
                     ShowFilterIcon="false" CurrentFilterFunction="Contains" FooterStyle-HorizontalAlign="Right">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
+                 <telerik:GridBoundColumn HeaderStyle-Width="10%" HeaderText="Rule Name"
+                    DataField="ACSR_CommissionStructureRuleName" HeaderStyle-HorizontalAlign="Right" UniqueName="ACSR_CommissionStructureRuleName"
+                    SortExpression="ACSR_CommissionStructureRuleName" AutoPostBackOnFilter="true" AllowFiltering="false"
+                    ShowFilterIcon="false" CurrentFilterFunction="Contains" FooterStyle-HorizontalAlign="Right">
+                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
             </Columns>
         </MasterTableView>
         <ClientSettings>
@@ -448,3 +506,9 @@
 <asp:HiddenField ID="hdnSBbrokercode" runat="server" />
 <asp:HiddenField ID="hdnIssueId" runat="server" />
 <asp:HiddenField ID="hdnProductCategory" runat="server" />
+<div runat="server" id="divBtnActionSection" visible="false">
+    <asp:Button ID="btnUpload"  runat="server" Text="Mark Recon Status"
+        CssClass="PCGLongButton" />
+   
+</div>
+
