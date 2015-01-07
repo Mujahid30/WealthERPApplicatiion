@@ -23,6 +23,7 @@ namespace WealthERP.OffLineOrderManagement {
         protected global::System.Web.UI.ScriptManager scrptMgr;
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trSumbitSuccess;
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl msgRecordStatus;
+        protected global::Telerik.Web.UI.RadWindow radCustomApp;
 
         
         /// <summary>
@@ -1899,5 +1900,38 @@ namespace WealthERP.OffLineOrderManagement {
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnPortfolioId;
         protected global::System.Web.UI.WebControls.Calendar cldPaymentInstDate;
+
+
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trIndividualName;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trNonIndividualName;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trSalutation;
+        protected global::System.Web.UI.WebControls.DropDownList ddlCustomerSubType;
+        /// <summary>
+        /// rbtnIndividual control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton rbtnIndividual;
+        protected global::System.Web.UI.WebControls.RadioButton rbtnNonIndividual;
+        /// <summary>
+        /// lblPanDuplicate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPanDuplicate;
+        protected global::System.Web.UI.WebControls.TextBox txtFirstName;
+        protected global::System.Web.UI.WebControls.TextBox txtPanNumber;
+        protected global::System.Web.UI.WebControls.TextBox txtCompanyName;
+        protected global::System.Web.UI.WebControls.DropDownList ddlAdviserBranchList;
+        protected global::System.Web.UI.WebControls.DropDownList ddlAdviseRMList;
+        protected global::System.Web.UI.WebControls.TextBox txtMobileNumber;
+        protected global::System.Web.UI.WebControls.TextBox txtEmail;
+        protected global::System.Web.UI.WebControls.TextBox txtMiddleName;
+        protected global::System.Web.UI.WebControls.TextBox txtLastName;
+        protected global::System.Web.UI.WebControls.DropDownList ddlSalutation;
     }
 }
