@@ -135,7 +135,7 @@
                         </td>
                         <td align="right">
                             <asp:LinkButton ID="lnkBtnEdit" runat="server" CssClass="LinkButtons" Text="Edit"
-                                OnClick="lnkBtnEdit_Click"></asp:LinkButton>
+                                OnClick="lnkBtnEdit_Click" Visible="false"></asp:LinkButton>
                             &nbsp; &nbsp;
                             <asp:LinkButton runat="server" ID="lnlBack" CssClass="LinkButtons" Text="Back" Visible="false"
                                 OnClick="lnlBack_Click"></asp:LinkButton>&nbsp; &nbsp;
@@ -1998,7 +1998,7 @@
                                                                     ErrorMessage="Please Enter Tenure Units" Display="Dynamic" ControlToValidate="ddlTenureUnits"
                                                                     ValidationGroup="btnOK" InitialValue="Select">
                                                                 </asp:RequiredFieldValidator>
-                                                                <asp:Label ID="Label20" runat="server" Text="(Months)" CssClass="FieldName"></asp:Label>
+                                                                <asp:Label ID="Label20" runat="server"  CssClass="FieldName"></asp:Label>
                                                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator24" runat="server" CssClass="rfvPCG"
                                                                     ErrorMessage="<br />Please Enter Tenure" Display="Dynamic" ControlToValidate="txtTenure"
                                                                     ValidationGroup="btnOK" InitialValue="">

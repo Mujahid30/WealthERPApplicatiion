@@ -92,8 +92,10 @@ namespace WealthERP.OnlineOrderBackOffice
                 //if (product == null)
                 //    product = "NCD";
                 ViewIssueList(issueNo, advisorVo.advisorId, product);
+                lnkBtnEdit.Visible = true; 
                 VisblityAndEnablityOfScreen("View");
                 // EnablityOfControlsonProductAndIssueTypeSelection("Select");
+                btnUpdate.Visible = false;
             }
             else
             {
@@ -821,9 +823,10 @@ namespace WealthERP.OnlineOrderBackOffice
             }
             else if (Mode == "AfterUpdate")
             {
-                //After Update
+                //After UpdatelnkBtnEdit
                 EnablityOfScreen(false, true, false, false);
-            }
+                lnkBtnEdit.Visible = true;
+                          }
         }
 
         private void EnablityOfScreen(bool value, bool boolGridsEnablity, bool boolGridsVisblity, bool boolBtnsVisblity)
@@ -834,7 +837,12 @@ namespace WealthERP.OnlineOrderBackOffice
 
             ddlProduct.Enabled = value;
             ddlSubInstrCategory.Enabled = value;
-
+            ddlRegistrar.Enabled = value;
+            txtIssueSizeQty.Enabled = value;
+            txtIssueSizeAmt.Enabled = value;
+            txtBankName.Enabled = value;
+            txtBankBranch.Enabled = value;
+            ddlBrokerCode.Enabled = value;
             txtName.Enabled = value;
             ddlIssuer.Enabled = value;
 
@@ -908,7 +916,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
             btnSetUpSubmit.Visible = !boolBtnsVisblity;
             btnUpdate.Visible = boolBtnsVisblity;
-            lnkBtnEdit.Visible = true;
+            //lnkBtnEdit.Visible = true;
             lnlBack.Visible = boolBtnsVisblity;
             //lnkDelete.Visible = boolBtnsVisblity;
 
@@ -1414,10 +1422,11 @@ namespace WealthERP.OnlineOrderBackOffice
                 issueId = onlineNCDBackOfficeBo.UpdateIssue(onlineNCDBackOfficeVo, userVo.UserId);
                 if (issueId > 0)
                 {
+                    lnkBtnEdit.Visible = true;
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Issue Updated successfully.');", true);
                     VisblityAndEnablityOfScreen("AfterUpdate");
                     btnSetUpSubmit.Visible = false;
-                    lnkBtnEdit.Visible = true;
+                   
                     lnlBack.Visible = true;
 
                 }
@@ -3140,8 +3149,8 @@ namespace WealthERP.OnlineOrderBackOffice
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
             int result = UpdateIssue();
+           
             SeriesAndCategoriesGridsVisiblity(Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text));
-            lnkBtnEdit.Visible = true;
         }
 
         protected void lnkBtnEdit_Click(object sender, EventArgs e)
@@ -3161,7 +3170,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 else
 
                     VisblityAndEnablityOfScreen("LnkEdit");
-                lnkBtnEdit.Visible = false;
+                //lnkBtnEdit.Visible = false;
             }
         }
 
@@ -5163,11 +5172,23 @@ namespace WealthERP.OnlineOrderBackOffice
             if (i > 0)
             {
                 if (commandType == "INSERT")
+                {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Inserted Successfully.');", true);
+                    radIssuerPopUp.VisibleOnPageLoad = false;
+                }
                 else if (commandType == "UPDATE")
+                {
+                    radIssuerPopUp.VisibleOnPageLoad = false;
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Updated Successfully.');", true);
+                   
+
+                }
                 else
+                {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Deleted Successfully.');", true);
+                    radIssuerPopUp.VisibleOnPageLoad = false;
+
+                }
             }
         }
 
@@ -5334,7 +5355,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 CreateUpdateDeleteIssuer(issuerId, "", "", "DELETE");
 
             }
-            BindIssuerGrid();
+            //BindIssuerGrid();
             BindIssuer(category);
 
         }
