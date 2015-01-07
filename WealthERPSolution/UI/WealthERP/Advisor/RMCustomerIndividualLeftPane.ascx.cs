@@ -1587,6 +1587,10 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "script", "<script type='text/javascript'>buttonCliclIPO();</script>", false);
                 }
+                else if (e.Item.Value == "MF_STP")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "NCDIssueHoldings", "loadcontrol('MFOrderSTPTransType','none');", true);
+                }
                 else if (e.Item.Value == "Bond_Order")
                 {
                 }
