@@ -1589,14 +1589,15 @@ namespace WealthERP.Receivable
 
         }
 
-        protected void rgPayableMapping_ItemCommand(object source, GridCommandEventArgs e)
-        {
-            if (e.Item is GridEditFormInsertItem && e.Item.OwnerTableView.IsItemInserted)
-            {
-                object obj = e.CommandArgument;
-                string ID = obj.ToString();
-            }
-        }
+        //protected void rgPayableMapping_ItemCommand(object source, GridCommandEventArgs e)
+        //{
+        //    if (e.Item is GridEditFormInsertItem && e.Item.OwnerTableView.IsItemInserted)
+        //    {
+        //        object obj = e.CommandArgument;
+        //        string ID = obj.ToString();
+        //    }
+        //}
+       
         protected void RadGridStructureRule_InsertCommand(object source, GridCommandEventArgs e)
         {
             bool isPageValid = true;
@@ -3158,10 +3159,13 @@ namespace WealthERP.Receivable
                     commisionReceivableBo.DeleteIssueMapping(setupId);
                     GetUnamppedIssues(ddlIssueType.SelectedValue);
                     GetMapped_Unmapped_Issues("Mapped", "");
+                   
                 }
                 else
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please remove Mapping then try.');", true);
+                    GetMapped_Unmapped_Issues("Mapped", "");
+                   
                     return;
                 }
             }
@@ -3171,17 +3175,26 @@ namespace WealthERP.Receivable
         {
 
             int mappingId;
+            int resultMapping;
             if (string.IsNullOrEmpty(ddlUnMappedIssues.SelectedValue))
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select Issue');", true);
                 return;
             }
-            if (gvMappedIssueList.Items.Count > 0 && ddlCategory.SelectedValue == "FICGCG")
+            if (gvMappedIssueList.Items.Count>=1)
             {
-                // tbNcdIssueList.Visible
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('One issue can map to structure');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Only one issue can map to structure');", true);
                 return;
             }
+
+            resultMapping=commisionReceivableBo.IssueMappingDuplicateChecks(Convert.ToInt32(ddlUnMappedIssues.SelectedValue), Convert.ToDateTime(txtValidityFrom.Text), Convert.ToDateTime(txtValidityTo.Text), Convert.ToInt32(hidCommissionStructureName.Value) );
+            if (resultMapping > 0)
+            {
+                // tbNcdIssueList.Visible
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Issue already mapped to Other structure within validity period');", true);
+                return;
+            }
+            
             commissionStructureRuleVo.CommissionStructureId = Convert.ToInt32(hidCommissionStructureName.Value);
 
             commissionStructureRuleVo.IssueId = Convert.ToInt32(ddlUnMappedIssues.SelectedValue);
@@ -3190,6 +3203,22 @@ namespace WealthERP.Receivable
             GetMapped_Unmapped_Issues("Mapped", "");
 
         }
+         protected void rgPayableMapping_ItemCommand(object source, GridCommandEventArgs e)
+        {
+            if (e.CommandName == "Delete")
+            {
+              
+                int ruleDetailId = Convert.ToInt32(rgPayableMapping.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CSRD_StructureRuleDetailsId"].ToString());
+
+                int result=  commisionReceivableBo.DeleteMapping(ruleDetailId);
+                
+                if(result>0)
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Mapping deleted successfully');", true);
+
+                
+            }
+        }
+        
 
     }
 

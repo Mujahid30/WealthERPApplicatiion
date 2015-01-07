@@ -1101,7 +1101,7 @@
                             </div>
                             <div class="fltlft" style="width: 400px;">
                                 &nbsp;
-                                <asp:Label ID="Label11" runat="server" Text="Commision Management Structure To Issue Mapping "></asp:Label>
+                                <asp:Label ID="Label11" runat="server" Text="Issue Mapping "></asp:Label>
                             </div>
                             <div class="divViewEdit" style="padding-right: 10px;">
                                 <asp:ImageButton ID="ImageButton2" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
@@ -1138,7 +1138,7 @@
                     </td>
                     <td align="right">
                         &nbsp;&nbsp;
-                        <asp:Label ID="Label10" runat="server" Text="Unmmaped Issues:" CssClass="FieldName"></asp:Label>
+                        <asp:Label ID="Label10" runat="server" Text="Unmaped Issues:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
                         <asp:DropDownList ID="ddlUnMappedIssues" runat="server" CssClass="cmbField" AutoPostBack="true"
@@ -1150,16 +1150,16 @@
                             CssClass="rfvPCG" ControlToValidate="ddlUnMappedIssues" ValidationGroup="btnGo"
                             Display="Dynamic" InitialValue="Select"></asp:RequiredFieldValidator>
                     </td>
-                </tr>
-                <tr id="trBtnSubmit" runat="server">
+               <%-- </tr>
+                <tr id="trBtnSubmit" runat="server">--%>
                     <td>
                         <asp:Button ID="btnMAP" runat="server" Text="Map" CssClass="PCGButton" ValidationGroup="btnGo"
                             OnClick="btnMAP_Click" />
                     </td>
                 </tr>
             </table>
-            <asp:Panel ID="pnlIssueList" Visible="false" runat="server" class="Landscape" Width="80%"
-                Height="80%" ScrollBars="Both">
+            <asp:Panel ID="pnlIssueList" Visible="false" runat="server" class="Landscape" Width="50%"
+                Height="50%" ScrollBars="None">
                 <table width="100%">
                     <tr>
                         <td>
@@ -1184,14 +1184,16 @@
                                                 UniqueName="AIM_IssueName" FooterStyle-HorizontalAlign="Left">
                                                 <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="ACSTSM_ValidityStart" HeaderText="Validity From" SortExpression="ValidityFrom"
-                                                ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
-                                                DataFormatString="{0:d}" UniqueName="ACSTSM_ValidityStart" FooterStyle-HorizontalAlign="Left" Visible="false">
+                                            <telerik:GridBoundColumn DataField="ACSTSM_ValidityStart" HeaderText="Validity From"
+                                                SortExpression="ValidityFrom" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                                AutoPostBackOnFilter="true" DataFormatString="{0:d}" UniqueName="ACSTSM_ValidityStart"
+                                                FooterStyle-HorizontalAlign="Left" Visible="false">
                                                 <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="ACSTSM_ValidityEnd" HeaderText="Validity To" SortExpression="ValidityTo"
-                                                ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
-                                                DataFormatString="{0:d}" UniqueName="ACSTSM_ValidityEnd" FooterStyle-HorizontalAlign="Left" Visible="false">
+                                            <telerik:GridBoundColumn DataField="ACSTSM_ValidityEnd" HeaderText="Validity To"
+                                                SortExpression="ValidityTo" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                                AutoPostBackOnFilter="true" DataFormatString="{0:d}" UniqueName="ACSTSM_ValidityEnd"
+                                                FooterStyle-HorizontalAlign="Left" Visible="false">
                                                 <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
                                         </Columns>
@@ -1240,7 +1242,7 @@
                     </td>
                 </tr>
             </table>
-            <table id="tblCommissionStructureRule1" runat="server" width="120%" >
+            <table id="tblCommissionStructureRule1" runat="server" width="120%">
                 <tr>
                     <td>
                         <asp:Panel ID="Panel2" runat="server" class="Landscape" Width="82%" ScrollBars="Horizontal">
@@ -1249,17 +1251,17 @@
                                 ShowStatusBar="true" AllowAutomaticDeletes="True" AllowAutomaticInserts="false"
                                 AllowAutomaticUpdates="false" Skin="Telerik" OnItemDataBound="RadGridStructureRule_ItemDataBound"
                                 OnNeedDataSource="RadGridStructureRule_NeedDataSource" OnInsertCommand="RadGridStructureRule_InsertCommand"
-                                OnItemCommand="RadGridStructureRule_ItemCommand" OnDeleteCommand="RadGridStructureRule_DeleteCommand" 
+                                OnItemCommand="RadGridStructureRule_ItemCommand" OnDeleteCommand="RadGridStructureRule_DeleteCommand"
                                 OnUpdateCommand="RadGridStructureRule_UpdateCommand" Width="90%">
                                 <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="CommissionStructureRule">
                                 </ExportSettings>
                                 <MasterTableView CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false"
-                                    EditMode="EditForms" CommandItemSettings-AddNewRecordText="Create New Commission Structure Rule"
+                                    EditMode="EditForms" CommandItemSettings-AddNewRecordText="Add Rule"
                                     DataKeyNames="ACSR_CommissionStructureRuleName,ACSR_CommissionStructureRuleId,ACSR_MinTenure,WCT_CommissionTypeCode,XCT_CustomerTypeCode,ACSR_TenureUnit,
                                 ACSR_TransactionType,WCU_UnitCode,WCCO_CalculatedOnCode,ACSM_AUMFrequency,ACSR_MaxTenure,ACSR_SIPFrequency,ACG_CityGroupID,
                                 ACSR_ReceivableRuleFrequency,WCAL_ApplicableLevelCode,ACSR_IsServiceTaxReduced,ACSR_IsTDSReduced,ACSM_IsOtherTaxReduced,PaybleValue,PaybleUnit,RecievableValue,RecievableUnit">
                                     <Columns>
-                                        <telerik:GridEditCommandColumn EditText="Edit"     UniqueName="Edit">
+                                        <telerik:GridEditCommandColumn EditText="Edit" UniqueName="Edit">
                                         </telerik:GridEditCommandColumn>
                                         <telerik:GridButtonColumn CommandName="Delete" Text="Delete" ConfirmText="Do you want to delete this rule? Click OK to proceed"
                                             UniqueName="Delete">
@@ -1323,14 +1325,14 @@
                                         <telerik:GridBoundColumn UniqueName="PaybleUnit" HeaderText="Payable Brokerage Unit"
                                             DataField="PaybleUnit">
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn UniqueName="ReceivableValue" HeaderText="Recievable Brokerage Value"
+                                        <telerik:GridBoundColumn UniqueName="ReceivableValue" HeaderText="Receivable Brokerage Value"
                                             DataField="RecievableValue" DataFormatString="{0:N2}">
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn UniqueName="ReceivableUnit" HeaderText="Recievable Brokerage Unit"
+                                        <telerik:GridBoundColumn UniqueName="ReceivableUnit" HeaderText="Receivable Brokerage Unit"
                                             DataField="RecievableUnit">
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn UniqueName="WCCO_CalculatedOn" HeaderText="Calculated On"
-                                            DataField="WCCO_CalculatedOn" >
+                                            DataField="WCCO_CalculatedOn">
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn UniqueName="ACSM_AUMFrequency" HeaderText="AUM Frequency"
                                             DataField="ACSM_AUMFrequency">
@@ -1359,7 +1361,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td class="leftLabel">
-                                                        <asp:Label ID="lb1RuleName" runat="server" Text="Rule Name" CssClass="FieldName"></asp:Label>
+                                                        <asp:Label ID="lb1RuleName" runat="server" Text="Rule Name" CssClass="FieldName" Width="500px"></asp:Label>
                                                     </td>
                                                     <td class="rightData">
                                                         <asp:TextBox ID="TxtRuleName" runat="server" CssClass="txtField"></asp:TextBox>
@@ -1407,7 +1409,7 @@
                                                     <td class="rightData">
                                                         <asp:DropDownList ID="ddlReceivableFrequency" runat="server" CssClass="cmbField">
                                                         </asp:DropDownList>
-                                                        <span id="Span5" class="spnRequiredField" runat="server" visible="false" >*</span>
+                                                        <span id="Span5" class="spnRequiredField" runat="server" visible="false">*</span>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -1438,11 +1440,12 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                  <td class="leftLabel">
+                                                    <td class="leftLabel">
                                                         <asp:Label ID="lblCalculatedOn" runat="server" Text="Calculated On:" CssClass="FieldName"></asp:Label>
                                                     </td>
                                                     <td class="rightData">
-                                                        <asp:DropDownList ID="ddlCommisionCalOn" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlCommisionCalOn_Selectedindexchanged" AutoPostBack="true">
+                                                        <asp:DropDownList ID="ddlCommisionCalOn" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlCommisionCalOn_Selectedindexchanged"
+                                                            AutoPostBack="true">
                                                         </asp:DropDownList>
                                                     </td>
                                                 </tr>
@@ -1576,7 +1579,6 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                  
                                                     <td class="leftLabel">
                                                         <asp:Label ID="lblRuleNote" runat="server" Text="Comment:" CssClass="FieldName"></asp:Label>
                                                     </td>
@@ -1613,18 +1615,21 @@
                                                 <%--<td id="tdRuleDetails" runat="server">--%>
                                                 <tr id="trRuleDetailSection" class="leftLabel" visible="false" runat="server">
                                                     <td colspan="5" class="tdSectionHeading">
-                                                        <div class="divSectionHeading" style="vertical-align: text-bottom">
-                                                            <div class="divSectionHeadingNumber" style="height: 22px; width: 22px">
+                                                        <div class="divSectionHeading"  >
+                                                            <div class="divSectionHeadingNumber"  >
                                                                 3.2
                                                             </div>
-                                                            <div class="fltlft" style="text-align: right; width: 250px;">
-                                                                <asp:Label ID="Label14" runat="server" Text="Add Receivable/Payable Rates"></asp:Label>
+                                                            <div class="fltlft" >
+                                                                <asp:Label ID="Label14" runat="server" Text="Rates"></asp:Label>
                                                             </div>
                                                         </div>
                                                     </td>
+                                                  <%--  <td style="text-align: left; width: 250px;">>
+                                                     <asp:Label ID="Label14" runat="server" Text="Rates"></asp:Label>
+                                                    </td>--%>
                                                 </tr>
                                                 <tr runat="server" id="CommissionTypeCaliculation" class="rightData">
-                                                    <td colspan="4">
+                                                    <td colspan="1">
                                                         <telerik:RadGrid ID="rgCommissionTypeCaliculation" runat="server" AllowSorting="True"
                                                             enableloadondemand="True" PageSize="5" AutoGenerateColumns="False" EnableEmbeddedSkins="False"
                                                             GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="true" AllowPaging="false"
@@ -1632,7 +1637,7 @@
                                                             OnItemCommand="rgCommissionTypeCaliculation_ItemCommand" OnItemDataBound="rgCommissionTypeCaliculation_ItemDataBound"
                                                             Visible="false">
                                                             <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" AutoGenerateColumns="false"
-                                                                Width="50%" EditMode="PopUp" CommandItemSettings-AddNewRecordText="Add Receivable/Payable Rates"
+                                                                Width="50%" EditMode="PopUp" CommandItemSettings-AddNewRecordText="Add Rates"
                                                                 CommandItemDisplay="Top" DataKeyNames="CSRD_StructureRuleDetailsId">
                                                                 <Columns>
                                                                     <telerik:GridEditCommandColumn EditText="Edit" UniqueName="editColumn" CancelText="Cancel"
@@ -1729,12 +1734,13 @@
                                                                                     &nbsp;
                                                                                 </td>
                                                                             </tr>
-                                                                            </table>
+                                                                        </table>
                                                                     </FormTemplate>
                                                                 </EditFormSettings>
                                                             </MasterTableView>
                                                         </telerik:RadGrid>
                                                     </td>
+                                                    
                                                 </tr>
                                                 <%--<tr>
                                                  <%--   <td colspan="5">
@@ -1751,9 +1757,8 @@
                                                             ValidateEmptyText="true" ValidationGroup="btnSubmitRule" Display="Dynamic" SetFocusOnError="true">
                                                         </asp:CustomValidator>
                                                     </td>--%>
-                                              <%--  </tr> --%>
+                                                <%--  </tr> --%>
                                             </table>
-                                             
                                         </FormTemplate>
                                     </EditFormSettings>
                                 </MasterTableView>
@@ -1783,9 +1788,9 @@
                             PageSize="5" AutoGenerateColumns="False" EnableEmbeddedSkins="False" GridLines="None"
                             ShowFooter="True" PagerStyle-AlwaysVisible="true" AllowPaging="false" ShowStatusBar="True"
                             Skin="Telerik" AllowFilteringByColumn="true" OnNeedDataSource="rgPayableMapping_OnNeedDataSource"
-                            Visible="false">
+                            Visible="false" OnItemCommand="rgPayableMapping_ItemCommand" Width="70%">
                             <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" AutoGenerateColumns="false"
-                                Width="60%" DataKeyNames="CSRD_StructureRuleDetailsId,ACSR_CommissionStructureRuleId">
+                                Width="50%" DataKeyNames="CSRD_StructureRuleDetailsId,ACSR_CommissionStructureRuleId">
                                 <Columns>
                                     <%-- <telerik:GridEditCommandColumn EditText="Edit" UniqueName="editColumn" CancelText="Cancel"
                                         UpdateText="Update">--%>
@@ -1836,17 +1841,17 @@
                                             <asp:LinkButton ID="llView" runat="server" Text="View" OnClick="llView_Click"></asp:LinkButton>
                                         </ItemTemplate>
                                     </telerik:GridTemplateColumn>
-                                     <telerik:GridTemplateColumn AllowFiltering="false" DataField="" HeaderStyle-Width="110px"
-                                        UniqueName="Action" HeaderText="Action" Visible="false">
+                                    <%--    <telerik:GridTemplateColumn AllowFiltering="false" DataField="" HeaderStyle-Width="110px"
+                                        UniqueName="Action" HeaderText="Action"  >
                                         <ItemTemplate>
                                             <asp:LinkButton ID="llViewUnMapping" runat="server" Text="UNMAP" OnClick="llViewUnMapping_Click"></asp:LinkButton>
                                         </ItemTemplate>
-                                    </telerik:GridTemplateColumn>
-                                    <%-- <telerik:GridButtonColumn UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete?"
+                                    </telerik:GridTemplateColumn>--%>
+                                    <telerik:GridButtonColumn UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete?"
                                         ConfirmDialogType="RadWindow" ConfirmTitle="Delete" ButtonType="LinkButton" CommandName="Delete"
-                                        Text="Delete" Visible="false">
+                                        Text="Delete">
                                         <ItemStyle HorizontalAlign="Center" CssClass="MyImageButton" />
-                                    </telerik:GridButtonColumn>--%>
+                                    </telerik:GridButtonColumn>
                                 </Columns>
                             </MasterTableView>
                             <ClientSettings>

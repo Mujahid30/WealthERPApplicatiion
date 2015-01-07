@@ -72,6 +72,7 @@ namespace WealthERP.CommisionManagement
 
                 }
                 BindPayableGrid();
+                SelectionsBasedOnMappingFor();
               
                  
             }
@@ -163,27 +164,36 @@ namespace WealthERP.CommisionManagement
 
         protected void ddlMapping_Selectedindexchanged(object sender, EventArgs e)
         {
+            SelectionsBasedOnMappingFor();
+            GetControlsBasedOnType(ddlType.SelectedValue);
+        }
+
+
+        private void SelectionsBasedOnMappingFor( )
+        {
             if (ddlMapping.SelectedValue == "Staff")
             {
                 ddlType.SelectedValue = "Custom";
+                ddlType.Enabled = false;
                 rfvddlAdviserCategory.Visible = false;
                 RadListBoxSelectedAgentCodes.Items.Clear();
             }
-            else 
+            else
             {
-                
+
                 if (ddlType.SelectedValue == "Custom")
-                {
-                    //rfvddlAdviserCategory.Visible = false;
+                {                   
                     RadListBoxSelectedAgentCodes.Items.Clear();
                 }
                 ddlType.SelectedValue = "UserCategory";
-               
+                ddlType.Enabled = true;
+
+
 
             }
-            GetControlsBasedOnType(ddlType.SelectedValue);
         }
-        
+
+
         private void GetControlsBasedOnType(string type)
         {
             if (type == "Custom")

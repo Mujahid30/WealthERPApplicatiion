@@ -147,7 +147,57 @@ namespace DaoCommisionManagement
         }
 
 
+        public int IssueMappingDuplicateChecks(int issueId, DateTime validityStart, DateTime validityEnd, int structureId )
+        {
+            Database db;
+            DbCommand cmdCreateCommissionStructure;
+            int result=0;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdCreateCommissionStructure = db.GetStoredProcCommand("SPROC_IssueMappingDuplicateChecks");
+                db.AddInParameter(cmdCreateCommissionStructure, "@issueId", DbType.Int32, issueId);
+                db.AddInParameter(cmdCreateCommissionStructure, "@validityStart", DbType.DateTime, validityStart);
+                db.AddInParameter(cmdCreateCommissionStructure, "@validityEnd", DbType.DateTime, validityEnd);
+                db.AddInParameter(cmdCreateCommissionStructure, "@structureId", DbType.Int32, structureId);
+               // db.AddOutParameter(cmdCreateCommissionStructure, "@structureId", DbType.Int32, result);
 
+                if(!string.IsNullOrEmpty(db.ExecuteScalar(cmdCreateCommissionStructure).ToString()))
+                {
+                  result = Convert.ToInt32(db.ExecuteScalar(cmdCreateCommissionStructure));
+                }
+
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return result;
+
+        }
+
+        public int  DeleteMapping(  int ruleDetailId)
+        {
+            Database db;
+            DbCommand cmdCreateCommissionStructure;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdCreateCommissionStructure = db.GetStoredProcCommand("SPROC_DeleteMapping");
+                db.AddInParameter(cmdCreateCommissionStructure, "@ruleDetailId", DbType.Int32, ruleDetailId);
+               int i= db.ExecuteNonQuery(cmdCreateCommissionStructure);
+               if (i > 0)
+                   return 1;
+               else
+                   return 0;
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+        }
         public void CreateIssuesStructureMapings(CommissionStructureRuleVo commissionStructureRuleVo, out  int instructureId)
         {
             Database db;
@@ -391,7 +441,7 @@ namespace DaoCommisionManagement
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                cmdGetCommissionStructureRules = db.GetStoredProcCommand("SPROC_GetAdviserCommissionStructureRules");
+                cmdGetCommissionStructureRules = db.GetStoredProcCommand("SPROC_GetAdviserCommissionStructureRules_Test");
                 db.AddInParameter(cmdGetCommissionStructureRules, "@A_AdviserId", DbType.Int32, adviserId);
                 db.AddInParameter(cmdGetCommissionStructureRules, "@StructureId", DbType.Int32, structureId);
                 ds = db.ExecuteDataSet(cmdGetCommissionStructureRules);

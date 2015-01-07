@@ -75,8 +75,28 @@
                                             HeaderText="Rule Det. Id" UniqueName="CSRD_StructureRuleDetailsId" ReadOnly="true">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="40px" Wrap="false" />
                                         </telerik:GridBoundColumn>
+                                        
+                                         <telerik:GridBoundColumn DataField="RuleName" HeaderStyle-Width="70px"
+                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                            HeaderText="Rule Name" UniqueName="RuleName" ReadOnly="true">
+                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="40px" Wrap="false" />
+                                        </telerik:GridBoundColumn>
+                                        
+                                        <telerik:GridBoundColumn DataField="MappingFor" HeaderStyle-Width="70px"
+                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                            HeaderText="Mapping For" UniqueName="MappingFor" ReadOnly="true">
+                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="40px" Wrap="false" />
+                                        </telerik:GridBoundColumn>
+                                        
+                                        
+                                      <%--  <telerik:GridBoundColumn DataField="Type" HeaderStyle-Width="70px"
+                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                            HeaderText="Type" UniqueName="Type" ReadOnly="true">
+                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="40px" Wrap="false" />
+                                        </telerik:GridBoundColumn>--%>
+                                        
                                         <telerik:GridBoundColumn DataField="ACC_UserType" HeaderStyle-Width="70px" CurrentFilterFunction="Contains"
-                                            ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="User Type" UniqueName="ACC_UserType"
+                                            ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Type" UniqueName="ACC_UserType"
                                             ReadOnly="true">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="40px" Wrap="false" />
                                         </telerik:GridBoundColumn>
