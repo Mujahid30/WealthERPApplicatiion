@@ -28,7 +28,7 @@
                 <table width="100%">
                     <tr>
                         <td align="left">
-                            Payable Structure To Agent Category Mapping
+                          Payable Mapping
                             <asp:HiddenField ID="hdnStructId" runat="server" />
                             <asp:HiddenField ID="hdnProductId" runat="server" />
                             <asp:HiddenField ID="hdnStructValidFrom" runat="server" />
@@ -72,7 +72,7 @@
                                     <Columns>
                                         <telerik:GridBoundColumn DataField="CSRD_StructureRuleDetailsId" HeaderStyle-Width="70px"
                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                            HeaderText="Rule Det. Id" UniqueName="CSRD_StructureRuleDetailsId" ReadOnly="true">
+                                            HeaderText="Rule Det. Id" UniqueName="CSRD_StructureRuleDetailsId" ReadOnly="true" Visible="false">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="40px" Wrap="false" />
                                         </telerik:GridBoundColumn>
                                         
@@ -106,7 +106,7 @@
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="400px" Wrap="false" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="AC_CategoryName" HeaderStyle-Width="80px" CurrentFilterFunction="Contains"
-                                            ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Category Name"
+                                            ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Name"
                                             UniqueName="AC_CategoryName" ReadOnly="true">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="400px" Wrap="false" />
                                         </telerik:GridBoundColumn>
