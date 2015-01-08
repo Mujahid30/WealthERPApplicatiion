@@ -4873,11 +4873,11 @@ namespace WealthERP.Uploads
                 ddlListBranch.SelectedValue = "1339";
 
             }
-            else
-            {
-                trRM.Visible = false;
-                trListBranch.Visible = false;
-            }
+            //else
+            //{
+            //    trRM.Visible = false;
+            //    trListBranch.Visible = false;
+            //}
 
             //MF FOLIO UPLOADS DROPDOWN POPULATE -VISHAL 
             if (ddlUploadType.SelectedValue == Contants.ExtractTypeMFFolio)
