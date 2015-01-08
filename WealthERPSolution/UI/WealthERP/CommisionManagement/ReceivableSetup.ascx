@@ -1345,7 +1345,7 @@
                                             <%-- <table>
                                                 <tr id="trRule" runat="server">
                                                     <td id="tdRule" runat="server">--%>
-                                            <table cellspacing="2" cellpadding="2" width="100%">
+                                            <table cellspacing="3" cellpadding="3" width="100%">
                                                 <tr>
                                                     <td colspan="5" class="tdSectionHeading">
                                                         <div class="divSectionHeading" style="vertical-align: text-bottom">
@@ -1361,7 +1361,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td class="leftLabel">
-                                                        <asp:Label ID="lb1RuleName" runat="server" Text="Rule Name" CssClass="FieldName" Width="500px"></asp:Label>
+                                                        <asp:Label ID="lb1RuleName" runat="server" Text="Rule Name" CssClass="FieldName"  ></asp:Label>
                                                     </td>
                                                     <td class="rightData">
                                                         <asp:TextBox ID="TxtRuleName" runat="server" CssClass="txtField"></asp:TextBox>
@@ -1629,7 +1629,7 @@
                                                     </td>--%>
                                                 </tr>
                                                 <tr runat="server" id="CommissionTypeCaliculation" class="rightData">
-                                                    <td colspan="1">
+                                                    <td colspan="2">
                                                         <telerik:RadGrid ID="rgCommissionTypeCaliculation" runat="server" AllowSorting="True"
                                                             enableloadondemand="True" PageSize="5" AutoGenerateColumns="False" EnableEmbeddedSkins="False"
                                                             GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="true" AllowPaging="false"
@@ -1740,7 +1740,7 @@
                                                             </MasterTableView>
                                                         </telerik:RadGrid>
                                                     </td>
-                                                    
+                                                    <td colspan="1"></td>
                                                 </tr>
                                                 <%--<tr>
                                                  <%--   <td colspan="5">

@@ -3093,22 +3093,16 @@ namespace WealthERP.Receivable
             product = hdnProductId.Value.ToString();
             structureId = Convert.ToInt32(hidCommissionStructureName.Value);
             ddlSubInstrCategory.SelectedValue = hdnSubcategoryIds.Value;
-            dtmappedIssues = commisionReceivableBo.GetIssuesStructureMapings(advisorVo.advisorId, type, issueType, product, 0, structureId, (ddlSubInstrCategory.SelectedValue == "" || ddlSubInstrCategory.SelectedValue == "Select") ? "FIFIIP" : ddlSubInstrCategory.SelectedValue).Tables[0];
-            if (dtmappedIssues == null)
-                return;
-            if (dtmappedIssues.Rows.Count == 0)
-                return;
+           
 
             if (type == "Mapped")
             {
+                dtmappedIssues = commisionReceivableBo.GetIssuesStructureMapings(advisorVo.advisorId, type, issueType, product, 0, structureId, (ddlSubInstrCategory.SelectedValue == "" || ddlSubInstrCategory.SelectedValue == "Select") ? "FIFIIP" : ddlSubInstrCategory.SelectedValue).Tables[0];
+
                 gvMappedIssueList.DataSource = dtmappedIssues;
                 gvMappedIssueList.DataBind();
                 pnlIssueList.Visible = true;
-                //if (Cache[userVo.UserId.ToString() + "MappedIssueList"] != null)
-                //    Cache.Remove(userVo.UserId.ToString() + "MappedIssueList");
-                //else
-                //    Cache.Remove(userVo.UserId.ToString() + "MappedIssueList");
-                //Cache.Insert(userVo.UserId.ToString() + "MappedIssueList", dtmappedIssues);
+                
                 if (Request.QueryString["StructureId"] != null)
                 {
                     ddlUnMappedIssues.DataSource = dtmappedIssues;
@@ -3121,6 +3115,7 @@ namespace WealthERP.Receivable
             }
             else if (type == "UnMapped")
             {
+                dtmappedIssues = commisionReceivableBo.GetIssuesStructureMapings(advisorVo.advisorId, type, issueType, product, 0, structureId, (ddlSubInstrCategory.SelectedValue == "" || ddlSubInstrCategory.SelectedValue == "Select") ? "FIFIIP" : ddlSubInstrCategory.SelectedValue).Tables[0];
 
                 ddlUnMappedIssues.DataSource = dtmappedIssues;
                 ddlUnMappedIssues.DataTextField = "AIM_IssueName";
