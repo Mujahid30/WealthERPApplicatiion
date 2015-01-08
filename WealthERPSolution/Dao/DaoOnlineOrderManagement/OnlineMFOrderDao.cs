@@ -140,6 +140,20 @@ namespace DaoOnlineOrderManagement
 
             return dsOrderStatus;
         }
+        public DataSet GetOrderIssueStatus()
+        {
+            DataSet dsOrderStatus;
+            Database db;
+            DbCommand GetOrderStatusCmd;
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetOrderStatusCmd = db.GetStoredProcCommand("Sproc_onl_GetOrderIssueStatus");
+                dsOrderStatus = db.ExecuteDataSet(GetOrderStatusCmd);
+
+            }
+
+            return dsOrderStatus;
+        }
         public DataSet GetControlDetails(int Scheme, string folio)
         {
             DataSet dsGetControlDetails;

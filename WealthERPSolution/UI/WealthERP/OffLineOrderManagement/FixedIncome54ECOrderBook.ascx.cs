@@ -25,6 +25,7 @@ namespace WealthERP.OffLineOrderManagement
         UserVo userVo;
         string userType;
         OfflineBondOrderBo OfflineBondOrderBo = new OfflineBondOrderBo();
+        OnlineMFOrderBo OnlineMFOrderBo = new OnlineMFOrderBo();
         DateTime fromDate, toDate;
         AssociatesUserHeirarchyVo associateuserheirarchyVo;
         string UserTitle;
@@ -69,6 +70,7 @@ namespace WealthERP.OffLineOrderManagement
                 if (!IsPostBack)
                 {
                     BindNcdCategory();
+                    BindOrderStatus();
                 }
         }
         protected void BindIssue(string Category)
@@ -113,7 +115,7 @@ namespace WealthERP.OffLineOrderManagement
         protected void BindAdviserFDrderBook()
         {
 
-            DataTable dt54FDOrderBook = OfflineBondOrderBo.GetFD54IssueOrder(advisorVo.advisorId,fromDate,Convert.ToDateTime(txtOrderTo.SelectedDate), int.Parse(ddlIssue.SelectedValue),userType, AgentCode,ddlCategory.SelectedValue);
+            DataTable dt54FDOrderBook = OfflineBondOrderBo.GetFD54IssueOrder(advisorVo.advisorId,fromDate,Convert.ToDateTime(txtOrderTo.SelectedDate),ddlOrderStatus.SelectedValue, int.Parse(ddlIssue.SelectedValue),userType, AgentCode,ddlCategory.SelectedValue);
 
             if (dt54FDOrderBook.Rows.Count >= 0)
             {
@@ -172,6 +174,29 @@ namespace WealthERP.OffLineOrderManagement
             string agentcode = gv54FDOrderBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["AAC_AgentCode"].ToString();
             string associatename = gv54FDOrderBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["AssociatesName"].ToString();
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "FixedIncome54ECOrderEntry", "loadcontrol( 'FixedIncome54ECOrderEntry','action=" + ddlAction.SelectedItem.Value.ToString() + "&orderId=" + orderId + "&customeId=" + customeId + "&agentcode=" + agentcode + "&associatename=" + associatename + "');", true);
+        }
+        private void BindOrderStatus()
+        {
+            ddlOrderStatus.Items.Clear();
+            DataSet dsOrderStatus;
+            DataTable dtOrderStatus;
+            dsOrderStatus = OnlineMFOrderBo.GetOrderIssueStatus();
+            dtOrderStatus = dsOrderStatus.Tables[0];
+            if (dtOrderStatus.Rows.Count > 0)
+            {
+
+                for (int i = dtOrderStatus.Rows.Count - 1; i >= 0; i--)
+                {
+                    if (dtOrderStatus.Rows[i][1].ToString() == "INPROCESS" || dtOrderStatus.Rows[i][1].ToString() == "EXECUTED")
+                        dtOrderStatus.Rows[i].Delete();
+                }
+                dtOrderStatus.AcceptChanges();
+                ddlOrderStatus.DataSource = dtOrderStatus;
+                ddlOrderStatus.DataTextField = dtOrderStatus.Columns["WOS_OrderStep"].ToString();
+                ddlOrderStatus.DataValueField = dtOrderStatus.Columns["WOS_OrderStepCode"].ToString();
+                ddlOrderStatus.DataBind();
+            }
+            ddlOrderStatus.Items.Insert(0, new ListItem("Select", "0"));
         }
     }
 }

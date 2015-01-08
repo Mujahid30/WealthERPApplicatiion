@@ -541,5 +541,15 @@ namespace BoOnlineOrderManagement
 
 
         }
+        public DataSet GetOrderIssueStatus()
+        {
+            DataSet dsOrderStatus = null;
+            OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
+            {
+                dsOrderStatus = OnlineMFOrderDao.GetOrderIssueStatus();
+            }
+
+            return dsOrderStatus;
+        }
     }
 }

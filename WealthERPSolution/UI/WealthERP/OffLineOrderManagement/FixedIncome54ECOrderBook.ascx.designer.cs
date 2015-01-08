@@ -70,6 +70,6 @@ namespace WealthERP.OffLineOrderManagement {
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnGo;
         protected global::System.Web.UI.WebControls.ImageButton imgexportButton;
-
+        protected global::System.Web.UI.WebControls.DropDownList ddlOrderStatus;
     }
 }

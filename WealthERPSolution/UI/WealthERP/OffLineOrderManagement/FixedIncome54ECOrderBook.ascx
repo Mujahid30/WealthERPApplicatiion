@@ -27,7 +27,7 @@
 </table>
 <table>
     <tr>
-        <td align="right">
+        <td align="left">
             <asp:Label ID="lblCategory" runat="server" Text="Product Category:" CssClass="FieldName"></asp:Label>
         </td>
         <td>
@@ -41,13 +41,20 @@
                 runat="server" InitialValue="Select" ValidationGroup="btnViewOrder">
             </asp:RequiredFieldValidator>
         </td>
-        <td align="right">
+        <td align="left">
             <asp:Label ID="lblIssue" runat="server" Text="Issue Name:" CssClass="FieldName" Visible="false"></asp:Label>
         </td>
-        <td>
-            <asp:DropDownList ID="ddlIssue" runat="server" CssClass="cmbField" Visible="false">
+        <td align="left">
+            <asp:DropDownList ID="ddlIssue" Width="270px" runat="server" CssClass="cmbField" Visible="false">
             </asp:DropDownList>
         </td>
+        <td id="td1" runat="server" align="left">
+            <asp:Label runat="server" class="FieldName" Text="Order Status:" ID="Label1"></asp:Label>
+            <asp:DropDownList CssClass="cmbField" ID="ddlOrderStatus" runat="server" AutoPostBack="false">
+            </asp:DropDownList>
+        </td>
+    </tr>
+    <tr>
         <td align="right">
             <asp:Label ID="lblFromDate" runat="server" CssClass="FieldName" Text="From:"></asp:Label>
         </td>
@@ -101,7 +108,7 @@
                 Display="Dynamic">
             </asp:CompareValidator>
         </td>
-        <td align="right">
+        <td align="left">
             <asp:Button ID="btnGo" runat="server" CssClass="PCGButton" Text="Go" ValidationGroup="btnViewOrder"
                 OnClick="btnGo_OnClick" />
         </td>
@@ -157,8 +164,6 @@
                                             HeaderStyle-Width="160px" HeaderText="PAN Num" UniqueName="C_PANNum">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
-                                      
-                                       
                                         <telerik:GridBoundColumn DataField="C_CustCode" SortExpression="C_CustCode" AutoPostBackOnFilter="true"
                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="true"
                                             HeaderStyle-Width="160px" HeaderText="Client Id" UniqueName="C_CustCode">
@@ -196,7 +201,7 @@
                                             AllowFiltering="true" HeaderStyle-Width="160px" HeaderText="SubBroker Code" UniqueName="AAC_AgentCode">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
-                                         <telerik:GridBoundColumn DataField="CustomerAssociate" SortExpression="CustomerAssociate"
+                                        <telerik:GridBoundColumn DataField="CustomerAssociate" SortExpression="CustomerAssociate"
                                             AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
                                             AllowFiltering="true" HeaderStyle-Width="160px" HeaderText="User Type" UniqueName="CustomerAssociate">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
@@ -249,7 +254,7 @@
                                             HeaderStyle-Width="160px" HeaderText="User Type" UniqueName="UserType">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
-                                          <telerik:GridBoundColumn DataField="CO_CreatedBy" SortExpression="CO_CreatedBy" AutoPostBackOnFilter="true"
+                                        <telerik:GridBoundColumn DataField="CO_CreatedBy" SortExpression="CO_CreatedBy" AutoPostBackOnFilter="true"
                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="true"
                                             HeaderStyle-Width="160px" HeaderText="Created By" UniqueName="CO_CreatedBy">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />

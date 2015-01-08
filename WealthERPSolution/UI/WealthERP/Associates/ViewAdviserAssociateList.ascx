@@ -124,6 +124,11 @@
                                                 AllowFiltering="true" HeaderText="Deputy Head" UniqueName="DeputyHead">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="true" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
+                                               <telerik:GridBoundColumn HeaderStyle-Width="130px" DataField="AAC_AssociateCategoryName" SortExpression="AAC_AssociateCategoryName"
+                                                AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
+                                                AllowFiltering="true" HeaderText="Adviser Category" UniqueName="AAC_AssociateCategoryName">
+                                                <ItemStyle Width="" HorizontalAlign="left" Wrap="true" VerticalAlign="Top" />
+                                            </telerik:GridBoundColumn>
                                              <telerik:GridBoundColumn HeaderStyle-Width="130px" DataField="IsActive" SortExpression="IsActive"
                                                 AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
                                                 AllowFiltering="true" HeaderText="Is Active" UniqueName="IsActive">
