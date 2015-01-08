@@ -385,16 +385,12 @@ namespace WealthERP.BusinessMIS
                 {
                     ddlOrderStatus.Items[2].Enabled = false;
                     ddlOrderStatus.Items[1].Enabled = true;
-                    ddlOrderStatus.Items[4].Enabled = false;
-                    ddlOrderStatus.Items[3].Enabled = true;
-                }
+                                    }
                 else
                 {
                     ddlOrderStatus.Items[1].Enabled = false;
                     ddlOrderStatus.Items[2].Enabled = true;
-                    ddlOrderStatus.Items[4].Enabled = true;
-                    ddlOrderStatus.Items[3].Enabled = false;
-
+                    
                 }
                 ShowHideControlsBasedOnProduct(ddlProduct.SelectedValue);
             }
@@ -502,6 +498,10 @@ namespace WealthERP.BusinessMIS
                 }
 
             }
+
+        }
+        protected void btnUpload_OnClick(object Sender,EventArgs e)
+        {
 
         }
 

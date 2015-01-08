@@ -110,7 +110,6 @@
                 <asp:ListItem Text="EXECUTED" Value="IP"> </asp:ListItem>
                 <asp:ListItem Text="ORDERED" Value="IP"> </asp:ListItem>
                 <asp:ListItem Text="ACCEPTED" Value="OR"></asp:ListItem>
-                <asp:ListItem Text="ALLOTTED" Value="OR"></asp:ListItem>
             </asp:DropDownList>
             <asp:CompareValidator ID="CompareValidator6" runat="server" ControlToValidate="ddlOrderStatus"
                 CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select Order Status"
@@ -462,7 +461,7 @@
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="10%" HeaderText="Alloted Quantity" DataField="allotedQty"
+                <telerik:GridBoundColumn HeaderStyle-Width="10%" HeaderText="Ordered Qty\Accepted Quantity" DataField="allotedQty"
                     UniqueName="allotedQty" SortExpression="allotedQty" AutoPostBackOnFilter="true"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
@@ -479,6 +478,12 @@
                     FooterStyle-HorizontalAlign="Right">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
+                 <telerik:GridBoundColumn HeaderStyle-Width="10%" HeaderText=" Brokerage Rate unit" DataField="WCU_UnitCode"
+                    HeaderStyle-HorizontalAlign="Right" UniqueName="WCU_UnitCode" SortExpression="WCU_UnitCode" AutoPostBackOnFilter="true"
+                    AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                    FooterStyle-HorizontalAlign="Right">
+                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn HeaderStyle-Width="10%" HeaderText="Expected Commission Value"
                     DataField="borkageExpectedvalue" HeaderStyle-HorizontalAlign="Right" UniqueName="borkageExpectedvalue"
                     SortExpression="borkageExpectedvalue" AutoPostBackOnFilter="true" AllowFiltering="false"
@@ -491,6 +496,7 @@
                     ShowFilterIcon="false" CurrentFilterFunction="Contains" FooterStyle-HorizontalAlign="Right">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
+               
             </Columns>
         </MasterTableView>
         <ClientSettings>
@@ -508,7 +514,7 @@
 <asp:HiddenField ID="hdnProductCategory" runat="server" />
 <div runat="server" id="divBtnActionSection" visible="false">
     <asp:Button ID="btnUpload"  runat="server" Text="Mark Recon Status"
-        CssClass="PCGLongButton" />
+        CssClass="PCGLongButton"  OnClick="btnUpload_OnClick"/>
    
 </div>
 

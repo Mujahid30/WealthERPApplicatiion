@@ -241,7 +241,7 @@
                                 UniqueName="Customer_Name" FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="CO_ApplicationNo" HeaderText="App No" SortExpression="CO_ApplicationNo"
+                            <telerik:GridBoundColumn DataField="CO_ApplicationNo" HeaderText="Application No" SortExpression="CO_ApplicationNo"
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
                                 UniqueName="CO_ApplicationNo" FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
@@ -452,7 +452,7 @@
                                 UniqueName="Customer_Name" FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="CO_ApplicationNo" HeaderText="App No" SortExpression="CO_ApplicationNo"
+                            <telerik:GridBoundColumn DataField="CO_ApplicationNo" HeaderText="Application No" SortExpression="CO_ApplicationNo"
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
                                 UniqueName="CO_ApplicationNo" FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
