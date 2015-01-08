@@ -3210,7 +3210,8 @@ namespace WealthERP.Receivable
                 if(result>0)
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Mapping deleted successfully');", true);
 
-                
+                GetUnamppedIssues(ddlIssueType.SelectedValue);
+                GetMapped_Unmapped_Issues("Mapped", "");
             }
         }
         
