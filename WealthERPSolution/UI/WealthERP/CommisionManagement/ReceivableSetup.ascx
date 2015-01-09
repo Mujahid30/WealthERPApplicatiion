@@ -1788,7 +1788,7 @@
                             PageSize="5" AutoGenerateColumns="False" EnableEmbeddedSkins="False" GridLines="None"
                             ShowFooter="True" PagerStyle-AlwaysVisible="true" AllowPaging="false" ShowStatusBar="True"
                             Skin="Telerik" AllowFilteringByColumn="true" OnNeedDataSource="rgPayableMapping_OnNeedDataSource"
-                            Visible="false" OnItemCommand="rgPayableMapping_ItemCommand" Width="70%">
+                              OnItemCommand="rgPayableMapping_ItemCommand" Width="70%">
                             <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" AutoGenerateColumns="false"
                                 Width="50%" DataKeyNames="CSRD_StructureRuleDetailsId,ACSR_CommissionStructureRuleId">
                                 <Columns>
@@ -1849,7 +1849,7 @@
                                     </telerik:GridTemplateColumn>--%>
                                     <telerik:GridButtonColumn UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete?"
                                         ConfirmDialogType="RadWindow" ConfirmTitle="Delete" ButtonType="LinkButton" CommandName="Delete"
-                                        Text="Delete">
+                                        Text="Delete" Visible="false">
                                         <ItemStyle HorizontalAlign="Center" CssClass="MyImageButton" />
                                     </telerik:GridButtonColumn>
                                 </Columns>

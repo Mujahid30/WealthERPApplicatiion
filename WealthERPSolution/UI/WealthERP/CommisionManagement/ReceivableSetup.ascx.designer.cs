@@ -195,6 +195,7 @@ namespace WealthERP.Receivable {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trIssuer;
+        protected global::System.Web.UI.HtmlControls.HtmlTable Table5;
         
         /// <summary>
         /// lblIssuer control.

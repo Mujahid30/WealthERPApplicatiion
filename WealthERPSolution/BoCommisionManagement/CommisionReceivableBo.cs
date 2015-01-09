@@ -328,6 +328,22 @@ namespace BoCommisionManagement
             return dsCommissionRules;
         }
 
+        public int DeleteStaffAndAssociateMapping(int ruleDetailId, int agentId, string category)
+        {
+            CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
+            int result = 0;
+            try
+            {
+                result = commisionReceivableDao.DeleteStaffAndAssociateMapping(ruleDetailId, agentId, category);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return result;
+        }
+
         public int DeleteMapping(int ruleDetailId)
         {
             CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();

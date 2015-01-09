@@ -25,6 +25,7 @@ namespace WealthERP.CommisionManagement
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel upCMGrid;
+       // protected global::Telerik.Web.UI.RadGrid gvPayaMapping;
 
         /// <summary>
         /// hdnStructId control.

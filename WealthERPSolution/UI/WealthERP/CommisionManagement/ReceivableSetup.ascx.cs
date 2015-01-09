@@ -56,7 +56,7 @@ namespace WealthERP.Receivable
                     BindCommissionStructureRuleGrid(structureId);
                     trPayableMapping.Visible = true;
                     BindPayableGrid(structureId);
-                    rgPayableMapping.Visible = true;
+                   // rgPayableMapping.Visible = true;
                     tbNcdIssueList.Visible = false;
 
                     if (ddlProductType.SelectedValue == "MF")
@@ -312,6 +312,16 @@ namespace WealthERP.Receivable
             dsLookupData = commisionReceivableBo.GetPayableCommissionTypeBrokerage(structureId);
             rgPayableMapping.DataSource = dsLookupData;
             rgPayableMapping.DataBind();
+
+            if (rgPayableMapping.Items.Count == 0)
+            {
+                Table5.Visible = false;
+            }
+            else
+            {
+                Table5.Visible = true;
+
+            }
 
             if (Cache[userVo.UserId.ToString() + "RulePayableDet"] != null)
                 Cache.Remove(userVo.UserId.ToString() + "RulePayableDet");
@@ -752,7 +762,7 @@ namespace WealthERP.Receivable
                 tblCommissionStructureRule1.Visible = true;
                 // MapPingLinksBasedOnCpmmissionTypes(ddlCommissionype.SelectedValue);
                 //  Label12.Visible = true;
-                rgPayableMapping.Visible = true;
+              //  rgPayableMapping.Visible = true;
                 // Label13.Visible = true;
                 trPayableMapping.Visible = true;
                 BindPayableGrid(Convert.ToInt32(hidCommissionStructureName.Value));
@@ -1827,8 +1837,7 @@ namespace WealthERP.Receivable
 
 
 
-            //GridEditableItem editedItem = chkBuyAvailability.NamingContainer as GridEditableItem;
-            //RadGrid rgSeriesCat = (RadGrid)editedItem.FindControl("rgSeriesCat");
+            
             if (product == "FI" || product == "IP")
             {
 
@@ -1840,12 +1849,7 @@ namespace WealthERP.Receivable
                 trMinMaxTenure.Visible = enablement;
                 tdMinNumberOfApplication.Visible = enablement;
                 trMinMaxAge.Visible = enablement;
-                //lblMinNumberOfApplication.Visible = enablement;
-
-                //tdtxtMinNumberOfApplication1.Visible = enablement;
-                //lblMaxNumberOfApplication.Visible = enablement;
-
-                //tdtxtMaxNumberOfApplication.Visible = enablement;
+                
                 trMinAndMaxNumberOfApplication.Visible = enablement;
                 if (CommisionType == "UF")
                 {
@@ -1853,64 +1857,46 @@ namespace WealthERP.Receivable
                     ddlCommissionApplicableLevel.Enabled = false;
 
                     ddlCommisionCalOn.Items[1].Enabled = false;
-                    ddlCommisionCalOn.Items[0].Enabled = true;
+                    ddlCommisionCalOn.Items[0].Enabled = false;
 
 
                 }
                 else if (CommisionType == "TC")
                 {
                     ddlCommissionApplicableLevel.Enabled = true;
-                    tdMinNumberOfApplication.Visible = !enablement;
-                    //lblMinNumberOfApplication.Visible = !enablement;
-                    //tdtxtMinNumberOfApplication1.Visible = !enablement;
+                    tdMinNumberOfApplication.Visible = !enablement;                   
                     lblReceivableFrequency.Visible = !enablement;
-                    ddlReceivableFrequency.Visible = !enablement;
-                    //lblMaxNumberOfApplication.Visible = !enablement;
-                    //tdtxtMaxNumberOfApplication.Visible = !enablement;
+                    ddlReceivableFrequency.Visible = !enablement;                   
                     trMinAndMaxNumberOfApplication.Visible = !enablement;
                 }
                 else if (CommisionType == "IN")
                 {
                     ddlCommissionApplicableLevel.SelectedValue = "AD";
                     ddlCommissionApplicableLevel.Enabled = false;
-                    tdMinNumberOfApplication.Visible = !enablement;
-                    //lblMinNumberOfApplication.Visible = !enablement;
-                    //tdtxtMinNumberOfApplication1.Visible = !enablement;
-                    //lblMaxNumberOfApplication.Visible = !enablement;
-                    //tdtxtMaxNumberOfApplication.Visible = !enablement;
+                    tdMinNumberOfApplication.Visible = !enablement;                    
                     trMinAndMaxNumberOfApplication.Visible = !enablement;
                     ddlCommisionCalOn.Items[0].Enabled = false;
                     ddlCommisionCalOn.Items[1].Enabled = true;
-
-
+                    
                 }
             }
             else if (product == "MF")
             {
-
-
+                
 
                 trMinMaxTenure.Visible = enablement;
                 trMinMaxAge.Visible = enablement;
-                //tdMinNumberOfApplication.Visible = enablement;
-                //lblMinNumberOfApplication.Visible = enablement;
-                //tdtxtMinNumberOfApplication1.Visible = enablement;
+                
                 trMinAndMaxNumberOfApplication.Visible = enablement;
                 lblReceivableFrequency.Visible = enablement;
                 ddlReceivableFrequency.Visible = enablement;
                 ddlCommisionCalOn.Enabled = true;
                 if (CommisionType == "IN")
                 {
-                    //ddlCommissionApplicableLevel.SelectedValue = "AD";
-                    //ddlCommissionApplicableLevel.Enabled = false;
+                    
                     trTransactionTypeSipFreq.Visible = !enablement;
                     trMinMaxTenure.Visible = !enablement;
-                    //tdMinNumberOfApplication.Visible = !enablement;
-                    //lblMinNumberOfApplication.Visible = !enablement;
-                    //lblMaxNumberOfApplication.Visible = !enablement;
-                    //tdtxtMaxNumberOfApplication.Visible = !enablement;
-                    //tdtxtMinNumberOfApplication1.Visible = !enablement;
-                    //tdtxtMaxNumberOfApplication.Visible = !enablement;
+                    
                     trMinAndMaxNumberOfApplication.Visible = !enablement;
                     chkListTtansactionType.Visible = enablement;
                     lblTransactionType.Visible = !enablement;
@@ -1918,12 +1904,7 @@ namespace WealthERP.Receivable
                     ddlCommisionCalOn.Items[0].Enabled = false;
                     foreach (ListItem chkItems in chkListTtansactionType.Items)
                     {
-                        //if (chkItems.Value == "SIP" || chkItems.Value == "STB")
-                        //{
-                        //    chkItems.Enabled = false;
-                        //    chkItems.Selected = false;
-                        //}
-                        //else
+                       
                         chkItems.Enabled = true;
                     }
                 }
@@ -1945,12 +1926,7 @@ namespace WealthERP.Receivable
                     ddlCommisionCalOn.Enabled = false;
                     foreach (ListItem chkItems in chkListTtansactionType.Items)
                     {
-                        ////if (chkItems.Value == "SIP" || chkItems.Value == "STB")
-                        ////{
-                        //    chkItems.Enabled = false;
-                        //    chkItems.Selected = false;
-                        //}
-                        //else
+                        
                         chkItems.Enabled = true;
                         chkItems.Selected = true;
                     }
@@ -1969,70 +1945,13 @@ namespace WealthERP.Receivable
                         chkItems.Selected = true;
                     }
                 }
-                //else
-                //{
-                //    tdlb1SipFreq.Visible = !enablement;
-                //    tdddlSipFreq.Visible = !enablement;
-                //    lblReceivableFrequency.Visible = enablement;
-                //    ddlReceivableFrequency.Visible = enablement;
-                //    tdMinNumberOfApplication.Visible = enablement;
-                //    tdtxtMinNumberOfApplication1.Visible = enablement;
-
-                //}
+                
             }
-            //else
-            //{
-            //    lblReceivableFrequency.Visible = !enablement;
-            //    ddlReceivableFrequency.Visible = !enablement;
-            //    trTransactionTypeSipFreq.Visible = !enablement;
-            //    trMinMaxTenure.Visible = !enablement;
-            //    trMinMaxAge.Visible = !enablement;
-            //    tdtxtMinNumberOfApplication1.Visible = !enablement;
-            //    tdtxtMinNumberOfApplication1.Visible = !enablement;
-            //}
+            
 
         }
 
-        //private void ShowAndHideSTructureRuleControlsBasedOnCommissionTypeAndLevel (Label lblReceivableFrequency, DropDownList ddlReceivableFrequency, System.Web.UI.HtmlControls.HtmlTableRow trTransactionTypeSipFreq, System.Web.UI.HtmlControls.HtmlTableRow trMinMaxTenure, System.Web.UI.HtmlControls.HtmlTableRow trMinMaxAge, System.Web.UI.HtmlControls.HtmlTableCell tdMinNumberOfApplication, string product, string CommisionType)
-        //{
-        //    bool enablement = false;
-
-        //      if (product == "MF")
-        //    {
-        //        //if (CommisionType == "IN")
-        //        //{
-        //        //    tdMinNumberOfApplication.Visible = !enablement;
-        //        //}
-        //        if (CommisionType == "Trail Commission")
-        //        {
-        //            lblReceivableFrequency.Visible = !enablement;
-        //            ddlReceivableFrequency.Visible = !enablement;
-        //        }
-        //        //else if (CommisionType == "upfront")
-        //        //{
-        //        //    trTransactionTypeSipFreq.Visible = !enablement;
-
-        //        //}
-        //        else
-        //        {
-        //            lblReceivableFrequency.Visible = enablement;
-        //            ddlReceivableFrequency.Visible = enablement;
-        //            tdMinNumberOfApplication.Visible = enablement;
-        //        }
-        //    }
-        //    else
-        //    {
-        //        lblReceivableFrequency.Visible = !enablement;
-        //        ddlReceivableFrequency.Visible = !enablement;
-        //        trTransactionTypeSipFreq.Visible = !enablement;
-        //        trMinMaxTenure.Visible = !enablement;
-        //        trMinMaxAge.Visible = !enablement;
-        //        tdMinNumberOfApplication.Visible = !enablement;
-
-        //    }
-
-        //}
-
+    
         private bool ValidateCommissionRule(CommissionStructureRuleVo commissionStructureRuleVo)
         {
             bool isValidRule = false;
@@ -3176,11 +3095,11 @@ namespace WealthERP.Receivable
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select Issue');", true);
                 return;
             }
-            if (gvMappedIssueList.Items.Count>=1)
-            {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Only one issue can map to structure');", true);
-                return;
-            }
+            //if (gvMappedIssueList.Items.Count>=1)
+            //{
+            //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Only one issue can map to structure');", true);
+            //    return;
+            //}
 
             resultMapping=commisionReceivableBo.IssueMappingDuplicateChecks(Convert.ToInt32(ddlUnMappedIssues.SelectedValue), Convert.ToDateTime(txtValidityFrom.Text), Convert.ToDateTime(txtValidityTo.Text), Convert.ToInt32(hidCommissionStructureName.Value) );
             if (resultMapping > 0)

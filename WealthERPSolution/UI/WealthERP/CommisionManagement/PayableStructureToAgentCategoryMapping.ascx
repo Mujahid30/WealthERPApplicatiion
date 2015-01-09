@@ -59,7 +59,7 @@
                                 AllowPaging="True" AutoGenerateColumns="False" AllowFilteringByColumn="true"
                                 enableloadondemand="true" EnableEmbeddedSkins="false" GridLines="none" ShowFooter="true"
                                 PagerStyle-AlwaysVisible="true" EnableViewState="true" ShowStatusBar="true" Skin="Telerik"
-                                OnNeedDataSource="gvPayaMapping_NeedDataSource">
+                                OnNeedDataSource="gvPayaMapping_NeedDataSource" OnItemCommand="gvPayaMapping_ItemCommand">
                                 <HeaderContextMenu EnableEmbeddedSkins="False">
                                 </HeaderContextMenu>
                                 <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="PayableMapping"
@@ -67,7 +67,7 @@
                                 </ExportSettings>
                                 <PagerStyle AlwaysVisible="True" />
                                 <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" AutoGenerateColumns="false"
-                                    Width="100%">
+                                    Width="100%" DataKeyNames="CSRD_StructureRuleDetailsId,AAC_AdviserAgentId,AC_Category">
                                     <CommandItemSettings ExportToExcelText="Export to excel" />
                                     <Columns>
                                         <telerik:GridBoundColumn DataField="CSRD_StructureRuleDetailsId" HeaderStyle-Width="70px"
@@ -79,6 +79,12 @@
                                          <telerik:GridBoundColumn DataField="RuleName" HeaderStyle-Width="70px"
                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
                                             HeaderText="Rule Name" UniqueName="RuleName" ReadOnly="true">
+                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="40px" Wrap="false" />
+                                        </telerik:GridBoundColumn>
+                                        
+                                          <telerik:GridBoundColumn DataField="AAC_AdviserAgentId" HeaderStyle-Width="70px"
+                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                            HeaderText="AgentId" UniqueName="AAC_AdviserAgentId" ReadOnly="true">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="40px" Wrap="false" />
                                         </telerik:GridBoundColumn>
                                         
@@ -110,11 +116,18 @@
                                             UniqueName="AC_CategoryName" ReadOnly="true">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="400px" Wrap="false" />
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridButtonColumn ButtonType="LinkButton" Text="Delete" ConfirmText="Do you want to delete the mapping?"
+                                       <%-- <telerik:GridButtonColumn ButtonType="LinkButton" Text="Delete" ConfirmText="Do you want to delete the mapping?"
                                             CommandName="Delete" UniqueName="DeleteCommandColumn" HeaderStyle-Width="50px"
                                             Visible="false">
                                             <ItemStyle HorizontalAlign="Center" VerticalAlign="Top" Width="50px" Wrap="false" />
-                                        </telerik:GridButtonColumn>
+                                        </telerik:GridButtonColumn>--%>
+                                         <telerik:GridButtonColumn UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete?"
+                                        ConfirmDialogType="RadWindow" ConfirmTitle="Delete" ButtonType="LinkButton" CommandName="Delete"
+                                        Text="Delete" HeaderStyle-Width="80px" >
+                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="150px" Wrap="false" />
+                                        
+                                       <%-- <ItemStyle HorizontalAlign="Center" CssClass="MyImageButton" />--%>
+                                    </telerik:GridButtonColumn>
                                     </Columns>
                                     <PagerStyle AlwaysVisible="True" />
                                 </MasterTableView>

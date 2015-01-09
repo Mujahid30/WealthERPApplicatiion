@@ -36,7 +36,7 @@ namespace WealthERP.CommisionManagement
             isRedirect = false;
             if (!IsPostBack)
             {
-               
+
                 if (Request.QueryString["ID"] != null)
                 {
                     isRedirect = true;
@@ -73,8 +73,8 @@ namespace WealthERP.CommisionManagement
                 }
                 BindPayableGrid();
                 SelectionsBasedOnMappingFor();
-              
-                 
+
+
             }
         }
 
@@ -106,7 +106,7 @@ namespace WealthERP.CommisionManagement
             if (Cache[userVo.UserId.ToString() + "CommissionPayable"] != null)
                 Cache.Remove(userVo.UserId.ToString() + "CommissionPayable");
             Cache.Insert(userVo.UserId.ToString() + "CommissionPayable", dsPayable);
- 
+
         }
 
         private void DefaultAssignments()
@@ -169,7 +169,7 @@ namespace WealthERP.CommisionManagement
         }
 
 
-        private void SelectionsBasedOnMappingFor( )
+        private void SelectionsBasedOnMappingFor()
         {
             if (ddlMapping.SelectedValue == "Staff")
             {
@@ -182,7 +182,7 @@ namespace WealthERP.CommisionManagement
             {
 
                 if (ddlType.SelectedValue == "Custom")
-                {                   
+                {
                     RadListBoxSelectedAgentCodes.Items.Clear();
                 }
                 ddlType.SelectedValue = "UserCategory";
@@ -245,10 +245,9 @@ namespace WealthERP.CommisionManagement
         {
             int ruleId = 0;
             if (Request.QueryString["ruleId"] != null)
-                     
-                {
-                    ruleId = int.Parse(Request.QueryString["ruleId"].ToString());
-                }
+            {
+                ruleId = int.Parse(Request.QueryString["ruleId"].ToString());
+            }
 
             int mappingId = 0;
             string agentId = "";
@@ -257,7 +256,7 @@ namespace WealthERP.CommisionManagement
             {
                 foreach (RadListBoxItem ListItem in this.RadListBoxSelectedAgentCodes.Items)
                 {
-                    agentId = agentId + ListItem.Value.ToString()+",";
+                    agentId = agentId + ListItem.Value.ToString() + ",";
                 }
             }
             else
@@ -265,7 +264,7 @@ namespace WealthERP.CommisionManagement
                 categoryId = ddlAdviserCategory.SelectedValue;
             }
 
-            commisionReceivableBo.CreateAdviserPayableRuleToAgentCategoryMapping(Convert.ToInt32(hdnStructId.Value), ddlMapping.SelectedValue, categoryId, agentId, out mappingId,  ruleId);
+            commisionReceivableBo.CreateAdviserPayableRuleToAgentCategoryMapping(Convert.ToInt32(hdnStructId.Value), ddlMapping.SelectedValue, categoryId, agentId, out mappingId, ruleId);
             return mappingId;
 
         }
@@ -284,7 +283,7 @@ namespace WealthERP.CommisionManagement
         private void BindAgentCodes()
         {
             DataSet dsAdviserBranchList = new DataSet();
-            dsAdviserBranchList = commisionReceivableBo.GetAdviserAgentCodes(advisorVo.advisorId,ddlMapping.SelectedValue);
+            dsAdviserBranchList = commisionReceivableBo.GetAdviserAgentCodes(advisorVo.advisorId, ddlMapping.SelectedValue);
             LBAgentCodes.DataSource = dsAdviserBranchList;
             LBAgentCodes.DataValueField = "AgentId";
             LBAgentCodes.DataTextField = "AgentCodeWithName";
@@ -292,7 +291,24 @@ namespace WealthERP.CommisionManagement
 
         }
 
-      
+        protected void gvPayaMapping_ItemCommand(object source, GridCommandEventArgs e)
+        {
+            if (e.CommandName == "Delete")
+            {
+                  int agentId ;
+                int ruleDetailId = Convert.ToInt32(gvPayaMapping.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CSRD_StructureRuleDetailsId"].ToString());
+                if (!string.IsNullOrEmpty(gvPayaMapping.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AAC_AdviserAgentId"].ToString()))
+                    agentId = Convert.ToInt32(gvPayaMapping.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AAC_AdviserAgentId"].ToString());
+                else
+                    agentId = 0;
+                string category = gvPayaMapping.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AC_Category"].ToString();
+
+                int result = commisionReceivableBo.DeleteStaffAndAssociateMapping(ruleDetailId, agentId, category);
+                BindPayableGrid();
+                if (result > 0)
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Mapping deleted successfully');", true);
+            }
+        }
 
         private void SetStructureDetails()
         {
@@ -318,7 +334,7 @@ namespace WealthERP.CommisionManagement
                     txtIssuerName.ToolTip = row["PA_AMCName"].ToString();
                     txtValidFrom.Text = DateTime.Parse(hdnStructValidFrom.Value).ToShortDateString();
                     txtValidTo.Text = DateTime.Parse(hdnStructValidTill.Value).ToShortDateString();
-                    ddlMapping.SelectedValue= row["UserType"].ToString();
+                    ddlMapping.SelectedValue = row["UserType"].ToString();
                     if (ddlMapping.SelectedValue == "Associate")
                     {
                         ddlType.SelectedValue = "UserCategory";
@@ -329,7 +345,7 @@ namespace WealthERP.CommisionManagement
 
                     }
                     GetControlsBasedOnType(ddlType.SelectedValue);
-                  ddlAdviserCategory.SelectedValue = row["AC_CategoryId"].ToString();
+                    ddlAdviserCategory.SelectedValue = row["AC_CategoryId"].ToString();
                 }
 
 

@@ -198,6 +198,34 @@ namespace DaoCommisionManagement
                 throw Ex;
             }
         }
+
+
+        public int DeleteStaffAndAssociateMapping(int ruleDetailId,int agentId,string category)
+        {
+            Database db;
+            DbCommand cmdCreateCommissionStructure;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdCreateCommissionStructure = db.GetStoredProcCommand("SPROC_DeleteStaffAndAssociateMapping");
+                db.AddInParameter(cmdCreateCommissionStructure, "@ruleDetailId", DbType.Int32, ruleDetailId);
+                db.AddInParameter(cmdCreateCommissionStructure, "@agentId", DbType.Int32, agentId);
+                db.AddInParameter(cmdCreateCommissionStructure, "@category", DbType.String, category);
+
+                int i = db.ExecuteNonQuery(cmdCreateCommissionStructure);
+                if (i > 0)
+                    return 1;
+                else
+                    return 0;
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+        }
+
+
         public void CreateIssuesStructureMapings(CommissionStructureRuleVo commissionStructureRuleVo, out  int instructureId)
         {
             Database db;
