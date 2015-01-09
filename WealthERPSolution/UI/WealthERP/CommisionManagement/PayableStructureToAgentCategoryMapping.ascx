@@ -84,7 +84,7 @@
                                         
                                           <telerik:GridBoundColumn DataField="AAC_AdviserAgentId" HeaderStyle-Width="70px"
                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                            HeaderText="AgentId" UniqueName="AAC_AdviserAgentId" ReadOnly="true">
+                                            HeaderText="AgentId" UniqueName="AAC_AdviserAgentId" ReadOnly="true" Visible="false">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="40px" Wrap="false" />
                                         </telerik:GridBoundColumn>
                                         
