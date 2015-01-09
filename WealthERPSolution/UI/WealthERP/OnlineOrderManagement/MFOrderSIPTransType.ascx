@@ -488,9 +488,9 @@
                     <td>
                         <asp:DropDownList ID="ddlDividendFreq" CssClass="cmbField" Style="width: 300px;"
                             runat="server">
-                            <asp:ListItem Selected="True" Value="0">--SELECT--</asp:ListItem>
+                           <%-- <asp:ListItem Selected="True" Value="0">--SELECT--</asp:ListItem>
                             <asp:ListItem Text="Dividend Reinvestment" Value="DVR"></asp:ListItem>
-                            <asp:ListItem Text="Dividend Payout" Value="DVP"></asp:ListItem>
+                            <asp:ListItem Text="Dividend Payout" Value="DVP"></asp:ListItem>--%>
                         </asp:DropDownList>
                         <span id="Span10" class="spnRequiredField">*</span>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Please select Dividend Option"

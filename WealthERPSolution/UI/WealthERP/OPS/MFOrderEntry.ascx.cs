@@ -212,7 +212,7 @@ namespace WealthERP.OPS
         {
             ddlTotalInstallments.Items.Clear();
 
-            dtGetAllSIPDataForOrder = commonLookupBo.GetAllSIPDataForOrder(Convert.ToInt32(txtSchemeCode.Value), ddlFrequencySIP.SelectedValue.ToString());
+            dtGetAllSIPDataForOrder = commonLookupBo.GetAllSIPDataForOrder(Convert.ToInt32(txtSchemeCode.Value), ddlFrequencySIP.SelectedValue.ToString(),"SIP");
             if (dtGetAllSIPDataForOrder == null) return;
 
             int minDues;
@@ -966,7 +966,7 @@ namespace WealthERP.OPS
 
         protected void BindSipUiOnSchemeSelection(int schemeCode)
         {
-            dtGetAllSIPDataForOrder = commonLookupBo.GetAllSIPDataForOrder(schemeCode, ddlFrequencySIP.SelectedValue.ToString());
+            dtGetAllSIPDataForOrder = commonLookupBo.GetAllSIPDataForOrder(schemeCode, ddlFrequencySIP.SelectedValue.ToString(),"SIP");
 
             // SetLatestNav();
             BindFrequencies();

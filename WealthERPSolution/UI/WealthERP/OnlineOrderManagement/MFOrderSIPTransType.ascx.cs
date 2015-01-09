@@ -529,6 +529,8 @@ namespace WealthERP.OnlineOrderManagement
                 trDividendType.Visible = true;
                 trDividendFrequency.Visible = true;
                 //trDividendOption.Visible = true;
+                if (ddlScheme.SelectedIndex == 0) return;
+                BindSchemeDividendTypes(Convert.ToInt32(ddlScheme.SelectedValue.ToString()));
             }
             else
             {
@@ -670,7 +672,7 @@ namespace WealthERP.OnlineOrderManagement
 
         protected void BindSipUiOnSchemeSelection(int schemeCode)
         {
-            dtGetAllSIPDataForOrder = commonLookupBo.GetAllSIPDataForOrder(schemeCode,ddlFrequency.SelectedValue.ToString());
+            dtGetAllSIPDataForOrder = commonLookupBo.GetAllSIPDataForOrder(schemeCode,ddlFrequency.SelectedValue.ToString(),"SIP");
 
             SetLatestNav();
             BindFrequency();
@@ -834,7 +836,7 @@ namespace WealthERP.OnlineOrderManagement
         {
             ddlTotalInstallments.Items.Clear();
 
-            if (dtGetAllSIPDataForOrder == null) dtGetAllSIPDataForOrder = commonLookupBo.GetAllSIPDataForOrder(Convert.ToInt32(ddlScheme.SelectedValue),ddlFrequency.SelectedValue.ToString());
+            if (dtGetAllSIPDataForOrder == null) dtGetAllSIPDataForOrder = commonLookupBo.GetAllSIPDataForOrder(Convert.ToInt32(ddlScheme.SelectedValue),ddlFrequency.SelectedValue.ToString(),"SIP");
             if (dtGetAllSIPDataForOrder == null) return;
 
             int minDues;
@@ -916,7 +918,7 @@ namespace WealthERP.OnlineOrderManagement
         {
             lblExitLoad.Text = "";
 
-            if (dtGetAllSIPDataForOrder == null) dtGetAllSIPDataForOrder = commonLookupBo.GetAllSIPDataForOrder(Convert.ToInt32(ddlScheme.SelectedValue),ddlFrequency.SelectedValue.ToString());
+            if (dtGetAllSIPDataForOrder == null) dtGetAllSIPDataForOrder = commonLookupBo.GetAllSIPDataForOrder(Convert.ToInt32(ddlScheme.SelectedValue),ddlFrequency.SelectedValue.ToString(),"SIP");
             if (dtGetAllSIPDataForOrder == null) return;
 
             if (dtGetAllSIPDataForOrder.Rows.Count <= 0) return;
@@ -962,6 +964,22 @@ namespace WealthERP.OnlineOrderManagement
             {
                 e.IsValid = false;
             }
+        }
+
+        protected void BindSchemeDividendTypes(int schemeId)
+        {
+            DataTable dtSchemeDividendOption = commonLookupBo.GetMFSchemeDividentType(schemeId);
+            ddlDividendFreq.Items.Clear();
+            if (dtSchemeDividendOption.Rows.Count > 0)
+            {
+                ddlDividendFreq.DataSource = dtSchemeDividendOption;
+                ddlDividendFreq.DataValueField = dtSchemeDividendOption.Columns["PSLV_LookupValueCode"].ToString();
+                ddlDividendFreq.DataTextField = dtSchemeDividendOption.Columns["PSLV_LookupValue"].ToString();
+                ddlDividendFreq.DataBind();
+                ddlDividendFreq.Items.Insert(0, new ListItem("--SELECT--", "0"));
+
+            }
+
         }
     }
 }

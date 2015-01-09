@@ -370,12 +370,12 @@ namespace BoCommon
 
         }
 
-        public DataTable GetAllSIPDataForOrder(int schemeCode, string frequencyCode)
+        public DataTable GetAllSIPDataForOrder(int schemeCode, string frequencyCode,string systematicType)
         {
             DataTable dtAllSIPDataForOrder = new DataTable();
             try
             {
-                dtAllSIPDataForOrder = daoCommonLookup.GetAllSIPDataForOrder(schemeCode, frequencyCode);
+                dtAllSIPDataForOrder = daoCommonLookup.GetAllSIPDataForOrder(schemeCode, frequencyCode,systematicType);
             }
             catch (BaseApplicationException Ex)
             {

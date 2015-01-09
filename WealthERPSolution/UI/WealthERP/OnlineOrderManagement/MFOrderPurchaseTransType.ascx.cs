@@ -228,19 +228,17 @@ namespace WealthERP.OnlineOrderManagement
                 RequiredFieldValidator4.Enabled = false;
                 trDivtype.Visible = false;
 
-
-
             }
             else
             {
                 // lblDividendFrequency.Visible = true;
                 //lbldftext.Visible = true;
                 //lblDivType.Visible = true;
-                //ddlDivType.Visible = true;                
+                //ddlDivType.Visible = true;  
+                if (ddlScheme.SelectedIndex == 0) return;
+                BindSchemeDividendTypes(Convert.ToInt32(ddlScheme.SelectedValue.ToString()));
                 trDivtype.Visible = true;
                 RequiredFieldValidator4.Enabled = true;
-
-
 
             }
 
@@ -445,10 +443,7 @@ namespace WealthERP.OnlineOrderManagement
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "wsedrftgyhjukloghjnnnghj", " showMsg('" + msg + "','" + type.ToString() + "');", true);
         }
 
-        protected void ddlDivType_OnSelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
+        
         protected void lnkEdit_Click(object sender, EventArgs e)
         { }
         protected void lnkBack_Click(object sender, EventArgs e)
@@ -497,6 +492,22 @@ namespace WealthERP.OnlineOrderManagement
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "loadcontrol('MFOrderPurchaseTransType')", true);
                 //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('IPOIssueTransact','&issueId=" + issueId + "')", true);
             }
+        }
+
+        protected void BindSchemeDividendTypes(int schemeId)
+        {
+            DataTable dtSchemeDividendOption = commonLookupBo.GetMFSchemeDividentType(schemeId);
+            ddlDivType.Items.Clear();
+            if (dtSchemeDividendOption.Rows.Count > 0)
+            {
+                ddlDivType.DataSource = dtSchemeDividendOption;
+                ddlDivType.DataValueField = dtSchemeDividendOption.Columns["PSLV_LookupValueCode"].ToString();
+                ddlDivType.DataTextField = dtSchemeDividendOption.Columns["PSLV_LookupValue"].ToString();
+                ddlDivType.DataBind();
+                ddlDivType.Items.Insert(0, new ListItem("--SELECT--", "0"));
+
+            }
+
         }
 
 
