@@ -2630,7 +2630,7 @@ namespace DaoAdvisorProfiling
         }
 
 
-        public DataSet GetCommissionReceivableRecon(string product, int typeOfTransaction, int AdviserId, int schemeid, int month, int year, string category, string recontype, string commtype, int issuer, int issueId, int commissionLookUpId,string orderStatus,string agentCode,string productCategory)
+        public DataSet GetCommissionReceivableRecon(string product, int typeOfTransaction, int AdviserId, int schemeid, int month, int year, string category, string recontype, string commtype, int issuer, int issueId, int commissionLookUpId, string orderStatus, string agentCode, string productCategory, bool isAuthenticated)
         {
             Database db;
             DbCommand getCommissionReconMisCmd;
@@ -2641,6 +2641,7 @@ namespace DaoAdvisorProfiling
                 getCommissionReconMisCmd = db.GetStoredProcCommand("SPROC_GetCommissionReceivableExceptedMIS");
                 db.AddInParameter(getCommissionReconMisCmd, "@adviserId", DbType.Int32, AdviserId);
                 db.AddInParameter(getCommissionReconMisCmd, "@schemeid", DbType.Int32, schemeid);
+                
                 if (month != 0)
                     db.AddInParameter(getCommissionReconMisCmd, "@Month", DbType.Int16, month);
                 else
@@ -2669,6 +2670,7 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(getCommissionReconMisCmd, "@orderStatus", DbType.String, orderStatus);
                 db.AddInParameter(getCommissionReconMisCmd, "@AgentCode", DbType.String, agentCode);
                 db.AddInParameter(getCommissionReconMisCmd, "@ProductCategory", DbType.String,productCategory);
+                db.AddInParameter(getCommissionReconMisCmd, "@IsAuthenticated", DbType.Boolean, isAuthenticated);
                 getCommissionReconMisCmd.CommandTimeout = 60 * 60;
                 dsGetCommissionReconMis = db.ExecuteDataSet(getCommissionReconMisCmd);
             }

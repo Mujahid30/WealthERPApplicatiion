@@ -184,6 +184,8 @@ namespace WealthERP.BusinessMIS {
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdTolbl;
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdDdlCategory;
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdCategory;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell td1;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell td2;
         protected global::System.Web.UI.WebControls.CompareValidator cvddlIssueType;
         
         /// <summary>
@@ -232,6 +234,7 @@ namespace WealthERP.BusinessMIS {
         protected global::Telerik.Web.UI.RadGrid gvCommissionReceiveRecon;
         protected global::Telerik.Web.UI.RadGrid rgNCDIPOMIS;
         protected global::System.Web.UI.WebControls.DropDownList ddlProduct;
+        protected global::System.Web.UI.WebControls.DropDownList ddlOrderType;
         protected global::System.Web.UI.WebControls.DropDownList ddlOrderStatus;
         protected global::System.Web.UI.WebControls.DropDownList ddlCommType;
         protected global::System.Web.UI.WebControls.DropDownList ddlSelectMode;

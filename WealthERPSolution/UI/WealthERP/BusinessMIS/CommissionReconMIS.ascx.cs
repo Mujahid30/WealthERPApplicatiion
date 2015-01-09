@@ -193,6 +193,7 @@ namespace WealthERP.BusinessMIS
                 BindBondCategories();
                 tdCategory.Visible = true;
                 tdDdlCategory.Visible = true;
+                
                
 
             }
@@ -217,7 +218,16 @@ namespace WealthERP.BusinessMIS
 
             }
         }
-
+        protected void ddlProductCategory_OnSelectedIndexChanged(object Sender, EventArgs e)
+        {
+            if (ddlProductCategory.SelectedValue != "FISDSD" || ddlProductCategory.SelectedValue != "FIFIIP")
+            {
+                tdFromDate.Visible = true;
+                tdToDate.Visible = true;
+                tdFrom.Visible = true;
+                tdTolbl.Visible = true;
+            }
+        }
         private void LoadAllSchemeList(int amcCode)
         {
             DataSet dsLoadAllScheme = new DataSet();
@@ -336,7 +346,7 @@ namespace WealthERP.BusinessMIS
             //ds.ReadXml(Server.MapPath(@"\Sample.xml"));
             dvMfMIS.Visible = false;
             dvNCDIPOMIS.Visible = false;
-            ds = adviserMFMIS.GetCommissionReceivableRecon(ddlProduct.SelectedValue, int.Parse(ddlSelectMode.SelectedValue), advisorVo.advisorId, int.Parse(hdnschemeId.Value), int.Parse(hdnFromDate.Value), int.Parse(hdnToDate.Value), hdnCategory.Value, null, ddlCommType.SelectedValue, int.Parse(hdnSBbrokercode.Value), int.Parse(hdnIssueId.Value), Convert.ToInt32(ddlSearchType.SelectedValue), ddlOrderStatus.SelectedValue, AgentCode, hdnProductCategory.Value);
+            ds = adviserMFMIS.GetCommissionReceivableRecon(ddlProduct.SelectedValue, int.Parse(ddlSelectMode.SelectedValue), advisorVo.advisorId, int.Parse(hdnschemeId.Value), int.Parse(hdnFromDate.Value), int.Parse(hdnToDate.Value), hdnCategory.Value, null, ddlCommType.SelectedValue, int.Parse(hdnSBbrokercode.Value), int.Parse(hdnIssueId.Value), Convert.ToInt32(ddlSearchType.SelectedValue), ddlOrderStatus.SelectedValue, AgentCode, hdnProductCategory.Value, Boolean.Parse(ddlOrderType.SelectedValue));
             if (ds.Tables[0] != null)
             {
                 if (ddlProduct.SelectedValue.ToString() == "MF")

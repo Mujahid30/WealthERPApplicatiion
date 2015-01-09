@@ -93,7 +93,7 @@
             <asp:Label ID="lblCategory" runat="server" Text="Category:" CssClass="FieldName"></asp:Label>
         </td>
         <td align="right" id="tdDdlCategory" runat="server" visible="false">
-            <asp:DropDownList ID="ddlProductCategory" runat="server" AutoPostBack="false" CssClass="cmbField">
+            <asp:DropDownList ID="ddlProductCategory" runat="server" AutoPostBack="true" CssClass="cmbField" OnSelectedIndexChanged="ddlProductCategory_OnSelectedIndexChanged">
             </asp:DropDownList>
             <asp:CompareValidator ID="CompareValidator7" runat="server" ControlToValidate="ddlProductCategory"
                 CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select an Category type"
@@ -229,6 +229,16 @@
             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="ddlYear"
                 CssClass="rfvPCG" ErrorMessage="<br />Please select a Year" Display="Dynamic"
                 runat="server" InitialValue="0" ValidationGroup="vgbtnSubmit"> </asp:RequiredFieldValidator>
+        </td>
+        <td class="leftField" id="td1" runat="server">
+            <asp:Label ID="Label3" runat="server" CssClass="FieldName" Text="Order Type:"></asp:Label>
+        </td>
+        <td class="rightField" id="td2" runat="server" >
+            <asp:DropDownList ID="ddlOrderType" runat="server" CssClass="cmbField">
+                <asp:ListItem Text="Authenticated" Value="true" Selected="True"></asp:ListItem>
+                <asp:ListItem Text="Non-Authenticated" Value="false"></asp:ListItem>
+            </asp:DropDownList>
+           
         </td>
         <td class="rightField" style="padding-right: 50px">
             <asp:Button ID="btnSubmit" runat="server" CssClass="PCGButton" OnClick="GdBind_Click"
