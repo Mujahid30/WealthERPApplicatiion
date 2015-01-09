@@ -699,9 +699,9 @@ namespace WealthERP.OnlineOrderBackOffice
                 ChkISPurchage.Enabled = false;
                 ChkISRedeem.Enabled = false;
                 ChkISSIP.Enabled = false;
-                ChkISSTP.Enabled = true;
+                ChkISSTP.Enabled = false;
                 ChkISSwitch.Enabled = false;
-                ChkISSWP.Enabled = true;
+                ChkISSWP.Enabled = false;
                 txtInitalPamount.Enabled = false;
                 txtIMultipleamount.Enabled = false;
                 txtAdditional.Enabled = false;
@@ -1068,6 +1068,9 @@ namespace WealthERP.OnlineOrderBackOffice
             if (mfProductAMCSchemePlanDetailsVo.IsSTPAvailable == 1)
             {
                 ChkISSTP.Checked = true;
+                gvSIPDetails.Visible = true;
+                pnlSIPDetails.Visible = true;
+                BindSystematicDetails();
             }
             else
             {
@@ -1086,7 +1089,9 @@ namespace WealthERP.OnlineOrderBackOffice
             if (mfProductAMCSchemePlanDetailsVo.IsSWPAvailable == 1)
             {
                 ChkISSWP.Checked = true;
-
+                gvSIPDetails.Visible = true;
+                pnlSIPDetails.Visible = true;
+                BindSystematicDetails();
             }
             else
             {
@@ -1399,6 +1404,8 @@ namespace WealthERP.OnlineOrderBackOffice
             if (mfProductAMCSchemePlanDetailsVo.IsSTPAvailable == 1)
             {
                 ChkISSTP.Checked = true;
+                gvSIPDetails.Visible = true;
+                BindSystematicDetails();
             }
             else
             {
@@ -1416,6 +1423,8 @@ namespace WealthERP.OnlineOrderBackOffice
             if (mfProductAMCSchemePlanDetailsVo.IsSWPAvailable == 1)
             {
                 ChkISSWP.Checked = true;
+                gvSIPDetails.Visible = true;
+                BindSystematicDetails();
             }
             else
             {
@@ -2632,6 +2641,8 @@ namespace WealthERP.OnlineOrderBackOffice
             }
             else
             {
+                Cache.Remove("SIPDetails" + userVo.UserId);
+                Cache.Insert("SIPDetails" + userVo.UserId, dtSystematicDetails);
                 gvSIPDetails.DataSource = dtSystematicDetails;
                 gvSIPDetails.DataBind();
                 pnlSIPDetails.Visible = true;
@@ -2680,59 +2691,63 @@ namespace WealthERP.OnlineOrderBackOffice
         }
         protected void ChkISSIP_OnCheckedChanged(object sender, EventArgs e)
         {
+            //CheckBox ChkISSIP=(CheckBox)sender;
+            //GridEditFormItem gdi = (GridEditFormItem)(ChkISSIP).NamingContainer.FindControl("gvSIPDetails");
+            //DropDownList ddlSystematicType = (DropDownList)gdi.FindControl("ddlSystematicType");
             if (ChkISSIP.Checked)
             {
-                //trsystematic.Visible = true;
+                //ddlSystematicType.Items[0].Enabled = true;
                 BindSystematicDetails();
                 pnlSIPDetails.Visible = true;
-                ChkISSTP.Enabled = false;
-                ChkISSWP.Enabled = false;
+               
             }
             else
             {
                 //trsystematic.Visible = false;
                 pnlSIPDetails.Visible = false;
-                ChkISSTP.Enabled = true;
-                ChkISSWP.Enabled = true;
+                //ddlSystematicType.Items[0].Enabled = false;
+                
             }
         }
         protected void ChkISSWP_OnCheckedChanged(object sender, EventArgs e)
         {
-            //if (ChkISSWP.Checked)
-            //{
-            //    //trsystematic.Visible = true;
-            //    BindSystematicDetails();
-            //    pnlSIPDetails.Visible = true;
-            //    ChkISSTP.Enabled = false;
-            //    ChkISSIP.Enabled = false;
-            //}
-            //else
-            //{
-            //    //trsystematic.Visible = false;
-            //    pnlSIPDetails.Visible = false;
-            //    ChkISSTP.Enabled = true;
-            //    ChkISSIP.Enabled = true;
-            //}
+            //CheckBox ChkISSIP = (CheckBox)sender;
+            //RadGrid gvSIPDetails = (RadGrid)ChkISSIP.NamingContainer.FindControl("gvSIPDetails");
+            //GridEditFormItem gdi = (GridEditFormItem)gvSIPDetails.FindControl("gvSIPDetails");
+            //DropDownList ddlSystematicType = (DropDownList)gvSIPDetails.FindControl("ddlSystematicType");
+            if (ChkISSWP.Checked)
+            {
+                //ddlSystematicType.Items[1].Enabled = true;
+                BindSystematicDetails();
+                pnlSIPDetails.Visible = true;
+               
+            }
+            else
+            {
+                //trsystematic.Visible = false;
+                //pnlSIPDetails.Visible = false;
+                //ddlSystematicType.Items[1].Enabled = false;
+               
+            }
 
         }
         protected void ChkISSTP_OnCheckedChanged(object sender, EventArgs e)
         {
-            //if (ChkISSTP.Checked)
-            //{
-            //    //trsystematic.Visible = true;
-            //    BindSystematicDetails();
-            //    pnlSIPDetails.Visible = true;
-            //    ChkISSIP.Enabled = false;
-            //    ChkISSWP.Enabled = false;
-            //}
-            //else
-            //{
-            //    //trsystematic.Visible = false;
-            //    pnlSIPDetails.Visible = false;
-            //    ChkISSIP.Enabled = true;
-            //    ChkISSWP.Enabled = true;
+            //CheckBox ChkISSIP = (CheckBox)sender;
+            //GridEditFormItem gdi = (GridEditFormItem)(ChkISSIP).NamingContainer;
+            //DropDownList ddlSystematicType = (DropDownList)gdi.FindControl("ddlSystematicType");
+            if (ChkISSTP.Checked)
+            {
+                //ddlSystematicType.Items[2].Enabled = true;
+                BindSystematicDetails();
+                pnlSIPDetails.Visible = true;
+               
+            }
+            else
+            {
+                //ddlSystematicType.Items[2].Enabled = false;
 
-            //}
+            }
 
         }
         protected void gvSIPDetails_OnItemCommand(object source, GridCommandEventArgs e)
@@ -2765,19 +2780,20 @@ namespace WealthERP.OnlineOrderBackOffice
                     TextBox txtMinAmount = (TextBox)e.Item.FindControl("txtMinAmount");
                     TextBox txtMultipleAmount = (TextBox)e.Item.FindControl("txtMultipleAmount");
                     TextBox txtSydetails = (TextBox)e.Item.FindControl("txtSydetails");
+                    DropDownList ddlSystematicType = (DropDownList)e.Item.FindControl("ddlSystematicType");
                     MFProductAMCSchemePlanDetailsVo mfProductAMCSchemePlanDetailsVo = new MFProductAMCSchemePlanDetailsVo();
-                    if (ChkISSIP.Checked)
-                    {
-                        mfProductAMCSchemePlanDetailsVo.SystematicCode = "SIP";
-                    }
-                    if (ChkISSTP.Checked)
-                    {
-                        mfProductAMCSchemePlanDetailsVo.SystematicCode = "STP";
-                    }
-                    if (ChkISSWP.Checked)
-                    {
-                        mfProductAMCSchemePlanDetailsVo.SystematicCode = "SWP";
-                    }
+                    //if (ChkISSIP.Checked)
+                    //{
+                    //    mfProductAMCSchemePlanDetailsVo.SystematicCode = "SIP";
+                    //}
+                    //if (ChkISSTP.Checked)
+                    //{
+                    //    mfProductAMCSchemePlanDetailsVo.SystematicCode = "STP";
+                    //}
+                    //if (ChkISSWP.Checked)
+                    //{
+                    mfProductAMCSchemePlanDetailsVo.SystematicCode = ddlSystematicType.SelectedValue;
+                    //}
                     mfProductAMCSchemePlanDetailsVo.Frequency = ddlFrquency.SelectedValue.ToString();
                     mfProductAMCSchemePlanDetailsVo.StartDate = txtstartDate.Text.ToString();
                     mfProductAMCSchemePlanDetailsVo.MinDues = int.Parse(txtMinDues.Text.ToString());
@@ -2797,22 +2813,24 @@ namespace WealthERP.OnlineOrderBackOffice
                     TextBox txtMaxDues = (TextBox)e.Item.FindControl("txtMaxDues");
                     TextBox txtMinAmount = (TextBox)e.Item.FindControl("txtMinAmount");
                     TextBox txtMultipleAmount = (TextBox)e.Item.FindControl("txtMultipleAmount");
+                    DropDownList ddlSystematicType = (DropDownList)e.Item.FindControl("ddlSystematicType");
+
                     int schemeplanecode = int.Parse(gvSIPDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["PASP_SchemePlanCode"].ToString());
                     int detailsid = int.Parse(gvSIPDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["PASPSD_SystematicDetailsId"].ToString());
 
                     MFProductAMCSchemePlanDetailsVo mfProductAMCSchemePlanDetailsVo = new MFProductAMCSchemePlanDetailsVo();
-                    if (ChkISSIP.Checked)
-                    {
-                        mfProductAMCSchemePlanDetailsVo.SystematicCode = "SIP";
-                    }
-                    if (ChkISSTP.Checked)
-                    {
-                        mfProductAMCSchemePlanDetailsVo.SystematicCode = "STP";
-                    }
-                    if (ChkISSWP.Checked)
-                    {
-                        mfProductAMCSchemePlanDetailsVo.SystematicCode = "SWP";
-                    }
+                    //if (ChkISSIP.Checked)
+                    //{
+                    //    mfProductAMCSchemePlanDetailsVo.SystematicCode = "SIP";
+                    //}
+                    //if (ChkISSTP.Checked)
+                    //{
+                    //    mfProductAMCSchemePlanDetailsVo.SystematicCode = "STP";
+                    //}
+                    //if (ChkISSWP.Checked)
+                    //{
+                    mfProductAMCSchemePlanDetailsVo.SystematicCode = ddlSystematicType.SelectedValue;
+                    //}
                     mfProductAMCSchemePlanDetailsVo.Frequency = ddlFrquency.SelectedValue.ToString();
                     mfProductAMCSchemePlanDetailsVo.StartDate = txtstartDate.Text.ToString();
                     mfProductAMCSchemePlanDetailsVo.MinDues = int.Parse(txtMinDues.Text.ToString());
@@ -2847,6 +2865,26 @@ namespace WealthERP.OnlineOrderBackOffice
                 GridEditFormInsertItem item = (GridEditFormInsertItem)e.Item;
                 GridEditFormItem gefi = (GridEditFormItem)e.Item;
                 DropDownList ddlFrquency = (DropDownList)gefi.FindControl("ddlFrquency");
+                DropDownList ddlSystematicType = (DropDownList)gefi.FindControl("ddlSystematicType");
+
+                if (ChkISSIP.Checked == true)
+              
+                    ddlSystematicType.Items[0].Enabled = true;
+               
+                else
+                    ddlSystematicType.Items[0].Enabled = false;
+                if(ChkISSWP.Checked==true)
+
+                    ddlSystematicType.Items[1].Enabled = true;
+
+                else
+                    ddlSystematicType.Items[1].Enabled = false;
+                if (ChkISSTP.Checked == true)
+
+                    ddlSystematicType.Items[2].Enabled = true;
+
+                else
+                    ddlSystematicType.Items[2].Enabled = false;
                 DataSet dsFrequency = OnlineOrderBackOfficeBo.GetFrequency();
                 DataTable dtFrequency;
                 dtFrequency = dsFrequency.Tables[0];
@@ -2862,6 +2900,14 @@ namespace WealthERP.OnlineOrderBackOffice
                 GridEditFormItem editedItem = (GridEditFormItem)e.Item;
                 GridEditFormItem gefi = (GridEditFormItem)e.Item;
                 DropDownList ddlFrquency = (DropDownList)gefi.FindControl("ddlFrquency");
+                DropDownList ddlSystematicType = (DropDownList)gefi.FindControl("ddlSystematicType");
+                ddlSystematicType.SelectedValue = gvSIPDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["XSTT_SystematicTypeCode"].ToString();
+                if (ddlSystematicType.SelectedValue == "SIP" || ChkISSIP.Checked)
+                    ddlSystematicType.Items[0].Enabled = true;
+                if (ddlSystematicType.SelectedValue == "SWP" || ChkISSTP.Checked)
+                    ddlSystematicType.Items[1].Enabled = true;
+                if (ddlSystematicType.SelectedValue == "STP" || ChkISSTP.Checked)
+                    ddlSystematicType.Items[2].Enabled = true;
                 DataSet dsFrequency = OnlineOrderBackOfficeBo.GetFrequency();
                 DataTable dtFrequency;
                 dtFrequency = dsFrequency.Tables[0];
