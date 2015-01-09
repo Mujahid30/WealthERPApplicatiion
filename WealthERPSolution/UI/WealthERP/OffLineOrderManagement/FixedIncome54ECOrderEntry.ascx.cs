@@ -193,13 +193,17 @@ namespace WealthERP.OffLineOrderManagement
                     {
                         orderId = int.Parse(Request.QueryString["orderId"].ToString());
                         txtCustomerId.Value = Request.QueryString["customeId"].ToString();
+                        if (Session[SessionContents.CurrentUserRole].ToString() == "Associates")
+                            trOfficeUse.Visible = false;
+                        else
+                            trOfficeUse.Visible = true;
                         lblAssociate.Visible = true;
-
                         lblAssociatetext.Text = Request.QueryString["associatename"].ToString();
                         txtAssociateSearch.Text = Request.QueryString["agentcode"].ToString();
                         GetcustomerDetails();
                         View54ECOrderDetails(orderId);
                         lnkBtnEdit();
+
                         tbUploadDocument.Visible = true;
                         BindDocument(orderId);
                         btnUpdate.Visible = true;
@@ -213,7 +217,10 @@ namespace WealthERP.OffLineOrderManagement
                         orderId = int.Parse(Request.QueryString["orderId"].ToString());
                         txtCustomerId.Value = Request.QueryString["customeId"].ToString();
                         lblAssociate.Visible = true;
-
+                        if (Session[SessionContents.CurrentUserRole].ToString() == "Associates")
+                            trOfficeUse.Visible = false;
+                        else
+                            trOfficeUse.Visible = true;
                         lblAssociatetext.Text = Request.QueryString["associatename"].ToString();
                         txtAssociateSearch.Text = Request.QueryString["agentcode"].ToString();
                         GetcustomerDetails();
@@ -773,7 +780,10 @@ namespace WealthERP.OffLineOrderManagement
             txtSeries.Enabled = Val;
             ddlSchemeOption.Enabled = Val;
             ddlFrequency.Enabled = Val;
-
+            if (chkAuthentication.Checked)
+                chkAuthentication.Enabled = false;
+            else
+                chkAuthentication.Enabled = Val;
             //ddlModeofHOlding.Enabled = Val;
 
             lblGetOrderNo.Enabled = Val;
@@ -975,6 +985,8 @@ namespace WealthERP.OffLineOrderManagement
             }
             else
             {
+                if (chkAuthentication.Checked == true)
+                    fiorderVo.authenticId = 1;
                 orderId = fiorderVo.OrderNumber;
                 OrderIds = fiorderBo.CreateOrderFIDetails(orderVo, fiorderVo, userVo.UserId, "Update");
                 orderId = fiorderVo.OrderNumber;
@@ -4241,10 +4253,27 @@ namespace WealthERP.OffLineOrderManagement
                     lblOrderNumber.Text = "Order No.";
                     lblGetOrderNo.Text = dr["Co_OrderId"].ToString();
                 }
+                if (dr["CO_IsAuthenticated"].ToString() != "True")
+                {
+                    chkAuthentication.Checked = false;
+
+                }
+                else
+                {
+                    chkAuthentication.Checked = true;
+                    lblAuthenticatedBy.Text = dr["U_FirstName"].ToString();
+                }
             }
 
         }
 
+        protected void chkAuthentication_OnCheckedChanged(object sender, EventArgs e)
+        {
+            if (chkAuthentication.Checked)
+                lblAuthenticatedBy.Text = userVo.FirstName + ' ' + userVo.MiddleName + ' ' + userVo.LastName;
+            else
+                lblAuthenticatedBy.Text = "";
+        }
         protected void GetcustomerDetails()
         {
             CustomerPortfolioVo customerPortfolioVo = new CustomerPortfolioVo();

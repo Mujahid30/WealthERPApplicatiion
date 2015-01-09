@@ -492,7 +492,7 @@
                             <asp:DropDownList ID="ddlCustomerSubType" runat="server" CssClass="cmbField">
                             </asp:DropDownList>
                             <span id="Span11" class="spnRequiredField">*</span> &nbsp;
-                           <%-- <asp:CheckBox ID="chkRealInvestor" runat="server" CssClass="txtField" Text="Investor"
+                            <%-- <asp:CheckBox ID="chkRealInvestor" runat="server" CssClass="txtField" Text="Investor"
                                 AutoPostBack="false" Checked="true" onclick="javascript:ShowSubmitAndSave();" />
                             <br />--%>
                             <asp:CompareValidator ID="CompareValidator3" runat="server" ControlToValidate="ddlCustomerSubType"
@@ -514,7 +514,7 @@
                                 Display="Dynamic" runat="server" ValidationGroup="btnCustomerSubmit" CssClass="rfvPCG">
                             </asp:RequiredFieldValidator>
                             <asp:RegularExpressionValidator ID="revPan" runat="server" Display="Dynamic" CssClass="rfvPCG"
-                                ErrorMessage="Please check PAN Format"  ControlToValidate="txtPanNumber" ValidationExpression="[A-Za-z]{5}\d{4}[A-Za-z]{1}">
+                                ErrorMessage="Please check PAN Format" ControlToValidate="txtPanNumber" ValidationExpression="[A-Za-z]{5}\d{4}[A-Za-z]{1}">
                             </asp:RegularExpressionValidator>
                             <asp:Label ID="lblPanDuplicate" runat="server" Visible="false" CssClass="Error" Text="PAN Number already exists"></asp:Label>
                         </td>
@@ -554,8 +554,8 @@
                                 Enabled="True" TargetControlID="txtLastName" WatermarkText="LastName">
                             </cc1:TextBoxWatermarkExtender>--%>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator9" ControlToValidate="txtFirstName"
-                                ErrorMessage="<br />Please enter the First Name" ValidationGroup="btnCustomerSubmit" Display="Dynamic" runat="server"
-                                CssClass="rfvPCG">
+                                ErrorMessage="<br />Please enter the First Name" ValidationGroup="btnCustomerSubmit"
+                                Display="Dynamic" runat="server" CssClass="rfvPCG">
                             </asp:RequiredFieldValidator>
                         </td>
                     </tr>
@@ -568,8 +568,8 @@
                             <span id="Span15" class="spnRequiredField">*</span>
                             <br />
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator10" ControlToValidate="txtCompanyName"
-                                ErrorMessage="Please enter the Company Name" Display="Dynamic" ValidationGroup="btnCustomerSubmit" runat="server"
-                                CssClass="rfvPCG">
+                                ErrorMessage="Please enter the Company Name" Display="Dynamic" ValidationGroup="btnCustomerSubmit"
+                                runat="server" CssClass="rfvPCG">
                             </asp:RequiredFieldValidator>
                         </td>
                     </tr>
@@ -597,8 +597,8 @@
                                 ValidationExpression="^\d{10,10}$">
                             </asp:RegularExpressionValidator>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator11" ControlToValidate="txtMobileNumber"
-                                ErrorMessage="Please enter a Contact Number" ValidationGroup="btnCustomerSubmit" Display="Dynamic" runat="server"
-                                CssClass="rfvPCG">
+                                ErrorMessage="Please enter a Contact Number" ValidationGroup="btnCustomerSubmit"
+                                Display="Dynamic" runat="server" CssClass="rfvPCG">
                             </asp:RequiredFieldValidator>
                         </td>
                     </tr>
@@ -652,6 +652,25 @@
             </div>
         </ContentTemplate>
     </telerik:RadWindow>
+    <table width="100%" id="trOfficeUse"  runat="server" visible="false">
+        <tr  >
+            <td colspan="5">
+                <div class="divSectionHeading" style="vertical-align: text-bottom">
+                    Office Use
+                </div>
+            </td>
+        </tr>
+        <tr style="width: 23.5%" align="center">
+            <td id="tdauthentication" runat="server" >
+                <asp:CheckBox ID="chkAuthentication" runat="server" CssClass="cmbFielde" Text="Authenticate" OnCheckedChanged="chkAuthentication_OnCheckedChanged" AutoPostBack="true"/>
+            </td>
+            <td id="tdauthenticationDetails" runat="server" >
+                <asp:Label ID="lblAuthenticated" runat="server" Text="Authenticated By:" CssClass="FieldName"></asp:Label>
+                <asp:Label ID="lblAuthenticatedBy" runat="server" CssClass="FieldName"></asp:Label><br />
+                <asp:Label ID="lblAuthenticationDate" runat="server" CssClass="FieldName"></asp:Label>
+            </td>
+        </tr>
+    </table>
     <table width="100%">
         <tr id="trCustSect" runat="server">
             <td colspan="5">
@@ -1427,7 +1446,7 @@
     </table>
     <table width="68%" id="tbUploadDocument" runat="server" visible="false">
         <tr>
-            <td>
+            <td colspan="2">
                 <telerik:RadGrid ID="gvUploadDocument" runat="server" AllowSorting="True" enableloadondemand="True"
                     PageSize="5" AutoGenerateColumns="False" EnableEmbeddedSkins="False" GridLines="None"
                     ShowFooter="True" PagerStyle-AlwaysVisible="true" AllowPaging="true" ShowStatusBar="True"

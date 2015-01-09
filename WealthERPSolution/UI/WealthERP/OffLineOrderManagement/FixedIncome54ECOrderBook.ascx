@@ -45,10 +45,11 @@
             <asp:Label ID="lblIssue" runat="server" Text="Issue Name:" CssClass="FieldName" Visible="false"></asp:Label>
         </td>
         <td align="left">
-            <asp:DropDownList ID="ddlIssue" Width="270px" runat="server" CssClass="cmbField" Visible="false">
+            <asp:DropDownList ID="ddlIssue" Width="270px" runat="server" CssClass="cmbField"
+                Visible="false">
             </asp:DropDownList>
         </td>
-        <td id="td1" runat="server" align="left">
+        <td id="td1" runat="server" align="left" style="padding-left:10px;">
             <asp:Label runat="server" class="FieldName" Text="Order Status:" ID="Label1"></asp:Label>
             <asp:DropDownList CssClass="cmbField" ID="ddlOrderStatus" runat="server" AutoPostBack="false">
             </asp:DropDownList>
@@ -108,7 +109,16 @@
                 Display="Dynamic">
             </asp:CompareValidator>
         </td>
-        <td align="left">
+        <td >
+            <asp:Label runat="server" CssClass="FieldName" Text="Authenticated:" ID="lblAuthenticate"></asp:Label>
+        
+            <asp:DropDownList ID="ddlAuthenticate" runat="server" CssClass="cmbField">
+                <asp:ListItem Text="All" Value="2"></asp:ListItem>
+                <asp:ListItem Text="Yes" Value="1"></asp:ListItem>
+                <asp:ListItem Text="No" Value="0"></asp:ListItem>
+            </asp:DropDownList>
+        </td>
+        <td align="left" style="padding-left:20px">
             <asp:Button ID="btnGo" runat="server" CssClass="PCGButton" Text="Go" ValidationGroup="btnViewOrder"
                 OnClick="btnGo_OnClick" />
         </td>

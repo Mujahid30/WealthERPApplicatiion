@@ -40,6 +40,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlIssue;
         protected global::System.Web.UI.WebControls.DropDownList ddlCategory;
+        protected global::System.Web.UI.WebControls.DropDownList ddlAuthenticate;
         /// <summary>
         /// lblFromDate control.
         /// </summary>

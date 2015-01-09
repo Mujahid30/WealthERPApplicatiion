@@ -5,11 +5,11 @@ using System.Text;
 
 namespace VoOps
 {
-   public class FIOrderVo:OrderVo 
+    public class FIOrderVo : OrderVo
     {
 
- //private int    m_DetailsId;
- //private int m_OrderId;
+        //private int    m_DetailsId;
+        //private int m_OrderId;
         private string m_AssetInstrumentCategoryCode;
 
         public string AssetInstrumentCategoryCode
@@ -67,8 +67,8 @@ namespace VoOps
             get { return m_SeriesDetails; }
             set { m_SeriesDetails = value; }
         }
-        
-          //private string m_ModeOfHolding;
+
+        //private string m_ModeOfHolding;
 
 
         private int m_SchemeId;
@@ -86,10 +86,10 @@ namespace VoOps
             get { return m_SeriesId; }
             set { m_SeriesId = value; }
         }
-        
-             private int m_DepCustBankAccId;
 
-             public int DepCustBankAccId
+        private int m_DepCustBankAccId;
+
+        public int DepCustBankAccId
         {
             get { return m_DepCustBankAccId; }
             set { m_DepCustBankAccId = value; }
@@ -153,9 +153,10 @@ namespace VoOps
 
         public Int64 DematAccountId { get; set; }
         public double Qty { get; set; }
-        public string  BranchName { get; set; }
+        public string BranchName { get; set; }
         public string AssetInstrumentCategory { get; set; }
-
+        public int authenticatedbyId { get; set; }
+        public int authenticId { get; set; }
         //private int m_OrderId;
 
         ////public int OrderId
@@ -387,7 +388,7 @@ namespace VoOps
         //    get { return m_ARNNo; }
         //    set { m_ARNNo = value; }
         //}
-      
+
 
 
 

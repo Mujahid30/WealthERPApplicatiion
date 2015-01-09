@@ -115,7 +115,7 @@ namespace WealthERP.OffLineOrderManagement
         protected void BindAdviserFDrderBook()
         {
 
-            DataTable dt54FDOrderBook = OfflineBondOrderBo.GetFD54IssueOrder(advisorVo.advisorId,fromDate,Convert.ToDateTime(txtOrderTo.SelectedDate),ddlOrderStatus.SelectedValue, int.Parse(ddlIssue.SelectedValue),userType, AgentCode,ddlCategory.SelectedValue);
+            DataTable dt54FDOrderBook = OfflineBondOrderBo.GetFD54IssueOrder(advisorVo.advisorId, fromDate, Convert.ToDateTime(txtOrderTo.SelectedDate), ddlOrderStatus.SelectedValue, int.Parse(ddlIssue.SelectedValue), userType, AgentCode, ddlCategory.SelectedValue,int.Parse(ddlAuthenticate.SelectedValue));
 
             if (dt54FDOrderBook.Rows.Count >= 0)
             {
