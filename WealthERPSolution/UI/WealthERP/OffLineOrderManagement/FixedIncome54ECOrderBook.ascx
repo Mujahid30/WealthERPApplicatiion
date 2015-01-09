@@ -206,6 +206,36 @@
                                             AutoPostBackOnFilter="true">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn DataField="CFIOD_Quantity" AllowFiltering="true"
+                                            HeaderText="Quantity" HeaderStyle-Width="70px" UniqueName="CFIOD_Quantity"
+                                            SortExpression="CFIOD_Quantity" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                            AutoPostBackOnFilter="true">
+                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn DataField="CFIOD_AmountPayable" AllowFiltering="true"
+                                            HeaderText="AmountPayable" HeaderStyle-Width="70px" UniqueName="CFIOD_AmountPayable"
+                                            SortExpression="CFIOD_AmountPayable" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                            AutoPostBackOnFilter="true">
+                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn DataField="CO_IsAuthenticated" AllowFiltering="true"
+                                            HeaderText="IsAuthenticated" HeaderStyle-Width="70px" UniqueName="CO_IsAuthenticated"
+                                            SortExpression="CO_IsAuthenticated" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                            AutoPostBackOnFilter="true">
+                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn DataField="U_FirstName" AllowFiltering="true"
+                                            HeaderText="Authenticated By" HeaderStyle-Width="70px" UniqueName="U_FirstName"
+                                            SortExpression="U_FirstName" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                            AutoPostBackOnFilter="true">
+                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                         <telerik:GridBoundColumn DataField="CO_AuthenticatedDate" AllowFiltering="true"
+                                            HeaderText="AuthenticatedDate" HeaderStyle-Width="70px" UniqueName="CO_AuthenticatedDate"
+                                            SortExpression="CO_AuthenticatedDate" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                            AutoPostBackOnFilter="true">
+                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="AAC_AgentCode" SortExpression="AAC_AgentCode"
                                             AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
                                             AllowFiltering="true" HeaderStyle-Width="160px" HeaderText="SubBroker Code" UniqueName="AAC_AgentCode">
