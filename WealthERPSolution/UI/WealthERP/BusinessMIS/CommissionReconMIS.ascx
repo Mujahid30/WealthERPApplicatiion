@@ -231,12 +231,12 @@
                 runat="server" InitialValue="0" ValidationGroup="vgbtnSubmit"> </asp:RequiredFieldValidator>
         </td>
         <td class="leftField" id="td1" runat="server">
-            <asp:Label ID="Label3" runat="server" CssClass="FieldName" Text="Order Type:"></asp:Label>
+            <asp:Label ID="Label3" runat="server" CssClass="FieldName" Text="Authenticated:"></asp:Label>
         </td>
         <td class="rightField" id="td2" runat="server" >
             <asp:DropDownList ID="ddlOrderType" runat="server" CssClass="cmbField">
-                <asp:ListItem Text="Authenticated" Value="true" Selected="True"></asp:ListItem>
-                <asp:ListItem Text="Non-Authenticated" Value="false"></asp:ListItem>
+                <asp:ListItem Text="Yes" Value="true" Selected="True"></asp:ListItem>
+                <asp:ListItem Text="No" Value="false"></asp:ListItem>
             </asp:DropDownList>
            
         </td>
