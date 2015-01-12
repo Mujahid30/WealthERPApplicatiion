@@ -219,7 +219,7 @@
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="CO_IsAuthenticated" AllowFiltering="true"
-                                            HeaderText="IsAuthenticated" HeaderStyle-Width="70px" UniqueName="CO_IsAuthenticated"
+                                            HeaderText="Is Authenticated" HeaderStyle-Width="70px" UniqueName="CO_IsAuthenticated"
                                             SortExpression="CO_IsAuthenticated" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                             AutoPostBackOnFilter="true">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
@@ -231,7 +231,7 @@
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
                                          <telerik:GridBoundColumn DataField="CO_AuthenticatedDate" AllowFiltering="true"
-                                            HeaderText="AuthenticatedDate" HeaderStyle-Width="70px" UniqueName="CO_AuthenticatedDate"
+                                            HeaderText="Authenticated Date" HeaderStyle-Width="70px" UniqueName="CO_AuthenticatedDate"
                                             SortExpression="CO_AuthenticatedDate" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                             AutoPostBackOnFilter="true">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />

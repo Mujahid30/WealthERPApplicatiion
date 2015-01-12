@@ -430,5 +430,31 @@ namespace BoOps
              }
              return bResult;
          }
+         public string GetUserType(int adviserId, int associateId)
+         {
+             string UserType = string.Empty;
+             try
+             {
+                 UserType = fiOrderDao.GetUserType(adviserId, associateId);
+             }
+             catch (BaseApplicationException Ex)
+             {
+                 throw Ex;
+             }
+             return UserType;
+         }
+         public DataTable GetAuthenticate(int adviserid, int associateId)
+         {
+             DataTable dt;
+             try
+             {
+                 dt = fiOrderDao.GetAuthenticate(adviserid, associateId);
+             }
+             catch (BaseApplicationException Ex)
+             {
+                 throw Ex;
+             }
+             return dt;
+         }
     }
 }

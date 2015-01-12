@@ -853,5 +853,52 @@ namespace DaoOps
             }
             return bResult;
         }
+        public string GetUserType(int adviserId,int associateId)
+        {
+            Database db;
+            DataSet ds;
+            DbCommand cmdGetExternalCode;
+            string UserType = string.Empty;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //checking year
+                cmdGetExternalCode = db.GetStoredProcCommand("SPROC_GetUserType");
+                db.AddInParameter(cmdGetExternalCode, "@associateId", DbType.Int32, associateId);
+                db.AddInParameter(cmdGetExternalCode, "@adviserId", DbType.Int32, adviserId);
+                db.AddOutParameter(cmdGetExternalCode, "@userType", DbType.String, 20);
+                ds = db.ExecuteDataSet(cmdGetExternalCode);
+                if (db.ExecuteNonQuery(cmdGetExternalCode) != 0)
+                {
+                    UserType = db.GetParameterValue(cmdGetExternalCode, "userType").ToString();
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return UserType;
+        }
+        public DataTable GetAuthenticate(int adviserid,int associateId)
+        {
+            DataSet dsGetAuthenticate;
+            Database db;
+            DbCommand getGetAuthenticate;
+            DataTable dtGetAuthenticate;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getGetAuthenticate = db.GetStoredProcCommand("SPROC_GetOrderAuthenticated");
+                db.AddInParameter(getGetAuthenticate, "@adviserId", DbType.Int32, adviserid);
+                db.AddInParameter(getGetAuthenticate, "@associateId", DbType.Int32, associateId);
+                dsGetAuthenticate = db.ExecuteDataSet(getGetAuthenticate);
+                dtGetAuthenticate = dsGetAuthenticate.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return dtGetAuthenticate;
+        }
     }
 }

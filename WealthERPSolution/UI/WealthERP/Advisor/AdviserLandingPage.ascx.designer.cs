@@ -21,7 +21,8 @@ namespace WealthERP.Advisor {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadScriptManager RadScriptManager1;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divAuthenticate;
+
         /// <summary>
         /// imgClientsClick control.
         /// </summary>
@@ -39,7 +40,10 @@ namespace WealthERP.Advisor {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lnkbtnClientLink;
-        
+        protected global::System.Web.UI.WebControls.LinkButton lnkExpend;
+        protected global::System.Web.UI.WebControls.Label lblAuthenticatedCount;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdHeader;
+        protected global::Telerik.Web.UI.RadGrid gvAuthenticate;
         /// <summary>
         /// imgUploads control.
         /// </summary>

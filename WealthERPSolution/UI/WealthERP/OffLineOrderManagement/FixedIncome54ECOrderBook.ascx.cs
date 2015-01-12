@@ -196,7 +196,7 @@ namespace WealthERP.OffLineOrderManagement
                 ddlOrderStatus.DataValueField = dtOrderStatus.Columns["WOS_OrderStepCode"].ToString();
                 ddlOrderStatus.DataBind();
             }
-            ddlOrderStatus.Items.Insert(0, new ListItem("Select", "0"));
+            ddlOrderStatus.Items.Insert(0, new ListItem("All", "0"));
         }
     }
 }

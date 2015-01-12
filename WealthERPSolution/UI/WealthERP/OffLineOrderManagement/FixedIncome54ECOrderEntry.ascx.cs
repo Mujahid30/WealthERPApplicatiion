@@ -194,7 +194,7 @@ namespace WealthERP.OffLineOrderManagement
                         orderId = int.Parse(Request.QueryString["orderId"].ToString());
                         txtCustomerId.Value = Request.QueryString["customeId"].ToString();
                         if (Session[SessionContents.CurrentUserRole].ToString() == "Associates")
-                            trOfficeUse.Visible = false;
+                            GetUserType();
                         else
                             trOfficeUse.Visible = true;
                         lblAssociate.Visible = true;
@@ -218,7 +218,7 @@ namespace WealthERP.OffLineOrderManagement
                         txtCustomerId.Value = Request.QueryString["customeId"].ToString();
                         lblAssociate.Visible = true;
                         if (Session[SessionContents.CurrentUserRole].ToString() == "Associates")
-                            trOfficeUse.Visible = false;
+                            GetUserType();
                         else
                             trOfficeUse.Visible = true;
                         lblAssociatetext.Text = Request.QueryString["associatename"].ToString();
@@ -415,7 +415,7 @@ namespace WealthERP.OffLineOrderManagement
 
         public void GetUserType()
         {
-
+            string usertype = string.Empty;
             if (!string.IsNullOrEmpty(Session["advisorVo"].ToString()))
                 advisorVo = (AdvisorVo)Session["advisorVo"];
             if (!string.IsNullOrEmpty(Session[SessionContents.RmVo].ToString()))
@@ -426,14 +426,23 @@ namespace WealthERP.OffLineOrderManagement
                 userType = "bm";
             else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "rm")
                 userType = "rm";
-            else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "associates")
+           if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "associates")
             {
                 userType = "associates";
                 associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
                 if (associateuserheirarchyVo.AgentCode != null)
                 {
                     AgentCode = associateuserheirarchyVo.AgentCode.ToString();
-
+                    if (Request.QueryString["action"] != null)
+                    {
+                        usertype = fiorderBo.GetUserType(advisorVo.advisorId, associateuserheirarchyVo.AdviserAgentId);
+                        if (usertype == "RM" || usertype == "BM")
+                        {
+                            trOfficeUse.Visible = true;
+                        }
+                        else
+                            trOfficeUse.Visible = false;
+                    }
                 }
                 else
                     AgentCode = "0";

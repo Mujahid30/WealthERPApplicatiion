@@ -19,8 +19,12 @@
 
         $(".flip").click(function() { $(".panel").slideToggle(); });
     });
+    
+    function divvisible() {
+        document.getElementById("td").style.visibility = 'visible';
+        return true;
+    }
 </script>
-
 
 <%--<script type="text/javascript">
 //    $(function() {
@@ -80,14 +84,15 @@
 
 --%>
 <table width="100%">
-<tr>
-     <td colspan="3">
+    <tr>
+        <td colspan="3">
             <div class="divPageHeading">
                 <table cellspacing="0" cellpadding="3" width="100%">
-                <tr>
-                    <td align="left"> Quick Links</td>
-                    
-                </tr>
+                    <tr>
+                        <td align="left">
+                            Quick Links
+                        </td>
+                    </tr>
                 </table>
             </div>
         </td>
@@ -103,30 +108,33 @@
             <table width="100%">
                 <tr>
                     <td style="width: 30%;" align="center">
-                        <div class="divDashBoardMouseInLinks" onmouseover="this.className='divDashBoardMouseOutLinks'" onmouseout="this.className='divDashBoardMouseInLinks'">
+                        <div class="divDashBoardMouseInLinks" onmouseover="this.className='divDashBoardMouseOutLinks'"
+                            onmouseout="this.className='divDashBoardMouseInLinks'">
                             <asp:ImageButton ID="imgClientsClick" ImageUrl="~/Images/Dashboard-Clients.png" runat="server"
                                 ToolTip="Navigate to Customer Grid" OnClick="imgClientsClick_OnClick" Width="70px" />
                             <br />
-                            <asp:LinkButton ID="lnkbtnClientLink" runat="server" Font-Underline="false"  CssClass="FieldName" OnClick="lnkbtnClientLink_OnClick"
-                                ToolTip="Navigate to Customer Grid" Text="Clients"></asp:LinkButton>
+                            <asp:LinkButton ID="lnkbtnClientLink" runat="server" Font-Underline="false" CssClass="FieldName"
+                                OnClick="lnkbtnClientLink_OnClick" ToolTip="Navigate to Customer Grid" Text="Clients"></asp:LinkButton>
                         </div>
                     </td>
                     <td style="width: 30%;" align="center">
-                        <div class="divDashBoardMouseInLinks" onmouseover="this.className='divDashBoardMouseOutLinks'" onmouseout="this.className='divDashBoardMouseInLinks'">
+                        <div class="divDashBoardMouseInLinks" onmouseover="this.className='divDashBoardMouseOutLinks'"
+                            onmouseout="this.className='divDashBoardMouseInLinks'">
                             <asp:ImageButton ID="imgUploads" ImageUrl="~/Images/Upload-icon.png" runat="server"
                                 ToolTip="Navigate to Uploads" OnClick="imgUploads_OnClick" Width="70px" />
                             <br />
-                            <asp:LinkButton ID="lnkbtnUploads" runat="server"  Font-Underline="false"  CssClass="FieldName" ToolTip="Navigate to Uploads"
-                                OnClick="lnkbtnUploads_OnClick" Text="Uploads"></asp:LinkButton>
+                            <asp:LinkButton ID="lnkbtnUploads" runat="server" Font-Underline="false" CssClass="FieldName"
+                                ToolTip="Navigate to Uploads" OnClick="lnkbtnUploads_OnClick" Text="Uploads"></asp:LinkButton>
                         </div>
                     </td>
                     <td style="width: 30%;" align="center" id="tdorderentry" runat="server">
-                         <div class="divDashBoardMouseInLinks" onmouseover="this.className='divDashBoardMouseOutLinks'" onmouseout="this.className='divDashBoardMouseInLinks'">
+                        <div class="divDashBoardMouseInLinks" onmouseover="this.className='divDashBoardMouseOutLinks'"
+                            onmouseout="this.className='divDashBoardMouseInLinks'">
                             <asp:ImageButton ID="imgOrderentry" ImageUrl="~/Images/Dashboard-MF-Order.png" runat="server"
                                 ToolTip="Navigate to Order Entry" OnClick="imgOrderentry_OnClick" Width="70px" />
                             <br />
-                            <asp:LinkButton ID="lnkbtnOrderEntry" runat="server"  Font-Underline="false"  CssClass="FieldName" OnClick="lnkbtnOrderEntry_OnClick"
-                                ToolTip="Navigate to Order Entry" Text="Order Entry"></asp:LinkButton>
+                            <asp:LinkButton ID="lnkbtnOrderEntry" runat="server" Font-Underline="false" CssClass="FieldName"
+                                OnClick="lnkbtnOrderEntry_OnClick" ToolTip="Navigate to Order Entry" Text="Order Entry"></asp:LinkButton>
                         </div>
                     </td>
                 </tr>
@@ -135,15 +143,12 @@
         <td style="width: 15%;">
         </td>
     </tr>
-    
     <tr>
-    <td colspan="3">
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    &nbsp;&nbsp;&nbsp;
-    <br />
-    </td>
+        <td colspan="3">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+            <br />
+        </td>
     </tr>
-    
     <tr>
         <td style="width: 15%;">
         </td>
@@ -151,32 +156,35 @@
             <table width="100%">
                 <tr>
                     <td style="width: 30%;" align="center">
-                            <div class="divDashBoardMouseInLinks" onmouseover="this.className='divDashBoardMouseOutLinks'" onmouseout="this.className='divDashBoardMouseInLinks'">
+                        <div class="divDashBoardMouseInLinks" onmouseover="this.className='divDashBoardMouseOutLinks'"
+                            onmouseout="this.className='divDashBoardMouseInLinks'">
                             <asp:ImageButton ID="imgBusinessMIS" ImageUrl="~/Images/Dashboard-BusinessMIS.png"
                                 runat="server" ToolTip="Navigate to MF Dashboard" OnClick="imgBusinessMIS_OnClick"
                                 Width="70px" />
                             <br />
-                            <asp:LinkButton ID="lnkbtnBusinessMIS" runat="server"  Font-Underline="false"  CssClass="FieldName" OnClick="lnkbtnBusinessMIS_OnClick"
-                                ToolTip="Navigate to MF Dashboard" Text="MF Dashboard"></asp:LinkButton>
+                            <asp:LinkButton ID="lnkbtnBusinessMIS" runat="server" Font-Underline="false" CssClass="FieldName"
+                                OnClick="lnkbtnBusinessMIS_OnClick" ToolTip="Navigate to MF Dashboard" Text="MF Dashboard"></asp:LinkButton>
                         </div>
                     </td>
                     <td style="width: 30%;" align="center">
-                           <div class="divDashBoardMouseInLinks" onmouseover="this.className='divDashBoardMouseOutLinks'" onmouseout="this.className='divDashBoardMouseInLinks'">
-                            <asp:ImageButton ID="imgInbox" ImageUrl="~/Images/report.png" runat="server" ToolTip="Navigate to Reports" OnClick="imgInbox_OnClick"
-                                Width="70px" />
+                        <div class="divDashBoardMouseInLinks" onmouseover="this.className='divDashBoardMouseOutLinks'"
+                            onmouseout="this.className='divDashBoardMouseInLinks'">
+                            <asp:ImageButton ID="imgInbox" ImageUrl="~/Images/report.png" runat="server" ToolTip="Navigate to Reports"
+                                OnClick="imgInbox_OnClick" Width="70px" />
                             <br />
-                            <asp:LinkButton ID="lnkbtnInbox" runat="server"  Font-Underline="false"  CssClass="FieldName" OnClick="lnkbtnInbox_OnClick"
-                                ToolTip="Navigate to Inbox"  Text="Reports"></asp:LinkButton>
+                            <asp:LinkButton ID="lnkbtnInbox" runat="server" Font-Underline="false" CssClass="FieldName"
+                                OnClick="lnkbtnInbox_OnClick" ToolTip="Navigate to Inbox" Text="Reports"></asp:LinkButton>
                         </div>
                     </td>
                     <td style="width: 30%;" align="center" id="tdfpclient" runat="server">
-                            <div class="divDashBoardMouseInLinks" onmouseover="this.className='divDashBoardMouseOutLinks'" onmouseout="this.className='divDashBoardMouseInLinks'">
+                        <div class="divDashBoardMouseInLinks" onmouseover="this.className='divDashBoardMouseOutLinks'"
+                            onmouseout="this.className='divDashBoardMouseInLinks'">
                             <asp:ImageButton ID="imgbtnFPClients" ImageUrl="~/Images/DashBoard-ProspectUser.png"
                                 runat="server" ToolTip="Navigate to Add FP Customers" OnClick="imgbtnFPClients_OnClick"
                                 Width="70px" />
                             <br />
-                            <asp:LinkButton ID="lnkbtnFPClients" runat="server"  Font-Underline="false"  CssClass="FieldName" OnClick="lnkbtnFPClients_OnClick"
-                                ToolTip="Navigate to Add FP Customers" Text="FP Clients"></asp:LinkButton>
+                            <asp:LinkButton ID="lnkbtnFPClients" runat="server" Font-Underline="false" CssClass="FieldName"
+                                OnClick="lnkbtnFPClients_OnClick" ToolTip="Navigate to Add FP Customers" Text="FP Clients"></asp:LinkButton>
                         </div>
                     </td>
                 </tr>
@@ -187,6 +195,41 @@
     </tr>
 </table>
 <br />
+<table width="100%" class="TableBackground">
+    <tr>
+        <td class="HeaderCell" id="tdHeader" runat="server" style="padding-left:5%;">
+            <asp:LinkButton ID="lnkExpend" runat="server" Text="+" CssClass="HeaderTextSmall" a
+                onblur="divvisible();"  ></asp:LinkButton>
+                
+            <asp:Label ID="lblAuthenticated" runat="server" CssClass="HeaderTextSmall" Text="Pending Authenticate:"></asp:Label>
+            <asp:Label ID="lblAuthenticatedCount" runat="server" CssClass="FieldName"></asp:Label>
+        </td>
+        <td colspan="3" id="td" style="visibility:hidden;">
+            <div id="divAuthenticate" style="width: 640px;">
+                <telerik:RadGrid ID="gvAuthenticate" runat="server" GridLines="None" AutoGenerateColumns="False"
+                    PageSize="10" AllowSorting="false" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
+                    Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="false" AllowAutomaticInserts="false">
+                    <MasterTableView Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
+                        CommandItemDisplay="None">
+                        <Columns>
+                            <telerik:GridBoundColumn DataField="PAIC_AssetInstrumentCategoryName" HeaderText="Product"
+                                AllowFiltering="false" HeaderStyle-HorizontalAlign="left" UniqueName="PAIC_AssetInstrumentCategoryName"
+                                HeaderStyle-Width="80px">
+                                <ItemStyle Width="50px" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="productwise" HeaderText="Product wise" UniqueName="productwise"
+                                SortExpression="productwise">
+                                <ItemStyle Width="50px" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                        </Columns>
+                    </MasterTableView>
+                    <ClientSettings>
+                        <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+                    </ClientSettings>
+                </telerik:RadGrid></div>
+        </td>
+    </tr>
+</table>
 <table width="100%" class="TableBackground">
     <tr>
         <td class="HeaderCell">

@@ -12,6 +12,8 @@ using System.Collections.Specialized;
 using BoWerpAdmin;
 using System.Data;
 using System.Configuration;
+using BoOps;
+using VOAssociates;
 namespace WealthERP.Advisor
 {
     public partial class AdviserLandingPage : System.Web.UI.UserControl
@@ -19,16 +21,19 @@ namespace WealthERP.Advisor
         AdvisorVo advisorVo;
         AdviserMaintenanceBo advisermaintanencebo = new AdviserMaintenanceBo();
         UserVo userVo;
+        FIOrderBo FIOrderBo = new FIOrderBo();
+        AssociatesUserHeirarchyVo associateuserheirarchyVo = new AssociatesUserHeirarchyVo();
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
             advisorVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
             userVo = (UserVo)Session[SessionContents.UserVo];
-
             if (!IsPostBack)
             {
                 //ShowUnreadMessageAlert();
                 ShowMessageBroadcast();
+                BindProductwiseAuthenticated();
+
             }
             if (advisorVo.advisorId == Convert.ToInt32(ConfigurationSettings.AppSettings["ONLINE_ADVISER"]))
             {
@@ -158,7 +163,7 @@ namespace WealthERP.Advisor
             //if (flavourId == 10)
             //{
             //    Session["NodeType"] = "CustomerReportsDashBoard";   
-          
+
             //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadlinks('AdvisorLeftPane','login');", true);
 
             //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadInbox", "loadcontrol('CustomerReportsDashBoard','login');", true);
@@ -193,9 +198,9 @@ namespace WealthERP.Advisor
             //}
             //else
             //{
-                Session["NodeType"] = "CustomerReportsDashBoard";
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadlinks('AdvisorLeftPane','login');", true);
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('CustomerReportsDashBoard','login');", true);
+            Session["NodeType"] = "CustomerReportsDashBoard";
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadlinks('AdvisorLeftPane','login');", true);
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('CustomerReportsDashBoard','login');", true);
             //}
         }
 
@@ -231,9 +236,9 @@ namespace WealthERP.Advisor
             if (intCount > 0)
             {
                 lnkbtnInbox.Text = "Reports " + "(" + intCount + ")";
-                    imgInbox.ImageUrl = "~/Images/msgUnRead.png";
+                imgInbox.ImageUrl = "~/Images/msgUnRead.png";
             }
-            
+
             else
             {
                 lnkbtnInbox.Text = "Reports " + "(" + intCount + ")";
@@ -261,6 +266,38 @@ namespace WealthERP.Advisor
             }
 
         }
+        protected void BindProductwiseAuthenticated()
+        {
+            string usertype = string.Empty, userType = string.Empty;
+            DataTable dt;
+            if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
+            {
+                dt = FIOrderBo.GetAuthenticate(advisorVo.advisorId, 0);
+                lblAuthenticatedCount.Text = dt.Rows[1]["overall"].ToString();
+                gvAuthenticate.DataSource = dt;
+                gvAuthenticate.Rebind();
+            }
+            else
+            {
+                if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "associates")
+                {
+                    userType = "associates";
+                    associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
+                    if (associateuserheirarchyVo.AgentCode != null)
+                    {
+                        usertype = FIOrderBo.GetUserType(advisorVo.advisorId, associateuserheirarchyVo.AdviserAgentId);
+                        if (usertype == "RM" || usertype == "BM")
+                        {
+                            dt = FIOrderBo.GetAuthenticate(advisorVo.advisorId, associateuserheirarchyVo.AdviserAgentId);
+                            lblAuthenticatedCount.Text = dt.Columns["1"].ToString();
+                            gvAuthenticate.DataSource = dt;
+                            gvAuthenticate.Rebind();
+                        }
 
+                    }
+                }
+            }
+        }
     }
 }
+
