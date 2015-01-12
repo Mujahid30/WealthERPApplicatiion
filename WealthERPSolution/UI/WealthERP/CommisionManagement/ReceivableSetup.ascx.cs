@@ -313,15 +313,15 @@ namespace WealthERP.Receivable
             rgPayableMapping.DataSource = dsLookupData;
             rgPayableMapping.DataBind();
 
-            if (rgPayableMapping.Items.Count == 0)
-            {
-                Table5.Visible = false;
-            }
-            else
-            {
-                Table5.Visible = true;
+            //if (rgPayableMapping.Items.Count == 0)
+            //{
+            //    Table5.Visible = false;
+            //}
+            //else
+            //{
+            //    Table5.Visible = true;
 
-            }
+            //}
 
             if (Cache[userVo.UserId.ToString() + "RulePayableDet"] != null)
                 Cache.Remove(userVo.UserId.ToString() + "RulePayableDet");
@@ -1076,6 +1076,7 @@ namespace WealthERP.Receivable
             System.Web.UI.HtmlControls.HtmlTableRow trMinAndMaxNumberOfApplication = new System.Web.UI.HtmlControls.HtmlTableRow(); ;
             System.Web.UI.HtmlControls.HtmlTableCell tdlb1SipFreq = new System.Web.UI.HtmlControls.HtmlTableCell(); ;
             System.Web.UI.HtmlControls.HtmlTableCell tdddlSipFreq = new System.Web.UI.HtmlControls.HtmlTableCell(); ;
+
             Label lblTransactionType = new Label();
             CheckBoxList chkListTtansactionType = new CheckBoxList();
             Label lblMinNumberOfApplication = new Label();
@@ -1877,7 +1878,7 @@ namespace WealthERP.Receivable
                     trMinAndMaxNumberOfApplication.Visible = !enablement;
                     ddlCommisionCalOn.Items[0].Enabled = false;
                     ddlCommisionCalOn.Items[1].Enabled = true;
-                    
+                    trMinAndMaxNumberOfApplication.Visible = false;
                 }
             }
             else if (product == "MF")
@@ -2294,8 +2295,9 @@ namespace WealthERP.Receivable
 
             if (Cache[userVo.UserId.ToString() + "CommissionStructureRule"] != null)
                 Cache.Remove(userVo.UserId.ToString() + "CommissionStructureRule");
-
-
+            if (Cache[userVo.UserId.ToString() + "RulePayableDet"] != null)
+                Cache.Remove(userVo.UserId.ToString() + "RulePayableDet");
+            
             BindCommissionStructureRuleBlankRow();
             tblCommissionStructureRule.Visible = false;
             tblCommissionStructureRule1.Visible = false;

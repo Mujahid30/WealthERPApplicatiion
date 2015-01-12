@@ -1150,7 +1150,7 @@
                             CssClass="rfvPCG" ControlToValidate="ddlUnMappedIssues" ValidationGroup="btnGo"
                             Display="Dynamic" InitialValue="Select"></asp:RequiredFieldValidator>
                     </td>
-               <%-- </tr>
+                    <%-- </tr>
                 <tr id="trBtnSubmit" runat="server">--%>
                     <td>
                         <asp:Button ID="btnMAP" runat="server" Text="Map" CssClass="PCGButton" ValidationGroup="btnGo"
@@ -1256,8 +1256,7 @@
                                 <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="CommissionStructureRule">
                                 </ExportSettings>
                                 <MasterTableView CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false"
-                                    EditMode="EditForms" CommandItemSettings-AddNewRecordText="Add Rule"
-                                    DataKeyNames="ACSR_CommissionStructureRuleName,ACSR_CommissionStructureRuleId,ACSR_MinTenure,WCT_CommissionTypeCode,XCT_CustomerTypeCode,ACSR_TenureUnit,
+                                    EditMode="EditForms" CommandItemSettings-AddNewRecordText="Add Rule" DataKeyNames="ACSR_CommissionStructureRuleName,ACSR_CommissionStructureRuleId,ACSR_MinTenure,WCT_CommissionTypeCode,XCT_CustomerTypeCode,ACSR_TenureUnit,
                                 ACSR_TransactionType,WCU_UnitCode,WCCO_CalculatedOnCode,ACSM_AUMFrequency,ACSR_MaxTenure,ACSR_SIPFrequency,ACG_CityGroupID,
                                 ACSR_ReceivableRuleFrequency,WCAL_ApplicableLevelCode,ACSR_IsServiceTaxReduced,ACSR_IsTDSReduced,ACSM_IsOtherTaxReduced,PaybleValue,PaybleUnit,RecievableValue,RecievableUnit">
                                     <Columns>
@@ -1319,17 +1318,17 @@
                                             DataField="ACSR_MaxNumberOfApplications">
                                             <HeaderStyle></HeaderStyle>
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn UniqueName="PaybleValue" HeaderText="Payable Brokerage Value"
-                                            DataField="PaybleValue" DataFormatString="{0:N2}">
-                                        </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn UniqueName="PaybleUnit" HeaderText="Payable Brokerage Unit"
-                                            DataField="PaybleUnit">
-                                        </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn UniqueName="ReceivableValue" HeaderText="Receivable Brokerage Value"
                                             DataField="RecievableValue" DataFormatString="{0:N2}">
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn UniqueName="ReceivableUnit" HeaderText="Receivable Brokerage Unit"
                                             DataField="RecievableUnit">
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn UniqueName="PaybleValue" HeaderText="Payable Brokerage Value"
+                                            DataField="PaybleValue" DataFormatString="{0:N2}">
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn UniqueName="PaybleUnit" HeaderText="Payable Brokerage Unit"
+                                            DataField="PaybleUnit">
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn UniqueName="WCCO_CalculatedOn" HeaderText="Calculated On"
                                             DataField="WCCO_CalculatedOn">
@@ -1361,7 +1360,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td class="leftLabel">
-                                                        <asp:Label ID="lb1RuleName" runat="server" Text="Rule Name" CssClass="FieldName"  ></asp:Label>
+                                                        <asp:Label ID="lb1RuleName" runat="server" Text="Rule Name" CssClass="FieldName"></asp:Label>
                                                     </td>
                                                     <td class="rightData">
                                                         <asp:TextBox ID="TxtRuleName" runat="server" CssClass="txtField"></asp:TextBox>
@@ -1615,16 +1614,16 @@
                                                 <%--<td id="tdRuleDetails" runat="server">--%>
                                                 <tr id="trRuleDetailSection" class="leftLabel" visible="false" runat="server">
                                                     <td colspan="5" class="tdSectionHeading">
-                                                        <div class="divSectionHeading"  >
-                                                            <div class="divSectionHeadingNumber"  >
+                                                        <div class="divSectionHeading">
+                                                            <div class="divSectionHeadingNumber">
                                                                 3.2
                                                             </div>
-                                                            <div class="fltlft" >
+                                                            <div class="fltlft">
                                                                 <asp:Label ID="Label14" runat="server" Text="Rates"></asp:Label>
                                                             </div>
                                                         </div>
                                                     </td>
-                                                  <%--  <td style="text-align: left; width: 250px;">>
+                                                    <%--  <td style="text-align: left; width: 250px;">>
                                                      <asp:Label ID="Label14" runat="server" Text="Rates"></asp:Label>
                                                     </td>--%>
                                                 </tr>
@@ -1740,7 +1739,8 @@
                                                             </MasterTableView>
                                                         </telerik:RadGrid>
                                                     </td>
-                                                    <td colspan="1"></td>
+                                                    <td colspan="1">
+                                                    </td>
                                                 </tr>
                                                 <%--<tr>
                                                  <%--   <td colspan="5">
@@ -1788,7 +1788,7 @@
                             PageSize="5" AutoGenerateColumns="False" EnableEmbeddedSkins="False" GridLines="None"
                             ShowFooter="True" PagerStyle-AlwaysVisible="true" AllowPaging="false" ShowStatusBar="True"
                             Skin="Telerik" AllowFilteringByColumn="true" OnNeedDataSource="rgPayableMapping_OnNeedDataSource"
-                              OnItemCommand="rgPayableMapping_ItemCommand" Width="70%">
+                            OnItemCommand="rgPayableMapping_ItemCommand" Width="70%">
                             <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" AutoGenerateColumns="false"
                                 Width="50%" DataKeyNames="CSRD_StructureRuleDetailsId,ACSR_CommissionStructureRuleId">
                                 <Columns>
