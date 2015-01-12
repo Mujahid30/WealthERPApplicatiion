@@ -71,6 +71,16 @@ namespace WealthERP.OffLineOrderManagement
                 {
                     BindNcdCategory();
                     BindOrderStatus();
+                    if (Request.QueryString["category"] != null)
+                    {
+                        string categorywise=Request.QueryString["category"].ToString();
+                        ViewState["category"] = categorywise;
+                        ddlCategory.SelectedItem.Text = categorywise;
+                        BindIssue(categorywise);
+                        lblIssue.Visible = true;
+                        ddlIssue.Visible = true;
+                        BindAdviserFDrderBook();
+                    }
                 }
         }
         protected void BindIssue(string Category)
@@ -115,8 +125,15 @@ namespace WealthERP.OffLineOrderManagement
         protected void BindAdviserFDrderBook()
         {
 
-            DataTable dt54FDOrderBook = OfflineBondOrderBo.GetFD54IssueOrder(advisorVo.advisorId, fromDate, Convert.ToDateTime(txtOrderTo.SelectedDate), ddlOrderStatus.SelectedValue, int.Parse(ddlIssue.SelectedValue), userType, AgentCode, ddlCategory.SelectedValue,int.Parse(ddlAuthenticate.SelectedValue));
-
+            DataTable dt54FDOrderBook;
+            if (Request.QueryString["category"] != null)
+            {
+                dt54FDOrderBook = OfflineBondOrderBo.GetFD54IssueOrder(advisorVo.advisorId, DateTime.MinValue, DateTime.Now, "0", 0, userType, AgentCode, ViewState["category"].ToString(), 0);
+            }
+            else
+            {
+              dt54FDOrderBook= OfflineBondOrderBo.GetFD54IssueOrder(advisorVo.advisorId, fromDate, Convert.ToDateTime(txtOrderTo.SelectedDate), ddlOrderStatus.SelectedValue, int.Parse(ddlIssue.SelectedValue), userType, AgentCode, ddlCategory.SelectedValue, int.Parse(ddlAuthenticate.SelectedValue));
+            }
             if (dt54FDOrderBook.Rows.Count >= 0)
             {
                 if (Cache["FDBookList" + userVo.UserId.ToString()] == null)

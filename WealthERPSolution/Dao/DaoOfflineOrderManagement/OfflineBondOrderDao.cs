@@ -213,7 +213,10 @@ namespace DaoOfflineOrderManagement
                 cmdGetFD54IssueOrder = db.GetStoredProcCommand("SPROC_Get54ECOrderBook");
                 db.AddInParameter(cmdGetFD54IssueOrder, "@issueId", DbType.Int32, issueId);
                 db.AddInParameter(cmdGetFD54IssueOrder, "@AdviserID", DbType.Int32, adviserId);
+                if(fromDate!=DateTime.MinValue)
                 db.AddInParameter(cmdGetFD54IssueOrder, "@Fromdate", DbType.DateTime, fromDate);
+                else
+                    db.AddInParameter(cmdGetFD54IssueOrder, "@Fromdate", DbType.DateTime, DateTime.Now.AddMonths(-1));
                 db.AddInParameter(cmdGetFD54IssueOrder, "@Todate", DbType.DateTime, toDate);
                 db.AddInParameter(cmdGetFD54IssueOrder, "@UserType", DbType.String, usrtype);
                 db.AddInParameter(cmdGetFD54IssueOrder, "@AgentCode", DbType.String, agentcode);

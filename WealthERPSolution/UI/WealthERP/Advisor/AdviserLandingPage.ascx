@@ -19,9 +19,14 @@
 
         $(".flip").click(function() { $(".panel").slideToggle(); });
     });
-    
+
     function divvisible() {
         document.getElementById("td").style.visibility = 'visible';
+        return true;
+    }
+
+    function divInVisible() {
+        document.getElementById("td").style.visibility = 'hidden';
         return true;
     }
 </script>
@@ -197,30 +202,33 @@
 <br />
 <table width="100%" class="TableBackground">
     <tr>
-        <td class="HeaderCell" id="tdHeader" runat="server" style="padding-left:5%;">
-            <asp:LinkButton ID="lnkExpend" runat="server" Text="+" CssClass="HeaderTextSmall" a
-                onblur="divvisible();"  ></asp:LinkButton>
-                
-            <asp:Label ID="lblAuthenticated" runat="server" CssClass="HeaderTextSmall" Text="Pending Authenticate:"></asp:Label>
-            <asp:Label ID="lblAuthenticatedCount" runat="server" CssClass="FieldName"></asp:Label>
+        <td class="HeaderCell" id="tdHeader" runat="server" style="padding-left: 5%;">
+            <div onclick="divvisible()">
+                +  <asp:Label ID="lblAuthenticated" runat="server" CssClass="HeaderTextSmall" Text="Pending Authenticate:"></asp:Label>
+            <asp:Label ID="lblAuthenticatedCount" runat="server" CssClass="HeaderTextSmall"></asp:Label>
+              <%-- <div onclick="divInVisible()">
+                -</div></div>--%>
         </td>
-        <td colspan="3" id="td" style="visibility:hidden;">
+        <td colspan="3" id="td" style="visibility: hidden;">
             <div id="divAuthenticate" style="width: 640px;">
                 <telerik:RadGrid ID="gvAuthenticate" runat="server" GridLines="None" AutoGenerateColumns="False"
                     PageSize="10" AllowSorting="false" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                     Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="false" AllowAutomaticInserts="false">
                     <MasterTableView Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
-                        CommandItemDisplay="None">
+                        CommandItemDisplay="None" DataKeyNames="PAIC_AssetInstrumentCategoryCode">
                         <Columns>
                             <telerik:GridBoundColumn DataField="PAIC_AssetInstrumentCategoryName" HeaderText="Product"
                                 AllowFiltering="false" HeaderStyle-HorizontalAlign="left" UniqueName="PAIC_AssetInstrumentCategoryName"
                                 HeaderStyle-Width="80px">
                                 <ItemStyle Width="50px" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="productwise" HeaderText="Product wise" UniqueName="productwise"
+                            <telerik:GridTemplateColumn DataField="productwise" HeaderText="Product wise" UniqueName="productwise"
                                 SortExpression="productwise">
                                 <ItemStyle Width="50px" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>
+                                <ItemTemplate>
+                                <asp:LinkButton ID="lnkProductWise" runat="server" CssClass="FieldName" Text='<%#Eval("productwise") %>' OnClick="lnkProductWise_OnClick"></asp:LinkButton>
+                                </ItemTemplate>
+                            </telerik:GridTemplateColumn>
                         </Columns>
                     </MasterTableView>
                     <ClientSettings>

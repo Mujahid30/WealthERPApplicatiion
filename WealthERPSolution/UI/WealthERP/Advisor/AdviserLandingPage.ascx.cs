@@ -14,7 +14,9 @@ using System.Data;
 using System.Configuration;
 using BoOps;
 using VOAssociates;
+using Telerik.Web.UI;
 namespace WealthERP.Advisor
+
 {
     public partial class AdviserLandingPage : System.Web.UI.UserControl
     {
@@ -289,7 +291,7 @@ namespace WealthERP.Advisor
                         if (usertype == "RM" || usertype == "BM")
                         {
                             dt = FIOrderBo.GetAuthenticate(advisorVo.advisorId, associateuserheirarchyVo.AdviserAgentId);
-                            lblAuthenticatedCount.Text = dt.Columns["1"].ToString();
+                            lblAuthenticatedCount.Text =  dt.Rows[1]["overall"].ToString();
                             gvAuthenticate.DataSource = dt;
                             gvAuthenticate.Rebind();
                         }
@@ -297,6 +299,13 @@ namespace WealthERP.Advisor
                     }
                 }
             }
+        }
+        protected void lnkProductWise_OnClick(object sender, EventArgs e)
+        {
+            LinkButton lnkProductWise = (LinkButton)sender;
+            GridDataItem gdi = (GridDataItem)lnkProductWise.NamingContainer;
+            string category = gvAuthenticate.MasterTableView.DataKeyValues[gdi.ItemIndex]["PAIC_AssetInstrumentCategoryCode"].ToString();
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "FixedIncome54ECOrderBook", "loadcontrol('FixedIncome54ECOrderBook','&category=" + category + " ');", true);
         }
     }
 }
