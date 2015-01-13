@@ -8,13 +8,18 @@
 <script src="../Scripts/jquery-1.3.1.min.js" type="text/javascript"></script>
 
 <script src="../Scripts/jQuery.bubbletip-1.0.6.js" type="text/javascript"></script>
-
+<telerik:RadScriptManager ID="RadScriptManager1" runat="server">
+</telerik:RadScriptManager>
 <script type="text/javascript">
     $(document).ready(function() {
         $(".panel").show();
 
         $(".flip").click(function() { $(".panel").slideToggle(); });
     });
+    function divvisible() {
+        document.getElementById("td").style.visibility = 'visible';
+        return true;
+    }
 </script>
 
 
@@ -133,5 +138,42 @@
     
 </table>
 <br />
-
+<table width="100%" class="TableBackground" >
+    <tr>
+        <td class="HeaderCell" id="tdHeader" runat="server" style="padding-left: 5%;" visible="false">
+            <div onclick="divvisible()">
+                +  <asp:Label ID="lblAuthenticated" runat="server" CssClass="HeaderTextSmall" Text="Pending Authenticate:"></asp:Label>
+            <asp:Label ID="lblAuthenticatedCount" runat="server" CssClass="HeaderTextSmall"></asp:Label></div>
+              <%-- <div onclick="divInVisible()">
+                -</div></div>--%>
+        </td>
+        <td colspan="3" id="td" style="visibility:hidden;">
+            <div id="divAuthenticate" style="width: 640px;">
+                <telerik:RadGrid ID="gvAuthenticate" runat="server" GridLines="None" AutoGenerateColumns="False"
+                    PageSize="10" AllowSorting="false" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
+                    Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="false" AllowAutomaticInserts="false">
+                    <MasterTableView Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
+                        CommandItemDisplay="None" DataKeyNames="PAIC_AssetInstrumentCategoryCode">
+                        <Columns>
+                            <telerik:GridBoundColumn DataField="PAIC_AssetInstrumentCategoryName" HeaderText="Product"
+                                AllowFiltering="false" HeaderStyle-HorizontalAlign="left" UniqueName="PAIC_AssetInstrumentCategoryName"
+                                HeaderStyle-Width="80px">
+                                <ItemStyle Width="50px" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridTemplateColumn DataField="productwise" HeaderText="Product wise" UniqueName="productwise"
+                                SortExpression="productwise">
+                                <ItemStyle Width="50px" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                <ItemTemplate>
+                                <asp:LinkButton ID="lnkProductWise" runat="server" CssClass="FieldName" Text='<%#Eval("productwise") %>' OnClick="lnkProductWise_OnClick"></asp:LinkButton>
+                                </ItemTemplate>
+                            </telerik:GridTemplateColumn>
+                        </Columns>
+                    </MasterTableView>
+                    <ClientSettings>
+                        <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+                    </ClientSettings>
+                </telerik:RadGrid></div>
+        </td>
+    </tr>
+</table>
 <asp:HiddenField ID="hdfFlavourId" runat="server" />

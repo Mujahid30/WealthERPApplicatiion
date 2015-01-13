@@ -73,9 +73,9 @@ namespace WealthERP.OffLineOrderManagement
                     BindOrderStatus();
                     if (Request.QueryString["category"] != null)
                     {
-                        string categorywise=Request.QueryString["category"].ToString();
+                        string categorywise=Request.QueryString["category"].ToString().TrimEnd(' ');
                         ViewState["category"] = categorywise;
-                        ddlCategory.SelectedItem.Text = categorywise;
+                        ddlCategory.SelectedValue = categorywise;
                         BindIssue(categorywise);
                         lblIssue.Visible = true;
                         ddlIssue.Visible = true;

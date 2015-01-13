@@ -16,7 +16,6 @@ using BoOps;
 using VOAssociates;
 using Telerik.Web.UI;
 namespace WealthERP.Advisor
-
 {
     public partial class AdviserLandingPage : System.Web.UI.UserControl
     {
@@ -275,30 +274,12 @@ namespace WealthERP.Advisor
             if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
             {
                 dt = FIOrderBo.GetAuthenticate(advisorVo.advisorId, 0);
-                lblAuthenticatedCount.Text = dt.Rows[1]["overall"].ToString();
+                if (dt.Rows.Count > 0)
+                    lblAuthenticatedCount.Text = dt.Rows[1]["overall"].ToString();
                 gvAuthenticate.DataSource = dt;
                 gvAuthenticate.Rebind();
             }
-            else
-            {
-                if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "associates")
-                {
-                    userType = "associates";
-                    associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
-                    if (associateuserheirarchyVo.AgentCode != null)
-                    {
-                        usertype = FIOrderBo.GetUserType(advisorVo.advisorId, associateuserheirarchyVo.AdviserAgentId);
-                        if (usertype == "RM" || usertype == "BM")
-                        {
-                            dt = FIOrderBo.GetAuthenticate(advisorVo.advisorId, associateuserheirarchyVo.AdviserAgentId);
-                            lblAuthenticatedCount.Text =  dt.Rows[1]["overall"].ToString();
-                            gvAuthenticate.DataSource = dt;
-                            gvAuthenticate.Rebind();
-                        }
 
-                    }
-                }
-            }
         }
         protected void lnkProductWise_OnClick(object sender, EventArgs e)
         {

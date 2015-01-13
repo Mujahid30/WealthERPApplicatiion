@@ -8,11 +8,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WealthERP.Advisor {
-    
-    
-    public partial class SalesDashBoard {
-        
+namespace WealthERP.Advisor
+{
+
+
+    public partial class SalesDashBoard
+    {
+
         /// <summary>
         /// imgClientsClick control.
         /// </summary>
@@ -21,7 +23,7 @@ namespace WealthERP.Advisor {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton imgClientsClick;
-        
+
         /// <summary>
         /// lnkbtnClientLink control.
         /// </summary>
@@ -30,7 +32,7 @@ namespace WealthERP.Advisor {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lnkbtnClientLink;
-        
+
         /// <summary>
         /// imgOrderentry control.
         /// </summary>
@@ -39,7 +41,7 @@ namespace WealthERP.Advisor {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton imgOrderentry;
-        
+
         /// <summary>
         /// lnkbtnOrderEntry control.
         /// </summary>
@@ -48,7 +50,7 @@ namespace WealthERP.Advisor {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lnkbtnOrderEntry;
-        
+
         /// <summary>
         /// hdfFlavourId control.
         /// </summary>
@@ -57,5 +59,11 @@ namespace WealthERP.Advisor {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdfFlavourId;
+        protected global::System.Web.UI.WebControls.Label lblAuthenticatedCount;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdHeader;
+        protected global::Telerik.Web.UI.RadGrid gvAuthenticate;
+        protected global::System.Web.UI.HtmlControls.HtmlTable tblAuthenticate;
+        protected global::System.Web.UI.WebControls.Label lblAuthenticated;
+
     }
 }

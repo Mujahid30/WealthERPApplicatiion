@@ -1419,7 +1419,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(EditSystematicDetailscmd, "@PASPSD_MinAmount", DbType.Double, mfProductAMCSchemePlanDetailsVo.MinAmount);
                 db.AddInParameter(EditSystematicDetailscmd, "@PASPSD_MultipleAmount", DbType.Double, mfProductAMCSchemePlanDetailsVo.MultipleAmount);
                 db.AddInParameter(EditSystematicDetailscmd, "@PASPSD_ModifiedBy", DbType.Int32, userId);
-
+                db.AddInParameter(EditSystematicDetailscmd, "@XSTT_SystematicTypeCode", DbType.String, mfProductAMCSchemePlanDetailsVo.SystematicCode);
                 db.ExecuteNonQuery(EditSystematicDetailscmd);
                 if (db.ExecuteNonQuery(EditSystematicDetailscmd) != 0)
                     blResult = true;

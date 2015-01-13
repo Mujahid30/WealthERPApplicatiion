@@ -44,6 +44,7 @@ namespace WealthERP.Advisor {
         protected global::System.Web.UI.WebControls.Label lblAuthenticatedCount;
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdHeader;
         protected global::Telerik.Web.UI.RadGrid gvAuthenticate;
+        protected global::System.Web.UI.WebControls.Label lblAuthenticated;
         /// <summary>
         /// imgUploads control.
         /// </summary>

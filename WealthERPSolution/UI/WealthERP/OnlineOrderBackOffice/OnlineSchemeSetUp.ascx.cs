@@ -2904,7 +2904,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 ddlSystematicType.SelectedValue = gvSIPDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["XSTT_SystematicTypeCode"].ToString();
                 if (ddlSystematicType.SelectedValue == "SIP" || ChkISSIP.Checked)
                     ddlSystematicType.Items[0].Enabled = true;
-                if (ddlSystematicType.SelectedValue == "SWP" || ChkISSTP.Checked)
+                if (ddlSystematicType.SelectedValue == "SWP" || ChkISSWP.Checked)
                     ddlSystematicType.Items[1].Enabled = true;
                 if (ddlSystematicType.SelectedValue == "STP" || ChkISSTP.Checked)
                     ddlSystematicType.Items[2].Enabled = true;

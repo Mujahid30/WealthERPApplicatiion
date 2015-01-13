@@ -11,7 +11,9 @@ using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections.Specialized;
 using BoWerpAdmin;
 using System.Data;
-
+using BoOps;
+using Telerik.Web.UI;
+using VOAssociates;
 
 namespace WealthERP.Advisor
 {
@@ -21,13 +23,16 @@ namespace WealthERP.Advisor
         AdvisorVo advisorVo;
         AdviserMaintenanceBo advisermaintanencebo = new AdviserMaintenanceBo();
         UserVo userVo;
+        FIOrderBo FIOrderBo = new FIOrderBo();
+        AssociatesUserHeirarchyVo associateuserheirarchyVo = new AssociatesUserHeirarchyVo();
+
         protected void Page_Load(object sender, EventArgs e)
         {
 
             SessionBo.CheckSession();
             advisorVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
             userVo = (UserVo)Session[SessionContents.UserVo];
-
+            BindProductwiseAuthenticated();
         }
 
 
@@ -94,6 +99,43 @@ namespace WealthERP.Advisor
 
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadOrderentry", "loadcontrol('AddProspectList','login');", true);
 
+        }
+        protected void BindProductwiseAuthenticated()
+        {
+            string usertype = string.Empty, userType = string.Empty;
+            DataTable dt;
+          
+                if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "associates")
+                {
+                    userType = "associates";
+                    associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
+                    if (associateuserheirarchyVo.AgentCode != null)
+                    {
+                        usertype = FIOrderBo.GetUserType(advisorVo.advisorId, associateuserheirarchyVo.AdviserAgentId);
+                        if (usertype == "RM" || usertype == "BM")
+                        {
+                            dt = FIOrderBo.GetAuthenticate(advisorVo.advisorId, associateuserheirarchyVo.AdviserAgentId);
+                            if (dt.Rows.Count > 0)
+                            lblAuthenticatedCount.Text = dt.Rows[1]["overall"].ToString();
+                            gvAuthenticate.DataSource = dt;
+                            gvAuthenticate.Rebind();
+                            tdHeader.Visible = true;
+                        }
+                        else
+                        {
+                            tdHeader.Visible = false;
+                        }
+
+                    }
+                }
+            
+        }
+        protected void lnkProductWise_OnClick(object sender, EventArgs e)
+        {
+            LinkButton lnkProductWise = (LinkButton)sender;
+            GridDataItem gdi = (GridDataItem)lnkProductWise.NamingContainer;
+            string category = gvAuthenticate.MasterTableView.DataKeyValues[gdi.ItemIndex]["PAIC_AssetInstrumentCategoryCode"].ToString();
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "FixedIncome54ECOrderBook", "loadcontrol('FixedIncome54ECOrderBook','&category=" + category + " ');", true);
         }
     }
 }
