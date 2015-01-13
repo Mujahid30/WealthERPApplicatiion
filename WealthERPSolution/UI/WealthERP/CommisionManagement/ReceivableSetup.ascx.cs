@@ -307,7 +307,7 @@ namespace WealthERP.Receivable
 
             int ruleId = int.Parse(rgPayableMapping.MasterTableView.DataKeyValues[rowindex]["CSRD_StructureRuleDetailsId"].ToString());
             string structureId = hidCommissionStructureName.Value;
-            string myscript = "window.open('PopUp.aspx?ID=" + structureId + "&ruleId=" + ruleId + "&Action=VIEW&pageID=PayableStructureToAgentCategoryMapping&', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')";
+            string myscript = "window.open('PopUp.aspx?ID=" + structureId + "&ruleId=" + ruleId + "&Action=VIEW&pageID=PayableStructureToAgentCategoryMapping&', 'mywindow', 'width=1000,height=600,scrollbars=yes,location=no')";
 
 
             ScriptManager.RegisterClientScriptBlock(this, this.GetType(), Guid.NewGuid().ToString(), "<script>" + myscript + "</script>", false);
@@ -347,15 +347,8 @@ namespace WealthERP.Receivable
             rgPayableMapping.DataSource = dsLookupData;
             rgPayableMapping.DataBind();
 
-            //if (rgPayableMapping.Items.Count == 0)
-            //{
-            //    Table5.Visible = false;
-            //}
-            //else
-            //{
-            //    Table5.Visible = true;
-
-            //}
+            
+            Table5.Visible = true;
 
             if (Cache[userVo.UserId.ToString() + "RulePayableDet"] != null)
                 Cache.Remove(userVo.UserId.ToString() + "RulePayableDet");
@@ -2310,6 +2303,7 @@ namespace WealthERP.Receivable
                 lnkEditStructure.ToolTip = "View commission structure section";
                 btnStructureSubmit.Visible = false;
                 btnStructureUpdate.Visible = true;
+                Table5.Visible = false;
 
 
             }

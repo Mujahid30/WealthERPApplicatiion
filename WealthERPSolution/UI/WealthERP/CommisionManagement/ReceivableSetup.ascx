@@ -1425,7 +1425,7 @@
                                                         <asp:Label ID="lblApplyTaxes" runat="server" Text="Apply Taxes:" CssClass="FieldName"></asp:Label>
                                                     </td>
                                                     <td class="rightData">
-                                                        <asp:CheckBoxList ID="chkListApplyTax" runat="server"  CssClass="txtField" RepeatLayout="Flow"
+                                                        <asp:CheckBoxList ID="chkListApplyTax" runat="server" CssClass="txtField" RepeatLayout="Flow"
                                                             RepeatDirection="Horizontal" AutoPostBack="true" OnSelectedIndexChanged="chkListApplyTax_CheckChanged">
                                                             <asp:ListItem Text="Service Tax" Value="ServiceTax"></asp:ListItem>
                                                             <asp:ListItem Text="TDS" Value="TDS"></asp:ListItem>
@@ -1780,9 +1780,9 @@
                             <div class="divSectionHeadingNumber fltlftStep">
                                 4
                             </div>
-                            <div class="fltlft" style="width: 200px;">
-                                &nbsp;
-                                <asp:Label ID="Label15" runat="server" Text="Associate Mapping"></asp:Label>
+                            &nbsp;
+                            <div class="divSectionHeadingNumber1 fltlftStep" style="width: 200px;">
+                                <asp:Label ID="Label15" runat="server" Text="Associate Payable Mapping"></asp:Label>
                             </div>
                         </div>
                     </td>
