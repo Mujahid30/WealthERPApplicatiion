@@ -69,7 +69,7 @@
 <table width="90%" class="TableBackground" cellspacing="0" cellpadding="2">
     <tr>
         <td class="leftField" width="16%">
-            <asp:Label ID="lblSearchType" runat="server" Text="Select  Type:" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="lblSearchType" runat="server" Text=" Type:" CssClass="FieldName"></asp:Label>
         </td>
         <td align="rightField">
             <asp:DropDownList ID="ddlSearchType" AutoPostBack="true" runat="server" CssClass="cmbField">
@@ -79,7 +79,7 @@
                 Operator="NotEqual" ValidationGroup="vgbtnSubmit" ValueToCompare="Select"></asp:CompareValidator>
         </td>
         <td align="left" class="leftField" width="20%">
-            <asp:Label ID="lblSelectProduct" runat="server" Text="Select product:" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="lblSelectProduct" runat="server" Text=" product:" CssClass="FieldName"></asp:Label>
         </td>
         <td>
             <asp:DropDownList ID="ddlProduct" runat="server" AutoPostBack="true" CssClass="cmbField"
@@ -116,7 +116,7 @@
                 Operator="NotEqual" ValidationGroup="vgbtnSubmit" ValueToCompare="Select"></asp:CompareValidator>
         </td>
         <td class="leftField" width="16%">
-            <asp:Label ID="lblOffline" runat="server" Text="Select Transaction Type:" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="lblOffline" runat="server" Text="Transaction Type:" CssClass="FieldName"></asp:Label>
         </td>
         <td>
             <asp:DropDownList ID="ddlSelectMode" runat="server" CssClass="cmbField">
@@ -127,7 +127,7 @@
             </asp:DropDownList>
         </td>
         <td align="left" class="leftField" width="16%">
-            <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Select Commission Type:"></asp:Label>
+            <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Commission Type:"></asp:Label>
         </td>
         <td>
             <asp:DropDownList ID="ddlCommType" runat="server" CssClass="cmbField" AutoPostBack="true">
@@ -143,7 +143,7 @@
     </tr>
     <tr id="trNCDIPO" runat="server" visible="false">
         <td align="left" class="leftField">
-            <asp:Label ID="lblIssueType" runat="server" CssClass="FieldName" Text="Select Issue Type:"></asp:Label>
+            <asp:Label ID="lblIssueType" runat="server" CssClass="FieldName" Text="Issue Type:"></asp:Label>
         </td>
         <td>
             <asp:DropDownList ID="ddlIssueType" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlIssueType_OnSelectedIndexChanged"
@@ -157,7 +157,7 @@
                 Operator="NotEqual" ValidationGroup="vgbtnSubmit" ValueToCompare="Select" Enabled="false"></asp:CompareValidator>
         </td>
         <td align="left" class="leftField">
-            <asp:Label ID="lblIssueName" runat="server" CssClass="FieldName" Text="Select Issue Name"></asp:Label>
+            <asp:Label ID="lblIssueName" runat="server" CssClass="FieldName" Text="Issue Name"></asp:Label>
         </td>
         <td>
             <asp:DropDownList ID="ddlIssueName" runat="server" CssClass="cmbField">
@@ -211,7 +211,7 @@
     </tr>--%>
     <tr>
         <td id="tdFromDate" class="leftField" runat="server" visible="false">
-            <asp:Label ID="lblPeriod" Text="Select Month/Quarter:" runat="server" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="lblPeriod" Text="Month/Quarter:" runat="server" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField" id="tdFrom" runat="server" visible="false">
             <asp:DropDownList ID="ddlMnthQtr" runat="server" CssClass="cmbField">
@@ -418,11 +418,23 @@
             CommandItemDisplay="None" GroupsDefaultExpanded="false" ExpandCollapseColumn-Groupable="true"
             GroupLoadMode="Client" ShowGroupFooter="true">
             <Columns>
+            <telerik:GridBoundColumn HeaderStyle-Width="10%" HeaderText="Rule Name"
+                    DataField="ACSR_CommissionStructureRuleName" HeaderStyle-HorizontalAlign="Right" UniqueName="ACSR_CommissionStructureRuleName"
+                    SortExpression="ACSR_CommissionStructureRuleName" AutoPostBackOnFilter="true" AllowFiltering="false"
+                    ShowFilterIcon="false" CurrentFilterFunction="Contains" FooterStyle-HorizontalAlign="Left">
+                    <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top"  />
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn HeaderStyle-Width="10%" HeaderText="ApplicationNo." DataField="CO_ApplicationNumber"
+                    HeaderStyle-HorizontalAlign="Right" UniqueName="CO_ApplicationNumber" SortExpression="CO_ApplicationNumber"
+                    AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                    FooterStyle-HorizontalAlign="Right">
+                    <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn HeaderStyle-Width="10%" HeaderText="Customer Name" DataField="CustomerName"
                     HeaderStyle-HorizontalAlign="Right" UniqueName="CustomerName" SortExpression="CustomerName"
                     AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                    FooterStyle-HorizontalAlign="Right">
-                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                    FooterStyle-HorizontalAlign="Left">
+                    <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn HeaderStyle-Width="10%" HeaderText="Order No." DataField="CO_OrderId"
                     HeaderStyle-HorizontalAlign="Right" UniqueName="CO_OrderId" SortExpression="CO_OrderId"
@@ -436,35 +448,30 @@
                     FooterStyle-HorizontalAlign="Right">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="10%" HeaderText="ApplicationNo." DataField="CO_ApplicationNumber"
-                    HeaderStyle-HorizontalAlign="Right" UniqueName="CO_ApplicationNumber" SortExpression="CO_ApplicationNumber"
-                    AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                    FooterStyle-HorizontalAlign="Right">
-                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
+                
                 <telerik:GridBoundColumn HeaderStyle-Width="10%" HeaderText="Status" DataField="WOS_OrderStep"
                     HeaderStyle-HorizontalAlign="Right" UniqueName="WOS_OrderStep" SortExpression="WOS_OrderStep"
                     AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                     FooterStyle-HorizontalAlign="Right">
-                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                    <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn HeaderStyle-Width="10%" HeaderText="Sub Broker Code" DataField="AAC_AgentCode"
                     HeaderStyle-HorizontalAlign="Right" UniqueName="AAC_AgentCode" SortExpression="AAC_AgentCode"
                     AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                     FooterStyle-HorizontalAlign="Right">
-                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                    <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn HeaderStyle-Width="10%" HeaderText="Associates Name" DataField="AA_ContactPersonName"
                     HeaderStyle-HorizontalAlign="Right" UniqueName="AA_ContactPersonName" SortExpression="AA_ContactPersonName"
                     AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                     FooterStyle-HorizontalAlign="Right">
-                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                    <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn HeaderStyle-Width="10%" HeaderText="User Type" DataField="CustomerAssociate"
                     HeaderStyle-HorizontalAlign="Right" UniqueName="CustomerAssociate" SortExpression="CustomerAssociate"
                     AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                     FooterStyle-HorizontalAlign="Right">
-                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                    <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn HeaderStyle-Width="20%" HeaderText="Issue Name" DataField="AIM_IssueName"
                     UniqueName="AIM_IssueName" SortExpression="AIM_IssueName" AutoPostBackOnFilter="true"
@@ -474,7 +481,7 @@
                 <telerik:GridBoundColumn HeaderStyle-Width="10%" HeaderText="Ordered Qty\Accepted Quantity" DataField="allotedQty"
                     UniqueName="allotedQty" SortExpression="allotedQty" AutoPostBackOnFilter="true"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                    <ItemStyle HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                    <ItemStyle HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn HeaderStyle-Width="10%" HeaderText="Holdings Amount" DataField="holdings"
                     HeaderStyle-HorizontalAlign="Right" UniqueName="holdings" SortExpression="holdings"
@@ -482,7 +489,7 @@
                     FooterStyle-HorizontalAlign="Right">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="10%" HeaderText="Brokage Rate" DataField="rate"
+                <telerik:GridBoundColumn HeaderStyle-Width="10%" HeaderText="Brokerage Rate" DataField="rate"
                     HeaderStyle-HorizontalAlign="Right" UniqueName="rate" SortExpression="rate" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                     FooterStyle-HorizontalAlign="Right">
@@ -492,7 +499,7 @@
                     HeaderStyle-HorizontalAlign="Right" UniqueName="WCU_UnitCode" SortExpression="WCU_UnitCode" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                     FooterStyle-HorizontalAlign="Right">
-                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                    <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn HeaderStyle-Width="10%" HeaderText="Expected Commission Value"
                     DataField="borkageExpectedvalue" HeaderStyle-HorizontalAlign="Right" UniqueName="borkageExpectedvalue"
@@ -500,12 +507,7 @@
                     ShowFilterIcon="false" CurrentFilterFunction="Contains" FooterStyle-HorizontalAlign="Right">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                 <telerik:GridBoundColumn HeaderStyle-Width="10%" HeaderText="Rule Name"
-                    DataField="ACSR_CommissionStructureRuleName" HeaderStyle-HorizontalAlign="Right" UniqueName="ACSR_CommissionStructureRuleName"
-                    SortExpression="ACSR_CommissionStructureRuleName" AutoPostBackOnFilter="true" AllowFiltering="false"
-                    ShowFilterIcon="false" CurrentFilterFunction="Contains" FooterStyle-HorizontalAlign="Right">
-                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
+                 
                
             </Columns>
         </MasterTableView>
