@@ -587,8 +587,7 @@ namespace DaoCommisionManagement
                 db.AddInParameter(cmdCreateCommissionStructureRule, "@UsetId", DbType.Int32, userId);
                 db.AddInParameter(cmdCreateCommissionStructureRule, "@ACSR_CommissionRuleHash", DbType.String, ruleHash);
                 db.AddInParameter(cmdCreateCommissionStructureRule, "@ACSR_ReducedValue", DbType.Decimal, commissionStructureRuleVo.TaxValue);
-
-
+                db.AddInParameter(cmdCreateCommissionStructureRule, "@ACSR_ServiceTaxValue", DbType.Decimal, commissionStructureRuleVo.TDSValue);
                 db.ExecuteNonQuery(cmdCreateCommissionStructureRule);
 
             }
@@ -1099,6 +1098,7 @@ namespace DaoCommisionManagement
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmdUpdateCommissionStructureRule = db.GetStoredProcCommand("SPROC_UpdateCommissionStructureRule");
                 db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSM_CommissionStructureRuleId", DbType.Int64, commissionStructureRuleVo.CommissionStructureRuleId);
+                db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSM_CommissionStructureName", DbType.String, commissionStructureRuleVo.CommissionStructureRuleName);
                 db.AddInParameter(cmdUpdateCommissionStructureRule, "@WCT_CommissionTypeCode", DbType.String, commissionStructureRuleVo.CommissionType);
                 db.AddInParameter(cmdUpdateCommissionStructureRule, "@XCC_CustomerCategoryCode", DbType.String, commissionStructureRuleVo.CustomerType);
 
@@ -1179,7 +1179,7 @@ namespace DaoCommisionManagement
                 db.AddInParameter(cmdUpdateCommissionStructureRule, "@UsetId", DbType.Int32, userId);
                 db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_CommissionRuleHash", DbType.String, strRuleHash);
                 db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_ReducedValue", DbType.Decimal, commissionStructureRuleVo.TaxValue);
-
+                db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_ServiceTaxValue", DbType.Decimal, commissionStructureRuleVo.TDSValue);
                 db.ExecuteNonQuery(cmdUpdateCommissionStructureRule);
 
             }

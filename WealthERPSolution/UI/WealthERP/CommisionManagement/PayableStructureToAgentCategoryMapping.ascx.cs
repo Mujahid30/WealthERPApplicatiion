@@ -45,6 +45,7 @@ namespace WealthERP.CommisionManagement
                     SetStructureDetails();
                     DefaultAssignments();
                     //  CreateMappedSchemeGrid();
+                    ddlType.SelectedValue = "Custom";
                 }
                 else
                 {
@@ -111,9 +112,9 @@ namespace WealthERP.CommisionManagement
 
         private void DefaultAssignments()
         {
-            //ddlMapping.SelectedValue = "Associate";
-            //ddlType.SelectedValue = "UserCategory";
-            //GetControlsBasedOnType(ddlType.SelectedValue);
+            ddlMapping.SelectedValue = "Associate";
+            ddlType.SelectedValue = "Custom";
+            GetControlsBasedOnType(ddlType.SelectedValue);
         }
 
         private void getAllStructures()
@@ -185,7 +186,7 @@ namespace WealthERP.CommisionManagement
                 {
                     RadListBoxSelectedAgentCodes.Items.Clear();
                 }
-                ddlType.SelectedValue = "UserCategory";
+                ddlType.SelectedValue = "Custom";
                 ddlType.Enabled = true;
 
 
@@ -201,6 +202,7 @@ namespace WealthERP.CommisionManagement
                 trListControls.Visible = true;
                 trAssetCategory.Visible = false;
                 BindAgentCodes();
+                ddlType.SelectedValue = "Custom";
             }
             else
             {
@@ -337,7 +339,7 @@ namespace WealthERP.CommisionManagement
                     ddlMapping.SelectedValue = row["UserType"].ToString();
                     if (ddlMapping.SelectedValue == "Associate")
                     {
-                        ddlType.SelectedValue = "UserCategory";
+                        ddlType.SelectedValue = "Custom";
                     }
                     else
                     {
@@ -346,6 +348,7 @@ namespace WealthERP.CommisionManagement
                     }
                     GetControlsBasedOnType(ddlType.SelectedValue);
                     ddlAdviserCategory.SelectedValue = row["AC_CategoryId"].ToString();
+                    ddlType.SelectedValue = "Custom";
                 }
 
 

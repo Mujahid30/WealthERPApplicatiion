@@ -58,7 +58,6 @@ namespace WealthERP.Receivable
                     BindPayableGrid(structureId);
                    // rgPayableMapping.Visible = true;
                     tbNcdIssueList.Visible = false;
-
                     if (ddlProductType.SelectedValue == "MF")
                     {
                         pnlAddSchemesButton.Visible = true;
@@ -191,6 +190,40 @@ namespace WealthERP.Receivable
             ShowHideRadGridStructureRulecolumns();
 
         }
+        protected void chkListApplyTax_CheckChanged(object sender, EventArgs e)
+        {
+            CheckBoxList chkListApplyTax = (CheckBoxList)sender;
+            GridEditFormItem gdi = (GridEditFormItem)chkListApplyTax.NamingContainer;
+            CheckBoxList chkListApplyTax1 = (CheckBoxList)gdi.FindControl("chkListApplyTax");
+            TextBox txtTaxValue = (TextBox)gdi.FindControl("txtTaxValue");
+            TextBox txtTDS = (TextBox)gdi.FindControl("txtTDS");
+            if (chkListApplyTax.Items[0].Selected)
+            {
+                txtTaxValue.Visible = true;
+            }
+            else
+            {
+                txtTaxValue.Visible = false;
+               
+            }
+            if (chkListApplyTax.Items[1].Selected)
+            {
+                txtTDS.Visible = true;
+            }
+            else
+            {
+                txtTDS.Visible = false;
+
+            }
+            if (chkListApplyTax.Items[0].Selected && chkListApplyTax.Items[1].Selected)
+            {
+                txtTaxValue.Visible = true;
+                txtTDS.Visible = true;
+
+            }
+
+
+        }
 
         private void ShowHideRadGridStructureRulecolumns()
         {
@@ -223,6 +256,7 @@ namespace WealthERP.Receivable
                 RadGridStructureRule.MasterTableView.GetColumn("ACSR_TransactionType").Visible = false;
 
             }
+          
         }
         protected void ddlCategory_OnSelectedIndexChanged(object sender, EventArgs e)
         {
@@ -253,7 +287,7 @@ namespace WealthERP.Receivable
 
             int ruleId = int.Parse(rgPayableMapping.MasterTableView.DataKeyValues[rowindex]["CSRD_StructureRuleDetailsId"].ToString());
             string structureId = hidCommissionStructureName.Value;
-            string myscript = "window.open('PopUp.aspx?ID=" + structureId + "&ruleId=" + ruleId + "&pageID=PayableStructureToAgentCategoryMapping&', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')";
+            string myscript = "window.open('PopUp.aspx?ID=" + structureId + "&ruleId=" + ruleId + "&pageID=PayableStructureToAgentCategoryMapping&', 'mywindow', 'width=1000,height=600,scrollbars=yes,location=no')";
 
 
             ScriptManager.RegisterClientScriptBlock(this, this.GetType(), Guid.NewGuid().ToString(), "<script>" + myscript + "</script>", false);
@@ -1076,6 +1110,7 @@ namespace WealthERP.Receivable
             System.Web.UI.HtmlControls.HtmlTableRow trMinAndMaxNumberOfApplication = new System.Web.UI.HtmlControls.HtmlTableRow(); ;
             System.Web.UI.HtmlControls.HtmlTableCell tdlb1SipFreq = new System.Web.UI.HtmlControls.HtmlTableCell(); ;
             System.Web.UI.HtmlControls.HtmlTableCell tdddlSipFreq = new System.Web.UI.HtmlControls.HtmlTableCell(); ;
+            System.Web.UI.HtmlControls.HtmlTableRow trMinMAxInvAmount = new System.Web.UI.HtmlControls.HtmlTableRow(); ;
 
             Label lblTransactionType = new Label();
             CheckBoxList chkListTtansactionType = new CheckBoxList();
@@ -1117,6 +1152,7 @@ namespace WealthERP.Receivable
                 tdlb1MaxNumberOfApplication = (System.Web.UI.HtmlControls.HtmlTableCell)gdi.FindControl("tdlb1MaxNumberOfApplication");
                 tdtxtMaxNumberOfApplication = (System.Web.UI.HtmlControls.HtmlTableCell)gdi.FindControl("tdtxtMaxNumberOfApplication");
                 trMinAndMaxNumberOfApplication = (System.Web.UI.HtmlControls.HtmlTableRow)gdi.FindControl("trMinAndMaxNumberOfApplication");
+                trMinMAxInvAmount = (System.Web.UI.HtmlControls.HtmlTableRow)gdi.FindControl("trMinMAxInvAmount"); ;
                 tdlb1SipFreq = (System.Web.UI.HtmlControls.HtmlTableCell)gdi.FindControl("tdlb1SipFreq");
                 tdddlSipFreq = (System.Web.UI.HtmlControls.HtmlTableCell)gdi.FindControl("tdddlSipFreq");
 
@@ -1147,6 +1183,7 @@ namespace WealthERP.Receivable
                 tdlb1MaxNumberOfApplication = (System.Web.UI.HtmlControls.HtmlTableCell)gdi.FindControl("tdlb1MaxNumberOfApplication");
                 tdtxtMaxNumberOfApplication = (System.Web.UI.HtmlControls.HtmlTableCell)gdi.FindControl("tdtxtMaxNumberOfApplication");
                 trMinAndMaxNumberOfApplication = (System.Web.UI.HtmlControls.HtmlTableRow)gdi.FindControl("trMinAndMaxNumberOfApplication");
+                trMinMAxInvAmount = (System.Web.UI.HtmlControls.HtmlTableRow)gdi.FindControl("trMinMAxInvAmount");
                 tdlb1SipFreq = (System.Web.UI.HtmlControls.HtmlTableCell)gdi.FindControl("tdlb1SipFreq");
                 tdddlSipFreq = (System.Web.UI.HtmlControls.HtmlTableCell)gdi.FindControl("tdddlSipFreq");
 
@@ -1165,14 +1202,22 @@ namespace WealthERP.Receivable
 
             ShowAndHideSTructureRuleControlsBasedOnProductAndCommisionType(lblReceivableFrequency, ddlReceivableFrequency, trTransactionTypeSipFreq, tdlb1SipFreq, tdddlSipFreq, trMinMaxTenure, trMinMaxAge, tdlb1MinNumberOfApplication, tdtxtMinNumberOfApplication, ddlProductType.SelectedValue, ddlCommissionType.SelectedValue
                  , lblMinNumberOfApplication, txtMinNumberOfApplication, lblSIPFrequency, ddlSIPFrequency, ddlTransaction, chkListTtansactionType, lblTransactionType, ddlCommisionCalOn, ddlCommissionApplicableLevel,
-                 lblMaxNumberOfApplication, tdlb1MaxNumberOfApplication, tdtxtMaxNumberOfApplication, txtMaxNumberOfApplication, trMinAndMaxNumberOfApplication);
+                 lblMaxNumberOfApplication, tdlb1MaxNumberOfApplication, tdtxtMaxNumberOfApplication, txtMaxNumberOfApplication, trMinAndMaxNumberOfApplication, trMinMAxInvAmount);
         }
 
         protected void RadGridStructureRule_ItemDataBound(object sender, GridItemEventArgs e)
         {
             
             ShowHideRadGridStructureRulecolumns();
-            
+            if (e.Item is GridEditFormInsertItem && e.Item.OwnerTableView.IsItemInserted)
+            {
+                GridEditFormInsertItem item = (GridEditFormInsertItem)e.Item;
+                GridEditFormItem gefi = (GridEditFormItem)e.Item;
+                DropDownList ddlCommisionCalOn = (DropDownList)gefi.FindControl("ddlCommisionCalOn");
+                System.Web.UI.HtmlControls.HtmlTableRow trMinMAxInvAmount = (System.Web.UI.HtmlControls.HtmlTableRow)gefi.FindControl("trMinMAxInvAmount");
+                ddlCommisionCalOn.SelectedValue = "INAM";
+                trMinMAxInvAmount.Visible = true;
+            }
             if ((e.Item is GridEditFormItem) && (e.Item.IsInEditMode) && e.Item.ItemIndex > 0)
             {
                 HiddenField1.Value = RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_CommissionStructureRuleId"].ToString();
@@ -1262,6 +1307,7 @@ namespace WealthERP.Receivable
                 DropDownList ddlCommissionApplicableLevel = (DropDownList)e.Item.FindControl("ddlCommissionApplicableLevel");
                 CheckBoxList chkListApplyTax = (CheckBoxList)editform.FindControl("chkListApplyTax");
                 TextBox txtTaxValue = (TextBox)editform.FindControl("txtTaxValue");
+                TextBox txtTDS = (TextBox)editform.FindControl("txtTDS");
                 Label lblReceivableFrequency = (Label)editform.FindControl("lblReceivableFrequency");
                 System.Web.UI.HtmlControls.HtmlTableRow trTransactionTypeSipFreq = (System.Web.UI.HtmlControls.HtmlTableRow)editform.FindControl("trTransactionTypeSipFreq");
                 System.Web.UI.HtmlControls.HtmlTableRow trMinMaxTenure = (System.Web.UI.HtmlControls.HtmlTableRow)editform.FindControl("trMinMaxTenure");
@@ -1376,17 +1422,21 @@ namespace WealthERP.Receivable
                         if (chkItems.Value == "ServiceTax" & strIsServiceTaxReduced == "1")
                         {
                             chkItems.Selected = true;
+                            txtTaxValue.Visible = true;
                             break;
                         }
                         else if (chkItems.Value == "TDS" & strIsTDSReduced == "1")
                         {
                             chkItems.Selected = true;
+                            txtTDS.Visible = true;
                             break;
 
                         }
-                        else if (chkItems.Value == "Others" & strIsOtherTaxReduced == "1")
+                        else if (chkItems.Value == "ServiceTax" & chkItems.Value == "TDS")
                         {
                             chkItems.Selected = true;
+                            txtTaxValue.Visible = true;
+                            txtTDS.Visible = true;
                             break;
                         }
                     }
@@ -1396,7 +1446,7 @@ namespace WealthERP.Receivable
                     ddlCommissionType.SelectedValue = strCommissionType;
                     ShowAndHideSTructureRuleControlsBasedOnProductAndCommisionType(lblReceivableFrequency, ddlReceivableFrequency, trTransactionTypeSipFreq, tdlb1SipFreq, tdddlSipFreq, trMinMaxTenure, trMinMaxAge, tdMinNumberOfApplication, tdtxtMinNumberOfApplication1, ddlProductType.SelectedValue, ddlCommissionType.SelectedValue
                         , lblMinNumberOfApplication, txtMinNumberOfApplication, lblSIPFrequency, ddlSIPFrequency, ddlTransaction, chkListTtansactionType, lblTransactionType, ddlCommisionCalOn, ddlCommissionApplicableLevel
-                        , lblMaxNumberOfApplication, tdlb1MaxNumberOfApplication, tdtxtMaxNumberOfApplication, txtMaxNumberOfApplication, trMinAndMaxNumberOfApplication);
+                        , lblMaxNumberOfApplication, tdlb1MaxNumberOfApplication, tdtxtMaxNumberOfApplication, txtMaxNumberOfApplication, trMinAndMaxNumberOfApplication, trMinMAxInvAmount);
 
 
                     ddlInvestorType.SelectedValue = strCustomerCategory;
@@ -1413,6 +1463,22 @@ namespace WealthERP.Receivable
                         trMinMAxInvAmount.Visible = true;
                     }
                     chkListTtansactionType.Visible = true;
+                    //if (chkListTtansactionType.Items[0].Selected)
+                    //{
+                    //    txtTaxValue.Visible = true;
+                    //}
+                    //else
+                    //{
+                    //    txtTaxValue.Visible = false;
+                    //}
+                    //if (chkListTtansactionType.Items[1].Selected)
+                    //{
+                    //    txtTDS.Visible = true;
+                    //}
+                    //else
+                    //{
+                    //    txtTDS.Visible = false;
+                    //}
                     //ddlAUMFrequency.SelectedValue = strAUMFrequency;
                     TxtRuleName.Text = hdnRuleName.Value;
                     if (strCommissionType == "IN" && (strInvestmentTransactionType.Contains("SIP") || strInvestmentTransactionType.Contains("STB")))
@@ -1718,6 +1784,8 @@ namespace WealthERP.Receivable
                 DropDownList ddlCommissionApplicableLevel = (DropDownList)e.Item.FindControl("ddlCommissionApplicableLevel");
                 CheckBoxList chkListApplyTax = (CheckBoxList)e.Item.FindControl("chkListApplyTax");
                 TextBox txtTaxValue = (TextBox)e.Item.FindControl("txtTaxValue");
+                TextBox txtTDS = (TextBox)e.Item.FindControl("txtTDS");
+
 
                 commissionStructureRuleVo.CommissionStructureId = Convert.ToInt32(hidCommissionStructureName.Value);
 
@@ -1735,8 +1803,8 @@ namespace WealthERP.Receivable
                     commissionStructureRuleVo.IsServiceTaxReduced = true;
                 if (chkListApplyTax.Items[1].Selected)
                     commissionStructureRuleVo.IsTDSReduced = true;
-                if (chkListApplyTax.Items[2].Selected)
-                    commissionStructureRuleVo.IsOtherTaxReduced = true;
+                //if (chkListApplyTax.Items[2].Selected)
+                //    commissionStructureRuleVo.IsOtherTaxReduced = true;
 
 
 
@@ -1792,7 +1860,8 @@ namespace WealthERP.Receivable
 
                 if (!string.IsNullOrEmpty(txtTaxValue.Text.Trim()))
                     commissionStructureRuleVo.TaxValue = Convert.ToDecimal(txtTaxValue.Text.Trim());
-
+                if (!string.IsNullOrEmpty(txtTDS.Text.Trim()))
+                    commissionStructureRuleVo.TDSValue = Convert.ToDecimal(txtTDS.Text.Trim());
                 if (!string.IsNullOrEmpty(txtStruRuleComment.Text.Trim()))
                     commissionStructureRuleVo.StructureRuleComment = txtStruRuleComment.Text.Trim();
                 commissionStructureRuleVo.AdviserId = rmVo.AdviserId;
@@ -1830,7 +1899,7 @@ namespace WealthERP.Receivable
 
         private void ShowAndHideSTructureRuleControlsBasedOnProductAndCommisionType(Label lblReceivableFrequency, DropDownList ddlReceivableFrequency, System.Web.UI.HtmlControls.HtmlTableRow trTransactionTypeSipFreq, System.Web.UI.HtmlControls.HtmlTableCell tdlb1SipFreq, System.Web.UI.HtmlControls.HtmlTableCell tdddlSipFreq, System.Web.UI.HtmlControls.HtmlTableRow trMinMaxTenure, System.Web.UI.HtmlControls.HtmlTableRow trMinMaxAge, System.Web.UI.HtmlControls.HtmlTableCell tdMinNumberOfApplication, System.Web.UI.HtmlControls.HtmlTableCell tdtxtMinNumberOfApplication1, string product, string CommisionType
             , Label lblMinNumberOfApplication, TextBox txtMinNumberOfApplication, Label lblSIPFrequency, DropDownList ddlSIPFrequency, DropDownList ddlTransaction, CheckBoxList chkListTtansactionType, Label lblTransactionType, DropDownList ddlCommisionCalOn, DropDownList ddlCommissionApplicableLevel
-            , Label lblMaxNumberOfApplication, System.Web.UI.HtmlControls.HtmlTableCell tdlb1MaxNumberOfApplication, System.Web.UI.HtmlControls.HtmlTableCell tdtxtMaxNumberOfApplication, TextBox txtMaxNumberOfApplication, System.Web.UI.HtmlControls.HtmlTableRow trMinAndMaxNumberOfApplication)
+            , Label lblMaxNumberOfApplication, System.Web.UI.HtmlControls.HtmlTableCell tdlb1MaxNumberOfApplication, System.Web.UI.HtmlControls.HtmlTableCell tdtxtMaxNumberOfApplication, TextBox txtMaxNumberOfApplication, System.Web.UI.HtmlControls.HtmlTableRow trMinAndMaxNumberOfApplication,System.Web.UI.HtmlControls.HtmlTableRow trMinMAxInvAmount)
         {
             bool enablement = false;
             lblSIPFrequency.Visible = enablement;
@@ -1859,8 +1928,8 @@ namespace WealthERP.Receivable
 
                     ddlCommisionCalOn.Items[1].Enabled = false;
                     ddlCommisionCalOn.Items[0].Enabled = false;
-
-
+                    trMinAndMaxNumberOfApplication.Visible = false;
+                    trMinMAxInvAmount.Visible = true;
                 }
                 else if (CommisionType == "TC")
                 {
@@ -1879,6 +1948,7 @@ namespace WealthERP.Receivable
                     ddlCommisionCalOn.Items[0].Enabled = false;
                     ddlCommisionCalOn.Items[1].Enabled = true;
                     trMinAndMaxNumberOfApplication.Visible = false;
+                    trMinMAxInvAmount.Visible = true;
                 }
             }
             else if (product == "MF")
@@ -2092,6 +2162,17 @@ namespace WealthERP.Receivable
                     {
                         duplicateCheck.Add(false);
                     }
+                    if (commissionStructureRuleVo.TDSValue != 0 && String.IsNullOrEmpty(dr["ACSR_ServiceTaxValue"].ToString()))
+                    {
+                        if (commissionStructureRuleVo.TDSValue == Convert.ToDecimal(dr["ACSR_ServiceTaxValue"].ToString()))
+                        {
+                            duplicateCheck.Add(true);
+                        }
+                    }
+                    else
+                    {
+                        duplicateCheck.Add(false);
+                    }
 
                     if (duplicateCheck.Count(b => b == false) >= 1)
                     {
@@ -2175,8 +2256,17 @@ namespace WealthERP.Receivable
                 if (subcategoryIds != "0")
                     ddlSubInstrCategory.SelectedValue = commissionStructureMasterVo.AssetSubCategory.ToString();
                 GetMapped_Unmapped_Issues("Mapped", "");
-                //ddlUnMappedIssues.Enabled = false;
-
+                ////ddlUnMappedIssues.Enabled = false;
+                ////txtTaxValue.Visible = false;
+                ////txtTDS.Visible = false;
+                //if (chkListApplyTax.Items[0].Selected)
+                //{
+                //    txtTaxValue.Visible = true;
+                //}
+                //else
+                //{
+                //    txtTDS.Visible = true;
+                //}
             }
             catch (BaseApplicationException Ex)
             {
@@ -2336,6 +2426,7 @@ namespace WealthERP.Receivable
             dtCommissionStructureRule.Columns.Add("ACSR_MinNumberOfApplications");
             dtCommissionStructureRule.Columns.Add("ACSR_MaxNumberOfApplications");
             dtCommissionStructureRule.Columns.Add("ACSR_ReducedValue");
+            dtCommissionStructureRule.Columns.Add("ACSR_ServiceTaxValue");
             dtCommissionStructureRule.Columns.Add("ACSR_BrokerageValue");
             dtCommissionStructureRule.Columns.Add("WCU_Unit");
             dtCommissionStructureRule.Columns.Add("WCCO_CalculatedOn");

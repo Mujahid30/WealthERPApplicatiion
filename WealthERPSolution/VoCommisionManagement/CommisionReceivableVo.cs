@@ -73,6 +73,7 @@ namespace VoCommisionManagement
         public Int32 MinNumberofApplications { get; set; }
         public Int32 MaxNumberofApplications { get; set; }
         public decimal TaxValue { get; set; }
+        public decimal TDSValue { get; set; }
 
         public decimal BrokerageValue { get; set; }
         public string BrokerageUnitCode { get; set; }

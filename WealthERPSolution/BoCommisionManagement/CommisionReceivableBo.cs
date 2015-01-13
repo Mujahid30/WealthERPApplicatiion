@@ -1164,6 +1164,7 @@ namespace BoCommisionManagement
             if (voComStrRule.MinNumberofApplications != null) strRule += voComStrRule.MinNumberofApplications.ToString();
             if (voComStrRule.MaxNumberofApplications != null) strRule += voComStrRule.MaxNumberofApplications.ToString();
             if (voComStrRule.TaxValue != null) strRule += voComStrRule.TaxValue.ToString();
+            if (voComStrRule.TDSValue != null) strRule += voComStrRule.TDSValue.ToString();
             if (voComStrRule.ProductType != null) strRule += voComStrRule.ProductType.ToString();
             if (voComStrRule.ReceivableFrequency != null) strRule += voComStrRule.ReceivableFrequency.ToString();
             if (voComStrRule.RuleCreatedBy != null) strRule += voComStrRule.RuleCreatedBy.ToString();

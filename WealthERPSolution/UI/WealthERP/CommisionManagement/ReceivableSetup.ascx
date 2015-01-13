@@ -76,7 +76,7 @@
 <script language="JavaScript" type="text/jscript">
 
     function openpopupAddCustomer() {
-        window.open('PopUp.aspx?AddPayableMapping=mf&pageID=PayableStructureToAgentCategoryMapping&', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')
+        window.open('PopUp.aspx?AddPayableMapping=mf&pageID=PayableStructureToAgentCategoryMapping&', 'mywindow', 'width=800,height=600,scrollbars=yes,location=no')
         return false;
     }
 
@@ -1258,7 +1258,7 @@
                                 <MasterTableView CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false"
                                     EditMode="EditForms" CommandItemSettings-AddNewRecordText="Add Rule" DataKeyNames="ACSR_CommissionStructureRuleName,ACSR_CommissionStructureRuleId,ACSR_MinTenure,WCT_CommissionTypeCode,XCT_CustomerTypeCode,ACSR_TenureUnit,
                                 ACSR_TransactionType,WCU_UnitCode,WCCO_CalculatedOnCode,ACSM_AUMFrequency,ACSR_MaxTenure,ACSR_SIPFrequency,ACG_CityGroupID,
-                                ACSR_ReceivableRuleFrequency,WCAL_ApplicableLevelCode,ACSR_IsServiceTaxReduced,ACSR_IsTDSReduced,ACSM_IsOtherTaxReduced,PaybleValue,PaybleUnit,RecievableValue,RecievableUnit">
+                                ACSR_ReceivableRuleFrequency,WCAL_ApplicableLevelCode,ACSR_IsServiceTaxReduced,ACSR_IsTDSReduced,ACSM_IsOtherTaxReduced,PaybleValue,PaybleUnit,RecievableValue,RecievableUnit,ACSR_ServiceTaxValue">
                                     <Columns>
                                         <telerik:GridEditCommandColumn EditText="Edit" UniqueName="Edit">
                                         </telerik:GridEditCommandColumn>
@@ -1425,15 +1425,20 @@
                                                         <asp:Label ID="lblApplyTaxes" runat="server" Text="Apply Taxes:" CssClass="FieldName"></asp:Label>
                                                     </td>
                                                     <td class="rightData">
-                                                        <asp:CheckBoxList ID="chkListApplyTax" runat="server" CssClass="txtField" RepeatLayout="Flow"
-                                                            RepeatDirection="Horizontal">
+                                                        <asp:CheckBoxList ID="chkListApplyTax" runat="server"  CssClass="txtField" RepeatLayout="Flow"
+                                                            RepeatDirection="Horizontal" AutoPostBack="true" OnSelectedIndexChanged="chkListApplyTax_CheckChanged">
                                                             <asp:ListItem Text="Service Tax" Value="ServiceTax"></asp:ListItem>
                                                             <asp:ListItem Text="TDS" Value="TDS"></asp:ListItem>
-                                                            <asp:ListItem Text="Others" Value="Others"></asp:ListItem>
+                                                            <%--<asp:ListItem Text="Others" Value="Others"></asp:ListItem>--%>
                                                         </asp:CheckBoxList>
                                                         <asp:TextBox ID="txtTaxValue" Text='<%# Bind( "ACSR_ReducedValue") %>' runat="server"
-                                                            CssClass="txtField"></asp:TextBox>
+                                                            CssClass="txtField" Visible="false"></asp:TextBox>
                                                         <cc1:TextBoxWatermarkExtender ID="twtxtTaxValue" TargetControlID="txtTaxValue" WatermarkText="Enter the Value"
+                                                            runat="server" EnableViewState="false">
+                                                        </cc1:TextBoxWatermarkExtender>
+                                                        <asp:TextBox ID="txtTDS" Text='<%# Bind( "ACSR_ServiceTaxValue") %>' runat="server"
+                                                            CssClass="txtField" Visible="false"></asp:TextBox>
+                                                        <cc1:TextBoxWatermarkExtender ID="twttxtTDS" TargetControlID="txtTDS" WatermarkText="Enter the TDS"
                                                             runat="server" EnableViewState="false">
                                                         </cc1:TextBoxWatermarkExtender>
                                                     </td>

@@ -1233,5 +1233,9 @@ namespace WealthERP.Receivable {
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdchkListTtansactionType;
         protected global::System.Web.UI.WebControls.HiddenField hdnRuleName;
         protected global::System.Web.UI.WebControls.Label lblNoRecordFound;
+        protected global::System.Web.UI.WebControls.TextBox txtTaxValue;
+        protected global::System.Web.UI.WebControls.TextBox txtTDS;
+        protected global::System.Web.UI.WebControls.CheckBoxList chkListApplyTax;
+        protected global::System.Web.UI.WebControls.DropDownList ddlCommisionCalOn;
     }
 }
