@@ -789,7 +789,7 @@ namespace WealthERP.OnlineOrderManagement
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblTest;
 
-         /// <summary>
+        /// <summary>
         /// lblTest control.
         /// </summary>
         /// <remarks>
@@ -817,7 +817,7 @@ namespace WealthERP.OnlineOrderManagement
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trSchemeRating;
 
-        
+
         /// <summary>
         /// imgRatingDetails control.
         /// </summary>
@@ -826,6 +826,98 @@ namespace WealthERP.OnlineOrderManagement
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Image imgRatingDetails;
-        
+
+        /// <summary>
+        /// imgRating3yr control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image imgRating3yr;
+
+
+        /// <summary>
+        /// imgRating5yr control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image imgRating5yr;
+
+        /// <summary>
+        /// imgRating10yr control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image imgRating10yr;
+
+
+
+        /// <summary>
+        /// lblSchemeRetrun3yr control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSchemeRetrun3yr;
+
+
+        /// <summary>
+        /// lblSchemeRetrun5yr control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSchemeRetrun5yr;
+
+
+        /// <summary>
+        /// lblSchemeRetrun10yr control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSchemeRetrun10yr;
+
+
+
+
+        /// <summary>
+        /// lblSchemeRisk3yr control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSchemeRisk3yr;
+
+
+        /// <summary>
+        /// lblSchemeRisk5yr control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSchemeRisk5yr;
+
+
+
+        /// <summary>
+        /// lblSchemeRisk10yr control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSchemeRisk10yr;
+
     }
 }
