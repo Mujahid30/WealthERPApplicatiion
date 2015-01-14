@@ -743,7 +743,7 @@
                 <asp:Label ID="lblCustomer" runat="server" Text="Customer Name:" CssClass="FieldName"></asp:Label>
             </td>
             <td>
-                <asp:TextBox ID="txtCustomerName" runat="server" CssClass="txtField" AutoComplete="Off"
+                <asp:TextBox ID="txtCustomerName" Width="200px" runat="server" CssClass="txtField" AutoComplete="Off"
                     onclientClick="ShowIsa()" AutoPostBack="True" TabIndex="2">
                 </asp:TextBox><span id="spnCustomer" class="spnRequiredField">*</span>
                 <asp:ImageButton ID="btnImgAddCustomer" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
@@ -1375,8 +1375,8 @@
             <td class="leftField" style="width: 20%">
                 <asp:Label ID="lblBankName" runat="server" Text="Bank Name:" CssClass="FieldName"></asp:Label>
             </td>
-            <td class="rightField" style="width: 20%">
-                <asp:DropDownList ID="ddlBankName" runat="server" CssClass="cmbField" AutoPostBack="true"
+            <td class="rightField" style="width: 10%">
+                <asp:DropDownList ID="ddlBankName" Width="300px" runat="server" CssClass="cmbField" AutoPostBack="true"
                     CausesValidation="true">
                 </asp:DropDownList>
                 <span id="Span4" class="spnRequiredField">*</span>
@@ -1397,7 +1397,7 @@
                 <asp:Label ID="lblBranchName" runat="server" Text="Bank Branch Name:" CssClass="FieldName"></asp:Label>
             </td>
             <td class="rightField" style="width: 20%">
-                <asp:TextBox ID="txtBranchName" runat="server" CssClass="txtField"></asp:TextBox>
+                <asp:TextBox ID="txtBranchName" Width="200px" runat="server" CssClass="txtField"></asp:TextBox>
             </td>
         </tr>
         <tr id="trDepositedBank" runat="server" visible="false">
