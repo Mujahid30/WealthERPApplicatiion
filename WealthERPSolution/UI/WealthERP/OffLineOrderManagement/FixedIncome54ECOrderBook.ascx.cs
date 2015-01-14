@@ -37,9 +37,7 @@ namespace WealthERP.OffLineOrderManagement
             customerVO = (CustomerVo)Session["customerVo"];
             userVo = (UserVo)Session[SessionContents.UserVo];
             userType = Session[SessionContents.CurrentUserRole].ToString();
-            fromDate = DateTime.Now.AddMonths(-1);
-            txtOrderFrom.SelectedDate = fromDate.Date;
-            txtOrderTo.SelectedDate = DateTime.Now;
+           
             //BindIssue();
              associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
                 if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "associates")
@@ -69,6 +67,9 @@ namespace WealthERP.OffLineOrderManagement
 
                 if (!IsPostBack)
                 {
+                    fromDate = DateTime.Now.AddMonths(-1);
+                    txtOrderFrom.SelectedDate = fromDate.Date;
+                    txtOrderTo.SelectedDate = DateTime.Now;
                     BindNcdCategory();
                     BindOrderStatus();
                     if (Request.QueryString["category"] != null)
@@ -132,6 +133,11 @@ namespace WealthERP.OffLineOrderManagement
             }
             else
             {
+                if (txtOrderFrom.SelectedDate != null)
+                    fromDate = DateTime.Parse(txtOrderFrom.SelectedDate.ToString());
+                if (txtOrderTo.SelectedDate != null)
+                    toDate = DateTime.Parse(txtOrderTo.SelectedDate.ToString());
+               
               dt54FDOrderBook= OfflineBondOrderBo.GetFD54IssueOrder(advisorVo.advisorId, fromDate, Convert.ToDateTime(txtOrderTo.SelectedDate), ddlOrderStatus.SelectedValue, int.Parse(ddlIssue.SelectedValue), userType, AgentCode, ddlCategory.SelectedValue, int.Parse(ddlAuthenticate.SelectedValue));
             }
             if (dt54FDOrderBook.Rows.Count >= 0)
