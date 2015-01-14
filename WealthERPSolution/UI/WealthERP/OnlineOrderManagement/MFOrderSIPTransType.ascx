@@ -77,80 +77,105 @@
 </script>
 
 <script type="text/jscript">
+    //     Sys.WebForms.PageRequestManager.getInstance().add_endRequest(EndRequestHandler);
     Sys.WebForms.PageRequestManager.getInstance().add_endRequest(EndRequestHandler);
     function EndRequestHandler(sender, args) {
         if (args.get_error() == undefined) {
             jQuery(document).ready(function($) {
 
-                $('[data-popup-target]').click(function() {
-                    $('html').addClass('overlay');
-                    var activePopup = $(this).attr('data-popup-target');
-                    $(activePopup).addClass('visible');
+                var moveLeft = 0;
+                var moveDown = 0;
+                $('a.popper').hover(function(e) {
 
+                    var target = '#' + ($(this).attr('data-popbox'));
+
+                    $(target).show();
+                    moveLeft = $(this).outerWidth();
+                    moveDown = ($(target).outerHeight() / 2);
+                }, function() {
+                    var target = '#' + ($(this).attr('data-popbox'));
+                    $(target).hide();
                 });
 
-                $(document).keyup(function(e) {
-                    if (e.keyCode == 27 && $('html').hasClass('overlay')) {
-                        clearPopup();
+                $('a.popper').mousemove(function(e) {
+                    var target = '#' + ($(this).attr('data-popbox'));
+
+                    leftD = e.pageX + parseInt(moveLeft);
+                    maxRight = leftD + $(target).outerWidth();
+                    windowLeft = $(window).width() - 40;
+                    windowRight = 0;
+                    maxLeft = e.pageX - (parseInt(moveLeft) + $(target).outerWidth() + 20);
+
+                    if (maxRight > windowLeft && maxLeft > windowRight) {
+                        leftD = maxLeft;
                     }
+
+                    topD = e.pageY - parseInt(moveDown);
+                    maxBottom = parseInt(e.pageY + parseInt(moveDown) + 20);
+                    windowBottom = parseInt(parseInt($(document).scrollTop()) + parseInt($(window).height()));
+                    maxTop = topD;
+                    windowTop = parseInt($(document).scrollTop());
+                    if (maxBottom > windowBottom) {
+                        topD = windowBottom - $(target).outerHeight() - 20;
+                    } else if (maxTop < windowTop) {
+                        topD = windowTop + 20;
+                    }
+
+                    $(target).css('top', topD).css('left', leftD);
+
+
                 });
-
-                $('.popup-exit').click(function() {
-                    clearPopup();
-
-                });
-
-                $('.popup-overlay').click(function() {
-                    clearPopup();
-                });
-
-                function clearPopup() {
-                    $('.popup.visible').addClass('transitioning').removeClass('visible');
-                    $('html').removeClass('overlay');
-
-                    setTimeout(function() {
-                        $('.popup').removeClass('transitioning');
-                    }, 200);
-                }
 
             });
         }
     }
 
+
     jQuery(document).ready(function($) {
-        $('[data-popup-target]').click(function() {
-            $('html').addClass('overlay');
-            var activePopup = $(this).attr('data-popup-target');
-            $(activePopup).addClass('visible');
+        var moveLeft = 0;
+        var moveDown = 0;
+        $('a.popper').hover(function(e) {
 
+            var target = '#' + ($(this).attr('data-popbox'));
+
+            $(target).show();
+            moveLeft = $(this).outerWidth();
+            moveDown = ($(target).outerHeight() / 2);
+        }, function() {
+            var target = '#' + ($(this).attr('data-popbox'));
+            $(target).hide();
         });
 
-        $(document).keyup(function(e) {
-            if (e.keyCode == 27 && $('html').hasClass('overlay')) {
-                clearPopup();
+        $('a.popper').mousemove(function(e) {
+            var target = '#' + ($(this).attr('data-popbox'));
+
+            leftD = e.pageX + parseInt(moveLeft);
+            maxRight = leftD + $(target).outerWidth();
+            windowLeft = $(window).width() - 40;
+            windowRight = 0;
+            maxLeft = e.pageX - (parseInt(moveLeft) + $(target).outerWidth() + 20);
+
+            if (maxRight > windowLeft && maxLeft > windowRight) {
+                leftD = maxLeft;
             }
+
+            topD = e.pageY - parseInt(moveDown);
+            maxBottom = parseInt(e.pageY + parseInt(moveDown) + 20);
+            windowBottom = parseInt(parseInt($(document).scrollTop()) + parseInt($(window).height()));
+            maxTop = topD;
+            windowTop = parseInt($(document).scrollTop());
+            if (maxBottom > windowBottom) {
+                topD = windowBottom - $(target).outerHeight() - 20;
+            } else if (maxTop < windowTop) {
+                topD = windowTop + 20;
+            }
+
+            $(target).css('top', topD).css('left', leftD);
+
+
         });
-
-        $('.popup-exit').click(function() {
-            clearPopup();
-
-        });
-
-        $('.popup-overlay').click(function() {
-            clearPopup();
-        });
-
-        function clearPopup() {
-            $('.popup.visible').addClass('transitioning').removeClass('visible');
-            $('html').removeClass('overlay');
-
-            setTimeout(function() {
-                $('.popup').removeClass('transitioning');
-            }, 200);
-        }
 
     });
-
     
 </script>
 
@@ -273,8 +298,10 @@
                                     <asp:Label ID="lblMinAmountrequiredDisplay" runat="server" CssClass="readOnlyField"></asp:Label>
                                 </td>
                                 <td rowspan="4">
-                                    <span class="readOnlyField">Scheme Rating</span><br />
-                                    <asp:Image runat="server" ID="imgSchemeRating" data-popup-target="#Rating-popup" />
+                                    <a href="#" class="popper" data-popbox="divSchemeRatingDetails"><span class="FieldName">
+                                        Scheme Rating</span><br />
+                                        <asp:Image runat="server" ID="imgSchemeRating" />
+                                    </a>
                                 </td>
                             </tr>
                             <tr class="SchemeInfoTable">
@@ -293,78 +320,74 @@
                             </tr>
                             <tr runat="server" id="trSchemeRating">
                                 <td colspan="5" align="center">
-                                    <div id="Rating-popup" class="popup">
-                                        <div class="popup-body">
-                                            <span class="popup-exit"></span>
-                                            <div class="popup-content">
-                                                <h2 class="popup-title">
-                                                    SCHEME RATING DETAILS
-                                                </h2>
-                                                <table border="1">
-                                                    <tr>
-                                                        <td>
-                                                        </td>
-                                                        <td>
-                                                            <span class="readOnlyField">RATING</span>
-                                                        </td>
-                                                        <td>
-                                                            <span class="readOnlyField">RETURN</span>
-                                                        </td>
-                                                        <td>
-                                                            <span class="readOnlyField">RISK</span>
-                                                        </td>
-                                                        <td>
-                                                            <span class="readOnlyField">RATING OVERALL</span>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <span class="readOnlyField">3 YEAR</span>
-                                                        </td>
-                                                        <td>
-                                                            <asp:Image runat="server" ID="imgRating3yr" />
-                                                        </td>
-                                                        <td>
-                                                            <asp:Label ID="lblSchemeRetrun3yr" runat="server" CssClass="readOnlyField"></asp:Label>
-                                                        </td>
-                                                        <td>
-                                                            <asp:Label ID="lblSchemeRisk3yr" runat="server" CssClass="readOnlyField"></asp:Label>
-                                                        </td>
-                                                        <td rowspan="3">
-                                                            <asp:Image runat="server" ID="imgRatingDetails" />
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <span class="readOnlyField">5 YEAR</span>
-                                                        </td>
-                                                        <td>
-                                                            <asp:Image runat="server" ID="imgRating5yr" />
-                                                        </td>
-                                                        <td>
-                                                            <asp:Label ID="lblSchemeRetrun5yr" runat="server" CssClass="readOnlyField"></asp:Label>
-                                                        </td>
-                                                        <td>
-                                                            <asp:Label ID="lblSchemeRisk5yr" runat="server" CssClass="readOnlyField"></asp:Label>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <span class="readOnlyField">10 YEAR</span>
-                                                        </td>
-                                                        <td>
-                                                            <asp:Image runat="server" ID="imgRating10yr" />
-                                                        </td>
-                                                        <td>
-                                                            <asp:Label ID="lblSchemeRetrun10yr" runat="server" CssClass="readOnlyField"></asp:Label>
-                                                        </td>
-                                                        <td>
-                                                            <asp:Label ID="lblSchemeRisk10yr" runat="server" CssClass="readOnlyField"></asp:Label>
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </div>
-                                        </div>
+                                    <div id="divSchemeRatingDetails" class="popbox">
+                                        <h2 class="popup-title">
+                                            SCHEME RATING DETAILS
+                                        </h2>
+                                        <table border="1" cellpadding="1" cellspacing="2" style="border-collapse:collapse;">
+                                            <tr>
+                                                <td>
+                                                 &nbsp;&nbsp;&nbsp;&nbsp;
+                                                </td>
+                                                <td>
+                                                    <span class="readOnlyField">RATING</span>
+                                                </td>
+                                                <td>
+                                                    <span class="readOnlyField">RETURN</span>
+                                                </td>
+                                                <td>
+                                                    <span class="readOnlyField">RISK</span>
+                                                </td>
+                                                <td>
+                                                    <span class="readOnlyField">RATING OVERALL</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span class="readOnlyField">3 YEAR</span>
+                                                </td>
+                                                <td>
+                                                    <asp:Image runat="server" ID="imgRating3yr" />
+                                                </td>
+                                                <td>
+                                                    <asp:Label ID="lblSchemeRetrun3yr" runat="server" CssClass="readOnlyField"></asp:Label>
+                                                </td>
+                                                <td>
+                                                    <asp:Label ID="lblSchemeRisk3yr" runat="server" CssClass="readOnlyField"></asp:Label>
+                                                </td>
+                                                <td rowspan="3">
+                                                    <asp:Image runat="server" ID="imgRatingDetails" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span class="readOnlyField">5 YEAR</span>
+                                                </td>
+                                                <td>
+                                                    <asp:Image runat="server" ID="imgRating5yr" />
+                                                </td>
+                                                <td>
+                                                    <asp:Label ID="lblSchemeRetrun5yr" runat="server" CssClass="readOnlyField"></asp:Label>
+                                                </td>
+                                                <td>
+                                                    <asp:Label ID="lblSchemeRisk5yr" runat="server" CssClass="readOnlyField"></asp:Label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span class="readOnlyField">10 YEAR</span>
+                                                </td>
+                                                <td>
+                                                    <asp:Image runat="server" ID="imgRating10yr" />
+                                                </td>
+                                                <td>
+                                                    <asp:Label ID="lblSchemeRetrun10yr" runat="server" CssClass="readOnlyField"></asp:Label>
+                                                </td>
+                                                <td>
+                                                    <asp:Label ID="lblSchemeRisk10yr" runat="server" CssClass="readOnlyField"></asp:Label>
+                                                </td>
+                                            </tr>
+                                        </table>
                                     </div>
                                     <div class="popup-overlay">
                                     </div>
@@ -714,6 +737,6 @@
             <asp:HiddenField ID="hdnAccountId" runat="server" />
         </div>
     </ContentTemplate>
-    <Triggers>
+    <Triggers>       
     </Triggers>
 </asp:UpdatePanel>
