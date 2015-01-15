@@ -1215,7 +1215,7 @@
                             &nbsp;
                         </div>
                         <div class="divSectionHeading" style="vertical-align: text-bottom">
-                            <div class="divSectionHeadingNumber1 fltlftStep">
+                            <div class="divSectionHeadingNumber">
                                 3
                             </div>
                             <div class="fltlft" style="width: 200px;">
@@ -1661,8 +1661,8 @@
                                                             <div class="divSectionHeadingNumber">
                                                                 3.2
                                                             </div>
-                                                            <div class="fltlft">
-                                                                <asp:Label ID="Label14" runat="server" Text="Rates"></asp:Label>
+                                                            <div style="float:left;padding-left:5px;">
+                                                                <asp:Label ID="Label14" runat="server" Text="Rates" ></asp:Label>
                                                             </div>
                                                         </div>
                                                     </td>
@@ -1680,7 +1680,7 @@
                                                             Visible="false">
                                                             <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" AutoGenerateColumns="false"
                                                                 Width="50%" EditMode="PopUp" CommandItemSettings-AddNewRecordText="Add Rates"
-                                                                CommandItemDisplay="Top" DataKeyNames="CSRD_StructureRuleDetailsId">
+                                                                CommandItemDisplay="Top" DataKeyNames="CSRD_StructureRuleDetailsId" CommandItemSettings-ShowRefreshButton="false" >
                                                                 <Columns>
                                                                     <telerik:GridEditCommandColumn EditText="Edit" UniqueName="editColumn" CancelText="Cancel"
                                                                         UpdateText="Update" HeaderStyle-Width="20px">
@@ -1725,7 +1725,7 @@
                                                                         <ItemStyle HorizontalAlign="Center" CssClass="MyImageButton" />
                                                                     </telerik:GridButtonColumn>
                                                                 </Columns>
-                                                                <EditFormSettings EditFormType="Template" PopUpSettings-Height="200px" PopUpSettings-Width="400px">
+                                                                <EditFormSettings EditFormType="Template" PopUpSettings-Height="250px" PopUpSettings-Width="400px">
                                                                     <FormTemplate>
                                                                         <table width="100%" cellspacing="3" cellpadding="3">
                                                                             <tr>
