@@ -20,6 +20,10 @@
 
 <script src="../Scripts/JScript.js" type="text/javascript"></script>
 
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery.bxslider.js" type="text/javascript"></script>
+
 <asp:ScriptManager ID="scrptMgr" runat="server">
 </asp:ScriptManager>
 <style type="text/css">
@@ -58,7 +62,6 @@
 <script language="javascript" type="text/javascript">
     var crnt = 0;
     function PreventClicks() {
-
         if (typeof (Page_ClientValidate('btnSubmit')) == 'function') {
             Page_ClientValidate();
         }
@@ -77,9 +80,25 @@
 </script>
 
 <script type="text/jscript">
-    //     Sys.WebForms.PageRequestManager.getInstance().add_endRequest(EndRequestHandler);
+    //     \Sys.WebForms.PageRequestManager.getInstance().add_endRequest(EndRequestHandler);
+    jQuery(document).ready(function($) {
+        $('.bxslider').bxSlider(
+    {
+        auto: true,
+        autoControls: true
+    }
+    );
+    });
     
-    
+
+//    Sys.WebForms.PageRequestManager.getInstance().add_endRequest(EndRequestHandler);
+//    function EndRequestHandler(sender, args) {
+//        if (args.get_error() == undefined) {
+//            jQuery(document).ready(function($) {
+//                $('.bxslider').bxSlider();
+//            });
+//        }
+//    }
 </script>
 
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
@@ -227,10 +246,10 @@
                                         <h2 class="popup-title">
                                             SCHEME RATING DETAILS
                                         </h2>
-                                        <table border="1" cellpadding="1" cellspacing="2" style="border-collapse:collapse;">
+                                        <table border="1" cellpadding="1" cellspacing="2" style="border-collapse: collapse;">
                                             <tr>
                                                 <td>
-                                                 &nbsp;&nbsp;&nbsp;&nbsp;
+                                                    &nbsp;&nbsp;&nbsp;&nbsp;
                                                 </td>
                                                 <td>
                                                     <span class="readOnlyField">RATING</span>
@@ -640,6 +659,29 @@
             <asp:HiddenField ID="hdnAccountId" runat="server" />
         </div>
     </ContentTemplate>
-    <Triggers>       
+    <Triggers>
     </Triggers>
 </asp:UpdatePanel>
+
+<table width="100%">
+<tr>
+<td align="center">
+<div style="float:left;width:90%">
+    <ul class="bxslider">
+        <li>
+            <img src="../Images/InvestorPageSlider/1.jpg" /></li>
+        <li>
+            <img src="../Images/InvestorPageSlider/2.jpg" /></li>
+        <li>
+            <img src="../Images/InvestorPageSlider/3.jpg" /></li>
+        <li>
+            <img src="../Images/InvestorPageSlider/4.jpg" /></li>
+        <li>
+            <img src="../Images/InvestorPageSlider/5.jpg" /></li>
+    </ul>
+</div>
+</td>
+</tr>
+</table>
+
+
