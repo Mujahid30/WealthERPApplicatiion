@@ -588,7 +588,7 @@ namespace DaoOps
                 db.AddInParameter(createFIOrderTrackingCmd, "@BranchName", DbType.String, orderVo.BankBranchName);
 
                 db.AddInParameter(createFIOrderTrackingCmd, "@AssetInstrumentCategory", DbType.String, FIorderVo.AssetInstrumentCategory);
-                if(FIorderVo.authenticId!=0)
+                if (FIorderVo.authenticId != 0)
                     db.AddInParameter(createFIOrderTrackingCmd, "@Isauthenticated", DbType.String, FIorderVo.authenticId);
                 if (db.ExecuteNonQuery(createFIOrderTrackingCmd) != 0)
                 {
