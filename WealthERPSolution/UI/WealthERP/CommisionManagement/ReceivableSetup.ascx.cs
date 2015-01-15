@@ -380,9 +380,9 @@ namespace WealthERP.Receivable
                 TextBox txtBrokerageValue = (TextBox)e.Item.FindControl("txtBrokerageValue");
                 DropDownList ddlCommissionype = (DropDownList)e.Item.FindControl("ddlCommissionype");
                 DropDownList ddlBrokerageUnit = (DropDownList)e.Item.FindControl("ddlBrokerageUnit");
+                TextBox txtRateName = (TextBox)e.Item.FindControl("txtRateName");
 
-
-                commisionReceivableBo.CreateUpdateDeleteCommissionTypeBrokerage(ruleId, Convert.ToInt32(ddlCommissionype.SelectedValue), ddlBrokerageUnit.SelectedValue, Convert.ToDecimal(txtBrokerageValue.Text), "INSERT", 0, 0);
+                commisionReceivableBo.CreateUpdateDeleteCommissionTypeBrokerage(ruleId, Convert.ToInt32(ddlCommissionype.SelectedValue), ddlBrokerageUnit.SelectedValue, Convert.ToDecimal(txtBrokerageValue.Text),txtRateName.Text, "INSERT", 0, 0);
 
                 BindRuleDetGrid(rgCommissionTypeCaliculation, ruleId);
                 BindPayableGrid(Convert.ToInt32(hidCommissionStructureName.Value));
@@ -397,8 +397,9 @@ namespace WealthERP.Receivable
                 TextBox txtBrokerageValue = (TextBox)e.Item.FindControl("txtBrokerageValue");
                 DropDownList ddlCommissionype = (DropDownList)e.Item.FindControl("ddlCommissionype");
                 DropDownList ddlBrokerageUnit = (DropDownList)e.Item.FindControl("ddlBrokerageUnit");
+                TextBox txtRateName = (TextBox)e.Item.FindControl("txtRateName");
 
-                commisionReceivableBo.CreateUpdateDeleteCommissionTypeBrokerage(ruleId, Convert.ToInt32(ddlCommissionype.SelectedValue), ddlBrokerageUnit.SelectedValue, Convert.ToDecimal(txtBrokerageValue.Text), "UPDATE", ruledetId, 0);
+                commisionReceivableBo.CreateUpdateDeleteCommissionTypeBrokerage(ruleId, Convert.ToInt32(ddlCommissionype.SelectedValue), ddlBrokerageUnit.SelectedValue, Convert.ToDecimal(txtBrokerageValue.Text),txtRateName.Text, "UPDATE", ruledetId, 0);
 
                 BindRuleDetGrid(rgCommissionTypeCaliculation, ruleId);
                 BindPayableGrid(Convert.ToInt32(hidCommissionStructureName.Value));
@@ -1052,9 +1053,11 @@ namespace WealthERP.Receivable
         {
             DropDownList ddlCommisionCalOn = (DropDownList)sender;
             System.Web.UI.HtmlControls.HtmlTableRow trMinMAxInvAmount = new System.Web.UI.HtmlControls.HtmlTableRow();
-            System.Web.UI.HtmlControls.HtmlTableRow trMinAndMaxNumberOfApplication = new System.Web.UI.HtmlControls.HtmlTableRow(); ;
+            System.Web.UI.HtmlControls.HtmlTableRow trMinAndMaxNumberOfApplication = new System.Web.UI.HtmlControls.HtmlTableRow(); 
             DropDownList ddlCommissionType = new DropDownList();
-
+            CheckBox chkSpecial = new CheckBox();
+            System.Web.UI.HtmlControls.HtmlTableCell tdlblApplicationNo = new System.Web.UI.HtmlControls.HtmlTableCell();
+            System.Web.UI.HtmlControls.HtmlTableCell tdApplicationNo = new System.Web.UI.HtmlControls.HtmlTableCell();
             if (ddlCommisionCalOn.NamingContainer is Telerik.Web.UI.GridEditFormItem)
             {
                 GridEditFormItem gdi;
@@ -1063,6 +1066,9 @@ namespace WealthERP.Receivable
                 trMinMAxInvAmount = (System.Web.UI.HtmlControls.HtmlTableRow)gdi.FindControl("trMinMAxInvAmount");
                 trMinAndMaxNumberOfApplication = (System.Web.UI.HtmlControls.HtmlTableRow)gdi.FindControl("trMinAndMaxNumberOfApplication");
                 ddlCommissionType = (DropDownList)gdi.FindControl("ddlCommissionType");
+                chkSpecial = (CheckBox)gdi.FindControl("chkSpecial");
+                tdlblApplicationNo = (System.Web.UI.HtmlControls.HtmlTableCell)gdi.FindControl("tdlblApplicationNo");
+                tdApplicationNo = (System.Web.UI.HtmlControls.HtmlTableCell)gdi.FindControl("tdApplicationNo");
                 
             }
             else if (ddlCommisionCalOn.NamingContainer is Telerik.Web.UI.GridEditFormInsertItem)
@@ -1072,10 +1078,16 @@ namespace WealthERP.Receivable
                 trMinMAxInvAmount = (System.Web.UI.HtmlControls.HtmlTableRow)gdi.FindControl("trMinMAxInvAmount");
                 trMinAndMaxNumberOfApplication = (System.Web.UI.HtmlControls.HtmlTableRow)gdi.FindControl("trMinAndMaxNumberOfApplication");
                 ddlCommissionType = (DropDownList)gdi.FindControl("ddlCommissionType");
+                chkSpecial = (CheckBox)gdi.FindControl("chkSpecial");
+                tdlblApplicationNo = (System.Web.UI.HtmlControls.HtmlTableCell)gdi.FindControl("tdlblApplicationNo");
+                 tdApplicationNo = (System.Web.UI.HtmlControls.HtmlTableCell)gdi.FindControl("tdApplicationNo");
 
             }
             trMinMAxInvAmount.Visible=false;
             trMinAndMaxNumberOfApplication.Visible = false;
+            tdlblApplicationNo.Visible = false;
+            tdApplicationNo.Visible = false;
+            chkSpecial.Checked = false;
             if (ddlCommisionCalOn.SelectedValue.ToString().ToUpper() == "APPC")
             {
                 trMinAndMaxNumberOfApplication.Visible = true;
@@ -1083,6 +1095,12 @@ namespace WealthERP.Receivable
             else if (ddlCommisionCalOn.SelectedValue.ToString().ToUpper() == "INAM")
             {
                 trMinMAxInvAmount.Visible = true;
+            }
+            else if (ddlCommisionCalOn.SelectedValue.ToString().ToUpper() == "APPNO")
+            {
+                tdlblApplicationNo.Visible = true;
+                tdApplicationNo.Visible = true;
+                chkSpecial.Checked = true;
             }
             
         }
@@ -1094,17 +1112,19 @@ namespace WealthERP.Receivable
             Label lblReceivableFrequency = new Label();
             DropDownList ddlReceivableFrequency = new DropDownList();
             System.Web.UI.HtmlControls.HtmlTableRow trTransactionTypeSipFreq = new System.Web.UI.HtmlControls.HtmlTableRow();
-            System.Web.UI.HtmlControls.HtmlTableRow trMinMaxTenure = new System.Web.UI.HtmlControls.HtmlTableRow(); ;
-            System.Web.UI.HtmlControls.HtmlTableRow trMinMaxAge = new System.Web.UI.HtmlControls.HtmlTableRow(); ;
-            System.Web.UI.HtmlControls.HtmlTableCell tdlb1MinNumberOfApplication = new System.Web.UI.HtmlControls.HtmlTableCell(); ;
-            System.Web.UI.HtmlControls.HtmlTableCell tdtxtMinNumberOfApplication = new System.Web.UI.HtmlControls.HtmlTableCell(); ;
-            System.Web.UI.HtmlControls.HtmlTableCell tdlb1MaxNumberOfApplication = new System.Web.UI.HtmlControls.HtmlTableCell(); ;
-            System.Web.UI.HtmlControls.HtmlTableCell tdtxtMaxNumberOfApplication = new System.Web.UI.HtmlControls.HtmlTableCell(); ;
-            System.Web.UI.HtmlControls.HtmlTableRow trMinAndMaxNumberOfApplication = new System.Web.UI.HtmlControls.HtmlTableRow(); ;
-            System.Web.UI.HtmlControls.HtmlTableCell tdlb1SipFreq = new System.Web.UI.HtmlControls.HtmlTableCell(); ;
-            System.Web.UI.HtmlControls.HtmlTableCell tdddlSipFreq = new System.Web.UI.HtmlControls.HtmlTableCell(); ;
-            System.Web.UI.HtmlControls.HtmlTableRow trMinMAxInvAmount = new System.Web.UI.HtmlControls.HtmlTableRow(); ;
-
+            System.Web.UI.HtmlControls.HtmlTableRow trMinMaxTenure = new System.Web.UI.HtmlControls.HtmlTableRow(); 
+            System.Web.UI.HtmlControls.HtmlTableRow trMinMaxAge = new System.Web.UI.HtmlControls.HtmlTableRow(); 
+            System.Web.UI.HtmlControls.HtmlTableCell tdlb1MinNumberOfApplication = new System.Web.UI.HtmlControls.HtmlTableCell(); 
+            System.Web.UI.HtmlControls.HtmlTableCell tdtxtMinNumberOfApplication = new System.Web.UI.HtmlControls.HtmlTableCell(); 
+            System.Web.UI.HtmlControls.HtmlTableCell tdlb1MaxNumberOfApplication = new System.Web.UI.HtmlControls.HtmlTableCell(); 
+            System.Web.UI.HtmlControls.HtmlTableCell tdtxtMaxNumberOfApplication = new System.Web.UI.HtmlControls.HtmlTableCell();
+            System.Web.UI.HtmlControls.HtmlTableRow trMinAndMaxNumberOfApplication = new System.Web.UI.HtmlControls.HtmlTableRow();
+            System.Web.UI.HtmlControls.HtmlTableCell tdlb1SipFreq = new System.Web.UI.HtmlControls.HtmlTableCell(); 
+            System.Web.UI.HtmlControls.HtmlTableCell tdddlSipFreq = new System.Web.UI.HtmlControls.HtmlTableCell();
+            System.Web.UI.HtmlControls.HtmlTableRow trMinMAxInvAmount = new System.Web.UI.HtmlControls.HtmlTableRow();
+            System.Web.UI.HtmlControls.HtmlTableCell tdApplicationNo = new System.Web.UI.HtmlControls.HtmlTableCell();
+            System.Web.UI.HtmlControls.HtmlTableCell tdlblApplicationNo = new System.Web.UI.HtmlControls.HtmlTableCell();
+            CheckBox chkSpecial = new CheckBox();
             Label lblTransactionType = new Label();
             CheckBoxList chkListTtansactionType = new CheckBoxList();
             Label lblMinNumberOfApplication = new Label();
@@ -1148,7 +1168,9 @@ namespace WealthERP.Receivable
                 trMinMAxInvAmount = (System.Web.UI.HtmlControls.HtmlTableRow)gdi.FindControl("trMinMAxInvAmount"); ;
                 tdlb1SipFreq = (System.Web.UI.HtmlControls.HtmlTableCell)gdi.FindControl("tdlb1SipFreq");
                 tdddlSipFreq = (System.Web.UI.HtmlControls.HtmlTableCell)gdi.FindControl("tdddlSipFreq");
-
+                tdlblApplicationNo = (System.Web.UI.HtmlControls.HtmlTableCell)gdi.FindControl("tdlblApplicationNo");
+                tdApplicationNo = (System.Web.UI.HtmlControls.HtmlTableCell)gdi.FindControl("tdApplicationNo");
+                chkSpecial = (CheckBox)gdi.FindControl("chkSpecial");
             }
             else if (ddlCommissionType.NamingContainer is Telerik.Web.UI.GridEditFormInsertItem)
             {
@@ -1179,6 +1201,9 @@ namespace WealthERP.Receivable
                 trMinMAxInvAmount = (System.Web.UI.HtmlControls.HtmlTableRow)gdi.FindControl("trMinMAxInvAmount");
                 tdlb1SipFreq = (System.Web.UI.HtmlControls.HtmlTableCell)gdi.FindControl("tdlb1SipFreq");
                 tdddlSipFreq = (System.Web.UI.HtmlControls.HtmlTableCell)gdi.FindControl("tdddlSipFreq");
+                tdlblApplicationNo = (System.Web.UI.HtmlControls.HtmlTableCell)gdi.FindControl("tdlblApplicationNo");
+                tdApplicationNo = (System.Web.UI.HtmlControls.HtmlTableCell)gdi.FindControl("tdApplicationNo");
+                chkSpecial = (CheckBox)gdi.FindControl("chkSpecial");
 
             }
 
@@ -1195,7 +1220,7 @@ namespace WealthERP.Receivable
 
             ShowAndHideSTructureRuleControlsBasedOnProductAndCommisionType(lblReceivableFrequency, ddlReceivableFrequency, trTransactionTypeSipFreq, tdlb1SipFreq, tdddlSipFreq, trMinMaxTenure, trMinMaxAge, tdlb1MinNumberOfApplication, tdtxtMinNumberOfApplication, ddlProductType.SelectedValue, ddlCommissionType.SelectedValue
                  , lblMinNumberOfApplication, txtMinNumberOfApplication, lblSIPFrequency, ddlSIPFrequency, ddlTransaction, chkListTtansactionType, lblTransactionType, ddlCommisionCalOn, ddlCommissionApplicableLevel,
-                 lblMaxNumberOfApplication, tdlb1MaxNumberOfApplication, tdtxtMaxNumberOfApplication, txtMaxNumberOfApplication, trMinAndMaxNumberOfApplication, trMinMAxInvAmount);
+                 lblMaxNumberOfApplication, tdlb1MaxNumberOfApplication, tdtxtMaxNumberOfApplication, txtMaxNumberOfApplication, trMinAndMaxNumberOfApplication, trMinMAxInvAmount, chkSpecial, tdlblApplicationNo, tdApplicationNo);
         }
 
         protected void RadGridStructureRule_ItemDataBound(object sender, GridItemEventArgs e)
@@ -1207,6 +1232,9 @@ namespace WealthERP.Receivable
                 GridEditFormInsertItem item = (GridEditFormInsertItem)e.Item;
                 GridEditFormItem gefi = (GridEditFormItem)e.Item;
                 DropDownList ddlCommisionCalOn = (DropDownList)gefi.FindControl("ddlCommisionCalOn");
+                System.Web.UI.HtmlControls.HtmlTableCell tdApplicationNo = (System.Web.UI.HtmlControls.HtmlTableCell)gefi.FindControl("tdApplicationNo");
+                System.Web.UI.HtmlControls.HtmlTableCell tdlblApplicationNo = (System.Web.UI.HtmlControls.HtmlTableCell)gefi.FindControl("tdlblApplicationNo");
+                CheckBox chkSpecial = (CheckBox)gefi.FindControl("chkSpecial");
                 System.Web.UI.HtmlControls.HtmlTableRow trMinMAxInvAmount = (System.Web.UI.HtmlControls.HtmlTableRow)gefi.FindControl("trMinMAxInvAmount");
                 ddlCommisionCalOn.SelectedValue = "INAM";
                 trMinMAxInvAmount.Visible = true;
@@ -1238,6 +1266,9 @@ namespace WealthERP.Receivable
                     RadGrid rgCommissionTypeCaliculation = (RadGrid)e.Item.FindControl("rgCommissionTypeCaliculation");
                     System.Web.UI.HtmlControls.HtmlTableRow trRuleDetailSection = (System.Web.UI.HtmlControls.HtmlTableRow)e.Item.FindControl("trRuleDetailSection");
                     hdnRuleName.Value = RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_CommissionStructureRuleName"].ToString();
+                    //System.Web.UI.HtmlControls.HtmlTableCell tdApplicationNo = (System.Web.UI.HtmlControls.HtmlTableCell)e.Item.FindControl("tdApplicationNo");
+                    //System.Web.UI.HtmlControls.HtmlTableCell tdlblApplicationNo = (System.Web.UI.HtmlControls.HtmlTableCell)e.Item.FindControl("tdlblApplicationNo");
+                    //CheckBox chkSpecial = (CheckBox)e.Item.FindControl("chkSpecial");
                     rgCommissionTypeCaliculation.Visible = true;
                     trRuleDetailSection.Visible = true;
                     DataSet dsLookupData;
@@ -1313,8 +1344,9 @@ namespace WealthERP.Receivable
                 System.Web.UI.HtmlControls.HtmlTableCell tdtxtMaxNumberOfApplication = (System.Web.UI.HtmlControls.HtmlTableCell)editform.FindControl("tdtxtMaxNumberOfApplication");
                 System.Web.UI.HtmlControls.HtmlTableRow trMinAndMaxNumberOfApplication = (System.Web.UI.HtmlControls.HtmlTableRow)editform.FindControl("trMinAndMaxNumberOfApplication");
                 System.Web.UI.HtmlControls.HtmlTableRow trMinMAxInvAmount = (System.Web.UI.HtmlControls.HtmlTableRow)editform.FindControl("trMinMAxInvAmount");
-            
-                
+                System.Web.UI.HtmlControls.HtmlTableCell tdlblApplicationNo = (System.Web.UI.HtmlControls.HtmlTableCell)editform.FindControl("tdlblApplicationNo");
+                System.Web.UI.HtmlControls.HtmlTableCell tdApplicationNo = (System.Web.UI.HtmlControls.HtmlTableCell)editform.FindControl("tdApplicationNo");
+                CheckBox chkSpecial = (CheckBox)e.Item.FindControl("chkSpecial");
                 
                 
                 if (dsCommissionLookup != null)
@@ -1439,7 +1471,7 @@ namespace WealthERP.Receivable
                     ddlCommissionType.SelectedValue = strCommissionType;
                     ShowAndHideSTructureRuleControlsBasedOnProductAndCommisionType(lblReceivableFrequency, ddlReceivableFrequency, trTransactionTypeSipFreq, tdlb1SipFreq, tdddlSipFreq, trMinMaxTenure, trMinMaxAge, tdMinNumberOfApplication, tdtxtMinNumberOfApplication1, ddlProductType.SelectedValue, ddlCommissionType.SelectedValue
                         , lblMinNumberOfApplication, txtMinNumberOfApplication, lblSIPFrequency, ddlSIPFrequency, ddlTransaction, chkListTtansactionType, lblTransactionType, ddlCommisionCalOn, ddlCommissionApplicableLevel
-                        , lblMaxNumberOfApplication, tdlb1MaxNumberOfApplication, tdtxtMaxNumberOfApplication, txtMaxNumberOfApplication, trMinAndMaxNumberOfApplication, trMinMAxInvAmount);
+                        , lblMaxNumberOfApplication, tdlb1MaxNumberOfApplication, tdtxtMaxNumberOfApplication, txtMaxNumberOfApplication, trMinAndMaxNumberOfApplication, trMinMAxInvAmount, chkSpecial,  tdlblApplicationNo,  tdApplicationNo);
 
 
                     ddlInvestorType.SelectedValue = strCustomerCategory;
@@ -1454,6 +1486,14 @@ namespace WealthERP.Receivable
                     else if (ddlCommisionCalOn.SelectedValue.ToString().ToUpper() == "INAM")
                     {
                         trMinMAxInvAmount.Visible = true;
+                    }
+                    else if (ddlCommisionCalOn.SelectedValue.ToString().ToUpper() == "APPNO")
+                    {
+                        tdlblApplicationNo.Visible = true;
+                        tdApplicationNo.Visible = true;
+                        chkSpecial.Visible = true;
+                        trMinAndMaxNumberOfApplication.Visible = false;
+                        trMinMAxInvAmount.Visible = false;
                     }
                     chkListTtansactionType.Visible = true;
                     //if (chkListTtansactionType.Items[0].Selected)
@@ -1778,8 +1818,8 @@ namespace WealthERP.Receivable
                 CheckBoxList chkListApplyTax = (CheckBoxList)e.Item.FindControl("chkListApplyTax");
                 TextBox txtTaxValue = (TextBox)e.Item.FindControl("txtTaxValue");
                 TextBox txtTDS = (TextBox)e.Item.FindControl("txtTDS");
-
-
+                CheckBox chkSpecial = (CheckBox)e.Item.FindControl("chkSpecial");
+                TextBox txtApplicationNo = (TextBox)e.Item.FindControl("txtApplicationNo");
                 commissionStructureRuleVo.CommissionStructureId = Convert.ToInt32(hidCommissionStructureName.Value);
 
                 commissionStructureRuleVo.CommissionStructureRuleName = TxtRuleName.Text;
@@ -1790,7 +1830,11 @@ namespace WealthERP.Receivable
                 commissionStructureRuleVo.AdviserCityGroupCode = ddlAppCityGroup.SelectedValue;
                 commissionStructureRuleVo.ReceivableFrequency = ddlReceivableFrequency.SelectedValue;
                 commissionStructureRuleVo.ApplicableLevelCode = ddlCommissionApplicableLevel.SelectedValue;
-
+                commissionStructureRuleVo.applicationNo = txtApplicationNo.Text;
+                if (chkSpecial.Checked == true)
+                    commissionStructureRuleVo.specialIncentiv = 1;
+                else
+                    commissionStructureRuleVo.specialIncentiv = 0;
 
                 if (chkListApplyTax.Items[0].Selected)
                     commissionStructureRuleVo.IsServiceTaxReduced = true;
@@ -1892,7 +1936,8 @@ namespace WealthERP.Receivable
 
         private void ShowAndHideSTructureRuleControlsBasedOnProductAndCommisionType(Label lblReceivableFrequency, DropDownList ddlReceivableFrequency, System.Web.UI.HtmlControls.HtmlTableRow trTransactionTypeSipFreq, System.Web.UI.HtmlControls.HtmlTableCell tdlb1SipFreq, System.Web.UI.HtmlControls.HtmlTableCell tdddlSipFreq, System.Web.UI.HtmlControls.HtmlTableRow trMinMaxTenure, System.Web.UI.HtmlControls.HtmlTableRow trMinMaxAge, System.Web.UI.HtmlControls.HtmlTableCell tdMinNumberOfApplication, System.Web.UI.HtmlControls.HtmlTableCell tdtxtMinNumberOfApplication1, string product, string CommisionType
             , Label lblMinNumberOfApplication, TextBox txtMinNumberOfApplication, Label lblSIPFrequency, DropDownList ddlSIPFrequency, DropDownList ddlTransaction, CheckBoxList chkListTtansactionType, Label lblTransactionType, DropDownList ddlCommisionCalOn, DropDownList ddlCommissionApplicableLevel
-            , Label lblMaxNumberOfApplication, System.Web.UI.HtmlControls.HtmlTableCell tdlb1MaxNumberOfApplication, System.Web.UI.HtmlControls.HtmlTableCell tdtxtMaxNumberOfApplication, TextBox txtMaxNumberOfApplication, System.Web.UI.HtmlControls.HtmlTableRow trMinAndMaxNumberOfApplication,System.Web.UI.HtmlControls.HtmlTableRow trMinMAxInvAmount)
+            , Label lblMaxNumberOfApplication, System.Web.UI.HtmlControls.HtmlTableCell tdlb1MaxNumberOfApplication, System.Web.UI.HtmlControls.HtmlTableCell tdtxtMaxNumberOfApplication, TextBox txtMaxNumberOfApplication, System.Web.UI.HtmlControls.HtmlTableRow trMinAndMaxNumberOfApplication, System.Web.UI.HtmlControls.HtmlTableRow trMinMAxInvAmount, CheckBox chkSpecial
+           , System.Web.UI.HtmlControls.HtmlTableCell tdlblApplicationNo,System.Web.UI.HtmlControls.HtmlTableCell  tdApplicationNo)
         {
             bool enablement = false;
             lblSIPFrequency.Visible = enablement;
@@ -1918,19 +1963,26 @@ namespace WealthERP.Receivable
                 {
                     ddlCommissionApplicableLevel.SelectedValue = "TR";
                     ddlCommissionApplicableLevel.Enabled = false;
-
                     ddlCommisionCalOn.Items[1].Enabled = false;
                     ddlCommisionCalOn.Items[0].Enabled = false;
+                    ddlCommisionCalOn.Items[2].Enabled = false;
                     trMinAndMaxNumberOfApplication.Visible = false;
                     trMinMAxInvAmount.Visible = true;
+                    chkSpecial.Visible = false;
+                    tdApplicationNo.Visible = false;
+                    tdlblApplicationNo.Visible = false;
                 }
                 else if (CommisionType == "TC")
                 {
                     ddlCommissionApplicableLevel.Enabled = true;
-                    tdMinNumberOfApplication.Visible = !enablement;                   
+                    tdMinNumberOfApplication.Visible = !enablement;
                     lblReceivableFrequency.Visible = !enablement;
-                    ddlReceivableFrequency.Visible = !enablement;                   
+                    ddlReceivableFrequency.Visible = !enablement;
                     trMinAndMaxNumberOfApplication.Visible = !enablement;
+                   
+                    chkSpecial.Visible = false;
+                    tdApplicationNo.Visible = false;
+                    tdlblApplicationNo.Visible = false;
                 }
                 else if (CommisionType == "IN")
                 {
@@ -1940,8 +1992,15 @@ namespace WealthERP.Receivable
                     trMinAndMaxNumberOfApplication.Visible = !enablement;
                     ddlCommisionCalOn.Items[0].Enabled = false;
                     ddlCommisionCalOn.Items[1].Enabled = true;
+                    ddlCommisionCalOn.Items[2].Enabled = true;
                     trMinAndMaxNumberOfApplication.Visible = false;
                     trMinMAxInvAmount.Visible = true;
+                    chkSpecial.Visible = true;
+                    if (ddlCommisionCalOn.Items[2].Selected == true)
+                    {
+                        tdApplicationNo.Visible = true;
+                        tdlblApplicationNo.Visible = true;
+                    }
                 }
             }
             else if (product == "MF")
@@ -2428,6 +2487,9 @@ namespace WealthERP.Receivable
             dtCommissionStructureRule.Columns.Add("ACSR_AUMMonth");
             dtCommissionStructureRule.Columns.Add("ACG_CityGroupName");
             dtCommissionStructureRule.Columns.Add("ACSR_Comment");
+            dtCommissionStructureRule.Columns.Add("ACSR_IsSpecialIncentive");
+            dtCommissionStructureRule.Columns.Add("CO_ApplicationNo");
+
             return dtCommissionStructureRule;
         }
 
@@ -2901,7 +2963,8 @@ namespace WealthERP.Receivable
             System.Web.UI.HtmlControls.HtmlTableRow trMinMaxTenure = (System.Web.UI.HtmlControls.HtmlTableRow)editform.FindControl("trMinMaxTenure");
             System.Web.UI.HtmlControls.HtmlTableRow trMinMaxAge = (System.Web.UI.HtmlControls.HtmlTableRow)editform.FindControl("trMinMaxAge");
 
-
+            System.Web.UI.HtmlControls.HtmlTableCell tdlblApplicationNo = (System.Web.UI.HtmlControls.HtmlTableCell)editform.FindControl("tdlblApplicationNo");
+            System.Web.UI.HtmlControls.HtmlTableCell tdApplicationNo = (System.Web.UI.HtmlControls.HtmlTableCell)editform.FindControl("tdApplicationNo");
 
 
 
@@ -2916,6 +2979,8 @@ namespace WealthERP.Receivable
             trTransactionTypeSipFreq.Visible = flag;
             trMinMaxTenure.Visible = flag;
             trMinMaxAge.Visible = flag;
+            tdlblApplicationNo.Visible = flag;
+            tdApplicationNo.Visible = flag;
             //trTransaction.Visible = flag;
 
 

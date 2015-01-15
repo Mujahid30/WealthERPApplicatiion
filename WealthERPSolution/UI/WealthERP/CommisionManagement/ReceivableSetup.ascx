@@ -1258,7 +1258,7 @@
                                 <MasterTableView CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false"
                                     EditMode="EditForms" CommandItemSettings-AddNewRecordText="Add Rule" DataKeyNames="ACSR_CommissionStructureRuleName,ACSR_CommissionStructureRuleId,ACSR_MinTenure,WCT_CommissionTypeCode,XCT_CustomerTypeCode,ACSR_TenureUnit,
                                 ACSR_TransactionType,WCU_UnitCode,WCCO_CalculatedOnCode,ACSM_AUMFrequency,ACSR_MaxTenure,ACSR_SIPFrequency,ACG_CityGroupID,
-                                ACSR_ReceivableRuleFrequency,WCAL_ApplicableLevelCode,ACSR_IsServiceTaxReduced,ACSR_IsTDSReduced,ACSM_IsOtherTaxReduced,PaybleValue,PaybleUnit,RecievableValue,RecievableUnit,ACSR_ServiceTaxValue">
+                                ACSR_ReceivableRuleFrequency,WCAL_ApplicableLevelCode,ACSR_IsServiceTaxReduced,ACSR_IsTDSReduced,ACSM_IsOtherTaxReduced,PaybleValue,PaybleUnit,RecievableValue,RecievableUnit,ACSR_ServiceTaxValue,ACSR_IsSpecialIncentive,CO_ApplicationNo">
                                     <Columns>
                                         <telerik:GridEditCommandColumn EditText="Edit" UniqueName="Edit">
                                         </telerik:GridEditCommandColumn>
@@ -1314,6 +1314,14 @@
                                             DataField="ACSR_MinNumberOfApplications">
                                             <HeaderStyle></HeaderStyle>
                                         </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn UniqueName="CO_ApplicationNo" HeaderText="Application No."
+                                            DataField="CO_ApplicationNo">
+                                            <HeaderStyle></HeaderStyle>
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn UniqueName="ACSR_IsSpecialIncentive" HeaderText="Is SpecialIncentive"
+                                            DataField="ACSR_IsSpecialIncentive">
+                                            <HeaderStyle></HeaderStyle>
+                                        </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn UniqueName="ACSR_MaxNumberOfApplications" HeaderText="Max. No. of Applications"
                                             DataField="ACSR_MaxNumberOfApplications">
                                             <HeaderStyle></HeaderStyle>
@@ -1362,12 +1370,16 @@
                                                     <td class="leftLabel">
                                                         <asp:Label ID="lb1RuleName" runat="server" Text="Rule Name" CssClass="FieldName"></asp:Label>
                                                     </td>
-                                                    <td class="rightData">
-                                                        <asp:TextBox ID="TxtRuleName" runat="server" CssClass="txtField"></asp:TextBox>
+                                                    <td class="rightData" colspan="2">
+                                                        <asp:TextBox ID="TxtRuleName" runat="server" CssClass="txtField" Width="400px"></asp:TextBox>
                                                         <span id="Span14" class="spnRequiredField" runat="server" visible="true">*</span>
                                                         <asp:RequiredFieldValidator runat="server" ID="ReqRuleName" ValidationGroup="btnSubmitRule"
                                                             Display="Dynamic" ControlToValidate="TxtRuleName" ErrorMessage="<br />Enter Rule Name"
                                                             Text="" />
+                                                    </td>
+                                                    <td class="rightData">
+                                                        <asp:CheckBox ID="chkSpecial" runat="server" CssClass="cmbFielde" Text="Special Incentive"
+                                                            Checked='<%# Eval("ACSR_IsSpecialIncentive") == DBNull.Value ? false : Convert.ToBoolean(Eval("ACSR_IsSpecialIncentive")) %>'/>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -1390,8 +1402,6 @@
                                                     <td class="rightData">
                                                         <asp:DropDownList ID="ddlInvestorType" runat="server" CssClass="cmbField">
                                                         </asp:DropDownList>
-                                                    </td>
-                                                    <td class="leftLabel">
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -1422,25 +1432,38 @@
                                                         <span id="Span9" class="spnRequiredField">*</span>
                                                     </td>
                                                     <td class="leftLabel">
-                                                        <asp:Label ID="lblApplyTaxes" runat="server" Text="Apply Taxes:" CssClass="FieldName"></asp:Label>
+                                                        <asp:Label ID="lblApplyTaxes" runat="server" Text="Apply Taxes(%):" CssClass="FieldName"></asp:Label>
                                                     </td>
-                                                    <td class="rightData">
+                                                    <td>
                                                         <asp:CheckBoxList ID="chkListApplyTax" runat="server" CssClass="txtField" RepeatLayout="Flow"
-                                                            RepeatDirection="Horizontal" AutoPostBack="true" OnSelectedIndexChanged="chkListApplyTax_CheckChanged">
+                                                            RepeatDirection="Vertical" AutoPostBack="true" OnSelectedIndexChanged="chkListApplyTax_CheckChanged"
+                                                            Width="100px">
                                                             <asp:ListItem Text="Service Tax" Value="ServiceTax"></asp:ListItem>
                                                             <asp:ListItem Text="TDS" Value="TDS"></asp:ListItem>
                                                             <%--<asp:ListItem Text="Others" Value="Others"></asp:ListItem>--%>
                                                         </asp:CheckBoxList>
-                                                        <asp:TextBox ID="txtTaxValue" Text='<%# Bind( "ACSR_ReducedValue") %>' runat="server"
-                                                            CssClass="txtField" Visible="false"></asp:TextBox>
-                                                        <cc1:TextBoxWatermarkExtender ID="twtxtTaxValue" TargetControlID="txtTaxValue" WatermarkText="Enter the Value"
-                                                            runat="server" EnableViewState="false">
-                                                        </cc1:TextBoxWatermarkExtender>
-                                                        <asp:TextBox ID="txtTDS" Text='<%# Bind( "ACSR_ServiceTaxValue") %>' runat="server"
-                                                            CssClass="txtField" Visible="false"></asp:TextBox>
-                                                        <cc1:TextBoxWatermarkExtender ID="twttxtTDS" TargetControlID="txtTDS" WatermarkText="Enter the TDS"
-                                                            runat="server" EnableViewState="false">
-                                                        </cc1:TextBoxWatermarkExtender>
+                                                    </td>
+                                                    <td>
+                                                        <table>
+                                                            <tr>
+                                                                <td>
+                                                                    <asp:TextBox ID="txtTaxValue" Text='<%# Bind( "ACSR_ReducedValue") %>' runat="server"
+                                                                        CssClass="txtField" Visible="false"></asp:TextBox>
+                                                                    <cc1:TextBoxWatermarkExtender ID="twtxtTaxValue" TargetControlID="txtTaxValue" WatermarkText="Enter the Value"
+                                                                        runat="server" EnableViewState="false">
+                                                                    </cc1:TextBoxWatermarkExtender>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <asp:TextBox ID="txtTDS" Text='<%# Bind( "ACSR_ServiceTaxValue") %>' runat="server"
+                                                                        CssClass="txtField" Visible="false"></asp:TextBox>
+                                                                    <cc1:TextBoxWatermarkExtender ID="twttxtTDS" TargetControlID="txtTDS" WatermarkText="Enter the TDS"
+                                                                        runat="server" EnableViewState="false">
+                                                                    </cc1:TextBoxWatermarkExtender>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -1451,6 +1474,21 @@
                                                         <asp:DropDownList ID="ddlCommisionCalOn" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlCommisionCalOn_Selectedindexchanged"
                                                             AutoPostBack="true">
                                                         </asp:DropDownList>
+                                                    </td>
+                                                    <td class="leftLabel" id="tdlblApplicationNo" runat="server" visible="false">
+                                                        <asp:Label ID="lblApplicationNo" runat="server" Text="Application No." CssClass="FieldName"></asp:Label>
+                                                    </td>
+                                                    <td class="rightData" id="tdApplicationNo" runat="server" visible="false">
+                                                        <asp:TextBox ID="txtApplicationNo" runat="server" Text='<%# Bind( "CO_ApplicationNo") %>'></asp:TextBox>
+                                                        <span id="Span8" class="spnRequiredField">*<br>
+                                                        </span>
+                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtApplicationNo"
+                                                            ErrorMessage="<br />Enter Application No." Display="Dynamic" runat="server" CssClass="rfvPCG"
+                                                            ValidationGroup="btnSubmitRule" InitialValue=""></asp:RequiredFieldValidator>
+                                                        <asp:RegularExpressionValidator ID="reqtxtstartDate" ControlToValidate="txtApplicationNo"
+                                                            ErrorMessage=" </br>Enter Only Number" runat="server" Display="Dynamic" CssClass="cvPCG"
+                                                            ValidationExpression="^\d+(,\d+)*$" ValidationGroup="btnSubmitRule">     
+                                                        </asp:RegularExpressionValidator>
                                                     </td>
                                                 </tr>
                                                 <tr runat="server" id="trMinMAxInvAmount" visible="false">
@@ -1653,6 +1691,12 @@
                                                                         AllowFiltering="true" Visible="false">
                                                                         <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                                                     </telerik:GridBoundColumn>
+                                                                     <telerik:GridBoundColumn DataField="CSRD_RateName" HeaderStyle-Width="20px"
+                                                                        CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                                                        HeaderText="Rate Name" UniqueName="CSRD_RateName" SortExpression="CSRD_RateName"
+                                                                        AllowFiltering="true" >
+                                                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                                    </telerik:GridBoundColumn>
                                                                     <telerik:GridBoundColumn DataField="ACSR_CommissionStructureRuleId" HeaderStyle-Width="20px"
                                                                         CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
                                                                         HeaderText="Issuer Name" UniqueName="ACSR_CommissionStructureRuleId" SortExpression="ACSR_CommissionStructureRuleId"
@@ -1684,6 +1728,14 @@
                                                                 <EditFormSettings EditFormType="Template" PopUpSettings-Height="200px" PopUpSettings-Width="400px">
                                                                     <FormTemplate>
                                                                         <table width="100%" cellspacing="3" cellpadding="3">
+                                                                            <tr>
+                                                                                <td class="leftLabel">
+                                                                                <asp:Label ID="lblRatename" runat="server" Text="Rate Name:" CssClass="FieldName"></asp:Label>
+                                                                                </td>
+                                                                                  <td class="rightData">
+                                                                                  <asp:TextBox ID="txtRateName" runat="server" Text='<%# Bind ("CSRD_RateName") %>'></asp:TextBox>
+                                                                                  </td>
+                                                                            </tr>
                                                                             <tr>
                                                                                 <td class="leftLabel">
                                                                                     <asp:Label ID="Label3" runat="server" Text="Commission Type:" CssClass="FieldName"></asp:Label>
@@ -1812,9 +1864,9 @@
                                         AllowFiltering="true" Visible="false">
                                         <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                     </telerik:GridBoundColumn>
-                                    <telerik:GridBoundColumn DataField="ACSR_CommissionStructureRuleName" HeaderStyle-Width="20px"
+                                    <telerik:GridBoundColumn DataField="CSRD_RateName" HeaderStyle-Width="20px"
                                         CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                        HeaderText="Rule Name" UniqueName="ACSR_CommissionStructureRuleName" SortExpression="ACSR_CommissionStructureRuleName"
+                                        HeaderText="Rate Name" UniqueName="CSRD_RateName" SortExpression="CSRD_RateName"
                                         AllowFiltering="true">
                                         <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                     </telerik:GridBoundColumn>

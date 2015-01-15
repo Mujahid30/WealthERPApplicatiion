@@ -427,13 +427,13 @@ namespace BoCommisionManagement
             return dsLookupData;
         }
 
-        public int CreateUpdateDeleteCommissionTypeBrokerage(int ruleId, int commissionType, string brokerageUnit, decimal brokeragageValue, string commandType, int RuleDetailsId, int structureRuleDetailsId)
+        public int CreateUpdateDeleteCommissionTypeBrokerage(int ruleId, int commissionType, string brokerageUnit, decimal brokeragageValue,string ruleName, string commandType, int RuleDetailsId, int structureRuleDetailsId)
         {
             CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
 
             try
             {
-                return commisionReceivableDao.CreateUpdateDeleteCommissionTypeBrokerage(ruleId, commissionType, brokerageUnit, brokeragageValue, commandType, RuleDetailsId, structureRuleDetailsId);
+                return commisionReceivableDao.CreateUpdateDeleteCommissionTypeBrokerage(ruleId, commissionType, brokerageUnit, brokeragageValue,ruleName, commandType, RuleDetailsId, structureRuleDetailsId);
             }
             catch (BaseApplicationException Ex)
             {

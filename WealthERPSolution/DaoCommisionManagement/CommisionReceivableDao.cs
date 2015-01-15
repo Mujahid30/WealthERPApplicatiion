@@ -588,6 +588,8 @@ namespace DaoCommisionManagement
                 db.AddInParameter(cmdCreateCommissionStructureRule, "@ACSR_CommissionRuleHash", DbType.String, ruleHash);
                 db.AddInParameter(cmdCreateCommissionStructureRule, "@ACSR_ReducedValue", DbType.Decimal, commissionStructureRuleVo.TaxValue);
                 db.AddInParameter(cmdCreateCommissionStructureRule, "@ACSR_ServiceTaxValue", DbType.Decimal, commissionStructureRuleVo.TDSValue);
+                db.AddInParameter(cmdCreateCommissionStructureRule, "@ACSR_IsSpecialIncentive", DbType.Int16, commissionStructureRuleVo.specialIncentiv);
+                db.AddInParameter(cmdCreateCommissionStructureRule, "@CO_ApplicationNo", DbType.String, commissionStructureRuleVo.applicationNo);
                 db.ExecuteNonQuery(cmdCreateCommissionStructureRule);
 
             }
@@ -681,7 +683,7 @@ namespace DaoCommisionManagement
             }
             return ds;
         }
-        public int CreateUpdateDeleteCommissionTypeBrokerage(int ruleId, int commissionType, string brokerageUnit, decimal brokeragageValue, string commandType,int RuleDetailsId, int structureRuleDetailsId)
+        public int CreateUpdateDeleteCommissionTypeBrokerage(int ruleId, int commissionType, string brokerageUnit, decimal brokeragageValue,string ruleName, string commandType,int RuleDetailsId, int structureRuleDetailsId)
             //string issuerName, string commandType)
         {
            
@@ -699,6 +701,7 @@ namespace DaoCommisionManagement
                 db.AddInParameter(createCmd, "@commandType", DbType.String, commandType);
                 db.AddInParameter(createCmd, "@RuleDetailsId", DbType.String, RuleDetailsId);
                 db.AddOutParameter(createCmd, "@structureRuleDetailsId", DbType.Int32, structureRuleDetailsId);
+                db.AddInParameter(createCmd, "@CSRD_RateName", DbType.String, ruleName);
 
                 
                 if (db.ExecuteNonQuery(createCmd) != 0)
@@ -1180,6 +1183,8 @@ namespace DaoCommisionManagement
                 db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_CommissionRuleHash", DbType.String, strRuleHash);
                 db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_ReducedValue", DbType.Decimal, commissionStructureRuleVo.TaxValue);
                 db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_ServiceTaxValue", DbType.Decimal, commissionStructureRuleVo.TDSValue);
+                db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_IsSpecialIncentive", DbType.Int32, commissionStructureRuleVo.specialIncentiv);
+                db.AddInParameter(cmdUpdateCommissionStructureRule, "@CO_ApplicationNo", DbType.String, commissionStructureRuleVo.applicationNo);
                 db.ExecuteNonQuery(cmdUpdateCommissionStructureRule);
 
             }

@@ -50,7 +50,11 @@ namespace WealthERP.Receivable {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trStepOneHeading;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblApplicationNo;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdApplicationNo;
+        protected global::System.Web.UI.WebControls.Label lblApplicationNo;
+        protected global::System.Web.UI.WebControls.TextBox txtApplicationNo;
+        protected global::System.Web.UI.WebControls.CheckBox chkSpecial;
         /// <summary>
         /// Label2 control.
         /// </summary>
