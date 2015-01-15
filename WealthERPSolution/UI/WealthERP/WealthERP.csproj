@@ -7216,6 +7216,7 @@
     <Content Include="App_Themes\SBIOnLine\Images\testSCBbackground1.gif" />
     <Content Include="App_Themes\SBIOnLine\Images\testSCBbackground1.png" />
     <Content Include="App_Themes\SBIOnLine\Images\warning.png" />
+    <Content Include="App_Themes\SBIOnLine\jquery.bxslider.css" />
     <Content Include="App_Themes\SBIOnLine\StyleSheet.css" />
     <Content Include="App_Themes\SBIOnLine\Telerik\Calendar.Telerik.css" />
     <Content Include="App_Themes\SBIOnLine\Telerik\Calendar\animations.gif" />
@@ -7934,11 +7935,13 @@
     <Content Include="Images\Black-sample.gif" />
     <Content Include="Images\blue-sample.gif" />
     <Content Include="Images\Buy-Button.png" />
+    <Content Include="Images\bx_loader.gif" />
     <Content Include="Images\ChildMarraiageGoal.png" />
     <Content Include="Images\collapse.png" />
     <Content Include="Images\collapseDown arrow.png" />
     <Content Include="Images\collapseRight arrow.png" />
     <Content Include="Images\collapse_blue.jpg" />
+    <Content Include="Images\controls.png" />
     <Content Include="Images\CrystalIcon.png" />
     <Content Include="Images\csv.png" />
     <Content Include="Images\Dashboard-BusinessMIS.png" />
@@ -8218,6 +8221,7 @@
     <Content Include="Scripts\jquery-ui-1.7.2.custom.min.js" />
     <Content Include="Scripts\jquery.betterTooltip.js" />
     <Content Include="Scripts\jQuery.bubbletip-1.0.6.js" />
+    <Content Include="Scripts\jquery.bxslider.js" />
     <Content Include="Scripts\jquery.colorbox-min.js" />
     <Content Include="Scripts\jquery.js" />
     <Content Include="Scripts\jquery.min.js" />
