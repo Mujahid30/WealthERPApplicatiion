@@ -55,7 +55,7 @@ namespace DaoOnlineOrderManagement
         }
 
 
-        public DataSet GetOrderBookMIS(int CustomerId, int AmcCode, string OrderStatus, DateTime dtFrom, DateTime dtTo)
+        public DataSet GetOrderBookMIS(int CustomerId, int AmcCode, string OrderStatus, DateTime dtFrom, DateTime dtTo, string orderType)
         {
             DataSet dsOrderBookMIS;
             Database db;
@@ -75,6 +75,10 @@ namespace DaoOnlineOrderManagement
                     db.AddInParameter(GetOrderBookMISCmd, "@Status", DbType.String, DBNull.Value);
                 db.AddInParameter(GetOrderBookMISCmd, "@Fromdate", DbType.DateTime, dtFrom);
                 db.AddInParameter(GetOrderBookMISCmd, "@ToDate", DbType.DateTime, dtTo);
+                if (orderType != "0")
+                    db.AddInParameter(GetOrderBookMISCmd, "@StatusType", DbType.String, orderType);
+                else
+                    db.AddInParameter(GetOrderBookMISCmd, "@StatusType", DbType.String, DBNull.Value);
                 dsOrderBookMIS = db.ExecuteDataSet(GetOrderBookMISCmd);
 
             }

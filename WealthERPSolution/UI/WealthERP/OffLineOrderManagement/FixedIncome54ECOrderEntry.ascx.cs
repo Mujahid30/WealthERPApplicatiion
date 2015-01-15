@@ -633,14 +633,15 @@ namespace WealthERP.OffLineOrderManagement
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
             bool result = false; ;
-
-            if ((Convert.ToDouble(txtQty.Text) <= Convert.ToDouble(hdnMaxQty.Value)))
+            var hdMax = (object)Cache["HiddenMaxid" + userVo.UserId.ToString()];
+            var hdMin = (object)Cache["HiddenMinid" + userVo.UserId.ToString()];
+            if ((Convert.ToDouble(txtQty.Text) <= Convert.ToDouble(hdMax)))
             {
                 result = true;
             }
             if (result == true)
             {
-                if ((Convert.ToDouble(txtQty.Text) >= Convert.ToDouble(hdnMinQty.Value)))
+                if ((Convert.ToDouble(txtQty.Text) >= Convert.ToDouble(hdMin)))
                 {
                     result = true;
 
@@ -700,15 +701,16 @@ namespace WealthERP.OffLineOrderManagement
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
             btnSubmit.Enabled = false;
-            bool result = false; ;
-
-            if ((Convert.ToDouble(txtQty.Text) <= Convert.ToDouble(hdnMaxQty.Value)))
+            bool result = false;
+            var hdMax = (object)Cache["HiddenMaxid" + userVo.UserId.ToString()];
+            var hdMin = (object)Cache["HiddenMinid" + userVo.UserId.ToString()];
+           if ((Convert.ToDouble(txtQty.Text) <= Convert.ToDouble(hdMax)))
             {
                 result = true;
             }
             if (result == true)
             {
-                if ((Convert.ToDouble(txtQty.Text) >= Convert.ToDouble(hdnMinQty.Value)))
+                if ((Convert.ToDouble(txtQty.Text) >= Convert.ToDouble(hdMin)))
                 {
                     result = true;
 
@@ -986,7 +988,7 @@ namespace WealthERP.OffLineOrderManagement
                 lblOrderNumber.Text = "Order No.";
                 ViewState["orderno"] = orderId;
 
-                ShowMessage("Order placed successfully, Order reference no is " + lblGetOrderNo.Text);
+                ShowMessage("Order placed successfully, Order reference no. is " + lblGetOrderNo.Text);
                 //   ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Your order added successfully.');", true);
                 tbUploadDocument.Visible = true;
                 BindDocument(orderId);
@@ -1003,7 +1005,7 @@ namespace WealthERP.OffLineOrderManagement
                 tbUploadDocument.Visible = true;
                 lblOrderNumber.Text = "Order No.";
 
-                ShowMessage("Order updated successfully, Order reference no is " + lblGetOrderNo.Text);
+                ShowMessage("Order updated successfully, Order reference no. is " + lblGetOrderNo.Text);
 
                 //   ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Your order updated successfully.');", true);
                 tbUploadDocument.Visible = true;
@@ -1277,6 +1279,24 @@ namespace WealthERP.OffLineOrderManagement
                     lblMinQuentity.Text = dr["MinQty"].ToString();
                     lblMaxQuentity.Text = dr["MaxQty"].ToString();
                     lblFaceValue.Text = dr["AID_SeriesFaceValue"].ToString();
+                    if (Cache["HiddenMaxid" + userVo.UserId.ToString()] == null)
+                    {
+                        Cache.Insert("HiddenMaxid" + userVo.UserId.ToString(), hdnMaxQty.Value);
+                    }
+                    else
+                    {
+                        Cache.Remove("HiddenMaxid" + userVo.UserId.ToString());
+                        Cache.Insert("HiddenMaxid" + userVo.UserId.ToString(), hdnMaxQty.Value);
+                    }
+                    if (Cache["HiddenMinid" + userVo.UserId.ToString()] == null)
+                    {
+                        Cache.Insert("HiddenMinid" + userVo.UserId.ToString(), hdnMinQty.Value);
+                    }
+                    else
+                    {
+                        Cache.Remove("HiddenMinid" + userVo.UserId.ToString());
+                        Cache.Insert("HiddenMinid" + userVo.UserId.ToString(), hdnMinQty.Value);
+                    }
                     ////CouponType = dr["PFISD_CouponType"].ToString();
                     ////txtSeries.Text = "Tenure-" + Tenure + "/" + "InterestRate-" + hdnDefaulteInteresRate.Value + "/" + "InterestType-" + CouponType;
                     //Label12.Text = hdnSeriesDetails.Value;

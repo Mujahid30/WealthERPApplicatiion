@@ -133,8 +133,8 @@ namespace WealthERP.OnlineOrderManagement
                  fromDate = DateTime.Parse(txtOrderFrom.SelectedDate.ToString());
              if (txtOrderTo.SelectedDate != null)
                  toDate = DateTime.Parse(txtOrderTo.SelectedDate.ToString());
-            
-            dsOrderBookMIS = OnlineMFOrderBo.GetOrderBookMIS(customerId, int.Parse(hdnAmc.Value),hdnOrderStatus.Value, fromDate, toDate);
+
+             dsOrderBookMIS = OnlineMFOrderBo.GetOrderBookMIS(customerId, int.Parse(hdnAmc.Value), hdnOrderStatus.Value, fromDate, toDate, ddlOrderType.SelectedValue);
             dtOrderBookMIS = dsOrderBookMIS.Tables[0];
             if (dtOrderBookMIS.Rows.Count > 0)
             {

@@ -45,35 +45,44 @@
 <div id="divConditional" runat="server" style="padding-top: 4px">
     <table class="TableBackground" cellpadding="2">
         <tr>
-            <td id="tdlblRejectReason" runat="server" style="padding-right: 20px">
+            <td id="tdlblRejectReason" runat="server" align="left">
                 <asp:Label runat="server" class="FieldName" Text="AMC:" ID="lblAccount"></asp:Label>
-                <asp:DropDownList CssClass="cmbField" ID="ddlAmc" runat="server" AutoPostBack="false">
+            </td>
+            <td align="right">
+                <asp:DropDownList CssClass="cmbField" ID="ddlAmc" Width="250px" runat="server" AutoPostBack="false">
                 </asp:DropDownList>
             </td>
-            <%--  <td id="tdAccount" runat="server" align="left">
-               
+            <td id="td2" runat="server" align="left">
+                <asp:Label runat="server" class="FieldName" Text="Order Type:" ID="lblOrderType"></asp:Label>
             </td>
-           &nbsp--%>
+            <td align="right">
+                <asp:DropDownList CssClass="cmbField" ID="ddlOrderType" runat="server" AutoPostBack="false">
+                    <asp:ListItem Text="All" Value="0"></asp:ListItem>
+                    <asp:ListItem Text="SIP" Value="1"></asp:ListItem>
+                    <asp:ListItem Text="Normal Order" Value="2"></asp:ListItem>
+                </asp:DropDownList>
+            </td>
             <td id="td1" runat="server">
                 <asp:Label runat="server" class="FieldName" Text="Order Status:" ID="Label1"></asp:Label>
+            </td>
+            <td>
                 <asp:DropDownList CssClass="cmbField" ID="ddlOrderStatus" runat="server" AutoPostBack="false">
                 </asp:DropDownList>
             </td>
-            <%--  <td id="td2" runat="server">
-               
-            </td>--%>
-            <td id="tdlblFromDate" runat="server" align="right">
+        </tr>
+        <tr>
+            <td id="tdlblFromDate" runat="server" align="left">
                 <asp:Label class="FieldName" ID="lblFromTran" Text="From :" runat="server" />
             </td>
-            <td id="tdTxtFromDate" runat="server">
+            <td id="tdTxtFromDate" runat="server" align="left">
                 <telerik:RadDatePicker ID="txtOrderFrom" CssClass="txtField" runat="server" Culture="English (United States)"
                     Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
-                    <calendar id="Calendar1" runat="server" userowheadersasselectors="False" usecolumnheadersasselectors="False"
-                        viewselectortext="x" skin="Telerik" enableembeddedskins="false">
-                    </calendar>
-                    <datepopupbutton imageurl="" hoverimageurl=""></datepopupbutton>
-                    <dateinput id="DateInput1" runat="server" displaydateformat="d/M/yyyy" dateformat="d/M/yyyy">
-                    </dateinput>
+                    <Calendar ID="Calendar1" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
+                        ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
+                    </Calendar>
+                    <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                    <DateInput ID="DateInput1" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                    </DateInput>
                 </telerik:RadDatePicker>
                 <div id="dvTransactionDate" runat="server" class="dvInLine">
                     <span id="Span1" class="spnRequiredField">*</span>
@@ -86,18 +95,18 @@
                         Display="Dynamic"></asp:CompareValidator>
                 </div>
             </td>
-            <td id="tdlblToDate" runat="server">
+            <td id="tdlblToDate" runat="server" align="right">
                 <asp:Label ID="lblToTran" Text="To :" CssClass="FieldName" runat="server" />
             </td>
-            <td id="tdTxtToDate" runat="server">
+            <td id="tdTxtToDate" runat="server" align="left">
                 <telerik:RadDatePicker ID="txtOrderTo" CssClass="txtField" runat="server" Culture="English (United States)"
                     Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
-                    <calendar id="Calendar2" runat="server" userowheadersasselectors="False" usecolumnheadersasselectors="False"
-                        viewselectortext="x" skin="Telerik" enableembeddedskins="false">
-                    </calendar>
-                    <datepopupbutton imageurl="" hoverimageurl=""></datepopupbutton>
-                    <dateinput id="DateInput2" runat="server" displaydateformat="d/M/yyyy" dateformat="d/M/yyyy">
-                    </dateinput>
+                    <Calendar ID="Calendar2" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
+                        ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
+                    </Calendar>
+                    <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                    <DateInput ID="DateInput2" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                    </DateInput>
                 </telerik:RadDatePicker>
                 <div id="Div1" runat="server" class="dvInLine">
                     <span id="Span2" class="spnRequiredField">*</span>
@@ -115,7 +124,7 @@
                     Display="Dynamic">
                 </asp:CompareValidator>
             </td>
-            <td id="tdBtnOrder" runat="server">
+            <td id="tdBtnOrder" runat="server" align="left">
                 <asp:Button ID="btnViewOrder" runat="server" CssClass="PCGButton" Text="Go" ValidationGroup="btnViewOrder"
                     OnClick="btnViewOrder_Click" />
             </td>
@@ -146,11 +155,11 @@
                     AllowAutomaticInserts="false" OnNeedDataSource="gvOrderBookMIS_OnNeedDataSource"
                     OnItemCommand="gvOrderBookMIS_OnItemCommand">
                     <%--  OnNeedDataSource="gvOrderList_OnNeedDataSource" OnItemDataBound="gvOrderList_ItemDataBound"--%>
-                    <exportsettings hidestructurecolumns="true" exportonlydata="true" filename="OrderMIS">
-                    </exportsettings>
-                    <mastertableview datakeynames="CO_OrderId,C_CustomerId,PAG_AssetGroupCode,CO_OrderDate,WMTT_TransactionClassificationCode"
-                        width="102%" allowmulticolumnsorting="True" autogeneratecolumns="false" commanditemdisplay="None"
-                        allowfilteringbycolumn="true">
+                    <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="OrderMIS">
+                    </ExportSettings>
+                    <MasterTableView DataKeyNames="CO_OrderId,C_CustomerId,PAG_AssetGroupCode,CO_OrderDate,WMTT_TransactionClassificationCode"
+                        Width="102%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None"
+                        AllowFilteringByColumn="true">
                         <CommandItemSettings ShowExportToWordButton="false" ShowExportToExcelButton="false"
                             ShowExportToCsvButton="false" ShowAddNewRecordButton="false" ShowRefreshButton="false" />
                         <Columns>
@@ -188,9 +197,9 @@
                                 FilterControlWidth="60px">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn Visible="false" DataField="Name" AllowFiltering="false" HeaderText="Customer"
-                                UniqueName="Name" SortExpression="Name" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                AutoPostBackOnFilter="true" HeaderStyle-Width="130px">
+                            <telerik:GridBoundColumn Visible="false" DataField="Name" AllowFiltering="false"
+                                HeaderText="Customer" UniqueName="Name" SortExpression="Name" ShowFilterIcon="false"
+                                CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="130px">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn Visible="false" DataField="C_PANNum" AllowFiltering="false"
@@ -265,8 +274,9 @@
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="CMFOD_IsAllUnits" AllowFiltering="false" HeaderText="Redeem All"
-                                UniqueName="CMFOD_IsAllUnits" SortExpression="CMFOD_IsAllUnits" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                AutoPostBackOnFilter="true" HeaderStyle-Width="75px" FilterControlWidth="50px">
+                                UniqueName="CMFOD_IsAllUnits" SortExpression="CMFOD_IsAllUnits" ShowFilterIcon="false"
+                                CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="75px"
+                                FilterControlWidth="50px">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn Visible="false" DataField="Nav" HeaderText="Current NAV"
@@ -305,8 +315,8 @@
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="COS_Reason" AllowFiltering="false" HeaderText="Reject Remark"
-                                HeaderStyle-Width="100px" UniqueName="COS_Reason" SortExpression="COS_Reason" ShowFilterIcon="false"
-                                CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
+                                HeaderStyle-Width="100px" UniqueName="COS_Reason" SortExpression="COS_Reason"
+                                ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="Channel" AllowFiltering="false" HeaderText="Channel"
@@ -314,19 +324,19 @@
                                 CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-
                             <telerik:GridTemplateColumn ItemStyle-Width="60px" AllowFiltering="false" HeaderText="Action"
                                 Visible="false">
                                 <ItemTemplate>
-                                    <asp:ImageButton visible="false" ID="ImageButton1" runat="server" CommandName="Edit" ImageUrl="~/Images/Buy-Button.png" />
+                                    <asp:ImageButton Visible="false" ID="ImageButton1" runat="server" CommandName="Edit"
+                                        ImageUrl="~/Images/Buy-Button.png" />
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>
                         </Columns>
-                    </mastertableview>
-                    <clientsettings>
+                    </MasterTableView>
+                    <ClientSettings>
                         <Resizing AllowColumnResize="true" />
                         <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
-                    </clientsettings>
+                    </ClientSettings>
                 </telerik:RadGrid>
             </td>
         </tr>
