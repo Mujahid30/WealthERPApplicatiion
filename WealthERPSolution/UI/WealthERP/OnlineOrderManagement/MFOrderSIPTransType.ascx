@@ -89,17 +89,12 @@
     }
     );
     });
+
+    Sys.WebForms.PageRequestManager.getInstance().add_endRequest(PopupEndRequestHandler);
     
 
-//    Sys.WebForms.PageRequestManager.getInstance().add_endRequest(EndRequestHandler);
-//    function EndRequestHandler(sender, args) {
-//        if (args.get_error() == undefined) {
-//            jQuery(document).ready(function($) {
-//                $('.bxslider').bxSlider();
-//            });
-//        }
-//    }
 </script>
+
 
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
     <ContentTemplate>
@@ -662,26 +657,23 @@
     <Triggers>
     </Triggers>
 </asp:UpdatePanel>
-
 <table width="100%">
-<tr>
-<td align="center">
-<div style="float:left;width:90%">
-    <ul class="bxslider">
-        <li>
-            <img src="../Images/InvestorPageSlider/1.jpg" /></li>
-        <li>
-            <img src="../Images/InvestorPageSlider/2.jpg" /></li>
-        <li>
-            <img src="../Images/InvestorPageSlider/3.jpg" /></li>
-        <li>
-            <img src="../Images/InvestorPageSlider/4.jpg" /></li>
-        <li>
-            <img src="../Images/InvestorPageSlider/5.jpg" /></li>
-    </ul>
-</div>
-</td>
-</tr>
+    <tr>
+        <td align="center">
+            <div style="float: left; width: 90%">
+                <ul class="bxslider">
+                    <li>
+                        <img src="../Images/InvestorPageSlider/1.jpg" /></li>
+                    <li>
+                        <img src="../Images/InvestorPageSlider/2.jpg" /></li>
+                    <li>
+                        <img src="../Images/InvestorPageSlider/3.jpg" /></li>
+                    <li>
+                        <img src="../Images/InvestorPageSlider/4.jpg" /></li>
+                    <li>
+                        <img src="../Images/InvestorPageSlider/5.jpg" /></li>
+                </ul>
+            </div>
+        </td>
+    </tr>
 </table>
-
-
