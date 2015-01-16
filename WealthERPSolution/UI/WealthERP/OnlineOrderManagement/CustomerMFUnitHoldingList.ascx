@@ -56,7 +56,7 @@
                 </asp:DropDownList>
             </td>
             <td class="rightField" style="width: 10%">
-                <asp:Button ID="btnUnitHolding" runat="server" Text="GO" CssClass="PCGButton" OnClick="btnUnitHolding_Click" />                
+                <asp:Button ID="btnUnitHolding" runat="server" Text="GO" CssClass="PCGButton" OnClick="btnUnitHolding_Click" />
             </td>
             <td class="style1">
                 <asp:Label ID="lblPickDate" Text="" runat="server" CssClass="FieldName" Visible="false"> </asp:Label>
@@ -126,6 +126,150 @@
                                 HeaderText="Scheme" DataField="Scheme" AllowFiltering="true" FilterControlWidth="250px">
                                 <ItemStyle HorizontalAlign="Left" Wrap="false" />
                             </telerik:GridBoundColumn>
+                            <telerik:GridTemplateColumn ItemStyle-Width="250px" AllowFiltering="false" HeaderText="Scheme Rating"
+                                HeaderStyle-Width="125px" ItemStyle-Wrap="false">
+                                <ItemTemplate>
+
+                                    <script type="text/jscript">
+
+                                        jQuery(document).ready(function($) {
+                                            var moveLeft = 0;
+                                            var moveDown = 0;
+                                            $('a.popper').hover(function(e) {
+
+                                                //var target = '#' + ($(this).attr('data-popbox'));
+                                                var target = '#' + ($(this).find('img').attr('id')).replace('imgSchemeRating', 'divSchemeRatingDetails');
+
+                                                $(target).show();
+                                                moveLeft = $(this).outerWidth();
+                                                moveDown = ($(target).outerHeight() / 2);
+                                            }, function() {
+                                                //var target = '#' + ($(this).attr('data-popbox'));
+                                                var target = '#' + ($(this).find('img').attr('id')).replace('imgSchemeRating', 'divSchemeRatingDetails');
+                                                $(target).hide();
+                                            });
+
+                                            $('a.popper').mousemove(function(e) {
+                                                //var target = '#' + ($(this).attr('data-popbox'));
+                                                var target = '#' + ($(this).find('img').attr('id')).replace('imgSchemeRating', 'divSchemeRatingDetails');
+
+                                                leftD = e.pageX + parseInt(moveLeft);
+                                                maxRight = leftD + $(target).outerWidth();
+                                                windowLeft = $(window).width() - 40;
+                                                windowRight = 0;
+                                                maxLeft = e.pageX - (parseInt(moveLeft) + $(target).outerWidth() + 20);
+
+                                                if (maxRight > windowLeft && maxLeft > windowRight) {
+                                                    leftD = maxLeft;
+                                                }
+
+                                                topD = e.pageY - parseInt(moveDown);
+                                                maxBottom = parseInt(e.pageY + parseInt(moveDown) + 20);
+                                                windowBottom = parseInt(parseInt($(document).scrollTop()) + parseInt($(window).height()));
+                                                maxTop = topD;
+                                                windowTop = parseInt($(document).scrollTop());
+                                                if (maxBottom > windowBottom) {
+                                                    topD = windowBottom - $(target).outerHeight() - 20;
+                                                } else if (maxTop < windowTop) {
+                                                    topD = windowTop + 20;
+                                                }
+
+                                                $(target).css('top', topD).css('left', leftD);
+
+
+                                            });
+
+                                        });
+    
+                                    </script>
+
+                                    <a href="#" class="popper" data-popbox="divSchemeRatingDetails"><span class="FieldName">
+                                    </span>
+                                        <asp:Image runat="server" ID="imgSchemeRating" />
+                                    </a>
+                                    <asp:Label ID="lblSchemeRating" runat="server" CssClass="cmbField" Text='<%# Eval("SchemeRatingOverall") %>'
+                                        Visible="false">
+                                    </asp:Label>
+                                    <asp:Label ID="lblRating3Year" runat="server" CssClass="cmbField" Text='<%# Eval("SchemeRating3Year") %>'
+                                        Visible="false">
+                                    </asp:Label>
+                                    <asp:Label ID="lblRating5Year" runat="server" CssClass="cmbField" Text='<%# Eval("SchemeRating5Year") %>'
+                                        Visible="false">
+                                    </asp:Label>
+                                    <asp:Label ID="lblRating10Year" runat="server" CssClass="cmbField" Text='<%# Eval("SchemeRating10Year") %>'
+                                        Visible="false">
+                                    </asp:Label>
+                                    <div id="divSchemeRatingDetails" class="popbox" runat="server" style="float:left;">
+                                        <h2 class="popup-title">
+                                            SCHEME RATING DETAILS
+                                        </h2>
+                                        <table border="1" cellpadding="1" cellspacing="2" style="border-collapse: collapse;" width="10% !important;">
+                                            <tr>
+                                                <td>
+                                                    &nbsp;
+                                                </td>
+                                                <td>
+                                                    <span class="readOnlyField">RATING</span>
+                                                </td>
+                                                <td>
+                                                    <span class="readOnlyField">RETURN</span>
+                                                </td>
+                                                <td>
+                                                    <span class="readOnlyField">RISK</span>
+                                                </td>
+                                                <td>
+                                                    <span class="readOnlyField">RATING OVERALL</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span class="readOnlyField">3 YEAR</span>
+                                                </td>
+                                                <td>
+                                                    <asp:Image runat="server" ID="imgRating3yr" />
+                                                </td>
+                                                <td>
+                                                    <asp:Label ID="lblSchemeRetrun3yr" runat="server" CssClass="readOnlyField" Text='<%# Eval("SchemeReturn3Year") %>'> </asp:Label>
+                                                </td>
+                                                <td>
+                                                    <asp:Label ID="lblSchemeRisk3yr" runat="server" CssClass="readOnlyField" Text='<%# Eval("SchemeRisk3Year")%>'> </asp:Label>
+                                                </td>
+                                                <td rowspan="3">
+                                                    <asp:Image runat="server" ID="imgRatingOvelAll" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span class="readOnlyField">5 YEAR</span>
+                                                </td>
+                                                <td>
+                                                    <asp:Image runat="server" ID="imgRating5yr" />
+                                                </td>
+                                                <td>
+                                                    <asp:Label ID="lblSchemeRetrun5yr" runat="server" CssClass="readOnlyField" Text='<%# Eval("SchemeReturn5Year") %>'></asp:Label>
+                                                </td>
+                                                <td>
+                                                    <asp:Label ID="lblSchemeRisk5yr" runat="server" CssClass="readOnlyField" Text='<%# Eval("SchemeRisk5Year")%>'></asp:Label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span class="readOnlyField">10 YEAR</span>
+                                                </td>
+                                                <td>
+                                                    <asp:Image runat="server" ID="imgRating10yr" />
+                                                </td>
+                                                <td>
+                                                    <asp:Label ID="lblSchemeRetrun10yr" runat="server" CssClass="readOnlyField" Text='<%# Eval("SchemeReturn10Year") %>'></asp:Label>
+                                                </td>
+                                                <td>
+                                                    <asp:Label ID="lblSchemeRisk10yr" runat="server" CssClass="readOnlyField" Text='<%# Eval("SchemeRisk10Year")%>'></asp:Label>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </ItemTemplate>
+                            </telerik:GridTemplateColumn>
                             <%--<telerik:GridTemplateColumn HeaderStyle-Width="275px" UniqueName="Scheme" SortExpression="Scheme"
                                 AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
                                 HeaderText="Scheme" Groupable="False" ItemStyle-Wrap="false" AllowFiltering="true"
@@ -257,96 +401,6 @@
                                 FooterStyle-HorizontalAlign="Right">
                                 <ItemStyle HorizontalAlign="Right" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridTemplateColumn ItemStyle-Width="250px" AllowFiltering="false" HeaderText="Scheme Rating"
-                                HeaderStyle-Width="125px" ItemStyle-Wrap="false">
-                                <ItemTemplate>
-                                    <a href="#" class="popper" data-popbox="divSchemeRatingDetails">
-                                        <span class="FieldName"></span>
-                                        <asp:Image runat="server" ID="imgSchemeRating" />
-                                    </a>
-                                    <asp:Label ID="lblSchemeRating" runat="server" CssClass="cmbField" Text='<%# Eval("SchemeRatingOverall") %>'
-                                        Visible="false">
-                                    </asp:Label>
-                                    <asp:Label ID="lblRating3Year" runat="server" CssClass="cmbField" Text='<%# Eval("SchemeRating3Year") %>'
-                                        Visible="false">
-                                    </asp:Label>
-                                    <asp:Label ID="lblRating5Year" runat="server" CssClass="cmbField" Text='<%# Eval("SchemeRating5Year") %>'
-                                        Visible="false">
-                                    </asp:Label>
-                                    <asp:Label ID="lblRating10Year" runat="server" CssClass="cmbField" Text='<%# Eval("SchemeRating10Year") %>'
-                                        Visible="false">
-                                    </asp:Label>
-                                    <div id="divSchemeRatingDetails" class="popbox">
-                                        <h2 class="popup-title">
-                                            SCHEME RATING DETAILS
-                                        </h2>
-                                        <table border="1" cellpadding="1" cellspacing="2" style="border-collapse: collapse;">
-                                            <tr>
-                                                <td>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;
-                                                </td>
-                                                <td>
-                                                    <span class="readOnlyField">RATING</span>
-                                                </td>
-                                                <td>
-                                                    <span class="readOnlyField">RETURN</span>
-                                                </td>
-                                                <td>
-                                                    <span class="readOnlyField">RISK</span>
-                                                </td>
-                                                <td>
-                                                    <span class="readOnlyField">RATING OVERALL</span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <span class="readOnlyField">3 YEAR</span>
-                                                </td>
-                                                <td>
-                                                    <asp:Image runat="server" ID="imgRating3yr" />
-                                                </td>
-                                                <td>
-                                                    <asp:Label ID="lblSchemeRetrun3yr" runat="server" CssClass="readOnlyField" Text='<%# Eval("SchemeReturn3Year") %>'> </asp:Label>
-                                                </td>
-                                                <td>
-                                                    <asp:Label ID="lblSchemeRisk3yr" runat="server" CssClass="readOnlyField" Text='<%# Eval("SchemeRisk3Year")%>'> </asp:Label>
-                                                </td>
-                                                <td rowspan="3">
-                                                    <asp:Image runat="server" ID="imgRatingOvelAll" />
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <span class="readOnlyField">5 YEAR</span>
-                                                </td>
-                                                <td>
-                                                    <asp:Image runat="server" ID="imgRating5yr" />
-                                                </td>
-                                                <td>
-                                                    <asp:Label ID="lblSchemeRetrun5yr" runat="server" CssClass="readOnlyField" Text='<%# Eval("SchemeReturn5Year") %>'></asp:Label>
-                                                </td>
-                                                <td>
-                                                    <asp:Label ID="lblSchemeRisk5yr" runat="server" CssClass="readOnlyField" Text='<%# Eval("SchemeRisk5Year")%>'></asp:Label>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <span class="readOnlyField">10 YEAR</span>
-                                                </td>
-                                                <td>
-                                                    <asp:Image runat="server" ID="imgRating10yr" />
-                                                </td>
-                                                <td>
-                                                    <asp:Label ID="lblSchemeRetrun10yr" runat="server" CssClass="readOnlyField" Text='<%# Eval("SchemeReturn10Year") %>'></asp:Label>
-                                                </td>
-                                                <td>
-                                                    <asp:Label ID="lblSchemeRisk10yr" runat="server" CssClass="readOnlyField" Text='<%# Eval("SchemeRisk10Year")%>'></asp:Label>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                </ItemTemplate>
-                            </telerik:GridTemplateColumn>
                             <telerik:GridTemplateColumn ItemStyle-Width="140px" AllowFiltering="false" HeaderText="Action"
                                 ItemStyle-Wrap="false">
                                 <ItemTemplate>

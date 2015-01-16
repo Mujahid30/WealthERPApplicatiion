@@ -79,7 +79,8 @@
         $('.bxslider').bxSlider(
     {
         auto: true,
-        autoControls: true
+        autoControls: true,       
+        speed:1500
     }
     );
     });

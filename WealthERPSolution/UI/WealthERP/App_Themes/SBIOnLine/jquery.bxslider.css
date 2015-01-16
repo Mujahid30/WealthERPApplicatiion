@@ -33,7 +33,7 @@
 	-moz-box-shadow: 0 0 5px #ccc;
 	-webkit-box-shadow: 0 0 5px #ccc;
 	box-shadow: 0 0 5px #ccc;
-	border:  5px solid #fff;
+	border:  1px solid #06c;
 	left: -5px;
 	background: #fff;
 	
@@ -201,4 +201,9 @@
 	display: block;
 	font-size: .85em;
 	padding: 10px;
+}
+ul.bxslider
+{
+    padding:0px;
+    margin:0px;
 }
