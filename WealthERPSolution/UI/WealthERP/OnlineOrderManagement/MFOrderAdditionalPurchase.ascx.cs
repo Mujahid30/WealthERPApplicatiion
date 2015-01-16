@@ -71,7 +71,7 @@ namespace WealthERP.OnlineOrderManagement
                 }
                 else
                 {
-                    ShowMessage(onlineMforderBo.GetOnlineOrderUserMessage(clientMFAccessCode),'I');
+                    ShowMessage(onlineMforderBo.GetOnlineOrderUserMessage(clientMFAccessCode), 'I');
                     divControlContainer.Visible = false;
                     divClientAccountBalance.Visible = false;
                 }
@@ -134,7 +134,7 @@ namespace WealthERP.OnlineOrderManagement
             ddlAmc.Items.Clear();
             DataSet ds = new DataSet();
             DataTable dtAmc = new DataTable();
-            ds = onlineMforderBo.GetCustomerHoldingAMCList(customerVo.CustomerId,'R');
+            ds = onlineMforderBo.GetCustomerHoldingAMCList(customerVo.CustomerId, 'R');
             dtAmc = ds.Tables[0];
             if (dtAmc.Rows.Count > 0)
             {
@@ -222,9 +222,23 @@ namespace WealthERP.OnlineOrderManagement
                     if (!string.IsNullOrEmpty(dr["AVSD_ExpiryDtae"].ToString()) && Convert.ToDateTime(dr["AVSD_ExpiryDtae"].ToString()) > DateTime.Now && !string.IsNullOrEmpty(dr["PMFRD_RatingOverall"].ToString()))
                     {
                         trSchemeRating.Visible = true;
-                        imgSchemeRating.ImageUrl = @"../Images/MorningStarRating/PMFRD_RatingOverall/" + dr["PMFRD_RatingOverall"].ToString() + ".png";
-                        //imgSchemeRating.ImageUrl = @"../Images/msgUnRead.png";
+                        imgSchemeRating.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + dr["PMFRD_RatingOverall"].ToString() + ".png";
+                       
+                         //Rating Overall
                         imgRatingDetails.ImageUrl = @"../Images/MorningStarRating/RatingOverall/" + dr["PMFRD_RatingOverall"].ToString() + ".png";
+
+                        //Rating yearwise
+                        imgRating3yr.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + dr["PMFRD_Rating3Year"].ToString() + ".png";
+                        imgRating5yr.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + dr["PMFRD_Rating5Year"].ToString() + ".png";
+                        imgRating10yr.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + dr["PMFRD_Rating10Year"].ToString() + ".png";
+
+                        lblSchemeRetrun3yr.Text = dr["PMFRD_Return3Year"].ToString();
+                        lblSchemeRetrun5yr.Text = dr["PMFRD_Return5Year"].ToString();
+                        lblSchemeRetrun10yr.Text = dr["PMFRD_Return10Year"].ToString();
+
+                        lblSchemeRisk3yr.Text = dr["PMFRD_Risk3Year"].ToString();
+                        lblSchemeRisk5yr.Text = dr["PMFRD_Risk5Year"].ToString();
+                        lblSchemeRisk10yr.Text = dr["PMFRD_Risk10Year"].ToString();
                     }
                     else
                     {
@@ -462,7 +476,7 @@ namespace WealthERP.OnlineOrderManagement
 
         }
 
-        private string CreateUserMessage(int orderId, bool accountDebitStatus, bool isCutOffTimeOver,out char msgType)
+        private string CreateUserMessage(int orderId, bool accountDebitStatus, bool isCutOffTimeOver, out char msgType)
         {
             string userMessage = string.Empty;
             msgType = 'S';
@@ -471,7 +485,7 @@ namespace WealthERP.OnlineOrderManagement
                 if (isCutOffTimeOver)
                     userMessage = "Order placed successfully, Order reference no is " + orderId.ToString() + ", Order will process next business day";
                 else
-                    userMessage = "Order placed successfully, Order reference no is " + orderId.ToString();                
+                    userMessage = "Order placed successfully, Order reference no is " + orderId.ToString();
             }
             else if (orderId != 0 && accountDebitStatus == false)
             {

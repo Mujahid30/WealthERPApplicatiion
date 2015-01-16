@@ -171,9 +171,23 @@ namespace WealthERP.OnlineOrderManagement
                     if (!string.IsNullOrEmpty(dr["AVSD_ExpiryDtae"].ToString()) && Convert.ToDateTime(dr["AVSD_ExpiryDtae"].ToString()) > DateTime.Now && !string.IsNullOrEmpty(dr["PMFRD_RatingOverall"].ToString()))
                     {
                         trSchemeRating.Visible = true;
-                        imgSchemeRating.ImageUrl = @"../Images/MorningStarRating/PMFRD_RatingOverall/" + dr["PMFRD_RatingOverall"].ToString() + ".png";
-                        //imgSchemeRating.ImageUrl = @"../Images/msgUnRead.png";
+                        imgSchemeRating.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + dr["PMFRD_RatingOverall"].ToString() + ".png";
+                        
+                        //Rating Overall
                         imgRatingDetails.ImageUrl = @"../Images/MorningStarRating/RatingOverall/" + dr["PMFRD_RatingOverall"].ToString() + ".png";
+
+                        //Rating yearwise
+                        imgRating3yr.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + dr["PMFRD_Rating3Year"].ToString() + ".png";
+                        imgRating5yr.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + dr["PMFRD_Rating5Year"].ToString() + ".png";
+                        imgRating10yr.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + dr["PMFRD_Rating10Year"].ToString() + ".png";
+
+                        lblSchemeRetrun3yr.Text = dr["PMFRD_Return3Year"].ToString();
+                        lblSchemeRetrun5yr.Text = dr["PMFRD_Return5Year"].ToString();
+                        lblSchemeRetrun10yr.Text = dr["PMFRD_Return10Year"].ToString();
+
+                        lblSchemeRisk3yr.Text = dr["PMFRD_Risk3Year"].ToString();
+                        lblSchemeRisk5yr.Text = dr["PMFRD_Risk5Year"].ToString();
+                        lblSchemeRisk10yr.Text = dr["PMFRD_Risk10Year"].ToString();
                     }
                     else
                     {

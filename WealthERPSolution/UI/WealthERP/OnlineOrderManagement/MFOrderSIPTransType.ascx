@@ -5,18 +5,6 @@
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 
 <script src="../Scripts/jquery.js" type="text/javascript"></script>
-
-<script src="../Scripts/jquery-1.2.6.js" type="text/javascript"></script>
-
-<script src="../Scripts/jquery-1.4.2.min.js" type="text/javascript"></script>
-
-<script src="../Scripts/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
-
-
-<script src="../Scripts/jquery-1.3.1.min.js" type="text/javascript"></script>
-
-<script src="../Scripts/jQuery.bubbletip-1.0.6.js" type="text/javascript"></script>
-
 <script src="../Scripts/JScript.js" type="text/javascript"></script>
 
 <script src="../Scripts/jquery.min.js" type="text/javascript"></script>
@@ -77,8 +65,7 @@
     }
 </script>
 
-<script type="text/jscript">
-    //     \Sys.WebForms.PageRequestManager.getInstance().add_endRequest(EndRequestHandler);
+<script type="text/jscript">    
     jQuery(document).ready(function($) {
         $('.bxslider').bxSlider(
     {
@@ -90,7 +77,6 @@
 
     Sys.WebForms.PageRequestManager.getInstance().add_endRequest(PopupEndRequestHandler);
     
-
 </script>
 
 
