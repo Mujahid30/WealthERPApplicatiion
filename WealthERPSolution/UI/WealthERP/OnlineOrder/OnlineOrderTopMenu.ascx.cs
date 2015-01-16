@@ -58,7 +58,7 @@ namespace WealthERP.OnlineOrder
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('MFOrderSIPTransType','login');", true);
                     break;
                 case "RTSMFOrderMenuTransactNFO": // add a new child tab
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('MFOrderBuyTransTypeOffline','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('MFOrderNFOTransType','login');", true);
                     break;
 
                 case "RTSMFOrderMenuTransactFMP": // add a new child tab

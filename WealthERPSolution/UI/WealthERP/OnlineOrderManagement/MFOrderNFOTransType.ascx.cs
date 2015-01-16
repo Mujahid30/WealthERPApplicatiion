@@ -18,11 +18,10 @@ using System.Configuration;
 using VoUser;
 using VoOnlineOrderManagemnet;
 
-namespace WealthERP.OffLineOrderManagement
+namespace WealthERP.OnlineOrderManagement
 {
-    public partial class MFOrderBuyTransTypeOffline : System.Web.UI.UserControl
+    public partial class MFOrderNFOTransType : System.Web.UI.UserControl
     {
-
         CommonLookupBo commonLookupBo = new CommonLookupBo();
         OnlineMFOrderBo onlineMforderBo = new OnlineMFOrderBo();
         CustomerAccountBo customerAccountBo = new CustomerAccountBo();
@@ -40,6 +39,7 @@ namespace WealthERP.OffLineOrderManagement
         int accountId;
         int OrderId;
         string clientMFAccessCode = string.Empty;
+
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -62,7 +62,7 @@ namespace WealthERP.OffLineOrderManagement
                 }
                 else
                 {
-                    ShowMessage(onlineMforderBo.GetOnlineOrderUserMessage(clientMFAccessCode),'I');
+                    ShowMessage(onlineMforderBo.GetOnlineOrderUserMessage(clientMFAccessCode), 'I');
                     PurchaseOrderControlsEnable(false);
                     divControlContainer.Visible = false;
                     divClientAccountBalance.Visible = false;
@@ -164,12 +164,7 @@ namespace WealthERP.OffLineOrderManagement
                     }
 
                 }
-                //DataSet dsNav = commonLookupBo.GetLatestNav(int.Parse(ddlScheme.SelectedValue));
-                //if (dsNav.Tables[0].Rows.Count > 0)
-                //{
-                //    string date = Convert.ToDateTime(dsNav.Tables[0].Rows[0][0]).ToString("dd-MMM-yyyy");
-                //    lblNavDisplay.Text = dsNav.Tables[0].Rows[0][1] + " " + "As On " + " " + date;
-                //}
+               
             }
             if (dtSchemeAmcCategory.Rows.Count > 0)
             {
@@ -426,7 +421,7 @@ namespace WealthERP.OffLineOrderManagement
             //--I(information)
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "wsedrftgyhjukloghjnnnghj", " showMsg('" + msg + "','" + type.ToString() + "');", true);
         }
-        
+
         protected void lnkEdit_Click(object sender, EventArgs e)
         { }
         protected void lnkBack_Click(object sender, EventArgs e)
@@ -468,18 +463,18 @@ namespace WealthERP.OffLineOrderManagement
         {
             if (Session["PageDefaultSetting"] != null)
             {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('MFOrderNFOTransType')", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('MFOrderBuyTransTypeOffline')", true);
             }
             else
             {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "loadcontrol('MFOrderNFOTransType')", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "loadcontrol('MFOrderBuyTransTypeOffline')", true);
                 //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('IPOIssueTransact','&issueId=" + issueId + "')", true);
             }
         }
 
         protected void BindSchemeDividendTypes(int schemeId)
         {
-            DataTable dtSchemeDividendOption=commonLookupBo.GetMFSchemeDividentType(schemeId);
+            DataTable dtSchemeDividendOption = commonLookupBo.GetMFSchemeDividentType(schemeId);
             ddlDivType.Items.Clear();
             if (dtSchemeDividendOption.Rows.Count > 0)
             {
@@ -488,11 +483,9 @@ namespace WealthERP.OffLineOrderManagement
                 ddlDivType.DataTextField = dtSchemeDividendOption.Columns["PSLV_LookupValue"].ToString();
                 ddlDivType.DataBind();
                 ddlDivType.Items.Insert(0, new ListItem("--SELECT--", "0"));
-                
+
             }
 
         }
     }
-
-
 }

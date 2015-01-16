@@ -1,35 +1,39 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CustomerMFUnitHoldingList.ascx.cs"
     Inherits="WealthERP.OnlineOrderManagement.CustomerMFUnitHoldingList" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
-<%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
+
+<script src="../Scripts/jquery.js" type="text/javascript"></script>
+
+<script src="../Scripts/JScript.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery.bxslider.js" type="text/javascript"></script>
+
+<asp:ScriptManager ID="scriptmanager" runat="server">
+</asp:ScriptManager>
 <style type="text/css">
     .style1
     {
         width: 37%;
     }
 </style>
-<asp:ScriptManager ID="scriptmanager" runat="server">
-</asp:ScriptManager>
-<%--<table width="100%">
-    <tr>
-        <td>
-            <div class="divPageHeading">
-                <table cellspacing="0" cellpadding="3" width="100%">
-                    <tr>
-                        <td align="left">
-                            Unit Holdings
-                        </td>
-                        <td align="right" style="width: 10px">
-                            <asp:ImageButton Visible="false" ID="btnExport" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
-                                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
-                                OnClientClick="setFormat('excel')" Height="20px" Width="25px"></asp:ImageButton>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </td>
-    </tr>
-</table>--%>
+
+<script type="text/jscript">
+    jQuery(document).ready(function($) {
+        $('.bxslider').bxSlider(
+    {
+        auto: true,
+        autoControls: true
+    }
+    );
+    });
+
+        
+</script>
+
 <div class="divOnlinePageHeading" style="float: right; width: 100%">
     <div style="float: right; padding-right: 100px; height: 41px;">
         <table cellspacing="0" cellpadding="3" style="width: 105%">
@@ -52,7 +56,7 @@
                 </asp:DropDownList>
             </td>
             <td class="rightField" style="width: 10%">
-                <asp:Button ID="btnUnitHolding" runat="server" Text="GO" CssClass="PCGButton" OnClick="btnUnitHolding_Click" />
+                <asp:Button ID="btnUnitHolding" runat="server" Text="GO" CssClass="PCGButton" OnClick="btnUnitHolding_Click" />                
             </td>
             <td class="style1">
                 <asp:Label ID="lblPickDate" Text="" runat="server" CssClass="FieldName" Visible="false"> </asp:Label>
@@ -254,85 +258,92 @@
                                 <ItemStyle HorizontalAlign="Right" />
                             </telerik:GridBoundColumn>
                             <telerik:GridTemplateColumn ItemStyle-Width="250px" AllowFiltering="false" HeaderText="Scheme Rating"
-                                HeaderStyle-Width="125px" ItemStyle-Wrap="false" >
+                                HeaderStyle-Width="125px" ItemStyle-Wrap="false">
                                 <ItemTemplate>
-
-                                    <script type="text/jscript">
-                                        jQuery(document).ready(function($) {
-                                            $('[data-popup-target]').click(function() {
-                                                $('html').addClass('overlay');
-                                                var activePopup = $(this).attr('data-popup-target');
-                                                $(activePopup).addClass('visible');
-
-                                            });
-
-                                            $(document).keyup(function(e) {
-                                                if (e.keyCode == 27 && $('html').hasClass('overlay')) {
-                                                    clearPopup();
-                                                }
-                                            });
-
-                                            $('.popup-exit').click(function() {
-                                                clearPopup();
-
-                                            });
-
-                                            $('.popup-overlay').click(function() {
-                                                clearPopup();
-                                            });
-
-                                            function clearPopup() {
-                                                $('.popup.visible').addClass('transitioning').removeClass('visible');
-                                                $('html').removeClass('overlay');
-
-                                                setTimeout(function() {
-                                                    $('.popup').removeClass('transitioning');
-                                                }, 200);
-                                            }
-
-                                        });
-
-    
-                                    </script>
-                                    <asp:Image ID="imgSchemeRating" runat="server" CommandName="MorningStarRating" data-popup-target="#Rating-popup"
-                                        ToolTip="©2014 Morningstar. All Rights Reserved. The information,data, analyses and opinions
-(“Information”) contained herein: (1) include the proprietary information of Morningstar
-and its content providers; (2) may not be copied or redistributed except as specifically
-authorised; (3) do not  constitute  investment advice; (4) are  provided  solely  for 
-informational purposes; (5) are not warranted to be  complete,  accurate  or  timely; 
-(6) may be drawn from fund data  published on  various  dates.  Morningstar  is  not  
-responsible  for  any trading decisions, damages or  other  losses  related  to  the 
-Information or its use.Please verify all of the Information before using it and don’t
-make any  investment  decision except upon the  advice of  a  professional  financial  
-adviser. Past  performance  is  no guarantee of future results.The value  and  income 
-derived  from  investments  may  go down as well as up."
- />
+                                    <a href="#" class="popper" data-popbox="divSchemeRatingDetails">
+                                        <span class="FieldName"></span>
+                                        <asp:Image runat="server" ID="imgSchemeRating" />
+                                    </a>
                                     <asp:Label ID="lblSchemeRating" runat="server" CssClass="cmbField" Text='<%# Eval("SchemeRatingOverall") %>'
                                         Visible="false">
                                     </asp:Label>
-                                    <div id="Rating-popup" class="popup">
-                                        <div class="popup-body">
-                                            <span class="popup-exit"></span>
-                                            <div class="popup-content">
-                                                <h2 class="popup-title">
-                                                    <asp:Image runat="server" ID="imgRatingDetails" />
-                                                </h2>
-                                                <p>
-                                                    ©2014 Morningstar. All Rights Reserved. The information, data, analyses and opinions
-                                                    (“Information”) contained herein: (1) include the proprietary information of Morningstar
-                                                    and its content providers; (2) may not be copied or redistributed except as specifically
-                                                    authorised; (3) do not constitute investment advice; (4) are provided solely for
-                                                    informational purposes; (5) are not warranted to be complete, accurate or timely;
-                                                    and (6) may be drawn from fund data published on various dates. Morningstar is not
-                                                    responsible for any trading decisions, damages or other losses related to the Information
-                                                    or its use. Please verify all of the Information before using it and don’t make
-                                                    any investment decision except upon the advice of a professional financial adviser.
-                                                    Past performance is no guarantee of future results. The value and income derived
-                                                    from investments may go down as well as up.</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="popup-overlay">
+                                    <asp:Label ID="lblRating3Year" runat="server" CssClass="cmbField" Text='<%# Eval("SchemeRating3Year") %>'
+                                        Visible="false">
+                                    </asp:Label>
+                                    <asp:Label ID="lblRating5Year" runat="server" CssClass="cmbField" Text='<%# Eval("SchemeRating5Year") %>'
+                                        Visible="false">
+                                    </asp:Label>
+                                    <asp:Label ID="lblRating10Year" runat="server" CssClass="cmbField" Text='<%# Eval("SchemeRating10Year") %>'
+                                        Visible="false">
+                                    </asp:Label>
+                                    <div id="divSchemeRatingDetails" class="popbox">
+                                        <h2 class="popup-title">
+                                            SCHEME RATING DETAILS
+                                        </h2>
+                                        <table border="1" cellpadding="1" cellspacing="2" style="border-collapse: collapse;">
+                                            <tr>
+                                                <td>
+                                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                                </td>
+                                                <td>
+                                                    <span class="readOnlyField">RATING</span>
+                                                </td>
+                                                <td>
+                                                    <span class="readOnlyField">RETURN</span>
+                                                </td>
+                                                <td>
+                                                    <span class="readOnlyField">RISK</span>
+                                                </td>
+                                                <td>
+                                                    <span class="readOnlyField">RATING OVERALL</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span class="readOnlyField">3 YEAR</span>
+                                                </td>
+                                                <td>
+                                                    <asp:Image runat="server" ID="imgRating3yr" />
+                                                </td>
+                                                <td>
+                                                    <asp:Label ID="lblSchemeRetrun3yr" runat="server" CssClass="readOnlyField" Text='<%# Eval("SchemeReturn3Year") %>'> </asp:Label>
+                                                </td>
+                                                <td>
+                                                    <asp:Label ID="lblSchemeRisk3yr" runat="server" CssClass="readOnlyField" Text='<%# Eval("SchemeRisk3Year")%>'> </asp:Label>
+                                                </td>
+                                                <td rowspan="3">
+                                                    <asp:Image runat="server" ID="imgRatingOvelAll" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span class="readOnlyField">5 YEAR</span>
+                                                </td>
+                                                <td>
+                                                    <asp:Image runat="server" ID="imgRating5yr" />
+                                                </td>
+                                                <td>
+                                                    <asp:Label ID="lblSchemeRetrun5yr" runat="server" CssClass="readOnlyField" Text='<%# Eval("SchemeReturn5Year") %>'></asp:Label>
+                                                </td>
+                                                <td>
+                                                    <asp:Label ID="lblSchemeRisk5yr" runat="server" CssClass="readOnlyField" Text='<%# Eval("SchemeRisk5Year")%>'></asp:Label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span class="readOnlyField">10 YEAR</span>
+                                                </td>
+                                                <td>
+                                                    <asp:Image runat="server" ID="imgRating10yr" />
+                                                </td>
+                                                <td>
+                                                    <asp:Label ID="lblSchemeRetrun10yr" runat="server" CssClass="readOnlyField" Text='<%# Eval("SchemeReturn10Year") %>'></asp:Label>
+                                                </td>
+                                                <td>
+                                                    <asp:Label ID="lblSchemeRisk10yr" runat="server" CssClass="readOnlyField" Text='<%# Eval("SchemeRisk10Year")%>'></asp:Label>
+                                                </td>
+                                            </tr>
+                                        </table>
                                     </div>
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>
@@ -364,4 +375,24 @@ derived  from  investments  may  go down as well as up."
         </tr>
     </table>
 </asp:Panel>
+<table width="100%" style="padding: 25px;">
+    <tr>
+        <td align="center">
+            <div style="float: left; width: 98%">
+                <ul class="bxslider">
+                    <li>
+                        <img src="../Images/InvestorPageSlider/1.jpg" /></li>
+                    <li>
+                        <img src="../Images/InvestorPageSlider/2.jpg" /></li>
+                    <li>
+                        <img src="../Images/InvestorPageSlider/3.jpg" /></li>
+                    <li>
+                        <img src="../Images/InvestorPageSlider/4.jpg" /></li>
+                    <li>
+                        <img src="../Images/InvestorPageSlider/5.jpg" /></li>
+                </ul>
+            </div>
+        </td>
+    </tr>
+</table>
 <asp:HiddenField ID="hdnAccount" runat="server" Value="0" />

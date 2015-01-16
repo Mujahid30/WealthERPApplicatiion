@@ -67,6 +67,18 @@ namespace VoCustomerPortfolio
         public bool IsSchemeRedeem { get; set; }
         public int SchemeRatingOverall { get; set; }
         public DateTime SchemeRatingSubscriptionExpiryDtae { get; set; }
+
+        public int SchemeRating3Year { get; set; }
+        public int SchemeRating5Year { get; set; }
+        public int SchemeRating10Year { get; set; }
+
+        public string SchemeReturn3Year { get; set; }
+        public string SchemeReturn5Year { get; set; }
+        public string SchemeReturn10Year { get; set; }
+
+        public string SchemeRisk3Year { get; set; }
+        public string SchemeRisk5Year { get; set; }
+        public string SchemeRisk10Year { get; set; }
         
     }
 }

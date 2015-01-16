@@ -79,7 +79,6 @@
     
 </script>
 
-
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
     <ContentTemplate>
         <table class="tblMessage" cellpadding="0" cellspacing="0">

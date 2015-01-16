@@ -3079,6 +3079,13 @@
     <Compile Include="OnlineOrderManagement\MFOrderAdditionalPurchase.ascx.designer.cs">
       <DependentUpon>MFOrderAdditionalPurchase.ascx</DependentUpon>
     </Compile>
+    <Compile Include="OnlineOrderManagement\MFOrderNFOTransType.ascx.cs">
+      <DependentUpon>MFOrderNFOTransType.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OnlineOrderManagement\MFOrderNFOTransType.ascx.designer.cs">
+      <DependentUpon>MFOrderNFOTransType.ascx</DependentUpon>
+    </Compile>
     <Compile Include="OnlineOrderManagement\MFOrderPurchaseTransType.ascx.cs">
       <DependentUpon>MFOrderPurchaseTransType.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -8132,6 +8139,7 @@
     <Content Include="OnlineOrderManagement\IPOIssueTransact.ascx" />
     <Content Include="OnlineOrderManagement\MFOnlineUserLandingPage.ascx" />
     <Content Include="OnlineOrderManagement\MFOrderAdditionalPurchase.ascx" />
+    <Content Include="OnlineOrderManagement\MFOrderNFOTransType.ascx" />
     <Content Include="OnlineOrderManagement\MFOrderPurchaseTransType.ascx" />
     <Content Include="OnlineOrderManagement\MFOrderRdemptionTransType.ascx" />
     <Content Include="OnlineOrderManagement\MFOrderManagement.ascx" />

@@ -1506,7 +1506,7 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "NFO")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerFIAlerts", "loadcontrol('MFOrderBuyTransTypeOffline','none');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerFIAlerts", "loadcontrol('MFOrderNFOTransType','none');", true);
                 }
                 else if (e.Item.Value == "MF_SWP")
                 {

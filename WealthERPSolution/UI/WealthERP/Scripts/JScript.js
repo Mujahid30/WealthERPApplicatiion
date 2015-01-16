@@ -1152,7 +1152,7 @@ function PopupEndRequestHandler(sender, args) {
 
 
 
-    jQuery(document).ready(function($) {
+ jQuery(document).ready(function($) {
         var moveLeft = 0;
         var moveDown = 0;
         $('a.popper').hover(function(e) {

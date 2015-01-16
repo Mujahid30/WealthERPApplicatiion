@@ -80,19 +80,20 @@ namespace WealthERP
                 bcID = pageID;
             }
 
-
-
             // Control Loading Script
-            path = Getpagepath(pageID);
-            UserControl uc1 = new UserControl();
+            if (!string.IsNullOrEmpty(pageID) && pageID != "Bottom_Panel_PageID")
+            {
+                path = Getpagepath(pageID);
+                UserControl uc1 = new UserControl();
 
-            uc1 = (UserControl)this.Page.LoadControl(path);
-            uc1.ID = "ctrl_" + pageID;
+                uc1 = (UserControl)this.Page.LoadControl(path);
+                uc1.ID = "ctrl_" + pageID;
 
 
 
-            phBottom.Controls.Clear();
-            phBottom.Controls.Add(uc1);
+                phBottom.Controls.Clear();
+                phBottom.Controls.Add(uc1);
+            }
 
         }
 

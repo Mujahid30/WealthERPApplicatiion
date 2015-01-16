@@ -2365,6 +2365,27 @@ namespace DaoCustomerPortfolio
                         if (!string.IsNullOrEmpty(dr["AVSD_ExpiryDtae"].ToString()))
                             mfPortfNetPositionVo.SchemeRatingSubscriptionExpiryDtae = Convert.ToDateTime(dr["AVSD_ExpiryDtae"].ToString());
 
+                        if (!string.IsNullOrEmpty(dr["PMFRD_Rating3Year"].ToString()))
+                            mfPortfNetPositionVo.SchemeRating3Year = Convert.ToInt16(dr["PMFRD_Rating3Year"].ToString());
+                        if (!string.IsNullOrEmpty(dr["PMFRD_Rating5Year"].ToString()))
+                            mfPortfNetPositionVo.SchemeRating5Year = Convert.ToInt16(dr["PMFRD_Rating5Year"].ToString());
+                        if (!string.IsNullOrEmpty(dr["PMFRD_Rating10Year"].ToString()))
+                            mfPortfNetPositionVo.SchemeRating10Year = Convert.ToInt16(dr["PMFRD_Rating10Year"].ToString());
+
+                        if (!string.IsNullOrEmpty(dr["PMFRD_Return3Year"].ToString()))
+                            mfPortfNetPositionVo.SchemeReturn3Year = dr["PMFRD_Return3Year"].ToString();
+                        if (!string.IsNullOrEmpty(dr["PMFRD_Return5Year"].ToString()))
+                            mfPortfNetPositionVo.SchemeReturn5Year = dr["PMFRD_Return5Year"].ToString();
+                        if (!string.IsNullOrEmpty(dr["PMFRD_Return10Year"].ToString()))
+                            mfPortfNetPositionVo.SchemeReturn10Year = dr["PMFRD_Return10Year"].ToString();
+
+                        if (!string.IsNullOrEmpty(dr["PMFRD_Risk3Year"].ToString()))
+                            mfPortfNetPositionVo.SchemeRisk3Year =dr["PMFRD_Risk3Year"].ToString();
+                        if (!string.IsNullOrEmpty(dr["PMFRD_Risk5Year"].ToString()))
+                            mfPortfNetPositionVo.SchemeRisk5Year = dr["PMFRD_Risk5Year"].ToString();
+                        if (!string.IsNullOrEmpty(dr["PMFRD_Risk10Year"].ToString()))
+                            mfPortfNetPositionVo.SchemeRisk10Year = dr["PMFRD_Risk10Year"].ToString();
+
                           mfPortfolioNetPositionList.Add(mfPortfNetPositionVo);
                     }
                 }

@@ -146,6 +146,20 @@ namespace WealthERP.OnlineOrderManagement
             dtMFUnitHolding.Columns.Add("IsSchemeSIPType");
             dtMFUnitHolding.Columns.Add("IsSchemePurchege");
             dtMFUnitHolding.Columns.Add("IsSchemeRedeem");
+       
+
+            dtMFUnitHolding.Columns.Add("SchemeRating3Year");
+            dtMFUnitHolding.Columns.Add("SchemeRating5Year");
+            dtMFUnitHolding.Columns.Add("SchemeRating10Year");
+
+            dtMFUnitHolding.Columns.Add("SchemeReturn3Year");
+            dtMFUnitHolding.Columns.Add("SchemeReturn5Year");
+            dtMFUnitHolding.Columns.Add("SchemeReturn10Year");
+
+            dtMFUnitHolding.Columns.Add("SchemeRisk3Year");
+            dtMFUnitHolding.Columns.Add("SchemeRisk5Year");
+            dtMFUnitHolding.Columns.Add("SchemeRisk10Year");
+
             dtMFUnitHolding.Columns.Add("SchemeRatingOverall");
             dtMFUnitHolding.Columns.Add("SchemeRatingSubscriptionExpiryDtae");
 
@@ -162,36 +176,7 @@ namespace WealthERP.OnlineOrderManagement
             OnlineMFHoldingList = customerPortfolioBo.GetOnlineUnitHolding(customerId, int.Parse(hdnAccount.Value));
             if (OnlineMFHoldingList != null)
             {
-                DataTable dtMFUnitHoplding = CreateUnitHoldingListTable();
-                //dtMFUnitHoplding.Columns.Add("MFNPId");
-                //dtMFUnitHoplding.Columns.Add("AccountId");
-                //dtMFUnitHoplding.Columns.Add("Category");
-                //dtMFUnitHoplding.Columns.Add("Scheme");
-                //dtMFUnitHoplding.Columns.Add("FolioNum");
-                //dtMFUnitHoplding.Columns.Add("PurchasedUnits", typeof(double));
-                //dtMFUnitHoplding.Columns.Add("DVRUnits", typeof(double));
-                //dtMFUnitHoplding.Columns.Add("OpenUnits", typeof(double));
-                //dtMFUnitHoplding.Columns.Add("Price");
-                //dtMFUnitHoplding.Columns.Add("InvestedCost", typeof(double));
-                //dtMFUnitHoplding.Columns.Add("NAV", typeof(double));
-                //dtMFUnitHoplding.Columns.Add("CurrentValue", typeof(double));
-                //dtMFUnitHoplding.Columns.Add("UnitsSold", typeof(double));
-                //dtMFUnitHoplding.Columns.Add("RedeemedAmount", typeof(double));
-                //dtMFUnitHoplding.Columns.Add("DVP", typeof(double));
-                //dtMFUnitHoplding.Columns.Add("TotalPL", typeof(double));
-                //dtMFUnitHoplding.Columns.Add("AbsoluteReturn", typeof(double));
-                //dtMFUnitHoplding.Columns.Add("DVR", typeof(double));
-                //dtMFUnitHoplding.Columns.Add("XIRR", typeof(double));
-                //dtMFUnitHoplding.Columns.Add("TotalDividends", typeof(double));
-                //dtMFUnitHoplding.Columns.Add("AMCCode");
-                //dtMFUnitHoplding.Columns.Add("SchemeCode");
-                //dtMFUnitHoplding.Columns.Add("AmcName");
-                //dtMFUnitHoplding.Columns.Add("SubCategoryName");
-                //dtMFUnitHoplding.Columns.Add("FolioStartDate");
-                //dtMFUnitHoplding.Columns.Add("InvestmentStartDate");
-                //dtMFUnitHoplding.Columns.Add("CMFNP_NAVDate");
-                //dtMFUnitHoplding.Columns.Add("CMFNP_ValuationDate");
-                //dtMFUnitHoplding.Columns.Add("RealizesdGain");
+                DataTable dtMFUnitHoplding = CreateUnitHoldingListTable();                
 
                 DataRow drMFUnitHoplding;
                 for (int i = 0; i < OnlineMFHoldingList.Count; i++)
@@ -289,8 +274,22 @@ namespace WealthERP.OnlineOrderManagement
                     drMFUnitHoplding["IsSchemeSIPType"] = mfPortfolioVo.IsSchemeSIPType;
                     drMFUnitHoplding["IsSchemePurchege"] = mfPortfolioVo.IsSchemePurchege;
                     drMFUnitHoplding["IsSchemeRedeem"] = mfPortfolioVo.IsSchemeRedeem;
+
+                    drMFUnitHoplding["SchemeRating3Year"] = mfPortfolioVo.SchemeRating3Year;
+                    drMFUnitHoplding["SchemeRating5Year"] = mfPortfolioVo.SchemeRating5Year;
+                    drMFUnitHoplding["SchemeRating10Year"] = mfPortfolioVo.SchemeRating10Year;
+
+                    drMFUnitHoplding["SchemeReturn3Year"] = mfPortfolioVo.SchemeReturn3Year;
+                    drMFUnitHoplding["SchemeReturn5Year"] = mfPortfolioVo.SchemeReturn5Year;
+                    drMFUnitHoplding["SchemeReturn10Year"] = mfPortfolioVo.SchemeReturn10Year;
+
+                    drMFUnitHoplding["SchemeRisk3Year"] = mfPortfolioVo.SchemeRisk3Year;
+                    drMFUnitHoplding["SchemeRisk5Year"] = mfPortfolioVo.SchemeRisk5Year;
+                    drMFUnitHoplding["SchemeRisk10Year"] = mfPortfolioVo.SchemeRisk10Year;
+
                     drMFUnitHoplding["SchemeRatingOverall"] = mfPortfolioVo.SchemeRatingOverall;
                     drMFUnitHoplding["SchemeRatingSubscriptionExpiryDtae"] = mfPortfolioVo.SchemeRatingSubscriptionExpiryDtae;
+
 
                     dtMFUnitHoplding.Rows.Add(drMFUnitHoplding);
                 }
@@ -466,8 +465,18 @@ namespace WealthERP.OnlineOrderManagement
                 Label lblSIPSchemeFlag = (Label)e.Item.FindControl("lblSIPSchemeFlag");
                 Label lblIsPurcheseFlag = (Label)e.Item.FindControl("lblIsPurcheseFlag");
                 Label lblSchemeRating = (Label)e.Item.FindControl("lblSchemeRating");
+
+                Label lblRating3Year = (Label)e.Item.FindControl("lblRating3Year");
+                Label lblRating5Year = (Label)e.Item.FindControl("lblRating5Year");
+                Label lblRating10Year = (Label)e.Item.FindControl("lblRating10Year");
+
                 System.Web.UI.WebControls.Image imgSchemeRating = (System.Web.UI.WebControls.Image)e.Item.FindControl("imgSchemeRating");
-                System.Web.UI.WebControls.Image imgRatingDetails = (System.Web.UI.WebControls.Image)e.Item.FindControl("imgSchemeRating");
+
+                System.Web.UI.WebControls.Image imgRating3Year = (System.Web.UI.WebControls.Image)e.Item.FindControl("imgRating3yr");
+                System.Web.UI.WebControls.Image imgRating5Year = (System.Web.UI.WebControls.Image)e.Item.FindControl("imgRating5yr");
+                System.Web.UI.WebControls.Image imgRating10Year = (System.Web.UI.WebControls.Image)e.Item.FindControl("imgRating10yr");
+                System.Web.UI.WebControls.Image imgRatingOvelAll = (System.Web.UI.WebControls.Image)e.Item.FindControl("imgRatingOvelAll");
+
                 if (lblSIPSchemeFlag.Text.Trim().ToLower() == "false")
                 {
                     ImageButton imgSIP = (ImageButton)e.Item.FindControl("imgSip");
@@ -492,6 +501,13 @@ namespace WealthERP.OnlineOrderManagement
 
 
                 imgSchemeRating.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + lblSchemeRating.Text.Trim() + ".png";
+
+                imgRating3Year.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + lblRating3Year.Text.Trim() + ".png";
+                imgRating5Year.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + lblRating5Year.Text.Trim() + ".png";
+                imgRating10Year.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + lblRating10Year.Text.Trim() + ".png";
+
+                imgRatingOvelAll.ImageUrl = @"../Images/MorningStarRating/RatingOverall/" + lblSchemeRating.Text.Trim() + ".png";
+
                  //imgSchemeRating.ImageUrl = @"../Images/msgUnRead.png";
                 ////imgRatingDetails.ImageUrl = @"../Images/MorningStarRating/RatingOverall/" + lblSchemeRating.Text.Trim() + ".png";
              
