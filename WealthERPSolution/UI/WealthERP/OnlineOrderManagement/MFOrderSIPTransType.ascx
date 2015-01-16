@@ -12,7 +12,6 @@
 
 <script src="../Scripts/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
 
-<script src="../Scripts/jquery.min.js" type="text/javascript"></script>
 
 <script src="../Scripts/jquery-1.3.1.min.js" type="text/javascript"></script>
 
@@ -20,8 +19,7 @@
 
 <script src="../Scripts/JScript.js" type="text/javascript"></script>
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js" type="text/javascript"></script>
-
+<script src="../Scripts/jquery.min.js" type="text/javascript"></script>
 <script src="../Scripts/jquery.bxslider.js" type="text/javascript"></script>
 
 <asp:ScriptManager ID="scrptMgr" runat="server">
