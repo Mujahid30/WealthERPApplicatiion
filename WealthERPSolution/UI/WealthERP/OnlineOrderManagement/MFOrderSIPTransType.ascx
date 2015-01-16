@@ -640,10 +640,10 @@
     <Triggers>
     </Triggers>
 </asp:UpdatePanel>
-<table width="100%">
+<table width="100%" style="padding: 25px;">
     <tr>
         <td align="center">
-            <div style="float: left; width: 90%">
+            <div style="float: left; width: 98%">
                 <ul class="bxslider">
                     <li>
                         <img src="../Images/InvestorPageSlider/1.jpg" /></li>
