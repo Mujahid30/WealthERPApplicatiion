@@ -833,6 +833,13 @@
                         </asp:DropDownList>
                         <%--<asp:TextBox ID="txtTax" runat="server" CssClass="txtField" AutoComplete="Off" ReadOnly="true"   />  --%>
                     </td>
+                     <td align="right">
+                        <asp:Label ID="s" runat="server" CssClass="FieldName" Text="Report To:"
+                            Visible="false"></asp:Label>
+                    </td>
+                    <td>
+                        <asp:Label ID="lblAssociateReportTo" runat="server" CssClass="FieldName" Enabled="false"></asp:Label>
+                    </td>
                     <td colspan="3">
                     </td>
                 </tr>

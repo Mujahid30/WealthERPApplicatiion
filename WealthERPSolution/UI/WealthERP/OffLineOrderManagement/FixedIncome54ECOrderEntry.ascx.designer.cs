@@ -1941,5 +1941,7 @@ namespace WealthERP.OffLineOrderManagement
         protected global::System.Web.UI.WebControls.Label lblAuthenticatedBy;
         protected global::System.Web.UI.WebControls.Label lblAuthenticationDate;
         protected global::System.Web.UI.WebControls.CheckBox chkAuthentication;
+        protected global::System.Web.UI.WebControls.Label lblAssociateReportTo;
+        protected global::System.Web.UI.WebControls.Label lblAssociateReport;
     }
 }

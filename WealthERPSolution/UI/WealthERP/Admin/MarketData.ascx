@@ -9,7 +9,7 @@
 </td>
 </tr>
 <tr><td> </td></tr><tr><td> </td></tr><tr><td> </td></tr><tr><td> </td></tr>
-<tr align="center">
+<%--<tr align="center">
 <td>
 <asp:LinkButton ID="lnkEquityData" CssClass="HeaderTextBig" runat="server" 
         Text="Query Equity Data" onclick="lnkEquityData_Click"></asp:LinkButton>
@@ -21,5 +21,5 @@
 <asp:LinkButton ID="lnkGoldPrice" CssClass="HeaderTextBig" runat="server" 
         Text="Query Gold Price" onclick="lnkGoldPrice_Click"></asp:LinkButton>
 </td>
-</tr>
+</tr>--%>
 </table>

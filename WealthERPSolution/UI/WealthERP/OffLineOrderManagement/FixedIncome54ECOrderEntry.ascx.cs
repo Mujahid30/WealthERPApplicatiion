@@ -398,10 +398,12 @@ namespace WealthERP.OffLineOrderManagement
         {
             // Admin after selecting agent code and sales login default 
             lblAssociate.Visible = true;
+            lblAssociateReport.Visible = true;
             Agentname = customerBo.GetSubBrokerName(agentId);
             if (Agentname.Rows.Count > 0)
             {
                 lblAssociatetext.Text = Agentname.Rows[0][0].ToString();
+                lblAssociateReportTo.Text = Agentname.Rows[0][4].ToString();
                 if (!string.IsNullOrEmpty(Agentname.Rows[0][3].ToString()))
                 {
                     //  lb1EUIN.Text = Agentname.Rows[0][3].ToString();

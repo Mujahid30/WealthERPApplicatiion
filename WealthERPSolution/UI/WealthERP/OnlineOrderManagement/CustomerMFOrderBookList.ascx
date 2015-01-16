@@ -59,7 +59,7 @@
                 <asp:DropDownList CssClass="cmbField" ID="ddlOrderType" runat="server" AutoPostBack="false">
                     <asp:ListItem Text="All" Value="0"></asp:ListItem>
                     <asp:ListItem Text="SIP" Value="1"></asp:ListItem>
-                    <asp:ListItem Text="Normal Order" Value="2"></asp:ListItem>
+                    <asp:ListItem Text="Normal" Value="2"></asp:ListItem>
                 </asp:DropDownList>
             </td>
             <td id="td1" runat="server">

@@ -65,8 +65,8 @@ namespace WealthERP.Admin
             }
             if (hdnassetType.Value == "MF")
             {
-                RadTabStrip1.Tabs[1].Visible = true;
-                RadTabStrip1.Tabs[2].Visible = true;
+                //RadTabStrip1.Tabs[1].Visible = true;
+                //RadTabStrip1.Tabs[2].Visible = true;
                 SessionBo.CheckSession();
                 this.Page.Culture = "en-GB";
                 trgvEquityView.Visible = false;
@@ -102,8 +102,8 @@ namespace WealthERP.Admin
                 btnSubmit.Visible = false;
                 trSelectMutualFund.Visible = false;
                 trSelectSchemeNAV.Visible = false;
-                RadTabStrip1.Tabs[1].Visible = false;
-                RadTabStrip1.Tabs[2].Visible = false;
+                //RadTabStrip1.Tabs[1].Visible = false;
+                //RadTabStrip1.Tabs[2].Visible = false;
                 lblheader.Text = "Equity Data Query";
                 pnlSchemeComparison.Visible = false;
                 rbtnCurrent.Visible = true;
@@ -202,7 +202,7 @@ namespace WealthERP.Admin
             ddYear.DataTextField = ds.Tables[0].Columns["TradeYear"].ToString();
             ddYear.DataValueField = ds.Tables[0].Columns["TradeYear"].ToString();
             ddYear.DataBind();
-            ddYear.SelectedValue = DateTime.Now.Year.ToString();
+            //ddYear.SelectedValue = DateTime.Now.Year.ToString();
         }
 
         protected void rbtnCurrent_CheckedChanged(object sender, EventArgs e)
