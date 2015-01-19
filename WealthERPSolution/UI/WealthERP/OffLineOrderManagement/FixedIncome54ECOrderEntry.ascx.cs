@@ -663,13 +663,15 @@ namespace WealthERP.OffLineOrderManagement
             if (result == true)
             {
                 hdnButtonAction.Value = "Update";
+                //lnkBtnFIEdit.Visible = true;
+                msgRecordStatus.Visible = true;
                 GetFICOntrolsValues();
                 btnUpdate.Visible = false;
                 lnkBtnFIEdit.Visible = true;
                 //BtnFileupload.Visible = true;
 
                 SetFICOntrolsEnablity(false);
-                lnkBtnFIEdit.Visible = true;
+                
             }
             else
             {
