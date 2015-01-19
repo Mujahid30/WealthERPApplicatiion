@@ -833,7 +833,7 @@
                         </asp:DropDownList>
                         <%--<asp:TextBox ID="txtTax" runat="server" CssClass="txtField" AutoComplete="Off" ReadOnly="true"   />  --%>
                     </td>
-                     <td align="right">
+                    <td align="right">
                         <asp:Label ID="lblAssociateReport" runat="server" CssClass="FieldName" Text="Report To:"
                             Visible="false"></asp:Label>
                     </td>
@@ -1454,105 +1454,108 @@
         </td>--%>
                 </tr>
             </table>
-            <table width="68%" id="tbUploadDocument" runat="server" visible="false">
-                <tr>
-                    <td colspan="2">
-                        <telerik:RadGrid ID="gvUploadDocument" runat="server" AllowSorting="True" enableloadondemand="True"
-                            PageSize="5" AutoGenerateColumns="False" EnableEmbeddedSkins="False" GridLines="None"
-                            ShowFooter="True" PagerStyle-AlwaysVisible="true" AllowPaging="true" ShowStatusBar="True"
-                            Skin="Telerik" AllowFilteringByColumn="true" OnItemCommand="gvUploadDocument_OnItemCommand"
-                            OnNeedDataSource="gvUploadDocument_OnNeedDataSource" OnItemDataBound="gvUploadDocument_OnItemDataBound">
-                            <MasterTableView DataKeyNames="COD_DocumentId,COD_image,XPRT_ProofTypeCode,XPRT_ProofType"
-                                AllowFilteringByColumn="true" Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
-                                CommandItemDisplay="Top" EditMode="PopUp">
-                                <CommandItemSettings ShowExportToWordButton="false" ShowExportToExcelButton="false"
-                                    AddNewRecordText="Add Document" ShowExportToCsvButton="false" ShowAddNewRecordButton="true"
-                                    ShowRefreshButton="false" />
-                                <Columns>
-                                    <%-- <telerik:GridEditCommandColumn UniqueName="EditCommandColumn" Visible="false">
-                        </telerik:GridEditCommandColumn>--%>
-                                    <telerik:GridEditCommandColumn EditText="Edit" UniqueName="editColumn" CancelText="Cancel"
-                                        UpdateText="Update" HeaderStyle-Width="80px" Visible="false">
-                                    </telerik:GridEditCommandColumn>
-                                    <telerik:GridBoundColumn DataField="COD_DocumentId" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
-                                        ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="DocumentId" UniqueName="COD_DocumentId"
-                                        SortExpression="COD_DocumentId" AllowFiltering="true" Visible="false">
-                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
-                                    </telerik:GridBoundColumn>
-                                    <telerik:GridBoundColumn DataField="XPRT_ProofType" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
-                                        ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Proof Type" UniqueName="XPRT_ProofType"
-                                        SortExpression="XPRT_ProofType" AllowFiltering="true">
-                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
-                                    </telerik:GridBoundColumn>
-                                    <telerik:GridTemplateColumn DataField="COD_image" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
-                                        ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="File" UniqueName="COD_image"
-                                        SortExpression="COD_image" AllowFiltering="true">
-                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
-                                        <ItemTemplate>
-                                            <asp:LinkButton ID="lnkDownload" runat="server" CommandName="download_file" Text='<%#Eval("COD_image") %>'></asp:LinkButton>
-                                        </ItemTemplate>
-                                    </telerik:GridTemplateColumn>
-                                    <telerik:GridButtonColumn UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete?"
-                                        ConfirmDialogType="RadWindow" ConfirmTitle="Delete" ButtonType="LinkButton" CommandName="Delete"
-                                        Text="Delete">
-                                        <ItemStyle HorizontalAlign="Center" CssClass="MyImageButton" Width="70px" />
-                                    </telerik:GridButtonColumn>
-                                </Columns>
-                                <EditFormSettings EditFormType="Template" PopUpSettings-Height="180px" PopUpSettings-Width="500px"
-                                    CaptionFormatString="Upload Document">
-                                    <FormTemplate>
-                                        <table width="100%">
-                                            <tr>
-                                                <td align="right">
-                                                    <asp:Label ID="lblProoftype" runat="server" Text="Proof Type:" CssClass="FieldName"></asp:Label>
-                                                </td>
-                                                <td>
-                                                    <asp:DropDownList ID="ddlProofType" AutoPostBack="true" runat="server" CssClass="cmbField"
-                                                        OnSelectedIndexChanged="ddlProofType_SelectedIndexChanged">
-                                                    </asp:DropDownList>
-                                                    <span id="Span3" class="spnRequiredField">*</span>
-                                                    <br />
-                                                    <asp:RequiredFieldValidator ID="ReqddlLevel" runat="server" CssClass="rfvPCG" ErrorMessage="Please Select Proof Type"
-                                                        Display="Dynamic" ControlToValidate="ddlProofType" ValidationGroup="btnOK" InitialValue="0">
-                                                    </asp:RequiredFieldValidator>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td align="right">
-                                                    <asp:Label ID="lblUpload" runat="server" Text="Upload:" CssClass="FieldName"></asp:Label>
-                                                </td>
-                                                <td>
-                                                    <span style="font-size: xx-small">(Allowed extensions are: .jpg,.jpeg,.bmp,.png,.pdf)</span>
-                                                    <telerik:RadUpload ID="radUploadProof" runat="server" ControlObjectsVisibility="None"
-                                                        AutoPostBack="true" AllowedFileExtensions=".jpg,.jpeg,.bmp,.png,.pdf" Skin="Telerik"
-                                                        EnableEmbeddedSkins="true">
-                                                    </telerik:RadUpload>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td align="right">
-                                                    <asp:Button ID="btnOK" Text="Submit" runat="server" CssClass="PCGButton" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'
-                                                        CausesValidation="True" ValidationGroup="btnOK" />
-                                                </td>
-                                                <td class="rightData">
-                                                    <asp:Button ID="btnCancel" Text="Cancel" runat="server" CausesValidation="False"
-                                                        CssClass="PCGButton" CommandName="Cancel"></asp:Button>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </FormTemplate>
-                                </EditFormSettings>
-                            </MasterTableView>
-                        </telerik:RadGrid>
-                    </td>
-                </tr>
-            </table>
         </ContentTemplate>
         <Triggers>
             <asp:PostBackTrigger ControlID="lnkBtnDemat" />
             <asp:PostBackTrigger ControlID="btnImgAddCustomer" />
+            <asp:PostBackTrigger ControlID="btnSubmit" />
+            <asp:PostBackTrigger ControlID="btnUpdate" />
+            <asp:PostBackTrigger ControlID="btnAddMore" />
         </Triggers>
     </asp:UpdatePanel>
+    <table width="68%" id="tbUploadDocument" runat="server" visible="false">
+        <tr>
+            <td colspan="2">
+                <telerik:RadGrid ID="gvUploadDocument"  runat="server" AllowSorting="True" enableloadondemand="True"
+                    PageSize="5" AutoGenerateColumns="False" EnableEmbeddedSkins="False" GridLines="None"
+                    ShowFooter="True" PagerStyle-AlwaysVisible="true" AllowPaging="true" ShowStatusBar="True"
+                    Skin="Telerik" AllowFilteringByColumn="true" OnItemCommand="gvUploadDocument_OnItemCommand"
+                    OnNeedDataSource="gvUploadDocument_OnNeedDataSource" OnItemDataBound="gvUploadDocument_OnItemDataBound">
+                    <MasterTableView DataKeyNames="COD_DocumentId,COD_image,XPRT_ProofTypeCode,XPRT_ProofType"
+                        AllowFilteringByColumn="true" Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
+                        CommandItemDisplay="Top" EditMode="PopUp">
+                        <CommandItemSettings ShowExportToWordButton="false" ShowExportToExcelButton="false"
+                            AddNewRecordText="Add Document" ShowExportToCsvButton="false" ShowAddNewRecordButton="true"
+                            ShowRefreshButton="false" />
+                        <Columns>
+                            <%-- <telerik:GridEditCommandColumn UniqueName="EditCommandColumn" Visible="false">
+                        </telerik:GridEditCommandColumn>--%>
+                            <telerik:GridEditCommandColumn EditText="Edit" UniqueName="editColumn" CancelText="Cancel"
+                                UpdateText="Update" HeaderStyle-Width="80px" Visible="false">
+                            </telerik:GridEditCommandColumn>
+                            <telerik:GridBoundColumn DataField="COD_DocumentId" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
+                                ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="DocumentId" UniqueName="COD_DocumentId"
+                                SortExpression="COD_DocumentId" AllowFiltering="true" Visible="false">
+                                <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="XPRT_ProofType" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
+                                ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Proof Type" UniqueName="XPRT_ProofType"
+                                SortExpression="XPRT_ProofType" AllowFiltering="true">
+                                <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridTemplateColumn DataField="COD_image" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
+                                ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="File" UniqueName="COD_image"
+                                SortExpression="COD_image" AllowFiltering="true">
+                                <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                <ItemTemplate>
+                                    <asp:LinkButton ID="lnkDownload" runat="server" CommandName="download_file" Text='<%#Eval("COD_image") %>'></asp:LinkButton>
+                                </ItemTemplate>
+                            </telerik:GridTemplateColumn>
+                            <telerik:GridButtonColumn UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete?"
+                                ConfirmDialogType="RadWindow" ConfirmTitle="Delete" ButtonType="LinkButton" CommandName="Delete"
+                                Text="Delete">
+                                <ItemStyle HorizontalAlign="Center" CssClass="MyImageButton" Width="70px" />
+                            </telerik:GridButtonColumn>
+                        </Columns>
+                        <EditFormSettings EditFormType="Template" PopUpSettings-Height="180px" PopUpSettings-Width="500px"
+                            CaptionFormatString="Upload Document">
+                            <FormTemplate>
+                                <table width="100%">
+                                    <tr>
+                                        <td align="right">
+                                            <asp:Label ID="lblProoftype" runat="server" Text="Proof Type:" CssClass="FieldName"></asp:Label>
+                                        </td>
+                                        <td>
+                                            <asp:DropDownList ID="ddlProofType" AutoPostBack="true" runat="server" CssClass="cmbField"
+                                                OnSelectedIndexChanged="ddlProofType_SelectedIndexChanged">
+                                            </asp:DropDownList>
+                                            <span id="Span3" class="spnRequiredField">*</span>
+                                            <br />
+                                            <asp:RequiredFieldValidator ID="ReqddlLevel" runat="server" CssClass="rfvPCG" ErrorMessage="Please Select Proof Type"
+                                                Display="Dynamic" ControlToValidate="ddlProofType" ValidationGroup="btnOK" InitialValue="0">
+                                            </asp:RequiredFieldValidator>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="right">
+                                            <asp:Label ID="lblUpload" runat="server" Text="Upload:" CssClass="FieldName"></asp:Label>
+                                        </td>
+                                        <td>
+                                            <span style="font-size: xx-small">(Allowed extensions are: .jpg,.jpeg,.bmp,.png,.pdf)</span>
+                                            <telerik:RadUpload ID="radUploadProof" runat="server" ControlObjectsVisibility="None"
+                                                AutoPostBack="true" AllowedFileExtensions=".jpg,.jpeg,.bmp,.png,.pdf" Skin="Telerik"
+                                                EnableEmbeddedSkins="true">
+                                            </telerik:RadUpload>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="right">
+                                            <asp:Button ID="btnOK" Text="Submit" runat="server" CssClass="PCGButton" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'
+                                                CausesValidation="True" ValidationGroup="btnOK" />
+                                        </td>
+                                        <td class="rightData">
+                                            <asp:Button ID="btnCancel" Text="Cancel" runat="server" CausesValidation="False"
+                                                CssClass="PCGButton" CommandName="Cancel"></asp:Button>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </FormTemplate>
+                        </EditFormSettings>
+                    </MasterTableView>
+                </telerik:RadGrid>
+            </td>
+        </tr>
+    </table>
 </asp:Panel>
 <asp:HiddenField ID="txtCustomerId" runat="server" OnValueChanged="txtCustomerId_ValueChanged1" />
 <asp:HiddenField ID="txtAgentId" runat="server" OnValueChanged="txtAgentId_ValueChanged1" />
@@ -1562,5 +1565,3 @@
 <asp:HiddenField ID="hdnButtonAction" runat="server" />
 <asp:HiddenField ID="hdnMaxQty" runat="server" />
 <asp:HiddenField ID="hdnPortfolioId" runat="server" />
-<%--   </ContentTemplate>
-</asp:UpdatePanel>--%>

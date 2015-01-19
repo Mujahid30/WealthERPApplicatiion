@@ -669,7 +669,7 @@ namespace WealthERP.OffLineOrderManagement
                 //BtnFileupload.Visible = true;
 
                 SetFICOntrolsEnablity(false);
-
+                lnkBtnFIEdit.Visible = true;
             }
             else
             {
@@ -757,7 +757,8 @@ namespace WealthERP.OffLineOrderManagement
                 btnAddMore.Visible = false;
                 lnkBtnFIEdit.Visible = true;
                 btnSubmit.Enabled = true;
-
+                tbUploadDocument.Visible = true;
+                gvUploadDocument.Visible = true;
                 //BtnFileupload.Visible = true;
                 // btnUpdate.Visible = true;
             }
@@ -812,12 +813,14 @@ namespace WealthERP.OffLineOrderManagement
             TxtPurAmt.Enabled = Val;
             txtMatAmt.Enabled = Val;
             txtPayAmt.Enabled = Val;
+
         }
 
         protected void lnkBtnFIEdit_Click(object sender, EventArgs e)
         {
             lnkBtnFIEdit.Visible = false;
             lnkBtnEdit();
+            msgRecordStatus.Visible = false;
 
         }
 
