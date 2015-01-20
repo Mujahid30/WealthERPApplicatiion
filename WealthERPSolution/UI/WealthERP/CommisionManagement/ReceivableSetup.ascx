@@ -1430,6 +1430,7 @@
                                                             AutoPostBack="true" OnSelectedIndexChanged="ddlCommissionApplicableLevel_Selectedindexchanged">
                                                         </asp:DropDownList>
                                                         <span id="Span9" class="spnRequiredField">*</span>
+                                                        
                                                     </td>
                                                     <td class="leftLabel">
                                                         <asp:Label ID="lblApplyTaxes" runat="server" Text="Apply Taxes(%):" CssClass="FieldName"></asp:Label>
@@ -1732,9 +1733,9 @@
                                                                                 <td class="leftLabel">
                                                                                 <asp:Label ID="lblRatename" runat="server" Text="Rate Name:" CssClass="FieldName"></asp:Label>
                                                                                 </td>
-                                                                                  <%--<td class="rightData">
+                                                                                  <td class="rightData">
                                                                                   <asp:TextBox ID="txtRateName" runat="server" Text='<%# Bind ("CSRD_RateName") %>'></asp:TextBox>
-                                                                                  </td>--%>
+                                                                                  </td>
                                                                             </tr>
                                                                             <tr>
                                                                                 <td class="leftLabel">
