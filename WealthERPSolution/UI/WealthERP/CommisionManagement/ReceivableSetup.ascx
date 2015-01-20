@@ -1448,7 +1448,7 @@
                                                             <tr>
                                                                 <td>
                                                                     <asp:TextBox ID="txtTaxValue" Text='<%# Bind( "ACSR_ServiceTaxValue") %>' runat="server"
-                                                                        CssClass="txtField" Visible="false" ></asp:TextBox>
+                                                                        CssClass="txtField" Visible='<%# Eval("ACSR_IsServiceTaxReduced") == DBNull.Value ? false : Convert.ToBoolean(Eval("ACSR_IsServiceTaxReduced")) %>' ></asp:TextBox>
                                                                     <cc1:TextBoxWatermarkExtender ID="twtxtTaxValue" TargetControlID="txtTaxValue" WatermarkText="Enter the Value"
                                                                         runat="server" EnableViewState="false">
                                                                     </cc1:TextBoxWatermarkExtender>
@@ -1457,7 +1457,7 @@
                                                             <tr>
                                                                 <td>
                                                                     <asp:TextBox ID="txtTDS" Text='<%# Bind( "ACSR_ReducedValue") %>' runat="server"
-                                                                        CssClass="txtField" Visible="false"></asp:TextBox>
+                                                                        CssClass="txtField"  Visible='<%# Eval("ACSR_IsTDSReduced") == DBNull.Value ? false : Convert.ToBoolean(Eval("ACSR_IsTDSReduced")) %>'></asp:TextBox>
                                                                     <cc1:TextBoxWatermarkExtender ID="twttxtTDS" TargetControlID="txtTDS" WatermarkText="Enter the TDS"
                                                                         runat="server" EnableViewState="false">
                                                                     </cc1:TextBoxWatermarkExtender>
