@@ -116,10 +116,10 @@
                 Operator="NotEqual" ValidationGroup="vgbtnSubmit" ValueToCompare="Select"></asp:CompareValidator>
         </td>
         <td class="leftField" width="16%">
-            <asp:Label ID="lblOffline" runat="server" Text="Transaction Type:" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="lblOffline" runat="server" Text="Chanel:" CssClass="FieldName"></asp:Label>
         </td>
         <td>
-            <asp:DropDownList ID="ddlSelectMode" runat="server" CssClass="cmbField">
+            <asp:DropDownList ID="ddlSelectMode" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlSelectMode_OnSelectedIndexChanged" AutoPostBack="true">
                 <asp:ListItem Text="Both" Value="2">
                 </asp:ListItem>
                 <asp:ListItem Text="Online" Value="1"></asp:ListItem>
