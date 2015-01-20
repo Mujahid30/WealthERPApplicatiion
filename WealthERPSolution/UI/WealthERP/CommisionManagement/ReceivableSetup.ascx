@@ -1439,10 +1439,14 @@
                                                         <asp:CheckBoxList ID="chkListApplyTax" runat="server" CssClass="txtField" RepeatLayout="Flow"
                                                             RepeatDirection="Vertical" AutoPostBack="true" OnSelectedIndexChanged="chkListApplyTax_CheckChanged"
                                                             Width="100px">
-                                                            <asp:ListItem Text="Service Tax" Value="ServiceTax"></asp:ListItem>
-                                                            <asp:ListItem Text="TDS" Value="TDS"></asp:ListItem>
-                                                            <%--<asp:ListItem Text="Others" Value="Others"></asp:ListItem>--%>
-                                                        </asp:CheckBoxList>
+                                                            <asp:ListItem Text="Service Tax" Value="ServiceTax" ></asp:ListItem>
+                                                            <asp:ListItem Text="TDS" Value="TDS" ></asp:ListItem>
+                                                           </asp:CheckBoxList>
+                                                     <%-- <asp:CheckBoxList>
+                                                        <asp:CheckBox ID="chkServiceTax" runat="server" CssClass="txtField" OnCheckedChanged="chkListApplyTax_CheckChanged"
+                                                        AutoPostBack="true" />
+                                                        <asp:CheckBox ID="chkTDS" runat="server" CssClass="txtField" OnCheckedChanged="chkListApplyTax_CheckChanged"
+                                                        AutoPostBack="true" />--%>
                                                     </td>
                                                     <td>
                                                         <table>

@@ -1242,5 +1242,7 @@ namespace WealthERP.Receivable {
         protected global::System.Web.UI.WebControls.TextBox txtTDS;
         protected global::System.Web.UI.WebControls.CheckBoxList chkListApplyTax;
         protected global::System.Web.UI.WebControls.DropDownList ddlCommisionCalOn;
+        protected global::System.Web.UI.WebControls.CheckBox chkServiceTax;
+        protected global::System.Web.UI.WebControls.CheckBox chkTDS;
     }
 }

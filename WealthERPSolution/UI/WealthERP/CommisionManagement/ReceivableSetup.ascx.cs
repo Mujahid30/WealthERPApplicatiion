@@ -1448,26 +1448,21 @@ namespace WealthERP.Receivable
 
                     foreach (ListItem chkItems in chkListApplyTax.Items)
                     {
+
                         if (chkItems.Value == "ServiceTax" & strIsServiceTaxReduced == "1")
                         {
                             chkItems.Selected = true;
                             txtTaxValue.Visible = true;
-                            break;
+                            
                         }
                         else if (chkItems.Value == "TDS" & strIsTDSReduced == "1")
                         {
                             chkItems.Selected = true;
                             txtTDS.Visible = true;
-                            break;
+                            
 
                         }
-                        else if (chkItems.Value == "ServiceTax" & chkItems.Value == "TDS")
-                        {
-                            chkItems.Selected = true;
-                            txtTaxValue.Visible = true;
-                            txtTDS.Visible = true;
-                            break;
-                        }
+                         
                     }
 
 
@@ -1839,11 +1834,20 @@ namespace WealthERP.Receivable
                     commissionStructureRuleVo.specialIncentiv = 1;
                 else
                     commissionStructureRuleVo.specialIncentiv = 0;
-
+               
+                    
+                
+                    
                 if (chkListApplyTax.Items[0].Selected)
+                {
                     commissionStructureRuleVo.IsServiceTaxReduced = true;
+                    commissionStructureRuleVo.TaxValue = Convert.ToDecimal(txtTaxValue.Text.Trim());
+                }
                 if (chkListApplyTax.Items[1].Selected)
+                {
                     commissionStructureRuleVo.IsTDSReduced = true;
+                    commissionStructureRuleVo.TDSValue = Convert.ToDecimal(txtTDS.Text.Trim());
+                }
                 //if (chkListApplyTax.Items[2].Selected)
                 //    commissionStructureRuleVo.IsOtherTaxReduced = true;
 
@@ -1899,10 +1903,7 @@ namespace WealthERP.Receivable
                 if (!string.IsNullOrEmpty(txtMaxNumberOfApplication.Text.Trim()))
                     commissionStructureRuleVo.MaxNumberofApplications = Convert.ToInt32(txtMaxNumberOfApplication.Text.Trim());
 
-                if (!string.IsNullOrEmpty(txtTaxValue.Text.Trim()))
-                    commissionStructureRuleVo.TaxValue = Convert.ToDecimal(txtTaxValue.Text.Trim());
-                if (!string.IsNullOrEmpty(txtTDS.Text.Trim()))
-                    commissionStructureRuleVo.TDSValue = Convert.ToDecimal(txtTDS.Text.Trim());
+                
                 if (!string.IsNullOrEmpty(txtStruRuleComment.Text.Trim()))
                     commissionStructureRuleVo.StructureRuleComment = txtStruRuleComment.Text.Trim();
                 commissionStructureRuleVo.AdviserId = rmVo.AdviserId;
