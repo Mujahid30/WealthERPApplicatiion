@@ -2021,4 +2021,8 @@
     <value>OnlineOrderManagement//MFOrderNFOTransType.ascx</value>
     <comment>OnlineOrderManagement//MFOrderNFOTransType.ascx</comment>
   </data>
+  <data name="AMCManage" xml:space="preserve">
+    <value>OnlineOrderBackOffice//AMCManage.ascx</value>
+    <comment>OnlineOrderBackOffice//AMCManage.ascx</comment>
+  </data>
 </root>

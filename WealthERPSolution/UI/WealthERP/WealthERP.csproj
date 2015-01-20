@@ -2799,6 +2799,13 @@
     <Compile Include="OnlineMainHost.aspx.designer.cs">
       <DependentUpon>OnlineMainHost.aspx</DependentUpon>
     </Compile>
+    <Compile Include="OnlineOrderBackOffice\AMCManage.ascx.cs">
+      <DependentUpon>AMCManage.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OnlineOrderBackOffice\AMCManage.ascx.designer.cs">
+      <DependentUpon>AMCManage.ascx</DependentUpon>
+    </Compile>
     <Compile Include="OnlineOrderBackOffice\CustomerProfileAudit.ascx.cs">
       <DependentUpon>CustomerProfileAudit.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -8099,6 +8106,7 @@
     <Content Include="OffLineOrderManagement\OfflineCustomersNCDOrderBook.ascx" />
     <Content Include="OnlineBottomHost.aspx" />
     <Content Include="OnlineMainHost.aspx" />
+    <Content Include="OnlineOrderBackOffice\AMCManage.ascx" />
     <Content Include="OnlineOrderBackOffice\CustomerProfileAudit.ascx" />
     <Content Include="OnlineOrderBackOffice\ExternalFieldMapping.ascx" />
     <Content Include="OnlineOrderBackOffice\HoldingIssueAllotment.ascx" />
