@@ -1447,8 +1447,8 @@
                                                         <table>
                                                             <tr>
                                                                 <td>
-                                                                    <asp:TextBox ID="txtTaxValue" Text='<%# Bind( "ACSR_ReducedValue") %>' runat="server"
-                                                                        CssClass="txtField" Visible="false"></asp:TextBox>
+                                                                    <asp:TextBox ID="txtTaxValue" Text='<%# Bind( "ACSR_ServiceTaxValue") %>' runat="server"
+                                                                        CssClass="txtField" Visible="false" ></asp:TextBox>
                                                                     <cc1:TextBoxWatermarkExtender ID="twtxtTaxValue" TargetControlID="txtTaxValue" WatermarkText="Enter the Value"
                                                                         runat="server" EnableViewState="false">
                                                                     </cc1:TextBoxWatermarkExtender>
@@ -1456,7 +1456,7 @@
                                                             </tr>
                                                             <tr>
                                                                 <td>
-                                                                    <asp:TextBox ID="txtTDS" Text='<%# Bind( "ACSR_ServiceTaxValue") %>' runat="server"
+                                                                    <asp:TextBox ID="txtTDS" Text='<%# Bind( "ACSR_ReducedValue") %>' runat="server"
                                                                         CssClass="txtField" Visible="false"></asp:TextBox>
                                                                     <cc1:TextBoxWatermarkExtender ID="twttxtTDS" TargetControlID="txtTDS" WatermarkText="Enter the TDS"
                                                                         runat="server" EnableViewState="false">
@@ -1487,7 +1487,7 @@
                                                             ValidationGroup="btnSubmitRule" InitialValue=""></asp:RequiredFieldValidator>
                                                         <asp:RegularExpressionValidator ID="reqtxtstartDate" ControlToValidate="txtApplicationNo"
                                                             ErrorMessage=" </br>Enter Only Number" runat="server" Display="Dynamic" CssClass="cvPCG"
-                                                            ValidationExpression="^\d+(,\d+)*$" ValidationGroup="btnSubmitRule">     
+                                                            ValidationExpression="^([a-zA-Z0-9]+(,[a-zA-Z0-9]+)*)?$" ValidationGroup="btnSubmitRule">     
                                                         </asp:RegularExpressionValidator>
                                                     </td>
                                                 </tr>
@@ -1732,9 +1732,9 @@
                                                                                 <td class="leftLabel">
                                                                                 <asp:Label ID="lblRatename" runat="server" Text="Rate Name:" CssClass="FieldName"></asp:Label>
                                                                                 </td>
-                                                                                  <td class="rightData">
+                                                                                  <%--<td class="rightData">
                                                                                   <asp:TextBox ID="txtRateName" runat="server" Text='<%# Bind ("CSRD_RateName") %>'></asp:TextBox>
-                                                                                  </td>
+                                                                                  </td>--%>
                                                                             </tr>
                                                                             <tr>
                                                                                 <td class="leftLabel">
@@ -1945,6 +1945,7 @@
                 <asp:HiddenField ID="hdnMappedIssue" runat="server" />
                 <asp:HiddenField ID="hdnRuleName" runat="server" />
                 <asp:HiddenField ID="hdnRuleId" runat="server" />
+                <asp:HiddenField ID="hdnIsSpecialIncentive" runat="server" />
             </div>
             <%--<div style="float:left ;padding-right:10px">
                 <asp:Label ID="Label12" runat="server" Text="Note:" Visible="false" CssClass="FieldName"></asp:Label>

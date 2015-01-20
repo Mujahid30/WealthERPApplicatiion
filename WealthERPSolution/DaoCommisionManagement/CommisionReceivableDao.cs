@@ -1181,8 +1181,8 @@ namespace DaoCommisionManagement
 
                 db.AddInParameter(cmdUpdateCommissionStructureRule, "@UsetId", DbType.Int32, userId);
                 db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_CommissionRuleHash", DbType.String, strRuleHash);
-                db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_ReducedValue", DbType.Decimal, commissionStructureRuleVo.TaxValue);
-                db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_ServiceTaxValue", DbType.Decimal, commissionStructureRuleVo.TDSValue);
+                db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_ServiceTaxValue", DbType.Decimal, commissionStructureRuleVo.TaxValue);
+                db.AddInParameter(cmdUpdateCommissionStructureRule, "ACSR_ReducedValue", DbType.Decimal, commissionStructureRuleVo.TDSValue);
                 db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_IsSpecialIncentive", DbType.Int32, commissionStructureRuleVo.specialIncentiv);
                 db.AddInParameter(cmdUpdateCommissionStructureRule, "@CO_ApplicationNo", DbType.String, commissionStructureRuleVo.applicationNo);
                 db.ExecuteNonQuery(cmdUpdateCommissionStructureRule);

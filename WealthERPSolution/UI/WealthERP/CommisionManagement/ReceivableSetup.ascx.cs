@@ -376,7 +376,7 @@ namespace WealthERP.Receivable
 
                 ruleId = Convert.ToInt32(HiddenField1.Value);
                 //Convert.ToInt32(RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_CommissionStructureRuleId"].ToString());
-
+                
                 TextBox txtBrokerageValue = (TextBox)e.Item.FindControl("txtBrokerageValue");
                 DropDownList ddlCommissionype = (DropDownList)e.Item.FindControl("ddlCommissionype");
                 DropDownList ddlBrokerageUnit = (DropDownList)e.Item.FindControl("ddlBrokerageUnit");
@@ -420,12 +420,11 @@ namespace WealthERP.Receivable
 
         protected void rgCommissionTypeCaliculation_ItemDataBound(object sender, GridItemEventArgs e)
         {
-            if (e.Item is GridEditFormInsertItem && e.Item.OwnerTableView.IsItemInserted)
+            if (e.Item is GridEditFormInsertItem && e.Item.OwnerTableView.IsItemInserted )
             {
                 DropDownList ddlCommissionype = (DropDownList)e.Item.FindControl("ddlCommissionype");
                 DropDownList ddlBrokerageUnit = (DropDownList)e.Item.FindControl("ddlBrokerageUnit");
-
-
+                
                 DataSet dscommissionTypes;
                 dscommissionTypes = commisionReceivableBo.GetCommisionTypes();
 
@@ -434,6 +433,8 @@ namespace WealthERP.Receivable
                 ddlCommissionype.DataTextField = "WCMV_Name";
                 ddlCommissionype.DataBind();
                 ddlCommissionype.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
+                if (hdnIsSpecialIncentive.Value == "True")
+                    ddlCommissionype.Items[1].Enabled = false;
 
                 DataSet dsCommissionLookup;
                 dsCommissionLookup = (DataSet)Session["CommissionLookUpData"];
@@ -709,7 +710,7 @@ namespace WealthERP.Receivable
                 commissionStructureMasterVo.IsClawBackApplicable = chkHasClawBackOption.Checked;
                 commissionStructureMasterVo.IsNonMonetaryReward = chkMoneytaryReward.Checked;
 
-                //receivableStructureMasterVo.IsStructureFromIssuer = bool.Parse(chk.Checked.ToString());
+                //receivableStructureMasterVo.IsStructureFromIssuer = bool.Parse(d.Checked.ToString());
                 //receivableStructureMasterVo.RecurringiSIPFrequency=ddl
                 hdnProductId.Value = ddlProductType.SelectedValue;
                 hdnStructValidFrom.Value = txtValidityFrom.Text;
@@ -1263,6 +1264,7 @@ namespace WealthERP.Receivable
                 if (e.Item.ItemIndex != -1)
                 {
                     HiddenField1.Value = RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_CommissionStructureRuleId"].ToString();
+                    hdnIsSpecialIncentive.Value = RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_IsSpecialIncentive"].ToString();
                     RadGrid rgCommissionTypeCaliculation = (RadGrid)e.Item.FindControl("rgCommissionTypeCaliculation");
                     System.Web.UI.HtmlControls.HtmlTableRow trRuleDetailSection = (System.Web.UI.HtmlControls.HtmlTableRow)e.Item.FindControl("trRuleDetailSection");
                     hdnRuleName.Value = RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_CommissionStructureRuleName"].ToString();
@@ -1277,11 +1279,13 @@ namespace WealthERP.Receivable
                     dsLookupData = commisionReceivableBo.GetCommissionTypeBrokerage(Convert.ToInt32(HiddenField1.Value));
                     rgCommissionTypeCaliculation.DataSource = dsLookupData;
                     rgCommissionTypeCaliculation.DataBind();
+                    
                     //if (ddlProductType.SelectedValue != "FI")
                     //   {
                     //       CheckBoxList chkListTtansactionType = (CheckBoxList)FindControl("chkListTtansactionType");
                     //       tbNcdIssueList.Visible = false;
                     //       chkListTtansactionType.Visible = false;
+                    
                     //   }
                 } //
                 else
