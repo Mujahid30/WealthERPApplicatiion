@@ -116,7 +116,7 @@
                 Operator="NotEqual" ValidationGroup="vgbtnSubmit" ValueToCompare="Select"></asp:CompareValidator>
         </td>
         <td class="leftField" width="16%">
-            <asp:Label ID="lblOffline" runat="server" Text="Chanel:" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="lblOffline" runat="server" Text="Channel:" CssClass="FieldName"></asp:Label>
         </td>
         <td>
             <asp:DropDownList ID="ddlSelectMode" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlSelectMode_OnSelectedIndexChanged" AutoPostBack="true">
@@ -501,7 +501,25 @@
                     FooterStyle-HorizontalAlign="Right">
                     <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="10%" HeaderText="Expected Commission Value"
+                <telerik:GridBoundColumn HeaderStyle-Width="10%" HeaderText="Service Tax(%)" DataField="ACSR_ServiceTaxValue"
+                    HeaderStyle-HorizontalAlign="Right" UniqueName="ACSR_ServiceTaxValue" SortExpression="ACSR_ServiceTaxValue"
+                    AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                    FooterStyle-HorizontalAlign="Right">
+                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn HeaderStyle-Width="10%" HeaderText="TDS(%)" DataField="ACSR_ReducedValue"
+                    HeaderStyle-HorizontalAlign="Right" UniqueName="ACSR_ReducedValue" SortExpression="ACSR_ReducedValue" AutoPostBackOnFilter="true"
+                    AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                    FooterStyle-HorizontalAlign="Right">
+                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                 <telerik:GridBoundColumn HeaderStyle-Width="10%" HeaderText="Expected Commission Value" DataField="brokeragevalue"
+                    HeaderStyle-HorizontalAlign="Right" UniqueName="brokeragevalue" SortExpression="brokeragevalue" AutoPostBackOnFilter="true"
+                    AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                    FooterStyle-HorizontalAlign="Right">
+                    <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn HeaderStyle-Width="10%" HeaderText="Net Commission Value"
                     DataField="borkageExpectedvalue" HeaderStyle-HorizontalAlign="Right" UniqueName="borkageExpectedvalue"
                     SortExpression="borkageExpectedvalue" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains" FooterStyle-HorizontalAlign="Right">
@@ -516,6 +534,7 @@
             <Resizing AllowColumnResize="true" />
         </ClientSettings>
     </telerik:RadGrid>
+    
 </div>
 <asp:HiddenField ID="hdnschemeId" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnCategory" runat="server" Visible="false" />

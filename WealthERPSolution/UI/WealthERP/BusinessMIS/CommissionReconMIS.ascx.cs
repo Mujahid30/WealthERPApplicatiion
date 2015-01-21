@@ -77,10 +77,10 @@ namespace WealthERP.BusinessMIS
                 string monthName = DateTimeFormatInfo.CurrentInfo.GetMonthName(i);
                 ddlMnthQtr.Items.Add(new ListItem(monthName, i.ToString().PadLeft(2, '0')));
             }
-            ddlMnthQtr.Items.Add(new ListItem("FY-1", "13"));
-            ddlMnthQtr.Items.Add(new ListItem("FY-2", "14"));
-            ddlMnthQtr.Items.Add(new ListItem("FY-3", "15"));
-            ddlMnthQtr.Items.Add(new ListItem("FY-4", "16"));
+            ddlMnthQtr.Items.Add(new ListItem("Quarter April-June", "13"));
+            ddlMnthQtr.Items.Add(new ListItem("Quarter July-September", "14"));
+            ddlMnthQtr.Items.Add(new ListItem("Quarter October-December", "15"));
+            ddlMnthQtr.Items.Add(new ListItem("Quarter January-March", "16"));
             ddlMnthQtr.Items.Insert(0, new ListItem("Select", "0"));
             for (int i = 2014; i <= 2020; i++)
             {
