@@ -182,13 +182,17 @@ namespace WealthERP.OnlineOrderBackOffice
         protected void btnCategoriesExpandAll_Click(object sender, EventArgs e)
         {
             int reqId = 0;
+            int transactionId = 0;
             LinkButton buttonlink = (LinkButton)sender;
             GridDataItem gdi = (GridDataItem)buttonlink.NamingContainer;
             if (!string.IsNullOrEmpty(rgRequests.MasterTableView.DataKeyValues[gdi.ItemIndex]["ReqId"].ToString()))
             {
                 reqId = int.Parse(rgRequests.MasterTableView.DataKeyValues[gdi.ItemIndex]["ReqId"].ToString());
+                transactionId = Convert.ToInt32(ddlType.SelectedValue);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ManageProfileReject", "loadcontrol('ManageProfileReject','?ReqId=" + reqId + "&transactionId=" + transactionId + "');", true);
+
             }
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('ManageProfileReject','?ReqId=" + reqId + "');", true);
+            //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ManageProfileReject", "loadcontrol('ManageProfileReject','?ReqId=" + reqId + "', &transactionId = " + transactionId + "'));", true);
             //else
             //{
             //    reqId = 0;

@@ -1,4 +1,4 @@
-﻿ using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -23,6 +23,7 @@ namespace WealthERP.UploadBackOffice
         AdvisorVo advisorVo;
         UploadCommonBo uploadCommonBo = new UploadCommonBo();
         int reqId;
+        int transactionId;
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
@@ -32,6 +33,7 @@ namespace WealthERP.UploadBackOffice
             {
                 msgReprocessComplete.Visible = false;
                 reqId = Convert.ToInt32(Request.QueryString["ReqId"]);
+                transactionId = Convert.ToInt32(Request.QueryString["transactionId"]);
                 if (reqId != null)
                 {
                     GetProfileIncreamentRejection(reqId);
@@ -51,7 +53,87 @@ namespace WealthERP.UploadBackOffice
                 gvProfileIncreamenetReject.DataSource = dtReqReje;
                 gvProfileIncreamenetReject.DataBind();
                 gvProfileIncreamenetReject.Visible = true;
+                if (transactionId == 3 || transactionId == 4)
+                {
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("ProductCode").Visible = false;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("FolioNo").Visible = false;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("BranchAdrLine1").Visible = false;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("BranchAdrLine2").Visible = false;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("BranchAdrLine3").Visible = false;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("BranchAdrPinCode").Visible = false;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("BranchAdrState").Visible = false;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("BranchAdrCountry").Visible = false;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("BrokerCode").Visible = false;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("SchemeName").Visible = false;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("TransactionNum").Visible = false;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("TransactionDate").Visible = false;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("Price").Visible = false;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("Units").Visible = false;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("Amount").Visible = false;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("STT").Visible = false;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("BrokeragePer").Visible = false;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn(" BrokerageAmount").Visible = false;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("UserTransactionNo").Visible = false;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("TransactionType").Visible = false;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("TransactionNature").Visible = false;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("TransactionHead").Visible = false;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("TransactionDescription").Visible = false;
 
+                }
+                else if (transactionId == 8)
+                {
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("ProductCode").Visible = true;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("FolioNo").Visible = true;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("BranchAdrLine1").Visible = true;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("BranchAdrLine2").Visible = true;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("BranchAdrLine3").Visible = true;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("BranchAdrPinCode").Visible = true;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("BranchAdrState").Visible = true;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("BranchAdrCountry").Visible = true;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("BrokerCode").Visible = true;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("SchemeName").Visible = true;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("TransactionNum").Visible = true;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("TransactionDate").Visible = true;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("Price").Visible = true;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("Units").Visible = true;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("Amount").Visible = true;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("STT").Visible = true;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("BrokeragePer").Visible = true;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn(" BrokerageAmount").Visible = true;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("UserTransactionNo").Visible = true;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("TransactionType").Visible = true;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("TransactionNature").Visible = true;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("TransactionHead").Visible = true;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("TransactionDescription").Visible = true;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("ClientCode").Visible = false;
+                }
+                else if (transactionId == 9)
+                {
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("ProductCode").Visible = false;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("FolioNo").Visible = false;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("BranchAdrLine1").Visible = false;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("BranchAdrLine2").Visible = false;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("BranchAdrLine3").Visible = false;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("BranchAdrPinCode").Visible = false;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("BranchAdrState").Visible = false;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("BranchAdrCountry").Visible = false;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("BrokerCode").Visible = false;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("SchemeName").Visible = false;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("TransactionNum").Visible = true;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("TransactionDate").Visible = true;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("Price").Visible = true;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("Units").Visible = true;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("Amount").Visible = true;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("STT").Visible = true;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("BrokeragePer").Visible = true;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn(" BrokerageAmount").Visible = true;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("UserTransactionNo").Visible = true;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("TransactionType").Visible = true;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("TransactionNature").Visible = true;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("TransactionHead").Visible = true;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("TransactionDescription").Visible = true;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("ClientCode").Visible = false;
+                }
 
             }
             catch (BaseApplicationException Ex)
@@ -72,7 +154,7 @@ namespace WealthERP.UploadBackOffice
             string personalstatus = string.Empty;
             bool blResult = false;
             int Id = 0;
-            int tableNo=0;
+            int tableNo = 0;
             string clientCode = string.Empty;
             string address1 = string.Empty;
             string address2 = string.Empty;
@@ -130,11 +212,11 @@ namespace WealthERP.UploadBackOffice
                 }
                 if (((TextBox)footerRow.FindControl("txtMobileNoFooter")).Text.Trim() == "")
                 {
-                    mobileno =((TextBox)dr.FindControl("txtMobileNo")).Text;
+                    mobileno = ((TextBox)dr.FindControl("txtMobileNo")).Text;
                 }
                 else
                 {
-                    mobileno =((TextBox)footerRow.FindControl("txtMobileNoFooter")).Text;
+                    mobileno = ((TextBox)footerRow.FindControl("txtMobileNoFooter")).Text;
                 }
                 if (((TextBox)footerRow.FindControl("txtOccupationFooter")).Text.Trim() == "")
                 {
@@ -313,18 +395,18 @@ namespace WealthERP.UploadBackOffice
                 //    guardianDOB = ((TextBox)footerRow.FindControl("txtGuardianDOBFooter")).Text;
                 //}
                 CheckBox checkBox = (CheckBox)dr.FindControl("chkId");
-                if (checkBox.Checked==true)
+                if (checkBox.Checked == true)
                 {
                     int selectedRow = 0;
                     GridDataItem gdi;
                     gdi = (GridDataItem)checkBox.NamingContainer;
                     selectedRow = gdi.ItemIndex + 1;
                     Id = int.Parse((gvProfileIncreamenetReject.MasterTableView.DataKeyValues[selectedRow - 1]["ID"].ToString()));
-                     tableNo = int.Parse((gvProfileIncreamenetReject.MasterTableView.DataKeyValues[selectedRow - 1]["TableNo"].ToString()));
-                     blResult = uploadCommonBo.UpdateRequestRejects(clientCode, Id, tableNo, city, state, pincode, mobileno, occupation, accounttype, bankname, personalstatus, address1, address2, address3, country, officePhoneNo, officeExtensionNo, officeFaxNo, homePhoneNo, homeFaxNo, annualIncome, pan1, pan2, pan3, emailId);
-                    
+                    tableNo = int.Parse((gvProfileIncreamenetReject.MasterTableView.DataKeyValues[selectedRow - 1]["TableNo"].ToString()));
+                    blResult = uploadCommonBo.UpdateRequestRejects(clientCode, Id, tableNo, city, state, pincode, mobileno, occupation, accounttype, bankname, personalstatus, address1, address2, address3, country, officePhoneNo, officeExtensionNo, officeFaxNo, homePhoneNo, homeFaxNo, annualIncome, pan1, pan2, pan3, emailId);
+
                 }
-                
+
             }
 
             if (Request.QueryString["ReqId"] != null)
@@ -340,7 +422,7 @@ namespace WealthERP.UploadBackOffice
             {
                 gvProfileIncreamenetReject.DataSource = dtRequests;
             }
-            
+
         }
         protected void btnReProcess_Click(object sender, EventArgs e)
         {
@@ -348,13 +430,13 @@ namespace WealthERP.UploadBackOffice
             if (Request.QueryString["ReqId"] != null)
             {
                 reqId = Int32.Parse(Request.QueryString["ReqId"].ToString());
-                reprocess=uploadCommonBo.SetRequestParentreqId(reqId, userVo.UserId);
+                reprocess = uploadCommonBo.SetRequestParentreqId(reqId, userVo.UserId);
                 if (reprocess > 0)
                 {
                     msgReprocessincomplete.Visible = true;
                     msgReprocessincomplete.InnerText = "Request already exists";
                 }
-                else 
+                else
                 {
                     msgReprocessComplete.Visible = true;
                     msgReprocessComplete.InnerText = "ReProcess SuccessFully Done";
@@ -380,6 +462,7 @@ namespace WealthERP.UploadBackOffice
             }
             else
             {
+     
                 RejectedRequestDelete();
                 //NeedSource();
                 gvProfileIncreamenetReject.MasterTableView.Rebind();
@@ -423,4 +506,4 @@ namespace WealthERP.UploadBackOffice
 
         }
     }
-    }
+}

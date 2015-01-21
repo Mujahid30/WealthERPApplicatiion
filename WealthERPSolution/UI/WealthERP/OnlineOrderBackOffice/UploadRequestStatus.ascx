@@ -42,7 +42,7 @@
             <asp:Label ID="lb1Type" runat="server" Text="Type:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField" style="width: 70px">
-            <asp:DropDownList ID="ddlType" runat="server" CssClass="cmbField" AutoPostBack="true"
+            <asp:DropDownList ID="ddlType" runat="server" CssClass="cmbField" AutoPostBack="false"
                 Width="240px">
             </asp:DropDownList>
         </td>
@@ -59,7 +59,7 @@
         <td class="rightField">
             <telerik:RadDatePicker ID="txtReqDate" CssClass="txtField" runat="server" Culture="English (United States)"
                 Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01"
-                TabIndex="17" Width="150px" AutoPostBack="true">
+                TabIndex="17" Width="150px" AutoPostBack="false">
                 <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
                     Skin="Telerik" EnableEmbeddedSkins="false">
                 </Calendar>
