@@ -116,7 +116,9 @@ namespace WealthERP.Advisor
                         {
                             dt = FIOrderBo.GetAuthenticate(advisorVo.advisorId, associateuserheirarchyVo.AdviserAgentId);
                             if (dt.Rows.Count > 0)
-                            lblAuthenticatedCount.Text = dt.Rows[1]["overall"].ToString();
+                            {
+                                lblAuthenticatedCount.Text = dt.Rows[0]["overall"].ToString();
+                            }
                             gvAuthenticate.DataSource = dt;
                             gvAuthenticate.Rebind();
                             tdHeader.Visible = true;
