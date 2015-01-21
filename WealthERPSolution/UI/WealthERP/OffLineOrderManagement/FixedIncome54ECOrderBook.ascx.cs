@@ -77,6 +77,7 @@ namespace WealthERP.OffLineOrderManagement
                         string categorywise=Request.QueryString["category"].ToString().TrimEnd(' ');
                         ViewState["category"] = categorywise;
                         ddlCategory.SelectedValue = categorywise;
+                        ddlAuthenticate.SelectedValue = "0";
                         BindIssue(categorywise);
                         lblIssue.Visible = true;
                         ddlIssue.Visible = true;

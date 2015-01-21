@@ -1034,7 +1034,7 @@
                         </asp:CheckBox>
                     </td>
                 </tr>
-                <tr id="trOrder" runat="server">
+                <tr id="trOrder" runat="server" visible="false">
                     <td class="leftField" style="width: 20%">
                         <asp:Label ID="lblOrderNumber" runat="server" Text="" CssClass="FieldName"></asp:Label>
                     </td>
@@ -1043,13 +1043,13 @@
                     </td>
                     <td style="width: 5%">
                     </td>
-                    <td id="Td4" class="leftField" style="width: 10%" visible="false" runat="server">
+                    <td id="Td4" class="leftField" style="width: 10%" visible="true" runat="server">
                         <asp:Label ID="lblOrderDate" runat="server" Text="Order Date:" CssClass="FieldName"></asp:Label>
                     </td>
-                    <td id="Td5" style="width: 35%" visible="false" runat="server">
+                    <td id="Td5" style="width: 35%" visible="true" runat="server">
                         <telerik:RadDatePicker ID="txtOrderDate" CssClass="txtField" runat="server" Culture="English (United States)"
                             Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01"
-                            AutoPostBack="true">
+                            AutoPostBack="true" Enabled="false">
                             <Calendar ID="Calendar2" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
                                 ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false" runat="server">
                             </Calendar>

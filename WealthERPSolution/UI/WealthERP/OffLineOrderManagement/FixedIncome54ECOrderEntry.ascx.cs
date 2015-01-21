@@ -203,7 +203,7 @@ namespace WealthERP.OffLineOrderManagement
                         GetcustomerDetails();
                         View54ECOrderDetails(orderId);
                         lnkBtnEdit();
-
+                        trOrder.Visible = true;
                         tbUploadDocument.Visible = true;
                         BindDocument(orderId);
                         btnUpdate.Visible = true;
@@ -224,6 +224,7 @@ namespace WealthERP.OffLineOrderManagement
                         lblAssociatetext.Text = Request.QueryString["associatename"].ToString();
                         txtAssociateSearch.Text = Request.QueryString["agentcode"].ToString();
                         GetcustomerDetails();
+                        trOrder.Visible = true;
                         BindDocument(orderId);
                         View54ECOrderDetails(orderId);
                         lnkBtnEdit();
@@ -803,7 +804,7 @@ namespace WealthERP.OffLineOrderManagement
             //ddlModeofHOlding.Enabled = Val;
 
             lblGetOrderNo.Enabled = Val;
-            txtOrderDate.Enabled = Val;
+            //txtOrderDate.Enabled = Val;
             txtApplicationNumber.Enabled = Val;
             txtApplicationDate.Enabled = Val;
             txtExistDepositreceiptno.Enabled = Val;
@@ -4260,6 +4261,11 @@ namespace WealthERP.OffLineOrderManagement
                 {
                     txtPaymentInstDate.SelectedDate = Convert.ToDateTime(dr["CO_PaymentDate"].ToString());
                 }
+                if (!string.IsNullOrEmpty(dr["CO_OrderDate"].ToString()))
+                {
+                    txtOrderDate.SelectedDate = Convert.ToDateTime(dr["CO_OrderDate"].ToString());
+                }
+                
                 if (!string.IsNullOrEmpty(dr["CEDA_DPClientId"].ToString()))
                 {
                     txtDematid.Text = dr["CEDA_DPClientId"].ToString();

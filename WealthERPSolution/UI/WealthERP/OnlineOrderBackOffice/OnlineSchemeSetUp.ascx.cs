@@ -1713,13 +1713,13 @@ namespace WealthERP.OnlineOrderBackOffice
                 mfProductAMCSchemePlanDetailsVo.IsOnline = 0;
             }
 
-            int count1 = OnlineOrderBackOfficeBo.ExternalcodeCheck(txtAMFI.Text);
-            if (count1 >= 1 && txtAMFI.Text != string.Empty)
-            {
+            //int count1 = OnlineOrderBackOfficeBo.ExternalcodeCheck(txtAMFI.Text);
+            //if (count1 >= 1 && txtAMFI.Text != string.Empty)
+            //{
 
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please Enter Unique AMFI Code.');", true);
-                return;
-            }
+            //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please Enter Unique AMFI Code.');", true);
+            //    return;
+            //}
 
             //else
             //{
@@ -1972,17 +1972,17 @@ namespace WealthERP.OnlineOrderBackOffice
             //    return;
             ////int SchemePlanCode = int.Parse(ViewState["Schemeplancode"].ToString());
             ////int SchemePlanCode = int.Parse(Session["newschemeplancode"].ToString());
-            string extCode = OnlineOrderBackOfficeBo.GetExtCode(mfProductAMCSchemePlanDetailsVo.SchemePlanCode, 0);
-            if (txtAMFI.Text != extCode)
-            {
-                int count1 = OnlineOrderBackOfficeBo.ExternalcodeCheck(txtAMFI.Text);
+            //string extCode = OnlineOrderBackOfficeBo.GetExtCode(mfProductAMCSchemePlanDetailsVo.SchemePlanCode, 0);
+            //if (txtAMFI.Text != extCode)
+            //{
+            //    int count1 = OnlineOrderBackOfficeBo.ExternalcodeCheck(txtAMFI.Text);
 
-                if (count1 >= 1 && txtAMFI.Text != string.Empty)
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please Enter Unique AMFI Code.');", true);
-                    return;
-                }
-            }
+            //    if (count1 >= 1 && txtAMFI.Text != string.Empty)
+            //    {
+            //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please Enter Unique AMFI Code.');", true);
+            //        return;
+            //    }
+            //}
             //    else if (count == 0)
             //    {
             //        bool bResult = OnlineOrderBackOfficeBo.Updateproductamcscheme(mfProductAMCSchemePlanDetailsVo, schemeplancode);
