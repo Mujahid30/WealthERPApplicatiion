@@ -32,7 +32,12 @@ namespace WealthERP.Advisor
             SessionBo.CheckSession();
             advisorVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
             userVo = (UserVo)Session[SessionContents.UserVo];
-            BindProductwiseAuthenticated();
+            if (!IsPostBack)
+            {
+                BindProductwiseAuthenticated();
+
+            }
+            
         }
 
 
@@ -114,7 +119,7 @@ namespace WealthERP.Advisor
                         usertype = FIOrderBo.GetUserType(advisorVo.advisorId, associateuserheirarchyVo.AdviserAgentId);
                         if (usertype == "RM" || usertype == "BM")
                         {
-                            dt = FIOrderBo.GetAuthenticate(advisorVo.advisorId, associateuserheirarchyVo.AdviserAgentId);
+                            dt = FIOrderBo.GetAuthenticate(advisorVo.advisorId, associateuserheirarchyVo.AgentCode);
                             if (dt.Rows.Count > 0)
                             {
                                 lblAuthenticatedCount.Text = dt.Rows[0]["overall"].ToString();

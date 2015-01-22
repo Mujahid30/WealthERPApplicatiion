@@ -443,12 +443,12 @@ namespace BoOps
              }
              return UserType;
          }
-         public DataTable GetAuthenticate(int adviserid, int associateId)
+         public DataTable GetAuthenticate(int adviserid, string agentCode)
          {
              DataTable dt;
              try
              {
-                 dt = fiOrderDao.GetAuthenticate(adviserid, associateId);
+                 dt = fiOrderDao.GetAuthenticate(adviserid, agentCode);
              }
              catch (BaseApplicationException Ex)
              {

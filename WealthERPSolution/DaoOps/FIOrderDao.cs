@@ -879,7 +879,7 @@ namespace DaoOps
             }
             return UserType;
         }
-        public DataTable GetAuthenticate(int adviserid,int associateId)
+        public DataTable GetAuthenticate(int adviserid, string agentCode)
         {
             DataSet dsGetAuthenticate;
             Database db;
@@ -890,7 +890,11 @@ namespace DaoOps
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getGetAuthenticate = db.GetStoredProcCommand("SPROC_GetOrderAuthenticated");
                 db.AddInParameter(getGetAuthenticate, "@adviserId", DbType.Int32, adviserid);
-                db.AddInParameter(getGetAuthenticate, "@associateId", DbType.Int32, associateId);
+                if(agentCode!="")
+                db.AddInParameter(getGetAuthenticate, "@AgentCode", DbType.String, agentCode);
+                else
+                    db.AddInParameter(getGetAuthenticate, "@AgentCode", DbType.String, DBNull.Value);
+
                 dsGetAuthenticate = db.ExecuteDataSet(getGetAuthenticate);
                 dtGetAuthenticate = dsGetAuthenticate.Tables[0];
             }

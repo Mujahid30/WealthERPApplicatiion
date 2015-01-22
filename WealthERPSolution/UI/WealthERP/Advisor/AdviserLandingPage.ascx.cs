@@ -273,7 +273,7 @@ namespace WealthERP.Advisor
             DataTable dt;
             if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
             {
-                dt = FIOrderBo.GetAuthenticate(advisorVo.advisorId, 0);
+                dt = FIOrderBo.GetAuthenticate(advisorVo.advisorId, string.Empty);
                 if (dt.Rows.Count > 0)
                 {
                     lblAuthenticatedCount.Text = dt.Rows[0]["overall"].ToString();
