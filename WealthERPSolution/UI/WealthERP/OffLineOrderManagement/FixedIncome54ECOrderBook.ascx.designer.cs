@@ -72,5 +72,8 @@ namespace WealthERP.OffLineOrderManagement {
         protected global::System.Web.UI.WebControls.Button btnGo;
         protected global::System.Web.UI.WebControls.ImageButton imgexportButton;
         protected global::System.Web.UI.WebControls.DropDownList ddlOrderStatus;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trdate;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trProduct;
+
     }
 }

@@ -143,13 +143,13 @@ namespace BoCommisionManagement
 
         }
 
-        public void CreateAdviserPayableRuleToAgentCategoryMapping(int StructureId, string userType, string Category, string agentId, out Int32 mappingId, int ruleId)
+        public void CreateAdviserPayableRuleToAgentCategoryMapping(int StructureId, string userType, string Category,DataTable dtRuleMapping,string ruleId, out Int32 mappingId)
         {
             CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
 
             try
             {
-                commisionReceivableDao.CreateAdviserPayableRuleToAgentCategoryMapping(StructureId, userType, Category, agentId, out   mappingId, ruleId);
+                commisionReceivableDao.CreateAdviserPayableRuleToAgentCategoryMapping(StructureId, userType, Category, dtRuleMapping,ruleId, out   mappingId);
 
             }
             catch (BaseApplicationException Ex)
@@ -859,7 +859,7 @@ namespace BoCommisionManagement
         /**
          * CommissionStructureToSchemeMapping - 
          */
-        public DataSet GetPayableMappings(int ruleDetID)
+        public DataSet GetPayableMappings(string ruleDetID)
         {
             CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
             DataSet dsStructList;
@@ -1240,6 +1240,34 @@ namespace BoCommisionManagement
                 throw exBase;
             }
             return ds;
+        }
+        public int RuleAssociate(string ruleid)
+        {
+            int result = 0;
+            CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
+            try
+            {
+                result = commisionReceivableDao.RuleAssociate(ruleid);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return result;
+        }
+        public DataTable GetMappedStructure(int ruleid)
+        {
+           DataTable dt;
+            CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
+            try
+            {
+                dt = commisionReceivableDao.GetMappedStructure(ruleid);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dt;
         }
     }
 }

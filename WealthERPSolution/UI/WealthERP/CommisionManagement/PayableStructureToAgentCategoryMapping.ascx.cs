@@ -92,10 +92,10 @@ namespace WealthERP.CommisionManagement
 
         private void BindPayableGrid()
         {
-            int ruleId = 0;
+            string ruleId = string.Empty;
             if (Request.QueryString["ruleId"] != null)
             {
-                ruleId = int.Parse(Request.QueryString["ruleId"].ToString());
+                ruleId =Request.QueryString["ruleId"].ToString();
             }
 
             DataSet dsPayable = new DataSet();
@@ -245,12 +245,19 @@ namespace WealthERP.CommisionManagement
 
         private int CreatePayableMapping()
         {
-            int ruleId = 0;
+            string ruleId = string.Empty;
+            //string[] ruleid=new string[];
+            //int ruleId = 0;
             if (Request.QueryString["ruleId"] != null)
             {
-                ruleId = int.Parse(Request.QueryString["ruleId"].ToString());
+                ruleId = Request.QueryString["ruleId"].ToString();
+                //ruleid=ruleId.Split(',');
             }
-
+            DataTable dtRuleMapping = new DataTable();
+            dtRuleMapping.Columns.Add("agentId", typeof(Int32));
+            dtRuleMapping.Columns.Add("ruleids", typeof(Int32));
+            //dtRuleMapping.Columns.Add("categoryId", typeof(Int32));
+            DataRow drRuleMapping;
             int mappingId = 0;
             string agentId = "";
             string categoryId = string.Empty;
@@ -258,15 +265,24 @@ namespace WealthERP.CommisionManagement
             {
                 foreach (RadListBoxItem ListItem in this.RadListBoxSelectedAgentCodes.Items)
                 {
-                    agentId = agentId + ListItem.Value.ToString() + ",";
+                    
+                    agentId = ListItem.Value;
+                    foreach (object rule in ruleId.Split(','))
+                    {
+                        drRuleMapping = dtRuleMapping.NewRow();
+                        drRuleMapping["agentId"] = agentId;
+                        drRuleMapping["ruleids"] = rule;
+                        dtRuleMapping.Rows.Add(drRuleMapping);
+                    }
                 }
+                
             }
             else
             {
                 categoryId = ddlAdviserCategory.SelectedValue;
             }
 
-            commisionReceivableBo.CreateAdviserPayableRuleToAgentCategoryMapping(Convert.ToInt32(hdnStructId.Value), ddlMapping.SelectedValue, categoryId, agentId, out mappingId, ruleId);
+            commisionReceivableBo.CreateAdviserPayableRuleToAgentCategoryMapping(Convert.ToInt32(hdnStructId.Value), ddlMapping.SelectedValue, categoryId, dtRuleMapping,ruleId.TrimEnd(','), out mappingId);
             return mappingId;
 
         }

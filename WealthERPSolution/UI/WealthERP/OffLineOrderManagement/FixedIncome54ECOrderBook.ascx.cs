@@ -81,6 +81,8 @@ namespace WealthERP.OffLineOrderManagement
                         BindIssue(categorywise);
                         lblIssue.Visible = true;
                         ddlIssue.Visible = true;
+                        trdate.Visible = false;
+                        trProduct.Visible = false;
                         BindAdviserFDrderBook();
                     }
                 }

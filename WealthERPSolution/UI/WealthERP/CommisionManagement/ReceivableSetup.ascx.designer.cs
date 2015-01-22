@@ -236,7 +236,7 @@ namespace WealthERP.Receivable {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadListBox rlbAssetSubCategory;
-        
+          protected global::Telerik.Web.UI.RadGrid rgchecklist;
         /// <summary>
         /// lblValidityFrom control.
         /// </summary>
@@ -254,7 +254,7 @@ namespace WealthERP.Receivable {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtValidityFrom;
-        
+         protected global::System.Web.UI.WebControls.RadioButtonList rbtnListRate;
         /// <summary>
         /// CalendarExtender2 control.
         /// </summary>
@@ -299,7 +299,7 @@ namespace WealthERP.Receivable {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblValidityTo;
-        
+       protected global::System.Web.UI.WebControls.Button btnIssueMap;
         /// <summary>
         /// txtValidityTo control.
         /// </summary>
@@ -1164,7 +1164,7 @@ namespace WealthERP.Receivable {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnProductId;
-        
+        protected global::System.Web.UI.WebControls.HiddenField hdneligible;
         /// <summary>
         /// hdnStructValidFrom control.
         /// </summary>
@@ -1210,6 +1210,7 @@ namespace WealthERP.Receivable {
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnSubcategoryIds;
         protected global::System.Web.UI.WebControls.HiddenField hdnIsSpecialIncentive;
+        protected global::System.Web.UI.WebControls.HiddenField hdnViewMode;
         /// <summary>
         /// rfvCommissionType control.
         /// </summary>

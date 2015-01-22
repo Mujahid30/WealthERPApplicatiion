@@ -266,13 +266,16 @@ namespace DaoCommisionManagement
 
         }
 
-        public void CreateAdviserPayableRuleToAgentCategoryMapping(int StructureId, string userType, string Category, string agentId, out Int32 mappingId, int ruleId)
+        public void CreateAdviserPayableRuleToAgentCategoryMapping(int StructureId, string userType, string Category,DataTable dtRuleMapping,string ruleId, out Int32 mappingId)
         {
             Database db;
             DbCommand cmdCreateCommissionStructure;
-
+            DataSet dsCreateAdviserPayableRuleToAgentCategoryMapping = new DataSet(); 
             try
             {
+                dsCreateAdviserPayableRuleToAgentCategoryMapping.Tables.Add(dtRuleMapping.Copy());
+                dsCreateAdviserPayableRuleToAgentCategoryMapping.DataSetName = "agentIdDS";
+                dsCreateAdviserPayableRuleToAgentCategoryMapping.Tables[0].TableName = "agentIdDT";
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmdCreateCommissionStructure = db.GetStoredProcCommand("SPROC_CreateAdviserPayableRuleToAgentCategoryMapping");
                 db.AddInParameter(cmdCreateCommissionStructure, "@CommissionStructureId", DbType.Int64, StructureId);
@@ -286,17 +289,18 @@ namespace DaoCommisionManagement
                     db.AddInParameter(cmdCreateCommissionStructure, "@StaffCategory", DbType.String, DBNull.Value);
 
                 }
-                if (!string.IsNullOrEmpty(agentId))
-                {
-                    db.AddInParameter(cmdCreateCommissionStructure, "@AgentId", DbType.String, agentId);
-                }
-                else
-                {
-                    db.AddInParameter(cmdCreateCommissionStructure, "@AgentId", DbType.String, DBNull.Value);
+                db.AddInParameter(cmdCreateCommissionStructure, "@XMLagentId", DbType.Xml, dsCreateAdviserPayableRuleToAgentCategoryMapping.GetXml().ToString());
+                //if (!string.IsNullOrEmpty(agentId))
+                //{
+                //    db.AddInParameter(cmdCreateCommissionStructure, "@AgentId", DbType.String, agentId);
+                //}
+                //else
+                //{
+                //    db.AddInParameter(cmdCreateCommissionStructure, "@AgentId", DbType.String, DBNull.Value);
 
-                }
+                //}
                 db.AddOutParameter(cmdCreateCommissionStructure, "@id", DbType.Int64, 1000000);
-                db.AddInParameter(cmdCreateCommissionStructure, "@RuleId", DbType.Int32, ruleId);
+                db.AddInParameter(cmdCreateCommissionStructure, "@ruleDetailID", DbType.String, ruleId);
 
                 db.ExecuteNonQuery(cmdCreateCommissionStructure);
                 Object objCommissionStructureId = db.GetParameterValue(cmdCreateCommissionStructure, "@id");
@@ -1382,7 +1386,7 @@ namespace DaoCommisionManagement
             }
         }
 
-        public DataSet  GetPayableMappings(int ruleDetID)
+        public DataSet  GetPayableMappings(string ruleDetID)
         {
             Database db;
             DbCommand cmdGetStructDet;
@@ -1392,7 +1396,7 @@ namespace DaoCommisionManagement
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmdGetStructDet = db.GetStoredProcCommand("SPROC_GetPayableMappings");
-                db.AddInParameter(cmdGetStructDet, "@RuleDetId", DbType.Int32, ruleDetID);                
+                db.AddInParameter(cmdGetStructDet, "@RuleDetId", DbType.String, ruleDetID);                
                 ds = db.ExecuteDataSet(cmdGetStructDet);
             }
             catch (BaseApplicationException Ex)
@@ -1781,6 +1785,60 @@ namespace DaoCommisionManagement
                 throw exBase;
             }
             return ds;
+        }
+        public int RuleAssociate(string ruleid)
+        {
+            Database db;
+            DataSet ds;
+            DbCommand cmdRuleAssociate;
+            int ruleids = 0;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdRuleAssociate = db.GetStoredProcCommand("SPROC_GetRuleAssociated");
+                db.AddInParameter(cmdRuleAssociate, "@RuleDetId", DbType.String, ruleid);
+                db.AddOutParameter(cmdRuleAssociate, "@ruleids", DbType.Int32, 0);
+
+                ds = db.ExecuteDataSet(cmdRuleAssociate);
+                if (db.ExecuteNonQuery(cmdRuleAssociate) != 0)
+                {
+                    ruleids = Convert.ToInt32(db.GetParameterValue(cmdRuleAssociate, "ruleids").ToString());
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return ruleids;
+        }
+        public DataTable GetMappedStructure(int ruleid)
+        {
+            Database db;
+            DbCommand cmdGetMappedStructure;
+            DataSet ds = null;
+            DataTable dt;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetMappedStructure = db.GetStoredProcCommand("SPROC_GetMAppedStructure");
+                db.AddInParameter(cmdGetMappedStructure, "@structureId", DbType.Int32,ruleid );
+                ds = db.ExecuteDataSet(cmdGetMappedStructure);
+                dt = ds.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommissionManagementDao.cs:GetProductType()");
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dt;
         }
     }
 }

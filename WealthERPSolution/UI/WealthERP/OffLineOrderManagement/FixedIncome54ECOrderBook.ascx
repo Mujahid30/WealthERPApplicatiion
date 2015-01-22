@@ -26,7 +26,7 @@
     </tr>
 </table>
 <table>
-    <tr>
+    <tr id="trProduct" runat="server">
         <td align="left">
             <asp:Label ID="lblCategory" runat="server" Text="Product Category:" CssClass="FieldName"></asp:Label>
         </td>
@@ -55,7 +55,7 @@
             </asp:DropDownList>
         </td>
     </tr>
-    <tr>
+    <tr id="trdate" runat="server">
         <td align="right">
             <asp:Label ID="lblFromDate" runat="server" CssClass="FieldName" Text="From:"></asp:Label>
         </td>
