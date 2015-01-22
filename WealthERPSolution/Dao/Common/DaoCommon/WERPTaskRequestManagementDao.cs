@@ -407,7 +407,7 @@ namespace DaoCommon
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 dbCommand = db.GetStoredProcCommand("SPROC_GetBulkOrderStatus");
                 db.AddInParameter(dbCommand, "@ReqId", DbType.Int32, reqId);
-                if (OrderBookType != "Select")
+                if (OrderBookType != "0")
                     db.AddInParameter(dbCommand, "@OrderBookType", DbType.String, OrderBookType);
                 else
                     db.AddInParameter(dbCommand, "@OrderBookType", DbType.String, DBNull.Value);
