@@ -134,7 +134,7 @@
                             <td>
                                 <asp:Label ID="Select" runat="server" Text="Select:" CssClass="FieldName"></asp:Label>
                                 &nbsp
-                                <asp:RadioButton ID="rbtnCurrent" runat="server" AutoPostBack="true" CssClass="cmbField"
+                                <asp:RadioButton ID="rbtnCurrent" runat="server" AutoPostBack="true" CssClass="txtFielde"
                                     GroupName="Snapshot" OnCheckedChanged="rbtnCurrent_CheckedChanged" Text="Latest" />
                                 &nbsp
                                 <asp:RadioButton ID="rbtnHistorical" runat="server" AutoPostBack="true" CssClass="cmbField"

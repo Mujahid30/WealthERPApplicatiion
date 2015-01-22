@@ -42,10 +42,9 @@
     Skin="Telerik" EnableEmbeddedSkins="False" MultiPageID="multipageBulkOrderRequest"
     SelectedIndex="0">
     <Tabs>
-        <telerik:RadTab runat="server" Text="Request Bulk Order" Value="RequestBulkOrder"
-            TabIndex="0">
+        <telerik:RadTab runat="server" Text="Add Request" Value="RequestBulkOrder" TabIndex="0">
         </telerik:RadTab>
-        <telerik:RadTab runat="server" Text="Bulk Order Status" Value="BulkOrderStatus">
+        <telerik:RadTab runat="server" Text="Check Request Status" Value="BulkOrderStatus">
         </telerik:RadTab>
     </Tabs>
 </telerik:RadTabStrip>
@@ -128,13 +127,43 @@
             </table>
             <table width="90%" runat="server" id="tbIssueType">
                 <tr>
-                    <td class="leftLabel">
-                        <asp:Label ID="lbtype" runat="server" Text="Select Type:" CssClass="FieldName"></asp:Label>
+                    <td class="leftLabel" style="width: 50px;">
+                        <asp:Label ID="Label2" runat="server" Text="Select Type:" CssClass="FieldName"></asp:Label>
                     </td>
-                    <td class="rightData">
-                        <asp:DropDownList ID="ddlIssueType" runat="server" CssClass="cmbField" AutoPostBack="true"
-                            Width="205px" InitialValue="Select">
+                    <td class="rightData" style="width: 50px;">
+                        <asp:DropDownList ID="ddlType" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlType_OnSelectedIndexChanged"
+                            AutoPostBack="true" Width="170px" InitialValue="Select">
                             <asp:ListItem Value="Select">Select</asp:ListItem>
+                            <asp:ListItem Value="RI">RequestId</asp:ListItem>
+                            <asp:ListItem Value="RT">Request Type</asp:ListItem>
+                            <asp:ListItem Value="RD">Request Date</asp:ListItem>
+                        </asp:DropDownList>
+                        <span id="Span6" class="spnRequiredField">*</span>
+                        <br />
+                        <asp:RequiredFieldValidator ID="rfvType5" runat="server" ErrorMessage="Please Select a Type"
+                            CssClass="rfvPCG" ControlToValidate="ddlType" ValidationGroup="btnGo2" Display="Dynamic"
+                            InitialValue="Select"></asp:RequiredFieldValidator>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftLabel" id="tdlblRequestId" style="width: 50px;" runat="server" visible="false">
+                        <asp:Label ID="lblRequestId" runat="server" Text="Select RequestId:" CssClass="FieldName"></asp:Label>
+                    </td>
+                    <td class="rightData" id="tdtxtRequestId" style="width: 50px;" runat="server" visible="false">
+                        <asp:TextBox ID="txtRequestId" runat="server" CssClass="txtField"></asp:TextBox>
+                        <span id="Span5" class="spnRequiredField">*</span>
+                        <br />
+                        <asp:RequiredFieldValidator ID="rfvRequestId" runat="server" ErrorMessage="Please Enter A RequestId"
+                            CssClass="rfvPCG" ControlToValidate="txtRequestId" ValidationGroup="btnGo2"
+                            Display="Dynamic" InitialValue="Select"></asp:RequiredFieldValidator>
+                    </td>
+                    <td class="leftLabel" id="tdlbltype" style="width: 50px;" runat="server" visible="false">
+                        <asp:Label ID="lbtype" runat="server" Text="Request Type:" CssClass="FieldName"></asp:Label>
+                    </td>
+                    <td class="rightData" id="tdddlIssueType" style="width: 50px;" runat="server" visible="false">
+                        <asp:DropDownList ID="ddlIssueType" runat="server" CssClass="cmbField" AutoPostBack="false"
+                            Width="205px" InitialValue="Select">
+                            <asp:ListItem Value="0">Select</asp:ListItem>
                             <asp:ListItem Value="FI">Order Book NCD</asp:ListItem>
                             <asp:ListItem Value="IP">Order Book IPO</asp:ListItem>
                         </asp:DropDownList>
@@ -142,14 +171,12 @@
                         <br />
                         <asp:RequiredFieldValidator ID="rfvType2" runat="server" ErrorMessage="Please Select Order Type"
                             CssClass="rfvPCG" ControlToValidate="ddlIssueType" ValidationGroup="btnGo2" Display="Dynamic"
-                            InitialValue="Select"></asp:RequiredFieldValidator>
+                            InitialValue="0"></asp:RequiredFieldValidator>
                     </td>
-                </tr>
-                <tr>
-                    <td class="leftLabel">
+                    <td class="leftLabel" id="tdlbFromdate" style="width: 50px;" runat="server" visible="false">
                         <asp:Label ID="lbFromdate" runat="server" Text="From Date:" CssClass="FieldName"></asp:Label>
                     </td>
-                    <td class="rightData">
+                    <td class="rightData" id="tdtxtReqFromDate" style="width: 50px;" runat="server" visible="false">
                         <telerik:RadDatePicker ID="txtReqFromDate" CssClass="txtField" runat="server" Culture="English (United States)"
                             Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01"
                             TabIndex="3" Width="150px" AutoPostBack="true">
@@ -166,10 +193,10 @@
                             Display="Dynamic" ControlToValidate="txtReqFromDate" InitialValue="" ValidationGroup="btnGo2">
                         </asp:RequiredFieldValidator>
                     </td>
-                    <td class="leftLabel">
+                    <td class="leftLabel" id="tdlblToDate" style="width: 20px;" runat="server" visible="false">
                         <asp:Label ID="lblToDate" runat="server" Text="To Date:" CssClass="FieldName"></asp:Label>
                     </td>
-                    <td class="rightData">
+                    <td class="rightData" id="tdtxtReqToDate" style="width: 50px;" runat="server" visible="false">
                         <telerik:RadDatePicker ID="txtReqToDate" CssClass="txtField" runat="server" Culture="English (United States)"
                             Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01"
                             TabIndex="3" Width="150px" AutoPostBack="true">
@@ -189,9 +216,21 @@
                             Display="Dynamic" ControlToValidate="txtReqToDate" ControlToCompare="txtReqFromDate"
                             Operator="GreaterThan" ValidationGroup="btnGo2"></asp:CompareValidator>
                     </td>
-                    <td class="leftLabel">
+                    <td class="rightField" align="right" style="width: 50px;" id="tdbtnGo2" runat="server"
+                        visible="false">
                         <asp:Button ID="btnGo2" runat="server" Text="Go" CssClass="PCGButton" ValidationGroup="btnGo2"
                             OnClick="btnGo2_Click" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftLabel">
+                        &nbsp;
+                    </td>
+                    <td class="leftLabel">
+                        &nbsp;
+                    </td>
+                    <td class="rightData">
+                        &nbsp;
                     </td>
                 </tr>
             </table>
@@ -207,8 +246,8 @@
                                 OnItemCommand="gvBulkOrderStatusList_OnItemCommand" Visible="true">
                                 <ExportSettings HideStructureColumns="true">
                                 </ExportSettings>
-                                <MasterTableView DataKeyNames="RequestId,IssueName,RequestDateTime,FileNamePath" Width="99%" AllowMultiColumnSorting="True"
-                                    AutoGenerateColumns="false">
+                                <MasterTableView DataKeyNames="RequestId,IssueName,RequestDateTime,FileNamePath"
+                                    Width="99%" AllowMultiColumnSorting="True" AutoGenerateColumns="false">
                                     <Columns>
                                         <telerik:GridButtonColumn CommandName="Download" Text="Download" HeaderText="File download"
                                             HeaderStyle-Width="47px" UniqueName="Download">

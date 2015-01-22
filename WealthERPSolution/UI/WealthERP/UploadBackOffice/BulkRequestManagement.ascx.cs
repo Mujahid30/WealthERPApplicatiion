@@ -76,16 +76,44 @@ namespace WealthERP.UploadBackOffice
         {
             try
             {
-                msgNoRecords.Visible = false; 
+                int reqId = 0;
+                string OBT = null;
+                DateTime Fromdate = DateTime.MinValue;
+                DateTime Todate = DateTime.MinValue;
+                msgNoRecords.Visible = false;
                 gvBulkOrderStatusList.Visible = false;
-                string OBT = ddlIssueType.SelectedItem.Value;
-                DateTime Fromdate = txtReqFromDate.SelectedDate.Value;
-                DateTime Todate = txtReqToDate.SelectedDate.Value;
+                if (txtRequestId.Text != "")
+                {
+                    reqId = Convert.ToInt32(txtRequestId.Text);
+                }
+                else
+                {
+                    reqId = 0;
+                }
+
+                OBT = ddlIssueType.SelectedItem.Value;
+
+                if (txtReqFromDate.SelectedDate != null)
+                {
+                    Fromdate = txtReqFromDate.SelectedDate.Value;
+                }
+                else
+                {
+                    Fromdate = DateTime.MinValue;
+                }
+                if (txtReqToDate.SelectedDate != null)
+                {
+                    Todate = txtReqToDate.SelectedDate.Value;
+                }
+                else
+                {
+                    Todate = DateTime.MinValue;
+                }
                 //string Fromdate=frmdt.ToString("yyyy-mm-dd");
                 //string Todate=todt.ToString("yyyy-mm-dd");
                 WERPTaskRequestManagementBo werpTaskRequestManagementBo = new WERPTaskRequestManagementBo();
-                
-                dtBulkOrderStatusList = werpTaskRequestManagementBo.GetBulkOrderStatus(OBT, Fromdate, Todate);
+
+                dtBulkOrderStatusList = werpTaskRequestManagementBo.GetBulkOrderStatus(reqId, OBT, Fromdate, Todate);
                 if (dtBulkOrderStatusList.Tables[0].Rows.Count > 0)
                 {
                     gvBulkOrderStatusList.Visible = true;
@@ -149,13 +177,15 @@ namespace WealthERP.UploadBackOffice
         {
             try
             {
+                int reqId = 0;
+                reqId = Convert.ToInt32(txtRequestId.Text);
                 string OBT = ddlIssueType.SelectedItem.Value;
                 DateTime Fromdate = txtReqFromDate.SelectedDate.Value;
                 DateTime Todate = txtReqToDate.SelectedDate.Value;
                 //string Fromdate = frmdt.ToString("yyyy-mm-dd");
                 //string Todate = todt.ToString("yyyy-mm-dd");
                 WERPTaskRequestManagementBo werpTaskRequestManagementBo = new WERPTaskRequestManagementBo();
-                dtBulkOrderStatusList = werpTaskRequestManagementBo.GetBulkOrderStatus(OBT, Fromdate, Todate);
+                dtBulkOrderStatusList = werpTaskRequestManagementBo.GetBulkOrderStatus(reqId, OBT, Fromdate, Todate);
                 gvBulkOrderStatusList.DataSource = dtBulkOrderStatusList;
             }
 
@@ -180,7 +210,7 @@ namespace WealthERP.UploadBackOffice
         }
         protected void gvBulkOrderStatusList_OnItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
         {
-            
+
             if (e.CommandName == "Download")
             {
                 GridDataItem ditem = (GridDataItem)e.Item;
@@ -191,19 +221,77 @@ namespace WealthERP.UploadBackOffice
                 string fileName = (RequestId + "_" + issuename + RequestDateTime + ".xlsx").Replace(" ", "").Trim();
                 //string path = MapPath("C:\\Users\\Jgeorge\\Downloads\\" + filename);
                 if (filenamepath != null || filenamepath == "&nbsp;")
-                 {
-                     byte[] bts = System.IO.File.ReadAllBytes(filenamepath);
-                     Response.Clear();
-                     Response.ClearHeaders();
-                     Response.ContentType = "application/vnd.xlsx";
-                     Response.AddHeader("Content-Length", bts.Length.ToString());
-                     Response.AddHeader("Content-Disposition", "attachment; filename=" + fileName);
-                     Response.BinaryWrite(bts);
-                     Response.Flush();
-                     Response.End();
-                 }
-                 else { Response.Write(@"<script language='javascript'>alert('Cannot Download');</script>"); }
-                
+                {
+                    byte[] bts = System.IO.File.ReadAllBytes(filenamepath);
+                    Response.Clear();
+                    Response.ClearHeaders();
+                    Response.ContentType = "application/vnd.xlsx";
+                    Response.AddHeader("Content-Length", bts.Length.ToString());
+                    Response.AddHeader("Content-Disposition", "attachment; filename=" + fileName);
+                    Response.BinaryWrite(bts);
+                    Response.Flush();
+                    Response.End();
+                }
+                else { Response.Write(@"<script language='javascript'>alert('Cannot Download');</script>"); }
+
+            }
+        }
+        protected void ddlType_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlType.SelectedValue == "RI")
+            {
+                tdlblRequestId.Visible = true;
+                tdtxtRequestId.Visible = true;
+                tdlbltype.Visible = false;
+                tdddlIssueType.Visible = false;
+                tdlbFromdate.Visible = false;
+                tdtxtReqFromDate.Visible = false;
+                tdlblToDate.Visible = false;
+                tdtxtReqToDate.Visible = false;
+                tdbtnGo2.Visible = true;
+                rfvType2.Visible = false;
+                rfvFromDate.Visible = false;
+                rfvToDate.Visible = false;
+                ddlIssueType.SelectedValue = "0";
+                txtReqFromDate.SelectedDate = null;
+                txtReqToDate.SelectedDate = null;
+                gvBulkOrderStatusList.Visible = false;
+            }
+            else if (ddlType.SelectedValue == "RT")
+            {
+                tdlbltype.Visible = true;
+                tdddlIssueType.Visible = true;
+                tdlblRequestId.Visible = false;
+                tdtxtRequestId.Visible = false;
+                tdlbFromdate.Visible = false;
+                tdtxtReqFromDate.Visible = false;
+                tdlblToDate.Visible = false;
+                tdtxtReqToDate.Visible = false;
+                tdbtnGo2.Visible = true;
+                rfvRequestId.Visible = false;
+                rfvFromDate.Visible = false;
+                rfvToDate.Visible = false;
+                txtRequestId.Text = "";
+                txtReqFromDate.SelectedDate = null;
+                txtReqToDate.SelectedDate = null;
+                gvBulkOrderStatusList.Visible = false;
+            }
+            else if (ddlType.SelectedValue == "RD")
+            {
+                tdlbFromdate.Visible = true;
+                tdtxtReqFromDate.Visible = true;
+                tdlblToDate.Visible = true;
+                tdtxtReqToDate.Visible = true;
+                tdlbltype.Visible = false;
+                tdddlIssueType.Visible = false;
+                tdlblRequestId.Visible = false;
+                tdtxtRequestId.Visible = false;
+                tdbtnGo2.Visible = true;
+                rfvRequestId.Visible = false;
+                rfvType2.Visible = false;
+                ddlIssueType.SelectedValue = "0";
+                txtRequestId.Text = "";
+                gvBulkOrderStatusList.Visible = false;
             }
         }
 

@@ -41,11 +41,11 @@ namespace DaoCommon
                 db.AddOutParameter(cmdCreateTaskRequest, "@OutRequestId", DbType.Int32, 1000000);
                 db.AddInParameter(cmdCreateTaskRequest, "@FilePath", DbType.String, filePath);
                 db.AddInParameter(cmdCreateTaskRequest, "@AdvisorId", DbType.Int32, adviserId);
-                if (rmId==0)
-                    db.AddInParameter(cmdCreateTaskRequest, "@RmId", DbType.Int32,DBNull.Value);
+                if (rmId == 0)
+                    db.AddInParameter(cmdCreateTaskRequest, "@RmId", DbType.Int32, DBNull.Value);
                 else
                     db.AddInParameter(cmdCreateTaskRequest, "@RmId", DbType.Int32, rmId);
-                if(branchId==0)
+                if (branchId == 0)
                     db.AddInParameter(cmdCreateTaskRequest, "@Branchid", DbType.Int32, DBNull.Value);
                 else
                     db.AddInParameter(cmdCreateTaskRequest, "@Branchid", DbType.Int32, branchId);
@@ -99,7 +99,7 @@ namespace DaoCommon
                 db.AddOutParameter(cmdCreateTaskRequest, "@OutRequestId", DbType.Int32, 1000000);
                 db.AddInParameter(cmdCreateTaskRequest, "@FilePath", DbType.String, filePath);
                 db.AddInParameter(cmdCreateTaskRequest, "@AdvisorId", DbType.Int32, adviserId);
-                
+
                 db.AddInParameter(cmdCreateTaskRequest, "@UploadType", DbType.String, uploadType);
 
                 db.AddInParameter(cmdCreateTaskRequest, "@Remarks", DbType.String, remarks);
@@ -242,7 +242,7 @@ namespace DaoCommon
                 db.AddInParameter(cmdCreateReportRequest, "@RMEMail", DbType.String, mfReportEmailVo.RMEmail);
                 db.ExecuteNonQuery(cmdCreateReportRequest);
 
-                
+
             }
             catch (BaseApplicationException ex)
             {
@@ -270,7 +270,7 @@ namespace DaoCommon
         /// </summary>
         /// <param name="userId"></param>
         /// <param name="requestDate"></param>
-        public DataSet GetRequestStatusList(int adviserId,DateTime requestDate)
+        public DataSet GetRequestStatusList(int adviserId, DateTime requestDate)
         {
             Database db;
             DbCommand cmdGetRequestList;
@@ -302,7 +302,7 @@ namespace DaoCommon
             }
             return dsRequestList;
 
- 
+
         }
 
 
@@ -397,7 +397,7 @@ namespace DaoCommon
             }
 
         }
-        public DataSet GetBulkOrderStatus(string OrderBookType,DateTime Fromdate,DateTime Todate)
+        public DataSet GetBulkOrderStatus(int reqId, string OrderBookType, DateTime Fromdate, DateTime Todate)
         {
             Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand dbCommand;
@@ -406,9 +406,19 @@ namespace DaoCommon
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 dbCommand = db.GetStoredProcCommand("SPROC_GetBulkOrderStatus");
-                db.AddInParameter(dbCommand, "@OrderBookType", DbType.String, OrderBookType);
-                db.AddInParameter(dbCommand, "@FromDate", DbType.Date, Fromdate);
-                db.AddInParameter(dbCommand, "@ToDate", DbType.Date, Todate);
+                db.AddInParameter(dbCommand, "@ReqId", DbType.Int32, reqId);
+                if (OrderBookType != "Select")
+                    db.AddInParameter(dbCommand, "@OrderBookType", DbType.String, OrderBookType);
+                else
+                    db.AddInParameter(dbCommand, "@OrderBookType", DbType.String, DBNull.Value);
+                if (Fromdate != DateTime.MinValue)
+                    db.AddInParameter(dbCommand, "@FromDate", DbType.Date, Fromdate);
+                else
+                    db.AddInParameter(dbCommand, "@FromDate", DbType.Date, null);
+                if (Todate != DateTime.MinValue)
+                    db.AddInParameter(dbCommand, "@ToDate", DbType.Date, Todate);
+                else
+                    db.AddInParameter(dbCommand, "@ToDate", DbType.Date, null);
                 dsbos = db.ExecuteDataSet(dbCommand);
             }
             catch (Exception ex)

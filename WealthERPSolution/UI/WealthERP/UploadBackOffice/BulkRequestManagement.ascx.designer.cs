@@ -70,6 +70,11 @@ namespace WealthERP.UploadBackOffice
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvType;
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvIssue;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvRequestId;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvType2;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvFromDate;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvToDate;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvType5;
 
         /// <summary>
         /// trSelectIssueRow control.
@@ -107,7 +112,7 @@ namespace WealthERP.UploadBackOffice
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvType1;
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvDate;
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvType2;
+       
 
         /// <summary>
         /// trBtnSubmit control.
@@ -164,8 +169,18 @@ namespace WealthERP.UploadBackOffice
         protected global::System.Web.UI.WebControls.Panel panelBulkOrderStatus;
         protected global::Telerik.Web.UI.RadDatePicker txtReqFromDate;
         protected global::Telerik.Web.UI.RadDatePicker txtReqToDate;
-
+        protected global::System.Web.UI.WebControls.TextBox txtRequestId;
         protected global::Telerik.Web.UI.RadGrid gvBulkOrderStatusList;
         protected global::System.Data.DataSet dtBulkOrderStatusList;
+        protected global::System.Web.UI.WebControls.DropDownList ddlType;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblRequestId;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdtxtRequestId;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlbltype;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdddlIssueType;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlbFromdate;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdtxtReqFromDate;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblToDate;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdtxtReqToDate;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdbtnGo2;
     }
 }
