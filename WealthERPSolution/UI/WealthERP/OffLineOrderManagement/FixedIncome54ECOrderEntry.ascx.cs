@@ -64,6 +64,7 @@ namespace WealthERP.OffLineOrderManagement
         CustomerPortfolioBo customerPortfolioBo = new CustomerPortfolioBo();
         AssociatesUserHeirarchyVo associateuserheirarchyVo = new AssociatesUserHeirarchyVo();
         CustomerAccountsVo customerAccountsVo = new CustomerAccountsVo();
+        OfflineBondOrderBo OfflineBondOrderBo = new OfflineBondOrderBo();
         RepositoryVo repoVo;
 
         BoDematAccount boDematAccount = new BoDematAccount();
@@ -429,7 +430,7 @@ namespace WealthERP.OffLineOrderManagement
                 userType = "bm";
             else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "rm")
                 userType = "rm";
-           if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "associates")
+            if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "associates")
             {
                 userType = "associates";
                 associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
@@ -672,7 +673,7 @@ namespace WealthERP.OffLineOrderManagement
                 //BtnFileupload.Visible = true;
 
                 SetFICOntrolsEnablity(false);
-                
+
             }
             else
             {
@@ -709,7 +710,7 @@ namespace WealthERP.OffLineOrderManagement
             bool result = false;
             var hdMax = (object)Cache["HiddenMaxid" + userVo.UserId.ToString()];
             var hdMin = (object)Cache["HiddenMinid" + userVo.UserId.ToString()];
-           if ((Convert.ToDouble(txtQty.Text) <= Convert.ToDouble(hdMax)))
+            if ((Convert.ToDouble(txtQty.Text) <= Convert.ToDouble(hdMax)))
             {
                 result = true;
             }
@@ -797,10 +798,14 @@ namespace WealthERP.OffLineOrderManagement
             txtSeries.Enabled = Val;
             ddlSchemeOption.Enabled = Val;
             ddlFrequency.Enabled = Val;
-            if (chkAuthentication.Checked)
-                chkAuthentication.Enabled = false;
+            if (rbtnAuthentication.Checked)
+                rbtnAuthentication.Enabled = false;
             else
-                chkAuthentication.Enabled = Val;
+                rbtnAuthentication.Enabled = Val;
+            if (rbtnReject.Checked)
+                rbtnReject.Enabled = false;
+            else
+                rbtnReject.Enabled = Val;
             //ddlModeofHOlding.Enabled = Val;
 
             lblGetOrderNo.Enabled = Val;
@@ -1004,9 +1009,16 @@ namespace WealthERP.OffLineOrderManagement
             }
             else
             {
-                if (chkAuthentication.Checked == true)
-                    fiorderVo.authenticId = 1;
-                orderId = fiorderVo.OrderNumber;
+                //if (chkAuthentication.Checked == true)
+                //    fiorderVo.authenticId = 1;
+                bool lbResult = false;
+                orderId = orderVo.OrderNumber;
+
+                if (rbtnAuthentication.Checked == true || rbtnReject.Checked == true)
+                {
+                    lbResult = OfflineBondOrderBo.CancelBondsFDBookOrder(orderId, txtRejectReseaon.Text, userVo.UserId, (rbtnReject.Checked) ? false : true);
+                }
+
                 OrderIds = fiorderBo.CreateOrderFIDetails(orderVo, fiorderVo, userVo.UserId, "Update");
                 orderId = fiorderVo.OrderNumber;
                 BindDocument(orderId);
@@ -4265,7 +4277,7 @@ namespace WealthERP.OffLineOrderManagement
                 {
                     txtOrderDate.SelectedDate = Convert.ToDateTime(dr["CO_OrderDate"].ToString());
                 }
-                
+
                 if (!string.IsNullOrEmpty(dr["CEDA_DPClientId"].ToString()))
                 {
                     txtDematid.Text = dr["CEDA_DPClientId"].ToString();
@@ -4297,24 +4309,36 @@ namespace WealthERP.OffLineOrderManagement
                 }
                 if (dr["CO_IsAuthenticated"].ToString() != "True")
                 {
-                    chkAuthentication.Checked = false;
+                    rbtnAuthentication.Checked = false;
 
                 }
                 else
                 {
-                    chkAuthentication.Checked = true;
+                    rbtnAuthentication.Checked = true;
                     lblAuthenticatedBy.Text = dr["U_FirstName"].ToString();
                 }
             }
 
         }
 
-        protected void chkAuthentication_OnCheckedChanged(object sender, EventArgs e)
+        protected void rbtnAuthentication_OnCheckedChanged(object sender, EventArgs e)
         {
-            if (chkAuthentication.Checked)
+            if (rbtnAuthentication.Checked)
                 lblAuthenticatedBy.Text = userVo.FirstName + ' ' + userVo.MiddleName + ' ' + userVo.LastName;
             else
                 lblAuthenticatedBy.Text = "";
+            tdlblReject.Visible = false;
+            tdtxtReject.Visible = false;
+            txtRejectReseaon.Text = "";
+        }
+        protected void rbtnReject_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbtnAuthentication.Checked)
+                lblAuthenticatedBy.Text = userVo.FirstName + ' ' + userVo.MiddleName + ' ' + userVo.LastName;
+            else
+                lblAuthenticatedBy.Text = "";
+            tdlblReject.Visible = true;
+            tdtxtReject.Visible = true;
         }
         protected void GetcustomerDetails()
         {

@@ -648,17 +648,35 @@
         <tr>
             <td colspan="5">
                 <div class="divSectionHeading" style="vertical-align: text-bottom">
-                    Office Use
+                    For Office Use
                 </div>
             </td>
         </tr>
-        <tr style="width: 23.5%" align="center">
+        <tr style="width: 30%" align="center">
             <td id="tdauthentication" runat="server">
-                <asp:CheckBox ID="chkAuthentication" runat="server" CssClass="cmbFielde" Text="Authenticate"
-                    OnCheckedChanged="chkAuthentication_OnCheckedChanged" AutoPostBack="true" />
+                <%--<asp:CheckBox ID="chkAuthentication" runat="server" CssClass="cmbFielde" Text="Authenticate"
+                    OnCheckedChanged="chkAuthentication_OnCheckedChanged" AutoPostBack="true" />--%>
+                <asp:RadioButton ID="rbtnAuthentication" runat="server" CssClass="txtField" Text="Authenticate"
+                    GroupName="rejAut" AutoPostBack="true" OnCheckedChanged="rbtnAuthentication_OnCheckedChanged" />
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <asp:RadioButton ID="rbtnReject" runat="server" CssClass="txtField" Text="Rejected"
+                    GroupName="rejAut" AutoPostBack="true" OnCheckedChanged="rbtnReject_CheckedChanged" />
+                <%--  <asp:CustomValidator ID="CustomValidator1" runat="server" ValidationGroup="location"
+                    ErrorMessage="Please select one of the radio button" Display="Dynamic"></asp:CustomValidator>--%>
+            </td>
+            <td id="tdlblReject" class="leftField" style="width: 20%" visible="false">
+                <asp:Label ID="lblRejectRes" runat="server" Text="Reject Reseaon:" CssClass="FieldName">           
+                </asp:Label>
+            </td>
+            <td id="tdtxtReject" class="rightField" style="width: 20%" visible="false">
+                <asp:TextBox ID="txtRejectReseaon" runat="server" CssClass="txtField" />
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator12" ControlToValidate="txtRejectReseaon"
+                    ErrorMessage="<br />Please Enter Remarks" Display="Dynamic" runat="server" CssClass="rfvPCG"
+                    ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
             </td>
             <td id="tdauthenticationDetails" runat="server">
-                <asp:Label ID="lblAuthenticated" runat="server" Text="Authenticated By:" CssClass="FieldName"></asp:Label>
+                <asp:Label ID="lblAuthenticated" runat="server" Text="Authenticated/Rejected By:"
+                    CssClass="FieldName"></asp:Label>
                 <asp:Label ID="lblAuthenticatedBy" runat="server" CssClass="FieldName"></asp:Label><br />
                 <asp:Label ID="lblAuthenticationDate" runat="server" CssClass="FieldName"></asp:Label>
             </td>
@@ -1466,7 +1484,7 @@
     <table width="68%" id="tbUploadDocument" runat="server" visible="false">
         <tr>
             <td colspan="2">
-                <telerik:RadGrid ID="gvUploadDocument"  runat="server" AllowSorting="True" enableloadondemand="True"
+                <telerik:RadGrid ID="gvUploadDocument" runat="server" AllowSorting="True" enableloadondemand="True"
                     PageSize="5" AutoGenerateColumns="False" EnableEmbeddedSkins="False" GridLines="None"
                     ShowFooter="True" PagerStyle-AlwaysVisible="true" AllowPaging="true" ShowStatusBar="True"
                     Skin="Telerik" AllowFilteringByColumn="true" OnItemCommand="gvUploadDocument_OnItemCommand"

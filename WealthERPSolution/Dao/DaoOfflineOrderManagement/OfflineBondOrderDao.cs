@@ -235,7 +235,7 @@ namespace DaoOfflineOrderManagement
             }
             return dtGetFD54IssueOrder;
         }
-        public bool CancelBondsFDBookOrder(int orderId,  string remarks)
+        public bool CancelBondsFDBookOrder(int orderId,  string remarks,int userId,Boolean IsAuthenticated)
         {
             bool bResult = false;
             Database db;
@@ -246,7 +246,9 @@ namespace DaoOfflineOrderManagement
                 CancelBondsFDBookOrdercmd = db.GetStoredProcCommand("SPROC_54ECMarkAsReject");
                 db.AddInParameter(CancelBondsFDBookOrdercmd, "@OrderId", DbType.Int32, orderId);
                 db.AddInParameter(CancelBondsFDBookOrdercmd, "@Remarks", DbType.String, remarks);
-                db.ExecuteDataSet(CancelBondsFDBookOrdercmd);
+                db.AddInParameter(CancelBondsFDBookOrdercmd, "@userId", DbType.Int32, userId);
+                db.AddInParameter(CancelBondsFDBookOrdercmd, "@IsAuthenticated", DbType.Boolean, IsAuthenticated);
+                //db.ExecuteDataSet(CancelBondsFDBookOrdercmd);
                 if (db.ExecuteNonQuery(CancelBondsFDBookOrdercmd) != 0)
                     bResult = true;
 

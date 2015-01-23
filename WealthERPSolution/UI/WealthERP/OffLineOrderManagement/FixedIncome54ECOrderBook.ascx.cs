@@ -237,7 +237,7 @@ namespace WealthERP.OffLineOrderManagement
                 strRemark = txtRemark.Text;
                 LinkButton buttonEdit = editItem["MarkAsReject"].Controls[0] as LinkButton;
                 Int32 orderId = Convert.ToInt32(gv54FDOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_OrderId"].ToString());
-                lbResult = OfflineBondOrderBo.CancelBondsFDBookOrder(orderId, txtRemark.Text);
+                lbResult = OfflineBondOrderBo.CancelBondsFDBookOrder(orderId, txtRemark.Text,userVo.UserId,false);
                     if (lbResult == true)
                     {
                         Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Order Cancelled Successfully');", true);

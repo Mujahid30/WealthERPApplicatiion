@@ -152,14 +152,14 @@ namespace BoOfflineOrderManagement
             }
             return dt;
         }
-        public bool CancelBondsFDBookOrder(int orderId,  string remarks)
+        public bool CancelBondsFDBookOrder(int orderId, string remarks, int userId, Boolean IsAuthenticated)
         {
             bool bResult = false;
             OfflineBondOrderDao offlineBondDao = new OfflineBondOrderDao();
             
             try
             {
-                bResult = offlineBondDao.CancelBondsFDBookOrder(orderId,  remarks);
+                bResult = offlineBondDao.CancelBondsFDBookOrder(orderId,  remarks,userId,IsAuthenticated);
 
             }
             catch (BaseApplicationException Ex)

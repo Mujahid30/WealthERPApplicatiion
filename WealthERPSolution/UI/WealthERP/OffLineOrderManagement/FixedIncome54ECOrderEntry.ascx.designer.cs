@@ -1943,5 +1943,12 @@ namespace WealthERP.OffLineOrderManagement
         protected global::System.Web.UI.WebControls.CheckBox chkAuthentication;
         protected global::System.Web.UI.WebControls.Label lblAssociateReportTo;
         protected global::System.Web.UI.WebControls.Label lblAssociateReport;
+        protected global::System.Web.UI.WebControls.RadioButton rbtnAuthentication;
+        protected global::System.Web.UI.WebControls.RadioButton rbtnReject;
+        protected global::System.Web.UI.WebControls.Label lblRejectRes;
+        protected global::System.Web.UI.WebControls.TextBox txtRejectReseaon;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblReject;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdtxtReject;
+
     }
 }

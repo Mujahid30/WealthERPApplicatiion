@@ -147,6 +147,149 @@ namespace DaoOfflineOrderManagement
             }
             return dtGetIPOHoldings;
         }
-       
+        public DataSet GetHeaderMapping(int mapType, string rtaType)
+        {
+            Database db;
+            DataSet dsHeaderMapping;
+
+            DbCommand cmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmd = db.GetStoredProcCommand("SPROC_GetRTAFileTypeHeader");
+                db.AddInParameter(cmd, "@MapType", DbType.Int32, mapType);
+                if (rtaType != "0")
+                    db.AddInParameter(cmd, "@RTAType", DbType.String, rtaType);
+                else
+                    db.AddInParameter(cmd, "@RTAType", DbType.String, DBNull.Value);
+
+                dsHeaderMapping = db.ExecuteDataSet(cmd);
+
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OfflineIPOBackOfficeDao.cs:GetOfflineIPOOrderBook()");
+                object[] objects = new object[2];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsHeaderMapping;
+        }
+        public int CreateUpdateExternalHeader(string externalHeader, int XMLHeaderId, string rtaType)
+        {
+
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DbCommand createCmd;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                createCmd = db.GetStoredProcCommand("SPROC_CreateExternalHeader");
+                db.AddInParameter(createCmd, "@ExternalHeader", DbType.String, externalHeader);
+                db.AddInParameter(createCmd, "@XMLHeaderId", DbType.Int32, XMLHeaderId);
+                if (rtaType != "0")
+                    db.AddInParameter(createCmd, "@RTAType", DbType.String, rtaType);
+                else
+                    db.AddInParameter(createCmd, "@RTAType", DbType.String, DBNull.Value);
+                if (db.ExecuteNonQuery(createCmd) != 0)
+                {
+                    return XMLHeaderId;
+                }
+                else
+                {
+                    return 0;
+
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+        }
+        public DataTable GetRTAHeaderType(int XMLHeaderFileId, int XMLHeaderId, string rtaType)
+        {
+            DataSet dsIPOOrderBook;
+            DataTable dtIPOOrderBook;
+            Database db;
+            DbCommand GetIPOOrderBookcmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetIPOOrderBookcmd = db.GetStoredProcCommand("SPROC_GetExternalHeader");
+                db.AddInParameter(GetIPOOrderBookcmd, "@XMLHeaderFileId", DbType.Int32, XMLHeaderFileId);
+                db.AddInParameter(GetIPOOrderBookcmd, "@XMLHeaderId", DbType.Int32, XMLHeaderId);
+                if (rtaType != "0")
+                    db.AddInParameter(GetIPOOrderBookcmd, "@RTAType", DbType.String, rtaType);
+                else
+                    db.AddInParameter(GetIPOOrderBookcmd, "@RTAType", DbType.String, DBNull.Value);
+                dsIPOOrderBook = db.ExecuteDataSet(GetIPOOrderBookcmd);
+                dtIPOOrderBook = dsIPOOrderBook.Tables[0];
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OfflineIPOBackOfficeDao.cs:GetOfflineIPOOrderSubBook()");
+                object[] objects = new object[1];
+                //objects[0] = adviserId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtIPOOrderBook;
+        }
+        public DataTable GetRTASubHeaderType(int XMLHeaderId, string rtaType)
+        {
+            DataSet dsIPOOrderBook;
+            DataTable dtIPOOrderBook;
+            Database db;
+            DbCommand GetIPOOrderBookcmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetIPOOrderBookcmd = db.GetStoredProcCommand("SPROC_GetAllExternalHeader");
+                //db.AddInParameter(GetIPOOrderBookcmd, "@XMLHeaderFileId", DbType.Int32, XMLHeaderFileId);
+                db.AddInParameter(GetIPOOrderBookcmd, "@XMLHeaderId", DbType.Int32, XMLHeaderId);
+                if (rtaType != "0")
+                    db.AddInParameter(GetIPOOrderBookcmd, "@RTAType", DbType.String, rtaType);
+                else
+                    db.AddInParameter(GetIPOOrderBookcmd, "@RTAType", DbType.String, DBNull.Value);
+                dsIPOOrderBook = db.ExecuteDataSet(GetIPOOrderBookcmd);
+                dtIPOOrderBook = dsIPOOrderBook.Tables[0];
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OfflineIPOBackOfficeDao.cs:GetOfflineIPOOrderSubBook()");
+                object[] objects = new object[1];
+                //objects[0] = adviserId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtIPOOrderBook;
+        }
     }
 }
