@@ -109,13 +109,14 @@
                 <table width="100%">
                     <tr>
                         <td>
-                            <telerik:RadGrid ID="gvNCDOrderBook" runat="server" AllowSorting="True" enableloadondemand="True"
-                                PageSize="10" AllowPaging="True" AutoGenerateColumns="False" EnableEmbeddedSkins="False"
-                                GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="true" ShowStatusBar="True" 
-                                OnItemDataBound="gvNCDOrderBook_OnItemDataCommand" Skin="Telerik" AllowFilteringByColumn="false"
-                                OnNeedDataSource="gvNCDOrderBook_OnNeedDataSource" OnItemCommand="gvNCDOrderBook_OnItemCommand" OnUpdateCommand="gvNCDOrderBook_UpdateCommand">
+                        <telerik:RadGrid ID="gvNCDOrderBook" runat="server" GridLines="None" AutoGenerateColumns="False"
+                                PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" OnNeedDataSource="gvNCDOrderBook_OnNeedDataSource"
+                                ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="true"
+                                AllowAutomaticInserts="false" Width="120%" Height="400px" OnItemDataBound="gvNCDOrderBook_OnItemDataCommand"
+                                OnUpdateCommand="gvNCDOrderBook_UpdateCommand" OnItemCommand="gvNCDOrderBook_OnItemCommand">
+                            
                                 <MasterTableView DataKeyNames="CO_OrderId,AIM_IssueId,Scrip,WTS_TransactionStatusCode,WOS_OrderStepCode,BBAmounttoinvest,C_CustCode,WES_Code,WOS_OrderStep,AIM_IsCancelAllowed"
-                                    Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" AllowFilteringByColumn="true">
+                                    Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" AllowFilteringByColumn="true"  EditMode="PopUp">
                                     <Columns>
                                         <telerik:GridTemplateColumn AllowFiltering="false">
                                         <HeaderTemplate>
@@ -175,7 +176,7 @@
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="CO_OrderId" AllowFiltering="true" HeaderText="Transaction No."
                                             UniqueName="CO_OrderId" SortExpression="CO_OrderId" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                            AutoPostBackOnFilter="true" HeaderStyle-Width="80px" FilterControlWidth="75px">
+                                            AutoPostBackOnFilter="true" HeaderStyle-Width="80px" FilterControlWidth="75px" DataType="System.Int64">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="AIM_MaxApplNo" AllowFiltering="true" HeaderText="Application No."
@@ -266,7 +267,7 @@
                                         </telerik:GridTemplateColumn>--%>
                                         
                                          <telerik:GridEditCommandColumn  HeaderStyle-Width="60px" UniqueName="MarkAsReject"
-                                            EditText="Cancel" CancelText="Cancel" UpdateText="OK" HeaderText="Cancel" Visible="true">
+                                            EditText="Cancel" CancelText="Cancel" UpdateText="OK" HeaderText="Cancel" Visible="true" AutoPostBackOnFilter="false">
                                         </telerik:GridEditCommandColumn>
                                         
                                         <telerik:GridTemplateColumn AllowFiltering="false">
@@ -366,16 +367,10 @@
                                    
                                  
                                     </Columns>
-                                      <EditFormSettings FormTableStyle-Height="40%" EditFormType="Template" FormMainTableStyle-Width="300px">
+                                      <EditFormSettings FormTableStyle-Height="40%" EditFormType="Template" FormMainTableStyle-Width="300px" CaptionFormatString=" Order canceling Request">
                                         <FormTemplate>
                                             <table style="background-color: White;" border="0">
-                                                <tr>
-                                                    <td colspan="4">
-                                                        <div class="divSectionHeading" style="vertical-align: text-bottom">
-                                                            Order canceling Request
-                                                        </div>
-                                                    </td>
-                                                </tr>
+                                                
                                                 <tr>
                                                     <td class="leftField">
                                                         <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="Request No.:"></asp:Label>
@@ -399,9 +394,7 @@
                                                         &nbsp;
                                                     </td>
                                                 </tr>
-                                              <%--  <td colspan="2">
-                                                    &nbsp;
-                                                </td>--%>
+                                             
                                                 <tr>
                                                     <td>
                                                         &nbsp;
@@ -409,10 +402,8 @@
                                                     <td align="left">
                                                         <asp:Button ID="Button1" Text="OK" runat="server" CssClass="PCGButton" CommandName="Update"
                                                             ValidationGroup="btnSubmit">
-                                                            <%-- OnClientClick='<%# (Container is GridEditFormInsertItem) ?  " javascript:return ShowPopup();": "" %>'--%>
                                                         </asp:Button>
-                                                    <%--</td>
-                                                    <td  >--%>
+                                                   
                                                         <asp:Button ID="Button2" Text="Cancel" runat="server" CausesValidation="False" CssClass="PCGButton"
                                                             CommandName="Cancel"></asp:Button>
                                                     </td>

@@ -138,7 +138,7 @@ namespace BoOfflineOrderManagement
             }
             return dt;
         }
-        public DataTable GetFD54IssueOrder(int adviserId, DateTime fromDate, DateTime toDate,string status, int issueId, string userType, string AgentCode,string category,int AuthenticateStatus)
+        public DataTable GetFD54IssueOrder(int adviserId, DateTime fromDate, DateTime toDate, string status, int issueId, string userType, string AgentCode, string category, int AuthenticateStatus)
         {
             DataTable dt;
             OfflineBondOrderDao offlineBondDao = new OfflineBondOrderDao();
@@ -152,5 +152,34 @@ namespace BoOfflineOrderManagement
             }
             return dt;
         }
+        public bool CancelBondsFDBookOrder(int orderId,  string remarks)
+        {
+            bool bResult = false;
+            OfflineBondOrderDao offlineBondDao = new OfflineBondOrderDao();
+            
+            try
+            {
+                bResult = offlineBondDao.CancelBondsFDBookOrder(orderId,  remarks);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineBondOrderBo.cs:cancelBondsBookOrder(string id)");
+                object[] objects = new object[1];
+                objects[0] = orderId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return bResult;
+        }
+
     }
 }

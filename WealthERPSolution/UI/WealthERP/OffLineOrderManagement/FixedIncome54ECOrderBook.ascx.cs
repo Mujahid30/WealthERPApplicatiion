@@ -25,6 +25,7 @@ namespace WealthERP.OffLineOrderManagement
         UserVo userVo;
         string userType;
         OfflineBondOrderBo OfflineBondOrderBo = new OfflineBondOrderBo();
+
         OnlineMFOrderBo OnlineMFOrderBo = new OnlineMFOrderBo();
         DateTime fromDate, toDate;
         AssociatesUserHeirarchyVo associateuserheirarchyVo;
@@ -37,55 +38,55 @@ namespace WealthERP.OffLineOrderManagement
             customerVO = (CustomerVo)Session["customerVo"];
             userVo = (UserVo)Session[SessionContents.UserVo];
             userType = Session[SessionContents.CurrentUserRole].ToString();
-           
+
             //BindIssue();
-             associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
-                if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "associates")
+            associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
+            if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "associates")
+            {
+                userType = "associates";
+                if (UserTitle == "SubBroker")
                 {
-                    userType = "associates";
-                    if (UserTitle == "SubBroker")
+                    associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
+                    if (associateuserheirarchyVo.AgentCode != null)
                     {
-                        associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
-                        if (associateuserheirarchyVo.AgentCode != null)
-                        {
-                            AgentCode = associateuserheirarchyVo.AgentCode.ToString();
-                        }
-                        else
-                            AgentCode = "0";
+                        AgentCode = associateuserheirarchyVo.AgentCode.ToString();
                     }
                     else
-                    {
-                        associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
-                        if (associateuserheirarchyVo.AgentCode != null)
-                        {
-                            AgentCode = associateuserheirarchyVo.AgentCode.ToString();
-                        }
-                        else
-                            AgentCode = "0";
-                    }
+                        AgentCode = "0";
                 }
-
-                if (!IsPostBack)
+                else
                 {
-                    fromDate = DateTime.Now.AddMonths(-1);
-                    txtOrderFrom.SelectedDate = fromDate.Date;
-                    txtOrderTo.SelectedDate = DateTime.Now;
-                    BindNcdCategory();
-                    BindOrderStatus();
-                    if (Request.QueryString["category"] != null)
+                    associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
+                    if (associateuserheirarchyVo.AgentCode != null)
                     {
-                        string categorywise=Request.QueryString["category"].ToString().TrimEnd(' ');
-                        ViewState["category"] = categorywise;
-                        ddlCategory.SelectedValue = categorywise;
-                        ddlAuthenticate.SelectedValue = "0";
-                        BindIssue(categorywise);
-                        lblIssue.Visible = true;
-                        ddlIssue.Visible = true;
-                        trdate.Visible = false;
-                        trProduct.Visible = false;
-                        BindAdviserFDrderBook();
+                        AgentCode = associateuserheirarchyVo.AgentCode.ToString();
                     }
+                    else
+                        AgentCode = "0";
                 }
+            }
+
+            if (!IsPostBack)
+            {
+                fromDate = DateTime.Now.AddMonths(-1);
+                txtOrderFrom.SelectedDate = fromDate.Date;
+                txtOrderTo.SelectedDate = DateTime.Now;
+                BindNcdCategory();
+                BindOrderStatus();
+                if (Request.QueryString["category"] != null)
+                {
+                    string categorywise = Request.QueryString["category"].ToString().TrimEnd(' ');
+                    ViewState["category"] = categorywise;
+                    ddlCategory.SelectedValue = categorywise;
+                    ddlAuthenticate.SelectedValue = "0";
+                    BindIssue(categorywise);
+                    lblIssue.Visible = true;
+                    ddlIssue.Visible = true;
+                    trdate.Visible = false;
+                    trProduct.Visible = false;
+                    BindAdviserFDrderBook();
+                }
+            }
         }
         protected void BindIssue(string Category)
         {
@@ -140,8 +141,8 @@ namespace WealthERP.OffLineOrderManagement
                     fromDate = DateTime.Parse(txtOrderFrom.SelectedDate.ToString());
                 if (txtOrderTo.SelectedDate != null)
                     toDate = DateTime.Parse(txtOrderTo.SelectedDate.ToString());
-               
-              dt54FDOrderBook= OfflineBondOrderBo.GetFD54IssueOrder(advisorVo.advisorId, fromDate, Convert.ToDateTime(txtOrderTo.SelectedDate), ddlOrderStatus.SelectedValue, int.Parse(ddlIssue.SelectedValue), userType, AgentCode, ddlCategory.SelectedValue, int.Parse(ddlAuthenticate.SelectedValue));
+
+                dt54FDOrderBook = OfflineBondOrderBo.GetFD54IssueOrder(advisorVo.advisorId, fromDate, Convert.ToDateTime(txtOrderTo.SelectedDate), ddlOrderStatus.SelectedValue, int.Parse(ddlIssue.SelectedValue), userType, AgentCode, ddlCategory.SelectedValue, int.Parse(ddlAuthenticate.SelectedValue));
             }
             if (dt54FDOrderBook.Rows.Count >= 0)
             {
@@ -223,6 +224,58 @@ namespace WealthERP.OffLineOrderManagement
                 ddlOrderStatus.DataBind();
             }
             ddlOrderStatus.Items.Insert(0, new ListItem("All", "0"));
+        }
+        protected void gv54FDOrderBook_UpdateCommand(object source, GridCommandEventArgs e)
+        {
+           
+            bool lbResult = false;
+            string strRemark = string.Empty;
+            if (e.CommandName == RadGrid.UpdateCommandName)
+            {
+                GridEditableItem editItem = e.Item as GridEditableItem;
+                TextBox txtRemark = (TextBox)e.Item.FindControl("txtRemark");
+                strRemark = txtRemark.Text;
+                LinkButton buttonEdit = editItem["MarkAsReject"].Controls[0] as LinkButton;
+                Int32 orderId = Convert.ToInt32(gv54FDOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_OrderId"].ToString());
+                lbResult = OfflineBondOrderBo.CancelBondsFDBookOrder(orderId, txtRemark.Text);
+                    if (lbResult == true)
+                    {
+                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Order Cancelled Successfully');", true);
+                    }
+                    BindAdviserFDrderBook();
+            }
+        }
+        protected void gv54FDOrderBook_ItemDataBound(object sender, GridItemEventArgs e)
+        {
+
+            if (e.Item is GridDataItem)
+            {
+                GridDataItem dataItem = e.Item as GridDataItem;
+                LinkButton lbtnMarkAsReject = dataItem["MarkAsReject"].Controls[0] as LinkButton;
+                DropDownList ddlAction = (DropDownList)dataItem.FindControl("ddlAction");
+                string OrderStepCode = Convert.ToString(gv54FDOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["Orderstep"]);
+                string isCancel = Convert.ToString(gv54FDOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_IsAuthenticated"]);
+
+                if (OrderStepCode == "ORDERED" && isCancel != "Yes")
+                {
+                    lbtnMarkAsReject.Visible = true;
+                }
+                else
+                {
+                    lbtnMarkAsReject.Visible = false;
+                   
+                }
+                if (OrderStepCode == "REJECTED")
+                {
+                    ddlAction.Items[1].Enabled = false;
+                    ddlAction.Items[2].Enabled = false;
+                }
+                else
+                {
+                    ddlAction.Items[1].Enabled = true;
+                    ddlAction.Items[2].Enabled = true;
+                }
+            }
         }
     }
 }

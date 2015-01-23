@@ -235,5 +235,39 @@ namespace DaoOfflineOrderManagement
             }
             return dtGetFD54IssueOrder;
         }
+        public bool CancelBondsFDBookOrder(int orderId,  string remarks)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand CancelBondsFDBookOrdercmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                CancelBondsFDBookOrdercmd = db.GetStoredProcCommand("SPROC_54ECMarkAsReject");
+                db.AddInParameter(CancelBondsFDBookOrdercmd, "@OrderId", DbType.Int32, orderId);
+                db.AddInParameter(CancelBondsFDBookOrdercmd, "@Remarks", DbType.String, remarks);
+                db.ExecuteDataSet(CancelBondsFDBookOrdercmd);
+                if (db.ExecuteNonQuery(CancelBondsFDBookOrdercmd) != 0)
+                    bResult = true;
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineBondOrderDao.cs:CancelBondsBookOrder(string id)");
+                object[] objects = new object[1];
+                objects[0] = orderId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return bResult;
+        }
     }
 }

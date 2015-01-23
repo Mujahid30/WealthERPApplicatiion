@@ -30,7 +30,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblIssue;
-        
+        protected global::System.Web.UI.WebControls.DropDownList ddlAction;
         /// <summary>
         /// ddlIssue control.
         /// </summary>
