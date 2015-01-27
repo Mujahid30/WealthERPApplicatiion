@@ -50,6 +50,15 @@ namespace WealthERP.UploadBackOffice
                 DataSet dsRej = new DataSet();
                 dsRej = uploadCommonBo.RequestWiseRejects(reqId);
                 dtReqReje = dsRej.Tables[0];
+                if (Cache["RequestReject" + userVo.UserId.ToString()] == null)
+                {
+                    Cache.Insert("RequestReject" + userVo.UserId.ToString(), dtReqReje);
+                }
+                else
+                {
+                    Cache.Remove("RequestReject" + userVo.UserId.ToString());
+                    Cache.Insert("RequestReject" + userVo.UserId.ToString(), dtReqReje);
+                }
                 gvProfileIncreamenetReject.DataSource = dtReqReje;
                 gvProfileIncreamenetReject.DataBind();
                 gvProfileIncreamenetReject.Visible = true;
@@ -417,8 +426,9 @@ namespace WealthERP.UploadBackOffice
         {
             DataTable dtRequests = new DataTable();
             DataSet dtProcessLogDetails = new DataSet();
-            dtRequests = (DataTable)Cache[userVo.UserId.ToString() + "ReqId"];
-            if (dtRequests == null)
+            //dtRequests = (DataTable)Cache[userVo.UserId.ToString() + "RequestReject"];
+            dtRequests = (DataTable)Cache["RequestReject" + userVo.UserId.ToString()];
+            if (dtRequests != null)
             {
                 gvProfileIncreamenetReject.DataSource = dtRequests;
             }
@@ -462,7 +472,7 @@ namespace WealthERP.UploadBackOffice
             }
             else
             {
-     
+
                 RejectedRequestDelete();
                 //NeedSource();
                 gvProfileIncreamenetReject.MasterTableView.Rebind();

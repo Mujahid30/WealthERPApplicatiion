@@ -135,7 +135,7 @@
                                 <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
                             </telerik:GridBoundColumn>
                             <telerik:GridTemplateColumn AllowFiltering="true" DataField="ClientCode" AutoPostBackOnFilter="true"
-                                HeaderText="ClientCode" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                HeaderText="ClientCode" ShowFilterIcon="false" CurrentFilterFunction="Contains" UniqueName="ClientCode"
                                 SortExpression="ClientCode" FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="90px">
                                 <ItemTemplate>
                                     <asp:TextBox ID="txtClientCode" CssClass="txtField" runat="server" Text='<%# Bind("ClientCode") %>'></asp:TextBox>
