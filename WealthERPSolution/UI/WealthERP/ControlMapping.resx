@@ -2025,4 +2025,8 @@
     <value>OnlineOrderBackOffice//AMCManage.ascx</value>
     <comment>OnlineOrderBackOffice//AMCManage.ascx</comment>
   </data>
+  <data name="ExternalHeaderMapping" xml:space="preserve">
+    <value>OnlineOrderBackOffice//ExternalHeaderMapping.ascx</value>
+    <comment>OnlineOrderBackOffice//ExternalHeaderMapping.ascx</comment>
+  </data>
 </root>

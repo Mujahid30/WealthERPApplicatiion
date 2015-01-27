@@ -2820,6 +2820,13 @@
     <Compile Include="OnlineOrderBackOffice\ExternalFieldMapping.ascx.designer.cs">
       <DependentUpon>ExternalFieldMapping.ascx</DependentUpon>
     </Compile>
+    <Compile Include="OnlineOrderBackOffice\ExternalHeaderMapping.ascx.cs">
+      <DependentUpon>ExternalHeaderMapping.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OnlineOrderBackOffice\ExternalHeaderMapping.ascx.designer.cs">
+      <DependentUpon>ExternalHeaderMapping.ascx</DependentUpon>
+    </Compile>
     <Compile Include="OnlineOrderBackOffice\HoldingIssueAllotment.ascx.cs">
       <DependentUpon>HoldingIssueAllotment.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -8109,6 +8116,7 @@
     <Content Include="OnlineOrderBackOffice\AMCManage.ascx" />
     <Content Include="OnlineOrderBackOffice\CustomerProfileAudit.ascx" />
     <Content Include="OnlineOrderBackOffice\ExternalFieldMapping.ascx" />
+    <Content Include="OnlineOrderBackOffice\ExternalHeaderMapping.ascx" />
     <Content Include="OnlineOrderBackOffice\HoldingIssueAllotment.ascx" />
     <Content Include="OnlineOrderBackOffice\ManageLookups.ascx" />
     <Content Include="OnlineOrderBackOffice\MFAccountValuation.ascx" />

@@ -1762,6 +1762,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OnlineOrderBackOffice//ExternalHeaderMapping.ascx.
+        /// </summary>
+        internal static string ExternalHeaderMapping {
+            get {
+                return ResourceManager.GetString("ExternalHeaderMapping", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Customer//FamilyDetails.ascx.
         /// </summary>
         internal static string FamilyDetails {
