@@ -528,7 +528,7 @@ namespace WealthERP.Admin
                                 imgBtnrgHoldings.Visible = true;
                             if (Cache["gvEquityRecord" + advisorVo.advisorId] == null)
                             {
-                                Cache.Insert("gvEquityRecord"+advisorVo.advisorId, ds);
+                                Cache.Insert("gvEquityRecord" + advisorVo.advisorId, ds);
                             }
                             else
                             {
@@ -1368,7 +1368,7 @@ namespace WealthERP.Admin
         }
         private void BindTop10Company(DataSet dsFactsheetschemeDetails)
         {
-            double sumTotal = 0;
+
             DataTable dtTop10Company = dsFactsheetschemeDetails.Tables[7];
             if (dtTop10Company.Rows.Count > 0)
             {

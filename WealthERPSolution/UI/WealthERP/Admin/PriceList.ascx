@@ -105,7 +105,7 @@
     <div>
         <%--<asp:ScriptManager ID="UploadScripManager" runat="server">
         </asp:ScriptManager>--%>
-        <telerik:RadTabStrip ID="RadTabStrip1" runat="server" EnableTheming="True" Skin="Telerik"
+        <%--<telerik:RadTabStrip ID="RadTabStrip1" runat="server" EnableTheming="True" Skin="Telerik"
             EnableEmbeddedSkins="False" MultiPageID="FactsheetMultiPage" SelectedIndex="0">
             <Tabs>
                 <telerik:RadTab runat="server" Text="NAV" Value="Price" TabIndex="0" Selected="True">
@@ -115,8 +115,8 @@
                 </telerik:RadTab>
                 <telerik:RadTab runat="server" Text="Factsheet" Value="Factsheet" TabIndex="2">
                 </telerik:RadTab>--%>
-            </Tabs>
-        </telerik:RadTabStrip>
+        <%--</Tabs>
+        </telerik:RadTabStrip>--%>
         <telerik:RadAjaxLoadingPanel ID="RadAjaxLoadingPanel1" runat="server" Skin="Telerik"
             EnableEmbeddedSkins="false">
         </telerik:RadAjaxLoadingPanel>
@@ -130,7 +130,7 @@
                         <tr>--%>
                 <div>
                     <table width="100%" class="TableBackground" cellspacing="0" cellpadding="2">
-                        <tr>
+                        <tr style="width: 50%">
                             <td>
                                 <asp:Label ID="Select" runat="server" Text="Select:" CssClass="FieldName"></asp:Label>
                                 &nbsp
@@ -140,6 +140,13 @@
                                 <asp:RadioButton ID="rbtnHistorical" runat="server" AutoPostBack="true" CssClass="txtField"
                                     GroupName="Snapshot" OnCheckedChanged="rbtnHistorical_CheckedChanged" Text="Historical" />
                             </td>
+                            <tr>
+                                <td align="right">
+                                    <asp:Label ID="lblIllegal" runat="server" CssClass="Error" Text="" />
+                                </td>
+                            </tr>
+                        </tr>
+                        <tr align="left" style="width: 50%">
                             <td id="tdFromDate" align="left" runat="server">
                                 <td align="Left">
                                     <asp:Label ID="Label10" Text="From Date:" runat="server" CssClass="FieldName"></asp:Label>
@@ -188,27 +195,26 @@
                                     </asp:CompareValidator>
                                 </td>
                             </td>
-                            <td align="left" style="padding-right: 50px">
-                                <asp:Button ID="btnSubmit" runat="server" CssClass="PCGButton" OnClick="OnClick_Submit"
-                                    Text="GO" ValidationGroup="vgbtnSubmit" />
+                            <td style="width: 150px">
+                                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
                             </td>
-                            <tr>
-                                <td align="right">
-                                    <asp:Label ID="lblIllegal" runat="server" CssClass="Error" Text="" />
-                                </td>
-                            </tr>
+                            <td style="width: 150px">
+                                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                            </td>
                         </tr>
                     </table>
                 </div>
                 <div>
-                    <table width="70%">
+                    <table width="90%">
                         <tr id="trSelectMutualFund" runat="server">
+                            <td style="width: 175px">
+                            </td>
                             <td align="right">
                                 <asp:Label ID="lblSelectMutualFund" runat="server" CssClass="FieldName" Text="Select AMC Code:"></asp:Label>
                             </td>
                             <td>
-                                <asp:DropDownList ID="ddlSelectMutualFund" runat="server" AutoPostBack="true" CssClass="cmbField"
-                                    OnSelectedIndexChanged="ddlSelectMutualFund_OnSelectedIndexChanged">
+                                <asp:DropDownList ID="ddlSelectMutualFund" runat="server" AutoPostBack="true" Width="600px"
+                                    CssClass="cmbField" OnSelectedIndexChanged="ddlSelectMutualFund_OnSelectedIndexChanged">
                                 </asp:DropDownList>
                                 <asp:CompareValidator ID="cvddlSelectMutualFund" runat="server" ControlToValidate="ddlSelectMutualFund"
                                     CssClass="cvPCG" Display="Dynamic" ErrorMessage="Please Select AMC Code" Operator="NotEqual"
@@ -216,12 +222,14 @@
                             </td>
                         </tr>
                         <tr id="trNavCategory" runat="server">
+                            <td style="width: 175px">
+                            </td>
                             <td align="left" class="leftField">
                                 <asp:Label ID="lblNAVCategory" runat="server" CssClass="FieldName" Text="Category:"></asp:Label>
                             </td>
                             <td>
-                                <asp:DropDownList ID="ddlNAVCategory" runat="server" AutoPostBack="true" CssClass="cmbField"
-                                    OnSelectedIndexChanged="ddlNAVCategory_OnSelectedIndexChanged">
+                                <asp:DropDownList ID="ddlNAVCategory" runat="server" Width="600px" AutoPostBack="true"
+                                    CssClass="cmbField" OnSelectedIndexChanged="ddlNAVCategory_OnSelectedIndexChanged">
                                 </asp:DropDownList>
                             </td>
                         </tr>
@@ -238,15 +246,26 @@
                 </td>
             </tr>--%>
                         <tr id="trSelectSchemeNAV" runat="server">
+                            <td style="width: 175px">
+                            </td>
                             <td align="right">
                                 <asp:Label ID="lblSelectSchemeNAV" runat="server" CssClass="FieldName" Text="Select Scheme Name:"></asp:Label>
                             </td>
                             <td>
-                                <asp:DropDownList ID="ddlSelectSchemeNAV" runat="server" CssClass="cmbField">
+                                <asp:DropDownList ID="ddlSelectSchemeNAV" Width="600px" runat="server" CssClass="cmbField">
                                 </asp:DropDownList>
                                 <asp:CompareValidator ID="CompareValidator3" runat="server" ControlToValidate="ddlSelectSchemeNAV"
                                     CssClass="cvPCG" Display="Dynamic" ErrorMessage="Please Select Scheme" Operator="NotEqual"
                                     ValidationGroup="vgbtnSubmit" ValueToCompare="Select"></asp:CompareValidator>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                            </td>
+                            <td align="right" style="padding-left: 100px" width="40px">
+                                <asp:Button ID="btnSubmit" runat="server" CssClass="PCGButton" OnClick="OnClick_Submit"
+                                    Text="GO" ValidationGroup="vgbtnSubmit" />
                             </td>
                         </tr>
                         <%-- <tr id="trbtnSubmit" runat="server">
