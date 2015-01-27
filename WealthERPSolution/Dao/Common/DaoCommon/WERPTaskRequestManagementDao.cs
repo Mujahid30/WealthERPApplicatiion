@@ -420,7 +420,7 @@ namespace DaoCommon
                 else
                     db.AddInParameter(dbCommand, "@ToDate", DbType.Date, null);
                 dsbos = db.ExecuteDataSet(dbCommand);
-            }
+            } 
             catch (Exception ex)
             {
                 throw ex;
