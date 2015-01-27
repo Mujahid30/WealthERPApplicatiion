@@ -270,7 +270,9 @@
                 <asp:ListItem Value="CM">Client Modification</asp:ListItem>
                 <asp:ListItem Value="Link">Fixed Income</asp:ListItem>
                 <asp:ListItem Value="MFR">MF Holding Recon</asp:ListItem>
-                 <asp:ListItem Value="PF" Enabled="false">Profile And Folio(NEW)</asp:ListItem>
+                 <asp:ListItem Value="PF" >Profile And Folio(NEW)</asp:ListItem>
+                 
+                 <asp:ListItem Value="MFTN" >MF Transaction(NEW)</asp:ListItem>
             </asp:DropDownList>
             <img src="../Images/help.png" class="ScreenTip1" style="height: 15px; width: 15px;" />
             <div id="div1" style="display: none;">

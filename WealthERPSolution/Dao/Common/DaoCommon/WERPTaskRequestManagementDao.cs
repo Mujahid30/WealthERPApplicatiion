@@ -24,7 +24,7 @@ namespace DaoCommon
         /// <param name="subreportype"></param>
         /// <param name="fromDate"></param>
         /// <returns></returns>
-        public void CreateTaskRequest(int taskId, int userId, out int taskRequestId, string filePath, int adviserId, int rmId, int branchId, string uploadType, int xmlFileTypeId)
+        public void CreateTaskRequest(int taskId, int userId, out int taskRequestId, string filePath, int adviserId, int rmId, int branchId, string uploadType, int xmlFileTypeId, int isOnline)
         {
             Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand cmdCreateTaskRequest;
@@ -41,6 +41,7 @@ namespace DaoCommon
                 db.AddOutParameter(cmdCreateTaskRequest, "@OutRequestId", DbType.Int32, 1000000);
                 db.AddInParameter(cmdCreateTaskRequest, "@FilePath", DbType.String, filePath);
                 db.AddInParameter(cmdCreateTaskRequest, "@AdvisorId", DbType.Int32, adviserId);
+                db.AddInParameter(cmdCreateTaskRequest, "@IsOnline", DbType.Int32, isOnline);
                 if (rmId == 0)
                     db.AddInParameter(cmdCreateTaskRequest, "@RmId", DbType.Int32, DBNull.Value);
                 else
