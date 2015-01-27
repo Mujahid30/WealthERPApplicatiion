@@ -776,6 +776,8 @@
                         <Items>
                             <telerik:RadPanelItem runat="server" Text="Ops" Value="Ops">
                                 <Items>
+                                <telerik:RadPanelItem runat="server" Text="Admin Home" Value="Admin Home">
+                                    </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Associates" Value="Associates">
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text="Add Associates" Value="AddAssociates">

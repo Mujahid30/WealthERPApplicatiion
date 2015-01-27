@@ -140,13 +140,13 @@ namespace BoOnlineOrderManagement
             }
             return orderIds;
         }
-        public DataSet GetSIPBookMIS(int CustomerId, int AmcCode, string OrderStatus, int systematicId, DateTime dtFrom, DateTime dtTo)
+        public DataSet GetSIPBookMIS(int CustomerId, int AmcCode, string OrderStatus, int systematicId)
         {
             DataSet dsSIPBookMIS = null;
             OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
             try
             {
-                dsSIPBookMIS = OnlineMFOrderDao.GetSIPBookMIS(CustomerId, AmcCode, OrderStatus, systematicId, dtFrom, dtTo);
+                dsSIPBookMIS = OnlineMFOrderDao.GetSIPBookMIS(CustomerId, AmcCode, OrderStatus, systematicId );
             }
             catch (BaseApplicationException Ex)
             {
@@ -168,13 +168,13 @@ namespace BoOnlineOrderManagement
             }
             return dsSIPBookMIS;
         }
-        public DataSet GetSIPSummaryBookMIS(int CustomerId, int AmcCode, DateTime dtFrom, DateTime dtTo, string systematicType)
+        public DataSet GetSIPSummaryBookMIS(int CustomerId, int AmcCode,  string systematicType)
         {
             DataSet dsSIPSummaryBookMIS = null;
             OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
             try
             {
-                dsSIPSummaryBookMIS = OnlineMFOrderDao.GetSIPSummaryBookMIS(CustomerId, AmcCode, dtFrom, dtTo, systematicType);
+                dsSIPSummaryBookMIS = OnlineMFOrderDao.GetSIPSummaryBookMIS(CustomerId, AmcCode,  systematicType);
             }
             catch (BaseApplicationException Ex)
             {

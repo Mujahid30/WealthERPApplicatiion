@@ -34,6 +34,8 @@
         </td>
     </tr>
 </table>
+<asp:UpdatePanel runat="server" ID="UpdatePanel1"><ContentTemplate>
+
 <table class="TableBackground" width="100%">
     <tr id="trCategoryAction" runat="server">
         <td valign="top" style="width: 40%" colspan="2" align="left">
@@ -123,6 +125,23 @@
                 runat="server" OnClick="lnkBtnProduct_Click" ValidationGroup="vgBtnGo"></asp:LinkButton>
         </td>
     </tr>
+      <tr>
+            <td>
+                <asp:UpdateProgress ID="UpdateProgress1" runat="server" AssociatedUpdatePanelID="UpdatePanel1">
+                    <ProgressTemplate>
+                        <table width="100%">
+                            <tr>
+                                <td align="center">
+                                    <asp:Image ID="imgProgress" ImageUrl="~/Images/ajax-loader.gif" AlternateText="Processing"
+                                        runat="server" />
+                                </td>
+                            </tr>
+                        </table>
+                        <%--<img alt="Processing" src="~/Images/ajax_loader.gif" style="width: 200px; height: 100px" />--%>
+                    </ProgressTemplate>
+                </asp:UpdateProgress>
+            </td>
+        </tr>
     <tr>
         <td>
             <div id="dvSectionHeading" runat="server" class="divSectionHeading" style="vertical-align: middle;
@@ -735,6 +754,7 @@
         </td>
     </tr>
 </table>
+</ContentTemplate></asp:UpdatePanel>
 <asp:HiddenField ID="hdnbranchId" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnbranchHeadId" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnAll" runat="server" Visible="false" />

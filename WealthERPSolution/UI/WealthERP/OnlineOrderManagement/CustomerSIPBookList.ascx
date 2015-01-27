@@ -54,7 +54,7 @@
                 <asp:DropDownList CssClass="cmbField" ID="ddlOrderstatus" runat="server" AutoPostBack="false">
                 </asp:DropDownList>
             </td>
-            <td id="tdlblFromDate" runat="server" align="right">
+          <%--  <td id="tdlblFromDate" runat="server" align="right">
                 <asp:Label class="FieldName" ID="lblFromTran" Text="From :" runat="server" />
             </td>
             <td id="tdTxtFromDate" runat="server">
@@ -105,7 +105,7 @@
                     ErrorMessage="<br/> To Date should be greater than From Date" Type="Date" Operator="GreaterThanEqual"
                     ControlToCompare="txtFrom" CssClass="cvPCG" ValidationGroup="btnViewSIP" Display="Dynamic">
                 </asp:CompareValidator>
-            </td>
+            </td>--%>
             <td id="tdBtnOrder" runat="server">
                 <asp:Button ID="btnViewSIP" runat="server" CssClass="PCGButton" Text="Go" ValidationGroup="btnViewSIP"
                     OnClick="btnViewOrder_Click" />

@@ -75,8 +75,6 @@ namespace DaoOnlineOrderManagement
                     db.AddInParameter(GetOrderBookMISCmd, "@Status", DbType.String, DBNull.Value);
                 db.AddInParameter(GetOrderBookMISCmd, "@Fromdate", DbType.DateTime, dtFrom);
                 db.AddInParameter(GetOrderBookMISCmd, "@ToDate", DbType.DateTime, dtTo);
-                db.AddInParameter(GetOrderBookMISCmd, "@StatusType", DbType.String, orderType);
-               
                 dsOrderBookMIS = db.ExecuteDataSet(GetOrderBookMISCmd);
 
             }
@@ -305,7 +303,7 @@ namespace DaoOnlineOrderManagement
             return orderIds;
 
         }
-        public DataSet GetSIPBookMIS(int CustomerId, int AmcCode, string OrderStatus, int systematicId, DateTime dtFrom, DateTime dtTo)
+        public DataSet GetSIPBookMIS(int CustomerId, int AmcCode, string OrderStatus, int systematicId)
         {
             DataSet dsSIPBookMIS;
             Database db;
@@ -327,8 +325,8 @@ namespace DaoOnlineOrderManagement
                     db.AddInParameter(GetSIPBookMISCmd, "@systematicId", DbType.Int32, systematicId);
                 else
                     db.AddInParameter(GetSIPBookMISCmd, "@systematicId", DbType.Int32, 0);
-                db.AddInParameter(GetSIPBookMISCmd, "@Fromdate", DbType.DateTime, dtFrom);
-                db.AddInParameter(GetSIPBookMISCmd, "@ToDate", DbType.DateTime, dtTo);
+                //db.AddInParameter(GetSIPBookMISCmd, "@Fromdate", DbType.DateTime, dtFrom);
+                //db.AddInParameter(GetSIPBookMISCmd, "@ToDate", DbType.DateTime, dtTo);
                 dsSIPBookMIS = db.ExecuteDataSet(GetSIPBookMISCmd);
 
             }
@@ -492,7 +490,7 @@ namespace DaoOnlineOrderManagement
             }
             return onlinemforderVo;
         }
-        public DataSet GetSIPSummaryBookMIS(int CustomerId, int AmcCode, DateTime dtFrom, DateTime dtTo,string systematicType)
+        public DataSet GetSIPSummaryBookMIS(int CustomerId, int AmcCode, string systematicType)
         {
             DataSet dsSIPSummaryBookMIS;
             Database db;
@@ -506,12 +504,6 @@ namespace DaoOnlineOrderManagement
                     db.AddInParameter(GetSIPSummaryBookMISCmd, "@AMC", DbType.Int32, AmcCode);
                 else
                     db.AddInParameter(GetSIPSummaryBookMISCmd, "@AMC", DbType.Int32, 0);
-                //if (OrderStatus != "0")
-                //    db.AddInParameter(GetSIPSummaryBookMISCmd, "@Status", DbType.String, OrderStatus);
-                //else
-                //    db.AddInParameter(GetSIPSummaryBookMISCmd, "@Status", DbType.String, DBNull.Value);
-                db.AddInParameter(GetSIPSummaryBookMISCmd, "@Fromdate", DbType.DateTime, dtFrom);
-                db.AddInParameter(GetSIPSummaryBookMISCmd, "@ToDate", DbType.DateTime, dtTo);
                 db.AddInParameter(GetSIPSummaryBookMISCmd, "@systematicType", DbType.String, systematicType);
                 GetSIPSummaryBookMISCmd.CommandTimeout = 60 * 60;
                 dsSIPSummaryBookMIS = db.ExecuteDataSet(GetSIPSummaryBookMISCmd);

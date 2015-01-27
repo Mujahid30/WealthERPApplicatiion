@@ -31,8 +31,6 @@ namespace WealthERP.OnlineOrderManagement
         UserVo userVo;
         string userType; 
         int customerId = 0;
-        DateTime fromDate;
-        DateTime toDate;
         string systematicType;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -47,9 +45,7 @@ namespace WealthERP.OnlineOrderManagement
             BindOrderStatus();
             if (!Page.IsPostBack)
                {
-                fromDate = DateTime.Now.AddMonths(-1);
-                txtFrom.SelectedDate = fromDate.Date;
-                txtTo.SelectedDate = DateTime.Now;
+               
                 if (Request.QueryString["systematicType"] != null)
                 {
                     hdnsystamaticType.Value = Request.QueryString["systematicType"].ToString();
@@ -61,10 +57,6 @@ namespace WealthERP.OnlineOrderManagement
                 int AmcCode = int.Parse(Request.QueryString["AmcCode"].ToString());
                 string orderStatus = Request.QueryString["OrderStatus"];
                 string systematictype = Request.QueryString["systematicType"].ToString();
-                string fromdate = Request.QueryString["FromDate"].ToString();
-                string todate = Request.QueryString["ToDate"].ToString();
-                txtFrom.SelectedDate = DateTime.Parse(fromdate);
-                txtTo.SelectedDate = DateTime.Parse(todate);
                 hdnAmc.Value = AmcCode.ToString();
                 BindSIPSummaryBook();
                 }
@@ -145,11 +137,8 @@ namespace WealthERP.OnlineOrderManagement
         {
             DataSet dsSIPBookMIS = new DataSet();
             DataTable dtSIPBookMIS = new DataTable();
-            if (txtFrom.SelectedDate != null)
-                fromDate = DateTime.Parse(txtFrom.SelectedDate.ToString());
-            if (txtTo.SelectedDate != null)
-                toDate = DateTime.Parse(txtTo.SelectedDate.ToString());
-            dsSIPBookMIS = OnlineMFOrderBo.GetSIPSummaryBookMIS(customerId, int.Parse(hdnAmc.Value), fromDate, toDate, hdnsystamaticType.Value);
+           
+            dsSIPBookMIS = OnlineMFOrderBo.GetSIPSummaryBookMIS(customerId, int.Parse(hdnAmc.Value), hdnsystamaticType.Value);
             dtSIPBookMIS = dsSIPBookMIS.Tables[0];
             dtSIPBookMIS = createSIPOrderBook(dsSIPBookMIS);
             if (dtSIPBookMIS.Rows.Count > 0)
@@ -465,11 +454,11 @@ namespace WealthERP.OnlineOrderManagement
                                     }
                                     if (Session["PageDefaultSetting"] != null)
                                     {
-                                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('CustomerSIPBookList','?systematicId=" + systematicId + "&AmcCode=" + ddlAMCCode.SelectedValue + "&FromDate=" + txtFrom.SelectedDate + "&ToDate=" + txtTo.SelectedDate + "&systematicType=" + systematictype + "&OrderStatus=" + orderStatus + "');", true);
+                                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('CustomerSIPBookList','?systematicId=" + systematicId + "&AmcCode=" + ddlAMCCode.SelectedValue + "&systematicType=" + systematictype + "&OrderStatus=" + orderStatus + "');", true);
                                     }
                                     else
                                     {
-                                        Response.Redirect("ControlHost.aspx?pageid=CustomerSIPBookList&systematicId=" + systematicId + "&AmcCode=" + ddlAMCCode.SelectedValue + "&FromDate=" + txtFrom.SelectedDate + "&ToDate=" + txtTo.SelectedDate + "&systematicType=" + systematictype + "&OrderStatus=" + orderStatus + "", false);
+                                        Response.Redirect("ControlHost.aspx?pageid=CustomerSIPBookList&systematicId=" + systematicId + "&AmcCode=" + ddlAMCCode.SelectedValue + "&systematicType=" + systematictype + "&OrderStatus=" + orderStatus + "", false);
                                         //Response.Redirect("ControlHost.aspx?pageid=CustomerSIPBookList&systematicId=" + systematicId + "&AccountId=" + AccountId + "&schemeplanCode=" + schemeplanCode + "&IsSourceAA=" + IsSourceAA + "&Amount=" + Amount + "&SIPStartDate=" + SIPStartDate + "", false);
                                         //Response.Redirect("ControlHost.aspx?pageid=CustomerSIPBookList&systematicId=" + systematicId + "&OrderStatus=" + orderStatus + "", false);
                                     }
@@ -491,11 +480,11 @@ namespace WealthERP.OnlineOrderManagement
             string systematictype= Request.QueryString["systematicType"].ToString();
             if (Session["PageDefaultSetting"]!= null)
             {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('CustomerSIPBookList','?systematicId=" + systematicId + "&AmcCode=" + ddlAMCCode.SelectedValue + "&FromDate=" + txtFrom.SelectedDate + "&ToDate=" + txtTo.SelectedDate + "&systematicType=" + systematictype + "&IsPageDefaultSetting=1" + "');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('CustomerSIPBookList','?systematicId=" + systematicId + "&AmcCode=" + ddlAMCCode.SelectedValue + "&systematicType=" + systematictype + "&IsPageDefaultSetting=1" + "');", true);
             }
             else
             {
-                Response.Redirect("ControlHost.aspx?pageid=CustomerSIPBookList&systematicId=" + systematicId + "&AmcCode=" + ddlAMCCode.SelectedValue + "&FromDate=" + txtFrom.SelectedDate + "&ToDate=" + txtTo.SelectedDate + "&systematicType=" + systematictype + "", false);
+                Response.Redirect("ControlHost.aspx?pageid=CustomerSIPBookList&systematicId=" + systematicId + "&AmcCode=" + ddlAMCCode.SelectedValue + "&systematicType=" + systematictype + "", false);
             }
             //  ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerSIPBookList", "loadcontrol('CustomerSIPBookList');", true);
             // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerSIPBookList", "loadcontrol('CustomerSIPBookList','action=viewIsssueList&issueNo=" + issueNo + "&type=" + ddlType.SelectedValue + "&date=" + DateTime.Now + "&product=" + ddlProduct.SelectedValue + "');", true);

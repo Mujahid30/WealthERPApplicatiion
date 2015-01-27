@@ -238,7 +238,7 @@
         </td>
     </tr>
 </table>
-<table width="100%" class="TableBackground">
+<table width="100%" class="TableBackground" visible="false" id="tblMail" runat="server">
     <tr>
         <td class="HeaderCell">
             <img src="../Images/Telerik/mailNewIcon.png" height="25px" width="25px" style="float: right;
@@ -248,7 +248,7 @@
         </td>
     </tr>
 </table>
-<table width="100%">
+<table width="100%" visible="false" id="tblMessage" runat="server">
     <tr>
         <td colspan="3">
             <div class="panel">

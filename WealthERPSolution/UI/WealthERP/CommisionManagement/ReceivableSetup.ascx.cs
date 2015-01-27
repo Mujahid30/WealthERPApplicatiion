@@ -3356,7 +3356,7 @@ namespace WealthERP.Receivable
                     ruleid += rbtnListRate.SelectedValue + ",";
 
             }
-            if (Request.QueryString["StructureId"] != null)
+            if (Request.QueryString["StructureId"] != null && ruleid !=string.Empty)
             {
                 associateid = commisionReceivableBo.RuleAssociate(ruleid);
 

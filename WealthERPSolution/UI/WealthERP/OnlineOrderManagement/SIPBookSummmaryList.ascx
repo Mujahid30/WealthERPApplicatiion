@@ -64,58 +64,7 @@
                     <%--<asp:ListItem Text="All" Value="0"></asp:ListItem>--%>
                 </asp:DropDownList>
             </td>
-            <td id="tdlblFromDate" runat="server" align="right">
-                <asp:Label class="FieldName" ID="lblFromTran" Text="From :" runat="server" />
-            </td>
-            <td id="tdTxtFromDate" runat="server">
-                <telerik:RadDatePicker ID="txtFrom" CssClass="txtField" runat="server" Culture="English (United States)"
-                    Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
-                    <Calendar ID="Calendar1" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
-                        ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
-                    </Calendar>
-                    <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                    <DateInput ID="DateInput1" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
-                    </DateInput>
-                </telerik:RadDatePicker>
-                <div id="dvTransactionDate" runat="server" class="dvInLine">
-                    <span id="Span1" class="spnRequiredField">*</span>
-                    <asp:RequiredFieldValidator ID="rfvtxtTransactionDate" ControlToValidate="txtFrom"
-                        ErrorMessage="<br />Please select a From Date" CssClass="cvPCG" Display="Dynamic"
-                        runat="server" InitialValue="">
-                    </asp:RequiredFieldValidator>
-                    <asp:CompareValidator ID="CompareValidator9" runat="server" ErrorMessage="<br />The date format should be dd/mm/yyyy"
-                        Type="Date" ControlToValidate="txtFrom" CssClass="cvPCG" Operator="DataTypeCheck"
-                        Display="Dynamic"></asp:CompareValidator>
-                </div>
-            </td>
-            <td id="tdlblToDate" runat="server">
-                <asp:Label ID="lblToTran" Text="To :" CssClass="FieldName" runat="server" />
-            </td>
-            <td id="tdTxtToDate" runat="server">
-                <telerik:RadDatePicker ID="txtTo" CssClass="txtField" runat="server" Culture="English (United States)"
-                    Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
-                    <Calendar def ID="Calendar2" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
-                        ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
-                    </Calendar>
-                    <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                    <DateInput ID="DateInput2" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
-                    </DateInput>
-                </telerik:RadDatePicker>
-                <div id="Div1" runat="server" class="dvInLine">
-                    <span id="Span2" class="spnRequiredField">*</span>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtTo"
-                        ErrorMessage="<br />Please select a To Date" CssClass="cvPCG" Display="Dynamic"
-                        runat="server" InitialValue="">
-                    </asp:RequiredFieldValidator>
-                    <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="<br />The date format should be dd/mm/yyyy"
-                        Type="Date" ControlToValidate="txtTo" CssClass="cvPCG" Operator="DataTypeCheck"
-                        Display="Dynamic"></asp:CompareValidator>
-                </div>
-                <asp:CompareValidator ID="CompareValidator14" runat="server" ControlToValidate="txtTo"
-                    ErrorMessage="<br/> To Date should be greater than From Date" Type="Date" Operator="GreaterThanEqual"
-                    ControlToCompare="txtFrom" CssClass="cvPCG" ValidationGroup="btnViewSIP" Display="Dynamic">
-                </asp:CompareValidator>
-            </td>
+           
             <td id="tdBtnOrder" runat="server">
                 <asp:Button ID="btnViewSIP" runat="server" CssClass="PCGButton" Text="Go" ValidationGroup="btnViewSIP"
                     OnClick="btnViewOrder_Click" />

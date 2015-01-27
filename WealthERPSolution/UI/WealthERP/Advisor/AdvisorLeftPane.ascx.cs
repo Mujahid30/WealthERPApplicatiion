@@ -261,10 +261,11 @@ namespace WealthERP.Advisor
                 }
                 else
                 {
-                    //RadPanelBar1.FindItemByValue("Admin Home").Visible = false;
+                    //RadPanelBar1.FindItemByValue("Admin Home").Visible = true;
                     RadPanelBar4.FindItemByValue("Ops").Expanded = true;
-                    RadPanelBar4.FindItemByValue("Customer").Selected = true;
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserCustomer','login');", true);
+                    //RadPanelBar4.FindItemByValue("Customer").Selected = true;
+                    RadPanelBar1.FindItemByValue("Admin Home").Selected = true;
+                    //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserCustomer','login');", true);
                 }
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('AdvisorLeftPane');", true);
             }
@@ -293,7 +294,7 @@ namespace WealthERP.Advisor
             else if (userVo.RoleList.Contains("Ops"))
             {
                 RadPanelBar4.FindItemByValue("Ops").Expanded = true;
-                RadPanelBar4.FindItemByValue("Customer").Selected = true;
+                RadPanelBar4.FindItemByValue("Admin Home").Selected = true;
             }
             else if (userVo.RoleList.Contains("Research"))
             {
@@ -548,7 +549,7 @@ namespace WealthERP.Advisor
             hdfSession.Value = "Admin";
             try
             {
-                
+
                 if (e.Item.Value == "Manage Lookups")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ManageLookups','login');", true);
@@ -1818,6 +1819,10 @@ namespace WealthERP.Advisor
                 if (e.Item.Value == "Manage Lookups")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ManageLookups','login');", true);
+                }
+                else if (e.Item.Value == "Admin Home")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('IFAAdminMainDashboard','login');", true);
                 }
                 else if (e.Item.Value == "54EC_ORDER_bOOK")
                 {
@@ -3917,8 +3922,8 @@ namespace WealthERP.Advisor
         }
         public void imgButton_OnClick(object sender, ImageClickEventArgs e)
         {
-            int orderId=0,isonline=0;string productcode=string.Empty;
-            OnlineOrderBackOfficeBo OnlineOrderBackOfficeBo=new OnlineOrderBackOfficeBo();
+            int orderId = 0, isonline = 0; string productcode = string.Empty;
+            OnlineOrderBackOfficeBo OnlineOrderBackOfficeBo = new OnlineOrderBackOfficeBo();
             DataTable dtOrderNo = OnlineOrderBackOfficeBo.SearchOnPRoduct(int.Parse(txtOrderNo.Text));
             foreach (DataRow dr in dtOrderNo.Rows)
             {

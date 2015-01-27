@@ -45,9 +45,9 @@ namespace WealthERP.OnlineOrderManagement
             //lbBack.Attributes.Add("onClick", "javascript:history.back(); return false;");
             if (!Page.IsPostBack)
             {
-                fromDate = DateTime.Now.AddMonths(-1);
-                txtFrom.SelectedDate = fromDate.Date;
-                txtTo.SelectedDate = DateTime.Now;
+                //fromDate = DateTime.Now.AddMonths(-1);
+                //txtFrom.SelectedDate = fromDate.Date;
+                //txtTo.SelectedDate = DateTime.Now;
                 BindLink();
 
             }
@@ -80,11 +80,11 @@ namespace WealthERP.OnlineOrderManagement
                 }
                 //string fromdate = "01-01-1990";
                 //txtFrom.SelectedDate = DateTime.Parse(fromdate);  
-                string fromdate = Request.QueryString["FromDate"].ToString();
+                //string fromdate = Request.QueryString["FromDate"].ToString();
                 //string todate = Request.QueryString["ToDate"].ToString();
-                txtFrom.SelectedDate = DateTime.Parse(fromdate);
+                //txtFrom.SelectedDate = DateTime.Parse(fromdate);
                 hdnAmc.Value = "0";
-                BindSIPBook(DateTime.Parse(fromdate), DateTime.Now);
+                BindSIPBook();
                 lbBack.Visible = true;
             }
         }
@@ -92,11 +92,8 @@ namespace WealthERP.OnlineOrderManagement
         protected void btnViewOrder_Click(object sender, EventArgs e)
         {
             SetParameter();
-            if (txtFrom.SelectedDate != null)
-                fromDate = DateTime.Parse(txtFrom.SelectedDate.ToString());
-            if (txtTo.SelectedDate != null)
-                toDate = DateTime.Parse(txtTo.SelectedDate.ToString());
-            BindSIPBook(fromDate, toDate);
+            
+            BindSIPBook();
         }
 
         /// <summary>
@@ -163,7 +160,7 @@ namespace WealthERP.OnlineOrderManagement
         /// <summary>
         /// Get Order Book MIS
         /// </summary>
-        protected void BindSIPBook(DateTime fromDate, DateTime toDate)
+        protected void BindSIPBook()
         {
             DataSet dsSIPBookMIS = new DataSet();
             DataTable dtSIPBookMIS = new DataTable();
@@ -174,11 +171,11 @@ namespace WealthERP.OnlineOrderManagement
             systematicId = Convert.ToInt32(ViewState["systematicId"]);
             if (ViewState["OrderStatus"] != null)
             {
-                dsSIPBookMIS = OnlineMFOrderBo.GetSIPBookMIS(customerId, int.Parse(hdnAmc.Value), ViewState["OrderStatus"].ToString(), systematicId, fromDate, toDate);
+                dsSIPBookMIS = OnlineMFOrderBo.GetSIPBookMIS(customerId, int.Parse(hdnAmc.Value), ViewState["OrderStatus"].ToString(), systematicId);
             }
             else
             {
-                dsSIPBookMIS = OnlineMFOrderBo.GetSIPBookMIS(customerId, int.Parse(hdnAmc.Value), hdnOrderStatus.Value, systematicId, fromDate, toDate);
+                dsSIPBookMIS = OnlineMFOrderBo.GetSIPBookMIS(customerId, int.Parse(hdnAmc.Value), hdnOrderStatus.Value, systematicId);
             }
             dtSIPBookMIS = dsSIPBookMIS.Tables[0];
             if (dtSIPBookMIS.Rows.Count > 0)
@@ -307,8 +304,8 @@ namespace WealthERP.OnlineOrderManagement
             {
                 int systematicId = int.Parse(Request.QueryString["systematicId"].ToString());
                 int AmcCode = int.Parse(Request.QueryString["AmcCode"].ToString());
-                string fromdate = Request.QueryString["FromDate"].ToString();
-                string todate = Request.QueryString["ToDate"].ToString();
+                //string fromdate = Request.QueryString["FromDate"].ToString();
+                //string todate = Request.QueryString["ToDate"].ToString();
                 string systematictype = Request.QueryString["systematicType"].ToString();
                 ViewState["systematicId"] = int.Parse(systematicId.ToString());
                 string OrderStatus = string.Empty;
@@ -325,11 +322,11 @@ namespace WealthERP.OnlineOrderManagement
 
                 if (Session["PageDefaultSetting"] != null)
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('SIPBookSummmaryList','?systematicId=" + systematicId + "&OrderStatus=" + OrderStatus + "&AmcCode=" + AmcCode + "&FromDate=" + fromdate + "&ToDate=" + todate + "&systematicType=" + systematictype + "');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('SIPBookSummmaryList','?systematicId=" + systematicId + "&OrderStatus=" + OrderStatus + "&AmcCode=" + AmcCode + "&systematicType=" + systematictype + "');", true);
                 }
                 else
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "SIPBookSummmaryList", "loadcontrol('SIPBookSummmaryList','?systematicId=" + systematicId + "&OrderStatus=" + OrderStatus + "&AmcCode=" + AmcCode + "&FromDate=" + fromdate + "&ToDate=" + todate + "&systematicType=" + systematictype + "');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "SIPBookSummmaryList", "loadcontrol('SIPBookSummmaryList','?systematicId=" + systematicId + "&OrderStatus=" + OrderStatus + "&AmcCode=" + AmcCode + "&systematicType=" + systematictype + "');", true);
                 }
             }
         }
