@@ -32,7 +32,7 @@ namespace WealthERP.Base
         public const string ExtractTypeModification = "CM";
         public const string ExtractTypeMFRecon = "MFR";
         public const string ExtractTypeProfileAndFolio = "PF";
-
+        public const string ExtractTypeMFTransactionNew = "MFTN";
 
 
         // External File Types
