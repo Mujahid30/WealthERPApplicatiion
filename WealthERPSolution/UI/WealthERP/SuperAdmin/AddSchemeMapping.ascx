@@ -117,19 +117,20 @@
                                 <asp:ListItem Text="UnMapped" Value="2">UnMapped</asp:ListItem>
                             </asp:DropDownList>
                         </td>
-                         <td>
+                        <td>
                         </td>
-                         <td align="left">
+                        <td align="left">
                             <asp:Button ID="btnGo" runat="server" OnClick="btnGo_Click" Text="Go" CssClass="PCGButton"
                                 ValidationGroup="btnGo" />
                         </td>
-                        </tr>
-                         <tr id="trExternalsource" runat="server" visible="false">
+                    </tr>
+                    <tr id="trExternalsource" runat="server" visible="false">
                         <td align="right">
                             <asp:Label ID="lblExternalType" runat="server" Text="External Source:" CssClass="FieldName"></asp:Label>
                         </td>
                         <td align="left">
-                            <asp:DropDownList ID="ddlExternalSource" runat="server" CssClass="cmbField" AutoPostBack="false" Width="200px">
+                            <asp:DropDownList ID="ddlExternalSource" runat="server" CssClass="cmbField" AutoPostBack="false"
+                                Width="200px">
                                 <asp:ListItem Text="Select" Value="Select">Select</asp:ListItem>
                                 <asp:ListItem Text="CAMS" Value="CAMS"></asp:ListItem>
                                 <%-- <asp:ListItem Text="Deutsche" Value="Deutsche">
@@ -142,9 +143,6 @@
                                 </asp:ListItem>
                             </asp:DropDownList>
                         </td>
-                    
-                       
-                       
                         <td>
                         </td>
                         <td>
@@ -193,8 +191,6 @@
                             </asp:DropDownList>
                         </td>
                     </tr>
-                   
-                    
                 </table>
             </td>
         </tr>
@@ -422,7 +418,7 @@
             EnableHeaderContextMenu="true" EnableHeaderContextFilterMenu="true" AllowFilteringByColumn="true">
             <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="ExistMFInvestlist">
             </ExportSettings>
-            <MasterTableView DataKeyNames="ClassificationCode" EditMode="PopUp" CommandItemDisplay="Top"
+            <MasterTableView DataKeyNames="ClassificationCode,WKDTM_TransactionHead,Transaction_Type,Description,WKDTM_TransactionTypeFlag" EditMode="PopUp" CommandItemDisplay="Top"
                 CommandItemSettings-ShowRefreshButton="false" Width="90%" CommandItemSettings-AddNewRecordText="New Karvy Data For Mapping">
                 <%-- CommandItemSettings-AddNewRecordText="Add New Scheme For Mapping"--%>
                 <Columns>
@@ -578,8 +574,9 @@
             EnableHeaderContextMenu="true" EnableHeaderContextFilterMenu="true" AllowFilteringByColumn="true">
             <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="ExistMFInvestlist">
             </ExportSettings>
-            <MasterTableView DataKeyNames="ClassificationCode" EditMode="PopUp" CommandItemDisplay="Top"
-                CommandItemSettings-ShowRefreshButton="false" Width="75%" CommandItemSettings-AddNewRecordText="New Cams Data For Mapping">
+            <MasterTableView DataKeyNames="ClassificationCode,Transaction_Type,Description" EditMode="PopUp"
+                CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false" Width="75%"
+                CommandItemSettings-AddNewRecordText="New Cams Data For Mapping">
                 <Columns>
                     <telerik:GridEditCommandColumn EditText="Edit" UniqueName="editColumn" CancelText="Cancel"
                         HeaderStyle-Width="80px" UpdateText="Edit">
@@ -706,7 +703,7 @@
             EnableHeaderContextMenu="true" EnableHeaderContextFilterMenu="true" AllowFilteringByColumn="true">
             <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="ExistMFInvestlist">
             </ExportSettings>
-            <MasterTableView DataKeyNames="ClassificationCode" EditMode="PopUp" CommandItemDisplay="Top"
+            <MasterTableView DataKeyNames="ClassificationCode,Transaction_Type" EditMode="PopUp" CommandItemDisplay="Top"
                 CommandItemSettings-ShowRefreshButton="false" Width="100%" CommandItemSettings-AddNewRecordText="New Templeton Data For Mapping">
                 <Columns>
                     <telerik:GridEditCommandColumn EditText="Edit" UniqueName="editColumn" CancelText="Cancel"

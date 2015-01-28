@@ -3385,13 +3385,13 @@ namespace BoCustomerProfiling
             }
             return isInserted;
         }
-        public bool EditDataTranslateMappingDetalis(string TransactionHead, string TransactionDescription, string TransactionType, string TransactionTypeFlag, string TransactionClassificationCode)
+        public bool EditDataTranslateMappingDetalis(string prevTransactionHead,string prevTransactionDescription,string prevTransactionType,string prevTransactionTypeFlag,string TransactionHead, string TransactionDescription, string TransactionType, string TransactionTypeFlag, string TransactionClassificationCode)
         {
             bool isUpdated = false;
             CustomerDao customerDao = new CustomerDao();
             try
             {
-                isUpdated = customerDao.EditDataTranslateMappingDetalis(TransactionHead, TransactionDescription, TransactionType, TransactionTypeFlag, TransactionClassificationCode);
+                isUpdated = customerDao.EditDataTranslateMappingDetalis(prevTransactionHead, prevTransactionDescription, prevTransactionType, prevTransactionTypeFlag, TransactionHead, TransactionDescription, TransactionType, TransactionTypeFlag, TransactionClassificationCode);
             }
             catch (BaseApplicationException Ex)
             {
@@ -3413,13 +3413,13 @@ namespace BoCustomerProfiling
             }
             return isInserted;
         }
-        public bool EditCamsDataTranslateMappingDetalis(string TransactionType, string TransactionDescription, string TransactionClassificationCode)
+        public bool EditCamsDataTranslateMappingDetalis(string prevTransactionType,string prevTransactionDescription,string TransactionType, string TransactionDescription, string TransactionClassificationCode)
         {
             bool isUpdated = false;
             CustomerDao customerDao = new CustomerDao();
             try
             {
-                isUpdated = customerDao.EditCamsDataTranslateMappingDetalis(TransactionType, TransactionDescription, TransactionClassificationCode);
+                isUpdated = customerDao.EditCamsDataTranslateMappingDetalis(prevTransactionType, prevTransactionDescription,TransactionType, TransactionDescription, TransactionClassificationCode);
             }
             catch (BaseApplicationException Ex)
             {
@@ -3442,13 +3442,13 @@ namespace BoCustomerProfiling
             }
             return isInserted;
         }
-        public bool EditTempletonDataTranslateMappingDetalis(string TransactionType, string TransactionClassificationCode)
+        public bool EditTempletonDataTranslateMappingDetalis( string prevTransactionType,string TransactionType, string TransactionClassificationCode)
         {
             bool isUpdated = false;
             CustomerDao customerDao = new CustomerDao();
             try
             {
-                isUpdated = customerDao.EditTempletonDataTranslateMappingDetalis(TransactionType, TransactionClassificationCode);
+                isUpdated = customerDao.EditTempletonDataTranslateMappingDetalis(prevTransactionType,TransactionType, TransactionClassificationCode);
             }
             catch (BaseApplicationException Ex)
             {

@@ -6224,7 +6224,7 @@ namespace DaoCustomerProfiling
             }
             return isInserted;
         }
-        public bool EditDataTranslateMappingDetalis(string TransactionHead, string TransactionDescription, string TransactionType, string TransactionTypeFlag, string TransactionClassificationCode)
+        public bool EditDataTranslateMappingDetalis(string prevTransactionHead, string prevTransactionDescription, string prevTransactionType, string prevTransactionTypeFlag, string TransactionHead, string TransactionDescription, string TransactionType, string TransactionTypeFlag, string TransactionClassificationCode)
         {
             bool isUpdated = false;
             Database db;
@@ -6233,6 +6233,22 @@ namespace DaoCustomerProfiling
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmdInsertDataTranslateMappingDetalis = db.GetStoredProcCommand("SP_EditKarvyDataTranslationMappingDetails");
+                if (TransactionHead != null)
+                    db.AddInParameter(cmdInsertDataTranslateMappingDetalis, "@WKDTM_PrevTransactionHead", DbType.String, prevTransactionHead);
+                else
+                    db.AddInParameter(cmdInsertDataTranslateMappingDetalis, "@WKDTM_PrevTransactionHead", DbType.String, DBNull.Value);
+                if (TransactionDescription != null)
+                    db.AddInParameter(cmdInsertDataTranslateMappingDetalis, "@WKDTM_PrevTransactionDescription", DbType.String, prevTransactionDescription);
+                else
+                    db.AddInParameter(cmdInsertDataTranslateMappingDetalis, "@WKDTM_PrevTransactionDescription", DbType.String, DBNull.Value);
+                if (TransactionType != null)
+                    db.AddInParameter(cmdInsertDataTranslateMappingDetalis, "@WKDTM_PrevTransactionType", DbType.String, prevTransactionType);
+                else
+                    db.AddInParameter(cmdInsertDataTranslateMappingDetalis, "@WKDTM_PrevTransactionType", DbType.String, DBNull.Value);
+                if (TransactionTypeFlag != null)
+                    db.AddInParameter(cmdInsertDataTranslateMappingDetalis, "@WKDTM_PrevTransactionTypeFlag", DbType.String, prevTransactionTypeFlag);
+                else
+                    db.AddInParameter(cmdInsertDataTranslateMappingDetalis, "@WKDTM_PrevTransactionTypeFlag", DbType.String, DBNull.Value);
                 if (TransactionHead != null)
                     db.AddInParameter(cmdInsertDataTranslateMappingDetalis, "@WKDTM_TransactionHead", DbType.String, TransactionHead);
                 else
@@ -6283,7 +6299,7 @@ namespace DaoCustomerProfiling
             }
             return isInserted;
         }
-        public bool EditCamsDataTranslateMappingDetalis(string TransactionType, string TransactionDescription, string TransactionClassificationCode)
+        public bool EditCamsDataTranslateMappingDetalis(string prevTransactionType, string prevTransactionDescription, string TransactionType, string TransactionDescription, string TransactionClassificationCode)
         {
             bool isUpdated = false;
             Database db;
@@ -6292,6 +6308,14 @@ namespace DaoCustomerProfiling
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmdInsertDataTranslateMappingDetalis = db.GetStoredProcCommand("SP_EditCamsDataTranslationMappingDetails");
+                if (TransactionType != null)
+                    db.AddInParameter(cmdInsertDataTranslateMappingDetalis, "@WCDTM_PrevTransaction_type", DbType.String, prevTransactionType);
+                else
+                    db.AddInParameter(cmdInsertDataTranslateMappingDetalis, "@WCDTM_PrevTransaction_type", DbType.String, DBNull.Value);
+                if (TransactionDescription != null)
+                    db.AddInParameter(cmdInsertDataTranslateMappingDetalis, "@WCDTM_PrevTransactionNature", DbType.String, prevTransactionDescription);
+                else
+                    db.AddInParameter(cmdInsertDataTranslateMappingDetalis, "@WCDTM_PrevTransactionNature", DbType.String, DBNull.Value);
                 if (TransactionType != null)
                     db.AddInParameter(cmdInsertDataTranslateMappingDetalis, "@WCDTM_Transaction_type", DbType.String, TransactionType);
                 else
@@ -6333,7 +6357,7 @@ namespace DaoCustomerProfiling
             }
             return isInserted;
         }
-        public bool EditTempletonDataTranslateMappingDetalis(string TransactionType, string TransactionClassificationCode)
+        public bool EditTempletonDataTranslateMappingDetalis(string prevTransactionType,string TransactionType, string TransactionClassificationCode)
         {
             bool isUpdated = false;
             Database db;
@@ -6342,6 +6366,10 @@ namespace DaoCustomerProfiling
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmdInsertDataTranslateMappingDetalis = db.GetStoredProcCommand("SP_EditTempletonDataTranslationMappingDetails");
+                if (TransactionType != null)
+                    db.AddInParameter(cmdInsertDataTranslateMappingDetalis, "@WTTTDTM_PrevTR_TYPE", DbType.String, prevTransactionType);
+                else
+                    db.AddInParameter(cmdInsertDataTranslateMappingDetalis, "@WTTTDTM_PrevTR_TYPE", DbType.String, DBNull.Value);
                 if (TransactionType != null)
                     db.AddInParameter(cmdInsertDataTranslateMappingDetalis, "@WTTTDTM_TR_TYPE", DbType.String, TransactionType);
                 else

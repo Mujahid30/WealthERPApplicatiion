@@ -411,12 +411,16 @@ namespace WealthERP.SuperAdmin
                 TextBox txtDescription = (TextBox)e.Item.FindControl("txtDescription");
                 TextBox txtType = (TextBox)e.Item.FindControl("txttransactiontype");
                 TextBox txtflag = (TextBox)e.Item.FindControl("txtsourceflag");
+                string prevTransactionType = gvCamsKarvy.MasterTableView.DataKeyValues[e.Item.ItemIndex]["Transaction_Type"].ToString();
+                string prevTransactionDescription = gvCamsKarvy.MasterTableView.DataKeyValues[e.Item.ItemIndex]["Description"].ToString();
+                string prevTransactionHead = gvCamsKarvy.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WKDTM_TransactionHead"].ToString();
+                string prevTransactionTypeFlag = gvCamsKarvy.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WKDTM_TransactionTypeFlag"].ToString();
                 TransactionHead = txtHead.Text;
                 TransactionDescription = txtDescription.Text;
                 TransactionType = txtType.Text;
                 TransactionTypeFlag = txtflag.Text;
                 TransactionClassificationCode = txtCode.SelectedValue.ToString();
-                isUpdated = customerBo.EditDataTranslateMappingDetalis(TransactionHead, TransactionDescription, TransactionType, TransactionTypeFlag, TransactionClassificationCode);
+                isUpdated = customerBo.EditDataTranslateMappingDetalis(prevTransactionHead, prevTransactionDescription, prevTransactionType, prevTransactionTypeFlag,TransactionHead, TransactionDescription, TransactionType, TransactionTypeFlag, TransactionClassificationCode);
 
             }
             //if (e.CommandName == RadGrid.DeleteCommandName)
@@ -488,11 +492,13 @@ namespace WealthERP.SuperAdmin
                 GridEditableItem gridEditableItem = (GridEditableItem)e.Item;           
                 DropDownList txtCode = (DropDownList)e.Item.FindControl("ddlclassificationCode");
                 TextBox txtDescription = (TextBox)e.Item.FindControl("txtDescription");
-                TextBox txtType = (TextBox)e.Item.FindControl("txttransactiontype");              
+                TextBox txtType = (TextBox)e.Item.FindControl("txttransactiontype");
+                string prevTransactionType = gvCams.MasterTableView.DataKeyValues[e.Item.ItemIndex]["Transaction_Type"].ToString();
+                string prevTransactionDescription = gvCams.MasterTableView.DataKeyValues[e.Item.ItemIndex]["Description"].ToString();
                 TransactionDescription = txtDescription.Text;
                 TransactionType = txtType.Text;               
                 TransactionClassificationCode = txtCode.SelectedValue.ToString();
-                isUpdated = customerBo.EditCamsDataTranslateMappingDetalis(TransactionType,TransactionDescription,TransactionClassificationCode);
+                isUpdated = customerBo.EditCamsDataTranslateMappingDetalis(prevTransactionType, prevTransactionDescription,TransactionType, TransactionDescription, TransactionClassificationCode);
 
             }
             //if (e.CommandName == RadGrid.DeleteCommandName)
@@ -517,7 +523,7 @@ namespace WealthERP.SuperAdmin
                 GridEditableItem gridEditableItem = (GridEditableItem)e.Item;               
                 DropDownList txtCode = (DropDownList)e.Item.FindControl("ddlclassificationCode");
                 TextBox txtDescription = (TextBox)e.Item.FindControl("txtDescription");
-                TextBox txtType = (TextBox)e.Item.FindControl("txttransactiontype");                          
+                TextBox txtType = (TextBox)e.Item.FindControl("txttransactiontype");
                 TransactionDescription = txtDescription.Text;
                 TransactionType = txtType.Text;               
                 TransactionClassificationCode = txtCode.SelectedValue.ToString();
@@ -560,10 +566,11 @@ namespace WealthERP.SuperAdmin
                 bool isUpdated = false;
                 GridEditableItem gridEditableItem = (GridEditableItem)e.Item;           
                 DropDownList txtCode = (DropDownList)e.Item.FindControl("ddlclassificationCode");
-                TextBox txtType = (TextBox)e.Item.FindControl("txttransactiontype");              
+                TextBox txtType = (TextBox)e.Item.FindControl("txttransactiontype");
+                string prevTransactionType = gvTempleton.MasterTableView.DataKeyValues[e.Item.ItemIndex]["Transaction_Type"].ToString();         
                 TransactionType = txtType.Text;               
                 TransactionClassificationCode = txtCode.SelectedValue.ToString();
-                isUpdated = customerBo.EditTempletonDataTranslateMappingDetalis(TransactionType, TransactionClassificationCode);
+                isUpdated = customerBo.EditTempletonDataTranslateMappingDetalis(prevTransactionType,TransactionType, TransactionClassificationCode);
 
             }
             //if (e.CommandName == RadGrid.DeleteCommandName)
