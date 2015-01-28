@@ -232,6 +232,12 @@
                         </asp:LinkButton>
                     </ItemTemplate>
                 </telerik:GridTemplateColumn>
+                <telerik:GridBoundColumn HeaderStyle-Width="120px" HeaderText="Rule Name"
+                    DataField="ACSR_CommissionStructureRuleName" UniqueName="ACSR_CommissionStructureRuleName" 
+                    SortExpression="ACSR_CommissionStructureRuleName" AutoPostBackOnFilter="true" AllowFiltering="true"
+                    ShowFilterIcon="false" CurrentFilterFunction="EqualTo">
+                    <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn HeaderStyle-Width="120px" HeaderText="Validity Start Date"
                     DataField="ACSTSM_ValidityStart" UniqueName="ACSTSM_ValidityStart" DataFormatString="{0:dd/MM/yyyy}"
                     SortExpression="ACSTSM_ValidityStart" AutoPostBackOnFilter="true" AllowFiltering="true"
@@ -261,6 +267,16 @@
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Payable Brokerage Unit" DataField="PaybleUnit"
                     UniqueName="PaybleUnit" SortExpression="PaybleUnit" AutoPostBackOnFilter="true" AllowFiltering="true"
+                    ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                 <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Service TaxValue" DataField="ACSR_ServiceTaxValue"
+                    UniqueName="ACSR_ServiceTaxValue" SortExpression="ACSR_ServiceTaxValue" AutoPostBackOnFilter="true" AllowFiltering="true"
+                    ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                 <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="TDS Value" DataField="ACSR_ReducedValue"
+                    UniqueName="ACSR_ReducedValue" SortExpression="ACSR_ReducedValue" AutoPostBackOnFilter="true" AllowFiltering="true"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
