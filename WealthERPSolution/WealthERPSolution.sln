@@ -320,9 +320,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ProductUpload", "ProductUpl
 EndProject
 Project("{D183A3D8-5FD8-494B-B014-37F57B35E655}") = "WERP_SBI_ProfileUpload", "WERP_BI\ETL\ProfileFolioTransaction\WERP_SBI_ProfileUpload\WERP_SBI_ProfileUpload.dtproj", "{07113815-1C96-4534-AC10-A1B6C856F6FD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WERP_SBI_ProfileUpload_Client", "WERP_BI\ETL\ProfileFolioTransaction\WERP_SBI_ProfileUpload_Client\WERP_SBI_ProfileUpload_Client.csproj", "{CDBDEA87-CBD4-4CC7-BE7F-0F96508E0590}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 119
+		SccNumberOfProjects = 120
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = http://192.168.0.2:8080/tfs/Ampsys%20WealthERP
 		SccLocalPath0 = .
@@ -798,6 +800,10 @@ Global
 		SccProjectTopLevelParentUniqueName118 = WealthERPSolution.sln
 		SccProjectName118 = WERP_BI/ETL/ProfileFolioTransaction/WERP_SBI_ProfileUpload
 		SccLocalPath118 = WERP_BI\\ETL\\ProfileFolioTransaction\\WERP_SBI_ProfileUpload
+		SccProjectUniqueName119 = WERP_BI\\ETL\\ProfileFolioTransaction\\WERP_SBI_ProfileUpload_Client\\WERP_SBI_ProfileUpload_Client.csproj
+		SccProjectTopLevelParentUniqueName119 = WealthERPSolution.sln
+		SccProjectName119 = WERP_BI/ETL/ProfileFolioTransaction/WERP_SBI_ProfileUpload_Client
+		SccLocalPath119 = WERP_BI\\ETL\\ProfileFolioTransaction\\WERP_SBI_ProfileUpload_Client
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -1519,6 +1525,12 @@ Global
 		{07113815-1C96-4534-AC10-A1B6C856F6FD}.Development|Any CPU.Build.0 = Development
 		{07113815-1C96-4534-AC10-A1B6C856F6FD}.Release|Any CPU.ActiveCfg = Development
 		{07113815-1C96-4534-AC10-A1B6C856F6FD}.Release|Any CPU.Build.0 = Development
+		{CDBDEA87-CBD4-4CC7-BE7F-0F96508E0590}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDBDEA87-CBD4-4CC7-BE7F-0F96508E0590}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDBDEA87-CBD4-4CC7-BE7F-0F96508E0590}.Development|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDBDEA87-CBD4-4CC7-BE7F-0F96508E0590}.Development|Any CPU.Build.0 = Debug|Any CPU
+		{CDBDEA87-CBD4-4CC7-BE7F-0F96508E0590}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDBDEA87-CBD4-4CC7-BE7F-0F96508E0590}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1659,5 +1671,6 @@ Global
 		{196ED207-B06B-4730-A5C1-C3EB6771D3A2} = {C0CF9A99-8283-4074-A477-5A653D891C2A}
 		{1241213C-227F-4A53-89B8-11365E1FF0C7} = {C0CF9A99-8283-4074-A477-5A653D891C2A}
 		{07113815-1C96-4534-AC10-A1B6C856F6FD} = {2061F06B-7FF4-4AA2-97AA-ED4918852CE1}
+		{CDBDEA87-CBD4-4CC7-BE7F-0F96508E0590} = {2061F06B-7FF4-4AA2-97AA-ED4918852CE1}
 	EndGlobalSection
 EndGlobal
