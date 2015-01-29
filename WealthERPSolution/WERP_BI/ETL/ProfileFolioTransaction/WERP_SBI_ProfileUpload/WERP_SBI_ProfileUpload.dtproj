@@ -47,10 +47,5 @@
       <FullPath>MFReconHolding.dtsx</FullPath>
       <References />
     </DtsPackage>
-    <DtsPackage FormatVersion="3">
-      <Name>ProfileFolio.dtsx</Name>
-      <FullPath>ProfileFolio.dtsx</FullPath>
-      <References />
-    </DtsPackage>
   </DTSPackages>
 </Project>
