@@ -142,7 +142,7 @@
     <tr>
         <td class="HeaderCell" id="tdHeader" runat="server" style="padding-left: 5%;" visible="false">
             <div onclick="divvisible()">
-                +  <asp:Label ID="lblAuthenticated" runat="server" CssClass="HeaderTextSmall" Text="Pending Authenticate:"></asp:Label>
+                +  <asp:Label ID="lblAuthenticated" runat="server" CssClass="HeaderTextSmall" Text="Authentications Pending:"></asp:Label>
             <asp:Label ID="lblAuthenticatedCount" runat="server" CssClass="HeaderTextSmall"></asp:Label></div>
               <%-- <div onclick="divInVisible()">
                 -</div></div>--%>
