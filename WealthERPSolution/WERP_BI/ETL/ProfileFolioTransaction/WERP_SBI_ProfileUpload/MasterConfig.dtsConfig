@@ -1,0 +1,159 @@
+<?xml version="1.0"?>
+<DTSConfiguration>
+  <DTSConfigurationHeading>
+    <DTSConfigurationFileInfo GeneratedBy="AMP\Ranjan" GeneratedFromPackageName="CMLUploadsPackage" GeneratedFromPackageID="{5960C70F-3C1E-494B-9875-DBB58518F0E2}" GeneratedDate="7/29/2014 4:52:47 PM"/>
+  </DTSConfigurationHeading>
+  <Configuration ConfiguredType="Property" Path="\Package.Connections[Excel Connection Manager].Properties[ConnectionString]" ValueType="String">
+    <ConfiguredValue>Provider=Microsoft.ACE.OLEDB.12.0;User ID=;Data Source=C:\WERP_WINDOWS_JOBS\WERP_CML_UPLOAD\PACKAGE_REFERENCE_FILES\PM\CM.xlsx;Extended Properties="EXCEL 12.0;HDR=YES";</ConfiguredValue>
+  </Configuration>
+  <Configuration ConfiguredType="Property" Path="\Package.Connections[Excel Connection Manager].Properties[Description]" ValueType="String">
+    <ConfiguredValue></ConfiguredValue>
+  </Configuration>
+  <Configuration ConfiguredType="Property" Path="\Package.Connections[Excel Connection Manager].Properties[ExcelFilePath]" ValueType="String">
+    <ConfiguredValue>C:\WERP_WINDOWS_JOBS\WERP_CML_UPLOAD\PACKAGE_REFERENCE_FILES\PM\CM.xlsx</ConfiguredValue>
+  </Configuration>
+  <Configuration ConfiguredType="Property" Path="\Package.Connections[Excel Connection Manager].Properties[ExcelVersionNumber]" ValueType="Int32">
+    <ConfiguredValue>4</ConfiguredValue>
+  </Configuration>
+  <Configuration ConfiguredType="Property" Path="\Package.Connections[Excel Connection Manager].Properties[FirstRowHasColumnName]" ValueType="Boolean">
+    <ConfiguredValue>1</ConfiguredValue>
+  </Configuration>
+  <Configuration ConfiguredType="Property" Path="\Package.Connections[Excel Connection Manager].Properties[InitialCatalog]" ValueType="String">
+    <ConfiguredValue></ConfiguredValue>
+  </Configuration>
+  <Configuration ConfiguredType="Property" Path="\Package.Connections[Excel Connection Manager].Properties[Name]" ValueType="String">
+    <ConfiguredValue>Excel Connection Manager</ConfiguredValue>
+  </Configuration>
+  <Configuration ConfiguredType="Property" Path="\Package.Connections[Excel Connection Manager].Properties[Password]" ValueType="String">
+    <ConfiguredValue></ConfiguredValue>
+  </Configuration>
+  <Configuration ConfiguredType="Property" Path="\Package.Connections[Excel Connection Manager].Properties[ProtectionLevel]" ValueType="Int32">
+    <ConfiguredValue>1</ConfiguredValue>
+  </Configuration>
+  <Configuration ConfiguredType="Property" Path="\Package.Connections[Excel Connection Manager].Properties[RetainSameConnection]" ValueType="Boolean">
+    <ConfiguredValue>0</ConfiguredValue>
+  </Configuration>
+  <Configuration ConfiguredType="Property" Path="\Package.Connections[Excel Connection Manager].Properties[ServerName]" ValueType="String">
+    <ConfiguredValue>C:\WERP_WINDOWS_JOBS\WERP_CML_UPLOAD\PACKAGE_REFERENCE_FILES\PM\CM.xlsx</ConfiguredValue>
+  </Configuration>
+  <Configuration ConfiguredType="Property" Path="\Package.Connections[Excel Connection Manager].Properties[UserName]" ValueType="String">
+    <ConfiguredValue></ConfiguredValue>
+  </Configuration>
+  <Configuration ConfiguredType="Property" Path="\Package.Connections[FlatFileConnectionManager].Properties[CodePage]" ValueType="Int32">
+    <ConfiguredValue>1252</ConfiguredValue>
+  </Configuration>
+  <Configuration ConfiguredType="Property" Path="\Package.Connections[FlatFileConnectionManager].Properties[ColumnNamesInFirstDataRow]" ValueType="Boolean">
+    <ConfiguredValue>0</ConfiguredValue>
+  </Configuration>
+  <Configuration ConfiguredType="Property" Path="\Package.Connections[FlatFileConnectionManager].Properties[ConnectionString]" ValueType="String">
+    <ConfiguredValue>C:\WERP_WINDOWS_JOBS\WERP_CML_UPLOAD\PACKAGE_REFERENCE_FILES\PI\CMLSampleFile.txt</ConfiguredValue>
+  </Configuration>
+  <Configuration ConfiguredType="Property" Path="\Package.Connections[FlatFileConnectionManager].Properties[DataRowsToSkip]" ValueType="Int32">
+    <ConfiguredValue>0</ConfiguredValue>
+  </Configuration>
+  <Configuration ConfiguredType="Property" Path="\Package.Connections[FlatFileConnectionManager].Properties[Description]" ValueType="String">
+    <ConfiguredValue></ConfiguredValue>
+  </Configuration>
+  <Configuration ConfiguredType="Property" Path="\Package.Connections[FlatFileConnectionManager].Properties[FileUsageType]" ValueType="Int32">
+    <ConfiguredValue>0</ConfiguredValue>
+  </Configuration>
+  <Configuration ConfiguredType="Property" Path="\Package.Connections[FlatFileConnectionManager].Properties[Format]" ValueType="String">
+    <ConfiguredValue>Delimited</ConfiguredValue>
+  </Configuration>
+  <Configuration ConfiguredType="Property" Path="\Package.Connections[FlatFileConnectionManager].Properties[HeaderRowDelimiter]" ValueType="String">
+    <ConfiguredValue>|</ConfiguredValue>
+  </Configuration>
+  <Configuration ConfiguredType="Property" Path="\Package.Connections[FlatFileConnectionManager].Properties[HeaderRowsToSkip]" ValueType="Int32">
+    <ConfiguredValue>0</ConfiguredValue>
+  </Configuration>
+  <Configuration ConfiguredType="Property" Path="\Package.Connections[FlatFileConnectionManager].Properties[LocaleID]" ValueType="Int32">
+    <ConfiguredValue>1033</ConfiguredValue>
+  </Configuration>
+  <Configuration ConfiguredType="Property" Path="\Package.Connections[FlatFileConnectionManager].Properties[Name]" ValueType="String">
+    <ConfiguredValue>FlatFileConnectionManager</ConfiguredValue>
+  </Configuration>
+  <Configuration ConfiguredType="Property" Path="\Package.Connections[FlatFileConnectionManager].Properties[ProtectionLevel]" ValueType="Int32">
+    <ConfiguredValue>1</ConfiguredValue>
+  </Configuration>
+  <Configuration ConfiguredType="Property" Path="\Package.Connections[FlatFileConnectionManager].Properties[RowDelimiter]" ValueType="String">
+    <ConfiguredValue></ConfiguredValue>
+  </Configuration>
+  <Configuration ConfiguredType="Property" Path="\Package.Connections[FlatFileConnectionManager].Properties[TextQualifier]" ValueType="String">
+    <ConfiguredValue>&lt;none&gt;</ConfiguredValue>
+  </Configuration>
+  <Configuration ConfiguredType="Property" Path="\Package.Connections[FlatFileConnectionManager].Properties[Unicode]" ValueType="Boolean">
+    <ConfiguredValue>0</ConfiguredValue>
+  </Configuration>
+  <Configuration ConfiguredType="Property" Path="\Package.Connections[InputToStaging.dtsx].Properties[ConnectionString]" ValueType="String">
+    <ConfiguredValue>C:\WERP_WINDOWS_JOBS\WERP_CML_UPLOAD\CML_UPLOAD_PACKAGES\InputToStaging.dtsx</ConfiguredValue>
+  </Configuration>
+ 
+
+  <Configuration ConfiguredType="Property" Path="\Package.Connections[InputToStaging.dtsx].Properties[Description]" ValueType="String">
+    <ConfiguredValue></ConfiguredValue>
+  </Configuration>
+  <Configuration ConfiguredType="Property" Path="\Package.Connections[InputToStaging.dtsx].Properties[FileUsageType]" ValueType="Int32">
+    <ConfiguredValue>0</ConfiguredValue>
+  </Configuration>
+  <Configuration ConfiguredType="Property" Path="\Package.Connections[InputToStaging.dtsx].Properties[Name]" ValueType="String">
+    <ConfiguredValue>InputToStaging.dtsx</ConfiguredValue>
+  </Configuration>
+  <Configuration ConfiguredType="Property" Path="\Package.Connections[InputToStaging.dtsx].Properties[ProtectionLevel]" ValueType="Int32">
+    <ConfiguredValue>1</ConfiguredValue>
+  </Configuration>
+  <Configuration ConfiguredType="Property" Path="\Package.Connections[SERVER.sa].Properties[Description]" ValueType="String">
+    <ConfiguredValue></ConfiguredValue>
+  </Configuration>
+  <Configuration ConfiguredType="Property" Path="\Package.Connections[SERVER.sa].Properties[InitialCatalog]" ValueType="String">
+    <ConfiguredValue>WealthERP_SBI_STG</ConfiguredValue>
+  </Configuration>
+  <Configuration ConfiguredType="Property" Path="\Package.Connections[SERVER.sa].Properties[Name]" ValueType="String">
+    <ConfiguredValue>SERVER.sa</ConfiguredValue>
+  </Configuration>
+  <Configuration ConfiguredType="Property" Path="\Package.Connections[SERVER.sa].Properties[Password]" ValueType="String">
+    <ConfiguredValue>$BI@123</ConfiguredValue>
+  </Configuration>
+  <Configuration ConfiguredType="Property" Path="\Package.Connections[SERVER.sa].Properties[ProtectionLevel]" ValueType="Int32">
+    <ConfiguredValue>1</ConfiguredValue>
+  </Configuration>
+  <Configuration ConfiguredType="Property" Path="\Package.Connections[SERVER.sa].Properties[RetainSameConnection]" ValueType="Boolean">
+    <ConfiguredValue>0</ConfiguredValue>
+  </Configuration>
+  <Configuration ConfiguredType="Property" Path="\Package.Connections[SERVER.sa].Properties[ServerName]" ValueType="String">
+    <ConfiguredValue>124.153.79.44</ConfiguredValue>
+  </Configuration>
+  <Configuration ConfiguredType="Property" Path="\Package.Connections[SERVER.sa].Properties[UserName]" ValueType="String">
+    <ConfiguredValue>sa</ConfiguredValue>
+  </Configuration>
+  <Configuration ConfiguredType="Property" Path="\Package.Variables[User::varFilePath].Properties[Description]" ValueType="String">
+    <ConfiguredValue></ConfiguredValue>
+  </Configuration>
+  <Configuration ConfiguredType="Property" Path="\Package.Variables[User::varFilePath].Properties[EvaluateAsExpression]" ValueType="Boolean">
+    <ConfiguredValue>0</ConfiguredValue>
+  </Configuration>
+  <Configuration ConfiguredType="Property" Path="\Package.Variables[User::varFilePath].Properties[Expression]" ValueType="String">
+    <ConfiguredValue></ConfiguredValue>
+  </Configuration>
+  <Configuration ConfiguredType="Property" Path="\Package.Variables[User::varFilePath].Properties[IncludeInDebugDump]" ValueType="Boolean">
+    <ConfiguredValue>0</ConfiguredValue>
+  </Configuration>
+  <Configuration ConfiguredType="Property" Path="\Package.Variables[User::varFilePath].Properties[Name]" ValueType="String">
+    <ConfiguredValue>varFilePath</ConfiguredValue>
+  </Configuration>
+  <Configuration ConfiguredType="Property" Path="\Package.Variables[User::varFilePath].Properties[Namespace]" ValueType="String">
+    <ConfiguredValue>User</ConfiguredValue>
+  </Configuration>
+  <Configuration ConfiguredType="Property" Path="\Package.Variables[User::varFilePath].Properties[RaiseChangedEvent]" ValueType="Boolean">
+    <ConfiguredValue>0</ConfiguredValue>
+  </Configuration>
+  <Configuration ConfiguredType="Property" Path="\Package.Variables[User::varFilePath].Properties[ReadOnly]" ValueType="Boolean">
+    <ConfiguredValue>0</ConfiguredValue>
+  </Configuration>
+  <Configuration ConfiguredType="Property" Path="\Package.Variables[User::varFilePath].Properties[Value]" ValueType="String">
+    <ConfiguredValue>C:\WERP_WINDOWS_JOBS\WERP_CML_UPLOAD\PACKAGE_REFERENCE_FILES\PM\CM.xlsx</ConfiguredValue>
+  </Configuration>
+  <Configuration ConfiguredType="Property" Path="\Package.Variables[User::varConStr].Properties[Value]" ValueType="String">
+    <ConfiguredValue>Data Source=124.153.79.44;User ID=sa;Password=$BI@123;Initial Catalog=WealthERP_SBI_STG;Provider=SQLNCLI10.1;Application Name=SSIS-InputToStaging-{9a06fb71-ab67-4b5f-8ae8-2fa1a85814c8}SERVER.sa;</ConfiguredValue>
+  </Configuration>
+  
+</DTSConfiguration>

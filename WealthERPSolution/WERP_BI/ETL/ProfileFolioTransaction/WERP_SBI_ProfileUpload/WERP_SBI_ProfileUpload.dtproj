@@ -13,7 +13,12 @@
   <DataSourceViews />
   <MiningModels />
   <Roles />
-  <Miscellaneous />
+  <Miscellaneous>
+    <ProjectItem>
+      <Name>MasterConfig.dtsConfig</Name>
+      <FullPath>MasterConfig.dtsConfig</FullPath>
+    </ProjectItem>
+  </Miscellaneous>
   <Configurations>
     <Configuration>
       <Name>Development</Name>
