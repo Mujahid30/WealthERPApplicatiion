@@ -497,11 +497,11 @@ namespace DaoCommisionManagement
             return ds;
         }
 
-        public void CreateCommissionStructureRule(CommissionStructureRuleVo commissionStructureRuleVo, int userId, string ruleHash)
+        public int CreateCommissionStructureRule(CommissionStructureRuleVo commissionStructureRuleVo, int userId, string ruleHash)
         {
             Database db;
             DbCommand cmdCreateCommissionStructureRule;
-
+            int CommissionRuleId = 0;
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
@@ -594,8 +594,12 @@ namespace DaoCommisionManagement
                 db.AddInParameter(cmdCreateCommissionStructureRule, "@ACSR_ServiceTaxValue", DbType.Decimal, commissionStructureRuleVo.TDSValue);
                 db.AddInParameter(cmdCreateCommissionStructureRule, "@ACSR_IsSpecialIncentive", DbType.Int16, commissionStructureRuleVo.specialIncentiv);
                 db.AddInParameter(cmdCreateCommissionStructureRule, "@CO_ApplicationNo", DbType.String, commissionStructureRuleVo.applicationNo);
-                db.ExecuteNonQuery(cmdCreateCommissionStructureRule);
-
+                db.AddOutParameter(cmdCreateCommissionStructureRule, "@CommissionRuleId", DbType.Int32, 0);
+                ////db.ExecuteNonQuery(cmdCreateCommissionStructureRule);
+                if (db.ExecuteNonQuery(cmdCreateCommissionStructureRule) != 0)
+                {
+                    CommissionRuleId = Convert.ToInt32(db.GetParameterValue(cmdCreateCommissionStructureRule, "CommissionRuleId").ToString());
+                }
             }
             catch (BaseApplicationException Ex)
             {
@@ -614,6 +618,7 @@ namespace DaoCommisionManagement
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
+            return CommissionRuleId;
 
         }
 

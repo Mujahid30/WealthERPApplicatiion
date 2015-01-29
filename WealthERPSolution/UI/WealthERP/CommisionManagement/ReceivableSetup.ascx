@@ -1192,8 +1192,8 @@
                         <td>
                             <div id="dvIssueList" runat="server" style="width: auto;">
                                 <telerik:RadGrid ID="gvMappedIssueList" runat="server" GridLines="None" AutoGenerateColumns="False"
-                                    PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
-                                    Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" AllowFilteringByColumn="true"
+                                    PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" 
+                                    Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" 
                                     AllowAutomaticInserts="false" ExportSettings-FileName="Issue List" OnNeedDataSource="gvMappedIssueList_OnNeedDataSource"
                                     OnItemCommand="gvMappedIssueList_ItemCommand">
                                     <MasterTableView Width="100%" AllowMultiColumnSorting="True" DataKeyNames="ACSTSM_SetupId"
@@ -1275,7 +1275,7 @@
                                 AllowAutomaticUpdates="false" Skin="Telerik" OnItemDataBound="RadGridStructureRule_ItemDataBound"
                                 OnNeedDataSource="RadGridStructureRule_NeedDataSource" OnInsertCommand="RadGridStructureRule_InsertCommand"
                                 OnItemCommand="RadGridStructureRule_ItemCommand" OnDeleteCommand="RadGridStructureRule_DeleteCommand"
-                                OnUpdateCommand="RadGridStructureRule_UpdateCommand" Width="90%">
+                                OnUpdateCommand="RadGridStructureRule_UpdateCommand" Width="90%" OnCancelCommand="RadGridStructureRule_OnCancelCommand">
                                 <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="CommissionStructureRule">
                                 </ExportSettings>
                                 <MasterTableView CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false"
@@ -1347,6 +1347,14 @@
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn UniqueName="ACSR_MaxNumberOfApplications" HeaderText="Max. No. of Applications"
                                             DataField="ACSR_MaxNumberOfApplications">
+                                            <HeaderStyle></HeaderStyle>
+                                        </telerik:GridBoundColumn>
+                                            <telerik:GridBoundColumn UniqueName="ACSR_ServiceTaxValue" HeaderText="Service Tax Value"
+                                            DataField="ACSR_ServiceTaxValue">
+                                            <HeaderStyle></HeaderStyle>
+                                        </telerik:GridBoundColumn>
+                                            <telerik:GridBoundColumn UniqueName="ACSR_ReducedValue" HeaderText="TDS Value"
+                                            DataField="ACSR_ReducedValue">
                                             <HeaderStyle></HeaderStyle>
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn UniqueName="ReceivableValue" HeaderText="Receivable Brokerage Value"
@@ -1477,8 +1485,7 @@
                                                                 <td>
                                                                     <asp:TextBox ID="txtTaxValue" Text='<%# Bind( "ACSR_ServiceTaxValue") %>' runat="server"
                                                                         CssClass="txtField" Visible="false" ></asp:TextBox>
-                                                                        CssClass="txtField" Visible="false"
-                                                                         ></asp:TextBox>
+                                                                      
                                                                     <cc1:TextBoxWatermarkExtender ID="twtxtTaxValue" TargetControlID="txtTaxValue" WatermarkText="Enter the Value"
                                                                         runat="server" EnableViewState="false">
                                                                     </cc1:TextBoxWatermarkExtender>
@@ -1706,10 +1713,10 @@
                                                             enableloadondemand="True" PageSize="5" AutoGenerateColumns="False" EnableEmbeddedSkins="False"
                                                             GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="true" AllowPaging="false"
                                                             ShowStatusBar="True" Skin="Telerik" AllowFilteringByColumn="true" OnNeedDataSource="rgCommissionTypeCaliculation_OnNeedDataSource"
-                                                            OnItemCommand="rgCommissionTypeCaliculation_ItemCommand" OnItemDataBound="rgCommissionTypeCaliculation_ItemDataBound"
+                                                            OnItemCommand="rgCommissionTypeCaliculation_ItemCommand" OnItemDataBound="rgCommissionTypeCaliculation_ItemDataBound" 
                                                             Visible="false">
                                                             <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" AutoGenerateColumns="false"
-                                                                Width="50%" EditMode="PopUp" CommandItemSettings-AddNewRecordText="Add Rates"
+                                                                Width="100%" EditMode="PopUp" CommandItemSettings-AddNewRecordText="Add Rates"
                                                                 CommandItemDisplay="Top" DataKeyNames="CSRD_StructureRuleDetailsId" CommandItemSettings-ShowRefreshButton="false">
                                                                 <Columns>
                                                                     <telerik:GridEditCommandColumn EditText="Edit" UniqueName="editColumn" CancelText="Cancel"
@@ -1874,9 +1881,9 @@
                             PageSize="5" AutoGenerateColumns="False" EnableEmbeddedSkins="False" GridLines="None"
                             ShowFooter="True" PagerStyle-AlwaysVisible="true" AllowPaging="false" ShowStatusBar="True"
                             Skin="Telerik" AllowFilteringByColumn="true" OnNeedDataSource="rgPayableMapping_OnNeedDataSource"
-                            OnItemCommand="rgPayableMapping_ItemCommand" Width="70%" OnItemDataBound="rgPayableMapping_OnItemDataBound">
+                            OnItemCommand="rgPayableMapping_ItemCommand" Width="40%" OnItemDataBound="rgPayableMapping_OnItemDataBound">
                             <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" AutoGenerateColumns="false"
-                                Width="50%" DataKeyNames="ACSR_CommissionStructureRuleId">
+                                Width="100%" DataKeyNames="ACSR_CommissionStructureRuleId">
                                 <Columns>
                                     <%-- <telerik:GridEditCommandColumn EditText="Edit" UniqueName="editColumn" CancelText="Cancel"
                                         UpdateText="Update">--%>

@@ -398,10 +398,10 @@ namespace WealthERP.Receivable
                 TextBox txtRateName = (TextBox)e.Item.FindControl("txtRateName");
 
                 commisionReceivableBo.CreateUpdateDeleteCommissionTypeBrokerage(ruleId, Convert.ToInt32(ddlCommissionype.SelectedValue), ddlBrokerageUnit.SelectedValue, Convert.ToDecimal(txtBrokerageValue.Text), txtRateName.Text, "INSERT", 0, 0);
-
+               
                 BindRuleDetGrid(rgCommissionTypeCaliculation, ruleId);
                 BindPayableGrid(Convert.ToInt32(hidCommissionStructureName.Value));
-                BindCommissionStructureRuleGrid(Convert.ToInt32(hidCommissionStructureName.Value));
+                //BindCommissionStructureRuleGrid(Convert.ToInt32(hidCommissionStructureName.Value));
             }
             else if (e.CommandName == RadGrid.UpdateCommandName)
             {
@@ -1712,7 +1712,13 @@ namespace WealthERP.Receivable
         {
 
         }
-
+        protected void RadGridStructureRule_OnCancelCommand(object source, GridCommandEventArgs e)
+        {
+            if (e.CommandName == RadGrid.CancelCommandName)
+            {
+                BindCommissionStructureRuleGrid(Convert.ToInt32(hidCommissionStructureName.Value));
+            }
+        }
         //protected void rgPayableMapping_ItemCommand(object source, GridCommandEventArgs e)
         //{
         //    if (e.Item is GridEditFormInsertItem && e.Item.OwnerTableView.IsItemInserted)
@@ -1725,13 +1731,14 @@ namespace WealthERP.Receivable
         protected void RadGridStructureRule_InsertCommand(object source, GridCommandEventArgs e)
         {
             bool isPageValid = true;
+            int ruleId=0;
             try
             {
                 // GridEditFormItem editform = (GridEditFormItem)e.Item;
-
+                RadGrid rgCommissionTypeCaliculation = (RadGrid)e.Item.FindControl("rgCommissionTypeCaliculation");
                 /*******************COLLECT DATA********************/
                 commissionStructureRuleVo = CollectDataForCommissionStructureRule(e);
-
+                Button btnSubmitRule = (Button)e.Item.FindControl("btnSubmitRule");
                 /*******************UI VALIDATION********************/
                 //isPageValid = ValidatePage(commissionStructureRuleVo);
 
@@ -1747,8 +1754,14 @@ namespace WealthERP.Receivable
                         return;
                     }
 
-                    commisionReceivableBo.CreateCommissionStructureRule(commissionStructureRuleVo, userVo.UserId, sbRuleHash.ToString());
-                    BindCommissionStructureRuleGrid(Convert.ToInt32(hidCommissionStructureName.Value));
+                  ruleId=  commisionReceivableBo.CreateCommissionStructureRule(commissionStructureRuleVo, userVo.UserId, sbRuleHash.ToString());
+                  HiddenField1.Value = ruleId.ToString();
+                  btnSubmitRule .Visible= false; 
+                    e.Canceled = true;
+                    rgCommissionTypeCaliculation.Visible = true;
+                    //BindCommissionStructureRuleGrid(Convert.ToInt32(hidCommissionStructureName.Value));
+                    BindRuleDetGrid(rgCommissionTypeCaliculation, ruleId);
+
                     //HiddenField1.Value = hidCommissionStructureName.Value;
 
                     //RadGrid rgCommissionTypeCaliculation = (RadGrid)e.Item.FindControl("rgCommissionTypeCaliculation");
@@ -1767,6 +1780,7 @@ namespace WealthERP.Receivable
                     return;
                 }
 
+                
 
 
             }
@@ -3358,7 +3372,7 @@ namespace WealthERP.Receivable
             }
             if (Request.QueryString["StructureId"] != null && ruleid !=string.Empty)
             {
-                associateid = commisionReceivableBo.RuleAssociate(ruleid);
+                associateid = commisionReceivableBo.RuleAssociate(ruleid.TrimEnd(','));
 
 
             

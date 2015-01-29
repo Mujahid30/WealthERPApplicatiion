@@ -273,12 +273,13 @@ namespace BoCommisionManagement
             return dsCommissionStructureRules;
         }
 
-        public void CreateCommissionStructureRule(CommissionStructureRuleVo commissionStructureRuleVo, int userId, string ruleHash)
+        public int CreateCommissionStructureRule(CommissionStructureRuleVo commissionStructureRuleVo, int userId, string ruleHash)
         {
             CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
+            int ruleId = 0;
             try
             {
-                commisionReceivableDao.CreateCommissionStructureRule(commissionStructureRuleVo, userId, ruleHash);
+               ruleId= commisionReceivableDao.CreateCommissionStructureRule(commissionStructureRuleVo, userId, ruleHash);
 
             }
             catch (BaseApplicationException Ex)
@@ -298,6 +299,7 @@ namespace BoCommisionManagement
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
+            return ruleId;
 
         }
 
