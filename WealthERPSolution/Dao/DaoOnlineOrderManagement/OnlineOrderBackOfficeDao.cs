@@ -2719,5 +2719,140 @@ namespace DaoOnlineOrderManagement
             }
             return dtSearchOnPRoduct;
         }
+        public DataSet GetAMCList()
+        {
+            DataSet ds;
+            Database db;
+            DbCommand GetAMCListCmd;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetAMCListCmd = db.GetStoredProcCommand("SPROC_GetProductAMCList");
+                ds = db.ExecuteDataSet(GetAMCListCmd);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:GetAMCList()");
+                object[] objects = new object[1];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return ds;
+        }
+        public bool CreateAMC(string amcName, int isOnline, int userId)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand CreateAMCCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                CreateAMCCmd = db.GetStoredProcCommand("SPROC_CreateAMC");
+                db.AddInParameter(CreateAMCCmd, "@amcName", DbType.String, amcName);
+                db.AddInParameter(CreateAMCCmd, "@isOnline", DbType.Int32, isOnline);
+                db.AddInParameter(CreateAMCCmd, "@userId", DbType.Int32, userId);
+
+                db.ExecuteNonQuery(CreateAMCCmd);
+                bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return bResult;
+        }
+
+
+        public bool UpdateAMC(string amcName, int isOnline, int userId, int amcCode)
+        {
+            bool blResult = false;
+            Database db;
+            DbCommand UpdateAMCCmd;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                UpdateAMCCmd = db.GetStoredProcCommand("SPROC_UpdateAMC");
+                db.AddInParameter(UpdateAMCCmd, "@amcName", DbType.String, amcName); //1
+                db.AddInParameter(UpdateAMCCmd, "@isOnline", DbType.Int32, isOnline); //2
+                db.AddInParameter(UpdateAMCCmd, "@userId", DbType.Int32, userId);//3
+                db.AddInParameter(UpdateAMCCmd, "@amcCode", DbType.Int32, amcCode);
+
+
+                // db.ExecuteNonQuery(updateSchemeSetUpDetailsCmd);
+                if (db.ExecuteNonQuery(UpdateAMCCmd) != 0)
+                    blResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:UpdateAMC()");
+                object[] objects = new object[3];
+                objects[0] = amcName;
+                objects[1] = isOnline;
+                objects[2] = userId;
+                objects[3] = amcCode;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return blResult;
+        }
+
+        public bool deleteAMC(int amcCode)
+        {
+            int affectedRecords = 0;
+            bool bResult = false;
+            Database db;
+            DbCommand CreateAMCCmd;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                CreateAMCCmd = db.GetStoredProcCommand("SPROC_DeleteAMC");
+                db.AddInParameter(CreateAMCCmd, "@amcCode", DbType.Int32, amcCode);
+                if (db.ExecuteNonQuery(CreateAMCCmd) != 0)
+                    affectedRecords = int.Parse(db.GetParameterValue(CreateAMCCmd, "@amcCode").ToString());
+                if (affectedRecords == 1)
+                    bResult = true;
+                else
+                    bResult = false;
+            }
+
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:deleteAMC()");
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return bResult;
+
+        }
     }
 }
