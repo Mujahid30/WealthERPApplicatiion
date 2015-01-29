@@ -11,7 +11,6 @@ using System.Net;
 using System.Net.Mail;
 using System.IO;
 using System.Data.SqlClient;
-using System.Configuration;
 using System.Xml;
 
 namespace ETLSourceFileToXMLConversionRequestProcessor
