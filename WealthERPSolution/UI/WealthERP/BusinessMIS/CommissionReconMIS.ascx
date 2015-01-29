@@ -79,7 +79,7 @@
                 Operator="NotEqual" ValidationGroup="vgbtnSubmit" ValueToCompare="Select"></asp:CompareValidator>
         </td>
         <td align="left" class="leftField" width="20%">
-            <asp:Label ID="lblSelectProduct" runat="server" Text=" product:" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="lblSelectProduct" runat="server" Text=" Product:" CssClass="FieldName"></asp:Label>
         </td>
         <td>
             <asp:DropDownList ID="ddlProduct" runat="server" AutoPostBack="true" CssClass="cmbField"
