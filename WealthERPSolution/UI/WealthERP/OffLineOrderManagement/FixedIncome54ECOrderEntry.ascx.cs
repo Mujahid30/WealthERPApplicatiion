@@ -852,6 +852,7 @@ namespace WealthERP.OffLineOrderManagement
             {
                 trPINo.Visible = true;
                 txtPaymentInstDate.MaxDate = txtOrderDate.MaxDate;
+                RadDateControlBusinessDateValidation(ref txtPaymentInstDate, DateTime.Now);
             }
             else
             {
@@ -1092,8 +1093,17 @@ namespace WealthERP.OffLineOrderManagement
         {
             if (!string.IsNullOrEmpty(TxtPurAmt.Text))
             {
-                txtQty.Text = string.Empty;
-                txtQty.Text = (Convert.ToInt32(TxtPurAmt.Text) / GetFaceValue()).ToString();
+                if (Convert.ToInt32(TxtPurAmt.Text) <= (Convert.ToInt32(lblMaxQuentity.Text) * GetFaceValue()))
+                {
+                    txtQty.Text = string.Empty;
+                    txtQty.Text = (Convert.ToInt32(TxtPurAmt.Text) / GetFaceValue()).ToString();
+                }
+                else
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Purchase Amount Should be less than  Multiple of Face Value and Max.Qty!');", true);
+                    txtQty.Text = string.Empty;
+                    TxtPurAmt.Text = string.Empty;
+                }
             }
         }
 
@@ -1101,9 +1111,18 @@ namespace WealthERP.OffLineOrderManagement
         {
             if (!string.IsNullOrEmpty(txtQty.Text))
             {
-                TxtPurAmt.Text = string.Empty;
-                TxtPurAmt.Text = (Convert.ToInt32(txtQty.Text) * GetFaceValue()).ToString();
+                if ((Convert.ToInt32(txtQty.Text) <= Convert.ToInt32(lblMaxQuentity.Text)) && (Convert.ToInt32(txtQty.Text) >= Convert.ToInt32(lblMinQuentity.Text)))
+                {
+                    TxtPurAmt.Text = string.Empty;
+                    TxtPurAmt.Text = (Convert.ToInt32(txtQty.Text) * GetFaceValue()).ToString();
+                }
+                else
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Quantity Should be less than Max.Qty And greater than Min.Qty!');", true);
+                    TxtPurAmt.Text = string.Empty;
+                }
             }
+
         }
 
         private void AddClick(RadUpload radUploadProof, DropDownList ddlProofType)

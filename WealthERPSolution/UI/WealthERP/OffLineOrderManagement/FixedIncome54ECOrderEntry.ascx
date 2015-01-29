@@ -276,7 +276,19 @@
         sender.moveTo(sender.get_left(), sender.get_top());
     }
 </script>
+<%--<script>
+    function text_Changed() {
+        var edValue = document.getElementById("txtQty");
+        var s = edValue.value;
+        alert('s');
+        alert(s);
+//        var lblValue = document.getElementById("lblValue");
+//        lblValue.innerText = "The text box contains: " + s;
 
+        //var s = $("#edValue").val();
+        //$("#lblValue").text(s);    
+    }
+</script>--%>  
 <table width="100%">
     <tr>
         <td align="left">
@@ -1174,7 +1186,7 @@
                         </asp:Label>
                     </td>
                     <td class="rightField" style="width: 20%">
-                        <asp:TextBox ID="txtQty" runat="server" CssClass="txtField" AutoPostBack="True" OnTextChanged="OnQtychanged" />
+                        <asp:TextBox ID="txtQty" runat="server" CssClass="txtField" AutoPostBack="True" onKeyPress="text_Changed()" OnTextChanged="OnQtychanged" />
                         <asp:RegularExpressionValidator ID="RegularExpressionValidator2" ControlToValidate="txtQty"
                             runat="server" Display="Dynamic" ErrorMessage="Please Enter Integer Value" CssClass="cvPCG"
                             ValidationExpression="[1-9]\d*$" ValidationGroup="MFSubmit">     
