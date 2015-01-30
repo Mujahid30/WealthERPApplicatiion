@@ -1,6 +1,27 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AMCManage.ascx.cs" Inherits="WealthERP.OnlineOrderBackOffice.AMCManage" %>
 <telerik:RadScriptManager ID="RadScriptManager1" runat="server">
 </telerik:RadScriptManager>
+<table width="100%">
+    <tr>
+        <td>
+            <div class="divPageHeading">
+                <table cellspacing="0" cellpadding="2" width="100%">
+                    <tr>
+                        <td align="left">
+                            AMC List
+                        </td>
+                        <td align="right">
+                            <asp:ImageButton ID="imgexportButton" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                                Visible="false" runat="server" AlternateText="Excel" ToolTip="Export To Excel"
+                                OnClick="btnExportData_OnClick" OnClientClick="setFormat('excel')" Height="22px"
+                                Width="25px"></asp:ImageButton>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+</table>
 <div style="margin-left: 50; overflow: None;">
     <telerik:RadGrid ID="gvAMCManage" runat="server" AllowPaging="true" AutoGenerateColumns="False"
         ShowStatusBar="true" ShowHeader="true" ShowFooter="true" enableloadondemand="True" Skin="Telerik" EnableEmbeddedSkins="false"
@@ -31,7 +52,7 @@
                     <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Wrap="false" />
                 </telerik:GridBoundColumn>
                 <telerik:GridButtonColumn CommandName="Delete" Text="Delete" ConfirmText="Do you want to delete this rule? Click OK to proceed"
-                    UniqueName="column" HeaderStyle-Width="20px">
+                    UniqueName="column" HeaderStyle-Width="20px" Visible="false">
                 </telerik:GridButtonColumn>
             </Columns>
             <EditFormSettings EditFormType="Template" PopUpSettings-Height="190 px" PopUpSettings-Width="390 px"

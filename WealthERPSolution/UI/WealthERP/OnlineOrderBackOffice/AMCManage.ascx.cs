@@ -50,6 +50,7 @@ namespace WealthERP.OnlineOrderBackOffice
             }
             gvAMCManage.DataSource = dsAMCGrid.Tables[0];
             gvAMCManage.DataBind();
+            imgexportButton.Visible = true;
 
         }
 
@@ -89,13 +90,22 @@ namespace WealthERP.OnlineOrderBackOffice
                 int amcCode = int.Parse(gvAMCManage.MasterTableView.DataKeyValues[e.Item.ItemIndex]["PA_AMCCode"].ToString());
                 onlineorderbackofficeBO.deleteAMC(amcCode);
             }
-            if (e.CommandName == RadGrid.RebindGridCommandName)
-            {
-                gvAMCManage.Rebind();
-            }
 
             BindAMCGrid();
 
+
+        }
+        public void btnExportData_OnClick(object sender, ImageClickEventArgs e)
+        {
+
+
+            gvAMCManage.ExportSettings.OpenInNewWindow = true;
+            gvAMCManage.ExportSettings.IgnorePaging = true;
+            gvAMCManage.ExportSettings.HideStructureColumns = true;
+            gvAMCManage.ExportSettings.ExportOnlyData = true;
+            gvAMCManage.ExportSettings.FileName = "AMC List";
+            gvAMCManage.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            gvAMCManage.MasterTableView.ExportToExcel();
 
         }
     }

@@ -266,6 +266,8 @@
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="Add MF Scheme" Value="Scheme_Setup">
                                                     </telerik:RadPanelItem>
+                                                      <telerik:RadPanelItem runat="server" Text="View AMC" Value="View_AMC">
+                                                    </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="Scheme/Data Translation Mapping" Value="Scheme_DataTrans_Mapping">
                                                     </telerik:RadPanelItem>
                                                 </Items>
@@ -989,6 +991,8 @@
                                                     <telerik:RadPanelItem runat="server" Text="View Schemes" Value="View_Schemes">
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="Add MF Scheme" Value="Scheme_Setup">
+                                                    </telerik:RadPanelItem>
+                                                      <telerik:RadPanelItem runat="server" Text="View AMC" Value="View_AMC">
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="Scheme/Data Translation Mapping" Value="Scheme_DataTrans_Mapping">
                                                     </telerik:RadPanelItem>
