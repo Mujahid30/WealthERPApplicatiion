@@ -594,6 +594,8 @@ namespace DaoCommisionManagement
                 db.AddInParameter(cmdCreateCommissionStructureRule, "@ACSR_ServiceTaxValue", DbType.Decimal, commissionStructureRuleVo.TDSValue);
                 db.AddInParameter(cmdCreateCommissionStructureRule, "@ACSR_IsSpecialIncentive", DbType.Int16, commissionStructureRuleVo.specialIncentiv);
                 db.AddInParameter(cmdCreateCommissionStructureRule, "@CO_ApplicationNo", DbType.String, commissionStructureRuleVo.applicationNo);
+                db.AddInParameter(cmdCreateCommissionStructureRule, "@RuleValidateFrom", DbType.DateTime, commissionStructureRuleVo.RuleValidateFrom);
+                db.AddInParameter(cmdCreateCommissionStructureRule, "@RuleValidateTo", DbType.DateTime, commissionStructureRuleVo.RuleValidateTo);
                 db.AddOutParameter(cmdCreateCommissionStructureRule, "@CommissionRuleId", DbType.Int32, 0);
                 ////db.ExecuteNonQuery(cmdCreateCommissionStructureRule);
                 if (db.ExecuteNonQuery(cmdCreateCommissionStructureRule) != 0)
@@ -1194,6 +1196,8 @@ namespace DaoCommisionManagement
                 db.AddInParameter(cmdUpdateCommissionStructureRule, "ACSR_ReducedValue", DbType.Decimal, commissionStructureRuleVo.TDSValue);
                 db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_IsSpecialIncentive", DbType.Int32, commissionStructureRuleVo.specialIncentiv);
                 db.AddInParameter(cmdUpdateCommissionStructureRule, "@CO_ApplicationNo", DbType.String, commissionStructureRuleVo.applicationNo);
+                db.AddInParameter(cmdUpdateCommissionStructureRule, "@RuleValidateFrom", DbType.DateTime, commissionStructureRuleVo.RuleValidateFrom);
+                db.AddInParameter(cmdUpdateCommissionStructureRule, "@RuleValidateTo", DbType.DateTime, commissionStructureRuleVo.RuleValidateTo);
                 db.ExecuteNonQuery(cmdUpdateCommissionStructureRule);
 
             }
@@ -1391,7 +1395,7 @@ namespace DaoCommisionManagement
             }
         }
 
-        public DataSet  GetPayableMappings(string ruleDetID)
+        public DataSet  GetPayableMappings(int ruleDetID)
         {
             Database db;
             DbCommand cmdGetStructDet;
@@ -1401,7 +1405,7 @@ namespace DaoCommisionManagement
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmdGetStructDet = db.GetStoredProcCommand("SPROC_GetPayableMappings");
-                db.AddInParameter(cmdGetStructDet, "@RuleDetId", DbType.String, ruleDetID);                
+                db.AddInParameter(cmdGetStructDet, "@RuleDetId", DbType.Int32, ruleDetID);                
                 ds = db.ExecuteDataSet(cmdGetStructDet);
             }
             catch (BaseApplicationException Ex)
@@ -1842,6 +1846,25 @@ namespace DaoCommisionManagement
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
                 throw exBase;
+            }
+            return dt;
+        }
+        public DataTable GetIncentiveType()
+        {
+            Database db;
+            DbCommand cmdGetIncentiveType;
+            DataSet ds = null;
+            DataTable dt;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetIncentiveType = db.GetStoredProcCommand("SPROC_GetIncentiveType");
+                ds = db.ExecuteDataSet(cmdGetIncentiveType);
+                dt = ds.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
             }
             return dt;
         }

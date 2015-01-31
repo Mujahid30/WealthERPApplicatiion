@@ -45,6 +45,7 @@ namespace WealthERP.CommisionManagement
                     SetStructureDetails();
                     DefaultAssignments();
                     //  CreateMappedSchemeGrid();
+                    BindPayableGrid(int.Parse(hdnStructId.Value));
                     ddlType.SelectedValue = "Custom";
                 }
                 else
@@ -72,7 +73,7 @@ namespace WealthERP.CommisionManagement
                     }
 
                 }
-                BindPayableGrid();
+                //BindPayableGrid();
                 SelectionsBasedOnMappingFor();
 
 
@@ -80,35 +81,9 @@ namespace WealthERP.CommisionManagement
         }
 
 
-        protected void gvPayaMapping_NeedDataSource(object source, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
-        {
-            DataSet dsCommissionPayable = new DataSet();
-            if (Cache[userVo.UserId.ToString() + "CommissionPayable"] != null)
-            {
-                dsCommissionPayable = (DataSet)Cache[userVo.UserId.ToString() + "CommissionPayable"];
-                gvPayaMapping.DataSource = dsCommissionPayable.Tables[0];
-            }
-        }
+      
 
-        private void BindPayableGrid()
-        {
-            string ruleId = string.Empty;
-            if (Request.QueryString["ruleId"] != null)
-            {
-                ruleId =Request.QueryString["ruleId"].ToString();
-            }
-
-            DataSet dsPayable = new DataSet();
-            dsPayable = commisionReceivableBo.GetPayableMappings(ruleId);
-
-            gvPayaMapping.DataSource = dsPayable;
-            gvPayaMapping.DataBind();
-
-            if (Cache[userVo.UserId.ToString() + "CommissionPayable"] != null)
-                Cache.Remove(userVo.UserId.ToString() + "CommissionPayable");
-            Cache.Insert(userVo.UserId.ToString() + "CommissionPayable", dsPayable);
-
-        }
+     
 
         private void DefaultAssignments()
         {
@@ -244,47 +219,62 @@ namespace WealthERP.CommisionManagement
         }
 
         private int CreatePayableMapping()
-        {
+         {
             string ruleId = string.Empty;
             //string[] ruleid=new string[];
             //int ruleId = 0;
-            if (Request.QueryString["ruleId"] != null)
+            //if (Request.QueryString["ruleId"] != null)
+            //{
+            //    ruleId = Request.QueryString["ruleId"].ToString();
+            //    //ruleid=ruleId.Split(',');
+            //}
+            foreach (GridDataItem gdi in rgPayableMapping.MasterTableView.Items)
             {
-                ruleId = Request.QueryString["ruleId"].ToString();
-                //ruleid=ruleId.Split(',');
+                RadioButtonList rbtnListRate = (RadioButtonList)gdi.FindControl("rbtnListRate");
+                if (rbtnListRate.SelectedItem != null)
+                    ruleId += rbtnListRate.SelectedValue + ",";
+               
             }
-            DataTable dtRuleMapping = new DataTable();
-            dtRuleMapping.Columns.Add("agentId", typeof(Int32));
-            dtRuleMapping.Columns.Add("ruleids", typeof(Int32));
-            //dtRuleMapping.Columns.Add("categoryId", typeof(Int32));
-            DataRow drRuleMapping;
-            int mappingId = 0;
-            string agentId = "";
-            string categoryId = string.Empty;
-            if (ddlType.SelectedValue == "Custom")
+            if (ruleId != "")
             {
-                foreach (RadListBoxItem ListItem in this.RadListBoxSelectedAgentCodes.Items)
+                ruleId = ruleId.TrimEnd(',');
+                DataTable dtRuleMapping = new DataTable();
+                dtRuleMapping.Columns.Add("agentId", typeof(Int32));
+                dtRuleMapping.Columns.Add("ruleids", typeof(Int32));
+                //dtRuleMapping.Columns.Add("categoryId", typeof(Int32));
+                DataRow drRuleMapping;
+                int mappingId = 0;
+                string agentId = "";
+                string categoryId = string.Empty;
+                if (ddlType.SelectedValue == "Custom")
                 {
-                    
-                    agentId = ListItem.Value;
-                    foreach (object rule in ruleId.Split(','))
+                    foreach (RadListBoxItem ListItem in this.RadListBoxSelectedAgentCodes.Items)
                     {
-                        drRuleMapping = dtRuleMapping.NewRow();
-                        drRuleMapping["agentId"] = agentId;
-                        drRuleMapping["ruleids"] = rule;
-                        dtRuleMapping.Rows.Add(drRuleMapping);
+
+                        agentId = ListItem.Value;
+                        foreach (object rule in ruleId.Split(','))
+                        {
+                            drRuleMapping = dtRuleMapping.NewRow();
+                            drRuleMapping["agentId"] = agentId;
+                            drRuleMapping["ruleids"] = rule;
+                            dtRuleMapping.Rows.Add(drRuleMapping);
+                        }
                     }
+
                 }
-                
+                else
+                {
+                    categoryId = ddlAdviserCategory.SelectedValue;
+                }
+
+                commisionReceivableBo.CreateAdviserPayableRuleToAgentCategoryMapping(Convert.ToInt32(hdnStructId.Value), ddlMapping.SelectedValue, categoryId, dtRuleMapping, ruleId.TrimEnd(','), out mappingId);
+                return mappingId;
             }
             else
             {
-                categoryId = ddlAdviserCategory.SelectedValue;
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select rate(%)');", true);
+                return 0;
             }
-
-            commisionReceivableBo.CreateAdviserPayableRuleToAgentCategoryMapping(Convert.ToInt32(hdnStructId.Value), ddlMapping.SelectedValue, categoryId, dtRuleMapping,ruleId.TrimEnd(','), out mappingId);
-            return mappingId;
-
         }
         protected void btnGo_Click(object sender, EventArgs e)
         {
@@ -292,7 +282,7 @@ namespace WealthERP.CommisionManagement
             int mappingId = CreatePayableMapping();
             if (mappingId > 0)
             {
-                BindPayableGrid();
+                //BindPayableGrid();
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Mapping Created SuccessFully');", true);
 
             }
@@ -309,25 +299,7 @@ namespace WealthERP.CommisionManagement
 
         }
 
-        protected void gvPayaMapping_ItemCommand(object source, GridCommandEventArgs e)
-        {
-            if (e.CommandName == "Delete")
-            {
-                  int agentId ;
-                int ruleDetailId = Convert.ToInt32(gvPayaMapping.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CSRD_StructureRuleDetailsId"].ToString());
-                if (!string.IsNullOrEmpty(gvPayaMapping.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AAC_AdviserAgentId"].ToString()))
-                    agentId = Convert.ToInt32(gvPayaMapping.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AAC_AdviserAgentId"].ToString());
-                else
-                    agentId = 0;
-                string category = gvPayaMapping.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AC_Category"].ToString();
-
-                int result = commisionReceivableBo.DeleteStaffAndAssociateMapping(ruleDetailId, agentId, category);
-                BindPayableGrid();
-                if (result > 0)
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Mapping deleted successfully');", true);
-            }
-        }
-
+       
         private void SetStructureDetails()
         {
             DataSet dsStructDet;
@@ -395,6 +367,80 @@ namespace WealthERP.CommisionManagement
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
+        }
+        private void BindPayableGrid(int structureId)
+        {
+            DataSet dsLookupData;
+            dsLookupData = commisionReceivableBo.GetPayableCommissionTypeBrokerage(structureId);
+            ViewState["dsrate"] = dsLookupData;
+            rgPayableMapping.DataSource = dsLookupData;
+            rgPayableMapping.DataBind();
+            //rgchecklist.DataSource = dsLookupData;
+            //rgchecklist.DataBind();
+            //btnIssueMap.Visible = true;
+            //Table5.Visible = true;
+
+            if (Cache[userVo.UserId.ToString() + "RulePayableDet"] != null)
+                Cache.Remove(userVo.UserId.ToString() + "RulePayableDet");
+            Cache.Insert(userVo.UserId.ToString() + "RulePayableDet", dsLookupData.Tables[0]);
+        }
+        protected void rgPayableMapping_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        {
+            RadGrid rgCommissionTypeCaliculation = (RadGrid)sender;
+
+            DataTable dtLookupData;
+            dtLookupData = (DataTable)Cache[userVo.UserId.ToString() + "RulePayableDet"];
+            if (dtLookupData != null)
+            {
+                rgPayableMapping.DataSource = dtLookupData;
+            }
+
+        }
+        protected void rgPayableMapping_OnItemDataBound(object sender, GridItemEventArgs e)
+        {
+            //if (e.Item is GridEditFormInsertItem && e.Item.OwnerTableView.IsItemInserted)
+            //{
+            //}
+            DataSet dsratelist = (DataSet)ViewState["dsrate"];
+            if (e.Item is GridDataItem)
+            {
+                RadioButtonList rbtnListRate = e.Item.FindControl("rbtnListRate") as RadioButtonList;
+                int ruleId = int.Parse(rgPayableMapping.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_CommissionStructureRuleId"].ToString());
+
+                DataView dv = dsratelist.Tables[1].DefaultView;
+                dv.RowFilter = "ACSR_CommissionStructureRuleId = '" + ruleId.ToString() + "'";
+                if (rbtnListRate != null)
+                {
+                    rbtnListRate.DataSource = dv;
+                    rbtnListRate.DataValueField = "CSRD_StructureRuleDetailsId";
+                    rbtnListRate.DataTextField = "CSRD_BrokageValue";
+                    rbtnListRate.DataBind();
+                    //rbtnListRate.Items[0].Selected = true;
+
+                    if (Request.QueryString["StructureId"] != null)
+                    {
+                        int ruleids = int.Parse(Request.QueryString["StructureId"].ToString());
+                        DataTable dt = commisionReceivableBo.GetMappedStructure(ruleids);
+                        foreach (DataRow dr in dt.Rows)
+                        {
+                            foreach (ListItem obj1 in rbtnListRate.Items)
+                            {
+                                if (dr["CSRD_StructureRuleDetailsId"].ToString() == obj1.Value)
+                                {
+                                    obj1.Selected = true;
+                                    hdneligible.Value = "Eligible";
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        protected void ListBoxSource_Transferred(object source, Telerik.Web.UI.RadListBoxTransferredEventArgs e)
+        {
+
+            LBAgentCodes.Items.Sort();
+
         }
     }
 }

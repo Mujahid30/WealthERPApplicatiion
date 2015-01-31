@@ -22,6 +22,7 @@ namespace WealthERP.Receivable {
         /// </remarks>
         protected global::System.Web.UI.ScriptManager scrptMgr;
         protected global::Telerik.Web.UI.RadWindow RadWDCommissionTypeBrokerage;
+        protected global::Telerik.Web.UI.RadGrid gvPayaMapping;
 
         
         /// <summary>
@@ -55,6 +56,7 @@ namespace WealthERP.Receivable {
         protected global::System.Web.UI.WebControls.Label lblApplicationNo;
         protected global::System.Web.UI.WebControls.TextBox txtApplicationNo;
         protected global::System.Web.UI.WebControls.CheckBox chkSpecial;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trincentive;
         /// <summary>
         /// Label2 control.
         /// </summary>
@@ -1142,7 +1144,6 @@ namespace WealthERP.Receivable {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid gvMappedIssueList;
-        protected global::Telerik.Web.UI.RadGrid rgPayableMapping;
 
         
         /// <summary>
@@ -1165,6 +1166,8 @@ namespace WealthERP.Receivable {
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnProductId;
         protected global::System.Web.UI.WebControls.HiddenField hdneligible;
+        protected global::System.Web.UI.WebControls.HiddenField hdnRulestart;
+        protected global::System.Web.UI.WebControls.HiddenField hdnRuleEnd;
         /// <summary>
         /// hdnStructValidFrom control.
         /// </summary>

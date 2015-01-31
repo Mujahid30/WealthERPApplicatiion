@@ -861,7 +861,7 @@ namespace BoCommisionManagement
         /**
          * CommissionStructureToSchemeMapping - 
          */
-        public DataSet GetPayableMappings(string ruleDetID)
+        public DataSet GetPayableMappings(int ruleDetID)
         {
             CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
             DataSet dsStructList;
@@ -1264,6 +1264,20 @@ namespace BoCommisionManagement
             try
             {
                 dt = commisionReceivableDao.GetMappedStructure(ruleid);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dt;
+        }
+        public DataTable GetIncentiveType()
+        {
+            DataTable dt;
+            CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
+            try
+            {
+                dt = commisionReceivableDao.GetIncentiveType();
             }
             catch (BaseApplicationException Ex)
             {

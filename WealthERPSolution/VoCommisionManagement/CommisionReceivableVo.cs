@@ -92,6 +92,8 @@ namespace VoCommisionManagement
         public DateTime RuleModifiedOn { get; set; }
         public string applicationNo { get; set; }
         public int specialIncentiv { get; set; }
+        public DateTime RuleValidateFrom { get; set; }
+        public DateTime RuleValidateTo { get; set; }
     }
 
 

@@ -39,12 +39,31 @@
     function doClose() {
         $find("cpe")._doClose();
     }
-     function CheckOnline() {
-         if (confirm("Are you sure you want to delete ...?")) {
-             return true;
-         }
-         return false;
+    function CheckOnline() {
+        if (confirm("Are you sure you want to delete ...?")) {
+            return true;
+        }
+        return false;
+    }
+</script>
+
+<script type="text/javascript">
+    function Confirm() {
+
+        var minValue = document.getElementById('<%=hdnViewMode.ClientID%>').value;
+
+        if (minValue == "ViewEdit") {
+            var confirm_value = document.createElement("INPUT");
+            confirm_value.type = "hidden";
+            confirm_value.name = "confirm_value";
+            if (confirm("All existing mapping will be deleted for this structure. Would you like to continue ?")) {
+                confirm_value.value = "Yes";
+            } else {
+                confirm_value.value = "No";
             }
+            document.forms[0].appendChild(confirm_value);
+        }
+    }
 </script>
 
 <%--<script type="text/javascript">
@@ -290,24 +309,6 @@
 
     
 </script>
-<script type = "text/javascript">
-    function Confirm() {
-
-        var minValue = document.getElementById('<%=hdnViewMode.ClientID%>').value;
-        var Eligiblity = document.getElementById('<%=hdneligible.ClientID%>').value;
-        if (minValue == "ViewEdit" && Eligiblity == "Eligible") {
-            var confirm_value = document.createElement("INPUT");
-            confirm_value.type = "hidden";
-            confirm_value.name = "confirm_value";
-            if (confirm("All existing mapping will be deleted for this structure. Would you like to continue ?")) {
-                confirm_value.value = "Yes";
-            } else {
-                confirm_value.value = "No";
-            }
-            document.forms[0].appendChild(confirm_value);
-        }
-    }
-    </script>
 
 <asp:ScriptManager ID="scrptMgr" runat="server">
     <Services>
@@ -1192,10 +1193,9 @@
                         <td>
                             <div id="dvIssueList" runat="server" style="width: auto;">
                                 <telerik:RadGrid ID="gvMappedIssueList" runat="server" GridLines="None" AutoGenerateColumns="False"
-                                    PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" 
-                                    Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" 
-                                    AllowAutomaticInserts="false" ExportSettings-FileName="Issue List" OnNeedDataSource="gvMappedIssueList_OnNeedDataSource"
-                                    OnItemCommand="gvMappedIssueList_ItemCommand">
+                                    PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" Skin="Telerik"
+                                    EnableEmbeddedSkins="false" Width="100%" AllowAutomaticInserts="false" ExportSettings-FileName="Issue List"
+                                    OnNeedDataSource="gvMappedIssueList_OnNeedDataSource" OnItemCommand="gvMappedIssueList_ItemCommand">
                                     <MasterTableView Width="100%" AllowMultiColumnSorting="True" DataKeyNames="ACSTSM_SetupId"
                                         AutoGenerateColumns="false" CommandItemDisplay="None">
                                         <Columns>
@@ -1281,7 +1281,7 @@
                                 <MasterTableView CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false"
                                     EditMode="EditForms" CommandItemSettings-AddNewRecordText="Add Rule" DataKeyNames="ACSR_CommissionStructureRuleName,ACSR_CommissionStructureRuleId,ACSR_MinTenure,WCT_CommissionTypeCode,XCT_CustomerTypeCode,ACSR_TenureUnit,
                                 ACSR_TransactionType,WCU_UnitCode,WCCO_CalculatedOnCode,ACSM_AUMFrequency,ACSR_MaxTenure,ACSR_SIPFrequency,ACG_CityGroupID,
-                                ACSR_ReceivableRuleFrequency,WCAL_ApplicableLevelCode,ACSR_IsServiceTaxReduced,ACSR_IsTDSReduced,ACSM_IsOtherTaxReduced,PaybleValue,PaybleUnit,RecievableValue,RecievableUnit,ACSR_ServiceTaxValue,ACSR_IsSpecialIncentive,CO_ApplicationNo">
+                                ACSR_ReceivableRuleFrequency,WCAL_ApplicableLevelCode,ACSR_IsServiceTaxReduced,ACSR_IsTDSReduced,ACSM_IsOtherTaxReduced,PaybleValue,PaybleUnit,RecievableValue,RecievableUnit,ACSR_ServiceTaxValue,ASCR_WCMV_IncentiveType,CO_ApplicationNo,ACSR_ValidilityStart,ACSR_ValidilityEnd">
                                     <Columns>
                                         <telerik:GridEditCommandColumn EditText="Edit" UniqueName="Edit">
                                         </telerik:GridEditCommandColumn>
@@ -1333,41 +1333,41 @@
                                             DataField="ACSR_TransactionType">
                                             <HeaderStyle></HeaderStyle>
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn UniqueName="ACSR_MinNumberOfApplications" HeaderText="Min. No. of Applications"
+                                        <telerik:GridBoundColumn UniqueName="ACSR_MinNumberOfApplications" HeaderText="Min. No. of App."
                                             DataField="ACSR_MinNumberOfApplications">
                                             <HeaderStyle></HeaderStyle>
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn UniqueName="CO_ApplicationNo" HeaderText="Application No."
-                                            DataField="CO_ApplicationNo">
+                                        <telerik:GridBoundColumn UniqueName="CO_ApplicationNo" HeaderText="App. No." DataField="CO_ApplicationNo">
                                             <HeaderStyle></HeaderStyle>
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn UniqueName="ACSR_IsSpecialIncentive" HeaderText="Is SpecialIncentive"
-                                            DataField="ACSR_IsSpecialIncentive">
+                                        <telerik:GridBoundColumn UniqueName="ASCR_WCMV_IncentiveType" HeaderText="Incentive Type"
+                                            DataField="ASCR_WCMV_IncentiveType" Visible="false">
                                             <HeaderStyle></HeaderStyle>
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn UniqueName="ACSR_MaxNumberOfApplications" HeaderText="Max. No. of Applications"
+                                        <telerik:GridBoundColumn UniqueName="WCMV_Name" HeaderText="Incentive Type" DataField="WCMV_Name">
+                                            <HeaderStyle></HeaderStyle>
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn UniqueName="ACSR_MaxNumberOfApplications" HeaderText="Max. No. of App."
                                             DataField="ACSR_MaxNumberOfApplications">
                                             <HeaderStyle></HeaderStyle>
                                         </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn UniqueName="ACSR_ServiceTaxValue" HeaderText="Service Tax Value"
+                                        <telerik:GridBoundColumn UniqueName="ACSR_ServiceTaxValue" HeaderText="Service Tax Value"
                                             DataField="ACSR_ServiceTaxValue">
                                             <HeaderStyle></HeaderStyle>
                                         </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn UniqueName="ACSR_ReducedValue" HeaderText="TDS Value"
-                                            DataField="ACSR_ReducedValue">
+                                        <telerik:GridBoundColumn UniqueName="ACSR_ReducedValue" HeaderText="TDS Value" DataField="ACSR_ReducedValue">
                                             <HeaderStyle></HeaderStyle>
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn UniqueName="ReceivableValue" HeaderText="Receivable Brokerage Value"
+                                        <telerik:GridBoundColumn UniqueName="ReceivableValue" HeaderText="Receivable Rate"
                                             DataField="RecievableValue" DataFormatString="{0:N2}">
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn UniqueName="ReceivableUnit" HeaderText="Receivable Brokerage Unit"
+                                        <telerik:GridBoundColumn UniqueName="ReceivableUnit" HeaderText="Receivable  Unit"
                                             DataField="RecievableUnit">
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn UniqueName="PaybleValue" HeaderText="Payable Brokerage Value"
-                                            DataField="PaybleValue" DataFormatString="{0:N2}">
+                                        <telerik:GridBoundColumn UniqueName="PaybleValue" HeaderText="Payable Rate" DataField="PaybleValue"
+                                            DataFormatString="{0:N2}">
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn UniqueName="PaybleUnit" HeaderText="Payable Brokerage Unit"
-                                            DataField="PaybleUnit">
+                                        <telerik:GridBoundColumn UniqueName="PaybleUnit" HeaderText="Payable  Unit" DataField="PaybleUnit">
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn UniqueName="WCCO_CalculatedOn" HeaderText="Calculated On"
                                             DataField="WCCO_CalculatedOn">
@@ -1408,9 +1408,54 @@
                                                             Display="Dynamic" ControlToValidate="TxtRuleName" ErrorMessage="<br />Enter Rule Name"
                                                             Text="" />
                                                     </td>
-                                                    <td class="rightData">
+                                                    <%-- 
                                                         <asp:CheckBox ID="chkSpecial" runat="server" CssClass="cmbFielde" Text="Special Incentive"
                                                             Checked='<%# Eval("ACSR_IsSpecialIncentive") == DBNull.Value ? false : Convert.ToBoolean(Eval("ACSR_IsSpecialIncentive")) %>' />
+                                                    </td>--%>
+                                                </tr>
+                                                <tr>
+                                                    <td class="leftLabel">
+                                                        <asp:Label ID="lblRuleStart" runat="server" CssClass="FieldName" Text="Rule Validity Start"></asp:Label>
+                                                    </td>
+                                                    <td class="rightData">
+                                                        <asp:TextBox ID="txtRuleValidityFrom" runat="server" CssClass="txtField" Text='<% # (Eval("ACSR_ValidilityStart") != null && Eval("ACSR_ValidilityStart") is DateTime) ?Convert.ToDateTime(Eval("ACSR_ValidilityStart")) : (DateTime?)null%>'></asp:TextBox>
+                                                        <span id="Span1" class="spnRequiredField">*</span>
+                                                        <cc1:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="txtRuleValidityFrom"
+                                                            Format="dd/MM/yyyy">
+                                                        </cc1:CalendarExtender>
+                                                        <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtRuleValidityFrom"
+                                                            WatermarkText="dd/mm/yyyy">
+                                                        </cc1:TextBoxWatermarkExtender>
+                                                        <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="<br/>Please enter a valid date."
+                                                            Type="Date" ControlToValidate="txtRuleValidityFrom" CssClass="cvPCG" Operator="DataTypeCheck"
+                                                            ValidationGroup="vgBtnSubmitTemp" ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
+                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtRuleValidityFrom"
+                                                            ErrorMessage="<br />Please enter a validity from Date" Display="Dynamic" CssClass="rfvPCG"
+                                                            runat="server" InitialValue="">
+                                                        </asp:RequiredFieldValidator>
+                                                    </td>
+                                                    <td class="leftLabel">
+                                                        <asp:Label ID="lblValidityEnd" runat="server" CssClass="FieldName" Text="Rule Validity End:"></asp:Label>
+                                                    </td>
+                                                    <td class="rightData">
+                                                        <asp:TextBox ID="txtRuleValidityTo" runat="server" CssClass="txtField" Text='<%#(Eval("ACSR_ValidilityEnd") != null && Eval("ACSR_ValidilityEnd") is DateTime) ?Convert.ToDateTime(Eval("ACSR_ValidilityEnd")) : (DateTime?)null %>'></asp:TextBox>
+                                                        <span id="Span3" class="spnRequiredField">*</span>
+                                                        <cc1:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtRuleValidityTo"
+                                                            Format="dd/MM/yyyy">
+                                                        </cc1:CalendarExtender>
+                                                        <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="txtRuleValidityTo"
+                                                            WatermarkText="dd/mm/yyyy">
+                                                        </cc1:TextBoxWatermarkExtender>
+                                                        <asp:CompareValidator ID="CVReceivedDate" runat="server" ErrorMessage="<br/>Please enter a valid date."
+                                                            Type="Date" ControlToValidate="txtRuleValidityTo" CssClass="cvPCG" Operator="DataTypeCheck"
+                                                            ValidationGroup="vgBtnSubmitTemp" ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
+                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator7" ControlToValidate="txtRuleValidityTo"
+                                                            ErrorMessage="<br />Please enter a validity to Date" Display="Dynamic" CssClass="rfvPCG"
+                                                            runat="server" InitialValue="">
+                                                        </asp:RequiredFieldValidator>
+                                                        <asp:CompareValidator ControlToCompare="txtRuleValidityFrom" ControlToValidate="txtRuleValidityTo"
+                                                            Display="Dynamic" CssClass="rfvPCG" ValidationGroup="btnStrAddUpdate" ErrorMessage="The Validity To must be greater than or equal to Validity From"
+                                                            ID="CompareValidator2" Operator="GreaterThanEqual" Type="Date" runat="server" />
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -1432,6 +1477,16 @@
                                                     </td>
                                                     <td class="rightData">
                                                         <asp:DropDownList ID="ddlInvestorType" runat="server" CssClass="cmbField">
+                                                        </asp:DropDownList>
+                                                    </td>
+                                                </tr>
+                                                <tr id="trincentive" runat="server" visible="false">
+                                                    <td class="leftLabel">
+                                                        <asp:Label ID="lblType" runat="server" CssClass="FieldName" Text="Commision Sub Type:"></asp:Label>
+                                                    </td>
+                                                    <td class="rightData">
+                                                        <asp:DropDownList ID="ddlIncentiveType" runat="server" CssClass="cmbField" AutoPostBack="true"
+                                                            OnSelectedIndexChanged="ddlInvestorType_OnSelectedIndexChanged">
                                                         </asp:DropDownList>
                                                     </td>
                                                 </tr>
@@ -1461,7 +1516,6 @@
                                                             AutoPostBack="true" OnSelectedIndexChanged="ddlCommissionApplicableLevel_Selectedindexchanged">
                                                         </asp:DropDownList>
                                                         <span id="Span9" class="spnRequiredField">*</span>
-                                                        
                                                     </td>
                                                     <td class="leftLabel">
                                                         <asp:Label ID="lblApplyTaxes" runat="server" Text="Apply Taxes(%):" CssClass="FieldName"></asp:Label>
@@ -1470,10 +1524,10 @@
                                                         <asp:CheckBoxList ID="chkListApplyTax" runat="server" CssClass="txtField" RepeatLayout="Flow"
                                                             RepeatDirection="Vertical" AutoPostBack="true" OnSelectedIndexChanged="chkListApplyTax_CheckChanged"
                                                             Width="100px">
-                                                            <asp:ListItem Text="Service Tax" Value="ServiceTax" ></asp:ListItem>
-                                                            <asp:ListItem Text="TDS" Value="TDS" ></asp:ListItem>
-                                                           </asp:CheckBoxList>
-                                                     <%-- <asp:CheckBoxList>
+                                                            <asp:ListItem Text="Service Tax" Value="ServiceTax"></asp:ListItem>
+                                                            <asp:ListItem Text="TDS" Value="TDS"></asp:ListItem>
+                                                        </asp:CheckBoxList>
+                                                        <%-- <asp:CheckBoxList>
                                                         <asp:CheckBox ID="chkServiceTax" runat="server" CssClass="txtField" OnCheckedChanged="chkListApplyTax_CheckChanged"
                                                         AutoPostBack="true" />
                                                         <asp:CheckBox ID="chkTDS" runat="server" CssClass="txtField" OnCheckedChanged="chkListApplyTax_CheckChanged"
@@ -1484,8 +1538,7 @@
                                                             <tr>
                                                                 <td>
                                                                     <asp:TextBox ID="txtTaxValue" Text='<%# Bind( "ACSR_ServiceTaxValue") %>' runat="server"
-                                                                        CssClass="txtField" Visible="false" ></asp:TextBox>
-                                                                      
+                                                                        CssClass="txtField" Visible="false"></asp:TextBox>
                                                                     <cc1:TextBoxWatermarkExtender ID="twtxtTaxValue" TargetControlID="txtTaxValue" WatermarkText="Enter the Value"
                                                                         runat="server" EnableViewState="false">
                                                                     </cc1:TextBoxWatermarkExtender>
@@ -1494,7 +1547,7 @@
                                                             <tr>
                                                                 <td>
                                                                     <asp:TextBox ID="txtTDS" Text='<%# Bind( "ACSR_ReducedValue") %>' runat="server"
-                                                                        CssClass="txtField"  Visible="false" ></asp:TextBox>
+                                                                        CssClass="txtField" Visible="false"></asp:TextBox>
                                                                     <cc1:TextBoxWatermarkExtender ID="twttxtTDS" TargetControlID="txtTDS" WatermarkText="Enter the TDS"
                                                                         runat="server" EnableViewState="false">
                                                                     </cc1:TextBoxWatermarkExtender>
@@ -1713,7 +1766,7 @@
                                                             enableloadondemand="True" PageSize="5" AutoGenerateColumns="False" EnableEmbeddedSkins="False"
                                                             GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="true" AllowPaging="false"
                                                             ShowStatusBar="True" Skin="Telerik" AllowFilteringByColumn="true" OnNeedDataSource="rgCommissionTypeCaliculation_OnNeedDataSource"
-                                                            OnItemCommand="rgCommissionTypeCaliculation_ItemCommand" OnItemDataBound="rgCommissionTypeCaliculation_ItemDataBound" 
+                                                            OnItemCommand="rgCommissionTypeCaliculation_ItemCommand" OnItemDataBound="rgCommissionTypeCaliculation_ItemDataBound"
                                                             Visible="false">
                                                             <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" AutoGenerateColumns="false"
                                                                 Width="100%" EditMode="PopUp" CommandItemSettings-AddNewRecordText="Add Rates"
@@ -1870,106 +1923,101 @@
                             </div>
                             &nbsp;
                             <div class="divSectionHeadingNumber1 fltlftStep" style="width: 200px;">
-                                <asp:Label ID="Label15" runat="server" Text="Associate Payable Mapping"></asp:Label>
+                                <asp:Label ID="Label15" runat="server" Text="Associate Payable Mapped"></asp:Label>
                             </div>
+                            
                         </div>
                     </td>
+                    <td><asp:ImageButton ID="imgMapping" runat="server" ImageUrl="~/Images/reprocess.png" OnClick="OnClick_imgMapping"/></td>
                 </tr>
                 <tr>
                     <td align="left">
-                        <telerik:RadGrid ID="rgPayableMapping" runat="server" AllowSorting="True" enableloadondemand="True"
-                            PageSize="5" AutoGenerateColumns="False" EnableEmbeddedSkins="False" GridLines="None"
-                            ShowFooter="True" PagerStyle-AlwaysVisible="true" AllowPaging="false" ShowStatusBar="True"
-                            Skin="Telerik" AllowFilteringByColumn="true" OnNeedDataSource="rgPayableMapping_OnNeedDataSource"
-                            OnItemCommand="rgPayableMapping_ItemCommand" Width="40%" OnItemDataBound="rgPayableMapping_OnItemDataBound">
-                            <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" AutoGenerateColumns="false"
-                                Width="100%" DataKeyNames="ACSR_CommissionStructureRuleId">
-                                <Columns>
-                                    <%-- <telerik:GridEditCommandColumn EditText="Edit" UniqueName="editColumn" CancelText="Cancel"
-                                        UpdateText="Update">--%>
-                                    <%--</telerik:GridEditCommandColumn>--%>
-                                  <%--  <telerik:GridBoundColumn DataField="CSRD_StructureRuleDetailsId" HeaderStyle-Width="10px"
-                                        CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                        HeaderText="Rule Detail Id" UniqueName="CSRD_StructureRuleDetailsId" SortExpression="CSRD_StructureRuleDetailsId"
-                                        AllowFiltering="true">
-                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="10px" Wrap="false" />
-                                    </telerik:GridBoundColumn>--%>
-                                    <%-- <telerik:GridBoundColumn DataField="ACSR_CommissionStructureRuleId" HeaderStyle-Width="10px"
-                                        CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                        HeaderText="RuleId" UniqueName="ACSR_CommissionStructureRuleId" SortExpression="ACSR_CommissionStructureRuleId"
-                                        AllowFiltering="true" Visible="false">
-                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
-                                    </telerik:GridBoundColumn>--%>
-                                    <telerik:GridBoundColumn DataField="ACSR_CommissionStructureRuleName" HeaderStyle-Width="20px"
-                                        CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                        HeaderText="Rule Name" UniqueName="ACSR_CommissionStructureRuleName" SortExpression="ACSR_CommissionStructureRuleName"
-                                        AllowFiltering="true">
-                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
-                                    </telerik:GridBoundColumn>
-                                    <%--<telerik:GridBoundColumn DataField="CSRD_RateName" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
-                                        ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Rate Name" UniqueName="CSRD_RateName"
-                                        SortExpression="CSRD_RateName" AllowFiltering="true">
-                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
-                                    </telerik:GridBoundColumn>--%>
-                                    <telerik:GridBoundColumn DataField="WCT_CommissionType" HeaderStyle-Width="20px"
-                                        CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                        HeaderText="Commission Type" UniqueName="WCT_CommissionType" SortExpression="WCT_CommissionType"
-                                        AllowFiltering="true">
-                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
-                                    </telerik:GridBoundColumn>
-                                   <%-- <telerik:GridBoundColumn DataField="CSRD_BrokageValue" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
-                                        ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Brokage Value"
-                                        UniqueName="CSRD_BrokageValue" SortExpression="CSRD_BrokageValue" AllowFiltering="true">
-                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
-                                    </telerik:GridBoundColumn>--%>
-                                    <%--<telerik:GridBoundColumn DataField="WCU_UnitCode" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
-                                        ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Brokage Unit"
-                                        UniqueName="WCU_UnitCode" SortExpression="WCU_UnitCode" AllowFiltering="true">
-                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
-                                    </telerik:GridBoundColumn>--%>
-                                    <telerik:GridTemplateColumn HeaderText="Rate(%)" 
-                                        AllowFiltering="true" DataField="CSRD_StructureRuleDetailsId">
-                                        <%--<ItemTemplate>
-                                            <asp:Repeater ID="repradiobutton" runat="server"  >--%>
-                                                <ItemTemplate>
-                                                    <asp:RadioButtonList  ID="rbtnListRate" runat="server" RepeatDirection="Vertical" ></asp:RadioButtonList>
-                                                </ItemTemplate>
-                                                <%-- <asp:Repeater ID="rptUnitValue" runat="server" DataMember="WCU_UnitCode"></asp:Repeater>--%>
-                                       <%--     </asp:Repeater>
-                                        </ItemTemplate>--%>
-                                    </telerik:GridTemplateColumn>
-                                    <%--<telerik:GridTemplateColumn AllowFiltering="false" DataField="" HeaderStyle-Width="110px"
-                                        UniqueName="Action" HeaderText="Action">
-                                        <ItemTemplate>
-                                            <asp:LinkButton ID="llPurchase" runat="server" Text="Map" OnClick="llPurchase_Click"></asp:LinkButton>
-                                        </ItemTemplate>
-                                    </telerik:GridTemplateColumn>--%>
-                                    <telerik:GridTemplateColumn AllowFiltering="false" DataField="" HeaderStyle-Width="110px"
-                                        UniqueName="Action" HeaderText="Action">
-                                        <ItemTemplate>
-                                            <asp:LinkButton ID="llView" runat="server" Text="View" OnClick="llView_Click"></asp:LinkButton>
-                                        </ItemTemplate>
-                                    </telerik:GridTemplateColumn>
-                                    <%--    <telerik:GridTemplateColumn AllowFiltering="false" DataField="" HeaderStyle-Width="110px"
-                                        UniqueName="Action" HeaderText="Action"  >
-                                        <ItemTemplate>
-                                            <asp:LinkButton ID="llViewUnMapping" runat="server" Text="UNMAP" OnClick="llViewUnMapping_Click"></asp:LinkButton>
-                                        </ItemTemplate>
-                                    </telerik:GridTemplateColumn>--%>
-                                    <telerik:GridButtonColumn UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete?"
-                                        ConfirmDialogType="RadWindow" ConfirmTitle="Delete" ButtonType="LinkButton" CommandName="Delete"
-                                        Text="Delete" Visible="false">
-                                        <ItemStyle HorizontalAlign="Center" CssClass="MyImageButton" />
-                                    </telerik:GridButtonColumn>
-                                </Columns>
-                            </MasterTableView>
-                            <ClientSettings>
-                                <ClientEvents OnRowClick="RadGrid1_OnRowClick" />
-                            </ClientSettings>
-                        </telerik:RadGrid>
-                        <telerik:RadScriptBlock ID="RadScriptBlock1" runat="server">
-
-                            <script type="text/javascript">
+                        <table id="tblPayableRule" runat="server" width="100%">
+                            <tr>
+                                <td>
+                                    <telerik:RadGrid ID="gvPayaMapping" AllowSorting="false" runat="server" AllowAutomaticInserts="false"
+                                        AllowPaging="True" AutoGenerateColumns="False" AllowFilteringByColumn="true"
+                                        enableloadondemand="true" EnableEmbeddedSkins="false" GridLines="none" ShowFooter="true"
+                                        PagerStyle-AlwaysVisible="true" EnableViewState="true" ShowStatusBar="true" Skin="Telerik"
+                                        OnNeedDataSource="gvPayaMapping_NeedDataSource" OnItemCommand="gvPayaMapping_ItemCommand">
+                                        <HeaderContextMenu EnableEmbeddedSkins="False">
+                                        </HeaderContextMenu>
+                                        <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="PayableMapping"
+                                            IgnorePaging="true">
+                                        </ExportSettings>
+                                        <PagerStyle AlwaysVisible="True" />
+                                        <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" AutoGenerateColumns="false"
+                                            Width="100%" DataKeyNames="CSRD_StructureRuleDetailsId,AAC_AdviserAgentId,AC_Category">
+                                            <CommandItemSettings ExportToExcelText="Export to excel" />
+                                            <Columns>
+                                                <telerik:GridBoundColumn DataField="CSRD_StructureRuleDetailsId" HeaderStyle-Width="70px"
+                                                    CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                                    HeaderText="Rule Det. Id" UniqueName="CSRD_StructureRuleDetailsId" ReadOnly="true"
+                                                    Visible="false">
+                                                    <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="40px" Wrap="false" />
+                                                </telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn DataField="RuleName" HeaderStyle-Width="70px" CurrentFilterFunction="Contains"
+                                                    ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Rule Name" UniqueName="RuleName"
+                                                    ReadOnly="true">
+                                                    <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="40px" Wrap="false" />
+                                                </telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn DataField="AAC_AdviserAgentId" HeaderStyle-Width="70px"
+                                                    CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                                    HeaderText="AgentId" UniqueName="AAC_AdviserAgentId" ReadOnly="true" Visible="false">
+                                                    <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="40px" Wrap="false" />
+                                                </telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn DataField="MappingFor" HeaderStyle-Width="70px" CurrentFilterFunction="Contains"
+                                                    ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Mapping For" UniqueName="MappingFor"
+                                                    ReadOnly="true">
+                                                    <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="40px" Wrap="false" />
+                                                </telerik:GridBoundColumn>
+                                                <%--  <telerik:GridBoundColumn DataField="Type" HeaderStyle-Width="70px"
+                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                            HeaderText="Type" UniqueName="Type" ReadOnly="true">
+                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="40px" Wrap="false" />
+                                        </telerik:GridBoundColumn>--%>
+                                                <telerik:GridBoundColumn DataField="ACC_UserType" HeaderStyle-Width="70px" CurrentFilterFunction="Contains"
+                                                    ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Type" UniqueName="ACC_UserType"
+                                                    ReadOnly="true">
+                                                    <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="40px" Wrap="false" />
+                                                </telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn DataField="AAC_AgentCode" HeaderStyle-Width="70px" CurrentFilterFunction="Contains"
+                                                    ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Agent Code" UniqueName="AAC_AgentCode"
+                                                    ReadOnly="true">
+                                                    <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="400px" Wrap="false" />
+                                                </telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn DataField="AC_CategoryName" HeaderStyle-Width="80px" CurrentFilterFunction="Contains"
+                                                    ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Name" UniqueName="AC_CategoryName"
+                                                    ReadOnly="true">
+                                                    <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="400px" Wrap="false" />
+                                                </telerik:GridBoundColumn>
+                                                <%-- <telerik:GridButtonColumn ButtonType="LinkButton" Text="Delete" ConfirmText="Do you want to delete the mapping?"
+                                            CommandName="Delete" UniqueName="DeleteCommandColumn" HeaderStyle-Width="50px"
+                                            Visible="false">
+                                            <ItemStyle HorizontalAlign="Center" VerticalAlign="Top" Width="50px" Wrap="false" />
+                                        </telerik:GridButtonColumn>--%>
+                                                <telerik:GridButtonColumn UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete?"
+                                                    ConfirmDialogType="RadWindow" ConfirmTitle="Delete" ButtonType="LinkButton" CommandName="Delete"
+                                                    Text="Delete" HeaderStyle-Width="80px">
+                                                    <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="150px" Wrap="false" />
+                                                    <%-- <ItemStyle HorizontalAlign="Center" CssClass="MyImageButton" />--%>
+                                                </telerik:GridButtonColumn>
+                                            </Columns>
+                                            <PagerStyle AlwaysVisible="True" />
+                                        </MasterTableView>
+                                        <ClientSettings>
+                                            <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+                                            <Resizing AllowColumnResize="true" />
+                                        </ClientSettings>
+                                        <%--<FilterMenu EnableEmbeddedSkins="False"></FilterMenu>--%>
+                                    </telerik:RadGrid>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                </table>
+                <%--   <script type="text/javascript">
                                 function RadGrid1_OnRowClick(sender, args) {
                                     //changed code here
                                     var grid = $find("<%= rgPayableMapping.ClientID %>");
@@ -1978,14 +2026,12 @@
                                     var key = MasterTable.getCellByColumnUniqueName(row, "CSRD_StructureRuleDetailsId");  // get the value by uniquecolumnname
                                     var ID = key.innerHTML;
                                     MasterTable.fireCommand("MyClick2", ID);
-                                } 
-                            </script>
-
-                        </telerik:RadScriptBlock>
-                    </td>
-                </tr>
+                                }  OnClientClick="Confirm();"
+                            </script>--%>
+                </td> </tr>
             </table>
-            <asp:Button ID="btnIssueMap" runat="server" CssClass="PCGButton" Text="Map" OnClick="Map_btnIssueMap" Visible="false" OnClientClick="Confirm();"/>
+            <asp:Button ID="btnIssueMap" runat="server" CssClass="PCGButton" Text="Map" OnClick="Map_btnIssueMap"
+                Visible="false" />
             <div>
                 <asp:HiddenField ID="hidCommissionStructureName" runat="server" />
                 <asp:HiddenField ID="hdnProductId" runat="server" />
@@ -2001,6 +2047,8 @@
                 <asp:HiddenField ID="hdnIsSpecialIncentive" runat="server" />
                 <asp:HiddenField ID="hdnViewMode" runat="server" />
                 <asp:HiddenField ID="hdneligible" runat="server" />
+                <asp:HiddenField ID="hdnRulestart" runat="server" />
+                <asp:HiddenField ID="hdnRuleEnd" runat="server" />
             </div>
             <%--<div style="float:left ;padding-right:10px">
                 <asp:Label ID="Label12" runat="server" Text="Note:" Visible="false" CssClass="FieldName"></asp:Label>

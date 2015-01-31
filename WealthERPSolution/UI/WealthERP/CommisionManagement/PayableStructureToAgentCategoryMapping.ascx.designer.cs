@@ -259,6 +259,7 @@ namespace WealthERP.CommisionManagement
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlGrid;
+        protected global::Telerik.Web.UI.RadGrid rgPayableMapping;
 
         /// <summary>
         /// gvMappedSchemes control.
@@ -267,7 +268,6 @@ namespace WealthERP.CommisionManagement
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadGrid gvPayaMapping;
 
         /// <summary>
         /// pnlAddSchemesButton control.
@@ -277,7 +277,7 @@ namespace WealthERP.CommisionManagement
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlAddSchemesButton;
-
+        protected global::System.Web.UI.WebControls.HiddenField hdneligible;
         /// <summary>
         /// lblAddNewSchemes control.
         /// </summary>
