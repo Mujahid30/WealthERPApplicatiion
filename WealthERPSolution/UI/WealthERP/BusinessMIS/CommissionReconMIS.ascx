@@ -126,13 +126,13 @@
                 <asp:ListItem Text="Offline" Value="0"></asp:ListItem>
             </asp:DropDownList>
         </td>
-        <td align="left" class="leftField" width="16%">
+        <td align="left" class="leftField" width="16%" runat="server" visible="false">
             <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Commission Type:"></asp:Label>
         </td>
-        <td>
+        <td runat="server" visible="false">
             <asp:DropDownList ID="ddlCommType" runat="server" CssClass="cmbField" AutoPostBack="true">
                 <asp:ListItem Text="Select" Value="Select"></asp:ListItem>
-                <asp:ListItem Text="Upfront" Value="UF"></asp:ListItem>
+                <asp:ListItem Text="Upfront" Value="UF" Selected="True"></asp:ListItem>
                 <asp:ListItem Text="Trail" Value="TC"></asp:ListItem>
                 <asp:ListItem Text="Incentive" Value="IN"></asp:ListItem>
             </asp:DropDownList>
