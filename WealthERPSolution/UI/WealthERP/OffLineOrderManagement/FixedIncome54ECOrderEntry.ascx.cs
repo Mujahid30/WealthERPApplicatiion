@@ -798,14 +798,25 @@ namespace WealthERP.OffLineOrderManagement
             txtSeries.Enabled = Val;
             ddlSchemeOption.Enabled = Val;
             ddlFrequency.Enabled = Val;
-            if (rbtnAuthentication.Checked)
+            if (rbtnAuthentication.Checked || rbtnReject.Checked)
+            {
                 rbtnAuthentication.Enabled = false;
-            else
-                rbtnAuthentication.Enabled = Val;
-            if (rbtnReject.Checked)
                 rbtnReject.Enabled = false;
+            }
             else
+            {
+                rbtnAuthentication.Enabled = Val;
                 rbtnReject.Enabled = Val;
+            }
+            //if (rbtnReject.Checked)
+            //{
+            //    rbtnReject.Enabled = false;
+            //    rbtnAuthentication.Enabled = false;
+            //}
+            //else
+            //{
+            //    rbtnReject.Enabled = Val;
+            //}
             //ddlModeofHOlding.Enabled = Val;
 
             lblGetOrderNo.Enabled = Val;
