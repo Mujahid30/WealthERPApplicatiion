@@ -1436,8 +1436,8 @@ namespace BoOnlineOrderManagement
             OrderTypeList.Add(new KeyValuePair<string, string>("NFO", "NFO"));
             OrderTypeList.Add(new KeyValuePair<string, string>("AMCBANK", "AMCBANK"));
             OrderTypeList.Add(new KeyValuePair<string, string>("SIPBOOK", "SIPBOOK"));
-            OrderTypeList.Add(new KeyValuePair<string, string>("FATCA_OTH", "FATCA_NORMAL"));
-            OrderTypeList.Add(new KeyValuePair<string, string>("FATCA_SIP", "FATCA_SIP"));
+            //OrderTypeList.Add(new KeyValuePair<string, string>("FATCA_OTH", "FATCA_NORMAL"));
+            //OrderTypeList.Add(new KeyValuePair<string, string>("FATCA_SIP", "FATCA_SIP"));
             return OrderTypeList.ToArray();
 
         }
