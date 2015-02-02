@@ -423,8 +423,8 @@ namespace WealthERP.Receivable
                 ddlCommissionype.DataTextField = "WCMV_Name";
                 ddlCommissionype.DataBind();
                 ddlCommissionype.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
-                //if (hdnIsSpecialIncentive.Value == "True")
-                //    ddlCommissionype.Items[1].Enabled = false;
+                if (hdnIsSpecialIncentive.Value == "SPl")
+                    ddlCommissionype.Items[1].Enabled = false;
 
                 DataSet dsCommissionLookup;
                 dsCommissionLookup = (DataSet)Session["CommissionLookUpData"];
@@ -1062,6 +1062,14 @@ namespace WealthERP.Receivable
                 //chkSpecial = (CheckBox)gdi.FindControl("chkSpecial");
                 tdlblApplicationNo = (System.Web.UI.HtmlControls.HtmlTableCell)gdi.FindControl("tdlblApplicationNo");
                 tdApplicationNo = (System.Web.UI.HtmlControls.HtmlTableCell)gdi.FindControl("tdApplicationNo");
+                TextBox txtMinInvestmentAmount = (TextBox)gdi.FindControl("txtMinInvestmentAmount");
+                TextBox txtMaxInvestmentAmount = (TextBox)gdi.FindControl("txtMaxInvestmentAmount");
+                TextBox txtMinNumberOfApplication = (TextBox)gdi.FindControl("txtMinNumberOfApplication");
+                TextBox txtMaxNumberOfApplication = (TextBox)gdi.FindControl("txtMaxNumberOfApplication");
+                txtMinInvestmentAmount.Text = string.Empty;
+                txtMaxInvestmentAmount.Text = string.Empty;
+                txtMinNumberOfApplication.Text = string.Empty;
+                txtMaxNumberOfApplication.Text = string.Empty;
 
             }
             else if (ddlCommisionCalOn.NamingContainer is Telerik.Web.UI.GridEditFormInsertItem)
@@ -1074,6 +1082,14 @@ namespace WealthERP.Receivable
                 //chkSpecial = (CheckBox)gdi.FindControl("chkSpecial");
                 tdlblApplicationNo = (System.Web.UI.HtmlControls.HtmlTableCell)gdi.FindControl("tdlblApplicationNo");
                 tdApplicationNo = (System.Web.UI.HtmlControls.HtmlTableCell)gdi.FindControl("tdApplicationNo");
+                TextBox txtMinInvestmentAmount = (TextBox)RadGridStructureRule.FindControl("txtMinInvestmentAmount");
+                TextBox txtMaxInvestmentAmount = (TextBox)RadGridStructureRule.FindControl("txtMaxInvestmentAmount");
+                TextBox txtMinNumberOfApplication = (TextBox)RadGridStructureRule.FindControl("txtMinNumberOfApplication");
+                TextBox txtMaxNumberOfApplication = (TextBox)RadGridStructureRule.FindControl("txtMaxNumberOfApplication");
+                txtMinInvestmentAmount.Text = string.Empty;
+                txtMaxInvestmentAmount.Text = string.Empty;
+                txtMinNumberOfApplication.Text = string.Empty;
+                txtMaxNumberOfApplication.Text = string.Empty;
 
             }
             trMinMAxInvAmount.Visible = false;
@@ -1082,6 +1098,7 @@ namespace WealthERP.Receivable
             tdApplicationNo.Visible = false;
             //chkSpecial.Checked = false;
             trincentive.Visible = false;
+            
             if (ddlCommisionCalOn.SelectedValue.ToString().ToUpper() == "APPC")
             {
                 trMinAndMaxNumberOfApplication.Visible = true;
@@ -1268,7 +1285,7 @@ namespace WealthERP.Receivable
                 if (e.Item.ItemIndex != -1)
                 {
                     HiddenField1.Value = RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_CommissionStructureRuleId"].ToString();
-                    // hdnIsSpecialIncentive.Value = RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_IsSpecialIncentive"].ToString();
+                    hdnIsSpecialIncentive.Value = RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ASCR_WCMV_IncentiveType"].ToString();
                     RadGrid rgCommissionTypeCaliculation = (RadGrid)e.Item.FindControl("rgCommissionTypeCaliculation");
                     System.Web.UI.HtmlControls.HtmlTableRow trRuleDetailSection = (System.Web.UI.HtmlControls.HtmlTableRow)e.Item.FindControl("trRuleDetailSection");
                     hdnRuleName.Value = RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_CommissionStructureRuleName"].ToString();
@@ -1389,7 +1406,7 @@ namespace WealthERP.Receivable
                     ddlCommissionType.DataBind();
                     ddlCommissionType.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
                     ddlIncentiveType.DataSource = dsCommissionLookup.Tables[11];
-                    ddlIncentiveType.DataValueField = dsCommissionLookup.Tables[11].Columns["WCMV_LookupId"].ToString();
+                    ddlIncentiveType.DataValueField = dsCommissionLookup.Tables[11].Columns["WCMV_Code"].ToString();
                     ddlIncentiveType.DataTextField = dsCommissionLookup.Tables[11].Columns["WCMV_Name"].ToString();
                     ddlIncentiveType.DataBind();
                     ddlIncentiveType.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
@@ -1880,7 +1897,7 @@ namespace WealthERP.Receivable
                 //else
                 //    commissionStructureRuleVo.specialIncentiv = 0;
 
-                commissionStructureRuleVo.specialIncentiv = int.Parse(ddlIncentiveType.SelectedValue);
+                commissionStructureRuleVo.CommissionSubType = ddlIncentiveType.SelectedValue;
                 commissionStructureRuleVo.RuleValidateFrom = Convert.ToDateTime(txtRuleValidityFrom.Text);
                 commissionStructureRuleVo.RuleValidateTo = Convert.ToDateTime(txtRuleValidityTo.Text);
 
@@ -2051,19 +2068,19 @@ namespace WealthERP.Receivable
                     ddlCommisionCalOn.Items[2].Enabled = false;
                     ddlCommisionCalOn.Items[3].Enabled = false;
                     ddlCommisionCalOn.Items[4].Enabled = false;
-                    if (ddlIncentiveType.SelectedValue == "16437")
+                    if (ddlIncentiveType.SelectedValue == "N")
                     {
                         ddlCommisionCalOn.Items[3].Enabled = true;
                         ddlCommisionCalOn.Items[4].Enabled = true;
 
                     }
-                    else if (ddlIncentiveType.SelectedValue == "16438")
+                    else if (ddlIncentiveType.SelectedValue == "SPl")
                     {
                         //ddlCommisionCalOn.Items[1].Enabled = true;
                         ddlCommisionCalOn.Items[3].Enabled = true;
                         ddlCommisionCalOn.Items[2].Enabled = true;
                     }
-                    else if (ddlIncentiveType.SelectedValue == "16439")
+                    else if (ddlIncentiveType.SelectedValue == "MBl")
                     {
                         ddlCommisionCalOn.Items[3].Enabled = true;
                         ddlCommisionCalOn.Items[1].Enabled = true;
@@ -3254,7 +3271,9 @@ namespace WealthERP.Receivable
                 gvMappedIssueList.DataSource = dtmappedIssues;
                 gvMappedIssueList.DataBind();
                 pnlIssueList.Visible = true;
-
+                if (Cache[userVo.UserId.ToString() + "MappedIssueList"] != null)
+                    Cache.Remove(userVo.UserId.ToString() + "MappedIssueList");
+                Cache.Insert(userVo.UserId.ToString() + "MappedIssueList", dtmappedIssues);
                 if (Request.QueryString["StructureId"] != null)
                 {
                     ddlUnMappedIssues.DataSource = dtmappedIssues;
@@ -3300,21 +3319,21 @@ namespace WealthERP.Receivable
         {
             if (e.CommandName == RadGrid.DeleteCommandName)
             {
-                //if (rgPayableMapping.Items.Count == 0)
-                //{
-                //    int setupId = Convert.ToInt32(gvMappedIssueList.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSTSM_SetupId"].ToString());
-                //    commisionReceivableBo.DeleteIssueMapping(setupId);
-                //    GetUnamppedIssues(ddlIssueType.SelectedValue);
-                //    GetMapped_Unmapped_Issues("Mapped", "");
+                if (gvMappedIssueList.Items.Count > 0)
+                {
+                    int setupId = Convert.ToInt32(gvMappedIssueList.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSTSM_SetupId"].ToString());
+                    commisionReceivableBo.DeleteIssueMapping(setupId);
+                    GetUnamppedIssues(ddlIssueType.SelectedValue);
+                    GetMapped_Unmapped_Issues("Mapped", "");
 
-                //}
-                //else
-                //{
-                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please remove Mapping then try.');", true);
-                //    GetMapped_Unmapped_Issues("Mapped", "");
+                }
+                else
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please remove Mapping then try.');", true);
+                    GetMapped_Unmapped_Issues("Mapped", "");
 
-                //    return;
-                //}
+                    return;
+                }
             }
         }
 
@@ -3369,87 +3388,25 @@ namespace WealthERP.Receivable
 
         protected void Map_btnIssueMap(object sender, EventArgs e)
         {
-            string ruleid = string.Empty;
-            //int associateid = 0;
-            //Button btn = (Button)sender;
-            //RadGrid RadGridStructureRule = (RadGrid)btn.NamingContainer;
-            //  GridEditFormItem RadGridStructureRulea = (GridEditFormItem)btn.NamingContainer;
-            //  int structureid =int.Parse(RadGridStructureRule.MasterTableView.DataKeyValues[RadGridStructureRulea.ItemIndex]["ACSR_CommissionStructureRuleId"].ToString());
-              string structureId = hidCommissionStructureName.Value;
-              string myscript = "window.open('PopUp.aspx?ID=" + structureId + "&ruleId=" + ruleid.TrimEnd(',') + "&pageID=PayableStructureToAgentCategoryMapping&', 'mywindow', 'width=1000,height=600,scrollbars=yes,location=no')";
-              ScriptManager.RegisterClientScriptBlock(this, this.GetType(), Guid.NewGuid().ToString(), "<script>" + myscript + "</script>", false);
-              //string myscript = "window.open('PopUp.aspx?ID=" + structureId + "&ruleId=" + 0 + "&pageID=PayableStructureToAgentCategoryMapping&', 'mywindow', 'width=1000,height=600,scrollbars=yes,location=no')";
-            //foreach (GridDataItem gdi in rgPayableMapping.MasterTableView.Items)
-            //{
-            //    RadioButtonList rbtnListRate = (RadioButtonList)gdi.FindControl("rbtnListRate");
-            //    if (rbtnListRate.SelectedItem != null)
-            //        ruleid += rbtnListRate.SelectedValue + ",";
-
-            //}
-
-            //if (Request.QueryString["StructureId"] != null && ruleid != string.Empty)
-            //{
-            //    associateid = commisionReceivableBo.RuleAssociate(ruleid.TrimEnd(','));
-
-
-
-            //    if (associateid > 0)
-            //    {
-
-            //        string confirmValue = Request.Form["confirm_value"];
-            //        if (confirmValue == "Yes")
-            //        {
-            //            if (ruleid != "")
-            //            {
-            //                string structureId = hidCommissionStructureName.Value;
-            //                string myscript = "window.open('PopUp.aspx?ID=" + structureId + "&ruleId=" + ruleid.TrimEnd(',') + "&pageID=PayableStructureToAgentCategoryMapping&', 'mywindow', 'width=1000,height=600,scrollbars=yes,location=no')";
-
-
-            //                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), Guid.NewGuid().ToString(), "<script>" + myscript + "</script>", false);
-            //            }
-            //            else
-            //            {
-            //                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select rate(%)');", true);
-
-            //            }
-
-            //        }
-
-            //    }
-            //    else
-            //    {
-            //        if (ruleid != "")
-            //        {
-            //            string structureId = hidCommissionStructureName.Value;
-            //            string myscript = "window.open('PopUp.aspx?ID=" + structureId + "&ruleId=" + ruleid.TrimEnd(',') + "&pageID=PayableStructureToAgentCategoryMapping&', 'mywindow', 'width=1000,height=600,scrollbars=yes,location=no')";
-
-
-            //            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), Guid.NewGuid().ToString(), "<script>" + myscript + "</script>", false);
-            //        }
-            //        else
-            //        {
-            //            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select rate(%)');", true);
-
-            //        }
-
-            //    }
-            //}
-            //else
-            //{
-            //    if (ruleid != "")
-            //    {
-            //        string structureId = hidCommissionStructureName.Value;
-            //        string myscript = "window.open('PopUp.aspx?ID=" + structureId + "&ruleId=" + ruleid.TrimEnd(',') + "&pageID=PayableStructureToAgentCategoryMapping&', 'mywindow', 'width=1000,height=600,scrollbars=yes,location=no')";
-
-
-            //        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), Guid.NewGuid().ToString(), "<script>" + myscript + "</script>", false);
-            //    }
-            //    else
-            //    {
-            //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select rate(%)');", true);
-
-            //    }
-            //}
+           
+              if (Request.QueryString["StructureId"] != null )
+              {
+                  //associateid = commisionReceivableBo.RuleAssociate(Request.QueryString["StructureId"]);
+                      string confirmValue = Request.Form["confirm_value"];
+                      if (confirmValue == "Yes")
+                      {
+                         
+                          string myscript = "window.open('PopUp.aspx?ID=" + hidCommissionStructureName.Value + "&pageID=PayableStructureToAgentCategoryMapping&', 'mywindow', 'width=1000,height=600,scrollbars=yes,location=no')";
+                          ScriptManager.RegisterClientScriptBlock(this, this.GetType(), Guid.NewGuid().ToString(), "<script>" + myscript + "</script>", false);
+                      }
+                  
+              }
+              else 
+              {
+                  string myscript = "window.open('PopUp.aspx?ID=" + hidCommissionStructureName.Value + "&pageID=PayableStructureToAgentCategoryMapping&', 'mywindow', 'width=1000,height=600,scrollbars=yes,location=no')";
+                  ScriptManager.RegisterClientScriptBlock(this, this.GetType(), Guid.NewGuid().ToString(), "<script>" + myscript + "</script>", false);
+              }
+             
         }
         protected void MapStructure()
         {
@@ -3474,23 +3431,31 @@ namespace WealthERP.Receivable
             GridEditFormItem RadGridStructureRule = (GridEditFormItem)ddl.NamingContainer;
             DropDownList ddlIncentiveType = (DropDownList)RadGridStructureRule.FindControl("ddlIncentiveType");
             DropDownList ddlCommisionCalOn = (DropDownList)RadGridStructureRule.FindControl("ddlCommisionCalOn");
+            TextBox txtMinInvestmentAmount = (TextBox)RadGridStructureRule.FindControl("txtMinInvestmentAmount");
+            TextBox txtMaxInvestmentAmount = (TextBox)RadGridStructureRule.FindControl("txtMaxInvestmentAmount");
+            TextBox txtMinNumberOfApplication = (TextBox)RadGridStructureRule.FindControl("txtMinNumberOfApplication");
+            TextBox txtMaxNumberOfApplication = (TextBox)RadGridStructureRule.FindControl("txtMaxNumberOfApplication");
+            txtMinInvestmentAmount.Text = string.Empty;
+            txtMaxInvestmentAmount.Text = string.Empty;
+            txtMinNumberOfApplication.Text = string.Empty;
+            txtMaxNumberOfApplication.Text = string.Empty;
             ddlCommisionCalOn.Items[1].Enabled = false;
             ddlCommisionCalOn.Items[2].Enabled = false;
             ddlCommisionCalOn.Items[3].Enabled = false;
             ddlCommisionCalOn.Items[4].Enabled = false;
-            if (ddlIncentiveType.SelectedValue == "16437")
+            if (ddlIncentiveType.SelectedValue == "N")
             {
                 ddlCommisionCalOn.Items[3].Enabled = true;
                 ddlCommisionCalOn.Items[4].Enabled = true;
 
             }
-            else if (ddlIncentiveType.SelectedValue == "16438")
+            else if (ddlIncentiveType.SelectedValue == "SPl")
             {
                 //ddlCommisionCalOn.Items[1].Enabled = true;
                 ddlCommisionCalOn.Items[3].Enabled = true;
                 ddlCommisionCalOn.Items[2].Enabled = true;
             }
-            else if (ddlIncentiveType.SelectedValue == "16439")
+            else if (ddlIncentiveType.SelectedValue == "MBl")
             {
                 ddlCommisionCalOn.Items[3].Enabled = true;
                 ddlCommisionCalOn.Items[1].Enabled = true;
@@ -3501,16 +3466,16 @@ namespace WealthERP.Receivable
             if (e.CommandName == "Delete")
             {
                 int agentId;
-                int ruleDetailId = Convert.ToInt32(gvPayaMapping.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CSRD_StructureRuleDetailsId"].ToString());
-                if (!string.IsNullOrEmpty(gvPayaMapping.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AAC_AdviserAgentId"].ToString()))
-                    agentId = Convert.ToInt32(gvPayaMapping.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AAC_AdviserAgentId"].ToString());
-                else
-                    agentId = 0;
-                string category = gvPayaMapping.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AC_Category"].ToString();
+                //int ruleDetailId = Convert.ToInt32(gvPayaMapping.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CSRD_StructureRuleDetailsId"].ToString());
+                //if (!string.IsNullOrEmpty(gvPayaMapping.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AAC_AdviserAgentId"].ToString()))
+                //    agentId = Convert.ToInt32(gvPayaMapping.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AAC_AdviserAgentId"].ToString());
+                //else
+                //    agentId = 0;
+                //string category = gvPayaMapping.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AC_Category"].ToString();
 
-                int result = commisionReceivableBo.DeleteStaffAndAssociateMapping(ruleDetailId, agentId, category);
+                //int result = commisionReceivableBo.DeleteStaffAndAssociateMapping(ruleDetailId, agentId, category);
                 BindPayableGrid();
-                if (result > 0)
+                //if (result > 0)
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Mapping deleted successfully');", true);
             }
         }
@@ -3520,18 +3485,14 @@ namespace WealthERP.Receivable
             if (Cache[userVo.UserId.ToString() + "CommissionPayable"] != null)
             {
                 dsCommissionPayable = (DataSet)Cache[userVo.UserId.ToString() + "CommissionPayable"];
-                gvPayaMapping.DataSource = dsCommissionPayable.Tables[0];
+                //gvPayaMapping.DataSource = dsCommissionPayable.Tables[0];
             }
         }
         private void BindPayableGrid()
         {
             string ruleId = string.Empty;
             string structureId = hidCommissionStructureName.Value;
-            //if (Request.QueryString["ruleId"] != null)
-            //{
-            //    ruleId = Request.QueryString["ruleId"].ToString();
-            //}
-
+            
             DataSet dsPayable = new DataSet();
             dsPayable = commisionReceivableBo.GetPayableMappings(int.Parse(structureId));
 
@@ -3540,7 +3501,7 @@ namespace WealthERP.Receivable
 
             if (Cache[userVo.UserId.ToString() + "CommissionPayable"] != null)
                 Cache.Remove(userVo.UserId.ToString() + "CommissionPayable");
-            Cache.Insert(userVo.UserId.ToString() + "CommissionPayable", dsPayable);
+            //Cache.Insert(userVo.UserId.ToString() + "CommissionPayable", dsPayable);
 
         }
         protected void OnClick_imgMapping(object sender, ImageClickEventArgs e)

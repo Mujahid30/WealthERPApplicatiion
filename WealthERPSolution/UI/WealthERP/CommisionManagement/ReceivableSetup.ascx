@@ -2030,7 +2030,7 @@
                             </script>--%>
                 </td> </tr>
             </table>
-            <asp:Button ID="btnIssueMap" runat="server" CssClass="PCGButton" Text="Map" OnClick="Map_btnIssueMap"
+            <asp:Button ID="btnIssueMap" runat="server" CssClass="PCGButton" Text="Map" OnClick="Map_btnIssueMap" OnClientClick="Confirm()"
                 Visible="false" />
             <div>
                 <asp:HiddenField ID="hidCommissionStructureName" runat="server" />
