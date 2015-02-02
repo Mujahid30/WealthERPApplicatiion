@@ -20,25 +20,39 @@
 
 <script type="text/javascript">
     function confirmation() {
-        var masterTable = $find("<%= gvProfileIncreamenetReject.ClientID %>").get_masterTableView();
-        var row = masterTable.get_dataItems();
-        for (var i = 0; i < row.length; i++) {
-            var chk = masterTable.get_dataItems()[i].findElement("chkId");
-            var chk1 = masterTable.get_dataItems()[i].findElement("chkIdAll");
-        }
-        if (chk.checked || chk1.checked) {
-            var retVal = confirm("Do you want to Delete?");
-            if (retVal == true) {
-                return true;
-            }
-            else {
-                return false;
-            }
+//        var masterTable = $find("<%= gvProfileIncreamenetReject.ClientID %>").get_masterTableView();
+//        var row = masterTable.get_dataItems();
+//        alert(row.length);
+//        var i = 0;
+//        if (i < row.length) {
+//            var chk = masterTable.get_dataItems()[i].findElement("chkId");
+//            var chk1 = masterTable.get_dataItems()[i].findElement("chkIdAll");
+//        }
+//        if (chk.checked || chk1.checked) {
+//            var retVal = confirm("Do you want to Delete?");
+//            if (retVal == true) {
+//                return true;
+//            }
+//            else {
+//                return false;
+//            }
+//        }
+//        else {
+//            alert('Please select record to delete!');
+//        }
+        var bool = window.confirm('Are You Sure To Delete?');
+
+        if (bool) {
+            document.getElementById("ctrl_ManageProfileReject_hdnStatusValue").value = 1;
+            document.getElementById("ctrl_ManageProfileReject_btnDeleteStatus").click();
+
+            return false;
         }
         else {
-            alert('Please select record to delete!');
+            document.getElementById("ctrl_ManageProfileReject_hdnStatusValue").value = 0;
+            document.getElementById("ctrl_ManageProfileReject_btnDeleteStatus").click();
+            return true;
         }
-
     }
 </script>
 
@@ -823,7 +837,7 @@
     <tr id="trReprocess" runat="server">
         <td class="SubmitCell">
             <asp:Button ID="btnDelete" runat="server" CssClass="PCGLongButton" Text="Delete Records"
-                OnClientClick="return confirmation();" OnClick="btnDelete_Click" />
+                OnClientClick="return confirmation();"  />
         </td>
         <td class="ReProcessCell">
             <asp:Button ID="btnReProcess" runat="server" CssClass="PCGLongButton" Text="ReProcess"
@@ -831,3 +845,6 @@
         </td>
     </tr>
 </table>
+<asp:HiddenField ID="hdnStatusValue" runat="server" />
+<asp:Button ID="btnDeleteStatus" runat="server" BorderStyle="None" BackColor="Transparent"
+    OnClick="btnDeleteStatus_Click" />

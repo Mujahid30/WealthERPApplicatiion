@@ -454,7 +454,7 @@ namespace WealthERP.UploadBackOffice
             }
 
         }
-        protected void btnDelete_Click(object sender, EventArgs e)
+        protected void btnDeleteStatus_Click(object sender, EventArgs e)
         {
             int i = 0;
 
