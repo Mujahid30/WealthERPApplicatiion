@@ -269,6 +269,7 @@ namespace BoOnlineOrderManagement
                         if (werpColName == "UNKNOWN") { lsItems.Add(""); continue; }
                         lsItems.Add(row[werpColName]);
                     }
+                    if (lsItems.Count>0)
                     dtOrderExtract.Rows.Add(lsItems.ToArray());
                 }
             }
