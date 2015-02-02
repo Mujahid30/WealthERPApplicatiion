@@ -819,6 +819,10 @@ namespace WealthERP.OnlineOrderBackOffice
                     txtFormRange.Enabled = false;
                     txtToRange.Enabled = false;
                 }
+                else
+                {
+                    EnablityOfScreen(true, true, true, true);
+                }
 
             }
             else if (Mode == "AfterUpdate")
@@ -964,8 +968,9 @@ namespace WealthERP.OnlineOrderBackOffice
 
                 onlineNCDBackOfficeVo.IssueName = txtName.Text;
                 onlineNCDBackOfficeVo.IssuerId = Convert.ToInt32(ddlIssuer.SelectedValue);
-
+                if (!string.IsNullOrEmpty(txtFormRange.Text))
                 onlineNCDBackOfficeVo.FromRange = Convert.ToInt64(txtFormRange.Text);
+                if (!string.IsNullOrEmpty(txtToRange.Text))
                 onlineNCDBackOfficeVo.ToRange = Convert.ToInt64(txtToRange.Text);
 
                 if (!string.IsNullOrEmpty(txtInitialCqNo.Text))
@@ -1052,8 +1057,9 @@ namespace WealthERP.OnlineOrderBackOffice
                     onlineNCDBackOfficeVo.IssueRevis = DateTime.Parse(txtRevisionDates.SelectedDate.ToString());
                 else
                     onlineNCDBackOfficeVo.IssueRevis = DateTime.MinValue;
-
+                if (!string.IsNullOrEmpty(txtTradingLot.Text))
                 onlineNCDBackOfficeVo.TradingLot = Convert.ToDecimal(txtTradingLot.Text);
+                if (!string.IsNullOrEmpty(txtBiddingLot.Text))
                 onlineNCDBackOfficeVo.BiddingLot = Convert.ToDecimal(txtBiddingLot.Text);
 
                 onlineNCDBackOfficeVo.MinApplicationSize = Convert.ToInt32(txtMinAplicSize.Text);
@@ -3126,7 +3132,8 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     SeriesAndCategoriesGridsVisiblity(Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text));
                     VisblityAndEnablityOfScreen("Submited");
-                    btnSetUpSubmit.Enabled = true;
+                    btnSetUpSubmit.Visible = false;
+                    lnkBtnEdit.Visible = true;
                 }
 
 
@@ -3171,6 +3178,11 @@ namespace WealthERP.OnlineOrderBackOffice
 
                     VisblityAndEnablityOfScreen("LnkEdit");
                 //lnkBtnEdit.Visible = false;
+            }
+            else
+            {
+                VisblityAndEnablityOfScreen("LnkEdit");
+                lnlBack.Visible = false;
             }
         }
 

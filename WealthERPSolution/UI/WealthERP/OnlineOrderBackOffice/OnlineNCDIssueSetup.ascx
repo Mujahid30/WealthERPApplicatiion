@@ -2616,4 +2616,7 @@
             </ContentTemplate>
         </telerik:RadWindow>
     </ContentTemplate>
+    <Triggers>
+    <asp:PostBackTrigger ControlID="btnSetUpSubmit" />
+    </Triggers>
 </asp:UpdatePanel>
