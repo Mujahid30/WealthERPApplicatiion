@@ -230,22 +230,16 @@ namespace WealthERP.Uploads
             {
                 ddlUploadType.Items[0].Enabled = true;
                 ddlUploadType.Items[2].Enabled = true;
-                ddlUploadType.Items[7].Enabled = true;
                 ddlUploadType.Items[8].Enabled = true;
                 ddlUploadType.Items[9].Enabled = true;
-                ddlUploadType.Items[10].Enabled = true;
-                ddlUploadType.Items[13].Enabled = true;
             }
             else
             {
                 ddlUploadType.Items[0].Enabled = true;
                 ddlUploadType.Items[1].Enabled = true;
                 ddlUploadType.Items[2].Enabled = true;
-                ddlUploadType.Items[6].Enabled = true;
-                ddlUploadType.Items[9].Enabled = true;
+                ddlUploadType.Items[7].Enabled = true;
                 ddlUploadType.Items[10].Enabled = true;
-                ddlUploadType.Items[12].Enabled = true;
-                ddlUploadType.Items[13].Enabled = true;
               
 
             }
@@ -4857,13 +4851,13 @@ namespace WealthERP.Uploads
                 trListBranch.Visible = false;
                 trRM.Visible = false;
                 trMfRecon.Visible = true;
-                RegularExpressionValidator1.ErrorMessage = @"Only .xls and.xlsx File allowed";
-                RegularExpressionValidator1.ValidationExpression=@"^.*\.((x|X)(l|L)(s|S)|(x|X)(l|L)(s|S)(x|X))$";
+                //RegularExpressionValidator1.ErrorMessage = @"Only .xls and.xlsx File allowed";
+               // RegularExpressionValidator1.ValidationExpression=@"^.*\.((x|X)(l|L)(s|S)|(x|X)(l|L)(s|S)(x|X))$";
             }
             else
             {
-                RegularExpressionValidator1.ErrorMessage = @"Only .dbf, .xls and.xlsx File allowed";
-                RegularExpressionValidator1.ValidationExpression = @"^.*\.((x|X)(l|L)(s|S)|(x|X)(l|L)(s|S)(x|X)|(d|D)(b|B)(f|F)|(t|T)(x|X)(t|T))$";
+                //RegularExpressionValidator1.ErrorMessage = @"Only .dbf, .xls and.xlsx File allowed";
+                //RegularExpressionValidator1.ValidationExpression = @"^.*\.((x|X)(l|L)(s|S)|(x|X)(l|L)(s|S)(x|X)|(d|D)(b|B)(f|F)|(t|T)(x|X)(t|T))$";
                 trListBranch.Visible = true;
                 trRM.Visible = true;
                 trMfRecon.Visible = false;
