@@ -592,7 +592,7 @@ namespace DaoCommisionManagement
                 db.AddInParameter(cmdCreateCommissionStructureRule, "@ACSR_CommissionRuleHash", DbType.String, ruleHash);
                 db.AddInParameter(cmdCreateCommissionStructureRule, "@ACSR_ReducedValue", DbType.Decimal, commissionStructureRuleVo.TaxValue);
                 db.AddInParameter(cmdCreateCommissionStructureRule, "@ACSR_ServiceTaxValue", DbType.Decimal, commissionStructureRuleVo.TDSValue);
-                db.AddInParameter(cmdCreateCommissionStructureRule, "@ACSR_IsSpecialIncentive", DbType.Int16, commissionStructureRuleVo.specialIncentiv);
+                db.AddInParameter(cmdCreateCommissionStructureRule, "@CommissionSubType", DbType.String, commissionStructureRuleVo.CommissionSubType);
                 db.AddInParameter(cmdCreateCommissionStructureRule, "@CO_ApplicationNo", DbType.String, commissionStructureRuleVo.applicationNo);
                 db.AddInParameter(cmdCreateCommissionStructureRule, "@RuleValidateFrom", DbType.DateTime, commissionStructureRuleVo.RuleValidateFrom);
                 db.AddInParameter(cmdCreateCommissionStructureRule, "@RuleValidateTo", DbType.DateTime, commissionStructureRuleVo.RuleValidateTo);
@@ -1194,7 +1194,7 @@ namespace DaoCommisionManagement
                 db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_CommissionRuleHash", DbType.String, strRuleHash);
                 db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_ServiceTaxValue", DbType.Decimal, commissionStructureRuleVo.TaxValue);
                 db.AddInParameter(cmdUpdateCommissionStructureRule, "ACSR_ReducedValue", DbType.Decimal, commissionStructureRuleVo.TDSValue);
-                db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_IsSpecialIncentive", DbType.Int32, commissionStructureRuleVo.specialIncentiv);
+                db.AddInParameter(cmdUpdateCommissionStructureRule, "@CommissionSubType", DbType.String, commissionStructureRuleVo.CommissionSubType);
                 db.AddInParameter(cmdUpdateCommissionStructureRule, "@CO_ApplicationNo", DbType.String, commissionStructureRuleVo.applicationNo);
                 db.AddInParameter(cmdUpdateCommissionStructureRule, "@RuleValidateFrom", DbType.DateTime, commissionStructureRuleVo.RuleValidateFrom);
                 db.AddInParameter(cmdUpdateCommissionStructureRule, "@RuleValidateTo", DbType.DateTime, commissionStructureRuleVo.RuleValidateTo);
@@ -1805,7 +1805,7 @@ namespace DaoCommisionManagement
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmdRuleAssociate = db.GetStoredProcCommand("SPROC_GetRuleAssociated");
-                db.AddInParameter(cmdRuleAssociate, "@RuleDetId", DbType.String, ruleid);
+                db.AddInParameter(cmdRuleAssociate, "@structureId", DbType.Int32, ruleid);
                 db.AddOutParameter(cmdRuleAssociate, "@ruleids", DbType.Int32, 0);
 
                 ds = db.ExecuteDataSet(cmdRuleAssociate);

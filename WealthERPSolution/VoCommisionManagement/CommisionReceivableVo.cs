@@ -94,6 +94,7 @@ namespace VoCommisionManagement
         public int specialIncentiv { get; set; }
         public DateTime RuleValidateFrom { get; set; }
         public DateTime RuleValidateTo { get; set; }
+        public string CommissionSubType { get; set; }
     }
 
 
