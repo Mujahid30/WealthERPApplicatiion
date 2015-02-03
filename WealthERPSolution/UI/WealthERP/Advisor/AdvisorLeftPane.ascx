@@ -85,24 +85,24 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="External Header Mapping" Value="External_Header_Mapping">
                                             </telerik:RadPanelItem>
-                                                <telerik:RadPanelItem runat="server" Text="customer category" Value="Setup_customer_category">
-                                                </telerik:RadPanelItem>
-                                                <telerik:RadPanelItem runat="server" Text="Setup Associate Category" Value="Setup Associate Category">
-                                                </telerik:RadPanelItem>
-                                                <telerik:RadPanelItem runat="server" Text="Alert Configuration" Value="Alert Configuration">
-                                                </telerik:RadPanelItem>
-                                                <telerik:RadPanelItem runat="server" Text="Privileges" Value="Privileges">
-                                                    <items>
+                                            <telerik:RadPanelItem runat="server" Text="customer category" Value="Setup_customer_category">
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="Setup Associate Category" Value="Setup Associate Category">
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="Alert Configuration" Value="Alert Configuration">
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="Privileges" Value="Privileges">
+                                                <Items>
                                                     <telerik:RadPanelItem runat="server" Text="User Role" Value="User_Role">
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="User Role privileges" Value="User_Role_privileges">
                                                     </telerik:RadPanelItem>
-                                                </items>
-                                                </telerik:RadPanelItem>
-                                                <telerik:RadPanelItem runat="server" Text="Alert Rule" Value="Alert_configure">
-                                                </telerik:RadPanelItem>
-                                                <telerik:RadPanelItem runat="server" Text="Category" Value="Category">
-                                                </telerik:RadPanelItem>
+                                                </Items>
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="Alert Rule" Value="Alert_configure">
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="Category" Value="Category">
+                                            </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
                                     <%--<telerik:RadPanelItem runat="server" Text="Product Group setup" Value="Product Group setup">
@@ -266,7 +266,7 @@
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="Add MF Scheme" Value="Scheme_Setup">
                                                     </telerik:RadPanelItem>
-                                                      <telerik:RadPanelItem runat="server" Text="View AMC" Value="View_AMC">
+                                                    <telerik:RadPanelItem runat="server" Text="View AMC" Value="View_AMC">
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="Scheme/Data Translation Mapping" Value="Scheme_DataTrans_Mapping">
                                                     </telerik:RadPanelItem>
@@ -780,7 +780,7 @@
                         <Items>
                             <telerik:RadPanelItem runat="server" Text="Ops" Value="Ops">
                                 <Items>
-                                <telerik:RadPanelItem runat="server" Text="Admin Home" Value="Admin Home">
+                                    <telerik:RadPanelItem runat="server" Text="Admin Home" Value="Admin Home">
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Associates" Value="Associates">
                                         <Items>
@@ -992,7 +992,7 @@
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="Add MF Scheme" Value="Scheme_Setup">
                                                     </telerik:RadPanelItem>
-                                                      <telerik:RadPanelItem runat="server" Text="View AMC" Value="View_AMC">
+                                                    <telerik:RadPanelItem runat="server" Text="View AMC" Value="View_AMC">
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="Scheme/Data Translation Mapping" Value="Scheme_DataTrans_Mapping">
                                                     </telerik:RadPanelItem>
@@ -1723,6 +1723,10 @@
             <tr>
                 <td>
                     <asp:TextBox ID="txtOrderNo" runat="server"></asp:TextBox>
+                    <asp:RegularExpressionValidator ID="rgtxtOrderNo" runat="server" CssClass="cvPCG"
+                        ControlToValidate="txtOrderNo" ErrorMessage="Enter only numeric" ValidationExpression="^[0-9+]*$"
+                        Display="Dynamic">
+                    </asp:RegularExpressionValidator>
                     <asp:ImageButton ID="imgButton" runat="server" ImageUrl="~/Images/searchicon.jpg"
                         Height="17px" Width="20px" OnClick="imgButton_OnClick" />
                 </td>
