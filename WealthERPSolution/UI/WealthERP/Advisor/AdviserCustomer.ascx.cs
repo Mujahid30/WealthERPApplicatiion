@@ -59,7 +59,8 @@ namespace WealthERP.Advisor
         string AgentCode;
         int rbtnReg;
         AssociatesUserHeirarchyVo assocUsrHeirVo;
-
+        string custCode = null;
+        string pan = null;
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
@@ -202,6 +203,15 @@ namespace WealthERP.Advisor
                     BindAdviserDropDownList();
                     gvCustomerList.Visible = false;
                 }
+                if (Request.QueryString["CustCode"] != null)
+                {
+                    if (Request.QueryString["customerId"] == "CC")
+                        custCode = Request.QueryString["CustCode"].ToString();
+                    else
+                        pan = Request.QueryString["CustCode"].ToString();
+
+                    BindCustomerGrid();
+                }
             }
         }
         /// <summary>
@@ -259,17 +269,23 @@ namespace WealthERP.Advisor
         {
 
             string FilterOn;
-            if (ddlCOption.SelectedValue == "Name" || ddlCOption.SelectedValue == "Panno" || ddlCOption.SelectedValue == "Clientcode")
+            if (Request.QueryString["CustCode"] != null)
             {
                 FilterOn = "customer";
-
             }
             else
             {
-                FilterOn = ddlCOption.SelectedValue;
-                txtCustomerId.Value = string.Empty;
-            }
+                if (ddlCOption.SelectedValue == "Name" || ddlCOption.SelectedValue == "Panno" || ddlCOption.SelectedValue == "Clientcode")
+                {
+                    FilterOn = "customer";
 
+                }
+                else
+                {
+                    FilterOn = ddlCOption.SelectedValue;
+                    txtCustomerId.Value = string.Empty;
+                }
+            }
 
             return FilterOn;
         }
@@ -394,13 +410,14 @@ namespace WealthERP.Advisor
                 rbtnReg = 1;
                 
             }
-            dtcustomerList = BindOnDemamd(adviserId, rmId, AgentId, UserRole, branchHeadId, AgentCode,rbtnReg, GetSelectedFilterValue(), (!string.IsNullOrEmpty(txtCustomerId.Value)) ? int.Parse(txtCustomerId.Value) : 0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, gvCustomerList.PageSize, gvCustomerList.CurrentPageIndex + 1, out genDictParent, out genDictRM, out genDictReassignRM, out RowCount);
+            dtcustomerList = BindOnDemamd(adviserId, rmId, AgentId, UserRole, branchHeadId, AgentCode, rbtnReg, GetSelectedFilterValue(), (!string.IsNullOrEmpty(txtCustomerId.Value)) ? int.Parse(txtCustomerId.Value) : 0, null, null, (!string.IsNullOrEmpty(custCode)) ? custCode : null, null, null, (!string.IsNullOrEmpty(pan)) ? pan : null, null, null, null, null, null, null, null, null, null, gvCustomerList.PageSize, gvCustomerList.CurrentPageIndex + 1, out genDictParent, out genDictRM, out genDictReassignRM, out RowCount);
             gvCustomerList.DataSource = dtcustomerList;
             gvCustomerList.VirtualItemCount = RowCount;
             gvCustomerList.DataBind();
             DivCustomerList.Visible = true;
             gvCustomerList.Visible = true;
             pnlCustomerList.Visible = true;
+            tdcustomerlist.Visible = true;
             imgexportButton.Visible = true;
             ErrorMessage.Visible = false;
 

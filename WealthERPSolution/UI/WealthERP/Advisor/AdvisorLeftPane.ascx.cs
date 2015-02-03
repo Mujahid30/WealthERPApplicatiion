@@ -3938,47 +3938,78 @@ namespace WealthERP.Advisor
         }
         public void imgButton_OnClick(object sender, ImageClickEventArgs e)
         {
-            int orderId = 0, isonline = 0; string productcode = string.Empty;
+            int orderId = 0, isonline = 0; string productcode = string.Empty; string subCategoryType = string.Empty;
             OnlineOrderBackOfficeBo OnlineOrderBackOfficeBo = new OnlineOrderBackOfficeBo();
-            DataTable dtOrderNo = OnlineOrderBackOfficeBo.SearchOnPRoduct(int.Parse(txtOrderNo.Text));
-            foreach (DataRow dr in dtOrderNo.Rows)
+            if (ddlSearchtype.SelectedValue == "ON")
             {
-                orderId = int.Parse(dr["CO_OrderId"].ToString());
-                isonline = int.Parse(dr["CO_IsOnline"].ToString());
-                productcode = dr["PAG_AssetGroupCode"].ToString();
-            }
+                if (txtOrderNo.Text != "")
+                {
+                    DataTable dtOrderNo = OnlineOrderBackOfficeBo.SearchOnPRoduct(int.Parse(txtOrderNo.Text));
+                    foreach (DataRow dr in dtOrderNo.Rows)
+                    {
+                        orderId = int.Parse(dr["CO_OrderId"].ToString());
+                        isonline = int.Parse(dr["CO_IsOnline"].ToString());
+                        productcode = dr["PAG_AssetGroupCode"].ToString();
+                        subCategoryType = dr["PAIC_AssetInstrumentCategoryCode"].ToString();
+                    }
 
-            if (productcode == "MF" && isonline == 1)
-            {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineAdviserCustomerOrderBook", "loadcontrol('OnlineAdviserCustomerOrderBook','?orderId=" + orderId + "');", true);
+                    if (productcode == "MF" && isonline == 1)
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineAdviserCustomerOrderBook", "loadcontrol('OnlineAdviserCustomerOrderBook','?orderId=" + orderId + "');", true);
 
-            }
-            if (productcode == "FI" && isonline == 1)
-            {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineAdviserNCDOrderBook", "loadcontrol('OnlineAdviserNCDOrderBook','?orderId=" + orderId + "');", true);
+                    }
+                    if (productcode == "FI" && isonline == 1)
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineAdviserNCDOrderBook", "loadcontrol('OnlineAdviserNCDOrderBook','?orderId=" + orderId + "');", true);
 
-            }
-            if (productcode == "IP" && isonline == 1)
-            {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineAdviserCustomerIPOOrderBook", "loadcontrol('OnlineAdviserCustomerIPOOrderBook','?orderId=" + orderId + "');", true);
+                    }
+                    if (productcode == "IP" && isonline == 1)
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineAdviserCustomerIPOOrderBook", "loadcontrol('OnlineAdviserCustomerIPOOrderBook','?orderId=" + orderId + "');", true);
 
-            }
-            if (productcode == "MF" && isonline == 0)
-            {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OrderList", "loadcontrol('OrderList','?orderId=" + orderId + "');", true);
+                    }
+                    if (productcode == "MF" && isonline == 0)
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OrderList", "loadcontrol('OrderList','?orderId=" + orderId + "');", true);
 
-            }
-            if (productcode == "FI" && isonline == 0)
-            {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OfflineCustomersNCDOrderBook", "loadcontrol('OfflineCustomersNCDOrderBook','?orderId=" + orderId + "');", true);
+                    }
+                    if (productcode == "FI" && isonline == 0 && subCategoryType != "FICDCD" && subCategoryType != "FICGCG" && subCategoryType != "FINPNP")
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OfflineCustomersNCDOrderBook", "loadcontrol('OfflineCustomersNCDOrderBook','?orderId=" + orderId + "');", true);
 
+                    }
+                    if (productcode == "IP" && isonline == 0)
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OfflineCustomersIPOOrderBook", "loadcontrol('OfflineCustomersIPOOrderBook','?orderId=" + orderId + "');", true);
+                    }
+                     if (productcode == "FI" && isonline == 0 && (subCategoryType == "FICDCD" || subCategoryType == "FICGCG" || subCategoryType == "FINPNP"))
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "FixedIncome54ECOrderBook", "loadcontrol('FixedIncome54ECOrderBook','?orderId=" + orderId + "&category=" + subCategoryType + "');", true);
+                    }
+                }
             }
-            if (productcode == "IP" && isonline == 0)
+            else
             {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OfflineCustomersIPOOrderBook", "loadcontrol('OfflineCustomersIPOOrderBook','?orderId=" + orderId + "');", true);
+                if(txtClentCode.Text !="")
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AdviserCustomer", "loadcontrol('AdviserCustomer','?CustCode=" + txtClentCode.Text + "&customerId=" + ddlSearchtype.SelectedValue + "');", true);
+                else
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AdviserCustomer", "loadcontrol('AdviserCustomer');", true);
 
             }
         }
-
+        protected void ddlSearchtype_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            txtClentCode.Text = "";
+            if (ddlSearchtype.SelectedValue == "ON")
+            {
+                tdOrderNo.Visible = true;
+                trClientCode.Visible=false;
+            }
+            else
+            {
+                tdOrderNo.Visible =false ;
+                trClientCode.Visible = true;
+            }
+        }
     }
 }

@@ -1715,18 +1715,29 @@
             </tr>
             <tr>
                 <td>
-                    <asp:DropDownList ID="ddlSearchtype" runat="server" CssClass="cmbField">
+                    <asp:DropDownList ID="ddlSearchtype" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlSearchtype_OnSelectedIndexChanged" AutoPostBack="true">
                         <asp:ListItem Text="Order No." Value="ON"></asp:ListItem>
+                        <asp:ListItem Text="Client Code" Value="CC"></asp:ListItem>
+                        <asp:ListItem Text="PAN" Value="PAN"></asp:ListItem>
                     </asp:DropDownList>
                 </td>
             </tr>
             <tr>
-                <td>
+                <td id="tdOrderNo" runat="server">
                     <asp:TextBox ID="txtOrderNo" runat="server"></asp:TextBox>
                     <asp:RegularExpressionValidator ID="rgtxtOrderNo" runat="server" CssClass="cvPCG"
-                        ControlToValidate="txtOrderNo" ErrorMessage="Enter only numeric" ValidationExpression="^[0-9+]*$"
+                        ControlToValidate="txtOrderNo" ErrorMessage="<br>Enter only numeric" ValidationExpression="^[0-9+]*$"
                         Display="Dynamic">
                     </asp:RegularExpressionValidator>
+                </td>
+                <td id="trClientCode" runat="server" visible="false">
+                    <asp:TextBox ID="txtClentCode" runat="server"></asp:TextBox>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" CssClass="cvPCG"
+                        ControlToValidate="txtClentCode" ErrorMessage="<br>Enter only Alpha/Numeric"
+                        ValidationExpression="^[A-Za-z0-9]+$" Display="Dynamic">
+                    </asp:RegularExpressionValidator>
+                </td>
+                <td>
                     <asp:ImageButton ID="imgButton" runat="server" ImageUrl="~/Images/searchicon.jpg"
                         Height="17px" Width="20px" OnClick="imgButton_OnClick" />
                 </td>

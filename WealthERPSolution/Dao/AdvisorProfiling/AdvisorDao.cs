@@ -3042,7 +3042,7 @@ namespace DaoAdvisorProfiling
         /// <param name="genDictRM"></param>
         /// <param name="genDictReassignRM"></param>
         /// <returns>will return the list of the customers from the data base accroding to the parameters assigned</returns>
-        public List<CustomerVo> GetStaffUserCustomerList(int adviserId, int rmId, int AgentId, string UserRole, int branchHeadId, string agentCode,int rbtnReg, string filterOn,int customerId, string customerCategoryFilter,string customerFilter,string custcodeFilter,string nameFilter, string parentFilter,string panFilter,string BranchFilter,string Rmfilter,string areaFilter,string cityFilter,string pincodeFilter,string IsProspectFilter,string isActiveFilter,string iskycavailableFilter,string processFilter,int pageSize,int pageindex, out Dictionary<string, string> genDictParent, out Dictionary<string, string> genDictRM, out Dictionary<string, string> genDictReassignRM,out int RowCount)
+        public List<CustomerVo> GetStaffUserCustomerList(int adviserId, int rmId, int AgentId, string UserRole, int branchHeadId, string agentCode, int rbtnReg, string filterOn, int customerId, string customerCategoryFilter, string customerFilter, string custcodeFilter, string nameFilter, string parentFilter, string panFilter, string BranchFilter, string Rmfilter, string areaFilter, string cityFilter, string pincodeFilter, string IsProspectFilter, string isActiveFilter, string iskycavailableFilter, string processFilter, int pageSize, int pageindex, out Dictionary<string, string> genDictParent, out Dictionary<string, string> genDictRM, out Dictionary<string, string> genDictReassignRM, out int RowCount)
         {
             List<CustomerVo> customerList = null;
             CustomerVo customerVo;
@@ -3067,8 +3067,10 @@ namespace DaoAdvisorProfiling
                     db.AddInParameter(getCustomerListCmd, "@Registration", DbType.Int32, rbtnReg);
                     if (customerId != 0)
                         db.AddInParameter(getCustomerListCmd, "@customerId", DbType.Int32, customerId);
-                    else
-                        db.AddInParameter(getCustomerListCmd, "@customerId", DbType.Int32, DBNull.Value);
+                    if (custcodeFilter != null)
+                        db.AddInParameter(getCustomerListCmd, "@custcode", DbType.String, custcodeFilter);
+                    if (panFilter != null)
+                        db.AddInParameter(getCustomerListCmd, "@pan", DbType.String, panFilter);
                     if (UserRole == "associates") { db.AddInParameter(getCustomerListCmd, "@agentCode", DbType.String, agentCode); }
 
                 }
@@ -3152,19 +3154,18 @@ namespace DaoAdvisorProfiling
                     db.AddOutParameter(getCustomerListCmd, "@RowCount", DbType.Int32, 5000);
                     getCustomerListCmd.CommandTimeout = 60 * 60;
                     if (db.ExecuteNonQuery(getCustomerListCmd) != 0)
-                         RowCount = Int32.Parse(db.GetParameterValue(getCustomerListCmd, "RowCount").ToString());
+                        RowCount = Int32.Parse(db.GetParameterValue(getCustomerListCmd, "RowCount").ToString());
 
-                   
+
                 }
 
                 getCustomerListCmd.CommandTimeout = 60 * 60;
                 getCustomerDs = db.ExecuteDataSet(getCustomerListCmd);
-                   
+
                 if (getCustomerDs.Tables[0].Rows.Count > 0)
                 {
                     customerList = new List<CustomerVo>();
                     foreach (DataRow dr in getCustomerDs.Tables[0].Rows)
-                    
                     {
                         customerVo = new CustomerVo();
                         customerVo.CustomerId = int.Parse(dr["C_CustomerId"].ToString());
@@ -3669,14 +3670,14 @@ namespace DaoAdvisorProfiling
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 Getcategory = db.GetStoredProcCommand("SP_GetgvAdvisorCategory");
                 db.AddInParameter(Getcategory, "@AdviserId", DbType.Int32, adviserId);
-                db.AddInParameter(Getcategory, "@ACM_ID", DbType.Int32, ACM_ID); 
+                db.AddInParameter(Getcategory, "@ACM_ID", DbType.Int32, ACM_ID);
                 dsCategory = db.ExecuteDataSet(Getcategory);
             }
             catch (BaseApplicationException Ex)
             {
                 throw Ex;
             }
-            catch (Exception Ex)    
+            catch (Exception Ex)
             {
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
@@ -3690,7 +3691,7 @@ namespace DaoAdvisorProfiling
             }
             return dsCategory;
         }
-        public bool InsertEditDeleteCategory(string categoryname, int advisorid, int acm_id,int AC_CategoryId,string CommandName)
+        public bool InsertEditDeleteCategory(string categoryname, int advisorid, int acm_id, int AC_CategoryId, string CommandName)
         {
             Database db;
             bool isOperationDone = false;
