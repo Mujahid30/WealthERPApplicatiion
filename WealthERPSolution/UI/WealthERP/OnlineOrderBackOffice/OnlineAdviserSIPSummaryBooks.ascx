@@ -130,9 +130,10 @@
             <%--</td>
             <td id="tdBtnOrder" runat="server">--%>
             &nbsp
-                <asp:Button ID="btnViewSIP" runat="server" CssClass="PCGButton" Text="Go" ValidationGroup="btnViewSIP"
-                    OnClick="btnViewOrder_Click" />
+               
             </td>
+            <td> <asp:Button ID="btnViewSIP" runat="server" CssClass="PCGButton" Text="Go" ValidationGroup="btnViewSIP"
+                    OnClick="btnViewOrder_Click" /></td>
         </tr>
     </table>
 </div>

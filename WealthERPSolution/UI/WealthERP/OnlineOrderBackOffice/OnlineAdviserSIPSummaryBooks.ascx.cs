@@ -66,19 +66,20 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 tdStatusType.Visible = true;
                 ddlStatus.Visible = true;
-                //tdlblFromDate.Visible = false;
-                //tdTxtFromDate.Visible = false;
-                //tdlblToDate.Visible = false;
-                //tdTxtToDate.Visible = false;
+                tdlblFromDate.Visible = false;
+                tdTxtFromDate.Visible = false;
+                tdlblToDate.Visible = false;
+                tdTxtToDate.Visible = false;
+               
             }
             else
             {
                 tdStatusType.Visible = false;
                 ddlStatus.Visible = false;
-                //tdlblFromDate.Visible = true;
-                //tdTxtFromDate.Visible = true;
-                //tdlblToDate.Visible = true;
-                //tdTxtToDate.Visible = true;
+                tdlblFromDate.Visible = true;
+                tdTxtFromDate.Visible = true;
+                tdlblToDate.Visible = true;
+                tdTxtToDate.Visible = true;
             }
         }
 
