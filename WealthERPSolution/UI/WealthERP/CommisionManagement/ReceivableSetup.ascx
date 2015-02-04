@@ -1415,7 +1415,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td class="leftLabel">
-                                                        <asp:Label ID="lblRuleStart" runat="server" CssClass="FieldName" Text="Rule Validity Start"></asp:Label>
+                                                        <asp:Label ID="lblRuleStart" runat="server" CssClass="FieldName" Text="Validity Start"></asp:Label>
                                                     </td>
                                                     <td class="rightData">
                                                         <asp:TextBox ID="txtRuleValidityFrom" runat="server" CssClass="txtField" Text='<% # (Eval("ACSR_ValidilityStart") != null && Eval("ACSR_ValidilityStart") is DateTime) ?Convert.ToDateTime(Eval("ACSR_ValidilityStart")) : (DateTime?)null%>'></asp:TextBox>
@@ -1435,7 +1435,7 @@
                                                         </asp:RequiredFieldValidator>
                                                     </td>
                                                     <td class="leftLabel">
-                                                        <asp:Label ID="lblValidityEnd" runat="server" CssClass="FieldName" Text="Rule Validity End:"></asp:Label>
+                                                        <asp:Label ID="lblValidityEnd" runat="server" CssClass="FieldName" Text="Validity End:"></asp:Label>
                                                     </td>
                                                     <td class="rightData">
                                                         <asp:TextBox ID="txtRuleValidityTo" runat="server" CssClass="txtField" Text='<%#(Eval("ACSR_ValidilityEnd") != null && Eval("ACSR_ValidilityEnd") is DateTime) ?Convert.ToDateTime(Eval("ACSR_ValidilityEnd")) : (DateTime?)null %>'></asp:TextBox>
@@ -1577,7 +1577,7 @@
                                                             ValidationGroup="btnSubmitRule" InitialValue=""></asp:RequiredFieldValidator>
                                                         <asp:RegularExpressionValidator ID="reqtxtstartDate" ControlToValidate="txtApplicationNo"
                                                             ErrorMessage=" </br>Enter Only Number" runat="server" Display="Dynamic" CssClass="cvPCG"
-                                                            ValidationExpression="^\d+(,\d+)*$" ValidationGroup="btnSubmitRule">     
+                                                            ValidationExpression="^([a-zA-Z0-9]+(,[a-zA-Z0-9]+)*)?$" ValidationGroup="btnSubmitRule">     
                                                         </asp:RegularExpressionValidator>
                                                     </td>
                                                 </tr>
