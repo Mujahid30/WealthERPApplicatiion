@@ -70,8 +70,8 @@ namespace VoOnlineOrderManagemnet
         public double AdditionalMultipleAmount { get; set; }
         public double MinRedemptionAmount { get; set; }
         public double RedemptionMultipleAmount { get; set; }
-        public int MinRedemptionUnits { get; set; }
-        public int RedemptionMultiplesUnits { get; set; }
+        public double MinRedemptionUnits { get; set; }
+        public double RedemptionMultiplesUnits { get; set; }
         public double MinSwitchAmount { get; set; }
         public double SwitchMultipleAmount { get; set; }
         public int MinSwitchUnits { get; set; }

@@ -515,9 +515,9 @@ namespace DaoOnlineOrderManagement
                         if (dr["PASPD_RedemptionMultipleAmount"].ToString() != null && dr["PASPD_RedemptionMultipleAmount"].ToString() != string.Empty)
                             mfProductAMCSchemePlanDetailsVo.RedemptionMultipleAmount = Convert.ToDouble(dr["PASPD_RedemptionMultipleAmount"].ToString());
                         if (dr["PASPD_MinRedemptionUnits"].ToString() != null && dr["PASPD_MinRedemptionUnits"].ToString() != string.Empty)
-                            mfProductAMCSchemePlanDetailsVo.MinRedemptionUnits = int.Parse(dr["PASPD_MinRedemptionUnits"].ToString());
+                            mfProductAMCSchemePlanDetailsVo.MinRedemptionUnits = Convert.ToDouble(dr["PASPD_MinRedemptionUnits"].ToString());
                         if (dr["PASPD_RedemptionMultiplesUnits"].ToString() != null && dr["PASPD_RedemptionMultiplesUnits"].ToString() != string.Empty)
-                            mfProductAMCSchemePlanDetailsVo.RedemptionMultiplesUnits = int.Parse(dr["PASPD_RedemptionMultiplesUnits"].ToString());
+                            mfProductAMCSchemePlanDetailsVo.RedemptionMultiplesUnits = Convert.ToDouble(dr["PASPD_RedemptionMultiplesUnits"].ToString());
                         if (dr["PASPD_MinSwitchAmount"].ToString() != null && dr["PASPD_MinSwitchAmount"].ToString() != string.Empty)
                             mfProductAMCSchemePlanDetailsVo.MinSwitchAmount = Convert.ToDouble(dr["PASPD_MinSwitchAmount"].ToString());
                         if (dr["PASPD_SwitchMultipleAmount"].ToString() != null && dr["PASPD_SwitchMultipleAmount"].ToString() != string.Empty)
@@ -1252,8 +1252,8 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_AdditionalMultipleAmount", DbType.Double, mfProductAMCSchemePlanDetailsVo.AdditionalMultipleAmount);//27
                 db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_MinRedemptionAmount", DbType.Double, mfProductAMCSchemePlanDetailsVo.MinRedemptionAmount);//28
                 db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_RedemptionMultipleAmount", DbType.Double, mfProductAMCSchemePlanDetailsVo.RedemptionMultipleAmount);//29
-                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_MinRedemptionUnits", DbType.Int32, mfProductAMCSchemePlanDetailsVo.MinRedemptionUnits);//30
-                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_RedemptionMultiplesUnits", DbType.Int32, mfProductAMCSchemePlanDetailsVo.RedemptionMultiplesUnits);//31
+                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_MinRedemptionUnits", DbType.Double, mfProductAMCSchemePlanDetailsVo.MinRedemptionUnits);//30
+                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_RedemptionMultiplesUnits", DbType.Double, mfProductAMCSchemePlanDetailsVo.RedemptionMultiplesUnits);//31
                 db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_MinSwitchAmount", DbType.Double, mfProductAMCSchemePlanDetailsVo.MinSwitchAmount);//32
                 db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_SwitchMultipleAmount", DbType.Double, mfProductAMCSchemePlanDetailsVo.SwitchMultipleAmount);//33
                 db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_MinSwitchUnits", DbType.Int32, mfProductAMCSchemePlanDetailsVo.MinSwitchUnits);//34
@@ -2030,8 +2030,8 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@PASPD_AdditionalMultipleAmount", DbType.Double, mfProductAMCSchemePlanDetailsVo.AdditionalMultipleAmount);
                 db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@PASPD_MinRedemptionAmount", DbType.Double, mfProductAMCSchemePlanDetailsVo.MinRedemptionAmount);
                 db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@PASPD_RedemptionMultipleAmount", DbType.Double, mfProductAMCSchemePlanDetailsVo.RedemptionMultipleAmount);
-                db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@PASPD_MinRedemptionUnits", DbType.Int32, mfProductAMCSchemePlanDetailsVo.MinRedemptionUnits);
-                db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@PASPD_RedemptionMultiplesUnits", DbType.Int32, mfProductAMCSchemePlanDetailsVo.RedemptionMultiplesUnits);
+                db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@PASPD_MinRedemptionUnits", DbType.Double, mfProductAMCSchemePlanDetailsVo.MinRedemptionUnits);
+                db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@PASPD_RedemptionMultiplesUnits", DbType.Double, mfProductAMCSchemePlanDetailsVo.RedemptionMultiplesUnits);
                 db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@PASPD_MinSwitchAmount", DbType.Double, mfProductAMCSchemePlanDetailsVo.MinSwitchAmount);
                 db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@PASPD_SwitchMultipleAmount", DbType.Double, mfProductAMCSchemePlanDetailsVo.SwitchMultipleAmount);
                 db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@PASPD_MinSwitchUnits", DbType.Int32, mfProductAMCSchemePlanDetailsVo.MinSwitchUnits);

@@ -289,7 +289,7 @@ namespace WealthERP.OnlineOrderManagement
                 dtMFTransactions.Columns.Add("OrderNo");
                 //dtMFTransactions.Columns.Add("TransactionNumber");
                 dtMFTransactions.Columns.Add("CO_OrderDate");
-                dtMFTransactions.Columns.Add("ELSSMaturityDate");
+                dtMFTransactions.Columns.Add("ELSSMaturityDate", typeof(DateTime));
 
 
                 DataRow drMFTransaction;
@@ -342,10 +342,10 @@ namespace WealthERP.OnlineOrderManagement
                     {
                         drMFTransaction["ELSSMaturityDate"] = mfTransactionVo.ELSSMaturityDate;
                     }
-                    else
-                    {
-                        drMFTransaction["ELSSMaturityDate"] = "";
-                    }
+                    //else
+                    //{
+                    //    drMFTransaction["ELSSMaturityDate"] = DateTime.MinValue;
+                    //}
                    
                     dtMFTransactions.Rows.Add(drMFTransaction);
                 }
@@ -447,6 +447,9 @@ namespace WealthERP.OnlineOrderManagement
                     dataBoundItem["Transaction Date"].Font.Bold = true;
                     dataBoundItem["DivReinvestment"].BackColor = System.Drawing.Color.Red;
                     dataBoundItem["DivReinvestment"].Font.Bold = true;
+                    dataBoundItem["ELSSMaturityDate"].BackColor = System.Drawing.Color.Red;
+                    dataBoundItem["ELSSMaturityDate"].Font.Bold = true;
+                    
                  }
             }
         }

@@ -629,7 +629,7 @@ namespace WealthERP.OnlineOrderBackOffice
             }
             if (!string.IsNullOrEmpty(txtMinRedemptioUnits.Text))
             {
-                mfProductAMCSchemePlanDetailsVo.MinRedemptionUnits = Convert.ToInt32(txtMinRedemptioUnits.Text);
+                mfProductAMCSchemePlanDetailsVo.MinRedemptionUnits = Convert.ToDouble(txtMinRedemptioUnits.Text);
             }
             if (!string.IsNullOrEmpty(txtMinSwitchAmount.Text))
             {
@@ -641,11 +641,11 @@ namespace WealthERP.OnlineOrderBackOffice
             }
             if (!string.IsNullOrEmpty(txtRedemptionMultiplesUnits.Text))
             {
-                mfProductAMCSchemePlanDetailsVo.RedemptionMultiplesUnits = Convert.ToInt32(txtRedemptionMultiplesUnits.Text);
+                mfProductAMCSchemePlanDetailsVo.RedemptionMultiplesUnits = Convert.ToDouble(txtRedemptionMultiplesUnits.Text);
             }
             if (!string.IsNullOrEmpty(txtRedemptionmultiple.Text))
             {
-                mfProductAMCSchemePlanDetailsVo.RedemptionMultipleAmount = Convert.ToInt32(txtRedemptionmultiple.Text);
+                mfProductAMCSchemePlanDetailsVo.RedemptionMultipleAmount = Convert.ToDouble(txtRedemptionmultiple.Text);
             }
             if (!string.IsNullOrEmpty(txtSwitchMultipleAmount.Text))
             {
@@ -801,10 +801,8 @@ namespace WealthERP.OnlineOrderBackOffice
 
                 ddlAmc.SelectedValue = mfProductAMCSchemePlanDetailsVo.AMCCode.ToString();
             }
-            else
-            {
-                ddlAmc.SelectedValue = "0";
-            }
+            
+
 
             if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.AssetCategoryCode))
             {
@@ -1107,14 +1105,6 @@ namespace WealthERP.OnlineOrderBackOffice
                 chkOnlineEnablement.Checked = false;
             }
 
-            //if (mfProductAMCSchemePlanDetailsVo.Status == "Active")
-            //{
-            //    //ChkISactive.Checked = true;
-            //}
-            //else
-            //{
-            //    //ChkISactive.Checked = false;
-            //}
             txtInitalPamount.Text = mfProductAMCSchemePlanDetailsVo.InitialPurchaseAmount.ToString();
             txtIMultipleamount.Text = mfProductAMCSchemePlanDetailsVo.InitialMultipleAmount.ToString();
             txtAdditional.Text = mfProductAMCSchemePlanDetailsVo.AdditionalPruchaseAmount.ToString();
@@ -1127,11 +1117,8 @@ namespace WealthERP.OnlineOrderBackOffice
             txtRedemptionMultiplesUnits.Text = mfProductAMCSchemePlanDetailsVo.RedemptionMultiplesUnits.ToString();
             txtSwitchMultipleAmount.Text = mfProductAMCSchemePlanDetailsVo.SwitchMultipleAmount.ToString();
             txtSwitchMultipleUnits.Text = mfProductAMCSchemePlanDetailsVo.SwitchMultiplesUnits.ToString();
-            if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.SecurityCode))
+            if (mfProductAMCSchemePlanDetailsVo.SecurityCode!="0")
                 txtSecuritycode.Text = mfProductAMCSchemePlanDetailsVo.SecurityCode.ToString();
-            //if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.ExternalType))
-            //    ddlRT.SelectedItem.Value = mfProductAMCSchemePlanDetailsVo.ExternalType.ToString();
-
             txtinvestment.Text = mfProductAMCSchemePlanDetailsVo.PASPD_MaxInvestment.ToString();
 
         }
@@ -2199,7 +2186,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 }
                 if (!string.IsNullOrEmpty(txtMinRedemptioUnits.Text))
                 {
-                    mfProductAMCSchemePlanDetailsVo.MinRedemptionUnits = Convert.ToInt32(txtMinRedemptioUnits.Text.ToString());
+                    mfProductAMCSchemePlanDetailsVo.MinRedemptionUnits = Convert.ToDouble(txtMinRedemptioUnits.Text.ToString());
                 }
                 else
                 {
@@ -2207,7 +2194,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 }
                 if (!string.IsNullOrEmpty(txtRedemptionMultiplesUnits.Text))
                 {
-                    mfProductAMCSchemePlanDetailsVo.RedemptionMultiplesUnits = Convert.ToInt32(txtRedemptionMultiplesUnits.Text.ToString());
+                    mfProductAMCSchemePlanDetailsVo.RedemptionMultiplesUnits = Convert.ToDouble(txtRedemptionMultiplesUnits.Text.ToString());
                 }
                 else
                 {

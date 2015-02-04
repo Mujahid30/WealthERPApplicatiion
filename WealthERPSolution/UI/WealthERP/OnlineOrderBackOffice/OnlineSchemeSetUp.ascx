@@ -835,7 +835,7 @@
                                 Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
                             <asp:RegularExpressionValidator ID="RegtxtMinRedemption" ControlToValidate="txtMinRedemption"
                                 ErrorMessage="Enter Only Number" runat="server" Display="Dynamic" CssClass="cvPCG"
-                                ValidationExpression="[1-9]\d*$" ValidationGroup="btnsubmit">     
+                                ValidationExpression="[0-9]\d*(\.\d+)*$" ValidationGroup="btnsubmit">     
                             </asp:RegularExpressionValidator>
                             <%-- <asp:CompareValidator ID="cmptxtMinRedemption" ControlToValidate="txtMinRedemption" runat="server"
                 ControlToCompare="txtRedemptionmultiple" Display="Dynamic" ErrorMessage="<br/>Please Enter less than redemption multiple amount"
@@ -854,7 +854,7 @@
                                 Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
                             <asp:RegularExpressionValidator ID="rfvtxtRedemptionmultiple" ControlToValidate="txtRedemptionmultiple"
                                 ErrorMessage="Enter Only Number" runat="server" Display="Dynamic" CssClass="cvPCG"
-                                ValidationExpression="[1-9]\d*$" ValidationGroup="btnsubmit">     
+                                ValidationExpression="[0-9]\d*(\.\d+)*$" ValidationGroup="btnsubmit">     
                             </asp:RegularExpressionValidator>
                             <%-- <asp:CompareValidator ID="cmptxtRedemptionmultiple" ControlToValidate="txtRedemptionmultiple" runat="server"
                 ControlToCompare="txtMinRedemption" Display="Dynamic" ErrorMessage="<br/>Please Enter Greater than redemption multiple amount"
@@ -875,7 +875,7 @@
                                 Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
                             <asp:RegularExpressionValidator ID="rgetxtMinRedemptioUnits" ControlToValidate="txtMinRedemptioUnits"
                                 ErrorMessage="Enter Only Number" runat="server" Display="Dynamic" CssClass="cvPCG"
-                                ValidationExpression="[1-9]\d*$" ValidationGroup="btnsubmit">     
+                                ValidationExpression="[0-9]\d*(\.\d+)*$" ValidationGroup="btnsubmit">     
                             </asp:RegularExpressionValidator>
                             <%--<asp:CompareValidator ID="cmptxtRedemptionMultiplesUnits" ControlToValidate="txtMinRedemptioUnits" runat="server"
                 ControlToCompare="txtRedemptionMultiplesUnits" Display="Dynamic" ErrorMessage="<br/>Please Enter less than redemption multiple units"
@@ -894,7 +894,7 @@
                                 Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
                             <asp:RegularExpressionValidator ID="rgetxtRedemptionMultiplesUnits" ControlToValidate="txtRedemptionMultiplesUnits"
                                 ErrorMessage="Enter Only Number" runat="server" Display="Dynamic" CssClass="cvPCG"
-                                ValidationExpression="[1-9]\d*$" ValidationGroup="btnsubmit">     
+                                ValidationExpression="[1-9]\d*(\.\d+)*$" ValidationGroup="btnsubmit">     
                             </asp:RegularExpressionValidator>
                             <%-- <asp:CompareValidator ID="cmpttxtRedemptionMultiplesUnits" ControlToValidate="txtRedemptionMultiplesUnits" runat="server"
                 ControlToCompare="txtMinRedemptioUnits" Display="Dynamic" ErrorMessage="<br/>Please Enter Greater than redemption units"
