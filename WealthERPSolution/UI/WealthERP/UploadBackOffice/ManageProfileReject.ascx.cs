@@ -515,5 +515,18 @@ namespace WealthERP.UploadBackOffice
             Response.Redirect("ControlHost.aspx?pageid=ManageLookups", false);
 
         }
+        public void btnExportData_OnClick(object sender, ImageClickEventArgs e)
+        {
+            //  gvIPOOrderBook.MasterTableView.DetailTables[0].HierarchyDefaultExpanded = true;
+            gvProfileIncreamenetReject.MasterTableView.HierarchyLoadMode = GridChildLoadMode.ServerBind;
+            gvProfileIncreamenetReject.ExportSettings.OpenInNewWindow = true;
+            gvProfileIncreamenetReject.ExportSettings.IgnorePaging = true;
+            gvProfileIncreamenetReject.ExportSettings.HideStructureColumns = true;
+            gvProfileIncreamenetReject.ExportSettings.ExportOnlyData = true;
+            gvProfileIncreamenetReject.ExportSettings.FileName = "Upload Rejection";
+            gvProfileIncreamenetReject.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            gvProfileIncreamenetReject.MasterTableView.ExportToExcel();
+
+        }
     }
 }
