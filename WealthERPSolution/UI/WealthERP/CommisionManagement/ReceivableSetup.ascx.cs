@@ -47,6 +47,8 @@ namespace WealthERP.Receivable
                     structureId = Convert.ToInt32(Request.QueryString["StructureId"].ToString());
                     hdnViewMode.Value = "ViewEdit";
                     btnIssueMap.Visible = true;
+                    hidCommissionStructureName.Value = structureId.ToString();
+                    BindPayableGrid();
                 }
                 GetCommisionTypes();
                 GetProduct();
@@ -1741,6 +1743,7 @@ namespace WealthERP.Receivable
             if (e.CommandName == RadGrid.CancelCommandName)
             {
                 BindCommissionStructureRuleGrid(Convert.ToInt32(hidCommissionStructureName.Value));
+                //trPayableMapping.Visible = true;
             }
         }
         //protected void rgPayableMapping_ItemCommand(object source, GridCommandEventArgs e)
