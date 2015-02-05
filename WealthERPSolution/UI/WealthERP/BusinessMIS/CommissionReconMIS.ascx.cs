@@ -367,16 +367,13 @@ namespace WealthERP.BusinessMIS
                     gvCommissionReceiveRecon.DataSource = ds.Tables[0];
                     DataTable dtGetAMCTransactionDeatails = new DataTable();
                     gvCommissionReceiveRecon.DataBind();
-                    if (Cache["gvCommissionReconMIs" + userVo.UserId.ToString()] == null)
-                    {
-                        Cache.Insert("gvCommissionReconMIs" + userVo.UserId.ToString(), ds.Tables[0]);
-                    }
-                    else
+                    if (Cache["gvCommissionReconMIs" + userVo.UserId.ToString()] != null)
                     {
                         Cache.Remove("gvCommissionReconMIs" + userVo.UserId.ToString());
-                        Cache.Insert("gvCommissionReconMIs" + userVo.UserId.ToString(), ds.Tables[0]);
+                        
                     }
-
+                        Cache.Insert("gvCommissionReconMIs" + userVo.UserId.ToString(), ds.Tables[0]);
+                   
 
                 }
                 else
@@ -385,15 +382,12 @@ namespace WealthERP.BusinessMIS
                     dvNCDIPOMIS.Visible = true;
                     rgNCDIPOMIS.DataSource = ds.Tables[0];
                     rgNCDIPOMIS.DataBind();
-                    if (Cache["rgNCDIPOMIS" + userVo.UserId.ToString()] == null)
-                    {
-                        Cache.Insert("rgNCDIPOMIS" + userVo.UserId.ToString(), ds.Tables[0]);
-                    }
-                    else
+                    if (Cache["rgNCDIPOMIS" + userVo.UserId.ToString()]!= null)
                     {
                         Cache.Remove("rgNCDIPOMIS" + userVo.UserId.ToString());
-                        Cache.Insert("rgNCDIPOMIS" + userVo.UserId.ToString(), ds.Tables[0]);
                     }
+                        Cache.Insert("rgNCDIPOMIS" + userVo.UserId.ToString(), ds.Tables[0]);
+                   
                 }
             }
 
