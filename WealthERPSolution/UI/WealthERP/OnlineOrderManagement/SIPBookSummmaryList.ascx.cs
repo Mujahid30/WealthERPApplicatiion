@@ -29,7 +29,7 @@ namespace WealthERP.OnlineOrderManagement
         MFOrderVo mforderVo = new MFOrderVo();
         OrderVo orderVo = new OrderVo();
         UserVo userVo;
-        string userType; 
+        string userType;
         int customerId = 0;
         string systematicType;
         protected void Page_Load(object sender, EventArgs e)
@@ -40,12 +40,12 @@ namespace WealthERP.OnlineOrderManagement
             userType = Session[SessionContents.CurrentUserRole].ToString();
             userVo = (UserVo)Session["UserVo"];
             customerId = customerVO.CustomerId;
-            hdnsystamaticType.Value="";
+            hdnsystamaticType.Value = "";
             //BindAmc();
             BindOrderStatus();
             if (!Page.IsPostBack)
-               {
-               
+            {
+
                 if (Request.QueryString["systematicType"] != null)
                 {
                     hdnsystamaticType.Value = Request.QueryString["systematicType"].ToString();
@@ -53,12 +53,12 @@ namespace WealthERP.OnlineOrderManagement
                 }
                 if (Request.QueryString["systematicId"] != null)
                 {
-                int systematicId = int.Parse(Request.QueryString["systematicId"].ToString());
-                int AmcCode = int.Parse(Request.QueryString["AmcCode"].ToString());
-                string orderStatus = Request.QueryString["OrderStatus"];
-                string systematictype = Request.QueryString["systematicType"].ToString();
-                hdnAmc.Value = AmcCode.ToString();
-                BindSIPSummaryBook();
+                    int systematicId = int.Parse(Request.QueryString["systematicId"].ToString());
+                    int AmcCode = int.Parse(Request.QueryString["AmcCode"].ToString());
+                    string orderStatus = Request.QueryString["OrderStatus"];
+                    string systematictype = Request.QueryString["systematicType"].ToString();
+                    hdnAmc.Value = AmcCode.ToString();
+                    BindSIPSummaryBook();
                 }
             }
         }
@@ -137,7 +137,7 @@ namespace WealthERP.OnlineOrderManagement
         {
             DataSet dsSIPBookMIS = new DataSet();
             DataTable dtSIPBookMIS = new DataTable();
-           
+
             dsSIPBookMIS = OnlineMFOrderBo.GetSIPSummaryBookMIS(customerId, int.Parse(hdnAmc.Value), hdnsystamaticType.Value);
             dtSIPBookMIS = dsSIPBookMIS.Tables[0];
             dtSIPBookMIS = createSIPOrderBook(dsSIPBookMIS);
@@ -294,6 +294,23 @@ namespace WealthERP.OnlineOrderManagement
                 drSIPOrderBook["PASP_SchemePlanCode"] = drSIP["PASP_SchemePlanCode"];
                 drSIPOrderBook["CMFSS_IsSourceAA"] = drSIP["CMFSS_IsSourceAA"];
                 drSIPOrderBook["Unit"] = drSIP["Unit"];
+
+                drSIPOrderBook["SchemeRating3Year"] = drSIP["PMFRD_Rating3Year"];
+                drSIPOrderBook["SchemeRating5Year"] = drSIP["PMFRD_Rating5Year"];
+                drSIPOrderBook["SchemeRating10Year"] = drSIP["PMFRD_Rating10Year"];
+
+                drSIPOrderBook["SchemeReturn3Year"] = drSIP["PMFRD_Return3Year"];
+                drSIPOrderBook["SchemeReturn5Year"] = drSIP["PMFRD_Return5Year"];
+                drSIPOrderBook["SchemeReturn10Year"] = drSIP["PMFRD_Return10Year"];
+
+                drSIPOrderBook["SchemeRisk3Year"] = drSIP["PMFRD_Risk3Year"];
+                drSIPOrderBook["SchemeRisk5Year"] = drSIP["PMFRD_Risk5Year"];
+                drSIPOrderBook["SchemeRisk10Year"] = drSIP["PMFRD_Risk10Year"];
+
+                drSIPOrderBook["SchemeRatingOverall"] = drSIP["PMFRD_RatingOverall"];
+                drSIPOrderBook["SchemeRatingSubscriptionExpiryDtae"] = drSIP["AVSD_ExpiryDtae"];
+                if (DateTime.Parse(drSIP["PMFRD_RatingDate"].ToString()) != DateTime.Parse("01/01/1900 00:00:00"))
+                    drSIPOrderBook["SchemeRatingDate"] = DateTime.Parse(drSIP["PMFRD_RatingDate"].ToString()).ToString("dd/MM/yyyy");
                 dtFinalSIPOrderBook.Rows.Add(drSIPOrderBook);
 
             }
@@ -334,6 +351,20 @@ namespace WealthERP.OnlineOrderManagement
             dtSIPOrderBook.Columns.Add("PASP_SchemePlanCode");
             dtSIPOrderBook.Columns.Add("Unit", typeof(double));
 
+            dtSIPOrderBook.Columns.Add("SchemeRating3Year");
+            dtSIPOrderBook.Columns.Add("SchemeRating5Year");
+            dtSIPOrderBook.Columns.Add("SchemeRating10Year");
+
+            dtSIPOrderBook.Columns.Add("SchemeReturn3Year");
+            dtSIPOrderBook.Columns.Add("SchemeReturn5Year");
+            dtSIPOrderBook.Columns.Add("SchemeReturn10Year");
+
+            dtSIPOrderBook.Columns.Add("SchemeRisk3Year");
+            dtSIPOrderBook.Columns.Add("SchemeRisk5Year");
+            dtSIPOrderBook.Columns.Add("SchemeRisk10Year");
+            dtSIPOrderBook.Columns.Add("SchemeRatingOverall");
+            dtSIPOrderBook.Columns.Add("SchemeRatingSubscriptionExpiryDtae");
+            dtSIPOrderBook.Columns.Add("SchemeRatingDate");
             return dtSIPOrderBook;
 
         }
@@ -416,7 +447,7 @@ namespace WealthERP.OnlineOrderManagement
                             {
                                 // GridDataItem gvr = (GridDataItem)e.Item;
                                 int amccode = int.Parse(ddlAMCCode.SelectedValue);
-                               
+
                                 int selectedRow = gvr.ItemIndex + 1;
                                 int systematicId = int.Parse(gvr.GetDataKeyValue("CMFSS_SystematicSetupId").ToString());
                                 int AccountId = int.Parse(gvr.GetDataKeyValue("CMFA_AccountId").ToString());
@@ -477,8 +508,8 @@ namespace WealthERP.OnlineOrderManagement
             gdi = (GridDataItem)lnkOrderNo.NamingContainer;
             int selectedRow = gdi.ItemIndex + 1;
             int systematicId = int.Parse((gvSIPSummaryBookMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CMFSS_SystematicSetupId"].ToString()));
-            string systematictype= Request.QueryString["systematicType"].ToString();
-            if (Session["PageDefaultSetting"]!= null)
+            string systematictype = Request.QueryString["systematicType"].ToString();
+            if (Session["PageDefaultSetting"] != null)
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('CustomerSIPBookList','?systematicId=" + systematicId + "&AmcCode=" + ddlAMCCode.SelectedValue + "&systematicType=" + systematictype + "&IsPageDefaultSetting=1" + "');", true);
             }
@@ -542,6 +573,31 @@ namespace WealthERP.OnlineOrderManagement
                 gvSIPSummaryBookMIS.MasterTableView.GetColumn("CMFSS_Amount").Visible = true;
                 gvSIPSummaryBookMIS.MasterTableView.GetColumn("Unit").Visible = false;
 
+            }
+            if (e.Item is GridDataItem)
+            {
+
+                Label lblSchemeRating = (Label)e.Item.FindControl("lblSchemeRating");
+
+                Label lblRating3Year = (Label)e.Item.FindControl("lblRating3Year");
+                Label lblRating5Year = (Label)e.Item.FindControl("lblRating5Year");
+                Label lblRating10Year = (Label)e.Item.FindControl("lblRating10Year");
+                Label lblRatingAsOnPopUp = (Label)e.Item.FindControl("lblRatingAsOnPopUp");
+
+                System.Web.UI.WebControls.Image imgSchemeRating = (System.Web.UI.WebControls.Image)e.Item.FindControl("imgSchemeRating");
+
+                System.Web.UI.WebControls.Image imgRating3Year = (System.Web.UI.WebControls.Image)e.Item.FindControl("imgRating3yr");
+                System.Web.UI.WebControls.Image imgRating5Year = (System.Web.UI.WebControls.Image)e.Item.FindControl("imgRating5yr");
+                System.Web.UI.WebControls.Image imgRating10Year = (System.Web.UI.WebControls.Image)e.Item.FindControl("imgRating10yr");
+                System.Web.UI.WebControls.Image imgRatingOvelAll = (System.Web.UI.WebControls.Image)e.Item.FindControl("imgRatingOvelAll");
+
+                imgSchemeRating.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + lblSchemeRating.Text.Trim() + ".png";
+
+                imgRating3Year.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + lblRating3Year.Text.Trim() + ".png";
+                imgRating5Year.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + lblRating5Year.Text.Trim() + ".png";
+                imgRating10Year.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + lblRating10Year.Text.Trim() + ".png";
+
+                imgRatingOvelAll.ImageUrl = @"../Images/MorningStarRating/RatingOverall/" + lblSchemeRating.Text.Trim() + ".png";
             }
 
         }
