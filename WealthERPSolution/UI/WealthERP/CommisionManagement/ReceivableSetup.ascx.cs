@@ -49,6 +49,7 @@ namespace WealthERP.Receivable
                     btnIssueMap.Visible = true;
                     hidCommissionStructureName.Value = structureId.ToString();
                     BindPayableGrid();
+                    Table5.Visible = true;
                 }
                 GetCommisionTypes();
                 GetProduct();
@@ -1514,6 +1515,7 @@ namespace WealthERP.Receivable
                     if (ddlCommisionCalOn.SelectedValue.ToString().ToUpper() == "APPC")
                     {
                         trMinAndMaxNumberOfApplication.Visible = true;
+                        trMinMAxInvAmount.Visible = false;
                     }
                     else if (ddlCommisionCalOn.SelectedValue.ToString().ToUpper() == "INAM")
                     {
@@ -1794,7 +1796,7 @@ namespace WealthERP.Receivable
                     rgCommissionTypeCaliculation.Visible = true;
                     //BindCommissionStructureRuleGrid(Convert.ToInt32(hidCommissionStructureName.Value));
                     BindRuleDetGrid(rgCommissionTypeCaliculation, ruleId);
-
+                    Table5.Visible = true;
                     //HiddenField1.Value = hidCommissionStructureName.Value;
 
                     //RadGrid rgCommissionTypeCaliculation = (RadGrid)e.Item.FindControl("rgCommissionTypeCaliculation");
@@ -2459,7 +2461,7 @@ namespace WealthERP.Receivable
                 lnkEditStructure.ToolTip = "View commission structure section";
                 btnStructureSubmit.Visible = false;
                 btnStructureUpdate.Visible = true;
-                Table5.Visible = false;
+                Table5.Visible = true;
 
 
             }
@@ -3484,16 +3486,16 @@ namespace WealthERP.Receivable
         }
         protected void gvPayaMapping_NeedDataSource(object source, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
-            DataSet dsCommissionPayable = new DataSet();
+            DataSet dsPayable = new DataSet();
             if (Cache[userVo.UserId.ToString() + "CommissionPayable"] != null)
             {
-                dsCommissionPayable = (DataSet)Cache[userVo.UserId.ToString() + "CommissionPayable"];
-                //gvPayaMapping.DataSource = dsCommissionPayable.Tables[0];
+                dsPayable = (DataSet)Cache[userVo.UserId.ToString() + "CommissionPayable"];
+                gvPayaMapping.DataSource = dsPayable.Tables[0];
             }
         }
         private void BindPayableGrid()
         {
-            string ruleId = string.Empty;
+         
             string structureId = hidCommissionStructureName.Value;
             
             DataSet dsPayable = new DataSet();
@@ -3501,10 +3503,10 @@ namespace WealthERP.Receivable
 
             gvPayaMapping.DataSource = dsPayable;
             gvPayaMapping.DataBind();
-
+            gvPayaMapping.Visible = true;
             if (Cache[userVo.UserId.ToString() + "CommissionPayable"] != null)
                 Cache.Remove(userVo.UserId.ToString() + "CommissionPayable");
-            //Cache.Insert(userVo.UserId.ToString() + "CommissionPayable", dsPayable);
+            Cache.Insert(userVo.UserId.ToString() + "CommissionPayable", dsPayable);
 
         }
         protected void OnClick_imgMapping(object sender, ImageClickEventArgs e)
