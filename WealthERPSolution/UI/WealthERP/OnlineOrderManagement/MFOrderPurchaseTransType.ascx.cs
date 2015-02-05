@@ -168,7 +168,7 @@ namespace WealthERP.OnlineOrderManagement
                         lnkFactSheet.PostBackUrl = dr["url"].ToString();
                     }
 
-                    if (!string.IsNullOrEmpty(dr["AVSD_ExpiryDtae"].ToString()) && Convert.ToDateTime(dr["AVSD_ExpiryDtae"].ToString()) > DateTime.Now && !string.IsNullOrEmpty(dr["PMFRD_RatingOverall"].ToString()))
+                    if (!string.IsNullOrEmpty(dr["AVSD_ExpiryDtae"].ToString()) && Convert.ToDateTime(dr["AVSD_ExpiryDtae"].ToString()) > DateTime.Now && Convert.ToInt16(dr["PMFRD_RatingOverall"].ToString())>0)
                     {
                         trSchemeRating.Visible = true;
                         imgSchemeRating.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + dr["PMFRD_RatingOverall"].ToString() + ".png";
@@ -188,11 +188,20 @@ namespace WealthERP.OnlineOrderManagement
                         lblSchemeRisk3yr.Text = dr["PMFRD_Risk3Year"].ToString();
                         lblSchemeRisk5yr.Text = dr["PMFRD_Risk5Year"].ToString();
                         lblSchemeRisk10yr.Text = dr["PMFRD_Risk10Year"].ToString();
+
+                        if (!string.IsNullOrEmpty(dr["PMFRD_RatingDate"].ToString()))
+                        {
+                            lblSchemeRatingAsOn.Text ="As On " + Convert.ToDateTime(dr["PMFRD_RatingDate"].ToString()).ToShortDateString();
+                            lblRatingAsOnPopUp.Text =lblSchemeRatingAsOn.Text;
+                            lblSchemeRatingAsOn.Visible = true;
+                        }
                     }
                     else
                     {
                         trSchemeRating.Visible = false;
-
+                        lblSchemeRatingAsOn.Visible = false;
+                        imgSchemeRating.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/0.png";
+                        lblSchemeRatingAsOn.Visible = false;
                     }
                 
                 }

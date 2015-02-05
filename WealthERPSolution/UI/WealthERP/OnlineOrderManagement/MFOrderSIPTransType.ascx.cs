@@ -710,7 +710,7 @@ namespace WealthERP.OnlineOrderManagement
                 ShowSipDates(dtGetAllSIPDataForOrder.Rows[0]["PASPSD_StatingDates"].ToString());
                 lblEndDateDisplay.Text = string.Empty;
 
-                if (!string.IsNullOrEmpty(dtGetAllSIPDataForOrder.Rows[0]["AVSD_ExpiryDtae"].ToString()) && Convert.ToDateTime(dtGetAllSIPDataForOrder.Rows[0]["AVSD_ExpiryDtae"].ToString()) > DateTime.Now && !string.IsNullOrEmpty(dtGetAllSIPDataForOrder.Rows[0]["PMFRD_RatingOverall"].ToString()))
+                if (!string.IsNullOrEmpty(dtGetAllSIPDataForOrder.Rows[0]["AVSD_ExpiryDtae"].ToString()) && Convert.ToDateTime(dtGetAllSIPDataForOrder.Rows[0]["AVSD_ExpiryDtae"].ToString()) > DateTime.Now && Convert.ToInt16(dtGetAllSIPDataForOrder.Rows[0]["PMFRD_RatingOverall"].ToString()) > 0)
                 {
                     trSchemeRating.Visible = true;
                     imgSchemeRating.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + dtGetAllSIPDataForOrder.Rows[0]["PMFRD_RatingOverall"].ToString() + ".png";
@@ -731,12 +731,18 @@ namespace WealthERP.OnlineOrderManagement
                     lblSchemeRisk3yr.Text = dtGetAllSIPDataForOrder.Rows[0]["PMFRD_Risk3Year"].ToString();
                     lblSchemeRisk5yr.Text = dtGetAllSIPDataForOrder.Rows[0]["PMFRD_Risk5Year"].ToString();
                     lblSchemeRisk10yr.Text = dtGetAllSIPDataForOrder.Rows[0]["PMFRD_Risk10Year"].ToString();
+                    if (!string.IsNullOrEmpty(dtGetAllSIPDataForOrder.Rows[0]["PMFRD_RatingDate"].ToString()))
+                    {
+                        lblSchemeRatingAsOn.Text = "As On " + Convert.ToDateTime(dtGetAllSIPDataForOrder.Rows[0]["PMFRD_RatingDate"].ToString()).ToShortDateString();
+                        lblRatingAsOnPopUp.Text = lblSchemeRatingAsOn.Text;
+                    }
 
                 }
                 else
                 {
                     trSchemeRating.Visible = false;
-
+                    lblSchemeRatingAsOn.Visible = false;
+                    imgSchemeRating.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/0.png";
                 }
 
             }

@@ -5,14 +5,15 @@
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 
 <script src="../Scripts/jquery.js" type="text/javascript"></script>
+
 <script src="../Scripts/JScript.js" type="text/javascript"></script>
 
 <script src="../Scripts/jquery.min.js" type="text/javascript"></script>
+
 <script src="../Scripts/jquery.bxslider.js" type="text/javascript"></script>
 
 <asp:ScriptManager ID="ScriptManager1" runat="server">
 </asp:ScriptManager>
-
 
 <script type="text/javascript">
     function ValidateTermsConditions(sender, args) {
@@ -52,7 +53,7 @@
     }
 </script>
 
-<script type="text/jscript">    
+<script type="text/jscript">
     jQuery(document).ready(function($) {
         $('.bxslider').bxSlider(
     {
@@ -178,9 +179,11 @@
                                 <td style="vertical-align: top;">
                                     <asp:Label ID="lblMintxt" runat="server" CssClass="readOnlyField"></asp:Label>
                                 </td>
-                                 <td rowspan="4">
+                                <td rowspan="4">
                                     <a href="#" class="popper" data-popbox="divSchemeRatingDetails"><span class="FieldName">
-                                        Scheme Rating</span><br />
+                                        Scheme Rating</span>
+                                        <asp:Label ID="lblSchemeRatingAsOn" runat="server" CssClass="FieldName"></asp:Label>
+                                        <br />
                                         <asp:Image runat="server" ID="imgSchemeRating" />
                                     </a>
                                 </td>
@@ -209,7 +212,7 @@
                                         <table border="1" cellpadding="1" cellspacing="2" style="border-collapse: collapse;">
                                             <tr>
                                                 <td>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                                    <asp:Label ID="lblRatingAsOnPopUp" runat="server" CssClass="readOnlyField"></asp:Label>
                                                 </td>
                                                 <td>
                                                     <span class="readOnlyField">RATING</span>
@@ -511,7 +514,6 @@
     <Triggers>
     </Triggers>
 </asp:UpdatePanel>
-
 <table width="100%" style="padding: 25px;">
     <tr>
         <td align="center">

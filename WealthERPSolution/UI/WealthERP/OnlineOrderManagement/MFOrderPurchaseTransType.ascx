@@ -175,7 +175,9 @@
                                 </td>
                                 <td rowspan="4">
                                     <a href="#" class="popper" data-popbox="divSchemeRatingDetails"><span class="FieldName">
-                                        Scheme Rating</span><br />
+                                        Scheme Rating </span>
+                                         <asp:Label ID="lblSchemeRatingAsOn" runat="server" CssClass="FieldName"></asp:Label>
+                                         <br />
                                         <asp:Image runat="server" ID="imgSchemeRating" />
                                     </a>
                                 </td>
@@ -204,7 +206,7 @@
                                         <table border="1" cellpadding="1" cellspacing="2" style="border-collapse: collapse;">
                                             <tr>
                                                 <td>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                                     <asp:Label ID="lblRatingAsOnPopUp" runat="server" CssClass="readOnlyField"></asp:Label>
                                                 </td>
                                                 <td>
                                                     <span class="readOnlyField">RATING</span>
@@ -270,6 +272,7 @@
                                     </div>
                                 </td>
                             </tr>
+                           
                         </table>
                     </td>
                 </tr>
