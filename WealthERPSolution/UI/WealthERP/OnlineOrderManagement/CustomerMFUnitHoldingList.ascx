@@ -206,7 +206,7 @@
                                         <table border="1" cellpadding="1" cellspacing="2" style="border-collapse: collapse;" width="10% !important;">
                                             <tr>
                                                 <td>
-                                                    &nbsp;
+                                                     <asp:Label ID="lblRatingAsOnPopUp" runat="server" CssClass="readOnlyField" Text='<%# Eval("SchemeRatingDate") %>'></asp:Label>
                                                 </td>
                                                 <td>
                                                     <span class="readOnlyField">RATING</span>

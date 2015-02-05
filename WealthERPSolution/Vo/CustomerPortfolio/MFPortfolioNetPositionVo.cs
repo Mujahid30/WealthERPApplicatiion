@@ -79,6 +79,7 @@ namespace VoCustomerPortfolio
         public string SchemeRisk3Year { get; set; }
         public string SchemeRisk5Year { get; set; }
         public string SchemeRisk10Year { get; set; }
+        public string SchemeRatingDate { get; set; }
         
     }
 }

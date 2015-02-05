@@ -146,7 +146,7 @@ namespace WealthERP.OnlineOrderManagement
             dtMFUnitHolding.Columns.Add("IsSchemeSIPType");
             dtMFUnitHolding.Columns.Add("IsSchemePurchege");
             dtMFUnitHolding.Columns.Add("IsSchemeRedeem");
-       
+
 
             dtMFUnitHolding.Columns.Add("SchemeRating3Year");
             dtMFUnitHolding.Columns.Add("SchemeRating5Year");
@@ -159,10 +159,9 @@ namespace WealthERP.OnlineOrderManagement
             dtMFUnitHolding.Columns.Add("SchemeRisk3Year");
             dtMFUnitHolding.Columns.Add("SchemeRisk5Year");
             dtMFUnitHolding.Columns.Add("SchemeRisk10Year");
-
             dtMFUnitHolding.Columns.Add("SchemeRatingOverall");
             dtMFUnitHolding.Columns.Add("SchemeRatingSubscriptionExpiryDtae");
-
+            dtMFUnitHolding.Columns.Add("SchemeRatingDate");
             return dtMFUnitHolding;
         }
 
@@ -176,7 +175,7 @@ namespace WealthERP.OnlineOrderManagement
             OnlineMFHoldingList = customerPortfolioBo.GetOnlineUnitHolding(customerId, int.Parse(hdnAccount.Value));
             if (OnlineMFHoldingList != null)
             {
-                DataTable dtMFUnitHoplding = CreateUnitHoldingListTable();                
+                DataTable dtMFUnitHoplding = CreateUnitHoldingListTable();
 
                 DataRow drMFUnitHoplding;
                 for (int i = 0; i < OnlineMFHoldingList.Count; i++)
@@ -289,7 +288,8 @@ namespace WealthERP.OnlineOrderManagement
 
                     drMFUnitHoplding["SchemeRatingOverall"] = mfPortfolioVo.SchemeRatingOverall;
                     drMFUnitHoplding["SchemeRatingSubscriptionExpiryDtae"] = mfPortfolioVo.SchemeRatingSubscriptionExpiryDtae;
-
+                    if (DateTime.Parse(mfPortfolioVo.SchemeRatingDate.ToString()) != DateTime.Parse("01/01/1900 00:00:00"))
+                    drMFUnitHoplding["SchemeRatingDate"] = DateTime.Parse(mfPortfolioVo.SchemeRatingDate.ToString()).ToString("dd/MM/yyyy");
 
                     dtMFUnitHoplding.Rows.Add(drMFUnitHoplding);
                 }
@@ -381,7 +381,7 @@ namespace WealthERP.OnlineOrderManagement
                     if (e.CommandName.ToString() != "Page")
                     {
                         if (e.CommandName.ToString() != "ChangePageSize")
-                        { 
+                        {
                             GridDataItem gvr = (GridDataItem)e.Item;
                             int selectedRow = gvr.ItemIndex + 1;
                             int folio = int.Parse(gvr.GetDataKeyValue("AccountId").ToString());
@@ -460,6 +460,7 @@ namespace WealthERP.OnlineOrderManagement
         {
             if (e.Item is GridDataItem)
             {
+                 MFPortfolioNetPositionVo mfPortfolioVo=new MFPortfolioNetPositionVo();
                 Label lblISRedeemFlag = (Label)e.Item.FindControl("lblISRedeemFlag");
 
                 Label lblSIPSchemeFlag = (Label)e.Item.FindControl("lblSIPSchemeFlag");
@@ -469,6 +470,7 @@ namespace WealthERP.OnlineOrderManagement
                 Label lblRating3Year = (Label)e.Item.FindControl("lblRating3Year");
                 Label lblRating5Year = (Label)e.Item.FindControl("lblRating5Year");
                 Label lblRating10Year = (Label)e.Item.FindControl("lblRating10Year");
+                Label lblRatingAsOnPopUp = (Label)e.Item.FindControl("lblRatingAsOnPopUp");
 
                 System.Web.UI.WebControls.Image imgSchemeRating = (System.Web.UI.WebControls.Image)e.Item.FindControl("imgSchemeRating");
 
@@ -499,7 +501,7 @@ namespace WealthERP.OnlineOrderManagement
                 lblIsPurcheseFlag.Visible = false;
                 lblSIPSchemeFlag.Visible = false;
 
-
+                
                 imgSchemeRating.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + lblSchemeRating.Text.Trim() + ".png";
 
                 imgRating3Year.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + lblRating3Year.Text.Trim() + ".png";
@@ -507,7 +509,11 @@ namespace WealthERP.OnlineOrderManagement
                 imgRating10Year.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + lblRating10Year.Text.Trim() + ".png";
 
                 imgRatingOvelAll.ImageUrl = @"../Images/MorningStarRating/RatingOverall/" + lblSchemeRating.Text.Trim() + ".png";
-
+                    //if (!string.IsNullOrEmpty(mfPortfolioVo.SchemeRatingDate))
+                    //    {
+                    //        lblRatingAsOnPopUp.Text =  "As On " + mfPortfolioVo.SchemeRatingDate;
+                    //    }
+                
                  //imgSchemeRating.ImageUrl = @"../Images/msgUnRead.png";
                 ////imgRatingDetails.ImageUrl = @"../Images/MorningStarRating/RatingOverall/" + lblSchemeRating.Text.Trim() + ".png";
              
