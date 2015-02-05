@@ -894,7 +894,7 @@
                                 Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
                             <asp:RegularExpressionValidator ID="rgetxtRedemptionMultiplesUnits" ControlToValidate="txtRedemptionMultiplesUnits"
                                 ErrorMessage="Enter Only Number" runat="server" Display="Dynamic" CssClass="cvPCG"
-                                ValidationExpression="[1-9]\d*(\.\d+)*$" ValidationGroup="btnsubmit">     
+                                ValidationExpression="[0-9]\d*(\.\d+)*$" ValidationGroup="btnsubmit">     
                             </asp:RegularExpressionValidator>
                             <%-- <asp:CompareValidator ID="cmpttxtRedemptionMultiplesUnits" ControlToValidate="txtRedemptionMultiplesUnits" runat="server"
                 ControlToCompare="txtMinRedemptioUnits" Display="Dynamic" ErrorMessage="<br/>Please Enter Greater than redemption units"

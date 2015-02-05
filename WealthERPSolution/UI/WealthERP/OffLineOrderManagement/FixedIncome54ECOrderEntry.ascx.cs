@@ -1266,10 +1266,13 @@ namespace WealthERP.OffLineOrderManagement
         private string SaveFileIntoServer(UploadedFile file, string strGuid, string strPath)
         {
             fileExtension = file.GetExtension();
-            string strRenameFilename = file.GetName();
-            strRenameFilename = strRenameFilename.Replace(' ', '_');
+            Random ranNo = new Random();
+            int ranDomNo = ranNo.Next();
+            string filename = file.FileName.Substring(0, file.FileName.IndexOf('.'));
+            //string strRenameFilename = file.GetName();
+            //strRenameFilename = strRenameFilename.Replace(' ', '_');
             //string newFileName = advisorVo.advisorId + "_" + strGuid + "_" + strRenameFilename;
-            string newFileName = strRenameFilename;
+            string newFileName = ranDomNo+"_"+ filename + fileExtension; ;
             // Save adviser repository file in the path
 
             file.SaveAs(strPath + "\\" + newFileName);
