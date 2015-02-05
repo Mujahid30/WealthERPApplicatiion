@@ -329,6 +329,8 @@ namespace WealthERP.BusinessMIS
             {
                 gvCommissionReceiveRecon.ExportSettings.OpenInNewWindow = true;
                 gvCommissionReceiveRecon.ExportSettings.IgnorePaging = true;
+                gvCommissionReceiveRecon.ExportSettings.FileName = "CommissionExceptedMIS";
+
                 foreach (GridFilteringItem filter in gvCommissionReceiveRecon.MasterTableView.GetItems(GridItemType.FilteringItem))
                 {
                     filter.Visible = false;
@@ -339,6 +341,7 @@ namespace WealthERP.BusinessMIS
             {
                 rgNCDIPOMIS.ExportSettings.OpenInNewWindow = true;
                 rgNCDIPOMIS.ExportSettings.IgnorePaging = true;
+                rgNCDIPOMIS.ExportSettings.FileName = "CommissionExceptedMIS";
                 foreach (GridFilteringItem filter in rgNCDIPOMIS.MasterTableView.GetItems(GridItemType.FilteringItem))
                 {
                     filter.Visible = false;
