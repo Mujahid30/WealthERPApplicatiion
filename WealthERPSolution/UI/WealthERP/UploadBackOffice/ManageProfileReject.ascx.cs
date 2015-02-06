@@ -101,19 +101,19 @@ namespace WealthERP.UploadBackOffice
                     gvProfileIncreamenetReject.MasterTableView.GetColumn("BranchAdrCountry").Visible = true;
                     gvProfileIncreamenetReject.MasterTableView.GetColumn("BrokerCode").Visible = true;
                     gvProfileIncreamenetReject.MasterTableView.GetColumn("SchemeName").Visible = true;
-                    gvProfileIncreamenetReject.MasterTableView.GetColumn("TransactionNum").Visible = true;
-                    gvProfileIncreamenetReject.MasterTableView.GetColumn("TransactionDate").Visible = true;
-                    gvProfileIncreamenetReject.MasterTableView.GetColumn("Price").Visible = true;
-                    gvProfileIncreamenetReject.MasterTableView.GetColumn("Units").Visible = true;
-                    gvProfileIncreamenetReject.MasterTableView.GetColumn("Amount").Visible = true;
-                    gvProfileIncreamenetReject.MasterTableView.GetColumn("STT").Visible = true;
-                    gvProfileIncreamenetReject.MasterTableView.GetColumn("BrokeragePer").Visible = true;
-                    gvProfileIncreamenetReject.MasterTableView.GetColumn(" BrokerageAmount").Visible = true;
-                    gvProfileIncreamenetReject.MasterTableView.GetColumn("UserTransactionNo").Visible = true;
-                    gvProfileIncreamenetReject.MasterTableView.GetColumn("TransactionType").Visible = true;
-                    gvProfileIncreamenetReject.MasterTableView.GetColumn("TransactionNature").Visible = true;
-                    gvProfileIncreamenetReject.MasterTableView.GetColumn("TransactionHead").Visible = true;
-                    gvProfileIncreamenetReject.MasterTableView.GetColumn("TransactionDescription").Visible = true;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("TransactionNum").Visible = false;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("TransactionDate").Visible = false;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("Price").Visible = false;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("Units").Visible = false;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("Amount").Visible = false;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("STT").Visible = false;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("BrokeragePer").Visible = false;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn(" BrokerageAmount").Visible = false;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("UserTransactionNo").Visible = false;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("TransactionType").Visible = false;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("TransactionNature").Visible = false;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("TransactionHead").Visible = false;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("TransactionDescription").Visible = false;
                     gvProfileIncreamenetReject.MasterTableView.GetColumn("ClientCode").Visible = false;
                 }
                 else if (transactionId == 9)

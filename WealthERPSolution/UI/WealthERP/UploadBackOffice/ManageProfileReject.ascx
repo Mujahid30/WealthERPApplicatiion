@@ -89,6 +89,24 @@
         </td>
     </tr>
 </table>
+<table width="100%">
+    <tr>
+        <td>
+            <div class="divPageHeading">
+                <table cellspacing="0" cellpadding="2" width="100%">
+                    <tr>
+                        <td align="right" style="width: 10px">
+                            <asp:ImageButton ID="imgexportButton" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                                Visible="true" runat="server" AlternateText="Excel" ToolTip="Export To Excel"
+                                OnClick="btnExportData_OnClick" OnClientClick="setFormat('excel')" Height="22px"
+                                Width="25px"></asp:ImageButton>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+</table>
 <asp:Panel ID="pnlProfileReject" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal"
     Visible="true">
     <table width="100%">
@@ -107,24 +125,6 @@
                 <div id="msgReprocessincomplete" runat="server" class="failure-msg" align="center"
                     visible="false">
                     Reprocess Failed!
-                </div>
-            </td>
-        </tr>
-    </table>
-    <table width="100%">
-        <tr>
-            <td>
-                <div class="divPageHeading">
-                    <table cellspacing="0" cellpadding="2" width="100%">
-                        <tr>
-                            <td align="right" style="width: 10px">
-                                <asp:ImageButton ID="imgexportButton" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
-                                    Visible="true" runat="server" AlternateText="Excel" ToolTip="Export To Excel"
-                                    OnClick="btnExportData_OnClick" OnClientClick="setFormat('excel')" Height="22px"
-                                    Width="25px"></asp:ImageButton>
-                            </td>
-                        </tr>
-                    </table>
                 </div>
             </td>
         </tr>
@@ -181,6 +181,36 @@
                             <telerik:GridBoundColumn AllowFiltering="true" DataField="ClientName" AutoPostBackOnFilter="true"
                                 UniqueName="ClientName" HeaderText="ClientName" ShowFilterIcon="false" DataType="System.String"
                                 CurrentFilterFunction="Contains" SortExpression="ClientName" FooterStyle-HorizontalAlign="Right"
+                                HeaderStyle-Width="90px">
+                                <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridTemplateColumn AllowFiltering="true" DataField="PANNO1" AutoPostBackOnFilter="true"
+                                HeaderText="PANNO1" ShowFilterIcon="false" CurrentFilterFunction="Contains" SortExpression="PANNO1"
+                                UniqueName="PANNO1" FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="90px">
+                                <ItemTemplate>
+                                    <asp:TextBox ID="txtPANNO1" CssClass="txtField" runat="server" Text='<%# Bind("PANNO1") %>'></asp:TextBox>
+                                    <asp:RegularExpressionValidator ID="revPan1" runat="server" Display="Dynamic" ValidationGroup="btnSave"
+                                        CssClass="rfvPCG" ErrorMessage="Please check PAN Format" ControlToValidate="txtPANNO1"
+                                        ValidationExpression="[A-Za-z]{5}\d{4}[A-Za-z]{1}">
+                                    </asp:RegularExpressionValidator>
+                                </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtPANNO1Footer" CssClass="txtField" runat="server" />
+                                    <asp:RegularExpressionValidator ID="revPan2" runat="server" Display="Dynamic" ValidationGroup="btnSave"
+                                        CssClass="rfvPCG" ErrorMessage="Please check PAN Format" ControlToValidate="txtPANNO1Footer"
+                                        ValidationExpression="[A-Za-z]{5}\d{4}[A-Za-z]{1}">
+                                    </asp:RegularExpressionValidator>
+                                </FooterTemplate>
+                            </telerik:GridTemplateColumn>
+                            <telerik:GridBoundColumn AllowFiltering="true" DataField="FolioNo" AutoPostBackOnFilter="true"
+                                HeaderText="FolioNo" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                UniqueName="FolioNo" SortExpression="FolioNo" FooterStyle-HorizontalAlign="Right"
+                                HeaderStyle-Width="90px">
+                                <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn AllowFiltering="true" DataField="BrokerCode" AutoPostBackOnFilter="true"
+                                HeaderText="BrokerCode" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                UniqueName="BrokerCode" SortExpression="BrokerCode" FooterStyle-HorizontalAlign="Right"
                                 HeaderStyle-Width="90px">
                                 <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
                             </telerik:GridBoundColumn>
@@ -541,24 +571,6 @@
                                     <asp:TextBox ID="txtDOB3Footer" CssClass="txtField" runat="server" />
                                 </FooterTemplate>
                             </telerik:GridTemplateColumn>--%>
-                            <telerik:GridTemplateColumn AllowFiltering="true" DataField="PANNO1" AutoPostBackOnFilter="true"
-                                HeaderText="PANNO1" ShowFilterIcon="false" CurrentFilterFunction="Contains" SortExpression="PANNO1"
-                                UniqueName="PANNO1" FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="90px">
-                                <ItemTemplate>
-                                    <asp:TextBox ID="txtPANNO1" CssClass="txtField" runat="server" Text='<%# Bind("PANNO1") %>'></asp:TextBox>
-                                    <asp:RegularExpressionValidator ID="revPan1" runat="server" Display="Dynamic" ValidationGroup="btnSave"
-                                        CssClass="rfvPCG" ErrorMessage="Please check PAN Format" ControlToValidate="txtPANNO1"
-                                        ValidationExpression="[A-Za-z]{5}\d{4}[A-Za-z]{1}">
-                                    </asp:RegularExpressionValidator>
-                                </ItemTemplate>
-                                <FooterTemplate>
-                                    <asp:TextBox ID="txtPANNO1Footer" CssClass="txtField" runat="server" />
-                                    <asp:RegularExpressionValidator ID="revPan2" runat="server" Display="Dynamic" ValidationGroup="btnSave"
-                                        CssClass="rfvPCG" ErrorMessage="Please check PAN Format" ControlToValidate="txtPANNO1Footer"
-                                        ValidationExpression="[A-Za-z]{5}\d{4}[A-Za-z]{1}">
-                                    </asp:RegularExpressionValidator>
-                                </FooterTemplate>
-                            </telerik:GridTemplateColumn>
                             <telerik:GridTemplateColumn AllowFiltering="true" DataField="PANNO2" AutoPostBackOnFilter="true"
                                 HeaderText="PANNO2" ShowFilterIcon="false" CurrentFilterFunction="Contains" SortExpression="PANNO2"
                                 UniqueName="PANNO2" FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="90px">
@@ -771,12 +783,6 @@
                                 HeaderStyle-Width="90px">
                                 <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn AllowFiltering="true" DataField="FolioNo" AutoPostBackOnFilter="true"
-                                HeaderText="FolioNo" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                UniqueName="FolioNo" SortExpression="FolioNo" FooterStyle-HorizontalAlign="Right"
-                                HeaderStyle-Width="90px">
-                                <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
-                            </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn AllowFiltering="true" DataField="BranchAdrLine1" AutoPostBackOnFilter="true"
                                 HeaderText="BranchAdrLine1" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                 UniqueName="BranchAdrLine1" SortExpression="BranchAdrLine1" FooterStyle-HorizontalAlign="Right"
@@ -816,12 +822,6 @@
                             <telerik:GridBoundColumn AllowFiltering="true" DataField="SchemeName" AutoPostBackOnFilter="true"
                                 HeaderText="SchemeName" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                 UniqueName="SchemeName" SortExpression="SchemeName" FooterStyle-HorizontalAlign="Right"
-                                HeaderStyle-Width="90px">
-                                <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
-                            </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn AllowFiltering="true" DataField="BrokerCode" AutoPostBackOnFilter="true"
-                                HeaderText="BrokerCode" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                UniqueName="BrokerCode" SortExpression="BrokerCode" FooterStyle-HorizontalAlign="Right"
                                 HeaderStyle-Width="90px">
                                 <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
                             </telerik:GridBoundColumn>
