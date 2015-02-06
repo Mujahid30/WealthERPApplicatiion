@@ -1287,6 +1287,7 @@ namespace WealthERP.Receivable
 
                 if (e.Item.ItemIndex != -1)
                 {
+                    hdnIsSpecialIncentive.Value = "";
                     HiddenField1.Value = RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_CommissionStructureRuleId"].ToString();
                     hdnIsSpecialIncentive.Value = RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ASCR_WCMV_IncentiveType"].ToString();
                     RadGrid rgCommissionTypeCaliculation = (RadGrid)e.Item.FindControl("rgCommissionTypeCaliculation");
@@ -1791,6 +1792,7 @@ namespace WealthERP.Receivable
 
                     ruleId = commisionReceivableBo.CreateCommissionStructureRule(commissionStructureRuleVo, userVo.UserId, sbRuleHash.ToString());
                     HiddenField1.Value = ruleId.ToString();
+                    hdnIsSpecialIncentive.Value = commissionStructureRuleVo.CommissionSubType;
                     btnSubmitRule.Visible = false;
                     e.Canceled = true;
                     rgCommissionTypeCaliculation.Visible = true;
