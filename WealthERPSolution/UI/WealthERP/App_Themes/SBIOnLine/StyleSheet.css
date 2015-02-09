@@ -1677,7 +1677,7 @@ p.tip
     display: none;
     position: absolute;
     z-index: 99999;
-    width: 500px;
+    overflow: hidden; 
     padding: 10px;
     background: #EEEFEB;
     color: #000000;
