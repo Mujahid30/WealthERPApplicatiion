@@ -119,15 +119,15 @@ namespace WealthERP.UploadBackOffice
                 else if (transactionId == 9)
                 {
                     gvProfileIncreamenetReject.MasterTableView.GetColumn("ProductCode").Visible = false;
-                    gvProfileIncreamenetReject.MasterTableView.GetColumn("FolioNo").Visible = false;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("FolioNo").Visible = true;
                     gvProfileIncreamenetReject.MasterTableView.GetColumn("BranchAdrLine1").Visible = false;
                     gvProfileIncreamenetReject.MasterTableView.GetColumn("BranchAdrLine2").Visible = false;
                     gvProfileIncreamenetReject.MasterTableView.GetColumn("BranchAdrLine3").Visible = false;
                     gvProfileIncreamenetReject.MasterTableView.GetColumn("BranchAdrPinCode").Visible = false;
                     gvProfileIncreamenetReject.MasterTableView.GetColumn("BranchAdrState").Visible = false;
                     gvProfileIncreamenetReject.MasterTableView.GetColumn("BranchAdrCountry").Visible = false;
-                    gvProfileIncreamenetReject.MasterTableView.GetColumn("BrokerCode").Visible = false;
-                    gvProfileIncreamenetReject.MasterTableView.GetColumn("SchemeName").Visible = false;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("BrokerCode").Visible = true;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("SchemeName").Visible = true;
                     gvProfileIncreamenetReject.MasterTableView.GetColumn("TransactionNum").Visible = true;
                     gvProfileIncreamenetReject.MasterTableView.GetColumn("TransactionDate").Visible = true;
                     gvProfileIncreamenetReject.MasterTableView.GetColumn("Price").Visible = true;
@@ -179,9 +179,10 @@ namespace WealthERP.UploadBackOffice
             string pan2 = string.Empty;
             string pan3 = string.Empty;
             string emailId = string.Empty;
-            //string dob1 = string.Empty;
-            //string dob2 = string.Empty;
-            //string dob3 = string.Empty;
+            string transactionType = string.Empty;
+            string transactionNature = string.Empty;
+            string transactionHead = string.Empty;
+            string transactionDescription = string.Empty;
             //string guardianDOB = string.Empty;
             uploadCommonBo = new UploadCommonBo();
             GridFooterItem footerRow = (GridFooterItem)gvProfileIncreamenetReject.MasterTableView.GetItems(GridItemType.Footer)[0];
@@ -371,38 +372,38 @@ namespace WealthERP.UploadBackOffice
                 {
                     emailId = ((TextBox)footerRow.FindControl("txtEmailIdFooter")).Text;
                 }
-                //if (((TextBox)footerRow.FindControl("txtDOB1Footer")).Text.Trim() == "")
-                //{
-                //    dob1 = ((TextBox)dr.FindControl("txtDOB1")).Text;
-                //}
-                //else
-                //{
-                //    dob1 = ((TextBox)footerRow.FindControl("txtDOB1Footer")).Text;
-                //}
-                //if (((TextBox)footerRow.FindControl("txtDOB2Footer")).Text.Trim() == "")
-                //{
-                //    dob2 = ((TextBox)dr.FindControl("txtDOB2")).Text;
-                //}
-                //else
-                //{
-                //    dob2 = ((TextBox)footerRow.FindControl("txtDOB2Footer")).Text;
-                //}
-                // if (((TextBox)footerRow.FindControl("txtDOB3Footer")).Text.Trim() == "")
-                //{
-                //    dob3 = ((TextBox)dr.FindControl("txtDOB3")).Text;
-                //}
-                //else
-                //{
-                //    dob3 = ((TextBox)footerRow.FindControl("txtDOB3Footer")).Text;
-                //}
-                // if (((TextBox)footerRow.FindControl("txtGuardianDOBFooter")).Text.Trim() == "")
-                //{
-                //    guardianDOB = ((TextBox)dr.FindControl("txtGuardianDOB")).Text;
-                //}
-                //else
-                //{
-                //    guardianDOB = ((TextBox)footerRow.FindControl("txtGuardianDOBFooter")).Text;
-                //}
+                if (((TextBox)footerRow.FindControl("txtTransactionTypeFooter")).Text.Trim() == "")
+                {
+                    transactionType = ((TextBox)dr.FindControl("txtTransactionType")).Text;
+                }
+                else
+                {
+                    transactionType = ((TextBox)footerRow.FindControl("txtTransactionTypeFooter")).Text;
+                }
+                if (((TextBox)footerRow.FindControl("txtTransactionNatureFooter")).Text.Trim() == "")
+                {
+                    transactionNature = ((TextBox)dr.FindControl("txtTransactionNature")).Text;
+                }
+                else
+                {
+                    transactionNature = ((TextBox)footerRow.FindControl("txtTransactionNatureFooter")).Text;
+                }
+                if (((TextBox)footerRow.FindControl("txtTransactionHeadFooter")).Text.Trim() == "")
+                {
+                    transactionHead = ((TextBox)dr.FindControl("txtTransactionHead")).Text;
+                }
+                else
+                {
+                    transactionHead = ((TextBox)footerRow.FindControl("txtTransactionHeadFooter")).Text;
+                }
+                if (((TextBox)footerRow.FindControl("txtTransactionDescriptionFooter")).Text.Trim() == "")
+                {
+                    transactionDescription = ((TextBox)dr.FindControl("txtTransactionDescription")).Text;
+                }
+                else
+                {
+                    transactionDescription = ((TextBox)footerRow.FindControl("txtTransactionDescriptionFooter")).Text;
+                }
                 CheckBox checkBox = (CheckBox)dr.FindControl("chkId");
                 if (checkBox.Checked == true)
                 {
@@ -412,7 +413,7 @@ namespace WealthERP.UploadBackOffice
                     selectedRow = gdi.ItemIndex + 1;
                     Id = int.Parse((gvProfileIncreamenetReject.MasterTableView.DataKeyValues[selectedRow - 1]["ID"].ToString()));
                     tableNo = int.Parse((gvProfileIncreamenetReject.MasterTableView.DataKeyValues[selectedRow - 1]["TableNo"].ToString()));
-                    blResult = uploadCommonBo.UpdateRequestRejects(clientCode, Id, tableNo, city, state, pincode, mobileno, occupation, accounttype, bankname, personalstatus, address1, address2, address3, country, officePhoneNo, officeExtensionNo, officeFaxNo, homePhoneNo, homeFaxNo, annualIncome, pan1, pan2, pan3, emailId);
+                    blResult = uploadCommonBo.UpdateRequestRejects(clientCode, Id, tableNo, city, state, pincode, mobileno, occupation, accounttype, bankname, personalstatus, address1, address2, address3, country, officePhoneNo, officeExtensionNo, officeFaxNo, homePhoneNo, homeFaxNo, annualIncome, pan1, pan2, pan3, emailId, transactionType, transactionNature, transactionHead, transactionDescription);
 
                 }
 
@@ -449,7 +450,7 @@ namespace WealthERP.UploadBackOffice
                 else
                 {
                     msgReprocessComplete.Visible = true;
-                    msgReprocessComplete.InnerText = "ReProcess SuccessFully Done";
+                    msgReprocessComplete.InnerText = "Reprocess Successfully Done";
                 }
             }
 

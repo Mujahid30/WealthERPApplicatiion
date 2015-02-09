@@ -4515,7 +4515,7 @@ namespace DaoUploads
 
             return dsReqRej;
         }
-        public bool UpdateRequestRejects(string clientCode, int Id, int tableNo, string city, string state, string pincode, string mobileno, string occupation, string accounttype, string bankname, string personalstatus, string address1, string address2, string address3, string country, string officePhoneNo, string officeExtensionNo, string officeFaxNo, string homePhoneNo, string homeFaxNo, string annualIncome, string pan1, string pan2, string pan3, string emailId)
+        public bool UpdateRequestRejects(string clientCode, int Id, int tableNo, string city, string state, string pincode, string mobileno, string occupation, string accounttype, string bankname, string personalstatus, string address1, string address2, string address3, string country, string officePhoneNo, string officeExtensionNo, string officeFaxNo, string homePhoneNo, string homeFaxNo, string annualIncome, string pan1, string pan2, string pan3, string emailId, string transactionType, string transactionNature, string transactionHead, string transactionDescription)
         {
             bool result = false;
             Database db;
@@ -4620,6 +4620,22 @@ namespace DaoUploads
                     db.AddInParameter(UpdateRequestRejectCmd, "@EmailId", DbType.String, emailId);
                 else
                     db.AddInParameter(UpdateRequestRejectCmd, "@EmailId", DbType.String, DBNull.Value);
+                if (!string.IsNullOrEmpty(transactionType))
+                    db.AddInParameter(UpdateRequestRejectCmd, "@TransactionType", DbType.String, transactionType);
+                else
+                    db.AddInParameter(UpdateRequestRejectCmd, "@TransactionType", DbType.String, DBNull.Value);
+                if (!string.IsNullOrEmpty(transactionNature))
+                    db.AddInParameter(UpdateRequestRejectCmd, "@TransactionNature", DbType.String, transactionNature);
+                else
+                    db.AddInParameter(UpdateRequestRejectCmd, "@TransactionNature", DbType.String, DBNull.Value);
+                if (!string.IsNullOrEmpty(transactionHead))
+                    db.AddInParameter(UpdateRequestRejectCmd, "@TransactionHead", DbType.String, transactionHead);
+                else
+                    db.AddInParameter(UpdateRequestRejectCmd, "@TransactionHead", DbType.String, DBNull.Value);
+                if (!string.IsNullOrEmpty(transactionDescription))
+                    db.AddInParameter(UpdateRequestRejectCmd, "@TransactionDescription", DbType.String, transactionDescription);
+                else
+                    db.AddInParameter(UpdateRequestRejectCmd, "@TransactionDescription", DbType.String, DBNull.Value);
 
                 db.ExecuteNonQuery(UpdateRequestRejectCmd);
                 result = true;

@@ -20,39 +20,34 @@
 
 <script type="text/javascript">
     function confirmation() {
-        //        var masterTable = $find("<%= gvProfileIncreamenetReject.ClientID %>").get_masterTableView();
-        //        var row = masterTable.get_dataItems();
-        //        alert(row.length);
-        //        var i = 0;
-        //        if (i < row.length) {
-        //            var chk = masterTable.get_dataItems()[i].findElement("chkId");
-        //            var chk1 = masterTable.get_dataItems()[i].findElement("chkIdAll");
-        //        }
-        //        if (chk.checked || chk1.checked) {
-        //            var retVal = confirm("Do you want to Delete?");
-        //            if (retVal == true) {
-        //                return true;
-        //            }
-        //            else {
-        //                return false;
-        //            }
-        //        }
-        //        else {
-        //            alert('Please select record to delete!');
-        //        }
-        var bool = window.confirm('Are You Sure To Delete?');
-
-        if (bool) {
-            document.getElementById("ctrl_ManageProfileReject_hdnStatusValue").value = 1;
-            document.getElementById("ctrl_ManageProfileReject_btnDeleteStatus").click();
-
-            return false;
+        var masterTable = $find("<%= gvProfileIncreamenetReject.ClientID %>").get_masterTableView();
+        var row = masterTable.get_dataItems();
+        var i = 0;
+        if (i < row.length) {
+            var chk = masterTable.get_dataItems()[i].findElement("chkId");
+            var chk1 = masterTable.get_dataItems()[i].findElement("chkIdAll");
         }
-        else {
-            document.getElementById("ctrl_ManageProfileReject_hdnStatusValue").value = 0;
-            document.getElementById("ctrl_ManageProfileReject_btnDeleteStatus").click();
-            return true;
+        if (chk.checked) 
+        {
+            var bool = window.confirm('Are You Sure To Delete?');
+
+            if (bool) {
+                document.getElementById("ctrl_ManageProfileReject_hdnStatusValue").value = 1;
+                document.getElementById("ctrl_ManageProfileReject_btnDeleteStatus").click();
+
+                return false;
+            }
+            else {
+                document.getElementById("ctrl_ManageProfileReject_hdnStatusValue").value = 0;
+                document.getElementById("ctrl_ManageProfileReject_btnDeleteStatus").click();
+                return true;
+            }
         }
+        else 
+        {
+            alert('Please select record to delete!'); 
+        }
+
     }
 </script>
 
@@ -875,30 +870,50 @@
                                 HeaderStyle-Width="90px">
                                 <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn AllowFiltering="true" DataField="TransactionType" AutoPostBackOnFilter="true"
+                            <telerik:GridTemplateColumn AllowFiltering="true" DataField="TransactionType" AutoPostBackOnFilter="true"
                                 HeaderText="TransactionType" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                 UniqueName="TransactionType" SortExpression="TransactionType" FooterStyle-HorizontalAlign="Right"
                                 HeaderStyle-Width="90px">
-                                <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
-                            </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn AllowFiltering="true" DataField="TransactionNature" AutoPostBackOnFilter="true"
+                                <ItemTemplate>
+                                    <asp:TextBox ID="txtTransactionType" CssClass="txtField" runat="server" Text='<%# Bind("TransactionType") %>'></asp:TextBox>
+                                </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtTransactionTypeFooter" CssClass="txtField" runat="server" />
+                                </FooterTemplate>
+                            </telerik:GridTemplateColumn>
+                            <telerik:GridTemplateColumn AllowFiltering="true" DataField="TransactionNature" AutoPostBackOnFilter="true"
                                 HeaderText="TransactionNature" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                 UniqueName="TransactionNature" SortExpression="TransactionNature" FooterStyle-HorizontalAlign="Right"
                                 HeaderStyle-Width="90px">
-                                <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
-                            </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn AllowFiltering="true" DataField="TransactionHead" AutoPostBackOnFilter="true"
+                               <ItemTemplate>
+                                    <asp:TextBox ID="txtTransactionNature" CssClass="txtField" runat="server" Text='<%# Bind("TransactionNature") %>'></asp:TextBox>
+                                </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtTransactionNatureFooter" CssClass="txtField" runat="server" />
+                                </FooterTemplate>
+                            </telerik:GridTemplateColumn>
+                            <telerik:GridTemplateColumn AllowFiltering="true" DataField="TransactionHead" AutoPostBackOnFilter="true"
                                 HeaderText="TransactionHead" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                 UniqueName="TransactionHead" SortExpression="TransactionHead" FooterStyle-HorizontalAlign="Right"
                                 HeaderStyle-Width="90px">
-                                <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
-                            </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn AllowFiltering="true" DataField="TransactionDescription"
+                               <ItemTemplate>
+                                    <asp:TextBox ID="txtTransactionHead" CssClass="txtField" runat="server" Text='<%# Bind("TransactionHead") %>'></asp:TextBox>
+                                </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtTransactionHeadFooter" CssClass="txtField" runat="server" />
+                                </FooterTemplate>
+                            </telerik:GridTemplateColumn>
+                            <telerik:GridTemplateColumn AllowFiltering="true" DataField="TransactionDescription"
                                 AutoPostBackOnFilter="true" HeaderText="TransactionDescription" ShowFilterIcon="false"
                                 UniqueName="TransactionDescription" CurrentFilterFunction="Contains" SortExpression="TransactionDescription"
                                 FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="90px">
-                                <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
-                            </telerik:GridBoundColumn>
+                                <ItemTemplate>
+                                    <asp:TextBox ID="txtTransactionDescription" CssClass="txtField" runat="server" Text='<%# Bind("TransactionDescription") %>'></asp:TextBox>
+                                </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtTransactionDescriptionFooter" CssClass="txtField" runat="server" />
+                                </FooterTemplate>
+                            </telerik:GridTemplateColumn>
                             <%--  <telerik:GridBoundColumn AllowFiltering="true" DataField="WRR_RejectReasonCodes "
                                 AutoPostBackOnFilter="true" HeaderText="WRR_RejectReasonCodes " ShowFilterIcon="false"
                                 CurrentFilterFunction="Contains" SortExpression="WRR_RejectReasonCodes " FooterStyle-HorizontalAlign="Right"
