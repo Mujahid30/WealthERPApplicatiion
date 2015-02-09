@@ -3016,6 +3016,13 @@
     <Compile Include="OnlineOrderBackOffice\UploadRequestStatus.ascx.designer.cs">
       <DependentUpon>UploadRequestStatus.ascx</DependentUpon>
     </Compile>
+    <Compile Include="OnlineOrderBackOffice\UTIAMCManage.ascx.cs">
+      <DependentUpon>UTIAMCManage.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OnlineOrderBackOffice\UTIAMCManage.ascx.designer.cs">
+      <DependentUpon>UTIAMCManage.ascx</DependentUpon>
+    </Compile>
     <Compile Include="OnlineOrderManagement\BondOrderManagement.ascx.cs">
       <DependentUpon>BondOrderManagement.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -8144,6 +8151,7 @@
     <Content Include="OnlineOrderBackOffice\SubBrokerCodecCeansing.ascx" />
     <Content Include="OnlineOrderBackOffice\TradeBusinessDate.ascx" />
     <Content Include="OnlineOrderBackOffice\UploadRequestStatus.ascx" />
+    <Content Include="OnlineOrderBackOffice\UTIAMCManage.ascx" />
     <Content Include="OnlineOrderManagement\BondOrderManagement.ascx" />
     <Content Include="OnlineOrderManagement\CustomerIPOHolding.ascx" />
     <Content Include="OnlineOrderManagement\CustomerIPOOrderBook.ascx" />

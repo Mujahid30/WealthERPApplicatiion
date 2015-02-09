@@ -2029,4 +2029,8 @@
     <value>OnlineOrderBackOffice//ExternalHeaderMapping.ascx</value>
     <comment>OnlineOrderBackOffice//ExternalHeaderMapping.ascx</comment>
   </data>
+  <data name="UTIAMCManage" xml:space="preserve">
+    <value>OnlineOrderBackOffice//UTIAMCManage.ascx</value>
+    <comment>OnlineOrderBackOffice//UTIAMCManage.ascx</comment>
+  </data>
 </root>

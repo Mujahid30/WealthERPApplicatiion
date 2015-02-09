@@ -3976,6 +3976,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OnlineOrderBackOffice//UTIAMCManage.ascx.
+        /// </summary>
+        internal static string UTIAMCManage {
+            get {
+                return ResourceManager.GetString("UTIAMCManage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Associates//ViewAdviserAssociateList.ascx.
         /// </summary>
         internal static string ViewAdviserAssociateList {
