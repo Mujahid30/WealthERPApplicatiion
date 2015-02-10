@@ -233,7 +233,7 @@ namespace WealthERP.Uploads
                 ddlUploadType.Items[2].Enabled = true;
                 ddlUploadType.Items[8].Enabled = true;
                 ddlUploadType.Items[9].Enabled = true;
-                ddlUploadType.Items[13].Enabled = true;
+                //ddlUploadType.Items[13].Enabled = true;
                 ddlUploadType.Items[14].Enabled = true;
             }
             else
@@ -243,8 +243,8 @@ namespace WealthERP.Uploads
                 ddlUploadType.Items[2].Enabled = true;
                 ddlUploadType.Items[7].Enabled = true;
                 ddlUploadType.Items[10].Enabled = true;
-                ddlUploadType.Items[12].Enabled = true;
-                ddlUploadType.Items[13].Enabled = true;
+                //ddlUploadType.Items[12].Enabled = true;
+                //ddlUploadType.Items[13].Enabled = true;
 
             }
 
