@@ -21,6 +21,32 @@ namespace BoCommon
         /// <param name="subreportype"></param>
         /// <param name="fromDate"></param>
         /// <returns></returns>
+        /// 
+        public void CreateTaskRequest(int taskId, int userId, out int taskRequestId, string filePath, int adviserId, int rmId)
+        {
+             WERPTaskRequestManagementDao requestManagementDao = new WERPTaskRequestManagementDao();
+            try
+            {
+                requestManagementDao.CreateTaskRequest(taskId, userId, out taskRequestId, filePath, adviserId, rmId);
+            }
+             catch (BaseApplicationException ex)
+            {
+                throw (ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "WERPTaskRequestManagementBo.cs:CreateTaskRequest()");
+                object[] objects = new object[2];
+                objects[0] = taskId;
+                objects[1] = userId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
         public void CreateTaskRequest(int taskId, int userId, out int taskRequestId, string filePath, int adviserId, int rmId, int branchId, string uploadType, int xmlFileTypeId,int isOnline)
         {
             WERPTaskRequestManagementDao requestManagementDao = new WERPTaskRequestManagementDao();

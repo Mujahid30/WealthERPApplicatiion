@@ -226,6 +226,7 @@ namespace WealthERP.Uploads
             ddlUploadType.Items[10].Enabled = false;
             ddlUploadType.Items[12].Enabled = false;
             ddlUploadType.Items[13].Enabled = false;
+            ddlUploadType.Items[14].Enabled = false;
             if (UploadType == "1")
             {
                 ddlUploadType.Items[0].Enabled = true;
@@ -233,6 +234,7 @@ namespace WealthERP.Uploads
                 ddlUploadType.Items[8].Enabled = true;
                 ddlUploadType.Items[9].Enabled = true;
                 ddlUploadType.Items[13].Enabled = true;
+                ddlUploadType.Items[14].Enabled = true;
             }
             else
             {
@@ -464,13 +466,13 @@ namespace WealthERP.Uploads
             {
                 int ReqId = 0;
                 msgUploadComplete.Visible = true;
-               
+
                 string uploadFilePath = ConfigurationManager.AppSettings["ADVISOR_UPLOAD_PATH"].ToString() + "\\" + adviserVo.advisorId.ToString() + "\\";
                 string newFileName = SaveFileIntoServer(FileUpload, uploadFilePath);
 
 
-               
-              
+
+
 
                 newFileName = uploadFilePath + newFileName;
                 //   packagePath = Server.MapPath("\\UploadPackages\\Integration Services Project1\\Integration Services Project1\\Package9.dtsx");
@@ -636,7 +638,7 @@ namespace WealthERP.Uploads
                     }
                 }
                 #endregion Client Modification
-               
+
             }
             else if (Page.IsValid & ddlUploadType.SelectedValue == "P")
             {
@@ -672,7 +674,7 @@ namespace WealthERP.Uploads
                 string newFileName = SaveFileIntoServer(FileUpload, uploadFilePath);
                 newFileName = uploadFilePath + newFileName;
                 //   packagePath = Server.MapPath("\\UploadPackages\\Integration Services Project1\\Integration Services Project1\\Package9.dtsx");
-                werpTaskRequestManagementBo.CreateTaskRequest(8, userVo.UserId, out ReqId, newFileName, adviserVo.advisorId, Convert.ToInt32(ddlRM.SelectedValue), Convert.ToInt32(ddlListBranch.SelectedValue), ddlListCompany.SelectedValue, 51,0);
+                werpTaskRequestManagementBo.CreateTaskRequest(8, userVo.UserId, out ReqId, newFileName, adviserVo.advisorId, Convert.ToInt32(ddlRM.SelectedValue), Convert.ToInt32(ddlListBranch.SelectedValue), ddlListCompany.SelectedValue, 51, 0);
                 if (ReqId > 0)
                 {
                     msgUploadComplete.InnerText = "Request Id-" + ReqId.ToString() + "-Generated SuccessFully";
@@ -691,7 +693,7 @@ namespace WealthERP.Uploads
                 string newFileName = SaveFileIntoServer(FileUpload, uploadFilePath);
                 newFileName = uploadFilePath + newFileName;
                 //   packagePath = Server.MapPath("\\UploadPackages\\Integration Services Project1\\Integration Services Project1\\Package9.dtsx");
-                werpTaskRequestManagementBo.CreateTaskRequest(9, userVo.UserId, out ReqId, newFileName, adviserVo.advisorId, Convert.ToInt32(ddlRM.SelectedValue), Convert.ToInt32(ddlListBranch.SelectedValue), ddlListCompany.SelectedValue, 52,Convert.ToInt32(ddlType.SelectedValue));
+                werpTaskRequestManagementBo.CreateTaskRequest(9, userVo.UserId, out ReqId, newFileName, adviserVo.advisorId, Convert.ToInt32(ddlRM.SelectedValue), Convert.ToInt32(ddlListBranch.SelectedValue), ddlListCompany.SelectedValue, 52, Convert.ToInt32(ddlType.SelectedValue));
                 if (ReqId > 0)
                 {
                     msgUploadComplete.InnerText = "Request Id-" + ReqId.ToString() + "-Generated SuccessFully";
@@ -701,7 +703,26 @@ namespace WealthERP.Uploads
                     msgUploadComplete.InnerText = "Not able to create Request,Try again";
                 }
             }
-            if (Page.IsValid & ddlUploadType.SelectedValue != "P" & ddlUploadType.SelectedValue != "CM" & ddlUploadType.SelectedValue != "MFR" & ddlUploadType.SelectedValue != "PF" & ddlUploadType.SelectedValue != "MFTN")
+            else if (Page.IsValid & ddlUploadType.SelectedValue == "KYC")
+            {
+                int ReqId = 0;
+                msgUploadComplete.Visible = true;
+
+                string uploadFilePath = ConfigurationManager.AppSettings["ADVISOR_UPLOAD_PATH"].ToString() + "\\" + adviserVo.advisorId.ToString() + "\\";
+                string newFileName = SaveFileIntoServer(FileUpload, uploadFilePath);
+                newFileName = uploadFilePath + newFileName;
+                //   packagePath = Server.MapPath("\\UploadPackages\\Integration Services Project1\\Integration Services Project1\\Package9.dtsx");
+                werpTaskRequestManagementBo.CreateTaskRequest(10, userVo.UserId, out ReqId, newFileName, adviserVo.advisorId, Convert.ToInt32(ddlRM.SelectedValue));
+                if (ReqId > 0)
+                {
+                    msgUploadComplete.InnerText = "Request Id-" + ReqId.ToString() + "-Generated SuccessFully";
+                }
+                else
+                {
+                    msgUploadComplete.InnerText = "Not able to create Request,Try again";
+                }
+            }
+            if (Page.IsValid & ddlUploadType.SelectedValue != "KYC" & ddlUploadType.SelectedValue != "P" & ddlUploadType.SelectedValue != "CM" & ddlUploadType.SelectedValue != "MFR" & ddlUploadType.SelectedValue != "PF" & ddlUploadType.SelectedValue != "MFTN")
             {
                 #region Uploading Content
                 string pathxml = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
@@ -1655,7 +1676,7 @@ namespace WealthERP.Uploads
                                             processlogVo.EndTime = DateTime.Now;
                                             updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
                                             //Creating Customer
-                                           
+
                                             packagePath = Server.MapPath("\\UploadPackages\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\ChecksCommonUploadPackage.dtsx");
                                             CommonTransChecks = uploadsCommonBo.TransCommonChecks(adviserId, UploadProcessId, packagePath, configPath, "CA", "CAMS");
 
@@ -3794,7 +3815,7 @@ namespace WealthERP.Uploads
                                                 updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
                                                 //Creating Customer
                                                 StandardProfileUploadBo.CreateCustomerDetails(adviserId, UploadProcessId, rmId, 0, xmlPath, out countCustCreated);
-                                           
+
                                                 packagePath = Server.MapPath("\\UploadPackages\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\ChecksCommonUploadPackage.dtsx");
                                                 CommonTransChecks = uploadsCommonBo.TransCommonChecks(adviserId, UploadProcessId, packagePath, configPath, "KA", "Karvy");
 
@@ -4446,7 +4467,7 @@ namespace WealthERP.Uploads
                                                             {
                                                                 //Creating Customer
                                                                 StandardProfileUploadBo.CreateCustomerDetails(adviserId, UploadProcessId, rmId, 0, xmlPath, out countCustCreated);
-                                           
+
                                                                 packagePath = Server.MapPath("\\UploadPackages\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\ChecksCommonUploadPackage.dtsx");
                                                                 CommonTransChecks = uploadsCommonBo.TransCommonChecks(adviserId, UploadProcessId, packagePath, configPath, "TN", "Templeton");
 
@@ -4819,7 +4840,7 @@ namespace WealthERP.Uploads
                 }
             }
         }
-        
+
         protected void ddlUploadType_SelectedIndexChanged(object sender, EventArgs e)
         {
             //Label6.Visible = true;
@@ -4828,8 +4849,28 @@ namespace WealthERP.Uploads
             upload.Visible = false;
             datevisible.Visible = false;
             trType.Visible = false;
-
-            if (ddlUploadType.SelectedValue == "CM" || ddlUploadType.SelectedValue == "P" || ddlUploadType.SelectedValue == "PMFF" || ddlUploadType.SelectedValue == "PF" || ddlUploadType.SelectedValue == "MFTN")
+            if (ddlUploadType.SelectedValue == "KYC")
+                trListType.Visible = false;
+            else
+                trListType.Visible = true;
+            if (ddlUploadType.SelectedValue == "MFR")
+            {
+                trListBranch.Visible = false;
+                trRM.Visible = false;
+                trMfRecon.Visible = true;
+                RegularExpressionValidator1.ErrorMessage = @"Only .xls and.xlsx File allowed";
+                RegularExpressionValidator1.ValidationExpression = @"^.*\.((x|X)(l|L)(s|S)|(x|X)(l|L)(s|S)(x|X))$";
+            }
+            else
+            {
+                RegularExpressionValidator1.ErrorMessage = @"Only .dbf, .xls and.xlsx File allowed";
+                RegularExpressionValidator1.ValidationExpression = @"^.*\.((x|X)(l|L)(s|S)|(x|X)(l|L)(s|S)(x|X)|(d|D)(b|B)(f|F)|(t|T)(x|X)(t|T))$";
+                trListBranch.Visible = true;
+                trRM.Visible = true;
+                trMfRecon.Visible = false;
+            }
+            
+            if (ddlUploadType.SelectedValue == "KYC" || ddlUploadType.SelectedValue == "CM" || ddlUploadType.SelectedValue == "P" || ddlUploadType.SelectedValue == "PMFF" || ddlUploadType.SelectedValue == "PF" || ddlUploadType.SelectedValue == "MFTN")
             {
                 trRM.Visible = true;
                 ddlRM.Enabled = false;
@@ -4841,30 +4882,37 @@ namespace WealthERP.Uploads
                 {
                     trType.Visible = true;
                 }
-            }
-            else
-            {
-                trRM.Visible = false;
-                trListBranch.Visible = false;
+                else if (ddlUploadType.SelectedValue == "KYC")
+                {
+                    trRM.Visible = false;
+                    trListBranch.Visible = false;
+                }
+
             }
 
-            if (ddlUploadType.SelectedValue == "MFR")
-            {
-                trListBranch.Visible = false;
-                trRM.Visible = false;
-                trMfRecon.Visible = true;
-                RegularExpressionValidator1.ErrorMessage = @"Only .xls and.xlsx File allowed";
-                RegularExpressionValidator1.ValidationExpression=@"^.*\.((x|X)(l|L)(s|S)|(x|X)(l|L)(s|S)(x|X))$";
-            }
             else
             {
-                RegularExpressionValidator1.ErrorMessage = @"Only .dbf, .xls and.xlsx File allowed";
-                RegularExpressionValidator1.ValidationExpression = @"^.*\.((x|X)(l|L)(s|S)|(x|X)(l|L)(s|S)(x|X)|(d|D)(b|B)(f|F)|(t|T)(x|X)(t|T))$";
-                trListBranch.Visible = true;
-                trRM.Visible = true;
-                trMfRecon.Visible = false;
+                trRM.Visible = false;
+                trListBranch.Visible = false;
             }
-           
+            //if (ddlUploadType.SelectedValue == "KYC")
+            //{
+            //    ddlRM.SelectedValue = "4682";
+            //    trRM.Visible = false;
+            //    trListBranch.Visible = false;
+            //    RegularExpressionValidator1.ErrorMessage = @"Only .xls and.xlsx File allowed";
+            //    RegularExpressionValidator1.ValidationExpression = @"^.*\.((x|X)(l|L)(s|S)|(x|X)(l|L)(s|S)(x|X))$";
+            //}
+            //else
+            //{
+            //    RegularExpressionValidator1.ErrorMessage = @"Only .dbf, .xls and.xlsx File allowed";
+            //    RegularExpressionValidator1.ValidationExpression = @"^.*\.((x|X)(l|L)(s|S)|(x|X)(l|L)(s|S)(x|X)|(d|D)(b|B)(f|F)|(t|T)(x|X)(t|T))$";
+            //    trListBranch.Visible = true;
+            //    trRM.Visible = true;
+            //    trMfRecon.Visible = false;
+            //}
+        
+
 
             //MF FOLIO UPLOADS DROPDOWN POPULATE -VISHAL 
             if (ddlUploadType.SelectedValue == Contants.ExtractTypeMFFolio)
@@ -5096,6 +5144,14 @@ namespace WealthERP.Uploads
             {
                 ddlListCompany.Items.Clear();
                 //ddlListExtensionType.Items.Clear();
+            }
+            if (ddlUploadType.SelectedValue == Contants.ExtractTypeKycVerificationUpload)
+            {
+                ddlRM.DataSource = werpTaskRequestManagementBo.GetAdviserWiseRM(adviserVo.advisorId);
+                ddlRM.DataValueField = "AR_RMId";
+                ddlRM.DataTextField = "AR_RMName";
+                ddlRM.DataBind();
+                ddlRM.Items.Insert(0, new ListItem("Select", "Select Rm"));
             }
             if (ddlUploadType.SelectedValue == Contants.ExtractTypeModification)
             {   // Profile Only
@@ -8410,7 +8466,7 @@ namespace WealthERP.Uploads
 
                         DataTable dsMandatoryData = new DataTable();
 
-                        if (fileTypeId == 3 || fileTypeId == 8 || fileTypeId == 15 || fileTypeId == 1 || fileTypeId == 6 || fileTypeId == 19 || fileTypeId == 11 || fileTypeId == 10 || fileTypeId == 17 )
+                        if (fileTypeId == 3 || fileTypeId == 8 || fileTypeId == 15 || fileTypeId == 1 || fileTypeId == 6 || fileTypeId == 19 || fileTypeId == 11 || fileTypeId == 10 || fileTypeId == 17)
                         {
                             dsActual.Tables[0].DefaultView.RowFilter = "IsTransactionMandatory=" + 1;
                             dsMandatoryData = dsActual.Tables[0].DefaultView.ToTable();

@@ -260,7 +260,7 @@
                 <%-- <asp:ListItem Value="MFF">MF Folio Only</asp:ListItem>--%>
                 <asp:ListItem Value="PMFF" Enabled="false">Profile & MF Folio</asp:ListItem>
                 <asp:ListItem Value="MFT">MF Transaction</asp:ListItem>
-                 <asp:ListItem Value="MFF">MF Folio Only</asp:ListItem> 
+                <asp:ListItem Value="MFF">MF Folio Only</asp:ListItem>
                 <asp:ListItem Value="EQTA" Enabled="false">Equity Trade Account Only</asp:ListItem>
                 <%-- <asp:ListItem Value="EQDA">Equity Demat Account Only</asp:ListItem>--%>
                 <asp:ListItem Value="EQT" Enabled="false">Equity Transaction</asp:ListItem>
@@ -270,9 +270,9 @@
                 <asp:ListItem Value="CM">Client Modification</asp:ListItem>
                 <asp:ListItem Value="Link">Fixed Income</asp:ListItem>
                 <asp:ListItem Value="MFR">MF Holding Recon</asp:ListItem>
-                 <asp:ListItem Value="PF" >Profile And Folio(NEW)</asp:ListItem>
-                 
-                 <asp:ListItem Value="MFTN" >MF Transaction(NEW)</asp:ListItem>
+                <asp:ListItem Value="PF">Profile And Folio(NEW)</asp:ListItem>
+                <asp:ListItem Value="MFTN">MF Transaction(NEW)</asp:ListItem>
+                <asp:ListItem Value="KYC">Kyc Verification Upload </asp:ListItem>
             </asp:DropDownList>
             <img src="../Images/help.png" class="ScreenTip1" style="height: 15px; width: 15px;" />
             <div id="div1" style="display: none;">
@@ -292,9 +292,10 @@
             <asp:Label ID="Label5" CssClass="FieldName" runat="server" Text="Offline/Online Type:"></asp:Label>
         </td>
         <td class="rightField">
-            <asp:DropDownList ID="ddlType" runat="server" AutoPostBack="true" CssClass="cmbLongField" enabled="false" >
-                <asp:ListItem Value="1"  >Online</asp:ListItem>
-                <asp:ListItem Value="0"  >Offline</asp:ListItem>
+            <asp:DropDownList ID="ddlType" runat="server" AutoPostBack="true" CssClass="cmbLongField"
+                Enabled="false">
+                <asp:ListItem Value="1">Online</asp:ListItem>
+                <asp:ListItem Value="0">Offline</asp:ListItem>
                 <%-- <asp:ListItem Value="MFF">MF Folio Only</asp:ListItem>--%>
             </asp:DropDownList>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="ddlType"
@@ -331,7 +332,7 @@
             </asp:CompareValidator>
         </td>
     </tr>
-    <tr>
+    <tr id="trListType" runat="server">
         <td class="leftField">
             <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="External Source:"></asp:Label>
         </td>
