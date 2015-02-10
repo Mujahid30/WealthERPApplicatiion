@@ -558,6 +558,10 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AMCManage','login');", true);
                 }
+                else if (e.Item.Value == "View_UTIAMC")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('UTIAMCManage','login');", true);
+                }
                 else if (e.Item.Value == "External_Header_Mapping")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ExternalHeaderMapping','login');", true);
@@ -1831,6 +1835,10 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "View_AMC")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AMCManage','login');", true);
+                }
+                else if (e.Item.Value == "View_UTIAMC")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('UTIAMCManage','login');", true);
                 }
                 else if (e.Item.Value == "External_Header_Mapping")
                 {
