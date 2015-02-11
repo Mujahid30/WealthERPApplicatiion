@@ -493,7 +493,7 @@
             </td>
         </tr>
         <tr id="trCust" runat="server" visible="false">
-            <td class="leftField" style="width: 20%">
+           <%-- <td class="leftField" style="width: 20%">
                 <asp:Label ID="lblCustomer" runat="server" Text="Customer Name: " CssClass="FieldName"></asp:Label>
             </td>
             <td class="rightField" style="width: 20%">
@@ -519,7 +519,7 @@
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtCustomerName"
                     ErrorMessage="<br />Please Enter Customer Name" Display="Dynamic" runat="server"
                     CssClass="rfvPCG" ValidationGroup="btnConfirmOrder"></asp:RequiredFieldValidator>
-            </td>
+            </td>--%>
             <td class="leftField" style="width: 20%">
                 <asp:Label ID="lblPan" runat="server" Text="PAN: " CssClass="FieldName"></asp:Label>
             </td>
