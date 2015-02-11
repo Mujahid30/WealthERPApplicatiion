@@ -180,12 +180,13 @@ namespace WealthERP.OffLineOrderManagement
                     ViewOrderList(orderId);
                     btnConfirmOrder.Visible = false;
                     btnAddMore.Visible = false;
-                    controlvisiblity(false);
+                    
                     if (action1 == "View")
                     {
                         btnUpdate.Visible = false;
                         lnkBtnDemat.Enabled = false;
                         lnkEdit.Visible = true;
+                        controlvisiblity(false);
                     }
                     else
                     {
