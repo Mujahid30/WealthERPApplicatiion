@@ -111,7 +111,7 @@ namespace WealthERP.OffLineOrderManagement
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnl_OrderSection;
-
+        protected global::System.Web.UI.WebControls.LinkButton lnkEdit;
         /// <summary>
         /// lblsearch control.
         /// </summary>
@@ -1130,7 +1130,7 @@ namespace WealthERP.OffLineOrderManagement
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnCustomerId;
-
+        protected global::System.Web.UI.WebControls.HiddenField hdnOrderId;
         /// <summary>
         /// hdnType control.
         /// </summary>

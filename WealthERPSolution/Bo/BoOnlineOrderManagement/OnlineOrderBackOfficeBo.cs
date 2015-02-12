@@ -2363,6 +2363,19 @@ namespace BoOnlineOrderManagement
             }
             return blResult;
         }
-
+        public DataTable GetUTIAMCDetails(int adviserId, DateTime fromDate, DateTime toDate)
+        {
+            OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
+            DataTable dt;
+            try
+            {
+                dt = OnlineOrderBackOfficeDao.GetUTIAMCDetails(adviserId, fromDate, toDate);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dt;
+        }
     }
 }

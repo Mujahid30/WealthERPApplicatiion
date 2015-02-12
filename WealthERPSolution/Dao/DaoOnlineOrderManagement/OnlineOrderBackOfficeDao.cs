@@ -2854,5 +2854,27 @@ namespace DaoOnlineOrderManagement
             return bResult;
 
         }
+        public DataTable GetUTIAMCDetails(int adviserId,DateTime fromDate,DateTime toDate)
+        {
+            DataSet dsGetUTIAMCDetails;
+            DataTable dtGetUTIAMCDetails;
+            Database db;
+            DbCommand cmdGetUTIAMCDetails;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetUTIAMCDetails = db.GetStoredProcCommand("SPROC_GetUTISchemeDetais");
+                db.AddInParameter(cmdGetUTIAMCDetails, "@adviserId", DbType.Int32, adviserId);
+                db.AddInParameter(cmdGetUTIAMCDetails, "@Fromdate", DbType.DateTime, fromDate);
+                db.AddInParameter(cmdGetUTIAMCDetails, "@Todate", DbType.DateTime, toDate);
+                dsGetUTIAMCDetails = db.ExecuteDataSet(cmdGetUTIAMCDetails);
+                dtGetUTIAMCDetails = dsGetUTIAMCDetails.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetUTIAMCDetails;
+        }
     }
 }

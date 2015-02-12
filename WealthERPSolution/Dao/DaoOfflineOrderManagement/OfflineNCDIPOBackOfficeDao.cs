@@ -16,7 +16,7 @@ using Microsoft.SqlServer;
 
 namespace DaoOfflineOrderManagement
 {
-    public class OfflineNCDIPOBackOfficeDao 
+    public class OfflineNCDIPOBackOfficeDao
     {
         string allotmentDataTable;
 
@@ -56,7 +56,7 @@ namespace DaoOfflineOrderManagement
                     db.AddInParameter(cmd, "@AgentCode", DbType.String, agentCode);
                 else
                     db.AddInParameter(cmd, "@AgentCode", DbType.String, DBNull.Value);
-                
+
                 dsNCDOrder = db.ExecuteDataSet(cmd);
                 dtNCDOrder = dsNCDOrder.Tables[0];
             }
@@ -113,6 +113,51 @@ namespace DaoOfflineOrderManagement
             }
             return dtNCDOrderBook;
         }
-        
+        public DataSet GetNCDIssueOrderDetails(int orderId)
+        {
+            DataSet dsGetNCDIssueOrderDetails;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DbCommand GetNCDIssueOrderDetailscmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetNCDIssueOrderDetailscmd = db.GetStoredProcCommand("SPROC_GetNCDOrderDetails");
+                db.AddInParameter(GetNCDIssueOrderDetailscmd, "@orderId", DbType.Int32, orderId);
+                dsGetNCDIssueOrderDetails = db.ExecuteDataSet(GetNCDIssueOrderDetailscmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsGetNCDIssueOrderDetails;
+        }
+        public bool UpdateNCDDetails(int orderid, int userid, DataTable dtOrderDetails)
+        {
+
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DbCommand UpdateNCDDetailscmd;
+            bool bResult = false;
+            DataSet dsUpdateUpdateNCDDetails = new DataSet();
+            try
+            {
+                dsUpdateUpdateNCDDetails.Tables.Add(dtOrderDetails.Copy());
+                dsUpdateUpdateNCDDetails.DataSetName = "dtOrderDetailseDS";
+                dsUpdateUpdateNCDDetails.Tables[0].TableName = "dtOrderDetailsDT";
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                UpdateNCDDetailscmd = db.GetStoredProcCommand("SPROC_UpdateNCDOrder");
+                db.AddInParameter(UpdateNCDDetailscmd, "@xmlBondsOrder", DbType.Xml, dsUpdateUpdateNCDDetails.GetXml().ToString());
+                db.AddInParameter(UpdateNCDDetailscmd, "@orderId", DbType.Int32, orderid);
+                db.AddInParameter(UpdateNCDDetailscmd, "@UserId", DbType.Int32, userid);
+                
+                
+                db.ExecuteNonQuery(UpdateNCDDetailscmd);
+                bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return bResult;
+        }
     }
 }

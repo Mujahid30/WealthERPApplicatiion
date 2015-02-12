@@ -70,6 +70,33 @@ namespace BoOfflineOrderManagement
             }
             return dtNCDOrderBook;
         }
-        
+        public DataSet GetNCDIssueOrderDetails(int orderId)
+        {
+            DataSet dsGetNCDIssueOrderDetails;
+            offlineNCDBackOfficeDao = new OfflineNCDIPOBackOfficeDao();
+            try
+            {
+                dsGetNCDIssueOrderDetails = offlineNCDBackOfficeDao.GetNCDIssueOrderDetails(orderId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsGetNCDIssueOrderDetails;
+        }
+        public bool UpdateNCDDetails(int orderid, int userid, DataTable dtOrderDetails)
+        {
+            bool result = false;
+            offlineNCDBackOfficeDao = new OfflineNCDIPOBackOfficeDao();
+            try
+            {
+                result = offlineNCDBackOfficeDao.UpdateNCDDetails(orderid, userid, dtOrderDetails);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return result;
+        }
     }
 }
