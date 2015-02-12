@@ -276,6 +276,7 @@
         sender.moveTo(sender.get_left(), sender.get_top());
     }
 </script>
+
 <%--<script>
     function text_Changed() {
         var edValue = document.getElementById("txtQty");
@@ -288,7 +289,7 @@
         //var s = $("#edValue").val();
         //$("#lblValue").text(s);    
     }
-</script>--%>  
+</script>--%>
 <table width="100%">
     <tr>
         <td align="left">
@@ -722,7 +723,7 @@
                     </td>
                     <td style="width: 23.5%">
                         <asp:DropDownList ID="ddlsearch" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlsearch_Selectedindexchanged"
-                            AutoPostBack="true" TabIndex="0">
+                            AutoPostBack="true">
                             <asp:ListItem Text="Select" Value="0"></asp:ListItem>
                             <asp:ListItem Text="Customer" Value="1"></asp:ListItem>
                             <asp:ListItem Text="PAN" Value="2"></asp:ListItem>
@@ -734,7 +735,7 @@
                     </td>
                     <td>
                         <asp:DropDownList ID="ddlARNNo" runat="server" CssClass="cmbField" AutoPostBack="false"
-                            TabIndex="1" Visible="false">
+                            Visible="false">
                         </asp:DropDownList>
                         <asp:CompareValidator ID="CompareValidator12" runat="server" ControlToValidate="ddlARNNo"
                             CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select an ARN"
@@ -747,8 +748,7 @@
                     </td>
                     <td>
                         <asp:TextBox ID="txtPansearch" runat="server" CssClass="txtField" AutoComplete="Off"
-                            AutoPostBack="True" onclientClick="ShowIsa()" onblur="return checkItemSelected(this)"
-                            TabIndex="2">
+                            AutoPostBack="True" onclientClick="ShowIsa()" onblur="return checkItemSelected(this)">
                         </asp:TextBox><span id="Span1" class="spnRequiredField">*</span>
                         <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" TargetControlID="txtPansearch"
                             WatermarkText="Enter few chars of Pan" runat="server" EnableViewState="false">
@@ -777,11 +777,11 @@
                     </td>
                     <td>
                         <asp:TextBox ID="txtCustomerName" Width="200px" runat="server" CssClass="txtField"
-                            AutoComplete="Off" onclientClick="ShowIsa()" AutoPostBack="True" TabIndex="2">
+                            AutoComplete="Off" onclientClick="ShowIsa()" AutoPostBack="True">
                         </asp:TextBox><span id="spnCustomer" class="spnRequiredField">*</span>
                         <asp:ImageButton ID="btnImgAddCustomer" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
                             AlternateText="Add" runat="server" ToolTip="Click here to Add Customer" OnClick="openpopupAddCustomer_Click"
-                            Height="15px" Width="15px" TabIndex="3"></asp:ImageButton>
+                            Height="15px" Width="15px"></asp:ImageButton>
                         <cc1:TextBoxWatermarkExtender ID="txtCustomer_water" TargetControlID="txtCustomerName"
                             WatermarkText="Enter few chars of Customer" runat="server" EnableViewState="false">
                         </cc1:TextBoxWatermarkExtender>
@@ -829,7 +829,7 @@
                     </td>
                     <td>
                         <asp:TextBox ID="txtAssociateSearch" runat="server" CssClass="txtField" AutoComplete="Off"
-                            AutoPostBack="True" TabIndex="4">
+                            AutoPostBack="True">
                         </asp:TextBox><span id="Span7" class="spnRequiredField">*</span>
                         <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" TargetControlID="txtAssociateSearch"
                             WatermarkText="Enter few chars of Sub Broker Code" runat="server" EnableViewState="false">
@@ -939,10 +939,10 @@
                     </td>
                     <td style="width: 5%">
                     </td>
-                    <td class="leftField" style="width: 10%">
+                    <td class="leftField" style="width: 10%" id="tdLabel11">
                         <asp:Label ID="Label11" runat="server" Text="Transaction Type: " CssClass="FieldName"></asp:Label>
                     </td>
-                    <td style="width: 35%">
+                    <td style="width: 35%" id="tdddlTranstype">
                         <asp:DropDownList ID="ddlTranstype" runat="server" CssClass="cmbField" AutoPostBack="true"
                             OnSelectedIndexChanged="ddlTranstype_SelectedIndexChanged">
                             <asp:ListItem Text="Select" Value="Select" Selected="true"></asp:ListItem>
@@ -1186,7 +1186,8 @@
                         </asp:Label>
                     </td>
                     <td class="rightField" style="width: 20%">
-                        <asp:TextBox ID="txtQty" runat="server" CssClass="txtField" AutoPostBack="True" onKeyPress="text_Changed()" OnTextChanged="OnQtychanged" />
+                        <asp:TextBox ID="txtQty" runat="server" CssClass="txtField" AutoPostBack="True" onKeyPress="text_Changed()"
+                            OnTextChanged="OnQtychanged" />
                         <asp:RegularExpressionValidator ID="RegularExpressionValidator2" ControlToValidate="txtQty"
                             runat="server" Display="Dynamic" ErrorMessage="Please Enter Integer Value" CssClass="cvPCG"
                             ValidationExpression="[1-9]\d*$" ValidationGroup="MFSubmit">     
@@ -1265,8 +1266,8 @@
                                     <td id="Td1" class="rightField" style="width: 20%" colspan="2">
                                         <asp:ImageButton ID="ImageButton1" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
                                             AlternateText="Add Demat Account" runat="server" ToolTip="Click here to Add Demat Account"
-                                            OnClientClick="return openpopupAddDematAccount()" Height="15px" Width="15px"
-                                            TabIndex="3"></asp:ImageButton>
+                                            OnClientClick="return openpopupAddDematAccount()" Height="15px" Width="15px">
+                                        </asp:ImageButton>
                                     </td>
                                 </tr>
                                 <tr>

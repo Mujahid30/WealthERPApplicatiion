@@ -1949,6 +1949,7 @@ namespace WealthERP.OffLineOrderManagement
         protected global::System.Web.UI.WebControls.TextBox txtRejectReseaon;
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblReject;
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdtxtReject;
-
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdLabel11;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdddlTranstype;
     }
 }

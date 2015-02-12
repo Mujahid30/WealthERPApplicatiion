@@ -479,6 +479,16 @@ namespace WealthERP.OffLineOrderManagement
                 // trDepPaypriv.Visible = true;
                 Label8.Text = "FD Amount";
             }
+            if (ddlCategory.SelectedValue == "FICGCG")
+            {
+                tdLabel11.Visible = false;
+                tdddlTranstype.Visible = false;
+            }
+            else
+            {
+                tdLabel11.Visible = true;
+                tdddlTranstype.Visible = true;
+            }
         }
 
 
@@ -539,7 +549,7 @@ namespace WealthERP.OffLineOrderManagement
             int maxTenure = 0;
             if (ddlSeries.SelectedValue != "Select")
             {
-                if (ddlSeries.SelectedValue != "0")
+                if (ddlSeries.SelectedValue != "")
                 {
                     FISeriesDetails(Convert.ToInt32(ddlSeries.SelectedValue));
 
@@ -4304,6 +4314,7 @@ namespace WealthERP.OffLineOrderManagement
                 }
                 if (!string.IsNullOrEmpty(dr["CO_PaymentDate"].ToString()))
                 {
+                    txtPaymentInstDate.MinDate = Convert.ToDateTime(dr["CO_PaymentDate"].ToString());
                     txtPaymentInstDate.SelectedDate = Convert.ToDateTime(dr["CO_PaymentDate"].ToString());
                 }
                 if (!string.IsNullOrEmpty(dr["CO_OrderDate"].ToString()))
