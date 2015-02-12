@@ -867,8 +867,10 @@ namespace DaoOnlineOrderManagement
                 {
                     db.AddInParameter(createCmd, "@AllotmentDate", DbType.Date, DBNull.Value);
                 }
-                db.AddInParameter(createCmd, "@AIM_OpenTime", DbType.Time, onlineNCDBackOfficeVo.OpenTime);
-                db.AddInParameter(createCmd, "@AIM_CloseTime", DbType.Time, onlineNCDBackOfficeVo.CloseTime);
+                if (onlineNCDBackOfficeVo.OpenTime!=DateTime.MinValue)
+                    db.AddInParameter(createCmd, "@AIM_OpenTime", DbType.Time, onlineNCDBackOfficeVo.OpenTime);
+                if (onlineNCDBackOfficeVo.CloseTime!=DateTime.MinValue)
+                    db.AddInParameter(createCmd, "@AIM_CloseTime", DbType.Time, onlineNCDBackOfficeVo.CloseTime);
                 //db.AddInParameter(createCmd, "@IssueRevis", DbType.Date, onlineNCDBackOfficeVo.IssueRevis);
                 db.AddInParameter(createCmd, "@TradingLot", DbType.Int32, onlineNCDBackOfficeVo.TradingLot);
                 db.AddInParameter(createCmd, "@BiddingLot", DbType.Int32, onlineNCDBackOfficeVo.BiddingLot);

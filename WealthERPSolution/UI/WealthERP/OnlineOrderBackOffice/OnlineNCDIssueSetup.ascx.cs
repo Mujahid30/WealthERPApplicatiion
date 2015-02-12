@@ -1038,6 +1038,10 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     ddlOffCutOffTimeSeconds.SelectedValue = "00";
                 }
+                if (ddlOpenTimeHours.SelectedValue == "HH")
+                    ddlOpenTimeHours.SelectedValue = "00";
+                if (ddlCloseTimeHours.SelectedValue == "HH")
+                    ddlCloseTimeHours.SelectedValue = "00";
                 //string time = txtOpenTimes.SelectedDate.Value.ToShortTimeString().ToString();
                 onlineNCDBackOfficeVo.OpenTime = Convert.ToDateTime(ddlOpenTimeHours.SelectedValue + ":" + ddlOpenTimeMinutes.SelectedValue + ":" + ddlOpenTimeSeconds.SelectedValue); //SelectedDate.Value.ToShortTimeString().ToString();
                 onlineNCDBackOfficeVo.CloseTime = Convert.ToDateTime(ddlCloseTimeHours.SelectedValue + ":" + ddlCloseTimeMinutes.SelectedValue + ":" + ddlCloseTimeSeconds.SelectedValue);//SelectedDate.Value.ToShortTimeString().ToString();
@@ -3298,7 +3302,10 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     ddlCloseTimeSeconds.SelectedValue = "00";
                 }
-
+                if (ddlOpenTimeHours.SelectedValue == "HH")
+                    ddlOpenTimeHours.SelectedValue = "00";
+                if (ddlCloseTimeHours.SelectedValue == "HH")
+                    ddlCloseTimeHours.SelectedValue = "00";
 
                 if (ddlCutOffTimeMinutes.SelectedValue == "MM")
                 {
@@ -3329,10 +3336,12 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     onlineNCDBackOfficeVo.OfflineCutOffTime = DateTime.MinValue;
                 }
-
-                onlineNCDBackOfficeVo.OpenTime = Convert.ToDateTime(ddlOpenTimeHours.SelectedValue + ":" + ddlOpenTimeMinutes.SelectedValue + ":" + ddlOpenTimeSeconds.SelectedValue); //SelectedDate.Value.ToShortTimeString().ToString();
-                onlineNCDBackOfficeVo.CloseTime = Convert.ToDateTime(ddlCloseTimeHours.SelectedValue + ":" + ddlCloseTimeMinutes.SelectedValue + ":" + ddlCloseTimeSeconds.SelectedValue);//SelectedDate.Value.ToShortTimeString().ToString();
-
+                
+                    onlineNCDBackOfficeVo.OpenTime = Convert.ToDateTime(ddlOpenTimeHours.SelectedValue + ":" + ddlOpenTimeMinutes.SelectedValue + ":" + ddlOpenTimeSeconds.SelectedValue); //SelectedDate.Value.ToShortTimeString().ToString();
+                
+               
+                    onlineNCDBackOfficeVo.CloseTime = Convert.ToDateTime(ddlCloseTimeHours.SelectedValue + ":" + ddlCloseTimeMinutes.SelectedValue + ":" + ddlCloseTimeSeconds.SelectedValue);//SelectedDate.Value.ToShortTimeString().ToString();
+                
                 if (!string.IsNullOrEmpty((txtRevisionDates.SelectedDate).ToString().Trim()))
                     onlineNCDBackOfficeVo.IssueRevis = DateTime.Parse(txtRevisionDates.SelectedDate.ToString());
                 else
@@ -5906,6 +5915,12 @@ namespace WealthERP.OnlineOrderBackOffice
             
             //trRatingAndModeofTrading.Visible = true;
             trSBIRegistationNoAndISINNumber.Visible = true;
+            RequiredFieldValidator17.Enabled = true;
+            RequiredFieldValidator32.Enabled = true;
+            RequiredFieldValidator40.Enabled = true;
+            RequiredFieldValidator30.Enabled = true;
+            RequiredFieldValidator43.Enabled = true;
+            RequiredFieldValidator44.Enabled = true;
 
 
             if (category == "FICGCG" || category == "FICDCD" || category == "FINPNP")
@@ -5977,6 +5992,15 @@ namespace WealthERP.OnlineOrderBackOffice
                 txtIsPrefix.Visible = false;
                 txtBankName.Visible = true;
                 ddlBankName.Visible = false;
+                if (category == "FICGCG")
+                {
+                    RequiredFieldValidator17.Enabled = false;
+                    RequiredFieldValidator32.Enabled=false;
+                    RequiredFieldValidator40.Enabled = false;
+                    RequiredFieldValidator30.Enabled = false;
+                    RequiredFieldValidator43.Enabled = false;
+                    RequiredFieldValidator44.Enabled = false;
+                }
 
             }
             else

@@ -232,7 +232,7 @@ namespace WealthERP.OffLineOrderManagement
 
 
                     lbResult = BoOnlineBondOrder.cancelBondsBookOrder(orderId, 2, txtRemark.Text);
-                    BoOnlineBondOrder.DebitRMSUserAccountBalance(AcntId, AmountPayable, 0);
+                    //BoOnlineBondOrder.DebitRMSUserAccountBalance(AcntId, AmountPayable, 0);
                     if (lbResult == true)
                     {
                         Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Order Cancelled Successfully');", true);

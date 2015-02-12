@@ -1152,6 +1152,8 @@ namespace WealthERP.OnlineOrderBackOffice
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator30;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator43;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator44;
 
         /// <summary>
         /// Label21 control.
@@ -1313,6 +1315,8 @@ namespace WealthERP.OnlineOrderBackOffice
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator32;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator40;
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trTradinglotBidding;
 
         /// <summary>
