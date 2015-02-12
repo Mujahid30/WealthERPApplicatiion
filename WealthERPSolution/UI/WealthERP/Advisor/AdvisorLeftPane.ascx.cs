@@ -558,7 +558,7 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AMCManage','login');", true);
                 }
-                else if (e.Item.Value == "View_UTIAMC")
+                else if (e.Item.Value == "View_UTIAMC")  
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('UTIAMCManage','login');", true);
                 }
