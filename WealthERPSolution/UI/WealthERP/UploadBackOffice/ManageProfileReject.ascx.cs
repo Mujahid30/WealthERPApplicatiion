@@ -73,7 +73,7 @@ namespace WealthERP.UploadBackOffice
                     gvProfileIncreamenetReject.MasterTableView.GetColumn("BranchAdrState").Visible = false;
                     gvProfileIncreamenetReject.MasterTableView.GetColumn("BranchAdrCountry").Visible = false;
                     gvProfileIncreamenetReject.MasterTableView.GetColumn("BrokerCode").Visible = false;
-                    gvProfileIncreamenetReject.MasterTableView.GetColumn("SchemeName").Visible = false;
+                    gvProfileIncreamenetReject.MasterTableView.GetColumn("SchemeName").Visible = true;
                     gvProfileIncreamenetReject.MasterTableView.GetColumn("TransactionNum").Visible = false;
                     gvProfileIncreamenetReject.MasterTableView.GetColumn("TransactionDate").Visible = false;
                     gvProfileIncreamenetReject.MasterTableView.GetColumn("Price").Visible = false;

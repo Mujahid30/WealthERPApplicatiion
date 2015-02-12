@@ -1849,6 +1849,16 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblisactive;
-        
+        protected global::System.Web.UI.WebControls.RadioButton rbtnAuthentication;
+        protected global::System.Web.UI.WebControls.RadioButton rbtnReject;
+        protected global::System.Web.UI.WebControls.Label lblRejectRes;
+        protected global::System.Web.UI.WebControls.TextBox txtRejectReseaon;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblReject;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdtxtReject;
+        protected global::System.Web.UI.WebControls.Label lblAuthenticated;
+        protected global::System.Web.UI.WebControls.Label lblAuthenticatedBy;
+        protected global::System.Web.UI.WebControls.Label lblAuthenticationDate;
+        protected global::System.Web.UI.WebControls.CheckBox chkAuthentication;
+        protected global::System.Web.UI.HtmlControls.HtmlTable trOfficeUse;
     }
 }

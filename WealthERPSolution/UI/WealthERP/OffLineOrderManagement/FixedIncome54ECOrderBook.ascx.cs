@@ -278,6 +278,14 @@ namespace WealthERP.OffLineOrderManagement
                     ddlAction.Items[1].Enabled = true;
                     ddlAction.Items[2].Enabled = true;
                 }
+                if (ddlCategory.SelectedValue == "FICGCG")
+                {
+                    gv54FDOrderBook.MasterTableView.GetColumn("CFIOD_TransactionType").Visible = false;
+                }
+                else
+                {
+                    gv54FDOrderBook.MasterTableView.GetColumn("CFIOD_TransactionType").Visible = true;
+                }
             }
         }
     }

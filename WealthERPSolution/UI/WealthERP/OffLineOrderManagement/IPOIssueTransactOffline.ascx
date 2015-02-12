@@ -262,6 +262,10 @@
                             IPO Order Entry
                         </td>
                         <td>
+                            <div class="divViewEdit" style="float: right; padding-right: 50px">
+                                <asp:LinkButton ID="lnkEdit" runat="server" OnClick="lnkEdit_OnClick" CssClass="LinkButtons"
+                                    Text="Edit" Visible="false"></asp:LinkButton>
+                            </div>
                         </td>
                     </tr>
                 </table>
@@ -288,6 +292,44 @@
 </asp:UpdatePanel>
 <%--<asp:UpdatePanel ID="UpdatePanel2" UpdateMode="Always" runat="server">
 <ContentTemplate>--%>
+<table width="100%" id="trOfficeUse" runat="server" visible="false">
+    <tr>
+        <td colspan="5">
+            <div class="divSectionHeading" style="vertical-align: text-bottom">
+                For Office Use
+            </div>
+        </td>
+    </tr>
+    <tr style="width: 30%" align="center">
+        <td id="tdauthentication" runat="server">
+            <%--<asp:CheckBox ID="chkAuthentication" runat="server" CssClass="cmbFielde" Text="Authenticate"
+                    OnCheckedChanged="chkAuthentication_OnCheckedChanged" AutoPostBack="true" />--%>
+            <asp:RadioButton ID="rbtnAuthentication" runat="server" CssClass="txtField" Text="Authenticate"
+                GroupName="rejAut" AutoPostBack="true" OnCheckedChanged="rbtnAuthentication_OnCheckedChanged" />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <%--<asp:RadioButton ID="rbtnReject" runat="server" CssClass="txtField" Text="Rejected"
+                GroupName="rejAut" AutoPostBack="true" OnCheckedChanged="rbtnReject_CheckedChanged" />--%>
+            <%--  <asp:CustomValidator ID="CustomValidator1" runat="server" ValidationGroup="location"
+                    ErrorMessage="Please select one of the radio button" Display="Dynamic"></asp:CustomValidator>--%>
+        </td>
+        <td id="tdlblReject" class="leftField" style="width: 20%" visible="false">
+            <asp:Label ID="lblRejectRes" runat="server" Text="Reject Reseaon:" CssClass="FieldName">           
+            </asp:Label>
+        </td>
+        <td id="tdtxtReject" class="rightField" style="width: 20%" visible="false">
+            <asp:TextBox ID="txtRejectReseaon" runat="server" CssClass="txtField" />
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtRejectReseaon"
+                ErrorMessage="<br />Please Enter Remarks" Display="Dynamic" runat="server" CssClass="rfvPCG"
+                ValidationGroup="btnConfirmOrder"></asp:RequiredFieldValidator>
+        </td>
+        <td id="tdauthenticationDetails" runat="server">
+            <asp:Label ID="lblAuthenticated" runat="server" Text="Authenticated/Rejected By:"
+                CssClass="FieldName"></asp:Label>
+            <asp:Label ID="lblAuthenticatedBy" runat="server" CssClass="FieldName"></asp:Label><br />
+            <asp:Label ID="lblAuthenticationDate" runat="server" CssClass="FieldName"></asp:Label>
+        </td>
+    </tr>
+</table>
 <asp:Panel ID="pnl_OrderSection" runat="server" class="Landscape" Width="100%" Height="80%"
     ScrollBars="None">
     <table width="100%">
@@ -296,10 +338,6 @@
                 <div class="divSectionHeading" style="vertical-align: text-bottom">
                     <div class="fltlft" style="width: 200px; float: left">
                         &nbsp; Customer Details
-                    </div>
-                    <div class="divViewEdit" style="float: right; padding-right: 50px">
-                        <asp:LinkButton ID="lnkEdit" runat="server" OnClick="lnkEdit_OnClick" CssClass="LinkButtons"
-                            Text="Edit" Visible="false"></asp:LinkButton>
                     </div>
                 </div>
         </tr>
@@ -481,19 +519,22 @@
                         </td>
                     </tr>
                     <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                        <td >
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                        <td>
                             <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="btnSubmit_Click"
-                                BackColor="#2475C7" ForeColor="White" Font-Bold="true"  ValidationGroup="CustomerProfileSubmit" />
+                                BackColor="#2475C7" ForeColor="White" Font-Bold="true" ValidationGroup="CustomerProfileSubmit" />
                         </td>
                     </tr>
                 </table>
             </td>
         </tr>
         <tr id="trCust" runat="server" visible="false">
-           <%-- <td class="leftField" style="width: 20%">
+            <%-- <td class="leftField" style="width: 20%">
                 <asp:Label ID="lblCustomer" runat="server" Text="Customer Name: " CssClass="FieldName"></asp:Label>
             </td>
             <td class="rightField" style="width: 20%">
@@ -702,7 +743,8 @@
                                 CssClass="cmbField">
                             </asp:DropDownList>
                         </td>
-                        <td></td>
+                        <td>
+                        </td>
                         <td class="rightField">
                             <asp:Button ID="btnDemateDetails" runat="server" Text="Submit" OnClick="DematebtnSubmit_Click"
                                 ValidationGroup="btnsubmitdemate" BackColor="#2475C7" ForeColor="White" Font-Bold="true" />

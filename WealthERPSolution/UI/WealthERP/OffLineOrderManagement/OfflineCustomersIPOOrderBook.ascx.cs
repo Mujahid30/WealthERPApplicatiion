@@ -243,6 +243,7 @@ namespace WealthERP.OffLineOrderManagement
                 string OrderStepCode = Convert.ToString(gvIPOOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WOS_OrderStep"]);
                 Boolean isCancel = Convert.ToBoolean(gvIPOOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIM_IsCancelAllowed"].ToString());
                 DateTime closeDateTime = Convert.ToDateTime(gvIPOOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIM_CloseDate"].ToString());
+                string isAuthenticate = Convert.ToString(gvIPOOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_IsAuthenticated"].ToString());
                 if (OrderStepCode == "INPROCESS" && isCancel != false)
                 {
                     lbtnMarkAsReject.Visible = true;
@@ -270,6 +271,25 @@ namespace WealthERP.OffLineOrderManagement
                 {
                     ddlAction.Items[1].Enabled = false;
                     ddlAction.Items[2].Enabled = false;
+                }
+                if (OrderStepCode == "ORDERED" )
+                {
+                    lbtnMarkAsReject.Visible = true;
+                }
+                else
+                {
+                    lbtnMarkAsReject.Visible = false;
+
+                }
+                if (OrderStepCode == "REJECTED" )
+                {
+                    ddlAction.Items[1].Enabled = false;
+                    ddlAction.Items[2].Enabled = false;
+                }
+                else
+                {
+                    ddlAction.Items[1].Enabled = true;
+                    ddlAction.Items[2].Enabled = true;
                 }
             }
         }

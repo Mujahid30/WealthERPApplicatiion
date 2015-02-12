@@ -93,6 +93,7 @@ namespace WealthERP.OffLineOrderManagement
         DataTable dtOnlineIPOIssueList;
         DataTable AgentId;
         CustomerPortfolioVo customerportfoliovo = new CustomerPortfolioVo();
+        FIOrderBo fiorderBo = new FIOrderBo();
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -187,11 +188,20 @@ namespace WealthERP.OffLineOrderManagement
                         lnkBtnDemat.Enabled = false;
                         lnkEdit.Visible = true;
                         controlvisiblity(false);
+                        if (Session[SessionContents.CurrentUserRole].ToString() == "Associates")
+                            GetUserType();
+                        else
+                            trOfficeUse.Visible = true;
                     }
                     else
                     {
                         btnUpdate.Visible = true;
                         lnkBtnDemat.Enabled = true;
+                        controlvisiblity(true);
+                        if (Session[SessionContents.CurrentUserRole].ToString() == "Associates")
+                            GetUserType();
+                        else
+                            trOfficeUse.Visible = true;
                     }
 
                     //    //ShowPaymentSectionBasedOnTransactionType(ddltransType.SelectedValue, ViewForm);
@@ -231,6 +241,16 @@ namespace WealthERP.OffLineOrderManagement
             txtPaymentNumber.Enabled = value;
             txtPansearch.Enabled = value;
             GetDematAccountDetails(int.Parse(txtCustomerId.Value));
+            if (rbtnAuthentication.Checked )
+            {
+                rbtnAuthentication.Enabled = false;
+                
+            }
+            else
+            {
+                rbtnAuthentication.Enabled = value;
+                
+            }
         }
         protected void lnkEdit_OnClick(object sender, EventArgs e)
         {
@@ -318,6 +338,16 @@ namespace WealthERP.OffLineOrderManagement
                         Td3.Visible = true;
                         Td4.Visible = true;
                     }
+                    if (dr["CO_IsAuthenticated"].ToString() != "True")
+                    {
+                        rbtnAuthentication.Checked = false;
+                        
+                    }
+                    else
+                    {
+                        rbtnAuthentication.Checked = true;
+                        lblAuthenticatedBy.Text = userVo.FirstName + ' ' + userVo.MiddleName + ' ' + userVo.LastName;
+                    }
                     BindBank();
                     ddlBankName.SelectedValue = dr["CO_BankName"].ToString();
 
@@ -366,6 +396,7 @@ namespace WealthERP.OffLineOrderManagement
             string applicationNo = String.Empty;
             string apllicationNoStatus = String.Empty;
             double maxPaybleBidAmount = 0;
+            bool lbResult = false;
             DateTime cutOff = DateTime.Now;
             int issueId = Convert.ToInt32(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIM_IssueId"].ToString());
             if (!string.IsNullOrEmpty(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIM_CutOffTime"].ToString()))
@@ -468,6 +499,10 @@ namespace WealthERP.OffLineOrderManagement
                 //foreach(DataRow dr1 in dr.Rows)
                 drIPOBid["DetailsId"] = dr.Rows[radgridRowNo]["COID_DetailsId"].ToString();
                 dtIPOBidTransactionDettails.Rows.Add(drIPOBid);
+                if (rbtnAuthentication.Checked == true )
+                {
+                    lbResult = OfflineBondOrderBo.CancelBondsFDBookOrder(orderNo, txtRejectReseaon.Text, userVo.UserId,  true);
+                }
                 //foreach (GridDataItem radItem in RadGridIPOBid.MasterTableView.Items)
                 //{
                 //Decimal bidoption1 = Convert.ToDecimal(dr.Rows[radgridRowNo]["BidAmountPayable"].ToString());
@@ -511,7 +546,7 @@ namespace WealthERP.OffLineOrderManagement
 
         public void GetUserType()
         {
-
+            string usertype = string.Empty;
             if (!string.IsNullOrEmpty(Session["advisorVo"].ToString()))
                 advisorVo = (AdvisorVo)Session["advisorVo"];
             if (!string.IsNullOrEmpty(Session[SessionContents.RmVo].ToString()))
@@ -529,7 +564,16 @@ namespace WealthERP.OffLineOrderManagement
                 if (associateuserheirarchyVo.AgentCode != null)
                 {
                     AgentCode = associateuserheirarchyVo.AgentCode.ToString();
-
+                    if (Request.QueryString["action"] != null)
+                    {
+                        usertype = fiorderBo.GetUserType(advisorVo.advisorId, associateuserheirarchyVo.AdviserAgentId);
+                        if (usertype == "RM" || usertype == "BM")
+                        {
+                            trOfficeUse.Visible = true;
+                        }
+                        else
+                            trOfficeUse.Visible = false;
+                    }
                 }
                 else
                     AgentCode = "0";
@@ -2527,5 +2571,24 @@ namespace WealthERP.OffLineOrderManagement
             txtPanNumber.Text = txtPansearch.Text;
             trPanExist.Visible = false;
         }
+        protected void rbtnAuthentication_OnCheckedChanged(object sender, EventArgs e)
+        {
+            if (rbtnAuthentication.Checked)
+                lblAuthenticatedBy.Text = userVo.FirstName + ' ' + userVo.MiddleName + ' ' + userVo.LastName;
+            else
+                lblAuthenticatedBy.Text = "";
+            tdlblReject.Visible = false;
+            //tdtxtReject.Visible = false;
+            txtRejectReseaon.Text = "";
+        }
+        //protected void rbtnReject_CheckedChanged(object sender, EventArgs e)
+        //{
+        //    if (rbtnAuthentication.Checked)
+        //        lblAuthenticatedBy.Text = userVo.FirstName + ' ' + userVo.MiddleName + ' ' + userVo.LastName;
+        //    else
+        //        lblAuthenticatedBy.Text = "";
+        //    tdlblReject.Visible = true;
+        //    tdtxtReject.Visible = true;
+        //}
     }
 }

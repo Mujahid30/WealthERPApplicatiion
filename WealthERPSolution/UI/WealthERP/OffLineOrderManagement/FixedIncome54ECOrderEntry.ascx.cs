@@ -4361,6 +4361,16 @@ namespace WealthERP.OffLineOrderManagement
                     rbtnAuthentication.Checked = true;
                     lblAuthenticatedBy.Text = dr["U_FirstName"].ToString();
                 }
+                if (ddlCategory.SelectedValue == "FICGCG")
+                {
+                    tdLabel11.Visible = false;
+                    tdddlTranstype.Visible = false;
+                }
+                else
+                {
+                    tdLabel11.Visible = true;
+                    tdddlTranstype.Visible = true;
+                }
             }
 
         }
@@ -4754,6 +4764,8 @@ namespace WealthERP.OffLineOrderManagement
                     customerPortfolioVo.PortfolioTypeCode = "RGL";
                     customerPortfolioVo.PortfolioName = "MyPortfolio";
                     customerVo.ViaSMS = 1;
+                    customerVo.IsActive = 1;
+                    customerVo.IsRealInvestor = true;
                     customerIds = customerBo.CreateCompleteCustomer(customerVo, userVo, customerPortfolioVo, tempUserVo.UserId);
                     Session["Customer"] = "Customer";
                     int customerid = customerIds[1];
