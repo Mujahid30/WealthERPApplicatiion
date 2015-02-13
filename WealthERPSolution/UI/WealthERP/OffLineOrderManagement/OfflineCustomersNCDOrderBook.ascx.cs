@@ -175,7 +175,7 @@ namespace WealthERP.OffLineOrderManagement
             if (Request.QueryString["orderId"] != null)
             {
 
-                dtNCDOrder = offlineNCDBackOfficeBo.GetOfflineCustomerNCDOrderBook(advisorVo.advisorId,0, "0", fromDate, toDate, userType, AgentCode, int.Parse(ViewState["OrderId"].ToString()));
+                dtNCDOrder = offlineNCDBackOfficeBo.GetOfflineCustomerNCDOrderBook(advisorVo.advisorId,0, "0", fromDate, toDate, userType, AgentCode, int.Parse(ViewState["OrderId"].ToString()),2);
 
             }
             else
@@ -184,7 +184,7 @@ namespace WealthERP.OffLineOrderManagement
                     fromDate = DateTime.Parse(txtOrderFrom.SelectedDate.ToString());
                 if (txtOrderTo.SelectedDate != null)
                     toDate = DateTime.Parse(txtOrderTo.SelectedDate.ToString());
-                dtNCDOrder = offlineNCDBackOfficeBo.GetOfflineCustomerNCDOrderBook(advisorVo.advisorId, Convert.ToInt32(ddlIssueName.SelectedValue.ToString()), hdnOrderStatus.Value, fromDate, toDate, userType, AgentCode, 0);
+                dtNCDOrder = offlineNCDBackOfficeBo.GetOfflineCustomerNCDOrderBook(advisorVo.advisorId, Convert.ToInt32(ddlIssueName.SelectedValue.ToString()), hdnOrderStatus.Value, fromDate, toDate, userType, AgentCode, 0,int.Parse(ddlAuthenticate.SelectedValue));
             }
                 if (dtNCDOrder.Rows.Count >= 0)
             {

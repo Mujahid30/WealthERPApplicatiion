@@ -230,14 +230,14 @@ namespace WealthERP.OffLineOrderManagement
         }
         protected void imgAddBank_OnClick(object sender, EventArgs e)
         {
-            customerVo = (CustomerVo)Session["customerVo"];
-            BindBank();
+            //customerVo = (CustomerVo)Session["customerVo"];
+            //BindBank();
         }
 
         protected void imgBtnRefereshBank_OnClick(object sender, EventArgs e)
         {
-            customerVo = (CustomerVo)Session["customerVo"];
-            BindBank();
+            //customerVo = (CustomerVo)Session["customerVo"];
+            //BindBank();
         }
         public void ISA_Onclick(object obj, EventArgs e)
         {
@@ -573,12 +573,19 @@ namespace WealthERP.OffLineOrderManagement
             CommonLookupBo commonLookupBo = new CommonLookupBo();
             ddlBankName.Items.Clear();
             DataTable dtBankName = new DataTable();
-            dtBankName = commonLookupBo.GetWERPLookupMasterValueList(7000, 0); ;
+            if (ddlPaymentMode.SelectedValue == "ES")
+            {
+                dtBankName = commonLookupBo.GetWERPLookupMasterValueList(7000, 1);
+            }
+            else
+            {
+                dtBankName = commonLookupBo.GetWERPLookupMasterValueList(7000, 0);
+            }
             ddlBankName.DataSource = dtBankName;
             ddlBankName.DataValueField = dtBankName.Columns["WCMV_LookupId"].ToString();
             ddlBankName.DataTextField = dtBankName.Columns["WCMV_Name"].ToString();
             ddlBankName.DataBind();
-            ddlBankName.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
+            //ddlBankName.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
 
         }
 
@@ -708,6 +715,7 @@ namespace WealthERP.OffLineOrderManagement
         protected void ddlPaymentMode_SelectedIndexChanged(object sender, EventArgs e)
         {
             PaymentMode(ddlPaymentMode.SelectedValue);
+            BindBank();
         }
 
         private void PaymentMode(string type)
@@ -971,7 +979,7 @@ namespace WealthERP.OffLineOrderManagement
                 int rowno = 0;
                 int PFISD_InMultiplesOf = Convert.ToInt32(gvCommMgmt.MasterTableView.DataKeyValues[rowindex]["AIM_TradingInMultipleOf"].ToString());
                 // Regex re = new Regex(@"[@\\*+#^\\.\$\-?A-Za-z]+");
-                Regex re = new Regex(@"^[1-9]\d*$");
+                Regex re = new Regex(@"^[0-9]\d*$");
                 if (re.IsMatch(txtQuantity.Text))
                 {
                     int Qty = Convert.ToInt32(txtQuantity.Text);
@@ -1120,7 +1128,7 @@ namespace WealthERP.OffLineOrderManagement
             {
 
                 TextBox txtQuantity = (TextBox)gvCommMgmt.MasterTableView.Items[rowNo]["Quantity"].FindControl("txtQuantity");
-                if (txtQuantity.Text == "0" || txtQuantity.Text == string.Empty)
+                if (txtQuantity.Text == string.Empty)
                 {
                     if (rowNo < gvCommMgmt.MasterTableView.Items.Count)
                     {
@@ -1261,7 +1269,7 @@ namespace WealthERP.OffLineOrderManagement
                         }
                     }
                     else
-                        isValid= true;
+                        isValid = true;
 
 
                 }
@@ -1523,14 +1531,17 @@ namespace WealthERP.OffLineOrderManagement
             int issueId = int.Parse(ddlIssueList.SelectedValue.ToString());
             try
             {
-                if (OfflineIPOOrderBo.ApplicationDuplicateCheck(issueId, int.Parse(txtApplicationNo.Text)))
+                if (Request.QueryString["action"] == null)
                 {
-                    result = false;
-                    lblApplicationDuplicate.Visible = true;
-                }
-                else
-                {
-                    lblApplicationDuplicate.Visible = false;
+                    if (OfflineIPOOrderBo.ApplicationDuplicateCheck(issueId, int.Parse(txtApplicationNo.Text)))
+                    {
+                        result = false;
+                        lblApplicationDuplicate.Visible = true;
+                    }
+                    else
+                    {
+                        lblApplicationDuplicate.Visible = false;
+                    }
                 }
             }
 
@@ -2027,7 +2038,8 @@ namespace WealthERP.OffLineOrderManagement
                     GetDematAccountDetails(int.Parse(hdnCustomerId.Value));
                     ViewState["BenificialAccountNo"] = dr["CEDA_DPClientId"].ToString();
                     txtRemarks.Text = dr["CO_Remarks"].ToString();
-
+                    BindBank();
+                    ddlBankName.SelectedValue = dr["CO_BankName"].ToString();
                     if (dr["CO_ASBAAccNo"].ToString() != "")
                     {
                         //txtASBALocation.Text = dr["CO_BankBranchName"].ToString();
@@ -2050,7 +2062,7 @@ namespace WealthERP.OffLineOrderManagement
                         //    Td4.Visible = true;
                         //}
                     }
-                    BindBank();
+                   
                     ddlBankName.SelectedValue = dr["CO_BankName"].ToString();
                     gvAssociate.Visible = true;
                 }
@@ -2077,6 +2089,15 @@ namespace WealthERP.OffLineOrderManagement
                         {
                             txtQuantity.Text = dr1["COID_Quantity"].ToString();
                             txtAmount.Text = dr1["COID_AmountPayable"].ToString();
+
+                            if (dr1["COID_TransactionType"].ToString()=="D")
+                            {
+                                txtQuantity.CssClass = "txtDisableField";
+                                txtQuantity.ToolTip = "The Category Cannot be edited because it was Cancelled previously";
+                                txtQuantity.ReadOnly = true;
+                                txtAmount.CssClass = "txtDisableField";
+                                txtAmount.ReadOnly = true;
+                            }
                         }
                     }
                 }
@@ -2092,12 +2113,15 @@ namespace WealthERP.OffLineOrderManagement
             resule = OfflineNCDIPOBackOfficeBo.UpdateNCDDetails(int.Parse(hdnOrderId.Value), userVo.UserId, dtOrderDetails);
             if (resule != false)
             {
+                lnkEdit.Visible = true;
+                btnUpdate.Visible = false;
                 ShowMessage("Order updated succesfully");
             }
         }
         protected void lnkEdit_LinkButtons(object sender, EventArgs e)
         {
             btnUpdate.Visible = true;
+            lnkEdit.Visible = false;
         }
     }
 }

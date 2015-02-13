@@ -20,13 +20,13 @@ namespace BoOfflineOrderManagement
     public class OfflineNCDIPOBackOfficeBo
     {
         OfflineNCDIPOBackOfficeDao offlineNCDBackOfficeDao;
-        public DataTable GetOfflineCustomerNCDOrderBook(int adviserId, int issueNo, string status, DateTime dtFrom, DateTime dtTo, string userType, string agentCode, int orderNo)
+        public DataTable GetOfflineCustomerNCDOrderBook(int adviserId, int issueNo, string status, DateTime dtFrom, DateTime dtTo, string userType, string agentCode, int orderNo,int authenticateType)
         {
             DataTable dtNCDOrder;
             offlineNCDBackOfficeDao = new OfflineNCDIPOBackOfficeDao();
             try
             {
-                dtNCDOrder = offlineNCDBackOfficeDao.GetOfflineCustomerNCDOrderBook(adviserId, issueNo, status, dtFrom, dtTo, userType, agentCode, orderNo);
+                dtNCDOrder = offlineNCDBackOfficeDao.GetOfflineCustomerNCDOrderBook(adviserId, issueNo, status, dtFrom, dtTo, userType, agentCode, orderNo, authenticateType);
             }
             catch (BaseApplicationException Ex)
             {
