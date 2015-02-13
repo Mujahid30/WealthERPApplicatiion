@@ -419,5 +419,14 @@ namespace WealthERP.OffLineOrderManagement
             }
 
         }
+        protected void ddlAction_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            DropDownList ddlAction = (DropDownList)sender;
+            GridDataItem gvr = (GridDataItem)ddlAction.NamingContainer;
+            Int32 orderId = Convert.ToInt32(gvNCDOrderBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["CO_OrderId"].ToString());
+            int associateid = Convert.ToInt32(gvNCDOrderBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["AgenId"].ToString());
+            string agentId = gvNCDOrderBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["AAC_AgentCode"].ToString();
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "NCDIssueTransactOffline", "loadcontrol( 'NCDIssueTransactOffline','action=" + ddlAction.SelectedItem.Value.ToString() + "&orderId=" + orderId + "&associateid=" + associateid + "&agentId=" + agentId + "');", true);
+        }
     }
 }
