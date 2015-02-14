@@ -1599,7 +1599,7 @@
                                     </asp:RequiredFieldValidator>--%>
                                 </ItemTemplate>
                                 <FooterTemplate>
-                                    <asp:Label runat="server" ID="lblQuantity"></asp:Label>
+                                    <asp:Label runat="server" ID="lblQuantity" ></asp:Label>
                                 </FooterTemplate>
                             </telerik:GridTemplateColumn>
                             <telerik:GridTemplateColumn AllowFiltering="false" DataField="" HeaderStyle-Width="100px"

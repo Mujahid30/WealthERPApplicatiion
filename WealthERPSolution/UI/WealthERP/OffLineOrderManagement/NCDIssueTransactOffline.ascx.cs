@@ -1188,6 +1188,7 @@ namespace WealthERP.OffLineOrderManagement
                         txtAmount.Text = OnlineBondVo.Amount.ToString();
                         dtOrderDetails = dt;
                         OnlineBondBo.GetCustomerCat(OnlineBondVo.IssueId, int.Parse(hdnCustomerId.Value), advisorVo.advisorId, Convert.ToDouble(lblSum.Text), ref catName, ref issueDetId, ref EligblecatId, ref Description);
+                        ViewState["CustCat"] = catName;
                         if (EligblecatId == 0)
                         {
                             ShowMessage("Application amount should be between Min Quantity and Max Quantity.");
@@ -1212,14 +1213,22 @@ namespace WealthERP.OffLineOrderManagement
             }
             GridFooterItem ftItemAmount = (GridFooterItem)gvCommMgmt.MasterTableView.GetItems(GridItemType.Footer)[0];
             Label lbltotAmt = (Label)ftItemAmount.FindControl("lblAmount");
-
+            Label lblQuantity = (Label)ftItemAmount.FindControl("lblQuantity");
             if (isValid)
             {
                 isValid = false;
                 if (Validation())
                 {
-                    Quantity = int.Parse(ViewState["Qty"].ToString());
-                    sum = int.Parse(ViewState["Sum"].ToString());
+                    if (Request.QueryString["action"] != null)
+                    {
+                        Quantity =int.Parse(lblQuantity.Text);
+                        sum = Convert.ToDouble(lbltotAmt.Text);
+                    }
+                    else
+                    {
+                        Quantity = int.Parse(ViewState["Qty"].ToString());
+                        sum = int.Parse(ViewState["Sum"].ToString());
+                    }
                     if (ViewState["CustCat"] == null)
                     {
 
@@ -2109,13 +2118,18 @@ namespace WealthERP.OffLineOrderManagement
             OfflineNCDIPOBackOfficeBo OfflineNCDIPOBackOfficeBo = new OfflineNCDIPOBackOfficeBo();
             DataTable dtOrderDetails = new DataTable();
             bool isValid = CollectOrderDetails(sender, e, out dtOrderDetails);
-            bool resule = false;
-            resule = OfflineNCDIPOBackOfficeBo.UpdateNCDDetails(int.Parse(hdnOrderId.Value), userVo.UserId, dtOrderDetails);
-            if (resule != false)
+            if (isValid == false)
+                return;
+            else
             {
-                lnkEdit.Visible = true;
-                btnUpdate.Visible = false;
-                ShowMessage("Order updated succesfully");
+                bool resule = false;
+                resule = OfflineNCDIPOBackOfficeBo.UpdateNCDDetails(int.Parse(hdnOrderId.Value), userVo.UserId, dtOrderDetails);
+                if (resule != false)
+                {
+                    lnkEdit.Visible = true;
+                    btnUpdate.Visible = false;
+                    ShowMessage("Order updated succesfully");
+                }
             }
         }
         protected void lnkEdit_LinkButtons(object sender, EventArgs e)
