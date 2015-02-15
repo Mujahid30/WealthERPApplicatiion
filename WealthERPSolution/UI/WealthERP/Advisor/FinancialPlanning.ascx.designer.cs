@@ -247,14 +247,14 @@ namespace WealthERP.Advisor {
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblRiskProfilingParagraph;
         
-        /// <summary>
-        /// divQuestionAnswers control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divQuestionAnswers;
+        ///// <summary>
+        ///// divQuestionAnswers control.
+        ///// </summary>
+        ///// <remarks>
+        ///// Auto-generated field.
+        ///// To modify move field declaration from designer file to code-behind file.
+        ///// </remarks>
+        //protected global::System.Web.UI.HtmlControls.HtmlGenericControl divQuestionAnswers;
         
         /// <summary>
         /// PlaceHolder1 control.
@@ -552,5 +552,6 @@ namespace WealthERP.Advisor {
         protected global::System.Web.UI.WebControls.Label lblRRclass;
         protected global::System.Web.UI.WebControls.Label lblRRDate;
         protected global::System.Web.UI.WebControls.Label lblRRScore;
+        protected global::System.Web.UI.HtmlControls.HtmlTable divQuestionAnswers;
     }
 }

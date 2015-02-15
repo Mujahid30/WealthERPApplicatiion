@@ -458,7 +458,7 @@
                     </td>
                     <td style="width: 23.5%">
                         <asp:DropDownList ID="ddlsearch" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlsearch_Selectedindexchanged"
-                            AutoPostBack="true" TabIndex="0">
+                            AutoPostBack="true" TabIndex="1">
                             <asp:ListItem Text="Select" Value="0"></asp:ListItem>
                             <asp:ListItem Text="Customer" Value="1"></asp:ListItem>
                             <asp:ListItem Text="PAN" Value="2"></asp:ListItem>
@@ -469,7 +469,7 @@
                     </td>
                     <td>
                         <asp:DropDownList ID="ddlARNNo" runat="server" CssClass="cmbField" AutoPostBack="false"
-                            TabIndex="1">
+                            TabIndex="2">
                         </asp:DropDownList>
                         <span id="Span14" class="spnRequiredField">*</span>
                         <asp:CompareValidator ID="CompareValidator12" runat="server" ControlToValidate="ddlARNNo"
@@ -484,7 +484,7 @@
                     <td>
                         <asp:TextBox ID="txtPansearch" runat="server" CssClass="txtField" AutoComplete="Off"
                             AutoPostBack="True" onclientClick="ShowIsa()" onblur="return checkItemSelected(this)"
-                            OnTextChanged="OnAssociateTextchanged1" TabIndex="2">
+                            OnTextChanged="OnAssociateTextchanged1" TabIndex="3">
                         </asp:TextBox><span id="Span1" class="spnRequiredField">*</span>
                         <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" TargetControlID="txtPansearch"
                             WatermarkText="Enter few chars of Pan" runat="server" EnableViewState="false">
@@ -504,7 +504,7 @@
                         <asp:Label ID="label2" runat="server" Text="Customer Name: " CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
-                        <asp:Label ID="lblgetcust" runat="server" Text="" CssClass="FieldName" onclientClick="CheckPanno()" ></asp:Label>
+                        <asp:Label ID="lblgetcust" runat="server" Text="" CssClass="FieldName" onclientClick="CheckPanno()"></asp:Label>
                     </td>
                 </tr>
                 <tr id="trCust" runat="server">
@@ -513,11 +513,11 @@
                     </td>
                     <td>
                         <asp:TextBox ID="txtCustomerName" runat="server" CssClass="txtField" AutoComplete="Off"
-                            onclientClick="ShowIsa()" AutoPostBack="True" TabIndex="3">
+                            onclientClick="ShowIsa()" AutoPostBack="True" TabIndex="4">
                         </asp:TextBox><span id="spnCustomer" class="spnRequiredField">*</span>
                         <asp:ImageButton ID="btnImgAddCustomer" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
                             AlternateText="Add" runat="server" ToolTip="Click here to Add Customer" OnClientClick="return openpopupAddCustomer()"
-                            Height="15px" Width="15px" TabIndex="3"></asp:ImageButton>
+                            Height="15px" Width="15px"></asp:ImageButton>
                         <cc1:TextBoxWatermarkExtender ID="txtCustomer_water" TargetControlID="txtCustomerName"
                             WatermarkText="Enter few chars of Customer" runat="server" EnableViewState="false">
                         </cc1:TextBoxWatermarkExtender>
@@ -565,7 +565,7 @@
                     </td>
                     <td>
                         <asp:TextBox ID="txtAssociateSearch" runat="server" CssClass="txtField" AutoComplete="Off"
-                            OnTextChanged="OnAssociateTextchanged" AutoPostBack="True" TabIndex="4">
+                            OnTextChanged="OnAssociateTextchanged" AutoPostBack="True" TabIndex="5">
                         </asp:TextBox><span id="Span7" class="spnRequiredField">*</span>
                         <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" TargetControlID="txtAssociateSearch"
                             WatermarkText="Enter few chars of Sub Broker Code" runat="server" EnableViewState="false">
@@ -595,7 +595,7 @@
                     </td>
                     <td>
                         <asp:DropDownList ID="ddlCustomerISAAccount" runat="server" CssClass="cmbField" AutoPostBack="true"
-                            OnSelectedIndexChanged="ddlCustomerISAAccount_SelectedIndexChanged" TabIndex="5">
+                            OnSelectedIndexChanged="ddlCustomerISAAccount_SelectedIndexChanged" TabIndex="6">
                         </asp:DropDownList>
                         &nbsp
                         <asp:ImageButton ID="btnIsa" ImageUrl="~/App_Themes/Maroon/Images/user_add.png" AlternateText="Add"
@@ -655,7 +655,7 @@
                     </td>
                     <td style="width: 30px;">
                         <asp:DropDownList ID="ddltransType" runat="server" CssClass="cmbField" AutoPostBack="true"
-                            OnSelectedIndexChanged="ddltransType_SelectedIndexChanged" TabIndex="6">
+                            OnSelectedIndexChanged="ddltransType_SelectedIndexChanged" TabIndex="7">
                             <asp:ListItem Text="Select" Value="Select" Selected="true"></asp:ListItem>
                             <asp:ListItem Text="New Purchase" Value="BUY"></asp:ListItem>
                             <asp:ListItem Text="Additional Purchase" Value="ABY"></asp:ListItem>
@@ -679,7 +679,7 @@
                         <telerik:RadDatePicker ID="txtReceivedDate" CssClass="txtField" runat="server" Culture="English (United States)"
                             Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01"
                             AutoPostBack="true" OnSelectedDateChanged="txtReceivedDate_SelectedDateChanged"
-                            TabIndex="7">
+                            TabIndex="8">
                             <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
                                 Skin="Telerik" EnableEmbeddedSkins="false">
                                 <SpecialDays>
@@ -700,7 +700,7 @@
                         <asp:Label ID="lblApplicationNumber" runat="server" Text="Application Number:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
-                        <asp:TextBox ID="txtApplicationNumber" runat="server" CssClass="txtField" TabIndex="8"></asp:TextBox>
+                        <asp:TextBox ID="txtApplicationNumber" runat="server" CssClass="txtField" TabIndex="9"></asp:TextBox>
                     </td>
                     <td align="right">
                         <asp:Label ID="lblOrderDate" runat="server" Text="Order Date:" CssClass="FieldName"></asp:Label>
@@ -708,7 +708,7 @@
                     <td>
                         <telerik:RadDatePicker ID="txtOrderDate" CssClass="txtField" runat="server" Culture="English (United States)"
                             Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01"
-                            AutoPostBack="true" OnSelectedDateChanged="txtOrderDate_DateChanged" TabIndex="9">
+                            AutoPostBack="true" OnSelectedDateChanged="txtOrderDate_DateChanged" TabIndex="10">
                             <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
                                 Skin="Telerik" EnableEmbeddedSkins="false">
                             </Calendar>
@@ -728,7 +728,7 @@
                     </td>
                     <td>
                         <asp:DropDownList ID="ddlAMCList" runat="server" CssClass="cmbLongField" AutoPostBack="true"
-                            OnSelectedIndexChanged="ddlAMCList_SelectedIndexChanged" TabIndex="10"> 
+                            OnSelectedIndexChanged="ddlAMCList_SelectedIndexChanged" TabIndex="11">
                         </asp:DropDownList>
                         <span id="spnAMC" runat="server" class="spnRequiredField">*</span>
                         <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="ddlAMCList"
@@ -741,7 +741,7 @@
                     </td>
                     <td>
                         <asp:DropDownList ID="ddlCategory" runat="server" CssClass="cmbLongField" AutoPostBack="true"
-                            OnSelectedIndexChanged="ddlCategory_SelectedIndexChanged" TabIndex="11" Visible="false">
+                            OnSelectedIndexChanged="ddlCategory_SelectedIndexChanged" TabIndex="12" Visible="false">
                         </asp:DropDownList>
                     </td>
                 </tr>
@@ -752,7 +752,7 @@
                     <td style="width: 24.3%">
                         <asp:HiddenField ID="txtSchemeCode" runat="server" OnValueChanged="txtSchemeCode_ValueChanged" />
                         <asp:TextBox ID="txtSearchScheme" runat="server" Style="width: 280px;" CssClass="txtField"
-                            AutoComplete="Off" AutoPostBack="True" TabIndex="12">
+                            AutoComplete="Off" AutoPostBack="True" TabIndex="13">
                         </asp:TextBox>
                         <cc1:TextBoxWatermarkExtender ID="txtSearchScheme_TextBoxWatermarkExtender" runat="server"
                             TargetControlID="txtSearchScheme" WatermarkText="Type the Scheme Name">
@@ -772,8 +772,8 @@
                     <td align="right" id="tdlblDivType">
                         <asp:Label ID="lblDivType" runat="server" Text="Dividend Type:" CssClass="FieldName"></asp:Label>
                     </td>
-                    <td  id="tdddlDivType">
-                        <asp:DropDownList ID="ddlDivType" runat="server" CssClass="cmbField" TabIndex="13">
+                    <td id="tdddlDivType">
+                        <asp:DropDownList ID="ddlDivType" runat="server" CssClass="cmbField" TabIndex="14">
                             <%--<asp:ListItem Text="Select" Value="0"></asp:ListItem>
                             <asp:ListItem Text="Dividend Reinvestment" Value="DVR"></asp:ListItem>
                             <asp:ListItem Text="Dividend Payout" Value="DVP"></asp:ListItem>--%>
@@ -803,7 +803,7 @@
                     </td>--%>
                 </tr>
                 <tr class="spaceUnder">
-                     <td>
+                    <td>
                     </td>
                     <td align="left" style="vertical-align: top;" colspan="5">
                         <table width="70%" class="SchemeInfoTable">
@@ -846,7 +846,7 @@
                     <td>
                         <asp:HiddenField ID="hidFolioNumber" runat="server" OnValueChanged="hidFolioNumber_ValueChanged" />
                         <asp:TextBox ID="txtFolioNumber" runat="server" CssClass="txtField" onblur="return ValidateFolioSelection(this)"
-                            AutoPostBack="true" TabIndex="14">
+                            AutoPostBack="true" TabIndex="15">
                         </asp:TextBox>
                         <span id="spnExistingFolio"></span>
                         <asp:ImageButton ID="imgFolioAdd" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
@@ -867,7 +867,7 @@
                     <td align="right">
                         <asp:DropDownList ID="ddlAmcSchemeList" runat="server" CssClass="cmbField" Width="400px"
                             AutoPostBack="true" OnSelectedIndexChanged="ddlAmcSchemeList_SelectedIndexChanged"
-                            TabIndex="15">
+                            TabIndex="16">
                         </asp:DropDownList>
                         <span id="spnScheme" runat="server" class="spnRequiredField">*</span>
                         <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="ddlAmcSchemeList"
@@ -887,7 +887,7 @@
                     </td>
                     <td id="tdtxtNAV" runat="server" visible="false">
                         <asp:TextBox ID="txtNAV" runat="server" CssClass="txtField" onkeypress="return onlyNumbers();"
-                            CausesValidation="true" ValidationGroup="MFSubmit" TabIndex="16"></asp:TextBox>
+                            CausesValidation="true" ValidationGroup="MFSubmit" TabIndex="17"></asp:TextBox>
                         <span id="Span13" class="spnRequiredField">*</span>
                         <asp:RangeValidator ID="RangeValidator1" Display="Dynamic" ValidationGroup="MFSubmit"
                             runat="server" ErrorMessage="<br />Please enter a numeric value" ControlToValidate="txtNAV"
@@ -897,7 +897,7 @@
                         <asp:Label ID="lblPortfolio" runat="server" Text="Portfolio: " CssClass="FieldName"></asp:Label>
                     </td>
                     <td visible="false">
-                        <asp:DropDownList ID="ddlPortfolio" runat="server" CssClass="cmbField" TabIndex="17">
+                        <asp:DropDownList ID="ddlPortfolio" runat="server" CssClass="cmbField" TabIndex="18">
                         </asp:DropDownList>
                     </td>
                 </tr>
@@ -924,7 +924,8 @@
                     </td>
                     <td>
                         <telerik:RadDatePicker ID="txtFutureDate" CssClass="txtField" runat="server" Culture="English (United States)"
-                            Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                            Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01"
+                            TabIndex="19">
                             <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
                                 Skin="Telerik" EnableEmbeddedSkins="false">
                             </Calendar>
@@ -947,7 +948,8 @@
                         <asp:Label ID="lblFutureTrigger" runat="server" Text="Future Trigger:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
-                        <asp:TextBox ID="txtFutureTrigger" runat="server" CssClass="txtField" TextMode="MultiLine" TabIndex="18"></asp:TextBox>
+                        <asp:TextBox ID="txtFutureTrigger" runat="server" CssClass="txtField" TextMode="MultiLine"
+                            TabIndex="18"></asp:TextBox>
                     </td>
                 </tr>
                 <tr class="spaceUnder" id="trDivtype" runat="server">
@@ -990,7 +992,7 @@
                         <asp:Label ID="lblFrequencySIP" runat="server" Text="Frequency:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
-                        <asp:DropDownList ID="ddlFrequencySIP" runat="server" CssClass="cmbField" TabIndex="19"
+                        <asp:DropDownList ID="ddlFrequencySIP" runat="server" CssClass="cmbField" TabIndex="20"
                             OnSelectedIndexChanged="ddlFrequencySIP_SelectedIndexChanged" AutoPostBack="true">
                         </asp:DropDownList>
                     </td>
@@ -1001,12 +1003,13 @@
                     </td>
                     <td style="width: 22%">
                         <asp:DropDownList ID="ddlStartDate" CssClass="cmbField" runat="server" AutoPostBack="True"
-                            OnSelectedIndexChanged="ddlStartDate_SelectedIndexChanged" ValidationGroup="btnSubmit" TabIndex="20">
+                            OnSelectedIndexChanged="ddlStartDate_SelectedIndexChanged" ValidationGroup="btnSubmit"
+                            TabIndex="21">
                             <asp:ListItem Selected="True" Value="0">--SELECT--</asp:ListItem>
                         </asp:DropDownList>
                         <telerik:RadDatePicker ID="txtstartDateSIP" CssClass="txtField" runat="server" Culture="English (United States)"
                             Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01"
-                            TabIndex="17" Visible="false">
+                            TabIndex="22" Visible="false">
                             <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
                                 Skin="Telerik" EnableEmbeddedSkins="false">
                             </Calendar>
@@ -1032,7 +1035,7 @@
                         </asp:DropDownList>--%>
                         <telerik:RadDatePicker ID="txtendDateSIP" CssClass="txtField" runat="server" Culture="English (United States)"
                             Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01"
-                            Enabled="false">
+                            Enabled="false" TabIndex="23">
                             <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
                                 Skin="Telerik" EnableEmbeddedSkins="false" TabIndex="22">
                             </Calendar>
@@ -1056,7 +1059,7 @@
                         <asp:Label ID="lblSystematicDate" runat="server" Text="Date of Systematic Trx:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
-                        <asp:TextBox ID="txtSystematicdates" runat="server" CssClass="txtField" TabIndex="21"></asp:TextBox>
+                        <asp:TextBox ID="txtSystematicdates" runat="server" CssClass="txtField" TabIndex="24"></asp:TextBox>
                         <cc1:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtSystematicdates"
                             Format="dd">
                         </cc1:CalendarExtender>
@@ -1075,15 +1078,15 @@
                     </td>
                     <td>
                         <asp:DropDownList ID="ddlTotalInstallments" CssClass="cmbField" runat="server" AutoPostBack="True"
-                            OnSelectedIndexChanged="ddlTotalInstallments_SelectedIndexChanged" TabIndex="22">
+                            OnSelectedIndexChanged="ddlTotalInstallments_SelectedIndexChanged" TabIndex="25">
                             <asp:ListItem Value="0">--SELECT--</asp:ListItem>
                         </asp:DropDownList>
                         <asp:TextBox ID="txtPeriod" runat="server" CssClass="txtField" AutoPostBack="true"
-                            OnTextChanged="txtPeriod_OnTextChanged" Visible="false"></asp:TextBox>
+                            OnTextChanged="txtPeriod_OnTextChanged" Visible="false" TabIndex="26"></asp:TextBox>
                         <span id="Span21" class="spnRequiredField">*</span>
                         <asp:DropDownList ID="ddlPeriodSelection" runat="server" AutoPostBack="true" CssClass="cmbField"
                             CausesValidation="true" ValidationGroup="MFSubmit" OnSelectedIndexChanged="ddlPeriodSelection_SelectedIndexChanged"
-                            Visible="false" TabIndex="23">
+                            Visible="false" TabIndex="27">
                             <asp:ListItem Text="Days" Value="DA"></asp:ListItem>
                             <asp:ListItem Text="Months" Value="MN"></asp:ListItem>
                             <asp:ListItem Text="Years" Value="YR"></asp:ListItem>
@@ -1144,7 +1147,7 @@
                         <asp:Label ID="lblAmountUnits" runat="server" Text="Amount/Unit:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
-                        <asp:TextBox ID="txtNewAmount" runat="server" CssClass="txtField" TabIndex="24"></asp:TextBox><span
+                        <asp:TextBox ID="txtNewAmount" runat="server" CssClass="txtField" TabIndex="28"></asp:TextBox><span
                             id="Span2" class="spnRequiredField">*</span>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator7" ControlToValidate="txtNewAmount"
                             CssClass="rfvPCG" ErrorMessage="<br />Please select Amount/Unit" Display="Dynamic"
@@ -1162,7 +1165,7 @@
                         <asp:Label ID="lblSchemeSwitch" runat="server" Text="To Scheme:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td style="width: 22%;">
-                        <asp:DropDownList ID="ddlSchemeSwitch" runat="server" CssClass="cmbLongField" TabIndex="25">
+                        <asp:DropDownList ID="ddlSchemeSwitch" runat="server" CssClass="cmbLongField" TabIndex="29">
                         </asp:DropDownList>
                         <span id="Span3" runat="server" class="spnRequiredField">*</span>
                         <asp:CompareValidator ID="CompareValidator10" runat="server" ControlToValidate="ddlSchemeSwitch"
@@ -1175,7 +1178,7 @@
                     <td>
                         <asp:HiddenField ID="hdnSwitchFolioNo" runat="server" OnValueChanged="hidFolioNumber_ValueChanged" />
                         <asp:TextBox ID="txtSwitchFolioNo" runat="server" CssClass="txtField" onblur="return ValidateFolioSelection(this)"
-                            AutoPostBack="true" TabIndex="26">
+                            AutoPostBack="true" TabIndex="30">
                         </asp:TextBox>
                         <span id="Span27"></span>
                         <asp:ImageButton ID="ImageButton1" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
@@ -1210,7 +1213,7 @@
                     </td>
                     <td style="width: 22%;">
                         <asp:TextBox ID="txtAmount" runat="server" CssClass="txtField" CausesValidation="true"
-                            ValidationGroup="MFSubmit" TabIndex="27"></asp:TextBox><span id="Span5" class="spnRequiredField">*</span>
+                            ValidationGroup="MFSubmit" TabIndex="31"></asp:TextBox><span id="Span5" class="spnRequiredField">*</span>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator5" ControlToValidate="txtAmount"
                             CssClass="rfvPCG" ErrorMessage="<br />Please select amount" Display="Dynamic"
                             runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
@@ -1223,7 +1226,7 @@
                     </td>
                     <td>
                         <asp:DropDownList ID="ddlPaymentMode" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlPaymentMode_SelectedIndexChanged"
-                            AutoPostBack="true" TabIndex="28">
+                            AutoPostBack="true" TabIndex="32">
                             <asp:ListItem Text="Select" Value="Select"></asp:ListItem>
                             <asp:ListItem Text="Cheque" Value="CQ"></asp:ListItem>
                             <asp:ListItem Text="Draft" Value="DF"></asp:ListItem>
@@ -1242,7 +1245,7 @@
                     </td>
                     <td>
                         <asp:TextBox ID="txtPaymentNumber" runat="server" MaxLength="6" CssClass="txtField"
-                            TabIndex="29"></asp:TextBox>
+                            TabIndex="33"></asp:TextBox>
                         <span id="Span12" class="spnRequiredField">*</span>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator8" ControlToValidate="txtPaymentNumber"
                             ErrorMessage="<br />Please Enter a Payment Instrument No." Display="Dynamic"
@@ -1254,7 +1257,8 @@
                     <td>
                         <telerik:RadDatePicker ID="txtPaymentInstDate" CssClass="txtField" runat="server"
                             Culture="English (United States)" Skin="Telerik" EnableEmbeddedSkins="false"
-                            ShowAnimation-Type="Fade" MinDate="1900-01-01" TabIndex="30">
+                            ShowAnimation-Type="Fade" AutoPostBack="true" MinDate="1900-01-01" TabIndex="34"
+                            OnSelectedDateChanged="txtPaymentInstDate_OnSelectedDateChanged">
                             <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
                                 Skin="Telerik" EnableEmbeddedSkins="false">
                             </Calendar>
@@ -1281,7 +1285,7 @@
                     <td>
                         <asp:DropDownList ID="ddlBankName" runat="server" CssClass="cmbField" AutoPostBack="true"
                             AppendDataBoundItems="true" OnSelectedIndexChanged="ddlBankName_SelectedIndexChanged"
-                            TabIndex="31">
+                            TabIndex="35">
                         </asp:DropDownList>
                         <span id="Span4" class="spnRequiredField">*</span>
                         <asp:ImageButton ID="imgAddBank" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
@@ -1307,10 +1311,10 @@
                         <asp:Label ID="lblBranchName" runat="server" Text="Bank Branch:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
-                        <asp:DropDownList ID="ddlBranch" runat="server" CssClass="cmbField" AutoPostBack="true"
-                            AppendDataBoundItems="true" TabIndex="32" Visible="false">
+                        <asp:DropDownList ID="ddlBranch" runat="server" CssClass="cmbField" AutoPostBack="false"
+                            AppendDataBoundItems="true" TabIndex="36" Visible="false">
                         </asp:DropDownList>
-                        <asp:TextBox ID="txtBranchName" runat="server" CssClass="txtField"></asp:TextBox>
+                        <asp:TextBox ID="txtBranchName" runat="server" CssClass="txtField" TabIndex="37"></asp:TextBox>
                     </td>
                 </tr>
             </table>
@@ -1370,7 +1374,7 @@
                     <asp:Label ID="lblFrequencySTP" runat="server" Text="Frequency:" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightField" style="width: 20%">
-                    <asp:DropDownList ID="ddlFrequencySTP" runat="server" CssClass="cmbField" TabIndex="33">
+                    <asp:DropDownList ID="ddlFrequencySTP" runat="server" CssClass="cmbField" TabIndex="38">
                     </asp:DropDownList>
                 </td>
                 <td class="leftField" colspan="2" style="width: 40%">
@@ -1383,7 +1387,7 @@
                 <td class="rightField" style="width: 20%">
                     <telerik:RadDatePicker ID="txtstartDateSTP" CssClass="txtField" runat="server" Culture="English (United States)"
                         Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01"
-                        TabIndex="34">
+                        TabIndex="39">
                         <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
                             Skin="Telerik" EnableEmbeddedSkins="false">
                         </Calendar>
@@ -1402,7 +1406,7 @@
                 <td class="rightField" style="width: 20%">
                     <telerik:RadDatePicker ID="txtendDateSTP" CssClass="txtField" runat="server" Culture="English (United States)"
                         Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01"
-                        TabIndex="35">
+                        TabIndex="40">
                         <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
                             Skin="Telerik" EnableEmbeddedSkins="false">
                         </Calendar>
@@ -1499,7 +1503,7 @@
                     <asp:Label ID="lblAdrLine1" CssClass="FieldName" runat="server" Text="Line1(House No./Building):"></asp:Label>
                 </td>
                 <td class="rightField" style="width: 20%">
-                    <asp:TextBox ID="txtCorrAdrLine1" runat="server" CssClass="txtField"></asp:TextBox>
+                    <asp:TextBox ID="txtCorrAdrLine1" runat="server" CssClass="txtField" TabIndex="41"></asp:TextBox>
                     <span id="Span15" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator10" ControlToValidate="txtCorrAdrLine1"
                         CssClass="rfvPCG" ErrorMessage="<br />Please Enter Details" Display="Dynamic"
@@ -1509,7 +1513,7 @@
                     <asp:Label ID="lblAdrLine2" CssClass="FieldName" runat="server" Text="Line2(Street):"></asp:Label>
                 </td>
                 <td class="rightField" style="width: 20%">
-                    <asp:TextBox ID="txtCorrAdrLine2" runat="server" CssClass="txtField" TabIndex="36"></asp:TextBox>
+                    <asp:TextBox ID="txtCorrAdrLine2" runat="server" CssClass="txtField" TabIndex="42"></asp:TextBox>
                     <span id="Span16" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator11" ControlToValidate="txtCorrAdrLine2"
                         CssClass="rfvPCG" ErrorMessage="<br />Please Enter Details" Display="Dynamic"
@@ -1521,7 +1525,7 @@
                     <asp:Label ID="lblAdrLine3" CssClass="FieldName" runat="server" Text="Line3(Area):"></asp:Label>
                 </td>
                 <td class="rightField" style="width: 20%">
-                    <asp:TextBox ID="txtCorrAdrLine3" runat="server" CssClass="txtField" TabIndex="37"></asp:TextBox>
+                    <asp:TextBox ID="txtCorrAdrLine3" runat="server" CssClass="txtField" TabIndex="43"></asp:TextBox>
                     <span id="Span17" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator12" ControlToValidate="txtCorrAdrLine3"
                         CssClass="rfvPCG" ErrorMessage="<br />Please Enter Details" Display="Dynamic"
@@ -1532,7 +1536,8 @@
                 </td>
                 <td class="rightField" style="width: 20%">
                     <telerik:RadDatePicker ID="txtLivingSince" CssClass="txtField" runat="server" Culture="English (United States)"
-                        Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01" TabIndex="38">
+                        Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01"
+                        TabIndex="44">
                         <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
                             Skin="Telerik" EnableEmbeddedSkins="false">
                         </Calendar>
@@ -1553,7 +1558,7 @@
                     <asp:Label ID="lblAdrCity" CssClass="FieldName" runat="server" Text="City:"></asp:Label>
                 </td>
                 <td class="rightField" style="width: 20%">
-                    <asp:TextBox ID="txtCorrAdrCity" runat="server" CssClass="txtField" TabIndex="38"></asp:TextBox>
+                    <asp:TextBox ID="txtCorrAdrCity" runat="server" CssClass="txtField" TabIndex="45"></asp:TextBox>
                     <span id="Span18" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator13" ControlToValidate="txtCorrAdrCity"
                         CssClass="rfvPCG" ErrorMessage="<br />Please Enter City" Display="Dynamic" runat="server"
@@ -1563,7 +1568,7 @@
                     <asp:Label ID="lblAdrState" CssClass="FieldName" runat="server" Text="State:"></asp:Label>
                 </td>
                 <td class="rightField" style="width: 20%">
-                    <asp:DropDownList ID="ddlCorrAdrState" runat="server" CssClass="cmbField" TabIndex="39">
+                    <asp:DropDownList ID="ddlCorrAdrState" runat="server" CssClass="cmbField" TabIndex="46">
                     </asp:DropDownList>
                     <span id="Span20" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator15" ControlToValidate="ddlCorrAdrState"
@@ -1579,7 +1584,8 @@
                     <asp:Label ID="lblAdrPinCode" CssClass="FieldName" runat="server" Text="Pin Code:"></asp:Label>
                 </td>
                 <td class="rightField" style="width: 20%">
-                    <asp:TextBox ID="txtCorrAdrPinCode" runat="server" CssClass="txtField" MaxLength="6" TabIndex="40"></asp:TextBox>
+                    <asp:TextBox ID="txtCorrAdrPinCode" runat="server" CssClass="txtField" MaxLength="6"
+                        TabIndex="47"></asp:TextBox>
                     <span id="Span19" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator14" ControlToValidate="txtCorrAdrPinCode"
                         CssClass="rfvPCG" ErrorMessage="<br />Please Enter PinCode" Display="Dynamic"
@@ -1592,7 +1598,7 @@
                     <asp:Label ID="lblAdrCountry" CssClass="FieldName" runat="server" Text="Country:"></asp:Label>
                 </td>
                 <td class="rightField" style="width: 20%">
-                    <asp:DropDownList ID="ddlCorrAdrCountry" runat="server" CssClass="cmbField" TabIndex="41">
+                    <asp:DropDownList ID="ddlCorrAdrCountry" runat="server" CssClass="cmbField" TabIndex="48">
                         <asp:ListItem Text="India" Value="India" Selected="True"></asp:ListItem>
                     </asp:DropDownList>
                 </td>
@@ -1652,7 +1658,7 @@
                         CssClass="FieldName"></asp:Label>
                 </td>
                 <td>
-                    <asp:TextBox ID="txtRegistrationDate" runat="server" CssClass="txtField" TabIndex="42"></asp:TextBox>
+                    <asp:TextBox ID="txtRegistrationDate" runat="server" CssClass="txtField" TabIndex="49"></asp:TextBox>
                     <cc1:CalendarExtender ID="RegistrationDate_CalendarExtender" runat="server" TargetControlID="txtRegistrationDate"
                         Format="dd/MM/yyyy">
                     </cc1:CalendarExtender>
@@ -1671,7 +1677,7 @@
                     <asp:Label ID="lblCeaseDate" runat="server" Text="Stopped Date: " CssClass="FieldName"></asp:Label>
                 </td>
                 <td>
-                    <asp:TextBox ID="txtCeaseDate" runat="server" CssClass="txtField" TabIndex="43"></asp:TextBox>
+                    <asp:TextBox ID="txtCeaseDate" runat="server" CssClass="txtField" TabIndex="50"></asp:TextBox>
                     <cc1:CalendarExtender ID="CeaseDate_CalendarExtender" runat="server" TargetControlID="txtCeaseDate"
                         Format="dd/MM/yyyy">
                     </cc1:CalendarExtender>
@@ -1688,7 +1694,7 @@
         </table>
     </ContentTemplate>
     <Triggers>
-     <asp:PostBackTrigger ControlID="lnkBtnEdit" />
+        <asp:PostBackTrigger ControlID="lnkBtnEdit" />
     </Triggers>
 </asp:UpdatePanel>
 <asp:Panel ID="Panel1" runat="server" class="Landscape" Width="100%" Height="600px"
@@ -1703,17 +1709,17 @@
             </td>
             <td class="rightField">
                 <asp:TextBox ID="txtRemarks" Width="300px" TextMode="MultiLine" MaxLength="300" Height="65px"
-                    onkeydown="return (event.keyCode!=13);" runat="server" CssClass="txtField" TabIndex="44"></asp:TextBox>
+                    onkeydown="return (event.keyCode!=13);" runat="server" CssClass="txtField" TabIndex="51"></asp:TextBox>
             </td>
         </tr>
-       <tr id="trBtnSubmit" runat="server">
+        <tr id="trBtnSubmit" runat="server">
             <td align="left" colspan="3">
                 <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="PCGButton" ValidationGroup="MFSubmit"
-                    OnClick="btnSubmit_Click" />
+                    OnClick="btnSubmit_Click" TabIndex="52" />
                 <asp:Button ID="btnAddMore" runat="server" Text="Save & Add More" CssClass="PCGMediumButton"
-                    ValidationGroup="MFSubmit" OnClick="btnAddMore_Click" />
+                    ValidationGroup="MFSubmit" OnClick="btnAddMore_Click" TabIndex="53" />
                 <asp:Button ID="btnUpdate" runat="server" Text="Update" CssClass="PCGButton" ValidationGroup="MFSubmit"
-                    OnClick="btnUpdate_Click" />
+                    OnClick="btnUpdate_Click" TabIndex="54" />
             </td>
         </tr>
         <tr>
@@ -1722,13 +1728,9 @@
                     Font-Size="Small" CssClass="cmbFielde" Visible="false"></asp:Label>
             </td>
         </tr>
-        
-        
     </table>
 </asp:Panel>
-
 <table>
- 
 </table>
 <asp:Panel ID="pnlOrderSteps" runat="server" Width="100%" Height="80%" Visible="false">
     <table width="100%">

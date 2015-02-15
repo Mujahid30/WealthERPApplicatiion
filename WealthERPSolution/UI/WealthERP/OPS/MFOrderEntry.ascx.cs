@@ -249,6 +249,7 @@ namespace WealthERP.OPS
         {
             //Reset dependent controls
             ddlTotalInstallments.SelectedIndex = 0;
+            ddlStartDate.Focus();
         }
 
         protected void BindStartDates()
@@ -271,7 +272,7 @@ namespace WealthERP.OPS
         {
             BindTotalInstallments();
             BindStartDates();
-
+            ddlFrequencySIP.Focus();
         }
 
         //protected void BindFrequency()
@@ -297,7 +298,7 @@ namespace WealthERP.OPS
         protected void ddlTotalInstallments_SelectedIndexChanged(object sender, EventArgs e)
         {
             CaliculateEndDate();
-           
+            ddlTotalInstallments.Focus();
             //.ToString("dd-MMM-yyyy");
         }
 
@@ -929,6 +930,10 @@ namespace WealthERP.OPS
             }
 
         }
+        protected void txtPaymentInstDate_OnSelectedDateChanged(object sender, EventArgs e)
+        {
+            txtPaymentInstDate.Focus();
+        }
         protected void txtSchemeCode_ValueChanged(object sender, EventArgs e)
         {
 
@@ -936,7 +941,7 @@ namespace WealthERP.OPS
             {
                 SelectionBasedOnScheme(int.Parse(txtSchemeCode.Value));
             }
-
+            txtSearchScheme.Focus();
         }
 
         private void SelectionBasedOnScheme(int schemeCode)
@@ -2993,6 +2998,7 @@ namespace WealthERP.OPS
             {
                 gvJointHoldersList.Visible = false;
             }
+            ddlCustomerISAAccount.Focus();
         }
         private void BindISAList()
         {
@@ -3043,6 +3049,7 @@ namespace WealthERP.OPS
                 lblgetcust.Text = "";
 
             }
+           
         }
         protected void OnAssociateTextchanged(object sender, EventArgs e)
         {
@@ -3091,7 +3098,7 @@ namespace WealthERP.OPS
             //    }
 
             //}
-
+            txtAssociateSearch.Focus();
         }
 
         protected void txtAgentId_ValueChanged1(object sender, EventArgs e)
@@ -3147,6 +3154,14 @@ namespace WealthERP.OPS
                 ddltransType.SelectedIndex = 0;
                 BindISAList();
 
+            }
+            if (ddlsearch.SelectedValue == "2")
+            {
+                txtPansearch.Focus();
+            }
+            else
+            {
+                txtCustomerName.Focus();
             }
         }
 
@@ -3418,6 +3433,7 @@ namespace WealthERP.OPS
             ShowPaymentSectionBasedOnTransactionType(ddltransType.SelectedValue, "");
             PaymentMode(ddlPaymentMode.SelectedValue);
             FrequencyEnablityForTransactionType(ddltransType.SelectedValue);
+            ddltransType.Focus();
             //lblAMC.Visible = true; ddlAMCList.Visible = true;
             //lblCategory.Visible = true; ddlCategory.Visible = true;
             //lblSearchScheme.Visible = true; ddlAmcSchemeList.Visible = true;
@@ -3870,6 +3886,7 @@ namespace WealthERP.OPS
         protected void ddlsearch_Selectedindexchanged(object sender, EventArgs e)
         {
             Pan_Cust_Search(ddlsearch.SelectedValue);
+            ddlsearch.Focus();
         }
         protected void BindRadComboBoxPendingReason(RadComboBox rcPendingReason, string statusOrderCode)
         {
@@ -3917,6 +3934,7 @@ namespace WealthERP.OPS
         protected void ddlPaymentMode_SelectedIndexChanged(object sender, EventArgs e)
         {
             PaymentMode(ddlPaymentMode.SelectedValue);
+            ddlPaymentMode.Focus();
         }
 
         private void PaymentMode(string type)
@@ -3936,6 +3954,7 @@ namespace WealthERP.OPS
         {
             BindScheme(ddltransType.SelectedValue, Convert.ToInt32(ddlAMCList.SelectedValue));
             txtSearchScheme.Text = string.Empty;
+            ddlAMCList.Focus();
             //if (ddlAMCList.SelectedIndex != 0)
             //{
             //    BindFolioNumberSearch(0, 0);
@@ -3971,6 +3990,7 @@ namespace WealthERP.OPS
                 }
             }
             bindSearchScheme();
+            ddlCategory.Focus();
         }
 
         protected void ddlAmcSchemeList_SelectedIndexChanged(object sender, EventArgs e)
@@ -4059,6 +4079,7 @@ namespace WealthERP.OPS
                     lblNavAsOnDate.Text = "Not Available";
                 }
             }
+            txtOrderDate.Focus();
         }
 
         protected void btnSubmit_Click(object sender, EventArgs e)
@@ -4534,6 +4555,7 @@ namespace WealthERP.OPS
         }
         protected void ddlPeriodSelection_SelectedIndexChanged(object sender, EventArgs e)
         {
+            ddlPeriodSelection.Focus();
         }
 
         //protected void txtNSECode_OnTextChanged(object sender, EventArgs e)
@@ -4549,7 +4571,7 @@ namespace WealthERP.OPS
 
             //boOnlineOrder.GetSipEndDate(Convert.ToDateTime(txtstartDateSIP.SelectedDate), ddlFrequencySIP.SelectedValue, Convert.ToInt32(txtPeriod.Text));
             txtendDateSIP.SelectedDate = dtEndDate;//.ToString("dd-MMM-yyyy");
-
+            txtPeriod.Focus();
         }
         private DateTime CalcEndDate(int period, DateTime startDate)
         {
@@ -5014,6 +5036,7 @@ namespace WealthERP.OPS
         {
             int BankAccountId = 0;
             BankBranches(Convert.ToInt32(ddlBankName.SelectedValue));
+            ddlBankName.Focus();
         }
 
 
@@ -5201,6 +5224,7 @@ namespace WealthERP.OPS
             {
                 RadDateControlBusinessDateValidation(ref txtOrderDate, 3, DateTime.Parse(txtReceivedDate.SelectedDate.ToString()), 0);
             }
+            txtReceivedDate.Focus();
         }
 
         private void RadDateControlBusinessDateValidation(ref RadDatePicker rdtp, int noOfDays, DateTime dtDate, int isPastdateReq)

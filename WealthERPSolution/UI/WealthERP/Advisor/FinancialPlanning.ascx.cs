@@ -81,28 +81,28 @@ namespace WealthERP.Advisor
                 customerBo = new CustomerBo();
                 customerVo = customerBo.GetCustomer(customerId);
                 Session[SessionContents.CustomerVo] = customerVo;
-                
+
             }
 
             //PlaceHolder1.Controls.Add(new LiteralControl("<table>"));
             for (int i = 0; i < totalquestion; i++)
             {
                 dsGetRiskProfileQuestionOption = riskprofilebo.GetQuestionOption(int.Parse(dsGetRiskProfileQuestion.Tables[0].Rows[i]["QM_QuestionId"].ToString()), advisorVo.advisorId);
-
-                PlaceHolder1.Controls.Add(new LiteralControl("<tr>"));
-                PlaceHolder1.Controls.Add(new LiteralControl("<td colspan=\"6\"><hr /></td></tr>"));
-                PlaceHolder1.Controls.Add(new LiteralControl("<tr>"));
-                PlaceHolder1.Controls.Add(new LiteralControl("<td colspan=\"6\">" + (i + 1) + "."));
+                PlaceHolder1.Controls.Add(new LiteralControl(@"<table width=100" + "%" + " class=" + "style3>"));
+                //PlaceHolder1.Controls.Add(new LiteralControl(@"<tr width=" + "130px>"));
+                //PlaceHolder1.Controls.Add(new LiteralControl("<td colspan=\"10\"><hr /></td></tr>"));
+                PlaceHolder1.Controls.Add(new LiteralControl(@"<tr class=" + "style2>"));
+                PlaceHolder1.Controls.Add(new LiteralControl("<td colspan=\"15\">" + (i + 1) + "."));
                 Label lbl = new Label();
                 lbl.ID = "lblQ" + (i + 1);
                 lbl.Text = dsGetRiskProfileQuestion.Tables[0].Rows[i]["QM_Question"].ToString();
-                lbl.CssClass = "FieldName";
+                lbl.CssClass = "black";
                 PlaceHolder1.Controls.Add(lbl);
                 PlaceHolder1.Controls.Add(new LiteralControl("</td></tr>"));
                 if (int.Parse(dsGetRiskProfileQuestion.Tables[0].Rows[i]["QM_IsImageAttached"].ToString()) == 1)
                 {
                     PlaceHolder1.Controls.Add(new LiteralControl("<tr>"));
-                    PlaceHolder1.Controls.Add(new LiteralControl("<td colspan=\"6\">"));
+                    PlaceHolder1.Controls.Add(new LiteralControl("<td colspan=\"9\">"));
                     //<img id="imgPortfolios" src="/Images/Portfolios.jpg" />
                     System.Web.UI.WebControls.Image img = new System.Web.UI.WebControls.Image();
                     img.ID = "imgPortfolios" + (i + 1);
@@ -111,8 +111,9 @@ namespace WealthERP.Advisor
                     PlaceHolder1.Controls.Add(img);
                     PlaceHolder1.Controls.Add(new LiteralControl("</td>"));
                     PlaceHolder1.Controls.Add(new LiteralControl("</tr>"));
+                    //PlaceHolder1.Controls.Add(new LiteralControl("</table>"));
                 }
-                PlaceHolder1.Controls.Add(new LiteralControl("<tr colspan=\"6\">"));
+                PlaceHolder1.Controls.Add(new LiteralControl("<tr colspan=\"9\">"));
                 optioncounttemp = 1;
                 for (int j = 0; j < dsGetRiskProfileQuestionOption.Tables[0].Rows.Count; j++)
                 {
@@ -120,7 +121,7 @@ namespace WealthERP.Advisor
                     RadioButton rbtn = new RadioButton();
                     rbtn.ID = "rbtnQ" + (i + 1) + "A" + (j + 1);
                     rbtn.Text = dsGetRiskProfileQuestionOption.Tables[0].Rows[j]["QOM_Option"].ToString();
-                    rbtn.CssClass = "txtField";
+                    rbtn.CssClass = "blue";
                     rbtn.GroupName = "Q" + (i + 1);
                     PlaceHolder1.Controls.Add(rbtn);
                     PlaceHolder1.Controls.Add(new LiteralControl("</td>"));
@@ -132,8 +133,9 @@ namespace WealthERP.Advisor
                 }
 
                 PlaceHolder1.Controls.Add(new LiteralControl("</tr>"));
+                PlaceHolder1.Controls.Add(new LiteralControl("</table>"));
             }
-            //PlaceHolder1.Controls.Add(new LiteralControl("</table>"));
+
 
         }
 
@@ -238,18 +240,18 @@ namespace WealthERP.Advisor
                 Session[SessionContents.CustomerVo] = customerVo;
 
                 dsGetRiskProfileRules = riskprofilebo.GetRiskProfileRules(advisorVo.advisorId);
-                
+
                 if (!IsPostBack)
                 {
                     Span12.Visible = false;
-                    dsGetCustomerRiskProfile = riskprofilebo.GetCustomerRiskProfile(customerId, advisorVo.advisorId,1);
+                    dsGetCustomerRiskProfile = riskprofilebo.GetCustomerRiskProfile(customerId, advisorVo.advisorId, 1);
                     if (dsGetCustomerRiskProfile.Tables[0].Rows.Count > 0)
                     {
                         riskCode = dsGetCustomerRiskProfile.Tables[0].Rows[0]["XRC_RiskClassCode"].ToString();
                         ddlPickRiskClass.SelectedValue = riskCode;
                     }
 
-                    dsGetRiskProfileId = riskprofilebo.GetRpId(customerId,1);
+                    dsGetRiskProfileId = riskprofilebo.GetRpId(customerId, 1);
                     if (dsGetRiskProfileId.Tables[0].Rows[0]["CRP_RiskProfileId"].ToString() != "")
                     {
                         btnDeleteRiskProfile.Visible = true;
@@ -295,7 +297,7 @@ namespace WealthERP.Advisor
                             lblRRDate.Visible = false;
                             lblRRScore.Visible = false;
 
-                           
+
                             if (dsGetCustomerRiskProfile.Tables[0].Rows.Count > 0)
                             {
                                 if (dsGetCustomerRiskProfile.Tables[0].Rows[0]["XRC_RiskClassCode"].ToString() != "")
@@ -322,7 +324,7 @@ namespace WealthERP.Advisor
                                 lblPickRiskPlass.Visible = true;
                                 BindRiskClasses();
                                 trRiskProfiler.Visible = false;
-                                
+
                                 tblPickRiskClass.Visible = true;
                                 divQuestionAnswers.Visible = false;
                                 Span12.Visible = true;
@@ -343,14 +345,14 @@ namespace WealthERP.Advisor
                                 tblPickRiskClass.Visible = false;
                                 divQuestionAnswers.Visible = true;
                                 lblRiskProfilingParagraph.Visible = true;
-                               // Td1.Visible = true;
+                                // Td1.Visible = true;
                                 lblRRScore.Visible = true;
                                 if (lblRRScore.Text == "")
                                     lblRRScore.Text = "0";
 
                                 //rbtnAnsQuestions.Checked = true;
                                 //rbtnPickRiskclass.Checked = false;
-                              
+
                             }
                         }
 
@@ -693,7 +695,7 @@ namespace WealthERP.Advisor
                         lblRClassRs.Text = "Fill Risk Profile to know Risk class and Risk Score";
                     }
                 }
-               
+
 
                 DataSet dsGetRecomondedAssetAllocationData = riskprofilebo.GetAssetAllocationData(customerVo.CustomerId);
                 if (dsGetRecomondedAssetAllocationData.Tables.Count > 0)
@@ -785,7 +787,7 @@ namespace WealthERP.Advisor
                     customerId = int.Parse(Session[SessionContents.FPS_ProspectList_CustomerId].ToString());
                 }
                 advisorVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
-                dsGetCustomerRiskProfile = riskprofilebo.GetCustomerRiskProfile(customerId, advisorVo.advisorId,1);
+                dsGetCustomerRiskProfile = riskprofilebo.GetCustomerRiskProfile(customerId, advisorVo.advisorId, 1);
 
             }
             catch (Exception ex)
@@ -803,8 +805,8 @@ namespace WealthERP.Advisor
             string tempRID = "";
 
 
-           
-            
+
+
             listRiskOptionVo = (List<RiskOptionVo>)ViewState["ListRiskOption"];
             SetCustomerId();
             try
@@ -832,7 +834,7 @@ namespace WealthERP.Advisor
                     }
                 }
 
-                
+
                 for (int i = 0; i < dsGetRiskProfileRules.Tables[0].Rows.Count; i++)
                 {
                     int minLimit = int.Parse(dsGetRiskProfileRules.Tables[0].Rows[i]["WRPR_RiskScoreLowerLimit"].ToString());
@@ -886,7 +888,7 @@ namespace WealthERP.Advisor
                         lblRRScore.Text = rScore.ToString();
 
                         riskprofilebo.AddCustomerRiskProfileDetails(advisorVo.advisorId, customerId, rScore, DateTime.Now, riskCode, rmvo, 0, customerVo.Dob);
-                        dsGetRiskProfileId = riskprofilebo.GetRpId(customerId,0);
+                        dsGetRiskProfileId = riskprofilebo.GetRpId(customerId, 0);
                         btnDeleteRiskProfile.Visible = true;
                     }
                 }
@@ -910,9 +912,9 @@ namespace WealthERP.Advisor
                 // Adding Risk response to question
                 //
                 //====================================
-             
 
-               
+
+
                 if (dsGetRiskProfileQuestion.Tables[0].Rows.Count == count)
                 {
                     for (int i = 0; i < dsGetRiskProfileQuestion.Tables[0].Rows.Count; i++)
@@ -938,24 +940,24 @@ namespace WealthERP.Advisor
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please give ans. for all the question.');", true);
                 }
 
-                    tblRiskScore.Focus();
+                tblRiskScore.Focus();
 
-                    if (hidGoalCount.Value != "" && hidGoalCount.Value != "0")
-                        GoalSetupBo.SetCustomerAllGoalDeActive(customerId);
+                if (hidGoalCount.Value != "" && hidGoalCount.Value != "0")
+                    GoalSetupBo.SetCustomerAllGoalDeActive(customerId);
 
 
-                    LoadAssetAllocation(riskCode);
-                    //AddToAssetAllocation();
-                    tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 1;
-                    if (customerId != 0 && age != 0)
-                    {
-                        if (trCustomerAssetText.Visible == false)
-                            trCustomerAssetText.Visible = true;
-                        lblCustomerParagraph.Text = riskprofilebo.GetAssetAllocationText(customerId);
-                    }
-                
+                LoadAssetAllocation(riskCode);
+                //AddToAssetAllocation();
+                tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 1;
+                if (customerId != 0 && age != 0)
+                {
+                    if (trCustomerAssetText.Visible == false)
+                        trCustomerAssetText.Visible = true;
+                    lblCustomerParagraph.Text = riskprofilebo.GetAssetAllocationText(customerId);
+                }
+
                 HideModelPortFolioTab();
-                ddlRiskProfileType.SelectedValue ="Recommended";
+                ddlRiskProfileType.SelectedValue = "Recommended";
             }
 
             catch (Exception ex)
@@ -1109,7 +1111,7 @@ namespace WealthERP.Advisor
                 {
                     SetCustomerId();
                     //dsGetCustomerIdByName = riskprofilebo.GetCustomerIdByName(txtPickCustomer.Text);                   
-                    dsGetCustomerRiskProfile = riskprofilebo.GetCustomerRiskProfile(customerId, advisorVo.advisorId,1);
+                    dsGetCustomerRiskProfile = riskprofilebo.GetCustomerRiskProfile(customerId, advisorVo.advisorId, 1);
 
                     if (dsGetCustomerRiskProfile.Tables[0].Rows.Count != 0 && dsGetCustomerRiskProfile != null)
                     {
@@ -1157,7 +1159,7 @@ namespace WealthERP.Advisor
                             DateTime approvedbycustomeron = (DateTime)dsGetAssetAllocationDetails.Tables[0].Rows[0]["CAA_ClientApprovedOn"];
                             txtApprovedByCustomerOn.Text = approvedbycustomeron.ToShortDateString();
                             LoadAssetAllocation(riskCode);
-                            
+
                         }
                         else
                         {
@@ -1491,11 +1493,11 @@ namespace WealthERP.Advisor
             Td1.Visible = false;
             tblRiskScore.Visible = true;
             lblRiskProfilingParagraph.Visible = false;
-            dsGetCustomerRiskProfile = riskprofilebo.GetCustomerRiskProfile(customerId, advisorVo.advisorId,1);
+            dsGetCustomerRiskProfile = riskprofilebo.GetCustomerRiskProfile(customerId, advisorVo.advisorId, 1);
             if (dsGetCustomerRiskProfile.Tables[0].Rows.Count > 0)
                 riskCode = dsGetCustomerRiskProfile.Tables[0].Rows[0]["XRC_RiskClassCode"].ToString();
 
-            dsGetRiskProfileId = riskprofilebo.GetRpId(customerId,1);
+            dsGetRiskProfileId = riskprofilebo.GetRpId(customerId, 1);
             if (dsGetRiskProfileId.Tables[0].Rows[0]["CRP_RiskProfileId"].ToString() != "")
             {
                 LoadAssetAllocation(riskCode);
@@ -1516,7 +1518,7 @@ namespace WealthERP.Advisor
 
             if (!string.IsNullOrEmpty(riskCode))
                 ddlPickRiskClass.SelectedValue = riskCode.Trim();
-            
+
 
         }
 
@@ -1535,11 +1537,11 @@ namespace WealthERP.Advisor
             lblRRScore.Visible = true;
             if (lblRRScore.Text == "")
                 lblRRScore.Text = "0";
-            dsGetCustomerRiskProfile = riskprofilebo.GetCustomerRiskProfile(customerId, advisorVo.advisorId,1);
+            dsGetCustomerRiskProfile = riskprofilebo.GetCustomerRiskProfile(customerId, advisorVo.advisorId, 1);
             if (dsGetCustomerRiskProfile.Tables[0].Rows.Count > 0)
                 riskCode = dsGetCustomerRiskProfile.Tables[0].Rows[0]["XRC_RiskClassCode"].ToString();
 
-            dsGetRiskProfileId = riskprofilebo.GetRpId(customerId,1);
+            dsGetRiskProfileId = riskprofilebo.GetRpId(customerId, 1);
             if (dsGetRiskProfileId.Tables[0].Rows[0]["CRP_RiskProfileId"].ToString() != "")
             {
                 LoadAssetAllocation(riskCode);
@@ -1607,7 +1609,7 @@ namespace WealthERP.Advisor
             riskCode = ddlPickRiskClass.SelectedValue;
             //Session["riskCode"] = riskCode;
 
-            
+
             Session["btnSubmitForPickRiskclass"] = null;
 
             if (customerVo.Dob != DateTime.MinValue)
@@ -1642,7 +1644,7 @@ namespace WealthERP.Advisor
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please fill DOB to create Risk profile.');", true);
                 return;
             }
-            
+
             lblRRScore.Visible = false;
 
             LoadAssetAllocation(riskCode);
@@ -1650,13 +1652,13 @@ namespace WealthERP.Advisor
             //lblRiskProfilingParagraph.Visible = true;
             if (dsGetRiskProfileRules.Tables[0].Rows.Count > 0)
             {
-                foreach(DataRow dr in dsGetRiskProfileRules.Tables[0].Rows)
+                foreach (DataRow dr in dsGetRiskProfileRules.Tables[0].Rows)
                 {
                     if (dr["XRC_RiskClassCode"].ToString() == riskCode)
-                        {
-                            lblRiskProfilingParagraph.Text = dr["ARC_RiskText"].ToString();
-                        }
+                    {
+                        lblRiskProfilingParagraph.Text = dr["ARC_RiskText"].ToString();
                     }
+                }
                 //lblRiskProfilingParagraph.Text = dsGetRiskProfileRules.Tables[0].Rows[i]["ARC_RiskText"].ToString();
             }
             tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 1;
@@ -1673,11 +1675,11 @@ namespace WealthERP.Advisor
         public void BindGridViewAssetAllocation(DataSet dsAssetAllocationDetails)
         {
             DataTable dtCurrentAssetAllocation;
-            DataTable dtRecomAssetAllocation;            
-            
+            DataTable dtRecomAssetAllocation;
+
             try
             {
-                decimal financialAssetTotal=0;
+                decimal financialAssetTotal = 0;
 
                 DataTable dtAssetAllocation = new DataTable();
                 dtAssetAllocation.Columns.Add("Class");
@@ -1689,37 +1691,37 @@ namespace WealthERP.Advisor
                 dtAssetAllocation.Columns.Add("ActionRs");
 
                 dtCurrentAssetAllocation = dsAssetAllocationDetails.Tables[0];
-                dtRecomAssetAllocation= dsAssetAllocationDetails.Tables[1];
+                dtRecomAssetAllocation = dsAssetAllocationDetails.Tables[1];
                 if (dsAssetAllocationDetails.Tables.Count > 2)
                     financialAssetTotal = decimal.Parse(dsAssetAllocationDetails.Tables[2].Rows[0]["Financial_Asset"].ToString());
-              
+
                 DataRow drAssetAllocation;
                 foreach (DataRow dr in dtCurrentAssetAllocation.Rows)
                 {
                     drAssetAllocation = dtAssetAllocation.NewRow();
                     drAssetAllocation["Class"] = dr["AssetType"].ToString();
-                    drAssetAllocation["CurrentPercentage"] =Math.Round(decimal.Parse(dr["Percentage"].ToString()),2).ToString();
+                    drAssetAllocation["CurrentPercentage"] = Math.Round(decimal.Parse(dr["Percentage"].ToString()), 2).ToString();
 
-                    DataRow[] drAssetType;                    
-                    drAssetType = dtRecomAssetAllocation.Select("AssetType='" + dr["AssetType"].ToString()+"'");
+                    DataRow[] drAssetType;
+                    drAssetType = dtRecomAssetAllocation.Select("AssetType='" + dr["AssetType"].ToString() + "'");
                     if (drAssetType.Count() > 0)
                     {
                         drAssetAllocation["RecommendedPercentage"] = drAssetType[0][2].ToString();
                         drAssetAllocation["RecommendedRs"] = String.Format("{0:n2}", ((financialAssetTotal * Math.Round(decimal.Parse(drAssetType[0][2].ToString()), 2)) / 100).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
-                        drAssetAllocation["ActionNeeded"] = (Math.Round(decimal.Parse(drAssetType[0][2].ToString()),2) - Math.Round(decimal.Parse(dr["Percentage"].ToString()),2)).ToString();                       
-                        
+                        drAssetAllocation["ActionNeeded"] = (Math.Round(decimal.Parse(drAssetType[0][2].ToString()), 2) - Math.Round(decimal.Parse(dr["Percentage"].ToString()), 2)).ToString();
+
                     }
                     else
                     {
                         drAssetAllocation["RecommendedPercentage"] = 0;
-                        drAssetAllocation["RecommendedRs"] = String.Format("{0:n2}", Math.Round((financialAssetTotal *decimal.Parse(drAssetAllocation["RecommendedPercentage"].ToString()) / 100),0).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
-                        drAssetAllocation["ActionNeeded"] = (Math.Round(decimal.Parse(drAssetAllocation["RecommendedPercentage"].ToString()), 2) - Math.Round(decimal.Parse(dr["Percentage"].ToString()),2)).ToString();
+                        drAssetAllocation["RecommendedRs"] = String.Format("{0:n2}", Math.Round((financialAssetTotal * decimal.Parse(drAssetAllocation["RecommendedPercentage"].ToString()) / 100), 0).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                        drAssetAllocation["ActionNeeded"] = (Math.Round(decimal.Parse(drAssetAllocation["RecommendedPercentage"].ToString()), 2) - Math.Round(decimal.Parse(dr["Percentage"].ToString()), 2)).ToString();
                     }
 
-                    drAssetAllocation["CurrentRs"] = String.Format("{0:n2}", Math.Round((financialAssetTotal * decimal.Parse(dr["Percentage"].ToString()) / 100),0).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
-                    drAssetAllocation["ActionRs"] = String.Format("{0:n2}",(decimal.Parse(drAssetAllocation["RecommendedRs"].ToString()) - decimal.Parse(drAssetAllocation["CurrentRs"].ToString())).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                    drAssetAllocation["CurrentRs"] = String.Format("{0:n2}", Math.Round((financialAssetTotal * decimal.Parse(dr["Percentage"].ToString()) / 100), 0).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                    drAssetAllocation["ActionRs"] = String.Format("{0:n2}", (decimal.Parse(drAssetAllocation["RecommendedRs"].ToString()) - decimal.Parse(drAssetAllocation["CurrentRs"].ToString())).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
 
-                    dtAssetAllocation.Rows.Add(drAssetAllocation);                    
+                    dtAssetAllocation.Rows.Add(drAssetAllocation);
                 }
                 gvAssetAllocation.DataSource = dtAssetAllocation;
                 gvAssetAllocation.DataBind();
@@ -1743,7 +1745,7 @@ namespace WealthERP.Advisor
             }
         }
         protected void gvAssetAllocation_RowDataBound(object sender, GridViewRowEventArgs e)
-        {           
+        {
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
                 decimal currentPctg = 0;
@@ -1773,7 +1775,7 @@ namespace WealthERP.Advisor
         protected void HideModelPortFolioTab()
         {
             DataSet dsModelPortFolio = new DataSet();
-            dsModelPortFolio = riskprofilebo.GetModelPortFolio(customerId,riskCode,1);
+            dsModelPortFolio = riskprofilebo.GetModelPortFolio(customerId, riskCode, 1);
             if (dsModelPortFolio.Tables[0].Rows.Count > 0)
             {
                 int modelportfolioCode = int.Parse(dsModelPortFolio.Tables[0].Rows[0]["WFPCB_CalculationBasisId"].ToString());
@@ -1815,15 +1817,15 @@ namespace WealthERP.Advisor
         }
         protected void BindModelPortFolioSchemes(int modelPortFolioCode)
         {
-          DataTable dtModelPortFolioSchemeDetails=modelPortFoliobo.GetAttachedSchemeDetails(modelPortFolioCode, advisorVo.advisorId);
+            DataTable dtModelPortFolioSchemeDetails = modelPortFoliobo.GetAttachedSchemeDetails(modelPortFolioCode, advisorVo.advisorId);
 
-          if (dtModelPortFolioSchemeDetails.Rows.Count > 0)
+            if (dtModelPortFolioSchemeDetails.Rows.Count > 0)
             {
 
                 RadGrid1.DataSource = dtModelPortFolioSchemeDetails;
                 RadGrid1.DataBind();
             }
-            
+
         }
 
         protected void hiddenDeleteQuestion_Click(object sender, EventArgs e)
@@ -1877,11 +1879,11 @@ namespace WealthERP.Advisor
                     Span12.Visible = true;
                     tblRiskScore.Visible = true;
                     lblRiskProfilingParagraph.Visible = false;
-                    dsGetCustomerRiskProfile = riskprofilebo.GetCustomerRiskProfile(customerId, advisorVo.advisorId,1);
+                    dsGetCustomerRiskProfile = riskprofilebo.GetCustomerRiskProfile(customerId, advisorVo.advisorId, 1);
                     if (dsGetCustomerRiskProfile.Tables[0].Rows.Count > 0)
                         riskCode = dsGetCustomerRiskProfile.Tables[0].Rows[0]["XRC_RiskClassCode"].ToString();
 
-                    dsGetRiskProfileId = riskprofilebo.GetRpId(customerId,1);
+                    dsGetRiskProfileId = riskprofilebo.GetRpId(customerId, 1);
                     if (dsGetRiskProfileId.Tables[0].Rows[0]["CRP_RiskProfileId"].ToString() != "")
                     {
                         LoadAssetAllocation(riskCode);
@@ -1918,10 +1920,10 @@ namespace WealthERP.Advisor
                     //dsGetCustomerRiskProfile = riskprofilebo.GetCustomerRiskProfile(customerId, advisorVo.advisorId,1);
                     //if (dsGetCustomerRiskProfile.Tables[0].Rows.Count > 0)
                     //    riskCode = dsGetCustomerRiskProfile.Tables[0].Rows[0]["XRC_RiskClassCode"].ToString();
-                    dsGetRiskProfileId = riskprofilebo.GetRpId(customerId,1);
+                    dsGetRiskProfileId = riskprofilebo.GetRpId(customerId, 1);
                     if (dsGetRiskProfileId.Tables[0].Rows[0]["CRP_RiskProfileId"].ToString() != "")
                     {
-                       // LoadAssetAllocation(riskCode);
+                        // LoadAssetAllocation(riskCode);
                         tblRiskScore.Visible = true;
                     }
                     else
