@@ -116,13 +116,13 @@
                             <telerik:GridBoundColumn DataField="RemittanceDate" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
                                 ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Remittance Date"
                                 UniqueName="RemittanceDate" SortExpression="RemittanceDate" AllowFiltering="true"
-                                DataFormatString="{0:d}">
+                               DataFormatString="{0:MM/dd/yy}">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="Investmentdate" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
                                 ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Investment date"
                                 UniqueName="Investmentdate" SortExpression="Investmentdate" AllowFiltering="true"
-                                DataFormatString="{0:d}">
+                               DataFormatString="{0:MM/dd/yy}">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="NS" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
@@ -132,7 +132,7 @@
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="investedAmount" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
                                 ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Amount" UniqueName="investedAmount"
-                                SortExpression="investedAmount" AllowFiltering="true" DataFormatString="{0:N4}">
+                                SortExpression="investedAmount" AllowFiltering="true" DataFormatString="{0:N3}">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
                         </Columns>
