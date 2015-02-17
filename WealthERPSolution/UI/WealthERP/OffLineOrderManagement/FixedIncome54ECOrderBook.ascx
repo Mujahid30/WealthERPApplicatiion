@@ -315,12 +315,12 @@
                                             AllowFiltering="true" HeaderStyle-Width="160px" HeaderText="Reject Reason" UniqueName="COS_Reason">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridEditCommandColumn Visible="true" HeaderStyle-Width="60px" UniqueName="MarkAsReject"
-                                            EditText="Cancel" CancelText="Cancel" UpdateText="OK" HeaderText="Cancel" AutoPostBackOnFilter="false" >
+                                        <telerik:GridEditCommandColumn Visible="true" HeaderStyle-Width="150px" UniqueName="MarkAsReject"
+                                            EditText="Mark As Reject" CancelText="Cancel" UpdateText="OK" HeaderText="Reject" AutoPostBackOnFilter="false" >
                                         </telerik:GridEditCommandColumn>
                                     </Columns>
                                     <EditFormSettings FormTableStyle-Height="40%" EditFormType="Template" FormMainTableStyle-Width="300px"
-                                        CaptionFormatString=" Order canceling Request">
+                                        CaptionFormatString=" Order Reject Request">
                                         <FormTemplate>
                                             <table style="background-color: White;" border="0">
                                                 <tr>

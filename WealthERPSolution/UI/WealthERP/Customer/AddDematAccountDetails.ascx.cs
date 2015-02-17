@@ -304,7 +304,10 @@ namespace WealthERP.Customer
             int customerId = customervo.CustomerId;
             if (Request.QueryString["CustomerId"] != null)
             {
-                portfolioid = int.Parse(Request.QueryString["CustomerPortfolioId"].ToString()); 
+                CustomerPortfolioVo customerPortfolioVo = new CustomerPortfolioVo();
+                PortfolioBo portfolioBo = new PortfolioBo();
+                customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(int.Parse(Request.QueryString["CustomerId"]));
+                portfolioid = customerPortfolioVo.PortfolioId; 
             }
             else
             {

@@ -204,6 +204,7 @@ namespace WealthERP.OffLineOrderManagement
                         lblAssociate.Visible = true;
                         lblAssociatetext.Visible = true;
                         lblAssociateReport.Visible = true;
+                        btnImgAddCustomer.Visible = false;
                         lblAssociatetext.Text = Request.QueryString["associatename"].ToString();
                         txtAssociateSearch.Text = Request.QueryString["agentcode"].ToString();
                         GetcustomerDetails();
@@ -229,6 +230,8 @@ namespace WealthERP.OffLineOrderManagement
                             trOfficeUse.Visible = true;
                         lblAssociatetext.Visible = true;
                         lblAssociateReport.Visible = true;
+                        btnImgAddCustomer.Visible = false;
+
                         lblAssociatetext.Text = Request.QueryString["associatename"].ToString();
                         txtAssociateSearch.Text = Request.QueryString["agentcode"].ToString();
                         GetcustomerDetails();
@@ -1421,9 +1424,10 @@ namespace WealthERP.OffLineOrderManagement
         {
 
             rwDematDetails.VisibleOnPageLoad = true;
-
-            GetDematAccountDetails(Convert.ToInt32(txtCustomerId.Value));
-
+            if (Request.QueryString["action"] == null)
+            {
+                GetDematAccountDetails(Convert.ToInt32(txtCustomerId.Value));
+            }
         }
 
         protected void btnAddDemat_Click(object sender, EventArgs e)
@@ -4310,6 +4314,8 @@ namespace WealthERP.OffLineOrderManagement
                 FIScheme(advisorVo.advisorId, ddlCategory.SelectedValue);
                 ddlScheme.SelectedValue = dr["AIM_IssueId"].ToString();
                 DDLSchemeSelection();
+                FISeries(int.Parse(dr["AIM_IssueId"].ToString()));
+                ddlSeries.SelectedValue = dr["AID_IssueDetailId"].ToString();
                 ddlTranstype.SelectedValue = dr["CFIOD_TransactionType"].ToString();
                 TransactionTypeChanges(ddlTranstype.SelectedValue);
 
@@ -4391,6 +4397,19 @@ namespace WealthERP.OffLineOrderManagement
                     rbtnAuthentication.Checked = true;
                     lblAuthenticatedBy.Text = dr["U_FirstName"].ToString();
                 }
+                GetDematAccountDetails(int.Parse(dr["C_CustomerId"].ToString()));
+                foreach (GridDataItem gdi in gvDematDetailsTeleR.MasterTableView.Items)
+                {
+                    int demateDetailsId = int.Parse(gvDematDetailsTeleR.MasterTableView.DataKeyValues[gdi.ItemIndex]["CEDA_DematAccountId"].ToString());
+                    CheckBox chkDematId = (CheckBox)gdi.FindControl("chkDematId");
+                    if (!string.IsNullOrEmpty(dr["CEDA_DematAccountId"].ToString()))
+                    {
+                        if (demateDetailsId == int.Parse(dr["CEDA_DematAccountId"].ToString()))
+                        {
+                            chkDematId.Checked = true;
+                        }
+                    }
+                }
                 if (ddlCategory.SelectedValue == "FICGCG")
                 {
                     tdLabel11.Visible = false;
@@ -4417,7 +4436,7 @@ namespace WealthERP.OffLineOrderManagement
         }
         protected void rbtnReject_CheckedChanged(object sender, EventArgs e)
         {
-            if (rbtnAuthentication.Checked)
+            if (rbtnReject.Checked)
                 lblAuthenticatedBy.Text = userVo.FirstName + ' ' + userVo.MiddleName + ' ' + userVo.LastName;
             else
                 lblAuthenticatedBy.Text = "";

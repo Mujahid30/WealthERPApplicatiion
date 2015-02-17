@@ -217,7 +217,7 @@ namespace WealthERP.OffLineOrderManagement
 
                 for (int i = dtOrderStatus.Rows.Count - 1; i >= 0; i--)
                 {
-                    if (dtOrderStatus.Rows[i][1].ToString() == "INPROCESS" || dtOrderStatus.Rows[i][1].ToString() == "EXECUTED" || dtOrderStatus.Rows[i][1].ToString() == "ORDERED")
+                    if (dtOrderStatus.Rows[i][1].ToString() == "INPROCESS" || dtOrderStatus.Rows[i][1].ToString() == "EXECUTED" )
                         dtOrderStatus.Rows[i].Delete();
                 }
                 dtOrderStatus.AcceptChanges();
@@ -243,7 +243,7 @@ namespace WealthERP.OffLineOrderManagement
                 lbResult = OfflineBondOrderBo.CancelBondsFDBookOrder(orderId, txtRemark.Text,userVo.UserId,false);
                     if (lbResult == true)
                     {
-                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Order Cancelled Successfully');", true);
+                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Order Rejected Successfully');", true);
                     }
                     BindAdviserFDrderBook();
             }
