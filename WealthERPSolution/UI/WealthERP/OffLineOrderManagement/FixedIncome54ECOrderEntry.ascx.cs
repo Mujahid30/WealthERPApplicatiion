@@ -202,6 +202,8 @@ namespace WealthERP.OffLineOrderManagement
                         else
                             trOfficeUse.Visible = true;
                         lblAssociate.Visible = true;
+                        lblAssociatetext.Visible = true;
+                        lblAssociateReport.Visible = true;
                         lblAssociatetext.Text = Request.QueryString["associatename"].ToString();
                         txtAssociateSearch.Text = Request.QueryString["agentcode"].ToString();
                         GetcustomerDetails();
@@ -225,6 +227,8 @@ namespace WealthERP.OffLineOrderManagement
                             GetUserType();
                         else
                             trOfficeUse.Visible = true;
+                        lblAssociatetext.Visible = true;
+                        lblAssociateReport.Visible = true;
                         lblAssociatetext.Text = Request.QueryString["associatename"].ToString();
                         txtAssociateSearch.Text = Request.QueryString["agentcode"].ToString();
                         GetcustomerDetails();
@@ -283,7 +287,6 @@ namespace WealthERP.OffLineOrderManagement
                 customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(int.Parse(txtCustomerId.Value));
 
                 hdnPortfolioId.Value = customerPortfolioVo.PortfolioId.ToString();
-
                 Table3.Visible = true;
                 Panel1.Visible = true;
             }
@@ -4370,6 +4373,7 @@ namespace WealthERP.OffLineOrderManagement
                 if (!string.IsNullOrEmpty(dr["AAC_AgentId"].ToString()))
                 {
                     txtAgentId.Value = dr["AAC_AgentId"].ToString(); ;
+                    GetAgentName(int.Parse(dr["AAC_AgentId"].ToString()));
                 }
                 if (!string.IsNullOrEmpty(dr["Co_OrderId"].ToString()))
                 {

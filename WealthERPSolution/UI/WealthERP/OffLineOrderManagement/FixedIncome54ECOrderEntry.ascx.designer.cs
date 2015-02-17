@@ -1858,7 +1858,7 @@ namespace WealthERP.OffLineOrderManagement
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnDefaulteInteresRate;
-
+        protected global::System.Web.UI.WebControls.HiddenField HiddenportfolioId;
         /// <summary>
         /// hdnSeriesDetails control.
         /// </summary>

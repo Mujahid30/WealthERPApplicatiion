@@ -115,6 +115,7 @@
 
         var customerId = document.getElementById("<%=txtCustomerId.ClientID %>").value;
         var customerPortfolioId = document.getElementById("<%=hdnPortfolioId.ClientID %>").value;
+       
         if (customerId != 0) {
             window.open('PopUp.aspx?PageId=AddDematAccountDetails&CustomerId=' + customerId + '&CustomerPortfolioId=' + customerPortfolioId, 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')
 
