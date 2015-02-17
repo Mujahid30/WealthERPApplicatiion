@@ -878,7 +878,7 @@
                     <asp:DropDownList ID="ddlOpenTimeSeconds" runat="server" CssClass="cmbField" AutoPostBack="true"
                         Width="64px" />
                     <%-- <asp:TextBox ID="txtOpenTimes" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>--%>
-                    <span id="Span20" class="spnRequiredField">*</span>
+                    <asp:Label id="lblSpan20" class="spnRequiredField" runat="server">*</asp:Label>
                     <br />
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator17" runat="server" CssClass="rfvPCG"
                         ErrorMessage="Please Enter Time" Display="Dynamic" ControlToValidate="ddlOpenTimeHours"
@@ -914,7 +914,8 @@
                         Width="64px" />
                     <asp:DropDownList ID="ddlCloseTimeSeconds" runat="server" CssClass="cmbField" AutoPostBack="true"
                         Width="64px" />
-                    <span id="Span35" class="spnRequiredField">*</span>
+                        
+                    <asp:Label id="lblSpan35" runat="server" class="spnRequiredField" >*</asp:Label>
                     <br />
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator30" runat="server" CssClass="rfvPCG"
                         ErrorMessage="Please Enter  Time" Display="Dynamic" ControlToValidate="ddlCloseTimeHours"

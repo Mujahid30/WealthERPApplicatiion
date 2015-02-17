@@ -1318,7 +1318,6 @@ namespace WealthERP.OnlineOrderBackOffice
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator32;
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator40;
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trTradinglotBidding;
-
         /// <summary>
         /// lb1TradingLot control.
         /// </summary>
@@ -1908,5 +1907,12 @@ namespace WealthERP.OnlineOrderBackOffice
         protected global::System.Web.UI.HtmlControls.HtmlTableCell td1txtISINNo;
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlb1Rating;
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdtxtRating;
+        protected global::System.Web.UI.WebControls.Label lblSpan20;
+        protected global::System.Web.UI.WebControls.Label lblSpan35;
+
+             
+
+
+    
     }
 }
